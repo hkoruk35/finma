@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Metadata } from "next";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Daily Swing Trade Candidates | BOGA AI",
   description: "Full algorithmic candidate list from the BOGA AI V114 engine — high-conviction swing trade setups with entries, targets, and stop levels.",

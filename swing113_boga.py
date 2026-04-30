@@ -133,14 +133,24 @@ MAX_TICKERS_FINAL = 500          # Layer 1: Most liquid 500 stocks
 TOP_DEEP_ANALYSIS = 50           # Layer 3: Number of stocks for deep analysis
 TOP_FINAL_PICKS = 5             # Final BOGA AI selection count
 
-# 🔧 FIX #1: Price filter aligned with swing strategy ($10-$250 sweet spot)
-# Below $10: penny stock noise; Above $250: ATR-based zone math becomes dollar-heavy
-# and the price targets become unrealistic for swing trading capital efficiency.
+# ================================================================
+# 🔹 UNIVERSE AND FILTER PARAMETERS
+# ================================================================
+MAX_TICKERS_FINAL = 500          # Layer 1: Most liquid 500 stocks
+TOP_DEEP_ANALYSIS = 50           # Layer 3: Number of stocks for deep analysis
+TOP_FINAL_PICKS = 5              # Final BOGA AI selection count
+
+# 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
+# $10 altı kuruşluk hisse (penny stock) gürültüsüdür. Üst sınır $500 yapılarak 
+# kaliteli Mega-Cap ve Large-Cap hisseleri de havuza dahil edildi.
 PRICE_MIN = 10.0
-PRICE_MAX = 250.0
-ATMACA_MIN_MARKET_CAP = 500_000_000   # 🔧 FIX: 300M → 500M (more institutional follow-through)
-ATMACA_MIN_AVG_VOLUME = 750_000        # 🔧 FIX: 500K → 750K (better fill quality)
-ATMACA_MIN_DOLLAR_VOLUME = 10_000_000  # 🔧 FIX: 5M → 10M ($ volume is the real liquidity)
+PRICE_MAX = 500.0
+
+# Wall Street 'İşlem Yapılabilir' (Tradable) Likidite Alt Sınırları:
+ATMACA_MIN_MARKET_CAP = 300_000_000   # 300M: Russell 2000 small-cap alt sınırı. Kurumsal para buradan başlar.
+ATMACA_MIN_AVG_VOLUME = 500_000        # 500K: Swing trade için yeterli derinlik (Day-trade katılığı esnetildi).
+ATMACA_MIN_DOLLAR_VOLUME = 5_000_000   # 5M: Kayma (slippage) yaşamadan pozisyona girip çıkmak için minimum $.
+
 ATMACA_MIN_BETA = 0.6
 ATMACA_MAX_BETA = 3.0
 
@@ -666,11 +676,19 @@ def analyze_smart_money_flow(df_1d: pd.DataFrame, ticker: str, info: dict) -> di
     try:
         if len(df_1d) < 20:
             return {'has_smart_flow': False, 'score': 0.0, 'details': []}
+        
         close, high, low, volume = df_1d['Close'], df_1d['High'], df_1d['Low'], df_1d['Volume']
         score, details = 0.0, []
 
-        mf_mult = ((close - low) - (high - close)) / (high - low).replace(0, np.nan)
+        # True Range tabanlı MFM (Gap Körlüğünü Çözer)
+        prev_close = close.shift(1)
+        true_high = np.maximum(high, prev_close)
+        true_low = np.minimum(low, prev_close)
+        true_range = (true_high - true_low).replace(0, np.nan)
+        
+        mf_mult = ((close - true_low) - (true_high - close)) / true_range
         mf_mult = mf_mult.fillna(0)
+        
         cmf_val = float((mf_mult * volume).rolling(20).sum().iloc[-1] / volume.rolling(20).sum().iloc[-1])
 
         if cmf_val > 0.15:
@@ -1503,7 +1521,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-        # 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
+# 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
         if adx_1d > 0 and adx_1d < 18:   # 🔧 FIX: 12 → 18 (matches ADX_MIN_LEVEL_1D constant)
             layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<18 (no trend)")
 
@@ -1517,18 +1535,33 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<5 (no upward bias)")
 
         try:
-            df_cmf = df_1d.tail(20)
-            hl_range = (df_cmf['High'] - df_cmf['Low']).replace(0, np.nan)
-            mfm = ((df_cmf['Close'] - df_cmf['Low']) - (df_cmf['High'] - df_cmf['Close'])) / hl_range
-            cmf_val = float((mfm * df_cmf['Volume']).sum() / df_cmf['Volume'].sum()) if df_cmf['Volume'].sum() > 0 else 0.0
+            # True Range ve Akıllı Para İvme Kontrolü (Gap Körlüğü Çözümü)
+            df_cmf = df_1d.tail(25)
+            prev_close_l2 = df_cmf['Close'].shift(1)
+            
+            true_high_l2 = np.maximum(df_cmf['High'], prev_close_l2)
+            true_low_l2 = np.minimum(df_cmf['Low'], prev_close_l2)
+            true_range_l2 = (true_high_l2 - true_low_l2).replace(0, np.nan)
+            
+            mfm_l2 = ((df_cmf['Close'] - true_low_l2) - (true_high_l2 - df_cmf['Close'])) / true_range_l2
+            mfm_l2 = mfm_l2.fillna(0)
+            
+            # Güncel 20G CMF ve 5 Gün Önceki 20G CMF (İvme için)
+            cmf_current = (mfm_l2 * df_cmf['Volume']).tail(20).sum() / df_cmf['Volume'].tail(20).sum()
+            cmf_past = (mfm_l2 * df_cmf['Volume']).iloc[-25:-5].sum() / df_cmf['Volume'].iloc[-25:-5].sum()
+            
+            cmf_val = float(cmf_current) if not pd.isna(cmf_current) else 0.0
+            cmf_trend_declining = cmf_val < float(cmf_past) if not pd.isna(cmf_past) else False
+            
         except Exception:
             cmf_val = 0.0
+            cmf_trend_declining = False
 
-        # 4. MONEY FLOW TIGHTENED: CMF must be NON-NEGATIVE for a swing long.
-        #    Negative CMF = distribution = retail buying / smart money exiting.
-        if cmf_val != 0.0 and cmf_val < 0.0:   # 🔧 FIX: -0.10/-0.20 → 0.0 (no distribution allowed)
-            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f}<0 (distribution)")
-
+        # 4. MONEY FLOW DYNAMIC GATE: Akıllı para ivmesi. 
+        # Sadece CMF negatifse VE dağıtım hızlanıyorsa ele. (Hacimsiz Pullback'leri öldürmemek için)
+        if cmf_val < -0.05 and cmf_trend_declining:
+            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f} & Declining (Sert Dağıtım)")
+            
         # 5. RSI HARD GATE: anything below 45 = weak / has downside potential.
         try:
             rsi_quick = float(RSIIndicator(close_1d, 14).rsi().iloc[-1])

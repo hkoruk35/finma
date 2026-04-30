@@ -6,6 +6,8 @@ import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
 import Link from "next/link";
 import { Metadata } from "next";
 
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Swing Engine Performance | BOGA AI",
   description: "Detailed performance records for the BOGA AI Swing Engine. Transparent historical trading data.",

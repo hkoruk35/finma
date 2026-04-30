@@ -23,6 +23,8 @@ export interface StockQuickView {
   is_mock?: boolean;
 }
 
+export const revalidate = 60;
+
 export interface MasterData {
   date: string;
   generated_at: string;
@@ -204,7 +206,7 @@ export async function getMasterData(date?: string): Promise<MasterData | null> {
   try {
     const base = DATA_BASE_URL || "/api/data";
     const folder = date ? date : "latest";
-    const res = await fetch(`${base}/${folder}/master.json`);
+    const res = await fetch(`${base}/${folder}/master.json`, { cache: "no-store" });
     if (!res.ok) return date ? null : getMockMaster();
     const json = await res.json();
     return normalizeMasterData(json);
@@ -794,10 +796,10 @@ export async function getSwingPerformance(): Promise<any | null> {
     return mod.readPublicJson("swing_performance.json");
   }
   try {
-    const res = await fetch(`/swing_performance.json?v=${t}`);
+    const res = await fetch(`/swing_performance.json?v=${t}`, { cache: "no-store" });
     if (!res.ok) {
        // Production Fallback
-       const res2 = await fetch(`https://bogastock.com/swing_performance.json?v=${t}`);
+       const res2 = await fetch(`https://bogastock.com/swing_performance.json?v=${t}`, { cache: "no-store" });
        if (res2.ok) {
          const raw = await res2.text();
          const lastBrace = raw.lastIndexOf('}');
@@ -818,13 +820,10 @@ export async function getSwingAllPicks(): Promise<any | null> {
     return mod.readPublicJson("swing_picks.json");
   }
   try {
-    const res = await fetch(`/swing_picks.json?v=${t}`, {
-      cache: 'no-store',
-      next: { revalidate: 0 }
-    });
+    const res = await fetch(`/swing_picks.json?v=${t}`, { cache: "no-store" });
     if (!res.ok) {
       // Production Fallback
-      const res2 = await fetch(`https://bogastock.com/swing_picks.json?v=${t}`, { cache: 'no-store' });
+      const res2 = await fetch(`https://bogastock.com/swing_picks.json?v=${t}`, { cache: "no-store" });
       if (res2.ok) return await res2.json();
       return null;
     }
@@ -845,7 +844,7 @@ export async function getIntradaySignals(): Promise<any | null> {
   } catch { return null; }
 }
 
-// Redeploy trigger: Wed Apr 15 06:15:36 DYS 2026
+// Redeploy trigger: Wed Apr 29 20:15:00 DYS 2026
 
 // ─────────────────────────────────────────────────────────────────────────────
 // OPTIONS MODULE — Interfaces & Loaders
