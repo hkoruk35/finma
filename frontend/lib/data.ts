@@ -24,6 +24,7 @@ export interface StockQuickView {
 }
 
 export const revalidate = 60;
+export const dynamicParams = true;
 
 export interface MasterData {
   date: string;
@@ -782,8 +783,9 @@ export async function getSwingPicks(): Promise<any | null> {
     const mod = await import("./data-server");
     return mod.readPublicJson("swing_picks.json");
   }
+  const t = Date.now();
   try {
-    const res = await fetch("/swing_picks.json");
+    const res = await fetch(`/swing_picks.json?v=${t}`, { cache: "no-store" });
     if (!res.ok) return null;
     return await res.json();
   } catch { return null; }

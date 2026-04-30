@@ -5,7 +5,7 @@ import SmartTrackerDashboard from "@/components/SmartTrackerDashboard";
 import { getMasterData } from "@/lib/data";
 import { Metadata } from "next";
 
-export const revalidate = false; // ISR disabled - revalidate via API
+export const revalidate = 60;
 export const dynamicParams = true;
 
 export const metadata: Metadata = {

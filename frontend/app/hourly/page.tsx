@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Saatlik intraday tarama arşivi. Son 30 günün swing picks hisseleri her saat güncellenir.",
 };
 
-export const revalidate = false; // ISR disabled - revalidate via API
+export const revalidate = 60;
 export const dynamicParams = true;
 
 type Signal = {
