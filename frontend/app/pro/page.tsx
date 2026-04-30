@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers } from "@/lib/data";
+import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -6,6 +6,9 @@ import StatsBar from "@/components/StatsBar";
 import SectorScreener from "@/components/SectorScreener";
 import MarketExplorer from "@/components/MarketExplorer";
 import SectorHeatMap from "@/components/SectorHeatMap";
+import TopSwingPicks from "@/components/TopSwingPicks";
+import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
+import SectorPerformanceHeatMap from "@/components/SectorPerformanceHeatMap";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -18,9 +21,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ProPage() {
-  const [master, allTickers] = await Promise.all([
+  const [master, allTickers, swingPicks, swingStats] = await Promise.all([
     getMasterData(),
-    getAllTickers()
+    getAllTickers(),
+    getSwingPicks(),
+    getSwingPerformance()
   ]);
 
   if (!master) {
@@ -58,6 +63,21 @@ export default async function ProPage() {
             Open Terminal
           </Link>
         </div>
+
+        {/* Swing Performance Stats from Homepage */}
+        <section className="mb-12">
+          <SwingPerformanceBanner stats={swingStats?.stats} />
+          <SectorPerformanceHeatMap history={swingStats?.history || []} />
+        </section>
+
+        {/* Top 3 Swing of the Day from Homepage */}
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+             <div className="w-1 h-8 bg-[#3b82f6] rounded-full" />
+             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Daily Top 5 Selection</h2>
+           </div>
+          <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
+        </section>
 
         {/* Stats Bar */}
         <section className="mb-12">
