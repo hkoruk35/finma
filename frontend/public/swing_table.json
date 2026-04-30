@@ -1,42 +1,42 @@
 [
   {
-    "Date": "29 April",
-    "Symbol": "SANM",
+    "Date": "30 April",
+    "Symbol": "CP",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 230.21,
-    "Target 2 (TP2)": 235.57
+    "Target 1 (TP1)": 90.35,
+    "Target 2 (TP2)": 91.08
   },
   {
-    "Date": "29 April",
-    "Symbol": "NE",
+    "Date": "30 April",
+    "Symbol": "UBS",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 54.0,
-    "Target 2 (TP2)": 54.78
+    "Target 1 (TP1)": 46.33,
+    "Target 2 (TP2)": 46.84
   },
   {
-    "Date": "29 April",
-    "Symbol": "AVB",
+    "Date": "30 April",
+    "Symbol": "RSI",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 196.76,
-    "Target 2 (TP2)": 199.79
+    "Target 1 (TP1)": 30.13,
+    "Target 2 (TP2)": 30.57
   },
   {
-    "Date": "29 April",
-    "Symbol": "RMAX",
+    "Date": "30 April",
+    "Symbol": "COCO",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 12.65,
-    "Target 2 (TP2)": 13.05
+    "Target 1 (TP1)": 79.63,
+    "Target 2 (TP2)": 83.23
   },
   {
-    "Date": "29 April",
-    "Symbol": "CNC",
+    "Date": "30 April",
+    "Symbol": "STM",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 59.54,
-    "Target 2 (TP2)": 60.94
+    "Target 1 (TP1)": 58.1,
+    "Target 2 (TP2)": 58.89
   }
 ]
