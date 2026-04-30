@@ -47,10 +47,12 @@ export function readJson(relPath: string, date?: string): any | null {
   candidates.push(path.resolve(process.cwd(), "public", "data", folder));
   candidates.push(path.resolve(process.cwd(), ".next", "server", "..", "..", "public", "data", folder));
 
-  // Local dev paths (worktree)
-  candidates.push(path.resolve(process.cwd(), "..", "transfer", folder));
-  candidates.push(path.resolve(process.cwd(), "..", "..", "transfer", folder));
-  candidates.push(path.resolve(process.cwd(), "..", "data", folder));
+  // Local dev paths (worktree) - skip on Vercel to avoid broad NFT tracing
+  if (!process.env.VERCEL) {
+    candidates.push(path.resolve(process.cwd(), "..", "transfer", folder));
+    candidates.push(path.resolve(process.cwd(), "..", "..", "transfer", folder));
+    candidates.push(path.resolve(process.cwd(), "..", "data", folder));
+  }
 
   for (const base of candidates) {
     try {

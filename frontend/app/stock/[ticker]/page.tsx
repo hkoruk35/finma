@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import MarketStatus from "@/components/MarketStatus";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
 import { getArchivedDates } from "@/lib/analysis-archive";
+import LivePriceSync from "@/components/stock/LivePriceSync";
 
 export const revalidate = 300; // ISR: 5 dakikada bir yenile (eski değer: 1 saniye = performans katili)
 
@@ -20,7 +21,7 @@ const DetailTabs = dynamic(() => import("@/components/stock/DetailTabs"), {
   loading: () => <div className="h-48 bg-[#141924] animate-pulse rounded-xl" />,
 });
 const SocialShare = dynamic(() => import("@/components/SocialShare"));
-const LivePriceSync = dynamic(() => import("@/components/stock/LivePriceSync"), { ssr: false });
+
 
 interface Props {
   params: Promise<{ ticker: string }>;
