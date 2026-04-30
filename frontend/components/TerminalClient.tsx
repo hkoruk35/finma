@@ -369,6 +369,9 @@ export default function TerminalClient() {
   // Watchlist: selected ticker in right panel
   const [watchSelected, setWatchSelected] = useState<string | null>(null);
 
+  // Sidebar toggle
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   // ── Load watchlist from localStorage ────────────────────────────────────────
   useEffect(() => {
     try {
@@ -485,14 +488,14 @@ export default function TerminalClient() {
   const openPositions = (activeTracker?.positions ?? []).filter((p) => p.status === "open");
 
   return (
-    <div className="flex h-full bg-[#060a12] overflow-hidden font-mono">
+    <div className="flex h-full bg-[#060a12] overflow-hidden font-mono relative">
 
       {/* ── Left Panel ──────────────────────────────────────────────────────── */}
-      <div className="w-[220px] shrink-0 border-r border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
-        <div className="px-3 py-2 border-b border-[#1a2234] shrink-0">
+      <div className={`${sidebarOpen ? "w-[220px]" : "w-0"} transition-all duration-300 shrink-0 border-r border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden relative`}>
+        <div className="px-3 py-2 border-b border-[#1a2234] shrink-0 flex items-center justify-between">
           <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">Markets</span>
           {checked.length > 0 && (
-            <span className="ml-2 text-[8px] text-slate-500">{checked.length}/12 selected</span>
+            <span className="ml-2 text-[8px] text-slate-500">{checked.length}/12</span>
           )}
         </div>
         <div className="flex-1 overflow-y-auto scrollbar-thin">
@@ -522,6 +525,29 @@ export default function TerminalClient() {
 
         {/* Top bar */}
         <div className="flex items-center gap-2 px-3 py-2 border-b border-[#1a2234] bg-[#080d18] shrink-0 flex-wrap">
+          {/* Sidebar Toggle Button */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-1.5 hover:bg-white/10 rounded-md transition-colors mr-1"
+            title={sidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
+          >
+            <svg className={`w-4 h-4 text-slate-400 ${!sidebarOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Quick Nav */}
+          <div className="flex items-center gap-1 mr-4 border-r border-[#1a2234] pr-4">
+            <Link href="/options" className="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-tighter px-2 py-1 bg-white/5 rounded border border-white/10 transition-colors">
+              Options
+            </Link>
+            <Link href="/ai" className="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-tighter px-2 py-1 bg-white/5 rounded border border-white/10 transition-colors">
+              BOGA AI
+            </Link>
+            <Link href="/pro" className="text-[10px] font-black text-[#3b82f6] hover:text-white uppercase tracking-tighter px-2 py-1 bg-[#3b82f6]/10 rounded border border-[#3b82f6]/20 transition-colors">
+              PRO
+            </Link>
+          </div>
           {/* Symbol info */}
           <div className="flex items-center gap-2 mr-2">
             <span className="text-sm font-black text-white">{selected.ticker}</span>

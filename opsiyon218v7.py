@@ -99,6 +99,9 @@ logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 # ════════════════════════════════════════════════════════════════════════════
 
 NY_TZ = ZoneInfo("America/New_York")
+HERE = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(HERE, "data")
+LATEST_DIR = os.path.join(HERE, "transfer", "latest")
 
 # ── Telegram ──────────────────────────────────────────────────────────────
 TELEGRAM_API_KEY = "7609846781:AAEl_2w8vHXkaDXUZyWoRK5N4_5RRcFkXsM"
@@ -1534,6 +1537,7 @@ def build_option_block(opt_data: dict, ticker: str, cp: float, grade: str, l2: d
     lines.append(f"📊 Higher Highs: <b>{hh_tag}</b>  |  Hacim Spike: <b>{vol_tag}</b>")
 
     # 🐂 BOGA AI UOA Bloğu
+    # 🐂 BOGA AI UOA Bloğu
     if uoa and uoa.get("uoa_score", 0) > 0:
         uoa_score = uoa.get("uoa_score", 0)
         uoa_signal = uoa.get("uoa_signal", "—")
@@ -1583,6 +1587,7 @@ def build_option_block(opt_data: dict, ticker: str, cp: float, grade: str, l2: d
             f"   💸 Prim: <b>${asym['mid']:.2f}</b>  Spread: {asym['spread_pct']:.1f}%  "
             f"|  Δ: <b>{asym['delta']:.3f}</b>  Γ: {asym['gamma']:.5f}"
         )
+        # Fix lines.append
         lines.append(
             f"   📊 OI: {asym['oi']:,}  Vol: {asym['volume']:,}  Vol/OI: <b>{asym['vol_oi_ratio']:.2f}x</b>"
         )
@@ -1596,6 +1601,121 @@ def build_option_block(opt_data: dict, ticker: str, cp: float, grade: str, l2: d
             )
 
     return "\n".join(lines)
+
+def save_options_picks(candidates: List[dict]):
+    """JSON kaydet: transfer/latest ve data/{date} klasörlerine."""
+    import json
+    try:
+        now_ny = datetime.now(NY_TZ)
+        today_str = now_ny.strftime("%Y-%m-%d")
+        
+        # Frontend'in beklediği format
+        output = {
+            "date": today_str,
+            "timestamp": now_ny.isoformat(),
+            "generated_at": now_ny.isoformat(),
+            "vix": MARKET_VIX["value"],
+            "vix_regime": MARKET_VIX["regime"],
+            "spy_return_60d": SPY_RETURN_CACHE.get("return_60d", 0.0),
+            "universe_size": MAX_TICKERS_SCAN,
+            "scan_duration_sec": 0, # dolacak
+            "regime_summary": {
+                "trend": len([c for c in candidates if c['options'].get('regime') == 'trend']),
+                "breakout": len([c for c in candidates if c['options'].get('regime') == 'breakout']),
+                "neutral": len([c for c in candidates if c['options'].get('regime') == 'neutral']),
+            },
+            "picks": []
+        }
+
+        for c in candidates:
+            l2 = c['l2']
+            l3 = c['l3']
+            opt = c['options']
+            
+            pick_obj = {
+                "ticker": c['ticker'],
+                "date": today_str,
+                "current_price": c['current_price'],
+                "score": c['score'],
+                "grade": c['grade'],
+                "entry_mode": l2.get("entry_mode"),
+                "entry_mode_label": l2.get("ema_pattern"),
+                "regime": opt.get("regime"),
+                "ema_pattern": l2.get("ema_pattern"),
+                "ema9": l2.get("ema9"),
+                "ema20": l2.get("ema20"),
+                "ema50": l2.get("ema50"),
+                "ema200": l2.get("ema200"),
+                "adx": l2.get("adx"),
+                "rsi": l3.get("rsi"),
+                "rvol": l3.get("rvol"),
+                "roc20": l3.get("roc20_pct"),
+                "roc60": l3.get("roc60_pct"),
+                "hv30": c.get("hv30", 0) * 100, # 0.4 -> 40
+                "iv_rank": opt.get("iv_rank"),
+                "iv_vs_hv": opt.get("iv_vs_hv"),
+                "vwap": l2.get("vwap"),
+                "vwap_ok": l2.get("vwap_ok"),
+                "rs_vs_spy_60d": l3.get("rs_60d"),
+                "base_range_pct": l3.get("range_pct_30"),
+                "high_60d": l3.get("high_60"),
+                "expected_move": opt.get("em"),
+                "em_upper": opt.get("em_upper"),
+                "max_pain": opt.get("max_pain"),
+                "institutional": opt.get("institutional"),
+                "asymmetric": opt.get("asymmetric"),
+                "uoa_score": c.get("uoa", {}).get("uoa_score", 0),
+                "uoa_signal": c.get("uoa", {}).get("uoa_signal", ""),
+                "earnings_warning": c.get("uoa", {}).get("earnings_warning", False),
+            }
+            output["picks"].append(pick_obj)
+
+        # 1) transfer/latest
+        os.makedirs(LATEST_DIR, exist_ok=True)
+        latest_path = os.path.join(LATEST_DIR, "options_picks.json")
+        with open(latest_path, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+            
+        # 2) data/{date}
+        today_dir = os.path.join(DATA_DIR, today_str)
+        os.makedirs(today_dir, exist_ok=True)
+        date_path = os.path.join(today_dir, "options_picks.json")
+        with open(date_path, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+            
+        # 3) Sync to Frontend public/data (for immediate site update)
+        frontend_dir = os.path.join(HERE, "frontend", "public", "data")
+        if os.path.exists(frontend_dir):
+            import shutil
+            # Latest
+            f_latest = os.path.join(frontend_dir, "latest")
+            os.makedirs(f_latest, exist_ok=True)
+            shutil.copy2(latest_path, os.path.join(f_latest, "options_picks.json"))
+            # Date folder
+            f_date = os.path.join(frontend_dir, today_str)
+            os.makedirs(f_date, exist_ok=True)
+            shutil.copy2(date_path, os.path.join(f_date, "options_picks.json"))
+            logging.info(f"✅ Frontend senkronizasyonu başarılı.")
+
+        # 4) PNL Tracker tetikle
+        import subprocess
+        tracker_script = os.path.join(HERE, "options_pnl_tracker.py")
+        if os.path.exists(tracker_script):
+            logging.info("🚀 PNL Tracker tetikleniyor...")
+            subprocess.run([os.path.join(HERE, "venv313", "Scripts", "python.exe"), tracker_script], cwd=HERE)
+
+        # 4) Git Push (Frontend'e yansıtmak için)
+        try:
+            logging.info("🚀 Değişiklikler GitHub'a itiliyor...")
+            subprocess.run(["git", "add", "."], cwd=HERE, check=True)
+            subprocess.run(["git", "commit", "-m", f"Automated Options Update: {today_str}"], cwd=HERE)
+            subprocess.run(["git", "push", "origin", "main"], cwd=HERE, check=True)
+            logging.info("✅ GitHub Push başarılı.")
+        except Exception as ge:
+            logging.error(f"Git Push hatası: {ge}")
+            
+    except Exception as e:
+        logging.error(f"JSON kaydetme hatası: {e}")
 
 def build_summary_report(candidates: List[dict], vix: float, duration: float, universe_size: int) -> Tuple[str, str]:
     now_str = datetime.now(NY_TZ).strftime("%Y-%m-%d %H:%M %Z")
@@ -1731,6 +1851,10 @@ async def scan():
         await send_tg(f"⚠️ {len(candidates)} swing adayı (min {MIN_CANDIDATES}). Raporlanıyor...")
 
     duration = time.time() - start
+    
+    # JSON Kaydet
+    save_options_picks(candidates)
+
     summary, detail = build_summary_report(candidates, MARKET_VIX['value'], duration, len(universe))
 
     await send_tg(summary)
@@ -1754,7 +1878,7 @@ async def scan():
 # 11) ZAMANLAYICI
 # ════════════════════════════════════════════════════════════════════════════
 
-def get_next_run_utc(hour: int = 9, minute: int = 0):
+def get_next_run_utc(hour: int = 11, minute: int = 0):
     from datetime import timezone as tz
     now_utc = datetime.now(tz.utc)
     now_ny  = now_utc.astimezone(NY_TZ)
@@ -1765,8 +1889,8 @@ def get_next_run_utc(hour: int = 9, minute: int = 0):
 
 async def run_scanner():
     await send_tg(
-        "🐂 <b>BOGA AI v6.1 SWING BAŞLATILDI!</b>\n"
-        "⏱ Hafta içi NY 09:00 otomatik tarama\n\n"
+        "🐂 <b>BOGA AI v7.1 OPTIONS BAŞLATILDI!</b>\n"
+        "⏱ Hafta içi NY 11:00 otomatik tarama\n\n"
         "<b>v5.1 Elite Fix'leri Aktif:</b>\n"
         f"  ✅ FIX-1: EMA200 altında Breakout/GoldenCross → GEÇ (NVDA/TSLA yakalanır)\n"
         f"  ✅ FIX-2: ADX toleransı: Breakout modlarda min 10 (trend doğumunu kaçırmaz)\n"

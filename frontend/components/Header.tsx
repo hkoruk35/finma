@@ -119,6 +119,8 @@ export default function Header() {
           <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Performance</NavLink>
           <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
           <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Archive</NavLink>
+          <NavLink href="/pro" className="text-xs font-black uppercase tracking-widest text-white hover:text-[#3b82f6] transition-colors">PRO</NavLink>
+          <NavLink href="/terminal" className="text-xs font-black uppercase tracking-widest text-white hover:text-[#3b82f6] transition-colors">Terminal</NavLink>
           <Link
             href="/smart-tracker"
             onClick={() => setIsOpen(false)}
@@ -192,6 +194,8 @@ export default function Header() {
             <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-white">Performance</NavLink>
             <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
             <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-white">Archive</NavLink>
+            <NavLink href="/pro" className="text-base font-black uppercase tracking-widest text-white">PRO</NavLink>
+            <NavLink href="/terminal" className="text-base font-black uppercase tracking-widest text-white">Terminal</NavLink>
             <Link
               href="/smart-tracker"
               onClick={() => setIsOpen(false)}
