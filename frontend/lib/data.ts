@@ -1062,6 +1062,11 @@ export interface OptionPosition {
   peak_premium: number | null;
   trough_premium: number | null;
   underlying_current: number | null;
+  iv_vs_hv_label?: string;
+  rs_vs_spy_label?: string;
+  upside_label?: string;
+  higher_highs?: boolean;
+  volume_spike?: boolean;
 }
 
 export interface OptionsModeStats {

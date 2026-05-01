@@ -357,7 +357,11 @@ export default async function OptionsPerformancePage() {
                               className="text-white font-black hover:text-[#3b82f6] transition-colors">
                               {p.ticker}
                             </Link>
-                            <div className="text-[10px] text-[#00d2ff]">{p.strategy}</div>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {p.iv_vs_hv_label?.includes("UCUZ") && <span className="text-[8px] px-1 bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20 rounded">CHEAP</span>}
+                              {p.higher_highs && <span className="text-[8px] px-1 bg-[#34d399]/10 text-[#34d399] border border-[#34d399]/20 rounded">HH</span>}
+                              {p.volume_spike && <span className="text-[8px] px-1 bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 rounded">VOL+</span>}
+                            </div>
                           </td>
                           <td className="py-3 px-3 font-mono text-xs text-white">
                             ${p.strike?.toFixed(0)}C · {p.expiration}
@@ -418,6 +422,10 @@ export default async function OptionsPerformancePage() {
                         <div className="text-[10px] text-[#00d2ff]">
                           ${p.strike?.toFixed(0)}C · {p.scan_date} · {p.exit_reason}
                         </div>
+                        <div className="flex gap-2 mt-0.5">
+                          {p.iv_vs_hv_label && <span className="text-[8px] text-[#f59e0b]">{p.iv_vs_hv_label}</span>}
+                          {p.rs_vs_spy_label && <span className="text-[8px] text-[#3b82f6]">{p.rs_vs_spy_label}</span>}
+                        </div>
                       </div>
                       <div className="text-right">
                         <div className="text-[#34d399] font-black">{fmtPct(p.pnl_pct)}</div>
@@ -440,6 +448,10 @@ export default async function OptionsPerformancePage() {
                         </Link>
                         <div className="text-[10px] text-[#00d2ff]">
                           ${p.strike?.toFixed(0)}C · {p.scan_date} · {p.exit_reason}
+                        </div>
+                        <div className="flex gap-2 mt-0.5">
+                          {p.iv_vs_hv_label && <span className="text-[8px] text-[#f59e0b]">{p.iv_vs_hv_label}</span>}
+                          {p.rs_vs_spy_label && <span className="text-[8px] text-[#3b82f6]">{p.rs_vs_spy_label}</span>}
                         </div>
                       </div>
                       <div className="text-right">

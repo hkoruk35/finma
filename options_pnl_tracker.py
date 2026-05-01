@@ -106,6 +106,12 @@ def _build_position(scan_date: str, pick: dict, strategy: str, contract: dict) -
         "peak_premium":         None,
         "trough_premium":       None,
         "underlying_current":   None,
+        # Enhanced Labels for Performance Page
+        "iv_vs_hv_label":       pick.get("iv_vs_hv_label"),
+        "rs_vs_spy_label":      pick.get("rs_vs_spy_label"),
+        "upside_label":         pick.get("upside_label"),
+        "higher_highs":         pick.get("higher_highs"),
+        "volume_spike":         pick.get("volume_spike"),
     }
 
 
