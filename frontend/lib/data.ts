@@ -876,6 +876,7 @@ export interface OptionContract {
   sim_gain_pct: number | null;
   liq_score: number | null;
   sweep_score: number | null;
+  mispricing_score?: number | null;
 }
 
 export interface OptionPick {
