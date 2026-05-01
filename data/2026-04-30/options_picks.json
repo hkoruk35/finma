@@ -47,7 +47,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 15.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 2.86,
         "ask": 2.97,
@@ -77,13 +76,13 @@
         "breakeven": 17.97,
         "tp_price": 4.66,
         "sl_price": 2.04,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 19.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 1.58,
         "ask": 1.79,
@@ -115,11 +114,19 @@
         "em_upper": 22.48,
         "tp_price": 2.7,
         "sl_price": 1.18,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-06-18",
+      "dte": 49,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %17.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "SLB",
@@ -155,7 +162,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 55.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 4.35,
         "ask": 4.45,
@@ -185,12 +191,20 @@
         "breakeven": 59.45,
         "tp_price": 6.38,
         "sl_price": 3.3,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "⚠️ ZIRVE YAKINI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "TQQQ",
@@ -226,7 +240,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 62.5,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 4.3,
         "ask": 4.85,
@@ -256,13 +269,13 @@
         "breakeven": 67.35,
         "tp_price": 6.63,
         "sl_price": 3.43,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 65.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 3.4,
         "ask": 3.6,
@@ -294,11 +307,19 @@
         "em_upper": 73.89,
         "tp_price": 5.08,
         "sl_price": 2.62,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-06-18",
+      "dte": 49,
+      "iv_vs_hv_label": "💰 ULTRA UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %0.5 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "SBUX",
@@ -334,7 +355,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 105.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 5.5,
         "ask": 5.7,
@@ -364,12 +384,20 @@
         "breakeven": 110.7,
         "tp_price": 8.12,
         "sl_price": 4.2,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "💰 ULTRA UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %0.7 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "ALAB",
@@ -406,7 +434,6 @@
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 210.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 22.05,
         "ask": 24.0,
@@ -438,11 +465,19 @@
         "em_upper": 264.87,
         "tp_price": 36.84,
         "sl_price": 16.12,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %11.7 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "ANET",
@@ -478,7 +513,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 170.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 16.8,
         "ask": 17.45,
@@ -508,13 +542,13 @@
         "breakeven": 187.45,
         "tp_price": 27.4,
         "sl_price": 11.99,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 185.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 11.05,
         "ask": 11.65,
@@ -546,11 +580,19 @@
         "em_upper": 212.7,
         "tp_price": 18.16,
         "sl_price": 7.95,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %4.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "CRDO",
@@ -587,7 +629,6 @@
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 220.0,
-        "expiry": "2026-08-21",
         "dte": 113,
         "bid": 18.3,
         "ask": 21.0,
@@ -619,11 +660,19 @@
         "em_upper": 256.77,
         "tp_price": 31.44,
         "sl_price": 13.75,
-        "time_stop_days": 40
+        "time_stop_days": 40,
+        "expiration": "2026-08-21"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-08-21",
+      "dte": 113,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %12.2 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "NVDA",
@@ -659,7 +708,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 195.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 17.8,
         "ask": 18.35,
@@ -689,13 +737,13 @@
         "breakeven": 213.35,
         "tp_price": 26.21,
         "sl_price": 13.56,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 215.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 9.2,
         "ask": 9.25,
@@ -727,11 +775,19 @@
         "em_upper": 238.18,
         "tp_price": 13.38,
         "sl_price": 6.92,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %7.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "MCHP",
@@ -767,7 +823,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 87.5,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 9.9,
         "ask": 11.5,
@@ -797,13 +852,13 @@
         "breakeven": 99.0,
         "tp_price": 17.12,
         "sl_price": 7.49,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 97.5,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 5.8,
         "ask": 6.9,
@@ -835,11 +890,19 @@
         "em_upper": 112.95,
         "tp_price": 10.16,
         "sl_price": 4.44,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "⚠️ ZIRVE YAKINI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "APLD",
@@ -875,7 +938,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 36.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 5.15,
         "ask": 5.4,
@@ -905,13 +967,13 @@
         "breakeven": 41.4,
         "tp_price": 8.44,
         "sl_price": 3.69,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 40.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 4.0,
         "ask": 4.15,
@@ -943,11 +1005,19 @@
         "em_upper": 49.15,
         "tp_price": 6.52,
         "sl_price": 2.85,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "😟 ZAYIF",
+      "upside_label": "📈 %10.9 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "WULF",
@@ -983,7 +1053,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 22.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 3.2,
         "ask": 3.4,
@@ -1013,12 +1082,20 @@
         "breakeven": 25.4,
         "tp_price": 5.28,
         "sl_price": 2.31,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "⚠️ ZIRVE YAKINI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "AXTI",
@@ -1054,7 +1131,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 80.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 17.4,
         "ask": 19.6,
@@ -1084,13 +1160,13 @@
         "breakeven": 99.6,
         "tp_price": 29.6,
         "sl_price": 12.95,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 100.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 11.8,
         "ask": 14.3,
@@ -1122,11 +1198,19 @@
         "em_upper": 126.17,
         "tp_price": 20.88,
         "sl_price": 9.13,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "💰 ULTRA UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %14.5 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "NVDL",
@@ -1162,7 +1246,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 90.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 12.4,
         "ask": 13.3,
@@ -1192,12 +1275,20 @@
         "breakeven": 103.3,
         "tp_price": 20.56,
         "sl_price": 9.0,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-06-18",
+      "dte": 49,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %15.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "MRVL",
@@ -1233,7 +1324,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 160.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 21.4,
         "ask": 22.5,
@@ -1263,12 +1353,20 @@
         "breakeven": 182.5,
         "tp_price": 35.12,
         "sl_price": 15.36,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %1.2 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "AAOI",
@@ -1305,7 +1403,6 @@
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 210.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 20.0,
         "ask": 22.8,
@@ -1337,11 +1434,19 @@
         "em_upper": 246.1,
         "tp_price": 34.24,
         "sl_price": 14.98,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟢 UCUZ",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %6.7 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "MS",
@@ -1377,7 +1482,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 190.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 10.35,
         "ask": 10.7,
@@ -1407,12 +1511,20 @@
         "breakeven": 200.7,
         "tp_price": 15.26,
         "sl_price": 7.89,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🔴 PAHALI",
+      "rs_vs_spy_label": "😐 NÖTR",
+      "upside_label": "📈 %1.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "DVN",
@@ -1448,7 +1560,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 50.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 3.95,
         "ask": 4.05,
@@ -1478,13 +1589,13 @@
         "breakeven": 54.05,
         "tp_price": 5.8,
         "sl_price": 3.0,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "breakout",
         "strike": 57.5,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 1.43,
         "ask": 1.49,
@@ -1516,11 +1627,19 @@
         "em_upper": 59.87,
         "tp_price": 2.12,
         "sl_price": 1.09,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %2.0 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "BA",
@@ -1556,7 +1675,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 230.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 13.4,
         "ask": 13.7,
@@ -1586,13 +1704,13 @@
         "breakeven": 243.7,
         "tp_price": 19.65,
         "sl_price": 10.16,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "breakout",
         "strike": 245.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 7.2,
         "ask": 7.7,
@@ -1624,11 +1742,19 @@
         "em_upper": 266.94,
         "tp_price": 10.8,
         "sl_price": 5.59,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "😟 ZAYIF",
+      "upside_label": "📈 %8.2 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "NEE",
@@ -1664,7 +1790,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 97.5,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 2.73,
         "ask": 2.94,
@@ -1694,13 +1819,13 @@
         "breakeven": 100.44,
         "tp_price": 3.83,
         "sl_price": 2.27,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "breakout",
         "strike": 100.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 1.77,
         "ask": 1.98,
@@ -1732,11 +1857,19 @@
         "em_upper": 105.43,
         "tp_price": 2.53,
         "sl_price": 1.5,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-06-18",
+      "dte": 49,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "🟡 GÜÇLÜ",
+      "upside_label": "📈 %0.6 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "VLO",
@@ -1772,7 +1905,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 240.0,
-        "expiry": "2026-06-18",
         "dte": 49,
         "bid": 20.1,
         "ask": 21.1,
@@ -1802,12 +1934,20 @@
         "breakeven": 261.1,
         "tp_price": 29.87,
         "sl_price": 15.45,
-        "time_stop_days": 17
+        "time_stop_days": 17,
+        "expiration": "2026-06-18"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-06-18",
+      "dte": 49,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %2.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "CRWV",
@@ -1843,7 +1983,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 110.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 19.65,
         "ask": 20.25,
@@ -1873,12 +2012,20 @@
         "breakeven": 130.25,
         "tp_price": 31.92,
         "sl_price": 13.96,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %6.9 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "CVX",
@@ -1914,7 +2061,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 190.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 11.5,
         "ask": 11.9,
@@ -1944,13 +2090,13 @@
         "breakeven": 201.9,
         "tp_price": 16.96,
         "sl_price": 8.77,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "trend",
         "strike": 200.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 7.15,
         "ask": 7.3,
@@ -1982,11 +2128,19 @@
         "em_upper": 218.36,
         "tp_price": 10.48,
         "sl_price": 5.42,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %9.6 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "NBIS",
@@ -2022,7 +2176,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 135.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 22.55,
         "ask": 23.65,
@@ -2052,12 +2205,20 @@
         "breakeven": 158.65,
         "tp_price": 36.96,
         "sl_price": 16.17,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %22.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "COP",
@@ -2093,7 +2254,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 125.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 8.6,
         "ask": 8.8,
@@ -2123,12 +2283,20 @@
         "breakeven": 133.8,
         "tp_price": 12.61,
         "sl_price": 6.52,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %5.6 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "OXY",
@@ -2164,7 +2332,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 60.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 4.35,
         "ask": 4.55,
@@ -2194,13 +2361,13 @@
         "breakeven": 64.55,
         "tp_price": 6.45,
         "sl_price": 3.34,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "breakout",
         "strike": 65.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 2.56,
         "ask": 2.72,
@@ -2232,11 +2399,19 @@
         "em_upper": 71.38,
         "tp_price": 3.83,
         "sl_price": 1.98,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %10.4 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "C",
@@ -2272,7 +2447,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 125.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 9.9,
         "ask": 10.1,
@@ -2302,12 +2476,20 @@
         "breakeven": 135.1,
         "tp_price": 14.5,
         "sl_price": 7.5,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %3.4 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "BKR",
@@ -2343,7 +2525,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 65.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 6.7,
         "ask": 7.7,
@@ -2373,12 +2554,20 @@
         "breakeven": 72.7,
         "tp_price": 10.44,
         "sl_price": 5.4,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "⚠️ ZIRVE YAKINI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "SATS",
@@ -2414,7 +2603,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 130.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 11.2,
         "ask": 11.6,
@@ -2444,12 +2632,20 @@
         "breakeven": 141.6,
         "tp_price": 18.24,
         "sl_price": 7.98,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "🟡 GÜÇLÜ",
+      "upside_label": "📈 %10.0 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "BAC",
@@ -2485,7 +2681,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 52.5,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 3.15,
         "ask": 3.2,
@@ -2515,12 +2710,20 @@
         "breakeven": 55.7,
         "tp_price": 4.6,
         "sl_price": 2.38,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🔴 PAHALI",
+      "rs_vs_spy_label": "😟 ZAYIF",
+      "upside_label": "📈 %5.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "SHEL",
@@ -2556,7 +2759,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 90.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 4.2,
         "ask": 4.4,
@@ -2586,12 +2788,20 @@
         "breakeven": 94.4,
         "tp_price": 6.24,
         "sl_price": 3.23,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🔴 PAHALI",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %4.8 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "VZ",
@@ -2627,7 +2837,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "trend",
         "strike": 48.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 2.05,
         "ask": 2.09,
@@ -2657,12 +2866,20 @@
         "breakeven": 50.09,
         "tp_price": 2.79,
         "sl_price": 1.66,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": null,
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🔴 PAHALI",
+      "rs_vs_spy_label": "😐 NÖTR",
+      "upside_label": "📈 %6.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     },
     {
       "ticker": "APH",
@@ -2698,7 +2915,6 @@
         "type": "🛡️ KURUMSAL SIĞINAK",
         "regime": "breakout",
         "strike": 155.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 8.0,
         "ask": 8.5,
@@ -2728,13 +2944,13 @@
         "breakeven": 163.5,
         "tp_price": 13.2,
         "sl_price": 5.77,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "asymmetric": {
         "type": "🚀 ASİMETRİK FIRSAT",
         "regime": "breakout",
         "strike": 160.0,
-        "expiry": "2026-07-17",
         "dte": 78,
         "bid": 6.2,
         "ask": 6.9,
@@ -2766,11 +2982,19 @@
         "em_upper": 176.71,
         "tp_price": 10.48,
         "sl_price": 4.58,
-        "time_stop_days": 27
+        "time_stop_days": 27,
+        "expiration": "2026-07-17"
       },
       "uoa_score": 0.0,
       "uoa_signal": "—",
-      "earnings_warning": false
+      "earnings_warning": false,
+      "exp_date": "2026-07-17",
+      "dte": 78,
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "😟 ZAYIF",
+      "upside_label": "📈 %4.4 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false
     }
   ]
 }

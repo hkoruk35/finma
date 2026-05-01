@@ -1041,7 +1041,7 @@ async def layer4_options(
                         institutional = {
                             "type": "🛡️ KURUMSAL SIĞINAK",
                             "regime": regime,
-                            "strike": strike, "expiry": exp_date, "dte": dte,
+                            "strike": strike, "expiration": exp_date, "dte": dte,
                             "bid": round(bid, 2), "ask": round(ask, 2), "mid": round(mid, 2),
                             "spread_pct": round(spread_p * 100, 1),
                             "oi": oi, "volume": volume, "vol_oi_ratio": round(vol_oi_ratio, 3),
@@ -1093,7 +1093,7 @@ async def layer4_options(
                         asymmetric = {
                             "type": "🚀 ASİMETRİK FIRSAT",
                             "regime": regime,
-                            "strike": strike, "expiry": exp_date, "dte": dte,
+                            "strike": strike, "expiration": exp_date, "dte": dte,
                             "bid": round(bid, 2), "ask": round(ask, 2), "mid": round(mid, 2),
                             "spread_pct": round(spread_p * 100, 1),
                             "oi": oi, "volume": volume, "vol_oi_ratio": round(vol_oi_ratio, 3),
@@ -1662,8 +1662,17 @@ def save_options_picks(candidates: List[dict]):
                 "expected_move": opt.get("em"),
                 "em_upper": opt.get("em_upper"),
                 "max_pain": opt.get("max_pain"),
+                "exp_date": opt.get("exp_date"),
+                "dte": opt.get("dte"),
                 "institutional": opt.get("institutional"),
                 "asymmetric": opt.get("asymmetric"),
+                
+                # BOGA AI v7.1 Enhanced Labels for Website
+                "iv_vs_hv_label": "💰 ULTRA UCUZ" if opt.get("iv_vs_hv", 1.0) < 0.85 else ("🟢 UCUZ" if opt.get("iv_vs_hv", 1.0) < 0.95 else ("🟡 FAIR" if opt.get("iv_vs_hv", 1.0) < 1.15 else "🔴 PAHALI")),
+                "rs_vs_spy_label": "💪 PAZAR LİDERİ" if l3.get("rs_60d", 0.0) >= 5 else ("🟡 GÜÇLÜ" if l3.get("rs_60d", 0.0) >= 2 else ("😐 NÖTR" if l3.get("rs_60d", 0.0) >= -2 else "😟 ZAYIF")),
+                "upside_label": f"📈 %{l3.get('distance_to_high', 0):.1f} YUKARISI" if l3.get("distance_to_high", 0) > 0 else "⚠️ ZIRVE YAKINI",
+                "higher_highs": l3.get("higher_highs", False),
+                "volume_spike": l3.get("volume_spike", False),
                 "uoa_score": c.get("uoa", {}).get("uoa_score", 0),
                 "uoa_signal": c.get("uoa", {}).get("uoa_signal", ""),
                 "earnings_warning": c.get("uoa", {}).get("earnings_warning", False),

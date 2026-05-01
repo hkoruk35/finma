@@ -855,6 +855,7 @@ export async function getIntradaySignals(): Promise<any | null> {
 export interface OptionContract {
   strike: number | null;
   expiration: string | null;
+  expiry?: string | null; // Backward compatibility
   dte: number | null;
   premium: number | null;
   spread_pct: number | null;
@@ -918,6 +919,11 @@ export interface OptionPick {
   golden_cross: boolean;
   ema200_breakout: boolean;
   breakout_base_score: number | null;
+  iv_vs_hv_label?: string;
+  rs_vs_spy_label?: string;
+  upside_label?: string;
+  higher_highs?: boolean;
+  volume_spike?: boolean;
   date?: string;
 }
 
@@ -985,6 +991,11 @@ function normalizeOptionsData(raw: any): OptionsData | null {
     golden_cross:      p.golden_cross ?? (p.entry_mode === "GOLDEN_CROSS"),
     ema200_breakout:   p.ema200_breakout ?? (p.entry_mode === "EMA200_BREAKOUT"),
     breakout_base_score: p.breakout_base_score ?? null,
+    iv_vs_hv_label:    p.iv_vs_hv_label,
+    rs_vs_spy_label:   p.rs_vs_spy_label,
+    upside_label:      p.upside_label,
+    higher_highs:      p.higher_highs,
+    volume_spike:      p.volume_spike,
     date: p.date ?? raw.date ?? "",
   });
   const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];

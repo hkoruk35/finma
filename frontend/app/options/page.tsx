@@ -133,6 +133,9 @@ function OptionCard({ opt, label }: { opt: OptionPick["institutional"]; label: s
         <span>Sim gain: <b className={`${(opt.sim_gain_pct ?? 0) >= 0 ? "text-[#34d399]" : "text-[#ef4444]"}`}>
           {opt.sim_gain_pct != null ? (opt.sim_gain_pct >= 0 ? "+" : "") + opt.sim_gain_pct.toFixed(0) + "%" : "—"}
         </b></span>
+        {opt.mispricing_score != null && (
+          <span className="col-span-2 mt-1">IV Edge: <b className="text-[#f59e0b]">{opt.mispricing_score > 5 ? "🔥 HIGH" : "NORMAL"}</b></span>
+        )}
       </div>
     </div>
   );
@@ -224,8 +227,33 @@ function PickRow({ pick, index }: { pick: OptionPick; index: number }) {
         <span className="ml-3">VWAP: <b className={pick.vwap_ok ? "text-[#34d399]" : "text-[#f87171]"}>
           ${pick.vwap?.toFixed(2)}{!pick.vwap_ok && " ⚠️"}
         </b></span>
+        {pick.higher_highs && (
+          <span className="ml-3 text-[#34d399]">📈 HH</span>
+        )}
+        {pick.volume_spike && (
+          <span className="ml-3 text-[#34d399]">📊 VOL+</span>
+        )}
         {pick.uoa_score > 30 && (
           <span className="ml-3 text-[#f59e0b] font-bold">🔥 UOA: {pick.uoa_signal}</span>
+        )}
+      </div>
+
+      {/* Enhanced Labels */}
+      <div className="flex flex-wrap gap-2 mb-5">
+        {pick.iv_vs_hv_label && (
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20">
+            {pick.iv_vs_hv_label}
+          </span>
+        )}
+        {pick.rs_vs_spy_label && (
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20">
+            {pick.rs_vs_spy_label}
+          </span>
+        )}
+        {pick.upside_label && (
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/20">
+            {pick.upside_label}
+          </span>
         )}
       </div>
 
@@ -353,6 +381,7 @@ export default async function OptionsPage() {
                   <tr className="text-[10px] text-[#00d2ff] uppercase tracking-wider border-b border-white/5">
                     <th className="px-4 py-2 text-left">Date</th>
                     <th className="px-4 py-2 text-left">Ticker</th>
+                    <th className="px-4 py-2 text-left">Contract</th>
                     <th className="px-4 py-2 text-right">Price</th>
                     <th className="px-4 py-2 text-right">Score</th>
                     <th className="px-4 py-2 text-left">Mode</th>
@@ -375,6 +404,9 @@ export default async function OptionsPage() {
                           <a href={`#detail-${pick.date}-${pick.ticker}`} className="font-black text-white hover:text-[#3b82f6] transition-colors">
                             {pick.ticker}
                           </a>
+                        </td>
+                        <td className="px-4 py-2.5 text-xs text-[#00d2ff] font-mono whitespace-nowrap">
+                          {pick.exp_date ? `${pick.exp_date.substring(5)} (${pick.dte}d)` : "—"}
                         </td>
                         <td className="px-4 py-2.5 text-right font-mono text-white">${pick.current_price.toFixed(2)}</td>
                         <td className="px-4 py-2.5 text-right">
