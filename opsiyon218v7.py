@@ -1558,7 +1558,7 @@ def build_option_block(opt_data: dict, ticker: str, cp: float, grade: str, l2: d
     if inst:
         sim = inst.get("sim", {})
         lines.append(f"\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: {inst.get('regime','—')})")
-        lines.append(f"   🎯 <b>${inst['strike']:.1f} CALL</b>  ({inst['expiry']})")
+        lines.append(f"   🎯 <b>${inst['strike']:.1f} CALL</b>  ({inst['expiration']})")
         lines.append(
             f"   💸 Prim: <b>${inst['mid']:.2f}</b>  Spread: {inst['spread_pct']:.1f}%  "
             f"|  Δ: <b>{inst['delta']:.3f}</b>  Γ: {inst['gamma']:.5f}"
@@ -1580,7 +1580,7 @@ def build_option_block(opt_data: dict, ticker: str, cp: float, grade: str, l2: d
         sweep_lbl = "⚡ GÜÇLÜ SWEEP" if asym['vol_oi_ratio'] >= 1.0 else "👀 SWEEP"
         lines.append(f"\n🚀 <b>ASİMETRİK FIRSAT</b>  [{sweep_lbl}: {asym['vol_oi_ratio']:.2f}x]")
         lines.append(
-            f"   🎯 <b>${asym['strike']:.1f} CALL</b>  ({asym['expiry']})"
+            f"   🎯 <b>${asym['strike']:.1f} CALL</b>  ({asym['expiration']})"
             f"  ✅ EM İçinde ≤${asym['em_upper']:.2f}"
         )
         lines.append(
@@ -1676,6 +1676,7 @@ def save_options_picks(candidates: List[dict]):
                 "uoa_score": c.get("uoa", {}).get("uoa_score", 0),
                 "uoa_signal": c.get("uoa", {}).get("uoa_signal", ""),
                 "earnings_warning": c.get("uoa", {}).get("earnings_warning", False),
+                "ai_analysis_text": build_option_block(opt, c['ticker'], c['current_price'], c['grade'], l2, l3, uoa=c.get('uoa')),
             }
             output["picks"].append(pick_obj)
 
@@ -1915,11 +1916,12 @@ async def run_scanner():
         f"  ✅ DTE {DTE_MIN}-{DTE_MAX}g | IV Rank<{IV_RANK_BUY_MAX} | Time Stop ×{TIME_STOP_RATIO}"
     )
 
-    try:
-        await scan()
-    except Exception as e:
-        logging.error(f"İlk tarama: {e}")
-        await send_tg(f"🚨 Başlatma hatası: {e}")
+    # Immediate scan removed to prevent duplicate runs on startup
+    # try:
+    #     await scan()
+    # except Exception as e:
+    #     logging.error(f"İlk tarama: {e}")
+    #     await send_tg(f"🚨 Başlatma hatası: {e}")
 
     while True:
         try:

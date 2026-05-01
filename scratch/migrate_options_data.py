@@ -1,5 +1,10 @@
 import json
 import os
+import sys
+
+# Add the project root to sys.path so we can import build_option_block
+sys.path.append(r"c:\Users\afksm\finma")
+from opsiyon218v7 import build_option_block
 
 filepaths = [
     r"c:\Users\afksm\finma\data\2026-04-30\options_picks.json",
@@ -47,6 +52,57 @@ for filepath in filepaths:
         
         pick['higher_highs'] = pick.get('higher_highs', False)
         pick['volume_spike'] = pick.get('volume_spike', False)
+
+        # Generate Full AI Analysis Text (Telegram Style)
+        # Mocking l2, l3 structures needed by build_option_block if they are not fully in pick
+        # The bot expects l2 and l3 which contain entry_mode, high_60, etc.
+        # We can reconstruct them from pick fields
+        mock_l2 = {"entry_mode": pick.get("entry_mode", "UNKNOWN")}
+        mock_l3 = {
+            "high_60": high,
+            "rs_60d": rs_60d,
+            "distance_to_high": dist,
+            "higher_highs": pick.get("higher_highs"),
+            "volume_spike": pick.get("volume_spike")
+        }
+        
+        # The 'opt' expected by build_option_block is the pick object or something similar
+        # Looking at save_options_picks: pick_obj uses 'opt' as 'options'
+        # Let's adjust pick for build_option_block
+        report_opt = pick.copy()
+        report_opt['atm_iv'] = pick.get('iv_rank', 0) # approximation for display
+        report_opt['iv_rank'] = pick.get('iv_rank', 0)
+        report_opt['max_pain'] = pick.get('max_pain', 0)
+        report_opt['em'] = pick.get('expected_move', 0)
+        report_opt['em_upper'] = price + pick.get('expected_move', 0)
+        
+        # Institutional
+        if inst:
+            report_opt['institutional'] = inst.copy()
+            report_opt['institutional']['mid'] = inst.get('premium', 0)
+            report_opt['institutional']['cost_per_contract'] = inst.get('contract_cost', 0)
+            report_opt['institutional']['breakeven'] = inst.get('breakeven', 0)
+            
+        # Asymmetric
+        if asym:
+            report_opt['asymmetric'] = asym.copy()
+            report_opt['asymmetric']['mid'] = asym.get('premium', 0)
+            report_opt['asymmetric']['cost_per_contract'] = asym.get('contract_cost', 0)
+            report_opt['asymmetric']['breakeven'] = asym.get('breakeven', 0)
+            report_opt['asymmetric']['em_upper'] = report_opt['em_upper']
+
+        try:
+            pick['ai_analysis_text'] = build_option_block(
+                report_opt, 
+                pick['ticker'], 
+                price, 
+                pick.get('grade', '🏆 MÜKEMMEL'), 
+                mock_l2, 
+                mock_l3, 
+                uoa=pick.get('uoa')
+            )
+        except Exception as e:
+            print(f"Error generating text for {pick['ticker']}: {e}")
 
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)

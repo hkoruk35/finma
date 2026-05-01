@@ -925,6 +925,7 @@ export interface OptionPick {
   upside_label?: string;
   higher_highs?: boolean;
   volume_spike?: boolean;
+  ai_analysis_text?: string;
   date?: string;
 }
 
@@ -997,6 +998,7 @@ function normalizeOptionsData(raw: any): OptionsData | null {
     upside_label:      p.upside_label,
     higher_highs:      p.higher_highs,
     volume_spike:      p.volume_spike,
+    ai_analysis_text:  p.ai_analysis_text,
     date: p.date ?? raw.date ?? "",
   });
   const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];

@@ -266,6 +266,19 @@ function PickRow({ pick, index }: { pick: OptionPick; index: number }) {
           <OptionCard opt={pick.asymmetric} label="🚀 Asymmetric (OTM)" />
         )}
       </div>
+
+      {pick.ai_analysis_text && (
+        <div className="mt-6 pt-6 border-t border-white/5">
+          <div className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span>🤖 BOGA AI ANALYSIS</span>
+            <div className="h-px flex-1 bg-white/5" />
+          </div>
+          <div 
+            className="bg-black/20 rounded-lg p-4 font-mono text-[11px] leading-relaxed text-slate-300 whitespace-pre-wrap analysis-block"
+            dangerouslySetInnerHTML={{ __html: pick.ai_analysis_text }}
+          />
+        </div>
+      )}
     </div>
   );
 }
