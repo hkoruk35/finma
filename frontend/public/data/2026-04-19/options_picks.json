@@ -64,7 +64,13 @@
         "sim_gain_pct": 1.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %5.8 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\nSTRONG  <b>#PLUG</b>  $2.78\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌱 TREND BAŞLANGICI</b>\n📐 EM: ±$0.97 (üst ≤$3.75)  |  60g Zirve: $2.94\n📊 IV: <b>27%</b>  IV Rank: <b>27</b>  🟡 NORMAL  |  Max Pain: $2.50\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>+21.3pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %5.8 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$3.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$0.30</b>  Spread: 6.5%  |  Δ: <b>0.492</b>  Γ: 0.41177\n   📊 OI: 19,420.0  Vol: 1,573.0  Vol/OI: 0.08x\n   💰 Kontrat: <b>$31</b>  Başabaş: $3.31\n   🎯 BOGA AI PRICE TARGET: $0.42  |  RISK LIMIT: $0.22  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %1.1 prim/gün  |  Θ/Δ Kalite: 144.62"
     },
     {
       "rank": 2,
@@ -117,7 +123,13 @@
         "theta_delta_ratio": 18.86,
         "sim_gain_pct": 45.0
       },
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %24.2 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\n⚠️VWAP↓  <b>#APA</b>  $35.74\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌱 TREND BAŞLANGICI</b>\n📐 EM: ±$8.93 (üst ≤$44.67)  |  60g Zirve: $44.39\n📊 IV: <b>20%</b>  IV Rank: <b>20</b>  ✅ UCUZ IV  |  Max Pain: $35.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-07-17</b> (89 gün)\n📈 RS vs SPY: <b>+32.1pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %24.2 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🚀 <b>ASİMETRİK FIRSAT</b>  [👀 SWEEP: 0.16x]\n   🎯 <b>$40.0 CALL</b>  (2026-07-17)  ✅ EM İçinde ≤$44.67\n   💸 Prim: <b>$1.90</b>  Spread: 7.6%  |  Δ: <b>0.389</b>  Γ: 0.04341\n   📊 OI: 1,544.0  Vol: 250.0  Vol/OI: <b>0.16x</b>\n   💰 Kontrat: <b>$197</b>  Başabaş: $41.97\n   🎯 BOGA AI PRICE TARGET: $2.65  |  RISK LIMIT: $1.42  |  Time Limit 31 gün kala\n   ⏱ Günlük Theta Erimesi: %1.1 prim/gün  |  Θ/Δ Kalite: 18.86"
     },
     {
       "rank": 3,
@@ -170,7 +182,13 @@
         "sim_gain_pct": 67.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "😐 NÖTR",
+      "upside_label": "📈 %4.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\nSTRONG  <b>#BAC</b>  $53.91\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌟 GOLDEN CROSS — TREND DOĞUMU</b>\n📐 EM: ±$6.98 (üst ≤$60.89)  |  60g Zirve: $56.21\n📊 IV: <b>30%</b>  IV Rank: <b>30</b>  🟡 NORMAL  |  Max Pain: $52.50\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-07-17</b> (89 gün)\n📈 RS vs SPY: <b>+0.2pp</b>  😐 NÖTR  |  Upside: <b>📈 %4.3 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$55.0 CALL</b>  (2026-07-17)\n   💸 Prim: <b>$2.23</b>  Spread: 5.7%  |  Δ: <b>0.502</b>  Γ: 0.05715\n   📊 OI: 5,645.0  Vol: 997.0  Vol/OI: 0.18x\n   💰 Kontrat: <b>$230</b>  Başabaş: $57.30\n   🎯 BOGA AI PRICE TARGET: $3.13  |  RISK LIMIT: $1.68  |  Time Limit 31 gün kala\n   ⏱ Günlük Theta Erimesi: %0.8 prim/gün  |  Θ/Δ Kalite: 26.41"
     },
     {
       "rank": 4,
@@ -223,7 +241,13 @@
         "sim_gain_pct": 100.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %3.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\n⚠️VWAP↓  <b>#NEE</b>  $91.98\n🔮 Rejim: <b>⚡ KIRILIM REJİMİ</b>  |  Giriş: <b>🌟 GOLDEN CROSS — TREND DOĞUMU</b>\n📐 EM: ±$9.39 (üst ≤$101.37)  |  60g Zirve: $95.03\n📊 IV: <b>38%</b>  IV Rank: <b>38</b>  🔴 PAHALI  |  Max Pain: $90.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>+6.6pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %3.3 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$95.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$2.29</b>  Spread: 5.9%  |  Δ: <b>0.423</b>  Γ: 0.04318\n   📊 OI: 9,896.0  Vol: 118.0  Vol/OI: 0.01x\n   💰 Kontrat: <b>$236</b>  Başabaş: $97.36\n   🎯 BOGA AI PRICE TARGET: $3.21  |  RISK LIMIT: $1.72  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %1.5 prim/gün  |  Θ/Δ Kalite: 12.25"
     },
     {
       "rank": 5,
@@ -276,7 +300,13 @@
         "sim_gain_pct": 79.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "😐 NÖTR",
+      "upside_label": "📈 %9.3 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\nGOOD  <b>#TFC</b>  $50.57\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌟 GOLDEN CROSS — TREND DOĞUMU</b>\n📐 EM: ±$5.30 (üst ≤$55.87)  |  60g Zirve: $55.25\n📊 IV: <b>29%</b>  IV Rank: <b>29</b>  🟡 NORMAL  |  Max Pain: $50.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>-1.8pp</b>  😐 NÖTR  |  Upside: <b>📈 %9.3 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$50.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$2.33</b>  Spread: 6.2%  |  Δ: <b>0.594</b>  Γ: 0.07314\n   📊 OI: 2,759.0  Vol: 61.0  Vol/OI: 0.02x\n   💰 Kontrat: <b>$240</b>  Başabaş: $52.40\n   🎯 BOGA AI PRICE TARGET: $3.25  |  RISK LIMIT: $1.74  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 28.44"
     },
     {
       "rank": 6,
@@ -329,7 +359,13 @@
         "sim_gain_pct": 157.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %7.1 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\n⚠️VWAP↓  <b>#EPD</b>  $36.67\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌟 GOLDEN CROSS — TREND DOĞUMU</b>\n📐 EM: ±$2.51 (üst ≤$39.18)  |  60g Zirve: $39.28\n📊 IV: <b>28%</b>  IV Rank: <b>28</b>  🟡 NORMAL  |  Max Pain: $36.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>+9.2pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %7.1 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$37.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$0.82</b>  Spread: 7.1%  |  Δ: <b>0.509</b>  Γ: 0.15878\n   📊 OI: 4,370.0  Vol: 117.0  Vol/OI: 0.03x\n   💰 Kontrat: <b>$85</b>  Başabaş: $37.85\n   🎯 BOGA AI PRICE TARGET: $1.15  |  RISK LIMIT: $0.61  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %1.3 prim/gün  |  Θ/Δ Kalite: 47.17"
     },
     {
       "rank": 7,
@@ -382,7 +418,13 @@
         "sim_gain_pct": 25.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %16.7 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\n⚠️VWAP↓  <b>#RIG</b>  $5.94\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>🌱 TREND BAŞLANGICI</b>\n📐 EM: ±$1.26 (üst ≤$7.20)  |  60g Zirve: $6.93\n📊 IV: <b>26%</b>  IV Rank: <b>26</b>  🟡 NORMAL  |  Max Pain: $6.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>+24.4pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %16.7 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$6.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$0.47</b>  Spread: 13.7%  |  Δ: <b>0.539</b>  Γ: 0.31496\n   📊 OI: 571.0  Vol: 306.0  Vol/OI: 0.54x\n   💰 Kontrat: <b>$51</b>  Başabaş: $6.51\n   🎯 BOGA AI PRICE TARGET: $0.66  |  RISK LIMIT: $0.36  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 119.73"
     },
     {
       "rank": 8,
@@ -435,7 +477,13 @@
         "sim_gain_pct": 1.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "😟 ZAYIF",
+      "upside_label": "📈 %28.4 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\nGOOD  <b>#GLXY</b>  $25.84\n🔮 Rejim: <b>⚡ KIRILIM REJİMİ</b>  |  Giriş: <b>⚡ EMA200 KIRILIM — ALTIN SİNYAL</b>\n📐 EM: ±$11.61 (üst ≤$37.45)  |  60g Zirve: $33.18\n📊 IV: <b>39%</b>  IV Rank: <b>39</b>  🔴 PAHALI  |  Max Pain: $25.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-07-17</b> (89 gün)\n📈 RS vs SPY: <b>-24.3pp</b>  😟 ZAYIF  |  Upside: <b>📈 %28.4 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$30.0 CALL</b>  (2026-07-17)\n   💸 Prim: <b>$3.07</b>  Spread: 8.1%  |  Δ: <b>0.464</b>  Γ: 0.03483\n   📊 OI: 730.0  Vol: 29.0  Vol/OI: 0.04x\n   💰 Kontrat: <b>$320</b>  Başabaş: $33.20\n   🎯 BOGA AI PRICE TARGET: $4.3  |  RISK LIMIT: $2.3  |  Time Limit 31 gün kala\n   ⏱ Günlük Theta Erimesi: %0.9 prim/gün  |  Θ/Δ Kalite: 17.39"
     },
     {
       "rank": 9,
@@ -488,7 +536,13 @@
         "sim_gain_pct": 96.0
       },
       "asymmetric": null,
-      "date": "2026-04-19"
+      "date": "2026-04-19",
+      "iv_vs_hv_label": "🟡 FAIR",
+      "rs_vs_spy_label": "💪 PAZAR LİDERİ",
+      "upside_label": "📈 %6.4 YUKARISI",
+      "higher_highs": false,
+      "volume_spike": false,
+      "ai_analysis_text": "\n═══════════════════════════════════════════════════════\n⚠️VWAP↓  <b>#KMI</b>  $32.02\n🔮 Rejim: <b>📈 TREND REJİMİ</b>  |  Giriş: <b>📉→📈 EMA50 SEKMESI</b>\n📐 EM: ±$2.99 (üst ≤$35.01)  |  60g Zirve: $34.07\n📊 IV: <b>35%</b>  IV Rank: <b>35</b>  🟡 NORMAL  |  Max Pain: $32.00\nIV/HV Ratio: 1.00x  🟡 FAIR\n📅 Vade: <b>2026-06-18</b> (60 gün)\n📈 RS vs SPY: <b>+9.2pp</b>  💪 PAZAR LİDERİ  |  Upside: <b>📈 %6.4 YUKARISI</b>\n📊 Higher Highs: <b>⚠️ YOK</b>  |  Hacim Spike: <b>📉 sessiz</b>\n\n🛡️ <b>KURUMSAL SIĞINAK</b>  (Delta rejim: —)\n   🎯 <b>$32.0 CALL</b>  (2026-06-18)\n   💸 Prim: <b>$1.19</b>  Spread: 2.5%  |  Δ: <b>0.556</b>  Γ: 0.13228\n   📊 OI: 5,245.0  Vol: 428.0  Vol/OI: 0.08x\n   💰 Kontrat: <b>$120</b>  Başabaş: $33.20\n   🎯 BOGA AI PRICE TARGET: $1.66  |  RISK LIMIT: $0.89  |  Time Limit 21 gün kala\n   ⏱ Günlük Theta Erimesi: %1.0 prim/gün  |  Θ/Δ Kalite: 45.98"
     }
   ]
 }

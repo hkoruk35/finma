@@ -394,12 +394,12 @@ export default async function OptionsPage() {
                   <tr className="text-[10px] text-[#00d2ff] uppercase tracking-wider border-b border-white/5">
                     <th className="px-4 py-2 text-left">Date</th>
                     <th className="px-4 py-2 text-left">Ticker</th>
-                    <th className="px-4 py-2 text-left">Contract</th>
+                    <th className="px-4 py-2 text-left">Strike / Contract</th>
                     <th className="px-4 py-2 text-right">Price</th>
                     <th className="px-4 py-2 text-right">Score</th>
-                    <th className="px-4 py-2 text-left">Mode</th>
-                    <th className="px-4 py-2 text-left">🛡️ Institutional</th>
-                    <th className="px-4 py-2 text-left">🚀 Asymmetric</th>
+                    <th className="px-4 py-2 text-left">Signal</th>
+                    <th className="px-4 py-2 text-right">🛡️ Inst.</th>
+                    <th className="px-4 py-2 text-right">🚀 Asym.</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -410,6 +410,10 @@ export default async function OptionsPage() {
                     const asym = pick.asymmetric;
                     const isLatest = pick.date === latestData?.date;
                     
+                    const strike = inst?.strike || asym?.strike || "—";
+                    const exp = pick.exp_date || inst?.expiration || asym?.expiration || "";
+                    const dte = pick.dte || inst?.dte || asym?.dte || "";
+
                     return (
                       <tr key={`${pick.date}-${pick.ticker}`} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${isLatest ? "bg-[#3b82f6]/5" : ""}`}>
                         <td className="px-4 py-2.5 font-mono text-[#00d2ff] text-[10px] uppercase">{pick.date?.substring(5)}</td>
@@ -418,8 +422,14 @@ export default async function OptionsPage() {
                             {pick.ticker}
                           </a>
                         </td>
-                        <td className="px-4 py-2.5 text-xs text-[#00d2ff] font-mono whitespace-nowrap">
-                          {pick.exp_date ? `${pick.exp_date.substring(5)} (${pick.dte}d)` : "—"}
+                        <td className="px-4 py-2.5 text-xs font-mono">
+                          <div className="flex flex-col">
+                            <span className="text-[#34d399] font-bold">${strike}C</span>
+                            <span className="text-[#00d2ff] text-[10px]">
+                              {exp ? exp.substring(5) : "—"} 
+                              {dte && <span className="text-[8px] opacity-60 ml-1">({dte}d)</span>}
+                            </span>
+                          </div>
                         </td>
                         <td className="px-4 py-2.5 text-right font-mono text-white">${pick.current_price.toFixed(2)}</td>
                         <td className="px-4 py-2.5 text-right">
@@ -430,11 +440,11 @@ export default async function OptionsPage() {
                           }`}>{pick.score.toFixed(1)}</span>
                         </td>
                         <td className="px-4 py-2.5 text-xs text-white">{modeIcon} {modeLabel}</td>
-                        <td className="px-4 py-2.5 text-xs font-mono">
-                          {inst ? <span className="text-[#60a5fa]">${inst.strike?.toFixed(0)}C · ${inst.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
+                        <td className="px-4 py-2.5 text-right font-mono text-[10px]">
+                          {inst ? <span className="text-[#60a5fa]">${inst.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
                         </td>
-                        <td className="px-4 py-2.5 text-xs font-mono">
-                          {asym ? <span className="text-[#a78bfa]">${asym.strike?.toFixed(0)}C · ${asym.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
+                        <td className="px-4 py-2.5 text-right font-mono text-[10px]">
+                          {asym ? <span className="text-[#a78bfa]">${asym.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
                         </td>
                       </tr>
                     );
