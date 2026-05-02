@@ -1,88 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
-import { User } from "@supabase/supabase-js";
-import { useSmartTracker } from "@/components/SmartTrackerContext";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [catOpen, setCatOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const { activeTracker } = useSmartTracker();
-  const trackerCount = activeTracker?.positions.filter(p => p.status !== "closed").length ?? 0;
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      
-      // Process pending membership notification
-      if (currentUser) {
-        const pendingPlan = localStorage.getItem('pending_membership_notify');
-        if (pendingPlan) {
-          fetch('/api/membership/notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              event: pendingPlan === 'pro' ? 'pro_join' : 'free_join',
-              details: { email: currentUser.email || "Unknown User" } 
-            }),
-          }).catch(console.error);
-          localStorage.removeItem('pending_membership_notify');
-        }
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-
-      // Handle login events specifically
-      if (event === 'SIGNED_IN' && currentUser) {
-        const pendingPlan = localStorage.getItem('pending_membership_notify');
-        if (pendingPlan) {
-          fetch('/api/membership/notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              event: pendingPlan === 'pro' ? 'pro_join' : 'free_join',
-              details: { email: currentUser.email || "Unknown User" } 
-            }),
-          }).catch(console.error);
-          localStorage.removeItem('pending_membership_notify');
-        }
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const categories = [
-    { name: "Breakout", href: "/category/breakout" },
-    { name: "Undervalued", href: "/category/undervalued" },
-    { name: "Momentum", href: "/category/momentum" },
-    { name: "Reversal", href: "/category/reversal" },
-    { name: "Passive Income", href: "/category/passive-income" },
-  ];
-
-  const NavLink = ({ href, children, isMemberOnly = false, className = "" }: any) => (
-    <Link 
-      href={href} 
-      className={`flex items-center gap-1 ${className}`}
-      onClick={() => setIsOpen(false)}
-    >
-      {children}
-    </Link>
-  );
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    window.location.reload();
-  };
-
   return (
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -113,110 +34,13 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden xl:flex items-center gap-8">
-          <NavLink href="/swing-picks" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Top Swing Picks</NavLink>
-          <NavLink href="/swing-performance" className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Performance</NavLink>
-          <NavLink href="/academy" className="text-xs font-black uppercase tracking-widest text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</NavLink>
-          <NavLink href="/archive" isMemberOnly className="text-xs font-black uppercase tracking-widest text-white hover:text-white transition-colors">Archive</NavLink>
-          <NavLink href="/pro" className="text-xs font-black uppercase tracking-widest text-white hover:text-[#3b82f6] transition-colors">PRO</NavLink>
-          <NavLink href="/terminal" className="text-xs font-black uppercase tracking-widest text-white hover:text-[#3b82f6] transition-colors">Terminal</NavLink>
-          <Link
-            href="/smart-tracker"
-            onClick={() => setIsOpen(false)}
-            className="relative flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#10b981] hover:text-white transition-colors"
-          >
-            🚀 Smart Tracker
-            {trackerCount > 0 && (
-              <span className="absolute -top-2 -right-3 w-4 h-4 bg-[#10b981] text-white text-[8px] font-black rounded-full flex items-center justify-center">
-                {trackerCount}
-              </span>
-            )}
-          </Link>
-        </nav>
-
-        {/* Auth + Toggle */}
-        <div className="flex items-center gap-3">
-          {!user ? (
-            <div className="flex items-center gap-2 md:gap-4">
-              <Link
-                href="/login"
-                className="text-[10px] md:text-xs font-black uppercase tracking-widest text-[#00d2ff] hover:text-white transition-colors"
-              >
-                7 Days Free Trial
-              </Link>
-              <Link
-                href="/login"
-                className="hidden md:block text-[10px] md:text-xs font-black uppercase tracking-widest bg-[#3b82f6] text-white px-5 py-2 rounded-xl hover:bg-[#2563eb] transition-all shadow-lg shadow-blue-500/20"
-              >
-                Login
-              </Link>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4">
-              <Link href="/watchlist" className="flex items-center gap-2 group">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] flex items-center justify-center text-[10px] font-black text-white shadow-lg">
-                  {user.email?.[0].toUpperCase()}
-                </div>
-                <span className="hidden md:block text-[10px] font-black text-white group-hover:text-white uppercase tracking-widest">Watchlist</span>
-              </Link>
-              <button
-                onClick={handleSignOut}
-                className="text-[10px] font-black uppercase tracking-widest text-[#ef4444] hover:text-red-400 transition-colors border border-red-500/20 px-3 py-1.5 rounded-lg"
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
-
-          <button 
-            onClick={() => setIsOpen(!isOpen)}
-            className="xl:hidden p-2 text-white hover:text-white transition-colors bg-[#141924] rounded-lg border border-[#1e2a3a]"
-          >
-            {isOpen ? (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            )}
-          </button>
+        {/* Development Status Badge */}
+        <div className="hidden md:flex items-center gap-3">
+          <span className="text-[10px] font-black uppercase tracking-widest text-[#64748b] border border-[#1e2a3a] px-3 py-1.5 rounded-lg bg-[#0d1117]">
+             DEVELOPMENT PHASE
+          </span>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="xl:hidden bg-[#0d1117] border-b border-[#1e2a3a] px-4 py-8 animate-in slide-in-from-top duration-300 max-h-[80vh] overflow-y-auto">
-          <nav className="flex flex-col gap-6">
-            <NavLink href="/swing-picks" className="text-base font-black uppercase tracking-widest text-white">Top Swing Picks</NavLink>
-            <NavLink href="/swing-performance" className="text-base font-black uppercase tracking-widest text-white">Performance</NavLink>
-            <NavLink href="/academy" className="text-base font-black uppercase tracking-widest text-[#3b82f6]">🎓 Academy</NavLink>
-            <NavLink href="/archive" isMemberOnly className="text-base font-black uppercase tracking-widest text-white">Archive</NavLink>
-            <NavLink href="/pro" className="text-base font-black uppercase tracking-widest text-white">PRO</NavLink>
-            <NavLink href="/terminal" className="text-base font-black uppercase tracking-widest text-white">Terminal</NavLink>
-            <Link
-              href="/smart-tracker"
-              onClick={() => setIsOpen(false)}
-              className="relative flex items-center gap-2 text-base font-black uppercase tracking-widest text-[#10b981]"
-            >
-              🚀 Smart Tracker
-              {trackerCount > 0 && (
-                <span className="w-5 h-5 bg-[#10b981] text-white text-[9px] font-black rounded-full flex items-center justify-center">
-                  {trackerCount}
-                </span>
-              )}
-            </Link>
-            
-            {!user && (
-              <Link href="/login" onClick={() => setIsOpen(false)} className="mt-4 w-full py-4 bg-[#3b82f6] text-white text-center rounded-2xl font-black uppercase tracking-widest shadow-2xl shadow-blue-500/40">
-                Sign In
-              </Link>
-            )}
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

@@ -140,7 +140,6 @@ export default function RootLayout({
         <SmartTrackerProvider>
           <PWAInstaller />
           {children}
-          <BottomNav />
         </SmartTrackerProvider>
       </body>
     </html>

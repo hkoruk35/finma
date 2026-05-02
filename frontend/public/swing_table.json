@@ -1,42 +1,42 @@
 [
   {
-    "Date": "1 May",
-    "Symbol": "CARR",
+    "Date": "2 May",
+    "Symbol": "BTSG",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 74.61,
-    "Target 2 (TP2)": 76.31
+    "Target 1 (TP1)": 56.68,
+    "Target 2 (TP2)": 57.5
   },
   {
-    "Date": "1 May",
-    "Symbol": "VIAV",
+    "Date": "2 May",
+    "Symbol": "DTM",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 63.65,
-    "Target 2 (TP2)": 65.32
+    "Target 1 (TP1)": 158.97,
+    "Target 2 (TP2)": 161.74
   },
   {
-    "Date": "1 May",
-    "Symbol": "PFS",
+    "Date": "2 May",
+    "Symbol": "HR",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 23.65,
-    "Target 2 (TP2)": 23.87
+    "Target 1 (TP1)": 20.24,
+    "Target 2 (TP2)": 20.47
   },
   {
-    "Date": "1 May",
-    "Symbol": "QCOM",
+    "Date": "2 May",
+    "Symbol": "PENG",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 191.11,
-    "Target 2 (TP2)": 193.94
+    "Target 1 (TP1)": 34.23,
+    "Target 2 (TP2)": 34.83
   },
   {
-    "Date": "1 May",
-    "Symbol": "SIMO",
+    "Date": "2 May",
+    "Symbol": "GTX",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 259.32,
-    "Target 2 (TP2)": 266.08
+    "Target 1 (TP1)": 27.8,
+    "Target 2 (TP2)": 28.17
   }
 ]
