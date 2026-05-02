@@ -350,5 +350,3 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
     </div>
   );
 }
- );
-}
