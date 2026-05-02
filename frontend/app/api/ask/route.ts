@@ -221,6 +221,7 @@ async function handleClaude(message: string, history: Message[]) {
 async function handleGemini(message: string, history: Message[]) {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return NextResponse.json({ text: "BOGA AI servisine şu an ulaşılamıyor." });
+  
   try {
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
@@ -230,25 +231,53 @@ async function handleGemini(message: string, history: Message[]) {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: [
-            ...history.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.text }] })),
+            ...history.map((m) => ({ 
+              role: m.role === "assistant" ? "model" : "user", 
+              parts: [{ text: m.text }] 
+            })),
             { role: "user", parts: [{ text: message }] },
           ],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 2000 },
+          generationConfig: { 
+            temperature: 0.7, 
+            maxOutputTokens: 2048 
+          },
+          safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+          ]
         }),
       }
     );
+
     const data = await res.json();
+    
+    // Check for safety blocks or other issues
+    if (data.promptFeedback?.blockReason) {
+      return NextResponse.json({ 
+        text: `Üzgünüm, bu analiz talebi güvenlik filtrelerine takıldı (${data.promptFeedback.blockReason}). Lütfen sorunuzu farklı bir şekilde sormayı deneyin.`,
+        source: "gemini" 
+      });
+    }
+
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
     
     if (!text) {
-      console.error("[gemini] empty response:", data);
-      return NextResponse.json({ text: "Analiz sonuçları alınamadı. Lütfen tekrar deneyin." });
+      console.error("[gemini] No text in response:", JSON.stringify(data));
+      return NextResponse.json({ 
+        text: "Analiz sonuçları şu an üretilemedi. Lütfen kısa bir süre sonra tekrar deneyin veya farklı bir hisse sorun.",
+        source: "gemini"
+      });
     }
     
     return NextResponse.json({ text, source: "gemini", followUp: [] });
   } catch (e) {
-    console.error("[gemini] error:", e);
-    return NextResponse.json({ text: "Piyasa verileri okunurken bir hata oluştu." });
+    console.error("[gemini] fetch error:", e);
+    return NextResponse.json({ 
+      text: "Piyasa verileri okunurken teknik bir hata oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      source: "gemini"
+    });
   }
 }
 
