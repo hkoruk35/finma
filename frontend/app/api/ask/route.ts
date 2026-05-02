@@ -110,13 +110,24 @@ interface Message {
 
 const getLatestSwingPicks = () => {
   try {
-    const dataDir = path.join(process.cwd(), "frontend/public/data/swing2026");
-    if (!fs.existsSync(dataDir)) return null;
-    const files = fs.readdirSync(dataDir).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
-    if (files.length === 0) return null;
-    files.sort((a, b) => b.localeCompare(a)); // Newest first
-    const latestFile = path.join(dataDir, files[0]);
-    return JSON.parse(fs.readFileSync(latestFile, "utf-8"));
+    // Try multiple possible paths for Vercel vs Local
+    const paths = [
+      path.join(process.cwd(), "public/data/swing2026"),
+      path.join(process.cwd(), "frontend/public/data/swing2026"),
+      path.join(process.cwd(), "../public/data/swing2026"),
+    ];
+
+    for (const dataDir of paths) {
+      if (fs.existsSync(dataDir)) {
+        const files = fs.readdirSync(dataDir).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
+        if (files.length > 0) {
+          files.sort((a, b) => b.localeCompare(a)); // Newest first
+          const latestFile = path.join(dataDir, files[0]);
+          return JSON.parse(fs.readFileSync(latestFile, "utf-8"));
+        }
+      }
+    }
+    return null;
   } catch (e) {
     console.error("Error reading swing picks:", e);
     return null;
@@ -153,10 +164,10 @@ export async function POST(req: NextRequest) {
     if (cleanMsg === "/top5") {
       const picksData = getLatestSwingPicks();
       if (!picksData || !picksData.picks) {
-        return NextResponse.json({ text: "Güncel TOP5 verisi bulunamadı." });
+        return NextResponse.json({ text: "Güncel TOP5 verisi bulunamadı. Lütfen daha sonra tekrar deneyiniz." });
       }
       const top5 = picksData.picks.slice(0, 5);
-      const prompt = `Aşağıdaki TOP5 hisse seçimlerini analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında, her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Türkçe olsun.`;
+      const prompt = `Lütfen şu TOP5 hisse seçimlerini detaylıca analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında olmalı. Her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Tamamen Türkçe yanıt ver.`;
       return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     }
 
@@ -170,47 +181,49 @@ export async function POST(req: NextRequest) {
 
     // Default Routing
     if (useClaude) {
-      const res = await handleClaude(cleanMsg, history);
-      if (res) return res;
+      return await handleClaude(cleanMsg, history);
     }
 
     return await handleGemini(cleanMsg, history);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({
-      text: "Sistemlerimiz şu an meşgul. Lütfen biraz sonra tekrar deneyin.",
+      text: "Sistem şu an analiz yapamıyor. Lütfen kısa bir süre sonra tekrar deneyin.",
     });
   }
 }
 
 async function handleClaude(message: string, history: Message[]) {
   if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ text: "Claude API anahtarı bulunamadı.", source: "claude" });
+    return NextResponse.json({ text: "Claude servisi şu an devre dışı (API anahtarı eksik). Lütfen normal aramaya devam edin.", source: "claude" });
   }
   try {
     const response = await anthropic.messages.create({
       model: "claude-3-5-sonnet-20240620",
-      max_tokens: 1500,
+      max_tokens: 2000,
       system: SYSTEM_PROMPT,
       messages: [
         ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.text })),
         { role: "user", content: message },
       ],
     });
-    const text = response.content[0].type === "text" ? response.content[0].text : "Yanıt üretilemedi.";
+    const text = response.content[0].type === "text" ? response.content[0].text : "";
+    if (!text) throw new Error("Empty response from Claude");
+    
     return NextResponse.json({ text, source: "claude", followUp: [] });
   } catch (e) {
     console.error("[claude] error:", e);
-    return NextResponse.json({ text: "Claude servisi şu an kullanılamıyor.", source: "claude" });
+    // Fallback to Gemini if Claude fails and it's not a special command (handled in POST)
+    return await handleGemini(message, history);
   }
 }
 
 async function handleGemini(message: string, history: Message[]) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return NextResponse.json({ text: "Servis kullanılamıyor." });
+  if (!apiKey) return NextResponse.json({ text: "BOGA AI servisine şu an ulaşılamıyor." });
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -220,16 +233,22 @@ async function handleGemini(message: string, history: Message[]) {
             ...history.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.text }] })),
             { role: "user", parts: [{ text: message }] },
           ],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 1500 },
+          generationConfig: { temperature: 0.7, maxOutputTokens: 2000 },
         }),
       }
     );
     const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Yanıt üretilemedi.";
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+    
+    if (!text) {
+      console.error("[gemini] empty response:", data);
+      return NextResponse.json({ text: "Analiz sonuçları alınamadı. Lütfen tekrar deneyin." });
+    }
+    
     return NextResponse.json({ text, source: "gemini", followUp: [] });
   } catch (e) {
     console.error("[gemini] error:", e);
-    return NextResponse.json({ text: "Servis kullanılamıyor." });
+    return NextResponse.json({ text: "Piyasa verileri okunurken bir hata oluştu." });
   }
 }
 
