@@ -184,7 +184,9 @@ export async function POST(req: NextRequest) {
 }
 
 async function handleClaude(message: string, history: Message[]) {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json({ text: "Claude API anahtarı bulunamadı.", source: "claude" });
+  }
   try {
     const response = await anthropic.messages.create({
       model: "claude-3-5-sonnet-20240620",
@@ -199,7 +201,7 @@ async function handleClaude(message: string, history: Message[]) {
     return NextResponse.json({ text, source: "claude", followUp: [] });
   } catch (e) {
     console.error("[claude] error:", e);
-    return null;
+    return NextResponse.json({ text: "Claude servisi şu an kullanılamıyor.", source: "claude" });
   }
 }
 
