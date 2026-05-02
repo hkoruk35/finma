@@ -1,42 +1,82 @@
 [
   {
     "Date": "2 May",
-    "Symbol": "BTSG",
+    "Symbol": "ETSY",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 56.68,
-    "Target 2 (TP2)": 57.5
+    "Target 1 (TP1)": 67.93,
+    "Target 2 (TP2)": 68.91
   },
   {
     "Date": "2 May",
-    "Symbol": "DTM",
+    "Symbol": "CSTM",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 158.97,
-    "Target 2 (TP2)": 161.74
+    "Target 1 (TP1)": 34.18,
+    "Target 2 (TP2)": 34.62
   },
   {
     "Date": "2 May",
     "Symbol": "HR",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 20.24,
-    "Target 2 (TP2)": 20.47
+    "Target 1 (TP1)": 19.99,
+    "Target 2 (TP2)": 20.17
   },
   {
     "Date": "2 May",
-    "Symbol": "PENG",
+    "Symbol": "VISN",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 34.23,
-    "Target 2 (TP2)": 34.83
+    "Target 1 (TP1)": 13.21,
+    "Target 2 (TP2)": 13.55
+  },
+  {
+    "Date": "2 May",
+    "Symbol": "EXTR",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 23.85,
+    "Target 2 (TP2)": 24.17
+  },
+  {
+    "Date": "2 May",
+    "Symbol": "DTM",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 155.84,
+    "Target 2 (TP2)": 158.05
   },
   {
     "Date": "2 May",
     "Symbol": "GTX",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 27.8,
-    "Target 2 (TP2)": 28.17
+    "Target 1 (TP1)": 27.39,
+    "Target 2 (TP2)": 27.68
+  },
+  {
+    "Date": "2 May",
+    "Symbol": "CSIQ",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 18.75,
+    "Target 2 (TP2)": 19.23
+  },
+  {
+    "Date": "2 May",
+    "Symbol": "BEN",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 31.18,
+    "Target 2 (TP2)": 31.45
+  },
+  {
+    "Date": "2 May",
+    "Symbol": "PENG",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 33.56,
+    "Target 2 (TP2)": 34.04
   }
 ]

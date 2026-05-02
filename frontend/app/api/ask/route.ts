@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import fs from "fs";
+import path from "path";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -24,12 +26,64 @@ const OUT_OF_SCOPE_KEYWORDS = [
   "sports", "football", "basketball", "tennis", "weather", "history", "biology",
 ];
 
-const isFinancialQuestion = (text: string): boolean => {
-  const lower = text.toLowerCase();
-  const financialMatch = FINANCIAL_KEYWORDS.some((kw) => lower.includes(kw));
-  const outOfScopeMatch = OUT_OF_SCOPE_KEYWORDS.some((kw) => lower.includes(kw));
-  return financialMatch && !outOfScopeMatch;
-};
+const MAGNIFICENT_7_PROMPT = `
+Sen bir finansal piyasa analiz asistanısın.
+Aşağıdaki Magnificent 7 hisselerini analiz et:
+AAPL (Apple), NVDA (Nvidia), MSFT (Microsoft), AMZN (Amazon), GOOGL (Alphabet), META (Meta Platforms), TSLA (Tesla)
+
+Her hisse için Yahoo Finance üzerinden aşağıdaki verileri sorgula ve raporla (gerçek zamanlı verileri simüle et veya bildiğin en güncel veriyi kullan):
+
+📊 VERİ NOKTALARI
+- Anlık fiyat ve günlük değişim (% ve $)
+- Günlük işlem hacmi ve 10 günlük ortalama hacme oranı (RVOL)
+- 52 hafta yüksek/düşük ve mevcut fiyatın bu aralıktaki konumu
+- Bugünkü en önemli 2-3 haber başlığı ve kısa özeti
+
+📋 HER HİSSE İÇİN FORMAT
+### [TICKER] — [Şirket]
+💰 Fiyat     : $X.XX  (%X.X bugün)
+📦 Hacim     : X.XM  (RVOL: X.Xx)
+📍 52H Konum : $XX (düşük) — ► şu an — $XX (yüksek)
+📰 Haberler  :
+   • [Başlık] — [1 cümle özet, sentiment: 🟢/🟡/🔴]
+   • [Başlık] — [1 cümle özet, sentiment: 🟢/🟡/🔴]
+⚡ Genel Durum: [Güçlü / Nötr / Zayıf] — [1 cümle gerekçe]
+
+📊 ÖZET TABLO (en sona)
+| Ticker | Fiyat | Değişim | RVOL | 52H Konum | Durum  |
+|--------|-------|---------|------|-----------|--------|
+...
+Tabloyu günlük değişime göre büyükten küçüğe sırala.
+
+⚠️ KURALLAR
+- Yanıt Türkçe olsun.
+- Sadece bugünün verilerini kullan, tahmin yapma.
+- Alım/satım tavsiyesi verme.
+- Veri eksikse "N/A" yaz.
+`;
+
+const SECTOR_ANALYSIS_PROMPT = `
+Sen bir finansal piyasa analiz asistanısın.
+ABD borsasının tüm ana sektörlerini bugünkü verilerle analiz et.
+Her sektörü temsil eden SPDR ETF'leri baz al:
+XLK (Teknoloji), XLY (Tüketici Döngüsel), XLF (Finans), XLV (Sağlık), XLI (Sanayi), XLC (İletişim), XLB (Hammadde), XLRE (Gayrimenkul), XLP (Savunmacı Tüketici), XLU (Kamu Hizmetleri), XLE (Enerji)
+
+📋 HER SEKTÖR İÇİN FORMAT
+### [ETF] — [Sektör Adı]
+💰 Fiyat      : $X.XX  (Günlük: %X.X | Haftalık: %X.X | Aylık: %X.X)
+📦 RVOL       : X.Xx  (Hacim ivmesi: Güçlü / Normal / Zayıf)
+📍 52H Konum  : %XX (0=dip, 100=zirve)
+📰 Katalizör  : [Sektörü bugün etkileyen en önemli gelişme — 1-2 cümle]
+🏷️ Rejim      : [🔥 Lider / 📈 Güçlü / ➖ Nötr / 📉 Zayıf / 🥶 Kaçınılan]
+
+📊 SEKTÖR ROTASYON HARİTASI (en sona)
+1) PERFORMANS SIRALAMASI — Günlük değişime göre tablo (Ticker, Sektör, Günlük, Haftalık, Aylık, RVOL, Rejim)
+2) PARA AKIŞI YORUMU — 3-4 cümle (Para nereye akıyor? Satış baskısı nerede? Risk iştahı nasıl?)
+
+⚠️ KURALLAR
+- Yanıt Türkçe olsun.
+- Alım/satım tavsiyesi verme.
+`;
 
 const SYSTEM_PROMPT = `You are BOGA AI, financial analyst for global markets.
 
@@ -41,223 +95,143 @@ IMPORTANT - DO NOT MENTION:
 - Any AI model names or source attribution
 
 GUIDELINES:
-1. Answer in user's language (Turkish/English)
+1. Answer in user's language (Default: Turkish)
 2. Be concise, data-driven, professional
 3. Use bullet points
-4. Provide analysis directly without mentioning data sources or training cutoff dates
+4. Provide analysis directly
 5. Be specific about technical levels and indicators
 
-For out-of-scope questions, politely redirect (in user's language):
-- Turkish: "Üzgünüm, bu konu BOGA AI'ın uzmanlık alanı dışında. Ben finansal piyasalar, hisse senetleri ve teknik analiz konularında uzmanlaşmışım."
-- English: "I specialize in financial markets and technical analysis. Please ask about stocks, trading, commodities, or economics."`;
+For out-of-scope questions, politely redirect in user's language.`;
 
 interface Message {
   role: "user" | "assistant";
   text: string;
 }
 
-interface AskResponse {
-  text: string;
-  source: "gemini";
-  followUp: string[];
-}
-
-// Check if message is instant stock analysis (clear ticker + technical terms)
-const isInstantStockAnalysis = (text: string): boolean => {
-  const lower = text.toLowerCase();
-  // Ticker pattern: 2-5 UPPERCASE letters (strict)
-  const hasStockTicker = /\b[A-Z]{2,5}\b/.test(text);
-  const hasTechnical = [
-    "ema", "rsi", "macd", "technical", "analiz", "analisis",
-    "chart", "candlestick", "support", "resistance", "trend",
-    "destek", "direnç", "trende", "teknik", "gösterge",
-  ].some(kw => lower.includes(kw));
-
-  return hasStockTicker && hasTechnical;
+const getLatestSwingPicks = () => {
+  try {
+    const dataDir = path.join(process.cwd(), "frontend/public/data/swing2026");
+    if (!fs.existsSync(dataDir)) return null;
+    const files = fs.readdirSync(dataDir).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
+    if (files.length === 0) return null;
+    files.sort((a, b) => b.localeCompare(a)); // Newest first
+    const latestFile = path.join(dataDir, files[0]);
+    return JSON.parse(fs.readFileSync(latestFile, "utf-8"));
+  } catch (e) {
+    console.error("Error reading swing picks:", e);
+    return null;
+  }
 };
 
 export async function POST(req: NextRequest) {
-  let body: { message: string; history?: Message[] };
+  let body: { message: string; history?: Message[]; lang?: string };
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ text: "Invalid request." });
+    return NextResponse.json({ text: "Geçersiz istek." });
   }
 
-  const { message, history = [] } = body;
+  const { message, history = [], lang = "tr" } = body;
   if (!message?.trim()) {
-    return NextResponse.json({ text: "Please enter a message." });
+    return NextResponse.json({ text: "Lütfen bir mesaj girin." });
   }
+
+  const lowerMsg = message.toLowerCase();
+  const useClaude = lowerMsg.includes("claude");
+  const cleanMsg = message.replace(/claude/gi, "").trim();
 
   try {
     const hasOutOfScope = OUT_OF_SCOPE_KEYWORDS.some((kw) =>
-      message.toLowerCase().includes(kw)
+      lowerMsg.includes(kw)
     );
 
     if (hasOutOfScope) {
-      return handleOutOfScope(message);
+      return handleOutOfScope(cleanMsg);
     }
 
-    // Only use Claude for instant stock analysis (ticker + technical analysis)
-    // This saves credits by defaulting to free Gemini tier
-    if (isInstantStockAnalysis(message)) {
-      const claudeRes = await handleClaude(message, history);
-      if (claudeRes) return claudeRes;
+    // Special Command Handling
+    if (cleanMsg === "/top5") {
+      const picksData = getLatestSwingPicks();
+      if (!picksData || !picksData.picks) {
+        return NextResponse.json({ text: "Güncel TOP5 verisi bulunamadı." });
+      }
+      const top5 = picksData.picks.slice(0, 5);
+      const prompt = `Aşağıdaki TOP5 hisse seçimlerini analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında, her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Türkçe olsun.`;
+      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     }
 
-    // Default to Gemini for everything else (cheaper/free)
-    return await handleGemini(message, history);
+    if (cleanMsg === "/swing") {
+      return useClaude ? await handleClaude(MAGNIFICENT_7_PROMPT, history) : await handleGemini(MAGNIFICENT_7_PROMPT, history);
+    }
+
+    if (cleanMsg === "/analiz") {
+      return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history);
+    }
+
+    // Default Routing
+    if (useClaude) {
+      const res = await handleClaude(cleanMsg, history);
+      if (res) return res;
+    }
+
+    return await handleGemini(cleanMsg, history);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({
-      text: "Our systems are temporarily unavailable. Please try again.",
+      text: "Sistemlerimiz şu an meşgul. Lütfen biraz sonra tekrar deneyin.",
     });
   }
 }
 
-async function handleClaude(
-  message: string,
-  history: Message[]
-): Promise<NextResponse | null> {
+async function handleClaude(message: string, history: Message[]) {
   if (!process.env.ANTHROPIC_API_KEY) return null;
-
-  const today = new Date().toISOString().split("T")[0];
-  const contextNote = `
-TODAY'S CONTEXT (${today}):
-- This is current date for market analysis
-- Respond as if you have knowledge of current market conditions
-- Reference real-time technical levels when applicable
-`;
-
-  const claudeSystemPrompt = `You are BOGA AI, expert financial analyst.
-
-Expertise: Global stocks, options, technical analysis (EMA, RSI, MACD), commodities, forex, crypto, economic indicators.
-
-IMPORTANT - DO NOT mention:
-- Claude, Claude AI, Anthropic
-- Gemini, Google AI
-- Any AI model names
-
-Guidelines:
-1. Answer in user's language (Turkish/English)
-2. Be concise, data-driven, professional
-3. Use bullet points for clarity
-4. Reference technical indicators and analysis directly
-5. Provide current market context
-
-${contextNote}`;
-
   try {
-    const messages = [
-      ...history.map((m) => ({
-        role: m.role as "user" | "assistant",
-        content: m.text,
-      })),
-      { role: "user" as const, content: message },
-    ];
-
     const response = await anthropic.messages.create({
-      model: "claude-opus-4-1-20250805",
-      max_tokens: 1024,
-      system: claudeSystemPrompt,
-      messages: messages,
+      model: "claude-3-5-sonnet-20240620",
+      max_tokens: 1500,
+      system: SYSTEM_PROMPT,
+      messages: [
+        ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.text })),
+        { role: "user", content: message },
+      ],
     });
-
-    const text =
-      response.content[0].type === "text"
-        ? response.content[0].text
-        : "Unable to generate response.";
-
-    return NextResponse.json({
-      text,
-      source: "claude",
-      followUp: [],
-    });
-  } catch (e: any) {
-    console.error("[claude] error:", e?.message);
-    return null; // Fallback to Gemini
+    const text = response.content[0].type === "text" ? response.content[0].text : "Yanıt üretilemedi.";
+    return NextResponse.json({ text, source: "claude", followUp: [] });
+  } catch (e) {
+    console.error("[claude] error:", e);
+    return null;
   }
 }
 
-async function handleGemini(
-  message: string,
-  history: Message[]
-): Promise<NextResponse> {
+async function handleGemini(message: string, history: Message[]) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json({
-      text: "Service temporarily unavailable.",
-    });
-  }
-
-  const contents = [
-    ...history.map((m) => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: m.text }],
-    })),
-    { role: "user" as const, parts: [{ text: message }] },
-  ];
-
+  if (!apiKey) return NextResponse.json({ text: "Servis kullanılamıyor." });
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents,
-          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+          contents: [
+            ...history.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.text }] })),
+            { role: "user", parts: [{ text: message }] },
+          ],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1500 },
         }),
-        signal: AbortSignal.timeout(30000),
       }
     );
-
-    if (!res.ok) {
-      console.error(`[gemini] HTTP ${res.status}`);
-      return NextResponse.json({
-        text: "Service temporarily unavailable.",
-      });
-    }
-
     const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-
-    if (!text) {
-      return NextResponse.json({
-        text: "Unable to generate response.",
-      });
-    }
-
-    const followUp = await generateFollowUp(message, text);
-
-    return NextResponse.json({
-      text,
-      source: "gemini",
-      followUp,
-    });
-  } catch (e: any) {
-    console.error("[gemini] error:", e?.message);
-    return NextResponse.json({
-      text: "Service temporarily unavailable.",
-    });
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "Yanıt üretilemedi.";
+    return NextResponse.json({ text, source: "gemini", followUp: [] });
+  } catch (e) {
+    console.error("[gemini] error:", e);
+    return NextResponse.json({ text: "Servis kullanılamıyor." });
   }
 }
 
 function handleOutOfScope(message: string): NextResponse {
-  const isEnglish = /^[a-z\s\d:,.!?-]+$/i.test(message.split(" ")[0]);
-
-  const response = isEnglish
-    ? `I appreciate the question, but that's outside BOGA AI's focus. I specialize in:\n\n• Stock markets & technical analysis\n• Trading strategies & options\n• Commodities & forex\n• Cryptocurrencies\n• Economic indicators\n\nFeel free to ask about financial markets and trading!`
-    : `Bu soru BOGA AI'ın uzmanlık alanı dışında. Ben şu alanlarda uzmanlaşmışım:\n\n• Hisse senedi piyasaları ve teknik analiz\n• Ticaret stratejileri ve opsiyon ticareti\n• Emtialar ve forex\n• Kripto para\n• Ekonomik göstergeler\n\nLütfen finansal piyasalar hakkında soru sorun!`;
-
+  const response = `Bu soru BOGA AI'ın uzmanlık alanı dışında. Ben şu alanlarda uzmanlaşmışım:\n\n• Hisse senedi piyasaları ve teknik analiz\n• Ticaret stratejileri ve opsiyon ticareti\n• Emtialar ve forex\n• Kripto para\n• Ekonomik göstergeler\n\nLütfen finansal piyasalar hakkında soru sorun!`;
   return NextResponse.json({ text: response, source: "gemini", followUp: [] });
-}
-
-async function generateFollowUp(
-  originalQuestion: string,
-  response: string
-): Promise<string[]> {
-  // For now, return empty array - can enhance later with Claude
-  return [];
 }

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import BottomNav from "@/components/BottomNav";
+import BottomNavWrapper from "@/components/BottomNavWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
 import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
@@ -140,6 +140,7 @@ export default function RootLayout({
         <SmartTrackerProvider>
           <PWAInstaller />
           {children}
+          <BottomNavWrapper />
         </SmartTrackerProvider>
       </body>
     </html>

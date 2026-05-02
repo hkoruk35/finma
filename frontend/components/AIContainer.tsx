@@ -17,19 +17,19 @@ interface SearchHistory {
 }
 
 const SLASH_COMMANDS = [
-  { cmd: "/swing", desc: "Swing trade analysis for a ticker", example: "/swing NVDA" },
-  { cmd: "/top5", desc: "What makes a top-5 swing pick", example: "/top5" },
-  { cmd: "/analiz", desc: "Deep-dive technical analysis", example: "/analiz TSLA" },
+  { cmd: "Magnificent 7", desc: "AAPL, NVDA, MSFT, AMZN, GOOGL, META, TSLA Analizi", example: "/swing" },
+  { cmd: "Sector Analysis", desc: "Sektörlerin genel durumu ve para akışı", example: "/analiz" },
+  { cmd: "TOP5", desc: "Günün en iyi 5 swing trade hisse seçimi", example: "/top5" },
 ];
 
 const TRENDING_SEARCHES = [
   "NVDA technical analysis",
   "EMA200 strategy",
-  "/swing META",
+  "Magnificent 7 overview",
   "Gold price analysis",
   "Options Greeks explained",
   "SPY support levels",
-  "Crypto market today",
+  "Sector Rotation today",
 ];
 
 function formatInline(text: string) {
@@ -84,7 +84,7 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "en" }: { lang?: string }) {
+export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -174,7 +174,7 @@ export default function AIContainer({ lang = "en" }: { lang?: string }) {
         ...newMessages,
         {
           role: "assistant",
-          text: "Connection error. Please try again.",
+          text: "Bağlantı hatası. Lütfen tekrar deneyin.",
         },
       ]);
     } finally {
@@ -208,14 +208,14 @@ export default function AIContainer({ lang = "en" }: { lang?: string }) {
           onClick={newSession}
           className="m-4 px-4 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors"
         >
-          + New Session
+          + Yeni Oturum
         </button>
 
-        {searchHistory.length > 0 && (
-          <div className="flex-1 overflow-y-auto px-3">
-            <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-2 mt-2">Recent</div>
-            <div className="space-y-1">
-              {searchHistory.map((item, i) => (
+        <div className="flex-1 overflow-y-auto px-3">
+          <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-2 mt-2">Hisse Senedi</div>
+          <div className="space-y-1">
+            {searchHistory.length > 0 ? (
+              searchHistory.map((item, i) => (
                 <button
                   key={i}
                   onClick={() => send(item.query)}
@@ -223,32 +223,34 @@ export default function AIContainer({ lang = "en" }: { lang?: string }) {
                 >
                   {item.query.slice(0, 30)}
                 </button>
-              ))}
-            </div>
+              ))
+            ) : (
+              <div className="p-2 text-[10px] text-[#475569] italic">Son arama yok</div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <Header />
 
-        <div className="flex-1 flex flex-col min-h-0 max-w-4xl w-full mx-auto px-4 pt-6 pb-4">
-          <div className="mb-5 text-center shrink-0">
+        <div className="flex-1 flex flex-col min-h-0 max-w-4xl w-full mx-auto px-4 pt-4 pb-4">
+          <div className="mb-4 text-center shrink-0">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 mb-1.5">
+              <div className="inline-flex items-center gap-2 mb-1">
                 <BotIcon size="w-8 h-8" />
                 <h1 className="text-2xl font-black tracking-tight text-white">BOGA AI</h1>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/20 px-2 py-0.5 rounded-full tracking-widest">BETA</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/20 px-2 py-0.5 rounded-full">BETA</span>
               </div>
-              <p className="text-[#3b82f6] text-[10px] font-black uppercase tracking-[0.2em] mb-1">Test and development phase</p>
-              <p className="text-[#64748b] text-[10px] font-black uppercase tracking-[0.2em]">Support for over 50 languages</p>
+              <p className="text-[#3b82f6] text-[10px] font-black uppercase tracking-[0.2em] mb-0.5">Test ve Geliştirme Aşaması</p>
+              <p className="text-[#64748b] text-[10px] font-black uppercase tracking-[0.2em]">50'den fazla dil desteği</p>
             </div>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-5 pr-1 pb-2">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-4 pr-1 pb-2 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
             {messages.length === 0 && (
-              <div className="space-y-5">
+              <div className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {SLASH_COMMANDS.map((c) => (
                     <button
@@ -257,37 +259,50 @@ export default function AIContainer({ lang = "en" }: { lang?: string }) {
                       className="text-left p-4 rounded-2xl border border-[#1e2a3a] bg-[#0d1117] hover:border-[#3b82f6]/40 transition-all group"
                     >
                       <div className="text-xs font-black text-[#3b82f6] uppercase tracking-widest mb-1 group-hover:text-[#60a5fa]">{c.cmd}</div>
-                      <div className="text-[11px] text-[#64748b]">{c.desc}</div>
-                      <div className="text-[10px] text-[#475569] mt-2 font-mono">{c.example}</div>
+                      <div className="text-[11px] text-[#64748b] mb-2">{c.desc}</div>
+                      <div className="text-[10px] text-[#475569] font-mono p-1 bg-[#0a0e17] rounded inline-block">{c.example}</div>
                     </button>
                   ))}
                 </div>
-                <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">Trending Now</div>
-                <div className="flex flex-wrap gap-2">
-                  {TRENDING_SEARCHES.map((s) => (
-                    <button
-                      key={s}
-                      onClick={() => send(s)}
-                      className="text-xs px-3 py-1.5 rounded-full border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white transition-all bg-[#0d1117]"
-                    >
-                      {s}
-                    </button>
-                  ))}
+                
+                <div className="space-y-3">
+                  <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">Popüler Aramalar</div>
+                  <div className="flex flex-wrap gap-2">
+                    {TRENDING_SEARCHES.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => send(s)}
+                        className="text-xs px-3 py-1.5 rounded-full border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white transition-all bg-[#0d1117]"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
 
             {messages.map((m, i) => (
-              <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div key={i} className={`flex gap-3 ${m.role === "user" ? "justify-end" : "justify-start animate-fade-in"}`}>
                 {m.role === "assistant" && <BotIcon />}
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
-                  {m.role === "assistant" ? <MarkdownText text={m.text} /> : <p className="text-sm">{m.text}</p>}
+                <div className={`max-w-[90%] md:max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
+                  {m.role === "assistant" ? (
+                    <>
+                      <MarkdownText text={m.text} />
+                      <div className="mt-4 pt-3 border-t border-[#1e2a3a] flex flex-wrap gap-2 text-[9px] text-[#475569] font-black uppercase tracking-widest">
+                        <span>English</span> <span>/</span> <span>Español</span> <span>/</span> <span>Português</span> <span>/</span> 
+                        <span>Français</span> <span>/</span> <span>Русский</span> <span>/</span> <span>العربية</span> <span>+50 dilde destek</span>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-sm">{m.text}</p>
+                  )}
                 </div>
               </div>
             ))}
 
             {loading && (
-              <div className="flex gap-3 justify-start">
+              <div className="flex gap-3 justify-start animate-pulse">
                 <BotIcon />
                 <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3">
                   <div className="flex gap-1.5 items-center h-5">
@@ -301,31 +316,39 @@ export default function AIContainer({ lang = "en" }: { lang?: string }) {
           </div>
 
           <div className="shrink-0 pt-3">
-            <div className="flex gap-2 items-end bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3 focus-within:border-[#3b82f6]/50 transition-colors">
+            <div className="flex gap-2 items-end bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3 focus-within:border-[#3b82f6]/50 transition-all shadow-xl">
               <textarea
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKey}
-                placeholder="Ask about stocks..."
+                placeholder="Hisse senetleri hakkında sor..."
                 rows={1}
-                className="flex-1 bg-transparent text-sm text-white placeholder-[#475569] resize-none outline-none max-h-32"
+                className="flex-1 bg-transparent text-sm text-white placeholder-[#475569] resize-none outline-none max-h-32 min-h-[20px] py-1"
                 disabled={loading}
               />
               <button
                 onClick={() => send()}
                 disabled={!input.trim() || loading}
-                className="w-8 h-8 rounded-xl bg-[#3b82f6] flex items-center justify-center shrink-0"
+                className="w-9 h-9 rounded-xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] flex items-center justify-center shrink-0 transition-all shadow-lg shadow-blue-500/20"
               >
                 <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
-            <p className="text-center text-[10px] text-[#334155] mt-2 italic">Financial markets expert • Always verify before trading</p>
+            
+            <div className="mt-4 pb-2 text-center">
+              <p className="text-[10px] text-[#334155] mb-1 italic">Finansal piyasa analiz asistanı • Alım/satım tavsiyesi değildir</p>
+              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">
+                © 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
+}
+ );
 }
