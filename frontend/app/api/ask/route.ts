@@ -110,14 +110,21 @@ interface Message {
 
 const getLatestSwingPicks = () => {
   try {
-    // Try multiple possible paths for Vercel vs Local
-    const paths = [
-      path.join(process.cwd(), "public/data/swing2026"),
-      path.join(process.cwd(), "frontend/public/data/swing2026"),
-      path.join(process.cwd(), "../public/data/swing2026"),
-    ];
+    const candidates: string[] = [];
+    
+    // 1. process.cwd() based
+    candidates.push(path.join(process.cwd(), "public/data/swing2026"));
+    candidates.push(path.join(process.cwd(), "frontend/public/data/swing2026"));
+    
+    // 2. __dirname based (reliable on Vercel)
+    // frontend/app/api/ask/route.ts -> ../../../../public/data/swing2026
+    const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+    candidates.push(path.join(dirBase, "public", "data", "swing2026"));
+    
+    // 3. One more level up for safety
+    candidates.push(path.join(dirBase, "..", "public", "data", "swing2026"));
 
-    for (const dataDir of paths) {
+    for (const dataDir of candidates) {
       if (fs.existsSync(dataDir)) {
         const files = fs.readdirSync(dataDir).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
         if (files.length > 0) {
@@ -164,10 +171,21 @@ export async function POST(req: NextRequest) {
     if (cleanMsg === "/top5") {
       const picksData = getLatestSwingPicks();
       if (!picksData || !picksData.picks) {
-        return NextResponse.json({ text: "Güncel TOP5 verisi bulunamadı. Lütfen daha sonra tekrar deneyiniz." });
+        return NextResponse.json({ text: "Güncel TOP5 verisi şu an sistemde hazır değil. Lütfen daha sonra tekrar deneyiniz." });
       }
-      const top5 = picksData.picks.slice(0, 5);
-      const prompt = `Lütfen şu TOP5 hisse seçimlerini detaylıca analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında olmalı. Her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Tamamen Türkçe yanıt ver.`;
+      
+      const top5 = picksData.picks.slice(0, 5).map((p: any) => ({
+        ticker: p.ticker,
+        score: p.score,
+        status: p.status,
+        price: p.current_price,
+        entry: `${p.buy_zone?.low} - ${p.buy_zone?.high}`,
+        target: `${p.profit_zone?.low} - ${p.profit_zone?.high}`,
+        stop: `${p.stop_zone?.low} - ${p.stop_zone?.high}`,
+        reason: p.reasoning
+      }));
+
+      const prompt = `Aşağıdaki TOP5 hisse seçimlerini analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında, her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Yanıt tamamen Türkçe olsun.`;
       return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     }
 
