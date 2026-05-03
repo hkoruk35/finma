@@ -220,11 +220,11 @@ async function handleClaude(message: string, history: Message[]) {
 
 async function handleGemini(message: string, history: Message[]) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return NextResponse.json({ text: "BOGA AI servisine şu an ulaşılamıyor." });
+  if (!apiKey) return NextResponse.json({ text: "BOGA AI servisine şu an ulaşılamıyor (API Key eksik)." });
   
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -256,7 +256,7 @@ async function handleGemini(message: string, history: Message[]) {
     // Check for safety blocks or other issues
     if (data.promptFeedback?.blockReason) {
       return NextResponse.json({ 
-        text: `Üzgünüm, bu analiz talebi güvenlik filtrelerine takıldı (${data.promptFeedback.blockReason}). Lütfen sorunuzu farklı bir şekilde sormayı deneyin.`,
+        text: `Analiz talebi reddedildi: ${data.promptFeedback.blockReason}. Lütfen soruyu sadeleştirip tekrar deneyin.`,
         source: "gemini" 
       });
     }
@@ -264,10 +264,12 @@ async function handleGemini(message: string, history: Message[]) {
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
     
     if (!text) {
-      console.error("[gemini] No text in response:", JSON.stringify(data));
+      // DEBUG: If empty, show a snippet of the data to the user to identify the problem
+      const debugInfo = JSON.stringify(data).slice(0, 100);
       return NextResponse.json({ 
-        text: "Analiz sonuçları şu an üretilemedi. Lütfen kısa bir süre sonra tekrar deneyin veya farklı bir hisse sorun.",
-        source: "gemini"
+        text: `Analiz üretilemedi. (Hata Kodu: ${data.error?.code || "EMPTY_RES"}) ${data.error?.message || ""}`,
+        source: "gemini",
+        debug: debugInfo
       });
     }
     
@@ -275,7 +277,7 @@ async function handleGemini(message: string, history: Message[]) {
   } catch (e) {
     console.error("[gemini] fetch error:", e);
     return NextResponse.json({ 
-      text: "Piyasa verileri okunurken teknik bir hata oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      text: "Piyasa verileri okunurken teknik bir bağlantı hatası oluştu.",
       source: "gemini"
     });
   }
