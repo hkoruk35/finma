@@ -220,50 +220,61 @@ async function handleClaude(message: string, history: Message[]) {
 
 async function handleGemini(message: string, history: Message[]) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return NextResponse.json({ text: "BOGA AI servisine şu an ulaşılamıyor (API Key eksik)." });
-  
+  if (!apiKey) {
+    return NextResponse.json({
+      text: "Service temporarily unavailable.",
+    });
+  }
+
+  const contents = [
+    ...history.map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.text }],
+    })),
+    { role: "user" as const, parts: [{ text: message }] },
+  ];
+
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          contents: [
-            { role: "user", parts: [{ text: `SYSTEM INSTRUCTION: ${SYSTEM_PROMPT}\n\nUSER MESSAGE: ${message}` }] },
-          ],
-          generationConfig: { 
-            temperature: 0.7, 
-            maxOutputTokens: 2048 
-          },
-          safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
-          ]
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents,
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
         }),
+        signal: AbortSignal.timeout(30000),
       }
     );
 
-    const data = await res.json();
-    
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-    
-    if (!text) {
-      const errorMsg = data.error?.message || "Bilinmeyen API hatası";
-      return NextResponse.json({ 
-        text: `Analiz üretilemedi. (Hata: ${errorMsg})`,
-        source: "gemini"
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      console.error(`[gemini] HTTP ${res.status}`, errData);
+      return NextResponse.json({
+        text: `Analiz üretilemedi. (Hata: ${res.status}) ${errData.error?.message || ""}`,
       });
     }
-    
-    return NextResponse.json({ text, source: "gemini", followUp: [] });
-  } catch (e) {
-    console.error("[gemini] fetch error:", e);
-    return NextResponse.json({ 
-      text: "Piyasa verileri okunurken teknik bir bağlantı hatası oluştu.",
-      source: "gemini"
+
+    const data = await res.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+    if (!text) {
+      return NextResponse.json({
+        text: "Unable to generate response.",
+      });
+    }
+
+    return NextResponse.json({
+      text,
+      source: "gemini",
+      followUp: [],
+    });
+  } catch (e: any) {
+    console.error("[gemini] error:", e?.message);
+    return NextResponse.json({
+      text: "Service temporarily unavailable.",
     });
   }
 }
