@@ -224,18 +224,13 @@ async function handleGemini(message: string, history: Message[]) {
   
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: [
-            ...history.map((m) => ({ 
-              role: m.role === "assistant" ? "model" : "user", 
-              parts: [{ text: m.text }] 
-            })),
-            { role: "user", parts: [{ text: message }] },
+            { role: "user", parts: [{ text: `SYSTEM INSTRUCTION: ${SYSTEM_PROMPT}\n\nUSER MESSAGE: ${message}` }] },
           ],
           generationConfig: { 
             temperature: 0.7, 
@@ -253,23 +248,13 @@ async function handleGemini(message: string, history: Message[]) {
 
     const data = await res.json();
     
-    // Check for safety blocks or other issues
-    if (data.promptFeedback?.blockReason) {
-      return NextResponse.json({ 
-        text: `Analiz talebi reddedildi: ${data.promptFeedback.blockReason}. Lütfen soruyu sadeleştirip tekrar deneyin.`,
-        source: "gemini" 
-      });
-    }
-
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
     
     if (!text) {
-      // DEBUG: If empty, show a snippet of the data to the user to identify the problem
-      const debugInfo = JSON.stringify(data).slice(0, 100);
+      const errorMsg = data.error?.message || "Bilinmeyen API hatası";
       return NextResponse.json({ 
-        text: `Analiz üretilemedi. (Hata Kodu: ${data.error?.code || "EMPTY_RES"}) ${data.error?.message || ""}`,
-        source: "gemini",
-        debug: debugInfo
+        text: `Analiz üretilemedi. (Hata: ${errorMsg})`,
+        source: "gemini"
       });
     }
     
