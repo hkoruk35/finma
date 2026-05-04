@@ -165,126 +165,112 @@ export async function POST(req: NextRequest) {
     let analysisData: any = null;
     let marketData: any = { spy: null, qqq: null, vix: null };
 
-    const robustFetch = async (url: string, timeout = 10000) => {
-      const agents = [
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-      ];
-      return fetch(url, {
-        headers: {
-          "User-Agent": agents[Math.floor(Math.random() * agents.length)],
-          "Referer": "https://finance.yahoo.com/",
-          "Accept": "*/*"
-        },
-        signal: AbortSignal.timeout(timeout)
-      });
-    };
+    const FINNHUB_KEY = process.env.FINNHUB_API_KEY || "";
+    const fhBase = "https://finnhub.io/api/v1";
+    const fhFetch = (url: string) => fetch(url, { signal: AbortSignal.timeout(8000) });
 
     try {
-      // 1. Market Data Fetch (Priority on query2)
-      const mRes = await robustFetch(`https://query2.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX`);
-      if (mRes.ok) {
-        const mJson = await mRes.json();
-        const quotes = mJson.quoteResponse.result || [];
-        marketData = {
-          spy: quotes.find((q: any) => q.symbol === "SPY"),
-          qqq: quotes.find((q: any) => q.symbol === "QQQ"),
-          vix: quotes.find((q: any) => q.symbol === "^VIX") || { regularMarketPrice: 15.0 }
-        };
-      }
+      // 1. Live Quote (Finnhub - Vercel uyumlu, 60 req/dk ücretsiz)
+      const [quoteRes, candleRes, spyRes, vixRes] = await Promise.allSettled([
+        fhFetch(`${fhBase}/quote?symbol=${ticker}&token=${FINNHUB_KEY}`),
+        fhFetch(`${fhBase}/stock/candle?symbol=${ticker}&resolution=60&count=150&token=${FINNHUB_KEY}`),
+        fhFetch(`${fhBase}/quote?symbol=SPY&token=${FINNHUB_KEY}`),
+        fhFetch(`${fhBase}/quote?symbol=^VIX&token=${FINNHUB_KEY}`)
+      ]);
 
-      // 2. Primary Ticker Fetch (Try v7/quote first)
-      let qRes = await robustFetch(`https://query2.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`);
-      if (qRes.ok) {
-        const qJson = await qRes.json();
-        const stockQuote = qJson.quoteResponse.result?.[0];
-        if (stockQuote) {
+      // Parse quote
+      let currentPrice: number | null = null;
+      let changePct: number | null = null;
+      if (quoteRes.status === "fulfilled" && quoteRes.value.ok) {
+        const q = await quoteRes.value.json();
+        if (q.c && q.c > 0) {
+          currentPrice = q.c;
+          changePct = q.dp;
           analysisData = {
             ticker,
-            price: stockQuote.regularMarketPrice?.toFixed(2),
-            change: stockQuote.regularMarketChangePercent?.toFixed(2),
-            mcap: stockQuote.marketCap ? (stockQuote.marketCap / 1e9).toFixed(1) + "B" : "N/A",
-            pe_ratio: stockQuote.trailingPE?.toFixed(1) || "N/A",
-            pb_ratio: stockQuote.priceToBook?.toFixed(2) || "N/A",
-            source: "BOGA US Engine (V7)"
+            price: q.c.toFixed(2),
+            change: q.dp.toFixed(2),
+            high: q.h.toFixed(2),
+            low: q.l.toFixed(2),
+            prev_close: q.pc.toFixed(2),
+            source: "Finnhub Live"
           };
         }
       }
 
-      // 3. Secondary Fallback (v10 quoteSummary) - If V7 failed or price is missing
-      if (!analysisData || !analysisData.price) {
-        const qsRes = await robustFetch(`https://query2.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=price`);
-        if (qsRes.ok) {
-          const qsJson = await qsRes.json();
-          const p = qsJson.quoteSummary?.result?.[0]?.price;
-          if (p) {
-            analysisData = {
-              ticker,
-              price: p.regularMarketPrice?.raw?.toFixed(2),
-              change: p.regularMarketChangePercent?.raw ? (p.regularMarketChangePercent.raw * 100).toFixed(2) : "0.00",
-              mcap: p.marketCap?.fmt || "N/A",
-              source: "BOGA US Engine (V10)"
-            };
-          }
-        }
+      // Parse SPY & VIX for market context
+      if (spyRes.status === "fulfilled" && spyRes.value.ok) {
+        const spy = await spyRes.value.json();
+        marketData.spy = spy;
+      }
+      if (vixRes.status === "fulfilled" && vixRes.value.ok) {
+        const vix = await vixRes.value.json();
+        marketData.vix = vix;
       }
 
-      // 4. Fetch Chart Data (Always from query2 for tech analysis)
-      const yfRes = await robustFetch(`https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`);
-      if (yfRes.ok) {
-        const yfData = await yfRes.json();
-        const result = yfData.chart.result?.[0];
-        if (result) {
-          const quote = result.indicators.quote[0];
-          const closes = quote.close.filter((c: any) => c !== null);
-          const highs = quote.high.filter((h: any) => h !== null);
-          const lows = quote.low.filter((l: any) => l !== null);
-          const volumes = quote.volume.filter((v: any) => v !== null);
-          
-          if (closes.length > 5) {
-            const currentPrice = closes[closes.length - 1];
-            const calculateEMA = (data: number[], period: number) => {
-              if (data.length < period) return data[data.length - 1];
-              const k = 2 / (period + 1);
-              let ema = data[0];
-              for (let i = 1; i < data.length; i++) ema = data[i] * k + ema * (1 - k);
-              return ema;
-            };
+      // Parse candles → Technical Analysis
+      if (candleRes.status === "fulfilled" && candleRes.value.ok) {
+        const candles = await candleRes.value.json();
+        if (candles.s === "ok" && candles.c?.length > 10) {
+          const closes: number[] = candles.c;
+          const highs: number[] = candles.h;
+          const lows: number[] = candles.l;
+          const volumes: number[] = candles.v;
+          const price = currentPrice || closes[closes.length - 1];
 
-            const ema20 = calculateEMA(closes, 20);
-            const ema50 = calculateEMA(closes, 50);
-            const ema200 = calculateEMA(closes, 100);
-            const avgVol = volumes.slice(-20).reduce((a: number, b: number) => a + b, 0) / 20;
-            const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
-            const spyChange = marketData.spy ? marketData.spy.regularMarketChangePercent : 0;
+          const calcEMA = (data: number[], period: number) => {
+            if (data.length < period) return data[data.length - 1];
+            const k = 2 / (period + 1);
+            let ema = data.slice(0, period).reduce((a, b) => a + b, 0) / period;
+            for (let i = period; i < data.length; i++) ema = data[i] * k + ema * (1 - k);
+            return ema;
+          };
 
-            analysisData = {
-              ...analysisData,
-              price: analysisData?.price || currentPrice.toFixed(2),
-              vol_strength: volStrength.toFixed(2),
-              rs_vs_spy: (parseFloat(analysisData?.change || "0") - spyChange).toFixed(2),
-              support: Math.min(...lows.slice(-20)).toFixed(2),
-              resistance: Math.max(...highs.slice(-20)).toFixed(2),
-              buy_zone: `${(currentPrice * 0.985).toFixed(2)} - ${currentPrice.toFixed(2)}`,
-              target_zone: `${(currentPrice * 1.12).toFixed(2)} - ${(currentPrice * 1.18).toFixed(2)}`,
-              stop_loss: (currentPrice * 0.94).toFixed(2),
-              ema20_gap: (((currentPrice - ema20) / ema20) * 100).toFixed(1),
-              ema50_gap: (((currentPrice - ema50) / ema50) * 100).toFixed(1),
-              ema200_gap: (((currentPrice - ema200) / ema200) * 100).toFixed(1),
-              perf_1w: (((currentPrice - closes[closes.length - 6]) / closes[closes.length - 6]) * 100).toFixed(2),
-              perf_1m: (((currentPrice - closes[0]) / closes[0]) * 100).toFixed(2),
-              market: {
-                spy_bias: marketData.spy ? (marketData.spy.regularMarketPrice > marketData.spy.fiftyDayAverage ? "BULLISH" : "BEARISH") : "N/A",
-                qqq_momentum: marketData.qqq ? (marketData.qqq.regularMarketChangePercent > 0 ? "STRONG" : "WEAK") : "N/A",
-                vix: marketData.vix.regularMarketPrice.toFixed(2)
-              }
-            };
+          const ema20 = calcEMA(closes, 20);
+          const ema50 = calcEMA(closes, 50);
+          const ema100 = calcEMA(closes, 100);
+
+          // RSI Calculation
+          const gains: number[] = [], losses: number[] = [];
+          for (let i = 1; i < closes.length; i++) {
+            const diff = closes[i] - closes[i - 1];
+            gains.push(diff > 0 ? diff : 0);
+            losses.push(diff < 0 ? -diff : 0);
           }
+          const avgGain = gains.slice(-14).reduce((a, b) => a + b, 0) / 14;
+          const avgLoss = losses.slice(-14).reduce((a, b) => a + b, 0) / 14;
+          const rsi = avgLoss === 0 ? 100 : 100 - (100 / (1 + avgGain / avgLoss));
+
+          const avgVol = volumes.slice(-20).reduce((a, b) => a + b, 0) / 20;
+          const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
+          const spyChg = marketData.spy?.dp || 0;
+
+          analysisData = {
+            ...analysisData,
+            price: price.toFixed(2),
+            rsi: rsi.toFixed(1),
+            vol_strength: volStrength.toFixed(2),
+            rs_vs_spy: ((changePct || 0) - spyChg).toFixed(2),
+            support: Math.min(...lows.slice(-30)).toFixed(2),
+            resistance: Math.max(...highs.slice(-30)).toFixed(2),
+            buy_zone: `${(price * 0.985).toFixed(2)} - ${price.toFixed(2)}`,
+            target_zone: `${(price * 1.12).toFixed(2)} - ${(price * 1.18).toFixed(2)}`,
+            stop_loss: (price * 0.94).toFixed(2),
+            ema20_gap: (((price - ema20) / ema20) * 100).toFixed(1),
+            ema50_gap: (((price - ema50) / ema50) * 100).toFixed(1),
+            ema200_gap: (((price - ema100) / ema100) * 100).toFixed(1),
+            perf_1w: (((price - closes[closes.length - 6]) / closes[closes.length - 6]) * 100).toFixed(2),
+            perf_1m: (((price - closes[closes.length - 22]) / closes[closes.length - 22]) * 100).toFixed(2),
+            market: {
+              spy_bias: marketData.spy?.dp > 0 ? "BULLISH" : "BEARISH",
+              qqq_momentum: marketData.spy?.dp > 0 ? "STRONG" : "WEAK",
+              vix: marketData.vix?.c?.toFixed(2) || "N/A"
+            }
+          };
         }
       }
     } catch (err) {
-      console.error("V3.5 Robotic-War-Mode Error:", err);
+      console.error("Finnhub fetch error:", err);
     }
 
     // 4. Fallback to Local Archive if Live Fetch Failed or for Extra Data
