@@ -165,12 +165,18 @@ export async function POST(req: NextRequest) {
     let analysisData: any = null;
     let marketData: any = { spy: null, qqq: null, vix: null };
 
+    const headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Referer": "https://finance.yahoo.com/",
+      "Accept": "application/json"
+    };
+
     try {
-      // 1. Fetch Market Context (Clean v7/quote)
-      const mRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX`, { signal: AbortSignal.timeout(5000) });
+      // 1. Fetch Market Context (SPY, QQQ, VIX)
+      const mRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX`, { headers, signal: AbortSignal.timeout(5000) });
       if (mRes.ok) {
         const mJson = await mRes.json();
-        const quotes = mJson.quoteResponse.result;
+        const quotes = mJson.quoteResponse.result || [];
         marketData = {
           spy: quotes.find((q: any) => q.symbol === "SPY"),
           qqq: quotes.find((q: any) => q.symbol === "QQQ"),
@@ -178,28 +184,39 @@ export async function POST(req: NextRequest) {
         };
       }
 
-      // 2. Fetch Ticker Data (Primary: Live Quote)
-      const qRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { signal: AbortSignal.timeout(5000) });
-      if (qRes.ok) {
-        const qJson = await qRes.json();
-        const stockQuote = qJson.quoteResponse.result?.[0];
-        if (stockQuote) {
-          analysisData = {
-            ticker,
-            price: stockQuote.regularMarketPrice.toFixed(2),
-            change: stockQuote.regularMarketChangePercent.toFixed(2),
-            mcap: stockQuote.marketCap ? (stockQuote.marketCap / 1e9).toFixed(1) + "B" : "N/A",
-            pe_ratio: stockQuote.trailingPE?.toFixed(1) || "N/A",
-            pb_ratio: stockQuote.priceToBook?.toFixed(2) || "N/A",
-            source: "BOGA Live Engine"
-          };
+      // 2. Robust Ticker Fetch (Quote with Search Fallback)
+      let qRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { headers, signal: AbortSignal.timeout(5000) });
+      let qJson = await qRes.json();
+      let stockQuote = qJson.quoteResponse.result?.[0];
+
+      // If not found, try search API to find the US ticker
+      if (!stockQuote) {
+        const sRes = await fetch(`https://query2.finance.yahoo.com/v1/finance/search?q=${ticker}&quotesCount=1`, { headers });
+        if (sRes.ok) {
+          const sJson = await sRes.json();
+          const foundTicker = sJson.quotes?.[0]?.symbol;
+          if (foundTicker && foundTicker !== ticker) {
+            qRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${foundTicker}`, { headers, signal: AbortSignal.timeout(5000) });
+            qJson = await qRes.json();
+            stockQuote = qJson.quoteResponse.result?.[0];
+          }
         }
       }
 
-      // 3. Fetch Ticker Chart Data (For technicals and performance)
-      const yfUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`;
-      const yfRes = await fetch(yfUrl, { signal: AbortSignal.timeout(8000) });
-      
+      if (stockQuote) {
+        analysisData = {
+          ticker,
+          price: stockQuote.regularMarketPrice?.toFixed(2),
+          change: stockQuote.regularMarketChangePercent?.toFixed(2),
+          mcap: stockQuote.marketCap ? (stockQuote.marketCap / 1e9).toFixed(1) + "B" : "N/A",
+          pe_ratio: stockQuote.trailingPE?.toFixed(1) || "N/A",
+          pb_ratio: stockQuote.priceToBook?.toFixed(2) || "N/A",
+          source: "BOGA US Engine"
+        };
+      }
+
+      // 3. Fetch Chart Data (With browser headers)
+      const yfRes = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`, { headers, signal: AbortSignal.timeout(8000) });
       if (yfRes.ok) {
         const yfData = await yfRes.json();
         const result = yfData.chart.result?.[0];
@@ -213,7 +230,6 @@ export async function POST(req: NextRequest) {
           if (closes.length > 5) {
             const currentPrice = closes[closes.length - 1];
             
-            // --- LIVE TECHNICAL CALCULATIONS ---
             const calculateEMA = (data: number[], period: number) => {
               if (data.length < period) return data[data.length - 1];
               const k = 2 / (period + 1);
@@ -224,7 +240,7 @@ export async function POST(req: NextRequest) {
 
             const ema20 = calculateEMA(closes, 20);
             const ema50 = calculateEMA(closes, 50);
-            const ema200 = calculateEMA(closes, 100); // Approximation
+            const ema200 = calculateEMA(closes, 100);
             
             const avgVol = volumes.slice(-20).reduce((a: number, b: number) => a + b, 0) / 20;
             const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
@@ -232,6 +248,7 @@ export async function POST(req: NextRequest) {
 
             analysisData = {
               ...analysisData,
+              price: analysisData?.price || currentPrice.toFixed(2), // Sync if quote failed but chart worked
               vol_strength: volStrength.toFixed(2),
               rs_vs_spy: (parseFloat(analysisData?.change || "0") - spyChange).toFixed(2),
               support: Math.min(...lows.slice(-20)).toFixed(2),
@@ -254,7 +271,7 @@ export async function POST(req: NextRequest) {
         }
       }
     } catch (err) {
-      console.error("V3.5 Live Fetch Error:", err);
+      console.error("V3.5 US-Robotic Error:", err);
     }
 
     // 4. Fallback to Local Archive if Live Fetch Failed or for Extra Data
