@@ -158,6 +158,41 @@ export async function POST(req: NextRequest) {
   const useClaude = lowerMsg.includes("claude");
   const cleanMsg = message.replace(/claude/gi, "").trim();
 
+  // Single Ticker Analysis Engine (Mini-Bot Integration)
+  const isTicker = /^[A-Z]{1,5}$/.test(cleanMsg.toUpperCase());
+  if (isTicker && !cleanMsg.startsWith("/")) {
+    const ticker = cleanMsg.toUpperCase();
+    try {
+      const { execSync } = require("child_process");
+      // Run the mini-bot script using the specific venv313 environment
+      const resultRaw = execSync(`.\\venv313\\Scripts\\python.exe single_ticker_analyser.py ${ticker}`, { encoding: "utf-8" });
+      const analysis = JSON.parse(resultRaw);
+
+      if (analysis.error) {
+        return NextResponse.json({ text: `Maalesef ${ticker} için veri çekilemedi: ${analysis.error}` });
+      }
+
+      // Format the mini-bot output into a professional report for the AI to present
+      const prompt = `Aşağıdaki teknik verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI Swing Raporu hazırla. 
+      Veriler: ${JSON.stringify(analysis)}
+      
+      Rapor içeriğinde mutlaka şunlar olsun:
+      - Score (80-100 arası bir değer ata, verilere göre)
+      - Güncel Fiyat ve 1D Değişim
+      - Support / Resistance (1H + ATR tabanlı)
+      - Buy Zone / Target Zone / Stop Loss (Verilen aralıkları kullan)
+      - Teknik Yorum (EMA20/50 ve ATR durumuna göre)
+      - Strategy (Entry/Target/Stop)
+      
+      Yanıt tamamen Türkçe ve profesyonel bir finansal analist dilinde olsun.`;
+
+      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+    } catch (err) {
+      console.error("Mini-bot execution error:", err);
+      // Fallback to normal AI analysis if script fails
+    }
+  }
+
   try {
     const hasOutOfScope = OUT_OF_SCOPE_KEYWORDS.some((kw) =>
       lowerMsg.includes(kw)

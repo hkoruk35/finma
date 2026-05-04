@@ -235,44 +235,51 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <Header />
 
-        <div className="flex-1 flex flex-col min-h-0 max-w-4xl w-full mx-auto px-4 pt-4 pb-4">
-          <div className="mb-4 text-center shrink-0">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 mb-1">
-                <BotIcon size="w-8 h-8" />
-                <h1 className="text-2xl font-black tracking-tight text-white">BOGA AI</h1>
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6] bg-[#3b82f6]/10 border border-[#3b82f6]/20 px-2 py-0.5 rounded-full">BETA</span>
-              </div>
-              <p className="text-[#3b82f6] text-[10px] font-black uppercase tracking-[0.2em] mb-0.5">Test ve Geliştirme Aşaması</p>
-              <p className="text-[#64748b] text-[10px] font-black uppercase tracking-[0.2em]">50'den fazla dil desteği</p>
-            </div>
-          </div>
-
-          <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-4 pr-1 pb-2 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
+          <div className="flex-1 flex flex-col min-h-0 space-y-4 pr-1 pb-2 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
             {messages.length === 0 && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {SLASH_COMMANDS.map((c) => (
-                    <button
-                      key={c.cmd}
-                      onClick={() => send(c.example)}
-                      className="text-left p-4 rounded-2xl border border-[#1e2a3a] bg-[#0d1117] hover:border-[#3b82f6]/40 transition-all group"
-                    >
-                      <div className="text-xs font-black text-[#3b82f6] uppercase tracking-widest mb-1 group-hover:text-[#60a5fa]">{c.cmd}</div>
-                      <div className="text-[11px] text-[#64748b] mb-2">{c.desc}</div>
-                      <div className="text-[10px] text-[#475569] font-mono p-1 bg-[#0a0e17] rounded inline-block">{c.example}</div>
-                    </button>
-                  ))}
+              <div className="space-y-8 mt-12 animate-fade-in">
+                {/* Minimal Header */}
+                <div className="text-center space-y-2">
+                  <div className="inline-flex items-center gap-3">
+                    <BotIcon size="w-10 h-10" />
+                    <h1 className="text-3xl font-black tracking-tighter text-white">BOGA AI</h1>
+                  </div>
+                  <p className="text-[#64748b] text-xs font-black uppercase tracking-[0.2em]">50'den fazla dil desteği</p>
                 </div>
-                
-                <div className="space-y-3">
-                  <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">Popüler Aramalar</div>
-                  <div className="flex flex-wrap gap-2">
+
+                {/* Search Bar Moved Up */}
+                <div className="max-w-2xl mx-auto w-full">
+                  <div className="relative group">
+                    <textarea
+                      ref={inputRef}
+                      value={input}
+                      onChange={(e) => handleInputChange(e.target.value)}
+                      onKeyDown={handleKey}
+                      placeholder="Hisse senetleri hakkında sor..."
+                      rows={1}
+                      className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none pr-14 group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
+                    />
+                    <button
+                      onClick={() => send()}
+                      disabled={loading || !input.trim()}
+                      className="absolute right-3 top-3 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all"
+                    >
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Popular Searches Under Search Bar */}
+                <div className="space-y-4 max-w-2xl mx-auto w-full">
+                  <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Aramalar</div>
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {TRENDING_SEARCHES.map((s) => (
                       <button
                         key={s}
                         onClick={() => send(s)}
-                        className="text-xs px-3 py-1.5 rounded-full border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white transition-all bg-[#0d1117]"
+                        className="text-[11px] px-4 py-2 rounded-xl border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white hover:bg-[#0d1117] transition-all bg-[#0a0e17]"
                       >
                         {s}
                       </button>
@@ -315,36 +322,38 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
             )}
           </div>
 
-          <div className="shrink-0 pt-3">
-            <div className="flex gap-2 items-end bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3 focus-within:border-[#3b82f6]/50 transition-all shadow-xl">
-              <textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKey}
-                placeholder="Hisse senetleri hakkında sor..."
-                rows={1}
-                className="flex-1 bg-transparent text-sm text-white placeholder-[#475569] resize-none outline-none max-h-32 min-h-[20px] py-1"
-                disabled={loading}
-              />
-              <button
-                onClick={() => send()}
-                disabled={!input.trim() || loading}
-                className="w-9 h-9 rounded-xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] flex items-center justify-center shrink-0 transition-all shadow-lg shadow-blue-500/20"
-              >
-                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
+          {messages.length > 0 && (
+            <div className="shrink-0 pt-3">
+              <div className="flex gap-2 items-end bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3 focus-within:border-[#3b82f6]/50 transition-all shadow-xl">
+                <textarea
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKey}
+                  placeholder="Hisse senetleri hakkında sor..."
+                  rows={1}
+                  className="flex-1 bg-transparent text-sm text-white placeholder-[#475569] resize-none outline-none max-h-32 min-h-[20px] py-1"
+                  disabled={loading}
+                />
+                <button
+                  onClick={() => send()}
+                  disabled={!input.trim() || loading}
+                  className="w-9 h-9 rounded-xl bg-[#3b82f6] hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] flex items-center justify-center shrink-0 transition-all shadow-lg shadow-blue-500/20"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="mt-4 pb-2 text-center">
+                <p className="text-[10px] text-[#334155] mb-1 italic">Finansal piyasa analiz asistanı • Alım/satım tavsiyesi değildir</p>
+                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">
+                  © 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.
+                </p>
+              </div>
             </div>
-            
-            <div className="mt-4 pb-2 text-center">
-              <p className="text-[10px] text-[#334155] mb-1 italic">Finansal piyasa analiz asistanı • Alım/satım tavsiyesi değildir</p>
-              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">
-                © 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.
-              </p>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
