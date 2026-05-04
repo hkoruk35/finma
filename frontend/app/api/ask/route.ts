@@ -159,37 +159,62 @@ export async function POST(req: NextRequest) {
   const cleanMsg = message.replace(/claude/gi, "").trim();
 
   // Single Ticker Analysis Engine (Mini-Bot Integration)
-  const isTicker = /^[A-Z]{1,5}$/.test(cleanMsg.toUpperCase());
+  const isTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
   if (isTicker && !cleanMsg.startsWith("/")) {
     const ticker = cleanMsg.toUpperCase();
+    let analysisData: any = null;
+
     try {
       const { execSync } = require("child_process");
-      // Run the mini-bot script using the specific venv313 environment
-      const resultRaw = execSync(`.\\venv313\\Scripts\\python.exe single_ticker_analyser.py ${ticker}`, { encoding: "utf-8" });
-      const analysis = JSON.parse(resultRaw);
-
-      if (analysis.error) {
-        return NextResponse.json({ text: `Maalesef ${ticker} için veri çekilemedi: ${analysis.error}` });
+      const scriptPath = path.join(process.cwd(), "..", "single_ticker_analyser.py");
+      // Try local venv first, then system python
+      try {
+        const resultRaw = execSync(`.\\venv313\\Scripts\\python.exe "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 8000 });
+        analysisData = JSON.parse(resultRaw);
+      } catch (err) {
+        // Fallback to system python (Linux/Vercel - might fail if libs missing)
+        const resultRaw = execSync(`python3 "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 8000 });
+        analysisData = JSON.parse(resultRaw);
       }
+    } catch (err) {
+      console.log(`Bot failed for ${ticker}, trying local data fallback...`);
+      // Fallback: Check local data files for existing analysis
+      try {
+        const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
+        if (fs.existsSync(dataPath)) {
+          const raw = fs.readFileSync(dataPath, "utf-8");
+          const json = JSON.parse(raw);
+          // Standardize data for the AI prompt
+          analysisData = {
+            ticker,
+            current_price: json.price || json.current_price,
+            score: json.score || (json.performance ? json.performance.score : null),
+            tr_report: json.ai_summary?.tr || json.tr_report || json.ai_short_summary,
+            source_file: "Local Database (Latest)"
+          };
+        }
+      } catch (dataErr) {
+        console.error("Data fallback error:", dataErr);
+      }
+    }
 
-      // Format the mini-bot output into a professional report for the AI to present
-      const prompt = `Aşağıdaki teknik verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI Swing Raporu hazırla. 
-      Veriler: ${JSON.stringify(analysis)}
+    if (analysisData && !analysisData.error) {
+      const prompt = `Aşağıdaki teknik ve kurumsal verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI Swing Raporu hazırla. 
+      
+      Veri Kaynağı: ${analysisData.source_file || "Live Bot (Yahoo Finance)"}
+      Teknik Veriler: ${JSON.stringify(analysisData)}
       
       Rapor içeriğinde mutlaka şunlar olsun:
-      - Score (80-100 arası bir değer ata, verilere göre)
-      - Güncel Fiyat ve 1D Değişim
-      - Support / Resistance (1H + ATR tabanlı)
-      - Buy Zone / Target Zone / Stop Loss (Verilen aralıkları kullan)
-      - Teknik Yorum (EMA20/50 ve ATR durumuna göre)
+      - Score (Verilen skoru kullan veya verilere göre 80-100 arası bir değer ata)
+      - Güncel Fiyat ve Değişim
+      - Support / Resistance (S/R)
+      - Buy Zone / Target Zone / Stop Loss
+      - Teknik Yorum (Eğer varsa RSI, EMA verilerini yorumla)
       - Strategy (Entry/Target/Stop)
       
-      Yanıt tamamen Türkçe ve profesyonel bir finansal analist dilinde olsun.`;
+      Yanıt tamamen Türkçe ve profesyonel bir finansal analist dilinde olsun. AI'ın eski bilgisini kullanma, sadece bu yeni verileri baz al.`;
 
       return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
-    } catch (err) {
-      console.error("Mini-bot execution error:", err);
-      // Fallback to normal AI analysis if script fails
     }
   }
 
