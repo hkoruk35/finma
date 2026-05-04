@@ -289,14 +289,25 @@ async function handleGemini(message: string, history: Message[]) {
 
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents,
-          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+          generationConfig: { 
+            temperature: 0.7, 
+            maxOutputTokens: 2048,
+            topP: 0.95,
+            topK: 40
+          },
+          safetySettings: [
+            { category: "HATE_SPEECH", threshold: "BLOCK_NONE" },
+            { category: "HARASSMENT", threshold: "BLOCK_NONE" },
+            { category: "SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
+            { category: "DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
+          ],
         }),
         signal: AbortSignal.timeout(30000),
       }
