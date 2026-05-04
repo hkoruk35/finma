@@ -239,15 +239,66 @@ export async function POST(req: NextRequest) {
       console.error("V3 Engine error:", err);
     }
 
+    // 3. Combine Live Data with Local Archive for Full Analysis
+    try {
+      const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
+      if (fs.existsSync(dataPath)) {
+        const json = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+        
+        // Merge or Initialize analysisData
+        analysisData = {
+          ticker,
+          price: analysisData?.price || json.price.current.toFixed(2),
+          change: analysisData?.change || json.price.change_pct.toFixed(2),
+          mcap: (json.fundamental.market_cap / 1e9).toFixed(1) + "B",
+          sector: json.sector || "Various",
+          vol_strength: analysisData?.vol_strength || (json.technical.rvol ? json.technical.rvol.toFixed(2) : "1.00"),
+          rs_vs_spy: analysisData?.rs_vs_spy || "0.00",
+          support: analysisData?.support || json.technical.support_level?.toFixed(2) || json.price.low.toFixed(2),
+          resistance: analysisData?.resistance || json.price.high.toFixed(2),
+          buy_zone: analysisData?.buy_zone || `${json.scores_detail?.entry_range_low} - ${json.scores_detail?.entry_range_high}`,
+          target_zone: analysisData?.target_zone || `${json.scores_detail?.target_range_low} - ${json.scores_detail?.target_range_high}`,
+          stop_loss: analysisData?.stop_loss || json.scores_detail?.stop_loss?.toFixed(2),
+          market: analysisData?.market || marketData,
+          
+          // Technicals
+          rsi: json.technical.rsi_14?.toFixed(1),
+          adx: json.technical.adx?.toFixed(1),
+          macd: json.technical.macd_histogram?.toFixed(3),
+          mfi: json.technical.mfi?.toFixed(1),
+          ema20_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_20) / json.technical.ema_20 * 100 ).toFixed(1),
+          ema50_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_50) / json.technical.ema_50 * 100 ).toFixed(1),
+          ema200_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_200) / json.technical.ema_200 * 100 ).toFixed(1),
+          
+          // Performance
+          perf_1w: json.price.change_pct_1w?.toFixed(2),
+          perf_1m: json.price.change_pct_1m?.toFixed(2),
+          perf_1y: json.price.change_pct_1y?.toFixed(2),
+          
+          // Fundamentals
+          gross_margin: (json.fundamental.gross_margin * 100).toFixed(1),
+          net_margin: (json.fundamental.net_margin * 100).toFixed(1),
+          rev_growth: (json.fundamental.revenue_growth_ttm * 100).toFixed(1),
+          pe_ratio: json.fundamental.pe_ratio?.toFixed(1),
+          pb_ratio: json.fundamental.pb_ratio?.toFixed(2),
+          fcf_yield: (json.fundamental.fcf_yield * 100).toFixed(1),
+          
+          source: "BOGA SWING TERMINAL V3.5 (Live + Archive)"
+        };
+      }
+    } catch (e) {
+      console.error("Archive merge error:", e);
+    }
+
     if (analysisData) {
-      const prompt = `Aşağıdaki teknik ve piyasa verilerini kullanarak ${ticker} için V3 BOGA SWING UYGULAMA RAPORU hazırla.
+      const prompt = `Aşağıdaki teknik, temel ve piyasa verilerini kullanarak ${ticker} için V3.5 BOGA SWING UYGULAMA RAPORU hazırla.
       
       ### 📋 VERİLER
       ${JSON.stringify(analysisData)}
       
       ### 🎯 RAPOR FORMATI (TASLAĞA SADIK KAL):
       ════════════════════════════════════════
-      **${ticker}  |  SEKTÖR  |  15dk & 1sa Analiz**
+      **${ticker}  |  ${analysisData.sector || "SEKTÖR"}  |  Kısa-Orta Vade Strateji**
       ════════════════════════════════════════
 
       **🌍 PİYASA FİLTRESİ (Market Filter)**
@@ -256,7 +307,7 @@ export async function POST(req: NextRequest) {
       • **VIX (Korku Endeksi):** ${analysisData.market.vix} → ${parseFloat(analysisData.market.vix) < 18 ? "GÜVENLİ" : "YÜKSEK OYNAKLIK"}
 
       **💵 FİYAT VE HACİM DİNAMİĞİ**
-      • **Fiyat / Değişim:** $${analysisData.price} (%${analysisData.change})
+      • **Fiyat:** $${analysisData.price} (%${analysisData.change})  |  **Piyasa Değeri:** ${analysisData.mcap || "N/A"}
       • **Hacim Gücü:** ${analysisData.vol_strength}x → ${parseFloat(analysisData.vol_strength) > 1.5 ? "Güçlü Hacim Artışı" : "Normal Hacim"}
       • **Göreceli Güç (vs SPY):** %${analysisData.rs_vs_spy} → ${parseFloat(analysisData.rs_vs_spy) > 0 ? "Endeksten Güçlü" : "Endeksten Zayıf"}
 
@@ -266,18 +317,25 @@ export async function POST(req: NextRequest) {
       │  **🎯 HEDEF BÖLGESİ:** $${analysisData.target_zone}
       │  **🛑 ZARAR KES (Stop):** $${analysisData.stop_loss}
       │
-      │  **⚖️ Kar/Zarar (R/R) Oranı:** 1:2.4 | **Durum:** [OK]
-      │  **⏳ Kurulum Geçerliliği:** 6-8 Saat (Bugün Seans Sonu)
+      │  **⚖️ Kar/Zarar (R/R) Oranı:** 1:2.4 | **Kurulum Ömrü:** 12-24 Saat
       └────────────────────────────────────────
 
-      **📌 ONAY LİSTESİ (Tetikleyici Şartlar)**
+      **📌 ONAY LİSTESİ**
       [ ${parseFloat(analysisData.change) > 0 ? "X" : " "} ] **Trend Uyumu:** 15dk ve 1sa senkronize
       [ ${parseFloat(analysisData.vol_strength) > 1.2 ? "X" : " "} ] **Hacim Patlaması:** Hacim ortalamanın üzerinde
-      [ ${parseFloat(analysisData.market.vix) < 20 ? "X" : " "} ] **Piyasa Koşulları:** Endeks ve VIX güvenli bölgede
+      [ ${parseFloat(analysisData.market.vix) < 20 ? "X" : " "} ] **Momentum:** RSI > 55 & EMA20 Üstünde
 
-      **📌 TEKNİK MATRİS**
-      • **RSI (14):** 55+ (YUKARI) | **EMA Konumu:** Fiyat EMA20 üzerinde
-      
+      **📌 TEKNİK VE PERFORMANS MATRİSİ**
+      • **Göstergeler:** RSI: ${analysisData.rsi || "N/A"} | ADX: ${analysisData.adx || "N/A"} | MACD: ${analysisData.macd || "N/A"} | MFI: ${analysisData.mfi || "N/A"}
+      • **EMA Konumları:** EMA20: %${analysisData.ema20_gap} | EMA50: %${analysisData.ema50_gap} | EMA200: %${analysisData.ema200_gap}
+      • **Performans:** 1H: %${analysisData.perf_1w} | 1A: %${analysisData.perf_1m} | 1Y: %${analysisData.perf_1y}
+
+      **📌 TEMEL ANALİZ (Finansal Sağlık)**
+      • **Kârlılık:** Brüt Marj: %${analysisData.gross_margin} | Net Marj: %${analysisData.net_margin}
+      • **Büyüme:** Gelir Büyümesi: %${analysisData.rev_growth} → ${parseFloat(analysisData.rev_growth) > 20 ? "Güçlü Büyüme" : "Stabil"}
+      • **Değerleme:** F/K (P/E): ${analysisData.pe_ratio}x | PD/DD (P/B): ${analysisData.pb_ratio}x
+      • **Nakit Akışı:** Serbest Nakit Akış Verimi: %${analysisData.fcf_yield}
+
       **⚠️ RİSK BAYRAKLARI**
       • **Bilanço:** Veri yok / Yaklaşıyor
       • **Likidite:** İşlem hacmi uygun
@@ -285,7 +343,7 @@ export async function POST(req: NextRequest) {
       **┌─ ⚡️ SON KARAR**
       │  **AKSİYON:** [ ${parseFloat(analysisData.vol_strength) > 1.4 && analysisData.market.spy_bias === "BULLISH" ? "İŞLEME GİR" : "İZLEME LİSTESİ"} ]
       │
-      │  **GEREKÇE:** "Fiyat hacim onayıyla birlikte ${analysisData.market.spy_bias} piyasa koşullarında güç topluyor."
+      │  **GEREKÇE:** "Finansal veriler ve teknik onaylar eşliğinde ${analysisData.price} seviyesinde ${analysisData.market.spy_bias} piyasa koşulları destekleniyor."
       └────────────────────────────────────────
 
       **ÖNEMLİ:** Tüm metin Türkçe olsun. Rapor formatındaki ASCII çizgilerini (┌, │, └, ═) aynen koru. AI'ın eski bilgisini kullanma.`;
