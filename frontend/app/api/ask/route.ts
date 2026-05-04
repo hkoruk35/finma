@@ -158,75 +158,118 @@ export async function POST(req: NextRequest) {
   const useClaude = lowerMsg.includes("claude");
   const cleanMsg = message.replace(/claude/gi, "").trim();
 
-  // Single Ticker Analysis Engine (Mini-Bot Integration)
+  // Native Ticker Analysis Engine (Vercel-Reliable)
   const isTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
   if (isTicker && !cleanMsg.startsWith("/")) {
     const ticker = cleanMsg.toUpperCase();
-    let analysisData: any = null;
-
+    
     try {
-      const { execSync } = require("child_process");
-      const scriptPath = path.join(process.cwd(), "..", "single_ticker_analyser.py");
-      // Try local venv first, then system python
-      try {
-        const resultRaw = execSync(`.\\venv313\\Scripts\\python.exe "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 8000 });
-        analysisData = JSON.parse(resultRaw);
-      } catch (err) {
-        // Fallback to system python (Linux/Vercel - might fail if libs missing)
-        const resultRaw = execSync(`python3 "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 8000 });
-        analysisData = JSON.parse(resultRaw);
+      // 1. Fetch Live Data from Yahoo Finance API (Direct JSON)
+      // Range 1mo, Interval 1h for ATR and S/R
+      const yfUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`;
+      const yfRes = await fetch(yfUrl, { signal: AbortSignal.timeout(8000) });
+      
+      if (yfRes.ok) {
+        const yfData = await yfRes.json();
+        const result = yfData.chart.result[0];
+        const quote = result.indicators.quote[0];
+        const timestamps = result.timestamp;
+        const closes = quote.close.filter((c: any) => c !== null);
+        const highs = quote.high.filter((h: any) => h !== null);
+        const lows = quote.low.filter((l: any) => l !== null);
+        
+        if (closes.length > 10) {
+          const currentPrice = closes[closes.length - 1];
+          const prevClose = closes[closes.length - 2];
+          const change1d = ((currentPrice - prevClose) / prevClose) * 100;
+          
+          // --- ATR Calculation (Approximate over 14 hours) ---
+          let trSum = 0;
+          for (let i = closes.length - 14; i < closes.length; i++) {
+            const h = highs[i];
+            const l = lows[i];
+            const pc = closes[i - 1];
+            const tr = Math.max(h - l, Math.abs(h - pc), Math.abs(l - pc));
+            trSum += tr;
+          }
+          const atr = trSum / 14;
+          const atrPct = (atr / currentPrice) * 100;
+          
+          // --- S/R Levels (Recent High/Low) ---
+          const recentHighs = highs.slice(-24);
+          const recentLows = lows.slice(-24);
+          const support = Math.min(...recentLows);
+          const resistance = Math.max(...recentHighs);
+          
+          // --- Swing114 Zones ---
+          const buyLow = support + (atr * 0.1);
+          const buyHigh = currentPrice + (atr * 0.05);
+          const stopHigh = support - (atr * 0.5);
+          const stopLow = stopHigh - (atr * 0.2);
+          const target = currentPrice + (atr * 2.2);
+
+          const analysisData = {
+            ticker,
+            current_price: currentPrice.toFixed(2),
+            change_1d: change1d.toFixed(2),
+            atr_1d: (atr * 6.5).toFixed(2), // Scaled to Daily approx
+            support: support.toFixed(2),
+            resistance: resistance.toFixed(2),
+            buy_zone: `${buyLow.toFixed(2)} - ${buyHigh.toFixed(2)}`,
+            target_zone: `${(target * 0.98).toFixed(2)} - ${target.toFixed(2)}`,
+            stop_loss: stopHigh.toFixed(2),
+            source: "BOGA AI Live Engine (Yahoo)"
+          };
+
+          const prompt = `Aşağıdaki GÜNCEL TEKNİK VERİLERİ kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
+          
+          ### 📊 VERİ KAYNAĞI
+          ${analysisData.source} (Real-time)
+          
+          ### 📋 TEKNİK VERİLER
+          ${JSON.stringify(analysisData)}
+          
+          ### 🎯 RAPOR FORMATI:
+          1. **BOGA AI Master Score**: [Verilere göre 80-100 arası bir değer ata]
+          2. **Güncel Görünüm**: [Fiyat: $${analysisData.current_price}, Değişim: %${analysisData.change_1d}]
+          3. **Teknik Matris**: 
+             - Destek (Support): $${analysisData.support}
+             - Direnç (Resistance): $${analysisData.resistance}
+          4. **BOGA AI Swing Stratejisi**:
+             - 🟢 **Giriş Bölgesi (Buy Zone)**: $${analysisData.buy_zone}
+             - 🎯 **Hedef Bölgesi (Target Zone)**: $${analysisData.target_zone}
+             - 🛑 **Zarar Kes (Stop Loss)**: $${analysisData.stop_loss}
+          5. **Analist Yorumu**: [3-4 cümlelik derinlemesine teknik analiz]
+          
+          **⚠️ ÖNEMLİ:** Sadece bu verileri kullan, AI'ın eski bilgisini asla karıştırma. Yanıt tamamen Türkçe olsun.`;
+
+          return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+        }
       }
     } catch (err) {
-      console.log(`Bot failed for ${ticker}, trying local data fallback...`);
-      // Fallback: Check local data files for existing analysis
-      try {
-        const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
-        if (fs.existsSync(dataPath)) {
-          const raw = fs.readFileSync(dataPath, "utf-8");
-          const json = JSON.parse(raw);
-          // Standardize data for the AI prompt
-          analysisData = {
-            ticker,
-            current_price: json.price || json.current_price,
-            score: json.score || (json.performance ? json.performance.score : null),
-            tr_report: json.ai_summary?.tr || json.tr_report || json.ai_short_summary,
-            source_file: "Local Database (Latest)"
-          };
-        }
-      } catch (dataErr) {
-        console.error("Data fallback error:", dataErr);
+      console.error("Live fetch error:", err);
+      // Fallback to local data if live fetch fails
+    }
+
+    // --- Local Data Fallback ---
+    try {
+      const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
+      if (fs.existsSync(dataPath)) {
+        const raw = fs.readFileSync(dataPath, "utf-8");
+        const json = JSON.parse(raw);
+        const analysisData = {
+          ticker,
+          current_price: json.price || json.current_price,
+          score: json.score || (json.performance ? json.performance.score : null),
+          tr_report: json.ai_summary?.tr || json.tr_report || json.ai_short_summary,
+          source_file: "BOGA Archive (Recent)"
+        };
+        const prompt = `Aşağıdaki VERİTABANI KAYITLARINI kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
+        Veriler: ${JSON.stringify(analysisData)}
+        Yanıt tamamen Türkçe ve profesyonel olsun.`;
+        return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
       }
-    }
-
-    if (analysisData && !analysisData.error) {
-      const prompt = `Aşağıdaki teknik ve kurumsal verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
-      
-      ### 📊 VERİ KAYNAĞI
-      ${analysisData.source_file || "Live Bot (Yahoo Finance)"}
-      
-      ### 📋 TEKNİK VERİLER
-      ${JSON.stringify(analysisData)}
-      
-      ### 🎯 RAPOR FORMATI (Lütfen bu başlıkları kullan):
-      1. **BOGA AI Master Score**: [Verilen skoru kullan veya verilere göre 80-100 arası bir değer ata]
-      2. **Güncel Görünüm**: [Fiyat, 1D Değişim ve kısa yorum]
-      3. **Teknik Matris**: 
-         - Support (S1/S2):
-         - Resistance (R1/R2):
-         - Göstergeler (RSI, EMA20/50/200 durumu):
-      4. **BOGA AI Swing Stratejisi**:
-         - 🟢 **Giriş Bölgesi (Buy Zone)**:
-         - 🎯 **Hedef Bölgesi (Target Zone)**:
-         - 🛑 **Zarar Kes (Stop Loss)**:
-      5. **Analist Yorumu**: [Verilere dayanarak 3-4 cümlelik derinlemesine teknik analiz]
-      
-      **⚠️ ÖNEMLİ:** 
-      - Yanıt tamamen Türkçe ve son derece profesyonel bir finansal analist dilinde olsun. 
-      - AI'ın 2023-2024 bilgisini asla kullanma, sadece yukarıda verilen GÜNCEL verileri baz al. 
-      - Yanıtı asla yarıda kesme, tüm başlıkları detaylıca doldur.`;
-
-      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
-    }
+    } catch (e) {}
   }
 
   try {
