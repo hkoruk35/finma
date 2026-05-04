@@ -166,18 +166,23 @@ export async function POST(req: NextRequest) {
     let marketData: any = { spy: null, qqq: null, vix: null };
 
     try {
-      // 1. Fetch Market Context & Ticker Fundamentals (v7/quote with modules)
-      const qUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX,${ticker}&modules=financialData,defaultKeyStatistics`;
-      const qRes = await fetch(qUrl, { signal: AbortSignal.timeout(5000) });
-      if (qRes.ok) {
-        const qJson = await qRes.json();
-        const quotes = qJson.quoteResponse.result;
+      // 1. Fetch Market Context (Clean v7/quote)
+      const mRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX`, { signal: AbortSignal.timeout(5000) });
+      if (mRes.ok) {
+        const mJson = await mRes.json();
+        const quotes = mJson.quoteResponse.result;
         marketData = {
           spy: quotes.find((q: any) => q.symbol === "SPY"),
           qqq: quotes.find((q: any) => q.symbol === "QQQ"),
-          vix: quotes.find((q: any) => q.symbol === "^VIX") || { regularMarketPrice: 15.0 } // Fallback
+          vix: quotes.find((q: any) => q.symbol === "^VIX") || { regularMarketPrice: 15.0 }
         };
-        const stockQuote = quotes.find((q: any) => q.symbol === ticker);
+      }
+
+      // 2. Fetch Ticker Data (Primary: Live Quote)
+      const qRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { signal: AbortSignal.timeout(5000) });
+      if (qRes.ok) {
+        const qJson = await qRes.json();
+        const stockQuote = qJson.quoteResponse.result?.[0];
         if (stockQuote) {
           analysisData = {
             ticker,
@@ -186,15 +191,12 @@ export async function POST(req: NextRequest) {
             mcap: stockQuote.marketCap ? (stockQuote.marketCap / 1e9).toFixed(1) + "B" : "N/A",
             pe_ratio: stockQuote.trailingPE?.toFixed(1) || "N/A",
             pb_ratio: stockQuote.priceToBook?.toFixed(2) || "N/A",
-            gross_margin: stockQuote.grossMargins ? (stockQuote.grossMargins * 100).toFixed(1) : "N/A",
-            net_margin: stockQuote.profitMargins ? (stockQuote.profitMargins * 100).toFixed(1) : "N/A",
-            rev_growth: stockQuote.revenueGrowth ? (stockQuote.revenueGrowth * 100).toFixed(1) : "N/A",
-            fcf_yield: stockQuote.freeCashflow ? "Pozitif" : "N/A"
+            source: "BOGA Live Engine"
           };
         }
       }
 
-      // 2. Fetch Ticker Chart Data (1mo for technicals)
+      // 3. Fetch Ticker Chart Data (For technicals and performance)
       const yfUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`;
       const yfRes = await fetch(yfUrl, { signal: AbortSignal.timeout(8000) });
       
@@ -211,7 +213,7 @@ export async function POST(req: NextRequest) {
           if (closes.length > 5) {
             const currentPrice = closes[closes.length - 1];
             
-            // --- LIVE TECHNICAL CALCULATIONS (Fallback for missing JSON) ---
+            // --- LIVE TECHNICAL CALCULATIONS ---
             const calculateEMA = (data: number[], period: number) => {
               if (data.length < period) return data[data.length - 1];
               const k = 2 / (period + 1);
@@ -222,7 +224,7 @@ export async function POST(req: NextRequest) {
 
             const ema20 = calculateEMA(closes, 20);
             const ema50 = calculateEMA(closes, 50);
-            const ema200 = calculateEMA(closes, 200); // Approximation if data short
+            const ema200 = calculateEMA(closes, 100); // Approximation
             
             const avgVol = volumes.slice(-20).reduce((a: number, b: number) => a + b, 0) / 20;
             const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
@@ -235,7 +237,7 @@ export async function POST(req: NextRequest) {
               support: Math.min(...lows.slice(-20)).toFixed(2),
               resistance: Math.max(...highs.slice(-20)).toFixed(2),
               buy_zone: `${(currentPrice * 0.985).toFixed(2)} - ${currentPrice.toFixed(2)}`,
-              target_zone: `${(currentPrice * 1.12).toFixed(2)} - ${(currentPrice * 1.15).toFixed(2)}`,
+              target_zone: `${(currentPrice * 1.12).toFixed(2)} - ${(currentPrice * 1.18).toFixed(2)}`,
               stop_loss: (currentPrice * 0.94).toFixed(2),
               ema20_gap: (((currentPrice - ema20) / ema20) * 100).toFixed(1),
               ema50_gap: (((currentPrice - ema50) / ema50) * 100).toFixed(1),
@@ -252,61 +254,33 @@ export async function POST(req: NextRequest) {
         }
       }
     } catch (err) {
-      console.error("V3.5 Self-Correction error:", err);
+      console.error("V3.5 Live Fetch Error:", err);
     }
 
-    // 3. Combine Live Data with Local Archive for Full Analysis
+    // 4. Fallback to Local Archive if Live Fetch Failed or for Extra Data
     try {
       const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
       if (fs.existsSync(dataPath)) {
         const json = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
-        
-        // Merge or Initialize analysisData
         analysisData = {
+          ...analysisData,
           ticker,
           price: analysisData?.price || json.price.current.toFixed(2),
           change: analysisData?.change || json.price.change_pct.toFixed(2),
-          mcap: (json.fundamental.market_cap / 1e9).toFixed(1) + "B",
+          mcap: analysisData?.mcap || (json.fundamental.market_cap / 1e9).toFixed(1) + "B",
           sector: json.sector || "Various",
-          vol_strength: analysisData?.vol_strength || (json.technical.rvol ? json.technical.rvol.toFixed(2) : "1.00"),
-          rs_vs_spy: analysisData?.rs_vs_spy || "0.00",
-          support: analysisData?.support || json.technical.support_level?.toFixed(2) || json.price.low.toFixed(2),
-          resistance: analysisData?.resistance || json.price.high.toFixed(2),
-          buy_zone: analysisData?.buy_zone || `${json.scores_detail?.entry_range_low} - ${json.scores_detail?.entry_range_high}`,
-          target_zone: analysisData?.target_zone || `${json.scores_detail?.target_range_low} - ${json.scores_detail?.target_range_high}`,
-          stop_loss: analysisData?.stop_loss || json.scores_detail?.stop_loss?.toFixed(2),
-          market: analysisData?.market || marketData,
-          
-          // Technicals
-          rsi: json.technical.rsi_14?.toFixed(1),
-          adx: json.technical.adx?.toFixed(1),
-          macd: json.technical.macd_histogram?.toFixed(3),
-          mfi: json.technical.mfi?.toFixed(1),
-          ema20_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_20) / json.technical.ema_20 * 100 ).toFixed(1),
-          ema50_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_50) / json.technical.ema_50 * 100 ).toFixed(1),
-          ema200_gap: ( ((analysisData?.price || json.price.current) - json.technical.ema_200) / json.technical.ema_200 * 100 ).toFixed(1),
-          
-          // Performance
-          perf_1w: json.price.change_pct_1w?.toFixed(2),
-          perf_1m: json.price.change_pct_1m?.toFixed(2),
-          perf_1y: json.price.change_pct_1y?.toFixed(2),
-          
-          // Fundamentals
           gross_margin: (json.fundamental.gross_margin * 100).toFixed(1),
           net_margin: (json.fundamental.net_margin * 100).toFixed(1),
           rev_growth: (json.fundamental.revenue_growth_ttm * 100).toFixed(1),
-          pe_ratio: json.fundamental.pe_ratio?.toFixed(1),
-          pb_ratio: json.fundamental.pb_ratio?.toFixed(2),
+          pe_ratio: analysisData?.pe_ratio !== "N/A" ? analysisData?.pe_ratio : json.fundamental.pe_ratio?.toFixed(1),
+          pb_ratio: analysisData?.pb_ratio !== "N/A" ? analysisData?.pb_ratio : json.fundamental.pb_ratio?.toFixed(2),
           fcf_yield: (json.fundamental.fcf_yield * 100).toFixed(1),
-          
-          source: "BOGA SWING TERMINAL V3.5 (Live + Archive)"
+          source: analysisData?.source || "BOGA Archive (Nisan 2026)"
         };
       }
-    } catch (e) {
-      console.error("Archive merge error:", e);
-    }
+    } catch (e) {}
 
-    if (analysisData) {
+    if (analysisData && analysisData.price) {
       const prompt = `Aşağıdaki teknik, temel ve piyasa verilerini kullanarak ${ticker} için V3.5 BOGA SWING UYGULAMA RAPORU hazırla.
       
       ### 📋 VERİLER
