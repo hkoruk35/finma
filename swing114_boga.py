@@ -444,8 +444,11 @@ async def build_atmaca_universe_full() -> List[str]:
                         (close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]
                     ) if len(close) >= 6 else 0.0
                     # 🎯 SNIPER MOD: Sıkışma bölgesindeki hisseleri dahil et.
-                    # -4% ile +6% arası = patlama öncesi volatility contraction zonu.
-                    if roc5 < -0.04 or roc5 > 0.06:
+                    # 🔧 BOGA AI FIX: Hacimli momentum kırılımları (Tier 2) evrene eklendi
+                    is_squeeze_candidate = (-0.04 <= roc5 <= 0.06)
+                    is_momentum_breakout = (0.06 < roc5 <= 0.12) and rvol > 2.0
+                    
+                    if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
 
                     BULK_DATA_CACHE[sym] = data[sym].copy()
@@ -565,9 +568,9 @@ def get_stock_info(ticker: str) -> dict:
         
         # Cache güncelle ve kaydet
         persistent_info_cache[t] = processed
-        # Optional: Saving after every fetch puts a load on disk I/O, 
-        # but prevents data loss in case of a crash.
-        save_info_cache() 
+        # 🔧 BOGA AI FIX: Disk I/O yükünü kaldırmak için her fetch'te diske yazma işlemi iptal edildi. 
+        # (Tarama sonunda toplu olarak yazılacak)
+        # save_info_cache()
         
         return processed
         
@@ -1247,11 +1250,13 @@ async def analyze_market_and_sectors():
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
         try:
             etf = yf.Ticker(etf_ticker)
-            hist = etf.history(period="5d")
-            if len(hist) >= 2:
-                SECTOR_PERFORMANCE[sector_name] = round(
-                    (float(hist["Close"].iloc[-1]) - float(hist["Close"].iloc[0])) / float(hist["Close"].iloc[0]) * 100, 2
-                )
+            # 🔧 BOGA AI FIX: 5 günlük (kısa) ve 21 günlük (orta) vade birleştirilerek gürültü azaltıldı
+            hist_21d = etf.history(period="21d")
+            if len(hist_21d) >= 5:
+                hist_5d = hist_21d.tail(5)
+                perf_5d = (float(hist_5d["Close"].iloc[-1]) - float(hist_5d["Close"].iloc[0])) / float(hist_5d["Close"].iloc[0]) * 100
+                perf_21d = (float(hist_21d["Close"].iloc[-1]) - float(hist_21d["Close"].iloc[0])) / float(hist_21d["Close"].iloc[0]) * 100
+                SECTOR_PERFORMANCE[sector_name] = round((perf_5d * 0.6) + (perf_21d * 0.4), 2)
         except Exception:
             continue
 
@@ -1312,7 +1317,8 @@ def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0
     elif vol_increase >= 1.8: hold -= 1
     elif vol_increase < 0.8: hold += 2
     if is_exhausted: hold += 1
-    return max(1, min(3, hold))   # 🎯 SNIPER MOD: 1-3g. 1-2 günlük patlama odaklı (vur-kaç).
+    # 🔧 BOGA AI FIX: Hedeflenen %8-15 TP değerleriyle uyumlu olması için hold süresi 3-10 güne çekildi
+    return max(3, min(10, hold))
 
 # ================================================================
 # ================================================================
@@ -1341,10 +1347,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
     """
     try:
         ticker = ticker.strip().upper()
+        
+        # 🔧 BOGA AI FIX: Değişkenler referans hatasını (NameError) önlemek için en başa alındı
+        score   = 0.0
+        details: List[str] = []
 
         # ── HARD FILTER: Pass if market is WEAK (0 ms) ─────────────────
+        # 🔧 BOGA AI FIX: WEAK piyasada tüm evreni silmek yerine ağır skor cezası uygula
         if MARKET_STATUS.get("regime") == "WEAK":
-            return None
+            score -= 15.0  # Sadece gerçekten en kusursuz defansif/momentum setup'lar hayatta kalabilir
 
         # ── PHASE 1: MEMORY ONLY — ZERO NETWORK I/O ───────────────
         # From persistent_info_cache (accumulation from previous scans)
@@ -1357,9 +1368,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # 🎯 0-DAY SNIPER HARD REJECTS (OpenAI Fix)
         # 7 günde hedefe gidemeyecek kadar hantal sektörleri ve piyasadan yavaş (Beta < 0.85) hisseleri direkt çöpe at.
-        if sector_name in ["Real Estate", "Utilities"]:
+        if sector_name in ["Utilities"]:  # 🔧 BOGA AI FIX: Real Estate çıkarıldı, özel kurallarla işlenecek
             return None
-        if beta > 0 and beta < 0.85:
+        if beta > 0 and beta < 0.85 and sector_name != "Real Estate": # 🔧 BOGA AI FIX: REIT'ler düşük betalıdır, tolere et
             return None
 
         # 1D data → From BULK_DATA_CACHE (0 ms, yf.download already loaded)
@@ -1379,9 +1390,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         low_1d    = df_1d["Low"]
         volume_1d = df_1d["Volume"]
         current_price = float(close_1d.iloc[-1])
-
-        score   = 0.0
-        details: List[str] = []
         details.append("[OK] UNIVERSE: Liquidity/Structural Conditions Met")
         score += 4.0
 
@@ -1516,8 +1524,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         rvol_5_30 = rvol_micro
 
         # 1. VOLUME TIGHTENED: 0.90 was too loose — sideways stocks easily clear it.
-        if rvol_micro < 1.05:   # 🔧 FIX: 0.90 → 1.05 (must show at least mild expansion)
-            layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<1.05")
+        # 🔧 BOGA AI FIX: REIT'lerin hacimleri yapısal olarak stabildir, istisna sağlandı
+        min_rvol_required = 0.80 if sector_name == "Real Estate" else 1.05
+        if rvol_micro < min_rvol_required:
+            layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<{min_rvol_required}")
 
         # 2. TREND HARD GATE
         try:
@@ -1541,9 +1551,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-# 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
-        if adx_1d > 0 and adx_1d < 18:   # 🔧 FIX: 12 → 18 (matches ADX_MIN_LEVEL_1D constant)
-            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<18 (no trend)")
+        # 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
+        # 🔧 BOGA AI FIX: REIT'ler daha yatay trend yaptığı için ADX eşiği 12'ye düşürüldü
+        min_adx_required = 12 if sector_name == "Real Estate" else 18
+        if adx_1d > 0 and adx_1d < min_adx_required:
+            layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<{min_adx_required} (no trend)")
 
         try:
             last10 = df_1d.tail(10)
@@ -1551,9 +1563,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             green_candles = 0
         # 🔧 FIX: 3 green candles out of 10 was too loose — half are red/down. Need 5+.
-        if green_candles < 5:
-            layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<5 (no upward bias)")
-
+        # 🔧 BOGA AI FIX: REIT'ler defansif yapıları gereği konsolide olur, 4 yeşil mum tolere edilir.
+        min_green_required = 4 if sector_name == "Real Estate" else 5
+        if green_candles < min_green_required:
+            layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<{min_green_required} (no upward bias)")
+            
         try:
             # True Range ve Akıllı Para İvme Kontrolü (Gap Körlüğü Çözümü)
             df_cmf = df_1d.tail(25)
@@ -1670,18 +1684,31 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             rsi_1d_val = 50.0
 
         # 🎯 0-DAY SNIPER: RSI 68'i geçmişse düzeltme yakındır, ceza kes.
-        if 45 <= rsi_1d_val <= 60:
-            score += 8.0; details.append(f"🌀 RSI: Sniper Sweet Spot ({rsi_1d_val:.1f})")
-        elif 60 < rsi_1d_val <= 68:
-            score += 4.0; details.append(f"📈 RSI: Momentum Continuation ({rsi_1d_val:.1f})")
-        elif 68 < rsi_1d_val <= 75:
-            score -= 5.0; details.append(f"⚠️ RSI: FOMO Risk / Overextended ({rsi_1d_val:.1f})")
-        elif rsi_1d_val < 40:
-            score -= 3.2; details.append(f"❄️ RSI: Weak ({rsi_1d_val:.1f})")
-        elif rsi_1d_val > 75:
-            score -= 10.0; details.append(f"🔴 RSI: Overbought Peak ({rsi_1d_val:.1f})")
+        # 🔧 BOGA AI FIX: REIT'ler için RSI bandını daha düşük tutuyoruz (38-55 optimal)
+        if sector_name == "Real Estate":
+            if 38 <= rsi_1d_val <= 55:
+                score += 8.0; details.append(f"🏢 REIT RSI: Optimal Base ({rsi_1d_val:.1f})")
+            elif 55 < rsi_1d_val <= 65:
+                score += 4.0; details.append(f"📈 REIT RSI: Momentum ({rsi_1d_val:.1f})")
+            elif rsi_1d_val > 65:
+                score -= 5.0; details.append(f"⚠️ REIT RSI: Overextended ({rsi_1d_val:.1f})")
+            elif rsi_1d_val < 35:
+                score -= 3.2; details.append(f"❄️ REIT RSI: Weak ({rsi_1d_val:.1f})")
+            else:
+                score += 0.4; details.append(f"➖ REIT RSI: Neutral ({rsi_1d_val:.1f})")
         else:
-            score += 0.4; details.append(f"➖ RSI: Neutral ({rsi_1d_val:.1f})")
+            if 45 <= rsi_1d_val <= 60:
+                score += 8.0; details.append(f"🌀 RSI: Sniper Sweet Spot ({rsi_1d_val:.1f})")
+            elif 60 < rsi_1d_val <= 68:
+                score += 4.0; details.append(f"📈 RSI: Momentum Continuation ({rsi_1d_val:.1f})")
+            elif 68 < rsi_1d_val <= 75:
+                score -= 5.0; details.append(f"⚠️ RSI: FOMO Risk / Overextended ({rsi_1d_val:.1f})")
+            elif rsi_1d_val < 40:
+                score -= 3.2; details.append(f"❄️ RSI: Weak ({rsi_1d_val:.1f})")
+            elif rsi_1d_val > 75:
+                score -= 10.0; details.append(f"🔴 RSI: Overbought Peak ({rsi_1d_val:.1f})")
+            else:
+                score += 0.4; details.append(f"➖ RSI: Neutral ({rsi_1d_val:.1f})")
 
         try:
             if len(close_1d) > 5:
@@ -2207,21 +2234,33 @@ def compute_boga_score_100(c: dict) -> float:
 
     # ── FUNDAMENTAL (15 puan) ───────────────────────────────────────
     fin = c.get("financial_health", {})
+    sector = c.get("sector", "Unknown")
+    
     if fin:
-        gross_m = fin.get("gross_margin", 0)
-        if gross_m >= 40: score_100 += 5.0
-        elif gross_m >= 25: score_100 += 3.0
-        elif gross_m >= 15: score_100 += 1.5
+        if sector == "Real Estate":
+            # 🔧 BOGA AI FIX: REIT modeli. P/B rasyosu baz alınarak stabilite ödüllendirilir.
+            pb_ratio = fin.get("pb_ratio", 0)
+            if 0 < pb_ratio <= 1.5: score_100 += 10.0  # Ucuz ve defansif REIT
+            elif 1.5 < pb_ratio <= 3.0: score_100 += 6.0
+            else: score_100 += 3.0
+            
+            # FFO ve Temettü yapısını simüle eden taban puan
+            score_100 += 5.0 
+        else:
+            gross_m = fin.get("gross_margin", 0)
+            if gross_m >= 40: score_100 += 5.0
+            elif gross_m >= 25: score_100 += 3.0
+            elif gross_m >= 15: score_100 += 1.5
 
-        rev_growth = fin.get("revenue_growth", 0)
-        if rev_growth >= 15: score_100 += 5.0
-        elif rev_growth >= 8: score_100 += 3.0
-        elif rev_growth >= 3: score_100 += 1.5
+            rev_growth = fin.get("revenue_growth", 0)
+            if rev_growth >= 15: score_100 += 5.0
+            elif rev_growth >= 8: score_100 += 3.0
+            elif rev_growth >= 3: score_100 += 1.5
 
-        fcf = fin.get("fcf_yield", 0)
-        if fcf >= 5: score_100 += 5.0
-        elif fcf >= 3: score_100 += 3.0
-        elif fcf >= 1: score_100 += 1.5
+            fcf = fin.get("fcf_yield", 0)
+            if fcf >= 5: score_100 += 5.0
+            elif fcf >= 3: score_100 += 3.0
+            elif fcf >= 1: score_100 += 1.5
     else:
         score_100 += 5.0  # Give neutral score if no data
 

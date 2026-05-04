@@ -1,722 +1,563 @@
 {
-  "generated_at": "2026-05-02T12:09:11.938156-04:00",
-  "date": "2026-05-02",
-  "model": "BOGA AI V114",
-  "market_regime": "STRONG",
-  "total_picks": 5,
+  "generated_at": "2026-05-04T13:06:17.111589-04:00",
+  "date": "2026-05-04",
+  "model": "BOGA AI V113",
+  "market_regime": "BULLISH",
+  "total_picks": 4,
   "picks": [
     {
       "rank": 1,
-      "ticker": "ETSY",
-      "company": "ETSY",
-      "sector": "Consumer Cyclical",
-      "score": 64.4,
-      "boga_score": 64.4,
-      "market_regime": "STRONG",
-      "current_price": 63.16999816894531,
-      "holding_period_estimate": "7-12 Days (max)",
-      "holding_period": "7-12 Days",
+      "ticker": "BTSG",
+      "company": "BTSG",
+      "sector": "Healthcare",
+      "score": 61.5,
+      "boga_score": 61.5,
+      "market_regime": "BULLISH",
+      "current_price": 53.18000030517578,
+      "holding_period_estimate": "6-11 Days (max)",
+      "holding_period": "6-11 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 61.3,
-        "entry_zone_high": 63.48,
-        "profit_target_low": 67.93,
-        "profit_target_high": 68.91,
-        "stop_loss_high": 59.13,
-        "max_hold_days": 12,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
+        "entry_zone_low": 51.95,
+        "entry_zone_high": 53.39,
+        "profit_target_low": 57.26,
+        "profit_target_high": 58.07,
+        "stop_loss_high": 50.51,
+        "max_hold_days": 11,
+        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD"
       },
       "buy_zone": {
-        "low": 61.3,
-        "high": 63.48
+        "low": 51.95,
+        "high": 53.39
       },
       "profit_zone": {
-        "low": 67.93,
-        "high": 68.91
+        "low": 57.26,
+        "high": 58.07
       },
       "stop_zone": {
-        "low": 58.51,
-        "high": 59.13
+        "low": 50.1,
+        "high": 50.51
       },
-      "reasoning": "BOGA AI rates ETSY at 64/100 within a Bullish trend. Macro targets suggest $68.91.",
-      "detail_reasoning": "\n### 1. Industry Insight\nETSY is showing institutional interest in the Consumer Cyclical sector. BOGA AI indicates a tactical score of 64/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $63.17. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $59.13 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $61.30 - $63.48\n- **Short-term Target:** $68.91\n- **Stop Protection:** $59.13\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-      "adx": 37.0,
-      "rsi": 56.7,
-      "rvol": 0.96,
-      "change_1d": -1.82,
-      "change_1w": 0.61,
-      "change_1m": 26.42,
-      "change_1y": 42.6,
-      "change_5y": -61.65,
+      "reasoning": "BOGA AI rates BTSG at 62/100 within a Bullish trend. Macro targets suggest $58.07.",
+      "detail_reasoning": "\n### 1. Industry Insight\nBTSG is showing institutional interest in the Healthcare sector. BOGA AI indicates a tactical score of 62/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $53.18. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $50.51 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $51.95 - $53.39\n- **Short-term Target:** $58.07\n- **Stop Protection:** $50.51\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+      "adx": 19.9,
+      "rsi": 74.4,
+      "rvol": 0.64,
+      "change_1d": 1.14,
+      "change_1w": 9.49,
+      "change_1m": 23.39,
+      "change_1y": 152.06,
+      "change_5y": 492.99,
       "boga_zones": {
         "buying_zone": {
-          "low": 61.3,
-          "high": 63.48
+          "low": 51.95,
+          "high": 53.39
         },
         "sell_zone": {
-          "low": 67.93,
-          "high": 68.91
+          "low": 57.26,
+          "high": 58.07
         },
         "stop_loss_zone": {
-          "low": 58.51,
-          "high": 59.13
+          "low": 50.1,
+          "high": 50.51
         },
-        "risk_reward": 2.0,
-        "support_1h": 60.68,
-        "resistance_1h": 65.05,
-        "atr_1d": 3.11,
-        "atr_pct": 4.92,
-        "risk_usd": 3.26,
-        "reward_usd": 6.52
+        "risk_reward": 2.5,
+        "support_1h": 51.54,
+        "resistance_1h": 54.68,
+        "atr_1d": 2.05,
+        "atr_pct": 3.86,
+        "risk_usd": 2.16,
+        "reward_usd": 5.4
       },
       "trend_status": {
         "trend": "Macro Bullish",
-        "rsi_14": 56.7,
-        "adx": 37.0,
-        "macd_hist": 0.245,
-        "mfi": 60.4,
-        "cmf": 0.0771,
-        "rvol_today": 0.96,
-        "entry_trigger": "None Yet",
+        "rsi_14": 74.4,
+        "adx": 19.9,
+        "macd_hist": 0.437,
+        "mfi": 67.5,
+        "cmf": 0.4171,
+        "rvol_today": 0.64,
+        "entry_trigger": "Trend Continuation Swing",
         "is_exhausted": false
       },
       "moving_averages": {
-        "ema_20": 61.02,
-        "ema_50": 57.56,
-        "ema_200": 56.04,
-        "price_vs_ema20": 2.15,
-        "price_vs_ema50": 5.61,
-        "price_vs_ema200": 7.13,
+        "ema_20": 47.56,
+        "ema_50": 44.63,
+        "ema_200": 36.41,
+        "price_vs_ema20": 5.62,
+        "price_vs_ema50": 8.55,
+        "price_vs_ema200": 16.77,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 41.1,
-        "adx_1h": 17.8,
-        "rvol_1h": "1.8x ([OK] High)",
+        "rsi_1h": 64.4,
+        "adx_1h": 34.7,
+        "rvol_1h": "0.4x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
         "pivot_structure": "Pivot HL"
       },
       "fundamentals": {
-        "gross_margin_pct": 71.64,
-        "operating_margin_pct": 14.68,
-        "net_margin_pct": 5.65,
-        "revenue_growth_pct": 3.5,
-        "pe_ratio": 40.7,
-        "pb_ratio": -5.0,
+        "gross_margin_pct": 11.76,
+        "operating_margin_pct": 3.05,
+        "net_margin_pct": 1.48,
+        "revenue_growth_pct": 29.3,
+        "pe_ratio": 99.7,
+        "pb_ratio": 5.2,
         "fcf_yield_pct": 0.0,
-        "market_cap": "5.58B",
-        "market_cap_usd": 5579850752
+        "market_cap": "9.24B",
+        "market_cap_usd": 9242109952
       },
       "performance": {
-        "1d_pct": -1.82,
-        "1w_pct": 0.61,
-        "1m_pct": 26.42,
-        "1y_pct": 42.6,
-        "5y_pct": -61.65
+        "1d_pct": 1.14,
+        "1w_pct": 9.49,
+        "1m_pct": 23.39,
+        "1y_pct": 152.06,
+        "5y_pct": 492.99
       },
       "factor_scores": {
         "trend_score": 12.0,
-        "momentum_score": 2.0,
-        "volatility_score": 12.0,
-        "volume_score": 3.04,
-        "financial_score": 2.0,
-        "catalyst_score": 0.8,
+        "momentum_score": 12.0,
+        "volatility_score": 8.0,
+        "volume_score": 9.8,
+        "financial_score": 3.0,
+        "catalyst_score": 1.6,
         "insider_score": 0.0,
-        "composite": 6.37,
-        "raw_score": 92.99
+        "composite": 10.62,
+        "raw_score": 121.45
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI rates ETSY at 64/100 within a Bullish trend. Macro targets suggest $68.91.",
-          "tr": "BOGA AI gave a score of 64/100 in the Bullish trend for ETSY. Target zone: $68.91.",
-          "es": "BOGA AI califica a ETSY con 64/100 en una tendencia Bullish. Los objetivos sugieren $68.91.",
-          "pt": "BOGA AI avalia ETSY em 64/100 em uma tendência Bullish. Os alvos sugerem $68.91.",
-          "fr": "BOGA AI évalue ETSY à 64/100 dans une tendance Bullish. Les objectifs suggèrent $68.91.",
-          "id": "BOGA AI menilai ETSY pada 64/100 dalam tren Bullish. Target makro menunjukkan $68.91."
+          "en": "BOGA AI rates BTSG at 62/100 within a Bullish trend. Macro targets suggest $58.07.",
+          "tr": "BOGA AI gave a score of 62/100 in the Bullish trend for BTSG. Target zone: $58.07.",
+          "es": "BOGA AI califica a BTSG con 62/100 en una tendencia Bullish. Los objetivos sugieren $58.07.",
+          "pt": "BOGA AI avalia BTSG em 62/100 em uma tendência Bullish. Os alvos sugerem $58.07.",
+          "fr": "BOGA AI évalue BTSG à 62/100 dans une tendance Bullish. Les objectifs suggèrent $58.07.",
+          "id": "BOGA AI menilai BTSG pada 62/100 dalam tren Bullish. Target makro menunjukkan $58.07."
         },
         "detail_summary": {
-          "en": "\n### 1. Industry Insight\nETSY is showing institutional interest in the Consumer Cyclical sector. BOGA AI indicates a tactical score of 64/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $63.17. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $59.13 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $61.30 - $63.48\n- **Short-term Target:** $68.91\n- **Stop Protection:** $59.13\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-          "tr": "\n### 1. Sektörel Bakış\nETSY is attracting institutional interest in the Consumer Cyclical sector. BOGA AI shows a tactical score of 64/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $63.17. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $59.13 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $61.30 - $63.48\n- **Short-term Target:** $68.91\n- **Stop Loss Protection:** $59.13\n- **Risk/Reward Ratio:** 2.0:1\n\n*Not Investment Advice*\n",
-          "es": "\n### 1. Perspectiva Industrial\nETSY está mostrando interés institucional en el sector Consumer Cyclical. BOGA AI indica una puntuación táctica de 64/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $63.17. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $59.13 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $61.30 - $63.48\n- **Objetivo a Corto Plazo:** $68.91\n- **Protección de Stop:** $59.13\n- **Relación Riesgo/Beneficio:** 2.0:1\n\n*No es asesoramiento financiero*\n",
-          "pt": "\n### 1. Perspectiva Industrial\nETSY está mostrando interesse institucional no setor Consumer Cyclical. BOGA AI indica uma pontuação tática de 64/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $63.17. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $59.13 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $61.30 - $63.48\n- **Alvo de Curto Prazo:** $68.91\n- **Proteção de Stop:** $59.13\n- **Relação Risco/Recompensa:** 2.0:1\n\n*Não é aconselhamento financeiro*\n",
-          "fr": "\n### 1. Perspective Industrielle\nETSY suscite un intérêt institutionnel dans le secteur Consumer Cyclical. BOGA AI indique un score tactique de 64/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $63.17. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $59.13 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $61.30 - $63.48\n- **Objectif à Court Terme:** $68.91\n- **Protection Stop:** $59.13\n- **Rapport Risque/Récompense:** 2.0:1\n\n*Pas un conseil financier*\n",
-          "id": "\n### 1. Wawasan Industri\nETSY menunjukkan minat institusional di sektor Consumer Cyclical. BOGA AI menunjukkan skor taktis 64/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $63.17. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $59.13 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $61.30 - $63.48\n- **Target Jangka Pendek:** $68.91\n- **Perlindungan Stop:** $59.13\n- **Rasio Risiko/Imbalan:** 2.0:1\n\n*Bukan Nasihat Keuangan*\n"
+          "en": "\n### 1. Industry Insight\nBTSG is showing institutional interest in the Healthcare sector. BOGA AI indicates a tactical score of 62/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $53.18. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $50.51 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $51.95 - $53.39\n- **Short-term Target:** $58.07\n- **Stop Protection:** $50.51\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+          "tr": "\n### 1. Sektörel Bakış\nBTSG is attracting institutional interest in the Healthcare sector. BOGA AI shows a tactical score of 62/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $53.18. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $50.51 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $51.95 - $53.39\n- **Short-term Target:** $58.07\n- **Stop Loss Protection:** $50.51\n- **Risk/Reward Ratio:** 2.5:1\n\n*Not Investment Advice*\n",
+          "es": "\n### 1. Perspectiva Industrial\nBTSG está mostrando interés institucional en el sector Healthcare. BOGA AI indica una puntuación táctica de 62/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $53.18. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $50.51 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $51.95 - $53.39\n- **Objetivo a Corto Plazo:** $58.07\n- **Protección de Stop:** $50.51\n- **Relación Riesgo/Beneficio:** 2.5:1\n\n*No es asesoramiento financiero*\n",
+          "pt": "\n### 1. Perspectiva Industrial\nBTSG está mostrando interesse institucional no setor Healthcare. BOGA AI indica uma pontuação tática de 62/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $53.18. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $50.51 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $51.95 - $53.39\n- **Alvo de Curto Prazo:** $58.07\n- **Proteção de Stop:** $50.51\n- **Relação Risco/Recompensa:** 2.5:1\n\n*Não é aconselhamento financeiro*\n",
+          "fr": "\n### 1. Perspective Industrielle\nBTSG suscite un intérêt institutionnel dans le secteur Healthcare. BOGA AI indique un score tactique de 62/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $53.18. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $50.51 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $51.95 - $53.39\n- **Objectif à Court Terme:** $58.07\n- **Protection Stop:** $50.51\n- **Rapport Risque/Récompense:** 2.5:1\n\n*Pas un conseil financier*\n",
+          "id": "\n### 1. Wawasan Industri\nBTSG menunjukkan minat institusional di sektor Healthcare. BOGA AI menunjukkan skor taktis 62/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $53.18. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $50.51 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $51.95 - $53.39\n- **Target Jangka Pendek:** $58.07\n- **Perlindungan Stop:** $50.51\n- **Rasio Risiko/Imbalan:** 2.5:1\n\n*Bukan Nasihat Keuangan*\n"
         }
       }
     },
     {
       "rank": 2,
-      "ticker": "CSTM",
-      "company": "CSTM",
-      "sector": "Basic Materials",
-      "score": 59.3,
-      "boga_score": 59.3,
-      "market_regime": "STRONG",
-      "current_price": 32.0099983215332,
+      "ticker": "DRH",
+      "company": "DRH",
+      "sector": "Real Estate",
+      "score": 51.4,
+      "boga_score": 51.4,
+      "market_regime": "BULLISH",
+      "current_price": 10.255000114440918,
       "holding_period_estimate": "7-12 Days (max)",
       "holding_period": "7-12 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 31.16,
-        "entry_zone_high": 32.15,
-        "profit_target_low": 34.18,
-        "profit_target_high": 34.62,
-        "stop_loss_high": 30.17,
+        "entry_zone_low": 10.08,
+        "entry_zone_high": 10.28,
+        "profit_target_low": 10.77,
+        "profit_target_high": 10.88,
+        "stop_loss_high": 9.9,
         "max_hold_days": 12,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
+        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD"
       },
       "buy_zone": {
-        "low": 31.16,
-        "high": 32.15
+        "low": 10.08,
+        "high": 10.28
       },
       "profit_zone": {
-        "low": 34.18,
-        "high": 34.62
+        "low": 10.77,
+        "high": 10.88
       },
       "stop_zone": {
-        "low": 29.89,
-        "high": 30.17
+        "low": 9.85,
+        "high": 9.9
       },
-      "reasoning": "BOGA AI rates CSTM at 59/100 within a Bullish trend. Macro targets suggest $34.62.",
-      "detail_reasoning": "\n### 1. Industry Insight\nCSTM is showing institutional interest in the Basic Materials sector. BOGA AI indicates a tactical score of 59/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $32.01. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $30.17 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $31.16 - $32.15\n- **Short-term Target:** $34.62\n- **Stop Protection:** $30.17\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-      "adx": 32.2,
-      "rsi": 65.5,
-      "rvol": 1.21,
-      "change_1d": 2.33,
-      "change_1w": 2.01,
-      "change_1m": 17.17,
-      "change_1y": 187.34,
-      "change_5y": 79.23,
+      "reasoning": "BOGA AI rates DRH at 51/100 within a Bullish trend. Macro targets suggest $10.88.",
+      "detail_reasoning": "\n### 1. Industry Insight\nDRH is showing institutional interest in the Real Estate sector. BOGA AI indicates a tactical score of 51/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $10.26. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $9.90 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $10.08 - $10.28\n- **Short-term Target:** $10.88\n- **Stop Protection:** $9.90\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+      "adx": 21.1,
+      "rsi": 56.3,
+      "rvol": 0.5,
+      "change_1d": -2.05,
+      "change_1w": 0.24,
+      "change_1m": 8.98,
+      "change_1y": 41.06,
+      "change_5y": 18.61,
       "boga_zones": {
         "buying_zone": {
-          "low": 31.16,
-          "high": 32.15
+          "low": 10.08,
+          "high": 10.28
         },
         "sell_zone": {
-          "low": 34.18,
-          "high": 34.62
+          "low": 10.77,
+          "high": 10.88
         },
         "stop_loss_zone": {
-          "low": 29.89,
-          "high": 30.17
+          "low": 9.85,
+          "high": 9.9
         },
-        "risk_reward": 2.0,
-        "support_1h": 30.88,
-        "resistance_1h": 32.83,
-        "atr_1d": 1.42,
-        "atr_pct": 4.43,
-        "risk_usd": 1.48,
-        "reward_usd": 2.96
+        "risk_reward": 2.5,
+        "support_1h": 10.03,
+        "resistance_1h": 10.66,
+        "atr_1d": 0.25,
+        "atr_pct": 2.47,
+        "risk_usd": 0.28,
+        "reward_usd": 0.7
       },
       "trend_status": {
         "trend": "Macro Bullish",
-        "rsi_14": 65.5,
-        "adx": 32.2,
-        "macd_hist": 0.029,
-        "mfi": 54.7,
-        "cmf": 0.0313,
-        "rvol_today": 1.21,
-        "entry_trigger": "Trend Continuation (Late)",
+        "rsi_14": 56.3,
+        "adx": 21.1,
+        "macd_hist": -0.016,
+        "mfi": 48.8,
+        "cmf": 0.0425,
+        "rvol_today": 0.5,
+        "entry_trigger": "None Yet",
         "is_exhausted": false
       },
       "moving_averages": {
-        "ema_20": 29.96,
-        "ema_50": 27.54,
-        "ema_200": 21.12,
-        "price_vs_ema20": 2.05,
-        "price_vs_ema50": 4.47,
-        "price_vs_ema200": 10.89,
+        "ema_20": 10.14,
+        "ema_50": 9.86,
+        "ema_200": 8.95,
+        "price_vs_ema20": 0.12,
+        "price_vs_ema50": 0.4,
+        "price_vs_ema200": 1.31,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 54.7,
-        "adx_1h": 15.4,
-        "rvol_1h": "1.4x (Normal)",
+        "rsi_1h": 43.8,
+        "adx_1h": 27.6,
+        "rvol_1h": "0.3x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
         "pivot_structure": "Pivot HL"
       },
       "fundamentals": {
-        "gross_margin_pct": 14.33,
-        "operating_margin_pct": 7.18,
-        "net_margin_pct": 3.23,
-        "revenue_growth_pct": 27.9,
-        "pe_ratio": 16.8,
-        "pb_ratio": 4.58,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "4.38B",
-        "market_cap_usd": 4379279360
+        "gross_margin_pct": 0,
+        "operating_margin_pct": 0,
+        "net_margin_pct": 0,
+        "revenue_growth_pct": 0,
+        "pe_ratio": 0,
+        "pb_ratio": 0,
+        "fcf_yield_pct": 0,
+        "market_cap": "2.11B",
+        "market_cap_usd": 2111280256
       },
       "performance": {
-        "1d_pct": 2.33,
-        "1w_pct": 2.01,
-        "1m_pct": 17.17,
-        "1y_pct": 187.34,
-        "5y_pct": 79.23
+        "1d_pct": -2.05,
+        "1w_pct": 0.24,
+        "1m_pct": 8.98,
+        "1y_pct": 41.06,
+        "5y_pct": 18.61
       },
       "factor_scores": {
         "trend_score": 12.0,
-        "momentum_score": 4.0,
-        "volatility_score": 12.0,
-        "volume_score": 2.59,
-        "financial_score": 3.0,
-        "catalyst_score": 1.6,
+        "momentum_score": 2.0,
+        "volatility_score": 4.0,
+        "volume_score": 2.86,
+        "financial_score": 0.0,
+        "catalyst_score": 1.2000000000000002,
         "insider_score": 0.0,
-        "composite": 6.52,
-        "raw_score": 86.6
+        "composite": 5.36,
+        "raw_score": 69.31
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI rates CSTM at 59/100 within a Bullish trend. Macro targets suggest $34.62.",
-          "tr": "BOGA AI gave a score of 59/100 in the Bullish trend for CSTM. Target zone: $34.62.",
-          "es": "BOGA AI califica a CSTM con 59/100 en una tendencia Bullish. Los objetivos sugieren $34.62.",
-          "pt": "BOGA AI avalia CSTM em 59/100 em uma tendência Bullish. Os alvos sugerem $34.62.",
-          "fr": "BOGA AI évalue CSTM à 59/100 dans une tendance Bullish. Les objectifs suggèrent $34.62.",
-          "id": "BOGA AI menilai CSTM pada 59/100 dalam tren Bullish. Target makro menunjukkan $34.62."
+          "en": "BOGA AI rates DRH at 51/100 within a Bullish trend. Macro targets suggest $10.88.",
+          "tr": "BOGA AI gave a score of 51/100 in the Bullish trend for DRH. Target zone: $10.88.",
+          "es": "BOGA AI califica a DRH con 51/100 en una tendencia Bullish. Los objetivos sugieren $10.88.",
+          "pt": "BOGA AI avalia DRH em 51/100 em uma tendência Bullish. Os alvos sugerem $10.88.",
+          "fr": "BOGA AI évalue DRH à 51/100 dans une tendance Bullish. Les objectifs suggèrent $10.88.",
+          "id": "BOGA AI menilai DRH pada 51/100 dalam tren Bullish. Target makro menunjukkan $10.88."
         },
         "detail_summary": {
-          "en": "\n### 1. Industry Insight\nCSTM is showing institutional interest in the Basic Materials sector. BOGA AI indicates a tactical score of 59/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $32.01. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $30.17 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $31.16 - $32.15\n- **Short-term Target:** $34.62\n- **Stop Protection:** $30.17\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-          "tr": "\n### 1. Sektörel Bakış\nCSTM is attracting institutional interest in the Basic Materials sector. BOGA AI shows a tactical score of 59/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $32.01. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $30.17 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $31.16 - $32.15\n- **Short-term Target:** $34.62\n- **Stop Loss Protection:** $30.17\n- **Risk/Reward Ratio:** 2.0:1\n\n*Not Investment Advice*\n",
-          "es": "\n### 1. Perspectiva Industrial\nCSTM está mostrando interés institucional en el sector Basic Materials. BOGA AI indica una puntuación táctica de 59/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $32.01. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $30.17 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $31.16 - $32.15\n- **Objetivo a Corto Plazo:** $34.62\n- **Protección de Stop:** $30.17\n- **Relación Riesgo/Beneficio:** 2.0:1\n\n*No es asesoramiento financiero*\n",
-          "pt": "\n### 1. Perspectiva Industrial\nCSTM está mostrando interesse institucional no setor Basic Materials. BOGA AI indica uma pontuação tática de 59/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $32.01. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $30.17 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $31.16 - $32.15\n- **Alvo de Curto Prazo:** $34.62\n- **Proteção de Stop:** $30.17\n- **Relação Risco/Recompensa:** 2.0:1\n\n*Não é aconselhamento financeiro*\n",
-          "fr": "\n### 1. Perspective Industrielle\nCSTM suscite un intérêt institutionnel dans le secteur Basic Materials. BOGA AI indique un score tactique de 59/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $32.01. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $30.17 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $31.16 - $32.15\n- **Objectif à Court Terme:** $34.62\n- **Protection Stop:** $30.17\n- **Rapport Risque/Récompense:** 2.0:1\n\n*Pas un conseil financier*\n",
-          "id": "\n### 1. Wawasan Industri\nCSTM menunjukkan minat institusional di sektor Basic Materials. BOGA AI menunjukkan skor taktis 59/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $32.01. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $30.17 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $31.16 - $32.15\n- **Target Jangka Pendek:** $34.62\n- **Perlindungan Stop:** $30.17\n- **Rasio Risiko/Imbalan:** 2.0:1\n\n*Bukan Nasihat Keuangan*\n"
+          "en": "\n### 1. Industry Insight\nDRH is showing institutional interest in the Real Estate sector. BOGA AI indicates a tactical score of 51/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $10.26. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $9.90 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $10.08 - $10.28\n- **Short-term Target:** $10.88\n- **Stop Protection:** $9.90\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+          "tr": "\n### 1. Sektörel Bakış\nDRH is attracting institutional interest in the Real Estate sector. BOGA AI shows a tactical score of 51/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $10.26. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $9.90 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $10.08 - $10.28\n- **Short-term Target:** $10.88\n- **Stop Loss Protection:** $9.90\n- **Risk/Reward Ratio:** 2.5:1\n\n*Not Investment Advice*\n",
+          "es": "\n### 1. Perspectiva Industrial\nDRH está mostrando interés institucional en el sector Real Estate. BOGA AI indica una puntuación táctica de 51/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $10.26. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $9.90 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $10.08 - $10.28\n- **Objetivo a Corto Plazo:** $10.88\n- **Protección de Stop:** $9.90\n- **Relación Riesgo/Beneficio:** 2.5:1\n\n*No es asesoramiento financiero*\n",
+          "pt": "\n### 1. Perspectiva Industrial\nDRH está mostrando interesse institucional no setor Real Estate. BOGA AI indica uma pontuação tática de 51/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $10.26. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $9.90 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $10.08 - $10.28\n- **Alvo de Curto Prazo:** $10.88\n- **Proteção de Stop:** $9.90\n- **Relação Risco/Recompensa:** 2.5:1\n\n*Não é aconselhamento financeiro*\n",
+          "fr": "\n### 1. Perspective Industrielle\nDRH suscite un intérêt institutionnel dans le secteur Real Estate. BOGA AI indique un score tactique de 51/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $10.26. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $9.90 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $10.08 - $10.28\n- **Objectif à Court Terme:** $10.88\n- **Protection Stop:** $9.90\n- **Rapport Risque/Récompense:** 2.5:1\n\n*Pas un conseil financier*\n",
+          "id": "\n### 1. Wawasan Industri\nDRH menunjukkan minat institusional di sektor Real Estate. BOGA AI menunjukkan skor taktis 51/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $10.26. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $9.90 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $10.08 - $10.28\n- **Target Jangka Pendek:** $10.88\n- **Perlindungan Stop:** $9.90\n- **Rasio Risiko/Imbalan:** 2.5:1\n\n*Bukan Nasihat Keuangan*\n"
         }
       }
     },
     {
       "rank": 3,
-      "ticker": "HR",
-      "company": "HR",
-      "sector": "Real Estate",
-      "score": 57.8,
-      "boga_score": 57.8,
-      "market_regime": "STRONG",
-      "current_price": 19.25,
-      "holding_period_estimate": "7-12 Days (max)",
-      "holding_period": "7-12 Days",
+      "ticker": "FIVN",
+      "company": "FIVN",
+      "sector": "Technology",
+      "score": 50.8,
+      "boga_score": 50.8,
+      "market_regime": "BULLISH",
+      "current_price": 23.809999465942383,
+      "holding_period_estimate": "4-9 Days (max)",
+      "holding_period": "4-9 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 18.65,
-        "entry_zone_high": 19.29,
-        "profit_target_low": 19.99,
-        "profit_target_high": 20.17,
-        "stop_loss_high": 18.37,
-        "max_hold_days": 12,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
+        "entry_zone_low": 22.26,
+        "entry_zone_high": 23.94,
+        "profit_target_low": 26.8,
+        "profit_target_high": 27.45,
+        "stop_loss_high": 21.36,
+        "max_hold_days": 9,
+        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD"
       },
       "buy_zone": {
-        "low": 18.65,
-        "high": 19.29
+        "low": 22.26,
+        "high": 23.94
       },
       "profit_zone": {
-        "low": 19.99,
-        "high": 20.17
+        "low": 26.8,
+        "high": 27.45
       },
       "stop_zone": {
-        "low": 18.29,
-        "high": 18.37
+        "low": 21.1,
+        "high": 21.36
       },
-      "reasoning": "BOGA AI rates HR at 58/100 within a Bullish trend. Macro targets suggest $20.17.",
-      "detail_reasoning": "\n### 1. Industry Insight\nHR is showing institutional interest in the Real Estate sector. BOGA AI indicates a tactical score of 58/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $19.25. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $18.37 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $18.65 - $19.29\n- **Short-term Target:** $20.17\n- **Stop Protection:** $18.37\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-      "adx": 22.4,
-      "rsi": 69.1,
-      "rvol": 1.94,
-      "change_1d": 2.94,
-      "change_1w": 2.89,
-      "change_1m": 12.18,
-      "change_1y": 34.56,
-      "change_5y": 13.66,
+      "reasoning": "BOGA AI rates FIVN at 51/100 within a Bullish trend. Macro targets suggest $27.45.",
+      "detail_reasoning": "\n### 1. Industry Insight\nFIVN is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 51/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $23.81. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $21.36 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $22.26 - $23.94\n- **Short-term Target:** $27.45\n- **Stop Protection:** $21.36\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+      "adx": 25.5,
+      "rsi": 83.4,
+      "rvol": 1.62,
+      "change_1d": 7.06,
+      "change_1w": 43.78,
+      "change_1m": 58.63,
+      "change_1y": -5.31,
+      "change_5y": -86.97,
       "boga_zones": {
         "buying_zone": {
-          "low": 18.65,
-          "high": 19.29
+          "low": 22.26,
+          "high": 23.94
         },
         "sell_zone": {
-          "low": 19.99,
-          "high": 20.17
+          "low": 26.8,
+          "high": 27.45
         },
         "stop_loss_zone": {
-          "low": 18.29,
-          "high": 18.37
+          "low": 21.1,
+          "high": 21.36
         },
-        "risk_reward": 2.0,
-        "support_1h": 18.57,
-        "resistance_1h": 19.43,
-        "atr_1d": 0.4,
-        "atr_pct": 2.06,
-        "risk_usd": 0.6,
-        "reward_usd": 1.2
+        "risk_reward": 2.5,
+        "support_1h": 22.0,
+        "resistance_1h": 23.95,
+        "atr_1d": 1.29,
+        "atr_pct": 5.41,
+        "risk_usd": 1.74,
+        "reward_usd": 4.35
       },
       "trend_status": {
-        "trend": "Macro Bullish",
-        "rsi_14": 69.1,
-        "adx": 22.4,
-        "macd_hist": 0.086,
-        "mfi": 66.0,
-        "cmf": 0.1857,
-        "rvol_today": 1.94,
-        "entry_trigger": "Trend Continuation (Late)",
-        "is_exhausted": false
+        "trend": "Above EMA200",
+        "rsi_14": 83.4,
+        "adx": 25.5,
+        "macd_hist": 0.829,
+        "mfi": 92.9,
+        "cmf": 0.2658,
+        "rvol_today": 1.62,
+        "entry_trigger": "Trend Continuation Swing",
+        "is_exhausted": true
       },
       "moving_averages": {
-        "ema_20": 18.3,
-        "ema_50": 17.95,
-        "ema_200": 17.15,
-        "price_vs_ema20": 0.95,
-        "price_vs_ema50": 1.3,
-        "price_vs_ema200": 2.1,
+        "ema_20": 17.31,
+        "ema_50": 16.82,
+        "ema_200": 19.79,
+        "price_vs_ema20": 6.5,
+        "price_vs_ema50": 6.99,
+        "price_vs_ema200": 4.02,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 74.7,
-        "adx_1h": 35.6,
-        "rvol_1h": "2.5x ([OK] High)",
+        "rsi_1h": 84.1,
+        "adx_1h": 64.9,
+        "rvol_1h": "0.2x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
         "pivot_structure": "Pivot HL"
       },
       "fundamentals": {
-        "gross_margin_pct": 61.78,
-        "operating_margin_pct": 11.71,
-        "net_margin_pct": -20.85,
-        "revenue_growth_pct": -7.8,
-        "pe_ratio": 0,
-        "pb_ratio": 1.4,
+        "gross_margin_pct": 55.24,
+        "operating_margin_pct": 8.67,
+        "net_margin_pct": 3.43,
+        "revenue_growth_pct": 7.8,
+        "pe_ratio": 37.3,
+        "pb_ratio": 1.65,
         "fcf_yield_pct": 0.0,
-        "market_cap": "6.45B",
-        "market_cap_usd": 6446945792
+        "market_cap": "1.28B",
+        "market_cap_usd": 1284743680
       },
       "performance": {
-        "1d_pct": 2.94,
-        "1w_pct": 2.89,
-        "1m_pct": 12.18,
-        "1y_pct": 34.56,
-        "5y_pct": 13.66
+        "1d_pct": 7.06,
+        "1w_pct": 43.78,
+        "1m_pct": 58.63,
+        "1y_pct": -5.31,
+        "5y_pct": -86.97
       },
       "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 4.0,
-        "volatility_score": 4.0,
-        "volume_score": 3.47,
-        "financial_score": 2.0,
-        "catalyst_score": 0.8,
-        "insider_score": 7.2,
-        "composite": 6.32,
-        "raw_score": 83.61
+        "trend_score": 10.0,
+        "momentum_score": 12.0,
+        "volatility_score": 12.0,
+        "volume_score": 14.0,
+        "financial_score": 3.5,
+        "catalyst_score": 1.7000000000000002,
+        "insider_score": 0.0,
+        "composite": 12.08,
+        "raw_score": 71.71000000000001
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI rates HR at 58/100 within a Bullish trend. Macro targets suggest $20.17.",
-          "tr": "BOGA AI gave a score of 58/100 in the Bullish trend for HR. Target zone: $20.17.",
-          "es": "BOGA AI califica a HR con 58/100 en una tendencia Bullish. Los objetivos sugieren $20.17.",
-          "pt": "BOGA AI avalia HR em 58/100 em uma tendência Bullish. Os alvos sugerem $20.17.",
-          "fr": "BOGA AI évalue HR à 58/100 dans une tendance Bullish. Les objectifs suggèrent $20.17.",
-          "id": "BOGA AI menilai HR pada 58/100 dalam tren Bullish. Target makro menunjukkan $20.17."
+          "en": "BOGA AI rates FIVN at 51/100 within a Bullish trend. Macro targets suggest $27.45.",
+          "tr": "BOGA AI gave a score of 51/100 in the Bullish trend for FIVN. Target zone: $27.45.",
+          "es": "BOGA AI califica a FIVN con 51/100 en una tendencia Bullish. Los objetivos sugieren $27.45.",
+          "pt": "BOGA AI avalia FIVN em 51/100 em uma tendência Bullish. Os alvos sugerem $27.45.",
+          "fr": "BOGA AI évalue FIVN à 51/100 dans une tendance Bullish. Les objectifs suggèrent $27.45.",
+          "id": "BOGA AI menilai FIVN pada 51/100 dalam tren Bullish. Target makro menunjukkan $27.45."
         },
         "detail_summary": {
-          "en": "\n### 1. Industry Insight\nHR is showing institutional interest in the Real Estate sector. BOGA AI indicates a tactical score of 58/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $19.25. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $18.37 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $18.65 - $19.29\n- **Short-term Target:** $20.17\n- **Stop Protection:** $18.37\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-          "tr": "\n### 1. Sektörel Bakış\nHR is attracting institutional interest in the Real Estate sector. BOGA AI shows a tactical score of 58/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $19.25. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $18.37 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $18.65 - $19.29\n- **Short-term Target:** $20.17\n- **Stop Loss Protection:** $18.37\n- **Risk/Reward Ratio:** 2.0:1\n\n*Not Investment Advice*\n",
-          "es": "\n### 1. Perspectiva Industrial\nHR está mostrando interés institucional en el sector Real Estate. BOGA AI indica una puntuación táctica de 58/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $19.25. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $18.37 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $18.65 - $19.29\n- **Objetivo a Corto Plazo:** $20.17\n- **Protección de Stop:** $18.37\n- **Relación Riesgo/Beneficio:** 2.0:1\n\n*No es asesoramiento financiero*\n",
-          "pt": "\n### 1. Perspectiva Industrial\nHR está mostrando interesse institucional no setor Real Estate. BOGA AI indica uma pontuação tática de 58/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $19.25. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $18.37 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $18.65 - $19.29\n- **Alvo de Curto Prazo:** $20.17\n- **Proteção de Stop:** $18.37\n- **Relação Risco/Recompensa:** 2.0:1\n\n*Não é aconselhamento financeiro*\n",
-          "fr": "\n### 1. Perspective Industrielle\nHR suscite un intérêt institutionnel dans le secteur Real Estate. BOGA AI indique un score tactique de 58/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $19.25. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $18.37 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $18.65 - $19.29\n- **Objectif à Court Terme:** $20.17\n- **Protection Stop:** $18.37\n- **Rapport Risque/Récompense:** 2.0:1\n\n*Pas un conseil financier*\n",
-          "id": "\n### 1. Wawasan Industri\nHR menunjukkan minat institusional di sektor Real Estate. BOGA AI menunjukkan skor taktis 58/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $19.25. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $18.37 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $18.65 - $19.29\n- **Target Jangka Pendek:** $20.17\n- **Perlindungan Stop:** $18.37\n- **Rasio Risiko/Imbalan:** 2.0:1\n\n*Bukan Nasihat Keuangan*\n"
+          "en": "\n### 1. Industry Insight\nFIVN is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 51/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $23.81. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $21.36 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $22.26 - $23.94\n- **Short-term Target:** $27.45\n- **Stop Protection:** $21.36\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+          "tr": "\n### 1. Sektörel Bakış\nFIVN is attracting institutional interest in the Technology sector. BOGA AI shows a tactical score of 51/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $23.81. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $21.36 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $22.26 - $23.94\n- **Short-term Target:** $27.45\n- **Stop Loss Protection:** $21.36\n- **Risk/Reward Ratio:** 2.5:1\n\n*Not Investment Advice*\n",
+          "es": "\n### 1. Perspectiva Industrial\nFIVN está mostrando interés institucional en el sector Technology. BOGA AI indica una puntuación táctica de 51/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $23.81. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $21.36 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $22.26 - $23.94\n- **Objetivo a Corto Plazo:** $27.45\n- **Protección de Stop:** $21.36\n- **Relación Riesgo/Beneficio:** 2.5:1\n\n*No es asesoramiento financiero*\n",
+          "pt": "\n### 1. Perspectiva Industrial\nFIVN está mostrando interesse institucional no setor Technology. BOGA AI indica uma pontuação tática de 51/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $23.81. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $21.36 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $22.26 - $23.94\n- **Alvo de Curto Prazo:** $27.45\n- **Proteção de Stop:** $21.36\n- **Relação Risco/Recompensa:** 2.5:1\n\n*Não é aconselhamento financeiro*\n",
+          "fr": "\n### 1. Perspective Industrielle\nFIVN suscite un intérêt institutionnel dans le secteur Technology. BOGA AI indique un score tactique de 51/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $23.81. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $21.36 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $22.26 - $23.94\n- **Objectif à Court Terme:** $27.45\n- **Protection Stop:** $21.36\n- **Rapport Risque/Récompense:** 2.5:1\n\n*Pas un conseil financier*\n",
+          "id": "\n### 1. Wawasan Industri\nFIVN menunjukkan minat institusional di sektor Technology. BOGA AI menunjukkan skor taktis 51/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $23.81. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $21.36 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $22.26 - $23.94\n- **Target Jangka Pendek:** $27.45\n- **Perlindungan Stop:** $21.36\n- **Rasio Risiko/Imbalan:** 2.5:1\n\n*Bukan Nasihat Keuangan*\n"
         }
       }
     },
     {
       "rank": 4,
-      "ticker": "VISN",
-      "company": "VISN",
-      "sector": "Technology",
-      "score": 47.8,
-      "boga_score": 47.8,
-      "market_regime": "STRONG",
-      "current_price": 11.930000305175781,
-      "holding_period_estimate": "4-9 Days (max)",
-      "holding_period": "4-9 Days",
+      "ticker": "FTI",
+      "company": "FTI",
+      "sector": "Energy",
+      "score": 46.2,
+      "boga_score": 46.2,
+      "market_regime": "BULLISH",
+      "current_price": 74.0999984741211,
+      "holding_period_estimate": "8-13 Days (max)",
+      "holding_period": "8-13 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 10.51,
-        "entry_zone_high": 11.99,
-        "profit_target_low": 13.21,
-        "profit_target_high": 13.55,
-        "stop_loss_high": 10.1,
-        "max_hold_days": 9,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
+        "entry_zone_low": 71.19,
+        "entry_zone_high": 74.33,
+        "profit_target_low": 79.47,
+        "profit_target_high": 80.66,
+        "stop_loss_high": 69.6,
+        "max_hold_days": 13,
+        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD"
       },
       "buy_zone": {
-        "low": 10.51,
-        "high": 11.99
+        "low": 71.19,
+        "high": 74.33
       },
       "profit_zone": {
-        "low": 13.21,
-        "high": 13.55
+        "low": 79.47,
+        "high": 80.66
       },
       "stop_zone": {
-        "low": 9.98,
-        "high": 10.1
+        "low": 69.15,
+        "high": 69.6
       },
-      "reasoning": "BOGA AI rates VISN at 48/100 within a Bullish trend. Macro targets suggest $13.55.",
-      "detail_reasoning": "\n### 1. Industry Insight\nVISN is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 48/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $11.93. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $10.10 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $10.51 - $11.99\n- **Short-term Target:** $13.55\n- **Stop Protection:** $10.10\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-      "adx": 20.2,
-      "rsi": 74.6,
-      "rvol": 1.71,
-      "change_1d": -6.76,
-      "change_1w": 26.02,
-      "change_1m": 33.23,
-      "change_1y": 413.62,
-      "change_5y": 20.38,
+      "reasoning": "BOGA AI rates FTI at 46/100 within a Bullish trend. Macro targets suggest $80.66.",
+      "detail_reasoning": "\n### 1. Industry Insight\nFTI is showing institutional interest in the Energy sector. BOGA AI indicates a tactical score of 46/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $74.10. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $69.60 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $71.19 - $74.33\n- **Short-term Target:** $80.66\n- **Stop Protection:** $69.60\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+      "adx": 19.7,
+      "rsi": 56.2,
+      "rvol": 0.5,
+      "change_1d": -2.23,
+      "change_1w": -1.36,
+      "change_1m": 4.34,
+      "change_1y": 154.55,
+      "change_5y": 734.99,
       "boga_zones": {
         "buying_zone": {
-          "low": 10.51,
-          "high": 11.99
+          "low": 71.19,
+          "high": 74.33
         },
         "sell_zone": {
-          "low": 13.21,
-          "high": 13.55
+          "low": 79.47,
+          "high": 80.66
         },
         "stop_loss_zone": {
-          "low": 9.98,
-          "high": 10.1
+          "low": 69.15,
+          "high": 69.6
         },
-        "risk_reward": 2.0,
-        "support_1h": 10.39,
-        "resistance_1h": 12.92,
-        "atr_1d": 0.58,
-        "atr_pct": 4.86,
-        "risk_usd": 1.15,
-        "reward_usd": 2.3
+        "risk_reward": 2.5,
+        "support_1h": 70.74,
+        "resistance_1h": 75.61,
+        "atr_1d": 2.27,
+        "atr_pct": 3.07,
+        "risk_usd": 3.16,
+        "reward_usd": 7.9
       },
       "trend_status": {
         "trend": "Macro Bullish",
-        "rsi_14": 74.6,
-        "adx": 20.2,
-        "macd_hist": 0.302,
-        "mfi": 79.1,
-        "cmf": 0.2297,
-        "rvol_today": 1.71,
+        "rsi_14": 56.2,
+        "adx": 19.7,
+        "macd_hist": -0.059,
+        "mfi": 54.2,
+        "cmf": 0.1544,
+        "rvol_today": 0.5,
         "entry_trigger": "None Yet",
-        "is_exhausted": true
+        "is_exhausted": false
       },
       "moving_averages": {
-        "ema_20": 9.93,
-        "ema_50": 9.38,
-        "ema_200": 7.94,
-        "price_vs_ema20": 2.0,
-        "price_vs_ema50": 2.55,
-        "price_vs_ema200": 3.99,
+        "ema_20": 73.24,
+        "ema_50": 68.96,
+        "ema_200": 53.57,
+        "price_vs_ema20": 0.86,
+        "price_vs_ema50": 5.14,
+        "price_vs_ema200": 20.53,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 37.5,
-        "adx_1h": 30.4,
-        "rvol_1h": "1.4x (Normal)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 49.49,
-        "operating_margin_pct": 29.14,
-        "net_margin_pct": 118.23,
-        "revenue_growth_pct": 0,
-        "pe_ratio": 9.5,
-        "pb_ratio": -2.35,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "2.39B",
-        "market_cap_usd": 2386524416
-      },
-      "performance": {
-        "1d_pct": -6.76,
-        "1w_pct": 26.02,
-        "1m_pct": 33.23,
-        "1y_pct": 413.62,
-        "5y_pct": 20.38
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 13.52,
-        "financial_score": 6.0,
-        "catalyst_score": 1.2000000000000002,
-        "insider_score": 0.0,
-        "composite": 12.31,
-        "raw_score": 85.35000000000001
-      },
-      "ai_summary": {
-        "homepage_summary": {
-          "en": "BOGA AI rates VISN at 48/100 within a Bullish trend. Macro targets suggest $13.55.",
-          "tr": "BOGA AI gave a score of 48/100 in the Bullish trend for VISN. Target zone: $13.55.",
-          "es": "BOGA AI califica a VISN con 48/100 en una tendencia Bullish. Los objetivos sugieren $13.55.",
-          "pt": "BOGA AI avalia VISN em 48/100 em uma tendência Bullish. Os alvos sugerem $13.55.",
-          "fr": "BOGA AI évalue VISN à 48/100 dans une tendance Bullish. Les objectifs suggèrent $13.55.",
-          "id": "BOGA AI menilai VISN pada 48/100 dalam tren Bullish. Target makro menunjukkan $13.55."
-        },
-        "detail_summary": {
-          "en": "\n### 1. Industry Insight\nVISN is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 48/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $11.93. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $10.10 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $10.51 - $11.99\n- **Short-term Target:** $13.55\n- **Stop Protection:** $10.10\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-          "tr": "\n### 1. Sektörel Bakış\nVISN is attracting institutional interest in the Technology sector. BOGA AI shows a tactical score of 48/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $11.93. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $10.10 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $10.51 - $11.99\n- **Short-term Target:** $13.55\n- **Stop Loss Protection:** $10.10\n- **Risk/Reward Ratio:** 2.0:1\n\n*Not Investment Advice*\n",
-          "es": "\n### 1. Perspectiva Industrial\nVISN está mostrando interés institucional en el sector Technology. BOGA AI indica una puntuación táctica de 48/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $11.93. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $10.10 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $10.51 - $11.99\n- **Objetivo a Corto Plazo:** $13.55\n- **Protección de Stop:** $10.10\n- **Relación Riesgo/Beneficio:** 2.0:1\n\n*No es asesoramiento financiero*\n",
-          "pt": "\n### 1. Perspectiva Industrial\nVISN está mostrando interesse institucional no setor Technology. BOGA AI indica uma pontuação tática de 48/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $11.93. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $10.10 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $10.51 - $11.99\n- **Alvo de Curto Prazo:** $13.55\n- **Proteção de Stop:** $10.10\n- **Relação Risco/Recompensa:** 2.0:1\n\n*Não é aconselhamento financeiro*\n",
-          "fr": "\n### 1. Perspective Industrielle\nVISN suscite un intérêt institutionnel dans le secteur Technology. BOGA AI indique un score tactique de 48/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $11.93. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $10.10 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $10.51 - $11.99\n- **Objectif à Court Terme:** $13.55\n- **Protection Stop:** $10.10\n- **Rapport Risque/Récompense:** 2.0:1\n\n*Pas un conseil financier*\n",
-          "id": "\n### 1. Wawasan Industri\nVISN menunjukkan minat institusional di sektor Technology. BOGA AI menunjukkan skor taktis 48/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $11.93. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $10.10 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $10.51 - $11.99\n- **Target Jangka Pendek:** $13.55\n- **Perlindungan Stop:** $10.10\n- **Rasio Risiko/Imbalan:** 2.0:1\n\n*Bukan Nasihat Keuangan*\n"
-        }
-      }
-    },
-    {
-      "rank": 5,
-      "ticker": "EXTR",
-      "company": "EXTR",
-      "sector": "Technology",
-      "score": 47.1,
-      "boga_score": 47.1,
-      "market_regime": "STRONG",
-      "current_price": 22.290000915527344,
-      "holding_period_estimate": "5-10 Days (max)",
-      "holding_period": "5-10 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 21.68,
-        "entry_zone_high": 22.39,
-        "profit_target_low": 23.85,
-        "profit_target_high": 24.17,
-        "stop_loss_high": 20.97,
-        "max_hold_days": 10,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 21.68,
-        "high": 22.39
-      },
-      "profit_zone": {
-        "low": 23.85,
-        "high": 24.17
-      },
-      "stop_zone": {
-        "low": 20.77,
-        "high": 20.97
-      },
-      "reasoning": "BOGA AI rates EXTR at 47/100 within a Bullish trend. Macro targets suggest $24.17.",
-      "detail_reasoning": "\n### 1. Industry Insight\nEXTR is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 47/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $22.29. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $20.97 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $21.68 - $22.39\n- **Short-term Target:** $24.17\n- **Stop Protection:** $20.97\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-      "adx": 34.3,
-      "rsi": 77.5,
-      "rvol": 1.15,
-      "change_1d": 0.91,
-      "change_1w": 26.72,
-      "change_1m": 46.64,
-      "change_1y": 59.33,
-      "change_5y": 94.84,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 21.68,
-          "high": 22.39
-        },
-        "sell_zone": {
-          "low": 23.85,
-          "high": 24.17
-        },
-        "stop_loss_zone": {
-          "low": 20.77,
-          "high": 20.97
-        },
-        "risk_reward": 2.0,
-        "support_1h": 21.48,
-        "resistance_1h": 22.44,
-        "atr_1d": 1.02,
-        "atr_pct": 4.56,
-        "risk_usd": 1.07,
-        "reward_usd": 2.14
-      },
-      "trend_status": {
-        "trend": "Macro Bullish",
-        "rsi_14": 77.5,
-        "adx": 34.3,
-        "macd_hist": 0.439,
-        "mfi": 69.8,
-        "cmf": 0.2598,
-        "rvol_today": 1.15,
-        "entry_trigger": "Trend Continuation (Late)",
-        "is_exhausted": true
-      },
-      "moving_averages": {
-        "ema_20": 18.32,
-        "ema_50": 16.87,
-        "ema_200": 16.68,
-        "price_vs_ema20": 3.97,
-        "price_vs_ema50": 5.42,
-        "price_vs_ema200": 5.61,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 75.4,
-        "adx_1h": 53.1,
-        "rvol_1h": "1.5x ([OK] High)",
+        "rsi_1h": 40.8,
+        "adx_1h": 28.1,
+        "rvol_1h": "0.2x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
         "pivot_structure": "Normal"
       },
       "fundamentals": {
-        "gross_margin_pct": 61.29,
-        "operating_margin_pct": 6.43,
-        "net_margin_pct": 0.75,
-        "revenue_growth_pct": 13.8,
-        "pe_ratio": 350.3,
-        "pb_ratio": 29.4,
+        "gross_margin_pct": 21.96,
+        "operating_margin_pct": 12.5,
+        "net_margin_pct": 9.7,
+        "revenue_growth_pct": 6.3,
+        "pe_ratio": 32.0,
+        "pb_ratio": 8.76,
         "fcf_yield_pct": 0.0,
-        "market_cap": "2.82B",
-        "market_cap_usd": 2822345728
+        "market_cap": "29.46B",
+        "market_cap_usd": 29457461248
       },
       "performance": {
-        "1d_pct": 0.91,
-        "1w_pct": 26.72,
-        "1m_pct": 46.64,
-        "1y_pct": 59.33,
-        "5y_pct": 94.84
+        "1d_pct": -2.23,
+        "1w_pct": -1.36,
+        "1m_pct": 4.34,
+        "1y_pct": 154.55,
+        "5y_pct": 734.99
       },
       "factor_scores": {
         "trend_score": 12.0,
-        "momentum_score": 12.0,
-        "volatility_score": 12.0,
-        "volume_score": 2.06,
-        "financial_score": 5.0,
-        "catalyst_score": 1.6,
+        "momentum_score": 0.0,
+        "volatility_score": 8.0,
+        "volume_score": 0.43,
+        "financial_score": 1.5,
+        "catalyst_score": 1.2000000000000002,
         "insider_score": 0.0,
-        "composite": 7.94,
-        "raw_score": 46.440000000000005
+        "composite": 4.47,
+        "raw_score": 75.77
       },
       "ai_summary": {
         "homepage_summary": {
-          "en": "BOGA AI rates EXTR at 47/100 within a Bullish trend. Macro targets suggest $24.17.",
-          "tr": "BOGA AI gave a score of 47/100 in the Bullish trend for EXTR. Target zone: $24.17.",
-          "es": "BOGA AI califica a EXTR con 47/100 en una tendencia Bullish. Los objetivos sugieren $24.17.",
-          "pt": "BOGA AI avalia EXTR em 47/100 em uma tendência Bullish. Os alvos sugerem $24.17.",
-          "fr": "BOGA AI évalue EXTR à 47/100 dans une tendance Bullish. Les objectifs suggèrent $24.17.",
-          "id": "BOGA AI menilai EXTR pada 47/100 dalam tren Bullish. Target makro menunjukkan $24.17."
+          "en": "BOGA AI rates FTI at 46/100 within a Bullish trend. Macro targets suggest $80.66.",
+          "tr": "BOGA AI gave a score of 46/100 in the Bullish trend for FTI. Target zone: $80.66.",
+          "es": "BOGA AI califica a FTI con 46/100 en una tendencia Bullish. Los objetivos sugieren $80.66.",
+          "pt": "BOGA AI avalia FTI em 46/100 em uma tendência Bullish. Os alvos sugerem $80.66.",
+          "fr": "BOGA AI évalue FTI à 46/100 dans une tendance Bullish. Les objectifs suggèrent $80.66.",
+          "id": "BOGA AI menilai FTI pada 46/100 dalam tren Bullish. Target makro menunjukkan $80.66."
         },
         "detail_summary": {
-          "en": "\n### 1. Industry Insight\nEXTR is showing institutional interest in the Technology sector. BOGA AI indicates a tactical score of 47/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $22.29. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $20.97 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $21.68 - $22.39\n- **Short-term Target:** $24.17\n- **Stop Protection:** $20.97\n- **Risk/Reward Reward:** 2.0:1\n\n*Not Financial Advice*\n",
-          "tr": "\n### 1. Sektörel Bakış\nEXTR is attracting institutional interest in the Technology sector. BOGA AI shows a tactical score of 47/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $22.29. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $20.97 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $21.68 - $22.39\n- **Short-term Target:** $24.17\n- **Stop Loss Protection:** $20.97\n- **Risk/Reward Ratio:** 2.0:1\n\n*Not Investment Advice*\n",
-          "es": "\n### 1. Perspectiva Industrial\nEXTR está mostrando interés institucional en el sector Technology. BOGA AI indica una puntuación táctica de 47/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $22.29. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $20.97 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $21.68 - $22.39\n- **Objetivo a Corto Plazo:** $24.17\n- **Protección de Stop:** $20.97\n- **Relación Riesgo/Beneficio:** 2.0:1\n\n*No es asesoramiento financiero*\n",
-          "pt": "\n### 1. Perspectiva Industrial\nEXTR está mostrando interesse institucional no setor Technology. BOGA AI indica uma pontuação tática de 47/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $22.29. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $20.97 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $21.68 - $22.39\n- **Alvo de Curto Prazo:** $24.17\n- **Proteção de Stop:** $20.97\n- **Relação Risco/Recompensa:** 2.0:1\n\n*Não é aconselhamento financeiro*\n",
-          "fr": "\n### 1. Perspective Industrielle\nEXTR suscite un intérêt institutionnel dans le secteur Technology. BOGA AI indique un score tactique de 47/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $22.29. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $20.97 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $21.68 - $22.39\n- **Objectif à Court Terme:** $24.17\n- **Protection Stop:** $20.97\n- **Rapport Risque/Récompense:** 2.0:1\n\n*Pas un conseil financier*\n",
-          "id": "\n### 1. Wawasan Industri\nEXTR menunjukkan minat institusional di sektor Technology. BOGA AI menunjukkan skor taktis 47/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $22.29. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $20.97 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $21.68 - $22.39\n- **Target Jangka Pendek:** $24.17\n- **Perlindungan Stop:** $20.97\n- **Rasio Risiko/Imbalan:** 2.0:1\n\n*Bukan Nasihat Keuangan*\n"
+          "en": "\n### 1. Industry Insight\nFTI is showing institutional interest in the Energy sector. BOGA AI indicates a tactical score of 46/100, aligning with the current Bullish volume profile.\n\n### 2. Performance Review\nThe stock is currently trading at $74.10. Momentum indicators suggest entry is optimal within the identified strategic zones.\n\n### 3. Technical Matrix\nTechnical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Risk Profile\nPrimary risks involve general market volatility and volume rotation. Disciplined use of stop losses at $69.60 is mandatory.\n\n### 5. Execution Strategy\n- **Entry Zone:** $71.19 - $74.33\n- **Short-term Target:** $80.66\n- **Stop Protection:** $69.60\n- **Risk/Reward Reward:** 2.5:1\n\n*Not Financial Advice*\n",
+          "tr": "\n### 1. Sektörel Bakış\nFTI is attracting institutional interest in the Energy sector. BOGA AI shows a tactical score of 46/100, consistent with the current Bullish volume profile.\n\n### 2. Performans Değerlendirmesi\nThe stock is currently trading at $74.10. Momentum indicators show that entry is optimal in identified strategic zones.\n\n### 3. Teknik Analiz\nTechnical matrix shows active bull accumulation. EMA structures support the current rise.\n**Karar:** BUY / ACCUMULATE\n\n### 4. Risk Profili\nBasic risks include general market volatility and sector rotation. Disciplined use of stop loss at $69.60 is mandatory.\n\n### 5. Uygulama Stratejisi\n- **Entry Zone:** $71.19 - $74.33\n- **Short-term Target:** $80.66\n- **Stop Loss Protection:** $69.60\n- **Risk/Reward Ratio:** 2.5:1\n\n*Not Investment Advice*\n",
+          "es": "\n### 1. Perspectiva Industrial\nFTI está mostrando interés institucional en el sector Energy. BOGA AI indica una puntuación táctica de 46/100, alineándose con el perfil de volumen Bullish actual.\n\n### 2. Resumen de Desempeño\nLa acción cotiza actualmente a $74.10. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.\n\n### 3. Análisis Técnico\nLa matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.\n**Veredicto:** BUY / ACCUMULATE\n\n### 4. Perfil de Riesgo\nLos riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en $69.60 es obligatorio.\n\n### 5. Estrategia de Ejecución\n- **Zona de Entrada:** $71.19 - $74.33\n- **Objetivo a Corto Plazo:** $80.66\n- **Protección de Stop:** $69.60\n- **Relación Riesgo/Beneficio:** 2.5:1\n\n*No es asesoramiento financiero*\n",
+          "pt": "\n### 1. Perspectiva Industrial\nFTI está mostrando interesse institucional no setor Energy. BOGA AI indica uma pontuação tática de 46/100, alinhando-se com o perfil de volume Bullish atual.\n\n### 2. Resumo de Desempenho\nA ação está sendo negociada atualmente a $74.10. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.\n\n### 3. Análise Técnica\nA matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.\n**Veredito:** BUY / ACCUMULATE\n\n### 4. Perfil de Risco\nOs riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em $69.60 é obrigatório.\n\n### 5. Estratégia de Execução\n- **Zona de Entrada:** $71.19 - $74.33\n- **Alvo de Curto Prazo:** $80.66\n- **Proteção de Stop:** $69.60\n- **Relação Risco/Recompensa:** 2.5:1\n\n*Não é aconselhamento financeiro*\n",
+          "fr": "\n### 1. Perspective Industrielle\nFTI suscite un intérêt institutionnel dans le secteur Energy. BOGA AI indique un score tactique de 46/100, en phase avec le profil de volume Bullish actuel.\n\n### 2. Revue de Performance\nL'action se négocie actuellement à $74.10. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.\n\n### 3. Analyse Technique\nLa matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.\n**Verdict:** BUY / ACCUMULATE\n\n### 4. Profil de Risque\nLes principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à $69.60 est obligatoire.\n\n### 5. Stratégie d'Exécution\n- **Zone d'Entrée:** $71.19 - $74.33\n- **Objectif à Court Terme:** $80.66\n- **Protection Stop:** $69.60\n- **Rapport Risque/Récompense:** 2.5:1\n\n*Pas un conseil financier*\n",
+          "id": "\n### 1. Wawasan Industri\nFTI menunjukkan minat institusional di sektor Energy. BOGA AI menunjukkan skor taktis 46/100, selaras dengan profil volume Bullish saat ini.\n\n### 2. Tinjauan Performa\nSaham saat ini diperdagangkan pada $74.10. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.\n\n### 3. Analisis Teknikal\nMatriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.\n**Putusan:** BUY / ACCUMULATE\n\n### 4. Profil Risiko\nRisiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada $69.60 adalah wajib.\n\n### 5. Strategi Eksekusi\n- **Zona Masuk:** $71.19 - $74.33\n- **Target Jangka Pendek:** $80.66\n- **Perlindungan Stop:** $69.60\n- **Rasio Risiko/Imbalan:** 2.5:1\n\n*Bukan Nasihat Keuangan*\n"
         }
       }
     }

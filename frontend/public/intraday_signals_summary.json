@@ -1,11 +1,15 @@
 {
   "date": "2026-05-04",
-  "last_updated": "2026-05-04T11:01:34.080427-04:00",
+  "last_updated": "2026-05-04T12:01:23.356746-04:00",
   "tickers": {
     "CNC": {
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -18,6 +22,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -28,6 +36,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
           "status": "HOLD"
         }
       ],
@@ -40,6 +52,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -50,6 +66,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
           "status": "HOLD"
         }
       ],
@@ -62,6 +82,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -72,6 +96,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -84,6 +112,10 @@
         {
           "hour": "11:01",
           "status": "TAKE_PROFIT"
+        },
+        {
+          "hour": "12:01",
+          "status": "TAKE_PROFIT"
         }
       ],
       "current_status": "TAKE_PROFIT",
@@ -94,6 +126,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -106,6 +142,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -116,6 +156,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -128,16 +172,24 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "HOLD",
-      "entry_triggered_at": null,
-      "entry_price": null
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-05-04T12:01:23.356746-04:00",
+      "entry_price": 428.27
     },
     "GTX": {
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -150,6 +202,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -160,6 +216,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -172,6 +232,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -182,6 +246,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
           "status": "HOLD"
         }
       ],
@@ -194,6 +262,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -204,6 +276,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -216,6 +292,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -226,6 +306,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -238,6 +322,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -248,6 +336,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -260,6 +352,10 @@
         {
           "hour": "11:01",
           "status": "TAKE_PROFIT"
+        },
+        {
+          "hour": "12:01",
+          "status": "TAKE_PROFIT"
         }
       ],
       "current_status": "TAKE_PROFIT",
@@ -270,6 +366,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_WATCH"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_WATCH"
         }
       ],
@@ -282,6 +382,10 @@
         {
           "hour": "11:01",
           "status": "TAKE_PROFIT"
+        },
+        {
+          "hour": "12:01",
+          "status": "TAKE_PROFIT"
         }
       ],
       "current_status": "TAKE_PROFIT",
@@ -292,6 +396,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -304,6 +412,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -314,6 +426,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "STOP_HIT"
+        },
+        {
+          "hour": "12:01",
           "status": "STOP_HIT"
         }
       ],
@@ -326,6 +442,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -336,6 +456,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -348,6 +472,10 @@
         {
           "hour": "11:01",
           "status": "STOP_HIT"
+        },
+        {
+          "hour": "12:01",
+          "status": "STOP_HIT"
         }
       ],
       "current_status": "STOP_HIT",
@@ -358,6 +486,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -370,6 +502,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -380,6 +516,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -392,6 +532,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -402,6 +546,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -414,6 +562,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -424,6 +576,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "TAKE_PROFIT"
+        },
+        {
+          "hour": "12:01",
           "status": "TAKE_PROFIT"
         }
       ],
@@ -436,6 +592,10 @@
         {
           "hour": "11:01",
           "status": "TAKE_PROFIT"
+        },
+        {
+          "hour": "12:01",
+          "status": "TAKE_PROFIT"
         }
       ],
       "current_status": "TAKE_PROFIT",
@@ -446,6 +606,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -458,6 +622,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -468,6 +636,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_NOW"
         }
       ],
@@ -480,6 +652,10 @@
         {
           "hour": "11:01",
           "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
+          "status": "HOLD"
         }
       ],
       "current_status": "HOLD",
@@ -491,9 +667,13 @@
         {
           "hour": "11:01",
           "status": "ENTRY_WATCH"
+        },
+        {
+          "hour": "12:01",
+          "status": "STOP_HIT"
         }
       ],
-      "current_status": "ENTRY_WATCH",
+      "current_status": "STOP_HIT",
       "entry_triggered_at": null,
       "entry_price": null
     },
@@ -501,6 +681,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "STOP_HIT"
+        },
+        {
+          "hour": "12:01",
           "status": "STOP_HIT"
         }
       ],
@@ -513,6 +697,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -523,6 +711,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "HOLD"
+        },
+        {
+          "hour": "12:01",
           "status": "HOLD"
         }
       ],
@@ -535,6 +727,10 @@
         {
           "hour": "11:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:01",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -545,6 +741,10 @@
       "status_history": [
         {
           "hour": "11:01",
+          "status": "ENTRY_WATCH"
+        },
+        {
+          "hour": "12:01",
           "status": "ENTRY_WATCH"
         }
       ],

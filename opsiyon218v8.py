@@ -65,6 +65,14 @@ PUANLAMA (0-100):
 """
 
 import asyncio
+import sys
+import io
+
+# Windows konsolunda emoji (UTF-8) hatasını önlemek için
+if sys.platform == "win32":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
 import logging
 import time
 import math
@@ -406,7 +414,7 @@ async def build_universe() -> List[str]:
         chunk = raw[i: i + 1000]
         try:
             data = await asyncio.to_thread(
-                yf.download, chunk, period="35d", progress=False,
+                yf.download, chunk, period="35d", progress=True,
                 threads=True, ignore_tz=True, group_by="ticker"
             )
             if not isinstance(data.columns, pd.MultiIndex):
@@ -1363,14 +1371,23 @@ async def detect_uoa(ticker: str, cp: float) -> dict:
 # ════════════════════════════════════════════════════════════════════════════
 
 ANALYSIS_SEM = asyncio.Semaphore(SEMAPHORE_N)
+PROGRESS_COUNTER = 0
+TOTAL_TO_SCAN = 0
 
 async def analyze(ticker: str) -> Optional[dict]:
+    global PROGRESS_COUNTER
     async with ANALYSIS_SEM:
         try:
+            PROGRESS_COUNTER += 1
+            if PROGRESS_COUNTER % 10 == 0 or PROGRESS_COUNTER == 1:
+                print(f"🔍 [{PROGRESS_COUNTER}/{TOTAL_TO_SCAN}] {ticker} analiz ediliyor...")
+            
             stock = yf.Ticker(ticker)
-            df1d  = await asyncio.to_thread(
+            # 30 saniye timeout ekleyelim
+            df1d  = await asyncio.wait_for(asyncio.to_thread(
                 lambda: stock.history(period="300d", interval="1d", auto_adjust=True)
-            )
+            ), timeout=30)
+            
             if df1d is None or len(df1d) < 210: return None
 
             df1d.columns = [
@@ -1880,6 +1897,11 @@ async def scan():
         f"⏳ Katman 2-4 swing analizi başlıyor (5-10 dk)..."
     )
 
+    global TOTAL_TO_SCAN, PROGRESS_COUNTER
+    TOTAL_TO_SCAN = len(universe)
+    PROGRESS_COUNTER = 0
+
+    print(f"🚀 {TOTAL_TO_SCAN} hisse için detaylı analiz başlıyor...")
     results    = await asyncio.gather(*[analyze(t) for t in universe], return_exceptions=True)
     candidates = sorted(
         [r for r in results if isinstance(r, dict)],
@@ -1993,8 +2015,14 @@ if __name__ == "__main__":
             if now_ny < target_ny:
                 wait_sec = (target_ny - now_ny).total_seconds()
                 print(f"[WAIT] Saat henüz erken. NY 11:00 bekleniyor ({wait_sec/3600:.1f} saat)...")
-                import time
-                time.sleep(wait_sec)
+                # time.sleep yerine ufak parçalarla bekleme veya direkt geçiş için uyarı
+                # Kullanıcı hemen çalışmasını istiyor olabilir.
+                if wait_sec > 0:
+                    print(">>> İPUCU: Hemen çalıştırmak için sistem saatini kontrol edin veya bu bekleme kısmını atlayın.")
+                    # 10 saniyede bir kontrol ederek bekleyelim ki kilitlenmiş gibi görünmesin
+                    for _ in range(int(wait_sec / 10)):
+                        time.sleep(10)
+                        if os.path.exists("skip_wait.tmp"): break 
             
             print("🚀 BOGA AI v8.0 Options Scanner (One-Shot) başlatıldı...")
             asyncio.run(scan())
