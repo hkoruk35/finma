@@ -83,9 +83,15 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   const [loading, setLoading] = useState(false);
   const [searchHistory, setSearchHistory] = useState<SearchHistory[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [bogaPicks, setBogaPicks] = useState<{ breakout: string[]; momentum: string[]; value: string[]; reversal: string[]; date: string }>({ breakout: [], momentum: [], value: [], reversal: [], date: "" });
+  const [activeCategory, setActiveCategory] = useState<"breakout" | "momentum" | "value" | "reversal">("breakout");
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    fetch("/api/picks").then(r => r.json()).then(d => { if (d.breakout) setBogaPicks(d); }).catch(() => {});
+  }, []);
 
   useEffect(() => {
     const stored = localStorage.getItem("boga-search-history");
@@ -173,15 +179,53 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   return (
     <div className="h-screen bg-[#080c14] text-white flex overflow-hidden">
       {/* SIDEBAR */}
-      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-64 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
-        <button onClick={newSession} className="m-4 px-4 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Oturum</button>
-        <div className="flex-1 overflow-y-auto px-3">
-          <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-2 mt-2">Hisse Senedi</div>
-          <div className="space-y-1">
-            {searchHistory.map((item, i) => (
-              <button key={i} onClick={() => send(item.query)} className="w-full text-left text-xs p-2 rounded hover:bg-[#1e2a3a] transition-colors text-[#cbd5e1] truncate">{item.query}</button>
-            ))}
+      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-52 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
+        <button onClick={newSession} className="m-3 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Oturum</button>
+        
+        {/* Category Tabs */}
+        <div className="flex gap-1 px-2 pb-2">
+          {(["breakout", "momentum", "value", "reversal"] as const).map(cat => (
+            <button key={cat} onClick={() => setActiveCategory(cat)}
+              className={`flex-1 text-[9px] font-black uppercase py-1 rounded transition-colors ${
+                activeCategory === cat ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-[#94a3b8]"
+              }`}>
+              {cat === "breakout" ? "BO" : cat === "momentum" ? "MO" : cat === "value" ? "VA" : "RE"}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-2">
+          {bogaPicks.date && (
+            <div className="text-[9px] text-[#475569] text-center mb-2">📅 {bogaPicks.date}</div>
+          )}
+          <div className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-2">
+            {activeCategory === "breakout" ? "🚀 Kırılım" : activeCategory === "momentum" ? "⚡ Momentum" : activeCategory === "value" ? "💎 Değer" : "🔄 Reversal"}
           </div>
+          <div className="space-y-1">
+            {(bogaPicks[activeCategory] || []).map((ticker) => (
+              <button
+                key={ticker}
+                onClick={() => send(ticker)}
+                className="w-full text-left text-xs px-3 py-2 rounded-lg hover:bg-[#1e2a3a] hover:text-[#3b82f6] transition-colors text-[#cbd5e1] font-mono font-bold tracking-wider border border-transparent hover:border-[#1e2a3a]"
+              >
+                {ticker}
+              </button>
+            ))}
+            {(bogaPicks[activeCategory] || []).length === 0 && (
+              <div className="text-[10px] text-[#475569] text-center py-4">Bot verisi bekleniyor...</div>
+            )}
+          </div>
+
+          {searchHistory.length > 0 && (
+            <>
+              <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-2 mt-4">Son Aramalar</div>
+              <div className="space-y-1">
+                {searchHistory.slice(0, 8).map((item, i) => (
+                  <button key={i} onClick={() => send(item.query)} className="w-full text-left text-xs p-2 rounded hover:bg-[#1e2a3a] transition-colors text-[#64748b] truncate">{item.query}</button>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
 

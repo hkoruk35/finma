@@ -158,216 +158,160 @@ export async function POST(req: NextRequest) {
   const useClaude = lowerMsg.includes("claude");
   const cleanMsg = message.replace(/claude/gi, "").trim();
 
-  // BOGA SWING TERMINAL V3 - Native Engine
+  // ── BOGA SWING TERMINAL — Yerel JSON Motoru ──────────────────────────────
   const isTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
   if (isTicker && !cleanMsg.startsWith("/")) {
     const ticker = cleanMsg.toUpperCase();
-    let analysisData: any = null;
-    let marketData: any = { spy: null, qqq: null, vix: null };
 
-    const FINNHUB_KEY = process.env.FINNHUB_API_KEY || "";
-    const fhBase = "https://finnhub.io/api/v1";
-    const fhFetch = (url: string) => fetch(url, { signal: AbortSignal.timeout(8000) });
+    // Veri yolları (Vercel + lokal uyumlu)
+    const dataPaths = [
+      path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`),
+      path.join(process.cwd(), "data", "latest", "stocks", `${ticker}.json`),
+      path.join(process.cwd(), "..", "..", "data", "latest", "stocks", `${ticker}.json`),
+    ];
 
-    try {
-      // 1. Live Quote (Finnhub - Vercel uyumlu, 60 req/dk ücretsiz)
-      const [quoteRes, candleRes, spyRes, vixRes] = await Promise.allSettled([
-        fhFetch(`${fhBase}/quote?symbol=${ticker}&token=${FINNHUB_KEY}`),
-        fhFetch(`${fhBase}/stock/candle?symbol=${ticker}&resolution=60&count=150&token=${FINNHUB_KEY}`),
-        fhFetch(`${fhBase}/quote?symbol=SPY&token=${FINNHUB_KEY}`),
-        fhFetch(`${fhBase}/quote?symbol=^VIX&token=${FINNHUB_KEY}`)
-      ]);
-
-      // Parse quote
-      let currentPrice: number | null = null;
-      let changePct: number | null = null;
-      if (quoteRes.status === "fulfilled" && quoteRes.value.ok) {
-        const q = await quoteRes.value.json();
-        if (q.c && q.c > 0) {
-          currentPrice = q.c;
-          changePct = q.dp;
-          analysisData = {
-            ticker,
-            price: q.c.toFixed(2),
-            change: q.dp.toFixed(2),
-            high: q.h.toFixed(2),
-            low: q.l.toFixed(2),
-            prev_close: q.pc.toFixed(2),
-            source: "Finnhub Live"
-          };
-        }
-      }
-
-      // Parse SPY & VIX for market context
-      if (spyRes.status === "fulfilled" && spyRes.value.ok) {
-        const spy = await spyRes.value.json();
-        marketData.spy = spy;
-      }
-      if (vixRes.status === "fulfilled" && vixRes.value.ok) {
-        const vix = await vixRes.value.json();
-        marketData.vix = vix;
-      }
-
-      // Parse candles → Technical Analysis
-      if (candleRes.status === "fulfilled" && candleRes.value.ok) {
-        const candles = await candleRes.value.json();
-        if (candles.s === "ok" && candles.c?.length > 10) {
-          const closes: number[] = candles.c;
-          const highs: number[] = candles.h;
-          const lows: number[] = candles.l;
-          const volumes: number[] = candles.v;
-          const price = currentPrice || closes[closes.length - 1];
-
-          const calcEMA = (data: number[], period: number) => {
-            if (data.length < period) return data[data.length - 1];
-            const k = 2 / (period + 1);
-            let ema = data.slice(0, period).reduce((a, b) => a + b, 0) / period;
-            for (let i = period; i < data.length; i++) ema = data[i] * k + ema * (1 - k);
-            return ema;
-          };
-
-          const ema20 = calcEMA(closes, 20);
-          const ema50 = calcEMA(closes, 50);
-          const ema100 = calcEMA(closes, 100);
-
-          // RSI Calculation
-          const gains: number[] = [], losses: number[] = [];
-          for (let i = 1; i < closes.length; i++) {
-            const diff = closes[i] - closes[i - 1];
-            gains.push(diff > 0 ? diff : 0);
-            losses.push(diff < 0 ? -diff : 0);
-          }
-          const avgGain = gains.slice(-14).reduce((a, b) => a + b, 0) / 14;
-          const avgLoss = losses.slice(-14).reduce((a, b) => a + b, 0) / 14;
-          const rsi = avgLoss === 0 ? 100 : 100 - (100 / (1 + avgGain / avgLoss));
-
-          const avgVol = volumes.slice(-20).reduce((a, b) => a + b, 0) / 20;
-          const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
-          const spyChg = marketData.spy?.dp || 0;
-
-          analysisData = {
-            ...analysisData,
-            price: price.toFixed(2),
-            rsi: rsi.toFixed(1),
-            vol_strength: volStrength.toFixed(2),
-            rs_vs_spy: ((changePct || 0) - spyChg).toFixed(2),
-            support: Math.min(...lows.slice(-30)).toFixed(2),
-            resistance: Math.max(...highs.slice(-30)).toFixed(2),
-            buy_zone: `${(price * 0.985).toFixed(2)} - ${price.toFixed(2)}`,
-            target_zone: `${(price * 1.12).toFixed(2)} - ${(price * 1.18).toFixed(2)}`,
-            stop_loss: (price * 0.94).toFixed(2),
-            ema20_gap: (((price - ema20) / ema20) * 100).toFixed(1),
-            ema50_gap: (((price - ema50) / ema50) * 100).toFixed(1),
-            ema200_gap: (((price - ema100) / ema100) * 100).toFixed(1),
-            perf_1w: (((price - closes[closes.length - 6]) / closes[closes.length - 6]) * 100).toFixed(2),
-            perf_1m: (((price - closes[closes.length - 22]) / closes[closes.length - 22]) * 100).toFixed(2),
-            market: {
-              spy_bias: marketData.spy?.dp > 0 ? "BULLISH" : "BEARISH",
-              qqq_momentum: marketData.spy?.dp > 0 ? "STRONG" : "WEAK",
-              vix: marketData.vix?.c?.toFixed(2) || "N/A"
-            }
-          };
-        }
-      }
-    } catch (err) {
-      console.error("Finnhub fetch error:", err);
+    let stockJson: any = null;
+    for (const p of dataPaths) {
+      try {
+        if (fs.existsSync(p)) { stockJson = JSON.parse(fs.readFileSync(p, "utf-8")); break; }
+      } catch {}
     }
 
-    // 4. Fallback to Local Archive if Live Fetch Failed or for Extra Data
-    try {
-      const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
-      if (fs.existsSync(dataPath)) {
-        const json = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
-        analysisData = {
-          ...analysisData,
-          ticker,
-          price: analysisData?.price || json.price.current.toFixed(2),
-          change: analysisData?.change || json.price.change_pct.toFixed(2),
-          mcap: analysisData?.mcap || (json.fundamental.market_cap / 1e9).toFixed(1) + "B",
-          sector: json.sector || "Various",
-          gross_margin: (json.fundamental.gross_margin * 100).toFixed(1),
-          net_margin: (json.fundamental.net_margin * 100).toFixed(1),
-          rev_growth: (json.fundamental.revenue_growth_ttm * 100).toFixed(1),
-          pe_ratio: analysisData?.pe_ratio !== "N/A" ? analysisData?.pe_ratio : json.fundamental.pe_ratio?.toFixed(1),
-          pb_ratio: analysisData?.pb_ratio !== "N/A" ? analysisData?.pb_ratio : json.fundamental.pb_ratio?.toFixed(2),
-          fcf_yield: (json.fundamental.fcf_yield * 100).toFixed(1),
-          source: analysisData?.source || "BOGA Archive (Nisan 2026)"
-        };
-      }
-    } catch (e) {}
-
-    if (analysisData && analysisData.price) {
-      // Safe market defaults — prevents crash if Finnhub or SPY fetch failed
-      const mkt = analysisData.market || { spy_bias: "N/A", qqq_momentum: "N/A", vix: "N/A" };
-      const spyLabel = mkt.spy_bias === "BULLISH" ? "EMA50 Üstünde → POZİTİF" : (mkt.spy_bias === "BEARISH" ? "EMA50 Altında → RİSKLİ" : "Veri Bekleniyor");
-      const vixNum = parseFloat(mkt.vix) || 20;
-      const vixLabel = vixNum < 18 ? "GÜVENLİ" : (vixNum < 25 ? "NÖTR" : "YÜKSEK OYNAKLIK");
-      const volStr = parseFloat(analysisData.vol_strength) || 1.0;
-      const rsStr = parseFloat(analysisData.rs_vs_spy) || 0;
-      const prompt = `Aşağıdaki teknik, temel ve piyasa verilerini kullanarak ${ticker} için V3.5 BOGA SWING UYGULAMA RAPORU hazırla.
-      
-      ### 📋 VERİLER
-      ${JSON.stringify(analysisData)}
-      
-      ### 🎯 RAPOR FORMATI (TASLAĞA SADIK KAL):
-      ════════════════════════════════════════
-      **${ticker}  |  ${analysisData.sector || "SEKTÖR"}  |  Kısa-Orta Vade Strateji**
-      ════════════════════════════════════════
-
-      **🌍 PİYASA FİLTRESİ (Market Filter)**
-      • **SPY Durumu:** ${spyLabel}
-      • **QQQ Momenti:** ${mkt.qqq_momentum === "STRONG" ? "GÜÇLÜ" : (mkt.qqq_momentum === "N/A" ? "Veri Bekleniyor" : "ZAYIF")}
-      • **VIX (Korku Endeksi):** ${mkt.vix} → ${vixLabel}
-
-      **💵 FİYAT VE HACİM DİNAMİĞİ**
-      • **Fiyat:** $${analysisData.price} (%${analysisData.change})  |  **Piyasa Değeri:** ${analysisData.mcap || "N/A"}
-      • **Hacim Gücü:** ${analysisData.vol_strength || "N/A"}x → ${volStr > 1.5 ? "Güçlü Hacim Artışı" : "Normal Hacim"}
-      • **Göreceli Güç (vs SPY):** %${analysisData.rs_vs_spy || "N/A"} → ${rsStr > 0 ? "Endeksten Güçlü" : "Endeksten Zayıf"}
-
-      **┌─ 🎯 İŞLEM PLANI (Disiplin Filtresi)**
-      │
-      │  **🟢 GİRİŞ SEVİYESİ:** $${analysisData.buy_zone}
-      │  **🎯 HEDEF BÖLGESİ:** $${analysisData.target_zone}
-      │  **🛑 ZARAR KES (Stop):** $${analysisData.stop_loss}
-      │
-      │  **⚖️ Kar/Zarar (R/R) Oranı:** 1:2.4 | **Kurulum Ömrü:** 12-24 Saat
-      └────────────────────────────────────────
-
-      **📌 ONAY LİSTESİ**
-      [ ${parseFloat(analysisData.change) > 0 ? "X" : " "} ] **Trend Uyumu:** 15dk ve 1sa senkronize
-      [ ${parseFloat(analysisData.vol_strength) > 1.2 ? "X" : " "} ] **Hacim Patlaması:** Hacim ortalamanın üzerinde
-      [ ${vixNum < 20 ? "X" : " "} ] **Momentum:** RSI > 55 & EMA20 Üstünde
-
-      **📌 TEKNİK VE PERFORMANS MATRİSİ**
-      • **Göstergeler:** RSI: ${analysisData.rsi || "N/A"} | ADX: ${analysisData.adx || "N/A"} | MACD: ${analysisData.macd || "N/A"} | MFI: ${analysisData.mfi || "N/A"}
-      • **EMA Konumları:** EMA20: %${analysisData.ema20_gap} | EMA50: %${analysisData.ema50_gap} | EMA200: %${analysisData.ema200_gap}
-      • **Performans:** 1H: %${analysisData.perf_1w} | 1A: %${analysisData.perf_1m} | 1Y: %${analysisData.perf_1y}
-
-      **📌 TEMEL ANALİZ (Finansal Sağlık)**
-      • **Kârlılık:** Brüt Marj: %${analysisData.gross_margin} | Net Marj: %${analysisData.net_margin}
-      • **Büyüme:** Gelir Büyümesi: %${analysisData.rev_growth || "N/A"} → ${parseFloat(analysisData.rev_growth || "0") > 20 ? "Güçlü Büyüme" : "Stabil"}
-      • **Değerleme:** F/K (P/E): ${analysisData.pe_ratio}x | PD/DD (P/B): ${analysisData.pb_ratio}x
-      • **Nakit Akışı:** Serbest Nakit Akış Verimi: %${analysisData.fcf_yield}
-
-      **⚠️ RİSK BAYRAKLARI**
-      • **Bilanço:** Veri yok / Yaklaşıyor
-      • **Likidite:** İşlem hacmi uygun
-
-      **┌─ ⚡️ SON KARAR**
-      │  **AKSİYON:** [ ${volStr > 1.4 && mkt.spy_bias === "BULLISH" ? "İŞLEME GİR" : "İZLEME LİSTESİ"} ]
-      │
-      │  **GEREKÇE:** "Finansal veriler ve teknik onaylar eşliğinde ${analysisData.price} seviyesinde ${mkt.spy_bias} piyasa koşulları destekleniyor."
-      └────────────────────────────────────────
-
-      **ÖNEMLİ:** Tüm metin Türkçe olsun. Rapor formatındaki ASCII çizgilerini (┌, │, └, ═) aynen koru. AI'ın eski bilgisini kullanma.`;
-
-      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
-    } else {
-       return NextResponse.json({ 
-         text: `⚠️ **Sembol Hatası:** '${ticker}' için güncel verilere ulaşılamadı. Lütfen sembolü kontrol edin.`,
-         source: "system_warning" 
-       });
+    // master.json'dan market_regime oku
+    const masterPaths = [
+      path.join(process.cwd(), "..", "data", "latest", "master.json"),
+      path.join(process.cwd(), "data", "latest", "master.json"),
+    ];
+    let masterJson: any = null;
+    for (const p of masterPaths) {
+      try { if (fs.existsSync(p)) { masterJson = JSON.parse(fs.readFileSync(p, "utf-8")); break; } } catch {}
     }
+
+    if (!stockJson) {
+      return NextResponse.json({
+        text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için sistemde kayıtlı veri yok.\n\nGeçerli semboller için sol menüdeki listeden seçim yapın veya BOGA bot tarafından taranan hisselerden birini deneyin.`,
+        source: "system_warning"
+      });
+    }
+
+    // Verileri düzenli şekilde çıkar
+    const s = stockJson;
+    const pr = s.price || {};
+    const sc = s.scores || {};
+    const tech = s.technical || {};
+    const fund = s.fundamental || {};
+    const regime = masterJson?.market_regime || "N/A";
+    const scoresDetail = s.scores_detail || s.strategy || {};
+
+    const price       = pr.current?.toFixed(2)       ?? "N/A";
+    const change      = pr.change_pct?.toFixed(2)     ?? "N/A";
+    const change1w    = pr.change_pct_1w?.toFixed(2)  ?? "N/A";
+    const change1m    = pr.change_pct_1m?.toFixed(2)  ?? "N/A";
+    const change1y    = pr.change_pct_1y?.toFixed(2)  ?? "N/A";
+    const volume      = pr.volume ? (pr.volume / 1e6).toFixed(1) + "M" : "N/A";
+    const avgVol      = pr.avg_volume_30d ? (pr.avg_volume_30d / 1e6).toFixed(1) + "M" : "N/A";
+    const rvol        = pr.volume && pr.avg_volume_30d ? (pr.volume / pr.avg_volume_30d).toFixed(2) : "N/A";
+
+    const rsi         = tech.rsi_14?.toFixed(1)       ?? "N/A";
+    const macd        = tech.macd?.toFixed(3)          ?? "N/A";
+    const macdHist    = tech.macd_histogram?.toFixed(3)?? "N/A";
+    const ema20       = tech.ema_20?.toFixed(2)        ?? "N/A";
+    const ema50       = tech.ema_50?.toFixed(2)        ?? "N/A";
+    const ema200      = tech.ema_200?.toFixed(2)       ?? "N/A";
+    const emaStack    = tech.ema_stack_bullish ? "✅ Boğa (EMA20>50>200)" : "⚠️ Ayı (Karışık)";
+    const bbUpper     = tech.bb_upper?.toFixed(2)      ?? "N/A";
+    const bbLower     = tech.bb_lower?.toFixed(2)      ?? "N/A";
+    const support     = tech.support_level?.toFixed(2) ?? pr.low?.toFixed(2) ?? "N/A";
+    const resistance  = tech.resistance_level?.toFixed(2) ?? pr.high?.toFixed(2) ?? "N/A";
+    const atr         = tech.atr?.toFixed(2)           ?? "N/A";
+
+    const masterScore = sc.master_score?.toFixed(0)    ?? "N/A";
+    const signal      = sc.signal_type                 ?? "N/A";
+
+    const mcap        = fund.market_cap ? (fund.market_cap / 1e9).toFixed(1) + "B" : "N/A";
+    const pe          = fund.pe_ratio?.toFixed(1)      ?? "N/A";
+    const pb          = fund.pb_ratio?.toFixed(2)      ?? "N/A";
+    const grossMargin = fund.gross_margin != null ? (fund.gross_margin * 100).toFixed(1) + "%" : "N/A";
+    const netMargin   = fund.net_margin != null ? (fund.net_margin * 100).toFixed(1) + "%" : "N/A";
+    const revGrowth   = fund.revenue_growth_ttm != null ? (fund.revenue_growth_ttm * 100).toFixed(1) + "%" : "N/A";
+    const fcfYield    = fund.fcf_yield != null ? (fund.fcf_yield * 100).toFixed(1) + "%" : "N/A";
+
+    // Giriş/Hedef/Stop seviyeleri (scores_detail veya ATR bazlı)
+    const entryLow    = scoresDetail.entry_range_low?.toFixed(2)  ?? (pr.current ? (pr.current * 0.985).toFixed(2) : "N/A");
+    const entryHigh   = scoresDetail.entry_range_high?.toFixed(2) ?? price;
+    const targetLow   = scoresDetail.target_range_low?.toFixed(2) ?? (pr.current ? (pr.current * 1.10).toFixed(2) : "N/A");
+    const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
+    const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
+
+    const prompt = `Sen BOGA AI swing trading terminalinin analistisin. Aşağıdaki verileri kullanarak ${ticker} için Türkçe BOGA SWING RAPORU yaz. KENDİ BİLGİNİ KULLANMA — sadece verilen sayıları kullan.
+
+════════════════════════════════════════
+${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}
+════════════════════════════════════════
+Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterScore}/100  |  Sinyal: ${signal}
+
+🌍 PİYASA FİLTRESİ
+• Piyasa Rejimi: ${regime}
+
+💵 FİYAT VE HACİM
+• Fiyat: $${price} (%${change})  |  Piyasa Değeri: ${mcap}
+• Hacim: ${volume}  |  30G Ort: ${avgVol}  |  RVOL: ${rvol}x
+• Performans: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
+
+🎯 İŞLEM PLANI
+• 🟢 Giriş Bölgesi: $${entryLow} - $${entryHigh}
+• 🎯 Hedef Bölge: $${targetLow} - $${targetHigh}
+• 🛑 Stop Loss: $${stopLoss}
+• ⚖️ R/R: Hesapla ve yaz
+
+📊 TEKNİK MATRİS
+• RSI(14): ${rsi}  |  MACD: ${macd}  |  MACD Hist: ${macdHist}
+• EMA20: $${ema20}  |  EMA50: $${ema50}  |  EMA200: $${ema200}
+• EMA Stack: ${emaStack}
+• Bollinger: Alt=$${bbLower}  Üst=$${bbUpper}
+• Destek: $${support}  |  Direnç: $${resistance}  |  ATR: $${atr}
+
+💼 FİNANSAL SAĞLIK
+• F/K: ${pe}x  |  PD/DD: ${pb}x
+• Brüt Marj: ${grossMargin}  |  Net Marj: ${netMargin}
+• Gelir Büyümesi: ${revGrowth}  |  FCF Verimi: ${fcfYield}
+
+RAPOR FORMATI (bu yapıyı koru, satırları değiştirme):
+════════════════════════════════════════
+${ticker} | ${s.sector || ""} | Swing Strateji
+════════════════════════════════════════
+
+🌍 PİYASA FİLTRESİ
+• Piyasa Rejimi: [veriyi kullan] → [POZİTİF/NÖTR/RİSKLİ]
+
+💵 FİYAT & HACİM
+• [veriyi kullan]
+
+┌─ 🎯 İŞLEM PLANI
+│  🟢 Giriş: $[...]
+│  🎯 Hedef: $[...]
+│  🛑 Stop:  $[...]
+│  ⚖️ R/R: 1:[hesapla]
+└─────────────────
+
+📌 ONAY LİSTESİ
+[X/ ] RSI durumu: [değeri yaz ve yorumla]
+[X/ ] EMA Stack: [değeri yaz ve yorumla]
+[X/ ] Hacim: [RVOL değerini yaz ve yorumla]
+[X/ ] Trend yönü: [yorumla]
+
+📊 TEKNİK & PERFORMANS
+• [indikatörleri listele]
+
+💼 FİNANSAL SAĞLIK
+• [metrikleri listele]
+
+⚡ SON KARAR
+│ AKSİYON: [İŞLEME GİR / İZLE / ÇIKIŞ]
+│ GEREKÇE: [2-3 cümle, sadece verilen sayılara dayan]
+└─────────────────`;
+
+    return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
   }
 
   try {
