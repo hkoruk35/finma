@@ -1,34 +1,18 @@
 [
   {
     "Date": "4 May",
-    "Symbol": "BTSG",
+    "Symbol": "CUBE",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 57.26,
-    "Target 2 (TP2)": 58.07
+    "Target 1 (TP1)": 40.44,
+    "Target 2 (TP2)": 40.73
   },
   {
     "Date": "4 May",
-    "Symbol": "DRH",
+    "Symbol": "XHR",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 10.77,
-    "Target 2 (TP2)": 10.88
-  },
-  {
-    "Date": "4 May",
-    "Symbol": "FIVN",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 26.8,
-    "Target 2 (TP2)": 27.45
-  },
-  {
-    "Date": "4 May",
-    "Symbol": "FTI",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 79.47,
-    "Target 2 (TP2)": 80.66
+    "Target 1 (TP1)": 16.73,
+    "Target 2 (TP2)": 16.87
   }
 ]

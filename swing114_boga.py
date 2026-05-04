@@ -1926,6 +1926,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # ── MARKET REGIME ─────────────────────────────────────────────
         market_regime = MARKET_STATUS.get("regime", "UNKNOWN")
+        market_modifier = MARKET_STATUS.get("min_score_modifier", 0.0)
+        
+        # 🔧 BOGA AI FIX: Atıl duran min_score_modifier devreye alındı. 
+        # Modifier pozitifse (riskliyse) puan kırar, negatifse (güçlüyse) puan ekler.
+        if market_modifier != 0.0:
+            regime_score_effect = -market_modifier * 8.0  # 1.0 modifier = -8.0 puan baskısı
+            score += regime_score_effect
+            details.append(f"⚖️ Market Regime Adj ({market_regime}): {regime_score_effect:+.1f}p")
+
         try:
             ema50_10d_ago = float(ema50_1d.iloc[-10]) if len(ema50_1d) >= 10 else float(ema50_1d.iloc[-1])
             ema50_slope_check = (float(ema50_1d.iloc[-1]) - ema50_10d_ago) / ema50_10d_ago if ema50_10d_ago > 0 else 0.0
@@ -1941,6 +1950,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         elif market_regime == "CHOPPY":
             if vol_5d_trend >= 0.75 and ema50_slope_check > 0: score += 3.2; details.append("[OK] Solid Signal in Choppy")
             else: score -= 3.2; details.append("⚠️ Choppy Market Weak Structure")
+        elif market_regime == "HIGH_VOLATILITY":
+            if vol_5d_trend < 1.0: score -= 5.0; details.append("🚨 High Volatility & Shrinking Volume Risk")
+            
 
         # ── SMART MONEY FLOW ──────────────────────────────────────────
         smart_money = analyze_smart_money_flow(df_1d, ticker, cached_info)
