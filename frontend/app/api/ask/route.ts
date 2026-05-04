@@ -297,6 +297,13 @@ export async function POST(req: NextRequest) {
     } catch (e) {}
 
     if (analysisData && analysisData.price) {
+      // Safe market defaults — prevents crash if Finnhub or SPY fetch failed
+      const mkt = analysisData.market || { spy_bias: "N/A", qqq_momentum: "N/A", vix: "N/A" };
+      const spyLabel = mkt.spy_bias === "BULLISH" ? "EMA50 Üstünde → POZİTİF" : (mkt.spy_bias === "BEARISH" ? "EMA50 Altında → RİSKLİ" : "Veri Bekleniyor");
+      const vixNum = parseFloat(mkt.vix) || 20;
+      const vixLabel = vixNum < 18 ? "GÜVENLİ" : (vixNum < 25 ? "NÖTR" : "YÜKSEK OYNAKLIK");
+      const volStr = parseFloat(analysisData.vol_strength) || 1.0;
+      const rsStr = parseFloat(analysisData.rs_vs_spy) || 0;
       const prompt = `Aşağıdaki teknik, temel ve piyasa verilerini kullanarak ${ticker} için V3.5 BOGA SWING UYGULAMA RAPORU hazırla.
       
       ### 📋 VERİLER
@@ -308,14 +315,14 @@ export async function POST(req: NextRequest) {
       ════════════════════════════════════════
 
       **🌍 PİYASA FİLTRESİ (Market Filter)**
-      • **SPY Durumu:** ${analysisData.market.spy_bias === "BULLISH" ? "EMA50 Üstünde → POZİTİF" : "EMA50 Altında → RİSKLİ"}
-      • **QQQ Momenti:** ${analysisData.market.qqq_momentum === "STRONG" ? "GÜÇLÜ" : "ZAYIF"}
-      • **VIX (Korku Endeksi):** ${analysisData.market.vix} → ${parseFloat(analysisData.market.vix) < 18 ? "GÜVENLİ" : "YÜKSEK OYNAKLIK"}
+      • **SPY Durumu:** ${spyLabel}
+      • **QQQ Momenti:** ${mkt.qqq_momentum === "STRONG" ? "GÜÇLÜ" : (mkt.qqq_momentum === "N/A" ? "Veri Bekleniyor" : "ZAYIF")}
+      • **VIX (Korku Endeksi):** ${mkt.vix} → ${vixLabel}
 
       **💵 FİYAT VE HACİM DİNAMİĞİ**
       • **Fiyat:** $${analysisData.price} (%${analysisData.change})  |  **Piyasa Değeri:** ${analysisData.mcap || "N/A"}
-      • **Hacim Gücü:** ${analysisData.vol_strength}x → ${parseFloat(analysisData.vol_strength) > 1.5 ? "Güçlü Hacim Artışı" : "Normal Hacim"}
-      • **Göreceli Güç (vs SPY):** %${analysisData.rs_vs_spy} → ${parseFloat(analysisData.rs_vs_spy) > 0 ? "Endeksten Güçlü" : "Endeksten Zayıf"}
+      • **Hacim Gücü:** ${analysisData.vol_strength || "N/A"}x → ${volStr > 1.5 ? "Güçlü Hacim Artışı" : "Normal Hacim"}
+      • **Göreceli Güç (vs SPY):** %${analysisData.rs_vs_spy || "N/A"} → ${rsStr > 0 ? "Endeksten Güçlü" : "Endeksten Zayıf"}
 
       **┌─ 🎯 İŞLEM PLANI (Disiplin Filtresi)**
       │
@@ -329,7 +336,7 @@ export async function POST(req: NextRequest) {
       **📌 ONAY LİSTESİ**
       [ ${parseFloat(analysisData.change) > 0 ? "X" : " "} ] **Trend Uyumu:** 15dk ve 1sa senkronize
       [ ${parseFloat(analysisData.vol_strength) > 1.2 ? "X" : " "} ] **Hacim Patlaması:** Hacim ortalamanın üzerinde
-      [ ${parseFloat(analysisData.market.vix) < 20 ? "X" : " "} ] **Momentum:** RSI > 55 & EMA20 Üstünde
+      [ ${vixNum < 20 ? "X" : " "} ] **Momentum:** RSI > 55 & EMA20 Üstünde
 
       **📌 TEKNİK VE PERFORMANS MATRİSİ**
       • **Göstergeler:** RSI: ${analysisData.rsi || "N/A"} | ADX: ${analysisData.adx || "N/A"} | MACD: ${analysisData.macd || "N/A"} | MFI: ${analysisData.mfi || "N/A"}
@@ -338,7 +345,7 @@ export async function POST(req: NextRequest) {
 
       **📌 TEMEL ANALİZ (Finansal Sağlık)**
       • **Kârlılık:** Brüt Marj: %${analysisData.gross_margin} | Net Marj: %${analysisData.net_margin}
-      • **Büyüme:** Gelir Büyümesi: %${analysisData.rev_growth} → ${parseFloat(analysisData.rev_growth) > 20 ? "Güçlü Büyüme" : "Stabil"}
+      • **Büyüme:** Gelir Büyümesi: %${analysisData.rev_growth || "N/A"} → ${parseFloat(analysisData.rev_growth || "0") > 20 ? "Güçlü Büyüme" : "Stabil"}
       • **Değerleme:** F/K (P/E): ${analysisData.pe_ratio}x | PD/DD (P/B): ${analysisData.pb_ratio}x
       • **Nakit Akışı:** Serbest Nakit Akış Verimi: %${analysisData.fcf_yield}
 
@@ -347,9 +354,9 @@ export async function POST(req: NextRequest) {
       • **Likidite:** İşlem hacmi uygun
 
       **┌─ ⚡️ SON KARAR**
-      │  **AKSİYON:** [ ${parseFloat(analysisData.vol_strength) > 1.4 && analysisData.market.spy_bias === "BULLISH" ? "İŞLEME GİR" : "İZLEME LİSTESİ"} ]
+      │  **AKSİYON:** [ ${volStr > 1.4 && mkt.spy_bias === "BULLISH" ? "İŞLEME GİR" : "İZLEME LİSTESİ"} ]
       │
-      │  **GEREKÇE:** "Finansal veriler ve teknik onaylar eşliğinde ${analysisData.price} seviyesinde ${analysisData.market.spy_bias} piyasa koşulları destekleniyor."
+      │  **GEREKÇE:** "Finansal veriler ve teknik onaylar eşliğinde ${analysisData.price} seviyesinde ${mkt.spy_bias} piyasa koşulları destekleniyor."
       └────────────────────────────────────────
 
       **ÖNEMLİ:** Tüm metin Türkçe olsun. Rapor formatındaki ASCII çizgilerini (┌, │, └, ═) aynen koru. AI'ın eski bilgisini kullanma.`;
