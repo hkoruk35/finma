@@ -199,20 +199,31 @@ export async function POST(req: NextRequest) {
     }
 
     if (analysisData && !analysisData.error) {
-      const prompt = `Aşağıdaki teknik ve kurumsal verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI Swing Raporu hazırla. 
+      const prompt = `Aşağıdaki teknik ve kurumsal verileri kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
       
-      Veri Kaynağı: ${analysisData.source_file || "Live Bot (Yahoo Finance)"}
-      Teknik Veriler: ${JSON.stringify(analysisData)}
+      ### 📊 VERİ KAYNAĞI
+      ${analysisData.source_file || "Live Bot (Yahoo Finance)"}
       
-      Rapor içeriğinde mutlaka şunlar olsun:
-      - Score (Verilen skoru kullan veya verilere göre 80-100 arası bir değer ata)
-      - Güncel Fiyat ve Değişim
-      - Support / Resistance (S/R)
-      - Buy Zone / Target Zone / Stop Loss
-      - Teknik Yorum (Eğer varsa RSI, EMA verilerini yorumla)
-      - Strategy (Entry/Target/Stop)
+      ### 📋 TEKNİK VERİLER
+      ${JSON.stringify(analysisData)}
       
-      Yanıt tamamen Türkçe ve profesyonel bir finansal analist dilinde olsun. AI'ın eski bilgisini kullanma, sadece bu yeni verileri baz al.`;
+      ### 🎯 RAPOR FORMATI (Lütfen bu başlıkları kullan):
+      1. **BOGA AI Master Score**: [Verilen skoru kullan veya verilere göre 80-100 arası bir değer ata]
+      2. **Güncel Görünüm**: [Fiyat, 1D Değişim ve kısa yorum]
+      3. **Teknik Matris**: 
+         - Support (S1/S2):
+         - Resistance (R1/R2):
+         - Göstergeler (RSI, EMA20/50/200 durumu):
+      4. **BOGA AI Swing Stratejisi**:
+         - 🟢 **Giriş Bölgesi (Buy Zone)**:
+         - 🎯 **Hedef Bölgesi (Target Zone)**:
+         - 🛑 **Zarar Kes (Stop Loss)**:
+      5. **Analist Yorumu**: [Verilere dayanarak 3-4 cümlelik derinlemesine teknik analiz]
+      
+      **⚠️ ÖNEMLİ:** 
+      - Yanıt tamamen Türkçe ve son derece profesyonel bir finansal analist dilinde olsun. 
+      - AI'ın 2023-2024 bilgisini asla kullanma, sadece yukarıda verilen GÜNCEL verileri baz al. 
+      - Yanıtı asla yarıda kesme, tüm başlıkları detaylıca doldur.`;
 
       return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     }
@@ -323,7 +334,7 @@ async function handleGemini(message: string, history: Message[]) {
           contents,
           generationConfig: { 
             temperature: 0.7, 
-            maxOutputTokens: 2048,
+            maxOutputTokens: 4096,
             topP: 0.95,
             topK: 40
           },

@@ -93,7 +93,10 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   }, []);
 
   const saveToHistory = (query: string) => {
-    const updated = [{ query, timestamp: Date.now() }, ...searchHistory].slice(0, 10);
+    if (!query.trim()) return;
+    // Keep unique and newest first
+    const filtered = searchHistory.filter(h => h.query.toLowerCase() !== query.toLowerCase());
+    const updated = [{ query, timestamp: Date.now() }, ...filtered].slice(0, 15);
     setSearchHistory(updated);
     localStorage.setItem("boga-search-history", JSON.stringify(updated));
   };
@@ -227,12 +230,9 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
               {m.role === "assistant" && <BotIcon />}
               <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
                 {m.role === "assistant" ? (
-                  <>
+                  <div className="space-y-3">
                     <MarkdownText text={m.text} />
-                    <div className="mt-4 pt-3 border-t border-[#1e2a3a] text-[9px] text-[#475569] font-black uppercase tracking-widest">
-                      <span>Multi-language support (50+ languages)</span>
-                    </div>
-                  </>
+                  </div>
                 ) : (
                   <p className="text-sm">{m.text}</p>
                 )}
