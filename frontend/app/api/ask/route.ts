@@ -166,20 +166,35 @@ export async function POST(req: NextRequest) {
     let marketData: any = { spy: null, qqq: null, vix: null };
 
     try {
-      // 1. Fetch Market Context (SPY, QQQ, VIX)
-      const mSymbols = ["SPY", "QQQ", "^VIX"];
-      const mRes = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${mSymbols.join(",")}`, { signal: AbortSignal.timeout(5000) });
-      if (mRes.ok) {
-        const mJson = await mRes.json();
-        const quotes = mJson.quoteResponse.result;
+      // 1. Fetch Market Context & Ticker Fundamentals (v7/quote with modules)
+      const qUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=SPY,QQQ,^VIX,${ticker}&modules=financialData,defaultKeyStatistics`;
+      const qRes = await fetch(qUrl, { signal: AbortSignal.timeout(5000) });
+      if (qRes.ok) {
+        const qJson = await qRes.json();
+        const quotes = qJson.quoteResponse.result;
         marketData = {
           spy: quotes.find((q: any) => q.symbol === "SPY"),
           qqq: quotes.find((q: any) => q.symbol === "QQQ"),
-          vix: quotes.find((q: any) => q.symbol === "^VIX")
+          vix: quotes.find((q: any) => q.symbol === "^VIX") || { regularMarketPrice: 15.0 } // Fallback
         };
+        const stockQuote = quotes.find((q: any) => q.symbol === ticker);
+        if (stockQuote) {
+          analysisData = {
+            ticker,
+            price: stockQuote.regularMarketPrice.toFixed(2),
+            change: stockQuote.regularMarketChangePercent.toFixed(2),
+            mcap: stockQuote.marketCap ? (stockQuote.marketCap / 1e9).toFixed(1) + "B" : "N/A",
+            pe_ratio: stockQuote.trailingPE?.toFixed(1) || "N/A",
+            pb_ratio: stockQuote.priceToBook?.toFixed(2) || "N/A",
+            gross_margin: stockQuote.grossMargins ? (stockQuote.grossMargins * 100).toFixed(1) : "N/A",
+            net_margin: stockQuote.profitMargins ? (stockQuote.profitMargins * 100).toFixed(1) : "N/A",
+            rev_growth: stockQuote.revenueGrowth ? (stockQuote.revenueGrowth * 100).toFixed(1) : "N/A",
+            fcf_yield: stockQuote.freeCashflow ? "Pozitif" : "N/A"
+          };
+        }
       }
 
-      // 2. Fetch Ticker Data (Chart for Volume Avg and Price)
+      // 2. Fetch Ticker Chart Data (1mo for technicals)
       const yfUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`;
       const yfRes = await fetch(yfUrl, { signal: AbortSignal.timeout(8000) });
       
@@ -188,55 +203,56 @@ export async function POST(req: NextRequest) {
         const result = yfData.chart.result?.[0];
         if (result) {
           const quote = result.indicators.quote[0];
-          const adjClose = result.indicators.adjclose?.[0]?.adjclose || quote.close;
-          const closes = adjClose.filter((c: any) => c !== null);
+          const closes = quote.close.filter((c: any) => c !== null);
           const highs = quote.high.filter((h: any) => h !== null);
           const lows = quote.low.filter((l: any) => l !== null);
           const volumes = quote.volume.filter((v: any) => v !== null);
           
           if (closes.length > 5) {
             const currentPrice = closes[closes.length - 1];
-            const prevClose = closes[closes.length - 2];
-            const change1d = ((currentPrice - prevClose) / prevClose) * 100;
             
-            // Volume Strength (Current vs 20-period Avg)
+            // --- LIVE TECHNICAL CALCULATIONS (Fallback for missing JSON) ---
+            const calculateEMA = (data: number[], period: number) => {
+              if (data.length < period) return data[data.length - 1];
+              const k = 2 / (period + 1);
+              let ema = data[0];
+              for (let i = 1; i < data.length; i++) ema = data[i] * k + ema * (1 - k);
+              return ema;
+            };
+
+            const ema20 = calculateEMA(closes, 20);
+            const ema50 = calculateEMA(closes, 50);
+            const ema200 = calculateEMA(closes, 200); // Approximation if data short
+            
             const avgVol = volumes.slice(-20).reduce((a: number, b: number) => a + b, 0) / 20;
-            const volStrength = volumes[volumes.length - 1] / avgVol;
-
-            // Relative Strength vs SPY
+            const volStrength = volumes[volumes.length - 1] / (avgVol || 1);
             const spyChange = marketData.spy ? marketData.spy.regularMarketChangePercent : 0;
-            const relativeStrength = change1d - spyChange;
-
-            // ATR & S/R
-            let trSum = 0;
-            const lookback = Math.min(closes.length - 1, 14);
-            for (let i = closes.length - lookback; i < closes.length; i++) {
-              trSum += Math.max(highs[i] - lows[i], Math.abs(highs[i] - closes[i - 1]), Math.abs(lows[i] - closes[i - 1]));
-            }
-            const atr = trSum / lookback;
 
             analysisData = {
-              ticker,
-              price: currentPrice.toFixed(2),
-              change: change1d.toFixed(2),
+              ...analysisData,
               vol_strength: volStrength.toFixed(2),
-              rs_vs_spy: relativeStrength.toFixed(2),
+              rs_vs_spy: (parseFloat(analysisData?.change || "0") - spyChange).toFixed(2),
               support: Math.min(...lows.slice(-20)).toFixed(2),
               resistance: Math.max(...highs.slice(-20)).toFixed(2),
               buy_zone: `${(currentPrice * 0.985).toFixed(2)} - ${currentPrice.toFixed(2)}`,
               target_zone: `${(currentPrice * 1.12).toFixed(2)} - ${(currentPrice * 1.15).toFixed(2)}`,
               stop_loss: (currentPrice * 0.94).toFixed(2),
+              ema20_gap: (((currentPrice - ema20) / ema20) * 100).toFixed(1),
+              ema50_gap: (((currentPrice - ema50) / ema50) * 100).toFixed(1),
+              ema200_gap: (((currentPrice - ema200) / ema200) * 100).toFixed(1),
+              perf_1w: (((currentPrice - closes[closes.length - 6]) / closes[closes.length - 6]) * 100).toFixed(2),
+              perf_1m: (((currentPrice - closes[0]) / closes[0]) * 100).toFixed(2),
               market: {
                 spy_bias: marketData.spy ? (marketData.spy.regularMarketPrice > marketData.spy.fiftyDayAverage ? "BULLISH" : "BEARISH") : "N/A",
                 qqq_momentum: marketData.qqq ? (marketData.qqq.regularMarketChangePercent > 0 ? "STRONG" : "WEAK") : "N/A",
-                vix: marketData.vix ? marketData.vix.regularMarketPrice.toFixed(2) : "N/A"
+                vix: marketData.vix.regularMarketPrice.toFixed(2)
               }
             };
           }
         }
       }
     } catch (err) {
-      console.error("V3 Engine error:", err);
+      console.error("V3.5 Self-Correction error:", err);
     }
 
     // 3. Combine Live Data with Local Archive for Full Analysis
