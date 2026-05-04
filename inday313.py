@@ -401,81 +401,66 @@ BOGA_SWING_ZONES = {}
 
 def load_swing_universe() -> List[str]:
     """
-    30-day deep archive scanner for inday313:
-    1. Finds swing_YYYYMMDD.json files in the swing{YYYY} folder.
-    2. Sorts files by date (newest first) and selects the last 30 files.
-    3. Loads the most up-to-date zone data for each stock into the BOGA_SWING_ZONES dictionary.
+    swing114_boga.py'nin ürettiği master.json'dan günlük hisse listesini yükler.
+    Breakout (20) + Momentum (20) = max 40 hisse takip edilir.
+    Saatlik inday313 botu sadece bu hisseleri izler.
     """
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
 
-    # Dynamically create folder path using year (e.g., swing2026)
-    current_year = datetime.now().strftime("%Y")
-    DATA_DIR = os.path.join(r"C:\Users\afksm\finma\frontend\public\data", f"swing{current_year}")
+    master_candidates = [
+        r"C:\Users\afksm\finma\data\latest\master.json",
+        os.path.join(os.path.dirname(__file__), "data", "latest", "master.json"),
+    ]
 
-    if not os.path.exists(DATA_DIR):
-        logging.error(f"❌ Archive directory not found: {DATA_DIR}")
-        return []
-
-    try:
-        # 1. Filter all .json files starting with 'swing_' in the directory
-        all_files = [f for f in os.listdir(DATA_DIR) if f.startswith("swing_") and f.endswith(".json")]
-        
-        # 2. Sort files by date (Z to A -> Newest file first)
-        all_files.sort(reverse=True)
-        
-        # 3. Select the last 30 files (30-day swing period memory)
-        target_files = all_files[:30]
-        logging.info(f"📂 Scanning {len(target_files)} daily archive files for inday313 pool...")
-
-        # 4. Read files one by one (Newest to oldest)
-        for file_name in target_files:
-            file_path = os.path.join(DATA_DIR, file_name)
+    master_data = None
+    for mp in master_candidates:
+        if os.path.exists(mp):
             try:
-                with open(file_path, encoding="utf-8") as f:
-                    data = json.load(f)
-                
-                pick_date = data.get("date", "Unknown")
-                for pick in data.get("picks", []):
-                    ticker = pick.get("ticker")
-                    if not ticker:
-                        continue
-                    
-                    # KRİTİK: Dosyaları en yenisinden en eskisine doğru okuduğumuz için, 
-                    # bir hisseyi ilk gördüğümüzde o veriler "en güncel" verilerdir. 
-                    # Sözlükte zaten varsa, daha eski bir dosyadaki verisini almamak için es geçiyoruz.
-                    if ticker in BOGA_SWING_ZONES:
-                        continue
-
-                    # V114/V113 standardına göre zone verilerini eşleştir
-                    bz = pick.get("buy_zone") or pick.get("boga_zones", {}).get("buying_zone", {})
-                    pz = pick.get("profit_zone") or pick.get("boga_zones", {}).get("sell_zone", {})
-                    sz = pick.get("stop_zone") or pick.get("boga_zones", {}).get("stop_loss_zone", {})
-
-                    BOGA_SWING_ZONES[ticker] = {
-                        "buying_zone": bz,
-                        "sell_zone": pz,
-                        "stop_loss_zone": sz,
-                        "profit_zone": pz,  # Geriye dönük uyumluluk takma adları
-                        "stop_zone": sz,
-                        "pick_date": pick_date,
-                        "company": pick.get("company", ticker),
-                        "sector": pick.get("sector", "Unknown"),
-                        "score": pick.get("score", 0),
-                    }
+                with open(mp, encoding="utf-8") as f:
+                    master_data = json.load(f)
+                logging.info(f"✅ master.json yüklendi: {mp}")
+                break
             except Exception as e:
-                logging.warning(f"⚠️ {file_name} okunurken hata: {e}")
+                logging.warning(f"⚠️ master.json okunamadı: {e}")
 
-    except Exception as e:
-        logging.error(f"❌ Klasör tarama hatası: {e}")
+    if not master_data:
+        logging.error("❌ master.json bulunamadı! swing114_boga.py'nin çalıştığından emin olun.")
         return []
 
-    final_symbols = sorted(BOGA_SWING_ZONES.keys())
-    logging.info(f"✅ inday313 universe ready: {len(final_symbols)} active stocks (based on 30-day archive).")
-    return final_symbols
-    
+    menus = master_data.get("menus", {})
+    breakout_tickers = menus.get("breakout", {}).get("tickers", [])
+    momentum_tickers = menus.get("momentum", {}).get("tickers", [])
+
+    # Birleştir, tekrarları kaldır, max 40 tut
+    all_tickers = list(dict.fromkeys(breakout_tickers + momentum_tickers))[:40]
+
+    # BOGA_SWING_ZONES'a ekle (geriye dönük uyumluluk için)
+    pick_date = master_data.get("date", "")
+    stocks_dir = r"C:\Users\afksm\finma\data\latest\stocks"
+
+    for ticker in all_tickers:
+        stock_file = os.path.join(stocks_dir, f"{ticker}.json")
+        zone_data = {"pick_date": pick_date, "company": ticker, "sector": "Unknown", "score": 0}
+        if os.path.exists(stock_file):
+            try:
+                with open(stock_file, encoding="utf-8") as f:
+                    sj = json.load(f)
+                zone_data.update({
+                    "company": sj.get("company", ticker),
+                    "sector": sj.get("sector", "Unknown"),
+                    "score": sj.get("scores", {}).get("master_score", 0),
+                })
+            except Exception:
+                pass
+        BOGA_SWING_ZONES[ticker] = zone_data
+
+    logging.info(f"✅ inday313 universe: {len(all_tickers)} hisse (Breakout: {len(breakout_tickers)} + Momentum: {len(momentum_tickers)}) | Tarih: {pick_date}")
+    return sorted(all_tickers)
+
 # ============================================================
 # 3) BOGA FİNANS AI – MULTI TIMEFRAME DATA FETCHER
+
 #
 # Amaç:
 # - 1D  → Yapısal bağlam (Kurumsal trend, 52W High, YTD VWAP)
@@ -2057,8 +2042,17 @@ def save_txt_for_archive(results: List[Dict[str, Any]]):
 
 async def main():
     """Main scan loop: Market analysis, Technical Scan, and Recording."""
-    print("\n" + "=" * 60)
     now_ny = datetime.now(NY_TZ)
+    
+    # 🕒 10:00 - 16:00 NY Time & Weekday Window Check
+    if now_ny.weekday() >= 5:
+        print("🕒 Hafta sonu. Tarama pas geçiliyor.")
+        return
+    if now_ny.hour < 10 or now_ny.hour >= 16:
+        print(f"🕒 Market saatleri dışı ({now_ny.strftime('%H:%M')}). Tarama pas geçiliyor.")
+        return
+
+    print("\n" + "=" * 60)
     print(f"🐂 BOGA FINANCE AI - SWING ENGINE ONLINE")
     print(f"⏰ Session Time: {now_ny.strftime('%Y-%m-%d %H:%M')}")
     print("=" * 60 + "\n")

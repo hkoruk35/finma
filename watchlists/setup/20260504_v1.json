@@ -1,0 +1,502 @@
+[
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CNC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 53.68,
+        "entry_zone": "49.33 - 53.88",
+        "SL": 47.87,
+        "TP": 60.94
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "EXTR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 22.82,
+        "entry_zone": "21.68 - 22.39",
+        "SL": 20.97,
+        "TP": 24.17
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "HAL",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 41.75,
+        "entry_zone": "39.52 - 40.50",
+        "SL": 38.53,
+        "TP": 43.71
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "AVB",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 184.6,
+        "entry_zone": "174.05 - 185.17",
+        "SL": 171.54,
+        "TP": 199.79
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "ETSY",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 65.32,
+        "entry_zone": "61.30 - 63.48",
+        "SL": 59.13,
+        "TP": 68.91
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "BEN",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 29.95,
+        "entry_zone": "29.38 - 29.93",
+        "SL": 28.76,
+        "TP": 31.45
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "COCO",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 66.47,
+        "entry_zone": "52.30 - 66.23",
+        "SL": 49.68,
+        "TP": 83.23
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 372.71,
+        "entry_zone": "342.55 - 348.36",
+        "SL": 341.51,
+        "TP": 355.52
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "PII",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 63.86,
+        "entry_zone": "61.45 - 66.15",
+        "SL": 58.78,
+        "TP": 76.35
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "VISN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 12.27,
+        "entry_zone": "10.51 - 11.99",
+        "SL": 10.1,
+        "TP": 13.55
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "APLD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 34.37,
+        "entry_zone": "32.16 - 35.25",
+        "SL": 30.28,
+        "TP": 42.27
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "ETN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 429.54,
+        "entry_zone": "414.97 - 425.13",
+        "SL": 406.49,
+        "TP": 453.95
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "GTX",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 25.75,
+        "entry_zone": "25.48 - 25.97",
+        "SL": 24.79,
+        "TP": 27.68
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "NE",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 50.88,
+        "entry_zone": "48.85 - 50.24",
+        "SL": 47.45,
+        "TP": 54.78
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "SIMO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 227.98,
+        "entry_zone": "212.78 - 229.32",
+        "SL": 203.04,
+        "TP": 266.08
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "UBS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 43.67,
+        "entry_zone": "42.85 - 44.03",
+        "SL": 42.08,
+        "TP": 46.84
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CSCO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 92.79,
+        "entry_zone": "87.82 - 89.22",
+        "SL": 86.38,
+        "TP": 93.87
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "MTSI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 293.71,
+        "entry_zone": "279.88 - 288.84",
+        "SL": 271.46,
+        "TP": 316.61
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CMI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 666.51,
+        "entry_zone": "649.67 - 660.53",
+        "SL": 647.87,
+        "TP": 672.19
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "VRSN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 275.04,
+        "entry_zone": "264.06 - 270.06",
+        "SL": 258.07,
+        "TP": 289.54
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "DTM",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 147.68,
+        "entry_zone": "138.76 - 147.86",
+        "SL": 135.94,
+        "TP": 158.05
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "HR",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 19.73,
+        "entry_zone": "18.65 - 19.29",
+        "SL": 18.37,
+        "TP": 20.17
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "KDP",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 29.02,
+        "entry_zone": "28.46 - 29.29",
+        "SL": 27.94,
+        "TP": 31.21
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "NOK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 13.23,
+        "entry_zone": "10.26 - 10.42",
+        "SL": 10.21,
+        "TP": 10.85
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "QCOM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 169.19,
+        "entry_zone": "172.62 - 177.46",
+        "SL": 167.48,
+        "TP": 193.94
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "INTC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 99.01,
+        "entry_zone": "79.92 - 82.93",
+        "SL": 76.91,
+        "TP": 92.71
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CARR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 66.07,
+        "entry_zone": "62.22 - 67.73",
+        "SL": 60.44,
+        "TP": 76.31
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "VIAV",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 53.9,
+        "entry_zone": "52.27 - 56.14",
+        "SL": 49.76,
+        "TP": 65.32
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "BLD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 434.37,
+        "entry_zone": "454.26 - 469.63",
+        "SL": 451.62,
+        "TP": 481.7
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CSTM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 31.17,
+        "entry_zone": "31.16 - 32.15",
+        "SL": 30.17,
+        "TP": 34.62
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 45.11,
+        "entry_zone": "43.82 - 45.51",
+        "SL": 43.11,
+        "TP": 48.55
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "AMAT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 392.3,
+        "entry_zone": "404.12 - 418.47",
+        "SL": 394.11,
+        "TP": 454.26
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "AMKR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 70.25,
+        "entry_zone": "65.84 - 70.56",
+        "SL": 62.91,
+        "TP": 81.43
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CORZ",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 20.81,
+        "entry_zone": "20.23 - 20.99",
+        "SL": 19.47,
+        "TP": 23.46
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CSIQ",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 15.8,
+        "entry_zone": "15.23 - 16.84",
+        "SL": 14.44,
+        "TP": 19.23
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "NUE",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 225.63,
+        "entry_zone": "216.21 - 226.10",
+        "SL": 212.28,
+        "TP": 243.34
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "RSI",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 27.99,
+        "entry_zone": "27.33 - 27.96",
+        "SL": 26.51,
+        "TP": 30.57
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "PENG",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 32.99,
+        "entry_zone": "30.34 - 31.39",
+        "SL": 29.28,
+        "TP": 34.04
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 5.83,
+        "entry_zone": "4.92 - 5.12",
+        "SL": 4.72,
+        "TP": 5.77
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CLS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 410.18,
+        "entry_zone": "339.94 - 356.33",
+        "SL": 323.55,
+        "TP": 409.6
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "NTRS",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 161.71,
+        "entry_zone": "159.74 - 164.44",
+        "SL": 156.7,
+        "TP": 175.57
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "PFS",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 22.49,
+        "entry_zone": "22.17 - 22.57",
+        "SL": 21.77,
+        "TP": 23.87
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "RMAX",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 10.86,
+        "entry_zone": "9.78 - 11.06",
+        "SL": 9.37,
+        "TP": 13.05
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "SANM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 217.62,
+        "entry_zone": "193.22 - 206.42",
+        "SL": 185.52,
+        "TP": 235.57
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "CP",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 84.58,
+        "entry_zone": "85.54 - 86.78",
+        "SL": 84.19,
+        "TP": 91.08
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "DOV",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 222.05,
+        "entry_zone": "227.20 - 229.40",
+        "SL": 226.57,
+        "TP": 235.03
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "MSCI",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 589.22,
+        "entry_zone": "582.87 - 594.33",
+        "SL": 571.41,
+        "TP": 631.58
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "STM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 55.67,
+        "entry_zone": "52.83 - 54.38",
+        "SL": 51.49,
+        "TP": 58.89
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "WMT",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 131.26,
+        "entry_zone": "128.06 - 130.19",
+        "SL": 126.17,
+        "TP": 136.51
+    },
+    {
+        "date": "2026-05-04 11:01",
+        "symbol": "OPEN",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 5.18,
+        "entry_zone": "5.29 - 5.55",
+        "SL": 5.03,
+        "TP": 6.39
+    }
+]

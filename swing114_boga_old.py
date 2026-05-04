@@ -1,10 +1,10 @@
 """
 ================================================================
-🐂 BOGA AI SWING TRADE MODEL — V113.1 (Stability Patch)
+🐂 BOGA AI SWING TRADE MODEL — V114.0 (Stability Patch)
 ================================================================
 Patched version focused on consistency and realistic targets.
 
-🔧 FIXES APPLIED IN V113.1:
+🔧 FIXES APPLIED IN V114.1:
   1. Price filter: $5–$1000 → $10–$250 (sweet spot for swing capital)
   2. RSI floor 38 → 45 / ceiling 78 → 72 (no weak/exhausted entries)
   3. R/R minimum 1.0 → 1.5 (real swing setups, not gamble)
@@ -32,7 +32,7 @@ ARCHITECTURE (unchanged):
   LAYER 2 → 1D data for 500 stocks is fetched, momentum + trend
              at least 50 candidates are selected
   LAYER 3 → Deep analysis for 50 candidates (1H S/R + ATR zones)
-  LAYER 4 → Top 5 stocks scored out of 100
+  LAYER 4 → Top 10 stocks scored out of 100
   LAYER 5 → Summaries generated with Gemini AI in multiple languages
   OUTPUT  → Saved in JSON format + Telegram notification
 ================================================================
@@ -126,19 +126,13 @@ WATCHLIST_MAX_ROLLING = 6000
 OUTPUT_JSON_FILE = "swing_picks.json"
 OUTPUT_ALL_JSON_FILE = "swing_all_picks.json"
 
-# ================================================================
-# 🔹 UNIVERSE AND FILTER PARAMETERS
-# ================================================================
-MAX_TICKERS_FINAL = 500          # Layer 1: Most liquid 500 stocks
-TOP_DEEP_ANALYSIS = 50           # Layer 3: Number of stocks for deep analysis
-TOP_FINAL_PICKS = 5             # Final BOGA AI selection count
 
 # ================================================================
 # 🔹 UNIVERSE AND FILTER PARAMETERS
 # ================================================================
 MAX_TICKERS_FINAL = 500          # Layer 1: Most liquid 500 stocks
 TOP_DEEP_ANALYSIS = 50           # Layer 3: Number of stocks for deep analysis
-TOP_FINAL_PICKS = 5              # Final BOGA AI selection count
+TOP_FINAL_PICKS = 10              # Final BOGA AI selection count
 
 # 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
 # $10 altı kuruşluk hisse (penny stock) gürültüsüdür. Üst sınır $500 yapılarak 
@@ -193,9 +187,7 @@ ALPHA_VANTAGE_API_KEY = "8S8ZRE3EPTKH0EPJ"
 GEMINI_API_KEY = "AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM"
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
-# ================================================================
-# 🔹 SECTOR ETF MAP
-# ================================================================
+# YENİ:
 SECTOR_ETF_MAP = {
     "Technology": "XLK",
     "Energy": "XLE",
@@ -208,6 +200,18 @@ SECTOR_ETF_MAP = {
     "Real Estate": "XLRE",
     "Consumer Defensive": "XLP", "Consumer Staples": "XLP",
     "Communication Services": "XLC"
+}
+
+# 🎯 7g HEDEF — Yavaş sektörlerde momentum haftalarda kuruluyor.
+# Veri: Energy %12.2, Consumer Defensive %9.4, Utilities %23.5 7g-içinde-zirve oranı.
+# Bu sektörler tamamen elenmiyor (kaliteli setup gelirse alınsın) ama -3 puan ceza alır.
+# YENİ:
+SLOW_PEAK_SECTORS = {
+    "Real Estate": -5.0,  # 🎯 REITS 7 günlük hıza asla yetişemez, ağır ceza.
+    "Energy": -3.0,
+    "Consumer Defensive": -3.0,
+    "Utilities": -3.0,
+    "Basic Materials": -1.5,
 }
 
 # ================================================================
@@ -291,7 +295,7 @@ async def fetch_all_us_tickers() -> List[str]:
             except Exception as e:
                 logging.error(f"⚠️ Ticker list error ({url}): {e}")
 
-    logging.info(f"✅ Raw symbol count: {len(all_tickers)}")
+    logging.info(f"[OK] Raw symbol count: {len(all_tickers)}")
     return list(all_tickers)
 
 # ================================================================
@@ -303,7 +307,7 @@ async def get_recently_picked_tickers(days=10) -> set:
     Reads files in swing_YYYYMMDD.json format from the SWING2026 year folder.
     """
     recent_tickers = set()
-    # ✅ FIX 1: Use absolute path
+    # [OK] FIX 1: Use absolute path
     base_data_dir = r"C:\Users\afksm\finma\frontend\public\data"
     current_year = datetime.now(NY_TZ).strftime("%Y")
     swing_year_dir = os.path.join(base_data_dir, f"swing{current_year}")
@@ -313,7 +317,7 @@ async def get_recently_picked_tickers(days=10) -> set:
         return recent_tickers
 
     try:
-        # ✅ FIX 2: Scan swing_YYYYMMDD.json files
+        # [OK] FIX 2: Scan swing_YYYYMMDD.json files
         all_files = [f for f in os.listdir(swing_year_dir) if f.startswith("swing_") and f.endswith(".json")]
         all_files.sort(reverse=True)  # Newest file first
 
@@ -387,7 +391,7 @@ async def build_atmaca_universe_full() -> List[str]:
         logging.error("❌ Ticker list could not be retrieved.")
         return []
 
-    logging.info(f"🚀 Bulk download starting for {len(raw_list)} stocks (chunk=1000, period=35d)...")
+    logging.info(f"[START] Bulk download starting for {len(raw_list)} stocks (chunk=1000, period=35d)...")
 
     CHUNK = 200
     PERIOD = "252d"
@@ -640,8 +644,8 @@ def check_ichimoku_setup(df: pd.DataFrame) -> dict:
             return {'valid': True, 'bonus': 0.8, 'msg': "🟡 Ichimoku: Intra-Cloud Swing Awakening (+0.8)"}
         if price > cloud_top:
             if last['tenkan'] > last['kijun']:
-                return {'valid': True, 'bonus': 1.4, 'msg': "✅ Ichimoku: Strong Bullish Continuation (+1.4)"}
-            return {'valid': True, 'bonus': 0.6, 'msg': "✅ Ichimoku: Above Cloud (+0.6)"}
+                return {'valid': True, 'bonus': 1.4, 'msg': "[OK] Ichimoku: Strong Bullish Continuation (+1.4)"}
+            return {'valid': True, 'bonus': 0.6, 'msg': "[OK] Ichimoku: Above Cloud (+0.6)"}
         return {'valid': False, 'bonus': 0.0, 'msg': ""}
     except Exception:
         return {'valid': False, 'bonus': 0.0, 'msg': ""}
@@ -731,18 +735,35 @@ def detect_rising_stock(df: pd.DataFrame) -> dict:
         if len(close) < 10:
             return {'is_rising': False, 'score': 0.0, 'details': [], 'pattern': ''}
 
+        # YENİ:
         recent_ret = (close.iloc[-1] - close.iloc[-10]) / close.iloc[-10]
+        recent_5d  = (close.iloc[-1] - close.iloc[-6]) / close.iloc[-6] if len(close) >= 6 else 0.0
 
-        # 🔧 FIX: Hard floor — anything below +2% in 10 days is not "rising".
-        if recent_ret < 0.02:
-            return {'is_rising': False, 'score': 0.0, 'details': ['Flat/down 10D return'], 'pattern': ''}
+        # 🎯 FIX 4: Sıkışma bölgesindeki hisseleri (Base Breakout öncesi) kaçırmamak için tolerans
+        # Eğer 10 gün 0 getiri, ama son 5 gün ufak bir kıpırdanma varsa pas geçme.
+        if recent_ret < 0.0 and recent_5d < 0.01:
+            return {'is_rising': False, 'score': 0.0, 'details': ['Flat/down return (No momentum)'], 'pattern': ''}
 
-        if recent_ret > 0.10:
-            score += 4.0; pattern = "Gaining Momentum"
-            details.append(f"🚀 10D Return: +{recent_ret*100:.1f}%")
-        elif recent_ret > 0.05:
-            score += 2.0; pattern = "Base Breakout"
-            details.append(f"📈 10D Return: +{recent_ret*100:.1f}%")
+        # 🎯 7g HEDEF: 5g ivmesi 10g'nin yarısından fazlaysa = HIZLANIYOR
+        if recent_5d > 0 and recent_ret > 0:
+            accel_ratio = recent_5d / recent_ret
+            if accel_ratio >= 0.55:
+                score += 2.5; pattern = pattern or "Accelerating"
+                details.append(f"⚡ Momentum Hızlanıyor (5g **%{recent_5d*100:.1f}** / 10g **%{recent_ret*100:.1f}**)")
+            elif accel_ratio < 0.20:
+                score -= 1.0
+                details.append(f"🐢 Momentum Yavaşlıyor (5g sadece **%{recent_5d*100:.1f}**)")
+
+        # 🎯 0-DAY SNIPER: 10 günde %15+ uçmuş hisseye girilmez, parti bitmiştir.
+        if recent_ret > 0.15:
+            score -= 5.0; pattern = "Overextended"
+            details.append(f"⚠️ 10D Return: +{recent_ret*100:.1f}% (Çok Şişkin, FOMO Riski)")
+        elif recent_ret > 0.08:
+            score += 1.0; pattern = "Mature Trend"
+            details.append(f"📈 10D Return: +{recent_ret*100:.1f}% (Olgun Trend, Geç Kalınmış Olabilir)")
+        elif recent_ret > 0.02:
+            score += 4.0; pattern = "Fresh Breakout"
+            details.append(f"🚀 10D Return: +{recent_ret*100:.1f}% (Taze Başlangıç / Sniper Bölgesi)")
         else:
             score += 1.0; pattern = "Mild Uptrend"
             details.append(f"↗️ 10D Return: +{recent_ret*100:.1f}%")
@@ -814,7 +835,7 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         if net_margin > 0.10:
             score += 2.0; details.append(f"💰 Net Margin: {net_margin*100:.1f}% (Healthy)")
         if revenue_growth > 0.10:
-            score += 3.0; details.append(f"🚀 Revenue Growth: {revenue_growth*100:.1f}% (Good)")
+            score += 3.0; details.append(f"[START] Revenue Growth: {revenue_growth*100:.1f}% (Good)")
         elif revenue_growth > 0.05:
             score += 1.5; details.append(f"📈 Revenue Growth: {revenue_growth*100:.1f}%")
         if 0 < debt_to_equity < 1.5:
@@ -973,11 +994,12 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             if resists_above:
                 resist_1h = min(min(resists_above), macro_resist)
 
-            # --- SMART MONEY & VOLUME CONFIRMATION ---
-            # Hacim Filtresi: Son 20 saatin ortalamasının 1.8 katı ve YEŞİL mum!
+# --- SMART MONEY & VOLUME CONFIRMATION ---
+            # Hacim Filtresi: Dual-Tier (Breakout için daha esnek, Sweep için sert)
             vol_avg_20 = float(vol_1h.rolling(20).mean().iloc[-1])
             is_green_candle = curr_c > curr_o
-            volume_spike = (curr_v > vol_avg_20 * 1.8) and is_green_candle
+            volume_spike_breakout = (curr_v > vol_avg_20 * 1.3) and is_green_candle
+            volume_spike_sweep = (curr_v > vol_avg_20 * 1.8) and is_green_candle
 
             # Price Action (Candle Formations)
             body = abs(curr_c - curr_o)
@@ -991,12 +1013,12 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             is_liquidity_sweep = (curr_l < support_1h) and (curr_c > support_1h)
             
             recent_local_high = float(high_1h.tail(10).max())
-            is_bos = (curr_c > recent_local_high) and volume_spike
+            is_bos = (curr_c > recent_local_high) and volume_spike_breakout
 
             is_pullback = (support_1h <= curr_l <= support_1h + (atr_1d * 0.3))
 
             # --- FINAL DECISION ---
-            if is_liquidity_sweep and (is_pinbar or volume_spike):
+            if is_liquidity_sweep and (is_pinbar or volume_spike_sweep):
                 entry_valid = True
                 entry_type = "REVERSAL (Liquidity Sweep)"
                 entry_confidence = 95
@@ -1004,7 +1026,7 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 entry_valid = True
                 entry_type = "BREAKOUT (BOS)"
                 entry_confidence = 85
-            elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike:
+            elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike_breakout:
                 entry_valid = True
                 entry_type = "PULLBACK"
                 entry_confidence = 80
@@ -1014,20 +1036,6 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             support_1h = current_price - (atr_1d * 0.8)
 
         # ── 3. REFERENCE ZONES — DYNAMIC BY SIGNAL TYPE ───────────────────
-        # 🔧 FIX #3 (CRITICAL): Buy Zone is no longer hard-anchored to support_1h.
-        # In a BREAKOUT/BOS/Early Awakening, price does not pull back to support;
-        # it shoots upward immediately. Anchoring the zone to support causes the
-        # alert to never trigger (the famous "fiyat hiç bölgeye gelmiyor" problem).
-        #
-        # Strategy:
-        #   • BREAKOUT (BOS) / Early Awakening → zone is built TIGHT around current_price
-        #     (low = price - 0.25*ATR, high = price + 0.15*ATR). Allows the bot to act
-        #     immediately on the breakout candle instead of waiting for an unrealistic dip.
-        #   • PULLBACK / Liquidity Sweep      → classic support-based zone preserved
-        #     (low = support + 0.2*ATR, high = price + 0.1*ATR), because here the
-        #     thesis literally IS that price retests support before the next leg.
-        #   • No valid trigger yet            → conservative classic zone (waiting mode).
-        # 1H momentumuna ek olarak 1D'den gelen agresif kırılım (Early Awakening) sinyali kontrolü
         is_momentum_entry = (
             (entry_valid and entry_type in ("BREAKOUT (BOS)", "REVERSAL (Liquidity Sweep)")) or
             (entry_type or "").startswith("BREAKOUT") or
@@ -1035,32 +1043,34 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         )
 
         if is_momentum_entry:
-            # Tight zone around live price — strike now, not at a stale support level
+            # Tight zone around live price
             buy_zone_low  = round(current_price - (atr_1d * 0.25), 2)
             buy_zone_high = round(current_price + (atr_1d * 0.15), 2)
         elif entry_valid and entry_type == "PULLBACK":
-            # Classic pullback retest zone — wait for price to revisit support area
             buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
             buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
         else:
-            # No confirmed trigger → keep historical (defensive) calculation
             buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
             buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
 
-        # Sanity guard: low must always be below high
+        # Sanity guard
         if buy_zone_low >= buy_zone_high:
             buy_zone_low = round(buy_zone_high - (atr_1d * 0.3), 2)
 
         stop_high = round(support_1h - (atr_1d * 0.5), 2)
         stop_low  = round(stop_high - (atr_1d * 0.2), 2)
 
-        avg_entry = current_price if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
+        # 🎯 FIX 5: Entry Buffer. Breakout mumunun tam tepesinden almamak (slippage protection) için.
+        avg_entry = (current_price * 0.995) if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
         risk = max(avg_entry - stop_high, atr_1d * 1.0)
         
-        reward = risk * 2.5
+        # 🎯 FIX 3: R/R Kaybını Engelleme (Momentum hisseleri için edge)
         structural_reward = resist_1h - avg_entry
-        if structural_reward > reward and (structural_reward / risk) <= 4.0:
-            reward = structural_reward
+        reward = max(risk * 2.0, structural_reward) if structural_reward > 0 else risk * 2.5
+        
+        # R/R Tavanı (Aşırı uçuk hedefleri normalize etmek için)
+        if reward > risk * 4.0:
+            reward = risk * 4.0
 
         sell_zone_low  = round(avg_entry + reward * 0.85, 2)
         sell_zone_high = round(avg_entry + reward, 2)
@@ -1246,7 +1256,7 @@ async def analyze_market_and_sectors():
         except Exception:
             continue
 
-    logging.info("✅ Market and Sector Analysis Completed.")
+    logging.info("[OK] Market and Sector Analysis Completed.")
 
 # ================================================================
 # ================================================================
@@ -1255,7 +1265,7 @@ async def analyze_market_and_sectors():
 # ================================================================
 
 def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted=False, beta=1.0):
-    """V113 — ATR Based Dynamic TP/SL (Realistic swing band: %8-15, mostly hit within 5-10 days)
+    """V114 — ATR Based Dynamic TP/SL (Realistic swing band: %8-15, mostly hit within 5-10 days)
 
     🔧 FIX #4: Old formula `tp_atr_mult = 2.5 + 1.0*m` produced 3.5 ATR targets,
     which translates to %20-25 moves — almost never reached in 5-10 days.
@@ -1302,15 +1312,15 @@ def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0
     if vol_increase >= 2.2: hold -= 2
     elif vol_increase >= 1.8: hold -= 1
     elif vol_increase < 0.8: hold += 2
-    if is_exhausted: hold += 2
-    return max(3, min(10, hold))   # 🔧 FIX: 15 → 10 hard cap
+    if is_exhausted: hold += 1
+    return max(3, min(7, hold))   # 🎯 7g HEDEF: hard cap 10 → 7. Swing değil, position trade'i önler.
 
 # ================================================================
 # ================================================================
 # SECTION 8: MAIN STOCK ANALYSIS (apply_atmaca_filters)
 # ================================================================
 # ================================================================
-# 🚀 SMART NETWORK MANAGEMENT STRATEGY:
+# [START] SMART NETWORK MANAGEMENT STRATEGY:
 #
 #  PHASE 1 (500 stocks — ZERO network I/O):
 #    • 1D data read only from BULK_DATA_CACHE (0 ms)
@@ -1346,6 +1356,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         sector_name = cached_info.get("sector", "Unknown")
         short_float = cached_info.get("short_float", 0.0)
 
+        # 🎯 0-DAY SNIPER HARD REJECTS (OpenAI Fix)
+        # 7 günde hedefe gidemeyecek kadar hantal sektörleri ve piyasadan yavaş (Beta < 0.85) hisseleri direkt çöpe at.
+        if sector_name in ["Real Estate", "Utilities"]:
+            return None
+        if beta > 0 and beta < 0.85:
+            return None
+
         # 1D data → From BULK_DATA_CACHE (0 ms, yf.download already loaded)
         df_1d = await asyncio.to_thread(get_stock_data, ticker, "1d")
         if df_1d is None or len(df_1d) < 50:
@@ -1366,7 +1383,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         score   = 0.0
         details: List[str] = []
-        details.append("✅ UNIVERSE: Liquidity/Structural Conditions Met")
+        details.append("[OK] UNIVERSE: Liquidity/Structural Conditions Met")
         score += 4.0
 
         # ── SECTOR ROTATION ────────────────────────────────────────
@@ -1467,16 +1484,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             adx_series_1d = pd.Series(data=0.0, index=df_1d.index)
             adx_1d = 0.0
 
-        if adx_1d >= 30: score += 6.0; details.append(f"🔥 ADX: Very Strong ({adx_1d:.1f})")
-        elif adx_1d >= 25: score += 4.0; details.append(f"💪 ADX: Strong ({adx_1d:.1f})")
-        elif adx_1d >= 20: score += 2.0; details.append(f"📊 ADX: Medium ({adx_1d:.1f})")
-        elif adx_1d >= 15: score += 0.4; details.append(f"🟡 ADX: Weak ({adx_1d:.1f})")
-        else:              score -= 2.0; details.append(f"⚠️ ADX: Very Weak ({adx_1d:.1f})")
+        # 🎯 0-DAY SNIPER: Yüksek ADX trendin bittiğini gösterir. İvmeyi (Slope) ödüllendir.
+        if adx_1d >= 35: score -= 2.0; details.append(f"⚠️ ADX: Trend Exhaustion Risk ({adx_1d:.1f})")
+        elif adx_1d >= 25: score += 4.0; details.append(f"💪 ADX: Strong Trend ({adx_1d:.1f})")
+        elif adx_1d >= 18: score += 5.0; details.append(f"🔥 ADX: Trend Awakening ({adx_1d:.1f})")
+        else:              score -= 2.0; details.append(f"🟡 ADX: Very Weak ({adx_1d:.1f})")
 
         try:
             adx_slope = adx_series_1d.diff().tail(5).mean()
-            if adx_slope > 0.5: score += 1.6; details.append("🚀 ADX Momentum: Accelerating")
-            elif adx_slope < -0.5: score -= 1.2; details.append("🐌 ADX Momentum: Slowing")
+            if adx_slope > 0.8: score += 8.0; details.append("⚡ ADX Momentum: Aggressive Acceleration (0-Day)")
+            elif adx_slope > 0.3: score += 3.0; details.append("📈 ADX Momentum: Rising")
+            elif adx_slope < -0.5: score -= 3.0; details.append("🐌 ADX Momentum: Slowing/Fading")
         except Exception:
             pass
 
@@ -1512,12 +1530,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             # New rule: above EMA50 too, otherwise this is base-building, not an entry zone.
             if current_price < ema50_val or current_price < ema200_val:
                 layer2_pass = False; layer2_reasons.append("Below EMA50 or EMA200 (not actionable)")
-            # Trend direction confirmation — last 5 days must show positive change
+            # YENİ:
+            # Trend direction confirmation — last 5 days must show meaningful positive momentum
             if len(close_1d) >= 6:
                 ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
                 if ret_5d_pct < -2.0:
                     layer2_pass = False
                     layer2_reasons.append(f"5-day return {ret_5d_pct:.2f}% (downtrend)")
+                # 🎯 7g HEDEF: Yatay (-2% ile +0.5% arası) hisseler de elenmeli
+                elif ret_5d_pct < 0.5:
+                    layer2_pass = False
+                    layer2_reasons.append(f"5-day return {ret_5d_pct:.2f}% (sideways/flat)")
         except Exception:
             pass
 
@@ -1578,7 +1601,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None
 
         # ============================================================
-        # 🚀 SMART NETWORK TRANSITION — ONLY PASSING LAYER 2 ~50 STOCKS
+        # [START] SMART NETWORK TRANSITION — ONLY PASSING LAYER 2 ~50 STOCKS
         # WE ARE GOING TO THE INTERNET. 450 bad stocks already eliminated above.
         # ============================================================
 
@@ -1593,7 +1616,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # ============================================================
 
         score += 6.0
-        details.append(f"✅ LAYER 2: Momentum Confirmed (RVOL:{rvol_micro:.2f}x | Green:{green_candles}/10 | CMF:{cmf_val:.3f})")
+        details.append(f"[OK] LAYER 2: Momentum Confirmed (RVOL:{rvol_micro:.2f}x | Green:{green_candles}/10 | CMF:{cmf_val:.3f})")
         if rvol_micro >= 1.60:
             score += 2.0; details.append(f"🔥 Micro-RVOL Aggressive: {rvol_micro:.2f}x")
 
@@ -1616,14 +1639,31 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             bb_width_1d = 0.0
 
-        if atr_pct_1d < 0.020 and bb_width_1d < 0.045:
-            score += 3.2; details.append("🟦 VOL Regime: Squeeze (Breakout Candidate)")
-        elif 0.020 <= atr_pct_1d < 0.040:
-            score += 4.0; details.append("🟩 VOL Regime: Early Swing")
-        elif 0.040 <= atr_pct_1d <= 0.080:
-            score += 6.0; details.append("⚡ VOL Regime: Ideal Swing Zone")
+        # YENİ:
+        # ── BETA VOLATİLİTE ÖDÜLÜ (7g Hedef) ─────────────────────────
+        if beta >= 1.5:
+            score += 4.0; details.append(f"[START] High Beta ({beta:.2f}): Hızlı hareket potansiyeli")
+        elif beta >= 1.2:
+            score += 2.0; details.append(f"📈 Good Beta ({beta:.2f}): Market üzeri volatilite")
+        elif beta < 0.8:
+            score -= 2.0; details.append(f"🐢 Low Beta ({beta:.2f}): Yavaş hareket riski")
+
+            
+        
+        # YENİ:
+        # 🎯 0-DAY SNIPER: 7 günde %10 hedefi için düşük volatilite kabul edilemez.
+        if atr_pct_1d < 0.025:
+            score -= 10.0; details.append("🔴 VOL Regime: Too Slow for 7-Day Swing (ATR < 2.5%)")
+        elif 0.025 <= atr_pct_1d < 0.035:
+            score -= 2.0; details.append("⚠️ VOL Regime: Mild/Slow (ATR < 3.5%)")
+        elif 0.035 <= atr_pct_1d < 0.045:
+            score += 6.0; details.append("⚡ VOL Regime: Good Swing")
+        elif 0.045 <= atr_pct_1d <= 0.075:
+            score += 8.0; details.append("🔥 VOL Regime: 7g HEDEF Sweet Spot")
+        elif 0.075 < atr_pct_1d <= 0.100:
+            score += 4.5; details.append("🟧 VOL Regime: High (managed risk)")
         else:
-            score += 1.2; details.append("🟨 VOL Regime: High (Caution)")
+            score += 1.0; details.append("🟨 VOL Regime: Extreme (risky)")
 
         # ── RSI ──────────────────────────────────────────────────────
         try:
@@ -1632,16 +1672,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             rsi_1d_val = 50.0
 
-        if 40 <= rsi_1d_val <= 55:
-            score += 6.0; details.append(f"🌀 RSI: Momentum Start ({rsi_1d_val:.1f})")
-        elif 55 < rsi_1d_val <= 70:
-            score += 3.2; details.append(f"📈 RSI: Momentum Continuation ({rsi_1d_val:.1f})")
-        elif 70 < rsi_1d_val <= 82:
-            score += 1.2; details.append(f"⚠️ RSI: Near Overbought ({rsi_1d_val:.1f})")
-        elif rsi_1d_val < 35:
+        # 🎯 0-DAY SNIPER: RSI 68'i geçmişse düzeltme yakındır, ceza kes.
+        if 45 <= rsi_1d_val <= 60:
+            score += 8.0; details.append(f"🌀 RSI: Sniper Sweet Spot ({rsi_1d_val:.1f})")
+        elif 60 < rsi_1d_val <= 68:
+            score += 4.0; details.append(f"📈 RSI: Momentum Continuation ({rsi_1d_val:.1f})")
+        elif 68 < rsi_1d_val <= 75:
+            score -= 5.0; details.append(f"⚠️ RSI: FOMO Risk / Overextended ({rsi_1d_val:.1f})")
+        elif rsi_1d_val < 40:
             score -= 3.2; details.append(f"❄️ RSI: Weak ({rsi_1d_val:.1f})")
-        elif rsi_1d_val > 82:
-            score -= 2.0; details.append(f"🔴 RSI: Overbought ({rsi_1d_val:.1f})")
+        elif rsi_1d_val > 75:
+            score -= 10.0; details.append(f"🔴 RSI: Overbought Peak ({rsi_1d_val:.1f})")
         else:
             score += 0.4; details.append(f"➖ RSI: Neutral ({rsi_1d_val:.1f})")
 
@@ -1656,16 +1697,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         is_exhausted = False
         try:
             roc_3d = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-4])) / float(close_1d.iloc[-4]) * 100 if len(close_1d) >= 4 else 0.0
-            if roc_3d > 12.0 or rsi_1d_val > 75.0:
+            # 🎯 0-DAY SNIPER: 3 günde %8 kopan veya RSI 70'i aşan hisseye Exhausted etiketi vurulur.
+            if roc_3d > 8.0 or rsi_1d_val > 70.0:
                 is_exhausted = True
                 reasons_ex = []
-                if roc_3d > 12.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}%")
-                if rsi_1d_val > 75.0: reasons_ex.append(f"RSI: {rsi_1d_val:.1f}")
-                score -= 8.0; details.append(f"🔴 EXHAUSTED: {', '.join(reasons_ex)}")
+                if roc_3d > 8.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Too Fast)")
+                if rsi_1d_val > 70.0: reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Overbought)")
+                score -= 15.0; details.append(f"🔴 EXHAUSTED / FOMO: {', '.join(reasons_ex)}")
             elif 45 <= rsi_1d_val <= 55:
                 score += 4.0; details.append(f"🌅 Early Awakening: RSI {rsi_1d_val:.1f} (Optimal Entry)")
         except Exception:
-            is_exhausted = False
+            pass
 
         # ── MACD ─────────────────────────────────────────────────────
         try:
@@ -1679,7 +1721,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             if macd_hist_val > 0 and macd_hist_val > macd_hist_prev:
                 score += 3.0; details.append(f"📈 MACD Hist: Rising ({macd_hist_val:.3f})")
             elif macd_hist_val > 0:
-                score += 1.5; details.append(f"✅ MACD Hist: Positive ({macd_hist_val:.3f})")
+                score += 1.5; details.append(f"[OK] MACD Hist: Positive ({macd_hist_val:.3f})")
             elif macd_hist_val < 0 and macd_hist_val > macd_hist_prev and (macd_hist_val - macd_hist_prev) > abs(macd_hist_prev) * 0.15:
                 score += 2.5; details.append("🌅 MACD: Strong Bottom Reversal Momentum")
             elif macd_hist_val < 0:
@@ -1726,7 +1768,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             except Exception:
                 rvol_1h = 0.0
 
-            rvol_durumu = "🔥 EXTREMELY INTENSE" if rvol_1h > 3.0 else "✅ High" if rvol_1h > 1.5 else "❄️ Volumeless" if rvol_1h < 0.7 else "Normal"
+            rvol_durumu = "🔥 EXTREMELY INTENSE" if rvol_1h > 3.0 else "[OK] High" if rvol_1h > 1.5 else "❄️ Volumeless" if rvol_1h < 0.7 else "Normal"
             close_now_1h  = float(close_1h.iloc[-1])
             ema20_now_1h  = float(ema20_1h.iloc[-1])
             ema50_now_1h  = float(ema50_1h.iloc[-1])
@@ -1737,8 +1779,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             elif adx_1h >= 14: score += 2.4; details.append(f"🟡 1H ADX: Early ({adx_1h:.1f})")
             else: score -= 3.2; details.append(f"⚠️ 1H ADX: Weak ({adx_1h:.1f})")
 
-            if ema20_distance > 0.05:
-                score -= 8.0; details.append(f"🔴 1H: Far from EMA20 (+{ema20_distance*100:.1f}% FOMO)")
+            # YENİ:
+            # 🎯 0-DAY SNIPER: Fiyat EMA20'den %3 uzaklaştıysa FOMO'dur. Puanı tamamen çökert!
+            if ema20_distance > 0.03:
+                score -= 20.0; details.append(f"🔴 1H: EXTREME FOMO RISK (+{ema20_distance*100:.1f}% from EMA20)")
+            elif ema20_distance > 0.015:
+                score -= 6.0; details.append(f"🟡 1H: Extension Risk (+{ema20_distance*100:.1f}%)")
             elif close_now_1h > ema50_now_1h:
                 score += 4.8; details.append("🏗️ 1H: Above EMA50 (Strong)")
             elif close_now_1h > ema20_now_1h:
@@ -1796,7 +1842,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             obv_slope = 0.0
 
-        if obv_slope > 1000: score += 6.0; details.append("✅ OBV: Strong Accumulation")
+        if obv_slope > 1000: score += 6.0; details.append("[OK] OBV: Strong Accumulation")
         elif obv_slope > 0: score += 2.4; details.append("📈 OBV: Positive Trend")
         elif obv_slope < -1000: score -= 3.2; details.append("⚠️ OBV: Distribution Risk")
         else: score -= 0.8; details.append("➖ OBV: Neutral")
@@ -1836,7 +1882,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if 1.2 <= rvol_today <= 1.8 and abs(close_change_pct) < 0.006:
             score += 6.4; details.append(f"🐋 RVOL Regime: Quiet Accumulation ({rvol_today:.2f}x)")
         elif rvol_today > 2.0 and close_change_pct > 0.008:
-            score += 8.0; details.append(f"🚀 RVOL Regime: Swing Awakening ({rvol_today:.2f}x)")
+            score += 8.0; details.append(f"[START] RVOL Regime: Swing Awakening ({rvol_today:.2f}x)")
         elif rvol_today > 1.5:
             score += 3.2; details.append(f"📊 RVOL Regime: Active ({rvol_today:.2f}x)")
         elif rvol_today < 0.6:
@@ -1867,9 +1913,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if market_regime == "STRONG":
             if ema50_slope_check > 0: score += 3.2; details.append("💎 STRONG Market Alignment")
         elif market_regime == "BULLISH":
-            if vol_5d_trend >= 0.80: score += 1.6; details.append("✅ Bullish Market Alignment")
+            if vol_5d_trend >= 0.80: score += 1.6; details.append("[OK] Bullish Market Alignment")
         elif market_regime == "CHOPPY":
-            if vol_5d_trend >= 0.75 and ema50_slope_check > 0: score += 3.2; details.append("✅ Solid Signal in Choppy")
+            if vol_5d_trend >= 0.75 and ema50_slope_check > 0: score += 3.2; details.append("[OK] Solid Signal in Choppy")
             else: score -= 3.2; details.append("⚠️ Choppy Market Weak Structure")
 
         # ── SMART MONEY FLOW ──────────────────────────────────────────
@@ -1936,23 +1982,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # Stealth Breakout Definition: Price above EMA20, RSI awakening, Volume normal/mild (0.9 - 1.3)
         is_early_awakening = (current_price > ema20_now) and (45 <= rsi_1d_val <= 55) and (0.9 <= rvol_today <= 1.3)
 
-        if bb_squeeze and ema_stack and rvol_today > 1.3:
-            score += 10.0; entry_trigger = "BB Squeeze + EMA Stack + Volume"
-            details.append("💥 ENTRY: Squeeze → Breakout (Strong)")
+        # 🎯 0-DAY SNIPER: Sıkışma ve Erken uyanışa devasa puan ver ki, listenin zirvesine otursunlar.
+        if bb_squeeze and ema_stack and rvol_today > 1.2:
+            score += 25.0; entry_trigger = "BB Squeeze + EMA Stack + Volume"
+            details.append("💥 ENTRY: DAY 0 SQUEEZE BREAKOUT (SNIPER)")
         elif is_early_awakening:
-            score += 8.8; entry_trigger = "Early Awakening (Stealth Breakout)"
-            details.append("🌅 ENTRY: Early Awakening (Strategic entry before volume)")
-        elif ema_cross and 1.2 <= rvol_today <= 1.8:
-            score += 8.0; entry_trigger = "EMA9/20 Crossover + Micro Volume"
-            details.append("🎯 ENTRY: EMA9/20 Cross + Micro Volume")
+            score += 18.0; entry_trigger = "Early Awakening (Stealth Breakout)"
+            details.append("🌅 ENTRY: DAY 0 EARLY AWAKENING (Before the Crowd)")
+        elif ema_cross and 1.1 <= rvol_today <= 1.8:
+            score += 10.0; entry_trigger = "EMA9/20 Crossover + Micro Volume"
+            details.append("🎯 ENTRY: EMA9/20 Fresh Cross")
         elif ema9_slope > 0.003 and bb_squeeze and micro_volume:
-            score += 6.4; entry_trigger = "EMA9 Slope + Squeeze + Micro Volume"
-            details.append("⚡ ENTRY: EMA9 Dynamic Start")
+            score += 15.0; entry_trigger = "EMA9 Slope + Squeeze + Micro Volume"
+            details.append("⚡ ENTRY: EMA9 Dynamic Squeeze Break")
         elif ema20_now > ema50_now_1d and close_change_pct > 0.006:
-            score += 4.8; entry_trigger = "Trend Continuation Swing"
-            details.append("↗️ ENTRY: Trend Continuation")
-        elif rising.get('is_rising') and rising.get('pattern') in ['Pullback Reversal', 'Base Breakout', 'Gaining Momentum']:
-            score += 4.0; entry_trigger = f"Rising: {rising['pattern']}"
+            score -= 2.0; entry_trigger = "Trend Continuation (Late)"
+            details.append("⚠️ ENTRY: Trend Continuation (FOMO Risk, Late Phase)")
+        elif rising.get('is_rising') and rising.get('pattern') in ['Pullback Reversal', 'Base Breakout']:
+            score += 6.0; entry_trigger = f"Rising: {rising['pattern']}"
             details.append(f"📈 ENTRY: {rising['pattern']}")
         else:
             score -= 1.2; details.append("⏳ ENTRY: No trigger yet")
@@ -1971,9 +2018,23 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         hold_days = estimate_hold_time(score, vol_increase_ratio, profit_expectation_pct, atr_pct_1d * 100, is_exhausted)
         volume_regime_str = "Expansion" if vol_increase_ratio > 1.4 else "Early" if vol_increase_ratio > 1.1 else "Flat"
 
+        # YENİ:
         details.append(f"💰 TP/SL: ${profit_target:.2f} / ${stop_loss:.2f} (R/R: {rr_ratio_calc:.2f})")
+        
+        # 🎯 FIX 6: Yavaş sektörlere ceza (DİNAMİK)
+        sector_penalty = SLOW_PEAK_SECTORS.get(sector_name, 0.0)
+        sec_perf_val = SECTOR_PERFORMANCE.get(sector_name, 0.0)
+        
+        if sector_penalty < 0:
+            if sec_perf_val > 2.0:
+                details.append(f"🔥 Slow Sector But HOT Trend: {sector_name} (Ceza İptal)")
+            else:
+                score += sector_penalty
+                details.append(f"🐢 Slow Peak Sector: {sector_name} ({sector_penalty:.1f}p)")
+            
         exhaust_tag = " [EXHAUSTED]" if is_exhausted else ""
-        logging.info(f"✅ {ticker}: Analysis complete (Score: {score:.2f}{exhaust_tag})")
+        logging.info(f"[OK] {ticker}: Analysis complete (Score: {score:.2f}{exhaust_tag})")
+        
 
         return {
             "ticker": ticker,
@@ -2260,7 +2321,7 @@ def build_diversified_toplist(candidates: list, max_per_sector: int = MAX_PER_SE
 
 # ================================================================
 # ================================================================
-# SECTION 12: GEMINI AI SUMMARIES (6 LANGUAGES) — BOGA AI Core Engine v113
+# SECTION 12: GEMINI AI SUMMARIES (6 LANGUAGES) — BOGA AI Core Engine v114
 # ================================================================
 # ================================================================
 
@@ -2371,7 +2432,7 @@ OUTPUT FORMAT: Strict valid JSON.
                         raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
                         parsed = safe_json_parse(raw_text)
                         if parsed and "homepage" in parsed and "detail" in parsed:
-                            logging.info(f"✅ {ticker}: Unified Gemini Analizi Başarılı")
+                            logging.info(f"[OK] {ticker}: Unified Gemini Analizi Başarılı")
                             return {{
                                 "homepage_summary": parsed["homepage"],
                                 "detail_summary": parsed["detail"]
@@ -2810,8 +2871,14 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "stop_loss_high":     zones.get("stop_zone", {}).get("high", 0),
                 "max_hold_days":      c.get("hold_days", 5) + 5,
                 "exit_rule":          "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-                # Pseudocode for frontend:
-                #   if price <= stop_loss_high          → status = "STOPPED_OUT"
+                "trailing_stop_rules": {
+                    "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
+                    "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
+                }
+                # Pseudocode for frontend (🎯 FIX 7: Trailing Stop Logic added):
+                #   if max_profit_reached >= 8% and price < entry_price * 1.02 → "STOPPED_IN_PROFIT"
+                #   elif max_profit_reached >= 5% and price < entry_price → "STOPPED_BREAK_EVEN"
+                #   elif price <= stop_loss_high          → status = "STOPPED_OUT"
                 #   elif price >= profit_target_low     → status = "PEAK_PROFIT_REACHED"
                 #   elif entry_zone_low <= price <= entry_zone_high → status = "IN_ENTRY_ZONE"
                 #   elif days_since_pick > max_hold_days → status = "TIME_EXIT"
@@ -2927,7 +2994,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
     return {
         "generated_at": generated_at,
         "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
-        "model": "BOGA AI V113",
+        "model": "BOGA AI V114",
         "market_regime": MARKET_STATUS.get("regime", "Bull"),
         "total_picks": len(picks),
         "picks": picks,
@@ -2935,7 +3002,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
 
 # ================================================================
 # ================================================================
-# SECTION 15: TELEGRAM REPORT BLOCK — BOGA AI Core Engine v113
+# SECTION 15: TELEGRAM REPORT BLOCK — BOGA AI Core Engine v114
 # ================================================================
 # ================================================================
 
@@ -2943,7 +3010,7 @@ def classify_risk(rr: float) -> str:
     """Quality classification according to Risk/Reward ratio."""
     if rr >= 3.0: return "🏆 S (Elite)"
     if rr >= 2.5: return "💎 A+ (Premium)"
-    if rr >= 2.0: return "✅ A (Strong)"
+    if rr >= 2.0: return "[OK] A (Strong)"
     if rr >= 1.8: return "🟡 B+ (Good)"
     if rr >= 1.5: return "🟠 B (Medium)"
     return "🔴 C (Weak)"
@@ -2961,7 +3028,7 @@ def classify_rsi(rsi: float) -> str:
 
 def classify_adx(adx: float) -> str:
     """Interprets ADX value as trend strength."""
-    if adx >= 40: return "🚀 Very Strong Trend — Momentum near peak"
+    if adx >= 40: return "[START] Very Strong Trend — Momentum near peak"
     if adx >= 30: return "💪 Strong Trend — Institutional interest exists"
     if adx >= 25: return "📊 Confirmed Trend — Healthy move"
     if adx >= 20: return "🌊 Medium Trend — Maturing"
@@ -2970,7 +3037,7 @@ def classify_adx(adx: float) -> str:
 
 def classify_macd(macd_hist: float) -> str:
     """Interprets MACD histogram."""
-    if macd_hist > 0.05:  return f"✅ Positive ({macd_hist:+.3f}) — Supports breakout"
+    if macd_hist > 0.05:  return f"[OK] Positive ({macd_hist:+.3f}) — Supports breakout"
     if macd_hist > 0:     return f"🟡 Mild Positive ({macd_hist:+.3f}) — Momentum building"
     if macd_hist > -0.05: return f"🟠 Mild Negative ({macd_hist:+.3f}) — Watch carefully"
     return f"🔴 Negative ({macd_hist:+.3f}) — Selling pressure exists"
@@ -3085,7 +3152,7 @@ def build_candidate_block(rank: int, c: dict) -> str:
 
     # ── Gelir Büyümesi Yorumu ─────────────────────────────────────────────────
     if rev_g >= 30:
-        rev_yorum = "🚀 High growth rate"
+        rev_yorum = "[START] High growth rate"
     elif rev_g >= 15:
         rev_yorum = "📈 Strong growth"
     elif rev_g >= 5:
@@ -3274,7 +3341,7 @@ def update_swing_performance_stats():
 
 async def scan_top_stocks():
     """
-    BOGA AI MASTER SCANNER V113
+    BOGA AI MASTER SCANNER V114
 
     WORKFLOW:
     1. Market + Sector Analysis
@@ -3298,7 +3365,7 @@ async def scan_top_stocks():
     # ---------------------------------
     
     await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V113 Scanner Started!</b>\n"
+        "🐂 <b>BOGA AI SWING TRADE V114 Scanner Started!</b>\n"
         "⏱ Schedule: Weekdays NY 13:00\n"
         "🎯 Goal: Daily Top 5 Swing Trade Opportunities\n"
         "📈 Primary Language: English"
@@ -3339,7 +3406,7 @@ async def scan_top_stocks():
     raw_results = await asyncio.gather(*tasks)
 
     candidates = [r for r in raw_results if r is not None]
-    logging.info(f"✅ Layer 2 passed: {len(candidates)} stocks")
+    logging.info(f"[OK] Layer 2 passed: {len(candidates)} stocks")
 
     if not candidates:
         await send_telegram_message("⚠️ No candidates found meeting criteria.")
@@ -3547,7 +3614,7 @@ async def scan_top_stocks():
         with open(os.path.join(public_dir, "swing_table.json"), "w", encoding="utf-8") as f:
             json.dump(table_data, f, indent=2, ensure_ascii=False)
 
-        logging.info(f"🚀 Dashboard and Archive successfully updated.")
+        logging.info(f"[START] Dashboard and Archive successfully updated.")
 
     except Exception as e:
         logging.error(f"❌ JSON save error: {e}")
@@ -3558,38 +3625,41 @@ async def scan_top_stocks():
     now_str = now_ny.strftime("%Y-%m-%d %H:%M %Z")
 
     # Summary table
+    tg_display_picks = top_candidates[:5]  # 🎯 Sadece ilk 5'i Telegram'a yolla
+    
     header = (
-        f"🐂 <b>ATMACA SWING V113 – TOP {TOP_FINAL_PICKS} PICKS</b>\n"
+        f"🐂 <b>ATMACA SWING V114 – TOP 5 PREMIUM PICKS</b>\n"
         f"🕒 <i>{now_str}</i> | ⏱ {duration:.1f}s\n"
-        f"📊 <i>{len(tickers_to_scan)} scanned → {len(candidates)} candidates → Top {TOP_FINAL_PICKS}</i>\n"
+        f"📊 <i>{len(tickers_to_scan)} scanned → {len(candidates)} candidates → Top 10 Saved</i>\n"
         f"📈 Market: <b>{MARKET_STATUS['regime']}</b>\n\n"
         "<pre>"
         f"#   SYMBOL   BOGA  SCORE  BUY_L   SELL_H  STOP   R/R\n"
         f"─────────────────────────────────────────────────────\n"
     )
     rows = []
-    for i, c in enumerate(top_candidates):
+    for i, c in enumerate(tg_display_picks):
         zones = c.get("boga_zones", {})
+        
         buy_l  = zones.get("buy_zone", {}).get("low", 0)
         sell_h = zones.get("sell_zone", {}).get("high", 0)
         stop_h = zones.get("stop_zone", {}).get("high", 0)
         rr     = zones.get("rr_ratio", 0.0)
         boga_s = c.get("boga_score_100", 0.0)
         score  = c.get("score", 0.0)
-        tag = "🚀" if boga_s >= 80 else "🔥" if boga_s >= 65 else "🔍"
+        tag = "[START]" if boga_s >= 80 else "🔥" if boga_s >= 65 else "🔍"
         rows.append(
             f"{i+1:02d}. {tag} {c['ticker']:<6} {boga_s:>5.1f} {score:>6.1f}  "
             f"{buy_l:>7.2f} {sell_h:>7.2f} {stop_h:>7.2f} {rr:>4.1f}"
         )
 
     toplist_msg = header + "\n".join(rows) + "\n─────────────────────────────────────────────────────\n</pre>\n"
-    toplist_msg += f"<i>💡 BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V113</i>\n\n"
+    toplist_msg += f"<i>[INFO] BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V114</i>\n\n"
     toplist_msg += "<b>📋 Detailed Analysis Below:</b>\n\n"
 
     # Send Toplist Summary
     await send_telegram_message(toplist_msg)
     # Send each candidate block separately (to prevent HTML explosion)
-    for i, c in enumerate(top_candidates):
+    for i, c in enumerate(tg_display_picks):
         block = build_candidate_block(i + 1, c)
         await send_telegram_message(block)
         await asyncio.sleep(0.5) # Telegram flood protection
@@ -3599,7 +3669,7 @@ async def scan_top_stocks():
     # Auto-update stats (homepage ↔ performance sync)
     update_swing_performance_stats()
 
-    logging.info(f"✅ BOGA AI Scan complete. ({scanned_count} stocks scanned | {duration:.1f}s)")
+    logging.info(f"[OK] BOGA AI Scan complete. ({scanned_count} stocks scanned | {duration:.1f}s)")
 
 
 async def _verify_with_alpha_vantage(ticker: str, yahoo_price: float) -> dict:
@@ -3654,10 +3724,10 @@ def get_next_weekday_run_time_ny(target_hour=13, target_minute=0):
 async def run_scanner():
     """Main loop — Runs every day at NY 13:00."""
     await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V113 Started!</b>\n"
+        "🐂 <b>BOGA AI SWING TRADE V114 Started!</b>\n"
         "📅 Schedule: Every weekday New York 13:00\n"
         "🎯 Goal: Daily Top 5 Swing Trade Opportunities\n"
-        "💡 JSON: swing_picks_boga.json\n"
+        "[INFO] JSON: swing_picks_boga.json\n"
         "📊 R/R: ~2.5:1 target | ATR + 1H Support/Resistance"
     )
 
@@ -3712,18 +3782,18 @@ if __name__ == "__main__":
             now_ny = datetime.now(ny_tz)
             target_ny = now_ny.replace(hour=13, minute=0, second=0, microsecond=0)
             
-            if now_ny < target_ny:
+            if now_ny < target_ny and "--now" not in sys.argv:
                 wait_sec = (target_ny - now_ny).total_seconds()
-                print(f"🕒 Saat henüz erken. NY 13:00 bekleniyor ({wait_sec/3600:.1f} saat)...")
+                print(f"🕒 Saat henuz erken. NY 13:00 bekleniyor ({wait_sec/3600:.1f} saat)...")
                 import time
                 time.sleep(wait_sec)
             
-            print("🚀 BOGA AI v113.1 Swing Scanner (One-Shot) başlatıldı...")
+            print("[START] BOGA AI v114.0 Swing Scanner (One-Shot) baslatildi...")
             asyncio.run(scan_top_stocks())
-            print("✅ Tarama tamamlandı.")
+            print("[OK] Tarama tamamlandi.")
         else:
             asyncio.run(run_scanner())
     except KeyboardInterrupt:
-        print("\n🐂 BOGA AI v113.1 durduruldu.")
+        print("\n🐂 BOGA AI v114.0 durduruldu.")
     except Exception as e:
         print(f"Critical Startup Error: {e}")

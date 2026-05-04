@@ -7,6 +7,9 @@ import aiohttp
 from zoneinfo import ZoneInfo
 import glob
 import logging
+import psutil
+import shutil
+import subprocess
 
 # Yapilandirma
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
@@ -31,14 +34,20 @@ logging.basicConfig(
 )
 log = logging.getLogger("site_health_checker")
 
+# Script Ownership Map
+SCRIPT_OWNERS = {
+    "Swing Picks": "swing114_boga.py",
+    "Options Picks": "opsiyon218v8.py",
+    "Swing Performance": "update_swing_performance.py",
+    "Options Performance": "options_pnl_tracker.py",
+}
+
 # Dosya Yollari
 FILES = {
-    "Homepage (Master)": "frontend/public/master.json",
     "Swing Picks": "frontend/public/swing_all_picks.json",
-    "Performance": "frontend/public/swing_performance.json",
-    "Sectors": "frontend/public/sectors.json",
-    "Sector Analysis": "transfer/latest/sector_analysis.json",
-    "Ticker Analysis": "transfer/latest/ticker_analysis.json",
+    "Options Picks": "frontend/public/data/latest/options_picks.json",
+    "Swing Performance": "frontend/public/swing_performance.json",
+    "Options Performance": "frontend/public/data/latest/options_outcomes.json",
 }
 
 async def send_telegram(message):
@@ -54,8 +63,11 @@ async def send_telegram(message):
 def get_file_stats(path):
     """Dosya istatistiklerini al - doğru kayıt sayısını say"""
     full_path = os.path.join(BASE_DIR, path)
+    filename = next((k for k, v in FILES.items() if v == path), "Bilinmeyen")
+    owner_script = SCRIPT_OWNERS.get(filename, "Bilinmeyen")
+
     if not os.path.exists(full_path):
-        return "❌ Bulunamadı", 0
+        return f"❌ Bulunamadı (Sorumlu: {owner_script})", 0
 
     mtime = os.path.getmtime(full_path)
     dt_mtime = datetime.fromtimestamp(mtime, tz=NY_TZ)
@@ -69,45 +81,32 @@ def get_file_stats(path):
             if isinstance(data, list):
                 count = len(data)
             elif isinstance(data, dict):
-                # Master.json
+                # Master.json / all_tickers_list
                 if 'top_3_overall' in data:
                     count = len(data.get('top_3_overall', []))
-                    count += len(data.get('sector_summary', {}))
-                # Swing picks
                 elif 'picks' in data:
                     count = len(data.get('picks', []))
-                # Performance (history)
                 elif 'history' in data:
                     count = len(data.get('history', []))
-                # Sectors.json
-                elif 'sectors' in data and 'date' in data:
+                elif 'sectors' in data:
                     count = len(data.get('sectors', {}))
-                # Sector Analysis (transfer/latest)
                 elif 'analysis_by_sector' in data:
                     count = data.get('total_tickers', 0)
-                # Ticker Analysis (transfer/latest)
                 elif 'analysis_by_ticker' in data:
                     count = data.get('total_tickers', 0)
-                # All tickers list
-                elif isinstance(data, list):
-                    count = len(data)
-                # Fallback: nested structure
                 else:
-                    for sector, subsectors in data.items():
-                        if isinstance(subsectors, dict):
-                            for subsector, tickers in subsectors.items():
-                                if isinstance(tickers, list):
-                                    count += len(tickers)
+                    # Fallback for nested dicts
+                    count = len(data)
 
             # Yaş kontrolü
             if age_hours > 48:
-                status = f"🔴 ESKİ ({age_hours:.1f}h)"
+                status = f"🔴 KRİTİK ESKİ ({age_hours:.1f}h)"
             elif age_hours > 24:
-                status = f"🟠 TARİH ({age_hours:.1f}h)"
+                status = f"🟠 GÜNCEL DEĞİL ({age_hours:.1f}h)"
             else:
                 status = f"✅ TAZE ({age_hours:.1f}h)"
 
-            return f"{status} | {dt_mtime.strftime('%H:%M')} | {count} Kayıt", count
+            return f"{status} | {dt_mtime.strftime('%H:%M')} | {count} Kayıt | Sorumlu: {owner_script}", count
     except Exception as e:
         log.error(f"File stats error for {path}: {e}")
         return f"⚠️ Hata: {str(e)[:30]}", 0
@@ -167,39 +166,42 @@ async def check_price_sync():
         return "❌ Fiyat Kontrolü Hatası"
 
 def check_bot_logs():
-    """Son 24 saatteki bot hatalarını kontrol et"""
+    """Son 24 saatteki bot hatalarını kontrol et ve detaylandır"""
     logs_dir = os.path.join(BASE_DIR, "logs")
     if not os.path.exists(logs_dir):
-        return "⚠️ Log dizini yok", 0
+        return "⚠️ Log dizini yok", 0, []
 
     error_count = 0
     warning_count = 0
-    recent_logs = []
+    recent_errors = []
+    today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
 
-    # Log dosyalarında sadece [ERROR] ve [WARNING] token'ları ara
     for log_file in glob.glob(os.path.join(logs_dir, "*.log")):
         try:
             mtime = os.path.getmtime(log_file)
             age_hours = (datetime.now() - datetime.fromtimestamp(mtime)).total_seconds() / 3600
 
             if age_hours < 24:
-                recent_logs.append(os.path.basename(log_file))
                 with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
-                    for line in f:
-                        # Sadece log format'ında olan gerçek ERROR/WARNING'leri say
+                    file_lines = f.readlines()
+                    for line in file_lines[-500:]: # Son 500 satıra bak
+                        if today_str not in line: continue
+                        
                         if "[ERROR]" in line:
                             error_count += 1
+                            if len(recent_errors) < 5:
+                                recent_errors.append(f"{os.path.basename(log_file)}: {line.strip()[:80]}...")
                         elif "[WARNING]" in line:
                             warning_count += 1
         except:
             pass
 
     if error_count > 0:
-        return f"❌ {error_count} Hata Bulundu", error_count
+        return f"❌ {error_count} Hata Bulundu", error_count, recent_errors
     elif warning_count > 0:
-        return f"⚠️ {warning_count} Uyarı", warning_count
+        return f"⚠️ {warning_count} Uyarı", warning_count, []
     else:
-        return f"✅ 0 Hata ({len(recent_logs)} log)", 0
+        return "✅ 0 Hata", 0, []
 
 async def check_main_pages():
     """Ana sayfaların erişilebilirliğini kontrol et"""
@@ -233,113 +235,112 @@ async def check_main_pages():
 
     return result
 
-def check_chart_data_consistency():
-    """Grafik ve hisse analiz verilerinin tutarlılığını kontrol et"""
-    issues = []
+# (Deleted obsolete consistency and member stats functions)
 
-    try:
-        # Master ve Sector Analysis'i karşılaştır
-        master_path = os.path.join(BASE_DIR, FILES["Homepage (Master)"])
-        sector_path = os.path.join(BASE_DIR, FILES["Sector Analysis"])
+def check_system_resources():
+    """Sistem kaynaklarını kontrol et"""
+    cpu_usage = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory()
+    disk = shutil.disk_usage("/")
+    
+    cpu_status = "✅" if cpu_usage < 80 else "⚠️" if cpu_usage < 90 else "❌"
+    mem_status = "✅" if memory.percent < 85 else "⚠️" if memory.percent < 95 else "❌"
+    disk_free_gb = disk.free / (1024**3)
+    disk_status = "✅" if disk_free_gb > 10 else "⚠️" if disk_free_gb > 5 else "❌"
+    
+    return [
+        f"• CPU: {cpu_status} %{cpu_usage}",
+        f"• RAM: {mem_status} %{memory.percent}",
+        f"• Disk Boş: {disk_status} {disk_free_gb:.1f} GB"
+    ]
 
-        if os.path.exists(master_path) and os.path.exists(sector_path):
-            with open(master_path, 'r', encoding='utf-8') as f:
-                master = json.load(f)
-            with open(sector_path, 'r', encoding='utf-8') as f:
-                sectors = json.load(f)
-
-            # Eğer hisse sayıları çok farklıysa uyar
-            master_stocks = len(master.get('stocks', {}))
-            sector_stocks = sum(
-                len(tickers) if isinstance(tickers, list) else 0
-                for subsectors in sectors.values()
-                if isinstance(subsectors, dict)
-                for tickers in subsectors.values()
-            )
-
-            if abs(master_stocks - sector_stocks) > 50:
-                issues.append(f"Hisse sayısı uyumsuz: Master={master_stocks}, Sectors={sector_stocks}")
-    except Exception as e:
-        issues.append(f"Kontrol hatası: {str(e)[:40]}")
-
-    return f"{'✅' if not issues else '⚠️'} Veri Tutarlılığı", issues
-
-def check_member_stats():
-    """Üye istatistiklerini kontrol et"""
-    # Not: Üye verisi veritabanında veya ayrı API endpoint'de
-    # Master.json'da şu anda üye verisi bulunmuyor
-
-    return "⚠️ API entegrasyonu bekleniyor (DB sorgusu gerekli)"
+def check_bot_processes():
+    """Kritik bot süreçlerini kontrol et"""
+    critical_bots = ["opsiyon218v8.py", "inday313.py", "swing114_boga.py", "options_pnl_tracker.py"]
+    running_bots = []
+    
+    # Get all python processes
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            cmdline = proc.info['cmdline']
+            if cmdline and any("python" in arg.lower() for arg in cmdline):
+                full_cmd = " ".join(cmdline)
+                for bot in critical_bots:
+                    if bot in full_cmd:
+                        running_bots.append(bot)
+        except:
+            continue
+            
+    results = []
+    for bot in critical_bots:
+        status = "🟢 ÇALIŞIYOR" if bot in running_bots else "⚪ BEKLEMEDE"
+        results.append(f"• {bot}: {status}")
+    return results
 
 async def main():
+    import sys
+    is_daily = "--daily" in sys.argv or datetime.now(NY_TZ).hour == 6
+    
     now_ny = datetime.now(NY_TZ)
+    title = "🔍 BOGA AI GÜNLÜK DETAYLI SİSTEM SAĞLIK RAPORU" if is_daily else "🔍 BOGA AI 2 SAATLİK SİSTEM SAĞLIK RAPORU"
+    
     report = [
-        f"<b>🔍 BOGA AI 2 SAATLİK SİSTEM SAĞLIK RAPORU</b>",
+        f"<b>{title}</b>",
         f"📅 {now_ny.strftime('%Y-%m-%d %H:%M')} NY",
         f"{'=' * 50}",
     ]
 
     os.makedirs(os.path.join(BASE_DIR, "logs"), exist_ok=True)
 
-    # 1. TEMEL VERİ AKIŞI
-    report.append("<b>📊 1. TEMEL VERİ AKIŞI:</b>")
+    # 0. SİSTEM KAYNAKLARI
+    report.append("<b>💻 0. SİSTEM KAYNAKLARI:</b>")
+    report.extend(check_system_resources())
+
+    # 1. BOT SÜREÇLERİ
+    report.append(f"\n<b>🤖 1. BOT DURUMU (ACTIVE):</b>")
+    report.extend(check_bot_processes())
+
+    # 2. TEMEL VERİ AKIŞI
+    report.append("\n<b>📊 2. TEMEL VERİ AKIŞI:</b>")
     files_ok = True
     for name, path in FILES.items():
         status, count = get_file_stats(path)
         report.append(f"• {name}: {status}")
-        if "❌" in status:
+        if "❌" in status or "🔴" in status:
             files_ok = False
         if count > 0:
             report.append(f"  └─ {count} kayıt")
 
     # 2. BOT LOGLARI
     report.append(f"\n<b>🤖 2. BOT ÇALIŞMA DURUMU:</b>")
-    log_status, error_count = check_bot_logs()
+    log_status, error_count, error_snippets = check_bot_logs()
     report.append(f"• {log_status}")
     if error_count > 0:
         report.append(f"  └─ ⚠️ {error_count} hata/uyarı bulundu")
+        if is_daily or error_count > 0:
+            for snip in error_snippets:
+                report.append(f"     ⚠️ {snip}")
 
     # 3. HİSSE DETAY SAYFALARI
     report.append(f"\n<b>📄 3. HİSSE DETAY SAYFALARI:</b>")
     detail_status, detail_count = check_detail_pages()
     report.append(f"• {detail_status}")
 
-    # 4. SEKTÖR ANALİZİ
-    report.append(f"\n<b>📈 4. SEKTÖR ANALİZİ:</b>")
-    sector_status, sector_count = get_file_stats(FILES["Sectors"])
-    report.append(f"• {sector_status}")
-    if sector_count > 5:
-        report.append(f"  └─ ✅ {sector_count} sektör hazır")
-    else:
-        report.append(f"  └─ ⚠️ {sector_count} sektör (eksik olabilir)")
-
-    # 5. VERİ TUTARLILUĞU
-    report.append(f"\n<b>🔗 5. VERİ TUTARLILUĞU & GRAFİK DOĞRULMASI:</b>")
-    consistency_status, consistency_issues = check_chart_data_consistency()
-    report.append(f"• {consistency_status}")
-    for issue in consistency_issues[:2]:
-        report.append(f"  └─ {issue}")
-
-    # 6. FİYAT SİNCHRONİZASYONU
-    report.append(f"\n<b>⚡ 6. CANLI FİYAT SİNCHRONİZASYONU:</b>")
+    # 4. FİYAT SİNCHRONİZASYONU
+    report.append(f"\n<b>⚡ 4. CANLI FİYAT SİNCHRONİZASYONU:</b>")
     price_status = await check_price_sync()
     report.append(f"• {price_status}")
 
-    # 7. ANA SAYFALAR ERİŞİM
-    report.append(f"\n<b>🌐 7. SAYFA ERİŞİLEBİLİRLİĞİ:</b>")
+    # 5. ANA SAYFALAR ERİŞİM
+    report.append(f"\n<b>🌐 5. SAYFA ERİŞİLEBİLİRLİĞİ:</b>")
     page_status = await check_main_pages()
     report.append(f"• {page_status}")
-
-    # 8. ÜYE İSTATİSTİKLERİ
-    report.append(f"\n<b>👥 8. ÜYE İSTATİSTİKLERİ:</b>")
-    member_status = check_member_stats()
-    report.append(f"• {member_status}")
 
     # DURUM ÖZETİ
     report.append(f"\n{'=' * 50}")
     full_text = "\n".join(report)
 
-    if "❌" in full_text:
+    if "❌" in full_text or "🔴" in full_text:
         report.append("<b>🚨 SİSTEM DURUMU: KRİTİK HATA!</b>")
     elif "⚠️" in full_text:
         report.append("<b>⚠️ SİSTEM DURUMU: TAMİNKAR (İNCELEME GEREKLİ)</b>")
@@ -347,8 +348,6 @@ async def main():
         report.append("<b>🌟 SİSTEM DURUMU: MÜKEMMEL!</b>")
 
     full_message = "\n".join(report)
-
-    # Logla ve Telegram'a gönder
     log.info(full_message)
     await send_telegram(full_message)
 

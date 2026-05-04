@@ -44,7 +44,7 @@ v5.0'dan Korunan Tüm Özellikler:
 📌 EMA Giriş Modları: EMA200_BREAKOUT / GOLDEN_CROSS / NEAR_GOLDEN / TREND_BIRTH / EMA50_BOUNCE
 📌 Relative Strength vs SPY (60g karşılaştırma)
 📌 Base Formation (VCP - Volatilite Daralması)
-📌 DTE 60-150 (hedef 90g)
+📌 DTE 45-90 (hedef 67g) — 3-5 günde etkili swing, max $150 kontrat
 📌 IV Rank < 40 (Vega koruması)
 📌 Nötr Rejim Yasağı
 📌 Time Stop DTE × 0.65
@@ -118,13 +118,13 @@ RSI_MIN        = 30             # ✅ Gevşetildi: 35 → 30 (oversold bölgeler
 RSI_MAX        = 80             # Geçti: overbought toleransı
 
 # ── Opsiyon Filtresi (SWING MOD) ──────────────────────────────────────────
-DTE_MIN       = 1              # ✅ Genişletildi: 45 → 1 (1 günden 360 güne tüm fırsatlar)
-DTE_MAX       = 360            # ✅ Genişletildi: 180 → 360 (uzun vadeli LEAPS dahil)
-DTE_TARGET    = 90             # Hedef 90g, ama 1-360 aralığında esneklik
+DTE_MIN       = 45             # 🎯 3-5 günde etkili swing için min 45g vade
+DTE_MAX       = 90             # 🎯 90g üstü uzun vadeli için ayrı mod gerekir
+DTE_TARGET    = 67             # 🎯 45-90 ortası — theta/delta dengesi en iyi burada
 OI_MIN        = 100            # ✅ Gevşetildi: 150 → 100 (daha az likit kontratlar)
-SPREAD_MAX    = 0.20           # ✅ Gevşetildi: 0.15 → 0.20 (daha geniş spread toleransı)
+SPREAD_MAX    = 0.08           # 🎯 %8 spread sınırı (ucuz kontrat koruması)
 MID_MIN       = 0.10           # ✅ Gevşetildi: 0.15 → 0.10 (daha ucuz kontratlar)
-MID_MAX       = 25.0           # ✅ Gevşetildi: 20 → 25 (daha pahalı kontratlar)
+MID_MAX       = 1.50           # 🎯 Max $150 kontrat (mid * 100) için sınır
 
 # ── IV Rank Filtresi (SWING MOD: Daha toleranslı) ───────────────────────
 IV_RANK_BUY_MAX   = 55.0       # ✅ Gevşetildi: 40 → 55 (yüksek IV da gat)
@@ -434,7 +434,7 @@ async def build_universe() -> List[str]:
                     if dvol < DOLLAR_VOL_MIN: continue
 
                     rvol = avg5 / avg30 if avg30 > 0 else 0.0
-                    # ✅ v6.1: 0.8 → 0.5 (büyük trendler sessiz başlar, daha fazla aday yakala)
+                    # ✅ v8.0: 0.8 → 0.5 (büyük trendler sessiz başlar, daha fazla aday yakala)
                     if rvol < 0.5: continue
 
                     roc5 = float((close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]) if len(close) >= 6 else 0.0
@@ -523,7 +523,7 @@ def layer2_ema_trend(df: pd.DataFrame) -> Tuple[bool, dict]:
         dist_ema20 = (cp - e20v) / e20v if e20v > 0 else 0.0
 
         # MOD A: Trend Doğumu
-        mod_a = (e20v > e50v > e200v) and (dist_ema20 <= 0.08) and (e50_slope >= -0.05)
+        mod_a = (e20v > e50v > e200v) and (dist_ema20 <= 0.08) and (e50_slope >= 0.0)
         # MOD B: EMA200 Breakout
         mod_b = ema200_breakout
         # MOD C: EMA50 Pullback
@@ -564,10 +564,10 @@ def layer2_ema_trend(df: pd.DataFrame) -> Tuple[bool, dict]:
         adx_threshold = 10 if entry_mode in early_modes else ADX_MIN
         if adx_val < adx_threshold: return False, {}
 
-        # ★ Rejim tespiti (v5.0)
+        # ★ Rejim tespiti (v8.0)
         regime = detect_market_regime_swing(adx_val, cp, e9v, e20v, e50v, e200v, prev_cp)
 
-        # ★ MODIFIED v6.1: Nötr Rejim - Tamamen yasak değil, ama penaltılı
+        # ★ MODIFIED v8.0: Nötr Rejim - Tamamen yasak değil, ama penaltılı
         # Neutral regime şu hisse henüz trend başlamamışsa, ama hareket etmeye hazırlanıyorsa
         if regime == "neutral":
             # Tamamen reddetme yerine, neutral için entry mode var mı kontrol et
@@ -691,7 +691,8 @@ def layer3_momentum(df: pd.DataFrame) -> Tuple[bool, dict]:
         if len(c) < 65: return False, {}
 
         # RSI
-        rsi = float(RSIIndicator(c, 14).rsi().iloc[-1])
+        rsi_series = RSIIndicator(c, 14).rsi()
+        rsi = float(rsi_series.iloc[-1])
         if not (RSI_MIN <= rsi <= RSI_MAX): return False, {}
 
         # RVOL (v5.0: 0.8 eşiği — büyük trendler sessiz başlar)
@@ -757,7 +758,28 @@ def layer3_momentum(df: pd.DataFrame) -> Tuple[bool, dict]:
         # ────────────────────────────────────────────────────
         try:
             higher_highs = (float(c.iloc[-1]) > float(c.iloc[-10]) > float(c.iloc[-20]))
-            trend_continuation_score = 10.0 if higher_highs else 0.0
+            
+            # RSI ve Momentum İvmesi
+            rsi_now = float(rsi)  # Katman 3 başında hesaplandı
+            rsi_5ago = float(rsi_series.iloc[-6]) if len(rsi_series) >= 6 else rsi_now
+            rsi_accelerating = (rsi_now > rsi_5ago) and (rsi_now > 50)
+            momentum_accel = (roc5 > 0) and (abs(roc5) > abs(roc20) * 0.4)
+            
+            # Puanlama
+            if higher_highs and rsi_accelerating and momentum_accel:
+                trend_continuation_score = 10.0
+            elif higher_highs and (rsi_accelerating or momentum_accel):
+                trend_continuation_score = 7.0
+            elif higher_highs:
+                trend_continuation_score = 4.0
+            elif rsi_accelerating and momentum_accel:
+                trend_continuation_score = 2.0
+            else:
+                trend_continuation_score = 0.0
+                
+            # Hacim trendi (v5 ve v30 üstte mevcut)
+            if v5 > v30 and trend_continuation_score > 0:
+                trend_continuation_score = min(trend_continuation_score + 2.0, 10.0)
         except:
             higher_highs = False
             trend_continuation_score = 0.0
@@ -781,13 +803,14 @@ def layer3_momentum(df: pd.DataFrame) -> Tuple[bool, dict]:
         # ✅ v6-ENHANCEMENT-1: RISK/REWARD SCORE (Game Changer!)
         # Potansiyel kazanç puan ile — %80 potansiyeli %20'ye tercih et
         # ────────────────────────────────────────────────────
-        distance_to_high = (high_60 - cp) / cp if cp > 0 else 0.0
+        distance_to_high = (cp - high_60) / high_60 if high_60 > 0 else -1.0
         
-        if distance_to_high > 0.25:      rr_score = 10.0  # %25+ upside → bonanza
-        elif distance_to_high > 0.15:    rr_score = 7.0   # %15-25 upside
-        elif distance_to_high > 0.08:    rr_score = 4.0   # %8-15 upside
-        else:                            rr_score = 1.0   # <8% upside
-
+        if distance_to_high >= 0.0:          rr_score = 10.0  # Zirve kırıldı — momentum en güçlü
+        elif distance_to_high >= -0.03:      rr_score = 8.0   # %3 içinde — kırılım yakın
+        elif distance_to_high >= -0.08:      rr_score = 5.0   # %8 içinde — güçlü pullback bölgesi
+        elif distance_to_high >= -0.15:      rr_score = 2.0   # %15 altında — zayıf
+        else:                                rr_score = 0.0   # Uzak — momentum yok
+        
         # ATR
         atr_v   = float(AverageTrueRange(df['High'], df['Low'], c, 14).average_true_range().iloc[-1])
         atr_pct = (atr_v / cp) * 100
@@ -908,16 +931,19 @@ async def layer4_options(
         # ────────────────────────────────────────────────────
         # ── BOGA AI: DTE bazlı dinamik simülasyon ve zaman durağı ───────────
         if dte <= 14:
-            sim_days_fwd = 3      # Haftalık kontratlar: 3 gün sim
+            sim_days_fwd = 2      # Haftalık kontratlar: 2 gün sim
             time_stop_ratio = 0.50
         elif dte <= 45:
-            sim_days_fwd = 7      # Kısa vadeli: 1 hafta sim
+            sim_days_fwd = 4      # Kısa vadeli: 4 gün swing
             time_stop_ratio = 0.55
+        elif dte <= 90:
+            sim_days_fwd = 5      # 🎯 HEDEF BÖLGE: 5 günlük swing sim (1 hafta)
+            time_stop_ratio = 0.60
         elif dte <= 120:
-            sim_days_fwd = 21     # Orta vadeli: 3 hafta sim
+            sim_days_fwd = 10     # Orta vadeli: 2 hafta
             time_stop_ratio = 0.65
         else:
-            sim_days_fwd = 45     # LEAPS: 45 gün sim
+            sim_days_fwd = 21     # Uzun vadeli: 3 hafta
             time_stop_ratio = 0.70
 
         em_to_price_ratio = em / cp if cp > 0 else 0.0
@@ -933,14 +959,23 @@ async def layer4_options(
             dynamic_sl_pct = -0.20
 
         # ── BOGA AI: Dinamik Delta Rejime Göre ──────────────────────────────
+        regime = l2.get("regime", "neutral")  # 🎯 ÖNCE ATAMA YAPILDI
+        
         # trend: daha ATM (yüksek delta) — güçlü trend momentum'u al
         # breakout: biraz OTM — kırılım genişleme potansiyeli
         # neutral: ATM yakını — daha defansif
         DELTA_BY_REGIME = {
-            "trend":    (0.40, 0.75),
-            "breakout": (0.30, 0.65),
-            "neutral":  (0.35, 0.60),
+            "trend":    (0.45, 0.62),   # ATM odaklı — güçlü trend için
+            "breakout": (0.40, 0.58),   # Biraz OTM — kırılım potansiyeli
+            "neutral":  (0.42, 0.56),   # En defansif — ATM±1 strike bandı
         }
+        
+        # Momentum ivmesi kontrolü (`l3` içindeki verilerle)
+        roc5_val = l3.get("roc5_pct", 0.0)
+        roc20_val = l3.get("roc20_pct", 0.0)
+        if roc5_val > 0 and (roc5_val / max(abs(roc20_val), 0.001) > 0.5):
+            lo, hi = DELTA_BY_REGIME.get(regime, (0.42, 0.56))
+            DELTA_BY_REGIME[regime] = (max(lo - 0.03, 0.30), min(hi + 0.05, 0.70))
 
         # ── BOGA AI: DTE bazlı dinamik vol_oi eşiği ─────────────────────────
         # Kısa vadeli (1-30g): yüksek likidite şart
@@ -953,7 +988,6 @@ async def layer4_options(
         else:
             vol_oi_threshold = 0.04  # LEAPS için hacim şartı esnetildi
 
-        regime = l2.get("regime", "neutral")
         delta_min, delta_max = DELTA_BY_REGIME.get(regime, DELTA_BY_REGIME["neutral"])
 
         # Temel filtre
@@ -983,7 +1017,8 @@ async def layer4_options(
 
                 if spread_p > SPREAD_MAX: continue
                 if oi < OI_MIN: continue
-                if not (MID_MIN <= mid <= MID_MAX): continue
+                if mid < MID_MIN: continue             # Alt sınır: $0.10 minimum
+                if (ask * 100.0) > 150.0: continue     # 🎯 Gerçek maliyet üst sınırı: ask * 100 <= $150
 
                 # Expected Move Filtresi
                 if strike > em_upper * 1.05:  # v5.0: %5 tolerans (uzun vadede EM daha geniş)
@@ -1012,9 +1047,9 @@ async def layer4_options(
                 # ── 🛡️ KURUMSAL SIĞINAK ──────────────────────────────────
                 if inst_delta_min <= delta <= inst_delta_max:
                     liq_score = 0.0
-                    if spread_p <= 0.03: liq_score += 5.0
-                    elif spread_p <= 0.06: liq_score += 3.0
-                    elif spread_p <= 0.10: liq_score += 1.0
+                    if spread_p <= 0.02:   liq_score += 5.0   # < %2 mükemmel
+                    elif spread_p <= 0.04: liq_score += 3.5   # < %4 çok iyi
+                    elif spread_p <= 0.08: liq_score += 1.5   # < %8 kabul edilebilir
                     if oi >= 2000: liq_score += 3.0
                     elif oi >= 800: liq_score += 2.0
                     elif oi >= 300: liq_score += 1.0
@@ -1030,7 +1065,9 @@ async def layer4_options(
                     if inst_score > inst_best:
                         inst_best = inst_score
                         # ✅ v5.0: 21 günlük P&L sim (eski 7g)
-                        sim = bs_pnl_sim(cp, strike, iv, dte, move_pct=0.07, days_fwd=sim_days_fwd)
+                        atr_pct_val = l3.get("atr_pct", 2.0) / 100.0
+                        swing_move_pct = min(max(atr_pct_val * 3.0, 0.03), 0.18)
+                        sim = bs_pnl_sim(cp, strike, iv, dte, move_pct=swing_move_pct, days_fwd=sim_days_fwd)
 
                         # ✅ v6-ENHANCEMENT-4: DYNAMIC EXIT (expected move bazlı)
                         tp_price  = round(mid * (1 + dynamic_tp_pct), 2)
@@ -1069,9 +1106,9 @@ async def layer4_options(
                     gamma_score = min(g['gamma'] * 30000.0, 8.0)
 
                     liq_score = 0.0
-                    if spread_p <= 0.05: liq_score += 4.0
-                    elif spread_p <= 0.08: liq_score += 2.0
-                    elif spread_p <= 0.12: liq_score += 1.0
+                    if spread_p <= 0.03: liq_score += 4.0   # < %3 çok iyi
+                    elif spread_p <= 0.06: liq_score += 2.5   # < %6 iyi
+                    elif spread_p <= 0.08: liq_score += 1.0   # < %8 kabul edilebilir
                     if oi >= 800: liq_score += 2.0
                     elif oi >= 350: liq_score += 1.0
                     if volume >= 200: liq_score += 2.0
@@ -1083,7 +1120,9 @@ async def layer4_options(
 
                     if asym_score > asym_best:
                         asym_best = asym_score
-                        sim = bs_pnl_sim(cp, strike, iv, dte, move_pct=0.10, days_fwd=sim_days_fwd)
+                        atr_pct_val = l3.get("atr_pct", 2.0) / 100.0
+                        swing_move_pct = min(max(atr_pct_val * 3.0, 0.04), 0.20)
+                        sim = bs_pnl_sim(cp, strike, iv, dte, move_pct=swing_move_pct, days_fwd=sim_days_fwd)
 
                         # ✅ v6-ENHANCEMENT-4: DYNAMIC EXIT (expected move bazlı)
                         tp_price  = round(mid * (1 + dynamic_tp_pct), 2)
@@ -1360,7 +1399,7 @@ async def analyze(ticker: str) -> Optional[dict]:
             # Katman 5: UOA + Earnings (BOGA AI)
             uoa = await detect_uoa(ticker, cp)
 
-            # ── TOPLAM PUANLAMA BOGA AI v6.1 ──────────────────────────────
+            # ── TOPLAM PUANLAMA BOGA AI v8.0 ──────────────────────────────
             # EMA Giriş Modu + Yapı         : 0-30
             # ADX                           : 0-15
             # VWAP Pozisyonu                : 0-10
@@ -1781,10 +1820,10 @@ def build_summary_report(candidates: List[dict], vix: float, duration: float, un
     summary += (
         f"\n<i>🛡️ Kur: Orta Delta | Δ rejime göre | IV Rank<{IV_RANK_BUY_MAX:.0f} | DTE {DTE_MIN}-{DTE_MAX}g (hedef {DTE_TARGET}g)</i>\n"
         f"<i>🚀 Asi: OTM EM içinde | Exit: TP%{int(TAKE_PROFIT_PCT*100)} / SL-%{int(abs(STOP_LOSS_PCT)*100)} / TimeStop DTE×dinamik</i>\n"
-        f"<i>🐂 BOGA AI: 1-360 DTE tam kapsam | UOA sweep | IV mispricing | LEAPS dahil</i>\n"
+        f"<i>🐂 BOGA AI v8.0: DTE {DTE_MIN}-{DTE_MAX}g | UOA sweep | IV mispricing | Max $150 kontrat</i>\n"
     )
 
-    detail_lines = [f"🐂 <b>BOGA AI v6.1 SWING — DETAY (TOP {min(20,len(candidates))})</b>\n"]
+    detail_lines = [f"🐂 <b>BOGA AI v8.0 SWING — DETAY (TOP {min(20,len(candidates))})</b>\n"]
     for i, c in enumerate(candidates[:20]):
         l2  = c['l2']
         l3  = c['l3']
@@ -1820,15 +1859,15 @@ async def scan():
     await update_spy_returns()  # ✅ v5.0: SPY RS için
 
     await send_tg(
-        f"🐂 <b>BOGA AI v6.1 SWING</b>\n"
+        f"🐂 <b>BOGA AI v8.0 SWING</b>\n"
         f"🕒 {now_str}  |  🌡️ VIX: {MARKET_VIX['value']:.1f} ({MARKET_VIX['regime']})\n"
         f"📊 SPY 60g: {SPY_RETURN_CACHE.get('return_60d',0):+.1f}%\n"
         f"🔍 Swing/Position taraması başlıyor...\n"
-        f"🎯 Hedef: 60-120 günlük trend başlangıçları\n"
+        f"🎯 Hedef: 45-90 günlük trend başlangıçları (3-5g etkili swing)\n"
         f"⚡ EMA200 Kırılımı (EMA200 altında bile!) | 🌟 Golden Cross | 📉 EMA50 Sekmesi\n"
         f"✅ IV Rank<{IV_RANK_BUY_MAX} | DTE {DTE_MIN}-{DTE_MAX}g (hedef {DTE_TARGET}g) | RVOL>0.5\n"
         f"✅ Higher Highs | Hacimli Breakout | Base Formation (VCP)\n"
-        f"📌 $1-$100 | Nötr Yasak | Breakout+Base max 20p\n"
+        f"📌 ${PRICE_MIN:.0f}-${PRICE_MAX:.0f} | Max $150 kontrat | Nötr Yasak | Breakout+Base max 20p\n"
         f"📊 {MAX_TICKERS_SCAN} hisse taranacak"
     )
 
@@ -1853,7 +1892,7 @@ async def scan():
             "• EMA200 breakout henüz oluşmadı (trend başlangıcı bekleniyor)\n"
             "• Golden Cross yok (EMA20 henüz EMA50'yi kesmedi)\n"
             "• IV Rank > 40 (piyasada volatilite yüksek, ucuz call az)\n"
-            "• DTE 60-150 arasında opsiyon likiditesi yetersiz\n"
+            f"• DTE {DTE_MIN}-{DTE_MAX}g arasında opsiyon likiditesi yetersiz\n"
             "→ Bu NORMAL: swing bot az ama kaliteli fırsat üretir"
         ); return
 
@@ -1899,7 +1938,7 @@ def get_next_run_utc(hour: int = 11, minute: int = 0):
 
 async def run_scanner():
     await send_tg(
-        "🐂 <b>BOGA AI v7.1 OPTIONS BAŞLATILDI!</b>\n"
+        "🐂 <b>BOGA AI v8.0 OPTIONS BAŞLATILDI!</b>\n"
         "⏱ Hafta içi NY 11:00 otomatik tarama\n\n"
         "<b>v5.1 Elite Fix'leri Aktif:</b>\n"
         f"  ✅ FIX-1: EMA200 altında Breakout/GoldenCross → GEÇ (NVDA/TSLA yakalanır)\n"
@@ -1957,7 +1996,7 @@ if __name__ == "__main__":
                 import time
                 time.sleep(wait_sec)
             
-            print("🚀 BOGA AI v7.1 Options Scanner (One-Shot) başlatıldı...")
+            print("🚀 BOGA AI v8.0 Options Scanner (One-Shot) başlatıldı...")
             asyncio.run(scan())
             print("✅ Tarama tamamlandı.")
         except Exception as e:
@@ -1966,6 +2005,6 @@ if __name__ == "__main__":
         try:
             asyncio.run(run_scanner())
         except KeyboardInterrupt:
-            print("\n🐂 BOGA AI v7.1 durduruldu.")
+            print("\n🐂 BOGA AI v8.0 durduruldu.")
         except Exception as e:
             print(f'Kritik hata: {e}')

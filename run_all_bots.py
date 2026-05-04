@@ -5,11 +5,12 @@ Manual çalıştırma: python run_all_bots.py
 Zamanlayıcı: Windows Task Scheduler ile 09:00 NY (Pzt-Cuma)
 
 Sıra:
-1. finma_bot.py  → --run-now (günlük 100 hisse puanlaması + transfer)
-2. swing113_boga_oneshot.py → scan_top_stocks() (swing tarayıcı + JSON export)
-3. daily_comprehensive_analysis.py → analyze_all_tickers() (sektör/altsektör analiz + JSON)
-4. refresh_swing_data.py → (sektör ve zone düzeltme)
-5. update_swing_performance.py → sync_performance()
+1. opsiyon218v8.py --oneshot (11:00 NY bekler)
+2. swing114_boga.py --oneshot (13:00 NY bekler)
+3. inday313.py --force (10:00-16:00 arası çalışır)
+4. options_pnl_tracker.py
+5. site_health_checker.py
+6. Git Push & Deploy
 """
 
 import asyncio
@@ -77,17 +78,13 @@ def main():
 
     os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
 
-    # ── ADIM 1: finma_bot.py (Günlük 100 Hisse Puanlama + Transfer) - DISABLED BY USER REQUEST ──
-    # log.info("ADIM 1: finma_bot.py çalıştırılıyor...")
-    # step1_ok = run_bot_subprocess("finma_bot.py", ["--run-now"])
-    # if not step1_ok:
-    #     log.warning("⚠️ finma_bot.py başarısız. Devam ediliyor...")
+    # ── ADIM 1: Options Scanner (v8.0) ──
+    log.info("ADIM 1: opsiyon218v8.py --oneshot (11:00 NY Bekleme Modu)...")
+    run_bot_subprocess("opsiyon218v8.py", ["--oneshot"])
 
-    # ── ADIM 2: swing113_boga_oneshot.py (Core Scanner) ──
-    log.info("ADIM 2: swing113_boga_oneshot.py çalıştırılıyor...")
-    step2_ok = run_bot_subprocess("swing113_boga_oneshot.py")
-    if not step2_ok:
-        log.warning("⚠️ swing113_boga_oneshot.py başarısız. Devam ediliyor...")
+    # ── ADIM 2: Swing Scanner (v114) ──
+    log.info("ADIM 2: swing114_boga.py --oneshot (13:00 NY Bekleme Modu)...")
+    run_bot_subprocess("swing114_boga.py", ["--oneshot"])
 
     # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")
@@ -116,15 +113,13 @@ def main():
     # log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
     # run_bot_subprocess("update_summaries_now.py")
 
-    # ── ADIM 7: Options Scanner (Opsiyon Fırsatları) - DISABLED BY USER REQUEST ──
-    # log.info("ADIM 7: opsiyon218v7.py --oneshot (Options Scanner) çalıştırılıyor...")
-    # step7_ok = run_bot_subprocess("opsiyon218v7.py", ["--oneshot"])
-    # if not step7_ok:
-    #     log.warning("⚠️ opsiyon218v7.py başarısız. Devam ediliyor...")
+    # ── ADIM 7: Options P&L Tracker ──
+    log.info("ADIM 7: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
+    run_bot_subprocess("options_pnl_tracker.py")
 
-    # ── ADIM 8: Options P&L Tracker - DISABLED BY USER REQUEST ──
-    # log.info("ADIM 8: options_pnl_tracker.py (P&L Güncelle) çalıştırılıyor...")
-    # run_bot_subprocess("options_pnl_tracker.py")
+    # ── ADIM 8: Site Health Checker (Sistem Raporu) ──
+    log.info("ADIM 8: site_health_checker.py (Sağlık Raporu) çalıştırılıyor...")
+    run_bot_subprocess("site_health_checker.py")
 
     # ── ADIM 8.5: SYSTEMATIC DATA SYNC (Kritik: transfer/latest -> frontend) ──
     log.info("ADIM 8.5: Transfer klasörü frontend'e senkronize ediliyor...")

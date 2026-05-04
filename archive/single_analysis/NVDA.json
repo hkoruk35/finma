@@ -1,0 +1,29 @@
+{
+  "ticker": "NVDA",
+  "current_price": 198.45,
+  "change_1d": -0.56,
+  "atr_1d": 6.29,
+  "atr_pct": 3.17,
+  "support_1h": 197.12,
+  "resistance_1h": 216.82,
+  "buy_zone": {
+    "low": 197.75,
+    "high": 198.76
+  },
+  "sell_zone": {
+    "low": 208.05,
+    "high": 212.3
+  },
+  "stop_zone": {
+    "low": 192.71,
+    "high": 193.97
+  },
+  "ema20_1d": 198.14,
+  "ema50_1d": 189.65,
+  "generated_at": "2026-05-03T20:29:25.620608",
+  "timeframes_used": [
+    "1d",
+    "1h",
+    "15m"
+  ]
+}
