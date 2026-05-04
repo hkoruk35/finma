@@ -162,114 +162,119 @@ export async function POST(req: NextRequest) {
   const isTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
   if (isTicker && !cleanMsg.startsWith("/")) {
     const ticker = cleanMsg.toUpperCase();
-    
+    let analysisData: any = null;
+
     try {
-      // 1. Fetch Live Data from Yahoo Finance API (Direct JSON)
-      // Range 1mo, Interval 1h for ATR and S/R
+      // 1. Primary Fetch: High-resolution chart for ATR/SR
       const yfUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1mo&interval=1h`;
       const yfRes = await fetch(yfUrl, { signal: AbortSignal.timeout(8000) });
       
       if (yfRes.ok) {
         const yfData = await yfRes.json();
-        const result = yfData.chart.result[0];
-        const quote = result.indicators.quote[0];
-        const timestamps = result.timestamp;
-        const closes = quote.close.filter((c: any) => c !== null);
-        const highs = quote.high.filter((h: any) => h !== null);
-        const lows = quote.low.filter((l: any) => l !== null);
-        
-        if (closes.length > 10) {
-          const currentPrice = closes[closes.length - 1];
-          const prevClose = closes[closes.length - 2];
-          const change1d = ((currentPrice - prevClose) / prevClose) * 100;
+        const result = yfData.chart.result?.[0];
+        if (result) {
+          const quote = result.indicators.quote[0];
+          const closes = quote.close.filter((c: any) => c !== null);
+          const highs = quote.high.filter((h: any) => h !== null);
+          const lows = quote.low.filter((l: any) => l !== null);
           
-          // --- ATR Calculation (Approximate over 14 hours) ---
-          let trSum = 0;
-          for (let i = closes.length - 14; i < closes.length; i++) {
-            const h = highs[i];
-            const l = lows[i];
-            const pc = closes[i - 1];
-            const tr = Math.max(h - l, Math.abs(h - pc), Math.abs(l - pc));
-            trSum += tr;
+          if (closes.length > 5) {
+            const currentPrice = closes[closes.length - 1];
+            const prevClose = closes[closes.length - 2];
+            const change1d = ((currentPrice - prevClose) / prevClose) * 100;
+            
+            // ATR Calculation
+            let trSum = 0;
+            const lookback = Math.min(closes.length - 1, 14);
+            for (let i = closes.length - lookback; i < closes.length; i++) {
+              const h = highs[i];
+              const l = lows[i];
+              const pc = closes[i - 1] || l;
+              trSum += Math.max(h - l, Math.abs(h - pc), Math.abs(l - pc));
+            }
+            const atr = trSum / lookback;
+            
+            analysisData = {
+              ticker,
+              current_price: currentPrice.toFixed(2),
+              change_1d: change1d.toFixed(2),
+              support: Math.min(...lows.slice(-20)).toFixed(2),
+              resistance: Math.max(...highs.slice(-20)).toFixed(2),
+              buy_zone: `${(currentPrice * 0.98).toFixed(2)} - ${currentPrice.toFixed(2)}`,
+              target_zone: `${(currentPrice * 1.1).toFixed(2)} - ${(currentPrice * 1.15).toFixed(2)}`,
+              stop_loss: (currentPrice * 0.93).toFixed(2),
+              source: "BOGA Live Engine (Chart API)"
+            };
           }
-          const atr = trSum / 14;
-          const atrPct = (atr / currentPrice) * 100;
-          
-          // --- S/R Levels (Recent High/Low) ---
-          const recentHighs = highs.slice(-24);
-          const recentLows = lows.slice(-24);
-          const support = Math.min(...recentLows);
-          const resistance = Math.max(...recentHighs);
-          
-          // --- Swing114 Zones ---
-          const buyLow = support + (atr * 0.1);
-          const buyHigh = currentPrice + (atr * 0.05);
-          const stopHigh = support - (atr * 0.5);
-          const stopLow = stopHigh - (atr * 0.2);
-          const target = currentPrice + (atr * 2.2);
+        }
+      }
 
-          const analysisData = {
-            ticker,
-            current_price: currentPrice.toFixed(2),
-            change_1d: change1d.toFixed(2),
-            atr_1d: (atr * 6.5).toFixed(2), // Scaled to Daily approx
-            support: support.toFixed(2),
-            resistance: resistance.toFixed(2),
-            buy_zone: `${buyLow.toFixed(2)} - ${buyHigh.toFixed(2)}`,
-            target_zone: `${(target * 0.98).toFixed(2)} - ${target.toFixed(2)}`,
-            stop_loss: stopHigh.toFixed(2),
-            source: "BOGA AI Live Engine (Yahoo)"
-          };
-
-          const prompt = `Aşağıdaki GÜNCEL TEKNİK VERİLERİ kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
-          
-          ### 📊 VERİ KAYNAĞI
-          ${analysisData.source} (Real-time)
-          
-          ### 📋 TEKNİK VERİLER
-          ${JSON.stringify(analysisData)}
-          
-          ### 🎯 RAPOR FORMATI:
-          1. **BOGA AI Master Score**: [Verilere göre 80-100 arası bir değer ata]
-          2. **Güncel Görünüm**: [Fiyat: $${analysisData.current_price}, Değişim: %${analysisData.change_1d}]
-          3. **Teknik Matris**: 
-             - Destek (Support): $${analysisData.support}
-             - Direnç (Resistance): $${analysisData.resistance}
-          4. **BOGA AI Swing Stratejisi**:
-             - 🟢 **Giriş Bölgesi (Buy Zone)**: $${analysisData.buy_zone}
-             - 🎯 **Hedef Bölgesi (Target Zone)**: $${analysisData.target_zone}
-             - 🛑 **Zarar Kes (Stop Loss)**: $${analysisData.stop_loss}
-          5. **Analist Yorumu**: [3-4 cümlelik derinlemesine teknik analiz]
-          
-          **⚠️ ÖNEMLİ:** Sadece bu verileri kullan, AI'ın eski bilgisini asla karıştırma. Yanıt tamamen Türkçe olsun.`;
-
-          return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+      // 2. Secondary Fetch Fallback: Real-time Quote API (if chart failed or price is old)
+      if (!analysisData) {
+        const qUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`;
+        const qRes = await fetch(qUrl, { signal: AbortSignal.timeout(5000) });
+        if (qRes.ok) {
+          const qData = await qRes.json();
+          const quote = qData.quoteResponse.result?.[0];
+          if (quote) {
+            analysisData = {
+              ticker,
+              current_price: quote.regularMarketPrice.toFixed(2),
+              change_1d: quote.regularMarketChangePercent.toFixed(2),
+              support: quote.regularMarketDayLow.toFixed(2),
+              resistance: quote.regularMarketDayHigh.toFixed(2),
+              buy_zone: "Anlık fiyat civarı",
+              target_zone: (quote.regularMarketPrice * 1.12).toFixed(2),
+              stop_loss: (quote.regularMarketPrice * 0.94).toFixed(2),
+              source: "BOGA Live Engine (Quote API)"
+            };
+          }
         }
       }
     } catch (err) {
-      console.error("Live fetch error:", err);
-      // Fallback to local data if live fetch fails
+      console.error("Market data error:", err);
     }
 
-    // --- Local Data Fallback ---
-    try {
-      const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
-      if (fs.existsSync(dataPath)) {
-        const raw = fs.readFileSync(dataPath, "utf-8");
-        const json = JSON.parse(raw);
-        const analysisData = {
-          ticker,
-          current_price: json.price || json.current_price,
-          score: json.score || (json.performance ? json.performance.score : null),
-          tr_report: json.ai_summary?.tr || json.tr_report || json.ai_short_summary,
-          source_file: "BOGA Archive (Recent)"
-        };
-        const prompt = `Aşağıdaki VERİTABANI KAYITLARINI kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
-        Veriler: ${JSON.stringify(analysisData)}
-        Yanıt tamamen Türkçe ve profesyonel olsun.`;
-        return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
-      }
-    } catch (e) {}
+    // 3. Last Fallback: Local Database
+    if (!analysisData) {
+      try {
+        const dataPath = path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`);
+        if (fs.existsSync(dataPath)) {
+          const json = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+          analysisData = {
+            ticker,
+            current_price: json.price || json.current_price,
+            tr_report: json.ai_summary?.tr || json.ai_short_summary,
+            source: "BOGA Archive (Nisan 2026)"
+          };
+        }
+      } catch (e) {}
+    }
+
+    // FINAL ACTION: If we have ANY data, force the AI to use it.
+    if (analysisData) {
+      const prompt = `Aşağıdaki GÜNCEL VERİLERİ kullanarak ${ticker} hissesi için profesyonel bir BOGA AI SWING RAPORU hazırla. 
+      
+      ### 📊 VERİ KAYNAĞI: ${analysisData.source}
+      ### 📋 VERİLER: ${JSON.stringify(analysisData)}
+      
+      ### 🎯 RAPOR FORMATI:
+      1. **BOGA AI Master Score**: [80-95 arası bir skor ver]
+      2. **Güncel Görünüm**: [Fiyat: $${analysisData.current_price}, Değişim: %${analysisData.change_1d || "N/A"}]
+      3. **Teknik Matris**: [Destek/Direnç seviyelerini yaz]
+      4. **BOGA AI Swing Stratejisi**:
+         - 🟢 **Giriş Bölgesi**: ${analysisData.buy_zone || "N/A"}
+         - 🎯 **Hedef Bölgesi**: ${analysisData.target_zone || "N/A"}
+         - 🛑 **Zarar Kes**: ${analysisData.stop_loss || "N/A"}
+      5. **Analist Yorumu**: [Bu yeni verilere dayanarak 3-4 cümlelik yorum]
+      
+      **⚠️ KRİTİK:** Kendi eski bilgilerini (2022-2023) ASLA kullanma. Eğer verilerde fiyat $${analysisData.current_price} yazıyorsa bunu kullan. Yanıt Türkçe olsun.`;
+
+      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+    } else {
+       // If absolutely no data found, politely inform the user instead of letting Gemini hallucinate
+       return NextResponse.json({ text: `Maalesef ${ticker} için güncel verilere şu an ulaşılamıyor. Lütfen sembolü kontrol edin veya az sonra tekrar deneyin.` });
+    }
   }
 
   try {
