@@ -272,8 +272,11 @@ export async function POST(req: NextRequest) {
 
       return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     } else {
-       // If absolutely no data found, politely inform the user instead of letting Gemini hallucinate
-       return NextResponse.json({ text: `Maalesef ${ticker} için güncel verilere şu an ulaşılamıyor. Lütfen sembolü kontrol edin veya az sonra tekrar deneyin.` });
+       // If absolutely no data found, strictly warn the user as requested
+       return NextResponse.json({ 
+         text: `⚠️ **Sembol Hatası veya Veri Eksikliği:** '${ticker}' sembolü için güncel piyasa verilerine ulaşılamadı. \n\nLütfen şunları kontrol edin:\n• Hisse kodunun (Ticker) doğruluğunu (Örn: AAPL, THYAO)\n• Sembolün borsada aktif olup olmadığını\n\nBOGA AI, güncel veri olmadan analiz üretmez.`,
+         source: "system_warning" 
+       });
     }
   }
 
