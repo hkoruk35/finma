@@ -401,62 +401,49 @@ BOGA_SWING_ZONES = {}
 
 def load_swing_universe() -> List[str]:
     """
-    swing114_boga.py'nin ürettiği master.json'dan günlük hisse listesini yükler.
-    Breakout (20) + Momentum (20) = max 40 hisse takip edilir.
-    Saatlik inday313 botu sadece bu hisseleri izler.
+    V115: swing115_boga.py'nin ürettiği swing_all_picks.json dosyasından 
+    en güncel listeyi yükler. Saatlik inday313 botu sadece bu listedeki 
+    hisseleri (Top 20) izler.
     """
     global BOGA_SWING_ZONES
     BOGA_SWING_ZONES.clear()
 
-    master_candidates = [
-        r"C:\Users\afksm\finma\data\latest\master.json",
-        os.path.join(os.path.dirname(__file__), "data", "latest", "master.json"),
-    ]
-
-    master_data = None
-    for mp in master_candidates:
-        if os.path.exists(mp):
-            try:
-                with open(mp, encoding="utf-8") as f:
-                    master_data = json.load(f)
-                logging.info(f"✅ master.json yüklendi: {mp}")
-                break
-            except Exception as e:
-                logging.warning(f"⚠️ master.json okunamadı: {e}")
-
-    if not master_data:
-        logging.error("❌ master.json bulunamadı! swing114_boga.py'nin çalıştığından emin olun.")
+    swing_file = r"C:\Users\afksm\finma\frontend\public\swing_all_picks.json"
+    
+    if not os.path.exists(swing_file):
+        logging.error(f"❌ {swing_file} bulunamadı! Swing botun çalışmış olduğundan emin olun.")
         return []
 
-    menus = master_data.get("menus", {})
-    breakout_tickers = menus.get("breakout", {}).get("tickers", [])
-    momentum_tickers = menus.get("momentum", {}).get("tickers", [])
+    try:
+        with open(swing_file, encoding="utf-8") as f:
+            data = json.load(f)
+        
+        picks = data.get("picks", [])
+        pick_date = data.get("date", "")
+        
+        all_tickers = []
+        for p in picks:
+            ticker = p.get("ticker")
+            if not ticker: continue
+            
+            all_tickers.append(ticker)
+            
+            # BOGA_SWING_ZONES'a ekle (inday raporları için gerekli veriler)
+            BOGA_SWING_ZONES[ticker] = {
+                "pick_date": pick_date,
+                "company": p.get("company", ticker),
+                "sector": p.get("sector", "Unknown"),
+                "score": p.get("boga_score", p.get("score", 0)),
+                "entry_low": p.get("entry_zone", {}).get("low", 0),
+                "entry_high": p.get("entry_zone", {}).get("high", 0)
+            }
 
-    # Birleştir, tekrarları kaldır, max 40 tut
-    all_tickers = list(dict.fromkeys(breakout_tickers + momentum_tickers))[:40]
-
-    # BOGA_SWING_ZONES'a ekle (geriye dönük uyumluluk için)
-    pick_date = master_data.get("date", "")
-    stocks_dir = r"C:\Users\afksm\finma\data\latest\stocks"
-
-    for ticker in all_tickers:
-        stock_file = os.path.join(stocks_dir, f"{ticker}.json")
-        zone_data = {"pick_date": pick_date, "company": ticker, "sector": "Unknown", "score": 0}
-        if os.path.exists(stock_file):
-            try:
-                with open(stock_file, encoding="utf-8") as f:
-                    sj = json.load(f)
-                zone_data.update({
-                    "company": sj.get("company", ticker),
-                    "sector": sj.get("sector", "Unknown"),
-                    "score": sj.get("scores", {}).get("master_score", 0),
-                })
-            except Exception:
-                pass
-        BOGA_SWING_ZONES[ticker] = zone_data
-
-    logging.info(f"✅ inday313 universe: {len(all_tickers)} hisse (Breakout: {len(breakout_tickers)} + Momentum: {len(momentum_tickers)}) | Tarih: {pick_date}")
-    return sorted(all_tickers)
+        logging.info(f"✅ inday313 universe: {len(all_tickers)} hisse yüklendi (swing_all_picks.json) | Tarih: {pick_date}")
+        return sorted(all_tickers)
+        
+    except Exception as e:
+        logging.error(f"⚠️ swing_all_picks.json okuma hatası: {e}")
+        return []
 
 # ============================================================
 # 3) BOGA FİNANS AI – MULTI TIMEFRAME DATA FETCHER

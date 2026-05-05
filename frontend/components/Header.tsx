@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { name: "Swing", href: "/swing" },
   { name: "Performance", href: "/performance" },
   { name: "Options", href: "/options" },
+  { name: "Opt Analiz", href: "/optanaliz" },
   { name: "Pro", href: "/pro" },
 ];
 

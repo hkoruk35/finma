@@ -34,7 +34,7 @@ if '%errorlevel%' NEQ '0' (
     echo ISLEM TAMAMLANDI! 
     echo Saglik Raporu: 06:00 NY
     echo Opsiyon Botu:  11:00 NY
-    echo Swing Botu:    13:00 NY
+    echo Swing Botu:    18:00 NY
     echo ==================================================
     echo.
     pause
