@@ -9,7 +9,7 @@
     "above_5pct_rate": 63.0,
     "above_10pct_rate": 36.8,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-05-05T11:44:42.768979"
+    "last_updated": "2026-05-05T15:14:41.484567"
   },
   "history": [
     {
@@ -7520,8 +7520,8 @@
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 907.58,
-      "max_price": 1397.44,
-      "return_pct": 53.97,
+      "max_price": 1418.88,
+      "return_pct": 56.34,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -7714,8 +7714,8 @@
       "company": "Zoom Communications, Inc.",
       "sector": "Technology",
       "entry": 86.8499984741211,
-      "max_price": 108.85,
-      "return_pct": 25.33,
+      "max_price": 109.44,
+      "return_pct": 26.01,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-05-05",
@@ -7753,12 +7753,12 @@
       "company": "Credo Technology",
       "sector": "Technology",
       "entry": 156.38999938964844,
-      "max_price": 198.97,
-      "return_pct": 27.23,
-      "days": 7,
+      "max_price": 199.81,
+      "return_pct": 27.76,
+      "days": 18,
       "result": "PENDING",
       "subsector": "Semiconductors",
-      "peak_date": "2026-04-24"
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-04-17",
@@ -7779,8 +7779,8 @@
       "company": "Iron Mountain",
       "sector": "Real Estate",
       "entry": 117.62069702148438,
-      "max_price": 129.98,
-      "return_pct": 10.51,
+      "max_price": 130.87,
+      "return_pct": 11.26,
       "days": 18,
       "result": "PENDING",
       "subsector": "REITâ€”Specialty",
@@ -7792,8 +7792,8 @@
       "company": "Jazz Pharmaceuticals",
       "sector": "Healthcare",
       "entry": 200.77,
-      "max_price": 210.71,
-      "return_pct": 4.95,
+      "max_price": 211.65,
+      "return_pct": 5.42,
       "days": 18,
       "result": "PENDING",
       "subsector": "Drug Manufacturersâ€”Specialty & Generic",
@@ -7845,11 +7845,11 @@
       "sector": "Technology",
       "subsector": "Capital Markets",
       "entry": 19.28499984741211,
-      "max_price": 20.24,
-      "return_pct": 4.95,
-      "days": 3,
+      "max_price": 21.75,
+      "return_pct": 12.78,
+      "days": 15,
       "result": "PENDING",
-      "peak_date": "2026-04-23"
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-04-20",
@@ -8118,8 +8118,8 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 287.6400146484375,
-      "max_price": 300.0,
-      "return_pct": 4.3,
+      "max_price": 304.83,
+      "return_pct": 5.97,
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8157,8 +8157,8 @@
       "sector": "Technology",
       "subsector": "Software - Infrastructure",
       "entry": 20.8799991607666,
-      "max_price": 21.61,
-      "return_pct": 3.5,
+      "max_price": 22.41,
+      "return_pct": 7.3,
       "days": 9,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8209,8 +8209,8 @@
       "sector": "Technology",
       "subsector": "Information Technology Services",
       "entry": 32.16,
-      "max_price": 37.88,
-      "return_pct": 17.79,
+      "max_price": 39.85,
+      "return_pct": 23.91,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8222,8 +8222,8 @@
       "sector": "Technology",
       "subsector": "Communication Equipment",
       "entry": 87.82,
-      "max_price": 94.34,
-      "return_pct": 7.42,
+      "max_price": 94.63,
+      "return_pct": 7.75,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8313,8 +8313,8 @@
       "sector": "Basic Materials",
       "subsector": "Steel",
       "entry": 216.21,
-      "max_price": 232.6,
-      "return_pct": 7.58,
+      "max_price": 233.74,
+      "return_pct": 8.11,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8430,8 +8430,8 @@
       "sector": "Consumer Cyclical",
       "subsector": "Gambling",
       "entry": 27.920000076293945,
-      "max_price": 29.18,
-      "return_pct": 4.51,
+      "max_price": 29.24,
+      "return_pct": 4.73,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8443,8 +8443,8 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 54.2400016784668,
-      "max_price": 57.46,
-      "return_pct": 5.94,
+      "max_price": 57.67,
+      "return_pct": 6.32,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8456,11 +8456,11 @@
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 43.939998626708984,
-      "max_price": 44.22,
-      "return_pct": 0.63,
-      "days": 0,
+      "max_price": 44.24,
+      "return_pct": 0.67,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-04-30"
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-01",
@@ -8495,8 +8495,8 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 177.25999450683594,
-      "max_price": 185.6,
-      "return_pct": 4.7,
+      "max_price": 186.59,
+      "return_pct": 5.26,
       "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-05"
@@ -8508,11 +8508,11 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 228.0,
-      "max_price": 243.89,
-      "return_pct": 6.97,
-      "days": 3,
+      "max_price": 248.59,
+      "return_pct": 9.03,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-05-04"
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-01",
@@ -8560,10 +8560,11 @@
       "sector": "Healthcare",
       "subsector": "Health Information Services",
       "entry": 53.43000030517578,
-      "max_price": 53.43000030517578,
-      "return_pct": 0.0,
+      "max_price": 54.4,
+      "return_pct": 1.82,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8572,10 +8573,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Specialty",
       "entry": 89.16000366210938,
-      "max_price": 89.16000366210938,
-      "return_pct": 0.0,
+      "max_price": 90.49,
+      "return_pct": 1.49,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8584,10 +8586,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Hotel & Motel",
       "entry": 10.510000228881836,
-      "max_price": 10.510000228881836,
-      "return_pct": 0.0,
+      "max_price": 10.67,
+      "return_pct": 1.52,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8596,10 +8599,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Residential",
       "entry": 66.31999969482422,
-      "max_price": 66.31999969482422,
-      "return_pct": 0.0,
+      "max_price": 66.95,
+      "return_pct": 0.95,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8608,10 +8612,11 @@
       "sector": "Technology",
       "subsector": "Software - Infrastructure",
       "entry": 24.350000381469727,
-      "max_price": 24.350000381469727,
-      "return_pct": 0.0,
+      "max_price": 25.34,
+      "return_pct": 4.05,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8620,10 +8625,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Residential",
       "entry": 28.614999771118164,
-      "max_price": 28.614999771118164,
-      "return_pct": 0.0,
+      "max_price": 28.86,
+      "return_pct": 0.87,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8632,10 +8638,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Residential",
       "entry": 16.530000686645508,
-      "max_price": 16.530000686645508,
-      "return_pct": 0.0,
+      "max_price": 16.65,
+      "return_pct": 0.73,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8644,10 +8651,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 26.270000457763672,
-      "max_price": 26.270000457763672,
-      "return_pct": 0.0,
+      "max_price": 26.64,
+      "return_pct": 1.39,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8656,10 +8664,11 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 83.9749984741211,
-      "max_price": 83.9749984741211,
-      "return_pct": 0.0,
+      "max_price": 85.43,
+      "return_pct": 1.74,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8668,10 +8677,11 @@
       "sector": "Financial Services",
       "subsector": "Insurance - Property & Casualty",
       "entry": 10.640000343322754,
-      "max_price": 10.640000343322754,
-      "return_pct": 0.0,
+      "max_price": 11.31,
+      "return_pct": 6.3,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8680,10 +8690,11 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 32.060001373291016,
-      "max_price": 32.060001373291016,
-      "return_pct": 0.0,
+      "max_price": 32.59,
+      "return_pct": 1.65,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8692,10 +8703,11 @@
       "sector": "Real Estate",
       "subsector": "REIT - Healthcare Facilities",
       "entry": 87.02999877929688,
-      "max_price": 87.02999877929688,
-      "return_pct": 0.0,
+      "max_price": 88.27,
+      "return_pct": 1.42,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     },
     {
       "date": "2026-05-05",
@@ -8704,11 +8716,12 @@
       "sector": "Technology",
       "subsector": "Software—Application",
       "entry": 108.69999694824219,
-      "max_price": 108.69999694824219,
-      "return_pct": 0.0,
+      "max_price": 109.44,
+      "return_pct": 0.68,
       "days": 0,
-      "result": "PENDING"
+      "result": "PENDING",
+      "peak_date": "2026-05-05"
     }
   ],
-  "generated_at": "2026-05-05T11:44:42.769019"
+  "generated_at": "2026-05-05T15:14:41.484588"
 }

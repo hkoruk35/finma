@@ -1,0 +1,132 @@
+[
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "FIVN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 24.2,
+        "entry_zone": "23.50 - 24.90",
+        "SL": 21.42,
+        "TP": 28.37
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "ZM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 109.09,
+        "entry_zone": "107.09 - 111.09",
+        "SL": 101.11,
+        "TP": 121.06
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "BTSG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 51.58,
+        "entry_zone": "50.55 - 52.61",
+        "SL": 47.45,
+        "TP": 57.78
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "CCI",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 89.58,
+        "entry_zone": "88.35 - 90.81",
+        "SL": 84.65,
+        "TP": 96.97
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "INVH",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 28.86,
+        "entry_zone": "28.56 - 29.17",
+        "SL": 27.65,
+        "TP": 30.68
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 11.13,
+        "entry_zone": "10.73 - 11.53",
+        "SL": 9.53,
+        "TP": 13.53
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "DRH",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 10.6,
+        "entry_zone": "10.48 - 10.73",
+        "SL": 10.09,
+        "TP": 11.38
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "EQR",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 66.86,
+        "entry_zone": "66.11 - 67.61",
+        "SL": 63.88,
+        "TP": 71.34
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "VSH",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 32.01,
+        "entry_zone": "31.30 - 32.72",
+        "SL": 29.17,
+        "TP": 36.27
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "IRT",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 16.61,
+        "entry_zone": "16.42 - 16.80",
+        "SL": 15.86,
+        "TP": 17.74
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "VTR",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 86.75,
+        "entry_zone": "85.73 - 87.77",
+        "SL": 82.66,
+        "TP": 92.89
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "MXL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 82.88,
+        "entry_zone": "78.50 - 87.26",
+        "SL": 65.36,
+        "TP": 109.17
+    },
+    {
+        "date": "2026-05-05 15:00",
+        "symbol": "KRG",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 26.54,
+        "entry_zone": "26.30 - 26.78",
+        "SL": 25.59,
+        "TP": 27.96
+    }
+]
