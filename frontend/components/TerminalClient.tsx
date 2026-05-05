@@ -360,7 +360,8 @@ export default function TerminalClient() {
   const [chartInterval, setChartInterval] = useState("15");
 
   // Right panel tab
-  const [rightTab, setRightTab] = useState<"watchlist" | "positions">("watchlist");
+  const [rightTab, setRightTab] = useState<"daily" | "watchlist" | "positions">("daily");
+  const [dailyPicks, setDailyPicks] = useState<any[]>([]);
 
   // Watchlist (localStorage)
   const [watchlist, setWatchlist] = useState<string[]>([]);
@@ -455,6 +456,20 @@ export default function TerminalClient() {
     return () => clearInterval(id);
   }, []);
 
+  // ── Fetch Daily Picks (Swing All) ──────────────────────────────────────────
+  useEffect(() => {
+    async function loadDaily() {
+      try {
+        const res = await fetch("/swing_all_picks.json?v=" + Date.now());
+        if (res.ok) {
+          const json = await res.json();
+          setDailyPicks(json.picks || []);
+        }
+      } catch {}
+    }
+    loadDaily();
+  }, []);
+
   // ── Toggle multi-screen ticker ────────────────────────────────────────────────
   const toggleCheck = (ticker: string) => {
     setChecked((prev) =>
@@ -537,17 +552,7 @@ export default function TerminalClient() {
           </button>
 
           {/* Quick Nav */}
-          <div className="flex items-center gap-1 mr-4 border-r border-[#1a2234] pr-4">
-            <Link href="/options" className="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-tighter px-2 py-1 bg-white/5 rounded border border-white/10 transition-colors">
-              Options
-            </Link>
-            <Link href="/ai" className="text-[10px] font-black text-slate-400 hover:text-white uppercase tracking-tighter px-2 py-1 bg-white/5 rounded border border-white/10 transition-colors">
-              BOGA AI
-            </Link>
-            <Link href="/pro" className="text-[10px] font-black text-[#3b82f6] hover:text-white uppercase tracking-tighter px-2 py-1 bg-[#3b82f6]/10 rounded border border-[#3b82f6]/20 transition-colors">
-              PRO
-            </Link>
-          </div>
+          {/* Quick Nav removed as requested */}
           {/* Symbol info */}
           <div className="flex items-center gap-2 mr-2">
             <span className="text-sm font-black text-white">{selected.ticker}</span>
@@ -637,7 +642,7 @@ export default function TerminalClient() {
       <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
         {/* Tabs */}
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["watchlist", "positions"] as const).map((tab) => (
+          {(["daily", "watchlist", "positions"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setRightTab(tab)}
@@ -647,10 +652,64 @@ export default function TerminalClient() {
                   : "text-slate-500 hover:text-slate-300"
               }`}
             >
-              {tab === "watchlist" ? "Watchlist" : `Positions (${openPositions.length})`}
+              {tab === "daily" ? "Daily" : tab === "watchlist" ? "Watchlist" : `Positions (${openPositions.length})`}
             </button>
           ))}
         </div>
+
+        {/* Daily Tab */}
+        {rightTab === "daily" && (
+          <div className="flex-1 overflow-y-auto scrollbar-thin">
+            {dailyPicks.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-[11px] text-slate-600 text-center px-4">
+                No daily picks found
+              </div>
+            ) : (
+              dailyPicks.map((pick) => {
+                const ticker = pick.ticker;
+                const price = prices[ticker]?.price ?? pick.current_price;
+                const chg = prices[ticker]?.change_1d ?? pick.change_1d;
+                const score = pick.boga_score_100 || pick.score;
+
+                return (
+                  <div
+                    key={ticker}
+                    className={`px-3 py-2 border-b border-[#1a2234] transition-colors cursor-pointer ${
+                      selected.ticker === ticker ? "bg-[#1a2744]" : "hover:bg-white/[0.03]"
+                    }`}
+                    onClick={() => {
+                      setSelected({
+                        ticker,
+                        label: pick.company || ticker,
+                        tvSymbol: ticker,
+                        ySymbol: ticker
+                      });
+                      setWatchSelected(null);
+                    }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[12px] font-black text-white">{ticker}</span>
+                        <span className="text-[10px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 px-1 rounded">
+                          {score.toFixed(0)}
+                        </span>
+                      </div>
+                      <span className="text-[11px] font-mono text-white">{fmt(price)}</span>
+                    </div>
+                    <div className="flex items-center justify-between mt-0.5">
+                      <span className="text-[9px] text-slate-500 truncate max-w-[120px]">
+                        {pick.company}
+                      </span>
+                      <span className={`text-[10px] font-mono ${pColor(chg)}`}>
+                        {sgn(chg)}{fmt(Math.abs(chg))}%
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
 
         {/* Watchlist Tab */}
         {rightTab === "watchlist" && (

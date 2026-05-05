@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function TerminalPage() {
   return (
     <div className="h-screen flex flex-col bg-[#060a12] overflow-hidden">
-      <Header />
+      {/* Header removed as requested */}
       <div className="flex-1 overflow-hidden">
         <TerminalClient />
       </div>

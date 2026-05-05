@@ -1474,15 +1474,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # Did price break the last 10-day low (popping stops) and quickly return above the open?
         is_spring = (current_low < min_low_10d) and (current_price > min_low_10d) and (current_price > df_1d['Open'].iloc[-1])
 
-        # Final decision mechanism before ADX calculation
-        if is_squeeze:
-            score += 25.0; details.append("🚨 SNIPER: Volatility Squeeze — EXPLOSIVE SETUP")
-        elif is_spring:
-            score += 18.0; details.append("⚡ SNIPER: Failed Breakdown / Spring — TRAP COMPLETE")
-        elif is_ema_flat and adx_1d < 15:
-            return None  # No contraction, no liquidity hunt, and if trend is flat, it's TRULY dead money, eliminate.
-            
-
         # ── ADX ──────────────────────────────────────────────────────
         try:
             adx_series_1d = ADXIndicator(high_1d, low_1d, close_1d, 14).adx()
@@ -1490,6 +1481,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             adx_series_1d = pd.Series(data=0.0, index=df_1d.index)
             adx_1d = 0.0
+
+        # Final decision mechanism before ADX usage
+        if is_squeeze:
+            score += 25.0; details.append("🚨 SNIPER: Volatility Squeeze — EXPLOSIVE SETUP")
+        elif is_spring:
+            score += 18.0; details.append("⚡ SNIPER: Failed Breakdown / Spring — TRAP COMPLETE")
+        elif is_ema_flat and adx_1d < 15:
+            return None  # No contraction, no liquidity hunt, and if trend is flat, it's TRULY dead money, eliminate.
+            
 
         # 🎯 0-DAY SNIPER: Yüksek ADX trendin bittiğini gösterir. İvmeyi (Slope) ödüllendir.
         if adx_1d >= 35: score -= 2.0; details.append(f"⚠️ ADX: Trend Exhaustion Risk ({adx_1d:.1f})")
@@ -3343,6 +3343,9 @@ async def scan_top_stocks():
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
 
+    # Capture 20 candidates for Terminal Daily tab before R/R filtering
+    top_20_candidates = list(top_candidates)
+
     # ── R/R HARD ELIMINATION (Realistic floor) ────────────────────────────
     # 🔧 FIX #9: R/R < 1.0 was way too lenient — that means risking $1 for $1.
     # Professional swing setups need at least R/R 1.5 (risk $1 to make $1.50).
@@ -3354,16 +3357,16 @@ async def scan_top_stocks():
         return
 
     # ── STEP 9: BOGA AI SCORE OUT OF 100 ─────────────────────────────────
-    for c in top_candidates:
+    for c in top_20_candidates:
         c["boga_score_100"] = compute_boga_score_100(c)
 
     # Re-sort by score
-    top_candidates.sort(key=lambda x: x.get("boga_score_100", 0.0), reverse=True)
-    for i, c in enumerate(top_candidates):
+    top_20_candidates.sort(key=lambda x: x.get("boga_score_100", 0.0), reverse=True)
+    for i, c in enumerate(top_20_candidates):
         c["rank"] = i + 1
 
     # ── STEP 10: PERFORMANCE DATA ─────────────────────────────────
-    for c in top_candidates:
+    for c in top_20_candidates:
         c["performance"] = get_price_performance(c.get("df_1d", pd.DataFrame()), c["ticker"])
         # Company name
         db_info = COMPANY_DATABASE.get(c["ticker"], {})
@@ -3395,13 +3398,13 @@ async def scan_top_stocks():
         custom_file_name = f"swing_{file_date_str}.json"
         full_archive_path = os.path.join(swing_year_dir, custom_file_name)
 
-        # 2. Prepare JSON Data
-        output_all = build_json_output(top_candidates, generated_at)
+        # 2. Prepare JSON Data (Terminal gets 20, Summary gets filtered)
+        output_terminal = build_json_output(top_20_candidates, generated_at)
         output_top5 = build_json_output(top_candidates[:5], generated_at)
 
         # 3. Save Special Archive for inday313 Reference
         with open(full_archive_path, "w", encoding="utf-8") as f:
-            json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
+            json.dump(output_terminal, f, indent=2, ensure_ascii=False, default=str)
         logging.info(f"📁 Archived for inday313: {full_archive_path}")
 
         # 4. Update Frontend Live Dashboard Files
@@ -3412,9 +3415,9 @@ async def scan_top_stocks():
         with open(os.path.join(public_dir, "swing_picks.json"), "w", encoding="utf-8") as f:
             json.dump(output_top5, f, indent=2, ensure_ascii=False, default=str)
         
-        # swing_all_picks.json (Full list page view)
+        # swing_all_picks.json (Full list page view / Terminal Daily)
         with open(os.path.join(public_dir, "swing_all_picks.json"), "w", encoding="utf-8") as f:
-            json.dump(output_all, f, indent=2, ensure_ascii=False, default=str)
+            json.dump(output_terminal, f, indent=2, ensure_ascii=False, default=str)
 
         # 5. Special Table Format (swing_table.json)
         english_months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
