@@ -208,6 +208,9 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
         {ts.adx != null && <Chip label="ADX" value={fmt(ts.adx, 0)} color={ts.adx >= 25 ? "#22c55e" : "#94a3b8"} />}
         {ts.cmf != null && <Chip label="CMF" value={fmt(ts.cmf, 2)} color={ts.cmf > 0.05 ? "#22c55e" : "#ef4444"} />}
         {ts.macd_hist != null && <Chip label="MACD" value={ts.macd_hist > 0 ? "+" : "−"} color={ts.macd_hist > 0 ? "#22c55e" : "#ef4444"} />}
+        {pick.selection_reasons?.slice(0, 2).map((r: string, i: number) => (
+          <Chip key={i} label="" value={r.replace(/_/g, " ")} color="#475569" />
+        ))}
       </div>
 
       {/* Rationale */}
@@ -238,7 +241,7 @@ export default function OptAnalizPage() {
         
         const rawPicks = data.picks || [];
         // Sort: exhausted last, then by boga_score_100 desc
-        rawPicks.sort((a, b) => {
+        rawPicks.sort((a: any, b: any) => {
           const ea = a.trend_status?.is_exhausted || a.is_exhausted || false;
           const eb = b.trend_status?.is_exhausted || b.is_exhausted || false;
           if (ea !== eb) return ea ? 1 : -1;
@@ -262,7 +265,7 @@ export default function OptAnalizPage() {
   const ivMap = React.useMemo(() => {
     let map: any = {};
     if (ivRankText.trim()) {
-      ivRankText.split(",").forEach(part => {
+      ivRankText.split(",").forEach((part: string) => {
         const [a, b] = part.trim().split(":");
         if (b !== undefined) map[a.trim().toUpperCase()] = Number(b);
         else map["__all__"] = Number(a);
@@ -271,7 +274,7 @@ export default function OptAnalizPage() {
     return map;
   }, [ivRankText]);
 
-  const selectedPick = picks.find(p => p.ticker === selectedTicker);
+  const selectedPick = picks.find((p: any) => p.ticker === selectedTicker);
   const selectedIvRank = selectedPick ? (ivMap[selectedPick.ticker] ?? ivMap["__all__"] ?? null) : null;
 
   if (loading) {
@@ -305,7 +308,7 @@ export default function OptAnalizPage() {
               <span className="text-[10px] font-bold text-[#64748b] tracking-wider uppercase">Günlük Adaylar</span>
             </div>
             <div className="max-h-[600px] overflow-y-auto">
-              {picks.map(p => {
+              {picks.map((p: any) => {
                 const isEx = p.trend_status?.is_exhausted || p.is_exhausted;
                 return (
                   <button
@@ -365,7 +368,7 @@ export default function OptAnalizPage() {
                 { label: "SPREAD", color: "#8b5cf6", desc: "BOGA ≥ 60, R/R ≥ 2.5, IV Rank > %60" },
                 { label: "HİSSE AL", color: "#f59e0b", desc: "BOGA < 60 veya R/R < 2.5 (Daha düşük risk)" },
                 { label: "GEÇ", color: "#ef4444", desc: "Trend yorulması (is_exhausted=true)" },
-              ].map(item => (
+              ].map((item: any) => (
                 <div key={item.label} className="flex items-start gap-3">
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded border min-w-[70px] text-center"
                     style={{ background: item.color + "22", color: item.color, borderColor: item.color + "44" }}>
