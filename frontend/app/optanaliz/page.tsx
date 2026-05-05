@@ -9,32 +9,55 @@ function calcDTE(holdDays: number): number {
   return Math.max(21, holdDays + 15);
 }
 
-function calcStrike(price: number, system: string, bogaScore: number, isExhausted: boolean): { label: string, pct: number | null, delta: string | null, reason?: string } {
-  if (isExhausted) return { label: "⚠️ Pozisyon açma", pct: null, delta: null, reason: "is_exhausted=true — theta + gamma risk çok yüksek" };
-  if (bogaScore < 60) return { label: "Hisse al", pct: null, delta: null, reason: "BOGA score 60 altı — opsiyon değil hisse tercih et" };
+// Yeni: Birden fazla kontrat alternatifi üreten fonksiyon
+function calcContracts(price: number, system: string, bogaScore: number, isExhausted: boolean, ivRank: number | null) {
+  if (isExhausted) {
+    return [{ type: "SKIP", label: "İşlem Yok", strike: "—", delta: "—", reason: "Trend yorulması - Yüksek risk", color: "#ef4444" }];
+  }
+  if (bogaScore < 60) {
+    return [{ type: "STOCK", label: "Hisse Al", strike: "—", delta: "1.00", reason: "Düşük skor - Opsiyon riski alınmaz", color: "#f59e0b" }];
+  }
 
-  const atm = { label: "ATM", pct: 0, delta: "0.48–0.52" };
-  const slight = { label: "%1 OTM", pct: 0.01, delta: "0.40–0.45" };
-  const moderate = { label: "%2 OTM", pct: 0.02, delta: "0.35–0.40" };
+  const contracts = [];
+  
+  // Eğer IV Rank yüksekse (>60), Spread önerisi ekle
+  const isHighIV = ivRank !== null && ivRank > 60;
+  
+  // 1. Muhafazakar (Conservative)
+  contracts.push({
+    type: isHighIV ? "CREDIT SPREAD" : "CALL (Güvenli)",
+    label: "ATM",
+    strike: `$${price.toFixed(2)}`,
+    delta: "0.50",
+    reason: "Yüksek kazanma ihtimali, düşük kaldıraç",
+    color: "#22c55e"
+  });
 
-  const map: Record<string, typeof atm> = {
-    SQUEEZE:   bogaScore >= 75 ? atm : slight,
-    SPRING:    atm,
-    AWAKENING: slight,
-    EMA_CROSS: slight,
-    PULLBACK:  bogaScore >= 75 ? atm : slight,
-    BREAKOUT:  slight,
-    MOMENTUM:  moderate,
-  };
-  return map[system] || slight;
-}
+  // 2. Dengeli (Balanced)
+  const slightOtmPrice = price * 1.015;
+  contracts.push({
+    type: isHighIV ? "DEBIT SPREAD" : "CALL (Dengeli)",
+    label: "%1.5 OTM",
+    strike: `$${slightOtmPrice.toFixed(2)}`,
+    delta: "0.40 - 0.45",
+    reason: "Optimum R/R ve maliyet dengesi",
+    color: "#3b82f6"
+  });
 
-function calcAction(rrRatio: number, bogaScore: number, isExhausted: boolean, ivRank: number | null): { type: string, color: string, label: string } {
-  if (isExhausted) return { type: "SKIP", color: "#ef4444", label: "GEÇ" };
-  if (bogaScore < 60) return { type: "STOCK", color: "#f59e0b", label: "HİSSE" };
-  if (rrRatio < 2.5) return { type: "STOCK", color: "#f59e0b", label: "HİSSE" };
-  if (ivRank !== null && ivRank > 60) return { type: "SPREAD", color: "#8b5cf6", label: "SPREAD" };
-  return { type: "CALL", color: "#22c55e", label: "CALL AL" };
+  // 3. Agresif (Aggressive)
+  if (bogaScore >= 75) {
+    const aggOtmPrice = price * 1.03;
+    contracts.push({
+      type: "CALL (Agresif)",
+      label: "%3 OTM",
+      strike: `$${aggOtmPrice.toFixed(2)}`,
+      delta: "0.30 - 0.35",
+      reason: "Yüksek skorlu breakout için maksimum getiri",
+      color: "#a855f7"
+    });
+  }
+
+  return contracts;
 }
 
 function calcExitPlan(bogaScore: number, holdDays: number): { tp: number, sl: number, timeExit: number } {
@@ -69,7 +92,7 @@ const SYSTEM_TR = {
 
 // ── Sub-Components ────────────────────────────────────────────────────────────
 
-function Row({ label, value, accent }: { label: string, value: string, accent?: string }) {
+function Row({ label, value, accent }: { label: string, value: React.ReactNode, accent?: string }) {
   return (
     <div className="flex justify-between items-center mb-1">
       <span className="text-[11px] text-[#475569]">{label}</span>
@@ -107,8 +130,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const rvol = ts.rvol_today || pick.rvol || 1.0;
 
   const dte = calcDTE(holdDays);
-  const strikeRec = calcStrike(price, system, bogaScore, isExhausted);
-  const action = calcAction(rrRatio, bogaScore, isExhausted, ivRank);
+  const contracts = calcContracts(price, system, bogaScore, isExhausted, ivRank);
   const exit = calcExitPlan(bogaScore, holdDays);
   const rb = riskBadge(rrRatio);
   const sysCol = (SYSTEM_COLORS as any)[system] || "#94a3b8";
@@ -116,20 +138,15 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const buyZone = zones.buying_zone || zones.buy_zone || {};
   const sellZone = zones.sell_zone || {};
   const stopZone = zones.stop_loss_zone || zones.stop_zone || {};
-
-  const strikePrice = strikeRec.pct != null ? (price * (1 + strikeRec.pct)).toFixed(2) : null;
   const atrPct = ((zones.atr_pct || 0) * 100).toFixed(1);
 
+  // Genel statü rengi (ilk kontrata göre veya yorulmaya göre)
+  const mainColor = isExhausted ? "#ef4444" : (bogaScore >= 60 ? "#22c55e" : "#f59e0b");
+
   return (
-    <div className="relative overflow-hidden p-5 rounded-xl mb-4 border transition-all duration-300"
-      style={{
-        background: "rgba(15,17,23,0.95)",
-        borderColor: isExhausted ? "#ef444440" : action.color + "40",
-      }}>
-      <div className="absolute top-0 left-0 right-0 h-1"
-        style={{
-          background: isExhausted ? "#ef4444" : action.color,
-        }} />
+    <div className="relative overflow-hidden p-5 rounded-xl mb-4 border transition-all duration-300 bg-[#0f1117]/95"
+      style={{ borderColor: mainColor + "40" }}>
+      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: mainColor }} />
 
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -140,15 +157,10 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
           style={{ background: sysCol + "22", color: sysCol, borderColor: sysCol + "44" }}>
           {system} · {(SYSTEM_TR as any)[system] || system}
         </span>
-        <span className="ml-auto text-[11px] font-bold px-2 py-0.5 rounded-full border"
-          style={{ background: action.color + "22", color: action.color, borderColor: action.color + "55" }}>
-          {action.label}
+        <span className="ml-auto text-[11px] font-bold px-3 py-1 rounded-full border"
+          style={{ background: mainColor + "22", color: mainColor, borderColor: mainColor + "55" }}>
+          {isExhausted ? "İşlem Yok" : "İşlem Fırsatı"}
         </span>
-        {isExhausted && (
-          <span className="text-[11px] px-2 py-0.5 rounded-full border bg-[#ef444422] text-[#ef4444] border-[#ef444455]">
-            ⚠️ EXHAUSTED
-          </span>
-        )}
       </div>
 
       {/* Score Bar */}
@@ -156,10 +168,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
         <span className="text-[11px] text-[#64748b] min-w-[80px]">BOGA Score</span>
         <div className="flex-1 bg-[#1e293b] rounded h-2 overflow-hidden">
           <div className="h-full transition-all duration-1000"
-            style={{
-              width: `${bogaScore}%`,
-              background: bogaScore >= 75 ? "#22c55e" : bogaScore >= 60 ? "#eab308" : "#ef4444",
-            }} />
+            style={{ width: `${bogaScore}%`, background: bogaScore >= 75 ? "#22c55e" : bogaScore >= 60 ? "#eab308" : "#ef4444" }} />
         </div>
         <span className="text-xs font-bold min-w-[40px]" style={{ color: bogaScore >= 75 ? "#22c55e" : bogaScore >= 60 ? "#eab308" : "#ef4444" }}>
           {fmt(bogaScore, 0)}/100
@@ -169,35 +178,51 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
         </span>
       </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+      {/* Kontrat Alternatifleri */}
+      <div className="mb-4">
+        <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Önerilen Kontratlar (DTE: {dte} gün)</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          {contracts.map((c, i) => (
+            <div key={i} className="bg-[#1e293b]/40 rounded-lg p-3 border border-[#1e293b] hover:border-[#3b82f6]/50 transition-colors">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded" style={{ background: c.color + "22", color: c.color }}>{c.type}</span>
+                <span className="text-[10px] text-[#94a3b8] font-mono">{c.label}</span>
+              </div>
+              <div className="flex justify-between items-end mb-2">
+                <div className="flex flex-col">
+                  <span className="text-[9px] text-[#64748b] uppercase">Strike</span>
+                  <span className="text-lg font-bold text-white">{c.strike}</span>
+                </div>
+                <div className="flex flex-col items-end">
+                  <span className="text-[9px] text-[#64748b] uppercase">Delta</span>
+                  <span className="text-sm font-semibold text-[#94a3b8]">{c.delta}</span>
+                </div>
+              </div>
+              <p className="text-[10px] text-[#64748b] leading-tight border-t border-[#1e293b] pt-2 mt-1">{c.reason}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Main Grid: Bölgeler & Çıkış */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
         <div className="bg-[#0f172a] rounded-lg p-3 border border-[#1e293b]">
-          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Opsiyon Parametresi</div>
-          <Row label="DTE" value={`${dte} gün`} accent="#22c55e" />
-          <Row label="Strike" value={strikePrice ? `$${strikePrice} (${strikeRec.label})` : strikeRec.label} accent="#f1f5f9" />
-          <Row label="Delta" value={strikeRec.delta || "—"} accent="#94a3b8" />
-          <Row label="Şu an fiyat" value={`$${fmt(price)}`} accent="#64748b" />
-          {ivRank !== null && (
-            <Row label="IV Rank" value={`%${ivRank}`} accent={ivRank > 60 ? "#ef4444" : ivRank > 30 ? "#f59e0b" : "#22c55e"} />
-          )}
+          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase flex justify-between">
+            <span>Bot Bölgeleri</span>
+            <span>Fiyat: ${fmt(price)}</span>
+          </div>
+          <Row label="Giriş Bölgesi" value={`$${fmt(buyZone.low)} – $${fmt(buyZone.high)}`} accent="#22c55e" />
+          <Row label="Kâr Hedefi" value={`$${fmt(sellZone.high)}`} accent="#3b82f6" />
+          <Row label="Stop Loss" value={`$${fmt(stopZone.high)}`} accent="#ef4444" />
+          <Row label="Risk/Ödül" value={`${fmt(rrRatio, 1)}:1`} accent={rb.color} />
         </div>
 
         <div className="bg-[#0f172a] rounded-lg p-3 border border-[#1e293b]">
-          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Bot Bölgeleri</div>
-          <Row label="Giriş" value={`$${fmt(buyZone.low)} – $${fmt(buyZone.high)}`} accent="#22c55e" />
-          <Row label="Hedef" value={`$${fmt(sellZone.high)}`} accent="#3b82f6" />
-          <Row label="Stop" value={`$${fmt(stopZone.high)}`} accent="#ef4444" />
-          <Row label="R/R" value={`${fmt(rrRatio, 1)}:1`} accent={rb.color} />
-          <Row label="ATR %" value={`${atrPct}%`} accent="#94a3b8" />
-        </div>
-
-        <div className="bg-[#0f172a] rounded-lg p-3 border border-[#1e293b]">
-          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Çıkış Planı</div>
-          <Row label="Kâr hedefi" value={`+%${exit.tp} opsiyonda`} accent="#22c55e" />
-          <Row label="Stop" value={`${exit.sl}% opsiyonda`} accent="#ef4444" />
-          <Row label="Zaman" value={`${exit.timeExit}. günde kapat`} accent="#f59e0b" />
-          <Row label="Hold" value={`${holdDays} gün (bot)`} accent="#64748b" />
-          <Row label="Beta" value={fmt(beta, 2)} accent="#94a3b8" />
+          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Strateji Çıkış Planı</div>
+          <Row label="Opsiyon Kâr Hedefi" value={`+%${exit.tp}`} accent="#22c55e" />
+          <Row label="Opsiyon Stop Loss" value={`${exit.sl}%`} accent="#ef4444" />
+          <Row label="Zaman Stopu" value={`${exit.timeExit}. gün`} accent="#f59e0b" />
+          {ivRank !== null && <Row label="Mevcut IV Rank" value={`%${ivRank}`} accent={ivRank > 60 ? "#ef4444" : "#22c55e"} />}
         </div>
       </div>
 
@@ -209,16 +234,9 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
         {ts.cmf != null && <Chip label="CMF" value={fmt(ts.cmf, 2)} color={ts.cmf > 0.05 ? "#22c55e" : "#ef4444"} />}
         {ts.macd_hist != null && <Chip label="MACD" value={ts.macd_hist > 0 ? "+" : "−"} color={ts.macd_hist > 0 ? "#22c55e" : "#ef4444"} />}
         {pick.selection_reasons?.slice(0, 2).map((r: string, i: number) => (
-          <Chip key={i} label="" value={r.replace(/_/g, " ")} color="#475569" />
+          <Chip key={`reason-${i}`} label="" value={r.replace(/_/g, " ")} color="#475569" />
         ))}
       </div>
-
-      {/* Rationale */}
-      {strikeRec.reason && (
-        <div className="mt-3 text-[11px] text-[#64748b] bg-[#0f172a] rounded p-2 border-l-2" style={{ borderLeftColor: action.color }}>
-          {strikeRec.reason}
-        </div>
-      )}
     </div>
   );
 }
