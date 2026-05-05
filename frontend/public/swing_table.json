@@ -1,18 +1,106 @@
 [
   {
     "Date": "4 May",
-    "Symbol": "CUBE",
+    "Symbol": "CCI",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 40.44,
-    "Target 2 (TP2)": 40.73
+    "Target 1 (TP1)": 93.95,
+    "Target 2 (TP2)": 94.7
   },
   {
     "Date": "4 May",
-    "Symbol": "XHR",
+    "Symbol": "VTR",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 16.73,
-    "Target 2 (TP2)": 16.87
+    "Target 1 (TP1)": 90.57,
+    "Target 2 (TP2)": 91.15
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "KRG",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 26.96,
+    "Target 2 (TP2)": 27.11
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "DRH",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 10.63,
+    "Target 2 (TP2)": 10.71
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "EQR",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 67.28,
+    "Target 2 (TP2)": 67.7
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "IRT",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 17.02,
+    "Target 2 (TP2)": 17.13
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "FIVN",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 25.44,
+    "Target 2 (TP2)": 25.9
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "PRCH",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 11.42,
+    "Target 2 (TP2)": 11.65
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "BTSG",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 56.71,
+    "Target 2 (TP2)": 57.35
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "VSH",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 32.71,
+    "Target 2 (TP2)": 33.2
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "MXL",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 89.41,
+    "Target 2 (TP2)": 92.11
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "ZM",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 112.7,
+    "Target 2 (TP2)": 113.97
+  },
+  {
+    "Date": "4 May",
+    "Symbol": "INVH",
+    "Entry (Buy_L)": 0.0,
+    "Stop (SL)": 0.0,
+    "Target 1 (TP1)": 29.43,
+    "Target 2 (TP2)": 29.62
   }
 ]
