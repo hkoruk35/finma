@@ -42,7 +42,7 @@ def get_ticker_info(ticker, cache):
 
 def update_performance_live():
     performance_file = 'frontend/public/swing_performance.json'
-    picks_file = 'frontend/public/swing_picks.json'
+    picks_file = 'frontend/public/swing_all_picks.json'
     cache_file = r'C:\Users\afksm\finma\scratch\financial_tracker\watchlists\persistent_info_cache.json'
     if not os.path.exists(cache_file):
         # try the other path mentioned in swing113_boga.py
