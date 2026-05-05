@@ -5,11 +5,11 @@ import Head from "next/head";
 
 // ── Helpers (User Provided Logic) ─────────────────────────────────────────────
 
-function calcDTE(holdDays) {
+function calcDTE(holdDays: number): number {
   return Math.max(21, holdDays + 15);
 }
 
-function calcStrike(price, system, bogaScore, isExhausted) {
+function calcStrike(price: number, system: string, bogaScore: number, isExhausted: boolean): { label: string, pct: number | null, delta: string | null, reason?: string } {
   if (isExhausted) return { label: "⚠️ Pozisyon açma", pct: null, delta: null, reason: "is_exhausted=true — theta + gamma risk çok yüksek" };
   if (bogaScore < 60) return { label: "Hisse al", pct: null, delta: null, reason: "BOGA score 60 altı — opsiyon değil hisse tercih et" };
 
@@ -17,7 +17,7 @@ function calcStrike(price, system, bogaScore, isExhausted) {
   const slight = { label: "%1 OTM", pct: 0.01, delta: "0.40–0.45" };
   const moderate = { label: "%2 OTM", pct: 0.02, delta: "0.35–0.40" };
 
-  const map = {
+  const map: Record<string, typeof atm> = {
     SQUEEZE:   bogaScore >= 75 ? atm : slight,
     SPRING:    atm,
     AWAKENING: slight,
@@ -29,7 +29,7 @@ function calcStrike(price, system, bogaScore, isExhausted) {
   return map[system] || slight;
 }
 
-function calcAction(rrRatio, bogaScore, isExhausted, ivRank) {
+function calcAction(rrRatio: number, bogaScore: number, isExhausted: boolean, ivRank: number | null): { type: string, color: string, label: string } {
   if (isExhausted) return { type: "SKIP", color: "#ef4444", label: "GEÇ" };
   if (bogaScore < 60) return { type: "STOCK", color: "#f59e0b", label: "HİSSE" };
   if (rrRatio < 2.5) return { type: "STOCK", color: "#f59e0b", label: "HİSSE" };
@@ -37,18 +37,18 @@ function calcAction(rrRatio, bogaScore, isExhausted, ivRank) {
   return { type: "CALL", color: "#22c55e", label: "CALL AL" };
 }
 
-function calcExitPlan(bogaScore, holdDays) {
+function calcExitPlan(bogaScore: number, holdDays: number): { tp: number, sl: number, timeExit: number } {
   const tp = bogaScore >= 75 ? 50 : 40;
   const sl = bogaScore >= 75 ? -35 : -30;
   return { tp, sl, timeExit: holdDays };
 }
 
-function fmt(n, dec = 2) {
+function fmt(n: any, dec: number = 2): string {
   if (n == null || isNaN(n)) return "—";
   return Number(n).toFixed(dec);
 }
 
-function riskBadge(rr) {
+function riskBadge(rr: number): { label: string, color: string } {
   if (rr >= 3.0) return { label: "S Elite", color: "#22c55e" };
   if (rr >= 2.5) return { label: "A+ Premium", color: "#84cc16" };
   if (rr >= 2.0) return { label: "A Strong", color: "#eab308" };
@@ -93,7 +93,7 @@ function Chip({ label, value, color }: { label: string, value: string, color: st
   );
 }
 
-function PickCard({ pick, ivRank }) {
+function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const zones = pick.boga_zones || {};
   const ts = pick.trend_status || {};
   const price = pick.current_price || 0;
