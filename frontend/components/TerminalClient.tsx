@@ -674,6 +674,7 @@ export default function TerminalClient() {
       </div>
 
       {/* ── Right Panel ─────────────────────────────────────────────────────── */}
+      <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
         <div className="flex border-b border-[#1a2234] shrink-0">
           {(["daily", "watchlist", "tracker"] as const).map((tab) => (
             <button
