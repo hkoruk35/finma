@@ -120,7 +120,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const zones = pick.boga_zones || {};
   const ts = pick.trend_status || {};
   const price = pick.current_price || 0;
-  const bogaScore = pick.boga_score_100 || 0;
+  const bogaScore = pick.boga_score || pick.score || 0;
   const system = pick.selected_system || "MOMENTUM";
   const isExhausted = ts.is_exhausted || pick.is_exhausted || false;
   const holdDays = pick.hold_days || 7;
@@ -185,20 +185,20 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
           {contracts.map((c, i) => (
             <div key={i} className="bg-[#1e293b]/40 rounded-lg p-3 border border-[#1e293b] hover:border-[#3b82f6]/50 transition-colors">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded" style={{ background: c.color + "22", color: c.color }}>{c.type}</span>
-                <span className="text-[10px] text-[#94a3b8] font-mono">{c.label}</span>
+                <span className="text-[12px] font-bold px-2 py-0.5 rounded" style={{ background: c.color + "22", color: c.color }}>{c.type}</span>
+                <span className="text-[11px] text-[#cbd5e1] font-mono">{c.label}</span>
               </div>
               <div className="flex justify-between items-end mb-2">
                 <div className="flex flex-col">
-                  <span className="text-[9px] text-[#64748b] uppercase">Strike</span>
-                  <span className="text-lg font-bold text-white">{c.strike}</span>
+                  <span className="text-[10px] text-[#64748b] uppercase mb-1">Strike</span>
+                  <span className="text-xl font-bold text-white tracking-wide">{c.strike}</span>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="text-[9px] text-[#64748b] uppercase">Delta</span>
-                  <span className="text-sm font-semibold text-[#94a3b8]">{c.delta}</span>
+                  <span className="text-[10px] text-[#64748b] uppercase mb-1">Delta</span>
+                  <span className="text-base font-semibold text-[#cbd5e1]">{c.delta}</span>
                 </div>
               </div>
-              <p className="text-[10px] text-[#64748b] leading-tight border-t border-[#1e293b] pt-2 mt-1">{c.reason}</p>
+              <p className="text-[11px] text-[#94a3b8] leading-relaxed border-t border-[#1e293b] pt-2 mt-2">{c.reason}</p>
             </div>
           ))}
         </div>
@@ -263,7 +263,7 @@ export default function OptAnalizPage() {
           const ea = a.trend_status?.is_exhausted || a.is_exhausted || false;
           const eb = b.trend_status?.is_exhausted || b.is_exhausted || false;
           if (ea !== eb) return ea ? 1 : -1;
-          return (b.boga_score_100 || 0) - (a.boga_score_100 || 0);
+          return (b.boga_score || b.score || 0) - (a.boga_score || a.score || 0);
         });
 
         setPicks(rawPicks);
@@ -343,8 +343,8 @@ export default function OptAnalizPage() {
                       <span className="text-[10px] text-[#475569]">{p.sector}</span>
                     </div>
                     <div className="flex flex-col items-end">
-                      <span className={`text-xs font-bold ${p.boga_score_100 >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>
-                        {p.boga_score_100}
+                      <span className={`text-xs font-bold ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>
+                        {fmt(p.boga_score || p.score, 0)}
                       </span>
                       {isEx && <span className="text-[8px] text-[#ef4444] font-bold">EXH</span>}
                     </div>
