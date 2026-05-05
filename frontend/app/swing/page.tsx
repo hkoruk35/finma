@@ -13,7 +13,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Daily Swing Trade Candidates | BOGA AI",
   description: "Full algorithmic candidate list from the BOGA AI V114 engine — high-conviction swing trade setups with entries, targets, and stop levels.",
-  alternates: { canonical: "https://bogastock.com/swing-picks" },
+  alternates: { canonical: "https://bogastock.com/swing" },
 };
 
 function formatPrice(n: number) {
@@ -81,7 +81,7 @@ export default async function SwingPicksPage() {
               </p>
             </div>
             <Link
-              href="/swing-performance"
+              href="/performance"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
             >
               📊 Performance History

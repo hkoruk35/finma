@@ -16,7 +16,7 @@ export default function Page() {
       {
         h2: "Layer 1 — Daily Scan: 7,000+ Stocks, 5 Picks Every Morning",
         body: "Every trading morning, swing113 scans 7,000+ US stocks and filters to 5 highest-conviction picks.",
-        link: { label: "View today's picks →", href: "/swing-picks" },
+        link: { label: "View today's picks →", href: "/swing" },
       },
       {
         h2: "Layer 2 — Performance Tracking: 180 Days of History",

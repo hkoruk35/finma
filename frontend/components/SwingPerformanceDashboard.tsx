@@ -182,7 +182,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     const pending  = filtered.filter(t => t.result === "PENDING").length;
     const completed = filtered.filter(t => t.result !== "PENDING");
     const wins     = completed.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
-    const losses   = completed.filter(t => (effectiveReturn(t) ?? 0) <= SL_PCT).length;
+    const losses   = completed.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
     const slHits   = filtered.filter(slTriggered).length;
     const sumRet   = completed.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
     const above5   = completed.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;

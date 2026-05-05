@@ -109,7 +109,7 @@ export default async function StockDetailPage({ params }: Props) {
           }} />
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/swing-picks" className="hover:text-white transition-colors">Top Picks</Link>
+          <Link href="/swing" className="hover:text-white transition-colors">Top Picks</Link>
           <span>/</span>
           <span className="text-white">{stock.ticker}</span>
         </nav>

@@ -15,8 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static routes ─────────────────────────────────────────────
   const staticRoutes = [
     { route: '',                             priority: 1.0, cf: 'hourly'  },
-    { route: '/swing-picks',                 priority: 0.9, cf: 'daily'   },
-    { route: '/swing-performance',           priority: 0.8, cf: 'daily'   },
+    { route: '/swing',                 priority: 0.9, cf: 'daily'   },
+    { route: '/performance',           priority: 0.8, cf: 'daily'   },
     { route: '/category/top-scores',         priority: 0.8, cf: 'daily'   },
     { route: '/category/breakout',           priority: 0.8, cf: 'daily'   },
     { route: '/category/undervalued',        priority: 0.8, cf: 'daily'   },

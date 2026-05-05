@@ -107,7 +107,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
             </h2>
             {!minimal && (
               <Link
-                href="/swing-picks"
+                href="/swing"
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-full text-[12px] font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 hover:border-[#3b82f6]/60 transition-all duration-200 uppercase tracking-wider"
               >
                 <span>ALL LIST</span>
