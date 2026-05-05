@@ -111,7 +111,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const action = calcAction(rrRatio, bogaScore, isExhausted, ivRank);
   const exit = calcExitPlan(bogaScore, holdDays);
   const rb = riskBadge(rrRatio);
-  const sysCol = SYSTEM_COLORS[system] || "#94a3b8";
+  const sysCol = (SYSTEM_COLORS as any)[system] || "#94a3b8";
   
   const buyZone = zones.buying_zone || zones.buy_zone || {};
   const sellZone = zones.sell_zone || {};
@@ -138,7 +138,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
         </span>
         <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full border"
           style={{ background: sysCol + "22", color: sysCol, borderColor: sysCol + "44" }}>
-          {system} · {SYSTEM_TR[system]}
+          {system} · {(SYSTEM_TR as any)[system] || system}
         </span>
         <span className="ml-auto text-[11px] font-bold px-2 py-0.5 rounded-full border"
           style={{ background: action.color + "22", color: action.color, borderColor: action.color + "55" }}>
