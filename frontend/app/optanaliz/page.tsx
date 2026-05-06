@@ -114,7 +114,7 @@ function Chip({ label, value, color }: { label: string, value: string, color: st
   );
 }
 
-function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
+function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | null, liveOptions?: any }) {
   const zones = pick.boga_zones || {};
   const ts = pick.trend_status || {};
   const price = pick.current_price || 0;
@@ -179,34 +179,57 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
       <div className="mb-4">
         <div className="text-[11px] text-[#f1f5f9] font-bold tracking-wider mb-2 uppercase">Önerilen Kontratlar (ATM, Yakın Vade)</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {contracts.map((c, i) => (
-            <div key={i} className="bg-[#1e293b]/60 rounded-lg p-4 border border-[#334155] hover:border-[#3b82f6]/50 transition-colors">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-bold px-3 py-1 rounded" style={{ background: c.color + "33", color: c.color }}>{c.type}</span>
-                <span className="text-[13px] text-white font-mono">{c.label} {c.dte !== "—" ? `(${c.dte} Gün)` : ""}</span>
+          {contracts.map((c, i) => {
+            const liveOpt = liveOptions ? (c.dte === 45 ? liveOptions.dte_45 : (c.dte === 60 ? liveOptions.dte_60 : null)) : null;
+            const displayStrike = liveOpt ? `$${fmt(liveOpt.strike)}` : c.strike;
+            // if we have live data, show last price instead of delta
+            
+            return (
+              <div key={i} className="bg-[#1e293b]/60 rounded-lg p-4 border border-[#334155] hover:border-[#3b82f6]/50 transition-colors">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="text-[13px] font-bold px-3 py-1 rounded" style={{ background: c.color + "33", color: c.color }}>{c.type}</span>
+                  <span className="text-[13px] text-white font-mono">{c.label} {c.dte !== "—" ? `(${c.dte} Gün)` : ""}</span>
+                </div>
+                
+                <div className="flex justify-between items-end mb-3">
+                  <div className="flex flex-col">
+                    <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Strike</span>
+                    <span className="text-2xl font-extrabold text-white tracking-wide">{displayStrike}</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    {liveOpt ? (
+                      <>
+                        <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Fiyat (Ask)</span>
+                        <span className="text-lg font-bold text-[#f8fafc]">${fmt(liveOpt.ask)}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Delta</span>
+                        <span className="text-lg font-bold text-[#f8fafc]">{c.delta}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+                
+                {liveOpt && (
+                  <div className="flex justify-between items-center text-[11px] text-[#94a3b8] mb-2 px-1">
+                    <span>Bid: ${fmt(liveOpt.bid)}</span>
+                    <span>Last: ${fmt(liveOpt.lastPrice)}</span>
+                    <span>Vol: {liveOpt.volume}</span>
+                  </div>
+                )}
+                
+                {c.expiry !== "—" && (
+                  <div className="flex justify-between items-center bg-[#0f172a] rounded p-2 mb-2">
+                    <span className="text-[11px] text-[#94a3b8]">Hedef Vade (Expiry):</span>
+                    <span className="text-[12px] text-[#f1f5f9] font-bold">{liveOpt ? liveOpt.expiry : c.expiry}</span>
+                  </div>
+                )}
+                
+                <p className="text-[12px] text-[#e2e8f0] leading-relaxed pt-1">{c.reason}</p>
               </div>
-              
-              <div className="flex justify-between items-end mb-3">
-                <div className="flex flex-col">
-                  <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Strike</span>
-                  <span className="text-2xl font-extrabold text-white tracking-wide">{c.strike}</span>
-                </div>
-                <div className="flex flex-col items-end">
-                  <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Delta</span>
-                  <span className="text-lg font-bold text-[#f8fafc]">{c.delta}</span>
-                </div>
-              </div>
-              
-              {c.expiry !== "—" && (
-                <div className="flex justify-between items-center bg-[#0f172a] rounded p-2 mb-2">
-                  <span className="text-[11px] text-[#94a3b8]">Hedef Vade (Expiry):</span>
-                  <span className="text-[12px] text-[#f1f5f9] font-bold">{c.expiry}</span>
-                </div>
-              )}
-              
-              <p className="text-[12px] text-[#e2e8f0] leading-relaxed pt-1">{c.reason}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -251,6 +274,7 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
 
 export default function OptAnalizPage() {
   const [picks, setPicks] = useState<any[]>([]);
+  const [liveOptions, setLiveOptions] = useState<any>({});
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [ivRankText, setIvRankText] = useState("");
   const [loading, setLoading] = useState(true);
@@ -259,9 +283,19 @@ export default function OptAnalizPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const res = await fetch("/swing_all_picks.json");
-        if (!res.ok) throw new Error("Veri yüklenemedi");
-        const data = await res.json();
+        const [picksRes, optsRes] = await Promise.all([
+          fetch("/swing_all_picks.json"),
+          fetch("/swing_options_live.json").catch(() => null)
+        ]);
+        
+        if (!picksRes.ok) throw new Error("Veri yüklenemedi");
+        const data = await picksRes.json();
+        
+        let optsData: any = {};
+        if (optsRes && optsRes.ok) {
+           const o = await optsRes.json();
+           optsData = o.options || {};
+        }
         
         const rawPicks = data.picks || [];
         // Sort: exhausted last, then by boga_score_100 desc
@@ -273,6 +307,7 @@ export default function OptAnalizPage() {
         });
 
         setPicks(rawPicks);
+        setLiveOptions(optsData);
         if (rawPicks.length > 0) {
           setSelectedTicker(rawPicks[0].ticker);
         }
@@ -376,7 +411,7 @@ export default function OptAnalizPage() {
         {/* Main Content: Analysis Card */}
         <div>
           {selectedPick ? (
-            <PickCard pick={selectedPick} ivRank={selectedIvRank} />
+            <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} />
           ) : (
             <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">
               Analiz için listeden bir hisse seçin

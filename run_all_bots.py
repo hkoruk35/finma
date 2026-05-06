@@ -109,6 +109,10 @@ def main():
     log.info("ADIM 5.7: fix_swing_performance.py (Tekrarlı hisseler temizleniyor)...")
     run_bot_subprocess("fix_swing_performance.py")
 
+    # ── ADIM 5.8: fetch_live_options.py (Swing listesi için canlı opsiyon fiyatlarını çek) ──
+    log.info("ADIM 5.8: fetch_live_options.py (Canlı Opsiyon Fiyatları)...")
+    run_bot_subprocess("fetch_live_options.py")
+
     # ── ADIM 6: Multilingual AI Summaries (Kritik: Tüm diller için rapor üret) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 6: update_summaries_now.py (Multilingual Reports) çalıştırılıyor...")
     # run_bot_subprocess("update_summaries_now.py")
