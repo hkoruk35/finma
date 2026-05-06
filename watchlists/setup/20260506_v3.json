@@ -1,0 +1,32 @@
+[
+    {
+        "date": "2026-05-06 13:00",
+        "symbol": "UDR",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 37.38,
+        "entry_zone": "36.96 - 37.80",
+        "SL": 35.71,
+        "TP": 39.88
+    },
+    {
+        "date": "2026-05-06 13:00",
+        "symbol": "SWKS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 64.68,
+        "entry_zone": "62.99 - 66.36",
+        "SL": 57.93,
+        "TP": 74.8
+    },
+    {
+        "date": "2026-05-06 13:00",
+        "symbol": "VOYA",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 79.8,
+        "entry_zone": "78.43 - 81.17",
+        "SL": 74.31,
+        "TP": 88.03
+    }
+]

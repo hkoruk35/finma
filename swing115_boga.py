@@ -431,9 +431,9 @@ async def build_atmaca_universe_full() -> List[str]:
                     # 🎯 SNIPER MOD: Sıkışma bölgesindeki hisseleri dahil et.
                     # 🔧 BOGA AI FIX: Hacimli momentum kırılımları (Tier 2) evrene eklendi
                     is_squeeze_candidate = (-0.04 <= roc5 <= 0.06)
-                    # 🔧 FIX: Momentum breakout eşiği daraltıldı.
-                    # Hareket zaten başlamışsa (>%8) evren taramasına girmesin.
-                    is_momentum_breakout = (0.06 < roc5 <= 0.08) and rvol > 2.5
+                    # 🎯 FIX: Eşik 0.15'e esnetildi. 5 güne yayılan sağlıklı (%10-12'lik) trendler içeri alınır.
+                    # Tek günde %10 yapan pis patlamaların elenmesi işi Layer 2'deki Exhaustion modülüne bırakıldı.
+                    is_momentum_breakout = (0.06 < roc5 <= 0.15) and rvol > 1.8
                     
                     if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
@@ -762,9 +762,10 @@ def detect_rising_stock(df: pd.DataFrame) -> dict:
 
         swing_lows = []
         for i in range(2, min(15, len(df)) - 2):
-            low = df['Low'].iloc[-i]
-            if low < df['Low'].iloc[-(i-1)] and low < df['Low'].iloc[-(i+1)]:
-                swing_lows.append(low)
+            swing_low_val = df['Low'].iloc[-i]
+            if swing_low_val < df['Low'].iloc[-(i-1)] and swing_low_val < df['Low'].iloc[-(i+1)]:
+                swing_lows.append(swing_low_val)
+                
         if len(swing_lows) >= 2 and swing_lows[0] > swing_lows[-1]:
             score += 2.0; pattern = pattern or "Pullback Reversal"
             details.append("🔰 Higher Lows: Pullback Reversal")
@@ -986,7 +987,7 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             if resists_above:
                 resist_1h = min(min(resists_above), macro_resist)
 
-# --- SMART MONEY & VOLUME CONFIRMATION ---
+            # --- SMART MONEY & VOLUME CONFIRMATION ---
             # Hacim Filtresi: Dual-Tier (Breakout için daha esnek, Sweep için sert)
             vol_avg_20 = float(vol_1h.rolling(20).mean().iloc[-1])
             is_green_candle = curr_c > curr_o
@@ -1640,10 +1641,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 2.0; details.append(f"📈 ADX Slope: Rising ({adx_slope:.2f}/bar)")
         elif adx_slope < -0.5:
             score -= 4.0; details.append(f"🐌 ADX Slope: Fading Fast ({adx_slope:.2f}/bar)")
-            
-
-        if is_ema_flat and adx_1d < 15:
-            return None  # Dead Money
+ 
 
         # ── LAYER 2: FLOW & MOMENTUM FILTER ─────────────────────
         # 🔧 FIX #6: This filter is the gate that previously let in
@@ -2217,9 +2215,35 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score -= 1.2; details.append("⏳ ENTRY: No trigger yet")
 
+        # 🎯 FIX: VIX STRATEJİ ADAPTASYONU (Dinamik Setup Tercihi)
+        # VIX yüksekken piyasa testeredir, Breakout'lar tuzağa (Fakeout) dönüşür. Reversal çalışır.
+        # VIX düşükken piyasa trend yapar, Breakout'lar uçar, Reversal'lar zayıf kalır.
+        current_vix = MARKET_STATUS.get("vix", 20.0)
+        sys_cat = (
+            "Contraction" if selection_system in ["SQUEEZE"] else
+            "Reversal"    if selection_system in ["SPRING", "PULLBACK"] else
+            "Momentum"    if selection_system in ["AWAKENING", "EMA_CROSS"] else
+            "Breakout"
+        )
+        
+        if current_vix >= 25.0:
+            if sys_cat in ["Breakout", "Momentum"]:
+                score -= 15.0; details.append(f"🚨 VIX {current_vix:.1f}: Breakout Tuzağı Riski (Ağır Ceza)")
+            elif sys_cat == "Reversal":
+                score += 8.0;  details.append(f"🛡️ VIX {current_vix:.1f}: Güvenli Reversal Ortamı (Ödül)")
+        elif current_vix >= 20.0:
+            if sys_cat in ["Breakout", "Momentum"]:
+                score -= 5.0;  details.append(f"⚠️ VIX {current_vix:.1f}: Breakout için Gergin Ortam (Ceza)")
+        elif current_vix <= 15.0:
+            if sys_cat in ["Breakout", "Momentum", "Contraction"]:
+                score += 8.0;  details.append(f"🚀 VIX {current_vix:.1f}: Trend/Breakout için İdeal (Ödül)")
+            elif sys_cat == "Reversal":
+                score -= 5.0;  details.append(f"🐢 VIX {current_vix:.1f}: Düşük VIX'te Reversal Zayıf Kalır (Ceza)")
+
         # Ek sinyal kaynakları (tüm yollardan geçer)
         if smart_money.get('has_smart_flow') and smart_money.get('score', 0) >= 6.0:
             selection_reasons.append("Smart_Money_Flow")
+            
         if is_squeeze:
             if "SQUEEZE" not in selection_system:
                 selection_reasons.append("BB_Squeeze_Secondary")
@@ -3185,10 +3209,13 @@ async def scan_top_stocks():
     for c in candidates:
         compute_multi_factor_score(c)
 
+    # 🔧 FIX: `compute_multi_factor_score` fonksiyonu sonucu ana "score" key'ine yazar.
+    # Sıralamanın "score" üzerinden yapılması doğrudur, çünkü composite değeri de içermektedir.
     candidates_ranked = sorted(
         [c for c in candidates if c.get("composite_score", -99) > -50],
         key=lambda x: x.get("score", 0.0), reverse=True
     )
+    
     top_50 = candidates_ranked[:TOP_DEEP_ANALYSIS]
     logging.info(f"🏆 Layer 2 → Top {len(top_50)} moving to deep analysis.")
 
@@ -3269,18 +3296,18 @@ async def scan_top_stocks():
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
 
-    # Capture 20 candidates for Terminal Daily tab before R/R filtering
-    top_20_candidates = list(top_candidates)
-
     # ── R/R HARD ELIMINATION (Realistic floor) ────────────────────────────
-    # 🔧 FIX #9: R/R < 1.0 was way too lenient — that means risking $1 for $1.
-    # Professional swing setups need at least R/R 1.5 (risk $1 to make $1.50).
-    # Setups where risk exceeds reward are not suitable for swing trade.
+    # 🔧 FIX #9: Professional swing setups need at least R/R 1.5.
     top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.5]
     if not top_candidates:
         logging.warning("⚠️ No candidates left after R/R < 1.5 elimination.")
         await send_telegram_message("⚠️ No setups with R/R 1.5+ in daily scan.")
         return
+
+    # Capture 20 candidates for Terminal Daily tab AFTER R/R filtering (Tutarsızlık Giderildi)
+    top_20_candidates = list(top_candidates)
+
+
 
     # ── STEP 9: BOGA AI SCORE OUT OF 100 ─────────────────────────────────
     for c in top_20_candidates:
@@ -3372,8 +3399,8 @@ async def scan_top_stocks():
             table_data.append({
                 "Date": date_str,
                 "Symbol": c.get("ticker", ""),
-                "Entry (Buy_L)": z.get("buying_zone", {}).get("low", 0.0),
-                "Stop (SL)": z.get("stop_loss_zone", {}).get("high", 0.0),
+                "Entry (Buy_L)": z.get("buy_zone", {}).get("low", 0.0),
+                "Stop (SL)": z.get("stop_zone", {}).get("high", 0.0),
                 "Target 1 (TP1)": z.get("sell_zone", {}).get("low", 0.0),
                 "Target 2 (TP2)": z.get("sell_zone", {}).get("high", 0.0)
             })
@@ -3497,11 +3524,14 @@ def get_next_weekday_run_time_ny(target_hour=18, target_minute=0):
         candidate_ny += timedelta(days=1)
     while candidate_ny.weekday() >= 5:
         candidate_ny += timedelta(days=1)
+        
     candidate_utc = candidate_ny.astimezone(timezone.utc)
+    # 🔧 FIX: Hafta sonu sonsuz döngü edge-case koruması eklendi.
     if candidate_utc <= now_utc:
-        candidate_utc = (now_ny + timedelta(days=1)).replace(
-            hour=target_hour, minute=target_minute, second=0, microsecond=0
-        ).astimezone(timezone.utc)
+        candidate_ny += timedelta(days=1)
+        while candidate_ny.weekday() >= 5:
+            candidate_ny += timedelta(days=1)
+        candidate_utc = candidate_ny.astimezone(timezone.utc)
     return candidate_utc
 
 
