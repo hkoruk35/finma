@@ -1421,3 +1421,13 @@ IRT
 VTR
 KRG
 MXL
+
+# --- 2026-05-06 ---
+UDR
+SWKS
+VOYA
+
+# --- 2026-05-06 ---
+UDR
+SWKS
+VOYA

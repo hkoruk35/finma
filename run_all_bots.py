@@ -83,7 +83,7 @@ def main():
     run_bot_subprocess("opsiyon218v8.py", ["--oneshot"])
 
     # ── ADIM 2: Swing Scanner (v115) ──
-    log.info("ADIM 2: swing115_boga.py --oneshot (18:00 NY Bekleme Modu)...")
+    log.info("ADIM 2: swing115_boga.py --oneshot (13:00 NY Bekleme Modu)...")
     run_bot_subprocess("swing115_boga.py", ["--oneshot"])
 
     # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) - DISABLED BY USER REQUEST ──

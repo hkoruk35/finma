@@ -1023,28 +1023,8 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 entry_type = "PULLBACK"
                 entry_confidence = 80
 
-        # 🔧 FIX: 15m micro-pattern override — 1H sinyali yoksa 15m'e bak
-        if not entry_valid and df_15m is not None and len(df_15m) >= 20:
-            try:
-                c15 = float(df_15m['Close'].iloc[-1])
-                o15 = float(df_15m['Open'].iloc[-1])
-                h15 = float(df_15m['High'].iloc[-1])
-                l15 = float(df_15m['Low'].iloc[-1])
-                pc15 = float(df_15m['Close'].iloc[-2])
-                po15 = float(df_15m['Open'].iloc[-2])
-                body15 = abs(c15 - o15)
-                lwick15 = min(c15, o15) - l15
-                uwick15 = h15 - max(c15, o15)
-                is_15m_pinbar = (lwick15 > body15 * 2.0) and (uwick15 < body15 * 0.5) and c15 > o15
-                is_15m_engulfing = c15 > o15 and pc15 < po15 and c15 > po15 and o15 < pc15
-                vol15 = float(df_15m['Volume'].iloc[-1])
-                vol15_avg = float(df_15m['Volume'].rolling(20).mean().iloc[-1])
-                is_15m_volume = vol15 > vol15_avg * 1.4
-                if (is_15m_pinbar or is_15m_engulfing) and is_15m_volume:
-                    entry_type = "15M PATTERN (Micro Entry)"
-                    entry_confidence = 75
-            except Exception:
-                pass
+        # 🔧 FIX: 15m micro-pattern iptal edildi. Swing işlemlerde intraday (15m) gürültü sahte onaya sebep olur.
+        pass
                 
         # Safety Buffer (If support is too close to price)
         if (current_price - support_1h) < (atr_1d * 0.6):
@@ -1203,7 +1183,7 @@ def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
         return None
 
 
-def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 14) -> bool:
+def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:
     try:
         earnings_date = get_earnings_date_safe(ticker)
         if earnings_date is None: return True
@@ -1653,17 +1633,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score -= 2.0; details.append(f"🟡 ADX: Very Weak ({adx_1d:.1f})")
 
-        # Slope puanı: En kritik kısım (ivme)
+        # Slope puanı: Aşırı puan şişirmesini engellemek için normalize edildi (Double-counting fix)
         if adx_slope > 0.8:
-            score += 10.0; details.append(f"⚡ ADX Slope: Aggressive Acceleration (+{adx_slope:.2f}/bar) — PRIME ENTRY")
+            score += 4.0; details.append(f"⚡ ADX Slope: Aggressive Acceleration (+{adx_slope:.2f}/bar)")
         elif adx_slope > 0.3:
-            score += 5.0;  details.append(f"📈 ADX Slope: Rising ({adx_slope:.2f}/bar)")
-        elif adx_slope > 0.0:
-            score += 1.0;  details.append(f"➡️ ADX Slope: Mildly Rising ({adx_slope:.2f}/bar)")
+            score += 2.0; details.append(f"📈 ADX Slope: Rising ({adx_slope:.2f}/bar)")
         elif adx_slope < -0.5:
-            score -= 5.0;  details.append(f"🐌 ADX Slope: Fading Fast ({adx_slope:.2f}/bar)")
-        elif adx_slope < 0:
-            score -= 2.0;  details.append(f"⬇️ ADX Slope: Declining ({adx_slope:.2f}/bar)")
+            score -= 4.0; details.append(f"🐌 ADX Slope: Fading Fast ({adx_slope:.2f}/bar)")
             
 
         if is_ema_flat and adx_1d < 15:
@@ -1687,7 +1663,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # 1. VOLUME TIGHTENED: 0.90 was too loose — sideways stocks easily clear it.
         # 🔧 BOGA AI FIX: REIT'lerin hacimleri yapısal olarak stabildir, istisna sağlandı
         min_rvol_required = 0.80 if sector_name == "Real Estate" else 1.05
-        if rvol_micro < min_rvol_required:
+        # 🔧 FIX: AMD gibi hisselerde Squeeze (Daralma) veya Spring sırasında hacim kuruması normaldir, bunu tolere et.
+        if rvol_micro < min_rvol_required and not (is_squeeze or is_spring):
             layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<{min_rvol_required}")
 
         # 2. TREND HARD GATE
@@ -1715,7 +1692,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # 3. ADX TIGHTENED: 12 was too loose. Below 18 means no real trend.
         # 🔧 BOGA AI FIX: REIT'ler daha yatay trend yaptığı için ADX eşiği 12'ye düşürüldü
         min_adx_required = 12 if sector_name == "Real Estate" else 18
-        if adx_1d > 0 and adx_1d < min_adx_required:
+        # 🔧 FIX: Dinlenen/Sıkışan hissede trend gücü (ADX) geçici olarak düşer, Squeeze varsa eleme.
+        if adx_1d > 0 and adx_1d < min_adx_required and not (is_squeeze or is_spring):
             layer2_pass = False; layer2_reasons.append(f"ADX={adx_1d:.1f}<{min_adx_required} (no trend)")
 
         try:
@@ -2390,11 +2368,11 @@ def compute_multi_factor_score(c: dict) -> float:
     except Exception: atr_pct = 3.0
     vol_expand = 12.0 if 4.0 <= atr_pct <= 8.0 else 8.0 if (3.0 <= atr_pct < 4.0 or 8.0 < atr_pct <= 10.0) else 4.0 if atr_pct < 3.0 else 2.0
 
-    # BOGA AI FIX: RVOL ağırlığı sistem tipine göre dinamik.
-    sys_cat = c.get("system_category", "Breakout")
-    rvol_weight = 0.20 if sys_cat in ["Contraction", "Reversal"] else 0.40
-    trend_weight = 0.35 if rvol_weight == 0.20 else 0.25
-    ret_weight = 0.25 if rvol_weight == 0.20 else 0.15
+    # BOGA AI FIX: Sabit ve sıkı hacim kuralına geri dönüş (Hacimsiz fakeout hisseler elenir)
+    rvol_weight = 0.40
+    trend_weight = 0.25
+    ret_weight = 0.20
+    
     layer3_composite = (
         rvol_zscore    * rvol_weight +
         trend_score    * trend_weight +
@@ -3586,11 +3564,11 @@ if __name__ == "__main__":
             from zoneinfo import ZoneInfo
             ny_tz = ZoneInfo("America/New_York")
             now_ny = datetime.now(ny_tz)
-            target_ny = now_ny.replace(hour=18, minute=0, second=0, microsecond=0)
+            target_ny = now_ny.replace(hour=13, minute=0, second=0, microsecond=0)
             
             if now_ny < target_ny and "--now" not in sys.argv:
                 wait_sec = (target_ny - now_ny).total_seconds()
-                print(f"🕒 Saat henuz erken. NY 18:00 bekleniyor ({wait_sec/3600:.1f} saat)...")
+                print(f"🕒 Saat henuz erken. NY 13:00 bekleniyor ({wait_sec/3600:.1f} saat)...")
                 import time
                 time.sleep(wait_sec)
             
