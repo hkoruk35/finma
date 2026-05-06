@@ -5,57 +5,55 @@ import Head from "next/head";
 
 // ── Helpers (User Provided Logic) ─────────────────────────────────────────────
 
-function calcDTE(holdDays: number): number {
-  return Math.max(21, holdDays + 15);
+function getExpiryDate(dte: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + dte);
+  
+  // En yakın Cuma gününe yuvarlama (Opsiyon vadeleri genellikle Cuma olur)
+  const day = date.getDay();
+  if (day !== 5) {
+    const diff = 5 - day;
+    date.setDate(date.getDate() + (diff > 0 ? diff : diff + 7));
+  }
+  
+  return date.toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-// Yeni: Birden fazla kontrat alternatifi üreten fonksiyon
+// Yeni: 45 ve 60 günlük ATM kontrat alternatifleri üreten fonksiyon
 function calcContracts(price: number, system: string, bogaScore: number, isExhausted: boolean, ivRank: number | null) {
   if (isExhausted) {
-    return [{ type: "SKIP", label: "İşlem Yok", strike: "—", delta: "—", reason: "Trend yorulması - Yüksek risk", color: "#ef4444" }];
+    return [{ type: "SKIP", label: "İşlem Yok", strike: "—", delta: "—", reason: "Trend yorulması - Yüksek risk", color: "#ef4444", dte: "—", expiry: "—" }];
   }
   if (bogaScore < 60) {
-    return [{ type: "STOCK", label: "Hisse Al", strike: "—", delta: "1.00", reason: "Düşük skor - Opsiyon riski alınmaz", color: "#f59e0b" }];
+    return [{ type: "STOCK", label: "Hisse Al", strike: "—", delta: "1.00", reason: "Düşük skor - Opsiyon riski alınmaz", color: "#f59e0b", dte: "—", expiry: "—" }];
   }
 
   const contracts = [];
-  
-  // Eğer IV Rank yüksekse (>60), Spread önerisi ekle
   const isHighIV = ivRank !== null && ivRank > 60;
   
-  // 1. Muhafazakar (Conservative)
+  // 1. 45-Günlük ATM
   contracts.push({
-    type: isHighIV ? "CREDIT SPREAD" : "CALL (Güvenli)",
+    type: isHighIV ? "CREDIT SPREAD" : "CALL (Kısa Vade)",
     label: "ATM",
     strike: `$${price.toFixed(2)}`,
-    delta: "0.50",
-    reason: "Yüksek kazanma ihtimali, düşük kaldıraç",
-    color: "#22c55e"
+    delta: "~0.50",
+    reason: "Spot fiyata en duyarlı, 45 günlük taşıma süresi",
+    color: "#22c55e",
+    dte: 45,
+    expiry: getExpiryDate(45)
   });
 
-  // 2. Dengeli (Balanced)
-  const slightOtmPrice = price * 1.015;
+  // 2. 60-Günlük ATM
   contracts.push({
-    type: isHighIV ? "DEBIT SPREAD" : "CALL (Dengeli)",
-    label: "%1.5 OTM",
-    strike: `$${slightOtmPrice.toFixed(2)}`,
-    delta: "0.40 - 0.45",
-    reason: "Optimum R/R ve maliyet dengesi",
-    color: "#3b82f6"
+    type: isHighIV ? "DEBIT SPREAD" : "CALL (Orta Vade)",
+    label: "ATM",
+    strike: `$${price.toFixed(2)}`,
+    delta: "~0.50",
+    reason: "Zaman erimesi (Theta) daha yavaş, daha güvenli",
+    color: "#3b82f6",
+    dte: 60,
+    expiry: getExpiryDate(60)
   });
-
-  // 3. Agresif (Aggressive)
-  if (bogaScore >= 75) {
-    const aggOtmPrice = price * 1.03;
-    contracts.push({
-      type: "CALL (Agresif)",
-      label: "%3 OTM",
-      strike: `$${aggOtmPrice.toFixed(2)}`,
-      delta: "0.30 - 0.35",
-      reason: "Yüksek skorlu breakout için maksimum getiri",
-      color: "#a855f7"
-    });
-  }
 
   return contracts;
 }
@@ -129,7 +127,6 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
   const rsi = ts.rsi_14 || pick.rsi || 50;
   const rvol = ts.rvol_today || pick.rvol || 1.0;
 
-  const dte = calcDTE(holdDays);
   const contracts = calcContracts(price, system, bogaScore, isExhausted, ivRank);
   const exit = calcExitPlan(bogaScore, holdDays);
   const rb = riskBadge(rrRatio);
@@ -180,48 +177,57 @@ function PickCard({ pick, ivRank }: { pick: any, ivRank: number | null }) {
 
       {/* Kontrat Alternatifleri */}
       <div className="mb-4">
-        <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Önerilen Kontratlar (DTE: {dte} gün)</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="text-[11px] text-[#f1f5f9] font-bold tracking-wider mb-2 uppercase">Önerilen Kontratlar (ATM, Yakın Vade)</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {contracts.map((c, i) => (
-            <div key={i} className="bg-[#1e293b]/40 rounded-lg p-3 border border-[#1e293b] hover:border-[#3b82f6]/50 transition-colors">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-[12px] font-bold px-2 py-0.5 rounded" style={{ background: c.color + "22", color: c.color }}>{c.type}</span>
-                <span className="text-[11px] text-[#cbd5e1] font-mono">{c.label}</span>
+            <div key={i} className="bg-[#1e293b]/60 rounded-lg p-4 border border-[#334155] hover:border-[#3b82f6]/50 transition-colors">
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-[13px] font-bold px-3 py-1 rounded" style={{ background: c.color + "33", color: c.color }}>{c.type}</span>
+                <span className="text-[13px] text-white font-mono">{c.label} {c.dte !== "—" ? `(${c.dte} Gün)` : ""}</span>
               </div>
-              <div className="flex justify-between items-end mb-2">
+              
+              <div className="flex justify-between items-end mb-3">
                 <div className="flex flex-col">
-                  <span className="text-[10px] text-[#64748b] uppercase mb-1">Strike</span>
-                  <span className="text-xl font-bold text-white tracking-wide">{c.strike}</span>
+                  <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Strike</span>
+                  <span className="text-2xl font-extrabold text-white tracking-wide">{c.strike}</span>
                 </div>
                 <div className="flex flex-col items-end">
-                  <span className="text-[10px] text-[#64748b] uppercase mb-1">Delta</span>
-                  <span className="text-base font-semibold text-[#cbd5e1]">{c.delta}</span>
+                  <span className="text-[11px] text-[#cbd5e1] uppercase mb-1">Delta</span>
+                  <span className="text-lg font-bold text-[#f8fafc]">{c.delta}</span>
                 </div>
               </div>
-              <p className="text-[11px] text-[#94a3b8] leading-relaxed border-t border-[#1e293b] pt-2 mt-2">{c.reason}</p>
+              
+              {c.expiry !== "—" && (
+                <div className="flex justify-between items-center bg-[#0f172a] rounded p-2 mb-2">
+                  <span className="text-[11px] text-[#94a3b8]">Hedef Vade (Expiry):</span>
+                  <span className="text-[12px] text-[#f1f5f9] font-bold">{c.expiry}</span>
+                </div>
+              )}
+              
+              <p className="text-[12px] text-[#e2e8f0] leading-relaxed pt-1">{c.reason}</p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Main Grid: Bölgeler & Çıkış */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
         <div className="bg-[#0f172a] rounded-lg p-3 border border-[#1e293b]">
-          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase flex justify-between">
-            <span>Bot Bölgeleri</span>
-            <span>Fiyat: ${fmt(price)}</span>
-          </div>
+          <div className="text-[10px] text-[#94a3b8] font-bold tracking-wider mb-2 uppercase">Bot Bölgeleri</div>
+          <Row label="Şu an Fiyat" value={`$${fmt(price)}`} accent="#f1f5f9" />
           <Row label="Giriş Bölgesi" value={`$${fmt(buyZone.low)} – $${fmt(buyZone.high)}`} accent="#22c55e" />
           <Row label="Kâr Hedefi" value={`$${fmt(sellZone.high)}`} accent="#3b82f6" />
           <Row label="Stop Loss" value={`$${fmt(stopZone.high)}`} accent="#ef4444" />
           <Row label="Risk/Ödül" value={`${fmt(rrRatio, 1)}:1`} accent={rb.color} />
+          <Row label="ATR %" value={`${atrPct}%`} accent="#94a3b8" />
         </div>
 
         <div className="bg-[#0f172a] rounded-lg p-3 border border-[#1e293b]">
-          <div className="text-[10px] text-[#475569] font-bold tracking-wider mb-2 uppercase">Strateji Çıkış Planı</div>
+          <div className="text-[10px] text-[#94a3b8] font-bold tracking-wider mb-2 uppercase">Strateji Çıkış Planı</div>
           <Row label="Opsiyon Kâr Hedefi" value={`+%${exit.tp}`} accent="#22c55e" />
           <Row label="Opsiyon Stop Loss" value={`${exit.sl}%`} accent="#ef4444" />
           <Row label="Zaman Stopu" value={`${exit.timeExit}. gün`} accent="#f59e0b" />
+          <Row label="Beta" value={fmt(beta, 2)} accent="#94a3b8" />
           {ivRank !== null && <Row label="Mevcut IV Rank" value={`%${ivRank}`} accent={ivRank > 60 ? "#ef4444" : "#22c55e"} />}
         </div>
       </div>
