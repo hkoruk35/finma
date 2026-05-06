@@ -181,7 +181,7 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
               <div key={i} className="bg-[#1e293b]/60 rounded-lg p-4 border border-[#334155] hover:border-[#3b82f6]/50 transition-colors">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-[13px] font-bold px-3 py-1 rounded" style={{ background: c.color + "33", color: c.color }}>{c.type}</span>
-                  <span className="text-[13px] text-white font-mono">{c.label} {c.dte !== "—" ? `(${c.dte} Gün)` : ""}</span>
+                  <span className="text-[13px] text-white font-mono">{c.label} ({c.dte} Gün)</span>
                 </div>
                 
                 <div className="flex justify-between items-end mb-3">
