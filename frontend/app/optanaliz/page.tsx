@@ -21,13 +21,6 @@ function getExpiryDate(dte: number): string {
 
 // Yeni: 45 ve 60 günlük ATM kontrat alternatifleri üreten fonksiyon
 function calcContracts(price: number, system: string, bogaScore: number, isExhausted: boolean, ivRank: number | null) {
-  if (isExhausted) {
-    return [{ type: "SKIP", label: "İşlem Yok", strike: "—", delta: "—", reason: "Trend yorulması - Yüksek risk", color: "#ef4444", dte: "—", expiry: "—" }];
-  }
-  if (bogaScore < 60) {
-    return [{ type: "STOCK", label: "Hisse Al", strike: "—", delta: "1.00", reason: "Düşük skor - Opsiyon riski alınmaz", color: "#f59e0b", dte: "—", expiry: "—" }];
-  }
-
   const contracts = [];
   const isHighIV = ivRank !== null && ivRank > 60;
   
