@@ -1041,7 +1041,6 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 vol15_avg = float(df_15m['Volume'].rolling(20).mean().iloc[-1])
                 is_15m_volume = vol15 > vol15_avg * 1.4
                 if (is_15m_pinbar or is_15m_engulfing) and is_15m_volume:
-                    entry_valid = True
                     entry_type = "15M PATTERN (Micro Entry)"
                     entry_confidence = 75
             except Exception:

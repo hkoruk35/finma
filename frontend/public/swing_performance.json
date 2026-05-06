@@ -9,7 +9,7 @@
     "above_5pct_rate": 63.0,
     "above_10pct_rate": 36.8,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-05-06T06:11:00.543440"
+    "last_updated": "2026-05-06T06:44:24.291682"
   },
   "history": [
     {
@@ -8759,5 +8759,5 @@
       "result": "PENDING"
     }
   ],
-  "generated_at": "2026-05-06T06:11:00.543456"
+  "generated_at": "2026-05-06T06:44:24.291691"
 }
