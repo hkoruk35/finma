@@ -169,11 +169,6 @@ ENABLE_ALPHA_VALIDATION = False
 ALPHA_VALIDATION_THRESHOLD = 24.0
 ALPHA_VANTAGE_API_KEY = "8S8ZRE3EPTKH0EPJ"
 
-# ================================================================
-# 🔹 GEMINI AI
-# ================================================================
-GEMINI_API_KEY = "AIzaSyA6cu1eE5xyh2-1eEFEdZcMXY7MSzqIPnM"
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
 
 # YENİ:
 SECTOR_ETF_MAP = {
@@ -436,7 +431,9 @@ async def build_atmaca_universe_full() -> List[str]:
                     # 🎯 SNIPER MOD: Sıkışma bölgesindeki hisseleri dahil et.
                     # 🔧 BOGA AI FIX: Hacimli momentum kırılımları (Tier 2) evrene eklendi
                     is_squeeze_candidate = (-0.04 <= roc5 <= 0.06)
-                    is_momentum_breakout = (0.06 < roc5 <= 0.12) and rvol > 2.0
+                    # 🔧 FIX: Momentum breakout eşiği daraltıldı.
+                    # Hareket zaten başlamışsa (>%8) evren taramasına girmesin.
+                    is_momentum_breakout = (0.06 < roc5 <= 0.08) and rvol > 2.5
                     
                     if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
@@ -480,7 +477,7 @@ async def build_atmaca_universe_full() -> List[str]:
 # ================================================================
 # ================================================================
 
-def get_stock_data(ticker: str, interval: Literal["1d", "1h"] = "1d") -> Optional[pd.DataFrame]:
+def get_stock_data(ticker: str, interval: Literal["1d", "1h", "15m"] = "1d") -> Optional[pd.DataFrame]:
     """
     Reads from BULK_DATA_CACHE for 1D (zero network).
     Fetches with yf.Ticker for 1H.
@@ -498,22 +495,25 @@ def get_stock_data(ticker: str, interval: Literal["1d", "1h"] = "1d") -> Optiona
         return None
 
     # 1H — needs network; use retry + backoff to reduce flaky data
+    period_map = {"1h": ("7d", 10), "15m": ("5d", 20)}
+    period_str, min_bars = period_map.get(interval, ("7d", 10))
+
     for attempt in range(3):
         time.sleep(random.uniform(0.15, 0.4) + (attempt * 0.5))
         try:
             stock = yf.Ticker(t)
-            df = stock.history(period="7d", interval="1h", auto_adjust=True, timeout=8)
+            df = stock.history(period=period_str, interval=interval, auto_adjust=True, timeout=8)
             if df is None or df.empty:
                 if attempt < 2:
                     continue
                 return None
             df.columns = [c.capitalize() for c in df.columns]
             df = df.dropna()
-            if len(df) >= 10:
+            if len(df) >= min_bars:
                 return df
         except Exception as e:
             if attempt == 2:
-                logging.error(f"❌ {t} (1h) fetch failed after 3 attempts: {e}")
+                logging.error(f"❌ {t} ({interval}) fetch failed after 3 attempts: {e}")
             continue
     return None
 
@@ -899,7 +899,7 @@ async def analyze_options_sentiment(ticker: str) -> dict:
         for d in exp_dates:
             try:
                 exp_dt = datetime.strptime(d, "%Y-%m-%d").date()
-                if 10 <= (exp_dt - now_date).days <= 45:
+                if 10 <= (exp_dt - now_date).days <= 60:
                     target_date = d; break
             except Exception:
                 continue
@@ -928,7 +928,7 @@ async def analyze_options_sentiment(ticker: str) -> dict:
 # SECTION 4: SUPPORT / RESISTANCE CALCULATION AND TIMING ENGINE
 # ================================================================
 
-def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float, entry_trigger_1d: str = "") -> dict:
+def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float, entry_trigger_1d: str = "", df_15m: pd.DataFrame = None) -> dict:
     """
     BOGA AI TIMING ENGINE (Sniper Module): 
     Combines 1D macro structure and 1H micro price movements.
@@ -1023,6 +1023,30 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 entry_type = "PULLBACK"
                 entry_confidence = 80
 
+        # 🔧 FIX: 15m micro-pattern override — 1H sinyali yoksa 15m'e bak
+        if not entry_valid and df_15m is not None and len(df_15m) >= 20:
+            try:
+                c15 = float(df_15m['Close'].iloc[-1])
+                o15 = float(df_15m['Open'].iloc[-1])
+                h15 = float(df_15m['High'].iloc[-1])
+                l15 = float(df_15m['Low'].iloc[-1])
+                pc15 = float(df_15m['Close'].iloc[-2])
+                po15 = float(df_15m['Open'].iloc[-2])
+                body15 = abs(c15 - o15)
+                lwick15 = min(c15, o15) - l15
+                uwick15 = h15 - max(c15, o15)
+                is_15m_pinbar = (lwick15 > body15 * 2.0) and (uwick15 < body15 * 0.5) and c15 > o15
+                is_15m_engulfing = c15 > o15 and pc15 < po15 and c15 > po15 and o15 < pc15
+                vol15 = float(df_15m['Volume'].iloc[-1])
+                vol15_avg = float(df_15m['Volume'].rolling(20).mean().iloc[-1])
+                is_15m_volume = vol15 > vol15_avg * 1.4
+                if (is_15m_pinbar or is_15m_engulfing) and is_15m_volume:
+                    entry_valid = True
+                    entry_type = "15M PATTERN (Micro Entry)"
+                    entry_confidence = 75
+            except Exception:
+                pass
+                
         # Safety Buffer (If support is too close to price)
         if (current_price - support_1h) < (atr_1d * 0.6):
             support_1h = current_price - (atr_1d * 0.8)
@@ -1589,7 +1613,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         bb_width = bb_width_series.iloc[-1]
         bb_width_avg_50 = bb_width_series.tail(50).mean() if len(bb_width_series) >= 50 else bb_width
         # Current width is less than 60% of the last 50-day average OR absolute value is below 6%
-        is_squeeze = (bb_width < (bb_width_avg_50 * 0.60)) or (bb_width < 0.06)
+        is_squeeze = (bb_width < (bb_width_avg_50 * 0.60)) or (bb_width < 0.05)
 
         # ── ALPHA ENGINE 2: LIQUIDITY HUNT (Failed Breakdown / Spring) ─────
         min_low_10d = low_1d.tail(10).iloc[:-1].min()
@@ -1730,9 +1754,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             cmf_trend_declining = False
 
         # 4. MONEY FLOW DYNAMIC GATE: Akıllı para ivmesi. 
-        # Sadece CMF negatifse VE dağıtım hızlanıyorsa ele. (Hacimsiz Pullback'leri öldürmemek için)
-        if cmf_val < -0.05 and cmf_trend_declining:
-            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f} & Declining (Sert Dağıtım)")
+        if cmf_val < 0.0:
+            layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f} (Dağıtım/Negatif Akış)")
+        elif cmf_val < 0.08 and not (is_squeeze or is_spring):
+            score -= 4.0; details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f} < 0.08)")
             
         # 5. RSI HARD GATE: anything below 45 = weak / has downside potential.
         try:
@@ -1761,11 +1786,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # 2) 1H data (yf.Ticker → network, but only ~50 times)
         df_1h = await asyncio.to_thread(get_stock_data, ticker, "1h")
+        # 🔧 FIX: 15m data — pinbar ve BOS tespiti için
+        df_15m = await asyncio.to_thread(get_stock_data, ticker, "15m")
 
         # ============================================================
 
         score += 6.0
         details.append(f"[OK] LAYER 2: Momentum Confirmed (RVOL:{rvol_micro:.2f}x | Green:{green_candles}/10 | CMF:{cmf_val:.3f})")
+
+            
         if rvol_micro >= 1.60:
             score += 2.0; details.append(f"🔥 Micro-RVOL Aggressive: {rvol_micro:.2f}x")
 
@@ -1859,15 +1888,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         is_exhausted = False
         try:
             roc_3d = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-4])) / float(close_1d.iloc[-4]) * 100 if len(close_1d) >= 4 else 0.0
-            # 🎯 0-DAY SNIPER: 3 günde %8 kopan veya RSI 70'i aşan hisseye Exhausted etiketi vurulur.
-            if roc_3d > 8.0 or rsi_1d_val > 70.0:
+            ret_1d_pct = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2]) * 100 if len(close_1d) >= 2 else 0.0
+            # 🎯 0-DAY SNIPER: Tek günde %5 veya 3 günde %5 kopan hisseye Exhausted vurulur.
+            if roc_3d > 5.0 or rsi_1d_val > 68.0 or ret_1d_pct > 5.0:
                 is_exhausted = True
                 reasons_ex = []
-                if roc_3d > 8.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Too Fast)")
-                if rsi_1d_val > 70.0: reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Overbought)")
-                score -= 15.0; details.append(f"🔴 EXHAUSTED / FOMO: {', '.join(reasons_ex)}")
-            elif 45 <= rsi_1d_val <= 55:
-                score += 4.0; details.append(f"🌅 Early Awakening: RSI {rsi_1d_val:.1f} (Optimal Entry)")
+                if roc_3d > 5.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Too Fast)")
+                if ret_1d_pct > 5.0: reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}% (1D Spike FOMO)")
+                if rsi_1d_val > 68.0: reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Overbought)")
+                score -= 20.0; details.append(f"🔴 EXHAUSTED / FOMO: {', '.join(reasons_ex)}")
         except Exception:
             pass
 
@@ -2033,6 +2062,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             
         if rvol_today > 2.5 and close_change_pct < -0.015:
             return None
+
+        # 🔧 FIX: Tek günde %5+ artmış hisse = geç kalınmış, sinyal verme
+        if close_change_pct > 0.05:
+            score -= 20.0
+            details.append(f"🔴 SINGLE DAY SPIKE: +{close_change_pct*100:.1f}% (Geç Kalınmış, FOMO Riski)")
+        if close_change_pct > 0.08:
+            return None  # %8+ tek günde = kesinlikle elenir
 
         try:
             price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
@@ -2250,6 +2286,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             "score": round(score, 2),
             "df_1d": df_1d,
             "df_1h": df_1h,
+            "df_15m": df_15m,
             "current_price": current_price,
             "entry_price": current_price,
             # ── V115: Selection System Etiketleri ──────────────
@@ -2354,17 +2391,18 @@ def compute_multi_factor_score(c: dict) -> float:
     except Exception: atr_pct = 3.0
     vol_expand = 12.0 if 4.0 <= atr_pct <= 8.0 else 8.0 if (3.0 <= atr_pct < 4.0 or 8.0 < atr_pct <= 10.0) else 4.0 if atr_pct < 3.0 else 2.0
 
-    # V115: RVOL ağırlığı düşürüldü (0.40 → 0.20)
-    # Rationale: En iyi squeeze/VCP setuplarda hacim kasıtlı olarak daralır.
-    # RVOL, kırılmayı doğrular ama seçim kriteri olmamalı.
-    # Trend ve momentum ağırlıkları artırıldı.
+    # BOGA AI FIX: RVOL ağırlığı sistem tipine göre dinamik.
+    sys_cat = c.get("system_category", "Breakout")
+    rvol_weight = 0.20 if sys_cat in ["Contraction", "Reversal"] else 0.40
+    trend_weight = 0.35 if rvol_weight == 0.20 else 0.25
+    ret_weight = 0.25 if rvol_weight == 0.20 else 0.15
     layer3_composite = (
-        rvol_zscore    * 0.20 +   # 0.40 → 0.20 (dry-up tolerance)
-        trend_score    * 0.35 +   # 0.25 → 0.35 (trend kalitesi daha önemli)
-        ret_accel      * 0.25 +   # 0.20 → 0.25 (momentum ivmesi)
-        adx_norm       * 0.10 +   # 0.05 → 0.10 (trend gücü onayı)
-        dv_norm        * 0.05 +   # değişmedi (likidite teyidi)
-        vol_expand     * 0.05     # değişmedi (volatilite rejimi)
+        rvol_zscore    * rvol_weight +
+        trend_score    * trend_weight +
+        ret_accel      * ret_weight +
+        adx_norm       * 0.10 +
+        dv_norm        * 0.05 +
+        vol_expand     * 0.05
     )
     
     final_score = base_score + (layer3_composite * 2.5)
@@ -2516,442 +2554,6 @@ def build_diversified_toplist(candidates: list, max_per_sector: int = MAX_PER_SE
         final_list.extend(remaining[:needed])
     return final_list[:total]
 
-# ================================================================
-# ================================================================
-# SECTION 12: GEMINI AI SUMMARIES (6 LANGUAGES) — BOGA AI Core Engine v115
-# ================================================================
-# ================================================================
-
-def safe_json_parse(text: str):
-    """Improved safe parse function for extracting JSON from AI response."""
-    if not text: return None
-    try:
-    # 1. Clean attempt (if Markdown blocks are cleaned)
-        clean_text = re.sub(r"```json\s*", "", text)
-        clean_text = re.sub(r"```\s*", "", clean_text)
-        clean_text = clean_text.strip()
-        return json.loads(clean_text)
-    except Exception:
-        # 2. Re-search attempt (Search for outermost {} blocks)
-        match = re.search(r"\{.*\}", text, re.DOTALL)
-        if match:
-            try:
-                json_part = match.group()
-                # Clean common JSON errors (trailing comma etc.)
-                json_part = re.sub(r",\s*\}", "}", json_part)
-                json_part = re.sub(r",\s*\]", "]", json_part)
-                return json.loads(json_part)
-            except Exception:
-                pass
-    return None
-
-async def generate_gemini_summary(c: dict, fin_health: dict, zones: dict) -> dict:
-    """
-    BOGA AI 'Kartal Yuvası Alpha Commander v5.5' — High Performance Unified Engine.
-    Produces all languages with a single smart request to overcome Speed and Rate Limit issues.
-    """
-    if not GEMINI_API_KEY:
-        return _fallback_summary(c)
-
-    ticker = c.get("ticker", "")
-    score_100 = c.get("boga_score_100", 0.0)
-    
-    # ── Data Preparation ───────────────────────────────────────────────────────
-    perf = c.get("performance", {})
-    df_1d = c.get("df_1d")
-    ohlc_str = df_1d.tail(10)[['Open', 'High', 'Low', 'Close', 'Volume']].to_string() if df_1d is not None and len(df_1d) >= 10 else "N/A"
-
-    # Context Package
-    ctx = {
-        "ticker": ticker,
-        "company": c.get("company", ticker),
-        "sector": c.get("sector", "Unknown"),
-        "price": c.get("current_price", 0.0),
-        "score": score_100,
-        "trend": c.get("trend_durumu_1d", "Neutral"),
-        "rsi": c.get("rsi_14", 50.0),
-        "adx": c.get("adx", 0.0),
-        "macd": c.get("macd_hist", 0.0),
-        "ema20": c.get("ema20", 0.0),
-        "ema50": c.get("ema50", 0.0),
-        "ema200": c.get("ema200", 0.0),
-        "rev_g": fin_health.get("revenue_growth", 0),
-        "mcap": fin_health.get("market_cap_b", 0),
-        "buy": f"${zones.get('buy_zone',{}).get('low',0):.2f}-${zones.get('buy_zone',{}).get('high',0):.2f}",
-        "target": f"${zones.get('sell_zone',{}).get('high',0):.2f}",
-        "stop": f"${zones.get('stop_zone',{}).get('high',0):.2f}",
-        "rr": f"{zones.get('rr_ratio',0.0):.1f}:1",
-        "ohlc": ohlc_str
-    }
-
-    prompt = f"""
-You are a senior Wall Street Analyst. Analyze {ctx['ticker']} ({ctx['company']}) for global institutional investors.
-Current Context: Price ${ctx['price']} | BOGA Score {ctx['score']}/100 | Trend: {ctx['trend']}
-
-TACTICAL SETUP:
-- Entry: {ctx['buy']}
-- Targets: {ctx['target']}
-- Stop Protection: {ctx['stop']}
-- Risk/Reward: {ctx['rr']}
-
-REAL HISTORICAL DATA (Last 10 Days):
-{ctx['ohlc']}
-
-TASK:
-Return analysis in 6 languages: EN, TR, ES, PT, FR, ID.
-Provide high-res detail (350+ words total) per language using these sections:
-### 1. Business & Sector Context (Core business and catalysts)
-### 2. Market Performance (Price action and volume review)
-### 3. Technical Matrix (MUST include a Markdown table of provided OHLC data + Trend/MA/Verdict: Strong Buy/Buy/Neutral/Sell)
-### 4. Risk Mitigation (Fundamental and market-based risks)
-### 5. Execution Strategy (Clear entry/target/stop logic)
-
-OUTPUT FORMAT: Strict valid JSON.
-{{
-  "homepage": {{ "en": "...", "tr": "...", "es": "...", "pt": "...", "fr": "...", "id": "..." }},
-  "detail":   {{ "en": "Markdown...", "tr": "Markdown...", "es": "...", "pt": "...", "fr": "...", "id": "..." }}
-}}
-"""
-    for attempt in range(2):
-        try:
-            url = f"{GEMINI_API_URL}?key={GEMINI_API_KEY}"
-            payload = {
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {
-                    "temperature": 0.4,
-                    "maxOutputTokens": 8192, # Maximum possible for 6 languages room
-                }
-            }
-            async with aiohttp.ClientSession() as session:
-                async with session.post(url, json=payload, timeout=75) as resp:
-                    if resp.status == 200:
-                        data = await resp.json()
-                        raw_text = data["candidates"][0]["content"]["parts"][0]["text"]
-                        parsed = safe_json_parse(raw_text)
-                        if parsed and "homepage" in parsed and "detail" in parsed:
-                            logging.info(f"[OK] {ticker}: Unified Gemini Analizi Başarılı")
-                            return {{
-                                "homepage_summary": parsed["homepage"],
-                                "detail_summary": parsed["detail"]
-                            }}
-                        else:
-                            logging.error(f"❌ {ticker}: JSON Parsing Error (Attempt {{attempt+1}})")
-                    elif resp.status == 429:
-                        logging.warning(f"⚠️ {ticker}: Rate Limit (Attempt {{attempt+1}})")
-                        await asyncio.sleep(5)
-            await asyncio.sleep(2)
-        except Exception as e:
-            logging.error(f"⚠️ {ticker}: Unified Request Exception: {{e}}")
-    
-    return _fallback_summary(c)
-
-
-# ================================================================
-# FALLBACK — Activates when Gemini API is inaccessible
-# High quality template summaries supported by data, customized per language,
-# in accordance with the "Kartal Yuvası Alpha Commander v5.5" protocol.
-# ================================================================
-
-def _fallback_summary(c: dict) -> dict:
-    """
-    High quality fallback that produces a professional 5-section report even when the API cannot be reached.
-    """
-    ticker = c.get("ticker", ""); company = c.get("company", ticker)
-    price = c.get("current_price", 0.0); score = c.get("boga_score_100", 0.0)
-    trend = c.get("trend_durumu_1d", "Bullish")
-    zones = c.get("boga_zones", {}); buy = zones.get("buy_zone", {"low": 0, "high":0})
-    tgt = zones.get("sell_zone", {"high": 0}); stp = zones.get("stop_zone", {"high": 0})
-    rr = zones.get("rr_ratio", 0.0); sector = c.get("sector", "Market")
-
-    lang_titles = {
-        "en": ["Industry Insight", "Performance Review", "Technical Matrix", "Risk Profile", "Execution Strategy", "Verdict"],
-        "tr": ["Sektörel Bakış", "Performans Değerlendirmesi", "Teknik Analiz", "Risk Profili", "Uygulama Stratejisi", "Karar"],
-        "es": ["Perspectiva Industrial", "Resumen de Desempeño", "Análisis Técnico", "Perfil de Riesgo", "Estrategia de Ejecución", "Veredicto"],
-        "pt": ["Perspectiva Industrial", "Resumo de Desempenho", "Análise Técnica", "Perfil de Risco", "Estratégia de Execução", "Veredito"],
-        "fr": ["Perspective Industrielle", "Revue de Performance", "Analyse Technique", "Profil de Risque", "Stratégie d'Exécution", "Verdict"],
-        "id": ["Wawasan Industri", "Tinjauan Performa", "Analisis Teknikal", "Profil Risiko", "Strategi Eksekusi", "Putusan"]
-    }
-
-    lang_data = {
-        "en": {
-            "desc": f"{company} is showing institutional interest in the {sector} sector. BOGA AI indicates a tactical score of {score:.0f}/100, aligning with the current {trend} volume profile.",
-            "perf": f"The stock is currently trading at ${price:.2f}. Momentum indicators suggest entry is optimal within the identified strategic zones.",
-            "tech": f"Technical matrix shows active bullish accumulation. EMA structures are supportive of the current leg up.",
-            "risk": f"Primary risks involve general market volatility and volume rotation. Disciplined use of stop losses at ${stp.get('high',0):.2f} is mandatory.",
-            "entry": "Entry Zone", "target": "Short-term Target", "stop": "Stop Protection", "rr": "Risk/Reward Reward", "disclaimer": "Not Financial Advice"
-        },
-        "tr": {
-            "desc": f"{company} is attracting institutional interest in the {sector} sector. BOGA AI shows a tactical score of {score:.0f}/100, consistent with the current {trend} volume profile.",
-            "perf": f"The stock is currently trading at ${price:.2f}. Momentum indicators show that entry is optimal in identified strategic zones.",
-            "tech": f"Technical matrix shows active bull accumulation. EMA structures support the current rise.",
-            "risk": f"Basic risks include general market volatility and sector rotation. Disciplined use of stop loss at ${stp.get('high',0):.2f} is mandatory.",
-            "entry": "Entry Zone", "target": "Short-term Target", "stop": "Stop Loss Protection", "rr": "Risk/Reward Ratio", "disclaimer": "Not Investment Advice"
-        },
-        "es": {
-            "desc": f"{company} está mostrando interés institucional en el sector {sector}. BOGA AI indica una puntuación táctica de {score:.0f}/100, alineándose con el perfil de volumen {trend} actual.",
-            "perf": f"La acción cotiza actualmente a ${price:.2f}. Los indicadores de impulso sugieren que la entrada es óptima dentro de las zonas estratégicas identificadas.",
-            "tech": f"La matriz técnica muestra una acumulación alcista activa. Las estructuras de EMA respaldan el tramo actual de subida.",
-            "risk": f"Los riesgos principales incluyen la volatilidad general del mercado y la rotación de volumen. El uso disciplinado de stop loss en ${stp.get('high',0):.2f} es obligatorio.",
-            "entry": "Zona de Entrada", "target": "Objetivo a Corto Plazo", "stop": "Protección de Stop", "rr": "Relación Riesgo/Beneficio", "disclaimer": "No es asesoramiento financiero"
-        },
-        "pt": {
-            "desc": f"{company} está mostrando interesse institucional no setor {sector}. BOGA AI indica uma pontuação tática de {score:.0f}/100, alinhando-se com o perfil de volume {trend} atual.",
-            "perf": f"A ação está sendo negociada atualmente a ${price:.2f}. Os indicadores de momentum sugerem que a entrada é ideal dentro das zonas estratégicas identificadas.",
-            "tech": f"A matriz técnica mostra acumulação de alta ativa. As estruturas de EMA apoiam a perna atual de alta.",
-            "risk": f"Os riscos principais envolvem a volatilidade geral do mercado e a rotação de volume. O uso disciplinado de stop loss em ${stp.get('high',0):.2f} é obrigatório.",
-            "entry": "Zona de Entrada", "target": "Alvo de Curto Prazo", "stop": "Proteção de Stop", "rr": "Relação Risco/Recompensa", "disclaimer": "Não é aconselhamento financeiro"
-        },
-        "fr": {
-            "desc": f"{company} suscite un intérêt institutionnel dans le secteur {sector}. BOGA AI indique un score tactique de {score:.0f}/100, en phase avec le profil de volume {trend} actuel.",
-            "perf": f"L'action se négocie actuellement à ${price:.2f}. Les indicateurs de momentum suggèrent que l'entrée est optimale dans les zones stratégiques identifiées.",
-            "tech": f"La matrice technique montre une accumulation haussière active. Les structures EMA soutiennent la phase de hausse actuelle.",
-            "risk": f"Les principaux risques concernent la volatilité générale du marché et la rotation des volumes. L'utilisation disciplinée des stop loss à ${stp.get('high',0):.2f} est obligatoire.",
-            "entry": "Zone d'Entrée", "target": "Objectif à Court Terme", "stop": "Protection Stop", "rr": "Rapport Risque/Récompense", "disclaimer": "Pas un conseil financier"
-        },
-        "id": {
-            "desc": f"{company} menunjukkan minat institusional di sektor {sector}. BOGA AI menunjukkan skor taktis {score:.0f}/100, selaras dengan profil volume {trend} saat ini.",
-            "perf": f"Saham saat ini diperdagangkan pada ${price:.2f}. Indikator momentum menunjukkan entri optimal dalam zona strategis yang diidentifikasi.",
-            "tech": f"Matriks teknikal menunjukkan akumulasi bullish aktif. Struktur EMA mendukung kenaikan saat ini.",
-            "risk": f"Risiko utama melibatkan volatilitas pasar umum dan rotasi volume. Penggunaan stop loss yang disiplin pada ${stp.get('high',0):.2f} adalah wajib.",
-            "entry": "Zona Masuk", "target": "Target Jangka Pendek", "stop": "Perlindungan Stop", "rr": "Rasio Risiko/Imbalan", "disclaimer": "Bukan Nasihat Keuangan"
-        }
-    }
-
-    homepage_summaries = {
-        "en": f"BOGA AI rates {ticker} at {score:.0f}/100 within a {trend} trend. Macro targets suggest ${tgt.get('high',0):.2f}.",
-        "tr": f"BOGA AI gave a score of {score:.0f}/100 in the {trend} trend for {ticker}. Target zone: ${tgt.get('high',0):.2f}.",
-        "es": f"BOGA AI califica a {ticker} con {score:.0f}/100 en una tendencia {trend}. Los objetivos sugieren ${tgt.get('high',0):.2f}.",
-        "pt": f"BOGA AI avalia {ticker} em {score:.0f}/100 em uma tendência {trend}. Os alvos sugerem ${tgt.get('high',0):.2f}.",
-        "fr": f"BOGA AI évalue {ticker} à {score:.0f}/100 dans une tendance {trend}. Les objectifs suggèrent ${tgt.get('high',0):.2f}.",
-        "id": f"BOGA AI menilai {ticker} pada {score:.0f}/100 dalam tren {trend}. Target makro menunjukkan ${tgt.get('high',0):.2f}."
-    }
-
-    detail_summaries = {}
-    for lang, tags in lang_titles.items():
-        ld = lang_data[lang]
-        detail_summaries[lang] = f"""
-### 1. {tags[0]}
-{ld['desc']}
-
-### 2. {tags[1]}
-{ld['perf']}
-
-### 3. {tags[2]}
-{ld['tech']}
-**{tags[5]}:** BUY / ACCUMULATE
-
-### 4. {tags[3]}
-{ld['risk']}
-
-### 5. {tags[4]}
-- **{ld['entry']}:** ${buy.get('low',0):.2f} - ${buy.get('high',0):.2f}
-- **{ld['target']}:** ${tgt.get('high',0):.2f}
-- **{ld['stop']}:** ${stp.get('high',0):.2f}
-- **{ld['rr']}:** {rr:.1f}:1
-
-*{ld['disclaimer']}*
-"""
-    return {
-        "homepage_summary": homepage_summaries,
-        "detail_summary":   detail_summaries,
-    }
-
-
-
-    # ── RSI context translated into human language ───────────────────────────────────
-    if rsi >= 70:
-        rsi_ctx_en = f"RSI at {rsi:.0f} — the stock is in overbought territory, so a brief pullback before the next leg up is possible"
-        rsi_ctx_tr = f"RSI {rsi:.0f} in overbought territory — a pullback after short-term rise could continue"
-        rsi_ctx_es = f"RSI en {rsi:.0f} — sobrecomprado, posible corrección breve antes de continuar al alza"
-        rsi_ctx_pt = f"RSI em {rsi:.0f} — sobrecomprado, possível recuo breve antes de continuar em alta"
-        rsi_ctx_fr = f"RSI à {rsi:.0f} — suracheté, une correction courte est possible avant la prochaine hausse"
-        rsi_ctx_id = f"RSI di {rsi:.0f} — jenuh beli, koreksi singkat mungkin terjadi sebelum melanjutkan naik"
-    elif rsi >= 55:
-        rsi_ctx_en = f"RSI at {rsi:.0f} — momentum is building in the healthy bullish zone without being overextended"
-        rsi_ctx_tr = f"RSI {rsi:.0f} in healthy bullish territory — momentum is strengthening without going too far"
-        rsi_ctx_es = f"RSI en {rsi:.0f} — impulso saludable, sin sobreextensión"
-        rsi_ctx_pt = f"RSI em {rsi:.0f} — momentum saudável, sem sobreextensão"
-        rsi_ctx_fr = f"RSI à {rsi:.0f} — momentum haussier sain, sans surextension"
-        rsi_ctx_id = f"RSI di {rsi:.0f} — momentum bullish sehat, tidak berlebihan"
-    else:
-        rsi_ctx_en = f"RSI at {rsi:.0f} — still neutral; a catalyst is needed to confirm the breakout"
-        rsi_ctx_tr = f"RSI {rsi:.0f} in neutral territory — catalyst expected to confirm breakout"
-        rsi_ctx_es = f"RSI en {rsi:.0f} — neutral, se necesita catalizador para confirmar la ruptura"
-        rsi_ctx_pt = f"RSI em {rsi:.0f} — neutro, precisa de catalisador para confirmar o rompimento"
-        rsi_ctx_fr = f"RSI à {rsi:.0f} — neutre, un catalyseur est nécessaire pour confirmer la cassure"
-        rsi_ctx_id = f"RSI di {rsi:.0f} — netral, butuh katalis untuk konfirmasi breakout"
-
-    # ── ADX context ──────────────────────────────────────────────────────────
-    if adx >= 25:
-        adx_ctx_en = f"with ADX at {adx:.0f} confirming a genuine trend"
-        adx_ctx_tr = f"ADX {adx:.0f} confirms the existence of a real trend"
-        adx_ctx_es = f"con ADX en {adx:.0f} confirmando una tendencia real"
-        adx_ctx_pt = f"com ADX em {adx:.0f} confirmando uma tendência real"
-        adx_ctx_fr = f"avec un ADX à {adx:.0f} confirmant une vraie tendance"
-        adx_ctx_id = f"dengan ADX {adx:.0f} mengkonfirmasi tren nyata"
-    else:
-        adx_ctx_en = f"though ADX at {adx:.0f} suggests the trend is still maturing"
-        adx_ctx_tr = f"but ADX {adx:.0f} points to the trend still being in maturation phase"
-        adx_ctx_es = f"aunque el ADX en {adx:.0f} indica que la tendencia aún madura"
-        adx_ctx_pt = f"embora ADX em {adx:.0f} indique que a tendência ainda está se formando"
-        adx_ctx_fr = f"bien que l'ADX à {adx:.0f} suggère que la tendance est encore en formation"
-        adx_ctx_id = f"meskipun ADX {adx:.0f} menunjukkan tren masih dalam pematangan"
-
-    # ── MACD context ─────────────────────────────────────────────────────────
-    macd_dir_en = "positive MACD histogram" if macd_h > 0 else "MACD histogram turning negative"
-    macd_dir_tr = "positive MACD histogram" if macd_h > 0 else "MACD histogram turning negative"
-    macd_dir_es = "histograma MACD positivo" if macd_h > 0 else "histograma MACD girando negativo"
-    macd_dir_pt = "histograma MACD positivo" if macd_h > 0 else "histograma MACD virando negativo"
-    macd_dir_fr = "histogramme MACD positif" if macd_h > 0 else "histogramme MACD virant négatif"
-    macd_dir_id = "histogram MACD positif" if macd_h > 0 else "histogram MACD berbalik negatif"
-
-    # ── Valuation context ────────────────────────────────────────────────────
-    if pe > 40:
-        pe_ctx_en = f"At P/E {pe:.0f}x, the valuation is high — which means the market expects strong growth; any earnings miss could trigger a sharp correction"
-        pe_ctx_tr = f"P/E {pe:.0f}x valuation is high — market expects strong growth; earnings disappointment could trigger sharp correction"
-        pe_ctx_es = f"Con P/E {pe:.0f}x, la valoración es elevada — el mercado exige crecimiento sostenido; una decepción en ganancias podría generar corrección"
-        pe_ctx_pt = f"Com P/L {pe:.0f}x, a avaliação é alta — o mercado exige crescimento forte; uma decepção nos lucros pode gerar correção"
-        pe_ctx_fr = f"Avec un P/E à {pe:.0f}x, la valorisation est élevée — le marché exige une forte croissance; une déception sur les bénéfices pourrait provoquer une correction"
-        pe_ctx_id = f"Dengan P/E {pe:.0f}x, valuasi tinggi — pasar mengharapkan pertumbuhan kuat; kekecewaan laba dapat memicu koreksi tajam"
-    elif pe > 0:
-        pe_ctx_en = f"P/E at {pe:.0f}x is reasonable for the sector, leaving room for re-rating if earnings accelerate"
-        pe_ctx_tr = f"P/E {pe:.0f}x is reasonable for the sector — potential for re-valuation if earnings accelerate"
-        pe_ctx_es = f"P/E de {pe:.0f}x es razonable para el sector, con margen de revalorización si los beneficios aceleran"
-        pe_ctx_pt = f"P/L de {pe:.0f}x é razoável para o setor, com espaço para reavaliação se os lucros acelerarem"
-        pe_ctx_fr = f"Le P/E à {pe:.0f}x est raisonnable pour le secteur, avec une marge de revalorisation si les bénéfices s'accélèrent"
-        pe_ctx_id = f"P/E {pe:.0f}x wajar untuk sektor ini, dengan ruang rerating jika laba meningkat"
-    else:
-        pe_ctx_en = "Valuation data is limited — weight technical signals more heavily for this setup"
-        pe_ctx_tr = "Valuation data limited — give more weight to technical signals in this setup"
-        pe_ctx_es = "Datos de valoración limitados — priorizar señales técnicas para este setup"
-        pe_ctx_pt = "Dados de avaliação limitados — priorizar sinais técnicos neste setup"
-        pe_ctx_fr = "Données de valorisation limitées — privilégier les signaux techniques pour ce setup"
-        pe_ctx_id = "Data valuasi terbatas — lebih utamakan sinyal teknikal untuk setup ini"
-
-    # ════════════════════════════════════════════════════════════════════════
-    # SUMMARIES — 6 LANGUAGES
-    # ════════════════════════════════════════════════════════════════════════
-
-    summaries = {}
-
-    # ── EN — English ─────────────────────────────────────────────────────────
-    summaries["en"] = (
-        # homepage
-        f"BOGA AI assigns {ticker} a score of {score:.0f}/100 in a {trend} trend — "
-        f"entry zone ${buy_low:.2f}–${buy_high:.2f} targets ${sell_h:.2f} with a {rr:.1f}:1 risk/reward.",
-
-        # detail
-        f"{company} operates in the {sector} sector, and BOGA AI's algorithm flagged it "
-        f"with a {score:.0f}/100 score after detecting institutional accumulation signals aligned "
-        f"with a {trend} daily trend. "
-        f"On the technical side, {rsi_ctx_en}, {adx_ctx_en}, "
-        f"and the {macd_dir_en} reinforces the directional bias. "
-        f"Fundamentally, the company is growing revenue at {rev_g:.1f}% with a net margin of {net_m:.1f}%, "
-        f"which means it keeps ${net_m:.1f} of profit for every $100 in sales. "
-        f"{pe_ctx_en}. "
-        f"The tactical setup: buy between ${buy_low:.2f} and ${buy_high:.2f}, "
-        f"target ${sell_h:.2f}, and place a hard stop at ${stop_h:.2f} — "
-        f"a {rr:.1f}:1 reward-to-risk ratio that makes this a disciplined swing trade candidate."
-    )
-
-    # ── TR — Turkish ───────────────────────────────────────────────────────────
-    summaries["tr"] = (
-        # homepage
-        f"BOGA AI gave {ticker} a score of {score:.0f}/100 in {trend} trend — "
-        f"${buy_low:.2f}–${buy_high:.2f} entry zone, ${sell_h:.2f} target, {rr:.1f}:1 risk/reward ratio.",
-
-        # detail
-        f"{company} operates in the {sector} sector and BOGA AI algorithm, "
-        f"detecting institutional accumulation signals and {trend} daily trend, assigned {score:.0f}/100 score to the stock. "
-        f"On the technical side {rsi_ctx_tr}, {adx_ctx_tr} and {macd_dir_tr} support directional bias. "
-        f"From a fundamental perspective, while company grows revenue by {rev_g:.1f}%, "
-        f"net profit margin is {net_m:.1f}% — meaning it makes {net_m:.1f} dollars profit from every 100 dollars of sales. "
-        f"{pe_ctx_tr}. "
-        f"Operational plan: Entry from ${buy_low:.2f}–${buy_high:.2f} range, "
-        f"${sell_h:.2f} profit target, ${stop_h:.2f} hard stop — "
-        f"{rr:.1f}:1 risk/reward ratio makes it a disciplined swing trade opportunity."
-    )
-
-    # ── ES — Español ──────────────────────────────────────────────────────────
-    summaries["es"] = (
-        # homepage
-        f"BOGA AI otorga a {ticker} una puntuación de {score:.0f}/100 en tendencia {trend} — "
-        f"zona de entrada ${buy_low:.2f}–${buy_high:.2f}, objetivo ${sell_h:.2f}, relación riesgo/beneficio {rr:.1f}:1.",
-
-        # detail
-        f"{company} opera en el sector {sector}, y el algoritmo BOGA AI le asignó {score:.0f}/100 "
-        f"al detectar señales de acumulación institucional alineadas con una tendencia {trend} diaria. "
-        f"Técnicamente, {rsi_ctx_es}, {adx_ctx_es}, "
-        f"y el {macd_dir_es} refuerza el sesgo direccional. "
-        f"En lo fundamental, la empresa crece sus ingresos al {rev_g:.1f}% con un margen neto del {net_m:.1f}% — "
-        f"es decir, retiene ${net_m:.1f} de ganancia por cada $100 en ventas. "
-        f"{pe_ctx_es}. "
-        f"El plan táctico: comprar entre ${buy_low:.2f} y ${buy_high:.2f}, "
-        f"objetivo ${sell_h:.2f}, stop definitivo en ${stop_h:.2f} — "
-        f"una relación recompensa/riesgo de {rr:.1f}:1 que lo convierte en candidato ideal para swing trade."
-    )
-
-    # ── PT — Português ────────────────────────────────────────────────────────
-    summaries["pt"] = (
-        # homepage
-        f"BOGA AI atribui ao {ticker} uma pontuação de {score:.0f}/100 em tendência {trend} — "
-        f"zona de entrada ${buy_low:.2f}–${buy_high:.2f}, alvo ${sell_h:.2f}, relação risco/retorno {rr:.1f}:1.",
-
-        # detail
-        f"{company} atua no setor de {sector}, e o algoritmo BOGA AI atribuiu {score:.0f}/100 "
-        f"ao detectar sinais de acumulação institucional alinhados com uma tendência {trend} diária. "
-        f"No âmbito técnico, {rsi_ctx_pt}, {adx_ctx_pt}, "
-        f"e o {macd_dir_pt} reforça o viés direcional. "
-        f"Nos fundamentos, a empresa cresce receita a {rev_g:.1f}% com margem líquida de {net_m:.1f}% — "
-        f"ou seja, retém ${net_m:.1f} de lucro para cada $100 em vendas. "
-        f"{pe_ctx_pt}. "
-        f"O plano tático: comprar entre ${buy_low:.2f} e ${buy_high:.2f}, "
-        f"alvo ${sell_h:.2f}, stop definitivo em ${stop_h:.2f} — "
-        f"uma relação retorno/risco de {rr:.1f}:1 que o torna candidato ideal para swing trade."
-    )
-
-    # ── FR — Français ─────────────────────────────────────────────────────────
-    summaries["fr"] = (
-        # homepage
-        f"BOGA AI attribue à {ticker} un score de {score:.0f}/100 en tendance {trend} — "
-        f"zone d'entrée ${buy_low:.2f}–${buy_high:.2f}, objectif ${sell_h:.2f}, ratio risque/rendement {rr:.1f}:1.",
-
-        # detail
-        f"{company} opère dans le secteur {sector}, et l'algorithme BOGA AI lui a attribué {score:.0f}/100 "
-        f"après avoir détecté des signaux d'accumulation institutionnelle alignés sur une tendance {trend} journalière. "
-        f"Techniquement, {rsi_ctx_fr}, {adx_ctx_fr}, "
-        f"et le {macd_dir_fr} renforce le biais directionnel. "
-        f"Sur le plan fondamental, l'entreprise affiche une croissance des revenus de {rev_g:.1f}% "
-        f"avec une marge nette de {net_m:.1f}% — soit ${net_m:.1f} de bénéfice pour chaque $100 de ventes. "
-        f"{pe_ctx_fr}. "
-        f"Le plan tactique : achat entre ${buy_low:.2f} et ${buy_high:.2f}, "
-        f"objectif ${sell_h:.2f}, stop définitif à ${stop_h:.2f} — "
-        f"un ratio rendement/risque de {rr:.1f}:1 qui en fait un candidat idéal pour le swing trade."
-    )
-
-    # ── ID — Bahasa Indonesia ─────────────────────────────────────────────────
-    summaries["id"] = (
-        # homepage
-        f"BOGA AI memberi {ticker} skor {score:.0f}/100 dalam tren {trend} — "
-        f"zona beli ${buy_low:.2f}–${buy_high:.2f}, target ${sell_h:.2f}, rasio risiko/imbalan {rr:.1f}:1.",
-
-        # detail
-        f"{company} beroperasi di sektor {sector}, dan algoritma BOGA AI menetapkan skor {score:.0f}/100 "
-        f"setelah mendeteksi sinyal akumulasi institusional yang selaras dengan tren {trend} harian. "
-        f"Secara teknikal, {rsi_ctx_id}, {adx_ctx_id}, "
-        f"dan {macd_dir_id} memperkuat bias arah pergerakan. "
-        f"Secara fundamental, perusahaan tumbuh pendapatannya {rev_g:.1f}% dengan margin bersih {net_m:.1f}% — "
-        f"artinya setiap $100 penjualan menghasilkan ${net_m:.1f} keuntungan bersih. "
-        f"{pe_ctx_id}. "
-        f"Rencana taktis: beli di antara ${buy_low:.2f} dan ${buy_high:.2f}, "
-        f"target ${sell_h:.2f}, stop ketat di ${stop_h:.2f} — "
-        f"rasio imbalan/risiko {rr:.1f}:1 menjadikannya kandidat swing trade yang terukur."
-    )
-
-    return {
-        "homepage_summary": {k: v[0] for k, v in summaries.items()},
-        "detail_summary":   {k: v[1] for k, v in summaries.items()},
-    }
 
 # ================================================================
 # ================================================================
@@ -3032,7 +2634,6 @@ def build_json_output(top10: list, generated_at: str) -> dict:
         price    = c.get("current_price", 0.0)
         zones    = c.get("boga_zones", {})
         fin      = c.get("financial_health", {})
-        summ     = c.get("ai_summary", {})
         perf     = c.get("performance", {})
         d1       = c.get("d1_summary", {})
         h1       = c.get("h1_summary", {})
@@ -3099,8 +2700,8 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "BREAKOUT":  {"text": "Trend Breakout",     "color": "red"},
                 "MOMENTUM":  {"text": "Momentum Play",      "color": "gray"},
             }.get(c.get("selection_system", "MOMENTUM"), {"text": "Momentum Play", "color": "gray"}),
-            "reasoning": summ.get("homepage_summary", {}).get("en", "BOGA AI analysis in progress..."),
-            "detail_reasoning": summ.get("detail_summary", {}).get("en", ""),            
+            "reasoning": f"BOGA AI Score: {c.get('boga_score_100', 0.0)} | System: {c.get('selection_system', 'MOMENTUM')}",
+            "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
             "adx": c.get("adx", 0.0),
             "rsi": c.get("rsi_14", 50.0),
             "rvol": c.get("rvol_today", 1.0),
@@ -3193,11 +2794,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "raw_score":     c.get("score", 0.0),
             },
 
-            # ── BOGA AI SUMMARIES (6 LANGUAGES) ───────────────────────────
-            "ai_summary": {
-                "homepage_summary": summ.get("homepage_summary", {}),
-                "detail_summary":   summ.get("detail_summary", {}),
-            },
+
         }
         picks.append(pick)
 
@@ -3689,7 +3286,7 @@ async def scan_top_stocks():
     for c in top_candidates:
         trigger = c.get("entry_trigger", "")
         zones = calculate_support_resistance_1h(
-            c.get("df_1h"), c.get("df_1d"), c.get("current_price", 0.0), trigger
+            c.get("df_1h"), c.get("df_1d"), c.get("current_price", 0.0), trigger, c.get("df_15m")
         )
         
         c["boga_zones"] = zones
@@ -3749,14 +3346,6 @@ async def scan_top_stocks():
         c["performance"] = get_price_performance(c.get("df_1d", pd.DataFrame()), c["ticker"])
         db_info = COMPANY_DATABASE.get(c["ticker"], {})
         c["company"] = db_info.get("name", c["ticker"])
-    # ── STEP 11: GEMINI AI SUMMARIES ───────────────────────────────────
-    logging.info("🤖 Generating Gemini AI summaries...")
-    for c in top_20_candidates:
-        fin_health = c.get("financial_health", {})
-        zones = c.get("boga_zones", {})
-        summary = await generate_gemini_summary(c, fin_health, zones)
-        c["ai_summary"] = summary
-        await asyncio.sleep(0.5)  # Gemini rate limit protection
 
     # ── STEP 12: JSON OUTPUT (inday313 and Archive Synchronization) ──────────
     now_ny = datetime.now(NY_TZ)

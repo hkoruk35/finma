@@ -1,58 +1,26 @@
 [
   {
-    "Date": "5 May",
-    "Symbol": "CX",
+    "Date": "6 May",
+    "Symbol": "UDR",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 13.66,
-    "Target 2 (TP2)": 13.86
+    "Target 1 (TP1)": 38.18,
+    "Target 2 (TP2)": 38.43
   },
   {
-    "Date": "5 May",
-    "Symbol": "CUBE",
+    "Date": "6 May",
+    "Symbol": "SWKS",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 40.53,
-    "Target 2 (TP2)": 40.79
+    "Target 1 (TP1)": 76.34,
+    "Target 2 (TP2)": 77.08
   },
   {
-    "Date": "5 May",
-    "Symbol": "XHR",
+    "Date": "6 May",
+    "Symbol": "VOYA",
     "Entry (Buy_L)": 0.0,
     "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 17.53,
-    "Target 2 (TP2)": 17.7
-  },
-  {
-    "Date": "5 May",
-    "Symbol": "TTMI",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 176.61,
-    "Target 2 (TP2)": 179.92
-  },
-  {
-    "Date": "5 May",
-    "Symbol": "ASX",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 35.42,
-    "Target 2 (TP2)": 35.88
-  },
-  {
-    "Date": "5 May",
-    "Symbol": "APLE",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 14.07,
-    "Target 2 (TP2)": 14.16
-  },
-  {
-    "Date": "5 May",
-    "Symbol": "ON",
-    "Entry (Buy_L)": 0.0,
-    "Stop (SL)": 0.0,
-    "Target 1 (TP1)": 109.33,
-    "Target 2 (TP2)": 110.69
+    "Target 1 (TP1)": 86.7,
+    "Target 2 (TP2)": 87.44
   }
 ]
