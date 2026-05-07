@@ -23,8 +23,8 @@ function Set-BogaTask {
     Enable-ScheduledTask -TaskName $Name
 }
 
-# 1. Swing Bot (v115) - 18:00 NY (Weekdays)
-Set-BogaTask -Name "BOGA_AI_Swing_Scanner" -Script "swing115_boga.py" -Args "--oneshot" -StartTime "18:00:00"
+# 1. Swing Bot (v115) - 13:00 NY (Weekdays)
+Set-BogaTask -Name "BOGA_AI_Swing_Scanner" -Script "swing115_boga.py" -Args "--oneshot" -StartTime "13:00:00"
 
 # 2. Options Bot (v8.0) - 11:00 NY (Weekdays) - CORRECTED
 Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "opsiyon218v8.py" -Args "--oneshot" -StartTime "11:00:00"

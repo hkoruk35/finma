@@ -12,7 +12,7 @@ V115 YENİLİKLER:
   6. JSON: by_system gruplaması + system_summary
   7. ADX: Level-bazlı değil, slope-bazlı puanlama (optimal giriş tespiti)
   8. Composite: RVOL ağırlığı 0.40 → 0.20 (dry-up/VCP tolerance)
-  9. Earnings filter: 3 gün → 5 gün (swing hold buffer)
+  9. Earnings filter: 3 gün → 14 gün (swing hold buffer)
  10. VIX entegrasyonu: Market regime'e VIX overlay eklendi
  11. Backtest altyapısı: Peak tracker + sistem bazlı winrate birikimi
 ================================================================
@@ -144,7 +144,7 @@ ADX_MIN_LEVEL_1D = 18
 OBV_TREND_DAYS = 10
 VOLUME_INCREASE_LOOKBACK = 5
 
-RSI_MIN_SWING = 42  # 🔧 FIX: 35 → 42. Aşırı zayıf hisseler (downtrend) elensin.
+RSI_MIN_SWING = 35  # 🎯 SNIPER MOD: 45 → 35. Sıkışma (Base building) bölgesi patlama öncesi optimal zondur.
 RSI_MAX_SWING = 75  # 🎯 SNIPER MOD: 72 → 75. Momentum breakout'larda 75'e kadar tolerans.
 
 MIN_RR_RATIO = 1.5         # 🔧 FIX: 1.2 → 1.5 (gerçekçi swing min)
@@ -1005,41 +1005,25 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             # --- ENTRY SCENARIOS (Signal Triggers) ---
             is_liquidity_sweep = (curr_l < support_1h) and (curr_c > support_1h)
             
-            # 🚨 FIX 1: BOS Bug - current candle dahil edilmedi, gerçek breakout tespiti
-            recent_local_high = float(high_1h.iloc[-11:-1].max()) if len(high_1h) >= 11 else float(high_1h.iloc[:-1].max())
+            recent_local_high = float(high_1h.tail(10).max())
             is_bos = (curr_c > recent_local_high) and volume_spike_breakout
 
             is_pullback = (support_1h <= curr_l <= support_1h + (atr_1d * 0.3))
 
-            # ── ERKEN MOMENTUM TESPİTİ (Sessiz Kırılımlar İçin) ──
-            try:
-                ema20_1h_val = float(EMAIndicator(close_1h, 20).ema_indicator().iloc[-1])
-                roc_1h = ((curr_c - prev_c) / prev_c) * 100 if prev_c > 0 else 0.0
-                is_early_momentum = (curr_c > ema20_1h_val) and (roc_1h > 0.8) and (curr_v > vol_avg_20 * 1.15)
-            except Exception:
-                is_early_momentum = False
-
-            # --- FINAL DECISION (Giriş Öncelik Hiyerarşisi) ---
+            # --- FINAL DECISION ---
             if is_liquidity_sweep and (is_pinbar or volume_spike_sweep):
                 entry_valid = True
                 entry_type = "REVERSAL (Liquidity Sweep)"
                 entry_confidence = 95
-                
             elif is_bos:
                 entry_valid = True
                 entry_type = "BREAKOUT (BOS)"
                 entry_confidence = 85
-                
-            elif is_early_momentum:
-                entry_valid = True
-                entry_type = "EARLY MOMENTUM"
-                entry_confidence = 80
-                
             elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike_breakout:
                 entry_valid = True
                 entry_type = "PULLBACK"
                 entry_confidence = 80
-                
+
         # 🔧 FIX: 15m micro-pattern iptal edildi. Swing işlemlerde intraday (15m) gürültü sahte onaya sebep olur.
         pass
                 
@@ -1080,12 +1064,9 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         structural_reward = resist_1h - avg_entry
         reward = max(risk * 2.0, structural_reward) if structural_reward > 0 else risk * 2.5
         
-        # 🚨 FIX 7: R/R Tavanı — exhausted/late hissede 4x, momentum liderinde 6x.
-        # "Early Awakening" veya "Squeeze" sinyali varsa asymmetry korunur.
-        is_momentum_entry = entry_trigger_1d and any(k in entry_trigger_1d for k in ["Squeeze", "Awakening", "Momentum", "Spring"])
-        rr_cap = 6.0 if is_momentum_entry else 4.0
-        if reward > risk * rr_cap:
-            reward = risk * rr_cap
+        # R/R Tavanı (Aşırı uçuk hedefleri normalize etmek için)
+        if reward > risk * 4.0:
+            reward = risk * 4.0
 
         sell_zone_low  = round(avg_entry + reward * 0.85, 2)
         sell_zone_high = round(avg_entry + reward, 2)
@@ -1203,7 +1184,7 @@ def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
         return None
 
 
-def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:  # 🔧 FIX: 5 → 5 gün (V115 spec: "3 gün → 5 gün")
+def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:
     try:
         earnings_date = get_earnings_date_safe(ticker)
         if earnings_date is None: return True
@@ -1512,10 +1493,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         sector_name = cached_info.get("sector", "Unknown")
         short_float = cached_info.get("short_float", 0.0)
 
-        # 🎯 0-DAY SNIPER HARD REJECTS
-        # 🚨 FIX: Sektöre özel (Utilities red / Real Estate istisnası) kurallar tamamen silindi.
-        # Algoritma isimlere/sektörlere değil, saf hıza (Beta matematiğine) odaklanacak şekilde hizalandı.
-        if beta > 0 and beta < ATMACA_MIN_BETA:
+        # 🎯 0-DAY SNIPER HARD REJECTS (OpenAI Fix)
+        # 7 günde hedefe gidemeyecek kadar hantal sektörleri ve piyasadan yavaş (Beta < 0.85) hisseleri direkt çöpe at.
+        if sector_name in ["Utilities"]:  # 🔧 BOGA AI FIX: Real Estate çıkarıldı, özel kurallarla işlenecek
+            return None
+        if beta > 0 and beta < 0.85 and sector_name != "Real Estate": # 🔧 BOGA AI FIX: REIT'ler düşük betalıdır, tolere et
             return None
 
         # 1D data → From BULK_DATA_CACHE (0 ms, yf.download already loaded)
@@ -1654,13 +1636,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score -= 2.0; details.append(f"🟡 ADX: Very Weak ({adx_1d:.1f})")
 
-        # 🚨 FIX 5: ADX Double Counting düzeltildi (slope puanları düşürüldü).
+        # Slope puanı: Aşırı puan şişirmesini engellemek için normalize edildi (Double-counting fix)
         if adx_slope > 0.8:
-            score += 2.0; details.append(f"⚡ ADX Slope: Aggressive (+{adx_slope:.2f}/bar)")
+            score += 4.0; details.append(f"⚡ ADX Slope: Aggressive Acceleration (+{adx_slope:.2f}/bar)")
         elif adx_slope > 0.3:
-            score += 1.0; details.append(f"📈 ADX Slope: Rising ({adx_slope:.2f}/bar)")
+            score += 2.0; details.append(f"📈 ADX Slope: Rising ({adx_slope:.2f}/bar)")
         elif adx_slope < -0.5:
-            score -= 3.0; details.append(f"🐌 ADX Slope: Fading ({adx_slope:.2f}/bar)")
+            score -= 4.0; details.append(f"🐌 ADX Slope: Fading Fast ({adx_slope:.2f}/bar)")
  
 
         # ── LAYER 2: FLOW & MOMENTUM FILTER ─────────────────────
@@ -1678,20 +1660,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             rvol_micro = 0.0
         rvol_5_30 = rvol_micro
 
-        # 1. VOLUME TIGHTENED: Hacim Kuruması (Dry-up) Filtreleri
+        # 1. VOLUME TIGHTENED: 0.90 was too loose — sideways stocks easily clear it.
+        # 🔧 BOGA AI FIX: REIT'lerin hacimleri yapısal olarak stabildir, istisna sağlandı
         min_rvol_required = 0.80 if sector_name == "Real Estate" else 1.05
-        
-        # 🚨 FIX 3: Pre-breakout ignition (Dirence çok yakın sıkışma) durumunda hacimsizliği tolere et.
-        try:
-            macro_resist = float(high_1d.tail(15).max())
-            breakout_distance = (macro_resist - current_price) / current_price
-            # Fiyat dirence %2.5'ten daha yakınsa, kopuş öncesi hacim sessizliği çok sağlıklıdır. Eşiği esnet.
-            if 0 <= breakout_distance < 0.025: 
-                min_rvol_required = min(min_rvol_required, 0.85)
-        except Exception: 
-            pass
-
-        # 🔧 FİNAL KONTROL: Squeeze, Spring veya dirence yakın formasyonlarda hacim daralmasına izin ver.
+        # 🔧 FIX: AMD gibi hisselerde Squeeze (Daralma) veya Spring sırasında hacim kuruması normaldir, bunu tolere et.
         if rvol_micro < min_rvol_required and not (is_squeeze or is_spring):
             layer2_pass = False; layer2_reasons.append(f"Micro-RVOL={rvol_micro:.2f}<{min_rvol_required}")
 
@@ -1702,18 +1674,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             ema200_val = float(ema200_1d.iloc[-1])
             
             # 🎯 SNIPER MOD: EMA200 yeterli. EMA50 altındaki base-building (sıkışma) hisseler dahil.
-            # 🚨 FIX: EMA200 altındaki Squeeze (Daralma) bir Ayı Bayrağıdır (Bear Flag). Sadece SPRING'e izin ver.
-            if current_price < ema200_val and not is_spring:
-                layer2_pass = False; layer2_reasons.append("Below EMA200 without spring")
+            # Ek güvence: BB squeeze veya spring varsa EMA50 koşulu esnetilir.
+            if current_price < ema200_val and not (is_squeeze or is_spring):
+                layer2_pass = False; layer2_reasons.append("Below EMA200 without squeeze/spring")
             
             if len(close_1d) >= 6:
                 ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
                 # 🎯 SNIPER MOD: 5D return koşulu -5%'e çekildi.
                 # Pullback içinde sıkışan hisseler en iyi patlama adaylarıdır.
-                # 🚨 FIX: -5.0 → -3.5. 5 günde -%5 düşen hisse pullback değil, kan kaybediyor.
-                if ret_5d_pct < -3.5:
+                if ret_5d_pct < -5.0:
                     layer2_pass = False
-                    layer2_reasons.append(f"5-day return {ret_5d_pct:.2f}% (bleeding/downtrend)")
+                    layer2_reasons.append(f"5-day return {ret_5d_pct:.2f}% (deep downtrend)")
                 # (Yatay hisseler artık reddedilmiyor çünkü yataylık = Squeeze demektir)
         except Exception:
             pass
@@ -1732,8 +1703,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             green_candles = 0
         # 🔧 FIX: 3 green candles out of 10 was too loose — half are red/down. Need 5+.
         # 🔧 BOGA AI FIX: REIT'ler defansif yapıları gereği konsolide olur, 4 yeşil mum tolere edilir.
-        # 🔧 FIX: Squeeze/Spring sırasında kırmızı mumlar konsolidasyon belirtisidir — 3'e indir.
-        min_green_required = 4 if sector_name == "Real Estate" else 3 if (is_squeeze or is_spring) else 5
+        min_green_required = 4 if sector_name == "Real Estate" else 5
         if green_candles < min_green_required:
             layer2_pass = False; layer2_reasons.append(f"Green candles={green_candles}<{min_green_required} (no upward bias)")
             
@@ -1761,13 +1731,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             cmf_trend_declining = False
 
         # 4. MONEY FLOW DYNAMIC GATE: Akıllı para ivmesi. 
-        # 4. MONEY FLOW DYNAMIC GATE
-        # 🔧 FIX: 0.0 → -0.05. Squeeze aşamasında CMF geçici negatife düşer (dry-up normaldir).
-        # Gerçek dağıtım sinyali -0.05 altındadır.
-        if cmf_val < -0.05 and not (is_squeeze or is_spring):
+        if cmf_val < 0.0:
             layer2_pass = False; layer2_reasons.append(f"CMF={cmf_val:.3f} (Dağıtım/Negatif Akış)")
-        elif cmf_val < 0.0 and not (is_squeeze or is_spring):
-            score -= 2.0; details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f})")
         elif cmf_val < 0.08 and not (is_squeeze or is_spring):
             score -= 4.0; details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f} < 0.08)")
             
@@ -1785,9 +1750,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             pass
 
         # 6. TREND STATUS GATE: explicit downtrend reject.
-        # 🚨 FIX: is_spring (Tuzak/Dip Dönüşü) durumunda downtrend olması normaldir, istisna sağlandı.
-        if trend_durumu_1d == "Downtrend" and not is_spring:
-            layer2_pass = False; layer2_reasons.append("Trend Status=Downtrend (No Spring)")
+        if trend_durumu_1d == "Downtrend":
+            layer2_pass = False; layer2_reasons.append("Trend Status=Downtrend")
 
         if not layer2_pass:
             return None
@@ -1804,9 +1768,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # 2) 1H data (yf.Ticker → network, but only ~50 times)
         df_1h = await asyncio.to_thread(get_stock_data, ticker, "1h")
-        # 🚀 FIX: 15m analizini önceki yamalarda iptal etmiştik. Boşuna veri çekip 
-        # API'yi yormamak ve botu hızlandırmak için fetch işlemi kapatıldı.
-        df_15m = None
+        # 🔧 FIX: 15m data — pinbar ve BOS tespiti için
+        df_15m = await asyncio.to_thread(get_stock_data, ticker, "15m")
 
         # ============================================================
 
@@ -1849,13 +1812,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         
         # YENİ:
         # 🎯 0-DAY SNIPER: 7 günde %10 hedefi için düşük volatilite kabul edilemez.
-        # 🎯 0-DAY SNIPER: 7 günde %10 hedefi için düşük volatilite kabul edilemez.
-        # 🔧 FIX: Squeeze aşamasında ATR geçici düşer (BB daralması = düşük ATR normaldir), muafiyet ekle.
         if atr_pct_1d < 0.025:
-            if is_squeeze:
-                score -= 3.0; details.append("⚠️ VOL Regime: Squeeze sıkışması (ATR < 2.5% — Normal)")
-            else:
-                score -= 10.0; details.append("🔴 VOL Regime: Too Slow for 7-Day Swing (ATR < 2.5%)")
+            score -= 10.0; details.append("🔴 VOL Regime: Too Slow for 7-Day Swing (ATR < 2.5%)")
         elif 0.025 <= atr_pct_1d < 0.035:
             score -= 2.0; details.append("⚠️ VOL Regime: Mild/Slow (ATR < 3.5%)")
         elif 0.035 <= atr_pct_1d < 0.045:
@@ -1888,20 +1846,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             else:
                 score += 0.4; details.append(f"➖ REIT RSI: Neutral ({rsi_1d_val:.1f})")
         else:
-            # 🚨 FIX 6: Explosive momentum liderleri için RSI tavanı göreceli güce (RS) bağlı esnetildi.
-            is_strong_rs = rs_slope > 0.0005
-            
             if 45 <= rsi_1d_val <= 60:
                 score += 8.0; details.append(f"🌀 RSI: Sniper Sweet Spot ({rsi_1d_val:.1f})")
             elif 60 < rsi_1d_val <= 68:
                 score += 4.0; details.append(f"📈 RSI: Momentum Continuation ({rsi_1d_val:.1f})")
-            elif 68 < rsi_1d_val <= 78 and is_strong_rs:
-                score += 2.0; details.append(f"🚀 RSI: Strong Momentum Leader ({rsi_1d_val:.1f})")
-            elif 68 < rsi_1d_val <= 75 and not is_strong_rs:
+            elif 68 < rsi_1d_val <= 75:
                 score -= 5.0; details.append(f"⚠️ RSI: FOMO Risk / Overextended ({rsi_1d_val:.1f})")
             elif rsi_1d_val < 40:
                 score -= 3.2; details.append(f"❄️ RSI: Weak ({rsi_1d_val:.1f})")
-            elif rsi_1d_val > 78 or (rsi_1d_val > 75 and not is_strong_rs):
+            elif rsi_1d_val > 75:
                 score -= 10.0; details.append(f"🔴 RSI: Overbought Peak ({rsi_1d_val:.1f})")
             else:
                 score += 0.4; details.append(f"➖ RSI: Neutral ({rsi_1d_val:.1f})")
@@ -1913,38 +1866,18 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-        # ── 1D RSI SLOPE (yön) ───────────────────────────────────────
-        rsi_slope_5 = 0.0
-        try:
-            if len(rsi_1d_series) >= 5:
-                rsi_slope_5 = float(rsi_1d_series.iloc[-1]) - float(rsi_1d_series.iloc[-5])
-                if rsi_slope_5 < -5:
-                    score -= 6.0; details.append(f"📉 RSI Slope: Güçlü düşüş ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 < -2:
-                    score -= 3.0; details.append(f"↘️ RSI Slope: Hafif düşüş ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 > 5:
-                    score += 4.0; details.append(f"📈 RSI Slope: Güçlü yükseliş ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 > 2:
-                    score += 2.0; details.append(f"↗️ RSI Slope: Yükselişte ({rsi_slope_5:.1f})")
-        except Exception:
-            rsi_slope_5 = 0.0
-
         # ── EXHAUSTION ───────────────────────────────────────────────
         is_exhausted = False
         try:
             roc_3d = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-4])) / float(close_1d.iloc[-4]) * 100 if len(close_1d) >= 4 else 0.0
             ret_1d_pct = (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2]) * 100 if len(close_1d) >= 2 else 0.0
-            
-            # 🚨 FIX 1: Exhaustion Paradox! 3 günde %5 artan bir hisse yorgun değil, taze bir momentumdur. 
-            # RSI sadece aşırı şiştiğinde (78+) veya 3 günde parabolik uçtuğunda (%12+) Exhausted sayılır.
-            is_overbought_rsi = (rsi_1d_val > 78.0) or (rsi_1d_val > 72.0 and not is_strong_rs)
-            
-            if roc_3d > 12.0 or is_overbought_rsi or ret_1d_pct > 6.0:
+            # 🎯 0-DAY SNIPER: Tek günde %5 veya 3 günde %5 kopan hisseye Exhausted vurulur.
+            if roc_3d > 5.0 or rsi_1d_val > 68.0 or ret_1d_pct > 5.0:
                 is_exhausted = True
                 reasons_ex = []
-                if roc_3d > 12.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Parabolic Move)")
-                if ret_1d_pct > 6.0: reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}% (1D Spike FOMO)")
-                if is_overbought_rsi: reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Overbought Peak)")
+                if roc_3d > 5.0: reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Too Fast)")
+                if ret_1d_pct > 5.0: reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}% (1D Spike FOMO)")
+                if rsi_1d_val > 68.0: reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Overbought)")
                 score -= 20.0; details.append(f"🔴 EXHAUSTED / FOMO: {', '.join(reasons_ex)}")
         except Exception:
             pass
@@ -1983,7 +1916,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # ── 1H MICRO ANALYSIS ─────────────────────────────────────────
         h1_summary = {"Status": "Insufficient Data"}
         rsi_1h = 50.0; adx_1h = 0.0; atr_pct_1h = 0.0; rvol_1h = 0.0
-        rsi_1h_slope = 0.0  # 🔧 FIX: Dual-TF block için başlangıç değeri
 
         if df_1h is not None and len(df_1h) >= 10:
             close_1h = df_1h["Close"]
@@ -2041,30 +1973,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             elif rsi_1h > 82: score -= 10.0; details.append(f"🔴 1H RSI: FOMO Peak ({rsi_1h:.1f})")
             elif rsi_1h < 35: score -= 2.0; details.append(f"❄️ 1H RSI: Weak ({rsi_1h:.1f})")
 
-            # ── 1H RSI SLOPE ─────────────────────────────────────────
-            rsi_1h_slope = 0.0
-            try:
-                rsi_1h_series = RSIIndicator(close_1h, 14).rsi()
-                if len(rsi_1h_series) >= 3:
-                    rsi_1h_slope = float(rsi_1h_series.iloc[-1]) - float(rsi_1h_series.iloc[-3])
-                    if rsi_1h_slope < -8:
-                        score -= 5.0; details.append(f"📉 1H RSI Slope: Sert düşüş ({rsi_1h_slope:.1f})")
-                    elif rsi_1h_slope < -3:
-                        score -= 2.5; details.append(f"↘️ 1H RSI Slope: Düşüşte ({rsi_1h_slope:.1f})")
-                    elif rsi_1h_slope > 8:
-                        score += 3.0; details.append(f"📈 1H RSI Slope: Sert yükseliş ({rsi_1h_slope:.1f})")
-                    elif rsi_1h_slope > 3:
-                        score += 1.5; details.append(f"↗️ 1H RSI Slope: Yükselişte ({rsi_1h_slope:.1f})")
-            except Exception:
-                rsi_1h_slope = 0.0
-
-            # ── HER İKİ TF'DE RSI DÜŞÜŞ — HARD BLOCK ────────────────
-            try:
-                if rsi_slope_5 < -4 and rsi_1h_slope < -4:
-                    score -= 15.0; details.append(f"🚫 DUAL-TF RSI DÜŞÜŞ: 1D({rsi_slope_5:.1f}) + 1H({rsi_1h_slope:.1f}) — Her iki TF'de momentum kayıpda!")
-            except Exception:
-                pass
-
             if rvol_1h >= 2.5: score += 7.2; details.append(f"🐳 1H RVOL: Money Entry ({rvol_1h:.1f}x)")
             elif rvol_1h >= 1.5: score += 3.2; details.append(f"📊 1H RVOL: High ({rvol_1h:.1f}x)")
             elif rvol_1h < 0.7: score -= 1.6; details.append(f"❄️ 1H RVOL: Volumeless ({rvol_1h:.1f}x)")
@@ -2094,9 +2002,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score -= 1.2; details.append("⚠️ No 1H Data")
 
         # ── MTF LOCK ───────────────────────────────────────────────
-        # 🚨 FIX: Ayı bayraklarından (Downtrend Squeeze) korunmak için squeeze muafiyeti kaldırıldı.
+        # EMA200 threshold is used not to kill quality stocks that dip below EMA50 (Pullback).
         is_1d_bullish = current_price > last_ema200
-        if not is_1d_bullish and not is_spring:
+        if not is_1d_bullish:
             return None
 
         # ── OBV ──────────────────────────────────────────────────────
@@ -2127,27 +2035,27 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         churn_ratio = (candle_body / candle_range) if candle_range > 0 else 1.0
 
         # Fake Spike & Churn Protection (Probability of Sideways Binding)
-        # 🔧 BONUS FIX: Restored proper churn-detection logic.
-        # 🚨 FIX: Eğer bu bir SPRING (Dip Dönüşü/Çekiç Mumu) ise, yüksek hacimli küçük gövde
-        # mal dağıtımı değil, güçlü bir alım/likidite temizliğidir. İstisna sağlandı.
-        if churn_ratio < 0.30 and rvol_today > 2.0 and not is_spring:
+        # 🔧 BONUS FIX: Original code had a broken `if` block here (bare `return None`
+        # with no condition above it) — that's an IndentationError that would crash
+        # this entire function. Restored proper churn-detection logic.
+        if churn_ratio < 0.30 and rvol_today > 2.0:
             # Volume exists but candle body is very small (Doji/Pinbar). This is not momentum, it is churn.
             return None
             
         if rvol_today > 2.5 and close_change_pct < -0.015:
             return None
 
-        # 🔧 FIX: %5+ spike cezası yukarıda Exhaustion bloğunda (-20p) zaten verildi.
-        # Çifte ceza (double-penalty) kaldırıldı. Sadece %8 üstü kesin red kaldı.
+        # 🔧 FIX: Tek günde %5+ artmış hisse = geç kalınmış, sinyal verme
+        if close_change_pct > 0.05:
+            score -= 20.0
+            details.append(f"🔴 SINGLE DAY SPIKE: +{close_change_pct*100:.1f}% (Geç Kalınmış, FOMO Riski)")
         if close_change_pct > 0.08:
             return None  # %8+ tek günde = kesinlikle elenir
 
         try:
             price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
-            # 🚨 FIX 2: Squeeze vs Dead Money Çelişkisi çözüldü. Sıkışan bir hissenin 20 günlük marjı
-            # doğal olarak çok dar olacaktır. Squeeze etiketli hisselerin ölü sanılıp silinmesi engellendi.
-            if 0 < price_20d_range < 0.05 and not is_squeeze:
-                return None  # Sadece Squeeze DIŞINDAKİ gerçekten ölü hisseleri ele
+            if 0 < price_20d_range < 0.08:
+                return None  # Chronically stable (Dead Money - Bandwidth expanded)
         except Exception:
             pass
 
@@ -2274,8 +2182,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             selection_system = "SPRING"
             selection_reasons.append("Failed_Breakdown")
 
-        # 🚨 FIX: "and not is_squeeze" kaldırıldı — bb_squeeze=True iken is_squeeze da True olur, koşul asla çalışmazdı.
-        if bb_squeeze and ema_stack and rvol_today > 1.2:
+        if bb_squeeze and ema_stack and rvol_today > 1.2 and not is_squeeze:
             score += 25.0; entry_trigger = "BB Squeeze + EMA Stack + Volume"
             selection_system = "SQUEEZE"
             selection_reasons.append("BB_Squeeze")
@@ -2294,8 +2201,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             selection_reasons.append("EMA9_20_Cross")
             selection_reasons.append("Micro_Volume")
             details.append("🎯 ENTRY: EMA9/20 Fresh Cross")
-        # 🚨 FIX: "and not is_squeeze" kaldırıldı.
-        elif ema9_slope > 0.003 and bb_squeeze and micro_volume:
+        elif ema9_slope > 0.003 and bb_squeeze and micro_volume and not is_squeeze:
             score += 15.0; entry_trigger = "EMA9 Slope + Squeeze + Micro Volume"
             selection_system = "SQUEEZE"
             selection_reasons.append("EMA9_Slope")
@@ -2351,9 +2257,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if not selection_reasons:
             selection_reasons = ["Momentum_Filter"]
 
-        # 🔧 FIX: Mantık DÜZELTİLDİ. entry_trigger OLAN hisse zaten iyi sinyal vermiş →
-        # daha GEVŞEK eşik (1.5) uygula. entry_trigger YOK ise daha SIKI (1.8) ol.
-        if rr_ratio_calc < (MIN_RR_RATIO if entry_trigger else MIN_RR_RATIO_RELAXED):
+        if rr_ratio_calc < (MIN_RR_RATIO_RELAXED if entry_trigger else MIN_RR_RATIO):
             score -= 4.0; details.append(f"⚠️ R/R Insufficient ({rr_ratio_calc:.2f})")
 
         # ── PERFORMANS VERİLERİ ───────────────────────────────────────
@@ -3265,7 +3169,7 @@ async def scan_top_stocks():
     vix_note = MARKET_STATUS.get("vix_note", "VIX: N/A")
     await send_telegram_message(
         "🐂 <b>BOGA AI SWING TRADE V115 Scanner Started!</b>\n"
-        "⏱ Schedule: Weekdays NY 13:00\n"
+        "⏱ Schedule: Weekdays NY 18:00\n"
         f"📊 Market: <b>{MARKET_STATUS.get('regime','Bull')}</b> | {vix_note}\n"
         "🎯 Goal: Daily Top 20 → Telegram Top 5\n"
         "🔍 V115: Sistem etiketleri + VIX overlay aktif"
@@ -3618,8 +3522,8 @@ async def _verify_with_alpha_vantage(ticker: str, yahoo_price: float) -> dict:
 # ================================================================
 # ================================================================
 
-def get_next_weekday_run_time_ny(target_hour=13, target_minute=0):
-    """Returns the next weekday NY 13:00 time (UTC aware)."""
+def get_next_weekday_run_time_ny(target_hour=18, target_minute=0):
+    """Returns the next weekday NY 18:00 time (UTC aware)."""
     now_utc = datetime.now(timezone.utc)
     now_ny  = now_utc.astimezone(NY_TZ)
     candidate_ny = now_ny.replace(hour=target_hour, minute=target_minute, second=0, microsecond=0)
@@ -3639,10 +3543,10 @@ def get_next_weekday_run_time_ny(target_hour=13, target_minute=0):
 
 
 async def run_scanner():
-    """Main loop — Runs every day at NY 13:00."""
+    """Main loop — Runs every day at NY 18:00."""
     await send_telegram_message(
         "🐂 <b>BOGA AI SWING TRADE V115 Started!</b>\n"
-        "📅 Schedule: Every weekday New York 13:00\n"
+        "📅 Schedule: Every weekday New York 18:00\n"
         "🎯 Goal: Daily Top 5 Swing Trade Opportunities\n"
         "[INFO] JSON: swing_picks_boga.json\n"
         "📊 R/R: ~2.5:1 target | ATR + 1H Support/Resistance"
@@ -3672,7 +3576,7 @@ async def run_scanner():
                 f"(~{wait_seconds/3600:.2f} hours)"
             )
             await asyncio.sleep(wait_seconds)
-            logging.info("▶ NY 13:00 scan starting...")
+            logging.info("▶ NY 18:00 scan starting...")
             await scan_top_stocks()
 
         except Exception as e:
