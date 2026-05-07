@@ -26,8 +26,8 @@ function Set-BogaTask {
 # 1. Swing Bot (v115) - 13:00 NY (Weekdays)
 Set-BogaTask -Name "BOGA_AI_Swing_Scanner" -Script "swing115_boga.py" -Args "--oneshot" -StartTime "13:00:00"
 
-# 2. Options Bot (v8.0) - 11:00 NY (Weekdays) - CORRECTED
-Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "opsiyon218v8.py" -Args "--oneshot" -StartTime "11:00:00"
+# 2. Options Bot (v8.0) - RETIRED
+# Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "opsiyon218v8.py" -Args "--oneshot" -StartTime "11:00:00"
 
 # 3. Inday Bot (Hourly 10:00-16:00 NY, Weekdays)
 Set-BogaTask -Name "BOGA_AI_Inday_Scanner" -Script "inday313.py" -Args "--force" -StartTime "10:00:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 7)
