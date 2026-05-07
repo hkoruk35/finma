@@ -1,0 +1,122 @@
+[
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "FDX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 377.87,
+        "entry_zone": "371.85 - 383.88",
+        "SL": 353.81,
+        "TP": 413.94
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "EBAY",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 107.3,
+        "entry_zone": "105.15 - 109.45",
+        "SL": 98.72,
+        "TP": 120.17
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "ARCB",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 123.35,
+        "entry_zone": "120.53 - 126.17",
+        "SL": 112.07,
+        "TP": 140.27
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "CHEF",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 79.86,
+        "entry_zone": "78.30 - 81.41",
+        "SL": 73.64,
+        "TP": 89.18
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "TSM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 414.24,
+        "entry_zone": "407.25 - 421.23",
+        "SL": 386.27,
+        "TP": 456.19
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "VOYA",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 80.23,
+        "entry_zone": "78.88 - 81.58",
+        "SL": 74.81,
+        "TP": 88.35
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "UDR",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 37.12,
+        "entry_zone": "36.73 - 37.51",
+        "SL": 35.55,
+        "TP": 39.48
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "NXPI",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 294.11,
+        "entry_zone": "287.28 - 300.94",
+        "SL": 266.8,
+        "TP": 335.07
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "TT",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 474.13,
+        "entry_zone": "467.92 - 480.35",
+        "SL": 449.27,
+        "TP": 511.42
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "WELL",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 212.05,
+        "entry_zone": "209.08 - 215.02",
+        "SL": 200.17,
+        "TP": 229.87
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "FRT",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 116.02,
+        "entry_zone": "115.11 - 116.93",
+        "SL": 112.38,
+        "TP": 121.47
+    },
+    {
+        "date": "2026-05-07 12:00",
+        "symbol": "AGNC",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 10.74,
+        "entry_zone": "10.65 - 10.84",
+        "SL": 10.38,
+        "TP": 11.3
+    }
+]
