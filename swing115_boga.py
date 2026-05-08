@@ -120,9 +120,9 @@ OUTPUT_ALL_JSON_FILE = "swing_all_picks.json"
 # ================================================================
 # 🔹 UNIVERSE AND FILTER PARAMETERS
 # ================================================================
-MAX_TICKERS_FINAL = 800          # 🎯 SNIPER: Daha geniş evren = daha çok small/mid-cap fırsat.
-TOP_DEEP_ANALYSIS = 80           # 🎯 SNIPER: Daha fazla derin analiz.
-TOP_FINAL_PICKS = 20             # 🎯 SNIPER: Hedef Her gün 20 aday.
+MAX_TICKERS_FINAL = 10000          # 🎯 FULL UNIVERSE: Scan all candidates.
+TOP_DEEP_ANALYSIS = 300          # 🎯 FULL UNIVERSE: More deep analysis.
+TOP_FINAL_PICKS = 50             # 🎯 FULL UNIVERSE: More picks for the large scan.
 
 # 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
 PRICE_MIN = 10.0
@@ -2244,6 +2244,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         risk   = max(current_price - stop_loss, 0.0)
         reward = max(profit_target - current_price, 0.0)
         rr_ratio_calc = (reward / risk) if risk > 0 else 0.0
+        
+        # 🧪 TEST: R/R Kapısı (Esnek Mod)
+        if 0.0 < rr_ratio_calc < 1.5:
+            return None
         profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
 
         # ── ENTRY TRIGGER + SELECTION SYSTEM ──────────────────
