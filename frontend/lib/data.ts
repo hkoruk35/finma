@@ -1133,3 +1133,28 @@ export async function getOptionsDates(): Promise<string[]> {
     return json.dates ?? [];
   } catch { return []; }
 }
+export async function getDayTradeAllPicks(): Promise<any | null> {
+  const t = Date.now();
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("daytrade_all_picks.json");
+  }
+  try {
+    const res = await fetch(`/daytrade_all_picks.json?v=${t}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
+
+export async function getDayTradePerformance(): Promise<any | null> {
+  const t = Date.now();
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("daytrade_performance.json");
+  }
+  try {
+    const res = await fetch(`/daytrade_performance.json?v=${t}`, { cache: "no-store" });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch { return null; }
+}
