@@ -19,15 +19,19 @@ export default function DayTradeOptionsPage() {
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [master, setMaster] = useState<any>(null);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [data, optsData] = await Promise.all([
+        const { getMasterData } = await import("@/lib/data");
+        const [m, data, optsData] = await Promise.all([
+          getMasterData(),
           getDayTradeAllPicks(),
           fetch("/latest_options_prices.json").then(r => r.ok ? r.json() : {}).catch(() => ({}))
         ]);
 
+        setMaster(m);
         const rawPicks = (data?.picks || []).filter((p: any) => p.dt_score >= 50);
         // Sort by dt_score
         rawPicks.sort((a: any, b: any) => (b.dt_score || 0) - (a.dt_score || 0));
@@ -63,7 +67,7 @@ export default function DayTradeOptionsPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
-      <TickerTape />
+      {master && <TickerTape data={master} />}
 
       <div className="max-w-6xl mx-auto w-full px-4 py-8">
         <div className="flex flex-col gap-1 mb-8">

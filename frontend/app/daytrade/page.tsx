@@ -57,6 +57,7 @@ export default async function DayTradePicksPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
+      {master && <TickerTape data={master} />}
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}

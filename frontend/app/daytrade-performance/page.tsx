@@ -1,6 +1,7 @@
-import { getDayTradePerformance } from "@/lib/data";
+import { getDayTradePerformance, getMasterData } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TickerTape from "@/components/TickerTape";
 import Link from "next/link";
 
 export const revalidate = 60;
@@ -10,13 +11,18 @@ function formatPrice(n: number) {
 }
 
 export default async function DayTradePerformancePage() {
-  const perfData = await getDayTradePerformance();
+  const [perfData, master] = await Promise.all([
+    getDayTradePerformance(),
+    getMasterData()
+  ]);
+  
   const stats = perfData?.stats || {};
   const history = perfData?.history || [];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
+      {master && <TickerTape data={master} />}
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
