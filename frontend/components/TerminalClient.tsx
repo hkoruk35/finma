@@ -360,8 +360,9 @@ export default function TerminalClient() {
   const [chartInterval, setChartInterval] = useState("15");
 
   // Right panel tab
-  const [rightTab, setRightTab] = useState<"daily" | "watchlist" | "tracker">("daily");
+  const [rightTab, setRightTab] = useState<"swing" | "daytrade" | "watchlist" | "tracker">("swing");
   const [dailyPicks, setDailyPicks] = useState<any[]>([]);
+  const [dayTradePicks, setDayTradePicks] = useState<any[]>([]);
 
   // Watchlist (localStorage)
   const [watchlist, setWatchlist] = useState<string[]>([]);
@@ -488,6 +489,20 @@ export default function TerminalClient() {
       } catch {}
     }
     loadDaily();
+  }, []);
+
+  // ── Fetch DayTrade Picks ──────────────────────────────────────────────────
+  useEffect(() => {
+    async function loadDayTrade() {
+      try {
+        const res = await fetch("/daytrade_all_picks.json?v=" + Date.now());
+        if (res.ok) {
+          const json = await res.json();
+          setDayTradePicks(json.picks || []);
+        }
+      } catch {}
+    }
+    loadDayTrade();
   }, []);
 
   // ── Toggle multi-screen ticker ────────────────────────────────────────────────
@@ -676,23 +691,23 @@ export default function TerminalClient() {
       {/* ── Right Panel ─────────────────────────────────────────────────────── */}
       <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["daily", "watchlist", "tracker"] as const).map((tab) => (
+          {(["swing", "daytrade", "watchlist", "tracker"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setRightTab(tab)}
-              className={`flex-1 py-2 text-[9px] font-black uppercase tracking-widest transition-colors ${
+              className={`flex-1 py-2 text-[8px] font-black uppercase tracking-widest transition-colors ${
                 rightTab === tab
                   ? "text-[#3b82f6] border-b-2 border-[#3b82f6] bg-[#3b82f6]/5"
                   : "text-slate-500 hover:text-slate-300"
               }`}
             >
-              {tab === "daily" ? "Daily" : tab === "watchlist" ? "Watchlist" : "Tracker"}
+              {tab === "swing" ? "Swing" : tab === "daytrade" ? "DayTrade" : tab === "watchlist" ? "Watchlist" : "Tracker"}
             </button>
           ))}
         </div>
 
-        {/* Daily Tab */}
-        {rightTab === "daily" && (
+        {/* Swing Tab */}
+        {rightTab === "swing" && (
           <div className="flex-1 overflow-y-auto scrollbar-thin">
             {dailyPicks.length === 0 ? (
               <div className="flex items-center justify-center h-32 text-[11px] text-slate-600 text-center px-4">
@@ -745,6 +760,70 @@ export default function TerminalClient() {
                           {pick.company}
                         </span>
                         <span className={`text-[10px] font-mono ${pColor(chg)}`}>
+                          {sgn(chg)}{fmt(Math.abs(chg))}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        )}
+
+        {/* DayTrade Tab */}
+        {rightTab === "daytrade" && (
+          <div className="flex-1 overflow-y-auto scrollbar-thin">
+            {dayTradePicks.length === 0 ? (
+              <div className="flex items-center justify-center h-32 text-[11px] text-slate-600 text-center px-4 uppercase font-black">
+                Premarket scan pending...
+              </div>
+            ) : (
+              dayTradePicks.map((pick) => {
+                const ticker = pick.ticker;
+                const price = prices[ticker]?.price ?? pick.current_price;
+                const chg = prices[ticker]?.change_1d ?? pick.change_pct;
+
+                return (
+                  <div
+                    key={ticker}
+                    className={`flex items-center gap-1.5 px-3 py-2 border-b border-[#1a2234] transition-colors cursor-pointer ${
+                      selected.ticker === ticker ? "bg-[#10b981]/10 border-l-2 border-l-[#10b981]" : "hover:bg-white/[0.03]"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked.includes(ticker)}
+                      onChange={() => toggleCheck(ticker)}
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-3 h-3 accent-[#10b981] shrink-0 cursor-pointer"
+                    />
+                    <div 
+                      className="flex-1 min-w-0"
+                      onClick={() => {
+                        setSelected({
+                          ticker,
+                          label: pick.company || ticker,
+                          tvSymbol: ticker,
+                          ySymbol: ticker
+                        });
+                        setWatchSelected(null);
+                      }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[12px] font-black text-white">{ticker}</span>
+                          <span className="text-[9px] font-bold text-[#10b981] bg-[#10b981]/10 px-1 rounded">
+                            {pick.dt_score}
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-mono text-white">${fmt(price)}</span>
+                      </div>
+                      <div className="flex items-center justify-between mt-0.5">
+                        <span className="text-[8px] text-slate-500 truncate max-w-[100px] uppercase font-bold">
+                          {pick.primary_signal}
+                        </span>
+                        <span className={`text-[10px] font-mono font-bold ${pColor(chg)}`}>
                           {sgn(chg)}{fmt(Math.abs(chg))}%
                         </span>
                       </div>

@@ -33,6 +33,8 @@ function ScoreBadge({ score }: { score: number }) {
   );
 }
 
+import SwingTableActions from "@/components/SwingTableActions";
+
 export default async function SwingPicksPage() {
   const [master, allPicksData] = await Promise.all([
     getMasterData(),
@@ -88,6 +90,8 @@ export default async function SwingPicksPage() {
             </Link>
           </div>
         </div>
+
+        <SwingTableActions picks={picks} dateStr={dateStr} />
 
         {picks.length === 0 ? (
           <div className="glass-card p-12 text-center">

@@ -135,6 +135,12 @@ FINVIZ_CACHE:  Dict[str, Any] = {"ts": 0.0, "data": []}
 FINVIZ_CACHE_TTL = 1800  # 30 dakika — gün içinde 1 kez yeterli
 
 # ================================================================
+# 🔹 SETTINGS
+# ================================================================
+ENABLE_TELEGRAM = True
+TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
+TELEGRAM_CHAT_ID = "-1003569445341"
+
 # ================================================================
 # SECTION 1: TELEGRAM
 # ================================================================
@@ -852,51 +858,50 @@ async def scan_daytrade():
 
     if not layer1_passed:
         await send_telegram("⚠️ Layer 1 filtre: Hiç aday geçemedi. Parametreleri gevşetin.")
-        return
+        # We will jump to JSON save below by skipping layer 2
+        scored_candidates = []
+        top_candidates = []
+    else:
+        # ── LAYER 2: PARALEL 5m + DAYTRADE SKORLAMA ──────────────────
+        logging.info(f"[LAYER 2] {len(layer1_passed)} aday için 5m veri çekiliyor...")
 
-    # ── LAYER 2: PARALEL 5m + DAYTRADE SKORLAMA ──────────────────
-    logging.info(f"[LAYER 2] {len(layer1_passed)} aday için 5m veri çekiliyor...")
+        # Semaphore = 8: yfinance'i bunmadan 8 paralel çekiş
+        sem = asyncio.Semaphore(8)
 
-    # Semaphore = 8: yfinance'i bunmadan 8 paralel çekiş
-    sem = asyncio.Semaphore(8)
+        async def analyze_one(candidate: Dict) -> Optional[Dict]:
+            async with sem:
+                ticker = candidate["ticker"]
+                try:
+                    df_5m = await fetch_intraday_5m(ticker)
+                    scored = score_daytrade_candidate(candidate, df_5m)
+                    scored["df_5m"] = df_5m   # Zone hesabı için sakla
+                    return scored
+                except Exception as e:
+                    logging.debug(f"{ticker} layer2: {e}")
+                    return None
 
-    async def analyze_one(candidate: Dict) -> Optional[Dict]:
-        async with sem:
-            ticker = candidate["ticker"]
-            try:
-                df_5m = await fetch_intraday_5m(ticker)
-                scored = score_daytrade_candidate(candidate, df_5m)
-                scored["df_5m"] = df_5m   # Zone hesabı için sakla
-                return scored
-            except Exception as e:
-                logging.debug(f"{ticker} layer2: {e}")
-                return None
+        tasks   = [analyze_one(c) for c in layer1_passed]
+        results = await asyncio.gather(*tasks)
+        scored_candidates = [r for r in results if r is not None]
 
-    tasks   = [analyze_one(c) for c in layer1_passed]
-    results = await asyncio.gather(*tasks)
-    scored_candidates = [r for r in results if r is not None]
+        # Skora göre sırala
+        scored_candidates.sort(key=lambda x: x.get("dt_score", 0.0), reverse=True)
+        logging.info(f"[LAYER 2] {len(scored_candidates)} aday skorlandı")
 
-    # Skora göre sırala
-    scored_candidates.sort(key=lambda x: x.get("dt_score", 0.0), reverse=True)
-    logging.info(f"[LAYER 2] {len(scored_candidates)} aday skorlandı")
+        # ── LAYER 3: TOP 15 → ZONE HESAPLA ───────────────────────────
+        top_candidates = scored_candidates[:TOP_CANDIDATES]
 
-    # ── LAYER 3: TOP 15 → ZONE HESAPLA ───────────────────────────
-    top_candidates = scored_candidates[:TOP_CANDIDATES]
+        for c in top_candidates:
+            df_5m = c.pop("df_5m", None)   # JSON'a yazılmayacak
+            c["df_1d"] = None              # JSON'a yazılmayacak
+            zones = calculate_daytrade_zones(c, df_5m)
+            c["zones"]    = zones
+            c["rr_ratio"] = zones["rr_ratio"]
 
-    for c in top_candidates:
-        df_5m = c.pop("df_5m", None)   # JSON'a yazılmayacak
-        c["df_1d"] = None              # JSON'a yazılmayacak
-        zones = calculate_daytrade_zones(c, df_5m)
-        c["zones"]    = zones
-        c["rr_ratio"] = zones["rr_ratio"]
+        # R/R < 2 olanları filtrele
+        top_candidates = [c for c in top_candidates if c.get("rr_ratio", 0) >= MIN_RR_DAYTRADE]
 
-    # R/R < 2 olanları filtrele
-    top_candidates = [c for c in top_candidates if c.get("rr_ratio", 0) >= MIN_RR_DAYTRADE]
-
-    if not top_candidates:
-        await send_telegram("⚠️ R/R 2:1 altında kalan adaylar elendi. Bugün işlem yok.")
-        return
-
+    # JSON KAYIT BLOĞU (ALWAYS RUN)
     duration = time.time() - start_time
     logging.info(f"[OK] {len(top_candidates)} final aday | Süre: {duration:.1f}s")
 
@@ -910,6 +915,7 @@ async def scan_daytrade():
         "picks": []
     }
 
+    # Populate picks if we have any
     for c in top_candidates:
         output_data["picks"].append({
             "ticker":         c["ticker"],
@@ -933,15 +939,24 @@ async def scan_daytrade():
             json.dump(output_data, f, indent=2, ensure_ascii=False, default=str)
         # Tüm adaylar (debug/terminal)
         all_data = output_data.copy()
-        all_data["picks"] = [
-            {k: v for k, v in c.items() if k not in ("df_1d", "df_5m")}
-            for c in scored_candidates
-        ]
+        
+        # Scored candidates might be a list of dicts. We want to exclude dataframes
+        serializable_picks = []
+        if 'scored_candidates' in locals() and scored_candidates:
+            for c in scored_candidates:
+                serializable_picks.append({k: v for k, v in c.items() if k not in ("df_1d", "df_5m")})
+        
+        all_data["picks"] = serializable_picks
+        
         with open(os.path.join(OUTPUT_DIR, OUTPUT_ALL_JSON), "w", encoding="utf-8") as f:
             json.dump(all_data, f, indent=2, ensure_ascii=False, default=str)
         logging.info(f"✅ JSON kaydedildi: {OUTPUT_DIR}")
     except Exception as e:
         logging.error(f"JSON kayıt hatası: {e}")
+
+    if not top_candidates:
+        await send_telegram("⚠️ R/R 2:1 altında kalan adaylar elendi. Bugün işlem yok.")
+        return
 
     # ── TERMINAL TABLOSU ──────────────────────────────────────────
     logging.info("=" * 70)
@@ -1103,5 +1118,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n⚡ ATMACA DAYTRADE V1.0 durduruldu.")
     except Exception as e:
-        print(f"Kritik başlatma hatası: {e}")
+        print(f"Critical Startup Error: {e}")
         raise

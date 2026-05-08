@@ -1,0 +1,12 @@
+{
+  "stats": {
+    "total_picks": 0,
+    "completed_count": 0,
+    "pending_count": 0,
+    "win_rate": 0,
+    "avg_return_pct": 0,
+    "period_days": 30,
+    "last_updated": "2026-05-08T03:45:54.276447"
+  },
+  "history": []
+}

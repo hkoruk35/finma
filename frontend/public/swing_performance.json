@@ -1,15 +1,15 @@
 {
   "stats": {
-    "total_picks": 738,
+    "total_picks": 737,
     "completed_count": 530,
-    "pending_count": 208,
+    "pending_count": 207,
     "win_rate": 98.1,
     "avg_return_pct": 9.6,
     "period_days": 180,
     "above_5pct_rate": 63.0,
     "above_10pct_rate": 36.8,
     "stop_loss_pct": -3.5,
-    "last_updated": "2026-05-08T02:51:53.870879"
+    "last_updated": "2026-05-08T03:36:08.329733"
   },
   "history": [
     {
@@ -755,19 +755,6 @@
       "entry": 311.3074951171875,
       "max_price": 311.91,
       "return_pct": 0.19,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-05-06"
-    },
-    {
-      "date": "2026-05-06",
-      "ticker": "PK",
-      "company": "Park Hotels & Resorts Inc.",
-      "sector": "Real Estate",
-      "subsector": "REIT - Hotel & Motel",
-      "entry": 11.329999923706055,
-      "max_price": 11.63,
-      "return_pct": 2.65,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-05-06"
@@ -9587,5 +9574,5 @@
       "peak_date": "2026-01-28"
     }
   ],
-  "generated_at": "2026-05-08T02:51:53.871296"
+  "generated_at": "2026-05-08T03:36:08.332540"
 }

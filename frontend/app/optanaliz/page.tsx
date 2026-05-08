@@ -271,6 +271,7 @@ export default function OptAnalizPage() {
   const [liveOptions, setLiveOptions] = useState<any>({});
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
   const [ivRankText, setIvRankText] = useState("");
+  const [generatedAt, setGeneratedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -301,6 +302,7 @@ export default function OptAnalizPage() {
         });
 
         setPicks(rawPicks);
+        setGeneratedAt(data.generated_at || null);
         setLiveOptions(optsData);
         if (rawPicks.length > 0) {
           setSelectedTicker(rawPicks[0].ticker);
@@ -351,7 +353,14 @@ export default function OptAnalizPage() {
           </span>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
-        <p className="text-sm text-[#475569] mt-1">Günlük swing adayları için otomatik opsiyon stratejileri</p>
+        <div className="flex items-center justify-between flex-wrap gap-2 mt-1">
+          <p className="text-sm text-[#475569]">Günlük swing adayları için otomatik opsiyon stratejileri</p>
+          {generatedAt && (
+            <p className="text-[10px] font-mono text-[#3b82f6] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">
+              SON GÜNCELLEME: {new Date(generatedAt).toLocaleString("tr-TR")}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
