@@ -1,7 +1,7 @@
 $TaskName  = "BOGA_AI_DayTradeBot"
 $FinmaDir  = "C:\Users\afksm\finma"
 $Python    = "$FinmaDir\venv313\Scripts\python.exe"
-$Script    = "$FinmaDir\daytrade_atmaca_v1.py"
+$Script    = "$FinmaDir\daytrade_atmaca_v2.py"
 
 if (-Not (Test-Path $Python)) { $Python = (Get-Command python -ErrorAction SilentlyContinue).Source }
 
