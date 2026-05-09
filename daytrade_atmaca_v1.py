@@ -925,16 +925,17 @@ async def scan_daytrade():
     for c in top_candidates:
         output_data["picks"].append({
             "ticker":         c["ticker"],
-            "price":          c["price"],
+            "current_price":  c["price"],      # current_price as expected by frontend
             "change_pct":     c["change_pct"],
             "dt_score":       c["dt_score"],
             "signal":         c["primary_signal"],
+            "primary_signal": c["primary_signal"], # duplicate for compatibility
             "rsi":            c["rsi"],
             "rvol":           c["rvol"],
             "atr_pct":        c["atr_pct"],
             "vwap":           c.get("vwap"),
             "price_vs_vwap":  c.get("price_vs_vwap"),
-            "zones":          c["zones"],
+            "boga_zones":     c["zones"],      # boga_zones as expected by frontend
             "details":        c["details"],
         })
 
