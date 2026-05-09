@@ -154,6 +154,42 @@ def update_performance_live():
             if days_since_entry > 30:
                 continue
 
+            # ── INTRADAY STOP-LOSS CHECK (1H Bars) ──
+            # Discipline: If price hits -3.5% SL at any 1H bar, the trade is STOPPED.
+            SL_THRESHOLD = -3.5
+            entry_price = record.get('entry', 0)
+            if entry_price > 0:
+                sl_price = entry_price * (1 + (SL_THRESHOLD / 100))
+                
+                try:
+                    # Fetch intraday data from entry to today
+                    sl_hist = yf.Ticker(ticker).history(
+                        start=entry_date.strftime('%Y-%m-%d'),
+                        interval='1h'
+                    )
+                    if not sl_hist.empty:
+                        # Normalize index for timezone consistency
+                        sl_hist.index = sl_hist.index.tz_convert('America/New_York') if sl_hist.index.tzinfo else sl_hist.index
+                        
+                        # Filter for bars occurring AFTER entry time (approx 13:00 on entry day)
+                        mask = (sl_hist.index.normalize() > pd.Timestamp(entry_date)) | \
+                               ((sl_hist.index.normalize() == pd.Timestamp(entry_date)) & (sl_hist.index.hour >= 13))
+                        relevant_bars = sl_hist[mask]
+                        
+                        if not relevant_bars.empty:
+                            # Check if ANY bar low hit or crossed the SL price
+                            sl_hits = relevant_bars[relevant_bars['Low'] <= sl_price]
+                            if not sl_hits.empty:
+                                first_hit_time = sl_hits.index[0]
+                                record['result'] = 'STOPPED'
+                                record['return_pct'] = SL_THRESHOLD
+                                record['exit_date'] = first_hit_time.strftime('%Y-%m-%d')
+                                record['days'] = int((first_hit_time.normalize() - pd.Timestamp(entry_date)).days)
+                                logging.info(f"🛑 STOP LOSS TRIGGERED: {ticker} on {record['exit_date']} (Entry: {entry_price}, SL: {sl_price})")
+                                continue # Skip normal update if stopped
+                except Exception as e:
+                    logging.warning(f"SL check error for {ticker}: {e}")
+
             # Re-calculate peak within 30-day window from actual historical data
             if ticker in peak_data:
                 hist = peak_data[ticker]['hist']
