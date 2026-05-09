@@ -71,7 +71,7 @@ from ta.volume import OnBalanceVolumeIndicator
 # 🔹 LOGGING
 # ================================================================
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
@@ -93,28 +93,28 @@ ENABLE_TELEGRAM_NOTIFICATIONS = True
 # ================================================================
 
 # Fiyat aralığı — çok ucuz hisseler spread'den ölür, çok pahallılar margin yer
-PRICE_MIN = 5.0
-PRICE_MAX = 300.0
+PRICE_MIN = 3.0
+PRICE_MAX = 500.0
 
-# Minimum günlük hacim (1M+ = güvenli spread)
-MIN_AVG_VOLUME_10D  = 500_000    # 10 günlük ortalama
-MIN_RVOL_PREMARKET  = 1.5        # Premarket'te ortalamaya göre min hacim oranı
+# Minimum günlük hacim (Sıvı spread için)
+MIN_AVG_VOLUME_10D  = 250_000    # Gevşetildi: 500k -> 250k
+MIN_RVOL_PREMARKET  = 1.0        # Gevşetildi: 1.5 -> 1.0
 
 # Premarket gap — pozitif katalizör için minimum gap
-GAP_MIN_PCT   = 2.0   # %2 altı zayıf gapper
-GAP_IDEAL_PCT = 5.0   # %5+ güçlü gapper (ideal)
-GAP_DANGER_PCT = 20.0 # %20+ genellikle açılışta dump olur (dikkat)
+GAP_MIN_PCT   = 1.0   # Gevşetildi: 2.0 -> 1.0
+GAP_IDEAL_PCT = 3.0   
+GAP_DANGER_PCT = 30.0 
 
 # ATR filtresi — daytrade için hisse yeterince hareket etmeli
-ATR_MIN_PCT_1D = 0.015  # Günlük ATR en az fiyatın %1.5'i
-ATR_MAX_PCT_1D = 0.12   # %12 üzeri çok volatil, stop yönetimi zorlaşır
+ATR_MIN_PCT_1D = 0.01   # Gevşetildi: 1.5% -> 1.0%
+ATR_MAX_PCT_1D = 0.15
 
 # RSI — daytrade'de aşırı alım/satım tradeleri de geçerli
 RSI_MIN = 30   # 30 altı reversal trade için
 RSI_MAX = 80   # 80 üstü sadece çok güçlü momentum varsa geç
 
 # Minimum R/R
-MIN_RR_DAYTRADE = 2.0
+MIN_RR_DAYTRADE = 1.3  # Gevşetildi: 2.0 -> 1.3
 
 # Final çıktı
 TOP_GAPPERS    = 250  # Finviz'den max bu kadar aday çek
@@ -289,7 +289,7 @@ async def yfinance_premarket_scan() -> List[Dict]:
         data = await asyncio.to_thread(
             yf.download,
             WATCHLIST,
-            period="2d",
+            period="1mo",   # 1 ay çekiyoruz ki Layer 1 filtre (min 10 bar) geçebilsin
             interval="1d",
             progress=False,
             group_by="ticker",
@@ -430,7 +430,8 @@ def layer1_filter(ticker: str, gap_info: Dict) -> Optional[Dict]:
     Geçen hisseler Layer 2'ye taşınır.
     """
     df = BULK_1D_CACHE.get(ticker)
-    if df is None or len(df) < 10:
+    if df is None or len(df) < 5:  # 10 -> 5 bar yeterli kıldım
+        logging.debug(f"{ticker} elendi: Yetersiz veri ({len(df) if df is not None else 0} bar)")
         return None
 
     try:
@@ -443,6 +444,7 @@ def layer1_filter(ticker: str, gap_info: Dict) -> Optional[Dict]:
 
         # --- Fiyat aralığı ---
         if not (PRICE_MIN <= last_price <= PRICE_MAX):
+            logging.debug(f"{ticker} elendi: Fiyat {last_price}")
             return None
 
         # --- Hacim filtresi ---
@@ -451,6 +453,7 @@ def layer1_filter(ticker: str, gap_info: Dict) -> Optional[Dict]:
         avg_vol_20 = float(volume.tail(20).mean()) if len(volume) >= 20 else avg_vol_10
 
         if avg_vol_10 < MIN_AVG_VOLUME_10D:
+            logging.debug(f"{ticker} elendi: Hacim {avg_vol_10}")
             return None
 
         # Relative Volume (RVOL) — bugünkü hacim ortalamanın kaç katı
@@ -465,6 +468,7 @@ def layer1_filter(ticker: str, gap_info: Dict) -> Optional[Dict]:
 
         atr_pct = atr_val / last_price
         if not (ATR_MIN_PCT_1D <= atr_pct <= ATR_MAX_PCT_1D):
+            logging.debug(f"{ticker} elendi: ATR% {atr_pct:.3f}")
             return None
 
         # --- RSI ---
@@ -472,11 +476,13 @@ def layer1_filter(ticker: str, gap_info: Dict) -> Optional[Dict]:
         if len(close) >= 14:
             rsi_val = float(RSIIndicator(close, 14).rsi().iloc[-1])
         if rsi_val < RSI_MIN or rsi_val > RSI_MAX:
+            logging.debug(f"{ticker} elendi: RSI {rsi_val:.1f}")
             return None
 
         # --- Dollar hacim ---
         dollar_vol = last_price * avg_vol_10
-        if dollar_vol < 1_000_000:   # $1M altı daytrade için çok ince
+        if dollar_vol < 100_000:   # $300k -> $100k'ya çektim (çok esnek)
+            logging.debug(f"{ticker} elendi: DollarVol {dollar_vol}")
             return None
 
         return {

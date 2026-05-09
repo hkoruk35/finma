@@ -342,32 +342,44 @@ async def build_atmaca_universe_full() -> List[str]:
     if UNIVERSE_CACHE["data"] and (now - UNIVERSE_CACHE["ts"]) < UNIVERSE_TTL:
         return UNIVERSE_CACHE["data"]
 
-    # Disk check
-    if os.path.exists("boga_universe.txt"):
-        mtime = os.path.getmtime("boga_universe.txt")
-        if (now - mtime) < UNIVERSE_TTL:
-            try:
-                with open("boga_universe.txt", "r") as f:
-                    data_list = [l.strip() for l in f if l.strip()]
-                    if data_list:
-                        logging.info(f"📁 Disk Cache Loaded: {len(data_list)} stocks. Data is being downloaded...")
-                        # ⚠️ CRITICAL FIX: Fill the cache with 1D data of stocks loaded from disk!
-                        # Making the period 252d ensures EMA200 and "len < 50" conditions.
-                        chunk_size = 100
-                        for j in range(0, len(data_list), chunk_size):
-                            chunk = data_list[j : j + chunk_size]
-                            downloaded = await asyncio.to_thread(
-                                yf.download, chunk, period="252d", interval="1d", progress=False, group_by="ticker", ignore_tz=True
-                            )
-                            for sym in chunk:
-                                if sym in downloaded and not downloaded[sym].empty:
-                                    BULK_DATA_CACHE[sym] = downloaded[sym].copy()
-                        
+# Disk check
+if os.path.exists("boga_universe.txt"):
+    mtime = os.path.getmtime("boga_universe.txt")
+    if (now - mtime) < UNIVERSE_TTL:
+        try:
+            with open("boga_universe.txt", "r") as f:
+                data_list = [l.strip() for l in f if l.strip()]
+                if data_list:
+                    logging.info(f"📁 Disk Cache Loaded: {len(data_list)} stocks. Data is being downloaded...")
+                    # ⚠️ CRITICAL FIX: Fill the cache with 1D data of stocks loaded from disk!
+                    # Making the period 252d ensures EMA200 and "len < 60" conditions.
+                    chunk_size = 100
+                    filtered_list = []
+                    for j in range(0, len(data_list), chunk_size):
+                        chunk = data_list[j : j + chunk_size]
+                        downloaded = await asyncio.to_thread(
+                            yf.download, chunk, period="252d", interval="1d", progress=False, group_by="ticker", ignore_tz=True
+                        )
+                        for sym in chunk:
+                            if sym in downloaded and not downloaded[sym].empty:
+                                df_sym = downloaded[sym].dropna()
+                                # 🎯 V116 FIX: Disk cache'ten gelen yeni listelenmiş
+                                # hisseleri (AYA tipi) burada da engelle.
+                                # TSX/yabancı borsada geçmişi olan bir hisse ABD'de
+                                # yeni listelenmiş olabilir — 60 bar garantisi şart.
+                                if len(df_sym) < 60:
+                                    logging.info(f"🚫 {sym}: Disk cache'te yetersiz geçmiş ({len(df_sym)} bar) → atlandı")
+                                    continue
+                                BULK_DATA_CACHE[sym] = df_sym.copy()
+                                filtered_list.append(sym)
+
+                    if filtered_list:
+                        logging.info(f"✅ Disk Cache: {len(data_list)} → {len(filtered_list)} hisse ({len(data_list)-len(filtered_list)} yetersiz geçmişli elendi)")
                         UNIVERSE_CACHE["ts"] = mtime
-                        UNIVERSE_CACHE["data"] = data_list
-                        return data_list
-            except Exception as e:
-                logging.error(f"⚠️ Disk cache yükleme/indirme hatası: {e}")
+                        UNIVERSE_CACHE["data"] = filtered_list
+                        return filtered_list
+        except Exception as e:
+            logging.error(f"⚠️ Disk cache yükleme/indirme hatası: {e}")
 
     raw_list = await fetch_all_us_tickers()
     if not raw_list:
@@ -403,7 +415,8 @@ async def build_atmaca_universe_full() -> List[str]:
                     close  = data[sym]["Close"].dropna()
                     volume = data[sym]["Volume"].dropna()
 
-                    if len(close) < 6 or len(volume) < 6:
+                    # 🎯 V116 FIX: Yeni halka arzları (AYA gibi) ve yetersiz verisi olanları baştan ele
+                    if len(close) < 60 or len(volume) < 60:
                         continue
 
                     last_price = float(close.iloc[-1])
@@ -1206,8 +1219,10 @@ def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
 def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:  # 🔧 FIX: 5 → 5 gün (V115 spec: "3 gün → 5 gün")
     try:
         earnings_date = get_earnings_date_safe(ticker)
-        if earnings_date is None: return True
+        # 🎯 V115 FIX: API hata verirse veya veri yoksa (None), riske girmemek için False (Güvensiz) dön. (MAC vakası)
+        if earnings_date is None: return False
         now = datetime.now(NY_TZ)
+        
         # yfinance sometimes returns naive (UTC assumption) sometimes aware.
         # When it comes as Naive, we accept it as UTC and convert to NY — default NY_TZ
         # was causing wrong decisions on borderline earnings due to time difference.
@@ -1220,7 +1235,7 @@ def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:  # 
         if -2 <= days_until < 0: return False
         return True
     except Exception:
-        return True
+        return False
 
 
 async def analyze_market_and_sectors():
@@ -1520,7 +1535,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # 1D data → From BULK_DATA_CACHE (0 ms, yf.download already loaded)
         df_1d = await asyncio.to_thread(get_stock_data, ticker, "1d")
-        if df_1d is None or len(df_1d) < 50:
+        # 🎯 V115 FIX: Geçmişi olmayan IPO hisselerini engellemek için minimum 60 bar şartı.
+        if df_1d is None or len(df_1d) < 60:
             return None
 
         # Volume hard filter
@@ -1836,26 +1852,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             bb_width_1d = 0.0
 
-        # YENİ:
         # ── BETA VOLATİLİTE ÖDÜLÜ (7g Hedef) ─────────────────────────
         if beta >= 1.5:
-            score += 4.0; details.append(f"[START] High Beta ({beta:.2f}): Hızlı hareket potansiyeli")
+            score += 4.0; details.append(f"🚀 High Beta ({beta:.2f}): Hızlı hareket potansiyeli")
         elif beta >= 1.2:
             score += 2.0; details.append(f"📈 Good Beta ({beta:.2f}): Market üzeri volatilite")
         elif beta < 0.8:
             score -= 2.0; details.append(f"🐢 Low Beta ({beta:.2f}): Yavaş hareket riski")
 
-            
-        
-        # YENİ:
         # 🎯 0-DAY SNIPER: 7 günde %10 hedefi için düşük volatilite kabul edilemez.
-        # 🎯 0-DAY SNIPER: 7 günde %10 hedefi için düşük volatilite kabul edilemez.
-        # 🔧 FIX: Squeeze aşamasında ATR geçici düşer (BB daralması = düşük ATR normaldir), muafiyet ekle.
+        # 🎯 V115 FIX: REIT'ler için dar range koruması. (UMH vakası)
         if atr_pct_1d < 0.025:
-            if is_squeeze:
+            if sector_name == "Real Estate":
+                return None  # ELIMINATE: REIT'lerde ATR %2.5 altındaysa swing marjı yoktur, baştan ele.
+            elif is_squeeze:
                 score -= 3.0; details.append("⚠️ VOL Regime: Squeeze sıkışması (ATR < 2.5% — Normal)")
             else:
                 score -= 10.0; details.append("🔴 VOL Regime: Too Slow for 7-Day Swing (ATR < 2.5%)")
+                
         elif 0.025 <= atr_pct_1d < 0.035:
             score -= 2.0; details.append("⚠️ VOL Regime: Mild/Slow (ATR < 3.5%)")
         elif 0.035 <= atr_pct_1d < 0.045:
@@ -3267,13 +3281,7 @@ async def scan_top_stocks():
     logging.info(f"⚙️ Regime: {MARKET_STATUS['regime']} | Modifier: {MARKET_STATUS['min_score_modifier']}")
 
     vix_note = MARKET_STATUS.get("vix_note", "VIX: N/A")
-    await send_telegram_message(
-        "🐂 <b>BOGA AI SWING TRADE V115 Scanner Started!</b>\n"
-        "⏱ Schedule: Weekdays NY 13:00\n"
-        f"📊 Market: <b>{MARKET_STATUS.get('regime','Bull')}</b> | {vix_note}\n"
-        "🎯 Goal: Daily Top 20 → Telegram Top 5\n"
-        "🔍 V115: Sistem etiketleri + VIX overlay aktif"
-    )
+    # Telegram notification moved to main_loop to avoid duplicates if run via scheduler
     
     # ── STEP 2: UNIVERSE (500 stocks - weekly cache) ───────────────────
     MASTER_UNIVERSE = await build_atmaca_universe_full()
@@ -3648,8 +3656,8 @@ async def run_scanner():
         "🐂 <b>BOGA AI SWING TRADE V115 Started!</b>\n"
         "📅 Schedule: Every weekday New York 13:00\n"
         "🎯 Goal: Daily Top 5 Swing Trade Opportunities\n"
-        "[INFO] JSON: swing_picks_boga.json\n"
-        "📊 R/R: ~2.5:1 target | ATR + 1H Support/Resistance"
+        f"📊 Market: <b>{MARKET_STATUS.get('regime','Bull')}</b> | R/R: ~2.5:1\n"
+        "🔍 V115: Sistem etiketleri + VIX overlay aktif"
     )
 
     # Initial scan

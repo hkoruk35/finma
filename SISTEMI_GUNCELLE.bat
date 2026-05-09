@@ -27,14 +27,15 @@ if '%errorlevel%' NEQ '0' (
 :gotAdmin
     pushd "%CD%"
     CD /D "%~dp0"
-    echo BOGA AI Sistem Saatleri Guncelleniyor...
+    echo BOGA AI Sistem Gorevleri Temizleniyor ve Guncelleniyor...
     powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\scratch\setup_boga_tasks.ps1"
     echo.
     echo ==================================================
-    echo ISLEM TAMAMLANDI! 
-    echo Saglik Raporu: 06:00 NY
-    :: echo Opsiyon Botu:  11:00 NY
-    echo Swing Botu:    13:00 NY
+    echo ISLEM TAMAMLANDI! (Tum duplicateler temizlendi)
+    echo --------------------------------------------------
+    echo 1. Master Bot (DayTrade+Swing): 09:15 NY
+    echo 2. Inday Pulse (Saatlik):      10:00-16:00 NY
+    echo 3. Saglik Raporu:              06:00 NY
     echo ==================================================
     echo.
     pause
