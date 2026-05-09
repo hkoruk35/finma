@@ -72,135 +72,138 @@ def update_performance_live():
     today_str = datetime.now().strftime('%Y-%m-%d')
     today_date = datetime.strptime(today_str, '%Y-%m-%d')
 
-    # 3. Update PENDING records (and those within 30 days)
+    # 3. Update PENDING records (V5 Rules)
     for record in history:
         ticker = record['ticker']
-        try:
-            entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-            days_passed = (today_date - entry_date).days
-            
-            if days_passed == 0:
-                # Rule: No results on Day 0.
+        if record.get('result') not in ['PENDING', None]:
+            # Optional: Allow re-updating if within 40 days to catch data corrections
+            entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
+            if (today_date - entry_date_0).days > 40:
                 continue
-            
-            # Monitoring window: Day 1 to Day 30
-            if days_passed > 40 and record.get('result') != 'PENDING':
-                continue # Skip old finalized records
 
-            # Start and End for monitoring
-            start_check = (entry_date + timedelta(days=1))
-            end_check = (entry_date + timedelta(days=31))
-            
-            # Fetch daily data for the 30-day window
-            fetch_end = min(end_check, today_date)
-            hist = yf.Ticker(ticker).history(start=start_check.strftime('%Y-%m-%d'), 
-                                             end=(fetch_end + timedelta(days=1)).strftime('%Y-%m-%d'))
+        try:
+            entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
+            # Fetch data from Day 0 + 1 to today
+            # We fetch up to 45 days to be safe
+            hist = yf.Ticker(ticker).history(start=(entry_date_0 + timedelta(days=1)).strftime('%Y-%m-%d'),
+                                             end=(entry_date_0 + timedelta(days=45)).strftime('%Y-%m-%d'))
             
             if hist.empty: continue
             hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
             
-            entry_price = record.get('entry', 0)
-            sl_pct = record.get('sl_pct', -5.0)
-            sl_price = entry_price * (1 + (sl_pct / 100))
+            # Rule 1: Entry is Day 1 OPEN
+            day_1_idx = hist.index[0]
+            entry_price = float(hist.iloc[0]['Open'])
             
-            best_ret = record.get('return_pct', 0.0)
+            # Rule 3: SL pct (default 3.5 if missing)
+            sl_pct = abs(record.get('sl_pct', 3.5))
+            sl_price = entry_price * (1 - sl_pct / 100)
+            
             peak_price = record.get('max_price', entry_price)
-            peak_date = record.get('peak_date', record['date'])
-            final_result = record.get('result', 'PENDING')
-            exit_date = record.get('exit_date')
+            peak_date = record.get('peak_date', day_1_idx.strftime('%Y-%m-%d'))
+            final_result = 'PENDING'
+            final_ret = 0.0
+            exit_date = None
 
-            # We process ALL bars since Day 1 to ensure we don't miss a WIN/STOPPED trigger
+            # Process Day 1 onwards
             for idx, row in hist.iterrows():
-                # Stop if reached Day 30
-                if (idx - entry_date).days > 30:
-                    break
+                days_from_day_1 = (idx - day_1_idx).days
+                if days_from_day_1 > 30: break
 
-                day_high = float(row['High'])
-                day_low = float(row['Low'])
                 day_close = float(row['Close'])
                 
-                # Update Peak within 30 days
-                if day_high > peak_price:
-                    peak_price = day_high
+                # Update Peak (Close based)
+                if day_close > peak_price:
+                    peak_price = day_close
                     peak_date = idx.strftime('%Y-%m-%d')
                 
-                current_ret = ((day_high - entry_price) / entry_price) * 100
-                if current_ret > best_ret:
-                    best_ret = current_ret
+                current_ret = ((day_close - entry_price) / entry_price) * 100
 
-                # Check SL (Only if not already a WIN)
-                # Note: Rule says +5% hit is successful. Once success, it's locked.
-                if final_result != 'WIN' and day_low <= sl_price:
-                    final_result = 'STOPPED'
+                # Rule 3: SL Check (Priority)
+                if day_close <= sl_price:
+                    final_result = 'LOSS'
+                    final_ret = -sl_pct
                     exit_date = idx.strftime('%Y-%m-%d')
-                    best_ret = sl_pct
-                    peak_price = sl_price
-                    peak_date = exit_date
                     break
                 
-                # Check WIN (+5% lock-in)
+                # Rule 4: WIN Check (>= +5%)
                 if current_ret >= 5.0:
                     final_result = 'WIN'
-                    # Continue to track peak until Day 30 or SL
-                
-                # If reached 30 days and still PENDING
-                if (idx - entry_date).days == 30 and final_result == 'PENDING':
-                    f_ret = ((day_close - entry_price) / entry_price) * 100
-                    final_result = 'WIN' if f_ret >= 5.0 else 'LOSS'
-                    best_ret = f_ret
+                    final_ret = current_ret
                     exit_date = idx.strftime('%Y-%m-%d')
-            
+                    break
+                
+            # Rule 6: 30 Day Limit
+            if final_result == 'PENDING':
+                valid_bars = hist[(hist.index - day_1_idx).days <= 30]
+                if not valid_bars.empty:
+                    last_bar = valid_bars.iloc[-1]
+                    f_close = float(last_bar['Close'])
+                    f_ret = ((f_close - entry_price) / entry_price) * 100
+                    
+                    if (today_date - day_1_idx).days >= 30:
+                        final_result = 'WIN' if f_ret > 0 else 'LOSS'
+                        final_ret = f_ret
+                        exit_date = valid_bars.index[-1].strftime('%Y-%m-%d')
+                    else:
+                        final_result = 'PENDING'
+                        final_ret = f_ret
+                        exit_date = None
+
             # Update Record
+            record['entry'] = round(entry_price, 2)
             record['max_price'] = round(peak_price, 2)
             record['peak_date'] = peak_date
-            record['return_pct'] = round(best_ret, 2)
+            record['return_pct'] = round(final_ret, 2)
             record['result'] = final_result
-            if exit_date: record['exit_date'] = exit_date
-            record['days'] = min(days_passed, 30)
+            if exit_date:
+                record['exit_date'] = exit_date
+                record['days'] = (datetime.strptime(exit_date, '%Y-%m-%d') - day_1_idx).days
+            else:
+                record['days'] = (today_date - day_1_idx).days
 
         except Exception as e:
             logging.warning(f"Update error for {ticker}: {e}")
 
-    # 4. Add Today's Picks
+    # 4. Add Today's Picks (Day 0)
+    # They stay PENDING until Day 1 data is available
     existing_today = [r['ticker'] for r in history if r['date'] == today_str]
     for ticker, p in today_picks.items():
         if ticker not in existing_today:
-            try:
-                # Fetch Day 0 Average
-                d0 = yf.Ticker(ticker).history(period="1d")
-                if not d0.empty:
-                    avg_p = (float(d0.iloc[0]['High']) + float(d0.iloc[0]['Low'])) / 2
-                    sl_high = p.get('tracker_logic', {}).get('stop_loss_high', avg_p * 0.95)
-                    sl_pct = round(((sl_high - avg_p) / avg_p) * 100, 2)
-                    
-                    info = get_ticker_info(ticker, info_cache)
-                    history.append({
-                        'date': today_str,
-                        'ticker': ticker,
-                        'company': info['company'],
-                        'sector': info['sector'],
-                        'subsector': info['industry'],
-                        'entry': round(avg_p, 2),
-                        'max_price': round(avg_p, 2),
-                        'sl_pct': sl_pct,
-                        'return_pct': 0.0,
-                        'days': 0,
-                        'result': 'PENDING'
-                    })
-            except: pass
+            info = get_ticker_info(ticker, info_cache)
+            # Find sl_pct from bot output
+            entry_ref = p.get('current_price', 1)
+            sl_ref = p.get('tracker_logic', {}).get('stop_loss_high', entry_ref * 0.965)
+            sl_pct = abs(round(((sl_ref - entry_ref) / entry_ref) * 100, 2))
+            
+            history.append({
+                'date': today_str,
+                'ticker': ticker,
+                'company': info['company'],
+                'sector': info['sector'],
+                'subsector': info['industry'],
+                'entry': 0, # To be filled on Day 1
+                'max_price': 0,
+                'sl_pct': sl_pct,
+                'return_pct': 0.0,
+                'days': 0,
+                'result': 'PENDING'
+            })
 
     # 5. Save and Stats
     history.sort(key=lambda x: (x['date'], x['ticker']), reverse=True)
     data['history'] = history
     
-    comp = [r for r in history if r.get('result') not in ['PENDING', None]]
+    comp = [r for r in history if r.get('result') in ['WIN', 'LOSS']]
+    c_count = len(comp)
     wins = sum(1 for r in comp if r.get('result') == 'WIN')
+    
     data['stats'] = {
         'total_picks': len(history),
-        'completed_count': len(comp),
-        'pending_count': len(history) - len(comp),
-        'win_rate': round((wins / len(comp) * 100), 1) if comp else 0,
-        'avg_return_pct': round(sum(r['return_pct'] for r in comp) / len(comp), 1) if comp else 0,
+        'completed_count': c_count,
+        'pending_count': len(history) - c_count,
+        'win_rate': round((wins / c_count * 100), 1) if c_count > 0 else 0,
+        'avg_return_pct': round(sum(r['return_pct'] for r in comp) / c_count, 1) if c_count > 0 else 0,
         'last_updated': datetime.now().isoformat()
     }
     
@@ -211,7 +214,7 @@ def update_performance_live():
         with open(cache_file, 'w', encoding='utf-8') as f:
             json.dump(info_cache, f, indent=2, ensure_ascii=False)
     except: pass
-    logging.info(f"Performance updated. Win Rate: {data['stats']['win_rate']}%")
+    logging.info(f"V5 Performance updated. Win Rate: {data['stats']['win_rate']}%")
 
 if __name__ == "__main__":
     update_performance_live()
