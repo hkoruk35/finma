@@ -4,6 +4,7 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
 import logging
+import time
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 
@@ -12,7 +13,6 @@ def get_ticker_info(ticker, cache):
     ticker = ticker.upper()
     if ticker in cache:
         c = cache[ticker]
-        # Return if we have the info
         if c.get('industry') and c.get('industry') != 'Unknown':
             return {
                 'sector': c.get('sector', 'Unknown'),
@@ -28,13 +28,11 @@ def get_ticker_info(ticker, cache):
             'industry': info.get('industry', 'Unknown'),
             'company': info.get('longName', ticker)
         }
-        # Update cache in-place
         if ticker not in cache: cache[ticker] = {}
         cache[ticker].update({
             'sector': res['sector'],
             'industry': res['industry'],
-            'companyName': res['company'],
-            'market_cap': info.get('marketCap', 0)
+            'companyName': res['company']
         })
         return res
     except:
@@ -45,19 +43,18 @@ def update_performance_live():
     picks_file = 'frontend/public/swing_all_picks.json'
     cache_file = r'C:\Users\afksm\finma\scratch\financial_tracker\watchlists\persistent_info_cache.json'
     if not os.path.exists(cache_file):
-        # try the other path mentioned in swing113_boga.py
         cache_file = r'C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists\persistent_info_cache.json'
 
     # 1. Load history
     if os.path.exists(performance_file):
         with open(performance_file, 'r', encoding='utf-8') as f:
-            perf_data = json.load(f)
-            history = perf_data.get('history', [])
+            data = json.load(f)
+            history = data.get('history', [])
     else:
         history = []
-        perf_data = {}
+        data = {}
 
-    # 2. Load Cache
+    # 2. Load Cache & Today's Picks
     info_cache = {}
     if os.path.exists(cache_file):
         try:
@@ -65,272 +62,156 @@ def update_performance_live():
                 info_cache = json.load(f)
         except: pass
 
+    today_picks = {}
+    if os.path.exists(picks_file):
+        with open(picks_file, 'r', encoding='utf-8') as f:
+            p_list = json.load(f).get('picks', [])
+            for p in p_list:
+                today_picks[p['ticker']] = p
+
     today_str = datetime.now().strftime('%Y-%m-%d')
     today_date = datetime.strptime(today_str, '%Y-%m-%d')
 
-    # 3. Identify tickers that need updates (active in last 30 days)
-    # We also include today's new picks
-    tickers_to_update = set()
-    for record in history:
-        try:
-            entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-            # Only update if within last 30 days
-            if (today_date - entry_date).days <= 30:
-                tickers_to_update.add(record['ticker'])
-                
-                # Fix missing sector/company/subsector
-                needs_info = (not record.get('sector') or record['sector'] in ['Unknown', '—', 'None'] or
-                             not record.get('subsector') or record['subsector'] in ['Unknown', '—', 'None'] or
-                             not record.get('company') or record['company'] == record['ticker'])
-                
-                if needs_info:
-                    info = get_ticker_info(record['ticker'], info_cache)
-                    record['sector'] = info['sector']
-                    record['subsector'] = info['industry']
-                    record['company'] = info['company']
-        except: pass
-
-    # 4. Load today's picks and add to tickers
-    today_picks_list = []
-    if os.path.exists(picks_file):
-        with open(picks_file, 'r', encoding='utf-8') as f:
-            today_picks_list = json.load(f).get('picks', [])
-            for p in today_picks_list:
-                tickers_to_update.add(p['ticker'])
-
-    # 5. Fetch live prices + peak within 30-day window via yfinance
-    live_prices = {}
-    peak_data   = {}   # ticker -> {price, date, days_to_peak}
-
-    if tickers_to_update:
-        logging.info(f"Fetching live prices for {len(tickers_to_update)} tickers...")
-        try:
-            data = yf.download(list(tickers_to_update), period="5d", interval="1d", group_by='ticker', auto_adjust=True, progress=False)
-            for ticker in tickers_to_update:
-                try:
-                    if len(tickers_to_update) == 1:
-                        price = data['Close'].iloc[-1]
-                    else:
-                        price = data[ticker]['Close'].iloc[-1]
-                    if not pd.isna(price):
-                        live_prices[ticker] = float(price)
-                except:
-                    pass
-        except Exception as e:
-            logging.error(f"Error fetching live prices: {e}")
-
-        # Per-ticker: fetch 30-day window High to find peak date
-        for ticker in tickers_to_update:
-            # Find earliest entry for this ticker in the active window
-            relevant = [r for r in history
-                        if r['ticker'] == ticker
-                        and (today_date - datetime.strptime(r['date'], '%Y-%m-%d')).days <= 30]
-            if not relevant:
-                continue
-            earliest_entry = min(datetime.strptime(r['date'], '%Y-%m-%d') for r in relevant)
-            window_end = min(earliest_entry + timedelta(days=30), today_date)
-            try:
-                hist = yf.Ticker(ticker).history(
-                    start=earliest_entry.strftime('%Y-%m-%d'),
-                    end=(window_end + timedelta(days=1)).strftime('%Y-%m-%d')
-                )
-                if not hist.empty:
-                    hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
-                    peak_data[ticker] = {
-                        'hist': hist,
-                        'earliest_entry': earliest_entry,
-                    }
-            except Exception as e:
-                logging.warning(f"Peak data fetch error for {ticker}: {e}")
-
-    # 6. Update history records — days = days to peak (not days since entry)
+    # 3. Update PENDING records (and those within 30 days)
     for record in history:
         ticker = record['ticker']
         try:
             entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-            days_since_entry = (today_date - entry_date).days
-
-            # STRICT: Only update records <= 30 days old
-            if days_since_entry > 30:
+            days_passed = (today_date - entry_date).days
+            
+            if days_passed == 0:
+                # Rule: No results on Day 0.
                 continue
+            
+            # Monitoring window: Day 1 to Day 30
+            if days_passed > 40 and record.get('result') != 'PENDING':
+                continue # Skip old finalized records
 
-            # ── INTRADAY STOP-LOSS CHECK (1H Bars) ──
-            # Discipline: If price hits -3.5% SL at any 1H bar, the trade is STOPPED.
-            SL_THRESHOLD = -3.5
+            # Start and End for monitoring
+            start_check = (entry_date + timedelta(days=1))
+            end_check = (entry_date + timedelta(days=31))
+            
+            # Fetch daily data for the 30-day window
+            fetch_end = min(end_check, today_date)
+            hist = yf.Ticker(ticker).history(start=start_check.strftime('%Y-%m-%d'), 
+                                             end=(fetch_end + timedelta(days=1)).strftime('%Y-%m-%d'))
+            
+            if hist.empty: continue
+            hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
+            
             entry_price = record.get('entry', 0)
-            if entry_price > 0:
-                sl_price = entry_price * (1 + (SL_THRESHOLD / 100))
+            sl_pct = record.get('sl_pct', -5.0)
+            sl_price = entry_price * (1 + (sl_pct / 100))
+            
+            best_ret = record.get('return_pct', 0.0)
+            peak_price = record.get('max_price', entry_price)
+            peak_date = record.get('peak_date', record['date'])
+            final_result = record.get('result', 'PENDING')
+            exit_date = record.get('exit_date')
+
+            # We process ALL bars since Day 1 to ensure we don't miss a WIN/STOPPED trigger
+            for idx, row in hist.iterrows():
+                # Stop if reached Day 30
+                if (idx - entry_date).days > 30:
+                    break
+
+                day_high = float(row['High'])
+                day_low = float(row['Low'])
+                day_close = float(row['Close'])
                 
-                try:
-                    # Fetch intraday data from entry to today
-                    sl_hist = yf.Ticker(ticker).history(
-                        start=entry_date.strftime('%Y-%m-%d'),
-                        interval='1h'
-                    )
-                    if not sl_hist.empty:
-                        # Normalize index for timezone consistency
-                        sl_hist.index = sl_hist.index.tz_convert('America/New_York') if sl_hist.index.tzinfo else sl_hist.index
-                        
-                        # Filter for bars occurring AFTER entry time (approx 13:00 on entry day)
-                        mask = (sl_hist.index.normalize() > pd.Timestamp(entry_date)) | \
-                               ((sl_hist.index.normalize() == pd.Timestamp(entry_date)) & (sl_hist.index.hour >= 13))
-                        relevant_bars = sl_hist[mask]
-                        
-                        if not relevant_bars.empty:
-                            # Check if ANY bar low hit or crossed the SL price
-                            sl_hits = relevant_bars[relevant_bars['Low'] <= sl_price]
-                            if not sl_hits.empty:
-                                first_hit_time = sl_hits.index[0]
-                                record['result'] = 'STOPPED'
-                                record['return_pct'] = SL_THRESHOLD
-                                record['exit_date'] = first_hit_time.strftime('%Y-%m-%d')
-                                record['days'] = int((first_hit_time.normalize() - pd.Timestamp(entry_date)).days)
-                                logging.info(f"🛑 STOP LOSS TRIGGERED: {ticker} on {record['exit_date']} (Entry: {entry_price}, SL: {sl_price})")
-                                continue # Skip normal update if stopped
-                except Exception as e:
-                    logging.warning(f"SL check error for {ticker}: {e}")
+                # Update Peak within 30 days
+                if day_high > peak_price:
+                    peak_price = day_high
+                    peak_date = idx.strftime('%Y-%m-%d')
+                
+                current_ret = ((day_high - entry_price) / entry_price) * 100
+                if current_ret > best_ret:
+                    best_ret = current_ret
 
-            # Re-calculate peak within 30-day window from actual historical data
-            if ticker in peak_data:
-                hist = peak_data[ticker]['hist']
-                mask = hist.index.normalize() >= pd.Timestamp(entry_date)
-                window = hist[mask]
+                # Check SL (Only if not already a WIN)
+                # Note: Rule says +5% hit is successful. Once success, it's locked.
+                if final_result != 'WIN' and day_low <= sl_price:
+                    final_result = 'STOPPED'
+                    exit_date = idx.strftime('%Y-%m-%d')
+                    best_ret = sl_pct
+                    peak_price = sl_price
+                    peak_date = exit_date
+                    break
+                
+                # Check WIN (+5% lock-in)
+                if current_ret >= 5.0:
+                    final_result = 'WIN'
+                    # Continue to track peak until Day 30 or SL
+                
+                # If reached 30 days and still PENDING
+                if (idx - entry_date).days == 30 and final_result == 'PENDING':
+                    f_ret = ((day_close - entry_price) / entry_price) * 100
+                    final_result = 'WIN' if f_ret >= 5.0 else 'LOSS'
+                    best_ret = f_ret
+                    exit_date = idx.strftime('%Y-%m-%d')
+            
+            # Update Record
+            record['max_price'] = round(peak_price, 2)
+            record['peak_date'] = peak_date
+            record['return_pct'] = round(best_ret, 2)
+            record['result'] = final_result
+            if exit_date: record['exit_date'] = exit_date
+            record['days'] = min(days_passed, 30)
 
-                if not window.empty:
-                    # Special handling for entry day: 
-                    # We MUST ignore peaks that happened before the signal time (approx 13:30 NY)
-                    entry_day_mask = hist.index.normalize() == pd.Timestamp(entry_date)
-                    entry_day_data = hist[entry_day_mask]
-                    
-                    final_peak_price = 0.0
-                    final_peak_date = None
-                    
-                    if not entry_day_data.empty:
-                        # For the entry day, we fetch intraday if possible, or just use entry price as baseline
-                        # Heuristic: Most signals come after 13:00 NY. 
-                        # We try to get hourly data for more precision on entry day peak.
-                        try:
-                            intraday = yf.Ticker(ticker).history(start=entry_date.strftime('%Y-%m-%d'), 
-                                                               end=(entry_date + timedelta(days=1)).strftime('%Y-%m-%d'),
-                                                               interval='1h')
-                            if not intraday.empty:
-                                intraday.index = intraday.index.tz_convert('America/New_York')
-                                # Filter for hours >= 13:00
-                                valid_intraday = intraday[intraday.index.hour >= 13]
-                                if not valid_intraday.empty:
-                                    entry_day_peak = float(valid_intraday['High'].max())
-                                else:
-                                    # Signal was late, use close or entry
-                                    entry_day_peak = record.get('entry', 0)
-                            else:
-                                entry_day_peak = record.get('entry', 0)
-                        except:
-                            entry_day_peak = record.get('entry', 0)
-                        
-                        final_peak_price = entry_day_peak
-                        final_peak_date = pd.Timestamp(entry_date)
-
-                    # Now check subsequent days (which are all valid)
-                    later_days_mask = hist.index.normalize() > pd.Timestamp(entry_date)
-                    later_days_data = hist[later_days_mask]
-                    
-                    if not later_days_data.empty:
-                        later_peak_price = float(later_days_data['High'].max())
-                        if later_peak_price > final_peak_price:
-                            final_peak_price = later_peak_price
-                            final_peak_date = later_days_data['High'].idxmax().normalize()
-
-                    entry_price = record.get('entry', 0)
-                    if entry_price > 0:
-                        return_pct = round(((final_peak_price - entry_price) / entry_price) * 100, 2)
-                    else:
-                        return_pct = 0.0
-
-                    record['max_price']  = round(final_peak_price, 2)
-                    record['peak_date']  = final_peak_date.strftime('%Y-%m-%d') if final_peak_date else entry_date.strftime('%Y-%m-%d')
-                    record['days']       = int((pd.Timestamp(record['peak_date']) - pd.Timestamp(entry_date)).days)
-                    record['return_pct'] = return_pct
-                    continue
-
-            # Fallback: use live close price if no peak data
-            if ticker in live_prices:
-                current_price = live_prices[ticker]
-                if current_price > record.get('max_price', 0):
-                    record['max_price'] = round(current_price, 2)
-                entry_price = record.get('entry', 0)
-                if entry_price > 0:
-                    record['return_pct'] = round(((record['max_price'] - entry_price) / entry_price) * 100, 2)
-                # Keep days as 0 (same day) rather than days_since_entry
-                if not record.get('days'):
-                    record['days'] = 0
         except Exception as e:
-            logging.warning(f"Update error for {record.get('ticker')}: {e}")
+            logging.warning(f"Update error for {ticker}: {e}")
 
-    # 7. Add today's new picks if not already there today
-    existing_today_tickers = [r['ticker'] for r in history if r['date'] == today_str]
-    for p in today_picks_list:
-        ticker = p['ticker']
-        if ticker not in existing_today_tickers:
-            price = live_prices.get(ticker, p.get('current_price', 0))
-            if price > 0:
-                info = get_ticker_info(ticker, info_cache)
-                history.append({
-                    'date': today_str,
-                    'ticker': ticker,
-                    'company': info['company'],
-                    'sector': info['sector'],
-                    'subsector': info['industry'],
-                    'entry': price,
-                    'max_price': price,
-                    'return_pct': 0.0,
-                    'days': 0,
-                    'result': 'PENDING'
-                })
+    # 4. Add Today's Picks
+    existing_today = [r['ticker'] for r in history if r['date'] == today_str]
+    for ticker, p in today_picks.items():
+        if ticker not in existing_today:
+            try:
+                # Fetch Day 0 Average
+                d0 = yf.Ticker(ticker).history(period="1d")
+                if not d0.empty:
+                    avg_p = (float(d0.iloc[0]['High']) + float(d0.iloc[0]['Low'])) / 2
+                    sl_high = p.get('tracker_logic', {}).get('stop_loss_high', avg_p * 0.95)
+                    sl_pct = round(((sl_high - avg_p) / avg_p) * 100, 2)
+                    
+                    info = get_ticker_info(ticker, info_cache)
+                    history.append({
+                        'date': today_str,
+                        'ticker': ticker,
+                        'company': info['company'],
+                        'sector': info['sector'],
+                        'subsector': info['industry'],
+                        'entry': round(avg_p, 2),
+                        'max_price': round(avg_p, 2),
+                        'sl_pct': sl_pct,
+                        'return_pct': 0.0,
+                        'days': 0,
+                        'result': 'PENDING'
+                    })
+            except: pass
 
-    # 8. Finalize and Save
+    # 5. Save and Stats
     history.sort(key=lambda x: (x['date'], x['ticker']), reverse=True)
-    perf_data['history'] = history
+    data['history'] = history
     
-    # 🔥 SYNC WITH FRONTEND: Apply -3.5% Stop-Loss Logic for stats
-    SL_PCT = -3.5
-    
-    total = len(history)
-    completed = [r for r in history if r.get('result') != 'PENDING']
-    completed_count = len(completed)
-    
-    def get_effective_ret(r):
-        ret = r.get('return_pct', 0)
-        return max(ret, SL_PCT)
-
-    wins = sum(1 for r in completed if get_effective_ret(r) > 0)
-    sum_ret = sum(get_effective_ret(r) for r in completed)
-    
-    perf_data['stats'] = {
-        'total_picks': total,
-        'completed_count': completed_count,
-        'pending_count': total - completed_count,
-        'win_rate': round((wins / completed_count * 100), 1) if completed_count > 0 else 0,
-        'avg_return_pct': round(sum_ret / completed_count, 1) if completed_count > 0 else 0,
-        'period_days': 180, 
-        'above_5pct_rate': round(sum(1 for r in completed if get_effective_ret(r) >= 5) / completed_count * 100, 1) if completed_count > 0 else 0,
-        'above_10pct_rate': round(sum(1 for r in completed if get_effective_ret(r) >= 10) / completed_count * 100, 1) if completed_count > 0 else 0,
-        'stop_loss_pct': SL_PCT,
+    comp = [r for r in history if r.get('result') not in ['PENDING', None]]
+    wins = sum(1 for r in comp if r.get('result') == 'WIN')
+    data['stats'] = {
+        'total_picks': len(history),
+        'completed_count': len(comp),
+        'pending_count': len(history) - len(comp),
+        'win_rate': round((wins / len(comp) * 100), 1) if comp else 0,
+        'avg_return_pct': round(sum(r['return_pct'] for r in comp) / len(comp), 1) if comp else 0,
         'last_updated': datetime.now().isoformat()
     }
-    perf_data['generated_at'] = datetime.now().isoformat()
-
-    with open(performance_file, 'w', encoding='utf-8') as f:
-        json.dump(perf_data, f, indent=2, ensure_ascii=False)
     
-    # 9. Save Cache
+    with open(performance_file, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    
     try:
         with open(cache_file, 'w', encoding='utf-8') as f:
             json.dump(info_cache, f, indent=2, ensure_ascii=False)
-        logging.info("Cache persisted.")
-    except Exception as e:
-        logging.warning(f"Cache save error: {e}")
-
-    logging.info(f"Performance updated. Total records: {len(history)}")
+    except: pass
+    logging.info(f"Performance updated. Win Rate: {data['stats']['win_rate']}%")
 
 if __name__ == "__main__":
     update_performance_live()
