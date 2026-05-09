@@ -78,9 +78,14 @@ def main():
 
     os.makedirs(os.path.join(FINMA_DIR, "logs"), exist_ok=True)
 
-    # ── ADIM 1: Options Scanner (v8.0) - RETIRED BY USER REQUEST ──
-    # log.info("ADIM 1: opsiyon218v8.py --oneshot (11:00 NY Bekleme Modu)...")
-    # run_bot_subprocess("opsiyon218v8.py", ["--oneshot"])
+    # ── ADIM 1: DayTrade Master (v1.0) ──
+    log.info("ADIM 1: daytrade_atmaca_v1.py çalıştırılıyor...")
+    dt_ok = run_bot_subprocess("daytrade_atmaca_v1.py")
+    if dt_ok:
+        log.info("DayTrade sonuçları ara yükleme yapılıyor (Git Push)...")
+        subprocess.run(["git", "add", "frontend/public/daytrade_picks.json", "frontend/public/daytrade_all_picks.json"], cwd=FINMA_DIR)
+        subprocess.run(["git", "commit", "-m", f"Data: DayTrade Update {now_ny.strftime('%Y-%m-%d %H:%M')}"], cwd=FINMA_DIR)
+        subprocess.run(["git", "push", "origin", "main"], cwd=FINMA_DIR)
 
     # ── ADIM 2: Swing Scanner (v115) ──
     log.info("ADIM 2: swing115_boga.py --oneshot (13:00 NY Bekleme Modu)...")
