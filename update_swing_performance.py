@@ -161,23 +161,60 @@ def update_performance_live():
                 window = hist[mask]
 
                 if not window.empty:
-                    peak_idx   = window['High'].idxmax()
-                    peak_price = float(window['High'].max())
-                    peak_date  = peak_idx.normalize()
-                    days_to_peak = int((peak_date - pd.Timestamp(entry_date)).days)
-                    days_to_peak = max(0, days_to_peak)
+                    # Special handling for entry day: 
+                    # We MUST ignore peaks that happened before the signal time (approx 13:30 NY)
+                    entry_day_mask = hist.index.normalize() == pd.Timestamp(entry_date)
+                    entry_day_data = hist[entry_day_mask]
+                    
+                    final_peak_price = 0.0
+                    final_peak_date = None
+                    
+                    if not entry_day_data.empty:
+                        # For the entry day, we fetch intraday if possible, or just use entry price as baseline
+                        # Heuristic: Most signals come after 13:00 NY. 
+                        # We try to get hourly data for more precision on entry day peak.
+                        try:
+                            intraday = yf.Ticker(ticker).history(start=entry_date.strftime('%Y-%m-%d'), 
+                                                               end=(entry_date + timedelta(days=1)).strftime('%Y-%m-%d'),
+                                                               interval='1h')
+                            if not intraday.empty:
+                                intraday.index = intraday.index.tz_convert('America/New_York')
+                                # Filter for hours >= 13:00
+                                valid_intraday = intraday[intraday.index.hour >= 13]
+                                if not valid_intraday.empty:
+                                    entry_day_peak = float(valid_intraday['High'].max())
+                                else:
+                                    # Signal was late, use close or entry
+                                    entry_day_peak = record.get('entry', 0)
+                            else:
+                                entry_day_peak = record.get('entry', 0)
+                        except:
+                            entry_day_peak = record.get('entry', 0)
+                        
+                        final_peak_price = entry_day_peak
+                        final_peak_date = pd.Timestamp(entry_date)
+
+                    # Now check subsequent days (which are all valid)
+                    later_days_mask = hist.index.normalize() > pd.Timestamp(entry_date)
+                    later_days_data = hist[later_days_mask]
+                    
+                    if not later_days_data.empty:
+                        later_peak_price = float(later_days_data['High'].max())
+                        if later_peak_price > final_peak_price:
+                            final_peak_price = later_peak_price
+                            final_peak_date = later_days_data['High'].idxmax().normalize()
 
                     entry_price = record.get('entry', 0)
                     if entry_price > 0:
-                        return_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
+                        return_pct = round(((final_peak_price - entry_price) / entry_price) * 100, 2)
                     else:
                         return_pct = 0.0
 
-                    record['max_price']  = round(peak_price, 2)
-                    record['peak_date']  = peak_date.strftime('%Y-%m-%d')
-                    record['days']       = days_to_peak
+                    record['max_price']  = round(final_peak_price, 2)
+                    record['peak_date']  = final_peak_date.strftime('%Y-%m-%d') if final_peak_date else entry_date.strftime('%Y-%m-%d')
+                    record['days']       = int((pd.Timestamp(record['peak_date']) - pd.Timestamp(entry_date)).days)
                     record['return_pct'] = return_pct
-                    continue   # skip legacy fallback below
+                    continue
 
             # Fallback: use live close price if no peak data
             if ticker in live_prices:
