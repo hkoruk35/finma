@@ -1,14 +1,12 @@
 {
   "stats": {
     "total_picks": 757,
-    "completed_count": 642,
-    "pending_count": 115,
-    "win_rate": 56.9,
-    "avg_return_pct": 1.7,
-    "period_days": 180,
-    "above_5pct_rate": 54.4,
-    "above_10pct_rate": 3.4,
-    "last_updated": "2026-05-09T09:36:34.368435"
+    "completed_count": 641,
+    "pending_count": 116,
+    "win_rate": 57.6,
+    "avg_return_pct": 1.8,
+    "stop_loss_pct": "Dynamic",
+    "last_updated": "2026-05-09T09:49:06.347144"
   },
   "history": [
     {
@@ -263,7 +261,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -277,7 +275,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -291,7 +289,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -305,7 +303,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -319,7 +317,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -333,7 +331,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -347,7 +345,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -361,7 +359,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -375,7 +373,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -389,7 +387,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -403,7 +401,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -417,7 +415,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -431,7 +429,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -445,7 +443,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -459,7 +457,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -473,7 +471,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -487,7 +485,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -501,7 +499,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-08",
@@ -515,7 +513,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.5
     },
     {
       "date": "2026-05-08",
@@ -530,7 +528,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-07",
@@ -544,7 +542,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.55
     },
     {
       "date": "2026-05-07",
@@ -558,7 +556,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.04
     },
     {
       "date": "2026-05-07",
@@ -572,7 +570,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 2.97
     },
     {
       "date": "2026-05-07",
@@ -586,7 +584,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.15
     },
     {
       "date": "2026-05-07",
@@ -600,7 +598,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.1
     },
     {
       "date": "2026-05-07",
@@ -615,7 +613,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 3.43
     },
     {
       "date": "2026-05-07",
@@ -630,7 +628,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 6.95
     },
     {
       "date": "2026-05-07",
@@ -640,12 +638,12 @@
       "subsector": "Specialty Industrial Machinery",
       "entry": 57.27,
       "max_price": 57.27,
-      "return_pct": -5.0,
+      "return_pct": -7.46,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 7.46
     },
     {
       "date": "2026-05-07",
@@ -659,7 +657,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.44
     },
     {
       "date": "2026-05-07",
@@ -673,7 +671,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.67
     },
     {
       "date": "2026-05-07",
@@ -688,7 +686,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 6.04
     },
     {
       "date": "2026-05-07",
@@ -702,7 +700,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 1.83
     },
     {
       "date": "2026-05-07",
@@ -716,7 +714,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.09
     },
     {
       "date": "2026-05-07",
@@ -730,7 +728,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.04
     },
     {
       "date": "2026-05-07",
@@ -744,7 +742,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.38
     },
     {
       "date": "2026-05-07",
@@ -758,7 +756,7 @@
       "days": 0,
       "result": "WIN",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 4.88,
       "exit_date": "2026-05-08"
     },
     {
@@ -774,7 +772,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.48
     },
     {
       "date": "2026-05-07",
@@ -788,7 +786,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 7.87
     },
     {
       "date": "2026-05-07",
@@ -802,7 +800,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 3.15
     },
     {
       "date": "2026-05-07",
@@ -816,7 +814,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.26
     },
     {
       "date": "2026-05-07",
@@ -830,7 +828,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 6.29
     },
     {
       "date": "2026-05-07",
@@ -844,7 +842,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.62
     },
     {
       "date": "2026-05-07",
@@ -858,7 +856,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.38
     },
     {
       "date": "2026-05-07",
@@ -868,12 +866,12 @@
       "subsector": "Banks - Diversified",
       "entry": 130.19,
       "max_price": 130.19,
-      "return_pct": -3.56,
-      "days": 1,
-      "result": "PENDING",
+      "return_pct": -2.98,
+      "days": 0,
+      "result": "LOSS",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 2.98
     },
     {
       "date": "2026-05-07",
@@ -887,7 +885,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.17
     },
     {
       "date": "2026-05-07",
@@ -901,7 +899,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.95
     },
     {
       "date": "2026-05-07",
@@ -915,7 +913,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.71
     },
     {
       "date": "2026-05-07",
@@ -929,7 +927,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.85
     },
     {
       "date": "2026-05-07",
@@ -943,7 +941,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.06
     },
     {
       "date": "2026-05-07",
@@ -957,7 +955,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.43
     },
     {
       "date": "2026-05-07",
@@ -971,7 +969,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 2.5
     },
     {
       "date": "2026-05-07",
@@ -985,7 +983,7 @@
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 0.81
     },
     {
       "date": "2026-05-06",
@@ -999,7 +997,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1014,7 +1012,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1029,7 +1027,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1043,7 +1041,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1053,12 +1051,12 @@
       "subsector": "Entertainment",
       "entry": 143.88,
       "max_price": 143.88,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1072,7 +1070,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1086,7 +1084,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1100,7 +1098,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1110,12 +1108,12 @@
       "subsector": "Internet Content & Information",
       "entry": 38.49,
       "max_price": 38.49,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1129,7 +1127,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1143,7 +1141,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1158,7 +1156,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1172,7 +1170,7 @@
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 2.97
+      "sl_pct": 3.26
     },
     {
       "date": "2026-05-06",
@@ -1187,7 +1185,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-06",
@@ -1197,12 +1195,12 @@
       "subsector": "Semiconductors",
       "entry": 212.56,
       "max_price": 212.56,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-05-05",
@@ -1217,7 +1215,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 4.69
     },
     {
       "date": "2026-05-05",
@@ -1231,7 +1229,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 2.69
     },
     {
       "date": "2026-05-05",
@@ -1245,7 +1243,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 7.72,
       "exit_date": "2026-05-08"
     },
     {
@@ -1260,7 +1258,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0,
+      "sl_pct": 9.27,
       "exit_date": "2026-05-08"
     },
     {
@@ -1276,7 +1274,7 @@
       "result": "WIN",
       "peak_date": "2026-05-07",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 16.67
     },
     {
       "date": "2026-05-05",
@@ -1290,7 +1288,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 2.33
     },
     {
       "date": "2026-05-05",
@@ -1304,7 +1302,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 2.86
     },
     {
       "date": "2026-05-05",
@@ -1318,7 +1316,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 2.63
     },
     {
       "date": "2026-05-05",
@@ -1328,12 +1326,12 @@
       "subsector": "Software - Infrastructure",
       "entry": 24.03,
       "max_price": 24.03,
-      "return_pct": -5.0,
+      "return_pct": -8.53,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-05-06",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 8.53
     },
     {
       "date": "2026-05-05",
@@ -1347,7 +1345,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 2.65
     },
     {
       "date": "2026-05-05",
@@ -1361,7 +1359,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 3.23
     },
     {
       "date": "2026-05-05",
@@ -1375,7 +1373,7 @@
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 3.28
     },
     {
       "date": "2026-05-05",
@@ -1390,7 +1388,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.01
     },
     {
       "date": "2026-05-04",
@@ -1404,7 +1402,7 @@
       "days": 3,
       "result": "WIN",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 4.6,
       "exit_date": "2026-05-08"
     },
     {
@@ -1419,7 +1417,7 @@
       "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 2.5
     },
     {
       "date": "2026-05-01",
@@ -1429,12 +1427,12 @@
       "subsector": "Communication Equipment",
       "entry": 55.33,
       "max_price": 55.33,
-      "return_pct": -5.0,
-      "days": 0,
-      "result": "LOSS",
+      "return_pct": -7.45,
+      "days": 5,
+      "result": "PENDING",
       "peak_date": "2026-05-04",
       "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "sl_pct": 10.79
     },
     {
       "date": "2026-05-01",
@@ -1443,13 +1441,13 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 238.76,
-      "max_price": 238.76,
-      "return_pct": -5.0,
-      "days": 0,
-      "result": "LOSS",
-      "peak_date": "2026-05-04",
-      "sl_pct": 5.0,
-      "exit_date": "2026-05-04"
+      "max_price": 253.59,
+      "return_pct": 6.21,
+      "days": 4,
+      "result": "WIN",
+      "peak_date": "2026-05-08",
+      "sl_pct": 10.92,
+      "exit_date": "2026-05-08"
     },
     {
       "date": "2026-05-01",
@@ -1464,7 +1462,7 @@
       "result": "WIN",
       "peak_date": "2026-05-05",
       "exit_date": "2026-05-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.23
     },
     {
       "date": "2026-05-01",
@@ -1478,7 +1476,7 @@
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 3.31
     },
     {
       "date": "2026-05-01",
@@ -1493,7 +1491,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-06",
       "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "sl_pct": 10.43
     },
     {
       "date": "2026-04-30",
@@ -1507,7 +1505,7 @@
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.19
     },
     {
       "date": "2026-04-30",
@@ -1521,7 +1519,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0,
+      "sl_pct": 4.98,
       "exit_date": "2026-05-06"
     },
     {
@@ -1537,7 +1535,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-05",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 4.78
     },
     {
       "date": "2026-04-30",
@@ -1547,12 +1545,12 @@
       "subsector": "Railroads",
       "entry": 87.01,
       "max_price": 87.01,
-      "return_pct": -1.11,
-      "days": 8,
-      "result": "PENDING",
+      "return_pct": -2.77,
+      "days": 3,
+      "result": "LOSS",
       "peak_date": "2026-05-01",
       "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "sl_pct": 2.77
     },
     {
       "date": "2026-04-30",
@@ -1566,7 +1564,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 24.57,
       "exit_date": "2026-05-08"
     },
     {
@@ -1581,7 +1579,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0,
+      "sl_pct": 9.64,
       "exit_date": "2026-05-06"
     },
     {
@@ -1591,13 +1589,13 @@
       "sector": "Real Estate",
       "subsector": "Real Estate Services",
       "entry": 11.03,
-      "max_price": 11.03,
-      "return_pct": -5.0,
-      "days": 5,
-      "result": "LOSS",
-      "peak_date": "2026-04-30",
+      "max_price": 11.06,
+      "return_pct": -5.89,
+      "days": 9,
+      "result": "PENDING",
+      "peak_date": "2026-05-07",
       "exit_date": "2026-05-05",
-      "sl_pct": 5.0
+      "sl_pct": 14.82
     },
     {
       "date": "2026-04-29",
@@ -1612,7 +1610,7 @@
       "result": "PENDING",
       "peak_date": "2026-04-30",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.18
     },
     {
       "date": "2026-04-29",
@@ -1627,7 +1625,7 @@
       "result": "PENDING",
       "peak_date": "2026-05-08",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 10.81
     },
     {
       "date": "2026-04-29",
@@ -1641,7 +1639,7 @@
       "days": 9,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 7.18
     },
     {
       "date": "2026-04-28",
@@ -1650,12 +1648,12 @@
       "sector": "Consumer Cyclical",
       "subsector": "Recreational Vehicles",
       "entry": 66.09,
-      "max_price": 67.22,
-      "return_pct": -5.0,
-      "days": 5,
-      "result": "LOSS",
-      "peak_date": "2026-04-29",
-      "sl_pct": 5.0,
+      "max_price": 68.24,
+      "return_pct": 3.25,
+      "days": 10,
+      "result": "PENDING",
+      "peak_date": "2026-05-08",
+      "sl_pct": 10.63,
       "exit_date": "2026-05-04"
     },
     {
@@ -1670,7 +1668,7 @@
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-05-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.88,
       "exit_date": "2026-05-08"
     },
     {
@@ -1685,7 +1683,7 @@
       "days": 0,
       "result": "WIN",
       "peak_date": "2026-04-29",
-      "sl_pct": 5.0,
+      "sl_pct": 6.78,
       "exit_date": "2026-04-29"
     },
     {
@@ -1700,7 +1698,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-30",
-      "sl_pct": 5.0,
+      "sl_pct": 8.6,
       "exit_date": "2026-04-30"
     },
     {
@@ -1715,7 +1713,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-05-05",
-      "sl_pct": 5.0,
+      "sl_pct": 10.31,
       "exit_date": "2026-05-05"
     },
     {
@@ -1730,7 +1728,7 @@
       "days": 11,
       "result": "PENDING",
       "peak_date": "2026-04-30",
-      "sl_pct": 5.0
+      "sl_pct": 2.89
     },
     {
       "date": "2026-04-27",
@@ -1744,7 +1742,7 @@
       "days": 11,
       "result": "PENDING",
       "peak_date": "2026-04-28",
-      "sl_pct": 5.0
+      "sl_pct": 3.59
     },
     {
       "date": "2026-04-27",
@@ -1758,7 +1756,7 @@
       "days": 11,
       "result": "PENDING",
       "peak_date": "2026-04-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.06
     },
     {
       "date": "2026-04-27",
@@ -1772,7 +1770,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-05-05",
-      "sl_pct": 5.0,
+      "sl_pct": 2.95,
       "exit_date": "2026-05-05"
     },
     {
@@ -1788,7 +1786,7 @@
       "result": "WIN",
       "peak_date": "2026-04-30",
       "exit_date": "2026-04-30",
-      "sl_pct": 5.0
+      "sl_pct": 13.44
     },
     {
       "date": "2026-04-26",
@@ -1798,12 +1796,12 @@
       "subsector": "Real Estate Services",
       "entry": 5.45,
       "max_price": 5.58,
-      "return_pct": -5.0,
-      "days": 7,
-      "result": "LOSS",
+      "return_pct": -8.07,
+      "days": 12,
+      "result": "PENDING",
       "peak_date": "2026-04-29",
       "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "sl_pct": 8.71
     },
     {
       "date": "2026-04-26",
@@ -1817,7 +1815,7 @@
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-04-27",
-      "sl_pct": 5.0
+      "sl_pct": 4.46
     },
     {
       "date": "2026-04-26",
@@ -1832,7 +1830,7 @@
       "result": "PENDING",
       "peak_date": "2026-04-30",
       "exit_date": "2026-04-27",
-      "sl_pct": 5.0
+      "sl_pct": 4.38
     },
     {
       "date": "2026-04-26",
@@ -1841,13 +1839,13 @@
       "sector": "Technology",
       "subsector": "Software - Infrastructure",
       "entry": 20.96,
-      "max_price": 21.1,
-      "return_pct": -5.0,
-      "days": 2,
-      "result": "LOSS",
-      "peak_date": "2026-04-27",
-      "exit_date": "2026-04-29",
-      "sl_pct": 5.0
+      "max_price": 22.19,
+      "return_pct": 5.87,
+      "days": 8,
+      "result": "WIN",
+      "peak_date": "2026-05-05",
+      "exit_date": "2026-05-05",
+      "sl_pct": 6.75
     },
     {
       "date": "2026-04-26",
@@ -1857,12 +1855,12 @@
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 416.0,
       "max_price": 416.0,
-      "return_pct": -5.0,
+      "return_pct": -5.5,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-27",
       "exit_date": "2026-04-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.5
     },
     {
       "date": "2026-04-25",
@@ -1876,7 +1874,7 @@
       "days": 11,
       "result": "WIN",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 4.13,
       "exit_date": "2026-05-08"
     },
     {
@@ -1887,12 +1885,12 @@
       "subsector": "Semiconductors",
       "entry": 286.86,
       "max_price": 286.86,
-      "return_pct": -5.0,
+      "return_pct": -5.63,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-27",
       "exit_date": "2026-04-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.63
     },
     {
       "date": "2026-04-25",
@@ -1907,7 +1905,7 @@
       "result": "PENDING",
       "peak_date": "2026-04-30",
       "exit_date": "2026-05-08",
-      "sl_pct": 5.0
+      "sl_pct": 4.53
     },
     {
       "date": "2026-04-25",
@@ -1917,12 +1915,12 @@
       "subsector": "Specialty Industrial Machinery",
       "entry": 424.23,
       "max_price": 431.82,
-      "return_pct": -5.0,
+      "return_pct": -4.11,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-04-30",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 4.11
     },
     {
       "date": "2026-04-25",
@@ -1936,7 +1934,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-04-29",
-      "sl_pct": 5.0,
+      "sl_pct": 7.27,
       "exit_date": "2026-04-29"
     },
     {
@@ -1951,7 +1949,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-28",
-      "sl_pct": 5.0,
+      "sl_pct": 1.16,
       "exit_date": "2026-04-28"
     },
     {
@@ -1966,7 +1964,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-28",
-      "sl_pct": 5.0,
+      "sl_pct": 1.38,
       "exit_date": "2026-04-28"
     },
     {
@@ -1976,13 +1974,13 @@
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 225.98,
-      "max_price": 227.18,
-      "return_pct": -2.72,
-      "days": 12,
-      "result": "PENDING",
-      "peak_date": "2026-05-06",
-      "exit_date": "2026-04-29",
-      "sl_pct": 5.0
+      "max_price": 226.23,
+      "return_pct": -0.69,
+      "days": 1,
+      "result": "LOSS",
+      "peak_date": "2026-04-27",
+      "exit_date": "2026-04-28",
+      "sl_pct": 0.69
     },
     {
       "date": "2026-04-24",
@@ -1991,13 +1989,13 @@
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 663.28,
-      "max_price": 715.76,
-      "return_pct": 7.91,
-      "days": 9,
-      "result": "WIN",
-      "peak_date": "2026-05-06",
-      "sl_pct": 5.0,
-      "exit_date": "2026-05-06"
+      "max_price": 663.28,
+      "return_pct": -1.38,
+      "days": 1,
+      "result": "LOSS",
+      "peak_date": "2026-04-27",
+      "sl_pct": 1.38,
+      "exit_date": "2026-04-28"
     },
     {
       "date": "2026-04-24",
@@ -2007,12 +2005,12 @@
       "subsector": "Engineering & Construction",
       "entry": 453.59,
       "max_price": 453.59,
-      "return_pct": -5.0,
-      "days": 7,
+      "return_pct": -2.93,
+      "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-27",
-      "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-28",
+      "sl_pct": 2.93
     },
     {
       "date": "2026-04-23",
@@ -2022,12 +2020,12 @@
       "subsector": "Restaurants",
       "entry": 94.41,
       "max_price": 95.68,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-04-24",
       "exit_date": "2026-05-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-23",
@@ -2042,7 +2040,7 @@
       "result": "PENDING",
       "peak_date": "2026-04-24",
       "exit_date": "2026-04-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-22",
@@ -2052,12 +2050,12 @@
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 296.84,
       "max_price": 307.86,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-04-24",
       "exit_date": "2026-05-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-22",
@@ -2067,12 +2065,12 @@
       "subsector": "Other Industrial Metals & Mining",
       "entry": 68.16,
       "max_price": 68.16,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-04-23",
       "exit_date": "2026-04-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-22",
@@ -2082,12 +2080,12 @@
       "subsector": "Computer Hardware",
       "entry": 46.61,
       "max_price": 46.61,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-04-23",
       "exit_date": "2026-04-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-22",
@@ -2101,7 +2099,7 @@
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-08",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-05-08"
     },
     {
@@ -2117,7 +2115,7 @@
       "result": "WIN",
       "peak_date": "2026-04-22",
       "exit_date": "2026-04-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-21",
@@ -2127,12 +2125,12 @@
       "subsector": "Software—Application",
       "entry": 23.13,
       "max_price": 23.13,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-04-22",
       "exit_date": "2026-04-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-21",
@@ -2142,12 +2140,12 @@
       "subsector": "Computer Hardware",
       "entry": 20.91,
       "max_price": 21.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-22",
       "exit_date": "2026-04-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-20",
@@ -2157,12 +2155,12 @@
       "subsector": "Travel Services",
       "entry": 85.86,
       "max_price": 85.86,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-04-21",
       "exit_date": "2026-04-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-20",
@@ -2171,13 +2169,13 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 119.77,
-      "max_price": 119.77,
-      "return_pct": -0.19,
-      "days": 0,
-      "result": "LOSS",
-      "peak_date": "2026-04-21",
-      "exit_date": "2026-04-21",
-      "sl_pct": 0.19
+      "max_price": 127.19,
+      "return_pct": 6.2,
+      "days": 17,
+      "result": "WIN",
+      "peak_date": "2026-05-08",
+      "exit_date": "2026-05-08",
+      "sl_pct": 6.54
     },
     {
       "date": "2026-04-20",
@@ -2187,12 +2185,12 @@
       "subsector": "Auto & Truck Dealerships",
       "entry": 80.69,
       "max_price": 83.36,
-      "return_pct": -5.0,
-      "days": 10,
+      "return_pct": -5.26,
+      "days": 13,
       "result": "LOSS",
       "peak_date": "2026-04-22",
-      "exit_date": "2026-05-01",
-      "sl_pct": 5.0
+      "exit_date": "2026-05-04",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-20",
@@ -2202,12 +2200,12 @@
       "subsector": "Capital Markets",
       "entry": 19.56,
       "max_price": 19.56,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-04-21",
       "exit_date": "2026-04-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-17",
@@ -2222,7 +2220,7 @@
       "subsector": "Specialty Chemicals",
       "peak_date": "2026-05-06",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-17",
@@ -2231,13 +2229,13 @@
       "sector": "Consumer Cyclical",
       "entry": 11.93,
       "max_price": 11.99,
-      "return_pct": -5.0,
-      "days": 8,
+      "return_pct": -0.18,
+      "days": 1,
       "result": "LOSS",
       "subsector": "Furnishings, Fixtures & Appliances",
       "peak_date": "2026-04-20",
-      "exit_date": "2026-04-28",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-21",
+      "sl_pct": 0.18
     },
     {
       "date": "2026-04-17",
@@ -2251,7 +2249,7 @@
       "result": "PENDING",
       "subsector": "Integrated Freight & Logistics",
       "peak_date": "2026-04-23",
-      "sl_pct": 5.0,
+      "sl_pct": 6.21,
       "exit_date": "2026-05-08"
     },
     {
@@ -2260,14 +2258,14 @@
       "company": "Jazz Pharmaceuticals",
       "sector": "Healthcare",
       "entry": 206.34,
-      "max_price": 228.57,
-      "return_pct": 10.77,
-      "days": 16,
-      "result": "WIN",
+      "max_price": 206.34,
+      "return_pct": -0.28,
+      "days": 0,
+      "result": "LOSS",
       "subsector": "Drug Manufacturersâ€”Specialty & Generic",
-      "peak_date": "2026-05-06",
-      "sl_pct": 5.0,
-      "exit_date": "2026-05-06"
+      "peak_date": "2026-04-20",
+      "sl_pct": 0.28,
+      "exit_date": "2026-04-20"
     },
     {
       "date": "2026-04-17",
@@ -2282,7 +2280,7 @@
       "subsector": "REITâ€”Specialty",
       "peak_date": "2026-04-30",
       "exit_date": "2026-04-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-17",
@@ -2291,13 +2289,13 @@
       "sector": "Technology",
       "entry": 167.81,
       "max_price": 174.17,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "subsector": "Semiconductors",
       "peak_date": "2026-04-24",
       "exit_date": "2026-04-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-17",
@@ -2311,7 +2309,7 @@
       "result": "WIN",
       "subsector": "Semiconductors",
       "peak_date": "2026-04-20",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-20"
     },
     {
@@ -2327,7 +2325,7 @@
       "subsector": "Specialty Business Services",
       "peak_date": "2026-04-27",
       "exit_date": "2026-04-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-17",
@@ -2342,7 +2340,7 @@
       "subsector": "Specialty Chemicals",
       "peak_date": "2026-05-08",
       "exit_date": "2026-04-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-16",
@@ -2356,7 +2354,7 @@
       "result": "WIN",
       "peak_date": "2026-04-29",
       "subsector": "Software—Application",
-      "sl_pct": 5.0,
+      "sl_pct": 4.35,
       "exit_date": "2026-04-29"
     },
     {
@@ -2372,7 +2370,7 @@
       "peak_date": "2026-04-17",
       "subsector": "Drug Manufacturers—Specialty & Generic",
       "exit_date": "2026-04-17",
-      "sl_pct": 5.0
+      "sl_pct": 2.15
     },
     {
       "date": "2026-04-16",
@@ -2387,7 +2385,7 @@
       "peak_date": "2026-04-22",
       "subsector": "Telecom Services",
       "exit_date": "2026-04-22",
-      "sl_pct": 5.0
+      "sl_pct": 2.91
     },
     {
       "date": "2026-04-16",
@@ -2395,14 +2393,14 @@
       "company": "CoreWeave, Inc.",
       "sector": "Technology",
       "entry": 120.39,
-      "max_price": 122.54,
-      "return_pct": -5.0,
-      "days": 7,
+      "max_price": 120.39,
+      "return_pct": -2.59,
+      "days": 0,
       "result": "LOSS",
-      "peak_date": "2026-04-22",
+      "peak_date": "2026-04-17",
       "subsector": "Software—Infrastructure",
-      "exit_date": "2026-04-24",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-17",
+      "sl_pct": 2.59
     },
     {
       "date": "2026-04-16",
@@ -2416,7 +2414,7 @@
       "result": "WIN",
       "peak_date": "2026-04-20",
       "subsector": "Semiconductors",
-      "sl_pct": 5.0,
+      "sl_pct": 3.93,
       "exit_date": "2026-04-20"
     },
     {
@@ -2432,7 +2430,7 @@
       "result": "WIN",
       "peak_date": "2026-04-17",
       "exit_date": "2026-04-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-15",
@@ -2447,7 +2445,7 @@
       "result": "WIN",
       "peak_date": "2026-04-17",
       "exit_date": "2026-04-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-15",
@@ -2461,7 +2459,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-04-20",
-      "sl_pct": 5.0,
+      "sl_pct": 1.16,
       "exit_date": "2026-04-20"
     },
     {
@@ -2472,12 +2470,12 @@
       "subsector": "Entertainment",
       "entry": 167.0,
       "max_price": 167.0,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-16",
       "exit_date": "2026-04-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-15",
@@ -2491,7 +2489,7 @@
       "days": 23,
       "result": "PENDING",
       "peak_date": "2026-04-30",
-      "sl_pct": 5.0
+      "sl_pct": 0.66
     },
     {
       "date": "2026-04-15",
@@ -2505,7 +2503,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-17"
     },
     {
@@ -2521,7 +2519,7 @@
       "result": "WIN",
       "peak_date": "2026-04-20",
       "exit_date": "2026-04-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-15",
@@ -2536,7 +2534,7 @@
       "result": "WIN",
       "peak_date": "2026-04-17",
       "exit_date": "2026-04-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.29
     },
     {
       "date": "2026-04-15",
@@ -2550,7 +2548,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-17"
     },
     {
@@ -2565,7 +2563,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-04-21",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-21"
     },
     {
@@ -2581,7 +2579,7 @@
       "result": "WIN",
       "peak_date": "2026-04-22",
       "exit_date": "2026-04-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-14",
@@ -2591,12 +2589,12 @@
       "subsector": "Auto Parts",
       "entry": 250.93,
       "max_price": 250.93,
-      "return_pct": -5.0,
-      "days": 0,
+      "return_pct": -5.26,
+      "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-15",
-      "exit_date": "2026-04-15",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-16",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-14",
@@ -2610,7 +2608,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-16",
-      "sl_pct": 5.0,
+      "sl_pct": 6.78,
       "exit_date": "2026-04-16"
     },
     {
@@ -2626,7 +2624,7 @@
       "result": "WIN",
       "peak_date": "2026-05-06",
       "exit_date": "2026-05-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-14",
@@ -2641,7 +2639,7 @@
       "result": "WIN",
       "peak_date": "2026-04-20",
       "exit_date": "2026-04-20",
-      "sl_pct": 4.14
+      "sl_pct": 5.0
     },
     {
       "date": "2026-04-14",
@@ -2651,12 +2649,12 @@
       "subsector": "Biotechnology",
       "entry": 78.0,
       "max_price": 78.0,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-04-15",
       "exit_date": "2026-04-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-13",
@@ -2671,7 +2669,7 @@
       "result": "WIN",
       "peak_date": "2026-04-14",
       "exit_date": "2026-04-14",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-10",
@@ -2685,7 +2683,7 @@
       "days": 0,
       "result": "WIN",
       "peak_date": "2026-04-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-13"
     },
     {
@@ -2695,13 +2693,13 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 9.73,
-      "max_price": 10.37,
-      "return_pct": 6.58,
-      "days": 3,
-      "result": "WIN",
-      "peak_date": "2026-04-13",
-      "sl_pct": 5.0,
-      "exit_date": "2026-04-13"
+      "max_price": 9.73,
+      "return_pct": -1.16,
+      "days": 0,
+      "result": "LOSS",
+      "peak_date": "2026-04-10",
+      "sl_pct": 1.16,
+      "exit_date": "2026-04-10"
     },
     {
       "date": "2026-04-09",
@@ -2715,7 +2713,7 @@
       "days": 3,
       "result": "WIN",
       "peak_date": "2026-04-13",
-      "sl_pct": 5.0,
+      "sl_pct": 6.78,
       "exit_date": "2026-04-13"
     },
     {
@@ -2731,7 +2729,7 @@
       "result": "WIN",
       "peak_date": "2026-04-10",
       "exit_date": "2026-04-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-08",
@@ -2746,7 +2744,7 @@
       "result": "WIN",
       "peak_date": "2026-04-09",
       "exit_date": "2026-04-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-08",
@@ -2756,12 +2754,12 @@
       "subsector": "Specialty Industrial Machinery",
       "entry": 62.46,
       "max_price": 63.98,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 22,
       "result": "LOSS",
       "peak_date": "2026-04-14",
       "exit_date": "2026-05-01",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-07",
@@ -2776,7 +2774,7 @@
       "result": "WIN",
       "peak_date": "2026-04-16",
       "exit_date": "2026-04-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-06",
@@ -2791,7 +2789,7 @@
       "result": "WIN",
       "peak_date": "2026-04-07",
       "exit_date": "2026-04-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-06",
@@ -2806,7 +2804,7 @@
       "result": "WIN",
       "peak_date": "2026-04-14",
       "exit_date": "2026-04-14",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-06",
@@ -2821,7 +2819,7 @@
       "result": "WIN",
       "peak_date": "2026-04-09",
       "exit_date": "2026-04-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-04-06",
@@ -2831,12 +2829,12 @@
       "subsector": "Information Technology Services",
       "entry": 30.98,
       "max_price": 30.98,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-04-07",
       "exit_date": "2026-04-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-30",
@@ -2846,12 +2844,12 @@
       "subsector": "Oil & Gas Midstream",
       "entry": 33.71,
       "max_price": 33.85,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 20,
       "result": "LOSS",
       "peak_date": "2026-04-07",
       "exit_date": "2026-04-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-30",
@@ -2865,7 +2863,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-04-01",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-01"
     },
     {
@@ -2881,7 +2879,7 @@
       "result": "WIN",
       "peak_date": "2026-04-02",
       "exit_date": "2026-04-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-26",
@@ -2891,12 +2889,12 @@
       "subsector": "Biotechnology",
       "entry": 39.29,
       "max_price": 39.29,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-27",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-26",
@@ -2906,12 +2904,12 @@
       "subsector": "Aerospace & Defense",
       "entry": 109.93,
       "max_price": 109.93,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-27",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-25",
@@ -2921,12 +2919,12 @@
       "subsector": "Software - Infrastructure",
       "entry": 85.7,
       "max_price": 85.7,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-24",
@@ -2940,7 +2938,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-04-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-02"
     },
     {
@@ -2951,12 +2949,12 @@
       "subsector": "Communication Equipment",
       "entry": 48.59,
       "max_price": 49.96,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -2970,7 +2968,7 @@
       "days": 20,
       "result": "WIN",
       "peak_date": "2026-04-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-13"
     },
     {
@@ -2986,7 +2984,7 @@
       "result": "WIN",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3001,7 +2999,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3016,7 +3014,7 @@
       "result": "WIN",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3031,7 +3029,7 @@
       "result": "WIN",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.38
     },
     {
       "date": "2026-03-23",
@@ -3045,7 +3043,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-03-25",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-25"
     },
     {
@@ -3061,7 +3059,7 @@
       "result": "WIN",
       "peak_date": "2026-03-30",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3071,12 +3069,12 @@
       "subsector": "Oil & Gas Midstream",
       "entry": 137.42,
       "max_price": 137.78,
-      "return_pct": -5.0,
-      "days": 28,
+      "return_pct": -2.76,
+      "days": 30,
       "result": "LOSS",
       "peak_date": "2026-03-24",
-      "exit_date": "2026-04-21",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-23",
+      "sl_pct": 7.81
     },
     {
       "date": "2026-03-23",
@@ -3091,7 +3089,7 @@
       "result": "WIN",
       "peak_date": "2026-04-01",
       "exit_date": "2026-04-01",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3106,7 +3104,7 @@
       "result": "WIN",
       "peak_date": "2026-03-27",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3120,7 +3118,7 @@
       "days": 0,
       "result": "WIN",
       "peak_date": "2026-03-24",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-24"
     },
     {
@@ -3136,7 +3134,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-23",
@@ -3146,12 +3144,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 36.65,
       "max_price": 37.02,
-      "return_pct": -5.0,
+      "return_pct": -4.71,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 4.71
     },
     {
       "date": "2026-03-21",
@@ -3166,7 +3164,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3181,7 +3179,7 @@
       "result": "WIN",
       "peak_date": "2026-03-27",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3196,7 +3194,7 @@
       "result": "WIN",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3206,12 +3204,12 @@
       "subsector": "Biotechnology",
       "entry": 24.39,
       "max_price": 24.7,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3225,7 +3223,7 @@
       "days": 14,
       "result": "WIN",
       "peak_date": "2026-04-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-06"
     },
     {
@@ -3241,7 +3239,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3256,7 +3254,7 @@
       "result": "WIN",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-21",
@@ -3270,7 +3268,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-03-24",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-24"
     },
     {
@@ -3286,7 +3284,7 @@
       "result": "WIN",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3300,7 +3298,7 @@
       "days": 13,
       "result": "WIN",
       "peak_date": "2026-03-30",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-30"
     },
     {
@@ -3311,12 +3309,12 @@
       "subsector": "Food Distribution",
       "entry": 41.46,
       "max_price": 41.46,
-      "return_pct": -5.0,
-      "days": 1,
+      "return_pct": -5.26,
+      "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-17",
-      "exit_date": "2026-03-18",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-20",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3330,7 +3328,7 @@
       "days": 30,
       "result": "WIN",
       "peak_date": "2026-04-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-16"
     },
     {
@@ -3345,7 +3343,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-03-19",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-19"
     },
     {
@@ -3356,12 +3354,12 @@
       "subsector": "Biotechnology",
       "entry": 10.06,
       "max_price": 10.26,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-17",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3376,7 +3374,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3390,7 +3388,7 @@
       "days": 10,
       "result": "WIN",
       "peak_date": "2026-03-27",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-27"
     },
     {
@@ -3406,7 +3404,7 @@
       "result": "WIN",
       "peak_date": "2026-03-20",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3416,12 +3414,12 @@
       "subsector": "Security & Protection Services",
       "entry": 42.84,
       "max_price": 43.59,
-      "return_pct": -5.0,
-      "days": 3,
+      "return_pct": -5.26,
+      "days": 9,
       "result": "LOSS",
       "peak_date": "2026-03-17",
-      "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-26",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3431,12 +3429,12 @@
       "subsector": "Telecom Services",
       "entry": 8.46,
       "max_price": 8.55,
-      "return_pct": -5.0,
-      "days": 3,
+      "return_pct": -1.16,
+      "days": 1,
       "result": "LOSS",
       "peak_date": "2026-03-17",
-      "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-18",
+      "sl_pct": 1.16
     },
     {
       "date": "2026-03-16",
@@ -3451,7 +3449,7 @@
       "result": "WIN",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3461,12 +3459,12 @@
       "subsector": "Telecom Services",
       "entry": 11.69,
       "max_price": 11.74,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-17",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3481,7 +3479,7 @@
       "result": "WIN",
       "peak_date": "2026-03-19",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3496,7 +3494,7 @@
       "result": "WIN",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3510,7 +3508,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-03-25",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-25"
     },
     {
@@ -3525,7 +3523,7 @@
       "days": 21,
       "result": "WIN",
       "peak_date": "2026-04-07",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-04-07"
     },
     {
@@ -3536,12 +3534,12 @@
       "subsector": "Biotechnology",
       "entry": 30.66,
       "max_price": 31.19,
-      "return_pct": -5.0,
-      "days": 3,
+      "return_pct": -5.26,
+      "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-17",
-      "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-24",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-16",
@@ -3555,7 +3553,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-03-19",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-19"
     },
     {
@@ -3570,7 +3568,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-03-25",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-25"
     },
     {
@@ -3585,7 +3583,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-03-23",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-23"
     },
     {
@@ -3596,12 +3594,12 @@
       "subsector": "Aerospace & Defense",
       "entry": 73.4,
       "max_price": 73.4,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3615,7 +3613,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-03-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-06"
     },
     {
@@ -3626,12 +3624,12 @@
       "subsector": "Communication Equipment",
       "entry": 31.54,
       "max_price": 31.54,
-      "return_pct": -5.0,
+      "return_pct": -10.79,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 10.79
     },
     {
       "date": "2026-03-04",
@@ -3641,12 +3639,12 @@
       "subsector": "Resorts & Casinos",
       "entry": 70.85,
       "max_price": 71.97,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3656,12 +3654,12 @@
       "subsector": "Packaging & Containers",
       "entry": 39.07,
       "max_price": 39.07,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3671,12 +3669,12 @@
       "subsector": "Healthcare",
       "entry": 147.19,
       "max_price": 147.19,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3686,12 +3684,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 84.93,
       "max_price": 84.93,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3705,7 +3703,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-03-09",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-09"
     },
     {
@@ -3716,12 +3714,12 @@
       "subsector": "Biotechnology",
       "entry": 47.18,
       "max_price": 47.18,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3731,12 +3729,12 @@
       "subsector": "REIT - Hotel & Motel",
       "entry": 12.85,
       "max_price": 13.0,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3750,7 +3748,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-03-12",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-12"
     },
     {
@@ -3761,12 +3759,12 @@
       "subsector": "Other Industrial Metals & Mining",
       "entry": 12.19,
       "max_price": 12.19,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3781,7 +3779,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3791,12 +3789,12 @@
       "subsector": "Oil & Gas Midstream",
       "entry": 46.67,
       "max_price": 46.83,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-06",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3810,7 +3808,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-03-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-06"
     },
     {
@@ -3826,7 +3824,7 @@
       "result": "WIN",
       "peak_date": "2026-03-16",
       "exit_date": "2026-03-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3840,7 +3838,7 @@
       "days": 12,
       "result": "WIN",
       "peak_date": "2026-03-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-17"
     },
     {
@@ -3856,7 +3854,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3866,12 +3864,12 @@
       "subsector": "Other Precious Metals & Mining",
       "entry": 37.38,
       "max_price": 37.8,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-10",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-04",
@@ -3881,12 +3879,12 @@
       "subsector": "Health Information Services",
       "entry": 41.38,
       "max_price": 42.23,
-      "return_pct": -5.0,
+      "return_pct": -5.01,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.01
     },
     {
       "date": "2026-03-03",
@@ -3896,12 +3894,12 @@
       "subsector": "Communication Services",
       "entry": 218.57,
       "max_price": 218.57,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3911,12 +3909,12 @@
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 54.72,
       "max_price": 55.58,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3931,7 +3929,7 @@
       "result": "WIN",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3941,12 +3939,12 @@
       "subsector": "Semiconductors",
       "entry": 66.77,
       "max_price": 67.02,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3961,7 +3959,7 @@
       "result": "WIN",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3971,12 +3969,12 @@
       "subsector": "Oil & Gas Midstream",
       "entry": 71.8,
       "max_price": 73.48,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -3991,7 +3989,7 @@
       "result": "WIN",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -4001,12 +3999,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 22.05,
       "max_price": 22.59,
-      "return_pct": -5.0,
-      "days": 9,
+      "return_pct": -5.26,
+      "days": 12,
       "result": "LOSS",
       "peak_date": "2026-03-04",
-      "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-16",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -4016,12 +4014,12 @@
       "subsector": "Entertainment",
       "entry": 28.76,
       "max_price": 28.76,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-03",
@@ -4031,12 +4029,12 @@
       "subsector": "Insurance - Property & Casualty",
       "entry": 49.35,
       "max_price": 49.35,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4046,12 +4044,12 @@
       "subsector": "Medical Instruments & Supplies",
       "entry": 14.12,
       "max_price": 14.12,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4061,12 +4059,12 @@
       "subsector": "Electronic Components",
       "entry": 195.0,
       "max_price": 203.19,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4076,12 +4074,12 @@
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 60.9,
       "max_price": 60.9,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4091,12 +4089,12 @@
       "subsector": "Telecom Services",
       "entry": 72.84,
       "max_price": 72.84,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4106,12 +4104,12 @@
       "subsector": "REIT - Residential",
       "entry": 134.13,
       "max_price": 135.5,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 22,
       "result": "LOSS",
       "peak_date": "2026-03-06",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4126,7 +4124,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4141,7 +4139,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4156,7 +4154,7 @@
       "result": "WIN",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4171,7 +4169,7 @@
       "result": "WIN",
       "peak_date": "2026-03-26",
       "exit_date": "2026-03-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4180,13 +4178,13 @@
       "sector": "Healthcare",
       "subsector": "Drug Manufacturersâ€”Specialty & Generic",
       "entry": 186.12,
-      "max_price": 189.15,
-      "return_pct": 0.45,
-      "days": 30,
-      "result": "WIN",
-      "peak_date": "2026-03-26",
-      "exit_date": "2026-04-02",
-      "sl_pct": 5.0
+      "max_price": 188.69,
+      "return_pct": -0.28,
+      "days": 2,
+      "result": "LOSS",
+      "peak_date": "2026-03-04",
+      "exit_date": "2026-03-05",
+      "sl_pct": 0.28
     },
     {
       "date": "2026-03-02",
@@ -4196,12 +4194,12 @@
       "subsector": "Technology",
       "entry": 151.75,
       "max_price": 151.75,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4211,12 +4209,12 @@
       "subsector": "Scientific & Technical Instruments",
       "entry": 285.87,
       "max_price": 285.87,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4226,12 +4224,12 @@
       "subsector": "Financial Data & Stock Exchanges",
       "entry": 319.9,
       "max_price": 319.9,
-      "return_pct": -5.0,
-      "days": 8,
+      "return_pct": -5.26,
+      "days": 21,
       "result": "LOSS",
       "peak_date": "2026-03-03",
-      "exit_date": "2026-03-11",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-24",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-02",
@@ -4245,7 +4243,7 @@
       "days": 3,
       "result": "WIN",
       "peak_date": "2026-03-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-06"
     },
     {
@@ -4261,7 +4259,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-01",
@@ -4271,12 +4269,12 @@
       "subsector": "Software - Application",
       "entry": 48.09,
       "max_price": 48.55,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-01",
@@ -4286,12 +4284,12 @@
       "subsector": "Insurance - Diversified",
       "entry": 64.67,
       "max_price": 65.51,
-      "return_pct": -5.0,
-      "days": 25,
+      "return_pct": -2.66,
+      "days": 30,
       "result": "LOSS",
       "peak_date": "2026-03-05",
-      "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "exit_date": "2026-04-01",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-03-01",
@@ -4306,7 +4304,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-27",
       "exit_date": "2026-04-01",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4316,12 +4314,12 @@
       "subsector": "Industrial Distribution",
       "entry": 38.12,
       "max_price": 38.29,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4331,12 +4329,12 @@
       "subsector": "Utilities",
       "entry": 38.66,
       "max_price": 38.74,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-03-16",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4346,12 +4344,12 @@
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 36.35,
       "max_price": 37.99,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4366,7 +4364,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4381,7 +4379,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4396,7 +4394,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4410,7 +4408,7 @@
       "days": 16,
       "result": "WIN",
       "peak_date": "2026-03-18",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-18"
     },
     {
@@ -4421,12 +4419,12 @@
       "subsector": "Medical Devices",
       "entry": 69.31,
       "max_price": 70.27,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4440,7 +4438,7 @@
       "days": 15,
       "result": "WIN",
       "peak_date": "2026-03-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-17"
     },
     {
@@ -4451,12 +4449,12 @@
       "subsector": "REIT - Retail",
       "entry": 25.68,
       "max_price": 25.89,
-      "return_pct": -5.0,
-      "days": 18,
+      "return_pct": -2.33,
+      "days": 10,
       "result": "LOSS",
       "peak_date": "2026-03-02",
-      "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-12",
+      "sl_pct": 2.33
     },
     {
       "date": "2026-02-27",
@@ -4466,12 +4464,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 26.35,
       "max_price": 27.37,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-03-06",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4481,12 +4479,12 @@
       "subsector": "Utilities - Renewable",
       "entry": 11.66,
       "max_price": 12.02,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 11,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-27",
@@ -4496,12 +4494,12 @@
       "subsector": "Telecom Services",
       "entry": 25.78,
       "max_price": 25.9,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4511,12 +4509,12 @@
       "subsector": "Oil & Gas Midstream",
       "entry": 77.78,
       "max_price": 78.14,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4526,12 +4524,12 @@
       "subsector": "Biotechnology",
       "entry": 42.42,
       "max_price": 43.01,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4546,7 +4544,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4556,12 +4554,12 @@
       "subsector": "REIT - Specialty",
       "entry": 28.27,
       "max_price": 28.9,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4571,12 +4569,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 37.22,
       "max_price": 37.22,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4586,12 +4584,12 @@
       "subsector": "REIT - Specialty",
       "entry": 134.09,
       "max_price": 137.52,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4606,7 +4604,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4621,7 +4619,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 7.81
     },
     {
       "date": "2026-02-26",
@@ -4631,12 +4629,12 @@
       "subsector": "Consumer Cyclical",
       "entry": 59.69,
       "max_price": 60.67,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-26",
@@ -4646,12 +4644,12 @@
       "subsector": "Auto Parts",
       "entry": 123.69,
       "max_price": 126.63,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4661,12 +4659,12 @@
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 17.01,
       "max_price": 17.86,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4676,12 +4674,12 @@
       "subsector": "Capital Markets",
       "entry": 22.14,
       "max_price": 22.14,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4691,12 +4689,12 @@
       "subsector": "Rental & Leasing Services",
       "entry": 21.84,
       "max_price": 22.1,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4711,7 +4709,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4721,12 +4719,12 @@
       "subsector": "Software - Application",
       "entry": 21.31,
       "max_price": 21.56,
-      "return_pct": -5.0,
-      "days": 5,
+      "return_pct": -5.26,
+      "days": 6,
       "result": "LOSS",
       "peak_date": "2026-02-26",
-      "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-04",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4736,12 +4734,12 @@
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 63.1,
       "max_price": 63.1,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4751,12 +4749,12 @@
       "subsector": "Scientific & Technical Instruments",
       "entry": 38.09,
       "max_price": 38.09,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4771,7 +4769,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4786,7 +4784,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4801,7 +4799,7 @@
       "result": "WIN",
       "peak_date": "2026-02-27",
       "exit_date": "2026-02-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4811,12 +4809,12 @@
       "subsector": "Advertising Agencies",
       "entry": 82.23,
       "max_price": 84.95,
-      "return_pct": -5.0,
-      "days": 14,
+      "return_pct": -5.26,
+      "days": 15,
       "result": "LOSS",
       "peak_date": "2026-03-04",
-      "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-13",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4826,12 +4824,12 @@
       "subsector": "Packaged Foods",
       "entry": 17.66,
       "max_price": 17.66,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4846,7 +4844,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4860,7 +4858,7 @@
       "days": 29,
       "result": "LOSS",
       "peak_date": "2026-03-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-27"
     },
     {
@@ -4871,12 +4869,12 @@
       "subsector": "Gold",
       "entry": 13.01,
       "max_price": 13.66,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4891,7 +4889,7 @@
       "result": "WIN",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4901,12 +4899,12 @@
       "subsector": "Engineering & Construction",
       "entry": 53.89,
       "max_price": 53.89,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4916,12 +4914,12 @@
       "subsector": "Medical Devices",
       "entry": 78.0,
       "max_price": 78.7,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4931,12 +4929,12 @@
       "subsector": "Farm & Heavy Construction Machinery",
       "entry": 623.14,
       "max_price": 629.04,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4945,13 +4943,13 @@
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Non-Alcoholic",
       "entry": 55.3,
-      "max_price": 58.06,
-      "return_pct": -5.0,
-      "days": 8,
-      "result": "LOSS",
-      "peak_date": "2026-02-27",
-      "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "max_price": 58.35,
+      "return_pct": 5.52,
+      "days": 15,
+      "result": "WIN",
+      "peak_date": "2026-03-13",
+      "exit_date": "2026-03-13",
+      "sl_pct": 24.57
     },
     {
       "date": "2026-02-25",
@@ -4961,12 +4959,12 @@
       "subsector": "Medical Instruments & Supplies",
       "entry": 18.58,
       "max_price": 18.58,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-25",
@@ -4981,7 +4979,7 @@
       "result": "WIN",
       "peak_date": "2026-03-05",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -4991,12 +4989,12 @@
       "subsector": "Lodging",
       "entry": 84.11,
       "max_price": 84.11,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5011,7 +5009,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5026,7 +5024,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5041,7 +5039,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-25",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5051,12 +5049,12 @@
       "subsector": "REIT - Hotel & Motel",
       "entry": 101.23,
       "max_price": 101.55,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5066,12 +5064,12 @@
       "subsector": "Rental & Leasing Services",
       "entry": 36.9,
       "max_price": 36.93,
-      "return_pct": -5.0,
-      "days": 2,
+      "return_pct": -5.26,
+      "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-25",
-      "exit_date": "2026-02-27",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-02",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5081,12 +5079,12 @@
       "subsector": "Medical Care Facilities",
       "entry": 21.58,
       "max_price": 22.22,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5096,12 +5094,12 @@
       "subsector": "REIT - Specialty",
       "entry": 12.5,
       "max_price": 12.94,
-      "return_pct": -5.0,
-      "days": 15,
+      "return_pct": -5.26,
+      "days": 16,
       "result": "LOSS",
       "peak_date": "2026-02-27",
-      "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-13",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5116,7 +5114,7 @@
       "result": "WIN",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5131,7 +5129,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5141,12 +5139,12 @@
       "subsector": "REIT - Office",
       "entry": 31.97,
       "max_price": 32.28,
-      "return_pct": -5.0,
+      "return_pct": -5.23,
       "days": 30,
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-24",
@@ -5156,12 +5154,12 @@
       "subsector": "Restaurants",
       "entry": 64.57,
       "max_price": 65.63,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-23",
@@ -5176,7 +5174,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-23",
@@ -5191,7 +5189,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-23",
@@ -5201,12 +5199,12 @@
       "subsector": "REIT - Retail",
       "entry": 20.23,
       "max_price": 20.55,
-      "return_pct": -3.87,
+      "return_pct": -3.5,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-06",
-      "sl_pct": 3.87
+      "sl_pct": 3.5
     },
     {
       "date": "2026-02-23",
@@ -5216,12 +5214,12 @@
       "subsector": "Biotechnology",
       "entry": 26.79,
       "max_price": 27.98,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-23",
@@ -5230,13 +5228,13 @@
       "sector": "Real Estate",
       "subsector": "REIT - Diversified",
       "entry": 12.54,
-      "max_price": 12.54,
-      "return_pct": -0.2,
-      "days": 0,
+      "max_price": 12.55,
+      "return_pct": -2.87,
+      "days": 6,
       "result": "LOSS",
-      "peak_date": "2026-02-24",
-      "exit_date": "2026-02-24",
-      "sl_pct": 0.2
+      "peak_date": "2026-02-26",
+      "exit_date": "2026-03-02",
+      "sl_pct": 2.87
     },
     {
       "date": "2026-02-23",
@@ -5246,12 +5244,12 @@
       "subsector": "Marine Shipping",
       "entry": 23.16,
       "max_price": 23.9,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-23",
@@ -5261,12 +5259,12 @@
       "subsector": "REIT - Retail",
       "entry": 32.73,
       "max_price": 34.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 27,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5280,7 +5278,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-03-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-03"
     },
     {
@@ -5296,7 +5294,7 @@
       "result": "WIN",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5311,7 +5309,7 @@
       "result": "WIN",
       "peak_date": "2026-03-24",
       "exit_date": "2026-03-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5325,7 +5323,7 @@
       "days": 14,
       "result": "WIN",
       "peak_date": "2026-03-09",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-09"
     },
     {
@@ -5335,13 +5333,13 @@
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 7.6,
-      "max_price": 8.26,
-      "return_pct": 8.68,
-      "days": 7,
-      "result": "WIN",
-      "peak_date": "2026-03-02",
-      "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "max_price": 7.6,
+      "return_pct": -1.16,
+      "days": 1,
+      "result": "LOSS",
+      "peak_date": "2026-02-23",
+      "exit_date": "2026-02-24",
+      "sl_pct": 1.16
     },
     {
       "date": "2026-02-20",
@@ -5351,12 +5349,12 @@
       "subsector": "Semiconductors",
       "entry": 422.13,
       "max_price": 428.82,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5366,12 +5364,12 @@
       "subsector": "Entertainment",
       "entry": 162.88,
       "max_price": 165.83,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-03-11",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5381,12 +5379,12 @@
       "subsector": "Electronic Components",
       "entry": 267.59,
       "max_price": 277.57,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5396,12 +5394,12 @@
       "subsector": "Industrials",
       "entry": 255.97,
       "max_price": 264.99,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5411,12 +5409,12 @@
       "subsector": "Technology",
       "entry": 246.06,
       "max_price": 254.19,
-      "return_pct": -5.0,
-      "days": 18,
+      "return_pct": -5.26,
+      "days": 23,
       "result": "LOSS",
       "peak_date": "2026-03-02",
-      "exit_date": "2026-03-13",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-18",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5426,12 +5424,12 @@
       "subsector": "Aerospace & Defense",
       "entry": 341.65,
       "max_price": 345.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 11,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5446,7 +5444,7 @@
       "result": "WIN",
       "peak_date": "2026-03-11",
       "exit_date": "2026-03-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5456,12 +5454,12 @@
       "subsector": "Utilities",
       "entry": 72.81,
       "max_price": 74.34,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 25,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5471,12 +5469,12 @@
       "subsector": "Discount Stores",
       "entry": 132.89,
       "max_price": 132.89,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-23",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5491,7 +5489,7 @@
       "result": "WIN",
       "peak_date": "2026-03-18",
       "exit_date": "2026-03-18",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5506,7 +5504,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5516,12 +5514,12 @@
       "subsector": "Building Materials",
       "entry": 65.14,
       "max_price": 65.35,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5536,7 +5534,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.5
     },
     {
       "date": "2026-02-20",
@@ -5551,7 +5549,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-20",
@@ -5561,12 +5559,12 @@
       "subsector": "Semiconductors",
       "entry": 351.43,
       "max_price": 359.67,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5581,7 +5579,7 @@
       "result": "WIN",
       "peak_date": "2026-03-17",
       "exit_date": "2026-03-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5596,7 +5594,7 @@
       "result": "WIN",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5606,12 +5604,12 @@
       "subsector": "Consumer Cyclical",
       "entry": 50.0,
       "max_price": 50.0,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5626,7 +5624,7 @@
       "result": "WIN",
       "peak_date": "2026-03-12",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5641,7 +5639,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5650,13 +5648,13 @@
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 85.77,
-      "max_price": 86.3,
-      "return_pct": -5.0,
-      "days": 5,
-      "result": "LOSS",
-      "peak_date": "2026-02-20",
-      "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "max_price": 88.15,
+      "return_pct": 2.78,
+      "days": 28,
+      "result": "WIN",
+      "peak_date": "2026-03-20",
+      "exit_date": "2026-03-20",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5671,7 +5669,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5681,12 +5679,12 @@
       "subsector": "Drug Manufacturersâ€”General",
       "entry": 121.74,
       "max_price": 123.02,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5695,13 +5693,13 @@
       "sector": "Industrials",
       "subsector": "Industrials",
       "entry": 358.65,
-      "max_price": 358.65,
-      "return_pct": -5.0,
-      "days": 5,
-      "result": "LOSS",
-      "peak_date": "2026-02-20",
-      "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "max_price": 377.17,
+      "return_pct": 5.16,
+      "days": 10,
+      "result": "WIN",
+      "peak_date": "2026-03-02",
+      "exit_date": "2026-03-02",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5711,12 +5709,12 @@
       "subsector": "Electrical Equipment & Parts",
       "entry": 523.88,
       "max_price": 526.47,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 11,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-19",
@@ -5726,12 +5724,12 @@
       "subsector": "Integrated Freight & Logistics",
       "entry": 380.22,
       "max_price": 386.91,
-      "return_pct": -5.0,
-      "days": 14,
+      "return_pct": -6.29,
+      "days": 20,
       "result": "LOSS",
       "peak_date": "2026-02-20",
-      "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-12",
+      "sl_pct": 6.29
     },
     {
       "date": "2026-02-19",
@@ -5745,7 +5743,7 @@
       "days": 10,
       "result": "WIN",
       "peak_date": "2026-03-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-02"
     },
     {
@@ -5756,12 +5754,12 @@
       "subsector": "Drug Manufacturersâ€”General",
       "entry": 372.01,
       "max_price": 388.16,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 26,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-18",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5776,7 +5774,7 @@
       "result": "WIN",
       "peak_date": "2026-02-23",
       "exit_date": "2026-02-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5790,7 +5788,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-02-25",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-25"
     },
     {
@@ -5801,12 +5799,12 @@
       "subsector": "Computer Hardware",
       "entry": 294.89,
       "max_price": 294.89,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-02-19",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5816,12 +5814,12 @@
       "subsector": "Railroads",
       "entry": 258.43,
       "max_price": 264.78,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 15,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5836,7 +5834,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5851,7 +5849,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-03",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5861,12 +5859,12 @@
       "subsector": "REIT - Industrial",
       "entry": 295.58,
       "max_price": 307.81,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 27,
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-18",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5881,7 +5879,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5896,7 +5894,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5911,7 +5909,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5926,7 +5924,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5941,7 +5939,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5951,12 +5949,12 @@
       "subsector": "Healthcare Plans",
       "entry": 530.21,
       "max_price": 544.32,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 27,
       "result": "LOSS",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-18",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5971,7 +5969,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5986,7 +5984,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -5996,12 +5994,12 @@
       "subsector": "Industrials",
       "entry": 258.06,
       "max_price": 263.91,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6011,11 +6009,11 @@
       "subsector": "Oil & Gas E&P",
       "entry": 175.22,
       "max_price": 175.22,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-19",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-26"
     },
     {
@@ -6031,7 +6029,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6041,12 +6039,12 @@
       "subsector": "Industrials",
       "entry": 376.78,
       "max_price": 376.78,
-      "return_pct": -5.0,
-      "days": 12,
+      "return_pct": -4.11,
+      "days": 4,
       "result": "LOSS",
       "peak_date": "2026-02-19",
-      "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-23",
+      "sl_pct": 4.11
     },
     {
       "date": "2026-02-18",
@@ -6061,7 +6059,7 @@
       "result": "WIN",
       "peak_date": "2026-02-27",
       "exit_date": "2026-02-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6076,7 +6074,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6086,12 +6084,12 @@
       "subsector": "Consumer Defensive",
       "entry": 150.03,
       "max_price": 155.5,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6101,12 +6099,12 @@
       "subsector": "Farm & Heavy Construction Machinery",
       "entry": 750.57,
       "max_price": 766.77,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6116,12 +6114,12 @@
       "subsector": "Medical Instruments & Supplies",
       "entry": 181.0,
       "max_price": 184.21,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6131,12 +6129,12 @@
       "subsector": "Banks - Regional",
       "entry": 344.51,
       "max_price": 355.48,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-18",
@@ -6151,7 +6149,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6161,12 +6159,12 @@
       "subsector": "Integrated Freight & Logistics",
       "entry": 115.17,
       "max_price": 116.73,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 15,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6176,12 +6174,12 @@
       "subsector": "Banks - Diversified",
       "entry": 22.99,
       "max_price": 23.4,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-02-19",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6191,12 +6189,12 @@
       "subsector": "Beveragesâ€”Non-Alcoholic",
       "entry": 160.36,
       "max_price": 168.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 30,
       "result": "LOSS",
       "peak_date": "2026-02-27",
       "exit_date": "2026-03-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6206,12 +6204,12 @@
       "subsector": "Banks - Diversified",
       "entry": 19.29,
       "max_price": 19.36,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 12,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6221,12 +6219,12 @@
       "subsector": "Steel",
       "entry": 65.24,
       "max_price": 67.12,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6240,7 +6238,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-02-26",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-26"
     },
     {
@@ -6251,12 +6249,12 @@
       "subsector": "Biotechnology",
       "entry": 195.32,
       "max_price": 196.34,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 13,
       "result": "LOSS",
       "peak_date": "2026-02-23",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-17",
@@ -6266,12 +6264,12 @@
       "subsector": "Computer Hardware",
       "entry": 140.46,
       "max_price": 140.46,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-18",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6281,12 +6279,12 @@
       "subsector": "Railroads",
       "entry": 254.84,
       "max_price": 264.78,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 23,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6300,7 +6298,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-02-24",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-24"
     },
     {
@@ -6316,7 +6314,7 @@
       "result": "WIN",
       "peak_date": "2026-02-23",
       "exit_date": "2026-02-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6331,7 +6329,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6346,7 +6344,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6356,12 +6354,12 @@
       "subsector": "Building Materials",
       "entry": 666.64,
       "max_price": 696.0,
-      "return_pct": -5.0,
-      "days": 16,
+      "return_pct": -5.26,
+      "days": 17,
       "result": "LOSS",
       "peak_date": "2026-02-24",
-      "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-06",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6371,12 +6369,12 @@
       "subsector": "REITâ€”Specialty",
       "entry": 110.08,
       "max_price": 112.32,
-      "return_pct": -5.0,
-      "days": 17,
+      "return_pct": -4.67,
+      "days": 30,
       "result": "LOSS",
       "peak_date": "2026-02-24",
-      "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-19",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6391,7 +6389,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6401,12 +6399,12 @@
       "subsector": "Healthcare Plans",
       "entry": 543.85,
       "max_price": 544.32,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 28,
       "result": "LOSS",
       "peak_date": "2026-03-09",
       "exit_date": "2026-03-17",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6416,12 +6414,12 @@
       "subsector": "Drug Manufacturersâ€”General",
       "entry": 154.16,
       "max_price": 154.39,
-      "return_pct": -5.0,
-      "days": 8,
+      "return_pct": -5.26,
+      "days": 9,
       "result": "LOSS",
       "peak_date": "2026-02-17",
-      "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-26",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6436,7 +6434,7 @@
       "result": "LOSS",
       "peak_date": "2026-03-16",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6451,7 +6449,7 @@
       "result": "WIN",
       "peak_date": "2026-03-16",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6466,7 +6464,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6481,7 +6479,7 @@
       "result": "WIN",
       "peak_date": "2026-03-04",
       "exit_date": "2026-03-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6496,7 +6494,7 @@
       "result": "WIN",
       "peak_date": "2026-02-19",
       "exit_date": "2026-02-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6506,12 +6504,12 @@
       "subsector": "Farm & Heavy Construction Machinery",
       "entry": 763.55,
       "max_price": 766.77,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6526,7 +6524,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-13",
@@ -6540,7 +6538,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-02-24",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-24"
     },
     {
@@ -6555,7 +6553,7 @@
       "days": 17,
       "result": "WIN",
       "peak_date": "2026-03-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-02"
     },
     {
@@ -6571,7 +6569,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6581,12 +6579,12 @@
       "subsector": "Integrated Freight & Logistics",
       "entry": 116.54,
       "max_price": 117.6,
-      "return_pct": -5.0,
-      "days": 19,
+      "return_pct": -5.26,
+      "days": 20,
       "result": "LOSS",
       "peak_date": "2026-02-13",
-      "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-05",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6596,12 +6594,12 @@
       "subsector": "Luxury Goods",
       "entry": 154.08,
       "max_price": 160.06,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6616,7 +6614,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6626,12 +6624,12 @@
       "subsector": "Semiconductors",
       "entry": 33.75,
       "max_price": 34.46,
-      "return_pct": -5.0,
+      "return_pct": -4.98,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 4.98
     },
     {
       "date": "2026-02-12",
@@ -6641,12 +6639,12 @@
       "subsector": "Lodging",
       "entry": 352.67,
       "max_price": 359.25,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 17,
       "result": "LOSS",
       "peak_date": "2026-02-17",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6661,7 +6659,7 @@
       "result": "WIN",
       "peak_date": "2026-02-19",
       "exit_date": "2026-02-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6676,7 +6674,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6691,7 +6689,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6701,12 +6699,12 @@
       "subsector": "Industrials",
       "entry": 260.64,
       "max_price": 263.91,
-      "return_pct": -5.0,
-      "days": 18,
+      "return_pct": -5.26,
+      "days": 19,
       "result": "LOSS",
       "peak_date": "2026-02-26",
-      "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-04",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6716,12 +6714,12 @@
       "subsector": "Specialty Industrial Machinery",
       "entry": 145.7,
       "max_price": 152.72,
-      "return_pct": -5.0,
-      "days": 21,
+      "return_pct": -5.26,
+      "days": 27,
       "result": "LOSS",
       "peak_date": "2026-02-26",
-      "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-12",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6736,7 +6734,7 @@
       "result": "WIN",
       "peak_date": "2026-02-19",
       "exit_date": "2026-02-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6750,7 +6748,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-02-19",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-19"
     },
     {
@@ -6761,12 +6759,12 @@
       "subsector": "Medical Instruments & Supplies",
       "entry": 177.35,
       "max_price": 184.21,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6776,12 +6774,12 @@
       "subsector": "Drug Manufacturersâ€”General",
       "entry": 203.52,
       "max_price": 208.62,
-      "return_pct": -5.0,
-      "days": 26,
+      "return_pct": -5.26,
+      "days": 27,
       "result": "LOSS",
       "peak_date": "2026-02-19",
-      "exit_date": "2026-03-11",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-12",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-12",
@@ -6796,7 +6794,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 6.43
     },
     {
       "date": "2026-02-05",
@@ -6811,7 +6809,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6821,12 +6819,12 @@
       "subsector": "Banks - Diversified",
       "entry": 22.85,
       "max_price": 23.81,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 25,
       "result": "LOSS",
       "peak_date": "2026-02-13",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6841,7 +6839,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-10",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6855,7 +6853,7 @@
       "days": 12,
       "result": "WIN",
       "peak_date": "2026-02-18",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-18"
     },
     {
@@ -6866,12 +6864,12 @@
       "subsector": "Insuranceâ€”Life",
       "entry": 31.85,
       "max_price": 32.27,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6886,7 +6884,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6900,7 +6898,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-02-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-13"
     },
     {
@@ -6915,7 +6913,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-02-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-13"
     },
     {
@@ -6930,7 +6928,7 @@
       "days": 11,
       "result": "WIN",
       "peak_date": "2026-02-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-17"
     },
     {
@@ -6945,7 +6943,7 @@
       "days": 19,
       "result": "WIN",
       "peak_date": "2026-02-25",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-25"
     },
     {
@@ -6961,7 +6959,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-10",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-05",
@@ -6975,7 +6973,7 @@
       "days": 17,
       "result": "WIN",
       "peak_date": "2026-02-23",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-23"
     },
     {
@@ -6986,12 +6984,12 @@
       "subsector": "Financial Services",
       "entry": 117.18,
       "max_price": 117.18,
-      "return_pct": -5.0,
-      "days": 27,
+      "return_pct": -5.02,
+      "days": 28,
       "result": "LOSS",
       "peak_date": "2026-02-06",
-      "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "exit_date": "2026-03-06",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7005,7 +7003,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7016,12 +7014,12 @@
       "subsector": "Integrated Freight & Logistics",
       "entry": 114.4,
       "max_price": 118.35,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 28,
       "result": "LOSS",
       "peak_date": "2026-02-11",
       "exit_date": "2026-03-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7035,7 +7033,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7051,7 +7049,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7066,7 +7064,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7081,7 +7079,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7096,7 +7094,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-06",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7110,7 +7108,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7126,7 +7124,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-24",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7140,7 +7138,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-02-09",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-09"
     },
     {
@@ -7156,7 +7154,7 @@
       "result": "WIN",
       "peak_date": "2026-02-23",
       "exit_date": "2026-02-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7166,12 +7164,12 @@
       "subsector": "Industrials",
       "entry": 96.64,
       "max_price": 98.74,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 26,
       "result": "LOSS",
       "peak_date": "2026-02-17",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7186,7 +7184,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7196,12 +7194,12 @@
       "subsector": "Financial Services",
       "entry": 53.37,
       "max_price": 54.59,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7216,7 +7214,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7230,7 +7228,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-02-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-13"
     },
     {
@@ -7245,7 +7243,7 @@
       "days": 25,
       "result": "WIN",
       "peak_date": "2026-03-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-02"
     },
     {
@@ -7260,7 +7258,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-02-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-06"
     },
     {
@@ -7271,12 +7269,12 @@
       "subsector": "Consumer Defensive",
       "entry": 60.66,
       "max_price": 62.13,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 29,
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-04",
@@ -7291,7 +7289,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7301,12 +7299,12 @@
       "subsector": "Semiconductors",
       "entry": 221.01,
       "max_price": 225.41,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 26,
       "result": "LOSS",
       "peak_date": "2026-02-11",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7316,12 +7314,12 @@
       "subsector": "Drug Manufacturersâ€”Specialty & Generic",
       "entry": 36.18,
       "max_price": 36.18,
-      "return_pct": -5.0,
-      "days": 6,
+      "return_pct": -5.26,
+      "days": 8,
       "result": "LOSS",
       "peak_date": "2026-02-04",
-      "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-12",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7336,7 +7334,7 @@
       "result": "WIN",
       "peak_date": "2026-02-18",
       "exit_date": "2026-02-18",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7351,7 +7349,7 @@
       "result": "WIN",
       "peak_date": "2026-02-26",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7361,12 +7359,12 @@
       "subsector": "Internet Content & Information",
       "entry": 687.14,
       "max_price": 687.14,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7376,12 +7374,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 6.16,
       "max_price": 6.16,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7396,7 +7394,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7411,7 +7409,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 4.11
     },
     {
       "date": "2026-02-03",
@@ -7425,7 +7423,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7436,12 +7434,12 @@
       "subsector": "Financial Services",
       "entry": 528.09,
       "max_price": 541.91,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-03",
@@ -7455,7 +7453,7 @@
       "days": 30,
       "result": "WIN",
       "peak_date": "2026-03-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-03-06"
     },
     {
@@ -7466,12 +7464,12 @@
       "subsector": "Computer Hardware",
       "entry": 279.38,
       "max_price": 290.1,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7486,7 +7484,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7496,12 +7494,12 @@
       "subsector": "Computer Hardware",
       "entry": 450.72,
       "max_price": 450.72,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7511,12 +7509,12 @@
       "subsector": "Computer Hardware",
       "entry": 694.06,
       "max_price": 695.51,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7526,12 +7524,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 18.22,
       "max_price": 18.28,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7541,12 +7539,12 @@
       "subsector": "Financial Data & Stock Exchanges",
       "entry": 608.7,
       "max_price": 608.7,
-      "return_pct": -5.0,
-      "days": 1,
+      "return_pct": -3.59,
+      "days": 0,
       "result": "LOSS",
       "peak_date": "2026-02-03",
-      "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-03",
+      "sl_pct": 3.59
     },
     {
       "date": "2026-02-02",
@@ -7556,12 +7554,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 29.71,
       "max_price": 29.98,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7571,12 +7569,12 @@
       "subsector": "Technology",
       "entry": 117.08,
       "max_price": 117.08,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7591,7 +7589,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7606,7 +7604,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7621,7 +7619,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-02-02",
@@ -7631,12 +7629,12 @@
       "subsector": "Banks - Regional",
       "entry": 372.81,
       "max_price": 375.25,
-      "return_pct": -5.0,
-      "days": 3,
+      "return_pct": -5.26,
+      "days": 7,
       "result": "LOSS",
       "peak_date": "2026-02-03",
-      "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-10",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7650,7 +7648,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-02-04",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-04"
     },
     {
@@ -7666,7 +7664,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7680,7 +7678,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7695,7 +7693,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -7706,12 +7704,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 12.7,
       "max_price": 12.9,
-      "return_pct": -5.0,
-      "days": 10,
+      "return_pct": -3.67,
+      "days": 1,
       "result": "LOSS",
       "peak_date": "2026-02-02",
-      "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-03",
+      "sl_pct": 3.67
     },
     {
       "date": "2026-01-31",
@@ -7726,7 +7724,7 @@
       "result": "WIN",
       "peak_date": "2026-03-02",
       "exit_date": "2026-03-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7741,7 +7739,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7751,12 +7749,12 @@
       "subsector": "Insuranceâ€”Life",
       "entry": 32.61,
       "max_price": 33.15,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 10,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7771,7 +7769,7 @@
       "result": "LOSS",
       "peak_date": "2026-02-25",
       "exit_date": "2026-03-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7786,7 +7784,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7801,7 +7799,7 @@
       "result": "WIN",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7811,12 +7809,12 @@
       "subsector": "Semiconductor Equipment",
       "entry": 233.05,
       "max_price": 237.22,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7830,7 +7828,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-02-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-06"
     },
     {
@@ -7845,7 +7843,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-02-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-06"
     },
     {
@@ -7861,7 +7859,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7871,12 +7869,12 @@
       "subsector": "IT Services",
       "entry": 303.53,
       "max_price": 310.66,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7891,7 +7889,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-25",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7906,7 +7904,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7921,7 +7919,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7931,12 +7929,12 @@
       "subsector": "Uranium",
       "entry": 122.19,
       "max_price": 126.15,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7951,7 +7949,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7966,7 +7964,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7976,12 +7974,12 @@
       "subsector": "Banks - Regional",
       "entry": 3.96,
       "max_price": 4.11,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 29,
       "result": "LOSS",
       "peak_date": "2026-02-20",
       "exit_date": "2026-03-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-31",
@@ -7991,12 +7989,12 @@
       "subsector": "Computer Hardware",
       "entry": 141.32,
       "max_price": 141.32,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8006,12 +8004,12 @@
       "subsector": "Basic Materials",
       "entry": 142.19,
       "max_price": 142.19,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-30",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8026,7 +8024,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8041,7 +8039,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8056,7 +8054,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-24",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8071,7 +8069,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8081,12 +8079,12 @@
       "subsector": "Basic Materials",
       "entry": 33.51,
       "max_price": 33.51,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-30",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8096,12 +8094,12 @@
       "subsector": "Basic Materials",
       "entry": 244.84,
       "max_price": 244.84,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-01-30",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8116,7 +8114,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8126,12 +8124,12 @@
       "subsector": "Oil & Gas Integrated",
       "entry": 12.12,
       "max_price": 12.12,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-01-30",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8146,7 +8144,7 @@
       "result": "WIN",
       "peak_date": "2026-02-25",
       "exit_date": "2026-02-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8156,12 +8154,12 @@
       "subsector": "Internet Content & Information",
       "entry": 156.01,
       "max_price": 156.01,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-01-30",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8171,12 +8169,12 @@
       "subsector": "Gold",
       "entry": 46.91,
       "max_price": 47.13,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-29",
@@ -8191,7 +8189,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8201,12 +8199,12 @@
       "subsector": "Technology",
       "entry": 94.5,
       "max_price": 94.5,
-      "return_pct": -5.0,
+      "return_pct": -4.69,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 4.69
     },
     {
       "date": "2026-01-28",
@@ -8216,12 +8214,12 @@
       "subsector": "Semiconductors",
       "entry": 10.71,
       "max_price": 10.71,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8236,7 +8234,7 @@
       "result": "WIN",
       "peak_date": "2026-02-11",
       "exit_date": "2026-02-11",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8246,12 +8244,12 @@
       "subsector": "Computer Hardware",
       "entry": 449.49,
       "max_price": 449.49,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8266,7 +8264,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8275,13 +8273,13 @@
       "sector": "Consumer Cyclical",
       "subsector": "Restaurants",
       "entry": 96.14,
-      "max_price": 96.14,
-      "return_pct": -5.0,
-      "days": 4,
-      "result": "LOSS",
-      "peak_date": "2026-01-29",
-      "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "max_price": 98.81,
+      "return_pct": 1.96,
+      "days": 29,
+      "result": "WIN",
+      "peak_date": "2026-02-06",
+      "exit_date": "2026-02-27",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8291,12 +8289,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 17.63,
       "max_price": 18.28,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 11,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8311,7 +8309,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8321,12 +8319,12 @@
       "subsector": "Semiconductors",
       "entry": 79.42,
       "max_price": 79.42,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 11,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8341,7 +8339,7 @@
       "result": "WIN",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8351,12 +8349,12 @@
       "subsector": "Technology",
       "entry": 45.37,
       "max_price": 45.37,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-28",
@@ -8370,7 +8368,7 @@
       "days": 29,
       "result": "WIN",
       "peak_date": "2026-02-27",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-27"
     },
     {
@@ -8386,7 +8384,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 6.43
     },
     {
       "date": "2026-01-28",
@@ -8396,12 +8394,12 @@
       "subsector": "Semiconductor Equipment",
       "entry": 340.32,
       "max_price": 340.91,
-      "return_pct": -5.0,
-      "days": 1,
+      "return_pct": -5.5,
+      "days": 5,
       "result": "LOSS",
       "peak_date": "2026-01-29",
-      "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "exit_date": "2026-02-03",
+      "sl_pct": 5.5
     },
     {
       "date": "2026-01-27",
@@ -8411,12 +8409,12 @@
       "subsector": "Other Industrial Metals & Mining",
       "entry": 56.85,
       "max_price": 58.21,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8431,7 +8429,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8441,12 +8439,12 @@
       "subsector": "Financial Services",
       "entry": 18.64,
       "max_price": 18.76,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8461,7 +8459,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8476,7 +8474,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8491,7 +8489,7 @@
       "result": "WIN",
       "peak_date": "2026-02-05",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-27",
@@ -8501,12 +8499,12 @@
       "subsector": "Semiconductors",
       "entry": 254.13,
       "max_price": 254.13,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 2,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8521,7 +8519,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8536,7 +8534,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8551,7 +8549,7 @@
       "result": "WIN",
       "peak_date": "2026-02-24",
       "exit_date": "2026-02-26",
-      "sl_pct": 5.0
+      "sl_pct": 4.53
     },
     {
       "date": "2026-01-26",
@@ -8566,7 +8564,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8581,7 +8579,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8596,7 +8594,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-26",
@@ -8606,12 +8604,12 @@
       "subsector": "Basic Materials",
       "entry": 216.61,
       "max_price": 222.59,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8625,7 +8623,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-02-04",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-04"
     },
     {
@@ -8640,7 +8638,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-03"
     },
     {
@@ -8656,7 +8654,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8671,7 +8669,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8686,7 +8684,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8700,7 +8698,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-01-28",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-28"
     },
     {
@@ -8711,12 +8709,12 @@
       "subsector": "Gold",
       "entry": 69.63,
       "max_price": 69.63,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-26",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8730,7 +8728,7 @@
       "days": 14,
       "result": "WIN",
       "peak_date": "2026-02-09",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-09"
     },
     {
@@ -8741,12 +8739,12 @@
       "subsector": "Basic Materials",
       "entry": 262.07,
       "max_price": 267.2,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8760,7 +8758,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-01-27",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-27"
     },
     {
@@ -8775,7 +8773,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.06,
       "exit_date": "2026-02-03"
     },
     {
@@ -8786,12 +8784,12 @@
       "subsector": "Gold",
       "entry": 51.99,
       "max_price": 52.54,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8806,7 +8804,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-23",
@@ -8821,7 +8819,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.5
     },
     {
       "date": "2026-01-23",
@@ -8831,12 +8829,12 @@
       "subsector": "Specialty Chemicals",
       "entry": 189.17,
       "max_price": 193.7,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 4,
       "result": "LOSS",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8850,7 +8848,7 @@
       "days": 11,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 2.89,
       "exit_date": "2026-02-03"
     },
     {
@@ -8861,12 +8859,12 @@
       "subsector": "Diagnostics & Research",
       "entry": 637.05,
       "max_price": 637.05,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-01-23",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8876,12 +8874,12 @@
       "subsector": "Financial Services",
       "entry": 18.0,
       "max_price": 18.76,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 12,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8896,7 +8894,7 @@
       "result": "WIN",
       "peak_date": "2026-02-05",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8911,7 +8909,7 @@
       "result": "WIN",
       "peak_date": "2026-02-20",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8921,12 +8919,12 @@
       "subsector": "Industrials",
       "entry": 290.83,
       "max_price": 291.61,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-01-23",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -8940,7 +8938,7 @@
       "days": 11,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-03"
     },
     {
@@ -8955,7 +8953,7 @@
       "days": 12,
       "result": "WIN",
       "peak_date": "2026-02-04",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-04"
     },
     {
@@ -8965,13 +8963,13 @@
       "sector": "Industrials",
       "subsector": "Industrials",
       "entry": 582.12,
-      "max_price": 603.6,
-      "return_pct": -5.0,
-      "days": 13,
+      "max_price": 582.12,
+      "return_pct": -1.38,
+      "days": 0,
       "result": "LOSS",
-      "peak_date": "2026-02-04",
-      "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "peak_date": "2026-01-23",
+      "exit_date": "2026-01-23",
+      "sl_pct": 1.38
     },
     {
       "date": "2026-01-22",
@@ -8986,7 +8984,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -9001,7 +8999,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-22",
@@ -9016,7 +9014,7 @@
       "result": "WIN",
       "peak_date": "2026-02-13",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9031,7 +9029,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9046,7 +9044,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 6.95
     },
     {
       "date": "2026-01-21",
@@ -9061,7 +9059,7 @@
       "result": "WIN",
       "peak_date": "2026-01-23",
       "exit_date": "2026-01-23",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9071,12 +9069,12 @@
       "subsector": "Industrials",
       "entry": 116.23,
       "max_price": 119.14,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 21,
       "result": "LOSS",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9090,7 +9088,7 @@
       "days": 20,
       "result": "WIN",
       "peak_date": "2026-02-11",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-11"
     },
     {
@@ -9105,7 +9103,7 @@
       "days": 22,
       "result": "WIN",
       "peak_date": "2026-02-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-13"
     },
     {
@@ -9121,7 +9119,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9131,12 +9129,12 @@
       "subsector": "Industrials",
       "entry": 121.01,
       "max_price": 121.01,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9150,7 +9148,7 @@
       "days": 11,
       "result": "WIN",
       "peak_date": "2026-02-02",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-02"
     },
     {
@@ -9161,12 +9159,12 @@
       "subsector": "Industrials",
       "entry": 90.33,
       "max_price": 90.33,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 6,
       "result": "LOSS",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9181,7 +9179,7 @@
       "result": "WIN",
       "peak_date": "2026-01-26",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9196,7 +9194,7 @@
       "result": "WIN",
       "peak_date": "2026-02-13",
       "exit_date": "2026-02-13",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9211,7 +9209,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-21",
@@ -9225,7 +9223,7 @@
       "days": 26,
       "result": "WIN",
       "peak_date": "2026-02-17",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-17"
     },
     {
@@ -9236,12 +9234,12 @@
       "subsector": "Semiconductors",
       "entry": 251.75,
       "max_price": 259.68,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-01-23",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-20",
@@ -9251,12 +9249,12 @@
       "subsector": "Telecom Services",
       "entry": 122.72,
       "max_price": 128.57,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-20",
@@ -9271,7 +9269,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-02-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-20",
@@ -9285,7 +9283,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-01-29",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-29"
     },
     {
@@ -9296,12 +9294,12 @@
       "subsector": "Consumer Defensive",
       "entry": 114.35,
       "max_price": 119.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 15,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-20",
@@ -9316,7 +9314,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-20",
@@ -9330,7 +9328,7 @@
       "days": 13,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-03"
     },
     {
@@ -9346,7 +9344,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9356,12 +9354,12 @@
       "subsector": "Industrials",
       "entry": 144.05,
       "max_price": 144.05,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 8,
       "result": "LOSS",
       "peak_date": "2026-01-20",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9376,7 +9374,7 @@
       "result": "WIN",
       "peak_date": "2026-01-26",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 3.67
     },
     {
       "date": "2026-01-19",
@@ -9391,7 +9389,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9406,7 +9404,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9421,7 +9419,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 6.78
     },
     {
       "date": "2026-01-19",
@@ -9436,7 +9434,7 @@
       "result": "WIN",
       "peak_date": "2026-02-05",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9451,7 +9449,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9466,7 +9464,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-19",
@@ -9481,7 +9479,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9495,7 +9493,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-01-29",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-29"
     },
     {
@@ -9505,13 +9503,13 @@
       "sector": "Consumer Defensive",
       "subsector": "Discount Stores",
       "entry": 120.41,
-      "max_price": 127.21,
-      "return_pct": 5.64,
-      "days": 14,
-      "result": "WIN",
-      "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
-      "exit_date": "2026-02-03"
+      "max_price": 120.41,
+      "return_pct": -2.89,
+      "days": 7,
+      "result": "LOSS",
+      "peak_date": "2026-01-20",
+      "sl_pct": 2.89,
+      "exit_date": "2026-01-27"
     },
     {
       "date": "2026-01-16",
@@ -9526,7 +9524,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9541,7 +9539,7 @@
       "result": "WIN",
       "peak_date": "2026-02-19",
       "exit_date": "2026-02-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9556,7 +9554,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9571,7 +9569,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9585,7 +9583,7 @@
       "days": 2,
       "result": "WIN",
       "peak_date": "2026-01-22",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-22"
     },
     {
@@ -9601,7 +9599,7 @@
       "result": "WIN",
       "peak_date": "2026-02-06",
       "exit_date": "2026-02-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9616,7 +9614,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9631,7 +9629,7 @@
       "result": "WIN",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9646,7 +9644,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9656,12 +9654,12 @@
       "subsector": "Healthcare",
       "entry": 232.99,
       "max_price": 241.54,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9675,7 +9673,7 @@
       "days": 7,
       "result": "WIN",
       "peak_date": "2026-01-27",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-27"
     },
     {
@@ -9691,7 +9689,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9706,7 +9704,7 @@
       "result": "WIN",
       "peak_date": "2026-02-02",
       "exit_date": "2026-02-02",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9721,7 +9719,7 @@
       "result": "WIN",
       "peak_date": "2026-02-09",
       "exit_date": "2026-02-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9736,7 +9734,7 @@
       "result": "WIN",
       "peak_date": "2026-01-26",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9751,7 +9749,7 @@
       "result": "WIN",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9766,7 +9764,7 @@
       "result": "LOSS",
       "peak_date": "2026-01-23",
       "exit_date": "2026-02-19",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-16",
@@ -9781,7 +9779,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-15",
@@ -9790,13 +9788,13 @@
       "sector": "Technology",
       "subsector": "Technology",
       "entry": 345.54,
-      "max_price": 345.54,
-      "return_pct": -5.0,
-      "days": 4,
-      "result": "LOSS",
-      "peak_date": "2026-01-16",
-      "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "max_price": 373.04,
+      "return_pct": 7.96,
+      "days": 26,
+      "result": "WIN",
+      "peak_date": "2026-02-11",
+      "exit_date": "2026-02-11",
+      "sl_pct": 6.95
     },
     {
       "date": "2026-01-15",
@@ -9811,7 +9809,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-15",
@@ -9826,7 +9824,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-15",
@@ -9836,12 +9834,12 @@
       "subsector": "Consumer Defensive",
       "entry": 114.53,
       "max_price": 119.24,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 20,
       "result": "LOSS",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-15",
@@ -9850,13 +9848,13 @@
       "sector": "Industrials",
       "subsector": "Industrials",
       "entry": 573.77,
-      "max_price": 603.6,
-      "return_pct": 5.2,
-      "days": 19,
-      "result": "WIN",
-      "peak_date": "2026-02-04",
-      "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "max_price": 577.0,
+      "return_pct": -1.38,
+      "days": 4,
+      "result": "LOSS",
+      "peak_date": "2026-01-16",
+      "exit_date": "2026-01-20",
+      "sl_pct": 1.38
     },
     {
       "date": "2026-01-14",
@@ -9870,7 +9868,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-01-20",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-20"
     },
     {
@@ -9886,7 +9884,7 @@
       "result": "WIN",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-14",
@@ -9896,12 +9894,12 @@
       "subsector": "Telecom Services",
       "entry": 129.74,
       "max_price": 129.74,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-14",
@@ -9911,12 +9909,12 @@
       "subsector": "Medical Devices",
       "entry": 30.16,
       "max_price": 30.17,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 5,
       "result": "LOSS",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-14",
@@ -9930,7 +9928,7 @@
       "days": 8,
       "result": "WIN",
       "peak_date": "2026-01-23",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-23"
     },
     {
@@ -9946,7 +9944,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-14",
@@ -9961,7 +9959,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 6.78
     },
     {
       "date": "2026-01-14",
@@ -9976,7 +9974,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-14",
@@ -9990,7 +9988,7 @@
       "days": 19,
       "result": "WIN",
       "peak_date": "2026-02-03",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-03"
     },
     {
@@ -10005,7 +10003,7 @@
       "days": 28,
       "result": "WIN",
       "peak_date": "2026-02-12",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-12"
     },
     {
@@ -10020,7 +10018,7 @@
       "days": 21,
       "result": "WIN",
       "peak_date": "2026-02-04",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-04"
     },
     {
@@ -10035,7 +10033,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-01-20",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-20"
     },
     {
@@ -10051,7 +10049,7 @@
       "result": "WIN",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-15",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-13",
@@ -10060,13 +10058,13 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto Manufacturers",
       "entry": 13.85,
-      "max_price": 13.85,
-      "return_pct": -5.0,
-      "days": 6,
-      "result": "LOSS",
-      "peak_date": "2026-01-14",
-      "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "max_price": 14.12,
+      "return_pct": 1.95,
+      "days": 30,
+      "result": "WIN",
+      "peak_date": "2026-02-13",
+      "exit_date": "2026-02-13",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-13",
@@ -10081,7 +10079,7 @@
       "result": "WIN",
       "peak_date": "2026-01-16",
       "exit_date": "2026-01-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-12",
@@ -10091,12 +10089,12 @@
       "subsector": "Diagnostics & Research",
       "entry": 612.71,
       "max_price": 638.82,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 17,
       "result": "LOSS",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-12",
@@ -10111,7 +10109,7 @@
       "result": "WIN",
       "peak_date": "2026-02-12",
       "exit_date": "2026-02-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-12",
@@ -10125,7 +10123,7 @@
       "days": 13,
       "result": "WIN",
       "peak_date": "2026-01-26",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-26"
     },
     {
@@ -10141,7 +10139,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-12",
@@ -10155,7 +10153,7 @@
       "days": 17,
       "result": "WIN",
       "peak_date": "2026-01-30",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-30"
     },
     {
@@ -10170,7 +10168,7 @@
       "days": 3,
       "result": "WIN",
       "peak_date": "2026-01-15",
-      "sl_pct": 5.0,
+      "sl_pct": 6.95,
       "exit_date": "2026-01-15"
     },
     {
@@ -10181,12 +10179,12 @@
       "subsector": "Asset Management",
       "entry": 64.73,
       "max_price": 66.41,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 14,
       "result": "LOSS",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10196,12 +10194,12 @@
       "subsector": "Consumer Cyclical",
       "entry": 157.27,
       "max_price": 157.69,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 15,
       "result": "LOSS",
       "peak_date": "2026-01-13",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10216,7 +10214,7 @@
       "result": "WIN",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-15",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10231,7 +10229,7 @@
       "result": "WIN",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-15",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10241,12 +10239,12 @@
       "subsector": "Mortgage Finance",
       "entry": 22.81,
       "max_price": 23.44,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 9,
       "result": "LOSS",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10261,7 +10259,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10275,7 +10273,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-01-21",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-21"
     },
     {
@@ -10291,7 +10289,7 @@
       "result": "WIN",
       "peak_date": "2026-02-10",
       "exit_date": "2026-02-10",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10301,12 +10299,12 @@
       "subsector": "Financial Services",
       "entry": 17.96,
       "max_price": 18.58,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 16,
       "result": "LOSS",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10321,7 +10319,7 @@
       "result": "WIN",
       "peak_date": "2026-01-20",
       "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10336,7 +10334,7 @@
       "result": "WIN",
       "peak_date": "2026-01-14",
       "exit_date": "2026-01-14",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10350,7 +10348,7 @@
       "days": 18,
       "result": "WIN",
       "peak_date": "2026-01-30",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-30"
     },
     {
@@ -10366,7 +10364,7 @@
       "result": "WIN",
       "peak_date": "2026-01-16",
       "exit_date": "2026-01-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-10",
@@ -10380,7 +10378,7 @@
       "days": 3,
       "result": "WIN",
       "peak_date": "2026-01-15",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-15"
     },
     {
@@ -10395,7 +10393,7 @@
       "days": 0,
       "result": "WIN",
       "peak_date": "2026-01-12",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-12"
     },
     {
@@ -10406,12 +10404,12 @@
       "subsector": "Rental & Leasing Services",
       "entry": 932.9,
       "max_price": 953.86,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 17,
       "result": "LOSS",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10421,12 +10419,12 @@
       "subsector": "Capital Markets",
       "entry": 46.34,
       "max_price": 48.01,
-      "return_pct": -5.0,
+      "return_pct": -4.19,
       "days": 23,
       "result": "LOSS",
       "peak_date": "2026-01-27",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 4.19
     },
     {
       "date": "2026-01-09",
@@ -10441,7 +10439,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10456,7 +10454,7 @@
       "result": "WIN",
       "peak_date": "2026-01-14",
       "exit_date": "2026-01-14",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10465,13 +10463,13 @@
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 30.03,
-      "max_price": 30.17,
-      "return_pct": -5.0,
-      "days": 8,
-      "result": "LOSS",
-      "peak_date": "2026-01-15",
-      "exit_date": "2026-01-20",
-      "sl_pct": 5.0
+      "max_price": 32.91,
+      "return_pct": 9.59,
+      "days": 29,
+      "result": "WIN",
+      "peak_date": "2026-02-10",
+      "exit_date": "2026-02-10",
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10480,13 +10478,13 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 61.92,
-      "max_price": 61.92,
-      "return_pct": -5.0,
-      "days": 0,
-      "result": "LOSS",
-      "peak_date": "2026-01-12",
-      "exit_date": "2026-01-12",
-      "sl_pct": 5.0
+      "max_price": 65.2,
+      "return_pct": 5.3,
+      "days": 25,
+      "result": "WIN",
+      "peak_date": "2026-02-06",
+      "exit_date": "2026-02-06",
+      "sl_pct": 5.49
     },
     {
       "date": "2026-01-09",
@@ -10501,7 +10499,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10516,7 +10514,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10526,12 +10524,12 @@
       "subsector": "Healthcare",
       "entry": 243.41,
       "max_price": 243.41,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 18,
       "result": "LOSS",
       "peak_date": "2026-01-12",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-09",
@@ -10546,7 +10544,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10560,7 +10558,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-01-15",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-15"
     },
     {
@@ -10576,7 +10574,7 @@
       "result": "WIN",
       "peak_date": "2026-02-04",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10591,7 +10589,7 @@
       "result": "WIN",
       "peak_date": "2026-01-16",
       "exit_date": "2026-01-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10606,7 +10604,7 @@
       "result": "WIN",
       "peak_date": "2026-01-21",
       "exit_date": "2026-01-21",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10621,7 +10619,7 @@
       "result": "WIN",
       "peak_date": "2026-01-15",
       "exit_date": "2026-01-15",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10631,12 +10629,12 @@
       "subsector": "Credit Services",
       "entry": 255.02,
       "max_price": 255.02,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 3,
       "result": "LOSS",
       "peak_date": "2026-01-09",
       "exit_date": "2026-01-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-08",
@@ -10650,7 +10648,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-01-14",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-14"
     },
     {
@@ -10665,7 +10663,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-01-13",
-      "sl_pct": 5.0,
+      "sl_pct": 6.43,
       "exit_date": "2026-01-13"
     },
     {
@@ -10680,7 +10678,7 @@
       "days": 6,
       "result": "WIN",
       "peak_date": "2026-01-15",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-15"
     },
     {
@@ -10695,7 +10693,7 @@
       "days": 27,
       "result": "WIN",
       "peak_date": "2026-02-04",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-02-04"
     },
     {
@@ -10706,12 +10704,12 @@
       "subsector": "Diagnostics & Research",
       "entry": 612.25,
       "max_price": 638.82,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 22,
       "result": "LOSS",
       "peak_date": "2026-01-22",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-07",
@@ -10726,7 +10724,7 @@
       "result": "WIN",
       "peak_date": "2026-01-28",
       "exit_date": "2026-01-28",
-      "sl_pct": 5.0
+      "sl_pct": 4.98
     },
     {
       "date": "2026-01-07",
@@ -10736,12 +10734,12 @@
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 62.0,
       "max_price": 62.0,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-08",
       "exit_date": "2026-01-08",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-07",
@@ -10756,7 +10754,7 @@
       "result": "WIN",
       "peak_date": "2026-01-09",
       "exit_date": "2026-01-09",
-      "sl_pct": 5.0
+      "sl_pct": 6.78
     },
     {
       "date": "2026-01-07",
@@ -10770,7 +10768,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-01-09",
-      "sl_pct": 5.0,
+      "sl_pct": 4.53,
       "exit_date": "2026-01-09"
     },
     {
@@ -10786,7 +10784,7 @@
       "result": "WIN",
       "peak_date": "2026-01-16",
       "exit_date": "2026-01-16",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-07",
@@ -10800,7 +10798,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-01-13",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-13"
     },
     {
@@ -10816,7 +10814,7 @@
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10831,7 +10829,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 3.67
     },
     {
       "date": "2026-01-05",
@@ -10846,7 +10844,7 @@
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10861,7 +10859,7 @@
       "result": "WIN",
       "peak_date": "2026-01-09",
       "exit_date": "2026-01-09",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10875,7 +10873,7 @@
       "days": 15,
       "result": "WIN",
       "peak_date": "2026-01-21",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-21"
     },
     {
@@ -10886,12 +10884,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 17.42,
       "max_price": 17.42,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-07",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10906,7 +10904,7 @@
       "result": "WIN",
       "peak_date": "2026-01-27",
       "exit_date": "2026-01-27",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10921,7 +10919,7 @@
       "result": "WIN",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-03",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10931,12 +10929,12 @@
       "subsector": "Aerospace & Defense",
       "entry": 325.45,
       "max_price": 327.06,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 16,
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-22",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10946,12 +10944,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 122.46,
       "max_price": 122.46,
-      "return_pct": -5.0,
-      "days": 7,
+      "return_pct": -2.98,
+      "days": 6,
       "result": "LOSS",
       "peak_date": "2026-01-06",
-      "exit_date": "2026-01-13",
-      "sl_pct": 5.0
+      "exit_date": "2026-01-12",
+      "sl_pct": 2.98
     },
     {
       "date": "2026-01-05",
@@ -10966,7 +10964,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-02-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-05",
@@ -10976,12 +10974,12 @@
       "subsector": "Banksâ€”Diversified",
       "entry": 26.27,
       "max_price": 27.19,
-      "return_pct": -4.14,
+      "return_pct": -3.75,
       "days": 30,
       "result": "LOSS",
       "peak_date": "2026-02-03",
       "exit_date": "2026-02-05",
-      "sl_pct": 12.36
+      "sl_pct": 3.75
     },
     {
       "date": "2026-01-05",
@@ -10996,7 +10994,7 @@
       "result": "WIN",
       "peak_date": "2026-01-26",
       "exit_date": "2026-01-26",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-02",
@@ -11006,12 +11004,12 @@
       "subsector": "Capital Markets",
       "entry": 46.09,
       "max_price": 48.01,
-      "return_pct": -5.0,
+      "return_pct": -4.19,
       "days": 30,
       "result": "LOSS",
       "peak_date": "2026-01-27",
       "exit_date": "2026-02-04",
-      "sl_pct": 5.0
+      "sl_pct": 4.19
     },
     {
       "date": "2026-01-02",
@@ -11025,7 +11023,7 @@
       "days": 1,
       "result": "WIN",
       "peak_date": "2026-01-06",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-06"
     },
     {
@@ -11036,12 +11034,12 @@
       "subsector": "Building Products & Equipment",
       "entry": 122.62,
       "max_price": 122.62,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 1,
       "result": "LOSS",
       "peak_date": "2026-01-05",
       "exit_date": "2026-01-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-02",
@@ -11051,12 +11049,12 @@
       "subsector": "Electronic Components",
       "entry": 243.82,
       "max_price": 243.82,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 0,
       "result": "LOSS",
       "peak_date": "2026-01-05",
       "exit_date": "2026-01-05",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-02",
@@ -11070,7 +11068,7 @@
       "days": 4,
       "result": "WIN",
       "peak_date": "2026-01-09",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-09"
     },
     {
@@ -11081,12 +11079,12 @@
       "subsector": "Credit Services",
       "entry": 246.61,
       "max_price": 256.96,
-      "return_pct": -5.0,
+      "return_pct": -5.26,
       "days": 7,
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-02",
@@ -11100,7 +11098,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-01-14",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-14"
     },
     {
@@ -11115,7 +11113,7 @@
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-01-14",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-14"
     },
     {
@@ -11131,7 +11129,7 @@
       "result": "WIN",
       "peak_date": "2026-01-12",
       "exit_date": "2026-01-12",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11146,7 +11144,7 @@
       "result": "WIN",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11161,7 +11159,7 @@
       "result": "WIN",
       "peak_date": "2026-01-29",
       "exit_date": "2026-01-29",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11176,7 +11174,7 @@
       "result": "LOSS",
       "peak_date": "2026-01-16",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11190,7 +11188,7 @@
       "days": 12,
       "result": "WIN",
       "peak_date": "2026-01-14",
-      "sl_pct": 5.0,
+      "sl_pct": 5.26,
       "exit_date": "2026-01-14"
     },
     {
@@ -11206,7 +11204,7 @@
       "result": "LOSS",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-30",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11221,7 +11219,7 @@
       "result": "WIN",
       "peak_date": "2026-01-06",
       "exit_date": "2026-01-06",
-      "sl_pct": 5.0
+      "sl_pct": 5.26
     },
     {
       "date": "2026-01-01",
@@ -11235,7 +11233,7 @@
       "days": 5,
       "result": "WIN",
       "peak_date": "2026-01-07",
-      "sl_pct": 5.0,
+      "sl_pct": 6.43,
       "exit_date": "2026-01-07"
     }
   ],

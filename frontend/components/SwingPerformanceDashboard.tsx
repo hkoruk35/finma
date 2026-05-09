@@ -15,7 +15,7 @@ interface PerformanceStats {
   above_5pct_rate: number;
   above_10pct_rate: number;
   above_15pct_rate?: number;
-  stop_loss_pct?: number;
+  stop_loss_pct?: string | number;
   last_updated?: string;
   completed_count?: number;
   pending_count?: number;
@@ -71,21 +71,15 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   // %3.5 SL uygular — kayıpları -3.5 ile sınırlar
   const effectiveReturn = (t: Trade): number | null => {
-    if (t.return_pct == null) return null;
-    return t.return_pct < SL_PCT ? SL_PCT : t.return_pct;
+    return t.return_pct; // Use value from JSON directly
   };
 
   const effectiveResult = (t: Trade): string => {
-    if (t.result === "PENDING") return "PENDING";
-    const r = effectiveReturn(t);
-    if (r == null) return t.result;
-    if (r > 0) return "WIN";
-    if (r <= SL_PCT) return "LOSS";
-    return t.result;
+    return t.result; // Use value from JSON directly
   };
 
   const slTriggered = (t: Trade): boolean => {
-    return t.return_pct != null && t.return_pct < SL_PCT;
+    return t.result === "LOSS";
   };
   const dashboardRef = useRef<HTMLDivElement>(null);
   const [selectedSector,    setSelectedSector]    = useState("All");
@@ -302,7 +296,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   // ── Export ─────────────────────────────────────────────────────────────────
   const handleExportCSV = () => {
-    const headers = ["Date","Ticker","Company","Sector","Subsector","Entry Price","Peak Price","Return % (w/ SL)","SL Triggered","Days to Peak","Result (w/ SL)"];
+    const headers = ["Date","Ticker","Company","Sector","Subsector","Entry Price","Peak Price","Return % (w/ SL)","SL Hit","Days to Peak","Result"];
     const csvRows = [headers.join(",")];
     filtered.forEach(t => {
       const row = [
@@ -331,7 +325,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const handleExportExcel = () => {
     let tableHtml = `<table border="1"><thead><tr style="background-color:#f3f4f6;font-weight:bold;">
       <th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th>Subsector</th>
-      <th>Entry Price</th><th>Peak Price</th><th>Return % (SL -3.5%)</th><th>SL Hit</th><th>Days to Peak</th><th>Result</th>
+      <th>Entry Price</th><th>Peak Price</th><th>Return %</th><th>SL Hit</th><th>Days to Peak</th><th>Result</th>
     </tr></thead><tbody>`;
     filtered.forEach(t => {
       tableHtml += `<tr>
@@ -371,7 +365,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       pdf.setFont('helvetica', 'normal');
       pdf.setFontSize(9);
       pdf.setTextColor(80, 80, 80);
-      pdf.text(`Stop Loss: −3.5% | Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
+      pdf.text(`Stop Loss: Bot-Calculated | Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
       yPos += 8;
 
       // Summary Stats
@@ -470,13 +464,13 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           <div>
             <h2 className="text-2xl font-black text-white">BOGA AI Swing Engine</h2>
             <p className="text-xs text-[#00d2ff] mt-1">
-              Performance overview · <span className="text-[#f59e0b] font-bold">−3.5% Stop-Loss Applied</span>
+              Performance overview · <span className="text-[#f59e0b] font-bold">Dynamic Stop-Loss (Bot-Calc)</span>
               {lastUpdated && <span className="ml-2">· Updated {formatLastUpdated(lastUpdated)}</span>}
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs">
             <span className="px-3 py-1.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
-              SL −3.5%
+              {serverStats?.stop_loss_pct || "Dynamic SL"}
             </span>
             <span className="px-3 py-1.5 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
               {stats.completedCount} Completed
@@ -655,7 +649,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
             <div className="flex items-center gap-2">
               <p className="text-xs text-white">Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} trades</p>
-              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">−3.5% SL Applied</span>
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">Bot-Calc Stop-Loss Applied</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -708,7 +702,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   </div>
                   <div className="py-4 px-1 text-center">
                     <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Peak/SL</p>
-                    <p className="font-mono font-black text-white text-base">{slHit ? `$${fmt(t.entry * (1 + SL_PCT/100))}` : (t.max_price != null ? `$${fmt(t.max_price)}` : "—")}</p>
+                    <p className="font-mono font-black text-white text-base">{t.max_price != null ? `$${fmt(t.max_price)}` : "—"}</p>
                   </div>
                   <div className="py-4 px-1 text-center">
                     <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Days</p>
@@ -788,9 +782,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       </td>
                       <td className="px-4 py-3 text-right">${fmt(t.entry)}</td>
                       <td className="px-4 py-3 text-right">
-                        {slHit ? (
-                          <span className="text-[#ef4444]">${fmt(t.entry * (1 + SL_PCT/100))}<span className="block text-[9px] text-[#ef4444]/60">SL price</span></span>
-                        ) : t.max_price != null ? (
+                        {t.max_price != null ? (
                           <span>${fmt(t.max_price)}{t.peak_date && <span className="block text-[9px] text-white">{t.peak_date}</span>}</span>
                         ) : "—"}
                       </td>
