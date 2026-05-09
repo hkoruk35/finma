@@ -17,8 +17,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/daytrade" },
 };
 
-function formatPrice(n: number) {
-  return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function formatPrice(n: any) {
+  if (n === undefined || n === null || isNaN(Number(n))) return "0.00";
+  return Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function ScoreBadge({ score }: { score: number }) {
@@ -29,7 +30,7 @@ function ScoreBadge({ score }: { score: number }) {
                   "from-[#64748b] to-[#475569]";
   return (
     <div className={`bg-gradient-to-r ${color} text-white text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider`}>
-      {score.toFixed(1)}
+      {(score || 0).toFixed(1)}
     </div>
   );
 }
@@ -122,7 +123,8 @@ export default async function DayTradePicksPage() {
                 </thead>
                 <tbody>
                   {picks.map((pick: any, idx: number) => {
-                    const zones = pick.boga_zones || {};
+                    const zones = pick.boga_zones || pick.zones || {};
+                    const price = pick.current_price ?? pick.price ?? 0;
                     return (
                       <tr
                         key={pick.ticker}
@@ -142,22 +144,22 @@ export default async function DayTradePicksPage() {
                           </Link>
                         </td>
                         <td className="px-3 py-4">
-                          <span className="text-white text-[11px] font-bold bg-white/10 px-2 py-0.5 rounded uppercase">{pick.primary_signal || "MOMENTUM"}</span>
+                          <span className="text-white text-[11px] font-bold bg-white/10 px-2 py-0.5 rounded uppercase">{pick.primary_signal || pick.signal || "MOMENTUM"}</span>
                         </td>
                         <td className="px-3 py-4 text-right">
                           <ScoreBadge score={pick.dt_score} />
                         </td>
                         <td className="px-3 py-4 text-right">
-                          <span className="text-white font-mono font-bold text-[14px]">${formatPrice(pick.current_price)}</span>
+                          <span className="text-white font-mono font-bold text-[14px]">${formatPrice(price)}</span>
                         </td>
                         <td className="px-3 py-4 text-right">
-                           <span className={`font-mono text-[12px] font-black ${pick.change_pct >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                             {pick.change_pct >= 0 ? "+" : ""}{pick.change_pct.toFixed(1)}%
+                           <span className={`font-mono text-[12px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                             {(pick.change_pct || 0) >= 0 ? "+" : ""}{(pick.change_pct || 0).toFixed(1)}%
                            </span>
                         </td>
                         <td className="px-3 py-4 text-right">
-                           <span className={`font-mono text-[11px] ${pick.price_vs_vwap >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                             {pick.price_vs_vwap >= 0 ? "ABOVE" : "BELOW"} ({pick.price_vs_vwap.toFixed(1)}%)
+                           <span className={`font-mono text-[11px] ${(pick.price_vs_vwap || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                             {(pick.price_vs_vwap || 0) >= 0 ? "ABOVE" : "BELOW"} ({(pick.price_vs_vwap || 0).toFixed(1)}%)
                            </span>
                         </td>
                         <td className="px-3 py-4 text-right text-white font-mono text-[12px] font-semibold">
@@ -171,7 +173,7 @@ export default async function DayTradePicksPage() {
                         </td>
                         <td className="px-3 py-4 text-right">
                            <span className="bg-[#10b981]/10 text-[#10b981] text-[10px] font-black px-2 py-0.5 rounded">
-                             {zones.rr_ratio}:1
+                             {zones.rr_ratio || pick.rr_ratio || "2.0"}:1
                            </span>
                         </td>
                         <td className="px-3 py-4 text-right">
@@ -187,7 +189,8 @@ export default async function DayTradePicksPage() {
             {/* Mobile Cards */}
             <div className="md:hidden flex flex-col gap-4 mb-6">
               {picks.map((pick: any, idx: number) => {
-                const zones = pick.boga_zones || {};
+                const zones = pick.boga_zones || pick.zones || {};
+                const price = pick.current_price ?? pick.price ?? 0;
                 return (
                   <div
                     key={pick.ticker}
@@ -196,12 +199,12 @@ export default async function DayTradePicksPage() {
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <div className="text-white font-black text-2xl tracking-tighter uppercase">{pick.ticker}</div>
-                        <div className="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest opacity-60">{pick.primary_signal}</div>
+                        <div className="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest opacity-60">{pick.primary_signal || pick.signal}</div>
                       </div>
                       <div className="text-right">
-                         <div className="text-white font-mono font-bold text-lg">${formatPrice(pick.current_price)}</div>
-                         <div className={`text-[11px] font-black ${pick.change_pct >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
-                           {pick.change_pct >= 0 ? "+" : ""}{pick.change_pct.toFixed(1)}% GAP
+                         <div className="text-white font-mono font-bold text-lg">${formatPrice(price)}</div>
+                         <div className={`text-[11px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                           {(pick.change_pct || 0) >= 0 ? "+" : ""}{(pick.change_pct || 0).toFixed(1)}% GAP
                          </div>
                       </div>
                     </div>
@@ -224,7 +227,7 @@ export default async function DayTradePicksPage() {
                     <div className="flex items-center justify-between text-[10px] font-bold">
                        <div className="flex gap-3">
                           <span className="text-[#00d2ff] uppercase">SCORE: <b className="text-white">{pick.dt_score}</b></span>
-                          <span className="text-[#00d2ff] uppercase">R/R: <b className="text-white">{zones.rr_ratio}:1</b></span>
+                          <span className="text-[#00d2ff] uppercase">R/R: <b className="text-white">{zones.rr_ratio || pick.rr_ratio || "2.0"}:1</b></span>
                        </div>
                        <Link href={`/stock/${pick.ticker}`} className="text-[#10b981] uppercase tracking-widest">
                          ANALYSIS →

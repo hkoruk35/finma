@@ -18,13 +18,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 69.0,
       "details": [
-        "↗️ Zayıf Gap: +3.2%",
-        "📊 RVOL: 1.6x (Ortalama Üstü)",
-        "✅ VWAP Üstünde: +102.99% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %5.3 (Hedef ulaşılabilir)",
-        "🟢 RSI: 68 (Momentum Bölgesi)"
+        "\u2197\ufe0f Zay\u0131f Gap: +3.2%",
+        "\ud83d\udcca RVOL: 1.6x (Ortalama \u00dcst\u00fc)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +102.99% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %5.3 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 68 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -42,7 +42,21 @@
         "risk_per_sh": 0.18,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 6.48,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 6.45,
+          "high": 6.53
+        },
+        "stop": 6.31,
+        "tp1": 6.85,
+        "tp2": 7.03,
+        "rr_ratio": 2.0,
+        "avg_entry": 6.49,
+        "risk_per_sh": 0.18,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "COIN",
@@ -57,13 +71,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 64.0,
       "details": [
-        "↗️ Zayıf Gap: +4.2%",
-        "📉 RVOL: 1.0x (Zayıf)",
-        "✅ VWAP Üstünde: +269.35% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %5.8 (Hedef ulaşılabilir)",
-        "🟢 RSI: 59 (Momentum Bölgesi)"
+        "\u2197\ufe0f Zay\u0131f Gap: +4.2%",
+        "\ud83d\udcc9 RVOL: 1.0x (Zay\u0131f)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +269.35% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %5.8 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 59 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -81,7 +95,21 @@
         "risk_per_sh": 6.16,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 201.16,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 199.99,
+          "high": 202.92
+        },
+        "stop": 195.29,
+        "tp1": 213.78,
+        "tp2": 219.95,
+        "rr_ratio": 2.0,
+        "avg_entry": 201.45,
+        "risk_per_sh": 6.16,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "MRNA",
@@ -96,13 +124,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 60.0,
       "details": [
-        "🚀 Güçlü Gap: +12.0%",
-        "📉 RVOL: 1.4x (Zayıf)",
-        "🔄 VWAP'a Test: -0.21% (Pullback Fırsatı)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %6.0 (Hedef ulaşılabilir)",
-        "🟢 RSI: 63 (Momentum Bölgesi)"
+        "\ud83d\ude80 G\u00fc\u00e7l\u00fc Gap: +12.0%",
+        "\ud83d\udcc9 RVOL: 1.4x (Zay\u0131f)",
+        "\ud83d\udd04 VWAP'a Test: -0.21% (Pullback F\u0131rsat\u0131)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %6.0 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 63 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -120,7 +148,21 @@
         "risk_per_sh": 1.72,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 54.35,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 54.02,
+          "high": 54.84
+        },
+        "stop": 52.71,
+        "tp1": 57.87,
+        "tp2": 59.59,
+        "rr_ratio": 2.0,
+        "avg_entry": 54.43,
+        "risk_per_sh": 1.72,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "PRTA",
@@ -135,13 +177,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 59.0,
       "details": [
-        "↗️ Zayıf Gap: +2.0%",
-        "📉 RVOL: 1.2x (Zayıf)",
-        "✅ VWAP Üstünde: +236.12% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %4.6 (Hedef ulaşılabilir)",
-        "🟡 RSI: 49 (Nötr)"
+        "\u2197\ufe0f Zay\u0131f Gap: +2.0%",
+        "\ud83d\udcc9 RVOL: 1.2x (Zay\u0131f)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +236.12% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %4.6 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe1 RSI: 49 (N\u00f6tr)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -159,7 +201,21 @@
         "risk_per_sh": 0.26,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 10.73,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 10.68,
+          "high": 10.8
+        },
+        "stop": 10.48,
+        "tp1": 11.26,
+        "tp2": 11.52,
+        "rr_ratio": 2.0,
+        "avg_entry": 10.74,
+        "risk_per_sh": 0.26,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "SNAP",
@@ -174,12 +230,12 @@
       "gap_source": "yf_fallback",
       "dt_score": 58.0,
       "details": [
-        "📉 RVOL: 1.0x (Zayıf)",
-        "✅ VWAP Üstünde: +90.46% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %5.7 (Hedef ulaşılabilir)",
-        "🟢 RSI: 61 (Momentum Bölgesi)"
+        "\ud83d\udcc9 RVOL: 1.0x (Zay\u0131f)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +90.46% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %5.7 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 61 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -197,7 +253,21 @@
         "risk_per_sh": 0.18,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 6.08,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 6.05,
+          "high": 6.13
+        },
+        "stop": 5.91,
+        "tp1": 6.45,
+        "tp2": 6.63,
+        "rr_ratio": 2.0,
+        "avg_entry": 6.09,
+        "risk_per_sh": 0.18,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "AAPL",
@@ -212,13 +282,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 53.0,
       "details": [
-        "↗️ Zayıf Gap: +2.0%",
-        "📉 RVOL: 1.0x (Zayıf)",
-        "✅ VWAP Üstünde: +9088.42% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "📏 ATR Normal: %2.2",
-        "🔶 RSI: 76 (Yüksek — Momentum Devam Edebilir)"
+        "\u2197\ufe0f Zay\u0131f Gap: +2.0%",
+        "\ud83d\udcc9 RVOL: 1.0x (Zay\u0131f)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +9088.42% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83d\udccf ATR Normal: %2.2",
+        "\ud83d\udd36 RSI: 76 (Y\u00fcksek \u2014 Momentum Devam Edebilir)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -236,7 +306,21 @@
         "risk_per_sh": 3.46,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 293.32,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 292.66,
+          "high": 294.31
+        },
+        "stop": 290.03,
+        "tp1": 300.4,
+        "tp2": 303.85,
+        "rr_ratio": 2.0,
+        "avg_entry": 293.49,
+        "risk_per_sh": 3.46,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "AVXL",
@@ -251,13 +335,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 51.0,
       "details": [
-        "↗️ Zayıf Gap: +3.2%",
-        "⚠️ RVOL: 1.0x (Hacimsiz!)",
-        "✅ VWAP Üstünde: +0.87% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %6.0 (Hedef ulaşılabilir)",
-        "🟡 RSI: 48 (Nötr)"
+        "\u2197\ufe0f Zay\u0131f Gap: +3.2%",
+        "\u26a0\ufe0f RVOL: 1.0x (Hacimsiz!)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +0.87% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %6.0 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe1 RSI: 48 (N\u00f6tr)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -275,7 +359,21 @@
         "risk_per_sh": 0.1,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.05
+      "rr_ratio": 2.05,
+      "current_price": 3.22,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 3.2,
+          "high": 3.25
+        },
+        "stop": 3.12,
+        "tp1": 3.44,
+        "tp2": 3.54,
+        "rr_ratio": 2.05,
+        "avg_entry": 3.23,
+        "risk_per_sh": 0.1,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "MARA",
@@ -290,12 +388,12 @@
       "gap_source": "yf_fallback",
       "dt_score": 50.0,
       "details": [
-        "⚠️ RVOL: 1.0x (Hacimsiz!)",
-        "✅ VWAP Üstünde: +305.35% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %6.4 (Hedef ulaşılabilir)",
-        "🟢 RSI: 69 (Momentum Bölgesi)"
+        "\u26a0\ufe0f RVOL: 1.0x (Hacimsiz!)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +305.35% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %6.4 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 69 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -313,7 +411,21 @@
         "risk_per_sh": 0.43,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 12.94,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 12.86,
+          "high": 13.06
+        },
+        "stop": 12.53,
+        "tp1": 13.82,
+        "tp2": 14.25,
+        "rr_ratio": 2.0,
+        "avg_entry": 12.96,
+        "risk_per_sh": 0.43,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "NVDA",
@@ -328,12 +440,12 @@
       "gap_source": "yf_fallback",
       "dt_score": 50.0,
       "details": [
-        "⚠️ RVOL: 1.0x (Hacimsiz!)",
-        "✅ VWAP Üstünde: +6641.27% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %3.0 (Hedef ulaşılabilir)",
-        "🟢 RSI: 68 (Momentum Bölgesi)"
+        "\u26a0\ufe0f RVOL: 1.0x (Hacimsiz!)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +6641.27% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %3.0 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 68 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -351,7 +463,21 @@
         "risk_per_sh": 3.43,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 215.2,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 214.55,
+          "high": 216.18
+        },
+        "stop": 211.94,
+        "tp1": 222.22,
+        "tp2": 225.64,
+        "rr_ratio": 2.0,
+        "avg_entry": 215.37,
+        "risk_per_sh": 3.43,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "FCEL",
@@ -366,13 +492,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 49.0,
       "details": [
-        "🚀 Güçlü Gap: +11.6%",
-        "📉 RVOL: 1.1x (Zayıf)",
-        "🔴 VWAP Altında: -74.85% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %10.1 (Hedef ulaşılabilir)",
-        "🟢 RSI: 68 (Momentum Bölgesi)"
+        "\ud83d\ude80 G\u00fc\u00e7l\u00fc Gap: +11.6%",
+        "\ud83d\udcc9 RVOL: 1.1x (Zay\u0131f)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -74.85% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %10.1 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 68 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -390,7 +516,21 @@
         "risk_per_sh": 0.51,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 1.99
+      "rr_ratio": 1.99,
+      "current_price": 13.7,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 13.56,
+          "high": 13.91
+        },
+        "stop": 13.22,
+        "tp1": 14.76,
+        "tp2": 15.28,
+        "rr_ratio": 1.99,
+        "avg_entry": 13.73,
+        "risk_per_sh": 0.51,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "TSLA",
@@ -405,13 +545,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 49.0,
       "details": [
-        "↗️ Zayıf Gap: +4.0%",
-        "⚠️ RVOL: 0.9x (Hacimsiz!)",
-        "✅ VWAP Üstünde: +13318.31% (Long Bias)",
-        "📈 5m Pozitif (3/5 yeşil, +0.47%)",
-        "💥 5m Hacim Patlaması: 7.3x",
-        "🎯 ATR Geniş: %3.4 (Hedef ulaşılabilir)",
-        "🔶 RSI: 79 (Yüksek — Momentum Devam Edebilir)"
+        "\u2197\ufe0f Zay\u0131f Gap: +4.0%",
+        "\u26a0\ufe0f RVOL: 0.9x (Hacimsiz!)",
+        "\u2705 VWAP \u00dcst\u00fcnde: +13318.31% (Long Bias)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.47%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 7.3x",
+        "\ud83c\udfaf ATR Geni\u015f: %3.4 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udd36 RSI: 79 (Y\u00fcksek \u2014 Momentum Devam Edebilir)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 3.19,
@@ -429,7 +569,21 @@
         "risk_per_sh": 7.73,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 428.35,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 426.88,
+          "high": 430.56
+        },
+        "stop": 420.99,
+        "tp1": 444.18,
+        "tp2": 451.91,
+        "rr_ratio": 2.0,
+        "avg_entry": 428.72,
+        "risk_per_sh": 7.73,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "JOBY",
@@ -444,13 +598,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 45.0,
       "details": [
-        "📈 Gap: +8.6%",
-        "📉 RVOL: 1.3x (Zayıf)",
-        "🔴 VWAP Altında: -80.04% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %6.1 (Hedef ulaşılabilir)",
-        "🟢 RSI: 70 (Momentum Bölgesi)"
+        "\ud83d\udcc8 Gap: +8.6%",
+        "\ud83d\udcc9 RVOL: 1.3x (Zay\u0131f)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -80.04% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %6.1 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 70 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -468,7 +622,21 @@
         "risk_per_sh": 0.25,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.02
+      "rr_ratio": 2.02,
+      "current_price": 10.87,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 10.8,
+          "high": 10.97
+        },
+        "stop": 10.64,
+        "tp1": 11.38,
+        "tp2": 11.62,
+        "rr_ratio": 2.02,
+        "avg_entry": 10.89,
+        "risk_per_sh": 0.25,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "GRND",
@@ -483,13 +651,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 43.0,
       "details": [
-        "📈 Gap: +9.3%",
-        "📊 RVOL: 1.7x (Ortalama Üstü)",
-        "🔴 VWAP Altında: -72.29% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %3.4 (Hedef ulaşılabilir)",
-        "🔶 RSI: 79 (Yüksek — Momentum Devam Edebilir)"
+        "\ud83d\udcc8 Gap: +9.3%",
+        "\ud83d\udcca RVOL: 1.7x (Ortalama \u00dcst\u00fc)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -72.29% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %3.4 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udd36 RSI: 79 (Y\u00fcksek \u2014 Momentum Devam Edebilir)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -507,7 +675,21 @@
         "risk_per_sh": 0.2,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.03
+      "rr_ratio": 2.03,
+      "current_price": 15.09,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 15.04,
+          "high": 15.17
+        },
+        "stop": 14.91,
+        "tp1": 15.5,
+        "tp2": 15.69,
+        "rr_ratio": 2.03,
+        "avg_entry": 15.11,
+        "risk_per_sh": 0.2,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "SMCI",
@@ -522,13 +704,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 43.0,
       "details": [
-        "📈 Gap: +5.2%",
-        "📊 RVOL: 1.7x (Ortalama Üstü)",
-        "🔴 VWAP Altında: -35.06% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %5.9 (Hedef ulaşılabilir)",
-        "🔶 RSI: 75 (Yüksek — Momentum Devam Edebilir)"
+        "\ud83d\udcc8 Gap: +5.2%",
+        "\ud83d\udcca RVOL: 1.7x (Ortalama \u00dcst\u00fc)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -35.06% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %5.9 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udd36 RSI: 75 (Y\u00fcksek \u2014 Momentum Devam Edebilir)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -546,7 +728,21 @@
         "risk_per_sh": 0.78,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 35.37,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 35.16,
+          "high": 35.68
+        },
+        "stop": 34.64,
+        "tp1": 36.98,
+        "tp2": 37.76,
+        "rr_ratio": 2.0,
+        "avg_entry": 35.42,
+        "risk_per_sh": 0.78,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "HIMS",
@@ -561,13 +757,13 @@
       "gap_source": "yf_fallback",
       "dt_score": 41.0,
       "details": [
-        "🚀 Güçlü Gap: +10.2%",
-        "⚠️ RVOL: 0.5x (Hacimsiz!)",
-        "🔴 VWAP Altında: -48.09% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %7.6 (Hedef ulaşılabilir)",
-        "🟢 RSI: 60 (Momentum Bölgesi)"
+        "\ud83d\ude80 G\u00fc\u00e7l\u00fc Gap: +10.2%",
+        "\u26a0\ufe0f RVOL: 0.5x (Hacimsiz!)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -48.09% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %7.6 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 60 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "GAP_AND_GO",
       "vwap": 54.46,
@@ -585,7 +781,21 @@
         "risk_per_sh": 0.81,
         "signal": "GAP_AND_GO"
       },
-      "rr_ratio": 2.0
+      "rr_ratio": 2.0,
+      "current_price": 28.27,
+      "boga_zones": {
+        "entry_zone": {
+          "low": 28.05,
+          "high": 28.59
+        },
+        "stop": 27.51,
+        "tp1": 29.94,
+        "tp2": 30.75,
+        "rr_ratio": 2.0,
+        "avg_entry": 28.32,
+        "risk_per_sh": 0.81,
+        "signal": "GAP_AND_GO"
+      }
     },
     {
       "ticker": "BNTX",
@@ -600,16 +810,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 39.0,
       "details": [
-        "📉 RVOL: 1.1x (Zayıf)",
-        "🔄 VWAP'a Test: -0.27% (Pullback Fırsatı)",
-        "📈 5m Pozitif (3/5 yeşil, +0.43%)",
-        "💥 5m Hacim Patlaması: 11.2x",
-        "🎯 ATR Geniş: %4.3 (Hedef ulaşılabilir)",
-        "🟡 RSI: 41 (Nötr)"
+        "\ud83d\udcc9 RVOL: 1.1x (Zay\u0131f)",
+        "\ud83d\udd04 VWAP'a Test: -0.27% (Pullback F\u0131rsat\u0131)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.43%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 11.2x",
+        "\ud83c\udfaf ATR Geni\u015f: %4.3 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe1 RSI: 41 (N\u00f6tr)"
       ],
       "primary_signal": "PULLBACK_VWAP",
       "vwap": 94.37,
-      "price_vs_vwap": -0.27
+      "price_vs_vwap": -0.27,
+      "current_price": 94.12,
+      "boga_zones": {}
     },
     {
       "ticker": "LYFT",
@@ -624,16 +836,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 33.0,
       "details": [
-        "📉 RVOL: 1.3x (Zayıf)",
-        "🔴 VWAP Altında: -84.79% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.43%)",
-        "💥 5m Hacim Patlaması: 11.2x",
-        "🎯 ATR Geniş: %4.0 (Hedef ulaşılabilir)",
-        "🟢 RSI: 57 (Momentum Bölgesi)"
+        "\ud83d\udcc9 RVOL: 1.3x (Zay\u0131f)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -84.79% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.43%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 11.2x",
+        "\ud83c\udfaf ATR Geni\u015f: %4.0 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 57 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "MOMENTUM",
       "vwap": 94.37,
-      "price_vs_vwap": -84.79
+      "price_vs_vwap": -84.79,
+      "current_price": 14.35,
+      "boga_zones": {}
     },
     {
       "ticker": "GME",
@@ -648,16 +862,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 33.0,
       "details": [
-        "📊 RVOL: 1.6x (Ortalama Üstü)",
-        "🔴 VWAP Altında: -74.27% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.43%)",
-        "💥 5m Hacim Patlaması: 11.2x",
-        "🎯 ATR Geniş: %4.7 (Hedef ulaşılabilir)",
-        "🟡 RSI: 50 (Nötr)"
+        "\ud83d\udcca RVOL: 1.6x (Ortalama \u00dcst\u00fc)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -74.27% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.43%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 11.2x",
+        "\ud83c\udfaf ATR Geni\u015f: %4.7 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe1 RSI: 50 (N\u00f6tr)"
       ],
       "primary_signal": "MOMENTUM",
       "vwap": 94.37,
-      "price_vs_vwap": -74.27
+      "price_vs_vwap": -74.27,
+      "current_price": 24.28,
+      "boga_zones": {}
     },
     {
       "ticker": "ARKK",
@@ -672,16 +888,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 25.0,
       "details": [
-        "⚠️ RVOL: 0.7x (Hacimsiz!)",
-        "🔴 VWAP Altında: -16.16% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.43%)",
-        "💥 5m Hacim Patlaması: 11.2x",
-        "🎯 ATR Geniş: %3.0 (Hedef ulaşılabilir)",
-        "🟢 RSI: 62 (Momentum Bölgesi)"
+        "\u26a0\ufe0f RVOL: 0.7x (Hacimsiz!)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -16.16% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.43%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 11.2x",
+        "\ud83c\udfaf ATR Geni\u015f: %3.0 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 62 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "MOMENTUM",
       "vwap": 94.37,
-      "price_vs_vwap": -16.16
+      "price_vs_vwap": -16.16,
+      "current_price": 79.12,
+      "boga_zones": {}
     },
     {
       "ticker": "SIRI",
@@ -696,16 +914,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 25.0,
       "details": [
-        "⚠️ RVOL: 0.6x (Hacimsiz!)",
-        "🔴 VWAP Altında: -71.28% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.43%)",
-        "💥 5m Hacim Patlaması: 11.2x",
-        "🎯 ATR Geniş: %3.6 (Hedef ulaşılabilir)",
-        "🟢 RSI: 63 (Momentum Bölgesi)"
+        "\u26a0\ufe0f RVOL: 0.6x (Hacimsiz!)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -71.28% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.43%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 11.2x",
+        "\ud83c\udfaf ATR Geni\u015f: %3.6 (Hedef ula\u015f\u0131labilir)",
+        "\ud83d\udfe2 RSI: 63 (Momentum B\u00f6lgesi)"
       ],
       "primary_signal": "MOMENTUM",
       "vwap": 94.37,
-      "price_vs_vwap": -71.28
+      "price_vs_vwap": -71.28,
+      "current_price": 27.1,
+      "boga_zones": {}
     },
     {
       "ticker": "LCID",
@@ -720,16 +940,18 @@
       "gap_source": "yf_fallback",
       "dt_score": 23.0,
       "details": [
-        "↗️ Zayıf Gap: +4.8%",
-        "⚠️ RVOL: 0.8x (Hacimsiz!)",
-        "🔴 VWAP Altında: -88.36% (Zayıf)",
-        "📈 5m Pozitif (3/5 yeşil, +0.48%)",
-        "💥 5m Hacim Patlaması: 4.7x",
-        "🎯 ATR Geniş: %8.5 (Hedef ulaşılabilir)"
+        "\u2197\ufe0f Zay\u0131f Gap: +4.8%",
+        "\u26a0\ufe0f RVOL: 0.8x (Hacimsiz!)",
+        "\ud83d\udd34 VWAP Alt\u0131nda: -88.36% (Zay\u0131f)",
+        "\ud83d\udcc8 5m Pozitif (3/5 ye\u015fil, +0.48%)",
+        "\ud83d\udca5 5m Hacim Patlamas\u0131: 4.7x",
+        "\ud83c\udfaf ATR Geni\u015f: %8.5 (Hedef ula\u015f\u0131labilir)"
       ],
       "primary_signal": "MOMENTUM",
       "vwap": 54.46,
-      "price_vs_vwap": -88.36
+      "price_vs_vwap": -88.36,
+      "current_price": 6.34,
+      "boga_zones": {}
     }
   ]
 }
