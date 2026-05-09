@@ -150,6 +150,10 @@ def main():
     except Exception as e:
         log.error(f"❌ Senkronizasyon hatası: {e}")
 
+    # ── ADIM 8.6: REFRESH TERMINAL MASTER DATA ──
+    log.info("ADIM 8.6: scratch/refresh_terminal_data.py (Master JSON Üretimi) çalıştırılıyor...")
+    run_bot_subprocess("scratch/refresh_terminal_data.py")
+
     # ── ADIM 9: SYSTEMATIC PRICE SYNC (Kritik: Tüm fiyatları eşitle) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 9: update_all_prices.py (Fiyat Senkronizasyonu) çalıştırılıyor...")
     # run_bot_subprocess("update_all_prices.py")

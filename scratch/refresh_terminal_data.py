@@ -99,5 +99,11 @@ def refresh_terminal():
         shutil.copy2(SWING_PICKS, os.path.join(LATEST_DATA, "swing_picks.json"))
         print(f"Copied swing_picks.json to latest")
 
+    # 4. Copy daytrade_all_picks.json to latest
+    DAYTRADE_ALL_PICKS = os.path.join(FRONTEND_PUBLIC, "daytrade_all_picks.json")
+    if os.path.exists(DAYTRADE_ALL_PICKS):
+        shutil.copy2(DAYTRADE_ALL_PICKS, os.path.join(LATEST_DATA, "daytrade_all_picks.json"))
+        print(f"Copied daytrade_all_picks.json to latest")
+
 if __name__ == "__main__":
     refresh_terminal()
