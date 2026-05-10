@@ -278,9 +278,10 @@ export default function OptAnalizPage() {
   useEffect(() => {
     async function loadData() {
       try {
+        const t = Date.now();
         const [picksRes, optsRes] = await Promise.all([
-          fetch("/swing_all_picks.json"),
-          fetch("/swing_options_live.json").catch(() => null)
+          fetch(`/swing_all_picks.json?v=${t}`),
+          fetch(`/swing_options_live.json?v=${t}`).catch(() => null)
         ]);
         
         if (!picksRes.ok) throw new Error("Veri yüklenemedi");
@@ -349,7 +350,7 @@ export default function OptAnalizPage() {
         <div className="flex items-center gap-3 mb-2">
           <div className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" />
           <span className="text-[10px] text-[#22c55e] font-bold tracking-[0.2em] uppercase">
-            Opsiyon Danışmanı v115
+            Opsiyon Danışmanı v116
           </span>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
