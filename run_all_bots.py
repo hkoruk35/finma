@@ -87,9 +87,9 @@ def main():
         subprocess.run(["git", "commit", "-m", f"Data: DayTrade V2 Update {now_ny.strftime('%Y-%m-%d %H:%M')}"], cwd=FINMA_DIR)
         subprocess.run(["git", "push", "origin", "main"], cwd=FINMA_DIR)
 
-    # ── ADIM 2: Swing Scanner (v115) ──
-    log.info("ADIM 2: swing115_boga.py --oneshot (13:00 NY Bekleme Modu)...")
-    run_bot_subprocess("swing115_boga.py", ["--oneshot"])
+    # ── ADIM 2: Swing Scanner (v116) ──
+    log.info("ADIM 2: swing116_boga.py --oneshot (13:00 NY Bekleme Modu)...")
+    run_bot_subprocess("swing116_boga.py", ["--oneshot"])
 
     # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")
