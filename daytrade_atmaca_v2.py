@@ -1612,7 +1612,7 @@ if __name__ == "__main__":
 
         else:
             print("[START] ATMACA DAYTRADE V2 — Multi-Scan Scheduler")
-            print("Scan zamanları (ET): 08:20 / 08:45 / 09:16 / 09:31 / 10:01 / 10:31")
+            print("Scan zamanlari (ET): 08:20 / 08:45 / 09:16 / 09:31 / 10:01 / 10:31")
             asyncio.run(run_scheduler_v2())
 
     except KeyboardInterrupt:
