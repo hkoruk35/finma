@@ -27,6 +27,7 @@ interface Props {
   height?: number | null;
   // compact: minimal toolbar, no date ranges, no studies (for multi-screen grid)
   compact?: boolean;
+  studies?: string[];
 }
 
 export default function TVChartEmbed({
@@ -35,6 +36,12 @@ export default function TVChartEmbed({
   containerId,
   height = 480,
   compact = false,
+  studies = [
+    "MAExp@tv-basicstudies",
+    "Bollinger Bands@tv-basicstudies",
+    "RSI@tv-basicstudies",
+    "VWAP@tv-basicstudies",
+  ],
 }: Props) {
   const createdRef = useRef(false);
 
@@ -67,20 +74,13 @@ export default function TVChartEmbed({
         allow_symbol_change: false,
         save_image: false,
         container_id: containerId,
-        // Show indicators everywhere
-        studies: [
-          "MAExp@tv-basicstudies",
-          "MAExp@tv-basicstudies",
-          "BollingerBands@tv-basicstudies",
-          "RSI@tv-basicstudies",
-          "VWAP@tv-basicstudies",
-        ],
+        studies: studies,
       });
       createdRef.current = true;
     });
 
     return () => { alive = false; };
-  }, [tvSymbol, interval, containerId, compact]);
+  }, [tvSymbol, interval, containerId, compact, studies]);
 
   return (
     <div

@@ -236,11 +236,13 @@ function WatchlistRow({
 function MultiScreenOverlay({
   tickers,
   interval,
+  studies,
   getInstrument,
   onClose,
 }: {
   tickers: string[];
   interval: string;
+  studies: string[];
   getInstrument: (t: string) => { tvSymbol: string; label: string } | null;
   onClose: () => void;
 }) {
@@ -279,6 +281,7 @@ function MultiScreenOverlay({
               interval={interval}
               containerId={`tv_fs_${fullscreenTicker}`}
               height={null}
+              studies={studies}
             />
           )}
         </div>
@@ -328,6 +331,7 @@ function MultiScreenOverlay({
                   containerId={`tv_multi_${ticker}_${i}`}
                   height={null}
                   compact
+                  studies={studies}
                 />
               </div>
             </div>
@@ -358,6 +362,27 @@ export default function TerminalClient() {
 
   // Chart interval
   const [chartInterval, setChartInterval] = useState("60");
+
+  // Technical Indicators
+  const [activeStudies, setActiveStudies] = useState<string[]>([
+    "MAExp@tv-basicstudies",
+    "Bollinger Bands@tv-basicstudies",
+    "RSI@tv-basicstudies",
+    "VWAP@tv-basicstudies",
+  ]);
+
+  const INDICATORS = [
+    { id: "MAExp@tv-basicstudies", label: "EMA" },
+    { id: "Bollinger Bands@tv-basicstudies", label: "BB" },
+    { id: "RSI@tv-basicstudies", label: "RSI" },
+    { id: "VWAP@tv-basicstudies", label: "VWAP" },
+  ];
+
+  const toggleIndicator = (id: string) => {
+    setActiveStudies(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
 
   // Right panel tab
   const [rightTab, setRightTab] = useState<"swing" | "daytrade" | "watchlist" | "tracker">("swing");
@@ -638,6 +663,23 @@ export default function TerminalClient() {
 
           <div className="flex-1" />
 
+          {/* Indicator Toggles */}
+          <div className="flex items-center gap-0.5 bg-[#0d1117] border border-[#1e2a3a] rounded px-1 py-0.5">
+            {INDICATORS.map((ind) => (
+              <button
+                key={ind.id}
+                onClick={() => toggleIndicator(ind.id)}
+                className={`px-2 py-0.5 text-[9px] font-bold rounded transition-colors ${
+                  activeStudies.includes(ind.id)
+                    ? "bg-emerald-600 text-white"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {ind.label}
+              </button>
+            ))}
+          </div>
+
           {/* Interval selector */}
           <div className="flex items-center gap-0.5 bg-[#0d1117] border border-[#1e2a3a] rounded px-1 py-0.5">
             {INTERVALS.map((iv) => (
@@ -679,11 +721,12 @@ export default function TerminalClient() {
         {/* Chart */}
         <div className="flex-1 overflow-hidden">
           <TVChartEmbed
-            key={`${selected.ticker}-${chartInterval}`}
+            key={`${selected.ticker}-${chartInterval}-${activeStudies.join(',')}`}
             tvSymbol={selected.tvSymbol}
             interval={chartInterval}
             containerId="tv_main_chart"
             height={undefined as any}
+            studies={activeStudies}
           />
         </div>
       </div>
@@ -927,6 +970,7 @@ export default function TerminalClient() {
         <MultiScreenOverlay
           tickers={checked}
           interval={chartInterval}
+          studies={activeStudies}
           getInstrument={getInstrument}
           onClose={() => setMultiScreen(false)}
         />
