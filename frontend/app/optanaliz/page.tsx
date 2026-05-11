@@ -355,7 +355,15 @@ export default function OptAnalizPage() {
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
         <div className="flex items-center justify-between flex-wrap gap-2 mt-1">
-          <p className="text-sm text-[#475569]">Günlük swing adayları için otomatik opsiyon stratejileri</p>
+          <div className="flex items-center gap-4">
+            <p className="text-sm text-[#475569]">Günlük swing adayları için otomatik opsiyon stratejileri</p>
+            <Link 
+              href="/optanaliz-performance" 
+              className="text-[10px] font-black text-[#22c55e] border border-[#22c55e]/30 px-3 py-1 rounded-full hover:bg-[#22c55e]/10 transition-all uppercase tracking-widest"
+            >
+              📊 Performans Takibi →
+            </Link>
+          </div>
           {generatedAt && (
             <p className="text-[10px] font-mono text-[#3b82f6] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">
               SON GÜNCELLEME: {new Date(generatedAt).toLocaleString("tr-TR")}
