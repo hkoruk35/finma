@@ -34,13 +34,22 @@ logging.basicConfig(
 )
 log = logging.getLogger("site_health_checker")
 
-# Script Ownership Map
+# Script Ownership Map (V116 Architecture)
 SCRIPT_OWNERS = {
-    "Swing Picks": "swing114_boga.py",
-    "Options Picks": "opsiyon218v8.py",
-    "Swing Performance": "update_swing_performance.py",
+    "Morning Cycle (DayTrade)": "run_morning_cycle.py",
+    "Afternoon Cycle (Swing)": "run_afternoon_cycle.py",
+    "Terminal Pulse (Hourly)": "run_terminal_pulse.py",
+    "Swing Picks": "swing116_boga.py",
     "Options Performance": "options_pnl_tracker.py",
 }
+
+DAILY_SCHEDULE = """
+📅 **BOGA AI GÜNLÜK PROGRAM**
+🌅 09:15 NY - Sabah Döngüsü (DayTrade)
+🌇 13:00 NY - Öğle Döngüsü (Swing Trade)
+💓 09:00-17:00 NY - Saatlik Terminal Pulse
+🏥 Her 4 Saatte - Sistem Sağlık Kontrolü
+"""
 
 # Dosya Yollari
 FILES = {
@@ -256,7 +265,7 @@ def check_system_resources():
 
 def check_bot_processes():
     """Kritik bot süreçlerini kontrol et"""
-    critical_bots = ["opsiyon218v8.py", "inday313.py", "swing114_boga.py", "options_pnl_tracker.py"]
+    critical_bots = ["run_morning_cycle.py", "run_afternoon_cycle.py", "run_terminal_pulse.py"]
     running_bots = []
     
     # Get all python processes
@@ -335,6 +344,9 @@ async def main():
     report.append(f"\n<b>🌐 5. SAYFA ERİŞİLEBİLİRLİĞİ:</b>")
     page_status = await check_main_pages()
     report.append(f"• {page_status}")
+
+    # 6. GÜNLÜK PROGRAM
+    report.append(f"\n{DAILY_SCHEDULE}")
 
     # DURUM ÖZETİ
     report.append(f"\n{'=' * 50}")

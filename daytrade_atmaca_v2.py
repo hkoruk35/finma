@@ -1587,6 +1587,13 @@ async def run_scheduler_v2():
 
 if __name__ == "__main__":
     import sys
+    
+    # 🛌 Hafta sonu kontrolü (Fail-safe)
+    from datetime import datetime
+    now_ny = datetime.now(NY_TZ)
+    if now_ny.weekday() >= 5:
+        print(f"🛌 Bugün hafta sonu ({now_ny.strftime('%A')}). DayTrade botu çalıştırılmayacak.")
+        sys.exit(0)
 
     try:
         if os.name == "nt":

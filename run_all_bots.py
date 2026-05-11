@@ -72,6 +72,12 @@ def run_bot_subprocess(script_name: str, extra_args: list = None) -> bool:
 
 def main():
     now_ny = datetime.now(NY_TZ)
+    
+    # 🛌 Hafta sonu kontrolü (Fail-safe)
+    if now_ny.weekday() >= 5:
+        log.info(f"🛌 Bugün hafta sonu ({now_ny.strftime('%A')}). Botlar çalıştırılmayacak.")
+        return
+
     log.info("=" * 60)
     log.info(f"🚀 BOGA AI Tam Otomasyon Başlatıldı — {now_ny.strftime('%Y-%m-%d %H:%M %Z')}")
     log.info("=" * 60)

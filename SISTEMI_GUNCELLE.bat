@@ -33,9 +33,10 @@ if '%errorlevel%' NEQ '0' (
     echo ==================================================
     echo ISLEM TAMAMLANDI! (Tum duplicateler temizlendi)
     echo --------------------------------------------------
-    echo 1. Master Bot (DayTrade+Swing): 09:15 NY
-    echo 2. Inday Pulse (Saatlik):      10:00-16:00 NY
-    echo 3. Saglik Raporu:              06:00 NY
+    echo 1. Sabah Dongusu (DayTrade):    09:15 NY
+    echo 2. Ogle Dongusu (Swing):        13:00 NY
+    echo 3. Terminal Pulse (Saatlik):    09:00-17:00 NY
+    echo 4. Saglik Raporu:               Her 4 Saatte Bir (7/24)
     echo ==================================================
     echo.
     pause

@@ -198,9 +198,33 @@ SLOW_PEAK_SECTORS = {
     "Consumer Defensive": -3.0,
     "Utilities": -3.0,
 }
+
+# -- Yüksek riskli industry grupları — swing için hard reject -----------------
+# Bu industry'lere ait hisseler binary event (FDA kararı, faz 3 sonucu, patent
+# davası vb.) riskiyle teknik analiz sinyalini geçersiz kılabilir.
+#
+# Kural: Clinical-stage / pre-revenue biyotech hisseleri kesinlikle elenir.
+# Onaylı ürünü olan büyük pharma/biotech (ABBV, AMGN, BIIB vb.) zaten yüksek
+# market cap nedeniyle ATMACA_MIN_MARKET_CAP filtresinden geçer.
+HIGH_RISK_INDUSTRIES: set = {
+    "biotechnology",                            # Pre-revenue / klinik aşama
+    "drug manufacturers - specialty & generic", # Küçük tek-ürün pharma
+    "pharmaceutical retailers",                 # Dağıtım tek ürüne bağlı
+    "medical devices",                          # FDA pre-market onay riski
+    "diagnostics & research",                   # Reimbursement bağımlı
+    "health information services",              # Regülasyon değişkeni
+}
+
+# Market cap eşiği: Bu industry'lerde market cap'i bu değerin ALTINDA olanlar elenir.
+HIGH_RISK_INDUSTRY_MCAP_FLOOR = 5_000_000_000  # $5B
+
+# Negatif FCF hard floor — bu sınırın altında FCF olan hisse elenir
+NEGATIVE_FCF_FLOOR = -50_000_000  # -$50M
+
 # ================================================================
 # 🔹 GLOBAL STATE VARIABLES
 # ================================================================
+
 MARKET_STATUS = {"regime": "Bull", "min_score_modifier": 0.0}
 SECTOR_PERFORMANCE: Dict[str, float] = {}
 sector_map: Dict[str, str] = {}
@@ -567,7 +591,13 @@ def get_stock_info(ticker: str) -> dict:
             "freeCashflow": inf.get("freeCashflow", 0),
             "recommendationKey": inf.get("recommendationKey", "N/A"),
             "pegRatio": inf.get("pegRatio", 0),
-            "companyName": inf.get("longName", t)
+            "companyName": inf.get("longName", t),
+            # ── V116 FIX: Eksik bilanço alanları eklendi ──────────────────────────
+            "debtToEquity": inf.get("debtToEquity", 0),          # D/E oranı
+            "totalCash": inf.get("totalCash", 0),                 # Nakit pozisyon
+            "totalDebt": inf.get("totalDebt", 0),                 # Toplam borç
+            "netIncomeToCommon": inf.get("netIncomeToCommon", 0), # Net gelir (negatif = zarar)
+            "trailingEps": inf.get("trailingEps", 0),             # EPS (negatif = zarar)
         }
         
         # Cache güncelle ve kaydet
@@ -854,10 +884,14 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
             score += 1.5; details.append(f"🟢 D/E: {debt_to_equity:.2f} (Healthy)")
         if fcf_yield_pct > 3.0:
             score += 2.0; details.append(f"💸 FCF Yield: {fcf_yield_pct:.1f}% (Strong)")
+        elif fcf_yield_pct < 0:
+            score -= 4.0; details.append(f"⚠️ FCF Yield: Negatif Nakit Akışı ({fcf_yield_pct:.1f}%)")
+            
+        if net_margin < 0:
+            score -= 4.0; details.append(f"🚨 Net Margin: Zarar Eden Şirket ({net_margin*100:.1f}%)")
 
         return {
-            'health_score': min(score, 15.0), 'details': details,
-            'gross_margin': round(gross_margin * 100, 2),
+            'health_score': max(-10.0, min(score, 15.0)), 'details': details,
             'operating_margin': round(operating_margin * 100, 2),
             'net_margin': round(net_margin * 100, 2),
             'revenue_growth': round(revenue_growth * 100, 2),
@@ -1222,8 +1256,9 @@ def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
 def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:  # 🔧 FIX: 5 → 5 gün (V116 spec: "3 gün → 5 gün")
     try:
         earnings_date = get_earnings_date_safe(ticker)
-        # 🎯 V116 FIX: API hata verirse veya veri yoksa (None), riske girmemek için False (Güvensiz) dön. (MAC vakası)
-        if earnings_date is None: return False
+        # 🎯 FIX: API veri vermiyorsa küçük hisseleri yanlışlıkla elememek için True dön.
+        if earnings_date is None: return True
+        
         now = datetime.now(NY_TZ)
         
         # yfinance sometimes returns naive (UTC assumption) sometimes aware.
@@ -1463,7 +1498,8 @@ def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted
     if is_exhausted:
         atr_sl_mult *= 0.85
 
-    stop_loss = entry_price - atr_value * atr_sl_mult
+    stop_loss = entry_price - (atr_value * atr_sl_mult)
+    stop_loss = max(stop_loss, entry_price * 0.50)  # 🎯 FIX: En fazla %50 kayıp (Negatif SL koruması)
 
     # ── TP2 — ANA HEDEF ────────────────────────────────────────────────
     if is_exhausted:
@@ -1577,6 +1613,35 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # Beta hard reject: Çok düşük beta = market'i takip etmiyor, swing için uygunsuz
         if 0 < beta < ATMACA_MIN_BETA:
             return None
+
+        # ── Industry Hard Reject ─────────────────────────────────────
+        # Yüksek riskli industry gruplarındaki küçük şirketler elenir.
+        # Kural: Clinical-stage / tek ürün biyotech = binary event riski var.
+        # Büyük pharma ($5B+ mcap) bu listede olsa bile eşiği geçer → girer.
+        industry_raw = cached_info.get("industry", "Unknown")
+        industry_lower = industry_raw.lower()
+        if industry_lower in HIGH_RISK_INDUSTRIES and 0 < market_cap < HIGH_RISK_INDUSTRY_MCAP_FLOOR:
+            logging.info(f"🚫 {ticker}: High-risk industry ({industry_raw}) + küçük cap (${market_cap/1e9:.1f}B < $5B) → Elendi")
+            return None
+
+        # ── Negatif FCF Hard Reject ──────────────────────────────────
+        # Yılda $50M'dan fazla nakit yakan şirket swing için uygun değil.
+        # (Borç / dilution / likidite riski — teknik setup'ı geçersiz kılar)
+        raw_fcf = cached_info.get("freeCashflow", 0) or 0
+        if raw_fcf < NEGATIVE_FCF_FLOOR:
+            logging.info(f"🚫 {ticker}: Negatif FCF (${raw_fcf/1e6:.0f}M) < ${NEGATIVE_FCF_FLOOR/1e6:.0f}M floor → Elendi")
+            return None
+
+        # ── Sürekli Zarar Veren Şirket Reject ───────────────────────
+        # Net gelir negatif VE EPS negatif = operasyonel zarar, swing için riskli.
+        # İstisna: büyük cap ($10B+) → kurumsal destek ve diversified gelir var.
+        net_income_raw = cached_info.get("netIncomeToCommon", 0) or 0
+        trailing_eps   = cached_info.get("trailingEps", 0) or 0
+        if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 10_000_000_000:
+            # Sektör istisnası: Real Estate (REIT) ve Utilities negatif net gelir raporlayabilir
+            if sector_name not in ("Real Estate", "Utilities", "Energy"):
+                logging.info(f"🚫 {ticker}: Negatif net gelir (EPS:{trailing_eps:.2f}) + küçük cap → Elendi")
+                return None
 
         # =============================================================
         # PHASE 1B: 1D VERİ ÇEKİMİ (BULK_DATA_CACHE'den, 0 ms)
@@ -2836,8 +2901,15 @@ def compute_boga_score_100(c: dict) -> float:
             fcf = fin.get("fcf_yield", 0)
             if fcf >= 5: fund_pts += 3.0
             elif fcf >= 2: fund_pts += 1.5
+            elif fcf < 0: fund_pts -= 4.0  # Negatif FCF cezası
             
-            score += min(fund_pts, 10.0)
+            net_m = fin.get("net_margin_pct", 0)
+            if net_m < 0: fund_pts -= 4.0  # Zarar eden şirket cezası
+            
+            # Puanı [-8.0, 10.0] aralığına sıkıştır (Clamp)
+            fund_pts = max(-8.0, min(fund_pts, 10.0))
+            score += fund_pts
+            
     else:
         pass  # Veri yoksa puan yok — belirsizlik ödüllendirilmez
 
@@ -3632,12 +3704,12 @@ async def scan_top_stocks():
     logging.info(f"📋 Number of stocks to scan (Duplicates removed): {len(tickers_to_scan)}")
 
     # ── STEP 3: PARALLEL ANALYSIS (500 stocks → at least 50 pass) ─────────
-    semaphore = asyncio.Semaphore(2)
+    semaphore = asyncio.Semaphore(8)
 
     async def sem_analyze(ticker: str):
         nonlocal scanned_count
         async with semaphore:
-            await asyncio.sleep(random.uniform(1.5, 3.2))
+            await asyncio.sleep(random.uniform(0.5, 1.2))  # Hızlandırılmış bekleme
             try:
                 result = await apply_atmaca_filters(ticker)
                 scanned_count += 1
@@ -3714,7 +3786,7 @@ async def scan_top_stocks():
         except Exception as e:
             logging.debug(f"⚠️ {ticker} Layer 3: {e}")
 
-    sem_k3 = asyncio.Semaphore(3)
+    sem_k3 = asyncio.Semaphore(8)
     async def sem_heavy(c):
         async with sem_k3:
             await asyncio.sleep(random.uniform(0.1, 0.4))

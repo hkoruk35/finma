@@ -2159,6 +2159,14 @@ async def run_scheduler():
 if __name__ == "__main__":
     import sys
     import io
+    
+    # 🛌 Hafta sonu kontrolü (Fail-safe)
+    from datetime import datetime
+    now_ny = datetime.now(NY_TZ)
+    if now_ny.weekday() >= 5:
+        print(f"🛌 Bugün hafta sonu ({now_ny.strftime('%A')}). Intraday botu çalıştırılmayacak.")
+        sys.exit(0)
+
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     if os.name == 'nt':
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
