@@ -357,7 +357,7 @@ export default function TerminalClient() {
   const [signals, setSignals] = useState<Record<string, HourlySignal>>({});
 
   // Chart interval
-  const [chartInterval, setChartInterval] = useState("15");
+  const [chartInterval, setChartInterval] = useState("60");
 
   // Right panel tab
   const [rightTab, setRightTab] = useState<"swing" | "daytrade" | "watchlist" | "tracker">("swing");
