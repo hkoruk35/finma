@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -268,6 +269,21 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
 // ── Main Page Component ───────────────────────────────────────────────────────
 
 export default function OptAnalizPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e]">
+        <div className="animate-pulse font-mono tracking-widest text-xl">LOADING BOGA AI...</div>
+      </div>
+    }>
+      <OptAnalizContent />
+    </Suspense>
+  );
+}
+
+function OptAnalizContent() {
+  const searchParams = useSearchParams();
+  const symbolParam = searchParams.get("symbol")?.toUpperCase();
+
   const [picks, setPicks] = useState<any[]>([]);
   const [liveOptions, setLiveOptions] = useState<any>({});
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
@@ -306,7 +322,11 @@ export default function OptAnalizPage() {
         setPicks(rawPicks);
         setGeneratedAt(data.generated_at || null);
         setLiveOptions(optsData);
-        if (rawPicks.length > 0) {
+        
+        // If symbol query param exists, select it, otherwise select the first pick
+        if (symbolParam && rawPicks.some((p: any) => p.ticker === symbolParam)) {
+          setSelectedTicker(symbolParam);
+        } else if (rawPicks.length > 0) {
           setSelectedTicker(rawPicks[0].ticker);
         }
       } catch (err: any) {

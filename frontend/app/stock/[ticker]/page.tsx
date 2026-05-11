@@ -150,6 +150,14 @@ export default async function StockDetailPage({ params }: Props) {
                   </>
                 )}
               </div>
+              <div className="mt-4 flex gap-2">
+                <Link
+                  href={`/optanaliz?symbol=${ticker}`}
+                  className="inline-flex items-center gap-2 px-5 py-2 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 rounded-xl text-sm font-black text-[#8b5cf6] hover:bg-[#8b5cf6]/20 transition-all uppercase tracking-widest shadow-[0_0_15px_rgba(139,92,246,0.1)]"
+                >
+                  🔮 Option Analysis
+                </Link>
+              </div>
             </div>
 
             <div className="flex flex-col md:items-end gap-1">

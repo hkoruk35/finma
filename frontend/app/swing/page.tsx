@@ -119,6 +119,7 @@ export default async function SwingPicksPage() {
                     <th className="px-4 py-4 text-right">1M</th>
                     <th className="px-4 py-4 text-right">1Y</th>
                     <th className="px-4 py-4 text-right">5Y</th>
+                    <th className="px-4 py-4 text-right">Option</th>
                     <th className="px-4 py-4 text-right">Tracker</th>
                   </tr>
                 </thead>
@@ -175,6 +176,14 @@ export default async function SwingPicksPage() {
                         </td>
                       ))}
                       <td className="px-3 py-2.5 text-right">
+                        <Link
+                          href={`/optanaliz?symbol=${pick.ticker}`}
+                          className="inline-flex items-center gap-1 px-2 py-1 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 rounded text-[10px] font-black text-[#8b5cf6] hover:bg-[#8b5cf6]/20 transition-all uppercase tracking-widest"
+                        >
+                          Option
+                        </Link>
+                      </td>
+                      <td className="px-3 py-2.5 text-right">
                         <TrackerButtonWrapper pick={pick} />
                       </td>
                     </tr>
@@ -186,10 +195,9 @@ export default async function SwingPicksPage() {
             {/* Mobile Cards */}
             <div className="md:hidden flex flex-col gap-6 mb-6">
               {picks.map((pick: any, idx: number) => (
-                <Link
+                <div
                   key={pick.ticker}
-                  href={`/stock/${pick.ticker}`}
-                  className={`glass-card p-6 block hover:border-[#3b82f6]/40 border-2 border-[#1e2a3a] transition-all relative overflow-hidden ${idx < 5 ? "border-[#3b82f6]/40 shadow-[0_0_20px_rgba(59,130,246,0.1)]" : ""}`}
+                  className={`glass-card p-6 block border-2 border-[#1e2a3a] relative overflow-hidden ${idx < 5 ? "border-[#3b82f6]/40 shadow-[0_0_20px_rgba(59,130,246,0.1)]" : ""}`}
                 >
                   {/* Rank Badge for Mobile */}
                   <div className={`absolute top-0 right-0 px-3 py-1 text-[10px] font-black text-white ${idx < 5 ? "bg-[#3b82f6]" : "bg-[#1e2a3a]"} rounded-bl-xl`}>
@@ -197,10 +205,10 @@ export default async function SwingPicksPage() {
                   </div>
 
                   <div className="flex items-start justify-between mb-5">
-                    <div>
-                      <div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5">{pick.ticker}</div>
+                    <Link href={`/stock/${pick.ticker}`} className="group flex-1">
+                      <div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5 group-hover:text-[#3b82f6] transition-colors">{pick.ticker}</div>
                       <div className="text-[#00d2ff] text-xs font-bold uppercase tracking-wider opacity-80">{pick.company}</div>
-                    </div>
+                    </Link>
                     <div className="scale-125 origin-right">
                        <ScoreBadge score={pick.score} />
                     </div>
@@ -222,8 +230,8 @@ export default async function SwingPicksPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 text-[12px] font-bold text-[#00d2ff]">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-3 text-[12px] font-bold text-[#00d2ff] overflow-hidden">
                       {[
                         { label: "1D", val: pick.change_1d },
                         { label: "1W", val: pick.change_1w },
@@ -237,11 +245,22 @@ export default async function SwingPicksPage() {
                         </div>
                       ))}
                     </div>
-                    <div className="px-4 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-lg text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">
-                       DETAILS →
+                    <div className="flex items-center gap-2">
+                      <Link 
+                        href={`/optanaliz?symbol=${pick.ticker}`}
+                        className="px-3 py-2 bg-[#8b5cf6]/10 border border-[#8b5cf6]/30 rounded-lg text-[10px] font-black text-[#8b5cf6] uppercase tracking-widest whitespace-nowrap"
+                      >
+                        Option →
+                      </Link>
+                      <Link 
+                        href={`/stock/${pick.ticker}`}
+                        className="px-3 py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 rounded-lg text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap"
+                      >
+                        DETAILS →
+                      </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
 
