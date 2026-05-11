@@ -61,15 +61,14 @@ export default function TVChartEmbed({
         toolbar_bg: "#0a0e17",
         enable_publishing: false,
         hide_side_toolbar: true,
-        // In compact mode hide the top toolbar entirely to maximise chart area
-        hide_top_toolbar: compact,
+        // Always show top toolbar so users can add/remove indicators
+        hide_top_toolbar: false,
         withdateranges: !compact,
         allow_symbol_change: false,
         save_image: false,
         container_id: containerId,
-        // Compact = no studies (clean price action only)
-        // Normal = EMA + BB + RSI + VWAP
-        studies: compact ? [] : [
+        // Show indicators everywhere
+        studies: [
           "MAExp@tv-basicstudies",
           "MAExp@tv-basicstudies",
           "BollingerBands@tv-basicstudies",

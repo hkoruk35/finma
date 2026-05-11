@@ -1,6 +1,6 @@
 {
-  "date": "2026-05-08",
-  "generated_at": "2026-05-08T13:35:49.039894-04:00",
+  "date": "2026-05-10",
+  "generated_at": "2026-05-10T05:38:47.136702-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 20,
   "market_regime": "STRONG",
@@ -8,29 +8,31 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "AYA",
-        "LSCC",
-        "MAC",
-        "UMH",
-        "PLD",
-        "H",
-        "GOOD",
-        "FTV",
-        "FR",
-        "ALGM"
+        "CAKE",
+        "ROST",
+        "IBOC",
+        "TBPH",
+        "PK",
+        "BCE",
+        "COHR",
+        "SSSS",
+        "CMC",
+        "FLOC"
       ]
     },
     "breakout": {
-      "count": 8,
+      "count": 10,
       "tickers": [
-        "LSCC",
-        "MAC",
-        "UMH",
-        "GOOD",
+        "COHR",
+        "CMC",
+        "FLOC",
+        "HBM",
         "ALGM",
-        "OC",
+        "ECVT",
+        "GSL",
         "GCMG",
-        "BCS"
+        "CLDX",
+        "SYRE"
       ]
     },
     "value": {
@@ -42,19 +44,12 @@
       "tickers": []
     },
     "momentum": {
-      "count": 11,
+      "count": 4,
       "tickers": [
-        "AYA",
-        "PLD",
-        "H",
-        "FTV",
-        "FR",
-        "ECPG",
-        "NZF",
+        "SSSS",
+        "THR",
         "CROX",
-        "NEA",
-        "MNRO",
-        "PDI"
+        "MNRO"
       ]
     },
     "dividend": {
@@ -64,18 +59,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "AYA",
-      "score": 67.2,
+      "ticker": "CAKE",
+      "score": 64.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "LSCC",
-      "score": 62.0,
+      "ticker": "ROST",
+      "score": 60.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "MAC",
-      "score": 61.8,
+      "ticker": "IBOC",
+      "score": 59.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
