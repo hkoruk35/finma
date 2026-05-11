@@ -31,7 +31,7 @@ interface Props {
 
 export default function TVChartEmbed({
   tvSymbol,
-  interval = "15",
+  interval = "60",
   containerId,
   height = 480,
   compact = false,
@@ -68,10 +68,11 @@ export default function TVChartEmbed({
         save_image: false,
         container_id: containerId,
         // Compact = no studies (clean price action only)
-        // Normal = MA + RSI + VWAP
+        // Normal = EMA + BB + RSI + VWAP
         studies: compact ? [] : [
-          "MASimple@tv-basicstudies",
-          "MASimple@tv-basicstudies",
+          "MAExp@tv-basicstudies",
+          "MAExp@tv-basicstudies",
+          "BollingerBands@tv-basicstudies",
           "RSI@tv-basicstudies",
           "VWAP@tv-basicstudies",
         ],
