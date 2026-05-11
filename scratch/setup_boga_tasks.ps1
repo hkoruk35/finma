@@ -29,6 +29,9 @@ Set-BogaTask -Name "BOGA_AI_Morning_Cycle" -Script "run_morning_cycle.py" -Args 
 # 2. BOGA AI AFTERNOON CYCLE (run_afternoon_cycle.py) - 13:00 NY
 Set-BogaTask -Name "BOGA_AI_Afternoon_Cycle" -Script "run_afternoon_cycle.py" -Args "" -StartTime "13:00:00"
 
+# 2b. BOGA AI CLOSING CYCLE (run_afternoon_cycle.py) - 16:00 NY
+Set-BogaTask -Name "BOGA_AI_Closing_Cycle" -Script "run_afternoon_cycle.py" -Args "" -StartTime "16:00:00"
+
 # 3. BOGA AI TERMINAL PULSE (Hourly Data) - 09:00 NY (Every 1 hour)
 Set-BogaTask -Name "BOGA_AI_Terminal_Pulse" -Script "run_terminal_pulse.py" -Args "" -StartTime "09:00:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 8)
 
