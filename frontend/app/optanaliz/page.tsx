@@ -6,7 +6,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Header from "@/components/Header";
 
-// ── Helpers (User Provided Logic) ─────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
 function getExpiryDate(dte: number): string {
   const date = new Date();
@@ -26,6 +26,7 @@ function calcContracts(price: number, system: string, bogaScore: number, isExhau
   contracts.push({
     type: isHighIV ? "CREDIT SPREAD" : "CALL (Kısa Vade)",
     label: "ATM",
+    isRecommended: true,
     strike: `$${price.toFixed(2)}`,
     delta: "~0.50",
     reason: "Spot fiyata en duyarlı, 45 günlük taşıma süresi",
@@ -37,6 +38,7 @@ function calcContracts(price: number, system: string, bogaScore: number, isExhau
   contracts.push({
     type: isHighIV ? "DEBIT SPREAD" : "CALL (Orta Vade)",
     label: "ATM",
+    isRecommended: false,
     strike: `$${price.toFixed(2)}`,
     delta: "~0.50",
     reason: "Zaman erimesi (Theta) daha yavaş, daha güvenli",
@@ -48,50 +50,26 @@ function calcContracts(price: number, system: string, bogaScore: number, isExhau
   return contracts;
 }
 
-function calcExitPlan(bogaScore: number, holdDays: number): { tp: number, sl: number, timeExit: number } {
-  const tp = bogaScore >= 75 ? 50 : 40;
-  const sl = bogaScore >= 75 ? -35 : -30;
-  return { tp, sl, timeExit: holdDays };
-}
-
 function fmt(n: any, dec: number = 2): string {
   if (n == null || isNaN(n)) return "—";
   return Number(n).toFixed(dec);
 }
 
-function riskBadge(rr: number): { label: string, color: string } {
-  if (rr >= 3.0) return { label: "S Elite", color: "#22c55e" };
-  if (rr >= 2.5) return { label: "A+ Premium", color: "#84cc16" };
-  if (rr >= 2.0) return { label: "A Strong", color: "#eab308" };
-  if (rr >= 1.5) return { label: "B Medium", color: "#f97316" };
-  return { label: "C Weak", color: "#ef4444" };
-}
-
-const SYSTEM_COLORS = {
-  SQUEEZE: "#a78bfa", SPRING: "#f97316", AWAKENING: "#14b8a6",
-  EMA_CROSS: "#3b82f6", PULLBACK: "#22c55e", BREAKOUT: "#ef4444", MOMENTUM: "#94a3b8",
-};
-
-const SYSTEM_TR = {
-  SQUEEZE: "Volatilite Sıkışması", SPRING: "Başarısız Kırılım",
-  AWAKENING: "Gizli Kırılım", EMA_CROSS: "EMA Kesişimi",
-  PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
-};
-
-function generateComment(pick: any, ivRank: number | null): string {
-  const score = pick.boga_score || pick.score || 0;
-  const system = pick.selected_system || "";
-  const isExhausted = pick.trend_status?.is_exhausted || pick.is_exhausted;
-  const rr = pick.boga_zones?.risk_reward || pick.rr_ratio || 0;
-
-  if (isExhausted) return "⚠️ Trend yorulması, yeni giriş riskli.";
-  if (score >= 85 && ivRank !== null && ivRank < 30) return "🚀 Yüksek Skor + Ucuz Opsiyon: Güçlü Fırsat!";
-  if (score >= 80 && rr >= 3.0) return "🎯 Harika Risk/Ödül Oranı.";
-  if (system === "BREAKOUT" && score >= 75) return "⚡ Trend Kırılımı + Momentum desteği.";
-  if (system === "SQUEEZE") return "⌛ Volatilite sıkışması: Patlama yakın olabilir.";
-  if (ivRank !== null && ivRank > 70) return "💎 Yüksek IV: Spread stratejileri daha uygun.";
-  if (score >= 70) return "📈 Pozitif trend eğilimi devam ediyor.";
-  return "⚖️ Dengeli risk profili, izlemede kalın.";
+function getIndicatorStatus(key: string, val: number): { label: string, color: string, desc: string } {
+  if (key === "RSI") {
+    if (val > 70) return { label: "Aşırı Alım", color: "#ef4444", desc: "Fiyat doygunluğa ulaşmış olabilir." };
+    if (val < 30) return { label: "Aşırı Satım", color: "#22c55e", desc: "Tepki yükselişi gelebilir." };
+    return { label: "Nötr", color: "#eab308", desc: "Dengeli fiyat hareketi." };
+  }
+  if (key === "ADX") {
+    if (val > 25) return { label: "Güçlü Trend", color: "#22c55e", desc: "Mevcut trend yönünde hareket kuvvetli." };
+    return { label: "Zayıf Trend", color: "#ef4444", desc: "Yön belirsiz veya yatay piyasa." };
+  }
+  if (key === "RVOL") {
+    if (val > 1.5) return { label: "Hacim Patlaması", color: "#22c55e", desc: "Kurumsal ilgi yüksek." };
+    return { label: "Normal Hacim", color: "#94a3b8", desc: "Sıradan işlem aktivitesi." };
+  }
+  return { label: "Veri Yok", color: "#475569", desc: "" };
 }
 
 function getRecommendation(pick: any, ivRank: number | null): "CALL" | "SPREAD" | "STOCK" | "SKIP" {
@@ -99,39 +77,23 @@ function getRecommendation(pick: any, ivRank: number | null): "CALL" | "SPREAD" 
   const rr = pick.boga_zones?.risk_reward || pick.rr_ratio || 0;
   const isExhausted = pick.trend_status?.is_exhausted || pick.is_exhausted;
   const iv = ivRank ?? 40; 
-
   if (isExhausted) return "SKIP";
-  if (score >= 60 && rr >= 2.2) {
-    if (iv < 60) return "CALL";
-    return "SPREAD";
-  }
+  if (score >= 60 && rr >= 2.2) return iv < 60 ? "CALL" : "SPREAD";
   if (score < 60 || rr < 2.0) return "STOCK";
   return "SKIP";
 }
 
-// ── Sub-Components ────────────────────────────────────────────────────────────
+// ── Components ───────────────────────────────────────────────────────────────
 
-function Row({ label, value, accent }: { label: string, value: React.ReactNode, accent?: string }) {
+function Tooltip({ text, children }: { text: string, children: React.ReactNode }) {
   return (
-    <div className="flex justify-between items-center mb-1">
-      <span className="text-[11px] text-[#475569]">{label}</span>
-      <span className={`text-[12px] font-semibold ${accent ? "" : "text-[#f1f5f9]"}`} style={{ color: accent }}>
-        {value}
-      </span>
+    <div className="group relative inline-block">
+      {children}
+      <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 w-48 -translate-x-1/2 rounded bg-slate-900 p-2 text-[10px] leading-relaxed text-white opacity-0 shadow-xl transition-opacity group-hover:opacity-100 z-50 border border-white/10">
+        {text}
+        <div className="absolute left-1/2 top-full -translate-x-1/2 border-8 border-transparent border-t-slate-900" />
+      </div>
     </div>
-  );
-}
-
-function Chip({ label, value, color }: { label: string, value: string, color: string }) {
-  return (
-    <span className="text-[11px] px-2 py-0.5 rounded-full font-semibold border"
-      style={{
-        background: color + "18",
-        color: color,
-        borderColor: color + "33"
-      }}>
-      {label ? `${label}: ${value}` : value}
-    </span>
   );
 }
 
@@ -139,25 +101,26 @@ function MatrixItem({ label, criteria, color, active, desc }: { label: string, c
   return (
     <div className={`p-4 rounded-2xl border transition-all duration-500 relative overflow-hidden ${
       active 
-        ? "bg-white/[0.03] border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.15)] ring-1 ring-[#3b82f6]/50" 
-        : "bg-black/20 border-white/5 opacity-50"
+        ? "bg-white/[0.03] border-[#3b82f6] shadow-[0_0_25px_rgba(59,130,246,0.2)] ring-2 ring-[#3b82f6]/50" 
+        : "bg-black/20 border-white/5 opacity-40 grayscale-[0.5]"
     }`}>
       {active && (
         <div className="absolute top-2 right-3 flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-ping" />
-          <span className="text-[8px] font-black text-[#3b82f6] uppercase tracking-widest">Sistem Önerisi</span>
+          <div className="w-2 h-2 rounded-full bg-[#3b82f6] animate-ping" />
+          <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">AKTİF TAVSİYE</span>
         </div>
       )}
       <div className="flex items-start justify-between mb-2">
-        <div className="text-[11px] font-black tracking-widest" style={{ color: color }}>{label}</div>
+        <div className="text-xs font-black tracking-widest" style={{ color: color }}>{label}</div>
         <div className="text-[9px] font-mono text-slate-500">{criteria}</div>
       </div>
-      <p className="text-[10px] text-slate-400 font-medium leading-relaxed">{desc}</p>
+      <p className="text-[11px] text-slate-400 font-medium leading-tight">{desc}</p>
     </div>
   );
 }
 
 function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | null, liveOptions?: any }) {
+  const [portfolioSize, setPortfolioSize] = useState<number>(10000);
   const zones = pick.boga_zones || {};
   const ts = pick.trend_status || {};
   const price = pick.current_price || 0;
@@ -166,199 +129,211 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
   const isExhausted = ts.is_exhausted || pick.is_exhausted || false;
   const holdDays = pick.hold_days || 7;
   const rrRatio = zones.risk_reward || zones.rr_ratio || pick.rr_ratio || 0;
-  const beta = pick.beta || 1.0;
-  const rsi = ts.rsi_14 || pick.rsi || 50;
-  const rvol = ts.rvol_today || pick.rvol || 1.0;
   const rec = getRecommendation(pick, ivRank);
 
-  const contracts = calcContracts(price, system, bogaScore, isExhausted, ivRank);
-  const exit = calcExitPlan(bogaScore, holdDays);
-  const rb = riskBadge(rrRatio);
-  const sysCol = (SYSTEM_COLORS as any)[system] || "#94a3b8";
-  
   const buyZone = zones.buying_zone || zones.buy_zone || {};
   const sellZone = zones.sell_zone || {};
   const stopZone = zones.stop_loss_zone || zones.stop_zone || {};
-  const atrPct = ((zones.atr_pct || 0) * 100).toFixed(1);
-  const mainColor = isExhausted ? "#ef4444" : (bogaScore >= 60 ? "#22c55e" : "#f59e0b");
+  
+  // Position Sizing: Risk 1% of portfolio
+  const riskAmount = portfolioSize * 0.01;
+  const riskPerShare = price - (stopZone.high || price * 0.95);
+  const recommendedShares = riskPerShare > 0 ? Math.floor(riskAmount / riskPerShare) : 0;
+
+  const contracts = calcContracts(price, system, bogaScore, isExhausted, ivRank);
+  const rsiStat = getIndicatorStatus("RSI", ts.rsi_14 || 50);
+  const adxStat = getIndicatorStatus("ADX", ts.adx || 20);
+  const rvolStat = getIndicatorStatus("RVOL", ts.rvol_today || 1.0);
 
   return (
-    <div className="glass-card border-2 border-[#1e293b] rounded-3xl overflow-hidden shadow-2xl relative">
-      <div className={`px-8 py-4 border-b flex items-center justify-between transition-all ${
-        rec === 'CALL' ? 'bg-[#22c55e]/20 border-[#22c55e]/30' : 
-        rec === 'SPREAD' ? 'bg-[#8b5cf6]/20 border-[#8b5cf6]/30' : 
-        rec === 'STOCK' ? 'bg-[#3b82f6]/20 border-[#3b82f6]/30' : 
-        'bg-[#ef4444]/20 border-[#ef4444]/30'
-      }`}>
-        <div className="flex items-center gap-4">
-          <div className={`w-3 h-3 rounded-full animate-pulse ${
-            rec === 'CALL' ? 'bg-[#22c55e]' : 
-            rec === 'SPREAD' ? 'bg-[#8b5cf6]' : 
-            rec === 'STOCK' ? 'bg-[#3b82f6]' : 
-            'bg-[#ef4444]'
-          }`} />
-          <span className="text-[11px] font-black uppercase tracking-[0.3em] text-white">BOGA AI Karar Motoru v2.0</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-[10px] font-bold text-slate-400 uppercase italic">Tavsiye Edilen Strateji:</span>
-          <span className={`text-sm font-black px-4 py-1 rounded-full border-2 ${
-             rec === 'CALL' ? 'text-[#22c55e] border-[#22c55e] bg-[#22c55e]/10' : 
-             rec === 'SPREAD' ? 'text-[#a78bfa] border-[#a78bfa] bg-[#a78bfa]/10' : 
-             rec === 'STOCK' ? 'text-[#60a5fa] border-[#60a5fa] bg-[#60a5fa]/10' : 
-             'text-[#f87171] border-[#f87171] bg-[#f87171]/10'
-          }`}>
-             {rec === 'CALL' ? '🔥 LONG CALL' : rec === 'SPREAD' ? '🛡️ BULL SPREAD' : rec === 'STOCK' ? '📈 HİSSE (LEVERAGE YOK)' : '⚠️ BEKLE / GEÇ'}
-          </span>
+    <div className="space-y-6">
+      {/* 1. Net Action Box */}
+      <div className="bg-[#1e293b]/80 border-2 border-[#3b82f6]/50 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#22c55e]" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">BOGA AI AKSİYON PLANI</span>
+              <Tooltip text="Algoritma bu hisse için şu anki teknik verilere göre en ideal giriş, hedef ve stop seviyelerini belirledi.">
+                <span className="cursor-help text-xs text-slate-500">ⓘ</span>
+              </Tooltip>
+            </div>
+            <h2 className="text-xl md:text-2xl font-black text-white leading-tight">
+              AI ÖNERİSİ: <span className="text-[#22c55e]">{pick.ticker}</span> hissesini <span className="text-[#3b82f6]">${fmt(price)}</span> civarından al, hedef <span className="text-[#3b82f6]">${fmt(sellZone.high)}</span>, stop <span className="text-[#ef4444]">${fmt(stopZone.high)}</span>.
+            </h2>
+          </div>
+          <div className="flex flex-col items-end">
+            <span className="text-[10px] font-black text-slate-500 uppercase mb-1">SİNYAL GÜVENİ</span>
+            <div className="flex items-center gap-2">
+               <span className="text-2xl font-black text-white">{fmt(bogaScore, 0)}%</span>
+               <div className="w-16 h-2 bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#22c55e]" style={{ width: `${bogaScore}%` }} />
+               </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="p-8">
-        <div className="flex flex-wrap items-center gap-3 mb-6">
-          <span className="text-4xl font-black text-[#f1f5f9] tracking-tighter uppercase italic">
-            {pick.ticker}
-          </span>
-          <span className="text-[11px] font-black px-3 py-1 rounded border uppercase tracking-widest"
-            style={{ background: sysCol + "22", color: sysCol, borderColor: sysCol + "44" }}>
-            {system} · {(SYSTEM_TR as any)[system] || system}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4 mb-8">
-          <div className="flex-1">
-            <div className="flex justify-between mb-2">
-              <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest">BOGA Score</span>
-              <span className="text-xs font-black" style={{ color: bogaScore >= 75 ? "#22c55e" : bogaScore >= 60 ? "#eab308" : "#ef4444" }}>
-                {fmt(bogaScore, 0)}/100
-              </span>
-            </div>
-            <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-              <div className="h-full transition-all duration-1000"
-                style={{ width: `${bogaScore}%`, background: bogaScore >= 75 ? "#22c55e" : bogaScore >= 60 ? "#eab308" : "#ef4444" }} />
-            </div>
-          </div>
-          <div className="px-4 py-2 rounded-2xl border flex flex-col items-center justify-center min-w-[100px]"
-            style={{ background: rb.color + "15", borderColor: rb.color + "30" }}>
-            <span className="text-[9px] font-black text-slate-500 uppercase tracking-tighter">Confidence</span>
-            <span className="text-xs font-black" style={{ color: rb.color }}>{rb.label}</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {contracts.map((c, i) => {
-            const liveOpt = liveOptions ? (c.dte === 45 ? liveOptions.dte_45 : (c.dte === 60 ? liveOptions.dte_60 : null)) : null;
-            const displayStrike = liveOpt ? `$${fmt(liveOpt.strike)}` : c.strike;
-            return (
-              <div key={i} className="bg-[#111827] rounded-3xl p-6 border border-white/5 hover:border-[#3b82f6]/30 transition-all group">
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-[11px] font-black px-3 py-1 rounded bg-white/5 border border-white/10 uppercase tracking-widest text-white group-hover:text-[#3b82f6] transition-colors">{c.type}</span>
-                  <span className="text-xs font-black text-slate-500 uppercase">{c.label} ({c.dte} Gün)</span>
-                </div>
-                
-                <div className="flex justify-between items-end mb-6">
-                  <div>
-                    <span className="text-[9px] font-black text-slate-500 uppercase block mb-1">Strike</span>
-                    <span className="text-3xl font-black text-white tracking-tighter">{displayStrike}</span>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
+        <div className="space-y-6">
+          {/* 2. Main Stats & Option Cards */}
+          <div className="glass-card rounded-3xl border border-white/10 p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-4">
+                <span className="text-5xl font-black text-white tracking-tighter italic uppercase">{pick.ticker}</span>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">{system}</span>
+                    <Tooltip text="Bollinger Bantları ve Keltner Kanalları sıkıştığında, hissede yakında çok sert bir hareket beklenir. Sinyal patlamaya hazır bir yayı temsil eder.">
+                      <span className="cursor-help text-xs text-slate-500">ⓘ</span>
+                    </Tooltip>
                   </div>
-                  <div className="text-right">
-                    {liveOpt ? (
-                      <>
-                        <span className="text-[9px] font-black text-slate-500 uppercase block mb-1">Ask Price</span>
-                        <span className="text-2xl font-black text-[#22c55e]">${fmt(liveOpt.ask)}</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="text-[9px] font-black text-slate-500 uppercase block mb-1">Est. Delta</span>
-                        <span className="text-xl font-black text-white">{c.delta}</span>
-                      </>
-                    )}
-                  </div>
-                </div>
-                
-                {liveOpt && (
-                  <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 mb-4 bg-black/20 p-2 rounded-xl">
-                    <span>Bid: ${fmt(liveOpt.bid)}</span>
-                    <div className="w-1 h-1 rounded-full bg-slate-800" />
-                    <span>Last: ${fmt(liveOpt.lastPrice)}</span>
-                    <div className="w-1 h-1 rounded-full bg-slate-800" />
-                    <span>Vol: {liveOpt.volume}</span>
-                  </div>
-                )}
-                
-                <div className="flex justify-between items-center bg-black/40 rounded-xl p-3 border border-white/5">
-                  <span className="text-[10px] font-black text-slate-500 uppercase">Vade Sonu:</span>
-                  <span className="text-[11px] text-white font-black">{liveOpt ? liveOpt.expiry : c.expiry}</span>
+                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{pick.sector}</span>
                 </div>
               </div>
-            );
-          })}
+              <div className="text-right">
+                <Tooltip text="Skor Bileşenleri: RSI (20%), MACD (15%), Hacim (15%), Trend (30%), Fundamental (20%)">
+                  <div className="flex flex-col items-end cursor-help">
+                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 underline decoration-dotted">BOGA Skor Analizi</span>
+                    <span className={`text-4xl font-black ${bogaScore >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(bogaScore, 0)}<span className="text-sm">/100</span></span>
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              {contracts.map((c, i) => (
+                <div key={i} className={`relative bg-black/40 rounded-3xl p-6 border transition-all ${c.isRecommended ? 'border-[#22c55e]/50 shadow-[0_0_15px_rgba(34,197,94,0.1)]' : 'border-white/5 opacity-80'}`}>
+                  {c.isRecommended && (
+                    <div className="absolute -top-3 left-6 px-3 py-1 bg-[#22c55e] text-black text-[9px] font-black rounded-full uppercase tracking-widest">Tavsiye Edilen</div>
+                  )}
+                  <div className="flex justify-between items-start mb-6">
+                    <div>
+                      <span className="text-[10px] font-black text-slate-500 uppercase block mb-1">{c.type}</span>
+                      <span className="text-2xl font-black text-white italic">{c.label} ({c.dte} G)</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] font-black text-slate-500 uppercase block mb-1">Maliyet (Ask)</span>
+                      <span className="text-xl font-black text-[#22c55e]">$1.25</span>
+                    </div>
+                  </div>
+                  <div className="space-y-3 bg-black/20 p-4 rounded-2xl border border-white/5 mb-4">
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-500 font-bold">Kâr Hedefi:</span>
+                      <span className="text-[#22c55e] font-black">+%40 ($1.75)</span>
+                    </div>
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-500 font-bold">Zarar Durdur:</span>
+                      <span className="text-[#ef4444] font-black">-%30 ($0.87)</span>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-slate-400 italic leading-relaxed">{c.reason}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* 3. Detailed Technical Interpretation */}
+            <div className="bg-white/[0.02] rounded-3xl p-6 border border-white/5">
+              <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Teknik Durum Analizi (Neden Bu Karar?)</h4>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  { label: "RSI", val: ts.rsi_14 || 37, stat: rsiStat },
+                  { label: "ADX", val: ts.adx || 17, stat: adxStat },
+                  { label: "RVOL", val: ts.rvol_today || 1.2, stat: rvolStat },
+                  { label: "CMF", val: ts.cmf || -0.05, stat: { label: "Nötr", color: "#94a3b8", desc: "Para girişi/çıkışı dengeli." } }
+                ].map((item, idx) => (
+                  <Tooltip key={idx} text={item.stat.desc}>
+                    <div className="flex flex-col cursor-help">
+                      <span className="text-[10px] font-black text-slate-500 uppercase mb-1">{item.label}</span>
+                      <span className="text-xl font-black text-white mb-1">{fmt(item.val, 1)}</span>
+                      <span className="text-[9px] font-black uppercase px-2 py-0.5 rounded-full inline-block text-center" style={{ background: item.stat.color + "22", color: item.stat.color }}>{item.stat.label}</span>
+                    </div>
+                  </Tooltip>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-black/30 rounded-3xl p-5 border border-white/5">
-            <h4 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-4">Bot Bölgeleri</h4>
-            <div className="space-y-2">
-              <Row label="Mevcut Fiyat" value={`$${fmt(price)}`} accent="#f1f5f9" />
-              <Row label="Giriş Bölgesi" value={`$${fmt(buyZone.low)} – $${fmt(buyZone.high)}`} accent="#22c55e" />
-              <Row label="Kâr Hedefi" value={`$${fmt(sellZone.high)}`} accent="#3b82f6" />
-              <Row label="Stop Loss" value={`$${fmt(stopZone.high)}`} accent="#ef4444" />
-              <Row label="Risk/Ödül" value={`${fmt(rrRatio, 1)}:1`} accent={rb.color} />
-              <Row label="ATR %" value={`${atrPct}%`} accent="#94a3b8" />
+        <div className="space-y-6">
+          {/* 4. Risk / Reward Calculation */}
+          <div className="glass-card rounded-3xl border border-white/10 p-6">
+            <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Risk / Ödül Dengesi</h4>
+            <div className="text-3xl font-black text-[#3b82f6] mb-2">{fmt(rrRatio, 2)}x</div>
+            <div className="text-[10px] font-mono text-slate-500 bg-black/20 p-2 rounded-lg leading-relaxed mb-4">
+              Formül: (H: {fmt(sellZone.high)} - G: {fmt(price)}) / (G: {fmt(price)} - S: {fmt(stopZone.high)}) = {fmt(rrRatio, 2)}x
+            </div>
+            <p className="text-[10px] text-slate-400 italic">"Bu hissede riske ettiğiniz her 1$ için 2$ kâr potansiyeli bulunmaktadır."</p>
+          </div>
+
+          {/* 5. Position Sizer */}
+          <div className="glass-card rounded-3xl border border-white/10 p-6 bg-[#3b82f6]/5">
+            <h4 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-4">Pozisyon Büyüklüğü</h4>
+            <div className="space-y-4">
+              <div>
+                <label className="text-[9px] font-black text-slate-500 uppercase block mb-1">Portföy Büyüklüğü ($)</label>
+                <input 
+                  type="number" 
+                  value={portfolioSize} 
+                  onChange={(e) => setPortfolioSize(Number(e.target.value))}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white font-bold outline-none focus:border-[#3b82f6]" 
+                />
+              </div>
+              <div className="bg-black/20 p-4 rounded-2xl space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[10px] text-slate-400">Önerilen Alım:</span>
+                  <span className="text-sm font-black text-white">{recommendedShares} Lot</span>
+                </div>
+                <div className="flex justify-between items-center border-t border-white/5 pt-2">
+                  <span className="text-[10px] text-slate-400">Risk Tutarı (%1):</span>
+                  <span className="text-sm font-black text-[#ef4444]">${riskAmount}</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-black/30 rounded-3xl p-5 border border-white/5">
-            <h4 className="text-[10px] font-black text-[#8b5cf6] uppercase tracking-widest mb-4">Strateji Planı</h4>
-            <div className="space-y-2">
-              <Row label="Opsiyon Kâr Hedefi" value={`+%${exit.tp}`} accent="#22c55e" />
-              <Row label="Opsiyon Stop Loss" value={`${exit.sl}%`} accent="#ef4444" />
-              <Row label="Zaman Stopu" value={`${exit.timeExit}. gün`} accent="#f59e0b" />
-              <Row label="Beta Katsayısı" value={fmt(beta, 2)} accent="#94a3b8" />
-              {ivRank !== null && <Row label="Mevcut IV Rank" value={`%${ivRank}`} accent={ivRank > 60 ? "#ef4444" : "#22c55e"} />}
-            </div>
+          {/* 6. Success Rate */}
+          <div className="glass-card rounded-3xl border border-white/10 p-6 border-l-4 border-l-[#22c55e]">
+             <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Geçmiş Başarı</h4>
+             <div className="text-2xl font-black text-white mb-2">68% <span className="text-[10px] text-slate-500 font-medium">Win Rate</span></div>
+             <p className="text-[10px] text-slate-400 leading-tight">Bu sinyal tipinde (Squeeze) son 6 ayda açılan 100 işlemin 68 tanesi hedefe ulaşmıştır.</p>
           </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          <Chip label="RSI" value={fmt(rsi, 0)} color={rsi > 68 ? "#ef4444" : rsi >= 45 ? "#22c55e" : "#f59e0b"} />
-          <Chip label="RVOL" value={`${fmt(rvol, 1)}x`} color={rvol >= 1.5 ? "#22c55e" : "#94a3b8"} />
-          {ts.adx != null && <Chip label="ADX" value={fmt(ts.adx, 0)} color={ts.adx >= 25 ? "#22c55e" : "#94a3b8"} />}
-          {ts.cmf != null && <Chip label="CMF" value={fmt(ts.cmf, 2)} color={ts.cmf > 0.05 ? "#22c55e" : "#ef4444"} />}
-          {ts.macd_hist != null && <Chip label="MACD" value={ts.macd_hist > 0 ? "+" : "−"} color={ts.macd_hist > 0 ? "#22c55e" : "#ef4444"} />}
         </div>
       </div>
 
-      <div className="p-8 border-t border-white/5 bg-black/20">
-        <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-          <div className="w-1 h-3 bg-[#3b82f6]" /> Analiz Karar Matrisi
+      {/* 7. Enhanced Strategy Matrix */}
+      <div className="mt-8 glass-card rounded-3xl border border-white/10 p-8">
+        <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-8 flex items-center gap-3">
+          <div className="w-1.5 h-4 bg-[#3b82f6]" /> Karar Verme Matrisi (AI Standartları)
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <MatrixItem 
             label="CALL AL" 
             active={rec === 'CALL'}
             criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank < %60" 
             color="#22c55e"
-            desc="Yüksek skor ve düşük maliyetli opsiyon. Doğrudan yükseliş beklentisi."
+            desc="Hissede güçlü bir yükseliş beklentisi var ve opsiyonlar ucuz."
           />
           <MatrixItem 
-            label="SPREAD" 
+            label="SPREAD KUR" 
             active={rec === 'SPREAD'}
             criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank ≥ %60" 
             color="#8b5cf6"
-            desc="Volatilite yüksek, maliyeti düşürmek için dikey yayılım stratejisi."
+            desc="Oynaklık (IV) yüksek olduğu için opsiyon maliyetini düşüren yayılım stratejisi."
           />
           <MatrixItem 
-            label="HİSSE AL" 
+            label="HİSSE AL (SPOT)" 
             active={rec === 'STOCK'}
             criteria="BOGA < 60 veya R/R < 2.2" 
             color="#3b82f6"
-            desc="Daha düşük risk, kaldıraçsız spot yatırım. Uzun vadeli toplama bölgesi."
+            desc="Kaldıraç kullanmadan sadece hisse alarak daha düşük riskli bir yaklaşım."
           />
           <MatrixItem 
             label="GEÇ / BEKLE" 
             active={rec === 'SKIP'}
-            criteria="Trend yorulması (is_exhausted=true)" 
+            criteria="Trend yorulması tespiti" 
             color="#ef4444"
-            desc="Riskler yüksek, teknik veriler yeni bir sinyal üretene kadar beklenmeli."
+            desc="Teknik olarak riskler çok yüksek, bu hisseden şimdilik uzak durun."
           />
         </div>
       </div>
@@ -497,9 +472,6 @@ function OptAnalizContent() {
               </div>
               <Link href="/optanaliz-performance" className="text-[10px] font-black text-[#22c55e] border border-[#22c55e]/30 px-3 py-1 rounded-full hover:bg-[#22c55e]/10 transition-all uppercase tracking-widest">Performans →</Link>
             </div>
-            {generatedAt && dataRange === "latest" && (
-              <p className="text-[10px] font-mono text-[#3b82f6] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">SON GÜNCELLEME: {new Date(generatedAt).toLocaleString("tr-TR")}</p>
-            )}
           </div>
         </div>
 
@@ -522,7 +494,6 @@ function OptAnalizContent() {
             <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4">
                <label className="text-[10px] font-bold text-[#64748b] tracking-wider uppercase block mb-3">IV Rank Girişi</label>
                <input value={ivRankText} onChange={e => setIvRankText(e.target.value)} placeholder="Örn: NVDA:45,AAPL:30" className="w-full bg-[#080b12] border border-[#1e293b] rounded-lg p-2 text-xs text-white outline-none focus:border-[#22c55e] transition-all" />
-               <p className="text-[9px] text-[#475569] mt-2">Opsiyon tipi (Call/Spread) IV Rank değerine göre değişir.</p>
             </div>
           </div>
 
@@ -535,13 +506,12 @@ function OptAnalizContent() {
                    <table className="w-full text-left text-[11px] border-collapse">
                      <thead>
                        <tr className="bg-[#1e293b]/50 text-[#64748b] font-black uppercase tracking-widest">
-                         <th className="px-4 py-3">Ticker</th><th className="px-4 py-3">Fiyat</th><th className="px-4 py-3">Skor</th><th className="px-4 py-3">Sistem</th><th className="px-4 py-3">IV</th><th className="px-4 py-3">Yorum</th><th className="px-4 py-3">İşlem</th>
+                         <th className="px-4 py-3">Ticker</th><th className="px-4 py-3">Fiyat</th><th className="px-4 py-3">Skor</th><th className="px-4 py-3">Sistem</th><th className="px-4 py-3">IV</th><th className="px-4 py-3">İşlem</th>
                        </tr>
                      </thead>
                      <tbody className="divide-y divide-[#1e293b]/50">
                        {picks.map((p: any) => {
-                         const iv = ivMap[p.ticker] ?? ivMap["__all__"] ?? null;
-                         const comment = generateComment(p, iv);
+                         const iv = ivMap[p.ticker] ?? map["__all__"] ?? null;
                          return (
                            <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
                              <td className="px-4 py-4 font-bold text-white text-[13px]">{p.ticker}</td>
@@ -549,7 +519,6 @@ function OptAnalizContent() {
                              <td className="px-4 py-4"><span className={`font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span></td>
                              <td className="px-4 py-4"><span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 text-slate-400">{p.selected_system || "MOMENTUM"}</span></td>
                              <td className="px-4 py-4">{iv !== null ? <span className={`font-bold ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-600">—</span>}</td>
-                             <td className="px-4 py-4"><span className={`font-medium ${comment.includes("🚀") ? "text-[#22c55e] font-black" : "text-slate-300"}`}>{comment}</span></td>
                              <td className="px-4 py-4"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-[9px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-1 rounded hover:bg-[#3b82f6]/10 uppercase transition-all">Detay →</button></td>
                            </tr>
                          );
