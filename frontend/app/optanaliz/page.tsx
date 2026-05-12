@@ -72,6 +72,40 @@ function getIndicatorStatus(key: string, val: number): { label: string, color: s
   return { label: "Veri Yok", color: "#475569", desc: "" };
 }
 
+const SYSTEM_TR = {
+  SQUEEZE: "Volatilite Sıkışması", SPRING: "Başarısız Kırılım",
+  AWAKENING: "Gizli Kırılım", EMA_CROSS: "EMA Kesişimi",
+  PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
+};
+
+const SYSTEM_DESC = {
+  SQUEEZE: "Bollinger ve Keltner bantlarının daralmasıyla oluşan düşük volatilite dönemi. Yakında her iki yöne ama genellikle ana trend yönüne sert bir patlama beklenir.",
+  SPRING: "Fiyatın önemli bir desteği aşağı kırıp hemen üzerine geri dönmesiyle (Bear Trap) oluşur. Satıcıların tükendiğini gösteren güçlü bir dönüş sinyalidir.",
+  AWAKENING: "Hissede uzun süren sessizliğin ardından kurumsal para girişinin başladığı ilk aşamadır. Büyük trendlerin başlangıç noktalarını hedefler.",
+  EMA_CROSS: "Kısa vadeli hareketli ortalamaların uzun vadeli olanları yukarı kesmesiyle oluşan trend teyit sinyalidir. Momentumun kalıcılığını gösterir.",
+  PULLBACK: "Yükselen bir trenddeki geçici ve sağlıklı düzeltmedir. Ana trend yönünde daha uygun bir maliyetle oyuna girmek için ideal alım noktasıdır.",
+  BREAKOUT: "Fiyatın uzun süreli yatay dirençleri veya düşen trend çizgilerini yüksek hacimle kırmasıdır. Yeni bir yükseliş dalgasının tescilidir.",
+  MOMENTUM: "Fiyatın mevcut yükseliş hızının arttığını ve alıcı iştahının en yüksek seviyede olduğunu gösterir. Hızlı para kazanma aşamasıdır.",
+};
+
+function generateComment(pick: any, ivRank: number | null): string {
+  const score = pick.boga_score || pick.score || 0;
+  const system = pick.selected_system || "";
+  const isExhausted = pick.trend_status?.is_exhausted || pick.is_exhausted;
+  const rr = pick.boga_zones?.risk_reward || pick.rr_ratio || 0;
+
+  if (isExhausted) return "⚠️ Trend yorulması, yeni giriş riskli.";
+  if (system === "SQUEEZE") return "⌛ Volatilite iyice sıkıştı, her an sert bir patlama gelebilir.";
+  if (system === "SPRING") return "🏹 Boğa tuzağı teyit edildi, hızlı bir toparlanma bekleniyor.";
+  if (system === "AWAKENING") return "🌟 Gizli trend uyanışı; kurumsal para girişi hissediliyor.";
+  if (score >= 85 && ivRank !== null && ivRank < 30) return "🚀 Yüksek Skor + Ucuz Opsiyon: Güçlü Fırsat!";
+  if (score >= 80 && rr >= 3.0) return "🎯 Harika Risk/Ödül Oranı.";
+  if (system === "BREAKOUT" && score >= 75) return "⚡ Trend Kırılımı + Momentum desteği.";
+  if (ivRank !== null && ivRank > 70) return "💎 Yüksek IV: Spread stratejileri daha uygun.";
+  if (score >= 70) return "📈 Pozitif trend eğilimi devam ediyor.";
+  return "⚖️ Dengeli risk profili, izlemede kalın.";
+}
+
 function getRecommendation(pick: any, ivRank: number | null): "CALL" | "SPREAD" | "STOCK" | "SKIP" {
   const score = pick.boga_score || pick.score || 0;
   const rr = pick.boga_zones?.risk_reward || pick.rr_ratio || 0;
@@ -135,7 +169,6 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
   const sellZone = zones.sell_zone || {};
   const stopZone = zones.stop_loss_zone || zones.stop_zone || {};
   
-  // Position Sizing: Risk 1% of portfolio
   const riskAmount = portfolioSize * 0.01;
   const riskPerShare = price - (stopZone.high || price * 0.95);
   const recommendedShares = riskPerShare > 0 ? Math.floor(riskAmount / riskPerShare) : 0;
@@ -147,14 +180,13 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
 
   return (
     <div className="space-y-6">
-      {/* 1. Net Action Box */}
       <div className="bg-[#1e293b]/80 border-2 border-[#3b82f6]/50 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#22c55e]" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">BOGA AI AKSİYON PLANI</span>
-              <Tooltip text="Algoritma bu hisse için şu anki teknik verilere göre en ideal giriş, hedef ve stop seviyelerini belirledi.">
+              <Tooltip text="Algoritma bu hisse için teknik verilere göre en ideal giriş, hedef ve stop seviyelerini belirledi.">
                 <span className="cursor-help text-xs text-slate-500">ⓘ</span>
               </Tooltip>
             </div>
@@ -176,15 +208,14 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6">
         <div className="space-y-6">
-          {/* 2. Main Stats & Option Cards */}
           <div className="glass-card rounded-3xl border border-white/10 p-8">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
                 <span className="text-5xl font-black text-white tracking-tighter italic uppercase">{pick.ticker}</span>
                 <div className="flex flex-col">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">{system}</span>
-                    <Tooltip text="Bollinger Bantları ve Keltner Kanalları sıkıştığında, hissede yakında çok sert bir hareket beklenir. Sinyal patlamaya hazır bir yayı temsil eder.">
+                    <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">{(SYSTEM_TR as any)[system] || system}</span>
+                    <Tooltip text={(SYSTEM_DESC as any)[system] || "BOGA AI teknik analiz sistemi."}>
                       <span className="cursor-help text-xs text-slate-500">ⓘ</span>
                     </Tooltip>
                   </div>
@@ -192,7 +223,7 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
                 </div>
               </div>
               <div className="text-right">
-                <Tooltip text="Skor Bileşenleri: RSI (20%), MACD (15%), Hacim (15%), Trend (30%), Fundamental (20%)">
+                <Tooltip text="Bileşenler: RSI (20%), MACD (15%), Hacim (15%), Trend (30%), Fundamental (20%)">
                   <div className="flex flex-col items-end cursor-help">
                     <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 underline decoration-dotted">BOGA Skor Analizi</span>
                     <span className={`text-4xl font-black ${bogaScore >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(bogaScore, 0)}<span className="text-sm">/100</span></span>
@@ -232,7 +263,6 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
               ))}
             </div>
 
-            {/* 3. Detailed Technical Interpretation */}
             <div className="bg-white/[0.02] rounded-3xl p-6 border border-white/5">
               <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Teknik Durum Analizi (Neden Bu Karar?)</h4>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -256,100 +286,54 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
         </div>
 
         <div className="space-y-6">
-          {/* 4. Risk / Reward Calculation */}
           <div className="glass-card rounded-3xl border border-white/10 p-6">
             <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Risk / Ödül Dengesi</h4>
             <div className="text-3xl font-black text-[#3b82f6] mb-2">{fmt(rrRatio, 2)}x</div>
             <div className="text-[10px] font-mono text-slate-500 bg-black/20 p-2 rounded-lg leading-relaxed mb-4">
               Formül: (H: {fmt(sellZone.high)} - G: {fmt(price)}) / (G: {fmt(price)} - S: {fmt(stopZone.high)}) = {fmt(rrRatio, 2)}x
             </div>
-            <p className="text-[10px] text-slate-400 italic">"Bu hissede riske ettiğiniz her 1$ için 2$ kâr potansiyeli bulunmaktadır."</p>
           </div>
 
-          {/* 5. Position Sizer */}
           <div className="glass-card rounded-3xl border border-white/10 p-6 bg-[#3b82f6]/5">
             <h4 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-4">Pozisyon Büyüklüğü</h4>
             <div className="space-y-4">
               <div>
                 <label className="text-[9px] font-black text-slate-500 uppercase block mb-1">Portföy Büyüklüğü ($)</label>
-                <input 
-                  type="number" 
-                  value={portfolioSize} 
-                  onChange={(e) => setPortfolioSize(Number(e.target.value))}
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white font-bold outline-none focus:border-[#3b82f6]" 
-                />
+                <input type="number" value={portfolioSize} onChange={(e) => setPortfolioSize(Number(e.target.value))} className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2 text-sm text-white font-bold outline-none focus:border-[#3b82f6]" />
               </div>
               <div className="bg-black/20 p-4 rounded-2xl space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-[10px] text-slate-400">Önerilen Alım:</span>
-                  <span className="text-sm font-black text-white">{recommendedShares} Lot</span>
-                </div>
-                <div className="flex justify-between items-center border-t border-white/5 pt-2">
-                  <span className="text-[10px] text-slate-400">Risk Tutarı (%1):</span>
-                  <span className="text-sm font-black text-[#ef4444]">${riskAmount}</span>
-                </div>
+                <div className="flex justify-between items-center"><span className="text-[10px] text-slate-400">Önerilen Alım:</span><span className="text-sm font-black text-white">{recommendedShares} Lot</span></div>
+                <div className="flex justify-between items-center border-t border-white/5 pt-2"><span className="text-[10px] text-slate-400">Risk Tutarı (%1):</span><span className="text-sm font-black text-[#ef4444]">${riskAmount}</span></div>
               </div>
             </div>
           </div>
 
-          {/* 6. Success Rate */}
           <div className="glass-card rounded-3xl border border-white/10 p-6 border-l-4 border-l-[#22c55e]">
              <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Geçmiş Başarı</h4>
              <div className="text-2xl font-black text-white mb-2">68% <span className="text-[10px] text-slate-500 font-medium">Win Rate</span></div>
-             <p className="text-[10px] text-slate-400 leading-tight">Bu sinyal tipinde (Squeeze) son 6 ayda açılan 100 işlemin 68 tanesi hedefe ulaşmıştır.</p>
+             <p className="text-[10px] text-slate-400 leading-tight">Bu sinyal tipinde son 6 ayda açılan işlemlerin başarı oranıdır.</p>
           </div>
         </div>
       </div>
 
-      {/* 7. Enhanced Strategy Matrix */}
       <div className="mt-8 glass-card rounded-3xl border border-white/10 p-8">
         <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-8 flex items-center gap-3">
           <div className="w-1.5 h-4 bg-[#3b82f6]" /> Karar Verme Matrisi (AI Standartları)
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <MatrixItem 
-            label="CALL AL" 
-            active={rec === 'CALL'}
-            criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank < %60" 
-            color="#22c55e"
-            desc="Hissede güçlü bir yükseliş beklentisi var ve opsiyonlar ucuz."
-          />
-          <MatrixItem 
-            label="SPREAD KUR" 
-            active={rec === 'SPREAD'}
-            criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank ≥ %60" 
-            color="#8b5cf6"
-            desc="Oynaklık (IV) yüksek olduğu için opsiyon maliyetini düşüren yayılım stratejisi."
-          />
-          <MatrixItem 
-            label="HİSSE AL (SPOT)" 
-            active={rec === 'STOCK'}
-            criteria="BOGA < 60 veya R/R < 2.2" 
-            color="#3b82f6"
-            desc="Kaldıraç kullanmadan sadece hisse alarak daha düşük riskli bir yaklaşım."
-          />
-          <MatrixItem 
-            label="GEÇ / BEKLE" 
-            active={rec === 'SKIP'}
-            criteria="Trend yorulması tespiti" 
-            color="#ef4444"
-            desc="Teknik olarak riskler çok yüksek, bu hisseden şimdilik uzak durun."
-          />
+          <MatrixItem label="CALL AL" active={rec === 'CALL'} criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank < %60" color="#22c55e" desc="Güçlü yükseliş beklentisi ve ucuz opsiyon maliyeti." />
+          <MatrixItem label="SPREAD KUR" active={rec === 'SPREAD'} criteria="BOGA ≥ 60, R/R ≥ 2.2, IV Rank ≥ %60" color="#8b5cf6" desc="Oynaklık yüksek, maliyeti düşürmek için dikey yayılım." />
+          <MatrixItem label="HİSSE AL" active={rec === 'STOCK'} criteria="BOGA < 60 veya R/R < 2.2" color="#3b82f6" desc="Kaldıraçsız, daha düşük riskli spot alım." />
+          <MatrixItem label="GEÇ / BEKLE" active={rec === 'SKIP'} criteria="Trend yorulması tespiti" color="#ef4444" desc="Riskler yüksek, yeni sinyal beklenmeli." />
         </div>
       </div>
     </div>
   );
 }
 
-// ── Main Page Component ───────────────────────────────────────────────────────
-
 export default function OptAnalizPage() {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e]">
-        <div className="animate-pulse font-mono tracking-widest text-xl">LOADING BOGA AI...</div>
-      </div>
-    }>
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse">LOADING BOGA AI...</div>}>
       <OptAnalizContent />
     </Suspense>
   );
@@ -358,7 +342,6 @@ export default function OptAnalizPage() {
 function OptAnalizContent() {
   const searchParams = useSearchParams();
   const symbolParam = searchParams.get("symbol")?.toUpperCase();
-
   const [viewMode, setViewMode] = useState<"card" | "list">("card");
   const [dataRange, setDataRange] = useState<"latest" | "15days">("latest");
   const [picks, setPicks] = useState<any[]>([]);
@@ -396,12 +379,8 @@ function OptAnalizContent() {
           setPicks(rawPicks);
           setGeneratedAt(data.generated_at || null);
           setLiveOptions(optsData);
-          if (rawPicks.length > 0 && !symbolParam) {
-            setSelectedTicker(rawPicks[0].ticker);
-          }
-          if (symbolParam && rawPicks.some((p: any) => p.ticker === symbolParam)) {
-            setSelectedTicker(symbolParam);
-          }
+          if (rawPicks.length > 0 && !symbolParam) setSelectedTicker(rawPicks[0].ticker);
+          if (symbolParam && rawPicks.some((p: any) => p.ticker === symbolParam)) setSelectedTicker(symbolParam);
         } else {
           const res = await fetch(`/swing_performance.json?v=${t}`);
           if (!res.ok) throw new Error("Arşiv verisi yüklenemedi");
@@ -442,23 +421,14 @@ function OptAnalizContent() {
   const selectedPick = picks.find((p: any) => p.ticker === selectedTicker);
   const selectedIvRank = selectedPick ? (ivMap[selectedPick.ticker] ?? ivMap["__all__"] ?? null) : null;
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e]">
-        <div className="animate-pulse font-mono tracking-widest text-xl">BOGA AI ANALYZING...</div>
-      </div>
-    );
-  }
+  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse">BOGA AI ANALYZING...</div>;
 
   return (
     <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-mono">
       <Header />
       <div className="p-4 md:p-8">
         <div className="max-w-6xl mx-auto mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" />
-            <span className="text-[10px] text-[#22c55e] font-bold tracking-[0.2em] uppercase">Opsiyon Danışmanı v116</span>
-          </div>
+          <div className="flex items-center gap-3 mb-2"><div className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" /><span className="text-[10px] text-[#22c55e] font-bold tracking-[0.2em] uppercase">Opsiyon Danışmanı v116</span></div>
           <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
           <div className="flex items-center justify-between flex-wrap gap-4 mt-1">
             <div className="flex items-center gap-4">
@@ -470,7 +440,6 @@ function OptAnalizContent() {
                 <button onClick={() => setDataRange("latest")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}>Güncel</button>
                 <button onClick={() => setDataRange("15days")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}>Son 15 G</button>
               </div>
-              <Link href="/optanaliz-performance" className="text-[10px] font-black text-[#22c55e] border border-[#22c55e]/30 px-3 py-1 rounded-full hover:bg-[#22c55e]/10 transition-all uppercase tracking-widest">Performans →</Link>
             </div>
           </div>
         </div>
@@ -491,34 +460,32 @@ function OptAnalizContent() {
                 })}
               </div>
             </div>
-            <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] p-4">
-               <label className="text-[10px] font-bold text-[#64748b] tracking-wider uppercase block mb-3">IV Rank Girişi</label>
-               <input value={ivRankText} onChange={e => setIvRankText(e.target.value)} placeholder="Örn: NVDA:45,AAPL:30" className="w-full bg-[#080b12] border border-[#1e293b] rounded-lg p-2 text-xs text-white outline-none focus:border-[#22c55e] transition-all" />
-            </div>
           </div>
 
           <div>
             {viewMode === "card" ? (
-              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">Analiz için listeden bir hisse seçin</div>}</>
+              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">Hisse Seçin</div>}</>
             ) : (
               <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden">
                  <div className="overflow-x-auto">
                    <table className="w-full text-left text-[11px] border-collapse">
                      <thead>
                        <tr className="bg-[#1e293b]/50 text-[#64748b] font-black uppercase tracking-widest">
-                         <th className="px-4 py-3">Ticker</th><th className="px-4 py-3">Fiyat</th><th className="px-4 py-3">Skor</th><th className="px-4 py-3">Sistem</th><th className="px-4 py-3">IV</th><th className="px-4 py-3">İşlem</th>
+                         <th className="px-4 py-3">Ticker</th><th className="px-4 py-3">Fiyat</th><th className="px-4 py-3">Skor</th><th className="px-4 py-3">Sistem</th><th className="px-4 py-3">IV</th><th className="px-4 py-3">Yorum</th><th className="px-4 py-3">İşlem</th>
                        </tr>
                      </thead>
                      <tbody className="divide-y divide-[#1e293b]/50">
                        {picks.map((p: any) => {
                          const iv = ivMap[p.ticker] ?? ivMap["__all__"] ?? null;
+                         const comment = generateComment(p, iv);
                          return (
                            <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
                              <td className="px-4 py-4 font-bold text-white text-[13px]">{p.ticker}</td>
                              <td className="px-4 py-4 text-[#f1f5f9] font-mono">${fmt(p.current_price || p.price)}</td>
                              <td className="px-4 py-4"><span className={`font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span></td>
-                             <td className="px-4 py-4"><span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 text-slate-400">{p.selected_system || "MOMENTUM"}</span></td>
+                             <td className="px-4 py-4"><span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 text-slate-400">{(SYSTEM_TR as any)[p.selected_system] || p.selected_system || "MOMENTUM"}</span></td>
                              <td className="px-4 py-4">{iv !== null ? <span className={`font-bold ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-600">—</span>}</td>
+                             <td className="px-4 py-4"><span className="text-slate-300">{comment}</span></td>
                              <td className="px-4 py-4"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-[9px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-1 rounded hover:bg-[#3b82f6]/10 uppercase transition-all">Detay →</button></td>
                            </tr>
                          );
