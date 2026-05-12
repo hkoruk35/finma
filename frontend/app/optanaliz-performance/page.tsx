@@ -66,6 +66,27 @@ export default function OptionsPerformancePage() {
   const summary: Summary = data?.summary || {};
   const positions: Position[] = data?.positions || [];
 
+  const breakdown = React.useMemo(() => {
+    const stats: any = { strategy: {}, setup: {} };
+    positions.forEach(pos => {
+      if (pos.status === 'open') return;
+      
+      // Strategy Stats
+      if (!stats.strategy[pos.strategy]) stats.strategy[pos.strategy] = { count: 0, wins: 0, sumPnl: 0 };
+      stats.strategy[pos.strategy].count++;
+      if (pos.status === 'tp_hit' || (pos.pnl_pct || 0) > 0) stats.strategy[pos.strategy].wins++;
+      stats.strategy[pos.strategy].sumPnl += (pos.pnl_pct || 0);
+
+      // Setup/System Stats (if available, fallback to 'Unknown')
+      const setup = (pos as any).setup || (pos as any).system || "Unknown";
+      if (!stats.setup[setup]) stats.setup[setup] = { count: 0, wins: 0, sumPnl: 0 };
+      stats.setup[setup].count++;
+      if (pos.status === 'tp_hit' || (pos.pnl_pct || 0) > 0) stats.setup[setup].wins++;
+      stats.setup[setup].sumPnl += (pos.pnl_pct || 0);
+    });
+    return stats;
+  }, [positions]);
+
   const filteredPositions = positions.filter(pos => {
     if (filterStatus !== "all" && pos.status !== filterStatus) return false;
     if (filterStrategy !== "all" && pos.strategy !== filterStrategy) return false;
@@ -112,6 +133,73 @@ export default function OptionsPerformancePage() {
               <StatCard label="Avg Return" value={`${summary.avg_pnl_pct || 0}%`} color={summary.avg_pnl_pct! >= 0 ? "#22c55e" : "#ef4444"} />
               <StatCard label="Closed Trades" value={summary.closed} color="#3b82f6" />
               <StatCard label="Open Positions" value={summary.open} color="#f59e0b" />
+            </div>
+
+            {/* Performance Breakdown Section */}
+            <div className="mb-12">
+              <h3 className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+                <div className="w-1.5 h-4 bg-[#3b82f6]" /> Kurulum ve Strateji Başarı Oranları
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 {/* Setup Breakdown */}
+                 <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-6">
+                    <p className="text-[10px] font-black text-slate-500 uppercase mb-4">Kurulum Bazlı (Setup)</p>
+                    <div className="space-y-4">
+                       {Object.entries(breakdown.setup).map(([name, stat]: [string, any]) => {
+                         const wr = ((stat.wins / stat.count) * 100).toFixed(0);
+                         const avg = (stat.sumPnl / stat.count).toFixed(1);
+                         return (
+                           <div key={name} className="flex items-center justify-between group">
+                              <div className="flex flex-col">
+                                <span className="text-sm font-black text-white group-hover:text-[#3b82f6] transition-colors">{name}</span>
+                                <span className="text-[10px] text-slate-500">{stat.count} İşlem</span>
+                              </div>
+                              <div className="flex items-center gap-6">
+                                <div className="text-right">
+                                  <span className="text-[10px] text-slate-500 uppercase block">Avg P&L</span>
+                                  <span className={`text-xs font-bold ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
+                                </div>
+                                <div className="text-right min-w-[60px]">
+                                  <span className="text-[10px] text-slate-500 uppercase block">Win Rate</span>
+                                  <span className="text-sm font-black text-white">%{wr}</span>
+                                </div>
+                              </div>
+                           </div>
+                         )
+                       })}
+                       {Object.keys(breakdown.setup).length === 0 && <p className="text-xs text-slate-600 italic">Henüz yeterli kapalı işlem verisi yok.</p>}
+                    </div>
+                 </div>
+
+                 {/* Strategy Breakdown */}
+                 <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-6">
+                    <p className="text-[10px] font-black text-slate-500 uppercase mb-4">Strateji Bazlı (Strategy)</p>
+                    <div className="space-y-4">
+                       {Object.entries(breakdown.strategy).map(([name, stat]: [string, any]) => {
+                         const wr = ((stat.wins / stat.count) * 100).toFixed(0);
+                         const avg = (stat.sumPnl / stat.count).toFixed(1);
+                         return (
+                           <div key={name} className="flex items-center justify-between group">
+                              <div className="flex flex-col">
+                                <span className="text-sm font-black text-white uppercase group-hover:text-indigo-400 transition-colors">{name}</span>
+                                <span className="text-[10px] text-slate-500">{stat.count} İşlem</span>
+                              </div>
+                              <div className="flex items-center gap-6">
+                                <div className="text-right">
+                                  <span className="text-[10px] text-slate-500 uppercase block">Avg P&L</span>
+                                  <span className={`text-xs font-bold ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
+                                </div>
+                                <div className="text-right min-w-[60px]">
+                                  <span className="text-[10px] text-slate-500 uppercase block">Win Rate</span>
+                                  <span className="text-sm font-black text-white">%{wr}</span>
+                                </div>
+                              </div>
+                           </div>
+                         )
+                       })}
+                    </div>
+                 </div>
+              </div>
             </div>
 
             {/* Filters Section */}
