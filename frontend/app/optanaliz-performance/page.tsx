@@ -84,67 +84,71 @@ export default function OptionsPerformancePage() {
     return true;
   });
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#3b82f6] animate-pulse font-black uppercase tracking-widest text-2xl">BOGA ANALYZING...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#3b82f6] animate-pulse font-bold tracking-tight text-xl">BOGA ANALYZING...</div>;
 
   return (
-    <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-sans pb-20">
+    <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-sans pb-16">
       <Header />
       
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-10 mb-16">
+      <main className="max-w-7xl mx-auto px-6 py-10">
+        {/* Header Section - Refined */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-3 h-3 rounded-full bg-[#3b82f6] shadow-[0_0_15px_#3b82f6]" />
-              <span className="text-xs text-[#3b82f6] font-black tracking-[0.4em] uppercase">BOGA PERFORMANCE CENTER</span>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+              <span className="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">BOGA Performance Center</span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase italic leading-none">
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight uppercase">
               Options <span className="text-[#3b82f6]">Outcomes</span>
             </h1>
-            <p className="text-slate-300 text-lg mt-6 max-w-3xl font-bold uppercase tracking-wide">
-              Sinyal ve Strateji Bazlı Gerçekleşen Kâr/Zarar Analiz Terminali.
+            <p className="text-slate-500 text-sm mt-2 font-medium tracking-wide">
+              Gerçekleşen Kâr/Zarar ve Strateji Analiz Terminali.
             </p>
           </div>
           
           <Link 
             href="/optanaliz"
-            className="px-12 py-6 bg-[#1e293b] hover:bg-[#334155] text-white font-black rounded-2xl border border-white/20 transition-all text-sm uppercase tracking-[0.3em] shadow-2xl hover:scale-105 active:scale-95"
+            className="px-8 py-3.5 bg-[#1e293b] hover:bg-[#334155] text-white font-bold rounded-xl border border-white/10 transition-all text-xs uppercase tracking-widest shadow-lg"
           >
-            ← Analiz Portalı'na Dön
+            ← Analiz Portalı
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        {/* Global Stats - Compact */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           <StatCard label="Win Rate" value={`${summary.win_rate || 0}%`} color="#22c55e" />
-          <StatCard label="Avg Return" value={`${summary.avg_pnl_pct || 0}%`} color={(summary.avg_pnl_pct || 0) >= 0 ? "#22c55e" : "#ef4444"} />
+          <StatCard label="Avg P&L" value={`${summary.avg_pnl_pct || 0}%`} color={(summary.avg_pnl_pct || 0) >= 0 ? "#22c55e" : "#ef4444"} />
           <StatCard label="Closed" value={summary.closed} color="#3b82f6" />
           <StatCard label="Active" value={summary.open} color="#f59e0b" />
         </div>
 
-        <div className="mb-20">
-          <h3 className="text-sm font-black text-white uppercase tracking-[0.4em] mb-8 flex items-center gap-4 bg-[#1e293b]/80 p-6 rounded-2xl border-l-8 border-l-[#3b82f6] shadow-xl">
-             Sistem ve Kurulum Bazlı Başarı Analizi
+        {/* Breakdown Section - Professional Layout */}
+        <div className="mb-12">
+          <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
+             <div className="w-1 h-4 bg-[#3b82f6]" /> Kurulum ve Strateji Başarısı
           </h3>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-             <div className="bg-[#0f172a] rounded-[40px] border border-white/10 p-10 shadow-2xl">
-                <p className="text-xs font-black text-[#3b82f6] uppercase mb-10 tracking-[0.2em] border-b border-white/10 pb-6">Kurulum Performansı (Signals)</p>
-                <div className="space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+             {/* Setup Breakdown */}
+             <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-8 shadow-xl">
+                <p className="text-[10px] font-bold text-[#3b82f6] uppercase mb-8 tracking-widest border-b border-white/5 pb-4">Setup Performansı</p>
+                <div className="space-y-6">
                    {Object.entries(breakdown.setup).map(([name, stat]: [string, any]) => {
                      const wr = ((stat.wins / stat.count) * 100).toFixed(0);
                      const avg = (stat.sumPnl / stat.count).toFixed(1);
                      return (
                        <div key={name} className="flex items-center justify-between group">
                           <div className="flex flex-col">
-                            <span className="text-base font-black text-white group-hover:text-[#3b82f6] transition-colors uppercase italic tracking-tight">{name}</span>
-                            <span className="text-xs text-slate-400 font-bold uppercase mt-2 tracking-widest">{stat.count} İşlem</span>
+                            <span className="text-sm font-bold text-white group-hover:text-[#3b82f6] transition-colors">{name}</span>
+                            <span className="text-[10px] text-slate-500 font-medium uppercase mt-1">{stat.count} İşlem</span>
                           </div>
-                          <div className="flex items-center gap-12">
+                          <div className="flex items-center gap-10">
                             <div className="text-right">
-                              <span className="text-[10px] text-slate-500 uppercase font-black block mb-2">Avg P&L</span>
-                              <span className={`text-sm font-black ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
+                              <span className="text-[9px] text-slate-500 uppercase font-bold block mb-1">Avg</span>
+                              <span className={`text-xs font-bold ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
                             </div>
-                            <div className="text-right min-w-[80px]">
-                              <span className="text-[10px] text-slate-500 uppercase font-black block mb-2">Win Rate</span>
-                              <span className={`text-base font-black ${Number(wr) >= 50 ? 'text-[#22c55e]' : 'text-white'}`}>%{wr}</span>
+                            <div className="text-right min-w-[60px]">
+                              <span className="text-[9px] text-slate-500 uppercase font-bold block mb-1">Rate</span>
+                              <span className={`text-sm font-bold ${Number(wr) >= 50 ? 'text-[#22c55e]' : 'text-white'}`}>%{wr}</span>
                             </div>
                           </div>
                        </div>
@@ -153,26 +157,27 @@ export default function OptionsPerformancePage() {
                 </div>
              </div>
 
-             <div className="bg-[#0f172a] rounded-[40px] border border-white/10 p-10 shadow-2xl">
-                <p className="text-xs font-black text-indigo-400 uppercase mb-10 tracking-[0.2em] border-b border-white/10 pb-6">Strateji Performansı (Strategies)</p>
-                <div className="space-y-8">
+             {/* Strategy Breakdown */}
+             <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-8 shadow-xl">
+                <p className="text-[10px] font-bold text-indigo-400 uppercase mb-8 tracking-widest border-b border-white/5 pb-4">Strateji Performansı</p>
+                <div className="space-y-6">
                    {Object.entries(breakdown.strategy).map(([name, stat]: [string, any]) => {
                      const wr = ((stat.wins / stat.count) * 100).toFixed(0);
                      const avg = (stat.sumPnl / stat.count).toFixed(1);
                      return (
                        <div key={name} className="flex items-center justify-between group">
                           <div className="flex flex-col">
-                            <span className="text-base font-black text-white uppercase group-hover:text-indigo-400 transition-colors italic tracking-tight">{name}</span>
-                            <span className="text-xs text-slate-400 font-bold uppercase mt-2 tracking-widest">{stat.count} İşlem</span>
+                            <span className="text-sm font-bold text-white uppercase group-hover:text-indigo-400 transition-colors">{name}</span>
+                            <span className="text-[10px] text-slate-500 font-medium uppercase mt-1">{stat.count} İşlem</span>
                           </div>
-                          <div className="flex items-center gap-12">
+                          <div className="flex items-center gap-10">
                             <div className="text-right">
-                              <span className="text-[10px] text-slate-500 uppercase font-black block mb-2">Avg P&L</span>
-                              <span className={`text-sm font-black ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
+                              <span className="text-[9px] text-slate-500 uppercase font-bold block mb-1">Avg</span>
+                              <span className={`text-xs font-bold ${Number(avg) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>%{avg}</span>
                             </div>
-                            <div className="text-right min-w-[80px]">
-                              <span className="text-[10px] text-slate-500 uppercase font-black block mb-2">Win Rate</span>
-                              <span className={`text-base font-black ${Number(wr) >= 50 ? 'text-[#22c55e]' : 'text-white'}`}>%{wr}</span>
+                            <div className="text-right min-w-[60px]">
+                              <span className="text-[9px] text-slate-500 uppercase font-bold block mb-1">Rate</span>
+                              <span className={`text-sm font-bold ${Number(wr) >= 50 ? 'text-[#22c55e]' : 'text-white'}`}>%{wr}</span>
                             </div>
                           </div>
                        </div>
@@ -183,76 +188,78 @@ export default function OptionsPerformancePage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 mb-10 bg-[#0f172a] p-6 rounded-3xl border border-white/10 shadow-2xl">
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Durum:</span>
-            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="bg-[#1e293b] border border-white/20 rounded-xl px-5 py-3 text-xs font-black text-white outline-none focus:border-[#3b82f6] transition-all cursor-pointer">
-              <option value="all">TÜMÜ</option>
-              <option value="tp_hit">KÂR AL (TP)</option>
-              <option value="sl_hit">STOP LOSS (SL)</option>
-              <option value="open">AÇIK POZİSYONLAR</option>
+        {/* Filters and List */}
+        <div className="flex flex-wrap items-center gap-6 mb-8 bg-[#0f172a] p-5 rounded-2xl border border-white/5 shadow-md">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Durum:</span>
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
+              <option value="all">Tümü</option>
+              <option value="tp_hit">Kâr Al (TP)</option>
+              <option value="sl_hit">Stop Loss (SL)</option>
+              <option value="open">Açık</option>
             </select>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-black text-slate-400 uppercase tracking-widest">Strateji:</span>
-            <select value={filterStrategy} onChange={(e) => setFilterStrategy(e.target.value)} className="bg-[#1e293b] border border-white/20 rounded-xl px-5 py-3 text-xs font-black text-white outline-none focus:border-[#3b82f6] transition-all cursor-pointer">
-              <option value="all">TÜMÜ</option>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Strateji:</span>
+            <select value={filterStrategy} onChange={(e) => setFilterStrategy(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
+              <option value="all">Tümü</option>
               <option value="institutional">INSTITUTIONAL</option>
               <option value="asymmetric">ASYMMETRIC</option>
             </select>
           </div>
+          <div className="ml-auto text-[10px] font-medium text-slate-500 italic">{filteredPositions.length} İşlem</div>
         </div>
 
-        <div className="glass-card rounded-[50px] border border-white/10 overflow-hidden shadow-[0_50px_120px_rgba(0,0,0,0.6)]">
+        <div className="bg-[#0f172a] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-white/[0.04] text-xs font-black uppercase tracking-[0.25em] text-slate-300 border-b border-white/10">
-                  <th className="px-10 py-8">Sembol / Tarih</th>
-                  <th className="px-10 py-8 text-center">Strateji</th>
-                  <th className="px-10 py-8 text-center">Sistem</th>
-                  <th className="px-10 py-8">Kontrat</th>
-                  <th className="px-10 py-8 text-right">P&L (%)</th>
-                  <th className="px-10 py-8 text-center">Durum</th>
-                  <th className="px-10 py-8 text-right">İşlem</th>
+                <tr className="bg-white/[0.02] text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-white/5">
+                  <th className="px-8 py-5">Sembol / Tarih</th>
+                  <th className="px-8 py-5 text-center">Strateji</th>
+                  <th className="px-8 py-5 text-center">Sistem</th>
+                  <th className="px-8 py-5">Kontrat</th>
+                  <th className="px-8 py-5 text-right">P&L (%)</th>
+                  <th className="px-8 py-5 text-center">Durum</th>
+                  <th className="px-8 py-5 text-right">Aksiyon</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
                 {filteredPositions.map((pos) => {
                   const systemName = MODE_MAP[pos.entry_mode || ""] || pos.entry_mode || "MOMENTUM";
                   return (
-                    <tr key={pos.id} className="hover:bg-white/[0.02] transition-colors group">
-                      <td className="px-10 py-8">
+                    <tr key={pos.id} className="hover:bg-white/[0.01] transition-colors group">
+                      <td className="px-8 py-6">
                         <div className="flex flex-col">
-                          <span className="text-2xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">{pos.ticker}</span>
-                          <span className="text-xs text-slate-400 font-bold uppercase mt-2 tracking-widest">{pos.scan_date}</span>
+                          <span className="text-xl font-bold text-white group-hover:text-[#3b82f6] transition-colors">{pos.ticker}</span>
+                          <span className="text-[10px] text-slate-500 font-bold mt-1 uppercase tracking-tight">{pos.scan_date}</span>
                         </div>
                       </td>
-                      <td className="px-10 py-8 text-center">
-                        <span className={`text-[10px] font-black px-4 py-2 rounded-xl border uppercase tracking-[0.15em] shadow-sm ${pos.strategy === 'institutional' ? 'text-indigo-400 border-indigo-400/30 bg-indigo-400/10' : 'text-cyan-400 border-cyan-400/30 bg-cyan-400/10'}`}>{pos.strategy}</span>
+                      <td className="px-8 py-6 text-center">
+                        <span className={`text-[9px] font-bold px-3 py-1.5 rounded-lg border uppercase tracking-wider ${pos.strategy === 'institutional' ? 'text-indigo-400 border-indigo-400/20 bg-indigo-400/5' : 'text-cyan-400 border-cyan-400/20 bg-cyan-400/5'}`}>{pos.strategy}</span>
                       </td>
-                      <td className="px-10 py-8 text-center">
-                        <span className="text-[10px] font-black text-white bg-white/5 border border-white/10 px-4 py-2 rounded-xl uppercase tracking-tighter shadow-sm">{systemName}</span>
+                      <td className="px-8 py-6 text-center">
+                        <span className="text-[9px] font-bold text-slate-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg uppercase tracking-tight">{systemName}</span>
                       </td>
-                      <td className="px-10 py-8">
+                      <td className="px-8 py-6">
                         <div className="flex flex-col">
-                          <span className="text-sm font-black text-slate-200 italic tracking-tight">${pos.strike} Call</span>
-                          <span className="text-[10px] text-slate-400 font-bold uppercase mt-2 tracking-widest">{pos.expiration}</span>
+                          <span className="text-sm font-bold text-slate-300 italic">${pos.strike} Call</span>
+                          <span className="text-[10px] text-slate-500 font-medium mt-1">{pos.expiration}</span>
                         </div>
                       </td>
-                      <td className="px-10 py-8 text-right">
-                        <span className={`text-2xl font-black ${(pos.pnl_pct || pos.unrealized_pnl_pct || 0) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'} tracking-tighter`}>
+                      <td className="px-8 py-6 text-right">
+                        <span className={`text-xl font-bold ${(pos.pnl_pct || pos.unrealized_pnl_pct || 0) >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'}`}>
                           {pos.pnl_pct != null ? `%${pos.pnl_pct.toFixed(1)}` : (pos.unrealized_pnl_pct != null ? `%${pos.unrealized_pnl_pct.toFixed(1)} (U)` : '—')}
                         </span>
                       </td>
-                      <td className="px-10 py-8 text-center">
-                        <div className="flex flex-col gap-2">
-                          <span className={`text-[11px] font-black uppercase tracking-[0.2em] ${pos.status === 'open' ? 'text-amber-400' : (pos.status === 'tp_hit' ? 'text-[#22c55e]' : 'text-slate-400')}`}>{pos.status.replace('_', ' ')}</span>
-                          {pos.exit_reason && <span className="text-[10px] text-slate-500 max-w-[180px] mx-auto truncate italic font-bold uppercase tracking-tighter">{pos.exit_reason}</span>}
+                      <td className="px-8 py-6 text-center">
+                        <div className="flex flex-col gap-1.5">
+                          <span className={`text-[10px] font-bold uppercase tracking-wider ${pos.status === 'open' ? 'text-amber-500' : (pos.status === 'tp_hit' ? 'text-[#22c55e]' : 'text-slate-500')}`}>{pos.status.replace('_', ' ')}</span>
+                          {pos.exit_reason && <span className="text-[9px] text-slate-600 max-w-[150px] mx-auto truncate italic">{pos.exit_reason}</span>}
                         </div>
                       </td>
-                      <td className="px-10 py-8 text-right">
-                        <Link href={`/optanaliz?symbol=${pos.ticker}`} className="inline-block text-[11px] font-black text-[#3b82f6] border-2 border-[#3b82f6]/40 px-6 py-3 rounded-2xl hover:bg-[#3b82f6] hover:text-white uppercase transition-all shadow-lg active:scale-95">Analiz Et →</Link>
+                      <td className="px-8 py-6 text-right">
+                        <Link href={`/optanaliz?symbol=${pos.ticker}`} className="inline-block text-[10px] font-bold text-[#3b82f6] border border-[#3b82f6]/20 px-4 py-2 rounded-xl hover:bg-[#3b82f6]/10 uppercase transition-all shadow-sm">Detay →</Link>
                       </td>
                     </tr>
                   )
@@ -268,11 +275,11 @@ export default function OptionsPerformancePage() {
 
 function StatCard({ label, value, color }: { label: string, value: string | number, color: string }) {
   return (
-    <div className="glass-card p-10 rounded-[40px] border border-white/10 shadow-2xl relative overflow-hidden group hover:scale-[1.02] transition-all">
-      <div className="absolute top-0 left-0 w-3 h-full" style={{ backgroundColor: color }} />
-      <p className="text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-4">{label}</p>
-      <p className="text-6xl font-black tracking-tighter" style={{ color: color }}>{value}</p>
-      <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full blur-[80px] opacity-40" style={{ backgroundColor: color }} />
+    <div className="bg-[#0f172a] p-8 rounded-3xl border border-white/5 shadow-xl relative overflow-hidden group hover:border-white/10 transition-all">
+      <div className="absolute top-0 left-0 w-1.5 h-full" style={{ backgroundColor: color }} />
+      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">{label}</p>
+      <p className="text-4xl font-bold tracking-tight" style={{ color: color }}>{value}</p>
+      <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full blur-[50px] opacity-20" style={{ backgroundColor: color }} />
     </div>
   );
 }
