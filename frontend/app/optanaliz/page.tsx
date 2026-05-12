@@ -131,23 +131,23 @@ function Tooltip({ text, children }: { text: string, children: React.ReactNode }
 
 function MatrixItem({ label, action, criteria, color, active, desc }: { label: string, action: string, criteria: string, color: string, active: boolean, desc: string }) {
   return (
-    <div className={`p-6 rounded-[32px] border transition-all duration-500 relative overflow-hidden flex flex-col h-full ${
+    <div className={`p-6 rounded-2xl border transition-all duration-500 relative overflow-hidden flex flex-col h-full ${
       active 
-        ? "bg-[#1e293b]/60 border-[#3b82f6] shadow-[0_0_50px_rgba(59,130,246,0.15)] ring-2 ring-[#3b82f6]/30" 
-        : "bg-black/10 border-white/5 opacity-40 grayscale-[0.2]"
+        ? "bg-[#1e293b]/60 border-[#3b82f6] shadow-xl" 
+        : "bg-black/10 border-white/5 opacity-50"
     }`}>
       {active && (
-        <div className="absolute top-5 right-6 flex items-center gap-2 px-3 py-1 bg-[#3b82f6] rounded-full animate-pulse">
-          <span className="text-[10px] font-black text-white uppercase tracking-widest">AKTİF TAVSİYE</span>
+        <div className="absolute top-4 right-4 flex items-center gap-2 px-2 py-0.5 bg-[#3b82f6] rounded-full">
+          <span className="text-[9px] font-bold text-white uppercase tracking-widest">AKTİF</span>
         </div>
       )}
-      <div className="mb-6">
-        <div className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1">{label}</div>
-        <div className="text-2xl font-black italic tracking-tighter" style={{ color: color }}>{action}</div>
+      <div className="mb-4">
+        <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">{label}</div>
+        <div className="text-xl font-bold tracking-tight uppercase" style={{ color: color }}>{action}</div>
       </div>
-      <div className="space-y-4">
-        <div className="text-[11px] font-mono text-slate-400 bg-white/5 p-3 rounded-xl border border-white/5">{criteria}</div>
-        <p className="text-xs text-slate-300 font-medium leading-relaxed">{desc}</p>
+      <div className="space-y-3">
+        <div className="text-[10px] font-mono text-slate-400 bg-white/5 p-2 rounded-lg border border-white/5">{criteria}</div>
+        <p className="text-[11px] text-slate-300 font-medium leading-relaxed">{desc}</p>
       </div>
     </div>
   );
@@ -172,98 +172,98 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
   const rvolStat = getIndicatorStatus("RVOL", ts.rvol_today || 1.0);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* 1. Action Header */}
-      <div className="bg-[#1e293b]/80 border border-white/10 rounded-[40px] p-8 shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#22c55e] opacity-50 group-hover:opacity-100 transition-opacity" />
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+      <div className="bg-[#1e293b]/60 border border-white/5 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#3b82f6] to-[#22c55e] opacity-50" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse" />
-              <span className="text-xs font-black text-[#3b82f6] uppercase tracking-[0.3em]">AI STRATEJİ KARARI</span>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
+              <span className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-widest">AI Strateji Kararı</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug tracking-tight">
+            <h2 className="text-xl font-bold text-white leading-tight">
               AI ÖNERİSİ: <span className="text-[#22c55e]">{pick.ticker}</span> hissesini <span className="text-[#3b82f6]">${fmt(price)}</span> civarından izle, hedef <span className="text-[#3b82f6]">${fmt(sellZone.high)}</span>, stop <span className="text-[#ef4444]">${fmt(stopZone.high)}</span>.
             </h2>
           </div>
           <div className="flex flex-col items-end shrink-0">
-            <span className="text-xs font-bold text-slate-500 uppercase mb-2 tracking-widest">GÜVEN SKORU</span>
-            <div className="flex items-center gap-4">
-               <span className="text-5xl font-black text-white tracking-tighter italic">{fmt(bogaScore, 0)}%</span>
-               <div className="w-24 h-2.5 bg-white/5 rounded-full overflow-hidden border border-white/10">
-                  <div className="h-full bg-[#22c55e] shadow-[0_0_10px_#22c55e]" style={{ width: `${bogaScore}%` }} />
+            <span className="text-[10px] font-bold text-slate-500 uppercase mb-1 tracking-widest">GÜVEN SKORU</span>
+            <div className="flex items-center gap-3">
+               <span className="text-3xl font-bold text-white tracking-tighter">{fmt(bogaScore, 0)}%</span>
+               <div className="w-16 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#22c55e]" style={{ width: `${bogaScore}%` }} />
                </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 2. Main Analysis Panel (Ticker + Contracts + Technicals) */}
-      <div className="bg-[#0f172a] rounded-[50px] border border-white/5 p-10 shadow-2xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10 mb-12 border-b border-white/5 pb-10">
-          <div className="flex items-center gap-8">
-            <span className="text-7xl md:text-9xl font-black text-white tracking-tighter italic uppercase drop-shadow-2xl">{pick.ticker}</span>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-3">
-                <span className="text-lg font-bold text-[#3b82f6] uppercase tracking-wider">{(SYSTEM_TR as any)[system] || system}</span>
+      {/* 2. Main Analysis Panel */}
+      <div className="bg-[#0f172a] rounded-[40px] border border-white/5 p-8 shadow-2xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-8 border-b border-white/5 pb-8">
+          <div className="flex items-center gap-6">
+            <span className="text-5xl md:text-6xl font-bold text-white tracking-tighter uppercase italic">{pick.ticker}</span>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-[#3b82f6] uppercase">{(SYSTEM_TR as any)[system] || system}</span>
                 <Tooltip text={(SYSTEM_DESC as any)[system] || "BOGA AI teknik analiz sistemi."}>
-                  <span className="cursor-help text-xl text-slate-600 hover:text-white transition-colors">ⓘ</span>
+                  <span className="cursor-help text-base text-slate-600 hover:text-white transition-colors">ⓘ</span>
                 </Tooltip>
               </div>
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-[0.2em]">{pick.sector}</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">{pick.sector}</span>
             </div>
           </div>
           <div className="text-right">
-             <span className="text-xs font-bold text-slate-500 uppercase block mb-2 tracking-widest">BOGA ANALİZ SKORU</span>
-             <span className={`text-6xl font-black ${bogaScore >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(bogaScore, 0)}<span className="text-xl font-medium opacity-30 ml-1">/100</span></span>
+             <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">BOGA ANALİZ SKORU</span>
+             <span className={`text-4xl font-bold ${bogaScore >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(bogaScore, 0)}<span className="text-sm font-medium opacity-30 ml-1">/100</span></span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {contracts.map((c, i) => (
-            <div key={i} className={`relative bg-white/[0.02] rounded-[40px] p-8 border transition-all hover:scale-[1.01] ${c.isRecommended ? 'border-[#22c55e]/30 shadow-2xl' : 'border-white/5 opacity-80'}`}>
+            <div key={i} className={`relative bg-white/[0.01] rounded-3xl p-6 border transition-all ${c.isRecommended ? 'border-[#22c55e]/20' : 'border-white/5 opacity-80'}`}>
               {c.isRecommended && (
-                <div className="absolute -top-4 left-10 px-5 py-1.5 bg-[#22c55e] text-black text-xs font-black rounded-full uppercase tracking-widest shadow-xl">Tavsiye Edilen</div>
+                <div className="absolute -top-3 left-6 px-3 py-1 bg-[#22c55e] text-black text-[9px] font-bold rounded-full uppercase tracking-widest">Tavsiye</div>
               )}
-              <div className="flex justify-between items-start mb-8">
+              <div className="flex justify-between items-start mb-6">
                 <div>
-                  <span className="text-xs font-bold text-slate-500 uppercase block mb-2 tracking-widest">{c.type}</span>
-                  <span className="text-3xl font-black text-white italic">{c.label} ({c.dte} GÜN)</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">{c.type}</span>
+                  <span className="text-xl font-bold text-white uppercase italic">{c.label} ({c.dte} G)</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-xs font-bold text-slate-500 uppercase block mb-2 tracking-widest">HEDEF %</span>
-                  <span className="text-3xl font-black text-[#22c55e] tracking-tighter">+%40</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">HEDEF %</span>
+                  <span className="text-xl font-bold text-[#22c55e]">+%40</span>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 bg-black/40 p-6 rounded-3xl border border-white/5 mb-6 shadow-inner">
+              <div className="grid grid-cols-2 gap-4 bg-black/30 p-4 rounded-xl border border-white/5 mb-4">
                 <div>
-                  <span className="text-[10px] text-slate-500 font-bold uppercase block mb-1">Giriş Fiyatı (Spot)</span>
-                  <span className="text-base font-bold text-white">{c.strike}</span>
+                  <span className="text-[9px] text-slate-500 font-bold uppercase block mb-1">Giriş (Spot)</span>
+                  <span className="text-sm font-bold text-white">{c.strike}</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-500 font-bold uppercase block mb-1">Opsiyon Vadesi</span>
-                  <span className="text-base font-bold text-white">{c.expiry}</span>
+                  <span className="text-[9px] text-slate-500 font-bold uppercase block mb-1">Vade Tarihi</span>
+                  <span className="text-sm font-bold text-white">{c.expiry}</span>
                 </div>
               </div>
-              <p className="text-sm text-slate-400 leading-relaxed italic font-medium">"{c.reason}"</p>
+              <p className="text-xs text-slate-500 leading-relaxed italic">"{c.reason}"</p>
             </div>
           ))}
         </div>
 
-        <div className="bg-white/[0.01] rounded-[32px] p-8 border border-white/5">
-          <h4 className="text-xs font-bold text-slate-500 uppercase tracking-[0.3em] mb-8 border-b border-white/5 pb-4">Teknik Onay Göstergeleri</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+        <div className="bg-white/[0.01] rounded-2xl p-6 border border-white/5">
+          <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6">Teknik Göstergeler</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { label: "RSI (14)", val: ts.rsi_14 || 37, stat: rsiStat },
-              { label: "ADX (Trend)", val: ts.adx || 17, stat: adxStat },
-              { label: "RVOL (Hacim)", val: ts.rvol_today || 1.2, stat: rvolStat },
-              { label: "CMF (Money Flow)", val: ts.cmf || -0.05, stat: { label: "Nötr", color: "#94a3b8", desc: "Para girişi ve çıkışı şu an dengeli seviyede." } }
+              { label: "ADX", val: ts.adx || 17, stat: adxStat },
+              { label: "RVOL", val: ts.rvol_today || 1.2, stat: rvolStat },
+              { label: "CMF", val: ts.cmf || -0.05, stat: { label: "Nötr", color: "#94a3b8", desc: "Para akışı dengeli." } }
             ].map((item, idx) => (
               <Tooltip key={idx} text={item.stat.desc}>
                 <div className="flex flex-col cursor-help group/item">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase mb-2 tracking-widest">{item.label}</span>
-                  <span className="text-3xl font-black text-white mb-3 tracking-tighter group-hover/item:text-[#3b82f6] transition-colors">{fmt(item.val, 1)}</span>
-                  <span className="text-[10px] font-black uppercase px-3 py-1.5 rounded-xl inline-block text-center shadow-sm" style={{ background: item.stat.color + "15", color: item.stat.color, border: `1px solid ${item.stat.color}30` }}>{item.stat.label}</span>
+                  <span className="text-[10px] font-bold text-slate-500 uppercase mb-1 tracking-tight">{item.label}</span>
+                  <span className="text-xl font-bold text-white mb-2 group-hover/item:text-[#3b82f6] transition-colors">{fmt(item.val, 1)}</span>
+                  <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded-lg inline-block text-center" style={{ background: item.stat.color + "10", color: item.stat.color, border: `1px solid ${item.stat.color}20` }}>{item.stat.label}</span>
                 </div>
               </Tooltip>
             ))}
@@ -271,69 +271,36 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
         </div>
       </div>
 
-      {/* 3. Horizontal Stats Band (R/R + Success + AI Note) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-[#0f172a] rounded-[32px] border border-white/5 p-8 shadow-xl hover:border-[#3b82f6]/30 transition-all">
-          <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4">Risk / Ödül Rasyosu</h4>
-          <div className="text-5xl font-black text-[#3b82f6] mb-3 tracking-tighter">{fmt(rrRatio, 2)}<span className="text-lg opacity-40 ml-1">x</span></div>
-          <p className="text-xs text-slate-400 font-medium leading-relaxed italic">İdeal bir işlem için 2.2x ve üzeri rasyonel kabul edilir.</p>
+      {/* 3. Horizontal Stats Band */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-[#0f172a] rounded-2xl border border-white/5 p-6 shadow-lg">
+          <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Risk / Ödül</h4>
+          <div className="text-3xl font-bold text-[#3b82f6] tracking-tighter">{fmt(rrRatio, 2)}<span className="text-sm opacity-40 ml-1">x</span></div>
         </div>
 
-        <div className="bg-[#0f172a] rounded-[32px] border border-white/5 p-8 border-l-4 border-l-[#22c55e] shadow-xl hover:border-[#22c55e]/30 transition-all">
-           <h4 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4">Sinyal İstatistik Başarısı</h4>
-           <div className="text-4xl font-black text-white mb-3">68% <span className="text-xs text-[#22c55e] font-bold uppercase ml-2 tracking-widest">Accuracy</span></div>
-           <p className="text-xs text-slate-400 font-medium leading-tight">Bu kurulumun geçmiş 6 aydaki hedefe ulaşma oranıdır.</p>
+        <div className="bg-[#0f172a] rounded-2xl border border-white/5 p-6 border-l-2 border-l-[#22c55e] shadow-lg">
+           <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Başarı Oranı</h4>
+           <div className="text-3xl font-bold text-white">68% <span className="text-[10px] text-[#22c55e] font-bold uppercase ml-1">Win</span></div>
         </div>
 
-        <div className="bg-[#0f172a] rounded-[32px] border border-[#3b82f6]/20 p-8 shadow-xl relative overflow-hidden group">
-           <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-[#3b82f6]/5 rounded-full blur-3xl group-hover:bg-[#3b82f6]/10 transition-all" />
-           <h4 className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-widest mb-4 flex items-center gap-2">
-             <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" /> AI Karar Özeti
-           </h4>
-           <p className="text-sm text-slate-300 font-bold leading-relaxed italic relative z-10">
+        <div className="bg-[#0f172a] rounded-2xl border border-white/5 p-6 shadow-lg">
+           <h4 className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-widest mb-2">AI Özet Notu</h4>
+           <p className="text-xs text-slate-400 font-medium leading-relaxed italic">
              "{generateComment(pick, ivRank)}"
            </p>
         </div>
       </div>
 
       {/* 4. Decision Matrix */}
-      <div className="bg-[#0f172a] rounded-[40px] border border-white/5 p-10 shadow-2xl">
-        <h3 className="text-sm font-black text-white uppercase tracking-[0.4em] mb-12 flex items-center gap-5">
-          <div className="w-1.5 h-6 bg-[#3b82f6]" /> Karar Verme Matrisi (AI Standartları)
+      <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-8 shadow-xl">
+        <h3 className="text-xs font-bold text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+          <div className="w-1 h-4 bg-[#3b82f6]" /> Karar Matrisi (AI Standartları)
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <MatrixItem 
-            label="EN GÜÇLÜ KURULUM" 
-            action="CALL AL"
-            active={rec === 'CALL'} 
-            criteria="BOGA SKOR > %65 + IV < %60" 
-            color="#22c55e" 
-            desc="Kaldıraçlı getiri potansiyeli en yüksek bölge. Ucuz opsiyon ve güçlü momentum bir arada." 
-          />
-          <MatrixItem 
-            label="KORUMALI STRATEJİ" 
-            action="SPREAD KUR"
-            active={rec === 'SPREAD'} 
-            criteria="BOGA SKOR > %65 + IV ≥ %60" 
-            color="#8b5cf6" 
-            desc="Oynaklık yüksek olduğu için dikey yayılım stratejisi ile maliyeti düşürüp riskleri minimize edin." 
-          />
-          <MatrixItem 
-            label="GÜVENLİ LİMAN" 
-            action="SPOT AL"
-            active={rec === 'STOCK'} 
-            criteria="BOGA SKOR %50 - %65" 
-            color="#3b82f6" 
-            desc="Opsiyon riskleri yerine, kaldıraçsız spot hisse alımı ile orta vadeli trend takibi daha rasyonel." 
-          />
-          <MatrixItem 
-            label="RİSKLİ BÖLGE" 
-            action="PAS GEÇ"
-            active={rec === 'SKIP'} 
-            criteria="TREND YORULMASI VEYA DÜŞÜK SKOR" 
-            color="#ef4444" 
-            desc="İstatistiksel olarak zarar ihtimali yüksek. Yeni bir sinyal veya düzeltme tamamlanana kadar beklemede kalın." 
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <MatrixItem label="EN GÜÇLÜ" action="CALL AL" active={rec === 'CALL'} criteria="BOGA > %65 + IV < %60" color="#22c55e" desc="Yüksek getiri potansiyeli ve ucuz opsiyon." />
+          <MatrixItem label="KORUMALI" action="SPREAD KUR" active={rec === 'SPREAD'} criteria="BOGA > %65 + IV ≥ %60" color="#8b5cf6" desc="Yüksek oynaklık için dikey yayılım stratejisi." />
+          <MatrixItem label="GÜVENLİ" action="SPOT AL" active={rec === 'STOCK'} criteria="BOGA %50 - %65" color="#3b82f6" desc="Orta vadeli, kaldıraçsız spot hisse alımı." />
+          <MatrixItem label="RİSKLİ" action="PAS GEÇ" active={rec === 'SKIP'} criteria="YORGUN TREND / DÜŞÜK SKOR" color="#ef4444" desc="İstatistiksel olarak beklemede kalma bölgesi." />
         </div>
       </div>
     </div>
@@ -435,79 +402,79 @@ function OptAnalizContent() {
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#3b82f6] animate-pulse font-bold tracking-tight text-xl uppercase">BOGA AI ANALYZING...</div>;
 
   return (
-    <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-sans pb-20">
+    <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-sans pb-16">
       <Header />
       
-      <div className="p-6 md:p-12 relative">
-        <div className="max-w-7xl mx-auto mb-12">
-          <div className="flex items-center gap-3 mb-4"><div className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_10px_#22c55e]" /><span className="text-xs text-slate-400 font-bold tracking-[0.3em] uppercase">BOGA AI Terminal v116</span></div>
+      <div className="max-w-7xl mx-auto p-6 md:p-10 relative">
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-3"><div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" /><span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase">BOGA AI Terminal v116</span></div>
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase italic">Opsiyon <span className="text-[#3b82f6]">Analiz Portalı</span></h1>
-              <p className="text-slate-500 text-base mt-4 font-bold tracking-wide uppercase">Yüksek Güvenli Teknik Sinyal ve Strateji Motoru</p>
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase italic">Opsiyon <span className="text-[#3b82f6]">Analiz Portalı</span></h1>
+              <p className="text-slate-500 text-xs mt-2 font-bold tracking-widest uppercase">Teknik Sinyal ve Strateji Motoru</p>
             </div>
             
             <Link 
               href="/optanaliz-performance" 
-              className="flex items-center gap-5 px-10 py-5 bg-[#1e293b] hover:bg-[#2d3a4f] text-white font-black rounded-2xl transition-all border border-white/10 shadow-2xl text-sm uppercase tracking-widest hover:scale-105 active:scale-95"
+              className="flex items-center gap-4 px-8 py-3 bg-[#1e293b] hover:bg-[#2d3a4f] text-white font-bold rounded-xl border border-white/5 shadow-lg text-[11px] uppercase tracking-widest transition-all"
             >
-               Gerçekleşen Performans Raporu →
+               Performans Raporu →
             </Link>
           </div>
 
-          <div className="flex items-center justify-between flex-wrap gap-6 mt-12 bg-[#0f172a] p-5 rounded-[28px] border border-white/5 shadow-2xl">
-            <div className="flex items-center gap-6">
-              <div className="flex bg-[#1e293b] rounded-2xl p-1.5 border border-white/5">
-                <button onClick={() => setViewMode("card")} className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${viewMode === "card" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Kart Görünümü</button>
-                <button onClick={() => setViewMode("list")} className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${viewMode === "list" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Liste Görünümü</button>
+          <div className="flex items-center justify-between flex-wrap gap-4 mt-8 bg-[#0f172a] p-4 rounded-2xl border border-white/5 shadow-xl">
+            <div className="flex items-center gap-4">
+              <div className="flex bg-[#1e293b] rounded-xl p-1 border border-white/5">
+                <button onClick={() => setViewMode("card")} className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all ${viewMode === "card" ? "bg-[#3b82f6] text-white" : "text-slate-500 hover:text-white"}`}>Kart</button>
+                <button onClick={() => setViewMode("list")} className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all ${viewMode === "list" ? "bg-[#3b82f6] text-white" : "text-slate-500 hover:text-white"}`}>Liste</button>
               </div>
-              <div className="flex bg-[#1e293b] rounded-2xl p-1.5 border border-white/5">
-                <button onClick={() => setDataRange("latest")} className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Güncel</button>
-                <button onClick={() => setDataRange("15days")} className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Son 15 G</button>
+              <div className="flex bg-[#1e293b] rounded-xl p-1 border border-white/5">
+                <button onClick={() => setDataRange("latest")} className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white" : "text-slate-500 hover:text-white"}`}>Güncel</button>
+                <button onClick={() => setDataRange("15days")} className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white" : "text-slate-500 hover:text-white"}`}>Son 15 G</button>
               </div>
             </div>
-            <div className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em] italic">
-               {generatedAt && <span>Veri Güncelleme: {new Date(generatedAt).toLocaleTimeString('tr-TR')}</span>}
+            <div className="text-[10px] font-bold text-slate-600 uppercase tracking-widest italic">
+               {generatedAt && <span>Yenileme: {new Date(generatedAt).toLocaleTimeString('tr-TR')}</span>}
             </div>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-10">
-          <div className="space-y-8">
-            <div className="bg-[#0f172a] rounded-[32px] border border-white/5 overflow-hidden shadow-2xl">
-              <div className="p-5 border-b border-white/5 bg-white/[0.02] flex items-center justify-between">
-                 <span className="text-xs font-black text-slate-400 tracking-widest uppercase italic">Sinyal Akışı</span>
-                 <div className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
+          <div className="space-y-6">
+            <div className="bg-[#0f172a] rounded-2xl border border-white/5 overflow-hidden shadow-xl">
+              <div className="p-4 border-b border-white/5 bg-white/[0.01] flex items-center justify-between">
+                 <span className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">Sinyal Akışı</span>
+                 <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
               </div>
-              <div className="max-h-[800px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#3b82f6]/20">
+              <div className="max-h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#3b82f6]/20">
                 {picks.map((p: any) => {
                   const isEx = p.trend_status?.is_exhausted || p.is_exhausted;
                   return (
-                    <button key={p.ticker} onClick={() => setSelectedTicker(p.ticker)} className={`w-full flex items-center justify-between p-6 border-b border-white/5 transition-all ${selectedTicker === p.ticker ? "bg-[#3b82f6]/10 border-l-8 border-l-[#3b82f6]" : "hover:bg-white/[0.02]"}`}>
-                      <div className="flex flex-col items-start"><span className={`font-black tracking-tighter text-xl ${selectedTicker === p.ticker ? "text-[#3b82f6]" : "text-white"}`}>{p.ticker}</span><span className="text-[10px] text-slate-500 font-bold uppercase mt-1">{p.sector}</span></div>
-                      <div className="flex flex-col items-end"><span className={`text-base font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}%</span>{isEx && <span className="text-[9px] text-[#ef4444] font-black uppercase tracking-tighter mt-1">Yorgun</span>}</div>
+                    <button key={p.ticker} onClick={() => setSelectedTicker(p.ticker)} className={`w-full flex items-center justify-between p-5 border-b border-white/5 transition-all ${selectedTicker === p.ticker ? "bg-[#3b82f6]/5 border-l-4 border-l-[#3b82f6]" : "hover:bg-white/[0.01]"}`}>
+                      <div className="flex flex-col items-start"><span className={`font-bold tracking-tight text-lg ${selectedTicker === p.ticker ? "text-[#3b82f6]" : "text-white"}`}>{p.ticker}</span><span className="text-[9px] text-slate-600 font-bold uppercase">{p.sector}</span></div>
+                      <div className="flex flex-col items-end"><span className={`text-sm font-bold ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}%</span>{isEx && <span className="text-[8px] text-[#ef4444] font-bold uppercase mt-1">Yorgun</span>}</div>
                     </button>
                   );
                 })}
               </div>
             </div>
-            <div className="bg-[#0f172a] rounded-[28px] border border-white/5 p-6 shadow-xl">
-               <label className="text-[10px] font-black text-slate-500 tracking-[0.2em] uppercase block mb-4 italic">Opsiyon Oynaklık Girişi</label>
-               <input value={ivRankText} onChange={e => setIvRankText(e.target.value)} placeholder="Örn: NVDA:45,AAPL:30" className="w-full bg-black/40 border border-white/5 rounded-2xl p-4 text-xs text-white outline-none focus:border-[#3b82f6] transition-all placeholder:text-slate-700 font-bold" />
+            <div className="bg-[#0f172a] rounded-2xl border border-white/5 p-4 shadow-lg">
+               <label className="text-[9px] font-bold text-slate-600 tracking-widest uppercase block mb-3">IV Rank Override</label>
+               <input value={ivRankText} onChange={e => setIvRankText(e.target.value)} placeholder="NVDA:45,AAPL:30" className="w-full bg-black/30 border border-white/5 rounded-xl p-3 text-[11px] text-white outline-none focus:border-[#3b82f6] transition-all placeholder:text-slate-800 font-bold" />
             </div>
           </div>
 
           <div>
             {viewMode === "card" ? (
-              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[600px] flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-[50px] text-slate-600 bg-white/[0.01]"><p className="font-black uppercase tracking-[0.4em] text-sm animate-pulse">Analiz İçin Sembol Seçiniz</p></div>}</>
+              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[500px] flex flex-col items-center justify-center border border-dashed border-white/5 rounded-3xl text-slate-700 bg-white/[0.01]"><p className="font-bold uppercase tracking-widest text-xs">Seçim Yapınız</p></div>}</>
             ) : (
-              <div className="bg-[#0f172a] rounded-[40px] border border-white/5 overflow-hidden shadow-2xl">
+              <div className="bg-[#0f172a] rounded-3xl border border-white/5 overflow-hidden shadow-xl">
                  <div className="overflow-x-auto">
-                   <table className="w-full text-left text-xs border-collapse">
+                   <table className="w-full text-left text-[11px] border-collapse">
                      <thead>
-                       <tr className="bg-white/[0.03] text-slate-500 font-black uppercase tracking-widest border-b border-white/10">
-                         <th className="px-10 py-6 text-sm">Sembol</th><th className="px-10 py-6">Fiyat</th><th className="px-10 py-6">Skor</th><th className="px-10 py-6">Sistem</th><th className="px-10 py-6">IV Rank</th><th className="px-10 py-6">AI Yorum</th><th className="px-10 py-6 text-right">İşlem</th>
+                       <tr className="bg-white/[0.02] text-slate-500 font-bold uppercase tracking-widest border-b border-white/10">
+                         <th className="px-8 py-5">Sembol</th><th className="px-8 py-5">Fiyat</th><th className="px-8 py-5">Skor</th><th className="px-8 py-5">Sistem</th><th className="px-8 py-5">IV Rank</th><th className="px-8 py-5">AI Yorum</th><th className="px-8 py-5 text-right">İşlem</th>
                        </tr>
                      </thead>
                      <tbody className="divide-y divide-white/5">
@@ -516,14 +483,14 @@ function OptAnalizContent() {
                          const comment = generateComment(p, iv);
                          const systemName = (SYSTEM_TR as any)[p.selected_system] || p.selected_system || "MOMENTUM";
                          return (
-                           <tr key={p.ticker} className={`hover:bg-white/[0.02] transition-all group ${selectedTicker === p.ticker ? "bg-[#3b82f6]/5" : ""}`}>
-                             <td className="px-10 py-7"><div className="flex flex-col"><span className="text-2xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter italic">{p.ticker}</span><span className="text-[10px] text-slate-500 font-bold uppercase mt-1">{p.sector}</span></div></td>
-                             <td className="px-10 py-7 text-slate-300 font-black text-base">${fmt(p.current_price || p.price)}</td>
-                             <td className="px-10 py-7"><span className={`text-lg font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}%</span></td>
-                             <td className="px-10 py-7"><span className="text-[11px] bg-white/5 px-3 py-1.5 rounded-xl border border-white/10 text-slate-400 font-black uppercase tracking-tighter">{systemName}</span></td>
-                             <td className="px-10 py-7">{iv !== null ? <span className={`font-black text-base ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-700">—</span>}</td>
-                             <td className="px-10 py-7"><span className="text-slate-400 font-bold italic text-xs leading-relaxed max-w-[200px] inline-block">"{comment}"</span></td>
-                             <td className="px-10 py-7 text-right"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-xs font-black text-[#3b82f6] border-2 border-[#3b82f6]/20 px-6 py-3 rounded-2xl hover:bg-[#3b82f6] hover:text-white uppercase transition-all shadow-xl">Analiz Et →</button></td>
+                           <tr key={p.ticker} className={`hover:bg-white/[0.01] transition-all group ${selectedTicker === p.ticker ? "bg-[#3b82f6]/5" : ""}`}>
+                             <td className="px-8 py-6"><div className="flex flex-col"><span className="text-xl font-bold text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter italic">{p.ticker}</span><span className="text-[9px] text-slate-600 font-bold uppercase">{p.sector}</span></div></td>
+                             <td className="px-8 py-6 text-slate-300 font-bold text-base">${fmt(p.current_price || p.price)}</td>
+                             <td className="px-8 py-6"><span className={`text-base font-bold ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}%</span></td>
+                             <td className="px-8 py-6"><span className="text-[9px] bg-white/5 px-2 py-1 rounded-lg border border-white/10 text-slate-500 font-bold uppercase tracking-tighter">{systemName}</span></td>
+                             <td className="px-8 py-6">{iv !== null ? <span className={`font-bold text-sm ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-700">—</span>}</td>
+                             <td className="px-8 py-6"><span className="text-slate-500 font-bold italic text-[11px] leading-relaxed max-w-[180px] inline-block">"{comment}"</span></td>
+                             <td className="px-8 py-6 text-right"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-[10px] font-bold text-[#3b82f6] border border-[#3b82f6]/10 px-4 py-2 rounded-xl hover:bg-[#3b82f6]/10 uppercase transition-all">Detay →</button></td>
                            </tr>
                          );
                        })}
