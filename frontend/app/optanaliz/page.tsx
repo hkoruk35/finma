@@ -511,7 +511,7 @@ function OptAnalizContent() {
                      </thead>
                      <tbody className="divide-y divide-[#1e293b]/50">
                        {picks.map((p: any) => {
-                         const iv = ivMap[p.ticker] ?? map["__all__"] ?? null;
+                         const iv = ivMap[p.ticker] ?? ivMap["__all__"] ?? null;
                          return (
                            <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
                              <td className="px-4 py-4 font-bold text-white text-[13px]">{p.ticker}</td>
