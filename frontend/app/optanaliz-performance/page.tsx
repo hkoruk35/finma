@@ -38,6 +38,7 @@ export default function OptionsPerformancePage() {
   const [error, setError] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [filterStrategy, setFilterStrategy] = useState<string>("all");
+  const [copying, setCopying] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -84,6 +85,65 @@ export default function OptionsPerformancePage() {
     return true;
   });
 
+  // ── Export Functions ────────────────────────────────────────────────────────
+
+  const getExportData = () => {
+    const headers = ["Ticker", "Scan Date", "Strategy", "System", "Strike", "Expiration", "P&L %", "Status"];
+    const rows = filteredPositions.map(pos => [
+      pos.ticker,
+      pos.scan_date,
+      pos.strategy,
+      MODE_MAP[pos.entry_mode || ""] || pos.entry_mode || "MOMENTUM",
+      pos.strike,
+      pos.expiration,
+      (pos.pnl_pct || pos.unrealized_pnl_pct || 0).toFixed(1),
+      pos.status
+    ]);
+    return { headers, rows };
+  };
+
+  const copyToClipboard = () => {
+    const { headers, rows } = getExportData();
+    const content = [headers.join("\t"), ...rows.map(r => r.join("\t"))].join("\n");
+    navigator.clipboard.writeText(content);
+    setCopying(true);
+    setTimeout(() => setCopying(false), 2000);
+  };
+
+  const downloadCSV = () => {
+    const { headers, rows } = getExportData();
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `boga_performance_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const downloadXLS = () => {
+    const { headers, rows } = getExportData();
+    let html = "<table><thead><tr>";
+    headers.forEach(h => html += `<th>${h}</th>`);
+    html += "</tr></thead><tbody>";
+    rows.forEach(r => {
+      html += "<tr>";
+      r.forEach(c => html += `<td>${c}</td>`);
+      html += "</tr>";
+    });
+    html += "</tbody></table>";
+
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `boga_performance_${new Date().toISOString().split('T')[0]}.xls`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#3b82f6] animate-pulse font-bold tracking-tight text-xl">BOGA ANALYZING...</div>;
 
   return (
@@ -91,7 +151,6 @@ export default function OptionsPerformancePage() {
       <Header />
       
       <main className="max-w-7xl mx-auto px-6 py-10">
-        {/* Header Section - Refined */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -114,7 +173,6 @@ export default function OptionsPerformancePage() {
           </Link>
         </div>
 
-        {/* Global Stats - Compact */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           <StatCard label="Win Rate" value={`${summary.win_rate || 0}%`} color="#22c55e" />
           <StatCard label="Avg P&L" value={`${summary.avg_pnl_pct || 0}%`} color={(summary.avg_pnl_pct || 0) >= 0 ? "#22c55e" : "#ef4444"} />
@@ -122,13 +180,11 @@ export default function OptionsPerformancePage() {
           <StatCard label="Active" value={summary.open} color="#f59e0b" />
         </div>
 
-        {/* Breakdown Section - Professional Layout */}
         <div className="mb-12">
           <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-6 flex items-center gap-3">
              <div className="w-1 h-4 bg-[#3b82f6]" /> Kurulum ve Strateji Başarısı
           </h3>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-             {/* Setup Breakdown */}
              <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-8 shadow-xl">
                 <p className="text-[10px] font-bold text-[#3b82f6] uppercase mb-8 tracking-widest border-b border-white/5 pb-4">Setup Performansı</p>
                 <div className="space-y-6">
@@ -157,7 +213,6 @@ export default function OptionsPerformancePage() {
                 </div>
              </div>
 
-             {/* Strategy Breakdown */}
              <div className="bg-[#0f172a] rounded-3xl border border-white/5 p-8 shadow-xl">
                 <p className="text-[10px] font-bold text-indigo-400 uppercase mb-8 tracking-widest border-b border-white/5 pb-4">Strateji Performansı</p>
                 <div className="space-y-6">
@@ -188,26 +243,35 @@ export default function OptionsPerformancePage() {
           </div>
         </div>
 
-        {/* Filters and List */}
+        {/* Filters and Export - Refined */}
         <div className="flex flex-wrap items-center gap-6 mb-8 bg-[#0f172a] p-5 rounded-2xl border border-white/5 shadow-md">
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Durum:</span>
-            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
-              <option value="all">Tümü</option>
-              <option value="tp_hit">Kâr Al (TP)</option>
-              <option value="sl_hit">Stop Loss (SL)</option>
-              <option value="open">Açık</option>
-            </select>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Durum:</span>
+              <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
+                <option value="all">Tümü</option>
+                <option value="tp_hit">Kâr Al (TP)</option>
+                <option value="sl_hit">Stop Loss (SL)</option>
+                <option value="open">Açık</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Strateji:</span>
+              <select value={filterStrategy} onChange={(e) => setFilterStrategy(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
+                <option value="all">Tümü</option>
+                <option value="institutional">INSTITUTIONAL</option>
+                <option value="asymmetric">ASYMMETRIC</option>
+              </select>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Strateji:</span>
-            <select value={filterStrategy} onChange={(e) => setFilterStrategy(e.target.value)} className="bg-[#1e293b] border border-white/5 rounded-lg px-4 py-2 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all">
-              <option value="all">Tümü</option>
-              <option value="institutional">INSTITUTIONAL</option>
-              <option value="asymmetric">ASYMMETRIC</option>
-            </select>
+
+          <div className="flex items-center gap-2 ml-auto">
+             <button onClick={copyToClipboard} className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all border ${copying ? 'bg-green-500/20 border-green-500 text-green-500' : 'border-white/10 text-slate-400 hover:bg-white/5'}`}>
+               {copying ? "Kopyalandı!" : "Kopyala"}
+             </button>
+             <button onClick={downloadCSV} className="px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all border border-white/10 text-slate-400 hover:bg-white/5 hover:text-white">CSV</button>
+             <button onClick={downloadXLS} className="px-4 py-2 rounded-lg text-[10px] font-bold uppercase transition-all border border-[#22c55e]/30 text-[#22c55e] hover:bg-[#22c55e]/10">Excel (XLS)</button>
           </div>
-          <div className="ml-auto text-[10px] font-medium text-slate-500 italic">{filteredPositions.length} İşlem</div>
         </div>
 
         <div className="bg-[#0f172a] rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
