@@ -6,6 +6,24 @@ import Head from "next/head";
 import Link from "next/link";
 import Header from "@/components/Header";
 
+// ── Constants & Types ────────────────────────────────────────────────────────
+
+const SYSTEM_TR = {
+  SQUEEZE: "Volatilite Sıkışması", SPRING: "Başarısız Kırılım",
+  AWAKENING: "Gizli Kırılım", EMA_CROSS: "EMA Kesişimi",
+  PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
+};
+
+const SYSTEM_DESC = {
+  SQUEEZE: "Bollinger ve Keltner bantlarının daralmasıyla oluşan düşük volatilite dönemi. Yakında her iki yöne ama genellikle ana trend yönüne sert bir patlama beklenir.",
+  SPRING: "Fiyatın önemli bir desteği aşağı kırıp hemen üzerine geri dönmesiyle (Bear Trap) oluşur. Satıcıların tükendiğini gösteren güçlü bir dönüş sinyalidir.",
+  AWAKENING: "Hissede uzun süren sessizliğin ardından kurumsal para girişinin başladığı ilk aşamadır. Büyük trendlerin başlangıç noktalarını hedefler.",
+  EMA_CROSS: "Kısa vadeli hareketli ortalamaların uzun vadeli olanları yukarı kesmesiyle oluşan trend teyit sinyalidir. Momentumun kalıcılığını gösterir.",
+  PULLBACK: "Yükselen bir trenddeki geçici ve sağlıklı düzeltmedir. Ana trend yönünde daha uygun bir maliyetle oyuna girmek için ideal alım noktasıdır.",
+  BREAKOUT: "Fiyatın uzun süreli yatay dirençleri veya düşen trend çizgilerini yüksek hacimle kırmasıdır. Yeni bir yükseliş dalgasının tescilidir.",
+  MOMENTUM: "Fiyatın mevcut yükseliş hızının arttığını ve alıcı iştahının en yüksek seviyede olduğunu gösterir. Hızlı para kazanma aşamasıdır.",
+};
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function getExpiryDate(dte: number): string {
@@ -71,22 +89,6 @@ function getIndicatorStatus(key: string, val: number): { label: string, color: s
   }
   return { label: "Veri Yok", color: "#475569", desc: "" };
 }
-
-const SYSTEM_TR = {
-  SQUEEZE: "Volatilite Sıkışması", SPRING: "Başarısız Kırılım",
-  AWAKENING: "Gizli Kırılım", EMA_CROSS: "EMA Kesişimi",
-  PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
-};
-
-const SYSTEM_DESC = {
-  SQUEEZE: "Bollinger ve Keltner bantlarının daralmasıyla oluşan düşük volatilite dönemi. Yakında her iki yöne ama genellikle ana trend yönüne sert bir patlama beklenir.",
-  SPRING: "Fiyatın önemli bir desteği aşağı kırıp hemen üzerine geri dönmesiyle (Bear Trap) oluşur. Satıcıların tükendiğini gösteren güçlü bir dönüş sinyalidir.",
-  AWAKENING: "Hissede uzun süren sessizliğin ardından kurumsal para girişinin başladığı ilk aşamadır. Büyük trendlerin başlangıç noktalarını hedefler.",
-  EMA_CROSS: "Kısa vadeli hareketli ortalamaların uzun vadeli olanları yukarı kesmesiyle oluşan trend teyit sinyalidir. Momentumun kalıcılığını gösterir.",
-  PULLBACK: "Yükselen bir trenddeki geçici ve sağlıklı düzeltmedir. Ana trend yönünde daha uygun bir maliyetle oyuna girmek için ideal alım noktasıdır.",
-  BREAKOUT: "Fiyatın uzun süreli yatay dirençleri veya düşen trend çizgilerini yüksek hacimle kırmasıdır. Yeni bir yükseliş dalgasının tescilidir.",
-  MOMENTUM: "Fiyatın mevcut yükseliş hızının arttığını ve alıcı iştahının en yüksek seviyede olduğunu gösterir. Hızlı para kazanma aşamasıdır.",
-};
 
 function generateComment(pick: any, ivRank: number | null): string {
   const score = pick.boga_score || pick.score || 0;
@@ -331,9 +333,11 @@ function PickCard({ pick, ivRank, liveOptions }: { pick: any, ivRank: number | n
   );
 }
 
+// ── Main Page Component ───────────────────────────────────────────────────────
+
 export default function OptAnalizPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse">LOADING BOGA AI...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse font-mono tracking-widest text-xl">LOADING BOGA AI...</div>}>
       <OptAnalizContent />
     </Suspense>
   );
@@ -421,72 +425,111 @@ function OptAnalizContent() {
   const selectedPick = picks.find((p: any) => p.ticker === selectedTicker);
   const selectedIvRank = selectedPick ? (ivMap[selectedPick.ticker] ?? ivMap["__all__"] ?? null) : null;
 
-  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse">BOGA AI ANALYZING...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-screen bg-[#080b12] text-[#22c55e] animate-pulse font-mono tracking-widest text-xl uppercase">BOGA AI ANALYZING...</div>;
 
   return (
     <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-mono">
       <Header />
-      <div className="p-4 md:p-8">
+      
+      {/* ── Fixed Floating Action Button (FAB) ── */}
+      <Link 
+        href="/optanaliz-performance" 
+        className="fixed bottom-10 right-10 z-[9999] flex flex-col items-center justify-center w-20 h-20 bg-[#22c55e] text-black rounded-full shadow-[0_0_50px_rgba(34,197,94,0.6)] hover:scale-110 active:scale-95 transition-all group animate-bounce hover:animate-none"
+      >
+        <span className="text-[11px] font-black leading-none">P&L</span>
+        <span className="text-[8px] font-black uppercase tracking-tighter mt-1">ANALİZİ</span>
+        <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 rounded-full border-2 border-[#080b12] flex items-center justify-center">
+           <span className="text-[8px] font-black text-white animate-pulse">LIVE</span>
+        </div>
+      </Link>
+
+      <div className="p-4 md:p-8 relative">
         <div className="max-w-6xl mx-auto mb-8">
           <div className="flex items-center gap-3 mb-2"><div className="w-2 h-2 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" /><span className="text-[10px] text-[#22c55e] font-bold tracking-[0.2em] uppercase">Opsiyon Danışmanı v116</span></div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
-          <div className="flex items-center justify-between flex-wrap gap-4 mt-1">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white uppercase italic">Opsiyon <span className="text-[#22c55e]">Analiz Portalı</span></h1>
+              <p className="text-slate-500 text-xs mt-2 font-bold tracking-widest uppercase">Gelişmiş Teknik Sinyal ve Opsiyon Strateji Motoru</p>
+            </div>
+            
+            {/* Super Prominent Action Button */}
+            <Link 
+              href="/optanaliz-performance" 
+              className="flex items-center gap-4 px-8 py-4 bg-[#22c55e] hover:bg-[#16a34a] text-black font-black rounded-2xl transition-all shadow-[0_0_30px_rgba(34,197,94,0.4)] hover:scale-105 active:scale-95 uppercase text-sm tracking-[0.1em]"
+            >
+               Gerçekleşen Performans Raporu →
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-between flex-wrap gap-4 mt-8 bg-[#0f172a] p-4 rounded-2xl border border-white/5 shadow-xl">
             <div className="flex items-center gap-4">
-              <div className="flex bg-[#0f172a] rounded-lg border border-[#1e293b] p-1">
-                <button onClick={() => setViewMode("card")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${viewMode === "card" ? "bg-[#22c55e] text-black" : "text-[#475569] hover:text-white"}`}>Kart</button>
-                <button onClick={() => setViewMode("list")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${viewMode === "list" ? "bg-[#22c55e] text-black" : "text-[#475569] hover:text-white"}`}>Liste</button>
+              <div className="flex bg-[#1e293b] rounded-xl p-1 border border-white/5">
+                <button onClick={() => setViewMode("card")} className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${viewMode === "card" ? "bg-[#22c55e] text-black shadow-lg" : "text-slate-500 hover:text-white"}`}>Kart Görünümü</button>
+                <button onClick={() => setViewMode("list")} className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${viewMode === "list" ? "bg-[#22c55e] text-black shadow-lg" : "text-slate-500 hover:text-white"}`}>Liste Görünümü</button>
               </div>
-              <div className="flex bg-[#0f172a] rounded-lg border border-[#1e293b] p-1">
-                <button onClick={() => setDataRange("latest")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}>Güncel</button>
-                <button onClick={() => setDataRange("15days")} className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}>Son 15 G</button>
+              <div className="flex bg-[#1e293b] rounded-xl p-1 border border-white/5">
+                <button onClick={() => setDataRange("latest")} className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Güncel</button>
+                <button onClick={() => setDataRange("15days")} className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white shadow-lg" : "text-slate-500 hover:text-white"}`}>Son 15 Gün</button>
               </div>
+            </div>
+            <div className="text-[10px] font-bold text-slate-500">
+               {generatedAt && <span>Son Güncelleme: {new Date(generatedAt).toLocaleString('tr-TR')}</span>}
             </div>
           </div>
         </div>
 
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
           <div className="space-y-4">
-            <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden">
-              <div className="p-3 border-b border-[#1e293b] bg-[#1e293b]/30"><span className="text-[10px] font-bold text-[#64748b] tracking-wider uppercase">Günlük Adaylar</span></div>
-              <div className="max-h-[600px] overflow-y-auto">
+            <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden shadow-2xl">
+              <div className="p-4 border-b border-[#1e293b] bg-[#1e293b]/30 flex items-center justify-between">
+                 <span className="text-[10px] font-black text-[#64748b] tracking-wider uppercase">Günlük Adaylar</span>
+                 <div className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+              </div>
+              <div className="max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#22c55e]/20">
                 {picks.map((p: any) => {
                   const isEx = p.trend_status?.is_exhausted || p.is_exhausted;
                   return (
                     <button key={p.ticker} onClick={() => setSelectedTicker(p.ticker)} className={`w-full flex items-center justify-between p-4 border-b border-[#1e293b]/50 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10 border-l-4 border-l-[#22c55e]" : "hover:bg-[#1e293b]/50"}`}>
-                      <div className="flex flex-col items-start"><span className={`font-bold ${selectedTicker === p.ticker ? "text-[#22c55e]" : "text-white"}`}>{p.ticker}</span><span className="text-[10px] text-[#475569]">{p.sector}</span></div>
-                      <div className="flex flex-col items-end"><span className={`text-xs font-bold ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span>{isEx && <span className="text-[8px] text-[#ef4444] font-bold">EXH</span>}</div>
+                      <div className="flex flex-col items-start"><span className={`font-black tracking-tighter ${selectedTicker === p.ticker ? "text-[#22c55e]" : "text-white"}`}>{p.ticker}</span><span className="text-[9px] text-slate-500 font-bold uppercase">{p.sector}</span></div>
+                      <div className="flex flex-col items-end"><span className={`text-sm font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span>{isEx && <span className="text-[8px] text-[#ef4444] font-black uppercase tracking-tighter">EXHAUSTED</span>}</div>
                     </button>
                   );
                 })}
               </div>
             </div>
+            <div className="bg-[#0f172a] rounded-2xl border border-[#1e293b] p-4 shadow-xl">
+               <label className="text-[9px] font-black text-slate-500 tracking-wider uppercase block mb-3">Opsiyon Oynaklığı (IV Rank)</label>
+               <input value={ivRankText} onChange={e => setIvRankText(e.target.value)} placeholder="Örn: NVDA:45,AAPL:30" className="w-full bg-[#080b12] border border-[#1e293b] rounded-xl p-3 text-xs text-white outline-none focus:border-[#22c55e] transition-all placeholder:text-slate-700 font-bold" />
+            </div>
           </div>
 
           <div>
             {viewMode === "card" ? (
-              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">Hisse Seçin</div>}</>
+              <>{selectedPick ? <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} /> : <div className="h-[500px] flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-3xl text-slate-600 bg-white/[0.01]"><div className="w-12 h-12 rounded-full border-2 border-slate-700 animate-spin mb-4" /><p className="font-black uppercase tracking-[0.2em] text-[10px]">Analiz İçin Bir Hisse Seçin</p></div>}</>
             ) : (
-              <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden">
+              <div className="bg-[#0f172a] rounded-3xl border border-[#1e293b] overflow-hidden shadow-2xl">
                  <div className="overflow-x-auto">
                    <table className="w-full text-left text-[11px] border-collapse">
                      <thead>
-                       <tr className="bg-[#1e293b]/50 text-[#64748b] font-black uppercase tracking-widest">
-                         <th className="px-4 py-3">Ticker</th><th className="px-4 py-3">Fiyat</th><th className="px-4 py-3">Skor</th><th className="px-4 py-3">Sistem</th><th className="px-4 py-3">IV</th><th className="px-4 py-3">Yorum</th><th className="px-4 py-3">İşlem</th>
+                       <tr className="bg-[#1e293b]/50 text-slate-500 font-black uppercase tracking-widest border-b border-white/5">
+                         <th className="px-6 py-5">Ticker / Sektör</th><th className="px-6 py-5">Fiyat</th><th className="px-6 py-5">Boga Skor</th><th className="px-6 py-5">Sinyal Tipi</th><th className="px-6 py-5">IV Rank</th><th className="px-6 py-5">AI Yorumu</th><th className="px-6 py-5 text-right">İşlem</th>
                        </tr>
                      </thead>
-                     <tbody className="divide-y divide-[#1e293b]/50">
+                     <tbody className="divide-y divide-white/5">
                        {picks.map((p: any) => {
                          const iv = ivMap[p.ticker] ?? ivMap["__all__"] ?? null;
                          const comment = generateComment(p, iv);
+                         const systemName = (SYSTEM_TR as any)[p.selected_system] || p.selected_system || "MOMENTUM";
                          return (
-                           <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
-                             <td className="px-4 py-4 font-bold text-white text-[13px]">{p.ticker}</td>
-                             <td className="px-4 py-4 text-[#f1f5f9] font-mono">${fmt(p.current_price || p.price)}</td>
-                             <td className="px-4 py-4"><span className={`font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span></td>
-                             <td className="px-4 py-4"><span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 text-slate-400">{(SYSTEM_TR as any)[p.selected_system] || p.selected_system || "MOMENTUM"}</span></td>
-                             <td className="px-4 py-4">{iv !== null ? <span className={`font-bold ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-600">—</span>}</td>
-                             <td className="px-4 py-4"><span className="text-slate-300">{comment}</span></td>
-                             <td className="px-4 py-4"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-[9px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-1 rounded hover:bg-[#3b82f6]/10 uppercase transition-all">Detay →</button></td>
+                           <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all group ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
+                             <td className="px-6 py-5"><div className="flex flex-col"><span className="text-sm font-black text-white group-hover:text-[#22c55e] transition-colors">{p.ticker}</span><span className="text-[9px] text-slate-500 font-bold uppercase">{p.sector}</span></div></td>
+                             <td className="px-6 py-5 text-[#f1f5f9] font-black">${fmt(p.current_price || p.price)}</td>
+                             <td className="px-6 py-5"><span className={`text-sm font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>{fmt(p.boga_score || p.score, 0)}</span></td>
+                             <td className="px-6 py-5"><span className="text-[10px] bg-white/5 px-2 py-1 rounded-lg border border-white/10 text-slate-300 font-black uppercase tracking-tighter">{systemName}</span></td>
+                             <td className="px-6 py-5">{iv !== null ? <span className={`font-black ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span> : <span className="text-slate-700">—</span>}</td>
+                             <td className="px-6 py-5"><span className="text-slate-400 font-medium italic">{comment}</span></td>
+                             <td className="px-6 py-5 text-right"><button onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }} className="text-[10px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-4 py-2 rounded-xl hover:bg-[#3b82f6]/10 uppercase transition-all shadow-sm">Analiz Et →</button></td>
                            </tr>
                          );
                        })}
