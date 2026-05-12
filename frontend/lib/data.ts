@@ -815,22 +815,39 @@ export async function getSwingPerformance(): Promise<any | null> {
   } catch { return null; }
 }
 
-export async function getSwingAllPicks(): Promise<any | null> {
+export async function getSwingAllPicks(date?: string): Promise<any | null> {
   const t = Date.now();
   if (typeof window === "undefined") {
     const mod = await import("./data-server");
+    if (date) {
+      // Archive format: swing_YYYYMMDD.json
+      const cleanDate = date.replace(/-/g, "");
+      return mod.readPublicJson(`swing2026/swing_${cleanDate}.json`);
+    }
     return mod.readPublicJson("swing_all_picks.json");
   }
   try {
-    const res = await fetch(`/swing_all_picks.json?v=${t}`, { cache: "no-store" });
+    const path = date ? `/data/swing2026/swing_${date.replace(/-/g, "")}.json` : `/swing_all_picks.json`;
+    const res = await fetch(`${path}?v=${t}`, { cache: "no-store" });
     if (!res.ok) {
-      // Production Fallback
+      if (date) return null;
+      // Production Fallback for latest
       const res2 = await fetch(`https://bogastock.com/swing_all_picks.json?v=${t}`, { cache: "no-store" });
       if (res2.ok) return await res2.json();
       return null;
     }
     return await res.json();
   } catch { return null; }
+}
+
+export async function getSwingArchiveDates(): Promise<string[]> {
+  if (typeof window === "undefined") {
+    try {
+      const mod = await import("./data-server");
+      return (mod as any).listSwingArchiveDates?.() ?? [];
+    } catch { return []; }
+  }
+  return []; // Client-side listing not implemented, but this is used in SSR
 }
 
 export async function getIntradaySignals(): Promise<any | null> {

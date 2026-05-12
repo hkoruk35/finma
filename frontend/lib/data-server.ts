@@ -89,6 +89,30 @@ export function listOptionsDates(): string[] {
   return [];
 }
 
+export function listSwingArchiveDates(): string[] {
+  const candidates: string[] = [];
+  const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
+  candidates.push(path.join(dirBase, "public", "data", "swing2026"));
+  candidates.push(path.resolve(process.cwd(), "public", "data", "swing2026"));
+
+  for (const base of candidates) {
+    try {
+      if (!fs.existsSync(base)) continue;
+      const files = fs.readdirSync(base).filter((f) => {
+        return /^swing_\d{8}\.json$/.test(f);
+      });
+      const dates = files.map(f => {
+        const d = f.match(/\d{8}/)?.[0];
+        if (!d) return "";
+        return `${d.substring(0, 4)}-${d.substring(4, 6)}-${d.substring(6, 8)}`;
+      }).filter(d => d !== "");
+      
+      if (dates.length > 0) return Array.from(new Set(dates)).sort().reverse();
+    } catch {}
+  }
+  return [];
+}
+
 export function readPublicJson(filename: string): any | null {
   const candidates = [
     path.join(process.cwd(), "public", filename),

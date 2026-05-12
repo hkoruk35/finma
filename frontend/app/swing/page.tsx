@@ -1,4 +1,4 @@
-import { getMasterData, getSwingAllPicks } from "@/lib/data";
+import { getMasterData, getSwingAllPicks, getSwingArchiveDates } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -12,7 +12,7 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Daily Swing Trade Candidates | BOGA AI",
-  description: "Full algorithmic candidate list from the BOGA AI V114 engine — high-conviction swing trade setups with entries, targets, and stop levels.",
+  description: "Full algorithmic candidate list from the BOGA AI V116 engine — high-conviction swing trade setups with entries, targets, and stop levels.",
   alternates: { canonical: "https://bogastock.com/swing" },
 };
 
@@ -35,10 +35,13 @@ function ScoreBadge({ score }: { score: number }) {
 
 import SwingTableActions from "@/components/SwingTableActions";
 
-export default async function SwingPicksPage() {
-  const [master, allPicksData] = await Promise.all([
+export default async function SwingPicksPage({ searchParams }: { searchParams: Promise<{ date?: string }> }) {
+  const { date: selectedDate } = await searchParams;
+
+  const [master, allPicksData, archiveDates] = await Promise.all([
     getMasterData(),
-    getSwingAllPicks(),
+    getSwingAllPicks(selectedDate),
+    getSwingArchiveDates(),
   ]);
 
   const picks = allPicksData?.picks ?? [];
@@ -76,19 +79,64 @@ export default async function SwingPicksPage() {
                 <span className="ml-3 text-[#3b82f6]">— {dateStr}</span>
               </h1>
               <p className="text-white text-base">
-                Full algorithmic candidate list from the BOGA AI V114 Engine •{" "}
+                Full algorithmic candidate list from the BOGA AI V116 Engine •{" "}
                 {generatedAt && (
                   <span className="text-[#00d2ff]">Updated {formatTime(generatedAt)}</span>
                 )}
               </p>
             </div>
-            <Link
-              href="/performance"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
-            >
-              📊 Performance History
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <div className="flex items-center gap-2 bg-[#1e293b] border border-white/10 rounded-xl px-3 py-2">
+                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest">Archive:</span>
+                <select 
+                  className="bg-transparent text-sm text-white font-bold outline-none cursor-pointer"
+                  onChange={(e) => {
+                    if (e.target.value) window.location.href = `/swing?date=${e.target.value}`;
+                    else window.location.href = `/swing`;
+                  }}
+                  defaultValue={selectedDate || ""}
+                  // Using client-side navigation trick since this is a server component
+                  // but standard HTML select onChange works if we wrap it or use a client component
+                  // For now, let's provide a cleaner UI below.
+                >
+                  <option value="" className="bg-[#0d1117]">Latest</option>
+                  {archiveDates.map(d => (
+                    <option key={d} value={d} className="bg-[#0d1117]">{d}</option>
+                  ))}
+                </select>
+              </div>
+              <Link
+                href="/performance"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
+              >
+                📊 Performance History
+              </Link>
+            </div>
           </div>
+        </div>
+
+        {/* Quick Archive Links: Last 7 Days */}
+        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+           <span className="text-[11px] font-black text-white uppercase tracking-widest whitespace-nowrap">Last 7 Days:</span>
+           <Link 
+             href="/swing" 
+             className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${!selectedDate ? "bg-[#3b82f6] border-[#3b82f6] text-white" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+           >
+             LATEST
+           </Link>
+           {archiveDates.slice(0, 7).map(d => (
+             <Link 
+               key={d}
+               href={`/swing?date=${d}`}
+               className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${selectedDate === d ? "bg-[#3b82f6] border-[#3b82f6] text-white" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+             >
+               {d.split('-').slice(1).join('/')}
+             </Link>
+           ))}
+           <div className="h-4 w-px bg-white/10 mx-2" />
+           <Link href="/performance" className="text-[11px] font-bold text-[#00d2ff] hover:text-white transition-colors whitespace-nowrap uppercase tracking-widest">
+             Full Archive →
+           </Link>
         </div>
 
         <SwingTableActions picks={picks} dateStr={dateStr} />
@@ -264,7 +312,6 @@ export default async function SwingPicksPage() {
               ))}
             </div>
 
-            {/* Legend */}
             <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#00d2ff]">
               <span>📈 <b className="text-white">Zones</b> = BOGA AI defined price ranges</span>
               <span>🎯 <b className="text-white">Hold</b> = Estimated swing duration</span>
@@ -272,41 +319,6 @@ export default async function SwingPicksPage() {
               <span className="ml-auto">
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
-            </div>
-            
-            {/* Featured Cards Section - Under the list */}
-            <div className="mt-12">
-               <TopSwingPicks picks={picks} />
-            </div>
-
-            {/* SEO Localized Index (60 Links) */}
-            <div className="mt-12 glass-card p-6 md:p-10 border-t-2 border-t-[#3b82f6]/40">
-               <div className="flex flex-col gap-2 mb-8">
-                  <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight">📈 BOGA AI Global SEO Index</h2>
-                  <p className="text-sm text-[#00d2ff]">Daily institutional swing trade briefings in 6 languages. Total of 60 active analysis landings.</p>
-               </div>
-               
-               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                  {Object.entries(LANG_CONFIG).map(([lang, cfg]) => (
-                    <div key={lang} className="flex flex-col gap-3">
-                       <div className="flex items-center gap-2 pb-2 border-b border-white/5">
-                          <span className="text-xl">{cfg.flag}</span>
-                          <span className="text-[11px] font-black text-white uppercase tracking-widest">{cfg.name}</span>
-                       </div>
-                       <div className="flex flex-col gap-1.5">
-                          {picks.slice(0, 10).map((p: any) => (
-                            <Link 
-                              key={p.ticker}
-                              href={`/${lang}/${cfg.slug}/${p.ticker.toLowerCase()}`}
-                              className="text-[10px] text-[#00d2ff] hover:text-[#3b82f6] font-bold transition-all truncate"
-                            >
-                               {p.ticker} · {cfg.slug.charAt(0).toUpperCase() + cfg.slug.slice(1)}
-                            </Link>
-                          ))}
-                       </div>
-                    </div>
-                  ))}
-               </div>
             </div>
           </>
         )}
