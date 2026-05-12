@@ -36,6 +36,8 @@ export default function OptionsPerformancePage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterStrategy, setFilterStrategy] = useState<string>("all");
 
   useEffect(() => {
     async function fetchData() {
@@ -63,6 +65,12 @@ export default function OptionsPerformancePage() {
 
   const summary: Summary = data?.summary || {};
   const positions: Position[] = data?.positions || [];
+
+  const filteredPositions = positions.filter(pos => {
+    if (filterStatus !== "all" && pos.status !== filterStatus) return false;
+    if (filterStrategy !== "all" && pos.strategy !== filterStrategy) return false;
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-[#080b12] text-[#f1f5f9] font-sans pb-20">
@@ -99,11 +107,44 @@ export default function OptionsPerformancePage() {
         ) : (
           <>
             {/* Stats Summary Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <StatCard label="Win Rate" value={`${summary.win_rate || 0}%`} color="#22c55e" />
               <StatCard label="Avg Return" value={`${summary.avg_pnl_pct || 0}%`} color={summary.avg_pnl_pct! >= 0 ? "#22c55e" : "#ef4444"} />
               <StatCard label="Closed Trades" value={summary.closed} color="#3b82f6" />
               <StatCard label="Open Positions" value={summary.open} color="#f59e0b" />
+            </div>
+
+            {/* Filters Section */}
+            <div className="flex flex-wrap items-center gap-4 mb-8 bg-[#0f172a] p-4 rounded-2xl border border-white/5">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Durum:</span>
+                <select 
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+                  className="bg-[#1e293b] border border-white/10 rounded-lg px-3 py-1.5 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all"
+                >
+                  <option value="all">Tümü</option>
+                  <option value="open">Açık</option>
+                  <option value="tp_hit">Kâr Al (TP)</option>
+                  <option value="sl_hit">Stop Loss (SL)</option>
+                  <option value="time_stop">Zaman Stopu</option>
+                </select>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Strateji:</span>
+                <select 
+                  value={filterStrategy}
+                  onChange={(e) => setFilterStrategy(e.target.value)}
+                  className="bg-[#1e293b] border border-white/10 rounded-lg px-3 py-1.5 text-[11px] font-bold text-white outline-none focus:border-[#3b82f6] transition-all"
+                >
+                  <option value="all">Tümü</option>
+                  <option value="institutional">Institutional</option>
+                  <option value="asymmetric">Asymmetric</option>
+                </select>
+              </div>
+              <div className="ml-auto text-[10px] font-bold text-slate-500 italic">
+                {filteredPositions.length} işlem gösteriliyor
+              </div>
             </div>
 
             {/* Detailed Outcomes Grid */}
@@ -139,10 +180,11 @@ export default function OptionsPerformancePage() {
                       <th className="px-6 py-4">Current/Exit</th>
                       <th className="px-6 py-4">P&L</th>
                       <th className="px-6 py-4">Status</th>
+                      <th className="px-6 py-4">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {positions.map((pos) => (
+                    {filteredPositions.map((pos) => (
                       <tr key={pos.id} className="hover:bg-white/[0.02] transition-colors group">
                         <td className="px-6 py-5">
                           <div className="flex flex-col">
@@ -187,6 +229,14 @@ export default function OptionsPerformancePage() {
                               <span className="text-[9px] text-slate-500 max-w-[120px] truncate">{pos.exit_reason}</span>
                             )}
                           </div>
+                        </td>
+                        <td className="px-6 py-5">
+                          <Link 
+                            href={`/optanaliz?symbol=${pos.ticker}`}
+                            className="text-[9px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-1 rounded hover:bg-[#3b82f6]/10 uppercase transition-all"
+                          >
+                            Analiz →
+                          </Link>
                         </td>
                       </tr>
                     ))}

@@ -1990,36 +1990,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
         # PHASE 3D: ALPHA ENGINES (Squeeze / Spring Bonus)
         # =============================================================
-
-        # ── YENİ: Squeeze Kalite Kontrolü ─────────────────────────
         if is_squeeze:
-            # Squeeze kalite puanı: BB sıkışma derinliği
-            # 0.0 = barely squeeze, 1.0 = extreme squeeze
-            squeeze_quality = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
-            squeeze_quality = min(squeeze_quality, 1.0)
-
-            # Base bonus: 10-22 arası (eskiden sabit 25)
-            squeeze_base = 10.0 + (12.0 * squeeze_quality)
-
-            # Muafiyet maliyeti: hangi kapılardan "bedava" geçti?
-            squeeze_exemption_cost = 0.0
-            if rvol_micro < 1.05:
-                squeeze_exemption_cost += 3.0   # RVOL muafiyeti kullandı
-            if cmf_val < -0.05:
-                squeeze_exemption_cost += 3.0   # CMF muafiyeti kullandı
-            if is_ema_flat and adx_1d < 15:
-                squeeze_exemption_cost += 2.0   # Dead money muafiyeti kullandı
-            if green_candles < 4:
-                squeeze_exemption_cost += 1.5   # Green candle muafiyeti kullandı
-
-            squeeze_net = squeeze_base - squeeze_exemption_cost
-            score += squeeze_net
-
-            exemption_note = f" (Muafiyet maliyeti: -{squeeze_exemption_cost:.1f})" if squeeze_exemption_cost > 0 else ""
-            details.append(
-                f"🚨 SQUEEZE: Kalite {squeeze_quality*100:.0f}% | "
-                f"Bonus: +{squeeze_net:.1f}{exemption_note}"
-            )
+            score += 25.0
+            details.append("🚨 SNIPER: Volatilite Sıkışması — EXPLOSIVE SETUP")
         elif is_spring:
             score += 18.0
             details.append("⚡ SNIPER: Failed Breakdown / Spring — TUZAK BİTTİ")
@@ -2185,16 +2158,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # ── CMF Puanlaması (sadece zayıf birikim cezası) ─────────────
         # Negatif CMF zaten hard gate'te elenmişti, burada hafif uyarılar
-        # İstisna: Spring ve Steady Momentum tam muaf.
-        # Squeeze ise muafiyet maliyetini ödediği için sadece "indirim" alır.
-        if -0.05 <= cmf_val < 0.0 and not (is_spring or is_steady_momentum):
-            penalty = 1.0 if is_squeeze else 2.0
-            score -= penalty
-            details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f}){' (Squeeze indirimi)' if is_squeeze else ''}")
-        elif 0.0 <= cmf_val < 0.08 and not (is_spring or is_steady_momentum):
-            penalty = 2.0 if is_squeeze else 4.0
-            score -= penalty
-            details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f}){' (Squeeze indirimi)' if is_squeeze else ''}")
+        # İstisna: Squeeze, Spring ve Steady Momentum — bu profillerde
+        # CMF 0.03-0.07 bandı "zayıf" değil, normal trend birikimi.
+        if -0.05 <= cmf_val < 0.0 and not (is_squeeze or is_spring or is_steady_momentum):
+            score -= 2.0; details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f})")
+        elif 0.0 <= cmf_val < 0.08 and not (is_squeeze or is_spring or is_steady_momentum):
+            score -= 4.0; details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f})")
 
         # =============================================================
         # PHASE 3F: 1H MİKRO ANALİZ
@@ -2298,13 +2267,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             # Dual-TF RSI Düşüş — Hard Block
             if rsi_slope_5 < -4 and rsi_1h_slope < -4:
                 if is_squeeze or is_spring:
-                    # Squeeze+RSI düşüşü = olası bear squeeze. Puan düş ama eleme yok.
-                    dual_tf_penalty = -12.0 if (rsi_slope_5 < -7 and rsi_1h_slope < -7) else -8.0
-                    score += dual_tf_penalty
-                    details.append(
-                        f"⚠️ DUAL-TF RSI DÜŞÜŞ: 1D({rsi_slope_5:.1f}) + 1H({rsi_1h_slope:.1f}) "
-                        f"Ceza: {dual_tf_penalty:.0f} (Squeeze/Spring İstisna)"
-                    )
+                    score -= 8.0  # istisna: daha hafif ceza
+                    details.append(f"⚠️ DUAL-TF RSI DÜŞÜŞ: 1D({rsi_slope_5:.1f}) + 1H({rsi_1h_slope:.1f}) (Squeeze/Spring İstisna)")
                 else:
                     # Hard eleme — squeeze/spring dışında tolerans yok
                     logging.info(f"🚫 {ticker}: Dual-TF RSI düşüş → Elendi")
@@ -3847,6 +3811,10 @@ async def scan_top_stocks():
     
     top_50 = candidates_ranked[:TOP_DEEP_ANALYSIS]
     logging.info(f"🏆 Layer 2 → Top {len(top_50)} moving to deep analysis (based on Boga Score).")
+    )
+    
+    top_50 = candidates_ranked[:TOP_DEEP_ANALYSIS]
+    logging.info(f"🏆 Layer 2 → Top {len(top_50)} moving to deep analysis.")
 
     # ── STEP 5: LAYER 3 — DEEP ANALYSIS (Top 50) ───────────────────
     async def fetch_heavy_data(c: dict):

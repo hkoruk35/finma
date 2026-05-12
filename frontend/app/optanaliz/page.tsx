@@ -84,6 +84,22 @@ const SYSTEM_TR = {
   PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
 };
 
+function generateComment(pick: any, ivRank: number | null): string {
+  const score = pick.boga_score || pick.score || 0;
+  const system = pick.selected_system || "";
+  const isExhausted = pick.trend_status?.is_exhausted || pick.is_exhausted;
+  const rr = pick.boga_zones?.risk_reward || pick.rr_ratio || 0;
+
+  if (isExhausted) return "⚠️ Trend yorulması, yeni giriş riskli.";
+  if (score >= 85 && ivRank !== null && ivRank < 30) return "🚀 Yüksek Skor + Ucuz Opsiyon: Güçlü Fırsat!";
+  if (score >= 80 && rr >= 3.0) return "🎯 Harika Risk/Ödül Oranı.";
+  if (system === "BREAKOUT" && score >= 75) return "⚡ Trend Kırılımı + Momentum desteği.";
+  if (system === "SQUEEZE") return "⌛ Volatilite sıkışması: Patlama yakın olabilir.";
+  if (ivRank !== null && ivRank > 70) return "💎 Yüksek IV: Spread stratejileri daha uygun.";
+  if (score >= 70) return "📈 Pozitif trend eğilimi devam ediyor.";
+  return "⚖️ Dengeli risk profili, izlemede kalın.";
+}
+
 // ── Sub-Components ────────────────────────────────────────────────────────────
 
 function Row({ label, value, accent }: { label: string, value: React.ReactNode, accent?: string }) {
@@ -284,6 +300,8 @@ function OptAnalizContent() {
   const searchParams = useSearchParams();
   const symbolParam = searchParams.get("symbol")?.toUpperCase();
 
+  const [viewMode, setViewMode] = useState<"card" | "list">("card");
+  const [dataRange, setDataRange] = useState<"latest" | "15days">("latest");
   const [picks, setPicks] = useState<any[]>([]);
   const [liveOptions, setLiveOptions] = useState<any>({});
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
@@ -294,40 +312,64 @@ function OptAnalizContent() {
 
   useEffect(() => {
     async function loadData() {
+      setLoading(true);
       try {
         const t = Date.now();
-        const [picksRes, optsRes] = await Promise.all([
-          fetch(`/swing_all_picks.json?v=${t}`),
-          fetch(`/swing_options_live.json?v=${t}`).catch(() => null)
-        ]);
-        
-        if (!picksRes.ok) throw new Error("Veri yüklenemedi");
-        const data = await picksRes.json();
-        
-        let optsData: any = {};
-        if (optsRes && optsRes.ok) {
-           const o = await optsRes.json();
-           optsData = o.options || {};
-        }
-        
-        const rawPicks = data.picks || [];
-        // Sort: exhausted last, then by boga_score_100 desc
-        rawPicks.sort((a: any, b: any) => {
-          const ea = a.trend_status?.is_exhausted || a.is_exhausted || false;
-          const eb = b.trend_status?.is_exhausted || b.is_exhausted || false;
-          if (ea !== eb) return ea ? 1 : -1;
-          return (b.boga_score || b.score || 0) - (a.boga_score || a.score || 0);
-        });
+        if (dataRange === "latest") {
+          const [picksRes, optsRes] = await Promise.all([
+            fetch(`/swing_all_picks.json?v=${t}`),
+            fetch(`/swing_options_live.json?v=${t}`).catch(() => null)
+          ]);
+          
+          if (!picksRes.ok) throw new Error("Veri yüklenemedi");
+          const data = await picksRes.json();
+          
+          let optsData: any = {};
+          if (optsRes && optsRes.ok) {
+             const o = await optsRes.json();
+             optsData = o.options || {};
+          }
+          
+          const rawPicks = data.picks || [];
+          rawPicks.sort((a: any, b: any) => {
+            const ea = a.trend_status?.is_exhausted || a.is_exhausted || false;
+            const eb = b.trend_status?.is_exhausted || b.is_exhausted || false;
+            if (ea !== eb) return ea ? 1 : -1;
+            return (b.boga_score || b.score || 0) - (a.boga_score || a.score || 0);
+          });
 
-        setPicks(rawPicks);
-        setGeneratedAt(data.generated_at || null);
-        setLiveOptions(optsData);
-        
-        // If symbol query param exists, select it, otherwise select the first pick
-        if (symbolParam && rawPicks.some((p: any) => p.ticker === symbolParam)) {
-          setSelectedTicker(symbolParam);
-        } else if (rawPicks.length > 0) {
-          setSelectedTicker(rawPicks[0].ticker);
+          setPicks(rawPicks);
+          setGeneratedAt(data.generated_at || null);
+          setLiveOptions(optsData);
+          if (rawPicks.length > 0 && !symbolParam) {
+            setSelectedTicker(rawPicks[0].ticker);
+          }
+          if (symbolParam && rawPicks.some((p: any) => p.ticker === symbolParam)) {
+            setSelectedTicker(symbolParam);
+          }
+        } else {
+          // Fetch last 15 days consolidated
+          // We don't have a direct "15days" endpoint, so we fetch swing_performance which has recent history
+          const res = await fetch(`/swing_performance.json?v=${t}`);
+          if (!res.ok) throw new Error("Arşiv verisi yüklenemedi");
+          const data = await res.json();
+          const history = data.history || [];
+          
+          // Filter to last 15 days unique tickers
+          const uniqueHistory: any[] = [];
+          const seen = new Set();
+          history.slice(0, 100).forEach((h: any) => {
+            if (!seen.has(h.ticker)) {
+              seen.add(h.ticker);
+              uniqueHistory.push({
+                ...h,
+                boga_score: h.score, // normalization
+                selected_system: "ARCHIVE"
+              });
+            }
+          });
+          setPicks(uniqueHistory);
+          if (uniqueHistory.length > 0) setSelectedTicker(uniqueHistory[0].ticker);
         }
       } catch (err: any) {
         setError(err.message);
@@ -336,7 +378,7 @@ function OptAnalizContent() {
       }
     }
     loadData();
-  }, []);
+  }, [dataRange, symbolParam]);
 
   // Parse IV ranks map
   const ivMap = React.useMemo(() => {
@@ -375,17 +417,39 @@ function OptAnalizContent() {
           </span>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-white">Opsiyon Analiz Portalı</h1>
-        <div className="flex items-center justify-between flex-wrap gap-2 mt-1">
+        <div className="flex items-center justify-between flex-wrap gap-4 mt-1">
           <div className="flex items-center gap-4">
-            <p className="text-sm text-[#475569]">Günlük swing adayları için otomatik opsiyon stratejileri</p>
-            <Link 
-              href="/optanaliz-performance" 
-              className="text-[10px] font-black text-[#22c55e] border border-[#22c55e]/30 px-3 py-1 rounded-full hover:bg-[#22c55e]/10 transition-all uppercase tracking-widest"
-            >
-              📊 Performans Takibi →
-            </Link>
+            <div className="flex bg-[#0f172a] rounded-lg border border-[#1e293b] p-1">
+              <button 
+                onClick={() => setViewMode("card")}
+                className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${viewMode === "card" ? "bg-[#22c55e] text-black" : "text-[#475569] hover:text-white"}`}
+              >
+                Kart Görünümü
+              </button>
+              <button 
+                onClick={() => setViewMode("list")}
+                className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${viewMode === "list" ? "bg-[#22c55e] text-black" : "text-[#475569] hover:text-white"}`}
+              >
+                Liste Görünümü
+              </button>
+            </div>
+
+            <div className="flex bg-[#0f172a] rounded-lg border border-[#1e293b] p-1">
+              <button 
+                onClick={() => setDataRange("latest")}
+                className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "latest" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}
+              >
+                Güncel
+              </button>
+              <button 
+                onClick={() => setDataRange("15days")}
+                className={`px-3 py-1 rounded text-[10px] font-bold uppercase transition-all ${dataRange === "15days" ? "bg-[#3b82f6] text-white" : "text-[#475569] hover:text-white"}`}
+              >
+                Son 15 Gün
+              </button>
+            </div>
           </div>
-          {generatedAt && (
+          {generatedAt && dataRange === "latest" && (
             <p className="text-[10px] font-mono text-[#3b82f6] bg-[#3b82f6]/10 px-2 py-0.5 rounded border border-[#3b82f6]/20">
               SON GÜNCELLEME: {new Date(generatedAt).toLocaleString("tr-TR")}
             </p>
@@ -445,11 +509,73 @@ function OptAnalizContent() {
 
         {/* Main Content: Analysis Card */}
         <div>
-          {selectedPick ? (
-            <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} />
+          {viewMode === "card" ? (
+            <>
+              {selectedPick ? (
+                <PickCard pick={selectedPick} ivRank={selectedIvRank} liveOptions={liveOptions[selectedPick.ticker]} />
+              ) : (
+                <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">
+                  Analiz için listeden bir hisse seçin
+                </div>
+              )}
+            </>
           ) : (
-            <div className="h-[400px] flex items-center justify-center border border-dashed border-[#1e293b] rounded-xl text-[#475569]">
-              Analiz için listeden bir hisse seçin
+            <div className="bg-[#0f172a] rounded-xl border border-[#1e293b] overflow-hidden">
+               <div className="overflow-x-auto">
+                 <table className="w-full text-left text-[11px] border-collapse">
+                   <thead>
+                     <tr className="bg-[#1e293b]/50 text-[#64748b] font-black uppercase tracking-widest">
+                       <th className="px-4 py-3">Ticker</th>
+                       <th className="px-4 py-3">Fiyat</th>
+                       <th className="px-4 py-3">BOGA Skor</th>
+                       <th className="px-4 py-3">Sistem</th>
+                       <th className="px-4 py-3">IV Rank</th>
+                       <th className="px-4 py-3">BOGA Yorumu (Analist Özeti)</th>
+                       <th className="px-4 py-3">İşlem</th>
+                     </tr>
+                   </thead>
+                   <tbody className="divide-y divide-[#1e293b]/50">
+                     {picks.map((p: any) => {
+                       const iv = ivMap[p.ticker] ?? ivMap["__all__"] ?? null;
+                       const comment = generateComment(p, iv);
+                       return (
+                         <tr key={p.ticker} className={`hover:bg-[#22c55e]/5 transition-all ${selectedTicker === p.ticker ? "bg-[#22c55e]/10" : ""}`}>
+                           <td className="px-4 py-4 font-bold text-white text-[13px]">{p.ticker}</td>
+                           <td className="px-4 py-4 text-[#f1f5f9] font-mono">${fmt(p.current_price || p.price)}</td>
+                           <td className="px-4 py-4">
+                             <span className={`font-black ${(p.boga_score || p.score) >= 75 ? "text-[#22c55e]" : "text-[#eab308]"}`}>
+                               {fmt(p.boga_score || p.score, 0)}
+                             </span>
+                           </td>
+                           <td className="px-4 py-4">
+                             <span className="text-[10px] bg-white/5 px-2 py-0.5 rounded border border-white/10 text-slate-400">
+                               {p.selected_system || "MOMENTUM"}
+                             </span>
+                           </td>
+                           <td className="px-4 py-4">
+                             {iv !== null ? (
+                               <span className={`font-bold ${iv > 60 ? "text-[#ef4444]" : "text-[#22c55e]"}`}>%{iv}</span>
+                             ) : <span className="text-slate-600">—</span>}
+                           </td>
+                           <td className="px-4 py-4">
+                             <span className={`font-medium ${comment.includes("🚀") ? "text-[#22c55e] font-black" : "text-slate-300"}`}>
+                               {comment}
+                             </span>
+                           </td>
+                           <td className="px-4 py-4">
+                             <button 
+                               onClick={() => { setSelectedTicker(p.ticker); setViewMode("card"); }}
+                               className="text-[9px] font-black text-[#3b82f6] border border-[#3b82f6]/30 px-2 py-1 rounded hover:bg-[#3b82f6]/10 uppercase transition-all"
+                             >
+                               Detay →
+                             </button>
+                           </td>
+                         </tr>
+                       );
+                     })}
+                   </tbody>
+                 </table>
+               </div>
             </div>
           )}
 
