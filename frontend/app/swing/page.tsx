@@ -86,25 +86,6 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <div className="flex items-center gap-2 bg-[#1e293b] border border-white/10 rounded-xl px-3 py-2">
-                <span className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest">Archive:</span>
-                <select 
-                  className="bg-transparent text-sm text-white font-bold outline-none cursor-pointer"
-                  onChange={(e) => {
-                    if (e.target.value) window.location.href = `/swing?date=${e.target.value}`;
-                    else window.location.href = `/swing`;
-                  }}
-                  defaultValue={selectedDate || ""}
-                  // Using client-side navigation trick since this is a server component
-                  // but standard HTML select onChange works if we wrap it or use a client component
-                  // For now, let's provide a cleaner UI below.
-                >
-                  <option value="" className="bg-[#0d1117]">Latest</option>
-                  {archiveDates.map(d => (
-                    <option key={d} value={d} className="bg-[#0d1117]">{d}</option>
-                  ))}
-                </select>
-              </div>
               <Link
                 href="/performance"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
@@ -115,27 +96,27 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
           </div>
         </div>
 
-        {/* Quick Archive Links: Last 7 Days */}
-        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
-           <span className="text-[11px] font-black text-white uppercase tracking-widest whitespace-nowrap">Last 7 Days:</span>
+        {/* Quick Archive Links: Last 10 Days */}
+        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide bg-[#1e293b]/30 p-4 rounded-2xl border border-white/5">
+           <span className="text-[11px] font-black text-white uppercase tracking-widest whitespace-nowrap">📅 Session Archive:</span>
            <Link 
              href="/swing" 
-             className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${!selectedDate ? "bg-[#3b82f6] border-[#3b82f6] text-white" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+             className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${!selectedDate ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
            >
              LATEST
            </Link>
-           {archiveDates.slice(0, 7).map(d => (
+           {archiveDates.slice(0, 10).map(d => (
              <Link 
                key={d}
                href={`/swing?date=${d}`}
-               className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${selectedDate === d ? "bg-[#3b82f6] border-[#3b82f6] text-white" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+               className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${selectedDate === d ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
              >
                {d.split('-').slice(1).join('/')}
              </Link>
            ))}
            <div className="h-4 w-px bg-white/10 mx-2" />
-           <Link href="/performance" className="text-[11px] font-bold text-[#00d2ff] hover:text-white transition-colors whitespace-nowrap uppercase tracking-widest">
-             Full Archive →
+           <Link href="/performance" className="text-[11px] font-bold text-[#3b82f6] hover:text-white transition-colors whitespace-nowrap uppercase tracking-widest">
+             Full History →
            </Link>
         </div>
 
