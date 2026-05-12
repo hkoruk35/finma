@@ -34,6 +34,12 @@ interface Summary {
   expired: number;
 }
 
+const SYSTEM_TR = {
+  SQUEEZE: "Volatilite Sıkışması", SPRING: "Başarısız Kırılım",
+  AWAKENING: "Gizli Kırılım", EMA_CROSS: "EMA Kesişimi",
+  PULLBACK: "Geri Çekilme", BREAKOUT: "Trend Kırılımı", MOMENTUM: "Momentum",
+};
+
 export default function OptionsPerformancePage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -231,6 +237,7 @@ export default function OptionsPerformancePage() {
                     <tr className="bg-white/5 text-[10px] font-black uppercase tracking-widest text-slate-400">
                       <th className="px-6 py-4">Symbol / Date</th>
                       <th className="px-6 py-4">Strategy</th>
+                      <th className="px-6 py-4">System</th>
                       <th className="px-6 py-4">Contract</th>
                       <th className="px-6 py-4">Entry</th>
                       <th className="px-6 py-4">Current/Exit</th>
@@ -246,7 +253,16 @@ export default function OptionsPerformancePage() {
                           <div className="flex flex-col"><span className="text-lg font-black text-white">{pos.ticker}</span><span className="text-[10px] text-slate-500">{pos.scan_date}</span></div>
                         </td>
                         <td className="px-6 py-5">
-                          <span className={`text-[10px] font-black px-2 py-1 rounded border uppercase ${pos.strategy === 'institutional' ? 'text-indigo-400 border-indigo-400/30 bg-indigo-400/10' : 'text-cyan-400 border-cyan-400/30 bg-cyan-400/10'}`}>{pos.strategy}</span>
+                          <span className={`text-[10px] font-black px-2 py-1 rounded border uppercase ${
+                            pos.strategy === 'institutional' ? 'text-indigo-400 border-indigo-400/30 bg-indigo-400/10' : 'text-cyan-400 border-cyan-400/30 bg-cyan-400/10'
+                          }`}>
+                            {pos.strategy}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5">
+                           <span className="text-[9px] font-bold text-slate-400 bg-white/5 border border-white/10 px-2 py-1 rounded uppercase tracking-tighter">
+                             {(SYSTEM_TR as any)[(pos as any).setup || (pos as any).system] || (pos as any).setup || (pos as any).system || "MOMENTUM"}
+                           </span>
                         </td>
                         <td className="px-6 py-5">
                           <div className="flex flex-col"><span className="text-xs font-bold text-slate-300">${pos.strike} Call</span><span className="text-[10px] text-slate-500">Exp: {pos.expiration}</span></div>
