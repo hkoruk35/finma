@@ -14,8 +14,8 @@ function Set-BogaTask {
     
     # 🔄 Eğer tekrarlı bir görevse (örn: saatlik), Weekly tetikleyicisine Repetition ekle
     if ($RepetitionInterval) {
-        $Trigger.RepetitionInterval = $RepetitionInterval
-        $Trigger.RepetitionDuration = $RepetitionDuration
+        $RepetitionTrigger = New-ScheduledTaskTrigger -Once -At $StartTime -RepetitionInterval $RepetitionInterval -RepetitionDuration $RepetitionDuration
+        $Trigger.Repetition = $RepetitionTrigger.Repetition
     }
 
     try { Unregister-ScheduledTask -TaskName $Name -Confirm:$false -ErrorAction SilentlyContinue } catch {}
@@ -28,9 +28,6 @@ Set-BogaTask -Name "BOGA_AI_Morning_Cycle" -Script "run_morning_cycle.py" -Args 
 
 # 2. BOGA AI AFTERNOON CYCLE (run_afternoon_cycle.py) - 13:00 NY
 Set-BogaTask -Name "BOGA_AI_Afternoon_Cycle" -Script "run_afternoon_cycle.py" -Args "" -StartTime "13:00:00"
-
-# 2b. BOGA AI CLOSING CYCLE (run_afternoon_cycle.py) - 16:00 NY
-Set-BogaTask -Name "BOGA_AI_Closing_Cycle" -Script "run_afternoon_cycle.py" -Args "" -StartTime "16:00:00"
 
 # 3. BOGA AI TERMINAL PULSE (Hourly Data) - 09:00 NY (Every 1 hour)
 Set-BogaTask -Name "BOGA_AI_Terminal_Pulse" -Script "run_terminal_pulse.py" -Args "" -StartTime "09:00:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 8)
@@ -49,7 +46,8 @@ $OldTasks = @(
     "BOGA_AI_v6.1_SWING",
     "BOGA_AI_v8.0_SWING",
     "BOGA_AI_Daily_Master",
-    "BOGA_AI_Inday_Scanner"
+    "BOGA_AI_Inday_Scanner",
+    "BOGA_AI_Closing_Cycle"
 )
 
 foreach ($Task in $OldTasks) {

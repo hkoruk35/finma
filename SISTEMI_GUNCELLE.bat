@@ -35,9 +35,8 @@ if '%errorlevel%' NEQ '0' (
     echo --------------------------------------------------
     echo 1. Sabah Dongusu (DayTrade):    09:15 NY
     echo 2. Ogle Dongusu (Swing):        13:00 NY
-    echo 3. Kapanis Dongusu (Swing):     16:00 NY
-    echo 4. Terminal Pulse (Saatlik):    09:00-17:00 NY
-    echo 5. Saglik Raporu:               Her 4 Saatte Bir (7/24)
+    echo 3. Terminal Pulse (Saatlik):    09:00-17:00 NY
+    echo 4. Saglik Raporu:               Her 4 Saatte Bir (7/24)
     echo ==================================================
     echo.
     pause

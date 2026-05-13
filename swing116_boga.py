@@ -91,8 +91,8 @@ WEEKLY_SCAN_DAY = 0       # 0 = Monday
 WEEKLY_SCAN_HOUR = 9
 WEEKLY_SCAN_MINUTE = 0
 
-# Daily selection scan (Every day 09:00 NY)
-DAILY_RUN_HOUR = 9
+# Daily selection scan (Every day 13:00 NY)
+DAILY_RUN_HOUR = 13
 DAILY_RUN_MINUTE = 0
 
 # ================================================================
@@ -4163,7 +4163,7 @@ async def _verify_with_alpha_vantage(ticker: str, yahoo_price: float) -> dict:
 # ================================================================
 # ================================================================
 
-def get_next_weekday_run_time_ny(target_hour=13, target_minute=0):
+def get_next_weekday_run_time_ny(target_hour=DAILY_RUN_HOUR, target_minute=DAILY_RUN_MINUTE):
     """Returns the next weekday NY 13:00 time (UTC aware)."""
     now_utc = datetime.now(timezone.utc)
     now_ny  = now_utc.astimezone(NY_TZ)
@@ -4242,7 +4242,7 @@ if __name__ == "__main__":
             from zoneinfo import ZoneInfo
             ny_tz = ZoneInfo("America/New_York")
             now_ny = datetime.now(ny_tz)
-            target_ny = now_ny.replace(hour=13, minute=0, second=0, microsecond=0)
+            target_ny = now_ny.replace(hour=DAILY_RUN_HOUR, minute=DAILY_RUN_MINUTE, second=0, microsecond=0)
             
             if now_ny < target_ny and "--now" not in sys.argv:
                 wait_sec = (target_ny - now_ny).total_seconds()
