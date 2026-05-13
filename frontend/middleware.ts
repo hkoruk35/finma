@@ -7,11 +7,15 @@ export function middleware(request: NextRequest) {
 
   // 1. Her zaman erişilebilecek yollar (Login, Assetler, API)
   const isPublicPath = 
+    pathname === '/' ||
     pathname.startsWith('/login') || 
+    pathname.startsWith('/swing') || 
+    pathname.startsWith('/daytrade') || 
     pathname.startsWith('/optanaliz') || 
     pathname.startsWith('/optanaliz-performance') || 
     pathname.startsWith('/performance') || 
     pathname.startsWith('/swing-performance') || 
+    pathname.startsWith('/stock') || 
     pathname.startsWith('/_next') || 
     pathname.startsWith('/api') ||
     pathname.includes('.') || // static resimler, favicons vb.

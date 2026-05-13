@@ -53,13 +53,6 @@ export default async function SwingPerformancePage() {
                 Algoritmik swing modellerimizin tüm tarihsel sinyal kayıtları. Şeffaflık ilkemiz gereği her başarılı ve başarısız setup, bot tarafından hesaplanan Stop-Loss verileriyle birlikte listelenir.
               </p>
             </div>
-            
-            <div className="flex flex-col items-end gap-2 shrink-0">
-               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">GÜNCEL DURUM</span>
-               <div className="px-4 py-2 bg-[#22c55e]/10 border border-[#22c55e]/20 rounded-xl">
-                  <span className="text-xs font-bold text-[#22c55e] uppercase tracking-widest">● LIVE TRACKING ACTIVE</span>
-               </div>
-            </div>
           </div>
         </header>
 
