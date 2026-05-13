@@ -19,10 +19,6 @@ const nextConfig: NextConfig = {
             key: "Vary",
             value: "Accept-Encoding",
           },
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=3600, stale-while-revalidate=86400",
-          },
         ],
       },
       // Disable indexing for admin pages
