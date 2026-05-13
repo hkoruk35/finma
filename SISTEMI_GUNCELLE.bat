@@ -29,14 +29,16 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
     echo BOGA AI Sistem Gorevleri Temizleniyor ve Guncelleniyor...
     powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\scratch\setup_boga_tasks.ps1"
+    powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\scratch\setup_performance_hourly.ps1"
     echo.
     echo ==================================================
-    echo ISLEM TAMAMLANDI! (Tum duplicateler temizlendi)
+    echo ISLEM TAMAMLANDI! (Tum sistem guncellendi)
     echo --------------------------------------------------
     echo 1. Sabah Dongusu (DayTrade):    09:15 NY
     echo 2. Ogle Dongusu (Swing):        13:00 NY
-    echo 3. Terminal Pulse (Saatlik):    09:00-17:00 NY
-    echo 4. Saglik Raporu:               Her 4 Saatte Bir (7/24)
+    echo 3. Performans Takibi:           10:00-16:30 NY (Saatlik)
+    echo 4. Terminal Pulse (Saatlik):    09:00-17:00 NY
+    echo 5. Saglik Raporu:               Her 4 Saatte Bir (7/24)
     echo ==================================================
     echo.
     pause

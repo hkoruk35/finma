@@ -13,7 +13,7 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
   if (!stats || typeof stats.total_picks === 'undefined') return null;
 
   return (
-    <Link href="/swing-performance" className="block group w-full">
+    <Link href="/performance" className="block group w-full">
       <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 group-hover:border-[#3b82f6]/80 transition-colors rounded-2xl p-6 shadow-2xl mb-8 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#3b82f6] blur-[80px] opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
         

@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { name: "Swing", href: "/swing" },
   { name: "DayTrade", href: "/daytrade" },
   { name: "Long Term", href: "/long-term" },
-  { name: "Performance", href: "/swing-performance" },
+  { name: "Performance", href: "/performance" },
   { name: "Options", href: "/optanaliz" },
 ];
 

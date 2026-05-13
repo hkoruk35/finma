@@ -70,13 +70,20 @@ def update_performance_live():
 
     for record in history:
         ticker = record['ticker']
-        if record.get('result') not in ['PENDING', None]:
-            entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
-            if (today_date - entry_date_0).days > 40: continue
+        
+        # ⚡ OPTIMIZATION: Only update PENDING trades or very recent ones (last 5 days)
+        # to avoid hitting yfinance limits and making it too slow.
+        is_pending = record.get('result') in ['PENDING', None]
+        entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
+        is_recent = (today_date - entry_date_0).days <= 5
+        
+        if not is_pending and not is_recent:
+            continue
 
         try:
             entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
-            hist = yf.Ticker(ticker).history(start=(entry_date_0 + timedelta(days=1)).strftime('%Y-%m-%d'),
+            # 📅 Start from the entry date to ensure we get data even if it was just added
+            hist = yf.Ticker(ticker).history(start=entry_date_0.strftime('%Y-%m-%d'),
                                              end=(entry_date_0 + timedelta(days=45)).strftime('%Y-%m-%d'))
             
             if hist.empty: continue
