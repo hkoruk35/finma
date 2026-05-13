@@ -59,14 +59,19 @@ def update_performance_live():
         except: pass
 
     today_picks = {}
+    json_date_str = ""
     if os.path.exists(picks_file):
         with open(picks_file, 'r', encoding='utf-8') as f:
-            p_list = json.load(f).get('picks', [])
+            picks_json = json.load(f)
+            p_list = picks_json.get('picks', [])
+            json_date_str = picks_json.get('date', '')
             for p in p_list:
                 today_picks[p['ticker']] = p
 
-    today_str = datetime.now().strftime('%Y-%m-%d')
-    today_date = datetime.strptime(today_str, '%Y-%m-%d')
+    if not json_date_str:
+        json_date_str = datetime.now().strftime('%Y-%m-%d')
+
+    today_date = datetime.strptime(json_date_str, '%Y-%m-%d')
 
     for record in history:
         ticker = record['ticker']
@@ -154,16 +159,28 @@ def update_performance_live():
 
         except Exception as e: pass
 
-    existing_today = [r['ticker'] for r in history if r['date'] == today_str]
+    # 🧹 CLEANUP: Remove any mistakenly added future dates if they exist (safety)
+    history = [r for r in history if r['date'] <= json_date_str]
+
+    # 🛡️ 5-DAY RULE: Only add if ticker hasn't appeared in the last 5 DAYS
+    existing_tickers_last_5 = []
+    lookback_date = today_date - timedelta(days=5)
+    for r in history:
+        r_date = datetime.strptime(r['date'], '%Y-%m-%d')
+        if r_date >= lookback_date and r['date'] < json_date_str:
+            existing_tickers_last_5.append(r['ticker'])
+
+    existing_current = [r['ticker'] for r in history if r['date'] == json_date_str]
+    
     for ticker, p in today_picks.items():
-        if ticker not in existing_today:
+        if ticker not in existing_current and ticker not in existing_tickers_last_5:
             info = get_ticker_info(ticker, info_cache)
             entry_ref = p.get('current_price', 1)
             sl_ref = p.get('tracker_logic', {}).get('stop_loss_high', entry_ref * 0.9474) # default 5.26%
             sl_pct = abs(round(((sl_ref - entry_ref) / entry_ref) * 100, 2))
             
             history.append({
-                'date': today_str,
+                'date': json_date_str,
                 'ticker': ticker,
                 'company': info['company'],
                 'sector': info['sector'],
