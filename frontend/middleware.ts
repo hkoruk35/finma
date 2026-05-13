@@ -5,17 +5,16 @@ export function middleware(request: NextRequest) {
   const authCookie = request.cookies.get('boga_auth')
   const { pathname } = request.nextUrl
 
-  // 1. Her zaman erişilebilecek yollar (Login, Assetler, API)
+  // 1. Her zaman erişilebilecek yollar (Sadece Login ve Statik Dosyalar)
   const isPublicPath = 
     pathname.startsWith('/login') || 
-    pathname.startsWith('/optanaliz') || 
-    pathname.startsWith('/optanaliz-performance') || 
     pathname.startsWith('/_next') || 
     pathname.startsWith('/api') ||
-    pathname.includes('.') || // static resimler, favicons vb.
+    pathname.includes('.') || // resimler, fontlar vb.
     pathname === '/favicon.ico'
 
   // 2. Eğer kullanıcı giriş yapmamışsa ve public olmayan bir yere gitmeye çalışıyorsa -> Login'e at
+  // Not: pathname === '/' burada isPublicPath olmadığı için login'e yönlendirilecektir.
   if (!authCookie && !isPublicPath) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
