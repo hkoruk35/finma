@@ -194,7 +194,7 @@ SECTOR_ETF_MAP = {
 # Bu sektörler tamamen elenmiyor (kaliteli setup gelirse alınsın) ama -3 puan ceza alır.
 # YENİ:
 SLOW_PEAK_SECTORS = {
-    "Real Estate": -12.0,  # 🎯 VERİ TEYİDİ: Ortalama sadece %2.2 getiri. Kesinlikle elenmeli.
+    "Real Estate": -5.0,  # 🎯 VERİ TEYİDİ: Ortalama sadece %2.2 getiri. Kesinlikle elenmeli.
     "Consumer Defensive": -3.0,
     "Utilities": -3.0,
 }
@@ -220,6 +220,15 @@ HIGH_RISK_INDUSTRY_MCAP_FLOOR = 5_000_000_000  # $5B
 
 # Negatif FCF hard floor — bu sınırın altında FCF olan hisse elenir
 NEGATIVE_FCF_FLOOR = -50_000_000  # -$50M
+
+# ── V116 FIX: CEF / ETF / MutualFund Engelleme Setleri (Global) ──────────────
+CEF_BLOCK_QUOTE_TYPES: set = {"etf", "mutualfund", "cef"}
+CEF_BLOCK_INDUSTRIES: set = {
+    "closed-end fund",
+    "closed end fund",
+    "asset management",          # saf holding/fund yöneticisi
+    "exchange traded fund",
+}
 
 # ================================================================
 # 🔹 GLOBAL STATE VARIABLES
@@ -598,6 +607,8 @@ def get_stock_info(ticker: str) -> dict:
             "totalDebt": inf.get("totalDebt", 0),                 # Toplam borç
             "netIncomeToCommon": inf.get("netIncomeToCommon", 0), # Net gelir (negatif = zarar)
             "trailingEps": inf.get("trailingEps", 0),             # EPS (negatif = zarar)
+            # ── V116 FIX: CEF/ETF/MutualFund filtresi için quoteType ────────────
+            "quoteType": inf.get("quoteType", "EQUITY"),          # EQUITY / ETF / MUTUALFUND / CEF
         }
         
         # Cache güncelle ve kaydet
@@ -867,7 +878,8 @@ def analyze_financial_health(ticker: str, info: dict) -> dict:
         pe_ratio         = info.get('trailingPE', 0) or 0
         pb_ratio         = info.get('priceToBook', 0) or 0
         fcf_yield        = info.get('freeCashflow', 0) or 0
-        market_cap       = info.get('marketCap', 0) or 0
+        # ── V116 FIX: Key uyumsuzluğu giderildi (cached_info desteği) ──
+        market_cap       = info.get('marketCap', 0) or info.get('market_cap', 0)
         fcf_yield_pct    = (fcf_yield / market_cap * 100) if market_cap > 0 and fcf_yield > 0 else 0.0
 
         if gross_margin > 0.35:
@@ -1241,14 +1253,45 @@ def get_price_performance(df_1d: pd.DataFrame, ticker: str) -> dict:
 def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
     try:
         stock = yf.Ticker(ticker)
+
+        # Kaynak 1: calendar (en güncel, ama bazen None)
         if hasattr(stock, 'calendar') and stock.calendar:
             earnings_date = stock.calendar.get('Earnings Date', None)
             if earnings_date:
                 if isinstance(earnings_date, list): earnings_date = earnings_date[0]
-                return pd.to_datetime(earnings_date)
+                result = pd.to_datetime(earnings_date)
+                if result and not pd.isna(result):
+                    return result
+
+        # Kaynak 2: earnings_dates DataFrame (daha geniş pencere, genelde dolu)
         if hasattr(stock, 'earnings_dates') and stock.earnings_dates is not None:
-            upcoming = stock.earnings_dates[stock.earnings_dates.index >= datetime.now(NY_TZ)]
-            if not upcoming.empty: return upcoming.index[0]
+            try:
+                now_tz = datetime.now(NY_TZ)
+                ed = stock.earnings_dates
+                # Index timezone-aware yapılıyor
+                if ed.index.tz is None:
+                    ed.index = ed.index.tz_localize('America/New_York')
+                else:
+                    ed.index = ed.index.tz_convert('America/New_York')
+                upcoming = ed[ed.index >= now_tz]
+                if not upcoming.empty:
+                    return upcoming.index[0]
+            except Exception:
+                pass
+
+        # Kaynak 3: info dict'inden EPS tarihi (son çare, kaba ama çalışır)
+        try:
+            info = stock.info
+            next_eps = info.get('nextFiscalYearEnd', None) or info.get('mostRecentQuarter', None)
+            # nextFiscalYearEnd çok uzak olur, sadece 60 gün içindeyse kullan
+            if next_eps:
+                dt = pd.to_datetime(next_eps, unit='s') if isinstance(next_eps, (int, float)) else pd.to_datetime(next_eps)
+                days_away = (dt - datetime.now()).days
+                if 0 <= days_away <= 60:
+                    return dt
+        except Exception:
+            pass
+
         return None
     except Exception:
         return None
@@ -1600,12 +1643,21 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
         score: float = 0.0
         details: List[str] = []
+        is_early_awakening: bool = False  # ── V116 FIX: Phase 2B NameError önlemi ──
+        is_steady_momentum: bool = False  # ── V116 FIX: Phase 3E NameError önlemi ──
+        financial_health_data: dict = {}  # ── V116 FIX: Phase 3N Temel Analiz Verisi ──
+
+        # =============================================================
 
         # =============================================================
         # PHASE 1A: TEMEL META FİLTRELER (network yok — cache okuma)
-        # =============================================================
         global persistent_info_cache
         cached_info = get_stock_info(ticker)
+        
+        # ── V116 FIX: Temel analiz verilerini Phase 0/1A'da hazırlıyoruz ─────
+        # Bu veriler boga_score_100 içindeki 'F' bölümü (10p) için kritiktir.
+        financial_health_data = analyze_financial_health(ticker, cached_info)
+        
         market_cap   = cached_info.get("market_cap", 0)
         beta         = cached_info.get("beta", 1.0)
         sector_name  = cached_info.get("sector", "Unknown")
@@ -1624,6 +1676,22 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if industry_lower in HIGH_RISK_INDUSTRIES and 0 < market_cap < HIGH_RISK_INDUSTRY_MCAP_FLOOR:
             logging.info(f"🚫 {ticker}: High-risk industry ({industry_raw}) + küçük cap (${market_cap/1e9:.1f}B < $5B) → Elendi")
             return None
+
+        # ── CEF / ETF / MutualFund Hard Reject ──────────────────────
+        # V116 FIX: NVG (Nuveen muni CEF) ve BCAT (BlackRock CEF) gibi
+        # kapalı uçlu fonlar swing evrenine girmemeli — teknik analiz
+        # sinyalleri geçersiz, beta sıfıra yakın, fiyat NAV'a kilitli.
+        quote_type_raw = cached_info.get("quoteType", "EQUITY").lower()
+        
+        
+        if quote_type_raw in CEF_BLOCK_QUOTE_TYPES:
+            logging.info(f"🚫 {ticker}: ETF/CEF/MutualFund (quoteType={quote_type_raw}) → Swing evrenine girmez")
+            return None
+            
+        if industry_lower in CEF_BLOCK_INDUSTRIES:
+            logging.info(f"🚫 {ticker}: CEF/Fund industry ({industry_raw}) → Swing evrenine girmez")
+            return None
+
 
         # ── Negatif FCF Hard Reject ──────────────────────────────────
         # Yılda $50M'dan fazla nakit yakan şirket swing için uygun değil.
@@ -1881,12 +1949,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # ATR sınırları
         if atr_pct_1d > 0:
-            if atr_pct_1d < 0.005:
+            # ── V116 FIX: Çok dar ATR hard reject eşiği %0.5'ten %1.5'e çıkarıldı ──
+            if atr_pct_1d < 0.015:
                 return None  # Çok dar, swing için ölü
             max_atr_allowed = 0.120 if beta > 1.5 else 0.080
             if atr_pct_1d > max_atr_allowed:
                 return None  # Aşırı volatil
-
         try:
             bb_width_1d = (bb_1d.bollinger_hband().iloc[-1] - bb_1d.bollinger_lband().iloc[-1]) / current_price if current_price > 0 else 0.0
         except Exception:
@@ -2057,11 +2125,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # ── ATR Rejimi Puanlaması ────────────────────────────────────
         if atr_pct_1d < 0.025:
             if is_squeeze:
-                score -= 3.0; details.append("⚠️ VOL: Squeeze sıkışması (ATR<2.5% normal)")
+                score -= 1.0; details.append("⚠️ VOL: Squeeze sıkışması (ATR<2.5% normal)")
             else:
-                score -= 10.0; details.append("🔴 VOL: 7g swing için yavaş (ATR<2.5%)")
+                # ── V116 FIX: ATR cezaları WTS gibi ağır hisseleri ezmemesi için yumuşatıldı ──
+                score -= 5.0; details.append("🔴 VOL: 7g swing için yavaş (ATR<2.5%)")
         elif atr_pct_1d < 0.035:
-            score -= 2.0; details.append("⚠️ VOL: Hafif Yavaş (ATR<3.5%)")
+            score -= 1.0; details.append("⚠️ VOL: Hafif Yavaş (ATR<3.5%)")
         elif atr_pct_1d < 0.045:
             score += 6.0; details.append("⚡ VOL: İyi Swing")
         elif atr_pct_1d <= 0.075:
@@ -2478,9 +2547,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
 
         # ── 🆕 Steady Momentum & Higher High/Low Bonus ──────────────────────
-        is_steady_momentum = False  # 🎯 FIX 1: NameError riskine karşı scope dışı tanımlama
         try:
             # 5 günlük kademeli yükseliş kontrolü (tek günlük spike değil, yavaş/sağlam trend)
+            
             if len(close_1d) >= 5:
                 close_5d = close_1d.tail(5).values
                 # En fazla %1'lik ufak geri çekilmelere tolerans tanı, net kapanış yüksek olsun ve 1G ret %5 altında olsun
@@ -2692,8 +2761,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
         # PHASE 3M: R/R FİNAL HARD GATE
         # =============================================================
-        # Trigger varsa daha sıkı R/R bekle (kalite işareti)
-        required_rr = MIN_RR_RATIO_RELAXED if entry_trigger else MIN_RR_RATIO
+        # Trigger varsa standart R/R yeterli (1.5), trigger yoksa riske değmesi için daha yüksek R/R (1.8) bekle
+        required_rr = MIN_RR_RATIO if entry_trigger else MIN_RR_RATIO_RELAXED
         if rr_ratio_calc < required_rr:
             logging.info(f"🚫 {ticker}: R/R yetersiz ({rr_ratio_calc:.2f} < {required_rr})")
             return None
@@ -2705,12 +2774,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         sec_perf_val = SECTOR_PERFORMANCE.get(sector_name, 0.0)
 
         if sector_penalty < 0:
-            if sec_perf_val > 2.0:
+            # ── V117 FIX: Yavaş sektörler için ceza iptal eşiği 2.0'den 1.0'e indirildi ──
+            if sec_perf_val > 1.0:
                 details.append(f"🔥 Yavaş Sektör ama HOT Trend: {sector_name} (Ceza İptal)")
             else:
                 score += sector_penalty
                 details.append(f"🐢 Yavaş Peak Sektör: {sector_name} ({sector_penalty:.1f}p)")
-
+                
         # =============================================================
         # PHASE 4: PERFORMANS VERİLERİ + ÖZET
         # =============================================================
@@ -2814,7 +2884,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
             # Layer 3 ağır veri alanları (sonra doldurulacak)
             "insider_data":     {'has_insider': False, 'score': 0.0, 'details': []},
-            "financial_health": {},
+            "financial_health": financial_health_data,
             "catalyst_data":    {'has_catalyst': False, 'score': 0.0, 'reasons': []},
             "opt_sentiment":    {},
             "tsi": 0.0, "msi": 0.0, "vrs": 0.0, "vps": 0.0,
@@ -3241,6 +3311,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
                 "EMA_CROSS": {"text": "EMA Crossover",      "color": "blue"},
                 "PULLBACK":  {"text": "Pullback Setup",     "color": "green"},
                 "BREAKOUT":  {"text": "Trend Breakout",     "color": "red"},
+                "TREND_CONT": {"text": "Steady Trend",      "color": "green"}, # ── V116 FIX: Eksik frontend etiketi eklendi ──
                 "MOMENTUM":  {"text": "Momentum Play",      "color": "gray"},
             }.get(c.get("selection_system", "MOMENTUM"), {"text": "Momentum Play", "color": "gray"}),
             "reasoning": f"BOGA AI Score: {c.get('boga_score_100', 0.0)} | System: {c.get('selection_system', 'MOMENTUM')}",

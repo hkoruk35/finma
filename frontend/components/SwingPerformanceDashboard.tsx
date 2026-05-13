@@ -458,14 +458,19 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   return (
     <div ref={dashboardRef} className="space-y-8">
       {/* ── Hero Overview ──────────────────────────────────────────────────── */}
-      <div className="mb-10 rounded-2xl overflow-hidden border border-[#1e2a3a] bg-gradient-to-br from-[#0d1521] via-[#111827] to-[#0d1521]">
+      <div className="mb-10 rounded-[32px] overflow-hidden border border-white/5 bg-[#0f172a] shadow-2xl relative">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#22c55e] to-[#3b82f6] opacity-30" />
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 px-6 pt-6 pb-4 border-b border-[#1e2a3a]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 px-8 pt-8 pb-6 border-b border-white/5">
           <div>
-            <h2 className="text-2xl font-black text-white">BOGA AI Swing Engine</h2>
-            <p className="text-xs text-[#00d2ff] mt-1">
-              Performance overview · <span className="text-[#f59e0b] font-bold">Dynamic Stop-Loss (Bot-Calc)</span>
-              {lastUpdated && <span className="ml-2">· Updated {formatLastUpdated(lastUpdated)}</span>}
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
+              <span className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-[0.2em]">Sistem İstatistikleri</span>
+            </div>
+            <h2 className="text-2xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span></h2>
+            <p className="text-[11px] text-slate-500 mt-2 font-medium">
+              Geçmiş Dönem Performans Özeti · <span className="text-[#f59e0b] font-bold">Dinamik Stop-Loss (AI)</span>
+              {lastUpdated && <span className="ml-2 opacity-50">· Son Güncelleme: {formatLastUpdated(lastUpdated)}</span>}
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs">
@@ -479,53 +484,52 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         </div>
 
         {/* Big Numbers Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-[#1e2a3a]">
-          <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Win Rate (w/ SL)</p>
-            <p className="text-3xl md:text-4xl font-mono font-black text-[#22c55e]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
+          <div className="p-8 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">BAŞARI ORANI</p>
+            <p className="text-4xl font-mono font-black text-[#22c55e] tracking-tighter">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-xs text-white mt-1">{stats.wins} wins / {stats.losses} losses</p>
+            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase">{stats.wins} G / {stats.losses} K</p>
           </div>
-          <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Avg Return (w/ SL)</p>
-            <p className={`text-3xl md:text-4xl font-mono font-black ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
+          <div className="p-8 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">ORTALAMA GETİRİ</p>
+            <p className={`text-4xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-xs text-white mt-1">avg ${stats.avgPnl} per $1,000</p>
+            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase">$1.000 / ${stats.avgPnl} KAR</p>
           </div>
-          <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Avg Days to Peak</p>
-            <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">
-              {stats.avgDays === "—" ? "—" : `${stats.avgDays}d`}
+          <div className="p-8 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">HEDEF GÜN</p>
+            <p className="text-4xl font-mono font-black text-[#3b82f6] tracking-tighter">
+              {stats.avgDays === "—" ? "—" : `${stats.avgDays} G`}
             </p>
-            <p className="text-xs text-white mt-1">winning trades only</p>
+            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase italic">SADECE KARLI İŞLEMLER</p>
           </div>
-          <div className="p-5 md:p-6 text-center">
-            <p className="text-xs md:text-sm text-[#00d2ff] uppercase tracking-wider mb-2">Total Signals</p>
-            <p className="text-3xl md:text-4xl font-mono font-black text-white">{stats.totalSignals}</p>
+          <div className="p-8 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">TOPLAM SİNYAL</p>
+            <p className="text-4xl font-mono font-black text-white tracking-tighter">{stats.totalSignals}</p>
             {stats.pending > 0 && (
-              <p className="text-xs text-[#3b82f6] mt-1">{stats.pending} pending</p>
+              <p className="text-[10px] text-[#3b82f6] mt-2 font-bold uppercase">{stats.pending} BEKLEYEN</p>
             )}
           </div>
         </div>
 
         {/* Profit Target Breakdown */}
-        <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-bold">Profit Target Breakdown — Avg Days & Hit Rate per Target</p>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="px-8 py-8 border-b border-white/5 bg-white/[0.01]">
+          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-6 font-bold">HEDEF BAZLI ANALİZ — Olasılık ve Ortalama Süre</p>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {profitTargets.map(pt => (
-              <div key={pt.pct} className="rounded-xl bg-[#141924] border border-[#1e2a3a] p-3 text-center hover:border-[#22c55e]/40 transition-colors">
-                <p className="text-xs text-[#00d2ff] uppercase mb-1">+{pt.pct}% Target</p>
-                <p className="text-xl font-black font-mono text-[#22c55e]">{pt.avgDays === "—" ? "—" : `${pt.avgDays}d`}</p>
-                <p className="text-xs text-white mt-0.5 font-bold">{pt.rate}%</p>
-                <p className="text-[11px] text-white">{pt.count} trades</p>
+              <div key={pt.pct} className="rounded-2xl bg-black/40 border border-white/5 p-4 text-center hover:border-[#22c55e]/20 transition-all group">
+                <p className="text-[9px] text-[#3b82f6] font-bold uppercase tracking-widest mb-2">+{pt.pct}% HEDEF</p>
+                <p className="text-2xl font-black font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "—" ? "—" : `${pt.avgDays} G`}</p>
+                <div className="mt-2 flex items-center justify-center gap-1.5">
+                   <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                   <span className="text-[10px] text-white font-bold">{pt.rate}%</span>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-sm text-[#00d2ff] mt-3">
-            Example: "+5% Target → 19.9d → 67.3%" means 67.3% of completed trades reached +5% or more, in an average of 19.9 days.
-          </p>
         </div>
 
         {/* Days-to-Profit Distribution Bar Chart */}
@@ -653,20 +657,25 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <button onClick={() => {
+              const text = filtered.map(t => `${t.date}\t${t.ticker}\t${fmt(t.entry)}\t${fmt(effectiveReturn(t), 1)}%\t${t.days||0}d\t${effectiveResult(t)}`).join("\n");
+              navigator.clipboard.writeText(`Date\tTicker\tEntry\tReturn%\tDays\tResult\n${text}`);
+              alert("Liste başarıyla kopyalandı!");
+            }}
+              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex items-center gap-2 uppercase tracking-widest">
+              LİSTEYİ KOPYALA
+            </button>
             <button onClick={handleExportCSV}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#3b82f6] hover:text-white transition-all flex items-center gap-2">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#3b82f6] transition-all flex items-center gap-2 uppercase tracking-widest">
               CSV
             </button>
             <button onClick={handleExportExcel}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#22c55e] hover:text-white transition-all flex items-center gap-2">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              Excel (XLS)
+              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#22c55e] transition-all flex items-center gap-2 uppercase tracking-widest">
+              EXCEL
             </button>
             <button onClick={handleExportPDF} disabled={pdfExporting}
-              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#1e2a3a] text-white border border-[#2d3a4b] hover:border-[#ef4444] hover:text-white transition-all flex items-center gap-2 disabled:opacity-50">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-              {pdfExporting ? "Exporting..." : "PDF"}
+              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#ef4444] transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest">
+              {pdfExporting ? "PDF..." : "PDF"}
             </button>
           </div>
         </div>

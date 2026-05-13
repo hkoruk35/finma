@@ -1,6 +1,6 @@
 {
-  "date": "2026-05-11",
-  "generated_at": "2026-05-11T19:10:50.054343-04:00",
+  "date": "2026-05-12",
+  "generated_at": "2026-05-12T16:06:21.732847-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 20,
   "market_regime": "BULLISH",
@@ -8,24 +8,25 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "COLB",
-        "AHR",
-        "AAPL",
-        "NRK",
-        "MTRN",
-        "NAD",
-        "AFG",
-        "CZR",
-        "NTAP",
-        "SKM"
+        "ADI",
+        "TFSL",
+        "CTRE",
+        "VRT",
+        "NVGS",
+        "NVG",
+        "WTS",
+        "IEX",
+        "ATEN",
+        "MAC"
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 4,
       "tickers": [
-        "MTRN",
-        "SKM",
-        "WAB"
+        "MAC",
+        "RIO",
+        "BWA",
+        "WHD"
       ]
     },
     "value": {
@@ -37,19 +38,9 @@
       "tickers": []
     },
     "momentum": {
-      "count": 11,
+      "count": 1,
       "tickers": [
-        "AAPL",
-        "NTAP",
-        "GIII",
-        "UCTT",
-        "TNC",
-        "DAKT",
-        "AGCO",
-        "BA",
-        "MRX",
-        "WLY",
-        "MD"
+        "ATEN"
       ]
     },
     "dividend": {
@@ -59,18 +50,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "COLB",
-      "score": 57.5,
+      "ticker": "ADI",
+      "score": 66.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AHR",
-      "score": 55.0,
+      "ticker": "TFSL",
+      "score": 61.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AAPL",
-      "score": 54.0,
+      "ticker": "CTRE",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

@@ -10,6 +10,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/login') || 
     pathname.startsWith('/optanaliz') || 
     pathname.startsWith('/optanaliz-performance') || 
+    pathname.startsWith('/performance') || 
+    pathname.startsWith('/swing-performance') || 
     pathname.startsWith('/_next') || 
     pathname.startsWith('/api') ||
     pathname.includes('.') || // static resimler, favicons vb.
