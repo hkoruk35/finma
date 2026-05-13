@@ -1,217 +1,154 @@
 import json
 import os
 import yfinance as yf
-import pandas as pd
 from datetime import datetime, timedelta
-import logging
 import time
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
+# Paths
+performance_file = 'frontend/public/swing_performance.json'
+picks_file = 'frontend/public/swing_all_picks.json'
+log_file = 'logs/performance_update.log'
 
-def get_ticker_info(ticker, cache):
-    ticker = ticker.upper()
-    if ticker in cache:
-        c = cache[ticker]
-        if c.get('industry') and c.get('industry') != 'Unknown':
-            return {
-                'sector': c.get('sector', 'Unknown'),
-                'industry': c.get('industry', 'Unknown'),
-                'company': c.get('companyName', ticker)
-            }
-    try:
-        logging.info(f"Fetching info for {ticker} live...")
-        info = yf.Ticker(ticker).info
-        res = {
-            'sector': info.get('sector', 'Unknown'),
-            'industry': info.get('industry', 'Unknown'),
-            'company': info.get('longName', ticker)
-        }
-        if ticker not in cache: cache[ticker] = {}
-        cache[ticker].update({
-            'sector': res['sector'],
-            'industry': res['industry'],
-            'companyName': res['company']
-        })
-        return res
-    except:
-        return {'sector': 'Unknown', 'industry': 'Unknown', 'company': ticker}
+os.makedirs('logs', exist_ok=True)
 
-def update_performance_live():
-    performance_file = 'frontend/public/swing_performance.json'
-    picks_file = 'frontend/public/swing_all_picks.json'
-    cache_file = r'C:\Users\afksm\finma\scratch\financial_tracker\watchlists\persistent_info_cache.json'
-    if not os.path.exists(cache_file):
-        cache_file = r'C:\Users\afksm\.gemini\antigravity\scratch\financial_tracker\watchlists\persistent_info_cache.json'
+def log(msg):
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(f"[{timestamp}] {msg}")
+    with open(log_file, 'a', encoding='utf-8') as f:
+        f.write(f"[{timestamp}] {msg}\n")
 
-    if os.path.exists(performance_file):
-        with open(performance_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            history = data.get('history', [])
+def update_performance():
+    if not os.path.exists(performance_file):
+        log("Performance file not found.")
+        return
+
+    with open(performance_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    history = data.get('history', [])
+    
+    # 1. Identify PENDING trades or trades from last 5 days
+    today = datetime.now()
+    pending_records = [r for r in history if r['result'] == 'PENDING']
+    pending_tickers = list(set([r['ticker'] for r in pending_records]))
+
+    if not pending_tickers:
+        log("No pending trades to update.")
     else:
-        history = []
-        data = {}
-
-    info_cache = {}
-    if os.path.exists(cache_file):
+        log(f"Updating {len(pending_tickers)} pending tickers...")
+        # Bulk download current prices
         try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                info_cache = json.load(f)
-        except: pass
+            # Get latest 2 days of data to ensure we have a valid close
+            prices_df = yf.download(pending_tickers, period="2d", interval="1d", group_by='ticker', threads=True, progress=False)
+            
+            for record in pending_records:
+                ticker = record['ticker']
+                try:
+                    if len(pending_tickers) == 1:
+                        ticker_data = prices_df
+                    else:
+                        ticker_data = prices_df[ticker]
+                    
+                    if ticker_data.empty: continue
+                    
+                    current_price = float(ticker_data['Close'].iloc[-1])
+                    if current_price <= 0: continue
+                    
+                    entry_price = float(record['entry'])
+                    sl_pct = float(record.get('sl_pct', 5.26))
+                    sl_price = entry_price * (1 - sl_pct / 100)
+                    
+                    # Update peak
+                    peak_price = record.get('max_price', entry_price)
+                    if current_price > peak_price:
+                        record['max_price'] = round(current_price, 2)
+                        record['peak_date'] = today.strftime('%Y-%m-%d')
+                    
+                    # Calculate return
+                    current_ret = ((current_price - entry_price) / entry_price) * 100
+                    record['return_pct'] = round(current_ret, 2)
+                    
+                    # Check Exit Conditions
+                    # 1. Stop Loss
+                    if current_price <= sl_price:
+                        record['result'] = 'LOSS'
+                        record['return_pct'] = round(-sl_pct, 2)
+                        record['exit_date'] = today.strftime('%Y-%m-%d')
+                    # 2. Profit Target (5% simple rule or you can use your specific logic)
+                    elif current_ret >= 5.0:
+                        record['result'] = 'WIN'
+                        record['exit_date'] = today.strftime('%Y-%m-%d')
+                    # 3. Time Limit (30 days)
+                    else:
+                        entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
+                        days_held = (today - entry_date).days
+                        record['days'] = days_held
+                        if days_held >= 30:
+                            record['result'] = 'WIN' if current_ret > 0 else 'LOSS'
+                            record['exit_date'] = today.strftime('%Y-%m-%d')
 
-    today_picks = {}
-    json_date_str = ""
+                except Exception as e:
+                    log(f"Error updating {ticker}: {str(e)}")
+        except Exception as e:
+            log(f"Bulk download failed: {str(e)}")
+
+    # 2. Add NEW picks if any (with 5-day rule)
     if os.path.exists(picks_file):
         with open(picks_file, 'r', encoding='utf-8') as f:
-            picks_json = json.load(f)
-            p_list = picks_json.get('picks', [])
-            json_date_str = picks_json.get('date', '')
-            for p in p_list:
-                today_picks[p['ticker']] = p
-
-    if not json_date_str:
-        json_date_str = datetime.now().strftime('%Y-%m-%d')
-
-    today_date = datetime.strptime(json_date_str, '%Y-%m-%d')
-
-    for record in history:
-        ticker = record['ticker']
-        
-        # ⚡ OPTIMIZATION: Only update PENDING trades or very recent ones (last 5 days)
-        # to avoid hitting yfinance limits and making it too slow.
-        is_pending = record.get('result') in ['PENDING', None]
-        entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
-        is_recent = (today_date - entry_date_0).days <= 5
-        
-        if not is_pending and not is_recent:
-            continue
-
-        try:
-            entry_date_0 = datetime.strptime(record['date'], '%Y-%m-%d')
-            # 📅 Start from the entry date to ensure we get data even if it was just added
-            hist = yf.Ticker(ticker).history(start=entry_date_0.strftime('%Y-%m-%d'),
-                                             end=(entry_date_0 + timedelta(days=45)).strftime('%Y-%m-%d'))
+            picks_data = json.load(f)
+            json_date = picks_data.get('date', '')
+            new_picks = picks_data.get('picks', [])
             
-            if hist.empty: continue
-            hist.index = hist.index.tz_localize(None) if hist.index.tzinfo else hist.index
-            
-            day_1_idx = hist.index[0]
-            entry_price = float(hist.iloc[0]['Open'])
-            
-            # Rule: Dynamic SL from record (previously calculated/stored)
-            # Default to 5.26 if missing
-            sl_pct = abs(record.get('sl_pct', 5.26))
-            sl_price = entry_price * (1 - sl_pct / 100)
-            
-            peak_price = record.get('max_price', entry_price)
-            peak_date = record.get('peak_date', day_1_idx.strftime('%Y-%m-%d'))
-            final_result = 'PENDING'
-            final_ret = 0.0
-            exit_date = None
-
-            for idx, row in hist.iterrows():
-                days_from_day_1 = (idx - day_1_idx).days
-                if days_from_day_1 > 30: break
-
-                day_close = float(row['Close'])
-                if day_close > peak_price:
-                    peak_price = day_close
-                    peak_date = idx.strftime('%Y-%m-%d')
+            if json_date:
+                # 5-Day Rule check
+                json_date_dt = datetime.strptime(json_date, '%Y-%m-%d')
+                lookback = json_date_dt - timedelta(days=5)
                 
-                current_ret = ((day_close - entry_price) / entry_price) * 100
-
-                if day_close <= sl_price:
-                    final_result = 'LOSS'
-                    final_ret = -sl_pct
-                    exit_date = idx.strftime('%Y-%m-%d')
-                    break
+                recent_tickers = [r['ticker'] for r in history if datetime.strptime(r['date'], '%Y-%m-%d') >= lookback]
                 
-                if current_ret >= 5.0:
-                    final_result = 'WIN'
-                    final_ret = current_ret
-                    exit_date = idx.strftime('%Y-%m-%d')
-                    break
-                
-            if final_result == 'PENDING':
-                valid_bars = hist[(hist.index - day_1_idx).days <= 30]
-                if not valid_bars.empty:
-                    last_bar = valid_bars.iloc[-1]
-                    f_close = float(last_bar['Close'])
-                    f_ret = ((f_close - entry_price) / entry_price) * 100
-                    if (today_date - day_1_idx).days >= 30:
-                        final_result = 'WIN' if f_ret > 0 else 'LOSS'
-                        final_ret = f_ret
-                        exit_date = valid_bars.index[-1].strftime('%Y-%m-%d')
-                    else:
-                        final_result = 'PENDING'
-                        final_ret = f_ret
-                        exit_date = None
+                for p in new_picks:
+                    ticker = p['ticker']
+                    if ticker not in recent_tickers:
+                        # Add as new PENDING trade
+                        entry = p.get('current_price', 0)
+                        if entry <= 0: continue
+                        
+                        sl_high = p.get('tracker_logic', {}).get('stop_loss_high', entry * 0.9474)
+                        sl_val = round(((entry - sl_high) / entry) * 100, 2) if entry > 0 else 5.26
 
-            record['entry'] = round(entry_price, 2)
-            record['max_price'] = round(peak_price, 2)
-            record['peak_date'] = peak_date
-            record['return_pct'] = round(final_ret, 2)
-            record['result'] = final_result
-            if exit_date:
-                record['exit_date'] = exit_date
-                record['days'] = (datetime.strptime(exit_date, '%Y-%m-%d') - day_1_idx).days
-            else:
-                record['days'] = (today_date - day_1_idx).days
+                        history.insert(0, {
+                            'date': json_date,
+                            'ticker': ticker,
+                            'company': p.get('company', ticker),
+                            'sector': p.get('sector', 'N/A'),
+                            'subsector': p.get('subsector', 'N/A'),
+                            'entry': round(entry, 2),
+                            'max_price': round(entry, 2),
+                            'sl_pct': abs(sl_val),
+                            'return_pct': 0.0,
+                            'days': 0,
+                            'result': 'PENDING',
+                            'peak_date': json_date
+                        })
+                        recent_tickers.append(ticker) # Prevent adding same ticker twice if it's in new_picks twice
 
-        except Exception as e: pass
-
-    # 🧹 CLEANUP: Remove any mistakenly added future dates if they exist (safety)
-    history = [r for r in history if r['date'] <= json_date_str]
-
-    # 🛡️ 5-DAY RULE: Only add if ticker hasn't appeared in the last 5 DAYS
-    existing_tickers_last_5 = []
-    lookback_date = today_date - timedelta(days=5)
-    for r in history:
-        r_date = datetime.strptime(r['date'], '%Y-%m-%d')
-        if r_date >= lookback_date and r['date'] < json_date_str:
-            existing_tickers_last_5.append(r['ticker'])
-
-    existing_current = [r['ticker'] for r in history if r['date'] == json_date_str]
+    # 3. Update Stats
+    all_completed = [r for r in history if r['result'] != 'PENDING']
+    wins = [r for r in all_completed if r['result'] == 'WIN']
     
-    for ticker, p in today_picks.items():
-        if ticker not in existing_current and ticker not in existing_tickers_last_5:
-            info = get_ticker_info(ticker, info_cache)
-            entry_ref = p.get('current_price', 1)
-            sl_ref = p.get('tracker_logic', {}).get('stop_loss_high', entry_ref * 0.9474) # default 5.26%
-            sl_pct = abs(round(((sl_ref - entry_ref) / entry_ref) * 100, 2))
-            
-            history.append({
-                'date': json_date_str,
-                'ticker': ticker,
-                'company': info['company'],
-                'sector': info['sector'],
-                'subsector': info['industry'],
-                'entry': 0,
-                'max_price': 0,
-                'sl_pct': sl_pct,
-                'return_pct': 0.0,
-                'days': 0,
-                'result': 'PENDING'
-            })
-
-    history.sort(key=lambda x: (x['date'], x['ticker']), reverse=True)
+    data['stats']['total_picks'] = len(history)
+    data['stats']['completed_count'] = len(all_completed)
+    data['stats']['pending_count'] = len(history) - len(all_completed)
+    data['stats']['win_rate'] = round((len(wins) / len(all_completed) * 100), 1) if all_completed else 0
+    data['stats']['avg_return_pct'] = round(sum(r['return_pct'] for r in history) / len(history), 2) if history else 0
+    data['stats']['last_updated'] = today.strftime('%Y-%m-%dT%H:%M:%S')
+    
     data['history'] = history
-    comp = [r for r in history if r.get('result') in ['WIN', 'LOSS']]
-    wins = sum(1 for r in comp if r.get('result') == 'WIN')
-    data['stats'] = {
-        'total_picks': len(history),
-        'completed_count': len(comp),
-        'pending_count': len(history) - len(comp),
-        'win_rate': round((wins / len(comp) * 100), 1) if comp else 0,
-        'avg_return_pct': round(sum(r['return_pct'] for r in comp) / len(comp), 1) if comp else 0,
-        'stop_loss_pct': "Dynamic (Bot-Calc)",
-        'last_updated': datetime.now().isoformat()
-    }
+    
     with open(performance_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
-    try:
-        with open(cache_file, 'w', encoding='utf-8') as f:
-            json.dump(info_cache, f, indent=2, ensure_ascii=False)
-    except: pass
+    
+    log("Performance update cycle completed.")
 
 if __name__ == "__main__":
-    update_performance_live()
+    update_performance()
