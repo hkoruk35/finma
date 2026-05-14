@@ -113,10 +113,10 @@ export default async function ProPage() {
 
         {/* Quick Links */}
         <div className="grid md:grid-cols-2 gap-6 mt-20 mb-10">
-          <Link href="/optanaliz" className="glass-card p-6 flex items-center justify-between group hover:bg-[#3b82f6]/5 transition-colors">
+          <Link href="/options" className="glass-card p-6 flex items-center justify-between group hover:bg-[#3b82f6]/5 transition-colors">
             <div>
-              <h3 className="text-white font-black text-lg uppercase">Options Analysis</h3>
-              <p className="text-slate-500 text-xs">Swing trade options opportunities</p>
+              <h3 className="text-white font-black text-lg uppercase">Option Scanner</h3>
+              <p className="text-slate-500 text-xs">Winner Formula: Sector + PE + BP + Flow</p>
             </div>
             <span className="text-[#3b82f6] group-hover:translate-x-1 transition-transform">→</span>
           </Link>

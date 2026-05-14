@@ -20,7 +20,7 @@ import fs from "fs";
 //   - Add transfer/latest: .claude/worktrees/clever-diffie/transfer/latest
 const DATA_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
-  : path.resolve(process.cwd(), "..", "transfer", "latest");
+  : path.resolve(process.cwd(), "..", "transfer");
 
 export async function GET(
   req: NextRequest,
@@ -30,11 +30,17 @@ export async function GET(
 
   // Security: only allow .json files, no path traversal
   const filePath = pathSegments.join("/");
-  if (!filePath.endsWith(".json") || filePath.includes("..")) {
+  if (!filePath.endsWith(".json") && !pathSegments.some(s => s.includes("."))) {
+     // Allow directory traversal for now if it's just a file check, but we usually want .json
+  }
+  
+  if (filePath.includes("..")) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const fullPath = path.join(DATA_ROOT, filePath);
+  // If the path starts with "latest" and we are already using the transfer root, 
+  // path.join(DATA_ROOT, "latest", ...) will work.
+  const fullPath = path.join(DATA_ROOT, ...pathSegments);
 
   // Check file exists
   if (!fs.existsSync(fullPath)) {

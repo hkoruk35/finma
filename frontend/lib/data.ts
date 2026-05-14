@@ -931,17 +931,17 @@ export interface OptionPick {
   dte: number | null;
   institutional: OptionContract | null;
   asymmetric: OptionContract | null;
-  uoa_score: number;
-  uoa_signal: string;
-  earnings_warning: boolean;
-  golden_cross: boolean;
-  ema200_breakout: boolean;
-  breakout_base_score: number | null;
-  iv_vs_hv_label?: string;
-  rs_vs_spy_label?: string;
-  upside_label?: string;
-  higher_highs?: boolean;
-  volume_spike?: boolean;
+  l2?: any;
+  l3?: any;
+  options_v220?: any;
+  uoa?: any;
+  intraday?: any;
+  hv20?: number;
+  sector_score?: number;
+  regime_score?: number;
+  regime_label?: string;
+  iv_ctx_score?: number;
+  iv_ctx_label?: string;
   ai_analysis_text?: string;
   date?: string;
 }
@@ -969,55 +969,104 @@ export interface OptionsData {
 
 function normalizeOptionsData(raw: any): OptionsData | null {
   if (!raw) return null;
-  const normalizePick = (p: any, idx: number): OptionPick => ({
-    rank:              p.rank ?? idx + 1,
-    ticker:            p.ticker ?? "",
-    current_price:     p.current_price ?? p.price ?? 0,
-    score:             p.score ?? 0,
-    grade:             p.grade ?? (p.quality ?? ""),
-    entry_mode:        p.entry_mode ?? "",
-    entry_mode_label:  p.entry_mode_label ?? (p.entry_mode ?? "").replace(/_/g, " "),
-    regime:            p.regime ?? (p.institutional ? "trend" : "neutral"),
-    ema_pattern:       p.ema_pattern ?? "",
-    ema9:              p.ema9 ?? null,
-    ema20:             p.ema20 ?? null,
-    ema50:             p.ema50 ?? null,
-    ema200:            p.ema200 ?? null,
-    adx:               p.adx ?? null,
-    rsi:               p.rsi ?? null,
-    rvol:              p.rvol ?? null,
-    roc20:             p.roc20 ?? null,
-    roc60:             p.roc60 ?? null,
-    hv30:              p.hv30 ?? null,
-    iv_pct:            p.iv_pct ?? null,
-    iv_rank:           p.iv_rank ?? null,
-    iv_vs_hv:          p.iv_vs_hv ?? null,
-    vwap:              p.vwap ?? null,
-    vwap_ok:           p.vwap_ok ?? true,
-    rs_vs_spy_60d:     p.rs_vs_spy_60d ?? null,
-    base_range_pct:    p.base_range_pct ?? null,
-    high_60d:          p.high_60d ?? null,
-    expected_move:     p.expected_move ?? null,
-    em_upper:          p.em_upper ?? null,
-    max_pain:          p.max_pain ?? null,
-    exp_date:          p.exp_date ?? p.institutional?.expiration ?? null,
-    dte:               p.dte ?? p.institutional?.dte ?? null,
-    institutional:     p.institutional ?? null,
-    asymmetric:        p.asymmetric ?? null,
-    uoa_score:         p.uoa_score ?? 0,
-    uoa_signal:        p.uoa_signal ?? "",
-    earnings_warning:  p.earnings_warning ?? false,
-    golden_cross:      p.golden_cross ?? (p.entry_mode === "GOLDEN_CROSS"),
-    ema200_breakout:   p.ema200_breakout ?? (p.entry_mode === "EMA200_BREAKOUT"),
-    breakout_base_score: p.breakout_base_score ?? null,
-    iv_vs_hv_label:    p.iv_vs_hv_label,
-    rs_vs_spy_label:   p.rs_vs_spy_label,
-    upside_label:      p.upside_label,
-    higher_highs:      p.higher_highs,
-    volume_spike:      p.volume_spike,
-    ai_analysis_text:  p.ai_analysis_text,
-    date: p.date ?? raw.date ?? "",
-  });
+  const normalizePick = (p: any, idx: number): OptionPick => {
+    // Check if it's new v220 format
+    const isV220 = p.l2 && p.l3 && p.options;
+    
+    // For v220, institutional/asymmetric are inside p.options
+    const inst = isV220 ? (p.options.institutional || p.options.gamma_sweet) : p.institutional;
+    const asym = isV220 ? p.options.asymmetric : p.asymmetric;
+
+    const normalizeContract = (c: any): OptionContract | null => {
+      if (!c) return null;
+      return {
+        strike: c.strike,
+        expiration: c.expiration || c.expiry,
+        dte: c.dte,
+        premium: c.premium || c.mid || c.cost_per_contract,
+        spread_pct: c.spread_pct,
+        delta: c.delta,
+        gamma: c.gamma,
+        theta: c.theta,
+        vega: c.vega,
+        oi: c.oi,
+        volume: c.volume,
+        vol_oi_ratio: c.vol_oi_ratio,
+        contract_cost: c.contract_cost || c.cost_per_contract,
+        breakeven: c.breakeven,
+        tp_price: c.tp_price,
+        sl_price: c.sl_price,
+        time_stop_days: c.time_stop_days,
+        daily_decay_pct: c.daily_decay_pct,
+        theta_delta_ratio: c.theta_delta_ratio,
+        sim_gain_pct: c.sim_gain_pct || c.sim?.pnl_pct,
+        liq_score: c.liq_score,
+        sweep_score: c.sweep_score,
+        mispricing_score: c.mispricing_score
+      };
+    };
+
+    return {
+      rank:              p.rank ?? idx + 1,
+      ticker:            p.ticker ?? "",
+      current_price:     p.current_price ?? p.price ?? 0,
+      score:             p.score ?? 0,
+      grade:             p.grade ?? (p.quality ?? ""),
+      entry_mode:        p.entry_mode ?? p.l2?.entry_mode ?? "",
+      entry_mode_label:  p.entry_mode_label || p.l2?.entry_mode_label || (p.entry_mode || p.l2?.entry_mode || "").replace(/_/g, " "),
+      regime:            p.regime ?? p.l2?.regime ?? (p.institutional ? "trend" : "neutral"),
+      ema_pattern:       p.ema_pattern || p.l2?.ema_pattern || "",
+      ema9:              p.ema9 ?? p.l2?.ema9 ?? null,
+      ema20:             p.ema20 ?? p.l2?.ema20 ?? null,
+      ema50:             p.ema50 ?? p.l2?.ema50 ?? null,
+      ema200:            p.ema200 ?? p.l2?.ema200 ?? null,
+      adx:               p.adx ?? p.l2?.adx ?? null,
+      rsi:               p.rsi ?? p.l3?.rsi ?? null,
+      rvol:              p.rvol ?? p.l3?.rvol ?? null,
+      roc20:             p.roc20 ?? p.l3?.roc20_pct ?? null,
+      roc60:             p.roc60 ?? p.l3?.roc60_pct ?? null,
+      hv30:              p.hv30 ?? p.hv20 ?? p.l3?.hv20 ?? null,
+      iv_pct:            p.iv_pct ?? p.options?.atm_iv ?? null,
+      iv_rank:           p.iv_rank ?? p.options?.iv_rank ?? null,
+      iv_vs_hv:          p.iv_vs_hv ?? null,
+      vwap:              p.vwap ?? p.l2?.vwap ?? null,
+      vwap_ok:           p.vwap_ok ?? p.l2?.vwap_ok ?? true,
+      rs_vs_spy_60d:     p.rs_vs_spy_60d ?? p.l3?.rs_60d ?? null,
+      base_range_pct:    p.base_range_pct ?? p.l3?.base_range_pct ?? null,
+      high_60d:          p.high_60d ?? p.l3?.high_60 ?? null,
+      expected_move:     p.expected_move ?? p.options?.expected_move ?? null,
+      em_upper:          p.em_upper ?? null,
+      max_pain:          p.max_pain ?? p.options?.max_pain ?? null,
+      exp_date:          p.exp_date || inst?.expiration || null,
+      dte:               p.dte || inst?.dte || null,
+      institutional:     normalizeContract(inst),
+      asymmetric:        normalizeContract(asym),
+      uoa_score:         p.uoa_score ?? p.uoa?.uoa_score ?? 0,
+      uoa_signal:        p.uoa_signal ?? p.uoa?.uoa_signal ?? "",
+      earnings_warning:  p.earnings_warning ?? p.uoa?.earnings_warning ?? false,
+      golden_cross:      p.golden_cross ?? p.l2?.golden_cross ?? (p.entry_mode === "GOLDEN_CROSS"),
+      ema200_breakout:   p.ema200_breakout ?? p.l2?.ema200_breakout ?? (p.entry_mode === "EMA200_BREAKOUT"),
+      breakout_base_score: p.breakout_base_score ?? p.l3?.pe_score ?? null,
+      iv_vs_hv_label:    p.iv_vs_hv_label || p.iv_ctx_label,
+      rs_vs_spy_label:   p.rs_vs_spy_label || p.l3?.rs_vs_spy_label,
+      upside_label:      p.upside_label || p.l3?.upside_label,
+      higher_highs:      p.higher_highs ?? p.l3?.higher_highs,
+      volume_spike:      p.volume_spike ?? p.l3?.volume_spike,
+      ai_analysis_text:  p.ai_analysis_text || p.grade,
+      date: p.date ?? raw.date ?? "",
+      // v220 specific
+      l2: p.l2,
+      l3: p.l3,
+      uoa: p.uoa,
+      intraday: p.intraday,
+      hv20: p.hv20,
+      sector_score: p.sector_score,
+      regime_score: p.regime_score,
+      regime_label: p.regime_label,
+      iv_ctx_score: p.iv_ctx_score,
+      iv_ctx_label: p.iv_ctx_label,
+    };
+  };
   const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];
   return {
     date:             raw.date ?? "",

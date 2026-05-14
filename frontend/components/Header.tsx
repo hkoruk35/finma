@@ -7,10 +7,10 @@ import { useState } from "react";
 
 const NAV_LINKS = [
   { name: "Swing", href: "/swing" },
-  { name: "DayTrade", href: "/daytrade" },
+  { name: "Option Scanner", href: "/options" },
   { name: "Long Term", href: "/long-term" },
   { name: "Performance", href: "/performance" },
-  { name: "Options", href: "/optanaliz" },
+  { name: "OptAnaliz", href: "/optanaliz" },
 ];
 
 export default function Header() {

@@ -3,284 +3,27 @@ import { OptionsData, OptionPick } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
+import OptionsManager from "@/components/OptionsManager";
 import Link from "next/link";
 import { Metadata } from "next";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Options Picks | BOGA AI — Daily Call Opportunities",
+  title: "Option Scanner | BOGA AI — Institutional Flow & Winner Formula",
   description:
-    "Daily algorithmic options call opportunities from BOGA AI v6.1. EMA trend entries with greeks, expected move, and exit levels.",
+    "Professional options scanner utilizing the Winner Formula (Sector + PE + BP + Flow + Gamma). High-conviction call opportunities with institutional flow confirmation.",
   alternates: { canonical: "https://bogastock.com/options" },
-};
-
-const ENTRY_MODE_COLORS: Record<string, string> = {
-  EMA200_BREAKOUT:          "text-[#f59e0b] border-[#f59e0b]/40 bg-[#f59e0b]/10",
-  EMA200_BREAKOUT_BELOW200: "text-[#f59e0b] border-[#f59e0b]/40 bg-[#f59e0b]/10",
-  GOLDEN_CROSS:             "text-[#a78bfa] border-[#a78bfa]/40 bg-[#a78bfa]/10",
-  GOLDEN_CROSS_BELOW200:    "text-[#a78bfa] border-[#a78bfa]/40 bg-[#a78bfa]/10",
-  NEAR_GOLDEN:              "text-[#60a5fa] border-[#60a5fa]/40 bg-[#60a5fa]/10",
-  TREND_BIRTH:              "text-[#34d399] border-[#34d399]/40 bg-[#34d399]/10",
-  ESTABLISHED_TREND:        "text-[#10b981] border-[#10b981]/40 bg-[#10b981]/10",
-  EMA50_BOUNCE:             "text-[#fb923c] border-[#fb923c]/40 bg-[#fb923c]/10",
-};
-
-const MODE_ICONS: Record<string, string> = {
-  EMA200_BREAKOUT: "⚡",
-  EMA200_BREAKOUT_BELOW200: "⚡",
-  GOLDEN_CROSS: "🌟",
-  GOLDEN_CROSS_BELOW200: "🌟",
-  NEAR_GOLDEN: "🔜",
-  TREND_BIRTH: "🌱",
-  ESTABLISHED_TREND: "🐂",
-  EMA50_BOUNCE: "📉",
 };
 
 function fmt(n: number | null | undefined, decimals = 2, prefix = "") {
   if (n == null) return "—";
-  return prefix + n.toFixed(decimals);
+  return prefix + n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
 function fmtPct(n: number | null | undefined) {
   if (n == null) return "—";
   return (n >= 0 ? "+" : "") + n.toFixed(1) + "%";
-}
-
-function IVBadge({ rank }: { rank: number | null }) {
-  if (rank == null) return <span className="text-[#00d2ff]">—</span>;
-  const color = rank <= 20
-    ? "text-[#34d399] bg-[#34d399]/10"
-    : rank <= 40
-    ? "text-[#fbbf24] bg-[#fbbf24]/10"
-    : "text-[#f87171] bg-[#f87171]/10";
-  const label = rank <= 20 ? "CHEAP" : rank <= 40 ? "NORMAL" : "RICH";
-  return (
-    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${color}`}>
-      {rank} · {label}
-    </span>
-  );
-}
-
-function RegimeBadge({ regime }: { regime: string }) {
-  const map: Record<string, { label: string; cls: string }> = {
-    trend:    { label: "TREND",    cls: "text-[#34d399] bg-[#34d399]/10" },
-    breakout: { label: "BREAKOUT", cls: "text-[#f59e0b] bg-[#f59e0b]/10" },
-    neutral:  { label: "NEUTRAL",  cls: "text-white bg-[#94a3b8]/10" },
-  };
-  const m = map[regime] ?? map.neutral;
-  return (
-    <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${m.cls}`}>
-      {m.label}
-    </span>
-  );
-}
-
-function OptionCard({ opt, label }: { opt: OptionPick["institutional"]; label: string }) {
-  if (!opt) return null;
-  const tpPct = opt.tp_price && opt.premium
-    ? ((opt.tp_price - opt.premium) / opt.premium * 100).toFixed(0)
-    : null;
-  const slPct = opt.sl_price && opt.premium
-    ? ((opt.sl_price - opt.premium) / opt.premium * 100).toFixed(0)
-    : null;
-
-  return (
-    <div className="bg-[#0d1117] border border-white/10 rounded-xl p-4">
-      <div className="text-[10px] text-[#00d2ff] uppercase font-bold mb-3 tracking-wider">{label}</div>
-      <div className="flex items-center gap-3 mb-3">
-        <span className="text-2xl font-black text-white">${opt.strike?.toFixed(0)} CALL</span>
-        <span className="text-[#00d2ff] text-xs">{opt.expiration} · {opt.dte}d</span>
-      </div>
-      <div className="grid grid-cols-3 gap-2 text-center mb-3">
-        <div>
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Premium</div>
-          <div className="text-white font-mono font-bold">${opt.premium?.toFixed(2)}</div>
-        </div>
-        <div>
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Delta</div>
-          <div className="text-white font-mono font-bold">{opt.delta?.toFixed(3)}</div>
-        </div>
-        <div>
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Cost/Cont.</div>
-          <div className="text-white font-mono font-bold">${opt.contract_cost?.toFixed(0)}</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-2 text-center mb-3">
-        <div>
-          <div className="text-[10px] text-[#10b981] uppercase mb-1">TP</div>
-          <div className="text-[#10b981] font-mono font-bold text-sm">
-            ${opt.tp_price?.toFixed(2)}
-            {tpPct && <span className="text-[10px] ml-1">(+{tpPct}%)</span>}
-          </div>
-        </div>
-        <div>
-          <div className="text-[10px] text-[#ef4444] uppercase mb-1">SL</div>
-          <div className="text-[#ef4444] font-mono font-bold text-sm">
-            ${opt.sl_price?.toFixed(2)}
-            {slPct && <span className="text-[10px] ml-1">({slPct}%)</span>}
-          </div>
-        </div>
-        <div>
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Time Stop</div>
-          <div className="text-white font-mono text-sm">{opt.time_stop_days}d left</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-2 text-xs text-[#00d2ff]">
-        <span>Breakeven: <b className="text-white">${opt.breakeven?.toFixed(2)}</b></span>
-        <span>OI: <b className="text-white">{opt.oi?.toLocaleString()}</b></span>
-        <span>Theta/day: <b className="text-white">{opt.daily_decay_pct?.toFixed(1)}%</b></span>
-        <span>Sim gain: <b className={`${(opt.sim_gain_pct ?? 0) >= 0 ? "text-[#34d399]" : "text-[#ef4444]"}`}>
-          {opt.sim_gain_pct != null ? (opt.sim_gain_pct >= 0 ? "+" : "") + opt.sim_gain_pct.toFixed(0) + "%" : "—"}
-        </b></span>
-        {opt.mispricing_score != null && (
-          <span className="col-span-2 mt-1">IV Edge: <b className="text-[#f59e0b]">{opt.mispricing_score > 5 ? "🔥 HIGH" : "NORMAL"}</b></span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function PickRow({ pick, index }: { pick: OptionPick; index: number }) {
-  const modeColor = ENTRY_MODE_COLORS[pick.entry_mode] ?? "text-white border-white/10 bg-white/5";
-  const modeIcon  = MODE_ICONS[pick.entry_mode] ?? "📊";
-  const isTop3    = index < 3;
-
-  return (
-    <div className={`glass-card p-5 md:p-6 border-2 transition-all hover:border-[#3b82f6]/40 ${
-      isTop3 ? "border-[#3b82f6]/30" : "border-transparent"
-    }`}>
-      {/* Header row */}
-      <div className="flex items-start justify-between flex-wrap gap-3 mb-4">
-        <div className="flex items-center gap-3">
-          <span className={`text-xs font-black ${isTop3 ? "text-[#3b82f6]" : "text-[#00d2ff]"}`}>
-            #{pick.rank}
-          </span>
-          <Link href={`/stock/${pick.ticker}`} className="hover:text-[#3b82f6] transition-colors">
-            <span className="text-2xl font-black text-white tracking-tight">{pick.ticker}</span>
-          </Link>
-          <RegimeBadge regime={pick.regime} />
-          {pick.earnings_warning && (
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded text-[#f87171] bg-[#f87171]/10">
-              ⚠️ EARN
-            </span>
-          )}
-        </div>
-        <div className="flex items-center gap-2">
-          <span className={`text-[11px] font-bold px-2 py-1 rounded border ${modeColor}`}>
-            {modeIcon} {pick.entry_mode_label}
-          </span>
-          <div className={`text-white text-xs font-black px-3 py-1 rounded-full bg-gradient-to-r ${
-            pick.score >= 75 ? "from-[#f59e0b] to-[#ef4444]" :
-            pick.score >= 60 ? "from-[#3b82f6] to-[#6366f1]" :
-            "from-[#10b981] to-[#06b6d4]"
-          }`}>
-            {pick.score.toFixed(1)}
-          </div>
-        </div>
-      </div>
-
-      {/* Price + key metrics */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-5 text-center">
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Price</div>
-          <div className="text-white font-mono font-bold">${pick.current_price.toFixed(2)}</div>
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">Exp Move</div>
-          <div className="text-[#a78bfa] font-mono font-bold">±${pick.expected_move?.toFixed(1)}</div>
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">IV Rank</div>
-          <IVBadge rank={pick.iv_rank ?? null} />
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">ADX</div>
-          <div className={`font-mono font-bold text-sm ${(pick.adx ?? 0) >= 25 ? "text-[#34d399]" : "text-white"}`}>
-            {pick.adx?.toFixed(0) ?? "—"}
-          </div>
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">RSI</div>
-          <div className={`font-mono font-bold text-sm ${
-            (pick.rsi ?? 50) > 70 ? "text-[#f87171]" :
-            (pick.rsi ?? 50) < 40 ? "text-[#60a5fa]" : "text-white"
-          }`}>{pick.rsi?.toFixed(0) ?? "—"}</div>
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">RS vs SPY</div>
-          <div className={`font-mono font-bold text-sm ${(pick.rs_vs_spy_60d ?? 0) >= 0 ? "text-[#34d399]" : "text-[#f87171]"}`}>
-            {fmtPct(pick.rs_vs_spy_60d)}
-          </div>
-        </div>
-        <div className="bg-[#0d1117] rounded-lg p-2.5">
-          <div className="text-[10px] text-[#00d2ff] uppercase mb-1">HV30</div>
-          <div className="text-white font-mono font-bold text-sm">{pick.hv30?.toFixed(0) ?? "—"}%</div>
-        </div>
-      </div>
-
-      {/* EMA info */}
-      <div className="text-xs text-[#00d2ff] mb-4 font-mono">
-        <span className="text-white">{pick.ema_pattern}</span>
-        <span className="ml-3">EMA200: <b className="text-white">${pick.ema200?.toFixed(2)}</b></span>
-        <span className="ml-3">EMA50: <b className="text-white">${pick.ema50?.toFixed(2)}</b></span>
-        <span className="ml-3">VWAP: <b className={pick.vwap_ok ? "text-[#34d399]" : "text-[#f87171]"}>
-          ${pick.vwap?.toFixed(2)}{!pick.vwap_ok && " ⚠️"}
-        </b></span>
-        {pick.higher_highs && (
-          <span className="ml-3 text-[#34d399]">📈 HH</span>
-        )}
-        {pick.volume_spike && (
-          <span className="ml-3 text-[#34d399]">📊 VOL+</span>
-        )}
-        {pick.uoa_score > 30 && (
-          <span className="ml-3 text-[#f59e0b] font-bold">🔥 UOA: {pick.uoa_signal}</span>
-        )}
-      </div>
-
-      {/* Enhanced Labels */}
-      <div className="flex flex-wrap gap-2 mb-5">
-        {pick.iv_vs_hv_label && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#f59e0b]/10 text-[#f59e0b] border border-[#f59e0b]/20">
-            {pick.iv_vs_hv_label}
-          </span>
-        )}
-        {pick.rs_vs_spy_label && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20">
-            {pick.rs_vs_spy_label}
-          </span>
-        )}
-        {pick.upside_label && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/20">
-            {pick.upside_label}
-          </span>
-        )}
-      </div>
-
-      {/* Option contracts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {pick.institutional && (
-          <OptionCard opt={pick.institutional} label="🛡️ Institutional (Mid Delta)" />
-        )}
-        {pick.asymmetric && (
-          <OptionCard opt={pick.asymmetric} label="🚀 Asymmetric (OTM)" />
-        )}
-      </div>
-
-      {pick.ai_analysis_text && (
-        <div className="mt-6 pt-6 border-t border-white/5">
-          <div className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-3 flex items-center gap-2">
-            <span>🤖 BOGA AI ANALYSIS</span>
-            <div className="h-px flex-1 bg-white/5" />
-          </div>
-          <div 
-            className="bg-black/20 rounded-lg p-4 font-mono text-[11px] leading-relaxed text-slate-300 whitespace-pre-wrap analysis-block"
-            dangerouslySetInnerHTML={{ __html: pick.ai_analysis_text }}
-          />
-        </div>
-      )}
-    </div>
-  );
 }
 
 export default async function OptionsPage() {
@@ -289,198 +32,256 @@ export default async function OptionsPage() {
     getOptionsDates()
   ]);
 
-  // Show last 5 days in the main list
-  const recentDates = allDates.slice(0, 5);
+  // Show last 3 days in the main list
+  const recentDates = allDates.slice(0, 3);
   const results = await Promise.all(recentDates.map(d => getOptionsData(d)));
   
   // Aggregate all picks
   const allPicks: OptionPick[] = results.flatMap(r => r?.picks ?? []);
-  const latestData = results[0]; // For summary stats
+  const latestData = results[0];
 
   const formatTime = (iso: string) => {
     try {
       return new Date(iso).toLocaleString("en-US", {
         timeZone: "America/New_York",
-        month: "short", day: "numeric", year: "numeric",
+        month: "short", day: "numeric",
         hour: "2-digit", minute: "2-digit",
       }) + " ET";
     } catch { return iso; }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#060a12] text-slate-200">
       {master && <TickerTape data={master} />}
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-white">Options Picks</span>
-        </nav>
-
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-start justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                Options Picks
-                <span className="ml-3 text-[#3b82f6]">— Last 5 Days</span>
+        {/* Page Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-10 bg-[#3b82f6] rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
+              <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic">
+                Option <span className="text-[#3b82f6]">Scanner</span>
               </h1>
-              <p className="text-white text-base">
-                BOGA AI v6.1 daily call opportunities · EMA trend entries with full Greeks &amp; exit levels
-                {latestData && (
-                  <span className="ml-2 text-[#00d2ff]">· Latest Update: {formatTime(latestData.generated_at)}</span>
-                )}
-              </p>
             </div>
-            <div className="flex gap-3">
-              <Link
-                href="/options/archive"
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e293b] border border-white/10 rounded-xl text-sm font-semibold text-white hover:text-white hover:border-white/20 transition-all"
-              >
-                📅 Archive
-              </Link>
-              <Link
-                href="/options/performance"
-                className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
-              >
-                📊 Performance
-              </Link>
-            </div>
+            <p className="text-slate-400 text-sm md:text-base max-w-2xl font-medium">
+              Institutional-grade scanning engine. v220 Winner Formula: 
+              <span className="text-white"> Sector + Pre-Explosion + Breakout Proximity + High-Gamma Flow.</span>
+            </p>
           </div>
+          <OptionsManager />
         </div>
 
-        {/* Market summary bar (Latest Day) */}
+        {/* Market Context Stats */}
         {latestData && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-10">
             {[
-              { label: "VIX", val: `${latestData.vix} (${latestData.vix_regime.split(" ")[0]})`,
-                cls: latestData.vix < 18 ? "text-[#34d399]" : latestData.vix < 25 ? "text-[#fbbf24]" : "text-[#f87171]" },
-              { label: "SPY 60d", val: fmtPct(latestData.spy_return_60d),
-                cls: latestData.spy_return_60d >= 0 ? "text-[#34d399]" : "text-[#f87171]" },
-              { label: "Trend", val: String(latestData.regime_summary.trend), cls: "text-[#34d399]" },
-              { label: "Breakout", val: String(latestData.regime_summary.breakout), cls: "text-[#f59e0b]" },
-              { label: "Active", val: String(allPicks.length), cls: "text-white" },
-              { label: "Universe", val: `${latestData.universe_size} stocks`, cls: "text-[#00d2ff]" },
+              { label: "VIX INDEX", val: `${latestData.vix.toFixed(1)}`, sub: latestData.vix_regime,
+                cls: latestData.vix < 18 ? "text-emerald-400" : latestData.vix < 25 ? "text-amber-400" : "text-red-400" },
+              { label: "SPY 60D RET", val: fmtPct(latestData.spy_return_60d), sub: "Market Bias",
+                cls: latestData.spy_return_60d >= 0 ? "text-emerald-400" : "text-red-400" },
+              { label: "SCAN UNIVERSE", val: latestData.universe_size, sub: "Stocks Analyzed", cls: "text-white" },
+              { label: "IDENTIFIED", val: allPicks.length, sub: "Active Setups", cls: "text-[#3b82f6]" },
+              { label: "TREND BIAS", val: latestData.regime_summary.trend, sub: "Bullish Setups", cls: "text-emerald-400" },
+              { label: "LATEST SCAN", val: formatTime(latestData.generated_at), sub: "NY Server Time", cls: "text-slate-400" },
             ].map((m) => (
-              <div key={m.label} className="glass-card p-3 text-center">
-                <div className="text-[10px] text-[#00d2ff] uppercase mb-1 tracking-wider">{m.label}</div>
-                <div className={`font-mono font-bold text-sm ${m.cls}`}>{m.val}</div>
+              <div key={m.label} className="bg-[#0d1117] border border-white/5 p-4 rounded-2xl shadow-inner group hover:border-[#3b82f6]/30 transition-all">
+                <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">{m.label}</div>
+                <div className={`text-xl font-black ${m.cls}`}>{m.val}</div>
+                <div className="text-[9px] font-bold text-slate-600 uppercase mt-1">{m.sub}</div>
               </div>
             ))}
           </div>
         )}
 
-        {allPicks.length === 0 ? (
-          <div className="glass-card p-16 text-center">
-            <div className="text-5xl mb-4">🦅</div>
-            <h2 className="text-xl font-bold text-white mb-2">No Options Data Yet</h2>
-            <p className="text-white text-sm max-w-md mx-auto">
-              The BOGA AI options scanner runs at 13:00 NY time on weekdays.
-              It scans 500+ stocks for high-conviction call setups (DTE 60–150, IV Rank &lt;40).
-            </p>
-          </div>
-        ) : (
-          <>
-            {/* ── COMPACT SUMMARY TABLE ── */}
-            <div className="glass-card mb-8 overflow-x-auto">
-              <div className="px-4 py-3 border-b border-white/5 flex items-center gap-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">Recent Setups — {allPicks.length} Opportunities</span>
-              </div>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-[10px] text-[#00d2ff] uppercase tracking-wider border-b border-white/5">
-                    <th className="px-4 py-2 text-left">Date</th>
-                    <th className="px-4 py-2 text-left">Ticker</th>
-                    <th className="px-4 py-2 text-left">Strike / Contract</th>
-                    <th className="px-4 py-2 text-right">Price</th>
-                    <th className="px-4 py-2 text-right">Score</th>
-                    <th className="px-4 py-2 text-left">Signal</th>
-                    <th className="px-4 py-2 text-right">🛡️ Inst.</th>
-                    <th className="px-4 py-2 text-right">🚀 Asym.</th>
+        {/* Main List */}
+        <div className="bg-[#0d1117] border border-white/10 rounded-3xl overflow-hidden shadow-2xl mb-12">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse min-w-[1000px]">
+              <thead>
+                <tr className="bg-white/5 border-b border-white/10">
+                  <th className="px-6 py-5 text-left text-[10px] font-black text-slate-500 uppercase tracking-widest">Ticker / Score</th>
+                  <th className="px-6 py-5 text-left text-[10px] font-black text-slate-500 uppercase tracking-widest">Setup / Regime</th>
+                  <th className="px-6 py-5 text-center text-[10px] font-black text-slate-500 uppercase tracking-widest">Price / IV</th>
+                  <th className="px-6 py-5 text-center text-[10px] font-black text-slate-500 uppercase tracking-widest">Winner Formula</th>
+                  <th className="px-6 py-5 text-center text-[10px] font-black text-slate-500 uppercase tracking-widest">Optimal Contract</th>
+                  <th className="px-6 py-5 text-right text-[10px] font-black text-slate-500 uppercase tracking-widest">Greeks / Edge</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {allPicks.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-6 py-20 text-center">
+                      <div className="text-4xl mb-4">🦅</div>
+                      <h3 className="text-xl font-black text-white uppercase italic">Awaiting Market Movement</h3>
+                      <p className="text-slate-500 text-sm mt-2">Run the scanner or check back during market hours.</p>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {allPicks.map((pick, idx) => {
-                    const modeIcon = MODE_ICONS[pick.entry_mode] ?? "📊";
-                    const modeLabel = pick.entry_mode_label || pick.entry_mode.replace(/_/g, " ");
-                    const inst = pick.institutional;
-                    const asym = pick.asymmetric;
-                    const isLatest = pick.date === latestData?.date;
+                ) : (
+                  allPicks.map((pick) => {
+                    const best = pick.institutional || pick.asymmetric;
+                    const isV220 = !!pick.l2;
+                    const scoreColor = pick.score >= 75 ? "text-amber-400" : pick.score >= 60 ? "text-[#3b82f6]" : "text-emerald-400";
                     
-                    const strike = inst?.strike || asym?.strike || "—";
-                    const exp = pick.exp_date || inst?.expiration || asym?.expiration || "";
-                    const dte = pick.dte || inst?.dte || asym?.dte || "";
-
                     return (
-                      <tr key={`${pick.date}-${pick.ticker}`} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${isLatest ? "bg-[#3b82f6]/5" : ""}`}>
-                        <td className="px-4 py-2.5 font-mono text-[#00d2ff] text-[10px] uppercase">{pick.date?.substring(5)}</td>
-                        <td className="px-4 py-2.5">
-                          <a href={`#detail-${pick.date}-${pick.ticker}`} className="font-black text-white hover:text-[#3b82f6] transition-colors">
-                            {pick.ticker}
-                          </a>
+                      <tr key={`${pick.date}-${pick.ticker}`} className="hover:bg-white/[0.02] transition-colors group">
+                        {/* Ticker & Score */}
+                        <td className="px-6 py-6">
+                          <div className="flex items-center gap-4">
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-lg border-2 ${
+                              pick.score >= 75 ? "border-amber-500/30 bg-amber-500/10 text-amber-500" : "border-[#3b82f6]/30 bg-[#3b82f6]/10 text-[#3b82f6]"
+                            }`}>
+                              {pick.score.toFixed(0)}
+                            </div>
+                            <div>
+                              <Link href={`/stock/${pick.ticker}`} className="text-2xl font-black text-white hover:text-[#3b82f6] transition-colors block leading-none">
+                                {pick.ticker}
+                              </Link>
+                              <span className="text-[10px] font-bold text-slate-500 uppercase">{pick.date}</span>
+                            </div>
+                          </div>
                         </td>
-                        <td className="px-4 py-2.5 text-xs font-mono">
-                          <div className="flex flex-col">
-                            <span className="text-[#34d399] font-bold">${strike}C</span>
-                            <span className="text-[#00d2ff] text-[10px]">
-                              {exp ? exp.substring(5) : "—"} 
-                              {dte && <span className="text-[8px] opacity-60 ml-1">({dte}d)</span>}
+
+                        {/* Setup */}
+                        <td className="px-6 py-6">
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2 py-0.5 rounded-lg bg-white/5 border border-white/10 text-[10px] font-black text-white uppercase">
+                                {pick.entry_mode_label}
+                              </span>
+                              {pick.earnings_warning && (
+                                <span className="text-[10px] font-black text-red-500 animate-pulse">⚠️ EARN</span>
+                              )}
+                            </div>
+                            <div className="text-[11px] font-bold text-slate-400 italic">
+                              {pick.grade}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Price / IV */}
+                        <td className="px-6 py-6 text-center">
+                          <div className="text-lg font-black text-white">${pick.current_price.toFixed(2)}</div>
+                          <div className="flex items-center justify-center gap-2 mt-1">
+                            <span className="text-[10px] font-bold text-slate-500">IVR:</span>
+                            <span className={`text-[11px] font-black ${
+                              (pick.iv_rank || 0) < 20 ? "text-emerald-400" : (pick.iv_rank || 0) < 40 ? "text-amber-400" : "text-red-400"
+                            }`}>
+                              {pick.iv_rank?.toFixed(0) || "—"}
                             </span>
                           </div>
                         </td>
-                        <td className="px-4 py-2.5 text-right font-mono text-white">${pick.current_price.toFixed(2)}</td>
-                        <td className="px-4 py-2.5 text-right">
-                          <span className={`text-xs font-black px-2 py-0.5 rounded-full ${
-                            pick.score >= 70 ? "bg-[#3b82f6]/20 text-[#60a5fa]" :
-                            pick.score >= 60 ? "bg-[#10b981]/20 text-[#34d399]" :
-                            "bg-white/5 text-white"
-                          }`}>{pick.score.toFixed(1)}</span>
+
+                        {/* Winner Formula Metrics */}
+                        <td className="px-6 py-6">
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-center">
+                            <div>
+                              <div className="text-[9px] font-black text-slate-600 uppercase">PE Score</div>
+                              <div className="text-xs font-black text-white">{pick.breakout_base_score?.toFixed(0) || "—"}</div>
+                            </div>
+                            <div>
+                              <div className="text-[9px] font-black text-slate-600 uppercase">Prox.</div>
+                              <div className="text-xs font-black text-[#3b82f6]">{pick.l3?.bp_score?.toFixed(0) || "—"}</div>
+                            </div>
+                            <div>
+                              <div className="text-[9px] font-black text-slate-600 uppercase">UOA</div>
+                              <div className="text-xs font-black text-amber-500">{pick.uoa_score?.toFixed(0) || "—"}</div>
+                            </div>
+                            <div>
+                              <div className="text-[9px] font-black text-slate-600 uppercase">RVOL</div>
+                              <div className="text-xs font-black text-emerald-500">{pick.rvol?.toFixed(1) || "1.0"}x</div>
+                            </div>
+                          </div>
                         </td>
-                        <td className="px-4 py-2.5 text-xs text-white">{modeIcon} {modeLabel}</td>
-                        <td className="px-4 py-2.5 text-right font-mono text-[10px]">
-                          {inst ? <span className="text-[#60a5fa]">${inst.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
+
+                        {/* Contract Details */}
+                        <td className="px-6 py-6 text-center">
+                          {best ? (
+                            <div className="inline-block bg-[#1a212e] border border-[#3b82f6]/20 rounded-2xl p-3">
+                              <div className="text-sm font-black text-white">${best.strike} CALL</div>
+                              <div className="text-[10px] font-bold text-[#3b82f6] uppercase mt-0.5">
+                                {best.expiration} · {best.dte}D
+                              </div>
+                              <div className="text-xs font-black text-white mt-1">
+                                Cost: ${best.contract_cost?.toFixed(0)}
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-slate-600">—</span>
+                          )}
                         </td>
-                        <td className="px-4 py-2.5 text-right font-mono text-[10px]">
-                          {asym ? <span className="text-[#a78bfa]">${asym.premium?.toFixed(2)}</span> : <span className="text-white">—</span>}
+
+                        {/* Greeks / Edge */}
+                        <td className="px-6 py-6 text-right">
+                          {best && (
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-end gap-2">
+                                <span className="text-[10px] font-bold text-slate-500">Δ</span>
+                                <span className="text-xs font-black text-white">{best.delta?.toFixed(2)}</span>
+                              </div>
+                              <div className="flex items-center justify-end gap-2">
+                                <span className="text-[10px] font-bold text-slate-500">Γ</span>
+                                <span className="text-xs font-black text-white">{best.gamma?.toFixed(4)}</span>
+                              </div>
+                              <div className="mt-2 text-xs font-black text-emerald-400">
+                                SIM: {best.sim_gain_pct != null ? (best.sim_gain_pct >= 0 ? "+" : "") + best.sim_gain_pct.toFixed(0) + "%" : "—"}
+                              </div>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     );
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            {/* ── DETAIL CARDS ── */}
-            <div className="space-y-8">
-              {allPicks.map((pick, idx) => (
-                <div key={`${pick.date}-${pick.ticker}`} id={`detail-${pick.date}-${pick.ticker}`}>
-                  <div className="text-[10px] text-[#3b82f6] font-bold mb-1 uppercase tracking-widest">{pick.date} Report</div>
-                  <PickRow pick={pick} index={idx} />
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Legend */}
-        {allPicks.length > 0 && (
-          <div className="mt-8 glass-card p-4 flex flex-wrap gap-x-6 gap-y-2 text-[11px] text-[#00d2ff]">
-            <span>🛡️ <b className="text-white">Institutional</b> = ATM/near-ATM, mid-delta (Δ0.4–0.6)</span>
-            <span>🚀 <b className="text-white">Asymmetric</b> = OTM within expected move, high sim gain</span>
-            <span>⚡ <b className="text-white">E200</b> = EMA200 Breakout · 🌟 <b className="text-white">GX</b> = Golden Cross</span>
-            <span>🌱 <b className="text-white">TRD</b> = Trend Birth · 🐂 <b className="text-white">EST</b> = Established Trend</span>
-            <span>Exit: <b className="text-white">TP +40% · SL -25% · Time Stop = DTE×0.65</b></span>
-            <span className="ml-auto">
-              <Link href="/" className="text-[#3b82f6] hover:underline">← Dashboard</Link>
-            </span>
+                  })
+                )}
+              </tbody>
+            </table>
           </div>
-        )}
+        </div>
+
+        {/* Legend / Info */}
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="glass-card p-6 border-white/5">
+            <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4">Winner Formula Core</h4>
+            <ul className="space-y-3 text-xs text-slate-400 font-medium">
+              <li className="flex justify-between"><span>Pre-Explosion (PE)</span> <span className="text-white font-bold">BB Squeeze + ATR Crush</span></li>
+              <li className="flex justify-between"><span>Breakout Proximity</span> <span className="text-white font-bold">Within 3% of 20D High</span></li>
+              <li className="flex justify-between"><span>Institutional Flow</span> <span className="text-white font-bold">$100K+ Notional Sweeps</span></li>
+              <li className="flex justify-between"><span>Gamma Efficiency</span> <span className="text-white font-bold">Δ 0.30 - 0.45 Sweet Spot</span></li>
+            </ul>
+          </div>
+
+          <div className="glass-card p-6 border-white/5">
+            <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4">Exit Strategy</h4>
+            <ul className="space-y-3 text-xs text-slate-400 font-medium">
+              <li className="flex justify-between"><span>Take Profit</span> <span className="text-emerald-400 font-bold">+40% to +80%</span></li>
+              <li className="flex justify-between"><span>Stop Loss</span> <span className="text-red-400 font-bold">-25% to -35%</span></li>
+              <li className="flex justify-between"><span>Time Stop</span> <span className="text-amber-400 font-bold">60% of DTE Consumed</span></li>
+              <li className="flex justify-between"><span>Market Exit</span> <span className="text-white font-bold">EMA8/21 Trend Breakdown</span></li>
+            </ul>
+          </div>
+
+          <div className="glass-card p-6 border-white/5">
+            <h4 className="text-sm font-black text-white uppercase tracking-widest mb-4">Archive & Performance</h4>
+            <div className="space-y-4">
+              <p className="text-[11px] text-slate-500 leading-relaxed">
+                Scan data is archived daily. BOGA AI tracks every pick from entry to outcome using real-time price updates.
+              </p>
+              <div className="flex gap-3">
+                <Link href="/options/archive" className="flex-1 text-center py-2 bg-white/5 border border-white/10 rounded-lg text-[10px] font-black uppercase hover:bg-white/10 transition-colors">
+                  Full Archive
+                </Link>
+                <Link href="/options/performance" className="flex-1 text-center py-2 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] rounded-lg text-[10px] font-black uppercase hover:bg-[#3b82f6]/20 transition-colors">
+                  Performance
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
 
       <Footer />
     </div>
   );
 }
+
