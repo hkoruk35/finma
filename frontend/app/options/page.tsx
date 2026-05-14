@@ -3,7 +3,6 @@ import { OptionsData, OptionPick } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
-import OptionsManager from "@/components/OptionsManager";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -70,7 +69,6 @@ export default async function OptionsPage() {
               <span className="text-white"> Sector + Pre-Explosion + Breakout Proximity + High-Gamma Flow.</span>
             </p>
           </div>
-          <OptionsManager />
         </div>
 
         {/* Market Context Stats */}
