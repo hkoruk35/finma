@@ -403,26 +403,10 @@ async def build_universe() -> List[str]:
     valid = list({t for t in raw if 1<=len(t)<=5 and re.match(r'^[A-Z]+$',t)})
     valid.sort()
 
-    passed: List[str] = []
-    sem = asyncio.Semaphore(20)
-
-    async def check(ticker: str):
-        async with sem:
-            try:
-                df = await asyncio.wait_for(asyncio.to_thread(
-                    lambda: yf.Ticker(ticker).history(period="5d")
-                ), timeout=10)
-                if df is None or len(df)<2: return
-                cp  = float(df['Close'].iloc[-1])
-                vol = float(df['Volume'].tail(3).mean())
-                if PRICE_MIN<=cp<=PRICE_MAX and vol>=AVG_VOL_MIN and cp*vol>=DOLLAR_VOL_MIN:
-                    passed.append(ticker)
-            except: pass
-
-    await asyncio.gather(*[check(t) for t in valid[:MAX_TICKERS_SCAN]])
-    UNIVERSE_CACHE.update({"ts": now, "data": passed[:MAX_TICKERS_SCAN]})
+    passed = valid[:100] # Bypassing YF rate limit checks temporarily for 100 stocks
+    UNIVERSE_CACHE.update({"ts": now, "data": passed})
     logging.info(f"✅ Evren: {len(passed)} hisse")
-    return passed[:MAX_TICKERS_SCAN]
+    return passed
 
 # ════════════════════════════════════════════════════════════════════════════
 # 5) ÇOK-ZAMAN-DİLİMİ RSI ALINHEMANI (swing bot'tan uyarlandı)
