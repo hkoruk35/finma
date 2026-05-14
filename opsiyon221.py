@@ -110,22 +110,22 @@ ADX_MIN = 10
 # ── OPSİYON ───────────────────────────────────────────────────────────────
 DTE_MIN  = 15
 DTE_MAX  = 75
-SPREAD_MAX = 1.00
-MID_MIN    = 0.01
-CONTRACT_MAX = 999999
-OI_MIN = 0
+SPREAD_MAX = 0.25 # Daha esnek (0.10'dan 0.25'e)
+MID_MIN    = 0.05
+CONTRACT_MAX = 500
+OI_MIN = 20
 
-DELTA_GAMMA_MIN = 0.01
-DELTA_GAMMA_MAX = 0.99
-DELTA_SAFE_MIN  = 0.01
-DELTA_SAFE_MAX  = 0.99
+DELTA_GAMMA_MIN = 0.22
+DELTA_GAMMA_MAX = 0.48
+DELTA_SAFE_MIN  = 0.45
+DELTA_SAFE_MAX  = 0.65
 
 # Notional sweep doğrulama
 NOTIONAL_SWEEP_MIN = 100_000
 NOTIONAL_BLOCK_MIN = 500_000
 
 # MM Trap
-EM_ATR_MAX_RATIO = 99.0 # Geçici gevşetildi
+EM_ATR_MAX_RATIO = 3.5 # Biraz daha esnek
 CALL_WALL_OI_MIN = 8_000
 
 # Exit
@@ -133,9 +133,9 @@ TAKE_PROFIT_PCT = 0.40
 STOP_LOSS_PCT   = -0.30
 TIME_STOP_RATIO = 0.60
 
-MAX_TICKERS_SCAN = 10 # Only 10 for debugging
+MAX_TICKERS_SCAN = 500
 UNIVERSE_TTL     = 24 * 3600
-SEMAPHORE_N      = 1 # Sequential for debugging
+SEMAPHORE_N      = 6
 
 HOT_SECTORS = {
     "Semiconductors": 15, "Technology": 12, "Health Care": 11,
@@ -178,7 +178,7 @@ def get_scan_mode() -> str:
     if SCAN_MODE != "auto": return SCAN_MODE
     if is_market_open(): return "market_open"
     if is_pre_market():  return "pre_market"
-    return "market_open" # Force market_open for better filters during this run
+    return "market_closed"
 
 # Cache
 UNIVERSE_CACHE: Dict[str, Any]         = {"ts": 0.0, "data": []}
@@ -289,8 +289,8 @@ async def update_market_data():
             score += 10 if q20 > 5 else (5 if q20 > 0 else (-10 if q20 < -5 else 0))
             score = max(0, min(100, score))
             MARKET_REGIME.update({
-                "regime": "bull",
-                "score": 85, "qqq_5d": 1.5, "qqq_20d": 5.0
+                "regime": "bull" if score >= 65 else ("bear" if score < 40 else "neutral"),
+                "score": score, "qqq_5d": round(q5, 2), "qqq_20d": round(q20, 2)
             })
     except: pass
 
@@ -400,8 +400,26 @@ async def build_universe() -> List[str]:
                                 if p: raw.append(p[0].strip().upper())
             except: pass
 
-    valid = ["AAPL","NVDA","TSLA","AMD","MSFT","META","GOOGL","AMZN","NFLX","COIN","MARA","MSTR","PLTR","SMCI","AMD","QQQ","SPY","IWM","SOXL","TQQQ","BABA","JD","PYPL","SQ","U","RIVN","LCID","NIO","OPEN","AFRM"]
-    passed = valid
+    valid = list({t for t in raw if 1<=len(t)<=5 and re.match(r'^[A-Z]+$',t)})
+    valid.sort()
+
+    passed: List[str] = []
+    sem = asyncio.Semaphore(20)
+
+    async def check(ticker: str):
+        async with sem:
+            try:
+                df = await asyncio.wait_for(asyncio.to_thread(
+                    lambda: yf.Ticker(ticker).history(period="5d")
+                ), timeout=10)
+                if df is None or len(df)<2: return
+                cp  = float(df['Close'].iloc[-1])
+                vol = float(df['Volume'].tail(3).mean())
+                if PRICE_MIN<=cp<=PRICE_MAX and vol>=AVG_VOL_MIN and cp*vol>=DOLLAR_VOL_MIN:
+                    passed.append(ticker)
+            except: pass
+
+    await asyncio.gather(*[check(t) for t in valid[:MAX_TICKERS_SCAN]])
     UNIVERSE_CACHE.update({"ts": now, "data": passed})
     logging.info(f"✅ Evren: {len(passed)} hisse")
     return passed
@@ -1175,13 +1193,9 @@ async def layer5_options(ticker: str, cp: float, close: pd.Series,
                     bid=float(row.get('bid',0) or 0); ask=float(row.get('ask',0) or 0)
                     if ask<=0.03: continue
                     mid=(bid+ask)/2.0; spread=(ask-bid)/ask if ask>0 else 1.0
-                    if spread>SPREAD_MAX: 
-                        print(f"DEBUG: {ticker} {exp_str} strike {strike} spread {spread} rejected")
-                        continue
+                    if spread>SPREAD_MAX: continue
                     oi=int(row.get('openInterest',0) or 0); volume=int(row.get('volume',0) or 0)
-                    if oi<5 or mid<MID_MIN: 
-                        print(f"DEBUG: {ticker} {exp_str} strike {strike} OI {oi} mid {mid} rejected")
-                        continue # Loosened OI from 50 to 5
+                    if oi<5 or mid<MID_MIN: continue # Loosened OI from 50 to 5
                     if strike>em_up*1.08: continue
 
                     g=bs_greeks(cp,strike,T,r,iv_row)
@@ -1366,30 +1380,44 @@ async def analyze(ticker: str) -> Optional[dict]:
             # Bear piyasada dur
             if MARKET_REGIME.get("regime") == "bear": return None
 
-            print(f"TRACE: {ticker} fetching history")
             df = await asyncio.wait_for(asyncio.to_thread(
-                lambda: yf.Ticker(ticker).history(period="5d",interval="1d",auto_adjust=True)
+                lambda: yf.Ticker(ticker).history(period="300d",interval="1d",auto_adjust=True)
             ), timeout=30)
-            if df is None or len(df)<2: return None
-            df.columns=[str(c).strip().title() for c in (df.columns.get_level_values(0) if isinstance(df.columns,pd.MultiIndex) else df.columns)]
+            if df is None or len(df)<210: return None
+
+            df.columns=[str(c).strip().title() for c in
+                        (df.columns.get_level_values(0) if isinstance(df.columns,pd.MultiIndex) else df.columns)]
+            if 'Close' not in df.columns: return None
+
             close=df['Close'].astype(float)
             cp=float(close.iloc[-1])
-            l2 = {"rs_score": 0, "mom_score": 0}
-            l3 = {"ema_score": 0}
-            squeeze = {}
-            flow = {}
+            if not (PRICE_MIN<=cp<=PRICE_MAX): return None
 
-            print(f"TRACE: {ticker} forcing result")
-            opt = {
-                "iv_rank": 50, "iv_pct_rank": 50, "atm_iv": 30.0,
-                "gamma_sweet": {
-                    "type": "🚀 MOMENTUM", "strike": round(cp*1.05,2), "expiration": "2026-06-19",
-                    "dte": 36, "cost_per_contract": 150, "delta": 0.35, "gamma": 0.05,
-                    "iv_pct": 40.0, "flow_score": 5, "sim": {"pnl_pct": 120},
-                    "bid": 1.40, "ask": 1.60, "mid": 1.50, "oi": 500, "volume": 100, "score": 85
-                }
-            }
-            print(f"DEBUG: {ticker} PASSED (FORCED)")
+            # ── KATMAN 2: Güçlü hisse? ─────────────────────────────────────
+            l2_ok, l2 = layer2_strong_stock(df)
+            if not l2: l2 = {"rs_score": 0, "mom_score": 0, "rs_60": 0, "rs_20": 0, "rs_5": 0, "roc5": 0, "roc20": 0, "roc60": 0, "rsi": 50, "rvol": 1, "atr_pct": 2, "hv20": 0.3}
+
+            # ── MTF RSI — 1D + 1H yukarı zorunlu (DEAD CAT BOUNCE KORUMASI) ──
+            df_1h = await fetch_1h_data(ticker)
+            mtf_ok, mtf = check_mtf_rsi_alignment(df, df_1h, market_open=MARKET_OPEN_AT_SCAN)
+            if not mtf: mtf = {"rsi_1d": 50, "rsi_1h": "50", "rsi_1h_val": 50, "trend_1d": "Nötr", "rsi_alignment": "—"}
+
+            # ── Sektör ────────────────────────────────────────────────────
+            sector    = await get_sector(ticker)
+            sec_score = calc_sector_score(sector)
+
+            # ── KATMAN 3: Doğru EMA noktası? ───────────────────────────────
+            l3_ok, l3 = layer3_ema_timing(df)
+            if not l3: l3 = {"ema_score": 0, "entry_mode": "—", "adx": 10, "vwap_ok": False}
+
+            # ── KATMAN 4: Bonus puanlar ────────────────────────────────────
+            squeeze = calc_squeeze_bonus(df)
+            flow    = await calc_flow_bonus(ticker, cp)
+
+            # ── KATMAN 5: Opsiyon ──────────────────────────────────────────
+            hv20 = l2.get("hv20", calc_hv(close,20))
+            opt  = await layer5_options(ticker, cp, close, hv20, l2, l3, squeeze, flow)
+            if not opt: return None
 
             # IV Context (IV hard block mümkün)
             iv_s, iv_lbl = iv_context(opt.get("iv_rank",50), l3, squeeze, flow)
