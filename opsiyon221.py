@@ -99,9 +99,9 @@ AVG_VOL_MIN    = 150_000
 DOLLAR_VOL_MIN = 500_000
 
 # ── KATMAN 2: Güçlü hisse eşikleri ───────────────────────────────────────
-RS_60D_MIN   = 2.0    # SPY'dan en az +2pp güçlü (60g)
-RS_20D_MIN   = 0.0    # Son 20g'de SPY'a eşit ya da üstü
-ROC5_MIN     = -3.0   # Son 5 günde çok sert düşmemiş
+RS_60D_MIN   = -5.0   # Eskiden 2.0'dı, çok dar olduğu için -5'e çekildi
+RS_20D_MIN   = -2.0   # Eskiden 0.0'dı
+ROC5_MIN     = -5.0   # Eskiden -3.0'dü
 HIGHER_HIGHS_MIN = 1  # Son 20 günde en az 1 higher high zinciri
 
 # ── KATMAN 3: EMA eşikleri ─────────────────────────────────────────────
@@ -1669,7 +1669,6 @@ async def scan():
             f"  → RS_60D_MIN={RS_60D_MIN} düşürülebilir\n"
             "• EMA zamanlaması uygun değil\n"
         )
-        save_picks(candidates)
         return
 
     duration=time.time()-start
