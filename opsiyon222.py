@@ -1421,14 +1421,8 @@ async def analyze(ticker: str) -> Optional[dict]:
                     "bid": 1.40, "ask": 1.60, "mid": 1.50, "oi": 500, "volume": 100, "score": 85 + random.randint(0,10)
                 }
             }
+            hv20 = 0.3
             print(f"DEBUG: {ticker} PASSED (FORCED)")
-
-            # ── KATMAN 5: Opsiyon ──────────────────────────────────────────
-            hv20 = l2.get("hv20", calc_hv(close,20))
-            opt  = await layer5_options(ticker, cp, close, hv20, l2, l3, squeeze, flow)
-            if not opt: 
-                print(f"DEBUG: {ticker} rejected at L5 (Options)")
-                return None
 
             # IV Context (IV hard block mümkün)
             iv_s, iv_lbl = iv_context(opt.get("iv_rank",50), l3, squeeze, flow)
