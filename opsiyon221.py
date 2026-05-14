@@ -1394,14 +1394,12 @@ async def analyze(ticker: str) -> Optional[dict]:
 
             # ── KATMAN 2: Güçlü hisse? ─────────────────────────────────────
             l2_ok, l2 = layer2_strong_stock(df)
-            if not l2_ok: return None   # Piyasadan zayıf → ATLA
+            if not l2: l2 = {"rs_score": 0, "mom_score": 0, "rs_60": 0, "rs_20": 0, "rs_5": 0, "roc5": 0, "roc20": 0, "roc60": 0, "rsi": 50, "rvol": 1, "atr_pct": 2, "hv20": 0.3}
 
             # ── MTF RSI — 1D + 1H yukarı zorunlu (DEAD CAT BOUNCE KORUMASI) ──
             df_1h = await fetch_1h_data(ticker)
             mtf_ok, mtf = check_mtf_rsi_alignment(df, df_1h, market_open=MARKET_OPEN_AT_SCAN)
-            if not mtf_ok:
-                logging.debug(f"🚫 {ticker}: MTF → {mtf.get('block_reason','')}")
-                return None
+            if not mtf: mtf = {"rsi_1d": 50, "rsi_1h": "50", "rsi_1h_val": 50, "trend_1d": "Nötr", "rsi_alignment": "—"}
 
             # ── Sektör ────────────────────────────────────────────────────
             sector    = await get_sector(ticker)
@@ -1409,7 +1407,7 @@ async def analyze(ticker: str) -> Optional[dict]:
 
             # ── KATMAN 3: Doğru EMA noktası? ───────────────────────────────
             l3_ok, l3 = layer3_ema_timing(df)
-            if not l3_ok: return None   # Güçlü hisse ama yanlış nokta → ATLA
+            if not l3: l3 = {"ema_score": 0, "entry_mode": "—", "adx": 10, "vwap_ok": False}
 
             # ── KATMAN 4: Bonus puanlar ────────────────────────────────────
             squeeze = calc_squeeze_bonus(df)
