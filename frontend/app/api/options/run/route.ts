@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 
 export async function POST() {
-  return new Promise((resolve) => {
+  return new Promise<NextResponse>((resolve) => {
     // The root of the project is 3 levels up from this file (app/api/options/run/route.ts)
     // But since it's Next.js, process.cwd() is usually the project root (finma/frontend)
     // The script is in the parent directory of the frontend folder.
@@ -34,7 +34,8 @@ export async function POST() {
           .reverse();
 
         if (files.length > 0) {
-          const latestFile = path.join(dataDir, files[0]);
+          // @ts-ignore
+          const latestFile = path.join(/* turbopackIgnore: true */ dataDir, files[0]);
           
           // Copy to public for static serving
           const publicDataDir = path.join(process.cwd(), "public", "data", "latest");
