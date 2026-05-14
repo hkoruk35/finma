@@ -70,7 +70,8 @@ def main():
         log.error("❌ opsiyon221.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
         return
         
-    latest_file = max(v221_files, key=os.path.getctime)
+    v221_files.sort()
+    latest_file = v221_files[-1]
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")
 
     # 1. Public Data Dir
