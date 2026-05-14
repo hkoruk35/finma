@@ -44,17 +44,17 @@ def main():
         log.info("🛌 Hafta sonu. İşlem yapılmadı.")
         return
 
-    log.info("🌅 BOGA AI Option Scanner (09:00 NY) Başlatıldı...")
+    log.info("🌅 BOGA AI Option Scanner (11:00 NY) Başlatıldı...")
 
-    script_path = os.path.join(FINMA_DIR, "opsiyon220.py")
+    script_path = os.path.join(FINMA_DIR, "opsiyon221.py")
     cmd = [VENV_PYTHON, script_path, "--oneshot"]
     
-    log.info(f"▶ Çalıştırılıyor: opsiyon220.py")
+    log.info(f"▶ Çalıştırılıyor: opsiyon221.py")
     try:
         subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8", check=True)
-        log.info("✅ opsiyon220.py tamamlandı.")
+        log.info("✅ opsiyon221.py tamamlandı.")
     except subprocess.CalledProcessError as e:
-        log.error(f"❌ opsiyon220.py hatası (Exit {e.returncode}):")
+        log.error(f"❌ opsiyon221.py hatası (Exit {e.returncode}):")
         if e.stdout: log.error(f"STDOUT: {e.stdout}")
         if e.stderr: log.error(f"STDERR: {e.stderr}")
         return
@@ -64,13 +64,13 @@ def main():
 
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
-    v220_files = glob.glob(os.path.join(data_dir, "v220_*.json"))
+    v221_files = glob.glob(os.path.join(data_dir, "v221_*.json"))
     
-    if not v220_files:
-        log.error("❌ opsiyon220.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
+    if not v221_files:
+        log.error("❌ opsiyon221.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
         return
         
-    latest_file = max(v220_files, key=os.path.getctime)
+    latest_file = max(v221_files, key=os.path.getctime)
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")
 
     # 1. Public Data Dir

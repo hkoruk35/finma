@@ -34,7 +34,7 @@ if '%errorlevel%' NEQ '0' (
     echo ==================================================
     echo ISLEM TAMAMLANDI! (Tum sistem guncellendi)
     echo --------------------------------------------------
-    echo 1. Option Scanner (Options):    09:00 NY
+    echo 1. Option Scanner (Options):    11:00 NY
     echo 2. Sabah Dongusu (DayTrade):    09:15 NY
     echo 3. Ogle Dongusu (Swing):        13:00 NY
     echo 4. Performans Takibi:           10:00-16:30 NY (Saatlik)
