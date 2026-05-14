@@ -1,23 +1,78 @@
 {
-  "generated_at": "2026-05-14T10:01:00.086208-04:00",
+  "generated_at": "2026-05-14T10:31:00.063756-04:00",
   "scan_mode": "intraday",
-  "scan_duration_s": 23.7,
-  "total_scanned": 1,
-  "layer1_passed": 1,
-  "final_picks": 1,
+  "scan_duration_s": 27.1,
+  "total_scanned": 5,
+  "layer1_passed": 5,
+  "final_picks": 5,
   "picks": [
     {
-      "ticker": "CELH",
-      "price": 29.23,
-      "change_pct": 4.92,
-      "dt_score": 63.0,
+      "ticker": "AFRM",
+      "price": 65.47,
+      "change_pct": 3.05,
+      "dt_score": 45.0,
       "signal": "GAP_AND_GO",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 28.98,
+      "vwap": 32.5,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "affirm investor day touts 'bigger is better,' strategy, new $100 billion financial target(investor's business daily)",
+        "confidence": "high",
+        "ts": 1778769085.9162836
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 65.4,
+          "high": 65.8
+        },
+        "stop": 64.49,
+        "tp1": 67.82,
+        "tp2": 69.48,
+        "rr_ratio": 2.0,
+        "avg_entry": 65.6,
+        "risk_per_sh": 1.11,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 65.47
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +101.47%",
+        "🔴 Açılış Barı: Kırmızı (0.4% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "CELH",
+      "price": 29.5,
+      "change_pct": 5.89,
+      "dt_score": 25.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.5,
       "catalyst": {
         "catalyst_type": "earnings_beat",
         "catalyst_score": 25,
@@ -37,26 +92,191 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 29.2,
-          "high": 29.38
+          "low": 29.47,
+          "high": 29.65
         },
-        "stop": 28.79,
-        "tp1": 30.29,
-        "tp2": 31.04,
+        "stop": 29.23,
+        "tp1": 30.22,
+        "tp2": 30.71,
         "rr_ratio": 2.0,
-        "avg_entry": 29.29,
-        "risk_per_sh": 0.5,
+        "avg_entry": 29.56,
+        "risk_per_sh": 0.33,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 29.23
+        "pm_high_ref": 29.5
       },
       "details": [
         "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.9%",
+        "↗️ Orta Gap: +5.9%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.87%",
-        "🔥 Açılış Barı: Güçlü (2.4x hacim)",
+        "🔴 VWAP Altında: -9.22%",
+        "🔴 Açılış Barı: Kırmızı (0.4% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "price": 33.26,
+      "change_pct": 3.94,
+      "dt_score": 25.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.5,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1778769085.9291883
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 33.23,
+          "high": 33.43
+        },
+        "stop": 32.76,
+        "tp1": 34.47,
+        "tp2": 35.33,
+        "rr_ratio": 2.0,
+        "avg_entry": 33.33,
+        "risk_per_sh": 0.57,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 33.26
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.9%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +2.35%",
+        "🔴 Açılış Barı: Kırmızı (0.4% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "price": 233.21,
+      "change_pct": 3.27,
+      "dt_score": 25.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.5,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1778769085.9089868
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 232.98,
+          "high": 234.38
+        },
+        "stop": 229.71,
+        "tp1": 241.62,
+        "tp2": 247.57,
+        "rr_ratio": 2.0,
+        "avg_entry": 233.68,
+        "risk_per_sh": 3.97,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 233.21
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.3%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +617.67%",
+        "🔴 Açılış Barı: Kırmızı (0.4% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "UPST",
+      "price": 28.06,
+      "change_pct": 3.97,
+      "dt_score": 2.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.5,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1778765488.9438226
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 27.93,
+          "high": 28.1
+        },
+        "stop": 27.81,
+        "tp1": 28.44,
+        "tp2": 28.75,
+        "rr_ratio": 2.02,
+        "avg_entry": 28.02,
+        "risk_per_sh": 0.21,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 28.06
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +4.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔴 VWAP Altında: -13.65%",
+        "🔴 Açılış Barı: Kırmızı (0.4% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
