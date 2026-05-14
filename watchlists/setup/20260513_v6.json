@@ -1,0 +1,132 @@
+[
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "SKYT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 35.62,
+        "entry_zone": "34.85 - 36.39",
+        "SL": 32.53,
+        "TP": 40.26
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "OII",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 38.38,
+        "entry_zone": "37.65 - 39.11",
+        "SL": 35.45,
+        "TP": 42.77
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "BHP",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 90.9,
+        "entry_zone": "89.79 - 92.01",
+        "SL": 86.45,
+        "TP": 97.57
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "NVRI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 19.65,
+        "entry_zone": "19.39 - 19.91",
+        "SL": 18.59,
+        "TP": 21.23
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "HIW",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 25.95,
+        "entry_zone": "25.61 - 26.30",
+        "SL": 24.59,
+        "TP": 28.0
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "NATL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 44.65,
+        "entry_zone": "44.15 - 45.14",
+        "SL": 42.67,
+        "TP": 47.61
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "MGA",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 62.2,
+        "entry_zone": "61.12 - 63.28",
+        "SL": 57.88,
+        "TP": 68.68
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "MS",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 194.29,
+        "entry_zone": "192.22 - 196.37",
+        "SL": 186.0,
+        "TP": 206.74
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "NDSN",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 279.02,
+        "entry_zone": "276.15 - 281.89",
+        "SL": 267.54,
+        "TP": 296.24
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "BILI",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 22.42,
+        "entry_zone": "22.08 - 22.76",
+        "SL": 21.08,
+        "TP": 24.43
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "DOLE",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 14.65,
+        "entry_zone": "14.41 - 14.88",
+        "SL": 13.72,
+        "TP": 16.03
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "SLDE",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 18.01,
+        "entry_zone": "17.66 - 18.36",
+        "SL": 16.61,
+        "TP": 20.12
+    },
+    {
+        "date": "2026-05-13 15:00",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 44.49,
+        "entry_zone": "44.10 - 44.87",
+        "SL": 42.93,
+        "TP": 46.81
+    }
+]

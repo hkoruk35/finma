@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-05-13T15:00:20.520587-04:00",
-  "hour_slot": "2026-05-13T15",
+  "generated_at": "2026-05-13T14:00:31.481381-04:00",
+  "hour_slot": "2026-05-13T14",
   "market_regime": "Bull",
-  "vix_level": 17.829999923706055,
+  "vix_level": 17.8799991607666,
   "total_scanned": 13,
   "signals": [
     {
@@ -11,23 +11,23 @@
       "sector": "Technology",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 35.62,
+      "current_price": 35.54,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($34.85–$36.39). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($34.77–$36.31). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 37.1,
-        "volume_ratio": 0.4,
-        "change_1h": 0.74,
-        "change_24h": 0.08,
+        "adx_1h": 38.7,
+        "volume_ratio": 0.29,
+        "change_1h": -0.34,
+        "change_24h": -0.14,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 2.0,
-        "natr": 4.34
+        "natr": 4.35
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -37,7 +37,7 @@
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.4x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.2x) ❌"
       ]
     },
     {
@@ -46,23 +46,23 @@
       "sector": "Energy",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 38.38,
+      "current_price": 38.29,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($37.65–$39.11). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($37.56–$39.02). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 18.8,
-        "volume_ratio": 0.47,
-        "change_1h": 0.5,
-        "change_24h": 0.81,
+        "adx_1h": 19.2,
+        "volume_ratio": 0.4,
+        "change_1h": 0.01,
+        "change_24h": 0.58,
         "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
+        "setup": "NONE",
         "rs_score": 2.0,
-        "natr": 3.82
+        "natr": 3.83
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -70,9 +70,8 @@
         "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
-        "⚡ Bollinger Squeeze",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
       ]
     },
     {
@@ -81,19 +80,19 @@
       "sector": "Basic Materials",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 90.9,
+      "current_price": 90.96,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($89.79–$92.01). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($89.85–$92.08). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 49.0,
-        "volume_ratio": 0.52,
-        "change_1h": -0.26,
-        "change_24h": 2.92,
+        "adx_1h": 48.2,
+        "volume_ratio": 0.31,
+        "change_1h": -0.4,
+        "change_24h": 2.99,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 2.0,
@@ -106,41 +105,8 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "NVRI",
-      "company": "NVRI",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-05-13",
-      "days_since_pick": 0,
-      "current_price": 19.65,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($19.39–$19.91). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 15.1,
-        "volume_ratio": 0.17,
-        "change_1h": -0.25,
-        "change_24h": -0.1,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 1.0,
-        "natr": 2.69
-      },
-      "notes": [
-        "🧱 RS: Resilient",
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP/EMA50 Defense Zone",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
     {
@@ -149,19 +115,19 @@
       "sector": "Real Estate",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 25.95,
+      "current_price": 25.94,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($25.61–$26.30). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($25.60–$26.29). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 24.5,
-        "volume_ratio": 0.71,
-        "change_1h": 0.21,
-        "change_24h": 1.55,
+        "adx_1h": 23.5,
+        "volume_ratio": 0.44,
+        "change_1h": 0.23,
+        "change_24h": 1.51,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
@@ -173,7 +139,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.7x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
       ]
     },
     {
@@ -182,19 +148,19 @@
       "sector": "Technology",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 44.65,
+      "current_price": 44.72,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($44.15–$45.14). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($44.22–$45.21). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 24.0,
-        "volume_ratio": 0.3,
-        "change_1h": 0.18,
-        "change_24h": -0.66,
+        "adx_1h": 24.9,
+        "volume_ratio": 0.39,
+        "change_1h": 0.06,
+        "change_24h": -0.5,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
@@ -206,7 +172,41 @@
         "Slope: Positive",
         "VWAP/EMA50 Defense Zone",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "NVRI",
+      "company": "NVRI",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-05-13",
+      "days_since_pick": 0,
+      "current_price": 19.67,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($19.41–$19.93). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 15.8,
+        "volume_ratio": 0.2,
+        "change_1h": -0.35,
+        "change_24h": 0.0,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 2.68
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
       ]
     },
     {
@@ -215,19 +215,19 @@
       "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 62.2,
+      "current_price": 62.19,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($61.12–$63.28). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($61.12–$63.27). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 16.8,
-        "volume_ratio": 0.58,
-        "change_1h": -0.06,
-        "change_24h": -0.14,
+        "adx_1h": 18.0,
+        "volume_ratio": 0.43,
+        "change_1h": -0.43,
+        "change_24h": -0.15,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
@@ -239,7 +239,7 @@
         "Slope: Positive",
         "VWAP/EMA50 Defense Zone",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
       ]
     },
     {
@@ -248,23 +248,23 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 194.29,
+      "current_price": 194.04,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($192.22–$196.37). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($191.98–$196.11). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 16.5,
-        "volume_ratio": 0.43,
-        "change_1h": 0.08,
-        "change_24h": 1.26,
+        "adx_1h": 17.3,
+        "volume_ratio": 0.39,
+        "change_1h": 0.34,
+        "change_24h": 1.13,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 2.14
+        "natr": 2.13
       },
       "notes": [
         "Phase: EXPANSION",
@@ -281,19 +281,19 @@
       "sector": "Industrials",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 279.02,
+      "current_price": 279.26,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($276.15–$281.89). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($276.39–$282.13). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 18.2,
-        "volume_ratio": 0.41,
-        "change_1h": -0.05,
-        "change_24h": -0.76,
+        "adx_1h": 17.9,
+        "volume_ratio": 0.24,
+        "change_1h": 0.18,
+        "change_24h": -0.68,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
@@ -305,7 +305,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
       ]
     },
     {
@@ -314,29 +314,29 @@
       "sector": "Communication Services",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 22.42,
+      "current_price": 22.33,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($22.08–$22.76). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($21.99–$22.66). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 32.6,
-        "volume_ratio": 0.97,
-        "change_1h": -0.13,
-        "change_24h": 4.67,
+        "adx_1h": 32.1,
+        "volume_ratio": 0.26,
+        "change_1h": -0.36,
+        "change_24h": 4.23,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 3.0
+        "natr": 3.01
       },
       "notes": [
         "Price below EMA50 & Slope Negative",
         "VWAP/EMA50 Acceptable Zone",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (1.0x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
     {
@@ -345,23 +345,54 @@
       "sector": "Consumer Defensive",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 14.65,
+      "current_price": 14.48,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($14.41–$14.88). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($14.25–$14.72). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 19.0,
-        "volume_ratio": 0.27,
-        "change_1h": 0.62,
-        "change_24h": 1.63,
+        "adx_1h": 19.6,
+        "volume_ratio": 0.18,
+        "change_1h": -0.24,
+        "change_24h": 0.52,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 3.14
+        "natr": 3.18
+      },
+      "notes": [
+        "Price below EMA50 & Slope Negative",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "SLDE",
+      "company": "SLDE",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-05-13",
+      "days_since_pick": 0,
+      "current_price": 18.12,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($17.78–$18.47). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 21.3,
+        "volume_ratio": 0.34,
+        "change_1h": -0.58,
+        "change_24h": -2.71,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.83
       },
       "notes": [
         "Price below EMA50 & Slope Negative",
@@ -371,65 +402,34 @@
       ]
     },
     {
-      "ticker": "SLDE",
-      "company": "SLDE",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-05-13",
-      "days_since_pick": 0,
-      "current_price": 18.01,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($17.66–$18.36). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 22.7,
-        "volume_ratio": 0.37,
-        "change_1h": -0.17,
-        "change_24h": -3.33,
-        "trend_1h": "DOWN",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 3.9
-      },
-      "notes": [
-        "Price below EMA50 & Slope Negative",
-        "VWAP Extended",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
-      ]
-    },
-    {
       "ticker": "CSX",
       "company": "CSX",
       "sector": "Industrials",
       "swing_pick_date": "2026-05-13",
       "days_since_pick": 0,
-      "current_price": 44.49,
+      "current_price": 44.43,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($44.10–$44.87). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($44.04–$44.82). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 14.4,
-        "volume_ratio": 0.5,
-        "change_1h": 0.01,
-        "change_24h": -0.1,
+        "adx_1h": 14.0,
+        "volume_ratio": 0.21,
+        "change_1h": 0.18,
+        "change_24h": -0.22,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 1.74
+        "natr": 1.75
       },
       "notes": [
         "NATR < 2% (Too Stable)",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
       ]
     }
   ]

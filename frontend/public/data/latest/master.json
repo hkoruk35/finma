@@ -1,32 +1,30 @@
 {
-  "date": "2026-05-12",
-  "generated_at": "2026-05-12T16:06:21.732847-04:00",
+  "date": "2026-05-13",
+  "generated_at": "2026-05-13T13:06:12.047096-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 13,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "ADI",
-        "TFSL",
-        "CTRE",
-        "VRT",
-        "NVGS",
-        "NVG",
-        "WTS",
-        "IEX",
-        "ATEN",
-        "MAC"
+        "MS",
+        "SKYT",
+        "NDSN",
+        "OII",
+        "HIW",
+        "BHP",
+        "NATL",
+        "SLDE",
+        "NVRI",
+        "DOLE"
       ]
     },
     "breakout": {
-      "count": 4,
+      "count": 2,
       "tickers": [
-        "MAC",
-        "RIO",
-        "BWA",
-        "WHD"
+        "HIW",
+        "BHP"
       ]
     },
     "value": {
@@ -38,9 +36,10 @@
       "tickers": []
     },
     "momentum": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "ATEN"
+        "SLDE",
+        "CSX"
       ]
     },
     "dividend": {
@@ -50,18 +49,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ADI",
-      "score": 66.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "TFSL",
-      "score": 61.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "CTRE",
+      "ticker": "MS",
       "score": 61.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "SKYT",
+      "score": 59.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "NDSN",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
