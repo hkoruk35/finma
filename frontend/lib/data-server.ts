@@ -49,9 +49,12 @@ export function readJson(relPath: string, date?: string): any | null {
 
   // Local dev paths (worktree) - skip on Vercel to avoid broad NFT tracing
   if (!process.env.VERCEL) {
-    candidates.push(path.resolve(process.cwd(), "..", "transfer", folder));
-    candidates.push(path.resolve(process.cwd(), "..", "..", "transfer", folder));
-    candidates.push(path.resolve(process.cwd(), "..", "data", folder));
+    // @ts-ignore
+    candidates.push(path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", "transfer", folder));
+    // @ts-ignore
+    candidates.push(path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", "..", "transfer", folder));
+    // @ts-ignore
+    candidates.push(path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", "data", folder));
   }
 
   for (const base of candidates) {
@@ -73,8 +76,10 @@ export function listOptionsDates(): string[] {
   const dirBase = path.resolve(__dirname, "..", "..", "..", "..");
   candidates.push(path.join(dirBase, "public", "data"));
   candidates.push(path.resolve(process.cwd(), "public", "data"));
-  candidates.push(path.resolve(process.cwd(), "..", "data"));
-  candidates.push(path.resolve(process.cwd(), "..", "..", "data"));
+  // @ts-ignore
+  candidates.push(path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", "data"));
+  // @ts-ignore
+  candidates.push(path.resolve(/* turbopackIgnore: true */ process.cwd(), "..", "..", "data"));
 
   for (const base of candidates) {
     try {
