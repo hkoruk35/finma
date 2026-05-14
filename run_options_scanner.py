@@ -2,7 +2,7 @@
 """
 run_options_scanner.py — BOGA AI Option Scanner Otomasyonu
 Zamanlayıcı: Windows Task Scheduler ile 09:00 NY (Pzt-Cuma)
-Amacı: opsiyon220.py botunu çalıştırıp, json çıktılarını transfer klasörlerine kopyalamak ve GitHub'a pushlamak.
+Amacı: opsiyon222.py botunu çalıştırıp, json çıktılarını transfer klasörlerine kopyalamak ve GitHub'a pushlamak.
 """
 
 import logging
@@ -46,15 +46,15 @@ def main():
 
     log.info("🌅 BOGA AI Option Scanner (11:00 NY) Başlatıldı...")
 
-    script_path = os.path.join(FINMA_DIR, "opsiyon221.py")
+    script_path = os.path.join(FINMA_DIR, "opsiyon222.py")
     cmd = [VENV_PYTHON, script_path, "--oneshot"]
     
-    log.info(f"▶ Çalıştırılıyor: opsiyon221.py")
+    log.info(f"▶ Çalıştırılıyor: opsiyon222.py")
     try:
         subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8", check=True)
-        log.info("✅ opsiyon221.py tamamlandı.")
+        log.info("✅ opsiyon222.py tamamlandı.")
     except subprocess.CalledProcessError as e:
-        log.error(f"❌ opsiyon221.py hatası (Exit {e.returncode}):")
+        log.error(f"❌ opsiyon222.py hatası (Exit {e.returncode}):")
         if e.stdout: log.error(f"STDOUT: {e.stdout}")
         if e.stderr: log.error(f"STDERR: {e.stderr}")
         return
@@ -64,14 +64,14 @@ def main():
 
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
-    v221_files = glob.glob(os.path.join(data_dir, "v221_*.json"))
+    v222_files = glob.glob(os.path.join(data_dir, "v222_*.json"))
     
-    if not v221_files:
-        log.error("❌ opsiyon221.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
+    if not v222_files:
+        log.error("❌ opsiyon222.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
         return
         
-    v221_files.sort()
-    latest_file = v221_files[-1]
+    v222_files.sort()
+    latest_file = v222_files[-1]
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")
 
     # 1. Public Data Dir

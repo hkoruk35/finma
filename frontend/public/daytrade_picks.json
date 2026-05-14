@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-12T10:31:00.449598-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 27.4,
-  "total_scanned": 1,
-  "layer1_passed": 1,
-  "final_picks": 1,
+  "generated_at": "2026-05-14T09:31:00.101429-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 29.6,
+  "total_scanned": 3,
+  "layer1_passed": 2,
+  "final_picks": 2,
   "picks": [
     {
-      "ticker": "NFLX",
-      "price": 88.07,
-      "change_pct": 3.06,
-      "dt_score": 40.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "ticker": "SRPT",
+      "price": 19.41,
+      "change_pct": 3.03,
+      "dt_score": 35.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 86.95,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1778596286.931511
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "sarepta therapeutics to present at the rbc capital markets global healthcare conference(business wire)",
+        "confidence": "high",
+        "ts": 1778765488.9769683
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,26 +37,77 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 87.98,
-          "high": 88.51
+          "low": 19.39,
+          "high": 19.51
         },
-        "stop": 86.75,
-        "tp1": 91.24,
-        "tp2": 93.48,
+        "stop": 19.24,
+        "tp1": 19.87,
+        "tp2": 20.19,
         "rr_ratio": 2.0,
-        "avg_entry": 88.25,
-        "risk_per_sh": 1.5,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 88.07
+        "avg_entry": 19.45,
+        "risk_per_sh": 0.21,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 19.41
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "UPST",
+      "price": 27.97,
+      "change_pct": 3.63,
+      "dt_score": 15.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1778765488.9438226
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 27.84,
+          "high": 28.01
+        },
+        "stop": 27.72,
+        "tp1": 28.34,
+        "tp2": 28.66,
+        "rr_ratio": 1.98,
+        "avg_entry": 27.93,
+        "risk_per_sh": 0.21,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 27.97
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.1%",
+        "↗️ Küçük Gap: +3.6%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.28%",
-        "🔥 Açılış Barı: Güçlü (2.7x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
