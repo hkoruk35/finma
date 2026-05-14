@@ -135,7 +135,7 @@ TIME_STOP_RATIO = 0.60
 
 MAX_TICKERS_SCAN = 500
 UNIVERSE_TTL     = 24 * 3600
-SEMAPHORE_N      = 6
+SEMAPHORE_N      = 2 # Concurrency azaltıldı (6 -> 2) rate limit için
 
 HOT_SECTORS = {
     "Semiconductors": 15, "Technology": 12, "Health Care": 11,
@@ -1383,9 +1383,12 @@ async def analyze(ticker: str) -> Optional[dict]:
             PROGRESS_COUNTER += 1
             print(f"🔍 [{PROGRESS_COUNTER}/{TOTAL_TO_SCAN}] {ticker}")
 
+            # Rate limit koruması için kısa bekleme
+            await asyncio.sleep(1)
+
             # Bear piyasada dur
             if MARKET_REGIME.get("regime") == "bear": return None
-
+            
             df = await asyncio.wait_for(asyncio.to_thread(
                 lambda: yf.Ticker(ticker).history(period="300d",interval="1d",auto_adjust=True)
             ), timeout=30)
