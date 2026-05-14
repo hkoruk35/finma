@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-14T09:31:00.101429-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 29.6,
-  "total_scanned": 3,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "generated_at": "2026-05-14T10:01:00.086208-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 23.7,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
   "picks": [
     {
-      "ticker": "SRPT",
-      "price": 19.41,
-      "change_pct": 3.03,
-      "dt_score": 35.0,
+      "ticker": "CELH",
+      "price": 29.23,
+      "change_pct": 4.92,
+      "dt_score": 63.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 28.98,
       "catalyst": {
         "catalyst_type": "earnings_beat",
         "catalyst_score": 25,
-        "headline": "sarepta therapeutics to present at the rbc capital markets global healthcare conference(business wire)",
+        "headline": "investors feared energy-drink fatigue. monster and celsius earnings offered reassurance.(barrons.com)-5.75%",
         "confidence": "high",
-        "ts": 1778765488.9769683
+        "ts": 1778767283.280148
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,77 +37,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 19.39,
-          "high": 19.51
+          "low": 29.2,
+          "high": 29.38
         },
-        "stop": 19.24,
-        "tp1": 19.87,
-        "tp2": 20.19,
+        "stop": 28.79,
+        "tp1": 30.29,
+        "tp2": 31.04,
         "rr_ratio": 2.0,
-        "avg_entry": 19.45,
-        "risk_per_sh": 0.21,
+        "avg_entry": 29.29,
+        "risk_per_sh": 0.5,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 19.41
+        "pm_high_ref": 29.23
       },
       "details": [
         "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.0%",
+        "↗️ Orta Gap: +4.9%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "UPST",
-      "price": 27.97,
-      "change_pct": 3.63,
-      "dt_score": 15.0,
-      "signal": "MOMENTUM",
-      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": null,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1778765488.9438226
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 27.84,
-          "high": 28.01
-        },
-        "stop": 27.72,
-        "tp1": 28.34,
-        "tp2": 28.66,
-        "rr_ratio": 1.98,
-        "avg_entry": 27.93,
-        "risk_per_sh": 0.21,
-        "signal": "MOMENTUM",
-        "pm_high_ref": 27.97
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.6%",
-        "Bilinmiyor",
-        "Bilinmiyor",
+        "✅ VWAP Üstünde: +0.87%",
+        "🔥 Açılış Barı: Güçlü (2.4x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]

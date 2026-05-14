@@ -420,6 +420,12 @@ async def build_universe() -> List[str]:
             except: pass
 
     await asyncio.gather(*[check(t) for t in valid[:MAX_TICKERS_SCAN]])
+    
+    # FALLBACK: If universe is empty (API issues), use a default list of liquid stocks
+    if not passed:
+        logging.warning("⚠️ Evren boş! Fallback listesi yükleniyor...")
+        passed = ["AAPL","NVDA","TSLA","AMD","MSFT","META","GOOGL","AMZN","NFLX","COIN","MARA","MSTR","PLTR","SMCI","QQQ","SPY","IWM","SOXL","TQQQ","BABA","PYPL","SQ","RIVN","LCID","NIO"]
+        
     UNIVERSE_CACHE.update({"ts": now, "data": passed})
     logging.info(f"✅ Evren: {len(passed)} hisse")
     return passed
