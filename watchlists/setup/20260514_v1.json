@@ -1,0 +1,132 @@
+[
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "BHP",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "BILI",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "CSX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "DOLE",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "HIW",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "MGA",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "MS",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "NATL",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "NDSN",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "NVRI",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "OII",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "SKYT",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-14 10:00",
+        "symbol": "SLDE",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    }
+]
