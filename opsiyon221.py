@@ -111,9 +111,9 @@ ADX_MIN = 10
 DTE_MIN  = 15
 DTE_MAX  = 75
 OI_MIN   = 50
-SPREAD_MAX = 0.10
+SPREAD_MAX = 1.00 # Geçici gevşetildi (pre-market wide spreads için)
 MID_MIN    = 0.05
-CONTRACT_MAX = 200   # $200
+CONTRACT_MAX = 1000   # Geçici gevşetildi
 
 DELTA_GAMMA_MIN = 0.28
 DELTA_GAMMA_MAX = 0.45
@@ -125,7 +125,7 @@ NOTIONAL_SWEEP_MIN = 100_000
 NOTIONAL_BLOCK_MIN = 500_000
 
 # MM Trap
-EM_ATR_MAX_RATIO = 2.5
+EM_ATR_MAX_RATIO = 99.0 # Geçici gevşetildi
 CALL_WALL_OI_MIN = 8_000
 
 # Exit
