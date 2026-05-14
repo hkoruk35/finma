@@ -931,6 +931,17 @@ export interface OptionPick {
   dte: number | null;
   institutional: OptionContract | null;
   asymmetric: OptionContract | null;
+  uoa_score: number;
+  uoa_signal: string;
+  earnings_warning: boolean;
+  golden_cross: boolean;
+  ema200_breakout: boolean;
+  breakout_base_score: number | null;
+  iv_vs_hv_label?: string;
+  rs_vs_spy_label?: string;
+  upside_label?: string;
+  higher_highs?: boolean;
+  volume_spike?: boolean;
   l2?: any;
   l3?: any;
   options_v220?: any;
