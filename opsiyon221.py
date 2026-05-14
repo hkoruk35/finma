@@ -1098,7 +1098,7 @@ def get_preferred_dte(squeeze_bonus: float, flow_bonus: float,
         return (35, 75)   # Gece: sadece uzun vade
 
 async def layer5_options(ticker: str, cp: float, close: pd.Series,
-                          hv: float, l3: dict, squeeze: dict, flow: dict) -> Optional[dict]:
+                          hv: float, l2: dict, l3: dict, squeeze: dict, flow: dict) -> Optional[dict]:
     try:
         stock = yf.Ticker(ticker)
         exps  = await asyncio.to_thread(lambda: stock.options)
@@ -1397,8 +1397,12 @@ async def analyze(ticker: str) -> Optional[dict]:
 
             # ── KATMAN 5: Opsiyon ──────────────────────────────────────────
             hv20 = l2.get("hv20", calc_hv(close,20))
-            opt  = await layer5_options(ticker, cp, close, hv20, l3, squeeze, flow)
-            if not opt: return None
+            opt  = await layer5_options(ticker, cp, close, hv20, l2, l3, squeeze, flow)
+            if not opt:
+                # print(f"DEBUG: {ticker} rejected at L5")
+                return None
+            
+            # print(f"DEBUG: {ticker} PASSED")
 
             # IV Context (IV hard block mümkün)
             iv_s, iv_lbl = iv_context(opt.get("iv_rank",50), l3, squeeze, flow)
