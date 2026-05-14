@@ -4,6 +4,13 @@
 $VENV_PY = "C:\Users\afksm\finma\venv313\Scripts\python.exe"
 $FINMA_DIR = "C:\Users\afksm\finma"
 
+# Get current user for task registration
+$CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+Write-Host "INFO: Tasks will be registered for user: $CurrentUser"
+
+# Ensure git recognizes this directory as safe for the current user
+git config --global --add safe.directory $FINMA_DIR
+
 function Set-BogaTask {
     param($Name, $Script, $Args, $StartTime, $RepetitionInterval = $null, $RepetitionDuration = $null)
     
@@ -19,7 +26,8 @@ function Set-BogaTask {
     }
 
     try { Unregister-ScheduledTask -TaskName $Name -Confirm:$false -ErrorAction SilentlyContinue } catch {}
-    Register-ScheduledTask -TaskName $Name -Action $Action -Trigger $Trigger -Force -User "SYSTEM"
+    # Use current user instead of SYSTEM to avoid Git Error 128 (ownership issues)
+    Register-ScheduledTask -TaskName $Name -Action $Action -Trigger $Trigger -Force -User $CurrentUser
     Enable-ScheduledTask -TaskName $Name
 }
 
@@ -53,8 +61,8 @@ $OldTasks = @(
 foreach ($Task in $OldTasks) {
     try { 
         Unregister-ScheduledTask -TaskName $Task -Confirm:$false -ErrorAction SilentlyContinue 
-        Write-Host "🗑️ Eski görev silindi: $Task"
+        Write-Host "DELETED: Old task removed: $Task"
     } catch {}
 }
 
-Write-Host "✅ BOGA AI bot pipeline reconfigured successfully. Use SISTEMI_GUNCELLE.bat as Administrator to apply."
+Write-Host "DONE: BOGA AI bot pipeline reconfigured successfully. Use SISTEMI_GUNCELLE.bat as Administrator to apply."

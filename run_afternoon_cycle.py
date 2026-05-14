@@ -38,11 +38,17 @@ def run_bot(script_name: str, args: list = None):
     cmd = [VENV_PYTHON, script_path] + (args or [])
     log.info(f"▶ Başlatılıyor: {script_name}")
     try:
-        subprocess.run(cmd, cwd=FINMA_DIR, check=True)
+        # Capture output to log it if it fails
+        result = subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
         log.info(f"✅ {script_name} tamamlandı.")
         return True
+    except subprocess.CalledProcessError as e:
+        log.error(f"❌ {script_name} hatası (Exit {e.returncode}):")
+        if e.stdout: log.error(f"STDOUT: {e.stdout}")
+        if e.stderr: log.error(f"STDERR: {e.stderr}")
+        return False
     except Exception as e:
-        log.error(f"❌ {script_name} hatası: {e}")
+        log.error(f"❌ {script_name} beklenmedik hata: {e}")
         return False
 
 def main():
@@ -74,12 +80,20 @@ def main():
     # 7. Git Push
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
-        subprocess.run(["git", "add", "."], cwd=FINMA_DIR, check=True)
-        subprocess.run(["git", "commit", "-m", f"Data: Afternoon Cycle Update {now_ny.strftime('%Y-%m-%d %H:%M')}"], cwd=FINMA_DIR)
-        subprocess.run(["git", "push", "origin", "main"], cwd=FINMA_DIR, check=True)
+        def run_git(args):
+            res = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+            return res
+
+        run_git(["add", "."])
+        run_git(["commit", "-m", f"Data: Afternoon Cycle Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
+        run_git(["push", "origin", "main"])
         log.info("🚀 Git Push başarılı.")
+    except subprocess.CalledProcessError as e:
+        log.error(f"❌ Git Push hatası (Exit {e.returncode}):")
+        if e.stdout: log.error(f"STDOUT: {e.stdout}")
+        if e.stderr: log.error(f"STDERR: {e.stderr}")
     except Exception as e:
-        log.error(f"❌ Git Push hatası: {e}")
+        log.error(f"❌ Git Push beklenmedik hata: {e}")
 
     log.info("✅ Öğleden sonra döngüsü tamamlandı.")
 
