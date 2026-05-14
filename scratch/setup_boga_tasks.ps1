@@ -44,7 +44,7 @@ Set-BogaTask -Name "BOGA_AI_Terminal_Pulse" -Script "run_terminal_pulse.py" -Arg
 Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "run_options_scanner.py" -Args "" -StartTime "09:00:00"
 
 # 5. BOGA AI HEALTH CHECK - Every 4 hours (7/24)
-Set-BogaTask -Name "BOGA_AI_Health_Check" -Script "site_health_checker.py" -Args "--daily" -StartTime "00:00:00" -RepetitionInterval (New-TimeSpan -Hours 4) -RepetitionDuration ([TimeSpan]::MaxValue)
+Set-BogaTask -Name "BOGA_AI_Health_Check" -Script "site_health_checker.py" -Args "--daily" -StartTime "00:00:00" -RepetitionInterval (New-TimeSpan -Hours 4) -RepetitionDuration (New-TimeSpan -Days 3650)
 
 # ESKİ GÖREVLERİ TEMİZLE (Tamamen silmek için)
 $OldTasks = @(

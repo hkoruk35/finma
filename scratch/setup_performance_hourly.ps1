@@ -11,8 +11,8 @@ $StartTime = "10:00AM"
 $Trigger = New-ScheduledTaskTrigger -Weekly -At $StartTime -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday
 
 # 🔄 Saatlik tekrar ekle (1 hour interval for 7 hours total)
-$Trigger.Repetition.Interval = "PT1H"
-$Trigger.Repetition.Duration = "PT7H"
+$RepetitionTrigger = New-ScheduledTaskTrigger -Once -At $StartTime -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 7)
+$Trigger.Repetition = $RepetitionTrigger.Repetition
 
 # Ensure git recognizes this directory as safe for the current user
 git config --global --add safe.directory $WorkingDir
