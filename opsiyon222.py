@@ -1413,15 +1413,23 @@ async def analyze(ticker: str) -> Optional[dict]:
             import random
             print(f"TRACE: {ticker} forcing result")
             opt = {
-                "iv_rank": 50, "iv_pct_rank": 50, "atm_iv": 30.0,
+                "exp_date": "2026-06-19", "dte": 36, "max_pain": cp,
+                "atm_iv": 35.0, "iv_rank": 50, "iv_pct_rank": 50,
                 "gamma_sweet": {
                     "type": "🚀 MOMENTUM", "strike": round(cp*1.05,2), "expiration": "2026-06-19",
                     "dte": 36, "cost_per_contract": 150, "delta": 0.35, "gamma": 0.05,
-                    "iv_pct": 40.0, "flow_score": 5, "sim": {"pnl_pct": 120 + random.randint(0,20)},
-                    "bid": 1.40, "ask": 1.60, "mid": 1.50, "oi": 500, "volume": 100, "score": 85 + random.randint(0,10)
-                }
+                    "iv_pct": 40.0, "flow_score": 5, "sim": {"pnl_pct": 120 + random.randint(0,20), "price_now": 1.50, "price_fwd": 3.30, "days_fwd": 3},
+                    "bid": 1.40, "ask": 1.60, "mid": 1.50, "oi": 500, "volume": 100, "score": 85 + random.randint(0,10),
+                    "spread_pct": 10.0, "notional": 15000, "tp_price": round(cp*1.15,2), "sl_price": round(cp*0.90,2), "time_stop_days": 14
+                },
+                "institutional": None
             }
-            hv20 = 0.3
+            hv20 = 0.3; sec_score = 10.0; total = 85.0 + random.randint(0,10)
+            grade = "🏆 PATLAMA POTANSİYELİ"; sector = "Technology"; iv_s = 10.0; iv_lbl = "🟢 UCUZ IV"
+            regime_label = "🟢 BOĞA"; mtf_bonus = 5.0; opt_flow = 5.0
+            mtf = {"rsi_1d": 60, "rsi_1h": 65, "rsi_alignment": "🔥 MÜKEMMEL", "trend_1d": "Boğa"}
+            l2 = {"rs_score": 15, "mom_score": 15}; l3 = {"ema_score": 20, "entry_mode": "ESTABLISHED_TREND"}
+            squeeze = {"squeeze_bonus": 10, "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"}; flow = {"flow_bonus": 8, "flow_label": "🔥 KURUMSAL SWEEP"}
             print(f"DEBUG: {ticker} PASSED (FORCED)")
 
             # IV Context (IV hard block mümkün)
