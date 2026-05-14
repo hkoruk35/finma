@@ -99,9 +99,9 @@ AVG_VOL_MIN    = 150_000
 DOLLAR_VOL_MIN = 500_000
 
 # ── KATMAN 2: Güçlü hisse eşikleri ───────────────────────────────────────
-RS_60D_MIN   = -5.0   # Eskiden 2.0'dı, çok dar olduğu için -5'e çekildi
-RS_20D_MIN   = -2.0   # Eskiden 0.0'dı
-ROC5_MIN     = -5.0   # Eskiden -3.0'dü
+RS_60D_MIN  = -15.0 # Daha kapsayıcı
+RS_20D_MIN  = -15.0
+RS_5D_MIN   = -15.0   # Eskiden -3.0'dü
 HIGHER_HIGHS_MIN = 1  # Son 20 günde en az 1 higher high zinciri
 
 # ── KATMAN 3: EMA eşikleri ─────────────────────────────────────────────
@@ -110,15 +110,15 @@ ADX_MIN = 10
 # ── OPSİYON ───────────────────────────────────────────────────────────────
 DTE_MIN  = 15
 DTE_MAX  = 75
-SPREAD_MAX = 0.25 # Daha esnek (0.10'dan 0.25'e)
-MID_MIN    = 0.05
-CONTRACT_MAX = 500
-OI_MIN = 20
+SPREAD_MAX = 0.50 # Çok daha esnek
+MID_MIN    = 0.01
+CONTRACT_MAX = 1000
+OI_MIN = 0
 
-DELTA_GAMMA_MIN = 0.22
-DELTA_GAMMA_MAX = 0.48
-DELTA_SAFE_MIN  = 0.45
-DELTA_SAFE_MAX  = 0.65
+DELTA_GAMMA_MIN = 0.10
+DELTA_GAMMA_MAX = 0.60
+DELTA_SAFE_MIN  = 0.40
+DELTA_SAFE_MAX  = 0.75
 
 # Notional sweep doğrulama
 NOTIONAL_SWEEP_MIN = 100_000
