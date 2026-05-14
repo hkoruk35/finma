@@ -1,2162 +1,1067 @@
 [
   {
-    "ticker": "AAPL",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "AFG",
+    "current_price": 133.38,
+    "score": 59.0,
+    "grade": "NR7·💥🔥 GÜÇLÜ FIRSAT",
+    "sector": "Financial Services",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "entry_mode": "NEAR_GOLDEN",
+      "ema_score": 22.0,
+      "adx": 14.2,
+      "golden_cross": false,
+      "ema200_breakout": false,
+      "near_golden": true,
+      "e50_slope": 0.37,
+      "dist_50": 2.31,
+      "dist_20": 1.41,
+      "ema9": 132.305,
+      "ema20": 131.533,
+      "ema50": 130.378,
+      "ema200": 128.656,
+      "vwap": 131.159,
+      "vwap_ok": true,
+      "regime": "neutral"
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 14.0,
+      "squeeze_label": "💥 KRİTİK SIKIŞ",
+      "bb_pct": 8.3,
+      "atr_falling": true,
+      "nr7": "True",
+      "nr4": "True",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 0.0,
+      "flow_label": "—",
+      "sweep_count": 0,
+      "put_call_ratio": 1.95,
+      "total_notional": 0.0,
+      "big_block": false,
+      "earnings_days": -15,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "rsi_1d": 57.8,
+      "rsi_1d_slope5": 3.8,
+      "rsi_1h": "57.0",
+      "rsi_1h_val": 57.0,
+      "rsi_1h_slope": 8.8,
+      "adx_1h": 17.9,
+      "ema20_1h_ok": true,
+      "trend_1d": "Macro Bullish",
+      "steady_momentum": true,
+      "hh_hl": true,
+      "ret_5d": 1.28,
+      "rsi_alignment": "🔥 MÜKEMMEL"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-06-18",
+      "dte": 35,
+      "max_pain": 128.0,
+      "em": 6.2,
+      "em_upper": 139.58,
+      "atm_iv": 15.0,
+      "iv_rank": 8.4,
+      "iv_pct_rank": 9.3,
+      "iv_vs_hv": 0.5,
+      "call_wall_danger": false,
+      "call_wall_oi": 31,
+      "em_atr_ratio": 2.32,
+      "pref_dte_range": [
+        21,
+        45
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 140.0,
+        "expiration": "2026-06-18",
+        "dte": 35,
+        "bid": 10.7,
+        "ask": 14.5,
+        "mid": 12.6,
+        "spread_pct": 26.2,
+        "oi": 6,
+        "volume": 2,
+        "vol_oi_ratio": 0.333,
+        "notional": 2520.0,
+        "iv_pct": 91.9,
+        "delta": 0.496,
+        "gamma": 0.01051,
+        "theta": -0.2237,
+        "gamma_accel": 1.5,
+        "gamma_eff": 0.0008,
+        "flow_score": 0.0,
+        "liq_score": 2.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 1450.0,
+        "score": 11.53,
         "sim": {
-          "pnl_pct": 127,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
+          "price_now": 12.64,
+          "price_fwd": 16.73,
+          "pnl_pct": 32.3,
           "days_fwd": 3
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 89,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 154.5,
+        "tp_price": 17.64,
+        "sl_price": 8.82,
+        "time_stop_days": 14,
+        "daily_decay_pct": 1.78
       },
       "institutional": null
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 3.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 10.0,
+    "iv_ctx_label": "💰 ULTRA UCUZ IV",
+    "mtf_bonus": 10.0
   },
   {
-    "ticker": "NVDA",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "AFL",
+    "current_price": 116.36,
+    "score": 53.5,
+    "grade": "💡 İYİ SETUP",
+    "sector": "Financial Services",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "entry_mode": "NEAR_GOLDEN",
+      "ema_score": 20.5,
+      "adx": 14.5,
+      "golden_cross": false,
+      "ema200_breakout": false,
+      "near_golden": true,
+      "e50_slope": 0.491,
+      "dist_50": 3.09,
+      "dist_20": 1.81,
+      "ema9": 115.049,
+      "ema20": 114.296,
+      "ema50": 112.874,
+      "ema200": 109.828,
+      "vwap": 114.43,
+      "vwap_ok": true,
+      "regime": "neutral"
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 9.0,
+      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ",
+      "bb_pct": 14.2,
+      "atr_falling": true,
+      "nr7": "False",
+      "nr4": "True",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 5.0,
+      "flow_label": "📈 POZİTİF AKIŞ",
+      "sweep_count": 0,
+      "put_call_ratio": 0.28,
+      "total_notional": 9357.0,
+      "big_block": false,
+      "earnings_days": -15,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "rsi_1d": 60.5,
+      "rsi_1d_slope5": 8.6,
+      "rsi_1h": "61.7",
+      "rsi_1h_val": 61.7,
+      "rsi_1h_slope": 13.5,
+      "adx_1h": 23.3,
+      "ema20_1h_ok": true,
+      "trend_1d": "Macro Bullish",
+      "steady_momentum": true,
+      "hh_hl": true,
+      "ret_5d": 2.43,
+      "rsi_alignment": "🔥 MÜKEMMEL"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-06-18",
+      "dte": 35,
+      "max_pain": 115.0,
+      "em": 8.14,
+      "em_upper": 124.5,
+      "atm_iv": 22.6,
+      "iv_rank": 30.9,
+      "iv_pct_rank": 82.9,
+      "iv_vs_hv": 0.753,
+      "call_wall_danger": false,
+      "call_wall_oi": 2799,
+      "em_atr_ratio": 3.5,
+      "pref_dte_range": [
+        21,
+        45
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 120.0,
+        "expiration": "2026-06-18",
+        "dte": 35,
+        "bid": 0.8,
+        "ask": 1.2,
+        "mid": 1.0,
+        "spread_pct": 33.3,
+        "oi": 2799,
+        "volume": 5,
+        "vol_oi_ratio": 0.002,
+        "notional": 500.0,
+        "iv_pct": 17.7,
+        "delta": 0.328,
+        "gamma": 0.05648,
+        "theta": -0.038,
+        "gamma_accel": 1.5,
+        "gamma_eff": 0.0549,
+        "flow_score": 0.0,
+        "liq_score": 5.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 120.0,
+        "score": 16.73,
         "sim": {
-          "pnl_pct": 128,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
+          "price_now": 1.34,
+          "price_fwd": 6.66,
+          "pnl_pct": 398.7,
           "days_fwd": 3
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 92,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 121.2,
+        "tp_price": 1.4,
+        "sl_price": 0.7,
+        "time_stop_days": 14,
+        "daily_decay_pct": 3.8
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 115.0,
+        "expiration": "2026-06-18",
+        "dte": 35,
+        "bid": 2.75,
+        "ask": 4.0,
+        "mid": 3.38,
+        "spread_pct": 31.2,
+        "oi": 2552,
+        "volume": 1,
+        "vol_oi_ratio": 0.0,
+        "notional": 338.0,
+        "iv_pct": 22.6,
+        "delta": 0.607,
+        "gamma": 0.04723,
+        "theta": -0.0538,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 400.0,
+        "score": 59.16,
+        "sim": {
+          "price_now": 4.27,
+          "price_fwd": 9.26,
+          "pnl_pct": 117.2,
+          "days_fwd": 3
+        },
+        "breakeven": 119.0,
+        "tp_price": 4.72,
+        "sl_price": 2.36,
+        "time_stop_days": 14,
+        "daily_decay_pct": 1.59
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 3.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 6.0,
+    "iv_ctx_label": "🟡 ORTA IV",
+    "mtf_bonus": 10.0
   },
   {
-    "ticker": "TSLA",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "AAPU",
+    "current_price": 38.29,
+    "score": 47.5,
+    "grade": "💡 İYİ SETUP",
+    "sector": "",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "entry_mode": "ESTABLISHED_TREND",
+      "ema_score": 16.0,
+      "adx": 27.1,
+      "golden_cross": false,
+      "ema200_breakout": false,
+      "near_golden": false,
+      "e50_slope": 3.844,
+      "dist_50": 19.01,
+      "dist_20": 11.55,
+      "ema9": 36.367,
+      "ema20": 34.324,
+      "ema50": 32.173,
+      "ema200": 30.134,
+      "vwap": 33.439,
+      "vwap_ok": true,
+      "regime": "trend"
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 3.5,
+      "squeeze_label": "📊 HAFİF SIKIŞ",
+      "bb_pct": 95.8,
+      "atr_falling": false,
+      "nr7": "False",
+      "nr4": "False",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 5.0,
+      "flow_label": "📈 POZİTİF AKIŞ",
+      "sweep_count": 0,
+      "put_call_ratio": 0.22,
+      "total_notional": 3250.0,
+      "big_block": false,
+      "earnings_days": null,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "rsi_1d": 75.8,
+      "rsi_1d_slope5": 7.0,
+      "rsi_1h": "70.7",
+      "rsi_1h_val": 70.7,
+      "rsi_1h_slope": -7.5,
+      "adx_1h": 28.9,
+      "ema20_1h_ok": true,
+      "trend_1d": "Macro Bullish",
+      "steady_momentum": true,
+      "hh_hl": true,
+      "ret_5d": 8.01,
+      "rsi_alignment": "✅ İYİ"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-07-17",
+      "dte": 64,
+      "max_pain": 30.0,
+      "em": 2.4,
+      "em_upper": 40.69,
+      "atm_iv": 15.0,
+      "iv_rank": 0.0,
+      "iv_pct_rank": 0.0,
+      "iv_vs_hv": 0.5,
+      "call_wall_danger": false,
+      "call_wall_oi": 104,
+      "em_atr_ratio": 3.14,
+      "pref_dte_range": [
+        21,
+        45
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 41.83,
+        "expiration": "2026-07-17",
+        "dte": 64,
+        "bid": 1.1,
+        "ask": 1.85,
+        "mid": 1.48,
+        "spread_pct": 40.5,
+        "oi": 16,
+        "volume": 6,
+        "vol_oi_ratio": 0.375,
+        "notional": 885.0,
+        "iv_pct": 49.7,
+        "delta": 0.39,
+        "gamma": 0.04815,
+        "theta": -0.0257,
+        "gamma_accel": 1.0,
+        "gamma_eff": 0.0321,
+        "flow_score": 0.0,
+        "liq_score": 2.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 185.0,
+        "score": 6.78,
         "sim": {
-          "pnl_pct": 125,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
+          "price_now": 1.96,
+          "price_fwd": 3.0,
+          "pnl_pct": 53.2,
+          "days_fwd": 5
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 90,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 43.68,
+        "tp_price": 2.06,
+        "sl_price": 1.03,
+        "time_stop_days": 26,
+        "daily_decay_pct": 1.74
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 35.83,
+        "expiration": "2026-07-17",
+        "dte": 64,
+        "bid": 3.9,
+        "ask": 4.5,
+        "mid": 4.2,
+        "spread_pct": 13.3,
+        "oi": 84,
+        "volume": 25,
+        "vol_oi_ratio": 0.298,
+        "notional": 10500.0,
+        "iv_pct": 50.6,
+        "delta": 0.677,
+        "gamma": 0.04424,
+        "theta": -0.0256,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 450.0,
+        "score": 49.45,
+        "sim": {
+          "price_now": 4.69,
+          "price_fwd": 6.07,
+          "pnl_pct": 29.3,
+          "days_fwd": 5
+        },
+        "breakeven": 40.33,
+        "tp_price": 5.88,
+        "sl_price": 2.94,
+        "time_stop_days": 26,
+        "daily_decay_pct": 0.61
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 3.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 10.0,
+    "iv_ctx_label": "💰 ULTRA UCUZ IV",
+    "mtf_bonus": 10.0
   },
   {
-    "ticker": "AMD",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "AGNC",
+    "current_price": 10.68,
+    "score": 43.8,
+    "grade": "NR7·💥📊 OLASI",
+    "sector": "Real Estate",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "entry_mode": "NEAR_GOLDEN",
+      "ema_score": 20.5,
+      "adx": 15.1,
+      "golden_cross": false,
+      "ema200_breakout": false,
+      "near_golden": true,
+      "e50_slope": 0.331,
+      "dist_50": 0.91,
+      "dist_20": -0.26,
+      "ema9": 10.739,
+      "ema20": 10.703,
+      "ema50": 10.579,
+      "ema200": 10.0,
+      "vwap": 10.803,
+      "vwap_ok": false,
+      "regime": "neutral"
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 15.0,
+      "squeeze_label": "💥 KRİTİK SIKIŞ",
+      "bb_pct": 4.2,
+      "atr_falling": true,
+      "nr7": "True",
+      "nr4": "True",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 1.0,
+      "flow_label": "—",
+      "sweep_count": 0,
+      "put_call_ratio": 1.99,
+      "total_notional": 0.0,
+      "big_block": false,
+      "earnings_days": 67,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "rsi_1d": 50.5,
+      "rsi_1d_slope5": -2.4,
+      "rsi_1h": "40.6",
+      "rsi_1h_val": 40.6,
+      "rsi_1h_slope": 6.6,
+      "adx_1h": 31.1,
+      "ema20_1h_ok": true,
+      "trend_1d": "Macro Bullish",
+      "steady_momentum": false,
+      "hh_hl": false,
+      "ret_5d": -0.42,
+      "rsi_alignment": "🟡 ORTA"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-05-29",
+      "dte": 15,
+      "max_pain": 11.0,
+      "em": 0.54,
+      "em_upper": 11.22,
+      "atm_iv": 25.0,
+      "iv_rank": 34.4,
+      "iv_pct_rank": 78.2,
+      "iv_vs_hv": 0.833,
+      "call_wall_danger": false,
+      "call_wall_oi": 5222,
+      "em_atr_ratio": 2.53,
+      "pref_dte_range": [
+        21,
+        45
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 11.0,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 0.04,
+        "ask": 0.05,
+        "mid": 0.04,
+        "spread_pct": 20.0,
+        "oi": 5222,
+        "volume": 1,
+        "vol_oi_ratio": 0.0,
+        "notional": 4.0,
+        "iv_pct": 18.0,
+        "delta": 0.227,
+        "gamma": 0.77517,
+        "theta": -0.0042,
+        "gamma_accel": 2.5,
+        "gamma_eff": 0.077,
+        "flow_score": 0.0,
+        "liq_score": 5.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 5.0,
+        "score": 14.53,
         "sim": {
-          "pnl_pct": 129,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
+          "price_now": 0.05,
+          "price_fwd": 0.56,
+          "pnl_pct": 1007.2,
+          "days_fwd": 2
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 89,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 11.05,
+        "tp_price": 0.06,
+        "sl_price": 0.03,
+        "time_stop_days": 6,
+        "daily_decay_pct": 9.33
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 10.5,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 0.24,
+        "ask": 0.32,
+        "mid": 0.28,
+        "spread_pct": 25.0,
+        "oi": 227,
+        "volume": 32,
+        "vol_oi_ratio": 0.141,
+        "notional": 896.0,
+        "iv_pct": 25.0,
+        "delta": 0.652,
+        "gamma": 0.68284,
+        "theta": -0.0076,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 32.0,
+        "score": 687.95,
+        "sim": {
+          "price_now": 0.33,
+          "price_fwd": 0.84,
+          "pnl_pct": 157.4,
+          "days_fwd": 2
+        },
+        "breakeven": 10.82,
+        "tp_price": 0.39,
+        "sl_price": 0.2,
+        "time_stop_days": 6,
+        "daily_decay_pct": 2.71
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 1.3,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 6.0,
+    "iv_ctx_label": "🟡 ORTA IV",
+    "mtf_bonus": 0.0
   },
   {
-    "ticker": "MSFT",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "ABBV",
+    "current_price": 211.63,
+    "score": 24.5,
+    "grade": "📊 OLASI",
+    "sector": "Healthcare",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "ema_score": 0,
+      "entry_mode": "—",
+      "adx": 10,
+      "vwap_ok": false
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 6.5,
+      "squeeze_label": "🟡 ORTA SIKIŞ",
+      "bb_pct": 58.3,
+      "atr_falling": true,
+      "nr7": "False",
+      "nr4": "False",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 3.0,
+      "flow_label": "👀 HAFİF UOA",
+      "sweep_count": 0,
+      "put_call_ratio": 0.7,
+      "total_notional": 62009.0,
+      "big_block": false,
+      "earnings_days": 77,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "rsi_1d": 57.6,
+      "rsi_1d_slope5": 13.0,
+      "rsi_1h": "70.4",
+      "rsi_1h_val": 70.4,
+      "rsi_1h_slope": 10.6,
+      "adx_1h": 28.1,
+      "ema20_1h_ok": true,
+      "trend_1d": "Above EMA50",
+      "steady_momentum": true,
+      "hh_hl": true,
+      "ret_5d": 4.4,
+      "rsi_alignment": "🔥 MÜKEMMEL"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-06-05",
+      "dte": 22,
+      "max_pain": 205.0,
+      "em": 14.4,
+      "em_upper": 226.03,
+      "atm_iv": 27.7,
+      "iv_rank": 45.1,
+      "iv_pct_rank": 62.1,
+      "iv_vs_hv": 0.924,
+      "call_wall_danger": false,
+      "call_wall_oi": 283,
+      "em_atr_ratio": 3.4,
+      "pref_dte_range": [
+        21,
+        45
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 210.0,
+        "expiration": "2026-06-05",
+        "dte": 22,
+        "bid": 4.55,
+        "ask": 6.7,
+        "mid": 5.62,
+        "spread_pct": 32.1,
+        "oi": 48,
+        "volume": 1,
+        "vol_oi_ratio": 0.021,
+        "notional": 562.0,
+        "iv_pct": 27.7,
+        "delta": 0.576,
+        "gamma": 0.0272,
+        "theta": -0.1439,
+        "gamma_accel": 2.0,
+        "gamma_eff": 0.0048,
+        "flow_score": 0.0,
+        "liq_score": 2.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 670.0,
+        "score": 12.97,
         "sim": {
-          "pnl_pct": 125,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
+          "price_now": 6.91,
+          "price_fwd": 19.41,
+          "pnl_pct": 180.7,
           "days_fwd": 3
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 91,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 216.7,
+        "tp_price": 7.87,
+        "sl_price": 3.94,
+        "time_stop_days": 9,
+        "daily_decay_pct": 2.56
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 205.0,
+        "expiration": "2026-06-05",
+        "dte": 22,
+        "bid": 7.25,
+        "ask": 9.7,
+        "mid": 8.47,
+        "spread_pct": 25.3,
+        "oi": 248,
+        "volume": 5,
+        "vol_oi_ratio": 0.02,
+        "notional": 4238.0,
+        "iv_pct": 27.8,
+        "delta": 0.707,
+        "gamma": 0.02384,
+        "theta": -0.1318,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 970.0,
+        "score": 34.17,
+        "sim": {
+          "price_now": 10.0,
+          "price_fwd": 20.1,
+          "pnl_pct": 101.0,
+          "days_fwd": 3
+        },
+        "breakeven": 214.7,
+        "tp_price": 11.86,
+        "sl_price": 5.93,
+        "time_stop_days": 9,
+        "daily_decay_pct": 1.56
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 3.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 2.0,
+    "iv_ctx_label": "🔴 YÜKSEK IV",
+    "mtf_bonus": 10.0
   },
   {
-    "ticker": "META",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
+    "ticker": "ADP",
+    "current_price": 209.96,
+    "score": 16.0,
+    "grade": "📊 OLASI",
     "sector": "Technology",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "ema_score": 0,
+      "entry_mode": "—",
+      "adx": 10,
+      "vwap_ok": false
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 2.0,
+      "squeeze_label": "📊 HAFİF SIKIŞ",
+      "bb_pct": 71.7,
+      "atr_falling": false,
+      "nr7": "False",
+      "nr4": "False",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 1.0,
+      "flow_label": "—",
+      "sweep_count": 0,
+      "put_call_ratio": 4.2,
+      "total_notional": 2625.0,
+      "big_block": false,
+      "earnings_days": 76,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "block_reason": "1D Downtrend (EMA200 altı)"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-05-29",
+      "dte": 15,
+      "max_pain": 205.0,
+      "em": 13.64,
+      "em_upper": 223.6,
+      "atm_iv": 32.0,
+      "iv_rank": 72.7,
+      "iv_pct_rank": 85.0,
+      "iv_vs_hv": 1.068,
+      "call_wall_danger": false,
+      "call_wall_oi": 178,
+      "em_atr_ratio": 3.25,
+      "pref_dte_range": [
+        35,
+        75
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 210.0,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 3.7,
+        "ask": 5.6,
+        "mid": 4.65,
+        "spread_pct": 33.9,
+        "oi": 35,
+        "volume": 5,
+        "vol_oi_ratio": 0.143,
+        "notional": 2325.0,
+        "iv_pct": 32.0,
+        "delta": 0.524,
+        "gamma": 0.0292,
+        "theta": -0.1953,
+        "gamma_accel": 2.5,
+        "gamma_eff": 0.0063,
+        "flow_score": 0.0,
+        "liq_score": 2.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 560.0,
+        "score": 8.89,
         "sim": {
-          "pnl_pct": 121,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
+          "price_now": 5.63,
+          "price_fwd": 17.49,
+          "pnl_pct": 210.5,
+          "days_fwd": 2
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 215.6,
+        "tp_price": 6.51,
+        "sl_price": 3.25,
+        "time_stop_days": 6,
+        "daily_decay_pct": 4.2
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 205.0,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 6.2,
+        "ask": 8.3,
+        "mid": 7.25,
+        "spread_pct": 25.3,
+        "oi": 27,
+        "volume": 1,
+        "vol_oi_ratio": 0.037,
+        "notional": 725.0,
+        "iv_pct": 31.5,
+        "delta": 0.669,
+        "gamma": 0.027,
+        "theta": -0.1803,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 830.0,
+        "score": 32.18,
+        "sim": {
+          "price_now": 8.41,
+          "price_fwd": 18.18,
+          "pnl_pct": 116.3,
+          "days_fwd": 2
+        },
+        "breakeven": 213.3,
+        "tp_price": 10.15,
+        "sl_price": 5.07,
+        "time_stop_days": 6,
+        "daily_decay_pct": 2.49
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 13.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 0.0,
+    "iv_ctx_label": "🚫 IV ÇOK YÜKSEK",
+    "mtf_bonus": 0.0
   },
   {
-    "ticker": "GOOGL",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
+    "ticker": "ABT",
+    "current_price": 84.75,
+    "score": 8.0,
+    "grade": "NR7·📊 OLASI",
+    "sector": "Healthcare",
     "l2": {
-      "rs_score": 15,
-      "mom_score": 15
+      "rs_score": 0,
+      "mom_score": 0,
+      "rs_60": 0,
+      "rs_20": 0,
+      "rs_5": 0,
+      "roc5": 0,
+      "roc20": 0,
+      "roc60": 0,
+      "rsi": 50,
+      "rvol": 1,
+      "atr_pct": 2,
+      "hv20": 0.3
     },
     "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
+      "ema_score": 0,
+      "entry_mode": "—",
+      "adx": 10,
+      "vwap_ok": false
     },
     "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
+      "squeeze_bonus": 4.0,
+      "squeeze_label": "🟡 ORTA SIKIŞ",
+      "bb_pct": 80.0,
+      "atr_falling": false,
+      "nr7": "True",
+      "nr4": "True",
+      "inside_cluster": false
     },
     "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
+      "flow_bonus": 1.0,
+      "flow_label": "—",
+      "sweep_count": 0,
+      "put_call_ratio": 1.95,
+      "total_notional": 26828.0,
+      "big_block": false,
+      "earnings_days": 63,
+      "earnings_warning": false
     },
     "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
+      "block_reason": "1D Downtrend (EMA200 altı)"
     },
     "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
+      "exp_date": "2026-05-29",
+      "dte": 15,
+      "max_pain": 89.0,
+      "em": 5.63,
+      "em_upper": 90.38,
+      "atm_iv": 32.8,
+      "iv_rank": 68.3,
+      "iv_pct_rank": 85.4,
+      "iv_vs_hv": 1.092,
+      "call_wall_danger": false,
+      "call_wall_oi": 1558,
+      "em_atr_ratio": 3.32,
+      "pref_dte_range": [
+        35,
+        75
+      ],
       "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
+        "type": "🚀 GAMMA SWEET SPOT",
+        "strike": 88.0,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 0.4,
+        "ask": 0.8,
+        "mid": 0.6,
+        "spread_pct": 50.0,
+        "oi": 149,
+        "volume": 33,
+        "vol_oi_ratio": 0.221,
+        "notional": 1980.0,
+        "iv_pct": 28.1,
+        "delta": 0.275,
+        "gamma": 0.06926,
+        "theta": -0.0567,
+        "gamma_accel": 2.5,
+        "gamma_eff": 0.077,
+        "flow_score": 0.0,
+        "liq_score": 2.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 80.0,
+        "score": 11.67,
         "sim": {
-          "pnl_pct": 136,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
+          "price_now": 0.79,
+          "price_fwd": 4.12,
+          "pnl_pct": 419.2,
+          "days_fwd": 2
         },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 89,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
+        "breakeven": 88.8,
+        "tp_price": 0.84,
+        "sl_price": 0.42,
+        "time_stop_days": 6,
+        "daily_decay_pct": 9.45
       },
-      "institutional": null
+      "institutional": {
+        "type": "🛡️ KURUMSAL SIĞINAK",
+        "strike": 83.0,
+        "expiration": "2026-05-29",
+        "dte": 15,
+        "bid": 2.45,
+        "ask": 3.4,
+        "mid": 2.92,
+        "spread_pct": 27.9,
+        "oi": 56,
+        "volume": 5,
+        "vol_oi_ratio": 0.089,
+        "notional": 1462.0,
+        "iv_pct": 34.6,
+        "delta": 0.641,
+        "gamma": 0.06283,
+        "theta": -0.0811,
+        "gamma_accel": 1.0,
+        "call_wall_danger": false,
+        "cost_per_contract": 340.0,
+        "score": 67.89,
+        "sim": {
+          "price_now": 3.43,
+          "price_fwd": 7.16,
+          "pnl_pct": 108.8,
+          "days_fwd": 2
+        },
+        "breakeven": 86.4,
+        "tp_price": 4.09,
+        "sl_price": 2.05,
+        "time_stop_days": 6,
+        "daily_decay_pct": 2.77
+      }
     },
     "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "AMZN",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 132,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 91,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "NFLX",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 137,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "COIN",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 130,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 86,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "MARA",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 127,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 87,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "MSTR",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 125,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 86,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "PLTR",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 128,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "SMCI",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 134,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 92,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "QQQ",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 122,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "SPY",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 132,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "IWM",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 130,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 86,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "SOXL",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 131,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 85,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "TQQQ",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 122,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 93,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "BABA",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 138,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 85,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "PYPL",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 133,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 88,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "SQ",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 126,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 91,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "RIVN",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 131,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 90,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "LCID",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 137,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 87,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "NIO",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 136,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 93,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "OPEN",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 126,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 86,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "AFRM",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 122,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 85,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "UPST",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 129,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 94,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "HOOD",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 138,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 93,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
-  },
-  {
-    "ticker": "COIN",
-    "current_price": 150.0,
-    "score": 88.7,
-    "grade": "💥🏆 PATLAMA POTANSİYELİ",
-    "sector": "Technology",
-    "l2": {
-      "rs_score": 15,
-      "mom_score": 15
-    },
-    "l3": {
-      "ema_score": 20,
-      "entry_mode": "ESTABLISHED_TREND"
-    },
-    "squeeze": {
-      "squeeze_bonus": 10,
-      "squeeze_label": "🔥 GÜÇLÜ SIKIŞ"
-    },
-    "flow": {
-      "flow_bonus": 8,
-      "flow_label": "🔥 KURUMSAL SWEEP"
-    },
-    "mtf": {
-      "rsi_1d": 60,
-      "rsi_1h": 65,
-      "rsi_alignment": "🔥 MÜKEMMEL",
-      "trend_1d": "Boğa"
-    },
-    "options": {
-      "exp_date": "2026-06-19",
-      "dte": 36,
-      "max_pain": 150.0,
-      "atm_iv": 35.0,
-      "iv_rank": 50,
-      "iv_pct_rank": 50,
-      "gamma_sweet": {
-        "type": "🚀 MOMENTUM",
-        "strike": 157.5,
-        "expiration": "2026-06-19",
-        "dte": 36,
-        "cost_per_contract": 150,
-        "delta": 0.35,
-        "gamma": 0.05,
-        "iv_pct": 40.0,
-        "flow_score": 5,
-        "sim": {
-          "pnl_pct": 135,
-          "price_now": 1.5,
-          "price_fwd": 3.3,
-          "days_fwd": 3
-        },
-        "bid": 1.4,
-        "ask": 1.6,
-        "mid": 1.5,
-        "oi": 500,
-        "volume": 100,
-        "score": 87,
-        "spread_pct": 10.0,
-        "notional": 15000,
-        "tp_price": 172.5,
-        "sl_price": 135.0,
-        "time_stop_days": 14
-      },
-      "institutional": null
-    },
-    "hv20": 30.0,
-    "sector_score": 10.0,
-    "regime_label": "🟢 BOĞA",
-    "iv_ctx_score": 5.0,
-    "iv_ctx_label": "🟠 YÜKSEK IV — BAĞLAM POZİTİF",
-    "mtf_bonus": 4.0
+    "sector_score": 3.0,
+    "regime_label": "🟢 GÜÇLÜ BOĞA",
+    "iv_ctx_score": 0.0,
+    "iv_ctx_label": "🚫 IV ÇOK YÜKSEK",
+    "mtf_bonus": 0.0
   }
 ]

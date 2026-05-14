@@ -65,7 +65,7 @@ export default async function OptionsPage() {
               </h1>
             </div>
             <p className="text-slate-400 text-sm md:text-base max-w-2xl font-medium">
-              Institutional-grade scanning engine. v220 Winner Formula: 
+              Institutional-grade scanning engine. v222 Winner Formula: 
               <span className="text-white"> Sector + Pre-Explosion + Breakout Proximity + High-Gamma Flow.</span>
             </p>
           </div>

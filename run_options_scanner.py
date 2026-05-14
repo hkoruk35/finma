@@ -74,23 +74,28 @@ def main():
     latest_file = v222_files[-1]
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")
 
-    # 1. Public Data Dir
-    public_data_dir = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
-    os.makedirs(public_data_dir, exist_ok=True)
-    shutil.copy2(latest_file, os.path.join(public_data_dir, "options_picks.json"))
+    # 1. Public Data Dir (Latest)
+    public_latest_dir = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
+    os.makedirs(public_latest_dir, exist_ok=True)
+    shutil.copy2(latest_file, os.path.join(public_latest_dir, "options_picks.json"))
     
-    # 2. Transfer Latest Dir
+    # 2. Public Data Dir (Archive Date)
+    today_str = now_ny.strftime("%Y-%m-%d")
+    public_archive_dir = os.path.join(FINMA_DIR, "frontend", "public", "data", today_str)
+    os.makedirs(public_archive_dir, exist_ok=True)
+    shutil.copy2(latest_file, os.path.join(public_archive_dir, "options_picks.json"))
+
+    # 3. Transfer Latest Dir
     transfer_latest_dir = os.path.join(FINMA_DIR, "transfer", "latest")
     os.makedirs(transfer_latest_dir, exist_ok=True)
     shutil.copy2(latest_file, os.path.join(transfer_latest_dir, "options_picks.json"))
     
-    # 3. Transfer Archive Dir
-    today_str = now_ny.strftime("%Y-%m-%d")
+    # 4. Transfer Archive Dir
     transfer_archive_dir = os.path.join(FINMA_DIR, "transfer", today_str)
     os.makedirs(transfer_archive_dir, exist_ok=True)
     shutil.copy2(latest_file, os.path.join(transfer_archive_dir, "options_picks.json"))
     
-    log.info("📁 Dosyalar transfer klasörlerine başarıyla kopyalandı.")
+    log.info("📁 Dosyalar transfer ve frontend klasörlerine başarıyla kopyalandı.")
 
     # Git Push
     log.info("📤 Veriler GitHub'a gönderiliyor...")
