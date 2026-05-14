@@ -99,6 +99,7 @@ export default async function OptionsPage() {
             <table className="w-full border-collapse min-w-[1000px]">
               <thead>
                 <tr className="bg-white/5 border-b border-white/10">
+                  <th className="px-6 py-5 text-left text-[10px] font-black text-slate-500 uppercase tracking-widest">Date</th>
                   <th className="px-6 py-5 text-left text-[10px] font-black text-slate-500 uppercase tracking-widest">Ticker / Score</th>
                   <th className="px-6 py-5 text-left text-[10px] font-black text-slate-500 uppercase tracking-widest">Setup / Regime</th>
                   <th className="px-6 py-5 text-center text-[10px] font-black text-slate-500 uppercase tracking-widest">Price / IV</th>
@@ -124,6 +125,13 @@ export default async function OptionsPage() {
                     
                     return (
                       <tr key={`${pick.date}-${pick.ticker}`} className="hover:bg-white/[0.02] transition-colors group">
+                        {/* Date */}
+                        <td className="px-6 py-6">
+                           <div className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest">
+                             {pick.date}
+                           </div>
+                        </td>
+
                         {/* Ticker & Score */}
                         <td className="px-6 py-6">
                           <div className="flex items-center gap-4">
@@ -136,7 +144,6 @@ export default async function OptionsPage() {
                               <Link href={`/stock/${pick.ticker}`} className="text-2xl font-black text-white hover:text-[#3b82f6] transition-colors block leading-none">
                                 {pick.ticker}
                               </Link>
-                              <span className="text-[10px] font-bold text-slate-500 uppercase">{pick.date}</span>
                             </div>
                           </div>
                         </td>
