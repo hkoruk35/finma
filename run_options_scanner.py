@@ -51,7 +51,7 @@ def main():
     
     log.info(f"▶ Çalıştırılıyor: opsiyon220.py")
     try:
-        subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+        subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8", check=True)
         log.info("✅ opsiyon220.py tamamlandı.")
     except subprocess.CalledProcessError as e:
         log.error(f"❌ opsiyon220.py hatası (Exit {e.returncode}):")

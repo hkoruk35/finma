@@ -1702,7 +1702,9 @@ async def scan():
             "• Pre-explosion sinyali yok (sıkışma yok)\n"
             "• Breakout proximity zayıf (hisseler zirveden uzak)\n"
             "• MM Trap filtresi çok fazlasını engelledi → EM_ATR_MAX_RATIO değerini kontrol et\n"
-        ); return
+        )
+        save_picks(candidates)
+        return
 
     duration = time.time() - start
     save_picks(candidates)
