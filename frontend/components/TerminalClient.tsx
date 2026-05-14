@@ -734,7 +734,7 @@ export default function TerminalClient() {
       {/* ── Right Panel ─────────────────────────────────────────────────────── */}
       <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["swing", "daytrade", "watchlist", "tracker"] as const).map((tab) => (
+          {(["swing", "option", "watchlist", "tracker"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setRightTab(tab)}
