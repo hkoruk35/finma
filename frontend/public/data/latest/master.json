@@ -1,30 +1,38 @@
 {
-  "date": "2026-05-13",
-  "generated_at": "2026-05-13T13:06:12.047096-04:00",
+  "date": "2026-05-14",
+  "generated_at": "2026-05-14T13:05:51.593331-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 13,
-  "market_regime": "BULLISH",
+  "active_scores_count": 17,
+  "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "MS",
-        "SKYT",
-        "NDSN",
-        "OII",
-        "HIW",
-        "BHP",
-        "NATL",
-        "SLDE",
-        "NVRI",
-        "DOLE"
+        "MSA",
+        "ALKS",
+        "AFL",
+        "TSM",
+        "NXT",
+        "LPG",
+        "ADNT",
+        "SONO",
+        "MSM",
+        "NOW"
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 10,
       "tickers": [
-        "HIW",
-        "BHP"
+        "TSM",
+        "NXT",
+        "LPG",
+        "ADNT",
+        "SONO",
+        "MSM",
+        "BGC",
+        "GTES",
+        "APO",
+        "TTWO"
       ]
     },
     "value": {
@@ -36,10 +44,9 @@
       "tickers": []
     },
     "momentum": {
-      "count": 2,
+      "count": 1,
       "tickers": [
-        "SLDE",
-        "CSX"
+        "MSGE"
       ]
     },
     "dividend": {
@@ -49,18 +56,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "MS",
-      "score": 61.0,
+      "ticker": "MSA",
+      "score": 65.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SKYT",
+      "ticker": "ALKS",
+      "score": 63.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "AFL",
       "score": 59.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "NDSN",
-      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
