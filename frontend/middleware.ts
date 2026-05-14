@@ -19,8 +19,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // 3. Eğer kullanıcı giriş yapmışsa ve Login sayfasına gitmeye çalışıyorsa -> Pro'ya at
-  if (authCookie && pathname.startsWith('/login')) {
+  // 3. Eğer kullanıcı giriş yapmışsa ve Login sayfasına veya ana sayfaya (/) gitmeye çalışıyorsa -> Pro'ya at
+  if (authCookie && (pathname.startsWith('/login') || pathname === '/')) {
     return NextResponse.redirect(new URL('/pro', request.url))
   }
 

@@ -20,5 +20,6 @@ export default async function HomePage() {
     redirect("/login");
   }
 
-  return <AIContainer lang="en" />;
+  // Redirect authenticated users to /pro instead of home
+  redirect("/pro");
 }
