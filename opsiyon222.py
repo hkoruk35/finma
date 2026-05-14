@@ -1624,13 +1624,29 @@ def build_report(candidates, vix, duration, n_scanned):
     detail="\n".join(build_block(c) for c in candidates[:10])
     return summary, detail
 
-def save_picks(candidates):
+def save_picks(candidates, n_universe, duration):
     try:
-        out=os.path.join(DATA_DIR,f"v222_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
-        with open(out,"w",encoding="utf-8") as f:
-            json.dump(candidates,f,ensure_ascii=False,default=str,indent=2)
+        out = os.path.join(DATA_DIR, f"v222_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
+        data = {
+            "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
+            "generated_at": datetime.now(NY_TZ).isoformat(),
+            "vix": MARKET_VIX.get("value", 0),
+            "vix_regime": "Low 🟢" if MARKET_VIX.get("value", 20) < 18 else "High 🔴",
+            "spy_return_60d": MARKET_REGIME.get("spy_60d_return", 0.0),
+            "universe_size": n_universe,
+            "scan_duration_sec": duration,
+            "regime_summary": {
+                "trend": len([c for c in candidates if c.get("regime_label") == "🟢 GÜÇLÜ BOĞA"]),
+                "breakout": len([c for c in candidates if "Sıkış" in c.get("grade", "")]),
+                "neutral": len([c for c in candidates if c.get("regime_label") == "🟡 NÖTR"])
+            },
+            "picks": candidates
+        }
+        with open(out, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, default=str, indent=2)
         logging.info(f"💾 {out}")
-    except: pass
+    except Exception as e:
+        logging.error(f"❌ Dosya kaydetme hatası: {e}")
 
 # ════════════════════════════════════════════════════════════════════════════
 # 14) ANA TARAMA
@@ -1689,7 +1705,7 @@ async def scan():
         return
 
     duration=time.time()-start
-    save_picks(candidates)
+    save_picks(candidates, len(universe), duration)
     summary,detail=build_report(candidates,MARKET_VIX['value'],duration,len(universe))
     await send_tg(summary)
     await asyncio.sleep(1)
