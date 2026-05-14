@@ -5,9 +5,14 @@ import fs from "fs";
 
 export async function POST() {
   return new Promise<NextResponse>((resolve) => {
-    // The root of the project is 3 levels up from this file (app/api/options/run/route.ts)
-    // But since it's Next.js, process.cwd() is usually the project root (finma/frontend)
-    // The script is in the parent directory of the frontend folder.
+    // Prevent execution on Vercel cloud environment
+    if (process.env.VERCEL) {
+      return resolve(NextResponse.json({ 
+        success: false, 
+        error: "Manuel tarama işlemi yalnızca lokal terminal sunucusunda (localhost:3000) çalıştırılabilir. Vercel üzerinden tetiklenemez." 
+      }, { status: 400 }));
+    }
+
     const projectRoot = path.resolve(process.cwd(), "..");
     const scriptPath = path.join(projectRoot, "opsiyon220.py");
     const pythonPath = path.join(projectRoot, "venv313", "Scripts", "python.exe");
