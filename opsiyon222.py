@@ -57,6 +57,12 @@ import aiohttp
 import numpy as np
 import pandas as pd
 import yfinance as yf
+import requests_cache
+session = requests_cache.CachedSession('yfinance.cache')
+session.headers['User-agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
+# Overriding yfinance default session
+yf.base.utils.get_session = lambda: session
+
 from datetime import datetime, timedelta, date
 from typing import List, Dict, Any, Optional, Tuple
 from zoneinfo import ZoneInfo
@@ -1383,8 +1389,8 @@ async def analyze(ticker: str) -> Optional[dict]:
             PROGRESS_COUNTER += 1
             print(f"🔍 [{PROGRESS_COUNTER}/{TOTAL_TO_SCAN}] {ticker}")
 
-            # Rate limit koruması için kısa bekleme
-            await asyncio.sleep(1)
+            # Rate limit koruması için 3sn bekleme
+            await asyncio.sleep(3)
 
             # Bear piyasada dur
             if MARKET_REGIME.get("regime") == "bear": return None
