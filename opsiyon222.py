@@ -1398,13 +1398,14 @@ async def analyze(ticker: str) -> Optional[dict]:
             
             if df is None or len(df)<1: 
                 cp = 150.0 # Extreme fallback
+                close = pd.Series([150.0]*10)
             else:
                 df.columns=[str(c).strip().title() for c in (df.columns.get_level_values(0) if isinstance(df.columns,pd.MultiIndex) else df.columns)]
                 close=df['Close'].astype(float)
                 cp=float(close.iloc[-1])
             
-            l2 = {"rs_score": 0, "mom_score": 0}
-            l3 = {"ema_score": 0}
+            l2 = {"rs_score": 0, "mom_score": 0, "hv20": 0.3}
+            l3 = {"ema_score": 0, "atr_pct": 2.0}
             squeeze = {}
             flow = {}
 
