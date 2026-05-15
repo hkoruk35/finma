@@ -59,8 +59,8 @@ def main():
 
     log.info("🌇 BOGA AI Öğleden Sonra Döngüsü Başlatıldı...")
 
-    # 1. Swing Scanner (v116) - 13:00 NY'da çalışır
-    run_bot("swing116_boga.py", ["--oneshot"])
+    # 1. Swing Scanner (v117) - 13:00 NY'da çalışır
+    run_bot("swing117_boga.py", ["--oneshot"])
 
     # 2. Swing Performance Update
     run_bot("update_swing_performance.py")

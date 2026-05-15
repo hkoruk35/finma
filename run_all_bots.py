@@ -5,9 +5,9 @@ Manual çalıştırma: python run_all_bots.py
 Zamanlayıcı: Windows Task Scheduler ile 09:00 NY (Pzt-Cuma)
 
 Sıra:
-1. opsiyon218v8.py --oneshot (11:00 NY bekler)
-2. swing115_boga.py --oneshot (18:00 NY bekler)
-3. inday313.py --force (10:00-16:00 arası çalışır)
+1. opsiyon240.py --oneshot
+2. swing117_boga.py --oneshot
+3. inday313.py --force
 4. options_pnl_tracker.py
 5. site_health_checker.py
 6. Git Push & Deploy
@@ -93,9 +93,9 @@ def main():
         subprocess.run(["git", "commit", "-m", f"Data: DayTrade V2 Update {now_ny.strftime('%Y-%m-%d %H:%M')}"], cwd=FINMA_DIR)
         subprocess.run(["git", "push", "origin", "main"], cwd=FINMA_DIR)
 
-    # ── ADIM 2: Swing Scanner (v116) ──
-    log.info("ADIM 2: swing116_boga.py --oneshot (13:00 NY Bekleme Modu)...")
-    run_bot_subprocess("swing116_boga.py", ["--oneshot"])
+    # ── ADIM 2: Swing Scanner (v117) ──
+    log.info("ADIM 2: swing117_boga.py --oneshot (13:00 NY Bekleme Modu)...")
+    run_bot_subprocess("swing117_boga.py", ["--oneshot"])
 
     # ── ADIM 3: daily_comprehensive_analysis.py (Sektör/Altsektör Analiz) - DISABLED BY USER REQUEST ──
     # log.info("ADIM 3: daily_comprehensive_analysis.py çalıştırılıyor...")

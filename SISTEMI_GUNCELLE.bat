@@ -36,7 +36,7 @@ if '%errorlevel%' NEQ '0' (
     echo --------------------------------------------------
     echo 1. Option Scanner (v240):       11:00 & 15:30 NY
     echo 2. Sabah Dongusu (DayTrade):    09:15 NY
-    echo 3. Ogle Dongusu (Swing):        13:00 NY
+    echo 3. Ogle Dongusu (Swing v117):   13:00 NY
     echo 4. Performans Takibi:           10:00-16:30 NY (Saatlik)
     echo 5. Terminal Pulse (Saatlik):    09:00-17:00 NY
     echo 6. Saglik Raporu:               Her 4 Saatte Bir (7/24)
