@@ -1,138 +1,50 @@
 [
   {
-    "Date": "14 May",
-    "Symbol": "MSA",
-    "Entry (Buy_L)": 171.02,
-    "Stop (SL)": 167.58,
-    "Target 1 (TP1)": 181.51,
-    "Target 2 (TP2)": 183.06
+    "Date": "15 May",
+    "Symbol": "NXPI",
+    "Entry (Buy_L)": 287.06,
+    "Stop (SL)": 279.09,
+    "Target 1 (TP1)": 310.0,
+    "Target 2 (TP2)": 313.44
   },
   {
-    "Date": "14 May",
-    "Symbol": "ALKS",
-    "Entry (Buy_L)": 37.82,
-    "Stop (SL)": 36.91,
-    "Target 1 (TP1)": 40.6,
-    "Target 2 (TP2)": 41.01
+    "Date": "15 May",
+    "Symbol": "WMT",
+    "Entry (Buy_L)": 129.64,
+    "Stop (SL)": 127.77,
+    "Target 1 (TP1)": 135.36,
+    "Target 2 (TP2)": 136.2
   },
   {
-    "Date": "14 May",
-    "Symbol": "AFL",
-    "Entry (Buy_L)": 115.04,
-    "Stop (SL)": 113.51,
-    "Target 1 (TP1)": 119.75,
-    "Target 2 (TP2)": 120.44
+    "Date": "15 May",
+    "Symbol": "SLF",
+    "Entry (Buy_L)": 70.83,
+    "Stop (SL)": 70.0,
+    "Target 1 (TP1)": 73.72,
+    "Target 2 (TP2)": 74.16
   },
   {
-    "Date": "14 May",
-    "Symbol": "TSM",
-    "Entry (Buy_L)": 409.31,
-    "Stop (SL)": 398.91,
-    "Target 1 (TP1)": 441.03,
-    "Target 2 (TP2)": 445.71
+    "Date": "15 May",
+    "Symbol": "UNP",
+    "Entry (Buy_L)": 265.01,
+    "Stop (SL)": 261.45,
+    "Target 1 (TP1)": 276.96,
+    "Target 2 (TP2)": 278.69
   },
   {
-    "Date": "14 May",
-    "Symbol": "NXT",
-    "Entry (Buy_L)": 132.0,
-    "Stop (SL)": 125.12,
-    "Target 1 (TP1)": 153.58,
-    "Target 2 (TP2)": 156.78
+    "Date": "15 May",
+    "Symbol": "SLB",
+    "Entry (Buy_L)": 55.03,
+    "Stop (SL)": 53.95,
+    "Target 1 (TP1)": 58.04,
+    "Target 2 (TP2)": 58.5
   },
   {
-    "Date": "14 May",
-    "Symbol": "LPG",
-    "Entry (Buy_L)": 40.25,
-    "Stop (SL)": 39.38,
-    "Target 1 (TP1)": 42.94,
-    "Target 2 (TP2)": 43.34
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "ADNT",
-    "Entry (Buy_L)": 21.88,
-    "Stop (SL)": 21.19,
-    "Target 1 (TP1)": 24.0,
-    "Target 2 (TP2)": 24.31
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "SONO",
-    "Entry (Buy_L)": 14.39,
-    "Stop (SL)": 13.94,
-    "Target 1 (TP1)": 15.76,
-    "Target 2 (TP2)": 15.97
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "MSM",
-    "Entry (Buy_L)": 106.97,
-    "Stop (SL)": 105.02,
-    "Target 1 (TP1)": 112.41,
-    "Target 2 (TP2)": 113.25
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "NOW",
-    "Entry (Buy_L)": 87.92,
-    "Stop (SL)": 84.35,
-    "Target 1 (TP1)": 98.8,
-    "Target 2 (TP2)": 100.4
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "BKH",
-    "Entry (Buy_L)": 73.03,
-    "Stop (SL)": 71.79,
-    "Target 1 (TP1)": 76.81,
-    "Target 2 (TP2)": 77.37
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "PSTL",
-    "Entry (Buy_L)": 22.94,
-    "Stop (SL)": 22.51,
-    "Target 1 (TP1)": 24.25,
-    "Target 2 (TP2)": 24.45
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "BGC",
-    "Entry (Buy_L)": 11.22,
-    "Stop (SL)": 10.98,
-    "Target 1 (TP1)": 11.94,
-    "Target 2 (TP2)": 12.05
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "GTES",
-    "Entry (Buy_L)": 25.14,
-    "Stop (SL)": 24.51,
-    "Target 1 (TP1)": 27.07,
-    "Target 2 (TP2)": 27.36
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "MSGE",
-    "Entry (Buy_L)": 64.3,
-    "Stop (SL)": 62.51,
-    "Target 1 (TP1)": 69.76,
-    "Target 2 (TP2)": 70.56
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "APO",
-    "Entry (Buy_L)": 132.42,
-    "Stop (SL)": 129.23,
-    "Target 1 (TP1)": 141.97,
-    "Target 2 (TP2)": 143.39
-  },
-  {
-    "Date": "14 May",
-    "Symbol": "TTWO",
-    "Entry (Buy_L)": 228.36,
-    "Stop (SL)": 223.38,
-    "Target 1 (TP1)": 254.12,
-    "Target 2 (TP2)": 257.53
+    "Date": "15 May",
+    "Symbol": "H",
+    "Entry (Buy_L)": 166.33,
+    "Stop (SL)": 162.49,
+    "Target 1 (TP1)": 178.03,
+    "Target 2 (TP2)": 179.75
   }
 ]

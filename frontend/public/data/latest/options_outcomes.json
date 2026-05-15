@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-05-14T13:06:57.594451-04:00",
+  "updated_at": "2026-05-15T13:12:26.949112-04:00",
   "tracker_version": "1.0",
   "summary": {
     "total": 118,
@@ -15,7 +15,7 @@
     "avg_loser_pct": -36.0,
     "best_trade_pct": 126.6,
     "worst_trade_pct": -78.7,
-    "avg_unrealized_pnl": -12.6,
+    "avg_unrealized_pnl": null,
     "by_mode": {
       "TREND_START": {
         "total": 24,
@@ -2675,8 +2675,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 2.075,
-      "unrealized_pnl_pct": -34.1,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 4.25,
       "trough_premium": 1.85,
       "underlying_current": null
@@ -2707,8 +2707,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 6.625,
-      "unrealized_pnl_pct": -39.4,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 14.0,
       "trough_premium": 6.625,
       "underlying_current": null
@@ -2739,8 +2739,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 0.66,
-      "unrealized_pnl_pct": -69.9,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 1.89,
       "trough_premium": 0.66,
       "underlying_current": null
@@ -2771,8 +2771,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 3.3,
-      "unrealized_pnl_pct": 58.7,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 3.9,
       "trough_premium": 2.17,
       "underlying_current": null
@@ -2803,8 +2803,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 0.625,
-      "unrealized_pnl_pct": -26.5,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 0.95,
       "trough_premium": 0.425,
       "underlying_current": null
@@ -2835,8 +2835,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 5.825,
-      "unrealized_pnl_pct": 8.9,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 8.15,
       "trough_premium": 4.7,
       "underlying_current": null
@@ -2867,8 +2867,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 3.475,
-      "unrealized_pnl_pct": -2.1,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 5.6,
       "trough_premium": 3.065,
       "underlying_current": null
@@ -2899,8 +2899,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 2.025,
-      "unrealized_pnl_pct": 80.8,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 2.35,
       "trough_premium": 1.35,
       "underlying_current": null
@@ -2931,8 +2931,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 1.05,
-      "unrealized_pnl_pct": -60.7,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 2.65,
       "trough_premium": 0.95,
       "underlying_current": null
@@ -2963,8 +2963,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 10.05,
-      "unrealized_pnl_pct": 54.6,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 10.05,
       "trough_premium": 4.95,
       "underlying_current": null
@@ -2995,8 +2995,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 0.625,
-      "unrealized_pnl_pct": -49.2,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 1.1,
       "trough_premium": 0.575,
       "underlying_current": null
@@ -3027,8 +3027,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 3.625,
-      "unrealized_pnl_pct": 8.2,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 5.55,
       "trough_premium": 2.825,
       "underlying_current": null
@@ -3059,8 +3059,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 1.5,
-      "unrealized_pnl_pct": -9.1,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 2.76,
       "trough_premium": 1.185,
       "underlying_current": null
@@ -3091,8 +3091,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 0.355,
-      "unrealized_pnl_pct": -79.2,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 1.545,
       "trough_premium": 0.355,
       "underlying_current": null
@@ -3123,8 +3123,8 @@
       "exit_reason": null,
       "pnl_pct": null,
       "current_premium": 0.55,
-      "unrealized_pnl_pct": -29.5,
-      "days_held": 23,
+      "unrealized_pnl_pct": null,
+      "days_held": 24,
       "peak_premium": 0.825,
       "trough_premium": 0.35,
       "underlying_current": null
