@@ -1,0 +1,172 @@
+[
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "ALKS",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 37.58,
+        "entry_zone": "36.93 - 38.23",
+        "SL": 34.97,
+        "TP": 41.5
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 68.33,
+        "entry_zone": "66.90 - 69.76",
+        "SL": 62.6,
+        "TP": 76.92
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "TTWO",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 243.79,
+        "entry_zone": "240.32 - 247.26",
+        "SL": 229.89,
+        "TP": 264.63
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "SONO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 14.76,
+        "entry_zone": "14.42 - 15.10",
+        "SL": 13.39,
+        "TP": 16.82
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "NXT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 142.05,
+        "entry_zone": "136.84 - 147.26",
+        "SL": 121.19,
+        "TP": 173.33
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "LPG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 40.33,
+        "entry_zone": "39.70 - 40.96",
+        "SL": 37.82,
+        "TP": 44.11
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "APO",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 134.46,
+        "entry_zone": "132.23 - 136.69",
+        "SL": 125.55,
+        "TP": 147.82
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "TSM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 406.97,
+        "entry_zone": "399.25 - 414.69",
+        "SL": 376.09,
+        "TP": 453.29
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "MSM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 104.52,
+        "entry_zone": "103.14 - 105.90",
+        "SL": 98.98,
+        "TP": 112.83
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "AFL",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 116.46,
+        "entry_zone": "115.27 - 117.64",
+        "SL": 111.71,
+        "TP": 123.57
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "BGC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 11.37,
+        "entry_zone": "11.20 - 11.54",
+        "SL": 10.69,
+        "TP": 12.4
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "PSTL",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 22.64,
+        "entry_zone": "22.28 - 23.00",
+        "SL": 21.21,
+        "TP": 24.78
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "NOW",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 94.89,
+        "entry_zone": "92.75 - 97.04",
+        "SL": 86.32,
+        "TP": 107.76
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "MSA",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 171.72,
+        "entry_zone": "169.27 - 174.17",
+        "SL": 161.92,
+        "TP": 186.42
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "ADNT",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 21.39,
+        "entry_zone": "20.88 - 21.90",
+        "SL": 19.37,
+        "TP": 24.43
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "BKH",
+        "sector": "Utilities",
+        "action": "WATCH",
+        "price": 72.52,
+        "entry_zone": "71.63 - 73.41",
+        "SL": 68.98,
+        "TP": 77.83
+    },
+    {
+        "date": "2026-05-15 12:00",
+        "symbol": "GTES",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 24.65,
+        "entry_zone": "24.17 - 25.13",
+        "SL": 22.72,
+        "TP": 27.54
+    }
+]
