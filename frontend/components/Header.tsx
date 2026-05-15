@@ -8,6 +8,7 @@ import { useState } from "react";
 const NAV_LINKS = [
   { name: "Swing", href: "/swing" },
   { name: "Option Scanner", href: "/options" },
+  { name: "Terminal", href: "/terminal" },
   { name: "Long Term", href: "/long-term" },
   { name: "Performance", href: "/performance" },
   { name: "OptAnaliz", href: "/optanaliz" },
