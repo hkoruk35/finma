@@ -61,12 +61,12 @@ export default async function OptionsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-2 h-10 bg-[#3b82f6] rounded-full shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
               <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase italic">
-                Option <span className="text-[#3b82f6]">Scanner</span>
+                BOGA AI <span className="text-[#3b82f6]">OPTIONS</span> SCANNER
               </h1>
             </div>
             <p className="text-slate-400 text-sm md:text-base max-w-2xl font-medium">
-              Institutional-grade scanning engine. v222 Winner Formula: 
-              <span className="text-white"> Sector + Pre-Explosion + Breakout Proximity + High-Gamma Flow.</span>
+              Institutional-grade scanning engine. v240 Sector-First Winner Formula: 
+              <span className="text-white"> Sector Strength + Pre-Explosion + High-Gamma Flow.</span>
             </p>
           </div>
         </div>
