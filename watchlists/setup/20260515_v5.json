@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "SLB",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 55.34,
+        "entry_zone": "54.62 - 56.06",
+        "SL": 52.47,
+        "TP": 59.65
+    },
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "WMT",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 130.88,
+        "entry_zone": "129.56 - 132.21",
+        "SL": 125.59,
+        "TP": 138.83
+    },
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "H",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 169.26,
+        "entry_zone": "166.38 - 172.13",
+        "SL": 157.75,
+        "TP": 186.52
+    },
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "NXPI",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 294.41,
+        "entry_zone": "286.99 - 301.83",
+        "SL": 264.73,
+        "TP": 338.92
+    },
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "SLF",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 71.84,
+        "entry_zone": "71.21 - 72.47",
+        "SL": 69.33,
+        "TP": 75.6
+    },
+    {
+        "date": "2026-05-15 14:00",
+        "symbol": "UNP",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 269.05,
+        "entry_zone": "266.70 - 271.39",
+        "SL": 259.66,
+        "TP": 283.13
+    }
+]
