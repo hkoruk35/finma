@@ -14,9 +14,9 @@
     {
       "date": "2026-01-01",
       "ticker": "ASX",
-      "company": "ASX",
+      "company": "ASE Technology Holding Co., Ltd.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 16.67,
       "max_price": 17.62,
       "return_pct": 5.7,
@@ -89,9 +89,9 @@
     {
       "date": "2026-01-01",
       "ticker": "PUK",
-      "company": "PUK",
+      "company": "Prudential plc",
       "sector": "Financial Services",
-      "subsector": "Insuranceâ€”Life",
+      "subsector": "Insurance–”Life",
       "entry": 31.23,
       "max_price": 33.17,
       "return_pct": 6.23,
@@ -121,7 +121,7 @@
       "ticker": "TEVA",
       "company": "Teva Pharmaceutical Industries Limited",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”Specialty & Generic",
+      "subsector": "Drug Manufacturers–”Specialty & Generic",
       "entry": 31.18,
       "max_price": 32.79,
       "return_pct": 5.16,
@@ -134,7 +134,7 @@
     {
       "date": "2026-01-02",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 61.19,
@@ -224,7 +224,7 @@
     {
       "date": "2026-01-02",
       "ticker": "MU",
-      "company": "MU",
+      "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 324.99,
@@ -254,9 +254,9 @@
     {
       "date": "2026-01-05",
       "ticker": "BBVA",
-      "company": "BBVA",
+      "company": "Banco Bilbao Vizcaya Argentaria, S.A.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 23.25,
       "max_price": 24.65,
       "return_pct": 6.01,
@@ -271,7 +271,7 @@
       "ticker": "BCS",
       "company": "Barclays PLC",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 26.27,
       "max_price": 27.19,
       "return_pct": -3.75,
@@ -284,9 +284,9 @@
     {
       "date": "2026-01-05",
       "ticker": "BNS",
-      "company": "BNS",
+      "company": "The Bank of Nova Scotia",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 73.68,
       "max_price": 76.42,
       "return_pct": 2.2,
@@ -299,9 +299,9 @@
     {
       "date": "2026-01-05",
       "ticker": "C",
-      "company": "C",
+      "company": "Citigroup Inc.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 122.46,
       "max_price": 122.46,
       "return_pct": -2.98,
@@ -314,7 +314,7 @@
     {
       "date": "2026-01-05",
       "ticker": "GE",
-      "company": "GE",
+      "company": "GE Aerospace",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 325.45,
@@ -331,7 +331,7 @@
       "ticker": "ING",
       "company": "ING Groep N.V.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 28.09,
       "max_price": 29.98,
       "return_pct": 6.73,
@@ -344,9 +344,9 @@
     {
       "date": "2026-01-05",
       "ticker": "LYG",
-      "company": "LYG",
+      "company": "Lloyds Banking Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 5.4,
       "max_price": 5.72,
       "return_pct": 5.97,
@@ -359,9 +359,9 @@
     {
       "date": "2026-01-05",
       "ticker": "NWG",
-      "company": "NWG",
+      "company": "NatWest Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 17.42,
       "max_price": 17.42,
       "return_pct": -5.26,
@@ -389,7 +389,7 @@
     {
       "date": "2026-01-05",
       "ticker": "RKT",
-      "company": "RKT",
+      "company": "Rocket Companies, Inc.",
       "sector": "Financial Services",
       "subsector": "Mortgage Finance",
       "entry": 20.93,
@@ -406,7 +406,7 @@
       "ticker": "RY",
       "company": "Royal Bank of Canada",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 172.34,
       "max_price": 172.34,
       "return_pct": -2.7,
@@ -419,9 +419,9 @@
     {
       "date": "2026-01-05",
       "ticker": "SAN",
-      "company": "SAN",
+      "company": "Banco Santander, S.A.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 11.98,
       "max_price": 12.89,
       "return_pct": 7.58,
@@ -436,7 +436,7 @@
       "ticker": "TD",
       "company": "The Toronto-Dominion Bank",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 95.35,
       "max_price": 95.35,
       "return_pct": -1.23,
@@ -449,7 +449,7 @@
     {
       "date": "2026-01-07",
       "ticker": "CVX",
-      "company": "CVX",
+      "company": "Chevron Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 153.99,
@@ -464,7 +464,7 @@
     {
       "date": "2026-01-07",
       "ticker": "EMR",
-      "company": "EMR",
+      "company": "Emerson Electric Co.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 141.56,
@@ -509,7 +509,7 @@
     {
       "date": "2026-01-07",
       "ticker": "RGC",
-      "company": "RGC",
+      "company": "Regencell Bioscience Holdings Limited",
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 62.0,
@@ -524,7 +524,7 @@
     {
       "date": "2026-01-07",
       "ticker": "STM",
-      "company": "STM",
+      "company": "STMicroelectronics N.V.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 28.1,
@@ -539,7 +539,7 @@
     {
       "date": "2026-01-07",
       "ticker": "TMO",
-      "company": "TMO",
+      "company": "Thermo Fisher Scientific Inc.",
       "sector": "Healthcare",
       "subsector": "Diagnostics & Research",
       "entry": 612.25,
@@ -569,7 +569,7 @@
     {
       "date": "2026-01-08",
       "ticker": "ASML",
-      "company": "ASML",
+      "company": "ASML Holding N.V.",
       "sector": "Technology",
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 1228.54,
@@ -584,9 +584,9 @@
     {
       "date": "2026-01-08",
       "ticker": "ASX",
-      "company": "ASX",
+      "company": "ASE Technology Holding Co., Ltd.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 17.61,
       "max_price": 18.7,
       "return_pct": 6.19,
@@ -599,7 +599,7 @@
     {
       "date": "2026-01-08",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 60.9,
@@ -644,7 +644,7 @@
     {
       "date": "2026-01-08",
       "ticker": "IBKR",
-      "company": "IBKR",
+      "company": "Interactive Brokers Group, Inc.",
       "sector": "Financial Services",
       "subsector": "Capital Markets",
       "entry": 70.72,
@@ -674,7 +674,7 @@
     {
       "date": "2026-01-08",
       "ticker": "RF",
-      "company": "RF",
+      "company": "Regions Financial Corporation",
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 28.64,
@@ -689,7 +689,7 @@
     {
       "date": "2026-01-08",
       "ticker": "VALE",
-      "company": "VALE",
+      "company": "Vale S.A.",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 13.94,
@@ -749,7 +749,7 @@
     {
       "date": "2026-01-09",
       "ticker": "MCHP",
-      "company": "MCHP",
+      "company": "Microchip Technology Incorporated",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 74.88,
@@ -779,7 +779,7 @@
     {
       "date": "2026-01-09",
       "ticker": "PHG",
-      "company": "PHG",
+      "company": "Koninklijke Philips N.V.",
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 30.03,
@@ -809,7 +809,7 @@
     {
       "date": "2026-01-09",
       "ticker": "SLB",
-      "company": "SLB",
+      "company": "SLB N.V.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 45.13,
@@ -839,7 +839,7 @@
     {
       "date": "2026-01-09",
       "ticker": "URI",
-      "company": "URI",
+      "company": "United Rentals, Inc.",
       "sector": "Industrials",
       "subsector": "Rental & Leasing Services",
       "entry": 932.9,
@@ -854,7 +854,7 @@
     {
       "date": "2026-01-09",
       "ticker": "WDC",
-      "company": "WDC",
+      "company": "Western Digital Corporation",
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 193.41,
@@ -884,7 +884,7 @@
     {
       "date": "2026-01-10",
       "ticker": "CCJ",
-      "company": "CCJ",
+      "company": "Cameco Corporation",
       "sector": "Energy",
       "subsector": "Uranium",
       "entry": 108.5,
@@ -899,7 +899,7 @@
     {
       "date": "2026-01-10",
       "ticker": "COP",
-      "company": "COP",
+      "company": "ConocoPhillips",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 97.85,
@@ -914,7 +914,7 @@
     {
       "date": "2026-01-10",
       "ticker": "DLTR",
-      "company": "DLTR",
+      "company": "Dollar Tree, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Discount Stores",
       "entry": 131.76,
@@ -1004,7 +1004,7 @@
     {
       "date": "2026-01-10",
       "ticker": "RKT",
-      "company": "RKT",
+      "company": "Rocket Companies, Inc.",
       "sector": "Financial Services",
       "subsector": "Mortgage Finance",
       "entry": 22.81,
@@ -1019,7 +1019,7 @@
     {
       "date": "2026-01-10",
       "ticker": "RTX",
-      "company": "RTX",
+      "company": "RTX Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 189.08,
@@ -1034,7 +1034,7 @@
     {
       "date": "2026-01-10",
       "ticker": "SCCO",
-      "company": "SCCO",
+      "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "subsector": "Copper",
       "entry": 170.68,
@@ -1064,7 +1064,7 @@
     {
       "date": "2026-01-10",
       "ticker": "TPG",
-      "company": "TPG",
+      "company": "TPG Inc.",
       "sector": "Financial Services",
       "subsector": "Asset Management",
       "entry": 64.73,
@@ -1094,7 +1094,7 @@
     {
       "date": "2026-01-12",
       "ticker": "CVX",
-      "company": "CVX",
+      "company": "Chevron Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 161.89,
@@ -1109,7 +1109,7 @@
     {
       "date": "2026-01-12",
       "ticker": "HLT",
-      "company": "HLT",
+      "company": "Hilton Worldwide Holdings Inc.",
       "sector": "Consumer Cyclical",
       "subsector": "Lodging",
       "entry": 300.31,
@@ -1124,7 +1124,7 @@
     {
       "date": "2026-01-12",
       "ticker": "NGG",
-      "company": "NGG",
+      "company": "National Grid plc",
       "sector": "Utilities",
       "subsector": "Utilities - Regulated Electric",
       "entry": 78.06,
@@ -1154,7 +1154,7 @@
     {
       "date": "2026-01-12",
       "ticker": "TMO",
-      "company": "TMO",
+      "company": "Thermo Fisher Scientific Inc.",
       "sector": "Healthcare",
       "subsector": "Diagnostics & Research",
       "entry": 612.71,
@@ -1169,7 +1169,7 @@
     {
       "date": "2026-01-13",
       "ticker": "BE",
-      "company": "BE",
+      "company": "Bloom Energy Corporation",
       "sector": "Industrials",
       "subsector": "Electrical Equipment & Parts",
       "entry": 139.39,
@@ -1214,7 +1214,7 @@
     {
       "date": "2026-01-13",
       "ticker": "VALE",
-      "company": "VALE",
+      "company": "Vale S.A.",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 14.18,
@@ -1244,9 +1244,9 @@
     {
       "date": "2026-01-14",
       "ticker": "AEP",
-      "company": "AEP",
+      "company": "American Electric Power Company, Inc.",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Regulated Electric",
+      "subsector": "Utilities–”Regulated Electric",
       "entry": 116.63,
       "max_price": 125.52,
       "return_pct": 7.62,
@@ -1259,7 +1259,7 @@
     {
       "date": "2026-01-14",
       "ticker": "BUD",
-      "company": "BUD",
+      "company": "Anheuser-Busch InBev SA/NV",
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Brewers",
       "entry": 68.04,
@@ -1304,7 +1304,7 @@
     {
       "date": "2026-01-14",
       "ticker": "LMT",
-      "company": "LMT",
+      "company": "Lockheed Martin Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 565.68,
@@ -1334,7 +1334,7 @@
     {
       "date": "2026-01-14",
       "ticker": "PHG",
-      "company": "PHG",
+      "company": "Koninklijke Philips N.V.",
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 30.16,
@@ -1364,7 +1364,7 @@
     {
       "date": "2026-01-14",
       "ticker": "SLB",
-      "company": "SLB",
+      "company": "SLB N.V.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 46.53,
@@ -1409,7 +1409,7 @@
     {
       "date": "2026-01-15",
       "ticker": "EL",
-      "company": "The EstÃ©e Lauder Companies Inc.",
+      "company": "The Estée Lauder Companies Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Consumer Defensive",
       "entry": 114.53,
@@ -1439,7 +1439,7 @@
     {
       "date": "2026-01-15",
       "ticker": "SQM",
-      "company": "Sociedad QuÃ­mica y Minera",
+      "company": "Sociedad Química y Minera",
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 76.39,
@@ -1484,7 +1484,7 @@
     {
       "date": "2026-01-16",
       "ticker": "BA",
-      "company": "BA",
+      "company": "The Boeing Company",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 244.4,
@@ -1499,7 +1499,7 @@
     {
       "date": "2026-01-16",
       "ticker": "BABA",
-      "company": "BABA",
+      "company": "Alibaba Group Holding Limited",
       "sector": "Consumer Cyclical",
       "subsector": "Internet Retail",
       "entry": 161.83,
@@ -1514,7 +1514,7 @@
     {
       "date": "2026-01-16",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 63.09,
@@ -1559,7 +1559,7 @@
     {
       "date": "2026-01-16",
       "ticker": "CCJ",
-      "company": "CCJ",
+      "company": "Cameco Corporation",
       "sector": "Energy",
       "subsector": "Uranium",
       "entry": 115.27,
@@ -1621,7 +1621,7 @@
       "ticker": "JNJ",
       "company": "Johnson & Johnson",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 215.94,
       "max_price": 229.53,
       "return_pct": 6.29,
@@ -1694,7 +1694,7 @@
     {
       "date": "2026-01-16",
       "ticker": "PH",
-      "company": "PH",
+      "company": "Parker-Hannifin Corporation",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 922.26,
@@ -1709,7 +1709,7 @@
     {
       "date": "2026-01-16",
       "ticker": "RTX",
-      "company": "RTX",
+      "company": "RTX Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 199.99,
@@ -1724,7 +1724,7 @@
     {
       "date": "2026-01-16",
       "ticker": "SCCO",
-      "company": "SCCO",
+      "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "subsector": "Copper",
       "entry": 179.59,
@@ -1754,7 +1754,7 @@
     {
       "date": "2026-01-16",
       "ticker": "XOM",
-      "company": "XOM",
+      "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 130.64,
@@ -1784,7 +1784,7 @@
     {
       "date": "2026-01-19",
       "ticker": "EC",
-      "company": "EC",
+      "company": "Ecopetrol S.A.",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 11.56,
@@ -1799,7 +1799,7 @@
     {
       "date": "2026-01-19",
       "ticker": "EMR",
-      "company": "EMR",
+      "company": "Emerson Electric Co.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 147.43,
@@ -1814,7 +1814,7 @@
     {
       "date": "2026-01-19",
       "ticker": "HSY",
-      "company": "HSY",
+      "company": "The Hershey Company",
       "sector": "Consumer Defensive",
       "subsector": "Confectioners",
       "entry": 197.37,
@@ -1844,7 +1844,7 @@
     {
       "date": "2026-01-19",
       "ticker": "LMT",
-      "company": "LMT",
+      "company": "Lockheed Martin Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 576.96,
@@ -1859,7 +1859,7 @@
     {
       "date": "2026-01-19",
       "ticker": "MUFG",
-      "company": "MUFG",
+      "company": "Mitsubishi UFJ Financial Group, Inc.",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 18.29,
@@ -1874,9 +1874,9 @@
     {
       "date": "2026-01-19",
       "ticker": "SAN",
-      "company": "SAN",
+      "company": "Banco Santander, S.A.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 11.88,
       "max_price": 12.52,
       "return_pct": 5.32,
@@ -1904,9 +1904,9 @@
     {
       "date": "2026-01-20",
       "ticker": "BBVA",
-      "company": "BBVA",
+      "company": "Banco Bilbao Vizcaya Argentaria, S.A.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 23.49,
       "max_price": 25.32,
       "return_pct": 7.8,
@@ -1919,7 +1919,7 @@
     {
       "date": "2026-01-20",
       "ticker": "BUD",
-      "company": "BUD",
+      "company": "Anheuser-Busch InBev SA/NV",
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Brewers",
       "entry": 68.17,
@@ -1934,7 +1934,7 @@
     {
       "date": "2026-01-20",
       "ticker": "DGX",
-      "company": "DGX",
+      "company": "Quest Diagnostics Incorporated",
       "sector": "Healthcare",
       "subsector": "Diagnostics & Research",
       "entry": 188.2,
@@ -1949,7 +1949,7 @@
     {
       "date": "2026-01-20",
       "ticker": "EL",
-      "company": "The EstÃ©e Lauder Companies Inc.",
+      "company": "The Estée Lauder Companies Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Consumer Defensive",
       "entry": 114.35,
@@ -2039,7 +2039,7 @@
     {
       "date": "2026-01-21",
       "ticker": "EQNR",
-      "company": "EQNR",
+      "company": "Equinor ASA",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 24.58,
@@ -2101,7 +2101,7 @@
       "ticker": "JNJ",
       "company": "Johnson & Johnson",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 217.61,
       "max_price": 229.53,
       "return_pct": 5.48,
@@ -2129,9 +2129,9 @@
     {
       "date": "2026-01-21",
       "ticker": "LYG",
-      "company": "LYG",
+      "company": "Lloyds Banking Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 5.42,
       "max_price": 5.72,
       "return_pct": 5.59,
@@ -2189,7 +2189,7 @@
     {
       "date": "2026-01-21",
       "ticker": "SQM",
-      "company": "Sociedad QuÃ­mica y Minera",
+      "company": "Sociedad Química y Minera",
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 80.15,
@@ -2219,7 +2219,7 @@
     {
       "date": "2026-01-21",
       "ticker": "UMC",
-      "company": "UMC",
+      "company": "United Microelectronics Corporation",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 10.83,
@@ -2264,7 +2264,7 @@
     {
       "date": "2026-01-22",
       "ticker": "CCJ",
-      "company": "CCJ",
+      "company": "Cameco Corporation",
       "sector": "Energy",
       "subsector": "Uranium",
       "entry": 122.91,
@@ -2294,7 +2294,7 @@
     {
       "date": "2026-01-22",
       "ticker": "CNQ",
-      "company": "CNQ",
+      "company": "Canadian Natural Resources Limited",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 35.88,
@@ -2309,7 +2309,7 @@
     {
       "date": "2026-01-22",
       "ticker": "EPD",
-      "company": "EPD",
+      "company": "Enterprise Products Partners L.P.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 32.4,
@@ -2339,7 +2339,7 @@
     {
       "date": "2026-01-22",
       "ticker": "MNST",
-      "company": "MNST",
+      "company": "Monster Beverage Corporation",
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Non-Alcoholic",
       "entry": 80.64,
@@ -2384,7 +2384,7 @@
     {
       "date": "2026-01-22",
       "ticker": "TMO",
-      "company": "TMO",
+      "company": "Thermo Fisher Scientific Inc.",
       "sector": "Healthcare",
       "subsector": "Diagnostics & Research",
       "entry": 637.05,
@@ -2444,7 +2444,7 @@
     {
       "date": "2026-01-23",
       "ticker": "AU",
-      "company": "AU",
+      "company": "AngloGold Ashanti plc",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 107.75,
@@ -2459,7 +2459,7 @@
     {
       "date": "2026-01-23",
       "ticker": "B",
-      "company": "B",
+      "company": "Barrick Mining Corporation",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 51.99,
@@ -2534,7 +2534,7 @@
     {
       "date": "2026-01-23",
       "ticker": "PAAS",
-      "company": "PAAS",
+      "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 69.63,
@@ -2549,7 +2549,7 @@
     {
       "date": "2026-01-23",
       "ticker": "PBR",
-      "company": "PBR",
+      "company": "Petróleo Brasileiro S.A. - Petrobras",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 14.34,
@@ -2579,7 +2579,7 @@
     {
       "date": "2026-01-23",
       "ticker": "SCCO",
-      "company": "SCCO",
+      "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "subsector": "Copper",
       "entry": 186.65,
@@ -2609,7 +2609,7 @@
     {
       "date": "2026-01-23",
       "ticker": "TTE",
-      "company": "TTE",
+      "company": "TotalEnergies SE",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 69.55,
@@ -2624,7 +2624,7 @@
     {
       "date": "2026-01-23",
       "ticker": "XOM",
-      "company": "XOM",
+      "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 136.02,
@@ -2714,7 +2714,7 @@
     {
       "date": "2026-01-26",
       "ticker": "MU",
-      "company": "MU",
+      "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 404.44,
@@ -2761,7 +2761,7 @@
       "ticker": "GILD",
       "company": "Gilead Sciences, Inc.",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 139.62,
       "max_price": 148.53,
       "return_pct": 6.38,
@@ -2774,7 +2774,7 @@
     {
       "date": "2026-01-27",
       "ticker": "KEP",
-      "company": "KEP",
+      "company": "Korea Electric Power Corporation",
       "sector": "Utilities",
       "subsector": "Utilities - Regulated Electric",
       "entry": 21.03,
@@ -2819,7 +2819,7 @@
     {
       "date": "2026-01-27",
       "ticker": "TDY",
-      "company": "TDY",
+      "company": "Teledyne Technologies Incorporated",
       "sector": "Technology",
       "subsector": "Scientific & Technical Instruments",
       "entry": 615.87,
@@ -2834,7 +2834,7 @@
     {
       "date": "2026-01-27",
       "ticker": "TECK",
-      "company": "TECK",
+      "company": "Teck Resources Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 56.85,
@@ -2864,9 +2864,9 @@
     {
       "date": "2026-01-28",
       "ticker": "ASX",
-      "company": "ASX",
+      "company": "ASE Technology Holding Co., Ltd.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 19.85,
       "max_price": 20.89,
       "return_pct": 5.24,
@@ -2924,7 +2924,7 @@
     {
       "date": "2026-01-28",
       "ticker": "MCHP",
-      "company": "MCHP",
+      "company": "Microchip Technology Incorporated",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 79.42,
@@ -2939,7 +2939,7 @@
     {
       "date": "2026-01-28",
       "ticker": "MPWR",
-      "company": "MPWR",
+      "company": "Monolithic Power Systems, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 1163.6,
@@ -2954,9 +2954,9 @@
     {
       "date": "2026-01-28",
       "ticker": "NWG",
-      "company": "NWG",
+      "company": "NatWest Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 17.63,
       "max_price": 18.28,
       "return_pct": -5.26,
@@ -2984,7 +2984,7 @@
     {
       "date": "2026-01-28",
       "ticker": "SLB",
-      "company": "SLB",
+      "company": "SLB N.V.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 49.59,
@@ -3029,7 +3029,7 @@
     {
       "date": "2026-01-28",
       "ticker": "UMC",
-      "company": "UMC",
+      "company": "United Microelectronics Corporation",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 10.71,
@@ -3059,7 +3059,7 @@
     {
       "date": "2026-01-29",
       "ticker": "AU",
-      "company": "AU",
+      "company": "AngloGold Ashanti plc",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 94.34,
@@ -3074,7 +3074,7 @@
     {
       "date": "2026-01-29",
       "ticker": "B",
-      "company": "B",
+      "company": "Barrick Mining Corporation",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 46.91,
@@ -3089,7 +3089,7 @@
     {
       "date": "2026-01-29",
       "ticker": "BIDU",
-      "company": "BIDU",
+      "company": "Baidu, Inc.",
       "sector": "Communication Services",
       "subsector": "Internet Content & Information",
       "entry": 156.01,
@@ -3119,7 +3119,7 @@
     {
       "date": "2026-01-29",
       "ticker": "EC",
-      "company": "EC",
+      "company": "Ecopetrol S.A.",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 12.12,
@@ -3134,7 +3134,7 @@
     {
       "date": "2026-01-29",
       "ticker": "EPD",
-      "company": "EPD",
+      "company": "Enterprise Products Partners L.P.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 32.79,
@@ -3179,7 +3179,7 @@
     {
       "date": "2026-01-29",
       "ticker": "PAAS",
-      "company": "PAAS",
+      "company": "Pan American Silver Corp.",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 54.98,
@@ -3194,7 +3194,7 @@
     {
       "date": "2026-01-29",
       "ticker": "PBR",
-      "company": "PBR",
+      "company": "Petróleo Brasileiro S.A. - Petrobras",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 15.39,
@@ -3209,7 +3209,7 @@
     {
       "date": "2026-01-29",
       "ticker": "SCCO",
-      "company": "SCCO",
+      "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "subsector": "Copper",
       "entry": 196.09,
@@ -3254,7 +3254,7 @@
     {
       "date": "2026-01-31",
       "ticker": "ANET",
-      "company": "ANET",
+      "company": "Arista Networks, Inc.",
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 141.32,
@@ -3269,7 +3269,7 @@
     {
       "date": "2026-01-31",
       "ticker": "BBD",
-      "company": "BBD",
+      "company": "Banco Bradesco S.A.",
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 3.96,
@@ -3284,7 +3284,7 @@
     {
       "date": "2026-01-31",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 67.94,
@@ -3314,7 +3314,7 @@
     {
       "date": "2026-01-31",
       "ticker": "CCJ",
-      "company": "CCJ",
+      "company": "Cameco Corporation",
       "sector": "Energy",
       "subsector": "Uranium",
       "entry": 122.19,
@@ -3329,7 +3329,7 @@
     {
       "date": "2026-01-31",
       "ticker": "COP",
-      "company": "COP",
+      "company": "ConocoPhillips",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 100.73,
@@ -3359,7 +3359,7 @@
     {
       "date": "2026-01-31",
       "ticker": "HSBC",
-      "company": "HSBC",
+      "company": "HSBC Holdings plc",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 85.67,
@@ -3374,7 +3374,7 @@
     {
       "date": "2026-01-31",
       "ticker": "IBM",
-      "company": "IBM",
+      "company": "International Business Machines Corporation",
       "sector": "Technology",
       "subsector": "IT Services",
       "entry": 303.53,
@@ -3389,7 +3389,7 @@
     {
       "date": "2026-01-31",
       "ticker": "ITUB",
-      "company": "ItaÃº Unibanco Holding S.A.",
+      "company": "Itaú Unibanco Holding S.A.",
       "sector": "Financial Services",
       "subsector": "Financial Services",
       "entry": 8.57,
@@ -3406,7 +3406,7 @@
       "ticker": "JNJ",
       "company": "Johnson & Johnson",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 227.11,
       "max_price": 238.72,
       "return_pct": 5.11,
@@ -3421,7 +3421,7 @@
       "ticker": "KO",
       "company": "The Coca-Cola Company",
       "sector": "Consumer Defensive",
-      "subsector": "Beveragesâ€”Non-Alcoholic",
+      "subsector": "Beverages–”Non-Alcoholic",
       "entry": 74.5,
       "max_price": 78.49,
       "return_pct": 5.36,
@@ -3449,7 +3449,7 @@
     {
       "date": "2026-01-31",
       "ticker": "MU",
-      "company": "MU",
+      "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 412.01,
@@ -3494,9 +3494,9 @@
     {
       "date": "2026-01-31",
       "ticker": "PUK",
-      "company": "PUK",
+      "company": "Prudential plc",
       "sector": "Financial Services",
-      "subsector": "Insuranceâ€”Life",
+      "subsector": "Insurance–”Life",
       "entry": 32.61,
       "max_price": 33.15,
       "return_pct": -5.26,
@@ -3524,7 +3524,7 @@
     {
       "date": "2026-01-31",
       "ticker": "RTX",
-      "company": "RTX",
+      "company": "RTX Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 199.33,
@@ -3539,9 +3539,9 @@
     {
       "date": "2026-01-31",
       "ticker": "SAN",
-      "company": "SAN",
+      "company": "Banco Santander, S.A.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 12.7,
       "max_price": 12.9,
       "return_pct": -3.67,
@@ -3569,7 +3569,7 @@
     {
       "date": "2026-01-31",
       "ticker": "TTE",
-      "company": "TTE",
+      "company": "TotalEnergies SE",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 70.77,
@@ -3584,7 +3584,7 @@
     {
       "date": "2026-01-31",
       "ticker": "VALE",
-      "company": "VALE",
+      "company": "Vale S.A.",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 16.1,
@@ -3599,7 +3599,7 @@
     {
       "date": "2026-01-31",
       "ticker": "VZ",
-      "company": "VZ",
+      "company": "Verizon Communications Inc.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 43.92,
@@ -3614,7 +3614,7 @@
     {
       "date": "2026-02-02",
       "ticker": "BAP",
-      "company": "BAP",
+      "company": "Credicorp Ltd.",
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 372.81,
@@ -3629,7 +3629,7 @@
     {
       "date": "2026-02-02",
       "ticker": "BMO",
-      "company": "BMO",
+      "company": "Bank of Montreal",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 138.0,
@@ -3659,7 +3659,7 @@
     {
       "date": "2026-02-02",
       "ticker": "GEV",
-      "company": "GEV",
+      "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 774.53,
@@ -3691,7 +3691,7 @@
       "ticker": "ING",
       "company": "ING Groep N.V.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 29.71,
       "max_price": 29.98,
       "return_pct": -5.26,
@@ -3704,7 +3704,7 @@
     {
       "date": "2026-02-02",
       "ticker": "MSCI",
-      "company": "MSCI",
+      "company": "MSCI Inc.",
       "sector": "Financial Services",
       "subsector": "Financial Data & Stock Exchanges",
       "entry": 608.7,
@@ -3719,9 +3719,9 @@
     {
       "date": "2026-02-02",
       "ticker": "NWG",
-      "company": "NWG",
+      "company": "NatWest Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 18.22,
       "max_price": 18.28,
       "return_pct": -5.26,
@@ -3764,7 +3764,7 @@
     {
       "date": "2026-02-02",
       "ticker": "VOD",
-      "company": "VOD",
+      "company": "Vodafone Group Public Limited Company",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 15.0,
@@ -3779,7 +3779,7 @@
     {
       "date": "2026-02-02",
       "ticker": "WDC",
-      "company": "WDC",
+      "company": "Western Digital Corporation",
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 279.38,
@@ -3824,7 +3824,7 @@
     {
       "date": "2026-02-03",
       "ticker": "DVN",
-      "company": "DVN",
+      "company": "Devon Energy Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 41.71,
@@ -3869,9 +3869,9 @@
     {
       "date": "2026-02-03",
       "ticker": "LYG",
-      "company": "LYG",
+      "company": "Lloyds Banking Group plc",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 6.16,
       "max_price": 6.16,
       "return_pct": -5.26,
@@ -3884,7 +3884,7 @@
     {
       "date": "2026-02-03",
       "ticker": "META",
-      "company": "META",
+      "company": "Meta Platforms, Inc.",
       "sector": "Communication Services",
       "subsector": "Internet Content & Information",
       "entry": 687.14,
@@ -3899,7 +3899,7 @@
     {
       "date": "2026-02-03",
       "ticker": "MNST",
-      "company": "MNST",
+      "company": "Monster Beverage Corporation",
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Non-Alcoholic",
       "entry": 82.44,
@@ -3914,7 +3914,7 @@
     {
       "date": "2026-02-03",
       "ticker": "TAK",
-      "company": "TAK",
+      "company": "Takeda Pharmaceutical Company Limited",
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 17.63,
@@ -3931,7 +3931,7 @@
       "ticker": "TEVA",
       "company": "Teva Pharmaceutical Industries Limited",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”Specialty & Generic",
+      "subsector": "Drug Manufacturers–”Specialty & Generic",
       "entry": 36.18,
       "max_price": 36.18,
       "return_pct": -5.26,
@@ -3959,9 +3959,9 @@
     {
       "date": "2026-02-04",
       "ticker": "AZN",
-      "company": "AZN",
+      "company": "AstraZeneca PLC",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 185.14,
       "max_price": 202.65,
       "return_pct": 9.46,
@@ -4004,7 +4004,7 @@
     {
       "date": "2026-02-04",
       "ticker": "CVX",
-      "company": "CVX",
+      "company": "Chevron Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 177.9,
@@ -4019,7 +4019,7 @@
     {
       "date": "2026-02-04",
       "ticker": "EPD",
-      "company": "EPD",
+      "company": "Enterprise Products Partners L.P.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 34.5,
@@ -4064,7 +4064,7 @@
     {
       "date": "2026-02-04",
       "ticker": "IMO",
-      "company": "IMO",
+      "company": "Imperial Oil Limited",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 108.8,
@@ -4109,7 +4109,7 @@
     {
       "date": "2026-02-04",
       "ticker": "MPC",
-      "company": "MPC",
+      "company": "Marathon Petroleum Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Refining & Marketing",
       "entry": 192.6,
@@ -4124,9 +4124,9 @@
     {
       "date": "2026-02-04",
       "ticker": "MRK",
-      "company": "MRK",
+      "company": "Merck & Co., Inc.",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 117.44,
       "max_price": 123.02,
       "return_pct": -2.13,
@@ -4139,7 +4139,7 @@
     {
       "date": "2026-02-04",
       "ticker": "PBR",
-      "company": "PBR",
+      "company": "Petróleo Brasileiro S.A. - Petrobras",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 14.98,
@@ -4156,7 +4156,7 @@
       "ticker": "PEP",
       "company": "PepsiCo, Inc.",
       "sector": "Consumer Defensive",
-      "subsector": "Beveragesâ€”Non-Alcoholic",
+      "subsector": "Beverages–”Non-Alcoholic",
       "entry": 165.04,
       "max_price": 168.98,
       "return_pct": -3.4,
@@ -4169,7 +4169,7 @@
     {
       "date": "2026-02-04",
       "ticker": "PSX",
-      "company": "PSX",
+      "company": "Phillips 66",
       "sector": "Energy",
       "subsector": "Oil & Gas Refining & Marketing",
       "entry": 151.06,
@@ -4199,7 +4199,7 @@
     {
       "date": "2026-02-04",
       "ticker": "SCCO",
-      "company": "SCCO",
+      "company": "Southern Copper Corporation",
       "sector": "Basic Materials",
       "subsector": "Copper",
       "entry": 189.44,
@@ -4229,7 +4229,7 @@
     {
       "date": "2026-02-04",
       "ticker": "UPS",
-      "company": "UPS",
+      "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "subsector": "Integrated Freight & Logistics",
       "entry": 114.4,
@@ -4244,7 +4244,7 @@
     {
       "date": "2026-02-04",
       "ticker": "XOM",
-      "company": "XOM",
+      "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 145.61,
@@ -4289,9 +4289,9 @@
     {
       "date": "2026-02-05",
       "ticker": "BNS",
-      "company": "BNS",
+      "company": "The Bank of Nova Scotia",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 75.6,
       "max_price": 77.78,
       "return_pct": -4.66,
@@ -4349,7 +4349,7 @@
     {
       "date": "2026-02-05",
       "ticker": "ET",
-      "company": "ET",
+      "company": "Energy Transfer LP",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 17.5,
@@ -4364,7 +4364,7 @@
     {
       "date": "2026-02-05",
       "ticker": "HSBC",
-      "company": "HSBC",
+      "company": "HSBC Holdings plc",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 85.82,
@@ -4379,9 +4379,9 @@
     {
       "date": "2026-02-05",
       "ticker": "PUK",
-      "company": "PUK",
+      "company": "Prudential plc",
       "sector": "Financial Services",
-      "subsector": "Insuranceâ€”Life",
+      "subsector": "Insurance–”Life",
       "entry": 31.85,
       "max_price": 32.27,
       "return_pct": -5.26,
@@ -4411,7 +4411,7 @@
       "ticker": "RY",
       "company": "Royal Bank of Canada",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 169.01,
       "max_price": 174.27,
       "return_pct": -3.91,
@@ -4424,7 +4424,7 @@
     {
       "date": "2026-02-05",
       "ticker": "SMFG",
-      "company": "SMFG",
+      "company": "Sumitomo Mitsui Financial Group, Inc.",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 22.85,
@@ -4441,7 +4441,7 @@
       "ticker": "TD",
       "company": "The Toronto-Dominion Bank",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 94.75,
       "max_price": 98.0,
       "return_pct": 0.09,
@@ -4454,9 +4454,9 @@
     {
       "date": "2026-02-12",
       "ticker": "ASX",
-      "company": "ASX",
+      "company": "ASE Technology Holding Co., Ltd.",
       "sector": "Financial Services",
-      "subsector": "Banksâ€”Diversified",
+      "subsector": "Banks–”Diversified",
       "entry": 23.46,
       "max_price": 24.82,
       "return_pct": 5.8,
@@ -4469,9 +4469,9 @@
     {
       "date": "2026-02-12",
       "ticker": "AZN",
-      "company": "AZN",
+      "company": "AstraZeneca PLC",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 203.52,
       "max_price": 208.62,
       "return_pct": -5.26,
@@ -4484,7 +4484,7 @@
     {
       "date": "2026-02-12",
       "ticker": "BDX",
-      "company": "BDX",
+      "company": "Becton, Dickinson and Company",
       "sector": "Healthcare",
       "subsector": "Medical Instruments & Supplies",
       "entry": 177.35,
@@ -4499,7 +4499,7 @@
     {
       "date": "2026-02-12",
       "ticker": "CNQ",
-      "company": "CNQ",
+      "company": "Canadian Natural Resources Limited",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 39.54,
@@ -4529,7 +4529,7 @@
     {
       "date": "2026-02-12",
       "ticker": "EMR",
-      "company": "EMR",
+      "company": "Emerson Electric Co.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 145.7,
@@ -4559,7 +4559,7 @@
     {
       "date": "2026-02-12",
       "ticker": "GEV",
-      "company": "GEV",
+      "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 814.51,
@@ -4619,7 +4619,7 @@
     {
       "date": "2026-02-12",
       "ticker": "STM",
-      "company": "STM",
+      "company": "STMicroelectronics N.V.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 33.75,
@@ -4649,7 +4649,7 @@
     {
       "date": "2026-02-12",
       "ticker": "TPR",
-      "company": "TPR",
+      "company": "Tapestry, Inc.",
       "sector": "Consumer Cyclical",
       "subsector": "Luxury Goods",
       "entry": 154.08,
@@ -4664,7 +4664,7 @@
     {
       "date": "2026-02-12",
       "ticker": "UPS",
-      "company": "UPS",
+      "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "subsector": "Integrated Freight & Logistics",
       "entry": 116.54,
@@ -4679,7 +4679,7 @@
     {
       "date": "2026-02-12",
       "ticker": "VIV",
-      "company": "VIV",
+      "company": "Telefônica Brasil S.A.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 15.47,
@@ -4694,7 +4694,7 @@
     {
       "date": "2026-02-12",
       "ticker": "WMB",
-      "company": "WMB",
+      "company": "The Williams Companies, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 71.24,
@@ -4709,7 +4709,7 @@
     {
       "date": "2026-02-13",
       "ticker": "AMX",
-      "company": "AMX",
+      "company": "América Móvil, S.A.B. de C.V.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 23.63,
@@ -4724,7 +4724,7 @@
     {
       "date": "2026-02-13",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 71.35,
@@ -4771,7 +4771,7 @@
       "ticker": "DLR",
       "company": "Digital Realty Trust, Inc.",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 179.67,
       "max_price": 181.38,
       "return_pct": 0.1,
@@ -4799,9 +4799,9 @@
     {
       "date": "2026-02-13",
       "ticker": "EQIX",
-      "company": "EQIX",
+      "company": "Equinix, Inc.",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 947.34,
       "max_price": 984.46,
       "return_pct": 2.89,
@@ -4816,7 +4816,7 @@
       "ticker": "EXC",
       "company": "Exelon Corporation",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Regulated Electric",
+      "subsector": "Utilities–”Regulated Electric",
       "entry": 48.43,
       "max_price": 50.29,
       "return_pct": -0.86,
@@ -4831,7 +4831,7 @@
       "ticker": "GILD",
       "company": "Gilead Sciences, Inc.",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 154.16,
       "max_price": 154.39,
       "return_pct": -5.26,
@@ -4876,7 +4876,7 @@
       "ticker": "IRM",
       "company": "Iron Mountain",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 110.08,
       "max_price": 112.32,
       "return_pct": -4.67,
@@ -4889,7 +4889,7 @@
     {
       "date": "2026-02-13",
       "ticker": "MLM",
-      "company": "MLM",
+      "company": "Martin Marietta Materials, Inc.",
       "sector": "Basic Materials",
       "subsector": "Building Materials",
       "entry": 666.64,
@@ -4906,7 +4906,7 @@
       "ticker": "PCG",
       "company": "PG&E Corporation",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Regulated Electric",
+      "subsector": "Utilities–”Regulated Electric",
       "entry": 18.25,
       "max_price": 19.06,
       "return_pct": -0.6,
@@ -4934,7 +4934,7 @@
     {
       "date": "2026-02-13",
       "ticker": "VMC",
-      "company": "VMC",
+      "company": "Vulcan Materials Company",
       "sector": "Basic Materials",
       "subsector": "Building Materials",
       "entry": 295.39,
@@ -4949,7 +4949,7 @@
     {
       "date": "2026-02-13",
       "ticker": "VRT",
-      "company": "VRT",
+      "company": "Vertiv Holdings Co",
       "sector": "Industrials",
       "subsector": "Electrical Equipment & Parts",
       "entry": 234.52,
@@ -4964,7 +4964,7 @@
     {
       "date": "2026-02-13",
       "ticker": "WAB",
-      "company": "WAB",
+      "company": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials",
       "subsector": "Railroads",
       "entry": 254.84,
@@ -4979,7 +4979,7 @@
     {
       "date": "2026-02-17",
       "ticker": "ANET",
-      "company": "ANET",
+      "company": "Arista Networks, Inc.",
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 140.46,
@@ -4994,7 +4994,7 @@
     {
       "date": "2026-02-17",
       "ticker": "BIIB",
-      "company": "BIIB",
+      "company": "Biogen Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 195.32,
@@ -5009,7 +5009,7 @@
     {
       "date": "2026-02-17",
       "ticker": "CNQ",
-      "company": "CNQ",
+      "company": "Canadian Natural Resources Limited",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 40.59,
@@ -5039,7 +5039,7 @@
     {
       "date": "2026-02-17",
       "ticker": "MUFG",
-      "company": "MUFG",
+      "company": "Mitsubishi UFJ Financial Group, Inc.",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 19.29,
@@ -5056,7 +5056,7 @@
       "ticker": "PEP",
       "company": "PepsiCo, Inc.",
       "sector": "Consumer Defensive",
-      "subsector": "Beveragesâ€”Non-Alcoholic",
+      "subsector": "Beverages–”Non-Alcoholic",
       "entry": 160.36,
       "max_price": 168.24,
       "return_pct": -5.26,
@@ -5069,7 +5069,7 @@
     {
       "date": "2026-02-17",
       "ticker": "SMFG",
-      "company": "SMFG",
+      "company": "Sumitomo Mitsui Financial Group, Inc.",
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 22.99,
@@ -5084,7 +5084,7 @@
     {
       "date": "2026-02-17",
       "ticker": "UPS",
-      "company": "UPS",
+      "company": "United Parcel Service, Inc.",
       "sector": "Industrials",
       "subsector": "Integrated Freight & Logistics",
       "entry": 115.17,
@@ -5099,7 +5099,7 @@
     {
       "date": "2026-02-18",
       "ticker": "AMX",
-      "company": "AMX",
+      "company": "América Móvil, S.A.B. de C.V.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 24.03,
@@ -5114,7 +5114,7 @@
     {
       "date": "2026-02-18",
       "ticker": "BAP",
-      "company": "BAP",
+      "company": "Credicorp Ltd.",
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 344.51,
@@ -5129,7 +5129,7 @@
     {
       "date": "2026-02-18",
       "ticker": "BDX",
-      "company": "BDX",
+      "company": "Becton, Dickinson and Company",
       "sector": "Healthcare",
       "subsector": "Medical Instruments & Supplies",
       "entry": 181.0,
@@ -5176,7 +5176,7 @@
       "ticker": "DLR",
       "company": "Digital Realty Trust, Inc.",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 175.1,
       "max_price": 181.38,
       "return_pct": -1.03,
@@ -5189,9 +5189,9 @@
     {
       "date": "2026-02-18",
       "ticker": "EQIX",
-      "company": "EQIX",
+      "company": "Equinix, Inc.",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 919.23,
       "max_price": 974.26,
       "return_pct": 5.99,
@@ -5221,7 +5221,7 @@
       "ticker": "EXC",
       "company": "Exelon Corporation",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Regulated Electric",
+      "subsector": "Utilities–”Regulated Electric",
       "entry": 46.73,
       "max_price": 49.17,
       "return_pct": 5.22,
@@ -5279,7 +5279,7 @@
     {
       "date": "2026-02-18",
       "ticker": "GEV",
-      "company": "GEV",
+      "company": "GE Vernova Inc.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 816.18,
@@ -5311,7 +5311,7 @@
       "ticker": "IRM",
       "company": "Iron Mountain",
       "sector": "Real Estate",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "entry": 105.34,
       "max_price": 112.32,
       "return_pct": 6.63,
@@ -5341,7 +5341,7 @@
       "ticker": "NEE",
       "company": "NextEra Energy, Inc.",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Renewable",
+      "subsector": "Utilities–”Renewable",
       "entry": 90.44,
       "max_price": 95.03,
       "return_pct": 5.07,
@@ -5356,7 +5356,7 @@
       "ticker": "NRG",
       "company": "NRG Energy, Inc.",
       "sector": "Energy",
-      "subsector": "Utilitiesâ€”Independent Power Producers",
+      "subsector": "Utilities–”Independent Power Producers",
       "entry": 169.96,
       "max_price": 178.63,
       "return_pct": 5.1,
@@ -5371,7 +5371,7 @@
       "ticker": "PCG",
       "company": "PG&E Corporation",
       "sector": "Utilities",
-      "subsector": "Utilitiesâ€”Regulated Electric",
+      "subsector": "Utilities–”Regulated Electric",
       "entry": 17.83,
       "max_price": 18.83,
       "return_pct": 5.59,
@@ -5384,7 +5384,7 @@
     {
       "date": "2026-02-18",
       "ticker": "PSA",
-      "company": "PSA",
+      "company": "Public Storage",
       "sector": "Real Estate",
       "subsector": "REIT - Industrial",
       "entry": 295.58,
@@ -5414,7 +5414,7 @@
     {
       "date": "2026-02-18",
       "ticker": "VRT",
-      "company": "VRT",
+      "company": "Vertiv Holdings Co",
       "sector": "Industrials",
       "subsector": "Electrical Equipment & Parts",
       "entry": 240.97,
@@ -5429,7 +5429,7 @@
     {
       "date": "2026-02-18",
       "ticker": "WAB",
-      "company": "WAB",
+      "company": "Westinghouse Air Brake Technologies Corporation",
       "sector": "Industrials",
       "subsector": "Railroads",
       "entry": 258.43,
@@ -5444,7 +5444,7 @@
     {
       "date": "2026-02-18",
       "ticker": "WDC",
-      "company": "WDC",
+      "company": "Western Digital Corporation",
       "sector": "Technology",
       "subsector": "Computer Hardware",
       "entry": 294.89,
@@ -5459,7 +5459,7 @@
     {
       "date": "2026-02-18",
       "ticker": "WDS",
-      "company": "WDS",
+      "company": "Woodside Energy Group Ltd",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 18.49,
@@ -5489,9 +5489,9 @@
     {
       "date": "2026-02-19",
       "ticker": "AMGN",
-      "company": "AMGN",
+      "company": "Amgen Inc.",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 372.01,
       "max_price": 388.16,
       "return_pct": -5.26,
@@ -5504,7 +5504,7 @@
     {
       "date": "2026-02-19",
       "ticker": "COP",
-      "company": "COP",
+      "company": "ConocoPhillips",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 111.22,
@@ -5519,7 +5519,7 @@
     {
       "date": "2026-02-19",
       "ticker": "FDX",
-      "company": "FDX",
+      "company": "FedEx Corporation",
       "sector": "Industrials",
       "subsector": "Integrated Freight & Logistics",
       "entry": 380.22,
@@ -5534,7 +5534,7 @@
     {
       "date": "2026-02-19",
       "ticker": "HUBB",
-      "company": "HUBB",
+      "company": "Hubbell Incorporated",
       "sector": "Industrials",
       "subsector": "Electrical Equipment & Parts",
       "entry": 523.88,
@@ -5564,9 +5564,9 @@
     {
       "date": "2026-02-19",
       "ticker": "MRK",
-      "company": "MRK",
+      "company": "Merck & Co., Inc.",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”General",
+      "subsector": "Drug Manufacturers–”General",
       "entry": 121.74,
       "max_price": 123.02,
       "return_pct": -5.26,
@@ -5594,7 +5594,7 @@
     {
       "date": "2026-02-19",
       "ticker": "OKE",
-      "company": "OKE",
+      "company": "ONEOK, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 85.77,
@@ -5609,7 +5609,7 @@
     {
       "date": "2026-02-19",
       "ticker": "RTX",
-      "company": "RTX",
+      "company": "RTX Corporation",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 205.49,
@@ -5669,7 +5669,7 @@
     {
       "date": "2026-02-19",
       "ticker": "XOM",
-      "company": "XOM",
+      "company": "Exxon Mobil Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 150.49,
@@ -5729,7 +5729,7 @@
     {
       "date": "2026-02-20",
       "ticker": "AMRZ",
-      "company": "AMRZ",
+      "company": "Amrize Ltd",
       "sector": "Basic Materials",
       "subsector": "Building Materials",
       "entry": 65.14,
@@ -5744,7 +5744,7 @@
     {
       "date": "2026-02-20",
       "ticker": "BHP",
-      "company": "BHP",
+      "company": "BHP Group Limited",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 75.52,
@@ -5774,7 +5774,7 @@
     {
       "date": "2026-02-20",
       "ticker": "DLTR",
-      "company": "DLTR",
+      "company": "Dollar Tree, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Discount Stores",
       "entry": 132.89,
@@ -5819,7 +5819,7 @@
     {
       "date": "2026-02-20",
       "ticker": "GE",
-      "company": "GE",
+      "company": "GE Aerospace",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 341.65,
@@ -5879,7 +5879,7 @@
     {
       "date": "2026-02-20",
       "ticker": "LYV",
-      "company": "LYV",
+      "company": "Live Nation Entertainment, Inc.",
       "sector": "Communication Services",
       "subsector": "Entertainment",
       "entry": 162.88,
@@ -5894,7 +5894,7 @@
     {
       "date": "2026-02-20",
       "ticker": "MU",
-      "company": "MU",
+      "company": "Micron Technology, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 422.13,
@@ -5924,7 +5924,7 @@
     {
       "date": "2026-02-20",
       "ticker": "OXY",
-      "company": "OXY",
+      "company": "Occidental Petroleum Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 52.0,
@@ -5954,7 +5954,7 @@
     {
       "date": "2026-02-20",
       "ticker": "TPL",
-      "company": "TPL",
+      "company": "Texas Pacific Land Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 513.4,
@@ -5984,7 +5984,7 @@
     {
       "date": "2026-02-23",
       "ticker": "EPRT",
-      "company": "EPRT",
+      "company": "Essential Properties Realty Trust, Inc.",
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 32.73,
@@ -5999,7 +5999,7 @@
     {
       "date": "2026-02-23",
       "ticker": "GNK",
-      "company": "GNK",
+      "company": "Genco Shipping & Trading Limited",
       "sector": "Industrials",
       "subsector": "Marine Shipping",
       "entry": 23.16,
@@ -6014,7 +6014,7 @@
     {
       "date": "2026-02-23",
       "ticker": "GOOD",
-      "company": "GOOD",
+      "company": "Gladstone Commercial Corporation",
       "sector": "Real Estate",
       "subsector": "REIT - Diversified",
       "entry": 12.54,
@@ -6029,7 +6029,7 @@
     {
       "date": "2026-02-23",
       "ticker": "KOD",
-      "company": "KOD",
+      "company": "Kodiak Sciences Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 26.79,
@@ -6044,7 +6044,7 @@
     {
       "date": "2026-02-23",
       "ticker": "MAC",
-      "company": "MAC",
+      "company": "The Macerich Company",
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 20.23,
@@ -6059,7 +6059,7 @@
     {
       "date": "2026-02-23",
       "ticker": "OIS",
-      "company": "OIS",
+      "company": "Oil States International, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 13.54,
@@ -6074,7 +6074,7 @@
     {
       "date": "2026-02-23",
       "ticker": "SSRM",
-      "company": "SSRM",
+      "company": "SSR Mining Inc.",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 29.44,
@@ -6089,7 +6089,7 @@
     {
       "date": "2026-02-24",
       "ticker": "CAKE",
-      "company": "CAKE",
+      "company": "The Cheesecake Factory Incorporated",
       "sector": "Consumer Cyclical",
       "subsector": "Restaurants",
       "entry": 64.57,
@@ -6104,7 +6104,7 @@
     {
       "date": "2026-02-24",
       "ticker": "CDP",
-      "company": "CDP",
+      "company": "COPT Defense Properties",
       "sector": "Real Estate",
       "subsector": "REIT - Office",
       "entry": 31.97,
@@ -6119,7 +6119,7 @@
     {
       "date": "2026-02-24",
       "ticker": "DHT",
-      "company": "DHT",
+      "company": "DHT Holdings, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 18.63,
@@ -6134,7 +6134,7 @@
     {
       "date": "2026-02-24",
       "ticker": "FLNG",
-      "company": "FLNG",
+      "company": "FLEX LNG Ltd.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 26.98,
@@ -6149,7 +6149,7 @@
     {
       "date": "2026-02-24",
       "ticker": "FPI",
-      "company": "FPI",
+      "company": "Farmland Partners Inc.",
       "sector": "Real Estate",
       "subsector": "REIT - Specialty",
       "entry": 12.5,
@@ -6164,7 +6164,7 @@
     {
       "date": "2026-02-24",
       "ticker": "HCSG",
-      "company": "HCSG",
+      "company": "Healthcare Services Group, Inc.",
       "sector": "Healthcare",
       "subsector": "Medical Care Facilities",
       "entry": 21.58,
@@ -6179,7 +6179,7 @@
     {
       "date": "2026-02-24",
       "ticker": "PRG",
-      "company": "PRG",
+      "company": "PROG Holdings, Inc.",
       "sector": "Industrials",
       "subsector": "Rental & Leasing Services",
       "entry": 36.9,
@@ -6194,7 +6194,7 @@
     {
       "date": "2026-02-24",
       "ticker": "RHP",
-      "company": "RHP",
+      "company": "Ryman Hospitality Properties, Inc.",
       "sector": "Real Estate",
       "subsector": "REIT - Hotel & Motel",
       "entry": 101.23,
@@ -6209,7 +6209,7 @@
     {
       "date": "2026-02-24",
       "ticker": "SPNT",
-      "company": "SPNT",
+      "company": "SiriusPoint Ltd.",
       "sector": "Financial Services",
       "subsector": "Insurance - Reinsurance",
       "entry": 21.19,
@@ -6224,7 +6224,7 @@
     {
       "date": "2026-02-24",
       "ticker": "UTI",
-      "company": "UTI",
+      "company": "Universal Technical Institute, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Education & Training Services",
       "entry": 34.5,
@@ -6239,7 +6239,7 @@
     {
       "date": "2026-02-24",
       "ticker": "VICR",
-      "company": "VICR",
+      "company": "Vicor Corporation",
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 192.13,
@@ -6254,7 +6254,7 @@
     {
       "date": "2026-02-24",
       "ticker": "WH",
-      "company": "WH",
+      "company": "Wyndham Hotels & Resorts, Inc.",
       "sector": "Consumer Cyclical",
       "subsector": "Lodging",
       "entry": 84.11,
@@ -6269,7 +6269,7 @@
     {
       "date": "2026-02-25",
       "ticker": "ATEX",
-      "company": "ATEX",
+      "company": "Anterix Inc.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 36.19,
@@ -6284,7 +6284,7 @@
     {
       "date": "2026-02-25",
       "ticker": "BLCO",
-      "company": "BLCO",
+      "company": "Bausch + Lomb Corporation",
       "sector": "Healthcare",
       "subsector": "Medical Instruments & Supplies",
       "entry": 18.58,
@@ -6299,7 +6299,7 @@
     {
       "date": "2026-02-25",
       "ticker": "COCO",
-      "company": "COCO",
+      "company": "The Vita Coco Company, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Beverages - Non-Alcoholic",
       "entry": 55.3,
@@ -6329,7 +6329,7 @@
     {
       "date": "2026-02-25",
       "ticker": "ESTA",
-      "company": "ESTA",
+      "company": "Establishment Labs Holdings Inc.",
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 78.0,
@@ -6344,7 +6344,7 @@
     {
       "date": "2026-02-25",
       "ticker": "FLR",
-      "company": "FLR",
+      "company": "Fluor Corporation",
       "sector": "Industrials",
       "subsector": "Engineering & Construction",
       "entry": 53.89,
@@ -6374,7 +6374,7 @@
     {
       "date": "2026-02-25",
       "ticker": "FSM",
-      "company": "FSM",
+      "company": "Fortuna Mining Corp.",
       "sector": "Basic Materials",
       "subsector": "Gold",
       "entry": 13.01,
@@ -6389,7 +6389,7 @@
     {
       "date": "2026-02-25",
       "ticker": "GTY",
-      "company": "GTY",
+      "company": "Getty Realty Corp.",
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 32.31,
@@ -6404,7 +6404,7 @@
     {
       "date": "2026-02-25",
       "ticker": "HG",
-      "company": "HG",
+      "company": "Hamilton Insurance Group, Ltd.",
       "sector": "Financial Services",
       "subsector": "Insurance - Reinsurance",
       "entry": 29.18,
@@ -6419,7 +6419,7 @@
     {
       "date": "2026-02-25",
       "ticker": "MAMA",
-      "company": "MAMA",
+      "company": "Mama's Creations, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Packaged Foods",
       "entry": 17.66,
@@ -6434,7 +6434,7 @@
     {
       "date": "2026-02-25",
       "ticker": "OMC",
-      "company": "OMC",
+      "company": "Omnicom Group Inc.",
       "sector": "Communication Services",
       "subsector": "Advertising Agencies",
       "entry": 82.23,
@@ -6449,7 +6449,7 @@
     {
       "date": "2026-02-25",
       "ticker": "OXY",
-      "company": "OXY",
+      "company": "Occidental Petroleum Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 50.06,
@@ -6464,7 +6464,7 @@
     {
       "date": "2026-02-25",
       "ticker": "POR",
-      "company": "POR",
+      "company": "Portland General Electric Company",
       "sector": "Utilities",
       "subsector": "Utilities - Regulated Electric",
       "entry": 53.1,
@@ -6479,7 +6479,7 @@
     {
       "date": "2026-02-25",
       "ticker": "RNG",
-      "company": "RNG",
+      "company": "RingCentral, Inc.",
       "sector": "Technology",
       "subsector": "Software - Application",
       "entry": 34.74,
@@ -6494,7 +6494,7 @@
     {
       "date": "2026-02-25",
       "ticker": "ST",
-      "company": "ST",
+      "company": "Sensata Technologies Holding plc",
       "sector": "Technology",
       "subsector": "Scientific & Technical Instruments",
       "entry": 38.09,
@@ -6509,7 +6509,7 @@
     {
       "date": "2026-02-25",
       "ticker": "UCTT",
-      "company": "UCTT",
+      "company": "Ultra Clean Holdings, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 63.1,
@@ -6524,7 +6524,7 @@
     {
       "date": "2026-02-25",
       "ticker": "UPBD",
-      "company": "UPBD",
+      "company": "Upbound Group, Inc.",
       "sector": "Technology",
       "subsector": "Software - Application",
       "entry": 21.31,
@@ -6539,7 +6539,7 @@
     {
       "date": "2026-02-25",
       "ticker": "VNOM",
-      "company": "VNOM",
+      "company": "Viper Energy, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 44.04,
@@ -6554,7 +6554,7 @@
     {
       "date": "2026-02-25",
       "ticker": "WSC",
-      "company": "WSC",
+      "company": "WillScot Holdings Corporation",
       "sector": "Industrials",
       "subsector": "Rental & Leasing Services",
       "entry": 21.84,
@@ -6569,7 +6569,7 @@
     {
       "date": "2026-02-25",
       "ticker": "XP",
-      "company": "XP",
+      "company": "XP Inc.",
       "sector": "Financial Services",
       "subsector": "Capital Markets",
       "entry": 22.14,
@@ -6584,7 +6584,7 @@
     {
       "date": "2026-02-25",
       "ticker": "XPRO",
-      "company": "XPRO",
+      "company": "Expro Group Holdings N.V.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 17.01,
@@ -6599,7 +6599,7 @@
     {
       "date": "2026-02-26",
       "ticker": "ALSN",
-      "company": "ALSN",
+      "company": "Allison Transmission Holdings, Inc.",
       "sector": "Consumer Cyclical",
       "subsector": "Auto Parts",
       "entry": 123.69,
@@ -6644,7 +6644,7 @@
     {
       "date": "2026-02-26",
       "ticker": "KIM",
-      "company": "KIM",
+      "company": "Kimco Realty Corporation",
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 23.31,
@@ -6659,7 +6659,7 @@
     {
       "date": "2026-02-26",
       "ticker": "LAMR",
-      "company": "LAMR",
+      "company": "Lamar Advertising Company",
       "sector": "Real Estate",
       "subsector": "REIT - Specialty",
       "entry": 134.09,
@@ -6674,7 +6674,7 @@
     {
       "date": "2026-02-26",
       "ticker": "OII",
-      "company": "OII",
+      "company": "Oceaneering International, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 37.22,
@@ -6689,7 +6689,7 @@
     {
       "date": "2026-02-26",
       "ticker": "OUT",
-      "company": "OUT",
+      "company": "OUTFRONT Media Inc.",
       "sector": "Real Estate",
       "subsector": "REIT - Specialty",
       "entry": 28.27,
@@ -6704,7 +6704,7 @@
     {
       "date": "2026-02-26",
       "ticker": "PRDO",
-      "company": "PRDO",
+      "company": "Perdoceo Education Corporation",
       "sector": "Consumer Defensive",
       "subsector": "Education & Training Services",
       "entry": 32.89,
@@ -6719,7 +6719,7 @@
     {
       "date": "2026-02-26",
       "ticker": "SYRE",
-      "company": "SYRE",
+      "company": "Spyre Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 42.42,
@@ -6734,7 +6734,7 @@
     {
       "date": "2026-02-26",
       "ticker": "TNK",
-      "company": "TNK",
+      "company": "Teekay Tankers Ltd.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 77.78,
@@ -6749,7 +6749,7 @@
     {
       "date": "2026-02-27",
       "ticker": "AMX",
-      "company": "AMX",
+      "company": "América Móvil, S.A.B. de C.V.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 25.78,
@@ -6764,7 +6764,7 @@
     {
       "date": "2026-02-27",
       "ticker": "AXIA",
-      "company": "AXIA",
+      "company": "AXIA Energia SA",
       "sector": "Utilities",
       "subsector": "Utilities - Renewable",
       "entry": 11.66,
@@ -6779,7 +6779,7 @@
     {
       "date": "2026-02-27",
       "ticker": "INVX",
-      "company": "INVX",
+      "company": "Innovex International, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 26.35,
@@ -6794,7 +6794,7 @@
     {
       "date": "2026-02-27",
       "ticker": "KRG",
-      "company": "KRG",
+      "company": "Kite Realty Group Trust",
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 25.68,
@@ -6809,7 +6809,7 @@
     {
       "date": "2026-02-27",
       "ticker": "LINC",
-      "company": "LINC",
+      "company": "Lincoln Educational Services Corporation",
       "sector": "Consumer Defensive",
       "subsector": "Education & Training Services",
       "entry": 35.87,
@@ -6824,7 +6824,7 @@
     {
       "date": "2026-02-27",
       "ticker": "LIVN",
-      "company": "LIVN",
+      "company": "LivaNova PLC",
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 69.31,
@@ -6839,7 +6839,7 @@
     {
       "date": "2026-02-27",
       "ticker": "LNG",
-      "company": "LNG",
+      "company": "Cheniere Energy, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 247.87,
@@ -6854,7 +6854,7 @@
     {
       "date": "2026-02-27",
       "ticker": "MTZ",
-      "company": "MTZ",
+      "company": "MasTec, Inc.",
       "sector": "Industrials",
       "subsector": "Engineering & Construction",
       "entry": 297.96,
@@ -6869,7 +6869,7 @@
     {
       "date": "2026-02-27",
       "ticker": "NVAX",
-      "company": "NVAX",
+      "company": "Novavax, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 9.78,
@@ -6884,7 +6884,7 @@
     {
       "date": "2026-02-27",
       "ticker": "ORIC",
-      "company": "ORIC",
+      "company": "ORIC Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 13.11,
@@ -6899,7 +6899,7 @@
     {
       "date": "2026-02-27",
       "ticker": "PLAB",
-      "company": "PLAB",
+      "company": "Photronics, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 36.35,
@@ -6929,7 +6929,7 @@
     {
       "date": "2026-02-27",
       "ticker": "REZI",
-      "company": "REZI",
+      "company": "Resideo Technologies, Inc.",
       "sector": "Industrials",
       "subsector": "Industrial Distribution",
       "entry": 38.12,
@@ -6944,7 +6944,7 @@
     {
       "date": "2026-03-01",
       "ticker": "PBA",
-      "company": "PBA",
+      "company": "Pembina Pipeline Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 44.03,
@@ -6959,7 +6959,7 @@
     {
       "date": "2026-03-01",
       "ticker": "SLF",
-      "company": "SLF",
+      "company": "Sun Life Financial Inc.",
       "sector": "Financial Services",
       "subsector": "Insurance - Diversified",
       "entry": 64.67,
@@ -6974,7 +6974,7 @@
     {
       "date": "2026-03-01",
       "ticker": "YOU",
-      "company": "YOU",
+      "company": "Clear Secure, Inc.",
       "sector": "Technology",
       "subsector": "Software - Application",
       "entry": 48.09,
@@ -7004,7 +7004,7 @@
     {
       "date": "2026-03-02",
       "ticker": "CHRD",
-      "company": "CHRD",
+      "company": "Chord Energy Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 113.36,
@@ -7019,7 +7019,7 @@
     {
       "date": "2026-03-02",
       "ticker": "CME",
-      "company": "CME",
+      "company": "CME Group Inc.",
       "sector": "Financial Services",
       "subsector": "Financial Data & Stock Exchanges",
       "entry": 319.9,
@@ -7034,7 +7034,7 @@
     {
       "date": "2026-03-02",
       "ticker": "COHR",
-      "company": "COHR",
+      "company": "Coherent Corp.",
       "sector": "Technology",
       "subsector": "Scientific & Technical Instruments",
       "entry": 285.87,
@@ -7066,7 +7066,7 @@
       "ticker": "JAZZ",
       "company": "Jazz Pharmaceuticals",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”Specialty & Generic",
+      "subsector": "Drug Manufacturers–”Specialty & Generic",
       "entry": 186.12,
       "max_price": 188.69,
       "return_pct": -0.28,
@@ -7079,7 +7079,7 @@
     {
       "date": "2026-03-02",
       "ticker": "KNTK",
-      "company": "KNTK",
+      "company": "Kinetik Holdings Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 45.32,
@@ -7094,7 +7094,7 @@
     {
       "date": "2026-03-02",
       "ticker": "LNTH",
-      "company": "LNTH",
+      "company": "Lantheus Holdings, Inc.",
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 75.0,
@@ -7109,7 +7109,7 @@
     {
       "date": "2026-03-02",
       "ticker": "PVLA",
-      "company": "PVLA",
+      "company": "Palvella Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 130.15,
@@ -7124,7 +7124,7 @@
     {
       "date": "2026-03-02",
       "ticker": "STRL",
-      "company": "STRL",
+      "company": "Sterling Infrastructure, Inc.",
       "sector": "Industrials",
       "subsector": "Engineering & Construction",
       "entry": 414.85,
@@ -7139,7 +7139,7 @@
     {
       "date": "2026-03-02",
       "ticker": "SUI",
-      "company": "SUI",
+      "company": "Sun Communities, Inc.",
       "sector": "Real Estate",
       "subsector": "REIT - Residential",
       "entry": 134.13,
@@ -7154,7 +7154,7 @@
     {
       "date": "2026-03-02",
       "ticker": "TIGO",
-      "company": "TIGO",
+      "company": "Millicom International Cellular S.A.",
       "sector": "Communication Services",
       "subsector": "Telecom Services",
       "entry": 72.84,
@@ -7169,7 +7169,7 @@
     {
       "date": "2026-03-02",
       "ticker": "UCTT",
-      "company": "UCTT",
+      "company": "Ultra Clean Holdings, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductor Equipment & Materials",
       "entry": 60.9,
@@ -7184,7 +7184,7 @@
     {
       "date": "2026-03-02",
       "ticker": "VICR",
-      "company": "VICR",
+      "company": "Vicor Corporation",
       "sector": "Technology",
       "subsector": "Electronic Components",
       "entry": 195.0,
@@ -7199,7 +7199,7 @@
     {
       "date": "2026-03-02",
       "ticker": "XRAY",
-      "company": "XRAY",
+      "company": "DENTSPLY SIRONA Inc.",
       "sector": "Healthcare",
       "subsector": "Medical Instruments & Supplies",
       "entry": 14.12,
@@ -7214,7 +7214,7 @@
     {
       "date": "2026-03-03",
       "ticker": "CNA",
-      "company": "CNA",
+      "company": "CNA Financial Corporation",
       "sector": "Financial Services",
       "subsector": "Insurance - Property & Casualty",
       "entry": 49.35,
@@ -7229,7 +7229,7 @@
     {
       "date": "2026-03-03",
       "ticker": "CNK",
-      "company": "CNK",
+      "company": "Cinemark Holdings, Inc.",
       "sector": "Communication Services",
       "subsector": "Entertainment",
       "entry": 28.76,
@@ -7244,7 +7244,7 @@
     {
       "date": "2026-03-03",
       "ticker": "EFXT",
-      "company": "EFXT",
+      "company": "Enerflex Ltd.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 22.05,
@@ -7259,7 +7259,7 @@
     {
       "date": "2026-03-03",
       "ticker": "GTN",
-      "company": "GTN",
+      "company": "Gray Media, Inc.",
       "sector": "Communication Services",
       "subsector": "Broadcasting",
       "entry": 5.22,
@@ -7274,7 +7274,7 @@
     {
       "date": "2026-03-03",
       "ticker": "INSW",
-      "company": "INSW",
+      "company": "International Seaways, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 71.8,
@@ -7289,7 +7289,7 @@
     {
       "date": "2026-03-03",
       "ticker": "KNSA",
-      "company": "KNSA",
+      "company": "Kiniksa Pharmaceuticals International, plc",
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 44.67,
@@ -7304,7 +7304,7 @@
     {
       "date": "2026-03-03",
       "ticker": "LASR",
-      "company": "LASR",
+      "company": "nLIGHT, Inc.",
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 66.77,
@@ -7319,7 +7319,7 @@
     {
       "date": "2026-03-03",
       "ticker": "MTDR",
-      "company": "MTDR",
+      "company": "Matador Resources Company",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 51.95,
@@ -7334,7 +7334,7 @@
     {
       "date": "2026-03-03",
       "ticker": "SUPN",
-      "company": "SUPN",
+      "company": "Supernus Pharmaceuticals, Inc.",
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 54.72,
@@ -7364,7 +7364,7 @@
     {
       "date": "2026-03-04",
       "ticker": "BTSG",
-      "company": "BTSG",
+      "company": "BrightSpring Health Services, Inc.",
       "sector": "Healthcare",
       "subsector": "Health Information Services",
       "entry": 41.38,
@@ -7379,7 +7379,7 @@
     {
       "date": "2026-03-04",
       "ticker": "BVN",
-      "company": "BVN",
+      "company": "Compañía de Minas Buenaventura S.A.A.",
       "sector": "Basic Materials",
       "subsector": "Other Precious Metals & Mining",
       "entry": 37.38,
@@ -7394,7 +7394,7 @@
     {
       "date": "2026-03-04",
       "ticker": "CLDX",
-      "company": "CLDX",
+      "company": "Celldex Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 29.05,
@@ -7409,7 +7409,7 @@
     {
       "date": "2026-03-04",
       "ticker": "CRGY",
-      "company": "CRGY",
+      "company": "Crescent Energy Company",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 11.52,
@@ -7439,7 +7439,7 @@
     {
       "date": "2026-03-04",
       "ticker": "EQNR",
-      "company": "EQNR",
+      "company": "Equinor ASA",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 31.55,
@@ -7454,7 +7454,7 @@
     {
       "date": "2026-03-04",
       "ticker": "GLNG",
-      "company": "GLNG",
+      "company": "Golar LNG Limited",
       "sector": "Energy",
       "subsector": "Oil & Gas Midstream",
       "entry": 46.67,
@@ -7469,7 +7469,7 @@
     {
       "date": "2026-03-04",
       "ticker": "MTZ",
-      "company": "MTZ",
+      "company": "MasTec, Inc.",
       "sector": "Industrials",
       "subsector": "Engineering & Construction",
       "entry": 299.51,
@@ -7484,7 +7484,7 @@
     {
       "date": "2026-03-04",
       "ticker": "NEXA",
-      "company": "NEXA",
+      "company": "Nexa Resources S.A.",
       "sector": "Basic Materials",
       "subsector": "Other Industrial Metals & Mining",
       "entry": 12.19,
@@ -7499,7 +7499,7 @@
     {
       "date": "2026-03-04",
       "ticker": "OXY",
-      "company": "OXY",
+      "company": "Occidental Petroleum Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 53.74,
@@ -7514,7 +7514,7 @@
     {
       "date": "2026-03-04",
       "ticker": "PEB",
-      "company": "PEB",
+      "company": "Pebblebrook Hotel Trust",
       "sector": "Real Estate",
       "subsector": "REIT - Hotel & Motel",
       "entry": 12.85,
@@ -7529,7 +7529,7 @@
     {
       "date": "2026-03-04",
       "ticker": "SRRK",
-      "company": "SRRK",
+      "company": "Scholar Rock Holding Corporation",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 47.18,
@@ -7544,7 +7544,7 @@
     {
       "date": "2026-03-04",
       "ticker": "TDAY",
-      "company": "TDAY",
+      "company": "USA TODAY Co., Inc.",
       "sector": "Communication Services",
       "subsector": "Publishing",
       "entry": 6.16,
@@ -7559,7 +7559,7 @@
     {
       "date": "2026-03-04",
       "ticker": "TDW",
-      "company": "TDW",
+      "company": "Tidewater Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 84.93,
@@ -7589,7 +7589,7 @@
     {
       "date": "2026-03-04",
       "ticker": "TRS",
-      "company": "TRS",
+      "company": "TriMas Corporation",
       "sector": "Consumer Cyclical",
       "subsector": "Packaging & Containers",
       "entry": 39.07,
@@ -7604,7 +7604,7 @@
     {
       "date": "2026-03-04",
       "ticker": "VAC",
-      "company": "VAC",
+      "company": "Marriott Vacations Worldwide Corporation",
       "sector": "Consumer Cyclical",
       "subsector": "Resorts & Casinos",
       "entry": 70.85,
@@ -7619,7 +7619,7 @@
     {
       "date": "2026-03-04",
       "ticker": "VIAV",
-      "company": "VIAV",
+      "company": "Viavi Solutions Inc.",
       "sector": "Technology",
       "subsector": "Communication Equipment",
       "entry": 31.54,
@@ -7634,7 +7634,7 @@
     {
       "date": "2026-03-04",
       "ticker": "VIST",
-      "company": "VIST",
+      "company": "Vista Energy, S.A.B. de C.V.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 59.37,
@@ -7649,7 +7649,7 @@
     {
       "date": "2026-03-04",
       "ticker": "VVX",
-      "company": "VVX",
+      "company": "V2X, Inc.",
       "sector": "Industrials",
       "subsector": "Aerospace & Defense",
       "entry": 73.4,
@@ -7664,7 +7664,7 @@
     {
       "date": "2026-03-16",
       "ticker": "ADEA",
-      "company": "ADEA",
+      "company": "Adeia Inc.",
       "sector": "Technology",
       "subsector": "Software - Application",
       "entry": 23.04,
@@ -7679,7 +7679,7 @@
     {
       "date": "2026-03-16",
       "ticker": "APEI",
-      "company": "APEI",
+      "company": "American Public Education, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Education & Training Services",
       "entry": 55.0,
@@ -7709,7 +7709,7 @@
     {
       "date": "2026-03-16",
       "ticker": "CAPR",
-      "company": "CAPR",
+      "company": "Capricor Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 30.66,
@@ -7724,7 +7724,7 @@
     {
       "date": "2026-03-16",
       "ticker": "CGON",
-      "company": "CGON",
+      "company": "CG Oncology, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 65.91,
@@ -7754,7 +7754,7 @@
     {
       "date": "2026-03-16",
       "ticker": "DNTH",
-      "company": "DNTH",
+      "company": "Dianthus Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 77.24,
@@ -7769,7 +7769,7 @@
     {
       "date": "2026-03-16",
       "ticker": "EGY",
-      "company": "EGY",
+      "company": "VAALCO Energy, Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 5.61,
@@ -7799,7 +7799,7 @@
     {
       "date": "2026-03-16",
       "ticker": "LXU",
-      "company": "LXU",
+      "company": "LSB Industries, Inc.",
       "sector": "Basic Materials",
       "subsector": "Specialty Chemicals",
       "entry": 14.81,
@@ -7829,7 +7829,7 @@
     {
       "date": "2026-03-16",
       "ticker": "NSSC",
-      "company": "NSSC",
+      "company": "Napco Security Technologies, Inc.",
       "sector": "Industrials",
       "subsector": "Security & Protection Services",
       "entry": 42.84,
@@ -7844,7 +7844,7 @@
     {
       "date": "2026-03-16",
       "ticker": "OXY",
-      "company": "OXY",
+      "company": "Occidental Petroleum Corporation",
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 57.5,
@@ -7859,7 +7859,7 @@
     {
       "date": "2026-03-16",
       "ticker": "PBR",
-      "company": "PBR",
+      "company": "Petróleo Brasileiro S.A. - Petrobras",
       "sector": "Energy",
       "subsector": "Oil & Gas Integrated",
       "entry": 19.41,
@@ -7874,7 +7874,7 @@
     {
       "date": "2026-03-16",
       "ticker": "PSX",
-      "company": "PSX",
+      "company": "Phillips 66",
       "sector": "Energy",
       "subsector": "Oil & Gas Refining & Marketing",
       "entry": 174.62,
@@ -7889,7 +7889,7 @@
     {
       "date": "2026-03-16",
       "ticker": "RLAY",
-      "company": "RLAY",
+      "company": "Relay Therapeutics, Inc.",
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 10.06,
@@ -7904,7 +7904,7 @@
     {
       "date": "2026-03-16",
       "ticker": "STGW",
-      "company": "STGW",
+      "company": "Stagwell Inc.",
       "sector": "Industrials",
       "subsector": "Specialty Industrial Machinery",
       "entry": 5.91,
@@ -7919,7 +7919,7 @@
     {
       "date": "2026-03-16",
       "ticker": "TALK",
-      "company": "TALK",
+      "company": "Talkspace, Inc.",
       "sector": "Healthcare",
       "subsector": "Health Information Services",
       "entry": 5.14,
@@ -7934,7 +7934,7 @@
     {
       "date": "2026-03-16",
       "ticker": "UNFI",
-      "company": "UNFI",
+      "company": "United Natural Foods, Inc.",
       "sector": "Consumer Defensive",
       "subsector": "Food Distribution",
       "entry": 41.46,
@@ -7951,7 +7951,7 @@
       "ticker": "UTHR",
       "company": "United Therapeutics Corporation",
       "sector": "Healthcare",
-      "subsector": "Drug Manufacturersâ€”Specialty & Generic",
+      "subsector": "Drug Manufacturers–”Specialty & Generic",
       "entry": 533.51,
       "max_price": 588.36,
       "return_pct": 10.28,
@@ -8774,7 +8774,7 @@
     {
       "date": "2026-04-15",
       "ticker": "NBIS",
-      "company": "NBIS",
+      "company": "Nebius Group N.V.",
       "sector": "Communication Services",
       "subsector": "Entertainment",
       "entry": 167.0,
@@ -8806,7 +8806,7 @@
       "ticker": "QXO",
       "company": "QXO, Inc.",
       "sector": "Industrials",
-      "subsector": "Softwareâ€”Application",
+      "subsector": "Software–”Application",
       "entry": 23.21,
       "max_price": 25.0,
       "return_pct": 7.71,
@@ -8976,7 +8976,7 @@
       "return_pct": 6.77,
       "days": 10,
       "result": "WIN",
-      "subsector": "REITâ€”Specialty",
+      "subsector": "REIT–”Specialty",
       "peak_date": "2026-04-30",
       "exit_date": "2026-04-30",
       "sl_pct": 5.26
@@ -8991,7 +8991,7 @@
       "return_pct": -0.28,
       "days": 0,
       "result": "LOSS",
-      "subsector": "Drug Manufacturersâ€”Specialty & Generic",
+      "subsector": "Drug Manufacturers–”Specialty & Generic",
       "peak_date": "2026-04-20",
       "sl_pct": 0.28,
       "exit_date": "2026-04-20"
@@ -9029,7 +9029,7 @@
     {
       "date": "2026-04-17",
       "ticker": "SQM",
-      "company": "Sociedad QuÃ­mica y Minera",
+      "company": "Sociedad Química y Minera",
       "sector": "Basic Materials",
       "entry": 88.0,
       "max_price": 92.41,
@@ -11200,7 +11200,7 @@
     {
       "date": "2026-05-10",
       "ticker": "FLOC",
-      "company": "FLOC",
+      "company": "Flowco Holdings Inc.",
       "sector": "Energy",
       "subsector": "Oil & Gas Equipment & Services",
       "entry": 25.06,
@@ -12389,9 +12389,9 @@
     {
       "date": "2026-05-13",
       "ticker": "MS",
-      "company": "MS",
+      "company": "Morgan Stanley",
       "sector": "Financial Services",
-      "subsector": "N/A",
+      "subsector": "Capital Markets",
       "entry": 193.35,
       "max_price": 195.73,
       "sl_pct": 3.09,
@@ -12403,9 +12403,9 @@
     {
       "date": "2026-05-13",
       "ticker": "OII",
-      "company": "OII",
+      "company": "Oceaneering International, Inc.",
       "sector": "Energy",
-      "subsector": "N/A",
+      "subsector": "Oil & Gas Equipment & Services",
       "entry": 38.26,
       "max_price": 38.82,
       "sl_pct": 5.4,
@@ -12417,9 +12417,9 @@
     {
       "date": "2026-05-13",
       "ticker": "HIW",
-      "company": "HIW",
+      "company": "Highwoods Properties, Inc.",
       "sector": "Real Estate",
-      "subsector": "N/A",
+      "subsector": "REIT - Office",
       "entry": 25.93,
       "max_price": 26.91,
       "sl_pct": 3.32,
@@ -12431,9 +12431,9 @@
     {
       "date": "2026-05-13",
       "ticker": "NVRI",
-      "company": "NVRI",
+      "company": "Enviri Corporation",
       "sector": "Industrials",
-      "subsector": "N/A",
+      "subsector": "Waste Management",
       "entry": 19.75,
       "max_price": 19.75,
       "sl_pct": 2.94,
@@ -12445,9 +12445,9 @@
     {
       "date": "2026-05-13",
       "ticker": "MGA",
-      "company": "MGA",
+      "company": "Magna International Inc.",
       "sector": "Consumer Cyclical",
-      "subsector": "N/A",
+      "subsector": "Auto Parts",
       "entry": 62.38,
       "max_price": 64.12,
       "sl_pct": 3.58,
@@ -12459,9 +12459,9 @@
     {
       "date": "2026-05-13",
       "ticker": "BILI",
-      "company": "BILI",
+      "company": "Bilibili Inc.",
       "sector": "Communication Services",
-      "subsector": "N/A",
+      "subsector": "Internet Content & Information",
       "entry": 22.53,
       "max_price": 22.53,
       "sl_pct": 4.48,
@@ -12474,9 +12474,9 @@
     {
       "date": "2026-05-13",
       "ticker": "CSX",
-      "company": "CSX",
+      "company": "CSX Corporation",
       "sector": "Industrials",
-      "subsector": "N/A",
+      "subsector": "Railroads",
       "entry": 44.35,
       "max_price": 45.93,
       "sl_pct": 2.49,
@@ -12488,9 +12488,9 @@
     {
       "date": "2026-05-14",
       "ticker": "TTWO",
-      "company": "TTWO",
+      "company": "Take-Two Interactive Software, Inc.",
       "sector": "Communication Services",
-      "subsector": "N/A",
+      "subsector": "Electronic Gaming & Multimedia",
       "entry": 240.46,
       "max_price": 245.89,
       "sl_pct": 7.1,
@@ -12502,9 +12502,9 @@
     {
       "date": "2026-05-14",
       "ticker": "APO",
-      "company": "APO",
+      "company": "Apollo Global Management, Inc.",
       "sector": "Financial Services",
-      "subsector": "N/A",
+      "subsector": "Asset Management",
       "entry": 135.02,
       "max_price": 135.86,
       "sl_pct": 4.29,
@@ -12516,9 +12516,9 @@
     {
       "date": "2026-05-14",
       "ticker": "MSGE",
-      "company": "MSGE",
+      "company": "Madison Square Garden Entertainment Corp.",
       "sector": "Communication Services",
-      "subsector": "N/A",
+      "subsector": "Entertainment",
       "entry": 65.83,
       "max_price": 68.63,
       "sl_pct": 5.04,
@@ -12530,9 +12530,9 @@
     {
       "date": "2026-05-14",
       "ticker": "GTES",
-      "company": "GTES",
+      "company": "Gates Industrial Corporation plc",
       "sector": "Industrials",
-      "subsector": "N/A",
+      "subsector": "Specialty Industrial Machinery",
       "entry": 25.69,
       "max_price": 25.69,
       "sl_pct": 4.59,
@@ -12545,9 +12545,9 @@
     {
       "date": "2026-05-14",
       "ticker": "BKH",
-      "company": "BKH",
+      "company": "Black Hills Corporation",
       "sector": "Utilities",
-      "subsector": "N/A",
+      "subsector": "Utilities - Regulated Gas",
       "entry": 74.1,
       "max_price": 74.62,
       "sl_pct": 3.11,
@@ -12559,9 +12559,9 @@
     {
       "date": "2026-05-14",
       "ticker": "NOW",
-      "company": "NOW",
+      "company": "ServiceNow, Inc.",
       "sector": "Technology",
-      "subsector": "N/A",
+      "subsector": "Software - Application",
       "entry": 90.97,
       "max_price": 95.57,
       "sl_pct": 7.28,
@@ -12574,9 +12574,9 @@
     {
       "date": "2026-05-14",
       "ticker": "ADNT",
-      "company": "ADNT",
+      "company": "Adient plc",
       "sector": "Consumer Cyclical",
-      "subsector": "N/A",
+      "subsector": "Auto Parts",
       "entry": 22.48,
       "max_price": 22.53,
       "sl_pct": 5.74,
@@ -12589,9 +12589,9 @@
     {
       "date": "2026-05-14",
       "ticker": "LPG",
-      "company": "LPG",
+      "company": "Dorian LPG Ltd.",
       "sector": "Energy",
-      "subsector": "N/A",
+      "subsector": "Oil & Gas Midstream",
       "entry": 41.03,
       "max_price": 41.03,
       "sl_pct": 4.02,
@@ -12603,9 +12603,9 @@
     {
       "date": "2026-05-14",
       "ticker": "NXT",
-      "company": "NXT",
+      "company": "Nextpower Inc.",
       "sector": "Technology",
-      "subsector": "N/A",
+      "subsector": "Solar",
       "entry": 137.9,
       "max_price": 144.94,
       "sl_pct": 9.27,
@@ -12618,9 +12618,9 @@
     {
       "date": "2026-05-14",
       "ticker": "TSM",
-      "company": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing Company Limited",
       "sector": "Technology",
-      "subsector": "N/A",
+      "subsector": "Semiconductors",
       "entry": 418.22,
       "max_price": 419.13,
       "sl_pct": 4.62,
@@ -12632,9 +12632,9 @@
     {
       "date": "2026-05-14",
       "ticker": "AFL",
-      "company": "AFL",
+      "company": "Aflac Incorporated",
       "sector": "Financial Services",
-      "subsector": "N/A",
+      "subsector": "Insurance - Life",
       "entry": 116.38,
       "max_price": 117.32,
       "sl_pct": 2.47,
@@ -12646,9 +12646,9 @@
     {
       "date": "2026-05-14",
       "ticker": "ALKS",
-      "company": "ALKS",
+      "company": "Alkermes plc",
       "sector": "Healthcare",
-      "subsector": "N/A",
+      "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 38.6,
       "max_price": 38.6,
       "sl_pct": 4.38,
@@ -12660,9 +12660,9 @@
     {
       "date": "2026-05-14",
       "ticker": "MSA",
-      "company": "MSA",
+      "company": "MSA Safety Incorporated",
       "sector": "Industrials",
-      "subsector": "N/A",
+      "subsector": "Security & Protection Services",
       "entry": 173.97,
       "max_price": 174.69,
       "sl_pct": 3.67,
@@ -12674,9 +12674,9 @@
     {
       "date": "2026-05-15",
       "ticker": "NXPI",
-      "company": "NXPI",
+      "company": "NXP Semiconductors N.V.",
       "sector": "Technology",
-      "subsector": "N/A",
+      "subsector": "Semiconductors",
       "entry": 292.89,
       "max_price": 294.41,
       "sl_pct": 4.71,
@@ -12688,9 +12688,9 @@
     {
       "date": "2026-05-15",
       "ticker": "WMT",
-      "company": "WMT",
+      "company": "Walmart Inc.",
       "sector": "Consumer Defensive",
-      "subsector": "N/A",
+      "subsector": "Discount Stores",
       "entry": 131.25,
       "max_price": 131.46,
       "sl_pct": 2.65,
@@ -12702,9 +12702,9 @@
     {
       "date": "2026-05-15",
       "ticker": "SLF",
-      "company": "SLF",
+      "company": "Sun Life Financial Inc.",
       "sector": "Financial Services",
-      "subsector": "N/A",
+      "subsector": "Insurance - Diversified",
       "entry": 71.55,
       "max_price": 72.0,
       "sl_pct": 2.17,
@@ -12716,9 +12716,9 @@
     {
       "date": "2026-05-15",
       "ticker": "UNP",
-      "company": "UNP",
+      "company": "Union Pacific Corporation",
       "sector": "Industrials",
-      "subsector": "N/A",
+      "subsector": "Railroads",
       "entry": 268.88,
       "max_price": 270.56,
       "sl_pct": 2.76,
@@ -12730,9 +12730,9 @@
     {
       "date": "2026-05-15",
       "ticker": "SLB",
-      "company": "SLB",
+      "company": "SLB N.V.",
       "sector": "Energy",
-      "subsector": "N/A",
+      "subsector": "Oil & Gas Equipment & Services",
       "entry": 55.66,
       "max_price": 55.66,
       "sl_pct": 3.07,

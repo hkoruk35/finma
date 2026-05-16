@@ -4,6 +4,30 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import time
 
+MOJIBAKE_FIXES = {'â€"': '–', 'â€™': ''', 'â€˜': ''', 'â€œ': '"', 'â€¦': '…'}
+
+def fix_encoding(text: str) -> str:
+    if not text:
+        return text
+    for bad, good in MOJIBAKE_FIXES.items():
+        text = text.replace(bad, good)
+    try:
+        return text.encode('latin-1').decode('utf-8')
+    except Exception:
+        return text
+
+def fetch_ticker_meta(ticker: str) -> dict:
+    """yfinance'den company name, sector ve subsector (industry) çeker."""
+    try:
+        info = yf.Ticker(ticker).info
+        return {
+            'company': info.get('longName') or info.get('shortName') or ticker,
+            'sector':  info.get('sector', ''),
+            'subsector': info.get('industry', ''),
+        }
+    except Exception:
+        return {}
+
 # Paths
 performance_file = 'frontend/public/swing_performance.json'
 picks_file = 'frontend/public/swing_all_picks.json'
@@ -112,16 +136,33 @@ def update_performance():
                         # Add as new PENDING trade
                         entry = p.get('current_price', 0)
                         if entry <= 0: continue
-                        
+
                         sl_high = p.get('tracker_logic', {}).get('stop_loss_high', entry * 0.9474)
                         sl_val = round(((entry - sl_high) / entry) * 100, 2) if entry > 0 else 5.26
+
+                        # Get company/sector/subsector — fetch from yfinance if missing
+                        company   = p.get('company', '') or ''
+                        sector    = p.get('sector', '')   or ''
+                        subsector = p.get('subsector', '') or ''
+                        if not company or company == ticker or not subsector or subsector in ('N/A', 'Unknown'):
+                            try:
+                                meta = fetch_ticker_meta(ticker)
+                                if not company or company == ticker:
+                                    company = meta.get('company', ticker)
+                                if not sector:
+                                    sector = meta.get('sector', '')
+                                if not subsector or subsector in ('N/A', 'Unknown'):
+                                    subsector = meta.get('subsector', '')
+                                time.sleep(0.2)
+                            except Exception:
+                                pass
 
                         history.insert(0, {
                             'date': json_date,
                             'ticker': ticker,
-                            'company': p.get('company', ticker),
-                            'sector': p.get('sector', 'N/A'),
-                            'subsector': p.get('subsector', 'N/A'),
+                            'company': company or ticker,
+                            'sector': sector or 'Unknown',
+                            'subsector': subsector or '',
                             'entry': round(entry, 2),
                             'max_price': round(entry, 2),
                             'sl_pct': abs(sl_val),
@@ -130,21 +171,27 @@ def update_performance():
                             'result': 'PENDING',
                             'peak_date': json_date
                         })
-                        recent_tickers.append(ticker) # Prevent adding same ticker twice if it's in new_picks twice
+                        recent_tickers.append(ticker)
 
-    # 3. Update Stats
+    # 3. Fix encoding in all string fields
+    for entry in history:
+        for field in ('company', 'sector', 'subsector'):
+            if entry.get(field):
+                entry[field] = fix_encoding(entry[field])
+
+    # 4. Update Stats
     all_completed = [r for r in history if r['result'] != 'PENDING']
     wins = [r for r in all_completed if r['result'] == 'WIN']
-    
+
     data['stats']['total_picks'] = len(history)
     data['stats']['completed_count'] = len(all_completed)
     data['stats']['pending_count'] = len(history) - len(all_completed)
     data['stats']['win_rate'] = round((len(wins) / len(all_completed) * 100), 1) if all_completed else 0
     data['stats']['avg_return_pct'] = round(sum(r['return_pct'] for r in history) / len(history), 2) if history else 0
     data['stats']['last_updated'] = today.strftime('%Y-%m-%dT%H:%M:%S')
-    
+
     data['history'] = history
-    
+
     with open(performance_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     
