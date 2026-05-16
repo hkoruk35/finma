@@ -30,11 +30,12 @@ if '%errorlevel%' NEQ '0' (
     echo BOGA AI Sistem Gorevleri Temizleniyor ve Guncelleniyor...
     powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\scratch\setup_boga_tasks.ps1"
     powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\scratch\setup_performance_hourly.ps1"
+    powershell.exe -ExecutionPolicy Bypass -File "c:\Users\afksm\finma\setup_options_task_v241.ps1"
     echo.
     echo ==================================================
     echo ISLEM TAMAMLANDI! (Tum sistem guncellendi)
     echo --------------------------------------------------
-    echo 1. Option Scanner (v240):       11:00 & 15:30 NY
+    echo 1. Option Scanner (v241):       11:00 & 15:30 NY
     echo 2. Sabah Dongusu (DayTrade):    09:15 NY
     echo 3. Ogle Dongusu (Swing v117):   13:00 NY
     echo 4. Performans Takibi:           10:00-16:30 NY (Saatlik)
