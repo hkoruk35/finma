@@ -955,6 +955,14 @@ export interface OptionPick {
   iv_ctx_label?: string;
   ai_analysis_text?: string;
   date?: string;
+  s4?: any;
+  s5?: any;
+  s6?: any;
+  s7?: any;
+  s8?: any;
+  mtf?: any;
+  options?: any;
+  sector_info?: any;
 }
 
 export interface OptionsData {
@@ -1076,6 +1084,15 @@ function normalizeOptionsData(raw: any): OptionsData | null {
       regime_label: p.regime_label,
       iv_ctx_score: p.iv_ctx_score,
       iv_ctx_label: p.iv_ctx_label,
+      // v241 specific
+      s4: p.s4,
+      s5: p.s5,
+      s6: p.s6,
+      s7: p.s7,
+      s8: p.s8,
+      mtf: p.mtf,
+      options: p.options,
+      sector_info: p.sector_info,
     };
   };
   const picks = Array.isArray(raw.picks) ? raw.picks.map(normalizePick) : [];

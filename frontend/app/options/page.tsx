@@ -109,7 +109,6 @@ export default async function OptionsPage() {
                   <TH>SECTOR</TH>
                   <TH>SETUP</TH>
                   <TH right>PRICE</TH>
-                  <TH right>IV%</TH>
                   <TH right>IVR</TH>
                   <TH right>RSI</TH>
                   <TH right>RVOL</TH>
@@ -117,22 +116,14 @@ export default async function OptionsPage() {
                   <TH center>TYPE</TH>
                   <TH>STRIKE</TH>
                   <TH>EXP</TH>
-                  <TH right>DTE</TH>
                   <TH right>COST</TH>
-                  <TH right>MID</TH>
-                  <TH right>SPRD%</TH>
                   <TH right>Δ</TH>
                   <TH right>Γ</TH>
                   <TH right>Θ</TH>
                   <TH right>Γ/Θ</TH>
-                  <TH right>OI</TH>
-                  <TH right>VOL</TH>
                   <TH right>SIM%</TH>
                   <TH right>TP</TH>
                   <TH right>SL</TH>
-                  <TH right>BEVEN</TH>
-                  <TH right>DECAY</TH>
-                  <TH>REMARKS</TH>
                 </tr>
               </thead>
               <tbody>
@@ -174,8 +165,7 @@ export default async function OptionsPage() {
                         </TD>
                         <TD right cls={cIdx === 0 ? "text-white" : "text-transparent"}>{cIdx === 0 ? dollar(raw.current_price) : ""}</TD>
                         
-                        {/* Technicals (also static-ish per ticker) */}
-                        <TD right cls={cIdx === 0 ? "text-amber-500/80" : "text-transparent"}>{cIdx === 0 ? n(opts.atm_iv || raw.iv_pct, 1) : ""}</TD>
+                        {/* Technicals */}
                         <TD right cls={cIdx === 0 ? ((raw.iv_rank ?? 0) < 30 ? "text-emerald-500" : "text-red-500") : "text-transparent"}>
                            {cIdx === 0 ? n(raw.iv_rank || opts.iv_rank, 0) : ""}
                         </TD>
@@ -191,16 +181,11 @@ export default async function OptionsPage() {
                         </TD>
                         <TD cls="text-white font-bold">{c.strike ? `$${c.strike} C` : "—"}</TD>
                         <TD cls="text-slate-400">{c.expiration || c.expiry || "—"}</TD>
-                        <TD right cls="text-white">{c.dte ? `${c.dte}d` : "—"}</TD>
-                        <TD right cls="text-white font-bold">{dollar(c.cost_per_contract || c.contract_cost || c.premium * 100, 0)}</TD>
-                        <TD right cls="text-slate-500">{dollar(c.mid || c.premium, 2)}</TD>
-                        <TD right cls={Number(c.spread_pct) < 15 ? "text-emerald-500" : "text-amber-500"}>{pct(c.spread_pct)}</TD>
+                        <TD right cls="text-white font-bold">{dollar(c.cost_per_contract || c.contract_cost || (c.premium ? c.premium * 100 : null), 0)}</TD>
                         <TD right cls="text-[#3b82f6]">{n(c.delta, 2)}</TD>
                         <TD right cls="text-purple-400">{n(c.gamma, 4)}</TD>
                         <TD right cls="text-red-400">{n(c.theta, 3)}</TD>
                         <TD right cls={Number(c.gt_ratio) >= 0.5 ? "text-emerald-400" : "text-slate-500"}>{n(c.gt_ratio, 2)}</TD>
-                        <TD right cls="text-slate-500">{num(c.oi, 0)}</TD>
-                        <TD right cls="text-slate-500">{num(c.volume, 0)}</TD>
                         
                         {/* Simulation & Targets */}
                         <TD right cls={Number(c.sim?.pnl_pct || c.sim_gain_pct) >= 0 ? "text-emerald-400 font-bold" : "text-red-400"}>
@@ -208,13 +193,6 @@ export default async function OptionsPage() {
                         </TD>
                         <TD right cls="text-emerald-500">{dollar(c.tp_price)}</TD>
                         <TD right cls="text-red-500">{dollar(c.sl_price)}</TD>
-                        <TD right cls="text-slate-400">{dollar(c.breakeven)}</TD>
-                        <TD right cls="text-orange-500">-{n(c.daily_decay_pct, 1)}%</TD>
-                        
-                        {/* Remarks */}
-                        <TD cls="text-[9px] text-slate-500 max-w-[150px] truncate">
-                          {cIdx === 0 ? (raw.grade || raw.quality || "—") : ""}
-                        </TD>
                       </tr>
                     ));
                   })
