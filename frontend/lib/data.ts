@@ -822,7 +822,7 @@ export async function getSwingAllPicks(date?: string): Promise<any | null> {
     if (date) {
       // Archive format: swing_YYYYMMDD.json
       const cleanDate = date.replace(/-/g, "");
-      return mod.readPublicJson(`swing2026/swing_${cleanDate}.json`);
+      return mod.readPublicJson(`data/swing2026/swing_${cleanDate}.json`);
     }
     return mod.readPublicJson("swing_all_picks.json");
   }
