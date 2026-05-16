@@ -195,15 +195,11 @@ SECTOR_ETF_MAP = {
 # Bu sektörler tamamen elenmiyor (kaliteli setup gelirse alınsın) ama -3 puan ceza alır.
 # YENİ:
 SLOW_PEAK_SECTORS = {
-    # "Real Estate": -5.0,  # Real Estate artık Phase 1A'da hard reject ile tamamen eleniyor.
+    "Real Estate": -3.0,  
     "Consumer Defensive": -3.0,
     "Utilities": -3.0,
-    # 🚨 FIX: Son dönemde yüksek stop-loss patlaması yaşatan sektörlere karantina cezası
-    "Industrials": -10.0,
-    "Consumer Cyclical": -8.0,
-    "Communication Services": -8.0,
+    # Yüksek büyüme ve yapay zeka/savunma momentumu taşıyan sektörler statik cezadan muaf tutuldu.
 }
-
 # -- Yüksek riskli industry grupları — swing için hard reject -----------------
 # Bu industry'lere ait hisseler binary event (FDA kararı, faz 3 sonucu, patent
 # davası vb.) riskiyle teknik analiz sinyalini geçersiz kılabilir.
@@ -224,7 +220,7 @@ HIGH_RISK_INDUSTRIES: set = {
 HIGH_RISK_INDUSTRY_MCAP_FLOOR = 5_000_000_000  # $5B
 
 # Negatif FCF hard floor — bu sınırın altında FCF olan hisse elenir
-NEGATIVE_FCF_FLOOR = -50_000_000  # -$50M
+NEGATIVE_FCF_FLOOR = -150_000_000  # 🚨 FIX: Non-cash warrant giderleri ve GAAP muhasebe bozulmalarını tolere etmek için -$150M'e esnetildi.
 
 # ── V117 FIX: CEF / ETF / MutualFund Engelleme Setleri (Global) ──────────────
 CEF_BLOCK_QUOTE_TYPES: set = {"etf", "mutualfund", "cef"}
@@ -409,6 +405,11 @@ async def build_atmaca_universe_full() -> List[str]:
                                     if len(df_sym) < 60:
                                         logging.info(f"🚫 {sym}: Disk cache'te yetersiz geçmiş ({len(df_sym)} bar) → atlandı")
                                         continue
+                                        
+                                    last_price_check = float(df_sym['Close'].iloc[-1])
+                                    if not (PRICE_MIN <= last_price_check <= PRICE_MAX):
+                                        continue
+                                        
                                     BULK_DATA_CACHE[sym] = df_sym.copy()
                                     filtered_list.append(sym)
 
@@ -485,17 +486,21 @@ async def build_atmaca_universe_full() -> List[str]:
                     is_squeeze_candidate = (-0.04 <= roc5 <= 0.06)
                     # 🎯 FIX: Eşik 0.15'e esnetildi. 5 güne yayılan sağlıklı (%10-12'lik) trendler içeri alınır.
                     # Tek günde %10 yapan pis patlamaların elenmesi işi Layer 2'deki Exhaustion modülüne bırakıldı.
-                    is_momentum_breakout = (0.06 < roc5 <= 0.15) and rvol > 1.2
+                    is_momentum_breakout = (0.06 < roc5 <= 0.40) and rvol > 1.2
                     
                     if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
 
                     BULK_DATA_CACHE[sym] = data[sym].copy()
+                    # Mega-cap bias'ı önlemek için dollar_vol log scale'e alındı.
+                    rank_score_normalized = rvol * math.log1p(dollar_vol)
+                    
                     all_rows.append({
                         "sym": sym, "price": last_price,
                         "dollar_vol": dollar_vol, "rvol": rvol,
-                        "roc5": roc5, "rank_score": rvol * dollar_vol,
+                        "roc5": roc5, "rank_score": rank_score_normalized,
                     })
+                    
                 except Exception:
                     continue
         except Exception as e:
@@ -1191,6 +1196,51 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             "atr_1d": current_price * 0.03, "atr_pct": 3.0,
             "rr_ratio": 0.0, "risk_usd": 0.0, "reward_usd": 0.0
         }       
+        
+def check_15m_micro_trend(df_15m: pd.DataFrame) -> dict:
+    """
+    15m zaman diliminde son 8 mumun (2 saat) gürültüsüz yön analizini yapar.
+    Sadece net trendi ve tutarlılığı ölçer, tekil fitil/mum gürültülerini yok sayar.
+    """
+    if df_15m is None or len(df_15m) < 10:
+        return {'is_valid': True, 'score_bonus': 0.0, 'msg': "⚠️ 15m veri yetersiz (nötr)"}
+
+    # Son 8 mumu al (2 saatlik veri)
+    recent_15m = df_15m.tail(8)
+    
+    close_prices = recent_15m['Close'].values
+    open_prices = recent_15m['Open'].values
+    
+    # 1. NET YÖN (Net Return): İlk mum ile son mum arasındaki değişim.
+    # Aradaki zikzakları (gürültüyü) tamamen yok sayar.
+    net_change_pct = (close_prices[-1] - close_prices[0]) / close_prices[0] * 100
+    
+    # 2. TUTARLILIK (Consistency): 8 mumun kaçı yeşil kapattı?
+    # Eğer fiyat %1 artmış ama 8 mumun 6'sı kırmızıysa, bu bir tuzaktır (tek mumluk spike).
+    green_candles = sum(1 for i in range(8) if close_prices[i] > open_prices[i])
+    
+    # 3. YERÇEKİMİ KONTROLÜ (Lower Highs): Sürekli daha düşük tepeler mi yapıyor?
+    highs = recent_15m['High'].values
+    is_bleeding = (highs[-1] < highs[-3]) and (highs[-3] < highs[-6])
+
+    # --- KARAR MEKANİZMASI ---
+    
+    # Hard Reject (Zehirli Mikro Trend): Net düşüş var, mumların çoğu kırmızı ve tepeler alçalıyor.
+    # Bu durum, 1H veya 1D harika görünse bile içeride bir kurumsal satış (dağıtım) olduğunu gösterir.
+    if net_change_pct < -1.0 and green_candles <= 3 and is_bleeding:
+        return {'is_valid': False, 'score_bonus': -10.0, 'msg': "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"}
+    
+    # Güçlü Onay (Momentum Teyidi): Net yükseliş var ve istikrarlı yeşil mumlar.
+    if net_change_pct > 0.5 and green_candles >= 5:
+        return {'is_valid': True, 'score_bonus': 4.0, 'msg': f"🔥 15m ONAY: Son 2 saat net trend (+{net_change_pct:.2f}%)"}
+    
+    # Zayıf Kapanış Uyarıları (Girerken temkinli ol)
+    if net_change_pct < 0 and green_candles < 4:
+        return {'is_valid': True, 'score_bonus': -2.0, 'msg': "⚠️ 15m Uyarı: Son 2 saat yön aşağı"}
+
+    # Nötr / Sıkışma (Squeeze için mükemmel)
+    return {'is_valid': True, 'score_bonus': 1.0, 'msg': "⚖️ 15m Yatay/Sıkışma: Gürültü yok"}
+    
 # ================================================================
 # ================================================================
 # SECTION 5: PERFORMANCE DATA
@@ -1519,76 +1569,147 @@ async def analyze_market_and_sectors():
 # ================================================================
 # ================================================================
 
-def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted=False, beta=1.0):
-    """V117 — Asymmetric TP/SL: 4 değer döndürür (tp1, tp2, tp3, stop_loss)
-    Temel mantık:
-      SL: Fiyat yapısına yakın, dar → 0.9-1.2İ—ATR
-      TP2: Ana hedef → 2.2-3.0İ—ATR (R/R hesabı buradan)
-      TP1: TP2'nin %50'si — ilk kısmi çıkış noktası
-      TP3: TP2'nin %140'ı — trend devam ederse tutulan kısım
-      R/R hedefi: 2.0-3.5İ—
+def calculate_profit_target(entry_price, atr_value, is_exhausted=False, beta=1.0):
     """
-    if pd.isna(atr_value) or atr_value == 0:
-        pct  = 0.07 if not is_exhausted else 0.04
-        sl_p = 0.032 if not is_exhausted else 0.025
-        sl   = float(round(entry_price * (1 - sl_p), 4))
-        t2   = float(round(entry_price * (1 + pct), 4))
-        t1   = float(round(entry_price * (1 + pct * 0.50), 4))
-        t3   = float(round(entry_price * (1 + pct * 1.40), 4))
+    V117 — Skor-Bağımsız Asimetrik TP/SL
+    ================================================================
+    DEĞİŞİKLİK (V117):
+      ÖNCE: tp_atr_mult = 2.2 + (0.8 * m)  ← momentum_score TP'yi uzatıyordu
+            → Yüksek skorlu hisse otomatik daha iyi R/R alıyor
+            → Bu döngüsel: skor↑ → TP uzar → R/R↑ → filtreden geçer → skor↑
+            → Backtest overfit riski yaratır
+
+      SONRA: TP tamamen skor'dan bağımsız.
+             Sadece ATR (volatilite) + beta (karakteristik hareket) + durum (exhausted)
+             belirler. Her hisse kendi gerçek volatilitesiyle ölçülür.
+
+    DÖNDÜRÜLEN DEĞERLER:
+      tp1   → İlk kısmi çıkış (%50 mesafe) — risk azaltma noktası
+      tp2   → Ana hedef — R/R hesabı buradan yapılır
+      tp3   → Trend devamı hedefi (%140 mesafe) — küçük pozisyon için tutulur
+      stop_loss → Yapısal stop
+
+    MANTIK:
+      SL   : ATR'ye dayalı dar stop (0.9–1.2× ATR)
+      TP2  : Beta + exhaustion'a göre sabit çarpan (2.0–3.2× ATR)
+             → Skor etkisi sıfır. Aynı ATR = aynı TP mesafesi.
+      TP1  : TP2'nin %50'si
+      TP3  : TP2'nin %140'ı (tavan uygulanır)
+      R/R  : TP2/SL oranı — hissenin gerçek volatilitesini yansıtır
+    ================================================================
+    """
+
+    # ── SIFIR/NAN ATR FALLBACK ──────────────────────────────────────────
+    # yfinance'tan veri gelmezse yüzde bazlı güvenli değer kullan
+    if pd.isna(atr_value) or atr_value <= 0:
+        if is_exhausted:
+            tp_pct = 0.040   # %4  — tükenmiş hisse için dar hedef
+            sl_pct = 0.025   # %2.5 — dar stop
+        elif beta > 1.5:
+            tp_pct = 0.090   # %9  — yüksek beta: daha geniş hareket
+            sl_pct = 0.038   # %3.8
+        elif beta > 1.0:
+            tp_pct = 0.070   # %7  — normal hareket
+            sl_pct = 0.032   # %3.2
+        else:
+            tp_pct = 0.055   # %5.5 — düşük beta: sınırlı hareket
+            sl_pct = 0.028   # %2.8
+
+        sl  = float(round(entry_price * (1 - sl_pct), 4))
+        t2  = float(round(entry_price * (1 + tp_pct), 4))
+        t1  = float(round(entry_price + (t2 - entry_price) * 0.50, 4))
+        t3  = float(round(entry_price + (t2 - entry_price) * 1.40, 4))
         return t1, t2, t3, sl
 
-    m = min(1.0, momentum_score / 12.0)  # 0.0 → 1.0 normalize
+    # ── STOP LOSS — ATR ÇARPANI ─────────────────────────────────────────
+    # Dar ATR → stop daha yakın (volatilite düşük, kesin sinyal)
+    # Geniş ATR → stop biraz uzar (volatilite yüksek, gürültü toleransı)
+    atr_pct = atr_value / entry_price
 
-    # ── STOP LOSS ──────────────────────────────────────────────────────
-    if atr_value < entry_price * 0.015:      # ATR < %1.5 — dar oynaklık
-        atr_sl_mult = 0.9
-    elif atr_value < entry_price * 0.03:     # ATR %1.5–3 — normal
-        atr_sl_mult = 1.0
-    else:                                    # ATR > %3 — volatil hisse
-        atr_sl_mult = 1.2
+    if atr_pct < 0.015:          # ATR < %1.5 — çok dar
+        atr_sl_mult = 0.90
+    elif atr_pct < 0.030:        # ATR %1.5–3 — normal swing
+        atr_sl_mult = 1.00
+    elif atr_pct < 0.060:        # ATR %3–6 — volatil
+        atr_sl_mult = 1.15
+    else:                        # ATR > %6 — çok volatil
+        atr_sl_mult = 1.25
 
+    # Exhausted hissede stop daha dar (hasar kontrolü)
     if is_exhausted:
-        atr_sl_mult *= 0.85
+        atr_sl_mult *= 0.80
 
+    # Formül geri getirildi (NameError/Crash önlendi)
     stop_loss = entry_price - (atr_value * atr_sl_mult)
-    stop_loss = max(stop_loss, entry_price * 0.50)  # 🎯 FIX: En fazla %50 kayıp (Negatif SL koruması)
 
-    # ── TP2 — ANA HEDEF ────────────────────────────────────────────────
+    # Güvenlik tabanı: En fazla %15 kayıp (Gerçekçi Swing Stop)
+    stop_loss = max(stop_loss, entry_price * 0.85)
+
+    # ── TP2 — ANA HEDEF: SKOR'DAN BAĞIMSIZ ─────────────────────────────
+    # Çarpan sadece 3 şeye bağlı: is_exhausted + beta + ATR karakteri
+    # momentum_score artık bu hesaba girmez.
+
     if is_exhausted:
-        tp_atr_mult = 1.6 + (0.3 * m)       # 1.6–1.9İ—
-    else:
-        tp_atr_mult = 2.2 + (0.8 * m)       # 2.2–3.0İ—
+        # Tükenmiş hisse: daima dar hedef, erken çıkışa zorla
+        tp_atr_mult = 1.60
 
-    tp2_raw     = entry_price + atr_value * tp_atr_mult
+    elif beta > 2.0:
+        # Çok yüksek beta (spekülatif): geniş hareket kapasitesi
+        # Ama ATR da büyük olduğu için mesafe zaten uzun
+        tp_atr_mult = 2.60
+
+    elif beta > 1.5:
+        # Yüksek beta: swing sweet spot
+        tp_atr_mult = 2.80
+
+    elif beta > 1.0:
+        # Normal beta: standart swing hareketi
+        tp_atr_mult = 2.50
+
+    else:
+        # Düşük beta (< 1.0): ATR küçük, hareket sınırlı
+        # Çarpanı artırırsak TP ulaşılamaz mesafeye gider
+        tp_atr_mult = 2.20
+
+    # ATR karakteri: Dar sıkışma sonrası patlama daha büyük olabilir
+    # Squeeze tespiti burada yok ama atr_pct çok küçükse orta çarpan yeterli
+    if atr_pct < 0.020 and not is_exhausted:
+        # Çok dar ATR: TP multiplier'ı azalt, gerçekçi hedef koy
+        tp_atr_mult = min(tp_atr_mult, 2.20)
+
+    tp2_raw     = entry_price + (atr_value * tp_atr_mult)
     tp2_pct_raw = (tp2_raw - entry_price) / entry_price * 100
 
-    # ── BETA BAZLI TAVAN ───────────────────────────────────────────────
-    if beta > 2.0:
-        max_profit_pct = 25.0
-    elif beta > 1.5:
-        max_profit_pct = 18.0
-    elif beta > 1.0:
-        max_profit_pct = 14.0
-    else:
-        max_profit_pct = 11.0
-
+    # ── BETA BAZLI TAVAN (Gerçekçi Hareket Sınırı) ──────────────────────
+    # Bu tavan spekülatif olmayan bir sınır koyar.
+    # Swing trade için 7 günde %25+ çok nadir — tavan olması gerekir.
     if is_exhausted:
-        max_profit_pct = min(max_profit_pct, 7.0)
+        max_profit_pct = 6.0     # Tükenmiş hisse: dar tavan, hızlı çıkış
+    elif beta > 2.0:
+        max_profit_pct = 22.0
+    elif beta > 1.5:
+        max_profit_pct = 16.0
+    elif beta > 1.0:
+        max_profit_pct = 12.0
+    else:
+        max_profit_pct = 9.0
 
-    tp2 = (
-        entry_price * (1 + max_profit_pct / 100)
-        if tp2_pct_raw > max_profit_pct
-        else tp2_raw
-    )
+    # Tavan aşıldıysa geri çek
+    if tp2_pct_raw > max_profit_pct:
+        tp2 = entry_price * (1 + max_profit_pct / 100)
+    else:
+        tp2 = tp2_raw
 
-    # ── TP1 / TP3 ──────────────────────────────────────────────────────
-    swing = tp2 - entry_price          # tp2'ye olan mesafe
-    tp1   = entry_price + swing * 0.50 # %50 noktası — ilk çıkış
-    tp3   = entry_price + swing * 1.40 # %140 noktası — trend devam
+    # ── TP1 / TP3 ───────────────────────────────────────────────────────
+    swing = tp2 - entry_price           # TP2'ye olan mesafe
 
-    # tp3 için de tavan uygula
-    tp3_max = entry_price * (1 + min(max_profit_pct * 1.40, 35.0) / 100)
-    tp3     = min(tp3, tp3_max)
+    tp1 = entry_price + swing * 0.50    # %50 — ilk kısmi çıkış
+    tp3 = entry_price + swing * 1.40    # %140 — trend devam ederse tutulan kısım
+
+    # TP3 tavanı: aşırı spekülasyon önlemi
+    tp3_max_pct = min(max_profit_pct * 1.40, 30.0)
+    tp3_max     = entry_price * (1 + tp3_max_pct / 100)
+    tp3         = min(tp3, tp3_max)
 
     return (
         float(round(tp1, 4)),
@@ -1596,8 +1717,7 @@ def calculate_profit_target(entry_price, atr_value, momentum_score, is_exhausted
         float(round(tp3, 4)),
         float(round(stop_loss, 4))
     )
-
-
+    
 def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0, is_exhausted=False):
     """🔧 FIX #8: Hold band squeezed from 3-15 → 3-10 days.
     Anything past 10 days is no longer a swing trade — it becomes a position trade
@@ -1671,10 +1791,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         sector_name  = cached_info.get("sector", "Unknown")
         short_float  = cached_info.get("short_float", 0.0)
 
-        # 🚨 FIX: Real Estate (REIT) faiz hassasiyeti ve düşük kazanma oranı nedeniyle swing evreninden tamamen çıkarıldı.
-        if sector_name == "Real Estate":
-            return None
-
         # Beta hard reject: Çok düşük beta = market'i takip etmiyor, swing için uygunsuz
         if 0 < beta < ATMACA_MIN_BETA:
             return None
@@ -1717,7 +1833,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             if net_inc < 0:
                 raw_fcf = net_inc
 
-        if raw_fcf < NEGATIVE_FCF_FLOOR:
+        revenue_growth = cached_info.get("revenueGrowth", 0) or 0
+        is_high_growth = revenue_growth > 0.30  # %30 ve üzeri büyüme istisnası
+        
+        if raw_fcf < NEGATIVE_FCF_FLOOR and not is_high_growth:
             logging.info(f"🚫 {ticker}: Negatif FCF/Net Income Proxy (${raw_fcf/1e6:.0f}M) < ${NEGATIVE_FCF_FLOOR/1e6:.0f}M floor → Elendi")
             return None
 
@@ -1726,12 +1845,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # İstisna: büyük cap ($10B+) → kurumsal destek ve diversified gelir var.
         net_income_raw = cached_info.get("netIncomeToCommon", 0) or 0
         trailing_eps   = cached_info.get("trailingEps", 0) or 0
-        if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 10_000_000_000:
-            # Sektör istisnası: Real Estate (REIT) ve Utilities negatif net gelir raporlayabilir
-            if sector_name not in ("Real Estate", "Utilities", "Energy"):
-                logging.info(f"🚫 {ticker}: Negatif net gelir (EPS:{trailing_eps:.2f}) + küçük cap → Elendi")
-                return None
 
+        if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 10_000_000_000:
+            if not is_high_growth:
+                # Zarar ediyor VE agresif büyüyemiyorsa, swing için toksik bir hissedir.
+                return None
+                
         # =============================================================
         # PHASE 1B: 1D VERİ ÇEKİMİ (BULK_DATA_CACHE'den, 0 ms)
         # =============================================================
@@ -1768,10 +1887,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         last_ema200 = float(ema200_1d.iloc[-1])
 
         # Trend durumu sınıflandırma
-        if current_price > last_ema50 > last_ema200:
-            trend_durumu_1d = "Macro Bullish"
-        elif current_price > last_ema20 > last_ema50 > last_ema200:
-            trend_durumu_1d = "Upward"
+        if current_price > last_ema20 > last_ema50 > last_ema200:
+            trend_durumu_1d = "Full Stack"      # En güçlü: tüm EMA'lar sıralı
+        elif current_price > last_ema50 > last_ema200:
+            trend_durumu_1d = "Macro Bullish"   # EMA20 altında olabilir
         elif current_price > last_ema200:
             trend_durumu_1d = "Above EMA200"
         elif current_price > last_ema50:
@@ -1819,14 +1938,14 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # (sıkışma/dönüş hisseleri normalde "kötü" görünür ama fırsattır)
 
         # Dead money: hiç sıkışma yok, hiç dönüş yok, EMA flat ve ADX zayıf
-        if not is_squeeze and not is_spring and is_ema_flat and adx_1d < 15:
+        if not is_squeeze and not is_spring and is_ema_flat and adx_1d < ADX_MIN_LEVEL_1D:
             return None
 
-        # ── RVOL Mikro (son 2 gün / son 20 gün) ──────────────────────
+        # ── RVOL Mikro (Güncel gün / son 20 gün) ──────────────────────
         try:
-            vol_2g_avg  = float(volume_1d.tail(2).mean())
-            vol_20g_avg = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_2g_avg
-            rvol_micro  = (vol_2g_avg / vol_20g_avg) if vol_20g_avg > 0 else 0.0
+            vol_today   = float(volume_1d.iloc[-1])
+            vol_20g_avg = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
+            rvol_micro  = (vol_today / vol_20g_avg) if vol_20g_avg > 0 else 0.0
         except Exception:
             rvol_micro = 0.0
 
@@ -1910,13 +2029,16 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             if rsi_quick < 45 and rsi_quick < rsi_prev:
                 return None
                 
+            # Early awakening ön tahmini (Phase 3K öncesi RSI muafiyeti için)
+            is_early_awakening_preview = (45 <= rsi_quick <= 55 and rvol_micro >= 0.9 and rvol_micro <= 1.3)
+
             # 🆕 Yön filtresi: RSI 45-52 arası + 3 gün üst üste düşüyor
             # İstisna: Squeeze/Spring kurulumunda RSI düşük/düşen olabilir
-            if not (is_squeeze or is_spring or is_early_awakening):
+            if not (is_squeeze or is_spring or is_early_awakening_preview):
                 rsi_3d_ago = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
                 rsi_falling_3d = (rsi_quick < rsi_prev < rsi_3d_ago)
                 if rsi_falling_3d and rsi_quick < 52:
-                    return None  # Düşen RSI + zayıf bölge = elenir
+                    return None
   
         except Exception:
             rsi_1d_series = pd.Series([50.0])
@@ -1927,7 +2049,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None
 
         # =============================================================
-        # PHASE 3A: NETWORK GEÇİŞİ — Earnings + 1H Veri
+        # PHASE 3A: NETWORK GEÇİŞİ — Earnings + 1H ve 15m Veri
         # =============================================================
         # Buraya ulaşan ~50 hisse var, 450'si zaten elendi.
 
@@ -1936,7 +2058,19 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None
 
         df_1h = await asyncio.to_thread(get_stock_data, ticker, "1h")
-        df_15m = None  # 15m analiz V117'da iptal edildi
+        
+        # 🚨 FIX: 15m Mikro-Trend (Kapanış Gücü) Filtresi Aktif Edildi
+        df_15m_raw = await asyncio.to_thread(get_stock_data, ticker, "15m")
+        result_15m = check_15m_micro_trend(df_15m_raw)
+        df_15m = df_15m_raw
+        
+        if not result_15m['is_valid']:
+            logging.info(f"🚫 {ticker}: {result_15m['msg']} → 15m Kapanış Gücü ihlali")
+            return None
+            
+        if result_15m['score_bonus'] != 0:
+            score += result_15m['score_bonus']
+            details.append(result_15m['msg'])
 
         # Layer 2 başarı puanı
         score += 6.0
@@ -2025,34 +2159,52 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         is_above_1w_ema50 = True
         try:
             weekly_close = close_1d.resample('W').last().dropna()
-
-            if len(weekly_close) >= 50:
-                weekly_ema50 = EMAIndicator(weekly_close, 50).ema_indicator()
-                last_w_ema50 = float(weekly_ema50.iloc[-1])
-                if current_price < last_w_ema50:
-                    is_above_1w_ema50 = False
-                    score -= 5.0
-                    details.append("🔴 1W TREND: Fiyat < 1W EMA50 (-5p)")
-
-            if len(weekly_close) >= 14:
+            
+            # 🚨 FIX: Veri seti uyumu için 40 Haftalık EMA (≈200 Günlük) kullanıldı.
+            if len(weekly_close) >= 40:
+                weekly_ema40 = EMAIndicator(weekly_close, 40).ema_indicator()
+                last_w_ema40 = float(weekly_ema40.iloc[-1])
+                
+                if current_price < last_w_ema40:
+                    if not (is_spring or is_squeeze):
+                        is_above_1w_ema50 = False  # Gerçekten elenenlerde False yap (Finaldeki %15 ceza için)
+                        logging.info(f"🚫 {ticker}: Makro Trend İhlali (Fiyat < 1W EMA40) → MTF kilidi ile elendi")
+                        return None
+                    else:
+                        # Spring/Squeeze muafiyeti (is_above_1w_ema50 = True kalır, çifte ceza yemez)
+                        score -= 2.0
+                        details.append("🟡 1W TREND: Fiyat < 1W EMA40 (Spring/Squeeze İstisnası)")
+                
+                # RSI kontrolü artık güvenli bloğun içinde (EMA40 hesaplanabiliyorsa çalışır)
                 weekly_rsi = RSIIndicator(weekly_close, 14).rsi()
                 last_w_rsi = float(weekly_rsi.iloc[-1])
                 if last_w_rsi < 40:
                     score -= 3.0
                     details.append(f"❄️ 1W RSI: Zayıf ({last_w_rsi:.1f})")
+                    
+            elif len(weekly_close) < 40:
+                # Yetersiz haftalık geçmiş (Yeni halka arz vb.) — Güvenli taraf için MTF kilidi atlanır
+                logging.info(f"⚠️ {ticker}: 1W geçmiş yetersiz ({len(weekly_close)} bar) → MTF kilidi atlandı")
+                
         except Exception:
             pass
 
         # ── 1D EMA Trend Puanlaması ──────────────────────────────────
-        if trend_durumu_1d == "Macro Bullish":
+        if trend_durumu_1d == "Full Stack":
+            score += 16.0
+            details.append("🏆 1D TREND: Full Stack (EMA20>50>200 Perfect Stack) (+16.0p)")
+            # Full Stack için de ema_spread bonusu aktif edildi
+            ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
+            if ema_spread > 0.03:
+                score += 1.6
+                details.append("🔥 EMA50-200 Geniş Spread (+1.6p)")
+        elif trend_durumu_1d == "Macro Bullish":
             score += 14.0
             details.append("🏆 1D TREND: Macro Bullish (P>EMA50>EMA200)")
             ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
             if ema_spread > 0.03:
                 score += 1.6
                 details.append("🔥 EMA50-200 Geniş Spread")
-        elif trend_durumu_1d == "Upward":
-            score += 8.8; details.append("📈 1D TREND: Sıralı Yükseliş (EMA20>50>200)")
         elif trend_durumu_1d == "Above EMA200":
             score += 3.2; details.append("🟢 1D TREND: EMA200 üstü")
         elif trend_durumu_1d == "Above EMA50":
@@ -2322,6 +2474,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             ema50_now_1h = float(ema50_1h.iloc[-1])
             ema20_distance = (close_now_1h - ema20_now_1h) / ema20_now_1h if ema20_now_1h > 0 else 0.0
 
+            # 🚨 FIX: NameError/UnboundLocalError riskini sıfırlamak için ret_1d_pct hesabı Phase 3I öncesine taşındı.
+            try:
+                prev_close_1d = float(close_1d.iloc[-2]) if len(close_1d) > 1 else close_now_1h
+                ret_1d_pct = (close_now_1h - prev_close_1d) / prev_close_1d
+            except Exception:
+                ret_1d_pct = 0.0
+
+            # 🚨 MATRUŞKA FIX 2: 1D (Bayat) ve 1H (Canlı) Senkronizasyonu.
+            # %1'lik intraday gürültü toleransı eklendi.
+            ema20_tolerance = last_ema20 * 0.99
+            if close_now_1h < ema20_tolerance and not (is_spring or is_squeeze):
+                logging.info(f"🚫 {ticker}: Canlı fiyat (1H), günlük (1D) EMA20 desteğini kırdı (%1 tolerans aşıldı) → MTF Senkron ihlali")
+                return None
+
             # 1H ADX
             if adx_1h >= 30:
                 score += 10.0; details.append(f"🔥 1H ADX: Çok Güçlü ({adx_1h:.1f})")
@@ -2568,13 +2734,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 is_steady_momentum = all(close_5d[i] >= close_5d[i-1] * 0.99 for i in range(1, 5)) and (close_5d[-1] > close_5d[0]) and (ret_1d_pct < 5.0)
 
                 if is_steady_momentum:
-                    score += 12.0
-                    details.append("📈 Steady Momentum: Sağlam ve kademeli trend (+12p)")
+                    score += 6.0
+                    details.append("📈 Steady Momentum: Sağlam ve kademeli trend (+6p)")
 
-            # 🎯 FIX 2: HH/HL yapısını 2 günlük gürültüden çıkarıp 5 günlük trend pencerisine yayıyoruz
+        # 🎯 FIX 2: HH/HL yapısını 2 günlük gürültüden çıkarıp 5 günlük trend pencerisine yayıyoruz
             if len(high_1d) >= 5 and len(low_1d) >= 5:
                 hh_hl_valid = (float(high_1d.iloc[-1]) > float(high_1d.iloc[-5])) and (float(low_1d.iloc[-1]) > float(low_1d.iloc[-5]))
-                if hh_hl_valid and trend_durumu_1d in ["Macro Bullish", "Upward"]:
+                if hh_hl_valid and trend_durumu_1d in ["Full Stack", "Macro Bullish"]:
                     score += 6.0
                     details.append("🔰 HH/HL Yapısı: Güçlü trend devamı (+6p)")
         except Exception:
@@ -2614,7 +2780,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # PHASE 3J: TP/SL HESAPLAMA + R/R Erken Eleme
         # =============================================================
         tp1, tp2, tp3, stop_loss = calculate_profit_target(
-            current_price, atr_1d, score, is_exhausted, beta
+            current_price, atr_1d, is_exhausted=is_exhausted, beta=beta
         )
         risk = max(current_price - stop_loss, 0.0)
         reward = max(tp2 - current_price, 0.0)
@@ -2750,8 +2916,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 3.0
             details.append(f"🛡️ Defansif Sektör Primi: {sector_name} (+3.0p)")
 
-        # 🚨 FIX: VIX > 20 olduğunda SL avcısı olan kırılgan sektörlere spesifik risk cezası
-        if current_vix >= 20.0 and sector_name in ["Industrials", "Financial Services", "Consumer Cyclical"]:
+        # 🚨 FIX: VIX > 25 olduğunda SL avcısı olan kırılgan sektörlere spesifik risk cezası
+        if current_vix >= 25.0 and sector_name in ["Industrials", "Financial Services", "Consumer Cyclical"]:
             score -= 12.0
             details.append(f"⚠️ VIX {current_vix:.1f}: {sector_name} Yüksek SL Riski (-12.0p)")
 
@@ -2811,15 +2977,16 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # PHASE 4: PERFORMANS VERİLERİ + ÖZET
         # =============================================================
         try:
+            # Sadece 5 günlük (haftalık) momentum hesaplanır.
             ret_5g_pct = float(
                 (close_1d.iloc[-1] - close_1d.iloc[-6]) / close_1d.iloc[-6] * 100
             ) if len(close_1d) >= 6 else 0.0
-            ret_1d_pct = float(
-                (close_1d.iloc[-1] - close_1d.iloc[-2]) / close_1d.iloc[-2] * 100
-            ) if len(close_1d) >= 2 else 0.0
+            
+            # 🚨 FIX: ret_1d_pct hesaplaması Phase 3F'e (yukarıya) taşındığı için 
+            # buradan kaldırıldı. (NameError ve çifte hesaplama riski önlendi)
+            
         except Exception:
             ret_5g_pct = 0.0
-            ret_1d_pct = 0.0
 
         dollar_volume_val = current_price * avg_volume_10d
         hold_days = estimate_hold_time(
@@ -2900,6 +3067,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             "dollar_volume": dollar_volume_val,
             "green_candles_10d": green_candles,
             "is_exhausted": is_exhausted,
+            "squeeze_quality": round(squeeze_quality, 3) if is_squeeze else 0.0,
             "trend_status_1d": trend_durumu_1d,
             "details": details,
             "d1_summary": d1_summary,
@@ -2948,8 +3116,8 @@ def compute_multi_factor_score(c: dict) -> float:
     elif adx_val >= 25: trend_score += 6.0
     elif adx_val >= 18: trend_score += 4.0
     trend_durumu = str(d1.get("Trend Status", ""))
-    if "Macro" in trend_durumu: trend_score = min(trend_score + 4.0, 12.0)
-    elif "Upward" in trend_durumu: trend_score = min(trend_score + 2.0, 12.0)
+    if "Full Stack" in trend_durumu: trend_score = min(trend_score + 5.0, 12.0) # En yüksek katman ağırlığı
+    elif "Macro" in trend_durumu: trend_score = min(trend_score + 4.0, 12.0)
 
     ret_5g = c.get("ret_5g_pct", 0.0)
     ret_accel = 12.0 if ret_5g >= 8.0 else 8.0 if ret_5g >= 5.0 else 6.0 if ret_5g >= 3.0 else 4.0 if ret_5g >= 1.5 else 2.0 if ret_5g > 0 else 0.0
@@ -3028,13 +3196,15 @@ def compute_boga_score_100(c: dict) -> float:
     elif macd_h > 0: score += 3.0
     
     trend_stat = c.get("trend_status_1d", "")  # 🎯 FIX: Doğrudan güvenli değişkenden okuma
-    if "Macro" in trend_stat: score += 5.0
-    elif "Upward" in trend_stat: score += 3.0
+    if "Full Stack" in trend_stat: score += 5.0
+    elif "Macro" in trend_stat: score += 5.0
 
     # ── B. SYSTEM SIGNAL (Max 20p) ───────────────────────────
     # raw_score'daki o güçlü sistem bonusları artık doğrudan finale yansıyor
     sys_name = c.get("selection_system", "MOMENTUM")
-    if sys_name == "SQUEEZE": score += 20.0
+    if sys_name == "SQUEEZE": 
+        sq_quality = c.get("squeeze_quality", 0.5)
+        score += 12.0 + (8.0 * sq_quality)  # Kaliteye göre 12 ile 20 arası puan
     elif sys_name == "SPRING": score += 18.0
     elif sys_name == "AWAKENING": score += 15.0
     elif sys_name == "TREND_CONT": score += 14.0  # 🎯 FIX 4: Sağlam trend devamı için adil puan tanımlandı
