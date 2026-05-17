@@ -102,8 +102,8 @@ export default async function ThemeDetailPage({ params }: { params: { slug: stri
     </th>
   );
 
-  const TD = ({ children, center, right, cls }: { children: React.ReactNode; center?: boolean; right?: boolean; cls?: string }) => (
-    <td className={`px-2 py-1.5 text-[11px] font-medium whitespace-nowrap border-b border-white/[0.03] ${center ? "text-center" : right ? "text-right" : "text-left"} ${cls || "text-slate-300"}`}>
+  const TD = ({ children, center, right, cls, title }: { children: React.ReactNode; center?: boolean; right?: boolean; cls?: string; title?: string }) => (
+    <td title={title} className={`px-2 py-1.5 text-[11px] font-medium whitespace-nowrap border-b border-white/[0.03] ${center ? "text-center" : right ? "text-right" : "text-left"} ${cls || "text-slate-300"}`}>
       {children}
     </td>
   );
