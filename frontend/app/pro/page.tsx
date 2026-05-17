@@ -284,10 +284,7 @@ export default async function ProPage() {
           <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
         </section>
 
-        {/* Stats Bar */}
-        <section className="mb-12">
-          <StatsBar data={master} />
-        </section>
+
 
 
 
