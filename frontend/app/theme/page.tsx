@@ -41,42 +41,48 @@ export default async function ThemesIndexPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-           {/* BOGA System Lists */}
+        {/* BOGA System Lists */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-5 hover:border-[#3b82f6]/50 transition-colors group">
              <h2 className="text-lg font-black text-white uppercase mb-2 group-hover:text-[#3b82f6] transition-colors">Swing Picks</h2>
-             <p className="text-xs text-slate-400 mb-4 h-8">Latest swing trade signals from the BOGA Engine.</p>
+             <p className="text-xs text-slate-400 mb-4">Latest swing trade signals from the BOGA Engine.</p>
              <Link href="/theme/boga-swing" className="inline-block bg-white/5 border border-white/10 rounded px-4 py-2 text-xs font-bold text-white uppercase hover:bg-white/10 transition-colors">
                View List →
              </Link>
            </div>
            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-5 hover:border-[#a78bfa]/50 transition-colors group">
              <h2 className="text-lg font-black text-white uppercase mb-2 group-hover:text-[#a78bfa] transition-colors">Options Scanner</h2>
-             <p className="text-xs text-slate-400 mb-4 h-8">Institutional flow and gamma squeezes.</p>
+             <p className="text-xs text-slate-400 mb-4">Institutional flow and gamma squeezes.</p>
              <Link href="/theme/boga-options" className="inline-block bg-white/5 border border-white/10 rounded px-4 py-2 text-xs font-bold text-white uppercase hover:bg-white/10 transition-colors">
                View List →
              </Link>
            </div>
         </div>
 
-        <div className="space-y-10">
+        {/* Sector and Theme Lists Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {Object.entries(themesBySector).map(([sector, themes]) => (
-            <div key={sector}>
-               <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-4 border-b border-white/5 pb-2">
+            <div key={sector} className="bg-[#080c14] border border-white/10 rounded-xl p-5 shadow-2xl">
+               <h3 className="text-xs font-black text-[#3b82f6] uppercase tracking-[0.2em] mb-4 border-b border-white/10 pb-2">
                  {sector}
                </h3>
-               <div className="flex flex-wrap gap-3">
+               <ul className="space-y-1">
                  {themes.map(theme => (
-                   <Link 
-                     key={theme.name} 
-                     href={`/theme/${slugify(theme.name)}`}
-                     className="px-4 py-2 rounded-full border border-white/10 bg-[#0c121d] text-slate-300 text-xs font-bold hover:bg-[#3b82f6] hover:text-white hover:border-[#3b82f6] transition-all whitespace-nowrap shadow-md flex items-center gap-2"
-                   >
-                     {theme.name}
-                     <span className="bg-white/10 text-[10px] px-1.5 rounded">{theme.tickers.length}</span>
-                   </Link>
+                   <li key={theme.name}>
+                     <Link 
+                       href={`/theme/${slugify(theme.name)}`}
+                       className="group flex items-center justify-between py-1.5 px-2 rounded hover:bg-white/[0.03] transition-all text-[11px] font-bold text-slate-400 hover:text-white"
+                     >
+                       <span className="truncate group-hover:translate-x-1 transition-transform">
+                         {theme.name}
+                       </span>
+                       <span className="text-[9px] text-slate-500 bg-white/5 px-1.5 py-0.5 rounded font-black group-hover:bg-[#3b82f6]/20 group-hover:text-[#3b82f6] transition-colors">
+                         {theme.tickers.length}
+                       </span>
+                     </Link>
+                   </li>
                  ))}
-               </div>
+               </ul>
             </div>
           ))}
         </div>
