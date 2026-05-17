@@ -311,7 +311,21 @@ ${ticker} | ${s.sector || ""} | Swing Strateji
 │ GEREKÇE: [2-3 cümle, sadece verilen sayılara dayan]
 └─────────────────`;
 
-    return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+    const aiResponse = useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+    try {
+      const aiJson = await aiResponse.json();
+      return NextResponse.json({
+        text: aiJson.text,
+        source: aiJson.source,
+        followUp: aiJson.followUp || [],
+        type: "stock_report",
+        ticker: ticker,
+        stockData: stockJson,
+        masterData: masterJson
+      });
+    } catch (e) {
+      return aiResponse;
+    }
   }
 
   try {

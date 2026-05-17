@@ -2,12 +2,17 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import Header from "@/components/Header";
+import StockReportView from "@/components/StockReportView";
 
 interface Message {
   role: "user" | "assistant";
   text: string;
   source?: "claude" | "gemini";
   followUp?: string[];
+  type?: "stock_report";
+  ticker?: string;
+  stockData?: any;
+  masterData?: any;
 }
 
 interface SearchHistory {
@@ -154,6 +159,10 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           text: data.text ?? "Hata oluştu.",
           source: data.source,
           followUp: data.followUp || [],
+          type: data.type,
+          ticker: data.ticker,
+          stockData: data.stockData,
+          masterData: data.masterData,
         },
       ]);
     } catch {
@@ -269,20 +278,33 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
             </div>
           )}
 
-          {messages.map((m, i) => (
-            <div key={i} className={`flex gap-3 max-w-4xl mx-auto w-full ${m.role === "user" ? "justify-end" : "justify-start animate-fade-in"}`}>
-              {m.role === "assistant" && <BotIcon />}
-              <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
-                {m.role === "assistant" ? (
-                  <div className="space-y-3">
-                    <MarkdownText text={m.text} />
+          {messages.map((m, i) => {
+            if (m.role === "assistant" && m.type === "stock_report" && m.stockData) {
+              return (
+                <div key={i} className="flex flex-col gap-3 max-w-4xl mx-auto w-full animate-fade-in my-6">
+                  <div className="flex gap-3 items-center">
+                    <BotIcon />
+                    <span className="text-xs font-black uppercase text-[#3b82f6] tracking-widest">BOGA AI ANALİZ RAPORU</span>
                   </div>
-                ) : (
-                  <p className="text-sm">{m.text}</p>
-                )}
+                  <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} />
+                </div>
+              );
+            }
+            return (
+              <div key={i} className={`flex gap-3 max-w-4xl mx-auto w-full ${m.role === "user" ? "justify-end" : "justify-start animate-fade-in"}`}>
+                {m.role === "assistant" && <BotIcon />}
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
+                  {m.role === "assistant" ? (
+                    <div className="space-y-3">
+                      <MarkdownText text={m.text} />
+                    </div>
+                  ) : (
+                    <p className="text-sm">{m.text}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {loading && (
             <div className="flex gap-3 justify-start animate-pulse max-w-4xl mx-auto w-full">
