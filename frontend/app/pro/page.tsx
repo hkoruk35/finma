@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance, getOptionsData, getOptionsOutcomes } from "@/lib/data";
+import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -39,38 +39,134 @@ export default async function ProPage() {
     );
   }
 
-  // Combine ALL stocks from: allTickers + MARKET_THEMES (config.py) + swingPicks + swingStats + optionsData + optionsOutcomes
-  const combinedTickersSet = new Set<string>();
-  
-  // 1. allTickers
-  allTickers.forEach(t => { if (t.ticker) combinedTickersSet.add(t.ticker.toUpperCase()); });
-  
-  // 2. config.py (MARKET_THEMES)
+  // Compile a comprehensive map of all tickers in the system mapped to their GICS sector, company name, current change_pct, and score.
+  const tickerMap = new Map<string, { sector: string; company: string; change_pct: number; score: number; volume: number }>();
+
+  // Helper to map different sector naming conventions to GICS standard sector names used in SectorHeatMap's SECTOR_ORDER
+  const normalizeGicsSector = (sec: string | undefined): string => {
+    if (!sec) return "Other";
+    const s = sec.trim();
+    if (s === "Basic Materials") return "Materials";
+    if (s === "Consumer Defensive") return "Consumer Staples";
+    if (s === "Consumer Cyclical") return "Consumer Discretionary";
+    if (s === "Financial Services") return "Financials";
+    return s;
+  };
+
+  // 1. Load from MARKET_THEMES (config.py)
   MARKET_THEMES.forEach(theme => {
-    theme.tickers.forEach(t => { if (t) combinedTickersSet.add(t.toUpperCase()); });
+    const rawSector = theme.sector === "Sectors" ? theme.name : theme.sector;
+    const sectorName = normalizeGicsSector(rawSector);
+    theme.tickers.forEach(t => {
+      if (!t) return;
+      const key = t.toUpperCase();
+      tickerMap.set(key, {
+        sector: sectorName,
+        company: t,
+        change_pct: 0,
+        score: 50,
+        volume: 0
+      });
+    });
   });
-  
-  // 3. swingPicks
+
+  // 2. Load from allTickers
+  allTickers.forEach(t => {
+    if (!t.ticker) return;
+    const key = t.ticker.toUpperCase();
+    const existing = tickerMap.get(key);
+    tickerMap.set(key, {
+      sector: normalizeGicsSector(t.sector) || existing?.sector || "Other",
+      company: t.company || existing?.company || t.ticker,
+      change_pct: t.change_pct ?? existing?.change_pct ?? 0,
+      score: t.master_score ?? existing?.score ?? 50,
+      volume: t.volume ?? existing?.volume ?? 0
+    });
+  });
+
+  // 3. Load from swingPicks
   if (swingPicks && Array.isArray(swingPicks.picks)) {
-    swingPicks.picks.forEach((p: any) => { if (p.ticker) combinedTickersSet.add(p.ticker.toUpperCase()); });
-  }
-  
-  // 4. swingStats
-  if (swingStats && Array.isArray(swingStats.history)) {
-    swingStats.history.forEach((h: any) => { if (h.ticker) combinedTickersSet.add(h.ticker.toUpperCase()); });
-  }
-  
-  // 5. optionsData
-  if (optionsData && Array.isArray(optionsData.picks)) {
-    optionsData.picks.forEach((p: any) => { if (p.ticker) combinedTickersSet.add(p.ticker.toUpperCase()); });
-  }
-  
-  // 6. optionsOutcomes
-  if (optionsOutcomes && Array.isArray(optionsOutcomes.positions)) {
-    optionsOutcomes.positions.forEach((pos: any) => { if (pos.ticker) combinedTickersSet.add(pos.ticker.toUpperCase()); });
+    swingPicks.picks.forEach((p: any) => {
+      if (!p.ticker) return;
+      const key = p.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(p.sector) || existing?.sector || "Other",
+        company: p.company || existing?.company || p.ticker,
+        change_pct: p.change_1d ?? p.change_pct ?? existing?.change_pct ?? 0,
+        score: p.score ?? existing?.score ?? 50,
+        volume: p.volume ?? existing?.volume ?? 0
+      });
+    });
   }
 
-  const combinedTickers = Array.from(combinedTickersSet);
+  // 4. Load from swingStats history (highly populated with sectors & historical returns)
+  if (swingStats && Array.isArray(swingStats.history)) {
+    swingStats.history.forEach((h: any) => {
+      if (!h.ticker) return;
+      const key = h.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      // We can use the historical return_pct as a proxy for ticker performance if daily change_pct is not active
+      const changeVal = existing?.change_pct !== 0 ? existing?.change_pct : (h.return_pct ?? 0);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(h.sector) || existing?.sector || "Other",
+        company: h.company || existing?.company || h.ticker,
+        change_pct: changeVal ?? 0,
+        score: existing?.score ?? 50,
+        volume: existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 5. Load from optionsData
+  if (optionsData && Array.isArray(optionsData.picks)) {
+    optionsData.picks.forEach((p: any) => {
+      if (!p.ticker) return;
+      const key = p.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(p.sector_info?.sector || p.sector) || existing?.sector || "Other",
+        company: existing?.company || p.ticker,
+        change_pct: p.change_pct ?? existing?.change_pct ?? 0,
+        score: p.score ?? existing?.score ?? 50,
+        volume: p.volume ?? existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 6. Load from optionsOutcomes
+  if (optionsOutcomes && Array.isArray(optionsOutcomes.positions)) {
+    optionsOutcomes.positions.forEach((pos: any) => {
+      if (!pos.ticker) return;
+      const key = pos.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(pos.sector) || existing?.sector || "Other",
+        company: existing?.company || pos.ticker,
+        change_pct: pos.pnl_pct ?? existing?.change_pct ?? 0,
+        score: pos.score ?? existing?.score ?? 50,
+        volume: existing?.volume ?? 0
+      });
+    });
+  }
+
+  // Create activeTickers array
+  const combinedTickers = Array.from(tickerMap.keys());
+
+  // Create a comprehensive list of StockQuickView elements for SectorHeatMap
+  const comprehensiveTickersList: StockQuickView[] = Array.from(tickerMap.entries()).map(([ticker, val]) => ({
+    ticker,
+    company: val.company,
+    sector: val.sector,
+    master_score: val.score,
+    score_type: "NEUTRAL_STAY",
+    price: 0,
+    change_pct: val.change_pct,
+    entry_range_low: 0,
+    entry_range_high: 0,
+    volume: val.volume,
+    ai_short_summary: ""
+  }));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#060a12]">
@@ -107,11 +203,7 @@ export default async function ProPage() {
 
         {/* Sector Heat Map */}
         <section className="mb-16">
-          <div className="flex items-center gap-3 mb-6">
-             <div className="w-1 h-8 bg-emerald-500 rounded-full" />
-             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Sector Heatmap</h2>
-           </div>
-          <SectorHeatMap data={master} allTickers={allTickers} />
+          <SectorHeatMap data={master} allTickers={comprehensiveTickersList} />
         </section>
 
         {/* Smart Sector Screener */}
