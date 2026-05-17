@@ -16,12 +16,13 @@ function slugify(text: string) {
     .replace(/-+$/, '');
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   let title = "Market Theme";
-  if (params.slug === "boga-swing") title = "BOGA Swing Picks";
-  else if (params.slug === "boga-options") title = "BOGA Options Picks";
+  if (slug === "boga-swing") title = "BOGA Swing Picks";
+  else if (slug === "boga-options") title = "BOGA Options Picks";
   else {
-    const theme = MARKET_THEMES.find(t => slugify(t.name) === params.slug);
+    const theme = MARKET_THEMES.find(t => slugify(t.name) === slug);
     if (theme) title = theme.name;
   }
   return { title: `${title} | BOGA AI` };
@@ -46,8 +47,8 @@ function formatLargeNum(num: number): string {
   return num.toLocaleString();
 }
 
-export default async function ThemeDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function ThemeDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   let themeName = "";
   let tickers: string[] = [];
 
