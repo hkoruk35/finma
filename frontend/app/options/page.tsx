@@ -3,6 +3,7 @@ import { OptionsData, OptionPick } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
+import OptionsTableClient from "@/components/OptionsTableClient";
 import Link from "next/link";
 import { Metadata } from "next";
 
@@ -74,135 +75,10 @@ export default async function OptionsPage() {
 
       <main className="flex-1 w-full max-w-[1800px] mx-auto px-4 py-4">
         
-        {/* ── Minimal Header ────────────────────────────────── */}
-        <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-black text-white tracking-tighter uppercase italic">
-              BOGA <span className="text-[#3b82f6]">OPTIONS</span> v241
-            </span>
-            <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-bold">
-              Institutional Terminal
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-             {latestData && (
-                <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  <span>VIX: <span className={latestData.vix < 20 ? "text-emerald-400" : "text-red-400"}>{latestData.vix.toFixed(1)}</span></span>
-                  <span className="hidden md:inline">|</span>
-                  <span>UNIVERSE: <span className="text-white">{latestData.universe_size}</span></span>
-                  <span className="hidden md:inline">|</span>
-                  <span>UPDATED: <span className="text-[#3b82f6]">{formatTime(latestData.generated_at)}</span></span>
-                </div>
-             )}
-          </div>
-        </div>
-
-        {/* ── Main Data Terminal ────────────────────────────── */}
-        <div className="bg-[#080c14] border border-white/10 rounded overflow-hidden shadow-2xl">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse leading-none">
-              <thead className="bg-[#0c121d]">
-                <tr>
-                  <TH>DATE</TH>
-                  <TH>TICKER</TH>
-                  <TH center>SCORE</TH>
-                  <TH>SECTOR</TH>
-                  <TH>SETUP</TH>
-                  <TH right>PRICE</TH>
-                  <TH right>IVR</TH>
-                  <TH right>RSI</TH>
-                  <TH right>RVOL</TH>
-                  <TH right>RS60</TH>
-                  <TH center>TYPE</TH>
-                  <TH>STRIKE</TH>
-                  <TH>EXP</TH>
-                  <TH right>COST</TH>
-                  <TH right>Δ</TH>
-                  <TH right>Γ</TH>
-                  <TH right>Θ</TH>
-                  <TH right>Γ/Θ</TH>
-                  <TH right>SIM%</TH>
-                  <TH right>TP</TH>
-                  <TH right>SL</TH>
-                </tr>
-              </thead>
-              <tbody>
-                {allPicks.length === 0 ? (
-                  <tr>
-                    <td colSpan={30} className="px-6 py-20 text-center text-slate-500 uppercase tracking-widest font-black">
-                      [ NO ACTIVE SIGNALS FOUND IN DATABASE ]
-                    </td>
-                  </tr>
-                ) : (
-                  allPicks.map((pick, i) => {
-                    const raw: any = pick; // Original JSON access
-                    const opts = raw.options || {};
-                    
-                    // We will render two rows if both gamma_sweet and institutional exist, or just one
-                    const contracts = [];
-                    if (opts.gamma_sweet) contracts.push({ ...opts.gamma_sweet, label: "GAMMA" });
-                    if (opts.institutional) contracts.push({ ...opts.institutional, label: "INST." });
-                    if (contracts.length === 0 && raw.institutional) contracts.push({ ...raw.institutional, label: "INST." });
-                    if (contracts.length === 0) contracts.push({ label: "—" });
-
-                    const scoreCls = raw.score >= 90 ? "text-amber-400" : raw.score >= 75 ? "text-[#3b82f6]" : "text-emerald-400";
-                    
-                    return contracts.map((c, cIdx) => (
-                      <tr key={`${raw.date}-${raw.ticker}-${cIdx}`} className="hover:bg-white/[0.04] transition-colors">
-                        {/* Static Info (only show on first contract row) */}
-                        <TD cls={cIdx === 0 ? "text-slate-500" : "text-transparent"}>{cIdx === 0 ? raw.date : raw.date}</TD>
-                        <TD cls={cIdx === 0 ? "text-white font-black" : "text-slate-700"}>
-                          {cIdx === 0 ? (
-                            <Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link>
-                          ) : raw.ticker}
-                        </TD>
-                        <TD center cls={cIdx === 0 ? `font-black ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? raw.score.toFixed(0) : ""}</TD>
-                        <TD cls={cIdx === 0 ? "text-slate-400" : "text-transparent"}>
-                          {cIdx === 0 ? (raw.sector_info?.etf || raw.sector || "—") : ""}
-                        </TD>
-                        <TD cls={cIdx === 0 ? "text-[#3b82f6] text-[10px]" : "text-transparent"}>
-                          {cIdx === 0 ? (raw.s5?.setup_type || raw.entry_mode_label || "—") : ""}
-                        </TD>
-                        <TD right cls={cIdx === 0 ? "text-white" : "text-transparent"}>{cIdx === 0 ? dollar(raw.current_price) : ""}</TD>
-                        
-                        {/* Technicals */}
-                        <TD right cls={cIdx === 0 ? ((raw.iv_rank ?? 0) < 30 ? "text-emerald-500" : "text-red-500") : "text-transparent"}>
-                           {cIdx === 0 ? n(raw.iv_rank || opts.iv_rank, 0) : ""}
-                        </TD>
-                        <TD right cls={cIdx === 0 ? "text-slate-400" : "text-transparent"}>{cIdx === 0 ? n(raw.mtf?.rsi_1d || raw.rsi, 1) : ""}</TD>
-                        <TD right cls={cIdx === 0 ? "text-slate-400" : "text-transparent"}>{cIdx === 0 ? n(raw.s7?.today_rvol || raw.rvol, 1) + "x" : ""}</TD>
-                        <TD right cls={cIdx === 0 ? (Number(raw.l4?.rs_60 || raw.rs_vs_spy_60d) >= 0 ? "text-emerald-500" : "text-red-500") : "text-transparent"}>
-                          {cIdx === 0 ? pct(raw.l4?.rs_60 || raw.rs_vs_spy_60d) : ""}
-                        </TD>
-
-                        {/* Contract Specific Info */}
-                        <TD center cls={c.label === "GAMMA" ? "text-emerald-400 font-bold" : c.label === "INST." ? "text-purple-400 font-bold" : "text-slate-600"}>
-                          {c.label}
-                        </TD>
-                        <TD cls="text-white font-bold">{c.strike ? `$${c.strike} C` : "—"}</TD>
-                        <TD cls="text-slate-400">{c.expiration || c.expiry || "—"}</TD>
-                        <TD right cls="text-white font-bold">{dollar(c.cost_per_contract || c.contract_cost || (c.premium ? c.premium * 100 : null), 0)}</TD>
-                        <TD right cls="text-[#3b82f6]">{n(c.delta, 2)}</TD>
-                        <TD right cls="text-purple-400">{n(c.gamma, 4)}</TD>
-                        <TD right cls="text-red-400">{n(c.theta, 3)}</TD>
-                        <TD right cls={Number(c.gt_ratio) >= 0.5 ? "text-emerald-400" : "text-slate-500"}>{n(c.gt_ratio, 2)}</TD>
-                        
-                        {/* Simulation & Targets */}
-                        <TD right cls={Number(c.sim?.pnl_pct || c.sim_gain_pct) >= 0 ? "text-emerald-400 font-bold" : "text-red-400"}>
-                          {pct(c.sim?.pnl_pct || c.sim_gain_pct, 0)}
-                        </TD>
-                        <TD right cls="text-emerald-500">{dollar(c.tp_price)}</TD>
-                        <TD right cls="text-red-500">{dollar(c.sl_price)}</TD>
-                      </tr>
-                    ));
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <OptionsTableClient allPicks={allPicks} latestData={latestData} />
 
         {/* ── Footer Stats ──────────────────────────────────── */}
+
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
            <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
               <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Exit Policy</div>
