@@ -42,27 +42,7 @@ export default async function ProPage() {
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-        {/* Pro Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 border-b border-white/10 pb-6">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase">
-              Market <span className="text-[#3b82f6]">Pro</span>
-            </h1>
-            <p className="text-slate-400 text-sm md:text-base mt-2 max-w-xl">
-              Professional-grade market explorer. Real-time sector rotation, heatmaps, and institutional screening filters.
-            </p>
-          </div>
-          
-          <Link 
-            href="/terminal"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#3b82f6] hover:bg-[#2563eb] text-white font-black rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#3b82f6]/20 uppercase tracking-widest text-xs"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Open Terminal
-          </Link>
-        </div>
+
 
         {/* Swing Performance Stats from Homepage */}
         <section className="mb-12">
