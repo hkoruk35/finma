@@ -289,14 +289,7 @@ export default async function ProPage() {
           <StatsBar data={master} />
         </section>
 
-        {/* Market Themes & Category Tabs Explorer */}
-        <section className="mb-16">
-           <div className="flex items-center gap-3 mb-6">
-             <div className="w-1 h-8 bg-[#3b82f6] rounded-full" />
-             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Market Categories</h2>
-           </div>
-           <MarketExplorer master={master} allTickers={comprehensiveTickersList} customActiveTickers={combinedTickers} />
-        </section>
+
 
         {/* Sector Heat Map */}
         <section className="mb-16">
