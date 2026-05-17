@@ -1,0 +1,67 @@
+{
+  "ticker": "SVM",
+  "company": "Silvercorp Metals Inc.",
+  "date": "2026-05-17",
+  "generated_at": "2026-05-17T19:19:35.908447",
+  "sector": "Basic Materials",
+  "industry": "Silver",
+  "price": {
+    "current": 13.57,
+    "open": 13.82,
+    "high": 14.15,
+    "low": 13.23,
+    "prev_close": 14.95,
+    "change_pct": -9.23,
+    "change_pct_1w": 0.52,
+    "change_pct_1m": 5.69,
+    "change_pct_1y": 278.08,
+    "volume": 4704700,
+    "avg_volume_30d": 3676713
+  },
+  "scores": {
+    "master_score": 90.2,
+    "technical_score": 100,
+    "fundamental_score": 85.0,
+    "momentum_score": 85.0,
+    "sentiment_score": 70.0,
+    "signal_type": "STRONG_BUY"
+  },
+  "technical": {
+    "rsi_14": 56.83,
+    "macd": 0.8028,
+    "macd_signal": 0.6337,
+    "macd_histogram": 0.1692,
+    "ema_20": 13.27,
+    "ema_50": 12.26,
+    "ema_200": 9.38,
+    "ema_stack_bullish": true,
+    "bb_upper": 15.49,
+    "bb_middle": 12.99,
+    "bb_lower": 10.5,
+    "bb_width": 38.47,
+    "atr": 0.94,
+    "atr_pct": 6.9,
+    "rvol": 1.21,
+    "52w_high": 15.77,
+    "52w_low": 3.49
+  },
+  "fundamental": {
+    "pe_ratio": 0.0,
+    "pb_ratio": 4.22,
+    "gross_margin": 0.6675,
+    "operating_margin": 0.545,
+    "net_margin": -0.0459,
+    "market_cap": 2996842752,
+    "revenue_growth_ttm": 0.508,
+    "fcf_yield": 0.0727,
+    "institutional_ownership_pct": 0.7075
+  },
+  "scores_detail": {
+    "entry_range_low": 13.0,
+    "entry_range_high": 13.33,
+    "target_range_low": 15.93,
+    "target_range_high": 16.72,
+    "stop_loss": 12.47,
+    "risk_reward_ratio": 3.05
+  }
+}

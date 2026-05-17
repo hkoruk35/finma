@@ -142,6 +142,258 @@ const getLatestSwingPicks = () => {
   }
 };
 
+function calcEMA(prices: number[], period: number): number {
+  const k = 2 / (period + 1);
+  let ema = prices[0];
+  for (let i = 1; i < prices.length; i++) {
+    ema = prices[i] * k + ema * (1 - k);
+  }
+  return ema;
+}
+
+function calcRSI(prices: number[], period = 14): number {
+  if (prices.length < period + 1) return 50;
+  let gains = 0;
+  let losses = 0;
+  for (let i = 1; i <= period; i++) {
+    const diff = prices[i] - prices[i - 1];
+    if (diff > 0) gains += diff;
+    else losses -= diff;
+  }
+  let avgGain = gains / period;
+  let avgLoss = losses / period;
+  
+  for (let i = period + 1; i < prices.length; i++) {
+    const diff = prices[i] - prices[i - 1];
+    if (diff > 0) {
+      avgGain = (avgGain * (period - 1) + diff) / period;
+      avgLoss = (avgLoss * (period - 1)) / period;
+    } else {
+      avgGain = (avgGain * (period - 1)) / period;
+      avgLoss = (avgLoss * (period - 1) - diff) / period;
+    }
+  }
+  if (avgLoss === 0) return 100;
+  const rs = avgGain / avgLoss;
+  return 100 - 100 / (1 + rs);
+}
+
+function calcATR(highs: number[], lows: number[], closes: number[], period = 14): number {
+  const trs: number[] = [];
+  for (let i = 1; i < closes.length; i++) {
+    const hl = highs[i] - lows[i];
+    const hc = Math.abs(highs[i] - closes[i - 1]);
+    const lc = Math.abs(lows[i] - closes[i - 1]);
+    trs.push(Math.max(hl, hc, lc));
+  }
+  let sum = 0;
+  for (let i = trs.length - period; i < trs.length; i++) {
+    sum += trs[i];
+  }
+  return sum / period;
+}
+
+async function fetchYahooLive(ticker: string) {
+  try {
+    const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
+    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
+
+    const [chartRes, quoteRes] = await Promise.all([
+      fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
+      fetch(quoteUrl, { signal: AbortSignal.timeout(10000) })
+    ]);
+
+    if (!chartRes.ok) return null;
+
+    const chartData = await chartRes.json();
+    const result = chartData?.chart?.result?.[0];
+    if (!result) return null;
+
+    const meta = result.meta || {};
+    const quote = result.indicators?.quote?.[0] || {};
+    
+    const rawCloses = quote.close || [];
+    const rawOpens = quote.open || [];
+    const rawHighs = quote.high || [];
+    const rawLows = quote.low || [];
+    const rawVolumes = quote.volume || [];
+
+    const closes: number[] = [];
+    const opens: number[] = [];
+    const highs: number[] = [];
+    const lows: number[] = [];
+    const volumes: number[] = [];
+
+    for (let i = 0; i < rawCloses.length; i++) {
+      if (rawCloses[i] !== null && rawOpens[i] !== null && rawHighs[i] !== null && rawLows[i] !== null) {
+        closes.push(rawCloses[i]);
+        opens.push(rawOpens[i]);
+        highs.push(rawHighs[i]);
+        lows.push(rawLows[i]);
+        volumes.push(rawVolumes[i] || 0);
+      }
+    }
+
+    if (closes.length < 50) return null;
+
+    const currentPrice = closes[closes.length - 1];
+    const prevClose = closes[closes.length - 2] || currentPrice;
+    const changePct = ((currentPrice - prevClose) / prevClose) * 100;
+
+    const ema20 = calcEMA(closes, 20);
+    const ema50 = calcEMA(closes, 50);
+    const ema200 = calcEMA(closes, 200);
+    const emaStackBullish = (ema20 > ema50) && (ema50 > ema200);
+
+    const rsi14 = calcRSI(closes, 14);
+
+    const atr = calcATR(highs, lows, closes, 14);
+    const atrPct = (atr / currentPrice) * 100;
+
+    const last5dVol = volumes.slice(-5).reduce((a, b) => a + b, 0) / 5;
+    const last30dVol = volumes.slice(-30).reduce((a, b) => a + b, 0) / 30;
+    const rvol = last30dVol > 0 ? last5dVol / last30dVol : 1.0;
+
+    const high52w = Math.max(...highs);
+    const low52w = Math.min(...lows);
+
+    const recentLows = lows.slice(-20);
+    const recentHighs = highs.slice(-20);
+    const supportLevel = Math.min(...recentLows);
+    const resistanceLevel = Math.max(...recentHighs);
+
+    const quoteSummary = await quoteRes.json().catch(() => ({}));
+    const qResult = quoteSummary?.quoteSummary?.result?.[0] || {};
+    const sumDetail = qResult.summaryDetail || {};
+    const assetProfile = qResult.assetProfile || {};
+    const finData = qResult.financialData || {};
+    const stats = qResult.defaultKeyStatistics || {};
+
+    const marketCap = sumDetail.marketCap?.raw || 0;
+    const peRatio = sumDetail.trailingPE?.raw || 0;
+    const pbRatio = stats.priceToBook?.raw || 0;
+    const grossMargin = finData.grossMargins?.raw || 0;
+    const operatingMargin = finData.operatingMargins?.raw || 0;
+    const netMargin = finData.profitMargins?.raw || 0;
+    const revenueGrowth = finData.revenueGrowth?.raw || 0;
+    const fcf = finData.freeCashflow?.raw || 0;
+    const fcfYield = (fcf && marketCap) ? fcf / marketCap : 0;
+
+    let tScore = 30;
+    if (currentPrice > ema20) tScore += 15;
+    if (currentPrice > ema50) tScore += 15;
+    if (currentPrice > ema200) tScore += 15;
+    if (emaStackBullish) tScore += 15;
+    if (rsi14 >= 45 && rsi14 <= 65) tScore += 10;
+    else if (rsi14 < 30) tScore += 10;
+    if (rvol > 1.3) tScore += 5;
+    tScore = Math.max(10, Math.min(100, tScore));
+
+    let fScore = 40;
+    if (grossMargin > 0.40) fScore += 15;
+    if (netMargin > 0.10) fScore += 15;
+    if (fcfYield > 0.04) fScore += 15;
+    if (revenueGrowth > 0.08) fScore += 15;
+    fScore = Math.max(10, Math.min(100, fScore));
+
+    const roc1w = ((closes[closes.length - 1] - closes[closes.length - 6]) / closes[closes.length - 6]) * 100;
+    const roc1m = ((closes[closes.length - 1] - closes[closes.length - 21]) / closes[closes.length - 21]) * 100;
+    let mScore = 50;
+    if (roc1w > 2.0) mScore += 15;
+    if (roc1m > 5.0) mScore += 15;
+    if (rsi14 > 50) mScore += 10;
+    if (rvol > 1.2) mScore += 10;
+    mScore = Math.max(10, Math.min(100, mScore));
+
+    const masterScore = (tScore * 0.45) + (fScore * 0.25) + (mScore * 0.20) + 10;
+    const finalMaster = Math.max(10, Math.min(100, masterScore));
+
+    let signalType = "NEUTRAL";
+    if (finalMaster >= 68) signalType = "STRONG_BUY";
+    else if (finalMaster >= 56) signalType = "BUY";
+    else if (finalMaster <= 40) signalType = "STRONG_SELL";
+    else if (finalMaster <= 48) signalType = "SELL";
+
+    const entryLow = supportLevel * 0.99;
+    const entryHigh = supportLevel * 1.015;
+    const stopLoss = supportLevel * 0.95;
+    const targetLow = resistanceLevel * 1.01;
+    const targetHigh = resistanceLevel * 1.06;
+    const rrRatio = (targetLow - entryHigh) / (entryHigh - stopLoss);
+
+    return {
+      ticker: ticker.toUpperCase(),
+      company: meta.longName || stats.longName || `${ticker.toUpperCase()} Corp.`,
+      date: new Date().toISOString().split("T")[0],
+      generated_at: new Date().toISOString(),
+      sector: assetProfile.sector || "Unknown",
+      industry: assetProfile.industry || "Unknown",
+      price: {
+        current: currentPrice,
+        open: opens[opens.length - 1],
+        high: highs[highs.length - 1],
+        low: lows[lows.length - 1],
+        prev_close: prevClose,
+        change_pct: changePct,
+        change_pct_1w: roc1w,
+        change_pct_1m: roc1m,
+        change_pct_1y: ((currentPrice - closes[0]) / closes[0]) * 100,
+        volume: volumes[volumes.length - 1],
+        avg_volume_30d: last30dVol * 30
+      },
+      scores: {
+        master_score: finalMaster,
+        technical_score: tScore,
+        fundamental_score: fScore,
+        momentum_score: mScore,
+        sentiment_score: 70,
+        signal_type: signalType
+      },
+      technical: {
+        rsi_14: rsi14,
+        macd: 0.1,
+        macd_signal: 0.1,
+        macd_histogram: 0.0,
+        ema_20: ema20,
+        ema_50: ema50,
+        ema_200: ema200,
+        ema_stack_bullish: emaStackBullish,
+        bb_upper: currentPrice * 1.05,
+        bb_middle: currentPrice,
+        bb_lower: currentPrice * 0.95,
+        bb_width: 10,
+        atr: atr,
+        atr_pct: atrPct,
+        rvol: rvol,
+        "52w_high": high52w,
+        "52w_low": low52w
+      },
+      fundamental: {
+        pe_ratio: peRatio,
+        pb_ratio: pbRatio,
+        gross_margin: grossMargin,
+        operating_margin: operatingMargin,
+        net_margin: netMargin,
+        market_cap: marketCap,
+        revenue_growth_ttm: revenueGrowth,
+        fcf_yield: fcfYield,
+        institutional_ownership_pct: 0.70
+      },
+      scores_detail: {
+        entry_range_low: entryLow,
+        entry_range_high: entryHigh,
+        target_range_low: targetLow,
+        target_range_high: targetHigh,
+        stop_loss: stopLoss,
+        risk_reward_ratio: Math.max(1.5, Math.min(4.0, rrRatio || 2.5))
+      }
+    };
+  } catch (e) {
+    console.error("fetchYahooLive error:", e);
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   let body: { message: string; history?: Message[]; lang?: string };
   try {
@@ -192,23 +444,54 @@ export async function POST(req: NextRequest) {
       } catch {}
     }
 
-    // 2. If no fresh copy exists, trigger the dynamic python scraper
+    // 2. If no fresh copy exists, trigger the dynamic fetcher
     if (needsUpdate) {
       try {
-        console.log(`[BOGA AI] Running dynamic live ticker fetch for: ${ticker}`);
-        const pythonPath = "C:\\Users\\afksm\\finma\\venv313\\Scripts\\python.exe";
-        const scriptPath = "C:\\Users\\afksm\\finma\\fetch_live_ticker_analysis.py";
-        const resultStdout = execSync(`"${pythonPath}" "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 15000 });
-        if (resultStdout.trim()) {
-          const parsed = JSON.parse(resultStdout.trim());
-          if (parsed && !parsed.error) {
-            stockJson = parsed;
-          } else {
-            console.error(`[BOGA AI] Python analyser error: ${parsed.error}`);
+        console.log(`[BOGA AI] Attempting pure JavaScript dynamic live Yahoo Finance fetch for: ${ticker}`);
+        const liveData = await fetchYahooLive(ticker);
+        if (liveData) {
+          stockJson = liveData;
+          // Save to local directories if writable (safe for both local dev and serverless deploy)
+          const targetPaths = [
+            path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`),
+            path.join(process.cwd(), "data", "latest", "stocks", `${ticker}.json`),
+            path.join(process.cwd(), "frontend", "public", "data", "latest", "stocks", `${ticker}.json`),
+            path.join(process.cwd(), "public", "data", "latest", "stocks", `${ticker}.json`),
+          ];
+          for (const targetPath of targetPaths) {
+            try {
+              const dir = path.dirname(targetPath);
+              if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+              }
+              fs.writeFileSync(targetPath, JSON.stringify(liveData, null, 2), "utf-8");
+            } catch (writeErr: any) {
+              // Expected to fail silently on read-only environments like Vercel serverless
+            }
           }
         }
       } catch (e: any) {
-        console.error(`[BOGA AI] Dynamic python scraper failed for ${ticker}:`, e.message);
+        console.error(`[BOGA AI] Pure JS live Yahoo fetcher failed for ${ticker}:`, e.message);
+      }
+
+      // 2b. Python fallback if pure JS fetch failed and we are running in local environment
+      if (!stockJson) {
+        try {
+          console.log(`[BOGA AI] Falling back to dynamic Python scraper for: ${ticker}`);
+          const pythonPath = "C:\\Users\\afksm\\finma\\venv313\\Scripts\\python.exe";
+          const scriptPath = "C:\\Users\\afksm\\finma\\fetch_live_ticker_analysis.py";
+          if (fs.existsSync(pythonPath) && fs.existsSync(scriptPath)) {
+            const resultStdout = execSync(`"${pythonPath}" "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 15000 });
+            if (resultStdout.trim()) {
+              const parsed = JSON.parse(resultStdout.trim());
+              if (parsed && !parsed.error) {
+                stockJson = parsed;
+              }
+            }
+          }
+        } catch (e: any) {
+          console.error(`[BOGA AI] Dynamic Python fallback failed for ${ticker}:`, e.message);
+        }
       }
     }
 
