@@ -8,13 +8,14 @@ import { MasterData, StockQuickView } from "@/lib/data";
 interface Props {
   master: MasterData;
   allTickers: StockQuickView[];
+  customActiveTickers?: string[];
 }
 
-export default function MarketExplorer({ master, allTickers }: Props) {
+export default function MarketExplorer({ master, allTickers, customActiveTickers }: Props) {
   const [themeFilter, setThemeFilter] = useState<string[] | null>(null);
 
   // Use ALL scanned tickers for Active Market Themes
-  const activeTickers = allTickers.map(t => t.ticker);
+  const activeTickers = customActiveTickers || allTickers.map(t => t.ticker);
 
   const handleThemeSelect = (tickers: string[]) => {
     // If clicking same theme, clear filter. Else set it.

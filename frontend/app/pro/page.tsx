@@ -1,4 +1,4 @@
-import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance } from "@/lib/data";
+import { getMasterData, getAllTickers, getSwingPicks, getSwingPerformance, getOptionsData, getOptionsOutcomes } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -11,6 +11,7 @@ import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
 import SectorPerformanceHeatMap from "@/components/SectorPerformanceHeatMap";
 import { Metadata } from "next";
 import Link from "next/link";
+import { MARKET_THEMES } from "@/lib/themeData";
 
 export const revalidate = 60;
 
@@ -21,11 +22,13 @@ export const metadata: Metadata = {
 };
 
 export default async function ProPage() {
-  const [master, allTickers, swingPicks, swingStats] = await Promise.all([
+  const [master, allTickers, swingPicks, swingStats, optionsData, optionsOutcomes] = await Promise.all([
     getMasterData(),
     getAllTickers(),
     getSwingPicks(),
-    getSwingPerformance()
+    getSwingPerformance(),
+    getOptionsData("latest"),
+    getOptionsOutcomes()
   ]);
 
   if (!master) {
@@ -35,6 +38,39 @@ export default async function ProPage() {
       </div>
     );
   }
+
+  // Combine ALL stocks from: allTickers + MARKET_THEMES (config.py) + swingPicks + swingStats + optionsData + optionsOutcomes
+  const combinedTickersSet = new Set<string>();
+  
+  // 1. allTickers
+  allTickers.forEach(t => { if (t.ticker) combinedTickersSet.add(t.ticker.toUpperCase()); });
+  
+  // 2. config.py (MARKET_THEMES)
+  MARKET_THEMES.forEach(theme => {
+    theme.tickers.forEach(t => { if (t) combinedTickersSet.add(t.toUpperCase()); });
+  });
+  
+  // 3. swingPicks
+  if (swingPicks && Array.isArray(swingPicks.picks)) {
+    swingPicks.picks.forEach((p: any) => { if (p.ticker) combinedTickersSet.add(p.ticker.toUpperCase()); });
+  }
+  
+  // 4. swingStats
+  if (swingStats && Array.isArray(swingStats.history)) {
+    swingStats.history.forEach((h: any) => { if (h.ticker) combinedTickersSet.add(h.ticker.toUpperCase()); });
+  }
+  
+  // 5. optionsData
+  if (optionsData && Array.isArray(optionsData.picks)) {
+    optionsData.picks.forEach((p: any) => { if (p.ticker) combinedTickersSet.add(p.ticker.toUpperCase()); });
+  }
+  
+  // 6. optionsOutcomes
+  if (optionsOutcomes && Array.isArray(optionsOutcomes.positions)) {
+    optionsOutcomes.positions.forEach((pos: any) => { if (pos.ticker) combinedTickersSet.add(pos.ticker.toUpperCase()); });
+  }
+
+  const combinedTickers = Array.from(combinedTickersSet);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#060a12]">
@@ -66,7 +102,7 @@ export default async function ProPage() {
              <div className="w-1 h-8 bg-[#3b82f6] rounded-full" />
              <h2 className="text-2xl font-black text-white uppercase tracking-tight">Market Categories</h2>
            </div>
-           <MarketExplorer master={master} allTickers={allTickers} />
+           <MarketExplorer master={master} allTickers={allTickers} customActiveTickers={combinedTickers} />
         </section>
 
         {/* Sector Heat Map */}
