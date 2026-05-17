@@ -94,18 +94,18 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
   if (!picks || picks.length === 0) return null;
 
   return (
-    <div className="py-10">
-      <div className="flex items-center gap-4 mb-8 flex-wrap">
-        <div className="relative">
-          <div className="absolute -inset-1 rounded-full blur opacity-60 bg-[#3b82f6]"></div>
-          <div className="w-2 h-10 bg-[#3b82f6] rounded-full relative"></div>
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center gap-4 flex-wrap">
-            <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
-              {minimal ? "Daily Top 5 Selection" : "Top 5 Swing Picks"}
-            </h2>
-            {!minimal && (
+    <div className={minimal ? "py-0" : "py-10"}>
+      {!minimal && (
+        <div className="flex items-center gap-4 mb-8 flex-wrap">
+          <div className="relative">
+            <div className="absolute -inset-1 rounded-full blur opacity-60 bg-[#3b82f6]"></div>
+            <div className="w-2 h-10 bg-[#3b82f6] rounded-full relative"></div>
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-4 flex-wrap">
+              <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
+                Top 5 Swing Picks
+              </h2>
               <Link
                 href="/swing"
                 className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-full text-[12px] font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 hover:border-[#3b82f6]/60 transition-all duration-200 uppercase tracking-wider"
@@ -115,13 +115,13 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </Link>
-            )}
+            </div>
+            <p className="text-white text-sm mt-1">
+              Algorithmic high-conviction swing setups
+            </p>
           </div>
-          <p className="text-white text-sm mt-1">
-            {minimal ? "Automated institutional selections for today" : "Algorithmic high-conviction swing setups"}
-          </p>
         </div>
-      </div>
+      )}
 
 
       <div className={`grid grid-cols-1 ${minimal ? 'md:grid-cols-1 lg:grid-cols-5' : 'md:grid-cols-2 lg:grid-cols-5'} gap-6`}>

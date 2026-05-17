@@ -42,7 +42,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];
   } else {
-    const tickersInMenu = menu.tickers.slice(0, 8);
+    const tickersInMenu = menu.tickers.slice(0, 5);
     cards = tickersInMenu
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];
@@ -88,7 +88,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       </div>
 
       {/* Cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {cards.map((stock, idx) => (
           <Link
             href={`/stock/${stock.ticker}`}

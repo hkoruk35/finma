@@ -51,11 +51,7 @@ export default async function ProPage() {
         </section>
 
         {/* Top 3 Swing of the Day from Homepage */}
-        <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-             <div className="w-1 h-8 bg-[#3b82f6] rounded-full" />
-             <h2 className="text-2xl font-black text-white uppercase tracking-tight">Daily Top 5 Selection</h2>
-           </div>
+        <section className="mb-4">
           <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
         </section>
 
