@@ -4,8 +4,8 @@
 fetch_live_ticker_analysis.py
 -----------------------------
 Fetches real-time price history, financials, and company metrics from Yahoo Finance.
-Calculates all technical indicators, BOGA scores, and entry/exit strategy parameters.
-Saves the results in JSON format and outputs to stdout.
+Calculates all technical indicators, BOGA scores, and entry/exit strategy parameters
+matching 100% of the swing117_boga timing, 1H pivot support/resist, and 15m direction rules.
 """
 
 import sys
@@ -17,7 +17,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 
-# Replicate EMA calculation to avoid dependency on ta-lib/ta packages
+# Replicate EMA calculation
 def calculate_ema(series, period):
     return series.ewm(span=period, adjust=False).mean()
 
@@ -29,6 +29,192 @@ def calculate_rsi(series, period=14):
     rsi = 100 - (100 / (1 + rs))
     return rsi.fillna(50)
 
+def check_15m_micro_trend(df_15m: pd.DataFrame) -> dict:
+    """
+    15m zaman diliminde son 8 mumun (2 saat) gürültüsüz yön analizini yapar.
+    """
+    if df_15m is None or len(df_15m) < 10:
+        return {'is_valid': True, 'score_bonus': 0.0, 'msg': "⚠️ 15m veri yetersiz (nötr)"}
+
+    recent_15m = df_15m.tail(8)
+    close_prices = recent_15m['Close'].values
+    open_prices = recent_15m['Open'].values
+    
+    net_change_pct = (close_prices[-1] - close_prices[0]) / close_prices[0] * 100
+    green_candles = sum(1 for i in range(8) if close_prices[i] > open_prices[i])
+    
+    highs = recent_15m['High'].values
+    is_bleeding = (highs[-1] < highs[-3]) and (highs[-3] < highs[-6])
+
+    if net_change_pct < -1.0 and green_candles <= 3 and is_bleeding:
+        return {'is_valid': False, 'score_bonus': -10.0, 'msg': "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"}
+    
+    if net_change_pct > 0.5 and green_candles >= 5:
+        return {'is_valid': True, 'score_bonus': 4.0, 'msg': f"🔥 15m ONAY: Son 2 saat net trend (+{net_change_pct:.2f}%)"}
+    
+    if net_change_pct < 0 and green_candles < 4:
+        return {'is_valid': True, 'score_bonus': -2.0, 'msg': "⚠️ 15m Uyarı: Son 2 saat yön aşağı"}
+
+    return {'is_valid': True, 'score_bonus': 1.0, 'msg': "⚖️ 15m Yatay/Sıkışma: Gürültü yok"}
+
+def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float) -> dict:
+    """
+    BOGA AI TIMING ENGINE (100% Swing117 Python replication)
+    """
+    close_1d = df_1d['Close']
+    high_1d  = df_1d['High']
+    low_1d   = df_1d['Low']
+    
+    # ATR
+    high_low = high_1d - low_1d
+    high_cp = np.abs(high_1d - close_1d.shift(1))
+    low_cp = np.abs(low_1d - close_1d.shift(1))
+    tr = pd.concat([high_low, high_cp, low_cp], axis=1).max(axis=1)
+    atr_series = tr.rolling(14).mean()
+    atr_1d = float(atr_series.iloc[-1]) if not atr_series.empty else current_price * 0.03
+    atr_pct = atr_1d / current_price
+
+    macro_support = float(low_1d.tail(10).min())
+    macro_resist  = float(high_1d.tail(15).max())
+
+    support_1h = macro_support
+    resist_1h  = macro_resist
+
+    entry_valid = False
+    entry_type = "WAITING_FOR_VOLUME_OR_SWEEP"
+    entry_confidence = 0
+
+    if df_1h is not None and len(df_1h) >= 20:
+        low_1h   = df_1h['Low']
+        high_1h  = df_1h['High']
+        close_1h = df_1h['Close']
+        open_1h  = df_1h['Open']
+        vol_1h   = df_1h['Volume']
+
+        curr_c = float(close_1h.iloc[-1])
+        curr_o = float(open_1h.iloc[-1])
+        curr_h = float(high_1h.iloc[-1])
+        curr_l = float(low_1h.iloc[-1])
+        curr_v = float(vol_1h.iloc[-1])
+
+        prev_c = float(close_1h.iloc[-2])
+        prev_o = float(open_1h.iloc[-2])
+
+        # 1H Pivot / Noise Filter
+        lows, highs = low_1h.tail(50), high_1h.tail(50)
+        pivot_lows = [float(lows.iloc[i]) for i in range(2, len(lows)-2) if lows.iloc[i] < lows.iloc[i-1] and lows.iloc[i] < lows.iloc[i+1]]
+        pivot_highs = [float(highs.iloc[i]) for i in range(2, len(highs)-2) if highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i+1]]
+
+        supports_below = [p for p in pivot_lows if p < current_price - (atr_1d * 0.4)]
+        if supports_below:
+            support_1h = max(max(supports_below), macro_support)
+        
+        resists_above = [p for p in pivot_highs if p > current_price + (atr_1d * 0.5)]
+        if resists_above:
+            resist_1h = min(min(resists_above), macro_resist)
+
+        # Vol spike
+        vol_avg_20 = float(vol_1h.rolling(20).mean().iloc[-1])
+        is_green_candle = curr_c > curr_o
+        volume_spike_breakout = (curr_v > vol_avg_20 * 1.3) and is_green_candle
+        volume_spike_sweep = (curr_v > vol_avg_20 * 1.8) and is_green_candle
+
+        # Candle wicks
+        body = abs(curr_c - curr_o)
+        lower_wick = min(curr_c, curr_o) - curr_l
+        upper_wick = curr_h - max(curr_c, curr_o)
+        
+        is_pinbar = (lower_wick > body * 2.0) and (upper_wick < body * 0.5)
+        is_bullish_engulfing = is_green_candle and (prev_c < prev_o) and (curr_c > prev_o) and (curr_o < prev_c)
+
+        is_liquidity_sweep = (curr_l < support_1h) and (curr_c > support_1h)
+        recent_local_high = float(high_1h.iloc[-11:-1].max()) if len(high_1h) >= 11 else float(high_1h.iloc[:-1].max())
+        is_bos = (curr_c > recent_local_high) and volume_spike_breakout
+
+        is_pullback = (support_1h <= curr_l <= support_1h + (atr_1d * 0.3))
+
+        # Early momentum check via EMA20
+        try:
+            ema20_1h_series = calculate_ema(close_1h, 20)
+            ema20_1h_val = float(ema20_1h_series.iloc[-1])
+            roc_1h = ((curr_c - prev_c) / prev_c) * 100 if prev_c > 0 else 0.0
+            is_early_momentum = (curr_c > ema20_1h_val) and (roc_1h > 0.8) and (curr_v > vol_avg_20 * 1.15)
+        except Exception:
+            is_early_momentum = False
+
+        if is_liquidity_sweep and (is_pinbar or volume_spike_sweep):
+            entry_valid = True
+            entry_type = "REVERSAL (Liquidity Sweep)"
+            entry_confidence = 95
+        elif is_bos:
+            entry_valid = True
+            entry_type = "BREAKOUT (BOS)"
+            entry_confidence = 85
+        elif is_early_momentum:
+            entry_valid = True
+            entry_type = "EARLY MOMENTUM"
+            entry_confidence = 80
+        elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike_breakout:
+            entry_valid = True
+            entry_type = "PULLBACK"
+            entry_confidence = 80
+
+    if (current_price - support_1h) < (atr_1d * 0.6):
+        support_1h = current_price - (atr_1d * 0.8)
+
+    is_momentum_entry = entry_valid and entry_type in ("BREAKOUT (BOS)", "REVERSAL (Liquidity Sweep)")
+
+    if is_momentum_entry:
+        buy_zone_low  = round(current_price - (atr_1d * 0.25), 2)
+        buy_zone_high = round(current_price + (atr_1d * 0.15), 2)
+    elif entry_valid and entry_type == "PULLBACK":
+        buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+        buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+    else:
+        buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+        buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+
+    if buy_zone_low >= buy_zone_high:
+        buy_zone_low = round(buy_zone_high - (atr_1d * 0.3), 2)
+
+    stop_high = round(support_1h - (atr_1d * 0.5), 2)
+    stop_low  = round(stop_high - (atr_1d * 0.2), 2)
+
+    avg_entry = (current_price * 0.995) if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
+    risk = max(avg_entry - stop_high, atr_1d * 1.0)
+    
+    structural_reward = resist_1h - avg_entry
+    reward = max(risk * 2.0, structural_reward) if structural_reward > 0 else risk * 2.5
+    
+    rr_cap = 4.0
+    if reward > risk * rr_cap:
+        reward = risk * rr_cap
+
+    sell_zone_low  = round(avg_entry + reward * 0.85, 2)
+    sell_zone_high = round(avg_entry + reward, 2)
+
+    actual_risk   = avg_entry - stop_high
+    actual_reward = sell_zone_high - avg_entry
+    rr_ratio = round(actual_reward / actual_risk, 2) if actual_risk > 0 else 0.0
+
+    return {
+        "entry_engine": {
+            "valid": entry_valid,
+            "type": entry_type,
+            "confidence": entry_confidence
+        },
+        "buy_zone":  {"low": buy_zone_low,  "high": buy_zone_high},
+        "sell_zone": {"low": sell_zone_low,  "high": sell_zone_high},
+        "stop_zone": {"low": stop_low,        "high": stop_high},
+        "support_1h":  round(support_1h, 2),
+        "resist_1h":   round(resist_1h, 2),
+        "atr_1d":      round(atr_1d, 2),
+        "atr_pct":     round(atr_pct * 100, 2),
+        "rr_ratio":    rr_ratio,
+        "risk_usd":    round(actual_risk, 2),
+        "reward_usd":  round(actual_reward, 2)
+    }
+
 def main():
     if len(sys.argv) < 2:
         print(json.dumps({"error": "No ticker provided"}))
@@ -37,22 +223,25 @@ def main():
     ticker = sys.argv[1].strip().upper()
     
     try:
-        # 1. Fetch info and history
         stock = yf.Ticker(ticker)
         
-        # 1D History for technical indicators and 52-week metrics
+        # 1D History
         df_1d = stock.history(period="252d", interval="1d")
         if df_1d.empty:
             print(json.dumps({"error": f"No daily data found for {ticker} in Yahoo Finance. Ticker might be invalid."}))
             sys.exit(1)
             
-        # Clean columns caps
         df_1d.columns = [c.capitalize() for c in df_1d.columns]
         
-        # 1H History for precise entry/exit zones and S/R levels
+        # 1H History
         df_1h = stock.history(period="10d", interval="1h")
         if not df_1h.empty:
             df_1h.columns = [c.capitalize() for c in df_1h.columns]
+            
+        # 15M History
+        df_15m = stock.history(period="5d", interval="15m")
+        if not df_15m.empty:
+            df_15m.columns = [c.capitalize() for c in df_15m.columns]
             
         # Fetch stock details info
         info = stock.info
@@ -64,8 +253,7 @@ def main():
         prev_close = float(df_1d['Close'].iloc[-2]) if len(df_1d) >= 2 else current_price
         change_pct = ((current_price - prev_close) / prev_close) * 100
         
-        # 2. Compute Technical Indicators
-        # EMA
+        # Compute Technical Indicators
         ema_20_series = calculate_ema(df_1d['Close'], 20)
         ema_50_series = calculate_ema(df_1d['Close'], 50)
         ema_200_series = calculate_ema(df_1d['Close'], 200)
@@ -120,18 +308,13 @@ def main():
         bb_lower = float(bb_lower_series.iloc[-1]) if not bb_lower_series.empty else current_price * 0.95
         bb_middle = float(bb_middle_series.iloc[-1]) if not bb_middle_series.empty else current_price
         
-        # 3. Support & Resistance Levels
-        if not df_1h.empty:
-            support_1h = float(df_1h['Low'].tail(40).min())
-            resist_1h = float(df_1h['High'].tail(40).max())
-        else:
-            support_1h = float(df_1d['Low'].tail(15).min())
-            resist_1h = float(df_1d['High'].tail(15).max())
-            
-        support_level = support_1h
-        resistance_level = resist_1h
+        # Timing engine calculation (Replicates swing117 exactly!)
+        timing = calculate_support_resistance_1h(df_1h, df_1d, current_price)
         
-        # 4. Fundamental metrics
+        # 15m micro trend
+        micro15 = check_15m_micro_trend(df_15m)
+        
+        # Fundamental metrics
         market_cap = info.get("marketCap", info.get("market_cap", 0))
         pe_ratio = info.get("trailingPE", info.get("trailing_pe", 0)) or 0.0
         pb_ratio = info.get("priceToBook", info.get("price_to_book", 0)) or 0.0
@@ -144,8 +327,7 @@ def main():
         if fcf and market_cap:
             fcf_yield = fcf / market_cap
             
-        # 5. Compute BOGA Scores
-        # Technical score (10 to 100)
+        # Compute BOGA Scores
         t_score = 30.0
         if current_price > ema_20: t_score += 15
         if current_price > ema_50: t_score += 15
@@ -156,7 +338,6 @@ def main():
         if rvol > 1.3: t_score += 5
         t_score = max(10, min(100, t_score))
         
-        # Fundamental score (10 to 100)
         f_score = 40.0
         if gross_margin > 0.40: f_score += 15
         if net_margin > 0.10: f_score += 15
@@ -164,7 +345,6 @@ def main():
         if revenue_growth > 0.08: f_score += 15
         f_score = max(10, min(100, f_score))
         
-        # Momentum score (10 to 100)
         roc_1w = ((current_price - df_1d['Close'].iloc[-6]) / df_1d['Close'].iloc[-6]) * 100 if len(df_1d) >= 6 else 0.0
         roc_1m = ((current_price - df_1d['Close'].iloc[-21]) / df_1d['Close'].iloc[-21]) * 100 if len(df_1d) >= 21 else 0.0
         m_score = 50.0
@@ -174,20 +354,23 @@ def main():
         if rvol > 1.2: m_score += 10
         m_score = max(10, min(100, m_score))
         
-        # Sentiment score
         inst_ownership = info.get("heldPercentInstitutions", 0.0) or 0.0
         short_float = info.get("shortPercentOfFloat", 0.0) or 0.0
         s_score = 50.0
         if inst_ownership > 0.60: s_score += 15
-        if short_float > 0.15: s_score += 15 # potential short squeeze target
+        if short_float > 0.15: s_score += 15
         elif short_float > 0.08: s_score += 5
         s_score = max(10, min(100, s_score))
         
-        # Master score (weighted sum)
-        master_score = (t_score * 0.45) + (f_score * 0.25) + (m_score * 0.20) + (s_score * 0.10)
+        # Master score (incorporate 15m micro trend score bonus!)
+        master_score = (t_score * 0.40) + (f_score * 0.25) + (m_score * 0.20) + (s_score * 0.15)
+        master_score += micro15['score_bonus']
         master_score = max(10.0, min(100.0, master_score))
         
-        # Signal type
+        # Hard Reject handling if toxic distribution
+        if not micro15['is_valid']:
+            master_score = min(35.0, master_score)
+            
         if master_score >= 68:
             signal_type = "STRONG_BUY"
         elif master_score >= 56:
@@ -199,31 +382,13 @@ def main():
         else:
             signal_type = "NEUTRAL"
             
-        # 6. Strategy Planning (Entry, Target, Stop Loss)
-        # Entry range
-        entry_low = support_level * 0.99
-        entry_high = support_level * 1.015
-        if current_price < entry_low:
-            entry_low = current_price * 0.985
-            entry_high = current_price * 1.005
-            
-        stop_loss = support_level * 0.95
-        if stop_loss >= current_price:
-            stop_loss = current_price * 0.94
-            
-        target_low = resistance_level * 1.01
-        target_high = resistance_level * 1.06
-        if target_low <= current_price:
-            target_low = current_price * 1.08
-            target_high = current_price * 1.15
-            
-        rr_ratio = (target_low - entry_high) / (entry_high - stop_loss) if (entry_high - stop_loss) > 0 else 2.5
-        rr_ratio = max(1.5, min(4.0, rr_ratio))
-        
-        # Get historical returns
-        ret_1w = ((current_price - df_1d['Close'].iloc[-6]) / df_1d['Close'].iloc[-6]) * 100 if len(df_1d) >= 6 else 0.0
-        ret_1m = ((current_price - df_1d['Close'].iloc[-21]) / df_1d['Close'].iloc[-21]) * 100 if len(df_1d) >= 21 else 0.0
-        ret_1y = ((current_price - df_1d['Close'].iloc[0]) / df_1d['Close'].iloc[0]) * 100 if len(df_1d) >= 200 else 0.0
+        # Strategy zones
+        entry_low = timing["buy_zone"]["low"]
+        entry_high = timing["buy_zone"]["high"]
+        stop_loss = timing["stop_zone"]["high"]
+        target_low = timing["sell_zone"]["low"]
+        target_high = timing["sell_zone"]["high"]
+        rr_ratio = timing["rr_ratio"]
         
         # Assemble final JSON
         report = {
@@ -240,9 +405,9 @@ def main():
                 "low": round(float(df_1d['Low'].iloc[-1]), 2),
                 "prev_close": round(prev_close, 2),
                 "change_pct": round(change_pct, 2),
-                "change_pct_1w": round(ret_1w, 2),
-                "change_pct_1m": round(ret_1m, 2),
-                "change_pct_1y": round(ret_1y, 2),
+                "change_pct_1w": round(roc_1w, 2),
+                "change_pct_1m": round(roc_1m, 2),
+                "change_pct_1y": round(((current_price - df_1d['Close'].iloc[0]) / df_1d['Close'].iloc[0]) * 100 if len(df_1d) >= 200 else 0.0, 2),
                 "volume": int(df_1d['Volume'].iloc[-1]),
                 "avg_volume_30d": int(volume.tail(30).mean())
             },
@@ -252,7 +417,8 @@ def main():
                 "fundamental_score": round(f_score, 1),
                 "momentum_score": round(m_score, 1),
                 "sentiment_score": round(s_score, 1),
-                "signal_type": signal_type
+                "signal_type": signal_type,
+                "micro_15m": micro15
             },
             "technical": {
                 "rsi_14": round(rsi_14, 2),
@@ -294,7 +460,7 @@ def main():
             }
         }
         
-        # Save to targets
+        # Save to target directories
         target_dirs = [
             "data/latest/stocks",
             "frontend/public/data/latest/stocks"

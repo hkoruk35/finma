@@ -1,0 +1,248 @@
+=== check_15m_micro_trend ===
+def check_15m_micro_trend(df_15m: pd.DataFrame) -> dict:
+    """
+    15m zaman diliminde son 8 mumun (2 saat) gürültüsüz yön analizini yapar.
+    Sadece net trendi ve tutarlılığı ölçer, tekil fitil/mum gürültülerini yok sayar.
+    """
+    if df_15m is None or len(df_15m) < 10:
+        return {'is_valid': True, 'score_bonus': 0.0, 'msg': "⚠️ 15m veri yetersiz (nötr)"}
+
+    # Son 8 mumu al (2 saatlik veri)
+    recent_15m = df_15m.tail(8)
+    
+    close_prices = recent_15m['Close'].values
+    open_prices = recent_15m['Open'].values
+    
+    # 1. NET YÖN (Net Return): İlk mum ile son mum arasındaki değişim.
+    # Aradaki zikzakları (gürültüyü) tamamen yok sayar.
+    net_change_pct = (close_prices[-1] - close_prices[0]) / close_prices[0] * 100
+    
+    # 2. TUTARLILIK (Consistency): 8 mumun kaçı yeşil kapattı?
+    # Eğer fiyat %1 artmış ama 8 mumun 6'sı kırmızıysa, bu bir tuzaktır (tek mumluk spike).
+    green_candles = sum(1 for i in range(8) if close_prices[i] > open_prices[i])
+    
+    # 3. YERÇEKİMİ KONTROLÜ (Lower Highs): Sürekli daha düşük tepeler mi yapıyor?
+    highs = recent_15m['High'].values
+    is_bleeding = (highs[-1] < highs[-3]) and (highs[-3] < highs[-6])
+
+    # --- KARAR MEKANİZMASI ---
+    
+    # Hard Reject (Zehirli Mikro Trend): Net düşüş var, mumların çoğu kırmızı ve tepeler alçalıyor.
+    # Bu durum, 1H veya 1D harika görünse bile içeride bir kurumsal satış (dağıtım) olduğunu gösterir.
+    if net_change_pct < -1.0 and green_candles <= 3 and is_bleeding:
+        return {'is_valid': False, 'score_bonus': -10.0, 'msg': "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"}
+    
+    # Güçlü Onay (Momentum Teyidi): Net yükseliş var ve istikrarlı yeşil mumlar.
+    if net_change_pct > 0.5 and green_candles >= 5:
+        return {'is_valid': True, 'score_bonus': 4.0, 'msg': f"🔥 15m ONAY: Son 2 saat net trend (+{net_change_pct:.2f}%)"}
+    
+    # Zayıf Kapanış Uyarıları (Girerken temkinli ol)
+    if net_change_pct < 0 and green_candles < 4:
+        return {'is_valid': True, 'score_bonus': -2.0, 'msg': "⚠️ 15m Uyarı: Son 2 saat yön aşağı"}
+
+    # Nötr / Sıkışma (Squeeze için mükemmel)
+    return {'is_valid': True, 'score_bonus': 1.0, 'msg': "⚖️ 15m Yatay/Sıkışma: Gürültü yok"}
+    
+# ================================================================
+# ================================================================
+# SECTION 5: PERFORMANCE DATA
+# ================================================================
+# ================================================================
+
+
+
+=== calculate_support_resistance_1h ===
+def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, current_price: float, entry_trigger_1d: str = "", df_15m: pd.DataFrame = None) -> dict:
+    """
+    BOGA AI TIMING ENGINE (Sniper Module): 
+    Combines 1D macro structure and 1H micro price movements.
+    No matter how good the stock is, if there is no Smart Money volume and 
+    reversal confirmation, entry_valid = False is returned.
+    """
+    try:
+        # ── 1. DAILY (1D) MACRO STRUCTURE AND ATR ─────────────────────────
+        close_1d = df_1d['Close']
+        high_1d  = df_1d['High']
+        low_1d   = df_1d['Low']
+        
+        atr_1d_series = AverageTrueRange(high_1d, low_1d, close_1d, ATR_PERIOD).average_true_range()
+        atr_1d = float(atr_1d_series.iloc[-1]) if not pd.isna(atr_1d_series.iloc[-1]) else current_price * 0.03
+        atr_pct = atr_1d / current_price
+
+        macro_support = float(low_1d.tail(10).min())
+        macro_resist  = float(high_1d.tail(15).max())
+
+        support_1h = macro_support
+        resist_1h  = macro_resist
+
+        # ── 2. REAL-TIME TIMING (Via 1H Data) ────────
+        entry_valid = False
+        entry_type = "WAITING_FOR_VOLUME_OR_SWEEP"
+        entry_confidence = 0
+
+        if df_1h is not None and len(df_1h) >= 20:
+            low_1h   = df_1h['Low']
+            high_1h  = df_1h['High']
+            close_1h = df_1h['Close']
+            open_1h  = df_1h['Open']
+            vol_1h   = df_1h['Volume']
+
+            # Intraday Candle Data
+            curr_c = float(close_1h.iloc[-1])
+            curr_o = float(open_1h.iloc[-1])
+            curr_h = float(high_1h.iloc[-1])
+            curr_l = float(low_1h.iloc[-1])
+            curr_v = float(vol_1h.iloc[-1])
+
+            prev_c = float(close_1h.iloc[-2])
+            prev_o = float(open_1h.iloc[-2])
+
+            # 1H Pivot / Noise Filter
+            lows, highs = low_1h.tail(50), high_1h.tail(50)
+            pivot_lows = [float(lows.iloc[i]) for i in range(2, len(lows)-2) if lows.iloc[i] < lows.iloc[i-1] and lows.iloc[i] < lows.iloc[i+1]]
+            pivot_highs = [float(highs.iloc[i]) for i in range(2, len(highs)-2) if highs.iloc[i] > highs.iloc[i-1] and highs.iloc[i] > highs.iloc[i+1]]
+
+            supports_below = [p for p in pivot_lows if p < current_price - (atr_1d * 0.4)]
+            if supports_below:
+                support_1h = max(max(supports_below), macro_support)
+            
+            resists_above = [p for p in pivot_highs if p > current_price + (atr_1d * 0.5)]
+            if resists_above:
+                resist_1h = min(min(resists_above), macro_resist)
+
+            # --- SMART MONEY & VOLUME CONFIRMATION ---
+            # Hacim Filtresi: Dual-Tier (Breakout için daha esnek, Sweep için sert)
+            vol_avg_20 = float(vol_1h.rolling(20).mean().iloc[-1])
+            is_green_candle = curr_c > curr_o
+            volume_spike_breakout = (curr_v > vol_avg_20 * 1.3) and is_green_candle
+            volume_spike_sweep = (curr_v > vol_avg_20 * 1.8) and is_green_candle
+
+            # Price Action (Candle Formations)
+            body = abs(curr_c - curr_o)
+            lower_wick = min(curr_c, curr_o) - curr_l
+            upper_wick = curr_h - max(curr_c, curr_o)
+            
+            is_pinbar = (lower_wick > body * 2.0) and (upper_wick < body * 0.5)
+            is_bullish_engulfing = is_green_candle and (prev_c < prev_o) and (curr_c > prev_o) and (curr_o < prev_c)
+
+            # --- ENTRY SCENARIOS (Signal Triggers) ---
+            is_liquidity_sweep = (curr_l < support_1h) and (curr_c > support_1h)
+            
+            # 🚨 FIX 1: BOS Bug - current candle dahil edilmedi, gerçek breakout tespiti
+            recent_local_high = float(high_1h.iloc[-11:-1].max()) if len(high_1h) >= 11 else float(high_1h.iloc[:-1].max())
+            is_bos = (curr_c > recent_local_high) and volume_spike_breakout
+
+            is_pullback = (support_1h <= curr_l <= support_1h + (atr_1d * 0.3))
+
+            # ── ERKEN MOMENTUM TESPİTİ (Sessiz Kırılımlar İçin) ──
+            try:
+                ema20_1h_val = float(EMAIndicator(close_1h, 20).ema_indicator().iloc[-1])
+                roc_1h = ((curr_c - prev_c) / prev_c) * 100 if prev_c > 0 else 0.0
+                is_early_momentum = (curr_c > ema20_1h_val) and (roc_1h > 0.8) and (curr_v > vol_avg_20 * 1.15)
+            except Exception:
+                is_early_momentum = False
+
+            # --- FINAL DECISION (Giriş Öncelik Hiyerarşisi) ---
+            if is_liquidity_sweep and (is_pinbar or volume_spike_sweep):
+                entry_valid = True
+                entry_type = "REVERSAL (Liquidity Sweep)"
+                entry_confidence = 95
+                
+            elif is_bos:
+                entry_valid = True
+                entry_type = "BREAKOUT (BOS)"
+                entry_confidence = 85
+                
+            elif is_early_momentum:
+                entry_valid = True
+                entry_type = "EARLY MOMENTUM"
+                entry_confidence = 80
+                
+            elif is_pullback and (is_pinbar or is_bullish_engulfing) and volume_spike_breakout:
+                entry_valid = True
+                entry_type = "PULLBACK"
+                entry_confidence = 80
+                
+        # Safety Buffer (If support is too close to price)
+        if (current_price - support_1h) < (atr_1d * 0.6):
+            support_1h = current_price - (atr_1d * 0.8)
+
+        # ── 3. REFERENCE ZONES — DYNAMIC BY SIGNAL TYPE ───────────────────
+        is_momentum_entry = (
+            (entry_valid and entry_type in ("BREAKOUT (BOS)", "REVERSAL (Liquidity Sweep)")) or
+            (entry_type or "").startswith("BREAKOUT") or
+            "Early Awakening" in entry_trigger_1d
+        )
+
+        if is_momentum_entry:
+            # Tight zone around live price
+            buy_zone_low  = round(current_price - (atr_1d * 0.25), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.15), 2)
+        elif entry_valid and entry_type == "PULLBACK":
+            buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+        else:
+            buy_zone_low  = round(support_1h + (atr_1d * 0.2), 2)
+            buy_zone_high = round(current_price + (atr_1d * 0.1), 2)
+
+        # Sanity guard
+        if buy_zone_low >= buy_zone_high:
+            buy_zone_low = round(buy_zone_high - (atr_1d * 0.3), 2)
+
+        stop_high = round(support_1h - (atr_1d * 0.5), 2)
+        stop_low  = round(stop_high - (atr_1d * 0.2), 2)
+
+        # 🎯 FIX 5: Entry Buffer. Breakout mumunun tam tepesinden almamak (slippage protection) için.
+        avg_entry = (current_price * 0.995) if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
+        risk = max(avg_entry - stop_high, atr_1d * 1.0)
+        
+        # 🎯 FIX 3: R/R Kaybını Engelleme (Momentum hisseleri için edge)
+        structural_reward = resist_1h - avg_entry
+        reward = max(risk * 2.0, structural_reward) if structural_reward > 0 else risk * 2.5
+        
+        # 🚨 FIX 7: R/R Tavanı — exhausted/late hissede 4x, momentum liderinde 6x.
+        # "Early Awakening" veya "Squeeze" sinyali varsa asymmetry korunur.
+        is_momentum_trigger_keyword = entry_trigger_1d and any(k in entry_trigger_1d for k in ["Squeeze", "Awakening", "Momentum", "Spring"])
+        rr_cap = 6.0 if is_momentum_trigger_keyword else 4.0
+        if reward > risk * rr_cap:
+            reward = risk * rr_cap
+
+        sell_zone_low  = round(avg_entry + reward * 0.85, 2)
+        sell_zone_high = round(avg_entry + reward, 2)
+
+        actual_risk   = avg_entry - stop_high
+        actual_reward = sell_zone_high - avg_entry
+        rr_ratio = round(actual_reward / actual_risk, 2) if actual_risk > 0 else 0.0
+
+        return {
+            "entry_engine": {
+                "valid": entry_valid,
+                "type": entry_type,
+                "confidence": entry_confidence
+            },
+            "buy_zone":  {"low": buy_zone_low,  "high": buy_zone_high},
+            "sell_zone": {"low": sell_zone_low,  "high": sell_zone_high},
+            "stop_zone": {"low": stop_low,        "high": stop_high},
+            "support_1h":  round(support_1h, 2),
+            "resist_1h":   round(resist_1h, 2),
+            "atr_1d":      round(atr_1d, 2),
+            "atr_pct":     round(atr_pct * 100, 2),
+            "rr_ratio":    rr_ratio,
+            "risk_usd":    round(actual_risk, 2),
+            "reward_usd":  round(actual_reward, 2),
+        }
+
+    except Exception as e:
+        logging.error(f"❌ Support/Resistance & Timing error: {e}")
+        return {
+            "entry_engine": {"valid": False, "type": "DATA_ERROR", "confidence": 0},
+            "buy_zone": {"low": current_price * 0.98, "high": current_price * 1.01},
+            "sell_zone": {"low": current_price * 1.05, "high": current_price * 1.08},
+            "stop_zone": {"low": current_price * 0.94, "high": current_price * 0.95},
+            "support_1h": current_price * 0.95, "resist_1h": current_price * 1.08,
+            "atr_1d": current_price * 0.03, "atr_pct": 3.0,
+            "rr_ratio": 0.0, "risk_usd": 0.0, "reward_usd": 0.0
+        }       
+        
+
+

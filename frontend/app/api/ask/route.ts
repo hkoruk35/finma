@@ -366,15 +366,55 @@ function calculateSupportResistance1h(
   };
 }
 
+function check15mMicroTrend(
+  closes15m: number[] | null,
+  opens15m: number[] | null,
+  highs15m: number[] | null
+) {
+  if (!closes15m || !opens15m || !highs15m || closes15m.length < 8) {
+    return { is_valid: true, score_bonus: 0.0, msg: "⚠️ 15m veri yetersiz (nötr)" };
+  }
+
+  // Get last 8 candles (recent 2 hours)
+  const c = closes15m.slice(-8);
+  const o = opens15m.slice(-8);
+  const h = highs15m.slice(-8);
+
+  const net_change_pct = ((c[7] - c[0]) / c[0]) * 100;
+  let green_candles = 0;
+  for (let i = 0; i < 8; i++) {
+    if (c[i] > o[i]) green_candles++;
+  }
+
+  // Lower highs check: h[7] < h[5] and h[5] < h[2]
+  const is_bleeding = (h[7] < h[5]) && (h[5] < h[2]);
+
+  if (net_change_pct < -1.0 && green_candles <= 3 && is_bleeding) {
+    return { is_valid: false, score_bonus: -10.0, msg: "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)" };
+  }
+
+  if (net_change_pct > 0.5 && green_candles >= 5) {
+    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m ONAY: Son 2 saat net trend (+${net_change_pct.toFixed(2)}%)` };
+  }
+
+  if (net_change_pct < 0 && green_candles < 4) {
+    return { is_valid: true, score_bonus: -2.0, msg: "⚠️ 15m Uyarı: Son 2 saat yön aşağı" };
+  }
+
+  return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m Yatay/Sıkışma: Gürültü yok" };
+}
+
 async function fetchYahooLive(ticker: string) {
   try {
     const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
+    const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
 
-    const [chartRes, chart1hRes, quoteRes] = await Promise.all([
+    const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
       fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
       fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(quoteUrl, { signal: AbortSignal.timeout(10000) })
     ]);
 
@@ -469,6 +509,38 @@ async function fetchYahooLive(ticker: string) {
       }
     }
 
+    // 15-Minute micro-direction calculation
+    let closes15m: number[] | null = null;
+    let opens15m: number[] | null = null;
+    let highs15m: number[] | null = null;
+
+    if (chart15mRes && chart15mRes.ok) {
+      try {
+        const c15mData = await chart15mRes.json();
+        const res15m = c15mData?.chart?.result?.[0];
+        if (res15m) {
+          const q15m = res15m.indicators?.quote?.[0] || {};
+          const rCl15m = q15m.close || [];
+          const rOp15m = q15m.open || [];
+          const rHi15m = q15m.high || [];
+
+          closes15m = [];
+          opens15m = [];
+          highs15m = [];
+
+          for (let i = 0; i < rCl15m.length; i++) {
+            if (rCl15m[i] !== null && rOp15m[i] !== null && rHi15m[i] !== null) {
+              closes15m.push(rCl15m[i]);
+              opens15m.push(rOp15m[i]);
+              highs15m.push(rHi15m[i]);
+            }
+          }
+        }
+      } catch (err) {
+        console.error("15m chart parse error:", err);
+      }
+    }
+
     const timing = calculateSupportResistance1h(
       closes,
       highs,
@@ -480,6 +552,8 @@ async function fetchYahooLive(ticker: string) {
       volumes1h,
       currentPrice
     );
+
+    const micro15 = check15mMicroTrend(closes15m, opens15m, highs15m);
 
     const quoteSummary = await quoteRes.json().catch(() => ({}));
     const qResult = quoteSummary?.quoteSummary?.result?.[0] || {};
@@ -617,9 +691,16 @@ async function fetchYahooLive(ticker: string) {
     if (rvol > 1.2) mScore += 10;
     mScore = Math.max(10, Math.min(100, mScore));
 
-    // Composite master score using exact swing117 weights
-    const compositeScore = (tScore * 0.40) + (fScore * 0.25) + (mScore * 0.20) + (50 + smScore * 4) * 0.15;
-    const finalMaster = Math.max(10, Math.min(100, Math.round(compositeScore)));
+    // Composite master score using exact swing117 weights + 15m trend score bonus!
+    let compositeScore = (tScore * 0.40) + (fScore * 0.25) + (mScore * 0.20) + (50 + smScore * 4) * 0.15;
+    compositeScore += micro15.score_bonus;
+    
+    let finalMaster = Math.max(10, Math.min(100, Math.round(compositeScore)));
+
+    // Hard Reject handling if toxic distribution
+    if (!micro15.is_valid) {
+      finalMaster = Math.min(35, finalMaster);
+    }
 
     let signalType = "NEUTRAL";
     if (finalMaster >= 70) signalType = "STRONG_BUY";
@@ -654,7 +735,8 @@ async function fetchYahooLive(ticker: string) {
         momentum_score: mScore,
         sentiment_score: 70,
         signal_type: signalType,
-        score_type: signalType === "STRONG_BUY" ? "HIGH_CONVICTION" : signalType === "BUY" ? "POSITIVE_BIAS" : signalType.startsWith("STRONG") ? "UNDERPERFORM" : "NEUTRAL"
+        score_type: finalMaster >= 70 ? "HIGH_CONVICTION" : finalMaster >= 58 ? "POSITIVE_BIAS" : finalMaster <= 42 ? "UNDERPERFORM" : "NEUTRAL",
+        micro_15m: micro15
       },
       technical: {
         rsi_14: rsi14,
@@ -886,6 +968,9 @@ export async function POST(req: NextRequest) {
 ${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}
 ════════════════════════════════════════
 Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterScore}/100  |  Sinyal: ${signal}
+⚡ 15M & 1H ZAMAN DİLİMİ YÖN ANALİZİ:
+• 15m Mikro Durum: ${sc.micro_15m?.msg || "⚖️ 15m Yatay/Sıkışma"}
+• 1H Timing Durumu: ${s.scores_detail?.entry_engine?.type || "WAITING_FOR_VOLUME"}
 
 🌍 PİYASA FİLTRESİ
 • Piyasa Rejimi: ${regime}
