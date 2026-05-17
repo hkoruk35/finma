@@ -42,7 +42,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];
   } else {
-    const tickersInMenu = menu.tickers.slice(0, 5);
+    const tickersInMenu = menu.tickers.slice(0, 20);
     cards = tickersInMenu
       .map((t) => tickerMap.get(t))
       .filter(Boolean) as StockQuickView[];

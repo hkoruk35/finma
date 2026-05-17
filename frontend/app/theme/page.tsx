@@ -42,21 +42,81 @@ export default async function ThemesIndexPage() {
         </div>
 
         {/* BOGA System Lists */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-           <div className="bg-[#0c121d] border border-white/10 rounded-xl p-5 hover:border-[#3b82f6]/50 transition-colors group">
-             <h2 className="text-lg font-black text-white uppercase mb-2 group-hover:text-[#3b82f6] transition-colors">Swing Picks</h2>
-             <p className="text-xs text-slate-400 mb-4">Latest swing trade signals from the BOGA Engine.</p>
-             <Link href="/theme/boga-swing" className="inline-block bg-white/5 border border-white/10 rounded px-4 py-2 text-xs font-bold text-white uppercase hover:bg-white/10 transition-colors">
-               View List →
-             </Link>
-           </div>
-           <div className="bg-[#0c121d] border border-white/10 rounded-xl p-5 hover:border-[#a78bfa]/50 transition-colors group">
-             <h2 className="text-lg font-black text-white uppercase mb-2 group-hover:text-[#a78bfa] transition-colors">Options Scanner</h2>
-             <p className="text-xs text-slate-400 mb-4">Institutional flow and gamma squeezes.</p>
-             <Link href="/theme/boga-options" className="inline-block bg-white/5 border border-white/10 rounded px-4 py-2 text-xs font-bold text-white uppercase hover:bg-white/10 transition-colors">
-               View List →
-             </Link>
-           </div>
+        <div className="mb-6">
+          <h2 className="text-xs font-black text-[#3b82f6] uppercase tracking-[0.2em] mb-4">
+            BOGA SYSTEM ANALYTICAL LISTS
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#3b82f6]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#3b82f6] transition-colors">Swing Picks</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Latest medium-term swing signals and breakouts.</p>
+              </div>
+              <Link href="/theme/boga-swing" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View Swing List →
+              </Link>
+            </div>
+            
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#a78bfa]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#a78bfa] transition-colors">Options Scanner</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Institutional flows, premium spikes & gamma sweeps.</p>
+              </div>
+              <Link href="/theme/boga-options" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View Options List →
+              </Link>
+            </div>
+
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#f59e0b]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#f59e0b] transition-colors">DayTrade Pulse</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Intraday momentum picks and volume breakout list.</p>
+              </div>
+              <Link href="/daytrade" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View DayTrade →
+              </Link>
+            </div>
+
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#10b981]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#10b981] transition-colors">Hourly Focus Pool</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Real-time focus pool updated during market hours.</p>
+              </div>
+              <Link href="/hourly" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-[#10b981]/15 transition-colors">
+                View Hourly Pool →
+              </Link>
+            </div>
+
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#06b6d4]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#06b6d4] transition-colors">OptAnaliz Scanner</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Advanced options probability strategies and setups.</p>
+              </div>
+              <Link href="/optanaliz" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View OptAnaliz →
+              </Link>
+            </div>
+
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#ec4899]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#ec4899] transition-colors">Smart Portfolio</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">Synchronized automatic portfolio price tracker.</p>
+              </div>
+              <Link href="/smart-tracker" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View Smart Tracker →
+              </Link>
+            </div>
+
+            <div className="bg-[#0c121d] border border-white/10 rounded-xl p-4 hover:border-[#14b8a6]/50 transition-all hover:scale-[1.02] group flex flex-col justify-between">
+              <div>
+                <h3 className="text-sm font-black text-white uppercase mb-1.5 group-hover:text-[#14b8a6] transition-colors">Long Term Plays</h3>
+                <p className="text-[11px] text-slate-400 leading-normal mb-3">High-conviction value, dividend & secular growth plays.</p>
+              </div>
+              <Link href="/long-term" className="inline-block bg-white/5 border border-white/10 rounded py-1.5 text-center text-[10px] font-bold text-white uppercase hover:bg-white/10 transition-colors">
+                View Long-Term →
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Sector and Theme Lists Grid */}

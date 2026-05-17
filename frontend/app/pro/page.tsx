@@ -153,20 +153,117 @@ export default async function ProPage() {
   // Create activeTickers array
   const combinedTickers = Array.from(tickerMap.keys());
 
-  // Create a comprehensive list of StockQuickView elements for SectorHeatMap
-  const comprehensiveTickersList: StockQuickView[] = Array.from(tickerMap.entries()).map(([ticker, val]) => ({
-    ticker,
-    company: val.company,
-    sector: val.sector,
-    master_score: val.score,
-    score_type: "NEUTRAL_STAY",
-    price: 0,
-    change_pct: val.change_pct,
-    entry_range_low: 0,
-    entry_range_high: 0,
-    volume: val.volume,
-    ai_short_summary: ""
-  }));
+  const getDynamicScoreType = (score: number, setup: string): string => {
+    const s = setup.toUpperCase();
+    if (s.includes("BREAKOUT")) return "BREAKOUT";
+    if (s.includes("MOMENTUM")) return "MOMENTUM";
+    if (s.includes("TREND")) return "TREND_CONT";
+    if (s.includes("REVERSAL")) return "REVERSAL";
+    if (s.includes("AWAKENING")) return "AWAKENING";
+    if (s.includes("BOTTOM")) return "BOTTOM_FISH";
+    if (s.includes("PULLBACK")) return "PULLBACK";
+    
+    if (score >= 75) return "STRONG_BUY";
+    if (score >= 60) return "BUY";
+    if (score >= 53) return "POSITIVE_BIAS";
+    if (score <= 40) return "SELL";
+    return "NEUTRAL_STAY";
+  };
+
+  // Create a comprehensive list of StockQuickView elements for SectorHeatMap and CategoryTabs
+  const comprehensiveTickersList: StockQuickView[] = Array.from(tickerMap.entries()).map(([ticker, val]) => {
+    const swingPick = swingPicks?.picks?.find((p: any) => p.ticker?.toUpperCase() === ticker);
+    const setupName = swingPick?.setup || "";
+    return {
+      ticker,
+      company: val.company,
+      sector: val.sector,
+      master_score: val.score,
+      score_type: getDynamicScoreType(val.score, setupName),
+      price: 0,
+      change_pct: val.change_pct,
+      entry_range_low: 0,
+      entry_range_high: 0,
+      volume: val.volume,
+      ai_short_summary: ""
+    };
+  });
+
+  // Dynamically categorize ALL system tickers into Category Tabs
+  const topScoresTickers: string[] = [];
+  const breakoutTickers: string[] = [];
+  const valueTickers: string[] = [];
+  const reversalTickers: string[] = [];
+  const momentumTickers: string[] = [];
+  const dividendTickers: string[] = [];
+
+  // Sort all system tickers by score descending
+  const sortedComprehensive = [...comprehensiveTickersList].sort((a, b) => b.master_score - a.master_score);
+
+  sortedComprehensive.forEach(stock => {
+    const key = stock.ticker.toUpperCase();
+    
+    // 1. Top Scores - Include everything, sorted by score!
+    topScoresTickers.push(key);
+
+    const swingPick = swingPicks?.picks?.find((p: any) => p.ticker?.toUpperCase() === key);
+    const optionPick = optionsData?.picks?.find((p: any) => p.ticker?.toUpperCase() === key);
+    const setupName = (swingPick?.setup || "").toUpperCase();
+    const scoreVal = stock.master_score;
+
+    // 2. Breakout Setup
+    if (setupName.includes("BREAKOUT") || setupName.includes("SQUEEZE") || scoreVal >= 70 || optionPick) {
+      breakoutTickers.push(key);
+    }
+
+    // 3. Value / Undervalued Setup
+    if (setupName.includes("VALUE") || setupName.includes("UNDERVALUED") || setupName.includes("PULLBACK") || (scoreVal >= 55 && scoreVal < 65 && stock.sector === "Financials")) {
+      valueTickers.push(key);
+    }
+
+    // 4. Momentum Setup
+    if (setupName.includes("MOMENTUM") || setupName.includes("TREND") || scoreVal >= 65) {
+      momentumTickers.push(key);
+    }
+
+    // 5. Reversal Setup
+    if (setupName.includes("REVERSAL") || setupName.includes("BOTTOM") || setupName.includes("AWAKENING")) {
+      reversalTickers.push(key);
+    }
+
+    // 6. Dividend / Passive Income
+    if (stock.sector === "Utilities" || stock.sector === "Real Estate" || stock.sector === "Consumer Staples" || setupName.includes("DIVIDEND")) {
+      dividendTickers.push(key);
+    }
+  });
+
+  // Mutate master.menus to include counts and tickers for all categories dynamically
+  master.menus = {
+    top_scores: {
+      count: topScoresTickers.length,
+      tickers: topScoresTickers
+    },
+    breakout: {
+      count: breakoutTickers.length,
+      tickers: breakoutTickers.length > 0 ? breakoutTickers : topScoresTickers.slice(0, 30)
+    },
+    value: {
+      count: valueTickers.length,
+      tickers: valueTickers.length > 0 ? valueTickers : topScoresTickers.slice(30, 60)
+    },
+    reversal: {
+      count: reversalTickers.length,
+      tickers: reversalTickers.length > 0 ? reversalTickers : topScoresTickers.slice(60, 90)
+    },
+    momentum: {
+      count: momentumTickers.length,
+      tickers: momentumTickers.length > 0 ? momentumTickers : topScoresTickers.slice(90, 120)
+    },
+    dividend: {
+      count: dividendTickers.length,
+      tickers: dividendTickers.length > 0 ? dividendTickers : topScoresTickers.slice(120, 150)
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[#060a12]">
@@ -198,7 +295,7 @@ export default async function ProPage() {
              <div className="w-1 h-8 bg-[#3b82f6] rounded-full" />
              <h2 className="text-2xl font-black text-white uppercase tracking-tight">Market Categories</h2>
            </div>
-           <MarketExplorer master={master} allTickers={allTickers} customActiveTickers={combinedTickers} />
+           <MarketExplorer master={master} allTickers={comprehensiveTickersList} customActiveTickers={combinedTickers} />
         </section>
 
         {/* Sector Heat Map */}

@@ -1,7 +1,17 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
+
+function slugify(text: string) {
+  return text.toString().toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
 
 interface ThemeShowcaseProps {
   activeTickers: string[];
@@ -51,9 +61,9 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
     };
 
     return (
-      <button
+      <Link
         key={theme.name}
-        onClick={() => onThemeSelect?.(theme.currentTickers)}
+        href={`/theme/${slugify(theme.name)}`}
         className={`px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border font-black transition-all flex items-center gap-2 group whitespace-nowrap shadow-xl ${getFontSize()} ${getOpacity()} ${
           isSelected 
             ? "bg-[#3366ff] border-[#3366ff] text-white ring-2 ring-blue-500/50 scale-105" 
@@ -71,7 +81,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
         <span className="text-[10px] font-black opacity-40 px-1.5 py-0.5 rounded-md bg-white/5 group-hover:opacity-100 transition-opacity">
           {theme.activeCount}
         </span>
-      </button>
+      </Link>
     );
   };
 
