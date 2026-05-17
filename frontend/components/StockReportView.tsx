@@ -29,6 +29,8 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     "Travel & Leisure"
   ];
 
+  const [isFullScreen, setIsFullScreen] = useState(true);
+
   useEffect(() => {
     const watchlistStr = localStorage.getItem("watchlist");
     const wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
@@ -161,8 +163,8 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       ? "bg-red-500/10 text-red-400 border-red-500/30"
       : "bg-amber-500/10 text-amber-400 border-amber-500/30";
 
-  return (
-    <div className="w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none">
+  const reportContent = (
+    <div className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
       
       {/* 1. HEADER BLOCK */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#1e2a3a]/40 pb-6">
@@ -187,6 +189,27 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.233.582 1.83l-3.97 2.9c-.83.605-1.17 1.693-.833 2.677l1.518 4.674c.3.922-.755 1.688-1.538 1.11l-3.969-2.9a1 1 0 00-1.17 0l-3.97 2.9c-.783.57-1.838-.197-1.538-1.11l1.518-4.674a1 1 0 00-.833-2.677l-3.97-2.9c-.779-.597-.38-1.83.582-1.83h4.907a1 1 0 00.95-.69l1.519-4.674z" />
               </svg>
               {inWatchlist ? "Takip Listesinde" : "Takip Listesine Ekle"}
+            </button>
+
+            <button 
+              onClick={() => setIsFullScreen(!isFullScreen)}
+              className="flex items-center gap-1.5 px-4 py-2 border rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-[#141924] text-slate-300 border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white"
+            >
+              {isFullScreen ? (
+                <>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Normal Görünüm
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                  </svg>
+                  Tam Ekran
+                </>
+              )}
             </button>
 
             <div className="relative flex items-center">
@@ -242,6 +265,56 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         </div>
       </div>
 
+      {/* MULTI-TIMEFRAME ANALYSIS OVERLAY BARS (15m ve 1h Göstergesi) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#0d1321]/80 border border-[#1e2a3a]/40 rounded-2xl p-4 shadow-inner">
+        {/* 15m Micro Direction */}
+        <div className="flex items-center gap-3">
+          <div className={`w-10 h-10 rounded-xl shrink-0 flex items-center justify-center text-lg font-black border ${
+            sc.micro_15m?.is_valid === false 
+              ? "bg-rose-500/10 text-rose-400 border-rose-500/20" 
+              : sc.micro_15m?.score_bonus > 1 
+                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 animate-pulse" 
+                : "bg-slate-800/80 text-slate-400 border-slate-700"
+          }`}>
+            {sc.micro_15m?.is_valid === false ? "🚨" : sc.micro_15m?.score_bonus > 1 ? "🔥" : "⚖️"}
+          </div>
+          <div>
+            <div className="text-[9px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              15 Dakika (15M) Mikro Yönü 
+              {sc.micro_15m?.is_valid === false && <span className="bg-rose-500/20 text-rose-400 text-[8px] px-1 py-0.5 rounded font-black">DAĞITIM</span>}
+              {sc.micro_15m?.score_bonus > 1 && <span className="bg-emerald-500/20 text-emerald-400 text-[8px] px-1 py-0.5 rounded font-black">GÜÇLÜ ONAY</span>}
+            </div>
+            <div className={`text-xs font-black mt-0.5 ${
+              sc.micro_15m?.is_valid === false 
+                ? "text-rose-400" 
+                : sc.micro_15m?.score_bonus > 1 
+                  ? "text-emerald-400" 
+                  : "text-slate-300"
+            }`}>
+              {sc.micro_15m?.msg || "⚖️ 15m Yatay / Sıkışma: Gürültü yok"}
+            </div>
+          </div>
+        </div>
+
+        {/* 1H Pivot Entry Timing */}
+        <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-[#1e2a3a]/30 pt-3 md:pt-0 md:pl-4">
+          <div className="w-10 h-10 rounded-xl bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 shrink-0 flex items-center justify-center text-lg font-black">
+            🎯
+          </div>
+          <div>
+            <div className="text-[9px] font-black text-slate-400 uppercase tracking-wider">
+              1 Saat (1H) Giriş Timing Durumu
+            </div>
+            <div className="text-xs font-black text-blue-400 uppercase mt-0.5 flex items-center gap-2">
+              <span>{sd.entry_engine?.type || "WAITING_FOR_VOLUME"}</span>
+              <span className="bg-blue-500/20 text-blue-300 text-[8px] px-1.5 py-0.5 rounded font-bold">
+                %{sd.entry_engine?.confidence || 75} Güven
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* 2. DYNAMIC METRICS CARDS GRID (3 Columns) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Price */}
@@ -588,7 +661,17 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           </div>
         </div>
       </div>
-
     </div>
   );
+
+  if (isFullScreen) {
+    return (
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/95 backdrop-blur-md flex items-start justify-center p-4 md:p-8">
+        {reportContent}
+      </div>
+    );
+  }
+
+  return reportContent;
 }
+
