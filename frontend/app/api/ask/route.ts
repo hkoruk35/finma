@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import fs from "fs";
 import path from "path";
+import { execSync } from "child_process";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -171,10 +172,56 @@ export async function POST(req: NextRequest) {
     ];
 
     let stockJson: any = null;
+    let needsUpdate = true;
+
+    // 1. Check if we have a fresh copy (< 4 hours old)
     for (const p of dataPaths) {
       try {
-        if (fs.existsSync(p)) { stockJson = JSON.parse(fs.readFileSync(p, "utf-8")); break; }
+        if (fs.existsSync(p)) {
+          const fileContent = fs.readFileSync(p, "utf-8");
+          const parsed = JSON.parse(fileContent);
+          if (parsed && parsed.generated_at) {
+            const ageHours = (Date.now() - new Date(parsed.generated_at).getTime()) / (1000 * 60 * 60);
+            if (ageHours < 4) {
+              stockJson = parsed;
+              needsUpdate = false;
+              break;
+            }
+          }
+        }
       } catch {}
+    }
+
+    // 2. If no fresh copy exists, trigger the dynamic python scraper
+    if (needsUpdate) {
+      try {
+        console.log(`[BOGA AI] Running dynamic live ticker fetch for: ${ticker}`);
+        const pythonPath = "C:\\Users\\afksm\\finma\\venv313\\Scripts\\python.exe";
+        const scriptPath = "C:\\Users\\afksm\\finma\\fetch_live_ticker_analysis.py";
+        const resultStdout = execSync(`"${pythonPath}" "${scriptPath}" ${ticker}`, { encoding: "utf-8", timeout: 15000 });
+        if (resultStdout.trim()) {
+          const parsed = JSON.parse(resultStdout.trim());
+          if (parsed && !parsed.error) {
+            stockJson = parsed;
+          } else {
+            console.error(`[BOGA AI] Python analyser error: ${parsed.error}`);
+          }
+        }
+      } catch (e: any) {
+        console.error(`[BOGA AI] Dynamic python scraper failed for ${ticker}:`, e.message);
+      }
+    }
+
+    // 3. Fallback to stale local copy if python failed
+    if (!stockJson) {
+      for (const p of dataPaths) {
+        try {
+          if (fs.existsSync(p)) {
+            stockJson = JSON.parse(fs.readFileSync(p, "utf-8"));
+            break;
+          }
+        } catch {}
+      }
     }
 
     // master.json'dan market_regime oku
@@ -189,7 +236,7 @@ export async function POST(req: NextRequest) {
 
     if (!stockJson) {
       return NextResponse.json({
-        text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için sistemde kayıtlı veri yok.\n\nGeçerli semboller için sol menüdeki listeden seçim yapın veya BOGA bot tarafından taranan hisselerden birini deneyin.`,
+        text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için Yahoo Finance veya yerel sistemde geçerli veri bulunamadı. Lütfen geçerli bir borsa sembolü girin (Örn: AAPL, TSLA, CLDX, MSFT).`,
         source: "system_warning"
       });
     }
