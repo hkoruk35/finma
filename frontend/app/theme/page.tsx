@@ -3,6 +3,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { MARKET_THEMES } from "@/lib/themeData";
+import ThemeCountBadge from "@/components/ThemeCountBadge";
 
 export const metadata: Metadata = {
   title: "Active Market Themes | BOGA AI",
@@ -137,7 +138,7 @@ export default async function ThemesIndexPage() {
                          {theme.name}
                        </span>
                        <span className="text-[9px] text-slate-500 bg-white/5 px-1.5 py-0.5 rounded font-black group-hover:bg-[#3b82f6]/20 group-hover:text-[#3b82f6] transition-colors">
-                         {theme.tickers.length}
+                         <ThemeCountBadge themeName={theme.name} staticCount={theme.tickers.length} />
                        </span>
                      </Link>
                    </li>

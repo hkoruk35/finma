@@ -11,6 +11,59 @@ interface StockReportViewProps {
 export default function StockReportView({ ticker, stockData }: StockReportViewProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [showChart, setShowChart] = useState(true);
+  const [inWatchlist, setInWatchlist] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState("");
+  const [themeSuccess, setThemeSuccess] = useState(false);
+
+  const SYSTEM_THEME_CATEGORIES = [
+    "Mega-cap Platform & Cloud",
+    "Semiconductors & Hardware",
+    "Software & Cloud Applications",
+    "Cybersecurity",
+    "AI & Data",
+    "Infrastructure & Networking",
+    "Hardware & Devices",
+    "Social & Search",
+    "Streaming & Entertainment",
+    "Automotive & EV",
+    "Travel & Leisure"
+  ];
+
+  useEffect(() => {
+    const watchlistStr = localStorage.getItem("watchlist");
+    const wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
+    setInWatchlist(wl.includes(ticker.toUpperCase()));
+  }, [ticker]);
+
+  const toggleWatchlist = () => {
+    const watchlistStr = localStorage.getItem("watchlist");
+    let wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
+    if (wl.includes(ticker.toUpperCase())) {
+      wl = wl.filter((t: string) => t !== ticker.toUpperCase());
+      setInWatchlist(false);
+    } else {
+      wl.push(ticker.toUpperCase());
+      setInWatchlist(true);
+    }
+    localStorage.setItem("watchlist", JSON.stringify(wl));
+  };
+
+  const handleAddTheme = (themeName: string) => {
+    if (!themeName) return;
+    const overridesStr = localStorage.getItem("theme_overrides");
+    const overrides = overridesStr ? JSON.parse(overridesStr) : {};
+    if (!overrides[themeName]) {
+      overrides[themeName] = [];
+    }
+    if (!overrides[themeName].includes(ticker.toUpperCase())) {
+      overrides[themeName].push(ticker.toUpperCase());
+    }
+    localStorage.setItem("theme_overrides", JSON.stringify(overrides));
+    setThemeSuccess(true);
+    setTimeout(() => setThemeSuccess(false), 2000);
+    setSelectedTheme("");
+  };
+
 
   // Extract variables safely
   const s = stockData || {};
@@ -121,6 +174,45 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           <p className="text-xs text-[#3b82f6] font-mono tracking-widest uppercase mt-1">
             Swing Trade Analizi • 1G Grafik • {sector} — {industry}
           </p>
+          <div className="flex flex-wrap items-center gap-3 mt-4">
+            <button 
+              onClick={toggleWatchlist}
+              className={`flex items-center gap-1.5 px-4 py-2 border rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 ${
+                inWatchlist 
+                  ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20" 
+                  : "bg-[#141924] text-slate-300 border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white"
+              }`}
+            >
+              <svg className="w-4 h-4" fill={inWatchlist ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.233.582 1.83l-3.97 2.9c-.83.605-1.17 1.693-.833 2.677l1.518 4.674c.3.922-.755 1.688-1.538 1.11l-3.969-2.9a1 1 0 00-1.17 0l-3.97 2.9c-.783.57-1.838-.197-1.538-1.11l1.518-4.674a1 1 0 00-.833-2.677l-3.97-2.9c-.779-.597-.38-1.83.582-1.83h4.907a1 1 0 00.95-.69l1.519-4.674z" />
+              </svg>
+              {inWatchlist ? "Takip Listesinde" : "Takip Listesine Ekle"}
+            </button>
+
+            <div className="relative flex items-center">
+              <select
+                value={selectedTheme}
+                onChange={(e) => handleAddTheme(e.target.value)}
+                className="bg-[#141924] text-slate-300 border border-[#1e2a3a] rounded-xl text-xs font-black uppercase tracking-wider p-2 outline-none cursor-pointer hover:bg-[#1e2a3a] hover:text-white transition-all appearance-none pr-8 pl-3"
+              >
+                <option value="" className="text-slate-500 font-bold bg-[#0d1117]">Temaya Ekle...</option>
+                {SYSTEM_THEME_CATEGORIES.map(cat => (
+                  <option key={cat} value={cat} className="text-slate-300 bg-[#0d1117] font-semibold">{cat}</option>
+                ))}
+              </select>
+              <div className="absolute right-3 pointer-events-none text-slate-400">
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+            {themeSuccess && (
+              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg animate-pulse">
+                Temaya Eklendi! ✓
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Score & Signal Ring */}
