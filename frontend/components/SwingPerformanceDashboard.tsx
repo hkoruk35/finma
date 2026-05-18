@@ -170,7 +170,6 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const resetPagination = () => setVisibleCount(PAGE_SIZE);
   const visibleTrades = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
-  // ── Stats (SL uygulanmış) ─────────────────────────────────────────────────
   const stats = useMemo(() => {
     const total    = filtered.length;
     const pending  = filtered.filter(t => t.result === "PENDING").length;
@@ -190,6 +189,40 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       ? completedWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / completedWithDays.length
       : null;
 
+    if (completedCount === 0) {
+      // Calculate global unfiltered stats as fallback!
+      const gPending   = initialHistory.filter(t => t.result === "PENDING").length;
+      const gCompleted = initialHistory.filter(t => t.result !== "PENDING");
+      const gWins      = gCompleted.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
+      const gLosses    = gCompleted.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
+      const gSumRet    = gCompleted.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
+      const gAbove5    = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
+      const gAbove10   = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
+      const gAbove15   = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
+      const gCompletedCount = gCompleted.length;
+      const gCompletedWithDays = gCompleted.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
+      const gAvgDays = gCompletedWithDays.length > 0
+        ? gCompletedWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / gCompletedWithDays.length
+        : null;
+
+      return {
+        totalSignals: total, // Keep the active filter's count
+        pending: pending,     // Keep the active filter's count
+        completedCount: 0,
+        wins: gWins,
+        losses: gLosses,
+        slHits: initialHistory.filter(slTriggered).length,
+        winRate:     gCompletedCount > 0 ? (gWins / gCompletedCount * 100).toFixed(1) : "—",
+        avgReturn:   gCompletedCount > 0 ? (gSumRet / gCompletedCount).toFixed(1)     : "—",
+        above5Rate:  gCompletedCount > 0 ? (gAbove5  / gCompletedCount * 100).toFixed(1) : "—",
+        above10Rate: gCompletedCount > 0 ? (gAbove10 / gCompletedCount * 100).toFixed(1) : "—",
+        above15Rate: gCompletedCount > 0 ? (gAbove15 / gCompletedCount * 100).toFixed(1) : "—",
+        avgDays:     gAvgDays != null ? gAvgDays.toFixed(1) : "—",
+        avgPnl:      gCompletedCount > 0 ? (gSumRet / gCompletedCount * 10).toFixed(0) : "—",
+        isFallback:  true
+      };
+    }
+
     return {
       totalSignals: total,
       pending,
@@ -204,8 +237,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       above15Rate: completedCount > 0 ? (above15 / completedCount * 100).toFixed(1) : "—",
       avgDays:     avgDays != null ? avgDays.toFixed(1) : "—",
       avgPnl:      completedCount > 0 ? (sumRet / completedCount * 10).toFixed(0) : "—",
+      isFallback:  false
     };
-  }, [filtered]);
+  }, [filtered, initialHistory]);
 
   // ── Days-to-Profit Distribution ───────────────────────────────────────────
   const daysDistribution = useMemo(() => {
@@ -456,28 +490,30 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   };
 
   return (
-    <div ref={dashboardRef} className="space-y-8">
+    <div ref={dashboardRef} className="space-y-4">
       {/* ── Hero Overview ──────────────────────────────────────────────────── */}
-      <div className="mb-10 rounded-[32px] overflow-hidden border border-white/5 bg-[#0f172a] shadow-2xl relative">
+      <div className="mb-6 rounded-2xl overflow-hidden border border-white/5 bg-[#0f172a] shadow-2xl relative">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#22c55e] to-[#3b82f6] opacity-30" />
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 px-8 pt-8 pb-6 border-b border-white/5">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 px-6 pt-5 pb-4 border-b border-white/5">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]" />
-              <span className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-[0.2em]">Sistem İstatistikleri</span>
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className={`w-1.5 h-1.5 rounded-full ${stats.isFallback ? "bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]" : "bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]"}`} />
+              <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${stats.isFallback ? "text-[#f59e0b]" : "text-[#3b82f6]"}`}>
+                {stats.isFallback ? "Sistem Geneli (Filtrede İşlem Yok)" : "Sistem İstatistikleri"}
+              </span>
             </div>
-            <h2 className="text-2xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span></h2>
-            <p className="text-[11px] text-slate-500 mt-2 font-medium">
+            <h2 className="text-xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span></h2>
+            <p className="text-[11px] text-slate-500 mt-1 font-medium">
               Geçmiş Dönem Performans Özeti · <span className="text-[#f59e0b] font-bold">Dinamik Stop-Loss (AI)</span>
               {lastUpdated && <span className="ml-2 opacity-50">· Son Güncelleme: {formatLastUpdated(lastUpdated)}</span>}
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <span className="px-3 py-1.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
+            <span className="px-3 py-1 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
               {serverStats?.stop_loss_pct || "Dynamic SL"}
             </span>
-            <span className="px-3 py-1.5 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
+            <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
               {stats.completedCount} Completed
             </span>
           </div>
@@ -485,39 +521,39 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
-          <div className="p-8 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">BAŞARI ORANI</p>
-            <p className="text-4xl font-mono font-black text-[#22c55e] tracking-tighter">
+          <div className="p-5 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">BAŞARI ORANI</p>
+            <p className="text-3xl font-mono font-black text-[#22c55e] tracking-tighter">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase">{stats.wins} G / {stats.losses} K</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{stats.wins} G / {stats.losses} K</p>
           </div>
-          <div className="p-8 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">ORTALAMA GETİRİ</p>
-            <p className={`text-4xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
+          <div className="p-5 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">ORTALAMA GETİRİ</p>
+            <p className={`text-3xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase">$1.000 / ${stats.avgPnl} KAR</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">$1.000 / ${stats.avgPnl} KAR</p>
           </div>
-          <div className="p-8 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">HEDEF GÜN</p>
-            <p className="text-4xl font-mono font-black text-[#3b82f6] tracking-tighter">
+          <div className="p-5 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">HEDEF GÜN</p>
+            <p className="text-3xl font-mono font-black text-[#3b82f6] tracking-tighter">
               {stats.avgDays === "—" ? "—" : `${stats.avgDays} G`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-2 font-bold uppercase italic">SADECE KARLI İŞLEMLER</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase italic">SADECE KARLI İŞLEMLER</p>
           </div>
-          <div className="p-8 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">TOPLAM SİNYAL</p>
-            <p className="text-4xl font-mono font-black text-white tracking-tighter">{stats.totalSignals}</p>
+          <div className="p-5 text-center">
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">TOPLAM SİNYAL</p>
+            <p className="text-3xl font-mono font-black text-white tracking-tighter">{stats.totalSignals}</p>
             {stats.pending > 0 && (
-              <p className="text-[10px] text-[#3b82f6] mt-2 font-bold uppercase">{stats.pending} BEKLEYEN</p>
+              <p className="text-[10px] text-[#3b82f6] mt-1.5 font-bold uppercase">{stats.pending} BEKLEYEN</p>
             )}
           </div>
         </div>
 
         {/* Profit Target Breakdown */}
-        <div className="px-8 py-8 border-b border-white/5 bg-white/[0.01]">
-          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-6 font-bold">HEDEF BAZLI ANALİZ — Olasılık ve Ortalama Süre</p>
+        <div className="px-6 py-4 border-b border-white/5 bg-white/[0.01]">
+          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">HEDEF BAZLI ANALİZ — Olasılık ve Ortalama Süre</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-2xl bg-black/40 border border-white/5 p-4 text-center hover:border-[#22c55e]/20 transition-all group">
@@ -723,13 +759,13 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div>
                     <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Return (SL adj.)</p>
                     <p className={`font-mono font-black text-3xl ${retColor(effRet)}`}>
-                      {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 1)}%` : "—"}
+                      {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 1)}%` : effRet < 0 ? `${fmt(effRet, 1)}%` : "0.00%") : "—"}
                     </p>
                   </div>
                   <div className="text-right">
                     <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">PnL/$1000</p>
                     <p className={`font-mono font-black text-2xl ${retColor(pnl)}`}>
-                      {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toFixed(0)}` : "—"}
+                      {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                     </p>
                   </div>
                 </div>
@@ -787,7 +823,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         )}
                       </td>
                       <td className={`px-4 py-3 text-right font-black text-sm ${retColor(effRet)}`}>
-                        {effRet != null ? `${effRet >= 0 ? "+" : ""}${fmt(effRet, 2)}%` : "—"}
+                        {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
                       <td className="px-4 py-3 text-right">${fmt(t.entry)}</td>
                       <td className="px-4 py-3 text-right">
@@ -801,7 +837,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           : t.days != null ? `${t.days}d` : "—"}
                       </td>
                       <td className={`px-4 py-3 text-right font-black text-sm ${retColor(pnl)}`}>
-                        {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toFixed(0)}` : "—"}
+                        {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                       </td>
                       <td className="px-4 py-3 text-center">
                         {slHit && <span className="text-[9px] font-black text-[#ef4444]">●</span>}
