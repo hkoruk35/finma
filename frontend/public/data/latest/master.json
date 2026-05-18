@@ -1,30 +1,25 @@
 {
-  "date": "2026-05-16",
-  "generated_at": "2026-05-16T04:41:58.410987-04:00",
+  "date": "2026-05-18",
+  "generated_at": "2026-05-18T13:03:36.943723-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 16,
-  "market_regime": "BULLISH",
+  "active_scores_count": 5,
+  "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 5,
       "tickers": [
-        "SVM",
-        "ACMR",
-        "THC",
-        "DTM",
-        "AMAT",
-        "WMG",
-        "VOYA",
-        "WRBY",
-        "AMZN",
-        "CLH"
+        "YOU",
+        "DAR",
+        "STT",
+        "AVGO",
+        "MLI"
       ]
     },
     "breakout": {
       "count": 2,
       "tickers": [
-        "ACMR",
-        "WMG"
+        "YOU",
+        "MLI"
       ]
     },
     "value": {
@@ -36,13 +31,9 @@
       "tickers": []
     },
     "momentum": {
-      "count": 5,
+      "count": 1,
       "tickers": [
-        "AMAT",
-        "WRBY",
-        "BLBD",
-        "F",
-        "TWLO"
+        "AVGO"
       ]
     },
     "dividend": {
@@ -52,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SVM",
-      "score": 66.0,
+      "ticker": "YOU",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ACMR",
-      "score": 64.0,
+      "ticker": "DAR",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "THC",
-      "score": 62.5,
+      "ticker": "STT",
+      "score": 52.9,
       "score_type": "POSITIVE_BIAS"
     }
   ],
