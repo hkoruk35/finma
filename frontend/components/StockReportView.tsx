@@ -634,6 +634,103 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         </p>
       </div>
 
+      {/* 6b. BOGA AI FORECAST & SIMULATION ENGINE */}
+      <div className="bg-[#0d1321]/90 border border-[#1e2a3a]/40 rounded-2xl p-5 space-y-5 shadow-lg">
+        <div className="flex items-center justify-between border-b border-[#1e2a3a]/30 pb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">🔮</span>
+            <div>
+              <h3 className="text-sm font-black text-white uppercase tracking-wider">🔮 BOGA AI 28 GÜNLÜK SIMÜLASYON MOTORU</h3>
+              <p className="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">Monte Carlo & Teknik Drift Projeksiyonu (1,000 Senaryo)</p>
+            </div>
+          </div>
+          <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[9px] px-2 py-1 rounded font-black uppercase tracking-wider">
+            AKTİF MİKRO-TRENTS
+          </span>
+        </div>
+
+        {s.forecast ? (
+          <div className="space-y-6">
+            {/* Daily grid for the first 7 days */}
+            <div>
+              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <span>📅</span> İLK 7 GÜNLÜK DETAYLI GÜNLÜK TAHMİN AKIŞI
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+                {s.forecast.daily.map((day: any) => {
+                  const isUp = day.base >= currentPrice;
+                  return (
+                    <div key={day.day} className="bg-[#070c14] border border-[#1e2a3a]/30 rounded-xl p-3 flex flex-col justify-between items-center text-center space-y-2 hover:border-[#3b82f6]/40 transition-all">
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Gün {day.day}</span>
+                      <div className="flex flex-col items-center">
+                        <span className={`text-[10px] font-black ${isUp ? "text-emerald-400" : "text-rose-400"}`}>
+                          {isUp ? "▲" : "▼"} ${day.base.toFixed(2)}
+                        </span>
+                        <span className="text-[8px] font-bold text-slate-500 mt-0.5">{day.date.split("-").slice(1).reverse().join("/")}</span>
+                      </div>
+                      <div className="w-full space-y-0.5">
+                        <div className="text-[8px] font-black text-slate-400">Kâr İhtimali</div>
+                        <div className="text-[9px] font-black text-emerald-400">%{day.probabilityOfProfit}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Weekly milestones (14d, 21d, 28d) */}
+            <div>
+              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <span>🎯</span> HEDEF KİLOMETRE TAŞLARI (WEEKLY MILESTONES)
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { label: "14 Günlük Hedef (W2)", key: "14d" },
+                  { label: "21 Günlük Hedef (W3)", key: "21d" },
+                  { label: "28 Günlük Hedef (W4)", key: "28d" },
+                ].map((item) => {
+                  const msData = s.forecast.milestones[item.key];
+                  if (!msData) return null;
+                  const isUp = msData.base >= currentPrice;
+                  return (
+                    <div key={item.key} className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 relative overflow-hidden group hover:border-blue-500/20 transition-all">
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full pointer-events-none" />
+                      <div className="flex justify-between items-start">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
+                        <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
+                          {isUp ? "BOĞA EĞİLİMİ" : "AYI DÜZELTMESİ"}
+                        </span>
+                      </div>
+                      
+                      <div>
+                        <div className="text-xl font-mono font-black text-white">${msData.base.toFixed(2)}</div>
+                        <div className="text-[9px] text-slate-400 font-bold mt-1">
+                          Tahmin Koridoru: <span className="text-rose-400 font-black">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${msData.bullish.toFixed(2)}</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                          <span>Güven Skoru (Kâr Olasılığı)</span>
+                          <span className="text-emerald-400">%{msData.probabilityOfProfit}</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-1000" style={{ width: `${msData.probabilityOfProfit}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="text-center py-6 text-xs text-slate-400">
+            Tahmin verileri hesaplanamadı veya yükleniyor...
+          </div>
+        )}
+      </div>
+
       {/* 7. TRADINGVIEW INTEGRATION CONTAINER */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">

@@ -404,6 +404,94 @@ function check15mMicroTrend(
   return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m Yatay/Sıkışma: Gürültü yok" };
 }
 
+interface ForecastDay {
+  day: number;
+  date: string;
+  bearish: number;
+  base: number;
+  bullish: number;
+  probabilityOfProfit: number;
+}
+
+function generateBogaSimulation(
+  currentPrice: number,
+  atrPct: number,
+  masterScore: number,
+  emaStackBullish: boolean,
+  rsi: number,
+  cmf: number
+): { daily: ForecastDay[]; milestones: Record<string, ForecastDay> } {
+  // 1. Boga Drift (Eğilim) Katsayısını Hesapla
+  let drift = 0.0;
+  if (emaStackBullish) drift += 0.08;
+  else drift -= 0.04;
+
+  if (rsi > 70) drift -= 0.06;
+  else if (rsi < 30) drift += 0.08;
+
+  drift += (cmf * 0.15);
+  drift += ((masterScore - 50) / 100) * 0.1;
+
+  const dailyDrift = drift / 252;
+  const dailyVol = (atrPct / 100) / Math.sqrt(252);
+
+  const numPaths = 1000;
+  const daysToForecast = 28;
+  const paths: number[][] = Array.from({ length: numPaths }, () => []);
+
+  // 2. Monte Carlo Yollarını Simüle Et
+  for (let p = 0; p < numPaths; p++) {
+    let price = currentPrice;
+    for (let d = 0; d < daysToForecast; d++) {
+      const u1 = Math.random();
+      const u2 = Math.random();
+      const rand = Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+      price = price * Math.exp((dailyDrift - 0.5 * Math.pow(dailyVol, 2)) + dailyVol * rand);
+      paths[p].push(price);
+    }
+  }
+
+  // 3. Yüzdelik Dilimleri Hesapla
+  const getPercentile = (arr: number[], percentile: number) => {
+    const sorted = [...arr].sort((a, b) => a - b);
+    const index = Math.floor(percentile * (sorted.length - 1));
+    return sorted[index];
+  };
+
+  const dailyForecasts: ForecastDay[] = [];
+  const today = new Date();
+
+  for (let d = 0; d < daysToForecast; d++) {
+    const dayPrices = paths.map(path => path[d]);
+    const bearish = getPercentile(dayPrices, 0.10);
+    const base = getPercentile(dayPrices, 0.50);
+    const bullish = getPercentile(dayPrices, 0.90);
+    const profitPaths = dayPrices.filter(p => p > currentPrice).length;
+    const probabilityOfProfit = Math.round((profitPaths / numPaths) * 100);
+
+    const targetDate = new Date(today);
+    targetDate.setDate(today.getDate() + d + 1);
+
+    dailyForecasts.push({
+      day: d + 1,
+      date: targetDate.toISOString().split('T')[0],
+      bearish: parseFloat(bearish.toFixed(2)),
+      base: parseFloat(base.toFixed(2)),
+      bullish: parseFloat(bullish.toFixed(2)),
+      probabilityOfProfit
+    });
+  }
+
+  return {
+    daily: dailyForecasts.slice(0, 7),
+    milestones: {
+      "14d": dailyForecasts[13],
+      "21d": dailyForecasts[20],
+      "28d": dailyForecasts[27]
+    }
+  };
+}
+
 async function fetchYahooWithCrumb(ticker: string) {
   const headers: Record<string, string> = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -1119,6 +1207,24 @@ ${ticker} | ${s.sector || ""} | Swing Strateji
 │ AKSİYON: [İŞLEME GİR / İZLE / ÇIKIŞ]
 │ GEREKÇE: [2-3 cümle, sadece verilen sayılara dayan]
 └─────────────────`;
+
+    if (stockJson && !stockJson.forecast) {
+      try {
+        const pr = stockJson.price || {};
+        const sc = stockJson.scores || {};
+        const tech = stockJson.technical || {};
+        const currentPrice = pr.current || 100;
+        const atr = tech.atr || currentPrice * 0.03;
+        const atrPct = (atr / currentPrice) * 100;
+        const masterScore = sc.master_score || 50;
+        const emaStackBullish = !!tech.ema_stack_bullish;
+        const rsi = tech.rsi_14 || 50;
+        const cmf = tech.cmf || 0.05;
+        stockJson.forecast = generateBogaSimulation(currentPrice, atrPct, masterScore, emaStackBullish, rsi, cmf);
+      } catch (err: any) {
+        console.error("Failed to dynamically append forecast:", err.message);
+      }
+    }
 
     const aiResponse = useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
     try {
