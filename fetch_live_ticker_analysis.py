@@ -456,7 +456,8 @@ def main():
                 "target_range_low": round(target_low, 2),
                 "target_range_high": round(target_high, 2),
                 "stop_loss": round(stop_loss, 2),
-                "risk_reward_ratio": round(rr_ratio, 2)
+                "risk_reward_ratio": round(rr_ratio, 2),
+                "entry_engine": timing["entry_engine"]
             }
         }
         

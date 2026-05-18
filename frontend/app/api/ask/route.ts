@@ -774,7 +774,8 @@ async function fetchYahooLive(ticker: string) {
         target_range_low: timing.sell_zone.low,
         target_range_high: timing.sell_zone.high,
         stop_loss: timing.stop_zone.high,
-        risk_reward_ratio: timing.rr_ratio
+        risk_reward_ratio: timing.rr_ratio,
+        entry_engine: timing.entry_engine
       }
     };
   } catch (e) {
@@ -823,7 +824,7 @@ export async function POST(req: NextRequest) {
           const parsed = JSON.parse(fileContent);
           if (parsed && parsed.generated_at) {
             const ageHours = (Date.now() - new Date(parsed.generated_at).getTime()) / (1000 * 60 * 60);
-            if (ageHours < 4) {
+            if (ageHours < 4 && parsed.scores?.micro_15m && parsed.scores_detail?.entry_engine) {
               stockJson = parsed;
               needsUpdate = false;
               break;
