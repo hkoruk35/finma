@@ -173,52 +173,54 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const stats = useMemo(() => {
     const total    = filtered.length;
     const pending  = filtered.filter(t => t.result === "PENDING").length;
-    const completed = filtered.filter(t => t.result !== "PENDING");
-    const wins     = completed.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
-    const losses   = completed.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
+    
+    // We include both completed and pending trades that have a valid return!
+    const activeStatsTrades = filtered.filter(t => effectiveReturn(t) != null);
+    
+    const wins     = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
+    const losses   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
     const slHits   = filtered.filter(slTriggered).length;
-    const sumRet   = completed.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
-    const above5   = completed.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
-    const above10  = completed.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
-    const above15  = completed.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
-    const completedCount = completed.length;
+    const sumRet   = activeStatsTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
+    const above5   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
+    const above10  = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
+    const above15  = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
+    const statsCount = activeStatsTrades.length;
 
-    // Tamamlanmış işlemlerin ortalama gün
-    const completedWithDays = completed.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
-    const avgDays = completedWithDays.length > 0
-      ? completedWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / completedWithDays.length
+    // Tamamlanmış veya aktif karlı işlemlerin ortalama günü
+    const tradesWithDays = activeStatsTrades.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
+    const avgDays = tradesWithDays.length > 0
+      ? tradesWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / tradesWithDays.length
       : null;
 
-    if (completedCount === 0) {
-      // Calculate global unfiltered stats as fallback!
-      const gPending   = initialHistory.filter(t => t.result === "PENDING").length;
-      const gCompleted = initialHistory.filter(t => t.result !== "PENDING");
-      const gWins      = gCompleted.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
-      const gLosses    = gCompleted.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
-      const gSumRet    = gCompleted.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
-      const gAbove5    = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
-      const gAbove10   = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
-      const gAbove15   = gCompleted.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
-      const gCompletedCount = gCompleted.length;
-      const gCompletedWithDays = gCompleted.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
-      const gAvgDays = gCompletedWithDays.length > 0
-        ? gCompletedWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / gCompletedWithDays.length
+    if (statsCount === 0) {
+      // Calculate global stats as fallback if there are absolutely no trades with returns in the filter
+      const gActiveTrades = initialHistory.filter(t => effectiveReturn(t) != null);
+      const gWins      = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
+      const gLosses    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
+      const gSumRet    = gActiveTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
+      const gAbove5    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
+      const gAbove10   = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
+      const gAbove15   = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
+      const gStatsCount = gActiveTrades.length;
+      const gTradesWithDays = gActiveTrades.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
+      const gAvgDays = gTradesWithDays.length > 0
+        ? gTradesWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / gTradesWithDays.length
         : null;
 
       return {
-        totalSignals: total, // Keep the active filter's count
-        pending: pending,     // Keep the active filter's count
+        totalSignals: total,
+        pending: pending,
         completedCount: 0,
         wins: gWins,
         losses: gLosses,
         slHits: initialHistory.filter(slTriggered).length,
-        winRate:     gCompletedCount > 0 ? (gWins / gCompletedCount * 100).toFixed(1) : "—",
-        avgReturn:   gCompletedCount > 0 ? (gSumRet / gCompletedCount).toFixed(1)     : "—",
-        above5Rate:  gCompletedCount > 0 ? (gAbove5  / gCompletedCount * 100).toFixed(1) : "—",
-        above10Rate: gCompletedCount > 0 ? (gAbove10 / gCompletedCount * 100).toFixed(1) : "—",
-        above15Rate: gCompletedCount > 0 ? (gAbove15 / gCompletedCount * 100).toFixed(1) : "—",
+        winRate:     gStatsCount > 0 ? (gWins / gStatsCount * 100).toFixed(1) : "—",
+        avgReturn:   gStatsCount > 0 ? (gSumRet / gStatsCount).toFixed(1)     : "—",
+        above5Rate:  gStatsCount > 0 ? (gAbove5  / gStatsCount * 100).toFixed(1) : "—",
+        above10Rate: gStatsCount > 0 ? (gAbove10 / gStatsCount * 100).toFixed(1) : "—",
+        above15Rate: gStatsCount > 0 ? (gAbove15 / gStatsCount * 100).toFixed(1) : "—",
         avgDays:     gAvgDays != null ? gAvgDays.toFixed(1) : "—",
-        avgPnl:      gCompletedCount > 0 ? (gSumRet / gCompletedCount * 10).toFixed(0) : "—",
+        avgPnl:      gStatsCount > 0 ? (gSumRet / gStatsCount * 10).toFixed(0) : "—",
         isFallback:  true
       };
     }
@@ -226,17 +228,17 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     return {
       totalSignals: total,
       pending,
-      completedCount,
+      completedCount: statsCount,
       wins,
       losses,
       slHits,
-      winRate:     completedCount > 0 ? (wins / completedCount * 100).toFixed(1) : "—",
-      avgReturn:   completedCount > 0 ? (sumRet / completedCount).toFixed(1)     : "—",
-      above5Rate:  completedCount > 0 ? (above5  / completedCount * 100).toFixed(1) : "—",
-      above10Rate: completedCount > 0 ? (above10 / completedCount * 100).toFixed(1) : "—",
-      above15Rate: completedCount > 0 ? (above15 / completedCount * 100).toFixed(1) : "—",
+      winRate:     statsCount > 0 ? (wins / statsCount * 100).toFixed(1) : "—",
+      avgReturn:   statsCount > 0 ? (sumRet / statsCount).toFixed(1)     : "—",
+      above5Rate:  statsCount > 0 ? (above5  / statsCount * 100).toFixed(1) : "—",
+      above10Rate: statsCount > 0 ? (above10 / statsCount * 100).toFixed(1) : "—",
+      above15Rate: statsCount > 0 ? (above15 / statsCount * 100).toFixed(1) : "—",
       avgDays:     avgDays != null ? avgDays.toFixed(1) : "—",
-      avgPnl:      completedCount > 0 ? (sumRet / completedCount * 10).toFixed(0) : "—",
+      avgPnl:      statsCount > 0 ? (sumRet / statsCount * 10).toFixed(0) : "—",
       isFallback:  false
     };
   }, [filtered, initialHistory]);
