@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { name: "Option Scanner", href: "/options" },
   { name: "Terminal", href: "/terminal" },
   { name: "Themes", href: "/theme" },
-  { name: "Long Term", href: "/long-term" },
+  { name: "Stock Search", href: "/ai" },
   { name: "Performance", href: "/performance" },
   { name: "OptAnaliz", href: "/optanaliz" },
 ];
