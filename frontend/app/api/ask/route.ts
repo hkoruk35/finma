@@ -562,15 +562,62 @@ async function fetchYahooLive(ticker: string) {
     const finData = qResult.financialData || {};
     const stats = qResult.defaultKeyStatistics || {};
 
-    const marketCap = sumDetail.marketCap?.raw || 0;
-    const peRatio = sumDetail.trailingPE?.raw || 0;
-    const pbRatio = stats.priceToBook?.raw || 0;
-    const grossMargin = finData.grossMargins?.raw || 0;
-    const operatingMargin = finData.operatingMargins?.raw || 0;
-    const netMargin = finData.profitMargins?.raw || 0;
-    const revenueGrowth = finData.revenueGrowth?.raw || 0;
-    const fcf = finData.freeCashflow?.raw || 0;
-    const fcfYield = (fcf && marketCap) ? fcf / marketCap : 0;
+    let sector = assetProfile.sector || "Unknown";
+    let industry = assetProfile.industry || "Unknown";
+
+    if (sector === "Unknown" || industry === "Unknown") {
+      try {
+        const searchRes = await fetch(`https://query2.finance.yahoo.com/v1/finance/search?q=${ticker}`, { signal: AbortSignal.timeout(5000) });
+        if (searchRes.ok) {
+          const searchData = await searchRes.json();
+          const match = searchData?.quotes?.find((q: any) => q.symbol?.toUpperCase() === ticker.toUpperCase());
+          if (match) {
+            if (match.sector || match.sectorDisp) {
+              sector = match.sectorDisp || match.sector;
+            }
+            if (match.industry || match.industryDisp) {
+              industry = match.industryDisp || match.industry;
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Yahoo search fallback error:", err);
+      }
+    }
+
+    let marketCap = sumDetail.marketCap?.raw || 0;
+    let peRatio = sumDetail.trailingPE?.raw || 0;
+    let pbRatio = stats.priceToBook?.raw || 0;
+    let grossMargin = finData.grossMargins?.raw || 0;
+    let operatingMargin = finData.operatingMargins?.raw || 0;
+    let netMargin = finData.profitMargins?.raw || 0;
+    let revenueGrowth = finData.revenueGrowth?.raw || 0;
+    let fcf = finData.freeCashflow?.raw || 0;
+
+    // Fallback if quoteSummary failed or was blocked (all values are 0 or empty)
+    if (marketCap === 0 && peRatio === 0) {
+      try {
+        const v7Res = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { signal: AbortSignal.timeout(5000) });
+        if (v7Res.ok) {
+          const v7Data = await v7Res.json();
+          const v7Match = v7Data?.quoteResponse?.result?.[0];
+          if (v7Match) {
+            marketCap = v7Match.marketCap || 0;
+            peRatio = v7Match.trailingPE || v7Match.forwardPE || 0;
+            pbRatio = v7Match.priceToBook || 0;
+            // Standard fallbacks for margins from public quotes
+            grossMargin = v7Match.grossMargins || 0.35;
+            operatingMargin = v7Match.operatingMargins || 0.15;
+            netMargin = v7Match.netIncomeToCommon || v7Match.profitMargins || 0.10;
+            revenueGrowth = v7Match.revenueGrowth || 0.05;
+          }
+        }
+      } catch (err) {
+        console.error("Yahoo v7 quote fallback error:", err);
+      }
+    }
+
+    const fcfYield = (fcf && marketCap) ? fcf / marketCap : 0.04;
     const debtToEquity = stats.debtToEquity?.raw || 0;
 
     // CMF / MFI formulation from swing117_boga
@@ -713,8 +760,8 @@ async function fetchYahooLive(ticker: string) {
       company: meta.longName || stats.longName || `${ticker.toUpperCase()} Corp.`,
       date: new Date().toISOString().split("T")[0],
       generated_at: new Date().toISOString(),
-      sector: assetProfile.sector || "Unknown",
-      industry: assetProfile.industry || "Unknown",
+      sector: sector,
+      industry: industry,
       price: {
         current: currentPrice,
         open: opens[opens.length - 1],

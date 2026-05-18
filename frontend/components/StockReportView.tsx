@@ -148,7 +148,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       support_host: "https://www.tradingview.com"
     });
     chartContainerRef.current.appendChild(script);
-  }, [ticker, showChart]);
+  }, [ticker, showChart, isFullScreen, mounted]);
 
   // Determine alert level & color styling based on BOGA score & technicals
   const isBullish = masterScore >= 65;
