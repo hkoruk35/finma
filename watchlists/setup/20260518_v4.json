@@ -1,0 +1,162 @@
+[
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "CLH",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 303.02,
+        "entry_zone": "298.54 - 307.50",
+        "SL": 285.08,
+        "TP": 329.93
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "F",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 13.22,
+        "entry_zone": "12.89 - 13.54",
+        "SL": 11.93,
+        "TP": 15.14
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "BLBD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 72.27,
+        "entry_zone": "70.54 - 74.00",
+        "SL": 65.35,
+        "TP": 82.65
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "VOYA",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 81.88,
+        "entry_zone": "80.71 - 83.05",
+        "SL": 77.22,
+        "TP": 88.87
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "THC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 197.21,
+        "entry_zone": "193.39 - 201.04",
+        "SL": 181.9,
+        "TP": 220.19
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "SOLV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 75.59,
+        "entry_zone": "74.54 - 76.64",
+        "SL": 71.4,
+        "TP": 81.88
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "WMG",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 34.01,
+        "entry_zone": "33.36 - 34.66",
+        "SL": 31.42,
+        "TP": 37.89
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "DTM",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 148.1,
+        "entry_zone": "146.36 - 149.84",
+        "SL": 141.13,
+        "TP": 158.56
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "WRBY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 28.62,
+        "entry_zone": "27.59 - 29.65",
+        "SL": 24.5,
+        "TP": 34.81
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "AMZN",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 264.54,
+        "entry_zone": "260.88 - 268.19",
+        "SL": 249.9,
+        "TP": 286.49
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "TWLO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 198.65,
+        "entry_zone": "193.55 - 203.75",
+        "SL": 178.25,
+        "TP": 229.24
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "AMAT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 413.45,
+        "entry_zone": "403.78 - 423.12",
+        "SL": 374.78,
+        "TP": 471.46
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "JCI",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 138.96,
+        "entry_zone": "136.89 - 141.04",
+        "SL": 130.67,
+        "TP": 151.41
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "SVM",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 13.26,
+        "entry_zone": "12.79 - 13.72",
+        "SL": 11.4,
+        "TP": 16.04
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "PRAX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 320.57,
+        "entry_zone": "310.40 - 330.73",
+        "SL": 279.92,
+        "TP": 381.53
+    },
+    {
+        "date": "2026-05-18 13:00",
+        "symbol": "ACMR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 62.52,
+        "entry_zone": "60.09 - 64.95",
+        "SL": 52.8,
+        "TP": 77.09
+    }
+]
