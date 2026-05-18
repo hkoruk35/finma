@@ -13,8 +13,6 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [showChart, setShowChart] = useState(true);
   const [inWatchlist, setInWatchlist] = useState(false);
-  const [selectedTheme, setSelectedTheme] = useState("");
-  const [themeSuccess, setThemeSuccess] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   const SYSTEM_THEME_CATEGORIES = [
@@ -104,21 +102,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     window.dispatchEvent(new Event("watchlist_update"));
   };
 
-  const handleAddTheme = (themeName: string) => {
-    if (!themeName) return;
-    const overridesStr = localStorage.getItem("theme_overrides");
-    const overrides = overridesStr ? JSON.parse(overridesStr) : {};
-    if (!overrides[themeName]) {
-      overrides[themeName] = [];
-    }
-    if (!overrides[themeName].includes(ticker.toUpperCase())) {
-      overrides[themeName].push(ticker.toUpperCase());
-    }
-    localStorage.setItem("theme_overrides", JSON.stringify(overrides));
-    setThemeSuccess(true);
-    setTimeout(() => setThemeSuccess(false), 2000);
-    setSelectedTheme("");
-  };
+
 
 
   // Extract variables safely
@@ -266,29 +250,6 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               )}
             </button>
 
-            <div className="relative flex items-center">
-              <select
-                value={selectedTheme}
-                onChange={(e) => handleAddTheme(e.target.value)}
-                className="bg-[#141924] text-slate-300 border border-[#1e2a3a] rounded-xl text-xs font-black uppercase tracking-wider p-2 outline-none cursor-pointer hover:bg-[#1e2a3a] hover:text-white transition-all appearance-none pr-8 pl-3"
-              >
-                <option value="" className="text-slate-500 font-bold bg-[#0d1117]">Temaya Ekle...</option>
-                {SYSTEM_THEME_CATEGORIES.map(cat => (
-                  <option key={cat} value={cat} className="text-slate-300 bg-[#0d1117] font-semibold">{cat}</option>
-                ))}
-              </select>
-              <div className="absolute right-3 pointer-events-none text-slate-400">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-
-            {themeSuccess && (
-              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg animate-pulse">
-                Temaya Eklendi! ✓
-              </span>
-            )}
           </div>
         </div>
 
