@@ -1,11 +1,81 @@
 {
-  "generated_at": "2026-05-15T13:12:21.469226",
+  "generated_at": "2026-05-18T13:04:11.186650",
   "options": {
-    "NXPI": {},
-    "WMT": {},
-    "SLF": {},
-    "UNP": {},
-    "SLB": {},
-    "H": {}
+    "YOU": {
+      "dte_45": {
+        "strike": 60.0,
+        "lastPrice": 2.75,
+        "bid": 0.0,
+        "ask": 0.0,
+        "volume": 0,
+        "openInterest": 1,
+        "impliedVolatility": 1.0000000000000003e-05,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      }
+    },
+    "DAR": {
+      "dte_45": {
+        "strike": 62.5,
+        "lastPrice": 4.0,
+        "bid": 3.8,
+        "ask": 4.4,
+        "volume": 7,
+        "openInterest": 1677,
+        "impliedVolatility": 0.43848217773437503,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      }
+    },
+    "STT": {
+      "dte_45": {
+        "strike": 155.0,
+        "lastPrice": 6.03,
+        "bid": 5.7,
+        "ask": 7.3,
+        "volume": 1,
+        "openInterest": 4,
+        "impliedVolatility": 0.32923034057617184,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      }
+    },
+    "AVGO": {
+      "dte_45": {
+        "strike": 420.0,
+        "lastPrice": 27.7,
+        "bid": 27.25,
+        "ask": 29.05,
+        "volume": 39,
+        "openInterest": 18,
+        "impliedVolatility": 0.5101367346191408,
+        "expiry": "2026-06-26",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 420.0,
+        "lastPrice": 33.25,
+        "bid": 33.2,
+        "ask": 34.45,
+        "volume": 165,
+        "openInterest": 1983,
+        "impliedVolatility": 0.50546759185791,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      }
+    },
+    "MLI": {
+      "dte_45": {
+        "strike": 140.0,
+        "lastPrice": 7.34,
+        "bid": 4.2,
+        "ask": 6.5,
+        "volume": 0,
+        "openInterest": 2,
+        "impliedVolatility": 0.340826904296875,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      }
+    }
   }
 }
