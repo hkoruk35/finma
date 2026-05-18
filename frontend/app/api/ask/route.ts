@@ -404,12 +404,40 @@ function check15mMicroTrend(
   return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m Yatay/Sıkışma: Gürültü yok" };
 }
 
+async function fetchYahooWithCrumb(ticker: string) {
+  const headers: Record<string, string> = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "*/*",
+  };
+  try {
+    const fcRes = await fetch("https://fc.yahoo.com", { headers, signal: AbortSignal.timeout(4000) });
+    const setCookie = fcRes.headers.get("set-cookie");
+    if (!setCookie) return null;
+    const cookieMatch = setCookie.match(/A3=[^;]+/);
+    if (!cookieMatch) return null;
+    const cookie = cookieMatch[0];
+    headers["Cookie"] = cookie;
+
+    const crumbRes = await fetch("https://query2.finance.yahoo.com/v1/test/getcrumb", { headers, signal: AbortSignal.timeout(4000) });
+    if (!crumbRes.ok) return null;
+    const crumb = (await crumbRes.text()).trim();
+    if (!crumb) return null;
+
+    const quoteUrl = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics&crumb=${crumb}`;
+    const quoteRes = await fetch(quoteUrl, { headers, signal: AbortSignal.timeout(6000) });
+    if (!quoteRes.ok) return null;
+    return await quoteRes.json();
+  } catch (err: any) {
+    console.error(`fetchYahooWithCrumb failed for ${ticker}:`, err.message);
+    return null;
+  }
+}
+
 async function fetchYahooLive(ticker: string) {
   try {
     const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
-    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
 
     const headers = {
       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -417,11 +445,11 @@ async function fetchYahooLive(ticker: string) {
       "Referer": "https://finance.yahoo.com/"
     };
 
-    const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
+    const [chartRes, chart1hRes, chart15mRes, quoteSummary] = await Promise.all([
       fetch(chartUrl, { headers, signal: AbortSignal.timeout(10000) }),
       fetch(chart1hUrl, { headers, signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(chart15mUrl, { headers, signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(quoteUrl, { headers, signal: AbortSignal.timeout(10000) })
+      fetchYahooWithCrumb(ticker)
     ]);
 
     if (!chartRes.ok) return null;
@@ -561,7 +589,6 @@ async function fetchYahooLive(ticker: string) {
 
     const micro15 = check15mMicroTrend(closes15m, opens15m, highs15m);
 
-    const quoteSummary = await quoteRes.json().catch(() => ({}));
     const qResult = quoteSummary?.quoteSummary?.result?.[0] || {};
     const sumDetail = qResult.summaryDetail || {};
     const assetProfile = qResult.assetProfile || {};
