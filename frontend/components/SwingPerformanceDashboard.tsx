@@ -729,7 +729,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="text-right">
                     <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">PnL/$1000</p>
                     <p className={`font-mono font-black text-2xl ${retColor(pnl)}`}>
-                      {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
+                      {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toFixed(0)}` : "—"}
                     </p>
                   </div>
                 </div>
@@ -801,7 +801,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           : t.days != null ? `${t.days}d` : "—"}
                       </td>
                       <td className={`px-4 py-3 text-right font-black text-sm ${retColor(pnl)}`}>
-                        {pnl != null ? `${pnl >= 0 ? "+" : ""}$${Math.abs(pnl).toFixed(0)}` : "—"}
+                        {pnl != null ? `${pnl >= 0 ? "+" : "-"}$${Math.abs(pnl).toFixed(0)}` : "—"}
                       </td>
                       <td className="px-4 py-3 text-center">
                         {slHit && <span className="text-[9px] font-black text-[#ef4444]">●</span>}
