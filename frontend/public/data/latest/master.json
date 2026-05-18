@@ -1,24 +1,31 @@
 {
-  "date": "2026-05-15",
-  "generated_at": "2026-05-15T13:11:37.026410-04:00",
+  "date": "2026-05-16",
+  "generated_at": "2026-05-16T04:41:58.410987-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 6,
+  "active_scores_count": 16,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 6,
+      "count": 10,
       "tickers": [
-        "NXPI",
-        "WMT",
-        "SLF",
-        "UNP",
-        "SLB",
-        "H"
+        "SVM",
+        "ACMR",
+        "THC",
+        "DTM",
+        "AMAT",
+        "WMG",
+        "VOYA",
+        "WRBY",
+        "AMZN",
+        "CLH"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 2,
+      "tickers": [
+        "ACMR",
+        "WMG"
+      ]
     },
     "value": {
       "count": 0,
@@ -29,8 +36,14 @@
       "tickers": []
     },
     "momentum": {
-      "count": 0,
-      "tickers": []
+      "count": 5,
+      "tickers": [
+        "AMAT",
+        "WRBY",
+        "BLBD",
+        "F",
+        "TWLO"
+      ]
     },
     "dividend": {
       "count": 0,
@@ -39,18 +52,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "NXPI",
-      "score": 58.5,
+      "ticker": "SVM",
+      "score": 66.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "WMT",
-      "score": 57.0,
+      "ticker": "ACMR",
+      "score": 64.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SLF",
-      "score": 55.5,
+      "ticker": "THC",
+      "score": 62.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
