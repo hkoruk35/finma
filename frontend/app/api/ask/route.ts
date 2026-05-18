@@ -877,7 +877,13 @@ export async function POST(req: NextRequest) {
           const parsed = JSON.parse(fileContent);
           if (parsed && parsed.generated_at) {
             const ageHours = (Date.now() - new Date(parsed.generated_at).getTime()) / (1000 * 60 * 60);
-            if (ageHours < 4 && parsed.scores?.micro_15m && parsed.scores_detail?.entry_engine) {
+            if (
+              ageHours < 4 && 
+              parsed.scores?.micro_15m && 
+              parsed.scores_detail?.entry_engine &&
+              parsed.fundamental &&
+              parsed.fundamental.market_cap > 0
+            ) {
               stockJson = parsed;
               needsUpdate = false;
               break;
