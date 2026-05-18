@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-18T09:16:00.004042-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 1.3,
-  "total_scanned": 3,
-  "layer1_passed": 3,
-  "final_picks": 3,
+  "generated_at": "2026-05-18T10:01:00.136089-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 23.9,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
   "picks": [
     {
-      "ticker": "CELH",
-      "price": 30.16,
-      "change_pct": 3.96,
-      "dt_score": 60.0,
+      "ticker": "GRND",
+      "price": 13.89,
+      "change_pct": 3.66,
+      "dt_score": 55.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 29.92,
+      "vwap": 13.7,
       "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "investors feared energy-drink fatigue. monster and celsius earnings offered reassurance.(barrons.com)-5.75%",
+        "catalyst_type": "acquisition",
+        "catalyst_score": 22,
+        "headline": "pack your bags and start tapping: grindr reveals the top gay travel destinations for 2026 just in time for host or trave",
         "confidence": "high",
-        "ts": 1779110132.197908
+        "ts": 1779112883.1200728
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,136 +37,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 30.13,
-          "high": 30.31
+          "low": 13.88,
+          "high": 13.96
         },
-        "stop": 29.71,
-        "tp1": 31.24,
-        "tp2": 32.0,
+        "stop": 13.68,
+        "tp1": 14.4,
+        "tp2": 14.76,
         "rr_ratio": 2.0,
-        "avg_entry": 30.22,
-        "risk_per_sh": 0.51,
+        "avg_entry": 13.92,
+        "risk_per_sh": 0.24,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 30.16
+        "pm_high_ref": 13.89
       },
       "details": [
-        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +4.0%",
+        "↗️ Küçük Gap: +3.7%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.81%",
-        "🔥 Açılış Barı: Güçlü (8.8x hacim)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "MSFT",
-      "price": 421.92,
-      "change_pct": 3.05,
-      "dt_score": 40.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 29.92,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1779110132.2011032
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 421.5,
-          "high": 424.03
-        },
-        "stop": 415.59,
-        "tp1": 437.12,
-        "tp2": 447.88,
-        "rr_ratio": 2.0,
-        "avg_entry": 422.76,
-        "risk_per_sh": 7.18,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 421.92
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +1310.32%",
-        "🔥 Açılış Barı: Güçlü (8.8x hacim)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "HIMS",
-      "price": 25.05,
-      "change_pct": 3.34,
-      "dt_score": 17.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 29.92,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1779110132.1988869
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 25.02,
-          "high": 25.18
-        },
-        "stop": 24.82,
-        "tp1": 25.66,
-        "tp2": 26.08,
-        "rr_ratio": 2.0,
-        "avg_entry": 25.1,
-        "risk_per_sh": 0.28,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 25.05
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.3%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "🔴 VWAP Altında: -16.27%",
-        "🔥 Açılış Barı: Güçlü (8.8x hacim)",
+        "✅ VWAP Üstünde: +1.38%",
+        "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
