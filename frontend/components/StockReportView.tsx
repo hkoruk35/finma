@@ -40,6 +40,55 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     setInWatchlist(wl.includes(ticker.toUpperCase()));
   }, [ticker]);
 
+  // Automatically add to local overrides theme based on industry / sector
+  useEffect(() => {
+    if (!ticker || !stockData) return;
+    const s = stockData;
+    const sectorLower = (s.sector || "").toLowerCase();
+    const industryLower = (s.industry || "").toLowerCase();
+    const t = ticker.toUpperCase();
+
+    let targetTheme = "";
+    if (["AAPL", "MSFT", "AMZN", "GOOGL", "META", "NVDA"].includes(t)) {
+      targetTheme = "Mega-cap Platform & Cloud";
+    } else if (industryLower.includes("semiconductor")) {
+      targetTheme = "Semiconductors & Hardware";
+    } else if (industryLower.includes("software") || industryLower.includes("application")) {
+      targetTheme = "Software & Cloud Applications";
+    } else if (industryLower.includes("cybersecurity") || industryLower.includes("security")) {
+      targetTheme = "Cybersecurity";
+    } else if (industryLower.includes("data") || industryLower.includes("artificial") || industryLower.includes("ai")) {
+      targetTheme = "AI & Data";
+    } else if (industryLower.includes("networking") || industryLower.includes("infrastructure")) {
+      targetTheme = "Infrastructure & Networking";
+    } else if (industryLower.includes("hardware") || industryLower.includes("device") || industryLower.includes("electronics")) {
+      targetTheme = "Hardware & Devices";
+    } else if (industryLower.includes("social") || industryLower.includes("search") || industryLower.includes("internet")) {
+      targetTheme = "Social & Search";
+    } else if (industryLower.includes("streaming") || industryLower.includes("entertainment") || industryLower.includes("movie")) {
+      targetTheme = "Streaming & Entertainment";
+    } else if (industryLower.includes("auto") || industryLower.includes("ev") || industryLower.includes("vehicle")) {
+      targetTheme = "Automotive & EV";
+    } else if (industryLower.includes("travel") || industryLower.includes("leisure") || industryLower.includes("hotel") || industryLower.includes("airline")) {
+      targetTheme = "Travel & Leisure";
+    }
+
+    if (targetTheme) {
+      try {
+        const overridesStr = localStorage.getItem("theme_overrides");
+        const overrides = overridesStr ? JSON.parse(overridesStr) : {};
+        if (!overrides[targetTheme]) {
+          overrides[targetTheme] = [];
+        }
+        if (!overrides[targetTheme].includes(t)) {
+          overrides[targetTheme].push(t);
+          localStorage.setItem("theme_overrides", JSON.stringify(overrides));
+          console.log(`[BOGA AI] Automatically added ${t} to theme: ${targetTheme}`);
+        }
+      } catch (err) {}
+    }
+  }, [ticker, stockData]);
+
   const toggleWatchlist = () => {
     const watchlistStr = localStorage.getItem("watchlist");
     let wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
@@ -51,6 +100,8 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       setInWatchlist(true);
     }
     localStorage.setItem("watchlist", JSON.stringify(wl));
+    // Dispatch event to notify other components (like TerminalClient)
+    window.dispatchEvent(new Event("watchlist_update"));
   };
 
   const handleAddTheme = (themeName: string) => {
@@ -534,7 +585,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-bold text-slate-400">F/K Oranı (P/E)</span>
-              <span className="font-bold text-slate-200">{formatNum(fund.pe_ratio, 1)}x</span>
+              <span className="font-bold text-slate-200">{(fund.pe_ratio && fund.pe_ratio > 0) ? fund.pe_ratio.toFixed(1) + "x" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
               <span className="font-sans font-bold text-slate-400">Gelir Büyümesi</span>

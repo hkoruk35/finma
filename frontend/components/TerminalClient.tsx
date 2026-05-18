@@ -405,18 +405,39 @@ export default function TerminalClient() {
 
   // ── Load watchlist from localStorage ────────────────────────────────────────
   useEffect(() => {
+    const reloadWatch = () => {
+      try {
+        const savedWatch = localStorage.getItem("watchlist");
+        if (savedWatch) {
+          setWatchlist(JSON.parse(savedWatch));
+        } else {
+          const defaultWl = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
+          setWatchlist(defaultWl);
+          localStorage.setItem("watchlist", JSON.stringify(defaultWl));
+        }
+      } catch {}
+    };
+
+    reloadWatch();
+
+    // Listen to local storage updates
+    window.addEventListener("storage", reloadWatch);
+    window.addEventListener("watchlist_update", reloadWatch);
+
     try {
-      const savedWatch = localStorage.getItem("terminal_watchlist");
-      if (savedWatch) setWatchlist(JSON.parse(savedWatch));
-      
       const savedTracker = localStorage.getItem("terminal_tracker");
       if (savedTracker) setTrackerList(JSON.parse(savedTracker));
     } catch {}
+
+    return () => {
+      window.removeEventListener("storage", reloadWatch);
+      window.removeEventListener("watchlist_update", reloadWatch);
+    };
   }, []);
 
   const saveWatchlist = (list: string[]) => {
     setWatchlist(list);
-    try { localStorage.setItem("terminal_watchlist", JSON.stringify(list)); } catch {}
+    try { localStorage.setItem("watchlist", JSON.stringify(list)); } catch {}
   };
 
   const saveTrackerList = (list: string[]) => {

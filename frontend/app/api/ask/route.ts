@@ -411,11 +411,17 @@ async function fetchYahooLive(ticker: string) {
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
 
+    const headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+      "Accept": "application/json",
+      "Referer": "https://finance.yahoo.com/"
+    };
+
     const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
-      fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
-      fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(quoteUrl, { signal: AbortSignal.timeout(10000) })
+      fetch(chartUrl, { headers, signal: AbortSignal.timeout(10000) }),
+      fetch(chart1hUrl, { headers, signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(chart15mUrl, { headers, signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(quoteUrl, { headers, signal: AbortSignal.timeout(10000) })
     ]);
 
     if (!chartRes.ok) return null;
@@ -567,7 +573,7 @@ async function fetchYahooLive(ticker: string) {
 
     if (sector === "Unknown" || industry === "Unknown") {
       try {
-        const searchRes = await fetch(`https://query2.finance.yahoo.com/v1/finance/search?q=${ticker}`, { signal: AbortSignal.timeout(5000) });
+        const searchRes = await fetch(`https://query2.finance.yahoo.com/v1/finance/search?q=${ticker}`, { headers, signal: AbortSignal.timeout(5000) });
         if (searchRes.ok) {
           const searchData = await searchRes.json();
           const match = searchData?.quotes?.find((q: any) => q.symbol?.toUpperCase() === ticker.toUpperCase());
@@ -597,7 +603,7 @@ async function fetchYahooLive(ticker: string) {
     // Fallback if quoteSummary failed or was blocked (all values are 0 or empty)
     if (marketCap === 0 && peRatio === 0) {
       try {
-        const v7Res = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { signal: AbortSignal.timeout(5000) });
+        const v7Res = await fetch(`https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}`, { headers, signal: AbortSignal.timeout(5000) });
         if (v7Res.ok) {
           const v7Data = await v7Res.json();
           const v7Match = v7Data?.quoteResponse?.result?.[0];

@@ -172,6 +172,19 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
     }
   };
 
+  // Trigger AI Stock Analysis automatically if ticker is passed in URL query
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tickerParam = params.get("ticker");
+      if (tickerParam && tickerParam.trim()) {
+        send(tickerParam.trim().toUpperCase());
+        // Clean URL parameter without page reload
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+  }, []);
+
   const handleKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
