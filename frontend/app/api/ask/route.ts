@@ -419,21 +419,29 @@ function generateBogaSimulation(
   masterScore: number,
   emaStackBullish: boolean,
   rsi: number,
-  cmf: number
+  cmf: number,
+  targetPrice: number,
+  stopLoss: number
 ): { daily: ForecastDay[]; milestones: Record<string, ForecastDay> } {
-  // 1. Boga Drift (Eğilim) Katsayısını Hesapla
-  let drift = 0.0;
-  if (emaStackBullish) drift += 0.08;
-  else drift -= 0.04;
+  // Akıllı sınırlar ve varsayılanlar
+  const tp = targetPrice && targetPrice > currentPrice ? targetPrice : currentPrice * 1.15;
+  const sl = stopLoss && stopLoss < currentPrice ? stopLoss : currentPrice * 0.93;
 
-  if (rsi > 70) drift -= 0.06;
-  else if (rsi < 30) drift += 0.08;
+  // 1. Zımni Swing Getirisini Hesapla (Mevcut Fiyat -> Hedef Fiyat)
+  const rawSwingReturn = (tp - currentPrice) / currentPrice;
+  
+  // Sinyal gücüne (Master Score) göre bu getiri katsayısını ölçekle
+  const scoreFactor = Math.pow(masterScore / 100, 1.2); 
+  const expectedSwingReturn = rawSwingReturn * scoreFactor; 
+  
+  // 20 işlem günü (28 takvim günü) için günlük drift
+  const dailyDrift = Math.log(1 + expectedSwingReturn) / 20;
 
-  drift += (cmf * 0.15);
-  drift += ((masterScore - 50) / 100) * 0.1;
-
-  const dailyDrift = drift / 252;
-  const dailyVol = (atrPct / 100) / Math.sqrt(252);
+  // Oynaklığı (dailyVol) ATR ve stop loss mesafesine göre kalibre et
+  const stopLossReturn = (sl - currentPrice) / currentPrice;
+  const baseDailyVol = (atrPct / 100) / Math.sqrt(252);
+  const impliedVol = Math.abs(stopLossReturn) / Math.sqrt(20);
+  const dailyVol = (baseDailyVol * 0.3) + (impliedVol * 0.7);
 
   const numPaths = 1000;
   const daysToForecast = 28;
@@ -1213,6 +1221,7 @@ ${ticker} | ${s.sector || ""} | Swing Strateji
         const pr = stockJson.price || {};
         const sc = stockJson.scores || {};
         const tech = stockJson.technical || {};
+        const sd = stockJson.scores_detail || stockJson.strategy || {};
         const currentPrice = pr.current || 100;
         const atr = tech.atr || currentPrice * 0.03;
         const atrPct = (atr / currentPrice) * 100;
@@ -1220,7 +1229,20 @@ ${ticker} | ${s.sector || ""} | Swing Strateji
         const emaStackBullish = !!tech.ema_stack_bullish;
         const rsi = tech.rsi_14 || 50;
         const cmf = tech.cmf || 0.05;
-        stockJson.forecast = generateBogaSimulation(currentPrice, atrPct, masterScore, emaStackBullish, rsi, cmf);
+        
+        const targetPrice = sd.target_price || tech.resistance_level || currentPrice * 1.08;
+        const stopLoss = sd.stop_loss || tech.support_level || currentPrice * 0.95;
+
+        stockJson.forecast = generateBogaSimulation(
+          currentPrice,
+          atrPct,
+          masterScore,
+          emaStackBullish,
+          rsi,
+          cmf,
+          targetPrice,
+          stopLoss
+        );
       } catch (err: any) {
         console.error("Failed to dynamically append forecast:", err.message);
       }
