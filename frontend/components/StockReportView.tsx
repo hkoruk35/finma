@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface StockReportViewProps {
   ticker: string;
@@ -14,6 +15,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const [inWatchlist, setInWatchlist] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState("");
   const [themeSuccess, setThemeSuccess] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const SYSTEM_THEME_CATEGORIES = [
     "Mega-cap Platform & Cloud",
@@ -32,6 +34,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const [isFullScreen, setIsFullScreen] = useState(true);
 
   useEffect(() => {
+    setMounted(true);
     const watchlistStr = localStorage.getItem("watchlist");
     const wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
     setInWatchlist(wl.includes(ticker.toUpperCase()));
@@ -665,11 +668,15 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   );
 
   if (isFullScreen) {
-    return (
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/95 backdrop-blur-md flex items-start justify-center p-4 md:p-8">
+    const fullscreenContent = (
+      <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-950/95 backdrop-blur-md flex items-start justify-center p-4 md:p-8">
         {reportContent}
       </div>
     );
+
+    if (mounted && typeof window !== "undefined") {
+      return createPortal(fullscreenContent, document.body);
+    }
   }
 
   return reportContent;
