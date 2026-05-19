@@ -330,6 +330,77 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         </div>
       </div>
       
+      {/* BOGA AI MULTI-HORIZON SUITABILITY RADAR */}
+      <div className="space-y-3">
+        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 px-1">
+          <span>🎯</span> BOGA AI ÇOKLU VADELİ ANALİZ RADARI (MULTI-HORIZON ANALYSIS RADAR)
+        </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Card 1: Swing Trade Suitability */}
+          {(() => {
+            const swingLevel = masterScore >= 65 ? "HIGH" : masterScore >= 50 ? "MODERATE" : "LOW";
+            const swingText = swingLevel === "HIGH" ? "GÜÇLÜ SWING FIRSATI" : swingLevel === "MODERATE" ? "İZLEME / DENGELİ" : "DÜŞÜK İVME / RİSKLİ";
+            const swingColor = swingLevel === "HIGH" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-emerald-500/5" : swingLevel === "MODERATE" ? "bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-amber-500/5" : "bg-rose-500/10 text-rose-400 border-rose-500/30 shadow-rose-500/5";
+            return (
+              <div className={`p-4 rounded-2xl border ${swingColor} shadow-md flex flex-col justify-between space-y-2`}>
+                <div className="flex justify-between items-center">
+                  <span className="text-[9px] font-black uppercase tracking-wider opacity-70">1. SWING TRADE PROFİLİ</span>
+                  <span className="text-xs">⚡</span>
+                </div>
+                <div>
+                  <div className="text-base font-black tracking-tight">{swingText}</div>
+                  <p className="text-[9px] font-bold mt-1 opacity-80">BOGA Skoru {masterScore}/100 • Trend Uyumlu Giriş</p>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Card 2: Long-Term Investment Suitability */}
+          {(() => {
+            const netMarginVal = fund.net_margin || 0;
+            const revGrowthVal = fund.revenue_growth_ttm || 0;
+            const isRec = netMarginVal > 0.08 && revGrowthVal > 0.05;
+            const isHold = netMarginVal > 0 || revGrowthVal > 0;
+            const ltLevel = isRec ? "RECOMMENDED" : isHold ? "HOLD" : "AVOID";
+            const ltText = ltLevel === "RECOMMENDED" ? "🟢 GÜÇLÜ BİRİKTİR (+1 / +5 Yıl)" : ltLevel === "HOLD" ? "🟡 TUT / DENGELİ VADE" : "🔴 YÜKSEK RİSK / KAÇIN";
+            const ltDesc = ltLevel === "RECOMMENDED" ? "+1 ve +5 yıl vade için mükemmel finansal temel." : ltLevel === "HOLD" ? "Orta/uzun vadeli stabil birikim profili." : "Finansallar zayıf, uzun vade biriktirme riskli.";
+            return (
+              <div className="p-4 rounded-2xl border border-[#1e2a3a]/40 bg-[#0d1321] text-slate-300 flex flex-col justify-between space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">2. UZUN VADE YATIRIM (+1 / +5 YIL)</span>
+                  <span className="text-xs">💎</span>
+                </div>
+                <div>
+                  <div className="text-xs font-black text-white">{ltText}</div>
+                  <p className="text-[9px] font-bold text-slate-400 mt-1">{ltDesc}</p>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Card 3: Dividend Payer Status */}
+          {(() => {
+            const divRate = fund.dividend_rate || 0;
+            const divYield = fund.dividend_yield || 0;
+            const paysDiv = divYield > 0;
+            const divText = paysDiv ? `🟢 TEMETTÜ HİSSESİ (%${(divYield * 100).toFixed(2)})` : "⚪ BÜYÜME ODAKLI (Yatırımsız)";
+            const divDesc = paysDiv ? `Yıllık Hisse Başı: $${divRate.toFixed(2)} • Dönem: Çeyreklik` : "Tüm serbest nakit akışını büyümeye harcar.";
+            return (
+              <div className="p-4 rounded-2xl border border-[#1e2a3a]/40 bg-[#0d1321] text-slate-300 flex flex-col justify-between space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">3. PASİF GELİR / TEMETTÜ</span>
+                  <span className="text-xs">💰</span>
+                </div>
+                <div>
+                  <div className="text-xs font-black text-white">{divText}</div>
+                  <p className="text-[9px] font-bold text-slate-400 mt-1">{divDesc}</p>
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      </div>
+
       {/* 2. DYNAMIC METRICS CARDS GRID (3 Columns) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Price */}
@@ -640,48 +711,106 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </div>
 
             {/* Weekly milestones (14d, 21d, 28d) */}
-            <div>
-              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                <span>🎯</span> HEDEF KİLOMETRE TAŞLARI (WEEKLY MILESTONES)
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { label: "14 Günlük Hedef (W2)", key: "14d" },
-                  { label: "21 Günlük Hedef (W3)", key: "21d" },
-                  { label: "28 Günlük Hedef (W4)", key: "28d" },
-                ].map((item) => {
-                  const msData = s.forecast.milestones[item.key];
-                  if (!msData) return null;
-                  const isUp = msData.base >= currentPrice;
-                  return (
-                    <div key={item.key} className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 relative overflow-hidden group hover:border-blue-500/20 transition-all">
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full pointer-events-none" />
-                      <div className="flex justify-between items-start">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
-                        <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                          {isUp ? "BOĞA EĞİLİMİ" : "AYI DÜZELTMESİ"}
-                        </span>
-                      </div>
-                      
-                      <div>
-                        <div className="text-xl font-mono font-black text-white">${msData.base.toFixed(2)}</div>
-                        <div className="text-[9px] text-slate-400 font-bold mt-1">
-                          Tahmin Koridoru: <span className="text-rose-400 font-black">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${msData.bullish.toFixed(2)}</span>
+            {/* Weekly and Long-Term Milestones (Swing + Investment) */}
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <span>📅</span> KISA VADELİ HEDEFLER (SWING MILESTONES)
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    { label: "14 Günlük Hedef (W2)", key: "14d" },
+                    { label: "21 Günlük Hedef (W3)", key: "21d" },
+                    { label: "28 Günlük Hedef (W4)", key: "28d" },
+                  ].map((item) => {
+                    const msData = s.forecast.milestones[item.key];
+                    if (!msData) return null;
+                    const isUp = msData.base >= currentPrice;
+                    return (
+                      <div key={item.key} className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 relative overflow-hidden group hover:border-blue-500/20 transition-all">
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-full pointer-events-none" />
+                        <div className="flex justify-between items-start">
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
+                          <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
+                            {isUp ? "BOĞA EĞİLİMİ" : "AYI DÜZELTMESİ"}
+                          </span>
                         </div>
-                      </div>
+                        
+                        <div>
+                          <div className="text-xl font-mono font-black text-white">${msData.base.toFixed(2)}</div>
+                          <div className="text-[9px] text-slate-400 font-bold mt-1">
+                            Tahmin Koridoru: <span className="text-rose-400 font-black">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${msData.bullish.toFixed(2)}</span>
+                          </div>
+                        </div>
 
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
-                          <span>Güven Skoru (Kâr Olasılığı)</span>
-                          <span className="text-emerald-400">%{msData.probabilityOfProfit}</span>
-                        </div>
-                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                          <div className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-1000" style={{ width: `${msData.probabilityOfProfit}%` }} />
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                            <span>Güven Skoru (Kâr Olasılığı)</span>
+                            <span className="text-emerald-400">%{msData.probabilityOfProfit}</span>
+                          </div>
+                          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-1000" style={{ width: `${msData.probabilityOfProfit}%` }} />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                  <span>🚀</span> UZUN VADELİ HEDEFLER (INVESTMENT MILESTONES)
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    (() => {
+                      const growth = (fund.revenue_growth_ttm > 0 ? Math.min(0.20, fund.revenue_growth_ttm * 0.25) : 0.03) + (masterScore / 100) * 0.05;
+                      const base = currentPrice * (1 + growth);
+                      return { label: "3 Aylık Hedef", base, bearish: base * 0.90, bullish: base * 1.10, prob: Math.round(60 + (masterScore / 100) * 30) };
+                    })(),
+                    (() => {
+                      const growth = (fund.revenue_growth_ttm > 0 ? Math.min(0.35, fund.revenue_growth_ttm) : 0.12) + (fund.fcf_yield > 0 ? Math.min(0.12, fund.fcf_yield) : 0.04);
+                      const base = currentPrice * (1 + growth);
+                      return { label: "1 Yıllık Hedef (+1 Yıl Tut)", base, bearish: base * 0.80, bullish: base * 1.20, prob: Math.round(55 + (masterScore / 100) * 35) };
+                    })(),
+                    (() => {
+                      const cagr = Math.max(0.08, Math.min(0.30, (fund.revenue_growth_ttm || 0.15)));
+                      const base = currentPrice * Math.pow(1 + cagr, 5);
+                      return { label: "5 Yıllık Hedef (+5 Yıl Tut)", base, bearish: base * 0.70, bullish: base * 1.40, prob: Math.round(50 + (masterScore / 100) * 40) };
+                    })()
+                  ].map((item, idx) => {
+                    const isUp = item.base >= currentPrice;
+                    return (
+                      <div key={idx} className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between space-y-3 relative overflow-hidden group hover:border-emerald-500/20 transition-all">
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-full pointer-events-none" />
+                        <div className="flex justify-between items-start">
+                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
+                          <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
+                            {isUp ? "YÜKSEK POTANSİYEL" : "DENGELİ BÜYÜME"}
+                          </span>
+                        </div>
+                        
+                        <div>
+                          <div className="text-xl font-mono font-black text-white">${item.base.toFixed(2)}</div>
+                          <div className="text-[9px] text-slate-400 font-bold mt-1">
+                            Tahmin Koridoru: <span className="text-rose-400 font-black">${item.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${item.bullish.toFixed(2)}</span>
+                          </div>
+                        </div>
+
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                            <span>Büyüme İtimadı (Güven Oranı)</span>
+                            <span className="text-emerald-400">%{item.prob}</span>
+                          </div>
+                          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div className="h-full bg-gradient-to-r from-emerald-500 to-blue-400 rounded-full transition-all duration-1000" style={{ width: `${item.prob}%` }} />
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -725,6 +854,34 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           </p>
         </div>
 
+        {(() => {
+          const initialLots = Math.max(1, Math.round(2000 / currentPrice));
+          const dcaLots = Math.max(1, Math.round(250 / currentPrice));
+          const isHealthy = (fund.net_margin || 0) > 0.08;
+          return (
+            <div>
+              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 UZUN VADELİ YATIRIM & DİNAMİK LOT ÖNERİSİ</h4>
+              <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                Şirketin finansal yapısı ve gelir büyümesi göz önüne alındığında, uzun vadeli (+1 ile +5 Yıl) birikim için 
+                {isHealthy ? " oldukça uygun ve stabil bir profil çizmektedir." : " yüksek volatilite barındırmakta olup dikkatli biriktirilmelidir."} 
+                BOGA AI Algoritmik Modeli, bu hisse senedi için portföy yapısına göre şu dinamik lot büyüklüklerini önermektedir:
+              </p>
+              <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 bg-[#0d1321] border border-[#1e2a3a]/40 rounded-xl p-3.5 text-xs">
+                <div>
+                  <span className="text-slate-400 font-bold block mb-1">🏢 BAŞLANGIÇ / ÇEKİRDEK PORTFÖY</span>
+                  <span className="text-white font-mono font-black text-sm">{initialLots} Lot</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">(Yaklaşık $2,000 hedefli çekirdek pozisyon girişi)</span>
+                </div>
+                <div className="border-t sm:border-t-0 sm:border-l border-[#1e2a3a]/40 pt-2 sm:pt-0 sm:pl-3">
+                  <span className="text-slate-400 font-bold block mb-1">📅 DÜZENLİ AYLIK BİRİKİM (DCA)</span>
+                  <span className="text-emerald-400 font-mono font-black text-sm">+{dcaLots} Lot / Ay</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">(Dolar Maliyet Ortalaması ile her ay disiplinli ekleme)</span>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
         <div>
           <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 TEMEL HİKAYE & KATALİZÖRLER</h4>
           <ul className="space-y-2 text-xs text-slate-300 font-sans list-disc list-inside">
@@ -743,7 +900,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         {/* Execution table strategy */}
         <div>
           <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">📋 SWING TRADE STRATEJİ MATRİSİ</h4>
-          <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14]">
+          <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14] mb-4">
             <table className="w-full text-left text-xs font-mono">
               <thead>
                 <tr className="bg-[#0f1624] text-slate-400 font-sans">
@@ -772,6 +929,49 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </table>
           </div>
         </div>
+
+        {/* Long-term Investment Strategy Table */}
+        {(() => {
+          const initialLots = Math.max(1, Math.round(2000 / currentPrice));
+          const dcaLots = Math.max(1, Math.round(250 / currentPrice));
+          const paysDiv = (fund.dividend_yield || 0) > 0;
+          return (
+            <div>
+              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">💼 BOGA AI UZUN VADELİ YATIRIM (INVESTMENT) MATRİSİ</h4>
+              <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14]">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead>
+                    <tr className="bg-[#0f1624] text-slate-400 font-sans">
+                      <th className="p-3 font-bold uppercase">Vade / Strateji</th>
+                      <th className="p-3 font-bold uppercase">Lot & Giriş Stratejisi</th>
+                      <th className="p-3 font-bold uppercase">Kâr Realizasyonu / Çıkış</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#1e2a3a]/20">
+                    <tr>
+                      <td className="p-3 font-bold text-emerald-400">+1 Yıl Vadeli Büyüme (DCA)</td>
+                      <td className="p-3 text-slate-300 font-sans">
+                        Aylık <strong>{dcaLots} Lot</strong> disiplinli DCA alımı ve EMA200 pullback'lerinde ekleme.
+                      </td>
+                      <td className="p-3 text-slate-300 font-sans">
+                        Büyüme hikayesi veya pazar payı kaybı gözlenmedikçe tut, F/K rasyosu 45x üzerine çıkarsa kademeli azalt.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="p-3 font-bold text-[#3b82f6]">+5 Yıl Vadeli Değer & Pasif Gelir</td>
+                      <td className="p-3 text-slate-300 font-sans">
+                        Çekirdek <strong>{initialLots} Lot</strong> başlangıç + {paysDiv ? "ödenen temettüler ile otomatik hisse geri alımı (DRIP)." : "aylık birikimlerle düzenli ekleme."}
+                      </td>
+                      <td className="p-3 text-slate-300 font-sans">
+                        Kalıcı emeklilik ve pasif gelir hedefli süresiz birikim. Sadece majör yapısal bozulmalarda gözden geçir.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );

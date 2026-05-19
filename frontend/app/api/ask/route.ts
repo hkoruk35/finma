@@ -722,6 +722,8 @@ async function fetchYahooLive(ticker: string) {
     let netMargin = finData.profitMargins?.raw || 0;
     let revenueGrowth = finData.revenueGrowth?.raw || 0;
     let fcf = finData.freeCashflow?.raw || 0;
+    let dividendRate = sumDetail.dividendRate?.raw || 0;
+    let dividendYield = sumDetail.dividendYield?.raw || 0;
 
     // Fallback if quoteSummary failed or was blocked (all values are 0 or empty)
     if (marketCap === 0 && peRatio === 0) {
@@ -734,6 +736,8 @@ async function fetchYahooLive(ticker: string) {
             marketCap = v7Match.marketCap || 0;
             peRatio = v7Match.trailingPE || v7Match.forwardPE || 0;
             pbRatio = v7Match.priceToBook || 0;
+            dividendRate = v7Match.dividendRate || v7Match.trailingAnnualDividendRate || v7Match.trailingAnnualDividendYield || 0;
+            dividendYield = v7Match.dividendYield || v7Match.trailingAnnualDividendYield || 0;
             // Standard fallbacks for margins from public quotes
             grossMargin = v7Match.grossMargins || 0.35;
             operatingMargin = v7Match.operatingMargins || 0.15;
@@ -942,7 +946,9 @@ async function fetchYahooLive(ticker: string) {
         market_cap: marketCap,
         revenue_growth_ttm: revenueGrowth,
         fcf_yield: fcfYield,
-        institutional_ownership_pct: stats.heldPercentInstitutions?.raw || 0.70
+        institutional_ownership_pct: stats.heldPercentInstitutions?.raw || 0.70,
+        dividend_rate: dividendRate,
+        dividend_yield: dividendYield
       },
       scores_detail: {
         entry_range_low: timing.buy_zone.low,
@@ -1231,7 +1237,7 @@ Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterS
 
 RAPOR FORMAT ŞABLONU (Bu yapıyı, başlıkları ve Türkçe etiketleri aynen koru):
 ════════════════════════════════════════
-${ticker} | ${s.sector || ""} | Swing Strateji
+${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
 ════════════════════════════════════════
 
 🌍 PİYASA FİLTRESİ
@@ -1242,18 +1248,24 @@ ${ticker} | ${s.sector || ""} | Swing Strateji
 • Hacim: ${volume}  |  30G Ort: ${avgVol}  |  RVOL: ${rvol}x
 • Performans: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
 
-┌─ 🎯 İŞLEM PLANI
+┌─ 🎯 İŞLEM PLANI (SWING TRADE)
 │  🟢 Giriş: $${entryLow} - $${entryHigh}
 │  🎯 Hedef: $${targetLow} - $${targetHigh}
 │  🛑 Stop:  $${stopLoss}
 │  ⚖️ R/R: 1:[hesapla ve yaz]
 └─────────────────
 
+💎 UZUN VADELİ YATIRIM (INVESTMENT) & TEMETTÜ
+• +1 Yıl Değerlendirmesi: [Biriktir / Tut / Riskli]
+• +5 Yıl Değerlendirmesi: [Biriktir / Tut / Riskli]
+• Temettü Hissesi Mi?: [Evet ise miktar/verim/dönem yaz, Hayır ise Büyüme odaklı olduğunu belirt]
+• Aylık Lot Önerisi: [Hesaplanan lot miktarını yaz]
+
 📌 ONAY LİSTESİ
 [X/ ] RSI durumu: [değeri yaz ve kullanıcının dilediği dilde yorumla]
 [X/ ] EMA Stack: [değeri yaz ve kullanıcının dilediği dilde yorumla]
 [X/ ] Hacim: [RVOL değerini yaz ve kullanıcının dilediği dilde yorumla]
-[X/ ] Trend yönü: [kullanıcının dilediği dilde yorumla]
+[X/ ] Yatırım Profili: [Swing/Investment/Temettü uygunluğu özeti]
 
 📊 TEKNİK & PERFORMANS
 • [tüm teknik göstergeleri listele ve kullanıcının dilediği dilde kısaca yorumla]
