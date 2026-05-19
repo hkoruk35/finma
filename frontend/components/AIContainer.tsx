@@ -218,7 +218,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       {/* SIDEBAR */}
       <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
-          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Oturum</button>
+          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Sorgu</button>
           <button 
             onClick={() => setSidebarOpen(false)}
             className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
