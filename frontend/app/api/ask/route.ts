@@ -1800,26 +1800,21 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
         finalUserMessage = `${cleanMsg}\n\n${contextText}\n
 KRİTİK TALİMATLAR (ODAKLI CANLI ÇIKTI KONTROLÜ VE FORMAT):
 1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıda canlı arama motorundan gelen güncel canlı web ve borsa haberlerini analiz et.
-2. Hiçbir şekilde "veritabanı", "fallback", "sistem kısıtı", "yerel veri" vb. teknik terimlerden bahsetme. Tamamen canlı ve güncel bir sektör/hisse taraması olarak sun.
+2. Hiçbir şekilde "veritabanı", "fallback", "sistem kısıtı", "yerel veri", "Alpha Commander" vb. teknik/sistem terimlerini veya bot isimlerini KESİNLİKLE KULLANMA. 
 3. Canlı haberlerden ve verilerden yararlanarak en alakalı en fazla 5 hisseyi belirle ve listele.
-4. "Alpha Commander Botu" veya herhangi bir bot tanımından bahsetme. Sadece aşağıdaki şablonda belirtilen başlığı birebir koru.
-5. Yanıtı BİREBİR şu format ve başlık düzeninde oluştur (Bunun dışına çıkma, gereksiz boşlukları kaldır):
+4. Yanıtı tamamen doğal, akıcı ve şablon kalıp kelimelerden (Örn: "Sektör Odağı", "Teknik ve Temel Durum", "Alpha Commander Notu" gibi kalıp ifadeler) arındırılmış bir şekilde yaz. Her hisseyi kendi cümlelerinle doğal paragraflarla açıkla.
+5. Yanıtı şu sade yapıda oluştur:
 
 [SEKTÖR/TEMA ADI] HİSSELERİ STRATEJİK ANALİZİ
 
 ÖZET
-[Sektörün genel durumunu, büyüme dinamiklerini, katalizörlerini ve varsa makro/tedarik zinciri risklerini içeren 1 paragraflık akıcı bir özet yaz.]
+[Sektörün genel durumunu, büyüme dinamiklerini, canlı haberlerde öne çıkan gelişmeleri ve makro riskleri özetleyen 1 paragraflık akıcı bir metin yaz.]
 
 DETAYLI HİSSE LİSTESİ
 * **[TICKER](/ai?ticker=TICKER)** (Şirket Adı)
+  [Hissenin o sektördeki rolünü, en son canlı gelişmelerini, kontratlarını, finansal gücünü ve genel durumunu anlatan 3-4 cümlelik tamamen doğal ve akıcı bir analiz paragrafı yaz. Hiçbir kalıp alt başlık/şablon ifadesi kullanma.]
 
-Sektör Odağı: [Şirketin uzay/savunma veya ilgili sektördeki tam rolü ve uzmanlık alanı]
-
-Teknik ve Temel Durum: [Mevcut sipariş defteri (backlog), NASA/Uzay Kuvvetleri/Sivil anlaşmaları veya en son finansal çeyrekteki öne çıkan canlı veriler]
-
-Alpha Commander Notu: [Bu hisseye dair kısa stratejik analist yorumu, serbest nakit akışı hedefleri veya teknik risk unsurları]
-
-(Listelenecek her 5 hisse için yukarıdaki şablonu eksiksiz uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
+(Listelenecek her hisse için yukarıdaki sade yapıyı uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
       }
     } catch (e) {
       console.error("Failed to append global news:", e);
