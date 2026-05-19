@@ -383,13 +383,13 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
         className="md:hidden fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
-        title="Son Aramalar ve Menü"
+        title="Son Aramalar"
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {sidebarOpen ? (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
           ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
           )}
         </svg>
       </button>
