@@ -1192,75 +1192,74 @@ export async function POST(req: NextRequest) {
     const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
     const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
 
-    const prompt = `Sen BOGA AI swing trading terminalinin analistisin. Aşağıdaki verileri kullanarak ${ticker} için Türkçe BOGA SWING RAPORU yaz. KENDİ BİLGİNİ KULLANMA — sadece verilen sayıları kullan.
+    const prompt = `Sen BOGA AI swing trading terminalinin analistisin. Aşağıdaki verileri kullanarak ${ticker} için BOGA SWING RAPORU yaz.
+Kritik Kural: Raporu, kullanıcının mesajı yazdığı dilde (örneğin İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca, İspanyolca ise İspanyolca vb.) yaz. Başlıkları, etiketleri ve tüm yorumları o dile çevirerek yaz.
+KENDİ BİLGİNİ KULLANMA — sadece verilen sayıları kullan.
 
 ════════════════════════════════════════
 ${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}
 ════════════════════════════════════════
-Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterScore}/100  |  Sinyal: ${signal}
-⚡ 15M & 1H ZAMAN DİLİMİ YÖN ANALİZİ:
-• 15m Mikro Durum: ${sc.micro_15m?.msg || "⚖️ 15m Yatay/Sıkışma"}
-• 1H Timing Durumu: ${s.scores_detail?.entry_engine?.type || "WAITING_FOR_VOLUME"}
+Tarih/Date: ${s.date || "N/A"}  |  Piyasa Rejimi/Market Regime: ${regime}  |  BOGA Skoru/Score: ${masterScore}/100  |  Sinyal/Signal: ${signal}
+⚡ Zaman Dilimi Yön Analizi / Timeframe Analysis:
+• Mikro Durum/Micro: ${sc.micro_15m?.msg || "15m Yatay/Sıkışma"}
+• Timing Durumu/Timing: ${s.scores_detail?.entry_engine?.type || "WAITING_FOR_VOLUME"}
 
-🌍 PİYASA FİLTRESİ
-• Piyasa Rejimi: ${regime}
+🌍 Piyasa Rejimi / Market Regime: ${regime}
 
-💵 FİYAT VE HACİM
-• Fiyat: $${price} (%${change})  |  Piyasa Değeri: ${mcap}
-• Hacim: ${volume}  |  30G Ort: ${avgVol}  |  RVOL: ${rvol}x
-• Performans: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
+💵 Fiyat / Price: $${price} (%${change})  |  Piyasa Değeri / Market Cap: ${mcap}
+• Hacim / Volume: ${volume}  |  30G Ort / Avg: ${avgVol}  |  RVOL: ${rvol}x
+• Performans / Performance: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
 
-🎯 İŞLEM PLANI
-• 🟢 Giriş Bölgesi: $${entryLow} - $${entryHigh}
-• 🎯 Hedef Bölge: $${targetLow} - $${targetHigh}
-• 🛑 Stop Loss: $${stopLoss}
-• ⚖️ R/R: Hesapla ve yaz
+🎯 İşlem Planı / Trade Plan:
+• Giriş Bölgesi / Entry Zone: $${entryLow} - $${entryHigh}
+• Hedef Bölge / Target Zone: $${targetLow} - $${targetHigh}
+• Stop Loss: $${stopLoss}
 
-📊 TEKNİK MATRİS
+📊 Teknik Metris / Technical Matrix:
 • RSI(14): ${rsi}  |  MACD: ${macd}  |  MACD Hist: ${macdHist}
 • EMA20: $${ema20}  |  EMA50: $${ema50}  |  EMA200: $${ema200}
 • EMA Stack: ${emaStack}
 • Bollinger: Alt=$${bbLower}  Üst=$${bbUpper}
-• Destek: $${support}  |  Direnç: $${resistance}  |  ATR: $${atr}
+• Destek/Support: $${support}  |  Direnç/Resistance: $${resistance}  |  ATR: $${atr}
 
-💼 FİNANSAL SAĞLIK
-• F/K: ${pe}x  |  PD/DD: ${pb}x
-• Brüt Marj: ${grossMargin}  |  Net Marj: ${netMargin}
-• Gelir Büyümesi: ${revGrowth}  |  FCF Verimi: ${fcfYield}
+💼 Finansal Durum / Financial Health:
+• F/K (P/E): ${pe}x  |  PD/DD (P/B): ${pb}x
+• Brüt Marj / Gross Margin: ${grossMargin}  |  Net Marj / Net Margin: ${netMargin}
+• Gelir Büyümesi / Revenue Growth: ${revGrowth}  |  FCF Verimi / FCF Yield: ${fcfYield}
 
-RAPOR FORMATI (bu yapıyı koru, satırları değiştirme):
+RAPOR FORMATI (Bu yapıyı koru, satırları değiştirme, ancak başlıkları ve içerikleri kullanıcının diline çevir):
 ════════════════════════════════════════
-${ticker} | ${s.sector || ""} | Swing Strateji
+${ticker} | ${s.sector || ""} | Swing Strategy
 ════════════════════════════════════════
 
-🌍 PİYASA FİLTRESİ
-• Piyasa Rejimi: [veriyi kullan] → [POZİTİF/NÖTR/RİSKLİ]
+🌍 MARKET FILTER
+• Market Regime: [veriyi kullan - pozitif/nötr/riskli terimlerini kullanıcının diline çevir]
 
-💵 FİYAT & HACİM
-• [veriyi kullan]
+💵 PRICE & VOLUME
+• [veriyi kullan, kullanıcının dilinde yaz]
 
-┌─ 🎯 İŞLEM PLANI
-│  🟢 Giriş: $[...]
-│  🎯 Hedef: $[...]
+┌─ 🎯 TRADE PLAN
+│  🟢 Entry: $[...]
+│  🎯 Target: $[...]
 │  🛑 Stop:  $[...]
 │  ⚖️ R/R: 1:[hesapla]
 └─────────────────
 
-📌 ONAY LİSTESİ
-[X/ ] RSI durumu: [değeri yaz ve yorumla]
+📌 CHECKLIST
+[X/ ] RSI Status: [değeri yaz ve yorumla]
 [X/ ] EMA Stack: [değeri yaz ve yorumla]
-[X/ ] Hacim: [RVOL değerini yaz ve yorumla]
-[X/ ] Trend yönü: [yorumla]
+[X/ ] Volume: [RVOL değerini yaz ve yorumla]
+[X/ ] Trend Direction: [yorumla]
 
-📊 TEKNİK & PERFORMANS
-• [indikatörleri listele]
+📊 TECHNICAL & PERFORMANCE
+• [indikatörleri listele, kullanıcının dilinde yaz]
 
-💼 FİNANSAL SAĞLIK
-• [metrikleri listele]
+💼 FINANCIAL HEALTH
+• [metrikleri listele, kullanıcının dilinde yaz]
 
-⚡ SON KARAR
-│ AKSİYON: [İŞLEME GİR / İZLE / ÇIKIŞ]
-│ GEREKÇE: [2-3 cümle, sadece verilen sayılara dayan]
+⚡ FINAL DECISION
+│ ACTION: [kullanıcının dilinde EYLEM: İŞLEME GİR / İZLE / ÇIKIŞ terimlerinden birini yaz]
+│ RATIONALE: [2-3 cümle, sadece verilen sayılara dayanarak kullanıcının dilinde gerekçeyi yaz]
 └─────────────────`;
 
     if (stockJson && !stockJson.forecast) {

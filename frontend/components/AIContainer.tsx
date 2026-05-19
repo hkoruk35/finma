@@ -20,16 +20,6 @@ interface SearchHistory {
   timestamp: number;
 }
 
-const TRENDING_SEARCHES = [
-  "NVDA technical analysis",
-  "EMA200 strategy",
-  "Magnificent 7 overview",
-  "Gold price analysis",
-  "Options Greeks explained",
-  "SPY support levels",
-  "Sector Rotation today",
-];
-
 const POPULAR_TICKERS = [
   { ticker: "AAPL", name: "Apple" },
   { ticker: "NVDA", name: "Nvidia" },
@@ -293,18 +283,8 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 </button>
               </div>
 
-              {/* Popüler Aramalar */}
-              <div className="space-y-4">
-                <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Aramalar</div>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {TRENDING_SEARCHES.map((s) => (
-                    <button key={s} onClick={() => send(s)} className="text-[11px] px-4 py-2 rounded-xl border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white hover:bg-[#0d1117] transition-all bg-[#0a0e17]">{s}</button>
-                  ))}
-                </div>
-              </div>
-
               {/* Popüler Hisse Senetleri */}
-              <div className="space-y-4 pt-4 border-t border-[#1e2a3a]/40">
+              <div className="space-y-4 pt-2">
                 <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Hisse Senetleri</div>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                   {POPULAR_TICKERS.map((item) => (
