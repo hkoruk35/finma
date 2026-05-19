@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Header from "./Header";
 
 interface StockReportViewProps {
   ticker: string;
@@ -1140,8 +1141,17 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
   if (isFullScreen) {
     const fullscreenContent = (
-      <div className="fixed inset-0 z-[9999] overflow-y-auto bg-slate-950/95 backdrop-blur-md flex items-start justify-center p-4 md:p-8">
-        {reportContent}
+      <div className="fixed inset-0 z-[9999] bg-[#080c14] flex flex-col h-screen overflow-hidden">
+        <Header 
+          hideMenus={true} 
+          onLogoClick={() => window.dispatchEvent(new Event("start_new_query"))} 
+          onNewQueryClick={() => window.dispatchEvent(new Event("start_new_query"))} 
+        />
+        <div className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
+          <div className="max-w-4xl mx-auto w-full">
+            {reportContent}
+          </div>
+        </div>
       </div>
     );
 
