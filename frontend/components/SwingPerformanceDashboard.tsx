@@ -243,7 +243,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     };
   }, [filtered, initialHistory]);
 
-  // ── Days-to-Profit Distribution ───────────────────────────────────────────
+  // ── Days-to-Profit Distribution (Updated Live) ─────────────────────────────
   const daysDistribution = useMemo(() => {
     const buckets = [
       { label: "1-5d",  min: 1,  max: 5  },
