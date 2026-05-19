@@ -1,25 +1,31 @@
 {
-  "date": "2026-05-18",
-  "generated_at": "2026-05-18T13:03:36.943723-04:00",
+  "date": "2026-05-19",
+  "generated_at": "2026-05-19T13:03:02.609802-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 5,
-  "market_regime": "CHOPPY",
+  "active_scores_count": 12,
+  "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 5,
+      "count": 10,
       "tickers": [
-        "YOU",
-        "DAR",
-        "STT",
-        "AVGO",
-        "MLI"
+        "CTRE",
+        "KN",
+        "NSC",
+        "CECO",
+        "FTV",
+        "EIX",
+        "INCY",
+        "BMO",
+        "CZR",
+        "MAC"
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 3,
       "tickers": [
-        "YOU",
-        "MLI"
+        "EIX",
+        "MAC",
+        "MAR"
       ]
     },
     "value": {
@@ -31,9 +37,10 @@
       "tickers": []
     },
     "momentum": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "AVGO"
+        "CTRE",
+        "WTS"
       ]
     },
     "dividend": {
@@ -43,18 +50,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "YOU",
-      "score": 54.0,
+      "ticker": "CTRE",
+      "score": 64.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "DAR",
-      "score": 53.0,
+      "ticker": "KN",
+      "score": 62.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "STT",
-      "score": 52.9,
+      "ticker": "NSC",
+      "score": 60.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
