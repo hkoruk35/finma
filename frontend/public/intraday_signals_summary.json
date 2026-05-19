@@ -1,6 +1,6 @@
 {
   "date": "2026-05-19",
-  "last_updated": "2026-05-19T11:00:13.509966-04:00",
+  "last_updated": "2026-05-19T12:00:16.713326-04:00",
   "tickers": {
     "YOU": {
       "status_history": [
@@ -10,6 +10,10 @@
         },
         {
           "hour": "11:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -26,6 +30,10 @@
         {
           "hour": "11:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -40,6 +48,10 @@
         },
         {
           "hour": "11:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -56,6 +68,10 @@
         {
           "hour": "11:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -70,6 +86,10 @@
         },
         {
           "hour": "11:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:00",
           "status": "ENTRY_NOW"
         }
       ],
