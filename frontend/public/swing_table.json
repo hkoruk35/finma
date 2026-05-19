@@ -1,42 +1,98 @@
 [
   {
-    "Date": "18 May",
-    "Symbol": "YOU",
-    "Entry (Buy_L)": 58.73,
-    "Stop (SL)": 56.46,
-    "Target 1 (TP1)": 65.19,
-    "Target 2 (TP2)": 66.16
+    "Date": "19 May",
+    "Symbol": "CTRE",
+    "Entry (Buy_L)": 40.75,
+    "Stop (SL)": 40.02,
+    "Target 1 (TP1)": 42.83,
+    "Target 2 (TP2)": 43.14
   },
   {
-    "Date": "18 May",
-    "Symbol": "DAR",
-    "Entry (Buy_L)": 61.06,
-    "Stop (SL)": 59.54,
-    "Target 1 (TP1)": 65.7,
-    "Target 2 (TP2)": 66.38
+    "Date": "19 May",
+    "Symbol": "KN",
+    "Entry (Buy_L)": 33.53,
+    "Stop (SL)": 32.6,
+    "Target 1 (TP1)": 36.23,
+    "Target 2 (TP2)": 36.63
   },
   {
-    "Date": "18 May",
-    "Symbol": "STT",
-    "Entry (Buy_L)": 151.04,
-    "Stop (SL)": 148.78,
-    "Target 1 (TP1)": 157.92,
-    "Target 2 (TP2)": 158.93
+    "Date": "19 May",
+    "Symbol": "NSC",
+    "Entry (Buy_L)": 317.14,
+    "Stop (SL)": 313.4,
+    "Target 1 (TP1)": 327.7,
+    "Target 2 (TP2)": 329.3
   },
   {
-    "Date": "18 May",
-    "Symbol": "AVGO",
-    "Entry (Buy_L)": 411.51,
-    "Stop (SL)": 400.66,
-    "Target 1 (TP1)": 442.66,
-    "Target 2 (TP2)": 447.33
+    "Date": "19 May",
+    "Symbol": "CECO",
+    "Entry (Buy_L)": 74.49,
+    "Stop (SL)": 71.46,
+    "Target 1 (TP1)": 85.0,
+    "Target 2 (TP2)": 86.5
   },
   {
-    "Date": "18 May",
-    "Symbol": "MLI",
-    "Entry (Buy_L)": 135.37,
-    "Stop (SL)": 132.89,
-    "Target 1 (TP1)": 142.93,
-    "Target 2 (TP2)": 144.05
+    "Date": "19 May",
+    "Symbol": "FTV",
+    "Entry (Buy_L)": 58.2,
+    "Stop (SL)": 57.22,
+    "Target 1 (TP1)": 61.2,
+    "Target 2 (TP2)": 61.65
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "EIX",
+    "Entry (Buy_L)": 68.92,
+    "Stop (SL)": 67.6,
+    "Target 1 (TP1)": 72.95,
+    "Target 2 (TP2)": 73.54
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "INCY",
+    "Entry (Buy_L)": 94.06,
+    "Stop (SL)": 92.11,
+    "Target 1 (TP1)": 100.01,
+    "Target 2 (TP2)": 100.88
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "BMO",
+    "Entry (Buy_L)": 152.92,
+    "Stop (SL)": 151.0,
+    "Target 1 (TP1)": 158.76,
+    "Target 2 (TP2)": 159.62
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "CZR",
+    "Entry (Buy_L)": 26.98,
+    "Stop (SL)": 26.29,
+    "Target 1 (TP1)": 29.1,
+    "Target 2 (TP2)": 29.41
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "MAC",
+    "Entry (Buy_L)": 21.66,
+    "Stop (SL)": 21.25,
+    "Target 1 (TP1)": 22.91,
+    "Target 2 (TP2)": 23.1
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "WTS",
+    "Entry (Buy_L)": 292.68,
+    "Stop (SL)": 286.81,
+    "Target 1 (TP1)": 310.58,
+    "Target 2 (TP2)": 313.23
+  },
+  {
+    "Date": "19 May",
+    "Symbol": "MAR",
+    "Entry (Buy_L)": 356.06,
+    "Stop (SL)": 350.08,
+    "Target 1 (TP1)": 376.12,
+    "Target 2 (TP2)": 379.02
   }
 ]
