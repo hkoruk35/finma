@@ -336,6 +336,47 @@ function findMatchingThemes(query: string): any[] {
   return matched;
 }
 
+
+async function searchGoogleNews(query: string, lang = "tr"): Promise<any[]> {
+  const hl = lang === "tr" ? "tr" : "en-US";
+  const gl = lang === "tr" ? "TR" : "US";
+  const ceid = lang === "tr" ? "TR:tr" : "US:en";
+  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=${hl}&gl=${gl}&ceid=${ceid}`;
+  const headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+  };
+  try {
+    const res = await fetch(url, { headers, signal: AbortSignal.timeout(5000) });
+    if (res.ok) {
+      const xml = await res.text();
+      const items: any[] = [];
+      const itemRegex = /<item>([\s\S]*?)<\/item>/g;
+      let match;
+      while ((match = itemRegex.exec(xml)) !== null && items.length < 15) {
+        const itemContent = match[1];
+        const titleMatch = itemContent.match(/<title>([\s\S]*?)<\/title>/);
+        const linkMatch = itemContent.match(/<link>([\s\S]*?)<\/link>/);
+        const sourceMatch = itemContent.match(/<source[\s\S]*?>([\s\S]*?)<\/source>/);
+        if (titleMatch && titleMatch[1]) {
+          const title = titleMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").trim();
+          const link = linkMatch ? linkMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").trim() : "";
+          const source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").trim() : "Google News";
+          items.push({
+            title,
+            publisher: source,
+            link,
+            entities: []
+          });
+        }
+      }
+      return items;
+    }
+  } catch (err: any) {
+    console.error("searchGoogleNews error:", err.message);
+  }
+  return [];
+}
+
 async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string[]): Promise<any[]> {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -345,7 +386,6 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
 
   const queries = ["market outlook"];
   if (matchedTickers && matchedTickers.length > 0) {
-    // Perform targeted scans on the first 4 tickers of matched themes
     matchedTickers.slice(0, 4).forEach(ticker => {
       queries.unshift(`${ticker} stock news`);
     });
@@ -367,6 +407,27 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
   const newsItems: any[] = [];
   const titles = new Set<string>();
 
+  // Parallel Google News fetching
+  const primaryQueries = queries.slice(0, 3);
+  for (const q of primaryQueries) {
+    try {
+      const [gTr, gEn] = await Promise.all([
+        searchGoogleNews(q, "tr"),
+        searchGoogleNews(q, "en")
+      ]);
+      for (const item of [...gTr, ...gEn]) {
+        const cleanTitle = item.title.toLowerCase();
+        if (item.title && !titles.has(cleanTitle)) {
+          titles.add(cleanTitle);
+          newsItems.push(item);
+        }
+      }
+    } catch (e: any) {
+      console.error(`Google News fetch failed for: ${q}`, e.message);
+    }
+  }
+
+  // Fetch from Yahoo Finance Search
   for (const q of queries) {
     try {
       const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=15`;
@@ -375,8 +436,9 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
         const data = await res.json();
         const items = data?.news || [];
         for (const item of items) {
-          if (item.title && !titles.has(item.title)) {
-            titles.add(item.title);
+          const cleanTitle = item.title.toLowerCase();
+          if (item.title && !titles.has(cleanTitle)) {
+            titles.add(cleanTitle);
             newsItems.push({
               title: item.title,
               publisher: item.publisher || "Yahoo Finance",
@@ -1720,7 +1782,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history);
     }
 
-    // Default Routing with Live News & Dynamic Sector Screener + Fallback Entegrasyonu
+    // Default Routing with Live News & Dynamic Search
     let finalUserMessage = cleanMsg;
     try {
       const matchedThemes = findMatchingThemes(cleanMsg);
@@ -1731,39 +1793,36 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       let contextText = "";
       if (marketNews && marketNews.length > 0) {
         const newsText = marketNews.map(n => `- [${n.publisher}] ${n.title} (İlişkili Hisseler: ${n.entities?.join(", ") || "Yok"})`).join("\n");
-        contextText += `\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL CANLI HABERLER - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n`;
-      }
-
-      if (matchedThemes.length > 0) {
-        const themesText = matchedThemes.map(t => {
-          return `- **Sektör/Tema:** ${t.name} (Ana Sektör: ${t.sector})\n  - **Öne Çıkan Hisse Adayları (Tıklanabilir):** ${t.tickers.map((tic: string) => `[${tic}](/ai?ticker=${tic})`).join(", ")}`;
-        }).join("\n");
-        contextText += `\n[BOGA STOCK TEMATİK/SEKTÖREL VERİTABANI - FALLBACK]:\n${themesText}\n`;
+        contextText += `\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL CANLI WEB VE BORSA HABERLERİ - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n`;
       }
 
       if (contextText) {
         finalUserMessage = `${cleanMsg}\n\n${contextText}\n
-KRİTİK TALİMATLAR (ODAKLI ÇIKTI KONTROLÜ VE FORMAT):
-1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıdaki güncel canlı haberleri ve tematik/sektörel verileri analiz et.
-2. Siber güvenlik, uzay, yapay zeka vb. spesifik alanlarda "güncel haberlerde doğrudan siber güvenlik bulunmuyor" veya "BOGA AI tematik veritabanına göre" gibi ifadeleri KESİNLİKLE KULLANMA. Bu verilerin nereden geldiğini (veritabanı, fallback, model kısıtı vb.) asla belirtme. Yanıtı tamamen genel, canlı ve güncel bir stratejik sektör tarama raporu gibi doğal, akıcı ve bağımsız bir dille yaz.
-3. Yanıtında her zaman en alakalı en fazla 5 adet hisseyi seçip önceliklendir.
-4. Yanıtı BİREBİR şu format ve başlık düzeninde oluştur (Bunun dışına çıkma):
+KRİTİK TALİMATLAR (ODAKLI CANLI ÇIKTI KONTROLÜ VE FORMAT):
+1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıda canlı arama motorundan gelen güncel canlı web ve borsa haberlerini analiz et.
+2. Hiçbir şekilde "veritabanı", "fallback", "sistem kısıtı", "yerel veri" vb. teknik terimlerden bahsetme. Tamamen canlı ve güncel bir sektör/hisse taraması olarak sun.
+3. Canlı haberlerden ve verilerden yararlanarak en alakalı en fazla 5 hisseyi belirle ve listele.
+4. "Alpha Commander Botu" veya herhangi bir bot tanımından bahsetme. Sadece aşağıdaki şablonda belirtilen başlığı birebir koru.
+5. Yanıtı BİREBİR şu format ve başlık düzeninde oluştur (Bunun dışına çıkma, gereksiz boşlukları kaldır):
 
-# [SEKTÖR/TEMA ADI] STRATEJİK ANALİZİ
+[SEKTÖR/TEMA ADI] HİSSELERİ STRATEJİK ANALİZİ
 
-## ÖZET
+ÖZET
 [Sektörün genel durumunu, büyüme dinamiklerini, katalizörlerini ve varsa makro/tedarik zinciri risklerini içeren 1 paragraflık akıcı bir özet yaz.]
 
-## DETAYLI HİSSE LİSTESİ
+DETAYLI HİSSE LİSTESİ
 * **[TICKER](/ai?ticker=TICKER)** (Şirket Adı)
-  - **Sektör Odağı:** [Şirketin uzay/savunma veya ilgili sektördeki tam rolü ve uzmanlık alanı]
-  - **Teknik ve Temel Durum:** [Mevcut sipariş defteri (backlog), NASA/Uzay Kuvvetleri/Sivil anlaşmaları veya en son finansal çeyrekteki öne çıkan veriler]
-  - **Alpha Commander Notu:** [Bu hisseye dair stratejik analist yorumu, serbest nakit akışı hedefleri, düzenli büyüme potansiyeli veya teknik risk unsurları]
+
+Sektör Odağı: [Şirketin uzay/savunma veya ilgili sektördeki tam rolü ve uzmanlık alanı]
+
+Teknik ve Temel Durum: [Mevcut sipariş defteri (backlog), NASA/Uzay Kuvvetleri/Sivil anlaşmaları veya en son finansal çeyrekteki öne çıkan canlı veriler]
+
+Alpha Commander Notu: [Bu hisseye dair kısa stratejik analist yorumu, serbest nakit akışı hedefleri veya teknik risk unsurları]
 
 (Listelenecek her 5 hisse için yukarıdaki şablonu eksiksiz uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
       }
     } catch (e) {
-      console.error("Failed to append global news & themes:", e);
+      console.error("Failed to append global news:", e);
     }
 
     if (useClaude) {
