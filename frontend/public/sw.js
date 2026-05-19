@@ -1,4 +1,4 @@
-const CACHE_NAME = 'boga-v3';
+const CACHE_NAME = 'boga-v5';
 const urlsToCache = [
   '/',
   '/manifest.json',
