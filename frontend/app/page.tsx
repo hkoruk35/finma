@@ -17,7 +17,7 @@ export default async function HomePage() {
   const auth = cookieStore.get("boga_auth");
 
   if (!auth) {
-    redirect("/login");
+    redirect("/ai");
   }
 
   // Redirect authenticated users to /pro instead of home

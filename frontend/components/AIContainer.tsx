@@ -30,6 +30,21 @@ const TRENDING_SEARCHES = [
   "Sector Rotation today",
 ];
 
+const POPULAR_TICKERS = [
+  { ticker: "AAPL", name: "Apple" },
+  { ticker: "NVDA", name: "Nvidia" },
+  { ticker: "GOOGL", name: "Google" },
+  { ticker: "MSFT", name: "Microsoft" },
+  { ticker: "AMD", name: "AMD" },
+  { ticker: "META", name: "Meta" },
+  { ticker: "TSLA", name: "Tesla" },
+  { ticker: "AMZN", name: "Amazon" },
+  { ticker: "NFLX", name: "Netflix" },
+  { ticker: "AVGO", name: "Broadcom" },
+  { ticker: "LLY", name: "Eli Lilly" },
+  { ticker: "PLTR", name: "Palantir" }
+];
+
 function formatInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
   return parts.map((part, i) => {
@@ -125,6 +140,16 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   const send = async (text?: string) => {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
+
+    // Tek arama limiti kontrolü
+    if (typeof window !== "undefined") {
+      const currentCount = parseInt(sessionStorage.getItem("boga_free_search_count") || "0");
+      if (currentCount >= 1) {
+        window.location.href = "/login";
+        return;
+      }
+      sessionStorage.setItem("boga_free_search_count", "1");
+    }
 
     saveToHistory(msg);
     setInput("");
@@ -234,16 +259,20 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
 
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        <Header />
+        <Header hideMenus={true} />
         <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
           {messages.length === 0 && (
             <div className="space-y-8 mt-12 animate-fade-in max-w-2xl mx-auto w-full">
               <div className="text-center space-y-2">
                 <div className="inline-flex items-center gap-3">
                   <BotIcon size="w-10 h-10" />
-                  <h1 className="text-3xl font-black tracking-tighter text-white">BOGA AI</h1>
+                  <h1 className="text-3xl font-black tracking-tighter text-white uppercase italic">
+                    BOGA <span className="text-[#3b82f6]">FINANCE</span> AI
+                  </h1>
                 </div>
-                <p className="text-[#64748b] text-xs font-black uppercase tracking-[0.2em]">50'den fazla dil desteği</p>
+                <p className="text-[#64748b] text-xs font-bold uppercase tracking-[0.2em]">
+                  ABD Borsaları Hisse Senetleri Analiz
+                </p>
               </div>
 
               <div className="relative group">
@@ -261,11 +290,29 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 </button>
               </div>
 
+              {/* Popüler Aramalar */}
               <div className="space-y-4">
                 <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Aramalar</div>
                 <div className="flex flex-wrap gap-2 justify-center">
                   {TRENDING_SEARCHES.map((s) => (
                     <button key={s} onClick={() => send(s)} className="text-[11px] px-4 py-2 rounded-xl border border-[#1e2a3a] text-[#94a3b8] hover:border-[#3b82f6]/40 hover:text-white hover:bg-[#0d1117] transition-all bg-[#0a0e17]">{s}</button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Popüler Hisse Senetleri */}
+              <div className="space-y-4 pt-4 border-t border-[#1e2a3a]/40">
+                <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Hisse Senetleri</div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
+                  {POPULAR_TICKERS.map((item) => (
+                    <button
+                      key={item.ticker}
+                      onClick={() => send(item.ticker)}
+                      className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
+                    >
+                      <span className="text-xs font-black text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
+                      <span className="text-[9px] text-[#64748b] font-bold mt-0.5 truncate max-w-full">{item.name}</span>
+                    </button>
                   ))}
                 </div>
               </div>
