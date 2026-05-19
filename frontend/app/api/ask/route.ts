@@ -1009,16 +1009,16 @@ export async function POST(req: NextRequest) {
 
   // ── TICKER / COMPANY NAME RESOLUTION ─────────────────────────────────────
   let resolvedTicker: string | null = null;
-  const isDirectTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
+  const isDirectTicker = /^[A-Z]{1,4}$/.test(cleanMsg); // Only exact 1-4 letter UPPERCASE queries
   
   if (isDirectTicker && !cleanMsg.startsWith("/")) {
     resolvedTicker = cleanMsg.toUpperCase();
   } else {
-    // If it's a short query and not a general question, let's see if it's a company name
-    const isShortQuery = cleanMsg.split(/\s+/).length <= 4 && cleanMsg.length <= 35;
+    // If it's a short query and not a general question, let's see if it's a company name or lowercase ticker
+    const isShortQuery = cleanMsg.split(/\s+/).length <= 4 && cleanMsg.length <= 40;
     const isGeneralQuestion = 
       cleanMsg.includes("?") || 
-      /^(nedir|nasil|nasıl|neden|niye|kim|ne|hangi|how|what|why|who|where|explain|tanimla|tanımla)/i.test(cleanMsg);
+      /^(nedir|nasil|nasıl|neden|niye|kim|ne|hangi|how|what|why|who|where|explain|tanimla|tanımla|yaz|analiz|goster|göster)/i.test(cleanMsg);
       
     if (isShortQuery && !isGeneralQuestion && !cleanMsg.startsWith("/")) {
       resolvedTicker = await lookupTickerFromQuery(cleanMsg);

@@ -131,18 +131,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
 
-    // Tek arama limiti kontrolü (Sadece giriş yapmamış misafirler için)
-    if (typeof window !== "undefined") {
-      const isLoggedIn = document.cookie.includes("boga_auth");
-      if (!isLoggedIn) {
-        const currentCount = parseInt(sessionStorage.getItem("boga_free_search_count") || "0");
-        if (currentCount >= 1) {
-          window.location.href = "/login";
-          return;
-        }
-        sessionStorage.setItem("boga_free_search_count", "1");
-      }
-    }
+
 
     saveToHistory(msg);
     setInput("");
