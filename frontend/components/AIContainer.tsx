@@ -283,9 +283,9 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   onKeyDown={handleKey}
                   placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
                   rows={1}
-                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none pr-14 group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
+                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-14 py-4 text-base md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
                 />
-                <button onClick={() => send()} disabled={loading || !input.trim()} className="absolute right-3 top-3 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
+                <button onClick={() => send()} disabled={loading || !input.trim()} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                 </button>
               </div>
@@ -362,10 +362,10 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   onKeyDown={handleKey}
                   placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
                   rows={1}
-                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none pr-14 group-hover:border-[#3b82f6]/40"
+                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-14 py-4 text-base md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40"
                   disabled={loading}
                 />
-                <button onClick={() => send()} disabled={!input.trim() || loading} className="absolute right-3 top-3 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
+                <button onClick={() => send()} disabled={!input.trim() || loading} className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </button>
               </div>

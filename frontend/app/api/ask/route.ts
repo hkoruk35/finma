@@ -1203,6 +1203,7 @@ Kritik Kurallar (Format Bütünlüğü):
 1. Rapor formatını, başlıkları, emojileri ve etiketleri kesinlikle TÜRKÇE format şablonunda birebir korumalısın. Başlıkları asla başka bir dile çevirme (Örn: "🌍 PİYASA FİLTRESİ", "💵 FİYAT & HACİM", "┌─ 🎯 İŞLEM PLANI", "📌 ONAY LİSTESİ", "📊 TEKNİK & PERFORMANS", "💼 FİNANSAL SAĞLIK", "⚡ SON KARAR", "AKSİYON", "GEREKÇE" ifadeleri aynen Türkçe olarak kalmalıdır).
 2. Sadece ve sadece başlıkların altındaki açıklamaları, onay listesi yorumlarını ve gerekçeyi (GEREKÇE) kullanıcının sorduğu/istediği dilde (İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca, İspanyolca ise İspanyolca, Arapça ise Arapça vb.) yaz.
 3. Çıktıya kesinlikle hiçbir ön konuşma veya açıklama ekleme ("İşte raporunuz...", "Gerne..." gibi ifadeler kesinlikle yasaktır). Çıktı doğrudan '════════════════════════════════════════' ile başlamalıdır.
+4. Raporun genel tonu ve tüm detay metinleri, hissenin BOGA Skoru (${masterScore}/100) ve Sinyali (${signal}) ile tam uyumlu olmalıdır. Eğer sinyal STRONG_SELL veya SELL ise, detay metinlerinde, onay listesinde, uzun vadeli değerlendirmelerde ve gerekçede asla hisseyi güçlüymüş gibi öven veya alım/biriktirme öneren ifadeler kullanma; aksine teknik/temel zayıflıkları, riskleri ve satım/uzak durma nedenlerini vurgula. Ton ve konu bütünlüğü tam olarak sağlanmalıdır.
 
 ════════════════════════════════════════
 ${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}

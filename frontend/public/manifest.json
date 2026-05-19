@@ -1,7 +1,7 @@
 {
-  "name": "BOGA - Blue One Global Analysis - Daily +500 stocks",
+  "name": "BOGA - Blue One Global Analysis - Daily +8000 stocks",
   "short_name": "BOGA",
-  "description": "Daily AI-powered analysis of +500 top US stocks with real-time trading signals by BOGA.",
+  "description": "Daily AI-powered analysis of +8000 top US stocks with real-time trading signals by BOGA.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
