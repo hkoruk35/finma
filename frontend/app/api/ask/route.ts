@@ -1193,73 +1193,77 @@ export async function POST(req: NextRequest) {
     const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
 
     const prompt = `Sen BOGA AI swing trading terminalinin analistisin. Aşağıdaki verileri kullanarak ${ticker} için BOGA SWING RAPORU yaz.
-Kritik Kural: Raporu, kullanıcının mesajı yazdığı dilde (örneğin İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca, İspanyolca ise İspanyolca vb.) yaz. Başlıkları, etiketleri ve tüm yorumları o dile çevirerek yaz.
-KENDİ BİLGİNİ KULLANMA — sadece verilen sayıları kullan.
+Kritik Kurallar (Format Bütünlüğü):
+1. Rapor formatını, başlıkları, emojileri ve etiketleri kesinlikle TÜRKÇE format şablonunda birebir korumalısın. Başlıkları asla başka bir dile çevirme (Örn: "🌍 PİYASA FİLTRESİ", "💵 FİYAT & HACİM", "┌─ 🎯 İŞLEM PLANI", "📌 ONAY LİSTESİ", "📊 TEKNİK & PERFORMANS", "💼 FİNANSAL SAĞLIK", "⚡ SON KARAR", "AKSİYON", "GEREKÇE" ifadeleri aynen Türkçe olarak kalmalıdır).
+2. Sadece ve sadece başlıkların altındaki açıklamaları, onay listesi yorumlarını ve gerekçeyi (GEREKÇE) kullanıcının sorduğu/istediği dilde (İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca, İspanyolca ise İspanyolca, Arapça ise Arapça vb.) yaz.
+3. Çıktıya kesinlikle hiçbir ön konuşma veya açıklama ekleme ("İşte raporunuz...", "Gerne..." gibi ifadeler kesinlikle yasaktır). Çıktı doğrudan '════════════════════════════════════════' ile başlamalıdır.
 
 ════════════════════════════════════════
 ${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}
 ════════════════════════════════════════
-Tarih/Date: ${s.date || "N/A"}  |  Piyasa Rejimi/Market Regime: ${regime}  |  BOGA Skoru/Score: ${masterScore}/100  |  Sinyal/Signal: ${signal}
-⚡ Zaman Dilimi Yön Analizi / Timeframe Analysis:
-• Mikro Durum/Micro: ${sc.micro_15m?.msg || "15m Yatay/Sıkışma"}
-• Timing Durumu/Timing: ${s.scores_detail?.entry_engine?.type || "WAITING_FOR_VOLUME"}
+Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterScore}/100  |  Sinyal: ${signal}
+⚡ Zaman Dilimi Yön Analizi:
+• Mikro Durum: ${sc.micro_15m?.msg || "15m Yatay/Sıkışma"}
+• Timing Durumu: ${s.scores_detail?.entry_engine?.type || "WAITING_FOR_VOLUME"}
 
-🌍 Piyasa Rejimi / Market Regime: ${regime}
+🌍 Piyasa Rejimi: ${regime}
 
-💵 Fiyat / Price: $${price} (%${change})  |  Piyasa Değeri / Market Cap: ${mcap}
-• Hacim / Volume: ${volume}  |  30G Ort / Avg: ${avgVol}  |  RVOL: ${rvol}x
-• Performans / Performance: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
+💵 Fiyat: $${price} (%${change})  |  Piyasa Değeri: ${mcap}
+• Hacim: ${volume}  |  30G Ort: ${avgVol}  |  RVOL: ${rvol}x
+• Performans: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
 
-🎯 İşlem Planı / Trade Plan:
-• Giriş Bölgesi / Entry Zone: $${entryLow} - $${entryHigh}
-• Hedef Bölge / Target Zone: $${targetLow} - $${targetHigh}
+🎯 İşlem Planı:
+• Giriş Bölgesi: $${entryLow} - $${entryHigh}
+• Hedef Bölge: $${targetLow} - $${targetHigh}
 • Stop Loss: $${stopLoss}
 
-📊 Teknik Metris / Technical Matrix:
+📊 Teknik Metris:
 • RSI(14): ${rsi}  |  MACD: ${macd}  |  MACD Hist: ${macdHist}
 • EMA20: $${ema20}  |  EMA50: $${ema50}  |  EMA200: $${ema200}
 • EMA Stack: ${emaStack}
 • Bollinger: Alt=$${bbLower}  Üst=$${bbUpper}
-• Destek/Support: $${support}  |  Direnç/Resistance: $${resistance}  |  ATR: $${atr}
+• Destek: $${support}  |  Direnç: $${resistance}  |  ATR: $${atr}
 
-💼 Finansal Durum / Financial Health:
+💼 Finansal Durum:
 • F/K (P/E): ${pe}x  |  PD/DD (P/B): ${pb}x
-• Brüt Marj / Gross Margin: ${grossMargin}  |  Net Marj / Net Margin: ${netMargin}
-• Gelir Büyümesi / Revenue Growth: ${revGrowth}  |  FCF Verimi / FCF Yield: ${fcfYield}
+• Brüt Marj: ${grossMargin}  |  Net Marj: ${netMargin}
+• Gelir Büyümesi: ${revGrowth}  |  FCF Verimi: ${fcfYield}
 
-RAPOR FORMATI (Bu yapıyı koru, satırları değiştirme, ancak başlıkları ve içerikleri kullanıcının diline çevir):
+RAPOR FORMAT ŞABLONU (Bu yapıyı, başlıkları ve Türkçe etiketleri aynen koru):
 ════════════════════════════════════════
-${ticker} | ${s.sector || ""} | Swing Strategy
+${ticker} | ${s.sector || ""} | Swing Strateji
 ════════════════════════════════════════
 
-🌍 MARKET FILTER
-• Market Regime: [veriyi kullan - pozitif/nötr/riskli terimlerini kullanıcının diline çevir]
+🌍 PİYASA FİLTRESİ
+• Piyasa Rejimi: ${regime} → [POZİTİF / NÖTR / RİSKLİ ifadelerinden birini seçerek yaz]
 
-💵 PRICE & VOLUME
-• [veriyi kullan, kullanıcının dilinde yaz]
+💵 FİYAT & HACİM
+• Fiyat: $${price} (%${change})  |  Piyasa Değeri: ${mcap}
+• Hacim: ${volume}  |  30G Ort: ${avgVol}  |  RVOL: ${rvol}x
+• Performans: 1H=%${change1w}  1A=%${change1m}  1Y=%${change1y}
 
-┌─ 🎯 TRADE PLAN
-│  🟢 Entry: $[...]
-│  🎯 Target: $[...]
-│  🛑 Stop:  $[...]
-│  ⚖️ R/R: 1:[hesapla]
+┌─ 🎯 İŞLEM PLANI
+│  🟢 Giriş: $${entryLow} - $${entryHigh}
+│  🎯 Hedef: $${targetLow} - $${targetHigh}
+│  🛑 Stop:  $${stopLoss}
+│  ⚖️ R/R: 1:[hesapla ve yaz]
 └─────────────────
 
-📌 CHECKLIST
-[X/ ] RSI Status: [değeri yaz ve yorumla]
-[X/ ] EMA Stack: [değeri yaz ve yorumla]
-[X/ ] Volume: [RVOL değerini yaz ve yorumla]
-[X/ ] Trend Direction: [yorumla]
+📌 ONAY LİSTESİ
+[X/ ] RSI durumu: [değeri yaz ve kullanıcının dilediği dilde yorumla]
+[X/ ] EMA Stack: [değeri yaz ve kullanıcının dilediği dilde yorumla]
+[X/ ] Hacim: [RVOL değerini yaz ve kullanıcının dilediği dilde yorumla]
+[X/ ] Trend yönü: [kullanıcının dilediği dilde yorumla]
 
-📊 TECHNICAL & PERFORMANCE
-• [indikatörleri listele, kullanıcının dilinde yaz]
+📊 TEKNİK & PERFORMANS
+• [tüm teknik göstergeleri listele ve kullanıcının dilediği dilde kısaca yorumla]
 
-💼 FINANCIAL HEALTH
-• [metrikleri listele, kullanıcının dilinde yaz]
+💼 FİNANSAL SAĞLIK
+• [tüm finansal sağlık göstergelerini listele ve kullanıcının dilediği dilde kısaca yorumla]
 
-⚡ FINAL DECISION
-│ ACTION: [kullanıcının dilinde EYLEM: İŞLEME GİR / İZLE / ÇIKIŞ terimlerinden birini yaz]
-│ RATIONALE: [2-3 cümle, sadece verilen sayılara dayanarak kullanıcının dilinde gerekçeyi yaz]
+⚡ SON KARAR
+│ AKSİYON: [İŞLEME GİR / İZLE / ÇIKIŞ seçeneklerinden birini yaz]
+│ GEREKÇE: [2-3 cümle ile sadece verilen sayılara dayanarak kullanıcının dilediği dilde gerekçe yaz]
 └─────────────────`;
 
     if (stockJson && !stockJson.forecast) {
