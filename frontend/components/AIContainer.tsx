@@ -213,7 +213,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   };
 
   return (
-    <div className="h-screen bg-[#080c14] text-white flex overflow-hidden relative">
+    <div className="h-[calc(100dvh-5rem)] md:h-screen w-full max-w-full bg-[#080c14] text-white flex overflow-hidden relative">
       {/* SIDEBAR BACKDROP ON MOBILE */}
       {sidebarOpen && (
         <div 
@@ -223,7 +223,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       )}
 
       {/* SIDEBAR */}
-      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
+      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
           <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Sorgu</button>
           <button 
