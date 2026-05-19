@@ -88,6 +88,11 @@ XLK (Teknoloji), XLY (Tüketici Döngüsel), XLF (Finans), XLV (Sağlık), XLI (
 
 const SYSTEM_PROMPT = `You are BOGA AI, financial analyst for global markets.
 
+BOGA AI KİMLİK VE TANIM BİLGİSİ:
+Kullanıcı BOGA AI'ın ne olduğunu sorduğunda veya sistem hakkında bilgi talep ettiğinde MUTLAKA aşağıdaki bilgileri içeren net, açıklayıcı ve güncel bir yanıt ver:
+- BOGA AI; AFK DaSYS tarafından geliştirilen, ABD Borsaları (US Stock Markets) odaklı, öğrenme ve kendini geliştirme süreci kesintisiz olarak devam eden yapay zeka destekli bir finansal analiz sistemidir.
+- Türkçe dahil +50 dil desteği ile geliştirilmekte ve küresel piyasalarda analiz yapabilmektedir.
+
 EXPERTISE: Stocks, options, technical analysis (EMA, RSI, MACD), commodities, forex, crypto, economics.
 
 IMPORTANT - DO NOT MENTION:
@@ -157,9 +162,10 @@ ${sectors}
 ${dataSummary}
 
 KRİTİK TALİMATLAR VE YÖNLENDİRME KURALLARI:
-1. Sektör, alt sektör, hisse önerileri veya piyasa yorumu isteyen kullanıcı sorularında, MUTLAKA yukarıda belirtilen güncel BOGA AI terminal verilerini (Breakout, Momentum, Reversal vb. listelerini) referans al ve bu hisseleri öner.
+1. BOGA AI Terminali'ndeki günlük seçimleri (picks) veya taramaları doğrudan sormayan genel sektörel/konusal sorularda (Örn: "son zamanlarda yükselen enerji hisseleri", "çip hisseleri" vb.) yukarıdaki BOGA AI terminal verilerini/listelerini referans alma veya önerme. Bunun yerine, Gemini/Claude işbirliğiyle sana iletilen [SİSTEM TARAFINDAN SAĞLANAN GÜNCEL HABERLER] verilerindeki canlı haberleri ve orada geçen hisseleri temel alarak yanıt üret. Sadece kullanıcı doğrudan BOGA AI terminal verilerini, günlük tarama listelerini veya top picks seçimlerini sorduğunda yukarıdaki BOGA AI terminal listelerini referans al.
 2. Önerdiğin ya da metin içinde adı geçen her hisse senedinin ticker sembolünü MUTLAKA şu markdown formatında tıklandığında analiz tetikleyecek link olarak yaz: [TICKER](/ai?ticker=TICKER) (Örneğin: [AAPL](/ai?ticker=AAPL), [NVDA](/ai?ticker=NVDA), [DELL](/ai?ticker=DELL)). Ticker dışında başka hiçbir kelimeye veya açıklamaya bu linki ekleme. Sadece ticker sembolüne ekle.
-3. Kullanıcı belirli bir hissenin detaylı analizini, teknik seviyelerini, destek/direnç, EMA 200 veya Monte Carlo simülasyonunu görmek istediğinde, doğrudan o hissenin ticker butonuna tıklamasını söyle veya analiz butonunu sun.`;
+3. Kullanıcı belirli bir hissenin detaylı analizini, teknik seviyelerini, destek/direnç, EMA 200 veya Monte Carlo simülasyonunu görmek istediğinde, doğrudan o hissenin ticker butonuna tıklamasını söyle veya analiz butonunu sun.
+   Tıklanan her ticker butonu, arayüzde BOGA AI detaylı teknik analiz rapor formatını (şablonunu) otomatik olarak tetikleyecektir. Bunu kullanıcıya belirtebilirsin.`;
 }
 
 interface Message {
@@ -200,13 +206,64 @@ const getLatestSwingPicks = () => {
   }
 };
 
-async function fetchGlobalMarketNews(): Promise<any[]> {
+function translateQueryToEnglish(query: string): string {
+  let q = query.toLowerCase();
+  const replacements: Record<string, string> = {
+    "enerji": "energy",
+    "teknoloji": "technology",
+    "hisseleri": "stocks",
+    "hisse": "stock",
+    "haberleri": "news",
+    "haberi": "news",
+    "haber": "news",
+    "finans": "finance",
+    "yapay zeka": "ai",
+    "yarı iletken": "semiconductor",
+    "çip": "chip",
+    "sağlık": "healthcare",
+    "havacılık": "aviation",
+    "savunma": "defense",
+    "otomotiv": "automotive",
+    "banka": "bank",
+    "bankacılık": "banking",
+    "tarım": "agriculture",
+    "altın": "gold",
+    "petrol": "oil",
+    "emtia": "commodities",
+    "yükselen": "rising",
+    "düşen": "falling",
+    "kazandıran": "gaining",
+    "kaybettiren": "losing",
+    "en iyi": "best",
+    "popüler": "popular"
+  };
+  for (const [tr, en] of Object.entries(replacements)) {
+    q = q.replace(new RegExp(tr, "g"), en);
+  }
+  return q;
+}
+
+async function fetchGlobalMarketNews(userQuery?: string): Promise<any[]> {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "application/json",
     "Referer": "https://finance.yahoo.com/"
   };
-  const queries = ["market outlook", "stock news", "breaking business news"];
+
+  const queries = ["market outlook"];
+  if (userQuery) {
+    const cleaned = userQuery.replace(/[/?.,!#*()]/g, "").trim();
+    if (cleaned) {
+      queries.unshift(cleaned);
+      const translated = translateQueryToEnglish(cleaned);
+      if (translated !== cleaned) {
+        queries.unshift(translated);
+      }
+    }
+  } else {
+    queries.push("stock news", "breaking business news");
+  }
+
   const newsItems: any[] = [];
   const titles = new Set<string>();
 
@@ -1566,7 +1623,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     // Default Routing with Live News Injection
     let finalUserMessage = cleanMsg;
     try {
-      const marketNews = await fetchGlobalMarketNews();
+      const marketNews = await fetchGlobalMarketNews(cleanMsg);
       if (marketNews && marketNews.length > 0) {
         const newsText = marketNews.map(n => `- [${n.publisher}] ${n.title} (İlişkili Hisseler: ${n.entities?.join(", ") || "Yok"})`).join("\n");
         finalUserMessage = `${cleanMsg}\n\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL HABERLER - SİTELER: YAHOO, CNBC, BENZINGA, GOOGLE FINANS - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n\nYukarıdaki en son canlı haberleri ve hisseleri dikkate alarak yanıtla. Adı geçen tüm şirketlerin ticker sembollerini mutlaka [TICKER](/ai?ticker=TICKER) formatında tıklandığında analiz tetikleyecek şekilde bağımsız tıklanabilir buton/link olarak yaz.`;
