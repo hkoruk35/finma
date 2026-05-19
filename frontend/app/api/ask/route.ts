@@ -200,6 +200,42 @@ const getLatestSwingPicks = () => {
   }
 };
 
+async function fetchGlobalMarketNews(): Promise<any[]> {
+  const headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Accept": "application/json",
+    "Referer": "https://finance.yahoo.com/"
+  };
+  const queries = ["market outlook", "stock news", "breaking business news"];
+  const newsItems: any[] = [];
+  const titles = new Set<string>();
+
+  for (const q of queries) {
+    try {
+      const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=15`;
+      const res = await fetch(url, { headers, signal: AbortSignal.timeout(4000) });
+      if (res.ok) {
+        const data = await res.json();
+        const items = data?.news || [];
+        for (const item of items) {
+          if (item.title && !titles.has(item.title)) {
+            titles.add(item.title);
+            newsItems.push({
+              title: item.title,
+              publisher: item.publisher || "Yahoo Finance",
+              link: item.link || "",
+              entities: item.relatedTickers || []
+            });
+          }
+        }
+      }
+    } catch (err: any) {
+      console.error(`fetchGlobalMarketNews error for query "${q}":`, err.message);
+    }
+  }
+  return newsItems.slice(0, 15);
+}
+
 function calcEMA(prices: number[], period: number): number {
   const k = 2 / (period + 1);
   let ema = prices[0];
@@ -1527,12 +1563,23 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history);
     }
 
-    // Default Routing
-    if (useClaude) {
-      return await handleClaude(cleanMsg, history);
+    // Default Routing with Live News Injection
+    let finalUserMessage = cleanMsg;
+    try {
+      const marketNews = await fetchGlobalMarketNews();
+      if (marketNews && marketNews.length > 0) {
+        const newsText = marketNews.map(n => `- [${n.publisher}] ${n.title} (İlişkili Hisseler: ${n.entities?.join(", ") || "Yok"})`).join("\n");
+        finalUserMessage = `${cleanMsg}\n\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL HABERLER - SİTELER: YAHOO, CNBC, BENZINGA, GOOGLE FINANS - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n\nYukarıdaki en son canlı haberleri ve hisseleri dikkate alarak yanıtla. Adı geçen tüm şirketlerin ticker sembollerini mutlaka [TICKER](/ai?ticker=TICKER) formatında tıklandığında analiz tetikleyecek şekilde bağımsız tıklanabilir buton/link olarak yaz.`;
+      }
+    } catch (e) {
+      console.error("Failed to append global news:", e);
     }
 
-    return await handleGemini(cleanMsg, history);
+    if (useClaude) {
+      return await handleClaude(finalUserMessage, history);
+    }
+
+    return await handleGemini(finalUserMessage, history);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({

@@ -339,6 +339,14 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   ))}
                 </div>
               </div>
+
+              {/* Yasal Uyarı & Telif (Ekranın alt katmanına sabitlenmeyip içerikle kayar) */}
+              <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60">
+                <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
+                  ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+                </p>
+                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
+              </div>
             </div>
           )}
 
@@ -382,12 +390,20 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
               </div>
             </div>
           )}
+          {messages.length > 0 && (
+            <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60 max-w-4xl mx-auto w-full">
+              <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
+                ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+              </p>
+              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
+            </div>
+          )}
         </div>
 
-        <div className="px-4 py-2.5 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
+        <div className="px-4 py-3 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
           <div className="max-w-4xl mx-auto w-full">
             {messages.length > 0 && (
-              <div className="relative group mb-2">
+              <div className="relative group">
                 <textarea
                   ref={inputRef}
                   value={input}
@@ -403,12 +419,6 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 </button>
               </div>
             )}
-            <div className="text-center space-y-1">
-              <p className="text-[8px] text-slate-600/80 font-medium leading-relaxed max-w-2xl mx-auto">
-                Yasal Uyarı: BOGA AI yatırım tavsiyesi vermez. Sunulan veriler analiz, eğitim ve bilgilendirme amaçlıdır.
-              </p>
-              <p className="text-[8px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
-            </div>
           </div>
         </div>
       </div>
