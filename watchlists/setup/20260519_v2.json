@@ -1,0 +1,52 @@
+[
+    {
+        "date": "2026-05-19 11:00",
+        "symbol": "YOU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 59.38,
+        "entry_zone": "57.64 - 61.12",
+        "SL": 52.44,
+        "TP": 69.8
+    },
+    {
+        "date": "2026-05-19 11:00",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 410.68,
+        "entry_zone": "402.32 - 419.05",
+        "SL": 377.23,
+        "TP": 460.87
+    },
+    {
+        "date": "2026-05-19 11:00",
+        "symbol": "MLI",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 130.82,
+        "entry_zone": "129.04 - 132.61",
+        "SL": 123.69,
+        "TP": 141.52
+    },
+    {
+        "date": "2026-05-19 11:00",
+        "symbol": "DAR",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 60.32,
+        "entry_zone": "59.18 - 61.46",
+        "SL": 55.74,
+        "TP": 67.18
+    },
+    {
+        "date": "2026-05-19 11:00",
+        "symbol": "STT",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 151.48,
+        "entry_zone": "149.97 - 152.98",
+        "SL": 145.45,
+        "TP": 160.51
+    }
+]
