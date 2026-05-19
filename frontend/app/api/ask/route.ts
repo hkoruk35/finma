@@ -1743,15 +1743,24 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
 
       if (contextText) {
         finalUserMessage = `${cleanMsg}\n\n${contextText}\n
-KRİTİK TALİMATLAR (ODAKLI ÇIKTI KONTROLÜ):
-1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıdaki güncel canlı haberleri ve boga stock tematik veritabanını analiz et.
-2. Siber güvenlik, uzay, yapay zeka vb. spesifik alanlarda "güncel haberlerde doğrudan siber güvenlik bulunmuyor" diyerek yanıtı boş geçme! Haberlerde doğrudan geçmiyorsa bile, BOGA STOCK TEMATİK VERİTABANI kısmında yer alan o sektörün öncü hisse adaylarını (Örn: Cybersecurity için PANW, CRWD, FTNT; Uzay/Savunma için LMT, NOC, RTX, LHX, KTOS) doğrudan kullanıcının önüne çıkar.
+KRİTİK TALİMATLAR (ODAKLI ÇIKTI KONTROLÜ VE FORMAT):
+1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıdaki güncel canlı haberleri ve tematik/sektörel verileri analiz et.
+2. Siber güvenlik, uzay, yapay zeka vb. spesifik alanlarda "güncel haberlerde doğrudan siber güvenlik bulunmuyor" veya "BOGA AI tematik veritabanına göre" gibi ifadeleri KESİNLİKLE KULLANMA. Bu verilerin nereden geldiğini (veritabanı, fallback, model kısıtı vb.) asla belirtme. Yanıtı tamamen genel, canlı ve güncel bir stratejik sektör tarama raporu gibi doğal, akıcı ve bağımsız bir dille yaz.
 3. Yanıtında her zaman en alakalı en fazla 5 adet hisseyi seçip önceliklendir.
-4. Çıktı Yapısı:
-   - Önce sektör/tema hakkında güncel ve isabetli kısa bir özet (1-2 paragraf) ver.
-   - Ardından seçilen en fazla 5 hisseyi alt alta listele ve neden öne çıktıklarını (canlı haberlere veya sektörel liderliğine göre) 1-2 cümle ile kısaca açıkla.
-   - Her hissenin sembolünü mutlaka bağımsız tıklanabilir buton formatında [TICKER](/ai?ticker=TICKER) olarak yaz (Örn: [CRWD](/ai?ticker=CRWD)).
-   - Yanıtı gürültüden arındırılmış, kısa, öz ve net tut.`;
+4. Yanıtı BİREBİR şu format ve başlık düzeninde oluştur (Bunun dışına çıkma):
+
+# [SEKTÖR/TEMA ADI] STRATEJİK ANALİZİ
+
+## ÖZET
+[Sektörün genel durumunu, büyüme dinamiklerini, katalizörlerini ve varsa makro/tedarik zinciri risklerini içeren 1 paragraflık akıcı bir özet yaz.]
+
+## DETAYLI HİSSE LİSTESİ
+* **[TICKER](/ai?ticker=TICKER)** (Şirket Adı)
+  - **Sektör Odağı:** [Şirketin uzay/savunma veya ilgili sektördeki tam rolü ve uzmanlık alanı]
+  - **Teknik ve Temel Durum:** [Mevcut sipariş defteri (backlog), NASA/Uzay Kuvvetleri/Sivil anlaşmaları veya en son finansal çeyrekteki öne çıkan veriler]
+  - **Alpha Commander Notu:** [Bu hisseye dair stratejik analist yorumu, serbest nakit akışı hedefleri, düzenli büyüme potansiyeli veya teknik risk unsurları]
+
+(Listelenecek her 5 hisse için yukarıdaki şablonu eksiksiz uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
       }
     } catch (e) {
       console.error("Failed to append global news & themes:", e);

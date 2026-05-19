@@ -36,13 +36,13 @@ const POPULAR_TICKERS = [
 ];
 
 function formatInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[A-Z0-9]+\]\(\/ai\?ticker=[A-Z0-9]+\))/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[a-zA-Z0-9.-]+\]\(\/ai\?[tT]icker=[a-zA-Z0-9.-]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**"))
       return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
     if (part.startsWith("`") && part.endsWith("`"))
       return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
-    if (part.startsWith("[") && part.includes("](/ai?ticker=")) {
+    if (part.startsWith("[") && part.toLowerCase().includes("](/ai?ticker=")) {
       const ticker = part.substring(1, part.indexOf("]"));
       return (
         <button
@@ -64,13 +64,15 @@ function MarkdownText({ text }: { text: string }) {
   return (
     <div className="space-y-1.5 leading-relaxed text-sm">
       {text.split("\n").map((line, i) => {
+        if (line.startsWith("# "))
+          return <h1 key={i} className="text-base font-black text-white uppercase tracking-wider mt-4 mb-2">{line.slice(2)}</h1>;
         if (line.startsWith("### "))
           return <h3 key={i} className="text-xs font-black text-white uppercase tracking-widest mt-3 mb-1">{line.slice(4)}</h3>;
         if (line.startsWith("## "))
           return <h2 key={i} className="text-sm font-black text-[#3b82f6] mt-3 mb-1">{line.slice(3)}</h2>;
         if (line.startsWith("**") && line.endsWith("**"))
           return <p key={i} className="font-bold text-white">{line.slice(2, -2)}</p>;
-        if (line.startsWith("- ") || line.startsWith("• "))
+        if (line.startsWith("- ") || line.startsWith("• ") || line.startsWith("* "))
           return (
             <div key={i} className="flex gap-2">
               <span className="text-[#3b82f6] mt-0.5 shrink-0">•</span>
