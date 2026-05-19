@@ -996,6 +996,62 @@ async function lookupTickerFromQuery(query: string): Promise<string | null> {
   return null;
 }
 
+async function translateNewsList(news: any[], apiKey: string): Promise<any[]> {
+  if (!news || news.length === 0 || !apiKey) return news;
+  
+  const newsToTranslate = news.slice(0, 5);
+  const titles = newsToTranslate.map(n => n.title);
+  
+  try {
+    const prompt = `Translate the following English financial news headlines into clear, professional Turkish for a stock analysis report. Return ONLY a valid JSON array of strings in the exact same order, without any markdown code blocks, preambles or explanations.
+    
+    Format example:
+    ["Baslik 1", "Baslik 2"]
+    
+    Headlines to translate:
+    ${JSON.stringify(titles)}`;
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.1,
+            maxOutputTokens: 1000,
+            responseMimeType: "application/json"
+          }
+        }),
+        signal: AbortSignal.timeout(6000),
+      }
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+      if (text) {
+        const translatedTitles = JSON.parse(text);
+        if (Array.isArray(translatedTitles)) {
+          return news.map((item, idx) => {
+            if (idx < translatedTitles.length) {
+              return {
+                ...item,
+                title: translatedTitles[idx]
+              };
+            }
+            return item;
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.error("News translation failed:", err);
+  }
+  return news;
+}
+
 export async function POST(req: NextRequest) {
   let body: { message: string; history?: Message[]; lang?: string };
   try {
@@ -1156,6 +1212,10 @@ export async function POST(req: NextRequest) {
       if (searchRes.ok) {
         const searchData = await searchRes.json();
         news = searchData?.news || [];
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (apiKey && news.length > 0) {
+          news = await translateNewsList(news, apiKey);
+        }
         if (stockJson) {
           const match = searchData?.quotes?.find((q: any) => q.symbol?.toUpperCase() === ticker.toUpperCase());
           if (match) {
