@@ -99,8 +99,7 @@ export default function Header({
               className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-black uppercase tracking-widest transition-all animate-pulse"
             >
               <span>+</span>
-              <span className="hidden sm:inline">YENİ SORGU</span>
-              <span className="sm:hidden">YENİ</span>
+              <span>YENİ ARAMA</span>
             </button>
           )}
           {(isHomePage || hideMenus) && !onNewQueryClick ? (

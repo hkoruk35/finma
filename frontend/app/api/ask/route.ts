@@ -104,6 +104,64 @@ GUIDELINES:
 
 For out-of-scope questions, politely redirect in user's language.`;
 
+function getDynamicSystemPrompt(): string {
+  const masterPaths = [
+    path.join(process.cwd(), "..", "data", "latest", "master.json"),
+    path.join(process.cwd(), "data", "latest", "master.json"),
+    path.join(process.cwd(), "..", "..", "data", "latest", "master.json"),
+    path.resolve(__dirname, "..", "..", "..", "..", "data", "latest", "master.json"),
+  ];
+  let masterJson: any = null;
+  for (const p of masterPaths) {
+    try {
+      if (fs.existsSync(p)) {
+        masterJson = JSON.parse(fs.readFileSync(p, "utf-8"));
+        break;
+      }
+    } catch {}
+  }
+
+  let dataSummary = "";
+  if (masterJson) {
+    const regime = masterJson.market_regime || "Neutral";
+    
+    // Extract top picks
+    const breakout = masterJson.menus?.breakout?.tickers?.slice(0, 10) || [];
+    const momentum = masterJson.menus?.momentum?.tickers?.slice(0, 10) || [];
+    const reversal = masterJson.menus?.reversal?.tickers?.slice(0, 10) || [];
+    const value = masterJson.menus?.value?.tickers?.slice(0, 10) || [];
+    const dividend = masterJson.menus?.dividend?.tickers?.slice(0, 10) || [];
+
+    // Extract sector summaries
+    const sectors = Object.entries(masterJson.sector_summary || {}).map(([name, data]: [string, any]) => {
+      const topTickers = data.top_tickers?.slice(0, 8) || [];
+      return `- ${name}: Ortalama Skor ${data.avg_score}/100, Lider Hisse: ${data.top_ticker || "N/A"} (Öne Çıkan Hisseler: ${topTickers.join(", ")})`;
+    }).join("\n");
+
+    dataSummary = `
+BUGÜNÜN REEL PİYASA VE BOGA AI TERMİNAL VERİLERİ (Veri Tarihi: ${masterJson.date || "Güncel"}):
+- Piyasa Rejimi (Market Regime): ${regime}
+- BOGA AI Kırılım (Breakout) Tercihleri: ${breakout.join(", ")}
+- BOGA AI Momentum Tercihleri: ${momentum.join(", ")}
+- BOGA AI Dönüş (Reversal) Tercihleri: ${reversal.join(", ")}
+- BOGA AI Değer (Value) Tercihleri: ${value.join(", ")}
+- BOGA AI Temettü (Dividend) Tercihleri: ${dividend.join(", ")}
+
+SEKTÖR BAZINDA GÜNCEL BULGULAR VE EN İYİ HİSSELER:
+${sectors}
+`;
+  }
+
+  return `${SYSTEM_PROMPT}
+
+${dataSummary}
+
+KRİTİK TALİMATLAR VE YÖNLENDİRME KURALLARI:
+1. Sektör, alt sektör, hisse önerileri veya piyasa yorumu isteyen kullanıcı sorularında, MUTLAKA yukarıda belirtilen güncel BOGA AI terminal verilerini (Breakout, Momentum, Reversal vb. listelerini) referans al ve bu hisseleri öner.
+2. Önerdiğin ya da metin içinde adı geçen her hisse senedinin ticker sembolünü MUTLAKA şu markdown formatında tıklandığında analiz tetikleyecek link olarak yaz: [TICKER](/ai?ticker=TICKER) (Örneğin: [AAPL](/ai?ticker=AAPL), [NVDA](/ai?ticker=NVDA), [DELL](/ai?ticker=DELL)). Ticker dışında başka hiçbir kelimeye veya açıklamaya bu linki ekleme. Sadece ticker sembolüne ekle.
+3. Kullanıcı belirli bir hissenin detaylı analizini, teknik seviyelerini, destek/direnç, EMA 200 veya Monte Carlo simülasyonunu görmek istediğinde, doğrudan o hissenin ticker butonuna tıklamasını söyle veya analiz butonunu sun.`;
+}
+
 interface Message {
   role: "user" | "assistant";
   text: string;
@@ -1491,7 +1549,7 @@ async function handleClaude(message: string, history: Message[]) {
     const response = await anthropic.messages.create({
       model: "claude-3-5-sonnet-20240620",
       max_tokens: 2000,
-      system: SYSTEM_PROMPT,
+      system: getDynamicSystemPrompt(),
       messages: [
         ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.text })),
         { role: "user", content: message },
@@ -1531,7 +1589,7 @@ async function handleGemini(message: string, history: Message[]) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          systemInstruction: { parts: [{ text: getDynamicSystemPrompt() }] },
           contents,
           generationConfig: { 
             temperature: 0.7, 

@@ -36,12 +36,26 @@ const POPULAR_TICKERS = [
 ];
 
 function formatInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[A-Z0-9]+\]\(\/ai\?ticker=[A-Z0-9]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**"))
       return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
     if (part.startsWith("`") && part.endsWith("`"))
       return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
+    if (part.startsWith("[") && part.includes("](/ai?ticker=")) {
+      const ticker = part.substring(1, part.indexOf("]"));
+      return (
+        <button
+          key={i}
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
+          }}
+          className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
+        >
+          {ticker}
+        </button>
+      );
+    }
     return part;
   });
 }
@@ -199,6 +213,18 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
     return () => window.removeEventListener("start_new_query", handleReset);
   }, []);
 
+  // Listen for custom inline ticker click event
+  useEffect(() => {
+    const handleTickerClick = (e: Event) => {
+      const ticker = (e as CustomEvent).detail;
+      if (ticker) {
+        send(ticker.toUpperCase());
+      }
+    };
+    window.addEventListener("trigger_ticker_query", handleTickerClick);
+    return () => window.removeEventListener("trigger_ticker_query", handleTickerClick);
+  }, []);
+
   const handleKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -225,7 +251,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       {/* SIDEBAR */}
       <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
-          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Sorgu</button>
+          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Arama</button>
           <button 
             onClick={() => setSidebarOpen(false)}
             className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
@@ -358,10 +384,10 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           )}
         </div>
 
-        <div className="px-4 py-4 shrink-0 border-t border-[#1e2a3a] bg-[#0a0e17]/80 backdrop-blur-md">
+        <div className="px-4 py-2.5 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
           <div className="max-w-4xl mx-auto w-full">
             {messages.length > 0 && (
-              <div className="relative group mb-3">
+              <div className="relative group mb-2">
                 <textarea
                   ref={inputRef}
                   value={input}
@@ -377,11 +403,11 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 </button>
               </div>
             )}
-            <div className="text-center space-y-1.5">
-              <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+            <div className="text-center space-y-1">
+              <p className="text-[8px] text-slate-600/80 font-medium leading-relaxed max-w-2xl mx-auto">
+                Yasal Uyarı: BOGA AI yatırım tavsiyesi vermez. Sunulan veriler analiz, eğitim ve bilgilendirme amaçlıdır.
               </p>
-              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
+              <p className="text-[8px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
             </div>
           </div>
         </div>
