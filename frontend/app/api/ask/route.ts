@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import { MARKET_THEMES } from "../../../lib/themeData";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -235,7 +236,10 @@ function translateQueryToEnglish(query: string): string {
     "kazandıran": "gaining",
     "kaybettiren": "losing",
     "en iyi": "best",
-    "popüler": "popular"
+    "popüler": "popular",
+    "siber": "cyber",
+    "güvenlik": "security",
+    "uzay": "space"
   };
   for (const [tr, en] of Object.entries(replacements)) {
     q = q.replace(new RegExp(tr, "g"), en);
@@ -243,7 +247,96 @@ function translateQueryToEnglish(query: string): string {
   return q;
 }
 
-async function fetchGlobalMarketNews(userQuery?: string): Promise<any[]> {
+function findMatchingThemes(query: string): any[] {
+  const q = query.toLowerCase();
+  const matched: any[] = [];
+  
+  const mappings: Record<string, string[]> = {
+    "siber": ["cybersecurity"],
+    "cyber": ["cybersecurity"],
+    "güvenlik": ["cybersecurity"],
+    "uzay": ["aerospace & defense"],
+    "space": ["aerospace & defense"],
+    "havacılık": ["aerospace & defense", "transportation - airlines", "aviation mro"],
+    "aviation": ["aerospace & defense", "aviation mro"],
+    "savunma": ["aerospace & defense"],
+    "defense": ["aerospace & defense"],
+    "enerji": ["energy", "integrated majors - us", "e&p - us", "oilfield services", "refining & marketing", "midstream & pipeline - us", "lng & shipping", "renewables", "uranium (nükleer talep)"],
+    "energy": ["energy", "integrated majors - us", "e&p - us", "oilfield services", "refining & marketing", "midstream & pipeline - us", "lng & shipping", "renewables", "uranium (nükleer talep)"],
+    "teknoloji": ["technology", "mega-cap platform & cloud", "semiconductors & hardware", "software & cloud applications", "ai & data", "infrastructure & networking", "hardware & devices"],
+    "technology": ["technology", "mega-cap platform & cloud", "semiconductors & hardware", "software & cloud applications", "ai & data", "infrastructure & networking", "hardware & devices"],
+    "çip": ["semiconductors & hardware"],
+    "chip": ["semiconductors & hardware"],
+    "yarı iletken": ["semiconductors & hardware"],
+    "semiconductor": ["semiconductors & hardware"],
+    "yazılım": ["software & cloud applications"],
+    "software": ["software & cloud applications"],
+    "yapay zeka": ["ai & data"],
+    "ai": ["ai & data"],
+    "sağlık": ["healthcare", "large-cap pharma - us", "medical devices & equipment", "diagnostics & services", "health insurance & services"],
+    "healthcare": ["healthcare", "large-cap pharma - us", "medical devices & equipment", "diagnostics & services", "health insurance & services"],
+    "ilaç": ["large-cap pharma - us", "large-cap pharma - global"],
+    "pharma": ["large-cap pharma - us", "large-cap pharma - global"],
+    "finans": ["financials", "money-center banks - us", "investment banking & asset management", "payment networks", "brokerage & exchange", "fintech & crypto"],
+    "financial": ["financials", "money-center banks - us", "investment banking & asset management", "payment networks", "brokerage & exchange", "fintech & crypto"],
+    "banka": ["money-center banks - us", "money-center banks - canada", "money-center banks - europe/asia", "regional banks - us"],
+    "bank": ["money-center banks - us", "money-center banks - canada", "money-center banks - europe/asia", "regional banks - us"],
+    "kripto": ["fintech & crypto"],
+    "crypto": ["fintech & crypto"],
+    "e-ticaret": ["e-commerce & marketplace"],
+    "ecommerce": ["e-commerce & marketplace"],
+    "otomotiv": ["automotive & ev"],
+    "auto": ["automotive & ev"],
+    "elektrikli araç": ["automotive & ev"],
+    "ev": ["automotive & ev"],
+    "ulaşım": ["transportation - rail", "transportation - parcel & air", "transportation - trucking", "transportation - airlines"],
+    "transport": ["transportation - rail", "transportation - parcel & air", "transportation - trucking", "transportation - airlines"],
+    "havayolu": ["transportation - airlines"],
+    "airline": ["transportation - airlines"],
+    "altın": ["gold mining"],
+    "gold": ["gold mining"],
+    "gümüş": ["silver mining"],
+    "silver": ["silver mining"],
+    "bakır": ["copper & base metals"],
+    "copper": ["copper & base metals"],
+    "maden": ["diversified mining", "gold mining", "silver mining", "copper & base metals", "lithium & battery metals"],
+    "mining": ["diversified mining", "gold mining", "silver mining", "copper & base metals", "lithium & battery metals"],
+    "lityum": ["lithium & battery metals"],
+    "lithium": ["lithium & battery metals"],
+    "petrol": ["integrated majors - us", "e&p - us", "oilfield services", "refining & marketing", "midstream & pipeline - us"],
+    "oil": ["integrated majors - us", "e&p - us", "oilfield services", "refining & marketing", "midstream & pipeline - us"],
+    "gaz": ["integrated majors - us", "e&p - us", "midstream & pipeline - us", "lng & shipping"],
+    "gas": ["integrated majors - us", "e&p - us", "midstream & pipeline - us", "lng & shipping"],
+    "yenilenebilir": ["renewables"],
+    "renewable": ["renewables"],
+    "uranyum": ["uranium (nükleer talep)"],
+    "uranium": ["uranium (nükleer talep)"],
+    "gıda": ["food & snacks", "food service distribution"],
+    "food": ["food & snacks", "food service distribution"],
+    "perakende": ["retail", "retail / wholesale"],
+    "retail": ["retail", "retail / wholesale"]
+  };
+
+  const matchedNames = new Set<string>();
+  for (const [key, targetThemes] of Object.entries(mappings)) {
+    if (q.includes(key)) {
+      for (const t of targetThemes) {
+        matchedNames.add(t.toLowerCase());
+      }
+    }
+  }
+
+  for (const theme of MARKET_THEMES) {
+    const tName = theme.name.toLowerCase();
+    const tSector = theme.sector.toLowerCase();
+    if (q.includes(tName) || q.includes(tSector) || matchedNames.has(tName) || matchedNames.has(tSector)) {
+      matched.push(theme);
+    }
+  }
+  return matched;
+}
+
+async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string[]): Promise<any[]> {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "application/json",
@@ -251,6 +344,13 @@ async function fetchGlobalMarketNews(userQuery?: string): Promise<any[]> {
   };
 
   const queries = ["market outlook"];
+  if (matchedTickers && matchedTickers.length > 0) {
+    // Perform targeted scans on the first 4 tickers of matched themes
+    matchedTickers.slice(0, 4).forEach(ticker => {
+      queries.unshift(`${ticker} stock news`);
+    });
+  }
+
   if (userQuery) {
     const cleaned = userQuery.replace(/[/?.,!#*()]/g, "").trim();
     if (cleaned) {
@@ -1620,16 +1720,41 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history);
     }
 
-    // Default Routing with Live News Injection
+    // Default Routing with Live News & Dynamic Sector Screener + Fallback Entegrasyonu
     let finalUserMessage = cleanMsg;
     try {
-      const marketNews = await fetchGlobalMarketNews(cleanMsg);
+      const matchedThemes = findMatchingThemes(cleanMsg);
+      const matchedTickers = Array.from(new Set(matchedThemes.flatMap(t => t.tickers || [])));
+
+      const marketNews = await fetchGlobalMarketNews(cleanMsg, matchedTickers);
+      
+      let contextText = "";
       if (marketNews && marketNews.length > 0) {
         const newsText = marketNews.map(n => `- [${n.publisher}] ${n.title} (İlişkili Hisseler: ${n.entities?.join(", ") || "Yok"})`).join("\n");
-        finalUserMessage = `${cleanMsg}\n\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL HABERLER - SİTELER: YAHOO, CNBC, BENZINGA, GOOGLE FINANS - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n\nYukarıdaki en son canlı haberleri ve hisseleri dikkate alarak yanıtla. Adı geçen tüm şirketlerin ticker sembollerini mutlaka [TICKER](/ai?ticker=TICKER) formatında tıklandığında analiz tetikleyecek şekilde bağımsız tıklanabilir buton/link olarak yaz.`;
+        contextText += `\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL CANLI HABERLER - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n`;
+      }
+
+      if (matchedThemes.length > 0) {
+        const themesText = matchedThemes.map(t => {
+          return `- **Sektör/Tema:** ${t.name} (Ana Sektör: ${t.sector})\n  - **Öne Çıkan Hisse Adayları (Tıklanabilir):** ${t.tickers.map((tic: string) => `[${tic}](/ai?ticker=${tic})`).join(", ")}`;
+        }).join("\n");
+        contextText += `\n[BOGA STOCK TEMATİK/SEKTÖREL VERİTABANI - FALLBACK]:\n${themesText}\n`;
+      }
+
+      if (contextText) {
+        finalUserMessage = `${cleanMsg}\n\n${contextText}\n
+KRİTİK TALİMATLAR (ODAKLI ÇIKTI KONTROLÜ):
+1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıdaki güncel canlı haberleri ve boga stock tematik veritabanını analiz et.
+2. Siber güvenlik, uzay, yapay zeka vb. spesifik alanlarda "güncel haberlerde doğrudan siber güvenlik bulunmuyor" diyerek yanıtı boş geçme! Haberlerde doğrudan geçmiyorsa bile, BOGA STOCK TEMATİK VERİTABANI kısmında yer alan o sektörün öncü hisse adaylarını (Örn: Cybersecurity için PANW, CRWD, FTNT; Uzay/Savunma için LMT, NOC, RTX, LHX, KTOS) doğrudan kullanıcının önüne çıkar.
+3. Yanıtında her zaman en alakalı en fazla 5 adet hisseyi seçip önceliklendir.
+4. Çıktı Yapısı:
+   - Önce sektör/tema hakkında güncel ve isabetli kısa bir özet (1-2 paragraf) ver.
+   - Ardından seçilen en fazla 5 hisseyi alt alta listele ve neden öne çıktıklarını (canlı haberlere veya sektörel liderliğine göre) 1-2 cümle ile kısaca açıkla.
+   - Her hissenin sembolünü mutlaka bağımsız tıklanabilir buton formatında [TICKER](/ai?ticker=TICKER) olarak yaz (Örn: [CRWD](/ai?ticker=CRWD)).
+   - Yanıtı gürültüden arındırılmış, kısa, öz ve net tut.`;
       }
     } catch (e) {
-      console.error("Failed to append global news:", e);
+      console.error("Failed to append global news & themes:", e);
     }
 
     if (useClaude) {
