@@ -206,10 +206,28 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   };
 
   return (
-    <div className="h-screen bg-[#080c14] text-white flex overflow-hidden">
+    <div className="h-screen bg-[#080c14] text-white flex overflow-hidden relative">
+      {/* SIDEBAR BACKDROP ON MOBILE */}
+      {sidebarOpen && (
+        <div 
+          onClick={() => setSidebarOpen(false)} 
+          className="md:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-30 transition-all duration-300 animate-fade-in"
+        />
+      )}
+
       {/* SIDEBAR */}
-      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-52 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
-        <button onClick={newSession} className="m-3 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Oturum</button>
+      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
+        <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
+          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Oturum</button>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
         
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
           <div>
@@ -361,6 +379,20 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           </div>
         </div>
       </div>
+      {/* FLOATING ACTION BUTTON FOR MOBILE SIDEBAR */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="md:hidden fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
+        title="Son Aramalar ve Menü"
+      >
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          {sidebarOpen ? (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+          ) : (
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+          )}
+        </svg>
+      </button>
     </div>
   );
 }
