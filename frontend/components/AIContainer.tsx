@@ -364,10 +364,10 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           )}
         </div>
 
-        {messages.length > 0 && (
-          <div className="px-4 py-4 shrink-0 border-t border-[#1e2a3a]">
-            <div className="max-w-4xl mx-auto w-full">
-              <div className="relative group">
+        <div className="px-4 py-4 shrink-0 border-t border-[#1e2a3a] bg-[#0a0e17]/80 backdrop-blur-md">
+          <div className="max-w-4xl mx-auto w-full">
+            {messages.length > 0 && (
+              <div className="relative group mb-3">
                 <textarea
                   ref={inputRef}
                   value={input}
@@ -382,13 +382,15 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </button>
               </div>
-              <div className="mt-3 text-center space-y-1">
-                <p className="text-[10px] text-[#334155] italic">Finansal piyasa analiz asistanı • Alım/satım tavsiyesi değildir</p>
-                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
-              </div>
+            )}
+            <div className="text-center space-y-1.5">
+              <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
+                ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+              </p>
+              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

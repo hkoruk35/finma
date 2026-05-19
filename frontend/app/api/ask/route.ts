@@ -960,6 +960,36 @@ async function fetchYahooLive(ticker: string) {
   }
 }
 
+async function lookupTickerFromQuery(query: string): Promise<string | null> {
+  const clean = query.trim().toUpperCase();
+  if (/^[A-Z]{1,5}$/.test(clean)) {
+    return clean;
+  }
+
+  try {
+    const headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Accept": "application/json"
+    };
+    const searchUrl = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(query)}&newsCount=0`;
+    const res = await fetch(searchUrl, { headers, signal: AbortSignal.timeout(4000) });
+    if (res.ok) {
+      const data = await res.json();
+      const match = data?.quotes?.find((q: any) => 
+        q.symbol && 
+        (q.quoteType === "EQUITY" || q.quoteType === "ETF" || q.exchange)
+      );
+      if (match && match.symbol) {
+        console.log(`[BOGA AI] Mapped query "${query}" to ticker "${match.symbol.toUpperCase()}" via Yahoo Search`);
+        return match.symbol.toUpperCase();
+      }
+    }
+  } catch (err: any) {
+    console.error(`[BOGA AI] Ticker lookup failed for query "${query}":`, err.message);
+  }
+  return null;
+}
+
 export async function POST(req: NextRequest) {
   let body: { message: string; history?: Message[]; lang?: string };
   try {
@@ -977,10 +1007,27 @@ export async function POST(req: NextRequest) {
   const useClaude = lowerMsg.includes("claude");
   const cleanMsg = message.replace(/claude/gi, "").trim();
 
+  // ── TICKER / COMPANY NAME RESOLUTION ─────────────────────────────────────
+  let resolvedTicker: string | null = null;
+  const isDirectTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
+  
+  if (isDirectTicker && !cleanMsg.startsWith("/")) {
+    resolvedTicker = cleanMsg.toUpperCase();
+  } else {
+    // If it's a short query and not a general question, let's see if it's a company name
+    const isShortQuery = cleanMsg.split(/\s+/).length <= 4 && cleanMsg.length <= 35;
+    const isGeneralQuestion = 
+      cleanMsg.includes("?") || 
+      /^(nedir|nasil|nasıl|neden|niye|kim|ne|hangi|how|what|why|who|where|explain|tanimla|tanımla)/i.test(cleanMsg);
+      
+    if (isShortQuery && !isGeneralQuestion && !cleanMsg.startsWith("/")) {
+      resolvedTicker = await lookupTickerFromQuery(cleanMsg);
+    }
+  }
+
   // ── BOGA SWING TERMINAL — Yerel JSON Motoru ──────────────────────────────
-  const isTicker = /^[a-zA-Z]{1,5}$/.test(cleanMsg);
-  if (isTicker && !cleanMsg.startsWith("/")) {
-    const ticker = cleanMsg.toUpperCase();
+  if (resolvedTicker) {
+    const ticker = resolvedTicker;
 
     // Veri yolları (Vercel + lokal uyumlu)
     const dataPaths = [
@@ -1091,7 +1138,7 @@ export async function POST(req: NextRequest) {
 
     if (!stockJson) {
       return NextResponse.json({
-        text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için Yahoo Finance veya yerel sistemde geçerli veri bulunamadı. Lütfen geçerli bir borsa sembolü girin (Örn: AAPL, TSLA, CLDX, MSFT).`,
+        text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için BOGA Finance AI veya yerel sistemde geçerli veri bulunamadı. Lütfen geçerli bir borsa sembolü girin (Örn: AAPL, TSLA, CLDX, MSFT).`,
         source: "system_warning"
       });
     }
