@@ -50,7 +50,7 @@ export default function Header({
         <span
           className="text-[9px] md:text-xs text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em] -mt-1 md:mt-0"
         >
-          Stock Analysis
+          Financial Analysis
         </span>
       </div>
     </>

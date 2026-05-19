@@ -301,19 +301,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
         <Header hideMenus={true} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
         <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
           {messages.length === 0 && (
-            <div className="space-y-8 mt-12 animate-fade-in max-w-2xl mx-auto w-full">
-              <div className="text-center space-y-2">
-                <div className="inline-flex items-center gap-3">
-                  <BotIcon size="w-10 h-10" />
-                  <h1 className="text-3xl font-black tracking-tighter text-white uppercase italic">
-                    BOGA <span className="text-[#3b82f6]">FINANCE</span> AI
-                  </h1>
-                </div>
-                <p className="text-[#64748b] text-xs font-bold uppercase tracking-[0.2em]">
-                  ABD Borsaları Hisse Senetleri Analiz
-                </p>
-              </div>
-
+            <div className="space-y-8 mt-24 animate-fade-in max-w-2xl mx-auto w-full">
               <div className="relative group">
                 <textarea
                   ref={inputRef}
