@@ -487,6 +487,16 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </div>
 
             <div className="flex justify-between items-center py-0.5">
+              <span className="font-sans font-bold text-slate-400">EMA 200</span>
+              <div className="flex items-center gap-2">
+                <span className="font-bold">${formatNum(ema200)}</span>
+                <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${currentPrice >= ema200 ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
+                  {currentPrice >= ema200 ? "Fiyat Üstünde ✓" : "Fiyat Altında ✗"}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center py-0.5">
               <span className="font-sans font-bold text-slate-400">RSI (14)</span>
               <div className="flex items-center gap-2">
                 <span className="font-bold">{formatNum(rsi, 1)}</span>
@@ -596,6 +606,10 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <span className="font-sans font-bold text-emerald-400">İlk Destek</span>
               <span className="font-bold">${formatNum(support1)}</span>
             </div>
+            <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
+              <span className="font-sans font-bold text-teal-400">EMA 200 Destek</span>
+              <span className="font-bold">${formatNum(ema200)}</span>
+            </div>
             <div className="flex justify-between py-0.5">
               <span className="font-sans font-bold text-[#3b82f6]">Güçlü Destek</span>
               <span className="font-bold">${formatNum(support2)}</span>
@@ -651,19 +665,112 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         </p>
       </div>
 
-      {/* 6. STRATEGY CALLOUT (Blue) */}
-      <div className="bg-[#1d4ed8]/10 border-l-4 border-[#3b82f6] rounded-r-2xl p-5 space-y-2">
-        <div className="flex items-center gap-2 text-[#3b82f6] font-black text-sm">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 002 2H7" />
-          </svg>
-          OLASI SWING SCENARIO STRATEJİSİ
+      {/* SWİNG SENARYOLARI */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
+          <div className="w-1.5 h-4 bg-emerald-500 rounded-full" />
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">SWİNG SENARYOLARI</h3>
         </div>
-        <p className="text-xs text-blue-100/90 leading-relaxed font-sans font-semibold">
-          🎯 **Giriş Bölgesi:** ${formatNum(entryLow)} - ${formatNum(entryHigh)} aralığında hacimli toparlanma mumları. <br className="mt-1" />
-          🏆 **Kâr Alma Hedefleri:** $${formatNum(targetLow)} ve $${formatNum(targetHigh)} direnç bölgeleri. <br className="mt-1" />
-          🛑 **Zarar Kes (Stop Loss):** $${formatNum(stopLoss)} altı günlük kapanış. Risk/Ödül Oranı (R:R): **1:${formatNum(riskReward, 1)}**
-        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* BOĞA SENARYOSU */}
+          <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4.5 space-y-2">
+            <div className="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+              🟢 BOĞA SENARYOSU
+            </div>
+            <p className="text-xs text-emerald-100/80 leading-relaxed font-sans">
+              Fiyatın ${formatNum(support1)} - ${formatNum(ema200)} bölgesinde destek bulması ve onaylanması durumunda, MACD pozitif geçişi ve hacim ivmesi ile yukarı yönelim beklenir.
+            </p>
+            <div className="text-[11px] font-mono text-emerald-400/90 pt-1">
+              Direnç Hedefleri: <span className="font-bold">${formatNum(resistance1)}</span> → <span className="font-bold">${formatNum(resistance2)}</span>
+            </div>
+          </div>
+
+          {/* AYI SENARYOSU */}
+          <div className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-4.5 space-y-2">
+            <div className="flex items-center gap-2 text-rose-400 font-black text-xs uppercase tracking-wider">
+              <span className="flex h-2 w-2 rounded-full bg-rose-400 animate-ping" />
+              🔴 AYI SENARYOSU
+            </div>
+            <p className="text-xs text-rose-100/80 leading-relaxed font-sans">
+              Destek bölgesi olan ${formatNum(support1)} seviyesinin kırılması durumunda, satış baskısı artarak ${formatNum(ema200)} (EMA200) veya ${formatNum(support2)} seviyelerine kadar geri çekilme tetiklenebilir.
+            </p>
+            <div className="text-[11px] font-mono text-rose-400/90 pt-1">
+              Geri Çekilme Hedefleri: <span className="font-bold">${formatNum(ema200)}</span> → <span className="font-bold">${formatNum(support2)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SWİNG TRADE PLANI */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
+          <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">SWİNG TRADE PLANI</h3>
+        </div>
+        <div className="overflow-x-auto rounded-2xl border border-[#1e2a3a]/35 bg-[#070c14]">
+          <table className="w-full text-left text-xs font-mono">
+            <thead>
+              <tr className="bg-[#0f1624] text-slate-400 font-sans border-b border-[#1e2a3a]/30">
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">STRATEJİ</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">GİRİŞ BÖLGESİ</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">HEDEF SEVİYE</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">STOP LOSS</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">R/R ORANI</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#1e2a3a]/20">
+              <tr>
+                <td className="p-3.5 font-sans font-bold text-emerald-400">Dip Alımı (Pullback)</td>
+                <td className="p-3.5 font-bold">${formatNum(support1)}</td>
+                <td className="p-3.5 font-bold">${formatNum(resistance1)}</td>
+                <td className="p-3.5 font-bold text-rose-400">${formatNum(support1 * 0.95)}</td>
+                <td className="p-3.5 font-bold text-slate-300">
+                  {(() => {
+                    const ent = support1;
+                    const tgt = resistance1;
+                    const stp = support1 * 0.95;
+                    const r = ent - stp;
+                    const w = tgt - ent;
+                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.0";
+                  })()}
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-sans font-bold text-[#3b82f6]">EMA200 Bounce</td>
+                <td className="p-3.5 font-bold">${formatNum(ema200 * 1.005)}</td>
+                <td className="p-3.5 font-bold">${formatNum(resistance1)}</td>
+                <td className="p-3.5 font-bold text-rose-400">${formatNum(ema200 * 0.96)}</td>
+                <td className="p-3.5 font-bold text-slate-300">
+                  {(() => {
+                    const ent = ema200 * 1.005;
+                    const tgt = resistance1;
+                    const stp = ema200 * 0.96;
+                    const r = ent - stp;
+                    const w = tgt - ent;
+                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.5";
+                  })()}
+                </td>
+              </tr>
+              <tr>
+                <td className="p-3.5 font-sans font-bold text-purple-400">Kırılım Girişi (Breakout)</td>
+                <td className="p-3.5 font-bold">${formatNum(resistance1 * 1.018)}</td>
+                <td className="p-3.5 font-bold">${formatNum(resistance2)}</td>
+                <td className="p-3.5 font-bold text-rose-400">${formatNum(resistance1 * 0.96)}</td>
+                <td className="p-3.5 font-bold text-slate-300">
+                  {(() => {
+                    const ent = resistance1 * 1.018;
+                    const tgt = resistance2;
+                    const stp = resistance1 * 0.96;
+                    const r = ent - stp;
+                    const w = tgt - ent;
+                    return r > 0 && w > 0 ? `1:${(w / r).toFixed(1)}` : "1:2.0";
+                  })()}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* 6b. BOGA AI FORECAST & SIMULATION ENGINE */}
@@ -969,6 +1076,61 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                   </tbody>
                 </table>
               </div>
+            </div>
+          );
+        })()}
+
+        {/* 9. NEWS & MARKET ANALYSIS SECTION */}
+        {(() => {
+          const newsList = s.news || [];
+          return (
+            <div className="space-y-3 pt-4 border-t border-[#1e2a3a]/40">
+              <div className="flex items-center gap-2">
+                <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
+                <h4 className="text-sm font-black text-white uppercase tracking-widest">📰 GÜNCEL HABERLER & SEKTÖR ANALİZLERİ</h4>
+              </div>
+              {newsList && newsList.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-2">
+                  {newsList.slice(0, 4).map((item: any, idx: number) => {
+                    const pubDate = item.providerPublishTime
+                      ? new Date(item.providerPublishTime * 1000).toLocaleDateString("tr-TR", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric"
+                        })
+                      : "Son Gelişme";
+                    return (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        key={item.uuid || idx}
+                        className="p-3.5 rounded-xl bg-[#0a0e17] border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 hover:bg-[#0d1321] transition-all flex flex-col justify-between group"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between text-[9px] font-black text-slate-500 uppercase tracking-wider mb-2">
+                            <span>{item.publisher || "Yahoo Finance"}</span>
+                            <span>{pubDate}</span>
+                          </div>
+                          <h5 className="text-xs font-black text-white group-hover:text-[#3b82f6] transition-colors leading-snug">
+                            {item.title}
+                          </h5>
+                        </div>
+                        <div className="text-[10px] font-bold text-[#3b82f6] mt-3 flex items-center gap-1">
+                          Haberi Oku
+                          <svg className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p className="text-xs text-slate-400 italic">
+                  Bu şirket veya sektöre ait son 24 saatte yayınlanmış aktif bir haber/analiz bulunmamaktadır.
+                </p>
+              )}
             </div>
           );
         })()}

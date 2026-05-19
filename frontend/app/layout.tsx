@@ -34,7 +34,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: {
-    default: "BOGA AI - Blue One Global Analysis | AI-Powered US Stock Analysis & Signals",
+    default: "Daily AI analysis of +8000 top US stocks by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time",
     template: "%s | BOGA AI"
   },
   description:

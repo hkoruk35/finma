@@ -15,7 +15,15 @@ const NAV_LINKS = [
   { name: "OptAnaliz", href: "/optanaliz" },
 ];
 
-export default function Header({ hideMenus = false }: { hideMenus?: boolean }) {
+export default function Header({
+  hideMenus = false,
+  onLogoClick,
+  onNewQueryClick
+}: {
+  hideMenus?: boolean;
+  onLogoClick?: () => void;
+  onNewQueryClick?: () => void;
+}) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,7 +60,11 @@ export default function Header({ hideMenus = false }: { hideMenus?: boolean }) {
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/80 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
-        {hideMenus ? (
+        {onLogoClick ? (
+          <button onClick={onLogoClick} className="flex items-center gap-2 group text-left focus:outline-none">
+            {logoContent}
+          </button>
+        ) : hideMenus ? (
           <div className="flex items-center gap-2 group cursor-default">
             {logoContent}
           </div>
@@ -81,11 +93,21 @@ export default function Header({ hideMenus = false }: { hideMenus?: boolean }) {
 
         {/* Development Status / Mobile Menu Toggle */}
         <div className="flex items-center gap-3">
-          {isHomePage || hideMenus ? (
+          {onNewQueryClick && (
+            <button
+              onClick={onNewQueryClick}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-black uppercase tracking-widest transition-all animate-pulse"
+            >
+              <span>+</span>
+              <span className="hidden sm:inline">YENİ SORGU</span>
+              <span className="sm:hidden">YENİ</span>
+            </button>
+          )}
+          {(isHomePage || hideMenus) && !onNewQueryClick ? (
             <span className="hidden md:flex text-[10px] font-black uppercase tracking-widest text-[#64748b] border border-[#1e2a3a] px-3 py-1.5 rounded-lg bg-[#0d1117]">
               DEVELOPMENT PHASE
             </span>
-          ) : (
+          ) : !isHomePage && !hideMenus ? (
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-[#64748b] hover:text-white transition-colors"
@@ -98,7 +120,7 @@ export default function Header({ hideMenus = false }: { hideMenus?: boolean }) {
                 )}
               </svg>
             </button>
-          )}
+          ) : null}
         </div>
       </div>
 

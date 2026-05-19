@@ -1142,6 +1142,40 @@ export async function POST(req: NextRequest) {
       try { if (fs.existsSync(p)) { masterJson = JSON.parse(fs.readFileSync(p, "utf-8")); break; } } catch {}
     }
 
+    // Fetch Yahoo Finance Search data for news and correct sector/industry
+    let news: any[] = [];
+    try {
+      const searchRes = await fetch(`https://query2.finance.yahoo.com/v1/finance/search?q=${ticker}`, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Accept": "application/json",
+          "Referer": "https://finance.yahoo.com/"
+        },
+        signal: AbortSignal.timeout(6000)
+      });
+      if (searchRes.ok) {
+        const searchData = await searchRes.json();
+        news = searchData?.news || [];
+        if (stockJson) {
+          const match = searchData?.quotes?.find((q: any) => q.symbol?.toUpperCase() === ticker.toUpperCase());
+          if (match) {
+            if (!stockJson.sector && (match.sector || match.sectorDisp)) {
+              stockJson.sector = match.sectorDisp || match.sector;
+            }
+            if (!stockJson.industry && (match.industry || match.industryDisp)) {
+              stockJson.industry = match.industryDisp || match.industry;
+            }
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Dynamic news fetch error:", err);
+    }
+
+    if (stockJson) {
+      stockJson.news = news;
+    }
+
     if (!stockJson) {
       return NextResponse.json({
         text: `⚠️ **Sembol Bulunamadı:** '${ticker}' için BOGA Finance AI veya yerel sistemde geçerli veri bulunamadı. Lütfen geçerli bir borsa sembolü girin (Örn: AAPL, TSLA, CLDX, MSFT).`,
@@ -1198,12 +1232,20 @@ export async function POST(req: NextRequest) {
     const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
     const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
 
+    const newsHeadlineList = news && news.length > 0
+      ? news.slice(0, 5).map((n: any) => `- [${n.publisher || "Yahoo Finance"}] ${n.title || "Headline"}`).join("\n")
+      : "Son haber bulunamadı.";
+
     const prompt = `Sen BOGA AI swing trading terminalinin analistisin. Aşağıdaki verileri kullanarak ${ticker} için BOGA SWING RAPORU yaz.
 Kritik Kurallar (Format Bütünlüğü):
 1. Rapor formatını, başlıkları, emojileri ve etiketleri kesinlikle TÜRKÇE format şablonunda birebir korumalısın. Başlıkları asla başka bir dile çevirme (Örn: "🌍 PİYASA FİLTRESİ", "💵 FİYAT & HACİM", "┌─ 🎯 İŞLEM PLANI", "📌 ONAY LİSTESİ", "📊 TEKNİK & PERFORMANS", "💼 FİNANSAL SAĞLIK", "⚡ SON KARAR", "AKSİYON", "GEREKÇE" ifadeleri aynen Türkçe olarak kalmalıdır).
 2. Sadece ve sadece başlıkların altındaki açıklamaları, onay listesi yorumlarını ve gerekçeyi (GEREKÇE) kullanıcının sorduğu/istediği dilde (İngilizce ise İngilizce, Türkçe ise Türkçe, Almanca ise Almanca, İspanyolca ise İspanyolca, Arapça ise Arapça vb.) yaz.
 3. Çıktıya kesinlikle hiçbir ön konuşma veya açıklama ekleme ("İşte raporunuz...", "Gerne..." gibi ifadeler kesinlikle yasaktır). Çıktı doğrudan '════════════════════════════════════════' ile başlamalıdır.
 4. Raporun genel tonu ve tüm detay metinleri, hissenin BOGA Skoru (${masterScore}/100) ve Sinyali (${signal}) ile tam uyumlu olmalıdır. Eğer sinyal STRONG_SELL veya SELL ise, detay metinlerinde, onay listesinde, uzun vadeli değerlendirmelerde ve gerekçede asla hisseyi güçlüymüş gibi öven veya alım/biriktirme öneren ifadeler kullanma; aksine teknik/temel zayıflıkları, riskleri ve satım/uzak durma nedenlerini vurgula. Ton ve konu bütünlüğü tam olarak sağlanmalıdır.
+5. Sunulan "📰 Son Şirket Haberleri ve Gelişmeler" listesini analiz ederek "💎 TEMEL HİKAYE & KATALİZÖRLER" ve "💼 FİNANSAL SAĞLIK" bölümlerine en güncel şirket/sektör gelişmelerini, katalizörlerini ve haberlerini entegre et.
+
+📰 Son Şirket Haberleri ve Gelişmeler (Yahoo Finance):
+${newsHeadlineList}
 
 ════════════════════════════════════════
 ${ticker}  |  ${s.sector || "N/A"}  |  ${s.company || ""}
