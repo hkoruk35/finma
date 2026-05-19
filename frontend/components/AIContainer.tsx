@@ -35,29 +35,33 @@ const POPULAR_TICKERS = [
   { ticker: "PLTR", name: "Palantir" }
 ];
 
-function formatInline(text: string) {
+function formatInline(text: string): React.ReactNode {
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[a-zA-Z0-9.-]+\]\(\/ai\?[tT]icker=[a-zA-Z0-9.-]+\))/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**"))
-      return <strong key={i} className="text-white font-bold">{part.slice(2, -2)}</strong>;
-    if (part.startsWith("`") && part.endsWith("`"))
-      return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
-    if (part.startsWith("[") && part.toLowerCase().includes("](/ai?ticker=")) {
-      const ticker = part.substring(1, part.indexOf("]"));
-      return (
-        <button
-          key={i}
-          onClick={() => {
-            window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
-          }}
-          className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
-        >
-          {ticker}
-        </button>
-      );
-    }
-    return part;
-  });
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (part.startsWith("**") && part.endsWith("**"))
+          return <strong key={i} className="text-white font-bold">{formatInline(part.slice(2, -2))}</strong>;
+        if (part.startsWith("`") && part.endsWith("`"))
+          return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
+        if (part.startsWith("[") && part.toLowerCase().includes("](/ai?ticker=")) {
+          const ticker = part.substring(1, part.indexOf("]"));
+          return (
+            <button
+              key={i}
+              onClick={() => {
+                window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
+              }}
+              className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
+            >
+              {ticker}
+            </button>
+          );
+        }
+        return part;
+      })}
+    </>
+  );
 }
 
 function MarkdownText({ text }: { text: string }) {

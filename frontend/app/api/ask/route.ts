@@ -377,7 +377,7 @@ async function searchGoogleNews(query: string, lang = "tr"): Promise<any[]> {
   return [];
 }
 
-async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string[]): Promise<any[]> {
+async function fetchGlobalMarketNews(userQuery?: string, matchedThemes: any[] = []): Promise<any[]> {
   const headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
     "Accept": "application/json",
@@ -385,18 +385,30 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
   };
 
   const queries = ["market outlook"];
-  if (matchedTickers && matchedTickers.length > 0) {
-    matchedTickers.slice(0, 4).forEach(ticker => {
-      queries.unshift(`${ticker} stock news`);
+  
+  if (matchedThemes && matchedThemes.length > 0) {
+    matchedThemes.forEach(t => {
+      queries.unshift(`${t.name} stocks`);
+      const trName = t.name.toLowerCase() === "cybersecurity" ? "siber güvenlik" :
+                     t.name.toLowerCase().includes("aerospace") ? "uzay" : t.name;
+      queries.unshift(`${trName} hisseleri`);
+      if (t.tickers && t.tickers.length > 0) {
+        t.tickers.slice(0, 3).forEach((tic: string) => {
+          queries.unshift(`${tic} stock news`);
+        });
+      }
     });
   }
 
   if (userQuery) {
-    const cleaned = userQuery.replace(/[/?.,!#*()]/g, "").trim();
-    if (cleaned) {
-      queries.unshift(cleaned);
-      const translated = translateQueryToEnglish(cleaned);
-      if (translated !== cleaned) {
+    const clean = userQuery.replace(/[/?.,!#*()]/g, " ").trim();
+    const stopWords = ["neler", "almalıyım", "hangileri", "ne", "nedir", "nelerdir", "önerirsiniz", "tavsiye", "edersiniz", "hakkında", "analiz", "yorumu", "hisselerinden", "hisseleri", "hissesi", "stocks", "stock"];
+    const keywords = clean.split(/\s+/).filter(w => w.length > 2 && !stopWords.includes(w.toLowerCase()));
+    if (keywords.length > 0) {
+      const searchTerms = keywords.join(" ");
+      queries.unshift(searchTerms);
+      const translated = translateQueryToEnglish(searchTerms);
+      if (translated !== searchTerms) {
         queries.unshift(translated);
       }
     }
@@ -408,7 +420,7 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
   const titles = new Set<string>();
 
   // Parallel Google News fetching
-  const primaryQueries = queries.slice(0, 3);
+  const primaryQueries = Array.from(new Set(queries)).slice(0, 5);
   for (const q of primaryQueries) {
     try {
       const [gTr, gEn] = await Promise.all([
@@ -428,7 +440,7 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
   }
 
   // Fetch from Yahoo Finance Search
-  for (const q of queries) {
+  for (const q of primaryQueries) {
     try {
       const url = `https://query2.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=15`;
       const res = await fetch(url, { headers, signal: AbortSignal.timeout(4000) });
@@ -452,7 +464,7 @@ async function fetchGlobalMarketNews(userQuery?: string, matchedTickers?: string
       console.error(`fetchGlobalMarketNews error for query "${q}":`, err.message);
     }
   }
-  return newsItems.slice(0, 15);
+  return newsItems.slice(0, 25);
 }
 
 function calcEMA(prices: number[], period: number): number {
@@ -1786,9 +1798,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     let finalUserMessage = cleanMsg;
     try {
       const matchedThemes = findMatchingThemes(cleanMsg);
-      const matchedTickers = Array.from(new Set(matchedThemes.flatMap(t => t.tickers || [])));
-
-      const marketNews = await fetchGlobalMarketNews(cleanMsg, matchedTickers);
+      const marketNews = await fetchGlobalMarketNews(cleanMsg, matchedThemes);
       
       let contextText = "";
       if (marketNews && marketNews.length > 0) {
@@ -1801,7 +1811,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
 KRİTİK TALİMATLAR (ODAKLI CANLI ÇIKTI KONTROLÜ VE FORMAT):
 1. Kullanıcının sorduğu sektör, tema veya hisse grubu için yukarıda canlı arama motorundan gelen güncel canlı web ve borsa haberlerini analiz et.
 2. Hiçbir şekilde "veritabanı", "fallback", "sistem kısıtı", "yerel veri", "Alpha Commander" vb. teknik/sistem terimlerini veya bot isimlerini KESİNLİKLE KULLANMA. 
-3. Canlı haberlerden ve verilerden yararlanarak en alakalı en fazla 5 hisseyi belirle ve listele.
+3. Canlı haberlerden ve verilerden yararlanarak en az 5 adet en alakalı hisseyi belirle ve listele. Yanıtında kesinlikle en az 5 adet hisseye yer ver, asla 5'ten az hisse önerme.
 4. Yanıtı tamamen doğal, akıcı ve şablon kalıp kelimelerden (Örn: "Sektör Odağı", "Teknik ve Temel Durum", "Alpha Commander Notu" gibi kalıp ifadeler) arındırılmış bir şekilde yaz. Her hisseyi kendi cümlelerinle doğal paragraflarla açıkla.
 5. Yanıtı şu sade yapıda oluştur:
 
@@ -1814,7 +1824,7 @@ DETAYLI HİSSE LİSTESİ
 * **[TICKER](/ai?ticker=TICKER)** (Şirket Adı)
   [Hissenin o sektördeki rolünü, en son canlı gelişmelerini, kontratlarını, finansal gücünü ve genel durumunu anlatan 3-4 cümlelik tamamen doğal ve akıcı bir analiz paragrafı yaz. Hiçbir kalıp alt başlık/şablon ifadesi kullanma.]
 
-(Listelenecek her hisse için yukarıdaki sade yapıyı uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
+(Listelenecek en az 5 hisse için yukarıdaki sade yapıyı uygula. Ticker butonlarını mutlaka [TICKER](/ai?ticker=TICKER) formatında bağımsız link/buton olarak yaz, Örn: [LMT](/ai?ticker=LMT)).`;
       }
     } catch (e) {
       console.error("Failed to append global news:", e);
