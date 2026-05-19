@@ -263,7 +263,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Hisse senetleri hakkında sor..."
+                  placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
                   rows={1}
                   className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none pr-14 group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
                 />
@@ -342,7 +342,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Hisse senetleri hakkında sor..."
+                  placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
                   rows={1}
                   className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none pr-14 group-hover:border-[#3b82f6]/40"
                   disabled={loading}
