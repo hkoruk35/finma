@@ -1377,6 +1377,67 @@ async function translateNewsList(news: any[], apiKey: string): Promise<any[]> {
   return news;
 }
 
+async function fetchMarketIndicesAndSector(sectorName: string) {
+  const sectorMap: Record<string, string> = {
+    "technology": "XLK",
+    "energy": "XLE",
+    "financials": "XLF",
+    "financial services": "XLF",
+    "healthcare": "XLV",
+    "consumer discretionary": "XLY",
+    "consumer cyclical": "XLY",
+    "consumer staples": "XLP",
+    "consumer defensive": "XLP",
+    "industrials": "XLI",
+    "materials": "XLB",
+    "basic materials": "XLB",
+    "real estate": "XLRE",
+    "utilities": "XLU",
+    "communication services": "XLC"
+  };
+  const targetSectorEtf = sectorMap[(sectorName || "").toLowerCase()] || "";
+  const tickersToFetch = ["^GSPC", "^IXIC", "^VIX"];
+  if (targetSectorEtf) {
+    tickersToFetch.push(targetSectorEtf);
+  }
+
+  const results: Record<string, { price: number | null; change_1d: number | null }> = {};
+  
+  await Promise.all(tickersToFetch.map(async (ticker) => {
+    try {
+      const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`;
+      const res = await fetch(url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "Accept": "application/json"
+        },
+        signal: AbortSignal.timeout(4000)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const chart = data?.chart?.result?.[0];
+        if (chart) {
+          const closes = (chart.indicators?.quote?.[0]?.close || []).filter((v: any) => v != null);
+          const current = chart.meta?.regularMarketPrice ?? closes[closes.length - 1];
+          const prev = closes[closes.length - 2] ?? closes[closes.length - 1];
+          const change = prev ? ((current - prev) / prev) * 100 : null;
+          results[ticker] = { price: current, change_1d: change };
+        }
+      }
+    } catch (e) {
+      console.error(`Failed to fetch index/ETF: ${ticker}`, e);
+    }
+  }));
+
+  return {
+    sp500Change: results["^GSPC"]?.change_1d ?? null,
+    nasdaqChange: results["^IXIC"]?.change_1d ?? null,
+    vixPrice: results["^VIX"]?.price ?? null,
+    sectorEtf: targetSectorEtf || "N/A",
+    sectorChange: targetSectorEtf ? (results[targetSectorEtf]?.change_1d ?? null) : null
+  };
+}
+
 export async function POST(req: NextRequest) {
   let body: { message: string; history?: Message[]; lang?: string };
   try {
@@ -1568,6 +1629,18 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Fetch market indices and sector status
+    const marketOverview = await fetchMarketIndicesAndSector(stockJson.sector || "");
+    if (stockJson) {
+      stockJson.market_overview = marketOverview;
+    }
+
+    const sp500ChangeStr = marketOverview.sp500Change != null ? (marketOverview.sp500Change >= 0 ? "+" : "") + marketOverview.sp500Change.toFixed(2) + "%" : "N/A";
+    const nasdaqChangeStr = marketOverview.nasdaqChange != null ? (marketOverview.nasdaqChange >= 0 ? "+" : "") + marketOverview.nasdaqChange.toFixed(2) + "%" : "N/A";
+    const vixPriceStr = marketOverview.vixPrice != null ? marketOverview.vixPrice.toFixed(2) : "N/A";
+    const sectorChangeStr = marketOverview.sectorChange != null ? (marketOverview.sectorChange >= 0 ? "+" : "") + marketOverview.sectorChange.toFixed(2) + "%" : "N/A";
+    const sectorEtf = marketOverview.sectorEtf;
+
     // Verileri düzenli şekilde çıkar
     const s = stockJson;
     const pr = s.price || {};
@@ -1628,6 +1701,13 @@ Kritik Kurallar (Format Bütünlüğü):
 3. Çıktıya kesinlikle hiçbir ön konuşma veya açıklama ekleme ("İşte raporunuz...", "Gerne..." gibi ifadeler kesinlikle yasaktır). Çıktı doğrudan '════════════════════════════════════════' ile başlamalıdır.
 4. Raporun genel tonu ve tüm detay metinleri, hissenin BOGA Skoru (${masterScore}/100) ve Sinyali (${signal}) ile tam uyumlu olmalıdır. Eğer sinyal STRONG_SELL veya SELL ise, detay metinlerinde, onay listesinde, uzun vadeli değerlendirmelerde ve gerekçede asla hisseyi güçlüymüş gibi öven veya alım/biriktirme öneren ifadeler kullanma; aksine teknik/temel zayıflıkları, riskleri ve satım/uzak durma nedenlerini vurgula. Ton ve konu bütünlüğü tam olarak sağlanmalıdır.
 5. Sunulan "📰 Son Şirket Haberleri ve Gelişmeler" listesini analiz ederek "💎 TEMEL HİKAYE & KATALİZÖRLER" ve "💼 FİNANSAL SAĞLIK" bölümlerine en güncel şirket/sektör gelişmelerini, katalizörlerini ve haberlerini entegre et.
+6. Eğer endeksler (S&P 500 / NASDAQ) ve sektörel değişim oranı negatif ise (düşüyorsa), rapordaki "🌍 PİYASA FİLTRESİ" ve "⚡ SON KARAR" bölümlerinde mutlaka "Endeksler ve sektörel görünüm düştüğü için alımlarda daha dikkatli olunmalı veya temkinli yaklaşım benimsenmelidir" uyarısını ekle.
+
+📊 CANLI PİYASA & SEKTÖR MATRİSİ:
+• S&P 500 Değişim Oranı: ${sp500ChangeStr}
+• NASDAQ Değişim Oranı: ${nasdaqChangeStr}
+• VIX Korku Endeksi: ${vixPriceStr}
+• Sektör Durumu (${s.sector || "N/A"}): ${sectorEtf} ETF Değişim Oranı: ${sectorChangeStr}
 
 📰 Son Şirket Haberleri ve Gelişmeler (Yahoo Finance):
 ${newsHeadlineList}

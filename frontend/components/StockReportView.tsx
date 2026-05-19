@@ -12,9 +12,50 @@ interface StockReportViewProps {
 
 export default function StockReportView({ ticker, stockData }: StockReportViewProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  const reportRef = useRef<HTMLDivElement>(null);
   const [showChart, setShowChart] = useState(true);
   const [inWatchlist, setInWatchlist] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const handleExportPDF = async () => {
+    if (!reportRef.current) return;
+    setExportingPdf(true);
+    try {
+      const html2canvas = (await import("html2canvas")).default;
+      const jsPDF = (await import("jspdf")).jsPDF;
+
+      const canvas = await html2canvas(reportRef.current, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#0a0e17",
+        logging: false
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save(`BOGA_AI_${ticker.toUpperCase()}_Raporu.pdf`);
+    } catch (err) {
+      console.error("PDF export failed:", err);
+    } finally {
+      setExportingPdf(false);
+    }
+  };
 
   const SYSTEM_THEME_CATEGORIES = [
     "Mega-cap Platform & Cloud",
@@ -113,6 +154,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const tech = s.technical || {};
   const fund = s.fundamental || {};
   const sd = s.scores_detail || s.strategy || {};
+  
+  const mo = s.market_overview || {};
+  const sp500ChangeVal = mo.sp500Change;
+  const nasdaqChangeVal = mo.nasdaqChange;
+  const vixPriceVal = mo.vixPrice;
+  const sectorEtfVal = mo.sectorEtf || "N/A";
+  const sectorChangeVal = mo.sectorChange;
 
   const companyName = s.company || `${ticker} Corp.`;
   const sector = s.sector || "General Market";
@@ -203,7 +251,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       : "bg-amber-500/10 text-amber-400 border-amber-500/30";
 
   const reportContent = (
-    <div className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
+    <div ref={reportRef} className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
       
       {/* 1. HEADER BLOCK */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#1e2a3a]/40 pb-6">
@@ -213,7 +261,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             <span className="text-lg text-slate-400 font-bold">— {companyName}</span>
           </div>
           <p className="text-xs text-[#3b82f6] font-mono tracking-widest uppercase mt-1">
-            Swing Trade Analizi • 1G Grafik • {sector} — {industry}
+            Swing Trade Analizi • 1G Grafik • {sector} — {industry} • Analiz Zamanı: {new Date(s.generated_at || Date.now()).toLocaleString("tr-TR")}
           </p>
           <div className="flex flex-wrap items-center gap-3 mt-4">
             <button 
@@ -228,6 +276,29 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.233.582 1.83l-3.97 2.9c-.83.605-1.17 1.693-.833 2.677l1.518 4.674c.3.922-.755 1.688-1.538 1.11l-3.969-2.9a1 1 0 00-1.17 0l-3.97 2.9c-.783.57-1.838-.197-1.538-1.11l1.518-4.674a1 1 0 00-.833-2.677l-3.97-2.9c-.779-.597-.38-1.83.582-1.83h4.907a1 1 0 00.95-.69l1.519-4.674z" />
               </svg>
               {inWatchlist ? "Takip Listesinde" : "Takip Listesine Ekle"}
+            </button>
+
+            <button 
+              onClick={handleExportPDF}
+              disabled={exportingPdf}
+              className="flex items-center gap-1.5 px-4 py-2 border rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-[#141924] text-slate-300 border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white disabled:opacity-50"
+            >
+              {exportingPdf ? (
+                <>
+                  <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  PDF Hazırlanıyor...
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  PDF Kaydet
+                </>
+              )}
             </button>
 
             <button 
@@ -331,6 +402,100 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         </div>
       </div>
       
+      {/* CANLI PİYASA & SEKTÖR MATRİSİ */}
+      <div className="space-y-3">
+        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 px-1">
+          <span>📊</span> CANLI PİYASA & SEKTÖREL DURUM MATRİSİ
+        </h4>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* S&P 500 Card */}
+          <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">S&P 500 Endeksi</span>
+            <div>
+              <div className="text-lg font-black text-white font-mono">
+                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "+" : "") + sp500ChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${sp500ChangeVal != null && sp500ChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+              </span>
+            </div>
+          </div>
+
+          {/* NASDAQ Card */}
+          <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">NASDAQ Endeksi</span>
+            <div>
+              <div className="text-lg font-black text-white font-mono">
+                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "+" : "") + nasdaqChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${nasdaqChangeVal != null && nasdaqChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+              </span>
+            </div>
+          </div>
+
+          {/* VIX Korku Endeksi */}
+          <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">VIX Korku Endeksi</span>
+            <div>
+              <div className="text-lg font-black text-white font-mono">
+                {vixPriceVal != null ? vixPriceVal.toFixed(2) : "Yükleniyor..."}
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${vixPriceVal != null && vixPriceVal > 20 ? "text-rose-400" : "text-emerald-400"}`}>
+                {vixPriceVal != null ? (vixPriceVal > 20 ? "⚠️ YÜKSEK VOLATİLİTE" : "✓ DÜŞÜK RİSK") : "Canlı Veri"}
+              </span>
+            </div>
+          </div>
+
+          {/* Sektör Değişim Oranı */}
+          <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
+            <div className="flex justify-between items-center">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{sector} ({sectorEtfVal})</span>
+            </div>
+            <div>
+              <div className="text-lg font-black text-white font-mono">
+                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "+" : "") + sectorChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-wider ${sectorChangeVal != null && sectorChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Dinamik Uyarı Banner'ı */}
+        {(() => {
+          const isIndicesDown = (sp500ChangeVal != null && sp500ChangeVal < 0) || (nasdaqChangeVal != null && nasdaqChangeVal < 0);
+          const isSectorDown = sectorChangeVal != null && sectorChangeVal < 0;
+          
+          if (isIndicesDown || isSectorDown) {
+            return (
+              <div className="bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 flex items-start gap-3 mt-2">
+                <span className="text-xl">⚠️</span>
+                <div>
+                  <div className="text-xs font-black text-rose-400 uppercase tracking-wider">TEMKİNLİ YAKLAŞIM VE DİKKATLİ ALIM ÖNERİSİ</div>
+                  <p className="text-[11px] text-slate-300 font-medium leading-relaxed mt-0.5">
+                    Genel endeksler (S&P 500 / NASDAQ) veya sektörel trendler düşüş eğilimindedir. Piyasa risk iştahı zayıf olduğundan, alımlarda acele edilmemeli, daha dikkatli alım yapılmalı ve kademeli temkinli yaklaşım benimsenmelidir.
+                  </p>
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 flex items-start gap-3 mt-2">
+                <span className="text-xl">✓</span>
+                <div>
+                  <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">PİYASA VE SEKTÖR KOŞULLARI DENGELİ</div>
+                  <p className="text-[11px] text-slate-300 font-medium leading-relaxed mt-0.5">
+                    Endeksler ve sektörel ivme stabil veya pozitif seyrediyor. Belirlenen ana swing planına ve kademe seviyelerine sadık kalınarak işleme devam edilebilir.
+                  </p>
+                </div>
+              </div>
+            );
+          }
+        })()}
+      </div>
+
       {/* BOGA AI MULTI-HORIZON SUITABILITY RADAR */}
       <div className="space-y-3">
         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 px-1">
