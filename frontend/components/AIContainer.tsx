@@ -267,7 +267,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
         <Header hideMenus={true} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
-        <div ref={scrollRef} className="flex-1 overflow-y-auto min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
           {messages.length === 0 && (
             <div className="space-y-8 mt-12 animate-fade-in max-w-2xl mx-auto w-full">
               <div className="text-center space-y-2">
