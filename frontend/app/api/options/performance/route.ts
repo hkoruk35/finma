@@ -110,7 +110,7 @@ function measureHttpsLatency(urlStr: string): Promise<LatencyBreakdown> {
       res.on("end", () => {
         timings.end = Date.now();
         const body = Buffer.concat(chunks).toString("utf-8");
-        const contentValid = body.includes("BOGA AI") || body.includes("Terminal") || body.includes("options");
+        const contentValid = body.includes("BOGA AI") || body.includes("Terminal") || body.includes("options") || body.includes("Giriş") || body.includes("login");
 
         // Timings math
         const dnsTime = timings.dnsResolved ? timings.dnsResolved - timings.start : 0;
@@ -189,7 +189,7 @@ function measureHttpsLatency(urlStr: string): Promise<LatencyBreakdown> {
 
 export async function GET(request: Request) {
   try {
-    const url = "https://bogastock.com/options";
+    const url = "https://bogastock.com/login";
     
     // 1. Measure latency
     const metrics = await measureHttpsLatency(url);
