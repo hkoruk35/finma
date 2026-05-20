@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
-import dns from "dns";
-import net from "net";
+import https from "https";
 import tls from "tls";
+import dns from "dns";
 import fs from "fs";
 import path from "path";
+import { URL } from "url";
 
 export const dynamic = "force-dynamic";
 
@@ -75,13 +75,10 @@ function getSSLCertificateExpiry(hostname: string): Promise<{ daysLeft: number; 
   });
 }
 
-// Measure Latency breakdown
-function measureLatency(urlStr: string): Promise<LatencyBreakdown> {
+// Measure HTTPS timing breakdown using standard Node.js https module
+function measureHttpsLatency(urlStr: string): Promise<LatencyBreakdown> {
   const url = new URL(urlStr);
-  const hostname = url.hostname;
-  const port = url.port ? parseInt(url.port) : (url.protocol === 'https:' ? 443 : 80);
-  const pathStr = url.pathname + url.search;
-
+  
   const timings = {
     start: Date.now(),
     dnsResolved: 0,
@@ -92,156 +89,110 @@ function measureLatency(urlStr: string): Promise<LatencyBreakdown> {
   };
 
   return new Promise((resolve) => {
-    dns.lookup(hostname, (err, ip) => {
-      if (err) {
-        return resolve({
+    const req = https.request({
+      hostname: url.hostname,
+      port: 443,
+      path: url.pathname + url.search,
+      method: "GET",
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) BOGAMonitor/1.0",
+        "Accept": "text/html"
+      },
+      timeout: 6000
+    }, (res) => {
+      timings.firstByte = Date.now();
+      
+      const chunks: Buffer[] = [];
+      res.on("data", (chunk: Buffer) => {
+        chunks.push(chunk);
+      });
+
+      res.on("end", () => {
+        timings.end = Date.now();
+        const body = Buffer.concat(chunks).toString("utf-8");
+        const contentValid = body.includes("BOGA AI") || body.includes("Terminal") || body.includes("options");
+
+        // Timings math
+        const dnsTime = timings.dnsResolved ? timings.dnsResolved - timings.start : 0;
+        const connectTime = timings.connected && timings.dnsResolved ? timings.connected - timings.dnsResolved : 0;
+        const sslTime = timings.sslHandshake && timings.connected ? timings.sslHandshake - timings.connected : 0;
+        
+        // Handle TTFB math correctly based on SSL or plain TCP
+        const lastSecureTime = timings.sslHandshake || timings.connected || timings.dnsResolved || timings.start;
+        const ttfbTime = timings.firstByte - lastSecureTime;
+        const downloadTime = timings.end - timings.firstByte;
+        const totalTime = timings.end - timings.start;
+
+        resolve({
           timestamp: new Date().toISOString(),
-          dnsTime: 0, connectTime: 0, sslTime: 0, ttfbTime: 0, downloadTime: 0,
-          totalTime: Date.now() - timings.start, statusCode: 0, pageSize: 0,
-          contentValid: false, error: `DNS lookup failed: ${err.message}`
+          dnsTime: Math.max(0, dnsTime),
+          connectTime: Math.max(0, connectTime),
+          sslTime: Math.max(0, sslTime),
+          ttfbTime: Math.max(0, ttfbTime),
+          downloadTime: Math.max(0, downloadTime),
+          totalTime: Math.max(0, totalTime),
+          statusCode: res.statusCode || 0,
+          pageSize: body.length,
+          contentValid
         });
-      }
-      timings.dnsResolved = Date.now();
-
-      const socket = new net.Socket();
-      socket.setTimeout(8000);
-
-      socket.connect(port, ip, () => {
-        timings.connected = Date.now();
-
-        let client: any = socket;
-
-        if (url.protocol === 'https:') {
-          const secureSocket = tls.connect({
-            socket: socket,
-            servername: hostname,
-            rejectUnauthorized: false
-          }, () => {
-            timings.sslHandshake = Date.now();
-            sendRequest(secureSocket);
-          });
-
-          secureSocket.on('error', (e) => {
-            socket.destroy();
-            resolve(buildErrorResult(timings, `SSL Handshake failed: ${e.message}`));
-          });
-
-          client = secureSocket;
-        } else {
-          timings.sslHandshake = timings.connected;
-          sendRequest(socket);
-        }
-
-        function sendRequest(stream: any) {
-          const request = 
-            `GET ${pathStr} HTTP/1.1\r\n` +
-            `Host: ${hostname}\r\n` +
-            `User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) BOGAMonitor/1.0\r\n` +
-            `Accept: text/html\r\n` +
-            `Connection: close\r\n\r\n`;
-
-          stream.write(request);
-
-          let firstByteReceived = false;
-          const chunks: Buffer[] = [];
-          let statusCode = 0;
-
-          stream.on('data', (chunk: Buffer) => {
-            if (!firstByteReceived) {
-              timings.firstByte = Date.now();
-              firstByteReceived = true;
-            }
-            chunks.push(chunk);
-          });
-
-          stream.on('end', () => {
-            timings.end = Date.now();
-            const body = Buffer.concat(chunks).toString('utf-8');
-            
-            const statusLine = body.split('\r\n')[0];
-            const statusMatch = statusLine.match(/HTTP\/1\.[01]\s+(\d+)/);
-            if (statusMatch) {
-              statusCode = parseInt(statusMatch[1]);
-            }
-
-            // Check page validity: bogastock.com/options redirects or serves terminal page
-            const contentValid = body.includes("BOGA AI") || body.includes("Terminal") || body.includes("Giriş") || body.includes("options");
-
-            const dnsTime = timings.dnsResolved - timings.start;
-            const connectTime = timings.connected - timings.dnsResolved;
-            const sslTime = timings.sslHandshake - timings.connected;
-            const ttfbTime = timings.firstByte - timings.sslHandshake;
-            const downloadTime = timings.end - timings.firstByte;
-            const totalTime = timings.end - timings.start;
-
-            resolve({
-              timestamp: new Date().toISOString(),
-              dnsTime: Math.max(0, dnsTime),
-              connectTime: Math.max(0, connectTime),
-              sslTime: Math.max(0, sslTime),
-              ttfbTime: Math.max(0, ttfbTime),
-              downloadTime: Math.max(0, downloadTime),
-              totalTime: Math.max(0, totalTime),
-              statusCode,
-              pageSize: body.length,
-              contentValid
-            });
-          });
-        }
-      });
-
-      socket.on('error', (e) => {
-        socket.destroy();
-        resolve(buildErrorResult(timings, `Connection failed: ${e.message}`));
-      });
-
-      socket.on('timeout', () => {
-        socket.destroy();
-        resolve(buildErrorResult(timings, 'Connection timeout'));
       });
     });
+
+    req.on("socket", (socket) => {
+      socket.on("lookup", () => {
+        timings.dnsResolved = Date.now();
+      });
+      socket.on("connect", () => {
+        timings.connected = Date.now();
+      });
+      socket.on("secureConnect", () => {
+        timings.sslHandshake = Date.now();
+      });
+    });
+
+    req.on("error", (e) => {
+      resolve({
+        timestamp: new Date().toISOString(),
+        dnsTime: 0,
+        connectTime: 0,
+        sslTime: 0,
+        ttfbTime: 0,
+        downloadTime: 0,
+        totalTime: Date.now() - timings.start,
+        statusCode: 0,
+        pageSize: 0,
+        contentValid: false,
+        error: e.message
+      });
+    });
+
+    req.on("timeout", () => {
+      req.destroy();
+      resolve({
+        timestamp: new Date().toISOString(),
+        dnsTime: 0,
+        connectTime: 0,
+        sslTime: 0,
+        ttfbTime: 0,
+        downloadTime: 0,
+        totalTime: Date.now() - timings.start,
+        statusCode: 0,
+        pageSize: 0,
+        contentValid: false,
+        error: "Connection timeout"
+      });
+    });
+
+    req.end();
   });
 }
 
-function buildErrorResult(timings: any, errorMsg: string): LatencyBreakdown {
-  const now = Date.now();
-  const dnsTime = timings.dnsResolved ? timings.dnsResolved - timings.start : 0;
-  const connectTime = timings.connected && timings.dnsResolved ? timings.connected - timings.dnsResolved : 0;
-  const sslTime = timings.sslHandshake && timings.connected ? timings.sslHandshake - timings.connected : 0;
-  
-  return {
-    timestamp: new Date().toISOString(),
-    dnsTime,
-    connectTime,
-    sslTime,
-    ttfbTime: 0,
-    downloadTime: 0,
-    totalTime: now - timings.start,
-    statusCode: 0,
-    pageSize: 0,
-    contentValid: false,
-    error: errorMsg
-  };
-}
-
 export async function GET(request: Request) {
-  const headerList = await headers();
-  const host = headerList.get("host") || "";
-  const isLocal = host.includes("localhost") || host.includes("127.0.0.1");
-
-  // Enforce local execution
-  if (process.env.VERCEL || !isLocal) {
-    return NextResponse.json({ 
-      success: false, 
-      error: "Manuel tarama işlemi yalnızca lokal terminal sunucusunda (localhost:3000) çalıştırılabilir. Vercel üzerinden erişilemez." 
-    }, { status: 403 });
-  }
-
   try {
     const url = "https://bogastock.com/options";
     
     // 1. Measure latency
-    const metrics = await measureLatency(url);
+    const metrics = await measureHttpsLatency(url);
     
     // 2. Fetch SSL certificate details
     const sslInfo = await getSSLCertificateExpiry("bogastock.com");
@@ -251,42 +202,45 @@ export async function GET(request: Request) {
       metrics.sslIssuer = sslInfo.issuer;
     }
 
-    // 3. Log/Save to history file
-    // @ts-ignore
-    const projectRoot = path.resolve(/* turbopackIgnore: true */ process.cwd(), "..");
-    // @ts-ignore
-    const logsDir = path.join(/* turbopackIgnore: true */ projectRoot, "logs");
-    if (!fs.existsSync(logsDir)) {
-      fs.mkdirSync(logsDir, { recursive: true });
-    }
-    // @ts-ignore
-    const historyFile = path.join(/* turbopackIgnore: true */ logsDir, "web_performance_history.json");
-    
+    const isVercel = !!process.env.VERCEL;
     let history: LatencyBreakdown[] = [];
-    if (fs.existsSync(historyFile)) {
+
+    // Only attempt local filesystem logging in non-Vercel dev environment
+    if (!isVercel) {
       try {
-        const fileContent = fs.readFileSync(historyFile, "utf-8");
-        history = JSON.parse(fileContent);
+        // @ts-ignore
+        const projectRoot = path.resolve(/* turbopackIgnore: true */ process.cwd(), "..");
+        // @ts-ignore
+        const logsDir = path.join(/* turbopackIgnore: true */ projectRoot, "logs");
+        if (!fs.existsSync(logsDir)) {
+          fs.mkdirSync(logsDir, { recursive: true });
+        }
+        // @ts-ignore
+        const historyFile = path.join(/* turbopackIgnore: true */ logsDir, "web_performance_history.json");
+        
+        if (fs.existsSync(historyFile)) {
+          try {
+            const fileContent = fs.readFileSync(historyFile, "utf-8");
+            history = JSON.parse(fileContent);
+          } catch (e) {
+            history = [];
+          }
+        }
+
+        history.push(metrics);
+        if (history.length > 100) {
+          history = history.slice(history.length - 100);
+        }
+        fs.writeFileSync(historyFile, JSON.stringify(history, null, 2), "utf-8");
       } catch (e) {
-        history = [];
+        console.error("Local history save error:", e);
       }
     }
-
-    // Add current metrics to history
-    history.push(metrics);
-    
-    // Truncate to keep only last 100 entries to prevent huge logs
-    if (history.length > 100) {
-      history = history.slice(history.length - 100);
-    }
-    
-    // Save history
-    fs.writeFileSync(historyFile, JSON.stringify(history, null, 2), "utf-8");
 
     return NextResponse.json({
       success: true,
       current: metrics,
-      history: history.reverse() // Return latest first
+      history: history.length > 0 ? history.reverse() : [metrics]
     });
 
   } catch (error: any) {
@@ -294,14 +248,10 @@ export async function GET(request: Request) {
   }
 }
 
-// Allow clearing logs via DELETE request
+// Allow clearing logs via DELETE request (only supported locally)
 export async function DELETE() {
-  const headerList = await headers();
-  const host = headerList.get("host") || "";
-  const isLocal = host.includes("localhost") || host.includes("127.0.0.1");
-
-  if (process.env.VERCEL || !isLocal) {
-    return NextResponse.json({ success: false, error: "Access Denied" }, { status: 403 });
+  if (process.env.VERCEL) {
+    return NextResponse.json({ success: false, error: "Not supported in production" }, { status: 403 });
   }
 
   try {

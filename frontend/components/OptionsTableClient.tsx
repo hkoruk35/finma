@@ -206,6 +206,13 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
           <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-bold">
             Institutional Terminal
           </span>
+          <Link 
+            href="/options/monitor" 
+            className="text-[9px] text-[#3b82f6] hover:text-white bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-widest font-bold flex items-center gap-1 transition-colors ml-2"
+          >
+            <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse" />
+            Performance Monitor ⚡
+          </Link>
         </div>
         <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">

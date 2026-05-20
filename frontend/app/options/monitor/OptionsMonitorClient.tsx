@@ -42,7 +42,31 @@ export default function OptionsMonitorClient() {
       const data = await res.json();
       if (data.success) {
         setCurrent(data.current);
-        setHistory(data.history || []);
+        
+        setHistory(prev => {
+          let combined = [...(data.history || [])];
+          if (combined.length <= 1) {
+            combined = [data.current, ...prev];
+          }
+          
+          const seen = new Set();
+          const deduped = combined.filter(item => {
+            if (!item || !item.timestamp) return false;
+            const duplicate = seen.has(item.timestamp);
+            seen.add(item.timestamp);
+            return !duplicate;
+          });
+          
+          deduped.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+          const truncated = deduped.slice(0, 100);
+          
+          try {
+            localStorage.setItem("boga_performance_history", JSON.stringify(truncated));
+          } catch (e) {}
+          
+          return truncated;
+        });
+        
         setError(null);
       } else {
         throw new Error(data.error || "Ölçüm yapılamadı");
@@ -58,13 +82,19 @@ export default function OptionsMonitorClient() {
   const clearLogs = async () => {
     if (!confirm("Tüm tarama geçmişini silmek istediğinize emin misiniz?")) return;
     try {
-      const res = await fetch("/api/options/performance", { method: "DELETE" });
-      if (res.ok) {
-        setHistory([]);
-        if (current) {
-          setHistory([current]);
-        }
+      setHistory([]);
+      try {
+        localStorage.removeItem("boga_performance_history");
+      } catch (e) {}
+      
+      if (current) {
+        setHistory([current]);
+        try {
+          localStorage.setItem("boga_performance_history", JSON.stringify([current]));
+        } catch (e) {}
       }
+      
+      await fetch("/api/options/performance", { method: "DELETE" }).catch(() => {});
     } catch (e: any) {
       alert("Hata: " + e.message);
     }
@@ -72,6 +102,13 @@ export default function OptionsMonitorClient() {
 
   // Setup auto-refresh interval
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem("boga_performance_history");
+      if (saved) {
+        setHistory(JSON.parse(saved));
+      }
+    } catch (e) {}
+
     fetchMetrics();
 
     return () => {

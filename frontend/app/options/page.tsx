@@ -79,7 +79,7 @@ export default async function OptionsPage() {
 
         {/* ── Footer Stats ──────────────────────────────────── */}
 
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
            <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
               <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Exit Policy</div>
               <div className="text-[11px] space-y-1">
@@ -99,6 +99,9 @@ export default async function OptionsPage() {
            </div>
            <div className="bg-[#0d1420] border border-white/10 p-3 rounded flex flex-col justify-center items-center">
               <Link href="/options/archive" className="text-slate-400 text-[11px] font-black uppercase hover:underline">Historical Archive →</Link>
+           </div>
+           <div className="bg-[#0d1420] border border-[#22c55e]/20 p-3 rounded flex flex-col justify-center items-center hover:border-[#22c55e]/50 transition-colors">
+              <Link href="/options/monitor" className="text-emerald-400 text-[11px] font-black uppercase hover:underline flex items-center gap-1">Page Monitor ⚡</Link>
            </div>
         </div>
       </main>
