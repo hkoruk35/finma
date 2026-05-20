@@ -1,7 +1,7 @@
 # BOGA AI Performance Hourly Update Task Setup
 $TaskName = "BOGA_AI_Performance_Hourly"
 $PythonPath = "C:\Users\afksm\finma\venv313\Scripts\python.exe"
-$ScriptPath = "C:\Users\afksm\finma\update_swing_performance.py"
+$ScriptPath = "C:\Users\afksm\finma\run_performance_hourly.py"
 $WorkingDir = "C:\Users\afksm\finma"
 
 $Action = New-ScheduledTaskAction -Execute $PythonPath -Argument $ScriptPath -WorkingDirectory $WorkingDir

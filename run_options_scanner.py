@@ -62,6 +62,14 @@ def main():
         log.error(f"❌ Beklenmedik hata: {e}")
         return
 
+    # Run P&L tracker to calculate P&Ls and update options_outcomes.json
+    log.info("▶ Çalıştırılıyor: options_pnl_tracker.py")
+    try:
+        subprocess.run([VENV_PYTHON, "options_pnl_tracker.py"], cwd=FINMA_DIR, check=True)
+        log.info("✅ options_pnl_tracker.py tamamlandı.")
+    except Exception as e:
+        log.error(f"❌ options_pnl_tracker.py hatası: {e}")
+
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
     v241_files = glob.glob(os.path.join(data_dir, "v241_*.json"))
