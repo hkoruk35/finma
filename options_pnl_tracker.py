@@ -194,9 +194,10 @@ async def fetch_current_option_price(
         if calls is None or calls.empty:
             return None
 
-        calls["strike"] = pd.to_numeric(calls["strike"], errors="coerce")
-        calls["bid"]    = pd.to_numeric(calls.get("bid", 0), errors="coerce").fillna(0)
-        calls["ask"]    = pd.to_numeric(calls.get("ask", 0), errors="coerce").fillna(0)
+        calls["strike"]    = pd.to_numeric(calls["strike"], errors="coerce")
+        calls["bid"]       = pd.to_numeric(calls.get("bid", 0), errors="coerce").fillna(0)
+        calls["ask"]       = pd.to_numeric(calls.get("ask", 0), errors="coerce").fillna(0)
+        calls["lastPrice"] = pd.to_numeric(calls.get("lastPrice", 0), errors="coerce").fillna(0)
 
         # En yakın strike
         calls["dist"] = abs(calls["strike"] - strike)
@@ -204,9 +205,16 @@ async def fetch_current_option_price(
         if row["dist"] > 2.5:
             return None  # Strike çok uzak
         bid, ask = float(row["bid"]), float(row["ask"])
-        if ask <= 0:
-            return None
-        return round((bid + ask) / 2, 4) if bid > 0 else round(ask * 0.9, 4)
+        last = float(row["lastPrice"])
+
+        # Piyasa kapalıysa bid/ask = 0 olabilir → lastPrice kullan
+        if ask > 0 and bid > 0:
+            return round((bid + ask) / 2, 4)
+        elif ask > 0:
+            return round(ask * 0.95, 4)
+        elif last > 0:
+            return round(last, 4)   # ← piyasa kapalı fallback
+        return None
     except Exception as e:
         logging.debug(f"fetch_option {ticker} {expiration} {strike}: {e}")
         return None
