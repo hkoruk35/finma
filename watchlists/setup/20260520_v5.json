@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "NATL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 44.98,
+        "entry_zone": "44.53 - 45.43",
+        "SL": 43.16,
+        "TP": 47.71
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "SNX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 230.21,
+        "entry_zone": "227.02 - 233.40",
+        "SL": 217.44,
+        "TP": 249.37
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "MS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 196.83,
+        "entry_zone": "194.61 - 199.05",
+        "SL": 187.93,
+        "TP": 210.18
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "DASH",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 159.21,
+        "entry_zone": "154.96 - 163.47",
+        "SL": 142.19,
+        "TP": 184.74
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "LNC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 35.49,
+        "entry_zone": "34.86 - 36.11",
+        "SL": 32.99,
+        "TP": 39.23
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "UBER",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 74.72,
+        "entry_zone": "73.42 - 76.02",
+        "SL": 69.5,
+        "TP": 82.55
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "HLI",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 148.65,
+        "entry_zone": "146.28 - 151.03",
+        "SL": 139.14,
+        "TP": 162.92
+    },
+    {
+        "date": "2026-05-20 14:00",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 46.17,
+        "entry_zone": "45.77 - 46.57",
+        "SL": 44.58,
+        "TP": 48.55
+    }
+]

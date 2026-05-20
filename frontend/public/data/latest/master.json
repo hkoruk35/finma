@@ -1,31 +1,28 @@
 {
-  "date": "2026-05-19",
-  "generated_at": "2026-05-19T13:03:02.609802-04:00",
+  "date": "2026-05-20",
+  "generated_at": "2026-05-20T13:03:21.804212-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 12,
+  "active_scores_count": 8,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 8,
       "tickers": [
-        "CTRE",
-        "KN",
-        "NSC",
-        "CECO",
-        "FTV",
-        "EIX",
-        "INCY",
-        "BMO",
-        "CZR",
-        "MAC"
+        "LNC",
+        "HLI",
+        "CSX",
+        "NATL",
+        "MS",
+        "SNX",
+        "UBER",
+        "DASH"
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 2,
       "tickers": [
-        "EIX",
-        "MAC",
-        "MAR"
+        "MS",
+        "SNX"
       ]
     },
     "value": {
@@ -37,11 +34,8 @@
       "tickers": []
     },
     "momentum": {
-      "count": 2,
-      "tickers": [
-        "CTRE",
-        "WTS"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "dividend": {
       "count": 0,
@@ -50,18 +44,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "CTRE",
-      "score": 64.0,
+      "ticker": "LNC",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "KN",
-      "score": 62.0,
+      "ticker": "HLI",
+      "score": 55.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "NSC",
-      "score": 60.5,
+      "ticker": "CSX",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
