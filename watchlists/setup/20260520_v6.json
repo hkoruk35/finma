@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "MS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 197.48,
+        "entry_zone": "195.25 - 199.70",
+        "SL": 188.58,
+        "TP": 210.82
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "SNX",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 228.51,
+        "entry_zone": "225.31 - 231.70",
+        "SL": 215.73,
+        "TP": 247.66
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "NATL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 45.14,
+        "entry_zone": "44.68 - 45.60",
+        "SL": 43.31,
+        "TP": 47.89
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "DASH",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 159.97,
+        "entry_zone": "155.69 - 164.25",
+        "SL": 142.87,
+        "TP": 185.62
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "LNC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 35.34,
+        "entry_zone": "34.72 - 35.96",
+        "SL": 32.84,
+        "TP": 39.08
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "UBER",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 74.61,
+        "entry_zone": "73.31 - 75.92",
+        "SL": 69.4,
+        "TP": 82.44
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "HLI",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 148.66,
+        "entry_zone": "146.28 - 151.04",
+        "SL": 139.15,
+        "TP": 162.93
+    },
+    {
+        "date": "2026-05-20 15:00",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 46.19,
+        "entry_zone": "45.80 - 46.59",
+        "SL": 44.61,
+        "TP": 48.57
+    }
+]
