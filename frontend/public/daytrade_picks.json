@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-19T09:16:00.005075-04:00",
+  "generated_at": "2026-05-20T09:31:00.004281-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 2.3,
-  "total_scanned": 1,
-  "layer1_passed": 1,
-  "final_picks": 1,
+  "scan_duration_s": 25.9,
+  "total_scanned": 2,
+  "layer1_passed": 2,
+  "final_picks": 2,
   "picks": [
     {
-      "ticker": "NFLX",
-      "price": 89.65,
-      "change_pct": 3.02,
-      "dt_score": 40.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "AMD",
+      "price": 431.69,
+      "change_pct": 4.26,
+      "dt_score": 30.0,
+      "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 88.95,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1779196527.8587613
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "what the call buying frenzy means for the s&p 500(schaeffer's research)",
+        "confidence": "high",
+        "ts": 1779283885.0889997
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,26 +37,77 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 89.56,
-          "high": 90.1
+          "low": 431.26,
+          "high": 433.85
         },
-        "stop": 88.31,
-        "tp1": 92.87,
-        "tp2": 95.15,
+        "stop": 427.8,
+        "tp1": 442.06,
+        "tp2": 449.2,
         "rr_ratio": 2.0,
-        "avg_entry": 89.83,
-        "risk_per_sh": 1.52,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 89.65
+        "avg_entry": 432.56,
+        "risk_per_sh": 4.75,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 431.69
+      },
+      "details": [
+        "📰 Kataliz: PARTNERSHIP",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +4.3%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "price": 31.67,
+      "change_pct": 3.63,
+      "dt_score": 15.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779283885.6601665
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 31.53,
+          "high": 31.72
+        },
+        "stop": 31.38,
+        "tp1": 32.12,
+        "tp2": 32.48,
+        "rr_ratio": 2.02,
+        "avg_entry": 31.62,
+        "risk_per_sh": 0.25,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 31.67
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.0%",
+        "↗️ Küçük Gap: +3.6%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.79%",
-        "🔥 Açılış Barı: Güçlü (8.3x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
