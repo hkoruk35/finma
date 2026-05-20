@@ -207,11 +207,11 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
             Institutional Terminal
           </span>
           <Link 
-            href="/options/monitor" 
-            className="text-[9px] text-[#3b82f6] hover:text-white bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20 uppercase tracking-widest font-bold flex items-center gap-1 transition-colors ml-2"
+            href="/options/performance" 
+            className="ml-2 text-[10px] text-white hover:text-[#34d399] bg-[#34d399]/10 hover:bg-[#34d399]/20 px-3 py-1 rounded border border-[#34d399]/30 hover:border-[#34d399]/60 uppercase tracking-widest font-black flex items-center gap-1.5 transition-all"
           >
-            <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse" />
-            Performance Monitor ⚡
+            <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-pulse" />
+            View P&amp;L Dashboard ↗
           </Link>
         </div>
         <div className="flex items-center gap-4">

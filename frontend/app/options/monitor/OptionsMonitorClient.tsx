@@ -29,6 +29,7 @@ export default function OptionsMonitorClient() {
   const [scanning, setScanning] = useState(false);
   const [autoRefresh, setAutoRefresh] = useState(15); // Default 15s
   const [error, setError] = useState<string | null>(null);
+  const [blink, setBlink] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const fetchMetrics = async (isManual = false) => {
@@ -111,8 +112,12 @@ export default function OptionsMonitorClient() {
 
     fetchMetrics();
 
+    // Blinking pulse for dashboard button every 2s
+    const blinkInterval = setInterval(() => setBlink(b => !b), 1000);
+
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+      clearInterval(blinkInterval);
     };
   }, []);
 
@@ -252,13 +257,50 @@ export default function OptionsMonitorClient() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-xs text-accent-blue uppercase tracking-wider mb-6">
+        <nav className="flex items-center gap-2 text-xs text-accent-blue uppercase tracking-wider mb-4">
           <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span>/</span>
           <Link href="/options" className="hover:text-white transition-colors">Options</Link>
           <span>/</span>
           <span className="text-white">Web Monitor</span>
         </nav>
+
+        {/* ── Performance Dashboard Banner (top, blinking) ── */}
+        <Link
+          href="/options/performance"
+          className="flex items-center justify-between gap-4 glass-card p-4 mb-6 border border-[#3b82f6]/30 hover:border-[#3b82f6]/70 hover:bg-[#3b82f6]/5 transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#3b82f6]/20"
+              style={{ boxShadow: blink ? '0 0 12px 4px #3b82f6aa' : 'none', transition: 'box-shadow 0.5s' }}
+            >
+              📊
+            </span>
+            <div>
+              <div className="text-white font-black text-sm flex items-center gap-2">
+                View Performance Dashboard
+                <span
+                  className="inline-block w-2 h-2 rounded-full bg-[#34d399]"
+                  style={{ opacity: blink ? 1 : 0.2, transition: 'opacity 0.5s' }}
+                />
+                <span className="text-[#34d399] text-[10px] font-black uppercase tracking-widest">LIVE</span>
+              </div>
+              <div className="text-[11px] text-[#00d2ff] mt-0.5">
+                Tüm öneri opsiyonların anlık P&amp;L, kontrat bitiş ve kâr/zarar durumu
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {current && (
+              <div className="text-[10px] text-[#00d2ff] font-mono text-right">
+                <div className="text-white font-bold">Son güncelleme</div>
+                <div>{new Date(current.timestamp).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" })}</div>
+              </div>
+            )}
+            <span className="text-[#3b82f6] text-xl group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </Link>
 
         {/* Title and Controls */}
         <div className="flex items-start justify-between flex-wrap gap-4 mb-8">

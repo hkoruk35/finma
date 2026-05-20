@@ -67,7 +67,8 @@ def _build_position(scan_date: str, pick: dict, strategy: str, contract: dict) -
         return None
     strike     = contract.get("strike")
     expiration = contract.get("expiration")
-    premium    = contract.get("premium")
+    # Support both old format (premium) and new opsiyon241 format (mid)
+    premium    = contract.get("premium") or contract.get("mid")
     if not all([strike, expiration, premium]):
         return None
 
@@ -91,7 +92,8 @@ def _build_position(scan_date: str, pick: dict, strategy: str, contract: dict) -
         "tp_target":            contract.get("tp_price"),
         "sl_target":            contract.get("sl_price"),
         "time_stop_days":       contract.get("time_stop_days"),
-        "iv_rank_at_entry":     pick.get("iv_rank"),
+        # iv_rank may live at pick level or inside pick["options"]
+        "iv_rank_at_entry":     pick.get("iv_rank") or (pick.get("options") or {}).get("iv_rank"),
         "delta_at_entry":       contract.get("delta"),
         "expected_move":        pick.get("expected_move"),
         # Updated fields (filled by tracker)
@@ -140,8 +142,12 @@ def collect_positions(existing: Dict[str, dict]) -> Dict[str, dict]:
             continue
         scan_date = data.get("date", scan_label)
         for pick in data.get("picks", []):
+            # Support old format: pick["institutional"] / pick["asymmetric"]
+            # Support new opsiyon241 format: pick["options"]["institutional"]
+            options_block = pick.get("options") or {}
             for strat in ("institutional", "asymmetric"):
-                contract = pick.get(strat)
+                # Try top-level first (old format), then inside options block (new format)
+                contract = pick.get(strat) or options_block.get(strat)
                 if not contract:
                     continue
                 pos = _build_position(scan_date, pick, strat, contract)

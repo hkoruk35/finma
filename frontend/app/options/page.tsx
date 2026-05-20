@@ -77,9 +77,28 @@ export default async function OptionsPage() {
         
         <OptionsTableClient allPicks={allPicks} latestData={latestData} />
 
+        {/* ── Performance Dashboard Banner (blinking, prominent) */}
+        <Link
+          href="/options/performance"
+          className="mt-4 mb-2 flex items-center justify-between gap-4 bg-gradient-to-r from-[#0d1a2a] to-[#0a1520] border border-[#34d399]/30 hover:border-[#34d399]/70 p-4 rounded transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-[#34d399] animate-pulse" />
+            <div>
+              <div className="text-white font-black text-sm flex items-center gap-2">
+                View Performance Dashboard →
+              </div>
+              <div className="text-[#00d2ff] text-[10px] mt-0.5">
+                Tüm öneri opsiyonların anlık P&amp;L, kontrat bitiş ve kâr/zarar durumu — CANLI
+              </div>
+            </div>
+          </div>
+          <span className="text-[#34d399] text-xs font-black uppercase tracking-widest group-hover:translate-x-1 transition-transform">P&amp;L DASHBOARD ↗</span>
+        </Link>
+
         {/* ── Footer Stats ──────────────────────────────────── */}
 
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
            <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
               <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Exit Policy</div>
               <div className="text-[11px] space-y-1">
@@ -95,15 +114,13 @@ export default async function OptionsPage() {
               </div>
            </div>
            <div className="bg-[#0d1420] border border-white/10 p-3 rounded flex flex-col justify-center items-center">
-              <Link href="/options/performance" className="text-[#3b82f6] text-[11px] font-black uppercase hover:underline">View Performance Dashboard →</Link>
-           </div>
-           <div className="bg-[#0d1420] border border-white/10 p-3 rounded flex flex-col justify-center items-center">
               <Link href="/options/archive" className="text-slate-400 text-[11px] font-black uppercase hover:underline">Historical Archive →</Link>
            </div>
-           <div className="bg-[#0d1420] border border-[#22c55e]/20 p-3 rounded flex flex-col justify-center items-center hover:border-[#22c55e]/50 transition-colors">
-              <Link href="/options/monitor" className="text-emerald-400 text-[11px] font-black uppercase hover:underline flex items-center gap-1">Page Monitor ⚡</Link>
+           <div className="bg-[#0d1420] border border-[#3b82f6]/20 p-3 rounded flex flex-col justify-center items-center hover:border-[#3b82f6]/50 transition-colors">
+              <Link href="/options/monitor" className="text-[#3b82f6] text-[11px] font-black uppercase hover:underline flex items-center gap-1">Web Monitor ⚡</Link>
            </div>
         </div>
+
       </main>
 
       <Footer />
