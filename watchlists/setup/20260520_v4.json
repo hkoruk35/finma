@@ -1,0 +1,122 @@
+[
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "CZR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 27.59,
+        "entry_zone": "27.09 - 28.09",
+        "SL": 25.59,
+        "TP": 30.58
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "KN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 34.96,
+        "entry_zone": "34.27 - 35.65",
+        "SL": 32.21,
+        "TP": 39.09
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "MAC",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 22.23,
+        "entry_zone": "21.93 - 22.53",
+        "SL": 21.02,
+        "TP": 24.05
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "MAR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 369.32,
+        "entry_zone": "364.94 - 373.70",
+        "SL": 351.79,
+        "TP": 395.61
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "EIX",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 69.9,
+        "entry_zone": "68.98 - 70.82",
+        "SL": 66.23,
+        "TP": 75.41
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "CECO",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 79.79,
+        "entry_zone": "77.43 - 82.14",
+        "SL": 70.36,
+        "TP": 93.92
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "CTRE",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 41.49,
+        "entry_zone": "40.98 - 42.00",
+        "SL": 39.45,
+        "TP": 44.55
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "FTV",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 58.77,
+        "entry_zone": "58.08 - 59.46",
+        "SL": 56.02,
+        "TP": 62.89
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "WTS",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 298.46,
+        "entry_zone": "293.95 - 302.97",
+        "SL": 280.43,
+        "TP": 325.51
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "INCY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 96.86,
+        "entry_zone": "95.60 - 98.13",
+        "SL": 91.81,
+        "TP": 104.44
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "BMO",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 158.2,
+        "entry_zone": "156.75 - 159.64",
+        "SL": 152.42,
+        "TP": 166.85
+    },
+    {
+        "date": "2026-05-20 13:00",
+        "symbol": "NSC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 315.3,
+        "entry_zone": "312.79 - 317.81",
+        "SL": 305.26,
+        "TP": 330.36
+    }
+]
