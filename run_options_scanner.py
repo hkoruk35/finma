@@ -46,15 +46,15 @@ def main():
 
     log.info("🌅 BOGA AI Option Scanner (11:00 & 15:30 NY) Başlatıldı...")
 
-    script_path = os.path.join(FINMA_DIR, "opsiyon241.py")
+    script_path = os.path.join(FINMA_DIR, "opsiyon242.py")
     cmd = [VENV_PYTHON, script_path, "--oneshot"]
     
-    log.info(f"▶ Çalıştırılıyor: opsiyon241.py")
+    log.info(f"▶ Çalıştırılıyor: opsiyon242.py")
     try:
         subprocess.run(cmd, cwd=FINMA_DIR, capture_output=True, text=True, encoding="utf-8", check=True)
-        log.info("✅ opsiyon241.py tamamlandı.")
+        log.info("✅ opsiyon242.py tamamlandı.")
     except subprocess.CalledProcessError as e:
-        log.error(f"❌ opsiyon241.py hatası (Exit {e.returncode}):")
+        log.error(f"❌ opsiyon242.py hatası (Exit {e.returncode}):") 
         if e.stdout: log.error(f"STDOUT: {e.stdout}")
         if e.stderr: log.error(f"STDERR: {e.stderr}")
         return
@@ -72,14 +72,18 @@ def main():
 
     # Dosyaları kopyala
     data_dir = os.path.join(FINMA_DIR, "data")
+    # opsiyon242.py currently still outputs v241_ prefix files
+    v242_files = glob.glob(os.path.join(data_dir, "v242_*.json"))
     v241_files = glob.glob(os.path.join(data_dir, "v241_*.json"))
-    
-    if not v241_files:
-        log.error("❌ opsiyon241.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
+    all_files  = v242_files + v241_files
+
+    if not all_files:
+        log.error("❌ opsiyon242.py çalıştı ancak yeni bir JSON dosyası bulunamadı.")
         return
-        
-    v241_files.sort()
-    latest_file = v241_files[-1]
+
+    all_files.sort()
+    latest_file = all_files[-1]
+
     log.info(f"📄 En son dosya bulundu: {os.path.basename(latest_file)}")
 
     # 1. Public Data Dir (Latest)

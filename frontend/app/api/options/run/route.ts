@@ -14,7 +14,7 @@ export async function POST() {
     }
 
     const projectRoot = path.resolve(process.cwd(), "..");
-    const scriptPath = path.join(projectRoot, "opsiyon220.py");
+    const scriptPath = path.join(projectRoot, "opsiyon242.py");
     const pythonPath = path.join(projectRoot, "venv313", "Scripts", "python.exe");
 
     console.log("Running options scanner:", scriptPath);
@@ -34,7 +34,7 @@ export async function POST() {
       try {
         const dataDir = path.join(projectRoot, "data");
         const files = fs.readdirSync(dataDir)
-          .filter(f => f.startsWith("v220_") && f.endsWith(".json"))
+          .filter(f => f.startsWith("v242_") && f.endsWith(".json"))
           .sort()
           .reverse();
 
