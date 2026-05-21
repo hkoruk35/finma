@@ -532,28 +532,25 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "swing_cont":
-      return s.price > s.sma200 && s.ema20 > s.ema50 &&
-             s.rsi >= 50 && s.rvol >= 0.8 && s.market_cap >= 300e6;
+      return s.ema20 > s.ema50 && s.rsi >= 40 && s.rvol >= 0.3 && s.market_cap >= 100e6;
     case "early_break":
-      return s.bb_width < 0.12 && s.rvol >= 0.8 && s.boga_score >= 50;
+      return s.bb_width < 0.15 && s.rvol >= 0.5 && s.boga_score >= 45;
     case "day_mom":
-      return s.change_1d > 2 && s.rvol >= 1.2 && s.boga_score >= 50;
+      return s.change_1d > 1.5 && s.rvol >= 1.0 && s.boga_score >= 45;
     case "opt_sniper":
-      return s.has_weekly_options && s.rvol >= 0.8 &&
-             s.atr_pct >= 2.5 && s.rsi >= 50;
+      return s.has_weekly_options && s.rvol >= 0.5 &&
+             s.atr_pct >= 2.0 && s.rsi >= 40;
     case "inst_trend":
-      return s.market_cap >= 10e9 && s.price > s.sma200 &&
-             s.ema20 > s.ema50 && s.adx >= 15;
+      return s.market_cap >= 10e9 && s.ema20 > s.ema50 && s.adx >= 12;
     case "cheap_exp":
-      return s.price < 20 && s.atr_pct >= 3 && s.rvol >= 1.0;
+      return s.price < 20 && s.atr_pct >= 2.5 && s.rvol >= 0.8;
     case "ema_cross":
-      // EMA8 > EMA20 but EMA20 close to EMA50 (fresh cross zone)
       return s.ema8 > s.ema20 &&
-             s.ema20 >= s.ema50 * 0.95 && s.ema20 <= s.ema50 * 1.05 &&
-             s.rvol >= 0.8;
+             s.ema20 >= s.ema50 * 0.93 && s.ema20 <= s.ema50 * 1.07 &&
+             s.rvol >= 0.5;
     case "gamma_sq":
-      return s.has_weekly_options && s.atr_pct >= 4 &&
-             s.market_cap < 50e9 && s.rvol >= 1.0;
+      return s.has_weekly_options && s.atr_pct >= 3.5 &&
+             s.market_cap < 50e9 && s.rvol >= 0.8;
     default:
       return s.boga_score >= 40;
   }
