@@ -1,0 +1,450 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Mono',monospace}
+:root{
+--bg:#0a0c0f;--bg2:#111418;--bg3:#1a1e24;--bg4:#222830;
+--border:#2a3040;--border2:#3a4555;
+--text:#e8edf5;--text2:#8a9ab5;--text3:#4a5a70;
+--green:#00d4a0;--green2:#00a87d;--green3:#004a38;
+--red:#ff4d6a;--red2:#cc3a55;--red3:#4a0f1a;
+--amber:#f5a623;--amber2:#c4841c;--amber3:#4a2e08;
+--blue:#4a9eff;--blue2:#2a7acc;--blue3:#0a2a4a;
+--purple:#a855f7;--purple2:#7c3aed;--purple3:#2a0a4a;
+--cyan:#00d4f5;--cyan2:#00a8c4;--cyan3:#003a4a;
+}
+.cockpit{background:var(--bg);min-height:600px;padding:0;font-size:12px;color:var(--text);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:13px;font-weight:700;letter-spacing:2px;color:var(--green)}
+.logo span{color:var(--text2);font-weight:400;font-size:11px;margin-left:8px}
+.status-row{display:flex;gap:16px;align-items:center}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.status-label{font-size:10px;color:var(--text2)}
+.market-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.seg-group{display:flex;align-items:center;gap:4px}
+.seg-label{font-size:9px;color:var(--text3);letter-spacing:1px;margin-right:2px;text-transform:uppercase}
+.seg-btn{background:var(--bg4);border:1px solid var(--border);color:var(--text2);padding:3px 8px;border-radius:3px;cursor:pointer;font-size:10px;font-family:inherit;transition:all .15s;white-space:nowrap}
+.seg-btn:hover{border-color:var(--border2);color:var(--text)}
+.seg-btn.active{background:var(--blue3);border-color:var(--blue2);color:var(--blue)}
+.divider{width:1px;height:20px;background:var(--border);margin:0 4px}
+.main-area{display:flex;height:calc(100% - 120px)}
+.left-panel{width:200px;background:var(--bg2);border-right:1px solid var(--border);flex-shrink:0;overflow-y:auto}
+.panel-header{padding:10px 12px 6px;font-size:9px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase}
+.mode-btn{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;border:none;background:none;color:var(--text2);font-size:11px;font-family:inherit;width:100%;text-align:left;transition:all .15s;border-left:2px solid transparent}
+.mode-btn:hover{background:var(--bg3);color:var(--text)}
+.mode-btn.active{background:var(--bg3);color:var(--green);border-left-color:var(--green)}
+.mode-btn i{width:14px;font-size:13px}
+.preset-btn{display:block;width:100%;text-align:left;padding:7px 12px;cursor:pointer;border:none;background:none;color:var(--text2);font-size:10px;font-family:inherit;transition:all .15s;border-left:2px solid transparent;line-height:1.3}
+.preset-btn:hover{background:var(--bg3);color:var(--text);border-left-color:var(--border2)}
+.preset-btn.active{background:var(--bg3);border-left-color:var(--amber);color:var(--amber)}
+.preset-name{font-size:10px;font-weight:600}
+.preset-desc{font-size:9px;color:var(--text3);margin-top:1px}
+.preset-btn.active .preset-desc{color:var(--amber2)}
+.content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.toolbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:10px}
+.scan-btn{background:var(--green3);border:1px solid var(--green2);color:var(--green);padding:5px 14px;border-radius:3px;cursor:pointer;font-size:11px;font-family:inherit;font-weight:700;letter-spacing:1px;transition:all .15s;display:flex;align-items:center;gap:6px}
+.scan-btn:hover{background:var(--green2);color:#000}
+.filter-pills{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.pill{background:var(--bg4);border:1px solid var(--border);color:var(--text2);padding:3px 8px;border-radius:12px;font-size:9px;display:flex;align-items:center;gap:4px}
+.pill i{font-size:10px;cursor:pointer;color:var(--text3)}
+.pill i:hover{color:var(--red)}
+.result-count{font-size:10px;color:var(--text3);margin-left:auto}
+.result-count span{color:var(--amber);font-weight:700}
+.table-wrap{flex:1;overflow-y:auto}
+table{width:100%;border-collapse:collapse}
+thead tr{background:var(--bg3);position:sticky;top:0;z-index:1}
+th{padding:8px 12px;text-align:left;font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:500;white-space:nowrap}
+th.sortable{cursor:pointer}
+th.sortable:hover{color:var(--text2)}
+td{padding:7px 12px;font-size:11px;border-bottom:1px solid var(--border);vertical-align:middle;white-space:nowrap}
+tr:hover td{background:var(--bg3)}
+.ticker-cell{font-weight:700;font-size:12px;color:var(--text);letter-spacing:.5px}
+.ticker-name{font-size:9px;color:var(--text3);margin-top:1px}
+.score-bar{display:flex;align-items:center;gap:6px}
+.score-val{font-size:12px;font-weight:700;min-width:24px}
+.score-track{height:4px;width:50px;background:var(--bg4);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;transition:width .3s}
+.badge{padding:2px 7px;border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.5px}
+.badge-swing{background:var(--blue3);color:var(--blue);border:1px solid var(--blue2)}
+.badge-day{background:var(--amber3);color:var(--amber);border:1px solid var(--amber2)}
+.badge-options{background:var(--purple3);color:var(--purple);border:1px solid var(--purple2)}
+.badge-momentum{background:#0a2a0a;color:#00d4a0;border:1px solid #005a40}
+.trend-up{color:var(--green)}
+.trend-dn{color:var(--red)}
+.trend-neu{color:var(--text3)}
+.rvol-high{color:var(--amber);font-weight:700}
+.rvol-norm{color:var(--text2)}
+.opt-yes{color:var(--purple)}
+.opt-no{color:var(--text3)}
+.price{font-family:'IBM Plex Mono',monospace;font-size:11px}
+.chg-pos{color:var(--green)}
+.chg-neg{color:var(--red)}
+.detail-row{background:var(--bg3)!important;display:none}
+.detail-row td{padding:12px}
+.detail-row.open{display:table-row}
+.detail-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.detail-card{background:var(--bg4);border:1px solid var(--border);border-radius:4px;padding:10px 12px}
+.dc-label{font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.dc-val{font-size:11px;color:var(--text)}
+.dc-row{display:flex;justify-content:space-between;margin-bottom:3px}
+.dc-key{font-size:10px;color:var(--text3)}
+.dc-v{font-size:10px;color:var(--text2)}
+.dc-v.up{color:var(--green)}
+.dc-v.dn{color:var(--red)}
+.dc-v.hi{color:var(--amber)}
+.entry-box{background:var(--green3);border:1px solid var(--green2);border-radius:4px;padding:8px 12px;text-align:center}
+.entry-label{font-size:9px;color:var(--green2);letter-spacing:1px}
+.entry-val{font-size:14px;font-weight:700;color:var(--green);margin-top:2px}
+.stop-box{background:var(--red3);border:1px solid var(--red2);border-radius:4px;padding:8px 12px;text-align:center}
+.stop-label{font-size:9px;color:var(--red2);letter-spacing:1px}
+.stop-val{font-size:14px;font-weight:700;color:var(--red);margin-top:2px}
+.target-box{background:var(--blue3);border:1px solid var(--blue2);border-radius:4px;padding:8px 12px;text-align:center}
+.target-label{font-size:9px;color:var(--blue2);letter-spacing:1px}
+.target-val{font-size:14px;font-weight:700;color:var(--blue);margin-top:2px}
+.rr-box{background:var(--amber3);border:1px solid var(--amber2);border-radius:4px;padding:8px 12px;text-align:center}
+.rr-label{font-size:9px;color:var(--amber2);letter-spacing:1px}
+.rr-val{font-size:14px;font-weight:700;color:var(--amber);margin-top:2px}
+.regime-bar{background:var(--bg2);border-top:1px solid var(--border);padding:6px 14px;display:flex;align-items:center;gap:16px}
+.regime-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3)}
+.regime-dot{width:5px;height:5px;border-radius:50%}
+.row-clickable{cursor:pointer}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+
+<div class="cockpit">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="logo">BOGA <span>SCREENER v2</span></div>
+      <div style="font-size:10px;color:var(--text3)">8,247 hisse evreni</div>
+    </div>
+    <div class="status-row">
+      <div class="status-label"><span class="status-dot"></span>CANLI</div>
+      <div class="status-label" style="color:var(--text3)">Son tarama: <span style="color:var(--text2)">14:32:07</span></div>
+      <div class="status-label" style="color:var(--text3)">SPY <span style="color:var(--green)">+0.84%</span></div>
+      <div class="status-label" style="color:var(--text3)">QQQ <span style="color:var(--green)">+1.12%</span></div>
+      <div class="status-label" style="color:var(--text3)">VIX <span style="color:var(--amber)">18.4</span></div>
+    </div>
+  </div>
+
+  <div class="market-bar">
+    <div class="seg-group">
+      <span class="seg-label">Fiyat</span>
+      <button class="seg-btn" onclick="toggleSeg(this,'price')">Sub $1</button>
+      <button class="seg-btn active" onclick="toggleSeg(this,'price')">$1–5</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'price')">$5–10</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'price')">$10–20</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'price')">$20–50</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'price')">$50+</button>
+    </div>
+    <div class="divider"></div>
+    <div class="seg-group">
+      <span class="seg-label">Cap</span>
+      <button class="seg-btn" onclick="toggleSeg(this,'cap')">Nano</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'cap')">Micro</button>
+      <button class="seg-btn active" onclick="toggleSeg(this,'cap')">Small</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'cap')">Mid</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'cap')">Large</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'cap')">Mega</button>
+    </div>
+    <div class="divider"></div>
+    <div class="seg-group">
+      <span class="seg-label">Likidite</span>
+      <button class="seg-btn" onclick="toggleSeg(this,'liq')">Düşük</button>
+      <button class="seg-btn active" onclick="toggleSeg(this,'liq')">Orta</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'liq')">Yüksek</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'liq')">Kurumsal</button>
+    </div>
+    <div class="divider"></div>
+    <div class="seg-group">
+      <span class="seg-label">Opsiyon</span>
+      <button class="seg-btn" onclick="toggleSeg(this,'opt')">Yok</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'opt')">Zayıf</button>
+      <button class="seg-btn active" onclick="toggleSeg(this,'opt')">Güçlü</button>
+      <button class="seg-btn active" onclick="toggleSeg(this,'opt')">Haftalık</button>
+      <button class="seg-btn" onclick="toggleSeg(this,'opt')">0DTE</button>
+    </div>
+  </div>
+
+  <div class="main-area">
+    <div class="left-panel">
+      <div class="panel-header">İşlem Modu</div>
+      <button class="mode-btn active" onclick="setMode(this,'swing')">
+        <i class="ti ti-activity"></i> Swing Trade
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'day')">
+        <i class="ti ti-bolt"></i> Day Trade
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'position')">
+        <i class="ti ti-trending-up"></i> Position Trade
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'options')">
+        <i class="ti ti-percentage"></i> Options
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'gamma')">
+        <i class="ti ti-flame"></i> Gamma Squeeze
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'momentum')">
+        <i class="ti ti-rocket"></i> Momentum
+      </button>
+      <button class="mode-btn" onclick="setMode(this,'reversion')">
+        <i class="ti ti-refresh"></i> Mean Reversion
+      </button>
+
+      <div class="panel-header" style="margin-top:8px">Preset Stratejiler</div>
+
+      <button class="preset-btn active" onclick="setPreset(this,'swing_cont')">
+        <div class="preset-name">Swing Continuation</div>
+        <div class="preset-desc">Price&gt;SMA200 · EMA20&gt;EMA50 · RSI 55-70</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'early_break')">
+        <div class="preset-name">Early Breakout</div>
+        <div class="preset-desc">BB Squeeze · ATR comp. · Vol exp.</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'day_mom')">
+        <div class="preset-name">Day Trade Momentum</div>
+        <div class="preset-desc">Pregap&gt;4% · RVOL&gt;3 · Float&lt;100M</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'opt_sniper')">
+        <div class="preset-name">Options Sniper</div>
+        <div class="preset-desc">Weekly · OI&gt;1K · IV exp. · Gamma</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'inst_trend')">
+        <div class="preset-name">Institutional Trend</div>
+        <div class="preset-desc">MCap&gt;10B · ADX&gt;25 · OBV rising</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'cheap_exp')">
+        <div class="preset-name">Cheap &amp; Explosive</div>
+        <div class="preset-desc">Price&lt;10 · High Beta · Weekly opt.</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'ema_cross')">
+        <div class="preset-name">EMA Cross Setup</div>
+        <div class="preset-desc">EMA8&gt;EMA21 cross · Artan vol.</div>
+      </button>
+      <button class="preset-btn" onclick="setPreset(this,'gamma_sq')">
+        <div class="preset-name">Gamma Squeeze Hunter</div>
+        <div class="preset-desc">High SI · Call/Put&gt;2 · OI artışı</div>
+      </button>
+    </div>
+
+    <div class="content">
+      <div class="toolbar">
+        <button class="scan-btn" onclick="runScan()">
+          <i class="ti ti-radar"></i> TARA
+        </button>
+        <div class="filter-pills" id="activePills">
+          <div class="pill">Price&gt;SMA200 <i class="ti ti-x" onclick="removePill(this)"></i></div>
+          <div class="pill">EMA20&gt;EMA50 <i class="ti ti-x" onclick="removePill(this)"></i></div>
+          <div class="pill">RSI 55-70 <i class="ti ti-x" onclick="removePill(this)"></i></div>
+          <div class="pill">RVOL&gt;1.5 <i class="ti ti-x" onclick="removePill(this)"></i></div>
+          <div class="pill">MCap&gt;2B <i class="ti ti-x" onclick="removePill(this)"></i></div>
+          <div class="pill">Weekly OPT <i class="ti ti-x" onclick="removePill(this)"></i></div>
+        </div>
+        <div class="result-count" id="resultCount"><span>12</span> sonuç</div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="mainTable">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th class="sortable" onclick="sortBy('score')">BOGA Score ↕</th>
+              <th>Setup</th>
+              <th class="sortable" onclick="sortBy('rvol')">RVOL ↕</th>
+              <th>Trend</th>
+              <th>Fiyat</th>
+              <th class="sortable" onclick="sortBy('chg')">Değ% ↕</th>
+              <th>Opsiyon</th>
+              <th>R/R</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="regime-bar">
+        <span style="font-size:9px;color:var(--text3);letter-spacing:1px">MARKET REJİMİ:</span>
+        <div class="regime-item">
+          <div class="regime-dot" style="background:var(--green)"></div>
+          Trend: Bullish
+        </div>
+        <div class="regime-item">
+          <div class="regime-dot" style="background:var(--amber)"></div>
+          Vol: Orta (VIX 18)
+        </div>
+        <div class="regime-item">
+          <div class="regime-dot" style="background:var(--blue)"></div>
+          Momentum: Güçlü
+        </div>
+        <div class="regime-item">
+          <div class="regime-dot" style="background:var(--green)"></div>
+          Breakout modu aktif
+        </div>
+        <span style="margin-left:auto;font-size:10px;color:var(--text3)">Strateji ağırlıkları: Trend +20% · Momentum +15%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const stocks=[
+{t:'NVDA',n:'NVIDIA Corp',score:92,setup:'swing',rvol:2.8,trend:'up',price:127.40,chg:2.34,opt:'weekly',rr:'3.2x',
+ detail:{ema:'EMA20>EMA50>EMA200 ✓',sma:'Price>SMA200 ✓',rsi:62,macd:'Pozitif',atr:'4.2%',
+ sup:'$122.50',res:'$134.00',entry:127.50,stop:122.00,target:138.00,vol:'$4.8B',cap:'$3.1T',iv:'42%',oi:'285K',gamma:'0.08'}},
+{t:'META',n:'Meta Platforms',score:88,setup:'swing',rvol:1.9,trend:'up',price:583.20,chg:1.87,opt:'weekly',rr:'2.8x',
+ detail:{ema:'EMA20>EMA50>EMA200 ✓',sma:'Price>SMA200 ✓',rsi:58,macd:'Pozitif',atr:'3.1%',
+ sup:'$570.00',res:'$605.00',entry:584.00,stop:568.00,target:607.00,vol:'$1.9B',cap:'$1.48T',iv:'35%',oi:'142K',gamma:'0.05'}},
+{t:'AMD',n:'Adv. Micro Devices',score:84,setup:'momentum',rvol:3.1,trend:'up',price:148.70,chg:3.21,opt:'weekly',rr:'3.5x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Price>SMA200 ✓',rsi:66,macd:'Yükselen',atr:'5.8%',
+ sup:'$140.00',res:'$158.00',entry:149.00,stop:140.50,target:162.00,vol:'$2.1B',cap:'$240B',iv:'58%',oi:'198K',gamma:'0.12'}},
+{t:'PLTR',n:'Palantir Tech',score:81,setup:'swing',rvol:2.2,trend:'up',price:27.85,chg:1.54,opt:'weekly',rr:'2.6x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Price>SMA200 ✓',rsi:60,macd:'Pozitif',atr:'6.2%',
+ sup:'$26.00',res:'$30.00',entry:27.90,stop:25.80,target:31.50,vol:'$890M',cap:'$60B',iv:'72%',oi:'312K',gamma:'0.18'}},
+{t:'SOFI',n:'SoFi Technologies',score:78,setup:'day',rvol:4.5,trend:'up',price:7.42,chg:5.12,opt:'strong',rr:'2.9x',
+ detail:{ema:'EMA8>EMA21 ✓ (fresh)',sma:'Price>SMA50 ✓',rsi:69,macd:'Yükselen',atr:'8.4%',
+ sup:'$6.80',res:'$8.20',entry:7.45,stop:6.75,target:8.50,vol:'$320M',cap:'$7.2B',iv:'88%',oi:'45K',gamma:'0.24'}},
+{t:'IONQ',n:'IonQ Inc',score:75,setup:'momentum',rvol:5.2,trend:'up',price:8.90,chg:7.83,opt:'weekly',rr:'3.8x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'SMA50>SMA200 ✓',rsi:71,macd:'Güçlü artı',atr:'12.1%',
+ sup:'$7.50',res:'$10.50',entry:8.95,stop:7.40,target:11.20,vol:'$180M',cap:'$3.8B',iv:'115%',oi:'28K',gamma:'0.31'}},
+{t:'MARA',n:'Marathon Digital',score:72,setup:'momentum',rvol:3.8,trend:'up',price:16.25,chg:4.56,opt:'weekly',rr:'3.1x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Yakın SMA200',rsi:64,macd:'Pozitif',atr:'9.3%',
+ sup:'$14.80',res:'$18.00',entry:16.30,stop:14.60,target:19.00,vol:'$520M',cap:'$3.1B',iv:'95%',oi:'62K',gamma:'0.21'}},
+{t:'SMCI',n:'Super Micro Comp.',score:70,setup:'swing',rvol:1.7,trend:'up',price:44.20,chg:2.11,opt:'weekly',rr:'2.4x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Price>SMA200 ✓',rsi:57,macd:'Pozitif',atr:'7.2%',
+ sup:'$41.00',res:'$48.00',entry:44.30,stop:40.80,target:49.50,vol:'$740M',cap:'$26B',iv:'68%',oi:'38K',gamma:'0.14'}},
+{t:'RIVN',n:'Rivian Automotive',score:67,setup:'day',rvol:3.2,trend:'neu',price:10.15,chg:-1.23,opt:'weekly',rr:'2.1x',
+ detail:{ema:'EMA20 yakın EMA50',sma:'Price<SMA200 ⚠',rsi:48,macd:'Nötr',atr:'6.8%',
+ sup:'$9.40',res:'$11.20',entry:10.20,stop:9.35,target:11.50,vol:'$410M',cap:'$10.2B',iv:'78%',oi:'55K',gamma:'0.19'}},
+{t:'COIN',n:'Coinbase Global',score:65,setup:'options',rvol:2.1,trend:'up',price:198.40,chg:3.45,opt:'weekly',rr:'2.7x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Price>SMA200 ✓',rsi:61,macd:'Pozitif',atr:'5.4%',
+ sup:'$188.00',res:'$215.00',entry:199.00,stop:187.50,target:218.00,vol:'$1.2B',cap:'$48B',iv:'82%',oi:'95K',gamma:'0.09'}},
+{t:'WOLF',n:'Wolfspeed Inc',score:62,setup:'day',rvol:6.1,trend:'dn',price:2.85,chg:-8.42,opt:'strong',rr:'1.8x',
+ detail:{ema:'EMA20<EMA50 ⚠',sma:'Price<SMA200 ✗',rsi:32,macd:'Negatif',atr:'14.2%',
+ sup:'$2.40',res:'$3.20',entry:2.80,stop:2.35,target:3.30,vol:'$88M',cap:'$380M',iv:'142%',oi:'18K',gamma:'0.38'}},
+{t:'HOOD',n:'Robinhood Markets',score:60,setup:'swing',rvol:1.6,trend:'up',price:22.35,chg:0.89,opt:'weekly',rr:'2.3x',
+ detail:{ema:'EMA20>EMA50 ✓',sma:'Price>SMA200 ✓',rsi:55,macd:'Pozitif',atr:'4.1%',
+ sup:'$21.00',res:'$24.50',entry:22.40,stop:20.80,target:25.00,vol:'$290M',cap:'$20B',iv:'55%',oi:'32K',gamma:'0.11'}},
+];
+
+let openRow=null,sortDir={score:-1,rvol:-1,chg:-1};
+
+function scoreColor(s){return s>=85?'var(--green)':s>=70?'var(--amber)':'var(--red)'}
+function scoreBarColor(s){return s>=85?'var(--green)':s>=70?'var(--amber)':'var(--red)'}
+function setupBadge(s){const m={swing:'badge-swing',day:'badge-day',options:'badge-options',momentum:'badge-momentum'};return`<span class="badge ${m[s]||'badge-swing'}">${s.toUpperCase()}</span>`}
+function trendIcon(t){if(t==='up')return'<span class="trend-up"><i class="ti ti-trending-up"></i></span>';if(t==='dn')return'<span class="trend-dn"><i class="ti ti-trending-down"></i></span>';return'<span class="trend-neu"><i class="ti ti-minus"></i></span>'}
+function optBadge(o){if(o==='weekly')return'<span class="opt-yes"><i class="ti ti-calendar"></i> Haftalık</span>';if(o==='strong')return'<span class="opt-yes"><i class="ti ti-check"></i> Güçlü</span>';return'<span class="opt-no">—</span>'}
+
+function renderTable(){
+  const tb=document.getElementById('tableBody');
+  tb.innerHTML='';
+  stocks.forEach((s,i)=>{
+    const tr=document.createElement('tr');
+    tr.className='row-clickable';
+    tr.onclick=()=>toggleDetail(i);
+    tr.innerHTML=`
+      <td><div class="ticker-cell">${s.t}</div><div class="ticker-name">${s.n}</div></td>
+      <td><div class="score-bar"><span class="score-val" style="color:${scoreColor(s.score)}">${s.score}</span><div class="score-track"><div class="score-fill" style="width:${s.score}%;background:${scoreBarColor(s.score)}"></div></div></div></td>
+      <td>${setupBadge(s.setup)}</td>
+      <td><span class="${s.rvol>=3?'rvol-high':'rvol-norm'}">${s.rvol.toFixed(1)}x</span></td>
+      <td>${trendIcon(s.trend)}</td>
+      <td><span class="price">$${s.price.toFixed(2)}</span></td>
+      <td><span class="${s.chg>=0?'chg-pos':'chg-neg'}">${s.chg>=0?'+':''}${s.chg.toFixed(2)}%</span></td>
+      <td>${optBadge(s.opt)}</td>
+      <td><span style="color:var(--cyan);font-weight:700">${s.rr}</span></td>
+    `;
+    tb.appendChild(tr);
+    const dr=document.createElement('tr');
+    dr.className='detail-row';
+    dr.id='detail-'+i;
+    const d=s.detail;
+    dr.innerHTML=`<td colspan="9"><div class="detail-inner">
+      <div class="detail-card">
+        <div class="dc-label">Teknik Göstergeler</div>
+        <div class="dc-row"><span class="dc-key">EMA Yapısı</span><span class="dc-v up" style="font-size:9px">${d.ema}</span></div>
+        <div class="dc-row"><span class="dc-key">SMA Durumu</span><span class="dc-v up" style="font-size:9px">${d.sma}</span></div>
+        <div class="dc-row"><span class="dc-key">RSI</span><span class="dc-v ${d.rsi>65?'hi':d.rsi<40?'dn':''}">${d.rsi}</span></div>
+        <div class="dc-row"><span class="dc-key">MACD</span><span class="dc-v up">${d.macd}</span></div>
+        <div class="dc-row"><span class="dc-key">ATR</span><span class="dc-v">${d.atr}</span></div>
+      </div>
+      <div class="detail-card">
+        <div class="dc-label">Destek / Direnç</div>
+        <div class="dc-row"><span class="dc-key">Destek</span><span class="dc-v up">${d.sup}</span></div>
+        <div class="dc-row"><span class="dc-key">Direnç</span><span class="dc-v hi">${d.res}</span></div>
+        <div class="dc-row"><span class="dc-key">Dollar Vol.</span><span class="dc-v">${d.vol}</span></div>
+        <div class="dc-row"><span class="dc-key">Market Cap</span><span class="dc-v">${d.cap}</span></div>
+        <div class="dc-row"><span class="dc-key">IV</span><span class="dc-v hi">${d.iv}</span></div>
+        <div class="dc-row"><span class="dc-key">Max OI</span><span class="dc-v">${d.oi}</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="entry-box"><div class="entry-label">GİRİŞ</div><div class="entry-val">$${d.entry.toFixed(2)}</div></div>
+        <div class="stop-box"><div class="stop-label">STOP</div><div class="stop-val">$${d.stop.toFixed(2)}</div></div>
+        <div class="target-box"><div class="target-label">HEDEF</div><div class="target-val">$${d.target.toFixed(2)}</div></div>
+        <div class="rr-box"><div class="rr-label">R/R ORAN</div><div class="rr-val">${s.rr}</div></div>
+      </div>
+      <div class="detail-card">
+        <div class="dc-label">Opsiyon Kalitesi</div>
+        <div class="dc-row"><span class="dc-key">IV</span><span class="dc-v hi">${d.iv}</span></div>
+        <div class="dc-row"><span class="dc-key">Max OI</span><span class="dc-v">${d.oi}</span></div>
+        <div class="dc-row"><span class="dc-key">Gamma</span><span class="dc-v hi">${d.gamma}</span></div>
+        <div class="dc-row"><span class="dc-key">Haftalık Zincir</span><span class="dc-v up">✓ Mevcut</span></div>
+        <div style="margin-top:8px">
+          <button style="background:var(--purple3);border:1px solid var(--purple2);color:var(--purple);padding:4px 10px;border-radius:3px;cursor:pointer;font-size:10px;font-family:inherit;width:100%" onclick="sendPrompt('${s.t} için opsiyon stratejisi öner. Fiyat: $${s.price}, IV: ${d.iv}, Haftalık zincir mevcut')">
+            Opsiyon Stratejisi ↗
+          </button>
+        </div>
+      </div>
+    </div></td>`;
+    tb.appendChild(dr);
+  });
+}
+
+function toggleDetail(i){
+  const dr=document.getElementById('detail-'+i);
+  if(openRow!==null&&openRow!==i){document.getElementById('detail-'+openRow).classList.remove('open')}
+  dr.classList.toggle('open');
+  openRow=dr.classList.contains('open')?i:null;
+}
+
+function toggleSeg(btn,group){btn.classList.toggle('active')}
+function setMode(btn,mode){document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function setPreset(btn,preset){
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const presets={
+    swing_cont:['Price>SMA200','EMA20>EMA50','RSI 55-70','RVOL>1.5','MCap>2B','Weekly OPT'],
+    early_break:['BB Squeeze','ATR Comp.','Vol Expansion','EMA Stack','ADX Rising'],
+    day_mom:['PreGap>4%','RVOL>3','Float<100M','News','VWAP Hold'],
+    opt_sniper:['Weekly OPT','OI>1K','IV Exp.','Gamma>0.1','Tight Spread'],
+    inst_trend:['MCap>10B','ADX>25','OBV Rising','RS vs SPY','Price>EMA200'],
+    cheap_exp:['Price<$10','High Beta','Weekly OPT','RVOL>2','ATR>5%'],
+    ema_cross:['EMA8>EMA21','Fresh Cross','Vol Rising','MACD Pos.'],
+    gamma_sq:['High SI>20%','Call/Put>2','OI artışı','Float<50M'],
+  };
+  const pills=document.getElementById('activePills');
+  pills.innerHTML=(presets[preset]||[]).map(p=>`<div class="pill">${p} <i class="ti ti-x" onclick="removePill(this)"></i></div>`).join('');
+}
+
+function removePill(icon){icon.parentElement.remove()}
+
+function runScan(){
+  const btn=document.querySelector('.scan-btn');
+  btn.innerHTML='<i class="ti ti-loader"></i> Taranıyor...';
+  btn.style.opacity='0.7';
+  setTimeout(()=>{
+    btn.innerHTML='<i class="ti ti-radar"></i> TARA';
+    btn.style.opacity='1';
+    document.getElementById('resultCount').innerHTML='<span>'+stocks.length+'</span> sonuç';
+  },1200);
+}
+
+function sortBy(col){
+  sortDir[col]*=-1;
+  const key={score:'score',rvol:'rvol',chg:'chg'}[col];
+  stocks.sort((a,b)=>(a[key]-b[key])*sortDir[col]);
+  openRow=null;
+  renderTable();
+}
+
+renderTable();
+</script>
