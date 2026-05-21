@@ -16,6 +16,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     { route: '',                             priority: 1.0, cf: 'hourly'  },
     { route: '/swing',                 priority: 0.9, cf: 'daily'   },
+    { route: '/screener',              priority: 0.9, cf: 'hourly'  },
+    { route: '/pro',                   priority: 0.85, cf: 'daily'  },
+    { route: '/terminal',              priority: 0.8, cf: 'daily'   },
+    { route: '/options',               priority: 0.85, cf: 'daily'  },
     { route: '/performance',           priority: 0.8, cf: 'daily'   },
     { route: '/category/top-scores',         priority: 0.8, cf: 'daily'   },
     { route: '/category/breakout',           priority: 0.8, cf: 'daily'   },

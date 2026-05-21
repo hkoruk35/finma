@@ -303,7 +303,19 @@ export default async function ProPage() {
         </section>
 
         {/* Quick Links */}
-        <div className="grid md:grid-cols-2 gap-6 mt-20 mb-10">
+        <div className="grid md:grid-cols-3 gap-6 mt-20 mb-10">
+          <Link href="/screener" className="glass-card p-6 flex items-center justify-between group hover:bg-[#22c55e]/5 transition-colors border-green-900/20">
+            <div>
+              <h3 className="text-white font-black text-lg uppercase">🎯 Screener</h3>
+              <p className="text-slate-500 text-xs mt-1">Setup-first tarama motoru · 8000+ hisse · BOGA Score</p>
+              <div className="flex gap-2 mt-2">
+                <span className="text-[9px] bg-green-900/30 text-green-400 border border-green-800 px-2 py-0.5 rounded">Swing</span>
+                <span className="text-[9px] bg-amber-900/30 text-amber-400 border border-amber-800 px-2 py-0.5 rounded">Day</span>
+                <span className="text-[9px] bg-purple-900/30 text-purple-400 border border-purple-800 px-2 py-0.5 rounded">Options</span>
+              </div>
+            </div>
+            <span className="text-[#22c55e] group-hover:translate-x-1 transition-transform text-xl">→</span>
+          </Link>
           <Link href="/options" className="glass-card p-6 flex items-center justify-between group hover:bg-[#3b82f6]/5 transition-colors">
             <div>
               <h3 className="text-white font-black text-lg uppercase">Option Scanner</h3>
