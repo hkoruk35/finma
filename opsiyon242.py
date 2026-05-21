@@ -1,10 +1,10 @@
 """
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║   🚀 BOGA AI v241 — SEKTÖR ÖNCE + GERÇEK BACKTESTING                      ║
+║   🚀 BOGA AI v242 — SEKTÖR ÖNCE + GERÇEK BACKTESTING                      ║
 ║   "Sektör → Lider → Sıkışma → Hacim → Flow → Doğru Kontrat"               ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║                                                                              ║
-║  v241 — v240'dan devralınan mimari (5 KRİTİK DEĞİŞİKLİK korunuyor):       ║
+║  v242 — v240'dan devralınan mimari (5 KRİTİK DEĞİŞİKLİK korunuyor):       ║
 ║                                                                              ║
 ║  1. SEKTÖR ÖNCE pipeline  ← en büyük değişiklik                            ║
 ║     ETF taraması önce (6 ETF, 10 saniye) →                                 ║
@@ -751,9 +751,11 @@ def check_mtf_rsi_alignment(df_1d: pd.DataFrame, df_1h: Optional[pd.DataFrame],
         lo_1d = df_1d['Low'].astype(float)
         cp    = float(c_1d.iloc[-1])
 
-    e20  = float(EMAIndicator(c_1d, 20).ema_indicator().iloc[-1])
-    e50  = float(EMAIndicator(c_1d, 50).ema_indicator().iloc[-1])
-    e200 = float(EMAIndicator(c_1d, 200).ema_indicator().iloc[-1])
+        e20  = float(EMAIndicator(c_1d, 20).ema_indicator().iloc[-1])
+        e50  = float(EMAIndicator(c_1d, 50).ema_indicator().iloc[-1])
+        e200 = float(EMAIndicator(c_1d, 200).ema_indicator().iloc[-1])
+    except Exception as e:
+        return False, {"block_reason": f"EMA calculation error: {e}"}
 
     # ── ATR-NORMALIZED EXTENSION (EXHAUSTION PROTECTION) ──
     try:
@@ -772,85 +774,85 @@ def check_mtf_rsi_alignment(df_1d: pd.DataFrame, df_1h: Optional[pd.DataFrame],
     elif cp > e200:             trend_1d = "Above EMA200"
     elif cp > e50:              trend_1d = "Above EMA50"
     else:                       trend_1d = "Downtrend"
-    
-        if trend_1d == "Downtrend":
-            return False, {"block_reason": "1D Downtrend (EMA200 altı)"}
 
-        ret_5d = 0.0
-        if len(c_1d) >= 6:
-            ret_5d = (cp - float(c_1d.iloc[-6])) / float(c_1d.iloc[-6]) * 100
-            if ret_5d < -3.5:
-                return False, {"block_reason": f"5G kanama: {ret_5d:.1f}%"}
+    if trend_1d == "Downtrend":
+        return False, {"block_reason": "1D Downtrend (EMA200 altı)"}
 
-        rsi_1d_s  = RSIIndicator(c_1d, 14).rsi()
-        rsi_1d    = float(rsi_1d_s.iloc[-1])
-        rsi_1d_p1 = float(rsi_1d_s.iloc[-2]) if len(rsi_1d_s) >= 2 else rsi_1d
-        rsi_1d_p3 = float(rsi_1d_s.iloc[-4]) if len(rsi_1d_s) >= 4 else rsi_1d
-        rsi_1d_p5 = float(rsi_1d_s.iloc[-6]) if len(rsi_1d_s) >= 6 else rsi_1d
-        rsi_1d_slope5 = rsi_1d - rsi_1d_p5
+    ret_5d = 0.0
+    if len(c_1d) >= 6:
+        ret_5d = (cp - float(c_1d.iloc[-6])) / float(c_1d.iloc[-6]) * 100
+        if ret_5d < -3.5:
+            return False, {"block_reason": f"5G kanama: {ret_5d:.1f}%"}
 
-        rsi_min = 42 if not market_open else 45
-        rsi_fall_warn = 50 if not market_open else 52
+    rsi_1d_s  = RSIIndicator(c_1d, 14).rsi()
+    rsi_1d    = float(rsi_1d_s.iloc[-1])
+    rsi_1d_p1 = float(rsi_1d_s.iloc[-2]) if len(rsi_1d_s) >= 2 else rsi_1d
+    rsi_1d_p3 = float(rsi_1d_s.iloc[-4]) if len(rsi_1d_s) >= 4 else rsi_1d
+    rsi_1d_p5 = float(rsi_1d_s.iloc[-6]) if len(rsi_1d_s) >= 6 else rsi_1d
+    rsi_1d_slope5 = rsi_1d - rsi_1d_p5
 
-        if rsi_1d < rsi_min:
-            return False, {"block_reason": f"1D RSI düşük: {rsi_1d:.1f}"}
-        if rsi_1d < 45 and rsi_1d < rsi_1d_p1:
-            return False, {"block_reason": f"Falling knife: RSI {rsi_1d:.1f}"}
-        if (rsi_1d < rsi_1d_p1 < rsi_1d_p3) and rsi_1d < rsi_fall_warn:
-            return False, {"block_reason": f"RSI 3g düşüyor: {rsi_1d:.1f}"}
-        if rsi_1d > 82:
-            return False, {"block_reason": f"1D RSI aşırı alım: {rsi_1d:.1f}"}
+    rsi_min = 42 if not market_open else 45
+    rsi_fall_warn = 50 if not market_open else 52
 
-        rsi_1h = 55.0; rsi_1h_slope = 0.0; adx_1h = 0.0
-        ema20_1h_ok = True; rsi_1h_lbl = "1H Veri Yok"
+    if rsi_1d < rsi_min:
+        return False, {"block_reason": f"1D RSI düşük: {rsi_1d:.1f}"}
+    if rsi_1d < 45 and rsi_1d < rsi_1d_p1:
+        return False, {"block_reason": f"Falling knife: RSI {rsi_1d:.1f}"}
+    if (rsi_1d < rsi_1d_p1 < rsi_1d_p3) and rsi_1d < rsi_fall_warn:
+        return False, {"block_reason": f"RSI 3g düşüyor: {rsi_1d:.1f}"}
+    if rsi_1d > 82:
+        return False, {"block_reason": f"1D RSI aşırı alım: {rsi_1d:.1f}"}
 
-        if df_1h is not None and len(df_1h) >= 14:
-            c_1h = df_1h['Close'].astype(float)
-            try:
-                rsi_1h_s   = RSIIndicator(c_1h, 14).rsi()
-                rsi_1h     = float(rsi_1h_s.iloc[-1])
-                rsi_1h_p3  = float(rsi_1h_s.iloc[-4]) if len(rsi_1h_s) >= 4 else rsi_1h
-                rsi_1h_slope = rsi_1h - rsi_1h_p3
-            except: pass
+    rsi_1h = 55.0; rsi_1h_slope = 0.0; adx_1h = 0.0
+    ema20_1h_ok = True; rsi_1h_lbl = "1H Veri Yok"
 
-            try:
-                adx_1h = float(ADXIndicator(df_1h['High'], df_1h['Low'], c_1h, 14).adx().iloc[-1])
-            except: pass
+    if df_1h is not None and len(df_1h) >= 14:
+        c_1h = df_1h['Close'].astype(float)
+        try:
+            rsi_1h_s   = RSIIndicator(c_1h, 14).rsi()
+            rsi_1h     = float(rsi_1h_s.iloc[-1])
+            rsi_1h_p3  = float(rsi_1h_s.iloc[-4]) if len(rsi_1h_s) >= 4 else rsi_1h
+            rsi_1h_slope = rsi_1h - rsi_1h_p3
+        except: pass
 
-            try:
-                e20_1h = float(EMAIndicator(c_1h, 20).ema_indicator().iloc[-1])
-                ema20_1h_ok = float(c_1h.iloc[-1]) >= e20_1h * 0.98
-            except: pass
+        try:
+            adx_1h = float(ADXIndicator(df_1h['High'], df_1h['Low'], c_1h, 14).adx().iloc[-1])
+        except: pass
 
-            if market_open:
-                if rsi_1h < 40:
-                    return False, {"block_reason": f"1H RSI düşük: {rsi_1h:.1f}"}
-                if rsi_1h > 82:
-                    return False, {"block_reason": f"1H RSI FOMO: {rsi_1h:.1f}"}
-                if rsi_1d_slope5 < -4 and rsi_1h_slope < -4:
-                    return False, {"block_reason": "DUAL-TF düşüş — ölü kedi!"}
-            else:
-                if rsi_1h < 35:
-                    return False, {"block_reason": f"1H RSI çok düşük (kapalı): {rsi_1h:.1f}"}
-                if rsi_1d_slope5 < -6:
-                    return False, {"block_reason": f"1D RSI sert düşüş: {rsi_1d_slope5:.1f}"}
+        try:
+            e20_1h = float(EMAIndicator(c_1h, 20).ema_indicator().iloc[-1])
+            ema20_1h_ok = float(c_1h.iloc[-1]) >= e20_1h * 0.98
+        except: pass
 
-            rsi_1h_lbl = f"{rsi_1h:.1f}"
+        if market_open:
+            if rsi_1h < 40:
+                return False, {"block_reason": f"1H RSI düşük: {rsi_1h:.1f}"}
+            if rsi_1h > 82:
+                return False, {"block_reason": f"1H RSI FOMO: {rsi_1h:.1f}"}
+            if rsi_1d_slope5 < -4 and rsi_1h_slope < -4:
+                return False, {"block_reason": "DUAL-TF düşüş — ölü kedi!"}
+        else:
+            if rsi_1h < 35:
+                return False, {"block_reason": f"1H RSI çok düşük (kapalı): {rsi_1h:.1f}"}
+            if rsi_1d_slope5 < -6:
+                return False, {"block_reason": f"1D RSI sert düşüş: {rsi_1d_slope5:.1f}"}
 
-        steady_momentum = False
-        if len(c_1d) >= 5:
-            c5 = c_1d.tail(5).values
-            ret_1d = ((float(c_1d.iloc[-1]) - float(c_1d.iloc[-2])) /
-                      float(c_1d.iloc[-2]) * 100) if len(c_1d) >= 2 else 0.0
-            steady_momentum = (all(c5[i] >= c5[i - 1] * 0.99 for i in range(1, 5)) and
-                               c5[-1] > c5[0] and ret_1d < 5.0)
+        rsi_1h_lbl = f"{rsi_1h:.1f}"
 
-        hh_hl = False
-        if len(h_1d) >= 5 and len(lo_1d) >= 5:
-            hh_hl = (float(h_1d.iloc[-1]) > float(h_1d.iloc[-5]) and
-                     float(lo_1d.iloc[-1]) > float(lo_1d.iloc[-5]))
+    steady_momentum = False
+    if len(c_1d) >= 5:
+        c5 = c_1d.tail(5).values
+        ret_1d = ((float(c_1d.iloc[-1]) - float(c_1d.iloc[-2])) /
+                  float(c_1d.iloc[-2]) * 100) if len(c_1d) >= 2 else 0.0
+        steady_momentum = (all(c5[i] >= c5[i - 1] * 0.99 for i in range(1, 5)) and
+                           c5[-1] > c5[0] and ret_1d < 5.0)
 
-        return True, {
+    hh_hl = False
+    if len(h_1d) >= 5 and len(lo_1d) >= 5:
+        hh_hl = (float(h_1d.iloc[-1]) > float(h_1d.iloc[-5]) and
+                 float(lo_1d.iloc[-1]) > float(lo_1d.iloc[-5]))
+
+    return True, {
             "rsi_1d": round(rsi_1d, 1), "rsi_1d_slope5": round(rsi_1d_slope5, 1),
             "rsi_1h": rsi_1h_lbl, "rsi_1h_val": round(rsi_1h, 1),
             "rsi_1h_slope": round(rsi_1h_slope, 1), "adx_1h": round(adx_1h, 1),
@@ -861,9 +863,6 @@ def check_mtf_rsi_alignment(df_1d: pd.DataFrame, df_1h: Optional[pd.DataFrame],
                 else "✅ İYİ" if rsi_1d >= 50 and rsi_1h >= 50 else "🟡 ORTA"
             ),
         }
-    except Exception as e:
-        logging.debug(f"MTF RSI: {e}")
-        return False, {"block_reason": f"MTF RSI hata: {e}"}
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -2226,7 +2225,7 @@ def build_report(candidates, vix, duration, n_scanned, s0: dict,
         bt_line = f"📊 Backtest: {bt_summary['msg']}\n"
 
     summary = (
-        f"🚀 <b>BOGA AI v241 — SEKTÖR ÖNCE + GERÇEK BT</b>\n"
+        f"🚀 <b>BOGA AI v242 — SEKTÖR ÖNCE + GERÇEK BT</b>\n"
         f"🕒 {now_s}  |  VIX:{vix:.1f}  |  Rejim:<b>{regime}</b>  QQQ:{qqq5:+.1f}%\n"
         f"🏭 Aktif Sektörler: {', '.join(active_sectors) or '—'}\n"
         f"   {sector_line}\n"
@@ -2257,9 +2256,9 @@ def build_report(candidates, vix, duration, n_scanned, s0: dict,
 
 def save_picks(candidates, n_universe, duration, active_sectors):
     try:
-        out  = os.path.join(DATA_DIR, f"v241_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
+        out  = os.path.join(DATA_DIR, f"v242_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
         data = {
-            "version": "v241",
+            "version": "v242",
             "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
             "generated_at": datetime.now(NY_TZ).isoformat(),
             "vix": MARKET_VIX.get("value", 0),
@@ -2331,7 +2330,7 @@ async def scan():
     vix_lbl       = f"✅ VIX {vix_val:.1f}" if vix_val <= 22 else f"🚫 VIX {vix_val:.1f} > 22"
 
     await send_tg(
-        f"🚀 <b>BOGA AI v241</b>\n"
+        f"🚀 <b>BOGA AI v242</b>\n"
         f"🕒 {datetime.now(NY_TZ).strftime('%Y-%m-%d %H:%M NY')}\n"
         f"<b>{session_lbl}</b>\n\n"
         f"━━ 3 SORU (Adım 1) ━━\n"
@@ -2431,7 +2430,7 @@ async def scan():
     bo   = best['options'].get("gamma_sweet") or best['options'].get("institutional")
     gt_r = best.get("gt_ratio", 0)
     await send_tg(
-        f"✅ <b>v241 Tamamlandı!</b>  {duration:.0f}sn  "
+        f"✅ <b>v242 Tamamlandı!</b>  {duration:.0f}sn  "
         f"{len(universe)}→{len(candidates)} aday\n"
         f"🏭 Sektörler: {', '.join(ACTIVE_SECTORS)}\n"
         f"🏆 <b>{best['ticker']}</b> ({best['score']:.1f}/100)  {best['grade'][:40]}\n"
@@ -2503,7 +2502,7 @@ async def run_scanner():
     from datetime import timezone as tz
 
     await send_tg(
-        "🚀 <b>BOGA AI v241 BAŞLATILDI!</b>\n"
+        "🚀 <b>BOGA AI v242 BAŞLATILDI!</b>\n"
         "📅 Günde 2 tarama — NY saatiyle:\n"
         "  🌅 11:00  — Gündüz (açılış gürültüsü geçtikten sonra)\n"
         "  🌆 15:30  — Kapanış öncesi (ertesi gün setup'ları)\n\n"
@@ -2549,7 +2548,7 @@ if __name__ == "__main__":
         # Tek seferlik çalıştırma
         # --eod parametresi ile: python opsiyon241.py --oneshot --eod
         SCAN_SESSION = "eod" if "--eod" in sys.argv else "morning"
-        print(f"🚀 BOGA AI v241 (One-Shot) — session: {SCAN_SESSION}")
+        print(f"🚀 BOGA AI v242 (One-Shot) — session: {SCAN_SESSION}")
         print(f"   DTE {DTE_HARD_MIN}-{DTE_MAX}g  |  Earnings hard block: <{EARNINGS_HARD_BLOCK_DAYS}g")
         asyncio.run(scan())
         print("✅ Tamamlandı.")
@@ -2569,6 +2568,6 @@ if __name__ == "__main__":
         try:
             asyncio.run(run_scanner())
         except KeyboardInterrupt:
-            print("\nv241 durduruldu.")
+            print("\nv242 durduruldu.")
         except Exception as e:
             print(f"Kritik hata: {e}")
