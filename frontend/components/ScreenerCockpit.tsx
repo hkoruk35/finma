@@ -561,9 +561,11 @@ export default function ScreenerCockpit() {
               </div>
             ) : results.length === 0 ? (
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 320, gap: 12 }}>
-                <div style={{ fontSize: 40 }}>📡</div>
-                <div style={{ fontSize: 13, color: "#475569" }}>Tarama başlatılmadı</div>
-                <div style={{ fontSize: 10, color: "#334155" }}>Bir preset seç veya TARA butonuna bas</div>
+                <div style={{ fontSize: 40 }}>{lastScan ? "📭" : "📡"}</div>
+                <div style={{ fontSize: 13, color: "#475569" }}>{lastScan ? "Sonuç bulunamadı" : "Tarama başlatılmadı"}</div>
+                <div style={{ fontSize: 10, color: "#334155" }}>
+                  {lastScan ? "Mevcut filtrelere uyan hisse yok. Filtreleri gevşetmeyi deneyin." : "Bir preset seç veya TARA butonuna bas"}
+                </div>
               </div>
             ) : (
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
