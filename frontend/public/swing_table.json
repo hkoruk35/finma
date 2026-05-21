@@ -1,66 +1,50 @@
 [
   {
-    "Date": "20 May",
-    "Symbol": "LNC",
-    "Entry (Buy_L)": 34.65,
-    "Stop (SL)": 33.83,
-    "Target 1 (TP1)": 37.98,
-    "Target 2 (TP2)": 38.48
+    "Date": "21 May",
+    "Symbol": "TSM",
+    "Entry (Buy_L)": 395.91,
+    "Stop (SL)": 385.86,
+    "Target 1 (TP1)": 426.56,
+    "Target 2 (TP2)": 431.08
   },
   {
-    "Date": "20 May",
-    "Symbol": "HLI",
-    "Entry (Buy_L)": 146.16,
-    "Stop (SL)": 143.01,
-    "Target 1 (TP1)": 156.54,
-    "Target 2 (TP2)": 158.04
+    "Date": "21 May",
+    "Symbol": "CNI",
+    "Entry (Buy_L)": 113.43,
+    "Stop (SL)": 111.9,
+    "Target 1 (TP1)": 118.1,
+    "Target 2 (TP2)": 118.78
   },
   {
-    "Date": "20 May",
-    "Symbol": "CSX",
-    "Entry (Buy_L)": 45.88,
-    "Stop (SL)": 45.28,
-    "Target 1 (TP1)": 47.57,
-    "Target 2 (TP2)": 47.83
+    "Date": "21 May",
+    "Symbol": "GOOG",
+    "Entry (Buy_L)": 378.7,
+    "Stop (SL)": 371.96,
+    "Target 1 (TP1)": 399.26,
+    "Target 2 (TP2)": 402.29
   },
   {
-    "Date": "20 May",
-    "Symbol": "NATL",
-    "Entry (Buy_L)": 44.28,
-    "Stop (SL)": 43.67,
-    "Target 1 (TP1)": 46.15,
-    "Target 2 (TP2)": 46.43
+    "Date": "21 May",
+    "Symbol": "BK",
+    "Entry (Buy_L)": 135.48,
+    "Stop (SL)": 133.52,
+    "Target 1 (TP1)": 141.46,
+    "Target 2 (TP2)": 142.34
   },
   {
-    "Date": "20 May",
-    "Symbol": "MS",
-    "Entry (Buy_L)": 194.35,
-    "Stop (SL)": 191.07,
-    "Target 1 (TP1)": 204.75,
-    "Target 2 (TP2)": 206.26
+    "Date": "21 May",
+    "Symbol": "AHR",
+    "Entry (Buy_L)": 49.13,
+    "Stop (SL)": 48.12,
+    "Target 1 (TP1)": 52.21,
+    "Target 2 (TP2)": 52.67
   },
   {
-    "Date": "20 May",
-    "Symbol": "SNX",
-    "Entry (Buy_L)": 226.19,
-    "Stop (SL)": 221.77,
-    "Target 1 (TP1)": 239.33,
-    "Target 2 (TP2)": 241.28
-  },
-  {
-    "Date": "20 May",
-    "Symbol": "UBER",
-    "Entry (Buy_L)": 73.29,
-    "Stop (SL)": 71.57,
-    "Target 1 (TP1)": 78.54,
-    "Target 2 (TP2)": 79.31
-  },
-  {
-    "Date": "20 May",
-    "Symbol": "DASH",
-    "Entry (Buy_L)": 153.56,
-    "Stop (SL)": 147.88,
-    "Target 1 (TP1)": 170.9,
-    "Target 2 (TP2)": 173.46
+    "Date": "21 May",
+    "Symbol": "NDAQ",
+    "Entry (Buy_L)": 88.5,
+    "Stop (SL)": 87.0,
+    "Target 1 (TP1)": 93.06,
+    "Target 2 (TP2)": 93.74
   }
 ]
