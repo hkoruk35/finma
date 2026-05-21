@@ -1,9 +1,9 @@
-# BOGA AI Swing Watchlist - 2026-05-21 11:00
+# BOGA AI Swing Watchlist - 2026-05-21 12:00
+CSX
+DASH
+HLI
+LNC
 MS
 NATL
 SNX
-LNC
-DASH
-HLI
 UBER
-CSX

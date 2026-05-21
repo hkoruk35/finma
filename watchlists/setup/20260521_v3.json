@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "CSX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "DASH",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "HLI",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "LNC",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "MS",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "NATL",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "SNX",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-05-21 12:00",
+        "symbol": "UBER",
+        "sector": "Unknown",
+        "action": "WAIT",
+        "price": 0.0,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    }
+]

@@ -108,39 +108,8 @@ const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
-
-const UNIVERSE_T1 = [
-  // Mega Cap
-  "AAPL","MSFT","NVDA","GOOGL","AMZN","META","TSLA","AVGO","AMD","INTC",
-  // AI / Quant
-  "PLTR","CRWD","NET","SNOW","DDOG","PANW","OKTA","ZS","FTNT",
-  // Options-rich growth
-  "HOOD","COIN","SOFI","IONQ","RGTI","QBTS","MSTR","SOUN","BBAI",
-  // Semis
-  "SMCI","AMAT","KLAC","LRCX","MRVL","QCOM","MU","TXN","ASML",
-  // Crypto mining
-  "MARA","RIOT","HUT","CIFR","CLSK","WULF","IREN","BTBT",
-  // Biotech
-  "MRNA","BNTX","REGN","BIIB","GILD","LLY","PFE","ABBV","ISRG",
-  // Finance
-  "JPM","GS","MS","BAC","C","WFC","BLK","SCHW","V","MA",
-  // Energy
-  "XOM","CVX","OXY","SLB","HAL","FCX","GOLD","NEM","MP",
-  // Consumer/Tech
-  "NFLX","DIS","SHOP","UBER","SNAP","PYPL","SQ","ROKU","TWLO",
-  // EV
-  "RIVN","LCID","NKLA","CHPT","BLNK","EVGO","QS",
-  // China ADR
-  "BABA","JD","PDD","BIDU","NIO","XPEV","LI",
-  // ETF/Index (for regime)
-  "SPY","QQQ","IWM","VXX","GLD","SLV","TLT",
-  // Sector ETFs
-  "XLK","XLF","XLE","XLV","XLY","XLP","XLI","XLB","XLRE","XLU","XLC",
-  // Additional high-volume
-  "ORCL","CRM","NOW","WDAY","HUBS","ZM","DOCU","BILL","VEEV",
-  "F","GM","STLA","BA","LMT","RTX","NOC","GD","KTOS",
-  "WOLF","RIVN","SMCI","COIN","SOFI","MARA","RIOT",
-];
+// We no longer use the hardcoded UNIVERSE_T1.
+// The universe is now built daily by universe_builder.py and stored in public/data/daily_universe.json.
 
 // ─── Math Helpers ─────────────────────────────────────────────────────────────
 
@@ -652,18 +621,39 @@ export async function GET(req: NextRequest) {
   // Fetch regime
   const regime = await detectRegime();
 
-  // Deduplicate universe
-  const universe = [...new Set(UNIVERSE_T1)];
+  // Deduplicate and load universe
+  let universe: string[] = [];
+  try {
+    const protocol = req.nextUrl.protocol;
+    const host = req.nextUrl.host;
+    const url = `${protocol}//${host}/data/daily_universe.json`;
+    const uniRes = await fetch(url, { cache: 'no-store' });
+    if (uniRes.ok) {
+      const uniData = await uniRes.json();
+      if (uniData.tickers && Array.isArray(uniData.tickers)) {
+        universe = uniData.tickers;
+      }
+    }
+  } catch (e) {
+    console.error("Could not load daily universe:", e);
+  }
+  
+  // Fallback if universe is empty
+  if (universe.length === 0) {
+    universe = ["SPY", "QQQ", "AAPL", "MSFT", "NVDA", "TSLA"];
+  }
+  universe = [...new Set(universe)];
 
-  // Batch fetch (parallel, 4 concurrent batches of 12)
-  const batchSize = 12;
+  // Batch fetch (parallel, optimized for 1000 stocks without Vercel timeout)
+  // Higher batch size and concurrency to process faster.
+  const batchSize = 30;
   const batches: string[][] = [];
   for (let i = 0; i < universe.length; i += batchSize) {
     batches.push(universe.slice(i, i + batchSize));
   }
 
   const allResults: ScreenerResult[] = [];
-  const concurrency = 4;
+  const concurrency = 8;
   for (let i = 0; i < batches.length; i += concurrency) {
     const chunk = batches.slice(i, i + concurrency);
     const chunkRes = await Promise.all(
