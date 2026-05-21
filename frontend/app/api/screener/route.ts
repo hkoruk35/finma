@@ -564,32 +564,29 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "swing_cont":
       return s.price > s.sma200 && s.ema20 > s.ema50 &&
-             s.rsi >= 55 && s.rsi <= 72 &&
-             s.rvol >= 1.5 && s.market_cap >= 2e9;
+             s.rsi >= 50 && s.rvol >= 0.8 && s.market_cap >= 300e6;
     case "early_break":
-      return s.bb_width < 0.08 && s.rvol >= 1.3 &&
-             s.adx >= 12 && s.adx <= 30 && s.boga_score >= 50;
+      return s.bb_width < 0.12 && s.rvol >= 0.8 && s.boga_score >= 50;
     case "day_mom":
-      return s.change_1d > 4 && s.rvol >= 3 && s.boga_score >= 55;
+      return s.change_1d > 2 && s.rvol >= 1.2 && s.boga_score >= 50;
     case "opt_sniper":
-      return s.has_weekly_options && s.rvol >= 1.3 &&
-             s.atr_pct >= 3 && s.rsi >= 50 && s.boga_score >= 55;
+      return s.has_weekly_options && s.rvol >= 0.8 &&
+             s.atr_pct >= 2.5 && s.rsi >= 50;
     case "inst_trend":
       return s.market_cap >= 10e9 && s.price > s.sma200 &&
-             s.ema20 > s.ema50 && s.adx >= 20 && s.boga_score >= 60;
+             s.ema20 > s.ema50 && s.adx >= 15;
     case "cheap_exp":
-      return s.price < 10 && s.atr_pct >= 4 &&
-             s.has_weekly_options && s.rvol >= 2;
+      return s.price < 20 && s.atr_pct >= 3 && s.rvol >= 1.0;
     case "ema_cross":
       // EMA8 > EMA20 but EMA20 close to EMA50 (fresh cross zone)
       return s.ema8 > s.ema20 &&
-             s.ema20 >= s.ema50 * 0.96 && s.ema20 <= s.ema50 * 1.04 &&
-             s.rvol >= 1.3;
+             s.ema20 >= s.ema50 * 0.95 && s.ema20 <= s.ema50 * 1.05 &&
+             s.rvol >= 0.8;
     case "gamma_sq":
-      return s.has_weekly_options && s.atr_pct >= 5 &&
-             s.market_cap < 20e9 && s.rvol >= 2;
+      return s.has_weekly_options && s.atr_pct >= 4 &&
+             s.market_cap < 50e9 && s.rvol >= 1.0;
     default:
-      return s.boga_score >= 50;
+      return s.boga_score >= 40;
   }
 }
 
