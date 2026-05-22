@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-21T10:31:00.070052-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 23.5,
+  "generated_at": "2026-05-22T09:31:00.091306-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 25.9,
   "total_scanned": 2,
   "layer1_passed": 2,
   "final_picks": 2,
   "picks": [
     {
-      "ticker": "BMRN",
-      "price": 52.67,
-      "change_pct": 4.91,
-      "dt_score": 48.0,
+      "ticker": "AFRM",
+      "price": 69.75,
+      "change_pct": 3.83,
+      "dt_score": 35.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 24.07,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "acquisition",
-        "catalyst_score": 22,
-        "headline": "biomarin announces positive phase 3 pivotal study results for voxzogo (vosoritide) in children with hypochondroplasia(pr",
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "royal caribbean and affirm to bring flexible and transparent payment options to travellers in uk and canada(business wir",
         "confidence": "high",
-        "ts": 1779370287.1694894
+        "ts": 1779456685.5854132
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,46 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 52.62,
-          "high": 52.93
+          "low": 69.68,
+          "high": 70.1
         },
-        "stop": 51.88,
-        "tp1": 54.56,
-        "tp2": 55.91,
-        "rr_ratio": 1.99,
-        "avg_entry": 52.77,
-        "risk_per_sh": 0.89,
+        "stop": 69.12,
+        "tp1": 71.43,
+        "tp2": 72.58,
+        "rr_ratio": 2.0,
+        "avg_entry": 69.89,
+        "risk_per_sh": 0.77,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 52.67
+        "pm_high_ref": 69.75
       },
       "details": [
-        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.9%",
+        "↗️ Küçük Gap: +3.8%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +118.80%",
-        "🔴 Açılış Barı: Kırmızı (0.1% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "RIOT",
-      "price": 24.47,
-      "change_pct": 3.36,
-      "dt_score": 37.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "ticker": "AMD",
+      "price": 477.25,
+      "change_pct": 6.15,
+      "dt_score": 18.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 24.07,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "upgrade",
-        "catalyst_score": 15,
-        "headline": "large cryptocurrencies mixed as cardano declines(marketwatch)",
-        "confidence": "medium",
-        "ts": 1779373883.3180804
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779456685.5799077
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +90,24 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 24.45,
-          "high": 24.59
+          "low": 475.1,
+          "high": 477.97
         },
-        "stop": 24.1,
-        "tp1": 25.36,
-        "tp2": 25.99,
+        "stop": 472.95,
+        "tp1": 483.71,
+        "tp2": 489.08,
         "rr_ratio": 2.0,
-        "avg_entry": 24.52,
-        "risk_per_sh": 0.42,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 24.47
+        "avg_entry": 476.54,
+        "risk_per_sh": 3.59,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 477.25
       },
       "details": [
-        "📰 Kataliz: UPGRADE",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.4%",
+        "↗️ Orta Gap: +6.2%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.65%",
-        "🔴 Açılış Barı: Kırmızı (0.1% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
