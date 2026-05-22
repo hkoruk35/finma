@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "BK",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 137.15,
+        "entry_zone": "135.71 - 138.59",
+        "SL": 131.41,
+        "TP": 145.76
+    },
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "NDAQ",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 91.1,
+        "entry_zone": "90.09 - 92.11",
+        "SL": 87.07,
+        "TP": 97.14
+    },
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "TSM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 407.05,
+        "entry_zone": "399.48 - 414.61",
+        "SL": 376.79,
+        "TP": 452.43
+    },
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "GOOG",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 382.3,
+        "entry_zone": "377.60 - 387.00",
+        "SL": 363.51,
+        "TP": 410.49
+    },
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "AHR",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 49.98,
+        "entry_zone": "49.21 - 50.75",
+        "SL": 46.91,
+        "TP": 54.59
+    },
+    {
+        "date": "2026-05-22 13:00",
+        "symbol": "CNI",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 114.45,
+        "entry_zone": "113.50 - 115.40",
+        "SL": 110.64,
+        "TP": 120.16
+    }
+]
