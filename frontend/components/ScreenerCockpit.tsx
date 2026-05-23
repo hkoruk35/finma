@@ -365,6 +365,8 @@ const REGIME_MULT_HINT: Record<string, string> = {
 export default function ScreenerCockpit() {
   const [activePreset, setActivePreset] = useState("swing_cont");
   const [activeMode,   setActiveMode]   = useState("swing");
+  const currentPreset = PRESETS.find(p => p.id === activePreset);
+  const presetPills = currentPreset?.pills || [];
 
   // Filters
   const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(null);
@@ -372,7 +374,7 @@ export default function ScreenerCockpit() {
   const [optFilter,  setOptFilter]  = useState("all");
   const [liqFilter,  setLiqFilter]  = useState("all");
 
-  // Build active filters for display
+  // Build active filters for display (removable)
   const getActiveFilters = () => {
     const filters: string[] = [];
     if (priceRange) filters.push(`$${priceRange.min}-${priceRange.max}`);
@@ -391,6 +393,9 @@ export default function ScreenerCockpit() {
     return filters;
   };
   const activeFilters = getActiveFilters();
+
+  // Combine preset pills (info) + active filters (removable)
+  const allPills = [...presetPills, ...activeFilters];
 
   // Results
   const [results,     setResults]     = useState<ScreenerResult[]>([]);
@@ -566,12 +571,16 @@ export default function ScreenerCockpit() {
             </button>
 
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", flex: 1 }}>
-              {activeFilters.map(filter => (
-                <div key={filter} style={{ background: "#141924", border: "1px solid #1e2a3a", color: "#94a3b8", padding: "3px 8px", borderRadius: 10, fontSize: 9, display: "flex", alignItems: "center", gap: 4 }}>
-                  {filter}
-                  <span style={{ fontSize: 10, cursor: "pointer", color: "#334155" }} onClick={() => removeFilter(filter)}>✕</span>
-                </div>
-              ))}
+              {allPills.map((pill, idx) => {
+                const isActiveFilter = idx >= presetPills.length; // Active filters come after preset pills
+                const isRemovable = isActiveFilter;
+                return (
+                  <div key={pill} style={{ background: isRemovable ? "#141924" : "#0a1f1a", border: `1px solid ${isRemovable ? "#1e2a3a" : "#1e3a2a"}`, color: isRemovable ? "#94a3b8" : "#48b59f", padding: "3px 8px", borderRadius: 10, fontSize: 9, display: "flex", alignItems: "center", gap: 4 }}>
+                    {pill}
+                    {isRemovable && <span style={{ fontSize: 10, cursor: "pointer", color: "#334155" }} onClick={() => removeFilter(pill)}>✕</span>}
+                  </div>
+                );
+              })}
             </div>
 
             <div style={{ fontSize: 9, color: "#334155", marginLeft: "auto", textAlign: "right" }}>
