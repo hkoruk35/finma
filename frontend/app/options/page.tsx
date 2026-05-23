@@ -10,8 +10,8 @@ import { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Option Scanner | BOGA AI — v241 Terminal",
-  description: "BOGA AI v241 Options Scanner. Institutional Flow & Winner Formula terminal.",
+  title: "Option Scanner | BOGA AI — v242 Terminal",
+  description: "BOGA AI v242 Options Scanner. Institutional Flow & Winner Formula terminal.",
   alternates: { canonical: "https://bogastock.com/options" },
 };
 
@@ -39,7 +39,7 @@ export default async function OptionsPage() {
     getOptionsDates(),
   ]);
 
-  const recentDates = allDates.slice(0, 3);
+  const recentDates = allDates.slice(0, 10);
   const results = await Promise.all(recentDates.map((d) => getOptionsData(d)));
   const allPicks: OptionPick[] = results.flatMap((r) => r?.picks ?? []);
   const latestData = results[0];

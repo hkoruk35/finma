@@ -201,7 +201,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
         <div className="flex items-center gap-2">
           <span className="text-lg font-black text-white tracking-tighter uppercase italic">
-            BOGA <span className="text-[#3b82f6]">OPTIONS</span> v241
+            BOGA <span className="text-[#3b82f6]">OPTIONS</span> v242
           </span>
           <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-bold">
             Institutional Terminal
