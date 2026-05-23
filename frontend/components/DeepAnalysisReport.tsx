@@ -92,13 +92,33 @@ function ForecastChart({ forecast15, currentPrice }: { forecast15: any[]; curren
   );
 }
 
+// ── Print styles injected once ─────────────────────────────────────────────────
+const PRINT_STYLE = `
+@media print {
+  body > *:not(#boga-deep-print) { display: none !important; }
+  #boga-deep-print { display: block !important; position: static !important; overflow: visible !important; background: #070b12 !important; color: white !important; }
+  #boga-deep-print .no-print { display: none !important; }
+  #boga-deep-print .print-content { max-width: 100% !important; padding: 12px !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  @page { margin: 8mm; size: A4; }
+}
+`;
+
 // ── Main Component ─────────────────────────────────────────────────────────────
 export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props) {
   const reportRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
-  const [exportingPdf, setExportingPdf] = useState(false);
+  const [exportingPdf] = useState(false);
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.id = "boga-print-style";
+    style.textContent = PRINT_STYLE;
+    if (!document.getElementById("boga-print-style")) document.head.appendChild(style);
+    return () => { document.getElementById("boga-print-style")?.remove(); };
+  }, []);
 
   useEffect(() => {
     fetch("/api/deep-analysis", {
@@ -111,43 +131,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
       .catch(e => { setError(e.message); setLoading(false); });
   }, [ticker]);
 
-  const handleExportPDF = async () => {
-    if (!reportRef.current) return;
-    setExportingPdf(true);
-    try {
-      const html2canvas = (await import("html2canvas")).default;
-      const { jsPDF } = await import("jspdf");
-      const el = reportRef.current;
-      // Capture full scrollable content, not just visible viewport
-      const canvas = await html2canvas(el, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#070b12",
-        logging: false,
-        width: el.scrollWidth,
-        height: el.scrollHeight,
-        windowWidth: el.scrollWidth,
-        windowHeight: el.scrollHeight,
-        scrollY: 0,
-        scrollX: 0,
-      });
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210;
-      const pageHeight = 297;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const imgData = canvas.toDataURL("image/png");
-      let heightLeft = imgHeight;
-      let pos = 0;
-      pdf.addImage(imgData, "PNG", 0, pos, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-      while (heightLeft > 0) {
-        pos = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, pos, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      pdf.save(`BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${new Date().toISOString().slice(0, 10)}.pdf`);
-    } catch (e) { console.error(e); } finally { setExportingPdf(false); }
+  const handleExportPDF = () => {
+    const date = new Date().toISOString().slice(0, 10);
+    const title = `BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${date}`;
+    const prev = document.title;
+    document.title = title;
+    window.print();
+    document.title = prev;
   };
 
   const handleShare = async () => {
@@ -167,9 +157,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
   const companyName = stockData?.company || ticker;
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-black/85 backdrop-blur-md flex flex-col overflow-hidden">
+    <div id="boga-deep-print" className="fixed inset-0 z-[99999] bg-black/85 backdrop-blur-md flex flex-col overflow-hidden">
       {/* TOP BAR */}
-      <div className="shrink-0 flex items-center justify-between px-4 py-2.5 bg-[#060a12] border-b border-[#1e3a5f] shadow-xl">
+      <div className="no-print shrink-0 flex items-center justify-between px-4 py-2.5 bg-[#060a12] border-b border-[#1e3a5f] shadow-xl">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1d4ed8] to-[#06b6d4] flex items-center justify-center shrink-0">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
@@ -185,8 +175,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
               Paylaş
             </button>
-            <button onClick={handleExportPDF} disabled={exportingPdf} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[10px] font-black uppercase tracking-wider transition-all disabled:opacity-50">
-              {exportingPdf ? <svg className="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg> : <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}
+            <button onClick={handleExportPDF} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[10px] font-black uppercase tracking-wider transition-all">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
               PDF Kaydet
             </button>
           </>)}
@@ -197,7 +187,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
       </div>
 
       {/* CONTENT */}
-      <div className="flex-1 overflow-y-auto bg-[#070b12]">
+      <div className="print-content flex-1 overflow-y-auto bg-[#070b12]">
         {loading && (
           <div className="flex flex-col items-center justify-center h-64 gap-4">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#1d4ed8] to-[#06b6d4] flex items-center justify-center animate-pulse">
