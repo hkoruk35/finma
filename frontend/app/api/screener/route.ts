@@ -625,7 +625,6 @@ export async function GET(req: NextRequest) {
   const liqFilter  = sp.get("liq")       || "all";
   const sortBy     = sp.get("sort")      || "score";
   const limit      = Math.min(parseInt(sp.get("limit") || "50"), 100);
-  const useWatchlist = sp.get("watchlist") === "true";
 
   // Fetch regime
   const regime = await detectRegime();
@@ -652,29 +651,6 @@ export async function GET(req: NextRequest) {
     universe = ["SPY", "QQQ", "AAPL", "MSFT", "NVDA", "TSLA"];
   }
   universe = [...new Set(universe)];
-
-  // ─── Load watchlist if requested ───────────────────────────────────────
-  if (useWatchlist) {
-    try {
-      const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
-      const protocol = req.nextUrl.protocol;
-      const host = req.nextUrl.host;
-      const wlUrl = `${protocol}//${host}/watchlist_${today}.json`;
-      const wlRes = await fetch(wlUrl, { cache: 'no-store' });
-      if (wlRes.ok) {
-        const wlData = await wlRes.json();
-        const watchlistTickers = [
-          ...(wlData.position_list || []).map((s: any) => s.ticker),
-          ...(wlData.watchlist || []).map((s: any) => s.ticker),
-        ];
-        if (watchlistTickers.length > 0) {
-          universe = watchlistTickers;
-        }
-      }
-    } catch (e) {
-      console.warn("Could not load watchlist:", e);
-    }
-  }
 
   // Batch fetch (parallel, optimized for 1000 stocks without Vercel timeout)
   // Higher batch size and concurrency to process faster.
