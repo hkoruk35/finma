@@ -365,13 +365,32 @@ const REGIME_MULT_HINT: Record<string, string> = {
 export default function ScreenerCockpit() {
   const [activePreset, setActivePreset] = useState("swing_cont");
   const [activeMode,   setActiveMode]   = useState("swing");
-  const [activePills,  setActivePills]  = useState<string[]>(PRESETS[0].pills);
 
   // Filters
   const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(null);
   const [capFilter,  setCapFilter]  = useState("all");
   const [optFilter,  setOptFilter]  = useState("all");
   const [liqFilter,  setLiqFilter]  = useState("all");
+
+  // Build active filters for display
+  const getActiveFilters = () => {
+    const filters: string[] = [];
+    if (priceRange) filters.push(`$${priceRange.min}-${priceRange.max}`);
+    if (capFilter !== "all") {
+      const capLabel = CAP_RANGES.find(c => c.id === capFilter)?.label || capFilter;
+      filters.push(`Cap: ${capLabel}`);
+    }
+    if (liqFilter !== "all") {
+      const liqLabel = LIQ_RANGES.find(l => l.id === liqFilter)?.label || liqFilter;
+      filters.push(`Liq: ${liqLabel}`);
+    }
+    if (optFilter !== "all") {
+      const optLabel = OPT_RANGES.find(o => o.id === optFilter)?.label || optFilter;
+      filters.push(`Opt: ${optLabel}`);
+    }
+    return filters;
+  };
+  const activeFilters = getActiveFilters();
 
   // Results
   const [results,     setResults]     = useState<ScreenerResult[]>([]);
@@ -430,8 +449,16 @@ export default function ScreenerCockpit() {
     return (v(a) - v(b)) * sortDir;
   });
 
-  const selectPreset = (p: typeof PRESETS[0]) => { setActivePreset(p.id); setActiveMode(p.mode); setActivePills(p.pills); };
+  const selectPreset = (p: typeof PRESETS[0]) => { setActivePreset(p.id); setActiveMode(p.mode); };
   const regimeColor  = REGIME_COLORS[regime.regime] ?? "#94a3b8";
+
+  // Helper to remove a filter
+  const removeFilter = (filterText: string) => {
+    if (filterText.includes("$")) setPriceRange(null);
+    else if (filterText.includes("Cap:")) setCapFilter("all");
+    else if (filterText.includes("Liq:")) setLiqFilter("all");
+    else if (filterText.includes("Opt:")) setOptFilter("all");
+  };
 
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
@@ -539,10 +566,10 @@ export default function ScreenerCockpit() {
             </button>
 
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", flex: 1 }}>
-              {activePills.map(pill => (
-                <div key={pill} style={{ background: "#141924", border: "1px solid #1e2a3a", color: "#94a3b8", padding: "3px 8px", borderRadius: 10, fontSize: 9, display: "flex", alignItems: "center", gap: 4 }}>
-                  {pill}
-                  <span style={{ fontSize: 10, cursor: "pointer", color: "#334155" }} onClick={() => setActivePills(pp => pp.filter(x => x !== pill))}>✕</span>
+              {activeFilters.map(filter => (
+                <div key={filter} style={{ background: "#141924", border: "1px solid #1e2a3a", color: "#94a3b8", padding: "3px 8px", borderRadius: 10, fontSize: 9, display: "flex", alignItems: "center", gap: 4 }}>
+                  {filter}
+                  <span style={{ fontSize: 10, cursor: "pointer", color: "#334155" }} onClick={() => removeFilter(filter)}>✕</span>
                 </div>
               ))}
             </div>
