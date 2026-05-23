@@ -117,21 +117,50 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
     try {
       const html2canvas = (await import("html2canvas")).default;
       const { jsPDF } = await import("jspdf");
-      const canvas = await html2canvas(reportRef.current, { scale: 2, useCORS: true, backgroundColor: "#070b12", logging: false });
+      const el = reportRef.current;
+      // Capture full scrollable content, not just visible viewport
+      const canvas = await html2canvas(el, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#070b12",
+        logging: false,
+        width: el.scrollWidth,
+        height: el.scrollHeight,
+        windowWidth: el.scrollWidth,
+        windowHeight: el.scrollHeight,
+        scrollY: 0,
+        scrollX: 0,
+      });
       const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210; const pageHeight = 297;
+      const imgWidth = 210;
+      const pageHeight = 297;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let left = imgHeight, pos = 0;
-      pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, pos, imgWidth, imgHeight);
-      left -= pageHeight;
-      while (left > 0) { pos = left - imgHeight; pdf.addPage(); pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, pos, imgWidth, imgHeight); left -= pageHeight; }
+      const imgData = canvas.toDataURL("image/png");
+      let heightLeft = imgHeight;
+      let pos = 0;
+      pdf.addImage(imgData, "PNG", 0, pos, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      while (heightLeft > 0) {
+        pos = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, pos, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
       pdf.save(`BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${new Date().toISOString().slice(0, 10)}.pdf`);
     } catch (e) { console.error(e); } finally { setExportingPdf(false); }
   };
 
-  const handleShare = () => {
-    if (navigator.share) navigator.share({ title: `BOGA AI Derin Analiz — ${ticker.toUpperCase()}`, url: window.location.href }).catch(() => {});
-    else { navigator.clipboard.writeText(window.location.href); alert("Bağlantı kopyalandı!"); }
+  const handleShare = async () => {
+    const shareUrl = `${window.location.origin}/ai?ticker=${ticker.toUpperCase()}`;
+    const shareText = `BOGA AI — ${ticker.toUpperCase()} Derin Analiz Raporu\n${companyName} · $${currentPrice.toFixed(2)}\n\n${shareUrl}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: `BOGA AI Derin Analiz — ${ticker.toUpperCase()}`, text: shareText, url: shareUrl });
+      } catch (e: any) { if (e?.name !== "AbortError") { await navigator.clipboard.writeText(shareText); alert("Bağlantı kopyalandı!"); } }
+    } else {
+      try { await navigator.clipboard.writeText(shareText); alert("Bağlantı kopyalandı! 📋"); }
+      catch { alert(`Paylaşım bağlantısı:\n${shareUrl}`); }
+    }
   };
 
   const currentPrice = stockData?.price?.current || 0;
