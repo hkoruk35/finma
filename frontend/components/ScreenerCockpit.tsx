@@ -79,6 +79,7 @@ const PRESETS = [
   { id: "cheap_exp",   name: "Cheap & Explosive",   desc: "Price<$10 · RVOL>2 · Weekly Opt",      mode: "day",      color: "#f43f5e", pills: ["Price<$10","RVOL>2","ATR>4%","Haftalık OPT"],                 icon: "🔥" },
   { id: "ema_cross",   name: "EMA Cross Setup",     desc: "EMA8>EMA20 fresh cross · RVOL>1.3",    mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                 icon: "✂️" },
   { id: "gamma_sq",    name: "Gamma Squeeze",       desc: "Haftalık · ATR>5% · RVOL>2",           mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                  icon: "🚀" },
+  { id: "pre_catalyst",name: "Pre-Catalyst Scanner",desc: "Nano Float · RVOL>1.5 · RSI 50-72",    mode: "swing",    color: "#ec4899", pills: ["Float<$150M","RVOL>1.5","RSI 50-72","ADX>20","Gece Taraması"], icon: "🎯" },
 ];
 
 const TRADE_MODES = [

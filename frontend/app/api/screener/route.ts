@@ -94,17 +94,18 @@ const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options:
   cheap_exp:   { trend: 20, momentum: 35, options: 25, liquidity: 20 },
   ema_cross:   { trend: 30, momentum: 35, options: 15, liquidity: 20 },
   gamma_sq:    { trend: 15, momentum: 25, options: 45, liquidity: 15 },
+  pre_catalyst:{ trend: 20, momentum: 35, options: 10, liquidity: 35 },
 };
 
 // Regime multipliers (Architecture spec §8.1)
 const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
-  bull_trending:  { swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10 },
-  bull_choppy:    { swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90 },
-  neutral:        { swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95 },
-  bear_choppy:    { swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50 },
-  bear_trending:  { swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30 },
-  high_volatility:{ swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70 },
-  low_volatility: { swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20 },
+  bull_trending:  { swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25 },
+  bull_choppy:    { swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95 },
+  neutral:        { swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90 },
+  bear_choppy:    { swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50 },
+  bear_trending:  { swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35 },
+  high_volatility:{ swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35 },
+  low_volatility: { swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75 },
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
@@ -551,6 +552,16 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
     case "gamma_sq":
       return s.has_weekly_options && s.atr_pct >= 3.5 &&
              s.market_cap < 50e9 && s.rvol >= 0.8;
+    case "pre_catalyst":
+      // Gece taraması (23:00): ertesi gün patlama yapabilecek hisseleri tespit et
+      // Filtreler: Float (<$150M), RVOL (>1.5x), RSI (50-72), EMA pozitif, Change (+2-15%), ADX (>20)
+      return s.price >= 1 && s.price <= 50 &&
+             s.market_cap < 150e6 &&
+             s.rvol > 1.5 &&
+             s.rsi >= 50 && s.rsi <= 72 &&
+             s.ema20 > s.ema50 &&
+             s.change_1d > 2 && s.change_1d < 15 &&
+             s.adx > 20;
     default:
       return s.boga_score >= 40;
   }
