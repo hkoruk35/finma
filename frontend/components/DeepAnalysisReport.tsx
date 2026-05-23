@@ -9,16 +9,16 @@ function SectionTitle({ icon, title }: { icon: string; title: string }) {
   return (
     <div className="flex items-center gap-2 mb-4">
       <span className="text-lg">{icon}</span>
-      <h3 className="text-[11px] font-black text-white uppercase tracking-[0.15em]">{title}</h3>
+      <h3 className="text-[12px] md:text-[11px] font-black text-white uppercase tracking-[0.15em]">{title}</h3>
       <div className="flex-1 h-px bg-gradient-to-r from-[#1e3a5f] to-transparent" />
     </div>
   );
 }
 
 function Badge({ score }: { score: number }) {
-  if (score >= 1) return <span className="px-2 py-0.5 rounded border bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[10px] font-black uppercase">✅ EVET</span>;
-  if (score === 0) return <span className="px-2 py-0.5 rounded border bg-amber-500/20 text-amber-300 border-amber-500/40 text-[10px] font-black uppercase">🔍 ORTA</span>;
-  return <span className="px-2 py-0.5 rounded border bg-rose-500/20 text-rose-300 border-rose-500/40 text-[10px] font-black uppercase">❌ HAYIR</span>;
+  if (score >= 1) return <span className="px-2 py-0.5 rounded border bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[12px] md:text-[11px] md:text-[10px] font-black uppercase">✅ EVET</span>;
+  if (score === 0) return <span className="px-2 py-0.5 rounded border bg-amber-500/20 text-amber-300 border-amber-500/40 text-[12px] md:text-[11px] md:text-[10px] font-black uppercase">🔍 ORTA</span>;
+  return <span className="px-2 py-0.5 rounded border bg-rose-500/20 text-rose-300 border-rose-500/40 text-[12px] md:text-[11px] md:text-[10px] font-black uppercase">❌ HAYIR</span>;
 }
 
 function LevelBadge({ v, fb }: { v: string; fb: string }) {
@@ -40,19 +40,19 @@ function ForecastChart({ forecast15, currentPrice }: { forecast15: any[]; curren
 
   return (
     <div className="bg-[#0a0e18] border border-[#1e3a5f]/50 rounded-xl p-4 overflow-x-auto">
-      <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">📈 Forecast Bant Grafiği — 15 Gün</div>
+      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">📈 Forecast Bant Grafiği — 15 Gün</div>
       <div className="relative" style={{ height: 120, minWidth: 480 }}>
         {/* Gridlines */}
         {[0, 25, 50, 75, 100].map(p => (
           <div key={p} className="absolute w-full border-t border-[#1e3a5f]/30" style={{ bottom: `${p}%` }}>
-            <span className="absolute -left-1 -translate-y-1/2 text-[8px] text-slate-600 font-mono pr-1">
+            <span className="absolute -left-1 -translate-y-1/2 text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] text-slate-600 font-mono pr-1">
               ${(minV + range * p / 100).toFixed(1)}
             </span>
           </div>
         ))}
         {/* Current price line */}
         <div className="absolute w-full border-t border-dashed border-amber-400/60 z-10" style={{ bottom: `${pct(currentPrice)}%` }}>
-          <span className="absolute right-0 -translate-y-3 text-[8px] text-amber-400 font-black">Güncel ${currentPrice.toFixed(2)}</span>
+          <span className="absolute right-0 -translate-y-3 text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] text-amber-400 font-black">Güncel ${currentPrice.toFixed(2)}</span>
         </div>
         {/* Bars */}
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -78,11 +78,11 @@ function ForecastChart({ forecast15, currentPrice }: { forecast15: any[]; curren
         {/* Day labels */}
         <div className="absolute -bottom-5 left-8 right-0 flex" style={{ paddingLeft: "2px" }}>
           {forecast15.filter((_, i) => i % 3 === 0).map((d, i) => (
-            <div key={i} className="text-[8px] text-slate-500 font-mono" style={{ width: `${W * 3}%`, flexShrink: 0 }}>G+{d.day}</div>
+            <div key={i} className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] text-slate-500 font-mono" style={{ width: `${W * 3}%`, flexShrink: 0 }}>G+{d.day}</div>
           ))}
         </div>
       </div>
-      <div className="flex gap-4 mt-8 text-[9px] font-black">
+      <div className="flex gap-4 mt-8 text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black">
         <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-emerald-500 inline-block" />Bull</span>
         <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-amber-400 inline-block" />Base</span>
         <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-rose-500 inline-block" />Bear</span>
@@ -165,17 +165,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
           </div>
           <div>
-            <div className="text-[11px] font-black text-white uppercase tracking-widest">BOGA AI — DERİN ANALİZ RAPORU</div>
-            <div className="text-[10px] text-[#06b6d4] font-bold">{ticker.toUpperCase()} • {companyName} • ${currentPrice.toFixed(2)}</div>
+            <div className="text-[12px] md:text-[11px] font-black text-white uppercase tracking-widest">BOGA AI — DERİN ANALİZ RAPORU</div>
+            <div className="text-[12px] md:text-[11px] md:text-[10px] text-[#06b6d4] font-bold">{ticker.toUpperCase()} • {companyName} • ${currentPrice.toFixed(2)}</div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {!loading && data && (<>
-            <button onClick={handleShare} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#06b6d4]/40 bg-[#06b6d4]/10 text-[#06b6d4] hover:bg-[#06b6d4]/20 text-[10px] font-black uppercase tracking-wider transition-all">
+            <button onClick={handleShare} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#06b6d4]/40 bg-[#06b6d4]/10 text-[#06b6d4] hover:bg-[#06b6d4]/20 text-[12px] md:text-[11px] md:text-[10px] font-black uppercase tracking-wider transition-all">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
               Paylaş
             </button>
-            <button onClick={handleExportPDF} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[10px] font-black uppercase tracking-wider transition-all">
+            <button onClick={handleExportPDF} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[12px] md:text-[11px] md:text-[10px] font-black uppercase tracking-wider transition-all">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
               PDF Kaydet
             </button>
@@ -226,12 +226,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">{ticker.toUpperCase()}</h1>
                       <span className="text-slate-400 font-bold text-lg">{data.companyName}</span>
                     </div>
-                    <p className="text-[10px] font-mono text-[#06b6d4] tracking-widest uppercase mt-1">{data.sector} • {data.industry} • DERİN ANALİZ & 15G FORECAST • {new Date().toLocaleDateString("tr-TR")}</p>
-                    <p className="text-[9px] text-slate-500 mt-0.5 font-bold uppercase tracking-wider">BOGA AI — Cash-Secured PUT / Covered CALL Opsiyon Stratejisi • Kaynak: {data.aiSource?.toUpperCase()}</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] font-mono text-[#06b6d4] tracking-widest uppercase mt-1">{data.sector} • {data.industry} • DERİN ANALİZ & 15G FORECAST • {new Date().toLocaleDateString("tr-TR")}</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-500 mt-0.5 font-bold uppercase tracking-wider">BOGA AI — Cash-Secured PUT / Covered CALL Opsiyon Stratejisi • Kaynak: {data.aiSource?.toUpperCase()}</p>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="text-3xl font-black text-white font-mono">${rd.currentPrice?.toFixed(2) ?? currentPrice.toFixed(2)}</div>
-                    <div className="mt-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#1d4ed8] to-[#06b6d4] text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 inline-block">BOGA SKOR: {rd.masterScore}/100</div>
+                    <div className="mt-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#1d4ed8] to-[#06b6d4] text-white text-[12px] md:text-[11px] md:text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 inline-block">BOGA SKOR: {rd.masterScore}/100</div>
                   </div>
                 </div>
                 {/* Quick stats */}
@@ -243,7 +243,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     { l: "IV/HV Oranı", v: rd.ivHvRatio?.toFixed(2)+"×", c: rd.ivHvRatio>1.3?"text-emerald-400":"text-amber-400" },
                   ].map(i=>(
                     <div key={i.l} className="bg-[#0a0e18]/70 border border-[#1e3a5f]/50 rounded-xl p-3">
-                      <div className="text-[9px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
                       <div className={`text-sm font-black mt-1 font-mono ${i.c}`}>{i.v}</div>
                     </div>
                   ))}
@@ -254,7 +254,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
                 <SectionTitle icon="🧬" title="BÖLÜM 1 — HİSSE DNA & KARAKTERİSTİK ANALİZİ" />
                 {/* Identity table */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[11px]">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[12px] md:text-[11px]">
                   {[
                     ["Ticker / Şirket", `${ticker.toUpperCase()} / ${data.companyName}`],
                     ["Sektör", data.sector],
@@ -264,14 +264,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     ["Analiz Tarihi", new Date().toLocaleDateString("tr-TR")],
                   ].map(([l,v])=>(
                     <div key={l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/30 rounded-lg p-2.5">
-                      <div className="text-[9px] text-slate-500 font-black uppercase tracking-wider">{l}</div>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-500 font-black uppercase tracking-wider">{l}</div>
                       <div className="text-white font-bold mt-0.5 truncate">{v}</div>
                     </div>
                   ))}
                 </div>
                 {/* DNA yorum */}
                 <div className="bg-[#0c1422]/60 border border-[#06b6d4]/20 rounded-xl p-3">
-                  <p className="text-[11px] text-slate-200 leading-relaxed">{a.dna.hisseTipi}</p>
+                  <p className="text-[12px] md:text-[11px] text-slate-200 leading-relaxed">{a.dna.hisseTipi}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
@@ -281,17 +281,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     { l:"📰 Haber Etkisi",      v:a.dna.haberEtkisi,       c:"border-amber-500/30 bg-amber-500/5" },
                   ].map(i=>(
                     <div key={i.l} className={`border rounded-xl p-3 ${i.c}`}>
-                      <div className="text-[9px] font-black text-slate-400 uppercase tracking-wider mb-1">{i.l}</div>
-                      <p className="text-[11px] text-slate-200 leading-relaxed">{i.v}</p>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-slate-400 uppercase tracking-wider mb-1">{i.l}</div>
+                      <p className="text-[12px] md:text-[11px] text-slate-200 leading-relaxed">{i.v}</p>
                     </div>
                   ))}
                 </div>
                 {/* Beta / Likidite */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 Piyasa Korelasyonu</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 Piyasa Korelasyonu</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                      <table className="w-full text-[10px]">
+                      <table className="w-full text-[12px] md:text-[11px] md:text-[10px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
                           <th className="px-3 py-2 text-left font-black text-slate-400">Endeks</th>
                           <th className="px-3 py-2 text-right font-black text-slate-400">Değişim</th>
@@ -316,9 +316,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     </div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💧 Likidite Endeksi</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💧 Likidite Endeksi</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                      <table className="w-full text-[10px]">
+                      <table className="w-full text-[12px] md:text-[11px] md:text-[10px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
                           <th className="px-3 py-2 text-left font-black text-slate-400">Metrik</th>
                           <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
@@ -349,10 +349,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* Son 15 Gün Tablosu */}
                 <div>
-                  <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">⚡ Son 15 Gün Fiyat-Hacim Verisi</div>
+                  <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">⚡ Son 15 Gün Fiyat-Hacim Verisi</div>
                   {rd.history15?.length > 0 ? (
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                      <table className="w-full text-[10px] min-w-[500px]">
+                      <table className="w-full text-[12px] md:text-[11px] md:text-[10px] min-w-[500px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/50">
                           <th className="px-3 py-2 text-left font-black text-slate-400">Tarih</th>
                           <th className="px-3 py-2 text-right font-black text-slate-400">Açılış</th>
@@ -390,16 +390,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </table>
                     </div>
                   ) : (
-                    <div className="text-[10px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">Geçmiş veri yüklenemedi (Yahoo Finance erişimi gerekli).</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">Geçmiş veri yüklenemedi (Yahoo Finance erişimi gerekli).</div>
                   )}
                 </div>
 
                 {/* MA Tablosu */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📏 Hareketli Ortalama Disiplini</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📏 Hareketli Ortalama Disiplini</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                      <table className="w-full text-[10px]">
+                      <table className="w-full text-[12px] md:text-[11px] md:text-[10px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
                           <th className="px-3 py-2 text-left font-black text-slate-400">Periyot</th>
                           <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
@@ -416,7 +416,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                             <tr key={r.l} className="border-b border-[#1e3a5f]/20">
                               <td className="px-3 py-2 font-bold text-slate-300">{r.l}</td>
                               <td className="px-3 py-2 text-right font-black font-mono text-white">${r.v?.toFixed(2)??"-"}</td>
-                              <td className={`px-3 py-2 font-black text-[10px] ${currentPrice>=(r.v||0)?"text-emerald-400":"text-rose-400"}`}>
+                              <td className={`px-3 py-2 font-black text-[12px] md:text-[11px] md:text-[10px] ${currentPrice>=(r.v||0)?"text-emerald-400":"text-rose-400"}`}>
                                 {currentPrice>=(r.v||0)?"▲ Üstünde":"▼ Altında"}
                               </td>
                             </tr>
@@ -424,14 +424,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                         </tbody>
                       </table>
                     </div>
-                    <div className={`mt-2 px-3 py-2 rounded-lg border text-[10px] font-black uppercase tracking-wider ${rd.maLevels?.goldenCross?"border-emerald-500/30 bg-emerald-500/10 text-emerald-400":"border-rose-500/30 bg-rose-500/10 text-rose-400"}`}>
+                    <div className={`mt-2 px-3 py-2 rounded-lg border text-[12px] md:text-[11px] md:text-[10px] font-black uppercase tracking-wider ${rd.maLevels?.goldenCross?"border-emerald-500/30 bg-emerald-500/10 text-emerald-400":"border-rose-500/30 bg-rose-500/10 text-rose-400"}`}>
                       {rd.maLevels?.goldenCross ? "✅ GOLDEN CROSS (EMA20 > EMA50)" : "❌ DEATH CROSS (EMA20 < EMA50)"}
                     </div>
                   </div>
 
                   {/* Destek/Direnç */}
                   <div>
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">🧱 Destek / Direnç Seviyeleri</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">🧱 Destek / Direnç Seviyeleri</div>
                     <div className="rounded-xl border border-[#1e3a5f]/40 overflow-hidden">
                       {[
                         { l:"Direnç 3 (52H Tepe)", v:rd.srLevels?.resistance3, type:"res3" },
@@ -446,7 +446,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                         const isRes = r.type.startsWith("res");
                         const isSup = r.type.startsWith("sup");
                         return (
-                          <div key={r.l} className={`flex items-center justify-between px-3 py-2 border-b border-[#1e3a5f]/20 text-[10px] ${isCur?"bg-[#1e3a5f]/40 border-l-2 border-l-amber-400":"bg-[#0a0e18]"}`}>
+                          <div key={r.l} className={`flex items-center justify-between px-3 py-2 border-b border-[#1e3a5f]/20 text-[12px] md:text-[11px] md:text-[10px] ${isCur?"bg-[#1e3a5f]/40 border-l-2 border-l-amber-400":"bg-[#0a0e18]"}`}>
                             <span className={`font-bold ${isCur?"text-amber-400 font-black":isRes?"text-rose-300":isSup?"text-emerald-300":"text-slate-400"}`}>{r.l}</span>
                             <span className={`font-black font-mono ${isCur?"text-amber-400":isRes?"text-rose-400":isSup?"text-emerald-400":"text-white"}`}>${r.v?.toFixed(2)??"-"}</span>
                           </div>
@@ -459,8 +459,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* Fiyat/Hacim & Teknik Göstergeler */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💹 Teknik Göstergeler</div>
-                    <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-4 space-y-2.5 font-mono text-[11px]">
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💹 Teknik Göstergeler</div>
+                    <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-4 space-y-2.5 font-mono text-[12px] md:text-[11px]">
                       {[
                         { l:"RSI (14)", v: rd.rsi?.toFixed(1), c: rd.rsi>70?"text-rose-400":rd.rsi<30?"text-emerald-400":"text-amber-400", note: rd.rsi>70?"Aşırı Alım":rd.rsi<30?"Aşırı Satım":"Nötr" },
                         { l:"EMA 20",  v:"$"+rd.ema20?.toFixed(2), c: currentPrice>rd.ema20?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema20?"Üstünde ✅":"Altında ❌" },
@@ -470,16 +470,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                         { l:"MACD",    v: rd.macd >= 0 ? "+"+rd.macd?.toFixed(2):rd.macd?.toFixed(2), c: rd.macd>=0?"text-emerald-400":"text-rose-400", note: rd.macd>=0?"Pozitif momentum":"Negatif momentum" },
                       ].map(i=>(
                         <div key={i.l} className="flex justify-between items-center border-b border-[#1e3a5f]/20 pb-2">
-                          <span className="text-slate-400 font-black text-[9px] uppercase w-16 shrink-0">{i.l}</span>
+                          <span className="text-slate-400 font-black text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] uppercase w-16 shrink-0">{i.l}</span>
                           <span className={`font-black ${i.c}`}>{i.v}</span>
-                          <span className="text-[9px] text-slate-500">{i.note}</span>
+                          <span className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-500">{i.note}</span>
                         </div>
                       ))}
                     </div>
                   </div>
                   <div className="space-y-3">
                     <div>
-                      <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📝 Teknik Yorum</div>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📝 Teknik Yorum</div>
                       <div className="space-y-2">
                         {[
                           { l:"Trend", v:a.teknikYorum.trendDurumu },
@@ -488,16 +488,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           { l:"Volatilite", v:a.teknikYorum.volatilite },
                         ].map(i=>(
                           <div key={i.l} className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-2.5">
-                            <div className="text-[8px] font-black text-[#06b6d4] uppercase tracking-wider mb-0.5">{i.l}</div>
-                            <p className="text-[10px] text-slate-300 leading-relaxed">{i.v}</p>
+                            <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] font-black text-[#06b6d4] uppercase tracking-wider mb-0.5">{i.l}</div>
+                            <p className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300 leading-relaxed">{i.v}</p>
                           </div>
                         ))}
                       </div>
                     </div>
                     {/* IV parametreleri */}
                     <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
-                      <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">IV Parametreleri (1G Statistik)</div>
-                      <div className="grid grid-cols-2 gap-2 text-[10px]">
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">IV Parametreleri (1G Statistik)</div>
+                      <div className="grid grid-cols-2 gap-2 text-[12px] md:text-[11px] md:text-[10px]">
                         {[
                           { l:"30G 1 SD Aralık", v:`$${rd.range1sd?.low}–$${rd.range1sd?.high}` },
                           { l:"30G 2 SD Aralık", v:`$${rd.range2sd?.low}–$${rd.range2sd?.high}` },
@@ -505,8 +505,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           { l:"Günlük Drift",     v:`~${(rd.atr*0.04).toFixed(2)}% tahmini` },
                         ].map(i=>(
                           <div key={i.l}>
-                            <div className="text-[8px] text-slate-500 font-bold uppercase">{i.l}</div>
-                            <div className="text-white font-black font-mono text-[10px]">{i.v}</div>
+                            <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] text-slate-500 font-bold uppercase">{i.l}</div>
+                            <div className="text-white font-black font-mono text-[12px] md:text-[11px] md:text-[10px]">{i.v}</div>
                           </div>
                         ))}
                       </div>
@@ -524,7 +524,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* Forecast Table */}
                 <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                  <table className="w-full text-[10px] min-w-[520px]">
+                  <table className="w-full text-[12px] md:text-[11px] md:text-[10px] min-w-[520px]">
                     <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/50">
                       <th className="px-2 py-2.5 text-left font-black text-[#06b6d4] w-10">Gün</th>
                       <th className="px-2 py-2.5 text-right font-black text-rose-400">🐻 Bear</th>
@@ -542,7 +542,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           <td className="px-2 py-2 text-right font-bold text-emerald-400 font-mono">${(+r.bull).toFixed(2)}</td>
                           <td className="px-2 py-2 text-slate-400 hidden sm:table-cell">{r.teknikSinyal}</td>
                           <td className="px-2 py-2 hidden md:table-cell">
-                            <span className={`px-1.5 py-0.5 rounded font-black text-[9px] uppercase tracking-wider ${r.eylemOnerisi?.includes("CSP")?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/30":r.eylemOnerisi?.includes("CC")?"bg-blue-500/15 text-blue-400 border border-blue-500/30":"bg-slate-500/15 text-slate-400 border border-slate-500/30"}`}>{r.eylemOnerisi}</span>
+                            <span className={`px-1.5 py-0.5 rounded font-black text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] uppercase tracking-wider ${r.eylemOnerisi?.includes("CSP")?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/30":r.eylemOnerisi?.includes("CC")?"bg-blue-500/15 text-blue-400 border border-blue-500/30":"bg-slate-500/15 text-slate-400 border border-slate-500/30"}`}>{r.eylemOnerisi}</span>
                           </td>
                         </tr>
                       ))}
@@ -559,11 +559,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   ].map(s=>(
                     <div key={s.key} className={`border rounded-xl p-3 ${s.c}`}>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[9px] font-black uppercase tracking-wider">{s.label}</span>
+                        <span className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black uppercase tracking-wider">{s.label}</span>
                         <span className="text-sm font-black">%{s.d.olasilik}</span>
                       </div>
                       <div className="text-xl font-black font-mono text-white">${(+s.d.hedef).toFixed(2)}</div>
-                      <p className="text-[9px] text-slate-400 mt-1 font-medium">{s.d.tetikleyici}</p>
+                      <p className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-400 mt-1 font-medium">{s.d.tetikleyici}</p>
                     </div>
                   ))}
                 </div>
@@ -575,9 +575,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* IV Analizi */}
                 <div>
-                  <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📊 IV Analizi</div>
+                  <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📊 IV Analizi</div>
                   <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                    <table className="w-full text-[10px] min-w-[400px]">
+                    <table className="w-full text-[12px] md:text-[11px] md:text-[10px] min-w-[400px]">
                       <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
                         <th className="px-3 py-2 text-left font-black text-slate-400">Metrik</th>
                         <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
@@ -601,15 +601,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     </table>
                   </div>
                   <div className="mt-2 bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-2.5">
-                    <p className="text-[10px] text-slate-300">{a.opsiyonAnaliz.ivDurumu}</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300">{a.opsiyonAnaliz.ivDurumu}</p>
                   </div>
                 </div>
 
                 {/* CSP Matrisi */}
                 <div>
-                  <div className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-2">💰 Cash-Secured PUT (CSP) Matrisi</div>
+                  <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-2">💰 Cash-Secured PUT (CSP) Matrisi</div>
                   <div className="overflow-x-auto rounded-xl border border-emerald-500/20">
-                    <table className="w-full text-[10px] min-w-[600px]">
+                    <table className="w-full text-[12px] md:text-[11px] md:text-[10px] min-w-[600px]">
                       <thead><tr className="bg-[#0d1321] border-b border-emerald-500/20">
                         <th className="px-3 py-2 text-left font-black text-slate-400">Hafta</th>
                         <th className="px-3 py-2 text-right font-black text-slate-400">Strike</th>
@@ -623,7 +623,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       <tbody>
                         {(rd.cspMatrix||[]).map((r:any,i:number)=>(
                           <tr key={i} className={`border-b border-emerald-500/10 ${i===0?"bg-emerald-500/5 border-l-2 border-l-emerald-500":""}`}>
-                            <td className="px-3 py-2 font-bold text-slate-300">{r.label} {i===0&&<span className="text-emerald-400 text-[8px] font-black ml-1">OPTIMAL</span>}</td>
+                            <td className="px-3 py-2 font-bold text-slate-300">{r.label} {i===0&&<span className="text-emerald-400 text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] font-black ml-1">OPTIMAL</span>}</td>
                             <td className="px-3 py-2 text-right font-black text-white font-mono">${r.strike}</td>
                             <td className="px-3 py-2 text-right font-mono text-slate-400">{r.dte}G</td>
                             <td className="px-3 py-2 text-right font-black text-emerald-400 font-mono">${r.bid}</td>
@@ -636,7 +636,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </tbody>
                     </table>
                   </div>
-                  <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2 text-[9px] font-black uppercase">
+                  <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2 text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black uppercase">
                     {[
                       {icon:"✅",label:"Aç",desc:"IV Rank>30 + Güçlü destek + Bilanço>14G uzakta",c:"border-emerald-500/30 bg-emerald-500/5 text-emerald-400"},
                       {icon:"⚡",label:"İzle",desc:"IV Rank 20-30 arası + Fiyat MA üstünde",c:"border-amber-500/30 bg-amber-500/5 text-amber-400"},
@@ -645,20 +645,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     ].map(r=>(
                       <div key={r.label} className={`border rounded-lg p-2 ${r.c}`}>
                         <div className="mb-0.5">{r.icon} {r.label}</div>
-                        <div className="text-[8px] opacity-70 font-medium normal-case">{r.desc}</div>
+                        <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] opacity-70 font-medium normal-case">{r.desc}</div>
                       </div>
                     ))}
                   </div>
                   <div className="mt-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
-                    <p className="text-[10px] text-slate-300">{a.opsiyonAnaliz.cspStrateji}</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300">{a.opsiyonAnaliz.cspStrateji}</p>
                   </div>
                 </div>
 
                 {/* CC Matrisi */}
                 <div>
-                  <div className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-2">📞 Covered CALL (CC) Matrisi</div>
+                  <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-blue-400 uppercase tracking-widest mb-2">📞 Covered CALL (CC) Matrisi</div>
                   <div className="overflow-x-auto rounded-xl border border-blue-500/20">
-                    <table className="w-full text-[10px] min-w-[550px]">
+                    <table className="w-full text-[12px] md:text-[11px] md:text-[10px] min-w-[550px]">
                       <thead><tr className="bg-[#0d1321] border-b border-blue-500/20">
                         <th className="px-3 py-2 text-left font-black text-slate-400">Hafta</th>
                         <th className="px-3 py-2 text-right font-black text-slate-400">Strike</th>
@@ -684,14 +684,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     </table>
                   </div>
                   <div className="mt-2 bg-blue-500/5 border border-blue-500/20 rounded-xl p-3">
-                    <p className="text-[10px] text-slate-300">{a.opsiyonAnaliz.ccStrateji}</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300">{a.opsiyonAnaliz.ccStrateji}</p>
                   </div>
                 </div>
 
                 {/* Atanma Risk + Pasif Gelir */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-[#0d1321]/50 border border-amber-500/20 rounded-xl p-4 space-y-2">
-                    <div className="text-[9px] font-black text-amber-400 uppercase tracking-widest">⚠️ Atanma Risk Analizi (CSP)</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-amber-400 uppercase tracking-widest">⚠️ Atanma Risk Analizi (CSP)</div>
                     {[
                       ["Strike",           `$${rd.cspMatrix?.[0]?.strike??optCsp}`],
                       ["Alınan Prim",      `$${rd.cspMatrix?.[0]?.bid??"-"}`],
@@ -699,15 +699,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       ["Güncel Fiyat",     `$${currentPrice.toFixed(2)}`],
                       ["Kâra Geçiş",       `$${rd.cspMatrix?.[0]?.efMaliyet??"-"} üzeri`],
                     ].map(([l,v])=>(
-                      <div key={l} className="flex justify-between border-b border-amber-500/10 pb-1.5 text-[10px]">
+                      <div key={l} className="flex justify-between border-b border-amber-500/10 pb-1.5 text-[12px] md:text-[11px] md:text-[10px]">
                         <span className="text-slate-400 font-medium">{l}</span>
                         <span className="text-amber-300 font-black font-mono">{v}</span>
                       </div>
                     ))}
-                    <p className="text-[9px] text-slate-400 mt-2">Atanma sonrası: CC stratejisine geç → Haftalık prim topla → Maliyet fiyatına geri dönüşü bekle</p>
+                    <p className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-400 mt-2">Atanma sonrası: CC stratejisine geç → Haftalık prim topla → Maliyet fiyatına geri dönüşü bekle</p>
                   </div>
                   <div className="bg-[#0d1321]/50 border border-[#06b6d4]/20 rounded-xl p-4 space-y-2">
-                    <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest">💰 Pasif Gelir Tahmini (Yıllık)</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest">💰 Pasif Gelir Tahmini (Yıllık)</div>
                     {[
                       ["Aylık CSP Getirisi",  a.opsiyonAnaliz.haftalikPrimTahmin+" / hafta"],
                       ["Yıllık Getiri (Est.)",a.opsiyonAnaliz.yillikGetiriTahmin],
@@ -715,7 +715,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       ["CSP Delta Hedef",     "Δ 0.20–0.30"],
                       ["CC Delta Hedef",      "Δ 0.25–0.35"],
                     ].map(([l,v])=>(
-                      <div key={l} className="flex justify-between border-b border-[#06b6d4]/10 pb-1.5 text-[10px]">
+                      <div key={l} className="flex justify-between border-b border-[#06b6d4]/10 pb-1.5 text-[12px] md:text-[11px] md:text-[10px]">
                         <span className="text-slate-400 font-medium">{l}</span>
                         <span className="text-[#06b6d4] font-black">{v}</span>
                       </div>
@@ -725,8 +725,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* Wheel */}
                 <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-4">
-                  <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">🔁 Wheel Stratejisi Döngüsü</div>
-                  <div className="flex items-center gap-1.5 flex-wrap text-[9px] font-black uppercase tracking-wider">
+                  <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">🔁 Wheel Stratejisi Döngüsü</div>
+                  <div className="flex items-center gap-1.5 flex-wrap text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black uppercase tracking-wider">
                     {["CSP SAT","→","ATANMADI?","→","PRİM KÂR","→","TEKRAR CSP","OR","ATANDI?","→","HİSSE AL","→","CC SAT","→","TEKRAR CSP"].map((s,i)=>(
                       <span key={i} className={s==="→"||s==="OR"?"text-slate-600":s==="ATANDI?"||s==="ATANMADI?"?"text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded":"px-2 py-1 rounded-lg bg-[#1e3a5f]/40 text-[#06b6d4] border border-[#1e3a5f]/60"}>{s}</span>
                     ))}
@@ -763,11 +763,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   ]},
                 ].map(group=>(
                   <div key={group.group}>
-                    <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">{group.group}</div>
+                    <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">{group.group}</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                       {group.items.map(item=>(
                         <div key={item.l} className="flex items-center justify-between bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg px-3 py-2">
-                          <span className="text-[10px] text-slate-300 font-medium">{item.l}</span>
+                          <span className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300 font-medium">{item.l}</span>
                           <Badge score={item.s} />
                         </div>
                       ))}
@@ -789,33 +789,33 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       { l:"15G Görünüm",  v:rd.masterScore>=60?"YÜKSELİŞ":rd.masterScore>=45?"YATAY":"DÜŞÜŞ", c:rd.masterScore>=60?"text-emerald-400":rd.masterScore>=45?"text-amber-400":"text-rose-400" },
                     ].map((item,i)=>(
                       <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
-                        <div className="text-[8px] font-black text-slate-500 uppercase tracking-wider">{item.l}</div>
+                        <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] font-black text-slate-500 uppercase tracking-wider">{item.l}</div>
                         <div className={`text-sm font-black mt-1 ${item.c}`}>{item.v}</div>
                       </div>
                     ))}
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CSP Setup</div>
-                      <div className="bg-[#0d1321]/60 border border-emerald-500/20 rounded-xl p-3 text-[10px]">
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CSP Setup</div>
+                      <div className="bg-[#0d1321]/60 border border-emerald-500/20 rounded-xl p-3 text-[12px] md:text-[11px] md:text-[10px]">
                         <span className="text-emerald-400 font-black">Strike ${rd.cspMatrix?.[1]?.strike ?? a.opsiyonAnaliz.optimalCSPStrike}, DTE 14G, Prim ${rd.cspMatrix?.[1]?.bid ?? "-"}, Yıllık %{rd.cspMatrix?.[1]?.annualYield ?? "-"}</span>
                       </div>
                     </div>
                     <div>
-                      <div className="text-[9px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CC Setup</div>
-                      <div className="bg-[#0d1321]/60 border border-blue-500/20 rounded-xl p-3 text-[10px]">
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CC Setup</div>
+                      <div className="bg-[#0d1321]/60 border border-blue-500/20 rounded-xl p-3 text-[12px] md:text-[11px] md:text-[10px]">
                         <span className="text-blue-400 font-black">Strike ${rd.ccMatrix?.[1]?.strike ?? a.opsiyonAnaliz.optimalCCStrike}, DTE 14G, Prim ${rd.ccMatrix?.[1]?.bid ?? "-"}, Yıllık %{rd.ccMatrix?.[1]?.annualYield ?? "-"}</span>
                       </div>
                     </div>
                   </div>
                   <div className="mt-3 bg-[#0d1321]/60 border border-[#06b6d4]/20 rounded-xl p-4 space-y-3">
                     <div>
-                      <div className="text-[8px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">ÖNERI</div>
-                      <p className="text-[11px] text-white font-bold leading-relaxed">{a.sonucKarar.oneri}</p>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">ÖNERI</div>
+                      <p className="text-[12px] md:text-[11px] text-white font-bold leading-relaxed">{a.sonucKarar.oneri}</p>
                     </div>
                     <div className="border-t border-[#1e3a5f]/40 pt-3">
-                      <div className="text-[8px] font-black text-rose-400 uppercase tracking-wider mb-1">⚠️ KRİTİK RİSK</div>
-                      <p className="text-[10px] text-slate-300 leading-relaxed">{a.sonucKarar.kritikRisk}</p>
+                      <div className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] font-black text-rose-400 uppercase tracking-wider mb-1">⚠️ KRİTİK RİSK</div>
+                      <p className="text-[12px] md:text-[11px] md:text-[10px] text-slate-300 leading-relaxed">{a.sonucKarar.kritikRisk}</p>
                     </div>
                   </div>
                 </div>
@@ -823,8 +823,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
               {/* FOOTER */}
               <div className="text-center py-4 opacity-60 space-y-1">
-                <p className="text-[9px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>Yasal Uyarı:</strong> Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm opsiyon stratejileri risk içerir.</p>
-                <p className="text-[8px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v2.0 | Developed by AFK DaSYS</p>
+                <p className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>Yasal Uyarı:</strong> Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm opsiyon stratejileri risk içerir.</p>
+                <p className="text-[12px] md:text-[11px] md:text-[10px] md:text-[9px] md:text-[8px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v2.0 | Developed by AFK DaSYS</p>
               </div>
             </div>
           );
