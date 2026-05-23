@@ -732,8 +732,9 @@ def validate_intraday_price_volume_correlation(df_15m: Optional[pd.DataFrame], d
     total_score = metrics["score_15m"] + metrics["score_1h"]
     metrics["total_bonus"] = total_score
 
-    # Eğer iki timeframe birbirini reddediyorsa (Örn: 15m sahte ralli ama 1h mal boşaltma)
-    if metrics["score_15m"] < 0 or metrics["score_1h"] < 0:
+    # Eğer TOPLAM skor çok negatifse (her iki timeframe'de çok zayıfsa), eliyoruz
+    # Ama tek bir timeframe'de negatif olması yeterli değil - daha toleranslı olalım
+    if total_score < -5.0:  # Çok ağır bir durumda (örn: -4 + -2 = -6)
         return False, metrics  # Yapı dengesiz, hisseyi eliyoruz.
 
     if total_score >= 8.0:
@@ -2400,7 +2401,12 @@ async def scan():
     # Nihai en verimli top 5 sinyalle filtrele
     candidates = candidates[:5]
 
+    duration = time.time() - start
+
     if not candidates:
+        # Aday bulunamadı, ama save_picks'i her zaman çağır (boş liste ile)
+        # böylece bot'un çalıştığını görebiliriz
+        save_picks(candidates, len(universe), duration, ACTIVE_SECTORS)
         await send_tg(
             "⚠️ Aday bulunamadı!\n"
             f"Seçilen sektörler: {', '.join(ACTIVE_SECTORS)}\n"
@@ -2414,7 +2420,6 @@ async def scan():
     await fill_backtest_results()
     bt_summary = get_backtest_summary()
 
-    duration = time.time() - start
     save_picks(candidates, len(universe), duration, ACTIVE_SECTORS)
     summary, detail = build_report(
         candidates, MARKET_VIX['value'], duration, len(universe),
