@@ -43,10 +43,10 @@ async function fetchHistory(ticker: string) {
     };
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=60d&interval=1d`;
     const res = await fetch(url, { headers, signal: AbortSignal.timeout(8000) });
-    if (!res.ok) return null;
+    if (!res.ok) return { rows: null, marketCap: 0 };
     const data = await res.json();
     const result = data?.chart?.result?.[0];
-    if (!result) return null;
+    if (!result) return { rows: null, marketCap: 0 };
     const ts: number[] = result.timestamp || [];
     const q = result.indicators?.quote?.[0] || {};
     const opens: number[] = q.open || [];
@@ -54,6 +54,7 @@ async function fetchHistory(ticker: string) {
     const highs: number[] = q.high || [];
     const lows: number[] = q.low || [];
     const volumes: number[] = q.volume || [];
+    const marketCap = safeNum(result.meta?.marketCap, 0);
     // Filter nulls and zip
     const rows: Array<{ date: string; open: number; close: number; high: number; low: number; volume: number }> = [];
     for (let i = 0; i < ts.length; i++) {
@@ -65,8 +66,8 @@ async function fetchHistory(ticker: string) {
         });
       }
     }
-    return rows;
-  } catch { return null; }
+    return { rows, marketCap };
+  } catch { return { rows: null, marketCap: 0 }; }
 }
 
 // ── Build derived data from OHLC ──────────────────────────────────────────────
@@ -293,15 +294,16 @@ export async function POST(req: NextRequest) {
     const volume = safeNum(pr.volume, 0);
     const rvol = safeNum(tech.rvol, 1.0);
     const macd = tech.macd ?? 0;
-    const marketCap = safeNum(s.marketCap ?? s.market_cap, 0);
-    const marketCapStr = marketCap > 1e9 ? "$" + (marketCap / 1e9).toFixed(1) + "B" : marketCap > 1e6 ? "$" + (marketCap / 1e6).toFixed(0) + "M" : "N/A";
     const ivRank = Math.min(100, Math.max(0, ((iv - 15) / 65) * 100));
     const hv30 = safeNum(tech.hv30 ?? tech.historical_volatility, iv * 0.85);
     const optimalCSPStrike = +(support1 * 0.98).toFixed(2);
     const optimalCCStrike = +(resistance1 * 1.01).toFixed(2);
 
     // Fetch historical OHLC
-    const historyRows = await fetchHistory(ticker.toUpperCase());
+    const histResult = await fetchHistory(ticker.toUpperCase());
+    const historyRows = histResult?.rows || null;
+    let marketCap = safeNum(s.marketCap ?? s.market_cap, safeNum(histResult?.marketCap, 0));
+    const marketCapStr = marketCap > 1e9 ? "$" + (marketCap / 1e9).toFixed(1) + "B" : marketCap > 1e6 ? "$" + (marketCap / 1e6).toFixed(0) + "M" : "N/A";
 
     // Build derived tables
     const history15 = historyRows ? buildHistoryTable(historyRows, atr) : [];
@@ -329,9 +331,8 @@ export async function POST(req: NextRequest) {
       bearTarget, baseTarget, bullTarget,
     };
 
-    // AI call
+    // AI call (BOGA AI always)
     let rawText = "";
-    let aiSource = "fallback";
     if (process.env.ANTHROPIC_API_KEY) {
       try {
         const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -340,11 +341,10 @@ export async function POST(req: NextRequest) {
           messages: [{ role: "user", content: buildUserPrompt(promptParams) }],
         });
         rawText = (msg.content[0] as any).text || "";
-        if (rawText) aiSource = "claude";
       } catch (e: any) { console.error("[deep-analysis] Anthropic:", e?.message); }
     }
     if (!rawText && process.env.GEMINI_API_KEY) {
-      try { rawText = await callGemini(buildUserPrompt(promptParams)); if (rawText) aiSource = "gemini"; }
+      try { rawText = await callGemini(buildUserPrompt(promptParams)); }
       catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
     }
 
@@ -375,7 +375,7 @@ export async function POST(req: NextRequest) {
       ticker: ticker.toUpperCase(),
       companyName: promptParams.companyName,
       currentPrice, sector: promptParams.sector, industry: promptParams.industry,
-      generatedAt: new Date().toISOString(), aiSource,
+      generatedAt: new Date().toISOString(),
       analysis: {
         dna: {
           hisseTipi: str(ai.hisseTipi, `${promptParams.sector} sektörü teknik analiz hissesi.`),
@@ -393,7 +393,7 @@ export async function POST(req: NextRequest) {
         forecast15,
         opsiyonAnaliz: {
           ivDurumu: str(ai.ivDurumu, "IV seviyesi değerlendiriliyor."),
-          ivRank: +ivRank.toFixed(0), iv, hv30: +hv30.toFixed(1),
+          ivRank: +ivRank.toFixed(2), iv, hv30: +hv30.toFixed(1),
           ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
           cspStrateji: str(ai.cspStrateji, `$${optimalCSPStrike} strike, 14-21 DTE CSP değerlendirilebilir.`),
           ccStrateji: str(ai.ccStrateji, `$${optimalCCStrike} strike, 14-21 DTE CC değerlendirilebilir.`),
@@ -419,7 +419,7 @@ export async function POST(req: NextRequest) {
       rawData: {
         masterScore, rsi, iv, hv30, atr, atrPct: +atrPct.toFixed(2),
         ema20, ema50, ema200, support1, resistance1, low52w, high52w,
-        avgVol30d, volume, rvol, macd, ivRank, ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
+        avgVol30d, volume, rvol, macd, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
         marketCapStr, forecast15, history15, srLevels, maLevels, cspMatrix, ccMatrix,
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
