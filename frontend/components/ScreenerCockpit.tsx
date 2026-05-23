@@ -368,11 +368,17 @@ export default function ScreenerCockpit() {
   const currentPreset = PRESETS.find(p => p.id === activePreset);
   const presetPills = currentPreset?.pills || [];
 
-  // Filters
+  // Filters - Basic
   const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(null);
   const [capFilter,  setCapFilter]  = useState("all");
   const [optFilter,  setOptFilter]  = useState("all");
   const [liqFilter,  setLiqFilter]  = useState("all");
+
+  // Filters - Advanced (RVOL, RSI, ADX)
+  const [rvolMin,    setRvolMin]    = useState<number | null>(null);
+  const [rsiMin,     setRsiMin]     = useState<number | null>(null);
+  const [rsiMax,     setRsiMax]     = useState<number | null>(null);
+  const [adxMin,     setAdxMin]     = useState<number | null>(null);
 
   // Build active filters for display (removable)
   const getActiveFilters = () => {
@@ -390,6 +396,12 @@ export default function ScreenerCockpit() {
       const optLabel = OPT_RANGES.find(o => o.id === optFilter)?.label || optFilter;
       filters.push(`Opt: ${optLabel}`);
     }
+    if (rvolMin !== null) filters.push(`RVOL>${rvolMin.toFixed(1)}`);
+    if (rsiMin !== null || rsiMax !== null) {
+      const rsiRange = `${rsiMin || "0"}-${rsiMax || "100"}`;
+      filters.push(`RSI ${rsiRange}`);
+    }
+    if (adxMin !== null) filters.push(`ADX>${adxMin}`);
     return filters;
   };
   const activeFilters = getActiveFilters();
@@ -416,6 +428,10 @@ export default function ScreenerCockpit() {
     try {
       const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "60" });
       if (priceRange) { params.set("priceMin", String(priceRange.min)); params.set("priceMax", String(priceRange.max)); }
+      if (rvolMin !== null) params.set("rvolMin", String(rvolMin));
+      if (rsiMin !== null) params.set("rsiMin", String(rsiMin));
+      if (rsiMax !== null) params.set("rsiMax", String(rsiMax));
+      if (adxMin !== null) params.set("adxMin", String(adxMin));
       const res = await fetch(`/api/screener?${params}`);
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
@@ -428,7 +444,7 @@ export default function ScreenerCockpit() {
     } finally {
       setIsScanning(false);
     }
-  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange]);
+  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin]);
 
   // Auto-scan only when preset changes, not when filters change
   useEffect(() => { runScan(); }, [activePreset]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -463,6 +479,9 @@ export default function ScreenerCockpit() {
     else if (filterText.includes("Cap:")) setCapFilter("all");
     else if (filterText.includes("Liq:")) setLiqFilter("all");
     else if (filterText.includes("Opt:")) setOptFilter("all");
+    else if (filterText.includes("RVOL")) setRvolMin(null);
+    else if (filterText.includes("RSI")) { setRsiMin(null); setRsiMax(null); }
+    else if (filterText.includes("ADX")) setAdxMin(null);
   };
 
   // ─── Render ────────────────────────────────────────────────────────────────
@@ -527,6 +546,41 @@ export default function ScreenerCockpit() {
           {OPT_RANGES.map(o => (
             <FilterBtn key={o.label} active={optFilter === o.id} acColor="#a855f7" acBorder="#7c3aed" onClick={() => setOptFilter(optFilter === o.id ? "all" : o.id)}>{o.label}</FilterBtn>
           ))}
+        </FilterRow>
+        <Sep />
+        {/* Advanced Filters - RVOL, RSI, ADX */}
+        <FilterRow label="Gelişmiş">
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {/* RVOL Input */}
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <label style={{ fontSize: 9, color: "#94a3b8", whiteSpace: "nowrap" }}>RVOL</label>
+              <input type="number" min="0.5" max="5" step="0.1" value={rvolMin ?? ""} placeholder="1.5"
+                onChange={e => setRvolMin(e.target.value ? parseFloat(e.target.value) : null)}
+                style={{ width: 45, padding: "3px 6px", borderRadius: 3, border: "1px solid #1e2a3a", background: "#0f141e", color: "#94a3b8", fontSize: 9, fontFamily: "inherit" }}
+              />
+            </div>
+            {/* RSI Min */}
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <label style={{ fontSize: 9, color: "#94a3b8", whiteSpace: "nowrap" }}>RSI</label>
+              <input type="number" min="0" max="100" step="1" value={rsiMin ?? ""} placeholder="min"
+                onChange={e => setRsiMin(e.target.value ? parseInt(e.target.value) : null)}
+                style={{ width: 35, padding: "3px 6px", borderRadius: 3, border: "1px solid #1e2a3a", background: "#0f141e", color: "#94a3b8", fontSize: 9, fontFamily: "inherit" }}
+              />
+              <span style={{ fontSize: 9, color: "#334155" }}>-</span>
+              <input type="number" min="0" max="100" step="1" value={rsiMax ?? ""} placeholder="max"
+                onChange={e => setRsiMax(e.target.value ? parseInt(e.target.value) : null)}
+                style={{ width: 35, padding: "3px 6px", borderRadius: 3, border: "1px solid #1e2a3a", background: "#0f141e", color: "#94a3b8", fontSize: 9, fontFamily: "inherit" }}
+              />
+            </div>
+            {/* ADX Input */}
+            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <label style={{ fontSize: 9, color: "#94a3b8", whiteSpace: "nowrap" }}>ADX</label>
+              <input type="number" min="0" max="50" step="1" value={adxMin ?? ""} placeholder="20"
+                onChange={e => setAdxMin(e.target.value ? parseInt(e.target.value) : null)}
+                style={{ width: 40, padding: "3px 6px", borderRadius: 3, border: "1px solid #1e2a3a", background: "#0f141e", color: "#94a3b8", fontSize: 9, fontFamily: "inherit" }}
+              />
+            </div>
+          </div>
         </FilterRow>
       </div>
 

@@ -625,6 +625,11 @@ export async function GET(req: NextRequest) {
   const liqFilter  = sp.get("liq")       || "all";
   const sortBy     = sp.get("sort")      || "score";
   const limit      = Math.min(parseInt(sp.get("limit") || "50"), 100);
+  // Advanced filters
+  const rvolMin    = sp.get("rvolMin")   ? parseFloat(sp.get("rvolMin")!) : null;
+  const rsiMin     = sp.get("rsiMin")    ? parseInt(sp.get("rsiMin")!)    : null;
+  const rsiMax     = sp.get("rsiMax")    ? parseInt(sp.get("rsiMax")!)    : null;
+  const adxMin     = sp.get("adxMin")    ? parseInt(sp.get("adxMin")!)    : null;
 
   // Fetch regime
   const regime = await detectRegime();
@@ -693,6 +698,11 @@ export async function GET(req: NextRequest) {
       const [lo, hi] = liqRanges[liqFilter] ?? [0, Infinity];
       if (dolVol < lo || dolVol >= hi) return false;
     }
+    // Advanced filters
+    if (rvolMin !== null && s.rvol < rvolMin) return false;
+    if (rsiMin !== null && s.rsi < rsiMin) return false;
+    if (rsiMax !== null && s.rsi > rsiMax) return false;
+    if (adxMin !== null && s.adx < adxMin) return false;
     return passesPreset(s, preset);
   });
 
