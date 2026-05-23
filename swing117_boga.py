@@ -4068,21 +4068,9 @@ async def scan_top_stocks():
         await send_telegram_message("❌ Could not create universe!")
         return
 
-    # ── STEP 2.5: LOAD PRE-CATALYST WATCHLIST (if available) ──────────
-    watchlist_file = f"watchlist_{datetime.now(NY_TZ).strftime('%Y%m%d')}.json"
-    priority_tickers = []
-    if os.path.exists(watchlist_file):
-        try:
-            with open(watchlist_file, 'r', encoding='utf-8') as f:
-                wl_data = json.load(f)
-                priority_tickers = [x["ticker"] for x in wl_data.get("watchlist", [])]
-            logging.info(f"🎯 PRE-CATALYST: {len(priority_tickers)} watchlist tickers loaded from {watchlist_file}")
-        except Exception as e:
-            logging.warning(f"⚠️ PRE-CATALYST: Could not load watchlist: {e}")
-
     # ── CRITICAL FIX: Filter scan list with CURRENT list only ──
-    tickers_to_scan = priority_tickers + [t for t in MASTER_UNIVERSE if t not in CURRENT_EXCLUSIONS and t not in priority_tickers]
-    logging.info(f"📋 Number of stocks to scan (Duplicates removed): {len(tickers_to_scan)} ({len(priority_tickers)} watchlist + {len(tickers_to_scan) - len(priority_tickers)} universe)")
+    tickers_to_scan = [t for t in MASTER_UNIVERSE if t not in CURRENT_EXCLUSIONS]
+    logging.info(f"📋 Number of stocks to scan (Duplicates removed): {len(tickers_to_scan)}")
 
     # ── STEP 3: PARALLEL ANALYSIS (500 stocks → at least 50 pass) ─────────
     semaphore = asyncio.Semaphore(8)

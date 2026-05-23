@@ -366,6 +366,7 @@ export default function ScreenerCockpit() {
   const [activePreset, setActivePreset] = useState("swing_cont");
   const [activeMode,   setActiveMode]   = useState("swing");
   const [activePills,  setActivePills]  = useState<string[]>(PRESETS[0].pills);
+  const [useWatchlist, setUseWatchlist] = useState(false);
 
   // Filters
   const [priceRange, setPriceRange] = useState<{ min: number; max: number } | null>(null);
@@ -391,6 +392,7 @@ export default function ScreenerCockpit() {
     setExpandedRow(null);
     try {
       const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "60" });
+      if (useWatchlist) params.set("watchlist", "true");
       if (priceRange) { params.set("priceMin", String(priceRange.min)); params.set("priceMax", String(priceRange.max)); }
       const res = await fetch(`/api/screener?${params}`);
       if (!res.ok) throw new Error("API error");
@@ -404,7 +406,7 @@ export default function ScreenerCockpit() {
     } finally {
       setIsScanning(false);
     }
-  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange]);
+  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, useWatchlist]);
 
   useEffect(() => { runScan(); }, [activePreset]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -518,6 +520,14 @@ export default function ScreenerCockpit() {
               <div style={{ fontSize: 9, color: "#334155", marginTop: 1, fontFamily: "inherit" }}>{p.desc}</div>
             </button>
           ))}
+
+          {/* Load Watchlist Toggle */}
+          <button onClick={() => setUseWatchlist(!useWatchlist)}
+            style={{ display: "block", width: "100%", textAlign: "left", padding: "7px 12px", cursor: "pointer", border: "none", background: useWatchlist ? "#111620" : "none", borderLeft: `2px solid ${useWatchlist ? "#ec4899" : "transparent"}`, transition: "all .15s", marginTop: 8 }}
+          >
+            <div style={{ fontSize: 10, fontWeight: 600, color: useWatchlist ? "#ec4899" : "#94a3b8", fontFamily: "inherit" }}>🎯 Gece Taraması</div>
+            <div style={{ fontSize: 9, color: "#334155", marginTop: 1, fontFamily: "inherit" }}>Pre-Catalyst Watchlist</div>
+          </button>
 
           {/* Screener Quick Access */}
           <div style={{ marginTop: "auto", borderTop: "1px solid #1e2a3a", padding: "8px 10px" }}>
