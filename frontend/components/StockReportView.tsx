@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Header from "./Header";
+import dynamic from "next/dynamic";
+
+const DeepAnalysisReport = dynamic(() => import("./DeepAnalysisReport"), { ssr: false });
 
 interface StockReportViewProps {
   ticker: string;
@@ -17,6 +20,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const [inWatchlist, setInWatchlist] = useState(false);
   const [exportingPdf, setExportingPdf] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showDeepAnalysis, setShowDeepAnalysis] = useState(false);
 
   const handleExportPDF = async () => {
     if (!reportRef.current) return;
@@ -320,6 +324,16 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                   Tam Ekran
                 </>
               )}
+            </button>
+
+            <button
+              onClick={() => setShowDeepAnalysis(true)}
+              className="flex items-center gap-1.5 px-4 py-2 border rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-gradient-to-r from-[#1d4ed8]/20 to-[#06b6d4]/20 text-[#06b6d4] border-[#06b6d4]/40 hover:from-[#1d4ed8]/40 hover:to-[#06b6d4]/40 hover:border-[#06b6d4]/70 hover:text-white shadow-lg shadow-cyan-500/10"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              🔬 Derin Analiz
             </button>
 
           </div>
@@ -1321,10 +1335,34 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     );
 
     if (mounted && typeof window !== "undefined") {
-      return createPortal(fullscreenContent, document.body);
+      return (
+        <>
+          {createPortal(fullscreenContent, document.body)}
+          {showDeepAnalysis && createPortal(
+            <DeepAnalysisReport
+              ticker={ticker}
+              stockData={stockData}
+              onClose={() => setShowDeepAnalysis(false)}
+            />,
+            document.body
+          )}
+        </>
+      );
     }
   }
 
-  return reportContent;
+  return (
+    <>
+      {reportContent}
+      {showDeepAnalysis && mounted && typeof window !== "undefined" && createPortal(
+        <DeepAnalysisReport
+          ticker={ticker}
+          stockData={stockData}
+          onClose={() => setShowDeepAnalysis(false)}
+        />,
+        document.body
+      )}
+    </>
+  );
 }
 
