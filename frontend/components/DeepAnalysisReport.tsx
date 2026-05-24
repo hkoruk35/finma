@@ -96,12 +96,55 @@ function ForecastChart({ forecast15, currentPrice }: { forecast15: any[]; curren
 // ── Print styles injected once ─────────────────────────────────────────────────
 const PRINT_STYLE = `
 @media print {
+  /* Hide everything except our report */
   body > *:not(#boga-deep-print) { display: none !important; }
-  #boga-deep-print { display: block !important; position: static !important; overflow: visible !important; background: #070b12 !important; color: white !important; }
+
+  /* Report wrapper: static, full, scrollable content visible */
+  #boga-deep-print {
+    display: block !important;
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    width: 100% !important;
+    background: #070b12 !important;
+    color: white !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Hide navigation/buttons */
   #boga-deep-print .no-print { display: none !important; }
-  #boga-deep-print .print-content { max-width: 100% !important; padding: 12px !important; }
-  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-  @page { margin: 8mm; size: A4; }
+
+  /* Inner scroll container must be fully expanded */
+  #boga-deep-print .print-content {
+    overflow: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
+    flex: none !important;
+    display: block !important;
+    padding: 8px 12px !important;
+  }
+
+  /* All nested overflow containers must be expanded */
+  #boga-deep-print div {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  /* Preserve horizontal scroll for tables (print as-is) */
+  #boga-deep-print .overflow-x-auto {
+    overflow-x: visible !important;
+  }
+
+  /* Color accuracy */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  @page { margin: 8mm; size: A4 portrait; }
 }
 `;
 
@@ -111,7 +154,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
-  const [exportingPdf] = useState(false);
+  const [exportingPdf, setExportingPdf] = useState(false);
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -133,37 +176,50 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
   }, [ticker]);
 
   const handleExportPDF = () => {
+    if (exportingPdf) return;
+    setExportingPdf(true);
+
     const date = new Date().toISOString().slice(0, 10);
     const title = `BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${date}`;
     const prev = document.title;
     document.title = title;
 
-    // Canvas elements don't print natively — snapshot each canvas as <img> temporarily
+    // 1. Scroll print-content to top
+    const printContent = document.querySelector<HTMLElement>("#boga-deep-print .print-content");
+    if (printContent) printContent.scrollTop = 0;
+
+    // 2. Convert canvas elements to <img> for print (canvas doesn't print in all browsers)
     const canvases = Array.from(document.querySelectorAll<HTMLCanvasElement>("#boga-deep-print canvas"));
-    const replacements: Array<{ canvas: HTMLCanvasElement; img: HTMLImageElement; parent: HTMLElement }> = [];
+    const replacements: Array<{ canvas: HTMLCanvasElement; img: HTMLImageElement }> = [];
     canvases.forEach(canvas => {
       try {
+        const w = canvas.offsetWidth || canvas.width;
+        const h = canvas.offsetHeight || canvas.height;
+        if (w < 10 || h < 10) return;
         const dataUrl = canvas.toDataURL("image/png");
         const img = document.createElement("img");
         img.src = dataUrl;
-        img.style.cssText = `width:${canvas.offsetWidth}px;height:${canvas.offsetHeight}px;display:block;`;
+        img.style.cssText = `width:${w}px;height:${h}px;display:block;max-width:100%;border-radius:8px;page-break-inside:avoid;`;
+        img.className = "print-canvas-snapshot";
         canvas.parentElement?.insertBefore(img, canvas);
         canvas.style.display = "none";
-        replacements.push({ canvas, img, parent: canvas.parentElement as HTMLElement });
-      } catch { /* cross-origin etc. – skip */ }
+        replacements.push({ canvas, img });
+      } catch { /* tainted canvas – skip */ }
     });
 
+    // 3. Trigger print after a frame to let browser paint img elements
     setTimeout(() => {
       window.print();
-      // Restore canvases after print dialog closes
+      // 4. Restore everything after print dialog
       setTimeout(() => {
         replacements.forEach(({ canvas, img }) => {
           canvas.style.display = "";
           img.remove();
         });
         document.title = prev;
-      }, 500);
-    }, 150);
+        setExportingPdf(false);
+      }, 1000);
+    }, 300);
   };
 
   const handleShare = async () => {
@@ -201,9 +257,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
               Paylaş
             </button>
-            <button onClick={handleExportPDF} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[11px] md:text-[12px] font-black uppercase tracking-wider transition-all">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-              PDF Kaydet
+            <button
+              onClick={handleExportPDF}
+              disabled={exportingPdf}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[11px] md:text-[12px] font-black uppercase tracking-wider transition-all disabled:opacity-60"
+            >
+              {exportingPdf ? (
+                <><span className="w-3.5 h-3.5 border-2 border-[#f59e0b]/40 border-t-[#f59e0b] rounded-full animate-spin inline-block" />Hazırlanıyor...</>
+              ) : (
+                <><svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>PDF Kaydet</>
+              )}
             </button>
           </>)}
           <button onClick={onClose} className="p-2 rounded-lg border border-[#1e2a3a] hover:bg-rose-500/10 hover:border-rose-500/30 text-slate-400 hover:text-rose-400 transition-all">

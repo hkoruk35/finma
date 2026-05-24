@@ -58,7 +58,30 @@ async function fetchHistory(ticker: string) {
     const highs: number[] = q.high || [];
     const lows: number[] = q.low || [];
     const volumes: number[] = q.volume || [];
-    const marketCap = safeNum(result.meta?.marketCap, 0);
+    let marketCap = safeNum(result.meta?.marketCap, 0);
+
+    // Fallback: Yahoo Finance quote API for marketCap if chart API didn't return it
+    if (!marketCap) {
+      try {
+        const qUrl = `https://query2.finance.yahoo.com/v8/finance/chart/${ticker}?range=1d&interval=1d&includePrePost=false`;
+        const qRes = await fetch(qUrl, { headers, signal: AbortSignal.timeout(5000) });
+        if (qRes.ok) {
+          const qData = await qRes.json();
+          marketCap = safeNum(qData?.chart?.result?.[0]?.meta?.marketCap, 0);
+        }
+      } catch { /* ignore */ }
+    }
+    if (!marketCap) {
+      try {
+        const q2Url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}&fields=marketCap`;
+        const q2Res = await fetch(q2Url, { headers, signal: AbortSignal.timeout(5000) });
+        if (q2Res.ok) {
+          const q2Data = await q2Res.json();
+          marketCap = safeNum(q2Data?.quoteResponse?.result?.[0]?.marketCap, 0);
+        }
+      } catch { /* ignore */ }
+    }
+
     // Filter nulls and zip
     const rows: Array<{ date: string; open: number; close: number; high: number; low: number; volume: number }> = [];
     for (let i = 0; i < ts.length; i++) {
@@ -315,7 +338,13 @@ export async function POST(req: NextRequest) {
     // Fetch historical OHLC
     const histResult = await fetchHistory(ticker.toUpperCase());
     const historyRows = histResult?.rows || null;
-    let marketCap = safeNum(s.marketCap ?? s.market_cap, safeNum(histResult?.marketCap, 0));
+    // Market cap: check all possible paths in stockData, then Yahoo Finance fallback
+    const fund = s.fundamental || {};
+    let marketCap = safeNum(
+      fund.market_cap ?? fund.marketCap ??
+      s.marketCap ?? s.market_cap ?? s.price?.market_cap ?? s.price?.marketCap,
+      safeNum(histResult?.marketCap, 0)
+    );
     const marketCapStr = marketCap > 1e9 ? "$" + (marketCap / 1e9).toFixed(1) + "B" : marketCap > 1e6 ? "$" + (marketCap / 1e6).toFixed(0) + "M" : "N/A";
 
     // Build derived tables
