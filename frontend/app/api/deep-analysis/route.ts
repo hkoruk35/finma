@@ -421,6 +421,7 @@ export async function POST(req: NextRequest) {
         ema20, ema50, ema200, support1, resistance1, low52w, high52w,
         avgVol30d, volume, rvol, macd, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
         marketCapStr, forecast15, history15, srLevels, maLevels, cspMatrix, ccMatrix,
+        historyOHLC: historyRows || [], currentPrice,
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
       },

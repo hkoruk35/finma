@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import IchimokuChart from "./IchimokuChart";
 
 interface Props { ticker: string; stockData: any; onClose: () => void; }
 
@@ -540,8 +541,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   ))}
                 </div>
 
-                {/* Forecast Chart */}
-                <ForecastChart forecast15={a.forecast15} currentPrice={currentPrice} />
+                {/* Ichimoku Chart */}
+                <IchimokuChart historyOHLC={rd.historyOHLC} currentPrice={rd.currentPrice} />
 
                 {/* Destek/Direnç Seviyeleri */}
                 <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-lg p-3">
