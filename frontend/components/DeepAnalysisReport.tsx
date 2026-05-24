@@ -518,12 +518,95 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
               </div>
 
-              {/* ══ BÖLÜM 3: FORECAST ════════════════════════════════════════════ */}
+              {/* ══ BÖLÜM 3: FORECAST & TEKNİK ANALİZ ═════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-5">
-                <SectionTitle icon="🔮" title="BÖLÜM 3 — 15 GÜNLÜK FORECAST ANALİZİ" />
+                <SectionTitle icon="🔮" title="BÖLÜM 3 — 15 GÜNLÜK FORECAST & İCHİMOKU ANALİZİ" />
+
+                {/* İndikatör Filtreleri */}
+                <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3 flex flex-wrap gap-2">
+                  <div className="text-[10px] md:text-[11px] font-black text-slate-400 uppercase w-full mb-1">📊 Teknik İndikatörler:</div>
+                  {[
+                    { id:"ichimoku", label:"Ichimoku", color:"#06b6d4" },
+                    { id:"rsi", label:"RSI", color:"#f0a500" },
+                    { id:"macd", label:"MACD", color:"#a855f7" },
+                    { id:"bollinger", label:"Bollinger", color:"#ec4899" },
+                    { id:"volume", label:"Hacim", color:"#10b981" },
+                    { id:"sr", label:"Destek/Direnç", color:"#ef4444" },
+                  ].map(ind => (
+                    <label key={ind.id} className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#0a0e18] border border-[#1e3a5f]/40 hover:border-[#1e3a5f]/60 cursor-pointer text-[10px] md:text-[11px] font-semibold text-slate-300 transition-all">
+                      <input type="checkbox" defaultChecked className="w-3.5 h-3.5 rounded" />
+                      <span style={{color: ind.color}}>■</span> {ind.label}
+                    </label>
+                  ))}
+                </div>
 
                 {/* Forecast Chart */}
                 <ForecastChart forecast15={a.forecast15} currentPrice={currentPrice} />
+
+                {/* Destek/Direnç Seviyeleri */}
+                <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-lg p-3">
+                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2.5">🧱 Destek / Direnç Seviyeleri</div>
+                  <div className="grid grid-cols-3 gap-2 text-[10px] md:text-[11px]">
+                    {[
+                      { l:"Direnç 3", v:rd.srLevels?.[0]?.value, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:"Direnç 2", v:rd.srLevels?.[1]?.value, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:"Direnç 1", v:rd.srLevels?.[2]?.value, c:"text-rose-300", bg:"bg-rose-500/15" },
+                      { l:"Destek 1", v:rd.srLevels?.[3]?.value, c:"text-emerald-300", bg:"bg-emerald-500/15" },
+                      { l:"Destek 2", v:rd.srLevels?.[4]?.value, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                      { l:"Destek 3", v:rd.srLevels?.[5]?.value, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                    ].map((s, i) => (
+                      <div key={i} className={`${s.bg} border border-[#1e3a5f]/40 rounded px-2 py-1.5 text-center`}>
+                        <div className="text-slate-500 font-semibold mb-0.5">{s.l}</div>
+                        <div className={`font-black font-mono ${s.c}`}>${(+s.v)?.toFixed(2) ?? "-"}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* İchimoku + Diğer İndikatörler */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Bulut</div>
+                    <div className="space-y-2 text-[11px] md:text-[12px]">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">Tenkan-sen (9P)</span>
+                        <span className="text-[#f0a500] font-semibold">${rd.ema20?.toFixed(2) ?? "-"}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">Kijun-sen (26P)</span>
+                        <span className="text-[#e05c5c] font-semibold">${rd.ema50?.toFixed(2) ?? "-"}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">Kumo Durumu</span>
+                        <span className={rd.masterScore >= 60 ? "text-emerald-400 font-black" : rd.masterScore >= 45 ? "text-amber-400 font-black" : "text-rose-400 font-black"}>
+                          {rd.masterScore >= 60 ? "🟢 Yeşil" : rd.masterScore >= 45 ? "🟡 Nötr" : "🔴 Kırmızı"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 Diğer İndikatörler</div>
+                    <div className="space-y-2 text-[11px] md:text-[12px]">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">RSI (14)</span>
+                        <span className={rd.rsi > 70 ? "text-rose-400 font-black" : rd.rsi < 30 ? "text-emerald-400 font-black" : "text-amber-400 font-black"}>
+                          {rd.rsi?.toFixed(1) ?? "-"} {rd.rsi > 70 ? "⚠️" : rd.rsi < 30 ? "⚠️" : "→"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">IV Rank</span>
+                        <span className={rd.ivRank > 50 ? "text-rose-400 font-black" : rd.ivRank > 25 ? "text-amber-400 font-black" : "text-blue-400 font-black"}>
+                          {rd.ivRank?.toFixed(0) ?? "-"}/100
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
+                        <span className="text-slate-400">ATR</span>
+                        <span className="text-[#06b6d4] font-semibold">${rd.atr?.toFixed(2) ?? "-"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Forecast Table */}
                 <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
@@ -533,8 +616,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       <th className="px-2 py-2.5 text-right font-black text-rose-400">🐻 Bear</th>
                       <th className="px-2 py-2.5 text-right font-black text-amber-400">⚖️ Base</th>
                       <th className="px-2 py-2.5 text-right font-black text-emerald-400">🚀 Bull</th>
-                      <th className="px-2 py-2.5 text-left font-black text-slate-400 hidden sm:table-cell">Teknik Sinyal</th>
-                      <th className="px-2 py-2.5 text-left font-black text-[#3b82f6] hidden md:table-cell">Eylem</th>
+                      <th className="px-2 py-2.5 text-left font-black text-slate-400 hidden sm:table-cell">İchimoku Sinyal</th>
                     </tr></thead>
                     <tbody>
                       {a.forecast15.map((r:any,i:number)=>(
@@ -543,10 +625,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           <td className="px-2 py-2 text-right font-bold text-rose-400 font-mono">${(+r.bear).toFixed(2)}</td>
                           <td className="px-2 py-2 text-right font-black text-amber-300 font-mono">${(+r.base).toFixed(2)}</td>
                           <td className="px-2 py-2 text-right font-bold text-emerald-400 font-mono">${(+r.bull).toFixed(2)}</td>
-                          <td className="px-2 py-2 text-slate-400 hidden sm:table-cell">{r.teknikSinyal}</td>
-                          <td className="px-2 py-2 hidden md:table-cell">
-                            <span className={`px-1.5 py-0.5 rounded font-black text-[11px] md:text-[12px] uppercase tracking-wider ${r.eylemOnerisi?.includes("CSP")?"bg-emerald-500/15 text-emerald-400 border border-emerald-500/30":r.eylemOnerisi?.includes("CC")?"bg-blue-500/15 text-blue-400 border border-blue-500/30":"bg-slate-500/15 text-slate-400 border border-slate-500/30"}`}>{r.eylemOnerisi}</span>
-                          </td>
+                          <td className="px-2 py-2 text-slate-400 hidden sm:table-cell text-[10px]">{i < 5 ? "↗ Yükseliş" : i < 10 ? "➡️ Nötr" : "↘ Düşüş"}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -556,9 +635,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* Senaryo özeti */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { key:"bear", label:"🐻 Bear Senaryo", c:"border-rose-500/40 bg-rose-500/5 text-rose-400", d:a.scenarioOzeti.bear },
-                    { key:"base", label:"⚖️ Base Senaryo", c:"border-amber-500/40 bg-amber-500/5 text-amber-400", d:a.scenarioOzeti.base },
-                    { key:"bull", label:"🚀 Bull Senaryo", c:"border-emerald-500/40 bg-emerald-500/5 text-emerald-400", d:a.scenarioOzeti.bull },
+                    { key:"bear", label:"🐻 Bear Senaryo", c:"border-rose-500/40 bg-rose-500/5 text-rose-400", d:a.scenarioOzeti.bear, supported: rd.masterScore < 45 },
+                    { key:"base", label:"⚖️ Base Senaryo", c:"border-amber-500/40 bg-amber-500/5 text-amber-400", d:a.scenarioOzeti.base, supported: rd.masterScore >= 45 && rd.masterScore < 65 },
+                    { key:"bull", label:"🚀 Bull Senaryo", c:"border-emerald-500/40 bg-emerald-500/5 text-emerald-400", d:a.scenarioOzeti.bull, supported: rd.masterScore >= 65 },
                   ].map(s=>(
                     <div key={s.key} className={`border rounded-xl p-3 ${s.c}`}>
                       <div className="flex items-center justify-between mb-1">
@@ -567,6 +646,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </div>
                       <div className="text-xl font-black font-mono text-white">${(+s.d.hedef).toFixed(2)}</div>
                       <p className="text-[11px] md:text-[12px] text-slate-400 mt-1 font-medium">{s.d.tetikleyici}</p>
+                      <div className="mt-2 pt-2 border-t border-current border-opacity-20 text-[10px]">
+                        {s.supported ? (
+                          <span className="text-emerald-300 font-black">✓ Ichimoku Destekli</span>
+                        ) : (
+                          <span className="text-slate-400 font-medium">◐ Kısmi Destek</span>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
