@@ -212,9 +212,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
         )}
 
         {!loading && !error && data && (() => {
-          const { analysis, rawData } = data;
+          const { analysis, rawData, currentPrice: apiCurrentPrice } = data;
           const rd = rawData;
           const a = analysis;
+          const currentPrice = apiCurrentPrice || stockData?.price?.current || 0;
 
           return (
             <div ref={reportRef} className="max-w-5xl mx-auto p-4 md:p-6 space-y-6">
@@ -779,29 +780,84 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               </div>
 
               {/* ══ FİNANSAL ANALİZ ════════════════════════════════════════ */}
-              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-3">
-                <SectionTitle icon="💹" title="FİNANSAL SAĞLIK & BEKLENTİLER" />
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="💹" title="FİNANSAL ANALİZ & HİSSE BEKLENTİSİ" />
+
+                {/* Finansal Metriks */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
-                    <div className="text-[10px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Piyasa Değeri & Likidite</div>
-                    <div className="space-y-1 text-[11px] md:text-[12px] text-slate-300">
-                      <div className="flex justify-between"><span>Piyasa Değeri:</span><span className="text-[#06b6d4] font-semibold">{rd.marketCapStr}</span></div>
-                      <div className="flex justify-between"><span>30G Ort. Hacim:</span><span className="text-[#06b6d4] font-semibold">{rd.avgVol30d > 1e6 ? (rd.avgVol30d / 1e6).toFixed(1) + "M" : (rd.avgVol30d / 1e3).toFixed(0) + "K"}</span></div>
-                      <div className="flex justify-between"><span>Likidite Skoru:</span><span className={rd.avgVol30d > 1e6 ? "text-emerald-400" : rd.avgVol30d > 500e3 ? "text-amber-400" : "text-rose-400"}>{rd.avgVol30d > 1e6 ? "Yüksek" : rd.avgVol30d > 500e3 ? "Orta" : "Düşük"}</span></div>
+                  <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3.5">
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📊 Piyasa Değeri & Likidite</div>
+                    <div className="space-y-2 text-[11px] md:text-[12px]">
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-400">Piyasa Değeri</span>
+                        <span className="text-white font-semibold">{rd.marketCapStr}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-400">30G Ort. Hacim</span>
+                        <span className="text-white font-semibold">{rd.avgVol30d > 1e6 ? (rd.avgVol30d / 1e6).toFixed(1) + "M" : (rd.avgVol30d / 1e3).toFixed(0) + "K"}</span>
+                      </div>
+                      <div className="flex justify-between items-center pt-1 border-t border-[#1e3a5f]/30">
+                        <span className="text-slate-400 font-medium">Likidite Skoru</span>
+                        <span className={`font-black ${rd.avgVol30d > 1e6 ? "text-emerald-400 bg-emerald-500/10" : rd.avgVol30d > 500e3 ? "text-amber-400 bg-amber-500/10" : "text-rose-400 bg-rose-500/10"} px-2 py-0.5 rounded text-[10px]`}>
+                          {rd.avgVol30d > 1e6 ? "YÜKSEK ✓" : rd.avgVol30d > 500e3 ? "ORTA" : "DÜŞÜK"}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
-                    <div className="text-[10px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Trend & Momentum</div>
-                    <div className="space-y-1 text-[11px] md:text-[12px] text-slate-300">
-                      <div className="flex justify-between"><span>52H Aralığı:</span><span className="text-[#06b6d4] font-semibold">${rd.low52w?.toFixed(2)??"-"} — ${rd.high52w?.toFixed(2)??"-"}</span></div>
-                      <div className="flex justify-between"><span>Konumlandırma:</span><span className={currentPrice >= rd.high52w * 0.9 ? "text-emerald-400" : currentPrice <= rd.low52w * 1.1 ? "text-rose-400" : "text-amber-400"}>{currentPrice >= rd.high52w * 0.9 ? "Yüksekte" : currentPrice <= rd.low52w * 1.1 ? "Düşükte" : "Ortada"}</span></div>
-                      <div className="flex justify-between"><span>Dönüş Beklentisi:</span><span className={rd.masterScore >= 65 ? "text-emerald-400" : rd.masterScore >= 50 ? "text-amber-400" : "text-rose-400"}>{rd.masterScore >= 65 ? "Yükseli̇ş" : rd.masterScore >= 50 ? "Nötr/Yatay" : "Düşüş"}</span></div>
+
+                  <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3.5">
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📈 Trend & Momentum</div>
+                    <div className="space-y-2 text-[11px] md:text-[12px]">
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-400">52H Aralığı</span>
+                        <span className="text-white font-semibold">${rd.low52w?.toFixed(2)??"-"} / ${rd.high52w?.toFixed(2)??"-"}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-slate-400">Konumlandırma</span>
+                        <span className={`font-semibold ${currentPrice >= rd.high52w * 0.9 ? "text-emerald-400" : currentPrice <= rd.low52w * 1.1 ? "text-rose-400" : "text-amber-400"}`}>
+                          {currentPrice >= rd.high52w * 0.9 ? "ZİRVEYE YAKIN ↗" : currentPrice <= rd.low52w * 1.1 ? "DİPYE YAKIN ↘" : "ORTA SEVİYE →"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center pt-1 border-t border-[#1e3a5f]/30">
+                        <span className="text-slate-400 font-medium">Beklenti (15G)</span>
+                        <span className={`font-black bg-opacity-10 px-2 py-0.5 rounded text-[10px] ${rd.masterScore >= 65 ? "text-emerald-400 bg-emerald-500" : rd.masterScore >= 50 ? "text-amber-400 bg-amber-500" : "text-rose-400 bg-rose-500"}`}>
+                          {rd.masterScore >= 65 ? "🚀 YÜKSELİŞ" : rd.masterScore >= 50 ? "➡️ NÖTR" : "📉 DÜŞÜŞ"}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/20 rounded-lg p-3 text-[11px] md:text-[12px] text-slate-400 leading-relaxed">
-                  <span className="font-semibold text-slate-300">Özet: </span>
-                  {rd.marketCapStr !== "N/A" ? `Piyasa değeri ${rd.marketCapStr} olan ${data.companyName}, ` : ""}{rd.avgVol30d > 500e3 ? "yeterli likiditeye sahip, " : "sınırlı likiditeye sahip, "}{currentPrice >= rd.high52w * 0.85 ? "52 haftalık zirvesine yakın seviyede " : currentPrice <= rd.low52w * 1.15 ? "52 haftalık dipleri yakında seviyede " : "52 haftalık aralığın ortasında "}{rd.masterScore >= 65 ? "güçlü yükseliş sinyalleri veriyor." : rd.masterScore >= 50 ? "nötr bir pozisyon sergilemektedir." : "düşüş baskısı altında."}
+
+                {/* Finansal Sağlık Özeti */}
+                <div className="bg-gradient-to-r from-[#0d1321]/80 to-[#0a0e18] border border-[#06b6d4]/20 rounded-lg p-4">
+                  <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-3">📋 FİNANSAL SAĞLIK ÖZETI</div>
+                  <div className="text-[11px] md:text-[12px] text-slate-300 leading-relaxed space-y-2">
+                    <p>
+                      <span className="font-semibold text-[#06b6d4]">{data.companyName}</span>
+                      {rd.marketCapStr !== "N/A" ? ` (Piyasa Değeri: ${rd.marketCapStr})` : ""}
+                      {rd.avgVol30d > 500e3 ? "yeterli işlem hacmine sahip, " : "sınırlı likiditeye sahip, "}
+                      {currentPrice >= rd.high52w * 0.85 ? "52 haftalık en yüksek seviyeye yakında " : currentPrice <= rd.low52w * 1.15 ? "52 haftalık en düşük seviyeye yakında " : "52 haftalık aralığın ortasında "}
+                      konumlanmaktadır.
+                    </p>
+                    <p>
+                      <span className="font-semibold text-amber-400">Teknik İndikatörler:</span>
+                      {rd.masterScore >= 65 ? " Güçlü yükseliş sinyalleri (BOGA Skoru ≥65) ile desteklenmektedir. CSP/CC opsiyon stratejileri için uygun zemin mevcuttur."
+                      : rd.masterScore >= 50 ? " Nötr görünüm (BOGA Skoru 50-64). Strateji seçimi önem taşıyor, risk yönetimi gereklidir."
+                      : " Düşüş baskısı altında (BOGA Skoru <50). Prim satışı stratejileri tercih edilmeli, çağrı opsiyon satışı uygun."}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-cyan-400">İndikatör Analizi:</span>
+                      RSI {rd.rsi?.toFixed(1)}% ({rd.rsi > 70 ? "aşırı alım" : rd.rsi < 30 ? "aşırı satım" : "nötr"}),
+                      IV %{rd.iv} ({rd.iv > 50 ? "yüksek volatilite" : rd.iv > 30 ? "orta volatilite" : "düşük volatilite"}),
+                      IV Rank {rd.ivRank?.toFixed(0)}/100 ({rd.ivRank > 50 ? "prim satışı uygun ✓" : "prim satışı sınırlı"}).
+                    </p>
+                    <div className="pt-2 border-t border-[#1e3a5f]/30 mt-3">
+                      <span className="font-semibold text-emerald-400">✓ Beklenti:</span>
+                      {rd.masterScore >= 65 ? " Hisse yükseliş trendinde. 15 günde hedef fiyatlara ulaşma olasılığı YÜKSEK. CSP (DTE 14-21) ve CC stratejileri seçici kullanılabilir."
+                      : rd.masterScore >= 50 ? " Hisse nötr aralıkta. Ranged trading yaklaşımı uygun. DTE 21-30 prim stratejileri daha güvenli."
+                      : " Hisse düşüş trendine giriş riski VAR. Prim satışı stratejilerinde daha yüksek strike seçilmeli, risk kontrol zorunlu."}
+                    </div>
+                  </div>
                 </div>
               </div>
 
