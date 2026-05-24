@@ -22,43 +22,42 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   const [mounted, setMounted] = useState(false);
   const [showDeepAnalysis, setShowDeepAnalysis] = useState(false);
 
-  const handleExportPDF = async () => {
-    if (!reportRef.current) return;
+  const handleExportPDF = () => {
     setExportingPdf(true);
-    try {
-      const html2canvas = (await import("html2canvas")).default;
-      const jsPDF = (await import("jspdf")).jsPDF;
+    const prev = document.title;
+    document.title = `BOGA_AI_${ticker.toUpperCase()}_Raporu`;
 
-      const canvas = await html2canvas(reportRef.current, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#0a0e17",
-        logging: false
-      });
+    // Replace <canvas> elements with static <img> snapshots for print
+    const canvases = Array.from(
+      document.querySelectorAll<HTMLCanvasElement>("#boga-stock-print canvas")
+    );
+    const replacements: Array<{ canvas: HTMLCanvasElement; img: HTMLImageElement }> = [];
+    canvases.forEach((canvas) => {
+      const w = canvas.offsetWidth || canvas.width;
+      const h = canvas.offsetHeight || canvas.height;
+      if (w < 10 || h < 10) return;
+      try {
+        const dataUrl = canvas.toDataURL("image/png");
+        const img = document.createElement("img");
+        img.src = dataUrl;
+        img.style.cssText = `width:${w}px;height:${h}px;display:block;max-width:100%;border-radius:8px;page-break-inside:avoid;`;
+        canvas.parentElement?.insertBefore(img, canvas);
+        canvas.style.display = "none";
+        replacements.push({ canvas, img });
+      } catch { /* tainted canvas — skip */ }
+    });
 
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210;
-      const pageHeight = 295;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      pdf.save(`BOGA_AI_${ticker.toUpperCase()}_Raporu.pdf`);
-    } catch (err) {
-      console.error("PDF export failed:", err);
-    } finally {
-      setExportingPdf(false);
-    }
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => {
+        replacements.forEach(({ canvas, img }) => {
+          canvas.style.display = "";
+          img.remove();
+        });
+        document.title = prev;
+        setExportingPdf(false);
+      }, 1000);
+    }, 300);
   };
 
   const SYSTEM_THEME_CATEGORIES = [
@@ -255,7 +254,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       : "bg-amber-500/10 text-amber-400 border-amber-500/30";
 
   const reportContent = (
-    <div ref={reportRef} className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
+    <div ref={reportRef} id="boga-stock-print" className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
       
       {/* 1. HEADER BLOCK */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#1e2a3a]/40 pb-6">
@@ -1320,7 +1319,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
   if (isFullScreen) {
     const fullscreenContent = (
-      <div className="fixed inset-0 z-[9999] bg-[#080c14] flex flex-col h-screen overflow-hidden">
+      <div id="boga-stock-fullscreen" className="fixed inset-0 z-[9999] bg-[#080c14] flex flex-col h-screen overflow-hidden">
         <Header 
           hideMenus={true} 
           onLogoClick={() => window.dispatchEvent(new Event("start_new_query"))} 
@@ -1353,6 +1352,44 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
   return (
     <>
+      <style>{`
+        @media print {
+          /* Hide everything except the report (works both in normal and fullscreen mode) */
+          body > *:not(#boga-stock-fullscreen):not(#boga-stock-print) { display: none !important; }
+          #boga-stock-fullscreen {
+            position: static !important;
+            overflow: visible !important;
+            height: auto !important;
+            max-height: none !important;
+            display: block !important;
+          }
+          #boga-stock-fullscreen > * { overflow: visible !important; height: auto !important; }
+          #boga-stock-print {
+            display: block !important;
+            position: static !important;
+            overflow: visible !important;
+            height: auto !important;
+            max-height: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 16px !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            background: #0a0e17 !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          #boga-stock-print * {
+            overflow: visible !important;
+            max-height: none !important;
+          }
+          #boga-stock-print button { display: none !important; }
+          #boga-stock-print iframe { display: none !important; }
+          @page { margin: 10mm; size: A4 portrait; }
+        }
+      `}</style>
       {reportContent}
       {showDeepAnalysis && mounted && typeof window !== "undefined" && createPortal(
         <DeepAnalysisReport
