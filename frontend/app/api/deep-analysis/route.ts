@@ -4,6 +4,10 @@ import Anthropic from "@anthropic-ai/sdk";
 export const runtime = "nodejs";
 export const maxDuration = 90;
 
+// ── 1-hour in-memory cache ─────────────────────────────────────────────────────
+const cache = new Map<string, { ts: number; data: any }>();
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour ms
+
 // ── Math helpers ──────────────────────────────────────────────────────────────
 function safeNum(v: any, fb = 0): number {
   return typeof v === "number" && isFinite(v) ? v : fb;
@@ -60,7 +64,7 @@ async function fetchHistory(ticker: string) {
     for (let i = 0; i < ts.length; i++) {
       if (closes[i] != null && opens[i] != null) {
         rows.push({
-          date: new Date(ts[i] * 1000).toLocaleDateString("tr-TR", { day: "2-digit", month: "2-digit" }),
+          date: new Date(ts[i] * 1000).toISOString().slice(0, 10), // ISO "YYYY-MM-DD" for chart parsing
           open: opens[i], close: closes[i], high: highs[i] || closes[i], low: lows[i] || closes[i],
           volume: volumes[i] || 0,
         });
@@ -271,6 +275,15 @@ export async function POST(req: NextRequest) {
     const { ticker, stockData } = await req.json();
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
 
+    // ── Cache check ──────────────────────────────────────────────────────────
+    const cacheKey = `${ticker.toUpperCase()}_${stockData?.price?.current ?? "0"}`;
+    const cached = cache.get(cacheKey);
+    if (cached && Date.now() - cached.ts < CACHE_TTL) {
+      return NextResponse.json(cached.data, {
+        headers: { "X-Cache": "HIT", "Cache-Control": "private, max-age=3600" },
+      });
+    }
+
     const s = stockData || {};
     const pr = s.price || {};
     const tech = s.technical || {};
@@ -371,7 +384,7 @@ export async function POST(req: NextRequest) {
       atrUygun: atrPct < 5 ? 1 : atrPct < 8 ? 0 : -1,
     };
 
-    return NextResponse.json({
+    const responseData = {
       ticker: ticker.toUpperCase(),
       companyName: promptParams.companyName,
       currentPrice, sector: promptParams.sector, industry: promptParams.industry,
@@ -425,6 +438,13 @@ export async function POST(req: NextRequest) {
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
       },
+    };
+
+    // ── Store in cache ───────────────────────────────────────────────────────
+    cache.set(cacheKey, { ts: Date.now(), data: responseData });
+
+    return NextResponse.json(responseData, {
+      headers: { "X-Cache": "MISS", "Cache-Control": "private, max-age=3600" },
     });
   } catch (err: any) {
     console.error("[deep-analysis] unhandled:", err);

@@ -349,19 +349,40 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
     };
 
     // Update metrics
-    const last = sliceData[sliceData.length - 27] || sliceData[sliceData.length - 1];
+    // last = most recent historical bar (before forecast zone)
+    const last = sliceData[Math.max(0, fStart - 1)];
     const fmt = (v: number | null) => v != null ? v.toFixed(v > 1000 ? 1 : 2) : "—";
-    const futureLast = sliceData[sliceData.length - 1];
-    const kumoColor = futureLast.spanAFut != null && futureLast.spanBFut != null
-      ? (futureLast.spanAFut >= futureLast.spanBFut ? "Yeşil (Boğa)" : "Kırmızı (Ayı)")
-      : "—";
+
+    // Kumo: cloud at current bar = spanAFut/spanBFut of bar at (current - 0)
+    // Since spanAFut[i] is drawn at position i, the cloud currently visible at
+    // the last historical bar is last.spanAFut & last.spanBFut
+    const cloudA = last.spanAFut;
+    const cloudB = last.spanBFut;
+    let kumoColor = "—";
+    if (cloudA != null && cloudB != null) {
+      const cloudTop = Math.max(cloudA, cloudB);
+      const cloudBot = Math.min(cloudA, cloudB);
+      if (last.close > cloudTop) kumoColor = "Yeşil (Boğa)";
+      else if (last.close < cloudBot) kumoColor = "Kırmızı (Ayı)";
+      else kumoColor = "Nötr (İçinde)";
+    } else {
+      // Fallback: use spanA/spanB of bar ~26 bars earlier (cloud at current position)
+      const refBar = sliceData[Math.max(0, fStart - 27)];
+      if (refBar?.spanA != null && refBar?.spanB != null) {
+        const cloudTop = Math.max(refBar.spanA, refBar.spanB);
+        const cloudBot = Math.min(refBar.spanA, refBar.spanB);
+        if (last.close > cloudTop) kumoColor = "Yeşil (Boğa)";
+        else if (last.close < cloudBot) kumoColor = "Kırmızı (Ayı)";
+        else kumoColor = "Nötr (İçinde)";
+      }
+    }
 
     let signals: string[] = [];
-    if (last.close && last.spanAFut && last.spanBFut) {
-      const aboveCloud = last.close > Math.max(last.spanAFut, last.spanBFut);
-      const belowCloud = last.close < Math.min(last.spanAFut, last.spanBFut);
-      if (aboveCloud) signals.push("Fiyat bulut üstünde");
-      else if (belowCloud) signals.push("Fiyat bulut altında");
+    if (cloudA != null && cloudB != null) {
+      const cloudTop = Math.max(cloudA, cloudB);
+      const cloudBot = Math.min(cloudA, cloudB);
+      if (last.close > cloudTop) signals.push("Fiyat bulut üstünde");
+      else if (last.close < cloudBot) signals.push("Fiyat bulut altında");
       else signals.push("Fiyat bulut içinde");
     }
     if (last.tenkan && last.kijun) {
@@ -386,23 +407,24 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
     <div className="space-y-3">
       {/* Kontrol */}
       <div className="space-y-2">
-        <div className="text-[10px] text-slate-400 px-3">İchimoku Göstergeleri (göstermek/gizlemek için tıkla)</div>
-        <div className="flex flex-wrap gap-2 px-3 py-2 bg-[#0d1321]/50 rounded-lg border border-[#1e3a5f]/30">
+        <div className="text-[10px] text-slate-400 px-1">Grafik katmanları (açmak/kapatmak için tıkla)</div>
+        <div className="flex flex-wrap gap-2 py-2 bg-[#0d1321]/50 rounded-lg border border-[#1e3a5f]/30 px-3">
           {[
-            { state: showTenkan, setState: setShowTenkan, label: "Tenkan (9G)", color: "#f0a500", desc: "Kısa dönem trend" },
-            { state: showKijun, setState: setShowKijun, label: "Kijun (26G)", color: "#e05c5c", desc: "Orta dönem trend" },
-            { state: showChikou, setState: setShowChikou, label: "Chikou", color: "#a855f7", desc: "Momentum" },
-            { state: showKumo, setState: setShowKumo, label: "Kumo Bulut", color: "#22c55e", desc: "Destek/Direnç" },
-          ].map(({ state, setState, label, color, desc }) => (
-            <label key={label} className="flex items-center gap-2 text-[10px] md:text-[11px] font-semibold text-slate-300 cursor-pointer hover:text-white transition-colors group" title={desc}>
+            { state: showTenkan, setState: setShowTenkan, label: "Kısa Trend", sublabel:"9 günlük", color: "#f0a500" },
+            { state: showKijun, setState: setShowKijun, label: "Orta Trend", sublabel:"26 günlük", color: "#e05c5c" },
+            { state: showChikou, setState: setShowChikou, label: "Momentum", sublabel:"26G geri", color: "#a855f7" },
+            { state: showKumo, setState: setShowKumo, label: "Destek/Direnç Bulutu", sublabel:"", color: "#22c55e" },
+          ].map(({ state, setState, label, sublabel, color }) => (
+            <label key={label} className="flex items-center gap-1.5 text-[10px] md:text-[11px] font-semibold text-slate-300 cursor-pointer hover:text-white transition-colors">
               <input
                 type="checkbox"
                 checked={state}
                 onChange={(e) => setState(e.target.checked)}
                 className="w-3.5 h-3.5 rounded"
               />
-              <span style={{ color }}>■</span> {label}
-              <span className="hidden group-hover:inline text-[9px] text-slate-500 ml-1">({desc})</span>
+              <span style={{ color }}>■</span>
+              <span>{label}</span>
+              {sublabel && <span className="text-[9px] text-slate-500">({sublabel})</span>}
             </label>
           ))}
         </div>
@@ -431,27 +453,29 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
 
       {/* Metrikler */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-[10px] md:text-[11px]">
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son kapanış fiyatı">
-          <div className="text-slate-400 mb-1 font-semibold">Kapanış</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
+          <div className="text-slate-500 mb-0.5 text-[9px] uppercase tracking-wide">Son Kapanış</div>
           <div className="text-white font-black text-sm">${metrics.close}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son 9 günün en yüksek+en düşük / 2">
-          <div className="text-slate-400 mb-1 font-semibold">Tenkan</div>
-          <div style={{ color: "#f0a500" }} className="font-black text-sm">${metrics.tenkan}</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#f0a500]/20">
+          <div className="text-[9px] uppercase tracking-wide mb-0.5" style={{color:"#f0a500"}}>Kısa Trend</div>
+          <div className="text-[9px] text-slate-500 mb-0.5">(9 günlük)</div>
+          <div style={{ color: "#f0a500" }} className="font-black">${metrics.tenkan}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son 26 günün en yüksek+en düşük / 2">
-          <div className="text-slate-400 mb-1 font-semibold">Kijun</div>
-          <div style={{ color: "#e05c5c" }} className="font-black text-sm">${metrics.kijun}</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#e05c5c]/20">
+          <div className="text-[9px] uppercase tracking-wide mb-0.5" style={{color:"#e05c5c"}}>Orta Trend</div>
+          <div className="text-[9px] text-slate-500 mb-0.5">(26 günlük)</div>
+          <div style={{ color: "#e05c5c" }} className="font-black">${metrics.kijun}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Fiyat bulutun üstünde mi altında mı?">
-          <div className="text-slate-400 mb-1 font-semibold">Kumo</div>
-          <div className="font-black text-[9px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : metrics.kumo.includes("Kırmızı") ? "#e05c5c" : "#f0a500" }}>
-            {metrics.kumo.includes("Yeşil") ? "🟢 Yeşil" : metrics.kumo.includes("Kırmızı") ? "🔴 Kırmızı" : "⚪ —"}
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#22c55e]/20">
+          <div className="text-[9px] text-slate-500 uppercase tracking-wide mb-0.5">D/D Bulutu</div>
+          <div className="font-black text-[10px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : metrics.kumo.includes("Kırmızı") ? "#e05c5c" : "#94a3b8" }}>
+            {metrics.kumo.includes("Yeşil") ? "🟢 Boğa" : metrics.kumo.includes("Kırmızı") ? "🔴 Ayı" : "⚪ —"}
           </div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Genel Ichimoku sinyali">
-          <div className="text-slate-400 mb-1 font-semibold">Sinyal</div>
-          <div className="font-black text-[10px]" style={{ color: metrics.signalColor }}>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
+          <div className="text-[9px] text-slate-500 uppercase tracking-wide mb-0.5">Genel Sinyal</div>
+          <div className="font-black text-[11px]" style={{ color: metrics.signalColor }}>
             {metrics.signal === "BOĞA" ? "↗ BOĞA" : metrics.signal === "AYI" ? "↘ AYI" : "→ NÖTR"}
           </div>
         </div>

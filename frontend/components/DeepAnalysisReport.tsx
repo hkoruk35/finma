@@ -137,10 +137,33 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
     const title = `BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${date}`;
     const prev = document.title;
     document.title = title;
+
+    // Canvas elements don't print natively — snapshot each canvas as <img> temporarily
+    const canvases = Array.from(document.querySelectorAll<HTMLCanvasElement>("#boga-deep-print canvas"));
+    const replacements: Array<{ canvas: HTMLCanvasElement; img: HTMLImageElement; parent: HTMLElement }> = [];
+    canvases.forEach(canvas => {
+      try {
+        const dataUrl = canvas.toDataURL("image/png");
+        const img = document.createElement("img");
+        img.src = dataUrl;
+        img.style.cssText = `width:${canvas.offsetWidth}px;height:${canvas.offsetHeight}px;display:block;`;
+        canvas.parentElement?.insertBefore(img, canvas);
+        canvas.style.display = "none";
+        replacements.push({ canvas, img, parent: canvas.parentElement as HTMLElement });
+      } catch { /* cross-origin etc. – skip */ }
+    });
+
     setTimeout(() => {
       window.print();
-      setTimeout(() => { document.title = prev; }, 100);
-    }, 100);
+      // Restore canvases after print dialog closes
+      setTimeout(() => {
+        replacements.forEach(({ canvas, img }) => {
+          canvas.style.display = "";
+          img.remove();
+        });
+        document.title = prev;
+      }, 500);
+    }, 150);
   };
 
   const handleShare = async () => {
@@ -567,37 +590,37 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* İchimoku + Diğer İndikatörler */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Bulut Göstergeleri</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Teknik Göstergeler</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Son 9 günün en yüksek+en düşük bölü 2 = Kısa dönem trend">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#f0a500]/20">
                         <div className="flex flex-col">
-                          <span className="text-[#f0a500] font-black">Tenkan-sen</span>
-                          <span className="text-[9px] text-slate-500">Kısa trend (9 günlük)</span>
+                          <span className="text-[#f0a500] font-black">Kısa Dönem Trend</span>
+                          <span className="text-[9px] text-slate-500">Son 9 günlük fiyat ortalaması</span>
                         </div>
                         <span className="text-[#f0a500] font-semibold">${rd.ema20?.toFixed(2) ?? "-"}</span>
                       </div>
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Son 26 günün en yüksek+en düşük bölü 2 = Orta dönem trend">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#e05c5c]/20">
                         <div className="flex flex-col">
-                          <span className="text-[#e05c5c] font-black">Kijun-sen</span>
-                          <span className="text-[9px] text-slate-500">Orta trend (26 günlük)</span>
+                          <span className="text-[#e05c5c] font-black">Orta Dönem Trend</span>
+                          <span className="text-[9px] text-slate-500">Son 26 günlük fiyat ortalaması</span>
                         </div>
                         <span className="text-[#e05c5c] font-semibold">${rd.ema50?.toFixed(2) ?? "-"}</span>
                       </div>
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Fiyat bulutun üstündeyse yeşil (boğa), altındaysa kırmızı (ayı)">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#22c55e]/20">
                         <div className="flex flex-col">
-                          <span className="text-slate-400 font-black">Kumo Bulut</span>
-                          <span className="text-[9px] text-slate-500">Destek/Direnç alanı</span>
+                          <span className="text-slate-300 font-black">Destek/Direnç Bulutu</span>
+                          <span className="text-[9px] text-slate-500">Fiyat bulutun üstünde → Boğa trendi</span>
                         </div>
                         <span className={rd.masterScore >= 60 ? "text-emerald-400 font-black" : rd.masterScore >= 45 ? "text-amber-400 font-black" : "text-rose-400 font-black"}>
-                          {rd.masterScore >= 60 ? "🟢 Yeşil" : rd.masterScore >= 45 ? "🟡 Nötr" : "🔴 Kırmızı"}
+                          {rd.masterScore >= 60 ? "🟢 Boğa" : rd.masterScore >= 45 ? "🟡 Nötr" : "🔴 Ayı"}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Fiyatın 26 gün önceki kapanışı = Trend momentum göstergesi">
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#a855f7]/20">
                         <div className="flex flex-col">
-                          <span className="text-slate-400 font-black">Chikou Span</span>
-                          <span className="text-[9px] text-slate-500">Momentum (26 gün geri)</span>
+                          <span className="text-[#a855f7] font-black">Momentum Çizgisi</span>
+                          <span className="text-[9px] text-slate-500">Kapanış fiyatı 26 gün geri kaydırılmış</span>
                         </div>
-                        <span className="text-[#a855f7] font-semibold text-[10px]">Göstergede</span>
+                        <span className="text-[#a855f7] font-semibold text-[10px]">Grafikte görülebilir</span>
                       </div>
                     </div>
                   </div>
