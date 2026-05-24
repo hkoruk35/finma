@@ -385,23 +385,27 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
   return (
     <div className="space-y-3">
       {/* Kontrol */}
-      <div className="flex flex-wrap gap-2 px-3 py-2 bg-[#0d1321]/50 rounded-lg border border-[#1e3a5f]/30">
-        {[
-          { state: showTenkan, setState: setShowTenkan, label: "Tenkan", color: "#f0a500" },
-          { state: showKijun, setState: setShowKijun, label: "Kijun", color: "#e05c5c" },
-          { state: showChikou, setState: setShowChikou, label: "Chikou", color: "#a855f7" },
-          { state: showKumo, setState: setShowKumo, label: "Kumo", color: "#22c55e" },
-        ].map(({ state, setState, label, color }) => (
-          <label key={label} className="flex items-center gap-2 text-[11px] md:text-[12px] font-semibold text-slate-300 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={state}
-              onChange={(e) => setState(e.target.checked)}
-              className="w-3.5 h-3.5 rounded"
-            />
-            <span style={{ color }}>■</span> {label}
-          </label>
-        ))}
+      <div className="space-y-2">
+        <div className="text-[10px] text-slate-400 px-3">İchimoku Göstergeleri (göstermek/gizlemek için tıkla)</div>
+        <div className="flex flex-wrap gap-2 px-3 py-2 bg-[#0d1321]/50 rounded-lg border border-[#1e3a5f]/30">
+          {[
+            { state: showTenkan, setState: setShowTenkan, label: "Tenkan (9G)", color: "#f0a500", desc: "Kısa dönem trend" },
+            { state: showKijun, setState: setShowKijun, label: "Kijun (26G)", color: "#e05c5c", desc: "Orta dönem trend" },
+            { state: showChikou, setState: setShowChikou, label: "Chikou", color: "#a855f7", desc: "Momentum" },
+            { state: showKumo, setState: setShowKumo, label: "Kumo Bulut", color: "#22c55e", desc: "Destek/Direnç" },
+          ].map(({ state, setState, label, color, desc }) => (
+            <label key={label} className="flex items-center gap-2 text-[10px] md:text-[11px] font-semibold text-slate-300 cursor-pointer hover:text-white transition-colors group" title={desc}>
+              <input
+                type="checkbox"
+                checked={state}
+                onChange={(e) => setState(e.target.checked)}
+                className="w-3.5 h-3.5 rounded"
+              />
+              <span style={{ color }}>■</span> {label}
+              <span className="hidden group-hover:inline text-[9px] text-slate-500 ml-1">({desc})</span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Canvas */}
@@ -426,29 +430,29 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
       </div>
 
       {/* Metrikler */}
-      <div className="grid grid-cols-5 gap-2 text-[10px] md:text-[11px]">
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
-          <div className="text-slate-400 mb-1">Kapanış</div>
-          <div className="text-white font-semibold">${metrics.close}</div>
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-[10px] md:text-[11px]">
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son kapanış fiyatı">
+          <div className="text-slate-400 mb-1 font-semibold">Kapanış</div>
+          <div className="text-white font-black text-sm">${metrics.close}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
-          <div className="text-slate-400 mb-1">Tenkan</div>
-          <div style={{ color: "#f0a500" }} className="font-semibold">${metrics.tenkan}</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son 9 günün en yüksek+en düşük / 2">
+          <div className="text-slate-400 mb-1 font-semibold">Tenkan</div>
+          <div style={{ color: "#f0a500" }} className="font-black text-sm">${metrics.tenkan}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
-          <div className="text-slate-400 mb-1">Kijun</div>
-          <div style={{ color: "#e05c5c" }} className="font-semibold">${metrics.kijun}</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Son 26 günün en yüksek+en düşük / 2">
+          <div className="text-slate-400 mb-1 font-semibold">Kijun</div>
+          <div style={{ color: "#e05c5c" }} className="font-black text-sm">${metrics.kijun}</div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
-          <div className="text-slate-400 mb-1">Kumo</div>
-          <div className="font-semibold text-[9px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : "#e05c5c" }}>
-            {metrics.kumo.split(" ")[0]}
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Fiyat bulutun üstünde mi altında mı?">
+          <div className="text-slate-400 mb-1 font-semibold">Kumo</div>
+          <div className="font-black text-[9px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : metrics.kumo.includes("Kırmızı") ? "#e05c5c" : "#f0a500" }}>
+            {metrics.kumo.includes("Yeşil") ? "🟢 Yeşil" : metrics.kumo.includes("Kırmızı") ? "🔴 Kırmızı" : "⚪ —"}
           </div>
         </div>
-        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
-          <div className="text-slate-400 mb-1">Sinyal</div>
+        <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30" title="Genel Ichimoku sinyali">
+          <div className="text-slate-400 mb-1 font-semibold">Sinyal</div>
           <div className="font-black text-[10px]" style={{ color: metrics.signalColor }}>
-            {metrics.signal}
+            {metrics.signal === "BOĞA" ? "↗ BOĞA" : metrics.signal === "AYI" ? "↘ AYI" : "→ NÖTR"}
           </div>
         </div>
       </div>

@@ -549,12 +549,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2.5">🧱 Destek / Direnç Seviyeleri</div>
                   <div className="grid grid-cols-3 gap-2 text-[10px] md:text-[11px]">
                     {[
-                      { l:"Direnç 3", v:rd.srLevels?.[0]?.value, c:"text-rose-400", bg:"bg-rose-500/10" },
-                      { l:"Direnç 2", v:rd.srLevels?.[1]?.value, c:"text-rose-400", bg:"bg-rose-500/10" },
-                      { l:"Direnç 1", v:rd.srLevels?.[2]?.value, c:"text-rose-300", bg:"bg-rose-500/15" },
-                      { l:"Destek 1", v:rd.srLevels?.[3]?.value, c:"text-emerald-300", bg:"bg-emerald-500/15" },
-                      { l:"Destek 2", v:rd.srLevels?.[4]?.value, c:"text-emerald-400", bg:"bg-emerald-500/10" },
-                      { l:"Destek 3", v:rd.srLevels?.[5]?.value, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                      { l:"Direnç 3", v:rd.srLevels?.resistance3, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:"Direnç 2", v:rd.srLevels?.resistance2, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:"Direnç 1", v:rd.srLevels?.resistance1, c:"text-rose-300", bg:"bg-rose-500/15" },
+                      { l:"Destek 1", v:rd.srLevels?.support1, c:"text-emerald-300", bg:"bg-emerald-500/15" },
+                      { l:"Destek 2", v:rd.srLevels?.support2, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                      { l:"Destek 3", v:rd.srLevels?.support3, c:"text-emerald-400", bg:"bg-emerald-500/10" },
                     ].map((s, i) => (
                       <div key={i} className={`${s.bg} border border-[#1e3a5f]/40 rounded px-2 py-1.5 text-center`}>
                         <div className="text-slate-500 font-semibold mb-0.5">{s.l}</div>
@@ -567,21 +567,37 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* İchimoku + Diğer İndikatörler */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Bulut</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Bulut Göstergeleri</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
-                        <span className="text-slate-400">Tenkan-sen (9P)</span>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Son 9 günün en yüksek+en düşük bölü 2 = Kısa dönem trend">
+                        <div className="flex flex-col">
+                          <span className="text-[#f0a500] font-black">Tenkan-sen</span>
+                          <span className="text-[9px] text-slate-500">Kısa trend (9 günlük)</span>
+                        </div>
                         <span className="text-[#f0a500] font-semibold">${rd.ema20?.toFixed(2) ?? "-"}</span>
                       </div>
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
-                        <span className="text-slate-400">Kijun-sen (26P)</span>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Son 26 günün en yüksek+en düşük bölü 2 = Orta dönem trend">
+                        <div className="flex flex-col">
+                          <span className="text-[#e05c5c] font-black">Kijun-sen</span>
+                          <span className="text-[9px] text-slate-500">Orta trend (26 günlük)</span>
+                        </div>
                         <span className="text-[#e05c5c] font-semibold">${rd.ema50?.toFixed(2) ?? "-"}</span>
                       </div>
-                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
-                        <span className="text-slate-400">Kumo Durumu</span>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Fiyat bulutun üstündeyse yeşil (boğa), altındaysa kırmızı (ayı)">
+                        <div className="flex flex-col">
+                          <span className="text-slate-400 font-black">Kumo Bulut</span>
+                          <span className="text-[9px] text-slate-500">Destek/Direnç alanı</span>
+                        </div>
                         <span className={rd.masterScore >= 60 ? "text-emerald-400 font-black" : rd.masterScore >= 45 ? "text-amber-400 font-black" : "text-rose-400 font-black"}>
                           {rd.masterScore >= 60 ? "🟢 Yeşil" : rd.masterScore >= 45 ? "🟡 Nötr" : "🔴 Kırmızı"}
                         </span>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30" title="Fiyatın 26 gün önceki kapanışı = Trend momentum göstergesi">
+                        <div className="flex flex-col">
+                          <span className="text-slate-400 font-black">Chikou Span</span>
+                          <span className="text-[9px] text-slate-500">Momentum (26 gün geri)</span>
+                        </div>
+                        <span className="text-[#a855f7] font-semibold text-[10px]">Göstergede</span>
                       </div>
                     </div>
                   </div>
