@@ -27,6 +27,115 @@ function calcATR(highs: number[], lows: number[], closes: number[], period = 14)
   if (trs.length < period) return trs[trs.length - 1] || 0;
   return trs.slice(-period).reduce((a, b) => a + b, 0) / period;
 }
+// ── Live indicator calculations from OHLC (overrides stale stockData values) ──
+function calcRSI14(closes: number[]): number {
+  if (closes.length < 15) return 50;
+  const gains: number[] = [];
+  const losses: number[] = [];
+  for (let i = 1; i < closes.length; i++) {
+    const d = closes[i] - closes[i - 1];
+    gains.push(d > 0 ? d : 0);
+    losses.push(d < 0 ? -d : 0);
+  }
+  const period = 14;
+  // Initial averages
+  let avgGain = gains.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  let avgLoss = losses.slice(0, period).reduce((a, b) => a + b, 0) / period;
+  // Wilder smoothing
+  for (let i = period; i < gains.length; i++) {
+    avgGain = (avgGain * (period - 1) + gains[i]) / period;
+    avgLoss = (avgLoss * (period - 1) + losses[i]) / period;
+  }
+  const rs = avgGain / (avgLoss || 1e-9);
+  return +Math.min(100, Math.max(0, 100 - 100 / (1 + rs))).toFixed(1);
+}
+
+/** Real pivot-based support/resistance from OHLC bars */
+function buildSRFromPivots(
+  rows: Array<{ high: number; low: number; close: number }>,
+  currentPrice: number,
+  low52w: number,
+  high52w: number
+) {
+  const WIN = 5; // local-extrema look-around window
+  const pivotHighs: number[] = [];
+  const pivotLows: number[] = [];
+
+  for (let i = WIN; i < rows.length - WIN; i++) {
+    const bar = rows[i];
+    const leftH = rows.slice(i - WIN, i).map(r => r.high);
+    const rightH = rows.slice(i + 1, i + WIN + 1).map(r => r.high);
+    const leftL = rows.slice(i - WIN, i).map(r => r.low);
+    const rightL = rows.slice(i + 1, i + WIN + 1).map(r => r.low);
+
+    if (bar.high >= Math.max(...leftH) && bar.high >= Math.max(...rightH)) {
+      pivotHighs.push(bar.high);
+    }
+    if (bar.low <= Math.min(...leftL) && bar.low <= Math.min(...rightL)) {
+      pivotLows.push(bar.low);
+    }
+  }
+
+  // Cluster nearby pivots (within 0.5% of each other)
+  const cluster = (vals: number[], pct = 0.005) => {
+    const sorted = [...vals].sort((a, b) => a - b);
+    const out: number[] = [];
+    let last = -Infinity;
+    for (const v of sorted) {
+      if (v - last > last * pct) { out.push(v); last = v; }
+    }
+    return out;
+  };
+
+  const resistances = cluster(pivotHighs).filter(h => h > currentPrice * 0.995);
+  const supports    = cluster(pivotLows ).filter(l => l < currentPrice * 1.005).reverse();
+
+  // Fill gaps with percentage fallbacks if not enough pivots
+  const r1 = resistances[0] ?? +(currentPrice * 1.04).toFixed(2);
+  const r2 = resistances[1] ?? +(Math.max(r1 * 1.04, currentPrice * 1.08)).toFixed(2);
+  const r3 = resistances[2] ?? +(Math.max(r2 * 1.04, high52w)).toFixed(2);
+  const s1 = supports[0]    ?? +(currentPrice * 0.96).toFixed(2);
+  const s2 = supports[1]    ?? +(Math.min(s1 * 0.95, currentPrice * 0.91)).toFixed(2);
+  const s3 = supports[2]    ?? +(Math.min(s2 * 0.95, low52w)).toFixed(2);
+
+  return {
+    resistance3: +Math.max(r3, high52w).toFixed(2),
+    resistance2: +r2.toFixed(2),
+    resistance1: +r1.toFixed(2),
+    support1:    +s1.toFixed(2),
+    support2:    +s2.toFixed(2),
+    support3:    +Math.min(s3, low52w).toFixed(2),
+  };
+}
+
+/** Compute all live indicators from 60-day OHLC */
+function calcLiveIndicators(rows: Array<{ open: number; high: number; low: number; close: number; volume: number }>) {
+  const closes  = rows.map(r => r.close);
+  const highs   = rows.map(r => r.high);
+  const lows    = rows.map(r => r.low);
+  const volumes = rows.map(r => r.volume);
+
+  const rsi14  = calcRSI14(closes);
+  const ema20  = calcEMA(closes, 20);
+  const ema50  = calcEMA(closes, 50);
+  const atr14  = calcATR(highs, lows, closes, 14);
+  const hv30   = (() => {
+    const returns = closes.slice(-31).map((c, i, a) => i === 0 ? 0 : Math.log(c / a[i - 1]));
+    const mean = returns.slice(1).reduce((a, b) => a + b, 0) / 30;
+    const variance = returns.slice(1).reduce((a, b) => a + (b - mean) ** 2, 0) / 29;
+    return +Math.sqrt(variance * 252) * 100;
+  })();
+  const avgVol30d = volumes.slice(-30).reduce((a, b) => a + b, 0) / 30;
+  const rvol      = volumes.length > 0 ? +(volumes[volumes.length - 1] / (avgVol30d || 1)).toFixed(2) : 1;
+
+  // MACD (12/26/9 EMA difference)
+  const ema12  = calcEMA(closes, 12);
+  const ema26  = calcEMA(closes, 26);
+  const macd   = +(ema12 - ema26).toFixed(3);
+
+  return { rsi14, ema20, ema50, atr14, hv30, avgVol30d, rvol, macd };
+}
+
 // Rough Black-Scholes approximation for OTM put premium
 function estimatePutPremium(spot: number, strike: number, iv: number, dte: number): number {
   const ivDec = iv / 100;
@@ -335,9 +444,10 @@ export async function POST(req: NextRequest) {
     const optimalCSPStrike = +(support1 * 0.98).toFixed(2);
     const optimalCCStrike = +(resistance1 * 1.01).toFixed(2);
 
-    // Fetch historical OHLC
+    // ── Fetch historical OHLC + compute live indicators ─────────────────────
     const histResult = await fetchHistory(ticker.toUpperCase());
     const historyRows = histResult?.rows || null;
+
     // Market cap: check all possible paths in stockData, then Yahoo Finance fallback
     const fund = s.fundamental || {};
     let marketCap = safeNum(
@@ -347,29 +457,72 @@ export async function POST(req: NextRequest) {
     );
     const marketCapStr = marketCap > 1e9 ? "$" + (marketCap / 1e9).toFixed(1) + "B" : marketCap > 1e6 ? "$" + (marketCap / 1e6).toFixed(0) + "M" : "N/A";
 
+    // ── Override stale stockData values with live OHLC calculations ──────────
+    // Yahoo Finance 60-day OHLC gives us accurate, real-time technicals.
+    // stockData.technicals may be hours/days old — always prefer live data.
+    let live: ReturnType<typeof calcLiveIndicators> | null = null;
+    if (historyRows && historyRows.length >= 20) {
+      live = calcLiveIndicators(historyRows);
+    }
+
+    // Use live values when available; fall back to stockData only if OHLC unavailable
+    const rsiLive  = live ? live.rsi14  : safeNum(tech.rsi_14, 50);
+    const ema20Live = live ? live.ema20  : safeNum(tech.ema_20, currentPrice * 0.98);
+    const ema50Live = live ? live.ema50  : safeNum(tech.ema_50, currentPrice * 0.97);
+    const atrLive  = live ? live.atr14  : safeNum(tech.atr, currentPrice * 0.025);
+    const hv30Live = live ? live.hv30   : safeNum(tech.hv30 ?? tech.historical_volatility, iv * 0.85);
+    const macdLive = live ? live.macd   : (tech.macd ?? 0);
+    const rvolLive = live ? live.rvol   : safeNum(tech.rvol, 1.0);
+    const avgVol30dLive = live ? live.avgVol30d : safeNum(pr.avg_volume_30d, 0);
+
+    // Re-assign overridden values (used in prompt and rawData below)
+    const rsiF     = rsiLive;
+    const ema20F   = ema20Live;
+    const ema50F   = ema50Live;
+    const atrF     = atrLive;
+    const hv30F    = hv30Live;
+    const macdF    = macdLive;
+    const rvolF    = rvolLive;
+    const avgVol30dF = avgVol30dLive;
+    const atrPct   = currentPrice > 0 ? (atrF / currentPrice * 100) : 0;
+
     // Build derived tables
-    const history15 = historyRows ? buildHistoryTable(historyRows, atr) : [];
-    const srLevels = buildSRLevels(historyRows || [], currentPrice, support1, resistance1, low52w, high52w);
-    const maLevels = buildMALevels(historyRows, currentPrice, ema20, ema50, ema200, low52w, high52w);
-    const cspMatrix = buildCspMatrix(currentPrice, iv, support1, support1 * 0.92);
-    const ccMatrix = buildCcMatrix(currentPrice, iv, resistance1);
+    const history15 = historyRows ? buildHistoryTable(historyRows, atrF) : [];
+
+    // S/R levels: pivot-based from OHLC (accurate), fallback to old formula
+    const srLevels = (historyRows && historyRows.length >= 15)
+      ? buildSRFromPivots(historyRows, currentPrice, low52w, high52w)
+      : buildSRLevels(historyRows || [], currentPrice, support1, resistance1, low52w, high52w);
+
+    const maLevels = buildMALevels(historyRows, currentPrice, ema20F, ema50F, ema200, low52w, high52w);
+    // Use live S/R levels for CSP/CC strike selection
+    const liveS1 = srLevels.support1;
+    const liveR1 = srLevels.resistance1;
+    const optimalCSPStrikeLive = +(liveS1 * 0.98).toFixed(2);
+    const optimalCCStrikeLive  = +(liveR1 * 1.01).toFixed(2);
+
+    const cspMatrix = buildCspMatrix(currentPrice, iv, liveS1, srLevels.support2);
+    const ccMatrix  = buildCcMatrix(currentPrice, iv, liveR1);
     const rawForecast = Array.isArray(s.forecast) ? s.forecast : Array.isArray(s.forecast?.days) ? s.forecast.days : [];
     const forecast15 = buildForecast15(rawForecast, currentPrice);
     const bearTarget = forecast15[14].bear;
     const baseTarget = forecast15[14].base;
     const bullTarget = forecast15[14].bull;
 
-    // ATR summary
-    const atrPct = currentPrice > 0 ? (atr / currentPrice * 100) : 0;
+    // Implied move from IV
     const implied30dMove = currentPrice * (iv / 100) * Math.sqrt(30 / 252);
     const range1sd = { low: +(currentPrice - implied30dMove).toFixed(2), high: +(currentPrice + implied30dMove).toFixed(2) };
     const range2sd = { low: +(currentPrice - implied30dMove * 2).toFixed(2), high: +(currentPrice + implied30dMove * 2).toFixed(2) };
 
+    // promptParams uses live technical values for accurate AI analysis
     const promptParams = {
       ticker: ticker.toUpperCase(), companyName: s.company || ticker,
       sector: s.sector || "N/A", industry: s.industry || "N/A",
-      currentPrice, masterScore, rsi, iv, atr, ema20, ema50, ema200,
-      support1, resistance1, marketCapStr, ivRank, optimalCSPStrike, optimalCCStrike,
+      currentPrice, masterScore,
+      rsi: rsiF, iv, atr: atrF, ema20: ema20F, ema50: ema50F, ema200,
+      support1: liveS1, resistance1: liveR1,
+      marketCapStr, ivRank,
+      optimalCSPStrike: optimalCSPStrikeLive, optimalCCStrike: optimalCCStrikeLive,
       bearTarget, baseTarget, bullTarget,
     };
 
@@ -406,9 +559,9 @@ export async function POST(req: NextRequest) {
       trendYapisi: masterScore >= 65 ? 1 : masterScore >= 50 ? 0 : -1,
       ivUygun: iv > 30 ? 1 : iv > 20 ? 0 : -1,
       destekGucu: masterScore >= 60 ? 1 : 0,
-      momentumGuclu: rsi >= 40 && rsi <= 70 ? 1 : -1,
-      ema20Above: currentPrice > ema20 ? 1 : -1,
-      ema50Above: currentPrice > ema50 ? 1 : 0,
+      momentumGuclu: rsiF >= 40 && rsiF <= 70 ? 1 : -1,
+      ema20Above: currentPrice > ema20F ? 1 : -1,
+      ema50Above: currentPrice > ema50F ? 1 : 0,
       bogaScore: masterScore >= 60 ? 1 : masterScore >= 45 ? 0 : -1,
       atrUygun: atrPct < 5 ? 1 : atrPct < 8 ? 0 : -1,
     };
@@ -435,11 +588,11 @@ export async function POST(req: NextRequest) {
         forecast15,
         opsiyonAnaliz: {
           ivDurumu: str(ai.ivDurumu, "IV seviyesi değerlendiriliyor."),
-          ivRank: +ivRank.toFixed(2), iv, hv30: +hv30.toFixed(1),
-          ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
-          cspStrateji: str(ai.cspStrateji, `$${optimalCSPStrike} strike, 14-21 DTE CSP değerlendirilebilir.`),
-          ccStrateji: str(ai.ccStrateji, `$${optimalCCStrike} strike, 14-21 DTE CC değerlendirilebilir.`),
-          optimalCSPStrike, optimalCCStrike,
+          ivRank: +ivRank.toFixed(2), iv, hv30: +hv30F.toFixed(1),
+          ivHvRatio: +(iv / Math.max(hv30F, 1)).toFixed(2),
+          cspStrateji: str(ai.cspStrateji, `$${optimalCSPStrikeLive} strike, 14-21 DTE CSP değerlendirilebilir.`),
+          ccStrateji: str(ai.ccStrateji, `$${optimalCCStrikeLive} strike, 14-21 DTE CC değerlendirilebilir.`),
+          optimalCSPStrike: optimalCSPStrikeLive, optimalCCStrike: optimalCCStrikeLive,
           haftalikPrimTahmin: str(ai.haftalikPrimTahmin, "%0.5–1.5"),
           yillikGetiriTahmin: str(ai.yillikGetiriTahmin, "%20–45"),
           cspMatrix, ccMatrix,
@@ -459,9 +612,9 @@ export async function POST(req: NextRequest) {
         },
       },
       rawData: {
-        masterScore, rsi, iv, hv30, atr, atrPct: +atrPct.toFixed(2),
-        ema20, ema50, ema200, support1, resistance1, low52w, high52w,
-        avgVol30d, volume, rvol, macd, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30, 1)).toFixed(2),
+        masterScore, rsi: rsiF, iv, hv30: hv30F, atr: atrF, atrPct: +atrPct.toFixed(2),
+        ema20: ema20F, ema50: ema50F, ema200, support1: liveS1, resistance1: liveR1, low52w, high52w,
+        avgVol30d: avgVol30dF, volume, rvol: rvolF, macd: macdF, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30F, 1)).toFixed(2),
         marketCapStr, forecast15, history15, srLevels, maLevels, cspMatrix, ccMatrix,
         historyOHLC: historyRows || [], currentPrice,
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
