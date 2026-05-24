@@ -576,7 +576,7 @@ async function detectRegime(): Promise<Regime> {
       { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(5000) }
     );
     const vxRes = await fetch(
-      "https://query1.finance.yahoo.com/v8/finance/chart/VXX?interval=1d&range=5d",
+      "https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX?interval=1d&range=5d",
       { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(5000) }
     );
     const d  = await res.json();
@@ -589,7 +589,7 @@ async function detectRegime(): Promise<Regime> {
     const spyPrev   = chart?.meta?.previousClose ?? spyCloses.at(-2) ?? 500;
     const spySma200 = sma(spyCloses, Math.min(200, spyCloses.length));
     const spyChange = spyPrev ? ((spyPrice - spyPrev) / spyPrev) * 100 : 0;
-    const vixPrice  = vxChart?.meta?.regularMarketPrice ?? 20;
+    const vixPrice  = vxChart?.meta?.regularMarketPrice ?? vxChart?.indicators?.quote?.[0]?.close?.filter(Boolean)?.at(-1) ?? 20;
 
     let regime: Regime["regime"];
     if (vixPrice > 35) regime = "high_volatility";
