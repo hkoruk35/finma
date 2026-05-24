@@ -4,9 +4,9 @@
     "completed_count": 813,
     "pending_count": 97,
     "win_rate": 51.9,
-    "avg_return_pct": NaN,
+    "avg_return_pct": 1.05,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-05-22T17:00:04",
+    "last_updated": "2026-05-24T04:30:11",
     "above_5pct_rate": 49.5,
     "above_10pct_rate": 3.0
   },
@@ -12322,12 +12322,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 132.15,
-      "max_price": 138.23,
+      "max_price": 140.78,
       "sl_pct": 2.55,
-      "return_pct": NaN,
+      "return_pct": 5.3,
       "days": 10,
       "result": "PENDING",
-      "peak_date": "2026-05-20"
+      "peak_date": "2026-05-22"
     },
     {
       "date": "2026-05-12",
@@ -13410,12 +13410,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 137.16,
-      "max_price": 137.16,
+      "max_price": 140.78,
       "sl_pct": 2.65,
-      "return_pct": NaN,
+      "return_pct": 1.45,
       "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-05-21"
+      "peak_date": "2026-05-22"
     },
     {
       "date": "2026-05-21",
