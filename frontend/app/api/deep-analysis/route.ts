@@ -57,7 +57,7 @@ function buildSRFromPivots(
   low52w: number,
   high52w: number
 ) {
-  const WIN = 5; // local-extrema look-around window
+  const WIN = 7; // local-extrema look-around window (7 bars = ~1.5 weeks, robust on 1y daily data)
   const pivotHighs: number[] = [];
   const pivotLows: number[] = [];
 
@@ -77,7 +77,7 @@ function buildSRFromPivots(
   }
 
   // Cluster nearby pivots (within 0.5% of each other)
-  const cluster = (vals: number[], pct = 0.005) => {
+  const cluster = (vals: number[], pct = 0.008) => {
     const sorted = [...vals].sort((a, b) => a - b);
     const out: number[] = [];
     let last = -Infinity;
@@ -154,7 +154,7 @@ async function fetchHistory(ticker: string) {
       "Accept": "application/json",
       "Referer": "https://finance.yahoo.com/",
     };
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=60d&interval=1d`;
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=1y&interval=1d`;
     const res = await fetch(url, { headers, signal: AbortSignal.timeout(8000) });
     if (!res.ok) return { rows: null, marketCap: 0 };
     const data = await res.json();
@@ -490,7 +490,8 @@ export async function POST(req: NextRequest) {
     const history15 = historyRows ? buildHistoryTable(historyRows, atrF) : [];
 
     // S/R levels: pivot-based from OHLC (accurate), fallback to old formula
-    const srLevels = (historyRows && historyRows.length >= 15)
+    // Pivot-based S/R requires at least 20 bars (WIN*2+1=15 + headroom); 1y fetch gives ~252 bars
+    const srLevels = (historyRows && historyRows.length >= 20)
       ? buildSRFromPivots(historyRows, currentPrice, low52w, high52w)
       : buildSRLevels(historyRows || [], currentPrice, support1, resistance1, low52w, high52w);
 
