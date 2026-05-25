@@ -1,8 +1,8 @@
 {
   "version": "v242",
   "date": "2026-05-25",
-  "generated_at": "2026-05-25T11:01:14.596047-04:00",
-  "vix": 16.700000762939453,
+  "generated_at": "2026-05-25T15:30:57.752722-04:00",
+  "vix": 16.59000015258789,
   "dte_range": "10-60",
   "earnings_hard_block_days": 14,
   "active_sectors": [
@@ -21,7 +21,7 @@
     "spy_gap_flat": false
   },
   "universe_size": 40,
-  "scan_duration_sec": 57.562684297561646,
+  "scan_duration_sec": 52.400508880615234,
   "total_candidates": 0,
   "picks": []
 }
