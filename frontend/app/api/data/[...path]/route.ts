@@ -20,7 +20,7 @@ import fs from "fs";
 //   - Add transfer/latest: .claude/worktrees/clever-diffie/transfer/latest
 const DATA_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
-  : path.resolve(process.cwd(), "..", "transfer");
+  : path.resolve(process.cwd(), "..", "transfer", "latest");
 
 export async function GET(
   req: NextRequest,

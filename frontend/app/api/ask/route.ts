@@ -1875,8 +1875,11 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     if (analizMatch) {
       const ticker = analizMatch[1].toUpperCase();
       try {
-        const stockRes = await fetch(`https://api.example.com/stock/${ticker}`, { signal: AbortSignal.timeout(5000) }).catch(() => null);
-        const stockData = stockRes?.ok ? await stockRes.json() : { price: { current: 100 }, sector: "Technology", company: ticker };
+        const protocol = req.headers.get("x-forwarded-proto") || "http";
+        const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "localhost:3000";
+        const deepRes = await fetch(`${protocol}://${host}/api/deep-analysis?ticker=${ticker}`, { signal: AbortSignal.timeout(15000) });
+        if (!deepRes.ok) throw new Error(`Deep analysis failed: ${deepRes.status}`);
+        const stockData = await deepRes.json();
 
         return NextResponse.json({
           role: "assistant",
@@ -1885,8 +1888,9 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
           stockData,
           text: `${ticker} için derin analiz raporu hazırlanıyor...`,
         });
-      } catch {
-        return NextResponse.json({ role: "assistant", text: `${ticker} için rapor yüklenemedi.` });
+      } catch (e: any) {
+        console.error(`[ask] /analiz ${ticker} failed:`, e?.message);
+        return NextResponse.json({ role: "assistant", text: `${ticker} için rapor yüklenemedi: ${e?.message}` });
       }
     }
 

@@ -738,3 +738,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }
 }
+
+// GET /api/deep-analysis?ticker=PLTR — Fetch stock data and run analysis
+export async function GET(req: NextRequest) {
+  try {
+    const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase();
+    if (!ticker) return NextResponse.json({ error: "Missing ticker parameter" }, { status: 400 });
+
+    // Fetch stock data from /api/data/stocks/{ticker}.json
+    const dataRes = await fetch(`http://${req.headers.get("host")}/api/data/stocks/${ticker}.json`, { signal: AbortSignal.timeout(10000) });
+    if (!dataRes.ok) {
+      console.warn(`[deep-analysis GET] Stock data not found for ${ticker}`);
+      return NextResponse.json({ error: `Stock data not found for ${ticker}` }, { status: 404 });
+    }
+
+    const stockData = await dataRes.json();
+
+    // Convert GET to POST by calling the handler directly
+    const postReq = new NextRequest(new URL(`${req.nextUrl.origin}/api/deep-analysis`), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticker, stockData }),
+    });
+
+    return POST(postReq);
+  } catch (err: any) {
+    console.error("[deep-analysis GET] error:", err);
+    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
+  }
+}
