@@ -1,0 +1,72 @@
+[
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "MGA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 64.61,
+        "entry_zone": "63.63 - 65.59",
+        "SL": 60.69,
+        "TP": 70.5
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "HLT",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 321.08,
+        "entry_zone": "317.76 - 324.40",
+        "SL": 307.8,
+        "TP": 341.0
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "EVR",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 346.29,
+        "entry_zone": "340.54 - 352.04",
+        "SL": 323.27,
+        "TP": 380.81
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "PBI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 15.25,
+        "entry_zone": "14.92 - 15.58",
+        "SL": 13.91,
+        "TP": 17.25
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "SLB",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 57.28,
+        "entry_zone": "56.57 - 57.98",
+        "SL": 54.45,
+        "TP": 61.51
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "CP",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 86.28,
+        "entry_zone": "85.37 - 87.19",
+        "SL": 82.63,
+        "TP": 91.76
+    },
+    {
+        "date": "2026-05-25 11:00",
+        "symbol": "IQV",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 167.88,
+        "entry_zone": "164.20 - 171.56",
+        "SL": 153.18,
+        "TP": 189.93
+    }
+]

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-25T09:31:00.035206-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 23.0,
+  "generated_at": "2026-05-25T10:31:00.108564-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 24.2,
   "total_scanned": 3,
   "layer1_passed": 3,
   "final_picks": 3,
@@ -10,20 +10,20 @@
       "ticker": "SMCI",
       "price": 35.58,
       "change_pct": 6.34,
-      "dt_score": 55.0,
+      "dt_score": 32.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 35.14,
+      "vwap": 469.91,
       "catalyst": {
         "catalyst_type": "upgrade",
         "catalyst_score": 15,
         "headline": "nvidia ceo calls for stricter compliance as super micro exports face scrutiny(investing.com)",
         "confidence": "medium",
-        "ts": 1779714932.077682
+        "ts": 1779719483.5820117
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -40,12 +40,12 @@
           "low": 35.54,
           "high": 35.76
         },
-        "stop": 35.05,
-        "tp1": 36.85,
-        "tp2": 37.75,
+        "stop": 35.26,
+        "tp1": 36.43,
+        "tp2": 37.02,
         "rr_ratio": 2.0,
         "avg_entry": 35.65,
-        "risk_per_sh": 0.6,
+        "risk_per_sh": 0.39,
         "signal": "GAP_AND_GO",
         "pm_high_ref": 35.58
       },
@@ -55,8 +55,8 @@
         "↗️ Orta Gap: +6.3%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.26%",
-        "🔥 Açılış Barı: Güçlü (4.2x hacim)",
+        "🔴 VWAP Altında: -92.43%",
+        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
@@ -65,20 +65,20 @@
       "ticker": "AMD",
       "price": 467.51,
       "change_pct": 3.99,
-      "dt_score": 40.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "dt_score": 30.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 35.14,
+      "vwap": 469.91,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1779714932.0730042
+        "ts": 1779719483.5863187
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,16 +92,16 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 467.04,
-          "high": 469.85
+          "low": 468.97,
+          "high": 471.32
         },
-        "stop": 460.5,
-        "tp1": 484.34,
-        "tp2": 496.25,
+        "stop": 463.3,
+        "tp1": 483.83,
+        "tp2": 494.1,
         "rr_ratio": 2.0,
-        "avg_entry": 468.45,
-        "risk_per_sh": 7.95,
-        "signal": "CONFIRMED_OPEN",
+        "avg_entry": 470.14,
+        "risk_per_sh": 6.84,
+        "signal": "PULLBACK_VWAP",
         "pm_high_ref": 467.51
       },
       "details": [
@@ -110,8 +110,8 @@
         "↗️ Küçük Gap: +4.0%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1230.54%",
-        "🔥 Açılış Barı: Güçlü (4.2x hacim)",
+        "🔄 VWAP Testi: -0.51%",
+        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
@@ -122,18 +122,18 @@
       "change_pct": 4.46,
       "dt_score": 25.0,
       "signal": "CONFIRMED_OPEN",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 35.14,
+      "vwap": 469.91,
       "catalyst": {
         "catalyst_type": "fda_trial",
         "catalyst_score": 12,
         "headline": "prothena: q1 earnings snapshot(associated press)-5.90%",
         "confidence": "medium",
-        "ts": 1779714932.0766258
+        "ts": 1779719483.5848176
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -165,8 +165,8 @@
         "↗️ Orta Gap: +4.5%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔴 VWAP Altında: -72.02%",
-        "🔥 Açılış Barı: Güçlü (4.2x hacim)",
+        "🔴 VWAP Altında: -97.91%",
+        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
