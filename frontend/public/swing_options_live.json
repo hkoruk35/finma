@@ -1,96 +1,22 @@
 {
-  "generated_at": "2026-05-22T13:03:40.778670",
+  "generated_at": "2026-05-25T13:12:12.442014",
   "options": {
-    "HLT": {
-      "dte_45": {
-        "strike": 320.0,
-        "lastPrice": 14.8,
-        "bid": 14.5,
-        "ask": 15.8,
-        "volume": 20,
-        "openInterest": 354,
-        "impliedVolatility": 0.29718720397949216,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "CP": {
-      "dte_45": {
-        "strike": 87.5,
-        "lastPrice": 2.8,
-        "bid": 2.8,
-        "ask": 3.3,
-        "volume": 1,
-        "openInterest": 71,
-        "impliedVolatility": 0.273444765625,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "IQV": {
-      "dte_45": {
-        "strike": 175.0,
-        "lastPrice": 5.6,
-        "bid": 6.7,
-        "ask": 7.5,
-        "volume": 191,
-        "openInterest": 5,
-        "impliedVolatility": 0.3834290173339844,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "SLB": {
-      "dte_45": {
-        "strike": 57.5,
-        "lastPrice": 2.98,
-        "bid": 2.97,
-        "ask": 3.05,
-        "volume": 365,
-        "openInterest": 2072,
-        "impliedVolatility": 0.34497725341796875,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "EVR": {
-      "dte_45": {
-        "strike": 360.0,
-        "lastPrice": 11.6,
-        "bid": 15.1,
-        "ask": 17.2,
-        "volume": 1,
-        "openInterest": 1,
-        "impliedVolatility": 0.4169369830322265,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "PBI": {
-      "dte_45": {
-        "strike": 16.0,
-        "lastPrice": 0.7,
-        "bid": 0.7,
-        "ask": 0.75,
-        "volume": 16,
-        "openInterest": 1081,
-        "impliedVolatility": 0.37402969726562496,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "MGA": {
-      "dte_45": {
-        "strike": 65.0,
-        "lastPrice": 2.15,
-        "bid": 2.7,
-        "ask": 3.3,
-        "volume": 2,
-        "openInterest": 20,
-        "impliedVolatility": 0.35864899169921877,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    }
+    "HON": {},
+    "MSM": {},
+    "STNG": {},
+    "BGC": {},
+    "TILE": {},
+    "CSTM": {},
+    "DXCM": {},
+    "VIPS": {},
+    "XRN": {},
+    "NVRI": {},
+    "CCI": {},
+    "BWA": {},
+    "NWG": {},
+    "VSAT": {},
+    "DECK": {},
+    "SOLV": {},
+    "AMZN": {}
   }
 }
