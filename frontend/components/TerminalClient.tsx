@@ -552,6 +552,13 @@ export default function TerminalClient() {
     fetchPrices(allRightPanel);
   }, [watchlist, trackerList, fetchPrices]);
 
+  // Fetch prices for custom watchlist items (left panel)
+  useEffect(() => {
+    const customWatchlists = [...watchlist525CSP, ...watchlist2550CSP, ...watchlist50250CSP];
+    if (!customWatchlists.length) return;
+    fetchPrices(customWatchlists);
+  }, [watchlist525CSP, watchlist2550CSP, watchlist50250CSP, fetchPrices]);
+
   // ── Fetch latest hourly signals ───────────────────────────────────────────────
   useEffect(() => {
     async function load() {
