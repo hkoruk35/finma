@@ -1,0 +1,172 @@
+[
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "XRN",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 37.4,
+        "entry_zone": "36.58 - 38.22",
+        "SL": 34.12,
+        "TP": 42.32
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "CCI",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 91.48,
+        "entry_zone": "90.31 - 92.65",
+        "SL": 86.79,
+        "TP": 98.52
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "SOLV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 76.82,
+        "entry_zone": "75.72 - 77.92",
+        "SL": 72.4,
+        "TP": 83.44
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "BWA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 65.82,
+        "entry_zone": "64.34 - 67.30",
+        "SL": 59.9,
+        "TP": 74.7
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "NVRI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 19.59,
+        "entry_zone": "19.31 - 19.88",
+        "SL": 18.45,
+        "TP": 21.31
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "DECK",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 106.67,
+        "entry_zone": "104.75 - 108.59",
+        "SL": 98.98,
+        "TP": 118.2
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "CSTM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 33.24,
+        "entry_zone": "32.50 - 33.98",
+        "SL": 30.28,
+        "TP": 37.68
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 74.6,
+        "entry_zone": "72.37 - 76.83",
+        "SL": 65.67,
+        "TP": 88.0
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "MSM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 106.51,
+        "entry_zone": "105.08 - 107.94",
+        "SL": 100.78,
+        "TP": 115.1
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "DXCM",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 72.11,
+        "entry_zone": "70.79 - 73.44",
+        "SL": 66.8,
+        "TP": 80.08
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "NWG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 15.65,
+        "entry_zone": "15.45 - 15.86",
+        "SL": 14.84,
+        "TP": 16.88
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "AMZN",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 266.3,
+        "entry_zone": "263.24 - 269.36",
+        "SL": 254.06,
+        "TP": 284.66
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "HON",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 227.89,
+        "entry_zone": "225.41 - 230.37",
+        "SL": 217.96,
+        "TP": 242.78
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "TILE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 28.81,
+        "entry_zone": "28.16 - 29.46",
+        "SL": 26.22,
+        "TP": 32.69
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "BGC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 11.19,
+        "entry_zone": "11.01 - 11.36",
+        "SL": 10.5,
+        "TP": 12.21
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "STNG",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 80.28,
+        "entry_zone": "78.74 - 81.82",
+        "SL": 74.12,
+        "TP": 89.52
+    },
+    {
+        "date": "2026-05-25 14:00",
+        "symbol": "VIPS",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 14.4,
+        "entry_zone": "14.15 - 14.65",
+        "SL": 13.4,
+        "TP": 15.9
+    }
+]

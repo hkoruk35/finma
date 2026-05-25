@@ -1,27 +1,31 @@
 {
-  "date": "2026-05-22",
-  "generated_at": "2026-05-22T13:03:07.071605-04:00",
+  "date": "2026-05-25",
+  "generated_at": "2026-05-25T13:11:29.277406-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 7,
+  "active_scores_count": 17,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 7,
+      "count": 10,
       "tickers": [
-        "HLT",
-        "CP",
-        "IQV",
-        "SLB",
-        "EVR",
-        "PBI",
-        "MGA"
+        "HON",
+        "MSM",
+        "STNG",
+        "BGC",
+        "TILE",
+        "CSTM",
+        "DXCM",
+        "VIPS",
+        "XRN",
+        "NVRI"
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 3,
       "tickers": [
-        "PBI",
-        "MGA"
+        "CSTM",
+        "BWA",
+        "VSAT"
       ]
     },
     "value": {
@@ -33,9 +37,10 @@
       "tickers": []
     },
     "momentum": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "EVR"
+        "SOLV",
+        "AMZN"
       ]
     },
     "dividend": {
@@ -45,18 +50,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "HLT",
+      "ticker": "HON",
+      "score": 64.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "MSM",
+      "score": 61.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "STNG",
       "score": 59.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "CP",
-      "score": 53.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "IQV",
-      "score": 53.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
