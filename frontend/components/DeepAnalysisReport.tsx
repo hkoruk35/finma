@@ -1420,50 +1420,53 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {rd.insiderTransactions?.length > 0 ? (
                   <div className="space-y-2">
                     {rd.insiderTransactions.map((tx: any, i: number) => (
-                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-black text-white text-[11px] md:text-[12px]">{tx.officer} — {tx.title}</span>
+                      <div key={i} className={`border rounded-lg p-3 ${tx.type === "BUY" ? "bg-emerald-500/5 border-emerald-500/20" : "bg-rose-500/5 border-rose-500/20"}`}>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div>
+                            <span className="font-black text-white text-[11px] md:text-[12px]">{tx.officer}</span>
+                            <span className="text-slate-500 text-[11px] ml-2">— {tx.title}</span>
+                          </div>
                           <span className={`text-[11px] font-black px-2 py-0.5 rounded ${tx.type === "BUY" ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
-                            {tx.type}
+                            {tx.type === "BUY" ? "📈 ALIM" : "📉 SATIM"}
                           </span>
                         </div>
                         <div className="text-[11px] text-slate-400 space-y-0.5">
-                          <p>📅 {tx.date} • {tx.shares} hisse • ${tx.price.toFixed(2)}</p>
-                          <p>📊 Net Pozisyon: {tx.netPosition} hisse ({(tx.netPosition > 0 ? "+" : "") + ((tx.netPosition / tx.priorPosition) * 100).toFixed(1)}%)</p>
+                          <p>📅 {tx.date} &nbsp;•&nbsp; <span className="text-white font-black">{tx.shares}</span> hisse &nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">${tx.price?.toFixed ? tx.price.toFixed(2) : tx.price}</span>/hisse</p>
+                          {tx.transactionDesc && <p className="text-slate-500 italic text-[10px]">{tx.transactionDesc}</p>}
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-400 text-[11px] md:text-[12px]">Son 30 günde raporlanmış insider işlemi bulunamadı. CEO/CFO pozisyonları ve Form 144 satışları yakından takip edilmeli.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">Son 6 ayda raporlanmış insider işlemi bulunamadı.<br/>CEO/CFO pozisyonları ve Form 144 satışları SEC Edgar üzerinden takip edilebilir.</p>
                   </div>
                 )}
               </div>
 
               {/* ══ BÖLÜM 10: GÜNCEL HABER & KATALİZÖR AKIŞI ════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="📰" title="BÖLÜM 10 — GÜNCEL HABER & KATALİZÖR AKIŞI (SON 30 GÜN)" />
+                <SectionTitle icon="📰" title="BÖLÜM 10 — GÜNCEL HABER & KATALİZÖR AKIŞI" />
                 {rd.recentNews?.length > 0 ? (
                   <div className="space-y-2">
                     {rd.recentNews.map((news: any, i: number) => (
-                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-black text-white text-[11px] md:text-[12px] flex-1">{news.title}</span>
-                          <span className={`text-[11px] font-black px-2 py-0.5 rounded whitespace-nowrap ml-2 ${news.sentiment === "Pozitif" ? "bg-emerald-500/20 text-emerald-300" : news.sentiment === "Negatif" ? "bg-rose-500/20 text-rose-300" : "bg-amber-500/20 text-amber-300"}`}>
-                            {news.sentiment}
+                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3 hover:border-[#1e3a5f] transition-colors">
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          {news.url
+                            ? <a href={news.url} target="_blank" rel="noopener noreferrer" className="font-black text-white text-[11px] md:text-[12px] flex-1 hover:text-[#06b6d4] transition-colors leading-tight">{news.title}</a>
+                            : <span className="font-black text-white text-[11px] md:text-[12px] flex-1 leading-tight">{news.title}</span>
+                          }
+                          <span className={`text-[10px] font-black px-2 py-0.5 rounded whitespace-nowrap shrink-0 ${news.sentiment === "Pozitif" ? "bg-emerald-500/20 text-emerald-300" : news.sentiment === "Negatif" ? "bg-rose-500/20 text-rose-300" : "bg-amber-500/20 text-amber-300"}`}>
+                            {news.sentiment === "Pozitif" ? "▲ Pozitif" : news.sentiment === "Negatif" ? "▼ Negatif" : "→ Nötr"}
                           </span>
                         </div>
-                        <div className="text-[11px] text-slate-400 space-y-0.5">
-                          <p>📅 {news.date} • Kaynak: {news.source}</p>
-                          <p>{news.summary}</p>
-                        </div>
+                        <p className="text-[10px] text-slate-500">📅 {news.date} &nbsp;•&nbsp; {news.source}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 Son 30 günün haber özeti yükleniyor... SEC Filings (8-K, S-3), kazanç duyuruları ve sektörel gelişmeler yakından takip edilmeli.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">Güncel haber verisi alınamadı.</p>
                   </div>
                 )}
               </div>
@@ -1472,43 +1475,78 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
                 <SectionTitle icon="👥" title="BÖLÜM 11 — ANALIST KONSENSÜSÜ & FİYAT HEDEFİ" />
                 {rd.analystData?.count > 0 ? (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
+                    {/* Konsensüs dağılımı */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-slate-500 uppercase">Analiz Yapan</div>
-                        <div className="text-lg font-black text-white mt-1">{rd.analystData.count}</div>
-                      </div>
-                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-emerald-400 uppercase">Buy</div>
-                        <div className="text-lg font-black text-emerald-300 mt-1">{rd.analystData.buy}</div>
-                      </div>
-                      <div className="bg-amber-500/10 border border-amber-500/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-amber-400 uppercase">Hold</div>
-                        <div className="text-lg font-black text-amber-300 mt-1">{rd.analystData.hold}</div>
-                      </div>
-                      <div className="bg-rose-500/10 border border-rose-500/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-rose-400 uppercase">Sell</div>
-                        <div className="text-lg font-black text-rose-300 mt-1">{rd.analystData.sell}</div>
-                      </div>
+                      {[
+                        { label: "Analiz Yapan", value: rd.analystData.count, cls: "text-white", border: "border-[#1e3a5f]/40" },
+                        { label: "Buy",          value: rd.analystData.buy,   cls: "text-emerald-300", border: "border-emerald-500/40 bg-emerald-500/5" },
+                        { label: "Hold",         value: rd.analystData.hold,  cls: "text-amber-300",   border: "border-amber-500/40 bg-amber-500/5" },
+                        { label: "Sell",         value: rd.analystData.sell,  cls: "text-rose-300",    border: "border-rose-500/40 bg-rose-500/5" },
+                      ].map(c => (
+                        <div key={c.label} className={`border ${c.border} rounded-lg p-3 bg-[#0d1321]/60`}>
+                          <div className="text-[10px] font-black text-slate-500 uppercase">{c.label}</div>
+                          <div className={`text-xl font-black mt-1 ${c.cls}`}>{c.value}</div>
+                        </div>
+                      ))}
                     </div>
+                    {/* Buy/Hold/Sell görsel bar */}
+                    {(() => {
+                      const total = rd.analystData.buy + rd.analystData.hold + rd.analystData.sell || 1;
+                      const buyPct  = Math.round((rd.analystData.buy  / total) * 100);
+                      const holdPct = Math.round((rd.analystData.hold / total) * 100);
+                      const sellPct = 100 - buyPct - holdPct;
+                      return (
+                        <div>
+                          <div className="flex h-3 rounded-full overflow-hidden gap-0.5">
+                            {buyPct  > 0 && <div className="bg-emerald-500/70" style={{ width: `${buyPct}%` }} />}
+                            {holdPct > 0 && <div className="bg-amber-500/70"   style={{ width: `${holdPct}%` }} />}
+                            {sellPct > 0 && <div className="bg-rose-500/70"    style={{ width: `${sellPct}%` }} />}
+                          </div>
+                          <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                            <span>Buy {buyPct}%</span><span>Hold {holdPct}%</span><span>Sell {sellPct}%</span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                    {/* Fiyat hedefleri */}
                     <div className="grid grid-cols-3 gap-3">
-                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-slate-500 uppercase">Ortalama</div>
-                        <div className="text-lg font-black text-[#06b6d4] mt-1">${rd.analystData.avgTarget.toFixed(2)}</div>
+                      <div className="bg-[#0d1321]/60 border border-rose-500/20 rounded-lg p-3">
+                        <div className="text-[10px] font-black text-slate-500 uppercase">Min Hedef</div>
+                        <div className="text-base font-black text-rose-400 mt-1">${rd.analystData.minTarget?.toFixed(2)}</div>
                       </div>
-                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-slate-500 uppercase">Min Target</div>
-                        <div className="text-lg font-black text-rose-400 mt-1">${rd.analystData.minTarget.toFixed(2)}</div>
+                      <div className="bg-[#0d1321]/60 border border-[#06b6d4]/30 rounded-lg p-3">
+                        <div className="text-[10px] font-black text-slate-500 uppercase">Ort. Hedef</div>
+                        <div className="text-base font-black text-[#06b6d4] mt-1">${rd.analystData.avgTarget?.toFixed(2)}</div>
+                        <div className={`text-[10px] font-black mt-0.5 ${rd.analystData.avgTarget > rd.currentPrice ? "text-emerald-400" : "text-rose-400"}`}>
+                          {rd.analystData.avgTarget > rd.currentPrice ? "▲ " : "▼ "}
+                          {Math.abs(((rd.analystData.avgTarget - rd.currentPrice) / rd.currentPrice) * 100).toFixed(1)}% potansiyel
+                        </div>
                       </div>
-                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="text-[11px] font-black text-slate-500 uppercase">Max Target</div>
-                        <div className="text-lg font-black text-emerald-400 mt-1">${rd.analystData.maxTarget.toFixed(2)}</div>
+                      <div className="bg-[#0d1321]/60 border border-emerald-500/20 rounded-lg p-3">
+                        <div className="text-[10px] font-black text-slate-500 uppercase">Max Hedef</div>
+                        <div className="text-base font-black text-emerald-400 mt-1">${rd.analystData.maxTarget?.toFixed(2)}</div>
                       </div>
                     </div>
+                    {/* Son revizyonlar */}
+                    {rd.analystData.recentUpgrades?.length > 0 && (
+                      <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
+                        <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📋 Son 30 Günde Revizyon</div>
+                        <div className="space-y-1.5">
+                          {rd.analystData.recentUpgrades.map((u: any, i: number) => (
+                            <div key={i} className="flex items-center justify-between text-[11px]">
+                              <span className="text-white font-black">{u.firm}</span>
+                              <span className="text-slate-400">{u.from && u.to ? `${u.from} → ${u.to}` : u.to || u.action}</span>
+                              <span className="text-slate-500 text-[10px]">{u.date}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-400 text-[11px] md:text-[12px]">🔍 Analist konsensüsü verileri yükleniyor... Kaç analist takip ediyor, ortalama hedef fiyat, revizyon trendi yakında yayınlanacaktır.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için analist konsensüsü verisi mevcut değil.</p>
                   </div>
                 )}
               </div>
@@ -1518,21 +1556,28 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 <SectionTitle icon="🏛️" title="BÖLÜM 12 — 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ (EN BÜYÜK 5)" />
                 {rd.institutionalOwners?.length > 0 ? (
                   <div className="space-y-2">
-                    {rd.institutionalOwners.map((owner: any, i: number) => (
-                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-black text-white text-[11px] md:text-[12px]">{i + 1}. {owner.name}</span>
-                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${owner.change >= 0 ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
-                            {owner.change >= 0 ? "+" : ""}{owner.change.toFixed(1)}%
-                          </span>
+                    {rd.institutionalOwners.map((owner: any, i: number) => {
+                      const posValue = owner.shares * rd.currentPrice;
+                      const posStr = posValue > 1e9 ? `$${(posValue/1e9).toFixed(2)}B` : posValue > 1e6 ? `$${(posValue/1e6).toFixed(0)}M` : `$${posValue.toFixed(0)}`;
+                      return (
+                        <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-black text-white text-[11px] md:text-[12px]">{i + 1}. {owner.name}</span>
+                            <span className={`text-[11px] font-black px-2 py-0.5 rounded ${owner.change > 0 ? "bg-emerald-500/20 text-emerald-300" : owner.change < 0 ? "bg-rose-500/20 text-rose-300" : "bg-slate-700 text-slate-400"}`}>
+                              {owner.change > 0 ? "▲ +" : owner.change < 0 ? "▼ " : "→ "}{owner.change.toFixed(1)}%
+                            </span>
+                          </div>
+                          <div className="text-[11px] text-slate-400">
+                            📊 {owner.shares.toLocaleString()} hisse &nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">{posStr}</span>
+                            {owner.reportDate && <span className="ml-2 text-slate-600">Rapor: {owner.reportDate}</span>}
+                          </div>
                         </div>
-                        <div className="text-[11px] text-slate-400">📊 {owner.shares.toLocaleString()} hisse • ${(owner.shares * rd.currentPrice).toFixed(0)} değeri</div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 13F kurumsal sahiplik verilerine erişiliyor... Vanguard, BlackRock, State Street gibi büyük kurumların pozisyon değişimleri yakında gösterilecektir.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için kurumsal sahiplik verisi mevcut değil.</p>
                   </div>
                 )}
               </div>
@@ -1542,24 +1587,41 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 <SectionTitle icon="📊" title="BÖLÜM 13 — KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI" />
                 {rd.earningsHistory?.length > 0 ? (
                   <div className="space-y-2">
-                    {rd.earningsHistory.map((earnings: any, i: number) => (
-                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-black text-white text-[11px] md:text-[12px]">{earnings.quarter}</span>
-                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${earnings.epsBeating ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
-                            {earnings.epsBeating ? "✅ Beat" : "❌ Miss"} ({earnings.epsSurprise >= 0 ? "+" : ""}{earnings.epsSurprise.toFixed(1)}%)
+                    {rd.earningsHistory.map((e: any, i: number) => (
+                      <div key={i} className={`border rounded-lg p-3 ${e.epsBeating ? "bg-emerald-500/5 border-emerald-500/20" : "bg-rose-500/5 border-rose-500/20"}`}>
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="font-black text-white text-[11px] md:text-[12px]">{e.quarter} {e.date && `• ${e.date}`}</span>
+                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${e.epsBeating ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
+                            {e.epsBeating ? "✅ Beat" : "❌ Miss"}&nbsp;
+                            {e.epsSurprise >= 0 ? "+" : ""}{e.epsSurprise.toFixed(1)}%
                           </span>
                         </div>
-                        <div className="text-[11px] text-slate-400 space-y-0.5">
-                          <p>📅 {earnings.date} • EPS: ${earnings.eps.toFixed(2)} vs ${earnings.estimate.toFixed(2)} beklenen</p>
-                          <p>📈 Post-Earnings: {earnings.priceMove >= 0 ? "+" : ""}{earnings.priceMove.toFixed(2)}% • Kalıcılık: {earnings.persistence}%</p>
+                        <div className="text-[11px] text-slate-400">
+                          EPS Gerçekleşen: <span className={`font-black ${e.epsBeating ? "text-emerald-300" : "text-rose-300"}`}>${e.eps.toFixed(2)}</span>
+                          &nbsp;/&nbsp; Tahmin: <span className="text-slate-300">${e.estimate.toFixed(2)}</span>
                         </div>
                       </div>
                     ))}
+                    <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
+                      <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-1">📊 Bilanço Performansı Özeti</div>
+                      {(() => {
+                        const beatCount = rd.earningsHistory.filter((e: any) => e.epsBeating).length;
+                        const total = rd.earningsHistory.length;
+                        const beatRate = Math.round((beatCount / total) * 100);
+                        return (
+                          <p className="text-[11px] text-slate-300">
+                            Son {total} çeyrekte <span className="font-black text-white">{beatCount}/{total}</span> Beat (%{beatRate}).
+                            {beatRate >= 75 ? " 🟢 Güçlü beat geçmişi — süpriz potansiyeli yüksek." :
+                             beatRate >= 50 ? " 🟡 Karışık bilanço performansı — dikkatli takip gerekiyor." :
+                             " 🔴 Zayıf beat geçmişi — bilanço öncesi pozisyon risklidir."}
+                          </p>
+                        );
+                      })()}
+                    </div>
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 Son 4 çeyreğin kazanç geçmişi ve fiyat hareketi yükleniyor... EPS sürprizi, post-earnings momentum ve bir sonraki bilançoya kaçgün kaldığı yakında gösterilecektir.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için kazanç geçmişi verisi mevcut değil.</p>
                   </div>
                 )}
               </div>

@@ -8,6 +8,80 @@ export const maxDuration = 90;
 const cache = new Map<string, { ts: number; data: any }>();
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour ms
 
+// ── Yahoo Finance Auth (Crumb/Cookie) ─────────────────────────────────────────
+const YF_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+let _yfCrumb: string | null = null;
+let _yfCookie: string | null = null;
+let _yfCrumbTs = 0;
+const YF_CRUMB_TTL = 50 * 60 * 1000; // 50 dakika
+
+async function getYFAuth(): Promise<{ crumb: string; cookie: string } | null> {
+  if (_yfCrumb && _yfCookie && Date.now() - _yfCrumbTs < YF_CRUMB_TTL) {
+    return { crumb: _yfCrumb, cookie: _yfCookie };
+  }
+  try {
+    // Step 1: Yahoo Finance cookie al
+    const homeRes = await fetch("https://fc.yahoo.com", {
+      headers: { "User-Agent": YF_UA, "Accept": "text/html" },
+      redirect: "follow",
+      signal: AbortSignal.timeout(5000),
+    });
+    const raw = homeRes.headers.get("set-cookie") || "";
+    // A3 cookie en kararlısı
+    const a3 = raw.match(/A3=([^;]+)/)?.[1];
+    const a1 = raw.match(/A1=([^;]+)/)?.[1];
+    const cookie = [a3 ? `A3=${a3}` : "", a1 ? `A1=${a1}` : ""].filter(Boolean).join("; ");
+
+    // Step 2: Crumb al
+    const crumbRes = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", {
+      headers: { "User-Agent": YF_UA, "Accept": "text/plain", "Cookie": cookie },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (crumbRes.ok) {
+      const crumb = (await crumbRes.text()).trim();
+      if (crumb && crumb.length < 20) {
+        _yfCrumb = crumb;
+        _yfCookie = cookie;
+        _yfCrumbTs = Date.now();
+        return { crumb, cookie };
+      }
+    }
+  } catch (e: any) {
+    console.warn("[deep-analysis] YF auth failed:", e?.message);
+  }
+  return null;
+}
+
+async function fetchYFSummary(ticker: string): Promise<any> {
+  const auth = await getYFAuth();
+  const modules = "insiderTransactions,recommendationTrend,upgradeDowngradeHistory,financialData,institutionOwnership,earningsHistory,calendarEvents";
+  const crumbParam = auth ? `&crumb=${encodeURIComponent(auth.crumb)}` : "";
+  const headers: Record<string, string> = { "User-Agent": YF_UA, "Accept": "application/json" };
+  if (auth?.cookie) headers["Cookie"] = auth.cookie;
+
+  try {
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=${modules}${crumbParam}`,
+      { headers, signal: AbortSignal.timeout(10000) }
+    );
+    if (res.ok) {
+      const json = await res.json();
+      const result = json?.quoteSummary?.result?.[0] ?? null;
+      if (result) {
+        const keys = Object.keys(result);
+        console.log(`[deep-analysis] quoteSummary OK: ${keys.join(", ")}`);
+      }
+      return result;
+    }
+    console.warn(`[deep-analysis] quoteSummary HTTP ${res.status}`);
+    // 401 gelirse crumb'ı sıfırla
+    if (res.status === 401) { _yfCrumb = null; _yfCookie = null; }
+  } catch (e: any) {
+    console.warn("[deep-analysis] quoteSummary error:", e?.message);
+  }
+  return null;
+}
+
 // ── Math helpers ──────────────────────────────────────────────────────────────
 function safeNum(v: any, fb = 0): number {
   return typeof v === "number" && isFinite(v) ? v : fb;
@@ -608,13 +682,116 @@ export async function POST(req: NextRequest) {
       flowSummary  = calcFlowSummary(obvArr, adArr, mfi, currentPrice, historyRows);
     }
 
-    // ── Insider İşlemleri, Haberler, Analist, 13F, Earnings ────────────────────────
-    // Placeholder yapıları (veri kaynağı entegrasyonu için hazır)
-    const insiderTransactions: any[] = [];
-    const recentNews: any[] = [];
-    const analystData: any = { count: 0, buy: 0, hold: 0, sell: 0, avgTarget: currentPrice, minTarget: currentPrice, maxTarget: currentPrice, last30DaysRevision: null };
-    const institutionalOwners: any[] = [];
-    const earningsHistory: any[] = [];
+    // ── Insider, Analist, 13F, Earnings — Yahoo Finance quoteSummary ──────────
+    const summary = await fetchYFSummary(ticker.toUpperCase());
+
+    // — Haber çekimi ————————————————
+    let newsItems: any[] = [];
+    try {
+      const newsHdr: Record<string, string> = { "User-Agent": YF_UA, "Accept": "application/json" };
+      const auth = await getYFAuth();
+      if (auth?.cookie) newsHdr["Cookie"] = auth.cookie;
+      const newsRes = await fetch(
+        `https://query1.finance.yahoo.com/v1/finance/search?q=${ticker.toUpperCase()}&newsCount=10&enableFuzzyQuery=false&enableCb=false`,
+        { headers: newsHdr, signal: AbortSignal.timeout(6000) }
+      );
+      if (newsRes.ok) {
+        const newsJson = await newsRes.json();
+        newsItems = newsJson?.news ?? [];
+      }
+    } catch (e: any) {
+      console.warn("[deep-analysis] news fetch:", e?.message);
+    }
+
+    // — İnsider İşlemleri ————————————————
+    const insiderTransactions: any[] = (summary?.insiderTransactions?.transactions ?? [])
+      .slice(0, 6)
+      .map((tx: any) => {
+        const shares = safeNum(tx.shares?.raw, 0);
+        const value  = safeNum(tx.value?.raw, 0);
+        const price  = shares > 0 ? +(value / shares).toFixed(2) : currentPrice;
+        const isSell = (tx.transactionType || "").toLowerCase().includes("sale") ||
+                       (tx.transactionType || "").toLowerCase().includes("sell");
+        return {
+          officer:     tx.filerName       || "Bilinmiyor",
+          title:       tx.filerRelation   || "Yönetici",
+          type:        isSell ? "SELL" : "BUY",
+          date:        tx.startDate?.fmt  || "",
+          shares:      tx.shares?.longFmt || shares.toLocaleString(),
+          price,
+          transactionDesc: tx.transactionText || "",
+        };
+      });
+
+    // — Analist Konsensüsü ————————————————
+    const trend     = summary?.recommendationTrend?.trend?.[0] ?? null;
+    const finData   = summary?.financialData ?? null;
+    const upgrades  = (summary?.upgradeDowngradeHistory?.history ?? []).filter((u: any) => {
+      return (Date.now() - (u.epochGradeDate ?? 0) * 1000) < 30 * 24 * 60 * 60 * 1000;
+    });
+    const analystData: any = {
+      count:    trend ? (trend.strongBuy + trend.buy + trend.hold + trend.sell + trend.strongSell) : 0,
+      buy:      trend ? (trend.strongBuy + trend.buy) : 0,
+      hold:     trend ? trend.hold : 0,
+      sell:     trend ? (trend.sell + trend.strongSell) : 0,
+      avgTarget: safeNum(finData?.targetMeanPrice?.raw, currentPrice),
+      minTarget: safeNum(finData?.targetLowPrice?.raw,  currentPrice * 0.75),
+      maxTarget: safeNum(finData?.targetHighPrice?.raw, currentPrice * 1.3),
+      recentUpgrades: upgrades.slice(0, 3).map((u: any) => ({
+        firm: u.firm || "",
+        from: u.fromGrade || "",
+        to:   u.toGrade   || "",
+        date: new Date((u.epochGradeDate ?? 0) * 1000).toLocaleDateString("tr-TR"),
+        action: u.action || "",
+      })),
+    };
+
+    // — 13F Kurumsal Sahiplik ————————————————
+    const institutionalOwners: any[] = (summary?.institutionOwnership?.ownershipList ?? [])
+      .slice(0, 5)
+      .map((o: any) => ({
+        name:   o.organization ?? "Bilinmiyor",
+        shares: safeNum(o.position?.raw, 0),
+        change: +(safeNum(o.pctChange?.raw, 0) * 100).toFixed(2),
+        reportDate: o.reportDate?.fmt ?? "",
+      }));
+
+    // — Kazanç Geçmişi ————————————————
+    const earningsHistory: any[] = (summary?.earningsHistory?.history ?? [])
+      .slice(-4).reverse()
+      .map((e: any) => {
+        const epsActual   = safeNum(e.epsActual?.raw, 0);
+        const epsEstimate = safeNum(e.epsEstimate?.raw, 0);
+        const surp        = safeNum(e.surprisePercent?.raw, 0) * 100;
+        return {
+          quarter:     e.period     ?? "",
+          date:        e.quarter?.fmt ?? "",
+          eps:         epsActual,
+          estimate:    epsEstimate,
+          epsSurprise: +surp.toFixed(1),
+          epsBeating:  epsActual >= epsEstimate,
+          priceMove:   0,   // post-earnings hareketi için ayrı hesap gerekir
+          persistence: 0,
+        };
+      });
+
+    // — Haberler ————————————————
+    const sentimentMap: Record<string, string> = {};
+    const recentNews: any[] = newsItems.slice(0, 8).map((n: any) => {
+      const title = n.title ?? "";
+      const lower = title.toLowerCase();
+      let sentiment = "Nötr";
+      if (/beat|surge|soar|rally|gain|record|strong|growth|profit|partner|win|buy|upgrade/i.test(lower)) sentiment = "Pozitif";
+      else if (/miss|drop|fall|decline|loss|cut|downgrade|layoff|risk|warn|weak|short/i.test(lower)) sentiment = "Negatif";
+      return {
+        title,
+        date:    n.providerPublishTime ? new Date(n.providerPublishTime * 1000).toLocaleDateString("tr-TR") : "",
+        source:  n.publisher    ?? "",
+        summary: "",
+        sentiment,
+        url:     n.link ?? "",
+      };
+    });
 
     const rawForecast = Array.isArray(s.forecast) ? s.forecast : Array.isArray(s.forecast?.days) ? s.forecast.days : [];
     const forecast15 = buildForecast15(rawForecast, currentPrice);
