@@ -29,65 +29,241 @@ function LevelBadge({ v, fb }: { v: string; fb: string }) {
   return <span className="text-rose-400 font-black text-sm">{val}</span>;
 }
 
-// ── Forecast Bar Chart ─────────────────────────────────────────────────────────
-function ForecastChart({ forecast15, currentPrice }: { forecast15: any[]; currentPrice: number }) {
+// ── Combined Historical + Forecast Chart ───────────────────────────────────────
+function ForecastChart({
+  historyOHLC,
+  forecast15,
+  currentPrice,
+}: {
+  historyOHLC?: any[];
+  forecast15: any[];
+  currentPrice: number;
+}) {
   if (!forecast15?.length) return null;
-  const allVals = forecast15.flatMap(d => [d.bear, d.base, d.bull]);
-  const minV = Math.min(currentPrice, ...allVals) * 0.995;
-  const maxV = Math.max(currentPrice, ...allVals) * 1.005;
+
+  // Get last 30 days of history (or fewer if not available)
+  const history = (historyOHLC || []).slice(-30);
+  const historyCloses = history.map((h: any) => h.close || h.price || 0);
+
+  // Combine all values for min/max calc
+  const forecastVals = forecast15.flatMap((d: any) => [d.bear, d.base, d.bull]);
+  const allVals = [...historyCloses, ...forecastVals, currentPrice];
+  const minV = Math.min(...allVals) * 0.995;
+  const maxV = Math.max(...allVals) * 1.005;
   const range = maxV - minV || 1;
   const pct = (v: number) => ((v - minV) / range) * 100;
-  const W = 100 / forecast15.length;
+
+  // Total chart width: history + forecast
+  const totalBars = history.length + forecast15.length;
+  const W = 100 / totalBars; // Width per bar
 
   return (
     <div className="bg-[#0a0e18] border border-[#1e3a5f]/50 rounded-xl p-4 overflow-x-auto">
-      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">📈 Forecast Bant Grafiği — 15 Gün</div>
-      <div className="relative" style={{ height: 120, minWidth: 480 }}>
+      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">
+        📈 Son 30 Gün + 15 Gün Forecast Grafiği
+      </div>
+      <div className="relative" style={{ height: 140, minWidth: Math.max(600, totalBars * 15) }}>
         {/* Gridlines */}
-        {[0, 25, 50, 75, 100].map(p => (
-          <div key={p} className="absolute w-full border-t border-[#1e3a5f]/30" style={{ bottom: `${p}%` }}>
-            <span className="absolute -left-1 -translate-y-1/2 text-[11px] md:text-[12px] text-slate-600 font-mono pr-1">
-              ${(minV + range * p / 100).toFixed(1)}
+        {[0, 25, 50, 75, 100].map((p) => (
+          <div
+            key={p}
+            className="absolute w-full border-t border-[#1e3a5f]/30"
+            style={{ bottom: `${p}%` }}
+          >
+            <span className="absolute -left-1 -translate-y-1/2 text-[10px] md:text-[11px] text-slate-600 font-mono pr-1">
+              ${(minV + (range * p) / 100).toFixed(1)}
             </span>
           </div>
         ))}
+
+        {/* Separator line between history and forecast */}
+        {history.length > 0 && (
+          <div
+            className="absolute h-full border-r border-dashed border-[#1e3a5f]/60 z-5"
+            style={{ left: `${(history.length * W).toFixed(1)}%` }}
+          />
+        )}
+
         {/* Current price line */}
-        <div className="absolute w-full border-t border-dashed border-amber-400/60 z-10" style={{ bottom: `${pct(currentPrice)}%` }}>
-          <span className="absolute right-0 -translate-y-3 text-[11px] md:text-[12px] text-amber-400 font-black">Güncel ${currentPrice.toFixed(2)}</span>
+        <div
+          className="absolute w-full border-t border-dashed border-amber-400/60 z-10"
+          style={{ bottom: `${pct(currentPrice)}%` }}
+        >
+          <span className="absolute right-0 -translate-y-3 text-[10px] md:text-[11px] text-amber-400 font-black">
+            Güncel ${currentPrice.toFixed(2)}
+          </span>
         </div>
-        {/* Bars */}
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-          {forecast15.map((d, i) => (
-            <g key={i}>
-              {/* Bear-Base fill */}
-              <rect x={i * W} y={100 - pct(d.base)} width={W * 0.9} height={Math.max(0.5, pct(d.base) - pct(d.bear))}
-                fill="rgba(239,68,68,0.15)" />
-              {/* Base-Bull fill */}
-              <rect x={i * W} y={100 - pct(d.bull)} width={W * 0.9} height={Math.max(0.5, pct(d.bull) - pct(d.base))}
-                fill="rgba(16,185,129,0.15)" />
-              {/* Base line */}
-              <rect x={i * W} y={100 - pct(d.base) - 0.5} width={W * 0.9} height={1.2} fill="#f59e0b" opacity="0.9" />
-              {/* Bear line */}
-              <rect x={i * W} y={100 - pct(d.bear) - 0.5} width={W * 0.9} height={0.8} fill="#ef4444" opacity="0.7" />
-              {/* Bull line */}
-              <rect x={i * W} y={100 - pct(d.bull) - 0.5} width={W * 0.9} height={0.8} fill="#10b981" opacity="0.7" />
-            </g>
-          ))}
-          {/* Current price line */}
-          <line x1="0" y1={100 - pct(currentPrice)} x2="100" y2={100 - pct(currentPrice)} stroke="#f59e0b" strokeWidth="0.5" strokeDasharray="2,2" />
+
+        {/* SVG for chart */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox={`0 0 100 100`}
+          preserveAspectRatio="none"
+        >
+          {/* Historical closes as line chart */}
+          {history.length > 0 && (
+            <polyline
+              points={historyCloses
+                .map((close: number, i: number) => {
+                  const x = (i * W + W / 2);
+                  const y = 100 - pct(close);
+                  return `${x},${y}`;
+                })
+                .join(" ")}
+              fill="none"
+              stroke="#06b6d4"
+              strokeWidth="1.2"
+              opacity="0.8"
+            />
+          )}
+
+          {/* Historical closes as dots */}
+          {history.length > 0 &&
+            historyCloses.map((close: number, i: number) => {
+              const x = i * W + W / 2;
+              const y = 100 - pct(close);
+              return (
+                <circle
+                  key={`hist-${i}`}
+                  cx={x}
+                  cy={y}
+                  r="0.8"
+                  fill="#06b6d4"
+                  opacity="0.6"
+                />
+              );
+            })}
+
+          {/* Forecast bands */}
+          {forecast15.map((d: any, i: number) => {
+            const x = (history.length + i) * W;
+            return (
+              <g key={`forecast-${i}`}>
+                {/* Bear-Base fill */}
+                <rect
+                  x={x}
+                  y={100 - pct(d.base)}
+                  width={W * 0.85}
+                  height={Math.max(0.3, pct(d.base) - pct(d.bear))}
+                  fill="rgba(239,68,68,0.12)"
+                />
+                {/* Base-Bull fill */}
+                <rect
+                  x={x}
+                  y={100 - pct(d.bull)}
+                  width={W * 0.85}
+                  height={Math.max(0.3, pct(d.bull) - pct(d.base))}
+                  fill="rgba(16,185,129,0.12)"
+                />
+                {/* Bull line */}
+                <line
+                  x1={x + W * 0.425}
+                  y1={100 - pct(d.bull)}
+                  x2={x + W * 0.425}
+                  y2={100 - pct(d.bear)}
+                  stroke="#10b981"
+                  strokeWidth="0.6"
+                  opacity="0.7"
+                />
+                {/* Base line */}
+                <rect
+                  x={x}
+                  y={100 - pct(d.base) - 0.4}
+                  width={W * 0.85}
+                  height={0.8}
+                  fill="#f59e0b"
+                  opacity="0.85"
+                />
+                {/* Bear line */}
+                <line
+                  x1={x + W * 0.425}
+                  y1={100 - pct(d.bear)}
+                  x2={x + W * 0.425}
+                  y2={100 - pct(d.bear)}
+                  stroke="#ef4444"
+                  strokeWidth="0.6"
+                  opacity="0.7"
+                />
+              </g>
+            );
+          })}
+
+          {/* Current price reference line */}
+          <line
+            x1="0"
+            y1={100 - pct(currentPrice)}
+            x2="100"
+            y2={100 - pct(currentPrice)}
+            stroke="#f59e0b"
+            strokeWidth="0.4"
+            strokeDasharray="2,2"
+            opacity="0.5"
+          />
         </svg>
-        {/* Day labels */}
-        <div className="absolute -bottom-5 left-8 right-0 flex" style={{ paddingLeft: "2px" }}>
-          {forecast15.filter((_, i) => i % 3 === 0).map((d, i) => (
-            <div key={i} className="text-[11px] md:text-[12px] text-slate-500 font-mono" style={{ width: `${W * 3}%`, flexShrink: 0 }}>G+{d.day}</div>
-          ))}
+
+        {/* X-axis labels */}
+        <div
+          className="absolute -bottom-6 left-0 right-0 flex"
+          style={{ paddingLeft: `${(W / 2).toFixed(1)}%` }}
+        >
+          {/* History labels (every 10 days) */}
+          {history.length > 0 &&
+            history
+              .map((h: any, i: number) => {
+                if (i % Math.max(1, Math.floor(history.length / 3)) !== 0) return null;
+                const dayAgo = history.length - i;
+                return (
+                  <div
+                    key={`hist-label-${i}`}
+                    className="text-[9px] md:text-[10px] text-slate-500 font-mono"
+                    style={{ width: `${W}%`, flexShrink: 0, textAlign: "center" }}
+                  >
+                    -{dayAgo}G
+                  </div>
+                );
+              })
+              .filter(Boolean)}
+
+          {/* Forecast labels (every 3 days) */}
+          {forecast15
+            .map((d: any, i: number) => {
+              if (i % 3 !== 0) return null;
+              return (
+                <div
+                  key={`forecast-label-${i}`}
+                  className="text-[9px] md:text-[10px] text-slate-500 font-mono"
+                  style={{ width: `${W * 3}%`, flexShrink: 0, textAlign: "center" }}
+                >
+                  G+{d.day}
+                </div>
+              );
+            })
+            .filter(Boolean)}
         </div>
       </div>
-      <div className="flex gap-4 mt-8 text-[11px] md:text-[12px] font-black">
-        <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-emerald-500 inline-block" />Bull</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-amber-400 inline-block" />Base</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-rose-500 inline-block" />Bear</span>
-        <span className="flex items-center gap-1"><span className="w-3 h-0.5 border-t border-dashed border-amber-400 inline-block" />Güncel</span>
+
+      {/* Legend */}
+      <div className="flex flex-wrap gap-4 mt-10 text-[10px] md:text-[11px] font-black">
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 bg-[#06b6d4] inline-block" />
+          Geçmiş Kapanış
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 bg-emerald-500 inline-block" />
+          Bull Senaryo
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 bg-amber-400 inline-block" />
+          Base Senaryo
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 bg-rose-500 inline-block" />
+          Bear Senaryo
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="w-3 h-0.5 border-t border-dashed border-amber-400 inline-block" />
+          Güncel Fiyat
+        </span>
       </div>
     </div>
   );
@@ -655,6 +831,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* Ichimoku Chart */}
                 <IchimokuChart historyOHLC={rd.historyOHLC} currentPrice={rd.currentPrice} />
+
+                {/* Combined Historical + Forecast Chart */}
+                <ForecastChart
+                  historyOHLC={rd.historyOHLC}
+                  forecast15={a.forecast15}
+                  currentPrice={currentPrice}
+                />
 
                 {/* Destek/Direnç Seviyeleri */}
                 <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-lg p-3">
