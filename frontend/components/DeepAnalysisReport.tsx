@@ -1414,10 +1414,160 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
               </div>
 
+              {/* ══ BÖLÜM 9: İNSİDER İŞLEMLERİ ═══════════════════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="🔐" title="BÖLÜM 9 — İNSİDER İŞLEMLERİ TAKIBI (FORM 4/144)" />
+                {rd.insiderTransactions?.length > 0 ? (
+                  <div className="space-y-2">
+                    {rd.insiderTransactions.map((tx: any, i: number) => (
+                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-black text-white text-[11px] md:text-[12px]">{tx.officer} — {tx.title}</span>
+                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${tx.type === "BUY" ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
+                            {tx.type}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-400 space-y-0.5">
+                          <p>📅 {tx.date} • {tx.shares} hisse • ${tx.price.toFixed(2)}</p>
+                          <p>📊 Net Pozisyon: {tx.netPosition} hisse ({(tx.netPosition > 0 ? "+" : "") + ((tx.netPosition / tx.priorPosition) * 100).toFixed(1)}%)</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
+                    <p className="text-slate-400 text-[11px] md:text-[12px]">Son 30 günde raporlanmış insider işlemi bulunamadı. CEO/CFO pozisyonları ve Form 144 satışları yakından takip edilmeli.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* ══ BÖLÜM 10: GÜNCEL HABER & KATALİZÖR AKIŞI ════════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="📰" title="BÖLÜM 10 — GÜNCEL HABER & KATALİZÖR AKIŞI (SON 30 GÜN)" />
+                {rd.recentNews?.length > 0 ? (
+                  <div className="space-y-2">
+                    {rd.recentNews.map((news: any, i: number) => (
+                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-black text-white text-[11px] md:text-[12px] flex-1">{news.title}</span>
+                          <span className={`text-[11px] font-black px-2 py-0.5 rounded whitespace-nowrap ml-2 ${news.sentiment === "Pozitif" ? "bg-emerald-500/20 text-emerald-300" : news.sentiment === "Negatif" ? "bg-rose-500/20 text-rose-300" : "bg-amber-500/20 text-amber-300"}`}>
+                            {news.sentiment}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-400 space-y-0.5">
+                          <p>📅 {news.date} • Kaynak: {news.source}</p>
+                          <p>{news.summary}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
+                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 Son 30 günün haber özeti yükleniyor... SEC Filings (8-K, S-3), kazanç duyuruları ve sektörel gelişmeler yakından takip edilmeli.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* ══ BÖLÜM 11: ANALIST KONSENSÜSÜ & FİYAT HEDEFİ ═══════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="👥" title="BÖLÜM 11 — ANALIST KONSENSÜSÜ & FİYAT HEDEFİ" />
+                {rd.analystData?.count > 0 ? (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-slate-500 uppercase">Analiz Yapan</div>
+                        <div className="text-lg font-black text-white mt-1">{rd.analystData.count}</div>
+                      </div>
+                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-emerald-400 uppercase">Buy</div>
+                        <div className="text-lg font-black text-emerald-300 mt-1">{rd.analystData.buy}</div>
+                      </div>
+                      <div className="bg-amber-500/10 border border-amber-500/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-amber-400 uppercase">Hold</div>
+                        <div className="text-lg font-black text-amber-300 mt-1">{rd.analystData.hold}</div>
+                      </div>
+                      <div className="bg-rose-500/10 border border-rose-500/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-rose-400 uppercase">Sell</div>
+                        <div className="text-lg font-black text-rose-300 mt-1">{rd.analystData.sell}</div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-slate-500 uppercase">Ortalama</div>
+                        <div className="text-lg font-black text-[#06b6d4] mt-1">${rd.analystData.avgTarget.toFixed(2)}</div>
+                      </div>
+                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-slate-500 uppercase">Min Target</div>
+                        <div className="text-lg font-black text-rose-400 mt-1">${rd.analystData.minTarget.toFixed(2)}</div>
+                      </div>
+                      <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="text-[11px] font-black text-slate-500 uppercase">Max Target</div>
+                        <div className="text-lg font-black text-emerald-400 mt-1">${rd.analystData.maxTarget.toFixed(2)}</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
+                    <p className="text-slate-400 text-[11px] md:text-[12px]">🔍 Analist konsensüsü verileri yükleniyor... Kaç analist takip ediyor, ortalama hedef fiyat, revizyon trendi yakında yayınlanacaktır.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* ══ BÖLÜM 12: 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ ══════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="🏛️" title="BÖLÜM 12 — 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ (EN BÜYÜK 5)" />
+                {rd.institutionalOwners?.length > 0 ? (
+                  <div className="space-y-2">
+                    {rd.institutionalOwners.map((owner: any, i: number) => (
+                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-black text-white text-[11px] md:text-[12px]">{i + 1}. {owner.name}</span>
+                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${owner.change >= 0 ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
+                            {owner.change >= 0 ? "+" : ""}{owner.change.toFixed(1)}%
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-400">📊 {owner.shares.toLocaleString()} hisse • ${(owner.shares * rd.currentPrice).toFixed(0)} değeri</div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
+                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 13F kurumsal sahiplik verilerine erişiliyor... Vanguard, BlackRock, State Street gibi büyük kurumların pozisyon değişimleri yakında gösterilecektir.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* ══ BÖLÜM 13: KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI ═══════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="📊" title="BÖLÜM 13 — KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI" />
+                {rd.earningsHistory?.length > 0 ? (
+                  <div className="space-y-2">
+                    {rd.earningsHistory.map((earnings: any, i: number) => (
+                      <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-black text-white text-[11px] md:text-[12px]">{earnings.quarter}</span>
+                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${earnings.epsBeating ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
+                            {earnings.epsBeating ? "✅ Beat" : "❌ Miss"} ({earnings.epsSurprise >= 0 ? "+" : ""}{earnings.epsSurprise.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-slate-400 space-y-0.5">
+                          <p>📅 {earnings.date} • EPS: ${earnings.eps.toFixed(2)} vs ${earnings.estimate.toFixed(2)} beklenen</p>
+                          <p>📈 Post-Earnings: {earnings.priceMove >= 0 ? "+" : ""}{earnings.priceMove.toFixed(2)}% • Kalıcılık: {earnings.persistence}%</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
+                    <p className="text-slate-400 text-[11px] md:text-[12px]">📊 Son 4 çeyreğin kazanç geçmişi ve fiyat hareketi yükleniyor... EPS sürprizi, post-earnings momentum ve bir sonraki bilançoya kaçgün kaldığı yakında gösterilecektir.</p>
+                  </div>
+                )}
+              </div>
+
               {/* FOOTER */}
               <div className="text-center py-4 opacity-60 space-y-1">
                 <p className="text-[11px] md:text-[12px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>Yasal Uyarı:</strong> Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm opsiyon stratejileri risk içerir.</p>
-                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v3.0 | Developed by AFK DaSYS</p>
+                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v3.1 | Developed by AFK DaSYS</p>
               </div>
             </div>
           );

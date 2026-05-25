@@ -607,6 +607,15 @@ export async function POST(req: NextRequest) {
       const mfi    = calcMFI(historyRows);
       flowSummary  = calcFlowSummary(obvArr, adArr, mfi, currentPrice, historyRows);
     }
+
+    // ── Insider İşlemleri, Haberler, Analist, 13F, Earnings ────────────────────────
+    // Placeholder yapıları (veri kaynağı entegrasyonu için hazır)
+    const insiderTransactions: any[] = [];
+    const recentNews: any[] = [];
+    const analystData: any = { count: 0, buy: 0, hold: 0, sell: 0, avgTarget: currentPrice, minTarget: currentPrice, maxTarget: currentPrice, last30DaysRevision: null };
+    const institutionalOwners: any[] = [];
+    const earningsHistory: any[] = [];
+
     const rawForecast = Array.isArray(s.forecast) ? s.forecast : Array.isArray(s.forecast?.days) ? s.forecast.days : [];
     const forecast15 = buildForecast15(rawForecast, currentPrice);
     const bearTarget = forecast15[14].bear;
@@ -724,6 +733,8 @@ export async function POST(req: NextRequest) {
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
+        // Yeni bölümler için veri
+        insiderTransactions, recentNews, analystData, institutionalOwners, earningsHistory,
       },
     };
 
