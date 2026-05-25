@@ -6,14 +6,12 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const NAV_LINKS = [
-  { name: "Swing", href: "/swing" },
-  { name: "Option Scanner", href: "/options" },
   { name: "Screener", href: "/screener" },
   { name: "Terminal", href: "/terminal" },
   { name: "Themes", href: "/theme" },
   { name: "Stock Search", href: "/ai" },
-  { name: "Performance", href: "/performance" },
-  { name: "OptAnaliz", href: "/optanaliz" },
+  { name: "Swing", href: "/swing" },
+  { name: "Option", href: "/optanaliz" },
 ];
 
 export default function Header({

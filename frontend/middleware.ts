@@ -6,10 +6,9 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // 1. Her zaman erişilebilecek yollar (Login, Landing Page ve Statik Dosyalar)
-  const isPublicPath = 
-    pathname.startsWith('/login') || 
-    pathname.startsWith('/ai') ||
-    pathname.startsWith('/_next') || 
+  const isPublicPath =
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.includes('.') || // resimler, fontlar vb.
     pathname === '/favicon.ico'

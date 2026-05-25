@@ -6,9 +6,8 @@ import BottomNav from "./BottomNav";
 export default function BottomNavWrapper() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const isAiPage = pathname === "/ai" || pathname.startsWith("/ai/");
 
-  if (isHomePage || isAiPage) return null;
+  if (isHomePage) return null;
 
   return <BottomNav />;
 }
