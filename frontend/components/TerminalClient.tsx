@@ -346,6 +346,8 @@ function MultiScreenOverlay({
 // ─── Main Component ────────────────────────────────────────────────────────────
 
 export default function TerminalClient() {
+  // DEPLOYMENT MARKER - Custom watchlists v2.0 live
+  console.log("✅ TerminalClient with custom watchlists (525CSP, 2550CSP, 50250CSP) loaded!");
   const { activeTracker } = useSmartTracker();
 
   // Selected instrument (for main chart)
