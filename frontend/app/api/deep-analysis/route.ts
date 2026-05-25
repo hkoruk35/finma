@@ -108,6 +108,91 @@ function buildSRFromPivots(
   };
 }
 
+// ── Volume / Flow indicators ──────────────────────────────────────────────────
+function calcOBV(rows: Array<{ close: number; volume: number }>): number[] {
+  let obv = 0;
+  return rows.map((r, i) => {
+    if (i === 0) return 0;
+    if (r.close > rows[i - 1].close) obv += r.volume;
+    else if (r.close < rows[i - 1].close) obv -= r.volume;
+    return obv;
+  });
+}
+
+function calcAD(rows: Array<{ high: number; low: number; close: number; volume: number }>): number[] {
+  let ad = 0;
+  return rows.map(r => {
+    const mfm = r.high !== r.low ? ((r.close - r.low) - (r.high - r.close)) / (r.high - r.low) : 0;
+    ad += mfm * r.volume;
+    return ad;
+  });
+}
+
+function calcMFI(rows: Array<{ high: number; low: number; close: number; volume: number }>, period = 14): number {
+  if (rows.length < period + 1) return 50;
+  const tp = rows.map(r => (r.high + r.low + r.close) / 3);
+  let pos = 0, neg = 0;
+  for (let i = rows.length - period; i < rows.length; i++) {
+    const mf = tp[i] * rows[i].volume;
+    if (tp[i] > tp[i - 1]) pos += mf; else neg += mf;
+  }
+  return +(100 - 100 / (1 + pos / (neg || 1))).toFixed(1);
+}
+
+function calcEMASlope(closes: number[], period: number): "yükselen" | "yatay" | "düşen" {
+  if (closes.length < period + 5) return "yatay";
+  const recent = calcEMA(closes, period);
+  const older  = calcEMA(closes.slice(0, -5), period);
+  const pct    = older > 0 ? (recent - older) / older * 100 : 0;
+  if (pct >  0.4) return "yükselen";
+  if (pct < -0.4) return "düşen";
+  return "yatay";
+}
+
+function classifyEMAProfile(
+  currentPrice: number, ema20: number, ema50: number, ema200: number,
+  marketCap: number, goldenCross: boolean
+): { profile: "A" | "B" | "C"; label: string; keyEMA: string; desc: string } {
+  const aboveAll = currentPrice > ema20 && currentPrice > ema50 && currentPrice > ema200;
+  if (aboveAll && goldenCross && marketCap > 10e9) {
+    return { profile: "A", label: "Kurumsal", keyEMA: "EMA20",
+      desc: "Bu bir EMA20 hissesidir — kırılım değerlendirmesi EMA20 üzerinden yapılmalıdır." };
+  }
+  if ((currentPrice > ema50 || currentPrice > ema200) && marketCap > 1e9) {
+    return { profile: "B", label: "Büyüme", keyEMA: "EMA50",
+      desc: "Bu bir EMA50 hissesidir — kırılım değerlendirmesi EMA50 üzerinden yapılmalıdır." };
+  }
+  return { profile: "C", label: "Spekülatif", keyEMA: "EMA200",
+    desc: "Bu bir EMA200 hissesidir — kırılım değerlendirmesi EMA200 üzerinden yapılmalıdır." };
+}
+
+function calcFlowSummary(obvArr: number[], adArr: number[], mfi: number, currentPrice: number, rows: Array<{ close: number; volume: number }>) {
+  const n = Math.min(20, obvArr.length);
+  const obvRecent = obvArr.slice(-n);
+  const adRecent  = adArr.slice(-n);
+  const obvTrend  = obvRecent[n - 1] > obvRecent[0] ? "yükselen" : obvRecent[n - 1] < obvRecent[0] ? "düşen" : "yatay";
+  const adTrend   = adRecent[n - 1] > adRecent[0]  ? "yükselen" : adRecent[n - 1] < adRecent[0]  ? "düşen" : "yatay";
+
+  // Price vs OBV divergence check (last 10 bars)
+  const recentRows = rows.slice(-10);
+  const priceUp  = recentRows[recentRows.length - 1].close > recentRows[0].close;
+  const obvUp    = obvArr[obvArr.length - 1] > obvArr[obvArr.length - 10];
+  const divergence = (priceUp && !obvUp) ? "negatif" : (!priceUp && obvUp) ? "pozitif" : "yok";
+
+  // Price-volume pattern last bar
+  const last = recentRows[recentRows.length - 1];
+  const prev = recentRows[recentRows.length - 2];
+  const avgVol = recentRows.reduce((s, r) => s + r.volume, 0) / recentRows.length;
+  let pvPattern = "nötr";
+  if (last.close > prev.close && last.volume > avgVol * 1.3) pvPattern = "güçlü birikim";
+  else if (last.close < prev.close && last.volume > avgVol * 1.3) pvPattern = "güçlü dağıtım";
+  else if (last.close > prev.close && last.volume < avgVol * 0.7) pvPattern = "zayıf yükseliş";
+  else if (last.close < prev.close && last.volume < avgVol * 0.7) pvPattern = "normal geri çekilme";
+
+  return { obvTrend, adTrend, mfi, divergence, pvPattern,
+    mfiLabel: mfi > 80 ? "Aşırı Alım" : mfi < 20 ? "Aşırı Satım" : "Normal" };
+}
+
 /** Compute all live indicators from 60-day OHLC */
 function calcLiveIndicators(rows: Array<{ open: number; high: number; low: number; close: number; volume: number }>) {
   const closes  = rows.map(r => r.close);
@@ -504,6 +589,24 @@ export async function POST(req: NextRequest) {
 
     const cspMatrix = buildCspMatrix(currentPrice, iv, liveS1, srLevels.support2);
     const ccMatrix  = buildCcMatrix(currentPrice, iv, liveR1);
+
+    // ── EMA Profile & Flow indicators ────────────────────────────────────────
+    const rawMarketCap = safeNum(
+      fund.market_cap ?? fund.marketCap ?? s.marketCap ?? s.market_cap ?? s.price?.market_cap,
+      safeNum(histResult?.marketCap, 0)
+    );
+    const emaProfile = classifyEMAProfile(currentPrice, ema20F, ema50F, ema200, rawMarketCap, maLevels.goldenCross);
+    const emaSlope20  = historyRows ? calcEMASlope(historyRows.map(r => r.close), 20)  : "yatay";
+    const emaSlope50  = historyRows ? calcEMASlope(historyRows.map(r => r.close), 50)  : "yatay";
+    const emaSlope200 = historyRows ? calcEMASlope(historyRows.map(r => r.close), 200) : "yatay";
+
+    let flowSummary: ReturnType<typeof calcFlowSummary> | null = null;
+    if (historyRows && historyRows.length >= 20) {
+      const obvArr = calcOBV(historyRows);
+      const adArr  = calcAD(historyRows);
+      const mfi    = calcMFI(historyRows);
+      flowSummary  = calcFlowSummary(obvArr, adArr, mfi, currentPrice, historyRows);
+    }
     const rawForecast = Array.isArray(s.forecast) ? s.forecast : Array.isArray(s.forecast?.days) ? s.forecast.days : [];
     const forecast15 = buildForecast15(rawForecast, currentPrice);
     const bearTarget = forecast15[14].bear;
@@ -620,6 +723,7 @@ export async function POST(req: NextRequest) {
         historyOHLC: historyRows || [], currentPrice,
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
+        emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
       },
     };
 

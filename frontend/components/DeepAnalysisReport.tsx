@@ -171,7 +171,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
       body: JSON.stringify({ ticker, stockData }),
     })
       .then(r => r.json())
-      .then(d => { if (d.error) setError(d.error); else setData(d); setLoading(false); })
+      .then(d => {
+        if (d.error) { setError(d.error); setLoading(false); return; }
+        setData(d);
+        setLoading(false);
+        // Auto-archive silently
+        fetch("/api/deep-analysis-archive", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ticker, reportData: d }),
+        }).catch(() => {});
+      })
       .catch(e => { setError(e.message); setLoading(false); });
   }, [ticker]);
 
@@ -179,8 +189,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
     if (exportingPdf) return;
     setExportingPdf(true);
 
-    const date = new Date().toISOString().slice(0, 10);
-    const title = `BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${date}`;
+    const now = new Date();
+    const istOffset = 3 * 60;
+    const local = new Date(now.getTime() + istOffset * 60 * 1000);
+    const date  = local.toISOString().slice(0, 10);
+    const time  = local.toISOString().slice(11, 16).replace(":", "");
+    const title = `BOGA_DERIN_ANALIZ_${ticker.toUpperCase()}_${date}_${time}`;
     const prev = document.title;
     document.title = title;
 
@@ -324,6 +338,18 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     <div className="mt-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#1d4ed8] to-[#06b6d4] text-white text-[11px] md:text-[12px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 inline-block">BOGA SKOR: {rd.masterScore}/100</div>
                   </div>
                 </div>
+                {/* EMA Profile Badge */}
+                {rd.emaProfile && (() => {
+                  const p = rd.emaProfile;
+                  const colors: Record<string, string> = { A: "border-emerald-500/50 bg-emerald-500/10 text-emerald-300", B: "border-amber-500/50 bg-amber-500/10 text-amber-300", C: "border-rose-500/50 bg-rose-500/10 text-rose-300" };
+                  return (
+                    <div className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-[11px] font-black uppercase tracking-wider ${colors[p.profile]}`}>
+                      <span>🧬 Profil {p.profile} — {p.label}</span>
+                      <span className="opacity-70 font-medium normal-case hidden sm:inline">| {p.desc}</span>
+                    </div>
+                  );
+                })()}
+
                 {/* Quick stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">
                   {[
@@ -1095,10 +1121,303 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
               </div>
 
+              {/* ══ BÖLÜM 5: EMA KALİTE PROFİLİ ═══════════════════════════════ */}
+              {rd.emaProfile && (
+                <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                  <SectionTitle icon="🧬" title="BÖLÜM 5 — EMA KALİTE PROFİLİ & KIRILIM EŞİĞİ" />
+
+                  {/* Profile card */}
+                  <div className={`rounded-xl border p-4 ${rd.emaProfile.profile === "A" ? "border-emerald-500/40 bg-emerald-500/5" : rd.emaProfile.profile === "B" ? "border-amber-500/40 bg-amber-500/5" : "border-rose-500/40 bg-rose-500/5"}`}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className={`text-2xl font-black px-3 py-1 rounded-xl border ${rd.emaProfile.profile === "A" ? "border-emerald-500/50 text-emerald-400" : rd.emaProfile.profile === "B" ? "border-amber-500/50 text-amber-400" : "border-rose-500/50 text-rose-400"}`}>
+                        Profil {rd.emaProfile.profile}
+                      </span>
+                      <div>
+                        <div className="text-white font-black text-sm">{rd.emaProfile.label} Hisse</div>
+                        <div className="text-slate-400 text-[11px]">Kritik Referans EMA: <span className="text-[#06b6d4] font-black">{rd.emaProfile.keyEMA}</span></div>
+                      </div>
+                    </div>
+                    <p className="text-[11px] md:text-[12px] text-slate-200 font-bold">{rd.emaProfile.desc}</p>
+                  </div>
+
+                  {/* EMA slope table */}
+                  <div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 EMA Eğim Analizi</div>
+                    <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
+                      <table className="w-full text-[11px] md:text-[12px]">
+                        <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
+                          <th className="px-3 py-2 text-left font-black text-slate-400">EMA</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">Eğim</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">Fiyat Durumu</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">Yorum</th>
+                        </tr></thead>
+                        <tbody>
+                          {[
+                            { l: "EMA 20", v: rd.ema20, slope: rd.emaSlope20, key: rd.emaProfile.keyEMA === "EMA20" },
+                            { l: "EMA 50", v: rd.ema50, slope: rd.emaSlope50, key: rd.emaProfile.keyEMA === "EMA50" },
+                            { l: "EMA 200",v: rd.ema200, slope: rd.emaSlope200, key: rd.emaProfile.keyEMA === "EMA200" },
+                          ].map(r => {
+                            const above = currentPrice >= r.v;
+                            const slopeIcon = r.slope === "yükselen" ? "↗" : r.slope === "düşen" ? "↘" : "→";
+                            const slopeColor = r.slope === "yükselen" ? "text-emerald-400" : r.slope === "düşen" ? "text-rose-400" : "text-amber-400";
+                            let yorum = "";
+                            if (r.slope === "yükselen" && above) yorum = "Geri çekilme alım fırsatı";
+                            else if (r.slope === "yatay") yorum = "Destek değil, dikkat";
+                            else if (r.slope === "düşen" && above) yorum = "Toparlanma tuzak olabilir";
+                            else yorum = "Baskı devam edebilir";
+                            return (
+                              <tr key={r.l} className={`border-b border-[#1e3a5f]/20 ${r.key ? "bg-[#06b6d4]/5" : ""}`}>
+                                <td className="px-3 py-2 font-bold text-slate-300">
+                                  {r.l} {r.key && <span className="text-[#06b6d4] font-black ml-1 text-[10px]">★ ANAHTAR</span>}
+                                </td>
+                                <td className="px-3 py-2 text-right font-black font-mono text-white">${r.v?.toFixed(2) ?? "-"}</td>
+                                <td className={`px-3 py-2 font-black ${slopeColor}`}>{slopeIcon} {r.slope}</td>
+                                <td className={`px-3 py-2 font-black text-[11px] ${above ? "text-emerald-400" : "text-rose-400"}`}>{above ? "▲ Üstünde" : "▼ Altında"}</td>
+                                <td className="px-3 py-2 text-slate-400 text-[11px]">{yorum}</td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* EMA20-EMA50 band */}
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
+                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">📏 EMA Band Genişliği (EMA20 ↔ EMA50)</div>
+                    {(() => {
+                      const bandPct = rd.ema50 > 0 ? Math.abs(rd.ema20 - rd.ema50) / rd.ema50 * 100 : 0;
+                      const converging = bandPct < 1.5;
+                      return (
+                        <p className="text-[11px] md:text-[12px] text-slate-300">
+                          Band genişliği: <span className="font-black text-white">%{bandPct.toFixed(2)}</span>
+                          {converging
+                            ? <span className="text-amber-400 font-black ml-2">⚡ EMA'lar birbirine yaklaşıyor — büyük hareket habercisi</span>
+                            : <span className="text-slate-400 ml-2">— Normal aralık</span>}
+                        </p>
+                      );
+                    })()}
+                  </div>
+                </div>
+              )}
+
+              {/* ══ BÖLÜM 6: KURUMSAL PARA AKIŞI ════════════════════════════════ */}
+              {rd.flowSummary && (
+                <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                  <SectionTitle icon="🏦" title="BÖLÜM 6 — KURUMSAL PARA AKIŞI & PİYASA YAPISI" />
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {[
+                      { l: "OBV Trendi", v: rd.flowSummary.obvTrend, c: rd.flowSummary.obvTrend === "yükselen" ? "text-emerald-400" : rd.flowSummary.obvTrend === "düşen" ? "text-rose-400" : "text-amber-400" },
+                      { l: "A/D Trendi",  v: rd.flowSummary.adTrend,  c: rd.flowSummary.adTrend  === "yükselen" ? "text-emerald-400" : rd.flowSummary.adTrend  === "düşen" ? "text-rose-400" : "text-amber-400" },
+                      { l: "MFI (14)",   v: `${rd.flowSummary.mfi} — ${rd.flowSummary.mfiLabel}`, c: rd.flowSummary.mfi > 80 ? "text-rose-400" : rd.flowSummary.mfi < 20 ? "text-emerald-400" : "text-amber-400" },
+                      { l: "Fiyat-OBV",  v: rd.flowSummary.divergence === "negatif" ? "⚠️ Negatif Uyumsuz" : rd.flowSummary.divergence === "pozitif" ? "✅ Pozitif Uyumsuz" : "✅ Uyumlu", c: rd.flowSummary.divergence !== "yok" ? "text-amber-400" : "text-emerald-400" },
+                    ].map(i => (
+                      <div key={i.l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
+                        <div className="text-[11px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
+                        <div className={`text-sm font-black mt-1 ${i.c}`}>{i.v}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Fiyat-Hacim Pattern */}
+                  <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
+                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 Son Seans Fiyat-Hacim Kalıbı</div>
+                    {(() => {
+                      const p = rd.flowSummary.pvPattern;
+                      const m: Record<string, { icon: string; c: string; desc: string }> = {
+                        "güçlü birikim":       { icon: "🟢", c: "text-emerald-400", desc: "Yüksek hacimle yükseliş → Kurumsal birikim onayı" },
+                        "güçlü dağıtım":       { icon: "🔴", c: "text-rose-400",    desc: "Yüksek hacimle düşüş → Dağıtım sinyali, dikkat" },
+                        "zayıf yükseliş":      { icon: "🟡", c: "text-amber-400",   desc: "Düşük hacimle yükseliş → Zayıf hareket, doğrulama beklenmeli" },
+                        "normal geri çekilme": { icon: "🔵", c: "text-blue-400",    desc: "Düşük hacimle düşüş → Normal geri çekilme, panik yok" },
+                        "nötr":                { icon: "⚪", c: "text-slate-400",   desc: "Hacim-fiyat nötr" },
+                      };
+                      const info = m[p] ?? m["nötr"];
+                      return <p className={`text-[11px] md:text-[12px] font-bold ${info.c}`}>{info.icon} {p.charAt(0).toUpperCase() + p.slice(1)} — {info.desc}</p>;
+                    })()}
+                  </div>
+
+                  {/* Sessiz birikim */}
+                  {rd.flowSummary.obvTrend === "yükselen" && rd.flowSummary.adTrend === "yükselen" && (() => {
+                    const priceFlat = Math.abs(currentPrice - rd.ema20) / rd.ema20 < 0.02;
+                    if (!priceFlat) return null;
+                    return (
+                      <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-3">
+                        <p className="text-emerald-300 font-black text-[11px] md:text-[12px]">
+                          🔔 SESSİZ BİRİKİM TESPİTİ — Fiyat yatay seyrederken OBV ve A/D kademeli artıyor. Kırılım öncesi erken kurumsal giriş sinyali olabilir.
+                        </p>
+                      </div>
+                    );
+                  })()}
+
+                  {/* Divergence warning */}
+                  {rd.flowSummary.divergence === "negatif" && (
+                    <div className="bg-amber-500/10 border border-amber-500/40 rounded-xl p-3">
+                      <p className="text-amber-300 font-black text-[11px] md:text-[12px]">
+                        ⚠️ NEGATİF UYUMSUZLUK — Fiyat yükselirken OBV düşüyor. Momentum arkasında kurumsal destek yok olabilir. Dikkatli ol.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* MFI extreme warning */}
+                  {rd.flowSummary.mfi > 80 && (
+                    <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-3">
+                      <p className="text-rose-300 font-black text-[11px] md:text-[12px]">⚠️ MFI {rd.flowSummary.mfi} — Aşırı alım bölgesi. Prim satışı stratejilerinde dikkatli ol.</p>
+                    </div>
+                  )}
+                  {rd.flowSummary.mfi < 20 && (
+                    <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3">
+                      <p className="text-emerald-300 font-black text-[11px] md:text-[12px]">✅ MFI {rd.flowSummary.mfi} — Aşırı satım bölgesi. CSP için potansiyel zemin oluşuyor.</p>
+                    </div>
+                  )}
+
+                  {/* Info note */}
+                  <div className="bg-[#0d1321]/30 border border-[#1e3a5f]/20 rounded-lg p-2.5">
+                    <p className="text-[10px] text-slate-500 leading-relaxed">
+                      <span className="font-black text-slate-400">OBV:</span> Hacim ağırlıklı fiyat yönü. Fiyat yükselirken OBV düşüyorsa kurumsal çıkış var.&nbsp;
+                      <span className="font-black text-slate-400">A/D:</span> Kapanışın gün içi aralıktaki konumuna göre birikim/dağıtım.&nbsp;
+                      <span className="font-black text-slate-400">MFI:</span> Hacim ağırlıklı RSI — 80+ aşırı alım, 20− aşırı satım.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* ══ BÖLÜM 7: RİSK FAKTÖRLERİ ═══════════════════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="⚠️" title="BÖLÜM 7 — RİSK FAKTÖRLERİ (GENİŞLETİLMİŞ)" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Short Interest placeholder */}
+                  <div className="bg-[#0d1321]/60 border border-rose-500/20 rounded-xl p-4 space-y-3">
+                    <div className="text-[11px] md:text-[12px] font-black text-rose-400 uppercase tracking-widest">📉 Short Interest & Kısa Faiz</div>
+                    <div className="space-y-1.5 text-[11px] md:text-[12px]">
+                      {[
+                        ["Short Float", "Brokerage kaynağından kontrol et"],
+                        ["Days to Cover", "Short Float / Günlük Hacim"],
+                        ["Eşik Değerleri", "<%5 Normal | %5-15 Dikkat | >%25 Squeeze Riski"],
+                      ].map(([l, v]) => (
+                        <div key={l} className="flex justify-between border-b border-rose-500/10 pb-1.5">
+                          <span className="text-slate-400 font-medium">{l}</span>
+                          <span className="text-slate-500 text-[10px] italic">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="bg-rose-500/5 rounded-lg p-2 text-[10px] text-rose-300/70">Finviz / Ortex / Broker platformundan güncel short float verisini kontrol et. Yüksek short float + yükselen OBV → squeeze potansiyeli.</div>
+                  </div>
+
+                  {/* Dilution risk */}
+                  <div className="bg-[#0d1321]/60 border border-amber-500/20 rounded-xl p-4 space-y-3">
+                    <div className="text-[11px] md:text-[12px] font-black text-amber-400 uppercase tracking-widest">💧 Dilüsyon Risk Göstergeleri</div>
+                    <div className="space-y-1.5 text-[11px] md:text-[12px]">
+                      {[
+                        ["Piyasa Değeri", rd.marketCapStr],
+                        ["Küçük Cap Risk", rd.marketCapStr?.includes("M") && !rd.marketCapStr?.includes("B") ? "⚠️ Shelf/Warrant riski yüksek" : "✅ Görece düşük risk"],
+                        ["SEC Kontrol", "EDGAR'da S-3, warrant, lock-up"],
+                      ].map(([l, v]) => (
+                        <div key={l} className="flex justify-between border-b border-amber-500/10 pb-1.5">
+                          <span className="text-slate-400 font-medium">{l}</span>
+                          <span className="text-amber-300 font-bold">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="bg-amber-500/5 rounded-lg p-2 text-[10px] text-amber-300/70">Spekülatif profil (C) hisselerde shelf registration ve convertible note riski her zaman değerlendirilmeli.</div>
+                  </div>
+                </div>
+
+                {/* Earnings season protocol */}
+                <div className="border border-[#06b6d4]/30 bg-[#06b6d4]/5 rounded-xl p-4">
+                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📅 Kazanç Sezonu Protokolü</div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px]">
+                    {[
+                      { r: "0–14 Gün", d: "Kazanç Sonrası Dönem", c: "border-emerald-500/40 bg-emerald-500/5 text-emerald-300", note: "Tüm veriler kazanç sonrasını yansıtıyor" },
+                      { r: "15–60 Gün", d: "Normal Dönem", c: "border-slate-500/40 bg-slate-500/5 text-slate-300", note: "Kazanç verisi taze ve geçerli" },
+                      { r: "60+ Gün", d: "Bilanço Yaklaşıyor", c: "border-amber-500/40 bg-amber-500/5 text-amber-300", note: "IV crush riski — CSP/CC dikkatli" },
+                      { r: "±3 Gün", d: "Bilanço Günü", c: "border-rose-500/40 bg-rose-500/5 text-rose-300", note: "Opsiyon pozisyonu alma — yüksek risk" },
+                    ].map(i => (
+                      <div key={i.r} className={`border rounded-lg p-2 ${i.c}`}>
+                        <div className="font-black">{i.r}</div>
+                        <div className="font-bold mt-0.5">{i.d}</div>
+                        <div className="opacity-70 mt-0.5">{i.note}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-[10px] text-slate-500 mt-2">⚡ Bir sonraki kazanç tarihini SEC EDGAR veya Earnings Whispers üzerinden doğrula. Bilanço ±3 gün içindeyse opsiyon pozisyonu açma, prim IV şişmesiyle başlar ama kazanç sonrası IV crush pozisyonu zarara sokabilir.</p>
+                </div>
+              </div>
+
+              {/* ══ BÖLÜM 8: MAKRO & SEKTÖR BAĞLAMI ════════════════════════════ */}
+              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
+                <SectionTitle icon="🌍" title="BÖLÜM 8 — MAKRO & SEKTÖR BAĞLAMI" />
+
+                {/* Piyasa rejimi */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {[
+                    { l: "S&P 500", v: rd.sp500Change, suffix: "%", threshold: 0 },
+                    { l: "NASDAQ",  v: rd.nasdaqChange, suffix: "%", threshold: 0 },
+                    { l: "VIX",    v: rd.vixPrice, suffix: "", threshold: null },
+                  ].map(i => {
+                    const isVix = i.l === "VIX";
+                    const color = isVix ? (i.v > 25 ? "text-rose-400" : i.v > 15 ? "text-amber-400" : "text-emerald-400") : (i.v >= 0 ? "text-emerald-400" : "text-rose-400");
+                    const regime = isVix ? (i.v > 25 ? "Risk-Off ⚠️" : i.v > 15 ? "Dikkat →" : "Risk-On ✅") : (i.v >= 0 ? "Pozitif ▲" : "Negatif ▼");
+                    return (
+                      <div key={i.l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
+                        <div className="text-[11px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
+                        <div className={`text-xl font-black font-mono mt-1 ${color}`}>
+                          {i.v != null ? (isVix ? i.v?.toFixed(2) : (i.v >= 0 ? "+" : "") + i.v?.toFixed(2) + i.suffix) : "—"}
+                        </div>
+                        <div className={`text-[11px] font-bold mt-0.5 ${color}`}>{i.v != null ? regime : "Veri yok"}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Risk-off warning */}
+                {rd.vixPrice > 25 && (
+                  <div className="bg-rose-500/10 border border-rose-500/40 rounded-xl p-3">
+                    <p className="text-rose-300 font-black text-[11px] md:text-[12px]">
+                      🚨 Risk-Off Ortamı — VIX {rd.vixPrice?.toFixed(1)} seviyesinde. Spekülatif küçük cap satışı hızlanır. Kurumsal profil dışı hisselerde prim satışı risklidir.
+                    </p>
+                  </div>
+                )}
+
+                {/* Sektörel makro faktörler */}
+                <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-4">
+                  <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">🏭 Sektör: {data.sector}</div>
+                  <div className="text-[11px] md:text-[12px] text-slate-300 leading-relaxed space-y-1.5">
+                    {(() => {
+                      const s = (data.sector || "").toLowerCase();
+                      const factors: string[] = [];
+                      if (s.includes("defense") || s.includes("aerospace") || s.includes("drone")) {
+                        factors.push("🛡️ Savunma bütçesi haberleri ve jeopolitik gelişmeler doğrudan etkiler.");
+                        factors.push("📋 FAA/NDAA düzenlemeleri ve ihale sonuçları katalizör olabilir.");
+                      } else if (s.includes("electric") || s.includes("ev") || s.includes("auto")) {
+                        factors.push("🔋 Fed faiz ortamı tüketici kredisini etkiler — EV satışlarına yansır.");
+                        factors.push("💰 EV teşvik politikaları ve hammadde (lityum, kobalt) fiyatları kritik.");
+                      } else if (s.includes("tech") || s.includes("software") || s.includes("saas")) {
+                        factors.push("📈 Fed faiz kararları büyüme hissesi değerlemesini doğrudan etkiler.");
+                        factors.push("🤖 Yapay zeka rekabeti ve regülasyon gelişmeleri yakından takip edilmeli.");
+                      } else if (s.includes("biotech") || s.includes("pharmaceutical")) {
+                        factors.push("💊 FDA onay takvimi ve klinik sonuçlar fiyat için en kritik katalizörlerdir.");
+                        factors.push("💵 Nakit burn rate ve runway tükenme tarihi risk faktörüdür.");
+                      } else if (s.includes("bank") || s.includes("financ")) {
+                        factors.push("📊 Net Interest Margin ve Fed faiz kararları doğrudan etkiler.");
+                        factors.push("⚠️ Kredi kayıp karşılıkları ve NIM trendi bilanço kalitesini belirler.");
+                      } else {
+                        factors.push("📰 Sektörel haberler ve makro gelişmeler takip edilmeli.");
+                        factors.push("📊 Fed toplantıları, CPI ve istihdam verilerinin piyasaya etkisi değerlendirilmeli.");
+                      }
+                      factors.push("📉 Mevcut piyasa rejimi: VIX " + (rd.vixPrice > 25 ? "25+ → Risk-Off. Küçük cap pozisyonlar riskli." : rd.vixPrice > 15 ? "15-25 → Dikkat gerekiyor." : "<15 → Risk-On. Uygun ortam."));
+                      return factors.map((f, i) => <p key={i}>{f}</p>);
+                    })()}
+                  </div>
+                </div>
+              </div>
+
               {/* FOOTER */}
               <div className="text-center py-4 opacity-60 space-y-1">
                 <p className="text-[11px] md:text-[12px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>Yasal Uyarı:</strong> Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm opsiyon stratejileri risk içerir.</p>
-                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v2.0 | Developed by AFK DaSYS</p>
+                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v3.0 | Developed by AFK DaSYS</p>
               </div>
             </div>
           );

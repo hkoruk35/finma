@@ -334,6 +334,13 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 </div>
               </div>
 
+              {/* Arşiv linki */}
+              <div className="text-center pt-4">
+                <a href="/ai/archive" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#1e3a5f]/60 bg-[#0d1321]/60 text-[#06b6d4] hover:border-[#06b6d4]/40 hover:bg-[#06b6d4]/10 transition-all text-[11px] font-black uppercase tracking-widest">
+                  🗂️ Derin Analiz Arşivi
+                </a>
+              </div>
+
               {/* Yasal Uyarı & Telif (Ekranın alt katmanına sabitlenmeyip içerikle kayar) */}
               <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60">
                 <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
