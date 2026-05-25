@@ -467,14 +467,14 @@ export default function TerminalClient() {
 
   const addToWatchlist = () => {
     const t = watchInput.trim().toUpperCase();
-    if (!t || watchlist.includes(t) || watchlist.length >= 30) return;
+    if (!t || watchlist.includes(t) || watchlist.length >= 100) return;
     saveWatchlist([...watchlist, t]);
     setWatchInput("");
   };
 
   const addToTracker = () => {
     const t = trackerInput.trim().toUpperCase();
-    if (!t || trackerList.includes(t) || trackerList.length >= 30) return;
+    if (!t || trackerList.includes(t) || trackerList.length >= 100) return;
     saveTrackerList([...trackerList, t]);
     setTrackerInput("");
   };
@@ -486,7 +486,7 @@ export default function TerminalClient() {
   };
   const addToWatchlist525CSP = () => {
     const t = watchInput525CSP.trim().toUpperCase();
-    if (!t || watchlist525CSP.includes(t) || watchlist525CSP.length >= 30) return;
+    if (!t || watchlist525CSP.includes(t) || watchlist525CSP.length >= 100) return;
     saveWatchlist525CSP([...watchlist525CSP, t]);
     setWatchInput525CSP("");
   };
@@ -497,7 +497,7 @@ export default function TerminalClient() {
   };
   const addToWatchlist2550CSP = () => {
     const t = watchInput2550CSP.trim().toUpperCase();
-    if (!t || watchlist2550CSP.includes(t) || watchlist2550CSP.length >= 30) return;
+    if (!t || watchlist2550CSP.includes(t) || watchlist2550CSP.length >= 100) return;
     saveWatchlist2550CSP([...watchlist2550CSP, t]);
     setWatchInput2550CSP("");
   };
@@ -508,7 +508,7 @@ export default function TerminalClient() {
   };
   const addToWatchlist50250CSP = () => {
     const t = watchInput50250CSP.trim().toUpperCase();
-    if (!t || watchlist50250CSP.includes(t) || watchlist50250CSP.length >= 30) return;
+    if (!t || watchlist50250CSP.includes(t) || watchlist50250CSP.length >= 100) return;
     saveWatchlist50250CSP([...watchlist50250CSP, t]);
     setWatchInput50250CSP("");
   };
@@ -721,14 +721,15 @@ export default function TerminalClient() {
                 </div>
               ) : (
                 watchlist525CSP.map((ticker) => (
-                  <InstrumentRow
+                  <WatchlistRow
                     key={ticker}
-                    inst={{ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }}
+                    ticker={ticker}
                     price={prices[ticker]}
-                    selected={selected.ticker === ticker}
+                    selected={watchSelected === ticker}
                     checked={checked.includes(ticker)}
-                    onSelect={() => { setSelected({ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }); setWatchSelected(null); }}
+                    onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist525CSP(watchlist525CSP.filter((t) => t !== ticker))}
                   />
                 ))
               )}
@@ -760,14 +761,15 @@ export default function TerminalClient() {
                 </div>
               ) : (
                 watchlist2550CSP.map((ticker) => (
-                  <InstrumentRow
+                  <WatchlistRow
                     key={ticker}
-                    inst={{ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }}
+                    ticker={ticker}
                     price={prices[ticker]}
-                    selected={selected.ticker === ticker}
+                    selected={watchSelected === ticker}
                     checked={checked.includes(ticker)}
-                    onSelect={() => { setSelected({ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }); setWatchSelected(null); }}
+                    onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist2550CSP(watchlist2550CSP.filter((t) => t !== ticker))}
                   />
                 ))
               )}
@@ -799,14 +801,15 @@ export default function TerminalClient() {
                 </div>
               ) : (
                 watchlist50250CSP.map((ticker) => (
-                  <InstrumentRow
+                  <WatchlistRow
                     key={ticker}
-                    inst={{ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }}
+                    ticker={ticker}
                     price={prices[ticker]}
-                    selected={selected.ticker === ticker}
+                    selected={watchSelected === ticker}
                     checked={checked.includes(ticker)}
-                    onSelect={() => { setSelected({ ticker, label: ticker, tvSymbol: ticker, ySymbol: ticker, isStock: true }); setWatchSelected(null); }}
+                    onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist50250CSP(watchlist50250CSP.filter((t) => t !== ticker))}
                   />
                 ))
               )}
