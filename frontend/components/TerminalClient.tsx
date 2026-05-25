@@ -1,4 +1,5 @@
 "use client";
+// Build: 2026-05-25T11:35 - Custom watchlists rebuild
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
