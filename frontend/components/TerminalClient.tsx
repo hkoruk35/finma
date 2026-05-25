@@ -37,7 +37,7 @@ const GROUPS: { group: string; items: Instrument[] }[] = [
       { ticker: "QQQ",  label: "Nasdaq 100",      tvSymbol: "NASDAQ:QQQ", ySymbol: "QQQ" },
       { ticker: "DIA",  label: "Dow Jones",        tvSymbol: "AMEX:DIA",   ySymbol: "DIA" },
       { ticker: "IWM",  label: "Russell 2000",     tvSymbol: "AMEX:IWM",   ySymbol: "IWM" },
-      { ticker: "VXX",  label: "Volatility VXX",   tvSymbol: "CBOE:VXX",   ySymbol: "VXX" },
+      { ticker: "VIX",  label: "Volatility Index",   tvSymbol: "CBOE:VIX",   ySymbol: "^VIX" },
     ],
   },
   {
@@ -385,13 +385,24 @@ export default function TerminalClient() {
   };
 
   // Right panel tab
-  const [rightTab, setRightTab] = useState<"swing" | "option" | "watchlist" | "tracker">("swing");
+  const [rightTab, setRightTab] = useState<"swing" | "option" | "watchlist" | "525csp" | "2550csp" | "50250csp" | "tracker">("swing");
   const [dailyPicks, setDailyPicks] = useState<any[]>([]);
   const [optionPicks, setOptionPicks] = useState<any[]>([]);
+
+  // Right panel toggle
+  const [rightPanelOpen, setRightPanelOpen] = useState(true);
 
   // Watchlist (localStorage)
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [watchInput, setWatchInput] = useState("");
+
+  // Custom Watchlists (525CSP, 2550CSP, 50250CSP)
+  const [watchlist525CSP, setWatchlist525CSP] = useState<string[]>([]);
+  const [watchInput525CSP, setWatchInput525CSP] = useState("");
+  const [watchlist2550CSP, setWatchlist2550CSP] = useState<string[]>([]);
+  const [watchInput2550CSP, setWatchInput2550CSP] = useState("");
+  const [watchlist50250CSP, setWatchlist50250CSP] = useState<string[]>([]);
+  const [watchInput50250CSP, setWatchInput50250CSP] = useState("");
 
   // Tracker (localStorage - Terminal manual version)
   const [trackerList, setTrackerList] = useState<string[]>([]);
@@ -429,6 +440,15 @@ export default function TerminalClient() {
       if (savedTracker) setTrackerList(JSON.parse(savedTracker));
     } catch {}
 
+    try {
+      const saved525 = localStorage.getItem("terminal_watchlist_525csp");
+      if (saved525) setWatchlist525CSP(JSON.parse(saved525));
+      const saved2550 = localStorage.getItem("terminal_watchlist_2550csp");
+      if (saved2550) setWatchlist2550CSP(JSON.parse(saved2550));
+      const saved50250 = localStorage.getItem("terminal_watchlist_50250csp");
+      if (saved50250) setWatchlist50250CSP(JSON.parse(saved50250));
+    } catch {}
+
     return () => {
       window.removeEventListener("storage", reloadWatch);
       window.removeEventListener("watchlist_update", reloadWatch);
@@ -457,6 +477,40 @@ export default function TerminalClient() {
     if (!t || trackerList.includes(t) || trackerList.length >= 30) return;
     saveTrackerList([...trackerList, t]);
     setTrackerInput("");
+  };
+
+  // Custom Watchlist Helper Functions
+  const saveWatchlist525CSP = (list: string[]) => {
+    setWatchlist525CSP(list);
+    try { localStorage.setItem("terminal_watchlist_525csp", JSON.stringify(list)); } catch {}
+  };
+  const addToWatchlist525CSP = () => {
+    const t = watchInput525CSP.trim().toUpperCase();
+    if (!t || watchlist525CSP.includes(t) || watchlist525CSP.length >= 30) return;
+    saveWatchlist525CSP([...watchlist525CSP, t]);
+    setWatchInput525CSP("");
+  };
+
+  const saveWatchlist2550CSP = (list: string[]) => {
+    setWatchlist2550CSP(list);
+    try { localStorage.setItem("terminal_watchlist_2550csp", JSON.stringify(list)); } catch {}
+  };
+  const addToWatchlist2550CSP = () => {
+    const t = watchInput2550CSP.trim().toUpperCase();
+    if (!t || watchlist2550CSP.includes(t) || watchlist2550CSP.length >= 30) return;
+    saveWatchlist2550CSP([...watchlist2550CSP, t]);
+    setWatchInput2550CSP("");
+  };
+
+  const saveWatchlist50250CSP = (list: string[]) => {
+    setWatchlist50250CSP(list);
+    try { localStorage.setItem("terminal_watchlist_50250csp", JSON.stringify(list)); } catch {}
+  };
+  const addToWatchlist50250CSP = () => {
+    const t = watchInput50250CSP.trim().toUpperCase();
+    if (!t || watchlist50250CSP.includes(t) || watchlist50250CSP.length >= 30) return;
+    saveWatchlist50250CSP([...watchlist50250CSP, t]);
+    setWatchInput50250CSP("");
   };
 
   // ── Fetch prices ─────────────────────────────────────────────────────────────
@@ -590,9 +644,18 @@ export default function TerminalClient() {
       <div className={`${sidebarOpen ? "w-[220px]" : "w-0"} transition-all duration-300 shrink-0 border-r border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden relative`}>
         <div className="px-3 py-2 border-b border-[#1a2234] shrink-0 flex items-center justify-between">
           <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">Markets</span>
-          {checked.length > 0 && (
-            <span className="ml-2 text-[8px] text-slate-500">{checked.length}/12</span>
-          )}
+          <div className="flex items-center gap-2">
+            {checked.length > 0 && (
+              <span className="text-[8px] text-slate-500">{checked.length}/12</span>
+            )}
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="text-[10px] text-slate-500 hover:text-white transition-colors"
+              title="Toggle markets panel"
+            >
+              {sidebarOpen ? "◀" : "▶"}
+            </button>
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto scrollbar-thin">
           {GROUPS.map((group) => (
@@ -762,9 +825,16 @@ export default function TerminalClient() {
       </div>
 
       {/* ── Right Panel ─────────────────────────────────────────────────────── */}
-      <div className="w-[260px] shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden">
+      <div className={`${rightPanelOpen ? "w-[260px]" : "w-0"} transition-all duration-300 shrink-0 border-l border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden relative`}>
+        <button
+          onClick={() => setRightPanelOpen(!rightPanelOpen)}
+          className="absolute top-2 right-2 z-10 text-[10px] text-slate-500 hover:text-white transition-colors"
+          title="Toggle right panel"
+        >
+          {rightPanelOpen ? "▶" : "◀"}
+        </button>
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["swing", "option", "watchlist", "tracker"] as const).map((tab) => (
+          {(["swing", "option", "watchlist", "525csp", "2550csp", "50250csp", "tracker"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setRightTab(tab)}
@@ -774,7 +844,7 @@ export default function TerminalClient() {
                   : "text-slate-500 hover:text-slate-300"
               }`}
             >
-              {tab === "swing" ? "Swing" : tab === "option" ? "Option" : tab === "watchlist" ? "Watchlist" : "Tracker"}
+              {tab === "swing" ? "Swing" : tab === "option" ? "Option" : tab === "watchlist" ? "Watchlist" : tab === "525csp" ? "525CSP" : tab === "2550csp" ? "2550CSP" : tab === "50250csp" ? "50250CSP" : "Tracker"}
             </button>
           ))}
         </div>
@@ -946,6 +1016,132 @@ export default function TerminalClient() {
                     onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
                     onRemove={() => saveWatchlist(watchlist.filter((t) => t !== ticker))}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 525CSP Watchlist Tab */}
+        {rightTab === "525csp" && (
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
+              <input
+                value={watchInput525CSP}
+                onChange={(e) => setWatchInput525CSP(e.target.value.toUpperCase())}
+                onKeyDown={(e) => e.key === "Enter" && addToWatchlist525CSP()}
+                placeholder="Add ticker…"
+                className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[11px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
+              />
+              <button
+                onClick={addToWatchlist525CSP}
+                className="px-2 py-1 text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
+              >
+                +
+              </button>
+            </div>
+
+            {watchlist525CSP.length === 0 ? (
+              <div className="flex-1 flex items-center justify-center text-[11px] text-slate-600 text-center px-4">
+                Add tickers to 525CSP watchlist
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto scrollbar-thin">
+                {watchlist525CSP.map((ticker) => (
+                  <WatchlistRow
+                    key={ticker}
+                    ticker={ticker}
+                    price={prices[ticker]}
+                    selected={watchSelected === ticker}
+                    checked={checked.includes(ticker)}
+                    onSelect={() => selectWatchlistTicker(ticker)}
+                    onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist525CSP(watchlist525CSP.filter((t) => t !== ticker))}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 2550CSP Watchlist Tab */}
+        {rightTab === "2550csp" && (
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
+              <input
+                value={watchInput2550CSP}
+                onChange={(e) => setWatchInput2550CSP(e.target.value.toUpperCase())}
+                onKeyDown={(e) => e.key === "Enter" && addToWatchlist2550CSP()}
+                placeholder="Add ticker…"
+                className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[11px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
+              />
+              <button
+                onClick={addToWatchlist2550CSP}
+                className="px-2 py-1 text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
+              >
+                +
+              </button>
+            </div>
+
+            {watchlist2550CSP.length === 0 ? (
+              <div className="flex-1 flex items-center justify-center text-[11px] text-slate-600 text-center px-4">
+                Add tickers to 2550CSP watchlist
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto scrollbar-thin">
+                {watchlist2550CSP.map((ticker) => (
+                  <WatchlistRow
+                    key={ticker}
+                    ticker={ticker}
+                    price={prices[ticker]}
+                    selected={watchSelected === ticker}
+                    checked={checked.includes(ticker)}
+                    onSelect={() => selectWatchlistTicker(ticker)}
+                    onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist2550CSP(watchlist2550CSP.filter((t) => t !== ticker))}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 50250CSP Watchlist Tab */}
+        {rightTab === "50250csp" && (
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
+              <input
+                value={watchInput50250CSP}
+                onChange={(e) => setWatchInput50250CSP(e.target.value.toUpperCase())}
+                onKeyDown={(e) => e.key === "Enter" && addToWatchlist50250CSP()}
+                placeholder="Add ticker…"
+                className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[11px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
+              />
+              <button
+                onClick={addToWatchlist50250CSP}
+                className="px-2 py-1 text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
+              >
+                +
+              </button>
+            </div>
+
+            {watchlist50250CSP.length === 0 ? (
+              <div className="flex-1 flex items-center justify-center text-[11px] text-slate-600 text-center px-4">
+                Add tickers to 50250CSP watchlist
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto scrollbar-thin">
+                {watchlist50250CSP.map((ticker) => (
+                  <WatchlistRow
+                    key={ticker}
+                    ticker={ticker}
+                    price={prices[ticker]}
+                    selected={watchSelected === ticker}
+                    checked={checked.includes(ticker)}
+                    onSelect={() => selectWatchlistTicker(ticker)}
+                    onToggleCheck={() => toggleCheck(ticker)}
+                    onRemove={() => saveWatchlist50250CSP(watchlist50250CSP.filter((t) => t !== ticker))}
                   />
                 ))}
               </div>
