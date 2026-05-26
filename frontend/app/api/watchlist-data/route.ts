@@ -7,9 +7,6 @@ const DATA_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
   : path.resolve(process.cwd(), "..", "transfer");
 
-// Re-use calculation logic from ask api to ensure 100% mathematical consistency
-import { POST } from "../ask/route";
-
 export const runtime = "nodejs";
 
 // ── Tracker-specific calculations ────────────────────────────────────────────
