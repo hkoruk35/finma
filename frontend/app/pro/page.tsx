@@ -284,8 +284,71 @@ export default async function ProPage() {
           <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
         </section>
 
+        {/* CSP Strategy Watchlists */}
+        <section className="mb-12">
+          <div className="mb-6">
+            <h2 className="text-sm uppercase tracking-wider text-[#58a6ff] font-black mb-1">CSP STRATEGY WATCHLISTS</h2>
+            <p className="text-xs text-slate-500">Cash Secured Put — Price Tiers</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* 525 CSP */}
+            <Link href="/csp/525" className="group border border-green-900/40 rounded-lg p-6 hover:border-green-500/60 hover:bg-green-950/10 transition-all duration-200">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-black text-green-400">525 CSP</h3>
+                <span className="text-xs px-2.5 py-1 bg-green-900/40 text-green-400 border border-green-700/60 rounded font-bold">$5–$25</span>
+              </div>
+              <p className="text-xs text-slate-400 mb-4">Cash Secured Put candidates. Low-priced stocks ideal for weekly/monthly CSP premium collection.</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["OSCR", "GAP", "NOK", "ET", "KHC", "CPNG", "HRL"].map(t => (
+                  <span key={t} className="text-[10px] px-2 py-1 bg-green-900/20 text-green-400 border border-green-700/40 rounded font-mono">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="inline-block text-xs font-bold text-green-400 group-hover:translate-x-1 transition-transform">
+                Listeyi Gör →
+              </div>
+            </Link>
 
+            {/* 2550 CSP */}
+            <Link href="/csp/2550" className="group border border-blue-900/40 rounded-lg p-6 hover:border-blue-500/60 hover:bg-blue-950/10 transition-all duration-200">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-black text-blue-400">2550 CSP</h3>
+                <span className="text-xs px-2.5 py-1 bg-blue-900/40 text-blue-400 border border-blue-700/60 rounded font-bold">$25–$50</span>
+              </div>
+              <p className="text-xs text-slate-400 mb-4">Mid-priced CSP candidates with balanced premium and margin requirements.</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["UVXY", "MRVL", "SOFI", "LCID", "IONQ"].map(t => (
+                  <span key={t} className="text-[10px] px-2 py-1 bg-blue-900/20 text-blue-400 border border-blue-700/40 rounded font-mono">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="inline-block text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform">
+                Listeyi Gör →
+              </div>
+            </Link>
 
+            {/* 50250 CSP */}
+            <Link href="/csp/50250" className="group border border-purple-900/40 rounded-lg p-6 hover:border-purple-500/60 hover:bg-purple-950/10 transition-all duration-200">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-black text-purple-400">50250 CSP</h3>
+                <span className="text-xs px-2.5 py-1 bg-purple-900/40 text-purple-400 border border-purple-700/60 rounded font-bold">$50–$250</span>
+              </div>
+              <p className="text-xs text-slate-400 mb-4">Higher-priced stocks for premium CSP strategies with larger capital allocation.</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["MSFT", "NVDA", "TSLA", "AMZN", "GOOG"].map(t => (
+                  <span key={t} className="text-[10px] px-2 py-1 bg-purple-900/20 text-purple-400 border border-purple-700/40 rounded font-mono">
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <div className="inline-block text-xs font-bold text-purple-400 group-hover:translate-x-1 transition-transform">
+                Listeyi Gör →
+              </div>
+            </Link>
+          </div>
+        </section>
 
 
         {/* Sector Heat Map */}
