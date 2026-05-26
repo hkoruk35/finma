@@ -11,6 +11,7 @@ interface CSPList {
   color: string;
   borderColor: string;
   textColor: string;
+  href: string;
 }
 
 const CSP_LISTS: CSPList[] = [
@@ -22,6 +23,7 @@ const CSP_LISTS: CSPList[] = [
     color: "bg-[#10b981]/5",
     borderColor: "border-[#10b981]/30",
     textColor: "text-[#10b981]",
+    href: "/csp/525",
   },
   {
     key: "terminal_watchlist_2550csp",
@@ -31,6 +33,7 @@ const CSP_LISTS: CSPList[] = [
     color: "bg-[#3b82f6]/5",
     borderColor: "border-[#3b82f6]/30",
     textColor: "text-[#3b82f6]",
+    href: "/csp/2550",
   },
   {
     key: "terminal_watchlist_50250csp",
@@ -40,6 +43,7 @@ const CSP_LISTS: CSPList[] = [
     color: "bg-[#a78bfa]/5",
     borderColor: "border-[#a78bfa]/30",
     textColor: "text-[#a78bfa]",
+    href: "/csp/50250",
   },
 ];
 
@@ -128,23 +132,20 @@ export default function CSPWatchlistSection() {
                 </div>
               )}
 
-              {/* Link to optanaliz for each ticker if list not empty */}
-              {tickers.length > 0 && (
-                <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
-                  <Link
-                    href={`/optanaliz?symbol=${tickers[0]}`}
-                    className={`text-[10px] font-bold ${csp.textColor} hover:underline`}
-                  >
-                    OptAnaliz →
-                  </Link>
-                  <Link
-                    href="/terminal"
-                    className="text-[10px] text-slate-500 hover:text-white transition-colors"
-                  >
-                    Listeyi düzenle
-                  </Link>
-                </div>
-              )}
+              <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
+                <Link
+                  href={csp.href}
+                  className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
+                >
+                  Listeyi Gör →
+                </Link>
+                <Link
+                  href="/terminal"
+                  className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
+                >
+                  Düzenle
+                </Link>
+              </div>
             </div>
           );
         })}

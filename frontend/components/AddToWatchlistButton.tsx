@@ -12,20 +12,23 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
   const { isInTracker, addToTracker, removeFromTracker } = useTracker();
   const inTracker = isInTracker(ticker);
 
+  const baseClass = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-black uppercase tracking-wider transition-all duration-150 whitespace-nowrap";
+
   if (inTracker) {
     return (
-      <div className="flex items-center gap-1.5">
-        <span className="text-[#10b981] text-[11px] font-bold flex items-center gap-1 whitespace-nowrap">
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+      <div className="flex items-center gap-1">
+        <span className={`${baseClass} bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30 cursor-default`}>
+          <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
           Active ✓
         </span>
         <button
           onClick={() => removeFromTracker(ticker)}
-          className="px-2 py-1 bg-red-700/80 hover:bg-red-600 text-white text-[10px] font-bold rounded-md transition-all"
+          className="px-1.5 py-1 text-[#ef4444] border border-[#ef4444]/30 rounded text-[10px] font-black hover:bg-[#ef4444]/15 transition-all"
+          title="Kaldır"
         >
-          Kaldır
+          ✕
         </button>
       </div>
     );
@@ -34,9 +37,9 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
   return (
     <button
       onClick={() => addToTracker(ticker, "Swing")}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6] hover:bg-[#2563eb] active:scale-95 text-white text-[11px] font-bold rounded-lg transition-all shadow-[0_0_12px_rgba(59,130,246,0.3)] hover:shadow-[0_0_18px_rgba(59,130,246,0.5)] whitespace-nowrap"
+      className={`${baseClass} bg-transparent text-[#3b82f6] border border-[#3b82f6]/40 hover:bg-[#3b82f6]/15 hover:border-[#3b82f6]/70 active:scale-95`}
     >
-      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
       </svg>
       Active Tracker

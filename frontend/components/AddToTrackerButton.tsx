@@ -43,39 +43,24 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
     setShowModal(false);
   }
 
-  const btnBase = compact
-    ? "inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-200 w-full"
-    : "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider transition-all duration-200 w-full";
-
   return (
     <>
       <button
         id={`add-tracker-${pick.ticker}`}
         onClick={handleClick}
-        className={`${btnBase} ${
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-black uppercase tracking-wider transition-all duration-150 whitespace-nowrap ${
           tracked
-            ? "bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/40 cursor-default"
-            : "bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6]/25 hover:border-[#3b82f6]/60 hover:text-white active:scale-95"
+            ? "bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30 cursor-default"
+            : "bg-transparent text-[#6366f1] border border-[#6366f1]/40 hover:bg-[#6366f1]/15 hover:border-[#6366f1]/70 active:scale-95"
         }`}
       >
-        {tracked ? (
-          <>
-            <svg className={compact ? "w-3 h-3" : "w-3.5 h-3.5"} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Tracked</span>
-          </>
-        ) : (
-          <>
-            <span className="md:hidden">Smart Chart</span>
-            <div className="hidden md:flex items-center gap-1.5">
-               <svg className={compact ? "w-3 h-3" : "w-3.5 h-3.5"} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-               </svg>
-               <span>Smart Chart</span>
-            </div>
-          </>
-        )}
+        <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          {tracked
+            ? <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            : <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          }
+        </svg>
+        <span>{tracked ? "Smart ✓" : "Smart Chart"}</span>
       </button>
 
       {/* Modal */}

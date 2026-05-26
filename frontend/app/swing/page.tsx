@@ -150,8 +150,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                     <th className="px-4 py-4 text-right">1Y</th>
                     <th className="px-4 py-4 text-right">5Y</th>
                     <th className="px-4 py-4 text-right">Option</th>
-                    <th className="px-4 py-4 text-right">Smart Chart</th>
-                    <th className="px-4 py-4 text-right">Active Tracker</th>
+                    <th className="px-4 py-4 text-center">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -214,11 +213,11 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           Option
                         </Link>
                       </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <TrackerButtonWrapper pick={pick} />
-                      </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <WatchlistButtonWrapper ticker={pick.ticker} />
+                      <td className="px-3 py-2.5">
+                        <div className="flex flex-col gap-1.5 items-end">
+                          <TrackerButtonWrapper pick={pick} />
+                          <WatchlistButtonWrapper ticker={pick.ticker} />
+                        </div>
                       </td>
                     </tr>
                   ))}
