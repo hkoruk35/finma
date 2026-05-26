@@ -6,6 +6,7 @@ import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
 import { Inter, Montserrat, JetBrains_Mono } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
+import { TrackerProvider } from "@/components/TrackerContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -139,9 +140,11 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">
         <SmartTrackerProvider>
-          <PWAInstaller />
-          {children}
-          <BottomNavWrapper />
+          <TrackerProvider>
+            <PWAInstaller />
+            {children}
+            <BottomNavWrapper />
+          </TrackerProvider>
         </SmartTrackerProvider>
       </body>
     </html>

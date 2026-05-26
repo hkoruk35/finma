@@ -12,6 +12,96 @@ import { POST } from "../ask/route";
 
 export const runtime = "nodejs";
 
+// ── Tracker-specific calculations ────────────────────────────────────────────
+
+function getEMAStatus(price: number, ema20: number, ema50: number, ema200: number): string {
+  if (price > ema20 && ema20 > ema50 && ema50 > ema200) return "Bullish";
+  if (price > ema20 && ema20 > ema50 && ema50 <= ema200) return "Yükseliş";
+  if (price < ema20 && ema20 < ema50 && ema50 < ema200) return "Bearish";
+  if (price < ema20 && ema20 < ema50 && ema50 >= ema200) return "Düşüş";
+  return "Nötr";
+}
+
+function detectCandlePattern(
+  closes: number[],
+  opens: number[],
+  highs: number[],
+  lows: number[]
+): string {
+  if (closes.length < 2) return "—";
+
+  const curr = { open: opens[opens.length - 1], close: closes[closes.length - 1], high: highs[highs.length - 1], low: lows[lows.length - 1] };
+  const prev = { open: opens[opens.length - 2], close: closes[closes.length - 2] };
+
+  const body = Math.abs(curr.close - curr.open);
+  const range = curr.high - curr.low;
+  const lower_wick = Math.min(curr.close, curr.open) - curr.low;
+  const upper_wick = curr.high - Math.max(curr.close, curr.open);
+  const bullish = curr.close > curr.open;
+  const prev_bullish = prev.close > prev.open;
+  const prev_body = Math.abs(prev.close - prev.open);
+
+  // Doji
+  if (body < range * 0.1) return "Doji";
+
+  // Bullish Engulfing
+  if (bullish && !prev_bullish && body > prev_body) return "Bullish Engulfing";
+
+  // Bearish Engulfing
+  if (!bullish && prev_bullish && body > prev_body) return "Bearish Engulfing";
+
+  // Hammer (bullish = true, long lower wick, short upper wick)
+  if (bullish && lower_wick > body * 2 && upper_wick < body * 0.5) return "Hammer";
+
+  // Inverted Hammer (bullish = true, short lower wick, long upper wick)
+  if (bullish && upper_wick > body * 2 && lower_wick < body * 0.5) return "Inv. Hammer";
+
+  // Shooting Star (bearish = true, long upper wick, short lower wick)
+  if (!bullish && upper_wick > body * 2 && lower_wick < body * 0.5) return "Shooting Star";
+
+  // Hanging Man (bearish = true, long lower wick, short upper wick)
+  if (!bullish && lower_wick > body * 2 && upper_wick < body * 0.5) return "Hanging Man";
+
+  return "—";
+}
+
+function calculateSignal(
+  emaStatus: string,
+  rsi: number,
+  pattern: string,
+  volumeRatio: number
+): string {
+  const bullishPatterns = ["Hammer", "Bullish Engulfing", "Inv. Hammer"];
+  const bearishPatterns = ["Shooting Star", "Bearish Engulfing", "Hanging Man"];
+
+  const isBullishEMA = ["Bullish", "Yükseliş"].includes(emaStatus);
+  const isBearishEMA = ["Bearish", "Düşüş"].includes(emaStatus);
+  const hasGoodRSI = rsi >= 50 && rsi <= 70;
+  const hasBadRSI = rsi < 45;
+  const hasGoodVolume = volumeRatio >= 0.8;
+
+  // AL: Bullish EMA + RSI 50-70 + bullish pattern + good volume
+  if (isBullishEMA && hasGoodRSI && bullishPatterns.includes(pattern) && hasGoodVolume) {
+    return "AL";
+  }
+
+  // SAT: Bearish EMA + RSI < 45 + bearish pattern
+  if (isBearishEMA && hasBadRSI && bearishPatterns.includes(pattern)) {
+    return "SAT";
+  }
+
+  // İzle: 2/3 conditions met
+  const bullishConditions = [isBullishEMA, hasGoodRSI, bullishPatterns.includes(pattern), hasGoodVolume].filter(Boolean).length;
+  if (bullishConditions >= 2 || bullishPatterns.includes(pattern)) {
+    return "İzle";
+  }
+
+  // Bekle: everything else
+  return "Bekle";
+}
+
+// ── Original calculations ────────────────────────────────────────────────────
+
 function calcEMA(prices: number[], period: number): number {
   const k = 2 / (period + 1);
   let ema = prices[0];
@@ -393,6 +483,31 @@ async function fetchYahooLive(ticker: string) {
 
     const micro15 = check15mMicroTrend(closes15m, opens15m, highs15m);
 
+    // ── 1H Technical Analysis for Tracker ────────────────────────────────────
+    let ema20_1h = 0;
+    let ema50_1h = 0;
+    let ema200_1h = 0;
+    let rsi_1h = 0;
+    let candlePattern_1h = "—";
+    let emaStatus_1h = "Nötr";
+    let volumeRatio_1h = 1.0;
+    let signal = "Bekle";
+
+    if (closes1h && closes1h.length >= 20 && opens1h && highs1h && lows1h && volumes1h) {
+      ema20_1h = calcEMA(closes1h, 20);
+      ema50_1h = calcEMA(closes1h, 50);
+      ema200_1h = Math.min(120, closes1h.length) > 0 ? calcEMA(closes1h.slice(-120), 120) : ema50_1h;
+      rsi_1h = calcRSI(closes1h, 14);
+      candlePattern_1h = detectCandlePattern(closes1h, opens1h, highs1h, lows1h);
+      emaStatus_1h = getEMAStatus(closes1h[closes1h.length - 1], ema20_1h, ema50_1h, ema200_1h);
+
+      // Volume ratio: last 1H / 20-bar average
+      const vol20Avg = volumes1h.slice(-20).reduce((a, b) => a + b, 0) / 20;
+      volumeRatio_1h = vol20Avg > 0 ? volumes1h[volumes1h.length - 1] / vol20Avg : 1.0;
+
+      signal = calculateSignal(emaStatus_1h, rsi_1h, candlePattern_1h, volumeRatio_1h);
+    }
+
     const quoteSummary = await quoteRes.json().catch(() => ({}));
     const qResult = quoteSummary?.quoteSummary?.result?.[0] || {};
     const sumDetail = qResult.summaryDetail || {};
@@ -587,6 +702,16 @@ async function fetchYahooLive(ticker: string) {
         rvol: rvol,
         "52w_high": high52w,
         "52w_low": low52w
+      },
+      tracker_1h: {
+        ema_20: Number(ema20_1h.toFixed(2)),
+        ema_50: Number(ema50_1h.toFixed(2)),
+        ema_200: Number(ema200_1h.toFixed(2)),
+        ema_status: emaStatus_1h,
+        rsi: Number(rsi_1h.toFixed(1)),
+        candle_pattern: candlePattern_1h,
+        signal: signal,
+        volume_ratio: Number(volumeRatio_1h.toFixed(2))
       },
       fundamental: {
         pe_ratio: peRatio,

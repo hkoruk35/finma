@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import TopSwingPicks from "@/components/TopSwingPicks";
 import TrackerButtonWrapper from "@/components/TrackerButtonWrapper";
+import { WatchlistButtonWrapper } from "@/components/WatchlistButtonWrapper";
 import Link from "next/link";
 import { Metadata } from "next";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
@@ -213,7 +214,10 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         </Link>
                       </td>
                       <td className="px-3 py-2.5 text-right">
-                        <TrackerButtonWrapper pick={pick} />
+                        <div className="flex gap-2">
+                          <TrackerButtonWrapper pick={pick} />
+                          <WatchlistButtonWrapper ticker={pick.ticker} />
+                        </div>
                       </td>
                     </tr>
                   ))}
