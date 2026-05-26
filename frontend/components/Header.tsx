@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { name: "Themes", href: "/theme" },
   { name: "Stock Search", href: "/ai" },
   { name: "Swing", href: "/swing" },
-  { name: "Option", href: "/optanaliz" },
+  { name: "Option", href: "/options" },
 ];
 
 export default function Header({
