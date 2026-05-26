@@ -8,6 +8,7 @@ const DATA_ROOT = process.env.FINMA_DATA_PATH
   : path.resolve(process.cwd(), "..", "transfer");
 
 export const runtime = "nodejs";
+export const maxDuration = 30;
 
 // ── Tracker-specific calculations ────────────────────────────────────────────
 
@@ -340,10 +341,10 @@ async function fetchYahooLive(ticker: string) {
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
 
     const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
-      fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
-      fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(quoteUrl, { signal: AbortSignal.timeout(10000) })
+      fetch(chartUrl, { signal: AbortSignal.timeout(6000) }),
+      fetch(chart1hUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
+      fetch(chart15mUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
+      fetch(quoteUrl, { signal: AbortSignal.timeout(6000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response))
     ]);
 
     if (!chartRes.ok) return null;

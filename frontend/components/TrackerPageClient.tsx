@@ -28,6 +28,9 @@ interface TrackerData {
 type SortKey = "signal" | "rsi" | "ema_status" | "price" | "ticker";
 type SortOrder = "asc" | "desc";
 
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
+
 export function TrackerPageClient() {
   const { tickers, notes, types, removeFromTracker, updateNote, updateType } = useTracker();
   const [data, setData] = useState<Record<string, TrackerData>>({});
@@ -89,7 +92,7 @@ export function TrackerPageClient() {
     let filtered = tickers.filter((ticker) => {
       const t = data[ticker];
       if (!t) return true;
-      if (filterSignal && t.tracker_1h.signal !== filterSignal) return false;
+      if (filterSignal && t.tracker_1h?.signal !== filterSignal) return false;
       if (filterType && types[ticker] !== filterType) return false;
       return true;
     });
@@ -103,19 +106,19 @@ export function TrackerPageClient() {
       let cmp = 0;
 
       if (sortKey === "signal") {
-        cmp = signalPriority[dataA.tracker_1h.signal] - signalPriority[dataB.tracker_1h.signal];
+        cmp = (signalPriority[dataA.tracker_1h?.signal ?? ""] ?? 2) - (signalPriority[dataB.tracker_1h?.signal ?? ""] ?? 2);
         if (cmp === 0) {
-          cmp = dataB.tracker_1h.rsi - dataA.tracker_1h.rsi; // RSI descending
+          cmp = (dataB.tracker_1h?.rsi ?? 50) - (dataA.tracker_1h?.rsi ?? 50);
           if (cmp === 0) {
-            cmp = emaPriority[dataA.tracker_1h.ema_status] - emaPriority[dataB.tracker_1h.ema_status];
+            cmp = (emaPriority[dataA.tracker_1h?.ema_status ?? ""] ?? 2) - (emaPriority[dataB.tracker_1h?.ema_status ?? ""] ?? 2);
           }
         }
       } else if (sortKey === "rsi") {
-        cmp = dataB.tracker_1h.rsi - dataA.tracker_1h.rsi;
+        cmp = (dataB.tracker_1h?.rsi ?? 50) - (dataA.tracker_1h?.rsi ?? 50);
       } else if (sortKey === "ema_status") {
-        cmp = emaPriority[dataA.tracker_1h.ema_status] - emaPriority[dataB.tracker_1h.ema_status];
+        cmp = (emaPriority[dataA.tracker_1h?.ema_status ?? ""] ?? 2) - (emaPriority[dataB.tracker_1h?.ema_status ?? ""] ?? 2);
       } else if (sortKey === "price") {
-        cmp = dataB.price.current - dataA.price.current;
+        cmp = (dataB.price?.current ?? 0) - (dataA.price?.current ?? 0);
       } else if (sortKey === "ticker") {
         cmp = a.localeCompare(b);
       }
@@ -144,6 +147,7 @@ export function TrackerPageClient() {
   };
 
   const getRowBackground = (t: TrackerData): string => {
+    if (!t.tracker_1h) return "bg-slate-900";
     const { ema_status, rsi, volume_ratio, signal } = t.tracker_1h;
     const isBullish = ema_status === "Bullish";
     const hasGoodRSI = rsi >= 50 && rsi <= 70;
@@ -320,31 +324,31 @@ export function TrackerPageClient() {
                     </td>
 
                     {/* Price */}
-                    <td className="px-2 py-2 text-right text-white font-semibold">${t.price.current.toFixed(2)}</td>
+                    <td className="px-2 py-2 text-right text-white font-semibold">${fmt2(t.price?.current)}</td>
 
                     {/* Change % */}
-                    <td className={`px-2 py-2 text-right font-semibold ${t.price.change_pct >= 0 ? "text-green-400" : "text-red-400"}`}>
-                      {t.price.change_pct >= 0 ? "+" : ""}{t.price.change_pct.toFixed(2)}%
+                    <td className={`px-2 py-2 text-right font-semibold ${(t.price?.change_pct ?? 0) >= 0 ? "text-green-400" : "text-red-400"}`}>
+                      {(t.price?.change_pct ?? 0) >= 0 ? "+" : ""}{fmt2(t.price?.change_pct)}%
                     </td>
 
                     {/* Volume Ratio */}
-                    <td className={`px-2 py-2 text-right ${getVolumeColor(t.tracker_1h.volume_ratio)}`}>
-                      {t.tracker_1h.volume_ratio.toFixed(2)}x
+                    <td className={`px-2 py-2 text-right ${getVolumeColor(t.tracker_1h?.volume_ratio ?? 1)}`}>
+                      {fmt2(t.tracker_1h?.volume_ratio)}x
                     </td>
 
                     {/* EMA20 */}
-                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price.current, t.tracker_1h.ema_20)}`}>
-                      ${t.tracker_1h.ema_20.toFixed(2)}
+                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price?.current ?? 0, t.tracker_1h?.ema_20 ?? 0)}`}>
+                      ${fmt2(t.tracker_1h?.ema_20)}
                     </td>
 
                     {/* EMA50 */}
-                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price.current, t.tracker_1h.ema_50)}`}>
-                      ${t.tracker_1h.ema_50.toFixed(2)}
+                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price?.current ?? 0, t.tracker_1h?.ema_50 ?? 0)}`}>
+                      ${fmt2(t.tracker_1h?.ema_50)}
                     </td>
 
                     {/* EMA200 */}
-                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price.current, t.tracker_1h.ema_200)}`}>
-                      ${t.tracker_1h.ema_200.toFixed(2)}
+                    <td className={`px-2 py-2 text-right font-semibold ${getEMACellColor(t.price?.current ?? 0, t.tracker_1h?.ema_200 ?? 0)}`}>
+                      ${fmt2(t.tracker_1h?.ema_200)}
                     </td>
 
                     {/* EMA Status */}
@@ -361,8 +365,8 @@ export function TrackerPageClient() {
                     </td>
 
                     {/* RSI */}
-                    <td className={`px-2 py-2 text-right font-semibold ${getRSIColor(t.tracker_1h.rsi)}`}>
-                      {t.tracker_1h.rsi.toFixed(1)}
+                    <td className={`px-2 py-2 text-right font-semibold ${getRSIColor(t.tracker_1h?.rsi ?? 50)}`}>
+                      {fmt1(t.tracker_1h?.rsi)}
                     </td>
 
                     {/* Pattern */}
