@@ -1,56 +1,20 @@
-name: Deploy FinMA
+name: Deploy to Vercel
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  deploy-frontend:
+  deploy:
     runs-on: ubuntu-latest
-    name: Deploy Frontend to Vercel
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        working-directory: frontend
-        run: npm ci
-
-      - name: Copy bot data into public folder for Vercel
-        run: |
-          mkdir -p frontend/public/data
-          # Copy historical dates from data/ folder
-          if [ -d "data" ]; then
-            cp -r data/* frontend/public/data/
-            echo "Historical data copied from data/ to public/data/"
-          fi
-          # Ensure latest is updated from transfer/latest if it exists
-          mkdir -p frontend/public/data/latest
-          if [ -d "transfer/latest" ]; then
-            cp -r transfer/latest/. frontend/public/data/latest/
-            echo "Latest data copied from transfer/latest to public/data/latest"
-          fi
-          echo "Directories in public/data: $(ls frontend/public/data)"
-
-      - name: Build
-        working-directory: frontend
-        run: npm run build
-        env:
-          NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
-          NEXT_PUBLIC_DATA_URL: /data/latest
-
+      - uses: actions/checkout@v3
+      
       - name: Deploy to Vercel
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: frontend
-          vercel-args: '--prod'
+          working-directory: ./frontend
+          production: true
