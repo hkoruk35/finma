@@ -407,6 +407,11 @@ async function fetchYahooLive(ticker: string) {
     let opens1h: number[] | null = null;
     let volumes1h: number[] | null = null;
 
+    // Hourly bars for heat map — indexed by HOUR_SLOTS = ["09:15","10:00",..."16:15"]
+    const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:00","16:15"];
+    const hourlyBars: { time: string; price: number | null; change_pct: number | null; volume: number | null; volume_ratio: number | null }[]
+      = HOUR_SLOTS.map(t => ({ time: t, price: null, change_pct: null, volume: null, volume_ratio: null }));
+
     if (chart1hRes && chart1hRes.ok) {
       try {
         const c1hData = await chart1hRes.json();
@@ -418,6 +423,7 @@ async function fetchYahooLive(ticker: string) {
           const rHi1h = q1h.high || [];
           const rLo1h = q1h.low || [];
           const rVo1h = q1h.volume || [];
+          const timestamps1h: number[] = res1h.timestamp || [];
 
           closes1h = [];
           highs1h = [];
@@ -433,6 +439,78 @@ async function fetchYahooLive(ticker: string) {
               lows1h.push(rLo1h[i]);
               volumes1h.push(rVo1h[i] || 0);
             }
+          }
+
+          // ── Build today's hourly bars for the heat map ──────────────────────
+          // Get today's date string in NY timezone
+          const nyNow = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+          const todayNY = `${nyNow.getFullYear()}-${String(nyNow.getMonth()+1).padStart(2,"0")}-${String(nyNow.getDate()).padStart(2,"0")}`;
+
+          // Compute avg volume from today's bars for volume_ratio
+          const todayVols: number[] = [];
+          for (let i = 0; i < timestamps1h.length; i++) {
+            if (rCl1h[i] === null) continue;
+            const d = new Date(timestamps1h[i] * 1000);
+            const dNY = new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            const dStr = `${dNY.getFullYear()}-${String(dNY.getMonth()+1).padStart(2,"0")}-${String(dNY.getDate()).padStart(2,"0")}`;
+            if (dStr === todayNY && rVo1h[i]) todayVols.push(rVo1h[i]);
+          }
+          const avgVol = todayVols.length > 0 ? todayVols.reduce((a,b)=>a+b,0)/todayVols.length : 0;
+
+          // Prev day close for change_pct reference
+          let prevDayClose: number | null = null;
+          for (let i = 0; i < timestamps1h.length; i++) {
+            if (rCl1h[i] === null) continue;
+            const d = new Date(timestamps1h[i] * 1000);
+            const dNY = new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            const dStr = `${dNY.getFullYear()}-${String(dNY.getMonth()+1).padStart(2,"0")}-${String(dNY.getDate()).padStart(2,"0")}`;
+            if (dStr < todayNY) prevDayClose = rCl1h[i];
+          }
+
+          for (let i = 0; i < timestamps1h.length; i++) {
+            if (rCl1h[i] === null) continue;
+            const d = new Date(timestamps1h[i] * 1000);
+            const dNY = new Date(d.toLocaleString("en-US", { timeZone: "America/New_York" }));
+            const dStr = `${dNY.getFullYear()}-${String(dNY.getMonth()+1).padStart(2,"0")}-${String(dNY.getDate()).padStart(2,"0")}`;
+            if (dStr !== todayNY) continue;
+
+            const hh = String(dNY.getHours()).padStart(2,"0");
+            const mm = String(dNY.getMinutes()).padStart(2,"0");
+            const slotKey = `${hh}:${mm}`;
+
+            // Map bar start time to nearest HOUR_SLOT
+            // 09:30 → "09:15", 10:00 → "10:00", etc.
+            let matchSlot: string | null = null;
+            if (slotKey >= "09:15" && slotKey < "10:00") matchSlot = "09:15";
+            else if (slotKey >= "10:00" && slotKey < "11:00") matchSlot = "10:00";
+            else if (slotKey >= "11:00" && slotKey < "12:00") matchSlot = "11:00";
+            else if (slotKey >= "12:00" && slotKey < "13:00") matchSlot = "12:00";
+            else if (slotKey >= "13:00" && slotKey < "14:00") matchSlot = "13:00";
+            else if (slotKey >= "14:00" && slotKey < "15:00") matchSlot = "14:00";
+            else if (slotKey >= "15:00" && slotKey < "16:00") matchSlot = "15:00";
+            else if (slotKey >= "16:00" && slotKey < "16:15") matchSlot = "16:00";
+            else if (slotKey >= "16:15") matchSlot = "16:15";
+
+            if (!matchSlot) continue;
+            const slotIdx = HOUR_SLOTS.indexOf(matchSlot);
+            if (slotIdx === -1) continue;
+
+            const barClose = rCl1h[i];
+            const ref = prevDayClose ?? barClose;
+            const changePct = ref > 0 ? ((barClose - ref) / ref) * 100 : 0;
+            const vol = rVo1h[i] || null;
+            const volRatio = avgVol > 0 && vol ? vol / avgVol : null;
+
+            // Keep last bar of the slot (overwrite with later bar in same slot)
+            hourlyBars[slotIdx] = {
+              time: matchSlot,
+              price: Number(barClose.toFixed(2)),
+              change_pct: Number(changePct.toFixed(2)),
+              volume: vol,
+              volume_ratio: volRatio !== null ? Number(volRatio.toFixed(2)) : null,
+            };
+
+            prevDayClose = barClose; // rolling ref: each bar's change vs previous bar
           }
         }
       } catch {}
@@ -746,7 +824,8 @@ async function fetchYahooLive(ticker: string) {
         target_range_high: timing.sell_zone.high,
         stop_loss: timing.stop_zone.high,
         risk_reward_ratio: timing.rr_ratio
-      }
+      },
+      hourly: hourlyBars
     };
   } catch (e) {
     console.error("fetchYahooLive error:", e);
@@ -777,8 +856,8 @@ export async function GET(req: NextRequest) {
         path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`),
       ];
 
-      // Static files older than 4 hours are considered stale — fall through to live fetch
-      const MAX_STATIC_AGE_MS = 4 * 60 * 60 * 1000;
+      // Static files older than 1 hour are considered stale — fall through to live fetch
+      const MAX_STATIC_AGE_MS = 1 * 60 * 60 * 1000;
       const now = Date.now();
 
       let foundData = false;
