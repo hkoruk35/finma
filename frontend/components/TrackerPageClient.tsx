@@ -276,7 +276,9 @@ export function TrackerPageClient() {
                         {ticker}
                       </Link>
                       {t && (
-                        <span className="text-slate-500 text-[10px] leading-none">{t.sector || t.company}</span>
+                        <span className="text-slate-500 text-[10px] leading-none">
+                          {t.sector && t.sector !== "Unknown" ? t.sector : t.company || ""}
+                        </span>
                       )}
                     </div>
 
@@ -284,12 +286,16 @@ export function TrackerPageClient() {
                     {hoverTicker === ticker && (
                       <div
                         className="absolute left-0 top-full mt-1 z-50 bg-[#0d1117] border border-white/15 rounded-lg shadow-2xl overflow-hidden"
-                        style={{ width: 340, height: 220 }}
+                        style={{ width: 360, height: 230 }}
                       >
                         <iframe
-                          src={`https://s.tradingview.com/widgetembed/?symbol=${ticker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&frameElementId=tv_${ticker}`}
-                          style={{ width: "100%", height: "100%", border: "none" }}
-                          title={`${ticker} 1H chart`}
+                          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_${ticker}&symbol=${ticker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+                          width="360"
+                          height="230"
+                          style={{ border: "none", display: "block" }}
+                          title={`${ticker} 1H`}
+                          loading="eager"
+                          allow="fullscreen"
                         />
                       </div>
                     )}
