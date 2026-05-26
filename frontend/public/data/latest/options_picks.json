@@ -1,27 +1,27 @@
 {
   "version": "v242",
-  "date": "2026-05-25",
-  "generated_at": "2026-05-25T15:30:57.752722-04:00",
-  "vix": 16.59000015258789,
+  "date": "2026-05-26",
+  "generated_at": "2026-05-26T11:01:38.071587-04:00",
+  "vix": 16.899999618530273,
   "dte_range": "10-60",
   "earnings_hard_block_days": 14,
   "active_sectors": [
-    "XLV",
-    "SMH"
+    "SMH",
+    "XLK"
   ],
   "regime": {
     "regime": "bull",
-    "score": 83,
-    "qqq_5d": 1.21,
-    "qqq_20d": 8.08,
+    "score": 90,
+    "qqq_5d": 3.4,
+    "qqq_20d": 9.89,
     "qqq_above_ema20": true,
-    "spy_gap_pct": 0.47,
+    "spy_gap_pct": 0.59,
     "spy_gap_up": true,
     "spy_gap_down": false,
     "spy_gap_flat": false
   },
-  "universe_size": 40,
-  "scan_duration_sec": 52.400508880615234,
+  "universe_size": 45,
+  "scan_duration_sec": 76.86679029464722,
   "total_candidates": 0,
   "picks": []
 }
