@@ -1,6 +1,6 @@
 {
   "date": "2026-05-26",
-  "last_updated": "2026-05-26T14:53:32.747041-04:00",
+  "last_updated": "2026-05-26T15:53:27.022076-04:00",
   "tickers": {
     "DXCM": {
       "status_history": [
@@ -194,6 +194,10 @@
         {
           "hour": "14:53",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -204,6 +208,10 @@
       "status_history": [
         {
           "hour": "14:53",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
           "status": "ENTRY_NOW"
         }
       ],
@@ -216,6 +224,10 @@
         {
           "hour": "14:53",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -226,6 +238,10 @@
       "status_history": [
         {
           "hour": "14:53",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
           "status": "ENTRY_NOW"
         }
       ],
@@ -238,6 +254,10 @@
         {
           "hour": "14:53",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -248,6 +268,10 @@
       "status_history": [
         {
           "hour": "14:53",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
           "status": "ENTRY_NOW"
         }
       ],
@@ -260,6 +284,10 @@
         {
           "hour": "14:53",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -271,6 +299,10 @@
         {
           "hour": "14:53",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -281,6 +313,10 @@
       "status_history": [
         {
           "hour": "14:53",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:53",
           "status": "ENTRY_NOW"
         }
       ],
