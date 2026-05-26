@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import TVChartEmbed from "@/components/TVChartEmbed";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
+import { useTracker } from "@/components/TrackerContext";
 import { computePnl } from "@/lib/smartTracker";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -349,6 +350,7 @@ export default function TerminalClient() {
   // DEPLOYMENT MARKER - Custom watchlists v2.0 live
   console.log("✅ TerminalClient with custom watchlists (525CSP, 2550CSP, 50250CSP) loaded!");
   const { activeTracker } = useSmartTracker();
+  const { tickers: trackerList, addToTracker: addToTrackerContext, removeFromTracker } = useTracker();
 
   // Selected instrument (for main chart)
   const [selected, setSelected] = useState<Instrument>(GROUPS[0].items[0]);
@@ -407,8 +409,7 @@ export default function TerminalClient() {
   const [watchlist50250CSP, setWatchlist50250CSP] = useState<string[]>([]);
   const [watchInput50250CSP, setWatchInput50250CSP] = useState("");
 
-  // Tracker (localStorage - Terminal manual version)
-  const [trackerList, setTrackerList] = useState<string[]>([]);
+  // Tracker input (UI state only)
   const [trackerInput, setTrackerInput] = useState("");
 
   // Watchlist: selected ticker in right panel
@@ -439,11 +440,6 @@ export default function TerminalClient() {
     window.addEventListener("watchlist_update", reloadWatch);
 
     try {
-      const savedTracker = localStorage.getItem("terminal_tracker");
-      if (savedTracker) setTrackerList(JSON.parse(savedTracker));
-    } catch {}
-
-    try {
       const saved525 = localStorage.getItem("terminal_watchlist_525csp");
       if (saved525) setWatchlist525CSP(JSON.parse(saved525));
       const saved2550 = localStorage.getItem("terminal_watchlist_2550csp");
@@ -463,11 +459,6 @@ export default function TerminalClient() {
     try { localStorage.setItem("watchlist", JSON.stringify(list)); } catch {}
   };
 
-  const saveTrackerList = (list: string[]) => {
-    setTrackerList(list);
-    try { localStorage.setItem("terminal_tracker", JSON.stringify(list)); } catch {}
-  };
-
   const addToWatchlist = () => {
     const t = watchInput.trim().toUpperCase();
     if (!t || watchlist.includes(t) || watchlist.length >= 100) return;
@@ -478,7 +469,7 @@ export default function TerminalClient() {
   const addToTracker = () => {
     const t = trackerInput.trim().toUpperCase();
     if (!t || trackerList.includes(t) || trackerList.length >= 100) return;
-    saveTrackerList([...trackerList, t]);
+    addToTrackerContext(t, "Swing");
     setTrackerInput("");
   };
 
@@ -1200,7 +1191,7 @@ export default function TerminalClient() {
                     checked={checked.includes(ticker)}
                     onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
-                    onRemove={() => saveTrackerList(trackerList.filter((t) => t !== ticker))}
+                    onRemove={() => removeFromTracker(ticker)}
                   />
                 ))}
               </div>
