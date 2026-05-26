@@ -1,31 +1,29 @@
 {
-  "date": "2026-05-25",
-  "generated_at": "2026-05-25T13:11:29.277406-04:00",
+  "date": "2026-05-26",
+  "generated_at": "2026-05-26T13:57:59.163881-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 17,
+  "active_scores_count": 9,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 9,
       "tickers": [
-        "HON",
-        "MSM",
-        "STNG",
-        "BGC",
-        "TILE",
-        "CSTM",
-        "DXCM",
-        "VIPS",
-        "XRN",
-        "NVRI"
+        "RNST",
+        "FAST",
+        "PPG",
+        "UNP",
+        "LPG",
+        "SKM",
+        "LOCO",
+        "AVGO",
+        "MDU"
       ]
     },
     "breakout": {
-      "count": 3,
+      "count": 2,
       "tickers": [
-        "CSTM",
-        "BWA",
-        "VSAT"
+        "SKM",
+        "AVGO"
       ]
     },
     "value": {
@@ -39,8 +37,8 @@
     "momentum": {
       "count": 2,
       "tickers": [
-        "SOLV",
-        "AMZN"
+        "LPG",
+        "LOCO"
       ]
     },
     "dividend": {
@@ -50,18 +48,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "HON",
-      "score": 64.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "MSM",
+      "ticker": "RNST",
       "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "STNG",
-      "score": 59.5,
+      "ticker": "FAST",
+      "score": 59.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "PPG",
+      "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

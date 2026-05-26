@@ -1,0 +1,92 @@
+[
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "LPG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 44.44,
+        "entry_zone": "43.45 - 45.43",
+        "SL": 40.48,
+        "TP": 50.38
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "SKM",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 38.33,
+        "entry_zone": "37.47 - 39.18",
+        "SL": 34.9,
+        "TP": 43.46
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "PPG",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 109.61,
+        "entry_zone": "107.90 - 111.33",
+        "SL": 102.77,
+        "TP": 119.89
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 422.07,
+        "entry_zone": "413.68 - 430.45",
+        "SL": 388.52,
+        "TP": 472.38
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "MDU",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 22.3,
+        "entry_zone": "22.04 - 22.56",
+        "SL": 21.28,
+        "TP": 23.83
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "LOCO",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 13.86,
+        "entry_zone": "13.57 - 14.15",
+        "SL": 12.7,
+        "TP": 15.59
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "FAST",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 44.32,
+        "entry_zone": "43.86 - 44.78",
+        "SL": 42.46,
+        "TP": 47.11
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "RNST",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 41.28,
+        "entry_zone": "40.87 - 41.68",
+        "SL": 39.67,
+        "TP": 43.68
+    },
+    {
+        "date": "2026-05-26 14:53",
+        "symbol": "UNP",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 271.64,
+        "entry_zone": "268.99 - 274.29",
+        "SL": 261.05,
+        "TP": 287.52
+    }
+]
