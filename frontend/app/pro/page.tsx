@@ -272,18 +272,6 @@ export default async function ProPage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
 
-
-        {/* Swing Performance Stats from Homepage */}
-        <section className="mb-12">
-          <SwingPerformanceBanner stats={swingStats?.stats} />
-          <SectorPerformanceHeatMap history={swingStats?.history || []} />
-        </section>
-
-        {/* Top 3 Swing of the Day from Homepage */}
-        <section className="mb-4">
-          <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
-        </section>
-
         {/* CSP Strategy Watchlists */}
         <section className="mb-12">
           <div className="mb-6">
@@ -348,6 +336,17 @@ export default async function ProPage() {
               </div>
             </Link>
           </div>
+        </section>
+
+        {/* Swing Performance Stats from Homepage */}
+        <section className="mb-12">
+          <SwingPerformanceBanner stats={swingStats?.stats} />
+          <SectorPerformanceHeatMap history={swingStats?.history || []} />
+        </section>
+
+        {/* Top 3 Swing of the Day from Homepage */}
+        <section className="mb-4">
+          <TopSwingPicks picks={swingPicks?.picks || []} allTickers={allTickers} minimal={true} />
         </section>
 
 
