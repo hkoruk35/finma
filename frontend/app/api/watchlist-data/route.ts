@@ -777,16 +777,22 @@ export async function GET(req: NextRequest) {
         path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`),
       ];
 
+      // Static files older than 4 hours are considered stale — fall through to live fetch
+      const MAX_STATIC_AGE_MS = 4 * 60 * 60 * 1000;
+      const now = Date.now();
+
       let foundData = false;
       for (const p of localPaths) {
         if (fs.existsSync(p)) {
           try {
+            const mtime = fs.statSync(p).mtimeMs;
+            if (now - mtime > MAX_STATIC_AGE_MS) continue; // stale — skip
             let content = fs.readFileSync(p, "utf-8");
             content = content
               .replace(/:\s*NaN/g, ": null")
               .replace(/:\s*Infinity/g, ": null")
               .replace(/:\s*-Infinity/g, ": null");
-            
+
             const parsed = JSON.parse(content);
             if (parsed && parsed.ticker) {
               results.push(parsed);
