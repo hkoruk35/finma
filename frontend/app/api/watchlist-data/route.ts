@@ -339,12 +339,15 @@ async function fetchYahooLive(ticker: string) {
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
+    // Fast profile-only fetch for reliable sector data
+    const profileUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=assetProfile`;
 
-    const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
+    const [chartRes, chart1hRes, chart15mRes, quoteRes, profileRes] = await Promise.all([
       fetch(chartUrl, { signal: AbortSignal.timeout(6000) }),
       fetch(chart1hUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
       fetch(chart15mUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
-      fetch(quoteUrl, { signal: AbortSignal.timeout(6000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response))
+      fetch(quoteUrl, { signal: AbortSignal.timeout(8000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
+      fetch(profileUrl, { signal: AbortSignal.timeout(8000) }).catch(() => null),
     ]);
 
     if (!chartRes.ok) return null;
@@ -515,9 +518,16 @@ async function fetchYahooLive(ticker: string) {
     const quoteSummary = await quoteRes.json().catch(() => ({}));
     const qResult = quoteSummary?.quoteSummary?.result?.[0] || {};
     const sumDetail = qResult.summaryDetail || {};
-    const assetProfile = qResult.assetProfile || {};
     const finData = qResult.financialData || {};
     const stats = qResult.defaultKeyStatistics || {};
+
+    // Try dedicated profile fetch first for more reliable sector data
+    let assetProfile = qResult.assetProfile || {};
+    if (!assetProfile.sector && profileRes) {
+      const profileData = await profileRes.json().catch(() => ({}));
+      const pResult = profileData?.quoteSummary?.result?.[0] || {};
+      if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
+    }
 
     const marketCap = sumDetail.marketCap?.raw || 0;
     const peRatio = sumDetail.trailingPE?.raw || 0;
