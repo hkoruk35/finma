@@ -4,411 +4,717 @@ import { useEffect, useState, useMemo, useCallback } from "react";
 import { useTracker } from "@/components/TrackerContext";
 import Link from "next/link";
 
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface HourlyBar {
+  time: string;
+  price: number | null;
+  change_pct: number | null;
+  volume: number | null;
+  volume_ratio: number | null;
+}
+
 interface TrackerData {
   ticker: string;
   company: string;
   sector: string;
   generated_at?: string;
-  price: {
-    current: number;
-    prev_close: number;
-    change_pct: number;
-  };
+  price: { current: number; prev_close: number; change_pct: number };
   tracker_1h: {
-    ema_20: number;
-    ema_50: number;
-    ema_200: number;
-    ema_status: string;
-    rsi: number;
-    candle_pattern: string;
-    signal: string;
-    volume_ratio: number;
-    change_pct_1h: number;
+    ema_20: number; ema_50: number; ema_200: number;
+    ema_status: string; rsi: number; candle_pattern: string;
+    signal: string; volume_ratio: number; change_pct_1h: number;
   };
+  hourly?: HourlyBar[];
 }
 
-type SortKey = "signal" | "rsi" | "ema_status" | "price" | "ticker";
-type SortOrder = "asc" | "desc";
+// ── Config ─────────────────────────────────────────────────────────────────
 
-const fmt2 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(2) : "—";
-const fmt1 = (n: number | null | undefined) =>
-  n != null && isFinite(n) ? n.toFixed(1) : "—";
+const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
+  Swing:  { bg: "#1c2a1c", text: "#3fb950" },
+  Long:   { bg: "#1c2433", text: "#58a6ff" },
+  Option: { bg: "#2a1c2a", text: "#d2a8ff" },
+  CSP:    { bg: "#2a2010", text: "#e3b341" },
+  CC:     { bg: "#2a1c1c", text: "#f0883e" },
+};
+
+const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕" };
+const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+
+const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:00","16:15"];
+
+const ACCENT = "#58a6ff";
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
+const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
+const fmtVol = (v: number) => v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+
+function rsiColor(rsi: number) {
+  if (rsi >= 70) return "#f85149";
+  if (rsi >= 50) return "#3fb950";
+  if (rsi >= 40) return "#e3b341";
+  return "#f85149";
+}
+
+function emaColor(price: number, ema: number) {
+  if (!ema) return "#8b949e";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "#e3b341";
+  return price > ema ? "#3fb950" : "#f85149";
+}
+
+function emaArrow(price: number, ema: number) {
+  if (!ema) return "";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "~";
+  return price > ema ? "↑" : "↓";
+}
+
+function heatBg(pct: number | null) {
+  if (pct === null) return { bg: "#111111", text: "#333333" };
+  if (pct >= 2.0) return { bg: "#0d4a0d", text: "#56d364" };
+  if (pct >= 1.0) return { bg: "#0d3a0d", text: "#3fb950" };
+  if (pct >= 0.3) return { bg: "#0d2a0d", text: "#3fb950" };
+  if (pct > -0.3) return { bg: "#1a1a1a", text: "#8b949e" };
+  if (pct > -1.0) return { bg: "#2a0d0d", text: "#f85149" };
+  if (pct > -2.0) return { bg: "#3a0d0d", text: "#f85149" };
+  return { bg: "#4a0d0d", text: "#ff7b72" };
+}
+
+function isMarketOpen() {
+  const now = new Date();
+  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const h = et.getHours(), m = et.getMinutes(), day = et.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = h * 60 + m;
+  return mins >= 9 * 60 + 30 && mins < 16 * 60;
+}
+
+// ── Main Component ─────────────────────────────────────────────────────────
 
 export function TrackerPageClient() {
-  const { tickers, notes, types, removeFromTracker, updateNote, updateType } = useTracker();
+  const { tickers, notes, types, removeFromTracker, updateNote, updateType, addToTracker } = useTracker();
   const [data, setData] = useState<Record<string, TrackerData>>({});
   const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [sortKey, setSortKey] = useState<SortKey>("signal");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
-  const [filterSignal, setFilterSignal] = useState<string>("");
-  const [filterType, setFilterType] = useState<string>("");
-  const [editingNote, setEditingNote] = useState<string | null>(null);
-  const [noteValue, setNoteValue] = useState("");
+  const [filterSignal, setFilterSignal] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
+  const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
+  const [addInput, setAddInput] = useState("");
+  const [addType, setAddType] = useState("Swing");
+  const [mounted, setMounted] = useState(false);
 
-  const fetchTrackerData = useCallback(async () => {
-    if (tickers.length === 0) {
-      setData({});
-      return;
-    }
+  useEffect(() => { setMounted(true); }, []);
+
+  const fetchData = useCallback(async () => {
+    if (tickers.length === 0) { setData({}); return; }
     setLoading(true);
     try {
-      const response = await fetch(`/api/watchlist-data?tickers=${tickers.join(",")}`);
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const results = await response.json();
-      const dataMap: Record<string, TrackerData> = {};
-      results.forEach((item: TrackerData) => {
-        if (item?.ticker) dataMap[item.ticker] = item;
-      });
-      setData(dataMap);
+      const res = await fetch(`/api/watchlist-data?tickers=${tickers.join(",")}`);
+      if (!res.ok) throw new Error();
+      const results = await res.json();
+      const map: Record<string, TrackerData> = {};
+      results.forEach((item: TrackerData) => { if (item?.ticker) map[item.ticker] = item; });
+      setData(map);
       setLastUpdated(new Date());
-    } catch (error) {
-      console.error("Failed to fetch tracker data:", error);
-    } finally {
-      setLoading(false);
-    }
+    } catch {}
+    finally { setLoading(false); }
   }, [tickers]);
 
   useEffect(() => {
-    fetchTrackerData();
-    const interval = setInterval(fetchTrackerData, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, [fetchTrackerData]);
+    fetchData();
+    const iv = setInterval(fetchData, 5 * 60 * 1000);
+    return () => clearInterval(iv);
+  }, [fetchData]);
 
-  const signalPriority: Record<string, number> = { "AL": 0, "İzle": 1, "Bekle": 2, "SAT": 3 };
-  const emaPriority: Record<string, number> = { "Bullish": 0, "Yükseliş": 1, "Nötr": 2, "Düşüş": 3, "Bearish": 4 };
+  const filtered = useMemo(() => tickers.filter(sym => {
+    const d = data[sym];
+    if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
+    if (filterType && (types[sym] || "Swing") !== filterType) return false;
+    return true;
+  }), [tickers, data, filterSignal, filterType, types]);
 
-  const sortedTickers = useMemo(() => {
-    const filtered = tickers.filter((ticker) => {
-      const t = data[ticker];
-      if (!t) return true;
-      if (filterSignal && t.tracker_1h?.signal !== filterSignal) return false;
-      if (filterType && types[ticker] !== filterType) return false;
-      return true;
-    });
+  const alCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "AL").length;
+  const izleCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "İzle").length;
 
-    return filtered.sort((a, b) => {
-      const dataA = data[a];
-      const dataB = data[b];
-      if (!dataA || !dataB) return 0;
-      let cmp = 0;
-      if (sortKey === "signal") {
-        cmp = (signalPriority[dataA.tracker_1h?.signal ?? ""] ?? 2) - (signalPriority[dataB.tracker_1h?.signal ?? ""] ?? 2);
-        if (cmp === 0) cmp = (dataB.tracker_1h?.rsi ?? 50) - (dataA.tracker_1h?.rsi ?? 50);
-        if (cmp === 0) cmp = (emaPriority[dataA.tracker_1h?.ema_status ?? ""] ?? 2) - (emaPriority[dataB.tracker_1h?.ema_status ?? ""] ?? 2);
-      } else if (sortKey === "rsi") {
-        cmp = (dataB.tracker_1h?.rsi ?? 50) - (dataA.tracker_1h?.rsi ?? 50);
-      } else if (sortKey === "ema_status") {
-        cmp = (emaPriority[dataA.tracker_1h?.ema_status ?? ""] ?? 2) - (emaPriority[dataB.tracker_1h?.ema_status ?? ""] ?? 2);
-      } else if (sortKey === "price") {
-        cmp = (dataB.price?.current ?? 0) - (dataA.price?.current ?? 0);
-      } else if (sortKey === "ticker") {
-        cmp = a.localeCompare(b);
-      }
-      return sortOrder === "asc" ? cmp : -cmp;
-    });
-  }, [tickers, data, sortKey, sortOrder, filterSignal, filterType, types]);
-
-  const handleSort = (key: SortKey) => {
-    if (sortKey === key) setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    else { setSortKey(key); setSortOrder("asc"); }
+  const handleAdd = () => {
+    const sym = addInput.trim().toUpperCase();
+    if (!sym || tickers.includes(sym)) return;
+    addToTracker(sym, addType);
+    setAddInput("");
   };
 
-  const handleEditNote = (ticker: string) => {
-    setEditingNote(ticker);
-    setNoteValue(notes[ticker] || "");
-  };
+  if (!mounted) return (
+    <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
+      <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">loading...</span>
+    </div>
+  );
 
-  const handleSaveNote = (ticker: string) => {
-    updateNote(ticker, noteValue);
-    setEditingNote(null);
-  };
-
-  const getEMACellColor = (price: number, ema: number): string => {
-    if (!ema) return "text-slate-400";
-    if (price > ema) return "text-green-400";
-    if (Math.abs(price - ema) / ema < 0.005) return "text-orange-400";
-    return "text-red-400";
-  };
-
-  const getRSIColor = (rsi: number): string => {
-    if (rsi >= 70) return "text-red-400";
-    if (rsi >= 50) return "text-green-400";
-    if (rsi >= 40) return "text-yellow-400";
-    return "text-red-400";
-  };
-
-  const getSignalBadge = (signal: string) => {
-    if (signal === "AL") return "bg-green-600 text-white font-bold";
-    if (signal === "İzle") return "bg-yellow-600 text-white";
-    if (signal === "SAT") return "bg-red-600 text-white font-bold";
-    return "bg-slate-700 text-slate-300";
-  };
-
-  const getVolumeColor = (ratio: number): string => {
-    if (ratio >= 1.5) return "text-green-400";
-    if (ratio >= 0.8) return "text-slate-300";
-    return "text-slate-500";
-  };
-
-  const formatUpdated = (d: Date) => {
-    return d.toLocaleString("tr-TR", {
-      day: "2-digit", month: "2-digit", year: "numeric",
-      hour: "2-digit", minute: "2-digit"
-    });
-  };
-
-  if (tickers.length === 0) {
-    return (
-      <div>
-        <h1 className="text-3xl font-bold text-white mb-2">Tracker</h1>
-        <p className="text-slate-400 mb-8">Real-time 1H technical monitoring</p>
-        <div className="border border-white/10 rounded-lg p-8 text-center">
-          <p className="text-slate-400 text-lg">Tracker listeniz boş. Diğer sayfalardan "Add to Tracker" butonunu kullanarak hisse ekleyin.</p>
+  if (tickers.length === 0) return (
+    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "40px 0" }}>
+      <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px", marginBottom: 6 }}>
+        BOGA TRACKER — ACTIVE
+      </div>
+      <div style={{ color: "#8b949e", fontSize: 13, marginBottom: 20 }}>1H teknik analiz · gerçek zamanlı izleme</div>
+      <div style={{ border: "1px solid #30363d", borderRadius: 6, padding: "48px 24px", textAlign: "center" }}>
+        <div style={{ fontSize: 32, color: ACCENT, opacity: 0.2, marginBottom: 12 }}>∅</div>
+        <p style={{ color: "#8b949e", fontSize: 13, marginBottom: 16 }}>Tracker listeniz boş.</p>
+        <p style={{ color: "#8b949e", fontSize: 11, marginBottom: 20 }}>Diğer sayfalardan "Active Tracker" butonunu kullanarak hisse ekleyin ya da aşağıdan ekleyin.</p>
+        <div style={{ display: "flex", gap: 6, justifyContent: "center", flexWrap: "wrap" }}>
+          <input
+            value={addInput}
+            onChange={e => setAddInput(e.target.value.toUpperCase())}
+            onKeyDown={e => e.key === "Enter" && handleAdd()}
+            placeholder="ticker..."
+            maxLength={8}
+            style={{
+              background: "#161b22", border: "1px solid #30363d", color: "#e6edf3",
+              padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace", width: 100, outline: "none"
+            }}
+          />
+          <select value={addType} onChange={e => setAddType(e.target.value)}
+            style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 8px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" }}>
+            {["Swing","Long","Option","CSP","CC"].map(t => <option key={t}>{t}</option>)}
+          </select>
+          <button onClick={handleAdd}
+            style={{ background: ACCENT + "20", border: `1px solid ${ACCENT}`, color: ACCENT, padding: "6px 16px", borderRadius: 4, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "monospace" }}>
+            + EKLE
+          </button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 
+  // ═══════════════════════════════════════════════════════════════════════
+  // RENDER
+  // ═══════════════════════════════════════════════════════════════════════
   return (
-    <div>
-      {/* Header */}
-      <div className="mb-5 flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-0.5">Tracker Tablosu</h2>
-          <div className="flex items-center gap-3 text-sm text-slate-400">
-            <span>{sortedTickers.length} hisse — 1H teknik analiz</span>
-            {lastUpdated && (
-              <span className="text-slate-500">
-                • Güncellendi: <span className="text-slate-300">{formatUpdated(lastUpdated)}</span>
+    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3" }}>
+
+      {/* ── Header ── */}
+      <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
+              BOGA TRACKER — ACTIVE
+            </div>
+            <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
+              {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
+                ● {isMarketOpen() ? "market açık" : "market kapalı"}
               </span>
-            )}
+              <span>{filtered.length} ticker</span>
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} İzle</span>}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: 6 }}>
+            {(["table", "heatmap"] as const).map(tab => (
+              <button key={tab} onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                  border: "1px solid", borderColor: activeTab === tab ? ACCENT : "#30363d",
+                  background: activeTab === tab ? ACCENT + "20" : "transparent",
+                  color: activeTab === tab ? ACCENT : "#8b949e",
+                  borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em"
+                }}>
+                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
+              </button>
+            ))}
+            <button onClick={fetchData} disabled={loading}
+              style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d", background: "transparent",
+                color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer"
+              }}>
+              {loading ? "..." : "YENİLE"}
+            </button>
           </div>
         </div>
-        <button
-          onClick={fetchTrackerData}
-          disabled={loading}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-60 text-white text-sm rounded font-semibold transition"
-        >
-          {loading ? "Güncelleniyor..." : "Yenile"}
-        </button>
+
+        {/* Filters */}
+        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
+          {["", "Swing", "Long", "Option", "CSP", "CC"].map(t => (
+            <button key={t || "all-type"} onClick={() => setFilterType(t)}
+              style={{
+                padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid", borderColor: filterType === t ? ACCENT : "#30363d",
+                background: filterType === t ? ACCENT + "20" : "transparent",
+                color: filterType === t ? ACCENT : "#8b949e",
+                borderRadius: 3, cursor: "pointer"
+              }}>
+              {t || "TÜM TİPLER"}
+            </button>
+          ))}
+          <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
+          {["", "AL", "İzle", "Bekle", "SAT"].map(s => (
+            <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
+              style={{
+                padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid",
+                borderColor: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#30363d",
+                background: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) + "20" : "transparent",
+                color: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#8b949e",
+                borderRadius: 3, cursor: "pointer"
+              }}>
+              {s ? `${SIGNAL_ICON[s]} ${s}` : "TÜM SİNYAL"}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Filters */}
-      <div className="mb-4 flex gap-3 flex-wrap">
-        <select
-          value={filterSignal}
-          onChange={(e) => setFilterSignal(e.target.value)}
-          className="px-3 py-2 bg-black border border-white/15 text-white rounded text-sm"
+      {/* ════════════════════════════════════════ */}
+      {/* ANA TABLO TAB                            */}
+      {/* ════════════════════════════════════════ */}
+      {activeTab === "table" && (
+        <>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid #30363d" }}>
+                  {["TICKER","TİP","SEKTÖR","FİYAT","Δ% 1H","H.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","NOT",""].map((h, i) => (
+                    <th key={i} style={{
+                      padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
+                      fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
+                      color: "#58a6ff", whiteSpace: "nowrap", background: "#0d1117"
+                    }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((sym, idx) => {
+                  const d = data[sym];
+                  const signal = d?.tracker_1h?.signal || "—";
+                  const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
+                  const bg = signal !== "—" ? rowBg : (idx % 2 === 1 ? "#161b22" : "#0d1117");
+                  const isExpanded = expandedRow === sym;
+                  const tipKey = types[sym] || "Swing";
+                  const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.Swing;
+                  const price = d?.price?.current ?? 0;
+
+                  return (
+                    <>
+                      <tr
+                        key={sym}
+                        style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}
+                        onClick={() => setExpandedRow(isExpanded ? null : sym)}
+                      >
+                        {/* TICKER */}
+                        <td
+                          style={{ padding: "7px 8px", whiteSpace: "nowrap" }}
+                          onMouseEnter={e => {
+                            e.stopPropagation();
+                            const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                            setHoverTicker(sym);
+                            setHoverPos({ x: r.right + 10, y: r.top });
+                          }}
+                          onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
+                          onClick={e => e.stopPropagation()}
+                        >
+                          <div>
+                            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
+                            <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>
+                              {isExpanded ? "▼" : "▶"}
+                            </span>
+                            {d && (
+                              <div style={{ color: "#8b949e", fontSize: 10, marginTop: 1 }}>
+                                {d.sector && d.sector !== "Unknown" ? d.sector.slice(0, 12) : (d.company?.slice(0, 12) || "")}
+                              </div>
+                            )}
+                          </div>
+                        </td>
+
+                        {/* TİP */}
+                        <td style={{ padding: "7px 8px" }}>
+                          <select
+                            value={tipKey}
+                            onClick={e => e.stopPropagation()}
+                            onChange={e => { e.stopPropagation(); updateType(sym, e.target.value); }}
+                            style={{
+                              background: tipStyle.bg, color: tipStyle.text,
+                              border: "none", borderRadius: 3, fontSize: 10, fontWeight: 700,
+                              padding: "2px 4px", cursor: "pointer", fontFamily: "monospace"
+                            }}
+                          >
+                            {["Swing","Long","Option","CSP","CC"].map(t => <option key={t} value={t}>{t}</option>)}
+                          </select>
+                        </td>
+
+                        {/* SEKTÖR */}
+                        <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>
+                          {d?.sector && d.sector !== "Unknown" ? d.sector.toUpperCase().slice(0, 8) : (d?.company?.slice(0, 8) || "—")}
+                        </td>
+
+                        {/* FİYAT */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>
+                          {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
+                        </td>
+
+                        {/* Δ% 1H */}
+                        <td style={{
+                          padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                          color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "#3fb950" : "#f85149"
+                        }}>
+                          {d ? `${(d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1h)}%` : "—"}
+                        </td>
+
+                        {/* H.ORAN */}
+                        <td style={{
+                          padding: "7px 8px", textAlign: "right",
+                          color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
+                        }}>
+                          {d ? `${fmt2(d.tracker_1h?.volume_ratio)}x` : "—"}
+                        </td>
+
+                        {/* EMA20 */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
+                        </td>
+
+                        {/* EMA50 */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
+                        </td>
+
+                        {/* EMA200 */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
+                        </td>
+
+                        {/* DURUM */}
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          {d && (
+                            <span style={{
+                              fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                              background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "Yükseliş" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Nötr" ? "#1a1a2e" : d.tracker_1h?.ema_status === "Düşüş" ? "#2e1a1a" : "#3a1a1a",
+                              color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "Yükseliş" ? "#56d364" : d.tracker_1h?.ema_status === "Nötr" ? "#8b949e" : d.tracker_1h?.ema_status === "Düşüş" ? "#f85149" : "#ff7b72",
+                            }}>
+                              {d.tracker_1h?.ema_status}
+                            </span>
+                          )}
+                        </td>
+
+                        {/* RSI */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi ?? 50) : "#8b949e" }}>
+                          {d ? fmt1(d.tracker_1h?.rsi) : "—"}
+                        </td>
+
+                        {/* PATERN */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>
+                          {d?.tracker_1h?.candle_pattern || "—"}
+                        </td>
+
+                        {/* SİNYAL */}
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          {d && (
+                            <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
+                              {SIGNAL_ICON[signal] || "○"} {signal}
+                            </span>
+                          )}
+                        </td>
+
+                        {/* NOT */}
+                        <TrackerNoteCell sym={sym} notes={notes} updateNote={updateNote} />
+
+                        {/* REMOVE */}
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          <button
+                            onClick={e => { e.stopPropagation(); removeFromTracker(sym); }}
+                            style={{
+                              background: "transparent", border: "1px solid #f85149", color: "#f85149",
+                              borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer", fontFamily: "monospace"
+                            }}
+                          >✕</button>
+                        </td>
+                      </tr>
+
+                      {/* ── Genişleyen Satır ── */}
+                      {isExpanded && (
+                        <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
+                          <td colSpan={15} style={{ padding: 0 }}>
+                            <TrackerExpandedRow sym={sym} d={d} />
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {loading && filtered.length === 0 && (
+            <div style={{ textAlign: "center", padding: "40px", color: "#8b949e", fontSize: 12 }}>Veriler yükleniyor...</div>
+          )}
+
+          {/* ── Add Ticker Form ── */}
+          <div style={{ marginTop: 16, borderTop: "1px solid #30363d", paddingTop: 12, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+            <input
+              value={addInput}
+              onChange={e => setAddInput(e.target.value.toUpperCase())}
+              onKeyDown={e => e.key === "Enter" && handleAdd()}
+              placeholder="ticker..."
+              maxLength={8}
+              style={{
+                background: "#161b22", border: "1px solid #30363d", color: "#e6edf3",
+                padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace", width: 100, outline: "none"
+              }}
+            />
+            <select value={addType} onChange={e => setAddType(e.target.value)}
+              style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 8px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" }}>
+              {["Swing","Long","Option","CSP","CC"].map(t => <option key={t}>{t}</option>)}
+            </select>
+            <button onClick={handleAdd}
+              style={{ background: ACCENT + "20", border: `1px solid ${ACCENT}`, color: ACCENT, padding: "6px 16px", borderRadius: 4, fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "monospace" }}>
+              + EKLE
+            </button>
+            <span style={{ color: "#8b949e", fontSize: 11 }}>{tickers.length} hisse takipte</span>
+          </div>
+        </>
+      )}
+
+      {/* ════════════════════════════════════════ */}
+      {/* ISI HARİTASI TAB                         */}
+      {/* ════════════════════════════════════════ */}
+      {activeTab === "heatmap" && (
+        <TrackerHeatmapTab tickers={filtered} data={data} types={types} />
+      )}
+
+      {/* ── Fixed Hover Chart Popup ── */}
+      {hoverTicker && hoverPos && (
+        <div
+          style={{
+            position: "fixed",
+            left: Math.min(hoverPos.x, window.innerWidth - 440),
+            top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
+            width: 430, zIndex: 9999,
+            background: "#161b22", border: "1px solid #30363d",
+            borderRadius: 6, overflow: "hidden", pointerEvents: "none",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
+          }}
         >
-          <option value="">Tüm Sinyaller</option>
-          <option value="AL">AL</option>
-          <option value="İzle">İzle</option>
-          <option value="Bekle">Bekle</option>
-          <option value="SAT">SAT</option>
-        </select>
-        <select
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
-          className="px-3 py-2 bg-black border border-white/15 text-white rounded text-sm"
-        >
-          <option value="">Tüm Tipler</option>
-          <option value="Swing">Swing</option>
-          <option value="Long">Long</option>
-          <option value="Option">Option</option>
-          <option value="CSP">CSP</option>
-          <option value="CC">CC</option>
-        </select>
+          <div style={{
+            padding: "7px 12px", borderBottom: "1px solid #30363d",
+            display: "flex", justifyContent: "space-between", alignItems: "center"
+          }}>
+            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1H Chart</span>
+            <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
+              <span style={{ color: "#8b949e" }}>TradingView ↗</span>
+              <span style={{ color: "#8b949e" }}>Yahoo ↗</span>
+              <span style={{ color: "#8b949e" }}>Finviz ↗</span>
+            </div>
+          </div>
+          <iframe
+            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_tracker_${hoverTicker}&symbol=${hoverTicker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+            width="430" height="220"
+            style={{ border: "none", display: "block" }}
+            title={`${hoverTicker} 1H`}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Note Cell ─────────────────────────────────────────────────────────────
+
+function TrackerNoteCell({ sym, notes, updateNote }: {
+  sym: string;
+  notes: Record<string, string>;
+  updateNote: (ticker: string, note: string) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [val, setVal] = useState(notes[sym] || "");
+
+  const save = () => { updateNote(sym, val); setEditing(false); };
+
+  if (editing) return (
+    <td style={{ padding: "4px 8px" }} onClick={e => e.stopPropagation()}>
+      <div style={{ display: "flex", gap: 4 }}>
+        <input autoFocus value={val} onChange={e => setVal(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter") save(); }}
+          style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "2px 6px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 90 }} />
+        <button onClick={save}
+          style={{ background: "#1a3a1a", border: "1px solid #3fb950", color: "#3fb950", borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer" }}>✓</button>
+      </div>
+    </td>
+  );
+
+  return (
+    <td
+      style={{ padding: "7px 8px", color: notes[sym] ? "#e6edf3" : "#8b949e", fontSize: 11, cursor: "text", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+      onClick={e => { e.stopPropagation(); setVal(notes[sym] || ""); setEditing(true); }}
+      title={notes[sym] || "not ekle..."}
+    >
+      {notes[sym] || "—"}
+    </td>
+  );
+}
+
+// ── Expanded Row ───────────────────────────────────────────────────────────
+
+function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefined }) {
+  return (
+    <div style={{ display: "flex", gap: 0, background: "#161b22" }}>
+      {/* Hourly Grid */}
+      <div style={{ flex: 1, padding: "12px 16px", borderRight: "1px solid #30363d" }}>
+        <div style={{ fontSize: 10, color: "#58a6ff", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 8 }}>
+          SAATLİK ÖZET — {sym}
+        </div>
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ borderCollapse: "collapse", fontSize: 10, fontFamily: "monospace" }}>
+            <thead>
+              <tr>
+                {HOUR_SLOTS.map(h => (
+                  <th key={h} style={{ padding: "3px 8px", color: "#8b949e", fontWeight: 700, textAlign: "center", whiteSpace: "nowrap", borderBottom: "1px solid #30363d" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {HOUR_SLOTS.map((h, i) => {
+                  const bar = d?.hourly?.[i];
+                  const { bg, text } = heatBg(bar?.change_pct ?? null);
+                  return (
+                    <td key={h} style={{ padding: "4px 8px", textAlign: "center", background: bg, color: text, fontWeight: 700, minWidth: 52 }}>
+                      {bar?.price != null ? `$${bar.price.toFixed(2)}` : "—"}
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {HOUR_SLOTS.map((h, i) => {
+                  const bar = d?.hourly?.[i];
+                  const { bg, text } = heatBg(bar?.change_pct ?? null);
+                  return (
+                    <td key={h} style={{ padding: "3px 8px", textAlign: "center", background: bg, color: text, fontSize: 10 }}>
+                      {bar?.change_pct != null ? `${bar.change_pct >= 0 ? "+" : ""}${bar.change_pct.toFixed(1)}%` : "—"}
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {HOUR_SLOTS.map((h, i) => {
+                  const bar = d?.hourly?.[i];
+                  return (
+                    <td key={h} style={{ padding: "3px 8px", textAlign: "center", color: "#8b949e", fontSize: 10 }}>
+                      {bar?.volume != null ? fmtVol(bar.volume) : "—"}
+                    </td>
+                  );
+                })}
+              </tr>
+              <tr>
+                {HOUR_SLOTS.map((h, i) => {
+                  const bar = d?.hourly?.[i];
+                  const vr = bar?.volume_ratio;
+                  return (
+                    <td key={h} style={{ padding: "3px 8px", textAlign: "center", color: vr == null ? "#333" : vr >= 1.5 ? "#3fb950" : "#8b949e", fontSize: 10 }}>
+                      {vr != null ? `${vr.toFixed(1)}x` : "—"}
+                    </td>
+                  );
+                })}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {!d?.hourly && (
+          <p style={{ color: "#8b949e", fontSize: 10, marginTop: 8 }}>Saatlik veriler yakında eklenecek.</p>
+        )}
+        {d && (
+          <div style={{ marginTop: 10, display: "flex", gap: 16, fontSize: 10, color: "#8b949e" }}>
+            <span>EMA: <b style={{ color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status?.includes("Düşüş") || d.tracker_1h?.ema_status === "Bearish" ? "#f85149" : "#8b949e" }}>{d.tracker_1h?.ema_status}</b></span>
+            <span>RSI: <b style={{ color: rsiColor(d.tracker_1h?.rsi ?? 50) }}>{fmt1(d.tracker_1h?.rsi)}</b></span>
+            <span>Patern: <b style={{ color: "#e6edf3" }}>{d.tracker_1h?.candle_pattern || "—"}</b></span>
+            <span>Hacim: <b style={{ color: (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : "#8b949e" }}>{fmt2(d.tracker_1h?.volume_ratio)}x</b></span>
+          </div>
+        )}
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-lg border border-white/10">
-        <table className="w-full text-xs md:text-sm border-collapse">
+      {/* TradingView Chart */}
+      <div style={{ width: 420, flexShrink: 0, padding: "12px 16px" }}>
+        <div style={{ fontSize: 10, color: "#58a6ff", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 8 }}>
+          1H GRAFİK — EMA 20/50/200
+        </div>
+        <iframe
+          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
+          width="410" height="220"
+          style={{ border: "1px solid #30363d", borderRadius: 4, display: "block" }}
+          title={`${sym} 1H expanded`}
+        />
+        <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+          <a href={`https://www.tradingview.com/chart/?symbol=${sym}&interval=60`} target="_blank" rel="noopener"
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>TradingView ↗</a>
+          <a href={`https://finance.yahoo.com/chart/${sym}`} target="_blank" rel="noopener"
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Yahoo Finance ↗</a>
+          <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>
+          <Link href={`/stock/${sym}`}
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
+          <Link href={`/optanaliz?symbol=${sym}`}
+            style={{ color: "#d2a8ff", fontSize: 10, textDecoration: "none" }}>OptAnaliz ↗</Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Heat Map Tab ───────────────────────────────────────────────────────────
+
+function TrackerHeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<string, TrackerData>; types: Record<string, string> }) {
+  return (
+    <div style={{ marginTop: 12 }}>
+      <div style={{ fontSize: 10, color: "#8b949e", marginBottom: 12 }}>
+        Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir
+      </div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace", minWidth: 750 }}>
           <thead>
-            <tr className="border-b border-white/10 bg-white/5">
-              <th className="px-3 py-3 text-left text-slate-300 font-semibold cursor-pointer hover:text-white" onClick={() => handleSort("ticker")}>
-                Ticker {sortKey === "ticker" && (sortOrder === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold cursor-pointer hover:text-white" onClick={() => handleSort("price")}>
-                Fiyat {sortKey === "price" && (sortOrder === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold">Değişim 1H</th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold">Hacim</th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold">EMA20</th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold">EMA50</th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold">EMA200</th>
-              <th className="px-3 py-3 text-left text-slate-300 font-semibold cursor-pointer hover:text-white" onClick={() => handleSort("ema_status")}>
-                EMA Durum {sortKey === "ema_status" && (sortOrder === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="px-3 py-3 text-right text-slate-300 font-semibold cursor-pointer hover:text-white" onClick={() => handleSort("rsi")}>
-                RSI {sortKey === "rsi" && (sortOrder === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="px-3 py-3 text-left text-slate-300 font-semibold">Patern</th>
-              <th className="px-3 py-3 text-left text-slate-300 font-semibold cursor-pointer hover:text-white" onClick={() => handleSort("signal")}>
-                Sinyal {sortKey === "signal" && (sortOrder === "asc" ? "↑" : "↓")}
-              </th>
-              <th className="px-3 py-3 text-left text-slate-300 font-semibold hidden md:table-cell">Not</th>
-              <th className="px-3 py-3 text-center text-slate-300 font-semibold">İşlem</th>
+            <tr style={{ borderBottom: "1px solid #30363d" }}>
+              <th style={{ padding: "6px 10px", textAlign: "left", color: "#58a6ff", fontSize: 10, letterSpacing: "0.1em" }}>TICKER</th>
+              <th style={{ padding: "6px 8px", textAlign: "left", color: "#58a6ff", fontSize: 10 }}>TİP</th>
+              {HOUR_SLOTS.map(h => (
+                <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#58a6ff", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
+              ))}
+              <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>GÜN</th>
             </tr>
           </thead>
           <tbody>
-            {sortedTickers.map((ticker, idx) => {
-              const t = data[ticker];
-              const isEditingNote = editingNote === ticker;
-              const ch1h = t?.tracker_1h?.change_pct_1h ?? 0;
-              const isOdd = idx % 2 === 1;
+            {tickers.map((sym, idx) => {
+              const d = data[sym];
+              const dayPct = d?.price?.change_pct ?? null;
+              const dayColors = heatBg(dayPct);
+              const tipKey = types[sym] || "Swing";
+              const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.Swing;
 
               return (
-                <tr
-                  key={ticker}
-                  className={`border-b border-white/8 transition-colors hover:bg-white/5 ${isOdd ? "bg-white/[0.02]" : "bg-black"}`}
-                >
-                  {/* Ticker + Hover Chart */}
-                  <td
-                    className="px-3 py-3"
-                    onMouseEnter={(e) => {
-                      setHoverTicker(ticker);
-                      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-                      setHoverPos({ x: rect.right + 8, y: rect.top });
-                    }}
-                    onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
-                  >
-                    <div className="flex flex-col gap-1.5">
-                      <Link href={`/stock/${ticker}`} className="font-bold text-blue-400 hover:text-blue-300 leading-none">
-                        {ticker}
-                      </Link>
-                      {t && (
-                        <span className="text-slate-500 text-[10px] leading-none">
-                          {t.sector && t.sector !== "Unknown" ? t.sector : t.company || ""}
-                        </span>
-                      )}
-                    </div>
+                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                  <td style={{ padding: "6px 10px" }}>
+                    <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900 }}>{sym}</Link>
                   </td>
-
-                  {/* Price */}
-                  <td className="px-3 py-3 text-right text-white font-semibold">
-                    {t ? `$${fmt2(t.price?.current)}` : <span className="text-slate-600">—</span>}
+                  <td style={{ padding: "6px 8px" }}>
+                    <span style={{ background: tipStyle.bg, color: tipStyle.text, fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 2 }}>
+                      {tipKey}
+                    </span>
                   </td>
-
-                  {/* 1H Change */}
-                  <td className={`px-3 py-3 text-right font-semibold ${ch1h >= 0 ? "text-green-400" : "text-red-400"}`}>
-                    {t ? `${ch1h >= 0 ? "+" : ""}${fmt2(ch1h)}%` : "—"}
-                  </td>
-
-                  {/* Volume Ratio */}
-                  <td className={`px-3 py-3 text-right ${getVolumeColor(t?.tracker_1h?.volume_ratio ?? 1)}`}>
-                    {t ? `${fmt2(t.tracker_1h?.volume_ratio)}x` : "—"}
-                  </td>
-
-                  {/* EMA20 */}
-                  <td className={`px-3 py-3 text-right font-mono ${getEMACellColor(t?.price?.current ?? 0, t?.tracker_1h?.ema_20 ?? 0)}`}>
-                    {t ? `$${fmt2(t.tracker_1h?.ema_20)}` : "—"}
-                  </td>
-
-                  {/* EMA50 */}
-                  <td className={`px-3 py-3 text-right font-mono ${getEMACellColor(t?.price?.current ?? 0, t?.tracker_1h?.ema_50 ?? 0)}`}>
-                    {t ? `$${fmt2(t.tracker_1h?.ema_50)}` : "—"}
-                  </td>
-
-                  {/* EMA200 */}
-                  <td className={`px-3 py-3 text-right font-mono ${getEMACellColor(t?.price?.current ?? 0, t?.tracker_1h?.ema_200 ?? 0)}`}>
-                    {t ? `$${fmt2(t.tracker_1h?.ema_200)}` : "—"}
-                  </td>
-
-                  {/* EMA Status */}
-                  <td className="px-3 py-3 text-left">
-                    {t ? (
-                      <span className={`px-2 py-0.5 rounded text-white text-xs font-semibold ${
-                        t.tracker_1h?.ema_status === "Bullish" ? "bg-green-700" :
-                        t.tracker_1h?.ema_status === "Yükseliş" ? "bg-green-800" :
-                        t.tracker_1h?.ema_status === "Nötr" ? "bg-slate-700" :
-                        t.tracker_1h?.ema_status === "Düşüş" ? "bg-red-800" :
-                        "bg-red-700"
-                      }`}>
-                        {t.tracker_1h?.ema_status}
-                      </span>
-                    ) : "—"}
-                  </td>
-
-                  {/* RSI */}
-                  <td className={`px-3 py-3 text-right font-semibold ${getRSIColor(t?.tracker_1h?.rsi ?? 50)}`}>
-                    {t ? fmt1(t.tracker_1h?.rsi) : "—"}
-                  </td>
-
-                  {/* Pattern */}
-                  <td className="px-3 py-3 text-left text-slate-400 text-xs">
-                    {t?.tracker_1h?.candle_pattern || "—"}
-                  </td>
-
-                  {/* Signal */}
-                  <td className="px-3 py-3 text-left">
-                    {t ? (
-                      <span className={`px-2 py-0.5 rounded text-xs font-semibold ${getSignalBadge(t.tracker_1h?.signal)}`}>
-                        {t.tracker_1h?.signal}
-                      </span>
-                    ) : "—"}
-                  </td>
-
-                  {/* Note */}
-                  <td className="px-3 py-3 text-left hidden md:table-cell">
-                    {isEditingNote ? (
-                      <div className="flex gap-1">
-                        <input
-                          type="text"
-                          value={noteValue}
-                          onChange={(e) => setNoteValue(e.target.value)}
-                          onKeyDown={(e) => e.key === "Enter" && handleSaveNote(ticker)}
-                          className="flex-1 px-2 py-1 bg-black border border-white/20 text-white rounded text-xs"
-                          autoFocus
-                        />
-                        <button
-                          onClick={() => handleSaveNote(ticker)}
-                          className="px-2 py-1 bg-green-700 hover:bg-green-600 text-white text-xs rounded"
-                        >
-                          ✓
-                        </button>
-                      </div>
-                    ) : (
-                      <div
-                        onClick={() => handleEditNote(ticker)}
-                        className="text-slate-500 text-xs cursor-pointer hover:text-slate-300 truncate max-w-[120px]"
-                      >
-                        {notes[ticker] || "—"}
-                      </div>
-                    )}
-                  </td>
-
-                  {/* Actions */}
-                  <td className="px-3 py-3 text-center">
-                    <div className="flex gap-1.5 justify-center items-center">
-                      {/* Type selector inline with actions */}
-                      <select
-                        value={types[ticker] || "Swing"}
-                        onChange={(e) => updateType(ticker, e.target.value)}
-                        className="text-xs px-1.5 py-1 bg-black border border-white/15 text-slate-300 rounded"
-                      >
-                        <option>Swing</option>
-                        <option>Long</option>
-                        <option>Option</option>
-                        <option>CSP</option>
-                        <option>CC</option>
-                      </select>
-                      <Link
-                        href={`/stock/${ticker}`}
-                        className="px-2 py-1 bg-blue-700 hover:bg-blue-600 text-white text-xs rounded whitespace-nowrap"
-                      >
-                        Detay
-                      </Link>
-                      <button
-                        onClick={() => removeFromTracker(ticker)}
-                        className="px-2 py-1 bg-red-700 hover:bg-red-600 text-white text-xs rounded"
-                      >
-                        Kaldır
-                      </button>
-                    </div>
+                  {HOUR_SLOTS.map((h, i) => {
+                    const bar = d?.hourly?.[i];
+                    const pct = bar?.change_pct ?? null;
+                    const { bg, text } = heatBg(pct);
+                    return (
+                      <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
+                        {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                      </td>
+                    );
+                  })}
+                  <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
+                    {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
                   </td>
                 </tr>
               );
@@ -416,34 +722,22 @@ export function TrackerPageClient() {
           </tbody>
         </table>
       </div>
-
-      {loading && tickers.length > 0 && Object.keys(data).length === 0 && (
-        <div className="text-center py-12 text-slate-500">Veriler yükleniyor...</div>
-      )}
-
-      {/* Fixed TradingView chart popup — renders outside table flow */}
-      {hoverTicker && hoverPos && (
-        <div
-          className="fixed z-[9999] bg-[#0d1117] border border-white/15 rounded-lg shadow-2xl overflow-hidden pointer-events-none"
-          style={{
-            left: Math.min(hoverPos.x, window.innerWidth - 368),
-            top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 244)),
-            width: 360,
-            height: 236,
-          }}
-        >
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-white/10 bg-white/5">
-            <span className="text-white text-xs font-semibold">{hoverTicker} — 1H Chart</span>
+      <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
+        {[
+          { label: "+2%+", bg: "#0d4a0d", text: "#56d364" },
+          { label: "+1–2%", bg: "#0d3a0d", text: "#3fb950" },
+          { label: "+0.3–1%", bg: "#0d2a0d", text: "#3fb950" },
+          { label: "±0.3%", bg: "#1a1a1a", text: "#8b949e" },
+          { label: "-0.3–1%", bg: "#2a0d0d", text: "#f85149" },
+          { label: "-1–2%", bg: "#3a0d0d", text: "#f85149" },
+          { label: "-2%+", bg: "#4a0d0d", text: "#ff7b72" },
+        ].map(item => (
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+            <div style={{ width: 14, height: 14, background: item.bg, borderRadius: 2 }} />
+            <span style={{ fontSize: 10, color: item.text }}>{item.label}</span>
           </div>
-          <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_${hoverTicker}&symbol=${hoverTicker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
-            width="360"
-            height="210"
-            style={{ border: "none", display: "block" }}
-            title={`${hoverTicker} 1H`}
-          />
-        </div>
-      )}
+        ))}
+      </div>
     </div>
   );
 }
