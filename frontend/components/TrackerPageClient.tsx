@@ -3,7 +3,6 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useTracker } from "@/components/TrackerContext";
 import Link from "next/link";
-import Script from "next/script";
 
 interface TrackerData {
   ticker: string;
@@ -304,38 +303,18 @@ export function TrackerPageClient() {
                         </select>
                       </div>
 
-                      {/* TradingView Mini Chart Hover */}
+                      {/* TradingView Mini Chart Hover - Disabled for stability */}
                       {hoverTicker === ticker && (
-                        <div className="absolute left-0 top-full mt-1 z-50 bg-slate-900 border border-slate-700 rounded p-2 shadow-lg" style={{ width: "430px" }}>
-                          <div className="text-white text-xs font-semibold mb-2">{ticker} — 1H Chart</div>
-                          <div className="tradingview-widget-container" style={{ height: "220px" }}>
-                            <div className="tradingview-widget-container__widget"></div>
-                            <div className="tradingview-widget-copyright">
-                              <a href={`https://www.tradingview.com/chart/?symbol=${ticker}`} rel="noopener nofollow noreferrer" target="_blank">
-                                <span className="text-blue-400 hover:text-blue-300 text-xs">TradingView Chart</span>
-                              </a>
-                            </div>
-                          </div>
-                          <Script
-                            src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js"
-                            strategy="lazyOnload"
-                            onLoad={() => {
-                              // TradingView widget initialization
-                              if (typeof (window as any).TradingView !== "undefined") {
-                                (window as any).TradingView.widget(new (window as any).TradingView.MiniSymbolOverviewWidget({
-                                  symbol: ticker,
-                                  width: "100%",
-                                  height: "220px",
-                                  locale: "en",
-                                  dateRange: "1D",
-                                  colorTheme: "dark",
-                                  isTransparent: true,
-                                  autosize: false,
-                                  largeChartUrl: `https://www.tradingview.com/chart/?symbol=${ticker}`
-                                }));
-                              }
-                            }}
-                          />
+                        <div className="absolute left-0 top-full mt-1 z-50 bg-slate-900 border border-slate-700 rounded p-3 shadow-lg" style={{ width: "280px" }}>
+                          <div className="text-white text-xs font-semibold mb-2">{ticker} — Quick Link</div>
+                          <a
+                            href={`https://www.tradingview.com/chart/?symbol=${ticker}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block px-3 py-2 bg-blue-700 hover:bg-blue-600 text-white text-xs rounded text-center transition"
+                          >
+                            View on TradingView (1H)
+                          </a>
                         </div>
                       )}
                     </td>
