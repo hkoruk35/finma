@@ -490,6 +490,7 @@ async function fetchYahooLive(ticker: string) {
     let emaStatus_1h = "Nötr";
     let volumeRatio_1h = 1.0;
     let signal = "Bekle";
+    let change_pct_1h = 0;
 
     if (closes1h && closes1h.length >= 20 && opens1h && highs1h && lows1h && volumes1h) {
       ema20_1h = calcEMA(closes1h, 20);
@@ -502,6 +503,11 @@ async function fetchYahooLive(ticker: string) {
       // Volume ratio: last 1H / 20-bar average
       const vol20Avg = volumes1h.slice(-20).reduce((a, b) => a + b, 0) / 20;
       volumeRatio_1h = vol20Avg > 0 ? volumes1h[volumes1h.length - 1] / vol20Avg : 1.0;
+
+      // 1H change: last bar close vs previous bar close
+      const lastClose1h = closes1h[closes1h.length - 1];
+      const prevClose1h = closes1h[closes1h.length - 2];
+      change_pct_1h = prevClose1h > 0 ? ((lastClose1h - prevClose1h) / prevClose1h) * 100 : 0;
 
       signal = calculateSignal(emaStatus_1h, rsi_1h, candlePattern_1h, volumeRatio_1h);
     }
@@ -709,7 +715,8 @@ async function fetchYahooLive(ticker: string) {
         rsi: Number(rsi_1h.toFixed(1)),
         candle_pattern: candlePattern_1h,
         signal: signal,
-        volume_ratio: Number(volumeRatio_1h.toFixed(2))
+        volume_ratio: Number(volumeRatio_1h.toFixed(2)),
+        change_pct_1h: Number(change_pct_1h.toFixed(2))
       },
       fundamental: {
         pe_ratio: peRatio,
