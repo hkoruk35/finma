@@ -47,6 +47,7 @@ export function TrackerPageClient() {
   const [editingNote, setEditingNote] = useState<string | null>(null);
   const [noteValue, setNoteValue] = useState("");
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
+  const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
 
   const fetchTrackerData = useCallback(async () => {
     if (tickers.length === 0) {
@@ -267,9 +268,13 @@ export function TrackerPageClient() {
                 >
                   {/* Ticker + Hover Chart */}
                   <td
-                    className="px-3 py-3 relative"
-                    onMouseEnter={() => setHoverTicker(ticker)}
-                    onMouseLeave={() => setHoverTicker(null)}
+                    className="px-3 py-3"
+                    onMouseEnter={(e) => {
+                      setHoverTicker(ticker);
+                      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                      setHoverPos({ x: rect.right + 8, y: rect.top });
+                    }}
+                    onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
                   >
                     <div className="flex flex-col gap-1.5">
                       <Link href={`/stock/${ticker}`} className="font-bold text-blue-400 hover:text-blue-300 leading-none">
@@ -281,24 +286,6 @@ export function TrackerPageClient() {
                         </span>
                       )}
                     </div>
-
-                    {/* TradingView chart hover popup */}
-                    {hoverTicker === ticker && (
-                      <div
-                        className="absolute left-0 top-full mt-1 z-50 bg-[#0d1117] border border-white/15 rounded-lg shadow-2xl overflow-hidden"
-                        style={{ width: 360, height: 230 }}
-                      >
-                        <iframe
-                          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_${ticker}&symbol=${ticker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
-                          width="360"
-                          height="230"
-                          style={{ border: "none", display: "block" }}
-                          title={`${ticker} 1H`}
-                          loading="eager"
-                          allow="fullscreen"
-                        />
-                      </div>
-                    )}
                   </td>
 
                   {/* Price */}
@@ -432,6 +419,30 @@ export function TrackerPageClient() {
 
       {loading && tickers.length > 0 && Object.keys(data).length === 0 && (
         <div className="text-center py-12 text-slate-500">Veriler yükleniyor...</div>
+      )}
+
+      {/* Fixed TradingView chart popup — renders outside table flow */}
+      {hoverTicker && hoverPos && (
+        <div
+          className="fixed z-[9999] bg-[#0d1117] border border-white/15 rounded-lg shadow-2xl overflow-hidden pointer-events-none"
+          style={{
+            left: Math.min(hoverPos.x, window.innerWidth - 368),
+            top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 244)),
+            width: 360,
+            height: 236,
+          }}
+        >
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-white/10 bg-white/5">
+            <span className="text-white text-xs font-semibold">{hoverTicker} — 1H Chart</span>
+          </div>
+          <iframe
+            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_${hoverTicker}&symbol=${hoverTicker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+            width="360"
+            height="210"
+            style={{ border: "none", display: "block" }}
+            title={`${hoverTicker} 1H`}
+          />
+        </div>
       )}
     </div>
   );
