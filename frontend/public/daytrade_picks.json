@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-25T10:31:00.108564-04:00",
+  "generated_at": "2026-05-26T13:53:30.414061-04:00",
   "scan_mode": "intraday",
-  "scan_duration_s": 24.2,
-  "total_scanned": 3,
-  "layer1_passed": 3,
-  "final_picks": 3,
+  "scan_duration_s": 25.5,
+  "total_scanned": 6,
+  "layer1_passed": 6,
+  "final_picks": 6,
   "picks": [
     {
-      "ticker": "SMCI",
-      "price": 35.58,
-      "change_pct": 6.34,
-      "dt_score": 32.0,
+      "ticker": "AFRM",
+      "price": 68.9,
+      "change_pct": 5.64,
+      "dt_score": 38.0,
       "signal": "GAP_AND_GO",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 469.91,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "upgrade",
-        "catalyst_score": 15,
-        "headline": "nvidia ceo calls for stricter compliance as super micro exports face scrutiny(investing.com)",
-        "confidence": "medium",
-        "ts": 1779719483.5820117
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "royal caribbean and affirm to bring flexible and transparent payment options to travellers in uk and canada(business wir",
+        "confidence": "high",
+        "ts": 1779818034.2556088
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,99 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 35.54,
-          "high": 35.76
+          "low": 68.83,
+          "high": 69.24
         },
-        "stop": 35.26,
-        "tp1": 36.43,
-        "tp2": 37.02,
-        "rr_ratio": 2.0,
-        "avg_entry": 35.65,
-        "risk_per_sh": 0.39,
+        "stop": 68.28,
+        "tp1": 70.54,
+        "tp2": 71.68,
+        "rr_ratio": 1.99,
+        "avg_entry": 69.03,
+        "risk_per_sh": 0.75,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 35.58
+        "pm_high_ref": 68.9
       },
       "details": [
-        "📰 Kataliz: UPGRADE",
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +6.3%",
+        "↗️ Orta Gap: +5.6%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔴 VWAP Altında: -92.43%",
-        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "MARA",
+      "price": 14.41,
+      "change_pct": 4.34,
+      "dt_score": 38.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "bitcoin news today: trump moves from nft royalties to mara holdings equity stake(coinspeaker)",
+        "confidence": "high",
+        "ts": 1779818034.2606232
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 14.4,
+          "high": 14.48
+        },
+        "stop": 14.28,
+        "tp1": 14.76,
+        "tp2": 15.0,
+        "rr_ratio": 2.0,
+        "avg_entry": 14.44,
+        "risk_per_sh": 0.16,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 14.41
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +4.3%",
+        "Bilinmiyor",
+        "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "AMD",
-      "price": 467.51,
-      "change_pct": 3.99,
+      "price": 497.32,
+      "change_pct": 6.38,
       "dt_score": 30.0,
-      "signal": "PULLBACK_VWAP",
+      "signal": "GAP_AND_GO",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 469.91,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1779719483.5863187
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "small-cap stock riot platforms is surfing the a.i. infrastructure wave(cryptoprowl)+6.39%",
+        "confidence": "high",
+        "ts": 1779818034.2640076
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,48 +143,46 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 468.97,
-          "high": 471.32
+          "low": 496.82,
+          "high": 499.81
         },
-        "stop": 463.3,
-        "tp1": 483.83,
-        "tp2": 494.1,
+        "stop": 492.84,
+        "tp1": 509.27,
+        "tp2": 517.48,
         "rr_ratio": 2.0,
-        "avg_entry": 470.14,
-        "risk_per_sh": 6.84,
-        "signal": "PULLBACK_VWAP",
-        "pm_high_ref": 467.51
+        "avg_entry": 498.31,
+        "risk_per_sh": 5.48,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 497.32
       },
       "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +4.0%",
+        "↗️ Orta Gap: +6.4%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.51%",
-        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "PRTA",
-      "price": 9.83,
-      "change_pct": 4.46,
-      "dt_score": 25.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "RIOT",
+      "price": 26.12,
+      "change_pct": 6.66,
+      "dt_score": 18.0,
+      "signal": "MOMENTUM",
       "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 469.91,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "fda_trial",
-        "catalyst_score": 12,
-        "headline": "prothena: q1 earnings snapshot(associated press)-5.90%",
-        "confidence": "medium",
-        "ts": 1779719483.5848176
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779818034.258594
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -147,26 +196,130 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 9.82,
-          "high": 9.88
+          "low": 26.0,
+          "high": 26.16
         },
-        "stop": 9.74,
-        "tp1": 10.07,
-        "tp2": 10.24,
+        "stop": 25.88,
+        "tp1": 26.48,
+        "tp2": 26.78,
         "rr_ratio": 2.0,
-        "avg_entry": 9.85,
-        "risk_per_sh": 0.11,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 9.83
+        "avg_entry": 26.08,
+        "risk_per_sh": 0.2,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 26.12
       },
       "details": [
-        "📋 Zayıf Kataliz: FDA_TRIAL",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.5%",
+        "↗️ Orta Gap: +6.7%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔴 VWAP Altında: -97.91%",
-        "🔥 Açılış Barı: Güçlü (11.0x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "UPST",
+      "price": 30.32,
+      "change_pct": 6.16,
+      "dt_score": 18.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779818034.2484336
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 30.18,
+          "high": 30.37
+        },
+        "stop": 30.05,
+        "tp1": 30.73,
+        "tp2": 31.07,
+        "rr_ratio": 2.0,
+        "avg_entry": 30.27,
+        "risk_per_sh": 0.23,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 30.32
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +6.2%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "price": 37.49,
+      "change_pct": 5.37,
+      "dt_score": 18.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779818034.2570436
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 37.32,
+          "high": 37.55
+        },
+        "stop": 37.15,
+        "tp1": 38.01,
+        "tp2": 38.43,
+        "rr_ratio": 2.02,
+        "avg_entry": 37.44,
+        "risk_per_sh": 0.29,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 37.49
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.4%",
+        "Bilinmiyor",
+        "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
