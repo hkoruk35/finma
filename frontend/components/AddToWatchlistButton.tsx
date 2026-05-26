@@ -19,7 +19,7 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
           </svg>
-          Takipte
+          Active ✓
         </span>
         <button
           onClick={() => removeFromTracker(ticker)}
@@ -39,7 +39,7 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
       </svg>
-      Tracker'a Ekle
+      Active Tracker
     </button>
   );
 }

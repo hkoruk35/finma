@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { MARKET_THEMES } from "@/lib/themeData";
 import ThemeCountBadge from "@/components/ThemeCountBadge";
+import CSPWatchlistSection from "@/components/CSPWatchlistSection";
 
 export const metadata: Metadata = {
   title: "Active Market Themes | BOGA AI",
@@ -119,6 +120,8 @@ export default async function ThemesIndexPage() {
             </div>
           </div>
         </div>
+
+        <CSPWatchlistSection />
 
         {/* Sector and Theme Lists Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

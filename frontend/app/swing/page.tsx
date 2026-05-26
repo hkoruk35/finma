@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
 import TopSwingPicks from "@/components/TopSwingPicks";
+import TrackerButtonWrapper from "@/components/TrackerButtonWrapper";
 import { WatchlistButtonWrapper } from "@/components/WatchlistButtonWrapper";
 import Link from "next/link";
 import { Metadata } from "next";
@@ -149,7 +150,8 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                     <th className="px-4 py-4 text-right">1Y</th>
                     <th className="px-4 py-4 text-right">5Y</th>
                     <th className="px-4 py-4 text-right">Option</th>
-                    <th className="px-4 py-4 text-right">Tracker</th>
+                    <th className="px-4 py-4 text-right">Smart Chart</th>
+                    <th className="px-4 py-4 text-right">Active Tracker</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -211,6 +213,9 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         >
                           Option
                         </Link>
+                      </td>
+                      <td className="px-3 py-2.5 text-right">
+                        <TrackerButtonWrapper pick={pick} />
                       </td>
                       <td className="px-3 py-2.5 text-right">
                         <WatchlistButtonWrapper ticker={pick.ticker} />
