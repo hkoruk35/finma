@@ -2390,3 +2390,7 @@ SKM
 RNST
 FAST
 UNP
+
+# --- 2026-05-27 ---
+CBT
+SMTC

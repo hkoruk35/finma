@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-05-26T13:57:59.163881-04:00",
-  "date": "2026-05-26",
+  "generated_at": "2026-05-27T14:18:31.022528-04:00",
+  "date": "2026-05-27",
   "model": "BOGA AI V117",
   "market_regime": "STRONG",
-  "total_picks": 9,
+  "total_picks": 2,
   "picks": [
     {
       "rank": 1,
-      "ticker": "RNST",
-      "company": "RNST",
-      "sector": "Financial Services",
-      "score": 61.0,
-      "boga_score": 61.0,
+      "ticker": "CBT",
+      "company": "CBT",
+      "sector": "Basic Materials",
+      "score": 55.0,
+      "boga_score": 55.0,
       "market_regime": "STRONG",
-      "current_price": 41.17499923706055,
+      "current_price": 85.62000274658203,
       "holding_period_estimate": "5 Days (max)",
       "holding_period": "5 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 40.82,
-        "entry_zone_high": 41.26,
-        "profit_target_tp1": 42.12,
-        "profit_target_tp2": 43.06,
-        "profit_target_tp3": 43.81,
-        "stop_loss_high": 40.22,
+        "entry_zone_low": 83.95,
+        "entry_zone_high": 85.88,
+        "profit_target_tp1": 88.46,
+        "profit_target_tp2": 91.29,
+        "profit_target_tp3": 93.56,
+        "stop_loss_high": 82.14,
         "max_hold_days": 5,
         "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
         "trailing_stop_rules": {
@@ -32,135 +32,133 @@
         }
       },
       "buy_zone": {
-        "low": 40.82,
-        "high": 41.26
+        "low": 83.95,
+        "high": 85.88
       },
       "profit_zone": {
-        "low": 42.5,
-        "high": 42.75
+        "low": 89.63,
+        "high": 90.46
       },
       "stop_zone": {
-        "low": 40.05,
-        "high": 40.22
+        "low": 81.62,
+        "high": 82.14
       },
-      "selected_system": "TREND_CONT",
-      "system_category": "Momentum",
+      "selected_system": "BREAKOUT",
+      "system_category": "Breakout",
       "selection_reasons": [
-        "Steady_Momentum",
-        "Healthy_Trend",
-        "BB_Squeeze_Secondary"
+        "Trend_Continuation"
       ],
       "system_label": {
-        "text": "Steady Trend",
-        "color": "green"
+        "text": "Trend Breakout",
+        "color": "red"
       },
-      "reasoning": "BOGA AI Score: 61.0 | System: TREND_CONT",
+      "reasoning": "BOGA AI Score: 55.0 | System: BREAKOUT",
       "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 18.5,
-      "rsi": 63.1,
-      "rvol": 0.29,
-      "change_1d": 0.43,
-      "change_1w": 3.48,
-      "change_1m": 4.64,
-      "change_1y": 18.03,
-      "change_5y": 17.57,
+      "adx": 25.5,
+      "rsi": 65.0,
+      "rvol": 0.95,
+      "change_1d": 1.05,
+      "change_1w": 8.93,
+      "change_1m": 10.82,
+      "change_1y": 15.19,
+      "change_5y": 66.52,
       "boga_zones": {
         "buying_zone": {
-          "low": 40.82,
-          "high": 41.26
+          "low": 83.95,
+          "high": 85.88
         },
         "sell_zone": {
-          "low": 42.5,
-          "high": 42.75
+          "low": 89.63,
+          "high": 90.46
         },
         "stop_loss_zone": {
-          "low": 40.05,
-          "high": 40.22
+          "low": 81.62,
+          "high": 82.14
         },
-        "risk_reward": 2.09,
-        "support_1h": 40.65,
-        "resistance_1h": 41.63,
-        "atr_1d": 0.86,
-        "atr_pct": 2.08,
-        "risk_usd": 0.82,
-        "reward_usd": 1.71
+        "risk_reward": 2.0,
+        "support_1h": 83.43,
+        "resistance_1h": 86.43,
+        "atr_1d": 2.58,
+        "atr_pct": 3.01,
+        "risk_usd": 2.77,
+        "reward_usd": 5.55
       },
       "trend_status": {
         "trend": "Full Stack",
-        "rsi_14": 63.1,
-        "adx": 18.5,
-        "macd_hist": 0.086,
-        "mfi": 55.3,
-        "cmf": 0.0046,
-        "rvol_today": 0.29,
-        "entry_trigger": "Steady Momentum (Kademeli Yükseliş)",
+        "rsi_14": 65.0,
+        "adx": 25.5,
+        "macd_hist": 0.108,
+        "mfi": 50.5,
+        "cmf": 0.0784,
+        "rvol_today": 0.95,
+        "entry_trigger": "Trend Continuation (Late)",
         "is_exhausted": false
       },
       "moving_averages": {
-        "ema_20": 40.08,
-        "ema_50": 39.22,
-        "ema_200": 37.33,
-        "price_vs_ema20": 1.09,
-        "price_vs_ema50": 1.95,
-        "price_vs_ema200": 3.84,
+        "ema_20": 80.89,
+        "ema_50": 77.9,
+        "ema_200": 73.78,
+        "price_vs_ema20": 4.73,
+        "price_vs_ema50": 7.72,
+        "price_vs_ema200": 11.84,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 57.8,
-        "adx_1h": 23.3,
+        "rsi_1h": 73.7,
+        "adx_1h": 49.4,
         "rvol_1h": "0.3x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
+        "pivot_structure": "Pivot HL"
       },
       "fundamentals": {
-        "gross_margin_pct": 0,
-        "operating_margin_pct": 45.17,
-        "net_margin_pct": 23.3,
-        "revenue_growth_pct": 60.2,
-        "pe_ratio": 17.0,
-        "pb_ratio": 0.97,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "3.73B",
-        "market_cap_usd": 3731971840
+        "gross_margin_pct": 25.06,
+        "operating_margin_pct": 15.27,
+        "net_margin_pct": 7.97,
+        "revenue_growth_pct": -3.4,
+        "pe_ratio": 15.3,
+        "pb_ratio": 2.69,
+        "fcf_yield_pct": 9.28,
+        "market_cap": "4.20B",
+        "market_cap_usd": 4195788544
       },
       "performance": {
-        "1d_pct": 0.43,
-        "1w_pct": 3.48,
-        "1m_pct": 4.64,
-        "1y_pct": 18.03,
-        "5y_pct": 17.57
+        "1d_pct": 1.05,
+        "1w_pct": 8.93,
+        "1m_pct": 10.82,
+        "1y_pct": 15.19,
+        "5y_pct": 66.52
       },
       "factor_scores": {
         "trend_score": 12.0,
-        "momentum_score": 6.0,
-        "volatility_score": 4.0,
+        "momentum_score": 12.0,
+        "volatility_score": 8.0,
         "volume_score": 0.0,
-        "financial_score": 7.0,
-        "catalyst_score": 1.2000000000000002,
+        "financial_score": 4.0,
+        "catalyst_score": 1.3,
         "insider_score": 0.0,
-        "composite": 5.96,
-        "raw_score": 112.58
+        "composite": 7.57,
+        "raw_score": 107.19999999999999
       }
     },
     {
       "rank": 2,
-      "ticker": "FAST",
-      "company": "FAST",
-      "sector": "Industrials",
-      "score": 59.0,
-      "boga_score": 59.0,
+      "ticker": "SMTC",
+      "company": "SMTC",
+      "sector": "Technology",
+      "score": 54.5,
+      "boga_score": 54.5,
       "market_regime": "STRONG",
-      "current_price": 44.29999923706055,
+      "current_price": 155.4499969482422,
       "holding_period_estimate": "5 Days (max)",
       "holding_period": "5 Days",
       "status": "WAITING_FOR_ENTRY",
       "tracker_logic": {
-        "entry_zone_low": 43.9,
-        "entry_zone_high": 44.4,
-        "profit_target_tp1": 45.36,
-        "profit_target_tp2": 46.41,
-        "profit_target_tp3": 47.25,
-        "stop_loss_high": 43.23,
+        "entry_zone_low": 146.31,
+        "entry_zone_high": 156.5,
+        "profit_target_tp1": 169.1,
+        "profit_target_tp2": 182.75,
+        "profit_target_tp3": 193.67,
+        "stop_loss_high": 138.96,
         "max_hold_days": 5,
         "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
         "trailing_stop_rules": {
@@ -169,427 +167,16 @@
         }
       },
       "buy_zone": {
-        "low": 43.9,
-        "high": 44.4
+        "low": 146.31,
+        "high": 156.5
       },
       "profit_zone": {
-        "low": 45.78,
-        "high": 46.07
+        "low": 172.56,
+        "high": 176.29
       },
       "stop_zone": {
-        "low": 43.04,
-        "high": 43.23
-      },
-      "selected_system": "TREND_CONT",
-      "system_category": "Momentum",
-      "selection_reasons": [
-        "Steady_Momentum",
-        "Healthy_Trend",
-        "BB_Squeeze_Secondary"
-      ],
-      "system_label": {
-        "text": "Steady Trend",
-        "color": "green"
-      },
-      "reasoning": "BOGA AI Score: 59.0 | System: TREND_CONT",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 19.3,
-      "rsi": 50.2,
-      "rvol": 0.39,
-      "change_1d": 0.82,
-      "change_1w": 0.68,
-      "change_1m": -0.34,
-      "change_1y": 8.59,
-      "change_5y": 92.09,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 43.9,
-          "high": 44.4
-        },
-        "sell_zone": {
-          "low": 45.78,
-          "high": 46.07
-        },
-        "stop_loss_zone": {
-          "low": 43.04,
-          "high": 43.23
-        },
-        "risk_reward": 2.09,
-        "support_1h": 43.71,
-        "resistance_1h": 45.64,
-        "atr_1d": 0.96,
-        "atr_pct": 2.17,
-        "risk_usd": 0.92,
-        "reward_usd": 1.92
-      },
-      "trend_status": {
-        "trend": "Above EMA200",
-        "rsi_14": 50.2,
-        "adx": 19.3,
-        "macd_hist": 0.065,
-        "mfi": 52.1,
-        "cmf": -0.0406,
-        "rvol_today": 0.39,
-        "entry_trigger": "Steady Momentum (Kademeli Yükseliş)",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 44.12,
-        "ema_50": 44.54,
-        "ema_200": 43.85,
-        "price_vs_ema20": 0.18,
-        "price_vs_ema50": -0.24,
-        "price_vs_ema200": 0.45,
-        "ema20_slope": "Negative/Flat"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 59.8,
-        "adx_1h": 13.6,
-        "rvol_1h": "0.2x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 45.01,
-        "operating_margin_pct": 18.95,
-        "net_margin_pct": 15.35,
-        "revenue_growth_pct": 11.1,
-        "pe_ratio": 39.6,
-        "pb_ratio": 13.02,
-        "fcf_yield_pct": 1.57,
-        "market_cap": "51.35B",
-        "market_cap_usd": 51353255936
-      },
-      "performance": {
-        "1d_pct": 0.82,
-        "1w_pct": 0.68,
-        "1m_pct": -0.34,
-        "1y_pct": 8.59,
-        "5y_pct": 92.09
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 2.0,
-        "volatility_score": 4.0,
-        "volume_score": 0.0,
-        "financial_score": 9.0,
-        "catalyst_score": 0.8,
-        "insider_score": 7.2,
-        "composite": 2.98,
-        "raw_score": 84.46
-      }
-    },
-    {
-      "rank": 3,
-      "ticker": "PPG",
-      "company": "PPG",
-      "sector": "Basic Materials",
-      "score": 58.0,
-      "boga_score": 58.0,
-      "market_regime": "STRONG",
-      "current_price": 109.33000183105469,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 107.29,
-        "entry_zone_high": 109.67,
-        "profit_target_tp1": 113.57,
-        "profit_target_tp2": 117.81,
-        "profit_target_tp3": 121.21,
-        "stop_loss_high": 104.92,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 107.29,
-        "high": 109.67
-      },
-      "profit_zone": {
-        "low": 114.53,
-        "high": 115.6
-      },
-      "stop_zone": {
-        "low": 104.24,
-        "high": 104.92
-      },
-      "selected_system": "TREND_CONT",
-      "system_category": "Momentum",
-      "selection_reasons": [
-        "Steady_Momentum",
-        "Healthy_Trend",
-        "BB_Squeeze_Secondary"
-      ],
-      "system_label": {
-        "text": "Steady Trend",
-        "color": "green"
-      },
-      "reasoning": "BOGA AI Score: 58.0 | System: TREND_CONT",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 12.1,
-      "rsi": 55.2,
-      "rvol": 0.47,
-      "change_1d": 1.44,
-      "change_1w": 5.47,
-      "change_1m": 0.22,
-      "change_1y": -0.1,
-      "change_5y": -28.63,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 107.29,
-          "high": 109.67
-        },
-        "sell_zone": {
-          "low": 114.53,
-          "high": 115.6
-        },
-        "stop_loss_zone": {
-          "low": 104.24,
-          "high": 104.92
-        },
-        "risk_reward": 2.0,
-        "support_1h": 106.62,
-        "resistance_1h": 113.12,
-        "atr_1d": 3.39,
-        "atr_pct": 3.1,
-        "risk_usd": 3.56,
-        "reward_usd": 7.12
-      },
-      "trend_status": {
-        "trend": "Macro Bullish",
-        "rsi_14": 55.2,
-        "adx": 12.1,
-        "macd_hist": 0.296,
-        "mfi": 53.7,
-        "cmf": -0.1151,
-        "rvol_today": 0.47,
-        "entry_trigger": "Steady Momentum (Kademeli Yükseliş)",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 106.53,
-        "ema_50": 107.49,
-        "ema_200": 107.4,
-        "price_vs_ema20": 2.8,
-        "price_vs_ema50": 1.84,
-        "price_vs_ema200": 1.93,
-        "ema20_slope": "Negative/Flat"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 73.4,
-        "adx_1h": 34.3,
-        "rvol_1h": "0.2x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 41.62,
-        "operating_margin_pct": 11.11,
-        "net_margin_pct": 9.93,
-        "revenue_growth_pct": 5.0,
-        "pe_ratio": 16.0,
-        "pb_ratio": 3.11,
-        "fcf_yield_pct": 2.18,
-        "market_cap": "24.71B",
-        "market_cap_usd": 24705132544
-      },
-      "performance": {
-        "1d_pct": 1.44,
-        "1w_pct": 5.47,
-        "1m_pct": 0.22,
-        "1y_pct": -0.1,
-        "5y_pct": -28.63
-      },
-      "factor_scores": {
-        "trend_score": 4.0,
-        "momentum_score": 8.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.0,
-        "financial_score": 2.0,
-        "catalyst_score": 1.2000000000000002,
-        "insider_score": 0.0,
-        "composite": 4.16,
-        "raw_score": 99.56
-      }
-    },
-    {
-      "rank": 4,
-      "ticker": "UNP",
-      "company": "UNP",
-      "sector": "Industrials",
-      "score": 57.5,
-      "boga_score": 57.5,
-      "market_regime": "STRONG",
-      "current_price": 271.0199890136719,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 267.77,
-        "entry_zone_high": 271.56,
-        "profit_target_tp1": 276.98,
-        "profit_target_tp2": 282.94,
-        "profit_target_tp3": 287.71,
-        "stop_loss_high": 263.97,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 267.77,
-        "high": 271.56
-      },
-      "profit_zone": {
-        "low": 279.35,
-        "high": 281.05
-      },
-      "stop_zone": {
-        "low": 262.89,
-        "high": 263.97
-      },
-      "selected_system": "SQUEEZE",
-      "system_category": "Contraction",
-      "selection_reasons": [
-        "BB_Squeeze",
-        "EMA_Stack",
-        "Volume_Confirm"
-      ],
-      "system_label": {
-        "text": "Volatility Squeeze",
-        "color": "purple"
-      },
-      "reasoning": "BOGA AI Score: 57.5 | System: SQUEEZE",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 24.2,
-      "rsi": 59.5,
-      "rvol": 0.44,
-      "change_1d": 1.93,
-      "change_1w": -1.49,
-      "change_1m": 0.86,
-      "change_1y": 23.63,
-      "change_5y": 37.23,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 267.77,
-          "high": 271.56
-        },
-        "sell_zone": {
-          "low": 279.35,
-          "high": 281.05
-        },
-        "stop_loss_zone": {
-          "low": 262.89,
-          "high": 263.97
-        },
-        "risk_reward": 2.0,
-        "support_1h": 266.68,
-        "resistance_1h": 274.63,
-        "atr_1d": 5.42,
-        "atr_pct": 2.0,
-        "risk_usd": 5.69,
-        "reward_usd": 11.39
-      },
-      "trend_status": {
-        "trend": "Full Stack",
-        "rsi_14": 59.5,
-        "adx": 24.2,
-        "macd_hist": -0.542,
-        "mfi": 53.5,
-        "cmf": -0.0195,
-        "rvol_today": 0.44,
-        "entry_trigger": "Pre-breakout (Low Vol Squeeze)",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 265.85,
-        "ema_50": 259.28,
-        "ema_200": 241.91,
-        "price_vs_ema20": 5.17,
-        "price_vs_ema50": 11.74,
-        "price_vs_ema200": 29.11,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 59.0,
-        "adx_1h": 17.4,
-        "rvol_1h": "0.2x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 56.35,
-        "operating_margin_pct": 40.89,
-        "net_margin_pct": 29.12,
-        "revenue_growth_pct": -0.6,
-        "pe_ratio": 20.9,
-        "pb_ratio": 8.06,
-        "fcf_yield_pct": 2.63,
-        "market_cap": "149.01B",
-        "market_cap_usd": 149013250048
-      },
-      "performance": {
-        "1d_pct": 1.93,
-        "1w_pct": -1.49,
-        "1m_pct": 0.86,
-        "1y_pct": 23.63,
-        "5y_pct": 37.23
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 0.0,
-        "volatility_score": 4.0,
-        "volume_score": 0.0,
-        "financial_score": 6.0,
-        "catalyst_score": 1.2000000000000002,
-        "insider_score": 0.0,
-        "composite": 5.13,
-        "raw_score": 116.01
-      }
-    },
-    {
-      "rank": 5,
-      "ticker": "LPG",
-      "company": "LPG",
-      "sector": "Energy",
-      "score": 53.0,
-      "boga_score": 53.0,
-      "market_regime": "STRONG",
-      "current_price": 45.02000045776367,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 42.63,
-        "entry_zone_high": 45.2,
-        "profit_target_tp1": 47.0,
-        "profit_target_tp2": 48.98,
-        "profit_target_tp3": 50.56,
-        "stop_loss_high": 41.37,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 42.63,
-        "high": 45.2
-      },
-      "profit_zone": {
-        "low": 48.24,
-        "high": 49.01
-      },
-      "stop_zone": {
-        "low": 41.01,
-        "high": 41.37
+        "low": 136.86,
+        "high": 138.96
       },
       "selected_system": "MOMENTUM",
       "system_category": "Breakout",
@@ -600,686 +187,114 @@
         "text": "Momentum Play",
         "color": "gray"
       },
-      "reasoning": "BOGA AI Score: 53.0 | System: MOMENTUM",
+      "reasoning": "BOGA AI Score: 54.5 | System: MOMENTUM",
       "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 36.5,
-      "rsi": 68.8,
-      "rvol": 1.06,
-      "change_1d": -3.1,
-      "change_1w": 7.47,
-      "change_1m": 22.67,
-      "change_1y": 121.72,
-      "change_5y": 631.26,
+      "adx": 45.7,
+      "rsi": 69.9,
+      "rvol": 1.71,
+      "change_1d": -5.48,
+      "change_1w": 15.33,
+      "change_1m": 53.47,
+      "change_1y": 301.34,
+      "change_5y": 126.22,
       "boga_zones": {
         "buying_zone": {
-          "low": 42.63,
-          "high": 45.2
+          "low": 146.31,
+          "high": 156.5
         },
         "sell_zone": {
-          "low": 48.24,
-          "high": 49.01
+          "low": 172.56,
+          "high": 176.29
         },
         "stop_loss_zone": {
-          "low": 41.01,
-          "high": 41.37
+          "low": 136.86,
+          "high": 138.96
         },
         "risk_reward": 2.0,
-        "support_1h": 42.27,
-        "resistance_1h": 46.75,
-        "atr_1d": 1.8,
-        "atr_pct": 3.99,
-        "risk_usd": 2.55,
-        "reward_usd": 5.09
+        "support_1h": 144.21,
+        "resistance_1h": 164.48,
+        "atr_1d": 10.5,
+        "atr_pct": 6.75,
+        "risk_usd": 12.44,
+        "reward_usd": 24.88
       },
       "trend_status": {
         "trend": "Full Stack",
-        "rsi_14": 68.8,
-        "adx": 36.5,
-        "macd_hist": 0.545,
-        "mfi": 69.1,
-        "cmf": 0.2005,
-        "rvol_today": 1.06,
+        "rsi_14": 69.9,
+        "adx": 45.7,
+        "macd_hist": 2.031,
+        "mfi": 66.9,
+        "cmf": 0.2772,
+        "rvol_today": 1.71,
         "entry_trigger": "None Yet",
         "is_exhausted": false
       },
       "moving_averages": {
-        "ema_20": 41.2,
-        "ema_50": 37.61,
-        "ema_200": 30.74,
-        "price_vs_ema20": 3.82,
-        "price_vs_ema50": 7.41,
-        "price_vs_ema200": 14.28,
+        "ema_20": 133.92,
+        "ema_50": 114.15,
+        "ema_200": 84.28,
+        "price_vs_ema20": 21.53,
+        "price_vs_ema50": 41.3,
+        "price_vs_ema200": 71.17,
         "ema20_slope": "Positive"
       },
       "hourly_analysis": {
-        "rsi_1h": 47.4,
-        "adx_1h": 27.8,
+        "rsi_1h": 50.5,
+        "adx_1h": 36.9,
         "rvol_1h": "0.3x (❄️ Volumeless)",
         "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 63.43,
-        "operating_margin_pct": 43.33,
-        "net_margin_pct": 30.42,
-        "revenue_growth_pct": 47.2,
-        "pe_ratio": 14.1,
-        "pb_ratio": 1.57,
-        "fcf_yield_pct": 5.97,
-        "market_cap": "1.70B",
-        "market_cap_usd": 1701642880
-      },
-      "performance": {
-        "1d_pct": -3.1,
-        "1w_pct": 7.47,
-        "1m_pct": 22.67,
-        "1y_pct": 121.72,
-        "5y_pct": 631.26
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 8.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.48,
-        "financial_score": 11.0,
-        "catalyst_score": 0.7,
-        "insider_score": 0.0,
-        "composite": 7.24,
-        "raw_score": 109.2
-      }
-    },
-    {
-      "rank": 6,
-      "ticker": "SKM",
-      "company": "SKM",
-      "sector": "Communication Services",
-      "score": 53.0,
-      "boga_score": 53.0,
-      "market_regime": "STRONG",
-      "current_price": 38.45500183105469,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 37.5,
-        "entry_zone_high": 38.61,
-        "profit_target_tp1": 40.19,
-        "profit_target_tp2": 41.92,
-        "profit_target_tp3": 43.3,
-        "stop_loss_high": 36.38,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 37.5,
-        "high": 38.61
-      },
-      "profit_zone": {
-        "low": 40.9,
-        "high": 41.4
-      },
-      "stop_zone": {
-        "low": 36.06,
-        "high": 36.38
-      },
-      "selected_system": "BREAKOUT",
-      "system_category": "Breakout",
-      "selection_reasons": [
-        "Trend_Continuation",
-        "BB_Squeeze_Secondary"
-      ],
-      "system_label": {
-        "text": "Trend Breakout",
-        "color": "red"
-      },
-      "reasoning": "BOGA AI Score: 53.0 | System: BREAKOUT",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 21.5,
-      "rsi": 56.2,
-      "rvol": 1.46,
-      "change_1d": 1.84,
-      "change_1w": 3.9,
-      "change_1m": 1.09,
-      "change_1y": 88.1,
-      "change_5y": 59.82,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 37.5,
-          "high": 38.61
-        },
-        "sell_zone": {
-          "low": 40.9,
-          "high": 41.4
-        },
-        "stop_loss_zone": {
-          "low": 36.06,
-          "high": 36.38
-        },
-        "risk_reward": 2.0,
-        "support_1h": 37.18,
-        "resistance_1h": 39.26,
-        "atr_1d": 1.6,
-        "atr_pct": 4.16,
-        "risk_usd": 1.67,
-        "reward_usd": 3.34
-      },
-      "trend_status": {
-        "trend": "Full Stack",
-        "rsi_14": 56.2,
-        "adx": 21.5,
-        "macd_hist": -0.195,
-        "mfi": 53.9,
-        "cmf": 0.1218,
-        "rvol_today": 1.46,
-        "entry_trigger": "Trend Continuation (Late)",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 37.67,
-        "ema_50": 35.36,
-        "ema_200": 28.19,
-        "price_vs_ema20": 0.79,
-        "price_vs_ema50": 3.1,
-        "price_vs_ema200": 10.27,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 51.9,
-        "adx_1h": 17.8,
-        "rvol_1h": "0.1x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
         "pivot_structure": "Normal"
       },
       "fundamentals": {
-        "gross_margin_pct": 70.52,
-        "operating_margin_pct": 2.75,
-        "net_margin_pct": 2.39,
-        "revenue_growth_pct": -4.1,
-        "pe_ratio": 53.3,
-        "pb_ratio": 1.67,
-        "fcf_yield_pct": 2352.48,
-        "market_cap": "14.12B",
-        "market_cap_usd": 14123302912
+        "gross_margin_pct": 52.51,
+        "operating_margin_pct": 9.86,
+        "net_margin_pct": -3.84,
+        "revenue_growth_pct": 9.3,
+        "pe_ratio": 0,
+        "pb_ratio": 15.47,
+        "fcf_yield_pct": 1.72,
+        "market_cap": "8.53B",
+        "market_cap_usd": 8529199616
       },
       "performance": {
-        "1d_pct": 1.84,
-        "1w_pct": 3.9,
-        "1m_pct": 1.09,
-        "1y_pct": 88.1,
-        "5y_pct": 59.82
+        "1d_pct": -5.48,
+        "1w_pct": 15.33,
+        "1m_pct": 53.47,
+        "1y_pct": 301.34,
+        "5y_pct": 126.22
       },
       "factor_scores": {
         "trend_score": 12.0,
-        "momentum_score": 6.0,
+        "momentum_score": 12.0,
         "volatility_score": 12.0,
-        "volume_score": 3.71,
-        "financial_score": 4.0,
-        "catalyst_score": 0.5,
+        "volume_score": 5.7,
+        "financial_score": -0.5,
+        "catalyst_score": 1.6,
         "insider_score": 0.0,
-        "composite": 7.76,
-        "raw_score": 108.39999999999999
-      }
-    },
-    {
-      "rank": 7,
-      "ticker": "LOCO",
-      "company": "LOCO",
-      "sector": "Consumer Cyclical",
-      "score": 52.5,
-      "boga_score": 52.5,
-      "market_regime": "STRONG",
-      "current_price": 13.869999885559082,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 13.67,
-        "entry_zone_high": 13.92,
-        "profit_target_tp1": 14.38,
-        "profit_target_tp2": 14.89,
-        "profit_target_tp3": 15.3,
-        "stop_loss_high": 13.35,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 13.67,
-        "high": 13.92
-      },
-      "profit_zone": {
-        "low": 14.59,
-        "high": 14.73
-      },
-      "stop_zone": {
-        "low": 13.26,
-        "high": 13.35
-      },
-      "selected_system": "MOMENTUM",
-      "system_category": "Breakout",
-      "selection_reasons": [
-        "BB_Squeeze_Secondary"
-      ],
-      "system_label": {
-        "text": "Momentum Play",
-        "color": "gray"
-      },
-      "reasoning": "BOGA AI Score: 52.5 | System: MOMENTUM",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 28.0,
-      "rsi": 54.1,
-      "rvol": 0.4,
-      "change_1d": -1.42,
-      "change_1w": 1.31,
-      "change_1m": 0.22,
-      "change_1y": 42.17,
-      "change_5y": -12.31,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 13.67,
-          "high": 13.92
-        },
-        "sell_zone": {
-          "low": 14.59,
-          "high": 14.73
-        },
-        "stop_loss_zone": {
-          "low": 13.26,
-          "high": 13.35
-        },
-        "risk_reward": 2.1,
-        "support_1h": 13.58,
-        "resistance_1h": 14.18,
-        "atr_1d": 0.47,
-        "atr_pct": 3.35,
-        "risk_usd": 0.45,
-        "reward_usd": 0.94
-      },
-      "trend_status": {
-        "trend": "Full Stack",
-        "rsi_14": 54.1,
-        "adx": 28.0,
-        "macd_hist": 0.049,
-        "mfi": 72.6,
-        "cmf": -0.0173,
-        "rvol_today": 0.4,
-        "entry_trigger": "None Yet",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 13.73,
-        "ema_50": 13.37,
-        "ema_200": 11.76,
-        "price_vs_ema20": 0.14,
-        "price_vs_ema50": 0.5,
-        "price_vs_ema200": 2.11,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 44.8,
-        "adx_1h": 23.7,
-        "rvol_1h": "1.2x (Normal)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Normal"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 22.91,
-        "operating_margin_pct": 9.78,
-        "net_margin_pct": 5.87,
-        "revenue_growth_pct": 5.9,
-        "pe_ratio": 14.2,
-        "pb_ratio": 1.4,
-        "fcf_yield_pct": 5.92,
-        "market_cap": "423.0M",
-        "market_cap_usd": 423024096
-      },
-      "performance": {
-        "1d_pct": -1.42,
-        "1w_pct": 1.31,
-        "1m_pct": 0.22,
-        "1y_pct": 42.17,
-        "5y_pct": -12.31
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 2.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.0,
-        "financial_score": 3.5,
-        "catalyst_score": 1.2000000000000002,
-        "insider_score": 0.0,
-        "composite": 5.44,
-        "raw_score": 94.69000000000001
-      }
-    },
-    {
-      "rank": 8,
-      "ticker": "AVGO",
-      "company": "AVGO",
-      "sector": "Technology",
-      "score": 51.0,
-      "boga_score": 51.0,
-      "market_regime": "STRONG",
-      "current_price": 422.81500244140625,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 413.72,
-        "entry_zone_high": 424.33,
-        "profit_target_tp1": 441.76,
-        "profit_target_tp2": 460.71,
-        "profit_target_tp3": 475.87,
-        "stop_loss_high": 403.11,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 413.72,
-        "high": 424.33
-      },
-      "profit_zone": {
-        "low": 446.08,
-        "high": 450.85
-      },
-      "stop_zone": {
-        "low": 400.08,
-        "high": 403.11
-      },
-      "selected_system": "BREAKOUT",
-      "system_category": "Breakout",
-      "selection_reasons": [
-        "Trend_Continuation",
-        "BB_Squeeze_Secondary"
-      ],
-      "system_label": {
-        "text": "Trend Breakout",
-        "color": "red"
-      },
-      "reasoning": "BOGA AI Score: 51.0 | System: BREAKOUT",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 22.3,
-      "rsi": 56.8,
-      "rvol": 0.66,
-      "change_1d": 2.09,
-      "change_1w": 0.5,
-      "change_1m": 0.01,
-      "change_1y": 80.73,
-      "change_5y": 879.26,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 413.72,
-          "high": 424.33
-        },
-        "sell_zone": {
-          "low": 446.08,
-          "high": 450.85
-        },
-        "stop_loss_zone": {
-          "low": 400.08,
-          "high": 403.11
-        },
-        "risk_reward": 2.0,
-        "support_1h": 410.69,
-        "resistance_1h": 430.84,
-        "atr_1d": 15.16,
-        "atr_pct": 3.58,
-        "risk_usd": 15.91,
-        "reward_usd": 31.83
-      },
-      "trend_status": {
-        "trend": "Full Stack",
-        "rsi_14": 56.8,
-        "adx": 22.3,
-        "macd_hist": -3.589,
-        "mfi": 42.9,
-        "cmf": 0.0943,
-        "rvol_today": 0.66,
-        "entry_trigger": "Trend Continuation (Late)",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 414.66,
-        "ema_50": 391.17,
-        "ema_200": 344.76,
-        "price_vs_ema20": 8.16,
-        "price_vs_ema50": 31.65,
-        "price_vs_ema200": 78.06,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 55.3,
-        "adx_1h": 26.7,
-        "rvol_1h": "0.2x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 76.73,
-        "operating_margin_pct": 44.94,
-        "net_margin_pct": 36.57,
-        "revenue_growth_pct": 29.5,
-        "pe_ratio": 74.2,
-        "pb_ratio": 22.57,
-        "fcf_yield_pct": 1.41,
-        "market_cap": "1.80T",
-        "market_cap_usd": 1804884246528
-      },
-      "performance": {
-        "1d_pct": 2.09,
-        "1w_pct": 0.5,
-        "1m_pct": 0.01,
-        "1y_pct": 80.73,
-        "5y_pct": 879.26
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 2.0,
-        "volatility_score": 8.0,
-        "volume_score": 0.0,
-        "financial_score": 9.0,
-        "catalyst_score": 1.1,
-        "insider_score": 0.0,
-        "composite": 5.67,
-        "raw_score": 131.7
-      }
-    },
-    {
-      "rank": 9,
-      "ticker": "MDU",
-      "company": "MDU",
-      "sector": "Utilities",
-      "score": 44.7,
-      "boga_score": 44.7,
-      "market_regime": "STRONG",
-      "current_price": 22.28499984741211,
-      "holding_period_estimate": "5 Days (max)",
-      "holding_period": "5 Days",
-      "status": "WAITING_FOR_ENTRY",
-      "tracker_logic": {
-        "entry_zone_low": 22.0,
-        "entry_zone_high": 22.33,
-        "profit_target_tp1": 22.8,
-        "profit_target_tp2": 23.31,
-        "profit_target_tp3": 23.72,
-        "stop_loss_high": 21.68,
-        "max_hold_days": 5,
-        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
-        "trailing_stop_rules": {
-          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
-          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
-        }
-      },
-      "buy_zone": {
-        "low": 22.0,
-        "high": 22.33
-      },
-      "profit_zone": {
-        "low": 22.99,
-        "high": 23.13
-      },
-      "stop_zone": {
-        "low": 21.59,
-        "high": 21.68
-      },
-      "selected_system": "SQUEEZE",
-      "system_category": "Contraction",
-      "selection_reasons": [
-        "BB_Squeeze",
-        "EMA_Stack",
-        "Volume_Confirm"
-      ],
-      "system_label": {
-        "text": "Volatility Squeeze",
-        "color": "purple"
-      },
-      "reasoning": "BOGA AI Score: 44.7 | System: SQUEEZE",
-      "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
-      "adx": 18.0,
-      "rsi": 52.9,
-      "rvol": 0.3,
-      "change_1d": 0.56,
-      "change_1w": -0.87,
-      "change_1m": 2.27,
-      "change_1y": 33.79,
-      "change_5y": 116.04,
-      "boga_zones": {
-        "buying_zone": {
-          "low": 22.0,
-          "high": 22.33
-        },
-        "sell_zone": {
-          "low": 22.99,
-          "high": 23.13
-        },
-        "stop_loss_zone": {
-          "low": 21.59,
-          "high": 21.68
-        },
-        "risk_reward": 1.99,
-        "support_1h": 21.91,
-        "resistance_1h": 22.53,
-        "atr_1d": 0.47,
-        "atr_pct": 2.09,
-        "risk_usd": 0.48,
-        "reward_usd": 0.96
-      },
-      "trend_status": {
-        "trend": "Full Stack",
-        "rsi_14": 52.9,
-        "adx": 18.0,
-        "macd_hist": -0.09,
-        "mfi": 26.3,
-        "cmf": 0.0358,
-        "rvol_today": 0.3,
-        "entry_trigger": "BB Squeeze + EMA Stack + Volume",
-        "is_exhausted": false
-      },
-      "moving_averages": {
-        "ema_20": 22.21,
-        "ema_50": 21.79,
-        "ema_200": 20.01,
-        "price_vs_ema20": 0.07,
-        "price_vs_ema50": 0.49,
-        "price_vs_ema200": 2.27,
-        "ema20_slope": "Positive"
-      },
-      "hourly_analysis": {
-        "rsi_1h": 59.4,
-        "adx_1h": 18.4,
-        "rvol_1h": "0.5x (❄️ Volumeless)",
-        "ema_structure": "Below EMA50",
-        "pivot_structure": "Pivot HL"
-      },
-      "fundamentals": {
-        "gross_margin_pct": 34.06,
-        "operating_margin_pct": 19.09,
-        "net_margin_pct": 10.47,
-        "revenue_growth_pct": -10.2,
-        "pe_ratio": 24.4,
-        "pb_ratio": 1.66,
-        "fcf_yield_pct": 0.0,
-        "market_cap": "4.60B",
-        "market_cap_usd": 4599744000
-      },
-      "performance": {
-        "1d_pct": 0.56,
-        "1w_pct": -0.87,
-        "1m_pct": 2.27,
-        "1y_pct": 33.79,
-        "5y_pct": 116.04
-      },
-      "factor_scores": {
-        "trend_score": 12.0,
-        "momentum_score": 0.0,
-        "volatility_score": 4.0,
-        "volume_score": 0.0,
-        "financial_score": 4.0,
-        "catalyst_score": 0.8,
-        "insider_score": 4.0,
-        "composite": 4.74,
-        "raw_score": 107.6
+        "composite": 10.11,
+        "raw_score": 121.52999999999999
       }
     }
   ],
   "by_system": {
-    "TREND_CONT": [
-      "RNST",
-      "FAST",
-      "PPG"
-    ],
-    "SQUEEZE": [
-      "UNP",
-      "MDU"
+    "BREAKOUT": [
+      "CBT"
     ],
     "MOMENTUM": [
-      "LPG",
-      "LOCO"
-    ],
-    "BREAKOUT": [
-      "SKM",
-      "AVGO"
+      "SMTC"
     ]
   },
   "system_summary": {
-    "TREND_CONT": {
-      "count": 3,
+    "BREAKOUT": {
+      "count": 1,
       "tickers": [
-        "RNST",
-        "FAST",
-        "PPG"
-      ]
-    },
-    "SQUEEZE": {
-      "count": 2,
-      "tickers": [
-        "UNP",
-        "MDU"
+        "CBT"
       ]
     },
     "MOMENTUM": {
-      "count": 2,
+      "count": 1,
       "tickers": [
-        "LPG",
-        "LOCO"
-      ]
-    },
-    "BREAKOUT": {
-      "count": 2,
-      "tickers": [
-        "SKM",
-        "AVGO"
+        "SMTC"
       ]
     }
   }

@@ -1,104 +1,27 @@
 {
-  "date": "2026-05-26",
+  "date": "2026-05-27",
   "tickers": [
     {
-      "ticker": "RNST",
-      "company": "RNST",
-      "sector": "Financial Services",
-      "master_score": 61.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 41.17499923706055,
-      "change_pct": 0.43,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FAST",
-      "company": "FAST",
-      "sector": "Industrials",
-      "master_score": 59.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 44.29999923706055,
-      "change_pct": 0.82,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "PPG",
-      "company": "PPG",
+      "ticker": "CBT",
+      "company": "CBT",
       "sector": "Basic Materials",
-      "master_score": 58.0,
+      "master_score": 55.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 109.33000183105469,
-      "change_pct": 1.44,
+      "price": 85.62000274658203,
+      "change_pct": 1.05,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 55.0 | System: BREAKOUT"
     },
     {
-      "ticker": "UNP",
-      "company": "UNP",
-      "sector": "Industrials",
-      "master_score": 57.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 271.0199890136719,
-      "change_pct": 1.93,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.5 | System: SQUEEZE"
-    },
-    {
-      "ticker": "LPG",
-      "company": "LPG",
-      "sector": "Energy",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 45.02000045776367,
-      "change_pct": -3.1,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: MOMENTUM"
-    },
-    {
-      "ticker": "SKM",
-      "company": "SKM",
-      "sector": "Communication Services",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 38.45500183105469,
-      "change_pct": 1.84,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "LOCO",
-      "company": "LOCO",
-      "sector": "Consumer Cyclical",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 13.869999885559082,
-      "change_pct": -1.42,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: MOMENTUM"
-    },
-    {
-      "ticker": "AVGO",
-      "company": "AVGO",
+      "ticker": "SMTC",
+      "company": "SMTC",
       "sector": "Technology",
-      "master_score": 51.0,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 422.81500244140625,
-      "change_pct": 2.09,
+      "price": 155.4499969482422,
+      "change_pct": -5.48,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "MDU",
-      "company": "MDU",
-      "sector": "Utilities",
-      "master_score": 44.7,
-      "score_type": "POSITIVE_BIAS",
-      "price": 22.28499984741211,
-      "change_pct": 0.56,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.7 | System: SQUEEZE"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: MOMENTUM"
     }
   ]
 }

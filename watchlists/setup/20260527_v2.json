@@ -1,0 +1,22 @@
+[
+    {
+        "date": "2026-05-27 15:00",
+        "symbol": "CBT",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 85.63,
+        "entry_zone": "84.24 - 87.02",
+        "SL": 80.06,
+        "TP": 93.99
+    },
+    {
+        "date": "2026-05-27 15:00",
+        "symbol": "SMTC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 155.61,
+        "entry_zone": "149.54 - 161.68",
+        "SL": 131.31,
+        "TP": 192.06
+    }
+]

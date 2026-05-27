@@ -1,29 +1,21 @@
 {
-  "date": "2026-05-26",
-  "generated_at": "2026-05-26T13:57:59.163881-04:00",
+  "date": "2026-05-27",
+  "generated_at": "2026-05-27T14:18:31.022528-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 9,
+  "active_scores_count": 2,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 9,
+      "count": 2,
       "tickers": [
-        "RNST",
-        "FAST",
-        "PPG",
-        "UNP",
-        "LPG",
-        "SKM",
-        "LOCO",
-        "AVGO",
-        "MDU"
+        "CBT",
+        "SMTC"
       ]
     },
     "breakout": {
-      "count": 2,
+      "count": 1,
       "tickers": [
-        "SKM",
-        "AVGO"
+        "CBT"
       ]
     },
     "value": {
@@ -35,10 +27,9 @@
       "tickers": []
     },
     "momentum": {
-      "count": 2,
+      "count": 1,
       "tickers": [
-        "LPG",
-        "LOCO"
+        "SMTC"
       ]
     },
     "dividend": {
@@ -48,18 +39,13 @@
   },
   "top_3_overall": [
     {
-      "ticker": "RNST",
-      "score": 61.0,
+      "ticker": "CBT",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "FAST",
-      "score": 59.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "PPG",
-      "score": 58.0,
+      "ticker": "SMTC",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
