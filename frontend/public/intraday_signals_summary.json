@@ -1,6 +1,6 @@
 {
   "date": "2026-05-27",
-  "last_updated": "2026-05-27T14:15:59.048421-04:00",
+  "last_updated": "2026-05-27T15:00:09.195558-04:00",
   "tickers": {
     "AVGO": {
       "status_history": [
@@ -100,6 +100,28 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-05-27T14:15:59.048421-04:00",
       "entry_price": 278.05
+    },
+    "CBT": {
+      "status_history": [
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-05-27T15:00:09.195558-04:00",
+      "entry_price": 85.63
+    },
+    "SMTC": {
+      "status_history": [
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-05-27T15:00:09.195558-04:00",
+      "entry_price": 155.61
     }
   }
 }
