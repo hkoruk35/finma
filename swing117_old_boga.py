@@ -123,7 +123,7 @@ OUTPUT_ALL_JSON_FILE = "swing_all_picks.json"
 # ================================================================
 MAX_TICKERS_FINAL = 800          # 🎯 SNIPER: Daha geniş evren = daha çok small/mid-cap fırsat.
 TOP_DEEP_ANALYSIS = 80           # 🎯 SNIPER: Daha fazla derin analiz.
-TOP_FINAL_PICKS = 5             # 🎯 SNIPER: Hedef Her gün 5 aday.
+TOP_FINAL_PICKS = 20             # 🎯 SNIPER: Hedef Her gün 20 aday.
 
 # 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
 PRICE_MIN = 10.0
@@ -1352,26 +1352,28 @@ def get_earnings_date_safe(ticker: str) -> Optional[datetime]:
         return None
 
 
-def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:
+def is_earnings_safe_for_swing(ticker: str, min_days_away: int = 5) -> bool:  # 🔧 FIX: 5 → 5 gün (V117 spec: "3 gün → 5 gün")
     try:
         earnings_date = get_earnings_date_safe(ticker)
-        # 🎯 V117.2 FIX: API veri vermiyorsa elensin
-        if earnings_date is None:
-            return False
-
+        # 🎯 FIX: API veri vermiyorsa küçük hisseleri yanlışlıkla elememek için True dön.
+        if earnings_date is None: return True
+        
         now = datetime.now(NY_TZ)
-
+        
+        # yfinance sometimes returns naive (UTC assumption) sometimes aware.
+        # When it comes as Naive, we accept it as UTC and convert to NY — default NY_TZ
+        # was causing wrong decisions on borderline earnings due to time difference.
         if earnings_date.tzinfo is None:
             earnings_date = earnings_date.replace(tzinfo=timezone.utc).astimezone(NY_TZ)
         else:
             earnings_date = earnings_date.astimezone(NY_TZ)
-
         days_until = (earnings_date - now).days
         if 0 <= days_until < min_days_away: return False
-        if -1 <= days_until < 0: return False
+        if -2 <= days_until < 0: return False
         return True
     except Exception:
         return False
+
 
 async def analyze_market_and_sectors():
     """
@@ -1535,48 +1537,24 @@ async def analyze_market_and_sectors():
     )
     logging.info(f"   {vix_note}")
 
-# ── STEP 5: SEKTÖR PERFORMANSI ────────────────────────────────
-    # V117.2 FIX: 21 günlük (aylık) ağırlık artırıldı.
-    # Sektör rotasyonu haftalarda/aylarda şekillenir, günler içinde değil.
-    # Yeni dağılım: %15 (1d) + %20 (3d) + %25 (5d) + %40 (21d)
+    # ── STEP 5: SEKTÖR PERFORMANSI (V114 ile aynı, değişmedi) ────────
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
         try:
             etf      = yf.Ticker(etf_ticker)
-            hist_63d = etf.history(period="63d")   # 3 aylık veri — 21d hesabı için yeterli buffer
-
-            if len(hist_63d) < 5:
-                continue
-
-            hist_21d = hist_63d.tail(21)
-            hist_5d  = hist_63d.tail(5)
-            hist_3d  = hist_63d.tail(3)
-            hist_1d  = hist_63d.tail(2)
-
-            perf_1d  = (
-                (float(hist_1d["Close"].iloc[-1]) - float(hist_1d["Close"].iloc[0]))
-                / float(hist_1d["Close"].iloc[0]) * 100
-            ) if len(hist_1d) >= 2 else 0.0
-
-            perf_3d  = (
-                (float(hist_3d["Close"].iloc[-1]) - float(hist_3d["Close"].iloc[0]))
-                / float(hist_3d["Close"].iloc[0]) * 100
-            ) if len(hist_3d) >= 3 else perf_1d
-
-            perf_5d  = (
-                (float(hist_5d["Close"].iloc[-1]) - float(hist_5d["Close"].iloc[0]))
-                / float(hist_5d["Close"].iloc[0]) * 100
-            ) if len(hist_5d) >= 5 else perf_3d
-
-            perf_21d = (
-                (float(hist_21d["Close"].iloc[-1]) - float(hist_21d["Close"].iloc[0]))
-                / float(hist_21d["Close"].iloc[0]) * 100
-            ) if len(hist_21d) >= 10 else perf_5d
-
-            # Ağırlık: %15 (1d hız) + %20 (3d ivme) + %25 (5d haftalık) + %40 (21d makro)
-            SECTOR_PERFORMANCE[sector_name] = round(
-                (perf_1d * 0.15) + (perf_3d * 0.20) + (perf_5d * 0.25) + (perf_21d * 0.40), 2
-            )
-
+            hist_21d = etf.history(period="21d")
+            if len(hist_21d) >= 5:
+                hist_5d  = hist_21d.tail(5)
+                hist_3d  = hist_21d.tail(3)
+                hist_1d  = hist_21d.tail(2)
+                
+                perf_1d  = (float(hist_1d["Close"].iloc[-1]) - float(hist_1d["Close"].iloc[0])) / float(hist_1d["Close"].iloc[0]) * 100 if len(hist_1d) >= 2 else 0.0
+                perf_3d  = (float(hist_3d["Close"].iloc[-1]) - float(hist_3d["Close"].iloc[0])) / float(hist_3d["Close"].iloc[0]) * 100 if len(hist_3d) >= 3 else perf_1d
+                perf_5d  = (float(hist_5d["Close"].iloc[-1]) - float(hist_5d["Close"].iloc[0])) / float(hist_5d["Close"].iloc[0]) * 100
+                perf_21d = (float(hist_21d["Close"].iloc[-1]) - float(hist_21d["Close"].iloc[0])) / float(hist_21d["Close"].iloc[0]) * 100
+                
+                # 🚨 FIX: Günlük hızlı rotasyonu yakalamak için kısa vade (1d & 3d) eklendi.
+                # Yeni Ağırlık Dağılımı: %30 (1d) + %30 (3d) + %25 (5d) + %15 (21d)
+                SECTOR_PERFORMANCE[sector_name] = round((perf_1d * 0.30) + (perf_3d * 0.30) + (perf_5d * 0.25) + (perf_21d * 0.15), 2)
         except Exception:
             continue
 
@@ -1779,76 +1757,106 @@ def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0
 
 async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
     """
-    BOGA AI V117.2 — 1W → 1D → 1H Hiyerarşik Filtre Mimarisi
+    Tek hisse için kapsamlı teknik analiz.
 
-    MANTIK:
-      PHASE 1W : Haftalık yapı geçmezse 1D'ye bakılmaz (hard gate)
-      PHASE 1D : Günlük trend geçmezse 1H'a bakılmaz (hard gate)
-      PHASE 1H : Sadece giriş zamanlaması — skoru domine etmez
-      PUAN AĞIRLIĞI: 1W ~%30 | 1D ~%55 | 1H ~%15
+    Returns:
+        dict: Hisse geçti ise tüm metrikler ve skor.
+        None: Herhangi bir hard reject veya kritik hata oluştuysa.
     """
     try:
         ticker = ticker.strip().upper()
 
         # =============================================================
-        # PHASE 0: BAŞLANGIÇ — tüm değişkenler
+        # PHASE 0: BAŞLANGIÇ — Tüm değişkenleri en başta tanımla
         # =============================================================
         score: float = 0.0
         details: List[str] = []
-        is_steady_momentum: bool = False
-        financial_health_data: dict = {}
-        ret_1d_pct: float = 0.0
-        squeeze_quality: float = 0.0
+        is_early_awakening: bool = False  # ── V117 FIX: Phase 2B NameError önlemi ──
+        is_steady_momentum: bool = False  # ── V117 FIX: Phase 3E NameError önlemi ──
+        financial_health_data: dict = {}  # ── V117 FIX: Phase 3N Temel Analiz Verisi ──
 
         # =============================================================
-        # PHASE 1A: TEMEL META FİLTRELER (cache — network yok)
+
         # =============================================================
+        # PHASE 1A: TEMEL META FİLTRELER (network yok — cache okuma)
         global persistent_info_cache
         cached_info = get_stock_info(ticker)
+        
+        # ── V117 FIX: Temel analiz verilerini Phase 0/1A'da hazırlıyoruz ─────
+        # Bu veriler boga_score_100 içindeki 'F' bölümü (10p) için kritiktir.
         financial_health_data = analyze_financial_health(ticker, cached_info)
-
+        
         market_cap   = cached_info.get("market_cap", 0)
         beta         = cached_info.get("beta", 1.0)
         sector_name  = cached_info.get("sector", "Unknown")
         short_float  = cached_info.get("short_float", 0.0)
 
+        # Beta hard reject: Çok düşük beta = market'i takip etmiyor, swing için uygunsuz
         if 0 < beta < ATMACA_MIN_BETA:
             return None
 
-        industry_raw   = cached_info.get("industry", "Unknown")
+        # ── Industry Hard Reject ─────────────────────────────────────
+        # Yüksek riskli industry gruplarındaki küçük şirketler elenir.
+        # Kural: Clinical-stage / tek ürün biyotech = binary event riski var.
+        # Büyük pharma ($5B+ mcap) bu listede olsa bile eşiği geçer → girer.
+        industry_raw = cached_info.get("industry", "Unknown")
         industry_lower = industry_raw.lower()
         if industry_lower in HIGH_RISK_INDUSTRIES and 0 < market_cap < HIGH_RISK_INDUSTRY_MCAP_FLOOR:
+            logging.info(f"🚫 {ticker}: High-risk industry ({industry_raw}) + küçük cap (${market_cap/1e9:.1f}B < $5B) → Elendi")
             return None
 
+        # ── CEF / ETF / MutualFund Hard Reject ──────────────────────
+        # V117 FIX: NVG (Nuveen muni CEF) ve BCAT (BlackRock CEF) gibi
+        # kapalı uçlu fonlar swing evrenine girmemeli — teknik analiz
+        # sinyalleri geçersiz, beta sıfıra yakın, fiyat NAV'a kilitli.
         quote_type_raw = cached_info.get("quoteType", "EQUITY").lower()
+        
+        
         if quote_type_raw in CEF_BLOCK_QUOTE_TYPES:
+            logging.info(f"🚫 {ticker}: ETF/CEF/MutualFund (quoteType={quote_type_raw}) → Swing evrenine girmez")
             return None
+            
         if industry_lower in CEF_BLOCK_INDUSTRIES:
+            logging.info(f"🚫 {ticker}: CEF/Fund industry ({industry_raw}) → Swing evrenine girmez")
             return None
 
+
+        # ── Negatif FCF Hard Reject ──────────────────────────────────
+        # Yılda $50M'dan fazla nakit yakan şirket swing için uygun değil.
+        # (Borç / dilution / likidite riski — teknik setup'ı geçersiz kılar)
         raw_fcf = cached_info.get("freeCashflow", 0) or 0
+        
+        # 🎯 FIX: Yfinance büyük şirketlerde FCF'yi bazen eksik (0) döndürür. 
+        # Veri 0 ise, net geliri proxy olarak kullanarak kaçakları (Boeing/BA gibi) yakala.
         if raw_fcf == 0:
             net_inc = cached_info.get("netIncomeToCommon", 0) or 0
             if net_inc < 0:
                 raw_fcf = net_inc
 
         revenue_growth = cached_info.get("revenueGrowth", 0) or 0
-        is_high_growth = revenue_growth > 0.30
+        is_high_growth = revenue_growth > 0.30  # %30 ve üzeri büyüme istisnası
+        
         if raw_fcf < NEGATIVE_FCF_FLOOR and not is_high_growth:
+            logging.info(f"🚫 {ticker}: Negatif FCF/Net Income Proxy (${raw_fcf/1e6:.0f}M) < ${NEGATIVE_FCF_FLOOR/1e6:.0f}M floor → Elendi")
             return None
 
+        # ── Sürekli Zarar Veren Şirket Reject ───────────────────────
+        # Net gelir negatif VE EPS negatif = operasyonel zarar, swing için riskli.
+        # İstisna: büyük cap ($10B+) → kurumsal destek ve diversified gelir var.
         net_income_raw = cached_info.get("netIncomeToCommon", 0) or 0
         trailing_eps   = cached_info.get("trailingEps", 0) or 0
+
         if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 10_000_000_000:
             if not is_high_growth:
+                # Zarar ediyor VE agresif büyüyemiyorsa, swing için toksik bir hissedir.
                 return None
-
+                
         # =============================================================
-        # PHASE 1B: 1D VERİ ÇEK (haftalık resample için gerekli)
+        # PHASE 1B: 1D VERİ ÇEKİMİ (BULK_DATA_CACHE'den, 0 ms)
         # =============================================================
         df_1d = await asyncio.to_thread(get_stock_data, ticker, "1d")
         if df_1d is None or len(df_1d) < 60:
-            return None
+            return None  # IPO/yetersiz geçmiş
 
         avg_volume_10d = float(df_1d["Volume"].tail(10).mean())
         if avg_volume_10d < ATMACA_MIN_AVG_VOLUME:
@@ -1856,152 +1864,21 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if 0 < market_cap < ATMACA_MIN_MARKET_CAP:
             return None
 
-        close_1d      = df_1d["Close"]
-        high_1d       = df_1d["High"]
-        low_1d        = df_1d["Low"]
-        volume_1d     = df_1d["Volume"]
+        # Veri shortcut'ları
+        close_1d  = df_1d["Close"]
+        high_1d   = df_1d["High"]
+        low_1d    = df_1d["Low"]
+        volume_1d = df_1d["Volume"]
         current_price = float(close_1d.iloc[-1])
 
-        # =============================================================
-        # ══════════════════════════════════════════════════════════════
-        # PHASE 2: 1W — HAFTALIK YAPI (HARD GATE + PUAN)
-        # Geçmezse return None — 1D'ye hiç bakılmaz
-        # ══════════════════════════════════════════════════════════════
-        # =============================================================
-
-        w_rsi_val    = 55.0
-        w_rsi_slope  = 0.0
-        w_vol_ratio  = 1.0
-        w_ema40_ok   = True
-        is_above_1w_ema50 = True
-
-        try:
-            # Tamamlanmış haftalar (son kısmi bar hariç)
-            weekly_close = close_1d.resample('W').last().dropna()
-            weekly_close_safe = weekly_close.iloc[:-1] if len(weekly_close) > 1 else weekly_close
-
-            if len(weekly_close_safe) >= 15:
-                # ── 1W RSI ───────────────────────────────────────────
-                w_rsi_series = RSIIndicator(weekly_close_safe, 14).rsi()
-                if not w_rsi_series.empty:
-                    w_rsi_val = float(w_rsi_series.iloc[-1])
-                    if len(w_rsi_series) >= 4:
-                        w_rsi_slope = float(w_rsi_series.iloc[-1]) - float(w_rsi_series.iloc[-4])
-
-                # ── 1W Hacim ─────────────────────────────────────────
-                try:
-                    weekly_vol = df_1d['Volume'].resample('W').sum().dropna()
-                    if len(weekly_vol) >= 8:
-                        w_vol_ratio = float(weekly_vol.iloc[-1]) / float(weekly_vol.tail(8).mean())
-                except Exception:
-                    w_vol_ratio = 1.0
-
-                # ── 1W EMA40 Hard Gate ────────────────────────────────
-                if len(weekly_close_safe) >= 40:
-                    w_ema40      = EMAIndicator(weekly_close_safe, 40).ema_indicator()
-                    last_w_ema40 = float(w_ema40.iloc[-1])
-
-                    # Squeeze/Spring dışında EMA40 altı = eleme
-                    is_squeeze_pre = False  # Henüz hesaplanmadı, aşağıda düzeltilecek
-                    if current_price < last_w_ema40:
-                        # Spring/Squeeze tespiti için BB gerekli, basit fiyat kontrolü yap
-                        bb_pre  = BollingerBands(close_1d, 20, 2)
-                        bw_pre  = float((bb_pre.bollinger_hband() - bb_pre.bollinger_lband()).iloc[-1] / close_1d.iloc[-1])
-                        bw_avg  = float((bb_pre.bollinger_hband() - bb_pre.bollinger_lband()).tail(50).mean() / close_1d.tail(50).mean())
-                        is_squeeze_pre = bw_pre < bw_avg * 0.60
-
-                        min_low_pre = float(low_1d.tail(10).iloc[:-1].min())
-                        is_spring_pre = (
-                            float(low_1d.iloc[-1]) < min_low_pre
-                            and current_price > min_low_pre
-                        )
-
-                        if not (is_squeeze_pre or is_spring_pre):
-                            logging.info(f"🚫 {ticker}: 1W HARD GATE — Fiyat < 1W EMA40 → Elendi")
-                            return None
-                        else:
-                            score -= 3.0
-                            details.append("🟡 1W: Fiyat < EMA40 (Squeeze/Spring İstisna, -3p)")
-                            is_above_1w_ema50 = False
-
-        except Exception as e:
-            logging.warning(f"⚠️ {ticker}: 1W hesaplama hatası: {e}")
-
-        # ── 1W RSI Hard Gate ─────────────────────────────────────────
-        # RSI < 35 VE düşüyor = haftalık yapı bozuk → eleme
-        if w_rsi_val < 35 and w_rsi_slope < -3:
-            logging.info(f"🚫 {ticker}: 1W HARD GATE — RSI {w_rsi_val:.1f} düşüyor → Elendi")
-            return None
-
-        # ── 1W Hacim Hard Gate ────────────────────────────────────────
-        # Haftalık hacim ortalamanın %50'sinin altındaysa = ölü hisse → eleme
-        if w_vol_ratio < 0.50:
-            logging.info(f"🚫 {ticker}: 1W HARD GATE — Haftalık hacim çok düşük ({w_vol_ratio:.2f}x) → Elendi")
-            return None
-
-        # ── 1W PUANLAMA ───────────────────────────────────────────────
-        # Toplam 1W puan potansiyeli: ~30 puan
-
-        # RSI yön ve seviye (max +12p / min -5p)
-        if w_rsi_val > 60 and w_rsi_slope > 3:
-            score += 12.0
-            details.append(f"🚀 1W RSI: Güçlü Momentum ({w_rsi_val:.1f}, slope +{w_rsi_slope:.1f})")
-        elif w_rsi_val > 50 and w_rsi_slope > 1:
-            score += 8.0
-            details.append(f"💪 1W RSI: Yükselen ({w_rsi_val:.1f}, slope +{w_rsi_slope:.1f})")
-        elif w_rsi_val >= 50:
-            score += 4.0
-            details.append(f"🟢 1W RSI: Sağlam ({w_rsi_val:.1f})")
-        elif w_rsi_val >= 40:
-            score += 0.0
-            details.append(f"➖ 1W RSI: Nötr ({w_rsi_val:.1f})")
-        else:
-            score -= 5.0
-            details.append(f"❄️ 1W RSI: Zayıf ({w_rsi_val:.1f})")
-
-        # RSI slope (ek yön puanı, max +4p / min -3p)
-        if w_rsi_slope > 5:
-            score += 4.0
-            details.append(f"⚡ 1W RSI Slope: Agresif yükseliş (+{w_rsi_slope:.1f})")
-        elif w_rsi_slope > 2:
-            score += 2.0
-            details.append(f"📈 1W RSI Slope: Yükseliyor (+{w_rsi_slope:.1f})")
-        elif w_rsi_slope < -5:
-            score -= 3.0
-            details.append(f"📉 1W RSI Slope: Sert düşüş ({w_rsi_slope:.1f})")
-        elif w_rsi_slope < -2:
-            score -= 1.5
-            details.append(f"↘️ 1W RSI Slope: Düşüşte ({w_rsi_slope:.1f})")
-
-        # Haftalık hacim (max +8p / min -4p)
-        if w_vol_ratio > 1.5:
-            score += 8.0
-            details.append(f"🔥 1W Hacim: Güçlü Artış ({w_vol_ratio:.1f}x)")
-        elif w_vol_ratio > 1.2:
-            score += 5.0
-            details.append(f"📈 1W Hacim: Yükseliyor ({w_vol_ratio:.1f}x)")
-        elif w_vol_ratio > 0.9:
-            score += 1.0
-            details.append(f"➖ 1W Hacim: Normal ({w_vol_ratio:.1f}x)")
-        elif w_vol_ratio > 0.7:
-            score -= 2.0
-            details.append(f"⚠️ 1W Hacim: Zayıflıyor ({w_vol_ratio:.1f}x)")
-        else:
-            score -= 4.0
-            details.append(f"❄️ 1W Hacim: Kritik Düşük ({w_vol_ratio:.1f}x)")
-
-        details.append(
-            f"[OK] 1W GATE GEÇİLDİ — RSI:{w_rsi_val:.1f} | Slope:{w_rsi_slope:+.1f} | Vol:{w_vol_ratio:.1f}x"
-        )
+        score += 4.0
+        details.append("[OK] UNIVERSE: Likidite/Yapısal koşullar OK")
 
         # =============================================================
-        # ══════════════════════════════════════════════════════════════
-        # PHASE 3: 1D — GÜNLÜK TREND (HARD GATE + PUAN)
-        # Geçmezse return None — 1H'a hiç bakılmaz
-        # ══════════════════════════════════════════════════════════════
+        # PHASE 2A: ANA TEKNİK GÖSTERGELER (Layer 2 öncesi)
         # =============================================================
 
-        # ── 1D Temel Göstergeler ──────────────────────────────────────
+        # ── EMA Sistemi (1D) ─────────────────────────────────────────
         ema20_1d  = EMAIndicator(close_1d, 20).ema_indicator()
         ema50_1d  = EMAIndicator(close_1d, 50).ema_indicator()
         ema200_1d = EMAIndicator(close_1d, 200).ema_indicator()
@@ -2009,10 +1886,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         last_ema50  = float(ema50_1d.iloc[-1])
         last_ema200 = float(ema200_1d.iloc[-1])
 
+        # Trend durumu sınıflandırma
         if current_price > last_ema20 > last_ema50 > last_ema200:
-            trend_durumu_1d = "Full Stack"
+            trend_durumu_1d = "Full Stack"      # En güçlü: tüm EMA'lar sıralı
         elif current_price > last_ema50 > last_ema200:
-            trend_durumu_1d = "Macro Bullish"
+            trend_durumu_1d = "Macro Bullish"   # EMA20 altında olabilir
         elif current_price > last_ema200:
             trend_durumu_1d = "Above EMA200"
         elif current_price > last_ema50:
@@ -2020,12 +1898,14 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             trend_durumu_1d = "Downtrend"
 
-        bb_1d           = BollingerBands(close_1d, 20, 2)
+        # ── BB Width (Squeeze tespiti için gerekli) ──────────────────
+        bb_1d = BollingerBands(close_1d, 20, 2)
         bb_width_series = (bb_1d.bollinger_hband() - bb_1d.bollinger_lband()) / ema20_1d
-        bb_width        = float(bb_width_series.iloc[-1])
+        bb_width = float(bb_width_series.iloc[-1])
         bb_width_avg_50 = float(bb_width_series.tail(50).mean()) if len(bb_width_series) >= 50 else bb_width
-        is_squeeze      = (bb_width < bb_width_avg_50 * 0.60) or (bb_width < 0.05)
+        is_squeeze = (bb_width < bb_width_avg_50 * 0.60) or (bb_width < 0.05)
 
+        # ── Spring (Failed Breakdown) Tespiti ────────────────────────
         min_low_10d  = float(low_1d.tail(10).iloc[:-1].min())
         current_low  = float(low_1d.iloc[-1])
         daily_range  = float(high_1d.iloc[-1]) - current_low
@@ -2036,19 +1916,32 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             and current_price >= current_low + (daily_range * 0.5)
         )
 
+        # ── ADX ──────────────────────────────────────────────────────
         try:
             adx_series_1d = ADXIndicator(high_1d, low_1d, close_1d, 14).adx()
-            adx_1d        = float(adx_series_1d.iloc[-1])
+            adx_1d = float(adx_series_1d.iloc[-1])
         except Exception:
             adx_series_1d = pd.Series(0.0, index=df_1d.index)
-            adx_1d        = 0.0
+            adx_1d = 0.0
 
+        # ── EMA20 Slope ──────────────────────────────────────────────
         if len(ema20_1d) >= 10 and float(ema20_1d.iloc[-10]) > 0:
             ema20_slope_numeric = (float(ema20_1d.iloc[-1]) - float(ema20_1d.iloc[-10])) / float(ema20_1d.iloc[-10])
         else:
             ema20_slope_numeric = 0.0
         is_ema_flat = abs(ema20_slope_numeric) < 0.008
 
+        # =============================================================
+        # PHASE 2B: HARD REJECT KAPILARI (Layer 2 erken eleme)
+        # =============================================================
+        # Mantık: Squeeze/Spring varsa bazı kapılarda istisna tanı
+        # (sıkışma/dönüş hisseleri normalde "kötü" görünür ama fırsattır)
+
+        # Dead money: hiç sıkışma yok, hiç dönüş yok, EMA flat ve ADX zayıf
+        if not is_squeeze and not is_spring and is_ema_flat and adx_1d < ADX_MIN_LEVEL_1D:
+            return None
+
+        # ── RVOL Mikro (Güncel gün / son 20 gün) ──────────────────────
         try:
             vol_today   = float(volume_1d.iloc[-1])
             vol_20g_avg = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
@@ -2056,351 +1949,423 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             rvol_micro = 0.0
 
-        # RSI 1D
-        try:
-            rsi_1d_series = RSIIndicator(close_1d, 14).rsi()
-            rsi_quick     = float(rsi_1d_series.iloc[-1])
-            rsi_prev      = float(rsi_1d_series.iloc[-2]) if len(rsi_1d_series) >= 2 else rsi_quick
-        except Exception:
-            rsi_1d_series = pd.Series([50.0])
-            rsi_quick     = 50.0
-            rsi_prev      = 50.0
-
-        # CMF
-        cmf_val = 0.0
-        try:
-            df_cmf        = df_1d.tail(25)
-            prev_close_l2 = df_cmf['Close'].shift(1)
-            true_high_l2  = np.maximum(df_cmf['High'], prev_close_l2)
-            true_low_l2   = np.minimum(df_cmf['Low'],  prev_close_l2)
-            true_range_l2 = (true_high_l2 - true_low_l2).replace(0, np.nan)
-            mfm_l2        = ((df_cmf['Close'] - true_low_l2) - (true_high_l2 - df_cmf['Close'])) / true_range_l2
-            mfm_l2        = mfm_l2.fillna(0)
-            cmf_current   = (mfm_l2 * df_cmf['Volume']).tail(20).sum() / df_cmf['Volume'].tail(20).sum()
-            cmf_val       = float(cmf_current) if not pd.isna(cmf_current) else 0.0
-        except Exception:
-            cmf_val = 0.0
-
-        # ── 1D HARD GATE'LER ──────────────────────────────────────────
-
-        # Dead money: flat EMA + zayıf ADX + squeeze/spring yoksa
-        if not is_squeeze and not is_spring and is_ema_flat and adx_1d < ADX_MIN_LEVEL_1D:
-            logging.info(f"🚫 {ticker}: 1D HARD GATE — Dead money")
-            return None
-
-        # Trend: EMA200 altındaysa spring zorunlu
-        if current_price < last_ema200 and not is_spring:
-            logging.info(f"🚫 {ticker}: 1D HARD GATE — EMA200 altı")
-            return None
-
-        # Downtrend: spring yoksa eleme
-        if trend_durumu_1d == "Downtrend" and not is_spring:
-            logging.info(f"🚫 {ticker}: 1D HARD GATE — Downtrend")
-            return None
-
-        # 5 günde -%3.5 altı = kanama
-        if len(close_1d) >= 6:
-            ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
-            if ret_5d_pct < -3.5:
-                logging.info(f"🚫 {ticker}: 1D HARD GATE — 5G kanama ({ret_5d_pct:.1f}%)")
-                return None
-
-        # RSI 1D hard gate
-        if rsi_quick < RSI_1D_MIN:
-            return None
-        if rsi_quick < 45 and rsi_quick < rsi_prev:
-            return None
-
-        is_early_awakening_preview = (45 <= rsi_quick <= 55 and 0.9 <= rvol_micro <= 1.3)
-        if not (is_squeeze or is_spring or is_early_awakening_preview):
-            rsi_3d_ago     = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
-            if (rsi_quick < rsi_prev < rsi_3d_ago) and rsi_quick < 52:
-                return None
-
-        # RVOL 1D hard gate
+        # RVOL eşiği: REIT'ler daha düşük, dirence yakınsa daha esnek
         min_rvol_required = 0.80 if sector_name == "Real Estate" else 1.05
         try:
-            macro_resist      = float(high_1d.tail(15).max())
+            macro_resist = float(high_1d.tail(15).max())
             breakout_distance = (macro_resist - current_price) / current_price
             if 0 <= breakout_distance < 0.025:
+                # Direncin %2.5 altındaysak, hacimsizlik kopuş öncesi sessizliktir
                 min_rvol_required = min(min_rvol_required, 0.85)
         except Exception:
             pass
+
         if rvol_micro < min_rvol_required and not (is_squeeze or is_spring):
             return None
 
-        # ADX hard gate
+        # ── Trend Hard Gate ──────────────────────────────────────────
+        # EMA200 altındaki sıkışma genelde Bear Flag → sadece Spring'e izin ver
+        if current_price < last_ema200 and not is_spring:
+            return None
+
+        # 5 günde -%3.5 altı düşüş = kanama, pullback değil
+        if len(close_1d) >= 6:
+            ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
+            if ret_5d_pct < -3.5:
+                return None
+
+        # ── ADX Hard Gate ────────────────────────────────────────────
         min_adx_required = 12 if sector_name == "Real Estate" else 18
         if adx_1d > 0 and adx_1d < min_adx_required and not (is_squeeze or is_spring):
             return None
 
-        # Yeşil mum sayısı
+        # ── Yeşil Mum Sayısı (son 10 gün) ────────────────────────────
         try:
-            last10        = df_1d.tail(10)
+            last10 = df_1d.tail(10)
             green_candles = int((last10['Close'] > last10['Open']).sum())
         except Exception:
             green_candles = 0
 
-        min_green = 3 if (is_squeeze or is_spring) else 4
         if sector_name == "Real Estate":
-            min_green = 4
-        if green_candles < min_green:
+            min_green_required = 4
+        elif is_squeeze or is_spring:
+            min_green_required = 3
+        else:
+            min_green_required = 4
+
+        if green_candles < min_green_required:
             return None
 
-        # CMF hard gate
+        # ── CMF (Chaikin Money Flow) Hesabı ──────────────────────────
+        cmf_val = 0.0
+        try:
+            df_cmf = df_1d.tail(25)
+            prev_close_l2 = df_cmf['Close'].shift(1)
+            true_high_l2 = np.maximum(df_cmf['High'], prev_close_l2)
+            true_low_l2  = np.minimum(df_cmf['Low'], prev_close_l2)
+            true_range_l2 = (true_high_l2 - true_low_l2).replace(0, np.nan)
+
+            mfm_l2 = ((df_cmf['Close'] - true_low_l2) - (true_high_l2 - df_cmf['Close'])) / true_range_l2
+            mfm_l2 = mfm_l2.fillna(0)
+
+            cmf_current = (mfm_l2 * df_cmf['Volume']).tail(20).sum() / df_cmf['Volume'].tail(20).sum()
+            cmf_val = float(cmf_current) if not pd.isna(cmf_current) else 0.0
+        except Exception:
+            cmf_val = 0.0
+
+        # CMF Hard Gate: -0.05 altı = dağıtım (squeeze/spring istisna)
         if cmf_val < -0.05 and not (is_squeeze or is_spring):
             return None
 
-        # ATR hard gate
+# ── RSI Hard Gate ────────────────────────────────────────────
+        try:
+            rsi_1d_series = RSIIndicator(close_1d, 14).rsi()
+            rsi_quick = float(rsi_1d_series.iloc[-1])
+            rsi_prev  = float(rsi_1d_series.iloc[-2]) if len(rsi_1d_series) >= 2 else rsi_quick
+
+            if rsi_quick < RSI_1D_MIN:
+                return None  # Çok zayıf
+            # Falling Knife: 45 altı + hâlâ düşüşte
+            if rsi_quick < 45 and rsi_quick < rsi_prev:
+                return None
+                
+            # Early awakening ön tahmini (Phase 3K öncesi RSI muafiyeti için)
+            is_early_awakening_preview = (45 <= rsi_quick <= 55 and rvol_micro >= 0.9 and rvol_micro <= 1.3)
+
+            # 🆕 Yön filtresi: RSI 45-52 arası + 3 gün üst üste düşüyor
+            # İstisna: Squeeze/Spring kurulumunda RSI düşük/düşen olabilir
+            if not (is_squeeze or is_spring or is_early_awakening_preview):
+                rsi_3d_ago = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
+                rsi_falling_3d = (rsi_quick < rsi_prev < rsi_3d_ago)
+                if rsi_falling_3d and rsi_quick < 52:
+                    return None
+  
+        except Exception:
+            rsi_1d_series = pd.Series([50.0])
+            rsi_quick = 50.0
+
+        # ── Trend Status Gate ────────────────────────────────────────
+        if trend_durumu_1d == "Downtrend" and not is_spring:
+            return None
+
+        # =============================================================
+        # PHASE 3A: NETWORK GEÇİŞİ — Earnings + 1H ve 15m Veri
+        # =============================================================
+        # Buraya ulaşan ~50 hisse var, 450'si zaten elendi.
+
+        if not await asyncio.to_thread(is_earnings_safe_for_swing, ticker):
+            logging.info(f"🚫 {ticker}: Earnings yakın → Eleme")
+            return None
+
+        df_1h = await asyncio.to_thread(get_stock_data, ticker, "1h")
+        
+        # 🚨 FIX: 15m Mikro-Trend (Kapanış Gücü) Filtresi Aktif Edildi
+        df_15m_raw = await asyncio.to_thread(get_stock_data, ticker, "15m")
+        result_15m = check_15m_micro_trend(df_15m_raw)
+        df_15m = df_15m_raw
+        
+        if not result_15m['is_valid']:
+            logging.info(f"🚫 {ticker}: {result_15m['msg']} → 15m Kapanış Gücü ihlali")
+            return None
+            
+        if result_15m['score_bonus'] != 0:
+            score += result_15m['score_bonus']
+            details.append(result_15m['msg'])
+
+        # Layer 2 başarı puanı
+        score += 6.0
+        details.append(
+            f"[OK] LAYER 2: Momentum onaylı "
+            f"(RVOL:{rvol_micro:.2f}x | Yeşil:{green_candles}/10 | CMF:{cmf_val:.3f})"
+        )
+        if rvol_micro >= 1.60:
+            score += 2.0
+            details.append(f"🔥 Mikro-RVOL agresif: {rvol_micro:.2f}x")
+
+        # =============================================================
+        # PHASE 3B: ATR & VOLATİLİTE
+        # =============================================================
         try:
             atr_1d_series = AverageTrueRange(high_1d, low_1d, close_1d, ATR_PERIOD).average_true_range()
-            atr_1d        = float(atr_1d_series.iloc[-1])
+            atr_1d = float(atr_1d_series.iloc[-1])
         except Exception:
             atr_1d = 0.0
 
         atr_pct_1d = (atr_1d / current_price) if current_price > 0 else 0.0
+
+        # ATR sınırları
         if atr_pct_1d > 0:
+            # ── V117 FIX: Çok dar ATR hard reject eşiği %0.5'ten %1.5'e çıkarıldı ──
             if atr_pct_1d < 0.015:
-                return None
+                return None  # Çok dar, swing için ölü
             max_atr_allowed = 0.120 if beta > 1.5 else 0.080
             if atr_pct_1d > max_atr_allowed:
-                return None
-        if atr_pct_1d < 0.025 and sector_name == "Real Estate":
-            return None
-
+                return None  # Aşırı volatil
         try:
             bb_width_1d = (bb_1d.bollinger_hband().iloc[-1] - bb_1d.bollinger_lband().iloc[-1]) / current_price if current_price > 0 else 0.0
         except Exception:
             bb_width_1d = 0.0
 
-        # Churn koruması
-        close_change_pct = (
-            (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2])
-            if len(close_1d) > 1 else 0.0
-        )
-        open_today   = float(df_1d['Open'].iloc[-1])
-        candle_range = float(high_1d.iloc[-1]) - float(low_1d.iloc[-1])
-        candle_body  = abs(current_price - open_today)
-        churn_ratio  = (candle_body / candle_range) if candle_range > 0 else 1.0
-        if churn_ratio < 0.30 and rvol_micro > 2.0 and not is_spring:
-            return None
-        if rvol_micro > 2.5 and close_change_pct < -0.015:
-            return None
-        if close_change_pct > 0.08:
+        # REIT'lerde dar ATR = swing yok
+        if atr_pct_1d < 0.025 and sector_name == "Real Estate":
             return None
 
-        try:
-            price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
-            if 0 < price_20d_range < 0.05 and not is_squeeze:
-                return None
-        except Exception:
-            pass
+        # =============================================================
+        # PHASE 3C: PUANLAMA — Trend & Sektör & RS
+        # =============================================================
 
-        # Earnings kontrolü
-        if not await asyncio.to_thread(is_earnings_safe_for_swing, ticker):
-            logging.info(f"🚫 {ticker}: Earnings yakın → Eleme")
-            return None
-
-        # ── 1D PUANLAMA ───────────────────────────────────────────────
-        # Toplam 1D puan potansiyeli: ~55 puan
-
-        score += 4.0
-        details.append(f"[OK] 1D GATE GEÇİLDİ — Trend:{trend_durumu_1d} | ADX:{adx_1d:.1f} | RSI:{rsi_quick:.1f}")
-
-        # Sektör rotasyonu
+        # ── Sektör Rotasyonu ─────────────────────────────────────────
         sec_perf = SECTOR_PERFORMANCE.get(sector_name, 0.0)
         if sec_perf > 2.0:
-            score += 5.0;  details.append(f"🔥 Sektör HOT: {sector_name} (+{sec_perf:.1f}%)")
+            score += 6.0; details.append(f"🔥 Sektör HOT: {sector_name} (+{sec_perf:.1f}%)")
         elif sec_perf > 0:
-            score += 1.5;  details.append(f"📊 Sektör Pozitif: {sector_name} (+{sec_perf:.1f}%)")
+            score += 1.2; details.append(f"📊 Sektör Pozitif: {sector_name} (+{sec_perf:.1f}%)")
         elif sec_perf < -2.0:
-            score -= 3.0;  details.append(f"🥶 Sektör SOĞUK: {sector_name} ({sec_perf:.1f}%)")
+            score -= 3.2; details.append(f"🥶 Sektör SOĞUK: {sector_name} ({sec_perf:.1f}%)")
         else:
-            score -= 0.5;  details.append(f"➖ Sektör Nötr: {sector_name} ({sec_perf:.1f}%)")
+            score -= 0.8; details.append(f"➖ Sektör Nötr: {sector_name} ({sec_perf:.1f}%)")
 
-        # Relative Strength
-        rs_label     = "N/A"
-        rs_slope     = 0.0
-        is_strong_rs = False
-        index_close  = get_index_close_series(INDEX_BENCHMARK)
+        # ── Relative Strength (S&P 500'e karşı) ──────────────────────
+        rs_label = "N/A"
+        rs_slope = 0.0
+        index_close = get_index_close_series(INDEX_BENCHMARK)
         if index_close is not None:
             idx_aligned = index_close.reindex(close_1d.index, method="ffill").dropna()
             common_idx  = close_1d.index.intersection(idx_aligned.index)
             if len(common_idx) >= 20:
                 rs_series = close_1d.loc[common_idx] / idx_aligned.loc[common_idx]
-                rs_tail   = rs_series.tail(min(RS_LOOKBACK, len(rs_series)))
+                rs_tail = rs_series.tail(min(RS_LOOKBACK, len(rs_series)))
                 try:
                     rs_slope = float(np.polyfit(range(len(rs_tail)), rs_tail.values, 1)[0])
                 except Exception:
                     rs_slope = 0.0
+
                 if rs_slope > 0.0005:
-                    score += 4.0;  rs_label = "Strong Outperform";  is_strong_rs = True
-                    details.append(f"💪 RS: Güçlü Outperform")
+                    score += 4.8; rs_label = "Strong Outperform"
+                    details.append(f"💪 RS: {INDEX_BENCHMARK} üstü (Güçlü)")
                 elif rs_slope > 0:
-                    score += 1.5;  rs_label = "Mild Outperform"
-                    details.append(f"📈 RS: Hafif Outperform")
+                    score += 2.0; rs_label = "Mild Outperform"
+                    details.append(f"📈 RS: {INDEX_BENCHMARK} üstü (Hafif)")
                 elif rs_slope > -0.0005:
-                    score -= 1.0;  rs_label = "Neutral"
+                    score -= 1.2; rs_label = "Neutral"
                     details.append("➖ RS: Paralel")
                 else:
-                    score -= 2.5;  rs_label = "Underperform"
-                    details.append(f"⚠️ RS: Underperform")
+                    score -= 3.2; rs_label = "Underperform"
+                    details.append(f"⚠️ RS: {INDEX_BENCHMARK} altı")
 
-        # EMA Trend Puanı
+        is_strong_rs = rs_slope > 0.0005
+
+        # ── 1W Multi-Timeframe Onay ──────────────────────────────────
+        is_above_1w_ema50 = True
+        try:
+            weekly_close = close_1d.resample('W').last().dropna()
+            
+            # 🚨 FIX: Veri seti uyumu için 40 Haftalık EMA (≈200 Günlük) kullanıldı.
+            if len(weekly_close) >= 40:
+                weekly_ema40 = EMAIndicator(weekly_close, 40).ema_indicator()
+                last_w_ema40 = float(weekly_ema40.iloc[-1])
+                
+                if current_price < last_w_ema40:
+                    if not (is_spring or is_squeeze):
+                        is_above_1w_ema50 = False  # Gerçekten elenenlerde False yap (Finaldeki %15 ceza için)
+                        logging.info(f"🚫 {ticker}: Makro Trend İhlali (Fiyat < 1W EMA40) → MTF kilidi ile elendi")
+                        return None
+                    else:
+                        # Spring/Squeeze muafiyeti (is_above_1w_ema50 = True kalır, çifte ceza yemez)
+                        score -= 2.0
+                        details.append("🟡 1W TREND: Fiyat < 1W EMA40 (Spring/Squeeze İstisnası)")
+                
+                # RSI kontrolü artık güvenli bloğun içinde (EMA40 hesaplanabiliyorsa çalışır)
+                weekly_rsi = RSIIndicator(weekly_close, 14).rsi()
+                last_w_rsi = float(weekly_rsi.iloc[-1])
+                if last_w_rsi < 40:
+                    score -= 3.0
+                    details.append(f"❄️ 1W RSI: Zayıf ({last_w_rsi:.1f})")
+                    
+            elif len(weekly_close) < 40:
+                # Yetersiz haftalık geçmiş (Yeni halka arz vb.) — Güvenli taraf için MTF kilidi atlanır
+                logging.info(f"⚠️ {ticker}: 1W geçmiş yetersiz ({len(weekly_close)} bar) → MTF kilidi atlandı")
+                
+        except Exception:
+            pass
+
+        # ── 1D EMA Trend Puanlaması ──────────────────────────────────
         if trend_durumu_1d == "Full Stack":
-            score += 14.0
-            details.append("🏆 1D TREND: Full Stack (+14p)")
+            score += 16.0
+            details.append("🏆 1D TREND: Full Stack (EMA20>50>200 Perfect Stack) (+16.0p)")
+            # Full Stack için de ema_spread bonusu aktif edildi
             ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
             if ema_spread > 0.03:
-                score += 1.5
-                details.append("🔥 EMA50-200 Geniş Spread (+1.5p)")
+                score += 1.6
+                details.append("🔥 EMA50-200 Geniş Spread (+1.6p)")
         elif trend_durumu_1d == "Macro Bullish":
-            score += 11.0
-            details.append("🏆 1D TREND: Macro Bullish (+11p)")
+            score += 14.0
+            details.append("🏆 1D TREND: Macro Bullish (P>EMA50>EMA200)")
             ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
             if ema_spread > 0.03:
-                score += 1.5
-                details.append("🔥 EMA50-200 Geniş Spread (+1.5p)")
+                score += 1.6
+                details.append("🔥 EMA50-200 Geniş Spread")
         elif trend_durumu_1d == "Above EMA200":
-            score += 3.0;  details.append("🟢 1D TREND: EMA200 üstü (+3p)")
+            score += 3.2; details.append("🟢 1D TREND: EMA200 üstü")
         elif trend_durumu_1d == "Above EMA50":
-            score += 1.0;  details.append("🟡 1D TREND: EMA50 üstü (+1p)")
+            score += 1.2; details.append("🟡 1D TREND: EMA50 üstü")
         else:
-            score -= 5.0;  details.append("🔴 1D TREND: Aşağı (-5p)")
+            score -= 6.0; details.append("🔴 1D TREND: Aşağı")
 
+        # EMA20 slope
         cond_ema20_slope_positive = calculate_ema_slope(ema20_1d, periods=10)
         if cond_ema20_slope_positive:
-            score += 3.0; details.append("📈 EMA20: Pozitif eğim (+3p)")
+            score += 4.0; details.append("📈 EMA20: Pozitif eğim")
         else:
-            score -= 1.5; details.append("📉 EMA20: Negatif/Düz eğim (-1.5p)")
+            score -= 1.6; details.append("📉 EMA20: Negatif/Düz eğim")
 
-        # Squeeze / Spring Alpha
+        # =============================================================
+        # PHASE 3D: ALPHA ENGINES (Squeeze / Spring Bonus)
+        # =============================================================
+
+        # ── YENİ: Squeeze Kalite Kontrolü ─────────────────────────
         if is_squeeze:
-            squeeze_quality     = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
-            squeeze_quality     = min(squeeze_quality, 1.0)
-            squeeze_base        = 8.0 + (10.0 * squeeze_quality)
+            # Squeeze kalite puanı: BB sıkışma derinliği
+            # 0.0 = barely squeeze, 1.0 = extreme squeeze
+            squeeze_quality = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
+            squeeze_quality = min(squeeze_quality, 1.0)
+
+            # Base bonus: 10-22 arası (eskiden sabit 25)
+            squeeze_base = 10.0 + (12.0 * squeeze_quality)
+
+            # Muafiyet maliyeti: hangi kapılardan "bedava" geçti?
             squeeze_exemption_cost = 0.0
-            if rvol_micro < 1.05: squeeze_exemption_cost += 3.0
-            if cmf_val < -0.05:   squeeze_exemption_cost += 3.0
-            if is_ema_flat and adx_1d < 15: squeeze_exemption_cost += 2.0
-            if green_candles < 4: squeeze_exemption_cost += 1.5
+            if rvol_micro < 1.05:
+                squeeze_exemption_cost += 3.0   # RVOL muafiyeti kullandı
+            if cmf_val < -0.05:
+                squeeze_exemption_cost += 3.0   # CMF muafiyeti kullandı
+            if is_ema_flat and adx_1d < 15:
+                squeeze_exemption_cost += 2.0   # Dead money muafiyeti kullandı
+            if green_candles < 4:
+                squeeze_exemption_cost += 1.5   # Green candle muafiyeti kullandı
+
             squeeze_net = squeeze_base - squeeze_exemption_cost
             score += squeeze_net
-            details.append(f"🚨 SQUEEZE: Kalite {squeeze_quality*100:.0f}% | Bonus: +{squeeze_net:.1f}p")
-        elif is_spring:
-            score += 15.0
-            details.append("⚡ SPRING: Failed Breakdown (+15p)")
 
-        # ADX
+            exemption_note = f" (Muafiyet maliyeti: -{squeeze_exemption_cost:.1f})" if squeeze_exemption_cost > 0 else ""
+            details.append(
+                f"🚨 SQUEEZE: Kalite {squeeze_quality*100:.0f}% | "
+                f"Bonus: +{squeeze_net:.1f}{exemption_note}"
+            )
+        elif is_spring:
+            score += 18.0
+            details.append("⚡ SNIPER: Failed Breakdown / Spring — TUZAK BİTTİ")
+
+        # ── ADX Slope + Level Puanı ──────────────────────────────────
         try:
             adx_slope = float(adx_series_1d.diff().tail(5).mean())
         except Exception:
             adx_slope = 0.0
 
         if adx_1d >= 40:
-            score -= 3.0; details.append(f"⚠️ ADX: Tükenme ({adx_1d:.1f})")
+            score -= 3.0; details.append(f"⚠️ ADX: Zirve/Tükenme ({adx_1d:.1f})")
         elif adx_1d >= 28:
             score += 2.0; details.append(f"💪 ADX: Kurulu Trend ({adx_1d:.1f})")
         elif adx_1d >= 18:
-            score += 4.0; details.append(f"🔥 ADX: Optimal Uyanış ({adx_1d:.1f})")
+            score += 5.0; details.append(f"🔥 ADX: Trend Uyanışı — OPTIMAL ({adx_1d:.1f})")
         else:
-            score -= 2.0; details.append(f"🟡 ADX: Zayıf ({adx_1d:.1f})")
+            score -= 2.0; details.append(f"🟡 ADX: Çok Zayıf ({adx_1d:.1f})")
 
         if adx_slope > 0.8:
-            score += 2.0; details.append(f"⚡ ADX Slope: Agresif")
+            score += 2.0; details.append(f"⚡ ADX Slope: Agresif (+{adx_slope:.2f}/bar)")
         elif adx_slope > 0.3:
-            score += 1.0; details.append(f"📈 ADX Slope: Yükseliyor")
+            score += 1.0; details.append(f"📈 ADX Slope: Yükseliyor ({adx_slope:.2f}/bar)")
         elif adx_slope < -0.5:
-            score -= 2.0; details.append(f"🐌 ADX Slope: Soluyor")
+            score -= 3.0; details.append(f"🐌 ADX Slope: Soluyor ({adx_slope:.2f}/bar)")
 
-        # Beta
+        # ── Beta Volatilite Ödülü ────────────────────────────────────
         if beta >= 1.5:
-            score += 3.0; details.append(f"🚀 High Beta ({beta:.2f})")
+            score += 4.0; details.append(f"🚀 High Beta ({beta:.2f}): Hızlı hareket")
         elif beta >= 1.2:
-            score += 1.5; details.append(f"📈 Good Beta ({beta:.2f})")
+            score += 2.0; details.append(f"📈 Good Beta ({beta:.2f}): Market üstü")
         elif beta < 0.8:
-            score -= 2.0; details.append(f"🐢 Low Beta ({beta:.2f})")
+            score -= 2.0; details.append(f"🐢 Low Beta ({beta:.2f}): Yavaş")
 
-        # ATR rejimi
+        # ── ATR Rejimi Puanlaması ────────────────────────────────────
         if atr_pct_1d < 0.025:
             if is_squeeze:
-                score -= 1.0; details.append("⚠️ ATR: Squeeze sıkışması")
+                score -= 1.0; details.append("⚠️ VOL: Squeeze sıkışması (ATR<2.5% normal)")
             else:
-                score -= 4.0; details.append("🔴 ATR: Çok Dar")
+                # ── V117 FIX: ATR cezaları WTS gibi ağır hisseleri ezmemesi için yumuşatıldı ──
+                score -= 5.0; details.append("🔴 VOL: 7g swing için yavaş (ATR<2.5%)")
         elif atr_pct_1d < 0.035:
-            score -= 0.5; details.append("⚠️ ATR: Hafif Dar")
+            score -= 1.0; details.append("⚠️ VOL: Hafif Yavaş (ATR<3.5%)")
         elif atr_pct_1d < 0.045:
-            score += 5.0; details.append("⚡ ATR: İyi Swing")
+            score += 6.0; details.append("⚡ VOL: İyi Swing")
         elif atr_pct_1d <= 0.075:
-            score += 7.0; details.append("🔥 ATR: Sweet Spot")
+            score += 8.0; details.append("🔥 VOL: 7g HEDEF Sweet Spot")
         elif atr_pct_1d <= 0.100:
-            score += 4.0; details.append("🟧 ATR: Yüksek (yönetilen)")
+            score += 4.5; details.append("🟧 VOL: Yüksek (yönetilen risk)")
         else:
-            score += 1.0; details.append("🟨 ATR: Aşırı")
+            score += 1.0; details.append("🟨 VOL: Aşırı (riskli)")
 
-        # RSI 1D puanı
-        rsi_1d_val = rsi_quick
+        # =============================================================
+        # PHASE 3E: RSI / MACD / OBV / CMF Puanlaması
+        # =============================================================
+
+        # ── RSI Puanlaması (sektöre göre) ────────────────────────────
+        rsi_1d_val = rsi_quick  # Zaten yukarıda hesaplandı
+
         if sector_name == "Real Estate":
             if 38 <= rsi_1d_val <= 55:
-                score += 6.0; details.append(f"🏢 REIT RSI: Optimal ({rsi_1d_val:.1f})")
+                score += 8.0; details.append(f"🏢 REIT RSI: Optimal Base ({rsi_1d_val:.1f})")
             elif 55 < rsi_1d_val <= 65:
-                score += 3.0; details.append(f"📈 REIT RSI: Momentum ({rsi_1d_val:.1f})")
+                score += 4.0; details.append(f"📈 REIT RSI: Momentum ({rsi_1d_val:.1f})")
             elif rsi_1d_val > 65:
-                score -= 4.0; details.append(f"⚠️ REIT RSI: Şişkin ({rsi_1d_val:.1f})")
+                score -= 5.0; details.append(f"⚠️ REIT RSI: Aşırı Şişkin ({rsi_1d_val:.1f})")
             elif rsi_1d_val < 35:
-                score -= 3.0; details.append(f"❄️ REIT RSI: Zayıf ({rsi_1d_val:.1f})")
+                score -= 3.2; details.append(f"❄️ REIT RSI: Zayıf ({rsi_1d_val:.1f})")
             else:
-                score += 0.5; details.append(f"➖ REIT RSI: Nötr ({rsi_1d_val:.1f})")
+                score += 0.4; details.append(f"➖ REIT RSI: Nötr ({rsi_1d_val:.1f})")
         else:
             if RSI_BOGA_OPT_MIN <= rsi_1d_val <= 60:
-                score += 7.0; details.append(f"🌀 RSI: Sweet Spot ({rsi_1d_val:.1f})")
+                score += 8.0; details.append(f"🌀 RSI: Sniper Sweet Spot ({rsi_1d_val:.1f})")
             elif 60 < rsi_1d_val <= 68:
-                score += 3.5; details.append(f"📈 RSI: Momentum ({rsi_1d_val:.1f})")
+                score += 4.0; details.append(f"📈 RSI: Momentum Devamı ({rsi_1d_val:.1f})")
             elif 68 < rsi_1d_val <= RSI_1D_MAX and is_strong_rs:
-                score += 1.5; details.append(f"🚀 RSI: Momentum Lideri ({rsi_1d_val:.1f})")
+                score += 2.0; details.append(f"🚀 RSI: Güçlü Momentum Lideri ({rsi_1d_val:.1f})")
             elif 68 < rsi_1d_val <= 75 and not is_strong_rs:
-                score -= 4.0; details.append(f"⚠️ RSI: FOMO Riski ({rsi_1d_val:.1f})")
+                score -= 5.0; details.append(f"⚠️ RSI: FOMO Riski ({rsi_1d_val:.1f})")
             elif rsi_1d_val < 40:
-                score -= 3.0; details.append(f"❄️ RSI: Zayıf ({rsi_1d_val:.1f})")
+                score -= 3.2; details.append(f"❄️ RSI: Zayıf ({rsi_1d_val:.1f})")
             elif rsi_1d_val > RSI_1D_MAX or (rsi_1d_val > 75 and not is_strong_rs):
-                # 1W makro doğrulaması: haftalık destek yoksa ağır ceza
-                if w_rsi_val < 50:
-                    score -= 12.0
-                    details.append(f"🔴 RSI Overbought ({rsi_1d_val:.1f}) + 1W Zayıf ({w_rsi_val:.1f}) → Tepe Riski")
-                else:
-                    score -= 6.0
-                    details.append(f"⚠️ RSI Yüksek ({rsi_1d_val:.1f}) + 1W Destekli ({w_rsi_val:.1f})")
+                score -= 10.0; details.append(f"🔴 RSI: Overbought Peak ({rsi_1d_val:.1f})")
             else:
-                score += 0.5; details.append(f"➖ RSI: Nötr ({rsi_1d_val:.1f})")
+                score += 0.4; details.append(f"➖ RSI: Nötr ({rsi_1d_val:.1f})")
 
-        # RSI slope 1D
-        rsi_slope_5 = 0.0
-        try:
-            if len(rsi_1d_series) >= 5:
-                rsi_slope_5 = float(rsi_1d_series.iloc[-1]) - float(rsi_1d_series.iloc[-5])
-                if rsi_slope_5 < -5:
-                    score -= 2.5; details.append(f"📉 RSI Slope 1D: Güçlü düşüş ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 < -2:
-                    score -= 1.2; details.append(f"↘️ RSI Slope 1D: Düşüşte ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 > 5:
-                    score += 2.0; details.append(f"📈 RSI Slope 1D: Güçlü yükseliş ({rsi_slope_5:.1f})")
-                elif rsi_slope_5 > 2:
-                    score += 1.0; details.append(f"↗️ RSI Slope 1D: Yükselişte ({rsi_slope_5:.1f})")
-        except Exception:
-            pass
-
-        # RSI divergence
+        # RSI Divergence (negatif)
         try:
             if (
                 len(close_1d) > 5
                 and close_1d.iloc[-1] > close_1d.iloc[-5]
                 and rsi_1d_series.iloc[-1] < rsi_1d_series.iloc[-5]
             ):
-                score -= 3.5; details.append("⚠️ RSI Diverjans: Negatif")
+                score -= 4.0; details.append("⚠️ RSI Diverjans: Negatif")
         except Exception:
             pass
 
-        # Exhaustion
+        # RSI Slope (1D)
+        rsi_slope_5 = 0.0
+        try:
+            if len(rsi_1d_series) >= 5:
+                rsi_slope_5 = float(rsi_1d_series.iloc[-1]) - float(rsi_1d_series.iloc[-5])
+                if rsi_slope_5 < -5:
+                    score -= 3.0; details.append(f"📉 RSI Slope: Güçlü düşüş ({rsi_slope_5:.1f})")
+                elif rsi_slope_5 < -2:
+                    score -= 1.5; details.append(f"↘️ RSI Slope: Hafif düşüş ({rsi_slope_5:.1f})")
+                elif rsi_slope_5 > 5:
+                    score += 2.0; details.append(f"📈 RSI Slope: Güçlü yükseliş ({rsi_slope_5:.1f})")
+                elif rsi_slope_5 > 2:
+                    score += 1.0; details.append(f"↗️ RSI Slope: Yükselişte ({rsi_slope_5:.1f})")
+        except Exception:
+            pass
+
+        # ── Exhaustion Tespiti ───────────────────────────────────────
         is_exhausted = False
         try:
             roc_3d = (
@@ -2411,220 +2376,68 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2]) * 100
                 if len(close_1d) >= 2 else 0.0
             )
+
             is_overbought_rsi = (rsi_1d_val > 80.0) or (rsi_1d_val > 75.0 and not is_strong_rs)
+
             if roc_3d > 12.0 or is_overbought_rsi or ret_1d_pct > 6.0:
                 is_exhausted = True
                 reasons_ex = []
-                if roc_3d > 12.0:   reasons_ex.append(f"3G ROC: +{roc_3d:.1f}%")
-                if ret_1d_pct > 6.0: reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}%")
-                if is_overbought_rsi: reasons_ex.append(f"RSI: {rsi_1d_val:.1f}")
-                score -= 18.0
-                details.append(f"🔴 EXHAUSTED: {', '.join(reasons_ex)}")
+                if roc_3d > 12.0:
+                    reasons_ex.append(f"3G ROC: +{roc_3d:.1f}% (Parabolic)")
+                if ret_1d_pct > 6.0:
+                    reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}% (Spike FOMO)")
+                if is_overbought_rsi:
+                    reasons_ex.append(f"RSI: {rsi_1d_val:.1f} (Peak)")
+                score -= 20.0
+                details.append(f"🔴 EXHAUSTED / FOMO: {', '.join(reasons_ex)}")
         except Exception:
             pass
 
-        # MACD
+        # ── MACD Histogram ───────────────────────────────────────────
         macd_hist_val = 0.0
         try:
-            macd_obj      = MACD(close_1d, window_slow=26, window_fast=12, window_sign=9)
-            macd_hist     = macd_obj.macd_diff()
+            macd_obj = MACD(close_1d, window_slow=26, window_fast=12, window_sign=9)
+            macd_hist = macd_obj.macd_diff()
             macd_hist_val = float(macd_hist.iloc[-1])
             macd_hist_prev = float(macd_hist.iloc[-2]) if len(macd_hist) >= 2 else 0.0
+
             if macd_hist_val > 0 and macd_hist_val > macd_hist_prev:
-                score += 2.5; details.append(f"📈 MACD Hist: Yükseliyor ({macd_hist_val:.3f})")
+                score += 3.0; details.append(f"📈 MACD Hist: Yükseliyor ({macd_hist_val:.3f})")
             elif macd_hist_val > 0:
-                score += 1.2; details.append(f"[OK] MACD Hist: Pozitif ({macd_hist_val:.3f})")
+                score += 1.5; details.append(f"[OK] MACD Hist: Pozitif ({macd_hist_val:.3f})")
             elif (
                 macd_hist_val < 0
                 and macd_hist_val > macd_hist_prev
                 and (macd_hist_val - macd_hist_prev) > abs(macd_hist_prev) * 0.15
             ):
-                score += 2.0; details.append("🌅 MACD: Dip Dönüş Momentumu")
+                score += 2.5; details.append("🌅 MACD: Güçlü Dip Dönüş Momentumu")
             elif macd_hist_val < 0:
-                score -= 1.5; details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f})")
+                score -= 2.0; details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f})")
         except Exception:
             macd_hist_val = 0.0
 
-        # OBV
-        try:
-            obv_1d    = OnBalanceVolumeIndicator(close_1d, volume_1d).on_balance_volume()
-            obv_tail  = obv_1d.tail(OBV_TREND_DAYS).values
-            obv_slope = float(np.polyfit(range(len(obv_tail)), obv_tail, 1)[0])
-        except Exception:
-            obv_slope = 0.0
-
-        if obv_slope > 1000:
-            score += 5.0; details.append("[OK] OBV: Güçlü Birikim")
-        elif obv_slope > 0:
-            score += 2.0; details.append("📈 OBV: Pozitif")
-        elif obv_slope < -1000:
-            score -= 2.5; details.append("⚠️ OBV: Dağıtım")
-        else:
-            score -= 0.5; details.append("➖ OBV: Nötr")
-
-        # RVOL 1D
-        vol_today  = float(volume_1d.iloc[-1])
-        vol_ma_1d  = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
-        rvol_today = (vol_today / vol_ma_1d) if vol_ma_1d > 0 else 0.0
-
-        if 1.2 <= rvol_today <= 1.8 and abs(close_change_pct) < 0.006:
-            score += 5.5; details.append(f"🐋 RVOL 1D: Sessiz Birikim ({rvol_today:.2f}x)")
-        elif rvol_today > 2.0 and close_change_pct > 0.008:
-            score += 7.0; details.append(f"[START] RVOL 1D: Swing Uyanışı ({rvol_today:.2f}x)")
-        elif rvol_today > 1.5:
-            score += 2.5; details.append(f"📊 RVOL 1D: Aktif ({rvol_today:.2f}x)")
-        elif rvol_today < 0.6:
-            score -= 2.5; details.append(f"🐢 RVOL 1D: Hacimsiz ({rvol_today:.2f}x)")
-        else:
-            score += 0.5; details.append(f"➖ RVOL 1D: Normal ({rvol_today:.2f}x)")
-
-        vol_avg5           = float(volume_1d.tail(VOLUME_INCREASE_LOOKBACK).mean())
-        vol_avg20          = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_avg5
-        vol_increase_ratio = (vol_avg5 / vol_avg20) if vol_avg20 > 0 else 0.0
-
-        if vol_increase_ratio > 1.4:
-            score += 6.0; details.append(f"🔥 Hacim Trendi 5G: Artış ({vol_increase_ratio:.2f}x)")
-        elif vol_increase_ratio > 1.1:
-            score += 3.5; details.append(f"📈 Hacim Trendi 5G: Erken ({vol_increase_ratio:.2f}x)")
-        elif vol_increase_ratio < 0.8:
-            score -= 2.0; details.append(f"📉 Hacim Trendi 5G: Zayıf ({vol_increase_ratio:.2f}x)")
-        else:
-            score += 0.5; details.append(f"➖ Hacim Trendi 5G: Stabil ({vol_increase_ratio:.2f}x)")
-
-        # CMF puanlama
-        if -0.05 <= cmf_val < 0.0 and not is_spring:
-            penalty = 0.8 if is_squeeze else 1.5
+        # ── CMF Puanlaması (sadece zayıf birikim cezası) ─────────────
+        # Negatif CMF zaten hard gate'te elenmişti, burada hafif uyarılar
+        # İstisna: Spring ve Steady Momentum tam muaf.
+        # Squeeze ise muafiyet maliyetini ödediği için sadece "indirim" alır.
+        if -0.05 <= cmf_val < 0.0 and not (is_spring or is_steady_momentum):
+            penalty = 1.0 if is_squeeze else 2.0
             score -= penalty
-            details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f})")
-        elif 0.0 <= cmf_val < 0.08 and not is_spring:
-            penalty = 1.5 if is_squeeze else 3.0
+            details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f}){' (Squeeze indirimi)' if is_squeeze else ''}")
+        elif 0.0 <= cmf_val < 0.08 and not (is_spring or is_steady_momentum):
+            penalty = 2.0 if is_squeeze else 4.0
             score -= penalty
-            details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f})")
-
-        # Steady Momentum + HH/HL
-        try:
-            if len(close_1d) >= 5:
-                close_5d = close_1d.tail(5).values
-                is_steady_momentum = (
-                    all(close_5d[i] >= close_5d[i-1] * 0.99 for i in range(1, 5))
-                    and (close_5d[-1] > close_5d[0])
-                    and (ret_1d_pct < 5.0)
-                )
-                if is_steady_momentum:
-                    score += 5.0
-                    details.append("📈 Steady Momentum: Kademeli Trend (+5p)")
-            if len(high_1d) >= 5 and len(low_1d) >= 5:
-                hh_hl_valid = (
-                    float(high_1d.iloc[-1]) > float(high_1d.iloc[-5])
-                    and float(low_1d.iloc[-1]) > float(low_1d.iloc[-5])
-                )
-                if hh_hl_valid and trend_durumu_1d in ["Full Stack", "Macro Bullish"]:
-                    score += 5.0
-                    details.append("🔰 HH/HL: Güçlü Trend Devamı (+5p)")
-        except Exception:
-            pass
-
-        # Smart Money + Rising + Ichimoku + VP
-        smart_money = analyze_smart_money_flow(df_1d, ticker, cached_info)
-        if smart_money['has_smart_flow']:
-            score += smart_money['score'] * 0.7
-            details.extend(smart_money['details'])
-
-        rising = detect_rising_stock(df_1d, adx_1d)
-        if rising['is_rising']:
-            score += rising['score'] * 0.5
-            details.extend(rising['details'])
-
-        try:
-            if len(df_1d) >= 60:
-                df_ichi     = calculate_ichimoku(df_1d)
-                ichi_result = check_ichimoku_setup(df_ichi)
-                if ichi_result['valid']:
-                    score += ichi_result['bonus']
-                    details.append(ichi_result['msg'])
-        except Exception:
-            pass
-
-        try:
-            vp_result = check_volume_profile(df_1d)
-            if vp_result['valid']:
-                score += vp_result['bonus']
-                details.append(vp_result['msg'])
-        except Exception:
-            pass
-
-        mfi_val = smart_money.get('mfi', 50.0)
-
-        # Piyasa Rejimi
-        market_regime   = MARKET_STATUS.get("regime", "UNKNOWN")
-        market_modifier = MARKET_STATUS.get("min_score_modifier", 0.0)
-        if market_modifier != 0.0:
-            regime_score_effect = -market_modifier * 7.0
-            score += regime_score_effect
-            details.append(f"⚖️ Piyasa Rejim ({market_regime}): {regime_score_effect:+.1f}p")
-
-        try:
-            ema50_10d_ago     = float(ema50_1d.iloc[-10]) if len(ema50_1d) >= 10 else float(ema50_1d.iloc[-1])
-            ema50_slope_check = (float(ema50_1d.iloc[-1]) - ema50_10d_ago) / ema50_10d_ago if ema50_10d_ago > 0 else 0.0
-        except Exception:
-            ema50_slope_check = 0.0
-
-        vol_5d_trend = (vol_avg5 / vol_avg20) if vol_avg20 > 0 else 1.0
-        if ema50_slope_check > 0 and vol_5d_trend > 1.1:
-            score += 2.5; details.append("🟢 Trend-Hacim Senkron")
-
-        if market_regime == "STRONG" and ema50_slope_check > 0:
-            score += 2.5; details.append("💎 STRONG Market Hizalama")
-        elif market_regime == "BULLISH" and vol_5d_trend >= 0.80:
-            score += 1.5; details.append("[OK] Bullish Market Hizalama")
-        elif market_regime == "CHOPPY":
-            if vol_5d_trend >= 0.75 and ema50_slope_check > 0:
-                score += 2.5; details.append("[OK] Choppy'de Sağlam")
-            else:
-                score -= 2.5; details.append("⚠️ Choppy'de Zayıf")
-        elif market_regime == "HIGH_VOLATILITY" and vol_5d_trend < 1.0:
-            score -= 4.0; details.append("🚨 Yüksek Vol & Daralan Hacim")
-
-        # TP/SL R/R — 1D bazlı erken eleme
-        tp1, tp2, tp3, stop_loss = calculate_profit_target(
-            current_price, atr_1d, is_exhausted=is_exhausted, beta=beta
-        )
-        risk              = max(current_price - stop_loss, 0.0)
-        reward            = max(tp2 - current_price, 0.0)
-        rr_ratio_calc     = (reward / risk) if risk > 0 else 0.0
-
-        if 0.0 < rr_ratio_calc < 1.0:
-            return None
-        profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
-        if profit_expectation_pct < 3.0:
-            return None
+            details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f}){' (Squeeze indirimi)' if is_squeeze else ''}")
 
         # =============================================================
-        # ══════════════════════════════════════════════════════════════
-        # PHASE 4: 1H — GİRİŞ ZAMANLAMA (sadece timing, skor limiti var)
-        # 1H toplam puan etkisi: max ±15p — skoru domine EDEMEZ
-        # ══════════════════════════════════════════════════════════════
+        # PHASE 3F: 1H MİKRO ANALİZ
         # =============================================================
-
-        df_1h       = await asyncio.to_thread(get_stock_data, ticker, "1h")
-        df_15m_raw  = await asyncio.to_thread(get_stock_data, ticker, "15m")
-        result_15m  = check_15m_micro_trend(df_15m_raw)
-        df_15m      = df_15m_raw
-
-        if not result_15m['is_valid']:
-            logging.info(f"🚫 {ticker}: 15m Kapanış Gücü ihlali")
-            return None
-        if result_15m['score_bonus'] != 0:
-            score += result_15m['score_bonus']
-            details.append(result_15m['msg'])
-
-        h1_summary   = {"Status": "Insufficient Data"}
-        rsi_1h       = 50.0
-        adx_1h       = 0.0
-        atr_pct_1h   = 0.0
-        rvol_1h      = 0.0
+        h1_summary = {"Status": "Insufficient Data"}
+        rsi_1h = 50.0
+        adx_1h = 0.0
+        atr_pct_1h = 0.0
+        rvol_1h = 0.0
         rsi_1h_slope = 0.0
-        h1_score_raw = 0.0   # 1H katkısını izle
 
         if df_1h is not None and len(df_1h) >= 10:
             close_1h  = df_1h["Close"]
@@ -2645,158 +2458,357 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 adx_1h = 0.0
             try:
                 atr_1h_series = AverageTrueRange(high_1h, low_1h, close_1h, ATR_PERIOD).average_true_range()
-                atr_1h        = float(atr_1h_series.iloc[-1])
-                atr_pct_1h    = atr_1h / float(close_1h.iloc[-1]) if float(close_1h.iloc[-1]) > 0 else 0.0
+                atr_1h = float(atr_1h_series.iloc[-1])
+                atr_pct_1h = atr_1h / float(close_1h.iloc[-1]) if float(close_1h.iloc[-1]) > 0 else 0.0
             except Exception:
                 atr_1h = 0.0
+
             try:
                 vol_ma_1h = volume_1h.rolling(10).mean()
-                rvol_1h   = float(volume_1h.iloc[-1]) / float(vol_ma_1h.iloc[-1]) if float(vol_ma_1h.iloc[-1]) > 0 else 0.0
+                rvol_1h = float(volume_1h.iloc[-1]) / float(vol_ma_1h.iloc[-1]) if float(vol_ma_1h.iloc[-1]) > 0 else 0.0
             except Exception:
                 rvol_1h = 0.0
 
-            close_now_1h   = float(close_1h.iloc[-1])
-            ema20_now_1h   = float(ema20_1h.iloc[-1])
-            ema50_now_1h   = float(ema50_1h.iloc[-1])
+            close_now_1h = float(close_1h.iloc[-1])
+            ema20_now_1h = float(ema20_1h.iloc[-1])
+            ema50_now_1h = float(ema50_1h.iloc[-1])
             ema20_distance = (close_now_1h - ema20_now_1h) / ema20_now_1h if ema20_now_1h > 0 else 0.0
 
+            # 🚨 FIX: NameError/UnboundLocalError riskini sıfırlamak için ret_1d_pct hesabı Phase 3I öncesine taşındı.
             try:
                 prev_close_1d = float(close_1d.iloc[-2]) if len(close_1d) > 1 else close_now_1h
-                ret_1d_pct    = (close_now_1h - prev_close_1d) / prev_close_1d
+                ret_1d_pct = (close_now_1h - prev_close_1d) / prev_close_1d
             except Exception:
                 ret_1d_pct = 0.0
 
-            # 1D EMA20 senkron kontrolü
+            # 🚨 MATRUŞKA FIX 2: 1D (Bayat) ve 1H (Canlı) Senkronizasyonu.
+            # %1'lik intraday gürültü toleransı eklendi.
             ema20_tolerance = last_ema20 * 0.99
             if close_now_1h < ema20_tolerance and not (is_spring or is_squeeze):
-                logging.info(f"🚫 {ticker}: 1H fiyat 1D EMA20 kırdı → MTF ihlali")
+                logging.info(f"🚫 {ticker}: Canlı fiyat (1H), günlük (1D) EMA20 desteğini kırdı (%1 tolerans aşıldı) → MTF Senkron ihlali")
                 return None
 
-            # Dual-TF RSI düşüş hard block
+            # 1H ADX
+            if adx_1h >= 30:
+                score += 10.0; details.append(f"🔥 1H ADX: Çok Güçlü ({adx_1h:.1f})")
+            elif adx_1h >= 20:
+                score += 6.0; details.append(f"💪 1H ADX: Güçlü ({adx_1h:.1f})")
+            elif adx_1h >= 14:
+                score += 2.4; details.append(f"🟡 1H ADX: Erken ({adx_1h:.1f})")
+            else:
+                score -= 3.2; details.append(f"⚠️ 1H ADX: Zayıf ({adx_1h:.1f})")
+
+            # EMA20 mesafesi (FOMO koruması)
+            if ema20_distance > 0.05:
+                score -= 20.0; details.append(f"🔴 1H: EXTREME FOMO RİSKİ (+{ema20_distance*100:.1f}%)")
+            elif ema20_distance > 0.025:
+                score -= 6.0; details.append(f"🟡 1H: Uzama Riski (+{ema20_distance*100:.1f}%)")
+            elif close_now_1h > ema50_now_1h:
+                score += 4.8; details.append("🏗️ 1H: EMA50 üstü (Güçlü)")
+            elif close_now_1h > ema20_now_1h:
+                score += 2.0; details.append("🟡 1H: EMA20 üstü")
+            else:
+                score -= 2.4; details.append("⚠️ 1H: EMA altı")
+
+            cond_ema20_slope_1h = calculate_ema_slope(ema20_1h, periods=5)
+            if cond_ema20_slope_1h:
+                score += 2.0; details.append("📈 1H EMA20: Pozitif Slope")
+
+            # 1H RSI
+            if 45 <= rsi_1h <= 72:
+                score += 2.4; details.append(f"🌀 1H RSI: Optimal ({rsi_1h:.1f})")
+            elif 72 < rsi_1h <= RSI_1H_MAX:
+                score -= 4.0; details.append(f"⚠️ 1H RSI: Overbought ({rsi_1h:.1f})")
+            elif rsi_1h > RSI_1H_MAX:
+                score -= 10.0; details.append(f"🔴 1H RSI: FOMO Peak ({rsi_1h:.1f})")
+            elif rsi_1h < 35:
+                score -= 10.0; details.append(f"🔴 1H RSI: Çok Zayıf ({rsi_1h:.1f})")
+            elif rsi_1h < 45:
+                score -= 4.0; details.append(f"❄️ 1H RSI: Zayıf Bölge ({rsi_1h:.1f})")
+
+            # 1H RSI Slope
             try:
                 rsi_1h_series = RSIIndicator(close_1h, 14).rsi()
                 if len(rsi_1h_series) >= 3:
                     rsi_1h_slope = float(rsi_1h_series.iloc[-1]) - float(rsi_1h_series.iloc[-3])
+                    if rsi_1h_slope < -8:
+                        score -= 5.0; details.append(f"📉 1H RSI Slope: Sert düşüş ({rsi_1h_slope:.1f})")
+                    elif rsi_1h_slope < -3:
+                        score -= 2.5; details.append(f"↘️ 1H RSI Slope: Düşüşte ({rsi_1h_slope:.1f})")
+                    elif rsi_1h_slope > 8:
+                        score += 3.0; details.append(f"📈 1H RSI Slope: Sert yükseliş ({rsi_1h_slope:.1f})")
+                    elif rsi_1h_slope > 3:
+                        score += 1.5; details.append(f"↗️ 1H RSI Slope: Yükselişte ({rsi_1h_slope:.1f})")
             except Exception:
-                rsi_1h_slope = 0.0
+                pass
 
+            # Dual-TF RSI Düşüş — Hard Block
             if rsi_slope_5 < -4 and rsi_1h_slope < -4:
                 if is_squeeze or is_spring:
-                    dual_tf_penalty = -10.0 if (rsi_slope_5 < -7 and rsi_1h_slope < -7) else -6.0
-                    h1_score_raw   += dual_tf_penalty
-                    details.append(f"⚠️ DUAL-TF RSI DÜŞÜŞ: 1D({rsi_slope_5:.1f}) + 1H({rsi_1h_slope:.1f}) ({dual_tf_penalty:.0f}p)")
+                    # Squeeze+RSI düşüşü = olası bear squeeze. Puan düş ama eleme yok.
+                    dual_tf_penalty = -12.0 if (rsi_slope_5 < -7 and rsi_1h_slope < -7) else -8.0
+                    score += dual_tf_penalty
+                    details.append(
+                        f"⚠️ DUAL-TF RSI DÜŞÜŞ: 1D({rsi_slope_5:.1f}) + 1H({rsi_1h_slope:.1f}) "
+                        f"Ceza: {dual_tf_penalty:.0f} (Squeeze/Spring İstisna)"
+                    )
                 else:
+                    # Hard eleme — squeeze/spring dışında tolerans yok
                     logging.info(f"🚫 {ticker}: Dual-TF RSI düşüş → Elendi")
                     return None
 
-            # ── 1H ZAMANLAMA PUANLARI (max ±15p toplam) ──────────────
-
-            # ADX 1H — trend gücü (max +4p)
-            if adx_1h >= 30:
-                h1_score_raw += 4.0;  details.append(f"🔥 1H ADX: Çok Güçlü ({adx_1h:.1f})")
-            elif adx_1h >= 20:
-                h1_score_raw += 2.5;  details.append(f"💪 1H ADX: Güçlü ({adx_1h:.1f})")
-            elif adx_1h >= 14:
-                h1_score_raw += 1.0;  details.append(f"🟡 1H ADX: Erken ({adx_1h:.1f})")
-            else:
-                h1_score_raw -= 1.5;  details.append(f"⚠️ 1H ADX: Zayıf ({adx_1h:.1f})")
-
-            # EMA mesafe — FOMO koruması
-            if ema20_distance > 0.05:
-                h1_score_raw -= 8.0;  details.append(f"🔴 1H: EXTREME FOMO (+{ema20_distance*100:.1f}%)")
-            elif ema20_distance > 0.025:
-                h1_score_raw -= 3.0;  details.append(f"🟡 1H: Uzama Riski (+{ema20_distance*100:.1f}%)")
-            elif close_now_1h > ema50_now_1h:
-                h1_score_raw += 2.5;  details.append("🏗️ 1H: EMA50 üstü")
-            elif close_now_1h > ema20_now_1h:
-                h1_score_raw += 1.0;  details.append("🟡 1H: EMA20 üstü")
-            else:
-                h1_score_raw -= 1.5;  details.append("⚠️ 1H: EMA altı")
-
-            cond_ema20_slope_1h = calculate_ema_slope(ema20_1h, periods=5)
-            if cond_ema20_slope_1h:
-                h1_score_raw += 1.0; details.append("📈 1H EMA20: Pozitif Slope")
-
-            # RSI 1H (max +2p)
-            if 45 <= rsi_1h <= 72:
-                h1_score_raw += 2.0;  details.append(f"🌀 1H RSI: Optimal ({rsi_1h:.1f})")
-            elif 72 < rsi_1h <= RSI_1H_MAX:
-                h1_score_raw -= 2.0;  details.append(f"⚠️ 1H RSI: Overbought ({rsi_1h:.1f})")
-            elif rsi_1h > RSI_1H_MAX:
-                h1_score_raw -= 5.0;  details.append(f"🔴 1H RSI: FOMO Peak ({rsi_1h:.1f})")
-            elif rsi_1h < 35:
-                h1_score_raw -= 5.0;  details.append(f"🔴 1H RSI: Çok Zayıf ({rsi_1h:.1f})")
-            elif rsi_1h < 45:
-                h1_score_raw -= 2.0;  details.append(f"❄️ 1H RSI: Zayıf Bölge ({rsi_1h:.1f})")
-
-            # RSI 1H slope (max +2p)
-            if rsi_1h_slope > 8:
-                h1_score_raw += 2.0; details.append(f"📈 1H RSI Slope: Sert yükseliş ({rsi_1h_slope:.1f})")
-            elif rsi_1h_slope > 3:
-                h1_score_raw += 1.0; details.append(f"↗️ 1H RSI Slope: Yükselişte ({rsi_1h_slope:.1f})")
-            elif rsi_1h_slope < -8:
-                h1_score_raw -= 3.0; details.append(f"📉 1H RSI Slope: Sert düşüş ({rsi_1h_slope:.1f})")
-            elif rsi_1h_slope < -3:
-                h1_score_raw -= 1.5; details.append(f"↘️ 1H RSI Slope: Düşüşte ({rsi_1h_slope:.1f})")
-
-            # RVOL 1H (max +3p)
+            # 1H RVOL
             if rvol_1h >= 2.5:
-                h1_score_raw += 3.0; details.append(f"🐳 1H RVOL: Para Girişi ({rvol_1h:.1f}x)")
+                score += 7.2; details.append(f"🐳 1H RVOL: Para Girişi ({rvol_1h:.1f}x)")
             elif rvol_1h >= 1.5:
-                h1_score_raw += 1.5; details.append(f"📊 1H RVOL: Yüksek ({rvol_1h:.1f}x)")
+                score += 3.2; details.append(f"📊 1H RVOL: Yüksek ({rvol_1h:.1f}x)")
             elif rvol_1h < 0.7:
-                h1_score_raw -= 1.0; details.append(f"❄️ 1H RVOL: Hacimsiz ({rvol_1h:.1f}x)")
+                score -= 1.6; details.append(f"❄️ 1H RVOL: Hacimsiz ({rvol_1h:.1f}x)")
 
-            # Pivot Higher-Low
-            lows_1h   = low_1h.tail(20)
+            # 1H Pivot Higher-Low
+            lows_1h = low_1h.tail(20)
             pivots_1h = []
             for i in range(2, len(lows_1h) - 2):
                 if lows_1h.iloc[i] < lows_1h.iloc[i - 1] and lows_1h.iloc[i] < lows_1h.iloc[i + 1]:
                     pivots_1h.append(float(lows_1h.iloc[i]))
             if len(pivots_1h) >= 2 and pivots_1h[-1] > pivots_1h[-2]:
-                h1_score_raw += 1.5; details.append("🔰 1H: Pivot Higher-Low")
+                score += 2.4; details.append("🔰 1H: Pivot Higher-Low")
 
+            # 1H ATR optimal aralık
             if ATR_MIN_PCT_1H <= atr_pct_1h <= ATR_MAX_PCT_1H:
-                h1_score_raw += 1.0
-
-            # ── 1H katkısını ±15p ile sınırla ────────────────────────
-            h1_score_capped = max(-15.0, min(15.0, h1_score_raw))
-            score += h1_score_capped
+                score += 2.0
 
             rvol_durumu = (
                 "🔥 EXTREMELY INTENSE" if rvol_1h > 3.0 else
-                "[OK] High"            if rvol_1h > 1.5 else
-                "❄️ Volumeless"        if rvol_1h < 0.7 else
+                "[OK] High" if rvol_1h > 1.5 else
+                "❄️ Volumeless" if rvol_1h < 0.7 else
                 "Normal"
             )
+
             h1_summary = {
-                "Status":      "Analyzed",
-                "Price/EMA":   "Above EMA50" if close_now_1h > ema50_now_1h else "Below EMA50",
+                "Status": "Analyzed",
+                "Price/EMA": "Above EMA50" if close_now_1h > ema50_now_1h else "Below EMA50",
                 "EMA20 Slope": "Positive" if cond_ema20_slope_1h else "Negative/Flat",
-                "RVOL(1H)":    f"{rvol_1h:.1f}x ({rvol_durumu})",
-                "RSI(14)":     f"{rsi_1h:.1f}",
-                "ADX(14)":     f"{adx_1h:.1f}",
-                "ATR%":        f"{atr_pct_1h * 100:.2f}%",
-                "Structure":   "Pivot HL" if len(pivots_1h) >= 2 and pivots_1h[-1] > pivots_1h[-2] else "Normal",
-                "H1_Score":    f"{h1_score_capped:+.1f}p (ham:{h1_score_raw:+.1f}p)",
+                "RVOL(1H)": f"{rvol_1h:.1f}x ({rvol_durumu})",
+                "RSI(14)": f"{rsi_1h:.1f}",
+                "ADX(14)": f"{adx_1h:.1f}",
+                "ATR%": f"{atr_pct_1h * 100:.2f}%",
+                "Structure": "Pivot HL" if len(pivots_1h) >= 2 and pivots_1h[-1] > pivots_1h[-2] else "Normal",
             }
         else:
-            score -= 1.0
-            details.append("⚠️ 1H Veri Yok (-1p)")
+            score -= 1.2
+            details.append("⚠️ 1H Veri Yok")
 
         # =============================================================
-        # PHASE 5: ENTRY TRIGGER + SİSTEM SEÇİMİ
+        # PHASE 3G: MTF LOCK + Geri Kalan İndikatörler
+        # =============================================================
+
+        # MTF Lock: EMA200 üstü olmalı (Spring istisna)
+        is_1d_bullish = current_price > last_ema200
+        if not is_1d_bullish and not is_spring:
+            return None
+
+        # ── OBV ──────────────────────────────────────────────────────
+        try:
+            obv_1d = OnBalanceVolumeIndicator(close_1d, volume_1d).on_balance_volume()
+            obv_tail = obv_1d.tail(OBV_TREND_DAYS).values
+            obv_slope = float(np.polyfit(range(len(obv_tail)), obv_tail, 1)[0])
+        except Exception:
+            obv_slope = 0.0
+
+        if obv_slope > 1000:
+            score += 6.0; details.append("[OK] OBV: Güçlü Birikim")
+        elif obv_slope > 0:
+            score += 2.4; details.append("📈 OBV: Pozitif Trend")
+        elif obv_slope < -1000:
+            score -= 3.2; details.append("⚠️ OBV: Dağıtım Riski")
+        else:
+            score -= 0.8; details.append("➖ OBV: Nötr")
+
+        # ── 1D RVOL & Churn Koruması ─────────────────────────────────
+        vol_today = float(volume_1d.iloc[-1])
+        vol_ma_1d = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
+        rvol_today = (vol_today / vol_ma_1d) if vol_ma_1d > 0 else 0.0
+        close_change_pct = (
+            (float(close_1d.iloc[-1]) - float(close_1d.iloc[-2])) / float(close_1d.iloc[-2])
+            if len(close_1d) > 1 else 0.0
+        )
+
+        # Churn: yüksek hacim + dar gövde = sahte momentum
+        open_today = float(df_1d['Open'].iloc[-1])
+        candle_range = float(high_1d.iloc[-1]) - float(low_1d.iloc[-1])
+        candle_body = abs(current_price - open_today)
+        churn_ratio = (candle_body / candle_range) if candle_range > 0 else 1.0
+
+        if churn_ratio < 0.30 and rvol_today > 2.0 and not is_spring:
+            return None  # Doji/pinbar with volume = churn
+
+        if rvol_today > 2.5 and close_change_pct < -0.015:
+            return None  # Yüksek hacimli düşüş = dağıtım
+
+        if close_change_pct > 0.08:
+            return None  # %8+ tek günde = aşırı şişme
+
+        # 20G dar range = ölü hisse (squeeze hariç)
+        try:
+            price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
+            if 0 < price_20d_range < 0.05 and not is_squeeze:
+                return None
+        except Exception:
+            pass
+
+        # 1D RVOL Rejimi puanlaması
+        if 1.2 <= rvol_today <= 1.8 and abs(close_change_pct) < 0.006:
+            score += 6.4; details.append(f"🐋 RVOL: Sessiz Birikim ({rvol_today:.2f}x)")
+        elif rvol_today > 2.0 and close_change_pct > 0.008:
+            score += 8.0; details.append(f"[START] RVOL: Swing Uyanışı ({rvol_today:.2f}x)")
+        elif rvol_today > 1.5:
+            score += 3.2; details.append(f"📊 RVOL: Aktif ({rvol_today:.2f}x)")
+        elif rvol_today < 0.6:
+            score -= 3.2; details.append(f"🐢 RVOL: Hacimsiz ({rvol_today:.2f}x)")
+        else:
+            score += 0.8; details.append(f"➖ RVOL: Normal ({rvol_today:.2f}x)")
+
+        # ── Hacim Trendi (5G/20G) ────────────────────────────────────
+        vol_avg5  = float(volume_1d.tail(VOLUME_INCREASE_LOOKBACK).mean())
+        vol_avg20 = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_avg5
+        vol_increase_ratio = (vol_avg5 / vol_avg20) if vol_avg20 > 0 else 0.0
+
+        if vol_increase_ratio > 1.4:
+            score += 7.2; details.append(f"🔥 Hacim Trendi: Artış ({vol_increase_ratio:.2f}x)")
+        elif vol_increase_ratio > 1.1:
+            score += 4.0; details.append(f"📈 Hacim Trendi: Erken ({vol_increase_ratio:.2f}x)")
+        elif vol_increase_ratio < 0.8:
+            score -= 2.4; details.append(f"📉 Hacim Trendi: Zayıf ({vol_increase_ratio:.2f}x)")
+        else:
+            score += 0.8; details.append(f"➖ Hacim Trendi: Stabil ({vol_increase_ratio:.2f}x)")
+
+        # =============================================================
+        # PHASE 3H: PİYASA REJİMİ ETKİSİ
+        # =============================================================
+        market_regime = MARKET_STATUS.get("regime", "UNKNOWN")
+        market_modifier = MARKET_STATUS.get("min_score_modifier", 0.0)
+
+        if market_modifier != 0.0:
+            regime_score_effect = -market_modifier * 8.0
+            score += regime_score_effect
+            details.append(f"⚖️ Piyasa Rejim Adj ({market_regime}): {regime_score_effect:+.1f}p")
+
+        try:
+            ema50_10d_ago = float(ema50_1d.iloc[-10]) if len(ema50_1d) >= 10 else float(ema50_1d.iloc[-1])
+            ema50_slope_check = (
+                (float(ema50_1d.iloc[-1]) - ema50_10d_ago) / ema50_10d_ago
+                if ema50_10d_ago > 0 else 0.0
+            )
+        except Exception:
+            ema50_slope_check = 0.0
+
+        vol_5d_trend = (vol_avg5 / vol_avg20) if vol_avg20 > 0 else 1.0
+
+        if ema50_slope_check > 0 and vol_5d_trend > 1.1:
+            score += 3.2; details.append("🟢 Trend-Hacim Senkron")
+
+        if market_regime == "STRONG" and ema50_slope_check > 0:
+            score += 3.2; details.append("💎 STRONG Market Hizalama")
+        elif market_regime == "BULLISH" and vol_5d_trend >= 0.80:
+            score += 1.6; details.append("[OK] Bullish Market Hizalama")
+        elif market_regime == "CHOPPY":
+            if vol_5d_trend >= 0.75 and ema50_slope_check > 0:
+                score += 3.2; details.append("[OK] Choppy'de Sağlam Sinyal")
+            else:
+                score -= 3.2; details.append("⚠️ Choppy'de Zayıf Yapı")
+        elif market_regime == "HIGH_VOLATILITY" and vol_5d_trend < 1.0:
+            score -= 5.0; details.append("🚨 Yüksek Vol & Daralan Hacim Riski")
+
+        # =============================================================
+        # PHASE 3I: SMART MONEY / RISING / ICHIMOKU / VP
+        # =============================================================
+
+        # ── 🆕 Steady Momentum & Higher High/Low Bonus ──────────────────────
+        try:
+            # 5 günlük kademeli yükseliş kontrolü (tek günlük spike değil, yavaş/sağlam trend)
+            
+            if len(close_1d) >= 5:
+                close_5d = close_1d.tail(5).values
+                # En fazla %1'lik ufak geri çekilmelere tolerans tanı, net kapanış yüksek olsun ve 1G ret %5 altında olsun
+                is_steady_momentum = all(close_5d[i] >= close_5d[i-1] * 0.99 for i in range(1, 5)) and (close_5d[-1] > close_5d[0]) and (ret_1d_pct < 5.0)
+
+                if is_steady_momentum:
+                    score += 6.0
+                    details.append("📈 Steady Momentum: Sağlam ve kademeli trend (+6p)")
+
+        # 🎯 FIX 2: HH/HL yapısını 2 günlük gürültüden çıkarıp 5 günlük trend pencerisine yayıyoruz
+            if len(high_1d) >= 5 and len(low_1d) >= 5:
+                hh_hl_valid = (float(high_1d.iloc[-1]) > float(high_1d.iloc[-5])) and (float(low_1d.iloc[-1]) > float(low_1d.iloc[-5]))
+                if hh_hl_valid and trend_durumu_1d in ["Full Stack", "Macro Bullish"]:
+                    score += 6.0
+                    details.append("🔰 HH/HL Yapısı: Güçlü trend devamı (+6p)")
+        except Exception:
+            pass
+
+        smart_money = analyze_smart_money_flow(df_1d, ticker, cached_info)
+        if smart_money['has_smart_flow']:
+            score += smart_money['score'] * 0.8
+            details.extend(smart_money['details'])
+
+        rising = detect_rising_stock(df_1d, adx_1d)
+        if rising['is_rising']:
+            score += rising['score'] * 0.6
+            details.extend(rising['details'])
+
+        try:
+            if len(df_1d) >= 60:
+                df_ichi = calculate_ichimoku(df_1d)
+                ichi_result = check_ichimoku_setup(df_ichi)
+                if ichi_result['valid']:
+                    score += ichi_result['bonus']
+                    details.append(ichi_result['msg'])
+        except Exception:
+            pass
+
+        try:
+            vp_result = check_volume_profile(df_1d)
+            if vp_result['valid']:
+                score += vp_result['bonus']
+                details.append(vp_result['msg'])
+        except Exception:
+            pass
+
+        mfi_val = smart_money.get('mfi', 50.0)
+
+        # =============================================================
+        # PHASE 3J: TP/SL HESAPLAMA + R/R Erken Eleme
+        # =============================================================
+        tp1, tp2, tp3, stop_loss = calculate_profit_target(
+            current_price, atr_1d, is_exhausted=is_exhausted, beta=beta
+        )
+        risk = max(current_price - stop_loss, 0.0)
+        reward = max(tp2 - current_price, 0.0)
+        rr_ratio_calc = (reward / risk) if risk > 0 else 0.0
+
+        # Esnek erken eleme: R/R < 1.0 = umutsuz
+        if 0.0 < rr_ratio_calc < 1.0:
+            return None
+
+        profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
+
+        # 🎯 FIX: Mutlak kazanç potansiyeli %3'ün altındaysa swing için anlamsız (Muni/Bond ETF koruması)
+        if profit_expectation_pct < 3.0:
+            return None
+
+        # =============================================================
+        # PHASE 3K: ENTRY TRIGGER + SİSTEM SEÇİMİ
         # =============================================================
         entry_trigger: Optional[str] = None
-        selection_system  = "MOMENTUM"
+        selection_system = "MOMENTUM"
         selection_reasons: List[str] = []
 
         try:
-            ema9_series  = EMAIndicator(close_1d, 9).ema_indicator()
-            ema9_now     = float(ema9_series.iloc[-1])
-            ema9_prev    = float(ema9_series.iloc[-2])
-            ema20_now    = float(ema20_1d.iloc[-1])
-            ema20_prev   = float(ema20_1d.iloc[-2])
+            ema9_series = EMAIndicator(close_1d, 9).ema_indicator()
+            ema9_now  = float(ema9_series.iloc[-1])
+            ema9_prev = float(ema9_series.iloc[-2])
+            ema20_now = float(ema20_1d.iloc[-1])
+            ema20_prev = float(ema20_1d.iloc[-2])
             ema50_now_1d = float(ema50_1d.iloc[-1])
         except Exception:
             ema9_now = ema9_prev = ema20_now = ema20_prev = ema50_now_1d = 0.0
@@ -2813,145 +2825,174 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             and 0.9 <= rvol_today <= 1.3
         )
 
+        # Spring varsa öncelikli
         if is_spring:
             selection_system = "SPRING"
             selection_reasons.append("Failed_Breakdown")
 
+        # Trigger seçimi (öncelik sırası)
         if bb_squeeze and ema_stack:
             vol_avg_3d = float(volume_1d.tail(3).mean())
-            if vol_avg_3d < (vol_avg20 * 1.30):
+            vol_avg_20d = vol_avg20  # zaten yukarıda hesaplandı
+
+            if vol_avg_3d < (vol_avg_20d * 1.30):
                 entry_trigger = "Pre-breakout (Low Vol Squeeze)"
-                score        += 18.0
+                score += 20.0
             else:
                 entry_trigger = "BB Squeeze + EMA Stack + Volume"
-                score        += 22.0
+                score += 25.0
+
             selection_system = "SQUEEZE"
             selection_reasons.extend(["BB_Squeeze", "EMA_Stack", "Volume_Confirm"])
-            details.append("💥 ENTRY: DAY 0 SQUEEZE BREAKOUT")
+            details.append("💥 ENTRY: DAY 0 SQUEEZE BREAKOUT (SNIPER)")
 
         elif is_early_awakening:
-            score           += 15.0
-            entry_trigger    = "Early Awakening (Stealth Breakout)"
+            score += 18.0
+            entry_trigger = "Early Awakening (Stealth Breakout)"
             selection_system = "AWAKENING"
             selection_reasons.extend(["Stealth_Breakout", "RSI_Sweet_Spot"])
-            details.append("🌅 ENTRY: EARLY AWAKENING")
+            details.append("🌅 ENTRY: DAY 0 EARLY AWAKENING")
 
         elif ema_cross and 1.1 <= rvol_today <= 1.8:
-            score           += 8.0
-            entry_trigger    = "EMA9/20 Crossover + Micro Volume"
+            score += 10.0
+            entry_trigger = "EMA9/20 Crossover + Micro Volume"
             selection_system = "EMA_CROSS"
             selection_reasons.extend(["EMA9_20_Cross", "Micro_Volume"])
             details.append("🎯 ENTRY: EMA9/20 Fresh Cross")
 
         elif ema9_slope > 0.003 and bb_squeeze and micro_volume:
-            score           += 12.0
-            entry_trigger    = "EMA9 Slope + Squeeze + Micro Volume"
+            score += 15.0
+            entry_trigger = "EMA9 Slope + Squeeze + Micro Volume"
             selection_system = "SQUEEZE"
             selection_reasons.extend(["EMA9_Slope", "BB_Squeeze", "Micro_Volume"])
             details.append("⚡ ENTRY: EMA9 Dynamic Squeeze Break")
 
         elif ema20_now > ema50_now_1d and close_change_pct > 0.006:
-            score           -= 2.0
-            entry_trigger    = "Trend Continuation (Late)"
+            score -= 2.0
+            entry_trigger = "Trend Continuation (Late)"
             selection_system = "BREAKOUT"
             selection_reasons.append("Trend_Continuation")
             details.append("⚠️ ENTRY: Trend Devamı (FOMO Riski)")
 
+        # 🎯 FIX 3: is_steady_momentum için sistem bağlantısı kuruldu
         elif is_steady_momentum:
-            score           += 3.0
-            entry_trigger    = "Steady Momentum"
+            score += 3.0
+            entry_trigger = "Steady Momentum (Kademeli Yükseliş)"
             selection_system = "TREND_CONT"
             selection_reasons.extend(["Steady_Momentum", "Healthy_Trend"])
             details.append("📈 ENTRY: Steady Momentum")
 
         elif rising.get('is_rising') and rising.get('pattern') in ['Pullback Reversal', 'Base Breakout']:
-            score           += 5.0
-            entry_trigger    = f"Rising: {rising['pattern']}"
+            score += 6.0
+            
+            entry_trigger = f"Rising: {rising['pattern']}"
             selection_system = "PULLBACK"
             selection_reasons.append("Rising_Pullback")
             selection_reasons.append(rising.get('pattern', '').replace(' ', '_'))
             details.append(f"📈 ENTRY: {rising['pattern']}")
 
         else:
-            score -= 1.0
+            score -= 1.2
             details.append("⏳ ENTRY: Tetik yok")
 
+        # Sistem kategorizasyonu
         sys_cat = (
-            "Contraction" if selection_system == "SQUEEZE"                                else
-            "Reversal"    if selection_system in ("SPRING", "PULLBACK")                   else
+            "Contraction" if selection_system == "SQUEEZE" else
+            "Reversal"    if selection_system in ("SPRING", "PULLBACK") else
             "Momentum"    if selection_system in ("AWAKENING", "EMA_CROSS", "TREND_CONT") else
             "Breakout"
         )
-
+        
         # =============================================================
-        # PHASE 6: VIX & SEKTÖR ADAPTASYONU
+        # PHASE 3L: VIX & SEKTÖR STRATEJİ ADAPTASYONU
         # =============================================================
         current_vix = MARKET_STATUS.get("vix", 20.0)
 
+        # 🚨 FIX: Kazanma oranı tarihsel olarak kanıtlanmış (Energy, Basic Mat.) ve bozuk piyasada çalışan (Tech, Health) sektörlere prim
         if sector_name in ["Energy", "Basic Materials", "Technology", "Healthcare"]:
-            score += 4.0
-            details.append(f"💎 Güvenilir Sektör Primi: {sector_name} (+4p)")
+            score += 5.0
+            details.append(f"💎 Güvenilir Sektör Primi: {sector_name} (+5.0p)")
         elif sector_name == "Consumer Defensive":
-            score += 2.5
-            details.append(f"🛡️ Defansif Sektör Primi: {sector_name} (+2.5p)")
+            score += 3.0
+            details.append(f"🛡️ Defansif Sektör Primi: {sector_name} (+3.0p)")
 
+        # 🚨 FIX: VIX > 25 olduğunda SL avcısı olan kırılgan sektörlere spesifik risk cezası
         if current_vix >= 25.0 and sector_name in ["Industrials", "Financial Services", "Consumer Cyclical"]:
-            score -= 10.0
-            details.append(f"⚠️ VIX {current_vix:.1f}: {sector_name} SL Riski (-10p)")
+            score -= 12.0
+            details.append(f"⚠️ VIX {current_vix:.1f}: {sector_name} Yüksek SL Riski (-12.0p)")
 
         if current_vix >= 25.0:
             if sys_cat in ("Breakout", "Momentum"):
-                score -= 12.0; details.append(f"🚨 VIX {current_vix:.1f}: Breakout Tuzağı")
+                score -= 15.0
+                details.append(f"🚨 VIX {current_vix:.1f}: Breakout Tuzağı (Ağır Ceza)")
             elif sys_cat == "Reversal":
-                score += 6.0;  details.append(f"🛡️ VIX {current_vix:.1f}: Reversal Ortamı")
+                score += 8.0
+                details.append(f"🛡️ VIX {current_vix:.1f}: Reversal Ortamı (Ödül)")
         elif current_vix >= 20.0:
             if sys_cat in ("Breakout", "Momentum"):
-                score -= 4.0; details.append(f"⚠️ VIX {current_vix:.1f}: Breakout Gergin")
+                score -= 5.0
+                details.append(f"⚠️ VIX {current_vix:.1f}: Breakout için Gergin")
         elif current_vix <= 15.0:
             if sys_cat in ("Breakout", "Momentum", "Contraction"):
-                score += 6.0; details.append(f"🚀 VIX {current_vix:.1f}: Trend İdeal")
+                score += 8.0
+                details.append(f"🚀 VIX {current_vix:.1f}: Trend için İdeal")
             elif sys_cat == "Reversal":
-                score -= 4.0; details.append(f"🐢 VIX {current_vix:.1f}: Reversal Zayıf")
+                score -= 5.0
+                details.append(f"🐢 VIX {current_vix:.1f}: Reversal Zayıf Kalır")
 
+        # ── Ek sinyal kaynakları ─────────────────────────────────────
         if smart_money.get('has_smart_flow') and smart_money.get('score', 0) >= 6.0:
             selection_reasons.append("Smart_Money_Flow")
+
         if is_squeeze and selection_system != "SQUEEZE":
             selection_reasons.append("BB_Squeeze_Secondary")
+
         if not selection_reasons:
             selection_reasons = ["Momentum_Filter"]
 
         # =============================================================
-        # PHASE 7: R/R FİNAL HARD GATE + SLOW SECTOR
+        # PHASE 3M: R/R FİNAL HARD GATE
         # =============================================================
+        # Trigger varsa standart R/R yeterli (1.5), trigger yoksa riske değmesi için daha yüksek R/R (1.8) bekle
         required_rr = MIN_RR_RATIO if entry_trigger else MIN_RR_RATIO_RELAXED
         if rr_ratio_calc < required_rr:
             logging.info(f"🚫 {ticker}: R/R yetersiz ({rr_ratio_calc:.2f} < {required_rr})")
             return None
 
+        # =============================================================
+        # PHASE 3N: SLOW SECTOR CEZASI (Dinamik)
+        # =============================================================
         sector_penalty = SLOW_PEAK_SECTORS.get(sector_name, 0.0)
-        sec_perf_val   = SECTOR_PERFORMANCE.get(sector_name, 0.0)
+        sec_perf_val = SECTOR_PERFORMANCE.get(sector_name, 0.0)
+
         if sector_penalty < 0:
+            # ── V117 FIX: Yavaş sektörler için ceza iptal eşiği 2.0'den 1.0'e indirildi ──
             if sec_perf_val > 1.0:
-                details.append(f"🔥 Yavaş Sektör ama HOT: {sector_name} (Ceza İptal)")
+                details.append(f"🔥 Yavaş Sektör ama HOT Trend: {sector_name} (Ceza İptal)")
             else:
                 score += sector_penalty
                 details.append(f"🐢 Yavaş Peak Sektör: {sector_name} ({sector_penalty:.1f}p)")
-
+                
         # =============================================================
-        # PHASE 8: PERFORMANS + ÖZET
+        # PHASE 4: PERFORMANS VERİLERİ + ÖZET
         # =============================================================
         try:
+            # Sadece 5 günlük (haftalık) momentum hesaplanır.
             ret_5g_pct = float(
                 (close_1d.iloc[-1] - close_1d.iloc[-6]) / close_1d.iloc[-6] * 100
             ) if len(close_1d) >= 6 else 0.0
+            
+            # 🚨 FIX: ret_1d_pct hesaplaması Phase 3F'e (yukarıya) taşındığı için 
+            # buradan kaldırıldı. (NameError ve çifte hesaplama riski önlendi)
+            
         except Exception:
             ret_5g_pct = 0.0
 
-        dollar_volume_val  = current_price * avg_volume_10d
-        hold_days          = estimate_hold_time(
+        dollar_volume_val = current_price * avg_volume_10d
+        hold_days = estimate_hold_time(
             score, vol_increase_ratio, profit_expectation_pct, atr_pct_1d * 100, is_exhausted
         )
-        volume_regime_str  = (
+        volume_regime_str = (
             "Expansion" if vol_increase_ratio > 1.4 else
             "Early"     if vol_increase_ratio > 1.1 else
             "Flat"
@@ -2963,85 +3004,83 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         d1_summary = {
             "Trend Status": trend_durumu_1d,
-            "EMA20 Slope":  "Positive" if cond_ema20_slope_positive else "Negative/Flat",
-            "RSI(14)":      f"{rsi_1d_val:.1f}",
-            "ADX":          f"{adx_1d:.1f}",
-            "ATR%":         f"{atr_pct_1d * 100:.2f}%",
-            "BB Width":     f"{bb_width_1d * 100:.1f}%",
-            "MACD_Hist":    f"{macd_hist_val:.3f}",
+            "EMA20 Slope": "Positive" if cond_ema20_slope_positive else "Negative/Flat",
+            "RSI(14)": f"{rsi_1d_val:.1f}",
+            "ADX": f"{adx_1d:.1f}",
+            "ATR%": f"{atr_pct_1d * 100:.2f}%",
+            "BB Width": f"{bb_width_1d * 100:.1f}%",
+            "MACD_Hist": f"{macd_hist_val:.3f}",
         }
 
         exhaust_tag = " [EXHAUSTED]" if is_exhausted else ""
-        logging.info(
-            f"[OK] {ticker}: V117.2 Skor:{score:.2f}{exhaust_tag} | "
-            f"1W RSI:{w_rsi_val:.1f} Vol:{w_vol_ratio:.1f}x | "
-            f"1D {trend_durumu_1d} | 1H:{h1_score_capped if df_1h is not None and len(df_1h)>=10 else 0:+.1f}p"
-        )
+        logging.info(f"[OK] {ticker}: Analiz tamam (Skor: {score:.2f}{exhaust_tag})")
 
         # =============================================================
         # FINAL OUTPUT
         # =============================================================
         return {
-            "ticker":               ticker,
-            "score":                round(score, 2),
-            "above_1w_ema50":       is_above_1w_ema50,
-            "sector_perf":          sec_perf,
-            "df_1d":                df_1d,
-            "df_1h":                df_1h,
-            "df_15m":               df_15m,
-            "current_price":        current_price,
-            "entry_price":          current_price,
-            "selection_system":     selection_system,
-            "selection_reasons":    selection_reasons,
-            "system_category":      sys_cat,
+            "ticker": ticker,
+            "score": round(score, 2),
+            "above_1w_ema50": is_above_1w_ema50,
+            "sector_perf": sec_perf,
+            "df_1d": df_1d,
+            "df_1h": df_1h,
+            "df_15m": df_15m,
+            "current_price": current_price,
+            "entry_price": current_price,
+
+            # V117: Sistem etiketleri
+            "selection_system": selection_system,
+            "selection_reasons": selection_reasons,
+            "system_category": sys_cat,
+
             "profit_expectation_pct": profit_expectation_pct,
-            "hold_days":            hold_days,
-            "sector":               sector_name,
-            "market_cap":           market_cap,
-            "avg_volume":           avg_volume_10d,
-            "beta":                 beta,
-            "short_float":          short_float,
-            "atr_pct":              round(atr_pct_1d * 100, 2),
-            "rsi_14":               round(rsi_1d_val, 1),
-            "rsi_1h":               round(rsi_1h, 1),
-            "adx":                  round(adx_1d, 1),
-            "adx_1h":               round(adx_1h, 1),
-            "mfi":                  round(mfi_val, 1),
-            "cmf":                  round(cmf_val, 4),
-            "macd_hist":            round(macd_hist_val, 3),
-            "ema20":                round(last_ema20, 2),
-            "ema50":                round(last_ema50, 2),
-            "ema200":               round(last_ema200, 2),
-            "relative_strength":    rs_label,
-            "tp1":                  round(tp1, 2),
-            "tp2":                  round(tp2, 2),
-            "tp3":                  round(tp3, 2),
-            "stop_loss":            round(stop_loss, 2),
-            "rr_ratio":             round(rr_ratio_calc, 2),
-            "entry_trigger":        entry_trigger or "None Yet",
-            "volume_regime":        volume_regime_str,
-            "rvol_today":           round(rvol_today, 2),
-            "rvol_5_30":            round(rvol_micro, 3),
-            "ret_1d_pct":           round(ret_1d_pct, 2),
-            "ret_5g_pct":           round(ret_5g_pct, 2),
-            "dollar_volume":        dollar_volume_val,
-            "green_candles_10d":    green_candles,
-            "is_exhausted":         is_exhausted,
-            "squeeze_quality":      round(squeeze_quality, 3) if is_squeeze else 0.0,
-            "trend_status_1d":      trend_durumu_1d,
-            "w_rsi_val":            round(w_rsi_val, 1),
-            "w_rsi_slope":          round(w_rsi_slope, 1),
-            "w_vol_ratio":          round(w_vol_ratio, 2),
-            "details":              details,
-            "d1_summary":           d1_summary,
-            "h1_summary":           h1_summary,
-            "smart_money":          smart_money,
-            "rising_data":          rising,
-            "meta":                 {"1d": d1_summary, "1h": h1_summary, "volume_regime": volume_regime_str},
-            "insider_data":         {'has_insider': False, 'score': 0.0, 'details': []},
-            "financial_health":     financial_health_data,
-            "catalyst_data":        {'has_catalyst': False, 'score': 0.0, 'reasons': []},
-            "opt_sentiment":        {},
+            "hold_days": hold_days,
+            "sector": sector_name,
+            "market_cap": market_cap,
+            "avg_volume": avg_volume_10d,
+            "beta": beta,
+            "short_float": short_float,
+            "atr_pct": round(atr_pct_1d * 100, 2),
+            "rsi_14": round(rsi_1d_val, 1),
+            "rsi_1h": round(rsi_1h, 1),
+            "adx": round(adx_1d, 1),
+            "adx_1h": round(adx_1h, 1),
+            "mfi": round(mfi_val, 1),
+            "cmf": round(cmf_val, 4),
+            "macd_hist": round(macd_hist_val, 3),
+            "ema20": round(last_ema20, 2),
+            "ema50": round(last_ema50, 2),
+            "ema200": round(last_ema200, 2),
+            "relative_strength": rs_label,
+            "tp1": round(tp1, 2),
+            "tp2": round(tp2, 2),
+            "tp3": round(tp3, 2),
+            "stop_loss": round(stop_loss, 2),
+            "rr_ratio": round(rr_ratio_calc, 2),
+            "entry_trigger": entry_trigger or "None Yet",
+            "volume_regime": volume_regime_str,
+            "rvol_today": round(rvol_today, 2),
+            "rvol_5_30": round(rvol_micro, 3),
+            "ret_1d_pct": round(ret_1d_pct, 2),
+            "ret_5g_pct": round(ret_5g_pct, 2),
+            "dollar_volume": dollar_volume_val,
+            "green_candles_10d": green_candles,
+            "is_exhausted": is_exhausted,
+            "squeeze_quality": round(squeeze_quality, 3) if is_squeeze else 0.0,
+            "trend_status_1d": trend_durumu_1d,
+            "details": details,
+            "d1_summary": d1_summary,
+            "h1_summary": h1_summary,
+            "smart_money": smart_money,
+            "rising_data": rising,
+            "meta": {"1d": d1_summary, "1h": h1_summary, "volume_regime": volume_regime_str},
+
+            # Layer 3 ağır veri alanları (sonra doldurulacak)
+            "insider_data":     {'has_insider': False, 'score': 0.0, 'details': []},
+            "financial_health": financial_health_data,
+            "catalyst_data":    {'has_catalyst': False, 'score': 0.0, 'reasons': []},
+            "opt_sentiment":    {},
             "tsi": 0.0, "msi": 0.0, "vrs": 0.0, "vps": 0.0,
             "nfi": 0.0, "sss": 0.0, "rcs": 0.0, "pfi": 0.0,
             "ifi": 0.0, "ffi": 0.0, "composite_score": 0.0,
@@ -3050,6 +3089,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
     except Exception as e:
         logging.error(f"🔴 apply_atmaca_filters({ticker}): {e}")
         return None
+
+
 
 # ================================================================
 # ================================================================

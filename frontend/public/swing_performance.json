@@ -6,7 +6,7 @@
     "win_rate": 52.3,
     "avg_return_pct": 1.16,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-05-26T16:53:14",
+    "last_updated": "2026-05-26T20:53:15",
     "above_5pct_rate": 49.9,
     "above_10pct_rate": 3.0
   },
@@ -13422,12 +13422,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 137.16,
-      "max_price": 140.78,
+      "max_price": 141.05,
       "sl_pct": 2.65,
-      "return_pct": 1.45,
-      "days": 4,
+      "return_pct": 2.84,
+      "days": 5,
       "result": "PENDING",
-      "peak_date": "2026-05-22"
+      "peak_date": "2026-05-26"
     },
     {
       "date": "2026-05-21",
