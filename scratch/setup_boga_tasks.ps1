@@ -13,22 +13,33 @@ git config --global --add safe.directory $FINMA_DIR
 
 function Set-BogaTask {
     param($Name, $Script, $Args, $StartTime, $RepetitionInterval = $null, $RepetitionDuration = $null)
-    
+
     $Action = New-ScheduledTaskAction -Execute $VENV_PY -Argument "$Script $Args" -WorkingDirectory $FINMA_DIR
-    
-    # 🕒 Her zaman Weekly (Weekdays) tetikleyicisi kullanıyoruz
+
     $Trigger = New-ScheduledTaskTrigger -Weekly -At $StartTime -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday
-    
-    # 🔄 Eğer tekrarlı bir görevse (örn: saatlik), Weekly tetikleyicisine Repetition ekle
+
     if ($RepetitionInterval) {
         $RepetitionTrigger = New-ScheduledTaskTrigger -Once -At $StartTime -RepetitionInterval $RepetitionInterval -RepetitionDuration $RepetitionDuration
         $Trigger.Repetition = $RepetitionTrigger.Repetition
     }
 
+    # S4U: kullanıcı oturumu açık olmasa da çalışır, şifre gerektirmez
+    $Principal = New-ScheduledTaskPrincipal -UserId $CurrentUser -LogonType S4U -RunLevel Highest
+
+    $Settings = New-ScheduledTaskSettingsSet `
+        -MultipleInstances IgnoreNew `
+        -ExecutionTimeLimit (New-TimeSpan -Hours 72) `
+        -WakeToRun:$false
+    # Pil kısıtlamalarını kapat (dizüstü bilgisayar desteği için kritik)
+    $Settings.DisallowStartIfOnBatteries = $false
+    $Settings.StopIfGoingOnBatteries = $false
+
+    $Task = New-ScheduledTask -Action $Action -Trigger $Trigger -Principal $Principal -Settings $Settings
+
     try { Unregister-ScheduledTask -TaskName $Name -Confirm:$false -ErrorAction SilentlyContinue } catch {}
-    # Use current user instead of SYSTEM to avoid Git Error 128 (ownership issues)
-    Register-ScheduledTask -TaskName $Name -Action $Action -Trigger $Trigger -Force -User $CurrentUser
+    Register-ScheduledTask -TaskName $Name -InputObject $Task -Force
     Enable-ScheduledTask -TaskName $Name
+    Write-Host "OK: $Name gorev olusturuldu (S4U, batarya kisitlamasi yok)"
 }
 
 # 1. BOGA AI MORNING CYCLE (run_morning_cycle.py) - 09:15 NY
