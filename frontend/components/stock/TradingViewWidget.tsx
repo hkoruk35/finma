@@ -11,7 +11,7 @@ interface Props {
   interval?: string;
 }
 
-export default function TradingViewWidget({ symbol, exchange, height, interval = "D" }: Props) {
+export default function TradingViewWidget({ symbol, exchange, height, interval = "W" }: Props) {
   const onLoadScriptRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {

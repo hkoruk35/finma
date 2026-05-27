@@ -223,7 +223,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     script.innerHTML = JSON.stringify({
       autosize: true,
       symbol: ticker.toUpperCase() === "BOGA" ? "SPY" : ticker.toUpperCase(),
-      interval: "D",
+      interval: "W",
       timezone: "Etc/UTC",
       theme: "dark",
       style: "1",

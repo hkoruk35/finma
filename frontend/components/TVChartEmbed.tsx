@@ -32,7 +32,7 @@ interface Props {
 
 export default function TVChartEmbed({
   tvSymbol,
-  interval = "60",
+  interval = "W",
   containerId,
   height = 480,
   compact = false,

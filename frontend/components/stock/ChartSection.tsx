@@ -11,7 +11,7 @@ interface Props {
 
 export default function ChartSection({ ticker, exchange, companyMismatch }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const [interval, setInterval] = useState("D");
+  const [interval, setInterval] = useState("W");
 
   const intervals = [
     { label: "15M", value: "15" },

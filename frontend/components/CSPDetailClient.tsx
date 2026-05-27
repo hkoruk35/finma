@@ -559,15 +559,15 @@ export default function CSPDetailClient({ slug }: Props) {
             padding: "7px 12px", borderBottom: "1px solid #30363d",
             display: "flex", justifyContent: "space-between", alignItems: "center"
           }}>
-            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1H Chart</span>
+            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1W Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <a href={`https://www.tradingview.com/chart/?symbol=${hoverTicker}&interval=60`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>TradingView ↗</a>
+              <a href={`https://www.tradingview.com/chart/?symbol=${hoverTicker}&interval=W`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>TradingView ↗</a>
               <a href={`https://finance.yahoo.com/chart/${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Yahoo ↗</a>
               <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
             </div>
           </div>
           <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=W&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
             width="430" height="220"
             style={{ border: "none", display: "block" }}
             title={`${hoverTicker} 1H`}
@@ -721,13 +721,13 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
           1H GRAFİK — EMA 20/50/200
         </div>
         <iframe
-          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=60&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
+          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=W&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
           width="410" height="220"
           style={{ border: "1px solid #30363d", borderRadius: 4, display: "block" }}
           title={`${sym} 1H expanded`}
         />
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-          <a href={`https://www.tradingview.com/chart/?symbol=${sym}&interval=60`} target="_blank" rel="noopener"
+          <a href={`https://www.tradingview.com/chart/?symbol=${sym}&interval=W`} target="_blank" rel="noopener"
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>TradingView ↗</a>
           <a href={`https://finance.yahoo.com/chart/${sym}`} target="_blank" rel="noopener"
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Yahoo Finance ↗</a>
