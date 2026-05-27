@@ -123,7 +123,7 @@ OUTPUT_ALL_JSON_FILE = "swing_all_picks.json"
 # ================================================================
 MAX_TICKERS_FINAL = 800          # 🎯 SNIPER: Daha geniş evren = daha çok small/mid-cap fırsat.
 TOP_DEEP_ANALYSIS = 80           # 🎯 SNIPER: Daha fazla derin analiz.
-TOP_FINAL_PICKS = 5             # 🎯 SNIPER: Hedef Her gün 5 aday.
+TOP_FINAL_PICKS = 20             # 🎯 SNIPER: Hedef Her gün 20 aday.
 
 # 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
 PRICE_MIN = 10.0
@@ -483,10 +483,10 @@ async def build_atmaca_universe_full() -> List[str]:
                     ) if len(close) >= 6 else 0.0
                     # 🎯 SNIPER MOD: Sıkışma bölgesindeki hisseleri dahil et.
                     # 🔧 BOGA AI FIX: Hacimli momentum kırılımları (Tier 2) evrene eklendi
-                    is_squeeze_candidate = (-0.04 <= roc5 <= 0.06)
+                    is_squeeze_candidate = (-0.05 <= roc5 <= 0.09)
                     # 🎯 FIX: Eşik 0.15'e esnetildi. 5 güne yayılan sağlıklı (%10-12'lik) trendler içeri alınır.
                     # Tek günde %10 yapan pis patlamaların elenmesi işi Layer 2'deki Exhaustion modülüne bırakıldı.
-                    is_momentum_breakout = (0.06 < roc5 <= 0.40) and rvol > 1.2
+                    is_momentum_breakout = (0.07 < roc5 <= 0.40) and rvol > 1.0
                     
                     if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
@@ -2118,12 +2118,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 return None
 
         # RVOL 1D hard gate
-        min_rvol_required = 0.80 if sector_name == "Real Estate" else 1.05
+        min_rvol_required = 0.65 if sector_name == "Real Estate" else 0.80
         try:
             macro_resist      = float(high_1d.tail(15).max())
             breakout_distance = (macro_resist - current_price) / current_price
             if 0 <= breakout_distance < 0.025:
-                min_rvol_required = min(min_rvol_required, 0.85)
+                min_rvol_required = max(min_rvol_required, 0.85)
         except Exception:
             pass
         if rvol_micro < min_rvol_required and not (is_squeeze or is_spring):
@@ -2492,14 +2492,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 0.5; details.append(f"➖ Hacim Trendi 5G: Stabil ({vol_increase_ratio:.2f}x)")
 
         # CMF puanlama
-        if -0.05 <= cmf_val < 0.0 and not is_spring:
-            penalty = 0.8 if is_squeeze else 1.5
-            score -= penalty
-            details.append(f"⚠️ CMF Hafif Negatif ({cmf_val:.3f})")
-        elif 0.0 <= cmf_val < 0.08 and not is_spring:
-            penalty = 1.5 if is_squeeze else 3.0
-            score -= penalty
-            details.append(f"⚠️ CMF Zayıf Birikim ({cmf_val:.3f})")
+        # Hard gate zaten < -0.05'i eledi. Buraya ulaşan değer >= -0.05.
+        if cmf_val >= 0.15:
+            score += 4.0
+            details.append(f"💰 CMF: Güçlü Birikim ({cmf_val:.3f})")
+        elif cmf_val >= 0.08:
+            score += 2.5
+            details.append(f"📈 CMF: Pozitif Para Akışı ({cmf_val:.3f})")
+        elif cmf_val >= 0.02:
+            score += 1.0
+            details.append(f"🟢 CMF: Zayıf Birikim ({cmf_val:.3f})")
+        elif cmf_val >= -0.05 and not (is_squeeze or is_spring):
+            score -= 1.5
+            details.append(f"⚠️ CMF: Hafif Dağıtım ({cmf_val:.3f})")
+        # is_squeeze veya is_spring ise CMF hafif negatif tolere edilir — puan kesilmez
 
         # Steady Momentum + HH/HL
         try:
@@ -2851,11 +2857,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             details.append("⚡ ENTRY: EMA9 Dynamic Squeeze Break")
 
         elif ema20_now > ema50_now_1d and close_change_pct > 0.006:
-            score           -= 2.0
-            entry_trigger    = "Trend Continuation (Late)"
+            entry_trigger    = "Trend Continuation"
             selection_system = "BREAKOUT"
             selection_reasons.append("Trend_Continuation")
-            details.append("⚠️ ENTRY: Trend Devamı (FOMO Riski)")
+            details.append("📈 ENTRY: Trend Devamı")
 
         elif is_steady_momentum:
             score           += 3.0
@@ -2923,7 +2928,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
         # PHASE 7: R/R FİNAL HARD GATE + SLOW SECTOR
         # =============================================================
-        required_rr = MIN_RR_RATIO if entry_trigger else MIN_RR_RATIO_RELAXED
+        required_rr = MIN_RR_RATIO if entry_trigger else 1.3
         if rr_ratio_calc < required_rr:
             logging.info(f"🚫 {ticker}: R/R yetersiz ({rr_ratio_calc:.2f} < {required_rr})")
             return None
@@ -3272,7 +3277,7 @@ def build_diversified_toplist(candidates: list, max_per_sector: int = MAX_PER_SE
     # 1. Puan bazlı ana sıralama (raw_score yerine boga_score_100 kullan)
     # 🎯 FIX: boga_score_100 >= 45 eşiği ile düşük kaliteli (çöp) hisseleri baştan ele
     sorted_cands = sorted(
-        [c for c in candidates if c.get("boga_score_100", 0.0) >= 45.0],
+        [c for c in candidates if c.get("boga_score_100", 0.0) >= 38.0],
         key=lambda x: x.get("boga_score_100", 0.0), reverse=True
     )
     
@@ -4062,12 +4067,13 @@ async def scan_top_stocks():
     for c in candidates:
         compute_multi_factor_score(c)
         # 🎯 FIX: Layer 3'e gidecek havuzu doğru seçmek için boga_score_100 ön hesaplaması
+        c["boga_rr"] = c.get("rr_ratio", 0.0)  # Step 8'de 1H değeriyle üzerine yazılır
         c["boga_score_100"] = compute_boga_score_100(c)
 
     # 🎯 FIX: Sıralamayı raw_score ("score") yerine boga_score_100'e göre yap.
     # En az 40 puan alamayanları derin analize (API maliyetine ve zaman kaybına) sokma.
     candidates_ranked = sorted(
-        [c for c in candidates if c.get("boga_score_100", 0.0) >= 40.0],
+        [c for c in candidates if c.get("boga_score_100", 0.0) >= 38.0],
         key=lambda x: x.get("boga_score_100", 0.0), reverse=True
     )
     
@@ -4172,8 +4178,8 @@ async def scan_top_stocks():
     for c in top_20_candidates:
         # 🎯 FIX: Unified skor sisteminde 80+ çok nadirdir. SQUEEZE/AWAKENING gibi
         # hızlı (hold <= 3) setupları boğmamak için baraj gerçekçi bir seviye olan 70'e indirildi.
-        if c.get("hold_days", 5) <= 3 and c.get("boga_score_100", 0.0) < 70.0:
-            logging.info(f"🚫 {c['ticker']}: Short-hold (<=3 day) barajı geçemedi. Skor: {c.get('boga_score_100')} < 70")
+        if c.get("hold_days", 5) <= 3 and c.get("boga_score_100", 0.0) < 58.0:
+            logging.info(f"🚫 {c['ticker']}: Short-hold (<=3 day) barajı geçemedi. Skor: {c.get('boga_score_100')} < 58")
             continue
         filtered_top_20.append(c)
         
