@@ -72,6 +72,16 @@ export interface ScreenerResult {
   resistance: number;
   // Warnings
   warnings: string[];
+  // Triangle Pattern (early_break)
+  triangle_detected?: boolean;
+  triangle_score?: number;
+  bbw_percentile?: number;
+  apex_bars_left?: number;
+  upper_trendline?: number;
+  lower_trendline?: number;
+  target_fib?: number;
+  triangle_stop?: number;
+  triangle_rr?: number;
 }
 
 interface Regime {
@@ -171,6 +181,166 @@ function bollinger(closes: number[], period = 20): { upper: number; lower: numbe
     lower,
     pct: (last - lower) / (upper - lower),
     width: (upper - lower) / mid,
+  };
+}
+
+// ─── Triangle Detection Helpers ───────────────────────────────────────────────
+
+function calcBBWPercentile(closes: number[], period = 20, lookback = 50): number {
+  if (closes.length < period + lookback) return 50;
+  const bbws: number[] = [];
+  for (let i = closes.length - lookback; i < closes.length; i++) {
+    const sl = closes.slice(i - period, i);
+    if (sl.length < period) continue;
+    const mid = sl.reduce((a, b) => a + b, 0) / period;
+    const std = Math.sqrt(sl.reduce((s, v) => s + (v - mid) ** 2, 0) / period);
+    bbws.push(mid > 0 ? (4 * std) / mid : 0);
+  }
+  if (bbws.length === 0) return 50;
+  const current = bbws[bbws.length - 1];
+  const below = bbws.filter(v => v <= current).length;
+  return Math.round((below / bbws.length) * 100);
+}
+
+function findPivotHighs(data: number[], win = 5): number[] {
+  const pivots: number[] = [];
+  for (let i = win; i < data.length - win; i++) {
+    let ok = true;
+    for (let j = i - win; j <= i + win; j++) {
+      if (j !== i && data[j] >= data[i]) { ok = false; break; }
+    }
+    if (ok) pivots.push(i);
+  }
+  return pivots;
+}
+
+function findPivotLows(data: number[], win = 5): number[] {
+  const pivots: number[] = [];
+  for (let i = win; i < data.length - win; i++) {
+    let ok = true;
+    for (let j = i - win; j <= i + win; j++) {
+      if (j !== i && data[j] <= data[i]) { ok = false; break; }
+    }
+    if (ok) pivots.push(i);
+  }
+  return pivots;
+}
+
+interface TriangleResult {
+  detected: boolean;
+  bbw_percentile: number;
+  apex_bars_left: number;
+  triangle_score: number;
+  upper_trendline: number;
+  lower_trendline: number;
+  target_1x: number;
+  target_fib: number;
+  stop_loss: number;
+  risk_reward: number;
+}
+
+function detectSymmetricalTriangle(
+  highs: number[], lows: number[], closes: number[], volumes: number[],
+  lookback = 60
+): TriangleResult {
+  const none: TriangleResult = {
+    detected: false, bbw_percentile: 50, apex_bars_left: 0,
+    triangle_score: 0, upper_trendline: 0, lower_trendline: 0,
+    target_1x: 0, target_fib: 0, stop_loss: 0, risk_reward: 0,
+  };
+
+  if (closes.length < lookback + 20) return none;
+
+  const rH = highs.slice(-lookback);
+  const rL = lows.slice(-lookback);
+  const rC = closes.slice(-lookback);
+  const rV = volumes.slice(-lookback);
+
+  const phIdx = findPivotHighs(rH, 5);
+  const plIdx = findPivotLows(rL, 5);
+  if (phIdx.length < 2 || plIdx.length < 2) return none;
+
+  // Lower highs: last 2+ pivot highs descending
+  const lastPH = phIdx.slice(-3);
+  let lowerHighs = true;
+  for (let i = 1; i < lastPH.length; i++) {
+    if (rH[lastPH[i]] >= rH[lastPH[i - 1]]) { lowerHighs = false; break; }
+  }
+
+  // Higher lows: last 2+ pivot lows ascending
+  const lastPL = plIdx.slice(-3);
+  let higherLows = true;
+  for (let i = 1; i < lastPL.length; i++) {
+    if (rL[lastPL[i]] <= rL[lastPL[i - 1]]) { higherLows = false; break; }
+  }
+
+  if (!lowerHighs || !higherLows) return none;
+
+  // Upper trendline through last 2 pivot highs
+  const h1i = lastPH[lastPH.length - 2], h2i = lastPH[lastPH.length - 1];
+  const upperSlope = (rH[h2i] - rH[h1i]) / (h2i - h1i);
+  const upperNow   = rH[h2i] + upperSlope * (lookback - 1 - h2i);
+
+  // Lower trendline through last 2 pivot lows
+  const l1i = lastPL[lastPL.length - 2], l2i = lastPL[lastPL.length - 1];
+  const lowerSlope = (rL[l2i] - rL[l1i]) / (l2i - l1i);
+  const lowerNow   = rL[l2i] + lowerSlope * (lookback - 1 - l2i);
+
+  const triWidth = upperNow - lowerNow;
+  if (triWidth <= 0) return none;
+
+  // Apex bars left
+  let apexBars = 999;
+  if (upperSlope < lowerSlope) {
+    apexBars = Math.round(triWidth / (lowerSlope - upperSlope));
+  } else {
+    const w0 = Math.max(rH[lastPH[0]] - rL[lastPL[0]], triWidth * 1.5);
+    const rate = (w0 - triWidth) / Math.max(h2i - h1i, 1);
+    if (rate > 0) apexBars = Math.round(triWidth / rate);
+  }
+
+  // Apex > 85% converged → signal too late
+  const w0 = Math.max(rH[lastPH[0]] - rL[lastPL[0]], triWidth * 1.5);
+  if (triWidth / w0 < 0.15) return none;
+
+  // Scoring
+  const bbwPct     = calcBBWPercentile(closes, 20, 50);
+  const sma50Val   = sma(rC, Math.min(50, rC.length));
+  const curPrice   = rC[rC.length - 1];
+  const aboveSma50 = curPrice > sma50Val;
+  const avgVol     = rV.slice(-20).reduce((a, b) => a + b, 0) / 20;
+  const curVol     = rV[rV.length - 1];
+  const volExpand  = curVol > avgVol * 1.3;
+  const rsiVal     = rsi(rC);
+  const rsiOk      = rsiVal >= 45 && rsiVal <= 65;
+  const fibMid     = lowerNow + triWidth * 0.5;
+  const fibSupport = curPrice <= fibMid * 1.05 && curPrice >= lowerNow * 0.98;
+
+  let triScore = 25; // triangle confirmed
+  if (bbwPct < 20)  triScore += 20; else if (bbwPct < 30) triScore += 12;
+  if (aboveSma50)   triScore += 15;
+  if (volExpand)    triScore += 20;
+  if (rsiOk)        triScore += 10;
+  if (fibSupport)   triScore += 10;
+
+  const breakoutPx = upperNow * 1.002;
+  const target1x   = breakoutPx + triWidth;
+  const targetFib  = breakoutPx + triWidth * 1.618;
+  const stopLoss   = lowerNow * 0.98;
+  const risk       = breakoutPx - stopLoss;
+  const rr         = risk > 0 ? +((targetFib - breakoutPx) / risk).toFixed(1) : 0;
+
+  return {
+    detected: true,
+    bbw_percentile: bbwPct,
+    apex_bars_left: Math.min(Math.max(apexBars, 0), 60),
+    triangle_score: triScore,
+    upper_trendline: +upperNow.toFixed(2),
+    lower_trendline: +lowerNow.toFixed(2),
+    target_1x: +target1x.toFixed(2),
+    target_fib: +targetFib.toFixed(2),
+    stop_loss: +stopLoss.toFixed(2),
+    risk_reward: rr,
   };
 }
 
@@ -369,14 +539,22 @@ function classifySetup(params: {
 
 function tradePlan(params: {
   price: number; ema20: number; atrVal: number; bbUpper: number; bbLower: number; preset: string;
+  triUpper?: number; triLower?: number;
 }): { entry: number; stop: number; target: number; rr: string; riskPct: number } {
-  const { price, ema20, atrVal, bbUpper, bbLower, preset } = params;
+  const { price, ema20, atrVal, bbUpper, bbLower, preset, triUpper, triLower } = params;
   let entry: number, stop: number, target: number;
 
   if (preset === "early_break") {
-    entry  = +(bbUpper * 1.001).toFixed(2);
-    stop   = +(bbLower * 0.999).toFixed(2);
-    target = +(entry + (entry - stop) * 2.5).toFixed(2);
+    if (triUpper && triLower && triUpper > triLower) {
+      const h = triUpper - triLower;
+      entry  = +(triUpper * 1.002).toFixed(2);
+      stop   = +(triLower * 0.98).toFixed(2);
+      target = +(entry + h * 1.618).toFixed(2);
+    } else {
+      entry  = +(bbUpper * 1.001).toFixed(2);
+      stop   = +(bbLower * 0.999).toFixed(2);
+      target = +(entry + (entry - stop) * 2.5).toFixed(2);
+    }
   } else if (preset === "day_mom") {
     entry  = +(price * 1.001).toFixed(2);
     stop   = +(price * 0.97).toFixed(2);
@@ -499,8 +677,20 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
 
     const { score, grade } = calcBogaScore({ trend: tScore, momentum: mScore, options: oScore, liquidity: lScore, preset, regime });
 
+    // Triangle detection
+    const tri = detectSymmetricalTriangle(highs, lows, closes, volumes);
+
+    // Boost BOGA score when triangle confirmed on early_break
+    let finalScore = score;
+    let finalGrade = grade;
+    if (tri.detected && preset === "early_break") {
+      const bonus = Math.round(tri.triangle_score * 0.12);
+      finalScore = Math.min(100, finalScore + bonus);
+      finalGrade = toGrade(finalScore);
+    }
+
     const { primary, signals } = classifySetup({ price, ema20: e20, ema50: e50, sma200: s200, rsiVal, rvol: rvolVal, atrPct, change1d, hasWeekly: has_weekly, bbPct: bb.pct });
-    const plan = tradePlan({ price, ema20: e20, atrVal, bbUpper: bb.upper, bbLower: bb.lower, preset });
+    const plan = tradePlan({ price, ema20: e20, atrVal, bbUpper: bb.upper, bbLower: bb.lower, preset, triUpper: tri.upper_trendline, triLower: tri.lower_trendline });
     const warnings = generateWarnings({ rsiVal, atrPct, ivEst });
 
     return {
@@ -510,7 +700,7 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
       price, change1d, change_1d: change1d, change_1w: change1w,
       volume: curVol, avg_volume: Math.round(avgVol), rvol: rvolVal,
       market_cap: mktCap, market_cap_label: fmtCap(mktCap), float_shares: 0,
-      boga_score: score, grade,
+      boga_score: finalScore, grade: finalGrade,
       trend_score: tScore, momentum_score: mScore, options_score: oScore, liquidity_score: lScore,
       ema8: +e8.toFixed(2), ema13: +e13.toFixed(2), ema20: +e20.toFixed(2),
       ema21: +e21.toFixed(2), ema50: +e50.toFixed(2), ema200: +e200.toFixed(2),
@@ -524,6 +714,15 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
       entry: plan.entry, stop: plan.stop, target: plan.target, rr_ratio: plan.rr, risk_pct: plan.riskPct,
       support: +lo52.toFixed(2), resistance: +hi52.toFixed(2),
       primary_setup: primary, setup_signals: signals, warnings,
+      triangle_detected: tri.detected,
+      triangle_score: tri.triangle_score,
+      bbw_percentile: tri.bbw_percentile,
+      apex_bars_left: tri.apex_bars_left,
+      upper_trendline: tri.upper_trendline,
+      lower_trendline: tri.lower_trendline,
+      target_fib: tri.target_fib,
+      triangle_stop: tri.stop_loss,
+      triangle_rr: tri.risk_reward,
     } as any;
   } catch { return null; }
 }
@@ -534,8 +733,17 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "swing_cont":
       return s.ema20 > s.ema50 && s.rsi >= 40 && s.rvol >= 0.3 && s.market_cap >= 100e6;
-    case "early_break":
-      return s.bb_width < 0.15 && s.rvol >= 0.5 && s.boga_score >= 45;
+    case "early_break": {
+      if (s.price > 100) return false;
+      const triDetected = s.triangle_detected ?? false;
+      const triScore    = s.triangle_score    ?? 0;
+      const bbwPct      = s.bbw_percentile    ?? 100;
+      // Triangle path (MD § 4): triangle confirmed + score ≥ 50
+      const trianglePath = triDetected && triScore >= 50;
+      // Classic BB squeeze fallback: tight bands + low percentile
+      const squeezePath  = s.bb_width < 0.12 && bbwPct < 40;
+      return (trianglePath || squeezePath) && s.rvol >= 0.5 && s.boga_score >= 40;
+    }
     case "day_mom":
       return s.change_1d > 1.5 && s.rvol >= 1.0 && s.boga_score >= 45;
     case "opt_sniper":

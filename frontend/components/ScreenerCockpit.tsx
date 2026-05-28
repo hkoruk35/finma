@@ -57,6 +57,15 @@ interface ScreenerResult {
   support: number;
   resistance: number;
   warnings: string[];
+  triangle_detected?: boolean;
+  triangle_score?: number;
+  bbw_percentile?: number;
+  apex_bars_left?: number;
+  upper_trendline?: number;
+  lower_trendline?: number;
+  target_fib?: number;
+  triangle_stop?: number;
+  triangle_rr?: number;
 }
 
 interface Regime {
@@ -77,7 +86,7 @@ interface Regime {
 
 const PRESETS = [
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
-  { id: "early_break",  name: "Early Breakout",       desc: "BB Squeeze · RVOL>1.3 · ADX 12-30",     mode: "swing",    color: "#22c55e", pills: ["BB Squeeze","RVOL>1.3","ADX 12-30","Vol Expansion"],                icon: "💥" },
+  { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
   { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
   { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
@@ -325,6 +334,42 @@ function DetailRow({ stock }: { stock: ScreenerResult }) {
             ))}
           </div>
         </div>
+        {/* Triangle Pattern Panel */}
+        {stock.triangle_detected && (
+          <div style={{ marginTop: 12, background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.25)", borderRadius: 6, padding: "12px 16px" }}>
+            <div style={{ fontSize: 10, color: "#4ade80", letterSpacing: "1.5px", marginBottom: 10, textTransform: "uppercase", fontWeight: 700 }}>
+              📐 Simetrik Üçgen Pattern
+              <span style={{ marginLeft: 10, background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.4)", padding: "2px 8px", borderRadius: 10, fontSize: 10 }}>
+                Skor: {stock.triangle_score}/100
+              </span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10 }}>
+              {[
+                { label: "BBW Percentile", value: `${stock.bbw_percentile}p`, color: (stock.bbw_percentile ?? 100) < 20 ? "#4ade80" : (stock.bbw_percentile ?? 100) < 30 ? "#fbbf24" : "#b0bec5" },
+                { label: "Apeks Mesafesi", value: `~${stock.apex_bars_left} mum`,  color: "#b0bec5" },
+                { label: "Üst TL",         value: `$${stock.upper_trendline?.toFixed(2) ?? "—"}`, color: "#f87171" },
+                { label: "Alt TL",         value: `$${stock.lower_trendline?.toFixed(2) ?? "—"}`, color: "#4ade80" },
+                { label: "Fib 1.618 Hedef",value: `$${stock.target_fib?.toFixed(2) ?? "—"}`,      color: "#fbbf24" },
+              ].map(({ label, value, color }) => (
+                <div key={label} style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "8px 10px", textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color: "#7c8fa6", marginBottom: 4, fontWeight: 600 }}>{label}</div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color, fontFamily: "monospace" }}>{value}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 8, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+              <div style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: 10, color: "#94a3b8" }}>Triangle Stop</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#f87171", fontFamily: "monospace" }}>${stock.triangle_stop?.toFixed(2) ?? "—"}</span>
+              </div>
+              <div style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "7px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: 10, color: "#94a3b8" }}>R/R (Fib 1.618)</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#22d3ee", fontFamily: "monospace" }}>{stock.triangle_rr}x</span>
+              </div>
+            </div>
+          </div>
+        )}
+
       </td>
     </tr>
   );
