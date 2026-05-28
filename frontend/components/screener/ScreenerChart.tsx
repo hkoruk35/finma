@@ -337,24 +337,21 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
         </div>
       </div>
 
-      {/* Chart Container */}
-      {loading ? (
-        <div
-          style={{
-            height: isFullscreen ? window.innerHeight - 100 : 450,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#7c8fa6",
-          }}
-        >
-          ⏳ Grafik yükleniyor...
-        </div>
-      ) : (
+      {/* Chart Container — always in DOM so ref is available on mount */}
+      <div style={{ position: "relative" }}>
+        {loading && (
+          <div style={{
+            position: "absolute", inset: 0, zIndex: 2,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "#111620", height: 450, color: "#7c8fa6", fontSize: 12,
+          }}>
+            ⏳ Grafik yükleniyor...
+          </div>
+        )}
         <div
           ref={chartContainerRef}
           style={{
-            width: isFullscreen ? window.innerWidth - 40 : "100%",
+            width: "100%",
             height: isFullscreen ? window.innerHeight - 100 : 450,
             position: isFullscreen ? "fixed" : "relative",
             left: isFullscreen ? 20 : 0,
@@ -362,7 +359,7 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
             zIndex: isFullscreen ? 9999 : 1,
           }}
         />
-      )}
+      </div>
 
       {/* Legend */}
       {!loading && (
