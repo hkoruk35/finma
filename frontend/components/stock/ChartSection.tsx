@@ -82,8 +82,8 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
           <span className="text-xs text-[#f59e0b]">
             Chart may show a different company. BOGA tracks{" "}
             <strong>{companyMismatch.local}</strong>{" "}
-            — TradingView may default to{" "}
-            <strong>{companyMismatch.yfinance}</strong>.
+            — grafik{" "}
+            <strong>{companyMismatch.yfinance}</strong> gösteriyor olabilir.
           </span>
         </div>
       )}

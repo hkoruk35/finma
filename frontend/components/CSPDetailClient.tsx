@@ -561,8 +561,6 @@ export default function CSPDetailClient({ slug }: Props) {
           }}>
             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1W Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <a href={`https://www.tradingview.com/chart/?symbol=${hoverTicker}&interval=W`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>TradingView ↗</a>
-              <a href={`https://finance.yahoo.com/chart/${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Yahoo ↗</a>
               <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
             </div>
           </div>
@@ -727,10 +725,6 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
           title={`${sym} 1H expanded`}
         />
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-          <a href={`https://www.tradingview.com/chart/?symbol=${sym}&interval=W`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>TradingView ↗</a>
-          <a href={`https://finance.yahoo.com/chart/${sym}`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Yahoo Finance ↗</a>
           <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>
           <Link href={`/stock/${sym}`}

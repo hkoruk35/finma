@@ -682,7 +682,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </table>
                     </div>
                   ) : (
-                    <div className="text-[11px] md:text-[12px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">Geçmiş veri yüklenemedi (Yahoo Finance erişimi gerekli).</div>
+                    <div className="text-[11px] md:text-[12px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">Geçmiş veri yüklenemedi.</div>
                   )}
                 </div>
 

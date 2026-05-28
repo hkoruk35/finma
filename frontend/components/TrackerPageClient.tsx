@@ -506,9 +506,7 @@ export function TrackerPageClient() {
           }}>
             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1H Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <span style={{ color: "#8b949e" }}>TradingView ↗</span>
-              <span style={{ color: "#8b949e" }}>Yahoo ↗</span>
-              <span style={{ color: "#8b949e" }}>Finviz ↗</span>
+              <span style={{ color: "#8b949e" }}>BOGA AI</span>
             </div>
           </div>
           <iframe
@@ -649,10 +647,6 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
           title={`${sym} 1H expanded`}
         />
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-          <a href={`https://www.tradingview.com/chart/?symbol=${sym}&interval=W`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>TradingView ↗</a>
-          <a href={`https://finance.yahoo.com/chart/${sym}`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Yahoo Finance ↗</a>
           <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>
           <Link href={`/stock/${sym}`}

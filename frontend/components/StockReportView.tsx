@@ -1112,7 +1112,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-5 bg-gradient-to-b from-emerald-400 to-blue-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">TradingView Canlı İnteraktif Grafiği</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">BOGA AI Canlı İnteraktif Grafik</h3>
           </div>
           <button 
             onClick={() => setShowChart(!showChart)} 
@@ -1288,7 +1288,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                       >
                         <div>
                           <div className="flex items-center justify-between text-[9px] font-black text-slate-500 uppercase tracking-wider mb-2">
-                            <span>{item.publisher || "Yahoo Finance"}</span>
+                            <span>{item.publisher || "Finansal Haber"}</span>
                             <span>{pubDate}</span>
                           </div>
                           <h5 className="text-xs font-black text-white group-hover:text-[#3b82f6] transition-colors leading-snug">
