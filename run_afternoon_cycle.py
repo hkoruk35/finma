@@ -125,22 +125,44 @@ def main():
         # 1. Swing Scanner (v117) — --now: 13:00 bekleme yapmadan hemen çalış
         run_bot("swing117_boga.py", ["--oneshot", "--now"], timeout=SWING_TIMEOUT_SEC)
 
-    # 2. Swing Performance Update
+    # 2. Copy swing files to PUBLIC ROOT (frontend loads from here)
+    import shutil
+    swing_files_to_copy = [
+        ("swing_picks.json", "swing_picks.json"),
+        ("swing_all_picks.json", "swing_all_picks.json"),
+        ("swing_table.json", "swing_table.json"),
+        ("swing_performance.json", "swing_performance.json"),
+    ]
+
+    public_latest = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
+    public_root = os.path.join(FINMA_DIR, "frontend", "public")
+
+    for src_name, dst_name in swing_files_to_copy:
+        src_path = os.path.join(public_latest, src_name)
+        dst_path = os.path.join(public_root, dst_name)
+        if os.path.exists(src_path):
+            try:
+                shutil.copy2(src_path, dst_path)
+                log.info(f"📋 Copied {src_name} to public/")
+            except Exception as e:
+                log.warning(f"⚠️ Could not copy {src_name}: {e}")
+
+    # 3. Swing Performance Update
     run_bot("update_swing_performance.py")
 
-    # 3. Swing Performance Fix (Clean duplicates)
+    # 4. Swing Performance Fix (Clean duplicates)
     run_bot("fix_swing_performance.py")
 
-    # 4. Live Options Update for Swing
+    # 5. Live Options Update for Swing
     run_bot("fetch_live_options.py")
 
-    # 5. Options P&L Tracker
+    # 6. Options P&L Tracker
     run_bot("options_pnl_tracker.py")
 
-    # 6. Health Check
+    # 7. Health Check
     run_bot("site_health_checker.py")
 
-    # 7. Git Push — Swing ve Options verilerini açıkça ekle ve push et
+    # 8. Git Push — Swing ve Options verilerini açıkça ekle ve push et
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
         def run_git(args):

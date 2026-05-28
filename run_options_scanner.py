@@ -107,10 +107,15 @@ def main():
     transfer_archive_dir = os.path.join(FINMA_DIR, "transfer", today_str)
     os.makedirs(transfer_archive_dir, exist_ok=True)
     shutil.copy2(latest_file, os.path.join(transfer_archive_dir, "options_picks.json"))
-    
-    log.info("📁 Dosyalar transfer ve frontend klasörlerine başarıyla kopyalandı.")
 
-    # Git Push — Options dosyalarını açıkça ekle ve push et
+    # 5. Copy to PUBLIC ROOT — Frontend loads from here!
+    public_root = os.path.join(FINMA_DIR, "frontend", "public")
+    os.makedirs(public_root, exist_ok=True)
+    shutil.copy2(latest_file, os.path.join(public_root, "options_picks.json"))
+
+    log.info("📁 Dosyalar transfer, frontend/data ve public/ klasörlerine başarıyla kopyalandı.")
+
+    # 6. Git Push — Options dosyalarını açıkça ekle ve push et
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
         def run_git(args):
