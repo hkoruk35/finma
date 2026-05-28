@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import ScreenerChart from "./screener/ScreenerChart";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -369,6 +370,9 @@ function DetailRow({ stock }: { stock: ScreenerResult }) {
             </div>
           </div>
         )}
+
+        {/* Chart Widget */}
+        <ScreenerChart ticker={stock.ticker} />
 
       </td>
     </tr>

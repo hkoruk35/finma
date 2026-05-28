@@ -6,7 +6,7 @@
     "win_rate": 52.6,
     "avg_return_pct": 1.11,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-05-28T16:00:07",
+    "last_updated": "2026-05-28T17:00:02",
     "above_5pct_rate": 49.9,
     "above_10pct_rate": 2.9
   },
@@ -9679,7 +9679,7 @@
       "subsector": "REIT - Residential",
       "entry": 183.85,
       "max_price": 187.27,
-      "return_pct": 0.57,
+      "return_pct": 0.53,
       "days": 29,
       "result": "PENDING",
       "peak_date": "2026-05-11",
@@ -9888,7 +9888,7 @@
       "subsector": "REIT - Healthcare Facilities",
       "entry": 87.82,
       "max_price": 90.35,
-      "return_pct": -2.4,
+      "return_pct": -2.31,
       "days": 23,
       "result": "PENDING",
       "peak_date": "2026-05-14",
@@ -9947,7 +9947,7 @@
       "subsector": "REIT - Retail",
       "entry": 26.27,
       "max_price": 27.54,
-      "return_pct": 4.72,
+      "return_pct": 4.64,
       "days": 23,
       "result": "PENDING",
       "peak_date": "2026-05-27",
@@ -10156,7 +10156,7 @@
       "subsector": "REIT - Industrial",
       "entry": 303.3,
       "max_price": 311.73,
-      "return_pct": 2.05,
+      "return_pct": 1.96,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-05-11",
@@ -10304,7 +10304,7 @@
       "subsector": "REIT - Healthcare Facilities",
       "entry": 215.31,
       "max_price": 220.75,
-      "return_pct": -2.22,
+      "return_pct": -2.33,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-13",
@@ -10333,7 +10333,7 @@
       "subsector": "Financial Conglomerates",
       "entry": 80.32,
       "max_price": 83.0,
-      "return_pct": -0.25,
+      "return_pct": -0.3,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-22",
@@ -10347,7 +10347,7 @@
       "subsector": "REIT - Residential",
       "entry": 36.85,
       "max_price": 38.26,
-      "return_pct": 2.89,
+      "return_pct": 2.8,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-27",
@@ -10376,7 +10376,7 @@
       "subsector": "Semiconductors",
       "entry": 418.09,
       "max_price": 426.47,
-      "return_pct": 1.54,
+      "return_pct": 1.62,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-28",
@@ -10556,7 +10556,7 @@
       "subsector": "REIT - Retail",
       "entry": 116.24,
       "max_price": 121.29,
-      "return_pct": 4.09,
+      "return_pct": 4.11,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-28",
@@ -10705,7 +10705,7 @@
       "subsector": "Asset Management",
       "entry": 308.83,
       "max_price": 311.74,
-      "return_pct": -2.0,
+      "return_pct": -1.9,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-27",
@@ -10749,7 +10749,7 @@
       "subsector": "Utilities - Diversified",
       "entry": 14.34,
       "max_price": 14.73,
-      "return_pct": 2.48,
+      "return_pct": 2.44,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-05-20",
@@ -10851,7 +10851,7 @@
       "subsector": "REIT - Office",
       "entry": 23.31,
       "max_price": 24.35,
-      "return_pct": 4.14,
+      "return_pct": 4.12,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-05-28",
@@ -10880,7 +10880,7 @@
       "subsector": "Asset Management",
       "entry": 10.44,
       "max_price": 10.57,
-      "return_pct": 0.34,
+      "return_pct": 0.38,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-05-11",
@@ -10953,7 +10953,7 @@
       "subsector": "REIT - Industrial",
       "entry": 144.31,
       "max_price": 147.5,
-      "return_pct": 0.99,
+      "return_pct": 0.92,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -10994,7 +10994,7 @@
       "subsector": "Asset Management",
       "entry": 12.66,
       "max_price": 12.67,
-      "return_pct": -1.11,
+      "return_pct": -1.03,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-05-11"
@@ -11048,7 +11048,7 @@
       "subsector": "REIT - Industrial",
       "entry": 62.64,
       "max_price": 64.04,
-      "return_pct": -0.1,
+      "return_pct": -0.13,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -11075,7 +11075,7 @@
       "subsector": "Banks - Diversified",
       "entry": 23.59,
       "max_price": 24.56,
-      "return_pct": 3.16,
+      "return_pct": 3.18,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -11372,7 +11372,7 @@
       "entry": 24.25,
       "max_price": 25.15,
       "sl_pct": 2.2,
-      "return_pct": 2.8,
+      "return_pct": 2.72,
       "days": 18,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -11850,7 +11850,7 @@
       "entry": 132.11,
       "max_price": 137.82,
       "sl_pct": 2.85,
-      "return_pct": -0.03,
+      "return_pct": -0.08,
       "days": 17,
       "result": "PENDING",
       "peak_date": "2026-05-19"
@@ -12029,7 +12029,7 @@
       "entry": 13.42,
       "max_price": 13.93,
       "sl_pct": 5.79,
-      "return_pct": -4.84,
+      "return_pct": -4.92,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-19"
@@ -12148,7 +12148,7 @@
       "entry": 44.28,
       "max_price": 45.31,
       "sl_pct": 3.82,
-      "return_pct": 2.33,
+      "return_pct": 2.24,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -12221,7 +12221,7 @@
       "entry": 37.4,
       "max_price": 37.81,
       "sl_pct": 3.34,
-      "return_pct": 0.56,
+      "return_pct": 0.67,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -12265,7 +12265,7 @@
       "entry": 40.64,
       "max_price": 42.32,
       "sl_pct": 3.9,
-      "return_pct": 1.4,
+      "return_pct": 1.48,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-14"
@@ -12369,7 +12369,7 @@
       "entry": 61.11,
       "max_price": 62.85,
       "sl_pct": 1.4,
-      "return_pct": 2.7,
+      "return_pct": 2.75,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-05-19"
@@ -12503,7 +12503,7 @@
       "entry": 25.93,
       "max_price": 26.91,
       "sl_pct": 3.32,
-      "return_pct": 0.62,
+      "return_pct": 0.54,
       "days": 15,
       "result": "PENDING",
       "peak_date": "2026-05-14"
@@ -12517,7 +12517,7 @@
       "entry": 38.26,
       "max_price": 39.05,
       "sl_pct": 5.4,
-      "return_pct": -0.13,
+      "return_pct": 0.08,
       "days": 15,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -12666,7 +12666,7 @@
       "entry": 74.1,
       "max_price": 75.07,
       "sl_pct": 3.11,
-      "return_pct": -1.35,
+      "return_pct": -1.36,
       "days": 14,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -12755,7 +12755,7 @@
       "entry": 268.88,
       "max_price": 279.39,
       "sl_pct": 2.76,
-      "return_pct": -0.82,
+      "return_pct": -0.7,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -12769,7 +12769,7 @@
       "entry": 71.55,
       "max_price": 73.52,
       "sl_pct": 2.17,
-      "return_pct": 0.56,
+      "return_pct": 0.48,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -12903,7 +12903,7 @@
       "entry": 81.44,
       "max_price": 83.0,
       "sl_pct": 3.78,
-      "return_pct": -1.62,
+      "return_pct": -1.67,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -12932,7 +12932,7 @@
       "entry": 264.14,
       "max_price": 274.0,
       "sl_pct": 3.27,
-      "return_pct": 3.71,
+      "return_pct": 3.73,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -12991,7 +12991,7 @@
       "entry": 74.26,
       "max_price": 77.0,
       "sl_pct": 3.42,
-      "return_pct": 2.28,
+      "return_pct": 2.26,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -13050,7 +13050,7 @@
       "entry": 60.28,
       "max_price": 62.47,
       "sl_pct": 6.34,
-      "return_pct": -5.87,
+      "return_pct": -5.91,
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13079,7 +13079,7 @@
       "entry": 152.97,
       "max_price": 158.74,
       "sl_pct": 2.74,
-      "return_pct": 3.15,
+      "return_pct": 3.03,
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13093,7 +13093,7 @@
       "entry": 419.37,
       "max_price": 428.27,
       "sl_pct": 4.46,
-      "return_pct": 1.7,
+      "return_pct": 1.72,
       "days": 10,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13152,7 +13152,7 @@
       "entry": 22.01,
       "max_price": 22.88,
       "sl_pct": 3.47,
-      "return_pct": 3.79,
+      "return_pct": 3.73,
       "days": 9,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13210,7 +13210,7 @@
       "entry": 70.05,
       "max_price": 71.79,
       "sl_pct": 3.5,
-      "return_pct": 0.27,
+      "return_pct": 0.33,
       "days": 9,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -13283,7 +13283,7 @@
       "entry": 41.27,
       "max_price": 41.97,
       "sl_pct": 3.03,
-      "return_pct": -0.15,
+      "return_pct": -0.07,
       "days": 9,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13297,7 +13297,7 @@
       "entry": 35.53,
       "max_price": 36.25,
       "sl_pct": 4.77,
-      "return_pct": -1.27,
+      "return_pct": -1.24,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -13311,7 +13311,7 @@
       "entry": 149.43,
       "max_price": 151.78,
       "sl_pct": 4.3,
-      "return_pct": -2.46,
+      "return_pct": -2.45,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -13325,7 +13325,7 @@
       "entry": 46.28,
       "max_price": 47.14,
       "sl_pct": 2.15,
-      "return_pct": -1.04,
+      "return_pct": -1.02,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -13339,7 +13339,7 @@
       "entry": 44.81,
       "max_price": 45.31,
       "sl_pct": 2.54,
-      "return_pct": 1.12,
+      "return_pct": 1.03,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13353,7 +13353,7 @@
       "entry": 197.45,
       "max_price": 204.17,
       "sl_pct": 3.23,
-      "return_pct": 3.24,
+      "return_pct": 3.21,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13397,7 +13397,7 @@
       "entry": 158.44,
       "max_price": 163.48,
       "sl_pct": 6.66,
-      "return_pct": -1.12,
+      "return_pct": -1.1,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-05-22"
@@ -13425,7 +13425,7 @@
       "entry": 49.99,
       "max_price": 51.0,
       "sl_pct": 3.75,
-      "return_pct": -0.98,
+      "return_pct": -1.06,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13467,7 +13467,7 @@
       "entry": 114.74,
       "max_price": 119.04,
       "sl_pct": 2.48,
-      "return_pct": 3.6,
+      "return_pct": 3.54,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13556,7 +13556,7 @@
       "entry": 346.74,
       "max_price": 349.02,
       "sl_pct": 4.47,
-      "return_pct": 0.15,
+      "return_pct": 0.05,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13570,7 +13570,7 @@
       "entry": 15.61,
       "max_price": 15.89,
       "sl_pct": 4.58,
-      "return_pct": 1.31,
+      "return_pct": 1.22,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13584,7 +13584,7 @@
       "entry": 64.25,
       "max_price": 66.58,
       "sl_pct": 4.17,
-      "return_pct": 2.93,
+      "return_pct": 2.91,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -13598,7 +13598,7 @@
       "entry": 266.32,
       "max_price": 274.0,
       "sl_pct": 3.25,
-      "return_pct": 2.86,
+      "return_pct": 2.88,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13612,7 +13612,7 @@
       "entry": 76.83,
       "max_price": 76.93,
       "sl_pct": 3.46,
-      "return_pct": -1.14,
+      "return_pct": -1.16,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -13656,7 +13656,7 @@
       "entry": 15.66,
       "max_price": 16.15,
       "sl_pct": 3.32,
-      "return_pct": 1.05,
+      "return_pct": 1.09,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13685,7 +13685,7 @@
       "entry": 91.46,
       "max_price": 91.8,
       "sl_pct": 5.92,
-      "return_pct": -0.33,
+      "return_pct": -0.4,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13714,7 +13714,7 @@
       "entry": 37.42,
       "max_price": 37.42,
       "sl_pct": 4.57,
-      "return_pct": -2.24,
+      "return_pct": -2.32,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-25"
@@ -13728,7 +13728,7 @@
       "entry": 14.41,
       "max_price": 14.82,
       "sl_pct": 4.37,
-      "return_pct": 0.76,
+      "return_pct": 0.69,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13815,7 +13815,7 @@
       "entry": 106.5,
       "max_price": 110.4,
       "sl_pct": 3.46,
-      "return_pct": 3.01,
+      "return_pct": 3.08,
       "days": 3,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13843,7 +13843,7 @@
       "entry": 41.17,
       "max_price": 41.42,
       "sl_pct": 2.32,
-      "return_pct": -1.12,
+      "return_pct": -1.19,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13871,7 +13871,7 @@
       "entry": 109.33,
       "max_price": 114.33,
       "sl_pct": 4.03,
-      "return_pct": 3.27,
+      "return_pct": 3.23,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13885,7 +13885,7 @@
       "entry": 271.02,
       "max_price": 279.39,
       "sl_pct": 2.6,
-      "return_pct": -1.61,
+      "return_pct": -1.48,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -13899,7 +13899,7 @@
       "entry": 45.02,
       "max_price": 45.02,
       "sl_pct": 8.11,
-      "return_pct": -7.33,
+      "return_pct": -7.37,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-26"
@@ -13942,7 +13942,7 @@
       "entry": 422.82,
       "max_price": 428.27,
       "sl_pct": 4.66,
-      "return_pct": 0.88,
+      "return_pct": 0.89,
       "days": 2,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -13986,7 +13986,7 @@
       "entry": 85.62,
       "max_price": 88.5,
       "sl_pct": 4.06,
-      "return_pct": 2.59,
+      "return_pct": 2.44,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -14042,7 +14042,7 @@
       "entry": 42.79,
       "max_price": 44.52,
       "sl_pct": 7.22,
-      "return_pct": 2.9,
+      "return_pct": 2.99,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -14056,7 +14056,7 @@
       "entry": 305.29,
       "max_price": 318.75,
       "sl_pct": 7.88,
-      "return_pct": 4.22,
+      "return_pct": 4.24,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -14070,7 +14070,7 @@
       "entry": 347.65,
       "max_price": 347.65,
       "sl_pct": 4.97,
-      "return_pct": -2.47,
+      "return_pct": -2.45,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-27"
@@ -14084,7 +14084,7 @@
       "entry": 61.94,
       "max_price": 64.54,
       "sl_pct": 7.41,
-      "return_pct": 2.73,
+      "return_pct": 2.66,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-28"
@@ -14098,7 +14098,7 @@
       "entry": 37.69,
       "max_price": 37.78,
       "sl_pct": 27.83,
-      "return_pct": -0.4,
+      "return_pct": -0.27,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-05-28"
