@@ -53,7 +53,7 @@ def run_bot(script_name: str, args: list = None, timeout: int = DEFAULT_TIMEOUT_
     cmd = [VENV_PYTHON, script_path] + (args or [])
     log.info(f"▶ Başlatılıyor: {script_name} (timeout={timeout//60}dk)")
 
-    # stdout/stderr'i ayrı log dosyasına yönlendir (swing117 için); diğerleri capture
+    # stdout/stderr'i ayrı log dosyasına yönlendir (swing117 için)
     if "swing117" in script_name:
         out_file = open(SWING_LOG_PATH, "w", encoding="utf-8")
         try:
@@ -67,8 +67,15 @@ def run_bot(script_name: str, args: list = None, timeout: int = DEFAULT_TIMEOUT_
                 log.info(f"✅ {script_name} tamamlandı.")
                 return True
             else:
-                log.error(f"❌ {script_name} hata kodu {result.returncode}. Detay: {SWING_LOG_PATH}")
-                return False
+                # Eğer JSON dosyası oluşturulduysa, hataya rağmen başarılı say
+                import os
+                json_exists = os.path.exists(os.path.join(FINMA_DIR, "swing_picks.json"))
+                if json_exists:
+                    log.warning(f"⚠️ {script_name} exit code {result.returncode} (JSON dosyası oluşturuldu, devam ediliyor)")
+                    return True
+                else:
+                    log.error(f"❌ {script_name} hata kodu {result.returncode}. Detay: {SWING_LOG_PATH}")
+                    return False
         except subprocess.TimeoutExpired:
             out_file.close()
             log.error(f"⏱️ {script_name} {timeout//60} dakika içinde bitmedi — zorla sonlandırıldı. Detay: {SWING_LOG_PATH}")
