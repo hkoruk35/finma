@@ -1,19 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import {
-  createChart,
-  ColorType,
-  IChartApi,
-  ISeriesApi,
-  Time,
-  CandlestickData,
-  HistogramData,
-  LineData,
-} from "lightweight-charts";
 
 interface OHLCV {
-  time: Time;
+  time: number;
   open: number;
   high: number;
   low: number;
@@ -29,11 +19,6 @@ interface Props {
 export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<any>(null);
-  const candleSeriesRef = useRef<any>(null);
-  const volumeSeriesRef = useRef<any>(null);
-  const ema8SeriesRef = useRef<any>(null);
-  const ema20SeriesRef = useRef<any>(null);
-  const ema50SeriesRef = useRef<any>(null);
 
   const [timeframe, setTimeframe] = useState<"1d" | "1w" | "1h">("1d");
   const [isFullscreen, setIsFullscreen] = useState(fullscreen);
@@ -73,7 +58,7 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
       for (let i = 0; i < timestamps.length; i++) {
         if (opens[i] && highs[i] && lows[i] && closes[i]) {
           result.push({
-            time: (timestamps[i] * 1000) as Time,
+            time: Math.floor(timestamps[i]),
             open: opens[i],
             high: highs[i],
             low: lows[i],
@@ -120,126 +105,132 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
         return;
       }
 
-      // Clean up old chart
-      if (chartRef.current) {
-        chartRef.current.remove();
+      try {
+        // Dynamically import lightweight-charts
+        const { createChart, ColorType } = await import("lightweight-charts");
+
+        // Clean up old chart
+        if (chartRef.current) {
+          chartRef.current.remove();
+        }
+
+        // Create chart
+        const container = chartContainerRef.current;
+        const chart = createChart(container, {
+          layout: {
+            background: { type: ColorType.Solid, color: "#0d1117" },
+            textColor: "#b0bec5",
+          },
+          width: container.clientWidth,
+          height: isFullscreen ? window.innerHeight - 100 : 450,
+          timeScale: {
+            timeVisible: true,
+            secondsVisible: false,
+          },
+          grid: {
+            horzLines: { color: "#253347" },
+            vertLines: { color: "#253347" },
+          },
+        });
+
+        chartRef.current = chart;
+
+        // Candlestick series
+        const candleSeries = chart.addCandlestickSeries({
+          upColor: "#4ade80",
+          downColor: "#f87171",
+          borderVisible: true,
+          wickUpColor: "#4ade80",
+          wickDownColor: "#f87171",
+        });
+
+        candleSeries.setData(ohlcvData as any);
+
+        // Volume histogram
+        const volumeData = ohlcvData.map((bar) => ({
+          time: bar.time,
+          value: bar.volume,
+          color:
+            bar.close >= bar.open
+              ? "rgba(74,222,128,0.3)"
+              : "rgba(248,113,113,0.3)",
+        }));
+
+        const volumeSeries = chart.addHistogramSeries({
+          color: "rgba(100, 150, 255, 0.3)",
+          priceFormat: {
+            type: "volume",
+          },
+          priceScaleId: "volume",
+        });
+
+        volumeSeries.setData(volumeData as any);
+
+        // Scale volume to right
+        chart.priceScale("volume").applyOptions({
+          scaleMargins: {
+            top: 0.8,
+            bottom: 0,
+          },
+        });
+
+        // EMAs
+        const closes = ohlcvData.map((bar) => bar.close);
+        const ema8 = calcEMA(closes, 8);
+        const ema20 = calcEMA(closes, 20);
+        const ema50 = calcEMA(closes, 50);
+
+        const ema8Series = chart.addLineSeries({
+          color: "#60a5fa",
+          lineWidth: 1,
+          title: "EMA8",
+        });
+
+        ema8Series.setData(
+          ohlcvData
+            .map((bar, i) => ({
+              time: bar.time,
+              value: ema8[i] || 0,
+            }))
+            .filter((d) => d.value > 0) as any
+        );
+
+        const ema20Series = chart.addLineSeries({
+          color: "#fbbf24",
+          lineWidth: 1,
+          title: "EMA20",
+        });
+
+        ema20Series.setData(
+          ohlcvData
+            .map((bar, i) => ({
+              time: bar.time,
+              value: ema20[i] || 0,
+            }))
+            .filter((d) => d.value > 0) as any
+        );
+
+        const ema50Series = chart.addLineSeries({
+          color: "#a78bfa",
+          lineWidth: 1,
+          title: "EMA50",
+        });
+
+        ema50Series.setData(
+          ohlcvData
+            .map((bar, i) => ({
+              time: bar.time,
+              value: ema50[i] || 0,
+            }))
+            .filter((d) => d.value > 0) as any
+        );
+
+        chart.timeScale().fitContent();
+        setLoading(false);
+      } catch (err) {
+        console.error("Chart init error:", err);
+        setLoading(false);
       }
-
-      // Create chart
-      const container = chartContainerRef.current;
-      const chart = createChart(container, {
-        layout: {
-          background: { type: ColorType.Solid, color: "#0d1117" },
-          textColor: "#b0bec5",
-        },
-        width: container.clientWidth,
-        height: isFullscreen ? window.innerHeight - 100 : 450,
-        timeScale: {
-          timeVisible: true,
-          secondsVisible: false,
-        },
-        grid: {
-          horzLines: { color: "#253347" },
-          vertLines: { color: "#253347" },
-        },
-      });
-
-      chartRef.current = chart;
-
-      // Candlestick series
-      const candleSeries = chart.addCandlestickSeries({
-        upColor: "#4ade80",
-        downColor: "#f87171",
-        borderVisible: true,
-        wickUpColor: "#4ade80",
-        wickDownColor: "#f87171",
-      });
-
-      candleSeriesRef.current = candleSeries;
-      candleSeries.setData(ohlcvData);
-
-      // Volume histogram
-      const volumeData = ohlcvData.map((bar) => ({
-        time: bar.time,
-        value: bar.volume,
-        color:
-          bar.close >= bar.open
-            ? "rgba(74,222,128,0.3)"
-            : "rgba(248,113,113,0.3)",
-      }));
-
-      const volumeSeries = chart.addHistogramSeries({
-        color: "rgba(100, 150, 255, 0.3)",
-        priceFormat: {
-          type: "volume",
-        },
-        priceScaleId: "volume",
-      });
-
-      volumeSeriesRef.current = volumeSeries;
-      volumeSeries.setData(volumeData);
-
-      // Scale volume to right
-      chart.priceScale("volume").applyOptions({
-        scaleMargins: {
-          top: 0.8,
-          bottom: 0,
-        },
-      });
-
-      // EMAs
-      const closes = ohlcvData.map((bar) => bar.close);
-      const ema8 = calcEMA(closes, 8);
-      const ema20 = calcEMA(closes, 20);
-      const ema50 = calcEMA(closes, 50);
-
-      const ema8Series = chart.addLineSeries({
-        color: "#60a5fa",
-        lineWidth: 1,
-        title: "EMA8",
-      });
-      ema8SeriesRef.current = ema8Series;
-      ema8Series.setData(
-        ohlcvData
-          .map((bar, i) => ({
-            time: bar.time,
-            value: ema8[i] || 0,
-          }))
-          .filter((d) => d.value > 0)
-      );
-
-      const ema20Series = chart.addLineSeries({
-        color: "#fbbf24",
-        lineWidth: 1,
-        title: "EMA20",
-      });
-      ema20SeriesRef.current = ema20Series;
-      ema20Series.setData(
-        ohlcvData
-          .map((bar, i) => ({
-            time: bar.time,
-            value: ema20[i] || 0,
-          }))
-          .filter((d) => d.value > 0)
-      );
-
-      const ema50Series = chart.addLineSeries({
-        color: "#a78bfa",
-        lineWidth: 1,
-        title: "EMA50",
-      });
-      ema50SeriesRef.current = ema50Series;
-      ema50Series.setData(
-        ohlcvData
-          .map((bar, i) => ({
-            time: bar.time,
-            value: ema50[i] || 0,
-          }))
-          .filter((d) => d.value > 0)
-      );
-
-      chart.timeScale().fitContent();
-      setLoading(false);
     };
 
     initChart();
@@ -283,7 +274,15 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
           borderBottom: "1px solid #253347",
         }}
       >
-        <div style={{ fontSize: 10, color: "#94a3b8", fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5 }}>
+        <div
+          style={{
+            fontSize: 10,
+            color: "#94a3b8",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            letterSpacing: 1.5,
+          }}
+        >
           📊 {ticker} Chart
         </div>
 
@@ -330,7 +329,7 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
             }}
             title="Tam ekran"
           >
-            {isFullscreen ? "⛶" : "⛶"}
+            ⛶
           </button>
         </div>
       </div>
