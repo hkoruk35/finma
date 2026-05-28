@@ -106,24 +106,17 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
 
     const histLen = ohlcData.length;
 
-    // Append synthetic OHLC bars for the 15-day forecast
+    // Build future dates for forecast bars (next N business days after last historical bar)
+    const forecastBars: Array<{ date: Date; bear: number; base: number; bull: number }> = [];
     if (forecast15?.length) {
       const lastDate = ohlcData.length > 0 ? new Date(ohlcData[ohlcData.length - 1].date) : new Date();
-      forecast15.forEach((f, idx) => {
-        const d = new Date(lastDate);
-        // skip weekends when advancing days
-        let added = 0;
-        while (added <= idx) {
-          d.setDate(d.getDate() + 1);
-          if (d.getDay() !== 0 && d.getDay() !== 6) added++;
-        }
-        ohlcData.push({
-          date: new Date(d),
-          open: f.base,
-          high: f.bull,
-          low: f.bear,
-          close: f.base,
-        });
+      let cursor = new Date(lastDate);
+      forecast15.forEach((f) => {
+        // advance cursor to next business day
+        do { cursor = new Date(cursor.getTime() + 86400000); } while (cursor.getDay() === 0 || cursor.getDay() === 6);
+        forecastBars.push({ date: new Date(cursor), bear: f.bear, base: f.base, bull: f.bull });
+        // Also push a synthetic OHLC bar so Ichimoku lines extend into forecast zone
+        ohlcData.push({ date: new Date(cursor), open: f.base, high: f.bull, low: f.bear, close: f.base });
       });
     }
 
@@ -270,8 +263,9 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
       ctx.setLineDash([]);
     }
 
-    // Candlesticks
+    // Candlesticks — historical only
     sliceData.forEach((d, i) => {
+      if (i >= histLen) return; // skip forecast synthetic bars
       const cx = xPos(i);
       const isUp = d.close >= d.open;
       const clr = isUp ? colors.candle_up : colors.candle_dn;
@@ -291,6 +285,45 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
         ctx.strokeRect(cx - candleW / 2, top, candleW, bodyH);
       }
     });
+
+    // Forecast bands — bear/base/bull range visualization
+    if (forecastBars.length > 0) {
+      forecastBars.forEach((fb, fi) => {
+        const i = histLen + fi;
+        const cx = xPos(i);
+        const bw = Math.max(2, candleW * 1.2);
+
+        // Bull-base fill (green)
+        const bullY = priceToY(fb.bull);
+        const baseY = priceToY(fb.base);
+        const bearY = priceToY(fb.bear);
+
+        ctx.fillStyle = "rgba(34,197,94,0.18)";
+        ctx.fillRect(cx - bw / 2, bullY, bw, Math.max(1, baseY - bullY));
+
+        // Bear-base fill (red)
+        ctx.fillStyle = "rgba(224,92,92,0.18)";
+        ctx.fillRect(cx - bw / 2, baseY, bw, Math.max(1, bearY - baseY));
+
+        // Base line (white)
+        ctx.strokeStyle = "rgba(255,255,255,0.7)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - bw / 2, baseY);
+        ctx.lineTo(cx + bw / 2, baseY);
+        ctx.stroke();
+
+        // Vertical range line
+        ctx.strokeStyle = "rgba(200,200,200,0.25)";
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 2]);
+        ctx.beginPath();
+        ctx.moveTo(cx, bullY);
+        ctx.lineTo(cx, bearY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    }
 
     // Tenkan
     if (showTenkan) {
@@ -357,15 +390,27 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
         tooltipRef.current.style.top = e.clientY - rect.top - 10 + "px";
         const fmt = (v: number | null) => v != null ? v.toFixed(v > 1000 ? 1 : 2) : "—";
         const dateStr = d.date.toLocaleDateString("tr-TR", { day: "2-digit", month: "short", year: "2-digit" });
-        tooltipRef.current.innerHTML = `
-          <div style="font-size:11px;color:#999;margin-bottom:4px;">${dateStr}${isForecast ? ' <b style="color:#f0a500">FORECAST</b>' : ""}</div>
-          <div style="color:#22c55e;">A/K: ${fmt(d.open)} / ${fmt(d.close)}</div>
-          <div>Y/D: ${fmt(d.high)} / ${fmt(d.low)}</div>
-          <div style="color:#f0a500;">Tenkan: ${fmt(d.tenkan)}</div>
-          <div style="color:#e05c5c;">Kijun: ${fmt(d.kijun)}</div>
-          <div>SpanA: ${fmt(d.spanAFut)}</div>
-          <div>SpanB: ${fmt(d.spanBFut)}</div>
-        `;
+        if (isForecast && forecastBars[idx - histLen]) {
+          const fb = forecastBars[idx - histLen];
+          tooltipRef.current.innerHTML = `
+            <div style="font-size:11px;color:#f0a500;margin-bottom:4px;font-weight:bold;">📅 ${dateStr} — FORECAST G+${idx - histLen + 1}</div>
+            <div style="color:#22c55e;">🐂 Boğa: $${fmt(fb.bull)}</div>
+            <div style="color:#aaa;">📊 Baz: $${fmt(fb.base)}</div>
+            <div style="color:#e05c5c;">🐻 Ayı: $${fmt(fb.bear)}</div>
+            <div style="margin-top:4px;color:#f0a500;">Tenkan: ${fmt(d.tenkan)}</div>
+            <div style="color:#e05c5c;">Kijun: ${fmt(d.kijun)}</div>
+          `;
+        } else {
+          tooltipRef.current.innerHTML = `
+            <div style="font-size:11px;color:#999;margin-bottom:4px;">${dateStr}</div>
+            <div style="color:#22c55e;">A/K: ${fmt(d.open)} / ${fmt(d.close)}</div>
+            <div>Y/D: ${fmt(d.high)} / ${fmt(d.low)}</div>
+            <div style="color:#f0a500;">Tenkan: ${fmt(d.tenkan)}</div>
+            <div style="color:#e05c5c;">Kijun: ${fmt(d.kijun)}</div>
+            <div>SpanA: ${fmt(d.spanAFut)}</div>
+            <div>SpanB: ${fmt(d.spanBFut)}</div>
+          `;
+        }
       }
     };
 

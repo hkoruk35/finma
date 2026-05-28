@@ -830,7 +830,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
 
                 {/* Ichimoku Chart */}
-                <IchimokuChart historyOHLC={rd.historyOHLC} currentPrice={rd.currentPrice} forecast15={a.forecast15} />
+                <IchimokuChart historyOHLC={rd.historyOHLC} currentPrice={rd.currentPrice} forecast15={rd.forecast15 ?? a.forecast15} />
 
                 {/* Combined Historical + Forecast Chart */}
                 <ForecastChart
