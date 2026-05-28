@@ -78,10 +78,8 @@ export default function TradingViewWidget({ symbol, exchange, height, interval =
       style={height ? { height } : undefined}
     >
       <div id='tradingview_widget' style={{ height: "100%", width: "100%" }} />
-      <div className="tradingview-widget-copyright" style={{ fontSize: "12px", textAlign: "center", padding: "8px", color: "#64748b" }}>
-        <a href={tvLink} rel="noopener nofollow" target="_blank" style={{ textDecoration: "none", color: "#3b82f6" }}>
-          <span>{symbol} Chart</span>
-        </a> by TradingView
+      <div style={{ fontSize: "11px", textAlign: "center", padding: "6px", color: "#64748b" }}>
+        {symbol} · BOGA AI Chart
       </div>
     </div>
   );

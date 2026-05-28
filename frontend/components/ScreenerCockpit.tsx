@@ -646,7 +646,7 @@ export default function ScreenerCockpit() {
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 320, gap: 16 }}>
                 <div style={{ width: 44, height: 44, border: "3px solid #253347", borderTop: "3px solid #22c55e", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
                 <div style={{ fontSize: 14, color: "#94a3b8", fontWeight: 600 }}>Evren taranıyor...</div>
-                <div style={{ fontSize: 11, color: "#7c8fa6" }}>Yahoo Finance · EMA8/13/20/21/50/200 · MACD · ADX · RSI · ATR</div>
+                <div style={{ fontSize: 11, color: "#7c8fa6" }}>EMA8/13/20/21/50/200 · MACD · ADX · RSI · ATR · BB · RVOL</div>
                 <div style={{ fontSize: 10, color: "#64748b" }}>Multi-Stage Pipeline · BOGA Score · Regime Multiplier</div>
               </div>
             ) : results.length === 0 ? (
