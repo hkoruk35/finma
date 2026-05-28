@@ -1,11 +1,15 @@
 {
   "date": "2026-05-28",
-  "last_updated": "2026-05-28T10:00:17.955827-04:00",
+  "last_updated": "2026-05-28T11:00:42.620890-04:00",
   "tickers": {
     "BIRK": {
       "status_history": [
         {
           "hour": "10:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -18,6 +22,10 @@
         {
           "hour": "10:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -28,6 +36,10 @@
       "status_history": [
         {
           "hour": "10:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -40,6 +52,10 @@
         {
           "hour": "10:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -50,6 +66,10 @@
       "status_history": [
         {
           "hour": "10:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -62,6 +82,10 @@
         {
           "hour": "10:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -73,6 +97,10 @@
         {
           "hour": "10:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -83,6 +111,10 @@
       "status_history": [
         {
           "hour": "10:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "11:00",
           "status": "ENTRY_NOW"
         }
       ],
