@@ -960,6 +960,7 @@ export interface OptionPick {
   s6?: any;
   s7?: any;
   s8?: any;
+  l4?: any;
   mtf?: any;
   options?: any;
   sector_info?: any;
@@ -989,12 +990,27 @@ export interface OptionsData {
 function normalizeOptionsData(raw: any): OptionsData | null {
   if (!raw) return null;
   const normalizePick = (p: any, idx: number): OptionPick => {
+    // v242+: opt.best is the primary contract; remap to legacy field names
+    // so the rest of the normalization and UI code works without changes
+    const isV242 = !!(p.opt?.best) && !p.s5 && !p.mtf && !p.s7;
+    if (isV242) {
+      p = {
+        ...p,
+        options: { ...(p.options || {}), gamma_sweet: p.opt.best },
+        s5: { ...(p.bs || {}), setup_type: p.bs?.setup_type },
+        mtf: { rsi_1d: p.mom?.rsi_1d, rsi_slope: p.mom?.rsi_slope },
+        s7: { today_rvol: p.vol?.today_rvol, rvol: p.vol?.rvol },
+        l4: { rs_60: p.trend?.rs_60, rs_60d: p.trend?.rs_60 },
+        iv_rank: p.iv_rank ?? p.opt?.iv_rank,
+      };
+    }
+
     // Check if it's new v220 format
     const isV220 = p.l2 && p.l3 && p.options;
-    
-    // For v220, institutional/asymmetric are inside p.options
-    const inst = isV220 ? (p.options.institutional || p.options.gamma_sweet) : p.institutional;
-    const asym = isV220 ? p.options.asymmetric : p.asymmetric;
+
+    // For v220/v242, institutional/asymmetric are inside p.options
+    const inst = (isV220 || isV242) ? (p.options.institutional || p.options.gamma_sweet) : p.institutional;
+    const asym = (isV220 || isV242) ? p.options.asymmetric : p.asymmetric;
 
     const normalizeContract = (c: any): OptionContract | null => {
       if (!c) return null;
@@ -1084,12 +1100,13 @@ function normalizeOptionsData(raw: any): OptionsData | null {
       regime_label: p.regime_label,
       iv_ctx_score: p.iv_ctx_score,
       iv_ctx_label: p.iv_ctx_label,
-      // v241 specific
+      // v241/v242 specific
       s4: p.s4,
       s5: p.s5,
       s6: p.s6,
       s7: p.s7,
       s8: p.s8,
+      l4: p.l4,
       mtf: p.mtf,
       options: p.options,
       sector_info: p.sector_info,
