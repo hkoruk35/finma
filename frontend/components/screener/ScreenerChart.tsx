@@ -107,7 +107,10 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
 
       try {
         // Dynamically import lightweight-charts
-        const { createChart, ColorType } = await import("lightweight-charts");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const lc = await import("lightweight-charts") as any;
+        const { ColorType } = lc;
+        const createChart = lc.createChart;
 
         // Clean up old chart
         if (chartRef.current) {
@@ -116,7 +119,7 @@ export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
 
         // Create chart
         const container = chartContainerRef.current;
-        const chart = createChart(container, {
+        const chart: any = createChart(container, {
           layout: {
             background: { type: ColorType.Solid, color: "#0d1117" },
             textColor: "#b0bec5",
