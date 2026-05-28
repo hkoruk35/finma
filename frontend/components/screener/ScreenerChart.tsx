@@ -7,6 +7,9 @@ import {
   IChartApi,
   ISeriesApi,
   Time,
+  CandlestickData,
+  HistogramData,
+  LineData,
 } from "lightweight-charts";
 
 interface OHLCV {
@@ -25,12 +28,12 @@ interface Props {
 
 export default function ScreenerChart({ ticker, fullscreen = false }: Props) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<IChartApi | null>(null);
-  const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
-  const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
-  const ema8SeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
-  const ema20SeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
-  const ema50SeriesRef = useRef<ISeriesApi<"Line"> | null>(null);
+  const chartRef = useRef<any>(null);
+  const candleSeriesRef = useRef<any>(null);
+  const volumeSeriesRef = useRef<any>(null);
+  const ema8SeriesRef = useRef<any>(null);
+  const ema20SeriesRef = useRef<any>(null);
+  const ema50SeriesRef = useRef<any>(null);
 
   const [timeframe, setTimeframe] = useState<"1d" | "1w" | "1h">("1d");
   const [isFullscreen, setIsFullscreen] = useState(fullscreen);
