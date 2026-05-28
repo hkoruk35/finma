@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "ROST",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 226.54,
+        "entry_zone": "222.91 - 230.18",
+        "SL": 212.01,
+        "TP": 248.34
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "BIRK",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 43.66,
+        "entry_zone": "42.36 - 44.96",
+        "SL": 38.48,
+        "TP": 51.43
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "BIO",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 316.23,
+        "entry_zone": "310.63 - 321.83",
+        "SL": 293.83,
+        "TP": 349.83
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "SBLK",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 27.25,
+        "entry_zone": "26.84 - 27.67",
+        "SL": 25.59,
+        "TP": 29.75
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "FUL",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 64.2,
+        "entry_zone": "63.11 - 65.29",
+        "SL": 59.85,
+        "TP": 70.73
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "TFSL",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 15.79,
+        "entry_zone": "15.63 - 15.95",
+        "SL": 15.14,
+        "TP": 16.77
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "RAMP",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 37.65,
+        "entry_zone": "37.10 - 38.21",
+        "SL": 35.43,
+        "TP": 40.99
+    },
+    {
+        "date": "2026-05-28 14:00",
+        "symbol": "KEYS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 339.27,
+        "entry_zone": "332.46 - 346.09",
+        "SL": 312.0,
+        "TP": 380.18
+    }
+]

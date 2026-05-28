@@ -68,7 +68,6 @@ def run_bot(script_name: str, args: list = None, timeout: int = DEFAULT_TIMEOUT_
                 return True
             else:
                 # Eğer JSON dosyası oluşturulduysa, hataya rağmen başarılı say
-                import os
                 json_exists = os.path.exists(os.path.join(FINMA_DIR, "swing_picks.json"))
                 if json_exists:
                     log.warning(f"⚠️ {script_name} exit code {result.returncode} (JSON dosyası oluşturuldu, devam ediliyor)")

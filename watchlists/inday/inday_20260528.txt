@@ -1,9 +1,9 @@
-# BOGA AI Swing Watchlist - 2026-05-28 13:00
+# BOGA AI Swing Watchlist - 2026-05-28 14:00
 ROST
 BIRK
 BIO
-FUL
 SBLK
-KEYS
-RAMP
+FUL
 TFSL
+RAMP
+KEYS
