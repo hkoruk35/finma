@@ -1,66 +1,34 @@
 [
   {
-    "Date": "27 May",
-    "Symbol": "ROST",
-    "Entry (Buy_L)": 229.75,
-    "Stop (SL)": 225.42,
-    "Target 1 (TP1)": 242.97,
-    "Target 2 (TP2)": 244.92
+    "Date": "28 May",
+    "Symbol": "NSC",
+    "Entry (Buy_L)": 306.04,
+    "Stop (SL)": 301.2,
+    "Target 1 (TP1)": 322.42,
+    "Target 2 (TP2)": 324.78
   },
   {
-    "Date": "27 May",
-    "Symbol": "TFSL",
-    "Entry (Buy_L)": 15.76,
-    "Stop (SL)": 15.52,
-    "Target 1 (TP1)": 16.4,
-    "Target 2 (TP2)": 16.5
+    "Date": "28 May",
+    "Symbol": "GFS",
+    "Entry (Buy_L)": 78.51,
+    "Stop (SL)": 74.9,
+    "Target 1 (TP1)": 89.53,
+    "Target 2 (TP2)": 91.16
   },
   {
-    "Date": "27 May",
-    "Symbol": "SBLK",
-    "Entry (Buy_L)": 26.92,
-    "Stop (SL)": 26.33,
-    "Target 1 (TP1)": 28.58,
-    "Target 2 (TP2)": 28.84
+    "Date": "28 May",
+    "Symbol": "BNS",
+    "Entry (Buy_L)": 79.0,
+    "Stop (SL)": 78.1,
+    "Target 1 (TP1)": 81.77,
+    "Target 2 (TP2)": 82.18
   },
   {
-    "Date": "27 May",
-    "Symbol": "BIRK",
-    "Entry (Buy_L)": 41.36,
-    "Stop (SL)": 39.7,
-    "Target 1 (TP1)": 46.44,
-    "Target 2 (TP2)": 47.18
-  },
-  {
-    "Date": "27 May",
-    "Symbol": "BIO",
-    "Entry (Buy_L)": 288.96,
-    "Stop (SL)": 281.23,
-    "Target 1 (TP1)": 325.63,
-    "Target 2 (TP2)": 330.56
-  },
-  {
-    "Date": "27 May",
-    "Symbol": "KEYS",
-    "Entry (Buy_L)": 339.31,
-    "Stop (SL)": 330.38,
-    "Target 1 (TP1)": 367.48,
-    "Target 2 (TP2)": 371.6
-  },
-  {
-    "Date": "27 May",
-    "Symbol": "FUL",
-    "Entry (Buy_L)": 58.9,
-    "Stop (SL)": 57.35,
-    "Target 1 (TP1)": 65.94,
-    "Target 2 (TP2)": 66.89
-  },
-  {
-    "Date": "27 May",
-    "Symbol": "RAMP",
-    "Entry (Buy_L)": 27.94,
-    "Stop (SL)": 27.2,
-    "Target 1 (TP1)": 42.51,
-    "Target 2 (TP2)": 44.21
+    "Date": "28 May",
+    "Symbol": "WH",
+    "Entry (Buy_L)": 80.72,
+    "Stop (SL)": 78.9,
+    "Target 1 (TP1)": 87.32,
+    "Target 2 (TP2)": 88.26
   }
 ]
