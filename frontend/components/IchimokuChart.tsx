@@ -23,9 +23,10 @@ interface IchimokuBar extends OHLC {
 interface IchimokuChartProps {
   historyOHLC: any[];
   currentPrice: number;
+  forecast15?: { day?: number; bear: number; base: number; bull: number; date?: string }[];
 }
 
-export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuChartProps) {
+export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }: IchimokuChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [showTenkan, setShowTenkan] = useState(true);
@@ -103,6 +104,29 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
       close: row.close,
     }));
 
+    const histLen = ohlcData.length;
+
+    // Append synthetic OHLC bars for the 15-day forecast
+    if (forecast15?.length) {
+      const lastDate = ohlcData.length > 0 ? new Date(ohlcData[ohlcData.length - 1].date) : new Date();
+      forecast15.forEach((f, idx) => {
+        const d = new Date(lastDate);
+        // skip weekends when advancing days
+        let added = 0;
+        while (added <= idx) {
+          d.setDate(d.getDate() + 1);
+          if (d.getDay() !== 0 && d.getDay() !== 6) added++;
+        }
+        ohlcData.push({
+          date: new Date(d),
+          open: f.base,
+          high: f.bull,
+          low: f.bear,
+          close: f.base,
+        });
+      });
+    }
+
     const ichiData = calculateIchimoku(ohlcData);
     const sliceData = ichiData;
 
@@ -170,7 +194,8 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
       ctx.fillText(pval.toFixed(pval > 1000 ? 0 : 2), w - padR + 4, yg + 3);
     }
 
-    const fStart = Math.max(0, sliceData.length - 26);
+    // fStart: forecast begins right after the last real historical bar
+    const fStart = forecast15?.length ? histLen : Math.max(0, sliceData.length - 26);
 
     // Kumo
     if (showKumo) {
@@ -401,7 +426,7 @@ export default function IchimokuChart({ historyOHLC, currentPrice }: IchimokuCha
       signal: signalText,
       signalColor,
     });
-  }, [historyOHLC, currentPrice, showTenkan, showKijun, showChikou, showKumo]);
+  }, [historyOHLC, currentPrice, forecast15, showTenkan, showKijun, showChikou, showKumo]);
 
   return (
     <div className="space-y-3">
