@@ -596,8 +596,7 @@ export default function TerminalClient() {
   useEffect(() => {
     async function loadOptions() {
       try {
-        // API route DATA_ROOT is already transfer/latest/, so request without "latest" prefix
-        const res = await fetch("/api/data/options_picks.json?v=" + Date.now());
+        const res = await fetch("/api/data/latest/options_picks.json?v=" + Date.now());
         if (res.ok) {
           const json = await res.json();
           setOptionPicks(json.picks || []);
