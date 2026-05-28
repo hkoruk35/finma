@@ -1,26 +1,22 @@
 {
   "date": "2026-05-27",
-  "generated_at": "2026-05-27T23:26:18.515711-04:00",
+  "generated_at": "2026-05-27T14:18:31.022528-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 8,
+  "active_scores_count": 2,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 8,
+      "count": 2,
       "tickers": [
-        "ROST",
-        "TFSL",
-        "SBLK",
-        "BIRK",
-        "BIO",
-        "KEYS",
-        "FUL",
-        "RAMP"
+        "CBT",
+        "SMTC"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "CBT"
+      ]
     },
     "value": {
       "count": 0,
@@ -31,13 +27,9 @@
       "tickers": []
     },
     "momentum": {
-      "count": 5,
+      "count": 1,
       "tickers": [
-        "SBLK",
-        "BIRK",
-        "KEYS",
-        "FUL",
-        "RAMP"
+        "SMTC"
       ]
     },
     "dividend": {
@@ -47,18 +39,13 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ROST",
-      "score": 60.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "TFSL",
+      "ticker": "CBT",
       "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SBLK",
-      "score": 55.0,
+      "ticker": "SMTC",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

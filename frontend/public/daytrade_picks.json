@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-27T14:15:47.902380-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 23.3,
+  "generated_at": "2026-05-28T08:45:00.336314-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 28.6,
   "total_scanned": 3,
   "layer1_passed": 3,
   "final_picks": 3,
@@ -10,20 +10,20 @@
       "ticker": "CELH",
       "price": 31.65,
       "change_pct": 6.67,
-      "dt_score": 38.0,
+      "dt_score": 48.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $31.98 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: EARNINGS_BEAT",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 31.71,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "earnings_beat",
         "catalyst_score": 25,
         "headline": "barfresh: q1 revenue beats expectations amid customer recovery   quarterly update report(exec edge)",
         "confidence": "high",
-        "ts": 1779905770.599356
+        "ts": 1779972327.929565
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,103 +37,47 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 31.62,
-          "high": 31.81
+          "low": 31.95,
+          "high": 32.14
         },
-        "stop": 31.18,
-        "tp1": 32.78,
-        "tp2": 33.59,
-        "rr_ratio": 1.99,
-        "avg_entry": 31.71,
-        "risk_per_sh": 0.54,
+        "stop": 31.37,
+        "tp1": 33.4,
+        "tp2": 34.41,
+        "rr_ratio": 2.01,
+        "avg_entry": 32.05,
+        "risk_per_sh": 0.68,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 31.65
+        "pm_high_ref": 31.98
       },
       "details": [
         "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Orta Gap: +6.7%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.19%",
-        "🔴 Açılış Barı: Kırmızı (0.6% gövde)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "VKTX",
-      "price": 31.74,
-      "change_pct": 3.05,
-      "dt_score": 30.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 31.71,
-      "catalyst": {
-        "catalyst_type": "upgrade",
-        "catalyst_score": 15,
-        "headline": "viking therapeutics presents data from its 13-week phase 2 venture-oral dosing trial of vk2735 at european congress on o",
-        "confidence": "medium",
-        "ts": 1779905770.6004698
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 31.71,
-          "high": 31.9
-        },
-        "stop": 31.26,
-        "tp1": 32.89,
-        "tp2": 33.71,
-        "rr_ratio": 1.99,
-        "avg_entry": 31.8,
-        "risk_per_sh": 0.54,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 31.74
-      },
-      "details": [
-        "📰 Kataliz: UPGRADE",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "🟡 VWAP Hemen Üstünde",
-        "🔴 Açılış Barı: Kırmızı (0.6% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "HIMS",
-      "price": 24.94,
-      "change_pct": 4.57,
-      "dt_score": 5.0,
-      "signal": "MOMENTUM",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "price": 25.2,
+      "change_pct": 5.66,
+      "dt_score": 28.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $31.98 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UNKNOWN",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 31.71,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1779905770.5968256
+        "ts": 1779972327.9203322
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -147,26 +91,79 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 24.83,
-          "high": 24.98
+          "low": 31.95,
+          "high": 32.14
         },
-        "stop": 24.72,
-        "tp1": 25.28,
-        "tp2": 25.56,
+        "stop": 24.97,
+        "tp1": 46.2,
+        "tp2": 56.81,
         "rr_ratio": 2.0,
-        "avg_entry": 24.91,
-        "risk_per_sh": 0.19,
-        "signal": "MOMENTUM",
-        "pm_high_ref": 24.94
+        "avg_entry": 32.05,
+        "risk_per_sh": 7.08,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 31.98
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.6%",
+        "↗️ Orta Gap: +5.7%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "🔴 VWAP Altında: -21.35%",
-        "🔴 Açılış Barı: Kırmızı (0.6% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "RIOT",
+      "price": 26.94,
+      "change_pct": 3.3,
+      "dt_score": 25.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $31.98 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UNKNOWN",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1779972327.8971112
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 31.95,
+          "high": 32.14
+        },
+        "stop": 26.7,
+        "tp1": 42.74,
+        "tp2": 50.75,
+        "rr_ratio": 2.0,
+        "avg_entry": 32.05,
+        "risk_per_sh": 5.35,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 31.98
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.3%",
+        "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
+        "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]

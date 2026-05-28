@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(me
 log = logging.getLogger(__name__)
 
 # Paths
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).parent.parent  # repo root (script lives in archive/)
 DATA_DIR = BASE_DIR / "frontend" / "public" / "data"
 LATEST_DIR = DATA_DIR / "latest"
 LATEST_MASTER = LATEST_DIR / "master.json"
