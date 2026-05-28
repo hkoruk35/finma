@@ -133,16 +133,44 @@ def main():
     # 6. Health Check
     run_bot("site_health_checker.py")
 
-    # 7. Git Push
+    # 7. Git Push — Swing ve Options verilerini açıkça ekle ve push et
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
         def run_git(args):
-            subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+            result = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+            if result.stdout:
+                log.debug(f"  Git: {result.stdout.strip()}")
+            return result
 
-        run_git(["add", "."])
-        run_git(["commit", "-m", f"Data: Afternoon Cycle Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
-        run_git(["push", "origin", "main"])
-        log.info("🚀 Git Push başarılı.")
+        # Swing ve Options dosyalarını açıkça stage et
+        swing_files = [
+            "frontend/public/swing_picks.json",
+            "frontend/public/swing_all_picks.json",
+            "frontend/public/swing_table.json",
+            "frontend/public/swing_performance.json",
+            "frontend/public/data/latest/",
+            "frontend/public/data/swing2026/",
+            "data/",
+            "transfer/"
+        ]
+
+        for f in swing_files:
+            try:
+                run_git(["add", f])
+            except Exception:
+                pass
+
+        # Status kontrol
+        status = subprocess.run(["git", "status", "--porcelain"], cwd=FINMA_DIR,
+                               capture_output=True, text=True).stdout
+        if status.strip():
+            log.info(f"  📝 Commit edilecek değişiklikler: {len(status.splitlines())} dosya")
+            run_git(["commit", "-m", f"Data: Afternoon Cycle Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
+            run_git(["push", "origin", "main"])
+            log.info("🚀 Git Push başarılı.")
+        else:
+            log.info("ℹ️ Commit edilecek değişiklik yok.")
+
     except subprocess.CalledProcessError as e:
         log.error(f"❌ Git Push hatası (Exit {e.returncode}): {e.stderr}")
     except Exception as e:

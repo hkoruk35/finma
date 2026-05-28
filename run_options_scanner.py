@@ -109,21 +109,45 @@ def main():
     
     log.info("📁 Dosyalar transfer ve frontend klasörlerine başarıyla kopyalandı.")
 
-    # Git Push
+    # Git Push — Options dosyalarını açıkça ekle ve push et
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
-        run_git(["add", "."])
-        run_git(["commit", "-m", f"Data: Options Scanner Auto Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
-        run_git(["push", "origin", "main"])
-        log.info("🚀 Git Push başarılı.")
-    except subprocess.CalledProcessError as e:
-        # Eğer değişiklik yoksa hata verebilir, yoksay.
-        if "nothing to commit" in e.stdout or "nothing to commit" in e.stderr:
-            log.info("ℹ️ Gönderilecek yeni değişiklik yok.")
+        def run_git(args):
+            result = subprocess.run(["git"] + args, cwd=FINMA_DIR, capture_output=True, text=True, check=True)
+            if result.stdout:
+                log.debug(f"  Git: {result.stdout.strip()}")
+            return result
+
+        # Options dosyalarını açıkça stage et
+        options_files = [
+            "frontend/public/data/latest/options_picks.json",
+            "frontend/public/data/latest/options_outcomes.json",
+            "frontend/public/data/" + today_str + "/",
+            "data/",
+            "transfer/"
+        ]
+
+        for f in options_files:
+            try:
+                run_git(["add", f])
+            except Exception:
+                pass
+
+        # Status kontrol
+        status = subprocess.run(["git", "status", "--porcelain"], cwd=FINMA_DIR,
+                               capture_output=True, text=True).stdout
+        if status.strip():
+            log.info(f"  📝 Commit edilecek değişiklikler: {len(status.splitlines())} dosya")
+            run_git(["commit", "-m", f"Data: Options Scanner Auto Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
+            run_git(["push", "origin", "main"])
+            log.info("🚀 Git Push başarılı.")
         else:
-            log.error(f"❌ Git Push hatası (Exit {e.returncode}):")
-            if e.stdout: log.error(f"STDOUT: {e.stdout}")
-            if e.stderr: log.error(f"STDERR: {e.stderr}")
+            log.info("ℹ️ Commit edilecek değişiklik yok.")
+
+    except subprocess.CalledProcessError as e:
+        log.error(f"❌ Git Push hatası (Exit {e.returncode}):")
+        if e.stdout: log.error(f"STDOUT: {e.stdout}")
+        if e.stderr: log.error(f"STDERR: {e.stderr}")
     except Exception as e:
         log.error(f"❌ Git Push beklenmedik hata: {e}")
 
