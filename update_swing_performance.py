@@ -111,24 +111,36 @@ def update_performance():
                     current_ret = ((current_price - entry_price) / entry_price) * 100
                     record['return_pct'] = round(current_ret, 2)
                     
-                    # Check Exit Conditions
-                    # 1. Stop Loss
-                    if current_price <= sl_price:
+                    # Check Exit Conditions using bot's own recorded targets
+                    entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
+                    days_held = (today - entry_date).days
+                    record['days'] = days_held
+
+                    profit_target = record.get('profit_target')
+                    max_hold_days = record.get('max_hold_days', 5)
+
+                    # 1. Stop Loss — use recorded stop_loss_high if available, else sl_pct
+                    sl_price_exact = record.get('stop_loss_high')
+                    if sl_price_exact:
+                        hit_sl = current_price <= float(sl_price_exact)
+                    else:
+                        hit_sl = current_price <= sl_price
+
+                    if hit_sl:
                         record['result'] = 'LOSS'
-                        record['return_pct'] = round(-sl_pct, 2)
+                        if sl_price_exact:
+                            record['return_pct'] = round(((float(sl_price_exact) - entry_price) / entry_price) * 100, 2)
+                        else:
+                            record['return_pct'] = round(-sl_pct, 2)
                         record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 2. Profit Target (5% simple rule or you can use your specific logic)
-                    elif current_ret >= 5.0:
+                    # 2. Profit Target — bot's recorded profit_zone.low
+                    elif profit_target and current_price >= float(profit_target):
                         record['result'] = 'WIN'
                         record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 3. Time Limit (30 days)
-                    else:
-                        entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-                        days_held = (today - entry_date).days
-                        record['days'] = days_held
-                        if days_held >= 30:
-                            record['result'] = 'WIN' if current_ret > 0 else 'LOSS'
-                            record['exit_date'] = today.strftime('%Y-%m-%d')
+                    # 3. Time Limit — bot's max_hold_days (usually 5)
+                    elif days_held >= max_hold_days:
+                        record['result'] = 'WIN' if current_ret > 0 else 'LOSS'
+                        record['exit_date'] = today.strftime('%Y-%m-%d')
 
                 except Exception as e:
                     log(f"Error updating {ticker}: {str(e)}")
@@ -156,8 +168,14 @@ def update_performance():
                         entry = p.get('current_price', 0)
                         if entry <= 0: continue
 
-                        sl_high = p.get('tracker_logic', {}).get('stop_loss_high', entry * 0.9474)
+                        tracker = p.get('tracker_logic', {})
+                        sl_high = tracker.get('stop_loss_high', entry * 0.9474)
                         sl_val = round(((entry - sl_high) / entry) * 100, 2) if entry > 0 else 5.26
+
+                        # Bot's own profit target and hold limit
+                        profit_zone = p.get('profit_zone', {})
+                        profit_target = profit_zone.get('low') or tracker.get('profit_target_tp1')
+                        max_hold_days = tracker.get('max_hold_days', 5)
 
                         # Get company/sector/subsector — fetch from yfinance if missing
                         company   = p.get('company', '') or ''
@@ -185,6 +203,9 @@ def update_performance():
                             'entry': round(entry, 2),
                             'max_price': round(entry, 2),
                             'sl_pct': abs(sl_val),
+                            'stop_loss_high': round(float(sl_high), 2) if sl_high else None,
+                            'profit_target': round(float(profit_target), 2) if profit_target else None,
+                            'max_hold_days': int(max_hold_days),
                             'return_pct': 0.0,
                             'days': 0,
                             'result': 'PENDING',
