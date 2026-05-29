@@ -1,24 +1,26 @@
 {
-  "date": "2026-05-28",
-  "generated_at": "2026-05-28T13:20:33.926219-04:00",
+  "date": "2026-05-27",
+  "generated_at": "2026-05-27T23:26:18.515711-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 4,
+  "active_scores_count": 8,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 4,
+      "count": 8,
       "tickers": [
-        "NSC",
-        "GFS",
-        "BNS",
-        "WH"
+        "ROST",
+        "TFSL",
+        "SBLK",
+        "BIRK",
+        "BIO",
+        "KEYS",
+        "FUL",
+        "RAMP"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "GFS"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -29,11 +31,13 @@
       "tickers": []
     },
     "momentum": {
-      "count": 3,
+      "count": 5,
       "tickers": [
-        "NSC",
-        "BNS",
-        "WH"
+        "SBLK",
+        "BIRK",
+        "KEYS",
+        "FUL",
+        "RAMP"
       ]
     },
     "dividend": {
@@ -43,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "NSC",
-      "score": 54.5,
+      "ticker": "ROST",
+      "score": 60.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "GFS",
-      "score": 51.5,
+      "ticker": "TFSL",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BNS",
-      "score": 50.5,
+      "ticker": "SBLK",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
