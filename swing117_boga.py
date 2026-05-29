@@ -3213,25 +3213,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         ema9_slope   = (ema9_now - ema9_prev) / ema9_prev if ema9_prev > 0 else 0.0
         micro_volume = rvol_today > 1.2
 
-        # ── v117.v2: AWAKENING — 9 Koşul (V117'den 7→9, %0 WR sonrası sıkılaştırma) ──
-        # 94 trade analizinde: AWAKENING 0/4 = %0 WR (SVM, THC, CLH, JCI)
-        # Ortak özellik: "Stealth_Breakout" + düşük ADX + eksik MACD onayı
-        #
-        # v117.v2 Yeni koşullar (8-9):
-        # Koşul 8: MACD_hist > 0 — momentum onayı zorunlu (negatif MACD = dip riski)
-        # Koşul 9: ema_stack zorunlu (MIXED EMA stack = engel)
-        ema_mixed_block = not ema_stack  # v117.v2: FULL stack olmadan AWAKENING yok
-        is_early_awakening = (
-            current_price > ema20_now                   # Fiyat EMA20 üstü
-            and 45 <= rsi_1d_val <= 55                  # RSI sweet spot
-            and 0.9 <= rvol_today <= 1.3                # Stealth bölgesi
-            and w_rsi_val >= 50                         # 1W RSI ≥ 50
-            and w_rsi_slope > 0                         # 1W RSI yükseliyor
-            and adx_1d >= 25                            # v117.v2: 20→25 (SVM ADX:18, JCI ADX:11.5 = LOSS)
-            and rvol_today >= 1.0                       # Mutlak RVOL alt sınırı
-            and macd_hist_val > 0                       # v117.v2 YENİ: MACD momentum onayı
-            and not ema_mixed_block                     # v117.v2 YENİ: Full EMA stack zorunlu
-        )
+        # ── SWING117 OPTİMİZASYONU: AWAKENING SİSTEMİ KALICI OLARAK KAPATILDI ──
+        # 94 trade analizinde: AWAKENING %20 WR altında kalarak ciddi bir sermaye erimesine sebep olmuştur.
+        # Stratejik karar doğrultusunda sistem esnetilmeye veya sıkılaştırılmaya çalışılmadan tamamen devre dışı bırakılmıştır.
+        ema_mixed_block = not ema_stack
+        is_early_awakening = False
 
         # ── SİSTEM SEÇİM HİYERARŞİSİ ─────────────────────────────────
         # Öncelik sırası (yukarıdan aşağıya):

@@ -1,0 +1,42 @@
+[
+    {
+        "date": "2026-05-29 13:00",
+        "symbol": "GFS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 80.13,
+        "entry_zone": "77.38 - 82.88",
+        "SL": 69.13,
+        "TP": 96.63
+    },
+    {
+        "date": "2026-05-29 13:00",
+        "symbol": "NSC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 303.8,
+        "entry_zone": "300.27 - 307.33",
+        "SL": 289.7,
+        "TP": 324.96
+    },
+    {
+        "date": "2026-05-29 13:00",
+        "symbol": "WH",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 80.25,
+        "entry_zone": "79.01 - 81.50",
+        "SL": 75.28,
+        "TP": 87.72
+    },
+    {
+        "date": "2026-05-29 13:00",
+        "symbol": "BNS",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 79.33,
+        "entry_zone": "78.71 - 79.95",
+        "SL": 76.84,
+        "TP": 83.07
+    }
+]
