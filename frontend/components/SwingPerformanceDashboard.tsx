@@ -545,21 +545,39 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               )}
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs flex-wrap">
-            <span className="px-3 py-1 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
-              {serverStats?.stop_loss_pct || "Dynamic SL"}
-            </span>
-            <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
-              {stats.completedCount} Completed
-            </span>
-            <button
-              onClick={() => setShowStats(v => !v)}
-              className={`px-3 py-1 rounded-full border font-bold transition-colors flex items-center gap-1.5 ${showStats ? "bg-[#3b82f6]/25 border-[#3b82f6]/60 text-[#3b82f6]" : "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6] hover:bg-[#3b82f6]/20"}`}
+          <div className="flex flex-col items-end gap-2">
+            <div className="flex items-center gap-2 text-xs flex-wrap justify-end">
+              <span className="px-3 py-1 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
+                {serverStats?.stop_loss_pct || "Dynamic SL"}
+              </span>
+              <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
+                {stats.completedCount} Completed
+              </span>
+              <button
+                onClick={() => setShowStats(v => !v)}
+                className={`px-3 py-1 rounded-full border font-bold transition-colors flex items-center gap-1.5 ${showStats ? "bg-[#3b82f6]/25 border-[#3b82f6]/60 text-[#3b82f6]" : "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6] hover:bg-[#3b82f6]/20"}`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+                Genel İstatistikler
+                {todayPicks.length > 0 && <span className="text-[10px] opacity-60">({todayPicks.length})</span>}
+              </button>
+            </div>
+            {/* BOT ANALİZ SİSTEMİ butonu — mavi kutu içinde */}
+            <Link
+              href="/performance/kriter"
+              className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6]/20 hover:border-[#3b82f6]/60 transition-all duration-200"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-              Genel İstatistikler
-              {todayPicks.length > 0 && <span className="text-[10px] opacity-60">({todayPicks.length})</span>}
-            </button>
+              <span className="relative flex items-center justify-center w-4 h-4 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/40">
+                <svg className="w-2.5 h-2.5 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+              </span>
+              <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">BOT ANALİZ SİSTEMİ</span>
+              <svg className="w-2.5 h-2.5 text-[#3b82f6]/50 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </Link>
           </div>
         </div>
 
