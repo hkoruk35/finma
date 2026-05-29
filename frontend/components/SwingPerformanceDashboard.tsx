@@ -526,7 +526,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {stats.isFallback ? "Sistem Geneli (Filtrede İşlem Yok)" : "Sistem İstatistikleri"}
               </span>
             </div>
-            <h2 className="text-xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span></h2>
+            <h2 className="text-xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span> PERFORMANCE SYSTEM</h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
               Geçmiş Dönem Performans Özeti · <span className="text-[#f59e0b] font-bold">Dinamik Stop-Loss (AI)</span>
             </p>

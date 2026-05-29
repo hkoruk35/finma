@@ -40,34 +40,25 @@ export default async function SwingPerformancePage() {
           <span className="text-white italic">Sistem Performansı</span>
         </nav>
 
-        {/* Header Section */}
-        <header className="mb-5 relative">
-          <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#3b82f6]/10 blur-[100px] rounded-full" />
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-2">
-                 <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_10px_#3b82f6]" />
-                 <span className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-[0.3em]">Institutional Grade</span>
-              </div>
-              <h1 className="text-xl md:text-2xl font-black text-white tracking-tighter uppercase italic leading-none">
-                SWING <span className="text-[#3b82f6]">PERFORMANS</span> RAPORU
-              </h1>
-              <p className="text-slate-500 text-xs mt-1.5 max-w-2xl font-medium leading-relaxed">
-                Algoritmik swing modellerimizin tüm tarihsel sinyal kayıtları. Şeffaflık ilkemiz gereği her başarılı ve başarısız setup, bot tarafından hesaplanan Stop-Loss verileriyle birlikte listelenir.
-              </p>
-            </div>
-          </div>
-        </header>
-
-        {/* Kriter Analizi Butonu */}
-        <div className="mb-4 flex">
+        {/* Header + Bot Analiz Butonu */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+          <h1 className="text-xl md:text-2xl font-black text-white tracking-tighter uppercase italic leading-none">
+            BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span> PERFORMANCE SYSTEM
+          </h1>
           <Link
             href="/performance/kriter"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[#3b82f6]/40 text-[#3b82f6] text-xs font-mono font-bold hover:bg-[#3b82f6]/10 transition-colors"
+            className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-lg bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6]/20 hover:border-[#3b82f6]/60 transition-all duration-200 shrink-0"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-            KRİTER ANALİZİ — swing117 bot optimizasyon raporu
-            <span className="opacity-60">→</span>
+            <span className="relative flex items-center justify-center w-5 h-5 rounded-md bg-[#3b82f6]/20 border border-[#3b82f6]/40 group-hover:bg-[#3b82f6]/30">
+              <svg className="w-3 h-3 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+            </span>
+            <span className="text-[11px] font-black text-[#3b82f6] uppercase tracking-widest">BOT ANALİZ SİSTEMİ</span>
+            <svg className="w-3 h-3 text-[#3b82f6]/60 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
           </Link>
         </div>
 
