@@ -156,14 +156,14 @@ OBV_TREND_DAYS = 10
 VOLUME_INCREASE_LOOKBACK = 5
 
 # 🎯 RSI THRESHOLDS (Unified Documented Constraints)
-RSI_1D_MIN = 45         # Ana trend alt sınırı (Unified boga_score_100 ile tutarlı)
+RSI_1D_MIN = 40         # 🎯 BOĞA MODU: 45 → 40 (geri çekilme aşamasındaki güçlü hisseleri dahil et)
 RSI_1D_MAX = 70         # v117.v2: 78→70 — RSI>70 aşırı alım, %29 WR (TWLO/RAMP vakası)
 RSI_1H_MAX = 82         # İntraday (1H) spike mutlak tavanı
 RSI_BOGA_OPT_MIN = 45   # Unified sistem optimal alt sınır
 RSI_BOGA_OPT_MAX = 65   # Unified sistem optimal üst sınır
 
-MIN_RR_RATIO = 1.5         # 🔧 FIX: 1.2 → 1.5 (gerçekçi swing min)
-MIN_RR_RATIO_RELAXED = 1.8  # 🔧 FIX: 1.3 → 1.8 (entry trigger varsa biraz esnek)
+MIN_RR_RATIO = 1.0         # 🎯 BOĞA MODU: 1.5 → 1.0 (boğa döneminde aday sayısını artır)
+MIN_RR_RATIO_RELAXED = 1.2  # 🎯 BOĞA MODU: 1.8 → 1.2 (entry trigger varsa biraz esnek)
 
 LOOKBACK_DAYS = 200
 INDEX_BENCHMARK = "^GSPC"
@@ -1671,7 +1671,8 @@ def calculate_profit_target(
     is_exhausted=False,
     beta=1.0,
     selection_system="DEFAULT",   # V117_v2: sistem bazlı SL floor için eklendi
-    df_1h=None                    # 1H veri: yapısal swing low için opsiyonel
+    df_1h=None,                   # 1H veri: yapısal swing low için opsiyonel
+    ticker="?"                    # Log mesajı için
 ):
     """
     V117_v2 — Skor-Bağımsız Asimetrik TP/SL
@@ -2039,12 +2040,25 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                             and current_price > min_low_pre
                         )
 
-                        if not (is_squeeze_pre or is_spring_pre):
+                        # 🎯 BOĞA MODU: EMA40 yakınında güçlü haftalık RSI = geri çekilme fırsatı
+                        ema40_gap_pct = (last_w_ema40 - current_price) / last_w_ema40
+                        is_near_ema40 = ema40_gap_pct < 0.05 and w_rsi_val >= 48
+                        is_ema40_pullback = ema40_gap_pct < 0.08 and w_rsi_val >= 52 and w_rsi_slope >= 0
+
+                        if not (is_squeeze_pre or is_spring_pre or is_near_ema40 or is_ema40_pullback):
                             logging.info(f"🚫 {ticker}: 1W HARD GATE — Fiyat < 1W EMA40 → Elendi")
                             return None
-                        else:
+                        elif is_squeeze_pre or is_spring_pre:
                             score -= 3.0
                             details.append("🟡 1W: Fiyat < EMA40 (Squeeze/Spring İstisna, -3p)")
+                            is_above_1w_ema50 = False
+                        elif is_near_ema40:
+                            score -= 2.0
+                            details.append(f"🟡 1W: EMA40'a yakın geri çekilme ({ema40_gap_pct*100:.1f}% altı, RSI:{w_rsi_val:.0f}, -2p)")
+                            is_above_1w_ema50 = False
+                        else:  # is_ema40_pullback
+                            score -= 4.0
+                            details.append(f"🟠 1W: EMA40 geri çekilmesi ({ema40_gap_pct*100:.1f}% altı, RSI:{w_rsi_val:.0f}, -4p)")
                             is_above_1w_ema50 = False
 
         except Exception as e:
@@ -2217,7 +2231,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             is_squeeze_vcp_candidate = False
 
-        min_rvol_required = 0.20 if is_squeeze_vcp_candidate else 0.65
+        # 🎯 BOĞA MODU: İlk RVOL ön-eleme eşiği düşürüldü
+        min_rvol_required = 0.15 if is_squeeze_vcp_candidate else 0.40
         if rvol_micro < min_rvol_required:
             if is_spring or is_squeeze:
                 pass
@@ -2357,12 +2372,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             logging.info(f"🚫 {ticker}: 1D HARD GATE — Downtrend")
             return None
 
-        # 5 günde kanama gate — V117_v2: -%3.5 → -%3.0 (sıkılaştırıldı)
-        # Rapor: dar stop + zayıf momentum hisseleri stop yiyor.
-        # -%3.0 ile bu profildeki hisseler erken aşamada eleniyor.
+        # 5 günde kanama gate — Boğa modu: -%3.0 → -%4.0 (gevşetildi)
+        # Boğa döneminde geçici geri çekilme adayları elenmemelidir.
         if len(close_1d) >= 6:
             ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
-            if ret_5d_pct < -3.0:
+            if ret_5d_pct < -4.0:
                 logging.info(f"🚫 {ticker}: 1D HARD GATE — 5G kanama ({ret_5d_pct:.1f}%)")
                 return None
 
@@ -2388,26 +2402,25 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             if (rsi_quick < rsi_prev < rsi_3d_ago) and rsi_quick < 52:
                 return None
 
-        # RVOL 1D hard gate — V117_v2: SQUEEZE istisnası daraltıldı
-        # SPRING → muafiyet korundu (failed breakdown sonrası hacim spike beklenir)
-        # SQUEEZE + rvol >= 0.50 → dry-up toleransı korundu
-        # SQUEEZE + rvol < 0.50 → eleme (boş squeeze, ölü hacim)
-        min_rvol_required = 0.65 if sector_name == "Real Estate" else 0.80
+        # 🎯 BOĞA MODU: RVOL 1D hard gate gevşetildi
+        # Fiyat ve hacim odaklı analiz: 1W/1D/1H momentum önemli, anlık RVOL engelleyici olmamalı
+        # RVOL artık puanlama sistemini etkiliyor ama tek başına hard gate değil
+        min_rvol_required = 0.40 if sector_name == "Real Estate" else 0.50
         try:
             macro_resist      = float(high_1d.tail(15).max())
             breakout_distance = (macro_resist - current_price) / current_price
             if 0 <= breakout_distance < 0.025:
-                min_rvol_required = max(min_rvol_required, 0.85)
+                min_rvol_required = max(min_rvol_required, 0.55)  # kırılım öncesi az daha yüksek
         except Exception:
             pass
 
         if rvol_micro < min_rvol_required:
             if is_spring:
                 pass                                # SPRING: muafiyet korundu
-            elif is_squeeze and rvol_micro >= 0.50:
-                pass                                # SQUEEZE: dry-up toleransı, %50 altı elenir
+            elif is_squeeze and rvol_micro >= 0.30:
+                pass                                # SQUEEZE: dry-up toleransı genişletildi
             else:
-                return None                         # Diğerleri + SQUEEZE < 0.50 → eleme
+                return None
 
         # ADX hard gate — V117_v2: is_early_awakening_preview artık adx >= 18 taşıdığından
         # AWAKENING preview bu gate'i eskisi gibi bypass edemez.
@@ -2422,9 +2435,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             green_candles = 0
 
-        min_green = 3 if (is_squeeze or is_spring) else 4
+        # 🎯 BOĞA MODU: Yeşil mum eşiği düşürüldü (geri çekilme günleri dahil)
+        min_green = 2 if (is_squeeze or is_spring) else 3
         if sector_name == "Real Estate":
-            min_green = 4
+            min_green = 3
         if green_candles < min_green:
             return None
 
@@ -2932,7 +2946,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             is_exhausted=is_exhausted,
             beta=beta,
             selection_system=selection_system,
-            df_1h=None  # Phase 4'te 1H henüz yüklenmedi; yapısal stop kullanılmaz
+            df_1h=None,  # Phase 4'te 1H henüz yüklenmedi; yapısal stop kullanılmaz
+            ticker=ticker
         )
         risk              = max(current_price - stop_loss, 0.0)
         reward            = max(tp2 - current_price, 0.0)
@@ -2941,7 +2956,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if 0.0 < rr_ratio_calc < 1.0:
             return None
         profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
-        if profit_expectation_pct < 3.0:
+        # 🎯 BOĞA MODU: Minimum kâr beklentisi %3 → %2
+        if profit_expectation_pct < 2.0:
             return None
 
         # v117.v1: ema_spread_expanding flag'ini output dict'e ekle
@@ -2980,9 +2996,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         )
         df_15m = df_15m_raw
 
+        # 🎯 BOĞA MODU: 15m hard reject → uyarı + ceza (eleme yok)
+        # Kullanıcı tercihi: 15m son 8 mum düzeltme yapıyorsa sadece uyarı olsun
         if not result_15m['is_valid']:
-            logging.info(f"🚫 {ticker}: 15m Kapanış Gücü ihlali")
-            return None
+            # Eleme yerine ceza uygula ve log'a yaz
+            score -= 8.0
+            details.append(f"⚠️ 15m UYARI (Eleme Yok): {result_15m.get('msg', '15m zayıf')}")
+            logging.info(f"⚠️ {ticker}: 15m zayıf mikro trend — eleme yok, -8p ceza uygulandı")
         if result_15m['score_bonus'] != 0:
             score += result_15m['score_bonus']
             details.append(result_15m['msg'])
@@ -3377,7 +3397,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # =============================================================
         # PHASE 7: R/R FİNAL HARD GATE + SLOW SECTOR
         # =============================================================
-        required_rr = MIN_RR_RATIO if entry_trigger else 1.3
+        # 🎯 BOĞA MODU: R/R minimum 1.0 (kullanıcı tercihi: RR 1 ve üzeri yeterli)
+        required_rr = 1.0
         if rr_ratio_calc < required_rr:
             logging.info(f"🚫 {ticker}: R/R yetersiz ({rr_ratio_calc:.2f} < {required_rr})")
             return None
@@ -3909,20 +3930,14 @@ import pandas as pd
 
 def _passes_min_score(c: dict) -> bool:
     """
-    V117_v2: Sistem bazlı minimum boga_score_100 eşiği.
-    MDU vakası: SQUEEZE sistemi için 38.0 eşiği çok düşük (MDU 44.7 ile geçti).
-    Dry-up / sıkışma setuplarda kalite garantisi daha kritik.
-
-    Eşikler:
-        SQUEEZE   → 44.0  (boş squeeze = dağıtım riskine karşı)
-        AWAKENING → 42.0  (7 koşula sıkılaştırıldı ama ekstra güvenlik)
-        Diğerleri → 38.0  (mevcut eşik korundu)
+    BOGA MODU: Eşikler düşürüldü — daha fazla aday Layer 3'e geçsin
+    SQUEEZE: 40.0 | AWAKENING: 38.0 | Diğerleri: 32.0
     """
     score = c.get("boga_score_100", 0.0)
     sys   = c.get("selection_system", "DEFAULT")
-    if sys == "SQUEEZE":   return score >= 44.0
-    if sys == "AWAKENING": return score >= 42.0
-    return score >= 38.0
+    if sys == "SQUEEZE":   return score >= 40.0
+    if sys == "AWAKENING": return score >= 38.0
+    return score >= 32.0
 
 
 def build_diversified_toplist(
@@ -4836,12 +4851,11 @@ async def scan_top_stocks():
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
 
-    # ── R/R HARD ELIMINATION (Realistic floor) ────────────────────────────
-    # 🔧 FIX #9: Professional swing setups need at least R/R 1.5.
-    top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.5]
+    # ── R/R HARD ELIMINATION — 🎯 BOĞA MODU: 1.5 → 1.0 ─────────────────────
+    top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.0]
     if not top_candidates:
-        logging.warning("⚠️ No candidates left after R/R < 1.5 elimination.")
-        await send_telegram_message("⚠️ No setups with R/R 1.5+ in daily scan.")
+        logging.warning("⚠️ No candidates left after R/R < 1.0 elimination.")
+        await send_telegram_message("⚠️ No setups with R/R 1.0+ in daily scan.")
         return
 
     # Capture 20 candidates for Terminal Daily tab AFTER R/R filtering (Tutarsızlık Giderildi)
