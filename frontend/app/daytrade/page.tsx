@@ -62,34 +62,27 @@ export default async function DayTradePicksPage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-white">DayTrade Picks</span>
-        </nav>
-
         {/* Header */}
-        <div className="mb-10">
-          <div className="flex items-start justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                DayTrade Signals
-                <span className="ml-3 text-[#10b981]">— {dateStr}</span>
-              </h1>
-              <p className="text-white text-base font-medium">
-                Premarket Gappers & Intraday Momentum via BOGA DayTrade V1.0 •{" "}
-                {generatedAt && (
-                  <span className="text-[#00d2ff]">Updated {formatTime(generatedAt)}</span>
-                )}
-              </p>
+        <div className="mb-6 flex items-start justify-between flex-wrap gap-3 border-b border-white/5 pb-5">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10b981] font-mono">BOGA AI · DAYTRADE ENGINE</span>
             </div>
-            <Link
-              href="/daytrade-performance"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#10b981]/30 rounded-xl text-sm font-semibold text-[#10b981] hover:bg-[#10b981]/10 transition-all shadow-[0_0_15px_rgba(16,185,129,0.1)]"
-            >
-              📊 DayTrade Performance
-            </Link>
+            <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+              DayTrade Signals
+              <span className="text-[#10b981] ml-2 not-italic">— {dateStr}</span>
+            </h1>
+            {generatedAt && (
+              <p className="text-[11px] text-white/40 font-mono uppercase tracking-widest mt-1">Updated {formatTime(generatedAt)}</p>
+            )}
           </div>
+          <Link
+            href="/daytrade-performance"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-[#10b981]/30 rounded text-[10px] font-black text-[#10b981] hover:bg-[#10b981]/10 transition-all uppercase tracking-widest font-mono"
+          >
+            ↗ PERF HISTORY
+          </Link>
         </div>
 
         <SwingTableActions picks={picks} dateStr={dateStr} />

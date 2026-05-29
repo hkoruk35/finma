@@ -75,7 +75,7 @@ export default function DayTradeOptionsPage() {
             <span className="w-2 h-2 bg-[#10b981] rounded-full animate-ping"></span>
             DayTrade Option Portal
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Intraday Option Strategies</h1>
+          <h1 className="text-lg md:text-xl font-black tracking-tighter text-white uppercase italic">Intraday Option Strategies</h1>
           <div className="flex items-center justify-between flex-wrap gap-2 mt-1">
              <p className="text-sm text-[#475569]">Momentum scalping strategies for top DayTrade candidates</p>
              {generatedAt && (

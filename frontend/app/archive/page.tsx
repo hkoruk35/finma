@@ -39,18 +39,17 @@ export default async function ArchivePage() {
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-12">
-        <header className="mb-12">
-           <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6]">
-                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                 </svg>
-              </div>
-              <h1 className="text-3xl md:text-5xl font-black text-white tracking-tight">Daily Archive</h1>
-           </div>
-           <p className="text-white text-lg max-w-2xl leading-relaxed">
-              Access the complete BOGA AI analysis history. Select a trading day to view past scores, signals, and AI summaries.
-           </p>
+        <header className="mb-8 border-b border-white/5 pb-5">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00d2ff] font-mono">BOGA AI · SESSION ARCHIVE</span>
+          </div>
+          <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+            Daily Archive
+          </h1>
+          <p className="text-[11px] text-white/40 font-mono uppercase tracking-widest mt-1">
+            Complete BOGA AI analysis history — select a trading day
+          </p>
         </header>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">

@@ -66,60 +66,50 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm text-[#00d2ff] mb-6">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span>/</span>
-          <span className="text-white">Today&apos;s Swing Picks</span>
-        </nav>
-
         {/* Header */}
-        <div className="mb-10">
-          <div className="flex items-start justify-between flex-wrap gap-4">
-            <div>
-              <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                Daily Swing Picks
-                <span className="ml-3 text-[#3b82f6]">— {dateStr}</span>
-              </h1>
-              <p className="text-white text-base">
-                Full algorithmic candidate list from the BOGA AI V116 Engine •{" "}
-                {generatedAt && (
-                  <span className="text-[#00d2ff]">Updated {formatTime(generatedAt)}</span>
-                )}
-              </p>
+        <div className="mb-6 flex items-start justify-between flex-wrap gap-3 border-b border-white/5 pb-5">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00d2ff] font-mono">BOGA AI · SWING ENGINE</span>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/performance"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-xl text-sm font-semibold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
-              >
-                📊 Performance History
-              </Link>
-            </div>
+            <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+              Daily Swing Picks
+              <span className="text-[#3b82f6] ml-2 not-italic">— {dateStr}</span>
+            </h1>
+            {generatedAt && (
+              <p className="text-[11px] text-white/40 font-mono uppercase tracking-widest mt-1">Updated {formatTime(generatedAt)}</p>
+            )}
           </div>
+          <Link
+            href="/performance"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-[#3b82f6]/30 rounded text-[10px] font-black text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all uppercase tracking-widest font-mono"
+          >
+            ↗ PERF HISTORY
+          </Link>
         </div>
 
-        {/* Quick Archive Links: Last 10 Days */}
-        <div className="flex items-center gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide bg-[#1e293b]/30 p-4 rounded-2xl border border-white/5">
-           <span className="text-[11px] font-black text-white uppercase tracking-widest whitespace-nowrap">📅 Session Archive:</span>
-           <Link 
-             href="/swing" 
-             className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${!selectedDate ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+        {/* Archive Bar */}
+        <div className="flex items-center gap-2 mb-5 overflow-x-auto pb-1 scrollbar-hide">
+           <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.2em] whitespace-nowrap font-mono">ARCHIVE:</span>
+           <Link
+             href="/swing"
+             className={`px-2.5 py-1 text-[10px] font-black font-mono border transition-all uppercase ${!selectedDate ? "border-[#3b82f6] text-[#3b82f6] bg-[#3b82f6]/10" : "border-white/10 text-white/40 hover:border-white/30 hover:text-white/70"}`}
            >
              LATEST
            </Link>
            {archiveDates.slice(0, 10).map(d => (
-             <Link 
+             <Link
                key={d}
                href={`/swing?date=${d}`}
-               className={`px-3 py-1.5 rounded-lg text-[11px] font-bold border transition-all ${selectedDate === d ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]" : "bg-white/5 border-white/10 text-[#00d2ff] hover:border-[#3b82f6]/40"}`}
+               className={`px-2.5 py-1 text-[10px] font-black font-mono border transition-all ${selectedDate === d ? "border-[#3b82f6] text-[#3b82f6] bg-[#3b82f6]/10" : "border-white/10 text-white/40 hover:border-white/30 hover:text-white/70"}`}
              >
                {d.split('-').slice(1).join('/')}
              </Link>
            ))}
-           <div className="h-4 w-px bg-white/10 mx-2" />
-           <Link href="/performance" className="text-[11px] font-bold text-[#3b82f6] hover:text-white transition-colors whitespace-nowrap uppercase tracking-widest">
-             Full History →
+           <div className="h-3 w-px bg-white/10 mx-1" />
+           <Link href="/performance" className="text-[10px] font-black text-[#3b82f6]/60 hover:text-[#3b82f6] transition-colors whitespace-nowrap uppercase tracking-widest font-mono">
+             FULL HISTORY →
            </Link>
         </div>
 
@@ -137,22 +127,21 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
             <div className="hidden md:block glass-card overflow-hidden mb-6">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-white/5 text-[#00d2ff] text-[11px] uppercase tracking-wider">
-                    <th className="px-4 py-4 text-left">#</th>
-                    <th className="px-4 py-4 text-left">Ticker</th>
-                    <th className="px-4 py-4 text-left">Sector</th>
-                    <th className="px-4 py-4 text-right">Score</th>
-                    <th className="px-4 py-4 text-right">Price</th>
-                    <th className="px-4 py-4 text-right">Buy Zone</th>
-                    <th className="px-4 py-4 text-right">Target</th>
-                    <th className="px-4 py-4 text-right">Stop</th>
-                    <th className="px-4 py-4 text-right">1D</th>
-                    <th className="px-4 py-4 text-right">1W</th>
-                    <th className="px-4 py-4 text-right">1M</th>
-                    <th className="px-4 py-4 text-right">1Y</th>
-                    <th className="px-4 py-4 text-right">5Y</th>
-                    <th className="px-4 py-4 text-right">Option</th>
-                    <th className="px-4 py-4 text-center">Actions</th>
+                  <tr className="border-b border-white/5 text-[#00d2ff] text-[10px] uppercase tracking-[0.12em] font-mono">
+                    <th className="px-3 py-3 text-left">#</th>
+                    <th className="px-3 py-3 text-left">Ticker</th>
+                    <th className="px-3 py-3 text-left">Sector</th>
+                    <th className="px-3 py-3 text-right">Price</th>
+                    <th className="px-3 py-3 text-right">Buy Zone</th>
+                    <th className="px-3 py-3 text-right">Target</th>
+                    <th className="px-3 py-3 text-right">Stop</th>
+                    <th className="px-3 py-3 text-right">1D</th>
+                    <th className="px-3 py-3 text-right">1W</th>
+                    <th className="px-3 py-3 text-right">1M</th>
+                    <th className="px-3 py-3 text-right">1Y</th>
+                    <th className="px-3 py-3 text-right">5Y</th>
+                    <th className="px-3 py-3 text-right">Opt</th>
+                    <th className="px-3 py-3 text-center">Act</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -161,52 +150,49 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                       key={pick.ticker}
                       className={`border-b border-white/5 hover:bg-white/5 transition-colors ${idx < 5 ? "bg-[#3b82f6]/5" : ""}`}
                     >
-                      <td className="px-3 py-2.5">
-                        <span className={`text-[11px] font-black ${idx < 5 ? "text-[#3b82f6]" : "text-[#00d2ff]"}`}>
-                          #{idx + 1}
+                      <td className="px-3 py-3">
+                        <span className={`text-[11px] font-black font-mono ${idx < 5 ? "text-[#3b82f6]" : "text-white/30"}`}>
+                          {String(idx + 1).padStart(2, "0")}
                         </span>
                       </td>
-                      <td className="px-3 py-2.5">
+                      <td className="px-3 py-3">
                         <Link href={`/stock/${pick.ticker}`} className="group">
                           <TickerHoverChart ticker={pick.ticker}>
-                            <div className="text-white font-black text-sm tracking-tight group-hover:text-[#3b82f6] transition-colors">
+                            <div className="text-white font-black text-base tracking-tight group-hover:text-[#3b82f6] transition-colors font-mono uppercase">
                               {pick.ticker}
                             </div>
                           </TickerHoverChart>
-                          <div className="text-[#00d2ff] text-[10px] truncate max-w-[120px]">{pick.company}</div>
+                          <div className="text-white/30 text-[10px] truncate max-w-[120px] font-mono">{pick.company}</div>
                         </Link>
                       </td>
-                      <td className="px-3 py-2.5">
-                        <span className="text-white text-[11px]">{pick.sector || "—"}</span>
+                      <td className="px-3 py-3">
+                        <span className="text-white/50 text-[11px] font-mono">{pick.sector || "—"}</span>
                       </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <ScoreBadge score={pick.score} />
+                      <td className="px-3 py-3 text-right">
+                        <span className="text-white font-mono font-bold text-[15px]">${formatPrice(pick.current_price)}</span>
                       </td>
-                      <td className="px-3 py-2.5 text-right">
-                        <span className="text-white font-mono font-semibold text-[13px]">${formatPrice(pick.current_price)}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">
+                      <td className="px-3 py-3 text-right text-white/70 font-mono text-[13px]">
                         ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
                       </td>
-                      <td className="px-3 py-2.5 text-right text-[#10b981] font-mono font-semibold text-[11px]">
+                      <td className="px-3 py-3 text-right text-[#10b981] font-mono font-bold text-[13px]">
                         ${formatPrice(pick.profit_zone.low)}–${formatPrice(pick.profit_zone.high)}
                       </td>
-                      <td className="px-3 py-2.5 text-right text-[#ef4444] font-mono text-[11px]">
+                      <td className="px-3 py-3 text-right text-[#ef4444] font-mono text-[13px]">
                         ${formatPrice(pick.stop_zone.low)}–${formatPrice(pick.stop_zone.high)}
                       </td>
                       {[
-                        { field: "change_1d", label: "1D" },
-                        { field: "change_1w", label: "1W" },
-                        { field: "change_1m", label: "1M" },
-                        { field: "change_1y", label: "1Y" },
-                        { field: "change_5y", label: "5Y" },
+                        { field: "change_1d" },
+                        { field: "change_1w" },
+                        { field: "change_1m" },
+                        { field: "change_1y" },
+                        { field: "change_5y" },
                       ].map((perf) => (
-                        <td key={perf.field} className="px-3 py-2.5 text-right">
+                        <td key={perf.field} className="px-3 py-3 text-right">
                           {pick[perf.field] !== undefined ? (
-                            <span className={`font-mono text-[11px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                            <span className={`font-mono text-[13px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                               {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
                             </span>
-                          ) : <span className="text-[#00d2ff] text-[11px]"> —</span>}
+                          ) : <span className="text-white/20 text-[13px] font-mono">—</span>}
                         </td>
                       ))}
                       <td className="px-3 py-2.5 text-right">

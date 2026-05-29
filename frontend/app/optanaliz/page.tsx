@@ -411,7 +411,7 @@ function OptAnalizContent() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white uppercase italic">Opsiyon <span className="text-[#3b82f6]">Analiz Portalı</span></h1>
+              <h1 className="text-lg md:text-xl font-black tracking-tighter text-white uppercase italic">Opsiyon <span className="text-[#3b82f6] not-italic">Analiz Portalı</span></h1>
               <p className="text-slate-500 text-xs mt-2 font-bold tracking-widest uppercase">Teknik Sinyal ve Strateji Motoru</p>
             </div>
             

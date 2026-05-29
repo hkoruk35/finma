@@ -132,7 +132,11 @@ export default function HourlyArchivePage() {
         <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-2xl font-extrabold text-white">Hourly Scan Archive</h1>
+              <div className="flex items-center gap-2 mb-1">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00d2ff] font-mono">BOGA AI · HOURLY PULSE</span>
+          </div>
+          <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">Hourly Scan Archive</h1>
               <p className="text-gray-400 text-sm mt-1">
                 Her gün 5 yeni hisse ekleniyor. Şu an{" "}
                 <span className="text-white font-semibold">{universe.days} gün</span>

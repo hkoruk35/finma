@@ -16,7 +16,7 @@ export default function LongTermPage() {
           
           <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center text-4xl mb-6 mx-auto">🏗️</div>
           
-          <h1 className="text-3xl font-black text-white mb-4 tracking-tighter uppercase">Long-Term Portfolio</h1>
+          <h1 className="text-lg md:text-xl font-black text-white mb-3 tracking-tighter uppercase italic">Long-Term Portfolio</h1>
           <p className="text-[#475569] text-sm font-bold mb-8 leading-relaxed">
             The BOGA AI Long-Term engine is currently in development. This module will focus on multi-month macro trends, dividends, and institutional value plays.
           </p>

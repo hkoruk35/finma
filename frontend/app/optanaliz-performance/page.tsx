@@ -157,8 +157,8 @@ export default function OptionsPerformancePage() {
               <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
               <span className="text-[10px] text-slate-400 font-bold tracking-[0.2em] uppercase">BOGA Performance Center</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight uppercase">
-              Options <span className="text-[#3b82f6]">Outcomes</span>
+            <h1 className="text-lg md:text-xl font-black text-white tracking-tighter uppercase italic">
+              Options <span className="text-[#3b82f6] not-italic">Outcomes</span>
             </h1>
             <p className="text-slate-500 text-sm mt-2 font-medium tracking-wide">
               Gerçekleşen Kâr/Zarar ve Strateji Analiz Terminali.

@@ -33,13 +33,16 @@ export default async function ThemesIndexPage() {
       <Header />
       <main className="flex-1 w-full max-w-[1800px] mx-auto px-4 py-8">
         
-        <div className="mb-8 border-b border-white/10 pb-4">
-          <h1 className="text-2xl font-black text-white tracking-tighter uppercase italic flex items-center gap-3">
-             <span className="w-3 h-3 rounded-full bg-[#3b82f6] animate-pulse"></span>
-             ACTIVE MARKET THEMES
+        <div className="mb-8 border-b border-white/5 pb-5">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#3b82f6] font-mono">BOGA AI · MARKET THEMES</span>
+          </div>
+          <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+            Active Market Themes
           </h1>
-          <p className="text-slate-400 text-xs mt-2 uppercase tracking-widest">
-            Based on system configuration and AI Analysis
+          <p className="text-[11px] text-white/40 font-mono uppercase tracking-widest mt-1">
+            Based on system configuration and AI analysis
           </p>
         </div>
 

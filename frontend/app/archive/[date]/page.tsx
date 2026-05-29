@@ -95,9 +95,13 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
 
         {/* Hero */}
         <section className="text-center mb-8 animate-fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
-            BOGA AI Analysis Archive
-            <span className="block text-white mt-2">{date}</span>
+          <div className="flex items-center justify-center gap-2 mb-1.5">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00d2ff] font-mono">BOGA AI · DAILY ARCHIVE</span>
+          </div>
+          <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+            Analysis Archive
+            <span className="text-[#3b82f6] ml-2 not-italic">{date}</span>
           </h1>
         </section>
 

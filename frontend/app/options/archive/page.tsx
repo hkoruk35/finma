@@ -39,7 +39,7 @@ export default async function OptionsArchivePage() {
 
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-1">
+            <h1 className="text-lg md:text-xl font-black text-white tracking-tighter mb-1 uppercase italic">
               Options Archive
             </h1>
             <p className="text-[#00d2ff] text-sm">{dates.length} scan{dates.length !== 1 ? "s" : ""} available</p>

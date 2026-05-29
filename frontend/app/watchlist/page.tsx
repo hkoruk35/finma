@@ -78,7 +78,7 @@ export default function WatchlistPage() {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-6">
           <div>
-            <h1 className="text-2xl font-black text-white uppercase italic tracking-tighter flex items-center gap-2.5">
+            <h1 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tighter flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
               YOUR LIVE WATCHLIST
             </h1>
