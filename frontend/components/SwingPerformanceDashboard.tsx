@@ -823,25 +823,37 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
       {/* ── Sector Heatmap ───────────────────────────────────────────────── */}
       {heatmap.length > 0 && (
-        <div className="mb-12">
-          <h3 className="text-xl font-bold text-white mb-6">Sector Profitability Heatmap</h3>
-          <div className="flex overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-3 lg:grid-cols-6 gap-4 no-scrollbar">
+        <div className="mb-6">
+          <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-widest">Sector Profitability Heatmap</h3>
+          {/* Mobile: auto-scrolling ticker */}
+          <div className="md:hidden overflow-hidden relative">
+            <div className="flex gap-2 animate-[ticker_30s_linear_infinite] w-max">
+              {[...heatmap, ...heatmap].map((s, i) => (
+                <button key={i}
+                  onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
+                  className={`rounded-lg border px-3 py-2 ${heatColor(s.avgReturn)} flex items-center gap-2 transition-colors shrink-0 ${s.name === selectedSector ? "ring-1 ring-white" : ""}`}>
+                  <span className="text-[9px] font-black text-white uppercase tracking-wider whitespace-nowrap">{s.name}</span>
+                  <span className={`text-sm font-black font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                    {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                  </span>
+                  <span className="text-[9px] text-[#00d2ff] font-bold">{s.total}p</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Desktop: single row, compact */}
+          <div className="hidden md:flex gap-2 flex-nowrap overflow-x-auto no-scrollbar">
             {heatmap.map(s => (
               <button key={s.name}
                 onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
-                className={`rounded-xl border p-4 ${heatColor(s.avgReturn)} flex flex-col gap-2 transition-colors duration-200 shadow-xl text-left min-w-[160px] md:min-w-0 ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
-                <p className="text-[10px] font-bold text-white uppercase tracking-widest truncate w-full" title={s.name}>{s.name}</p>
-                <div className="flex items-end justify-between w-full">
-                  <div>
-                    <p className={`text-xl font-black font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
-                      {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
-                    </p>
-                    <p className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-widest mt-1">Avg Return</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-lg font-bold text-white leading-none">{s.total}</p>
-                    <p className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest mt-1">Picks</p>
-                  </div>
+                className={`rounded-lg border px-3 py-2.5 ${heatColor(s.avgReturn)} flex flex-col gap-1 transition-colors duration-200 shrink-0 text-left flex-1 min-w-0 ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
+                <p className="text-[9px] font-black text-white uppercase tracking-wider truncate w-full" title={s.name}>{s.name}</p>
+                <p className={`text-base font-black font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                  {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
+                </p>
+                <div className="flex items-center justify-between w-full">
+                  <p className="text-[8px] text-[#00d2ff] font-bold uppercase">Avg Ret</p>
+                  <p className="text-[10px] font-bold text-white">{s.total}<span className="text-[8px] text-[#00d2ff] ml-0.5">p</span></p>
                 </div>
               </button>
             ))}

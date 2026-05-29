@@ -19,6 +19,11 @@
   --color-text-muted: #64748b;
   --color-gold: #f59e0b;
   --font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
+  --animate-ticker: ticker 30s linear infinite;
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
 }
 
 /* Base styles */
