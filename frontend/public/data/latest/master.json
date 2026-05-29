@@ -1,24 +1,25 @@
 {
-  "date": "2026-05-28",
-  "generated_at": "2026-05-28T13:20:33.926219-04:00",
+  "date": "2026-05-29",
+  "generated_at": "2026-05-29T14:37:45.259959-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 4,
+  "active_scores_count": 7,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 4,
+      "count": 7,
       "tickers": [
-        "NSC",
-        "GFS",
-        "BNS",
-        "WH"
+        "AMRZ",
+        "CP",
+        "CLFD",
+        "TSLA",
+        "LEA",
+        "BURL",
+        "DIOD"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "GFS"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -29,12 +30,8 @@
       "tickers": []
     },
     "momentum": {
-      "count": 3,
-      "tickers": [
-        "NSC",
-        "BNS",
-        "WH"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "dividend": {
       "count": 0,
@@ -43,18 +40,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "NSC",
+      "ticker": "AMRZ",
       "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "GFS",
-      "score": 51.5,
+      "ticker": "CP",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BNS",
-      "score": 50.5,
+      "ticker": "CLFD",
+      "score": 46.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

@@ -1,0 +1,72 @@
+[
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "DIOD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 105.97,
+        "entry_zone": "102.85 - 109.10",
+        "SL": 93.47,
+        "TP": 124.73
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "LEA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 144.13,
+        "entry_zone": "141.71 - 146.55",
+        "SL": 134.46,
+        "TP": 158.64
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "TSLA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 435.17,
+        "entry_zone": "426.95 - 443.40",
+        "SL": 402.27,
+        "TP": 484.52
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "AMRZ",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 53.87,
+        "entry_zone": "53.14 - 54.60",
+        "SL": 50.97,
+        "TP": 58.22
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "BURL",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 318.47,
+        "entry_zone": "311.06 - 325.88",
+        "SL": 288.83,
+        "TP": 362.93
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "CP",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 89.56,
+        "entry_zone": "88.53 - 90.59",
+        "SL": 85.44,
+        "TP": 95.73
+    },
+    {
+        "date": "2026-05-29 15:00",
+        "symbol": "CLFD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 46.83,
+        "entry_zone": "44.75 - 48.91",
+        "SL": 38.51,
+        "TP": 59.31
+    }
+]
