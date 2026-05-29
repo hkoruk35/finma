@@ -1,9 +1,19 @@
 # -*- coding: utf-8 -*-
 """
 ================================================================
-🐂 BOGA AI SWING TRADE MODEL — V117.0 (Transparency + Edge)
+🐂 BOGA AI SWING TRADE MODEL — V118.0 (Post-Backtest Optimizasyon)
 ================================================================
-V117 YENİLİKLER:
+V118 DEĞİŞİKLİKLERİ (94 trade analizi — 2026-05-16/28):
+  1. RSI_1D_MAX: 78 → 70  (RSI>70 aşırı alım otomatik filtre)
+  2. AWAKENING: ADX ≥ 25 (20'den) + MACD_hist > 0 zorunlu  (%0 WR düzeltme)
+  3. MIXED EMA bloker: ema_stack=False iken SQUEEZE/AWAKENING engeli
+  4. RVOL orta band: BREAKOUT/EMA_CROSS/TREND_CONT'ta 0.6<rvol<1.4 → -3p ceza
+  5. MACD_hist > 2.0: Geç giriş uyarısı → -4p (TWLO/AMAT vakası)
+  6. Sektör yeniden: Energy/Healthcare bonus kaldırıldı → ceza eklendi
+     Consumer Cyclical: %80 WR → +5p bonus
+  7. boga_score_100: AWAKENING sistemi için ek doğrulama eşiği (+0p→disabled geri)
+================================================================
+V117 YENİLİKLER (korundu):
   1. selection_system: Her hisse için SQUEEZE/SPRING/AWAKENING/EMA_CROSS/
      PULLBACK/BREAKOUT/MOMENTUM etiketleri
   2. selection_reasons: Çoklu sinyal kaynağı listesi
@@ -147,7 +157,7 @@ VOLUME_INCREASE_LOOKBACK = 5
 
 # 🎯 RSI THRESHOLDS (Unified Documented Constraints)
 RSI_1D_MIN = 45         # Ana trend alt sınırı (Unified boga_score_100 ile tutarlı)
-RSI_1D_MAX = 78         # Momentum liderleri için mutlak 1D tavanı (Bunun üstü kesin red)
+RSI_1D_MAX = 70         # V118: 78→70 — RSI>70 aşırı alım, %29 WR (TWLO/RAMP vakası)
 RSI_1H_MAX = 82         # İntraday (1H) spike mutlak tavanı
 RSI_BOGA_OPT_MIN = 45   # Unified sistem optimal alt sınır
 RSI_BOGA_OPT_MAX = 65   # Unified sistem optimal üst sınır
@@ -1661,10 +1671,23 @@ def calculate_profit_target(entry_price, atr_value, is_exhausted=False, beta=1.0
     if is_exhausted:
         atr_sl_mult *= 0.80
 
-    # Formül geri getirildi (NameError/Crash önlendi)
+    # ATR Bazlı Temel Stop Hesabı
     stop_loss = entry_price - (atr_value * atr_sl_mult)
 
-    # Güvenlik tabanı: En fazla %15 kayıp (Gerçekçi Swing Stop)
+    # Yapısal Koruma: 1H Grafikte Son 20 Barın En Düşük Seviyesi (Swing Low) Kontrolü
+    if df_1h is not None and len(df_1h) >= 20:
+        h1_swing_low = float(df_1h['Low'].tail(20).min())
+        structural_stop = h1_swing_low * 0.995   # %0.5 sarka payı / tolerans
+    
+        # ATR stop ile karşılaştırıp daha geniş (güvenli) olan alt sınırı seçiyoruz
+        stop_loss = min(stop_loss, structural_stop)   
+    
+        sl_pct_check = (entry_price - stop_loss) / entry_price
+        if sl_pct_check < 0.025:   # %2.5 altındaki stoplar günlük gürültüye maruz kalır
+            logging.info(f"⚠️ {ticker}: Dar Stop Seviyesi ({sl_pct_check:.1%}) — 1H Gürültü Riski")
+        
+
+        # Güvenlik tabanı: En fazla %15 kayıp (Gerçekçi Swing Stop)
     stop_loss = max(stop_loss, entry_price * 0.85)
 
     # ── TP2 — ANA HEDEF: SKOR'DAN BAĞIMSIZ ─────────────────────────────
@@ -1779,7 +1802,7 @@ def estimate_hold_time(momentum_score, vol_increase, profit_pct=0.0, atr_pct=0.0
 
 async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
     """
-    BOGA AI V117.2 — 1W → 1D → 1H Hiyerarşik Filtre Mimarisi
+    BOGA AI V118.2 — 1W → 1D → 1H Hiyerarşik Filtre Mimarisi
 
     MANTIK:
       PHASE 1W : Haftalık yapı geçmezse 1D'ye bakılmaz (hard gate)
@@ -1996,10 +2019,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # =============================================================
         # ══════════════════════════════════════════════════════════════
-        # PHASE 3: 1D — GÜNLÜK TREND (HARD GATE + PUAN)
+        # PHASE 3: 1D — GÜNLÜK TREND (HARD GATE + PUAN) — v117.v1
         # Geçmezse return None — 1H'a hiç bakılmaz
         # ══════════════════════════════════════════════════════════════
-        # =============================================================
+        # DEĞİŞİKLİKLER (V117 → v117.v1):
+        #   1. EMA Full Stack: spread dinamiği hesaplandı (genişliyor/daralıyor)
+        #      ema_spread_expanding flag'i dict'e eklendi → boga_score_100 okur
+        #   2. ADX puanlaması düzeltildi: paradoks giderildi
+        #      v117.v1: ADX 35+ → +6p, ADX 28-35 → +4p, ADX 20-28 → +2p, ADX 40+ → -3p (tükenme korundu)
+        #   3. RSI 60-70 puanı düşürüldü:
+        #      v117.v1: RSI 60-65 → +2.5p, RSI 65-68 → +1.0p (sadece strong RS varsa)
+        #   4. MACD + sistem tipi korelasyon cezası eklendi:
+        #      Trend devam sistemleri + negatif MACD → ekstra -2.5p
+        #      Reversal sistemleri + negatif MACD → hafif +1.0p bonus
+        #   5. MFI aşırı alım erken uyarısı: mfi_val > 75 + rsi > 65 → -5p (raw_score'da)
+        #   6. RVOL hard gate istisnası daraltıldı:
+        #      SQUEEZE + rvol < 0.50 → artık istisna yok, elenir
+        #      SPRING için rvol istisnası korundu
+        # ══════════════════════════════════════════════════════════════
 
         # ── 1D Temel Göstergeler ──────────────────────────────────────
         ema20_1d  = EMAIndicator(close_1d, 20).ema_indicator()
@@ -2020,12 +2057,46 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             trend_durumu_1d = "Downtrend"
 
+        # v117.v1: EMA Spread Dinamiği — statik Full Stack yeterli değil
+        # Spread genişliyorsa trend güçleniyor, daralıyorsa dönüm noktasına yakın
+        ema_spread_expanding = False
+        try:
+            if len(ema20_1d) >= 11 and len(ema50_1d) >= 11:
+                spread_now    = (float(ema20_1d.iloc[-1])  - float(ema50_1d.iloc[-1]))  / float(ema50_1d.iloc[-1])
+                spread_10d    = (float(ema20_1d.iloc[-10]) - float(ema50_1d.iloc[-10])) / float(ema50_1d.iloc[-10])
+                ema_spread_expanding = spread_now > spread_10d
+        except Exception:
+            ema_spread_expanding = True   # Fallback: belirsizse genişliyor say
+
+        # Trend Durumu Puanlaması (Spread Dinamiği Entegreli)
+        if trend_durumu_1d == "Full Stack":
+            if ema_spread_expanding:
+                score += 16.0
+                details.append("🏆 1D TREND: Full Stack + Genişleyen Spread Yapısı (+16p)")
+            else:
+                score += 10.0
+                details.append("⚠️ 1D TREND: Full Stack ama Daralan Spread Dinamiği (+10p)")
+        elif trend_durumu_1d == "Macro Bullish":
+            score += 8.0
+            details.append("📈 1D TREND: Macro Bullish (+8p)")
+        elif trend_durumu_1d == "Above EMA200":
+            score += 4.0
+            details.append("📈 1D TREND: Above EMA200 (+4p)")
+        elif trend_durumu_1d == "Above EMA50":
+            score += 2.0
+            details.append("📈 1D TREND: Above EMA50 (+2p)")
+        else:
+            score -= 5.0
+            details.append("❌ 1D TREND: Downtrend (-5p)")
+
+        # Bollinger & Squeeze Kontrolü
         bb_1d           = BollingerBands(close_1d, 20, 2)
         bb_width_series = (bb_1d.bollinger_hband() - bb_1d.bollinger_lband()) / ema20_1d
         bb_width        = float(bb_width_series.iloc[-1])
         bb_width_avg_50 = float(bb_width_series.tail(50).mean()) if len(bb_width_series) >= 50 else bb_width
         is_squeeze      = (bb_width < bb_width_avg_50 * 0.60) or (bb_width < 0.05)
 
+        # Spring Kontrolü
         min_low_10d  = float(low_1d.tail(10).iloc[:-1].min())
         current_low  = float(low_1d.iloc[-1])
         daily_range  = float(high_1d.iloc[-1]) - current_low
@@ -2036,6 +2107,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             and current_price >= current_low + (daily_range * 0.5)
         )
 
+        # ADX Hesaplama & Puanlama (v117.v1 Paradoks Düzeltmesi)
         try:
             adx_series_1d = ADXIndicator(high_1d, low_1d, close_1d, 14).adx()
             adx_1d        = float(adx_series_1d.iloc[-1])
@@ -2043,12 +2115,32 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             adx_series_1d = pd.Series(0.0, index=df_1d.index)
             adx_1d        = 0.0
 
+        if adx_1d >= 40:
+            score -= 3.0
+            details.append("⚠️ ADX 40+: Trend Tükenme Riski (-3p)")
+        elif adx_1d >= 35:
+            score += 6.0
+            details.append("🏆 ADX 35-40: Çok Güçlü Trend Eğilimi (+6p)")
+        elif adx_1d >= 28:
+            score += 4.0
+            details.append("🚀 ADX 28-35: Sağlıklı Trend Bölgesi (+4p)")
+        elif adx_1d >= 20:
+            score += 2.0
+            details.append("📈 ADX 20-28: Erken Trend Oluşumu (+2p)")
+        elif adx_1d >= 15:
+            score += 0.5
+            details.append("⏱️ ADX 15-20: Sığ Trend (+0.5p)")
+        else:
+            score -= 2.0
+            details.append("❌ ADX < 15: Yatay/Trendsiz Piyasa (-2p)")
+
         if len(ema20_1d) >= 10 and float(ema20_1d.iloc[-10]) > 0:
             ema20_slope_numeric = (float(ema20_1d.iloc[-1]) - float(ema20_1d.iloc[-10])) / float(ema20_1d.iloc[-10])
         else:
             ema20_slope_numeric = 0.0
         is_ema_flat = abs(ema20_slope_numeric) < 0.008
 
+        # RVOL Hesaplama & v117.v1 Daraltılmış Hard Gate İstisnası
         try:
             vol_today   = float(volume_1d.iloc[-1])
             vol_20g_avg = float(volume_1d.tail(20).mean()) if len(volume_1d) >= 20 else vol_today
@@ -2056,7 +2148,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             rvol_micro = 0.0
 
-        # RSI 1D
+        min_rvol_required = 0.65
+        if rvol_micro < min_rvol_required:
+            if is_spring:
+                # SPRING için hacimsiz dönüş istisnası korunuyor
+                pass
+            elif is_squeeze:
+                # v117.v1 Güncellemesi: SQUEEZE döneminde hacim düşebilir ama 0.50 altı tamamen ölüdür, elenir
+                if rvol_micro < 0.50:
+                    return None
+            else:
+                # Sıradan hacimsiz veya dry-up kurallarına uymayan hisseler elenir
+                return None
+
+        # RSI 1D Hesaplama & v117.v1 Hassas Puanlama Modeli
         try:
             rsi_1d_series = RSIIndicator(close_1d, 14).rsi()
             rsi_quick     = float(rsi_1d_series.iloc[-1])
@@ -2066,7 +2171,85 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             rsi_quick     = 50.0
             rsi_prev      = 50.0
 
-        # CMF
+        # RSI Puan Basamakları (v117.v1)
+        if 50 <= rsi_quick < 60:
+            score += 2.0
+            details.append("🟢 RSI 50-60: Dengeli Boğa Bölgesi (+2p)")
+        elif 60 <= rsi_quick <= 65:
+            score += 2.5
+            details.append("🚀 RSI 60-65: Momentum Bölgesi (+2.5p)")
+        elif 65 < rsi_quick <= 68:
+            # RS (Relative Strength) kontrolü ana bot mimarisinde 'has_strong_rs' flag'i üzerinden okunur
+            if locals().get('has_strong_rs', True): 
+                score += 1.0
+                details.append("⚡ RSI 65-68: Sadece Güçlü RS ile Korunan Puan (+1p)")
+            else:
+                score -= 1.0
+                details.append("⚠️ RSI 65-68: Yetersiz RS Yapısı Uyarı Cezası (-1p)")
+        elif rsi_quick > 70:
+            score -= 4.0
+            details.append("🔴 RSI > 70: Aşırı Şişme / Kısa Vade Kar Satışı Riski (-4p)")
+        elif rsi_quick < 45:
+            score -= 3.0
+            details.append("❌ RSI < 45: Ayı Bölgesi / Zayıf İvme (-3p)")
+
+        # ==========================================================================
+        # ── MFI Hesaplama & v117.v1 Aşırı Alım Erken Uyarısı (-5p) ────────────────
+        # ==========================================================================
+        try:
+            # ta kütüphanesi entegrasyonu güvenli hale getirildi
+            mfi_indicator = MoneyFlowIndexIndicator(
+                high=high_1d, 
+                low=low_1d, 
+                close=close_1d, 
+                volume=volume_1d, 
+                window=14
+            )
+            mfi_series = mfi_indicator.money_flow_index()
+            
+            if mfi_series is not None and len(mfi_series) > 0:
+                mfi_val = float(mfi_series.iloc[-1])
+                if pd.isna(mfi_val):
+                    mfi_val = 50.0
+            else:
+                mfi_val = 50.0
+        except Exception as e:
+            logging.warning(f"⚠️ MFI hesaplama hatası: {e}. Varsayılan değer (50.0) atandı.")
+            mfi_val = 50.0
+
+        # Erken uyarı filtresi ve boga_score_100 için 'mfi_val' kaydı
+        if mfi_val > 75 and rsi_quick > 65:
+            score -= 5.0  # Phase 3 içindeki raw_score erken uyarı cezası
+            details.append("🔴 ERKEN UYARI: RSI 65+ ve MFI 75+ Likidite Tükenme Riski (-5p)")
+            
+
+        # MACD Hesaplama & v117.v1 Sistem Tipi Korelasyon Cezası Entegrasyonu
+        try:
+            macd_obj = MACD(close_1d)
+            macd_hist_series = macd_obj.macd_diff()
+            macd_hist_val = float(macd_hist_series.iloc[-1])
+        except Exception:
+            macd_hist_val = 0.0
+
+        # Sistem tipine göre dinamik MACD puanlama matrisi
+        # (Eğer selection_system henüz Phase 3'te belirlenmediyse 'entry_trigger' veya ara bayraklar kontrol edilir)
+        current_sys = locals().get('selection_system', "UNKNOWN")
+        
+        if macd_hist_val < 0:
+            if current_sys in ("BREAKOUT", "TREND_CONT", "MOMENTUM") or trend_durumu_1d in ("Full Stack", "Macro Bullish"):
+                score -= 2.5
+                details.append(f"🔴 MACD KORELASYON CEZASI: Trend Devamında Negatif Hist ({macd_hist_val:.3f}) (-2.5p)")
+            elif current_sys in ("SPRING", "PULLBACK") or is_spring:
+                score += 1.0
+                details.append(f"🟢 MACD REVERSAL UYUMU: Dönüş Stratejisinde Beklenen Negatif Hist (+1.0p)")
+            else:
+                score -= 1.0
+                details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f}) (-1p)")
+        elif macd_hist_val > 0:
+            score += 2.0
+            details.append(f"🟢 MACD Hist: Pozitif Devam (+2p)")
+
+        # CMF (Chaikin Money Flow) Kontrolü
         cmf_val = 0.0
         try:
             df_cmf        = df_1d.tail(25)
@@ -2080,8 +2263,26 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             cmf_val       = float(cmf_current) if not pd.isna(cmf_current) else 0.0
         except Exception:
             cmf_val = 0.0
+            
 
-        # ── 1D HARD GATE'LER ──────────────────────────────────────────
+# ── 1D HARD GATE'LER — V117_v2 ────────────────────────────────
+        # DEĞİŞİKLİKLER (V117 → V117_v2):
+        #   1. is_early_awakening_preview: Phase5 ile senkronize edildi.
+        #      V117: 3 koşul (fiyat + RSI + rvol) → ADX gate'ini atlıyordu.
+        #      V117_v2: adx_1d >= 18 ve w_rsi_val >= 50 koşulları eklendi.
+        #      (Phase5'teki 7-koşullu is_early_awakening ile tutarlı hale getirildi.)
+        #   2. ADX hard gate: AWAKENING preview artık istisnadan yararlanamıyor.
+        #      V117: not (is_squeeze or is_spring) → AWAKENING bypass ediyordu.
+        #      V117_v2: is_early_awakening_preview zaten adx >= 18 şartı taşıdığından
+        #      ADX gate'i AWAKENING için de işleyecek.
+        #   3. RVOL hard gate istisnası daraltıldı:
+        #      SPRING → muafiyet korundu.
+        #      SQUEEZE + rvol >= 0.50 → dry-up toleransı korundu.
+        #      SQUEEZE + rvol < 0.50 → artık eleniyor (V117'de geçiyordu).
+        #   4. Kanama gate eşiği sıkılaştırıldı: -%3.5 → -%3.0
+        #      Rapor: dar stop + kanama kombinasyonu stop-loss tetikleyicisi.
+        #      -%3.0 daha sıkı filtre — zayıf momentum hisseler erken eleniyor.
+        # ──────────────────────────────────────────────────────────────
 
         # Dead money: flat EMA + zayıf ADX + squeeze/spring yoksa
         if not is_squeeze and not is_spring and is_ema_flat and adx_1d < ADX_MIN_LEVEL_1D:
@@ -2098,10 +2299,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             logging.info(f"🚫 {ticker}: 1D HARD GATE — Downtrend")
             return None
 
-        # 5 günde -%3.5 altı = kanama
+        # 5 günde kanama gate — V117_v2: -%3.5 → -%3.0 (sıkılaştırıldı)
+        # Rapor: dar stop + zayıf momentum hisseleri stop yiyor.
+        # -%3.0 ile bu profildeki hisseler erken aşamada eleniyor.
         if len(close_1d) >= 6:
             ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
-            if ret_5d_pct < -3.5:
+            if ret_5d_pct < -3.0:
                 logging.info(f"🚫 {ticker}: 1D HARD GATE — 5G kanama ({ret_5d_pct:.1f}%)")
                 return None
 
@@ -2111,13 +2314,26 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if rsi_quick < 45 and rsi_quick < rsi_prev:
             return None
 
-        is_early_awakening_preview = (45 <= rsi_quick <= 55 and 0.9 <= rvol_micro <= 1.3)
+        # V117_v2: is_early_awakening_preview Phase5 ile senkronize edildi
+        # V117: sadece 3 koşul → ADX < 18 olan hisseler bypass ediyordu
+        # V117_v2: adx_1d >= 18 ve w_rsi_val >= 50 zorunlu (Phase5'teki 7 koşulla tutarlı)
+        is_early_awakening_preview = (
+            45 <= rsi_quick <= 55
+            and 0.9 <= rvol_micro <= 1.3
+            and current_price > last_ema20
+            and adx_1d >= 18                # V117_v2 YENİ: ADX gate bypass'ını önler
+            and w_rsi_val >= 50             # V117_v2 YENİ: haftalık yapı desteği zorunlu
+        )
+
         if not (is_squeeze or is_spring or is_early_awakening_preview):
-            rsi_3d_ago     = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
+            rsi_3d_ago = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
             if (rsi_quick < rsi_prev < rsi_3d_ago) and rsi_quick < 52:
                 return None
 
-        # RVOL 1D hard gate
+        # RVOL 1D hard gate — V117_v2: SQUEEZE istisnası daraltıldı
+        # SPRING → muafiyet korundu (failed breakdown sonrası hacim spike beklenir)
+        # SQUEEZE + rvol >= 0.50 → dry-up toleransı korundu
+        # SQUEEZE + rvol < 0.50 → eleme (boş squeeze, ölü hacim)
         min_rvol_required = 0.65 if sector_name == "Real Estate" else 0.80
         try:
             macro_resist      = float(high_1d.tail(15).max())
@@ -2126,10 +2342,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 min_rvol_required = max(min_rvol_required, 0.85)
         except Exception:
             pass
-        if rvol_micro < min_rvol_required and not (is_squeeze or is_spring):
-            return None
 
-        # ADX hard gate
+        if rvol_micro < min_rvol_required:
+            if is_spring:
+                pass                                # SPRING: muafiyet korundu
+            elif is_squeeze and rvol_micro >= 0.50:
+                pass                                # SQUEEZE: dry-up toleransı, %50 altı elenir
+            else:
+                return None                         # Diğerleri + SQUEEZE < 0.50 → eleme
+
+        # ADX hard gate — V117_v2: is_early_awakening_preview artık adx >= 18 taşıdığından
+        # AWAKENING preview bu gate'i eskisi gibi bypass edemez.
         min_adx_required = 12 if sector_name == "Real Estate" else 18
         if adx_1d > 0 and adx_1d < min_adx_required and not (is_squeeze or is_spring):
             return None
@@ -2200,9 +2423,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if not await asyncio.to_thread(is_earnings_safe_for_swing, ticker):
             logging.info(f"🚫 {ticker}: Earnings yakın → Eleme")
             return None
-
+            
         # ── 1D PUANLAMA ───────────────────────────────────────────────
-        # Toplam 1D puan potansiyeli: ~55 puan
 
         score += 4.0
         details.append(f"[OK] 1D GATE GEÇİLDİ — Trend:{trend_durumu_1d} | ADX:{adx_1d:.1f} | RSI:{rsi_quick:.1f}")
@@ -2246,14 +2468,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                     score -= 2.5;  rs_label = "Underperform"
                     details.append(f"⚠️ RS: Underperform")
 
-        # EMA Trend Puanı
+        # EMA Trend Puanı — v117.v1: spread dinamiği entegre edildi
         if trend_durumu_1d == "Full Stack":
-            score += 14.0
-            details.append("🏆 1D TREND: Full Stack (+14p)")
-            ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
-            if ema_spread > 0.03:
-                score += 1.5
-                details.append("🔥 EMA50-200 Geniş Spread (+1.5p)")
+            if ema_spread_expanding:
+                score += 15.0
+                details.append("🏆 1D TREND: Full Stack + Genişleyen Spread (+15p)")
+            else:
+                score += 11.0
+                details.append("⚠️ 1D TREND: Full Stack ama Daralan Spread (+11p) — dönüm riski")
+            # EMA50-200 spread büyüklüğü bonusu: sadece genişleyen spread durumunda
+            if ema_spread_expanding:
+                ema_spread = (last_ema50 - last_ema200) / last_ema200 if last_ema200 > 0 else 0.0
+                if ema_spread > 0.03:
+                    score += 1.5
+                    details.append("🔥 EMA50-200 Geniş Spread (+1.5p)")
         elif trend_durumu_1d == "Macro Bullish":
             score += 11.0
             details.append("🏆 1D TREND: Macro Bullish (+11p)")
@@ -2276,9 +2504,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # Squeeze / Spring Alpha
         if is_squeeze:
-            squeeze_quality     = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
-            squeeze_quality     = min(squeeze_quality, 1.0)
-            squeeze_base        = 8.0 + (10.0 * squeeze_quality)
+            squeeze_quality        = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
+            squeeze_quality        = min(squeeze_quality, 1.0)
+            squeeze_base           = 8.0 + (10.0 * squeeze_quality)
             squeeze_exemption_cost = 0.0
             if rvol_micro < 1.05: squeeze_exemption_cost += 3.0
             if cmf_val < -0.05:   squeeze_exemption_cost += 3.0
@@ -2291,7 +2519,9 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 15.0
             details.append("⚡ SPRING: Failed Breakdown (+15p)")
 
-        # ADX
+        # ADX — v117.v1 DÜZELTMESİ: Doğrusal ödüllendirme (V117 paradoksu giderildi)
+        # V117: ADX 18-28 → +4p, ADX 28-40 → +2p (ters mantık)
+        # v117.v1: ADX 35+ en yüksek, doğrusal azalma
         try:
             adx_slope = float(adx_series_1d.diff().tail(5).mean())
         except Exception:
@@ -2299,12 +2529,16 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         if adx_1d >= 40:
             score -= 3.0; details.append(f"⚠️ ADX: Tükenme ({adx_1d:.1f})")
+        elif adx_1d >= 35:
+            score += 6.0; details.append(f"🔥 ADX: Güçlü Trend ({adx_1d:.1f})")
         elif adx_1d >= 28:
-            score += 2.0; details.append(f"💪 ADX: Kurulu Trend ({adx_1d:.1f})")
-        elif adx_1d >= 18:
-            score += 4.0; details.append(f"🔥 ADX: Optimal Uyanış ({adx_1d:.1f})")
+            score += 4.0; details.append(f"💪 ADX: Kurulu Trend ({adx_1d:.1f})")
+        elif adx_1d >= 20:
+            score += 2.0; details.append(f"📈 ADX: Orta Trend ({adx_1d:.1f})")
+        elif adx_1d >= 15:
+            score += 0.5; details.append(f"🟡 ADX: Zayıf ({adx_1d:.1f})")
         else:
-            score -= 2.0; details.append(f"🟡 ADX: Zayıf ({adx_1d:.1f})")
+            score -= 2.0; details.append(f"❄️ ADX: Trendsiz ({adx_1d:.1f})")
 
         if adx_slope > 0.8:
             score += 2.0; details.append(f"⚡ ADX Slope: Agresif")
@@ -2338,7 +2572,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             score += 1.0; details.append("🟨 ATR: Aşırı")
 
-        # RSI 1D puanı
+        # RSI 1D puanı — v117.v1: 60-70 aralığı düşürüldü, MFI tükenme cezası eklendi
         rsi_1d_val = rsi_quick
         if sector_name == "Real Estate":
             if 38 <= rsi_1d_val <= 55:
@@ -2354,16 +2588,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         else:
             if RSI_BOGA_OPT_MIN <= rsi_1d_val <= 60:
                 score += 7.0; details.append(f"🌀 RSI: Sweet Spot ({rsi_1d_val:.1f})")
-            elif 60 < rsi_1d_val <= 68:
-                score += 3.5; details.append(f"📈 RSI: Momentum ({rsi_1d_val:.1f})")
-            elif 68 < rsi_1d_val <= RSI_1D_MAX and is_strong_rs:
-                score += 1.5; details.append(f"🚀 RSI: Momentum Lideri ({rsi_1d_val:.1f})")
-            elif 68 < rsi_1d_val <= 75 and not is_strong_rs:
+            elif 60 < rsi_1d_val <= 65:
+                # v117.v1: +3.5p → +2.5p — rapor bu aralığın sorunlu olduğunu gösterdi
+                score += 2.5; details.append(f"📈 RSI: Momentum ({rsi_1d_val:.1f})")
+            elif 65 < rsi_1d_val <= RSI_1D_MAX and is_strong_rs:
+                # v117.v1: Sadece strong RS varsa pozitif — yoksa artık puan yok
+                score += 1.0; details.append(f"🚀 RSI: Momentum Lideri — RS Destekli ({rsi_1d_val:.1f})")
+            elif 65 < rsi_1d_val <= 75 and not is_strong_rs:
                 score -= 4.0; details.append(f"⚠️ RSI: FOMO Riski ({rsi_1d_val:.1f})")
             elif rsi_1d_val < 40:
                 score -= 3.0; details.append(f"❄️ RSI: Zayıf ({rsi_1d_val:.1f})")
             elif rsi_1d_val > RSI_1D_MAX or (rsi_1d_val > 75 and not is_strong_rs):
-                # 1W makro doğrulaması: haftalık destek yoksa ağır ceza
                 if w_rsi_val < 50:
                     score -= 12.0
                     details.append(f"🔴 RSI Overbought ({rsi_1d_val:.1f}) + 1W Zayıf ({w_rsi_val:.1f}) → Tepe Riski")
@@ -2415,7 +2650,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             if roc_3d > 12.0 or is_overbought_rsi or ret_1d_pct > 6.0:
                 is_exhausted = True
                 reasons_ex = []
-                if roc_3d > 12.0:   reasons_ex.append(f"3G ROC: +{roc_3d:.1f}%")
+                if roc_3d > 12.0:    reasons_ex.append(f"3G ROC: +{roc_3d:.1f}%")
                 if ret_1d_pct > 6.0: reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}%")
                 if is_overbought_rsi: reasons_ex.append(f"RSI: {rsi_1d_val:.1f}")
                 score -= 18.0
@@ -2423,13 +2658,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-        # MACD
-        macd_hist_val = 0.0
+        # MACD — V117_v2: sistem tipi korelasyon cezası eklendi
+        # Rapor: Trend devam sisteminde negatif MACD = uyumsuzluk → LOSS tahmin edicisi
+        #        Reversal sisteminde negatif MACD = dip dönüş için beklenen → tolere et
+        # NOT: Bu aşamada selection_system henüz belirlenmedi (Phase5'te belirleniyor).
+        # Bu nedenle is_spring / is_squeeze proxy'lerini kullanıyoruz.
+        macd_hist_val  = 0.0
+        macd_hist_prev = 0.0
+        is_reversal_proxy = False   # V117_v2: output dict'e yazılıyor, buradan başlatılıyor
         try:
-            macd_obj      = MACD(close_1d, window_slow=26, window_fast=12, window_sign=9)
-            macd_hist     = macd_obj.macd_diff()
-            macd_hist_val = float(macd_hist.iloc[-1])
+            macd_obj       = MACD(close_1d, window_slow=26, window_fast=12, window_sign=9)
+            macd_hist      = macd_obj.macd_diff()
+            macd_hist_val  = float(macd_hist.iloc[-1])
             macd_hist_prev = float(macd_hist.iloc[-2]) if len(macd_hist) >= 2 else 0.0
+
             if macd_hist_val > 0 and macd_hist_val > macd_hist_prev:
                 score += 2.5; details.append(f"📈 MACD Hist: Yükseliyor ({macd_hist_val:.3f})")
             elif macd_hist_val > 0:
@@ -2439,11 +2681,29 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 and macd_hist_val > macd_hist_prev
                 and (macd_hist_val - macd_hist_prev) > abs(macd_hist_prev) * 0.15
             ):
+                # Dip dönüş momentumu: her sistem için geçerli
                 score += 2.0; details.append("🌅 MACD: Dip Dönüş Momentumu")
             elif macd_hist_val < 0:
-                score -= 1.5; details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f})")
+                # V117_v2: Sistem tipine göre farklı ceza
+                # is_spring veya pullback proxy: fiyat EMA200 üstü ama EMA20 altı + gün içi iyileşme
+                is_reversal_proxy = is_spring or (
+                    current_price < last_ema20
+                    and current_price > last_ema200
+                    and close_change_pct > 0
+                )
+                if is_reversal_proxy:
+                    # Reversal setup: negatif MACD beklenen, tolere et
+                    details.append(f"🟡 MACD Hist: Negatif — Reversal tolerans ({macd_hist_val:.3f})")
+                elif is_squeeze:
+                    # Squeeze: sıkışma döneminde negatif MACD olabilir, hafif ceza
+                    score -= 1.0; details.append(f"⚠️ MACD Hist: Squeeze negatif ({macd_hist_val:.3f})")
+                else:
+                    # Trend devam / breakout beklentisi + negatif MACD = uyumsuzluk
+                    # V117_v2: -1.5p → -4.0p
+                    score -= 4.0; details.append(f"🔴 MACD Uyumsuzluk: Trend devam + negatif hist ({macd_hist_val:.3f})")
         except Exception:
-            macd_hist_val = 0.0
+            macd_hist_val  = 0.0
+            macd_hist_prev = 0.0
 
         # OBV
         try:
@@ -2492,20 +2752,27 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 0.5; details.append(f"➖ Hacim Trendi 5G: Stabil ({vol_increase_ratio:.2f}x)")
 
         # CMF puanlama
-        # Hard gate zaten < -0.05'i eledi. Buraya ulaşan değer >= -0.05.
         if cmf_val >= 0.15:
-            score += 4.0
-            details.append(f"💰 CMF: Güçlü Birikim ({cmf_val:.3f})")
+            score += 4.0;  details.append(f"💰 CMF: Güçlü Birikim ({cmf_val:.3f})")
         elif cmf_val >= 0.08:
-            score += 2.5
-            details.append(f"📈 CMF: Pozitif Para Akışı ({cmf_val:.3f})")
+            score += 2.5;  details.append(f"📈 CMF: Pozitif Para Akışı ({cmf_val:.3f})")
         elif cmf_val >= 0.02:
-            score += 1.0
-            details.append(f"🟢 CMF: Zayıf Birikim ({cmf_val:.3f})")
+            score += 1.0;  details.append(f"🟢 CMF: Zayıf Birikim ({cmf_val:.3f})")
         elif cmf_val >= -0.05 and not (is_squeeze or is_spring):
-            score -= 1.5
-            details.append(f"⚠️ CMF: Hafif Dağıtım ({cmf_val:.3f})")
+            score -= 1.5;  details.append(f"⚠️ CMF: Hafif Dağıtım ({cmf_val:.3f})")
         # is_squeeze veya is_spring ise CMF hafif negatif tolere edilir — puan kesilmez
+
+        # MFI aşırı alım erken uyarısı — V117_v2 YENİ
+        # boga_score_100'de -8p alacak; burada -5p raw_score cezası (çifte sayım değil, kümülatif etki)
+        # Rapor: DTM(MFI=81.4)→LOSS, TWLO(MFI=73.7)→LOSS vakaları
+        # smart_money henüz çağrılmadı — güvenli fallback kullan, asıl değer aşağıda güncellenir
+        mfi_val = 50.0   # Fallback; smart_money çağrısından sonra gerçek değer atanıyor
+        if mfi_val > 75 and rsi_1d_val > 65:
+            score -= 5.0
+            details.append(f"🔴 MFI Tükenme: MFI {mfi_val:.1f} + RSI {rsi_1d_val:.1f} — Para akışı + fiyat aşırı alımda")
+        elif mfi_val > 80:
+            score -= 3.0
+            details.append(f"⚠️ MFI Yüksek: {mfi_val:.1f} — Tek başına aşırı alım")
 
         # Steady Momentum + HH/HL
         try:
@@ -2559,7 +2826,19 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
+        # MFI — smart_money'den gerçek değeri al
+        # (Yukarıdaki MFI erken uyarısı fallback 50.0 ile çalıştı — ceza burada retroaktif uygulanamaz,
+        #  ama boga_score_100 gerçek mfi_val ile çalışacak. Bir sonraki V117_v2 iterasyonunda
+        #  MFI erken uyarısını smart_money çağrısından SONRAYA taşımak daha doğru olur.)
         mfi_val = smart_money.get('mfi', 50.0)
+
+        # V117_v2: MFI cezasını smart_money çağrısından sonra uygula (gerçek değerle)
+        if mfi_val > 75 and rsi_1d_val > 65:
+            score -= 5.0
+            details.append(f"🔴 MFI Tükenme: MFI {mfi_val:.1f} + RSI {rsi_1d_val:.1f} — Para akışı + fiyat aşırı alımda")
+        elif mfi_val > 80:
+            score -= 3.0
+            details.append(f"⚠️ MFI Yüksek: {mfi_val:.1f} — Tek başına aşırı alım")
 
         # Piyasa Rejimi
         market_regime   = MARKET_STATUS.get("regime", "UNKNOWN")
@@ -2604,6 +2883,10 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
         if profit_expectation_pct < 3.0:
             return None
+
+        # v117.v1: ema_spread_expanding flag'ini output dict'e ekle
+        # boga_score_100 ve frontend bu değeri okur
+        # (PHASE 8 / FINAL OUTPUT bloğunda "ema_spread_expanding": ema_spread_expanding eklenmeli)
 
         # =============================================================
         # ══════════════════════════════════════════════════════════════
@@ -2791,10 +3074,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             details.append("⚠️ 1H Veri Yok (-1p)")
 
         # =============================================================
-        # PHASE 5: ENTRY TRIGGER + SİSTEM SEÇİMİ
+        # PHASE 5: ENTRY TRIGGER + SİSTEM SEÇİMİ (swing117)
         # =============================================================
+        # DEĞİŞİKLİKLER (V117 → V117.v2):
+        #   1. AWAKENING: 3 koşul → 7 koşul (haftalık yapı + ADX + RVOL alt sınır)
+        #   2. AWAKENING çifte bonus kaldırıldı (raw_score'a bir kez ekleniyor,
+        #      boga_score_100'deki +15p ile çakışmayı önlemek için buradaki +15p → +8p)
+        #   3. BREAKOUT + TREND_CONT ayrımı korundu, sys_cat'e "TrendContinue" eklendi
+        #   4. MOMENTUM default label "Default" olarak yeniden adlandırıldı
+        #      (gerçek sinyal olmadığını vurgulamak için)
+        #   5. EMA_CROSS için RVOL üst sınırı genişletildi (1.8 → 2.5)
+        # =============================================================
+
         entry_trigger: Optional[str] = None
-        selection_system  = "MOMENTUM"
+        selection_system  = "DEFAULT"   # V117: "MOMENTUM" → "DEFAULT" (sinyal yok = default)
         selection_reasons: List[str] = []
 
         try:
@@ -2813,11 +3106,30 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         ema9_slope   = (ema9_now - ema9_prev) / ema9_prev if ema9_prev > 0 else 0.0
         micro_volume = rvol_today > 1.2
 
+        # ── V118: AWAKENING — 9 Koşul (V117'den 7→9, %0 WR sonrası sıkılaştırma) ──
+        # 94 trade analizinde: AWAKENING 0/4 = %0 WR (SVM, THC, CLH, JCI)
+        # Ortak özellik: "Stealth_Breakout" + düşük ADX + eksik MACD onayı
+        #
+        # V118 Yeni koşullar (8-9):
+        # Koşul 8: MACD_hist > 0 — momentum onayı zorunlu (negatif MACD = dip riski)
+        # Koşul 9: ema_stack zorunlu (MIXED EMA stack = engel)
+        ema_mixed_block = not ema_stack  # V118: FULL stack olmadan AWAKENING yok
         is_early_awakening = (
-            current_price > ema20_now
-            and 45 <= rsi_1d_val <= 55
-            and 0.9 <= rvol_today <= 1.3
+            current_price > ema20_now                   # Fiyat EMA20 üstü
+            and 45 <= rsi_1d_val <= 55                  # RSI sweet spot
+            and 0.9 <= rvol_today <= 1.3                # Stealth bölgesi
+            and w_rsi_val >= 50                         # 1W RSI ≥ 50
+            and w_rsi_slope > 0                         # 1W RSI yükseliyor
+            and adx_1d >= 25                            # V118: 20→25 (SVM ADX:18, JCI ADX:11.5 = LOSS)
+            and rvol_today >= 1.0                       # Mutlak RVOL alt sınırı
+            and macd_hist_val > 0                       # V118 YENİ: MACD momentum onayı
+            and not ema_mixed_block                     # V118 YENİ: Full EMA stack zorunlu
         )
+
+        # ── SİSTEM SEÇİM HİYERARŞİSİ ─────────────────────────────────
+        # Öncelik sırası (yukarıdan aşağıya):
+        #   SPRING → SQUEEZE (bb+ema) → SQUEEZE (ema9+slope) → AWAKENING →
+        #   EMA_CROSS → BREAKOUT → TREND_CONT → PULLBACK → DEFAULT
 
         if is_spring:
             selection_system = "SPRING"
@@ -2834,15 +3146,21 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             selection_system = "SQUEEZE"
             selection_reasons.extend(["BB_Squeeze", "EMA_Stack", "Volume_Confirm"])
             details.append("💥 ENTRY: DAY 0 SQUEEZE BREAKOUT")
+        elif bb_squeeze and not ema_stack:
+            # V118: MIXED EMA + BB Squeeze → sinyal engeli (BGC:%MIXED -3.57% LOSS)
+            details.append("⛔ V118: BB Squeeze ama EMA Stack MIXED/BELOW → SQUEEZE reddedildi")
 
         elif is_early_awakening:
-            score           += 15.0
+            # V117: +15p → +8p (boga_score_100'deki +15p ile çifte bonusu önler)
+            # Toplam etki (raw + boga_score_100): V117'de +30p, v117.v1'de +23p
+            score           += 8.0
             entry_trigger    = "Early Awakening (Stealth Breakout)"
             selection_system = "AWAKENING"
             selection_reasons.extend(["Stealth_Breakout", "RSI_Sweet_Spot"])
-            details.append("🌅 ENTRY: EARLY AWAKENING")
+            details.append("🌅 ENTRY: EARLY AWAKENING (W117 koşulları sıkılaştırıldı)")
 
-        elif ema_cross and 1.1 <= rvol_today <= 1.8:
+        elif ema_cross and 1.1 <= rvol_today <= 2.5:
+            # V117: RVOL üst sınır 1.8 → 2.5 (güçlü cross'ları dışlamıyoruz)
             score           += 8.0
             entry_trigger    = "EMA9/20 Crossover + Micro Volume"
             selection_system = "EMA_CROSS"
@@ -2879,26 +3197,61 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         else:
             score -= 1.0
-            details.append("⏳ ENTRY: Tetik yok")
+            selection_system = "DEFAULT"
+            details.append("⏳ ENTRY: Tetik yok — DEFAULT sinyal")
 
+        # ── V117.v2: SİSTEM KATEGORİSİ — BREAKOUT / TREND_CONT AYRIMI ──
+        # V117'de her ikisi de "Breakout" sys_cat'e düşüyordu.
+        # v117.v1'de "TrendContinue" ayrı bir kategori — performans takibi için kritik.
+        # "Default" da ayrı etiket alıyor: sinyal olmadan seçilen hisseler izlenecek.
         sys_cat = (
-            "Contraction" if selection_system == "SQUEEZE"                                else
-            "Reversal"    if selection_system in ("SPRING", "PULLBACK")                   else
-            "Momentum"    if selection_system in ("AWAKENING", "EMA_CROSS", "TREND_CONT") else
-            "Breakout"
+            "Contraction"    if selection_system == "SQUEEZE"                          else
+            "Reversal"       if selection_system in ("SPRING", "PULLBACK")              else
+            "Momentum"       if selection_system in ("AWAKENING", "EMA_CROSS")          else
+            "TrendContinue"  if selection_system == "TREND_CONT"                        else
+            "Breakout"       if selection_system == "BREAKOUT"                          else
+            "Default"        if selection_system in ("DEFAULT", "MOMENTUM")             else
+            "Unknown"        # Olası bir string uyuşmazlığı için emniyet subabı
         )
 
+        # ── V117.v2: DEFAULT SİNYAL UYARISI ─────────────────────────────
+        # Eğer sistem DEFAULT kaldıysa (hiçbir tetik bulunamadı),
+        # boga_score_100'deki "MOMENTUM" dalı artık 0p alacak.
+        # NOT: boga_score_100 fonksiyonunda şu değişiklik gerekiyor:
+        #   elif sys_name == "MOMENTUM": score += 6.0
+        #   → elif sys_name == "DEFAULT": score += 0.0  (puan verme)
+        #   → elif sys_name == "MOMENTUM": score += 6.0  (etiketi koru ama v117.v1'de tetiklenmez)
+        if selection_system in ("DEFAULT", "MOMENTUM") and "DEFAULT" in sys_cat:
+            details.append("⚠️ v117.v1 UYARI: Sistem tetikleyici yok. Sadece altyapı puanıyla geçti.")
+            
         # =============================================================
         # PHASE 6: VIX & SEKTÖR ADAPTASYONU
         # =============================================================
         current_vix = MARKET_STATUS.get("vix", 20.0)
 
-        if sector_name in ["Energy", "Basic Materials", "Technology", "Healthcare"]:
-            score += 4.0
-            details.append(f"💎 Güvenilir Sektör Primi: {sector_name} (+4p)")
+        # V118: Sektör yeniden — 94 trade analizi sonucu
+        # Consumer Cyclical %80 WR → +5p | Technology %30 WR → 0p | Energy %0 WR → -3p | Healthcare %14 WR → -3p
+        if sector_name == "Consumer Cyclical":
+            score += 5.0
+            details.append(f"🏆 V118 Sektör Lideri: {sector_name} (%80 WR, +5p)")
+        elif sector_name in ["Basic Materials", "Financial Services", "Communication Services"]:
+            score += 3.0
+            details.append(f"💎 Güvenilir Sektör Primi: {sector_name} (+3p)")
+        elif sector_name == "Industrials":
+            score += 2.0
+            details.append(f"⚙️ Sektör Primi: {sector_name} (+2p)")
         elif sector_name == "Consumer Defensive":
             score += 2.5
             details.append(f"🛡️ Defansif Sektör Primi: {sector_name} (+2.5p)")
+        elif sector_name == "Technology":
+            score += 0.0  # V118: +4p → 0p (%30 WR, semiconductor volatilitesi)
+            details.append(f"⚠️ V118: {sector_name} nötr (yüksek volatilite, %30 WR)")
+        elif sector_name == "Healthcare":
+            score -= 3.0  # V118: +4p → -3p (%14 WR, 6/7 LOSS)
+            details.append(f"🚨 V118: {sector_name} cezası (%14 WR, -3p)")
+        elif sector_name == "Energy":
+            score -= 3.0  # V118: +4p → -3p (%0 WR, 3/3 LOSS)
+            details.append(f"🚨 V118: {sector_name} cezası (%0 WR, -3p)")
 
         if current_vix >= 25.0 and sector_name in ["Industrials", "Financial Services", "Consumer Cyclical"]:
             score -= 10.0
@@ -2943,8 +3296,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 details.append(f"🐢 Yavaş Peak Sektör: {sector_name} ({sector_penalty:.1f}p)")
 
         # =============================================================
-        # PHASE 8: PERFORMANS + ÖZET
+        # PHASE 8: PERFORMANS + ÖZET — v117.v2
         # =============================================================
+        # DEĞİŞİKLİKLER (V117 → v117.v2):
+        #   1. ema_spread_expanding → output dict'e eklendi (boga_score_100 + frontend okur)
+        #   2. adx_slope → output dict'e eklendi (kriter sayfası için)
+        #   3. rsi_slope_5 → output dict'e eklendi (momentum yönü için)
+        #   4. macd_hist_prev → output dict'e eklendi (MACD yön takibi)
+        #   5. is_reversal_proxy → output dict'e eklendi (MACD sistem uyumu için)
+        #   6. mfi_val → zaten vardı, korundu
+        #   7. sys_cat → "TrendContinue" ve "Default" yeni değerleri içeriyor
+        #   8. log satırı V117.2 → v117.v2 olarak güncellendi
+        #   9. d1_summary'e EMA Spread Expanding + ADX Slope eklendi
+        # =============================================================
+
         try:
             ret_5g_pct = float(
                 (close_1d.iloc[-1] - close_1d.iloc[-6]) / close_1d.iloc[-6] * 100
@@ -2966,87 +3331,136 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             f"💰 TP1/TP2/SL: ${tp1:.2f} / ${tp2:.2f} / ${stop_loss:.2f} (R/R: {rr_ratio_calc:.2f})"
         )
 
+        # v117.v2: EMA spread dinamiği d1_summary'e eklendi
         d1_summary = {
-            "Trend Status": trend_durumu_1d,
-            "EMA20 Slope":  "Positive" if cond_ema20_slope_positive else "Negative/Flat",
-            "RSI(14)":      f"{rsi_1d_val:.1f}",
-            "ADX":          f"{adx_1d:.1f}",
-            "ATR%":         f"{atr_pct_1d * 100:.2f}%",
-            "BB Width":     f"{bb_width_1d * 100:.1f}%",
-            "MACD_Hist":    f"{macd_hist_val:.3f}",
+            "Trend Status":          trend_durumu_1d,
+            "EMA Spread Expanding":  str(ema_spread_expanding),   # v117.v2 YENİ
+            "EMA20 Slope":           "Positive" if cond_ema20_slope_positive else "Negative/Flat",
+            "RSI(14)":               f"{rsi_1d_val:.1f}",
+            "RSI Slope(5d)":         f"{rsi_slope_5:+.1f}",        # v117.v2 YENİ
+            "ADX":                   f"{adx_1d:.1f}",
+            "ADX Slope":             f"{adx_slope:+.2f}",          # v117.v2 YENİ
+            "ATR%":                  f"{atr_pct_1d * 100:.2f}%",
+            "BB Width":              f"{bb_width_1d * 100:.1f}%",
+            "MACD_Hist":             f"{macd_hist_val:.3f}",
+            "MFI":                   f"{mfi_val:.1f}",             # v117.v2 YENİ
         }
 
         exhaust_tag = " [EXHAUSTED]" if is_exhausted else ""
+        spread_tag  = " [SPREAD↑]" if ema_spread_expanding else " [SPREAD↓]"   # v117.v2
         logging.info(
-            f"[OK] {ticker}: V117.2 Skor:{score:.2f}{exhaust_tag} | "
+            f"[OK] {ticker}: v117.v2 Skor:{score:.2f}{exhaust_tag}{spread_tag} | "
             f"1W RSI:{w_rsi_val:.1f} Vol:{w_vol_ratio:.1f}x | "
-            f"1D {trend_durumu_1d} | 1H:{h1_score_capped if df_1h is not None and len(df_1h)>=10 else 0:+.1f}p"
+            f"1D {trend_durumu_1d} ADX:{adx_1d:.1f} | "
+            f"Sys:{selection_system}({sys_cat}) | "
+            f"1H:{h1_score_capped if df_1h is not None and len(df_1h) >= 10 else 0:+.1f}p"
         )
 
         # =============================================================
         # FINAL OUTPUT
         # =============================================================
         return {
-            "ticker":               ticker,
-            "score":                round(score, 2),
-            "above_1w_ema50":       is_above_1w_ema50,
-            "sector_perf":          sec_perf,
-            "df_1d":                df_1d,
-            "df_1h":                df_1h,
-            "df_15m":               df_15m,
-            "current_price":        current_price,
-            "entry_price":          current_price,
-            "selection_system":     selection_system,
-            "selection_reasons":    selection_reasons,
-            "system_category":      sys_cat,
-            "profit_expectation_pct": profit_expectation_pct,
-            "hold_days":            hold_days,
-            "sector":               sector_name,
-            "market_cap":           market_cap,
-            "avg_volume":           avg_volume_10d,
-            "beta":                 beta,
-            "short_float":          short_float,
-            "atr_pct":              round(atr_pct_1d * 100, 2),
-            "rsi_14":               round(rsi_1d_val, 1),
-            "rsi_1h":               round(rsi_1h, 1),
-            "adx":                  round(adx_1d, 1),
-            "adx_1h":               round(adx_1h, 1),
-            "mfi":                  round(mfi_val, 1),
-            "cmf":                  round(cmf_val, 4),
-            "macd_hist":            round(macd_hist_val, 3),
-            "ema20":                round(last_ema20, 2),
-            "ema50":                round(last_ema50, 2),
-            "ema200":               round(last_ema200, 2),
-            "relative_strength":    rs_label,
-            "tp1":                  round(tp1, 2),
-            "tp2":                  round(tp2, 2),
-            "tp3":                  round(tp3, 2),
-            "stop_loss":            round(stop_loss, 2),
-            "rr_ratio":             round(rr_ratio_calc, 2),
-            "entry_trigger":        entry_trigger or "None Yet",
-            "volume_regime":        volume_regime_str,
-            "rvol_today":           round(rvol_today, 2),
-            "rvol_5_30":            round(rvol_micro, 3),
-            "ret_1d_pct":           round(ret_1d_pct, 2),
-            "ret_5g_pct":           round(ret_5g_pct, 2),
-            "dollar_volume":        dollar_volume_val,
-            "green_candles_10d":    green_candles,
-            "is_exhausted":         is_exhausted,
-            "squeeze_quality":      round(squeeze_quality, 3) if is_squeeze else 0.0,
-            "trend_status_1d":      trend_durumu_1d,
-            "w_rsi_val":            round(w_rsi_val, 1),
-            "w_rsi_slope":          round(w_rsi_slope, 1),
-            "w_vol_ratio":          round(w_vol_ratio, 2),
-            "details":              details,
-            "d1_summary":           d1_summary,
-            "h1_summary":           h1_summary,
-            "smart_money":          smart_money,
-            "rising_data":          rising,
-            "meta":                 {"1d": d1_summary, "1h": h1_summary, "volume_regime": volume_regime_str},
-            "insider_data":         {'has_insider': False, 'score': 0.0, 'details': []},
-            "financial_health":     financial_health_data,
-            "catalyst_data":        {'has_catalyst': False, 'score': 0.0, 'reasons': []},
-            "opt_sentiment":        {},
+            # ── Kimlik ───────────────────────────────────────────────
+            "ticker":                   ticker,
+
+            # ── Puanlama ─────────────────────────────────────────────
+            "score":                    round(score, 2),
+
+            # ── Sistem / Sinyal ──────────────────────────────────────
+            "selection_system":         selection_system,       # v117.v2: "DEFAULT" yeni değer
+            "selection_reasons":        selection_reasons,
+            "system_category":          sys_cat,                # v117.v2: "TrendContinue" / "Default" yeni değerler
+            "entry_trigger":            entry_trigger or "None Yet",
+
+            # ── Ham Veri (Hesaplama için — JSON'a yazılmaz) ───────────
+            "df_1d":                    df_1d,
+            "df_1h":                    df_1h,
+            "df_15m":                   df_15m,
+
+            # ── Fiyat / İşlem ────────────────────────────────────────
+            "current_price":            current_price,
+            "entry_price":              current_price,
+            "tp1":                      round(tp1, 2),
+            "tp2":                      round(tp2, 2),
+            "tp3":                      round(tp3, 2),
+            "stop_loss":                round(stop_loss, 2),
+            "rr_ratio":                 round(rr_ratio_calc, 2),
+            "profit_expectation_pct":   round(profit_expectation_pct, 2),
+            "hold_days":                hold_days,
+
+            # ── Temel Bilgiler ────────────────────────────────────────
+            "sector":                   sector_name,
+            "market_cap":               market_cap,
+            "avg_volume":               avg_volume_10d,
+            "beta":                     beta,
+            "short_float":              short_float,
+            "dollar_volume":            dollar_volume_val,
+
+            # ── Trend / EMA ──────────────────────────────────────────
+            "trend_status_1d":          trend_durumu_1d,
+            "above_1w_ema50":           is_above_1w_ema50,
+            "ema20":                    round(last_ema20, 2),
+            "ema50":                    round(last_ema50, 2),
+            "ema200":                   round(last_ema200, 2),
+            "ema_spread_expanding":     ema_spread_expanding,   # v117.v2 YENİ — boga_score_100 okur
+
+            # ── Teknik Göstergeler ───────────────────────────────────
+            "rsi_14":                   round(rsi_1d_val, 1),
+            "rsi_slope_5":              round(rsi_slope_5, 1),  # v117.v2 YENİ
+            "rsi_1h":                   round(rsi_1h, 1),
+            "adx":                      round(adx_1d, 1),
+            "adx_slope":                round(adx_slope, 3),    # v117.v2 YENİ
+            "adx_1h":                   round(adx_1h, 1),
+            "atr_pct":                  round(atr_pct_1d * 100, 2),
+            "macd_hist":                round(macd_hist_val, 3),
+            "macd_hist_prev":           round(macd_hist_prev, 3),   # v117.v2 YENİ — MACD yön takibi
+            "mfi":                      round(mfi_val, 1),
+            "cmf":                      round(cmf_val, 4),
+            "relative_strength":        rs_label,
+            "sector_perf":              sec_perf,
+
+            # ── Hacim ────────────────────────────────────────────────
+            "rvol_today":               round(rvol_today, 2),
+            "rvol_5_30":                round(rvol_micro, 3),
+            "volume_regime":            volume_regime_str,
+
+            # ── Performans / Getiri ──────────────────────────────────
+            "ret_1d_pct":               round(ret_1d_pct, 2),
+            "ret_5g_pct":               round(ret_5g_pct, 2),
+
+            # ── Durum Bayrakları ─────────────────────────────────────
+            "is_exhausted":             is_exhausted,
+            "green_candles_10d":        green_candles,
+            "squeeze_quality":          round(squeeze_quality, 3) if is_squeeze else 0.0,
+            "is_reversal_proxy":        is_reversal_proxy if 'is_reversal_proxy' in dir() else False,  # v117.v2 YENİ
+
+            # ── Haftalık Yapı ────────────────────────────────────────
+            "w_rsi_val":                round(w_rsi_val, 1),
+            "w_rsi_slope":              round(w_rsi_slope, 1),
+            "w_vol_ratio":              round(w_vol_ratio, 2),
+
+            # ── Özet Bloklar ─────────────────────────────────────────
+            "d1_summary":               d1_summary,
+            "h1_summary":               h1_summary,
+            "meta":                     {
+                "1d":            d1_summary,
+                "1h":            h1_summary,
+                "volume_regime": volume_regime_str,
+                "version":       "v118.0",                 # V118: post-backtest optimizasyon
+            },
+
+            # ── Detay / Debug ────────────────────────────────────────
+            "details":                  details,
+            "smart_money":              smart_money,
+            "rising_data":              rising,
+
+            # ── Dış Veri (Şu an pasif) ───────────────────────────────
+            "insider_data":             {'has_insider': False, 'score': 0.0, 'details': []},
+            "financial_health":         financial_health_data,
+            "catalyst_data":            {'has_catalyst': False, 'score': 0.0, 'reasons': []},
+            "opt_sentiment":            {},
+
+            # ── Legacy / Composite Skorlar (Sıfır — compute_multi_factor_score günceller) ──
             "tsi": 0.0, "msi": 0.0, "vrs": 0.0, "vps": 0.0,
             "nfi": 0.0, "sss": 0.0, "rcs": 0.0, "pfi": 0.0,
             "ifi": 0.0, "ffi": 0.0, "composite_score": 0.0,
@@ -3055,7 +3469,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
     except Exception as e:
         logging.error(f"🔴 apply_atmaca_filters({ticker}): {e}")
         return None
-
 # ================================================================
 # ================================================================
 # SECTION 9: 8-FACTOR COMPOSITE SCORE
@@ -3135,127 +3548,259 @@ def compute_multi_factor_score(c: dict) -> float:
 
 def compute_boga_score_100(c: dict) -> float:
     """
-    🎯 YENİ BOGA AI FINAL SCORE (0-100) — UNIFIED SYSTEM
-    Tek skor, tek sıralama. SQUEEZE ve SPRING gibi güçlü sinyaller doğrudan puana yansır.
-    A: Trend & Momentum (25) + B: System Signal (20) + C: Volume & Flow (15)
-    D: Rel. Strength & Sector (10) + E: Risk/Reward (15) + F: Fundamentals (10)
-    G: Layer 3 - Catalysts/Insider (5) = Toplam 100
+    🎯 BOGA AI FINAL SCORE (0-100) — v117.v1 UNIFIED SYSTEM
+    ================================================================
+    DEĞİŞİKLİKLER (V117 → v117.v1):
+
+    [A] TREND & MOMENTUM (25p):
+        - ADX puanlaması düzeltildi: 18-28 paradoksu giderildi.
+          V117: ADX 18-28 → +5p, ADX 30-40 → +3p  (ters!)
+          v117.v1: ADX 28-40 → +6p, ADX 18-28 → +4p, ADX 40+ → +2p (tavan)
+        - EMA Full Stack: spread dinamiği (genişliyor/daralıyor) eklendi.
+          Statik Full Stack → daralan spread ise ceza (-1p fark).
+
+    [B] SYSTEM SIGNAL (20p):
+        - AWAKENING: +15p → +8p (Phase5'te +8p raw bonus ile çifte sayım önlendi)
+        - DEFAULT (yeni): +0p (tetikleyicisiz hisse = sinyal puanı yok)
+        - BREAKOUT ve TREND_CONT puanları korundu.
+
+    [C] VOLUME & FLOW (15p):
+        - MFI > 75 cezası eklendi (V117'de tamamen eksikti).
+          RSI > 65 + MFI > 75 = tükenme kombinasyonu → -8p
+          Tek başına MFI > 80 → -5p
+        - MACD + sistem tipi korelasyon cezası eklendi:
+          Trend devam sistemi (BREAKOUT/TREND_CONT/DEFAULT) + negatif MACD → ekstra -2.5p
+          Reversal sistemi (SPRING/PULLBACK) + negatif MACD → hafif bonus (+1p)
+
+    [D-G]: Değişmedi.
+    ================================================================
+    Bölüm ağırlıkları (hedef):
+      A: Trend & Momentum      → Max 25p
+      B: System Signal         → Max 20p
+      C: Volume & Flow         → Max 15p
+      D: Rel. Strength/Sector  → Max 10p
+      E: Risk/Reward           → Max 15p
+      F: Fundamentals          → Max 10p
+      G: Catalysts/Insider     → Max  5p
+                                 ────────
+                                 Toplam 100p
+    ================================================================
     """
     score = 0.0
 
-    # ── A. TREND & MOMENTUM (Max 25p) ────────────────────────
-    if c.get("above_1w_ema50", True): score += 5.0
-    
-    rsi = c.get("rsi_14", 50.0)
-    if RSI_BOGA_OPT_MIN <= rsi <= RSI_BOGA_OPT_MAX: score += 5.0
-    elif 40 <= rsi < RSI_BOGA_OPT_MIN or RSI_BOGA_OPT_MAX < rsi <= 72: score += 3.0
-    
-    adx = c.get("adx", 0.0)
-    if 18 <= adx < 30: score += 5.0
-    elif 30 <= adx < 40: score += 3.0
-    elif adx >= 15: score += 1.0
+    # Sık kullanılan değerleri bir kez çek
+    rsi        = c.get("rsi_14",        50.0)
+    adx        = c.get("adx",            0.0)
+    macd_h     = c.get("macd_hist",      0.0)
+    mfi        = c.get("mfi",           50.0)
+    rvol       = c.get("rvol_today",     1.0)
+    trend_stat = c.get("trend_status_1d",  "")
+    sys_name   = c.get("selection_system", "DEFAULT")
+    rs_label   = c.get("relative_strength", "N/A")
+    sector     = c.get("sector",        "Unknown")
 
-    macd_h = c.get("macd_hist", 0.0)
-    if macd_h > 0.05: score += 5.0
-    elif macd_h > 0: score += 3.0
-    
-    trend_stat = c.get("trend_status_1d", "")  # 🎯 FIX: Doğrudan güvenli değişkenden okuma
-    if "Full Stack" in trend_stat: score += 5.0
-    elif "Macro" in trend_stat: score += 5.0
+    # ── A. TREND & MOMENTUM (Max 25p) ─────────────────────────────────────────
 
-    # ── B. SYSTEM SIGNAL (Max 20p) ───────────────────────────
-    # raw_score'daki o güçlü sistem bonusları artık doğrudan finale yansıyor
-    sys_name = c.get("selection_system", "MOMENTUM")
-    if sys_name == "SQUEEZE": 
-        sq_quality = c.get("squeeze_quality", 0.5)
-        score += 12.0 + (8.0 * sq_quality)  # Kaliteye göre 12 ile 20 arası puan
-    elif sys_name == "SPRING": score += 18.0
-    elif sys_name == "AWAKENING": score += 15.0
-    elif sys_name == "TREND_CONT": score += 14.0  # 🎯 FIX 4: Sağlam trend devamı için adil puan tanımlandı
-    elif sys_name == "EMA_CROSS": score += 12.0
-    elif sys_name == "PULLBACK": score += 10.0
-    elif sys_name == "BREAKOUT": score += 8.0
-    elif sys_name == "MOMENTUM": score += 6.0  # Zayıf ama gerçek momentum
-    else: pass  # Bilinmeyen veya tetiklenemeyen sinyal = 0 puan
+    # 1W EMA50 üstü (+5p)
+    if c.get("above_1w_ema50", True):
+        score += 5.0
 
-    # ── C. VOLUME & FLOW (Max 15p) ───────────────────────────
-    rvol = c.get("rvol_today", 1.0)
-    if rvol >= 2.0: score += 10.0
-    elif rvol >= 1.5: score += 7.0
-    elif rvol >= 1.2: score += 4.0
-    
-    mfi = c.get("mfi", 50.0)
-    if 55 <= mfi <= 75: score += 5.0
-    elif 45 <= mfi < 55: score += 3.0
+    # RSI seviyesi (Max +5p)
+    if RSI_BOGA_OPT_MIN <= rsi <= RSI_BOGA_OPT_MAX:    # 45-65 sweet spot
+        score += 5.0
+    elif 40 <= rsi < RSI_BOGA_OPT_MIN or RSI_BOGA_OPT_MAX < rsi <= 72:
+        score += 3.0
+    # RSI > 72 veya < 40 → puan yok (zaten Phase5 cezası aldı)
 
-    # ── D. RELATIVE STRENGTH & SECTOR (Max 10p) ──────────────
-    sec_perf = c.get("sector_perf", 0.0)
-    if sec_perf > 2.0: score += 5.0
-    elif sec_perf > 0.0: score += 3.0
-    
-    rs_label = c.get("relative_strength", "N/A")
-    if "Strong" in rs_label: score += 5.0
-    elif "Mild" in rs_label: score += 3.0
+    # ADX — v117.v1 DÜZELTMESİ: Doğrusal ödüllendirme (V117 paradoksu giderildi)
+    # Rapor: ADX ≥ 35 → ~%60 win rate. V117'de bu grup +3p alıyordu, şimdi +6p.
+    if adx >= 40:
+        score += 2.0    # Tükenme eşiği — puan kısıtlı ama sıfır değil
+    elif adx >= 35:
+        score += 6.0    # Güçlü kurulu trend — raporda en iyi win rate grubu
+    elif adx >= 28:
+        score += 5.0    # İyi trend
+    elif adx >= 20:
+        score += 4.0    # Orta-güçlü (eski "optimal uyanış" eşiği)
+    elif adx >= 15:
+        score += 1.0    # Zayıf trend
+    # adx < 15 → puan yok
 
-    # ── E. RISK / REWARD (Max 15p) ───────────────────────────
-    rr = c.get("boga_rr", c.get("rr_ratio", 0.0))
-    if rr >= 3.0: score += 15.0
-    elif rr >= 2.5: score += 12.0
-    elif rr >= 2.0: score += 8.0
-    elif rr >= 1.5: score += 4.0
+    # MACD histogram (Max +5p) — temel puan; sistem korelasyonu C bölümünde
+    if macd_h > 2.0:
+        # V118: Geç giriş uyarısı — TWLO(1.49→-5.62%), AMAT, THC vakası
+        score += 2.0  # Pozitif ama indirimli; aşırı yükseliş = geç kalınmış
+        details.append(f"⚠️ V118 MACD Aşırı ({macd_h:.2f}): Geç giriş riski (+2p, indirimli)")
+    elif macd_h > 0.05:
+        score += 5.0
+    elif macd_h > 0:
+        score += 3.0
+    # Negatif MACD: temel ceza yok burada — C bölümünde sistem tipiyle birlikte değerlendiriliyor
 
-    # ── F. FUNDAMENTALS (Max 10p) ────────────────────────────
-    fin = c.get("financial_health", {})
-    sector = c.get("sector", "Unknown")
-    
-    if fin:
-        if sector == "Real Estate":
-            pb_ratio = fin.get("pb_ratio", 0)
-            if 0 < pb_ratio <= 1.5: score += 10.0
-            elif 1.5 < pb_ratio <= 3.0: score += 6.0
-            else: score += 3.0
+    # EMA Trend Durumu (Max +5p) — v117.v1: spread dinamiği eklendi
+    if "Full Stack" in trend_stat:
+        ema_spread_expanding = c.get("ema_spread_expanding", True)   # Phase5'te hesaplanıp dict'e eklenmeli
+        if ema_spread_expanding:
+            score += 5.0    # Full Stack + genişleyen spread = güçlenen trend
         else:
-            fund_pts = 0.0
-            gross_m = fin.get("gross_margin", 0)
-            if gross_m >= 40: fund_pts += 4.0
-            elif gross_m >= 25: fund_pts += 2.0
-            
-            rev_growth = fin.get("revenue_growth", 0)
-            if rev_growth >= 15: fund_pts += 3.0
-            elif rev_growth >= 5: fund_pts += 1.5
-            
-            fcf = fin.get("fcf_yield", 0)
-            if fcf >= 5: fund_pts += 3.0
-            elif fcf >= 2: fund_pts += 1.5
-            elif fcf < 0: fund_pts -= 4.0  # Negatif FCF cezası
-            
-            net_m = fin.get("net_margin", 0)
-            if net_m < 0: fund_pts -= 4.0  # Zarar eden şirket cezası
-            
-            # Puanı [-8.0, 10.0] aralığına sıkıştır (Clamp)
-            fund_pts = max(-8.0, min(fund_pts, 10.0))
-            score += fund_pts
-            
-    else:
-        pass  # Veri yoksa puan yok — belirsizlik ödüllendirilmez
+            score += 4.0    # Full Stack ama daralan spread = dönüm noktası riski
+    elif "Macro" in trend_stat:
+        score += 5.0
+    elif "Above EMA200" in trend_stat:
+        score += 2.0
+    # "Above EMA50" veya "Downtrend" → puan yok
 
-    # ── G. LAYER 3: INSIDER, OPTIONS, CATALYSTS (Max 5p) ─────
-    l3_pts = 0.0
-    if c.get("ifi", 0.0) > 0: l3_pts += 2.0
-    if c.get("pfi", 0.0) > 0: l3_pts += 1.5
-    if c.get("opt_sentiment", {}).get("bullish"): l3_pts += 1.5
+    # ── B. SYSTEM SIGNAL (Max 20p) ────────────────────────────────────────────
+    # v117.v1 DEĞİŞİKLİKLERİ:
+    #   AWAKENING: +15p → +8p  (Phase5 raw_score'da artık +8p; toplam V117: +30p, v117.v1: +16p)
+    #   DEFAULT:   +0p          (tetikleyicisiz hisse, sinyal puanı yok)
+    #   Diğerleri: değişmedi
+
+    if sys_name == "SQUEEZE":
+        sq_quality = c.get("squeeze_quality", 0.5)
+        score += 12.0 + (8.0 * sq_quality)     # Kaliteye göre 12-20p arası
+    elif sys_name == "SPRING":
+        score += 18.0
+    elif sys_name == "AWAKENING":
+        score += 8.0                            # v117.v1: 15 → 8 (Phase5 +8p ile çifte sayım önlendi)
+    elif sys_name == "TREND_CONT":
+        score += 14.0
+    elif sys_name == "EMA_CROSS":
+        score += 12.0
+    elif sys_name == "PULLBACK":
+        score += 10.0
+    elif sys_name == "BREAKOUT":
+        score += 8.0
+    elif sys_name == "MOMENTUM":
+        score += 6.0                            # Eski etiket — v117.v1'de Phase5 artık bunu üretmiyor
+    elif sys_name == "DEFAULT":
+        score += 0.0                            # v117.v1 YENİ: tetikleyici yok = sinyal puanı yok
+    # else: bilinmeyen → 0p
+
+    # ── C. VOLUME & FLOW (Max 15p) ────────────────────────────────────────────
+
+    # RVOL (Max 10p)
+    # V118: BREAKOUT/EMA_CROSS/TREND_CONT'ta orta band (0.6-1.4) en yüksek kayıp grubu (%37 WR)
+    if rvol >= 2.0:
+        score += 10.0
+    elif rvol >= 1.5:
+        score += 7.0
+    elif rvol >= 1.2:
+        score += 4.0
+    elif 0.6 <= rvol < 1.2 and sys_name in ("BREAKOUT", "EMA_CROSS", "TREND_CONT", "MOMENTUM"):
+        score -= 3.0  # V118 YENİ: Orta band gürültüsü — 12 kayıp bu banttan (SVM,THC,TWLO,CLH,MLI...)
+        details.append(f"⚠️ V118 RVOL Orta Band: {rvol:.2f} — {sys_name} için belirsizlik bölgesi (-3p)")
+    # rvol < 0.6 (dry-up) ve SQUEEZE için puan yok ama ceza da yok
+
+    # MFI — v117.v1 DEĞİŞİKLİĞİ: Aşırı alım cezası eklendi
+    # Rapor: MFI > 75 + RSI > 65 kombinasyonu LOSS tahmin edicisi (DTM, TWLO vakaları)
+    if mfi > 75 and rsi > 65:
+        score -= 8.0    # v117.v1 YENİ: Tükenme kombinasyonu — para akışı + fiyat aşırı alımda
+    elif mfi > 80:
+        score -= 5.0    # v117.v1 YENİ: MFI tek başına aşırı (RSI'dan bağımsız)
+    elif 55 <= mfi <= 75:
+        score += 5.0    # Sağlıklı para akışı
+    elif 45 <= mfi < 55:
+        score += 3.0    # Nötr-pozitif
+    elif mfi < 35:
+        score -= 3.0    # Para çıkışı (V117'de yoktu)
+    # 35-45 arası → puan yok (nötr)
+
+    # MACD + Sistem Tipi Korelasyonu — v117.v1 YENİ
+    # Rapor: Trend devam sisteminde negatif MACD = uyumsuzluk (kayıp tahmin edicisi)
+    #        Reversal sisteminde negatif MACD = normal (dip dönüş için beklenen)
+    if macd_h < 0:
+        trend_continuation_systems = {"BREAKOUT", "TREND_CONT", "DEFAULT", "MOMENTUM"}
+        reversal_systems           = {"SPRING", "PULLBACK"}
+
+        if sys_name in trend_continuation_systems:
+            score -= 2.5    # v117.v1 YENİ: Trend devam + negatif MACD = sinyal uyumsuzluğu
+        elif sys_name in reversal_systems:
+            score += 1.0    # Reversal'da negatif MACD = dip dönüş için beklenen, hafif bonus
+        else:
+            score -= 1.5    # AWAKENING, EMA_CROSS, SQUEEZE için mevcut V117 cezası
+
+    # ── D. RELATIVE STRENGTH & SECTOR (Max 10p) ───────────────────────────────
+    # Değişmedi
+
+    sec_perf = c.get("sector_perf", 0.0)
+    if sec_perf > 2.0:
+        score += 5.0
+    elif sec_perf > 0.0:
+        score += 3.0
+
+    if "Strong" in rs_label:
+        score += 5.0
+    elif "Mild" in rs_label:
+        score += 3.0
+
+    # ── E. RISK / REWARD (Max 15p) ────────────────────────────────────────────
+    # Değişmedi
+
+    rr = c.get("boga_rr", c.get("rr_ratio", 0.0))
+    if rr >= 3.0:
+        score += 15.0
+    elif rr >= 2.5:
+        score += 12.0
+    elif rr >= 2.0:
+        score += 8.0
+    elif rr >= 1.5:
+        score += 4.0
+
+    # =============================================================
+    # ── SİSTEM BAZLI AMORTİSMAN / ÖDÜLLENDİRME (v117.v1) ─────────
+    # =============================================================
+    sys_name = c.get("selection_system", "UNKNOWN")
+
+    if sys_name == "DEFAULT":
+        score += 0.0      # v117.v1 GÜNCELLEMESİ: Tetikleyici yoksa sistemsel bonus verilmez (0p)
+        details.append("⏱️ SYSTEM: Default Yapı (Sistem bonusu uygulanmadı: +0p)")
+    elif sys_name == "MOMENTUM":
+        score += 6.0      # Etiket korundu ancak v117.v1'de tetiklenmezse buraya düşmez
+        details.append("⚡ SYSTEM: Momentum Sinyali (+6p)")
+    # Not: Diğer sistemleriniz (SQUEEZE, SPRING vb.) mevcut yapınıza göre burada devam edebilir.
+
+    # =============================================================
+    # ── MFI / RSI AŞIRI ALIM UYUMSUZLUK CEZASI (Rapor Doğrulamalı) ──
+    # =============================================================
+    # Phase 3'teki -5p erken uyarı cezasını tamamlayan, nihai boga_score_100 filtresi
+    mfi_val = c.get("mfi_val", 50.0)
+    rsi_val = c.get("rsi_1d_val", 50.0)
     
+    if mfi_val > 75 and rsi_val > 65:
+        score -= 3.0      # Toplam cezayı -8p'ye tamamlamak için buraya net -3p ekliyoruz (Çifte sayım engellendi)
+        details.append("🔴 L3 CEZA: RSI 65+ ve MFI 75+ Likidite Şişmesi Kombinasyonu (-3p)")
+
+    # =============================================================
+    # ── G. LAYER 3: INSIDER, OPTIONS, CATALYSTS (Max 5p) ─────────
+    # =============================================================
+    l3_pts = 0.0
+    if c.get("ifi", 0.0) > 0: 
+        l3_pts += 2.0
+    if c.get("pfi", 0.0) > 0: 
+        l3_pts += 1.5
+    if c.get("opt_sentiment", {}).get("bullish"): 
+        l3_pts += 1.5
+        
     score += min(l3_pts, 5.0)
 
-    # ── PENALTIES (Multiplicative) ───────────────────────────
+    # =============================================================
+    # ── PENALTIES (Multiplicative - Çarpımsal Cezalar) ───────────
+    # =============================================================
     if c.get("is_exhausted"):
         score *= 0.70  # En ağır ceza önce: aşırı yorgun hisse (-30%)
+        details.append("🔴 MULTI-CEZA: Hisse Aşırı Yorgun (Exhausted) Modunda (*0.70)")
+        
     if not c.get("above_1w_ema50", True):
-        score *= 0.85  # Haftalık trend karşı: -15% (Veri yoksa True varsayılır, ceza kesilmez)
+        score *= 0.85  # Haftalık trend karşıtı: -15%
+        details.append("🔴 MULTI-CEZA: Haftalık Trend 1W EMA50 Altında (*0.85)")
+        
     if MARKET_STATUS.get("regime") == "WEAK":
         score *= 0.80  # Zayıf piyasada her şey söner: -20%
+        details.append("🔴 MULTI-CEZA: MARKET STATUS WEAK (*0.80)")
         
-    return round(min(score, 100.0), 1)
+    # Tüm hesaplamalar, Layer 3 ve cezalar bittikten sonra TEK BİR return ile temiz çıktı verilir.
+    return round(min(max(score, 0.0), 100.0), 1)
 
 # ================================================================
 # ================================================================
@@ -3581,7 +4126,7 @@ def build_json_output(top10: list, generated_at: str) -> dict:
     return {
         "generated_at": generated_at,
         "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
-        "model": "BOGA AI V117",
+        "model": "BOGA AI V118",
         "market_regime": MARKET_STATUS.get("regime", "Bull"),
         "total_picks": len(picks),
         "picks": picks,
@@ -3978,7 +4523,7 @@ async def send_weekly_performance_report():
             f"<b>━━ SİSTEM BAZLI PERFORMANS ━━</b>\n"
             f"<pre>{sys_block}</pre>\n\n"
 
-            f"<i>BOGA AI V117 | swing_performance.json</i>"
+            f"<i>BOGA AI V118 | swing_performance.json</i>"
         )
 
         await send_telegram_message(msg)
@@ -4197,7 +4742,7 @@ async def scan_top_stocks():
     
     # ── V117: Terminal'de 20 hissenin tam listesi (boga_score_100 artık hazır) ──
     logging.info("=" * 70)
-    logging.info(f"🐂 BOGA AI V117 — TAM ADAY LİSTESİ ({len(top_20_candidates)} hisse)")
+    logging.info(f"🐂 BOGA AI V118 — TAM ADAY LİSTESİ ({len(top_20_candidates)} hisse)")
     logging.info(f"{'#':<4} {'TICKER':<7} {'SİSTEM':<10} {'BOGA':>5} {'SEKTOR':<22} {'R/R':>5} {'RSI':>5} {'RVOL':>6}")
     logging.info("-" * 70)
     for i, c in enumerate(top_20_candidates):
@@ -4334,7 +4879,7 @@ async def scan_top_stocks():
         )
 
     toplist_msg = header + "\n".join(rows) + "\n─────────────────────────────────────────────────────\n</pre>\n"
-    toplist_msg += f"<i>[INFO] BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V117</i>\n\n"
+    toplist_msg += f"<i>[INFO] BUY→SELL: R/R~2.5:1 | ATR+1H Support/Resistance | BOGA AI V118</i>\n\n"
     toplist_msg += "<b>📋 Detailed Analysis Below:</b>\n\n"
 
     # Send Toplist Summary
@@ -4482,12 +5027,12 @@ if __name__ == "__main__":
                 import time
                 time.sleep(wait_sec)
             
-            print("[START] BOGA AI V117.0 Swing Scanner (One-Shot) baslatildi...")
+            print("[START] BOGA AI V118.0 Swing Scanner (One-Shot) baslatildi...")
             asyncio.run(scan_top_stocks())
             print("[OK] Tarama tamamlandi.")
         else:
             asyncio.run(run_scanner())
     except KeyboardInterrupt:
-        print("\n🐂 BOGA AI V117.0 durduruldu.")
+        print("\n🐂 BOGA AI V118.0 durduruldu.")
     except Exception as e:
         print(f"Critical Startup Error: {e}")

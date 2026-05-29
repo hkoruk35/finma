@@ -57,6 +57,24 @@ def update_performance():
     pending_records = [r for r in history if r['result'] == 'PENDING']
     pending_tickers = list(set([r['ticker'] for r in pending_records]))
 
+    # ── Metadata Backfill: subsector/sector boş olan kayıtları doldur ──────────
+    meta_missing = [r for r in history if not r.get('subsector') or not r.get('sector') or r.get('sector') == 'Unknown']
+    if meta_missing:
+        log(f"Backfilling metadata for {len(meta_missing)} records with missing sector/subsector...")
+        for record in meta_missing:
+            ticker = record['ticker']
+            try:
+                meta = fetch_ticker_meta(ticker)
+                if not record.get('subsector') and meta.get('subsector'):
+                    record['subsector'] = meta['subsector']
+                if (not record.get('sector') or record['sector'] == 'Unknown') and meta.get('sector'):
+                    record['sector'] = meta['sector']
+                if (not record.get('company') or record['company'] == ticker) and meta.get('company'):
+                    record['company'] = meta['company']
+                time.sleep(0.2)
+            except Exception as e:
+                log(f"Metadata backfill error for {ticker}: {e}")
+
     if not pending_tickers:
         log("No pending trades to update.")
     else:

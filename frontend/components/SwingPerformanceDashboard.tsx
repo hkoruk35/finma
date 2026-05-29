@@ -29,8 +29,8 @@ interface Trade {
   sector: string;
   subsector: string;
   entry: number;
-  current_price: number | null;
   max_price: number | null;
+  sl_pct: number | null;
   return_pct: number | null;
   days: number | null;
   result: string;
@@ -896,62 +896,108 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           </div>
         </div>
 
-        {/* ── Mobile Card View ────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-6 md:hidden">
-          {visibleTrades.map((t, i) => {
-            const effRet = effectiveReturn(t);
-            const effRes = effectiveResult(t);
-            const resultCls = RESULT_COLORS[effRes] ?? "text-white";
-            const pnl = pnlFromReturn(effRet);
-            const slHit = slTriggered(t);
-            return (
-              <div key={i} className={`glass-card p-6 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"} relative overflow-hidden bg-[#0d1521]`}>
-                <div className="flex justify-between items-start mb-6">
-                  <div>
-                    <TickerHoverChart ticker={t.ticker}><Link href={`/stock/${t.ticker}`} className="text-4xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link></TickerHoverChart>
-                    <p className="text-[13px] font-black text-[#00d2ff] mt-2 uppercase tracking-widest">{t.date} · {t.sector}</p>
-                    {t.subsector && t.subsector !== t.sector && (
-                      <p className="text-[11px] font-bold text-white/50 mt-1 uppercase">{t.subsector}</p>
+        {/* ── Mobile Terminal List ─────────────────────────────────────────── */}
+        <div className="md:hidden rounded-xl overflow-hidden border border-[#1e2a3a] bg-[#080b12]">
+          {/* Terminal header */}
+          <div className="flex items-center gap-2 px-3 py-2 bg-[#0d1521] border-b border-[#1e2a3a]">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#ef4444]/60" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]/60" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]/60" />
+            </div>
+            <span className="text-[10px] font-mono text-slate-500 ml-1">swing_performance.log — {filtered.length} kayıt</span>
+          </div>
+          {/* Column labels */}
+          <div className="grid grid-cols-[1fr_52px_52px_52px_48px] gap-0 px-3 py-1.5 border-b border-[#1e2a3a] bg-[#0a0f1a]">
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider">TİCKER / SEKTÖR</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">GİRİŞ</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">PEAK</span>
+            <span className="text-[9px] font-bold text-[#22c55e]/60 uppercase tracking-wider text-right">RET%</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">SONUÇ</span>
+          </div>
+          {/* Rows */}
+          <div className="divide-y divide-[#1e2a3a]/60">
+            {visibleTrades.map((t, i) => {
+              const effRet = effectiveReturn(t);
+              const effRes = effectiveResult(t);
+              const slHit = slTriggered(t);
+              const pnl = pnlFromReturn(effRet);
+              const resultDot =
+                effRes === "WIN"     ? "bg-[#22c55e]" :
+                effRes === "LOSS"    ? "bg-[#ef4444]" :
+                effRes === "PENDING" ? "bg-[#3b82f6] animate-pulse" : "bg-slate-600";
+              const resultTxt =
+                effRes === "WIN"     ? "text-[#22c55e]" :
+                effRes === "LOSS"    ? "text-[#ef4444]" :
+                effRes === "PENDING" ? "text-[#3b82f6]" : "text-slate-400";
+              return (
+                <div key={i}
+                  className={`grid grid-cols-[1fr_52px_52px_52px_48px] gap-0 px-3 py-2 items-center
+                    ${slHit ? "bg-[#ef4444]/5" : i % 2 === 0 ? "bg-transparent" : "bg-white/[0.012]"}
+                    active:bg-[#1a2030] transition-colors`}
+                >
+                  {/* Col 1: Ticker + meta */}
+                  <div className="min-w-0 pr-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
+                      <TickerHoverChart ticker={t.ticker}>
+                        <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
+                          {t.ticker}
+                        </Link>
+                      </TickerHoverChart>
+                      {slHit && <span className="text-[8px] font-black text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
+                    </div>
+                    <div className="flex items-center gap-1 mt-0.5 flex-wrap">
+                      <span className="text-[9px] font-mono text-slate-600">{t.date.slice(5)}</span>
+                      {t.sector && t.sector !== "Unknown" && (
+                        <span className="text-[9px] text-[#00d2ff]/60 font-medium truncate max-w-[110px]">{t.sector}</span>
+                      )}
+                      {t.subsector && (
+                        <span className="text-[8px] text-slate-600 truncate max-w-[100px] hidden xs:block">{t.subsector}</span>
+                      )}
+                    </div>
+                    {t.days != null && t.result !== "PENDING" && (
+                      <span className="text-[8px] font-mono text-slate-600">{t.days}d{t.peak_date ? ` · ${t.peak_date.slice(5)}` : ""}</span>
                     )}
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <span className={`text-[11px] font-black px-4 py-1.5 rounded-lg uppercase tracking-widest border ${resultCls}`}>{effRes}</span>
-                    {slHit && <span className="text-[10px] font-black px-2 py-0.5 rounded bg-[#ef4444]/20 text-[#ef4444] border border-[#ef4444]/40">SL HIT</span>}
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-3 divide-x divide-white/20 border border-white/20 rounded-xl bg-black/40 overflow-hidden mb-6">
-                  <div className="py-4 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Entry</p>
-                    <p className="font-mono font-black text-white text-base">${fmt(t.entry)}</p>
-                  </div>
-                  <div className="py-4 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Peak/SL</p>
-                    <p className="font-mono font-black text-white text-base">{t.max_price != null ? `$${fmt(t.max_price)}` : "—"}</p>
-                  </div>
-                  <div className="py-4 px-1 text-center">
-                    <p className="text-[10px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Days</p>
-                    <p className="font-mono font-black text-white text-base">{t.days != null ? `${t.days}d` : "—"}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between pt-4 border-t border-white/20">
-                  <div>
-                    <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">Return (SL adj.)</p>
-                    <p className={`font-mono font-black text-3xl ${retColor(effRet)}`}>
-                      {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 1)}%` : effRet < 0 ? `${fmt(effRet, 1)}%` : "0.00%") : "—"}
-                    </p>
-                  </div>
+                  {/* Col 2: Entry */}
                   <div className="text-right">
-                    <p className="text-[11px] text-[#00d2ff] font-black uppercase tracking-widest mb-1">PnL/$1000</p>
-                    <p className={`font-mono font-black text-2xl ${retColor(pnl)}`}>
-                      {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
-                    </p>
+                    <span className="text-[11px] font-mono text-slate-400">${fmt(t.entry, 0)}</span>
+                  </div>
+
+                  {/* Col 3: Peak */}
+                  <div className="text-right">
+                    <span className="text-[11px] font-mono text-slate-300">
+                      {t.max_price != null ? `$${fmt(t.max_price, 0)}` : "—"}
+                    </span>
+                  </div>
+
+                  {/* Col 4: Return % + PnL */}
+                  <div className="text-right">
+                    <span className={`text-[12px] font-black font-mono leading-none ${retColor(effRet)}`}>
+                      {effRet != null
+                        ? (effRet > 0 ? `+${fmt(effRet, 1)}` : fmt(effRet, 1))
+                        : "—"}
+                    </span>
+                    {pnl != null && (
+                      <p className={`text-[8px] font-mono leading-none mt-0.5 ${retColor(pnl)}`}>
+                        {pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0"}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Col 5: Result */}
+                  <div className="flex items-center justify-end gap-1">
+                    <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${resultDot}`} />
+                    <span className={`text-[9px] font-black uppercase ${resultTxt}`}>
+                      {effRes === "PENDING" ? "PND" : effRes}
+                    </span>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
