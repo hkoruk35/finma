@@ -60,7 +60,7 @@ from bs4 import BeautifulSoup
 
 from ta.volatility import AverageTrueRange, BollingerBands
 from ta.trend import EMAIndicator, ADXIndicator, MACD
-from ta.volume import OnBalanceVolumeIndicator, MFIIndicator
+from ta.volume import OnBalanceVolumeIndicator
 from ta.momentum import RSIIndicator
 
 # ================================================================
@@ -485,8 +485,7 @@ async def build_atmaca_universe_full() -> List[str]:
                     rvol = (avg_vol_5 / avg_vol_30) if avg_vol_30 > 0 else 0.0
 
                     # SWING118: TREND_CONT (%70.6 WR) ve SQUEEZE için hacimsiz kuruma (VCP) sinyallerini kaçırmama filtresi
-                    close_arr = close.values
-                    is_squeeze_vcp_candidate = (-0.05 <= (close_arr[-1] - close_arr[-5]) / close_arr[-5] <= 0.09) if len(close_arr) >= 5 else False
+                    is_squeeze_vcp_candidate = (-0.05 <= (close_prices[-1] - close_prices[-5]) / close_prices[-5] <= 0.09) if len(close_prices) >= 5 else False
                     rvol_floor = 0.20 if is_squeeze_vcp_candidate else 0.55
 
                     if rvol < rvol_floor:
@@ -1670,8 +1669,7 @@ def calculate_profit_target(
     atr_value,
     is_exhausted=False,
     beta=1.0,
-    selection_system="DEFAULT",   # V117_v2: sistem bazlı SL floor için eklendi
-    df_1h=None                    # 1H veri: yapısal swing low için opsiyonel
+    selection_system="DEFAULT"   # V117_v2: sistem bazlı SL floor için eklendi
 ):
     """
     V117_v2 — Skor-Bağımsız Asimetrik TP/SL
@@ -1912,11 +1910,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         financial_health_data: dict = {}
         ret_1d_pct: float = 0.0
         squeeze_quality: float = 0.0
-        selection_system: str = "DEFAULT"  # Phase 5'te üzerine yazılır
-        bb_squeeze: bool = False           # Phase 5'te üzerine yazılır; squeeze_preview için erken başlangıç
-        ema_stack: bool = False            # Phase 5'te üzerine yazılır
-        mfi_val: float = 50.0             # Phase 3'te üzerine yazılır
-        macd_hist_val: float = 0.0        # Phase 3'te üzerine yazılır
 
         # =============================================================
         # PHASE 1A: TEMEL META FİLTRELER (cache — network yok)
@@ -1996,11 +1989,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         try:
             # Tamamlanmış haftalar (son kısmi bar hariç)
             weekly_close = close_1d.resample('W').last().dropna()
-            # yfinance multi-level columns → squeeze to 1D Series
-            if hasattr(weekly_close, 'squeeze'):
-                weekly_close = weekly_close.squeeze()
-            if isinstance(weekly_close, pd.DataFrame):
-                weekly_close = weekly_close.iloc[:, 0]
             weekly_close_safe = weekly_close.iloc[:-1] if len(weekly_close) > 1 else weekly_close
 
             if len(weekly_close_safe) >= 15:
@@ -2168,6 +2156,26 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             ema_spread_expanding = True   # Fallback: belirsizse genişliyor say
 
+        # Trend Durumu Puanlaması (Spread Dinamiği Entegreli)
+        if trend_durumu_1d == "Full Stack":
+            if ema_spread_expanding:
+                score += 16.0
+                details.append("🏆 1D TREND: Full Stack + Genişleyen Spread Yapısı (+16p)")
+            else:
+                score += 10.0
+                details.append("⚠️ 1D TREND: Full Stack ama Daralan Spread Dinamiği (+10p)")
+        elif trend_durumu_1d == "Macro Bullish":
+            score += 8.0
+            details.append("📈 1D TREND: Macro Bullish (+8p)")
+        elif trend_durumu_1d == "Above EMA200":
+            score += 4.0
+            details.append("📈 1D TREND: Above EMA200 (+4p)")
+        elif trend_durumu_1d == "Above EMA50":
+            score += 2.0
+            details.append("📈 1D TREND: Above EMA50 (+2p)")
+        else:
+            score -= 5.0
+            details.append("❌ 1D TREND: Downtrend (-5p)")
 
         # Bollinger & Squeeze Kontrolü
         bb_1d           = BollingerBands(close_1d, 20, 2)
@@ -2195,6 +2203,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             adx_series_1d = pd.Series(0.0, index=df_1d.index)
             adx_1d        = 0.0
 
+        if adx_1d >= 40:
+            score -= 3.0
+            details.append("⚠️ ADX 40+: Trend Tükenme Riski (-3p)")
+        elif adx_1d >= 35:
+            score += 6.0
+            details.append("🏆 ADX 35-40: Çok Güçlü Trend Eğilimi (+6p)")
+        elif adx_1d >= 28:
+            score += 4.0
+            details.append("🚀 ADX 28-35: Sağlıklı Trend Bölgesi (+4p)")
+        elif adx_1d >= 20:
+            score += 2.0
+            details.append("📈 ADX 20-28: Erken Trend Oluşumu (+2p)")
+        elif adx_1d >= 15:
+            score += 0.5
+            details.append("⏱️ ADX 15-20: Sığ Trend (+0.5p)")
+        else:
+            score -= 2.0
+            details.append("❌ ADX < 15: Yatay/Trendsiz Piyasa (-2p)")
 
         if len(ema20_1d) >= 10 and float(ema20_1d.iloc[-10]) > 0:
             ema20_slope_numeric = (float(ema20_1d.iloc[-1]) - float(ema20_1d.iloc[-10])) / float(ema20_1d.iloc[-10])
@@ -2261,7 +2287,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # ==========================================================================
         try:
             # ta kütüphanesi entegrasyonu güvenli hale getirildi
-            mfi_indicator = MFIIndicator(
+            mfi_indicator = MoneyFlowIndexIndicator(
                 high=high_1d, 
                 low=low_1d, 
                 close=close_1d, 
@@ -2280,6 +2306,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             logging.warning(f"⚠️ MFI hesaplama hatası: {e}. Varsayılan değer (50.0) atandı.")
             mfi_val = 50.0
 
+        # Erken uyarı filtresi ve boga_score_100 için 'mfi_val' kaydı
+        if mfi_val > 75 and rsi_quick > 65:
+            score -= 5.0  # Phase 3 içindeki raw_score erken uyarı cezası
+            details.append("🔴 ERKEN UYARI: RSI 65+ ve MFI 75+ Likidite Tükenme Riski (-5p)")
+            
 
         # MACD Hesaplama & v117.v1 Sistem Tipi Korelasyon Cezası Entegrasyonu
         try:
@@ -2831,7 +2862,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         elif cmf_val >= -0.05 and not (is_squeeze or is_spring):
             score -= 1.5;  details.append(f"⚠️ CMF: Hafif Dağıtım ({cmf_val:.3f})")
         # is_squeeze veya is_spring ise CMF hafif negatif tolere edilir — puan kesilmez
-        # MFI aşırı alım cezası: smart_money çağrısından sonra gerçek değerle uygulanıyor (aşağıda)
+
+        # MFI aşırı alım erken uyarısı — V117_v2
+        # boga_score_100'de -8p alacak; burada -5p raw_score cezası (çifte sayım değil, kümülatif etki)
+        # Rapor: DTM(MFI=81.4)→LOSS, TWLO(MFI=73.7)→LOSS vakaları
+        # mfi_val Phase3'te (satır ~2296) MoneyFlowIndexIndicator ile hesaplandı — gerçek değer kullanılıyor
+        if mfi_val > 75 and rsi_1d_val > 65:
+            score -= 5.0
+            details.append(f"🔴 MFI Tükenme: MFI {mfi_val:.1f} + RSI {rsi_1d_val:.1f} — Para akışı + fiyat aşırı alımda")
+        elif mfi_val > 80:
+            score -= 3.0
+            details.append(f"⚠️ MFI Yüksek: {mfi_val:.1f} — Tek başına aşırı alım")
 
         # Steady Momentum + HH/HL
         try:
@@ -2885,10 +2926,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             pass
 
-        # MFI — smart_money'den gerçek değeri al, cezayı gerçek değerle uygula
+        # MFI — smart_money'den gerçek değeri al
+        # (Yukarıdaki MFI erken uyarısı fallback 50.0 ile çalıştı — ceza burada retroaktif uygulanamaz,
+        #  ama boga_score_100 gerçek mfi_val ile çalışacak. Bir sonraki V117_v2 iterasyonunda
+        #  MFI erken uyarısını smart_money çağrısından SONRAYA taşımak daha doğru olur.)
         mfi_val = smart_money.get('mfi', 50.0)
 
-        # V117_v2: MFI aşırı alım cezası — smart_money sonrası gerçek değerle (tek uygulama)
+        # V117_v2: MFI cezasını smart_money çağrısından sonra uygula (gerçek değerle)
         if mfi_val > 75 and rsi_1d_val > 65:
             score -= 5.0
             details.append(f"🔴 MFI Tükenme: MFI {mfi_val:.1f} + RSI {rsi_1d_val:.1f} — Para akışı + fiyat aşırı alımda")
@@ -2928,11 +2972,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # TP/SL R/R — 1D bazlı erken eleme
         tp1, tp2, tp3, stop_loss = calculate_profit_target(
-            current_price, atr_1d,
-            is_exhausted=is_exhausted,
-            beta=beta,
-            selection_system=selection_system,
-            df_1h=None  # Phase 4'te 1H henüz yüklenmedi; yapısal stop kullanılmaz
+            current_price, atr_1d, is_exhausted=is_exhausted, beta=beta
+            selection_system=selection_system
         )
         risk              = max(current_price - stop_loss, 0.0)
         reward            = max(tp2 - current_price, 0.0)
@@ -3683,7 +3724,6 @@ def compute_boga_score_100(c: dict) -> float:
     ================================================================
     """
     score = 0.0
-    details = c.get("details", [])
 
     # Sık kullanılan değerleri bir kez çek
     rsi        = c.get("rsi_14",        50.0)
