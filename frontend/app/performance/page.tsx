@@ -1,4 +1,4 @@
-import { getMasterData, getSwingPerformance } from "@/lib/data";
+import { getMasterData, getSwingPerformance, getSwingAllPicks } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
@@ -14,9 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default async function SwingPerformancePage() {
-  const [master, performanceData] = await Promise.all([
+  const [master, performanceData, swingPicksData] = await Promise.all([
     getMasterData(),
-    getSwingPerformance()
+    getSwingPerformance(),
+    getSwingAllPicks(),
   ]);
 
   if (!performanceData) {
@@ -24,7 +25,9 @@ export default async function SwingPerformancePage() {
   }
 
   const history: any[] = performanceData.history ?? [];
-  
+  const todayPicks = swingPicksData?.picks ?? [];
+  const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
+
   return (
     <div className="min-h-screen flex flex-col bg-[#080b12]">
       <Header />
@@ -58,7 +61,7 @@ export default async function SwingPerformancePage() {
 
         {/* Dashboard Client Component */}
         <div className="relative z-10">
-          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} />
+          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} />
         </div>
       </main>
 

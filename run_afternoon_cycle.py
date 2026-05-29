@@ -125,26 +125,22 @@ def main():
         run_bot("swing117_boga.py", ["--oneshot", "--now"], timeout=SWING_TIMEOUT_SEC)
 
     # 2. Copy swing files to PUBLIC ROOT (frontend loads from here)
+    # NOTE: swing117_boga.py writes swing_picks.json, swing_all_picks.json, swing_table.json
+    # directly to frontend/public/ — do NOT copy from data/latest/ as it would overwrite
+    # today's fresh data with yesterday's stale data.
+    # Only copy swing_performance.json from data/latest/ if it doesn't exist in public/ yet.
     import shutil
-    swing_files_to_copy = [
-        ("swing_picks.json", "swing_picks.json"),
-        ("swing_all_picks.json", "swing_all_picks.json"),
-        ("swing_table.json", "swing_table.json"),
-        ("swing_performance.json", "swing_performance.json"),
-    ]
-
     public_latest = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
     public_root = os.path.join(FINMA_DIR, "frontend", "public")
 
-    for src_name, dst_name in swing_files_to_copy:
-        src_path = os.path.join(public_latest, src_name)
-        dst_path = os.path.join(public_root, dst_name)
-        if os.path.exists(src_path):
-            try:
-                shutil.copy2(src_path, dst_path)
-                log.info(f"📋 Copied {src_name} to public/")
-            except Exception as e:
-                log.warning(f"⚠️ Could not copy {src_name}: {e}")
+    perf_src = os.path.join(public_latest, "swing_performance.json")
+    perf_dst = os.path.join(public_root, "swing_performance.json")
+    if os.path.exists(perf_src) and not os.path.exists(perf_dst):
+        try:
+            shutil.copy2(perf_src, perf_dst)
+            log.info("📋 Copied swing_performance.json to public/ (initial setup)")
+        except Exception as e:
+            log.warning(f"⚠️ Could not copy swing_performance.json: {e}")
 
     # 3. Swing Performance Update
     run_bot("update_swing_performance.py")

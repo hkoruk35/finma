@@ -1,13 +1,13 @@
-name: Daily Swing Price Update
+name: Daily Swing Performance Update
 
 on:
   schedule:
-    # Run at 9 AM UTC every day
-    - cron: '0 9 * * *'
+    # Run at 22:00 UTC (18:00 NY) — after market close, after afternoon cycle has run
+    - cron: '0 22 * * 1-5'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
-  update-prices:
+  update-performance:
     runs-on: ubuntu-latest
     name: Update Swing Performance Prices
     steps:
@@ -23,8 +23,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install yfinance pandas
 
-      - name: Run price update
-        run: python3 update_swing_prices.py
+      - name: Run performance update
+        run: python3 update_swing_performance.py
 
       - name: Commit and push changes
         run: |
@@ -34,6 +34,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: update swing performance prices [bot]"
+            git commit -m "Data: Daily Performance Update $(date -u '+%Y-%m-%d') [bot]"
             git push
           fi

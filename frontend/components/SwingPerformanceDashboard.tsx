@@ -36,9 +36,28 @@ interface Trade {
   peak_date: string | null;
 }
 
+interface SwingPick {
+  ticker: string;
+  company?: string;
+  sector?: string;
+  score: number;
+  rank?: number;
+  current_price?: number;
+  buy_zone?: { low: number; high: number };
+  profit_zone?: { low: number; high: number };
+  stop_zone?: { low: number; high: number };
+  rsi?: number;
+  adx?: number;
+  rvol?: number;
+  trend_status?: string;
+  holding_period?: string;
+}
+
 interface Props {
   initialHistory: Trade[];
   stats?: PerformanceStats;
+  todayPicks?: SwingPick[];
+  picksGeneratedAt?: string;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -65,7 +84,7 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 
-export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats }: Props) {
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt }: Props) {
   const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -82,6 +101,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     return t.result === "LOSS";
   };
   const dashboardRef = useRef<HTMLDivElement>(null);
+  const [showTodayPicks, setShowTodayPicks] = useState(false);
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
   const [selectedYear,      setSelectedYear]      = useState("All");
@@ -508,16 +528,39 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <h2 className="text-xl font-black text-white italic uppercase tracking-tight">BOGA AI <span className="text-[#3b82f6]">SWING ENGINE</span></h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
               Geçmiş Dönem Performans Özeti · <span className="text-[#f59e0b] font-bold">Dinamik Stop-Loss (AI)</span>
-              {lastUpdated && <span className="ml-2 opacity-50">· Son Güncelleme: {formatLastUpdated(lastUpdated)}</span>}
             </p>
+            <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+              {lastUpdated && (
+                <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
+                  <svg className="w-3 h-3 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  Performans: {formatLastUpdated(lastUpdated)}
+                </span>
+              )}
+              {picksGeneratedAt && (
+                <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
+                  <svg className="w-3 h-3 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                  Swing Adayları: {formatLastUpdated(picksGeneratedAt)}
+                </span>
+              )}
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-xs flex-wrap">
             <span className="px-3 py-1 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">
               {serverStats?.stop_loss_pct || "Dynamic SL"}
             </span>
             <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
               {stats.completedCount} Completed
             </span>
+            {todayPicks.length > 0 && (
+              <button
+                onClick={() => setShowTodayPicks(v => !v)}
+                className="px-3 py-1 rounded-full bg-[#3b82f6]/15 border border-[#3b82f6]/40 text-[#3b82f6] font-bold hover:bg-[#3b82f6]/25 transition-colors flex items-center gap-1.5"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+                Genel İstatistikler
+                <span className="text-[10px] opacity-60">({todayPicks.length})</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -608,6 +651,118 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           </div>
         </div>
       </div>
+
+      {/* ── Bugünkü Swing Adayları Paneli ───────────────────────────────── */}
+      {showTodayPicks && todayPicks.length > 0 && (
+        <div className="rounded-2xl overflow-hidden border border-[#3b82f6]/20 bg-[#0a1628] shadow-2xl relative">
+          <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#3b82f6] via-[#6366f1] to-[#3b82f6]" />
+          {/* Panel Header */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#1e2a3a]">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_10px_#3b82f6] animate-pulse" />
+              <div>
+                <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.25em]">Güncel Veriler</p>
+                <h3 className="text-base font-black text-white uppercase tracking-tight">
+                  Bugünkü Swing Adayları
+                  <span className="ml-2 text-[#3b82f6]">({todayPicks.length} hisse)</span>
+                </h3>
+              </div>
+              {picksGeneratedAt && (
+                <span className="hidden md:flex items-center gap-1.5 text-[10px] font-bold text-slate-500 ml-2">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  {formatLastUpdated(picksGeneratedAt)}
+                </span>
+              )}
+            </div>
+            <button
+              onClick={() => setShowTodayPicks(false)}
+              className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+            >
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              Gizle
+            </button>
+          </div>
+          {/* Picks Grid */}
+          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            {todayPicks.map((pick, i) => {
+              const scoreColor = pick.score >= 80 ? "text-[#f59e0b]" : pick.score >= 70 ? "text-[#3b82f6]" : "text-[#22c55e]";
+              const scoreBorder = pick.score >= 80 ? "border-[#f59e0b]/30" : pick.score >= 70 ? "border-[#3b82f6]/30" : "border-[#22c55e]/30";
+              const scoreBg = pick.score >= 80 ? "bg-[#f59e0b]/10" : pick.score >= 70 ? "bg-[#3b82f6]/10" : "bg-[#22c55e]/10";
+              return (
+                <Link key={i} href={`/stock/${pick.ticker}`}
+                  className="rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <p className="text-base font-black text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p>
+                      {pick.company && (
+                        <p className="text-[10px] text-slate-500 font-medium truncate max-w-[130px]">{pick.company}</p>
+                      )}
+                    </div>
+                    <div className={`px-2 py-1 rounded-lg text-[11px] font-black ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
+                      {pick.score.toFixed(0)}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5 text-center">
+                    {pick.buy_zone && (
+                      <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                        <p className="text-[8px] text-[#22c55e] font-bold uppercase mb-0.5">Giriş</p>
+                        <p className="text-[10px] font-mono font-black text-white">
+                          ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
+                        </p>
+                      </div>
+                    )}
+                    {pick.profit_zone && (
+                      <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                        <p className="text-[8px] text-[#3b82f6] font-bold uppercase mb-0.5">Hedef</p>
+                        <p className="text-[10px] font-mono font-black text-white">
+                          ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
+                        </p>
+                      </div>
+                    )}
+                    {pick.stop_zone && (
+                      <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                        <p className="text-[8px] text-[#ef4444] font-bold uppercase mb-0.5">Stop</p>
+                        <p className="text-[10px] font-mono font-black text-white">
+                          ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+                    {pick.rsi != null && (
+                      <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
+                        RSI {pick.rsi.toFixed(0)}
+                      </span>
+                    )}
+                    {pick.adx != null && (
+                      <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
+                        ADX {pick.adx.toFixed(0)}
+                      </span>
+                    )}
+                    {pick.sector && (
+                      <span className="text-[9px] font-bold text-[#00d2ff] bg-[#00d2ff]/5 px-1.5 py-0.5 rounded truncate max-w-[80px]">
+                        {pick.sector}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="px-6 py-3 border-t border-[#1e2a3a] flex items-center justify-between">
+            <p className="text-[10px] text-slate-500 font-medium">
+              Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır.
+            </p>
+            <button
+              onClick={() => setShowTodayPicks(false)}
+              className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+            >
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              Gizle
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ── Filters ─────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap gap-3 mb-8 items-center">
