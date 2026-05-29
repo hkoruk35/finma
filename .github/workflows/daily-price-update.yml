@@ -1,9 +1,9 @@
-name: Daily Swing Performance Update
+name: Swing Performance Update
 
 on:
   schedule:
-    # Run at 22:00 UTC (18:00 NY) — after market close, after afternoon cycle has run
-    - cron: '0 22 * * 1-5'
+    # Every 2 hours during market hours (Mon-Fri, 14:00–22:00 UTC = 10:00-18:00 ET)
+    - cron: '0 14,16,18,20,22 * * 1-5'
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
