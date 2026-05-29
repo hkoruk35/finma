@@ -101,7 +101,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     return t.result === "LOSS";
   };
   const dashboardRef = useRef<HTMLDivElement>(null);
-  const [showTodayPicks, setShowTodayPicks] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
   const [selectedYear,      setSelectedYear]      = useState("All");
@@ -551,19 +551,18 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
               {stats.completedCount} Completed
             </span>
-            {todayPicks.length > 0 && (
-              <button
-                onClick={() => setShowTodayPicks(v => !v)}
-                className="px-3 py-1 rounded-full bg-[#3b82f6]/15 border border-[#3b82f6]/40 text-[#3b82f6] font-bold hover:bg-[#3b82f6]/25 transition-colors flex items-center gap-1.5"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-                Genel İstatistikler
-                <span className="text-[10px] opacity-60">({todayPicks.length})</span>
-              </button>
-            )}
+            <button
+              onClick={() => setShowStats(v => !v)}
+              className={`px-3 py-1 rounded-full border font-bold transition-colors flex items-center gap-1.5 ${showStats ? "bg-[#3b82f6]/25 border-[#3b82f6]/60 text-[#3b82f6]" : "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6] hover:bg-[#3b82f6]/20"}`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+              Genel İstatistikler
+              {todayPicks.length > 0 && <span className="text-[10px] opacity-60">({todayPicks.length})</span>}
+            </button>
           </div>
         </div>
 
+        {showStats && <>
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
           <div className="p-5 text-center">
@@ -650,10 +649,21 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
+        {/* Gizle butonu */}
+        <div className="flex justify-end px-6 py-3 border-t border-white/5">
+          <button
+            onClick={() => setShowStats(false)}
+            className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+          >
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            Gizle
+          </button>
+        </div>
+        </>}
       </div>
 
       {/* ── Bugünkü Swing Adayları Paneli ───────────────────────────────── */}
-      {showTodayPicks && todayPicks.length > 0 && (
+      {showStats && todayPicks.length > 0 && (
         <div className="rounded-2xl overflow-hidden border border-[#3b82f6]/20 bg-[#0a1628] shadow-2xl relative">
           <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#3b82f6] via-[#6366f1] to-[#3b82f6]" />
           {/* Panel Header */}
@@ -675,7 +685,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               )}
             </div>
             <button
-              onClick={() => setShowTodayPicks(false)}
+              onClick={() => setShowStats(false)}
               className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -754,7 +764,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır.
             </p>
             <button
-              onClick={() => setShowTodayPicks(false)}
+              onClick={() => setShowStats(false)}
               className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
