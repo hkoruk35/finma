@@ -4,6 +4,7 @@
  *
  * Routes:
  *   GET /api/data/master.json
+ *   GET /api/data/latest/master.json   ← "latest" prefix is stripped automatically
  *   GET /api/data/all_tickers_list.json
  *   GET /api/data/stocks/AAPL.json
  */
@@ -12,15 +13,27 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
 
-// Bot writes data to: boga_ai/.claude/worktrees/clever-diffie/transfer/latest/
-// In a worktree, this is at: boga_ai/transfer/latest (after relative resolution)
-// frontend/ is at: boga_ai/.claude/worktrees/clever-diffie/frontend/
-// Path from frontend directory:
-//   - Up 1: .claude/worktrees/clever-diffie/
-//   - Add transfer/latest: .claude/worktrees/clever-diffie/transfer/latest
-const DATA_ROOT = process.env.FINMA_DATA_PATH
+// Primary: bot writes to transfer/latest/ (local dev)
+// Fallback: public/data/latest/ (Vercel — committed to git)
+const TRANSFER_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
   : path.resolve(process.cwd(), "..", "transfer", "latest");
+
+const PUBLIC_ROOT = path.resolve(process.cwd(), "public", "data", "latest");
+
+function sanitize(content: string): string {
+  return content
+    .replace(/:\s*NaN/g, ": null")
+    .replace(/:\s*Infinity/g, ": null")
+    .replace(/:\s*-Infinity/g, ": null");
+}
+
+function readFile(fullPath: string): string | null {
+  try {
+    if (fs.existsSync(fullPath)) return fs.readFileSync(fullPath, "utf-8");
+  } catch {}
+  return null;
+}
 
 export async function GET(
   req: NextRequest,
@@ -28,23 +41,33 @@ export async function GET(
 ) {
   const { path: pathSegments } = await params;
 
-  // Security: only allow .json files, no path traversal
-  const filePath = pathSegments.join("/");
-  if (!filePath.endsWith(".json") && !pathSegments.some(s => s.includes("."))) {
-     // Allow directory traversal for now if it's just a file check, but we usually want .json
-  }
-  
-  if (filePath.includes("..")) {
+  // Security: no path traversal
+  if (pathSegments.join("/").includes("..")) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  // If the path starts with "latest" and we are already using the transfer root, 
-  // path.join(DATA_ROOT, "latest", ...) will work.
-  const fullPath = path.join(DATA_ROOT, ...pathSegments);
+  // Strip leading "latest" segment — DATA_ROOT already points to the latest dir
+  const segments = pathSegments[0] === "latest" ? pathSegments.slice(1) : pathSegments;
 
-  // Check file exists
-  if (!fs.existsSync(fullPath)) {
-    console.warn(`[data-api] File not found: ${fullPath}`);
+  if (segments.length === 0) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  // Try transfer root first, then public/data/latest fallback
+  const candidates = [
+    path.join(TRANSFER_ROOT, ...segments),
+    path.join(PUBLIC_ROOT, ...segments),
+  ];
+
+  let raw: string | null = null;
+  let usedPath = "";
+  for (const p of candidates) {
+    raw = readFile(p);
+    if (raw) { usedPath = p; break; }
+  }
+
+  if (!raw) {
+    console.warn(`[data-api] File not found. Tried:\n  ${candidates.join("\n  ")}`);
     return NextResponse.json(
       { error: "Data not available. Bot may not have run yet." },
       { status: 404 }
@@ -52,25 +75,15 @@ export async function GET(
   }
 
   try {
-    let content = fs.readFileSync(fullPath, "utf-8");
-
-    // The bot sometimes writes Python NaN/Infinity values which are invalid JSON.
-    // Replace them with null before parsing.
-    content = content
-      .replace(/:\s*NaN/g, ": null")
-      .replace(/:\s*Infinity/g, ": null")
-      .replace(/:\s*-Infinity/g, ": null");
-
-    const json = JSON.parse(content);
-
+    const json = JSON.parse(sanitize(raw));
     return NextResponse.json(json, {
       headers: {
         "Cache-Control": "public, max-age=60, stale-while-revalidate=300",
-        "X-Data-Source": "boga_ai-bot",
+        "X-Data-Source": usedPath.includes("public") ? "static" : "bot",
       },
     });
   } catch (e) {
-    console.error(`[data-api] Error reading ${fullPath}:`, e);
+    console.error(`[data-api] Parse error for ${usedPath}:`, e);
     return NextResponse.json({ error: "Failed to read data file" }, { status: 500 });
   }
 }

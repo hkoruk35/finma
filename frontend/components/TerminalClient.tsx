@@ -593,10 +593,15 @@ export default function TerminalClient() {
   }, []);
 
   // ── Fetch Option Picks ──────────────────────────────────────────────────
+  // Use static public file directly — always up-to-date after each bot deploy
   useEffect(() => {
     async function loadOptions() {
       try {
-        const res = await fetch("/api/data/latest/options_picks.json?v=" + Date.now());
+        const v = Date.now();
+        // Primary: static public file (works on Vercel after git deploy)
+        let res = await fetch(`/options_picks.json?v=${v}`);
+        // Fallback: API route (works in local dev via transfer/latest)
+        if (!res.ok) res = await fetch(`/api/data/options_picks.json?v=${v}`);
         if (res.ok) {
           const json = await res.json();
           setOptionPicks(json.picks || []);
