@@ -437,7 +437,6 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
               </div>
             )}
           </>
-          </>
         )}
       </main>
 
