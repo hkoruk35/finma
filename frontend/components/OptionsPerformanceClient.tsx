@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { OptionsOutcomes, OptionPosition } from "@/lib/data";
+import TickerHoverChart from "./TickerHoverChart";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -307,9 +308,11 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                     <tr key={p.id} className={`hover:bg-white/[0.04] transition-colors ${isOpen ? "" : "opacity-80"}`}>
                       <TD cls="text-slate-500">{p.scan_date}</TD>
                       <TD cls="text-white font-black">
-                        <Link href={`/stock/${p.ticker}`} className="hover:text-[#3b82f6] transition-colors">
-                          {p.ticker}
-                        </Link>
+                        <TickerHoverChart ticker={p.ticker}>
+                          <Link href={`/stock/${p.ticker}`} className="hover:text-[#3b82f6] transition-colors">
+                            {p.ticker}
+                          </Link>
+                        </TickerHoverChart>
                       </TD>
                       <TD center cls={p.strategy === "institutional" ? "text-purple-400 font-bold text-[10px]" : "text-amber-400 font-bold text-[10px]"}>
                         {p.strategy === "institutional" ? "INST." : "ASYM."}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { formatPrice } from "@/lib/data";
+import TickerHoverChart from "./TickerHoverChart";
 import { LANG_CONFIG } from "@/lib/analysis-langs";
 import { useEffect, useState } from "react";
 import MiniChart from "./stock/MiniChart";
@@ -147,7 +148,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                 {/* Ticker & Company */}
                 <div className={`${minimal ? 'mb-3' : 'mb-4'} min-h-[60px]`}>
                   <div className={`${minimal ? 'text-3xl md:text-xl' : 'text-4xl md:text-2xl'} font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
-                    {isLocked ? 'XXXX' : item.ticker}
+                    {isLocked ? 'XXXX' : <TickerHoverChart ticker={item.ticker}>{item.ticker}</TickerHoverChart>}
                   </div>
                   <div className={`text-xs md:text-[10px] font-bold text-[#00d2ff] tracking-wider mt-1 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
                     {isLocked 

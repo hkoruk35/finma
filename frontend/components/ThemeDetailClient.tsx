@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import TickerHoverChart from "./TickerHoverChart";
 
 interface ThemeDetailClientProps {
   themeName: string;
@@ -167,7 +168,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                   return (
                     <tr key={stock.ticker} className="hover:bg-white/[0.04] transition-colors group">
                       <td className="px-4 py-3 text-[11px] font-black text-white border-b border-white/[0.03] flex items-center gap-1.5">
-                        <Link href={`/stock/${stock.ticker}`} className="hover:text-[#3b82f6] transition-colors">{stock.ticker}</Link>
+                        <TickerHoverChart ticker={stock.ticker}><Link href={`/stock/${stock.ticker}`} className="hover:text-[#3b82f6] transition-colors">{stock.ticker}</Link></TickerHoverChart>
                         {isCustom && (
                           <span className="text-[7px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1 py-0.5 rounded uppercase font-black tracking-widest">
                             Custom

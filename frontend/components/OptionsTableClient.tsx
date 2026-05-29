@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { OptionPick } from "@/lib/data";
+import TickerHoverChart from "./TickerHoverChart";
 
 function n(v: any, d = 2): string {
   if (v == null || v === "" || isNaN(Number(v))) return "—";
@@ -299,7 +300,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                       <TD cls={cIdx === 0 ? "text-slate-500" : "text-transparent"}>{cIdx === 0 ? raw.date : raw.date}</TD>
                       <TD cls={cIdx === 0 ? "text-white font-black" : "text-slate-700"}>
                         {cIdx === 0 ? (
-                          <Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link>
+                          <TickerHoverChart ticker={raw.ticker}><Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link></TickerHoverChart>
                         ) : raw.ticker}
                       </TD>
                       <TD center cls={cIdx === 0 ? `font-black ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? raw.score.toFixed(0) : ""}</TD>

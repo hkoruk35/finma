@@ -3,6 +3,7 @@
 import { useState, useMemo, useDeferredValue, useRef } from "react";
 import Link from "next/link";
 import jsPDF from "jspdf";
+import TickerHoverChart from "./TickerHoverChart";
 
 const PAGE_SIZE = 50;
 
@@ -703,7 +704,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   className="rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <p className="text-base font-black text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p>
+                      <TickerHoverChart ticker={pick.ticker}><p className="text-base font-black text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p></TickerHoverChart>
                       {pick.company && (
                         <p className="text-[10px] text-slate-500 font-medium truncate max-w-[130px]">{pick.company}</p>
                       )}
@@ -907,7 +908,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <div key={i} className={`glass-card p-6 border-l-4 ${slHit ? "border-l-[#ef4444]" : "border-l-[#3b82f6]"} relative overflow-hidden bg-[#0d1521]`}>
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <Link href={`/stock/${t.ticker}`} className="text-4xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link>
+                    <TickerHoverChart ticker={t.ticker}><Link href={`/stock/${t.ticker}`} className="text-4xl font-black text-[#3b82f6] hover:underline tracking-tighter uppercase">{t.ticker}</Link></TickerHoverChart>
                     <p className="text-[13px] font-black text-[#00d2ff] mt-2 uppercase tracking-widest">{t.date} · {t.sector}</p>
                     {t.subsector && t.subsector !== t.sector && (
                       <p className="text-[11px] font-bold text-white/50 mt-1 uppercase">{t.subsector}</p>
@@ -996,7 +997,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <tr key={i} className={`hover:bg-[#1a2030]/50 transition-colors ${slHit ? "bg-[#ef4444]/5" : ""}`}>
                       <td className="px-4 py-3 text-white">{t.date}</td>
                       <td className="px-4 py-3">
-                        <Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">{t.ticker}</Link>
+                        <TickerHoverChart ticker={t.ticker}><Link href={`/stock/${t.ticker}`} className="font-bold text-[#3b82f6] hover:underline">{t.ticker}</Link></TickerHoverChart>
                         {t.company && t.company !== t.ticker && (
                           <p className="text-[9px] text-white truncate">{t.company}</p>
                         )}

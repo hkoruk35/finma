@@ -35,6 +35,7 @@ function ScoreBadge({ score }: { score: number }) {
 }
 
 import SwingTableActions from "@/components/SwingTableActions";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 export default async function SwingPicksPage({ searchParams }: { searchParams: Promise<{ date?: string }> }) {
   const { date: selectedDate } = await searchParams;
@@ -166,9 +167,11 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                       </td>
                       <td className="px-3 py-2.5">
                         <Link href={`/stock/${pick.ticker}`} className="group">
-                          <div className="text-white font-black text-sm tracking-tight group-hover:text-[#3b82f6] transition-colors">
-                            {pick.ticker}
-                          </div>
+                          <TickerHoverChart ticker={pick.ticker}>
+                            <div className="text-white font-black text-sm tracking-tight group-hover:text-[#3b82f6] transition-colors">
+                              {pick.ticker}
+                            </div>
+                          </TickerHoverChart>
                           <div className="text-[#00d2ff] text-[10px] truncate max-w-[120px]">{pick.company}</div>
                         </Link>
                       </td>
@@ -239,7 +242,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
 
                   <div className="flex items-start justify-between mb-5">
                     <Link href={`/stock/${pick.ticker}`} className="group flex-1">
-                      <div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5 group-hover:text-[#3b82f6] transition-colors">{pick.ticker}</div>
+                      <TickerHoverChart ticker={pick.ticker}><div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5 group-hover:text-[#3b82f6] transition-colors">{pick.ticker}</div></TickerHoverChart>
                       <div className="text-[#00d2ff] text-xs font-bold uppercase tracking-wider opacity-80">{pick.company}</div>
                     </Link>
                     <div className="scale-125 origin-right">

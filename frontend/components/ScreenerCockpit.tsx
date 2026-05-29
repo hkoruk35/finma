@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import ScreenerChart from "./screener/ScreenerChart";
+import TickerHoverChart from "./TickerHoverChart";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -690,7 +691,7 @@ export default function ScreenerCockpit() {
                         onMouseEnter={e => (e.currentTarget.style.background = "#0d1117")}
                         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                         <td style={{ padding: "8px 11px" }}>
-                          <div style={{ fontWeight: 700, fontSize: 13, color: "#f1f5f9" }}>{stock.ticker}</div>
+                          <TickerHoverChart ticker={stock.ticker}><div style={{ fontWeight: 700, fontSize: 13, color: "#f1f5f9", display: "inline" }}>{stock.ticker}</div></TickerHoverChart>
                           <div style={{ fontSize: 10, color: "#7c8fa6", marginTop: 2 }}>{stock.company.length > 16 ? stock.company.slice(0, 16) + "…" : stock.company}</div>
                         </td>
                         <td style={{ padding: "8px 11px" }}><ScoreBar score={stock.boga_score} grade={stock.grade} /></td>
