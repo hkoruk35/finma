@@ -3,12 +3,12 @@
     "total_picks": 950,
     "completed_count": 922,
     "pending_count": 28,
-    "win_rate": 55.7,
+    "win_rate": 55.6,
     "avg_return_pct": 1.0,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
     "last_updated": "2026-05-29T14:00:02",
-    "above_5pct_rate": 49.9,
-    "above_10pct_rate": 2.9
+    "above_5pct_rate": 43.4,
+    "above_10pct_rate": 2.4
   },
   "history": [
     {

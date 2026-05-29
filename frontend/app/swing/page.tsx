@@ -1,4 +1,4 @@
-import { getMasterData, getSwingAllPicks, getSwingArchiveDates } from "@/lib/data";
+import { getMasterData, getSwingAllPicks, getSwingArchiveDates, getOptionsData } from "@/lib/data";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -40,10 +40,11 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 export default async function SwingPicksPage({ searchParams }: { searchParams: Promise<{ date?: string }> }) {
   const { date: selectedDate } = await searchParams;
 
-  const [master, allPicksData, archiveDates] = await Promise.all([
+  const [master, allPicksData, archiveDates, optionsData] = await Promise.all([
     getMasterData(),
     getSwingAllPicks(selectedDate),
     getSwingArchiveDates(),
+    getOptionsData(selectedDate),
   ]);
 
   const picks = allPicksData?.picks ?? [];
@@ -308,6 +309,134 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                 <Link href="/" className="text-[#3b82f6] hover:underline">← Back to Dashboard</Link>
               </span>
             </div>
+
+            {/* Options Picks Section */}
+            {optionsData?.picks && optionsData.picks.length > 0 && (
+              <div className="mt-12">
+                <div className="mb-6">
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-1 tracking-tight">
+                    Options Picks
+                    <span className="ml-3 text-[#8b5cf6]">— {optionsData.date ?? dateStr}</span>
+                  </h2>
+                  <p className="text-white text-sm">
+                    BOGA AI Options Scanner •{" "}
+                    {optionsData.generated_at && (
+                      <span className="text-[#a78bfa]">Updated {formatTime(optionsData.generated_at)}</span>
+                    )}
+                  </p>
+                </div>
+
+                {/* Desktop Options Table */}
+                <div className="hidden md:block glass-card overflow-hidden mb-6" style={{ borderColor: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-white/5 text-[#a78bfa] text-[11px] uppercase tracking-wider">
+                        <th className="px-4 py-4 text-left">#</th>
+                        <th className="px-4 py-4 text-left">Ticker</th>
+                        <th className="px-4 py-4 text-right">Score</th>
+                        <th className="px-4 py-4 text-right">Grade</th>
+                        <th className="px-4 py-4 text-right">Price</th>
+                        <th className="px-4 py-4 text-right">Strike</th>
+                        <th className="px-4 py-4 text-right">Expiry</th>
+                        <th className="px-4 py-4 text-right">DTE</th>
+                        <th className="px-4 py-4 text-right">Premium</th>
+                        <th className="px-4 py-4 text-right">TP</th>
+                        <th className="px-4 py-4 text-right">SL</th>
+                        <th className="px-4 py-4 text-right">Delta</th>
+                        <th className="px-4 py-4 text-right">IV Rank</th>
+                        <th className="px-4 py-4 text-right">Cost/Cont</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {optionsData.picks.map((op: any, idx: number) => {
+                        const best = op.opt?.best ?? {};
+                        return (
+                          <tr key={op.ticker} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td className="px-3 py-2.5">
+                              <span className="text-[11px] font-black text-[#a78bfa]">#{idx + 1}</span>
+                            </td>
+                            <td className="px-3 py-2.5">
+                              <Link href={`/stock/${op.ticker}`} className="group">
+                                <div className="text-white font-black text-sm tracking-tight group-hover:text-[#8b5cf6] transition-colors">{op.ticker}</div>
+                              </Link>
+                            </td>
+                            <td className="px-3 py-2.5 text-right">
+                              <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
+                            </td>
+                            <td className="px-3 py-2.5 text-right">
+                              <span className="text-[#a78bfa] font-bold text-xs">{op.grade ?? "—"}</span>
+                            </td>
+                            <td className="px-3 py-2.5 text-right text-white font-mono text-[13px] font-semibold">${formatPrice(op.current_price)}</td>
+                            <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.strike ? `$${best.strike}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#a78bfa] font-mono text-[11px]">{best.expiration ?? "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.dte ?? "—"}d</td>
+                            <td className="px-3 py-2.5 text-right text-[#f59e0b] font-mono text-[11px] font-bold">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#10b981] font-mono text-[11px] font-semibold">{best.tp_price ? `$${formatPrice(best.tp_price)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#ef4444] font-mono text-[11px]">{best.sl_price ? `$${formatPrice(best.sl_price)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.delta != null ? best.delta.toFixed(2) : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#a78bfa] text-[11px]">{best.iv_rank != null ? `${best.iv_rank.toFixed(0)}%` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.cost_per_contract != null ? `$${best.cost_per_contract.toFixed(0)}` : "—"}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile Options Cards */}
+                <div className="md:hidden flex flex-col gap-5 mb-6">
+                  {optionsData.picks.map((op: any, idx: number) => {
+                    const best = op.opt?.best ?? {};
+                    return (
+                      <div key={op.ticker} className="glass-card p-5 border border-[#8b5cf6]/30 relative">
+                        <div className="absolute top-0 right-0 px-3 py-1 text-[10px] font-black text-white bg-[#8b5cf6] rounded-bl-xl">#{idx + 1}</div>
+                        <div className="flex items-center justify-between mb-4">
+                          <Link href={`/stock/${op.ticker}`}>
+                            <div className="text-white font-black text-2xl tracking-tighter">{op.ticker}</div>
+                          </Link>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[#a78bfa] font-bold text-sm">{op.grade ?? ""}</span>
+                            <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 text-[11px]">
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <div className="text-[#a78bfa] font-black uppercase tracking-widest text-[9px] mb-1">Contract</div>
+                            <div className="text-white font-mono">{best.strike ? `$${best.strike} ` : ""}{best.expiration ?? "—"}</div>
+                            <div className="text-white/60">{best.dte != null ? `${best.dte}d DTE` : ""}</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <div className="text-[#f59e0b] font-black uppercase tracking-widest text-[9px] mb-1">Premium</div>
+                            <div className="text-[#f59e0b] font-mono font-bold">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</div>
+                            <div className="text-white/60">{best.cost_per_contract != null ? `$${best.cost_per_contract.toFixed(0)}/contract` : ""}</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <div className="text-[#10b981] font-black uppercase tracking-widest text-[9px] mb-1">Target</div>
+                            <div className="text-[#10b981] font-mono font-semibold">{best.tp_price ? `$${formatPrice(best.tp_price)}` : "—"}</div>
+                          </div>
+                          <div className="bg-white/5 rounded-lg p-3">
+                            <div className="text-[#ef4444] font-black uppercase tracking-widest text-[9px] mb-1">Stop Loss</div>
+                            <div className="text-[#ef4444] font-mono">{best.sl_price ? `$${formatPrice(best.sl_price)}` : "—"}</div>
+                          </div>
+                        </div>
+                        <div className="flex gap-4 mt-3 text-[11px] text-white/60">
+                          <span>Delta: <b className="text-white">{best.delta != null ? best.delta.toFixed(2) : "—"}</b></span>
+                          <span>IV Rank: <b className="text-[#a78bfa]">{best.iv_rank != null ? `${best.iv_rank.toFixed(0)}%` : "—"}</b></span>
+                          <span>Price: <b className="text-white">${formatPrice(op.current_price)}</b></span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="glass-card p-4 flex flex-wrap gap-6 text-[11px] text-[#a78bfa]" style={{ borderColor: "rgba(139,92,246,0.15)" }}>
+                  <span>🔮 <b className="text-white">Options Picks</b> = BOGA AI Options Scanner</span>
+                  <span>💰 <b className="text-white">Cost/Cont</b> = Premium × 100 shares</span>
+                  <span>📊 <b className="text-white">IV Rank</b> = Implied volatility percentile</span>
+                </div>
+              </div>
+            )}
+          </>
           </>
         )}
       </main>
