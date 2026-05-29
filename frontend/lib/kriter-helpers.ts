@@ -200,6 +200,104 @@ function getArchiveCandidates(dateStr: string): string[] {
   return bases;
 }
 
+// ── Stocks JSON'dan ArchivePick'e fallback mapping ───────────────────────────
+function stockJsonToArchivePick(stockData: any, ticker: string): ArchivePick | null {
+  try {
+    const tech = stockData.technical ?? {};
+    const price = stockData.price?.current ?? 0;
+    const ema20 = tech.ema_20 ?? price;
+    const ema50 = tech.ema_50 ?? price;
+    const ema200 = tech.ema_200 ?? price;
+    const rsi = tech.rsi_14 ?? 50;
+    const adx = tech.adx ?? 0;
+    const rvol = tech.rvol ?? 1;
+    const atr = tech.atr ?? price * 0.02;
+    const atrPct = tech.atr_pct != null ? tech.atr_pct * 100 : 2;
+
+    return {
+      ticker,
+      selected_system: stockData.scores?.signal_type ?? "UNKNOWN",
+      system_category: "Unknown",
+      selection_reasons: [],
+      score: stockData.scores?.master_score ?? 0,
+      boga_score: stockData.scores?.master_score ?? 0,
+      trend_status: {
+        trend: tech.ema_stack_bullish ? "Bullish" : "Bearish",
+        rsi_14: rsi,
+        adx,
+        macd_hist: tech.macd_histogram ?? 0,
+        mfi: tech.mfi ?? 50,
+        cmf: tech.cmf ?? 0,
+        rvol_today: rvol,
+        entry_trigger: "Live Data (Arşiv Yok)",
+        is_exhausted: false,
+      },
+      moving_averages: {
+        ema_20: ema20,
+        ema_50: ema50,
+        ema_200: ema200,
+        price_vs_ema20: ema20 > 0 ? +((price - ema20) / ema20 * 100).toFixed(2) : 0,
+        price_vs_ema50: ema50 > 0 ? +((price - ema50) / ema50 * 100).toFixed(2) : 0,
+        price_vs_ema200: ema200 > 0 ? +((price - ema200) / ema200 * 100).toFixed(2) : 0,
+        ema20_slope: "Unknown",
+      },
+      boga_zones: {
+        buying_zone: { low: 0, high: 0 },
+        sell_zone: { low: 0, high: 0 },
+        stop_loss_zone: { low: 0, high: 0 },
+        risk_reward: 0,
+        support_1h: 0,
+        resistance_1h: 0,
+        atr_1d: atr,
+        atr_pct: atrPct,
+        risk_usd: 0,
+        reward_usd: 0,
+      },
+      hourly_analysis: {
+        rsi_1h: 0,
+        adx_1h: 0,
+        rvol_1h: "N/A",
+        ema_structure: "N/A",
+        pivot_structure: "N/A",
+      },
+      factor_scores: {
+        trend_score: 0,
+        momentum_score: stockData.scores?.momentum_score ?? 0,
+        volatility_score: 0,
+        volume_score: 0,
+        financial_score: stockData.scores?.fundamental_score ?? 0,
+        catalyst_score: 0,
+        insider_score: 0,
+        composite: (stockData.scores?.master_score ?? 0) / 10,
+        raw_score: stockData.scores?.master_score ?? 0,
+      },
+      current_price: price,
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function readStocksFallback(ticker: string): ArchivePick | null {
+  const bases = [
+    path.resolve(process.cwd(), "..", "transfer", "latest", "stocks", `${ticker}.json`),
+    path.resolve(process.cwd(), "public", "data", "latest", "stocks", `${ticker}.json`),
+    path.resolve(__dirname, "..", "..", "..", "..", "..", "transfer", "latest", "stocks", `${ticker}.json`),
+  ];
+  for (const fullPath of bases) {
+    try {
+      if (fs.existsSync(fullPath)) {
+        const raw = sanitizeNaN(fs.readFileSync(fullPath, "utf-8"));
+        const data = JSON.parse(raw);
+        return stockJsonToArchivePick(data, ticker);
+      }
+    } catch {
+      // try next
+    }
+  }
+  return null;
+}
+
 export function readArchiveForDate(dateStr: string): ArchivePick[] | null {
   for (const fullPath of getArchiveCandidates(dateStr)) {
     try {
@@ -287,6 +385,16 @@ export function enrichTrade(
   );
 
   if (!pick) {
+    // Arşivde yoksa stocks JSON'dan fallback dene
+    const fallback = readStocksFallback(trade.ticker);
+    if (fallback) {
+      return {
+        ...trade,
+        snapshot: fallback,
+        enrichmentStatus: "OK",
+        derived: computeDerivedFields(trade, fallback),
+      };
+    }
     return { ...trade, snapshot: null, enrichmentStatus: "MISSING_TICKER", derived: null };
   }
 

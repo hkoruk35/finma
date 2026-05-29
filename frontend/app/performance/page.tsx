@@ -59,6 +59,18 @@ export default async function SwingPerformancePage() {
           </div>
         </header>
 
+        {/* Kriter Analizi Butonu */}
+        <div className="mb-4 flex">
+          <Link
+            href="/performance/kriter"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded border border-[#3b82f6]/40 text-[#3b82f6] text-xs font-mono font-bold hover:bg-[#3b82f6]/10 transition-colors"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+            KRİTER ANALİZİ — swing117 bot optimizasyon raporu
+            <span className="opacity-60">→</span>
+          </Link>
+        </div>
+
         {/* Dashboard Client Component */}
         <div className="relative z-10">
           <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} />
