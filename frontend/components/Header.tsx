@@ -84,7 +84,7 @@ export default function Header({
 }) {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(true);
 
   const logoContent = (
     <>
