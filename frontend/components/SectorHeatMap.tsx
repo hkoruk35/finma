@@ -2,6 +2,7 @@
 
 import { MasterData, StockQuickView } from "@/lib/data";
 import Link from "next/link";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 /* ── Slug helper ────────────────────────────────────────────── */
 function slugify(text: string): string {
@@ -112,22 +113,23 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                 {stocks.map(stock => {
                   const s = getPerformanceColor(stock.change_pct);
                   return (
-                    <Link
-                      key={stock.ticker}
-                      href={`/stock/${stock.ticker}`}
-                      className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
-                      title={`${stock.ticker}: ${stock.change_pct}%`}
-                    >
-                      <span className={`text-xs font-black tracking-tighter ${s.text}`}>
-                        {stock.ticker}
-                      </span>
-                      <span className={`text-[8px] font-mono font-bold opacity-90 ${s.text}`}>
-                        {stock.change_pct >= 0 ? "+" : ""}{stock.change_pct.toFixed(1)}%
-                      </span>
-                      
-                      {/* Interaction Glow */}
-                      <div className="absolute inset-x-0 bottom-0 h-[1.5px] bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </Link>
+                    <TickerHoverChart key={stock.ticker} ticker={stock.ticker}>
+                      <Link
+                        href={`/stock/${stock.ticker}`}
+                        className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
+                        title={`${stock.ticker}: ${stock.change_pct}%`}
+                      >
+                        <span className={`text-xs font-black tracking-tighter ${s.text}`}>
+                          {stock.ticker}
+                        </span>
+                        <span className={`text-[8px] font-mono font-bold opacity-90 ${s.text}`}>
+                          {stock.change_pct >= 0 ? "+" : ""}{stock.change_pct.toFixed(1)}%
+                        </span>
+
+                        {/* Interaction Glow */}
+                        <div className="absolute inset-x-0 bottom-0 h-[1.5px] bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      </Link>
+                    </TickerHoverChart>
                   );
                 })}
               </div>
