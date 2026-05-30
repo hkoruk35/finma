@@ -366,7 +366,7 @@ export default function TerminalClient() {
   const [signals, setSignals] = useState<Record<string, HourlySignal>>({});
 
   // Chart interval
-  const [chartInterval, setChartInterval] = useState("W");
+  const [chartInterval, setChartInterval] = useState("D");
 
   // Technical Indicators
   const [activeStudies, setActiveStudies] = useState<string[]>([
