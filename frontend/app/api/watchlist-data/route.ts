@@ -381,7 +381,7 @@ async function fetchYahooLive(ticker: string) {
       }
     }
 
-    if (closes.length < 50) return null;
+    if (closes.length < 10) return null;
 
     const currentPrice = closes[closes.length - 1];
     const prevClose = closes[closes.length - 2] || currentPrice;
