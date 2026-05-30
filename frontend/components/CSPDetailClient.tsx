@@ -559,7 +559,7 @@ export default function CSPDetailClient({ slug }: Props) {
             padding: "7px 12px", borderBottom: "1px solid #30363d",
             display: "flex", justifyContent: "space-between", alignItems: "center"
           }}>
-            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1W Chart</span>
+            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1D Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
               <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
             </div>

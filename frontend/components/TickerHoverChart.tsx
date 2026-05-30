@@ -63,7 +63,7 @@ export default function TickerHoverChart({ ticker, children, className }: Props)
             alignItems: "center",
           }}>
             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>
-              {ticker} — 1W Chart
+              {ticker} — 1D Chart
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
               <a
