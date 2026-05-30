@@ -565,7 +565,7 @@ export default function CSPDetailClient({ slug }: Props) {
             </div>
           </div>
           <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=W&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
             width="430" height="220"
             style={{ border: "none", display: "block" }}
             title={`${hoverTicker} 1H`}
@@ -719,7 +719,7 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
           1H GRAFİK — EMA 20/50/200
         </div>
         <iframe
-          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=W&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
+          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
           width="410" height="220"
           style={{ border: "1px solid #30363d", borderRadius: 4, display: "block" }}
           title={`${sym} 1H expanded`}
