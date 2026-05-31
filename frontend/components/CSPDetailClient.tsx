@@ -108,26 +108,61 @@ export default function CSPDetailClient({ slug }: Props) {
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("CSP");
   const [mounted, setMounted] = useState(false);
+  const [notes, setNotes] = useState<Record<string, string>>({});
 
-  // ── Load from localStorage ──────────────────────────────────────────────
+  const handleNoteChange = (sym: string, note: string) => {
+    const updated = { ...notes, [sym]: note };
+    setNotes(updated);
+    fetch(`/api/csp-watchlist/${slug}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tickers, types, notes: updated }),
+    }).catch(() => {});
+  };
+
+  // ── Load from API (Supabase) — cihazlar arası senkronize ──────────────
   useEffect(() => {
     setMounted(true);
-    try {
-      const raw = localStorage.getItem(cfg.storageKey);
-      const list: string[] = raw ? JSON.parse(raw) : [];
-      setTickers(list);
-      const rawTypes = localStorage.getItem(cfg.storageKey + "_types");
-      setTypes(rawTypes ? JSON.parse(rawTypes) : {});
-    } catch { setTickers([]); }
-  }, [cfg.storageKey]);
+    async function load() {
+      try {
+        const res = await fetch(`/api/csp-watchlist/${slug}`);
+        if (!res.ok) throw new Error();
+        const d = await res.json();
+        setTickers(d.tickers ?? []);
+        setTypes(d.types ?? {});
+        setNotes(d.notes ?? {});
+        // localStorage'a da yaz (hızlı fallback için)
+        try {
+          localStorage.setItem(cfg.storageKey, JSON.stringify(d.tickers ?? []));
+          localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(d.types ?? {}));
+        } catch {}
+      } catch {
+        // API başarısız olursa localStorage'dan yükle
+        try {
+          const raw = localStorage.getItem(cfg.storageKey);
+          setTickers(raw ? JSON.parse(raw) : []);
+          const rawT = localStorage.getItem(cfg.storageKey + "_types");
+          setTypes(rawT ? JSON.parse(rawT) : {});
+        } catch { setTickers([]); }
+      }
+    }
+    load();
+  }, [slug, cfg.storageKey]);
 
   const saveList = (list: string[], t: Record<string, string>) => {
     setTickers(list);
     setTypes(t);
+    // localStorage'a anında yaz (anlık UI güncelleme)
     try {
       localStorage.setItem(cfg.storageKey, JSON.stringify(list));
       localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(t));
     } catch {}
+    // Supabase'e kaydet (tüm cihazlar senkronize olur)
+    fetch(`/api/csp-watchlist/${slug}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tickers: list, types: t, notes }),
+    }).catch(() => {});
   };
 
   const addTicker = () => {
@@ -462,7 +497,7 @@ export default function CSPDetailClient({ slug }: Props) {
                           </td>
 
                           {/* NOT */}
-                          <NoteCell sym={sym} />
+                          <NoteCell sym={sym} slug={slug} sharedNotes={notes} onNoteChange={handleNoteChange} />
 
                           {/* REMOVE */}
                           <td style={{ padding: "7px 8px", textAlign: "right" }}>
@@ -578,19 +613,22 @@ export default function CSPDetailClient({ slug }: Props) {
 
 // ── Note Cell (inline edit) ────────────────────────────────────────────────
 
-function NoteCell({ sym }: { sym: string }) {
-  const NOTES_KEY = "boga_tracker_notes_v1";
+function NoteCell({ sym, slug, sharedNotes, onNoteChange }: {
+  sym: string;
+  slug: string;
+  sharedNotes: Record<string, string>;
+  onNoteChange: (sym: string, note: string) => void;
+}) {
   const [editing, setEditing] = useState(false);
-  const [note, setNote] = useState(() => {
-    try { return JSON.parse(localStorage.getItem(NOTES_KEY) || "{}")[sym] || ""; } catch { return ""; }
-  });
+  const [note, setNote] = useState(sharedNotes[sym] || "");
+
+  useEffect(() => {
+    setNote(sharedNotes[sym] || "");
+  }, [sharedNotes, sym]);
 
   const save = (v: string) => {
     setNote(v);
-    try {
-      const all = JSON.parse(localStorage.getItem(NOTES_KEY) || "{}");
-      localStorage.setItem(NOTES_KEY, JSON.stringify({ ...all, [sym]: v }));
-    } catch {}
+    onNoteChange(sym, v);
   };
 
   if (editing) return (
