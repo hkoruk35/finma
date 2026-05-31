@@ -13,15 +13,12 @@ export function middleware(request: NextRequest) {
     pathname.includes('.') || // resimler, fontlar vb.
     pathname === '/favicon.ico'
 
-  // 2. Eğer kullanıcı giriş yapmamışsa ve public olmayan bir yere gitmeye çalışıyorsa
+  // 2. Giriş yapmamış kullanıcı → her zaman /login'e yönlendir
   if (!authCookie && !isPublicPath) {
-    if (pathname === '/') {
-      return NextResponse.redirect(new URL('/ai', request.url))
-    }
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // 3. Eğer kullanıcı giriş yapmışsa ve Login/Ana sayfaya gitmeye çalışıyorsa -> Pro'ya at
+  // 3. Giriş yapmış kullanıcı /login veya / 'a gelirse → /pro'ya yönlendir
   if (authCookie && (pathname.startsWith('/login') || pathname === '/')) {
     return NextResponse.redirect(new URL('/pro', request.url))
   }
