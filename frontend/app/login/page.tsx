@@ -7,26 +7,33 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
-    const users = [
-      { email: "hkoruk35@gmail.com", password: "bogA919*" },
-      { email: "okayhulya35@gmail.com", password: "bogA919*" }
-    ];
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const user = users.find(u => u.email === email && u.password === password);
+      const data = await res.json();
 
-    if (user) {
-      // Set a simple cookie for middleware to see
-      document.cookie = "boga_auth=true; path=/; max-age=86400; SameSite=Lax; Secure";
-      localStorage.setItem("user_email", email);
-      router.push("/pro");
-    } else {
-      setError("Geçersiz kullanıcı adı veya şifre.");
+      if (res.ok) {
+        localStorage.setItem("user_email", email);
+        router.push("/pro");
+      } else {
+        setError(data.error ?? "Giris basarisiz.");
+      }
+    } catch {
+      setError("Sunucuya baglanılamadi. Lutfen tekrar deneyin.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,6 +59,7 @@ export default function LoginPage() {
               className="w-full bg-[#161b22] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#3b82f6] transition-all"
               placeholder="E-posta adresiniz"
               required
+              disabled={loading}
             />
           </div>
 
@@ -66,6 +74,7 @@ export default function LoginPage() {
               className="w-full bg-[#161b22] border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-[#3b82f6] transition-all"
               placeholder="••••••••"
               required
+              disabled={loading}
             />
           </div>
 
@@ -77,9 +86,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98]"
+            disabled={loading}
+            className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            Giriş Yap
+            {loading ? "GİRİŞ YAPILIYOR..." : "GİRİŞ YAP"}
           </button>
         </form>
 

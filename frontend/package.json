@@ -11,6 +11,8 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
     "@supabase/supabase-js": "^2.102.1",
+    "@types/bcryptjs": "2.4.6",
+    "bcryptjs": "3.0.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.1",
     "jspdf-autotable": "^5.0.7",
