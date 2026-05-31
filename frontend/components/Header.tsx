@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 const NAV_LINKS = [
@@ -83,8 +83,20 @@ export default function Header({
   onNewQueryClick?: () => void;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === "/";
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      localStorage.removeItem("user_email");
+    } finally {
+      router.push("/login");
+    }
+  };
 
   const showNav = !isHomePage && !hideMenus;
 
@@ -182,6 +194,21 @@ export default function Header({
             <span className="hidden md:flex text-[10px] font-black uppercase tracking-widest text-[#64748b] border border-[#1e2a3a] px-3 py-1.5 rounded-lg bg-[#0d1117]">
               DEVELOPMENT PHASE
             </span>
+          )}
+
+          {/* Logout butonu — her zaman görünür */}
+          {!isHomePage && !hideMenus && (
+            <button
+              onClick={handleLogout}
+              disabled={loggingOut}
+              title="Çıkış Yap"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+            >
+              <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+              </svg>
+              <span className="hidden sm:inline">{loggingOut ? "..." : "Çıkış"}</span>
+            </button>
           )}
 
           {/* Mobile hamburger — only on small screens */}
