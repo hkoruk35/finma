@@ -22,7 +22,7 @@ export default function LoginPage() {
 
     if (user) {
       // Set a simple cookie for middleware to see
-      document.cookie = "boga_auth=true; path=/; max-age=86400"; // 24 hours
+      document.cookie = "boga_auth=true; path=/; max-age=86400; SameSite=Lax; Secure";
       localStorage.setItem("user_email", email);
       router.push("/pro");
     } else {
