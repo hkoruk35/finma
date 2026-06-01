@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
-import AllListPaginatedClient from "@/components/AllListPaginatedClient";
+import AllListDetailClient from "@/components/AllListDetailClient";
 
 interface CSPList {
   key: string;
@@ -140,10 +140,10 @@ export default function CSPWatchlistSection() {
         ))}
       </div>
 
-      {/* ALL LIST Tab - Paginated with Add to List */}
+      {/* ALL LIST Tab - Detailed Tracker */}
       {activeTab === "all" && (
         <div className="mb-12">
-          <AllListPaginatedClient />
+          <AllListDetailClient />
         </div>
       )}
 
