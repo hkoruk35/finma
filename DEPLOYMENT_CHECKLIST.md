@@ -66,6 +66,31 @@ For **each custom watchlist tab**, verify:
 ### 8. SETUP SCREENER Button
 - [ ] SETUP SCREENER button is **not visible** in the left panel
 
+### 9. BOGA SYSTEM LISTS & THEMES PAGE (https://bogastock.com/theme)
+- [ ] Themes index page loads without errors
+- [ ] **BOGA System Analytical Lists** section displays with 7 cards:
+  - [ ] Swing Picks card visible with description
+  - [ ] Options Scanner card visible with description
+  - [ ] DayTrade Pulse card visible with description
+  - [ ] Hourly Focus Pool card visible with description
+  - [ ] OptAnaliz Scanner card visible with description
+  - [ ] Smart Portfolio card visible with description
+  - [ ] Long Term Plays card visible with description
+- [ ] **CSP Strategy Watchlists** section displays with 3 price-tier cards:
+  - [ ] 525 CSP card ($5–$25 range) shows ticker count
+  - [ ] 2550 CSP card ($25–$50 range) shows ticker count
+  - [ ] 50250 CSP card ($50–$250 range) shows ticker count
+- [ ] Each watchlist card shows tickers with live data
+- [ ] "Listeyi Gör →" button navigates to correct CSP page (/csp/525, /csp/2550, /csp/50250)
+- [ ] "Düzenle" button navigates to /terminal for management
+- [ ] **Sector/Theme Lists Grid** displays organized by sector:
+  - [ ] All themes display in grid layout
+  - [ ] Each theme card shows name and ticker count
+  - [ ] Clicking theme navigates to `/theme/[slug]` detail page
+- [ ] Responsive layout works on mobile/tablet/desktop
+- [ ] Tab navigation between CSP pages (525→2550→50250) works smoothly
+- [ ] Company/Sector columns display correctly in detail pages
+
 ## If Issues Found
 
 1. **Deployment not live yet**
