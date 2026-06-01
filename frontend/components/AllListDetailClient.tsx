@@ -80,36 +80,40 @@ export default function AllListDetailClient() {
     new Set(MARKET_THEMES.flatMap((t) => t.tickers))
   ).sort();
 
-  // Fetch data
-  const fetchData = useCallback(async () => {
-    if (allTickers.length === 0) { setData({}); return; }
-    setLoading(true);
-    try {
-      const batchSize = 100;
-      const batches = [];
-      for (let i = 0; i < allTickers.length; i += batchSize) {
-        batches.push(allTickers.slice(i, i + batchSize).join(","));
+  // Fetch data for current page only (lazy loading)
+  useEffect(() => {
+    const fetchPageData = async () => {
+      // Get tickers for current page
+      const pageStart = (page - 1) * ITEMS_PER_PAGE;
+      const pageEnd = pageStart + ITEMS_PER_PAGE;
+      const tickersToFetch = sortedTickers.slice(pageStart, pageEnd);
+
+      if (tickersToFetch.length === 0) return;
+
+      // Check if we already have data for these tickers
+      const needsFetch = tickersToFetch.some((t) => !data[t]);
+      if (!needsFetch) return;
+
+      setLoading(true);
+      try {
+        const batch = tickersToFetch.join(",");
+        const result = await fetch(`/api/watchlist-data?tickers=${batch}`)
+          .then((r) => r.json())
+          .catch(() => []);
+
+        const newData = { ...data };
+        result.forEach((item: TickerData) => {
+          if (item?.ticker) newData[item.ticker] = item;
+        });
+        setData(newData);
+        setLastUpdated(new Date());
+      } catch {} finally {
+        setLoading(false);
       }
+    };
 
-      const results = await Promise.all(
-        batches.map((batch) =>
-          fetch(`/api/watchlist-data?tickers=${batch}`)
-            .then((r) => r.json())
-            .catch(() => [])
-        )
-      );
-
-      const map: Record<string, TickerData> = {};
-      results.flat().forEach((item: TickerData) => {
-        if (item?.ticker) map[item.ticker] = item;
-      });
-      setData(map);
-      setLastUpdated(new Date());
-    } catch {}
-    finally { setLoading(false); }
-  }, [allTickers]);
-
-  useEffect(() => { fetchData(); }, [fetchData]);
+    fetchPageData();
+  }, [page, sortedTickers, data]);
 
   // Filtered tickers
   const filtered = allTickers.filter(sym => {
