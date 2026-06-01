@@ -63,6 +63,8 @@ function heatBg(pct: number | null) {
   return { bg: "#4a0d0d", text: "#ff7b72" };
 }
 
+const ITEMS_PER_PAGE = 50;
+
 export default function AllListDetailClient() {
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
@@ -71,6 +73,7 @@ export default function AllListDetailClient() {
   const [filterSignal, setFilterSignal] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [page, setPage] = useState(1);
 
   // Extract all unique tickers from MARKET_THEMES
   const allTickers = Array.from(
@@ -181,6 +184,12 @@ export default function AllListDetailClient() {
   const alCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "AL").length;
   const izleCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "İzle").length;
 
+  // Pagination
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const start = (page - 1) * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE;
+  const pageItems = filtered.slice(start, end);
+
   return (
     <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
       {/* Top Header */}
@@ -287,9 +296,15 @@ export default function AllListDetailClient() {
         </div>
       </div>
 
+      {/* Pagination Info */}
+      <div style={{ padding: "8px 0", fontSize: 11, color: "#8b949e", borderBottom: "1px solid #30363d", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span>Sayfa {page}/{totalPages}</span>
+        <span>{start + 1}–{Math.min(end, filtered.length)} / {filtered.length}</span>
+      </div>
+
       {/* Table Rows */}
       <div style={{ fontSize: 11 }}>
-        {sortedTickers.map((ticker) => {
+        {pageItems.map((ticker) => {
           const d = data[ticker];
           if (!d) return null;
 
@@ -349,6 +364,77 @@ export default function AllListDetailClient() {
           );
         })}
       </div>
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div style={{ padding: "16px 0", display: "flex", gap: 8, justifyContent: "center", alignItems: "center", borderTop: "1px solid #30363d", flexWrap: "wrap" }}>
+          <button
+            onClick={() => setPage(Math.max(1, page - 1))}
+            disabled={page === 1}
+            style={{
+              padding: "6px 12px",
+              fontSize: 11,
+              fontWeight: 700,
+              border: "1px solid #30363d",
+              background: "transparent",
+              color: page === 1 ? "#555" : "#8b949e",
+              borderRadius: 4,
+              cursor: page === 1 ? "not-allowed" : "pointer",
+              opacity: page === 1 ? 0.5 : 1,
+            }}
+          >
+            ← Önceki
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter(
+              (p) =>
+                p === 1 ||
+                p === totalPages ||
+                (p >= page - 1 && p <= page + 1)
+            )
+            .map((p, idx, arr) => (
+              <div key={p} style={{ display: "flex", gap: 4, alignItems: "center" }}>
+                {idx > 0 && arr[idx - 1] !== p - 1 && (
+                  <span style={{ color: "#333", fontSize: 11 }}>…</span>
+                )}
+                <button
+                  onClick={() => setPage(p)}
+                  style={{
+                    padding: "6px 12px",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    border: `1px solid ${page === p ? "#e3b341" : "#30363d"}`,
+                    background: page === p ? "#e3b34120" : "transparent",
+                    color: page === p ? "#e3b341" : "#8b949e",
+                    borderRadius: 4,
+                    cursor: "pointer",
+                  }}
+                >
+                  {p}
+                </button>
+              </div>
+            ))}
+
+          <button
+            onClick={() => setPage(Math.min(totalPages, page + 1))}
+            disabled={page === totalPages}
+            style={{
+              padding: "6px 12px",
+              fontSize: 11,
+              fontWeight: 700,
+              border: "1px solid #30363d",
+              background: "transparent",
+              color: page === totalPages ? "#555" : "#8b949e",
+              borderRadius: 4,
+              cursor: page === totalPages ? "not-allowed" : "pointer",
+              opacity: page === totalPages ? 0.5 : 1,
+            }}
+          >
+            Sonraki →
+          </button>
+        </div>
+      )}
     </div>
   );
 }
