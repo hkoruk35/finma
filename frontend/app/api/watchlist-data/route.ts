@@ -2,6 +2,45 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+// Import ticker-to-sector mapping from theme data
+// This ensures 559+ tickers have accurate sector information
+let TICKER_SECTOR_MAP: Record<string, string> = {};
+try {
+  const mappingPath = path.join(process.cwd(), "lib", "sectorMapping.ts");
+  if (fs.existsSync(mappingPath)) {
+    // Note: In runtime, we'd need to parse this, but for now we'll handle it inline
+    const mappingContent = fs.readFileSync(mappingPath, "utf-8");
+    const mapMatch = mappingContent.match(/export const TICKER_SECTOR_MAP.*?\{([\s\S]*?)\};/);
+    if (mapMatch) {
+      // Parse the mapping entries
+      const entries = mapMatch[1].match(/"([^"]+)":\s*"([^"]+)"/g);
+      if (entries) {
+        entries.forEach(entry => {
+          const [ticker, sector] = entry.match(/"([^"]+)"/g) || [];
+          if (ticker && sector) {
+            TICKER_SECTOR_MAP[ticker.replace(/"/g, '')] = sector.replace(/"/g, '');
+          }
+        });
+      }
+    }
+  }
+} catch {}
+// Fallback: Inline the most critical tickers if file loading fails
+if (Object.keys(TICKER_SECTOR_MAP).length === 0) {
+  TICKER_SECTOR_MAP = {
+    "AAPL": "Technology", "MSFT": "Technology", "GOOGL": "Technology", "META": "Technology",
+    "AMZN": "Technology", "NVDA": "Technology", "AMD": "Technology", "AVGO": "Technology",
+    "JPM": "Financials", "BAC": "Financials", "WFC": "Financials", "GS": "Financials",
+    "JNJ": "Healthcare", "PFE": "Healthcare", "ABBV": "Healthcare", "MRK": "Healthcare",
+    "XOM": "Energy", "CVX": "Energy", "COP": "Energy", "EOG": "Energy",
+    "JCI": "Industrials", "BA": "Industrials", "GE": "Industrials", "HON": "Industrials",
+    "PG": "Consumer Staples", "KO": "Consumer Staples", "PEP": "Consumer Staples", "MO": "Consumer Staples",
+    "TSLA": "Consumer Discretionary", "AMZN": "Consumer Discretionary", "HD": "Consumer Discretionary",
+    "DIS": "Communication Services", "CMCSA": "Communication Services", "VZ": "Communication Services",
+    "SPG": "Real Estate", "AMT": "Real Estate", "PLD": "Real Estate"
+  };
+}
+
 // Recurse to find the local python fallback or JSON files
 const DATA_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
@@ -599,20 +638,24 @@ async function fetchYahooLive(ticker: string) {
     const finData = qResult.financialData || {};
     const stats = qResult.defaultKeyStatistics || {};
 
-    // Try dedicated profile fetch first for more reliable sector data
+    // Priority 1: Check our comprehensive theme-based sector mapping (559+ tickers)
+    let detectedSector = TICKER_SECTOR_MAP[ticker.toUpperCase()] || "";
     let assetProfile = qResult.assetProfile || {};
-    if (!assetProfile.sector && profileRes) {
-      try {
-        const profileData = await profileRes.json().catch(() => ({}));
-        const pResult = profileData?.quoteSummary?.result?.[0] || {};
-        if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
-      } catch {}
+
+    // Priority 2: Try Yahoo Finance API responses
+    if (!detectedSector) {
+      if (!assetProfile.sector && profileRes) {
+        try {
+          const profileData = await profileRes.json().catch(() => ({}));
+          const pResult = profileData?.quoteSummary?.result?.[0] || {};
+          if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
+        } catch {}
+      }
+      detectedSector = assetProfile.sector || "";
     }
 
-    // Robust sector detection with multiple fallbacks
-    let detectedSector = assetProfile.sector || "Unknown";
-
-    if (detectedSector === "Unknown" || !detectedSector) {
+    // Priority 3: Intelligent fallback detection from industry data
+    if (!detectedSector) {
       const industry = assetProfile.industry || "";
 
       // Industry-based sector mapping (high confidence)
@@ -670,8 +713,6 @@ async function fetchYahooLive(ticker: string) {
         }
       }
     }
-
-    assetProfile.sector = detectedSector;
 
     const marketCap = sumDetail.marketCap?.raw || 0;
     const peRatio = sumDetail.trailingPE?.raw || 0;
@@ -817,8 +858,8 @@ async function fetchYahooLive(ticker: string) {
       company: meta.longName || stats.longName || `${ticker.toUpperCase()} Corp.`,
       date: new Date().toISOString().split("T")[0],
       generated_at: new Date().toISOString(),
-      sector: assetProfile.sector || "Unknown",
-      industry: assetProfile.industry || "Unknown",
+      sector: detectedSector || "Unknown",
+      industry: assetProfile?.industry || "Unknown",
       price: {
         current: currentPrice,
         open: opens[opens.length - 1],
