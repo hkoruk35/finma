@@ -80,41 +80,6 @@ export default function AllListDetailClient() {
     new Set(MARKET_THEMES.flatMap((t) => t.tickers))
   ).sort();
 
-  // Fetch data for current page only (lazy loading)
-  useEffect(() => {
-    const fetchPageData = async () => {
-      // Get tickers for current page
-      const pageStart = (page - 1) * ITEMS_PER_PAGE;
-      const pageEnd = pageStart + ITEMS_PER_PAGE;
-      const tickersToFetch = sortedTickers.slice(pageStart, pageEnd);
-
-      if (tickersToFetch.length === 0) return;
-
-      // Check if we already have data for these tickers
-      const needsFetch = tickersToFetch.some((t) => !data[t]);
-      if (!needsFetch) return;
-
-      setLoading(true);
-      try {
-        const batch = tickersToFetch.join(",");
-        const result = await fetch(`/api/watchlist-data?tickers=${batch}`)
-          .then((r) => r.json())
-          .catch(() => []);
-
-        const newData = { ...data };
-        result.forEach((item: TickerData) => {
-          if (item?.ticker) newData[item.ticker] = item;
-        });
-        setData(newData);
-        setLastUpdated(new Date());
-      } catch {} finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPageData();
-  }, [page, sortedTickers, data]);
-
   // Filtered tickers
   const filtered = allTickers.filter(sym => {
     const d = data[sym];
@@ -165,6 +130,41 @@ export default function AllListDetailClient() {
       setSortDir("asc");
     }
   };
+
+  // Fetch data for current page only (lazy loading)
+  useEffect(() => {
+    const fetchPageData = async () => {
+      // Get tickers for current page
+      const pageStart = (page - 1) * ITEMS_PER_PAGE;
+      const pageEnd = pageStart + ITEMS_PER_PAGE;
+      const tickersToFetch = sortedTickers.slice(pageStart, pageEnd);
+
+      if (tickersToFetch.length === 0) return;
+
+      // Check if we already have data for these tickers
+      const needsFetch = tickersToFetch.some((t) => !data[t]);
+      if (!needsFetch) return;
+
+      setLoading(true);
+      try {
+        const batch = tickersToFetch.join(",");
+        const result = await fetch(`/api/watchlist-data?tickers=${batch}`)
+          .then((r) => r.json())
+          .catch(() => []);
+
+        const newData = { ...data };
+        result.forEach((item: TickerData) => {
+          if (item?.ticker) newData[item.ticker] = item;
+        });
+        setData(newData);
+        setLastUpdated(new Date());
+      } catch {} finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPageData();
+  }, [page, sortedTickers, data]);
 
   const isMarketOpen = () => {
     const now = new Date();
