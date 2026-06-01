@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { MARKET_THEMES } from "@/lib/themeData";
 
 interface CSPList {
   key: string;
@@ -23,6 +24,14 @@ const CSP_LISTS: CSPList[] = [
 export default function CSPWatchlistSection() {
   const [lists, setLists] = useState<Record<string, string[]>>({});
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250">("all");
+  const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [addMessage, setAddMessage] = useState("");
+
+  // Extract all unique tickers from MARKET_THEMES
+  const allThemeTickers = Array.from(
+    new Set(MARKET_THEMES.flatMap((t) => t.tickers))
+  ).sort();
 
   useEffect(() => {
     setMounted(true);
@@ -32,25 +41,55 @@ export default function CSPWatchlistSection() {
       try {
         const raw = localStorage.getItem(`shared_${csp.key}csp`);
         loaded[csp.key] = raw ? JSON.parse(raw) : [];
-      } catch { loaded[csp.key] = []; }
+      } catch {
+        loaded[csp.key] = [];
+      }
     }
     setLists(loaded);
     // API'den taze veri
     Promise.all(
-      CSP_LISTS.map(csp =>
-        fetch(`/api/csp-watchlist/${csp.key}`).then(r => r.json())
-          .then(d => ({ key: csp.key, tickers: d.tickers ?? [] }))
+      CSP_LISTS.map((csp) =>
+        fetch(`/api/csp-watchlist/${csp.key}`)
+          .then((r) => r.json())
+          .then((d) => ({ key: csp.key, tickers: d.tickers ?? [] }))
           .catch(() => ({ key: csp.key, tickers: [] }))
       )
-    ).then(results => {
+    ).then((results) => {
       const fresh: Record<string, string[]> = {};
       for (const r of results) {
         fresh[r.key] = r.tickers;
-        try { localStorage.setItem(`shared_${r.key}csp`, JSON.stringify(r.tickers)); } catch {}
+        try {
+          localStorage.setItem(`shared_${r.key}csp`, JSON.stringify(r.tickers));
+        } catch {}
       }
       setLists(fresh);
     });
   }, []);
+
+  const handleAddToList = (listKey: string) => {
+    if (selectedStocks.length === 0) return;
+
+    const current = lists[listKey] ?? [];
+    const newTickers = selectedStocks.filter((s) => !current.includes(s));
+
+    if (newTickers.length === 0) {
+      setAddMessage(`${selectedStocks.length} hisse zaten listede var`);
+      setTimeout(() => setAddMessage(""), 3000);
+      return;
+    }
+
+    const updated = [...current, ...newTickers];
+    const newLists = { ...lists, [listKey]: updated };
+    setLists(newLists);
+
+    try {
+      localStorage.setItem(`shared_${listKey}csp`, JSON.stringify(updated));
+    } catch {}
+
+    setAddMessage(`${newTickers.length} hisse ${CSP_LISTS.find((c) => c.key === listKey)?.label}'ye eklendi`);
+    setSelectedStocks([]);
+    setTimeout(() => setAddMessage(""), 3000);
+  };
 
   if (!mounted) return null;
 
@@ -62,7 +101,9 @@ export default function CSPWatchlistSection() {
         <h2 className="text-xs font-black text-[#10b981] uppercase tracking-[0.2em]">
           CSP STRATEGY WATCHLISTS
         </h2>
-        <span className="text-[10px] text-slate-500 uppercase tracking-wider">Cash Secured Put — Price Tiers</span>
+        <span className="text-[10px] text-slate-500 uppercase tracking-wider">
+          Cash Secured Put — Price Tiers
+        </span>
         <Link
           href="/terminal"
           className="ml-auto text-[10px] text-[#3b82f6] hover:text-white border border-[#3b82f6]/30 px-2 py-1 rounded transition-all hover:bg-[#3b82f6]/10"
@@ -71,74 +112,237 @@ export default function CSPWatchlistSection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {CSP_LISTS.map((csp) => {
-          const tickers = lists[csp.key] ?? [];
-          return (
-            <div
-              key={csp.key}
-              className={`${csp.color} border ${csp.borderColor} rounded-xl p-5`}
-            >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
-                    {csp.label}
-                  </h3>
-                  <div className="text-[11px] text-slate-400 font-mono mt-0.5">{csp.range}</div>
-                </div>
-                <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
-                  {tickers.length} hisse
-                </span>
-              </div>
-
-              <p className="text-[11px] text-slate-500 mb-4 leading-relaxed">{csp.description}</p>
-
-              {/* Ticker list */}
-              {tickers.length === 0 ? (
-                <div className="text-center py-6 border border-dashed border-white/10 rounded-lg">
-                  <p className="text-slate-600 text-[11px]">Terminal'den hisse ekleyin</p>
-                  <Link
-                    href="/terminal"
-                    className={`inline-block mt-2 text-[10px] font-bold ${csp.textColor} hover:underline`}
-                  >
-                    Terminal'e git →
-                  </Link>
-                </div>
-              ) : (
-                <div className="flex flex-wrap gap-1.5">
-                  {tickers.map((ticker) => (
-                    <Link
-                      key={ticker}
-                      href={`/stock/${ticker}`}
-                      className={`px-2 py-0.5 text-[11px] font-bold rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
-                    >
-                      {ticker}
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
-                <Link
-                  href={csp.href}
-                  className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
-                >
-                  Listeyi Gör →
-                </Link>
-                <Link
-                  href="/terminal"
-                  className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
-                >
-                  Düzenle
-                </Link>
-              </div>
-            </div>
-          );
-        })}
+      {/* Tab Navigation */}
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+        <button
+          onClick={() => setActiveTab("all")}
+          className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+            activeTab === "all"
+              ? "bg-[#e3b341]/20 border-[#e3b341] text-[#e3b341]"
+              : "bg-transparent border-white/10 text-slate-400 hover:text-white"
+          }`}
+        >
+          ALL LIST ({allThemeTickers.length})
+        </button>
+        {CSP_LISTS.map((csp) => (
+          <button
+            key={csp.key}
+            onClick={() => setActiveTab(csp.key as any)}
+            className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+              activeTab === csp.key
+                ? `bg-[${csp.color}]/20 border-${csp.borderColor} ${csp.textColor}`
+                : "bg-transparent border-white/10 text-slate-400 hover:text-white"
+            }`}
+          >
+            {csp.label} ({(lists[csp.key] ?? []).length})
+          </button>
+        ))}
       </div>
 
-      {!hasAny && (
+      {/* ALL LIST Tab */}
+      {activeTab === "all" && (
+        <div className="mb-12 bg-[#e3b341]/5 border border-[#e3b341]/30 rounded-xl p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-black text-[#e3b341] uppercase tracking-wider">
+              Tüm Market Themes
+            </h3>
+            <span className="text-[10px] font-black text-slate-400">
+              {selectedStocks.length} seçildi
+            </span>
+          </div>
+
+          {/* Add to List Buttons */}
+          {selectedStocks.length > 0 && (
+            <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/10">
+              <div className="text-[10px] text-slate-400 mb-2">Seçili hisseleri ekle:</div>
+              <div className="flex gap-2 flex-wrap">
+                {CSP_LISTS.map((csp) => (
+                  <button
+                    key={csp.key}
+                    onClick={() => handleAddToList(csp.key)}
+                    className={`px-3 py-1.5 text-[10px] font-bold rounded border transition-all ${csp.borderColor} ${csp.textColor} hover:bg-white/10`}
+                  >
+                    → {csp.label}
+                  </button>
+                ))}
+              </div>
+              {addMessage && (
+                <div className="text-[10px] text-[#3fb950] mt-2">{addMessage}</div>
+              )}
+            </div>
+          )}
+
+          {/* All Stocks Grid */}
+          <div className="flex flex-wrap gap-2">
+            {allThemeTickers.map((ticker) => (
+              <button
+                key={ticker}
+                onClick={() =>
+                  setSelectedStocks((prev) =>
+                    prev.includes(ticker)
+                      ? prev.filter((t) => t !== ticker)
+                      : [...prev, ticker]
+                  )
+                }
+                className={`px-2 py-1 text-[11px] font-bold rounded transition-all font-mono border ${
+                  selectedStocks.includes(ticker)
+                    ? "bg-[#e3b341]/30 border-[#e3b341] text-[#e3b341]"
+                    : "bg-transparent border-[#e3b341]/30 text-slate-300 hover:border-[#e3b341]"
+                }`}
+              >
+                {ticker}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Individual CSP Lists */}
+      {(activeTab === "525" || activeTab === "2550" || activeTab === "50250") && (
+        <div className="grid grid-cols-1 gap-5">
+          {CSP_LISTS.filter((c) => c.key === activeTab).map((csp) => {
+            const tickers = lists[csp.key] ?? [];
+            return (
+              <div
+                key={csp.key}
+                className={`${csp.color} border ${csp.borderColor} rounded-xl p-5`}
+              >
+                {/* Header */}
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
+                      {csp.label}
+                    </h3>
+                    <div className="text-[11px] text-slate-400 font-mono mt-0.5">
+                      {csp.range}
+                    </div>
+                  </div>
+                  <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
+                    {tickers.length} hisse
+                  </span>
+                </div>
+
+                <p className="text-[11px] text-slate-500 mb-4 leading-relaxed">
+                  {csp.description}
+                </p>
+
+                {/* Ticker list */}
+                {tickers.length === 0 ? (
+                  <div className="text-center py-6 border border-dashed border-white/10 rounded-lg">
+                    <p className="text-slate-600 text-[11px] mb-2">
+                      Bu listeye henüz hisse eklenmedi
+                    </p>
+                    <p className="text-slate-600 text-[11px]">
+                      ALL LIST sekmesinden seçerek ekleyin veya Terminal'den düzenleyin
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tickers.map((ticker) => (
+                      <Link
+                        key={ticker}
+                        href={`/stock/${ticker}`}
+                        className={`px-2 py-0.5 text-[11px] font-bold rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
+                      >
+                        {ticker}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
+                  <Link
+                    href={csp.href}
+                    className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
+                  >
+                    Listeyi Gör →
+                  </Link>
+                  <Link
+                    href="/terminal"
+                    className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
+                  >
+                    Düzenle
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Grid layout for all CSP lists when activeTab is not 'all' */}
+      {activeTab !== "all" && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
+          {CSP_LISTS.map((csp) => {
+            const tickers = lists[csp.key] ?? [];
+            return (
+              <div
+                key={csp.key}
+                className={`${csp.color} border ${csp.borderColor} rounded-xl p-5`}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
+                      {csp.label}
+                    </h3>
+                    <div className="text-[11px] text-slate-400 font-mono mt-0.5">
+                      {csp.range}
+                    </div>
+                  </div>
+                  <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
+                    {tickers.length} hisse
+                  </span>
+                </div>
+
+                <p className="text-[11px] text-slate-500 mb-4 leading-relaxed">
+                  {csp.description}
+                </p>
+
+                {tickers.length === 0 ? (
+                  <div className="text-center py-6 border border-dashed border-white/10 rounded-lg">
+                    <p className="text-slate-600 text-[11px]">Terminal'den hisse ekleyin</p>
+                    <Link
+                      href="/terminal"
+                      className={`inline-block mt-2 text-[10px] font-bold ${csp.textColor} hover:underline`}
+                    >
+                      Terminal'e git →
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-1.5">
+                    {tickers.map((ticker) => (
+                      <Link
+                        key={ticker}
+                        href={`/stock/${ticker}`}
+                        className={`px-2 py-0.5 text-[11px] font-bold rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
+                      >
+                        {ticker}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
+                  <Link
+                    href={csp.href}
+                    className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
+                  >
+                    Listeyi Gör →
+                  </Link>
+                  <Link
+                    href="/terminal"
+                    className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
+                  >
+                    Düzenle
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {!hasAny && activeTab !== "all" && (
         <div className="mt-3 text-center text-[11px] text-slate-600">
           Terminal sayfasında 525CSP, 2550CSP ve 50250CSP sekmelerinden hisse ekleyebilirsiniz.
         </div>
