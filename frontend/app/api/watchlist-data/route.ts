@@ -602,10 +602,76 @@ async function fetchYahooLive(ticker: string) {
     // Try dedicated profile fetch first for more reliable sector data
     let assetProfile = qResult.assetProfile || {};
     if (!assetProfile.sector && profileRes) {
-      const profileData = await profileRes.json().catch(() => ({}));
-      const pResult = profileData?.quoteSummary?.result?.[0] || {};
-      if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
+      try {
+        const profileData = await profileRes.json().catch(() => ({}));
+        const pResult = profileData?.quoteSummary?.result?.[0] || {};
+        if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
+      } catch {}
     }
+
+    // Robust sector detection with multiple fallbacks
+    let detectedSector = assetProfile.sector || "Unknown";
+
+    if (detectedSector === "Unknown" || !detectedSector) {
+      const industry = assetProfile.industry || "";
+
+      // Industry-based sector mapping (high confidence)
+      const sectorMap: Record<string, string> = {
+        "Bank": "Financials",
+        "Insurance": "Financials",
+        "Financial": "Financials",
+        "Investment": "Financials",
+        "Real Estate": "Real Estate",
+        "Hospital": "Healthcare",
+        "Pharma": "Healthcare",
+        "Biotech": "Healthcare",
+        "Health": "Healthcare",
+        "Medical": "Healthcare",
+        "Software": "Technology",
+        "Tech": "Technology",
+        "Semiconductor": "Technology",
+        "Computer": "Technology",
+        "Internet": "Technology",
+        "Digital": "Technology",
+        "Retail": "Consumer Discretionary",
+        "Restaurant": "Consumer Discretionary",
+        "Apparel": "Consumer Discretionary",
+        "Clothing": "Consumer Discretionary",
+        "Leisure": "Consumer Discretionary",
+        "Luxury": "Consumer Discretionary",
+        "Grocery": "Consumer Staples",
+        "Food": "Consumer Staples",
+        "Beverage": "Consumer Staples",
+        "Staples": "Consumer Staples",
+        "Energy": "Energy",
+        "Oil": "Energy",
+        "Gas": "Energy",
+        "Petroleum": "Energy",
+        "Metal": "Materials",
+        "Mining": "Materials",
+        "Chemical": "Materials",
+        "Materials": "Materials",
+        "Utility": "Utilities",
+        "Telecom": "Communication Services",
+        "Communication": "Communication Services",
+        "Media": "Communication Services",
+        "Entertainment": "Communication Services",
+        "Broadcasting": "Communication Services",
+        "Industrial": "Industrials",
+        "Equipment": "Industrials",
+        "Aerospace": "Industrials",
+        "Manufacturing": "Industrials"
+      };
+
+      for (const [key, sector] of Object.entries(sectorMap)) {
+        if (industry.includes(key)) {
+          detectedSector = sector;
+          break;
+        }
+      }
+    }
+
+    assetProfile.sector = detectedSector;
 
     const marketCap = sumDetail.marketCap?.raw || 0;
     const peRatio = sumDetail.trailingPE?.raw || 0;
@@ -854,6 +920,7 @@ export async function GET(req: NextRequest) {
         path.join(DATA_ROOT, "latest", "stocks", `${ticker}.json`),
         path.join(process.cwd(), "data", "latest", "stocks", `${ticker}.json`),
         path.join(process.cwd(), "..", "data", "latest", "stocks", `${ticker}.json`),
+        path.join(process.cwd(), "public", "data", "latest", "stocks", `${ticker}.json`),
       ];
 
       // Static files older than 1 hour are considered stale — fall through to live fetch
@@ -861,11 +928,12 @@ export async function GET(req: NextRequest) {
       const now = Date.now();
 
       let foundData = false;
+      let localSectorData: { sector?: string; industry?: string; company?: string } | null = null;
+
       for (const p of localPaths) {
         if (fs.existsSync(p)) {
           try {
             const mtime = fs.statSync(p).mtimeMs;
-            if (now - mtime > MAX_STATIC_AGE_MS) continue; // stale — skip
             let content = fs.readFileSync(p, "utf-8");
             content = content
               .replace(/:\s*NaN/g, ": null")
@@ -874,9 +942,19 @@ export async function GET(req: NextRequest) {
 
             const parsed = JSON.parse(content);
             if (parsed && parsed.ticker) {
-              results.push(parsed);
-              foundData = true;
-              break;
+              // If file is not stale, use it directly
+              if (now - mtime <= MAX_STATIC_AGE_MS) {
+                results.push(parsed);
+                foundData = true;
+                break;
+              } else {
+                // File is stale but we can extract sector/industry data from it
+                localSectorData = {
+                  sector: parsed.sector,
+                  industry: parsed.industry,
+                  company: parsed.company
+                };
+              }
             }
           } catch {}
         }
@@ -887,6 +965,15 @@ export async function GET(req: NextRequest) {
         try {
           const liveData = await fetchYahooLive(ticker);
           if (liveData) {
+            // Enhance with local sector data if available and live data lacks it
+            if (localSectorData && localSectorData.sector && (!liveData.sector || liveData.sector === "Unknown")) {
+              liveData.sector = localSectorData.sector;
+              liveData.industry = localSectorData.industry || liveData.industry;
+            }
+            // Also use local company name if better
+            if (localSectorData?.company && localSectorData.company.length > (liveData.company || "").length) {
+              liveData.company = localSectorData.company;
+            }
             results.push(liveData);
           }
         } catch (err) {
