@@ -418,45 +418,53 @@ export default function TerminalClient() {
   // Sidebar toggle
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  // ── Load watchlist from localStorage ────────────────────────────────────────
+  // ── Yardımcı: API + localStorage birlikte kaydet ─────────────────────────────
+  function syncToAPI(storeKey: string, lsKey: string, list: string[]) {
+    try { localStorage.setItem(lsKey, JSON.stringify(list)); } catch {}
+    if (storeKey === "watchlist") {
+      fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: list }) }).catch(() => {});
+    } else {
+      fetch(`/api/csp-watchlist/${storeKey}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tickers: list }) }).catch(() => {});
+    }
+  }
+
+  // ── Load from API on mount ───────────────────────────────────────────────────
   useEffect(() => {
-    const reloadWatch = () => {
-      try {
-        const savedWatch = localStorage.getItem("watchlist");
-        if (savedWatch) {
-          setWatchlist(JSON.parse(savedWatch));
-        } else {
-          const defaultWl = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-          setWatchlist(defaultWl);
-          localStorage.setItem("watchlist", JSON.stringify(defaultWl));
-        }
-      } catch {}
-    };
+    const DEFAULT_WL = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
 
-    reloadWatch();
-
-    // Listen to local storage updates
-    window.addEventListener("storage", reloadWatch);
-    window.addEventListener("watchlist_update", reloadWatch);
-
+    // localStorage'dan anlık yükle
     try {
-      const saved525 = localStorage.getItem("terminal_watchlist_525csp");
-      if (saved525) setWatchlist525CSP(JSON.parse(saved525));
-      const saved2550 = localStorage.getItem("terminal_watchlist_2550csp");
-      if (saved2550) setWatchlist2550CSP(JSON.parse(saved2550));
-      const saved50250 = localStorage.getItem("terminal_watchlist_50250csp");
-      if (saved50250) setWatchlist50250CSP(JSON.parse(saved50250));
+      const s = localStorage.getItem("shared_watchlist");
+      if (s) setWatchlist(JSON.parse(s));
+      const s525 = localStorage.getItem("shared_525csp");
+      if (s525) setWatchlist525CSP(JSON.parse(s525));
+      const s2550 = localStorage.getItem("shared_2550csp");
+      if (s2550) setWatchlist2550CSP(JSON.parse(s2550));
+      const s50250 = localStorage.getItem("shared_50250csp");
+      if (s50250) setWatchlist50250CSP(JSON.parse(s50250));
     } catch {}
 
-    return () => {
-      window.removeEventListener("storage", reloadWatch);
-      window.removeEventListener("watchlist_update", reloadWatch);
-    };
+    // API'den taze veri
+    fetch("/api/store/watchlist").then(r => r.json()).then(({ value }) => {
+      const wl = value ?? DEFAULT_WL;
+      setWatchlist(wl);
+      try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
+    }).catch(() => { setWatchlist(DEFAULT_WL); });
+
+    fetch("/api/csp-watchlist/525").then(r => r.json()).then(d => {
+      if (d.tickers?.length) { setWatchlist525CSP(d.tickers); try { localStorage.setItem("shared_525csp", JSON.stringify(d.tickers)); } catch {} }
+    }).catch(() => {});
+    fetch("/api/csp-watchlist/2550").then(r => r.json()).then(d => {
+      if (d.tickers?.length) { setWatchlist2550CSP(d.tickers); try { localStorage.setItem("shared_2550csp", JSON.stringify(d.tickers)); } catch {} }
+    }).catch(() => {});
+    fetch("/api/csp-watchlist/50250").then(r => r.json()).then(d => {
+      if (d.tickers?.length) { setWatchlist50250CSP(d.tickers); try { localStorage.setItem("shared_50250csp", JSON.stringify(d.tickers)); } catch {} }
+    }).catch(() => {});
   }, []);
 
   const saveWatchlist = (list: string[]) => {
     setWatchlist(list);
-    try { localStorage.setItem("watchlist", JSON.stringify(list)); } catch {}
+    syncToAPI("watchlist", "shared_watchlist", list);
   };
 
   const addToWatchlist = () => {
@@ -473,10 +481,9 @@ export default function TerminalClient() {
     setTrackerInput("");
   };
 
-  // Custom Watchlist Helper Functions
   const saveWatchlist525CSP = (list: string[]) => {
     setWatchlist525CSP(list);
-    try { localStorage.setItem("terminal_watchlist_525csp", JSON.stringify(list)); } catch {}
+    syncToAPI("525", "shared_525csp", list);
   };
   const addToWatchlist525CSP = () => {
     const t = watchInput525CSP.trim().toUpperCase();
@@ -487,7 +494,7 @@ export default function TerminalClient() {
 
   const saveWatchlist2550CSP = (list: string[]) => {
     setWatchlist2550CSP(list);
-    try { localStorage.setItem("terminal_watchlist_2550csp", JSON.stringify(list)); } catch {}
+    syncToAPI("2550", "shared_2550csp", list);
   };
   const addToWatchlist2550CSP = () => {
     const t = watchInput2550CSP.trim().toUpperCase();
@@ -498,7 +505,7 @@ export default function TerminalClient() {
 
   const saveWatchlist50250CSP = (list: string[]) => {
     setWatchlist50250CSP(list);
-    try { localStorage.setItem("terminal_watchlist_50250csp", JSON.stringify(list)); } catch {}
+    syncToAPI("50250", "shared_50250csp", list);
   };
   const addToWatchlist50250CSP = () => {
     const t = watchInput50250CSP.trim().toUpperCase();

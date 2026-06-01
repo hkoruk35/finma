@@ -1,8 +1,32 @@
 // Smart Tracker — Paper Trade Basket
-// 30-day localStorage cache (auth-agnostic until login system is active)
+// Supabase shared_store üzerinden cross-device sync
 
 export const TRACKER_STORAGE_KEY = "boga_smart_tracker_v1";
 export const TRACKER_TTL_DAYS = 30;
+const STORE_KEY = "smart_tracker_v1";
+const LS_KEY = `shared_${STORE_KEY}`;
+
+export async function loadTrackerStoreRemote(): Promise<TrackerStore> {
+  try {
+    const res = await fetch(`/api/store/${STORE_KEY}`);
+    const { value } = await res.json();
+    if (value) {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(value)); } catch {}
+      return value as TrackerStore;
+    }
+  } catch {}
+  return loadTrackerStore();
+}
+
+export async function saveTrackerStoreRemote(store: TrackerStore): Promise<void> {
+  store.lastFetched = new Date().toISOString();
+  try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch {}
+  fetch(`/api/store/${STORE_KEY}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ value: store }),
+  }).catch(() => {});
+}
 
 export type TradeStatus = "open" | "closed" | "pending";
 export type SizeUnit = "usd" | "lot";
@@ -75,39 +99,12 @@ function generateId(ticker: string): string {
 // ── Storage ───────────────────────────────────────────────────────────────────
 
 export function loadTrackerStore(): TrackerStore {
-  if (typeof window === "undefined") {
-    return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
-  }
+  if (typeof window === "undefined") return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
   try {
-    const raw = localStorage.getItem(TRACKER_STORAGE_KEY);
-    if (!raw) {
-      // Fallback to old cart key to migrate data if needed, but let's just stick to tracker for clean start
-      // or check "boga_smart_cart_v1"
-      const oldRaw = localStorage.getItem("boga_smart_cart_v1");
-      if (oldRaw) {
-         const data = JSON.parse(oldRaw);
-         // simple migration of property names if they changed
-         return {
-           activeTracker: data.activeCart,
-           archivedTrackers: data.archivedCarts || [],
-           lastFetched: data.lastFetched || ""
-         };
-      }
-      return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
-    }
-    const data: TrackerStore = JSON.parse(raw);
-
-    // TTL check — purge data older than 30 days
-    if (data.lastFetched) {
-      const ageDays =
-        (Date.now() - new Date(data.lastFetched).getTime()) /
-        (1000 * 60 * 60 * 24);
-      if (ageDays > TRACKER_TTL_DAYS) {
-        localStorage.removeItem(TRACKER_STORAGE_KEY);
-        return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
-      }
-    }
-    return data;
+    // Önce yeni shared key'e bak, sonra eski key'e
+    const raw = localStorage.getItem(LS_KEY) || localStorage.getItem(TRACKER_STORAGE_KEY);
+    if (!raw) return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
+    return JSON.parse(raw) as TrackerStore;
   } catch {
     return { activeTracker: null, archivedTrackers: [], lastFetched: "" };
   }
@@ -116,7 +113,13 @@ export function loadTrackerStore(): TrackerStore {
 export function saveTrackerStore(store: TrackerStore): void {
   if (typeof window === "undefined") return;
   store.lastFetched = now();
-  localStorage.setItem(TRACKER_STORAGE_KEY, JSON.stringify(store));
+  try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch {}
+  // Remote kayıt (fire and forget)
+  fetch(`/api/store/${STORE_KEY}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ value: store }),
+  }).catch(() => {});
 }
 
 // ── Tracker Operations ───────────────────────────────────────────────────────────

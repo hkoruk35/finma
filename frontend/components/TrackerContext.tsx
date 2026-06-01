@@ -12,7 +12,7 @@ import React, {
 interface TrackerState {
   tickers: string[];
   notes: Record<string, string>;
-  types: Record<string, string>; // Swing/Long/Option/CSP/CC
+  types: Record<string, string>;
 }
 
 interface TrackerCtx {
@@ -34,104 +34,93 @@ export function useTracker(): TrackerCtx {
   return ctx;
 }
 
-const STORAGE_KEY = "boga_tracker_v1";
+const STORE_KEY = "tracker_v1";
+const LS_KEY = "shared_tracker_v1";
+const EMPTY: TrackerState = { tickers: [], notes: {}, types: {} };
 
-function loadTrackerState(): TrackerState {
-  if (typeof window === "undefined") {
-    return { tickers: [], notes: {}, types: {} };
-  }
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) return { tickers: [], notes: {}, types: {} };
-    return JSON.parse(stored);
-  } catch {
-    return { tickers: [], notes: {}, types: {} };
-  }
-}
-
-function saveTrackerState(state: TrackerState) {
-  if (typeof window === "undefined") return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (e) {
-    console.error("Failed to save tracker state:", e);
-  }
+function saveToAPI(state: TrackerState) {
+  fetch(`/api/store/${STORE_KEY}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ value: state }),
+  }).catch(() => {});
 }
 
 export function TrackerProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<TrackerState>(() => loadTrackerState());
+  const [state, setState] = useState<TrackerState>(EMPTY);
   const initialized = useRef(false);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Hydrate from localStorage once on mount
+  // Mount: localStorage → API sırası
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      setState(loadTrackerState());
-    }
+    if (initialized.current) return;
+    initialized.current = true;
+
+    // 1. localStorage anlık yükle
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) setState(JSON.parse(raw));
+    } catch {}
+
+    // 2. API'den taze veri
+    fetch(`/api/store/${STORE_KEY}`)
+      .then((r) => r.json())
+      .then(({ value }) => {
+        if (value) {
+          setState(value as TrackerState);
+          try { localStorage.setItem(LS_KEY, JSON.stringify(value)); } catch {}
+        }
+      })
+      .catch(() => {});
   }, []);
 
-  // Persist whenever state changes
-  useEffect(() => {
-    if (initialized.current) {
-      saveTrackerState(state);
-    }
-  }, [state]);
+  // State değişince kaydet (debounced)
+  const persistState = useCallback((s: TrackerState) => {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => saveToAPI(s), 500);
+  }, []);
 
   const addToTracker = useCallback((ticker: string, type = "Swing") => {
     setState((prev) => {
       if (prev.tickers.includes(ticker)) return prev;
-      return {
-        ...prev,
-        tickers: [...prev.tickers, ticker],
-        types: { ...prev.types, [ticker]: type },
-      };
+      const next = { ...prev, tickers: [...prev.tickers, ticker], types: { ...prev.types, [ticker]: type } };
+      persistState(next);
+      return next;
     });
-  }, []);
+  }, [persistState]);
 
   const removeFromTracker = useCallback((ticker: string) => {
     setState((prev) => {
-      const newTickers = prev.tickers.filter((t) => t !== ticker);
-      const { [ticker]: _, ...newNotes } = prev.notes;
-      const { [ticker]: __, ...newTypes } = prev.types;
-      return {
-        tickers: newTickers,
-        notes: newNotes,
-        types: newTypes,
-      };
+      const { [ticker]: _n, ...newNotes } = prev.notes;
+      const { [ticker]: _t, ...newTypes } = prev.types;
+      const next = { tickers: prev.tickers.filter((t) => t !== ticker), notes: newNotes, types: newTypes };
+      persistState(next);
+      return next;
     });
-  }, []);
+  }, [persistState]);
 
-  const isInTracker = useCallback(
-    (ticker: string) => state.tickers.includes(ticker),
-    [state.tickers]
-  );
+  const isInTracker = useCallback((ticker: string) => state.tickers.includes(ticker), [state.tickers]);
 
   const updateNote = useCallback((ticker: string, note: string) => {
-    setState((prev) => ({
-      ...prev,
-      notes: { ...prev.notes, [ticker]: note },
-    }));
-  }, []);
+    setState((prev) => {
+      const next = { ...prev, notes: { ...prev.notes, [ticker]: note } };
+      persistState(next);
+      return next;
+    });
+  }, [persistState]);
 
   const updateType = useCallback((ticker: string, type: string) => {
-    setState((prev) => ({
-      ...prev,
-      types: { ...prev.types, [ticker]: type },
-    }));
-  }, []);
-
-  const value: TrackerCtx = {
-    tickers: state.tickers,
-    notes: state.notes,
-    types: state.types,
-    addToTracker,
-    removeFromTracker,
-    isInTracker,
-    updateNote,
-    updateType,
-  };
+    setState((prev) => {
+      const next = { ...prev, types: { ...prev.types, [ticker]: type } };
+      persistState(next);
+      return next;
+    });
+  }, [persistState]);
 
   return (
-    <TrackerContext.Provider value={value}>{children}</TrackerContext.Provider>
+    <TrackerContext.Provider value={{ tickers: state.tickers, notes: state.notes, types: state.types, addToTracker, removeFromTracker, isInTracker, updateNote, updateType }}>
+      {children}
+    </TrackerContext.Provider>
   );
 }

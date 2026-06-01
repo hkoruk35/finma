@@ -13,11 +13,26 @@ export default function WatchlistPage() {
   const [showAddDialog, setShowAddDialog] = useState(false);
 
   useEffect(() => {
-    // Load watchlist on mount
-    const watchlistStr = localStorage.getItem("watchlist");
-    const wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-    setWatchlist(wl);
-    fetchWatchlistData(wl);
+    const DEFAULT_WL = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
+    // 1. localStorage anlık
+    try {
+      const raw = localStorage.getItem("shared_watchlist");
+      if (raw) { const wl = JSON.parse(raw); setWatchlist(wl); fetchWatchlistData(wl); }
+    } catch {}
+    // 2. API'den taze
+    fetch("/api/store/watchlist")
+      .then(r => r.json())
+      .then(({ value }) => {
+        const wl = value ?? DEFAULT_WL;
+        setWatchlist(wl);
+        try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
+        fetchWatchlistData(wl);
+      })
+      .catch(() => {
+        const wl = DEFAULT_WL;
+        setWatchlist(wl);
+        fetchWatchlistData(wl);
+      });
   }, []);
 
   const fetchWatchlistData = async (wl: string[]) => {
@@ -40,24 +55,28 @@ export default function WatchlistPage() {
     }
   };
 
+  function syncWatchlist(updated: string[]) {
+    setWatchlist(updated);
+    try { localStorage.setItem("shared_watchlist", JSON.stringify(updated)); } catch {}
+    fetch("/api/store/watchlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value: updated }),
+    }).catch(() => {});
+  }
+
   const removeTicker = (ticker: string) => {
     const updated = watchlist.filter(t => t !== ticker.toUpperCase());
-    setWatchlist(updated);
-    localStorage.setItem("watchlist", JSON.stringify(updated));
+    syncWatchlist(updated);
     setStocks(stocks.filter(s => s.ticker !== ticker.toUpperCase()));
   };
 
   const addTicker = () => {
     const t = newTicker.trim().toUpperCase();
     if (!t) return;
-    if (watchlist.includes(t)) {
-      setNewTicker("");
-      setShowAddDialog(false);
-      return;
-    }
+    if (watchlist.includes(t)) { setNewTicker(""); setShowAddDialog(false); return; }
     const updated = [...watchlist, t];
-    setWatchlist(updated);
-    localStorage.setItem("watchlist", JSON.stringify(updated));
+    syncWatchlist(updated);
     setNewTicker("");
     setShowAddDialog(false);
     fetchWatchlistData(updated);

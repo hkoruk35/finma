@@ -78,9 +78,15 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
   useEffect(() => {
     setMounted(true);
-    const watchlistStr = localStorage.getItem("watchlist");
-    const wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-    setInWatchlist(wl.includes(ticker.toUpperCase()));
+    // localStorage anlık kontrol
+    try {
+      const raw = localStorage.getItem("shared_watchlist");
+      if (raw) { const wl = JSON.parse(raw); setInWatchlist(wl.includes(ticker.toUpperCase())); }
+    } catch {}
+    // API'den taze kontrol
+    fetch("/api/store/watchlist").then(r => r.json()).then(({ value }) => {
+      if (value) setInWatchlist((value as string[]).includes(ticker.toUpperCase()));
+    }).catch(() => {});
   }, [ticker]);
 
   // Automatically add to local overrides theme based on industry / sector
@@ -117,33 +123,35 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     }
 
     if (targetTheme) {
-      try {
-        const overridesStr = localStorage.getItem("theme_overrides");
-        const overrides = overridesStr ? JSON.parse(overridesStr) : {};
-        if (!overrides[targetTheme]) {
-          overrides[targetTheme] = [];
-        }
-        if (!overrides[targetTheme].includes(t)) {
-          overrides[targetTheme].push(t);
-          localStorage.setItem("theme_overrides", JSON.stringify(overrides));
-          console.log(`[BOGA AI] Automatically added ${t} to theme: ${targetTheme}`);
-        }
-      } catch (err) {}
+      (async () => {
+        try {
+          let overrides: Record<string, string[]> = {};
+          const raw = localStorage.getItem("shared_theme_overrides");
+          if (raw) overrides = JSON.parse(raw);
+          else {
+            const res = await fetch("/api/store/theme_overrides");
+            const { value } = await res.json();
+            if (value) overrides = value;
+          }
+          if (!overrides[targetTheme]) overrides[targetTheme] = [];
+          if (!overrides[targetTheme].includes(t)) {
+            overrides[targetTheme].push(t);
+            try { localStorage.setItem("shared_theme_overrides", JSON.stringify(overrides)); } catch {}
+            fetch("/api/store/theme_overrides", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: overrides }) }).catch(() => {});
+          }
+        } catch {}
+      })();
     }
   }, [ticker, stockData]);
 
   const toggleWatchlist = () => {
-    const watchlistStr = localStorage.getItem("watchlist");
-    let wl = watchlistStr ? JSON.parse(watchlistStr) : ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-    if (wl.includes(ticker.toUpperCase())) {
-      wl = wl.filter((t: string) => t !== ticker.toUpperCase());
-      setInWatchlist(false);
-    } else {
-      wl.push(ticker.toUpperCase());
-      setInWatchlist(true);
-    }
-    localStorage.setItem("watchlist", JSON.stringify(wl));
-    // Dispatch event to notify other components (like TerminalClient)
+    let wl: string[] = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
+    try { const raw = localStorage.getItem("shared_watchlist"); if (raw) wl = JSON.parse(raw); } catch {}
+    const t = ticker.toUpperCase();
+    if (wl.includes(t)) { wl = wl.filter((x: string) => x !== t); setInWatchlist(false); }
+    else { wl.push(t); setInWatchlist(true); }
+    try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
+    fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: wl }) }).catch(() => {});
     window.dispatchEvent(new Event("watchlist_update"));
   };
 

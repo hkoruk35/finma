@@ -19,6 +19,7 @@ import {
   computeTrackerStats,
   createTracker,
   loadTrackerStore,
+  loadTrackerStoreRemote,
   openPosition,
   removePosition,
   saveTrackerStore,
@@ -67,12 +68,12 @@ export function SmartTrackerProvider({ children }: { children: React.ReactNode }
   const [loading, setLoading] = useState(false);
   const initialized = useRef(false);
 
-  // Hydrate from localStorage once on mount
+  // Hydrate: localStorage anlık → API taze
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      setStore(loadTrackerStore());
-    }
+    if (initialized.current) return;
+    initialized.current = true;
+    setStore(loadTrackerStore()); // anlık
+    loadTrackerStoreRemote().then(setStore).catch(() => {}); // taze
   }, []);
 
   // Persist whenever store changes

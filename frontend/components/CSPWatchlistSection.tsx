@@ -15,36 +15,9 @@ interface CSPList {
 }
 
 const CSP_LISTS: CSPList[] = [
-  {
-    key: "terminal_watchlist_525csp",
-    label: "525 CSP",
-    range: "$5 – $25",
-    description: "Cash Secured Put candidates. Low-priced stocks ideal for weekly/monthly CSP premium collection.",
-    color: "bg-[#10b981]/5",
-    borderColor: "border-[#10b981]/30",
-    textColor: "text-[#10b981]",
-    href: "/csp/525",
-  },
-  {
-    key: "terminal_watchlist_2550csp",
-    label: "2550 CSP",
-    range: "$25 – $50",
-    description: "Mid-priced CSP candidates with balanced premium and margin requirements.",
-    color: "bg-[#3b82f6]/5",
-    borderColor: "border-[#3b82f6]/30",
-    textColor: "text-[#3b82f6]",
-    href: "/csp/2550",
-  },
-  {
-    key: "terminal_watchlist_50250csp",
-    label: "50250 CSP",
-    range: "$50 – $250",
-    description: "Higher-priced stocks for premium CSP strategies with larger capital allocation.",
-    color: "bg-[#a78bfa]/5",
-    borderColor: "border-[#a78bfa]/30",
-    textColor: "text-[#a78bfa]",
-    href: "/csp/50250",
-  },
+  { key: "525",   label: "525 CSP",   range: "$5 – $25",    description: "Cash Secured Put candidates. Low-priced stocks ideal for weekly/monthly CSP premium collection.", color: "bg-[#10b981]/5", borderColor: "border-[#10b981]/30", textColor: "text-[#10b981]", href: "/csp/525"   },
+  { key: "2550",  label: "2550 CSP",  range: "$25 – $50",   description: "Mid-priced CSP candidates with balanced premium and margin requirements.",                         color: "bg-[#3b82f6]/5", borderColor: "border-[#3b82f6]/30", textColor: "text-[#3b82f6]", href: "/csp/2550"  },
+  { key: "50250", label: "50250 CSP", range: "$50 – $250",  description: "Higher-priced stocks for premium CSP strategies with larger capital allocation.",                   color: "bg-[#a78bfa]/5", borderColor: "border-[#a78bfa]/30", textColor: "text-[#a78bfa]", href: "/csp/50250" },
 ];
 
 export default function CSPWatchlistSection() {
@@ -53,16 +26,30 @@ export default function CSPWatchlistSection() {
 
   useEffect(() => {
     setMounted(true);
+    // localStorage anlık yükle
     const loaded: Record<string, string[]> = {};
     for (const csp of CSP_LISTS) {
       try {
-        const raw = localStorage.getItem(csp.key);
+        const raw = localStorage.getItem(`shared_${csp.key}csp`);
         loaded[csp.key] = raw ? JSON.parse(raw) : [];
-      } catch {
-        loaded[csp.key] = [];
-      }
+      } catch { loaded[csp.key] = []; }
     }
     setLists(loaded);
+    // API'den taze veri
+    Promise.all(
+      CSP_LISTS.map(csp =>
+        fetch(`/api/csp-watchlist/${csp.key}`).then(r => r.json())
+          .then(d => ({ key: csp.key, tickers: d.tickers ?? [] }))
+          .catch(() => ({ key: csp.key, tickers: [] }))
+      )
+    ).then(results => {
+      const fresh: Record<string, string[]> = {};
+      for (const r of results) {
+        fresh[r.key] = r.tickers;
+        try { localStorage.setItem(`shared_${r.key}csp`, JSON.stringify(r.tickers)); } catch {}
+      }
+      setLists(fresh);
+    });
   }, []);
 
   if (!mounted) return null;
