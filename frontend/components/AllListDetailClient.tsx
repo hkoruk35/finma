@@ -74,6 +74,8 @@ export default function AllListDetailClient() {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState(1);
+  const [hoverTicker, setHoverTicker] = useState<string | null>(null);
+  const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
 
   // Extract all unique tickers from MARKET_THEMES
   const allTickers = Array.from(
@@ -349,7 +351,20 @@ export default function AllListDetailClient() {
                 onMouseEnter={(e) => e.currentTarget.style.background = "#161b22"}
                 onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
               >
-                <div style={{ paddingLeft: 8 }}>
+                <div
+                  style={{ paddingLeft: 8 }}
+                  onMouseEnter={(e) => {
+                    e.stopPropagation();
+                    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                    setHoverTicker(ticker);
+                    setHoverPos({ x: r.right + 10, y: r.top });
+                  }}
+                  onMouseLeave={() => {
+                    setHoverTicker(null);
+                    setHoverPos(null);
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <span style={{ color: "#58a6ff", fontWeight: 700 }}>{ticker}</span>
                 </div>
                 <div style={{ color: "#8b949e" }}>{d.company?.substring(0, 20)}</div>
@@ -454,6 +469,38 @@ export default function AllListDetailClient() {
           >
             Sonraki →
           </button>
+        </div>
+      )}
+
+      {/* ── Fixed Hover Chart Popup ── */}
+      {hoverTicker && hoverPos && (
+        <div
+          style={{
+            position: "fixed",
+            left: Math.min(hoverPos.x, window.innerWidth - 440),
+            top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
+            width: 430, zIndex: 9999,
+            background: "#161b22", border: "1px solid #30363d",
+            borderRadius: 6, overflow: "hidden", pointerEvents: "none",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
+          }}
+          onMouseEnter={() => {}} onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
+        >
+          <div style={{
+            padding: "7px 12px", borderBottom: "1px solid #30363d",
+            display: "flex", justifyContent: "space-between", alignItems: "center"
+          }}>
+            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1D Chart</span>
+            <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
+              <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
+            </div>
+          </div>
+          <iframe
+            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
+            width="430" height="220"
+            style={{ border: "none", display: "block" }}
+            title={`${hoverTicker} 1D`}
+          />
         </div>
       )}
     </div>
