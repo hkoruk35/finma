@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
+import AllListPaginatedClient from "@/components/AllListPaginatedClient";
 
 interface CSPList {
   key: string;
@@ -139,61 +140,10 @@ export default function CSPWatchlistSection() {
         ))}
       </div>
 
-      {/* ALL LIST Tab */}
+      {/* ALL LIST Tab - Paginated with Add to List */}
       {activeTab === "all" && (
-        <div className="mb-12 bg-[#e3b341]/5 border border-[#e3b341]/30 rounded-xl p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-black text-[#e3b341] uppercase tracking-wider">
-              Tüm Market Themes
-            </h3>
-            <span className="text-[10px] font-black text-slate-400">
-              {selectedStocks.length} seçildi
-            </span>
-          </div>
-
-          {/* Add to List Buttons */}
-          {selectedStocks.length > 0 && (
-            <div className="mb-4 p-3 bg-white/5 rounded-lg border border-white/10">
-              <div className="text-[10px] text-slate-400 mb-2">Seçili hisseleri ekle:</div>
-              <div className="flex gap-2 flex-wrap">
-                {CSP_LISTS.map((csp) => (
-                  <button
-                    key={csp.key}
-                    onClick={() => handleAddToList(csp.key)}
-                    className={`px-3 py-1.5 text-[10px] font-bold rounded border transition-all ${csp.borderColor} ${csp.textColor} hover:bg-white/10`}
-                  >
-                    → {csp.label}
-                  </button>
-                ))}
-              </div>
-              {addMessage && (
-                <div className="text-[10px] text-[#3fb950] mt-2">{addMessage}</div>
-              )}
-            </div>
-          )}
-
-          {/* All Stocks Grid */}
-          <div className="flex flex-wrap gap-2">
-            {allThemeTickers.map((ticker) => (
-              <button
-                key={ticker}
-                onClick={() =>
-                  setSelectedStocks((prev) =>
-                    prev.includes(ticker)
-                      ? prev.filter((t) => t !== ticker)
-                      : [...prev, ticker]
-                  )
-                }
-                className={`px-2 py-1 text-[11px] font-bold rounded transition-all font-mono border ${
-                  selectedStocks.includes(ticker)
-                    ? "bg-[#e3b341]/30 border-[#e3b341] text-[#e3b341]"
-                    : "bg-transparent border-[#e3b341]/30 text-slate-300 hover:border-[#e3b341]"
-                }`}
-              >
-                {ticker}
-              </button>
-            ))}
-          </div>
+        <div className="mb-12">
+          <AllListPaginatedClient />
         </div>
       )}
 
