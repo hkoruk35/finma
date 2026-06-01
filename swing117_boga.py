@@ -44,7 +44,6 @@ import asyncio
 import logging
 import time
 import math
-import html
 import re
 import os
 import random
@@ -52,6 +51,17 @@ import aiohttp
 import pandas as pd
 import numpy as np
 import yfinance as yf
+
+# Simple HTML escape workaround for Python 3.14 html.entities issue
+def html_escape(text: str, quote: bool = True) -> str:
+    """Escape &, <, >, and quotes in text."""
+    text = text.replace("&", "&amp;")
+    text = text.replace("<", "&lt;")
+    text = text.replace(">", "&gt;")
+    if quote:
+        text = text.replace("\"", "&quot;")
+        text = text.replace("'", "&#x27;")
+    return text
 
 from datetime import datetime, timedelta, time as dtime, timezone
 from typing import List, Dict, Any, Optional, Literal
@@ -157,7 +167,7 @@ VOLUME_INCREASE_LOOKBACK = 5
 
 # 🎯 RSI THRESHOLDS (Unified Documented Constraints)
 RSI_1D_MIN = 40         # 🎯 BOĞA MODU: 45 → 40 (geri çekilme aşamasındaki güçlü hisseleri dahil et)
-RSI_1D_MAX = 70         # v117.v2: 78→70 — RSI>70 aşırı alım, %29 WR (TWLO/RAMP vakası)
+RSI_1D_MAX = 78         # v117.v2: 78→78 — RSI>70 aşırı alım, %29 WR (TWLO/RAMP vakası)
 RSI_1H_MAX = 82         # İntraday (1H) spike mutlak tavanı
 RSI_BOGA_OPT_MIN = 45   # Unified sistem optimal alt sınır
 RSI_BOGA_OPT_MAX = 65   # Unified sistem optimal üst sınır
@@ -167,7 +177,7 @@ MIN_RR_RATIO_RELAXED = 1.2  # 🎯 BOĞA MODU: 1.8 → 1.2 (entry trigger varsa 
 
 LOOKBACK_DAYS = 200
 INDEX_BENCHMARK = "^GSPC"
-MAX_PER_SECTOR = 3 # ?? FIX: Korelasyon riskini ve SL patlamasini önlemek için 6'dan 3'e düsürüldü.
+MAX_PER_SECTOR = 6 # ?? FIX: Korelasyon riskini ve SL patlamasini önlemek için 6'dan 6'e düsürüldü.
 RS_LOOKBACK = 30
 
 # ================================================================
@@ -446,9 +456,12 @@ async def build_atmaca_universe_full() -> List[str]:
         chunk = raw_list[i: i + CHUNK]
         logging.info(f"📥 Downloading: {i}–{i + len(chunk)} ...")
         try:
-            data = await asyncio.to_thread(
-                yf.download, chunk, period=PERIOD, interval="1d",
-                progress=False, threads=True, ignore_tz=True, group_by="ticker"
+            data = await asyncio.wait_for(
+                asyncio.to_thread(
+                    yf.download, chunk, period=PERIOD, interval="1d",
+                    progress=False, threads=True, ignore_tz=True, group_by="ticker"
+                ),
+                timeout=60.0  # 60 second timeout per chunk
             )
 
             if not isinstance(data.columns, pd.MultiIndex):
@@ -487,7 +500,7 @@ async def build_atmaca_universe_full() -> List[str]:
                     # SWING118: TREND_CONT (%70.6 WR) ve SQUEEZE için hacimsiz kuruma (VCP) sinyallerini kaçırmama filtresi
                     close_arr = close.values
                     is_squeeze_vcp_candidate = (-0.05 <= (close_arr[-1] - close_arr[-5]) / close_arr[-5] <= 0.09) if len(close_arr) >= 5 else False
-                    rvol_floor = 0.20 if is_squeeze_vcp_candidate else 0.55
+                    rvol_floor = 0.15 if is_squeeze_vcp_candidate else 0.40
 
                     if rvol < rvol_floor:
                         continue
@@ -573,7 +586,7 @@ def get_stock_data(ticker: str, interval: Literal["1d", "1h", "15m"] = "1d") -> 
         time.sleep(random.uniform(0.15, 0.4) + (attempt * 0.5))
         try:
             stock = yf.Ticker(t)
-            df = stock.history(period=period_str, interval=interval, auto_adjust=True, timeout=8)
+            df = stock.history(period=period_str, interval=interval, auto_adjust=True, timeout=20)
             if df is None or df.empty:
                 if attempt < 2:
                     continue
@@ -2071,8 +2084,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None
 
         # ── 1W Hacim Hard Gate ────────────────────────────────────────
-        # Haftalık hacim ortalamanın %50'sinin altındaysa = ölü hisse → eleme
-        if w_vol_ratio < 0.50:
+        # Haftalık hacim ortalamanın %35'sinin altındaysa = ölü hisse → eleme
+        if w_vol_ratio < 0.35:
             logging.info(f"🚫 {ticker}: 1W HARD GATE — Haftalık hacim çok düşük ({w_vol_ratio:.2f}x) → Elendi")
             return None
 
@@ -2383,7 +2396,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # RSI 1D hard gate
         if rsi_quick < RSI_1D_MIN:
             return None
-        if rsi_quick < 45 and rsi_quick < rsi_prev:
+        if rsi_quick < 43 and rsi_quick < rsi_prev:
             return None
 
         # V117_v2: is_early_awakening_preview Phase5 ile senkronize edildi
@@ -2405,7 +2418,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         # 🎯 BOĞA MODU: RVOL 1D hard gate gevşetildi
         # Fiyat ve hacim odaklı analiz: 1W/1D/1H momentum önemli, anlık RVOL engelleyici olmamalı
         # RVOL artık puanlama sistemini etkiliyor ama tek başına hard gate değil
-        min_rvol_required = 0.40 if sector_name == "Real Estate" else 0.50
+        min_rvol_required = 0.30 if sector_name == "Real Estate" else 0.40
         try:
             macro_resist      = float(high_1d.tail(15).max())
             breakout_distance = (macro_resist - current_price) / current_price
@@ -2417,7 +2430,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if rvol_micro < min_rvol_required:
             if is_spring:
                 pass                                # SPRING: muafiyet korundu
-            elif is_squeeze and rvol_micro >= 0.30:
+            elif is_squeeze and rvol_micro >= 0.20:
                 pass                                # SQUEEZE: dry-up toleransı genişletildi
             else:
                 return None
@@ -2436,7 +2449,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             green_candles = 0
 
         # 🎯 BOĞA MODU: Yeşil mum eşiği düşürüldü (geri çekilme günleri dahil)
-        min_green = 2 if (is_squeeze or is_spring) else 3
+        min_green = 2 if (is_squeeze or is_spring) else 2
         if sector_name == "Real Estate":
             min_green = 3
         if green_candles < min_green:
@@ -3937,7 +3950,7 @@ def _passes_min_score(c: dict) -> bool:
     sys   = c.get("selection_system", "DEFAULT")
     if sys == "SQUEEZE":   return score >= 40.0
     if sys == "AWAKENING": return score >= 38.0
-    return score >= 32.0
+    return score >= 28.0
 
 
 def build_diversified_toplist(
@@ -4028,7 +4041,7 @@ def build_diversified_toplist(
 
 def tg(text: str) -> str:
     if not text: return ""
-    escaped = html.escape(text)
+    escaped = html_escape(text)
     allowed = {"&lt;b&gt;": "<b>", "&lt;/b&gt;": "</b>", "&lt;i&gt;": "<i>", "&lt;/i&gt;": "</i>",
                "&lt;u&gt;": "<u>", "&lt;/u&gt;": "</u>", "&lt;code&gt;": "<code>",
                "&lt;/code&gt;": "</code>", "&lt;pre&gt;": "<pre>", "&lt;/pre&gt;": "</pre>"}
