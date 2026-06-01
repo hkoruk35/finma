@@ -110,96 +110,106 @@ export default function CSPDetailClient({ slug }: Props) {
   const [mounted, setMounted] = useState(false);
   const [notes, setNotes] = useState<Record<string, string>>({});
 
-  const handleNoteChange = (sym: string, note: string) => {
-    const updated = { ...notes, [sym]: note };
-    setNotes(updated);
+  // Kullanıcı listeyi değiştirdiyse API yanıtı state'i EZMESİN
+  const userModified = useRef(false);
+  // En güncel değerleri ref'te tut (stale closure önleme)
+  const tickersRef = useRef<string[]>([]);
+  const typesRef = useRef<Record<string, string>>({});
+  const notesRef = useRef<Record<string, string>>({});
+
+  // ── Supabase'e kaydet (her zaman ref üzerinden — asla stale değer göndermez) ──
+  const persistToAPI = useCallback((t: string[], ty: Record<string, string>, n: Record<string, string>) => {
     fetch(`/api/csp-watchlist/${slug}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tickers, types, notes: updated }),
+      body: JSON.stringify({ tickers: t, types: ty, notes: n }),
     }).catch(() => {});
+  }, [slug]);
+
+  const handleNoteChange = (sym: string, note: string) => {
+    const updated = { ...notesRef.current, [sym]: note };
+    notesRef.current = updated;
+    setNotes(updated);
+    persistToAPI(tickersRef.current, typesRef.current, updated);
   };
 
-  // ── Load: localStorage anlık → API taze, eski veri varsa migrate et ───
+  // ── Mount: önce localStorage, sonra API (API kullanıcıyı ezmez) ──────────
   useEffect(() => {
     setMounted(true);
-
-    // Eski localStorage anahtarları (migrasyon için)
-    const OLD_KEYS: Record<string, string> = {
-      "525":   "terminal_watchlist_525csp",
-      "2550":  "terminal_watchlist_2550csp",
-      "50250": "terminal_watchlist_50250csp",
-    };
-    const oldKey = OLD_KEYS[slug] ?? cfg.storageKey;
-
-    // 1. Önce eski localStorage'dan anlık yükle
-    try {
-      const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
-      if (raw) { const parsed = JSON.parse(raw); setTickers(parsed); }
-      const rawT = localStorage.getItem(oldKey + "_types") || localStorage.getItem(cfg.storageKey + "_types");
-      if (rawT) setTypes(JSON.parse(rawT));
-    } catch {}
+    userModified.current = false;
 
     async function load() {
+      // 1. localStorage'dan anlık göster
+      let localTickers: string[] = [];
+      let localTypes: Record<string, string> = {};
+      let localNotes: Record<string, string> = {};
+      try {
+        const raw = localStorage.getItem(cfg.storageKey);
+        if (raw) localTickers = JSON.parse(raw);
+        const rawT = localStorage.getItem(cfg.storageKey + "_types");
+        if (rawT) localTypes = JSON.parse(rawT);
+        const rawN = localStorage.getItem(cfg.storageKey + "_notes");
+        if (rawN) localNotes = JSON.parse(rawN);
+      } catch {}
+
+      if (localTickers.length > 0) {
+        tickersRef.current = localTickers;
+        typesRef.current = localTypes;
+        notesRef.current = localNotes;
+        setTickers(localTickers);
+        setTypes(localTypes);
+        setNotes(localNotes);
+      }
+
+      // 2. API'den taze veri çek
       try {
         const res = await fetch(`/api/csp-watchlist/${slug}`);
         if (!res.ok) throw new Error();
         const d = await res.json();
 
+        // Kullanıcı bu sürede listeyi değiştirdiyse DOKUNMA
+        if (userModified.current) return;
+
         if (d.tickers && d.tickers.length > 0) {
-          // Supabase'de veri var → kullan
+          // Supabase'de veri var → güncelle
+          tickersRef.current = d.tickers;
+          typesRef.current = d.types ?? {};
+          notesRef.current = d.notes ?? {};
           setTickers(d.tickers);
           setTypes(d.types ?? {});
           setNotes(d.notes ?? {});
-        } else {
-          // Supabase boş → eski localStorage'dan migrate et
-          let oldTickers: string[] = [];
-          let oldTypes: Record<string, string> = {};
+          // localStorage'ı da güncelle
           try {
-            const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
-            if (raw) oldTickers = JSON.parse(raw);
-            const rawT = localStorage.getItem(oldKey + "_types") || localStorage.getItem(cfg.storageKey + "_types");
-            if (rawT) oldTypes = JSON.parse(rawT);
+            localStorage.setItem(cfg.storageKey, JSON.stringify(d.tickers));
+            localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(d.types ?? {}));
+            localStorage.setItem(cfg.storageKey + "_notes", JSON.stringify(d.notes ?? {}));
           } catch {}
-
-          if (oldTickers.length > 0) {
-            setTickers(oldTickers);
-            setTypes(oldTypes);
-            // Supabase'e yükle (migrasyon)
-            fetch(`/api/csp-watchlist/${slug}`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ tickers: oldTickers, types: oldTypes, notes: {} }),
-            }).catch(() => {});
-          }
+        } else if (localTickers.length > 0) {
+          // Supabase boş ama localStorage'da veri var → Supabase'e yükle
+          persistToAPI(localTickers, localTypes, localNotes);
         }
       } catch {
-        // API tamamen başarısız → localStorage'dan yükle
-        try {
-          const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
-          if (raw) setTickers(JSON.parse(raw));
-          const rawT = localStorage.getItem(oldKey + "_types");
-          if (rawT) setTypes(JSON.parse(rawT));
-        } catch {}
+        // API başarısız → localStorage verisi zaten gösteriliyor, devam
       }
     }
-    load();
-  }, [slug, cfg.storageKey]);
 
+    load();
+  }, [slug, cfg.storageKey, persistToAPI]);
+
+  // ── saveList: kullanıcı değişikliği — API'nin üzerine yazmasını engelle ──
   const saveList = (list: string[], t: Record<string, string>) => {
+    userModified.current = true;  // Artık API gelip ezemesin
+    tickersRef.current = list;
+    typesRef.current = t;
     setTickers(list);
     setTypes(t);
-    // localStorage'a anında yaz (anlık UI güncelleme)
+    // localStorage'a anında yaz
     try {
       localStorage.setItem(cfg.storageKey, JSON.stringify(list));
       localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(t));
     } catch {}
-    // Supabase'e kaydet (tüm cihazlar senkronize olur)
-    fetch(`/api/csp-watchlist/${slug}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tickers: list, types: t, notes }),
-    }).catch(() => {});
+    // Supabase'e kaydet
+    persistToAPI(list, t, notesRef.current);
   };
 
   const addTicker = () => {
