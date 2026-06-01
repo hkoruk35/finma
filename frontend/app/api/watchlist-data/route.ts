@@ -29,7 +29,7 @@ try {
 if (Object.keys(TICKER_SECTOR_MAP).length === 0) {
   TICKER_SECTOR_MAP = {
     "AAPL": "Technology", "MSFT": "Technology", "GOOGL": "Technology", "META": "Technology",
-    "AMZN": "Technology", "NVDA": "Technology", "AMD": "Technology", "AVGO": "Technology",
+    "NVDA": "Technology", "AMD": "Technology", "AVGO": "Technology", "INTC": "Technology",
     "JPM": "Financials", "BAC": "Financials", "WFC": "Financials", "GS": "Financials",
     "JNJ": "Healthcare", "PFE": "Healthcare", "ABBV": "Healthcare", "MRK": "Healthcare",
     "XOM": "Energy", "CVX": "Energy", "COP": "Energy", "EOG": "Energy",
