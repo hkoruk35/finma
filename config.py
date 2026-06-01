@@ -79,6 +79,8 @@ FIXED_TICKERS_TECHNOLOGY = [
     "CSCO", "NET", "AKAM", "ANET", "JNPR", "NTAP",
     # Hardware & Devices
     "DELL", "INTC", "TSM", "GLW", "GRMN", "KEYS", "VRT",
+    # New additions from screener
+    "APPS", "FRSH", "PD", "RXT", "WIT", "LAES", "ASAN", "MX", "BB", "KEEL", "SOUN", "CXAI", "ALIT", "RZIVU",
 ]
 
 FIXED_TICKERS_COMMUNICATION = [
@@ -98,6 +100,8 @@ FIXED_TICKERS_COMMUNICATION = [
     "OMC",
     # EM Digital
     "BIDU",
+    # New additions from screener
+    "GENI", "AMC",
 ]
 
 FIXED_TICKERS_CONSUMER_DISCRETIONARY = [
@@ -119,6 +123,8 @@ FIXED_TICKERS_CONSUMER_DISCRETIONARY = [
     "UBER", "LYFT", "DASH",
     # Luxury & Other
     "TSCO", "SIG", "ANF", "CAVA", "CAR",
+    # New additions from screener
+    "SES", "STLA", "PTON", "AUR", "ORBS", "QS",
 ]
 
 FIXED_TICKERS_CONSUMER_STAPLES = [
@@ -157,6 +163,8 @@ FIXED_TICKERS_HEALTHCARE = [
     "ZTS", "IDEXX",
     # Biotech Emerging
     "SRPT", "RARE", "ACAD",
+    # New additions from screener
+    "AVTR", "CLVR", "ABSI", "HUMA", "ABCL", "SLS", "MNKD", "IOVA", "REPL", "OTLK", "RXRX", "TDOC",
 ]
 
 FIXED_TICKERS_FINANCIALS = [
@@ -183,6 +191,8 @@ FIXED_TICKERS_FINANCIALS = [
     "RBA",
     # Regional Banks — US
     "RF", "HBAN", "CFG", "FITB", "MTB", "KEY",
+    # New additions from screener
+    "BTBT", "TSLG", "BTCZ", "PURR", "HIVE", "DRIP",
 ]
 
 FIXED_TICKERS_ENERGY = [
@@ -244,6 +254,8 @@ FIXED_TICKERS_MATERIALS = [
     "IP", "PKG", "WRK",
     # Other
     "NEXA", "BVN",
+    # New additions from screener
+    "LAC", "NAK", "BTG",
 ]
 
 FIXED_TICKERS_INDUSTRIALS = [
@@ -280,6 +292,8 @@ FIXED_TICKERS_INDUSTRIALS = [
     "AIR",
     # Other
     "SYM", "FTAI",
+    # New additions from screener
+    "BLDP", "XRX", "ENVX", "ABAT", "JBLU", "RR", "EDSE", "SPCE", "PLUG", "ACHR", "SIDU",
 ]
 
 FIXED_TICKERS_UTILITIES = [
@@ -298,6 +312,8 @@ FIXED_TICKERS_UTILITIES = [
     "CWEN", "AY",
     # Bloom Energy (fuel cell)
     "BE",
+    # New additions from screener
+    "DGXX",
 ]
 
 FIXED_TICKERS_REAL_ESTATE = [
@@ -323,6 +339,8 @@ FIXED_TICKERS_REAL_ESTATE = [
     "WY", "PCH",
     # Hotels
     "DHI",
+    # New additions from screener
+    "FRMI", "SVC",
 ]
 
 # ============================================================
