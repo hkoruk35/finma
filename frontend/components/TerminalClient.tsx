@@ -432,34 +432,58 @@ export default function TerminalClient() {
   useEffect(() => {
     const DEFAULT_WL = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
 
-    // localStorage'dan anlık yükle
+    // 1. localStorage'dan anlık yükle (yeni ve eski anahtarlar)
     try {
-      const s = localStorage.getItem("shared_watchlist");
+      const s = localStorage.getItem("shared_watchlist") || localStorage.getItem("watchlist");
       if (s) setWatchlist(JSON.parse(s));
-      const s525 = localStorage.getItem("shared_525csp");
+      const s525 = localStorage.getItem("shared_525csp") || localStorage.getItem("terminal_watchlist_525csp");
       if (s525) setWatchlist525CSP(JSON.parse(s525));
-      const s2550 = localStorage.getItem("shared_2550csp");
+      const s2550 = localStorage.getItem("shared_2550csp") || localStorage.getItem("terminal_watchlist_2550csp");
       if (s2550) setWatchlist2550CSP(JSON.parse(s2550));
-      const s50250 = localStorage.getItem("shared_50250csp");
+      const s50250 = localStorage.getItem("shared_50250csp") || localStorage.getItem("terminal_watchlist_50250csp");
       if (s50250) setWatchlist50250CSP(JSON.parse(s50250));
     } catch {}
 
-    // API'den taze veri
+    // 2. API'den taze veri — boşsa eski localStorage'dan migrate et
     fetch("/api/store/watchlist").then(r => r.json()).then(({ value }) => {
-      const wl = value ?? DEFAULT_WL;
-      setWatchlist(wl);
-      try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
+      if (value && value.length > 0) {
+        setWatchlist(value);
+        try { localStorage.setItem("shared_watchlist", JSON.stringify(value)); } catch {}
+      } else {
+        // migrate eski key
+        try {
+          const old = localStorage.getItem("watchlist");
+          const wl = old ? JSON.parse(old) : DEFAULT_WL;
+          setWatchlist(wl);
+          fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: wl }) }).catch(() => {});
+        } catch { setWatchlist(DEFAULT_WL); }
+      }
     }).catch(() => { setWatchlist(DEFAULT_WL); });
 
-    fetch("/api/csp-watchlist/525").then(r => r.json()).then(d => {
-      if (d.tickers?.length) { setWatchlist525CSP(d.tickers); try { localStorage.setItem("shared_525csp", JSON.stringify(d.tickers)); } catch {} }
-    }).catch(() => {});
-    fetch("/api/csp-watchlist/2550").then(r => r.json()).then(d => {
-      if (d.tickers?.length) { setWatchlist2550CSP(d.tickers); try { localStorage.setItem("shared_2550csp", JSON.stringify(d.tickers)); } catch {} }
-    }).catch(() => {});
-    fetch("/api/csp-watchlist/50250").then(r => r.json()).then(d => {
-      if (d.tickers?.length) { setWatchlist50250CSP(d.tickers); try { localStorage.setItem("shared_50250csp", JSON.stringify(d.tickers)); } catch {} }
-    }).catch(() => {});
+    const migrateCsp = (slug: string, oldKey: string, setter: (v: string[]) => void, lsKey: string) => {
+      fetch(`/api/csp-watchlist/${slug}`).then(r => r.json()).then(d => {
+        if (d.tickers?.length > 0) {
+          setter(d.tickers);
+          try { localStorage.setItem(lsKey, JSON.stringify(d.tickers)); } catch {}
+        } else {
+          // Supabase boş → eski localStorage'dan migrate
+          try {
+            const old = localStorage.getItem(oldKey);
+            if (old) {
+              const tickers = JSON.parse(old);
+              if (tickers.length > 0) {
+                setter(tickers);
+                fetch(`/api/csp-watchlist/${slug}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tickers }) }).catch(() => {});
+              }
+            }
+          } catch {}
+        }
+      }).catch(() => {});
+    };
+
+    migrateCsp("525",   "terminal_watchlist_525csp",   setWatchlist525CSP,   "shared_525csp");
+    migrateCsp("2550",  "terminal_watchlist_2550csp",  setWatchlist2550CSP,  "shared_2550csp");
+    migrateCsp("50250", "terminal_watchlist_50250csp", setWatchlist50250CSP, "shared_50250csp");
   }, []);
 
   const saveWatchlist = (list: string[]) => {

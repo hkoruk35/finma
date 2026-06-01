@@ -120,30 +120,67 @@ export default function CSPDetailClient({ slug }: Props) {
     }).catch(() => {});
   };
 
-  // ── Load from API (Supabase) — cihazlar arası senkronize ──────────────
+  // ── Load: localStorage anlık → API taze, eski veri varsa migrate et ───
   useEffect(() => {
     setMounted(true);
+
+    // Eski localStorage anahtarları (migrasyon için)
+    const OLD_KEYS: Record<string, string> = {
+      "525":   "terminal_watchlist_525csp",
+      "2550":  "terminal_watchlist_2550csp",
+      "50250": "terminal_watchlist_50250csp",
+    };
+    const oldKey = OLD_KEYS[slug] ?? cfg.storageKey;
+
+    // 1. Önce eski localStorage'dan anlık yükle
+    try {
+      const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
+      if (raw) { const parsed = JSON.parse(raw); setTickers(parsed); }
+      const rawT = localStorage.getItem(oldKey + "_types") || localStorage.getItem(cfg.storageKey + "_types");
+      if (rawT) setTypes(JSON.parse(rawT));
+    } catch {}
+
     async function load() {
       try {
         const res = await fetch(`/api/csp-watchlist/${slug}`);
         if (!res.ok) throw new Error();
         const d = await res.json();
-        setTickers(d.tickers ?? []);
-        setTypes(d.types ?? {});
-        setNotes(d.notes ?? {});
-        // localStorage'a da yaz (hızlı fallback için)
-        try {
-          localStorage.setItem(cfg.storageKey, JSON.stringify(d.tickers ?? []));
-          localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(d.types ?? {}));
-        } catch {}
+
+        if (d.tickers && d.tickers.length > 0) {
+          // Supabase'de veri var → kullan
+          setTickers(d.tickers);
+          setTypes(d.types ?? {});
+          setNotes(d.notes ?? {});
+        } else {
+          // Supabase boş → eski localStorage'dan migrate et
+          let oldTickers: string[] = [];
+          let oldTypes: Record<string, string> = {};
+          try {
+            const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
+            if (raw) oldTickers = JSON.parse(raw);
+            const rawT = localStorage.getItem(oldKey + "_types") || localStorage.getItem(cfg.storageKey + "_types");
+            if (rawT) oldTypes = JSON.parse(rawT);
+          } catch {}
+
+          if (oldTickers.length > 0) {
+            setTickers(oldTickers);
+            setTypes(oldTypes);
+            // Supabase'e yükle (migrasyon)
+            fetch(`/api/csp-watchlist/${slug}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ tickers: oldTickers, types: oldTypes, notes: {} }),
+            }).catch(() => {});
+          }
+        }
       } catch {
-        // API başarısız olursa localStorage'dan yükle
+        // API tamamen başarısız → localStorage'dan yükle
         try {
-          const raw = localStorage.getItem(cfg.storageKey);
-          setTickers(raw ? JSON.parse(raw) : []);
-          const rawT = localStorage.getItem(cfg.storageKey + "_types");
-          setTypes(rawT ? JSON.parse(rawT) : {});
-        } catch { setTickers([]); }
+          const raw = localStorage.getItem(oldKey) || localStorage.getItem(cfg.storageKey);
+          if (raw) setTickers(JSON.parse(raw));
+          const rawT = localStorage.getItem(oldKey + "_types");
+          if (rawT) setTypes(JSON.parse(rawT));
+        } catch {}
       }
     }
     load();

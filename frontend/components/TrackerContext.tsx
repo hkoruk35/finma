@@ -56,19 +56,31 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     if (initialized.current) return;
     initialized.current = true;
 
-    // 1. localStorage anlık yükle
+    // 1. localStorage anlık yükle (yeni key → eski key fallback)
     try {
-      const raw = localStorage.getItem(LS_KEY);
+      const raw = localStorage.getItem(LS_KEY) || localStorage.getItem("boga_tracker_v1");
       if (raw) setState(JSON.parse(raw));
     } catch {}
 
-    // 2. API'den taze veri
+    // 2. API'den taze veri — boşsa eski localStorage'dan migrate
     fetch(`/api/store/${STORE_KEY}`)
       .then((r) => r.json())
       .then(({ value }) => {
-        if (value) {
+        if (value && (value as TrackerState).tickers?.length > 0) {
           setState(value as TrackerState);
           try { localStorage.setItem(LS_KEY, JSON.stringify(value)); } catch {}
+        } else {
+          // Supabase boş → eski localStorage'dan migrate
+          try {
+            const old = localStorage.getItem("boga_tracker_v1");
+            if (old) {
+              const parsed = JSON.parse(old) as TrackerState;
+              if (parsed.tickers?.length > 0) {
+                setState(parsed);
+                saveToAPI(parsed);
+              }
+            }
+          } catch {}
         }
       })
       .catch(() => {});

@@ -19,20 +19,24 @@ export default function WatchlistPage() {
       const raw = localStorage.getItem("shared_watchlist");
       if (raw) { const wl = JSON.parse(raw); setWatchlist(wl); fetchWatchlistData(wl); }
     } catch {}
-    // 2. API'den taze
+    // 2. API'den taze — boşsa eski localStorage'dan migrate
     fetch("/api/store/watchlist")
       .then(r => r.json())
       .then(({ value }) => {
-        const wl = value ?? DEFAULT_WL;
-        setWatchlist(wl);
-        try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
-        fetchWatchlistData(wl);
+        if (value && value.length > 0) {
+          setWatchlist(value);
+          try { localStorage.setItem("shared_watchlist", JSON.stringify(value)); } catch {}
+          fetchWatchlistData(value);
+        } else {
+          // Supabase boş → eski key'den migrate
+          const old = localStorage.getItem("watchlist");
+          const wl = old ? JSON.parse(old) : DEFAULT_WL;
+          setWatchlist(wl);
+          fetchWatchlistData(wl);
+          fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: wl }) }).catch(() => {});
+        }
       })
-      .catch(() => {
-        const wl = DEFAULT_WL;
-        setWatchlist(wl);
-        fetchWatchlistData(wl);
-      });
+      .catch(() => { setWatchlist(DEFAULT_WL); fetchWatchlistData(DEFAULT_WL); });
   }, []);
 
   const fetchWatchlistData = async (wl: string[]) => {
