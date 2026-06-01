@@ -188,6 +188,7 @@ export default function CSPDetailClient({ slug }: Props) {
     switch (sortBy) {
       case "TICKER": valA = a; valB = b; break;
       case "TİP": valA = types[a] || "CSP"; valB = types[b] || "CSP"; break;
+      case "ŞIRKET": valA = da?.company || ""; valB = db?.company || ""; break;
       case "SEKTÖR": valA = da?.sector || ""; valB = db?.sector || ""; break;
       case "FİYAT": valA = da?.price?.current ?? 0; valB = db?.price?.current ?? 0; break;
       case "Δ%": valA = da?.tracker_1h?.change_pct_1h ?? 0; valB = db?.tracker_1h?.change_pct_1h ?? 0; break;
@@ -260,11 +261,27 @@ export default function CSPDetailClient({ slug }: Props) {
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
               <span style={{ fontSize: 20, fontWeight: 900, color: cfg.accent, letterSpacing: "-0.5px" }}>
                 BOGA TRACKER — {cfg.label}
               </span>
               <span style={{ fontSize: 12, color: "#8b949e" }}>{cfg.range}</span>
+            </div>
+            {/* CSP Sekmelerine geçiş */}
+            <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+              {(["525", "2550", "50250"] as const).map(s => (
+                <Link key={s} href={`/csp/${s}`} style={{
+                  padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                  border: "1px solid",
+                  borderColor: slug === s ? cfg.accent : "#30363d",
+                  background: slug === s ? cfg.accent + "20" : "transparent",
+                  color: slug === s ? cfg.accent : "#8b949e",
+                  borderRadius: 4, cursor: "pointer", textDecoration: "none",
+                  transition: "all 0.2s"
+                }}>
+                  {CSP_CFG[s as keyof typeof CSP_CFG].label}
+                </Link>
+              ))}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
               {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
@@ -362,12 +379,12 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "SEKTÖR", "FİYAT", "Δ%", "H.ORAN", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
+                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "Δ%", "H.ORAN", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
                       const isSortable = h && h !== "NOT" && h !== "PATERN" && h !== "DURUM";
                       const isSorted = sortBy === h;
                       return (
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
-                          padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
+                          padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 14 ? "left" : "right",
                           fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                           color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
                           cursor: isSortable ? "pointer" : "default",
@@ -432,9 +449,14 @@ export default function CSPDetailClient({ slug }: Props) {
                             </select>
                           </td>
 
+                          {/* ŞIRKET */}
+                          <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap", maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis" }} title={d?.company || ""}>
+                            {d?.company ? d.company.slice(0, 12) : "—"}
+                          </td>
+
                           {/* SEKTÖR */}
-                          <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>
-                            {d?.sector && d.sector !== "Unknown" ? d.sector.toUpperCase().slice(0, 6) : (d?.company?.slice(0, 8) || "—")}
+                          <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis" }} title={d?.sector || ""}>
+                            {d?.sector && d.sector !== "Unknown" ? d.sector.toUpperCase().slice(0, 10) : "—"}
                           </td>
 
                           {/* FİYAT */}
@@ -540,7 +562,7 @@ export default function CSPDetailClient({ slug }: Props) {
                         {/* ── Genişleyen Satır ── */}
                         {isExpanded && (
                           <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                            <td colSpan={15} style={{ padding: "0" }}>
+                            <td colSpan={16} style={{ padding: "0" }}>
                               <ExpandedRow sym={sym} d={d} />
                             </td>
                           </tr>
