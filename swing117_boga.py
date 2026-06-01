@@ -172,8 +172,8 @@ RSI_1H_MAX = 82         # İntraday (1H) spike mutlak tavanı
 RSI_BOGA_OPT_MIN = 45   # Unified sistem optimal alt sınır
 RSI_BOGA_OPT_MAX = 65   # Unified sistem optimal üst sınır
 
-MIN_RR_RATIO = 1.0         # 🎯 BOĞA MODU: 1.5 → 1.0 (boğa döneminde aday sayısını artır)
-MIN_RR_RATIO_RELAXED = 1.2  # 🎯 BOĞA MODU: 1.8 → 1.2 (entry trigger varsa biraz esnek)
+MIN_RR_RATIO = 0.7         # 🎯 BOĞA MODU: 1.0 → 0.7 (daha çok setup bul)
+MIN_RR_RATIO_RELAXED = 0.9  # 🎯 BOĞA MODU: 1.2 → 0.9 (entry trigger varsa çok esnek)
 
 LOOKBACK_DAYS = 200
 INDEX_BENCHMARK = "^GSPC"
