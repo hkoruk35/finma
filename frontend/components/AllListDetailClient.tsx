@@ -143,14 +143,29 @@ export default function AllListDetailClient() {
 
       // Check if we already have data for these tickers
       const needsFetch = tickersToFetch.some((t) => !data[t]);
-      if (!needsFetch) return;
+      if (!needsFetch) {
+        setLoading(false);
+        return;
+      }
 
       setLoading(true);
       try {
         const batch = tickersToFetch.join(",");
-        const result = await fetch(`/api/watchlist-data?tickers=${batch}`)
-          .then((r) => r.json())
-          .catch(() => []);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+
+        const result = await fetch(`/api/watchlist-data?tickers=${batch}`, {
+          signal: controller.signal,
+        })
+          .then((r) => {
+            clearTimeout(timeoutId);
+            return r.json();
+          })
+          .catch((err) => {
+            clearTimeout(timeoutId);
+            console.error("Fetch error:", err);
+            return [];
+          });
 
         const newData = { ...data };
         result.forEach((item: TickerData) => {
@@ -158,13 +173,15 @@ export default function AllListDetailClient() {
         });
         setData(newData);
         setLastUpdated(new Date());
-      } catch {} finally {
+        setLoading(false);
+      } catch (err) {
+        console.error("Data fetch failed:", err);
         setLoading(false);
       }
     };
 
     fetchPageData();
-  }, [page, sortedTickers, data]);
+  }, [page]);
 
   const isMarketOpen = () => {
     const now = new Date();
