@@ -151,8 +151,8 @@ PRICE_MAX = 500.0
 
 # Wall Street 'İşlem Yapılabilir' (Tradable) Likidite Alt Sınırları:
 ATMACA_MIN_MARKET_CAP = 75_000_000     # 🎯 SNIPER: 300M → 75M. Small-cap dahil. Float küçük = hareket büyük.
-ATMACA_MIN_AVG_VOLUME = 250_000        # 🎯 SNIPER: 500K → 250K. Patlama öncesi hacimsizlik (dry-up) tolere edilir.
-ATMACA_MIN_DOLLAR_VOLUME = 2_000_000   # 🎯 SNIPER: 5M → 2M.
+ATMACA_MIN_AVG_VOLUME = 150_000        # 🎯 SNIPER: 250K → 150K. Daha esnek hacim eşiği.
+ATMACA_MIN_DOLLAR_VOLUME = 1_000_000   # 🎯 SNIPER: 2M → 1M. Daha esnek dolar hacmi.
 
 ATMACA_MIN_BETA = 0.6
 ATMACA_MAX_BETA = 3.0
@@ -2055,8 +2055,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
                         # 🎯 BOĞA MODU: EMA40 yakınında güçlü haftalık RSI = geri çekilme fırsatı
                         ema40_gap_pct = (last_w_ema40 - current_price) / last_w_ema40
-                        is_near_ema40 = ema40_gap_pct < 0.05 and w_rsi_val >= 48
-                        is_ema40_pullback = ema40_gap_pct < 0.08 and w_rsi_val >= 52 and w_rsi_slope >= 0
+                        is_near_ema40 = ema40_gap_pct < 0.08 and w_rsi_val >= 48
+                        is_ema40_pullback = ema40_gap_pct < 0.12 and w_rsi_val >= 52 and w_rsi_slope >= 0
 
                         if not (is_squeeze_pre or is_spring_pre or is_near_ema40 or is_ema40_pullback):
                             logging.info(f"🚫 {ticker}: 1W HARD GATE — Fiyat < 1W EMA40 → Elendi")
