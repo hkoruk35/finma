@@ -268,7 +268,7 @@ export default function CSPDetailClient({ slug }: Props) {
               <span style={{ fontSize: 12, color: "#8b949e" }}>{cfg.range}</span>
             </div>
             {/* CSP Sekmelerine geçiş */}
-            <div style={{ display: "flex", gap: 6, marginBottom: 8 }}>
+            <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
               {(["525", "2550", "50250"] as const).map(s => (
                 <Link key={s} href={`/csp/${s}`} style={{
                   padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
@@ -282,6 +282,16 @@ export default function CSPDetailClient({ slug }: Props) {
                   {CSP_CFG[s as keyof typeof CSP_CFG].label}
                 </Link>
               ))}
+              <Link href="/csp/all-list" style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d",
+                background: "transparent",
+                color: "#8b949e",
+                borderRadius: 4, cursor: "pointer", textDecoration: "none",
+                transition: "all 0.2s"
+              }}>
+                ALL LIST
+              </Link>
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
               {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}

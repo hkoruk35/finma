@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
-import AllListDetailClient from "@/components/AllListDetailClient";
 
 interface CSPList {
   key: string;
@@ -140,10 +139,78 @@ export default function CSPWatchlistSection() {
         ))}
       </div>
 
-      {/* ALL LIST Tab - Detailed Tracker */}
+      {/* ALL LIST Tab - Summary Only */}
       {activeTab === "all" && (
-        <div className="mb-12">
-          <AllListDetailClient />
+        <div className="mb-12 bg-[#e3b341]/5 border border-[#e3b341]/30 rounded-xl p-6">
+          <div className="mb-6">
+            <h3 className="text-lg font-black text-[#e3b341] uppercase tracking-wider mb-4">
+              ALL LIST — Tüm Market Themes Özeti
+            </h3>
+            <p className="text-sm text-slate-400 mb-6">
+              900+ hisse içeren kapsamlı borsa evrenimiz. Detaylı analiz ve takip için aşağıdaki linki kullanın.
+            </p>
+          </div>
+
+          {/* Summary Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Toplam Hisse</div>
+              <div className="text-2xl font-black text-[#e3b341]">{allThemeTickers.length}+</div>
+            </div>
+            <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Aktif Tema</div>
+              <div className="text-2xl font-black text-[#e3b341]">122</div>
+            </div>
+            <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Sektör</div>
+              <div className="text-2xl font-black text-[#e3b341]">11+</div>
+            </div>
+            <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Güncelleme</div>
+              <div className="text-2xl font-black text-[#e3b341]">24/7</div>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/csp/all-list"
+              className="flex-1 text-center py-3 bg-[#e3b341]/20 border border-[#e3b341] text-[#e3b341] font-bold rounded-lg hover:bg-[#e3b341]/30 transition-all uppercase text-sm tracking-wider"
+            >
+              Detaylı Listeyi Görüntüle →
+            </Link>
+            <Link
+              href="/screener"
+              className="flex-1 text-center py-3 bg-white/5 border border-white/10 text-slate-300 font-bold rounded-lg hover:bg-white/10 transition-all uppercase text-sm tracking-wider"
+            >
+              Screener ile Filtrele
+            </Link>
+          </div>
+
+          {/* Features List */}
+          <div className="mt-8 pt-6 border-t border-white/10">
+            <div className="text-xs font-black text-slate-400 uppercase tracking-wider mb-4">Özellikler</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> Detaylı BOGA Tracker analiz
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> Gerçek zamanlı fiyat verileri
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> Signal filtreleme (AL, İzle, Bekle, SAT)
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> EMA, RSI, Pattern analizi
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> Heatmap görselleştirme
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-400">
+                <span className="text-[#e3b341]">✓</span> Sıralanabilir kolonlar
+              </div>
+            </div>
+          </div>
         </div>
       )}
 

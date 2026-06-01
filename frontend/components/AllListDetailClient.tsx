@@ -185,11 +185,52 @@ export default function AllListDetailClient() {
     <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
       {/* Top Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8, flexWrap: "wrap" }}>
           <span style={{ fontSize: 20, fontWeight: 900, color: "#e3b341", letterSpacing: "-0.5px" }}>
             BOGA TRACKER — ALL LIST
           </span>
           <span style={{ fontSize: 12, color: "#8b949e" }}>900+ hisse</span>
+        </div>
+
+        {/* CSP Tabs */}
+        <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+          {[
+            { slug: "525", label: "525 CSP", color: "#10b981" },
+            { slug: "2550", label: "2550 CSP", color: "#3b82f6" },
+            { slug: "50250", label: "50250 CSP", color: "#a78bfa" },
+            { slug: "all-list", label: "ALL LIST", color: "#e3b341" },
+          ].map((csp) => (
+            <a
+              key={csp.slug}
+              href={`/csp/${csp.slug}`}
+              style={{
+                padding: "5px 12px",
+                fontSize: 11,
+                fontWeight: 700,
+                border: `1px solid ${csp.slug === "all-list" ? csp.color : "#30363d"}`,
+                background: csp.slug === "all-list" ? csp.color + "20" : "transparent",
+                color: csp.slug === "all-list" ? csp.color : "#8b949e",
+                borderRadius: 4,
+                cursor: "pointer",
+                textDecoration: "none",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={(e) => {
+                if (csp.slug !== "all-list") {
+                  e.currentTarget.style.borderColor = csp.color + "80";
+                  e.currentTarget.style.color = "#e6edf3";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (csp.slug !== "all-list") {
+                  e.currentTarget.style.borderColor = "#30363d";
+                  e.currentTarget.style.color = "#8b949e";
+                }
+              }}
+            >
+              {csp.label}
+            </a>
+          ))}
         </div>
         <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
           {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
