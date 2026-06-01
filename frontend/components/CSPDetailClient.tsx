@@ -125,6 +125,8 @@ export default function CSPDetailClient({ slug }: Props) {
   const [filterType, setFilterType] = useState("");
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("CSP");
+  const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const mounted = ready; // ready olduğunda mount sayılır
 
   const handleNoteChange = (sym: string, note: string) => {
@@ -175,6 +177,50 @@ export default function CSPDetailClient({ slug }: Props) {
     if (filterType && (types[sym] || "CSP") !== filterType) return false;
     return true;
   });
+
+  // ── Sorting ──────────────────────────────────────────────────────────────
+  const sortedTickers = [...filtered].sort((a, b) => {
+    if (!sortBy) return 0;
+    const da = data[a];
+    const db = data[b];
+    let valA: any, valB: any;
+
+    switch (sortBy) {
+      case "TICKER": valA = a; valB = b; break;
+      case "TİP": valA = types[a] || "CSP"; valB = types[b] || "CSP"; break;
+      case "SEKTÖR": valA = da?.sector || ""; valB = db?.sector || ""; break;
+      case "FİYAT": valA = da?.price?.current ?? 0; valB = db?.price?.current ?? 0; break;
+      case "Δ%": valA = da?.tracker_1h?.change_pct_1h ?? 0; valB = db?.tracker_1h?.change_pct_1h ?? 0; break;
+      case "H.ORAN": valA = da?.tracker_1h?.volume_ratio ?? 0; valB = db?.tracker_1h?.volume_ratio ?? 0; break;
+      case "EMA20": valA = da?.tracker_1h?.ema_20 ?? 0; valB = db?.tracker_1h?.ema_20 ?? 0; break;
+      case "EMA50": valA = da?.tracker_1h?.ema_50 ?? 0; valB = db?.tracker_1h?.ema_50 ?? 0; break;
+      case "EMA200": valA = da?.tracker_1h?.ema_200 ?? 0; valB = db?.tracker_1h?.ema_200 ?? 0; break;
+      case "RSI": valA = da?.tracker_1h?.rsi ?? 0; valB = db?.tracker_1h?.rsi ?? 0; break;
+      case "SİNYAL": {
+        const signalOrder = { "AL": 3, "İzle": 2, "Bekle": 1, "SAT": 0, "—": -1 };
+        valA = signalOrder[da?.tracker_1h?.signal as keyof typeof signalOrder] ?? -1;
+        valB = signalOrder[db?.tracker_1h?.signal as keyof typeof signalOrder] ?? -1;
+        break;
+      }
+      default: return 0;
+    }
+
+    if (typeof valA === "string") {
+      const cmp = valA.localeCompare(valB);
+      return sortDir === "asc" ? cmp : -cmp;
+    }
+    const diff = valA - valB;
+    return sortDir === "asc" ? diff : -diff;
+  });
+
+  const toggleSort = (col: string) => {
+    if (sortBy === col) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(col);
+      setSortDir("asc");
+    }
+  };
 
   // ── Market status ───────────────────────────────────────────────────────
   const isMarketOpen = () => {
@@ -316,17 +362,26 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "SEKTÖR", "FİYAT", "Δ%", "H.ORAN", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => (
-                      <th key={i} style={{
-                        padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
-                        fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
-                        color: "#3fb950", whiteSpace: "nowrap", background: "#0d1117"
-                      }}>{h}</th>
-                    ))}
+                    {["TICKER", "TİP", "SEKTÖR", "FİYAT", "Δ%", "H.ORAN", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
+                      const isSortable = h && h !== "NOT" && h !== "PATERN" && h !== "DURUM";
+                      const isSorted = sortBy === h;
+                      return (
+                        <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
+                          padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
+                          fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
+                          color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
+                          cursor: isSortable ? "pointer" : "default",
+                          userSelect: "none",
+                          opacity: isSortable ? 1 : 0.7
+                        }}>
+                          {h}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
+                        </th>
+                      );
+                    })}
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((sym, idx) => {
+                  {sortedTickers.map((sym, idx) => {
                     const d = data[sym];
                     const signal = d?.tracker_1h?.signal || "—";
                     const rowBg = ROW_BG[signal] || "#0d1117";
