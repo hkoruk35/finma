@@ -35,7 +35,7 @@ export function useTracker(): TrackerCtx {
 }
 
 const STORE_KEY = "tracker_v1";
-const LS_KEY = "shared_tracker_v1";
+const LS_KEY = "csp_tracker_v1";
 const EMPTY: TrackerState = { tickers: [], notes: {}, types: {} };
 
 function saveToAPI(state: TrackerState) {
@@ -48,49 +48,35 @@ function saveToAPI(state: TrackerState) {
 
 export function TrackerProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<TrackerState>(EMPTY);
-  const initialized = useRef(false);
-  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const userModified = useRef(false);
 
-  // Mount: localStorage → API sırası
+  // Mount: cache göster → API çek (API = gerçek kaynak)
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
+    userModified.current = false;
 
-    // 1. localStorage anlık yükle (yeni key → eski key fallback)
+    // 1. Cache anlık göster
     try {
-      const raw = localStorage.getItem(LS_KEY) || localStorage.getItem("boga_tracker_v1");
+      const raw = localStorage.getItem(LS_KEY);
       if (raw) setState(JSON.parse(raw));
     } catch {}
 
-    // 2. API'den taze veri — boşsa eski localStorage'dan migrate
+    // 2. API'den taze veri
     fetch(`/api/store/${STORE_KEY}`)
       .then((r) => r.json())
       .then(({ value }) => {
-        if (value && (value as TrackerState).tickers?.length > 0) {
-          setState(value as TrackerState);
-          try { localStorage.setItem(LS_KEY, JSON.stringify(value)); } catch {}
-        } else {
-          // Supabase boş → eski localStorage'dan migrate
-          try {
-            const old = localStorage.getItem("boga_tracker_v1");
-            if (old) {
-              const parsed = JSON.parse(old) as TrackerState;
-              if (parsed.tickers?.length > 0) {
-                setState(parsed);
-                saveToAPI(parsed);
-              }
-            }
-          } catch {}
-        }
+        if (userModified.current) return;
+        const fresh = (value as TrackerState) ?? EMPTY;
+        setState(fresh);
+        try { localStorage.setItem(LS_KEY, JSON.stringify(fresh)); } catch {}
       })
       .catch(() => {});
   }, []);
 
-  // State değişince kaydet (debounced)
+  // Kullanıcı değişikliği: UI + cache + API
   const persistState = useCallback((s: TrackerState) => {
+    userModified.current = true;
     try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
-    if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => saveToAPI(s), 500);
+    saveToAPI(s);
   }, []);
 
   const addToTracker = useCallback((ticker: string, type = "Swing") => {

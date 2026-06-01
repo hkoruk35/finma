@@ -16,30 +16,35 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadOverrides() {
-      let overrides: Record<string, string[]> = {};
-      // 1. localStorage anlık
-      try {
-        const raw = localStorage.getItem("shared_theme_overrides");
-        if (raw) overrides = JSON.parse(raw);
-      } catch {}
-      // 2. API'den taze
-      try {
-        const res = await fetch("/api/store/theme_overrides");
-        const { value } = await res.json();
-        if (value) {
-          overrides = value;
-          try { localStorage.setItem("shared_theme_overrides", JSON.stringify(value)); } catch {}
-        }
-      } catch {}
+    // Cache anlık
+    try {
+      const raw = localStorage.getItem("t_theme_overrides");
+      if (raw) {
+        const overrides = JSON.parse(raw);
+        const customList = overrides[themeName] || [];
+        setCustomTickers(customList);
+        const merged = Array.from(new Set([...initialTickers, ...customList]));
+        setTickers(merged);
+        fetchThemeStocks(merged);
+      } else {
+        setTickers(initialTickers);
+        fetchThemeStocks(initialTickers);
+      }
+    } catch { setTickers(initialTickers); fetchThemeStocks(initialTickers); }
 
-      const customList = overrides[themeName] || [];
-      setCustomTickers(customList);
-      const merged = Array.from(new Set([...initialTickers, ...customList]));
-      setTickers(merged);
-      fetchThemeStocks(merged);
-    }
-    loadOverrides();
+    // API = gerçek kaynak
+    fetch("/api/store/theme_overrides")
+      .then(r => r.json())
+      .then(({ value }) => {
+        const overrides: Record<string, string[]> = value ?? {};
+        try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
+        const customList = overrides[themeName] || [];
+        setCustomTickers(customList);
+        const merged = Array.from(new Set([...initialTickers, ...customList]));
+        setTickers(merged);
+        fetchThemeStocks(merged);
+      })
+      .catch(() => {});
   }, [themeName, initialTickers]);
 
   const fetchThemeStocks = async (list: string[]) => {
@@ -72,17 +77,13 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   };
 
   function syncOverrides(overrides: Record<string, string[]>) {
-    try { localStorage.setItem("shared_theme_overrides", JSON.stringify(overrides)); } catch {}
-    fetch("/api/store/theme_overrides", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: overrides }),
-    }).catch(() => {});
+    try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
+    fetch("/api/store/theme_overrides", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: overrides }) }).catch(() => {});
   }
 
   const removeCustomTicker = (ticker: string) => {
     let overrides: Record<string, string[]> = {};
-    try { overrides = JSON.parse(localStorage.getItem("shared_theme_overrides") || "{}"); } catch {}
+    try { overrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
     if (overrides[themeName]) {
       overrides[themeName] = overrides[themeName].filter((t: string) => t !== ticker.toUpperCase());
       syncOverrides(overrides);

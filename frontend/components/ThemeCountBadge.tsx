@@ -11,23 +11,21 @@ export default function ThemeCountBadge({ themeName, staticCount }: ThemeCountBa
   const [count, setCount] = useState(staticCount);
 
   useEffect(() => {
-    // localStorage anlık
+    // Cache anlık
     try {
-      const raw = localStorage.getItem("shared_theme_overrides");
+      const raw = localStorage.getItem("t_theme_overrides");
       if (raw) {
         const overrides = JSON.parse(raw);
-        const customList = overrides[themeName] || [];
-        if (customList.length > 0) setCount(staticCount + customList.length);
+        setCount(staticCount + (overrides[themeName]?.length ?? 0));
       }
     } catch {}
-    // API'den taze (sessiz arka plan)
+    // API = gerçek kaynak
     fetch("/api/store/theme_overrides")
       .then(r => r.json())
       .then(({ value }) => {
         if (!value) return;
-        try { localStorage.setItem("shared_theme_overrides", JSON.stringify(value)); } catch {}
-        const customList = (value as Record<string, string[]>)[themeName] || [];
-        setCount(staticCount + customList.length);
+        try { localStorage.setItem("t_theme_overrides", JSON.stringify(value)); } catch {}
+        setCount(staticCount + ((value as Record<string, string[]>)[themeName]?.length ?? 0));
       })
       .catch(() => {});
   }, [themeName, staticCount]);

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
+import { useCloudStore } from "@/hooks/useCloudStore";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -92,10 +93,27 @@ function heatBg(pct: number | null) {
 
 // ── Component ──────────────────────────────────────────────────────────────
 
+interface CspData {
+  tickers: string[];
+  types: Record<string, string>;
+  notes: Record<string, string>;
+}
+
 export default function CSPDetailClient({ slug }: Props) {
   const cfg = CSP_CFG[slug];
-  const [tickers, setTickers] = useState<string[]>([]);
-  const [types, setTypes] = useState<Record<string, string>>({});
+
+  // ── Cloud-first store ─────────────────────────────────────────────────────
+  const { data: cspData, save: saveCsp, ready } = useCloudStore<CspData>({
+    endpoint: { type: "csp", slug },
+    cacheKey: `csp_${slug}`,
+    defaultValue: { tickers: [], types: {}, notes: {} },
+  });
+
+  const tickers = cspData.tickers;
+  const types   = cspData.types;
+  const notes   = cspData.notes;
+
+  // ── UI state ──────────────────────────────────────────────────────────────
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -107,109 +125,15 @@ export default function CSPDetailClient({ slug }: Props) {
   const [filterType, setFilterType] = useState("");
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("CSP");
-  const [mounted, setMounted] = useState(false);
-  const [notes, setNotes] = useState<Record<string, string>>({});
-
-  // Kullanıcı listeyi değiştirdiyse API yanıtı state'i EZMESİN
-  const userModified = useRef(false);
-  // En güncel değerleri ref'te tut (stale closure önleme)
-  const tickersRef = useRef<string[]>([]);
-  const typesRef = useRef<Record<string, string>>({});
-  const notesRef = useRef<Record<string, string>>({});
-
-  // ── Supabase'e kaydet (her zaman ref üzerinden — asla stale değer göndermez) ──
-  const persistToAPI = useCallback((t: string[], ty: Record<string, string>, n: Record<string, string>) => {
-    fetch(`/api/csp-watchlist/${slug}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tickers: t, types: ty, notes: n }),
-    }).catch(() => {});
-  }, [slug]);
+  const mounted = ready; // ready olduğunda mount sayılır
 
   const handleNoteChange = (sym: string, note: string) => {
-    const updated = { ...notesRef.current, [sym]: note };
-    notesRef.current = updated;
-    setNotes(updated);
-    persistToAPI(tickersRef.current, typesRef.current, updated);
+    saveCsp({ tickers, types, notes: { ...notes, [sym]: note } });
   };
 
-  // ── Mount: önce localStorage, sonra API (API kullanıcıyı ezmez) ──────────
-  useEffect(() => {
-    setMounted(true);
-    userModified.current = false;
-
-    async function load() {
-      // 1. localStorage'dan anlık göster
-      let localTickers: string[] = [];
-      let localTypes: Record<string, string> = {};
-      let localNotes: Record<string, string> = {};
-      try {
-        const raw = localStorage.getItem(cfg.storageKey);
-        if (raw) localTickers = JSON.parse(raw);
-        const rawT = localStorage.getItem(cfg.storageKey + "_types");
-        if (rawT) localTypes = JSON.parse(rawT);
-        const rawN = localStorage.getItem(cfg.storageKey + "_notes");
-        if (rawN) localNotes = JSON.parse(rawN);
-      } catch {}
-
-      if (localTickers.length > 0) {
-        tickersRef.current = localTickers;
-        typesRef.current = localTypes;
-        notesRef.current = localNotes;
-        setTickers(localTickers);
-        setTypes(localTypes);
-        setNotes(localNotes);
-      }
-
-      // 2. API'den taze veri çek
-      try {
-        const res = await fetch(`/api/csp-watchlist/${slug}`);
-        if (!res.ok) throw new Error();
-        const d = await res.json();
-
-        // Kullanıcı bu sürede listeyi değiştirdiyse DOKUNMA
-        if (userModified.current) return;
-
-        if (d.tickers && d.tickers.length > 0) {
-          // Supabase'de veri var → güncelle
-          tickersRef.current = d.tickers;
-          typesRef.current = d.types ?? {};
-          notesRef.current = d.notes ?? {};
-          setTickers(d.tickers);
-          setTypes(d.types ?? {});
-          setNotes(d.notes ?? {});
-          // localStorage'ı da güncelle
-          try {
-            localStorage.setItem(cfg.storageKey, JSON.stringify(d.tickers));
-            localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(d.types ?? {}));
-            localStorage.setItem(cfg.storageKey + "_notes", JSON.stringify(d.notes ?? {}));
-          } catch {}
-        } else if (localTickers.length > 0) {
-          // Supabase boş ama localStorage'da veri var → Supabase'e yükle
-          persistToAPI(localTickers, localTypes, localNotes);
-        }
-      } catch {
-        // API başarısız → localStorage verisi zaten gösteriliyor, devam
-      }
-    }
-
-    load();
-  }, [slug, cfg.storageKey, persistToAPI]);
-
-  // ── saveList: kullanıcı değişikliği — API'nin üzerine yazmasını engelle ──
+  // ── Tüm liste kayıt (tek nokta) ───────────────────────────────────────────
   const saveList = (list: string[], t: Record<string, string>) => {
-    userModified.current = true;  // Artık API gelip ezemesin
-    tickersRef.current = list;
-    typesRef.current = t;
-    setTickers(list);
-    setTypes(t);
-    // localStorage'a anında yaz
-    try {
-      localStorage.setItem(cfg.storageKey, JSON.stringify(list));
-      localStorage.setItem(cfg.storageKey + "_types", JSON.stringify(t));
-    } catch {}
-    // Supabase'e kaydet
-    persistToAPI(list, t, notesRef.current);
+    saveCsp({ tickers: list, types: t, notes });
   };
 
   const addTicker = () => {
@@ -544,7 +468,7 @@ export default function CSPDetailClient({ slug }: Props) {
                           </td>
 
                           {/* NOT */}
-                          <NoteCell sym={sym} slug={slug} sharedNotes={notes} onNoteChange={handleNoteChange} />
+                          <NoteCell sym={sym} currentNote={notes[sym] ?? ""} onNoteChange={handleNoteChange} />
 
                           {/* REMOVE */}
                           <td style={{ padding: "7px 8px", textAlign: "right" }}>
@@ -660,18 +584,15 @@ export default function CSPDetailClient({ slug }: Props) {
 
 // ── Note Cell (inline edit) ────────────────────────────────────────────────
 
-function NoteCell({ sym, slug, sharedNotes, onNoteChange }: {
+function NoteCell({ sym, currentNote, onNoteChange }: {
   sym: string;
-  slug: string;
-  sharedNotes: Record<string, string>;
+  currentNote: string;
   onNoteChange: (sym: string, note: string) => void;
 }) {
   const [editing, setEditing] = useState(false);
-  const [note, setNote] = useState(sharedNotes[sym] || "");
+  const [note, setNote] = useState(currentNote);
 
-  useEffect(() => {
-    setNote(sharedNotes[sym] || "");
-  }, [sharedNotes, sym]);
+  useEffect(() => { setNote(currentNote); }, [currentNote]);
 
   const save = (v: string) => {
     setNote(v);

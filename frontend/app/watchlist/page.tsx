@@ -13,30 +13,21 @@ export default function WatchlistPage() {
   const [showAddDialog, setShowAddDialog] = useState(false);
 
   useEffect(() => {
-    const DEFAULT_WL = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-    // 1. localStorage anlık
+    // Cache anlık göster
     try {
-      const raw = localStorage.getItem("shared_watchlist");
+      const raw = localStorage.getItem("t_wl");
       if (raw) { const wl = JSON.parse(raw); setWatchlist(wl); fetchWatchlistData(wl); }
     } catch {}
-    // 2. API'den taze — boşsa eski localStorage'dan migrate
+    // API = gerçek kaynak
     fetch("/api/store/watchlist")
       .then(r => r.json())
       .then(({ value }) => {
-        if (value && value.length > 0) {
-          setWatchlist(value);
-          try { localStorage.setItem("shared_watchlist", JSON.stringify(value)); } catch {}
-          fetchWatchlistData(value);
-        } else {
-          // Supabase boş → eski key'den migrate
-          const old = localStorage.getItem("watchlist");
-          const wl = old ? JSON.parse(old) : DEFAULT_WL;
-          setWatchlist(wl);
-          fetchWatchlistData(wl);
-          fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: wl }) }).catch(() => {});
-        }
+        const wl: string[] = value ?? [];
+        setWatchlist(wl);
+        try { localStorage.setItem("t_wl", JSON.stringify(wl)); } catch {}
+        fetchWatchlistData(wl);
       })
-      .catch(() => { setWatchlist(DEFAULT_WL); fetchWatchlistData(DEFAULT_WL); });
+      .catch(() => {});
   }, []);
 
   const fetchWatchlistData = async (wl: string[]) => {
@@ -61,12 +52,8 @@ export default function WatchlistPage() {
 
   function syncWatchlist(updated: string[]) {
     setWatchlist(updated);
-    try { localStorage.setItem("shared_watchlist", JSON.stringify(updated)); } catch {}
-    fetch("/api/store/watchlist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: updated }),
-    }).catch(() => {});
+    try { localStorage.setItem("t_wl", JSON.stringify(updated)); } catch {}
+    fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: updated }) }).catch(() => {});
   }
 
   const removeTicker = (ticker: string) => {

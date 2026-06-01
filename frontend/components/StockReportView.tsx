@@ -78,15 +78,17 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
   useEffect(() => {
     setMounted(true);
-    // localStorage anlık kontrol
+    // Cache anlık kontrol
     try {
-      const raw = localStorage.getItem("shared_watchlist");
-      if (raw) { const wl = JSON.parse(raw); setInWatchlist(wl.includes(ticker.toUpperCase())); }
+      const raw = localStorage.getItem("t_wl");
+      if (raw) setInWatchlist(JSON.parse(raw).includes(ticker.toUpperCase()));
     } catch {}
-    // API'den taze kontrol
-    fetch("/api/store/watchlist").then(r => r.json()).then(({ value }) => {
-      if (value) setInWatchlist((value as string[]).includes(ticker.toUpperCase()));
-    }).catch(() => {});
+    // API = gerçek kaynak
+    fetch("/api/store/watchlist")
+      .then(r => r.json())
+      .then(({ value }) => {
+        if (Array.isArray(value)) setInWatchlist(value.includes(ticker.toUpperCase()));
+      }).catch(() => {});
   }, [ticker]);
 
   // Automatically add to local overrides theme based on industry / sector
@@ -125,18 +127,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
     if (targetTheme) {
       (async () => {
         try {
-          let overrides: Record<string, string[]> = {};
-          const raw = localStorage.getItem("shared_theme_overrides");
-          if (raw) overrides = JSON.parse(raw);
-          else {
-            const res = await fetch("/api/store/theme_overrides");
-            const { value } = await res.json();
-            if (value) overrides = value;
-          }
+          const res = await fetch("/api/store/theme_overrides");
+          const { value } = await res.json();
+          const overrides: Record<string, string[]> = value ?? {};
           if (!overrides[targetTheme]) overrides[targetTheme] = [];
           if (!overrides[targetTheme].includes(t)) {
             overrides[targetTheme].push(t);
-            try { localStorage.setItem("shared_theme_overrides", JSON.stringify(overrides)); } catch {}
+            try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
             fetch("/api/store/theme_overrides", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: overrides }) }).catch(() => {});
           }
         } catch {}
@@ -145,14 +142,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
   }, [ticker, stockData]);
 
   const toggleWatchlist = () => {
-    let wl: string[] = ["AAPL", "NVDA", "TSLA", "PLTR", "SOFI", "META"];
-    try { const raw = localStorage.getItem("shared_watchlist"); if (raw) wl = JSON.parse(raw); } catch {}
+    let wl: string[] = [];
+    try { const raw = localStorage.getItem("t_wl"); if (raw) wl = JSON.parse(raw); } catch {}
     const t = ticker.toUpperCase();
-    if (wl.includes(t)) { wl = wl.filter((x: string) => x !== t); setInWatchlist(false); }
-    else { wl.push(t); setInWatchlist(true); }
-    try { localStorage.setItem("shared_watchlist", JSON.stringify(wl)); } catch {}
+    wl = wl.includes(t) ? wl.filter(x => x !== t) : [...wl, t];
+    setInWatchlist(wl.includes(t));
+    try { localStorage.setItem("t_wl", JSON.stringify(wl)); } catch {}
     fetch("/api/store/watchlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: wl }) }).catch(() => {});
-    window.dispatchEvent(new Event("watchlist_update"));
   };
 
 

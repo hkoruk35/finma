@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
@@ -38,7 +38,7 @@ export default function OptionsMonitorClient() {
       const res = await fetch("/api/options/performance");
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Sunucu hatası oluştu");
+        throw new Error(data.error || "Sunucu hatasÄ± oluÅŸtu");
       }
       const data = await res.json();
       if (data.success) {
@@ -62,7 +62,7 @@ export default function OptionsMonitorClient() {
           const truncated = deduped.slice(0, 100);
           
           try {
-            localStorage.setItem("boga_performance_history", JSON.stringify(truncated));
+            sessionStorage.setItem("perf_history", JSON.stringify(truncated));
           } catch (e) {}
           
           return truncated;
@@ -70,7 +70,7 @@ export default function OptionsMonitorClient() {
         
         setError(null);
       } else {
-        throw new Error(data.error || "Ölçüm yapılamadı");
+        throw new Error(data.error || "Ã–lÃ§Ã¼m yapÄ±lamadÄ±");
       }
     } catch (e: any) {
       setError(e.message);
@@ -81,17 +81,17 @@ export default function OptionsMonitorClient() {
   };
 
   const clearLogs = async () => {
-    if (!confirm("Tüm tarama geçmişini silmek istediğinize emin misiniz?")) return;
+    if (!confirm("TÃ¼m tarama geÃ§miÅŸini silmek istediÄŸinize emin misiniz?")) return;
     try {
       setHistory([]);
       try {
-        localStorage.removeItem("boga_performance_history");
+        sessionStorage.removeItem("perf_history");
       } catch (e) {}
       
       if (current) {
         setHistory([current]);
         try {
-          localStorage.setItem("boga_performance_history", JSON.stringify([current]));
+          sessionStorage.setItem("perf_history", JSON.stringify([current]));
         } catch (e) {}
       }
       
@@ -104,7 +104,7 @@ export default function OptionsMonitorClient() {
   // Setup auto-refresh interval
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("boga_performance_history");
+      const saved = sessionStorage.getItem("perf_history");
       if (saved) {
         setHistory(JSON.parse(saved));
       }
@@ -173,7 +173,7 @@ export default function OptionsMonitorClient() {
     if (history.length < 2) {
       return (
         <div className="h-full flex items-center justify-center text-text-secondary text-sm">
-          Grafik çizmek için yeterli veri yok (en az 2 tarama noktası gerekir)
+          Grafik Ã§izmek iÃ§in yeterli veri yok (en az 2 tarama noktasÄ± gerekir)
         </div>
       );
     }
@@ -265,7 +265,7 @@ export default function OptionsMonitorClient() {
           <span className="text-white">Web Monitor</span>
         </nav>
 
-        {/* ── Performance Dashboard Banner (top, blinking) ── */}
+        {/* â”€â”€ Performance Dashboard Banner (top, blinking) â”€â”€ */}
         <Link
           href="/options/performance"
           className="flex items-center justify-between gap-4 glass-card p-4 mb-6 border border-[#3b82f6]/30 hover:border-[#3b82f6]/70 hover:bg-[#3b82f6]/5 transition-all group"
@@ -275,7 +275,7 @@ export default function OptionsMonitorClient() {
               className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#3b82f6]/20"
               style={{ boxShadow: blink ? '0 0 12px 4px #3b82f6aa' : 'none', transition: 'box-shadow 0.5s' }}
             >
-              📊
+              ðŸ“Š
             </span>
             <div>
               <div className="text-white font-black text-sm flex items-center gap-2">
@@ -287,18 +287,18 @@ export default function OptionsMonitorClient() {
                 <span className="text-[#34d399] text-[10px] font-black uppercase tracking-widest">LIVE</span>
               </div>
               <div className="text-[11px] text-[#00d2ff] mt-0.5">
-                Tüm öneri opsiyonların anlık P&amp;L, kontrat bitiş ve kâr/zarar durumu
+                TÃ¼m Ã¶neri opsiyonlarÄ±n anlÄ±k P&amp;L, kontrat bitiÅŸ ve kÃ¢r/zarar durumu
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {current && (
               <div className="text-[10px] text-[#00d2ff] font-mono text-right">
-                <div className="text-white font-bold">Son güncelleme</div>
+                <div className="text-white font-bold">Son gÃ¼ncelleme</div>
                 <div>{new Date(current.timestamp).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" })}</div>
               </div>
             )}
-            <span className="text-[#3b82f6] text-xl group-hover:translate-x-1 transition-transform">→</span>
+            <span className="text-[#3b82f6] text-xl group-hover:translate-x-1 transition-transform">â†’</span>
           </div>
         </Link>
 
@@ -340,16 +340,16 @@ export default function OptionsMonitorClient() {
               disabled={scanning}
               className="flex items-center gap-1.5 px-4 py-2 bg-accent-blue border border-accent-blue/30 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-accent-blue/80 transition-all disabled:opacity-50"
             >
-              <span>{scanning ? "⌛ SCANNING..." : "⚡ SCAN NOW"}</span>
+              <span>{scanning ? "âŒ› SCANNING..." : "âš¡ SCAN NOW"}</span>
             </button>
           </div>
         </div>
 
         {error && (
           <div className="glass-card p-4 border border-red-500/20 bg-red-500/5 text-red-400 text-sm mb-6 flex items-center gap-3">
-            <span className="text-lg">⚠️</span>
+            <span className="text-lg">âš ï¸</span>
             <div>
-              <span className="font-bold">Bağlantı Hatası:</span> {error}
+              <span className="font-bold">BaÄŸlantÄ± HatasÄ±:</span> {error}
             </div>
           </div>
         )}
@@ -368,10 +368,10 @@ export default function OptionsMonitorClient() {
               <div className="glass-card p-4 text-center">
                 <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-2">PAGE SPEED</div>
                 <div className={`font-mono font-black text-2xl ${current && current.totalTime > 1200 ? 'text-amber-500' : 'text-gain'}`}>
-                  {current ? `${current.totalTime} ms` : "—"}
+                  {current ? `${current.totalTime} ms` : "â€”"}
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 font-mono">
-                  ttfb: {current ? `${current.ttfbTime}ms` : "—"}
+                  ttfb: {current ? `${current.ttfbTime}ms` : "â€”"}
                 </div>
               </div>
 
@@ -391,14 +391,14 @@ export default function OptionsMonitorClient() {
                   {avgLatency} ms
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 font-mono">
-                  size: {current ? `${(current.pageSize / 1024).toFixed(1)} KB` : "—"}
+                  size: {current ? `${(current.pageSize / 1024).toFixed(1)} KB` : "â€”"}
                 </div>
               </div>
 
               <div className="glass-card p-4 text-center">
                 <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-2">SSL CERTIFICATE</div>
                 <div className={`font-black text-2xl ${current && current.sslDaysLeft && current.sslDaysLeft < 30 ? 'text-amber-500' : 'text-gain'}`}>
-                  {current && current.sslDaysLeft ? `${current.sslDaysLeft} Days` : "—"}
+                  {current && current.sslDaysLeft ? `${current.sslDaysLeft} Days` : "â€”"}
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 truncate">
                   {current?.sslIssuer || "Unknown Issuer"}
@@ -481,7 +481,7 @@ export default function OptionsMonitorClient() {
                     <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
                       <span className="text-text-secondary">HTML Content Check</span>
                       <span className={`font-bold ${current.contentValid ? 'text-gain' : 'text-amber-500'}`}>
-                        {current.contentValid ? "✅ VALID CONTENT" : "⚠️ UNEXPECTED CONTENT"}
+                        {current.contentValid ? "âœ… VALID CONTENT" : "âš ï¸ UNEXPECTED CONTENT"}
                       </span>
                     </div>
                   </div>
@@ -512,7 +512,7 @@ export default function OptionsMonitorClient() {
                       <div className="flex justify-between py-1 border-b border-border/40">
                         <span className="text-text-secondary">Status</span>
                         <span className={`font-bold ${current.sslDaysLeft && current.sslDaysLeft < 30 ? 'text-amber-500' : 'text-gain'}`}>
-                          {current.sslDaysLeft && current.sslDaysLeft < 30 ? "⚠️ RENEW SOON" : "🟢 SECURE & ACTIVE"}
+                          {current.sslDaysLeft && current.sslDaysLeft < 30 ? "âš ï¸ RENEW SOON" : "ðŸŸ¢ SECURE & ACTIVE"}
                         </span>
                       </div>
                       <div className="flex justify-between py-1">
@@ -522,7 +522,7 @@ export default function OptionsMonitorClient() {
                     </div>
                   ) : (
                     <div className="text-text-secondary text-xs">
-                      SSL bilgisi yükleniyor...
+                      SSL bilgisi yÃ¼kleniyor...
                     </div>
                   )}
                 </div>
@@ -589,7 +589,7 @@ export default function OptionsMonitorClient() {
                       {history.length === 0 && (
                         <tr>
                           <td colSpan={6} className="py-4 text-center text-text-secondary text-xs">
-                            Kayıt bulunamadı.
+                            KayÄ±t bulunamadÄ±.
                           </td>
                         </tr>
                       )}
@@ -606,3 +606,4 @@ export default function OptionsMonitorClient() {
     </div>
   );
 }
+

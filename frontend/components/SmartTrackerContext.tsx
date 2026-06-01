@@ -66,22 +66,32 @@ export function useSmartTracker(): SmartTrackerCtx {
 export function SmartTrackerProvider({ children }: { children: React.ReactNode }) {
   const [store, setStore] = useState<TrackerStore>(() => loadTrackerStore());
   const [loading, setLoading] = useState(false);
-  const initialized = useRef(false);
+  const userModified = useRef(false);
 
-  // Hydrate: localStorage anlık → API taze
+  // Mount: cache göster → API çek
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-    setStore(loadTrackerStore()); // anlık
-    loadTrackerStoreRemote().then(setStore).catch(() => {}); // taze
+    userModified.current = false;
+    setStore(loadTrackerStore()); // cache anlık
+    loadTrackerStoreRemote()      // API taze
+      .then((s) => {
+        if (!userModified.current) setStore(s);
+      })
+      .catch(() => {});
   }, []);
 
-  // Persist whenever store changes
-  useEffect(() => {
-    if (initialized.current) {
-      saveTrackerStore(store);
-    }
-  }, [store]);
+  // Store değişince SADECE kullanıcı değişikliği ise kaydet
+  const persistStore = useCallback((s: TrackerStore) => {
+    userModified.current = true;
+    saveTrackerStore(s);
+  }, []);
+
+  function updateStore(updater: (prev: TrackerStore) => TrackerStore) {
+    setStore((prev) => {
+      const next = updater(prev);
+      persistStore(next);
+      return next;
+    });
+  }
 
   const activeTracker = store.activeTracker;
 
@@ -93,52 +103,44 @@ export function SmartTrackerProvider({ children }: { children: React.ReactNode }
   // ── Tracker lifecycle ────────────────────────────────────────────────────────
 
   const openTracker = useCallback((name = "Smart Tracker", budget = 10000) => {
-    setStore((prev) => {
-      if (prev.activeTracker) return prev; // only 1 active tracker
-      const tracker = createTracker(name, budget);
-      return { ...prev, activeTracker: tracker };
+    updateStore((prev) => {
+      if (prev.activeTracker) return prev;
+      return { ...prev, activeTracker: createTracker(name, budget) };
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closeTracker = useCallback(() => {
-    setStore((prev) => {
+    updateStore((prev) => {
       if (!prev.activeTracker) return prev;
-      return {
-        ...prev,
-        activeTracker: null,
-        archivedTrackers: [prev.activeTracker, ...prev.archivedTrackers],
-      };
+      return { ...prev, activeTracker: null, archivedTrackers: [prev.activeTracker, ...prev.archivedTrackers] };
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── Position management ─────────────────────────────────────────────────────
 
   const addToTracker = useCallback(
     (pick: any, sizeUnit: SizeUnit = "usd", sizeValue = 1000) => {
-      setStore((prev) => {
-        let tracker = prev.activeTracker;
-        if (!tracker) {
-          tracker = createTracker();
-        }
-        const updated = addPosition(tracker, pick, sizeUnit, sizeValue);
-        return { ...prev, activeTracker: updated };
+      updateStore((prev) => {
+        const tracker = prev.activeTracker ?? createTracker();
+        return { ...prev, activeTracker: addPosition(tracker, pick, sizeUnit, sizeValue) };
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const openTrade = useCallback((positionId: string, entryPrice: number) => {
-    setStore((prev) => {
+    updateStore((prev) => {
       if (!prev.activeTracker) return prev;
-      return {
-        ...prev,
-        activeTracker: openPosition(prev.activeTracker, positionId, entryPrice),
-      };
+      return { ...prev, activeTracker: openPosition(prev.activeTracker, positionId, entryPrice) };
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closeTrade = useCallback((positionId: string, closePrice: number) => {
-    setStore((prev) => {
+    updateStore((prev) => {
       if (!prev.activeTracker) return prev;
       return {
         ...prev,
@@ -155,18 +157,17 @@ export function SmartTrackerProvider({ children }: { children: React.ReactNode }
         activeTracker: removePosition(prev.activeTracker, positionId),
       };
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateSize = useCallback(
     (positionId: string, unit: SizeUnit, value: number) => {
-      setStore((prev) => {
+      updateStore((prev) => {
         if (!prev.activeTracker) return prev;
-        return {
-          ...prev,
-          activeTracker: updatePositionSize(prev.activeTracker, positionId, unit, value),
-        };
+        return { ...prev, activeTracker: updatePositionSize(prev.activeTracker, positionId, unit, value) };
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -213,7 +214,7 @@ export function SmartTrackerProvider({ children }: { children: React.ReactNode }
 
     if (Object.keys(data).length === 0) return;
 
-    setStore((prev) => {
+    updateStore((prev) => {
       if (!prev.activeTracker) return prev;
       const today = new Date().toISOString().split("T")[0];
       const updatedPositions: TrackerPosition[] = prev.activeTracker.positions.map(
