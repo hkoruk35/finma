@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-01T09:31:00.097906-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 31.1,
-  "total_scanned": 1,
-  "layer1_passed": 1,
-  "final_picks": 1,
+  "generated_at": "2026-06-01T10:31:00.133818-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 30.9,
+  "total_scanned": 2,
+  "layer1_passed": 2,
+  "final_picks": 2,
   "picks": [
     {
-      "ticker": "MSFT",
-      "price": 464.49,
-      "change_pct": 3.16,
-      "dt_score": 15.0,
-      "signal": "MOMENTUM",
-      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
+      "ticker": "NVDA",
+      "price": 221.34,
+      "change_pct": 4.83,
+      "dt_score": 43.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 46.84,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1780319729.2028255
+        "ts": 1780322486.6360593
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,24 +37,81 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 462.4,
-          "high": 465.19
+          "low": 221.12,
+          "high": 222.45
         },
-        "stop": 460.31,
-        "tp1": 470.76,
-        "tp2": 475.99,
+        "stop": 218.02,
+        "tp1": 229.31,
+        "tp2": 234.96,
         "rr_ratio": 2.0,
-        "avg_entry": 463.79,
-        "risk_per_sh": 3.48,
-        "signal": "MOMENTUM",
-        "pm_high_ref": 464.49
+        "avg_entry": 221.78,
+        "risk_per_sh": 3.76,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 221.34
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.2%",
+        "↗️ Orta Gap: +4.8%",
         "Bilinmiyor",
         "Bilinmiyor",
+        "✅ VWAP Üstünde: +372.59%",
+        "🔥 Açılış Barı: Güçlü (4.0x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "price": 47.5,
+      "change_pct": 3.06,
+      "dt_score": 40.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 46.84,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1780324290.4247515
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 47.45,
+          "high": 47.74
+        },
+        "stop": 46.79,
+        "tp1": 49.2,
+        "tp2": 50.41,
+        "rr_ratio": 1.99,
+        "avg_entry": 47.59,
+        "risk_per_sh": 0.8,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 47.5
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.1%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.42%",
+        "🔥 Açılış Barı: Güçlü (4.0x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]

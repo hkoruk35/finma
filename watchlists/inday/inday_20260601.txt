@@ -1,8 +1,8 @@
-# BOGA AI Swing Watchlist - 2026-06-01 10:00
-CP
-BURL
-TSLA
+# BOGA AI Swing Watchlist - 2026-06-01 11:00
 DIOD
+CP
 LEA
+TSLA
 AMRZ
+BURL
 CLFD
