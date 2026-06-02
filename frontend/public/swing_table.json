@@ -1,26 +1,50 @@
 [
   {
-    "Date": "1 June",
-    "Symbol": "VSAT",
-    "Entry (Buy_L)": 69.48,
-    "Stop (SL)": 65.53,
-    "Target 1 (TP1)": 81.51,
-    "Target 2 (TP2)": 83.29
+    "Date": "2 June",
+    "Symbol": "ZM",
+    "Entry (Buy_L)": 109.53,
+    "Stop (SL)": 105.82,
+    "Target 1 (TP1)": 120.14,
+    "Target 2 (TP2)": 121.73
   },
   {
-    "Date": "1 June",
-    "Symbol": "LOMA",
-    "Entry (Buy_L)": 11.94,
-    "Stop (SL)": 11.57,
-    "Target 1 (TP1)": 13.07,
-    "Target 2 (TP2)": 13.23
+    "Date": "2 June",
+    "Symbol": "IBKR",
+    "Entry (Buy_L)": 86.78,
+    "Stop (SL)": 84.61,
+    "Target 1 (TP1)": 94.46,
+    "Target 2 (TP2)": 95.56
   },
   {
-    "Date": "1 June",
-    "Symbol": "SHIP",
-    "Entry (Buy_L)": 15.83,
-    "Stop (SL)": 15.23,
-    "Target 1 (TP1)": 17.73,
-    "Target 2 (TP2)": 18.01
+    "Date": "2 June",
+    "Symbol": "EW",
+    "Entry (Buy_L)": 86.0,
+    "Stop (SL)": 83.09,
+    "Target 1 (TP1)": 93.24,
+    "Target 2 (TP2)": 94.37
+  },
+  {
+    "Date": "2 June",
+    "Symbol": "CSTM",
+    "Entry (Buy_L)": 34.63,
+    "Stop (SL)": 33.43,
+    "Target 1 (TP1)": 39.15,
+    "Target 2 (TP2)": 39.79
+  },
+  {
+    "Date": "2 June",
+    "Symbol": "TIGO",
+    "Entry (Buy_L)": 85.93,
+    "Stop (SL)": 83.36,
+    "Target 1 (TP1)": 94.12,
+    "Target 2 (TP2)": 95.31
+  },
+  {
+    "Date": "2 June",
+    "Symbol": "TMHC",
+    "Entry (Buy_L)": 59.47,
+    "Stop (SL)": 57.81,
+    "Target 1 (TP1)": 78.86,
+    "Target 2 (TP2)": 81.19
   }
 ]
