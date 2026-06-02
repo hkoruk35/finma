@@ -861,19 +861,19 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
 function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<string, TickerData>; types: Record<string, string> }) {
   return (
     <div style={{ marginTop: 12 }}>
-      <div style={{ fontSize: 10, color: "#8b949e", marginBottom: 12 }}>
-        Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir
+      <div style={{ fontSize: 11, color: "#b0bec5", marginBottom: 14, fontWeight: 500 }}>
+        📊 Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir
       </div>
-      <div style={{ overflowX: "auto" }}>
-        <table style={{ borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace", minWidth: 750 }}>
+      <div style={{ overflowX: "auto", borderRadius: 8, border: "1px solid #30363d" }}>
+        <table style={{ borderCollapse: "collapse", fontSize: 12, fontFamily: "monospace", minWidth: 900, background: "#0d1117" }}>
           <thead>
-            <tr style={{ borderBottom: "1px solid #30363d" }}>
-              <th style={{ padding: "6px 10px", textAlign: "left", color: "#3fb950", fontSize: 10, letterSpacing: "0.1em" }}>TICKER</th>
-              <th style={{ padding: "6px 8px", textAlign: "left", color: "#3fb950", fontSize: 10 }}>TİP</th>
+            <tr style={{ borderBottom: "2px solid #3fb950", background: "#161b22" }}>
+              <th style={{ padding: "10px 14px", textAlign: "left", color: "#56d364", fontSize: 11, letterSpacing: "0.15em", fontWeight: 800 }}>TICKER</th>
+              <th style={{ padding: "10px 12px", textAlign: "left", color: "#56d364", fontSize: 11, fontWeight: 800 }}>TİP</th>
               {HOUR_SLOTS.map(h => (
-                <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#3fb950", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
+                <th key={h} style={{ padding: "10px 12px", textAlign: "center", color: "#56d364", fontSize: 11, whiteSpace: "nowrap", fontWeight: 800 }}>{h}</th>
               ))}
-              <th style={{ padding: "6px 10px", textAlign: "right", color: "#3fb950", fontSize: 10 }}>GÜN</th>
+              <th style={{ padding: "10px 14px", textAlign: "right", color: "#56d364", fontSize: 11, fontWeight: 800 }}>GÜN</th>
             </tr>
           </thead>
           <tbody>
@@ -885,12 +885,12 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
               const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.CSP;
 
               return (
-                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
-                  <td style={{ padding: "6px 10px" }}>
-                    <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900 }}>{sym}</Link>
+                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d", transition: "background 0.2s" }}>
+                  <td style={{ padding: "9px 14px", fontWeight: 700 }}>
+                    <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{sym}</Link>
                   </td>
-                  <td style={{ padding: "6px 8px" }}>
-                    <span style={{ background: tipStyle.bg, color: tipStyle.text, fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 2 }}>
+                  <td style={{ padding: "9px 12px" }}>
+                    <span style={{ background: tipStyle.bg, color: tipStyle.text, fontSize: 10, fontWeight: 700, padding: "3px 7px", borderRadius: 3, display: "inline-block" }}>
                       {tipKey}
                     </span>
                   </td>
@@ -899,12 +899,12 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
                     const pct = bar?.change_pct ?? null;
                     const { bg, text } = heatBg(pct);
                     return (
-                      <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
-                        {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                      <td key={h} style={{ padding: "9px 12px", textAlign: "center", background: bg, color: text, fontSize: 11, fontWeight: 800, minWidth: 70, border: "1px solid rgba(48,54,61,0.5)", cursor: "pointer" }}>
+                        {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#555" }}>—</span>}
                       </td>
                     );
                   })}
-                  <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
+                  <td style={{ padding: "9px 14px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 800, fontSize: 12, border: "1px solid rgba(48,54,61,0.5)" }}>
                     {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
                   </td>
                 </tr>
@@ -913,19 +913,19 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
           </tbody>
         </table>
       </div>
-      <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
+      <div style={{ marginTop: 16, display: "flex", gap: 20, flexWrap: "wrap", padding: "12px 0" }}>
         {[
-          { label: "+2%+", bg: "#0d4a0d", text: "#56d364" },
-          { label: "+1–2%", bg: "#0d3a0d", text: "#3fb950" },
-          { label: "+0.3–1%", bg: "#0d2a0d", text: "#3fb950" },
-          { label: "±0.3%", bg: "#1a1a1a", text: "#8b949e" },
-          { label: "-0.3–1%", bg: "#2a0d0d", text: "#f85149" },
-          { label: "-1–2%", bg: "#3a0d0d", text: "#f85149" },
-          { label: "-2%+", bg: "#4a0d0d", text: "#ff7b72" },
+          { label: "↑ +2%+", bg: "#0d5a0d", text: "#5edf78" },
+          { label: "↑ +1–2%", bg: "#0d4a0d", text: "#3fb950" },
+          { label: "↑ +0.3–1%", bg: "#0d3a0d", text: "#3fb950" },
+          { label: "→ ±0.3%", bg: "#1a1a1a", text: "#a5a5a5" },
+          { label: "↓ -0.3–1%", bg: "#2a0d0d", text: "#f85149" },
+          { label: "↓ -1–2%", bg: "#3a0d0d", text: "#f85149" },
+          { label: "↓ -2%+", bg: "#4a0d0d", text: "#ff7b72" },
         ].map(item => (
-          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-            <div style={{ width: 14, height: 14, background: item.bg, borderRadius: 2 }} />
-            <span style={{ fontSize: 10, color: item.text }}>{item.label}</span>
+          <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 18, height: 18, background: item.bg, borderRadius: 3, border: "1px solid rgba(255,255,255,0.1)" }} />
+            <span style={{ fontSize: 11, color: item.text, fontWeight: 600 }}>{item.label}</span>
           </div>
         ))}
       </div>
