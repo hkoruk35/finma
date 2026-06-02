@@ -81,11 +81,13 @@ function detectCandlePattern(
   highs: number[],
   lows: number[]
 ): string {
-  if (closes.length < 2) return "Yetersiz Veri";
+  if (closes.length < 3) return "Yetersiz Veri";
 
-  const curr = { open: opens[opens.length - 1], close: closes[closes.length - 1], high: highs[highs.length - 1], low: lows[lows.length - 1] };
-  const prev = { open: opens[opens.length - 2], close: closes[closes.length - 2], high: highs[highs.length - 2], low: lows[lows.length - 2] };
-  const prev2 = closes.length >= 3 ? { open: opens[opens.length - 3], close: closes[closes.length - 3] } : null;
+  // Son bar şu an oluşmakta (eksik) — son TAMAMLANMIŞ bar = index -2
+  const n = closes.length;
+  const curr = { open: opens[n - 2], close: closes[n - 2], high: highs[n - 2], low: lows[n - 2] };
+  const prev = { open: opens[n - 3], close: closes[n - 3], high: highs[n - 3], low: lows[n - 3] };
+  const prev2 = n >= 4 ? { open: opens[n - 4], close: closes[n - 4] } : null;
 
   const body = Math.abs(curr.close - curr.open);
   const range = curr.high - curr.low || 0.0001;
@@ -95,9 +97,10 @@ function detectCandlePattern(
   const prev_bullish = prev.close > prev.open;
   const prev_body = Math.abs(prev.close - prev.open);
 
-  // ── Son 5 barın ortalama gövdesi (context-aware Doji tespiti) ─────────────
+  // ── Son 10 tamamlanmış barın ortalama gövdesi (context-aware Doji) ─────────
+  // n-2 = curr (son tamamlanan), n-3 ile n-12 = önceki 10 bar
   const recentBodies: number[] = [];
-  for (let i = Math.max(0, closes.length - 6); i < closes.length - 1; i++) {
+  for (let i = Math.max(0, n - 12); i < n - 2; i++) {
     recentBodies.push(Math.abs(closes[i] - opens[i]));
   }
   const avgBody = recentBodies.length > 0
