@@ -1,12 +1,12 @@
 {
   "stats": {
     "total_picks": 961,
-    "completed_count": 947,
-    "pending_count": 14,
+    "completed_count": 950,
+    "pending_count": 11,
     "win_rate": 55.2,
-    "avg_return_pct": 1.0,
+    "avg_return_pct": 0.96,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-06-02T06:15:00",
+    "last_updated": "2026-06-02T10:00:04",
     "above_5pct_rate": 42.3,
     "above_10pct_rate": 2.3
   },
@@ -23,8 +23,8 @@
       "stop_loss_high": 15.23,
       "profit_target": 17.73,
       "max_hold_days": 5,
-      "return_pct": 0.0,
-      "days": 0,
+      "return_pct": -3.15,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-01",
       "selected_system": "EMA_CROSS"
@@ -41,8 +41,8 @@
       "stop_loss_high": 11.57,
       "profit_target": 13.07,
       "max_hold_days": 5,
-      "return_pct": 0.0,
-      "days": 0,
+      "return_pct": -2.61,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-01",
       "selected_system": "BREAKOUT"
@@ -54,15 +54,15 @@
       "sector": "Technology",
       "subsector": "Aerospace & Defense Communications",
       "entry": 72.86,
-      "max_price": 72.86,
+      "max_price": 73.34,
       "sl_pct": 10.1,
       "stop_loss_high": 65.53,
       "profit_target": 81.51,
       "max_hold_days": 5,
-      "return_pct": 0.0,
-      "days": 0,
+      "return_pct": 0.66,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-06-01",
+      "peak_date": "2026-06-02",
       "selected_system": "DEFAULT"
     },
     {
@@ -77,8 +77,8 @@
       "stop_loss_high": 25.37,
       "profit_target": 28.39,
       "max_hold_days": 5,
-      "return_pct": -1.09,
-      "days": 0,
+      "return_pct": -1.42,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-01"
     },
@@ -16441,13 +16441,14 @@
       "entry": 37.69,
       "max_price": 37.81,
       "sl_pct": 27.83,
-      "return_pct": -0.29,
-      "days": 5,
-      "result": "PENDING",
+      "return_pct": -0.36,
+      "days": 6,
+      "result": "LOSS",
       "peak_date": "2026-05-29",
       "profit_target": 42.51,
       "max_hold_days": 6,
-      "stop_loss_high": 27.2
+      "stop_loss_high": 27.2,
+      "exit_date": "2026-06-02"
     },
     {
       "date": "2026-05-28",
@@ -16476,13 +16477,14 @@
       "entry": 79.79,
       "max_price": 80.07,
       "sl_pct": 5.0,
-      "return_pct": -1.48,
-      "days": 4,
-      "result": "PENDING",
+      "return_pct": -0.01,
+      "days": 5,
+      "result": "LOSS",
       "peak_date": "2026-05-29",
       "profit_target": 81.77,
       "max_hold_days": 5,
-      "stop_loss_high": 75.8
+      "stop_loss_high": 75.8,
+      "exit_date": "2026-06-02"
     },
     {
       "date": "2026-05-28",
@@ -16511,13 +16513,14 @@
       "entry": 311.39,
       "max_price": 311.39,
       "sl_pct": 5.0,
-      "return_pct": -2.0,
-      "days": 4,
-      "result": "PENDING",
+      "return_pct": -1.83,
+      "days": 5,
+      "result": "LOSS",
       "peak_date": "2026-05-28",
       "profit_target": 322.42,
       "max_hold_days": 5,
-      "stop_loss_high": 295.82
+      "stop_loss_high": 295.82,
+      "exit_date": "2026-06-02"
     },
     {
       "date": "2026-05-29",
@@ -16531,8 +16534,8 @@
       "stop_loss_high": 51.26,
       "profit_target": 57.7,
       "max_hold_days": 5,
-      "return_pct": -0.32,
-      "days": 3,
+      "return_pct": -0.2,
+      "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-29"
     },
@@ -16548,8 +16551,8 @@
       "stop_loss_high": 85.73,
       "profit_target": 96.57,
       "max_hold_days": 5,
-      "return_pct": -1.73,
-      "days": 3,
+      "return_pct": -1.48,
+      "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-29"
     },
@@ -16560,15 +16563,15 @@
       "sector": "Technology",
       "subsector": "Communication Equipment",
       "entry": 46.6,
-      "max_price": 48.3,
+      "max_price": 48.82,
       "sl_pct": 9.67,
       "stop_loss_high": 42.09,
       "profit_target": 51.9,
       "max_hold_days": 5,
-      "return_pct": 3.52,
-      "days": 3,
+      "return_pct": 4.76,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-06-01"
+      "peak_date": "2026-06-02"
     },
     {
       "date": "2026-05-29",
@@ -16582,8 +16585,8 @@
       "stop_loss_high": 415.01,
       "profit_target": 463.87,
       "max_hold_days": 7,
-      "return_pct": -4.8,
-      "days": 3,
+      "return_pct": -4.65,
+      "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-29"
     },
@@ -16594,15 +16597,15 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto Parts",
       "entry": 144.54,
-      "max_price": 144.54,
+      "max_price": 146.28,
       "sl_pct": 5.0,
       "stop_loss_high": 137.31,
       "profit_target": 153.55,
       "max_hold_days": 5,
-      "return_pct": -0.42,
-      "days": 3,
+      "return_pct": 1.2,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-05-29"
+      "peak_date": "2026-06-02"
     },
     {
       "date": "2026-05-29",
@@ -16617,7 +16620,7 @@
       "profit_target": 339.61,
       "max_hold_days": 5,
       "return_pct": -1.21,
-      "days": 3,
+      "days": 4,
       "result": "PENDING",
       "peak_date": "2026-05-29"
     },
@@ -16628,15 +16631,15 @@
       "sector": "Technology",
       "subsector": "Semiconductors",
       "entry": 106.22,
-      "max_price": 106.22,
+      "max_price": 107.69,
       "sl_pct": 9.41,
       "stop_loss_high": 96.23,
       "profit_target": 116.05,
       "max_hold_days": 5,
-      "return_pct": -4.01,
-      "days": 3,
+      "return_pct": 1.38,
+      "days": 4,
       "result": "PENDING",
-      "peak_date": "2026-05-29"
+      "peak_date": "2026-06-02"
     }
   ],
   "generated_at": "2026-05-09T09:36:34.368449"
