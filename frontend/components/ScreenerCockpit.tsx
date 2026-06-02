@@ -4,6 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import ScreenerChart from "./screener/ScreenerChart";
 import TickerHoverChart from "./TickerHoverChart";
+import { useWatchlistModal } from "@/hooks/useWatchlistModal";
+import { WatchlistModal } from "./WatchlistModal";
+import { exportScreenerResultsToXLS } from "@/lib/exportUtils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -412,6 +415,8 @@ export default function ScreenerCockpit() {
   const [rsiMax,     setRsiMax]     = useState<number | null>(null);
   const [adxMin,     setAdxMin]     = useState<number | null>(null);
 
+  const watchlist = useWatchlistModal();
+
   const getActiveFilters = () => {
     const filters: string[] = [];
     if (priceRange) filters.push(`$${priceRange.min}-${priceRange.max}`);
@@ -619,6 +624,13 @@ export default function ScreenerCockpit() {
               {isScanning ? "⏳ Taranıyor..." : "📡 TARA"}
             </button>
 
+            {sortedResults.length > 0 && (
+              <button onClick={() => exportScreenerResultsToXLS(sortedResults, currentPreset?.name || "screener")}
+                style={{ background: "rgba(59,130,246,0.12)", border: "1px solid rgba(59,130,246,0.5)", color: "#60a5fa", padding: "6px 16px", borderRadius: 4, cursor: "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: 700, letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, transition: "all .15s" }}>
+                📥 XLS INDIR
+              </button>
+            )}
+
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", flex: 1 }}>
               {allPills.map((pill, idx) => {
                 const isRemovable = idx >= presetPills.length;
@@ -664,16 +676,16 @@ export default function ScreenerCockpit() {
                   <tr style={{ background: "#0f141e", position: "sticky", top: 0, zIndex: 1 }}>
                     {[
                       { key: null,    label: "Ticker"       },
-                      { key: "score", label: "BOGA Score ↕" },
                       { key: null,    label: "Setup"        },
-                      { key: "rvol",  label: "RVOL ↕"      },
-                      { key: "adx",   label: "ADX ↕"       },
                       { key: "price", label: "Fiyat ↕"     },
                       { key: "chg",   label: "Değ% ↕"      },
                       { key: null,    label: "MACD"         },
-                      { key: null,    label: "Opsiyon"      },
                       { key: "rsi",   label: "RSI ↕"       },
                       { key: null,    label: "R/R"          },
+                      { key: null,    label: "Watchlist"    },
+                      { key: "score", label: "Score ↕"     },
+                      { key: "rvol",  label: "RVOL ↕"      },
+                      { key: "adx",   label: "ADX ↕"       },
                     ].map(({ key, label }) => (
                       <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                         style={{ padding: "9px 11px", textAlign: "left", fontSize: 9, letterSpacing: 1, color: sortBy === key ? "#60a5fa" : "#7c8fa6", textTransform: "uppercase", borderBottom: "1px solid #1e2a3a", fontWeight: 700, whiteSpace: "nowrap", cursor: key ? "pointer" : "default", background: "#0f141e" }}>
@@ -694,14 +706,7 @@ export default function ScreenerCockpit() {
                           <TickerHoverChart ticker={stock.ticker}><div style={{ fontWeight: 700, fontSize: 13, color: "#f1f5f9", display: "inline" }}>{stock.ticker}</div></TickerHoverChart>
                           <div style={{ fontSize: 10, color: "#7c8fa6", marginTop: 2 }}>{stock.company.length > 16 ? stock.company.slice(0, 16) + "…" : stock.company}</div>
                         </td>
-                        <td style={{ padding: "8px 11px" }}><ScoreBar score={stock.boga_score} grade={stock.grade} /></td>
                         <td style={{ padding: "8px 11px" }}><SetupBadge setup={stock.primary_setup ?? "swing"} /></td>
-                        <td style={{ padding: "8px 11px" }}>
-                          <span style={{ color: stock.rvol >= 3 ? "#fbbf24" : "#b0bec5", fontWeight: stock.rvol >= 3 ? 700 : 400, fontFamily: "monospace", fontSize: 12 }}>{stock.rvol.toFixed(1)}x</span>
-                        </td>
-                        <td style={{ padding: "8px 11px" }}>
-                          <span style={{ color: stock.adx >= 25 ? "#4ade80" : "#94a3b8", fontFamily: "monospace", fontSize: 12, fontWeight: stock.adx >= 25 ? 700 : 400 }}>{stock.adx?.toFixed(0) ?? "—"}</span>
-                        </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ fontFamily: "monospace", fontSize: 12, color: "#e2e8f0", fontWeight: 600 }}>${fmt(stock.price)}</span>
                         </td>
@@ -714,13 +719,23 @@ export default function ScreenerCockpit() {
                           <MACDDot val={stock.macd} hist={stock.macd_hist} />
                         </td>
                         <td style={{ padding: "8px 11px" }}>
-                          <OptBadge weekly={stock.has_weekly_options} hasOpt={stock.has_options} />
-                        </td>
-                        <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: stock.rsi > 70 ? "#f87171" : stock.rsi >= 55 ? "#4ade80" : "#b0bec5", fontFamily: "monospace", fontSize: 12, fontWeight: 600 }}>{stock.rsi?.toFixed(0)}</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: "#22d3ee", fontWeight: 700, fontFamily: "monospace", fontSize: 12 }}>{stock.rr_ratio}</span>
+                        </td>
+                        <td style={{ padding: "8px 11px" }}>
+                          <button onClick={(e) => { e.stopPropagation(); watchlist.openModal(stock.ticker); watchlist.addToWatchlist(stock.ticker); }}
+                            style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.4)", color: "#4ade80", padding: "4px 8px", borderRadius: 3, cursor: "pointer", fontSize: 10, fontWeight: 700, transition: "all .15s" }}>
+                            ➕ Ekle
+                          </button>
+                        </td>
+                        <td style={{ padding: "8px 11px" }}><ScoreBar score={stock.boga_score} grade={stock.grade} /></td>
+                        <td style={{ padding: "8px 11px" }}>
+                          <span style={{ color: stock.rvol >= 3 ? "#fbbf24" : "#b0bec5", fontWeight: stock.rvol >= 3 ? 700 : 400, fontFamily: "monospace", fontSize: 12 }}>{stock.rvol.toFixed(1)}x</span>
+                        </td>
+                        <td style={{ padding: "8px 11px" }}>
+                          <span style={{ color: stock.adx >= 25 ? "#4ade80" : "#94a3b8", fontFamily: "monospace", fontSize: 12, fontWeight: stock.adx >= 25 ? 700 : 400 }}>{stock.adx?.toFixed(0) ?? "—"}</span>
                         </td>
                       </tr>
                       {expandedRow === stock.ticker && <DetailRow key={`${stock.ticker}-d`} stock={stock} />}
@@ -753,6 +768,13 @@ export default function ScreenerCockpit() {
         @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
         @keyframes spin  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
       `}</style>
+
+      <WatchlistModal
+        isOpen={watchlist.isOpen}
+        message={watchlist.message}
+        isLoading={watchlist.isLoading}
+        onClose={watchlist.closeModal}
+      />
     </div>
   );
 }
