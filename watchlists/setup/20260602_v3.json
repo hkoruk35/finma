@@ -1,0 +1,32 @@
+[
+    {
+        "date": "2026-06-02 12:00",
+        "symbol": "LOMA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 11.89,
+        "entry_zone": "11.62 - 12.16",
+        "SL": 10.82,
+        "TP": 13.49
+    },
+    {
+        "date": "2026-06-02 12:00",
+        "symbol": "SHIP",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 15.69,
+        "entry_zone": "15.24 - 16.14",
+        "SL": 13.87,
+        "TP": 18.41
+    },
+    {
+        "date": "2026-06-02 12:00",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 73.64,
+        "entry_zone": "70.60 - 76.68",
+        "SL": 61.48,
+        "TP": 91.89
+    }
+]
