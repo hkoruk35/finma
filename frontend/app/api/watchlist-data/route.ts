@@ -992,7 +992,7 @@ export async function GET(req: NextRequest) {
     .split(",")
     .map((t) => t.trim().toUpperCase())
     .filter(Boolean)
-    .slice(0, 50);
+    .slice(0, 150); // 50'den 150'ye yükseltildi — 525 listesi 52+ hisse içeriyor
 
   if (tickers.length === 0) {
     return NextResponse.json([]);

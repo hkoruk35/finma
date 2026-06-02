@@ -135,14 +135,10 @@ export default function CSPDetailClient({ slug }: Props) {
 
   // ── Tüm liste kayıt (tek nokta) ───────────────────────────────────────────
   const saveList = (list: string[], t: Record<string, string>) => {
-    console.log(`[CSPDetail] Saving tickers: ${list.join(",")} to slug=${slug}`);
     saveCsp({ tickers: list, types: t, notes });
-    // Give the cloud save a moment to start, then trigger immediate refetch
-    // This ensures we always get fresh data for newly added tickers
-    setTimeout(() => {
-      console.log(`[CSPDetail] Triggering refetch after save...`);
-      fetchData();
-    }, 500);
+    // NOT: fetchData() çağrısı yok — useEffect([fetchData]) zaten tickers
+    // değişince otomatik tetikleniyor. Manuel timeout eklemek stale closure
+    // sebebiyle ESKİ tickers ile fetch yaparak yeni eklenen hisseyi siler.
   };
 
   const addTicker = () => {
@@ -152,53 +148,10 @@ export default function CSPDetailClient({ slug }: Props) {
     const newTickers = [...tickers, sym];
     const newTypes = { ...types, [sym]: addType };
 
-    // Save to cloud immediately
     saveList(newTickers, newTypes);
     setAddInput("");
-
-    // Force re-fetch all tickers after small delay to ensure cloud save is initiated
-    // This prevents race conditions and ensures localStorage is updated
-    setTimeout(() => {
-      fetch(`/api/watchlist-data?tickers=${newTickers.join(",")}`)
-        .then((r) => r.json())
-        .then((results) => {
-          if (!results || results.length === 0) {
-            console.warn(`[CSPDetail] No data returned for: ${newTickers.join(",")}`);
-            return;
-          }
-
-          const map: Record<string, TickerData> = { ...data };
-          let fetchedCount = 0;
-          results.forEach((item: TickerData) => {
-            if (item?.ticker) {
-              map[item.ticker] = item;
-              fetchedCount++;
-            }
-          });
-
-          console.log(`[CSPDetail] Fetched ${fetchedCount} tickers, total now: ${Object.keys(map).length}`);
-          setData(map);
-          setLastUpdated(new Date());
-
-          // If new ticker not in fetched data, retry after 2 more seconds
-          if (!map[sym] && fetchedCount > 0) {
-            console.warn(`[CSPDetail] New ticker ${sym} not in results, retrying...`);
-            setTimeout(() => {
-              fetch(`/api/watchlist-data?tickers=${sym}`)
-                .then((r) => r.json())
-                .then((results) => {
-                  if (results?.length > 0) {
-                    const newData = { ...map };
-                    if (results[0]?.ticker) newData[results[0].ticker] = results[0];
-                    setData(newData);
-                  }
-                })
-                .catch(() => {});
-            }, 2000);
-          }
-        })
-        .catch((err) => console.error("[CSPDetail] Manual fetch error:", err));
-    }, 300);
+    // useEffect(() => { fetchData(); }, [fetchData]) otomatik olarak
+    // tickers değişince yeni listeyle fetchData'yı çalıştırır. Başka bir şey gerekmez.
   };
 
   const removeTicker = (sym: string) => {
