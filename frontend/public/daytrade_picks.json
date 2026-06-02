@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-06-02T09:31:00.131816-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 30.1,
+  "generated_at": "2026-06-02T10:31:00.120868-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 28.2,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
   "picks": [
     {
       "ticker": "SMCI",
-      "price": 50.83,
-      "change_pct": 8.44,
-      "dt_score": 34.0,
+      "price": 49.58,
+      "change_pct": 5.76,
+      "dt_score": 45.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 49.9,
       "catalyst": {
         "catalyst_type": "partnership",
         "catalyst_score": 18,
@@ -37,24 +37,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 50.78,
-          "high": 51.08
+          "low": 49.53,
+          "high": 49.83
         },
-        "stop": 50.37,
-        "tp1": 52.05,
-        "tp2": 52.89,
+        "stop": 48.84,
+        "tp1": 51.36,
+        "tp2": 52.62,
         "rr_ratio": 2.0,
-        "avg_entry": 50.93,
-        "risk_per_sh": 0.56,
+        "avg_entry": 49.68,
+        "risk_per_sh": 0.84,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 50.83
+        "pm_high_ref": 49.58
       },
       "details": [
         "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "📈 Güçlü Gap: +8.4%",
+        "↗️ Orta Gap: +5.8%",
         "Bilinmiyor",
         "Bilinmiyor",
+        "🔄 VWAP Testi: -0.64%",
+        "🔥 Açılış Barı: Güçlü (3.9x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
