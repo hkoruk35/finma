@@ -49,6 +49,22 @@ const DATA_ROOT = process.env.FINMA_DATA_PATH
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
+// ── In-Memory Cache for Yahoo Finance data (5 min TTL) ──────────────────────
+const YAHOO_CACHE: Record<string, { data: any; timestamp: number }> = {};
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+
+function getCachedYahooData(ticker: string) {
+  const cached = YAHOO_CACHE[ticker];
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return cached.data;
+  }
+  return null;
+}
+
+function setCachedYahooData(ticker: string, data: any) {
+  YAHOO_CACHE[ticker] = { data, timestamp: Date.now() };
+}
+
 // ── Tracker-specific calculations ────────────────────────────────────────────
 
 function getEMAStatus(price: number, ema20: number, ema50: number, ema200: number): string {
@@ -374,6 +390,13 @@ function check15mMicroTrend(
 
 async function fetchYahooLive(ticker: string) {
   try {
+    // Check cache first to avoid rate limiting
+    const cached = getCachedYahooData(ticker);
+    if (cached) {
+      console.log(`[watchlist-data] ${ticker}: Using cached data (5min TTL)`);
+      return cached;
+    }
+
     const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
@@ -872,7 +895,7 @@ async function fetchYahooLive(ticker: string) {
     else if (finalMaster <= 42) signalType = "STRONG_SELL";
     else if (finalMaster <= 49) signalType = "SELL";
 
-    return {
+    const tickerData = {
       ticker: ticker.toUpperCase(),
       company: meta.longName || stats.longName || `${ticker.toUpperCase()} Corp.`,
       date: new Date().toISOString().split("T")[0],
@@ -953,6 +976,10 @@ async function fetchYahooLive(ticker: string) {
       },
       hourly: hourlyBars
     };
+
+    // Cache the result for 5 minutes to avoid rate limiting
+    setCachedYahooData(ticker, tickerData);
+    return tickerData;
   } catch (e) {
     console.error("fetchYahooLive error:", e);
     return null;
