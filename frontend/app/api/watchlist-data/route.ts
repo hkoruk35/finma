@@ -1072,7 +1072,14 @@ export async function GET(req: NextRequest) {
     })
   );
 
+  // Cache bulunan datayı 2 dakika, ama yeni request'lere bypass et
+  // (fresh ticker'lar için cache skip olmali)
+  const hasAllTickers = tickers.every(t => results.some(r => r.ticker === t));
+  const cacheControl = hasAllTickers
+    ? "public, max-age=120"  // Tamam tum ticker'lar var, cache et
+    : "no-cache, no-store, must-revalidate";  // Eksik ticker var, cache'e alma
+
   return NextResponse.json(results, {
-    headers: { "Cache-Control": "public, max-age=120" }
+    headers: { "Cache-Control": cacheControl }
   });
 }
