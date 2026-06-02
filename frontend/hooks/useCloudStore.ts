@@ -80,11 +80,24 @@ export function useCloudStore<T>(opts: Options<T>) {
     latestData.current = value;
     setData(value);
     try { localStorage.setItem(cacheKey, JSON.stringify(value)); } catch {}
+
+    // Sync to cloud and clear userModified flag on success
     fetch(buildUrl(endpoint), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: buildBody(endpoint, value),
-    }).catch(() => {});
+    })
+      .then((r) => {
+        if (r.ok) {
+          userModified.current = false;
+          console.log(`[useCloudStore] Successfully saved to cloud`);
+        } else {
+          console.error(`[useCloudStore] Save failed with status ${r.status}`);
+        }
+      })
+      .catch((err) => {
+        console.error(`[useCloudStore] Save error:`, err);
+      });
   }, [cacheKey, endpoint]);
 
   return { data, save, ready, latestData };

@@ -141,8 +141,29 @@ export default function CSPDetailClient({ slug }: Props) {
   const addTicker = () => {
     const sym = addInput.trim().toUpperCase();
     if (!sym || tickers.includes(sym)) return;
-    saveList([...tickers, sym], { ...types, [sym]: addType });
+
+    const newTickers = [...tickers, sym];
+    const newTypes = { ...types, [sym]: addType };
+
+    // Save to cloud
+    saveList(newTickers, newTypes);
     setAddInput("");
+
+    // Immediately fetch data for new ticker instead of waiting for state update
+    // This prevents race conditions when adding multiple tickers quickly
+    setTimeout(() => {
+      fetch(`/api/watchlist-data?tickers=${newTickers.join(",")}`)
+        .then((r) => r.json())
+        .then((results) => {
+          const map: Record<string, TickerData> = { ...data };
+          results.forEach((item: TickerData) => {
+            if (item?.ticker) map[item.ticker] = item;
+          });
+          setData(map);
+          setLastUpdated(new Date());
+        })
+        .catch((err) => console.error("[CSPDetail] Manual fetch error:", err));
+    }, 100);
   };
 
   const removeTicker = (sym: string) => {
