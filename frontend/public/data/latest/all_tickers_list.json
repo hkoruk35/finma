@@ -1,82 +1,38 @@
 {
-  "date": "2026-05-29",
+  "date": "2026-06-01",
   "tickers": [
     {
-      "ticker": "AMRZ",
-      "company": "AMRZ",
-      "sector": "Basic Materials",
-      "master_score": 54.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 53.959999084472656,
-      "change_pct": 2.06,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "CP",
-      "company": "CP",
-      "sector": "Industrials",
+      "ticker": "VSAT",
+      "company": "VSAT",
+      "sector": "Technology",
       "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 90.23999786376953,
-      "change_pct": -0.4,
+      "price": 72.86000061035156,
+      "change_pct": -9.63,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: DEFAULT"
     },
     {
-      "ticker": "CLFD",
-      "company": "CLFD",
-      "sector": "Technology",
-      "master_score": 46.0,
+      "ticker": "LOMA",
+      "company": "LOMA",
+      "sector": "Basic Materials",
+      "master_score": 52.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 46.595001220703125,
-      "change_pct": -0.22,
+      "price": 12.260000228881836,
+      "change_pct": 2.17,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 46.0 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: BREAKOUT"
     },
     {
-      "ticker": "TSLA",
-      "company": "Tesla Inc",
-      "sector": "Consumer Cyclical",
-      "master_score": 43.0,
+      "ticker": "SHIP",
+      "company": "SHIP",
+      "sector": "Industrials",
+      "master_score": 46.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 436.8500061035156,
-      "change_pct": -1.19,
+      "price": 16.389999389648438,
+      "change_pct": 5.74,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 43.0 | System: DEFAULT"
-    },
-    {
-      "ticker": "LEA",
-      "company": "LEA",
-      "sector": "Consumer Cyclical",
-      "master_score": 39.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 144.5399932861328,
-      "change_pct": -1.63,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 39.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "BURL",
-      "company": "BURL",
-      "sector": "Consumer Cyclical",
-      "master_score": 36.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 317.864990234375,
-      "change_pct": 5.77,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 36.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "DIOD",
-      "company": "DIOD",
-      "sector": "Technology",
-      "master_score": 35.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 106.2249984741211,
-      "change_pct": -3.34,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 35.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: EMA_CROSS"
     }
   ]
 }
