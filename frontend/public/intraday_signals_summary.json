@@ -1,6 +1,6 @@
 {
   "date": "2026-06-02",
-  "last_updated": "2026-06-02T13:00:24.266716-04:00",
+  "last_updated": "2026-06-02T14:00:13.900213-04:00",
   "tickers": {
     "SHIP": {
       "status_history": [
@@ -70,6 +70,72 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-02T10:00:12.928953-04:00",
       "entry_price": 73.36
+    },
+    "IBKR": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 89.75
+    },
+    "TIGO": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 88.45
+    },
+    "TMHC": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 71.5
+    },
+    "ZM": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 111.16
+    },
+    "CSTM": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 36.24
+    },
+    "EW": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-02T14:00:13.900213-04:00",
+      "entry_price": 87.59
     }
   }
 }
