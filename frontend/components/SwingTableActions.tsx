@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { exportSwingResultsToXLS } from "@/lib/exportUtils";
 
 interface SwingTableActionsProps {
   picks: any[];
@@ -12,7 +13,7 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
     if (!picks || picks.length === 0) return;
 
     const headers = [
-      "#", "Ticker", "Company", "Sector", "Score", "Price", 
+      "#", "Ticker", "Company", "Sector", "Score", "Price",
       "Buy Low", "Buy High", "Target Low", "Target High", "Stop Low", "Stop High",
       "1D %", "1W %", "1M %"
     ];
@@ -50,6 +51,15 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
     document.body.removeChild(link);
   };
 
+  const exportToXLS = () => {
+    if (!picks || picks.length === 0) return;
+    const mappedPicks = picks.map(p => ({
+      ...p,
+      price: p.current_price,
+    }));
+    exportSwingResultsToXLS(mappedPicks);
+  };
+
   const copyToClipboard = () => {
     if (!picks || picks.length === 0) return;
 
@@ -68,7 +78,13 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
         onClick={exportToCSV}
         className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#00d2ff]/30 rounded-lg text-xs font-bold text-[#00d2ff] hover:bg-[#00d2ff]/10 transition-all"
       >
-        📥 Export CSV / XLS
+        📥 CSV Export
+      </button>
+      <button
+        onClick={exportToXLS}
+        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#3b82f6]/30 rounded-lg text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
+      >
+        📥 XLS Export
       </button>
       <button
         onClick={copyToClipboard}
