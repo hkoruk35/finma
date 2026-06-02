@@ -415,7 +415,7 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "Δ%", "H.ORAN", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
+                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "1H FİY%", "1H HAC%", "1G FİY%", "1G HAC%", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
                       const isSortable = h && h !== "NOT" && h !== "PATERN" && h !== "DURUM";
                       const isSorted = sortBy === h;
                       return (
@@ -500,18 +500,30 @@ export default function CSPDetailClient({ slug }: Props) {
                             {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
                           </td>
 
-                          {/* Δ% (1H) */}
+                          {/* 1H FİY% */}
                           <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
                             color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "#3fb950" : "#f85149"
                           }}>
                             {d ? `${(d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1h)}%` : "—"}
                           </td>
 
-                          {/* H.ORAN */}
-                          <td style={{ padding: "7px 8px", textAlign: "right",
+                          {/* 1H HAC% */}
+                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
                             color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
                           }}>
-                            {d ? `${fmt2(d.tracker_1h?.volume_ratio)}x` : "—"}
+                            {d ? `${fmt2((d.tracker_1h?.volume_ratio ?? 1) * 100 - 100)}%` : "—"}
+                          </td>
+
+                          {/* 1G FİY% */}
+                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                            color: !d ? "#8b949e" : (d.price?.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149"
+                          }}>
+                            {d ? `${(d.price?.change_pct ?? 0) >= 0 ? "+" : ""}${fmt2(d.price?.change_pct)}%` : "—"}
+                          </td>
+
+                          {/* 1G HAC% */}
+                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: "#8b949e" }}>
+                            {d && d.price?.volume && d.price?.avg_volume_30d ? `${fmt1(((d.price.volume / (d.price.avg_volume_30d / 30)) - 1) * 100)}%` : "—"}
                           </td>
 
                           {/* EMA20 */}
