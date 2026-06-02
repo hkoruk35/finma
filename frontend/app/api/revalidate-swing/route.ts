@@ -14,17 +14,10 @@ export async function POST(request: Request) {
     }
 
     // Revalidate both /swing and /swing/ paths
-    await Promise.all([
-      // @ts-ignore (next/cache is real at runtime)
-      import('next/cache').then(({ revalidatePath }) => {
-        revalidatePath('/swing', 'page');
-        revalidatePath('/swing/', 'page');
-      }),
-      // Also revalidate the API routes that serve swing data
-      import('next/cache').then(({ revalidateTag }) => {
-        revalidateTag('swing-data');
-      }),
-    ]);
+    // @ts-ignore (next/cache is real at runtime)
+    const { revalidatePath } = await import('next/cache');
+    revalidatePath('/swing', 'page');
+    revalidatePath('/swing/', 'page');
 
     return new Response(
       JSON.stringify({
