@@ -576,8 +576,18 @@ export default function CSPDetailClient({ slug }: Props) {
                           </td>
 
                           {/* PATERN */}
-                          <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>
-                            {d?.tracker_1h?.candle_pattern || "—"}
+                          <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 10, whiteSpace: "nowrap" }}>
+                            {(() => {
+                              const p = d?.tracker_1h?.candle_pattern;
+                              if (!p || p === "—") return <span style={{ color: "#555" }}>—</span>;
+                              const bullishPatterns = ["Hammer","Bullish Engulfing","Inv. Hammer","Morning Star","3 Asker ↑","Dragonfly Doji","Bullish Marubozu","Outside Bar ↑","Güçlü ↑","Yeşil Mum ↑","Spinning Top ↑"];
+                              const bearishPatterns = ["Shooting Star","Bearish Engulfing","Hanging Man","Evening Star","3 Karga ↓","Gravestone Doji","Bearish Marubozu","Outside Bar ↓","Güçlü ↓","Kırmızı Mum ↓","Spinning Top ↓"];
+                              const neutralPatterns = ["Doji","Inside Bar","Spinning Top"];
+                              const color = bullishPatterns.some(x => p.includes(x.replace(" ↑","")) && !p.includes("↓")) ? "#3fb950"
+                                : bearishPatterns.some(x => p.includes(x.replace(" ↓","")) && !p.includes("↑")) ? "#f85149"
+                                : "#e3b341";
+                              return <span style={{ color, fontWeight: 700 }}>{p}</span>;
+                            })()}
                           </td>
 
                           {/* SİNYAL */}
