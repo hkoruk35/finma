@@ -84,7 +84,7 @@ function detectCandlePattern(
   if (closes.length < 2) return "Yetersiz Veri";
 
   const curr = { open: opens[opens.length - 1], close: closes[closes.length - 1], high: highs[highs.length - 1], low: lows[lows.length - 1] };
-  const prev = { open: opens[opens.length - 2], close: closes[closes.length - 2] };
+  const prev = { open: opens[opens.length - 2], close: closes[closes.length - 2], high: highs[highs.length - 2], low: lows[lows.length - 2] };
   const prev2 = closes.length >= 3 ? { open: opens[opens.length - 3], close: closes[closes.length - 3] } : null;
 
   const body = Math.abs(curr.close - curr.open);
