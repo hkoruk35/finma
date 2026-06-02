@@ -51,7 +51,7 @@ export const maxDuration = 30;
 
 // ── In-Memory Cache for Yahoo Finance data (5 min TTL) ──────────────────────
 const YAHOO_CACHE: Record<string, { data: any; timestamp: number }> = {};
-const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes (pattern güncellemeleri için daha hızlı yansısın)
 
 function getCachedYahooData(ticker: string) {
   const cached = YAHOO_CACHE[ticker];
@@ -89,16 +89,23 @@ function detectCandlePattern(
 
   const body = Math.abs(curr.close - curr.open);
   const range = curr.high - curr.low || 0.0001;
-  const midPrice = (curr.high + curr.low) / 2;
   const lower_wick = Math.min(curr.close, curr.open) - curr.low;
   const upper_wick = curr.high - Math.max(curr.close, curr.open);
   const bullish = curr.close > curr.open;
   const prev_bullish = prev.close > prev.open;
   const prev_body = Math.abs(prev.close - prev.open);
 
-  // ── Doji: gövde fiyatın %0.3'ünden az (range değil, price bazlı) ─────────
-  const bodyPct = midPrice > 0 ? body / midPrice : 0;
-  if (bodyPct < 0.003) {
+  // ── Son 5 barın ortalama gövdesi (context-aware Doji tespiti) ─────────────
+  const recentBodies: number[] = [];
+  for (let i = Math.max(0, closes.length - 6); i < closes.length - 1; i++) {
+    recentBodies.push(Math.abs(closes[i] - opens[i]));
+  }
+  const avgBody = recentBodies.length > 0
+    ? recentBodies.reduce((a, b) => a + b, 0) / recentBodies.length
+    : body;
+
+  // Doji: gövde hem ortalama gövdenin %15'inden küçük, hem de range'in %8'inden küçük
+  if (body < avgBody * 0.15 && body < range * 0.08) {
     if (lower_wick > range * 0.6 && upper_wick < range * 0.1) return "Dragonfly Doji";
     if (upper_wick > range * 0.6 && lower_wick < range * 0.1) return "Gravestone Doji";
     return "Doji";
