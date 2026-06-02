@@ -18,7 +18,7 @@ interface TickerData {
   ticker: string;
   company: string;
   sector: string;
-  price: { current: number; change_pct: number; volume: number };
+  price: { current: number; change_pct: number; volume: number; avg_volume_30d?: number };
   tracker_1h: {
     ema_20: number; ema_50: number; ema_200: number;
     ema_status: string; rsi: number; candle_pattern: string;
