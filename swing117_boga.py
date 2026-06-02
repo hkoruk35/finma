@@ -4562,7 +4562,7 @@ def track_pick_peak_performance():
                 # Auto-close: Stop veya TP vurulmuşsa
                 stop_px   = trade.get('stop_price', 0.0)
                 target_px = trade.get('target_price', 0.0)
-                
+
                 if stop_px > 0 and float(df_check['Low'].min()) <= stop_px:
                     trade['result']     = 'STOPPED_OUT'
                     trade['return_pct'] = round((stop_px - entry_px) / entry_px * 100, 2)
@@ -4572,7 +4572,17 @@ def track_pick_peak_performance():
                     trade['return_pct'] = round(peak_pct, 2)
                     updated = True
                 else:
+                    # ── V117.v2: 5% Loss Threshold Rule ────────────────────────
+                    # Eğer max hold days expire edildiyse, return'a göre WIN/LOSS/PENDING
+                    # Loss olması için %5'den fazla zarar etmesi gerekli
                     updated = True  # peak_pct güncellendi
+                    ret = trade.get('return_pct', 0.0)
+                    if ret >= 0:
+                        trade['result'] = 'WIN'
+                    elif ret <= -5.0:
+                        trade['result'] = 'LOSS'
+                    else:
+                        trade['result'] = 'PENDING'  # -5% to 0% range stays PENDING
                     
             except Exception as e:
                 logging.debug(f"Peak tracker {ticker}: {e}")
