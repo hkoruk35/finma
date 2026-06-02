@@ -513,7 +513,7 @@ async def build_atmaca_universe_full() -> List[str]:
                     is_squeeze_candidate = (-0.05 <= roc5 <= 0.09)
                     # 🎯 FIX: Eşik 0.15'e esnetildi. 5 güne yayılan sağlıklı (%10-12'lik) trendler içeri alınır.
                     # Tek günde %10 yapan pis patlamaların elenmesi işi Layer 2'deki Exhaustion modülüne bırakıldı.
-                    is_momentum_breakout = (0.07 < roc5 <= 0.40) and rvol > 1.0
+                    is_momentum_breakout = (0.03 < roc5 <= 0.40) and rvol > 0.8
                     
                     if not (is_squeeze_candidate or is_momentum_breakout):
                         continue
@@ -1293,7 +1293,7 @@ def check_15m_micro_trend(df_15m: pd.DataFrame, selection_system: str = "UNKNOWN
     # Net düşüş var, mumların çoğu kırmızı ve tepeler alçalıyor.
     # 1H / 1D harika görünse bile içeride kurumsal dağıtım sinyali.
     # SQUEEZE için eşik -0.5%: MDU gibi yavaş kanayan hisseler artık burada elenir.
-    if net_change_pct < hard_reject_threshold and green_candles <= 3 and is_bleeding:
+    if net_change_pct < hard_reject_threshold and green_candles <= 2 and is_bleeding:
         sys_tag = " (SQUEEZE eşiği)" if is_squeeze else ""
         return {
             'is_valid':    False,
@@ -1324,8 +1324,8 @@ def check_15m_micro_trend(df_15m: pd.DataFrame, selection_system: str = "UNKNOWN
     # Nötr / Sıkışma — Squeeze için ideal bekleme bölgesi
     return {
         'is_valid':    True,
-        'score_bonus': 1.0,
-        'msg':         "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+        'score_bonus': 2.5,
+        'msg':         "⚖️ 15m Yatay/Sıkışma: Kırılım öncesi ideal bekleme"
     }
     
 # ================================================================
@@ -1965,13 +1965,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                 raw_fcf = net_inc
 
         revenue_growth = cached_info.get("revenueGrowth", 0) or 0
-        is_high_growth = revenue_growth > 0.30
+        is_high_growth = revenue_growth > 0.20  # 30% → 20% (büyüme hisseleri için)
         if raw_fcf < NEGATIVE_FCF_FLOOR and not is_high_growth:
             return None
 
         net_income_raw = cached_info.get("netIncomeToCommon", 0) or 0
         trailing_eps   = cached_info.get("trailingEps", 0) or 0
-        if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 10_000_000_000:
+        if net_income_raw < 0 and trailing_eps < 0 and 0 < market_cap < 5_000_000_000:
             if not is_high_growth:
                 return None
 
@@ -2057,10 +2057,18 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                         ema40_gap_pct = (last_w_ema40 - current_price) / last_w_ema40
                         is_near_ema40 = ema40_gap_pct < 0.08 and w_rsi_val >= 48
                         is_ema40_pullback = ema40_gap_pct < 0.12 and w_rsi_val >= 52 and w_rsi_slope >= 0
-
                         if not (is_squeeze_pre or is_spring_pre or is_near_ema40 or is_ema40_pullback):
-                            logging.info(f"🚫 {ticker}: 1W HARD GATE — Fiyat < 1W EMA40 → Elendi")
-                            return None
+                            # trend_durumu_1d Phase 3'te hesaplanır, burada EMA ile proxy kullan
+                            _price_above_ema50 = current_price > float(EMAIndicator(close_1d, 50).ema_indicator().iloc[-1])
+                            _price_above_ema200 = current_price > float(EMAIndicator(close_1d, 200).ema_indicator().iloc[-1])
+                            _is_1d_strong_pre = _price_above_ema50 and _price_above_ema200
+                            if _is_1d_strong_pre:
+                                score -= 6.0
+                                details.append("⚠️ 1W EMA40 altı ama 1D güçlü (-6p)")
+                                is_above_1w_ema50 = False
+                            else:
+                                logging.info(f"🚫 {ticker}: 1W HARD GATE — Fiyat < 1W EMA40 → Elendi")
+                                return None
                         elif is_squeeze_pre or is_spring_pre:
                             score -= 3.0
                             details.append("🟡 1W: Fiyat < EMA40 (Squeeze/Spring İstisna, -3p)")
@@ -2079,7 +2087,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # ── 1W RSI Hard Gate ─────────────────────────────────────────
         # RSI < 35 VE düşüyor = haftalık yapı bozuk → eleme
-        if w_rsi_val < 35 and w_rsi_slope < -3:
+        if w_rsi_val < 32 and w_rsi_slope < -3:
             logging.info(f"🚫 {ticker}: 1W HARD GATE — RSI {w_rsi_val:.1f} düşüyor → Elendi")
             return None
 
@@ -2245,7 +2253,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             is_squeeze_vcp_candidate = False
 
         # 🎯 BOĞA MODU: İlk RVOL ön-eleme eşiği düşürüldü
-        min_rvol_required = 0.15 if is_squeeze_vcp_candidate else 0.40
+        _is_strong_trend = trend_durumu_1d in ("Full Stack", "Macro Bullish")
+        min_rvol_required = 0.15 if is_squeeze_vcp_candidate else (0.25 if _is_strong_trend else 0.40)
         if rvol_micro < min_rvol_required:
             if is_spring or is_squeeze:
                 pass
@@ -2261,28 +2270,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             rsi_1d_series = pd.Series([50.0])
             rsi_quick     = 50.0
             rsi_prev      = 50.0
-
-        # RSI Puan Basamakları (v117.v1)
-        if 50 <= rsi_quick < 60:
-            score += 2.0
-            details.append("🟢 RSI 50-60: Dengeli Boğa Bölgesi (+2p)")
-        elif 60 <= rsi_quick <= 65:
-            score += 2.5
-            details.append("🚀 RSI 60-65: Momentum Bölgesi (+2.5p)")
-        elif 65 < rsi_quick <= 68:
-            # RS (Relative Strength) kontrolü ana bot mimarisinde 'has_strong_rs' flag'i üzerinden okunur
-            if locals().get('has_strong_rs', True): 
-                score += 1.0
-                details.append("⚡ RSI 65-68: Sadece Güçlü RS ile Korunan Puan (+1p)")
-            else:
-                score -= 1.0
-                details.append("⚠️ RSI 65-68: Yetersiz RS Yapısı Uyarı Cezası (-1p)")
-        elif rsi_quick > 70:
-            score -= 4.0
-            details.append("🔴 RSI > 70: Aşırı Şişme / Kısa Vade Kar Satışı Riski (-4p)")
-        elif rsi_quick < 45:
-            score -= 3.0
-            details.append("❌ RSI < 45: Ayı Bölgesi / Zayıf İvme (-3p)")
 
         # ==========================================================================
         # ── MFI Hesaplama & v117.v1 Aşırı Alım Erken Uyarısı (-5p) ────────────────
@@ -2317,24 +2304,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         except Exception:
             macd_hist_val = 0.0
 
-        # Sistem tipine göre dinamik MACD puanlama matrisi
-        # (Eğer selection_system henüz Phase 3'te belirlenmediyse 'entry_trigger' veya ara bayraklar kontrol edilir)
-        current_sys = locals().get('selection_system', "UNKNOWN")
-        
-        if macd_hist_val < 0:
-            if current_sys in ("BREAKOUT", "TREND_CONT", "MOMENTUM") or trend_durumu_1d in ("Full Stack", "Macro Bullish"):
-                score -= 2.5
-                details.append(f"🔴 MACD KORELASYON CEZASI: Trend Devamında Negatif Hist ({macd_hist_val:.3f}) (-2.5p)")
-            elif current_sys in ("SPRING", "PULLBACK") or is_spring:
-                score += 1.0
-                details.append(f"🟢 MACD REVERSAL UYUMU: Dönüş Stratejisinde Beklenen Negatif Hist (+1.0p)")
-            else:
-                score -= 1.0
-                details.append(f"⚠️ MACD Hist: Negatif ({macd_hist_val:.3f}) (-1p)")
-        elif macd_hist_val > 0:
-            score += 2.0
-            details.append(f"🟢 MACD Hist: Pozitif Devam (+2p)")
-
         # CMF (Chaikin Money Flow) Kontrolü
         cmf_val = 0.0
         try:
@@ -2351,7 +2320,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             cmf_val = 0.0
             
 
-# ── 1D HARD GATE'LER — V117_v2 ────────────────────────────────
+        # ── 1D HARD GATE'LER — V117_v2 ────────────────────────────────
         # DEĞİŞİKLİKLER (V117 → V117_v2):
         #   1. is_early_awakening_preview: Phase5 ile senkronize edildi.
         #      V117: 3 koşul (fiyat + RSI + rvol) → ADX gate'ini atlıyordu.
@@ -2380,23 +2349,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             logging.info(f"🚫 {ticker}: 1D HARD GATE — EMA200 altı")
             return None
 
-        # Downtrend: spring yoksa eleme
+        # Downtrend: spring yoksa eleme — tek kontrol noktası burada, EMA scoring else dalı zaten erişilemez
         if trend_durumu_1d == "Downtrend" and not is_spring:
             logging.info(f"🚫 {ticker}: 1D HARD GATE — Downtrend")
             return None
-
+            
         # 5 günde kanama gate — Boğa modu: -%3.0 → -%4.0 (gevşetildi)
         # Boğa döneminde geçici geri çekilme adayları elenmemelidir.
         if len(close_1d) >= 6:
             ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
-            if ret_5d_pct < -4.0:
+            _kanama_esik = -6.0 if trend_durumu_1d in ("Full Stack", "Macro Bullish") else -4.0
+            if ret_5d_pct < _kanama_esik:
                 logging.info(f"🚫 {ticker}: 1D HARD GATE — 5G kanama ({ret_5d_pct:.1f}%)")
                 return None
-
+                
         # RSI 1D hard gate
         if rsi_quick < RSI_1D_MIN:
             return None
-        if rsi_quick < 43 and rsi_quick < rsi_prev:
+        if rsi_quick < 41 and rsi_quick < rsi_prev:
             return None
 
         # V117_v2: is_early_awakening_preview Phase5 ile senkronize edildi
@@ -2413,20 +2383,24 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if not (is_squeeze or is_spring or is_early_awakening_preview):
             rsi_3d_ago = float(rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else rsi_quick
             if (rsi_quick < rsi_prev < rsi_3d_ago) and rsi_quick < 52:
-                return None
+                if trend_durumu_1d in ("Full Stack", "Macro Bullish"):
+                    score -= 4.0
+                    details.append(f"⚠️ RSI 3G düşüş ama 1D güçlü (-4p)")
+                else:
+                    return None
 
         # 🎯 BOĞA MODU: RVOL 1D hard gate gevşetildi
         # Fiyat ve hacim odaklı analiz: 1W/1D/1H momentum önemli, anlık RVOL engelleyici olmamalı
         # RVOL artık puanlama sistemini etkiliyor ama tek başına hard gate değil
-        min_rvol_required = 0.30 if sector_name == "Real Estate" else 0.40
+        _is_momentum_sys = trend_durumu_1d in ("Full Stack", "Macro Bullish")
+        min_rvol_required = 0.30 if (sector_name == "Real Estate" or _is_momentum_sys) else 0.40
         try:
             macro_resist      = float(high_1d.tail(15).max())
             breakout_distance = (macro_resist - current_price) / current_price
             if 0 <= breakout_distance < 0.025:
-                min_rvol_required = max(min_rvol_required, 0.55)  # kırılım öncesi az daha yüksek
+                pass  # Kırılım öncesi RVOL sıkıştırması kaldırıldı — pre-breakout dry-up normaldir
         except Exception:
             pass
-
         if rvol_micro < min_rvol_required:
             if is_spring:
                 pass                                # SPRING: muafiyet korundu
@@ -2437,7 +2411,14 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         # ADX hard gate — V117_v2: is_early_awakening_preview artık adx >= 18 taşıdığından
         # AWAKENING preview bu gate'i eskisi gibi bypass edemez.
-        min_adx_required = 12 if sector_name == "Real Estate" else 18
+        # V117_v2: BREAKOUT/TREND_CONT için eşik 18 → 15 (erken trend tespiti)
+        _breakout_early = trend_durumu_1d in ("Full Stack", "Macro Bullish") and rsi_quick > 50
+        if sector_name == "Real Estate":
+            min_adx_required = 12
+        elif _breakout_early:
+            min_adx_required = 15
+        else:
+            min_adx_required = 18
         if adx_1d > 0 and adx_1d < min_adx_required and not (is_squeeze or is_spring):
             return None
 
@@ -2456,8 +2437,11 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             return None
 
         # CMF hard gate
-        if cmf_val < -0.05 and not (is_squeeze or is_spring):
+        if cmf_val < -0.12 and not (is_squeeze or is_spring):
             return None
+        elif cmf_val < -0.05 and not (is_squeeze or is_spring):
+            score -= 3.0
+            details.append(f"⚠️ CMF: Zayıf para akışı (-3p, {cmf_val:.3f})")
 
         # ATR hard gate
         try:
@@ -2470,7 +2454,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         if atr_pct_1d > 0:
             if atr_pct_1d < 0.015:
                 return None
-            max_atr_allowed = 0.120 if beta > 1.5 else 0.080
+            max_atr_allowed = 0.150 if beta > 1.5 else 0.100
             if atr_pct_1d > max_atr_allowed:
                 return None
         if atr_pct_1d < 0.025 and sector_name == "Real Estate":
@@ -2492,14 +2476,17 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         churn_ratio  = (candle_body / candle_range) if candle_range > 0 else 1.0
         if churn_ratio < 0.30 and rvol_micro > 2.0 and not is_spring:
             return None
-        if rvol_micro > 2.5 and close_change_pct < -0.015:
+        if rvol_micro > 2.5 and close_change_pct < -0.03:
             return None
-        if close_change_pct > 0.08:
+        if close_change_pct > 0.12:
             return None
+        elif close_change_pct > 0.08:
+            score -= 5.0
+            details.append(f"⚠️ Güçlü gap-up: geç giriş riski (-5p, +{close_change_pct*100:.1f}%)")
 
         try:
             price_20d_range = (high_1d.tail(20).max() - low_1d.tail(20).min()) / current_price
-            if 0 < price_20d_range < 0.05 and not is_squeeze:
+            if 0 < price_20d_range < 0.01 and not is_squeeze:
                 return None
         except Exception:
             pass
@@ -2579,8 +2566,12 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 3.0;  details.append("🟢 1D TREND: EMA200 üstü (+3p)")
         elif trend_durumu_1d == "Above EMA50":
             score += 1.0;  details.append("🟡 1D TREND: EMA50 üstü (+1p)")
+        elif is_spring and trend_durumu_1d not in ("Full Stack", "Macro Bullish", "Above EMA200", "Above EMA50"):
+            # BELOW+SPRING = %0 WR (DASH, UBER, IQV) → hard bloker
+            logging.info(f"🚫 {ticker}: BELOW+SPRING kombinasyonu → Elendi")
+            return None
         else:
-            # SWING118 NET ENGEL: %33.3 WR üreten düsen trend/BELOW stack kombinasyonu yumuşak ceza yerine doğrudan elenir
+            # SWING118 NET ENGEL: %33.3 WR üreten düşen trend/BELOW stack kombinasyonu doğrudan elenir
             return None
 
         cond_ema20_slope_positive = calculate_ema_slope(ema20_1d, periods=10)
@@ -2588,7 +2579,6 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 3.0; details.append("📈 EMA20: Pozitif eğim (+3p)")
         else:
             score -= 1.5; details.append("📉 EMA20: Negatif/Düz eğim (-1.5p)")
-
         # Squeeze / Spring Alpha
         if is_squeeze:
             squeeze_quality        = max(0.0, 1.0 - (bb_width / (bb_width_avg_50 * 0.60)))
@@ -2736,15 +2726,15 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             )
             
             # SWING117: RSI üst sınırı 67'ye çekildi ve ADX/RSI trend tükenmesi (FOMO Engeli) eklendi
-            is_overbought_rsi = rsi_1d_val > 67.0
-            is_trend_exhausted = (adx_1d > 35 and rsi_1d_val > 63.0)
+            is_overbought_rsi = rsi_1d_val > 72.0
+            is_trend_exhausted = (adx_1d > 42 and rsi_1d_val > 68.0)
 
             if roc_3d > 12.0 or is_overbought_rsi or ret_1d_pct > 6.0 or is_trend_exhausted:
                 is_exhausted = True
                 reasons_ex = []
                 if roc_3d > 12.0:          reasons_ex.append(f"3G ROC: +{roc_3d:.1f}%")
                 if ret_1d_pct > 6.0:       reasons_ex.append(f"1G ROC: +{ret_1d_pct:.1f}%")
-                if is_overbought_rsi:      reasons_ex.append(f"RSI OVB: {rsi_1d_val:.1f} > 67")
+                if is_overbought_rsi:      reasons_ex.append(f"RSI OVB: {rsi_1d_val:.1f} > 72")
                 if is_trend_exhausted:     reasons_ex.append(f"EXHAUSTED (ADX={adx_1d:.1f}, RSI={rsi_1d_val:.1f})")
                 
                 score -= 18.0
@@ -2966,9 +2956,8 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
         reward            = max(tp2 - current_price, 0.0)
         rr_ratio_calc     = (reward / risk) if risk > 0 else 0.0
 
-        if 0.0 < rr_ratio_calc < 1.0:
-            return None
         profit_expectation_pct = (reward / current_price) * 100 if current_price > 0 else 0.0
+        
         # 🎯 BOĞA MODU: Minimum kâr beklentisi %3 → %2
         if profit_expectation_pct < 2.0:
             return None
@@ -3069,11 +3058,16 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             except Exception:
                 ret_1d_pct = 0.0
 
-            # 1D EMA20 senkron kontrolü
-            ema20_tolerance = last_ema20 * 0.99
+            # 1D EMA20 senkron kontrolü — V117_v2: %1 → %3 tolerans, eleme → ceza
+            ema20_tolerance = last_ema20 * 0.97
             if close_now_1h < ema20_tolerance and not (is_spring or is_squeeze):
-                logging.info(f"🚫 {ticker}: 1H fiyat 1D EMA20 kırdı → MTF ihlali")
-                return None
+                if trend_durumu_1d in ("Full Stack", "Macro Bullish"):
+                    score -= 6.0
+                    details.append("⚠️ 1H: EMA20 altında ama 1D güçlü (-6p)")
+                    logging.info(f"⚠️ {ticker}: 1H EMA20 altı — eleme yok, -6p")
+                else:
+                    logging.info(f"🚫 {ticker}: 1H fiyat 1D EMA20 kırdı → MTF ihlali")
+                    return None
 
             # Dual-TF RSI düşüş hard block
             try:
@@ -3303,7 +3297,7 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             selection_reasons.extend(["EMA9_Slope", "BB_Squeeze", "Micro_Volume"])
             details.append("⚡ ENTRY: EMA9 Dynamic Squeeze Break")
 
-        elif ema20_now > ema50_now_1d and close_change_pct > 0.006:
+        elif ema20_now > ema50_now_1d and close_change_pct > 0.006 and rvol_today > 0.9:
             entry_trigger    = "Trend Continuation"
             selection_system = "BREAKOUT"
             selection_reasons.append("Trend_Continuation")
@@ -3373,14 +3367,30 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             score += 2.5
             details.append(f"🛡️ Defansif Sektör Primi: {sector_name} (+2.5p)")
         elif sector_name == "Technology":
-            score += 0.0  # v117.v2: +4p → 0p (%30 WR, semiconductor volatilitesi)
-            details.append(f"⚠️ v117.v2: {sector_name} nötr (yüksek volatilite, %30 WR)")
+            sec_perf_tech = SECTOR_PERFORMANCE.get("Technology", 0.0)
+            if sec_perf_tech > 1.0:
+                score += 3.0
+                details.append(f"📈 Technology: HOT ({sec_perf_tech:.1f}%, +3p)")
+            else:
+                score += 0.0
+                details.append(f"➖ Technology: Nötr")
         elif sector_name == "Healthcare":
-            score -= 3.0  # v117.v2: +4p → -3p (%14 WR, 6/7 LOSS)
-            details.append(f"🚨 v117.v2: {sector_name} cezası (%14 WR, -3p)")
+            sec_perf_hc = SECTOR_PERFORMANCE.get("Healthcare", 0.0)
+            if sec_perf_hc > 2.0:
+                score += 0.0  # ceza yok ama bonus da yok
+                details.append(f"➖ Healthcare: HOT ama statik ceza kaldırıldı")
+            else:
+                score -= 3.0
+                details.append(f"🚨 Healthcare: Soğuk ({sec_perf_hc:.1f}%, -3p)")
         elif sector_name == "Energy":
-            score -= 3.0  # v117.v2: +4p → -3p (%0 WR, 3/3 LOSS)
-            details.append(f"🚨 v117.v2: {sector_name} cezası (%0 WR, -3p)")
+            sec_perf_en = SECTOR_PERFORMANCE.get("Energy", 0.0)
+            if sec_perf_en > 2.0:
+                score += 0.0
+                details.append(f"➖ Energy: HOT ama statik ceza kaldırıldı")
+            else:
+                score -= 3.0
+                details.append(f"🚨 Energy: Soğuk ({sec_perf_en:.1f}%, -3p)")
+        
 
         if current_vix >= 25.0 and sector_name in ["Industrials", "Financial Services", "Consumer Cyclical"]:
             score -= 10.0
@@ -3818,9 +3828,9 @@ def compute_boga_score_100(c: dict) -> float:
         score += 7.0
     elif rvol >= 1.2:
         score += 4.0
-    elif 0.6 <= rvol < 1.2 and sys_name in ("BREAKOUT", "EMA_CROSS", "TREND_CONT", "MOMENTUM"):
-        score -= 3.0  # v117.v2 YENİ: Orta band gürültüsü — 12 kayıp bu banttan (SVM,THC,TWLO,CLH,MLI...)
-        details.append(f"⚠️ v117.v2 RVOL Orta Band: {rvol:.2f} — {sys_name} için belirsizlik bölgesi (-3p)")
+    elif 0.6 <= rvol < 0.9 and sys_name in ("BREAKOUT", "EMA_CROSS", "TREND_CONT", "MOMENTUM"):
+        score -= 2.0  # Sadece gerçekten düşük bant ceza alır, 0.9-1.2 nötr kalır
+        details.append(f"⚠️ v117.v2 RVOL Orta Band: {rvol:.2f} — {sys_name} için belirsizlik bölgesi (-2p)")
     # rvol < 0.6 (dry-up) ve SQUEEZE için puan yok ama ceza da yok
 
     # MFI — v117.v1 DEĞİŞİKLİĞİ: Aşırı alım cezası eklendi
@@ -3950,6 +3960,7 @@ def _passes_min_score(c: dict) -> bool:
     sys   = c.get("selection_system", "DEFAULT")
     if sys == "SQUEEZE":   return score >= 40.0
     if sys == "AWAKENING": return score >= 38.0
+    if sys == "DEFAULT":   return score >= 42.0
     return score >= 28.0
 
 
@@ -4988,6 +4999,25 @@ async def scan_top_stocks():
             json.dump(table_data, f, indent=2, ensure_ascii=False)
 
         logging.info(f"[START] Dashboard and Archive successfully updated.")
+
+        # ── STEP: ISR Cache Revalidation ────────────────────────────────
+        # Trigger Next.js to regenerate /swing page cache after data update
+        try:
+            import requests
+            revalidate_secret = os.getenv("REVALIDATE_SECRET", "")
+            if revalidate_secret:
+                revalidate_url = "http://localhost:3000/api/revalidate-swing"
+                resp = requests.post(
+                    revalidate_url,
+                    headers={"x-revalidate-secret": revalidate_secret},
+                    timeout=5
+                )
+                if resp.ok:
+                    logging.info("✅ ISR cache revalidated for /swing page")
+                else:
+                    logging.warning(f"⚠️ ISR revalidation failed: {resp.status_code}")
+        except Exception as e:
+            logging.debug(f"ISR revalidation note: {e} (not critical)")
 
     except Exception as e:
         logging.error(f"❌ JSON save error: {e}")
