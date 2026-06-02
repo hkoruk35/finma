@@ -89,77 +89,85 @@ function detectCandlePattern(
 
   const body = Math.abs(curr.close - curr.open);
   const range = curr.high - curr.low || 0.0001;
+  const midPrice = (curr.high + curr.low) / 2;
   const lower_wick = Math.min(curr.close, curr.open) - curr.low;
   const upper_wick = curr.high - Math.max(curr.close, curr.open);
   const bullish = curr.close > curr.open;
   const prev_bullish = prev.close > prev.open;
   const prev_body = Math.abs(prev.close - prev.open);
 
-  // ── Doji Ailesi ──────────────────────────────────────────
-  if (body < range * 0.05) return "Doji";
-  if (body < range * 0.1 && lower_wick > range * 0.4 && upper_wick < range * 0.1) return "Dragonfly Doji";
-  if (body < range * 0.1 && upper_wick > range * 0.4 && lower_wick < range * 0.1) return "Gravestone Doji";
+  // ── Doji: gövde fiyatın %0.3'ünden az (range değil, price bazlı) ─────────
+  const bodyPct = midPrice > 0 ? body / midPrice : 0;
+  if (bodyPct < 0.003) {
+    if (lower_wick > range * 0.6 && upper_wick < range * 0.1) return "Dragonfly Doji";
+    if (upper_wick > range * 0.6 && lower_wick < range * 0.1) return "Gravestone Doji";
+    return "Doji";
+  }
 
   // ── Engulfing ────────────────────────────────────────────
-  if (bullish && !prev_bullish && curr.open < prev.close && curr.close > prev.open) return "Bullish Engulfing";
-  if (!bullish && prev_bullish && curr.open > prev.close && curr.close < prev.open) return "Bearish Engulfing";
+  if (bullish && !prev_bullish && curr.open <= prev.close && curr.close >= prev.open && body > prev_body * 0.9) return "Bullish Engulfing";
+  if (!bullish && prev_bullish && curr.open >= prev.close && curr.close <= prev.open && body > prev_body * 0.9) return "Bearish Engulfing";
 
-  // ── Hammer / Star Ailesi ─────────────────────────────────
-  if (lower_wick > body * 2 && upper_wick < body * 0.5 && range > 0) {
-    if (bullish) return "Hammer";
-    return "Hanging Man";
-  }
-  if (upper_wick > body * 2 && lower_wick < body * 0.5 && range > 0) {
-    if (bullish) return "Inv. Hammer";
-    return "Shooting Star";
+  // ── Marubozu: neredeyse hiç fitil yok ────────────────────
+  if (lower_wick < body * 0.05 && upper_wick < body * 0.05) {
+    return bullish ? "Bullish Marubozu" : "Bearish Marubozu";
   }
 
-  // ── Marubozu ─────────────────────────────────────────────
-  if (body > range * 0.9) {
-    if (bullish) return "Bullish Marubozu";
-    return "Bearish Marubozu";
+  // ── Hammer / Star: uzun fitil, kısa gövde ────────────────
+  // Gövde range'in en az %15'i olmalı (gerçek anlamlı gövde)
+  if (body > range * 0.15) {
+    if (lower_wick > body * 2.5 && upper_wick < body * 0.4) {
+      return bullish ? "Hammer" : "Hanging Man";
+    }
+    if (upper_wick > body * 2.5 && lower_wick < body * 0.4) {
+      return bullish ? "Inv. Hammer" : "Shooting Star";
+    }
   }
 
   // ── Inside / Outside Bar ─────────────────────────────────
   if (curr.high < prev.high && curr.low > prev.low) return "Inside Bar";
   if (curr.high > prev.high && curr.low < prev.low) return bullish ? "Outside Bar ↑" : "Outside Bar ↓";
 
-  // ── Spinning Top ─────────────────────────────────────────
-  if (body < range * 0.3 && lower_wick > range * 0.2 && upper_wick > range * 0.2) {
-    if (bullish) return "Spinning Top ↑";
-    return "Spinning Top ↓";
+  // ── Spinning Top: gövde küçük, her iki fitil de var ──────
+  if (bodyPct < 0.008 && lower_wick > range * 0.2 && upper_wick > range * 0.2) {
+    return bullish ? "Spinning Top ↑" : "Spinning Top ↓";
   }
 
   // ── 3 Mum Paternleri ─────────────────────────────────────
   if (prev2) {
     const prev2_bullish = prev2.close > prev2.open;
-    // Morning Star
-    if (!prev2_bullish && Math.abs(prev.close - prev.open) < prev_body * 0.3 && bullish && curr.close > (prev2.open + prev2.close) / 2) {
+    const prev2_body = Math.abs(prev2.close - prev2.open);
+    // Morning Star: büyük kırmızı → küçük gövde → büyük yeşil
+    if (!prev2_bullish && prev_body < prev2_body * 0.4 && bullish && body > prev2_body * 0.5 && curr.close > (prev2.open + prev2.close) / 2) {
       return "Morning Star";
     }
-    // Evening Star
-    if (prev2_bullish && Math.abs(prev.close - prev.open) < prev_body * 0.3 && !bullish && curr.close < (prev2.open + prev2.close) / 2) {
+    // Evening Star: büyük yeşil → küçük gövde → büyük kırmızı
+    if (prev2_bullish && prev_body < prev2_body * 0.4 && !bullish && body > prev2_body * 0.5 && curr.close < (prev2.open + prev2.close) / 2) {
       return "Evening Star";
     }
-    // Three White Soldiers
+    // Three White Soldiers: 3 ardışık yükselen yeşil mum
     if (bullish && prev_bullish && prev2_bullish &&
-        curr.close > prev.close && prev.close > prev2.close) {
+        curr.close > prev.close && prev.close > prev2.close &&
+        curr.open > prev.open && prev.open > prev2.open) {
       return "3 Asker ↑";
     }
-    // Three Black Crows
+    // Three Black Crows: 3 ardışık alçalan kırmızı mum
     if (!bullish && !prev_bullish && !prev2_bullish &&
-        curr.close < prev.close && prev.close < prev2.close) {
+        curr.close < prev.close && prev.close < prev2.close &&
+        curr.open < prev.open && prev.open < prev2.open) {
       return "3 Karga ↓";
     }
   }
 
-  // ── Fallback: Basit Mum Yönü ────────────────────────────
+  // ── Fallback: Gövde büyüklüğüne göre basit etiket ────────
   const bodyRatio = body / range;
   if (bullish) {
-    if (bodyRatio > 0.6) return "Güçlü ↑";
+    if (bodyRatio > 0.65) return "Güçlü ↑";
+    if (upper_wick > lower_wick * 2) return "Üst Fitil ↑";
     return "Yeşil Mum ↑";
   } else {
-    if (bodyRatio > 0.6) return "Güçlü ↓";
+    if (bodyRatio > 0.65) return "Güçlü ↓";
+    if (lower_wick > upper_wick * 2) return "Alt Fitil ↓";
     return "Kırmızı Mum ↓";
   }
 }
