@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "IBKR",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 89.75,
+        "entry_zone": "88.13 - 91.38",
+        "SL": 83.26,
+        "TP": 99.5
+    },
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "TIGO",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 88.45,
+        "entry_zone": "86.58 - 90.32",
+        "SL": 80.95,
+        "TP": 99.69
+    },
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "TMHC",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 71.5,
+        "entry_zone": "70.32 - 72.69",
+        "SL": 66.75,
+        "TP": 78.64
+    },
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "ZM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 111.16,
+        "entry_zone": "108.38 - 113.94",
+        "SL": 100.03,
+        "TP": 127.85
+    },
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "CSTM",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 36.24,
+        "entry_zone": "35.31 - 37.18",
+        "SL": 32.51,
+        "TP": 41.84
+    },
+    {
+        "date": "2026-06-02 14:00",
+        "symbol": "EW",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 87.59,
+        "entry_zone": "86.41 - 88.77",
+        "SL": 82.88,
+        "TP": 94.65
+    }
+]

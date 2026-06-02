@@ -1,23 +1,24 @@
 {
-  "date": "2026-06-01",
-  "generated_at": "2026-06-01T18:10:04.647400-04:00",
+  "date": "2026-06-02",
+  "generated_at": "2026-06-02T13:03:46.062790-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 3,
+  "active_scores_count": 6,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 3,
+      "count": 6,
       "tickers": [
-        "VSAT",
-        "LOMA",
-        "SHIP"
+        "ZM",
+        "IBKR",
+        "EW",
+        "CSTM",
+        "TIGO",
+        "TMHC"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "LOMA"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -38,18 +39,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VSAT",
-      "score": 54.0,
+      "ticker": "ZM",
+      "score": 53.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "LOMA",
-      "score": 52.5,
+      "ticker": "IBKR",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SHIP",
-      "score": 46.5,
+      "ticker": "EW",
+      "score": 49.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
