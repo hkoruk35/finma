@@ -135,8 +135,8 @@ function detectCandlePattern(
   if (curr.high < prev.high && curr.low > prev.low) return "Inside Bar";
   if (curr.high > prev.high && curr.low < prev.low) return bullish ? "Outside Bar ↑" : "Outside Bar ↓";
 
-  // ── Spinning Top: gövde küçük, her iki fitil de var ──────
-  if (bodyPct < 0.008 && lower_wick > range * 0.2 && upper_wick > range * 0.2) {
+  // ── Spinning Top: gövde küçük (range'in %25'inden az), her iki fitil de var ──
+  if (body < range * 0.25 && lower_wick > range * 0.2 && upper_wick > range * 0.2) {
     return bullish ? "Spinning Top ↑" : "Spinning Top ↓";
   }
 
