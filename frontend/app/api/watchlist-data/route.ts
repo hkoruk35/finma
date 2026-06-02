@@ -382,18 +382,34 @@ async function fetchYahooLive(ticker: string) {
     const profileUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=assetProfile`;
 
     const [chartRes, chart1hRes, chart15mRes, quoteRes, profileRes] = await Promise.all([
-      fetch(chartUrl, { signal: AbortSignal.timeout(6000) }),
-      fetch(chart1hUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
-      fetch(chart15mUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
-      fetch(quoteUrl, { signal: AbortSignal.timeout(8000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
-      fetch(profileUrl, { signal: AbortSignal.timeout(8000) }).catch(() => null),
-    ]);
+      fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
+      fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(quoteUrl, { signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
+      fetch(profileUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
+    ]).catch(err => {
+      console.error(`[watchlist-data] ${ticker}: Promise.all error:`, err);
+      throw err;
+    });
 
-    if (!chartRes.ok) return null;
+    if (!chartRes.ok) {
+      console.error(`[watchlist-data] ${ticker}: Chart API failed (${chartRes.status}) - ${chartRes.statusText}`);
+      return null;
+    }
 
-    const chartData = await chartRes.json();
+    let chartData;
+    try {
+      chartData = await chartRes.json();
+    } catch (e) {
+      console.error(`[watchlist-data] ${ticker}: Failed to parse chart JSON:`, e);
+      return null;
+    }
+
     const result = chartData?.chart?.result?.[0];
-    if (!result) return null;
+    if (!result) {
+      console.warn(`[watchlist-data] ${ticker}: No chart result returned from Yahoo`);
+      return null;
+    }
 
     const meta = result.meta || {};
     const quote = result.indicators?.quote?.[0] || {};
@@ -420,7 +436,10 @@ async function fetchYahooLive(ticker: string) {
       }
     }
 
-    if (closes.length < 10) return null;
+    if (closes.length < 10) {
+      console.warn(`[watchlist-data] ${ticker}: Insufficient data - only ${closes.length} bars`);
+      return null;
+    }
 
     const currentPrice = closes[closes.length - 1];
     const prevClose = closes[closes.length - 2] || currentPrice;
@@ -1016,9 +1035,11 @@ export async function GET(req: NextRequest) {
               liveData.company = localSectorData.company;
             }
             results.push(liveData);
+          } else {
+            console.warn(`[watchlist-data] ${ticker}: fetchYahooLive returned null - no data available`);
           }
         } catch (err) {
-          console.error(`Error querying dynamic watchlist stock ${ticker}:`, err);
+          console.error(`[watchlist-data] Error fetching live data for ${ticker}:`, err instanceof Error ? err.message : String(err));
         }
       }
     })

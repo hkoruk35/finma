@@ -152,21 +152,38 @@ export default function CSPDetailClient({ slug }: Props) {
     if (expandedRow === sym) setExpandedRow(null);
   };
 
-  // ── Fetch data ──────────────────────────────────────────────────────────
-  const fetchData = useCallback(async () => {
+  // ── Fetch data with retry logic ──────────────────────────────────────
+  const fetchDataWithRetry = useCallback(async (retryCount = 0) => {
     if (tickers.length === 0) { setData({}); return; }
     setLoading(true);
     try {
       const res = await fetch(`/api/watchlist-data?tickers=${tickers.join(",")}`);
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
       const results = await res.json();
       const map: Record<string, TickerData> = {};
       results.forEach((item: TickerData) => { if (item?.ticker) map[item.ticker] = item; });
+
+      // Check if all tickers have data
+      const missingTickers = tickers.filter(t => !map[t]);
+      if (missingTickers.length > 0 && retryCount < 2) {
+        // Retry missing tickers after 2 seconds
+        console.warn(`[CSPDetail] Missing data for: ${missingTickers.join(", ")} - retrying...`);
+        setTimeout(() => fetchDataWithRetry(retryCount + 1), 2000);
+      }
+
       setData(map);
       setLastUpdated(new Date());
-    } catch {}
+    } catch (err) {
+      console.error("[CSPDetail] Fetch error:", err);
+      // Retry on error if not already retried
+      if (retryCount < 1) {
+        setTimeout(() => fetchDataWithRetry(retryCount + 1), 2000);
+      }
+    }
     finally { setLoading(false); }
   }, [tickers]);
+
+  const fetchData = useCallback(() => fetchDataWithRetry(0), [fetchDataWithRetry]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
