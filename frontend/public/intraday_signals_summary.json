@@ -1,6 +1,6 @@
 {
   "date": "2026-06-03",
-  "last_updated": "2026-06-03T13:00:16.149146-04:00",
+  "last_updated": "2026-06-03T14:00:32.612616-04:00",
   "tickers": {
     "IBKR": {
       "status_history": [
@@ -139,6 +139,94 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-03T10:00:15.876578-04:00",
       "entry_price": 86.71
+    },
+    "AVT": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 93.23
+    },
+    "VRT": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 335.52
+    },
+    "BG": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 133.76
+    },
+    "SPXC": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 234.34
+    },
+    "C": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 130.33
+    },
+    "ELAN": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 24.25
+    },
+    "MOD": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 304.14
+    },
+    "IREN": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-03T14:00:32.612616-04:00",
+      "entry_price": 65.42
     }
   }
 }
