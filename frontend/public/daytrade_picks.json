@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-02T10:31:00.120868-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 28.2,
+  "generated_at": "2026-06-03T08:45:00.116533-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 27.4,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
   "picks": [
     {
       "ticker": "SMCI",
-      "price": 49.58,
-      "change_pct": 5.76,
-      "dt_score": 45.0,
+      "price": 50.17,
+      "change_pct": 7.02,
+      "dt_score": 32.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $50.08 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: PARTNERSHIP",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 49.9,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "partnership",
         "catalyst_score": 18,
-        "headline": "gorilla technology announces $2 billion ai infrastructure deal in india with supermicro, expanding strategic collaborati",
+        "headline": "grrr stock slides premarket despite a $2b ai deal with supermicro  here's why(stocktwits)",
         "confidence": "high",
-        "ts": 1780407089.6311743
+        "ts": 1780490726.9970603
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,26 +37,25 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 49.53,
-          "high": 49.83
+          "low": 50.03,
+          "high": 50.33
         },
-        "stop": 48.84,
-        "tp1": 51.36,
-        "tp2": 52.62,
+        "stop": 49.72,
+        "tp1": 51.1,
+        "tp2": 51.79,
         "rr_ratio": 2.0,
-        "avg_entry": 49.68,
-        "risk_per_sh": 0.84,
+        "avg_entry": 50.18,
+        "risk_per_sh": 0.46,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 49.58
+        "pm_high_ref": 50.08
       },
       "details": [
         "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +5.8%",
+        "↗️ Orta Gap: +7.0%",
         "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%2.2 geri)",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.64%",
-        "🔥 Açılış Barı: Güçlü (3.9x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
