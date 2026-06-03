@@ -1,24 +1,28 @@
 {
-  "date": "2026-06-02",
-  "generated_at": "2026-06-02T13:03:46.062790-04:00",
+  "date": "2026-06-03",
+  "generated_at": "2026-06-03T13:03:41.262221-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 6,
+  "active_scores_count": 8,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 6,
+      "count": 8,
       "tickers": [
-        "ZM",
-        "IBKR",
-        "EW",
-        "CSTM",
-        "TIGO",
-        "TMHC"
+        "AVT",
+        "ELAN",
+        "IREN",
+        "MOD",
+        "C",
+        "BG",
+        "SPXC",
+        "VRT"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "SPXC"
+      ]
     },
     "value": {
       "count": 0,
@@ -39,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ZM",
-      "score": 53.5,
+      "ticker": "AVT",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IBKR",
+      "ticker": "ELAN",
+      "score": 54.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "IREN",
       "score": 51.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "EW",
-      "score": 49.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

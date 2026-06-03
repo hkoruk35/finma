@@ -1,7 +1,9 @@
-# BOGA AI Swing Watchlist - 2026-06-03 13:00
-IBKR
-ZM
-TMHC
-CSTM
-TIGO
-EW
+# BOGA AI Swing Watchlist - 2026-06-03 14:00
+AVT
+VRT
+BG
+SPXC
+C
+ELAN
+MOD
+IREN
