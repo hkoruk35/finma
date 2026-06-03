@@ -1,50 +1,66 @@
 [
   {
-    "Date": "2 June",
-    "Symbol": "ZM",
-    "Entry (Buy_L)": 109.53,
-    "Stop (SL)": 105.82,
-    "Target 1 (TP1)": 120.14,
-    "Target 2 (TP2)": 121.73
+    "Date": "3 June",
+    "Symbol": "AVT",
+    "Entry (Buy_L)": 91.07,
+    "Stop (SL)": 88.24,
+    "Target 1 (TP1)": 98.74,
+    "Target 2 (TP2)": 99.91
   },
   {
-    "Date": "2 June",
-    "Symbol": "IBKR",
-    "Entry (Buy_L)": 86.78,
-    "Stop (SL)": 84.61,
-    "Target 1 (TP1)": 94.46,
-    "Target 2 (TP2)": 95.56
+    "Date": "3 June",
+    "Symbol": "ELAN",
+    "Entry (Buy_L)": 23.46,
+    "Stop (SL)": 22.71,
+    "Target 1 (TP1)": 25.75,
+    "Target 2 (TP2)": 26.09
   },
   {
-    "Date": "2 June",
-    "Symbol": "EW",
-    "Entry (Buy_L)": 86.0,
-    "Stop (SL)": 83.09,
-    "Target 1 (TP1)": 93.24,
-    "Target 2 (TP2)": 94.37
+    "Date": "3 June",
+    "Symbol": "IREN",
+    "Entry (Buy_L)": 63.16,
+    "Stop (SL)": 59.59,
+    "Target 1 (TP1)": 74.06,
+    "Target 2 (TP2)": 75.67
   },
   {
-    "Date": "2 June",
-    "Symbol": "CSTM",
-    "Entry (Buy_L)": 34.63,
-    "Stop (SL)": 33.43,
-    "Target 1 (TP1)": 39.15,
-    "Target 2 (TP2)": 39.79
+    "Date": "3 June",
+    "Symbol": "MOD",
+    "Entry (Buy_L)": 291.71,
+    "Stop (SL)": 276.62,
+    "Target 1 (TP1)": 339.25,
+    "Target 2 (TP2)": 346.2
   },
   {
-    "Date": "2 June",
-    "Symbol": "TIGO",
-    "Entry (Buy_L)": 85.93,
-    "Stop (SL)": 83.36,
-    "Target 1 (TP1)": 94.12,
-    "Target 2 (TP2)": 95.31
+    "Date": "3 June",
+    "Symbol": "C",
+    "Entry (Buy_L)": 127.99,
+    "Stop (SL)": 123.47,
+    "Target 1 (TP1)": 138.79,
+    "Target 2 (TP2)": 140.5
   },
   {
-    "Date": "2 June",
-    "Symbol": "TMHC",
-    "Entry (Buy_L)": 59.47,
-    "Stop (SL)": 57.81,
-    "Target 1 (TP1)": 78.86,
-    "Target 2 (TP2)": 81.19
+    "Date": "3 June",
+    "Symbol": "BG",
+    "Entry (Buy_L)": 129.92,
+    "Stop (SL)": 127.11,
+    "Target 1 (TP1)": 141.68,
+    "Target 2 (TP2)": 143.29
+  },
+  {
+    "Date": "3 June",
+    "Symbol": "SPXC",
+    "Entry (Buy_L)": 220.8,
+    "Stop (SL)": 214.24,
+    "Target 1 (TP1)": 249.69,
+    "Target 2 (TP2)": 253.63
+  },
+  {
+    "Date": "3 June",
+    "Symbol": "VRT",
+    "Entry (Buy_L)": 323.33,
+    "Stop (SL)": 311.17,
+    "Target 1 (TP1)": 360.42,
+    "Target 2 (TP2)": 365.89
   }
 ]
