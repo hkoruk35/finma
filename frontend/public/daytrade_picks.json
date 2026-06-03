@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-03T09:31:00.085238-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 6.7,
+  "generated_at": "2026-06-03T10:31:00.076674-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 27.0,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
   "picks": [
     {
-      "ticker": "SMCI",
-      "price": 50.17,
-      "change_pct": 7.02,
-      "dt_score": 30.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "ticker": "RIOT",
+      "price": 28.48,
+      "change_pct": 4.25,
+      "dt_score": 43.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 28.01,
       "catalyst": {
-        "catalyst_type": "partnership",
-        "catalyst_score": 18,
-        "headline": "grrr stock slides premarket despite a $2b ai deal with supermicro  here's why(stocktwits)",
-        "confidence": "high",
-        "ts": 1780490726.9970603
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1780497086.4870448
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,24 +37,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 50.12,
-          "high": 50.42
+          "low": 28.45,
+          "high": 28.62
         },
-        "stop": 49.72,
-        "tp1": 51.37,
-        "tp2": 52.19,
-        "rr_ratio": 2.0,
-        "avg_entry": 50.27,
-        "risk_per_sh": 0.55,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 50.17
+        "stop": 28.05,
+        "tp1": 29.5,
+        "tp2": 30.23,
+        "rr_ratio": 1.99,
+        "avg_entry": 28.54,
+        "risk_per_sh": 0.48,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 28.48
       },
       "details": [
-        "📰 Kataliz: PARTNERSHIP",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +7.0%",
+        "↗️ Orta Gap: +4.2%",
         "Bilinmiyor",
         "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.69%",
+        "🔥 Açılış Barı: Güçlü (2.8x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
