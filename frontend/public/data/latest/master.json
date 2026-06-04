@@ -1,28 +1,27 @@
 {
-  "date": "2026-06-03",
-  "generated_at": "2026-06-03T13:03:41.262221-04:00",
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T13:03:36.017379-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 8,
+  "active_scores_count": 9,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 8,
+      "count": 9,
       "tickers": [
-        "AVT",
-        "ELAN",
-        "IREN",
-        "MOD",
-        "C",
-        "BG",
-        "SPXC",
-        "VRT"
+        "JPM",
+        "CMC",
+        "AVGO",
+        "PCAR",
+        "MAR",
+        "SW",
+        "WFC",
+        "SLB",
+        "UPS"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "SPXC"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -43,18 +42,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "AVT",
-      "score": 56.0,
+      "ticker": "JPM",
+      "score": 55.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ELAN",
-      "score": 54.5,
+      "ticker": "CMC",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IREN",
-      "score": 51.5,
+      "ticker": "AVGO",
+      "score": 53.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

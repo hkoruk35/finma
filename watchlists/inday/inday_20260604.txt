@@ -1,9 +1,10 @@
-# BOGA AI Swing Watchlist - 2026-06-04 13:00
-AVT
-SPXC
-BG
-ELAN
-C
-VRT
-MOD
-IREN
+# BOGA AI Swing Watchlist - 2026-06-04 14:00
+SLB
+UPS
+PCAR
+SW
+CMC
+WFC
+AVGO
+MAR
+JPM

@@ -1,107 +1,197 @@
 {
-  "generated_at": "2026-06-03T13:04:11.676346",
+  "generated_at": "2026-06-04T13:04:10.615911",
   "options": {
-    "AVT": {
+    "JPM": {
       "dte_45": {
-        "strike": 95.0,
-        "lastPrice": 5.5,
-        "bid": 3.8,
-        "ask": 5.6,
-        "volume": 3,
+        "strike": 315.0,
+        "lastPrice": 9.95,
+        "bid": 9.75,
+        "ask": 10.0,
+        "volume": 734,
+        "openInterest": 2867,
+        "impliedVolatility": 0.26200078826904294,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 315.0,
+        "lastPrice": 14.1,
+        "bid": 13.8,
+        "ask": 14.2,
+        "volume": 20,
+        "openInterest": 100,
+        "impliedVolatility": 0.2680432083129882,
+        "expiry": "2026-08-21",
+        "type": "CALL"
+      }
+    },
+    "CMC": {
+      "dte_45": {
+        "strike": 77.5,
+        "lastPrice": 4.4,
+        "bid": 3.0,
+        "ask": 4.4,
+        "volume": 1,
         "openInterest": 4,
-        "impliedVolatility": 0.5090381127929688,
+        "impliedVolatility": 0.44751529052734373,
         "expiry": "2026-07-17",
         "type": "CALL"
       }
     },
-    "ELAN": {
+    "AVGO": {
       "dte_45": {
-        "strike": 24.0,
-        "lastPrice": 1.77,
-        "bid": 1.65,
-        "ask": 1.85,
-        "volume": 11,
-        "openInterest": 143,
-        "impliedVolatility": 0.516606396484375,
+        "strike": 420.0,
+        "lastPrice": 22.0,
+        "bid": 21.9,
+        "ask": 22.9,
+        "volume": 1504,
+        "openInterest": 2184,
+        "impliedVolatility": 0.4381770050048829,
         "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 420.0,
+        "lastPrice": 33.25,
+        "bid": 32.65,
+        "ask": 34.05,
+        "volume": 892,
+        "openInterest": 1505,
+        "impliedVolatility": 0.4718070397949219,
+        "expiry": "2026-08-21",
         "type": "CALL"
       }
     },
-    "IREN": {
+    "PCAR": {
       "dte_45": {
-        "strike": 65.0,
-        "lastPrice": 10.4,
-        "bid": 10.3,
-        "ask": 10.7,
-        "volume": 2671,
-        "openInterest": 4720,
-        "impliedVolatility": 1.1140181018066406,
-        "expiry": "2026-07-17",
-        "type": "CALL"
-      }
-    },
-    "MOD": {
-      "dte_45": {
-        "strike": 310.0,
-        "lastPrice": 35.1,
-        "bid": 32.5,
-        "ask": 34.6,
+        "strike": 120.0,
+        "lastPrice": 3.55,
+        "bid": 3.6,
+        "ask": 4.5,
         "volume": 4,
-        "openInterest": 77,
-        "impliedVolatility": 0.833741896972656,
+        "openInterest": 457,
+        "impliedVolatility": 0.34326828613281246,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 118.6,
+        "lastPrice": 6.3,
+        "bid": 5.9,
+        "ask": 7.4,
+        "volume": 1,
+        "openInterest": 70,
+        "impliedVolatility": 0.3617007189941406,
+        "expiry": "2026-08-21",
+        "type": "CALL"
+      }
+    },
+    "MAR": {
+      "dte_45": {
+        "strike": 380.0,
+        "lastPrice": 17.42,
+        "bid": 17.1,
+        "ask": 19.0,
+        "volume": 3,
+        "openInterest": 194,
+        "impliedVolatility": 0.31317825500488283,
+        "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 380.0,
+        "lastPrice": 27.2,
+        "bid": 25.3,
+        "ask": 27.4,
+        "volume": 24,
+        "openInterest": 71,
+        "impliedVolatility": 0.3528507098388671,
+        "expiry": "2026-08-21",
+        "type": "CALL"
+      }
+    },
+    "SW": {
+      "dte_45": {
+        "strike": 40.0,
+        "lastPrice": 3.95,
+        "bid": 3.9,
+        "ask": 5.1,
+        "volume": 6,
+        "openInterest": 939,
+        "impliedVolatility": 0.5515181567382813,
         "expiry": "2026-07-17",
         "type": "CALL"
       }
     },
-    "C": {
+    "WFC": {
       "dte_45": {
-        "strike": 130.0,
-        "lastPrice": 6.47,
-        "bid": 6.25,
-        "ask": 6.55,
-        "volume": 199,
-        "openInterest": 9921,
-        "impliedVolatility": 0.3562686444091796,
+        "strike": 82.5,
+        "lastPrice": 3.55,
+        "bid": 3.4,
+        "ask": 3.5,
+        "volume": 328,
+        "openInterest": 2736,
+        "impliedVolatility": 0.34204759521484374,
         "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 82.5,
+        "lastPrice": 4.61,
+        "bid": 4.45,
+        "ask": 4.5,
+        "volume": 62,
+        "openInterest": 9032,
+        "impliedVolatility": 0.32117378051757806,
+        "expiry": "2026-08-21",
         "type": "CALL"
       }
     },
-    "BG": {
+    "SLB": {
       "dte_45": {
-        "strike": 135.0,
-        "lastPrice": 5.35,
-        "bid": 6.6,
-        "ask": 7.2,
-        "volume": 2,
-        "openInterest": 259,
-        "impliedVolatility": 0.3940490283203125,
+        "strike": 57.5,
+        "lastPrice": 3.1,
+        "bid": 3.1,
+        "ask": 3.2,
+        "volume": 141,
+        "openInterest": 2322,
+        "impliedVolatility": 0.3979552392578125,
         "expiry": "2026-07-17",
+        "type": "CALL"
+      },
+      "dte_60": {
+        "strike": 57.5,
+        "lastPrice": 4.3,
+        "bid": 4.4,
+        "ask": 4.5,
+        "volume": 51,
+        "openInterest": 4249,
+        "impliedVolatility": 0.41919526123046874,
+        "expiry": "2026-08-21",
         "type": "CALL"
       }
     },
-    "SPXC": {
+    "UPS": {
       "dte_45": {
-        "strike": 230.0,
-        "lastPrice": 23.0,
-        "bid": 14.7,
-        "ask": 18.0,
-        "volume": 5,
-        "openInterest": 26,
-        "impliedVolatility": 0.508793974609375,
+        "strike": 110.0,
+        "lastPrice": 5.03,
+        "bid": 4.85,
+        "ask": 5.15,
+        "volume": 152,
+        "openInterest": 4796,
+        "impliedVolatility": 0.32459171508789053,
         "expiry": "2026-07-17",
         "type": "CALL"
-      }
-    },
-    "VRT": {
-      "dte_45": {
-        "strike": 330.0,
-        "lastPrice": 34.25,
-        "bid": 31.5,
-        "ask": 34.0,
-        "volume": 74,
-        "openInterest": 454,
-        "impliedVolatility": 0.6694979339599609,
-        "expiry": "2026-07-17",
+      },
+      "dte_60": {
+        "strike": 110.0,
+        "lastPrice": 7.45,
+        "bid": 7.2,
+        "ask": 7.55,
+        "volume": 40,
+        "openInterest": 1418,
+        "impliedVolatility": 0.35986968261718744,
+        "expiry": "2026-08-21",
         "type": "CALL"
       }
     }
