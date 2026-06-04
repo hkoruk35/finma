@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-03T10:31:00.076674-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 27.0,
+  "generated_at": "2026-06-04T08:45:00.138057-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 28.6,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
   "picks": [
     {
-      "ticker": "RIOT",
-      "price": 28.48,
-      "change_pct": 4.25,
-      "dt_score": 43.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "ticker": "MRNA",
+      "price": 49.06,
+      "change_pct": 7.49,
+      "dt_score": 40.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $49.52 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: PARTNERSHIP",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 28.01,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1780497086.4870448
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "moderna to present at upcoming conference in june 2026(accesswire)",
+        "confidence": "high",
+        "ts": 1780577128.180915
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,26 +37,25 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 28.45,
-          "high": 28.62
+          "low": 49.47,
+          "high": 49.77
         },
-        "stop": 28.05,
-        "tp1": 29.5,
-        "tp2": 30.23,
-        "rr_ratio": 1.99,
-        "avg_entry": 28.54,
-        "risk_per_sh": 0.48,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 28.48
+        "stop": 48.62,
+        "tp1": 51.62,
+        "tp2": 53.12,
+        "rr_ratio": 2.0,
+        "avg_entry": 49.62,
+        "risk_per_sh": 1.0,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 49.52
       },
       "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.2%",
+        "↗️ Orta Gap: +7.5%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.69%",
-        "🔥 Açılış Barı: Güçlü (2.8x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
