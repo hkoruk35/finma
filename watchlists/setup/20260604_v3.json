@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "SPXC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 234.47,
+        "entry_zone": "229.92 - 239.02",
+        "SL": 216.28,
+        "TP": 261.75
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "BG",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 131.74,
+        "entry_zone": "129.72 - 133.75",
+        "SL": 123.68,
+        "TP": 143.82
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "ELAN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 25.35,
+        "entry_zone": "24.79 - 25.92",
+        "SL": 23.09,
+        "TP": 28.74
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "AVT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 91.11,
+        "entry_zone": "89.52 - 92.71",
+        "SL": 84.73,
+        "TP": 100.69
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "C",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 134.35,
+        "entry_zone": "132.73 - 135.97",
+        "SL": 127.89,
+        "TP": 144.05
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "VRT",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 318.02,
+        "entry_zone": "308.47 - 327.57",
+        "SL": 279.81,
+        "TP": 375.34
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "MOD",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 293.24,
+        "entry_zone": "280.52 - 305.97",
+        "SL": 242.33,
+        "TP": 369.61
+    },
+    {
+        "date": "2026-06-04 12:00",
+        "symbol": "IREN",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 61.18,
+        "entry_zone": "58.55 - 63.81",
+        "SL": 50.67,
+        "TP": 76.94
+    }
+]
