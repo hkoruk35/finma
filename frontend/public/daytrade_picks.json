@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-04T08:45:00.138057-04:00",
-  "scan_mode": "premarket",
-  "scan_duration_s": 28.6,
+  "generated_at": "2026-06-04T09:31:00.023610-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 5.6,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
@@ -10,9 +10,9 @@
       "ticker": "MRNA",
       "price": 49.06,
       "change_pct": 7.49,
-      "dt_score": 40.0,
+      "dt_score": 30.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "⏳ BEKLE → Açılış barı $49.52 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: PARTNERSHIP",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
@@ -37,24 +37,23 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 49.47,
-          "high": 49.77
+          "low": 49.01,
+          "high": 49.31
         },
         "stop": 48.62,
-        "tp1": 51.62,
-        "tp2": 53.12,
+        "tp1": 50.24,
+        "tp2": 51.05,
         "rr_ratio": 2.0,
-        "avg_entry": 49.62,
-        "risk_per_sh": 1.0,
+        "avg_entry": 49.16,
+        "risk_per_sh": 0.54,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 49.52
+        "pm_high_ref": 49.06
       },
       "details": [
         "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Orta Gap: +7.5%",
         "Bilinmiyor",
-        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
