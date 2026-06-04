@@ -1,12 +1,12 @@
 {
   "stats": {
     "total_picks": 975,
-    "completed_count": 956,
-    "pending_count": 19,
-    "win_rate": 59.1,
-    "avg_return_pct": 1.27,
+    "completed_count": 959,
+    "pending_count": 16,
+    "win_rate": 58.9,
+    "avg_return_pct": 1.26,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-06-03T17:00:04",
+    "last_updated": "2026-06-04T10:00:04",
     "above_5pct_rate": 43.9,
     "above_10pct_rate": 3.3
   },
@@ -16517,8 +16517,8 @@
       "stop_loss_high": 415.01,
       "profit_target": 463.87,
       "max_hold_days": 7,
-      "return_pct": -3.01,
-      "days": 5,
+      "return_pct": -3.32,
+      "days": 6,
       "result": "PENDING",
       "peak_date": "2026-05-29"
     },
@@ -16588,8 +16588,8 @@
       "stop_loss_high": 15.23,
       "profit_target": 17.73,
       "max_hold_days": 5,
-      "return_pct": -5.0,
-      "days": 2,
+      "return_pct": -5.34,
+      "days": 3,
       "result": "PENDING",
       "peak_date": "2026-06-01",
       "selected_system": "EMA_CROSS"
@@ -16625,8 +16625,8 @@
       "stop_loss_high": 65.53,
       "profit_target": 81.51,
       "max_hold_days": 5,
-      "return_pct": -4.45,
-      "days": 2,
+      "return_pct": -1.69,
+      "days": 3,
       "result": "PENDING",
       "peak_date": "2026-06-03",
       "selected_system": "DEFAULT"
@@ -16643,8 +16643,8 @@
       "stop_loss_high": 25.37,
       "profit_target": 28.39,
       "max_hold_days": 5,
-      "return_pct": -4.75,
-      "days": 2,
+      "return_pct": -3.95,
+      "days": 3,
       "result": "PENDING",
       "peak_date": "2026-06-01"
     },
@@ -16660,8 +16660,8 @@
       "stop_loss_high": 57.81,
       "profit_target": 78.86,
       "max_hold_days": 4,
-      "return_pct": 0.06,
-      "days": 1,
+      "return_pct": 0.13,
+      "days": 2,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16677,8 +16677,8 @@
       "stop_loss_high": 83.36,
       "profit_target": 94.12,
       "max_hold_days": 4,
-      "return_pct": -2.64,
-      "days": 1,
+      "return_pct": -1.23,
+      "days": 2,
       "result": "PENDING",
       "peak_date": "2026-06-02"
     },
@@ -16694,8 +16694,8 @@
       "stop_loss_high": 33.43,
       "profit_target": 39.15,
       "max_hold_days": 5,
-      "return_pct": -1.21,
-      "days": 1,
+      "return_pct": -1.18,
+      "days": 2,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16706,15 +16706,15 @@
       "sector": "Healthcare",
       "subsector": "Medical Devices",
       "entry": 87.46,
-      "max_price": 87.93,
+      "max_price": 88.24,
       "sl_pct": 5.0,
       "stop_loss_high": 83.09,
       "profit_target": 93.24,
       "max_hold_days": 5,
-      "return_pct": -1.67,
-      "days": 1,
+      "return_pct": 0.89,
+      "days": 2,
       "result": "PENDING",
-      "peak_date": "2026-06-02"
+      "peak_date": "2026-06-04"
     },
     {
       "date": "2026-06-02",
@@ -16728,10 +16728,11 @@
       "stop_loss_high": 84.61,
       "profit_target": 94.46,
       "max_hold_days": 5,
-      "return_pct": -2.55,
-      "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-06-02"
+      "return_pct": -5.39,
+      "days": 2,
+      "result": "LOSS",
+      "peak_date": "2026-06-02",
+      "exit_date": "2026-06-04"
     },
     {
       "date": "2026-06-02",
@@ -16745,10 +16746,11 @@
       "stop_loss_high": 105.82,
       "profit_target": 120.14,
       "max_hold_days": 5,
-      "return_pct": -5.32,
-      "days": 1,
-      "result": "PENDING",
-      "peak_date": "2026-06-02"
+      "return_pct": -5.66,
+      "days": 2,
+      "result": "LOSS",
+      "peak_date": "2026-06-02",
+      "exit_date": "2026-06-04"
     },
     {
       "date": "2026-06-03",
@@ -16762,8 +16764,8 @@
       "stop_loss_high": 88.24,
       "profit_target": 98.74,
       "max_hold_days": 5,
-      "return_pct": 0.04,
-      "days": 0,
+      "return_pct": -3.27,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16774,15 +16776,15 @@
       "sector": "Healthcare",
       "subsector": "Drug Manufacturers - Specialty & Generic",
       "entry": 24.1,
-      "max_price": 24.57,
+      "max_price": 25.72,
       "sl_pct": 5.77,
       "stop_loss_high": 22.71,
       "profit_target": 25.75,
       "max_hold_days": 7,
-      "return_pct": 1.95,
-      "days": 0,
+      "return_pct": 6.72,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-06-03"
+      "peak_date": "2026-06-04"
     },
     {
       "date": "2026-06-03",
@@ -16796,8 +16798,8 @@
       "stop_loss_high": 59.59,
       "profit_target": 74.06,
       "max_hold_days": 5,
-      "return_pct": -1.12,
-      "days": 0,
+      "return_pct": -8.47,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16813,8 +16815,8 @@
       "stop_loss_high": 276.62,
       "profit_target": 339.25,
       "max_hold_days": 5,
-      "return_pct": -1.22,
-      "days": 0,
+      "return_pct": -6.29,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16825,15 +16827,15 @@
       "sector": "Financial Services",
       "subsector": "Banks - Diversified",
       "entry": 129.97,
-      "max_price": 130.33,
+      "max_price": 132.87,
       "sl_pct": 5.0,
       "stop_loss_high": 123.47,
       "profit_target": 138.79,
       "max_hold_days": 5,
-      "return_pct": -0.03,
-      "days": 0,
+      "return_pct": 2.23,
+      "days": 1,
       "result": "PENDING",
-      "peak_date": "2026-06-03"
+      "peak_date": "2026-06-04"
     },
     {
       "date": "2026-06-03",
@@ -16847,8 +16849,8 @@
       "stop_loss_high": 127.11,
       "profit_target": 141.68,
       "max_hold_days": 5,
-      "return_pct": -2.44,
-      "days": 0,
+      "return_pct": -2.61,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16864,8 +16866,8 @@
       "stop_loss_high": 214.24,
       "profit_target": 249.69,
       "max_hold_days": 5,
-      "return_pct": 0.46,
-      "days": 0,
+      "return_pct": -0.6,
+      "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-03"
     },
@@ -16881,10 +16883,11 @@
       "stop_loss_high": 311.17,
       "profit_target": 360.42,
       "max_hold_days": 5,
-      "return_pct": -0.7,
-      "days": 0,
-      "result": "PENDING",
-      "peak_date": "2026-06-03"
+      "return_pct": -6.77,
+      "days": 1,
+      "result": "LOSS",
+      "peak_date": "2026-06-03",
+      "exit_date": "2026-06-04"
     }
   ],
   "generated_at": "2026-05-09T09:36:34.368449"
