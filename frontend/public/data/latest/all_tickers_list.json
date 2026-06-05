@@ -1,104 +1,71 @@
 {
-  "date": "2026-06-04",
+  "date": "2026-06-05",
   "tickers": [
     {
-      "ticker": "JPM",
-      "company": "JPMorgan Chase",
+      "ticker": "ICUI",
+      "company": "ICUI",
+      "sector": "Healthcare",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 137.5399932861328,
+      "change_pct": 1.93,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "TCBI",
+      "company": "TCBI",
       "sector": "Financial Services",
-      "master_score": 55.5,
+      "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 312.5299987792969,
-      "change_pct": 3.88,
+      "price": 101.6449966430664,
+      "change_pct": -0.68,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
-      "ticker": "CMC",
-      "company": "CMC",
+      "ticker": "AME",
+      "company": "AME",
       "sector": "Industrials",
-      "master_score": 55.0,
+      "master_score": 50.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 76.71499633789062,
-      "change_pct": 0.18,
+      "price": 227.85000610351562,
+      "change_pct": -0.4,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
     },
     {
-      "ticker": "AVGO",
-      "company": "AVGO",
-      "sector": "Technology",
-      "master_score": 53.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 415.1000061035156,
-      "change_pct": -13.38,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "PCAR",
-      "company": "PCAR",
-      "sector": "Industrials",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 117.5999984741211,
-      "change_pct": 2.82,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MAR",
-      "company": "MAR",
+      "ticker": "HLT",
+      "company": "HLT",
       "sector": "Consumer Cyclical",
-      "master_score": 52.0,
+      "master_score": 49.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 384.5849914550781,
-      "change_pct": 2.08,
+      "price": 342.2300109863281,
+      "change_pct": 1.21,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 49.5 | System: TREND_CONT"
     },
     {
-      "ticker": "SW",
-      "company": "SW",
-      "sector": "Consumer Cyclical",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 42.459999084472656,
-      "change_pct": 0.81,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "WFC",
-      "company": "WFC",
-      "sector": "Financial Services",
-      "master_score": 44.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 81.81500244140625,
-      "change_pct": 3.98,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "SLB",
-      "company": "SLB",
-      "sector": "Energy",
-      "master_score": 44.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 57.654998779296875,
-      "change_pct": 1.42,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "UPS",
-      "company": "UPS",
+      "ticker": "CSX",
+      "company": "CSX",
       "sector": "Industrials",
-      "master_score": 41.0,
+      "master_score": 48.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 110.50499725341797,
-      "change_pct": 1.69,
+      "price": 47.09000015258789,
+      "change_pct": 1.86,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 41.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MTRN",
+      "company": "MTRN",
+      "sector": "Basic Materials",
+      "master_score": 35.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 225.98500061035156,
+      "change_pct": -0.64,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 35.5 | System: TREND_CONT"
     }
   ]
 }
