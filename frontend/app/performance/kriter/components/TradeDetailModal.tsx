@@ -46,8 +46,8 @@ export default function TradeDetailModal({ trade, onClose }: Props) {
             <span className="text-white font-bold text-lg">{trade.ticker}</span>
             <span className={`ml-3 text-sm ${resultColor}`}>{trade.result}</span>
             {trade.result !== "PENDING" && (
-              <span className={`ml-2 text-sm ${trade.return_pct >= 0 ? "text-green-400" : "text-red-400"}`}>
-                {trade.return_pct >= 0 ? "+" : ""}{trade.return_pct.toFixed(2)}%
+              <span className={`ml-2 text-sm ${(trade.return_pct ?? 0) >= 0 ? "text-green-400" : "text-red-400"}`}>
+                {trade.return_pct != null ? `${trade.return_pct >= 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%` : "N/A"}
               </span>
             )}
           </div>
@@ -81,7 +81,7 @@ export default function TradeDetailModal({ trade, onClose }: Props) {
               <Row label="Giriş Fiyatı" value={`$${trade.entry}`} />
               <Row label="Max Fiyat" value={`$${trade.max_price}`} />
               <Row label="Sonuç" value={trade.result} color={resultColor} />
-              <Row label="Getiri" value={`${trade.return_pct >= 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%`}
+              <Row label="Getiri" value={trade.return_pct != null ? `${trade.return_pct >= 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%` : "N/A"}
                 color={trade.return_pct >= 0 ? "text-green-400" : "text-red-400"} />
               <Row label="Gün Sayısı" value={String(trade.days)} />
               <Row label="Stop-Loss %" value={`%${trade.sl_pct}`} />

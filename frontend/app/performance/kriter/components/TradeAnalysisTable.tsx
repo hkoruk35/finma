@@ -111,7 +111,7 @@ function AccordionDetail({ trade }: { trade: EnrichedTrade }) {
                 <div className="space-y-1">
                   <Row label="Max Fiyat" value={`$${trade.max_price}`} />
                   <Row label="Sonuç" value={trade.result} color={resultColor} />
-                  <Row label="Getiri" value={`${trade.return_pct >= 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%`} color={trade.return_pct > 0 ? "text-green-400" : trade.return_pct < 0 ? "text-red-400" : "text-gray-300"} />
+                  <Row label="Getiri" value={trade.return_pct != null ? `${trade.return_pct >= 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%` : "N/A"} color={(trade.return_pct ?? 0) > 0 ? "text-green-400" : (trade.return_pct ?? 0) < 0 ? "text-red-400" : "text-gray-300"} />
                   <Row label="Gün" value={String(trade.days)} />
                 </div>
                 <div className="space-y-1">
@@ -347,8 +347,8 @@ export default function TradeAnalysisTable({ trades }: Props) {
                     <td className="py-2 px-3">
                       <ResultBadge result={trade.result} />
                     </td>
-                    <td className={`py-2 px-3 text-xs font-bold font-mono ${trade.return_pct > 0 ? "text-green-400" : trade.return_pct < 0 ? "text-red-400" : "text-gray-300"}`}>
-                      {trade.return_pct > 0 ? "+" : ""}{trade.return_pct.toFixed(2)}%
+                    <td className={`py-2 px-3 text-xs font-bold font-mono ${(trade.return_pct ?? 0) > 0 ? "text-green-400" : (trade.return_pct ?? 0) < 0 ? "text-red-400" : "text-gray-300"}`}>
+                      {trade.return_pct != null ? `${trade.return_pct > 0 ? "+" : ""}${trade.return_pct.toFixed(2)}%` : "N/A"}
                     </td>
                   </tr>
                   {isExpanded && <AccordionDetail trade={trade} />}
