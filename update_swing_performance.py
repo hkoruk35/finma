@@ -101,9 +101,11 @@ def update_performance():
                     sl_pct = float(record.get('sl_pct', 5.26))
                     sl_price = entry_price * (1 - sl_pct / 100)
                     
-                    # Update peak
-                    peak_price = record.get('max_price', entry_price)
+                    # Update peak — ensure numeric
+                    raw_peak = record.get('max_price')
+                    peak_price = float(raw_peak) if raw_peak is not None and not math.isnan(float(raw_peak)) else entry_price
                     if current_price > peak_price:
+                        peak_price = current_price
                         record['max_price'] = round(current_price, 2)
                         record['peak_date'] = today.strftime('%Y-%m-%d')
                     
@@ -124,19 +126,44 @@ def update_performance():
                     ema50_1d = float(ema_series.iloc[-1])
                     record['ema50_1d'] = round(ema50_1d, 2)
 
+                    # EMA9 for Gap-Up protection
+                    ema9_series = ticker_data['Close'].ewm(span=9, adjust=False).mean()
+                    ema9_1d = float(ema9_series.iloc[-1])
+
+                    # Math floor: 5% below entry
                     math_sl_limit = entry_price * 0.95
-                    
-                    if current_price > ema50_1d:
-                        hdsl_status = "PENDING"
-                        target_sl = ema50_1d
+
+                    # Bot-recorded stop_loss_high (gap-up EMA9 support at entry time)
+                    recorded_sl_high = record.get('stop_loss_high')
+                    if recorded_sl_high:
+                        recorded_sl_high = float(recorded_sl_high)
                     else:
-                        if current_price <= math_sl_limit:
+                        recorded_sl_high = 0.0
+
+                    # Active SL = highest of: 5% floor | EMA50 | bot's recorded stop_loss_high | current EMA9 (if Gap-Up)
+                    # Gap-Up detection: entry price > EMA50 by more than 8%
+                    is_gap_up = (entry_price - ema50_1d) / ema50_1d > 0.08 if ema50_1d > 0 else False
+
+                    if is_gap_up:
+                        # Gap-up stocks: protect with EMA9 or 5% — whichever is higher
+                        gap_sl_floor = max(math_sl_limit, ema9_1d, recorded_sl_high)
+                        target_sl = gap_sl_floor
+                        if current_price <= gap_sl_floor:
                             hdsl_status = "LOSS"
-                            target_sl = math_sl_limit
                         else:
                             hdsl_status = "PENDING"
-                            target_sl = ema50_1d
-                    
+                    else:
+                        # Normal stocks: HDSL logic
+                        if current_price > ema50_1d:
+                            hdsl_status = "PENDING"
+                            target_sl = max(ema50_1d, recorded_sl_high, math_sl_limit)
+                        else:
+                            target_sl = max(math_sl_limit, recorded_sl_high)
+                            if current_price <= target_sl:
+                                hdsl_status = "LOSS"
+                            else:
+                                hdsl_status = "PENDING"
+
                     record['active_sl_level'] = round(target_sl, 2)
 
                     if hdsl_status == "LOSS":
@@ -147,11 +174,12 @@ def update_performance():
                     elif profit_target and current_price >= float(profit_target):
                         record['result'] = 'WIN'
                         record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 3. Time Limit — 30 Days Auto-Close at Peak
+                    # 3. Time Limit — 30 Days Auto-Close at Peak (peak_price guaranteed numeric above)
                     elif days_held >= 30:
                         peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
                         record['result'] = 'WIN' if peak_pct > 0 else 'LOSS'
                         record['return_pct'] = peak_pct
+                        record['max_price'] = round(peak_price, 2)
                         record['exit_date'] = today.strftime('%Y-%m-%d')
 
                 except Exception as e:
