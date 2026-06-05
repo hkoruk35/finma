@@ -1,0 +1,92 @@
+[
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "SW",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 41.5,
+        "entry_zone": "40.77 - 42.23",
+        "SL": 38.6,
+        "TP": 45.85
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "JPM",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 311.62,
+        "entry_zone": "308.50 - 314.75",
+        "SL": 299.13,
+        "TP": 330.37
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "MAR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 391.45,
+        "entry_zone": "387.00 - 395.90",
+        "SL": 373.65,
+        "TP": 418.15
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "SLB",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 55.29,
+        "entry_zone": "54.43 - 56.15",
+        "SL": 51.84,
+        "TP": 60.47
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "PCAR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 117.77,
+        "entry_zone": "116.33 - 119.21",
+        "SL": 112.02,
+        "TP": 126.4
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "UPS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 109.44,
+        "entry_zone": "108.11 - 110.78",
+        "SL": 104.11,
+        "TP": 117.45
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "WFC",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 81.74,
+        "entry_zone": "80.83 - 82.65",
+        "SL": 78.11,
+        "TP": 87.18
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "CMC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 74.85,
+        "entry_zone": "73.73 - 75.96",
+        "SL": 70.38,
+        "TP": 81.54
+    },
+    {
+        "date": "2026-06-05 13:00",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 394.98,
+        "entry_zone": "383.77 - 406.20",
+        "SL": 350.12,
+        "TP": 462.28
+    }
+]
