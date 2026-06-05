@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 47.01,
+        "entry_zone": "46.52 - 47.49",
+        "SL": 45.05,
+        "TP": 49.93
+    },
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "MTRN",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 220.12,
+        "entry_zone": "215.52 - 224.71",
+        "SL": 201.73,
+        "TP": 247.7
+    },
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "ICUI",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 136.42,
+        "entry_zone": "133.75 - 139.09",
+        "SL": 125.73,
+        "TP": 152.45
+    },
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "HLT",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 341.15,
+        "entry_zone": "337.36 - 344.95",
+        "SL": 325.96,
+        "TP": 363.94
+    },
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "TCBI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 101.9,
+        "entry_zone": "100.68 - 103.12",
+        "SL": 97.0,
+        "TP": 109.25
+    },
+    {
+        "date": "2026-06-05 15:00",
+        "symbol": "AME",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 226.71,
+        "entry_zone": "224.59 - 228.83",
+        "SL": 218.22,
+        "TP": 239.45
+    }
+]
