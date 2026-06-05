@@ -1,74 +1,50 @@
 [
   {
-    "Date": "4 June",
-    "Symbol": "JPM",
-    "Entry (Buy_L)": 301.44,
-    "Stop (SL)": 296.9,
-    "Target 1 (TP1)": 324.99,
-    "Target 2 (TP2)": 328.12
+    "Date": "5 June",
+    "Symbol": "ICUI",
+    "Entry (Buy_L)": 135.37,
+    "Stop (SL)": 130.66,
+    "Target 1 (TP1)": 147.0,
+    "Target 2 (TP2)": 148.81
   },
   {
-    "Date": "4 June",
-    "Symbol": "CMC",
-    "Entry (Buy_L)": 75.33,
-    "Stop (SL)": 72.88,
-    "Target 1 (TP1)": 81.68,
-    "Target 2 (TP2)": 82.66
+    "Date": "5 June",
+    "Symbol": "TCBI",
+    "Entry (Buy_L)": 100.03,
+    "Stop (SL)": 96.56,
+    "Target 1 (TP1)": 108.44,
+    "Target 2 (TP2)": 109.76
   },
   {
-    "Date": "4 June",
-    "Symbol": "AVGO",
-    "Entry (Buy_L)": 402.02,
-    "Stop (SL)": 386.77,
-    "Target 1 (TP1)": 448.55,
-    "Target 2 (TP2)": 455.41
+    "Date": "5 June",
+    "Symbol": "AME",
+    "Entry (Buy_L)": 225.04,
+    "Stop (SL)": 216.46,
+    "Target 1 (TP1)": 244.05,
+    "Target 2 (TP2)": 247.12
   },
   {
-    "Date": "4 June",
-    "Symbol": "PCAR",
-    "Entry (Buy_L)": 115.4,
-    "Stop (SL)": 111.72,
-    "Target 1 (TP1)": 125.02,
-    "Target 2 (TP2)": 126.5
+    "Date": "5 June",
+    "Symbol": "HLT",
+    "Entry (Buy_L)": 337.73,
+    "Stop (SL)": 325.12,
+    "Target 1 (TP1)": 366.25,
+    "Target 2 (TP2)": 370.83
   },
   {
-    "Date": "4 June",
-    "Symbol": "MAR",
-    "Entry (Buy_L)": 376.79,
-    "Stop (SL)": 365.36,
-    "Target 1 (TP1)": 407.87,
-    "Target 2 (TP2)": 412.6
+    "Date": "5 June",
+    "Symbol": "CSX",
+    "Entry (Buy_L)": 46.16,
+    "Stop (SL)": 44.74,
+    "Target 1 (TP1)": 49.96,
+    "Target 2 (TP2)": 50.54
   },
   {
-    "Date": "4 June",
-    "Symbol": "SW",
-    "Entry (Buy_L)": 41.56,
-    "Stop (SL)": 40.34,
-    "Target 1 (TP1)": 45.05,
-    "Target 2 (TP2)": 45.57
-  },
-  {
-    "Date": "4 June",
-    "Symbol": "WFC",
-    "Entry (Buy_L)": 78.88,
-    "Stop (SL)": 77.5,
-    "Target 1 (TP1)": 85.45,
-    "Target 2 (TP2)": 86.33
-  },
-  {
-    "Date": "4 June",
-    "Symbol": "SLB",
-    "Entry (Buy_L)": 56.62,
-    "Stop (SL)": 54.77,
-    "Target 1 (TP1)": 61.37,
-    "Target 2 (TP2)": 62.11
-  },
-  {
-    "Date": "4 June",
-    "Symbol": "UPS",
-    "Entry (Buy_L)": 109.14,
-    "Stop (SL)": 104.98,
-    "Target 1 (TP1)": 118.43,
-    "Target 2 (TP2)": 119.92
+    "Date": "5 June",
+    "Symbol": "MTRN",
+    "Entry (Buy_L)": 220.93,
+    "Stop (SL)": 214.69,
+    "Target 1 (TP1)": 239.57,
+    "Target 2 (TP2)": 242.34
   }
 ]
