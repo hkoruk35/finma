@@ -1,9 +1,9 @@
-# BOGA AI Swing Watchlist - 2026-06-05 10:00
+# BOGA AI Swing Watchlist - 2026-06-05 11:00
 SLB
 SW
 PCAR
-MAR
 UPS
+MAR
 WFC
 CMC
 AVGO
