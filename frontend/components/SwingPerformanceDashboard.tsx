@@ -35,6 +35,8 @@ interface Trade {
   days: number | null;
   result: string;
   peak_date: string | null;
+  ema50_1d?: number;
+  active_sl_level?: number;
 }
 
 interface SwingPick {
@@ -1028,6 +1030,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <col className="w-[110px]" />
                 <col className="w-[100px]" />
                 <col className="w-[100px]" />
+                <col className="w-[100px]" />
                 <col className="w-[80px]" />
                 <col className="w-[100px]" />
                 <col className="w-[55px]" />
@@ -1041,6 +1044,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <th className="px-4 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('return_pct')}>Return (SL adj.) <SortIcon column="return_pct" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('return_pct')}>PnL/$1000 <SortIcon column="return_pct" /></th>
@@ -1070,6 +1074,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
                       <td className="px-4 py-3 text-right">${fmt(t.entry)}</td>
+                      <td className="px-4 py-3 text-right text-[#a855f7] font-bold">
+                        {t.ema50_1d != null ? `$${fmt(t.ema50_1d)}` : "—"}
+                      </td>
                       <td className="px-4 py-3 text-right">
                         {t.max_price != null ? (
                           <span>${fmt(t.max_price)}{t.peak_date && <span className="block text-[9px] text-white">{t.peak_date}</span>}</span>

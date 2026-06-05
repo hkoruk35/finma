@@ -81,8 +81,8 @@ def update_performance():
         log(f"Updating {len(pending_tickers)} pending tickers...")
         # Bulk download current prices
         try:
-            # Get latest 2 days of data to ensure we have a valid close
-            prices_df = yf.download(pending_tickers, period="2d", interval="1d", group_by='ticker', threads=True, progress=False)
+            # Get latest 150 days of data to calculate EMA50 reliably
+            prices_df = yf.download(pending_tickers, period="150d", interval="1d", group_by='ticker', threads=True, progress=False)
             
             for record in pending_records:
                 ticker = record['ticker']
@@ -119,27 +119,39 @@ def update_performance():
                     profit_target = record.get('profit_target')
                     max_hold_days = record.get('max_hold_days', 5)
 
-                    # 1. Stop Loss — use recorded stop_loss_high if available, else sl_pct
-                    sl_price_exact = record.get('stop_loss_high')
-                    if sl_price_exact:
-                        hit_sl = current_price <= float(sl_price_exact)
-                    else:
-                        hit_sl = current_price <= sl_price
+                    # 1. BOGA AI - Hibrit Dinamik Stop Loss Motoru (HDSL)
+                    ema_series = ticker_data['Close'].ewm(span=50, adjust=False).mean()
+                    ema50_1d = float(ema_series.iloc[-1])
+                    record['ema50_1d'] = round(ema50_1d, 2)
 
-                    if hit_sl:
-                        record['result'] = 'LOSS'
-                        if sl_price_exact:
-                            record['return_pct'] = round(((float(sl_price_exact) - entry_price) / entry_price) * 100, 2)
+                    math_sl_limit = entry_price * 0.95
+                    
+                    if current_price > ema50_1d:
+                        hdsl_status = "PENDING"
+                        target_sl = ema50_1d
+                    else:
+                        if current_price <= math_sl_limit:
+                            hdsl_status = "LOSS"
+                            target_sl = math_sl_limit
                         else:
-                            record['return_pct'] = round(-sl_pct, 2)
+                            hdsl_status = "PENDING"
+                            target_sl = ema50_1d
+                    
+                    record['active_sl_level'] = round(target_sl, 2)
+
+                    if hdsl_status == "LOSS":
+                        record['result'] = 'LOSS'
+                        record['return_pct'] = round(((target_sl - entry_price) / entry_price) * 100, 2)
                         record['exit_date'] = today.strftime('%Y-%m-%d')
                     # 2. Profit Target — bot's recorded profit_zone.low
                     elif profit_target and current_price >= float(profit_target):
                         record['result'] = 'WIN'
                         record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 3. Time Limit — bot's max_hold_days (usually 5)
-                    elif days_held >= max_hold_days:
-                        record['result'] = 'WIN' if current_ret > 0 else 'LOSS'
+                    # 3. Time Limit — 30 Days Auto-Close at Peak
+                    elif days_held >= 30:
+                        peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
+                        record['result'] = 'WIN' if peak_pct > 0 else 'LOSS'
+                        record['return_pct'] = peak_pct
                         record['exit_date'] = today.strftime('%Y-%m-%d')
 
                 except Exception as e:
