@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-05T08:45:00.150113-04:00",
-  "scan_mode": "premarket",
-  "scan_duration_s": 27.4,
+  "generated_at": "2026-06-05T09:31:00.066708-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 6.0,
   "total_scanned": 3,
   "layer1_passed": 2,
   "final_picks": 2,
@@ -10,9 +10,9 @@
       "ticker": "BMRN",
       "price": 56.47,
       "change_pct": 3.31,
-      "dt_score": 30.0,
+      "dt_score": 35.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "⏳ BEKLE → Açılış barı $57.00 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: ACQUISITION",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
@@ -37,24 +37,23 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 56.94,
-          "high": 57.28
+          "low": 56.41,
+          "high": 56.75
         },
         "stop": 55.96,
-        "tp1": 59.41,
-        "tp2": 61.13,
+        "tp1": 57.82,
+        "tp2": 58.75,
         "rr_ratio": 2.0,
-        "avg_entry": 57.11,
-        "risk_per_sh": 1.15,
+        "avg_entry": 56.58,
+        "risk_per_sh": 0.62,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 57.0
+        "pm_high_ref": 56.47
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Küçük Gap: +3.3%",
         "Bilinmiyor",
-        "📉 PM Zayıf: Aşağı trend (%1.4 geri)",
         "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
@@ -64,9 +63,9 @@
       "ticker": "GOOGL",
       "price": 372.19,
       "change_pct": 3.68,
-      "dt_score": 10.0,
-      "signal": "PULLBACK_VWAP",
-      "entry_condition": "⏳ BEKLE → Açılışta VWAP test edilince GİR | VWAP'tan sekme + hacim artışı şart | Kataliz: UNKNOWN",
+      "dt_score": 15.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
@@ -91,24 +90,23 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 368.1,
-          "high": 369.95
+          "low": 370.52,
+          "high": 372.75
         },
-        "stop": 364.93,
-        "tp1": 377.21,
-        "tp2": 383.36,
+        "stop": 368.84,
+        "tp1": 377.23,
+        "tp2": 381.42,
         "rr_ratio": 2.0,
-        "avg_entry": 369.02,
-        "risk_per_sh": 4.09,
-        "signal": "PULLBACK_VWAP",
-        "pm_high_ref": 57.0
+        "avg_entry": 371.63,
+        "risk_per_sh": 2.8,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 372.19
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Küçük Gap: +3.7%",
         "Bilinmiyor",
-        "📉 PM Zayıf: Aşağı trend (%1.4 geri)",
         "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"

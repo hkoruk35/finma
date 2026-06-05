@@ -1,0 +1,92 @@
+[
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "SLB",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 56.57,
+        "entry_zone": "55.75 - 57.39",
+        "SL": 53.3,
+        "TP": 61.48
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "SW",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 42.0,
+        "entry_zone": "41.28 - 42.72",
+        "SL": 39.11,
+        "TP": 46.33
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "PCAR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 118.12,
+        "entry_zone": "116.70 - 119.55",
+        "SL": 112.42,
+        "TP": 126.69
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "MAR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 392.23,
+        "entry_zone": "387.93 - 396.54",
+        "SL": 375.01,
+        "TP": 418.07
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "UPS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 109.58,
+        "entry_zone": "108.25 - 110.91",
+        "SL": 104.27,
+        "TP": 117.54
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "WFC",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 82.14,
+        "entry_zone": "81.24 - 83.04",
+        "SL": 78.54,
+        "TP": 87.55
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "CMC",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 74.75,
+        "entry_zone": "73.65 - 75.86",
+        "SL": 70.32,
+        "TP": 81.41
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 401.85,
+        "entry_zone": "390.92 - 412.77",
+        "SL": 358.14,
+        "TP": 467.41
+    },
+    {
+        "date": "2026-06-05 10:00",
+        "symbol": "JPM",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 311.54,
+        "entry_zone": "308.44 - 314.64",
+        "SL": 299.15,
+        "TP": 330.12
+    }
+]
