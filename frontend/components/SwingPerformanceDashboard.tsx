@@ -197,8 +197,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     const total    = filtered.length;
     const pending  = filtered.filter(t => t.result === "PENDING").length;
     
-    // We include both completed and pending trades that have a valid return!
-    const activeStatsTrades = filtered.filter(t => effectiveReturn(t) != null);
+    // We include completed trades only for calculating rates and averages
+    const activeStatsTrades = filtered.filter(t => t.result !== "PENDING" && effectiveReturn(t) != null);
     
     const wins     = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
     const losses   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
@@ -217,7 +217,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
     if (statsCount === 0) {
       // Calculate global stats as fallback if there are absolutely no trades with returns in the filter
-      const gActiveTrades = initialHistory.filter(t => effectiveReturn(t) != null);
+      const gActiveTrades = initialHistory.filter(t => t.result !== "PENDING" && effectiveReturn(t) != null);
       const gWins      = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
       const gLosses    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
       const gSumRet    = gActiveTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);

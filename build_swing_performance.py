@@ -613,19 +613,22 @@ def main():
         history_out.append(record)
 
     # 5. Stats (matches live system exactly)
+    completed = [h for h in history_out if h["result"] != "PENDING"]
     total    = len(history_out)
-    wins     = sum(1 for h in history_out if h.get("return_pct", 0) and h["return_pct"] > 0)
-    total_ret = sum(h.get("return_pct") or 0 for h in history_out)
-    above_5  = sum(1 for h in history_out if (h.get("return_pct") or 0) >= 5)
-    above_10 = sum(1 for h in history_out if (h.get("return_pct") or 0) >= 10)
+    wins     = sum(1 for h in completed if (h.get("return_pct") or 0) > 0)
+    total_ret = sum(h.get("return_pct") or 0 for h in completed)
+    above_5  = sum(1 for h in completed if (h.get("return_pct") or 0) >= 5)
+    above_10 = sum(1 for h in completed if (h.get("return_pct") or 0) >= 10)
 
     stats = {
         "total_picks":      total,
-        "win_rate":         round(wins / total * 100, 1) if total else 0,
-        "avg_return_pct":   round(total_ret / total, 1)  if total else 0,
+        "completed_count":  len(completed),
+        "pending_count":    total - len(completed),
+        "win_rate":         round(wins / len(completed) * 100, 1) if completed else 0,
+        "avg_return_pct":   round(total_ret / len(completed), 2)  if completed else 0,
         "period_days":      180,
-        "above_5pct_rate":  round(above_5 / total * 100, 1) if total else 0,
-        "above_10pct_rate": round(above_10 / total * 100, 1) if total else 0,
+        "above_5pct_rate":  round(above_5 / len(completed) * 100, 1) if completed else 0,
+        "above_10pct_rate": round(above_10 / len(completed) * 100, 1) if completed else 0,
         "generated_at":     datetime.now().isoformat(),
     }
 

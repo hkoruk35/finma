@@ -262,13 +262,18 @@ def update_performance():
     # 4. Update Stats
     all_completed = [r for r in history if r['result'] != 'PENDING']
     wins = [r for r in all_completed if r['result'] == 'WIN']
+    above_5 = [r for r in all_completed if (r.get('return_pct') or 0) >= 5]
+    above_10 = [r for r in all_completed if (r.get('return_pct') or 0) >= 10]
 
     data['stats']['total_picks'] = len(history)
     data['stats']['completed_count'] = len(all_completed)
     data['stats']['pending_count'] = len(history) - len(all_completed)
     data['stats']['win_rate'] = round((len(wins) / len(all_completed) * 100), 1) if all_completed else 0
-    valid_rets = [r['return_pct'] for r in history if r.get('return_pct') is not None and not (isinstance(r['return_pct'], float) and math.isnan(r['return_pct']))]
-    data['stats']['avg_return_pct'] = round(sum(valid_rets) / len(valid_rets), 2) if valid_rets else 0
+    
+    completed_rets = [r['return_pct'] for r in all_completed if r.get('return_pct') is not None and not (isinstance(r['return_pct'], float) and math.isnan(r['return_pct']))]
+    data['stats']['avg_return_pct'] = round(sum(completed_rets) / len(completed_rets), 2) if completed_rets else 0
+    data['stats']['above_5pct_rate'] = round((len(above_5) / len(all_completed) * 100), 1) if all_completed else 0
+    data['stats']['above_10pct_rate'] = round((len(above_10) / len(all_completed) * 100), 1) if all_completed else 0
     data['stats']['last_updated'] = today.strftime('%Y-%m-%dT%H:%M:%S')
 
     data['history'] = history
