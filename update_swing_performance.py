@@ -121,50 +121,18 @@ def update_performance():
                     profit_target = record.get('profit_target')
                     max_hold_days = record.get('max_hold_days', 5)
 
-                    # 1. BOGA AI - Hibrit Dinamik Stop Loss Motoru (HDSL)
+                    # 1. BOGA AI - Stop Loss based strictly on 1D EMA50 (no LOSS triggered above 1D EMA50)
                     ema_series = ticker_data['Close'].ewm(span=50, adjust=False).mean()
                     ema50_1d = float(ema_series.iloc[-1])
                     record['ema50_1d'] = round(ema50_1d, 2)
 
-                    # EMA9 for Gap-Up protection
-                    ema9_series = ticker_data['Close'].ewm(span=9, adjust=False).mean()
-                    ema9_1d = float(ema9_series.iloc[-1])
-
-                    # Math floor: 5% below entry
-                    math_sl_limit = entry_price * 0.95
-
-                    # Bot-recorded stop_loss_high (gap-up EMA9 support at entry time)
-                    recorded_sl_high = record.get('stop_loss_high')
-                    if recorded_sl_high:
-                        recorded_sl_high = float(recorded_sl_high)
-                    else:
-                        recorded_sl_high = 0.0
-
-                    # Active SL = highest of: 5% floor | EMA50 | bot's recorded stop_loss_high | current EMA9 (if Gap-Up)
-                    # Gap-Up detection: entry price > EMA50 by more than 8%
-                    is_gap_up = (entry_price - ema50_1d) / ema50_1d > 0.08 if ema50_1d > 0 else False
-
-                    if is_gap_up:
-                        # Gap-up stocks: protect with EMA9 or 5% — whichever is higher
-                        gap_sl_floor = max(math_sl_limit, ema9_1d, recorded_sl_high)
-                        target_sl = gap_sl_floor
-                        if current_price <= gap_sl_floor:
-                            hdsl_status = "LOSS"
-                        else:
-                            hdsl_status = "PENDING"
-                    else:
-                        # Normal stocks: HDSL logic
-                        if current_price > ema50_1d:
-                            hdsl_status = "PENDING"
-                            target_sl = max(ema50_1d, recorded_sl_high, math_sl_limit)
-                        else:
-                            target_sl = max(math_sl_limit, recorded_sl_high)
-                            if current_price <= target_sl:
-                                hdsl_status = "LOSS"
-                            else:
-                                hdsl_status = "PENDING"
-
+                    target_sl = ema50_1d
                     record['active_sl_level'] = round(target_sl, 2)
+
+                    if current_price <= target_sl:
+                        hdsl_status = "LOSS"
+                    else:
+                        hdsl_status = "PENDING"
 
                     if hdsl_status == "LOSS":
                         record['result'] = 'LOSS'
