@@ -90,6 +90,7 @@ interface Regime {
 // ─── Preset Definitions ───────────────────────────────────────────────────────
 
 const PRESETS = [
+  { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥4.0 · RSI 50+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$300M","RVOL≥4.0","RSI 50+","Gece Taraması"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
   { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
@@ -98,7 +99,6 @@ const PRESETS = [
   { id: "cheap_exp",    name: "Cheap & Explosive",    desc: "Price<$10 · RVOL>2 · Weekly Opt",        mode: "day",      color: "#f43f5e", pills: ["Price<$10","RVOL>2","ATR>4%","Haftalık OPT"],                      icon: "🔥" },
   { id: "ema_cross",    name: "EMA Cross Setup",      desc: "EMA8>EMA20 fresh cross · RVOL>1.3",      mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                      icon: "✂️" },
   { id: "gamma_sq",     name: "Gamma Squeeze",        desc: "Haftalık · ATR>5% · RVOL>2",             mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                       icon: "🚀" },
-  { id: "pre_catalyst", name: "Pre-Catalyst Scanner", desc: "Nano Float · RVOL>1.5 · RSI 50-72",      mode: "swing",    color: "#ec4899", pills: ["Float<$150M","RVOL>1.5","RSI 50-72","ADX>20","Gece Taraması"],    icon: "🎯" },
 ];
 
 const PRICE_RANGES = [
@@ -402,7 +402,7 @@ const REGIME_MULT_HINT: Record<string, string> = {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function ScreenerCockpit() {
-  const [activePreset, setActivePreset] = useState("swing_cont");
+  const [activePreset, setActivePreset] = useState("pre_catalyst");
   const currentPreset = PRESETS.find(p => p.id === activePreset);
   const presetPills   = currentPreset?.pills || [];
 

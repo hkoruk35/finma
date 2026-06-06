@@ -761,15 +761,14 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
       return s.has_weekly_options && s.atr_pct >= 3.5 &&
              s.market_cap < 50e9 && s.rvol >= 0.8;
     case "pre_catalyst":
-      // Gece taraması (23:00): ertesi gün patlama yapabilecek hisseleri tespit et
-      // Filtreler: Float (<$150M), RVOL (>1.5x), RSI (50-72), EMA pozitif, Change (+2-15%), ADX (>20)
-      return s.price >= 1 && s.price <= 50 &&
-             s.market_cap < 150e6 &&
-             s.rvol > 1.5 &&
-             s.rsi >= 50 && s.rsi <= 72 &&
+      // Episodemic Pivot (EP) Setup
+      // Filtreler: Market Cap (>=300e6 - Nano/Micro kapalı), RVOL (>=4.0), RSI (>=50), EMA pozitif, Change (>2%)
+      return s.price >= 1 &&
+             s.market_cap >= 300e6 &&
+             s.rvol >= 4.0 &&
+             s.rsi >= 50 &&
              s.ema20 > s.ema50 &&
-             s.change_1d > 2 && s.change_1d < 15 &&
-             s.adx > 20;
+             s.change_1d > 2;
     default:
       return s.boga_score >= 40;
   }
