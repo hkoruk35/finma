@@ -414,6 +414,7 @@ export default function ScreenerCockpit() {
   const [rsiMin,     setRsiMin]     = useState<number | null>(null);
   const [rsiMax,     setRsiMax]     = useState<number | null>(null);
   const [adxMin,     setAdxMin]     = useState<number | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
 
   const watchlist = useWatchlistModal();
 
@@ -537,10 +538,34 @@ export default function ScreenerCockpit() {
               {(regime.vix_price ?? 20).toFixed(1)}
             </span>
           </span>
+          {/* Filter toggle button */}
+          <button
+            onClick={() => setShowFilters(v => !v)}
+            style={{
+              display: "flex", alignItems: "center", gap: 5,
+              background: showFilters ? "rgba(59,130,246,0.15)" : "rgba(59,130,246,0.07)",
+              border: `1px solid ${showFilters ? "rgba(59,130,246,0.6)" : "rgba(59,130,246,0.25)"}`,
+              color: showFilters ? "#60a5fa" : "#7c8fa6",
+              padding: "4px 11px", borderRadius: 4, cursor: "pointer",
+              fontSize: 10, fontFamily: "inherit", fontWeight: 700, letterSpacing: 0.8,
+              transition: "all .15s"
+            }}
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+            </svg>
+            {showFilters ? "FİLTRELERİ GİZLE" : "FİLTRELERİ GÖSTER"}
+            {activeFilters.length > 0 && (
+              <span style={{ background: "#3b82f6", color: "#fff", borderRadius: "50%", width: 14, height: 14, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 9, fontWeight: 800 }}>
+                {activeFilters.length}
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
-      {/* ── Filter Bar ───────────────────────────────────────────────────────── */}
+      {/* ── Filter Bar (collapsible) ──────────────────────────────────────── */}
+      {showFilters && (
       <div style={{ background: "#0f141e", borderBottom: "1px solid #1e2a3a", padding: "8px 18px", display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
         <FilterRow label="Fiyat">
           {PRICE_RANGES.map(r => (
@@ -597,6 +622,7 @@ export default function ScreenerCockpit() {
           </div>
         </FilterRow>
       </div>
+      )}
 
       {/* ── Main Area ────────────────────────────────────────────────────────── */}
       <div style={{ display: "flex", height: "calc(100vh - 192px)", minHeight: 500 }}>
@@ -622,6 +648,27 @@ export default function ScreenerCockpit() {
             <button onClick={runScan} disabled={isScanning}
               style={{ background: isScanning ? "#111620" : "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.5)", color: "#4ade80", padding: "6px 16px", borderRadius: 4, cursor: isScanning ? "not-allowed" : "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: 700, letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, transition: "all .15s" }}>
               {isScanning ? "⏳ Taranıyor..." : "📡 TARA"}
+            </button>
+
+            <button onClick={() => setShowFilters(v => !v)}
+              style={{
+                background: showFilters ? "rgba(59,130,246,0.15)" : "rgba(59,130,246,0.07)",
+                border: `1px solid ${showFilters ? "rgba(59,130,246,0.6)" : "rgba(59,130,246,0.25)"}`,
+                color: "#60a5fa",
+                padding: "6px 16px",
+                borderRadius: 4,
+                cursor: "pointer",
+                fontSize: 12,
+                fontFamily: "inherit",
+                fontWeight: 700,
+                letterSpacing: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                transition: "all .15s"
+              }}
+            >
+              {showFilters ? "👁️ FİLTRELERİ GİZLE" : "👁️ FİLTRELERİ GÖSTER"}
             </button>
 
             {sortedResults.length > 0 && (
