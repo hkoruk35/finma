@@ -1023,11 +1023,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         <div className="hidden md:block glass-card overflow-hidden">
           <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
-            <table className="w-full min-w-[1100px] text-left text-xs whitespace-nowrap table-fixed">
+            <table className="w-full min-w-[1250px] text-left text-xs whitespace-nowrap table-fixed">
               <colgroup>
                 <col className="w-[100px]" />
                 <col className="w-[120px]" />
                 <col className="w-[110px]" />
+                <col className="w-[100px]" />
                 <col className="w-[100px]" />
                 <col className="w-[100px]" />
                 <col className="w-[100px]" />
@@ -1046,6 +1047,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
+                  <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('return_pct')}>Current Price <SortIcon column="return_pct" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a]" onClick={() => handleSort('return_pct')}>PnL/$1000 <SortIcon column="return_pct" /></th>
                   <th className="px-4 py-4 font-bold uppercase tracking-wider text-center text-[#f59e0b]">SL</th>
@@ -1081,6 +1083,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         {t.max_price != null ? (
                           <span>${fmt(t.max_price)}{t.peak_date && <span className="block text-[9px] text-white">{t.peak_date}</span>}</span>
                         ) : "—"}
+                      </td>
+                      <td className="px-4 py-3 text-right text-[#00d2ff] font-bold">
+                        {effRet != null ? `$${fmt(t.entry * (1 + effRet / 100))}` : "—"}
                       </td>
                       <td className="px-4 py-3 text-center text-white">
                         {t.result === "PENDING"
