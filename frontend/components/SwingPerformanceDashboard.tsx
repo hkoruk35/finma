@@ -862,19 +862,19 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               ))}
             </div>
           </div>
-          {/* Desktop: single row, readable */}
+          {/* Desktop: single row, compact cards */}
           <div className="hidden md:flex gap-1.5 flex-nowrap overflow-x-auto no-scrollbar pb-1">
             {heatmap.map(s => (
               <button key={s.name}
                 onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
-                className={`rounded-lg border px-3 py-3 ${heatColor(s.avgReturn)} flex flex-col gap-1.5 transition-colors duration-200 shrink-0 text-left min-w-[110px] ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
-                <p className="text-[10px] font-black text-white uppercase tracking-wider w-full" title={s.name}>{s.name}</p>
-                <p className={`text-lg font-black font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                className={`rounded-lg border px-2.5 py-2 ${heatColor(s.avgReturn)} flex flex-col gap-1 transition-colors duration-200 shrink-0 text-left min-w-[90px] ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
+                <p className="text-[9px] font-black text-white uppercase tracking-wider truncate w-full" title={s.name}>{s.name}</p>
+                <p className={`text-sm font-black font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                   {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
                 </p>
-                <div className="flex items-center gap-1.5">
-                  <p className="text-[9px] text-[#00d2ff] font-bold uppercase">AVG RET</p>
-                  <p className="text-[10px] font-bold text-white">{s.total}<span className="text-[9px] text-[#00d2ff] ml-0.5">p</span></p>
+                <div className="flex items-center gap-1">
+                  <p className="text-[8px] text-[#00d2ff] font-bold uppercase">AVG</p>
+                  <p className="text-[9px] font-bold text-white">{s.total}<span className="text-[8px] text-[#00d2ff] ml-0.5">p</span></p>
                 </div>
               </button>
             ))}
@@ -1023,25 +1023,40 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         <div className="hidden md:block glass-card overflow-hidden">
           <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
-            <table className="w-full min-w-[1400px] text-left text-sm">
+            <table className="w-full min-w-[1200px] text-left text-[11px] table-fixed">
+              <colgroup>
+                <col className="w-[90px]" />
+                <col className="w-[130px]" />
+                <col className="w-[100px]" />
+                <col className="w-[80px]" />
+                <col className="w-[85px]" />
+                <col className="w-[95px]" />
+                <col className="w-[95px]" />
+                <col className="w-[60px]" />
+                <col className="w-[80px]" />
+                <col className="w-[36px]" />
+                <col className="w-[130px]" />
+                <col className="w-[130px]" />
+                <col className="w-[70px]" />
+              </colgroup>
               <thead>
-                <tr className="bg-[#111827] border-b-2 border-[#1e2a3a] text-[#00d2ff] text-xs">
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Return (SL adj.) <SortIcon column="return_pct" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Current Price <SortIcon column="return_pct" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PnL/$1000 <SortIcon column="return_pct" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-center text-[#f59e0b] whitespace-nowrap">SL</th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
-                  <th className="px-5 py-4 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
+                <tr className="bg-[#0d1521] border-b-2 border-[#1e2a3a] text-[#00d2ff] text-[10px]">
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Return (SL adj.) <SortIcon column="return_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Cur. Price <SortIcon column="return_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PnL/$1K <SortIcon column="return_pct" /></th>
+                  <th className="px-1 py-3 font-bold uppercase tracking-wider text-center text-[#f59e0b] whitespace-nowrap">SL</th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
                 </tr>
               </thead>
-              <tbody className="text-white divide-y divide-[#1e2a3a]/80">
+              <tbody className="divide-y divide-[#1e2a3a]/60">
                 {visibleTrades.map((t, i) => {
                   const effRet = effectiveReturn(t);
                   const effRes = effectiveResult(t);
@@ -1049,51 +1064,53 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   const pnl = pnlFromReturn(effRet);
                   const slHit = slTriggered(t);
                   return (
-                    <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 === 0 ? "" : "bg-white/[0.015]"}`}>
-                      <td className="px-5 py-4 text-slate-300 text-sm font-mono whitespace-nowrap">{t.date}</td>
-                      <td className="px-5 py-4 whitespace-nowrap">
+                    <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
+                      <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
+                      <td className="px-3 py-2.5 whitespace-nowrap">
                         <TickerHoverChart ticker={t.ticker}>
-                          <Link href={`/stock/${t.ticker}`} className="text-sm font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                          <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
                         </TickerHoverChart>
                         {t.company && t.company !== t.ticker && (
-                          <p className="text-[11px] text-slate-400 mt-0.5 max-w-[140px] truncate" title={t.company}>{t.company}</p>
+                          <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
                         )}
                       </td>
-                      <td className={`px-5 py-4 text-right font-black text-sm whitespace-nowrap ${retColor(effRet)}`}>
+                      <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(effRet)}`}>
                         {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
-                      <td className="px-5 py-4 text-right text-sm font-mono text-slate-200 whitespace-nowrap">${fmt(t.entry)}</td>
-                      <td className="px-5 py-4 text-right text-sm font-mono text-[#a855f7] font-bold whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-right font-mono text-slate-300 whitespace-nowrap">${fmt(t.entry)}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-[#a855f7] font-bold whitespace-nowrap">
                         {t.ema50_1d != null ? `$${fmt(t.ema50_1d)}` : "—"}
                       </td>
-                      <td className="px-5 py-4 text-right whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-right whitespace-nowrap">
                         {t.max_price != null ? (
                           <span>
-                            <span className="text-sm font-mono text-slate-200">${fmt(t.max_price)}</span>
-                            {t.peak_date && <span className="block text-[10px] text-slate-500 mt-0.5">{t.peak_date}</span>}
+                            <span className="font-mono text-slate-200">${fmt(t.max_price)}</span>
+                            {t.peak_date && <span className="block text-[9px] text-slate-600">{t.peak_date}</span>}
                           </span>
                         ) : "—"}
                       </td>
-                      <td className="px-5 py-4 text-right text-sm font-mono text-[#00d2ff] font-bold whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-right font-mono text-[#00d2ff] font-bold whitespace-nowrap">
                         {effRet != null ? `$${fmt(t.entry * (1 + effRet / 100))}` : "—"}
                       </td>
-                      <td className="px-5 py-4 text-center text-sm text-slate-300 whitespace-nowrap">
+                      <td className="px-3 py-2.5 text-center text-slate-300 whitespace-nowrap">
                         {t.result === "PENDING"
-                          ? <span className="text-[#3b82f6] font-bold text-xs px-2 py-0.5 bg-[#3b82f6]/10 rounded-full">PENDING</span>
+                          ? <span className="text-[#3b82f6] font-bold text-[9px] px-1.5 py-0.5 bg-[#3b82f6]/10 rounded">PND</span>
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
-                      <td className={`px-5 py-4 text-right font-black text-sm whitespace-nowrap ${retColor(pnl)}`}>
+                      <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(pnl)}`}>
                         {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                       </td>
-                      <td className="px-5 py-4 text-center">
-                        {slHit && <span className="text-sm font-black text-[#ef4444]">●</span>}
+                      <td className="px-1 py-2.5 text-center">
+                        {slHit && <span className="font-black text-[#ef4444] text-xs">●</span>}
                       </td>
-                      <td className="px-5 py-4 text-sm text-slate-200 uppercase font-medium whitespace-nowrap">{t.sector || "—"}</td>
-                      <td className="px-5 py-4 text-sm text-[#00d2ff]">
-                        <span className="block" title={t.subsector}>{t.subsector || "—"}</span>
+                      <td className="px-3 py-2.5 text-[10px] text-slate-300 uppercase font-medium">
+                        <span className="truncate block" title={t.sector}>{t.sector || "—"}</span>
                       </td>
-                      <td className="px-5 py-4 text-center">
-                        <span className={`text-xs font-black px-2.5 py-1 rounded-full ${resultCls}`}>{effRes}</span>
+                      <td className="px-3 py-2.5 text-[10px] text-[#00d2ff]">
+                        <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
+                      </td>
+                      <td className="px-3 py-2.5 text-center">
+                        <span className={`text-[10px] font-black px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
                       </td>
                     </tr>
                   );
