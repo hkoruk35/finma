@@ -1,0 +1,75 @@
+{
+  "date": "2026-06-05",
+  "generated_at": "2026-06-05T13:03:28.912911-04:00",
+  "total_tickers_scanned": 500,
+  "active_scores_count": 6,
+  "market_regime": "CHOPPY",
+  "menus": {
+    "top_scores": {
+      "count": 6,
+      "tickers": [
+        "ICUI",
+        "TCBI",
+        "AME",
+        "HLT",
+        "CSX",
+        "MTRN"
+      ]
+    },
+    "breakout": {
+      "count": 0,
+      "tickers": []
+    },
+    "value": {
+      "count": 0,
+      "tickers": []
+    },
+    "reversal": {
+      "count": 0,
+      "tickers": []
+    },
+    "momentum": {
+      "count": 0,
+      "tickers": []
+    },
+    "dividend": {
+      "count": 0,
+      "tickers": []
+    }
+  },
+  "top_3_overall": [
+    {
+      "ticker": "ICUI",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "TCBI",
+      "score": 54.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "AME",
+      "score": 50.0,
+      "score_type": "POSITIVE_BIAS"
+    }
+  ],
+  "market_indices": {
+    "SP500": {
+      "value": 5200,
+      "change_pct": 0.5
+    },
+    "NASDAQ": {
+      "value": 16000,
+      "change_pct": 0.8
+    },
+    "DOW": {
+      "value": 39000,
+      "change_pct": 0.2
+    },
+    "VIX": {
+      "value": 15.0,
+      "change_pct": -2.0
+    }
+  }
+}
