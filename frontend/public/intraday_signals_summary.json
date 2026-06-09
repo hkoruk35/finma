@@ -1,6 +1,6 @@
 {
   "date": "2026-06-09",
-  "last_updated": "2026-06-09T14:00:12.740048-04:00",
+  "last_updated": "2026-06-09T15:00:12.566008-04:00",
   "tickers": {
     "OSCR": {
       "status_history": [
@@ -99,6 +99,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -109,6 +113,10 @@
       "status_history": [
         {
           "hour": "14:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -121,6 +129,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -131,6 +143,10 @@
       "status_history": [
         {
           "hour": "14:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
           "status": "ENTRY_NOW"
         }
       ],
