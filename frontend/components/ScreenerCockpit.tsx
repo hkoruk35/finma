@@ -90,6 +90,7 @@ interface Regime {
 // ─── Preset Definitions ───────────────────────────────────────────────────────
 
 const PRESETS = [
+  { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA10>EMA20 · RVOL≥1.5 · RSI≥50",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA10>EMA20","RVOL≥1.5","RSI≥50","Trend Filtresi"],    icon: "🎯" },
   { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥4.0 · RSI 50+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$300M","RVOL≥4.0","RSI 50+","Gece Taraması"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
   { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },

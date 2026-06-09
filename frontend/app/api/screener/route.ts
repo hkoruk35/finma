@@ -96,6 +96,7 @@ interface Regime {
 // ─── BOGA Score Weights per Preset (Architecture spec §6.1) ──────────────────
 
 const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options: number; liquidity: number }> = {
+  genel_swing: { trend: 35, momentum: 40, options: 10, liquidity: 15 },
   swing_cont:  { trend: 30, momentum: 25, options: 20, liquidity: 25 },
   early_break: { trend: 25, momentum: 35, options: 15, liquidity: 25 },
   day_mom:     { trend: 15, momentum: 45, options: 10, liquidity: 30 },
@@ -109,13 +110,13 @@ const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options:
 
 // Regime multipliers (Architecture spec §8.1)
 const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
-  bull_trending:  { swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25 },
-  bull_choppy:    { swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95 },
-  neutral:        { swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90 },
-  bear_choppy:    { swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50 },
-  bear_trending:  { swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35 },
-  high_volatility:{ swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35 },
-  low_volatility: { swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75 },
+  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25 },
+  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95 },
+  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90 },
+  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50 },
+  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35 },
+  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35 },
+  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75 },
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
@@ -731,6 +732,18 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
 
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
+    case "genel_swing":
+      // Genel Swing: Institutional-grade swing trading setup
+      // Esnek rejim: NASDAQ koşulu zorunlu değil, sektörel divergence hisselerini yakala
+      // STEP 1: Trend Filter (Price > EMA8 > EMA20)
+      // STEP 2: Momentum Validation (RSI >= 50)
+      // STEP 3: Volume Validation (RVOL >= 1.3, kurumsal hedef >= 1.5)
+      // NOT: Rejim multiplier zaten score'u yumuşak şekilde ayarlıyor
+      return s.price > s.ema8 &&
+             s.ema8 > s.ema20 &&
+             s.rsi >= 50 &&
+             s.rvol >= 1.3 &&
+             s.boga_score >= 35;
     case "swing_cont":
       return s.ema20 > s.ema50 && s.rsi >= 40 && s.rvol >= 0.3 && s.market_cap >= 100e6;
     case "early_break": {
