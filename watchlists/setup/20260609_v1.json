@@ -1,0 +1,42 @@
+[
+    {
+        "date": "2026-06-09 10:00",
+        "symbol": "OSCR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 27.4,
+        "entry_zone": "26.60 - 28.20",
+        "SL": 24.2,
+        "TP": 32.21
+    },
+    {
+        "date": "2026-06-09 10:00",
+        "symbol": "NIC",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 146.91,
+        "entry_zone": "144.73 - 149.09",
+        "SL": 138.18,
+        "TP": 160.01
+    },
+    {
+        "date": "2026-06-09 10:00",
+        "symbol": "EXPD",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 164.5,
+        "entry_zone": "162.86 - 166.14",
+        "SL": 157.95,
+        "TP": 174.32
+    },
+    {
+        "date": "2026-06-09 10:00",
+        "symbol": "BTDR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 19.14,
+        "entry_zone": "18.30 - 19.98",
+        "SL": 15.77,
+        "TP": 24.2
+    }
+]

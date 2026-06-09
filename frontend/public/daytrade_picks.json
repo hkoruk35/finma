@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-05T10:31:00.094339-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 27.2,
+  "generated_at": "2026-06-09T09:31:00.067137-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 28.6,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
   "picks": [
     {
-      "ticker": "CELH",
-      "price": 28.66,
-      "change_pct": 3.28,
-      "dt_score": 50.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "ticker": "RIOT",
+      "price": 26.69,
+      "change_pct": 3.89,
+      "dt_score": 15.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "👀 İZLE — Sinyal zayıf, hacim artışını bekle",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 28.91,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "celh stock dips most in 3 months on teen death probe: two analysts still see 98% upside(stocktwits)-7.53%",
-        "confidence": "high",
-        "ts": 1780668086.9439301
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1781010941.848545
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,26 +37,24 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 28.63,
-          "high": 28.8
+          "low": 26.57,
+          "high": 26.73
         },
-        "stop": 28.23,
-        "tp1": 29.68,
-        "tp2": 30.41,
-        "rr_ratio": 1.99,
-        "avg_entry": 28.71,
-        "risk_per_sh": 0.48,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 28.66
+        "stop": 26.45,
+        "tp1": 27.05,
+        "tp2": 27.35,
+        "rr_ratio": 2.0,
+        "avg_entry": 26.65,
+        "risk_per_sh": 0.2,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 26.69
       },
       "details": [
-        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.3%",
+        "↗️ Küçük Gap: +3.9%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.88%",
-        "🔥 Açılış Barı: Güçlü (2.9x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
