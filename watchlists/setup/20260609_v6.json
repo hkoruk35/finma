@@ -1,0 +1,42 @@
+[
+    {
+        "date": "2026-06-09 15:00",
+        "symbol": "TNL",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 72.14,
+        "entry_zone": "71.12 - 73.15",
+        "SL": 68.06,
+        "TP": 78.25
+    },
+    {
+        "date": "2026-06-09 15:00",
+        "symbol": "MATX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 195.73,
+        "entry_zone": "192.79 - 198.66",
+        "SL": 184.0,
+        "TP": 213.31
+    },
+    {
+        "date": "2026-06-09 15:00",
+        "symbol": "CXW",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 24.97,
+        "entry_zone": "24.53 - 25.41",
+        "SL": 23.22,
+        "TP": 27.6
+    },
+    {
+        "date": "2026-06-09 15:00",
+        "symbol": "MRX",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 60.54,
+        "entry_zone": "59.22 - 61.86",
+        "SL": 55.26,
+        "TP": 68.46
+    }
+]
