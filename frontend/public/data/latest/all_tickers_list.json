@@ -1,49 +1,49 @@
 {
-  "date": "2026-06-08",
+  "date": "2026-06-09",
   "tickers": [
     {
-      "ticker": "NIC",
-      "company": "NIC",
+      "ticker": "TNL",
+      "company": "TNL",
+      "sector": "Consumer Cyclical",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 71.05000305175781,
+      "change_pct": -0.21,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MRX",
+      "company": "MRX",
       "sector": "Financial Services",
-      "master_score": 51.5,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 144.05999755859375,
-      "change_pct": 4.94,
+      "price": 58.810001373291016,
+      "change_pct": 1.41,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
-      "ticker": "EXPD",
-      "company": "EXPD",
+      "ticker": "MATX",
+      "company": "MATX",
       "sector": "Industrials",
-      "master_score": 50.0,
+      "master_score": 51.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 163.44000244140625,
-      "change_pct": 1.87,
+      "price": 192.57000732421875,
+      "change_pct": 0.18,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
     },
     {
-      "ticker": "BTDR",
-      "company": "BTDR",
-      "sector": "Technology",
-      "master_score": 45.0,
+      "ticker": "CXW",
+      "company": "CXW",
+      "sector": "Industrials",
+      "master_score": 35.7,
       "score_type": "POSITIVE_BIAS",
-      "price": 18.489999771118164,
-      "change_pct": 5.84,
+      "price": 24.959999084472656,
+      "change_pct": 0.97,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 45.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "OSCR",
-      "company": "OSCR",
-      "sector": "Healthcare",
-      "master_score": 37.1,
-      "score_type": "POSITIVE_BIAS",
-      "price": 27.389999389648438,
-      "change_pct": 11.75,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.1 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 35.7 | System: TREND_CONT"
     }
   ]
 }
