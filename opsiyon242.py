@@ -1469,22 +1469,22 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
             PROGRESS_COUNTER += 1
             print(f"🔍 [{PROGRESS_COUNTER}/{TOTAL_TO_SCAN}] {ticker} ({sector_etf})")
 
-            # Açılış ilk 20 dakika filtresi
+            # Açılış ilk 15 dakika filtresi (piyasa saatinde)
             now_ny = datetime.now(NY_TZ)
             if now_ny.weekday() < 5:
                 market_open_time = now_ny.replace(hour=9, minute=30, second=0, microsecond=0)
-                if market_open_time <= now_ny < market_open_time + timedelta(minutes=20):
-                    logging.info(f"⏳ {ticker}: açılış 20dk filtresi")
+                if market_open_time <= now_ny < market_open_time + timedelta(minutes=15):
+                    logging.info(f"⏳ {ticker}: açılış 15dk filtresi")
                     return None
 
+            # ── STAGE 0: Bear market hard gate ──
             if MARKET_REGIME.get("regime") == "bear": return None
 
-            # Günlük veri (300 gün — EMA200 için yeterli)
+            # ── VERİ: Günlük 300 gün ──
             df_1d = await asyncio.wait_for(asyncio.to_thread(
                 lambda: yf.Ticker(ticker).history(period="300d", interval="1d", auto_adjust=True)
             ), timeout=30)
             if df_1d is None or len(df_1d) < 55: return None
-
             df_1d.columns = [
                 str(c).strip().title() for c in
                 (df_1d.columns.get_level_values(0) if isinstance(df_1d.columns, pd.MultiIndex) else df_1d.columns)
@@ -1495,67 +1495,97 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
             cp    = float(close.iloc[-1])
             if not (PRICE_MIN <= cp <= PRICE_MAX): return None
 
-            # Hacim kontrolü
             vol_mean = float(df_1d['Volume'].astype(float).tail(20).mean()) if 'Volume' in df_1d.columns else 0
             if vol_mean < AVG_VOL_MIN: return None
 
-            # ── BOGA STEP 2+3: Ticker filtresi ──
+            # ── BOGA GATE (STEP 2+3): Close > EMA10 > EMA20, RSI≥50↑, RVOL≥1.5 ──
+            # Bu zorunlu giriş koşuludur — geçmeden diğer engine'ler çalışmaz
             boga_ok, boga_info = boga_ticker_passes(df_1d, cp)
             if not boga_ok:
                 logging.debug(f"❌ {ticker}: {boga_info.get('reason', '—')}")
                 return None
 
-            # ── OPSİYON UYUM ──
+            # ── KATMAN 1: TREND ENGINE (1W + 1D) ──
+            df_1w = await fetch_1w_data(ticker)
+            trend_ok, trend = trend_engine(df_1d, df_1w)
+            if not trend_ok: return None
+
+            # ── KATMAN 2: MOMENTUM ENGINE (1D + 1H) ──
+            df_1h = await fetch_1h_data(ticker)
+            mom_ok, mom = momentum_engine(df_1d, df_1h, market_open=MARKET_OPEN_AT_SCAN)
+            if not mom_ok: return None
+
+            # ── KATMAN 3: BREAKOUT + SQUEEZE ──
+            bs = breakout_squeeze_engine(df_1d)
+
+            # ── KATMAN 4: HACİM ──
+            vol = volume_engine(df_1d)
+
+            # ── KATMAN 5: OPSİYON (ATM kontrat + flow) ──
             hv20 = calc_hv(close, 20)
             opt  = await options_engine(ticker, cp, close, hv20)
 
             if opt is None or opt.get("earnings_hard_block"):
                 if opt: logging.info(f"⛔ {ticker}: Earnings {opt.get('earnings_days')}g — HARD BLOCK")
                 return None
-
             if opt.get("best") is None:
                 return None
 
-            # ── SKOR (BOGA bazlı) ──
-            rsi      = boga_info.get("rsi", 50.0)
-            rvol     = boga_info.get("rvol", 1.5)
-            e10      = boga_info.get("e10", cp)
-            rsi_slope = boga_info.get("rsi_slope", 0.0)
+            # ── SKOR: 5-engine (100 puan) ──
+            sector_sc, sector_info = sector_score_from_etf(sector_etf or "XLK")
 
-            # Trend gücü: fiyatın EMA10'dan ne kadar uzakta
-            trend_pct = (cp - e10) / e10 * 100 if e10 > 0 else 0.0
+            trend_s = trend.get("trend_score", 0.0)   # 0-25
+            mom_s   = mom.get("mom_score",    0.0)    # 0-25
+            bs_s    = bs.get("bs_score",      0.0)    # 0-25
+            vol_s   = vol.get("vol_score",    0.0)    # 0-15
+            opt_s   = opt.get("opt_score",    0.0)    # 0-10
 
-            score = 50.0
-            # RSI katkısı (50-80 arası ideal)
-            if 55 <= rsi <= 72:   score += 15.0
-            elif 50 <= rsi < 55:  score += 8.0
-            elif 72 < rsi <= 80:  score += 8.0
-            else:                 score += 3.0
-            if rsi_slope > 5:     score += 5.0
-            elif rsi_slope > 2:   score += 3.0
-            # RVOL katkısı
-            if rvol >= 2.5:       score += 15.0
-            elif rvol >= 2.0:     score += 10.0
-            elif rvol >= 1.5:     score += 5.0
-            # Earnings cezası
-            if opt.get("earnings_warning"): score -= 10.0
+            total = trend_s + mom_s + bs_s + vol_s + opt_s
 
-            score = round(min(max(score, 0.0), 100.0), 1)
+            # Bonus'lar
+            if trend.get("weekly_ok"):             total += 3.0
+            if bs.get("at_new_high"):              total += 3.0
+            if bs.get("nr7"):                      total += 2.0
+            if vol.get("today_rvol", 0) >= 3.0:   total += 2.0
+            if opt.get("big_block"):               total += 2.0
+            if trend.get("hh_structure"):          total += 1.0
+            if boga_info.get("rvol", 0) >= 2.5:   total += 2.0  # BOGA RVOL bonus
 
-            if score >= 75:   grade = "🏆 BOGA EXECUTION SIGNAL"
-            elif score >= 60: grade = "🔥 GÜÇLÜ SETUP"
-            elif score >= 50: grade = "💡 BOGA SİNYALİ"
-            else:             grade = "📊 TARAMA"
+            # Cezalar
+            if opt.get("earnings_warning"):            total -= 8.0
+            if opt.get("put_call_ratio", 1.0) > 1.5:  total -= 2.0
 
-            if rvol >= 2.0:              grade = "🔊" + grade
-            if opt.get("sweep_count", 0) >= 2: grade = "⚡" + grade
-            if opt.get("earnings_warning"):    grade += "·EARN⚠️"
+            total = round(min(max(total, 0.0), 100.0), 1)
+
+            # Grade
+            if total >= 75:   grade = "🏆 BOGA EXECUTION SIGNAL"
+            elif total >= 60: grade = "🔥 GÜÇLÜ FIRSAT"
+            elif total >= 45: grade = "💡 İYİ SETUP"
+            else:             grade = "📊 OLASI"
+
+            setup = bs.get("setup_type", "")
+            if "NR7" in setup:                      grade = "NR7·" + grade
+            if bs.get("at_new_high"):               grade = "🎯" + grade
+            if vol.get("today_rvol", 0) >= 2.5:    grade = "🔊" + grade
+            if trend.get("weekly_ok"):              grade = "1W·" + grade
+            if opt.get("sweep_count", 0) >= 2:     grade = "⚡" + grade
+            if opt.get("earnings_warning"):         grade += "·EARN⚠️"
+
+            # ATR pct (backtest için)
+            atr_pct = 2.0
+            try:
+                atr_s  = AverageTrueRange(df_1d['High'].astype(float), df_1d['Low'].astype(float), close, 14).average_true_range()
+                atr_pct = float(atr_s.iloc[-1]) / cp * 100 if cp > 0 else 2.0
+            except: pass
+            trend["atr_pct"] = round(atr_pct, 2)
 
             result = {
                 "ticker": ticker, "current_price": round(cp, 2),
-                "score": score, "grade": grade,
-                "sector_etf": sector_etf,
-                "boga": boga_info, "opt": opt,
+                "score": total, "grade": grade,
+                "sector_etf": sector_etf, "sector_info": sector_info,
+                "sector_score": round(sector_sc, 1),
+                "boga": boga_info,
+                "trend": trend, "mom": mom, "bs": bs, "vol": vol, "opt": opt,
                 "hv20": round(hv20 * 100, 1),
             }
             log_backtest(result)
@@ -1571,14 +1601,18 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
 # ════════════════════════════════════════════════════════════════════════════
 
 def build_block(c: dict) -> str:
-    ticker = c['ticker']
-    cp     = c['current_price']
-    grade  = c['grade']
-    boga   = c.get('boga', {})
-    opt    = c.get('opt', {})
-    best   = opt.get("best") or {}
-    etf    = c.get("sector_etf", "—")
-    regime_reason = BOGA_REGIME_CACHE.get("reason", "—")
+    ticker  = c['ticker']
+    cp      = c['current_price']
+    grade   = c['grade']
+    boga    = c.get('boga', {})
+    trend   = c.get('trend', {})
+    mom     = c.get('mom', {})
+    bs      = c.get('bs', {})
+    vol     = c.get('vol', {})
+    opt     = c.get('opt', {})
+    best    = opt.get("best") or {}
+    etf     = c.get("sector_etf", "—")
+    si      = c.get("sector_info", {})
 
     e10  = boga.get("e10", 0)
     e20  = boga.get("e20", 0)
@@ -1587,46 +1621,96 @@ def build_block(c: dict) -> str:
     rs   = "IXIC Bullish (10/20 EMA Aligned)" if BOGA_REGIME_CACHE.get("ok") else "NÖTR"
 
     lines = [
-        f"\n{'═' * 55}",
+        f"\n{'═' * 56}",
         f"### {ticker} — {grade}",
-        f"{'─' * 55}",
+        f"{'─' * 56}",
         f"<b>[MARKET REGIME]:</b> {rs}",
-        f"<b>[STRATEGY]:</b> Breakout / Pullback Confirmation",
+        f"<b>[STRATEGY]:</b> {bs.get('setup_type','Breakout/Pullback')}",
         f"",
         f"<b>TECHNICAL MATRIX:</b>",
-        f"• Price vs EMAs: Close({cp:.2f}) > EMA10({e10:.2f}) > EMA20({e20:.2f}) [PASSED]",
-        f"• RSI (14): {rsi:.1f} (slope:{boga.get('rsi_slope',0):+.1f}) [PASSED]",
-        f"• RVOL: {rvol:.2f}x (≥1.5 gerekli) [PASSED]",
-        f"• Sector: {etf}  |  Score: {c['score']:.0f}/100",
+        f"• Price vs EMAs: ${cp:.2f} > EMA10({e10:.2f}) > EMA20({e20:.2f}) ✅",
+        f"• RSI(14): {rsi:.1f} slope:{boga.get('rsi_slope',0):+.1f} ✅",
+        f"• RVOL: {rvol:.2f}x ✅  |  Score: <b>{c['score']:.0f}/100</b>  [{etf} RS5:{si.get('rs5',0):+.1f}%]",
+    ]
+
+    # Trend detayı (eski versiyonun gücü)
+    if trend:
+        lines += [
+            f"",
+            f"📈 TREND  {trend.get('trend_label','—')}  ({trend.get('trend_score',0):.0f}/25)",
+            f"   EMA20D:{trend.get('e20d',0):.1f}  EMA50D:{trend.get('e50d',0):.1f}"
+            + (f"  EMA200:{trend.get('e200d',0):.1f}" if trend.get('e200d') else ""),
+            f"   {trend.get('weekly_label','—')}  RS60:{trend.get('rs_60',0):+.1f}pp"
+            f"  5G:{trend.get('ret_5d',0):+.1f}%  HH:{'✅' if trend.get('hh_structure') else '—'}",
+        ]
+
+    # Momentum detayı
+    if mom:
+        lines += [
+            f"",
+            f"💪 MOMENTUM  {mom.get('momentum_label','—')}  ({mom.get('mom_score',0):.0f}/25)",
+            f"   RSI_1D:{mom.get('rsi_1d',0):.0f}↑{mom.get('rsi_slope',0):+.0f}"
+            f"  RSI_1H:{mom.get('rsi_1h','—')}  ADX:{mom.get('adx_1h',0):.0f}",
+            f"   1H EMA20:{'✅' if mom.get('h1_ema_ok') else '⚠️'}"
+            f"  3Mum:{'✅' if mom.get('h1_bias_ok') else '⚠️'}",
+        ]
+
+    # Breakout
+    if bs:
+        lines += [
+            f"",
+            f"💥 BREAKOUT  {bs.get('bs_label','—')}  ({bs.get('bs_score',0):.0f}/25)",
+            f"   20H:{bs.get('dist_20h',-10):.1f}%  BB%:{bs.get('bb_pct',50):.0f}"
+            f"  NR7:{'✅' if bs.get('nr7') else '—'}"
+            f"  ATR↓:{'✅' if bs.get('atr_falling') else '—'}"
+            f"  VWAP:{'✅' if bs.get('vwap_ok') else '—'}",
+        ]
+
+    # Hacim
+    if vol:
+        lines += [
+            f"",
+            f"📊 HACİM  {vol.get('vol_label','—')}  ({vol.get('vol_score',0):.0f}/15)",
+            f"   RVOL:{vol.get('rvol',1):.2f}x  Bugün:{vol.get('today_rvol',1):.2f}x"
+            f"  Akm:{vol.get('acc_days',0)}g"
+            f"  {'📈F+V' if vol.get('price_up_vol_up') else ''}",
+        ]
+
+    # Opsiyon flow
+    lines += [
+        f"",
+        f"🎯 OPSİYON  {opt.get('flow_label','—')}  ({opt.get('opt_score',0):.0f}/10)",
+        f"   IV:{opt.get('atm_iv',0):.0f}%  IVRank:{opt.get('iv_rank',0):.0f}"
+        f"  P/C:{opt.get('put_call_ratio',1):.2f}  Sweep:{opt.get('sweep_count',0)}",
     ]
 
     if opt.get("earnings_warning"):
-        lines.append(f"• ⚠️ EARNINGS {opt.get('earnings_days', '?')} GÜN SONRA!")
+        lines.append(f"   ⚠️ EARNINGS {opt.get('earnings_days','?')} GÜN SONRA!")
 
+    # Execution levels (en iyi kontrat)
     if best:
-        sl_val = best.get("sl_price", 0)
+        e20_sl = boga.get("e20", best.get("sl_price", 0))
         lines += [
             f"",
             f"<b>EXECUTION LEVELS:</b>",
-            f"• Entry Zone: ${cp:.2f}",
-            f"• Stop-Loss (SL): ${sl_val:.2f} (EMA20 invalidated: ${e20:.2f})",
-            f"• Profit Targets (TP): RSI≥75 hook → %50 sat | EMA10 kırılırsa çık",
+            f"• Entry Zone: ${cp:.2f}  |  SL: ${e20_sl:.2f} (EMA20)",
+            f"• TP: RSI≥75 bearish hook → %50 çık  |  EMA10 kırılırsa tümünü çık",
         ]
 
-    # ATM kontrat tablosu
+    # ATM kontrat tablosu (yeni versiyonun gücü)
     atm_contracts = opt.get("atm_contracts", [])
     if atm_contracts:
         lines.append(f"")
-        lines.append(f"<b>ATM OPSİYON KONTRATLAR ({len(atm_contracts)} adet):</b>")
+        lines.append(f"<b>📋 ATM OPSİYONLAR — {len(atm_contracts)} kontrat:</b>")
         for con in atm_contracts[:ATM_STRIKES]:
-            lbl = con.get("atm_label", "")
+            lbl = con.get("atm_label", "OTM")
             lines.append(
-                f"  [{lbl}] ${con['strike']:.0f} | {con['expiration']} ({con['dte']}g)"
-                f"  Δ={con['delta']:.2f}  ${con['cost_per_contract']:.0f}/kont"
-                f"  OI:{con['oi']:,}  Sp:%{con['spread_pct']:.1f}"
+                f"  [{lbl:3s}] ${con['strike']:.0f} | {con['expiration']} ({con['dte']}g)"
+                f"  Δ={con['delta']:.2f}  <b>${con['cost_per_contract']:.0f}</b>/kont"
+                f"  OI:{con['oi']:,}  Sp:{con['spread_pct']:.1f}%"
             )
             lines.append(
-                f"       IV:{con['iv_pct']:.0f}%  TP:${con['tp_price']:.2f}"
+                f"        IV:{con['iv_pct']:.0f}%  TP:${con['tp_price']:.2f}"
                 f"  SL:${con['sl_price']:.2f}  BE:${con['breakeven']:.2f}"
             )
 
@@ -1659,26 +1743,30 @@ def build_report(candidates, vix, duration, n_scanned, s0: dict,
     total_contracts = sum(len(c.get("opt", {}).get("atm_contracts", [])) for c in candidates)
 
     summary = (
-        f"🚀 <b>BOGA AI v242.1 — LONG_ONLY</b>\n"
+        f"🚀 <b>BOGA AI v243 — PROFESSIONAL OPTIONS HUNTER</b>\n"
         f"🕒 {now_s}  |  VIX:{vix:.1f}  |  Rejim:<b>{regime}</b>  QQQ:{qqq5:+.1f}%\n"
         f"🔍 {n_scanned} hisse → <b>{n} ADAY</b>  <b>{total_contracts} kontrat</b>  ({duration:.0f}sn)\n"
-        f"📅 DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES}  "
-        f"Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g=BLOCK\n"
+        f"📅 DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES}  Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g=BLOCK\n"
         f"{bt_line}\n"
     )
 
     for i, c in enumerate(candidates[:25], 1):
-        boga  = c.get('boga', {}); opt = c['opt']
+        boga  = c.get('boga', {})
+        trend = c.get('trend', {})
+        vol   = c.get('vol', {})
+        bs    = c.get('bs', {})
+        opt   = c['opt']
         best  = opt.get("best") or {}
         cost  = f"${best['cost_per_contract']:.0f}" if best else "—"
         dte_s = f"{best['dte']}g" if best else "—"
         n_con = len(opt.get("atm_contracts", []))
         summary += (
             f"{i}. <b>{c['ticker']}</b> ${c['current_price']:.2f}  {c['score']:.0f}pt"
-            f"  [{c.get('sector_etf', '—')}]  {n_con}kon\n"
-            f"   RSI:{boga.get('rsi', 0):.0f}↑{boga.get('rsi_slope',0):+.0f}"
-            f"  RVOL:{boga.get('rvol', 0):.2f}x"
-            f"  EMA10:{boga.get('e10', 0):.1f}  {cost}/{dte_s}\n"
+            f"  [{c.get('sector_etf','—')}]  {n_con}kon\n"
+            f"   RSI:{boga.get('rsi',0):.0f}↑{boga.get('rsi_slope',0):+.0f}"
+            f"  RVOL:{boga.get('rvol',0):.2f}x"
+            f"  RS60:{trend.get('rs_60',0):+.1f}pp"
+            f"  {bs.get('setup_type','—')}  {cost}/{dte_s}\n"
             f"   {c['grade'][:55]}\n\n"
         )
 
@@ -1733,11 +1821,7 @@ def _load_boga_universe() -> List[str]:
 async def scan():
     start = time.time()
 
-    session_lbl = (
-        "🌅 11:00 GÜNDÜZ TARAMASI"
-        if SCAN_SESSION == "morning"
-        else "🌆 15:30 KAPANIŞ ÖNCESİ"
-    )
+    session_lbl = SESSION_LABELS.get(SCAN_SESSION, f"⏰ {SCAN_SESSION.upper()}")
 
     global MARKET_OPEN_AT_SCAN, ACTIVE_SECTORS
     MARKET_OPEN_AT_SCAN = (get_scan_mode() == "market_open")
@@ -1843,14 +1927,15 @@ async def scan():
     best   = candidates[0]
     best_c = best['opt'].get("best") or {}
     await send_tg(
-        f"✅ <b>v242.1 Tamamlandı!</b>  {duration:.0f}sn\n"
+        f"✅ <b>v243 Tamamlandı!</b>  {duration:.0f}sn\n"
         f"📊 {len(universe)} hisse → <b>{len(candidates)} aday</b>"
         f"  |  <b>{total_contracts} kontrat</b>\n"
         f"🏆 <b>{best['ticker']}</b> ({best['score']:.1f}/100)  {best['grade'][:40]}\n"
-        f"   RSI:{best['boga'].get('rsi', 0):.0f}  RVOL:{best['boga'].get('rvol', 0):.2f}x\n"
-        f"{'$' + str(best_c.get('cost_per_contract', '—')) + '/' + str(best_c.get('dte', '—')) + 'g' if best_c else '—'}\n\n"
-        + (f"📊 Backtest: Win:{bt_summary.get('win_rate', '—')}%  "
-           f"AvgPeak:{bt_summary.get('avg_peak', '—')}%"
+        f"   RSI:{best['boga'].get('rsi',0):.0f}  RVOL:{best['boga'].get('rvol',0):.2f}x"
+        f"  {best.get('bs',{}).get('setup_type','—')}\n"
+        f"{'$' + str(best_c.get('cost_per_contract','—')) + '/' + str(best_c.get('dte','—')) + 'g' if best_c else '—'}\n\n"
+        + (f"📊 Backtest: Win:{bt_summary.get('win_rate','—')}%  "
+           f"AvgPeak:{bt_summary.get('avg_peak','—')}%"
            if "win_rate" in bt_summary else "📊 Backtest: veri toplanıyor...")
     )
 
@@ -1859,10 +1944,27 @@ async def scan():
 # 14) ZAMANLAYICI
 # ════════════════════════════════════════════════════════════════════════════
 
+# ── 7/24 Tarama Programı ──────────────────────────────────────────────────
+# Hafta içi: 6 tarama/gün  |  Hafta sonu: 1 tarama (Cumartesi)
 DAILY_RUN_TIMES = [
-    (11,  0),   # 11:00 NY — gündüz taraması
-    (15, 30),   # 15:30 NY — kapanış öncesi
+    ( 7,  0, "pre_market"),    # 07:00 NY — pre-market hazırlık
+    (10,  0, "morning"),        # 10:00 NY — piyasa açılışı +30dk
+    (12, 30, "midday"),         # 12:30 NY — öğle taraması
+    (14,  0, "afternoon"),      # 14:00 NY — öğleden sonra ivme
+    (15, 30, "eod"),            # 15:30 NY — kapanış öncesi
+    (17,  0, "after_hours"),    # 17:00 NY — sonraki gün setup hazırlığı
 ]
+WEEKEND_RUN = (15, 0, "weekend")  # Cumartesi 15:00 NY — haftalık opsiyon fırsatları
+
+SESSION_LABELS = {
+    "pre_market":  "🌄 PRE-MARKET (07:00) — Açılış hazırlığı",
+    "morning":     "🌅 SABAH (10:00) — Piyasa açılışı",
+    "midday":      "☀️ ÖĞLE (12:30) — Orta gün taraması",
+    "afternoon":   "🌤 ÖĞLEDEN SONRA (14:00) — İvme taraması",
+    "eod":         "🌆 KAPANIŞ ÖNCESİ (15:30) — EOD setup'ları",
+    "after_hours": "🌙 AFTER-HOURS (17:00) — Yarın için hazırlık",
+    "weekend":     "📅 HAFTA SONU (Cmt 15:00) — Haftalık opsiyon fırsatları",
+}
 
 SCAN_SESSION: str = "morning"
 
@@ -1870,31 +1972,55 @@ SCAN_SESSION: str = "morning"
 def get_next_run_utc() -> Tuple[datetime, str]:
     from datetime import timezone as tz
     now_ny = datetime.now(tz.utc).astimezone(NY_TZ)
-    labels = ["morning", "eod"]
-    for (h, m), lbl in zip(DAILY_RUN_TIMES, labels):
-        candidate = now_ny.replace(hour=h, minute=m, second=0, microsecond=0)
+    wd = now_ny.weekday()  # 0=Mon … 6=Sun
+
+    # Hafta içi (Pazartesi-Cuma)
+    if wd < 5:
+        for h, m, lbl in DAILY_RUN_TIMES:
+            candidate = now_ny.replace(hour=h, minute=m, second=0, microsecond=0)
+            if candidate > now_ny:
+                return candidate.astimezone(tz.utc), lbl
+        # Bugünkü tüm saatler geçti → yarın ilk saate git (veya Cuma sonunda Cumartesi'ye)
+        next_day = now_ny + timedelta(days=1)
+        if next_day.weekday() == 5:  # Cuma → Cumartesi
+            wh, wm, wl = WEEKEND_RUN
+            target = next_day.replace(hour=wh, minute=wm, second=0, microsecond=0)
+            return target.astimezone(tz.utc), wl
+        h, m, lbl = DAILY_RUN_TIMES[0]
+        target = next_day.replace(hour=h, minute=m, second=0, microsecond=0)
+        return target.astimezone(tz.utc), lbl
+
+    # Cumartesi → weekend scan veya Pazar → Pazartesi ilk scan
+    if wd == 5:  # Cumartesi
+        wh, wm, wl = WEEKEND_RUN
+        candidate = now_ny.replace(hour=wh, minute=wm, second=0, microsecond=0)
         if candidate > now_ny:
-            return candidate.astimezone(tz.utc), lbl
+            return candidate.astimezone(tz.utc), wl
+    # Cumartesi sonrası veya Pazar → Pazartesi ilk scan
     next_day = now_ny + timedelta(days=1)
-    while next_day.weekday() >= 5:
+    while next_day.weekday() != 0:  # Pazartesi'ye kadar ilerle
         next_day += timedelta(days=1)
-    h, m  = DAILY_RUN_TIMES[0]
+    h, m, lbl = DAILY_RUN_TIMES[0]
     target = next_day.replace(hour=h, minute=m, second=0, microsecond=0)
-    return target.astimezone(tz.utc), "morning"
+    return target.astimezone(tz.utc), lbl
 
 
 async def run_scanner():
     from datetime import timezone as tz
+    schedule_str = "\n".join(
+        f"  {h:02d}:{m:02d} NY — {SESSION_LABELS.get(lbl, lbl)}"
+        for h, m, lbl in DAILY_RUN_TIMES
+    )
     await send_tg(
-        "🚀 <b>BOGA AI v242.1 BAŞLATILDI!</b>\n"
-        "📅 Günde 2 tarama — NY saatiyle:\n"
-        "  🌅 11:00  — Gündüz taraması\n"
-        "  🌆 15:30  — Kapanış öncesi\n\n"
-        "✅ Sektör-önce pipeline (ETF RS bazlı)\n"
-        "✅ Gerçek 1W trend verisi\n"
-        f"✅ DTE:{DTE_MIN}-{DTE_MAX}g  Δ:{DELTA_MIN}-{DELTA_MAX}\n"
+        "🚀 <b>BOGA AI v243 — PROFESSIONAL OPTIONS HUNTER</b>\n"
+        "⏰ 7/24 Otomatik Tarama:\n"
+        f"{schedule_str}\n"
+        f"  Cmt 15:00 NY — {SESSION_LABELS['weekend']}\n\n"
+        "✅ BOGA Gate: EMA10/20 + RSI≥50↑ + RVOL≥1.5\n"
+        "✅ 5-Engine: Trend+Momentum+Breakout+Volume+Options\n"
+        "✅ ATM ±5 strike  |  DTE 1-30g\n"
         f"✅ Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g = HARD BLOCK\n"
-        "✅ Backtesting gerçek sonuç takibi"
+        "✅ ~900 hisse evreni  |  Backtesting"
     )
     while True:
         try:
