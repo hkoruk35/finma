@@ -106,13 +106,12 @@ RS_60D_MIN = -15.0
 RS_20D_MIN = -15.0
 
 # ── Opsiyon parametreleri ─────────────────────────────────────────────────
-DTE_MIN      = 15
-DTE_MAX      = 45
-DELTA_MIN    = 0.45
-DELTA_MAX    = 0.65
-SPREAD_MAX   = 0.25
-MID_MIN      = 0.05
-OI_MIN       = 50
+DTE_MIN      = 1
+DTE_MAX      = 30
+SPREAD_MAX   = 0.40   # ATM seçimde gevşetildi
+MID_MIN      = 0.01
+OI_MIN       = 10     # ATM seçimde gevşetildi
+ATM_STRIKES  = 5      # Fiyata en yakın kaç strike listelensin
 
 EARNINGS_HARD_BLOCK_DAYS = 14
 EARNINGS_WARN_DAYS       = 21
@@ -213,6 +212,7 @@ SECTOR_ETF_CACHE:    Dict[str, Any] = {}
 MARKET_REGIME:       Dict[str, Any] = {"regime": "bull", "score": 50, "qqq_5d": 0.0}
 MARKET_OPEN_AT_SCAN: bool           = False
 ACTIVE_SECTORS:      List[str]      = []
+BOGA_REGIME_CACHE:   Dict[str, Any] = {"ok": True, "reason": "", "ts": 0.0}
 
 # ════════════════════════════════════════════════════════════════════════════
 # 1) TELEGRAM
@@ -397,6 +397,91 @@ async def select_top_sectors(top_n: int = 2) -> List[str]:
 
     logging.info(f"✅ Seçilen sektörler: {selected} (top {effective_n})")
     return selected
+
+
+async def check_boga_market_regime(index: str = "^IXIC") -> Tuple[bool, str]:
+    """
+    BOGA STEP 1: Index EMA10 > EMA20 AND both slopes positive → LONG_ONLY
+    NASDAQ: ^IXIC  |  DJ: ^DJI  |  SP500: ^GSPC
+    """
+    global BOGA_REGIME_CACHE
+    now = time.time()
+    if now - BOGA_REGIME_CACHE.get("ts", 0) < 1800:
+        return BOGA_REGIME_CACHE["ok"], BOGA_REGIME_CACHE["reason"]
+    try:
+        df = await asyncio.to_thread(lambda: yf.Ticker(index).history(period="60d", interval="1d"))
+        if df is None or len(df) < 25:
+            BOGA_REGIME_CACHE.update({"ok": True, "reason": "Veri yetersiz — devam", "ts": now})
+            return True, "Veri yetersiz — devam"
+        c = df['Close'].astype(float)
+        e10s = EMAIndicator(c, 10).ema_indicator()
+        e20s = EMAIndicator(c, 20).ema_indicator()
+        ema10 = float(e10s.iloc[-1])
+        ema20 = float(e20s.iloc[-1])
+        slope10 = float(e10s.iloc[-1]) - float(e10s.iloc[-6]) if len(e10s) >= 6 else 0.0
+        slope20 = float(e20s.iloc[-1]) - float(e20s.iloc[-6]) if len(e20s) >= 6 else 0.0
+        if ema10 > ema20 and slope10 > 0 and slope20 > 0:
+            reason = f"LONG_ONLY: {index} EMA10({ema10:.1f}) > EMA20({ema20:.1f}) ↑"
+            BOGA_REGIME_CACHE.update({"ok": True, "reason": reason, "ts": now})
+            return True, reason
+        else:
+            reason = (f"CASH_PROTECTION: {index} EMA10({ema10:.1f}) "
+                      f"{'>' if ema10>ema20 else '<'} EMA20({ema20:.1f}) "
+                      f"slope10={slope10:.2f} slope20={slope20:.2f}")
+            BOGA_REGIME_CACHE.update({"ok": False, "reason": reason, "ts": now})
+            return False, reason
+    except Exception as e:
+        BOGA_REGIME_CACHE.update({"ok": True, "reason": str(e), "ts": now})
+        return True, str(e)
+
+
+def boga_ticker_passes(df_1d: pd.DataFrame, cp: float) -> Tuple[bool, dict]:
+    """
+    BOGA STEP 2+3:
+    - Close > EMA10 > EMA20 (daily)
+    - RSI(14) >= 50 AND slope > 0
+    - RVOL >= 1.5 (5g ort / 20g ort)
+    - Daily Volume > 20g ortalaması
+    """
+    try:
+        c = df_1d['Close'].astype(float)
+        if len(c) < 22:
+            return False, {"reason": "Yetersiz veri"}
+
+        e10 = float(EMAIndicator(c, 10).ema_indicator().iloc[-1])
+        e20 = float(EMAIndicator(c, 20).ema_indicator().iloc[-1])
+
+        if not (cp > e10 > e20):
+            return False, {"reason": f"Trend bozuk: cp={cp:.2f} e10={e10:.2f} e20={e20:.2f}"}
+
+        rsi_s = RSIIndicator(c, 14).rsi()
+        rsi = float(rsi_s.iloc[-1])
+        rsi_p5 = float(rsi_s.iloc[-6]) if len(rsi_s) >= 6 else rsi
+        rsi_slope = rsi - rsi_p5
+
+        if rsi < 50:
+            return False, {"reason": f"RSI < 50: {rsi:.1f}"}
+        if rsi_slope <= 0:
+            return False, {"reason": f"RSI slope <= 0: {rsi_slope:.1f}"}
+
+        vol = df_1d['Volume'].astype(float) if 'Volume' in df_1d.columns else pd.Series([1e6]*len(c))
+        v5  = float(vol.tail(5).mean())
+        v20 = float(vol.tail(20).mean()) if len(vol) >= 20 else v5
+        rvol = v5 / v20 if v20 > 0 else 1.0
+        today_vol = float(vol.iloc[-1])
+
+        if rvol < 1.5:
+            return False, {"reason": f"RVOL < 1.5: {rvol:.2f}"}
+        if today_vol < v20:
+            return False, {"reason": f"Günlük vol < 20g ort"}
+
+        return True, {
+            "e10": round(e10, 2), "e20": round(e20, 2),
+            "rsi": round(rsi, 1), "rsi_slope": round(rsi_slope, 1),
+            "rvol": round(rvol, 2), "today_vol": int(today_vol),
+        }
+    except Exception as e:
+        return False, {"reason": str(e)}
 
 
 def build_sector_universe(active_sectors: List[str]) -> List[str]:
@@ -1036,6 +1121,7 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
         call_vol = 0; put_vol = 0; sweeps = 0; notional = 0.0; ask_vol = 0; all_vol = 0
         best_result = None; best_score = -999.0
         atm_iv_collected = []
+        all_atm_contracts: List[dict] = []
 
         for exp_d, dte in near_exps:
             try:
@@ -1077,84 +1163,70 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
                     puts['volume'] = pd.to_numeric(puts.get('volume', 0), errors='coerce').fillna(0)
                     put_vol += int(puts['volume'].sum())
 
-                # ── KONTRAT SEÇİMİ ──
+                # ── KONTRAT SEÇİMİ — Fiyata en yakın strike'lar ──
                 atm_iv = atm_iv_collected[-1] if atm_iv_collected else hv
                 T = dte / 365.0
                 r = 0.05
+                iv_rank, iv_pct = calc_iv_rank(atm_iv, close)
 
+                # Strike'ları fiyata yakınlık sırasına diz, en yakın ATM_STRIKES adet al
+                atm_candidates = []
                 for _, row in calls.iterrows():
                     try:
                         strike = float(row['strike'])
-                        iv_row = max(float(row.get('impliedVolatility', atm_iv) or atm_iv), 0.05)
                         bid    = float(row.get('bid', 0) or 0)
                         ask    = float(row.get('ask', 0) or 0)
-
-                        # Dinamik ask üst limiti (hisse fiyatına orantılı)
-                        ask_upper = min(cp * 0.05, 15.0)
-                        if ask <= 0.03 or ask > ask_upper: continue
-
+                        if ask <= 0: continue
                         mid    = (bid + ask) / 2.0
+                        if mid < MID_MIN: continue
                         spread = (ask - bid) / ask if ask > 0 else 1.0
                         if spread > SPREAD_MAX: continue
                         oi     = int(row.get('openInterest', 0) or 0)
-                        volume = int(row.get('volume', 0) or 0)
-                        if oi < OI_MIN or mid < MID_MIN: continue
+                        if oi < OI_MIN: continue
+                        dist   = abs(strike - cp)
+                        atm_candidates.append((dist, strike, bid, ask, mid, spread, oi,
+                                               int(row.get('volume', 0) or 0),
+                                               float(row.get('impliedVolatility', atm_iv) or atm_iv)))
+                    except: continue
 
+                atm_candidates.sort(key=lambda x: x[0])
+
+                for dist, strike, bid, ask, mid, spread, oi, volume, iv_row in atm_candidates[:ATM_STRIKES]:
+                    try:
+                        iv_row = max(iv_row, 0.05)
                         g     = bs_greeks(cp, strike, T, r, iv_row)
                         delta = g['delta']
                         gamma = g['gamma']
                         theta = g['theta']
+                        vol_oi = volume / oi if oi > 0 else 0.0
+                        time_stop = min(max(round(dte * 0.40), 2), 7)
+                        tp_target  = round(mid * (1.0 + TAKE_PROFIT_PCT), 2)
+                        sl_breaker = round(mid * (1.0 - STOP_LOSS_PCT),  2)
+                        gt_ratio   = round(gamma / (ask * abs(theta)), 3) if ask > 0 and abs(theta) > 0 else 0.0
 
-                        if not (DELTA_MIN <= delta <= DELTA_MAX): continue
+                        contract = {
+                            "strike": strike, "expiration": exp_d, "dte": dte,
+                            "bid": round(bid, 2), "ask": round(ask, 2), "mid": round(mid, 2),
+                            "spread_pct": round(spread * 100, 1),
+                            "oi": oi, "volume": volume, "vol_oi": round(vol_oi, 3),
+                            "iv_pct": round(iv_row * 100, 1),
+                            "delta": round(delta, 3), "gamma": round(gamma, 5),
+                            "theta": round(theta, 4), "gt_ratio": gt_ratio,
+                            "cost_per_contract": round(ask * 100, 0),
+                            "tp_price": tp_target, "sl_price": sl_breaker,
+                            "time_stop_days": time_stop,
+                            "breakeven": round(strike + ask, 2),
+                            "iv_rank": iv_rank, "iv_pct_rank": iv_pct,
+                            "atm_iv": round(atm_iv * 100, 1),
+                            "dist_pct": round(dist / cp * 100, 2),
+                            "atm_label": ("ATM" if dist/cp < 0.01 else
+                                          "ITM" if strike < cp else "OTM"),
+                        }
 
-                        # Skor: likidite + gamma/theta kalitesi + hacim
-                        vol_oi   = volume / oi if oi > 0 else 0.0
-                        not_c    = volume * mid * 100
+                        if best_result is None or dist < abs(best_result["strike"] - cp):
+                            best_result = contract
 
-                        liq = (5.0 if spread <= 0.03 else (3.0 if spread <= 0.06 else 1.0))
-                        liq += (3.0 if oi >= 1000 else (1.5 if oi >= 300 else 0.0))
-                        liq += (2.0 if volume >= 200 else 1.0)
-                        liq  = min(liq, 8.0)
-
-                        # Gamma/Theta bonus (artık hard eleme değil)
-                        gt_bonus = 0.0
-                        theta_d  = abs(theta)
-                        if ask > 0 and theta_d > 0:
-                            gt_r = gamma / (ask * theta_d)
-                            gt_bonus = (4.0 if gt_r >= 1.5 else 2.5 if gt_r >= 1.0
-                                        else 1.0 if gt_r >= 0.5 else 0.0)
-
-                        flow_bonus = (3.0 if vol_oi >= 1.0 else 0.0)
-                        if not_c >= NOTIONAL_BLOCK_MIN: flow_bonus += 4.0
-                        elif not_c >= NOTIONAL_SWEEP_MIN: flow_bonus += 2.0
-
-                        sc = liq + gt_bonus + flow_bonus + delta * 3.0
-
-                        if sc > best_score:
-                            best_score = sc
-                            iv_rank, iv_pct = calc_iv_rank(atm_iv, close)
-                            time_stop = min(max(round(dte * 0.40), 2), 7)
-                            tp_target  = round(mid * (1.0 + TAKE_PROFIT_PCT), 2)
-                            sl_breaker = round(mid * (1.0 - STOP_LOSS_PCT),  2)
-
-                            best_result = {
-                                "strike": strike, "expiration": exp_d, "dte": dte,
-                                "bid": round(bid, 2), "ask": round(ask, 2), "mid": round(mid, 2),
-                                "spread_pct": round(spread * 100, 1),
-                                "oi": oi, "volume": volume, "vol_oi": round(vol_oi, 3),
-                                "iv_pct": round(iv_row * 100, 1),
-                                "delta": round(delta, 3), "gamma": round(gamma, 5),
-                                "theta": round(theta, 4),
-                                "gt_ratio": round(gamma / (ask * abs(theta)), 3) if ask > 0 and abs(theta) > 0 else 0.0,
-                                "gt_bonus": round(gt_bonus, 1),
-                                "cost_per_contract": round(ask * 100, 0),
-                                "tp_price": tp_target, "sl_price": sl_breaker,
-                                "time_stop_days": time_stop,
-                                "breakeven": round(strike + ask, 2),
-                                "score": round(sc, 2),
-                                "iv_rank": iv_rank, "iv_pct_rank": iv_pct,
-                                "atm_iv": round(atm_iv * 100, 1),
-                            }
+                        all_atm_contracts.append(contract)
                     except: continue
 
             except: continue
@@ -1162,6 +1234,9 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
         result["sweep_count"]    = sweeps
         result["total_notional"] = round(notional, 0)
         result["best"]           = best_result
+        # ATM yakını tüm kontratlar (fiyata yakınlık sırasına göre)
+        all_atm_contracts.sort(key=lambda x: x.get("dist_pct", 99))
+        result["atm_contracts"]  = all_atm_contracts
 
         if best_result:
             result["atm_iv"]      = best_result["atm_iv"]
@@ -1226,11 +1301,8 @@ async def options_engine(ticker: str, cp: float, close: pd.Series, hv: float) ->
 
 def log_backtest(c: dict):
     try:
-        trend = c.get("trend", {})
-        mom   = c.get("mom",   {})
-        bs    = c.get("bs",    {})
-        vol   = c.get("vol",   {})
-        opt   = c.get("opt",   {})
+        boga  = c.get("boga", {})
+        opt   = c.get("opt",  {})
         best  = opt.get("best") or {}
         rec   = {
             "ts":         datetime.now(NY_TZ).isoformat(),
@@ -1238,24 +1310,17 @@ def log_backtest(c: dict):
             "price":      c.get("current_price"),
             "score":      c.get("score"),
             "sector_etf": c.get("sector_etf", "—"),
-            "setup_type": bs.get("setup_type"),
-            "trend_score": trend.get("trend_score"),
-            "mom_score":  mom.get("mom_score"),
-            "bs_score":   bs.get("bs_score"),
-            "vol_score":  vol.get("vol_score"),
-            "rs_60":      trend.get("rs_60"),
-            "rsi_1d":     mom.get("rsi_1d"),
-            "rvol":       vol.get("rvol"),
-            "today_rvol": vol.get("today_rvol"),
+            "setup_type": "BOGA",
+            "rsi_1d":     boga.get("rsi"),
+            "rvol":       boga.get("rvol"),
             "delta":      best.get("delta"),
             "dte":        best.get("dte"),
             "gt_ratio":   best.get("gt_ratio"),
             "cost":       best.get("cost_per_contract"),
             "iv_rank":    best.get("iv_rank"),
-            # Sonuçlar fill_backtest_results() doldurur
             "peak_pct":   None, "peak_date": None,
             "time_to_peak": None, "hit_tp": None, "hit_sl": None,
-            "atr_pct":    trend.get("atr_pct", 2.0),
+            "atr_pct":    2.0,
         }
         path = os.path.join(DATA_DIR, "backtest_log.jsonl")
         with open(path, "a", encoding="utf-8") as f:
@@ -1434,27 +1499,13 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
             vol_mean = float(df_1d['Volume'].astype(float).tail(20).mean()) if 'Volume' in df_1d.columns else 0
             if vol_mean < AVG_VOL_MIN: return None
 
-            # Haftalık veri (1W trend için)
-            df_1w = await fetch_1w_data(ticker)
+            # ── BOGA STEP 2+3: Ticker filtresi ──
+            boga_ok, boga_info = boga_ticker_passes(df_1d, cp)
+            if not boga_ok:
+                logging.debug(f"❌ {ticker}: {boga_info.get('reason', '—')}")
+                return None
 
-            # 1H veri (momentum için)
-            df_1h = await fetch_1h_data(ticker)
-
-            # ── KATMAN 1: TREND ENGINE (1W + 1D) ──
-            trend_ok, trend = trend_engine(df_1d, df_1w)
-            if not trend_ok: return None
-
-            # ── KATMAN 2: MOMENTUM ENGINE (1D + 1H) ──
-            mom_ok, mom = momentum_engine(df_1d, df_1h, market_open=MARKET_OPEN_AT_SCAN)
-            if not mom_ok: return None
-
-            # ── KATMAN 3: BREAKOUT + SQUEEZE ──
-            bs = breakout_squeeze_engine(df_1d)
-
-            # ── KATMAN 4: HACİM ──
-            vol = volume_engine(df_1d)
-
-            # ── KATMAN 5: OPSİYON UYUM ──
+            # ── OPSİYON UYUM ──
             hv20 = calc_hv(close, 20)
             opt  = await options_engine(ticker, cp, close, hv20)
 
@@ -1463,61 +1514,48 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
                 return None
 
             if opt.get("best") is None:
-                return None   # Uygun kontrat bulunamadı
+                return None
 
-            # ── SKOR (5 bileşen, 100 puan) ──
-            sector_sc, sector_info = sector_score_from_etf(sector_etf or "XLK")
+            # ── SKOR (BOGA bazlı) ──
+            rsi      = boga_info.get("rsi", 50.0)
+            rvol     = boga_info.get("rvol", 1.5)
+            e10      = boga_info.get("e10", cp)
+            rsi_slope = boga_info.get("rsi_slope", 0.0)
 
-            trend_s  = trend.get("trend_score", 0.0)    # 0-25
-            mom_s    = mom.get("mom_score",     0.0)    # 0-25
-            bs_s     = bs.get("bs_score",       0.0)    # 0-25
-            vol_s    = vol.get("vol_score",     0.0)    # 0-15
-            opt_s    = opt.get("opt_score",     0.0)    # 0-10
+            # Trend gücü: fiyatın EMA10'dan ne kadar uzakta
+            trend_pct = (cp - e10) / e10 * 100 if e10 > 0 else 0.0
 
-            total = trend_s + mom_s + bs_s + vol_s + opt_s
+            score = 50.0
+            # RSI katkısı (50-80 arası ideal)
+            if 55 <= rsi <= 72:   score += 15.0
+            elif 50 <= rsi < 55:  score += 8.0
+            elif 72 < rsi <= 80:  score += 8.0
+            else:                 score += 3.0
+            if rsi_slope > 5:     score += 5.0
+            elif rsi_slope > 2:   score += 3.0
+            # RVOL katkısı
+            if rvol >= 2.5:       score += 15.0
+            elif rvol >= 2.0:     score += 10.0
+            elif rvol >= 1.5:     score += 5.0
+            # Earnings cezası
+            if opt.get("earnings_warning"): score -= 10.0
 
-            # Bonus'lar
-            if trend.get("weekly_ok"):               total += 3.0
-            if bs.get("at_new_high"):                total += 3.0
-            if bs.get("nr7"):                        total += 2.0
-            if vol.get("today_rvol", 0) >= 3.0:     total += 2.0
-            if opt.get("big_block"):                 total += 2.0
-            if trend.get("hh_structure"):            total += 1.0
+            score = round(min(max(score, 0.0), 100.0), 1)
 
-            # Cezalar
-            if opt.get("earnings_warning"):          total -= 8.0
-            if opt.get("put_call_ratio", 1.0) > 1.5: total -= 2.0
+            if score >= 75:   grade = "🏆 BOGA EXECUTION SIGNAL"
+            elif score >= 60: grade = "🔥 GÜÇLÜ SETUP"
+            elif score >= 50: grade = "💡 BOGA SİNYALİ"
+            else:             grade = "📊 TARAMA"
 
-            total = round(min(max(total, 0.0), 100.0), 1)
-
-            if total >= 75:   grade = "🏆 PATLAMA POTANSİYELİ"
-            elif total >= 60: grade = "🔥 GÜÇLÜ FIRSAT"
-            elif total >= 45: grade = "💡 İYİ SETUP"
-            else:             grade = "📊 OLASI"
-
-            # Rozetler
-            setup = bs.get("setup_type", "")
-            if "NR7" in setup:                       grade = "NR7·" + grade
-            if bs.get("at_new_high"):                grade = "🎯" + grade
-            if vol.get("today_rvol", 0) >= 2.5:     grade = "🔊" + grade
-            if trend.get("weekly_ok"):               grade = "1W·" + grade
-            if opt.get("sweep_count", 0) >= 2:      grade = "⚡" + grade
-            if opt.get("earnings_warning"):          grade += "·EARN⚠️"
-
-            # ATR pct (backtest ve rapor için)
-            atr_pct = 2.0
-            try:
-                atr_s  = AverageTrueRange(df_1d['High'].astype(float), df_1d['Low'].astype(float), close, 14).average_true_range()
-                atr_pct = float(atr_s.iloc[-1]) / cp * 100 if cp > 0 else 2.0
-            except: pass
-            trend["atr_pct"] = round(atr_pct, 2)
+            if rvol >= 2.0:              grade = "🔊" + grade
+            if opt.get("sweep_count", 0) >= 2: grade = "⚡" + grade
+            if opt.get("earnings_warning"):    grade += "·EARN⚠️"
 
             result = {
                 "ticker": ticker, "current_price": round(cp, 2),
-                "score": total, "grade": grade,
-                "sector_etf": sector_etf, "sector_info": sector_info,
-                "sector_score": round(sector_sc, 1),
-                "trend": trend, "mom": mom, "bs": bs, "vol": vol, "opt": opt,
+                "score": score, "grade": grade,
+                "sector_etf": sector_etf,
+                "boga": boga_info, "opt": opt,
                 "hv20": round(hv20 * 100, 1),
             }
             log_backtest(result)
@@ -1533,72 +1571,64 @@ async def analyze(ticker: str, sector_etf: str = "") -> Optional[dict]:
 # ════════════════════════════════════════════════════════════════════════════
 
 def build_block(c: dict) -> str:
-    ticker = c['ticker']; cp = c['current_price']; grade = c['grade']
-    trend = c['trend']; mom = c['mom']; bs = c['bs']; vol = c['vol']; opt = c['opt']
-    best  = opt.get("best") or {}
-    etf   = c.get("sector_etf", "—")
-    si    = c.get("sector_info", {})
+    ticker = c['ticker']
+    cp     = c['current_price']
+    grade  = c['grade']
+    boga   = c.get('boga', {})
+    opt    = c.get('opt', {})
+    best   = opt.get("best") or {}
+    etf    = c.get("sector_etf", "—")
+    regime_reason = BOGA_REGIME_CACHE.get("reason", "—")
+
+    e10  = boga.get("e10", 0)
+    e20  = boga.get("e20", 0)
+    rsi  = boga.get("rsi", 0)
+    rvol = boga.get("rvol", 0)
+    rs   = "IXIC Bullish (10/20 EMA Aligned)" if BOGA_REGIME_CACHE.get("ok") else "NÖTR"
 
     lines = [
-        f"\n{'═' * 52}",
-        f"{grade}  <b>#{ticker}</b>  ${cp:.2f}",
-        f"📊 Skor: <b>{c['score']}/100</b>  [{etf} RS5:{si.get('rs5', 0):+.1f}%]",
+        f"\n{'═' * 55}",
+        f"### {ticker} — {grade}",
+        f"{'─' * 55}",
+        f"<b>[MARKET REGIME]:</b> {rs}",
+        f"<b>[STRATEGY]:</b> Breakout / Pullback Confirmation",
         f"",
-        # Trend
-        f"📈 TREND  {trend.get('trend_label', '—')}  Score:{trend.get('trend_score', 0):.0f}/25",
-        f"   1D: EMA20={trend.get('e20d', 0):.1f}  EMA50={trend.get('e50d', 0):.1f}"
-        + (f"  EMA200={trend.get('e200d', 0):.1f}" if trend.get('e200d') else ""),
-        f"   {trend.get('weekly_label', '—')}  RS60:{trend.get('rs_60', 0):+.1f}pp"
-        f"  5G:{trend.get('ret_5d', 0):+.1f}%"
-        f"  HH:{'✅' if trend.get('hh_structure') else '—'}",
-        f"",
-        # Momentum
-        f"💪 MOMENTUM  {mom.get('momentum_label', '—')}  Score:{mom.get('mom_score', 0):.0f}/25",
-        f"   RSI_1D:{mom.get('rsi_1d', 0):.0f}  slope:{mom.get('rsi_slope', 0):+.1f}"
-        f"  RSI_1H:{mom.get('rsi_1h', '—')}",
-        f"   1H EMA20:{'✅' if mom.get('h1_ema_ok') else '⚠️'}"
-        f"  3Mum Bias:{'✅' if mom.get('h1_bias_ok') else '⚠️'}"
-        f"  ADX_1H:{mom.get('adx_1h', 0):.0f}",
-        f"",
-        # Breakout/Squeeze
-        f"💥 BREAKOUT  {bs.get('bs_label', '—')}  Score:{bs.get('bs_score', 0):.0f}/25",
-        f"   Setup:{bs.get('setup_type', '—')}  20H:{bs.get('dist_20h', -10):.1f}%",
-        f"   BB%:{bs.get('bb_pct', 50):.0f}  NR7:{'✅' if bs.get('nr7') else '—'}"
-        f"  ATR↓:{'✅' if bs.get('atr_falling') else '—'}"
-        f"  VWAP:{'✅' if bs.get('vwap_ok') else '—'}",
-        f"",
-        # Hacim
-        f"📊 HACİM  {vol.get('vol_label', '—')}  Score:{vol.get('vol_score', 0):.0f}/15",
-        f"   RVOL:{vol.get('rvol', 1):.2f}x  Bugün:{vol.get('today_rvol', 1):.2f}x"
-        f"  Akm:{vol.get('acc_days', 0)}g"
-        f"  {'📈 F+V' if vol.get('price_up_vol_up') else ''}",
-        f"",
-        # Opsiyon
-        f"🎯 OPSİYON  {opt.get('flow_label', '—')}  Score:{opt.get('opt_score', 0):.0f}/10",
-        f"   IV:{opt.get('atm_iv', 0):.0f}%  IVRank:{opt.get('iv_rank', 0):.0f}"
-        f"  P/C:{opt.get('put_call_ratio', 1):.2f}  Sweep:{opt.get('sweep_count', 0)}",
+        f"<b>TECHNICAL MATRIX:</b>",
+        f"• Price vs EMAs: Close({cp:.2f}) > EMA10({e10:.2f}) > EMA20({e20:.2f}) [PASSED]",
+        f"• RSI (14): {rsi:.1f} (slope:{boga.get('rsi_slope',0):+.1f}) [PASSED]",
+        f"• RVOL: {rvol:.2f}x (≥1.5 gerekli) [PASSED]",
+        f"• Sector: {etf}  |  Score: {c['score']:.0f}/100",
     ]
 
     if opt.get("earnings_warning"):
-        lines.append(f"   ⚠️ EARNINGS {opt.get('earnings_days', '?')} GÜN SONRA!")
+        lines.append(f"• ⚠️ EARNINGS {opt.get('earnings_days', '?')} GÜN SONRA!")
 
     if best:
+        sl_val = best.get("sl_price", 0)
         lines += [
             f"",
-            f"  📋 KONTRAT: ${best['strike']:.0f} | {best['expiration']} ({best['dte']}g)",
-            f"  <b>${best['cost_per_contract']:.0f}/kontrat</b>"
-            f"  Δ={best['delta']:.2f}  Γ={best['gamma']:.4f}  Θ={best['theta']:.4f}",
-            f"  Spread:%{best['spread_pct']:.1f}  OI:{best['oi']:,}  Vol:{best['volume']:,}",
-            f"  Γ/Θ={best['gt_ratio']:.2f}  IV={best['iv_pct']:.0f}%",
-            f"  🎯 TP:${best['tp_price']:.2f}  🛡 SL:${best['sl_price']:.2f}"
-            f"  ⏰ Zaman Stop:{best['time_stop_days']}g",
-            f"  Breakeven:${best['breakeven']:.2f}",
+            f"<b>EXECUTION LEVELS:</b>",
+            f"• Entry Zone: ${cp:.2f}",
+            f"• Stop-Loss (SL): ${sl_val:.2f} (EMA20 invalidated: ${e20:.2f})",
+            f"• Profit Targets (TP): RSI≥75 hook → %50 sat | EMA10 kırılırsa çık",
         ]
 
-    # Scale-out planı
-    lines.append(
-        f"\n  ⚖️ PLAN: +%20→%25 sat | +%40→Stop BE'ye çek | +%50 TP | %25 moon bag"
-    )
+    # ATM kontrat tablosu
+    atm_contracts = opt.get("atm_contracts", [])
+    if atm_contracts:
+        lines.append(f"")
+        lines.append(f"<b>ATM OPSİYON KONTRATLAR ({len(atm_contracts)} adet):</b>")
+        for con in atm_contracts[:ATM_STRIKES]:
+            lbl = con.get("atm_label", "")
+            lines.append(
+                f"  [{lbl}] ${con['strike']:.0f} | {con['expiration']} ({con['dte']}g)"
+                f"  Δ={con['delta']:.2f}  ${con['cost_per_contract']:.0f}/kont"
+                f"  OI:{con['oi']:,}  Sp:%{con['spread_pct']:.1f}"
+            )
+            lines.append(
+                f"       IV:{con['iv_pct']:.0f}%  TP:${con['tp_price']:.2f}"
+                f"  SL:${con['sl_price']:.2f}  BE:${con['breakeven']:.2f}"
+            )
 
     return "\n".join(lines)
 
@@ -1626,28 +1656,29 @@ def build_report(candidates, vix, duration, n_scanned, s0: dict,
     elif bt_summary and "msg" in bt_summary:
         bt_line = f"📊 Backtest: {bt_summary['msg']}\n"
 
+    total_contracts = sum(len(c.get("opt", {}).get("atm_contracts", [])) for c in candidates)
+
     summary = (
-        f"🚀 <b>BOGA AI v242.1</b>\n"
+        f"🚀 <b>BOGA AI v242.1 — LONG_ONLY</b>\n"
         f"🕒 {now_s}  |  VIX:{vix:.1f}  |  Rejim:<b>{regime}</b>  QQQ:{qqq5:+.1f}%\n"
-        f"🏭 Sektörler: {', '.join(active_sectors)}  →  {sector_line}\n"
-        f"🔍 {n_scanned} hisse → <b>{n} ADAY</b>  ({duration:.0f}sn)\n"
-        f"📅 DTE:{DTE_MIN}-{DTE_MAX}g  Δ:{DELTA_MIN}-{DELTA_MAX}  "
+        f"🔍 {n_scanned} hisse → <b>{n} ADAY</b>  <b>{total_contracts} kontrat</b>  ({duration:.0f}sn)\n"
+        f"📅 DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES}  "
         f"Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g=BLOCK\n"
         f"{bt_line}\n"
     )
 
-    for i, c in enumerate(candidates[:20], 1):
-        trend = c['trend']; bs = c['bs']; vol = c['vol']; opt = c['opt']
+    for i, c in enumerate(candidates[:25], 1):
+        boga  = c.get('boga', {}); opt = c['opt']
         best  = opt.get("best") or {}
         cost  = f"${best['cost_per_contract']:.0f}" if best else "—"
         dte_s = f"{best['dte']}g" if best else "—"
-        gt_r  = best.get("gt_ratio", 0) if best else 0
+        n_con = len(opt.get("atm_contracts", []))
         summary += (
-            f"{i}. <b>{c['ticker']}</b> ${c['current_price']:.0f}  {c['score']:.0f}pt"
-            f"  [{c.get('sector_etf', '—')}]\n"
-            f"   {bs.get('setup_type', '—')}  RS60:{trend.get('rs_60', 0):+.1f}pp"
-            f"  RVOL:{vol.get('today_rvol', 1):.1f}x"
-            f"  Γ/Θ:{gt_r:.1f}  {cost}/{dte_s}\n"
+            f"{i}. <b>{c['ticker']}</b> ${c['current_price']:.2f}  {c['score']:.0f}pt"
+            f"  [{c.get('sector_etf', '—')}]  {n_con}kon\n"
+            f"   RSI:{boga.get('rsi', 0):.0f}↑{boga.get('rsi_slope',0):+.0f}"
+            f"  RVOL:{boga.get('rvol', 0):.2f}x"
+            f"  EMA10:{boga.get('e10', 0):.1f}  {cost}/{dte_s}\n"
             f"   {c['grade'][:55]}\n\n"
         )
 
@@ -1679,73 +1710,77 @@ def save_picks(candidates, n_universe, duration, active_sectors):
 # 13) ANA TARAMA
 # ════════════════════════════════════════════════════════════════════════════
 
+def _load_boga_universe() -> List[str]:
+    """boga_universe.txt + SECTOR_STOCKS birleşik evreni yükle."""
+    tickers: List[str] = []
+    seen: set = set()
+    # Önce sector stocks
+    for stocks in SECTOR_STOCKS.values():
+        for t in stocks:
+            if t not in seen:
+                tickers.append(t); seen.add(t)
+    # boga_universe.txt'den ekle
+    univ_path = os.path.join(HERE, "boga_universe.txt")
+    if os.path.isfile(univ_path):
+        with open(univ_path, "r", encoding="utf-8") as f:
+            for line in f:
+                t = line.strip().upper()
+                if t and t not in seen:
+                    tickers.append(t); seen.add(t)
+    return tickers
+
+
 async def scan():
     start = time.time()
 
     session_lbl = (
-        "🌅 11:00 GÜNDÜZ TARAMASI — Günlük swing setup'ları"
+        "🌅 11:00 GÜNDÜZ TARAMASI"
         if SCAN_SESSION == "morning"
-        else "🌆 15:30 KAPANIŞ ÖNCESİ — Ertesi gün setup'ları"
+        else "🌆 15:30 KAPANIŞ ÖNCESİ"
     )
 
     global MARKET_OPEN_AT_SCAN, ACTIVE_SECTORS
     MARKET_OPEN_AT_SCAN = (get_scan_mode() == "market_open")
 
-    # Market verisi + ETF RS
+    # ── BOGA STEP 1: Market Regime (IXIC) ──
+    regime_ok, regime_reason = await check_boga_market_regime("^IXIC")
     await update_market_data()
+    vix_val = MARKET_VIX.get("value", 20.0)
 
-    s0_ok, s0 = stage0_market_ok()
-    vix_val   = MARKET_VIX.get("value", 20.0)
+    now_str = datetime.now(NY_TZ).strftime('%Y-%m-%d %H:%M NY')
 
-    # Sektör seçimi
-    ACTIVE_SECTORS = await select_top_sectors(top_n=2)
-    if not ACTIVE_SECTORS:
+    if not regime_ok:
         await send_tg(
-            "🔴 <b>Bear piyasa veya tüm sektörler negatif RS</b>\n"
-            "Aktif sektör bulunamadı — tarama iptal."
+            f"🔴 <b>BOGA AI — CASH_PROTECTION</b>\n"
+            f"🕒 {now_str}\n\n"
+            f"Market environment unfavorable. Do not deploy capital.\n"
+            f"<i>{regime_reason}</i>"
         )
         return
 
-    sector_rs_lines = "\n".join(
-        f"  {etf}: RS5={SECTOR_ETF_CACHE.get(etf, {}).get('rs5', 0):+.1f}%  "
-        f"composite={SECTOR_ETF_CACHE.get(etf, {}).get('composite', 0):+.1f}"
-        for etf in list(SECTOR_ETFS.keys())
-    )
-
-    vix_lbl     = f"✅ VIX {vix_val:.1f}" if vix_val <= 22 else f"🚫 VIX {vix_val:.1f} > 22"
-    qqq_lbl     = "✅ QQQ > EMA20" if s0.get("qqq_above_ema20") else "⚠️ QQQ EMA20 ALTINDA"
-    gap_lbl     = s0.get("spy_gap_label", "—")
+    # Geniş evren: sector stocks + boga_universe.txt
+    universe = _load_boga_universe()
+    ACTIVE_SECTORS = list(SECTOR_ETFS.keys())
 
     await send_tg(
-        f"🚀 <b>BOGA AI v242.1</b>\n"
-        f"🕒 {datetime.now(NY_TZ).strftime('%Y-%m-%d %H:%M NY')}\n"
+        f"🚀 <b>BOGA AI v242.1 — LONG_ONLY</b>\n"
+        f"🕒 {now_str}\n"
         f"<b>{session_lbl}</b>\n\n"
-        f"━━ PİYASA DURUMU ━━\n"
-        f"{vix_lbl}\n{qqq_lbl}\n{gap_lbl}\n"
-        f"→ <b>{s0.get('swing_verdict', '—')}</b>\n\n"
-        f"━━ SEKTÖR RS ━━\n"
-        f"{sector_rs_lines}\n"
-        f"🏭 <b>Seçilen: {', '.join(ACTIVE_SECTORS)}</b>\n\n"
-        f"DTE:{DTE_MIN}-{DTE_MAX}g  Δ:{DELTA_MIN}-{DELTA_MAX}  "
-        f"Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g=HARD BLOCK\n"
-        f"📊 {len(build_sector_universe(ACTIVE_SECTORS))} hisse taranıyor..."
+        f"✅ {regime_reason}\n"
+        f"VIX:{vix_val:.1f}  DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES} strike\n"
+        f"Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g = HARD BLOCK\n"
+        f"📊 {len(universe)} hisse taranıyor (hedef: ≥20 kontrat)..."
     )
-
-    universe = build_sector_universe(ACTIVE_SECTORS)
-    if not universe:
-        await send_tg("❌ Sektör evreni boş!"); return
 
     global TOTAL_TO_SCAN, PROGRESS_COUNTER
     TOTAL_TO_SCAN = len(universe); PROGRESS_COUNTER = 0
 
-    # Ticker-ETF eşleştirme
-    ticker_etf_pairs = []
-    seen = set()
-    for etf in ACTIVE_SECTORS:
-        for ticker in SECTOR_STOCKS.get(etf, []):
-            if ticker not in seen:
-                ticker_etf_pairs.append((ticker, etf))
-                seen.add(ticker)
+    # ETF eşleştirme (sektör içi olanlara etiket, diğerleri "BOGA")
+    ticker_etf_map = {}
+    for etf, stocks in SECTOR_STOCKS.items():
+        for t in stocks:
+            ticker_etf_map[t] = etf
+    ticker_etf_pairs = [(t, ticker_etf_map.get(t, "BOGA")) for t in universe]
 
     results = await asyncio.gather(
         *[analyze(t, etf) for t, etf in ticker_etf_pairs],
@@ -1756,30 +1791,22 @@ async def scan():
         key=lambda x: x['score'], reverse=True
     )
 
-    # Sektör konsantrasyon koruması — max 2 ticker per ETF
-    candidates = []
-    sector_counts: Dict[str, int] = {}
-    MAX_PER_SECTOR = 2
-    for c in raw_candidates:
-        etf = c.get("sector_etf", "OTHER")
-        if sector_counts.get(etf, 0) < MAX_PER_SECTOR:
-            candidates.append(c)
-            sector_counts[etf] = sector_counts.get(etf, 0) + 1
-        else:
-            logging.info(f"🚫 {c['ticker']}: sektör limiti ({etf})")
+    # Toplam kontrat sayısını hesapla
+    total_contracts = sum(
+        len(c.get("opt", {}).get("atm_contracts", [])) for c in raw_candidates
+    )
 
-    candidates = candidates[:5]   # Top 5
+    candidates = raw_candidates  # Limitsiz — 20 kontrat hedefi
     duration   = time.time() - start
 
     if not candidates:
         save_picks([], len(universe), duration, ACTIVE_SECTORS)
         await send_tg(
             "⚠️ <b>Aday bulunamadı</b>\n"
-            f"Sektörler: {', '.join(ACTIVE_SECTORS)}\n"
             f"Taranan: {len(universe)} hisse  ({duration:.0f}sn)\n\n"
             "Olası nedenler:\n"
-            "• Trend/momentum koşulları karşılanmadı\n"
-            "• Uygun DTE/delta aralığında kontrat yok\n"
+            "• BOGA kriterleri karşılanmadı (Close > EMA10 > EMA20, RSI≥50↑, RVOL≥1.5)\n"
+            "• Uygun DTE 1-30g kontrat yok\n"
             "• Earnings hard block devrede"
         )
         return
@@ -1790,7 +1817,7 @@ async def scan():
 
     save_picks(candidates, len(universe), duration, ACTIVE_SECTORS)
 
-    # P&L Tracker — scan sonrası otomatik çağrı
+    # P&L Tracker
     try:
         import importlib.util
         _tracker_path = os.path.join(HERE, "options_pnl_tracker.py")
@@ -1801,11 +1828,11 @@ async def scan():
             await _mod.run_tracker()
             logging.info("✅ P&L Tracker tamamlandı")
     except Exception as _te:
-        logging.warning(f"⚠️ P&L Tracker çağrısı başarısız: {_te}")
+        logging.warning(f"⚠️ P&L Tracker başarısız: {_te}")
 
     summary, detail = build_report(
-        candidates, MARKET_VIX['value'], duration, len(universe),
-        s0, ACTIVE_SECTORS, bt_summary
+        candidates, vix_val, duration, len(universe),
+        {}, ACTIVE_SECTORS, bt_summary
     )
     await send_tg(summary)
     await asyncio.sleep(1)
@@ -1816,13 +1843,11 @@ async def scan():
     best   = candidates[0]
     best_c = best['opt'].get("best") or {}
     await send_tg(
-        f"✅ <b>v242.1 Tamamlandı!</b>  {duration:.0f}sn  "
-        f"{len(universe)}→{len(candidates)} aday\n"
-        f"🏭 {', '.join(ACTIVE_SECTORS)}\n"
+        f"✅ <b>v242.1 Tamamlandı!</b>  {duration:.0f}sn\n"
+        f"📊 {len(universe)} hisse → <b>{len(candidates)} aday</b>"
+        f"  |  <b>{total_contracts} kontrat</b>\n"
         f"🏆 <b>{best['ticker']}</b> ({best['score']:.1f}/100)  {best['grade'][:40]}\n"
-        f"   Setup:{best['bs'].get('setup_type', '—')}  "
-        f"RS60:{best['trend'].get('rs_60', 0):+.1f}pp  "
-        f"RVOL:{best['vol'].get('today_rvol', 1):.1f}x\n"
+        f"   RSI:{best['boga'].get('rsi', 0):.0f}  RVOL:{best['boga'].get('rvol', 0):.2f}x\n"
         f"{'$' + str(best_c.get('cost_per_contract', '—')) + '/' + str(best_c.get('dte', '—')) + 'g' if best_c else '—'}\n\n"
         + (f"📊 Backtest: Win:{bt_summary.get('win_rate', '—')}%  "
            f"AvgPeak:{bt_summary.get('avg_peak', '—')}%"
@@ -1902,7 +1927,7 @@ if __name__ == "__main__":
         SCAN_SESSION = "eod" if "--eod" in sys.argv else "morning"
         try:
             print(f"🚀 BOGA AI v242.1 (One-Shot) — session:{SCAN_SESSION}")
-            print(f"   DTE:{DTE_MIN}-{DTE_MAX}g  Δ:{DELTA_MIN}-{DELTA_MAX}  "
+            print(f"   DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES} strike  "
                   f"Earnings BLOCK:<{EARNINGS_HARD_BLOCK_DAYS}g")
         except ValueError:
             # Stdout closed in subprocess context — continue silently
