@@ -775,13 +775,13 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.market_cap < 50e9 && s.rvol >= 0.8;
     case "pre_catalyst":
       // Episodemic Pivot (EP) Setup - Esnek Version
-      // Geniş ağ: Nano/Micro'yu da yakala, RVOL gevşetildi
+      // Geniş ağ: Nano/Micro'yu da yakala, hafif filtreleme
       return s.price >= 1 &&
              s.market_cap >= 100e6 &&
-             s.rvol >= 2.5 &&
-             s.rsi >= 48 &&
-             s.ema20 > s.ema50 &&
-             s.change_1d > 1.5;
+             s.rvol >= 1.5 &&
+             s.rsi >= 45 &&
+             s.change_1d > 1.0 &&
+             s.boga_score >= 35;
     default:
       return s.boga_score >= 40;
   }
