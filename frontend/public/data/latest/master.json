@@ -1,24 +1,26 @@
 {
-  "date": "2026-06-05",
-  "generated_at": "2026-06-05T13:03:28.912911-04:00",
+  "date": "2026-06-08",
+  "generated_at": "2026-06-08T22:14:26.422618-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 6,
+  "active_scores_count": 4,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
-      "count": 6,
+      "count": 4,
       "tickers": [
-        "ICUI",
-        "TCBI",
-        "AME",
-        "HLT",
-        "CSX",
-        "MTRN"
+        "NIC",
+        "EXPD",
+        "BTDR",
+        "OSCR"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "EXPD",
+        "BTDR",
+        "OSCR"
+      ]
     },
     "value": {
       "count": 0,
@@ -39,18 +41,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ICUI",
-      "score": 56.0,
+      "ticker": "NIC",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "TCBI",
-      "score": 54.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "AME",
+      "ticker": "EXPD",
       "score": 50.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "BTDR",
+      "score": 45.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
