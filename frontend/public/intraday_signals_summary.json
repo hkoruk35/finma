@@ -1,6 +1,6 @@
 {
   "date": "2026-06-09",
-  "last_updated": "2026-06-09T13:00:13.253093-04:00",
+  "last_updated": "2026-06-09T14:00:12.740048-04:00",
   "tickers": {
     "OSCR": {
       "status_history": [
@@ -93,6 +93,50 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-09T10:00:13.454363-04:00",
       "entry_price": 19.14
+    },
+    "TNL": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-09T14:00:12.740048-04:00",
+      "entry_price": 71.69
+    },
+    "CXW": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-09T14:00:12.740048-04:00",
+      "entry_price": 25.02
+    },
+    "MATX": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-09T14:00:12.740048-04:00",
+      "entry_price": 195.12
+    },
+    "MRX": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-09T14:00:12.740048-04:00",
+      "entry_price": 59.85
     }
   }
 }
