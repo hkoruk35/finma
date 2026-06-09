@@ -774,14 +774,14 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
       return s.has_weekly_options && s.atr_pct >= 3.5 &&
              s.market_cap < 50e9 && s.rvol >= 0.8;
     case "pre_catalyst":
-      // Episodemic Pivot (EP) Setup
-      // Filtreler: Market Cap (>=300e6 - Nano/Micro kapalı), RVOL (>=4.0), RSI (>=50), EMA pozitif, Change (>2%)
+      // Episodemic Pivot (EP) Setup - Esnek Version
+      // Geniş ağ: Nano/Micro'yu da yakala, RVOL gevşetildi
       return s.price >= 1 &&
-             s.market_cap >= 300e6 &&
-             s.rvol >= 4.0 &&
-             s.rsi >= 50 &&
+             s.market_cap >= 100e6 &&
+             s.rvol >= 2.5 &&
+             s.rsi >= 48 &&
              s.ema20 > s.ema50 &&
-             s.change_1d > 2;
+             s.change_1d > 1.5;
     default:
       return s.boga_score >= 40;
   }

@@ -459,6 +459,21 @@ export default function ScreenerCockpit() {
       setScanMeta({ total: data.total, scanned: data.scanned, universe: data.universe_size });
       if (data.regime) setRegime(data.regime);
       setLastScan(new Date().toLocaleTimeString("tr-TR"));
+
+      // Save to archive
+      try {
+        await fetch("/api/screener-archive", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            preset: activePreset,
+            results: data.results || [],
+            regime: data.regime,
+          }),
+        });
+      } catch (archiveError) {
+        console.error("Archive save error:", archiveError);
+      }
     } catch (e) {
       console.error("Screener error:", e);
     } finally {
@@ -671,6 +686,11 @@ export default function ScreenerCockpit() {
             >
               {showFilters ? "👁️ FİLTRELERİ GİZLE" : "👁️ FİLTRELERİ GÖSTER"}
             </button>
+
+            <Link href="/screener/archive"
+              style={{ background: "rgba(160,174,192,0.12)", border: "1px solid rgba(160,174,192,0.5)", color: "#a0aefc", padding: "6px 16px", borderRadius: 4, textDecoration: "none", fontSize: 12, fontFamily: "inherit", fontWeight: 700, letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, transition: "all .15s" }}>
+              📚 ARŞİV
+            </Link>
 
             {sortedResults.length > 0 && (
               <button onClick={() => exportScreenerResultsToXLS(sortedResults, currentPreset?.name || "screener")}
