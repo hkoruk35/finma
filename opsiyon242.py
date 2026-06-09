@@ -1781,7 +1781,7 @@ def save_picks(candidates, n_universe, duration, active_sectors):
             "version": "v242", "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
             "generated_at": datetime.now(NY_TZ).isoformat(),
             "vix": MARKET_VIX.get("value", 0),
-            "dte_range": f"{DTE_MIN}-{DTE_MAX}", "delta_range": f"{DELTA_MIN}-{DELTA_MAX}",
+            "dte_range": f"{DTE_MIN}-{DTE_MAX}", "atm_strikes": ATM_STRIKES,
             "earnings_hard_block_days": EARNINGS_HARD_BLOCK_DAYS,
             "active_sectors": active_sectors, "regime": MARKET_REGIME,
             "universe_size": n_universe, "scan_duration_sec": duration,
