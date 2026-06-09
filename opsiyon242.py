@@ -1776,9 +1776,9 @@ def build_report(candidates, vix, duration, n_scanned, s0: dict,
 
 def save_picks(candidates, n_universe, duration, active_sectors):
     try:
-        out  = os.path.join(DATA_DIR, f"v242_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
+        today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
         data = {
-            "version": "v242", "date": datetime.now(NY_TZ).strftime("%Y-%m-%d"),
+            "version": "v243", "date": today_str,
             "generated_at": datetime.now(NY_TZ).isoformat(),
             "vix": MARKET_VIX.get("value", 0),
             "dte_range": f"{DTE_MIN}-{DTE_MAX}", "atm_strikes": ATM_STRIKES,
@@ -1787,11 +1787,62 @@ def save_picks(candidates, n_universe, duration, active_sectors):
             "universe_size": n_universe, "scan_duration_sec": duration,
             "total_candidates": len(candidates), "picks": candidates,
         }
+        payload = json.dumps(data, ensure_ascii=False, default=str, indent=2)
+
+        # 1. data/ arşiv dosyası
+        out = os.path.join(DATA_DIR, f"v243_{datetime.now().strftime('%Y%m%d_%H%M')}.json")
         with open(out, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, default=str, indent=2)
+            f.write(payload)
         logging.info(f"💾 {out}")
+
+        # 2. frontend/public — web sitesi güncellemesi
+        fe_root = os.path.join(HERE, "frontend", "public")
+        paths_to_write = [
+            os.path.join(fe_root, "options_picks.json"),
+            os.path.join(fe_root, "data", "latest", "options_picks.json"),
+            os.path.join(fe_root, "data", today_str, "options_picks.json"),
+        ]
+        for p in paths_to_write:
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            with open(p, "w", encoding="utf-8") as f:
+                f.write(payload)
+        logging.info(f"✅ Frontend güncellendi: options_picks.json ({today_str})")
+
     except Exception as e:
         logging.error(f"❌ Kayıt hatası: {e}")
+
+
+async def deploy_to_git():
+    """Scan sonuçlarını git commit + push ile Vercel'e deploy et."""
+    import subprocess
+    try:
+        today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d %H:%M")
+        fe_picks  = os.path.join("frontend", "public", "options_picks.json")
+        fe_latest = os.path.join("frontend", "public", "data", "latest", "options_picks.json")
+        fe_date   = os.path.join("frontend", "public", "data",
+                                  datetime.now(NY_TZ).strftime("%Y-%m-%d"), "options_picks.json")
+
+        def run(cmd):
+            return subprocess.run(cmd, capture_output=True, text=True,
+                                  cwd=HERE, encoding="utf-8")
+
+        # Sadece değişiklik varsa push et
+        diff = run(["git", "diff", "--quiet", fe_picks])
+        if diff.returncode == 0:
+            logging.info("ℹ️ options_picks.json değişmedi — push atlandı")
+            return
+
+        run(["git", "add", fe_picks, fe_latest, fe_date])
+        run(["git", "commit", "-m",
+             f"Data: Options Scan {today_str} [bot]"])
+        result = run(["git", "push", "origin", "main"])
+        if result.returncode == 0:
+            logging.info("🚀 Git push OK — Vercel deploy tetiklendi")
+            await send_tg("🌐 Web sitesi güncellendi → bogastock.com/options")
+        else:
+            logging.warning(f"⚠️ Git push başarısız: {result.stderr[:200]}")
+    except Exception as e:
+        logging.error(f"❌ Deploy hatası: {e}")
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -1914,6 +1965,9 @@ async def scan():
     except Exception as _te:
         logging.warning(f"⚠️ P&L Tracker başarısız: {_te}")
 
+    # Web sitesi deploy
+    await deploy_to_git()
+
     summary, detail = build_report(
         candidates, vix_val, duration, len(universe),
         {}, ACTIVE_SECTORS, bt_summary
@@ -1944,26 +1998,13 @@ async def scan():
 # 14) ZAMANLAYICI
 # ════════════════════════════════════════════════════════════════════════════
 
-# ── 7/24 Tarama Programı ──────────────────────────────────────────────────
-# Hafta içi: 6 tarama/gün  |  Hafta sonu: 1 tarama (Cumartesi)
+# ── Tarama Programı: Günde 1x, NY 11:00 (Hafta içi) ─────────────────────
 DAILY_RUN_TIMES = [
-    ( 7,  0, "pre_market"),    # 07:00 NY — pre-market hazırlık
-    (10,  0, "morning"),        # 10:00 NY — piyasa açılışı +30dk
-    (12, 30, "midday"),         # 12:30 NY — öğle taraması
-    (14,  0, "afternoon"),      # 14:00 NY — öğleden sonra ivme
-    (15, 30, "eod"),            # 15:30 NY — kapanış öncesi
-    (17,  0, "after_hours"),    # 17:00 NY — sonraki gün setup hazırlığı
+    (11, 0, "morning"),   # 11:00 NY — sabah taraması (piyasa açık +90dk)
 ]
-WEEKEND_RUN = (15, 0, "weekend")  # Cumartesi 15:00 NY — haftalık opsiyon fırsatları
 
 SESSION_LABELS = {
-    "pre_market":  "🌄 PRE-MARKET (07:00) — Açılış hazırlığı",
-    "morning":     "🌅 SABAH (10:00) — Piyasa açılışı",
-    "midday":      "☀️ ÖĞLE (12:30) — Orta gün taraması",
-    "afternoon":   "🌤 ÖĞLEDEN SONRA (14:00) — İvme taraması",
-    "eod":         "🌆 KAPANIŞ ÖNCESİ (15:30) — EOD setup'ları",
-    "after_hours": "🌙 AFTER-HOURS (17:00) — Yarın için hazırlık",
-    "weekend":     "📅 HAFTA SONU (Cmt 15:00) — Haftalık opsiyon fırsatları",
+    "morning": "🌅 SABAH (11:00 NY) — Günlük opsiyon taraması",
 }
 
 SCAN_SESSION: str = "morning"
@@ -1974,31 +2015,15 @@ def get_next_run_utc() -> Tuple[datetime, str]:
     now_ny = datetime.now(tz.utc).astimezone(NY_TZ)
     wd = now_ny.weekday()  # 0=Mon … 6=Sun
 
-    # Hafta içi (Pazartesi-Cuma)
-    if wd < 5:
-        for h, m, lbl in DAILY_RUN_TIMES:
-            candidate = now_ny.replace(hour=h, minute=m, second=0, microsecond=0)
-            if candidate > now_ny:
-                return candidate.astimezone(tz.utc), lbl
-        # Bugünkü tüm saatler geçti → yarın ilk saate git (veya Cuma sonunda Cumartesi'ye)
-        next_day = now_ny + timedelta(days=1)
-        if next_day.weekday() == 5:  # Cuma → Cumartesi
-            wh, wm, wl = WEEKEND_RUN
-            target = next_day.replace(hour=wh, minute=wm, second=0, microsecond=0)
-            return target.astimezone(tz.utc), wl
+    if wd < 5:  # Hafta içi
         h, m, lbl = DAILY_RUN_TIMES[0]
-        target = next_day.replace(hour=h, minute=m, second=0, microsecond=0)
-        return target.astimezone(tz.utc), lbl
-
-    # Cumartesi → weekend scan veya Pazar → Pazartesi ilk scan
-    if wd == 5:  # Cumartesi
-        wh, wm, wl = WEEKEND_RUN
-        candidate = now_ny.replace(hour=wh, minute=wm, second=0, microsecond=0)
+        candidate = now_ny.replace(hour=h, minute=m, second=0, microsecond=0)
         if candidate > now_ny:
-            return candidate.astimezone(tz.utc), wl
-    # Cumartesi sonrası veya Pazar → Pazartesi ilk scan
+            return candidate.astimezone(tz.utc), lbl
+
+    # Bugün geçti veya hafta sonu → sonraki iş günü 11:00
     next_day = now_ny + timedelta(days=1)
-    while next_day.weekday() != 0:  # Pazartesi'ye kadar ilerle
+    while next_day.weekday() >= 5:
         next_day += timedelta(days=1)
     h, m, lbl = DAILY_RUN_TIMES[0]
     target = next_day.replace(hour=h, minute=m, second=0, microsecond=0)
@@ -2007,20 +2032,15 @@ def get_next_run_utc() -> Tuple[datetime, str]:
 
 async def run_scanner():
     from datetime import timezone as tz
-    schedule_str = "\n".join(
-        f"  {h:02d}:{m:02d} NY — {SESSION_LABELS.get(lbl, lbl)}"
-        for h, m, lbl in DAILY_RUN_TIMES
-    )
     await send_tg(
         "🚀 <b>BOGA AI v243 — PROFESSIONAL OPTIONS HUNTER</b>\n"
-        "⏰ 7/24 Otomatik Tarama:\n"
-        f"{schedule_str}\n"
-        f"  Cmt 15:00 NY — {SESSION_LABELS['weekend']}\n\n"
+        "⏰ Günde 1 tarama: <b>11:00 NY</b> (Hafta içi)\n\n"
         "✅ BOGA Gate: EMA10/20 + RSI≥50↑ + RVOL≥1.5\n"
         "✅ 5-Engine: Trend+Momentum+Breakout+Volume+Options\n"
         "✅ ATM ±5 strike  |  DTE 1-30g\n"
         f"✅ Earnings &lt;{EARNINGS_HARD_BLOCK_DAYS}g = HARD BLOCK\n"
-        "✅ ~900 hisse evreni  |  Backtesting"
+        "✅ ~900 hisse evreni  |  Backtesting\n"
+        "✅ Web sitesi otomatik güncelleme"
     )
     while True:
         try:
