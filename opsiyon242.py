@@ -1869,7 +1869,7 @@ def _load_boga_universe() -> List[str]:
     return tickers
 
 
-async def scan():
+async def scan(force: bool = False, tickers_override: Optional[List[str]] = None):
     start = time.time()
 
     session_lbl = SESSION_LABELS.get(SCAN_SESSION, f"⏰ {SCAN_SESSION.upper()}")
@@ -1884,7 +1884,7 @@ async def scan():
 
     now_str = datetime.now(NY_TZ).strftime('%Y-%m-%d %H:%M NY')
 
-    if not regime_ok:
+    if not regime_ok and not force:
         await send_tg(
             f"🔴 <b>BOGA AI — CASH_PROTECTION</b>\n"
             f"🕒 {now_str}\n\n"
@@ -1893,8 +1893,12 @@ async def scan():
         )
         return
 
-    # Geniş evren: sector stocks + boga_universe.txt
-    universe = _load_boga_universe()
+    # Evren: override veya tam evren
+    if tickers_override:
+        universe = tickers_override
+        logging.info(f"🎯 Override: {universe}")
+    else:
+        universe = _load_boga_universe()
     ACTIVE_SECTORS = list(SECTOR_ETFS.keys())
 
     await send_tg(
@@ -2071,14 +2075,21 @@ if __name__ == "__main__":
 
     if "--oneshot" in sys.argv:
         SCAN_SESSION = "eod" if "--eod" in sys.argv else "morning"
+        force        = "--force" in sys.argv
+        # --tickers LEGN,TNGX,ALOY  → sadece belirtilen hisseler taransın
+        tickers_override = None
+        for arg in sys.argv:
+            if arg.startswith("--tickers="):
+                tickers_override = [t.strip().upper() for t in arg.split("=", 1)[1].split(",")]
         try:
-            print(f"🚀 BOGA AI v242.1 (One-Shot) — session:{SCAN_SESSION}")
+            print(f"🚀 BOGA AI v243 (One-Shot) — session:{SCAN_SESSION}"
+                  + (" [FORCE]" if force else "")
+                  + (f" tickers:{tickers_override}" if tickers_override else ""))
             print(f"   DTE:{DTE_MIN}-{DTE_MAX}g  ATM±{ATM_STRIKES} strike  "
                   f"Earnings BLOCK:<{EARNINGS_HARD_BLOCK_DAYS}g")
         except ValueError:
-            # Stdout closed in subprocess context — continue silently
             pass
-        asyncio.run(scan())
+        asyncio.run(scan(force=force, tickers_override=tickers_override))
         try:
             print("✅ Tamamlandı.")
         except ValueError:
