@@ -1,34 +1,34 @@
 [
   {
-    "Date": "8 June",
-    "Symbol": "NIC",
-    "Entry (Buy_L)": 138.66,
-    "Stop (SL)": 135.58,
-    "Target 1 (TP1)": 151.78,
-    "Target 2 (TP2)": 153.58
+    "Date": "9 June",
+    "Symbol": "TNL",
+    "Entry (Buy_L)": 69.83,
+    "Stop (SL)": 67.5,
+    "Target 1 (TP1)": 75.71,
+    "Target 2 (TP2)": 76.62
   },
   {
-    "Date": "8 June",
-    "Symbol": "EXPD",
-    "Entry (Buy_L)": 161.26,
-    "Stop (SL)": 155.27,
-    "Target 1 (TP1)": 174.87,
-    "Target 2 (TP2)": 177.05
+    "Date": "9 June",
+    "Symbol": "MRX",
+    "Entry (Buy_L)": 57.57,
+    "Stop (SL)": 55.79,
+    "Target 1 (TP1)": 62.64,
+    "Target 2 (TP2)": 63.4
   },
   {
-    "Date": "8 June",
-    "Symbol": "BTDR",
-    "Entry (Buy_L)": 17.57,
-    "Stop (SL)": 16.49,
-    "Target 1 (TP1)": 20.85,
-    "Target 2 (TP2)": 21.34
+    "Date": "9 June",
+    "Symbol": "MATX",
+    "Entry (Buy_L)": 189.0,
+    "Stop (SL)": 182.94,
+    "Target 1 (TP1)": 204.93,
+    "Target 2 (TP2)": 207.37
   },
   {
-    "Date": "8 June",
-    "Symbol": "OSCR",
-    "Entry (Buy_L)": 27.0,
-    "Stop (SL)": 25.36,
-    "Target 1 (TP1)": 30.47,
-    "Target 2 (TP2)": 31.04
+    "Date": "9 June",
+    "Symbol": "CXW",
+    "Entry (Buy_L)": 24.59,
+    "Stop (SL)": 23.71,
+    "Target 1 (TP1)": 26.71,
+    "Target 2 (TP2)": 27.04
   }
 ]
