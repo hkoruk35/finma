@@ -1,0 +1,72 @@
+[
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "PSMT",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 175.87,
+        "entry_zone": "173.35 - 178.39",
+        "SL": 165.79,
+        "TP": 191.0
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "BTSG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 61.46,
+        "entry_zone": "60.46 - 62.46",
+        "SL": 57.48,
+        "TP": 67.43
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "SNEX",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 125.54,
+        "entry_zone": "123.07 - 128.00",
+        "SL": 115.68,
+        "TP": 140.31
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "USFD",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 90.7,
+        "entry_zone": "89.54 - 91.86",
+        "SL": 86.04,
+        "TP": 97.69
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "INCY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 105.86,
+        "entry_zone": "104.10 - 107.62",
+        "SL": 98.8,
+        "TP": 116.44
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "SMA",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 32.74,
+        "entry_zone": "32.38 - 33.09",
+        "SL": 31.3,
+        "TP": 34.88
+    },
+    {
+        "date": "2026-06-10 14:00",
+        "symbol": "BAC",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 54.9,
+        "entry_zone": "54.35 - 55.45",
+        "SL": 52.71,
+        "TP": 58.18
+    }
+]

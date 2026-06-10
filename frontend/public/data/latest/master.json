@@ -1,22 +1,27 @@
 {
-  "date": "2026-06-09",
-  "generated_at": "2026-06-09T13:03:33.758809-04:00",
+  "date": "2026-06-10",
+  "generated_at": "2026-06-10T13:03:29.798515-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 4,
+  "active_scores_count": 7,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
-      "count": 4,
+      "count": 7,
       "tickers": [
-        "TNL",
-        "MRX",
-        "MATX",
-        "CXW"
+        "PSMT",
+        "USFD",
+        "SNEX",
+        "BAC",
+        "SMA",
+        "BTSG",
+        "INCY"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "INCY"
+      ]
     },
     "value": {
       "count": 0,
@@ -37,18 +42,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "TNL",
+      "ticker": "PSMT",
+      "score": 58.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "USFD",
+      "score": 57.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "SNEX",
       "score": 54.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "MRX",
-      "score": 53.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "MATX",
-      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
