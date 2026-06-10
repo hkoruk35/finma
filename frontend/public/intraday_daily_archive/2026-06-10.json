@@ -1,0 +1,196 @@
+{
+  "date": "2026-06-10",
+  "generated_at": "2026-06-10T10:00:11.880865-04:00",
+  "market_regime": "Bull",
+  "vix_level": 20.219999313354492,
+  "total": 4,
+  "signals": [
+    {
+      "ticker": "CXW",
+      "company": "CXW",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-09",
+      "days_since_pick": 1,
+      "current_price": 25.29,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($24.87–$25.71). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 60.6,
+        "volume_ratio": 0.26,
+        "change_1h": 0.48,
+        "change_24h": 0.44,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 3.34
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "TNL",
+      "company": "TNL",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-09",
+      "days_since_pick": 1,
+      "current_price": 72.44,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($71.51–$73.37). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 21.6,
+        "volume_ratio": 0.25,
+        "change_1h": 0.37,
+        "change_24h": 0.37,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 2.56
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MATX",
+      "company": "MATX",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-09",
+      "days_since_pick": 1,
+      "current_price": 193.08,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($190.31–$195.85). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 16.0,
+        "volume_ratio": 0.26,
+        "change_1h": -0.71,
+        "change_24h": -0.59,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 2.87
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MRX",
+      "company": "MRX",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-09",
+      "days_since_pick": 1,
+      "current_price": 61.19,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($59.84–$62.55). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 35.9,
+        "volume_ratio": 0.47,
+        "change_1h": 1.17,
+        "change_24h": 1.17,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 4.42
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-06-10",
+    "last_updated": "2026-06-10T10:00:11.880865-04:00",
+    "tickers": {
+      "CXW": {
+        "status_history": [
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-10T10:00:11.880865-04:00",
+        "entry_price": 25.29
+      },
+      "TNL": {
+        "status_history": [
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-10T10:00:11.880865-04:00",
+        "entry_price": 72.44
+      },
+      "MATX": {
+        "status_history": [
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-10T10:00:11.880865-04:00",
+        "entry_price": 193.08
+      },
+      "MRX": {
+        "status_history": [
+          {
+            "hour": "10:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-10T10:00:11.880865-04:00",
+        "entry_price": 61.19
+      }
+    }
+  }
+}
