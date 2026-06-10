@@ -1,0 +1,11 @@
+{
+  "scan_date": "2026-06-09",
+  "scan_time": "23:00",
+  "total_scanned": 3,
+  "position_list": [],
+  "watchlist": [],
+  "thresholds": {
+    "position": 85,
+    "watchlist": 70
+  }
+}
