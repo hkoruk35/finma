@@ -1,8 +1,8 @@
 {
   "date": "2026-06-10",
-  "generated_at": "2026-06-10T14:00:17.035657-04:00",
+  "generated_at": "2026-06-10T15:00:14.351191-04:00",
   "market_regime": "Bull",
-  "vix_level": 21.93000030517578,
+  "vix_level": 21.510000228881836,
   "total": 7,
   "signals": [
     {
@@ -11,19 +11,19 @@
       "sector": "Consumer Defensive",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 175.87,
+      "current_price": 175.97,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($173.35–$178.39). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($173.45–$178.49). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 19.7,
-        "volume_ratio": 0.36,
-        "change_1h": 0.25,
-        "change_24h": -0.22,
+        "adx_1h": 19.5,
+        "volume_ratio": 0.3,
+        "change_1h": 0.11,
+        "change_24h": -0.16,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 3.0,
@@ -36,43 +36,8 @@
         "Slope: Positive",
         "VWAP/EMA50 Acceptable Zone",
         "⚡ Bollinger Squeeze",
-        "15M Trigger: 🕯️ Bullish Engulfing",
-        "Aligned with 1H EMA50 & 15M Trend",
-        "⚠️ Insufficient volume (0.4x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "BTSG",
-      "company": "BTSG",
-      "sector": "Healthcare",
-      "swing_pick_date": "2026-06-10",
-      "days_since_pick": 0,
-      "current_price": 61.46,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($60.46–$62.46). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 26.0,
-        "volume_ratio": 0.23,
-        "change_1h": 0.39,
-        "change_24h": 0.75,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 3.0,
-        "natr": 3.24
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.2x) ❌"
       ]
     },
     {
@@ -81,19 +46,19 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 125.54,
+      "current_price": 125.53,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($123.07–$128.00). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($123.06–$127.99). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 27.6,
-        "volume_ratio": 0.5,
-        "change_1h": 0.51,
-        "change_24h": 2.82,
+        "adx_1h": 28.1,
+        "volume_ratio": 0.47,
+        "change_1h": 0.16,
+        "change_24h": 2.81,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
@@ -115,23 +80,23 @@
       "sector": "Consumer Defensive",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 90.7,
+      "current_price": 91.12,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($89.54–$91.86). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($89.95–$92.29). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 41.6,
-        "volume_ratio": 0.36,
-        "change_1h": -0.19,
-        "change_24h": 1.62,
+        "adx_1h": 42.7,
+        "volume_ratio": 0.26,
+        "change_1h": 0.26,
+        "change_24h": 2.1,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 2.57
+        "natr": 2.56
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -140,41 +105,42 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
     {
-      "ticker": "INCY",
-      "company": "INCY",
+      "ticker": "BTSG",
+      "company": "BTSG",
       "sector": "Healthcare",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 105.86,
+      "current_price": 60.94,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($104.10–$107.62). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($59.94–$61.94). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 25.0,
-        "volume_ratio": 0.19,
-        "change_1h": -0.61,
-        "change_24h": 2.55,
+        "adx_1h": 26.3,
+        "volume_ratio": 0.26,
+        "change_1h": -0.08,
+        "change_24h": -0.1,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 3.33
+        "natr": 3.27
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
-        "Phase: ACCUMULATION",
+        "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP Extended",
+        "VWAP/EMA50 Acceptable Zone",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
     {
@@ -183,19 +149,19 @@
       "sector": "Real Estate",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 32.74,
+      "current_price": 32.78,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($32.38–$33.09). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($32.42–$33.14). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 44.1,
-        "volume_ratio": 0.45,
-        "change_1h": 0.21,
-        "change_24h": 0.26,
+        "adx_1h": 43.7,
+        "volume_ratio": 0.49,
+        "change_1h": 0.09,
+        "change_24h": 0.4,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
@@ -206,8 +172,43 @@
         "Phase: ACCUMULATION",
         "Vol: Acceptable",
         "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY",
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "INCY",
+      "company": "INCY",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-10",
+      "days_since_pick": 0,
+      "current_price": 105.58,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($103.82–$107.35). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 25.6,
+        "volume_ratio": 0.29,
+        "change_1h": 0.01,
+        "change_24h": 2.28,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 3.34
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
     {
@@ -216,36 +217,36 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-10",
       "days_since_pick": 0,
-      "current_price": 54.9,
+      "current_price": 54.81,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($54.35–$55.45). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($54.26–$55.36). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 33.6,
-        "volume_ratio": 0.63,
-        "change_1h": -0.15,
-        "change_24h": 0.88,
+        "adx_1h": 34.0,
+        "volume_ratio": 0.46,
+        "change_1h": -0.05,
+        "change_24h": 0.72,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 1.99
+        "natr": 2.0
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
         "NATR < 2% (Too Stable)",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-10",
-    "last_updated": "2026-06-10T14:00:17.035657-04:00",
+    "last_updated": "2026-06-10T15:00:14.351191-04:00",
     "tickers": {
       "CXW": {
         "status_history": [
@@ -344,6 +345,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -354,6 +359,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -366,6 +375,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -376,6 +389,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -388,6 +405,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -399,6 +420,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -409,6 +434,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
