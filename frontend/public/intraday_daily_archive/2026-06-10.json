@@ -1,8 +1,8 @@
 {
   "date": "2026-06-10",
-  "generated_at": "2026-06-10T11:00:12.658697-04:00",
+  "generated_at": "2026-06-10T12:00:11.266683-04:00",
   "market_regime": "Bull",
-  "vix_level": 20.889999389648438,
+  "vix_level": 21.489999771118164,
   "total": 4,
   "signals": [
     {
@@ -11,23 +11,23 @@
       "sector": "Industrials",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 25.31,
+      "current_price": 25.6,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($24.87–$25.74). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($25.17–$26.03). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 60.7,
-        "volume_ratio": 0.21,
-        "change_1h": -0.49,
-        "change_24h": 0.5,
+        "adx_1h": 60.8,
+        "volume_ratio": 0.46,
+        "change_1h": 0.71,
+        "change_24h": 1.67,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 3.43
+        "natr": 3.4
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -35,8 +35,9 @@
         "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
+        "15M Trigger: 📦 Consolidation Breakout",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
       ]
     },
     {
@@ -45,32 +46,32 @@
       "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 72.22,
+      "current_price": 70.87,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($71.28–$73.17). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($69.89–$71.85). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 23.3,
-        "volume_ratio": 0.31,
-        "change_1h": -1.1,
-        "change_24h": 0.08,
-        "trend_1h": "FLAT",
+        "adx_1h": 21.4,
+        "volume_ratio": 0.47,
+        "change_1h": -1.13,
+        "change_24h": -1.8,
+        "trend_1h": "DOWN",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 2.61
+        "natr": 2.78
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+        "VWAP/EMA50 Defense Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
       ]
     },
     {
@@ -79,23 +80,23 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 61.35,
+      "current_price": 61.73,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($59.96–$62.73). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($60.34–$63.12). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 39.6,
-        "volume_ratio": 0.58,
-        "change_1h": -0.5,
-        "change_24h": 1.41,
-        "trend_1h": "UP",
+        "adx_1h": 41.1,
+        "volume_ratio": 0.73,
+        "change_1h": -0.11,
+        "change_24h": 2.05,
+        "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 4.53
+        "natr": 4.5
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -104,7 +105,7 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.7x < 1.0x) ❌"
       ]
     },
     {
@@ -113,23 +114,23 @@
       "sector": "Industrials",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 192.98,
+      "current_price": 193.65,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($190.18–$195.78). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($190.85–$196.45). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 14.9,
-        "volume_ratio": 0.2,
-        "change_1h": -0.64,
-        "change_24h": -0.64,
+        "adx_1h": 14.0,
+        "volume_ratio": 0.34,
+        "change_1h": -0.08,
+        "change_24h": -0.3,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 2.9
+        "natr": 2.89
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -138,13 +139,13 @@
         "Slope: Positive",
         "VWAP/EMA50 Acceptable Zone",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-10",
-    "last_updated": "2026-06-10T11:00:12.658697-04:00",
+    "last_updated": "2026-06-10T12:00:11.266683-04:00",
     "tickers": {
       "CXW": {
         "status_history": [
@@ -154,6 +155,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -170,6 +175,10 @@
           {
             "hour": "11:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -185,6 +194,10 @@
           {
             "hour": "11:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -199,6 +212,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],
