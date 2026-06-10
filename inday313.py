@@ -1940,6 +1940,22 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         with open(summary_path, "w", encoding="utf-8") as f:
             json.dump(summary, f, indent=2, ensure_ascii=False)
 
+        # 4. End-of-day archive (15:00 NY = last scan) → gün sonu kalıcı arşiv
+        ARCHIVE_DIR = os.path.join(PUBLIC_DIR, "intraday_daily_archive")
+        os.makedirs(ARCHIVE_DIR, exist_ok=True)
+        archive_daily_path = os.path.join(ARCHIVE_DIR, f"{today_str}.json")
+        # Her 15:00 taramasında güncelle (gün içinde geçici, gün sonu kalıcı)
+        with open(archive_daily_path, "w", encoding="utf-8") as f:
+            json.dump({
+                "date": today_str,
+                "generated_at": generated_at,
+                "market_regime": MARKET_CONTEXT.get("regime", "Unknown"),
+                "vix_level": safe_float(MARKET_CONTEXT.get("vix_level", 0)),
+                "total": len(signals),
+                "signals": signals,
+                "summary": summary if 'summary' in dir() else {}
+            }, f, indent=2, ensure_ascii=False)
+
         # Push to GitHub (since Vercel revalidate endpoint is not working)
         finma_dir = r"C:\Users\afksm\finma"
         try:
