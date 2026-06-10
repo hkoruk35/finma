@@ -1,6 +1,6 @@
 {
   "date": "2026-06-10",
-  "last_updated": "2026-06-10T13:00:12.271776-04:00",
+  "last_updated": "2026-06-10T14:00:17.035657-04:00",
   "tickers": {
     "CXW": {
       "status_history": [
@@ -93,6 +93,83 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-10T10:00:11.880865-04:00",
       "entry_price": 61.19
+    },
+    "PSMT": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 175.87
+    },
+    "BTSG": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 61.46
+    },
+    "SNEX": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 125.54
+    },
+    "USFD": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 90.7
+    },
+    "INCY": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 105.86
+    },
+    "SMA": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 32.74
+    },
+    "BAC": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-10T14:00:17.035657-04:00",
+      "entry_price": 54.9
     }
   }
 }
