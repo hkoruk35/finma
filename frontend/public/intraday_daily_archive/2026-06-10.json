@@ -1,8 +1,8 @@
 {
   "date": "2026-06-10",
-  "generated_at": "2026-06-10T10:00:11.880865-04:00",
+  "generated_at": "2026-06-10T11:00:12.658697-04:00",
   "market_regime": "Bull",
-  "vix_level": 20.219999313354492,
+  "vix_level": 20.889999389648438,
   "total": 4,
   "signals": [
     {
@@ -11,57 +11,23 @@
       "sector": "Industrials",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 25.29,
+      "current_price": 25.31,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($24.87–$25.71). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($24.87–$25.74). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 60.6,
-        "volume_ratio": 0.26,
-        "change_1h": 0.48,
-        "change_24h": 0.44,
+        "adx_1h": 60.7,
+        "volume_ratio": 0.21,
+        "change_1h": -0.49,
+        "change_24h": 0.5,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 3.34
-      },
-      "notes": [
-        "🛡️ RS: Strong Decoupling",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "TNL",
-      "company": "TNL",
-      "sector": "Consumer Cyclical",
-      "swing_pick_date": "2026-06-09",
-      "days_since_pick": 1,
-      "current_price": 72.44,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($71.51–$73.37). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 21.6,
-        "volume_ratio": 0.25,
-        "change_1h": 0.37,
-        "change_24h": 0.37,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 3.0,
-        "natr": 2.56
+        "natr": 3.43
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -74,36 +40,36 @@
       ]
     },
     {
-      "ticker": "MATX",
-      "company": "MATX",
-      "sector": "Industrials",
+      "ticker": "TNL",
+      "company": "TNL",
+      "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 193.08,
+      "current_price": 72.22,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($190.31–$195.85). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($71.28–$73.17). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 16.0,
-        "volume_ratio": 0.26,
-        "change_1h": -0.71,
-        "change_24h": -0.59,
+        "adx_1h": 23.3,
+        "volume_ratio": 0.31,
+        "change_1h": -1.1,
+        "change_24h": 0.08,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 2.87
+        "natr": 2.61
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
         "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     },
@@ -113,23 +79,23 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-09",
       "days_since_pick": 1,
-      "current_price": 61.19,
+      "current_price": 61.35,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($59.84–$62.55). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($59.96–$62.73). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 35.9,
-        "volume_ratio": 0.47,
-        "change_1h": 1.17,
-        "change_24h": 1.17,
+        "adx_1h": 39.6,
+        "volume_ratio": 0.58,
+        "change_1h": -0.5,
+        "change_24h": 1.41,
         "trend_1h": "UP",
         "setup": "NONE",
         "rs_score": 3.0,
-        "natr": 4.42
+        "natr": 4.53
       },
       "notes": [
         "🛡️ RS: Strong Decoupling",
@@ -138,19 +104,56 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MATX",
+      "company": "MATX",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-09",
+      "days_since_pick": 1,
+      "current_price": 192.98,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($190.18–$195.78). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 14.9,
+        "volume_ratio": 0.2,
+        "change_1h": -0.64,
+        "change_24h": -0.64,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 3.0,
+        "natr": 2.9
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-10",
-    "last_updated": "2026-06-10T10:00:11.880865-04:00",
+    "last_updated": "2026-06-10T11:00:12.658697-04:00",
     "tickers": {
       "CXW": {
         "status_history": [
           {
             "hour": "10:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "11:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -163,6 +166,10 @@
           {
             "hour": "10:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "11:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -174,6 +181,10 @@
           {
             "hour": "10:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "11:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -184,6 +195,10 @@
         "status_history": [
           {
             "hour": "10:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "11:00",
             "status": "ENTRY_NOW"
           }
         ],

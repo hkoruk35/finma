@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-10T09:16:00.003216-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 1.8,
-  "total_scanned": 5,
+  "generated_at": "2026-06-10T10:31:00.095597-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 25.3,
+  "total_scanned": 2,
   "layer1_passed": 2,
   "final_picks": 2,
   "picks": [
     {
-      "ticker": "HIMS",
-      "price": 28.98,
-      "change_pct": 6.66,
-      "dt_score": 63.0,
+      "ticker": "CELH",
+      "price": 29.24,
+      "change_pct": 3.72,
+      "dt_score": 45.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 28.04,
+      "vwap": 28.51,
       "catalyst": {
-        "catalyst_type": "acquisition",
-        "catalyst_score": 22,
-        "headline": "the wegovy pill is still dominating the glp-1 pill market(marketwatch)",
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "celh stock dips most in 3 months on teen death probe: two analysts still see 98% upside(stocktwits)-7.53%",
         "confidence": "high",
-        "ts": 1781097333.6408834
+        "ts": 1781101884.8053207
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,48 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 28.95,
-          "high": 29.12
+          "low": 29.21,
+          "high": 29.39
         },
-        "stop": 28.55,
-        "tp1": 30.0,
-        "tp2": 30.73,
-        "rr_ratio": 1.99,
-        "avg_entry": 29.04,
-        "risk_per_sh": 0.48,
+        "stop": 28.8,
+        "tp1": 30.3,
+        "tp2": 31.05,
+        "rr_ratio": 2.0,
+        "avg_entry": 29.3,
+        "risk_per_sh": 0.5,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 28.98
+        "pm_high_ref": 29.24
       },
       "details": [
-        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +6.7%",
+        "↗️ Küçük Gap: +3.7%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +3.36%",
-        "🔥 Açılış Barı: Güçlü (2.9x hacim)",
+        "✅ VWAP Üstünde: +2.57%",
+        "🔴 Açılış Barı: Kırmızı (0.9% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "GRND",
-      "price": 11.38,
-      "change_pct": 3.08,
-      "dt_score": 55.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "ticker": "HOOD",
+      "price": 89.76,
+      "change_pct": 7.15,
+      "dt_score": 43.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 11.27,
+      "vwap": 89.28,
       "catalyst": {
-        "catalyst_type": "acquisition",
-        "catalyst_score": 22,
-        "headline": "motha descends on nyc: grindr and madonna team up for legendary times square performance(business wire)",
-        "confidence": "high",
-        "ts": 1781097333.8522363
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1781100083.3125072
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +92,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 11.37,
-          "high": 11.44
+          "low": 89.67,
+          "high": 90.21
         },
-        "stop": 11.21,
-        "tp1": 11.79,
-        "tp2": 12.09,
-        "rr_ratio": 1.97,
-        "avg_entry": 11.4,
-        "risk_per_sh": 0.19,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 11.38
+        "stop": 88.41,
+        "tp1": 93.0,
+        "tp2": 95.3,
+        "rr_ratio": 2.0,
+        "avg_entry": 89.94,
+        "risk_per_sh": 1.53,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 89.76
       },
       "details": [
-        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.1%",
+        "↗️ Orta Gap: +7.2%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.01%",
-        "✅ Açılış Barı: Yeşil",
+        "✅ VWAP Üstünde: +0.54%",
+        "🔥 Açılış Barı: Güçlü (2.4x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
