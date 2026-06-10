@@ -38,6 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { route: '/disclaimer',                  priority: 0.3, cf: 'monthly' },
     { route: '/privacy',                     priority: 0.3, cf: 'monthly' },
     { route: '/terms',                       priority: 0.3, cf: 'monthly' },
+    { route: '/daily',                       priority: 0.9, cf: 'hourly'  },
   ].map(({ route, priority, cf }) => ({
     url: `${baseUrl}${route}`,
     lastModified: now,
