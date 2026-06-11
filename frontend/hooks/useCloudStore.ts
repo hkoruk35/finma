@@ -13,9 +13,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 type Endpoint =
   | { type: "store"; key: string }
-  | { type: "csp"; slug: string }
-  | { type: "portfolio" }
-  | { type: "longterm" };
+  | { type: "csp"; slug: string };
 
 interface Options<T> {
   endpoint: Endpoint;
@@ -25,24 +23,17 @@ interface Options<T> {
 
 function buildUrl(ep: Endpoint): string {
   if (ep.type === "store") return `/api/store/${ep.key}`;
-  if (ep.type === "csp") return `/api/csp-watchlist/${ep.slug}`;
-  if (ep.type === "portfolio") return `/api/store/portfolio_main`;
-  if (ep.type === "longterm") return `/api/store/longterm_main`;
-  return "/api/store/default";
+  return `/api/csp-watchlist/${ep.slug}`;
 }
 
 function extractValue<T>(ep: Endpoint, json: Record<string, unknown>): T {
-  if (ep.type === "store" || ep.type === "portfolio" || ep.type === "longterm") {
-    return (json.value ?? null) as T;
-  }
+  if (ep.type === "store") return (json.value ?? null) as T;
   // CSP endpoint: { tickers, types, notes }
   return json as unknown as T;
 }
 
 function buildBody<T>(ep: Endpoint, value: T): string {
-  if (ep.type === "store" || ep.type === "portfolio" || ep.type === "longterm") {
-    return JSON.stringify({ value });
-  }
+  if (ep.type === "store") return JSON.stringify({ value });
   return JSON.stringify(value);
 }
 
