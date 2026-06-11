@@ -90,10 +90,16 @@ interface Regime {
 // ─── Preset Definitions ───────────────────────────────────────────────────────
 
 const PRESETS = [
+  // Investment Presets
+  { id: "quality_growth",   name: "Quality Growth",      desc: "Rev↑15% · EPS↑10% · Margin≥35% · ROE≥12%", mode: "investment", color: "#06b6d4", pills: ["RevGrowth≥15%","EPS≥10%","Price>SMA200","Margin≥35%","ROE≥12%","MCap≥1B"],                         icon: "💎" },
+  { id: "agg_growth",       name: "Aggressive Growth",   desc: "Rev↑30% · Margin≥50% · Rule40≥40",         mode: "investment", color: "#f59e0b", pills: ["RevGrowth≥30%","Acceleration","Margin≥50%","FCF Pozitif","P/S≤30"],                          icon: "🚀" },
+  { id: "breakout_growth",  name: "Breakout Growth",     desc: "BOGA≥70 · Golden Cross · RVOL≥2 · ADX≥20", mode: "investment", color: "#10b981", pills: ["BOGA≥70","SMA200↑","RVOL≥2","ADX≥20","Price>EMA20"],                                 icon: "📈" },
+  // Swing Presets
   { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA10>EMA20 · RVOL≥1.5 · RSI≥50",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA10>EMA20","RVOL≥1.5","RSI≥50","Trend Filtresi"],    icon: "🎯" },
   { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥4.0 · RSI 50+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$300M","RVOL≥4.0","RSI 50+","Gece Taraması"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
   { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },
+  // Day & Options Presets
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
   { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
   { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
@@ -646,14 +652,33 @@ export default function ScreenerCockpit() {
         {/* ── Left Panel ───────────────────────────────────────────────────────── */}
         <div style={{ width: 220, background: "#0d1117", borderRight: "1px solid #1e2a3a", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: "12px 14px 6px", fontSize: 10, letterSpacing: "1.5px", color: "#7c8fa6", textTransform: "uppercase", fontWeight: 700 }}>Stratejiler</div>
-          {PRESETS.map(p => (
-            <button key={p.id} onClick={() => selectPreset(p)}
-              style={{ display: "block", width: "100%", textAlign: "left", padding: "9px 14px", cursor: "pointer", border: "none", background: activePreset === p.id ? "#111620" : "none", borderLeft: `2px solid ${activePreset === p.id ? p.color : "transparent"}`, transition: "all .15s" }}
-            >
-              <div style={{ fontSize: 11, fontWeight: 600, color: activePreset === p.id ? p.color : "#b0bec5", fontFamily: "inherit" }}>{p.icon} {p.name}</div>
-              <div style={{ fontSize: 10, color: activePreset === p.id ? "#94a3b8" : "#7c8fa6", marginTop: 2, fontFamily: "inherit" }}>{p.desc}</div>
-            </button>
-          ))}
+          {(() => {
+            const modes = ["investment", "swing", "day", "options", "position"];
+            const modeLabels: Record<string, string> = {
+              investment: "📊 INVESTMENT",
+              swing: "📈 SWING",
+              day: "⚡ DAY",
+              options: "📋 OPTIONS",
+              position: "🏛️ POSITION"
+            };
+            return modes.map(mode => {
+              const modePresets = PRESETS.filter(p => p.mode === mode);
+              if (modePresets.length === 0) return null;
+              return (
+                <div key={mode}>
+                  <div style={{ padding: "10px 14px 4px", fontSize: 9, letterSpacing: "1px", color: "#64748b", textTransform: "uppercase", fontWeight: 600, marginTop: mode === "investment" ? 0 : 6 }}>{modeLabels[mode]}</div>
+                  {modePresets.map(p => (
+                    <button key={p.id} onClick={() => selectPreset(p)}
+                      style={{ display: "block", width: "100%", textAlign: "left", padding: "8px 14px", cursor: "pointer", border: "none", background: activePreset === p.id ? "#111620" : "none", borderLeft: `2px solid ${activePreset === p.id ? p.color : "transparent"}`, transition: "all .15s" }}
+                    >
+                      <div style={{ fontSize: 11, fontWeight: 600, color: activePreset === p.id ? p.color : "#b0bec5", fontFamily: "inherit" }}>{p.icon} {p.name}</div>
+                      <div style={{ fontSize: 10, color: activePreset === p.id ? "#94a3b8" : "#7c8fa6", marginTop: 2, fontFamily: "inherit" }}>{p.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              );
+            });
+          })()}
         </div>
 
         {/* ── Content ──────────────────────────────────────────────────────────── */}
