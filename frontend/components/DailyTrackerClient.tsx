@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -433,7 +434,9 @@ export default function DailyTrackerClient() {
 
                         {/* TICKER */}
                         <td style={{ padding: "6px 8px" }}>
-                          <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{tk.ticker}</span>
+                          <TickerHoverChart ticker={tk.ticker}>
+                            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{tk.ticker}</span>
+                          </TickerHoverChart>
                           {isExp && <span style={{ color: "#e3b341", marginLeft: 4, fontSize: 9 }}>▼</span>}
                           {!isExp && <span style={{ color: "#8b949e", marginLeft: 4, fontSize: 9 }}>▶</span>}
                         </td>
@@ -685,7 +688,9 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
               <tr key={tk.ticker} style={{ borderBottom: "1px solid #1a1f27", background: idx % 2 ? "#161b22" : "#0d1117" }}>
                 {/* Ticker label */}
                 <td style={{ padding: "5px 10px", borderRight: "1px solid #30363d", whiteSpace: "nowrap" }}>
-                  <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 11 }}>{tk.ticker}</span>
+                  <TickerHoverChart ticker={tk.ticker}>
+                    <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 11 }}>{tk.ticker}</span>
+                  </TickerHoverChart>
                   {tk.entry_price && (
                     <span style={{ color: "#8b949e", fontSize: 9, marginLeft: 4 }}>
                       @${tk.entry_price.toFixed(2)}
