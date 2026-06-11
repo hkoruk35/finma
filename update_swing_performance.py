@@ -151,7 +151,8 @@ def update_performance():
                     # 3. Time Limit — 30 Days Auto-Close at Peak (peak_price guaranteed numeric above)
                     elif days_held >= 30:
                         peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
-                        record['result'] = 'WIN' if peak_pct > 0 else 'LOSS'
+                        # Only LOSS if loss is significant (>= 5%), otherwise WIN (neutral/small loss = breakeven)
+                        record['result'] = 'WIN' if peak_pct > -5.0 else 'LOSS'
                         record['return_pct'] = peak_pct
                         record['max_price'] = round(peak_price, 2)
                         record['exit_date'] = today.strftime('%Y-%m-%d')
