@@ -1,6 +1,6 @@
 {
   "date": "2026-06-11",
-  "last_updated": "2026-06-11T13:00:31.629128-04:00",
+  "last_updated": "2026-06-11T14:00:19.896016-04:00",
   "tickers": {
     "PSMT": {
       "status_history": [
@@ -162,6 +162,83 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-11T10:00:14.950877-04:00",
       "entry_price": 54.6
+    },
+    "M": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 24.7
+    },
+    "ATEN": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 31.98
+    },
+    "ALHC": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 21.19
+    },
+    "PTGX": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 109.9
+    },
+    "GH": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 132.24
+    },
+    "FLG": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 14.65
+    },
+    "FLOC": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-11T14:00:19.896016-04:00",
+      "entry_price": 23.87
     }
   }
 }
