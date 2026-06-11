@@ -1,8 +1,8 @@
-# BOGA AI Swing Watchlist - 2026-06-11 10:00
-PSMT
-BTSG
+# BOGA AI Swing Watchlist - 2026-06-11 11:00
 SNEX
-INCY
+BTSG
 USFD
-SMA
+PSMT
+INCY
 BAC
+SMA
