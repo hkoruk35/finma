@@ -297,7 +297,7 @@ export default function CSPDetailClient({ slug }: Props) {
             </div>
             {/* CSP Sekmelerine geçiş */}
             <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
-              {(["525", "2550", "50250"] as const).map(s => (
+              {(["525", "2550", "50250", "portfolio", "long_term"] as const).map(s => (
                 <Link key={s} href={`/csp/${s}`} style={{
                   padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                   border: "1px solid",
