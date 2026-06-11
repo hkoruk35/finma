@@ -1,84 +1,29 @@
 {
-  "generated_at": "2026-06-10T10:31:00.095597-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 25.3,
-  "total_scanned": 2,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "generated_at": "2026-06-11T08:45:00.133497-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 25.8,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
   "picks": [
     {
-      "ticker": "CELH",
-      "price": 29.24,
-      "change_pct": 3.72,
-      "dt_score": 45.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 28.51,
-      "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "celh stock dips most in 3 months on teen death probe: two analysts still see 98% upside(stocktwits)-7.53%",
-        "confidence": "high",
-        "ts": 1781101884.8053207
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 29.21,
-          "high": 29.39
-        },
-        "stop": 28.8,
-        "tp1": 30.3,
-        "tp2": 31.05,
-        "rr_ratio": 2.0,
-        "avg_entry": 29.3,
-        "risk_per_sh": 0.5,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 29.24
-      },
-      "details": [
-        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.7%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.57%",
-        "🔴 Açılış Barı: Kırmızı (0.9% gövde)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
       "ticker": "HOOD",
-      "price": 89.76,
-      "change_pct": 7.15,
-      "dt_score": 43.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "price": 86.36,
+      "change_pct": 3.09,
+      "dt_score": 21.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "⏳ BEKLE → Açılış barı kapatmaya izle, yön netleşince karar ver",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 89.28,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1781100083.3125072
+        "ts": 1781181925.2061567
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +37,24 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 89.67,
-          "high": 90.21
+          "low": 85.97,
+          "high": 86.49
         },
-        "stop": 88.41,
-        "tp1": 93.0,
-        "tp2": 95.3,
+        "stop": 85.58,
+        "tp1": 87.53,
+        "tp2": 88.5,
         "rr_ratio": 2.0,
-        "avg_entry": 89.94,
-        "risk_per_sh": 1.53,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 89.76
+        "avg_entry": 86.23,
+        "risk_per_sh": 0.65,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 89.21
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +7.2%",
+        "↗️ Küçük Gap: +3.1%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.54%",
-        "🔥 Açılış Barı: Güçlü (2.4x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
