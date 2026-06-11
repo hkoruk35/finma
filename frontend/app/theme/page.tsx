@@ -47,48 +47,6 @@ export default async function ThemesIndexPage() {
           </p>
         </div>
 
-        {/* BOGA System Lists */}
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-5 border-b border-white/10 pb-3">
-            <h2 className="text-xs font-black text-[#3b82f6] uppercase tracking-[0.2em]">
-              ANALYTICAL TOOLS
-            </h2>
-            <span className="text-[10px] text-white/40 uppercase">7 system modules</span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {[
-              { title: "Swing Picks", desc: "Medium-term swing signals and breakouts", href: "/theme/boga-swing", accent: "#3b82f6" },
-              { title: "Options Scanner", desc: "Institutional flows, premium spikes & gamma sweeps", href: "/theme/boga-options", accent: "#a78bfa" },
-              { title: "DayTrade Pulse", desc: "Intraday momentum picks and volume breakouts", href: "/daytrade", accent: "#f59e0b" },
-              { title: "Hourly Focus Pool", desc: "Real-time focus pool updated during market hours", href: "/hourly", accent: "#10b981" },
-              { title: "OptAnaliz Scanner", desc: "Advanced options probability strategies", href: "/optanaliz", accent: "#06b6d4" },
-              { title: "Smart Portfolio", desc: "Automatic portfolio price tracker and sync", href: "/smart-tracker", accent: "#ec4899" },
-              { title: "Long Term Plays", desc: "Value, dividend & secular growth picks", href: "/long-term", accent: "#14b8a6" },
-            ].map(tool => (
-              <div
-                key={tool.title}
-                className="bg-[#080c14] border border-white/10 rounded-lg p-4 hover:border-white/20 transition-all hover:bg-white/[0.02] group flex flex-col justify-between"
-                style={{ borderLeftColor: tool.accent, borderLeftWidth: "3px" }}
-              >
-                <div>
-                  <h3 className="text-sm font-black text-white uppercase mb-1 group-hover:translate-x-0.5 transition-transform" style={{ color: tool.accent }}>
-                    {tool.title}
-                  </h3>
-                  <p className="text-[10px] text-slate-400 leading-snug">
-                    {tool.desc}
-                  </p>
-                </div>
-                <Link
-                  href={tool.href}
-                  className="inline-block mt-3 px-3 py-1.5 text-center text-[10px] font-bold text-white uppercase rounded border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all"
-                >
-                  View →
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-
         <CSPWatchlistSection />
 
         {/* Market Themes by Sector */}
