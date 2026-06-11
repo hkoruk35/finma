@@ -1,6 +1,6 @@
 {
   "date": "2026-06-11",
-  "last_updated": "2026-06-11T14:00:19.896016-04:00",
+  "last_updated": "2026-06-11T15:00:20.003396-04:00",
   "tickers": {
     "PSMT": {
       "status_history": [
@@ -168,6 +168,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -178,6 +182,10 @@
       "status_history": [
         {
           "hour": "14:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -190,6 +198,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -200,6 +212,10 @@
       "status_history": [
         {
           "hour": "14:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -212,6 +228,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -223,6 +243,10 @@
         {
           "hour": "14:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -233,6 +257,10 @@
       "status_history": [
         {
           "hour": "14:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "15:00",
           "status": "ENTRY_NOW"
         }
       ],
