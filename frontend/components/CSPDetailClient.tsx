@@ -28,15 +28,17 @@ interface TickerData {
 }
 
 interface Props {
-  slug: "525" | "2550" | "50250";
+  slug: "525" | "2550" | "50250" | "portfolio" | "long_term";
 }
 
 // ── Config ─────────────────────────────────────────────────────────────────
 
 const CSP_CFG = {
-  "525":   { label: "525 CSP",   range: "$5–$25",    storageKey: "terminal_watchlist_525csp",    accent: "#3fb950" },
-  "2550":  { label: "2550 CSP",  range: "$25–$50",   storageKey: "terminal_watchlist_2550csp",   accent: "#58a6ff" },
-  "50250": { label: "50250 CSP", range: "$50–$250",  storageKey: "terminal_watchlist_50250csp",  accent: "#d2a8ff" },
+  "525":       { label: "525 CSP",      range: "$5–$25",           storageKey: "terminal_watchlist_525csp",      accent: "#3fb950" },
+  "2550":      { label: "2550 CSP",     range: "$25–$50",          storageKey: "terminal_watchlist_2550csp",     accent: "#58a6ff" },
+  "50250":     { label: "50250 CSP",    range: "$50–$250",         storageKey: "terminal_watchlist_50250csp",    accent: "#d2a8ff" },
+  "portfolio": { label: "Portföy",      range: "Tüm Fiyatlar",     storageKey: "terminal_watchlist_portfolio",   accent: "#ec4899" },
+  "long_term": { label: "Long-Term",    range: "Makro Trendler",   storageKey: "terminal_watchlist_longterm",    accent: "#14b8a6" },
 } as const;
 
 const TYPE_COLORS: Record<string, { bg: string; text: string }> = {

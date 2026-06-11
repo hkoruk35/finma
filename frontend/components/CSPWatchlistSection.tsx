@@ -13,21 +13,20 @@ interface CSPList {
   borderColor: string;
   textColor: string;
   href: string;
-  isSpecialTab?: boolean;
 }
 
 const CSP_LISTS: CSPList[] = [
   { key: "525",   label: "525 CSP",   range: "$5 – $25",    description: "Cash Secured Put candidates. Low-priced stocks ideal for weekly/monthly CSP premium collection.", color: "bg-[#10b981]/5", borderColor: "border-[#10b981]/30", textColor: "text-[#10b981]", href: "/csp/525"   },
   { key: "2550",  label: "2550 CSP",  range: "$25 – $50",   description: "Mid-priced CSP candidates with balanced premium and margin requirements.",                         color: "bg-[#3b82f6]/5", borderColor: "border-[#3b82f6]/30", textColor: "text-[#3b82f6]", href: "/csp/2550"  },
   { key: "50250", label: "50250 CSP", range: "$50 – $250",  description: "Higher-priced stocks for premium CSP strategies with larger capital allocation.",                   color: "bg-[#a78bfa]/5", borderColor: "border-[#a78bfa]/30", textColor: "text-[#a78bfa]", href: "/csp/50250" },
-  { key: "portfolio", label: "Portföy", range: "Tüm Fiyatlar", description: "Kişisel portföy izleme ve yönetimi. Sahip olduğunuz hisseleri takip edin.",                            color: "bg-[#ec4899]/5", borderColor: "border-[#ec4899]/30", textColor: "text-[#ec4899]", href: "/portfolio", isSpecialTab: true },
-  { key: "longterm", label: "Long-Term", range: "Makro Trendler", description: "Uzun vadeli hisse seçimleri ve portföy yönetimi. Makro trendler ve değer oyunları.",            color: "bg-[#14b8a6]/5", borderColor: "border-[#14b8a6]/30", textColor: "text-[#14b8a6]", href: "/long-term", isSpecialTab: true },
+  { key: "portfolio", label: "Portföy", range: "Tüm Fiyatlar", description: "Kişisel portföy izleme ve yönetimi. Sahip olduğunuz hisseleri takip edin.",                            color: "bg-[#ec4899]/5", borderColor: "border-[#ec4899]/30", textColor: "text-[#ec4899]", href: "/csp/portfolio" },
+  { key: "long_term", label: "Long-Term", range: "Makro Trendler", description: "Uzun vadeli hisse seçimleri ve portföy yönetimi. Makro trendler ve değer oyunları.",            color: "bg-[#14b8a6]/5", borderColor: "border-[#14b8a6]/30", textColor: "text-[#14b8a6]", href: "/csp/long_term" },
 ];
 
 export default function CSPWatchlistSection() {
   const [lists, setLists] = useState<Record<string, string[]>>({});
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250" | "portfolio" | "longterm">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250" | "portfolio" | "long_term">("all");
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [addMessage, setAddMessage] = useState("");
 
@@ -137,7 +136,7 @@ export default function CSPWatchlistSection() {
                 : "bg-transparent border-white/10 text-slate-400 hover:text-white"
             }`}
           >
-            {csp.label} {!csp.isSpecialTab && `(${(lists[csp.key] ?? []).length})`}
+            {csp.label} ({(lists[csp.key] ?? []).length})
           </button>
         ))}
       </div>
@@ -217,42 +216,11 @@ export default function CSPWatchlistSection() {
         </div>
       )}
 
-      {/* Individual CSP Lists & Portfolio */}
-      {(activeTab === "525" || activeTab === "2550" || activeTab === "50250" || activeTab === "portfolio" || activeTab === "longterm") && (
+      {/* Individual CSP Lists */}
+      {(activeTab === "525" || activeTab === "2550" || activeTab === "50250" || activeTab === "portfolio" || activeTab === "long_term") && (
         <div className="grid grid-cols-1 gap-5">
           {CSP_LISTS.filter((c) => c.key === activeTab).map((csp) => {
             const tickers = lists[csp.key] ?? [];
-
-            // Special tabs (Portfolio, Long-Term) don't show tickers, just a link
-            if (csp.isSpecialTab) {
-              const buttonText = csp.key === "portfolio" ? "Portföyü Yönet →" : csp.key === "longterm" ? "Uzun Vadeli Oyunları Gör →" : "Aç →";
-              return (
-                <div
-                  key={csp.key}
-                  className={`${csp.color} border ${csp.borderColor} rounded-xl p-6`}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
-                        {csp.label}
-                      </h3>
-                      <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                        {csp.range}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-slate-500 mb-6 leading-relaxed">
-                    {csp.description}
-                  </p>
-                  <Link
-                    href={csp.href}
-                    className={`block text-center py-2 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
-                  >
-                    {buttonText}
-                  </Link>
-                </div>
-              );
-            }
 
             return (
               <div
@@ -322,39 +290,11 @@ export default function CSPWatchlistSection() {
         </div>
       )}
 
-      {/* Grid layout for all CSP lists and special tabs when activeTab is not 'all' */}
+      {/* Grid layout for all CSP lists when activeTab is not 'all' */}
       {activeTab !== "all" && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6">
           {CSP_LISTS.map((csp) => {
             const tickers = lists[csp.key] ?? [];
-
-            if (csp.isSpecialTab) {
-              const buttonText = csp.key === "portfolio" ? "Portföyü Yönet →" : csp.key === "longterm" ? "Uzun Vadeli Oyunları Gör →" : "Aç →";
-              return (
-                <div
-                  key={csp.key}
-                  className={`${csp.color} border ${csp.borderColor} rounded-xl p-5 flex flex-col`}
-                >
-                  <div>
-                    <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
-                      {csp.label}
-                    </h3>
-                    <div className="text-[11px] text-slate-400 font-mono mt-0.5">
-                      {csp.range}
-                    </div>
-                  </div>
-                  <p className="text-[11px] text-slate-500 mb-4 leading-relaxed mt-3">
-                    {csp.description}
-                  </p>
-                  <Link
-                    href={csp.href}
-                    className={`mt-auto text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
-                  >
-                    {buttonText}
-                  </Link>
-                </div>
-              );
-            }
 
             return (
               <div
