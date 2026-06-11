@@ -1,58 +1,58 @@
 [
   {
-    "Date": "10 June",
-    "Symbol": "PSMT",
-    "Entry (Buy_L)": 172.3,
-    "Stop (SL)": 166.49,
-    "Target 1 (TP1)": 186.83,
-    "Target 2 (TP2)": 189.09
+    "Date": "11 June",
+    "Symbol": "M",
+    "Entry (Buy_L)": 23.44,
+    "Stop (SL)": 22.74,
+    "Target 1 (TP1)": 25.63,
+    "Target 2 (TP2)": 25.95
   },
   {
-    "Date": "10 June",
-    "Symbol": "USFD",
-    "Entry (Buy_L)": 88.76,
-    "Stop (SL)": 86.19,
-    "Target 1 (TP1)": 96.11,
-    "Target 2 (TP2)": 97.22
+    "Date": "11 June",
+    "Symbol": "FLG",
+    "Entry (Buy_L)": 14.25,
+    "Stop (SL)": 13.72,
+    "Target 1 (TP1)": 15.46,
+    "Target 2 (TP2)": 15.65
   },
   {
-    "Date": "10 June",
-    "Symbol": "SNEX",
-    "Entry (Buy_L)": 121.0,
-    "Stop (SL)": 117.51,
-    "Target 1 (TP1)": 133.13,
-    "Target 2 (TP2)": 134.87
+    "Date": "11 June",
+    "Symbol": "PTGX",
+    "Entry (Buy_L)": 107.07,
+    "Stop (SL)": 103.63,
+    "Target 1 (TP1)": 116.75,
+    "Target 2 (TP2)": 118.22
   },
   {
-    "Date": "10 June",
-    "Symbol": "BAC",
-    "Entry (Buy_L)": 54.32,
-    "Stop (SL)": 52.45,
-    "Target 1 (TP1)": 58.86,
-    "Target 2 (TP2)": 59.58
+    "Date": "11 June",
+    "Symbol": "GH",
+    "Entry (Buy_L)": 126.6,
+    "Stop (SL)": 122.16,
+    "Target 1 (TP1)": 140.14,
+    "Target 2 (TP2)": 142.14
   },
   {
-    "Date": "10 June",
-    "Symbol": "SMA",
-    "Entry (Buy_L)": 32.22,
-    "Stop (SL)": 31.07,
-    "Target 1 (TP1)": 34.94,
-    "Target 2 (TP2)": 35.37
+    "Date": "11 June",
+    "Symbol": "ATEN",
+    "Entry (Buy_L)": 30.88,
+    "Stop (SL)": 29.89,
+    "Target 1 (TP1)": 33.51,
+    "Target 2 (TP2)": 33.91
   },
   {
-    "Date": "10 June",
-    "Symbol": "BTSG",
-    "Entry (Buy_L)": 60.21,
-    "Stop (SL)": 58.39,
-    "Target 1 (TP1)": 65.27,
-    "Target 2 (TP2)": 66.04
+    "Date": "11 June",
+    "Symbol": "FLOC",
+    "Entry (Buy_L)": 23.53,
+    "Stop (SL)": 22.8,
+    "Target 1 (TP1)": 25.78,
+    "Target 2 (TP2)": 26.12
   },
   {
-    "Date": "10 June",
-    "Symbol": "INCY",
-    "Entry (Buy_L)": 103.65,
-    "Stop (SL)": 101.17,
-    "Target 1 (TP1)": 112.97,
-    "Target 2 (TP2)": 114.28
+    "Date": "11 June",
+    "Symbol": "ALHC",
+    "Entry (Buy_L)": 20.25,
+    "Stop (SL)": 19.43,
+    "Target 1 (TP1)": 22.75,
+    "Target 2 (TP2)": 23.12
   }
 ]
