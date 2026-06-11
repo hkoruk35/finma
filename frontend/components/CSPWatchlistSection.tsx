@@ -126,19 +126,27 @@ export default function CSPWatchlistSection() {
         >
           ALL LIST ({allThemeTickers.length})
         </button>
-        {CSP_LISTS.map((csp) => (
-          <button
-            key={csp.key}
-            onClick={() => setActiveTab(csp.key as any)}
-            className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
-              activeTab === csp.key
-                ? `bg-[${csp.color}]/20 border-${csp.borderColor} ${csp.textColor}`
-                : "bg-transparent border-white/10 text-slate-400 hover:text-white"
-            }`}
-          >
-            {csp.label} ({(lists[csp.key] ?? []).length})
-          </button>
-        ))}
+        {CSP_LISTS.map((csp) => {
+          const [colorHex] = csp.color.match(/#[0-9a-f]{6}/i) || ["#3b82f6"];
+          return (
+            <button
+              key={csp.key}
+              onClick={() => setActiveTab(csp.key as any)}
+              style={activeTab === csp.key ? {
+                backgroundColor: `${colorHex}33`,
+                borderColor: colorHex,
+                color: colorHex,
+              } : {}}
+              className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+                activeTab === csp.key
+                  ? ""
+                  : "bg-transparent border-white/10 text-slate-400 hover:text-white"
+              }`}
+            >
+              {csp.label} ({(lists[csp.key] ?? []).length})
+            </button>
+          );
+        })}
       </div>
 
       {/* ALL LIST Tab - Summary Only */}
