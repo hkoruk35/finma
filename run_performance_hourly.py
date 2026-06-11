@@ -50,35 +50,45 @@ def main():
     except Exception as e:
         log.error(f"❌ Swing performans güncelleme hatası: {e}")
 
-    # 2. Update Options Performance
-    log.info("2. Options P&L tracker çalıştırılıyor...")
+    # 2. Update Heatmap Prices (master.json + all_tickers_list.json)
+    log.info("2. Heatmap fiyatlari guncelleniyor...")
+    try:
+        subprocess.run([VENV_PYTHON, "update_heatmap_prices.py"], cwd=FINMA_DIR, check=True)
+        log.info("✅ Heatmap fiyatlari guncellendi.")
+    except Exception as e:
+        log.error(f"❌ Heatmap fiyat guncelleme hatasi: {e}")
+
+    # 3. Update Options Performance
+    log.info("3. Options P&L tracker calistiriliyor...")
     try:
         subprocess.run([VENV_PYTHON, "options_pnl_tracker.py"], cwd=FINMA_DIR, check=True)
-        log.info("✅ Options P&L tracker tamamlandı.")
+        log.info("✅ Options P&L tracker tamamlandi.")
     except Exception as e:
-        log.error(f"❌ Options P&L tracker hatası: {e}")
+        log.error(f"❌ Options P&L tracker hatasi: {e}")
 
-    # 3. Git Push to GitHub
-    log.info("3. Veriler GitHub'a yükleniyor...")
+    # 4. Git Push to GitHub
+    log.info("4. Veriler GitHub'a yukleniyor...")
     try:
         # Stage the updated files
         run_git(["add", "frontend/public/swing_performance.json"])
+        run_git(["add", "frontend/public/data/latest/all_tickers_list.json"])
+        run_git(["add", "frontend/public/data/latest/master.json"])
         run_git(["add", "frontend/public/data/latest/options_outcomes.json"])
         
         # Git diff check before committing
         diff_res = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=FINMA_DIR)
         if diff_res.returncode == 1: # There are changes
-            run_git(["commit", "-m", f"Data: Hourly Performance Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
+            run_git(["commit", "-m", f"Data: Hourly Prices + Performance Update {now_ny.strftime('%Y-%m-%d %H:%M')}"])
             run_git(["push", "origin", "main"])
-            log.info("🚀 Git Push ve Vercel Deployment başarılı.")
+            log.info("Pushed to GitHub — Vercel deployment triggered.")
         else:
-            log.info("ℹ️ Değişiklik yok, git push yapılmadı.")
+            log.info("No changes to commit.")
     except subprocess.CalledProcessError as e:
-        log.error(f"❌ Git işlem hatası: stdout={e.stdout}, stderr={e.stderr}")
+        log.error(f"Git error: stdout={e.stdout}, stderr={e.stderr}")
     except Exception as e:
-        log.error(f"❌ Git Push beklenmedik hata: {e}")
+        log.error(f"Git unexpected error: {e}")
 
-    log.info("✅ Saatlik performans döngüsü tamamlandı.")
+    log.info("Hourly cycle complete.")
 
 if __name__ == "__main__":
     main()
