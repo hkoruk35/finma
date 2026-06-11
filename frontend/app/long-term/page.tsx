@@ -1,11 +1,11 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import LongTermDetailClient from "@/components/LongTermDetailClient";
+import CSPDetailClient from "@/components/CSPDetailClient";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Long-Term Oyunlar | BOGA AI",
-  description: "Uzun vadeli hisse seçimleri ve portföy yönetimi. Makro trendler, değer oyunları ve büyüme hisseleri.",
+  description: "Uzun vadeli hisse seçimleri ve portföy yönetimi.",
 };
 
 export default function LongTermPage() {
@@ -13,7 +13,7 @@ export default function LongTermPage() {
     <div className="min-h-screen flex flex-col bg-[#05080f] text-slate-300 font-mono">
       <Header />
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8">
-        <LongTermDetailClient />
+        <CSPDetailClient slug="50250" />
       </main>
       <Footer />
     </div>
