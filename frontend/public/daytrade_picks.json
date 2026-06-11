@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-11T08:45:00.133497-04:00",
-  "scan_mode": "premarket",
-  "scan_duration_s": 25.8,
+  "generated_at": "2026-06-11T09:16:00.094298-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 23.7,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
@@ -10,14 +10,14 @@
       "ticker": "HOOD",
       "price": 86.36,
       "change_pct": 3.09,
-      "dt_score": 21.0,
-      "signal": "MOMENTUM",
-      "entry_condition": "⏳ BEKLE → Açılış barı kapatmaya izle, yön netleşince karar ver",
+      "dt_score": 17.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 88.62,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
@@ -37,17 +37,17 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 85.97,
-          "high": 86.49
+          "low": 86.27,
+          "high": 86.79
         },
-        "stop": 85.58,
-        "tp1": 87.53,
-        "tp2": 88.5,
+        "stop": 85.06,
+        "tp1": 89.47,
+        "tp2": 91.67,
         "rr_ratio": 2.0,
-        "avg_entry": 86.23,
-        "risk_per_sh": 0.65,
-        "signal": "MOMENTUM",
-        "pm_high_ref": 89.21
+        "avg_entry": 86.53,
+        "risk_per_sh": 1.47,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 86.36
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
@@ -55,6 +55,8 @@
         "↗️ Küçük Gap: +3.1%",
         "Bilinmiyor",
         "Bilinmiyor",
+        "🔴 VWAP Altında: -2.55%",
+        "🔥 Açılış Barı: Güçlü (5.7x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]

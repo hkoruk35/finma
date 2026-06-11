@@ -38,17 +38,17 @@ for record in history:
         ticker = record.get('ticker', '?')
         old_ret = record.get('return_pct', 'N/A')
         print(f"FIX: {ticker} | entry={entry} | ema50={ema50} | "
-              f"potential_loss={round(potential_loss_pct,2)}% | old_return={old_ret}% → PENDING")
+              f"potential_loss={round(potential_loss_pct,2)}% | old_return={old_ret}% -> PENDING")
         record['result'] = 'PENDING'
         record.pop('exit_date', None)
         record['return_pct'] = 0.0
         fixed_count += 1
 
-print(f"\nToplam {fixed_count} kayıt PENDING'e döndürüldü.")
+print(f"\nTotal fixed: {fixed_count} records reset to PENDING.")
 
 data['history'] = history
 
 with open(performance_file, 'w', encoding='utf-8') as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print("JSON kaydedildi.")
+print("JSON saved.")
