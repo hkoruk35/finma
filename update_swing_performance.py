@@ -132,8 +132,9 @@ def update_performance():
                     # Calculate loss at EMA50 level
                     potential_loss_pct = round(((target_sl - entry_price) / entry_price) * 100, 2)
 
-                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 2%)
-                    min_loss_threshold = -2.0
+                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 5%)
+                    # 1D EMA50 stop loss: need meaningful loss before marking as LOSS
+                    min_loss_threshold = -5.0
                     if current_price <= target_sl and potential_loss_pct <= min_loss_threshold:
                         hdsl_status = "LOSS"
                     else:
