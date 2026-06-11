@@ -129,14 +129,19 @@ def update_performance():
                     target_sl = ema50_1d
                     record['active_sl_level'] = round(target_sl, 2)
 
-                    if current_price <= target_sl:
+                    # Calculate loss at EMA50 level
+                    potential_loss_pct = round(((target_sl - entry_price) / entry_price) * 100, 2)
+
+                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 2%)
+                    min_loss_threshold = -2.0
+                    if current_price <= target_sl and potential_loss_pct <= min_loss_threshold:
                         hdsl_status = "LOSS"
                     else:
                         hdsl_status = "PENDING"
 
                     if hdsl_status == "LOSS":
                         record['result'] = 'LOSS'
-                        record['return_pct'] = round(((target_sl - entry_price) / entry_price) * 100, 2)
+                        record['return_pct'] = potential_loss_pct
                         record['exit_date'] = today.strftime('%Y-%m-%d')
                     # 2. Profit Target — bot's recorded profit_zone.low
                     elif profit_target and current_price >= float(profit_target):
