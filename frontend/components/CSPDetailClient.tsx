@@ -702,7 +702,7 @@ export default function CSPDetailClient({ slug }: Props) {
             top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
             width: 430, zIndex: 9999,
             background: "#161b22", border: "1px solid #30363d",
-            borderRadius: 6, overflow: "hidden", pointerEvents: "none",
+            borderRadius: 6, overflow: "hidden", pointerEvents: "auto",
             boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
           }}
           onMouseEnter={() => { if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current); }}
