@@ -1,6 +1,6 @@
 {
   "date": "2026-06-12",
-  "last_updated": "2026-06-12T13:00:16.175065-04:00",
+  "last_updated": "2026-06-12T14:00:14.894811-04:00",
   "tickers": {
     "ALHC": {
       "status_history": [
@@ -162,6 +162,72 @@
       "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-12T10:00:19.505165-04:00",
       "entry_price": 23.69
+    },
+    "PRI": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 282.09
+    },
+    "ROST": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 241.47
+    },
+    "DORM": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 128.3
+    },
+    "CASH": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 85.0
+    },
+    "RF": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 29.15
+    },
+    "BLFS": {
+      "status_history": [
+        {
+          "hour": "14:00",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-12T14:00:14.894811-04:00",
+      "entry_price": 26.56
     }
   }
 }
