@@ -518,12 +518,17 @@ async def run_tracker():
     save_json(today_path, outcomes)
 
     # Frontend public/data senkronizasyonu
-    frontend_dir = os.path.join(HERE, "frontend", "public", "data")
+    import shutil
+    frontend_public = os.path.join(HERE, "frontend", "public")
+    frontend_dir = os.path.join(frontend_public, "data")
     if os.path.exists(frontend_dir):
-        import shutil
+        # Root public/options_outcomes.json
+        shutil.copy2(OUTCOMES_FILE, os.path.join(frontend_public, "options_outcomes.json"))
+        # data/latest/
         f_latest = os.path.join(frontend_dir, "latest")
         os.makedirs(f_latest, exist_ok=True)
         shutil.copy2(OUTCOMES_FILE, os.path.join(f_latest, "options_outcomes.json"))
+        # data/<date>/
         f_date = os.path.join(frontend_dir, today_str)
         os.makedirs(f_date, exist_ok=True)
         shutil.copy2(today_path, os.path.join(f_date, "options_outcomes.json"))
