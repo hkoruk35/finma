@@ -38,7 +38,7 @@ const CSP_CFG = {
   "2550":      { label: "2550 CSP",     range: "$25–$50",          storageKey: "terminal_watchlist_2550csp",     accent: "#58a6ff" },
   "50250":     { label: "50250 CSP",    range: "$50–$250",         storageKey: "terminal_watchlist_50250csp",    accent: "#d2a8ff" },
   "portfolio": { label: "Portföy",      range: "Tüm Fiyatlar",     storageKey: "terminal_watchlist_portfolio",   accent: "#f97316" },
-  "swing":     { label: "Swing Picks",  range: "Günlük Tarama",    storageKey: "terminal_watchlist_swing",       accent: "#ec4899" },
+  "swing":     { label: "Swing Picks",  range: "Günlük Tarama",    storageKey: "terminal_watchlist_swing",       accent: "#6b7280" },
   "daily":     { label: "Daily Intraday", range: "İntraday Takip", storageKey: "terminal_watchlist_daily",       accent: "#f59e0b" },
   "long_term": { label: "Long-Term",    range: "Makro Trendler",   storageKey: "terminal_watchlist_longterm",    accent: "#14b8a6" },
 } as const;
@@ -299,7 +299,7 @@ export default function CSPDetailClient({ slug }: Props) {
             </div>
             {/* CSP Sekmelerine geçiş */}
             <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
-              {(["525", "2550", "50250", "portfolio", "long_term"] as const).map(s => (
+              {(["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"] as const).map(s => (
                 <Link key={s} href={`/csp/${s}`} style={{
                   padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                   border: "1px solid",
