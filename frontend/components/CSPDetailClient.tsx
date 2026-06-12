@@ -124,6 +124,7 @@ export default function CSPDetailClient({ slug }: Props) {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [filterSignal, setFilterSignal] = useState("");
   const [filterType, setFilterType] = useState("");
@@ -461,11 +462,17 @@ export default function CSPDetailClient({ slug }: Props) {
                             style={{ padding: "7px 8px", whiteSpace: "nowrap" }}
                             onMouseEnter={e => {
                               e.stopPropagation();
+                              if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
                               const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
                               setHoverTicker(sym);
                               setHoverPos({ x: r.right + 10, y: r.top });
                             }}
-                            onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
+                            onMouseLeave={() => {
+                              hoverTimerRef.current = setTimeout(() => {
+                                setHoverTicker(null);
+                                setHoverPos(null);
+                              }, 500);
+                            }}
                             onClick={e => e.stopPropagation()}
                           >
                             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
@@ -698,7 +705,13 @@ export default function CSPDetailClient({ slug }: Props) {
             borderRadius: 6, overflow: "hidden", pointerEvents: "none",
             boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
           }}
-          onMouseEnter={() => {}} onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
+          onMouseEnter={() => { if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current); }}
+          onMouseLeave={() => {
+            hoverTimerRef.current = setTimeout(() => {
+              setHoverTicker(null);
+              setHoverPos(null);
+            }, 500);
+          }}
         >
           <div style={{
             padding: "7px 12px", borderBottom: "1px solid #30363d",
