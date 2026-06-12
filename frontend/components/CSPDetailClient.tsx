@@ -471,7 +471,7 @@ export default function CSPDetailClient({ slug }: Props) {
                               hoverTimerRef.current = setTimeout(() => {
                                 setHoverTicker(null);
                                 setHoverPos(null);
-                              }, 500);
+                              }, 750);
                             }}
                             onClick={e => e.stopPropagation()}
                           >
