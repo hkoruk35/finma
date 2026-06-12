@@ -1,0 +1,72 @@
+[
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "PTGX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 111.57,
+        "entry_zone": "109.08 - 114.05",
+        "SL": 101.63,
+        "TP": 126.47
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "ALHC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 20.02,
+        "entry_zone": "19.44 - 20.61",
+        "SL": 17.67,
+        "TP": 23.56
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "ATEN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 32.61,
+        "entry_zone": "31.91 - 33.31",
+        "SL": 29.83,
+        "TP": 36.78
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "GH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 132.63,
+        "entry_zone": "129.35 - 135.92",
+        "SL": 119.51,
+        "TP": 152.33
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "M",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 25.29,
+        "entry_zone": "24.70 - 25.88",
+        "SL": 22.92,
+        "TP": 28.84
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "FLG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 14.94,
+        "entry_zone": "14.76 - 15.13",
+        "SL": 14.21,
+        "TP": 16.05
+    },
+    {
+        "date": "2026-06-12 11:00",
+        "symbol": "FLOC",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 24.01,
+        "entry_zone": "23.46 - 24.57",
+        "SL": 21.8,
+        "TP": 27.33
+    }
+]
