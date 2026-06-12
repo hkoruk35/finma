@@ -20,7 +20,7 @@ export default function TickerHoverChart({ ticker, children, className }: Props)
   }, []);
 
   const handleLeave = useCallback(() => {
-    timerRef.current = setTimeout(() => setPos(null), 120);
+    timerRef.current = setTimeout(() => setPos(null), 500);
   }, []);
 
   const left = pos ? Math.min(pos.x, (typeof window !== "undefined" ? window.innerWidth : 1400) - 440) : 0;
@@ -41,7 +41,7 @@ export default function TickerHoverChart({ ticker, children, className }: Props)
         <div
           onMouseEnter={() => { if (timerRef.current) clearTimeout(timerRef.current); }}
           onMouseLeave={() => {
-            timerRef.current = setTimeout(() => setPos(null), 300);
+            timerRef.current = setTimeout(() => setPos(null), 500);
           }}
           style={{
             position: "fixed",
