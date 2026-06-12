@@ -1,6 +1,6 @@
 {
   "date": "2026-06-12",
-  "last_updated": "2026-06-12T12:00:17.016581-04:00",
+  "last_updated": "2026-06-12T13:00:16.175065-04:00",
   "tickers": {
     "ALHC": {
       "status_history": [
@@ -14,6 +14,10 @@
         },
         {
           "hour": "12:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -34,6 +38,10 @@
         {
           "hour": "12:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -52,6 +60,10 @@
         },
         {
           "hour": "12:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -72,6 +84,10 @@
         {
           "hour": "12:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -90,6 +106,10 @@
         },
         {
           "hour": "12:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
           "status": "ENTRY_NOW"
         }
       ],
@@ -110,6 +130,10 @@
         {
           "hour": "12:00",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -128,6 +152,10 @@
         },
         {
           "hour": "12:00",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "13:00",
           "status": "ENTRY_NOW"
         }
       ],
