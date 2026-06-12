@@ -1,8 +1,8 @@
 {
   "date": "2026-06-12",
-  "generated_at": "2026-06-12T14:00:14.894811-04:00",
+  "generated_at": "2026-06-12T15:00:14.572118-04:00",
   "market_regime": "Bull",
-  "vix_level": 18.290000915527344,
+  "vix_level": 18.200000762939453,
   "total": 6,
   "signals": [
     {
@@ -11,19 +11,19 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-12",
       "days_since_pick": 0,
-      "current_price": 282.09,
+      "current_price": 281.98,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($278.85–$285.33). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($278.74–$285.23). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 41.8,
-        "volume_ratio": 0.27,
-        "change_1h": -0.01,
-        "change_24h": 1.12,
+        "adx_1h": 41.6,
+        "volume_ratio": 0.26,
+        "change_1h": 0.17,
+        "change_24h": 1.08,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 2.0,
@@ -46,23 +46,23 @@
       "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-06-12",
       "days_since_pick": 0,
-      "current_price": 241.47,
+      "current_price": 240.73,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($238.41–$244.53). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($237.67–$243.78). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 43.3,
-        "volume_ratio": 0.29,
-        "change_1h": 0.09,
-        "change_24h": 0.99,
+        "adx_1h": 44.4,
+        "volume_ratio": 0.5,
+        "change_1h": -0.3,
+        "change_24h": 0.68,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 2.0,
-        "natr": 2.53
+        "natr": 2.54
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -70,76 +70,8 @@
         "Vol: Prime Swing",
         "Slope: Positive",
         "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "DORM",
-      "company": "DORM",
-      "sector": "Consumer Cyclical",
-      "swing_pick_date": "2026-06-12",
-      "days_since_pick": 0,
-      "current_price": 128.3,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($126.41–$130.19). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 11.3,
-        "volume_ratio": 0.21,
-        "change_1h": -0.21,
-        "change_24h": 0.07,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "rs_score": 1.0,
-        "natr": 2.95
-      },
-      "notes": [
-        "🧱 RS: Resilient",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
-        "⚡ Bollinger Squeeze",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.2x < 1.2x) ❌"
-      ]
-    },
-    {
-      "ticker": "CASH",
-      "company": "CASH",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-06-12",
-      "days_since_pick": 0,
-      "current_price": 85.0,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($84.01–$85.99). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 49.2,
-        "volume_ratio": 0.2,
-        "change_1h": -0.19,
-        "change_24h": 2.52,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 2.0,
-        "natr": 2.34
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
       ]
     },
     {
@@ -148,19 +80,19 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-12",
       "days_since_pick": 0,
-      "current_price": 29.15,
+      "current_price": 29.17,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($28.81–$29.48). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($28.84–$29.50). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 32.8,
-        "volume_ratio": 0.27,
-        "change_1h": 0.12,
-        "change_24h": 0.88,
+        "adx_1h": 33.1,
+        "volume_ratio": 0.6,
+        "change_1h": 0.26,
+        "change_24h": 0.97,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 1.0,
@@ -173,7 +105,75 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DORM",
+      "company": "DORM",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-12",
+      "days_since_pick": 0,
+      "current_price": 128.33,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($126.44–$130.22). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 10.5,
+        "volume_ratio": 0.55,
+        "change_1h": 0.06,
+        "change_24h": 0.09,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 2.95
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.6x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "CASH",
+      "company": "CASH",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-12",
+      "days_since_pick": 0,
+      "current_price": 85.01,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($84.02–$86.00). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 50.8,
+        "volume_ratio": 0.35,
+        "change_1h": 0.05,
+        "change_24h": 2.53,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 2.34
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
       ]
     },
     {
@@ -182,23 +182,23 @@
       "sector": "Healthcare",
       "swing_pick_date": "2026-06-12",
       "days_since_pick": 0,
-      "current_price": 26.56,
+      "current_price": 26.35,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($25.91–$27.21). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($25.70–$27.01). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 12.7,
-        "volume_ratio": 0.93,
-        "change_1h": -1.57,
-        "change_24h": -0.15,
+        "adx_1h": 12.4,
+        "volume_ratio": 0.27,
+        "change_1h": -0.47,
+        "change_24h": -0.92,
         "trend_1h": "DOWN",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 4.93
+        "natr": 4.97
       },
       "notes": [
         "Phase: EXPANSION",
@@ -206,13 +206,13 @@
         "Slope: Positive",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.9x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.3x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-12",
-    "last_updated": "2026-06-12T14:00:14.894811-04:00",
+    "last_updated": "2026-06-12T15:00:14.572118-04:00",
     "tickers": {
       "ALHC": {
         "status_history": [
@@ -380,6 +380,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -390,6 +394,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -402,6 +410,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -412,6 +424,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -424,6 +440,10 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -434,6 +454,10 @@
         "status_history": [
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
