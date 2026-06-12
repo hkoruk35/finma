@@ -40,7 +40,9 @@ export default function TickerHoverChart({ ticker, children, className }: Props)
       {pos && typeof document !== "undefined" && createPortal(
         <div
           onMouseEnter={() => { if (timerRef.current) clearTimeout(timerRef.current); }}
-          onMouseLeave={() => setPos(null)}
+          onMouseLeave={() => {
+            timerRef.current = setTimeout(() => setPos(null), 300);
+          }}
           style={{
             position: "fixed",
             left,
