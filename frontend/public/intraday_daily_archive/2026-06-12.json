@@ -1,33 +1,68 @@
 {
   "date": "2026-06-12",
-  "generated_at": "2026-06-12T11:00:17.195190-04:00",
+  "generated_at": "2026-06-12T12:00:17.016581-04:00",
   "market_regime": "Bull",
-  "vix_level": 19.31999969482422,
+  "vix_level": 19.200000762939453,
   "total": 7,
   "signals": [
+    {
+      "ticker": "GH",
+      "company": "GH",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-11",
+      "days_since_pick": 1,
+      "current_price": 130.54,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($127.26–$133.82). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 17.6,
+        "volume_ratio": 0.15,
+        "change_1h": -0.9,
+        "change_24h": -0.28,
+        "trend_1h": "DOWN",
+        "setup": "SQUEEZE",
+        "rs_score": 2.0,
+        "natr": 5.03
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.2x < 1.2x) ❌"
+      ]
+    },
     {
       "ticker": "PTGX",
       "company": "PTGX",
       "sector": "Healthcare",
       "swing_pick_date": "2026-06-11",
       "days_since_pick": 1,
-      "current_price": 111.57,
+      "current_price": 110.68,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($109.08–$114.05). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($108.20–$113.17). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 37.8,
-        "volume_ratio": 0.4,
-        "change_1h": 0.62,
-        "change_24h": 1.62,
-        "trend_1h": "UP",
+        "adx_1h": 38.3,
+        "volume_ratio": 0.17,
+        "change_1h": -0.77,
+        "change_24h": 0.82,
+        "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 2.0,
-        "natr": 4.45
+        "natr": 4.49
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -37,7 +72,41 @@
         "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.4x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.2x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "FLOC",
+      "company": "FLOC",
+      "sector": "Energy",
+      "swing_pick_date": "2026-06-11",
+      "days_since_pick": 1,
+      "current_price": 24.23,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($23.67–$24.79). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 19.2,
+        "volume_ratio": 0.72,
+        "change_1h": 0.3,
+        "change_24h": 2.15,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 4.6
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.7x < 1.0x) ❌"
       ]
     },
     {
@@ -46,23 +115,23 @@
       "sector": "Healthcare",
       "swing_pick_date": "2026-06-11",
       "days_since_pick": 1,
-      "current_price": 20.02,
+      "current_price": 19.87,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($19.44–$20.61). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($19.28–$20.46). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 53.4,
-        "volume_ratio": 0.24,
-        "change_1h": 0.3,
-        "change_24h": -1.06,
+        "adx_1h": 50.8,
+        "volume_ratio": 0.18,
+        "change_1h": -0.63,
+        "change_24h": -1.83,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
         "rs_score": 2.0,
-        "natr": 5.88
+        "natr": 5.92
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -76,92 +145,24 @@
       ]
     },
     {
-      "ticker": "ATEN",
-      "company": "ATEN",
-      "sector": "Technology",
-      "swing_pick_date": "2026-06-11",
-      "days_since_pick": 1,
-      "current_price": 32.61,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($31.91–$33.31). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 24.5,
-        "volume_ratio": 0.46,
-        "change_1h": -0.49,
-        "change_24h": -0.15,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 2.0,
-        "natr": 4.27
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
-      "ticker": "GH",
-      "company": "GH",
-      "sector": "Healthcare",
-      "swing_pick_date": "2026-06-11",
-      "days_since_pick": 1,
-      "current_price": 132.63,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($129.35–$135.92). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 18.8,
-        "volume_ratio": 0.54,
-        "change_1h": -0.58,
-        "change_24h": 1.33,
-        "trend_1h": "UP",
-        "setup": "NONE",
-        "rs_score": 2.0,
-        "natr": 4.95
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
-      ]
-    },
-    {
       "ticker": "M",
       "company": "M",
       "sector": "Consumer Cyclical",
       "swing_pick_date": "2026-06-11",
       "days_since_pick": 1,
-      "current_price": 25.29,
+      "current_price": 25.31,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($24.70–$25.88). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($24.71–$25.90). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 43.3,
-        "volume_ratio": 0.42,
-        "change_1h": 0.94,
-        "change_24h": 1.0,
+        "adx_1h": 44.7,
+        "volume_ratio": 0.36,
+        "change_1h": -0.32,
+        "change_24h": 1.06,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 2.0,
@@ -174,7 +175,6 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)",
         "⚠️ Insufficient volume (0.4x < 1.0x) ❌"
       ]
     },
@@ -184,23 +184,23 @@
       "sector": "Financial Services",
       "swing_pick_date": "2026-06-11",
       "days_since_pick": 1,
-      "current_price": 14.94,
+      "current_price": 14.89,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($14.76–$15.13). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($14.70–$15.07). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 44.4,
-        "volume_ratio": 0.48,
-        "change_1h": 0.81,
-        "change_24h": 2.79,
-        "trend_1h": "UP",
+        "adx_1h": 45.9,
+        "volume_ratio": 0.23,
+        "change_1h": -0.27,
+        "change_24h": 2.37,
+        "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 2.0,
-        "natr": 2.46
+        "natr": 2.49
       },
       "notes": [
         "🚀 RS: Outperformer",
@@ -209,48 +209,47 @@
         "Slope: Positive",
         "VWAP Extended",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)",
-        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
+        "⚠️ Insufficient volume (0.2x < 1.0x) ❌"
       ]
     },
     {
-      "ticker": "FLOC",
-      "company": "FLOC",
-      "sector": "Energy",
+      "ticker": "ATEN",
+      "company": "ATEN",
+      "sector": "Technology",
       "swing_pick_date": "2026-06-11",
       "days_since_pick": 1,
-      "current_price": 24.01,
+      "current_price": 32.04,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($23.46–$24.57). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($31.33–$32.76). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 20.0,
-        "volume_ratio": 1.92,
-        "change_1h": -0.02,
-        "change_24h": 1.24,
-        "trend_1h": "UP",
-        "setup": "ABSORPTION",
+        "adx_1h": 24.5,
+        "volume_ratio": 0.49,
+        "change_1h": -1.67,
+        "change_24h": -1.88,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
         "rs_score": 2.0,
-        "natr": 4.6
+        "natr": 4.45
       },
       "notes": [
         "🚀 RS: Outperformer",
-        "Price below EMA50 & Slope Negative",
-        "VWAP/EMA50 Defense Zone",
-        "🔥 Institutional Absorption",
-        "ADX + Volume Confirmation",
-        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.5x < 1.0x) ❌"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-12",
-    "last_updated": "2026-06-12T11:00:17.195190-04:00",
+    "last_updated": "2026-06-12T12:00:17.016581-04:00",
     "tickers": {
       "ALHC": {
         "status_history": [
@@ -260,6 +259,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -276,6 +279,10 @@
           {
             "hour": "11:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -290,6 +297,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -306,6 +317,10 @@
           {
             "hour": "11:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -320,6 +335,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -336,6 +355,10 @@
           {
             "hour": "11:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -350,6 +373,10 @@
           },
           {
             "hour": "11:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "12:00",
             "status": "ENTRY_NOW"
           }
         ],

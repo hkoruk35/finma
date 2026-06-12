@@ -1,8 +1,8 @@
-# BOGA AI Swing Watchlist - 2026-06-12 11:00
-PTGX
-ALHC
-ATEN
+# BOGA AI Swing Watchlist - 2026-06-12 12:00
 GH
+PTGX
+FLOC
+ALHC
 M
 FLG
-FLOC
+ATEN
