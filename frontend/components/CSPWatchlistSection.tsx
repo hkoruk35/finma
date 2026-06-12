@@ -20,13 +20,15 @@ const CSP_LISTS: CSPList[] = [
   { key: "2550",  label: "2550 CSP",  range: "$25 – $50",   description: "Mid-priced CSP candidates with balanced premium and margin requirements.",                         color: "bg-[#3b82f6]/5", borderColor: "border-[#3b82f6]/30", textColor: "text-[#3b82f6]", href: "/csp/2550"  },
   { key: "50250", label: "50250 CSP", range: "$50 – $250",  description: "Higher-priced stocks for premium CSP strategies with larger capital allocation.",                   color: "bg-[#a78bfa]/5", borderColor: "border-[#a78bfa]/30", textColor: "text-[#a78bfa]", href: "/csp/50250" },
   { key: "portfolio", label: "Portföy", range: "Tüm Fiyatlar", description: "Kişisel portföy izleme ve yönetimi. Sahip olduğunuz hisseleri takip edin.",                            color: "bg-[#f97316]/5", borderColor: "border-[#f97316]/30", textColor: "text-[#f97316]", href: "/csp/portfolio" },
+  { key: "swing", label: "Swing", range: "Günlük Tarama", description: "Günlük swing ticaret adayları. BOGA AI tarafından tespit edilen günlük setuplar.",                   color: "bg-[#ec4899]/5", borderColor: "border-[#ec4899]/30", textColor: "text-[#ec4899]", href: "/csp/swing" },
+  { key: "daily", label: "Daily", range: "İntraday Takip", description: "Günlük intraday takip hisseleri. Saatlik performans ve durum güncellemeleri.",                   color: "bg-[#f59e0b]/5", borderColor: "border-[#f59e0b]/30", textColor: "text-[#f59e0b]", href: "/csp/daily" },
   { key: "long_term", label: "Long-Term", range: "Makro Trendler", description: "Uzun vadeli hisse seçimleri ve portföy yönetimi. Makro trendler ve değer oyunları.",            color: "bg-[#14b8a6]/5", borderColor: "border-[#14b8a6]/30", textColor: "text-[#14b8a6]", href: "/csp/long_term" },
 ];
 
 export default function CSPWatchlistSection() {
   const [lists, setLists] = useState<Record<string, string[]>>({});
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250" | "portfolio" | "long_term">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250" | "portfolio" | "swing" | "daily" | "long_term">("all");
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [addMessage, setAddMessage] = useState("");
 

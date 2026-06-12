@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const VALID_SLUGS = ['525', '2550', '50250', 'portfolio', 'long_term']
+const VALID_SLUGS = ['525', '2550', '50250', 'portfolio', 'swing', 'daily', 'long_term']
 
 function getAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
