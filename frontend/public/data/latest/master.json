@@ -1,20 +1,19 @@
 {
-  "date": "2026-06-11",
-  "generated_at": "2026-06-11T13:04:00.633114-04:00",
+  "date": "2026-06-12",
+  "generated_at": "2026-06-12T13:03:51.631779-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 7,
-  "market_regime": "CHOPPY",
+  "active_scores_count": 6,
+  "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 7,
+      "count": 6,
       "tickers": [
-        "M",
-        "FLG",
-        "PTGX",
-        "GH",
-        "ATEN",
-        "FLOC",
-        "ALHC"
+        "CASH",
+        "RF",
+        "PRI",
+        "ROST",
+        "DORM",
+        "BLFS"
       ]
     },
     "breakout": {
@@ -40,18 +39,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "M",
-      "score": 54.0,
+      "ticker": "CASH",
+      "score": 58.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "FLG",
-      "score": 53.0,
+      "ticker": "RF",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PTGX",
-      "score": 49.0,
+      "ticker": "PRI",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

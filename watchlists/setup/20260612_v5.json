@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "PRI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 282.09,
+        "entry_zone": "278.85 - 285.33",
+        "SL": 269.13,
+        "TP": 301.53
+    },
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "ROST",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 241.47,
+        "entry_zone": "238.41 - 244.53",
+        "SL": 229.23,
+        "TP": 259.83
+    },
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "DORM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 128.3,
+        "entry_zone": "126.41 - 130.19",
+        "SL": 120.74,
+        "TP": 139.64
+    },
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "CASH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 85.0,
+        "entry_zone": "84.01 - 85.99",
+        "SL": 81.02,
+        "TP": 90.96
+    },
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "RF",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 29.15,
+        "entry_zone": "28.81 - 29.48",
+        "SL": 27.82,
+        "TP": 31.14
+    },
+    {
+        "date": "2026-06-12 14:00",
+        "symbol": "BLFS",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 26.56,
+        "entry_zone": "25.91 - 27.21",
+        "SL": 23.94,
+        "TP": 30.49
+    }
+]

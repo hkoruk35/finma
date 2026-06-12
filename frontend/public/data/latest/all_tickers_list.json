@@ -1,82 +1,71 @@
 {
-  "date": "2026-06-11",
+  "date": "2026-06-12",
   "tickers": [
     {
-      "ticker": "M",
-      "company": "M",
-      "sector": "Consumer Cyclical",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 24.079999923706055,
-      "change_pct": 3.97,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FLG",
-      "company": "FLG",
+      "ticker": "CASH",
+      "company": "CASH",
       "sector": "Financial Services",
-      "master_score": 53.0,
+      "master_score": 58.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 14.4399995803833,
-      "change_pct": -0.28,
+      "price": 84.97599792480469,
+      "change_pct": 2.49,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 58.5 | System: TREND_CONT"
     },
     {
-      "ticker": "PTGX",
-      "company": "PTGX",
+      "ticker": "RF",
+      "company": "RF",
+      "sector": "Financial Services",
+      "master_score": 57.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 29.114999771118164,
+      "change_pct": 0.78,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PRI",
+      "company": "PRI",
+      "sector": "Financial Services",
+      "master_score": 56.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 281.29998779296875,
+      "change_pct": 0.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ROST",
+      "company": "ROST",
+      "sector": "Consumer Cyclical",
+      "master_score": 52.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 241.27999877929688,
+      "change_pct": 0.91,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "DORM",
+      "company": "DORM",
+      "sector": "Consumer Cyclical",
+      "master_score": 51.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 128.86500549316406,
+      "change_pct": 0.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BLFS",
+      "company": "BLFS",
       "sector": "Healthcare",
-      "master_score": 49.0,
+      "master_score": 45.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 109.19499969482422,
-      "change_pct": 3.24,
+      "price": 27.075000762939453,
+      "change_pct": 1.79,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "GH",
-      "company": "GH",
-      "sector": "Healthcare",
-      "master_score": 45.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 130.41000366210938,
-      "change_pct": -0.22,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 45.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ATEN",
-      "company": "ATEN",
-      "sector": "Technology",
-      "master_score": 44.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 31.459999084472656,
-      "change_pct": -0.82,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FLOC",
-      "company": "FLOC",
-      "sector": "Energy",
-      "master_score": 40.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 24.180099487304688,
-      "change_pct": 0.83,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 40.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ALHC",
-      "company": "ALHC",
-      "sector": "Healthcare",
-      "master_score": 37.8,
-      "score_type": "POSITIVE_BIAS",
-      "price": 20.950000762939453,
-      "change_pct": 1.9,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.8 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 45.0 | System: DEFAULT"
     }
   ]
 }
