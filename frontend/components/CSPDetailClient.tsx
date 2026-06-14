@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useCloudStore } from "@/hooks/useCloudStore";
+import * as XLSX from "xlsx";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -164,6 +165,50 @@ export default function CSPDetailClient({ slug }: Props) {
     const { [sym]: _, ...newTypes } = types;
     saveList(newList, newTypes);
     if (expandedRow === sym) setExpandedRow(null);
+  };
+
+  const downloadXLS = () => {
+    const rows = tickers.map(sym => {
+      const d = data[sym];
+      const t1h = d?.tracker_1h;
+      const price = d?.price;
+      return {
+        "Ticker": sym,
+        "Tip": types[sym] || "CSP",
+        "Şirket": d?.company || "",
+        "Sektör": d?.sector || "",
+        "Fiyat": price?.current ?? "",
+        "1G %": price?.change_pct != null ? +price.change_pct.toFixed(2) : "",
+        "1H %": t1h?.change_pct_1h != null ? +t1h.change_pct_1h.toFixed(2) : "",
+        "Hacim": price?.volume ?? "",
+        "30G Ort. Hacim": price?.avg_volume_30d ?? "",
+        "Hac. Oran": t1h?.volume_ratio != null ? +t1h.volume_ratio.toFixed(2) : "",
+        "EMA20": t1h?.ema_20 != null ? +t1h.ema_20.toFixed(2) : "",
+        "EMA50": t1h?.ema_50 != null ? +t1h.ema_50.toFixed(2) : "",
+        "EMA200": t1h?.ema_200 != null ? +t1h.ema_200.toFixed(2) : "",
+        "EMA Durum": t1h?.ema_status || "",
+        "RSI": t1h?.rsi != null ? +t1h.rsi.toFixed(1) : "",
+        "Patern": t1h?.candle_pattern || "",
+        "Sinyal": t1h?.signal || "",
+        "Not": notes[sym] || "",
+      };
+    });
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const colWidths = [
+      { wch: 8 }, { wch: 8 }, { wch: 28 }, { wch: 18 },
+      { wch: 8 }, { wch: 7 }, { wch: 7 }, { wch: 10 }, { wch: 14 },
+      { wch: 9 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 14 },
+      { wch: 6 }, { wch: 12 }, { wch: 8 }, { wch: 24 },
+    ];
+    ws["!cols"] = colWidths;
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, cfg.label);
+
+    const now = new Date();
+    const dateStr = now.toISOString().slice(0, 10).replace(/-/g, "");
+    XLSX.writeFile(wb, `boga_${slug}_${dateStr}.xlsx`);
   };
 
   // ── Fetch data with retry logic ──────────────────────────────────────
@@ -363,6 +408,19 @@ export default function CSPDetailClient({ slug }: Props) {
               }}
             >
               {loading ? "..." : "YENİLE"}
+            </button>
+            <button
+              onClick={downloadXLS}
+              disabled={tickers.length === 0}
+              title="Excel olarak indir"
+              style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d", background: "transparent",
+                color: tickers.length === 0 ? "#8b949e" : "#3fb950",
+                borderRadius: 4, cursor: tickers.length === 0 ? "default" : "pointer"
+              }}
+            >
+              XLS ↓
             </button>
           </div>
         </div>
