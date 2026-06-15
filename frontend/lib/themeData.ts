@@ -65,7 +65,6 @@ export const MARKET_THEMES: Theme[] = [
       "BILL",
       "GTLB",
       "TTD",
-      "SMAR",
       "ZS"
     ]
   },
@@ -77,8 +76,7 @@ export const MARKET_THEMES: Theme[] = [
       "CRWD",
       "FTNT",
       "OKTA",
-      "S",
-      "CYBR"
+      "S"
     ]
   },
   {
@@ -88,7 +86,6 @@ export const MARKET_THEMES: Theme[] = [
       "PLTR",
       "MSTR",
       "IBM",
-      "ANSS",
       "CDNS",
       "SNPS"
     ]
@@ -101,7 +98,6 @@ export const MARKET_THEMES: Theme[] = [
       "NET",
       "AKAM",
       "ANET",
-      "JNPR",
       "NTAP"
     ]
   },
@@ -166,25 +162,21 @@ export const MARKET_THEMES: Theme[] = [
       "BILL",
       "GTLB",
       "TTD",
-      "SMAR",
       "ZS",
       "PANW",
       "CRWD",
       "FTNT",
       "OKTA",
       "S",
-      "CYBR",
       "PLTR",
       "MSTR",
       "IBM",
-      "ANSS",
       "CDNS",
       "SNPS",
       "CSCO",
       "NET",
       "AKAM",
       "ANET",
-      "JNPR",
       "NTAP",
       "DELL",
       "INTC",
