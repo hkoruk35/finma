@@ -96,27 +96,30 @@ interface Regime {
 // ─── BOGA Score Weights per Preset (Architecture spec §6.1) ──────────────────
 
 const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options: number; liquidity: number }> = {
-  genel_swing: { trend: 35, momentum: 40, options: 10, liquidity: 15 },
-  swing_cont:  { trend: 30, momentum: 25, options: 20, liquidity: 25 },
-  early_break: { trend: 25, momentum: 35, options: 15, liquidity: 25 },
-  day_mom:     { trend: 15, momentum: 45, options: 10, liquidity: 30 },
-  opt_sniper:  { trend: 20, momentum: 20, options: 45, liquidity: 15 },
-  inst_trend:  { trend: 40, momentum: 20, options: 15, liquidity: 25 },
-  cheap_exp:   { trend: 20, momentum: 35, options: 25, liquidity: 20 },
-  ema_cross:   { trend: 30, momentum: 35, options: 15, liquidity: 20 },
-  gamma_sq:    { trend: 15, momentum: 25, options: 45, liquidity: 15 },
-  pre_catalyst:{ trend: 20, momentum: 35, options: 10, liquidity: 35 },
+  genel_swing:     { trend: 35, momentum: 40, options: 10, liquidity: 15 },
+  swing_cont:      { trend: 30, momentum: 25, options: 20, liquidity: 25 },
+  early_break:     { trend: 25, momentum: 35, options: 15, liquidity: 25 },
+  day_mom:         { trend: 15, momentum: 45, options: 10, liquidity: 30 },
+  opt_sniper:      { trend: 20, momentum: 20, options: 45, liquidity: 15 },
+  inst_trend:      { trend: 40, momentum: 20, options: 15, liquidity: 25 },
+  cheap_exp:       { trend: 20, momentum: 35, options: 25, liquidity: 20 },
+  ema_cross:       { trend: 30, momentum: 35, options: 15, liquidity: 20 },
+  gamma_sq:        { trend: 15, momentum: 25, options: 45, liquidity: 15 },
+  pre_catalyst:    { trend: 20, momentum: 35, options: 10, liquidity: 35 },
+  quality_growth:  { trend: 45, momentum: 20, options: 5,  liquidity: 30 },
+  agg_growth:      { trend: 30, momentum: 40, options: 5,  liquidity: 25 },
+  breakout_growth: { trend: 30, momentum: 35, options: 15, liquidity: 20 },
 };
 
 // Regime multipliers (Architecture spec §8.1)
 const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
-  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25 },
-  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95 },
-  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90 },
-  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50 },
-  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35 },
-  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35 },
-  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75 },
+  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25, quality_growth: 1.20, agg_growth: 1.15, breakout_growth: 1.20 },
+  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 1.00 },
+  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 0.95 },
+  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50, quality_growth: 0.40, agg_growth: 0.25, breakout_growth: 0.35 },
+  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35, quality_growth: 0.20, agg_growth: 0.15, breakout_growth: 0.20 },
+  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35, quality_growth: 0.60, agg_growth: 0.70, breakout_growth: 0.80 },
+  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75, quality_growth: 1.00, agg_growth: 0.90, breakout_growth: 1.10 },
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
@@ -527,11 +530,11 @@ function classifySetup(params: {
   if (atrPct > 5) signals.push(`ATR ${atrPct.toFixed(1)}%`);
 
   let primary = "swing";
-  if (rvol >= 3 && change1d > 3 && atrPct > 4) primary = "momentum";
-  else if (hasWeekly && rsiVal >= 55) primary = "options";
-  else if (price > sma200 && ema20 > ema50 && rsiVal >= 55 && rsiVal <= 70) primary = "swing";
-  else if (bbPct < 0.2 || bbPct > 0.8) primary = "breakout";
+  if (rvol >= 3 && change1d > 4 && atrPct > 4) primary = "momentum";
   else if (rvol >= 2.5 && change1d > 3) primary = "day";
+  else if (price > sma200 && ema20 > ema50 && rsiVal >= 55 && rsiVal <= 72) primary = "swing";
+  else if (hasWeekly && atrPct >= 3.5 && rvol >= 1.5) primary = "options";
+  else if (bbPct < 0.15 || bbPct > 0.85) primary = "breakout";
 
   return { primary, signals };
 }
@@ -733,57 +736,104 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "genel_swing":
-      // Genel Swing: Institutional-grade swing trading setup
-      // Esnek rejim: NASDAQ koşulu zorunlu değil, sektörel divergence hisselerini yakala
-      // STEP 1: Trend Filter (Price > EMA8 > EMA20)
-      // STEP 2: Momentum Validation (RSI >= 50)
-      // STEP 3: Volume Validation (RVOL >= 1.3, kurumsal hedef >= 1.5)
-      // NOT: Rejim multiplier zaten score'u yumuşak şekilde ayarlıyor
+      // Price > EMA8 > EMA20, RSI 50+, RVOL ≥ 1.5
       return s.price > s.ema8 &&
              s.ema8 > s.ema20 &&
+             s.ema20 > s.ema50 &&
              s.rsi >= 50 &&
-             s.rvol >= 1.3 &&
-             s.boga_score >= 35;
+             s.rvol >= 1.5 &&
+             s.boga_score >= 40;
     case "swing_cont":
-      return s.ema20 > s.ema50 && s.rsi >= 40 && s.rvol >= 0.3 && s.market_cap >= 100e6;
+      // Price > SMA200, EMA20 > EMA50, RSI 55-75, RVOL ≥ 1.0, MCap ≥ 500M
+      return s.price > s.sma200 &&
+             s.ema20 > s.ema50 &&
+             s.rsi >= 55 && s.rsi <= 75 &&
+             s.rvol >= 1.0 &&
+             s.market_cap >= 500e6 &&
+             s.boga_score >= 45;
     case "early_break": {
       if (s.price > 100) return false;
       const triDetected = s.triangle_detected ?? false;
       const triScore    = s.triangle_score    ?? 0;
       const bbwPct      = s.bbw_percentile    ?? 100;
-      // Triangle path (MD § 4): triangle confirmed + score ≥ 50
       const trianglePath = triDetected && triScore >= 50;
-      // Classic BB squeeze fallback: tight bands + low percentile
-      const squeezePath  = s.bb_width < 0.12 && bbwPct < 40;
-      return (trianglePath || squeezePath) && s.rvol >= 0.5 && s.boga_score >= 40;
+      const squeezePath  = s.bb_width < 0.12 && bbwPct < 35;
+      return (trianglePath || squeezePath) && s.rvol >= 0.8 && s.boga_score >= 40;
     }
     case "day_mom":
-      return s.change_1d > 1.5 && s.rvol >= 1.0 && s.boga_score >= 45;
+      // Değişim > 2.5%, RVOL ≥ 2.0, RSI 50+
+      return s.change_1d > 2.5 &&
+             s.rvol >= 2.0 &&
+             s.rsi >= 50 &&
+             s.boga_score >= 45;
     case "opt_sniper":
-      return s.has_weekly_options && s.rvol >= 0.5 &&
-             s.atr_pct >= 2.0 && s.rsi >= 40;
+      // Haftalık opsiyonlar, IV expansion, RVOL ≥ 1.3, RSI 45+
+      return s.has_weekly_options &&
+             s.rvol >= 1.3 &&
+             s.atr_pct >= 2.0 &&
+             s.rsi >= 45 &&
+             s.boga_score >= 45;
     case "inst_trend":
-      return s.market_cap >= 10e9 && s.ema20 > s.ema50 && s.adx >= 12;
+      // MCap > 10B, Price > SMA200, EMA20 > EMA50, ADX ≥ 20
+      return s.market_cap >= 10e9 &&
+             s.price > s.sma200 &&
+             s.ema20 > s.ema50 &&
+             s.adx >= 20 &&
+             s.boga_score >= 50;
     case "cheap_exp":
-      return s.price < 20 && s.atr_pct >= 2.5 && s.rvol >= 0.8;
+      // Price $0.5-$10, ATR% ≥ 3.0, RVOL ≥ 1.5, opsiyonlu
+      return s.price >= 0.5 && s.price < 10 &&
+             s.atr_pct >= 3.0 &&
+             s.rvol >= 1.5 &&
+             s.has_options &&
+             s.boga_score >= 38;
     case "ema_cross":
+      // EMA8 > EMA20, EMA20 EMA50'ye yakın (±7%), RVOL ≥ 1.3, RSI 45-72
       return s.ema8 > s.ema20 &&
              s.ema20 >= s.ema50 * 0.93 && s.ema20 <= s.ema50 * 1.07 &&
-             s.rvol >= 0.5;
+             s.rvol >= 1.3 &&
+             s.rsi >= 45 && s.rsi <= 72 &&
+             s.boga_score >= 40;
     case "gamma_sq":
-      return s.has_weekly_options && s.atr_pct >= 3.5 &&
-             s.market_cap < 50e9 && s.rvol >= 0.8;
-    case "pre_catalyst":
-      // Episodemic Pivot (EP) Setup - Esnek Version
-      // Geniş ağ: Nano/Micro'yu da yakala, hafif filtreleme
-      return s.price >= 1 &&
-             s.market_cap >= 100e6 &&
+      // Haftalık opsiyonlar, ATR% ≥ 4.0, MCap < 20B, RVOL ≥ 1.5
+      return s.has_weekly_options &&
+             s.atr_pct >= 4.0 &&
+             s.market_cap < 20e9 &&
              s.rvol >= 1.5 &&
              s.rsi >= 45 &&
-             s.change_1d > 1.0 &&
-             s.boga_score >= 35;
+             s.boga_score >= 45;
+    case "pre_catalyst":
+      // Episodic Pivot: MCap ≥ 200M, RVOL ≥ 2.0, RSI 45+, Değişim > 2.0%
+      return s.price >= 1 &&
+             s.market_cap >= 200e6 &&
+             s.rvol >= 2.0 &&
+             s.rsi >= 45 &&
+             s.change_1d > 2.0 &&
+             s.boga_score >= 38;
+    case "quality_growth":
+      // Teknik proxy: Price > SMA200, MCap ≥ 1B, EMA20 > EMA50, ADX ≥ 18
+      return s.price > s.sma200 &&
+             s.market_cap >= 1e9 &&
+             s.ema20 > s.ema50 &&
+             s.adx >= 18 &&
+             s.rsi >= 50 &&
+             s.boga_score >= 52;
+    case "agg_growth":
+      // Güçlü momentum proxy: Price > SMA200, RVOL ≥ 1.5, RSI 55+, ROC ≥ 5%
+      return s.price > s.sma200 &&
+             s.rvol >= 1.5 &&
+             s.rsi >= 55 &&
+             s.roc10 >= 5 &&
+             s.boga_score >= 55;
+    case "breakout_growth":
+      // Golden Cross proxy: EMA50 > SMA200, Price > EMA20, RVOL ≥ 2, ADX ≥ 20, BOGA ≥ 60
+      return s.ema50 > s.sma200 &&
+             s.price > s.ema20 &&
+             s.rvol >= 2.0 &&
+             s.adx >= 20 &&
+             s.boga_score >= 60;
     default:
-      return s.boga_score >= 40;
+      return s.boga_score >= 45;
   }
 }
 
@@ -844,7 +894,7 @@ export async function GET(req: NextRequest) {
   const optFilter  = sp.get("opt")       || "all";
   const liqFilter  = sp.get("liq")       || "all";
   const sortBy     = sp.get("sort")      || "score";
-  const limit      = Math.min(parseInt(sp.get("limit") || "50"), 100);
+  const limit      = Math.min(parseInt(sp.get("limit") || "100"), 200);
   // Advanced filters
   const rvolMin    = sp.get("rvolMin")   ? parseFloat(sp.get("rvolMin")!) : null;
   const rsiMin     = sp.get("rsiMin")    ? parseInt(sp.get("rsiMin")!)    : null;

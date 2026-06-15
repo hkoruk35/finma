@@ -409,7 +409,7 @@ const REGIME_MULT_HINT: Record<string, string> = {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function ScreenerCockpit() {
-  const [activePreset, setActivePreset] = useState("pre_catalyst");
+  const [activePreset, setActivePreset] = useState("genel_swing");
   const currentPreset = PRESETS.find(p => p.id === activePreset);
   const presetPills   = currentPreset?.pills || [];
 
@@ -452,7 +452,7 @@ export default function ScreenerCockpit() {
     setIsScanning(true);
     setExpandedRow(null);
     try {
-      const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "60" });
+      const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "100" });
       if (priceRange) { params.set("priceMin", String(priceRange.min)); params.set("priceMax", String(priceRange.max)); }
       if (rvolMin !== null) params.set("rvolMin", String(rvolMin));
       if (rsiMin  !== null) params.set("rsiMin",  String(rsiMin));
@@ -653,7 +653,7 @@ export default function ScreenerCockpit() {
         <div style={{ width: 220, background: "#0d1117", borderRight: "1px solid #1e2a3a", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: "12px 14px 6px", fontSize: 10, letterSpacing: "1.5px", color: "#7c8fa6", textTransform: "uppercase", fontWeight: 700 }}>Stratejiler</div>
           {(() => {
-            const modes = ["investment", "swing", "day", "options", "position"];
+            const modes = ["swing", "investment", "day", "options", "position"];
             const modeLabels: Record<string, string> = {
               investment: "📊 INVESTMENT",
               swing: "📈 SWING",
@@ -661,12 +661,12 @@ export default function ScreenerCockpit() {
               options: "📋 OPTIONS",
               position: "🏛️ POSITION"
             };
-            return modes.map(mode => {
+            return modes.map((mode, modeIdx) => {
               const modePresets = PRESETS.filter(p => p.mode === mode);
               if (modePresets.length === 0) return null;
               return (
                 <div key={mode}>
-                  <div style={{ padding: "10px 14px 4px", fontSize: 9, letterSpacing: "1px", color: "#64748b", textTransform: "uppercase", fontWeight: 600, marginTop: mode === "investment" ? 0 : 6 }}>{modeLabels[mode]}</div>
+                  <div style={{ padding: "10px 14px 4px", fontSize: 9, letterSpacing: "1px", color: "#64748b", textTransform: "uppercase", fontWeight: 600, marginTop: modeIdx === 0 ? 0 : 6 }}>{modeLabels[mode]}</div>
                   {modePresets.map(p => (
                     <button key={p.id} onClick={() => selectPreset(p)}
                       style={{ display: "block", width: "100%", textAlign: "left", padding: "8px 14px", cursor: "pointer", border: "none", background: activePreset === p.id ? "#111620" : "none", borderLeft: `2px solid ${activePreset === p.id ? p.color : "transparent"}`, transition: "all .15s" }}
@@ -738,8 +738,12 @@ export default function ScreenerCockpit() {
 
             <div style={{ fontSize: 11, color: "#7c8fa6", marginLeft: "auto", textAlign: "right" }}>
               {scanMeta.total > 0 && (
-                <><span style={{ color: "#fbbf24", fontWeight: 700 }}>{scanMeta.total}</span>
-                  <span style={{ color: "#94a3b8" }}> sonuç · </span>
+                <>
+                  <span style={{ color: "#fbbf24", fontWeight: 700 }}>{sortedResults.length}</span>
+                  {scanMeta.total > sortedResults.length && (
+                    <span style={{ color: "#7c8fa6" }}>/{scanMeta.total}</span>
+                  )}
+                  <span style={{ color: "#94a3b8" }}> gösteriliyor · </span>
                   <span style={{ color: "#7c8fa6" }}>{scanMeta.scanned} tarandı</span>
                 </>
               )}
