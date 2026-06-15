@@ -1,244 +1,676 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import TickerHoverChart from "./TickerHoverChart";
+
+// ── Types ──────────────────────────────────────────────────────────────────────
+
+interface TickerData {
+  ticker: string;
+  company: string;
+  sector: string;
+  price: {
+    current: number;
+    change_pct: number;
+    change_pct_1w?: number;
+    change_pct_1m?: number;
+    volume: number;
+    avg_volume_30d?: number;
+  };
+  tracker_1h: {
+    ema_20: number;
+    ema_50: number;
+    ema_200: number;
+    ema_status: string;
+    rsi: number;
+    candle_pattern: string;
+    signal: string;
+    volume_ratio: number;
+    change_pct_1h: number;
+  };
+  fundamental?: { market_cap?: number; pe_ratio?: number };
+  scores?: { master_score?: number; score_type?: string };
+}
 
 interface ThemeDetailClientProps {
   themeName: string;
   initialTickers: string[];
 }
 
+// ── Helpers ────────────────────────────────────────────────────────────────────
+
+const fmt2 = (n: number | null | undefined) =>
+  n != null && isFinite(n) ? n.toFixed(2) : "—";
+const fmt1 = (n: number | null | undefined) =>
+  n != null && isFinite(n) ? n.toFixed(1) : "—";
+const fmtLarge = (v?: number) => {
+  if (!v) return "—";
+  if (v >= 1e12) return "$" + (v / 1e12).toFixed(1) + "T";
+  if (v >= 1e9)  return "$" + (v / 1e9).toFixed(1) + "B";
+  if (v >= 1e6)  return "$" + (v / 1e6).toFixed(0) + "M";
+  return "$" + v.toLocaleString();
+};
+
+function heatBg(pct: number | null | undefined): { bg: string; text: string } {
+  if (pct == null) return { bg: "#111417", text: "#444" };
+  if (pct >= 3.0)  return { bg: "#0a3d12", text: "#56d364" };
+  if (pct >= 2.0)  return { bg: "#0d4a0d", text: "#56d364" };
+  if (pct >= 1.0)  return { bg: "#0d3a0d", text: "#3fb950" };
+  if (pct >= 0.3)  return { bg: "#0d2a0d", text: "#3fb950" };
+  if (pct > -0.3)  return { bg: "#1a1f26", text: "#8b949e" };
+  if (pct > -1.0)  return { bg: "#2a0d0d", text: "#f85149" };
+  if (pct > -2.0)  return { bg: "#3a0d0d", text: "#f85149" };
+  return              { bg: "#4a0d0d", text: "#ff7b72" };
+}
+
+function rsiColor(rsi?: number) {
+  if (!rsi) return "#8b949e";
+  if (rsi >= 70) return "#f85149";
+  if (rsi >= 50) return "#3fb950";
+  if (rsi >= 40) return "#e3b341";
+  return "#f85149";
+}
+
+function emaColor(price: number, ema?: number) {
+  if (!ema) return "#8b949e";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "#e3b341";
+  return price > ema ? "#3fb950" : "#f85149";
+}
+
+function emaArrow(price: number, ema?: number) {
+  if (!ema) return "";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "~";
+  return price > ema ? "↑" : "↓";
+}
+
+const SIGNAL_COLOR: Record<string, string> = {
+  AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149",
+};
+const SIGNAL_ICON: Record<string, string> = {
+  AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕",
+};
+const ROW_BG: Record<string, string> = {
+  AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d",
+};
+
+const SCORE_TYPE_STYLE: Record<string, { bg: string; text: string; border: string }> = {
+  HIGH_CONVICTION: { bg: "#2a1f00", text: "#e3b341", border: "#e3b34150" },
+  POSITIVE_BIAS:   { bg: "#0d2a0d", text: "#3fb950", border: "#3fb95050" },
+  NEGATIVE_BIAS:   { bg: "#2a0d0d", text: "#f85149", border: "#f8514950" },
+  UNDERPERFORM:    { bg: "#2a0d0d", text: "#f85149", border: "#f8514950" },
+};
+
+// ── Component ──────────────────────────────────────────────────────────────────
+
 export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDetailClientProps) {
-  const [tickers, setTickers] = useState<string[]>([]);
+  const [tickers, setTickers]       = useState<string[]>([]);
   const [customTickers, setCustomTickers] = useState<string[]>([]);
-  const [stocks, setStocks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [data, setData]             = useState<Record<string, TickerData>>({});
+  const [loading, setLoading]       = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [activeTab, setActiveTab]   = useState<"table" | "heatmap">("table");
+  const [sortBy, setSortBy]         = useState<string>("1G%");
+  const [sortDir, setSortDir]       = useState<"asc" | "desc">("desc");
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
 
+  // ── Load tickers (cache-first, then API) ──────────────────────────────────
   useEffect(() => {
-    // Cache anlık
-    try {
-      const raw = localStorage.getItem("t_theme_overrides");
-      if (raw) {
-        const overrides = JSON.parse(raw);
-        const customList = overrides[themeName] || [];
-        setCustomTickers(customList);
-        const merged = Array.from(new Set([...initialTickers, ...customList]));
-        setTickers(merged);
-        fetchThemeStocks(merged);
-      } else {
-        setTickers(initialTickers);
-        fetchThemeStocks(initialTickers);
-      }
-    } catch { setTickers(initialTickers); fetchThemeStocks(initialTickers); }
+    function applyOverrides(overrides: Record<string, string[]>) {
+      const customList = overrides[themeName] || [];
+      setCustomTickers(customList);
+      const merged = Array.from(new Set([...initialTickers, ...customList]));
+      setTickers(merged);
+      return merged;
+    }
 
-    // API = gerçek kaynak
+    let cached: Record<string, string[]> = {};
+    try { cached = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
+    const mergedFromCache = applyOverrides(cached);
+    fetchStocks(mergedFromCache);
+
     fetch("/api/store/theme_overrides")
       .then(r => r.json())
       .then(({ value }) => {
         const overrides: Record<string, string[]> = value ?? {};
         try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
-        const customList = overrides[themeName] || [];
-        setCustomTickers(customList);
-        const merged = Array.from(new Set([...initialTickers, ...customList]));
-        setTickers(merged);
-        fetchThemeStocks(merged);
+        const merged = applyOverrides(overrides);
+        fetchStocks(merged);
       })
       .catch(() => {});
-  }, [themeName, initialTickers]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [themeName]);
 
-  const fetchThemeStocks = async (list: string[]) => {
-    if (list.length === 0) {
-      setStocks([]);
-      setLoading(false);
-      return;
-    }
+  const fetchStocks = useCallback(async (list: string[]) => {
+    if (list.length === 0) { setData({}); setLoading(false); return; }
     setLoading(true);
     try {
       const res = await fetch(`/api/watchlist-data?tickers=${list.join(",")}`);
-      if (res.ok) {
-        const data = await res.json();
-        
-        // Sort by market cap descending if available, else by ticker
-        data.sort((a: any, b: any) => {
-          const mcA = a.fundamental?.market_cap || 0;
-          const mcB = b.fundamental?.market_cap || 0;
-          if (mcA !== mcB) return mcB - mcA;
-          return a.ticker.localeCompare(b.ticker);
-        });
-
-        setStocks(data);
-      }
+      if (!res.ok) throw new Error("API error");
+      const results: TickerData[] = await res.json();
+      const map: Record<string, TickerData> = {};
+      results.forEach(item => { if (item?.ticker) map[item.ticker] = item; });
+      setData(map);
+      setLastUpdated(new Date());
     } catch (e) {
-      console.error("Error loading theme stocks:", e);
+      console.error("ThemeDetail fetch error:", e);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  function syncOverrides(overrides: Record<string, string[]>) {
+  const refresh = () => fetchStocks(tickers);
+
+  const syncOverrides = (overrides: Record<string, string[]>) => {
     try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
-    fetch("/api/store/theme_overrides", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: overrides }) }).catch(() => {});
-  }
+    fetch("/api/store/theme_overrides", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value: overrides }),
+    }).catch(() => {});
+  };
 
   const removeCustomTicker = (ticker: string) => {
     let overrides: Record<string, string[]> = {};
     try { overrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
     if (overrides[themeName]) {
-      overrides[themeName] = overrides[themeName].filter((t: string) => t !== ticker.toUpperCase());
+      overrides[themeName] = overrides[themeName].filter(t => t !== ticker);
       syncOverrides(overrides);
     }
-    setCustomTickers(customTickers.filter(t => t !== ticker.toUpperCase()));
-    const merged = tickers.filter(t => t !== ticker.toUpperCase());
-    setTickers(merged);
-    setStocks(stocks.filter(s => s.ticker !== ticker.toUpperCase()));
+    setCustomTickers(prev => prev.filter(t => t !== ticker));
+    const newList = tickers.filter(t => t !== ticker);
+    setTickers(newList);
+    setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
   };
 
-  const n = (v: any, d = 2): string => {
-    if (v == null || v === "" || isNaN(Number(v))) return "—";
-    return Number(v).toFixed(d);
+  // ── Sorting ────────────────────────────────────────────────────────────────
+  const toggleSort = (col: string) => {
+    if (sortBy === col) setSortDir(d => d === "asc" ? "desc" : "asc");
+    else { setSortBy(col); setSortDir("desc"); }
   };
 
-  const pct = (v: any, d = 2): string => {
-    if (v == null || v === "" || isNaN(Number(v))) return "—";
-    const x = Number(v);
-    return (x >= 0 ? "+" : "") + x.toFixed(d) + "%";
+  const getValue = (sym: string, col: string): number => {
+    const d = data[sym];
+    if (!d) return -Infinity;
+    switch (col) {
+      case "FİYAT":  return d.price?.current ?? 0;
+      case "1G%":    return d.price?.change_pct ?? 0;
+      case "1H%":    return d.tracker_1h?.change_pct_1h ?? 0;
+      case "RSI":    return d.tracker_1h?.rsi ?? 0;
+      case "H.ORAN": return d.tracker_1h?.volume_ratio ?? 0;
+      case "EMA20":  return d.tracker_1h?.ema_20 ?? 0;
+      case "EMA50":  return d.tracker_1h?.ema_50 ?? 0;
+      case "EMA200": return d.tracker_1h?.ema_200 ?? 0;
+      case "MKT CAP": return d.fundamental?.market_cap ?? 0;
+      case "SKOR":   return d.scores?.master_score ?? 0;
+      default:       return 0;
+    }
   };
 
-  const formatLargeNum = (num: number): string => {
-    if (!num) return "—";
-    if (num >= 1e12) return "$" + (num / 1e12).toFixed(2) + "T";
-    if (num >= 1e9) return "$" + (num / 1e9).toFixed(2) + "B";
-    if (num >= 1e6) return "$" + (num / 1e6).toFixed(2) + "M";
-    return num.toLocaleString();
+  const sortedTickers = [...tickers].sort((a, b) => {
+    const diff = getValue(a, sortBy) - getValue(b, sortBy);
+    return sortDir === "desc" ? -diff : diff;
+  });
+
+  // ── Market status ──────────────────────────────────────────────────────────
+  const isMarketOpen = () => {
+    const et = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+    const h = et.getHours(), m = et.getMinutes(), day = et.getDay();
+    if (day === 0 || day === 6) return false;
+    const mins = h * 60 + m;
+    return mins >= 9 * 60 + 30 && mins < 16 * 60;
   };
 
-  const getCellColor = (val: number | undefined) => {
-    if (val === undefined || isNaN(val)) return "text-slate-500";
-    if (val > 0) return "text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded";
-    if (val < 0) return "text-red-400 font-bold bg-red-500/10 px-2 py-0.5 rounded";
-    return "text-slate-400";
-  };
+  const alCount  = tickers.filter(s => data[s]?.tracker_1h?.signal === "AL").length;
+  const izleCount = tickers.filter(s => data[s]?.tracker_1h?.signal === "İzle").length;
 
-  const getRSIColor = (rsi: number | undefined) => {
-    if (rsi === undefined || isNaN(rsi)) return "text-slate-500";
-    if (rsi > 70) return "text-red-400 font-bold";
-    if (rsi < 30) return "text-emerald-400 font-bold";
-    return "text-slate-300";
-  };
+  const SORTABLE_COLS = ["FİYAT","1G%","1H%","RSI","H.ORAN","EMA20","EMA50","EMA200","MKT CAP","SKOR"];
+  const ACCENT = "#22d3ee";
 
+  // ══════════════════════════════════════════════════════════════════════════
+  // RENDER
+  // ══════════════════════════════════════════════════════════════════════════
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between mb-2">
-        <div>
-          <h1 className="text-xl md:text-2xl font-black text-white tracking-tighter uppercase italic flex items-center gap-2">
-            {themeName}
-          </h1>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-[10px] text-slate-500 bg-white/5 px-2.5 py-1 rounded border border-white/10 uppercase tracking-widest font-black">
-              {stocks.length} Tickers Active
-            </span>
-            {customTickers.length > 0 && (
-              <span className="text-[10px] text-emerald-400 bg-emerald-500/5 px-2.5 py-1 rounded border border-emerald-500/20 uppercase tracking-widest font-black">
-                {customTickers.length} Custom Added
+    <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
+
+      {/* ── Header ── */}
+      <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 12 }}>
+        {/* Breadcrumb */}
+        <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 10 }}>
+          <Link href="/theme" style={{ color: ACCENT, textDecoration: "none" }}>THEMES</Link>
+          <span style={{ margin: "0 6px", color: "#444" }}>/</span>
+          <span style={{ color: "#e6edf3", fontWeight: 700 }}>{themeName.toUpperCase()}</span>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginBottom: 8 }}>
+              <span style={{ fontSize: 19, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
+                {themeName.toUpperCase()}
               </span>
-            )}
+              <span style={{ fontSize: 11, color: "#8b949e" }}>{tickers.length} ticker</span>
+              {customTickers.length > 0 && (
+                <span style={{ fontSize: 10, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95040", padding: "2px 8px", borderRadius: 3 }}>
+                  +{customTickers.length} custom
+                </span>
+              )}
+            </div>
+            <div style={{ fontSize: 11, color: "#8b949e", display: "flex", gap: 14, flexWrap: "wrap" }}>
+              {lastUpdated && (
+                <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>
+              )}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
+                ● {isMarketOpen() ? "market açık" : "market kapalı"}
+              </span>
+              {alCount > 0   && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} İzle</span>}
+            </div>
+          </div>
+
+          {/* Tabs + Actions */}
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+            {(["table", "heatmap"] as const).map(tab => (
+              <button key={tab} onClick={() => setActiveTab(tab)} style={{
+                padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid",
+                borderColor: activeTab === tab ? ACCENT : "#30363d",
+                background: activeTab === tab ? ACCENT + "20" : "transparent",
+                color: activeTab === tab ? ACCENT : "#8b949e",
+                borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
+              }}>
+                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
+              </button>
+            ))}
+            <button
+              onClick={refresh}
+              disabled={loading}
+              style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d", background: "transparent",
+                color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer",
+              }}
+            >
+              {loading ? "..." : "YENİLE"}
+            </button>
           </div>
         </div>
       </div>
 
-      {loading ? (
-        <div className="flex flex-col items-center justify-center min-h-[300px] space-y-4">
-          <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Synchronizing real-time analytics...</p>
+      {/* ── Loading ── */}
+      {loading && tickers.length === 0 && (
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: 300, gap: 12 }}>
+          <div style={{ width: 32, height: 32, border: `2px solid ${ACCENT}`, borderTopColor: "transparent", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
+          <span style={{ color: "#8b949e", fontSize: 12 }}>Veri yükleniyor...</span>
         </div>
-      ) : stocks.length === 0 ? (
-        <div className="border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center p-12 min-h-[250px] text-center bg-[#080c14]">
-          <p className="text-sm font-black text-white uppercase tracking-wider">No Tickers in Theme</p>
-          <p className="text-xs text-slate-500 mt-1">Go to BOGA AI Ask report page to add custom stocks to this theme.</p>
-        </div>
-      ) : (
-        <div className="bg-[#080c14] border border-white/10 rounded-xl overflow-hidden shadow-2xl">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse leading-none">
-              <thead className="bg-[#0c121d]">
-                <tr>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-left border-b border-white/10">TICKER</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-left border-b border-white/10">COMPANY</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-left border-b border-white/10">SECTOR</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">PRICE</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">MKT CAP</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">P/E</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">1D %</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">1W %</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">1M %</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-right border-b border-white/10">RSI</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-center border-b border-white/10">SCORE</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-center border-b border-white/10">RATING</th>
-                  <th className="px-4 py-3 text-[10px] font-black text-slate-500 uppercase tracking-tight text-center border-b border-white/10">ACTION</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stocks.map((stock) => {
-                  const p = stock.price || {};
-                  const f = stock.fundamental || {};
-                  const t = stock.technical || {};
-                  const s = stock.scores || {};
-                  
-                  const isCustom = customTickers.includes(stock.ticker);
+      )}
 
+      {/* ══ HEATMAP TAB ══════════════════════════════════════════════════════ */}
+      {activeTab === "heatmap" && !loading && (
+        <div style={{ padding: "16px 0" }}>
+          {/* Legend */}
+          <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 14, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 10, color: "#8b949e", fontWeight: 700, letterSpacing: 1 }}>1G DEĞİŞİM:</span>
+            {[
+              { label: "≥+3%",  ...heatBg(3.5) },
+              { label: "+1%–3%",...heatBg(1.5) },
+              { label: "±0.3%", ...heatBg(0) },
+              { label: "−1%–3%",...heatBg(-1.5) },
+              { label: "≤−3%",  ...heatBg(-3.5) },
+            ].map(({ label, bg, text }) => (
+              <div key={label} style={{ background: bg, border: `1px solid ${text}30`, borderRadius: 3, padding: "2px 8px", fontSize: 9, color: text, fontWeight: 700 }}>
+                {label}
+              </div>
+            ))}
+          </div>
+
+          {/* Sector groups */}
+          {(() => {
+            // Group by sector
+            const bySector: Record<string, string[]> = {};
+            sortedTickers.forEach(sym => {
+              const sec = data[sym]?.sector || "Diğer";
+              if (!bySector[sec]) bySector[sec] = [];
+              bySector[sec].push(sym);
+            });
+            // Ungrouped (no data yet) in "Yükleniyor"
+            const noDataTickers = sortedTickers.filter(sym => !data[sym]);
+            if (noDataTickers.length > 0) bySector["—"] = noDataTickers;
+
+            return Object.entries(bySector).map(([sec, syms]) => (
+              <div key={sec} style={{ marginBottom: 20 }}>
+                <div style={{ fontSize: 10, fontWeight: 700, color: ACCENT, letterSpacing: 2, marginBottom: 8, textTransform: "uppercase" }}>
+                  {sec} <span style={{ color: "#555", fontWeight: 400 }}>({syms.length})</span>
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                  {syms.map(sym => {
+                    const d = data[sym];
+                    const pct = d?.price?.change_pct ?? null;
+                    const { bg, text } = heatBg(pct);
+                    const signal = d?.tracker_1h?.signal;
+                    return (
+                      <Link key={sym} href={`/stock/${sym}`} style={{ textDecoration: "none" }}>
+                        <div style={{
+                          background: bg,
+                          border: `1px solid ${text}35`,
+                          borderRadius: 5,
+                          padding: "9px 12px",
+                          minWidth: 76,
+                          textAlign: "center",
+                          cursor: "pointer",
+                          transition: "transform 0.1s, border-color 0.1s",
+                          position: "relative",
+                        }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1.04)"; (e.currentTarget as HTMLElement).style.borderColor = text; }}
+                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; (e.currentTarget as HTMLElement).style.borderColor = text + "35"; }}
+                        >
+                          {signal && SIGNAL_COLOR[signal] && (
+                            <div style={{ position: "absolute", top: 3, right: 4, fontSize: 8, color: SIGNAL_COLOR[signal], fontWeight: 900 }}>
+                              {SIGNAL_ICON[signal]}
+                            </div>
+                          )}
+                          <div style={{ color: text, fontSize: 13, fontWeight: 900, letterSpacing: "-0.3px" }}>{sym}</div>
+                          <div style={{ color: text, fontSize: 11, marginTop: 3, fontWeight: 700 }}>
+                            {pct != null ? (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%" : "—"}
+                          </div>
+                          <div style={{ color: text + "90", fontSize: 9, marginTop: 2 }}>
+                            {d?.price?.current != null ? "$" + fmt2(d.price.current) : "—"}
+                          </div>
+                          {d?.tracker_1h?.rsi != null && (
+                            <div style={{ color: rsiColor(d.tracker_1h.rsi), fontSize: 9, marginTop: 1, fontWeight: 700 }}>
+                              RSI {fmt1(d.tracker_1h.rsi)}
+                            </div>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ));
+          })()}
+        </div>
+      )}
+
+      {/* ══ TABLE TAB ════════════════════════════════════════════════════════ */}
+      {activeTab === "table" && !loading && tickers.length === 0 && (
+        <div style={{ textAlign: "center", padding: "60px 20px", color: "#8b949e" }}>
+          <div style={{ fontSize: 32, opacity: 0.2, marginBottom: 12 }}>∅</div>
+          <p>Bu tema için ticker bulunamadı.</p>
+        </div>
+      )}
+
+      {activeTab === "table" && !loading && tickers.length > 0 && (
+        <div style={{ overflowX: "auto", marginTop: 12 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid #30363d" }}>
+                {[
+                  "TICKER","ŞİRKET","SEKTÖR","FİYAT","1G%","1H%","H.ORAN",
+                  "EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","MKT CAP","SKOR",""
+                ].map((h, i) => {
+                  const sortable = SORTABLE_COLS.includes(h);
+                  const isSorted = sortBy === h;
                   return (
-                    <tr key={stock.ticker} className="hover:bg-white/[0.04] transition-colors group">
-                      <td className="px-4 py-3 text-[11px] font-black text-white border-b border-white/[0.03] flex items-center gap-1.5">
-                        <TickerHoverChart ticker={stock.ticker}><Link href={`/stock/${stock.ticker}`} className="hover:text-[#3b82f6] transition-colors">{stock.ticker}</Link></TickerHoverChart>
+                    <th key={i} onClick={() => sortable && toggleSort(h)} style={{
+                      padding: "7px 8px",
+                      textAlign: i <= 2 ? "left" : "right",
+                      fontSize: 10, fontWeight: 700, letterSpacing: "0.08em",
+                      color: isSorted ? "#ffd700" : ACCENT,
+                      whiteSpace: "nowrap", background: "#0d1117",
+                      cursor: sortable ? "pointer" : "default",
+                      userSelect: "none",
+                    }}>
+                      {h}{isSorted ? (sortDir === "desc" ? " ▼" : " ▲") : ""}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>
+              {sortedTickers.map((sym, idx) => {
+                const d = data[sym];
+                const signal  = d?.tracker_1h?.signal || "—";
+                const rowBg   = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
+                const price   = d?.price?.current ?? 0;
+                const isExpanded = expandedRow === sym;
+                const isCustom   = customTickers.includes(sym);
+                const scoreStyle = SCORE_TYPE_STYLE[d?.scores?.score_type || ""] || null;
+
+                return (
+                  <>
+                    <tr
+                      key={sym}
+                      style={{ background: rowBg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}
+                      onClick={() => setExpandedRow(isExpanded ? null : sym)}
+                    >
+                      {/* TICKER */}
+                      <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
+                        <Link
+                          href={`/stock/${sym}`}
+                          onClick={e => e.stopPropagation()}
+                          style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13, textDecoration: "none" }}
+                        >
+                          {sym}
+                        </Link>
                         {isCustom && (
-                          <span className="text-[7px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-1 py-0.5 rounded uppercase font-black tracking-widest">
-                            Custom
+                          <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
+                            CUSTOM
+                          </span>
+                        )}
+                        <span style={{ color: "#8b949e", marginLeft: 5, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
+                      </td>
+
+                      {/* ŞİRKET */}
+                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, maxWidth: 130, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {d?.company ? d.company.slice(0, 18) : "—"}
+                      </td>
+
+                      {/* SEKTÖR */}
+                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap", maxWidth: 110, overflow: "hidden", textOverflow: "ellipsis" }}>
+                        {d?.sector && d.sector !== "Unknown" ? d.sector : "—"}
+                      </td>
+
+                      {/* FİYAT */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>
+                        {d ? `$${fmt2(price)}` : <span style={{ color: "#555" }}>—</span>}
+                      </td>
+
+                      {/* 1G% */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#555" : (d.price?.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
+                        {d ? `${(d.price?.change_pct ?? 0) >= 0 ? "+" : ""}${fmt2(d.price?.change_pct)}%` : "—"}
+                      </td>
+
+                      {/* 1H% */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#555" : (d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
+                        {d ? `${(d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1h)}%` : "—"}
+                      </td>
+
+                      {/* H.ORAN */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#555" : (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                        {d ? `${fmt2(d.tracker_1h?.volume_ratio)}x` : "—"}
+                      </td>
+
+                      {/* EMA20 */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#555" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
+                      </td>
+
+                      {/* EMA50 */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#555" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
+                      </td>
+
+                      {/* EMA200 */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#555" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
+                      </td>
+
+                      {/* DURUM */}
+                      <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                        {d?.tracker_1h?.ema_status && (
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                            background: d.tracker_1h.ema_status.includes("Bull") || d.tracker_1h.ema_status === "Yükseliş" ? "#1a3a1a" : d.tracker_1h.ema_status === "Nötr" ? "#1a1a2e" : "#2e1a1a",
+                            color: d.tracker_1h.ema_status.includes("Bull") || d.tracker_1h.ema_status === "Yükseliş" ? "#3fb950" : d.tracker_1h.ema_status === "Nötr" ? "#8b949e" : "#f85149",
+                          }}>
+                            {d.tracker_1h.ema_status}
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-[10px] text-slate-400 font-medium border-b border-white/[0.03] max-w-[150px] truncate" title={stock.company}>{stock.company}</td>
-                      <td className="px-4 py-3 text-[9px] text-slate-500 font-bold uppercase border-b border-white/[0.03]">{stock.sector}</td>
-                      <td className="px-4 py-3 text-[11px] font-bold text-white text-right border-b border-white/[0.03]">${n(p.current)}</td>
-                      <td className="px-4 py-3 text-[11px] text-slate-400 text-right border-b border-white/[0.03]">{formatLargeNum(f.market_cap)}</td>
-                      <td className="px-4 py-3 text-[11px] text-slate-400 text-right border-b border-white/[0.03]">{n(f.pe_ratio, 1)}</td>
-                      <td className={`px-4 py-3 text-[11px] text-right border-b border-white/[0.03] ${getCellColor(p.change_pct)}`}>{pct(p.change_pct)}</td>
-                      <td className={`px-4 py-3 text-[11px] text-right border-b border-white/[0.03] ${getCellColor(p.change_pct_1w)}`}>{pct(p.change_pct_1w)}</td>
-                      <td className={`px-4 py-3 text-[11px] text-right border-b border-white/[0.03] ${getCellColor(p.change_pct_1m)}`}>{pct(p.change_pct_1m)}</td>
-                      <td className={`px-4 py-3 text-[11px] text-right border-b border-white/[0.03] ${getRSIColor(t.rsi_14)}`}>{n(t.rsi_14, 1)}</td>
-                      <td className="px-4 py-3 text-[11px] font-black text-white text-center border-b border-white/[0.03]">{n(s.master_score, 0)}</td>
-                      <td className="px-4 py-3 text-center border-b border-white/[0.03]">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${
-                          s.score_type === 'HIGH_CONVICTION' ? 'bg-amber-500/20 text-amber-500 border border-amber-500/30' :
-                          s.score_type === 'POSITIVE_BIAS' ? 'bg-emerald-500/20 text-emerald-500 border border-emerald-500/30' :
-                          s.score_type === 'NEGATIVE_BIAS' || s.score_type === 'UNDERPERFORM' ? 'bg-red-500/20 text-red-500 border border-red-500/30' :
-                          'bg-slate-500/20 text-slate-400 border border-slate-500/30'
-                        }`}>
-                          {s.score_type?.replace('_', ' ') || 'NEUTRAL'}
-                        </span>
+
+                      {/* RSI */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi) : "#555" }}>
+                        {d ? fmt1(d.tracker_1h?.rsi) : "—"}
                       </td>
-                      <td className="px-4 py-3 text-center border-b border-white/[0.03]">
+
+                      {/* PATERN */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 10, whiteSpace: "nowrap" }}>
+                        {(() => {
+                          const p = d?.tracker_1h?.candle_pattern;
+                          if (!p || p === "—") return <span style={{ color: "#555" }}>—</span>;
+                          const isBull = ["Hammer","Bullish","Morning","Asker","Dragonfly","Marubozu","Outside Bar ↑","Güçlü ↑","Yeşil"].some(x => p.includes(x)) && !p.includes("↓");
+                          const isBear = ["Shooting","Bearish","Evening","Karga","Gravestone","Hanging","Outside Bar ↓","Güçlü ↓","Kırmızı"].some(x => p.includes(x)) && !p.includes("↑");
+                          return <span style={{ color: isBull ? "#3fb950" : isBear ? "#f85149" : "#e3b341", fontWeight: 700 }}>{p}</span>;
+                        })()}
+                      </td>
+
+                      {/* SİNYAL */}
+                      <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                        {d && (
+                          <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
+                            {SIGNAL_ICON[signal] || "○"} {signal}
+                          </span>
+                        )}
+                      </td>
+
+                      {/* MKT CAP */}
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 10 }}>
+                        {fmtLarge(d?.fundamental?.market_cap)}
+                      </td>
+
+                      {/* SKOR */}
+                      <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                        {d?.scores?.master_score != null && (
+                          <span style={{ fontWeight: 900, fontSize: 12, color: "#e6edf3" }}>
+                            {Math.round(d.scores.master_score)}
+                          </span>
+                        )}
+                        {scoreStyle && (
+                          <span style={{ marginLeft: 5, fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 3, background: scoreStyle.bg, color: scoreStyle.text, border: `1px solid ${scoreStyle.border}` }}>
+                            {(d?.scores?.score_type || "").replace("_", " ")}
+                          </span>
+                        )}
+                      </td>
+
+                      {/* ACTION */}
+                      <td style={{ padding: "7px 8px", textAlign: "center" }}>
                         {isCustom ? (
-                          <button 
-                            onClick={() => removeCustomTicker(stock.ticker)}
-                            className="text-slate-500 hover:text-rose-400 transition-colors"
-                          >
-                            <svg className="w-4 h-4 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg>
-                          </button>
+                          <button
+                            onClick={e => { e.stopPropagation(); removeCustomTicker(sym); }}
+                            style={{ background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 14, lineHeight: 1 }}
+                            title="Kaldır"
+                          >✕</button>
                         ) : (
-                          <span className="text-[10px] text-slate-600 font-bold uppercase">Static</span>
+                          <span style={{ fontSize: 9, color: "#444", fontWeight: 700 }}>STATIC</span>
                         )}
                       </td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+
+                    {/* Expanded detail row */}
+                    {isExpanded && d && (
+                      <tr key={`${sym}-detail`} style={{ background: "#111820" }}>
+                        <td colSpan={17} style={{ padding: "12px 16px", borderBottom: "1px solid #30363d" }}>
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, fontSize: 11 }}>
+                            {/* Fiyat Değişimleri */}
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                              <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Fiyat Değişimleri</div>
+                              {[
+                                ["1H %", d.tracker_1h?.change_pct_1h],
+                                ["1G %", d.price?.change_pct],
+                                ["1H % (haftalık)", d.price?.change_pct_1w],
+                                ["1A %", d.price?.change_pct_1m],
+                              ].map(([label, val]) => (
+                                <div key={String(label)} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                  <span style={{ color: "#8b949e" }}>{label}</span>
+                                  <span style={{ fontWeight: 700, color: (val as number ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
+                                    {val != null ? `${(val as number) >= 0 ? "+" : ""}${fmt2(val as number)}%` : "—"}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                            {/* EMA Göstergeleri */}
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                              <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>EMA Göstergeleri</div>
+                              {[
+                                ["EMA 20",  d.tracker_1h?.ema_20,  emaColor(price, d.tracker_1h?.ema_20)],
+                                ["EMA 50",  d.tracker_1h?.ema_50,  emaColor(price, d.tracker_1h?.ema_50)],
+                                ["EMA 200", d.tracker_1h?.ema_200, emaColor(price, d.tracker_1h?.ema_200)],
+                                ["Durum",   d.tracker_1h?.ema_status, d.tracker_1h?.ema_status?.includes("Bull") ? "#3fb950" : "#f85149"],
+                              ].map(([label, val, color]) => (
+                                <div key={String(label)} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                  <span style={{ color: "#8b949e" }}>{label}</span>
+                                  <span style={{ fontWeight: 700, color: color as string }}>
+                                    {typeof val === "number" ? `$${fmt2(val)}` : val || "—"}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                            {/* Momentum */}
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                              <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Momentum</div>
+                              {[
+                                ["RSI",     d.tracker_1h?.rsi,          rsiColor(d.tracker_1h?.rsi)],
+                                ["Hacim Oran", d.tracker_1h?.volume_ratio, (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : "#8b949e"],
+                                ["Patern",  d.tracker_1h?.candle_pattern, "#e3b341"],
+                                ["Sinyal",  d.tracker_1h?.signal,         SIGNAL_COLOR[d.tracker_1h?.signal || ""] || "#8b949e"],
+                              ].map(([label, val, color]) => (
+                                <div key={String(label)} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                  <span style={{ color: "#8b949e" }}>{label}</span>
+                                  <span style={{ fontWeight: 700, color: color as string, fontSize: 10 }}>
+                                    {typeof val === "number" ? fmt2(val) + "x" : val || "—"}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                            {/* Temel Veriler + Linkler */}
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                              <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Temel & Linkler</div>
+                              {[
+                                ["Piyasa Değeri", fmtLarge(d.fundamental?.market_cap), "#8b949e"],
+                                ["F/K", d.fundamental?.pe_ratio != null ? fmt1(d.fundamental.pe_ratio) : "—", "#8b949e"],
+                                ["Sektör", d.sector || "—", "#8b949e"],
+                                ["Skor", d.scores?.master_score != null ? String(Math.round(d.scores.master_score)) : "—", "#e3b341"],
+                              ].map(([label, val, color]) => (
+                                <div key={String(label)} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+                                  <span style={{ color: "#8b949e" }}>{label}</span>
+                                  <span style={{ fontWeight: 700, color: color as string, fontSize: 10 }}>{val}</span>
+                                </div>
+                              ))}
+                              <div style={{ display: "flex", gap: 6, marginTop: 10 }}>
+                                <Link href={`/stock/${sym}`} style={{ flex: 1, background: "#0a2a4a", border: "1px solid #3b82f6", color: "#60a5fa", padding: "5px 0", borderRadius: 3, fontSize: 10, fontWeight: 700, textAlign: "center", textDecoration: "none", display: "block" }}>
+                                  Detay ↗
+                                </Link>
+                                <Link href={`/terminal?ticker=${sym}`} style={{ flex: 1, background: "#0a2a0a", border: "1px solid #22c55e", color: "#4ade80", padding: "5px 0", borderRadius: 3, fontSize: 10, fontWeight: 700, textAlign: "center", textDecoration: "none", display: "block" }}>
+                                  Chart ↗
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
+
+      <style>{`
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   );
 }
