@@ -161,7 +161,7 @@ function InstrumentRow({
           <span className="text-[9px] text-slate-500 truncate">{inst.label}</span>
           {chg != null && (
             <span className={`text-[10px] font-mono font-bold ${pColor(chg)}`}>
-              {sgn(chg)}{fmt(Math.abs(chg))}%
+              {sgn(chg)}{fmt(chg)}%
             </span>
           )}
         </div>
@@ -212,7 +212,7 @@ function WatchlistRow({
         </div>
         {chg != null && (
           <span className={`text-[10px] font-mono ${pColor(chg)}`}>
-            {sgn(chg)}{fmt(Math.abs(chg))}%
+            {sgn(chg)}{fmt(chg)}%
           </span>
         )}
       </div>
@@ -846,7 +846,7 @@ export default function TerminalClient() {
             )}
             {prices[selected.ticker]?.change_1d != null && (
               <span className={`text-xs font-mono ${pColor(prices[selected.ticker]!.change_1d)}`}>
-                {sgn(prices[selected.ticker]!.change_1d!)}{fmt(Math.abs(prices[selected.ticker]!.change_1d!))}%
+                {sgn(prices[selected.ticker]!.change_1d!)}{fmt(prices[selected.ticker]!.change_1d!)}%
               </span>
             )}
           </div>
@@ -1032,7 +1032,7 @@ export default function TerminalClient() {
                           {pick.company}
                         </span>
                         <span className={`text-[10px] font-mono ${pColor(chg)}`}>
-                          {sgn(chg)}{fmt(Math.abs(chg))}%
+                          {sgn(chg)}{fmt(chg)}%
                         </span>
                       </div>
                     </div>
@@ -1098,7 +1098,7 @@ export default function TerminalClient() {
                           {pick.entry_mode_label || pick.grade}
                         </span>
                         <span className={`text-[10px] font-mono ${pColor(chg)}`}>
-                          {sgn(chg)}{fmt(Math.abs(chg))}%
+                          {sgn(chg)}{fmt(chg)}%
                         </span>
                       </div>
                     </div>
