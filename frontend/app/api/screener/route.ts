@@ -72,6 +72,10 @@ export interface ScreenerResult {
   resistance: number;
   // Warnings
   warnings: string[];
+  // Relative Strength & momentum quality
+  rs_rating: number;
+  is_new_high: boolean;
+  vol_contraction: boolean;
   // Triangle Pattern (early_break)
   triangle_detected?: boolean;
   triangle_score?: number;
@@ -91,6 +95,7 @@ interface Regime {
   vix_price: number;
   trend: "bullish" | "bearish" | "choppy";
   momentum: "strong" | "moderate" | "weak";
+  spy_12m_return: number;
 }
 
 // ─── BOGA Score Weights per Preset (Architecture spec §6.1) ──────────────────
@@ -109,17 +114,18 @@ const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options:
   quality_growth:  { trend: 45, momentum: 20, options: 5,  liquidity: 30 },
   agg_growth:      { trend: 30, momentum: 40, options: 5,  liquidity: 25 },
   breakout_growth: { trend: 30, momentum: 35, options: 15, liquidity: 20 },
+  hottest_momo:    { trend: 25, momentum: 50, options: 5,  liquidity: 20 },
 };
 
 // Regime multipliers (Architecture spec §8.1)
 const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
-  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25, quality_growth: 1.20, agg_growth: 1.15, breakout_growth: 1.20 },
-  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 1.00 },
-  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 0.95 },
-  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50, quality_growth: 0.40, agg_growth: 0.25, breakout_growth: 0.35 },
-  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35, quality_growth: 0.20, agg_growth: 0.15, breakout_growth: 0.20 },
-  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35, quality_growth: 0.60, agg_growth: 0.70, breakout_growth: 0.80 },
-  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75, quality_growth: 1.00, agg_growth: 0.90, breakout_growth: 1.10 },
+  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25, quality_growth: 1.20, agg_growth: 1.15, breakout_growth: 1.20, hottest_momo: 1.30 },
+  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 1.00, hottest_momo: 0.85 },
+  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 0.95, hottest_momo: 0.90 },
+  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50, quality_growth: 0.40, agg_growth: 0.25, breakout_growth: 0.35, hottest_momo: 0.50 },
+  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35, quality_growth: 0.20, agg_growth: 0.15, breakout_growth: 0.20, hottest_momo: 0.30 },
+  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35, quality_growth: 0.60, agg_growth: 0.70, breakout_growth: 0.80, hottest_momo: 1.20 },
+  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75, quality_growth: 1.00, agg_growth: 0.90, breakout_growth: 1.10, hottest_momo: 0.60 },
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
@@ -608,7 +614,7 @@ async function fetchChart(ticker: string): Promise<any | null> {
 
 // ─── Analyze Single Ticker ────────────────────────────────────────────────────
 
-async function analyzeTicker(ticker: string, preset: string, regime: string): Promise<ScreenerResult | null> {
+async function analyzeTicker(ticker: string, preset: string, regime: string, spy12mReturn = 0): Promise<ScreenerResult | null> {
   try {
     const chart = await fetchChart(ticker);
     if (!chart) return null;
@@ -697,6 +703,21 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
     const plan = tradePlan({ price, ema20: e20, atrVal, bbUpper: bb.upper, bbLower: bb.lower, preset, triUpper: tri.upper_trendline, triLower: tri.lower_trendline });
     const warnings = generateWarnings({ rsiVal, atrPct, ivEst });
 
+    // RS Rating: hisse 12 aylık getirisi vs SPY (IBD mantığı, 1-99 skala)
+    const stock12mReturn = closes.length >= 2
+      ? ((closes.at(-1)! - closes[0]) / closes[0]) * 100
+      : 0;
+    const rs_rating = spy12mReturn !== 0
+      ? Math.min(99, Math.max(1, Math.round(50 + (stock12mReturn - spy12mReturn) * 1.5)))
+      : Math.min(99, Math.max(1, Math.round(50 + stock12mReturn * 0.8)));
+
+    // New High: 52 hafta zirvesine ≤3% uzaklık
+    const is_new_high = pct52h >= -3;
+
+    // VCP (Volatility Contraction Pattern): son 10 günde hacim kuruması
+    const minVol10 = volumes.length >= 10 ? Math.min(...volumes.slice(-10)) : avgVol;
+    const vol_contraction = minVol10 < avgVol * 0.65;
+
     return {
       ticker,
       company:  meta.shortName || meta.longName || ticker,
@@ -718,6 +739,7 @@ async function analyzeTicker(ticker: string, preset: string, regime: string): Pr
       entry: plan.entry, stop: plan.stop, target: plan.target, rr_ratio: plan.rr, risk_pct: plan.riskPct,
       support: +lo52.toFixed(2), resistance: +hi52.toFixed(2),
       primary_setup: primary, setup_signals: signals, warnings,
+      rs_rating, is_new_high, vol_contraction,
       triangle_detected: tri.detected,
       triangle_score: tri.triangle_score,
       bbw_percentile: tri.bbw_percentile,
@@ -832,6 +854,19 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.rvol >= 2.0 &&
              s.adx >= 20 &&
              s.boga_score >= 60;
+    case "hottest_momo":
+      // Fotoğraftaki filtre: $10-$100, AvgVol>1M, RVOL>1.5, MCap>500M,
+      // RSI 45-70, Price>SMA50, Price>SMA200, Gün>+2%, Unusual Vol VEYA New High
+      return s.price >= 10 && s.price <= 100 &&
+             s.avg_volume >= 1e6 &&
+             s.rvol >= 1.5 &&
+             s.market_cap >= 500e6 &&
+             s.rsi >= 45 && s.rsi <= 70 &&
+             s.price > s.ema50 &&
+             s.price > s.sma200 &&
+             s.change_1d >= 2.0 &&
+             (s.rvol >= 2.5 || s.is_new_high) &&
+             s.boga_score >= 42;
     default:
       return s.boga_score >= 45;
   }
@@ -841,25 +876,28 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
 
 async function detectRegime(): Promise<Regime> {
   try {
-    const res = await fetch(
-      "https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=6mo",
-      { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(5000) }
-    );
-    const vxRes = await fetch(
-      "https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX?interval=1d&range=5d",
-      { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(5000) }
-    );
-    const d  = await res.json();
-    const vxD = await vxRes.json();
-    const chart = d?.chart?.result?.[0];
-    const vxChart = vxD?.chart?.result?.[0];
+    const [res, vxRes] = await Promise.all([
+      fetch("https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range=1y",
+        { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(6000) }),
+      fetch("https://query1.finance.yahoo.com/v8/finance/chart/%5EVIX?interval=1d&range=5d",
+        { headers: { "User-Agent": "Mozilla/5.0" }, signal: AbortSignal.timeout(5000) }),
+    ]);
+    const d    = await res.json();
+    const vxD  = await vxRes.json();
+    const chart    = d?.chart?.result?.[0];
+    const vxChart  = vxD?.chart?.result?.[0];
 
-    const spyCloses = (chart?.indicators?.quote?.[0]?.close || []).filter(Boolean);
+    const spyCloses = (chart?.indicators?.quote?.[0]?.close || []).filter(Boolean) as number[];
     const spyPrice  = chart?.meta?.regularMarketPrice ?? spyCloses.at(-1) ?? 500;
     const spyPrev   = chart?.meta?.previousClose ?? spyCloses.at(-2) ?? 500;
     const spySma200 = sma(spyCloses, Math.min(200, spyCloses.length));
     const spyChange = spyPrev ? ((spyPrice - spyPrev) / spyPrev) * 100 : 0;
     const vixPrice  = vxChart?.meta?.regularMarketPrice ?? vxChart?.indicators?.quote?.[0]?.close?.filter(Boolean)?.at(-1) ?? 20;
+
+    // 12-month SPY return for RS Rating baseline
+    const spy12mReturn = spyCloses.length >= 2
+      ? ((spyCloses.at(-1)! - spyCloses[0]) / spyCloses[0]) * 100
+      : 0;
 
     let regime: Regime["regime"];
     if (vixPrice > 35) regime = "high_volatility";
@@ -877,9 +915,10 @@ async function detectRegime(): Promise<Regime> {
       vix_price: +vixPrice.toFixed(1),
       trend: spyPrice > spySma200 ? "bullish" : "bearish",
       momentum: spyChange > 0.5 ? "strong" : spyChange < -0.5 ? "weak" : "moderate",
+      spy_12m_return: +spy12mReturn.toFixed(2),
     };
   } catch {
-    return { regime: "neutral", label: "Nötr", spy_change: 0, vix_price: 20, trend: "choppy", momentum: "moderate" };
+    return { regime: "neutral", label: "Nötr", spy_change: 0, vix_price: 20, trend: "choppy", momentum: "moderate", spy_12m_return: 0 };
   }
 }
 
@@ -940,7 +979,7 @@ export async function GET(req: NextRequest) {
   for (let i = 0; i < batches.length; i += concurrency) {
     const chunk = batches.slice(i, i + concurrency);
     const chunkRes = await Promise.all(
-      chunk.map(batch => Promise.all(batch.map(t => analyzeTicker(t, preset, regime.regime))))
+      chunk.map(batch => Promise.all(batch.map(t => analyzeTicker(t, preset, regime.regime, regime.spy_12m_return))))
     );
     chunkRes.flat().forEach(r => r && allResults.push(r));
   }

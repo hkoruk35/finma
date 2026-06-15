@@ -62,6 +62,9 @@ interface ScreenerResult {
   support: number;
   resistance: number;
   warnings: string[];
+  rs_rating: number;
+  is_new_high: boolean;
+  vol_contraction: boolean;
   triangle_detected?: boolean;
   triangle_score?: number;
   bbw_percentile?: number;
@@ -96,7 +99,8 @@ const PRESETS = [
   { id: "breakout_growth",  name: "Breakout Growth",     desc: "BOGA≥70 · Golden Cross · RVOL≥2 · ADX≥20", mode: "investment", color: "#10b981", pills: ["BOGA≥70","SMA200↑","RVOL≥2","ADX≥20","Price>EMA20"],                                 icon: "📈" },
   // Swing Presets
   { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA10>EMA20 · RVOL≥1.5 · RSI≥50",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA10>EMA20","RVOL≥1.5","RSI≥50","Trend Filtresi"],    icon: "🎯" },
-  { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥4.0 · RSI 50+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$300M","RVOL≥4.0","RSI 50+","Gece Taraması"],    icon: "🚀" },
+  { id: "hottest_momo", name: "Hottest Momo",         desc: "$10-$100 · SMA200↑ · RVOL>1.5 · Gün>+2%", mode: "swing",   color: "#f97316", pills: ["$10-$100","AvgVol>1M","RVOL>1.5","MCap>500M","RSI 45-70","SMA200↑","Gün≥+2%","YeniZirve/RVOL"], icon: "🔥" },
+  { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥2.0 · RSI 45+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$200M","RVOL≥2.0","RSI 45+","Değ>+2%"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
   { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },
   // Day & Options Presets
@@ -261,6 +265,9 @@ function DetailRow({ stock }: { stock: ScreenerResult }) {
               ["Market Cap",      fmtCap(stock.market_cap),                                                                        "#b0bec5"],
               ["Cap Kademesi",    stock.market_cap_label,                                                                          "#94a3b8"],
               ["IV Tahmini",      `${stock.iv_est}%`,                                                                              stock.iv_est > 80 ? "#fbbf24" : "#b0bec5"],
+              ["RS Rating",       `${stock.rs_rating ?? "—"} ${(stock.rs_rating ?? 0) >= 80 ? "🔥" : (stock.rs_rating ?? 0) >= 60 ? "↑" : ""}`, (stock.rs_rating ?? 0) >= 80 ? "#22c55e" : (stock.rs_rating ?? 0) >= 60 ? "#fbbf24" : "#94a3b8"],
+              ["Yeni Zirve",      stock.is_new_high ? "✓ 52H Zirvesi" : "—",                                                    stock.is_new_high ? "#4ade80" : "#64748b"],
+              ["VCP (Hacim)",     stock.vol_contraction ? "✓ Hacim Kurudu" : "—",                                               stock.vol_contraction ? "#a78bfa" : "#64748b"],
               ["Sektör",          stock.sector || "—",                                                                             "#94a3b8"],
             ].map(([label, value, color]) => (
               <div key={label as string} style={{ display: "flex", justifyContent: "space-between", marginBottom: 4, alignItems: "center" }}>
@@ -503,6 +510,7 @@ export default function ScreenerCockpit() {
         case "rsi":   return s.rsi;
         case "price": return s.price;
         case "adx":   return s.adx;
+        case "rs":    return s.rs_rating ?? 0;
         default:      return s.boga_score;
       }
     };
@@ -783,6 +791,7 @@ export default function ScreenerCockpit() {
                       { key: "score", label: "Score ↕"     },
                       { key: "rvol",  label: "RVOL ↕"      },
                       { key: "adx",   label: "ADX ↕"       },
+                      { key: "rs",    label: "RS ↕"        },
                     ].map(({ key, label }) => (
                       <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                         style={{ padding: "9px 11px", textAlign: "left", fontSize: 9, letterSpacing: 1, color: sortBy === key ? "#60a5fa" : "#7c8fa6", textTransform: "uppercase", borderBottom: "1px solid #1e2a3a", fontWeight: 700, whiteSpace: "nowrap", cursor: key ? "pointer" : "default", background: "#0f141e" }}>
@@ -833,6 +842,17 @@ export default function ScreenerCockpit() {
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: stock.adx >= 25 ? "#4ade80" : "#94a3b8", fontFamily: "monospace", fontSize: 12, fontWeight: stock.adx >= 25 ? 700 : 400 }}>{stock.adx?.toFixed(0) ?? "—"}</span>
+                        </td>
+                        <td style={{ padding: "8px 11px" }}>
+                          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                            <span style={{
+                              color: (stock.rs_rating ?? 0) >= 80 ? "#22c55e" : (stock.rs_rating ?? 0) >= 60 ? "#fbbf24" : "#94a3b8",
+                              fontFamily: "monospace", fontSize: 12,
+                              fontWeight: (stock.rs_rating ?? 0) >= 70 ? 700 : 400
+                            }}>{stock.rs_rating ?? "—"}</span>
+                            {stock.is_new_high && <span style={{ fontSize: 9, color: "#22c55e", fontWeight: 700, letterSpacing: 0.5 }}>🔝 YENİ ZİRVE</span>}
+                            {stock.vol_contraction && <span style={{ fontSize: 9, color: "#a78bfa", fontWeight: 700, letterSpacing: 0.5 }}>VCP ✓</span>}
+                          </div>
                         </td>
                       </tr>
                       {expandedRow === stock.ticker && <DetailRow key={`${stock.ticker}-d`} stock={stock} />}
