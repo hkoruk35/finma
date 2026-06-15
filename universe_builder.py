@@ -89,7 +89,7 @@ def process_chunk(chunk: list[str]) -> list[dict]:
     try:
         df = yf.download(
             chunk, period="20d", group_by="ticker",
-            threads=True, progress=False, show_errors=False,
+            threads=True, progress=False,
         )
         if df.empty:
             return valid
