@@ -1526,8 +1526,8 @@ async def send_telegram_message(message: str) -> None:
 
 
 async def send_telegram_photo(photo_path: str, caption: str = "") -> None:
+    return  # 🚫 TELEGRAM MESAJ GÖNDERİMİ PASİF HALE GETİRİLDİ
     if not ENABLE_TELEGRAM_NOTIFICATIONS:
-        return
     if not os.path.exists(photo_path):
         return
 

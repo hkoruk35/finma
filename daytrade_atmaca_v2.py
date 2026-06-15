@@ -78,7 +78,7 @@ NY_TZ = ZoneInfo("America/New_York")
 # ================================================================
 TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID = "-1003569445341"
-ENABLE_TELEGRAM = True
+ENABLE_TELEGRAM = False  # 🚫 PASİF — inday313 gibi tüm telegram kapalı
 
 # ================================================================
 # 🔹 SCAN ZAMANLARI (NY ET)
