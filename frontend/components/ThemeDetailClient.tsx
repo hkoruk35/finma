@@ -110,6 +110,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   const [customTickers, setCustomTickers] = useState<string[]>([]);
   const [data, setData]             = useState<Record<string, TickerData>>({});
   const [loading, setLoading]       = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(50);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [activeTab, setActiveTab]   = useState<"table" | "heatmap">("table");
   const [sortBy, setSortBy]         = useState<string>("1G%");
@@ -129,7 +131,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     let cached: Record<string, string[]> = {};
     try { cached = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
     const mergedFromCache = applyOverrides(cached);
-    fetchStocks(mergedFromCache);
+    setVisibleCount(50);
+    fetchStocks(mergedFromCache.slice(0, 50));
 
     fetch("/api/store/theme_overrides")
       .then(r => r.json())
@@ -137,7 +140,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
         const overrides: Record<string, string[]> = value ?? {};
         try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
         const merged = applyOverrides(overrides);
-        fetchStocks(merged);
+        setVisibleCount(50);
+        fetchStocks(merged.slice(0, 50));
       })
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -161,7 +165,29 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     }
   }, []);
 
-  const refresh = () => fetchStocks(tickers);
+  const loadMore = useCallback(async (allTickers: string[], currentVisible: number) => {
+    const nextBatch = allTickers.slice(currentVisible, currentVisible + 50);
+    if (nextBatch.length === 0) return;
+    setLoadingMore(true);
+    try {
+      const res = await fetch(`/api/watchlist-data?tickers=${nextBatch.join(",")}`);
+      if (!res.ok) throw new Error("API error");
+      const results: TickerData[] = await res.json();
+      setData(prev => {
+        const updated = { ...prev };
+        results.forEach(item => { if (item?.ticker) updated[item.ticker] = item; });
+        return updated;
+      });
+      setVisibleCount(currentVisible + 50);
+      setLastUpdated(new Date());
+    } catch (e) {
+      console.error("loadMore error:", e);
+    } finally {
+      setLoadingMore(false);
+    }
+  }, []);
+
+  const refresh = () => fetchStocks(tickers.slice(0, visibleCount));
 
   const syncOverrides = (overrides: Record<string, string[]>) => {
     try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
@@ -213,6 +239,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     const diff = getValue(a, sortBy) - getValue(b, sortBy);
     return sortDir === "desc" ? -diff : diff;
   });
+  const visibleTickers = sortedTickers.slice(0, visibleCount);
 
   // ── Market status ──────────────────────────────────────────────────────────
   const isMarketOpen = () => {
@@ -250,7 +277,9 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               <span style={{ fontSize: 19, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
                 {themeName.toUpperCase()}
               </span>
-              <span style={{ fontSize: 11, color: "#8b949e" }}>{tickers.length} ticker</span>
+              <span style={{ fontSize: 11, color: "#8b949e" }}>
+              {visibleCount < tickers.length ? `${visibleCount}/${tickers.length}` : tickers.length} ticker
+            </span>
               {customTickers.length > 0 && (
                 <span style={{ fontSize: 10, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95040", padding: "2px 8px", borderRadius: 3 }}>
                   +{customTickers.length} custom
@@ -329,13 +358,13 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
           {(() => {
             // Group by sector
             const bySector: Record<string, string[]> = {};
-            sortedTickers.forEach(sym => {
+            visibleTickers.forEach(sym => {
               const sec = data[sym]?.sector || "Diğer";
               if (!bySector[sec]) bySector[sec] = [];
               bySector[sec].push(sym);
             });
             // Ungrouped (no data yet) in "Yükleniyor"
-            const noDataTickers = sortedTickers.filter(sym => !data[sym]);
+            const noDataTickers = visibleTickers.filter(sym => !data[sym]);
             if (noDataTickers.length > 0) bySector["—"] = noDataTickers;
 
             return Object.entries(bySector).map(([sec, syms]) => (
@@ -429,7 +458,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               </tr>
             </thead>
             <tbody>
-              {sortedTickers.map((sym, idx) => {
+              {visibleTickers.map((sym, idx) => {
                 const d = data[sym];
                 const signal  = d?.tracker_1h?.signal || "—";
                 const rowBg   = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
@@ -668,6 +697,33 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               })}
             </tbody>
           </table>
+
+          {/* Load more */}
+          {tickers.length > visibleCount && (
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "16px 0", borderTop: "1px solid #21262d", gap: 12 }}>
+              <span style={{ fontSize: 11, color: "#8b949e" }}>
+                {visibleCount} / {tickers.length} gösteriliyor
+              </span>
+              <button
+                onClick={() => loadMore(tickers, visibleCount)}
+                disabled={loadingMore}
+                style={{
+                  padding: "7px 20px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                  border: `1px solid ${ACCENT}`, background: ACCENT + "18",
+                  color: loadingMore ? "#8b949e" : ACCENT,
+                  borderRadius: 4, cursor: loadingMore ? "default" : "pointer",
+                  letterSpacing: "0.06em",
+                }}
+              >
+                {loadingMore ? "Yükleniyor..." : `Sonraki ${Math.min(50, tickers.length - visibleCount)} Hisse ↓`}
+              </button>
+            </div>
+          )}
+          {tickers.length <= visibleCount && tickers.length > 0 && (
+            <div style={{ textAlign: "center", padding: "10px 0", fontSize: 10, color: "#444" }}>
+              Tüm {tickers.length} hisse gösteriliyor
+            </div>
+          )}
         </div>
       )}
 
