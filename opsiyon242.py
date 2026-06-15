@@ -94,7 +94,7 @@ os.makedirs(DATA_DIR, exist_ok=True)
 
 TELEGRAM_API_KEY = "7609846781:AAEl_2w8vHXkaDXUZyWoRK5N4_5RRcFkXsM"
 TELEGRAM_CHAT_ID = "8061806611"
-ENABLE_TELEGRAM  = True
+ENABLE_TELEGRAM  = False  # 🚫 PASİF
 
 # ── Evren filtresi ────────────────────────────────────────────────────────
 PRICE_MIN      = 5.0

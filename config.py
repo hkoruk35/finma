@@ -28,11 +28,11 @@ JWT_SECRET           = os.getenv("JWT_SECRET", "changeme-jwt-secret")
 
 CONTACT_EMAIL        = os.getenv("CONTACT_EMAIL", "contact@bogastock.com")
 
-# Telegram — enabled for daily notifications
-ENABLE_TELEGRAM                  = True
+# Telegram — 🚫 PASİF (tüm botlarda kapalı)
+ENABLE_TELEGRAM                  = False
 TELEGRAM_BOT_TOKEN               = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
 TELEGRAM_CHAT_ID                 = "-1003569445341"
-ENABLE_TELEGRAM_NOTIFICATIONS    = True
+ENABLE_TELEGRAM_NOTIFICATIONS    = False
 
 # ============================================================
 # SCHEDULER SETTINGS
