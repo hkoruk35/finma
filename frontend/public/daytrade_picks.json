@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-15T09:31:00.113622-04:00",
-  "scan_mode": "open_confirm",
-  "scan_duration_s": 5.7,
-  "total_scanned": 1,
-  "layer1_passed": 1,
-  "final_picks": 1,
+  "generated_at": "2026-06-15T10:31:00.100793-04:00",
+  "scan_mode": "intraday",
+  "scan_duration_s": 26.5,
+  "total_scanned": 13,
+  "layer1_passed": 13,
+  "final_picks": 10,
   "picks": [
     {
-      "ticker": "MARA",
-      "price": 14.08,
-      "change_pct": 3.45,
-      "dt_score": 35.0,
+      "ticker": "SOUN",
+      "price": 7.61,
+      "change_pct": 10.22,
+      "dt_score": 67.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": null,
+      "vwap": 7.52,
       "catalyst": {
         "catalyst_type": "acquisition",
         "catalyst_score": 22,
-        "headline": "strategy, coinbase, circle and robinhood lead crypto stocks rally amid bitcoin rebound(gurufocus.com)+11.85%",
+        "headline": "soundhound ai named as overall leader in the 2026 isg buyers guide for conversational ai emerging providers(globenewswir",
         "confidence": "high",
-        "ts": 1781527526.6771238
+        "ts": 1781532083.0208454
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,24 +37,521 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 14.07,
-          "high": 14.15
+          "low": 7.6,
+          "high": 7.65
         },
-        "stop": 13.95,
-        "tp1": 14.43,
-        "tp2": 14.67,
-        "rr_ratio": 2.0,
-        "avg_entry": 14.11,
-        "risk_per_sh": 0.16,
+        "stop": 7.5,
+        "tp1": 7.88,
+        "tp2": 8.06,
+        "rr_ratio": 2.04,
+        "avg_entry": 7.62,
+        "risk_per_sh": 0.12,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 14.08
+        "pm_high_ref": 7.61
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +10.2%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.26%",
+        "🔥 Açılış Barı: Güçlü (2.6x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "AFRM",
+      "price": 71.83,
+      "change_pct": 8.55,
+      "dt_score": 67.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 70.35,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "affirm and cpp investments renew and expand capital partnership(business wire)",
+        "confidence": "high",
+        "ts": 1781532083.046498
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 71.76,
+          "high": 72.19
+        },
+        "stop": 70.75,
+        "tp1": 74.42,
+        "tp2": 76.26,
+        "rr_ratio": 2.0,
+        "avg_entry": 71.97,
+        "risk_per_sh": 1.22,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 71.83
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +8.6%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +2.11%",
+        "🔥 Açılış Barı: Güçlü (2.2x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "price": 99.55,
+      "change_pct": 6.82,
+      "dt_score": 63.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 98.95,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "robinhood hit by 5,000 outages during spacex trading debut(gurufocus.com)+5.82%",
+        "confidence": "high",
+        "ts": 1781532086.3975742
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 99.45,
+          "high": 100.05
+        },
+        "stop": 98.06,
+        "tp1": 103.13,
+        "tp2": 105.66,
+        "rr_ratio": 2.0,
+        "avg_entry": 99.75,
+        "risk_per_sh": 1.69,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 99.55
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +6.8%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +0.60%",
+        "🔥 Açılış Barı: Güçlü (4.3x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "GRND",
+      "price": 12.28,
+      "change_pct": 5.54,
+      "dt_score": 58.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 12.09,
+      "catalyst": {
+        "catalyst_type": "acquisition",
+        "catalyst_score": 22,
+        "headline": "motha descends on nyc: grindr and madonna team up for legendary times square performance(business wire)",
+        "confidence": "high",
+        "ts": 1781532086.3958068
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 12.27,
+          "high": 12.34
+        },
+        "stop": 12.1,
+        "tp1": 12.71,
+        "tp2": 13.02,
+        "rr_ratio": 1.98,
+        "avg_entry": 12.3,
+        "risk_per_sh": 0.21,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 12.28
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.5%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.60%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "HIMS",
+      "price": 28.69,
+      "change_pct": 6.97,
+      "dt_score": 56.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 28.67,
+      "catalyst": {
+        "catalyst_type": "acquisition",
+        "catalyst_score": 22,
+        "headline": "the wegovy pill is still dominating the glp-1 pill market(marketwatch)",
+        "confidence": "high",
+        "ts": 1781532082.908481
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 28.66,
+          "high": 28.83
+        },
+        "stop": 28.26,
+        "tp1": 29.71,
+        "tp2": 30.44,
+        "rr_ratio": 1.99,
+        "avg_entry": 28.74,
+        "risk_per_sh": 0.48,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 28.69
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +7.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🟡 VWAP Hemen Üstünde",
+        "🔥 Açılış Barı: Güçlü (2.8x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "price": 170.4,
+      "change_pct": 6.64,
+      "dt_score": 53.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 170.45,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "stocks to watch: spacex, micron technology, remy cointreau(the wall street journal)+6.42%",
+        "confidence": "high",
+        "ts": 1781532083.0257022
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 170.23,
+          "high": 171.25
+        },
+        "stop": 167.86,
+        "tp1": 176.5,
+        "tp2": 180.82,
+        "rr_ratio": 2.0,
+        "avg_entry": 170.74,
+        "risk_per_sh": 2.88,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 170.4
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +6.6%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.03%",
+        "🔥 Açılış Barı: Güçlü (3.9x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "MARA",
+      "price": 14.85,
+      "change_pct": 5.43,
+      "dt_score": 53.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 14.97,
+      "catalyst": {
+        "catalyst_type": "acquisition",
+        "catalyst_score": 22,
+        "headline": "strategy, coinbase, circle and robinhood lead crypto stocks rally amid bitcoin rebound(gurufocus.com)+11.85%",
+        "confidence": "high",
+        "ts": 1781532083.023441
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 14.84,
+          "high": 14.92
+        },
+        "stop": 14.66,
+        "tp1": 15.32,
+        "tp2": 15.65,
+        "rr_ratio": 2.0,
+        "avg_entry": 14.88,
+        "risk_per_sh": 0.22,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 14.85
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.4%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.80%",
+        "🔥 Açılış Barı: Güçlü (3.9x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "UPST",
+      "price": 33.33,
+      "change_pct": 9.3,
+      "dt_score": 47.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.79,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1781532083.0075314
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 33.3,
+          "high": 33.5
+        },
+        "stop": 32.83,
+        "tp1": 34.54,
+        "tp2": 35.39,
+        "rr_ratio": 2.0,
+        "avg_entry": 33.4,
+        "risk_per_sh": 0.57,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 33.33
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +9.3%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.64%",
+        "🔥 Açılış Barı: Güçlü (2.6x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SRPT",
+      "price": 15.85,
+      "change_pct": 3.53,
+      "dt_score": 45.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 15.74,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "biogene therapeutics inc. appoints ty howton to board of directors(tmx newsfile)",
+        "confidence": "high",
+        "ts": 1781532089.1748896
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 15.83,
+          "high": 15.93
+        },
+        "stop": 15.61,
+        "tp1": 16.42,
+        "tp2": 16.82,
+        "rr_ratio": 2.0,
+        "avg_entry": 15.88,
+        "risk_per_sh": 0.27,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 15.85
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Küçük Gap: +3.5%",
         "Bilinmiyor",
         "Bilinmiyor",
+        "✅ VWAP Üstünde: +0.67%",
+        "🔴 Açılış Barı: Kırmızı (0.3% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "price": 246.4,
+      "change_pct": 3.29,
+      "dt_score": 42.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 246.42,
+      "catalyst": {
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "dow up nearly 550 points on gains for amazon.com inc., boeing shares(marketwatch)",
+        "confidence": "high",
+        "ts": 1781532087.6960971
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 246.15,
+          "high": 247.63
+        },
+        "stop": 243.62,
+        "tp1": 253.43,
+        "tp2": 258.33,
+        "rr_ratio": 2.0,
+        "avg_entry": 246.89,
+        "risk_per_sh": 3.27,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 246.4
+      },
+      "details": [
+        "📰 Kataliz: PARTNERSHIP",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.3%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.01%",
+        "🔥 Açılış Barı: Güçlü (4.3x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
