@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-12T10:31:00.152435-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 28.3,
-  "total_scanned": 4,
-  "layer1_passed": 4,
-  "final_picks": 4,
+  "generated_at": "2026-06-15T08:45:00.140834-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 27.2,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
   "picks": [
     {
       "ticker": "MARA",
-      "price": 14.27,
-      "change_pct": 4.85,
-      "dt_score": 63.0,
+      "price": 14.08,
+      "change_pct": 3.45,
+      "dt_score": 45.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $14.89 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: ACQUISITION",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 14.02,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "acquisition",
         "catalyst_score": 22,
         "headline": "strategy, coinbase, circle and robinhood lead crypto stocks rally amid bitcoin rebound(gurufocus.com)+11.85%",
         "confidence": "high",
-        "ts": 1781274686.3662126
+        "ts": 1781527526.6771238
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,191 +37,25 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 14.26,
-          "high": 14.34
+          "low": 14.88,
+          "high": 14.96
         },
-        "stop": 14.06,
-        "tp1": 14.78,
-        "tp2": 15.14,
+        "stop": 13.95,
+        "tp1": 16.86,
+        "tp2": 18.32,
         "rr_ratio": 2.0,
-        "avg_entry": 14.3,
-        "risk_per_sh": 0.24,
+        "avg_entry": 14.92,
+        "risk_per_sh": 0.97,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 14.27
+        "pm_high_ref": 14.89
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.8%",
+        "↗️ Küçük Gap: +3.5%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.79%",
-        "🔥 Açılış Barı: Güçlü (2.4x hacim)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "MRNA",
-      "price": 51.52,
-      "change_pct": 3.79,
-      "dt_score": 52.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 50.63,
-      "catalyst": {
-        "catalyst_type": "partnership",
-        "catalyst_score": 18,
-        "headline": "parabilis sets a record with a $670m biotech ipo(biopharma dive)",
-        "confidence": "high",
-        "ts": 1781274686.255253
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 51.47,
-          "high": 51.78
-        },
-        "stop": 50.75,
-        "tp1": 53.38,
-        "tp2": 54.69,
-        "rr_ratio": 2.01,
-        "avg_entry": 51.62,
-        "risk_per_sh": 0.88,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 51.52
-      },
-      "details": [
-        "📰 Kataliz: PARTNERSHIP",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.8%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.75%",
-        "🔥 Açılış Barı: Güçlü (2.7x hacim)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "GRND",
-      "price": 11.81,
-      "change_pct": 3.01,
-      "dt_score": 45.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 11.69,
-      "catalyst": {
-        "catalyst_type": "acquisition",
-        "catalyst_score": 22,
-        "headline": "motha descends on nyc: grindr and madonna team up for legendary times square performance(business wire)",
-        "confidence": "high",
-        "ts": 1781274687.7652936
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 11.8,
-          "high": 11.87
-        },
-        "stop": 11.63,
-        "tp1": 12.25,
-        "tp2": 12.55,
-        "rr_ratio": 2.02,
-        "avg_entry": 11.84,
-        "risk_per_sh": 0.21,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 11.81
-      },
-      "details": [
-        "🎯 Güçlü Kataliz: ACQUISITION (high)",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.02%",
-        "🔴 Açılış Barı: Kırmızı (1.0% gövde)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "RIOT",
-      "price": 27.18,
-      "change_pct": 3.98,
-      "dt_score": 35.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 26.95,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1781274686.3525417
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 27.15,
-          "high": 27.32
-        },
-        "stop": 26.77,
-        "tp1": 28.16,
-        "tp2": 28.86,
-        "rr_ratio": 1.99,
-        "avg_entry": 27.23,
-        "risk_per_sh": 0.46,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 27.18
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +4.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.86%",
-        "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]

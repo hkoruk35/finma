@@ -1,0 +1,75 @@
+{
+  "date": "2026-06-12",
+  "generated_at": "2026-06-12T13:03:51.631779-04:00",
+  "total_tickers_scanned": 500,
+  "active_scores_count": 6,
+  "market_regime": "BULLISH",
+  "menus": {
+    "top_scores": {
+      "count": 6,
+      "tickers": [
+        "CASH",
+        "RF",
+        "PRI",
+        "ROST",
+        "DORM",
+        "BLFS"
+      ]
+    },
+    "breakout": {
+      "count": 0,
+      "tickers": []
+    },
+    "value": {
+      "count": 0,
+      "tickers": []
+    },
+    "reversal": {
+      "count": 0,
+      "tickers": []
+    },
+    "momentum": {
+      "count": 0,
+      "tickers": []
+    },
+    "dividend": {
+      "count": 0,
+      "tickers": []
+    }
+  },
+  "top_3_overall": [
+    {
+      "ticker": "CASH",
+      "score": 58.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "RF",
+      "score": 57.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "PRI",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    }
+  ],
+  "market_indices": {
+    "SP500": {
+      "value": 5200,
+      "change_pct": 0.5
+    },
+    "NASDAQ": {
+      "value": 16000,
+      "change_pct": 0.8
+    },
+    "DOW": {
+      "value": 39000,
+      "change_pct": 0.2
+    },
+    "VIX": {
+      "value": 15.0,
+      "change_pct": -2.0
+    }
+  }
+}
