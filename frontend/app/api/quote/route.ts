@@ -1,12 +1,70 @@
 /**
- * /api/quote?tickers=GSAT,SGI,BBIO
- * Yahoo Finance'dan 1D/1W/1M/1Y değişim yüzdelerini çeker.
- * Swing picks gibi ana scanner'da olmayan hisseler için kullanılır.
+ * /api/quote?tickers=SPY,QQQ,^VIX,GC=F,EURUSD=X
+ * Yahoo Finance'dan gerçek zamanlı fiyat ve 1D değişim çeker.
+ * Strateji: v7/batch (tek istek) → eksikler için v8/chart fallback
  */
 
 import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
+
+type QuoteResult = {
+  price: number | null;
+  change_1d: number | null;
+  change_1w: number | null;
+  change_1m: number | null;
+  change_1y: number | null;
+};
+
+const YF_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "Accept": "application/json",
+  "Referer": "https://finance.yahoo.com/",
+  "Accept-Language": "en-US,en;q=0.9",
+};
+
+async function batchQuoteV7(symbols: string[]): Promise<Record<string, QuoteResult>> {
+  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols.join(","))}&fields=regularMarketPrice,regularMarketChangePercent,regularMarketPreviousClose`;
+  const res = await fetch(url, {
+    headers: YF_HEADERS,
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!res.ok) throw new Error(`v7 HTTP ${res.status}`);
+  const data = await res.json();
+  const quotes: any[] = data?.quoteResponse?.result ?? [];
+  const out: Record<string, QuoteResult> = {};
+  for (const q of quotes) {
+    if (!q.symbol || q.regularMarketPrice == null) continue;
+    out[q.symbol] = {
+      price: +q.regularMarketPrice.toFixed(4),
+      change_1d: q.regularMarketChangePercent != null
+        ? +q.regularMarketChangePercent.toFixed(2)
+        : null,
+      change_1w: null,
+      change_1m: null,
+      change_1y: null,
+    };
+  }
+  return out;
+}
+
+async function singleQuoteV8(ticker: string): Promise<QuoteResult | null> {
+  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d&includePrePost=false`;
+  const res = await fetch(url, {
+    headers: YF_HEADERS,
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!res.ok) return null;
+  const data = await res.json();
+  const meta = data?.chart?.result?.[0]?.meta;
+  if (!meta) return null;
+  const price: number | null = meta.regularMarketPrice ?? null;
+  const prev: number | null = meta.chartPreviousClose ?? meta.previousClose ?? null;
+  const change_1d = price != null && prev != null && prev !== 0
+    ? +((price - prev) / prev * 100).toFixed(2)
+    : null;
+  return { price, change_1d, change_1w: null, change_1m: null, change_1y: null };
+}
 
 export async function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get("tickers") || "";
@@ -14,57 +72,37 @@ export async function GET(req: NextRequest) {
     .split(",")
     .map((t) => t.trim().toUpperCase())
     .filter(Boolean)
-    .slice(0, 50);
+    .slice(0, 60);
 
-  if (tickers.length === 0) {
-    return NextResponse.json({});
+  if (!tickers.length) return NextResponse.json({});
+
+  const results: Record<string, QuoteResult> = {};
+
+  // 1) Batch v7 — tek istekte tüm semboller
+  try {
+    const batch = await batchQuoteV7(tickers);
+    Object.assign(results, batch);
+  } catch {
+    // v7 başarısız olursa devam et, fallback devreye girer
   }
 
-  const results: Record<string, { price: number | null; change_1d: number | null; change_1w: number | null; change_1m: number | null; change_1y: number | null }> = {};
-
-  await Promise.all(
-    tickers.map(async (ticker) => {
-      try {
-        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1y&includePrePost=false`;
-        const res = await fetch(url, {
-          headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Accept": "application/json",
-          },
-          signal: AbortSignal.timeout(6000),
-        });
-        if (!res.ok) return;
-        const data = await res.json();
-        const chart = data?.chart?.result?.[0];
-        if (!chart) return;
-
-        const closes: number[] = (chart.indicators?.quote?.[0]?.close || []).filter(
-          (v: any) => v != null && typeof v === "number"
-        );
-        if (closes.length < 2) return;
-
-        const current = chart.meta?.regularMarketPrice ?? closes[closes.length - 1];
-        const prev1d  = closes[closes.length - 2];
-        const prev1w  = closes.length >= 6  ? closes[closes.length - 6]  : closes[0];
-        const prev1m  = closes.length >= 22 ? closes[closes.length - 22] : closes[0];
-        const prev1y  = closes[0];
-
-        const pct = (base: number) => base ? +((current - base) / base * 100).toFixed(2) : null;
-
-        results[ticker] = {
-          price: current,
-          change_1d: pct(prev1d),
-          change_1w: pct(prev1w),
-          change_1m: pct(prev1m),
-          change_1y: pct(prev1y),
-        };
-      } catch {
-        // Timeout veya hata — sonuç döndürme
-      }
-    })
-  );
+  // 2) Eksik tikkerlar için v8/chart fallback (paralel, max 8)
+  const missing = tickers.filter((t) => !results[t]);
+  if (missing.length) {
+    const BATCH = 8;
+    for (let i = 0; i < missing.length; i += BATCH) {
+      await Promise.all(
+        missing.slice(i, i + BATCH).map(async (ticker) => {
+          const r = await singleQuoteV8(ticker).catch(() => null);
+          if (r) results[ticker] = r;
+        })
+      );
+    }
+  }
 
   return NextResponse.json(results, {
-    headers: { "Cache-Control": "public, max-age=60, stale-while-revalidate=30" },
+    headers: {
+      "Cache-Control": "no-store",
+    },
   });
 }

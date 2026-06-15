@@ -361,6 +361,7 @@ export default function TerminalClient() {
 
   // Price data
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   // Hourly signals map: ticker → signal
   const [signals, setSignals] = useState<Record<string, HourlySignal>>({});
@@ -508,6 +509,7 @@ export default function TerminalClient() {
         }
         return next;
       });
+      setLastUpdated(new Date());
     } catch {}
   }, []);
 
@@ -515,7 +517,7 @@ export default function TerminalClient() {
     // Fetch instrument prices
     const ySymbols = ALL_INSTRUMENTS.map((i) => i.ySymbol);
     fetchPrices(ySymbols);
-    const id = setInterval(() => fetchPrices(ySymbols), 60_000);
+    const id = window.setInterval(() => fetchPrices(ySymbols), 30_000);
     return () => clearInterval(id);
   }, [fetchPrices]);
 
@@ -883,6 +885,13 @@ export default function TerminalClient() {
 
           <div className="flex-1" />
 
+          {/* Last updated */}
+          {lastUpdated && (
+            <span className="text-[8px] text-slate-600 font-mono hidden sm:inline">
+              ⟳ {lastUpdated.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+            </span>
+          )}
+
           {/* Indicator Toggles */}
           <div className="flex items-center gap-0.5 bg-[#0d1117] border border-[#1e2a3a] rounded px-1 py-0.5">
             {INDICATORS.map((ind) => (
@@ -905,7 +914,7 @@ export default function TerminalClient() {
             {INTERVALS.map((iv) => (
               <button
                 key={iv.value}
-                onClick={() => setInterval(iv.value)}
+                onClick={() => setChartInterval(iv.value)}
                 className={`px-2 py-0.5 text-[9px] font-bold rounded transition-colors ${
                   chartInterval === iv.value
                     ? "bg-[#3b82f6] text-white"
