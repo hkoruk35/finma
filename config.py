@@ -67,27 +67,27 @@ FIXED_TICKERS_TECHNOLOGY = [
     # Semiconductors & Hardware
     "NVDA", "AMD", "AVGO", "QCOM", "TXN", "MU", "LRCX", "AMAT", "KLAC",
     "MRVL", "MCHP", "SWKS", "MPWR", "ON", "WOLF", "SMCI", "ARM",
-    "ADI", "STX", "WDC", "SNDK", "COHR", "LITE",
+    "ADI", "STX", "WDC", "SNDK", "COHR", "LITE", "CRDO",
     # Software & Cloud Applications
     "ORCL", "CRM", "ADBE", "NOW", "INTU", "WDAY", "TEAM", "ZM", "DDOG",
-    "MDB", "SNOW", "HUBS", "VEEV", "BILL", "GTLB", "TTD", "SMAR", "ZS",
+    "MDB", "SNOW", "HUBS", "VEEV", "BILL", "GTLB", "TTD", "ZS", "SHOP",
     # Cybersecurity
-    "PANW", "CRWD", "FTNT", "OKTA", "S", "CYBR",
+    "PANW", "CRWD", "FTNT", "OKTA", "S",
     # AI & Data
-    "PLTR", "MSTR", "IBM", "ANSS", "CDNS", "SNPS",
+    "PLTR", "MSTR", "IBM", "CDNS", "SNPS", "APP",
     # Infrastructure & Networking
-    "CSCO", "NET", "AKAM", "ANET", "JNPR", "NTAP",
+    "CSCO", "NET", "AKAM", "ANET", "NTAP",
     # Hardware & Devices
     "DELL", "INTC", "TSM", "GLW", "GRMN", "KEYS", "VRT",
     # New additions from screener
-    "APPS", "FRSH", "PD", "RXT", "WIT", "LAES", "ASAN", "MX", "BB", "KEEL", "SOUN", "CXAI", "ALIT", "RZIVU",
+    "APPS", "FRSH", "PD", "RXT", "WIT", "LAES", "ASAN", "MX", "BB", "KEEL", "SOUN", "CXAI", "ALIT",
 ]
 
 FIXED_TICKERS_COMMUNICATION = [
     # Social & Search
     "GOOGL", "META",
     # Streaming & Entertainment
-    "NFLX", "DIS", "SPOT", "ROKU", "WBD", "PARA",
+    "NFLX", "DIS", "SPOT", "ROKU", "WBD",
     # Telecom — US
     "T", "VZ", "TMUS", "CHTR", "CMCSA",
     # Telecom — Global
@@ -95,7 +95,7 @@ FIXED_TICKERS_COMMUNICATION = [
     # Gaming
     "EA", "TTWO", "RBLX",
     # Interactive & Social
-    "SNAP", "PINS", "MTCH", "TKO",
+    "SNAP", "PINS", "MTCH", "TKO", "RDDT",
     # Advertising
     "OMC",
     # EM Digital
@@ -106,7 +106,7 @@ FIXED_TICKERS_COMMUNICATION = [
 
 FIXED_TICKERS_CONSUMER_DISCRETIONARY = [
     # E-commerce & Marketplace
-    "AMZN", "EBAY", "ETSY", "W", "BABA",
+    "AMZN", "EBAY", "ETSY", "W", "BABA", "MELI",
     # Automotive & EV
     "TSLA", "F", "GM", "RIVN", "LCID",
     # Home Improvement
@@ -131,7 +131,7 @@ FIXED_TICKERS_CONSUMER_STAPLES = [
     # Household & Personal Care
     "PG", "CL", "KMB", "CHD",
     # Beverages
-    "KO", "PEP", "MNST", "STZ", "BF.B",
+    "KO", "PEP", "MNST", "STZ", "BF.B", "CELH",
     # Food & Snacks
     "MDLZ", "GIS", "CPB", "HRL", "CAG", "SJM", "K", "HSY", "TSN",
     # Tobacco
@@ -151,18 +151,18 @@ FIXED_TICKERS_HEALTHCARE = [
     "LLY", "JNJ", "ABBV", "MRK", "PFE", "BMY", "AMGN", "REGN", "GILD",
     "BIIB", "VRTX", "ALNY", "MRNA", "EXEL",
     # Large-cap Pharma — Global
-    "AZN", "NVS", "TAK", "TEVA", "BNTX",
+    "AZN", "NVS", "NVO", "TAK", "TEVA", "BNTX",
     # Medical Devices & Equipment
     "UNH", "ABT", "MDT", "ISRG", "BSX", "SYK", "EW", "ZBH", "HOLX",
     "BDX", "BAX", "DXCM", "PODD", "INSP", "NVCR",
     # Diagnostics & Services
-    "TMO", "DHR", "A", "IQV", "PKI", "ILMN", "LH", "DGX",
+    "TMO", "DHR", "A", "IQV", "RVTY", "ILMN", "LH", "DGX",
     # Health Insurance & Services
     "CVS", "CI", "ELV", "HCA", "THC",
     # Veterinary
     "ZTS", "IDEXX",
     # Biotech Emerging
-    "SRPT", "RARE", "ACAD",
+    "SRPT", "RARE", "ACAD", "HIMS",
     # New additions from screener
     "AVTR", "CLVR", "ABSI", "HUMA", "ABCL", "SLS", "MNKD", "IOVA", "REPL", "OTLK", "RXRX", "TDOC",
 ]
@@ -184,9 +184,9 @@ FIXED_TICKERS_FINANCIALS = [
     # Brokerage & Exchange
     "SCHW", "IBKR", "ICE", "CME", "CBOE", "NDAQ",
     # Fintech & Crypto
-    "COIN", "HOOD", "SOFI", "NU",
+    "COIN", "HOOD", "SOFI", "NU", "AFRM",
     # Data & Ratings
-    "MCO", "SPGI", "MSCI",
+    "MCO", "SPGI", "MSCI", "FICO",
     # Business Services
     "RBA",
     # Regional Banks — US
@@ -251,7 +251,7 @@ FIXED_TICKERS_MATERIALS = [
     # Construction Materials
     "MLM", "VMC", "CRH", "EXP",
     # Paper & Packaging
-    "IP", "PKG", "WRK",
+    "IP", "PKG", "SW",
     # Other
     "NEXA", "BVN",
     # New additions from screener
@@ -291,9 +291,9 @@ FIXED_TICKERS_INDUSTRIALS = [
     # Aviation MRO
     "AIR",
     # Other
-    "SYM", "FTAI",
+    "SYM", "FTAI", "IOT",
     # New additions from screener
-    "BLDP", "XRX", "ENVX", "ABAT", "JBLU", "RR", "EDSE", "SPCE", "PLUG", "ACHR", "SIDU",
+    "BLDP", "XRX", "ENVX", "ABAT", "JBLU", "RR", "SPCE", "PLUG", "ACHR", "SIDU",
 ]
 
 FIXED_TICKERS_UTILITIES = [
