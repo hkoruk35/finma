@@ -185,7 +185,7 @@ RS_LOOKBACK = 30
 # ================================================================
 TELEGRAM_API_KEY = "8182098187:AAF-jtWMJK07ZdZdyusiE1RqyQkwegb0Uhc"
 TELEGRAM_CHAT_ID = "-1003406973271"
-ENABLE_TELEGRAM_NOTIFICATIONS = False  # 🚫 PASİF
+ENABLE_TELEGRAM_NOTIFICATIONS = True
 
 # ================================================================
 # 🔹 ALPHA VANTAGE
