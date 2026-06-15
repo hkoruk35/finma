@@ -1,7 +1,10 @@
 /**
  * /api/quote?tickers=SPY,QQQ,^VIX,GC=F,EURUSD=X
  * Yahoo Finance'dan gerçek zamanlı fiyat ve 1D değişim çeker.
- * Strateji: v7/batch (tek istek) → eksikler için v8/chart fallback
+ * Strateji:
+ *   - Fiyat: v7 batch (tek istek, hızlı) → başarısız tickers için v8 fallback
+ *   - 1D değişim: v8 chart closes[-2..-1] (TradingView ile birebir uyumlu)
+ *                 regularMarketChangePercent KULLANILMIYOR — yanlış ref fiyat dönebiliyor
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -23,8 +26,9 @@ const YF_HEADERS = {
   "Accept-Language": "en-US,en;q=0.9",
 };
 
-async function batchQuoteV7(symbols: string[]): Promise<Record<string, QuoteResult>> {
-  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols.join(","))}&fields=regularMarketPrice,regularMarketChangePercent,regularMarketPreviousClose`;
+/** Fiyat için v7 batch — tek istekte tüm semboller. */
+async function batchPriceV7(symbols: string[]): Promise<Record<string, number>> {
+  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols.join(","))}&fields=regularMarketPrice`;
   const res = await fetch(url, {
     headers: YF_HEADERS,
     signal: AbortSignal.timeout(8000),
@@ -32,38 +36,61 @@ async function batchQuoteV7(symbols: string[]): Promise<Record<string, QuoteResu
   if (!res.ok) throw new Error(`v7 HTTP ${res.status}`);
   const data = await res.json();
   const quotes: any[] = data?.quoteResponse?.result ?? [];
-  const out: Record<string, QuoteResult> = {};
+  const out: Record<string, number> = {};
   for (const q of quotes) {
-    if (!q.symbol || q.regularMarketPrice == null) continue;
-    out[q.symbol] = {
-      price: +q.regularMarketPrice.toFixed(4),
-      change_1d: q.regularMarketChangePercent != null
-        ? +q.regularMarketChangePercent.toFixed(2)
-        : null,
-      change_1w: null,
-      change_1m: null,
-      change_1y: null,
-    };
+    if (q.symbol && q.regularMarketPrice != null) {
+      out[q.symbol] = +q.regularMarketPrice.toFixed(4);
+    }
   }
   return out;
 }
 
-async function singleQuoteV8(ticker: string): Promise<QuoteResult | null> {
+/**
+ * 1D değişim için v8 chart — closes dizisinin son iki değerinden hesaplar.
+ * Bu yöntem TradingView'ın 1D change hesabıyla birebir uyumludur.
+ * regularMarketChangePercent kullanılmaz: bazı hisseler için yanlış referans dönüyor.
+ */
+async function change1dV8(ticker: string): Promise<{ price: number | null; change_1d: number | null }> {
   const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d&includePrePost=false`;
-  const res = await fetch(url, {
-    headers: YF_HEADERS,
-    signal: AbortSignal.timeout(5000),
-  });
-  if (!res.ok) return null;
-  const data = await res.json();
-  const meta = data?.chart?.result?.[0]?.meta;
-  if (!meta) return null;
-  const price: number | null = meta.regularMarketPrice ?? null;
-  const prev: number | null = meta.chartPreviousClose ?? meta.previousClose ?? null;
-  const change_1d = price != null && prev != null && prev !== 0
-    ? +((price - prev) / prev * 100).toFixed(2)
-    : null;
-  return { price, change_1d, change_1w: null, change_1m: null, change_1y: null };
+  try {
+    const res = await fetch(url, {
+      headers: YF_HEADERS,
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) return { price: null, change_1d: null };
+    const data = await res.json();
+    const result = data?.chart?.result?.[0];
+    if (!result) return { price: null, change_1d: null };
+
+    const meta = result.meta;
+    const price: number | null = meta?.regularMarketPrice ?? null;
+
+    // closes dizisinden geçerli (null olmayan) son iki kapanış
+    const rawCloses: (number | null)[] = result.indicators?.quote?.[0]?.close ?? [];
+    const closes = rawCloses.filter((c): c is number => c != null);
+
+    let change_1d: number | null = null;
+
+    if (closes.length >= 2) {
+      const marketState: string = meta?.marketState ?? "CLOSED";
+      const isRegularOpen = marketState === "REGULAR";
+
+      if (isRegularOpen && price != null) {
+        // Piyasa açık: bugünkü fiyat / dünün kapanışı
+        const prevClose = closes[closes.length - 1];
+        change_1d = prevClose !== 0 ? +((price - prevClose) / prevClose * 100).toFixed(2) : null;
+      } else {
+        // Piyasa kapalı: bugünün kapanışı / dünün kapanışı
+        const todayClose = closes[closes.length - 1];
+        const prevClose = closes[closes.length - 2];
+        change_1d = prevClose !== 0 ? +((todayClose - prevClose) / prevClose * 100).toFixed(2) : null;
+      }
+    }
+
+    return { price, change_1d };
+  } catch {
+    return { price: null, change_1d: null };
+  }
 }
 
 export async function GET(req: NextRequest) {
@@ -76,33 +103,31 @@ export async function GET(req: NextRequest) {
 
   if (!tickers.length) return NextResponse.json({});
 
-  const results: Record<string, QuoteResult> = {};
-
-  // 1) Batch v7 — tek istekte tüm semboller
+  // 1) Fiyatları v7 batch ile al (hızlı, tek istek)
+  let prices: Record<string, number> = {};
   try {
-    const batch = await batchQuoteV7(tickers);
-    Object.assign(results, batch);
+    prices = await batchPriceV7(tickers);
   } catch {
-    // v7 başarısız olursa devam et, fallback devreye girer
+    // v7 başarısız — v8'den fiyat da alacağız
   }
 
-  // 2) Eksik tikkerlar için v8/chart fallback (paralel, max 8)
-  const missing = tickers.filter((t) => !results[t]);
-  if (missing.length) {
-    const BATCH = 8;
-    for (let i = 0; i < missing.length; i += BATCH) {
-      await Promise.all(
-        missing.slice(i, i + BATCH).map(async (ticker) => {
-          const r = await singleQuoteV8(ticker).catch(() => null);
-          if (r) results[ticker] = r;
-        })
-      );
-    }
+  // 2) 1D değişimi v8'den hesapla (paralel, max 8 eşzamanlı)
+  const results: Record<string, QuoteResult> = {};
+  const BATCH = 8;
+
+  for (let i = 0; i < tickers.length; i += BATCH) {
+    await Promise.all(
+      tickers.slice(i, i + BATCH).map(async (ticker) => {
+        const { price: v8Price, change_1d } = await change1dV8(ticker);
+        const price = prices[ticker] ?? v8Price;
+        if (price != null) {
+          results[ticker] = { price, change_1d, change_1w: null, change_1m: null, change_1y: null };
+        }
+      })
+    );
   }
 
   return NextResponse.json(results, {
-    headers: {
-      "Cache-Control": "no-store",
-    },
+    headers: { "Cache-Control": "no-store" },
   });
 }
