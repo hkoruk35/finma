@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-15T08:45:00.140834-04:00",
-  "scan_mode": "premarket",
-  "scan_duration_s": 27.2,
+  "generated_at": "2026-06-15T09:31:00.113622-04:00",
+  "scan_mode": "open_confirm",
+  "scan_duration_s": 5.7,
   "total_scanned": 1,
   "layer1_passed": 1,
   "final_picks": 1,
@@ -10,9 +10,9 @@
       "ticker": "MARA",
       "price": 14.08,
       "change_pct": 3.45,
-      "dt_score": 45.0,
+      "dt_score": 35.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "⏳ BEKLE → Açılış barı $14.89 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: ACQUISITION",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
@@ -37,24 +37,23 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 14.88,
-          "high": 14.96
+          "low": 14.07,
+          "high": 14.15
         },
         "stop": 13.95,
-        "tp1": 16.86,
-        "tp2": 18.32,
+        "tp1": 14.43,
+        "tp2": 14.67,
         "rr_ratio": 2.0,
-        "avg_entry": 14.92,
-        "risk_per_sh": 0.97,
+        "avg_entry": 14.11,
+        "risk_per_sh": 0.16,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 14.89
+        "pm_high_ref": 14.08
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
         "↗️ Küçük Gap: +3.5%",
         "Bilinmiyor",
-        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
