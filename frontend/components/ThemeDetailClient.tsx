@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -446,13 +447,15 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                     >
                       {/* TICKER */}
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
-                        <Link
-                          href={`/stock/${sym}`}
-                          onClick={e => e.stopPropagation()}
-                          style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13, textDecoration: "none" }}
-                        >
-                          {sym}
-                        </Link>
+                        <TickerHoverChart ticker={sym}>
+                          <Link
+                            href={`/stock/${sym}`}
+                            onClick={e => e.stopPropagation()}
+                            style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13, textDecoration: "none" }}
+                          >
+                            {sym}
+                          </Link>
+                        </TickerHoverChart>
                         {isCustom && (
                           <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
                             CUSTOM

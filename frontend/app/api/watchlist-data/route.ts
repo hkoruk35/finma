@@ -1055,8 +1055,7 @@ export async function GET(req: NextRequest) {
   const tickers = raw
     .split(",")
     .map((t) => t.trim().toUpperCase())
-    .filter(Boolean)
-    .slice(0, 150); // 50'den 150'ye yükseltildi — 525 listesi 52+ hisse içeriyor
+    .filter(Boolean);
 
   if (tickers.length === 0) {
     return NextResponse.json([]);
@@ -1064,8 +1063,9 @@ export async function GET(req: NextRequest) {
 
   const results: any[] = [];
 
-  await Promise.all(
-    tickers.map(async (ticker) => {
+  // Batch to avoid Yahoo Finance rate limiting (12 tickers per batch, 120ms apart)
+  const BATCH_SIZE = 12;
+  const processTicker = async (ticker: string) => {
       // 1. Try to read from local file path first for high performance
       const localPaths = [
         path.join(DATA_ROOT, "latest", "stocks", `${ticker}.json`),
@@ -1133,8 +1133,14 @@ export async function GET(req: NextRequest) {
           console.error(`[watchlist-data] Error fetching live data for ${ticker}:`, err instanceof Error ? err.message : String(err));
         }
       }
-    })
-  );
+  };
+
+  for (let i = 0; i < tickers.length; i += BATCH_SIZE) {
+    await Promise.all(tickers.slice(i, i + BATCH_SIZE).map(processTicker));
+    if (i + BATCH_SIZE < tickers.length) {
+      await new Promise<void>(resolve => setTimeout(resolve, 120));
+    }
+  }
 
   // Cache bulunan datayı 2 dakika, ama yeni request'lere bypass et
   // (fresh ticker'lar için cache skip olmali)
