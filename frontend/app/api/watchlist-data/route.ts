@@ -53,6 +53,11 @@ export const maxDuration = 30;
 const YAHOO_CACHE: Record<string, { data: any; timestamp: number }> = {};
 const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes (pattern güncellemeleri için daha hızlı yansısın)
 
+// ── Persistent sector cache — container boyunca yaşar, asla expire olmaz ────
+// Sektör verisi çok nadir değişir; bir kez çekildikten sonra tekrar istek gerekmez.
+const SECTOR_CACHE: Record<string, string> = {};
+const INDUSTRY_CACHE: Record<string, string> = {};
+
 function getCachedYahooData(ticker: string) {
   const cached = YAHOO_CACHE[ticker];
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
@@ -452,7 +457,9 @@ function check15mMicroTrend(
   return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m Yatay/Sıkışma: Gürültü yok" };
 }
 
-async function fetchYahooLive(ticker: string) {
+type SectorHint = { sector: string; longName: string; industry: string };
+
+async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
   try {
     // Check cache first to avoid rate limiting
     const cached = getCachedYahooData(ticker);
@@ -465,15 +472,12 @@ async function fetchYahooLive(ticker: string) {
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
-    // v7 batch — sector + longName için en güvenilir kaynak
-    const v7QuoteUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}&fields=longName,shortName,sector,industry`;
 
-    const [chartRes, chart1hRes, chart15mRes, quoteRes, v7QuoteRes] = await Promise.all([
+    const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
       fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
       fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(quoteUrl, { signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
-      fetch(v7QuoteUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
     ]).catch(err => {
       console.error(`[watchlist-data] ${ticker}: Promise.all error:`, err);
       throw err;
@@ -744,26 +748,17 @@ async function fetchYahooLive(ticker: string) {
     const finData = qResult.financialData || {};
     const stats = qResult.defaultKeyStatistics || {};
 
-    // v7 quote — sector + longName için en güvenilir kaynak (v10 assetProfile'dan daha az rate-limit)
-    const v7Data = await v7QuoteRes?.json().catch(() => ({}));
-    const v7Quote = v7Data?.quoteResponse?.result?.[0] || {};
-    const v7Sector = v7Quote?.sector || "";
-    const v7LongName = v7Quote?.longName || v7Quote?.shortName || "";
-    const v7Industry = v7Quote?.industry || "";
-
     // Priority 1: Static sector mapping (559 major tickers)
     let detectedSector = TICKER_SECTOR_MAP[ticker.toUpperCase()] || "";
     let assetProfile = qResult.assetProfile || {};
 
-    // Priority 2: v7 quote API (güvenilir, rate-limit dirençli)
-    if (!detectedSector) {
-      detectedSector = v7Sector;
-    }
+    // Priority 2: Pre-fetched batch hint (GET level v7 call, most reliable)
+    if (!detectedSector) detectedSector = sectorHint?.sector || "";
+    const v7LongName = sectorHint?.longName || "";
+    const v7Industry = sectorHint?.industry || "";
 
     // Priority 3: v10 assetProfile (yedek)
-    if (!detectedSector) {
-      detectedSector = assetProfile.sector || "";
-    }
+    if (!detectedSector) detectedSector = assetProfile.sector || "";
 
     // Priority 4: Industry keyword → sector mapping
     if (!detectedSector) {
@@ -1068,6 +1063,76 @@ export async function GET(req: NextRequest) {
 
   const results: any[] = [];
 
+  // ── Sektör pre-fetch — iki aşamalı, persistent cache destekli ──────────────
+  const sectorHints: Record<string, SectorHint> = {};
+  const needsHint = tickers.filter(t => !TICKER_SECTOR_MAP[t]);
+
+  if (needsHint.length > 0) {
+    // Aşama 1: v7 batch — longName (şirket adı) için. sector dönmüyor ama hızlı.
+    try {
+      const v7Url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(needsHint.join(","))}&fields=longName,shortName`;
+      const v7Res = await fetch(v7Url, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "Accept": "application/json",
+          "Referer": "https://finance.yahoo.com/",
+        },
+        signal: AbortSignal.timeout(8000),
+      });
+      if (v7Res.ok) {
+        const v7Data = await v7Res.json();
+        for (const q of v7Data?.quoteResponse?.result ?? []) {
+          if (q.symbol) {
+            sectorHints[q.symbol] = {
+              sector: SECTOR_CACHE[q.symbol] || "",
+              longName: q.longName || q.shortName || "",
+              industry: INDUSTRY_CACHE[q.symbol] || "",
+            };
+          }
+        }
+      }
+    } catch {}
+
+    // Aşama 2: SECTOR_CACHE'de olmayan tickerlar için v10 assetProfile (query2, paralel)
+    const stillNeedsSector = needsHint.filter(t => !SECTOR_CACHE[t]);
+    if (stillNeedsSector.length > 0) {
+      await Promise.all(
+        stillNeedsSector.map(async (t) => {
+          try {
+            const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile`;
+            const res = await fetch(url, {
+              headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                "Accept": "application/json",
+                "Referer": "https://finance.yahoo.com/",
+              },
+              signal: AbortSignal.timeout(8000),
+            });
+            if (res.ok) {
+              const data = await res.json();
+              const profile = data?.quoteSummary?.result?.[0]?.assetProfile;
+              if (profile?.sector) {
+                SECTOR_CACHE[t] = profile.sector;
+                INDUSTRY_CACHE[t] = profile.industry || "";
+              }
+            }
+          } catch {}
+        })
+      );
+
+      // Sector cache güncellenince sectorHints'e yaz
+      for (const t of stillNeedsSector) {
+        if (SECTOR_CACHE[t]) {
+          sectorHints[t] = {
+            sector: SECTOR_CACHE[t],
+            longName: sectorHints[t]?.longName || "",
+            industry: INDUSTRY_CACHE[t] || "",
+          };
+        }
+      }
+    }
+  }
+
   // Batch to avoid Yahoo Finance rate limiting (12 tickers per batch, 120ms apart)
   const BATCH_SIZE = 12;
   const processTicker = async (ticker: string) => {
@@ -1119,7 +1184,7 @@ export async function GET(req: NextRequest) {
       // 2. If not found in static files, fetch live and calculate on the fly
       if (!foundData) {
         try {
-          const liveData = await fetchYahooLive(ticker);
+          const liveData = await fetchYahooLive(ticker, sectorHints[ticker]);
           if (liveData) {
             // Enhance with local sector data if available and live data lacks it
             if (localSectorData && localSectorData.sector && (!liveData.sector || liveData.sector === "Unknown")) {
