@@ -1,24 +1,30 @@
 {
-  "date": "2026-06-12",
-  "generated_at": "2026-06-12T13:03:51.631779-04:00",
+  "date": "2026-06-16",
+  "generated_at": "2026-06-16T13:15:57.186386-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 6,
-  "market_regime": "BULLISH",
+  "active_scores_count": 12,
+  "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 6,
+      "count": 10,
       "tickers": [
-        "CASH",
-        "RF",
-        "PRI",
-        "ROST",
-        "DORM",
-        "BLFS"
+        "FTDR",
+        "HOOD",
+        "VFC",
+        "MAR",
+        "KNF",
+        "MAC",
+        "KB",
+        "SCCO",
+        "ITT",
+        "WPM"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "LION"
+      ]
     },
     "value": {
       "count": 0,
@@ -39,17 +45,17 @@
   },
   "top_3_overall": [
     {
-      "ticker": "CASH",
-      "score": 58.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "RF",
+      "ticker": "FTDR",
       "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PRI",
+      "ticker": "HOOD",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "VFC",
       "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
