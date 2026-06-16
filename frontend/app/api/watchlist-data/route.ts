@@ -478,7 +478,7 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
     const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
-    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
+    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,fundProfile,financialData,defaultKeyStatistics`;
 
     const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
       fetch(chartUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }),
@@ -758,6 +758,7 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
     // Priority 1: Static sector mapping (559 major tickers)
     let detectedSector = TICKER_SECTOR_MAP[ticker.toUpperCase()] || "";
     let assetProfile = qResult.assetProfile || {};
+    let fundProfile = qResult.fundProfile || {};
 
     // Priority 2: Pre-fetched batch hint (GET level v7 call, most reliable)
     if (!detectedSector) detectedSector = sectorHint?.sector || "";
@@ -766,6 +767,11 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
 
     // Priority 3: v10 assetProfile (yedek)
     if (!detectedSector) detectedSector = assetProfile.sector || "";
+    
+    // Priority 3.5: ETF fallback
+    if (!detectedSector && fundProfile.categoryName) {
+      detectedSector = "ETF";
+    }
 
     // Priority 4: Industry keyword → sector mapping
     if (!detectedSector) {
@@ -1102,7 +1108,7 @@ export async function GET(req: NextRequest) {
       await Promise.all(
         stillNeedsSector.map(async (t) => {
           try {
-            const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile`;
+            const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile,fundProfile`;
             const res = await fetch(url, {
               headers: YF_HEADERS,
               signal: AbortSignal.timeout(8000),
@@ -1110,9 +1116,13 @@ export async function GET(req: NextRequest) {
             if (res.ok) {
               const data = await res.json();
               const profile = data?.quoteSummary?.result?.[0]?.assetProfile;
+              const fundProfile = data?.quoteSummary?.result?.[0]?.fundProfile;
               if (profile?.sector) {
                 SECTOR_CACHE[t] = profile.sector;
                 INDUSTRY_CACHE[t] = profile.industry || "";
+              } else if (fundProfile?.categoryName) {
+                SECTOR_CACHE[t] = "ETF";
+                INDUSTRY_CACHE[t] = fundProfile.categoryName || "";
               }
             }
           } catch {}
