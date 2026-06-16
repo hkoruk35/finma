@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useCloudStore } from "@/hooks/useCloudStore";
+import { useTracker } from "@/components/TrackerContext";
 import * as XLSX from "xlsx";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -106,6 +107,7 @@ interface CspData {
 
 export default function CSPDetailClient({ slug }: Props) {
   const cfg = CSP_CFG[slug];
+  const { addToTracker, isInTracker } = useTracker();
 
   // ── Cloud-first store ─────────────────────────────────────────────────────
   const { data: cspData, save: saveCsp, ready } = useCloudStore<CspData>({
@@ -179,10 +181,8 @@ export default function CSPDetailClient({ slug }: Props) {
         "Sektör": d?.sector || "",
         "Fiyat": price?.current ?? "",
         "1G %": price?.change_pct != null ? +price.change_pct.toFixed(2) : "",
-        "1H %": t1h?.change_pct_1h != null ? +t1h.change_pct_1h.toFixed(2) : "",
         "Hacim": price?.volume ?? "",
         "30G Ort. Hacim": price?.avg_volume_30d ?? "",
-        "Hac. Oran": t1h?.volume_ratio != null ? +t1h.volume_ratio.toFixed(2) : "",
         "EMA20": t1h?.ema_20 != null ? +t1h.ema_20.toFixed(2) : "",
         "EMA50": t1h?.ema_50 != null ? +t1h.ema_50.toFixed(2) : "",
         "EMA200": t1h?.ema_200 != null ? +t1h.ema_200.toFixed(2) : "",
@@ -197,7 +197,7 @@ export default function CSPDetailClient({ slug }: Props) {
     const ws = XLSX.utils.json_to_sheet(rows);
     const colWidths = [
       { wch: 8 }, { wch: 8 }, { wch: 28 }, { wch: 18 },
-      { wch: 8 }, { wch: 7 }, { wch: 7 }, { wch: 10 }, { wch: 14 },
+      { wch: 8 }, { wch: 10 }, { wch: 14 },
       { wch: 9 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 14 },
       { wch: 6 }, { wch: 12 }, { wch: 8 }, { wch: 24 },
     ];
@@ -478,12 +478,12 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "1H FİY%", "1H HAC%", "1G FİY%", "1G HAC%", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
-                      const isSortable = h && h !== "NOT" && h !== "PATERN" && h !== "DURUM";
+                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "TRACKER", "1G FİY%", "1G HAC%", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
+                      const isSortable = h && !["NOT", "PATERN", "DURUM", "TRACKER", ""].includes(h);
                       const isSorted = sortBy === h;
                       return (
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
-                          padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 14 ? "left" : "right",
+                          padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 13 ? "left" : "right",
                           fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                           color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
                           cursor: isSortable ? "pointer" : "default",
@@ -569,18 +569,33 @@ export default function CSPDetailClient({ slug }: Props) {
                             {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
                           </td>
 
-                          {/* 1H FİY% */}
-                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
-                            color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "#3fb950" : "#f85149"
-                          }}>
-                            {d ? `${(d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1h)}%` : "—"}
-                          </td>
-
-                          {/* 1H HAC% */}
-                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
-                            color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
-                          }}>
-                            {d ? `${fmt2((d.tracker_1h?.volume_ratio ?? 1) * 100 - 100)}%` : "—"}
+                          {/* TRACKER */}
+                          <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                            {isInTracker(sym) ? (
+                              <Link
+                                href="/tracker"
+                                onClick={e => e.stopPropagation()}
+                                style={{
+                                  display: "inline-block", padding: "2px 8px", fontSize: 10,
+                                  fontFamily: "monospace", fontWeight: 700, borderRadius: 3,
+                                  border: "1px solid #3fb950", color: "#3fb950",
+                                  background: "#0d2a0d", textDecoration: "none", whiteSpace: "nowrap"
+                                }}
+                              >
+                                ✓ Tracker
+                              </Link>
+                            ) : (
+                              <button
+                                onClick={e => { e.stopPropagation(); addToTracker(sym, types[sym] || "CSP"); }}
+                                style={{
+                                  padding: "2px 8px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                                  border: "1px solid #30363d", background: "transparent",
+                                  color: "#8b949e", borderRadius: 3, cursor: "pointer", whiteSpace: "nowrap"
+                                }}
+                              >
+                                + Tracker
+                              </button>
+                            )}
                           </td>
 
                           {/* 1G FİY% */}
@@ -689,7 +704,7 @@ export default function CSPDetailClient({ slug }: Props) {
                         {/* ── Genişleyen Satır ── */}
                         {isExpanded && (
                           <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                            <td colSpan={16} style={{ padding: "0" }}>
+                            <td colSpan={17} style={{ padding: "0" }}>
                               <ExpandedRow sym={sym} d={d} />
                             </td>
                           </tr>

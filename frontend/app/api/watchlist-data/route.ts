@@ -465,15 +465,15 @@ async function fetchYahooLive(ticker: string) {
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
-    // Fast profile-only fetch for reliable sector data
-    const profileUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=assetProfile`;
+    // v7 batch — sector + longName için en güvenilir kaynak
+    const v7QuoteUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${ticker}&fields=longName,shortName,sector,industry`;
 
-    const [chartRes, chart1hRes, chart15mRes, quoteRes, profileRes] = await Promise.all([
+    const [chartRes, chart1hRes, chart15mRes, quoteRes, v7QuoteRes] = await Promise.all([
       fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
       fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(quoteUrl, { signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
-      fetch(profileUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(v7QuoteUrl, { signal: AbortSignal.timeout(6000) }).catch(() => null),
     ]).catch(err => {
       console.error(`[watchlist-data] ${ticker}: Promise.all error:`, err);
       throw err;
@@ -744,25 +744,30 @@ async function fetchYahooLive(ticker: string) {
     const finData = qResult.financialData || {};
     const stats = qResult.defaultKeyStatistics || {};
 
-    // Priority 1: Check our comprehensive theme-based sector mapping (559+ tickers)
+    // v7 quote — sector + longName için en güvenilir kaynak (v10 assetProfile'dan daha az rate-limit)
+    const v7Data = await v7QuoteRes?.json().catch(() => ({}));
+    const v7Quote = v7Data?.quoteResponse?.result?.[0] || {};
+    const v7Sector = v7Quote?.sector || "";
+    const v7LongName = v7Quote?.longName || v7Quote?.shortName || "";
+    const v7Industry = v7Quote?.industry || "";
+
+    // Priority 1: Static sector mapping (559 major tickers)
     let detectedSector = TICKER_SECTOR_MAP[ticker.toUpperCase()] || "";
     let assetProfile = qResult.assetProfile || {};
 
-    // Priority 2: Try Yahoo Finance API responses
+    // Priority 2: v7 quote API (güvenilir, rate-limit dirençli)
     if (!detectedSector) {
-      if (!assetProfile.sector && profileRes) {
-        try {
-          const profileData = await profileRes.json().catch(() => ({}));
-          const pResult = profileData?.quoteSummary?.result?.[0] || {};
-          if (pResult.assetProfile?.sector) assetProfile = pResult.assetProfile;
-        } catch {}
-      }
+      detectedSector = v7Sector;
+    }
+
+    // Priority 3: v10 assetProfile (yedek)
+    if (!detectedSector) {
       detectedSector = assetProfile.sector || "";
     }
 
-    // Priority 3: Intelligent fallback detection from industry data
+    // Priority 4: Industry keyword → sector mapping
     if (!detectedSector) {
-      const industry = assetProfile.industry || "";
+      const industry = v7Industry || assetProfile.industry || "";
 
       // Industry-based sector mapping (high confidence)
       const sectorMap: Record<string, string> = {
@@ -961,11 +966,11 @@ async function fetchYahooLive(ticker: string) {
 
     const tickerData = {
       ticker: ticker.toUpperCase(),
-      company: meta.longName || stats.longName || `${ticker.toUpperCase()} Corp.`,
+      company: meta.longName || v7LongName || stats.longName || `${ticker.toUpperCase()} Corp.`,
       date: new Date().toISOString().split("T")[0],
       generated_at: new Date().toISOString(),
       sector: detectedSector || "Unknown",
-      industry: assetProfile?.industry || "Unknown",
+      industry: v7Industry || assetProfile?.industry || "Unknown",
       price: {
         current: currentPrice,
         open: opens[opens.length - 1],
