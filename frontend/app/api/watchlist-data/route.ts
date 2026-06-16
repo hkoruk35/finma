@@ -58,6 +58,13 @@ const CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes (pattern güncellemeleri için 
 const SECTOR_CACHE: Record<string, string> = {};
 const INDUSTRY_CACHE: Record<string, string> = {};
 
+const YF_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "Accept": "application/json",
+  "Referer": "https://finance.yahoo.com/",
+  "Accept-Language": "en-US,en;q=0.9",
+};
+
 function getCachedYahooData(ticker: string) {
   const cached = YAHOO_CACHE[ticker];
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
@@ -474,10 +481,10 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
     const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,financialData,defaultKeyStatistics`;
 
     const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
-      fetch(chartUrl, { signal: AbortSignal.timeout(10000) }),
-      fetch(chart1hUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(chart15mUrl, { signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(quoteUrl, { signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
+      fetch(chartUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }),
+      fetch(chart1hUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(chart15mUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => null),
+      fetch(quoteUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
     ]).catch(err => {
       console.error(`[watchlist-data] ${ticker}: Promise.all error:`, err);
       throw err;
@@ -1072,11 +1079,7 @@ export async function GET(req: NextRequest) {
     try {
       const v7Url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(needsHint.join(","))}&fields=longName,shortName`;
       const v7Res = await fetch(v7Url, {
-        headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-          "Accept": "application/json",
-          "Referer": "https://finance.yahoo.com/",
-        },
+        headers: YF_HEADERS,
         signal: AbortSignal.timeout(8000),
       });
       if (v7Res.ok) {
@@ -1101,11 +1104,7 @@ export async function GET(req: NextRequest) {
           try {
             const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile`;
             const res = await fetch(url, {
-              headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-                "Accept": "application/json",
-                "Referer": "https://finance.yahoo.com/",
-              },
+              headers: YF_HEADERS,
               signal: AbortSignal.timeout(8000),
             });
             if (res.ok) {
