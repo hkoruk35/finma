@@ -59,11 +59,37 @@ const SECTOR_CACHE: Record<string, string> = {};
 const INDUSTRY_CACHE: Record<string, string> = {};
 
 const YF_HEADERS = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-  "Accept": "application/json",
-  "Referer": "https://finance.yahoo.com/",
-  "Accept-Language": "en-US,en;q=0.9",
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+  Accept: "application/json",
 };
+
+let globalCrumb = "";
+let globalCookie = "";
+let crumbFetchTime = 0;
+
+async function getYahooCrumb() {
+  const now = Date.now();
+  if (globalCrumb && globalCookie && now - crumbFetchTime < 1000 * 60 * 60 * 12) {
+    return { crumb: globalCrumb, cookie: globalCookie };
+  }
+  try {
+    const res = await fetch("https://fc.yahoo.com", { headers: YF_HEADERS, signal: AbortSignal.timeout(5000) }).catch(() => null);
+    if (!res) return { crumb: "", cookie: "" };
+    const cookie = res.headers.get("set-cookie") || "";
+    const res2 = await fetch("https://query1.finance.yahoo.com/v1/test/getcrumb", {
+      headers: { Cookie: cookie, "User-Agent": YF_HEADERS["User-Agent"] },
+      signal: AbortSignal.timeout(5000)
+    }).catch(() => null);
+    if (!res2) return { crumb: "", cookie: "" };
+    const crumb = await res2.text();
+    globalCrumb = crumb;
+    globalCookie = cookie;
+    crumbFetchTime = now;
+    return { crumb, cookie };
+  } catch (e) {
+    return { crumb: "", cookie: "" };
+  }
+}
 
 function getCachedYahooData(ticker: string) {
   const cached = YAHOO_CACHE[ticker];
@@ -475,16 +501,19 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
       return cached;
     }
 
+    const { crumb, cookie } = await getYahooCrumb();
+    const authHeaders = { ...YF_HEADERS, ...(cookie ? { Cookie: cookie } : {}) };
+
     const chartUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=252d&interval=1d`;
     const chart1hUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=10d&interval=1h`;
     const chart15mUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=5d&interval=15m`;
-    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,fundProfile,financialData,defaultKeyStatistics`;
+    const quoteUrl = `https://query1.finance.yahoo.com/v10/finance/quoteSummary/${ticker}?modules=summaryDetail,assetProfile,fundProfile,financialData,defaultKeyStatistics${crumb ? '&crumb='+crumb : ''}`;
 
     const [chartRes, chart1hRes, chart15mRes, quoteRes] = await Promise.all([
       fetch(chartUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }),
       fetch(chart1hUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => null),
       fetch(chart15mUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => null),
-      fetch(quoteUrl, { headers: YF_HEADERS, signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
+      fetch(quoteUrl, { headers: authHeaders, signal: AbortSignal.timeout(10000) }).catch(() => ({ ok: false, json: async () => ({}) } as Response)),
     ]).catch(err => {
       console.error(`[watchlist-data] ${ticker}: Promise.all error:`, err);
       throw err;
@@ -1081,11 +1110,14 @@ export async function GET(req: NextRequest) {
   const needsHint = tickers.filter(t => !TICKER_SECTOR_MAP[t]);
 
   if (needsHint.length > 0) {
+    const { crumb, cookie } = await getYahooCrumb();
+    const authHeaders = { ...YF_HEADERS, ...(cookie ? { Cookie: cookie } : {}) };
+
     // Aşama 1: v7 batch — longName (şirket adı) için. sector dönmüyor ama hızlı.
     try {
-      const v7Url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(needsHint.join(","))}&fields=longName,shortName`;
+      const v7Url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(needsHint.join(","))}&fields=longName,shortName${crumb ? '&crumb='+crumb : ''}`;
       const v7Res = await fetch(v7Url, {
-        headers: YF_HEADERS,
+        headers: authHeaders,
         signal: AbortSignal.timeout(8000),
       });
       if (v7Res.ok) {
@@ -1108,9 +1140,9 @@ export async function GET(req: NextRequest) {
       await Promise.all(
         stillNeedsSector.map(async (t) => {
           try {
-            const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile,fundProfile`;
+            const url = `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${encodeURIComponent(t)}?modules=assetProfile,fundProfile${crumb ? '&crumb='+crumb : ''}`;
             const res = await fetch(url, {
-              headers: YF_HEADERS,
+              headers: authHeaders,
               signal: AbortSignal.timeout(8000),
             });
             if (res.ok) {
