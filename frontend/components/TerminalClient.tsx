@@ -78,6 +78,13 @@ const GROUPS: { group: string; items: Instrument[] }[] = [
       { ticker: "NATGAS", label: "Natural Gas",   tvSymbol: "TVC:NATGAS", ySymbol: "NG=F" },
     ],
   },
+  {
+    group: "Crypto",
+    items: [
+      { ticker: "BTCUSD", label: "Bitcoin",  tvSymbol: "COINBASE:BTCUSD", ySymbol: "BTC-USD" },
+      { ticker: "ETHUSD", label: "Ethereum", tvSymbol: "COINBASE:ETHUSD", ySymbol: "ETH-USD" },
+    ],
+  },
 ];
 
 const ALL_INSTRUMENTS: Instrument[] = GROUPS.flatMap((g) => g.items);
@@ -777,15 +784,6 @@ export default function TerminalClient() {
               )}
             </div>
           )}
-        </div>
-        {/* Screener Quick Access */}
-        <div className="border-t border-[#1a2234] p-2 shrink-0">
-          <Link
-            href="/screener"
-            className="flex items-center justify-center gap-1.5 w-full py-2 text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 text-emerald-400 rounded transition-colors"
-          >
-            📡 Setup Screener
-          </Link>
         </div>
       </div>
 
