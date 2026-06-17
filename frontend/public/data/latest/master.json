@@ -1,30 +1,28 @@
 {
-  "date": "2026-06-16",
-  "generated_at": "2026-06-16T13:15:57.186386-04:00",
+  "date": "2026-06-17",
+  "generated_at": "2026-06-17T13:04:30.963559-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 12,
+  "active_scores_count": 18,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "FTDR",
-        "HOOD",
-        "VFC",
-        "MAR",
-        "KNF",
-        "MAC",
-        "KB",
-        "SCCO",
-        "ITT",
-        "WPM"
+        "FERG",
+        "JHX",
+        "HRI",
+        "FCX",
+        "GEF",
+        "AGI",
+        "CHH",
+        "AVNT",
+        "SYRE",
+        "KYMR"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "LION"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -45,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "FTDR",
+      "ticker": "FERG",
+      "score": 59.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "JHX",
       "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HOOD",
-      "score": 56.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "VFC",
-      "score": 56.0,
+      "ticker": "HRI",
+      "score": 56.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
