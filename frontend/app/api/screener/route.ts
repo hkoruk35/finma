@@ -758,13 +758,12 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "genel_swing":
-      // Price > EMA8 > EMA20, RSI 50+, RVOL ≥ 1.5
-      return s.price > s.ema8 &&
-             s.ema8 > s.ema20 &&
+      // Price > EMA20, EMA20 > EMA50, RSI 45+, RVOL ≥ 0.8
+      return s.price > s.ema20 &&
              s.ema20 > s.ema50 &&
-             s.rsi >= 50 &&
-             s.rvol >= 1.5 &&
-             s.boga_score >= 40;
+             s.rsi >= 45 &&
+             s.rvol >= 0.8 &&
+             s.boga_score >= 35;
     case "swing_cont":
       // Price > SMA200, EMA20 > EMA50, RSI 55-75, RVOL ≥ 1.0, MCap ≥ 500M
       return s.price > s.sma200 &&
@@ -774,7 +773,6 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.market_cap >= 500e6 &&
              s.boga_score >= 45;
     case "early_break": {
-      if (s.price > 100) return false;
       const triDetected = s.triangle_detected ?? false;
       const triScore    = s.triangle_score    ?? 0;
       const bbwPct      = s.bbw_percentile    ?? 100;
@@ -841,30 +839,30 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.rsi >= 50 &&
              s.boga_score >= 52;
     case "agg_growth":
-      // Güçlü momentum proxy: Price > SMA200, RVOL ≥ 1.5, RSI 55+, ROC ≥ 5%
+      // Güçlü momentum proxy: Price > SMA200, RVOL ≥ 1.5, RSI 55+, ROC ≥ 2%
       return s.price > s.sma200 &&
              s.rvol >= 1.5 &&
              s.rsi >= 55 &&
-             s.roc10 >= 5 &&
-             s.boga_score >= 55;
+             s.roc10 >= 2 &&
+             s.boga_score >= 48;
     case "breakout_growth":
-      // Golden Cross proxy: EMA50 > SMA200, Price > EMA20, RVOL ≥ 2, ADX ≥ 20, BOGA ≥ 60
+      // Golden Cross proxy: EMA50 > SMA200, Price > EMA20, RVOL ≥ 1.5, ADX ≥ 20, BOGA ≥ 52
       return s.ema50 > s.sma200 &&
              s.price > s.ema20 &&
-             s.rvol >= 2.0 &&
+             s.rvol >= 1.5 &&
              s.adx >= 20 &&
-             s.boga_score >= 60;
+             s.boga_score >= 52;
     case "hottest_momo":
-      // Fotoğraftaki filtre: $10-$100, AvgVol>1M, RVOL>1.5, MCap>500M,
-      // RSI 45-70, Price>SMA50, Price>SMA200, Gün>+2%, Unusual Vol VEYA New High
-      return s.price >= 10 && s.price <= 100 &&
+      // AvgVol>1M, RVOL>1.5, MCap>500M,
+      // RSI 45-70, Price>SMA50, Price>SMA200, Gün>+1.5%, Unusual Vol VEYA New High
+      return s.price >= 10 &&
              s.avg_volume >= 1e6 &&
              s.rvol >= 1.5 &&
              s.market_cap >= 500e6 &&
              s.rsi >= 45 && s.rsi <= 70 &&
              s.price > s.ema50 &&
              s.price > s.sma200 &&
-             s.change_1d >= 2.0 &&
+             s.change_1d >= 1.5 &&
              (s.rvol >= 2.5 || s.is_new_high) &&
              s.boga_score >= 42;
     default:
