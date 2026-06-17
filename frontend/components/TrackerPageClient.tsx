@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo, useCallback } from "react";
 import { useTracker } from "@/components/TrackerContext";
 import Link from "next/link";
 import * as XLSX from "xlsx";
+import TickerHoverChart from "@/components/TickerHoverChart";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -104,8 +105,6 @@ export function TrackerPageClient() {
   const [filterSignal, setFilterSignal] = useState("");
   const [filterType, setFilterType] = useState("");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
-  const [hoverTicker, setHoverTicker] = useState<string | null>(null);
-  const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("Swing");
@@ -349,17 +348,12 @@ export function TrackerPageClient() {
                         {/* TICKER */}
                         <td
                           style={{ padding: "7px 8px", whiteSpace: "nowrap" }}
-                          onMouseEnter={e => {
-                            e.stopPropagation();
-                            const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-                            setHoverTicker(sym);
-                            setHoverPos({ x: r.right + 10, y: r.top });
-                          }}
-                          onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
                           onClick={e => e.stopPropagation()}
                         >
                           <div>
-                            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
+                            <TickerHoverChart ticker={sym}>
+                              <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
+                            </TickerHoverChart>
                             <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>
                               {isExpanded ? "▼" : "▶"}
                             </span>
@@ -527,36 +521,6 @@ export function TrackerPageClient() {
         <TrackerHeatmapTab tickers={filtered} data={data} types={types} />
       )}
 
-      {/* ── Fixed Hover Chart Popup ── */}
-      {hoverTicker && hoverPos && (
-        <div
-          style={{
-            position: "fixed",
-            left: Math.min(hoverPos.x, window.innerWidth - 440),
-            top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
-            width: 430, zIndex: 9999,
-            background: "#161b22", border: "1px solid #30363d",
-            borderRadius: 6, overflow: "hidden", pointerEvents: "none",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
-          }}
-        >
-          <div style={{
-            padding: "7px 12px", borderBottom: "1px solid #30363d",
-            display: "flex", justifyContent: "space-between", alignItems: "center"
-          }}>
-            <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1H Chart</span>
-            <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <span style={{ color: "#8b949e" }}>BOGA AI</span>
-            </div>
-          </div>
-          <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_tracker_${hoverTicker}&symbol=${hoverTicker}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
-            width="430" height="220"
-            style={{ border: "none", display: "block" }}
-            title={`${hoverTicker} 1H`}
-          />
-        </div>
-      )}
     </div>
   );
 }
