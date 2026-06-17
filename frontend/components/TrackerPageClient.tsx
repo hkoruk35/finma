@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useTracker } from "@/components/TrackerContext";
 import Link from "next/link";
+import * as XLSX from "xlsx";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -150,6 +151,36 @@ export function TrackerPageClient() {
     setAddInput("");
   };
 
+  const downloadXLS = useCallback(() => {
+    const rows = filtered.map(sym => {
+      const d = data[sym];
+      const signal = d?.tracker_1h?.signal || "—";
+      const price = d?.price?.current ?? null;
+      return {
+        "TICKER": sym,
+        "TİP": types[sym] || "Swing",
+        "SEKTÖR": d?.sector && d.sector !== "Unknown" ? d.sector : (d?.company || "—"),
+        "FİYAT": price != null ? price : "",
+        "Δ% 1H": d?.tracker_1h?.change_pct_1h != null ? d.tracker_1h.change_pct_1h : "",
+        "H.ORAN": d?.tracker_1h?.volume_ratio != null ? d.tracker_1h.volume_ratio : "",
+        "EMA20": d?.tracker_1h?.ema_20 != null ? d.tracker_1h.ema_20 : "",
+        "EMA50": d?.tracker_1h?.ema_50 != null ? d.tracker_1h.ema_50 : "",
+        "EMA200": d?.tracker_1h?.ema_200 != null ? d.tracker_1h.ema_200 : "",
+        "DURUM": d?.tracker_1h?.ema_status || "—",
+        "RSI": d?.tracker_1h?.rsi != null ? d.tracker_1h.rsi : "",
+        "PATERN": d?.tracker_1h?.candle_pattern || "—",
+        "SİNYAL": signal,
+        "NOT": notes[sym] || "",
+      };
+    });
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "BOGA Tracker");
+    const date = new Date().toISOString().slice(0, 10);
+    XLSX.writeFile(wb, `boga-tracker-${date}.xlsx`);
+  }, [filtered, data, types, notes]);
+
   if (!mounted) return (
     <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
       <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">loading...</span>
@@ -235,6 +266,15 @@ export function TrackerPageClient() {
                 color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer"
               }}>
               {loading ? "..." : "YENİLE"}
+            </button>
+            <button onClick={downloadXLS} disabled={filtered.length === 0}
+              style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #3fb950", background: "#3fb95020",
+                color: filtered.length === 0 ? "#8b949e" : "#3fb950",
+                borderRadius: 4, cursor: filtered.length === 0 ? "not-allowed" : "pointer"
+              }}>
+              XLS ↓
             </button>
           </div>
         </div>
