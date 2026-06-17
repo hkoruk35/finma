@@ -189,12 +189,34 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "No data found", date: targetDate }, { status: 404 });
     }
 
+    const normalizedSignals = (latest?.signals || []).map((sig: any) => ({
+      ticker: sig.ticker,
+      company: sig.company || sig.ticker,
+      sector: sig.sector || "Unknown",
+      swing_pick_date: sig.swing_pick_date || targetDate,
+      first_seen: "",
+      first_seen_price: sig.current_price,
+      entry_price: sig.entry_price ?? null,
+      entry_triggered_at: sig.entry_triggered_at ?? null,
+      current_price: sig.current_price,
+      current_status: sig.status,
+      current_detail: sig.status_detail,
+      alert_level: sig.alert_level,
+      pnl_pct: 0,
+      buy_zone: sig.buy_zone || {},
+      stop_zone: sig.stop_zone || {},
+      profit_zone: sig.profit_zone || {},
+      status_history: [],
+      intraday: sig.intraday || {},
+      notes: sig.notes || [],
+    }));
+
     return NextResponse.json({
       date: targetDate,
       market_regime: latest?.market_regime || "Unknown",
       vix_level: latest?.vix_level || 0,
       hour_slots: [],
-      tickers: latest?.signals || [],
+      tickers: normalizedSignals,
       total: latest?.total_scanned || 0,
       source: "latest",
     });

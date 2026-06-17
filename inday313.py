@@ -297,9 +297,15 @@ def validate_volume_for_setup(setup_type: str, volume_ratio: float, df_15m: pd.D
 # ------------------------------------------------
 # 🔹 LOG CONFIGURATION
 # ------------------------------------------------
+_log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
+os.makedirs(_log_dir, exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler(os.path.join(_log_dir, "inday313.log"), encoding="utf-8"),
+    ],
 )
 logging.getLogger("yfinance").setLevel(logging.CRITICAL)
 
@@ -2049,11 +2055,13 @@ async def main():
     """Main scan loop: Market analysis, Technical Scan, and Recording."""
     now_ny = datetime.now(NY_TZ)
     
-    # 🕒 10:00 - 16:00 NY Time & Weekday Window Check
+    # 🕒 08:45 - 16:00 NY Time & Weekday Window Check
     if now_ny.weekday() >= 5:
         print("🕒 Hafta sonu. Tarama pas geçiliyor.")
         return
-    if now_ny.hour < 10 or now_ny.hour >= 16:
+    session_start_minutes = 8 * 60 + 45   # 08:45
+    now_minutes = now_ny.hour * 60 + now_ny.minute
+    if now_minutes < session_start_minutes or now_ny.hour >= 16:
         print(f"🕒 Market saatleri dışı ({now_ny.strftime('%H:%M')}). Tarama pas geçiliyor.")
         return
 
@@ -2117,62 +2125,89 @@ async def main():
     raw_results.sort(key=lambda x: x.get("score", 0), reverse=True)
 
     # 5️⃣ Data Recording Operations (Save all scanned stocks)
+    is_final_scan = (now_ny.hour == 15 and now_ny.minute >= 40)
     try:
         save_to_setup_folder(raw_results)
         save_txt_for_archive(raw_results)
         save_json_for_dashboard(raw_results)
-        
-        # Signal Before Close (Sends Telegram alert if around 15:45 NY)
-        pre_gap_list = [r for r in raw_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0]
-        if pre_gap_list:
-            await send_pre_gap_telegram(pre_gap_list)
+
+        # 3:45 PM — GAP UP analizi ve gün sonu raporu
+        if is_final_scan:
+            pre_gap_list = sorted(
+                [r for r in raw_results if r.get("pre_gap") and r.get("pre_gap_score", 0) >= 4.0],
+                key=lambda x: x.get("pre_gap_score", 0), reverse=True
+            )
+            logging.info("=" * 60)
+            logging.info(f"🔔 GAP UP / PRE-MARKET SETUP ANALİZİ — {now_ny.strftime('%Y-%m-%d 15:45')}")
+            logging.info(f"Toplam {len(pre_gap_list)} hisse pre-gap kriterlerini karşılıyor:")
+            for r in pre_gap_list[:10]:
+                logging.info(f"  • {r['symbol']:6s} | Pre-Gap Score: {r.get('pre_gap_score',0):.1f} | Fiyat: ${r.get('price',0):.2f}")
+            if not pre_gap_list:
+                logging.info("  (Bugün için pre-gap kriterlerini karşılayan hisse yok)")
+            logging.info("=" * 60)
+            logging.info("📋 GÜN SONU ÖZET RAPORU")
+            logging.info(f"  Taranan hisse: {len(raw_results)}")
+            entry_now = [r for r in raw_results if "ENTRY_NOW" in r.get("hourly_action","")]
+            entry_watch = [r for r in raw_results if "ENTRY_WATCH" in r.get("hourly_action","")]
+            logging.info(f"  GİRİŞ sinyali: {len(entry_now)} hisse — {', '.join(r['symbol'] for r in entry_now[:8])}")
+            logging.info(f"  İZLE sinyali : {len(entry_watch)} hisse — {', '.join(r['symbol'] for r in entry_watch[:8])}")
+            logging.info("=" * 60)
 
     except Exception as e:
         logging.error(f"Recording Error: {e}")
 
-    # 6️⃣ Console Preview
-    report = generate_telegram_report(raw_results, limit=5)
-    print("\n" + "-" * 40 + "\n" + report.replace("<b>","").replace("</b>","") + "\n" + "-" * 40)
-    
-    # Otomatik Telegram Raporu
-    await send_telegram_message(report)
+    # 6️⃣ Console Özeti
+    top5 = sorted(raw_results, key=lambda x: x.get("score", 0), reverse=True)[:5]
+    print("\n" + "-" * 40)
+    print(f"🐂 BOGA DAILY — {now_ny.strftime('%H:%M')} ET | {len(raw_results)} hisse | Rejim: {MARKET_CONTEXT.get('regime','-')}")
+    for r in top5:
+        print(f"  {r['symbol']:6s} | {r.get('hourly_action','?'):12s} | ${r.get('price',0):.2f} | Score: {r.get('score',0):.1f}")
+    print("-" * 40 + "\n")
 
 # 📅 SCHEDULER
 # ============================================================
 
 def get_next_run_ny() -> datetime:
-    """Sets the hourly and pre-close cycle within the session."""
+    """Saatte bir :45'te çalışır. 08:45 → 09:45 → ... → 15:45 ET."""
     now = datetime.now(NY_TZ).replace(second=0, microsecond=0)
-    # Every hour on the hour and critical close (15:30) time
-    SCHEDULE = [10, 11, 12, 13, 14, 15]
-    
-    for hour in SCHEDULE:
-        target = now.replace(hour=hour, minute=0)
-        if target > now: return target
-    
-    # Switch to the next business day
+    # (hour, minute) çiftleri — her saatin 45. dakikası, 8:45-15:45 arası
+    SCHEDULE = [(8,45),(9,45),(10,45),(11,45),(12,45),(13,45),(14,45),(15,45)]
+
+    for h, m in SCHEDULE:
+        target = now.replace(hour=h, minute=m)
+        if target > now:
+            return target
+
+    # Bir sonraki iş günü 08:45'e geç
     next_day = now + timedelta(days=1)
-    while next_day.weekday() >= 5: next_day += timedelta(days=1)
-    return next_day.replace(hour=10, minute=0)
+    while next_day.weekday() >= 5:
+        next_day += timedelta(days=1)
+    return next_day.replace(hour=8, minute=45)
 
 async def run_scheduler():
-    print("\n🐂 BOGA FINANCE AI Scheduler Started...")
-    await send_telegram_message("🐂 <b>Boga Finance AI</b> Active!\n⏰ Cycle: Hourly Session Scan")
-    
+    logging.info("🐂 BOGA AI InDay Scheduler başladı. Program: 08:45-15:45 ET saatte bir.")
+
     while True:
         try:
             next_run = get_next_run_ny()
             wait_sec = (next_run - datetime.now(NY_TZ)).total_seconds()
-            
-            if wait_sec < 0: wait_sec = 60
-            logging.info(f"💤 Next scan: {next_run.strftime('%H:%M')} NY")
-            
+
+            if wait_sec < 0:
+                wait_sec = 60
+            logging.info(f"💤 Sonraki tarama: {next_run.strftime('%H:%M')} ET ({int(wait_sec/60)} dk sonra)")
+
             await asyncio.sleep(wait_sec)
             await main()
-            
+
+            # 15:45 taraması bitti → gün kapandı, çık (Task Scheduler yarın 08:45'te yeniden başlatır)
+            now_ny = datetime.now(NY_TZ)
+            if now_ny.hour >= 15 and now_ny.minute >= 45:
+                logging.info("🏁 15:45 taraması tamamlandı. Bot bugünlük kapanıyor.")
+                break
+
         except Exception as e:
-            logging.error(f"Scheduler Error: {e}")
-            await asyncio.sleep(600)
+            logging.error(f"Scheduler hatası: {e}")
+            await asyncio.sleep(300)
 
 if __name__ == "__main__":
     import sys

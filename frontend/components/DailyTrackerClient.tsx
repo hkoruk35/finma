@@ -566,7 +566,7 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
           DURUM GEÇMİŞİ — {tk.ticker}
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-          {tk.status_history.map((h, i) => {
+          {(tk.status_history || []).map((h, i) => {
             const { bg, text } = heatCell(h.status);
             return (
               <div key={i} style={{
