@@ -4,8 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import ScreenerChart from "./screener/ScreenerChart";
 import TickerHoverChart from "./TickerHoverChart";
-import { useWatchlistModal } from "@/hooks/useWatchlistModal";
-import { WatchlistModal } from "./WatchlistModal";
+import { useTracker } from "@/components/TrackerContext";
 import { exportScreenerResultsToXLS } from "@/lib/exportUtils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -430,7 +429,7 @@ export default function ScreenerCockpit() {
   const [adxMin,     setAdxMin]     = useState<number | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
-  const watchlist = useWatchlistModal();
+  const { addToTracker, isInTracker } = useTracker();
 
   const getActiveFilters = () => {
     const filters: string[] = [];
@@ -787,7 +786,7 @@ export default function ScreenerCockpit() {
                       { key: null,    label: "MACD"         },
                       { key: "rsi",   label: "RSI ↕"       },
                       { key: null,    label: "R/R"          },
-                      { key: null,    label: "Watchlist"    },
+                      { key: null,    label: "Tracker"      },
                       { key: "score", label: "Score ↕"     },
                       { key: "rvol",  label: "RVOL ↕"      },
                       { key: "adx",   label: "ADX ↕"       },
@@ -831,10 +830,31 @@ export default function ScreenerCockpit() {
                           <span style={{ color: "#22d3ee", fontWeight: 700, fontFamily: "monospace", fontSize: 12 }}>{stock.rr_ratio}</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
-                          <button onClick={(e) => { e.stopPropagation(); watchlist.openModal(stock.ticker); watchlist.addToWatchlist(stock.ticker); }}
-                            style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.4)", color: "#4ade80", padding: "4px 8px", borderRadius: 3, cursor: "pointer", fontSize: 10, fontWeight: 700, transition: "all .15s" }}>
-                            ➕ Ekle
-                          </button>
+                          {isInTracker(stock.ticker) ? (
+                            <Link
+                              href="/tracker"
+                              onClick={e => e.stopPropagation()}
+                              style={{
+                                display: "inline-block", padding: "3px 8px", fontSize: 10,
+                                fontFamily: "inherit", fontWeight: 700, borderRadius: 3,
+                                border: "1px solid #3fb950", color: "#3fb950",
+                                background: "#0d2a0d", textDecoration: "none", whiteSpace: "nowrap"
+                              }}
+                            >
+                              ✓ Tracker
+                            </Link>
+                          ) : (
+                            <button
+                              onClick={e => { e.stopPropagation(); addToTracker(stock.ticker, stock.primary_setup === "options" ? "Option" : "Swing"); }}
+                              style={{
+                                padding: "3px 8px", fontSize: 10, fontFamily: "inherit", fontWeight: 700,
+                                border: "1px solid #30363d", background: "transparent",
+                                color: "#8b949e", borderRadius: 3, cursor: "pointer", whiteSpace: "nowrap"
+                              }}
+                            >
+                              + Tracker
+                            </button>
+                          )}
                         </td>
                         <td style={{ padding: "8px 11px" }}><ScoreBar score={stock.boga_score} grade={stock.grade} /></td>
                         <td style={{ padding: "8px 11px" }}>
@@ -886,12 +906,6 @@ export default function ScreenerCockpit() {
         @keyframes spin  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
       `}</style>
 
-      <WatchlistModal
-        isOpen={watchlist.isOpen}
-        message={watchlist.message}
-        isLoading={watchlist.isLoading}
-        onClose={watchlist.closeModal}
-      />
     </div>
   );
 }
