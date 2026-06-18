@@ -76,6 +76,7 @@ export interface ScreenerResult {
   rs_rating: number;
   is_new_high: boolean;
   vol_contraction: boolean;
+  rsi_slope: number; // RSI change over last 5 bars (positive = rising)
   // Triangle Pattern (early_break)
   triangle_detected?: boolean;
   triangle_score?: number;
@@ -649,6 +650,8 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const e200 = ema(closes, 200);
     const s200 = sma(closes, 200);
     const rsiVal  = +rsi(closes).toFixed(1);
+    const rsiPrev5 = closes.length >= 20 ? +rsi(closes.slice(0, -5)).toFixed(1) : rsiVal;
+    const rsiSlope = +(rsiVal - rsiPrev5).toFixed(1);
     const macdR   = macd(closes);
     const atrVal  = atr(highs, lows, closes, 14);
     const atrPct  = price > 0 ? +(atrVal / price * 100).toFixed(2) : 0;
@@ -739,7 +742,7 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       entry: plan.entry, stop: plan.stop, target: plan.target, rr_ratio: plan.rr, risk_pct: plan.riskPct,
       support: +lo52.toFixed(2), resistance: +hi52.toFixed(2),
       primary_setup: primary, setup_signals: signals, warnings,
-      rs_rating, is_new_high, vol_contraction,
+      rs_rating, is_new_high, vol_contraction, rsi_slope: rsiSlope,
       triangle_detected: tri.detected,
       triangle_score: tri.triangle_score,
       bbw_percentile: tri.bbw_percentile,
@@ -758,12 +761,13 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "genel_swing":
-      // Price > EMA20, EMA20 > EMA50, RSI 45+, RVOL ≥ 0.8
+      // Price > EMA20, EMA20 > EMA50, RSI 48+ ve yükseliyor, RVOL ≥ 1.0
       return s.price > s.ema20 &&
              s.ema20 > s.ema50 &&
-             s.rsi >= 45 &&
-             s.rvol >= 0.8 &&
-             s.boga_score >= 35;
+             s.rsi >= 48 &&
+             s.rsi_slope > 0 &&
+             s.rvol >= 1.0 &&
+             s.boga_score >= 40;
     case "swing_cont":
       // Price > SMA200, EMA20 > EMA50, RSI 55-75, RVOL ≥ 1.0, MCap ≥ 500M
       return s.price > s.sma200 &&
