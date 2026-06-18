@@ -1,0 +1,182 @@
+[
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "CCL",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 31.12,
+        "entry_zone": "30.48 - 31.76",
+        "SL": 28.55,
+        "TP": 34.97
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "HRI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 153.37,
+        "entry_zone": "148.73 - 158.00",
+        "SL": 134.81,
+        "TP": 181.2
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "JHX",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 25.36,
+        "entry_zone": "24.88 - 25.84",
+        "SL": 23.44,
+        "TP": 28.24
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "KYMR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 90.37,
+        "entry_zone": "88.29 - 92.45",
+        "SL": 82.07,
+        "TP": 102.82
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 88.1,
+        "entry_zone": "85.67 - 90.53",
+        "SL": 78.4,
+        "TP": 102.65
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "GEF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 70.38,
+        "entry_zone": "69.55 - 71.21",
+        "SL": 67.07,
+        "TP": 75.34
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "CHH",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 116.72,
+        "entry_zone": "114.48 - 118.97",
+        "SL": 107.73,
+        "TP": 130.21
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "MAX",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 10.04,
+        "entry_zone": "9.77 - 10.31",
+        "SL": 8.95,
+        "TP": 11.68
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "AVNT",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 36.99,
+        "entry_zone": "36.41 - 37.57",
+        "SL": 34.66,
+        "TP": 40.49
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "EW",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 87.29,
+        "entry_zone": "86.04 - 88.55",
+        "SL": 82.28,
+        "TP": 94.82
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "FERG",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 239.85,
+        "entry_zone": "236.33 - 243.37",
+        "SL": 225.76,
+        "TP": 260.99
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "BBVA",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 24.67,
+        "entry_zone": "24.38 - 24.96",
+        "SL": 23.5,
+        "TP": 26.42
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "DOV",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 224.33,
+        "entry_zone": "221.35 - 227.31",
+        "SL": 212.42,
+        "TP": 242.19
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "FCX",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 68.34,
+        "entry_zone": "66.59 - 70.09",
+        "SL": 61.36,
+        "TP": 78.82
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "AGI",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 36.29,
+        "entry_zone": "35.28 - 37.31",
+        "SL": 32.23,
+        "TP": 42.39
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "KEX",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 140.25,
+        "entry_zone": "138.63 - 141.87",
+        "SL": 133.78,
+        "TP": 149.95
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "APLD",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 46.84,
+        "entry_zone": "44.79 - 48.89",
+        "SL": 38.65,
+        "TP": 59.12
+    },
+    {
+        "date": "2026-06-18 12:00",
+        "symbol": "GLXY",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 34.67,
+        "entry_zone": "33.08 - 36.25",
+        "SL": 28.31,
+        "TP": 44.19
+    }
+]
