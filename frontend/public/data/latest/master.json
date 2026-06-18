@@ -1,23 +1,23 @@
 {
-  "date": "2026-06-17",
-  "generated_at": "2026-06-17T13:04:30.963559-04:00",
+  "date": "2026-06-18",
+  "generated_at": "2026-06-18T13:04:40.129769-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 18,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "FERG",
-        "JHX",
-        "HRI",
-        "FCX",
-        "GEF",
-        "AGI",
-        "CHH",
-        "AVNT",
-        "SYRE",
-        "KYMR"
+        "APH",
+        "FAF",
+        "HON",
+        "SPXC",
+        "VSEC",
+        "COF",
+        "SAN",
+        "NBIS",
+        "ASTH",
+        "GEO"
       ]
     },
     "breakout": {
@@ -43,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "FERG",
-      "score": 59.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "JHX",
-      "score": 57.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "HRI",
+      "ticker": "APH",
       "score": 56.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "FAF",
+      "score": 53.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "HON",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
