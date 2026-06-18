@@ -97,8 +97,8 @@ const PRESETS = [
   { id: "agg_growth",       name: "Aggressive Growth",   desc: "Rev↑30% · Margin≥50% · Rule40≥40",         mode: "investment", color: "#f59e0b", pills: ["RevGrowth≥30%","Acceleration","Margin≥50%","FCF Pozitif","P/S≤30"],                          icon: "🚀" },
   { id: "breakout_growth",  name: "Breakout Growth",     desc: "BOGA≥70 · Golden Cross · RVOL≥2 · ADX≥20", mode: "investment", color: "#10b981", pills: ["BOGA≥70","SMA200↑","RVOL≥2","ADX≥20","Price>EMA20"],                                 icon: "📈" },
   // Swing Presets
-  { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA10>EMA20 · RVOL≥1.5 · RSI≥50",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA10>EMA20","RVOL≥1.5","RSI≥50","Trend Filtresi"],    icon: "🎯" },
-  { id: "hottest_momo", name: "Hottest Momo",         desc: "$10-$100 · SMA200↑ · RVOL>1.5 · Gün>+2%", mode: "swing",   color: "#f97316", pills: ["$10-$100","AvgVol>1M","RVOL>1.5","MCap>500M","RSI 45-70","SMA200↑","Gün≥+2%","YeniZirve/RVOL"], icon: "🔥" },
+  { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA20>EMA50 · RSI≥48 · RSI Yukarı",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA20>EMA50","RSI≥48","RSI Trend Yukarı","BOGA≥40"],    icon: "🎯" },
+  { id: "hottest_momo", name: "Hottest Momo",         desc: "SMA200↑ · RVOL>1.2 · MCap>250M · Gün>+1%", mode: "swing",   color: "#f97316", pills: ["AvgVol>500K","RVOL>1.2","MCap>250M","RSI 45-75","SMA200↑","Gün≥+1%","YeniZirve/RVOL"], icon: "🔥" },
   { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥2.0 · RSI 45+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$200M","RVOL≥2.0","RSI 45+","Değ>+2%"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
   { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },

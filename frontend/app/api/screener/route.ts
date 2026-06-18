@@ -761,12 +761,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
 function passesPreset(s: ScreenerResult, preset: string): boolean {
   switch (preset) {
     case "genel_swing":
-      // Price > EMA20, EMA20 > EMA50, RSI 48+ ve yükseliyor, RVOL ≥ 1.0
+      // Price > EMA20, EMA20 > EMA50, RSI 48+, RSI düşüş eğiliminde değil
       return s.price > s.ema20 &&
              s.ema20 > s.ema50 &&
              s.rsi >= 48 &&
-             s.rsi_slope > 0 &&
-             s.rvol >= 1.0 &&
+             s.rsi_slope >= -5 &&
              s.boga_score >= 40;
     case "swing_cont":
       // Price > SMA200, EMA20 > EMA50, RSI 55-75, RVOL ≥ 1.0, MCap ≥ 500M
@@ -857,18 +856,17 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.adx >= 20 &&
              s.boga_score >= 52;
     case "hottest_momo":
-      // AvgVol>1M, RVOL>1.5, MCap>500M,
-      // RSI 45-70, Price>SMA50, Price>SMA200, Gün>+1.5%, Unusual Vol VEYA New High
-      return s.price >= 10 &&
-             s.avg_volume >= 1e6 &&
-             s.rvol >= 1.5 &&
-             s.market_cap >= 500e6 &&
-             s.rsi >= 45 && s.rsi <= 70 &&
-             s.price > s.ema50 &&
+      // AvgVol>500K, RVOL>1.2, MCap>250M,
+      // RSI 45-75, Price>SMA200, Gün>+1%, Unusual Vol VEYA New High
+      return s.price >= 5 &&
+             s.avg_volume >= 500e3 &&
+             s.rvol >= 1.2 &&
+             s.market_cap >= 250e6 &&
+             s.rsi >= 45 && s.rsi <= 75 &&
              s.price > s.sma200 &&
-             s.change_1d >= 1.5 &&
-             (s.rvol >= 2.5 || s.is_new_high) &&
-             s.boga_score >= 42;
+             s.change_1d >= 1.0 &&
+             (s.rvol >= 2.0 || s.is_new_high) &&
+             s.boga_score >= 38;
     default:
       return s.boga_score >= 45;
   }
