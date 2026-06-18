@@ -458,7 +458,7 @@ export default function ScreenerCockpit() {
     setIsScanning(true);
     setExpandedRow(null);
     try {
-      const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "100" });
+      const params = new URLSearchParams({ preset: activePreset, cap: capFilter, opt: optFilter, liq: liqFilter, sort: sortBy, limit: "500" });
       if (priceRange) { params.set("priceMin", String(priceRange.min)); params.set("priceMax", String(priceRange.max)); }
       if (rvolMin !== null) params.set("rvolMin", String(rvolMin));
       if (rsiMin  !== null) params.set("rsiMin",  String(rsiMin));

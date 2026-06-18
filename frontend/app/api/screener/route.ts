@@ -931,7 +931,7 @@ export async function GET(req: NextRequest) {
   const optFilter  = sp.get("opt")       || "all";
   const liqFilter  = sp.get("liq")       || "all";
   const sortBy     = sp.get("sort")      || "score";
-  const limit      = Math.min(parseInt(sp.get("limit") || "100"), 200);
+  const limit      = Math.min(parseInt(sp.get("limit") || "500"), 500);
   // Advanced filters
   const rvolMin    = sp.get("rvolMin")   ? parseFloat(sp.get("rvolMin")!) : null;
   const rsiMin     = sp.get("rsiMin")    ? parseInt(sp.get("rsiMin")!)    : null;
