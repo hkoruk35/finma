@@ -1,0 +1,102 @@
+[
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "APH",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 165.73,
+        "entry_zone": "162.42 - 169.04",
+        "SL": 152.5,
+        "TP": 185.57
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "HON",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 228.78,
+        "entry_zone": "224.80 - 232.76",
+        "SL": 212.85,
+        "TP": 252.68
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "ASTH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.03,
+        "entry_zone": "38.26 - 39.80",
+        "SL": 35.95,
+        "TP": 43.64
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "COF",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 203.2,
+        "entry_zone": "200.00 - 206.39",
+        "SL": 190.4,
+        "TP": 222.38
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "SAN",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 13.56,
+        "entry_zone": "13.38 - 13.75",
+        "SL": 12.84,
+        "TP": 14.65
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "SPXC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 241.94,
+        "entry_zone": "235.96 - 247.92",
+        "SL": 218.01,
+        "TP": 277.84
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "VSEC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 215.87,
+        "entry_zone": "210.59 - 221.14",
+        "SL": 194.77,
+        "TP": 247.5
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "FAF",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 68.37,
+        "entry_zone": "67.51 - 69.23",
+        "SL": 64.95,
+        "TP": 73.5
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "GEO",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 29.26,
+        "entry_zone": "28.70 - 29.82",
+        "SL": 27.03,
+        "TP": 32.6
+    },
+    {
+        "date": "2026-06-18 15:00",
+        "symbol": "NBIS",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 282.45,
+        "entry_zone": "268.47 - 296.43",
+        "SL": 226.54,
+        "TP": 366.31
+    }
+]
