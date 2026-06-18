@@ -1,11 +1,11 @@
-# BOGA AI Swing Watchlist - 2026-06-18 15:00
+# BOGA AI Swing Watchlist - 2026-06-18 15:45
 APH
 HON
-ASTH
-COF
-SAN
 SPXC
+ASTH
 VSEC
+SAN
 FAF
+COF
 GEO
 NBIS
