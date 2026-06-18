@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-17T10:31:00.392702-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 29.7,
-  "total_scanned": 4,
-  "layer1_passed": 4,
-  "final_picks": 4,
+  "generated_at": "2026-06-18T08:45:03.815978-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 307.8,
+  "total_scanned": 5,
+  "layer1_passed": 5,
+  "final_picks": 5,
   "picks": [
     {
       "ticker": "SRPT",
-      "price": 17.49,
-      "change_pct": 10.84,
-      "dt_score": 62.0,
+      "price": 16.96,
+      "change_pct": 7.48,
+      "dt_score": 40.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $17.66 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: EARNINGS_BEAT",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 17.01,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "earnings_beat",
         "catalyst_score": 25,
         "headline": "biogene therapeutics inc. appoints ty howton to board of directors(tmx newsfile)",
         "confidence": "high",
-        "ts": 1781703090.887211
+        "ts": 1781787005.7738469
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,103 +37,47 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 17.47,
-          "high": 17.58
+          "low": 17.64,
+          "high": 17.75
         },
-        "stop": 17.23,
-        "tp1": 18.11,
-        "tp2": 18.56,
-        "rr_ratio": 1.98,
-        "avg_entry": 17.52,
-        "risk_per_sh": 0.29,
+        "stop": 16.81,
+        "tp1": 19.47,
+        "tp2": 20.79,
+        "rr_ratio": 2.01,
+        "avg_entry": 17.7,
+        "risk_per_sh": 0.89,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 17.49
+        "pm_high_ref": 17.66
       },
       "details": [
         "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "📈 Güçlü Gap: +10.8%",
+        "↗️ Orta Gap: +7.5%",
         "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%4.1 geri)",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.80%",
-        "✅ Açılış Barı: Yeşil",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "SOFI",
-      "price": 18.42,
-      "change_pct": 4.04,
-      "dt_score": 43.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 18.19,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1781704887.9090478
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 18.4,
-          "high": 18.51
-        },
-        "stop": 18.14,
-        "tp1": 19.08,
-        "tp2": 19.56,
-        "rr_ratio": 1.98,
-        "avg_entry": 18.45,
-        "risk_per_sh": 0.31,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 18.42
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.0%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.25%",
-        "🔥 Açılış Barı: Güçlü (3.1x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "AVXL",
-      "price": 2.71,
-      "change_pct": 7.74,
+      "price": 2.67,
+      "change_pct": 5.95,
       "dt_score": 40.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $2.68 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UPGRADE",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 2.63,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "upgrade",
         "catalyst_score": 15,
         "headline": "anavex life sciences receives expected nasdaq delinquency notification(globenewswire)",
         "confidence": "medium",
-        "ts": 1781704889.5259511
+        "ts": 1781787005.8152957
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -147,48 +91,47 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 2.71,
-          "high": 2.72
+          "low": 2.68,
+          "high": 2.69
         },
-        "stop": 2.67,
-        "tp1": 2.8,
-        "tp2": 2.87,
-        "rr_ratio": 1.89,
-        "avg_entry": 2.71,
+        "stop": 2.65,
+        "tp1": 2.76,
+        "tp2": 2.81,
+        "rr_ratio": 2.14,
+        "avg_entry": 2.69,
         "risk_per_sh": 0.04,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 2.71
+        "pm_high_ref": 2.68
       },
       "details": [
         "📰 Kataliz: UPGRADE",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +7.7%",
+        "↗️ Orta Gap: +6.0%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.99%",
-        "🔴 Açılış Barı: Kırmızı (0.8% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "HOOD",
-      "price": 102.1,
-      "change_pct": 5.57,
-      "dt_score": 38.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "price": 105.2,
+      "change_pct": 8.78,
+      "dt_score": 32.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $108.31 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UNKNOWN",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 100.05,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1781704887.9303222
+        "ts": 1781787005.6898553
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -202,26 +145,133 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 102.0,
-          "high": 102.61
+          "low": 108.2,
+          "high": 108.85
         },
-        "stop": 100.57,
-        "tp1": 105.78,
-        "tp2": 108.38,
+        "stop": 104.25,
+        "tp1": 117.08,
+        "tp2": 123.49,
         "rr_ratio": 2.0,
-        "avg_entry": 102.31,
-        "risk_per_sh": 1.74,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 102.1
+        "avg_entry": 108.53,
+        "risk_per_sh": 4.28,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 108.31
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +5.6%",
+        "📈 Güçlü Gap: +8.8%",
         "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.05%",
-        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "price": 61.8,
+      "change_pct": 11.55,
+      "dt_score": 17.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $64.35 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UNKNOWN",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1781787005.735611
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 64.29,
+          "high": 64.67
+        },
+        "stop": 61.24,
+        "tp1": 70.96,
+        "tp2": 75.82,
+        "rr_ratio": 2.0,
+        "avg_entry": 64.48,
+        "risk_per_sh": 3.24,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 64.35
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +11.6%",
+        "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%1.9 geri)",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "BNTX",
+      "price": 92.22,
+      "change_pct": 3.04,
+      "dt_score": 10.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "⏳ BEKLE → Açılışta VWAP test edilince GİR | VWAP'tan sekme + hacim artışı şart | Kataliz: UNKNOWN",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1781787007.108923
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 91.21,
+          "high": 91.66
+        },
+        "stop": 90.42,
+        "tp1": 93.47,
+        "tp2": 94.99,
+        "rr_ratio": 2.0,
+        "avg_entry": 91.44,
+        "risk_per_sh": 1.02,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 93.73
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.0%",
+        "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%1.3 geri)",
+        "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
