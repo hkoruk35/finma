@@ -111,6 +111,7 @@ export function TrackerPageClient() {
   const [addType, setAddType] = useState("Swing");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const [searchQuery, setSearchQuery] = useState("");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
@@ -140,8 +141,12 @@ export function TrackerPageClient() {
     const d = data[sym];
     if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
     if (filterType && (types[sym] || "Swing") !== filterType) return false;
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase();
+      if (!sym.includes(q) && !(d?.company || "").toUpperCase().includes(q) && !(d?.sector || "").toUpperCase().includes(q)) return false;
+    }
     return true;
-  }), [tickers, data, filterSignal, filterType, types]);
+  }), [tickers, data, filterSignal, filterType, types, searchQuery]);
 
   const toggleSort = (key: string) => {
     if (sortBy === key) setSortDir(d => d === "desc" ? "asc" : "desc");
@@ -310,7 +315,19 @@ export function TrackerPageClient() {
         </div>
 
         {/* Filters */}
-        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value.toUpperCase())}
+            placeholder="hisse ara..."
+            maxLength={12}
+            style={{
+              background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`,
+              color: "#e6edf3", padding: "3px 8px", borderRadius: 3,
+              fontSize: 11, fontFamily: "monospace", width: 100, outline: "none"
+            }}
+          />
+          <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
           {["", "Swing", "Long", "Option", "CSP", "CC"].map(t => (
             <button key={t || "all-type"} onClick={() => setFilterType(t)}
               style={{
