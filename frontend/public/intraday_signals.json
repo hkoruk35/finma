@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-06-19T11:00:22.913456-04:00",
+  "generated_at": "2026-06-19T11:45:11.047190-04:00",
   "hour_slot": "2026-06-19T11",
   "market_regime": "Bear",
-  "vix_level": 16.790000915527344,
+  "vix_level": 16.780000686645508,
   "total_scanned": 10,
   "signals": [
     {
