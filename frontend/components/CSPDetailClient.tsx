@@ -138,10 +138,6 @@ export default function CSPDetailClient({ slug }: Props) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const mounted = ready; // ready olduğunda mount sayılır
 
-  const handleNoteChange = (sym: string, note: string) => {
-    saveCsp({ tickers, types, notes: { ...notes, [sym]: note } });
-  };
-
   // ── Tüm liste kayıt (tek nokta) ───────────────────────────────────────────
   const saveList = (list: string[], t: Record<string, string>) => {
     saveCsp({ tickers: list, types: t, notes });
@@ -191,7 +187,6 @@ export default function CSPDetailClient({ slug }: Props) {
         "RSI": t1h?.rsi != null ? +t1h.rsi.toFixed(1) : "",
         "Patern": t1h?.candle_pattern || "",
         "Sinyal": t1h?.signal || "",
-        "Not": notes[sym] || "",
       };
     });
 
@@ -480,8 +475,8 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
-                      const isSortable = h && !["NOT", "PATERN", "DURUM", "TRACKER", ""].includes(h);
+                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", ""].map((h, i) => {
+                      const isSortable = h && !["PATERN", "DURUM", "TRACKER", ""].includes(h);
                       const isSorted = sortBy === h;
                       return (
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
@@ -695,9 +690,6 @@ export default function CSPDetailClient({ slug }: Props) {
                             )}
                           </td>
 
-                          {/* NOT */}
-                          <NoteCell sym={sym} currentNote={notes[sym] ?? ""} onNoteChange={handleNoteChange} />
-
                           {/* REMOVE */}
                           <td style={{ padding: "7px 8px", textAlign: "right" }}>
                             <button
@@ -713,7 +705,7 @@ export default function CSPDetailClient({ slug }: Props) {
                         {/* ── Genişleyen Satır ── */}
                         {isExpanded && (
                           <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                            <td colSpan={18} style={{ padding: "0" }}>
+                            <td colSpan={17} style={{ padding: "0" }}>
                               <ExpandedRow sym={sym} d={d} />
                             </td>
                           </tr>
@@ -817,53 +809,6 @@ export default function CSPDetailClient({ slug }: Props) {
 }
 
 // ── Note Cell (inline edit) ────────────────────────────────────────────────
-
-function NoteCell({ sym, currentNote, onNoteChange }: {
-  sym: string;
-  currentNote: string;
-  onNoteChange: (sym: string, note: string) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const [note, setNote] = useState(currentNote);
-
-  useEffect(() => { setNote(currentNote); }, [currentNote]);
-
-  const save = (v: string) => {
-    setNote(v);
-    onNoteChange(sym, v);
-  };
-
-  if (editing) return (
-    <td style={{ padding: "4px 8px" }} onClick={e => e.stopPropagation()}>
-      <div style={{ display: "flex", gap: 4 }}>
-        <input
-          autoFocus
-          value={note}
-          onChange={e => setNote(e.target.value)}
-          onKeyDown={e => { if (e.key === "Enter") { save(note); setEditing(false); } }}
-          style={{
-            background: "#161b22", border: "1px solid #30363d", color: "#e6edf3",
-            padding: "2px 6px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 90
-          }}
-        />
-        <button onClick={() => { save(note); setEditing(false); }}
-          style={{ background: "#1a3a1a", border: "1px solid #3fb950", color: "#3fb950",
-            borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer" }}>✓</button>
-      </div>
-    </td>
-  );
-
-  return (
-    <td
-      style={{ padding: "7px 8px", color: note ? "#e6edf3" : "#8b949e", fontSize: 11,
-        cursor: "text", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
-      onClick={e => { e.stopPropagation(); setEditing(true); }}
-      title={note || "not ekle..."}
-    >
-      {note || "—"}
-    </td>
-  );
-}
 
 // ── Expanded Row ───────────────────────────────────────────────────────────
 
