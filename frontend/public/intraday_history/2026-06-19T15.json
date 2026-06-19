@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-19T15:00:29.629807-04:00",
+  "generated_at": "2026-06-19T15:45:18.197277-04:00",
   "hour_slot": "2026-06-19T15",
-  "market_regime": "Bear",
+  "market_regime": "Bull",
   "vix_level": 16.780000686645508,
   "total_scanned": 17,
   "signals": [
@@ -26,10 +26,11 @@
         "change_24h": 3.26,
         "trend_1h": "FLAT",
         "setup": "AGGRESSIVE_BUY",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 3.31
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -79,40 +80,6 @@
       ]
     },
     {
-      "ticker": "CVLT",
-      "company": "CVLT",
-      "sector": "Technology",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 130.06,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($127.23–$132.89). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 11.3,
-        "volume_ratio": 1.17,
-        "change_1h": 0.05,
-        "change_24h": 3.87,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 4.46
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "15M Trigger: 🕯️ Bullish Engulfing",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "🏦 PRE-GAP BUY"
-      ]
-    },
-    {
       "ticker": "BROS",
       "company": "BROS",
       "sector": "Consumer Cyclical",
@@ -123,20 +90,21 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($69.24–$72.16). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($69.12–$72.28). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 37.9,
         "volume_ratio": 2.17,
         "change_1h": -0.46,
-        "change_24h": 7.07,
+        "change_24h": 7.58,
         "trend_1h": "FLAT",
         "setup": "ABSORPTION",
-        "rs_score": 0.0,
-        "natr": 4.43
+        "rs_score": 2.0,
+        "natr": 4.46
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -146,6 +114,43 @@
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
         "🏦 PRE-GAP BUY",
         "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "company": "AVGO",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 410.79,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($397.82–$423.76). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 28.4,
+        "volume_ratio": 1.43,
+        "change_1h": 0.39,
+        "change_24h": 4.55,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 2.0,
+        "natr": 6.3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "🏦 PRE-GAP BUY"
       ]
     },
     {
@@ -169,10 +174,11 @@
         "change_24h": 2.72,
         "trend_1h": "DOWN",
         "setup": "ABSORPTION",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 3.5
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -181,6 +187,41 @@
         "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
         "⚠️ 15m trend DOWN (-1.4%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "CVLT",
+      "company": "CVLT",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 130.06,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($127.25–$132.87). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 11.3,
+        "volume_ratio": 1.17,
+        "change_1h": 0.05,
+        "change_24h": 2.33,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 1.0,
+        "natr": 4.31
+      },
+      "notes": [
+        "🧱 RS: Resilient",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🕯️ Bullish Engulfing",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY"
       ]
     },
     {
@@ -204,10 +245,11 @@
         "change_24h": -0.37,
         "trend_1h": "FLAT",
         "setup": "ABSORPTION",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 2.79
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -216,39 +258,6 @@
         "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
         "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
-      ]
-    },
-    {
-      "ticker": "IAG",
-      "company": "IAG",
-      "sector": "Basic Materials",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 16.89,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($16.39–$17.38). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 31.9,
-        "volume_ratio": 1.39,
-        "change_1h": 1.47,
-        "change_24h": -6.66,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 5.68
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "ADX + Volume Confirmation",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch"
       ]
     },
     {
@@ -272,10 +281,11 @@
         "change_24h": 4.24,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 2.37
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Acceptable",
         "Slope: Positive",
@@ -307,10 +317,11 @@
         "change_24h": 2.8,
         "trend_1h": "DOWN",
         "setup": "ABSORPTION",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 3.84
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -332,20 +343,21 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($220.13–$226.27). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($220.01–$226.39). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 42.9,
         "volume_ratio": 1.61,
         "change_1h": -0.66,
-        "change_24h": 1.07,
+        "change_24h": -0.78,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 2.73
+        "rs_score": 2.0,
+        "natr": 2.86
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -376,10 +388,11 @@
         "change_24h": 2.69,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 3.41
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -411,10 +424,11 @@
         "change_24h": 0.12,
         "trend_1h": "FLAT",
         "setup": "SQUEEZE",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 2.5
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
         "Vol: Acceptable",
         "Slope: Positive",
@@ -446,10 +460,11 @@
         "change_24h": 1.44,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 2.48
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Acceptable",
         "Slope: Positive",
@@ -471,20 +486,21 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($28.71–$30.71). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($28.73–$30.69). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 24.9,
         "volume_ratio": 1.32,
         "change_1h": -0.02,
-        "change_24h": -1.3,
+        "change_24h": -2.37,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 6.55
+        "rs_score": 2.0,
+        "natr": 6.62
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: ACCUMULATION",
         "Vol: Acceptable",
         "Slope: Positive",
@@ -505,20 +521,21 @@
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($21.39–$22.43). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($21.38–$22.44). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
         "adx_1h": 47.1,
         "volume_ratio": 1.41,
         "change_1h": -1.15,
-        "change_24h": 6.46,
+        "change_24h": 4.13,
         "trend_1h": "DOWN",
         "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 4.9
+        "rs_score": 2.0,
+        "natr": 4.81
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -549,10 +566,11 @@
         "change_24h": 4.36,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
+        "rs_score": 2.0,
         "natr": 2.69
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
@@ -562,37 +580,35 @@
       ]
     },
     {
-      "ticker": "AVGO",
-      "company": "AVGO",
-      "sector": "Technology",
+      "ticker": "IAG",
+      "company": "IAG",
+      "sector": "Basic Materials",
       "swing_pick_date": "2026-06-19",
       "days_since_pick": 0,
-      "current_price": 410.79,
+      "current_price": 16.89,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($397.73–$423.85). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($16.36–$17.41). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 28.4,
-        "volume_ratio": 1.43,
-        "change_1h": 0.39,
-        "change_24h": 9.05,
+        "adx_1h": 31.9,
+        "volume_ratio": 1.39,
+        "change_1h": 1.47,
+        "change_24h": -3.95,
         "trend_1h": "FLAT",
         "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 6.65
+        "rs_score": 2.0,
+        "natr": 6.24
       },
       "notes": [
+        "🚀 RS: Outperformer",
         "Price below EMA50 & Slope Negative",
         "VWAP Extended",
         "ADX + Volume Confirmation",
-        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)",
-        "🏦 PRE-GAP BUY"
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch"
       ]
     }
   ]
