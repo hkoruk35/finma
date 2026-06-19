@@ -1,68 +1,275 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-19T13:00:38.812342-04:00",
+  "generated_at": "2026-06-19T14:00:32.151621-04:00",
   "market_regime": "Bear",
   "vix_level": 16.780000686645508,
-  "total": 10,
+  "total": 17,
   "signals": [
     {
-      "ticker": "ASTH",
-      "company": "ASTH",
+      "ticker": "BTSG",
+      "company": "BTSG",
       "sector": "Healthcare",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 39.15,
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 66.23,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($38.39–$39.91). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($65.17–$67.29). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 13.1,
-        "volume_ratio": 3.23,
-        "change_1h": 0.85,
-        "change_24h": 2.01,
+        "adx_1h": 28.9,
+        "volume_ratio": 3.63,
+        "change_1h": 0.55,
+        "change_24h": 3.26,
         "trend_1h": "FLAT",
         "setup": "AGGRESSIVE_BUY",
         "rs_score": 0.0,
-        "natr": 3.99
+        "natr": 3.31
       },
       "notes": [
         "Phase: EXPANSION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
+        "VWAP Extended",
         "🔥 Institutional Absorption",
         "🚀 1H Institutional Sweep (Massive Volume)",
-        "15M Trigger: ⚡ EMA20 Reclaim",
+        "ADX + Volume Confirmation",
         "✅ MTF Aligned: 1H & 15M Bullish"
       ]
     },
     {
-      "ticker": "VSEC",
-      "company": "VSEC",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 219.3,
+      "ticker": "MCRI",
+      "company": "MCRI",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 130.52,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($213.95–$224.65). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($128.92–$132.12). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 39.6,
-        "volume_ratio": 2.64,
-        "change_1h": 1.1,
-        "change_24h": 10.13,
-        "trend_1h": "UP",
+        "adx_1h": 29.0,
+        "volume_ratio": 3.87,
+        "change_1h": 0.41,
+        "change_24h": 2.11,
+        "trend_1h": "FLAT",
         "setup": "AGGRESSIVE_BUY",
         "rs_score": 0.0,
-        "natr": 5.14
+        "natr": 2.5
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "CVLT",
+      "company": "CVLT",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 130.06,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($127.23–$132.89). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 11.3,
+        "volume_ratio": 1.17,
+        "change_1h": 0.05,
+        "change_24h": 3.87,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 4.46
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🕯️ Bullish Engulfing",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "BROS",
+      "company": "BROS",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 70.7,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($69.24–$72.16). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 37.9,
+        "volume_ratio": 2.17,
+        "change_1h": -0.46,
+        "change_24h": 7.07,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 4.43
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "MYE",
+      "company": "MYE",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 27.39,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($26.92–$27.86). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 33.1,
+        "volume_ratio": 5.23,
+        "change_1h": -0.94,
+        "change_24h": 2.72,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 3.5
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-1.4%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "ALLY",
+      "company": "ALLY",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 45.49,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($44.85–$46.13). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 37.3,
+        "volume_ratio": 2.64,
+        "change_1h": -0.54,
+        "change_24h": -0.37,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 2.79
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "🔥 Institutional Absorption",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "IAG",
+      "company": "IAG",
+      "sector": "Basic Materials",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 16.89,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($16.39–$17.38). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 31.9,
+        "volume_ratio": 1.39,
+        "change_1h": 1.47,
+        "change_24h": -6.66,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 5.68
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch"
+      ]
+    },
+    {
+      "ticker": "WLY",
+      "company": "WLY",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 46.69,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($45.79–$47.59). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 21.1,
+        "volume_ratio": 2.07,
+        "change_1h": -1.19,
+        "change_24h": 2.8,
+        "trend_1h": "DOWN",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 3.84
       },
       "notes": [
         "Phase: ACCUMULATION",
@@ -70,68 +277,202 @@
         "Slope: Positive",
         "VWAP Extended",
         "🔥 Institutional Absorption",
-        "🚀 1H Institutional Sweep (Massive Volume)",
         "ADX + Volume Confirmation",
-        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)"
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-1.0%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "HON",
-      "company": "HON",
+      "ticker": "AIT",
+      "company": "AIT",
       "sector": "Industrials",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 229.01,
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 338.14,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($224.95–$233.07). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($334.23–$342.05). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 26.7,
-        "volume_ratio": 1.4,
-        "change_1h": 0.1,
-        "change_24h": -0.21,
+        "adx_1h": 33.5,
+        "volume_ratio": 1.29,
+        "change_1h": 0.52,
+        "change_24h": 4.24,
         "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
+        "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 3.55
+        "natr": 2.37
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 1h trend DOWN (-0.0%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "MS",
+      "company": "MS",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 223.2,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($220.13–$226.27). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 42.9,
+        "volume_ratio": 1.61,
+        "change_1h": -0.66,
+        "change_24h": 1.07,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.73
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.8%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "ERO",
+      "company": "ERO",
+      "sector": "Basic Materials",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 29.71,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($28.71–$30.71). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 24.9,
+        "volume_ratio": 1.32,
+        "change_1h": -0.02,
+        "change_24h": -1.3,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 6.55
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP/EMA50 Defense Zone",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.1%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "BBAR",
+      "company": "BBAR",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 21.91,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($21.39–$22.43). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 47.1,
+        "volume_ratio": 1.41,
+        "change_1h": -1.15,
+        "change_24h": 6.46,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 4.9
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-1.1%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "HGV",
+      "company": "HGV",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 52.71,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($51.82–$53.60). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 42.5,
+        "volume_ratio": 1.7,
+        "change_1h": -0.37,
+        "change_24h": 2.69,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.41
       },
       "notes": [
         "Phase: ACCUMULATION",
         "Vol: Prime Swing",
         "Slope: Positive",
-        "VWAP/EMA50 Acceptable Zone",
-        "⚡ Bollinger Squeeze",
+        "VWAP Extended",
         "ADX + Volume Confirmation",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.3%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "FAF",
-      "company": "FAF",
+      "ticker": "NWG",
+      "company": "NWG",
       "sector": "Financial Services",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 68.68,
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 16.78,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($67.83–$69.52). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($16.57–$16.99). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 29.9,
-        "volume_ratio": 2.1,
-        "change_1h": 0.6,
-        "change_24h": 1.26,
+        "adx_1h": 30.6,
+        "volume_ratio": 0.85,
+        "change_1h": -0.5,
+        "change_24h": 0.12,
         "trend_1h": "FLAT",
-        "setup": "NONE",
+        "setup": "SQUEEZE",
         "rs_score": 0.0,
         "natr": 2.5
       },
@@ -140,136 +481,34 @@
         "Vol: Acceptable",
         "Slope: Positive",
         "VWAP Extended",
-        "ADX + Volume Confirmation",
-        "15M Trigger: ⚡ EMA20 Reclaim",
-        "✅ MTF Aligned: 1H & 15M Bullish"
-      ]
-    },
-    {
-      "ticker": "SPXC",
-      "company": "SPXC",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 242.74,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($236.83–$248.65). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 12.6,
-        "volume_ratio": 2.1,
-        "change_1h": 0.28,
-        "change_24h": 3.38,
-        "trend_1h": "FLAT",
-        "setup": "ABSORPTION",
-        "rs_score": 0.0,
-        "natr": 5.02
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "🔥 Institutional Absorption",
-        "15M Trigger: ⚡ EMA20 Reclaim",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ 1h trend DOWN (-0.1%) 🔻 Falling knife - RED"
-      ]
-    },
-    {
-      "ticker": "GEO",
-      "company": "GEO",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 29.26,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($28.72–$29.81). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 17.6,
-        "volume_ratio": 1.04,
-        "change_1h": 0.38,
-        "change_24h": 2.22,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 3.76
-      },
-      "notes": [
-        "Phase: EXHAUSTION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
-        "✅ MTF Aligned: 1H & 15M Bullish"
-      ]
-    },
-    {
-      "ticker": "SAN",
-      "company": "SAN",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 13.52,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($13.35–$13.70). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 41.0,
-        "volume_ratio": 0.97,
-        "change_1h": -0.04,
-        "change_24h": 1.08,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "rs_score": 0.0,
-        "natr": 2.65
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
         "⚡ Bollinger Squeeze",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (1.0x < 1.2x) ❌"
+        "⚠️ Insufficient volume (0.9x < 1.2x) ❌"
       ]
     },
     {
-      "ticker": "APH",
-      "company": "APH",
-      "sector": "Technology",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 163.93,
+      "ticker": "OSW",
+      "company": "OSW",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 27.51,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($160.61–$167.25). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($27.15–$27.87). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 50.8,
-        "volume_ratio": 1.7,
-        "change_1h": 0.7,
-        "change_24h": 3.22,
+        "adx_1h": 54.4,
+        "volume_ratio": 4.39,
+        "change_1h": -1.86,
+        "change_24h": 4.36,
         "trend_1h": "FLAT",
         "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 4.12
+        "natr": 2.69
       },
       "notes": [
         "Phase: EXPANSION",
@@ -277,79 +516,80 @@
         "Slope: Positive",
         "VWAP Extended",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ 15m trend DOWN (-0.7%) 🔻 Falling knife - RED"
+        "⚠️ 15m trend DOWN (-1.8%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "COF",
-      "company": "COF",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 201.64,
+      "ticker": "WTS",
+      "company": "WTS",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 343.89,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($198.50–$204.78). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($339.72–$348.06). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 44.3,
-        "volume_ratio": 1.16,
-        "change_1h": -0.73,
-        "change_24h": 0.51,
+        "adx_1h": 37.1,
+        "volume_ratio": 1.28,
+        "change_1h": 0.27,
+        "change_24h": 1.44,
         "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
+        "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 3.13
+        "natr": 2.48
       },
       "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
         "VWAP Extended",
-        "⚡ Bollinger Squeeze",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (1.2x < 1.2x) ❌"
+        "⚠️ 1h trend DOWN (-0.6%) 🔻 Falling knife - RED"
       ]
     },
     {
-      "ticker": "NBIS",
-      "company": "NBIS",
-      "sector": "Communication Services",
-      "swing_pick_date": "2026-06-18",
-      "days_since_pick": 1,
-      "current_price": 287.08,
+      "ticker": "AVGO",
+      "company": "AVGO",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 410.79,
       "buy_zone": {},
       "stop_zone": {},
       "profit_zone": {},
       "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($273.10–$301.06). Entry suitable.",
+      "status_detail": "BUY ✅ Buy zone active ($397.73–$423.85). Entry suitable.",
       "alert_level": "HIGH",
       "intraday": {
         "rsi_1h": 50.0,
-        "adx_1h": 42.4,
-        "volume_ratio": 1.52,
-        "change_1h": 1.13,
-        "change_24h": 8.29,
+        "adx_1h": 28.4,
+        "volume_ratio": 1.43,
+        "change_1h": 0.39,
+        "change_24h": 9.05,
         "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
+        "setup": "NONE",
         "rs_score": 0.0,
-        "natr": 9.95
+        "natr": 6.65
       },
       "notes": [
-        "NATR > 7.5% (Gamble)",
+        "Price below EMA50 & Slope Negative",
         "VWAP Extended",
-        "⚡ Bollinger Squeeze",
         "ADX + Volume Confirmation",
-        "15M Trigger: ⚡ EMA20 Reclaim",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-19",
-    "last_updated": "2026-06-19T13:00:38.812342-04:00",
+    "last_updated": "2026-06-19T14:00:32.151621-04:00",
     "tickers": {
       "ASTH": {
         "status_history": [
@@ -780,6 +1020,261 @@
         "current_status": "ENTRY_NOW",
         "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
         "entry_price": 287.08
+      },
+      "BTSG": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 66.23
+      },
+      "MCRI": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 130.52
+      },
+      "CVLT": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 130.06
+      },
+      "BROS": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 70.7
+      },
+      "MYE": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 27.39
+      },
+      "ALLY": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 45.49
+      },
+      "IAG": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 16.89
+      },
+      "WLY": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 46.69
+      },
+      "AIT": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 338.14
+      },
+      "MS": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 223.2
+      },
+      "ERO": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 29.71
+      },
+      "BBAR": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 21.91
+      },
+      "HGV": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 52.71
+      },
+      "NWG": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 16.78
+      },
+      "OSW": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 27.51
+      },
+      "WTS": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 343.89
+      },
+      "AVGO": {
+        "status_history": [
+          {
+            "hour": "13:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T13:45:20.493063-04:00",
+        "entry_price": 410.79
       }
     }
   }
