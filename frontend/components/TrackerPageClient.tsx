@@ -21,7 +21,7 @@ interface TrackerData {
   company: string;
   sector: string;
   generated_at?: string;
-  price: { current: number; prev_close: number; change_pct: number };
+  price: { current: number; prev_close: number; change_pct: number; volume?: number };
   tracker_1h: {
     ema_20: number; ema_50: number; ema_200: number;
     ema_status: string; rsi: number; candle_pattern: string;
@@ -53,7 +53,7 @@ const ACCENT = "#58a6ff";
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmtVol = (v: number) => v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
 
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
@@ -99,7 +99,7 @@ function isMarketOpen() {
 // ── Main Component ─────────────────────────────────────────────────────────
 
 export function TrackerPageClient() {
-  const { tickers, notes, types, removeFromTracker, updateNote, updateType, addToTracker } = useTracker();
+  const { tickers, types, removeFromTracker, updateType, addToTracker } = useTracker();
   const [data, setData] = useState<Record<string, TrackerData>>({});
   const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -161,6 +161,7 @@ export function TrackerPageClient() {
         "TİP": types[sym] || "Swing",
         "SEKTÖR": d?.sector && d.sector !== "Unknown" ? d.sector : (d?.company || "—"),
         "FİYAT": price != null ? price : "",
+        "HACİM": d?.price?.volume != null ? d.price.volume : "",
         "Δ% 1G": d?.tracker_1h?.change_pct_1d != null ? d.tracker_1h.change_pct_1d : "",
         "G.ORAN": d?.tracker_1h?.volume_ratio_1d != null ? d.tracker_1h.volume_ratio_1d : "",
         "EMA20": d?.tracker_1h?.ema_20 != null ? d.tracker_1h.ema_20 : "",
@@ -170,7 +171,6 @@ export function TrackerPageClient() {
         "RSI": d?.tracker_1h?.rsi != null ? d.tracker_1h.rsi : "",
         "PATERN": d?.tracker_1h?.candle_pattern || "—",
         "SİNYAL": signal,
-        "NOT": notes[sym] || "",
       };
     });
 
@@ -179,7 +179,7 @@ export function TrackerPageClient() {
     XLSX.utils.book_append_sheet(wb, ws, "BOGA Tracker");
     const date = new Date().toISOString().slice(0, 10);
     XLSX.writeFile(wb, `boga-tracker-${date}.xlsx`);
-  }, [filtered, data, types, notes]);
+  }, [filtered, data, types]);
 
   if (!mounted) return (
     <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
@@ -319,7 +319,7 @@ export function TrackerPageClient() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #30363d" }}>
-                  {["TICKER","TİP","SEKTÖR","FİYAT","Δ% 1G","G.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","NOT",""].map((h, i) => (
+                  {["TICKER","TİP","SEKTÖR","FİYAT","HACİM","Δ% 1G","G.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL",""].map((h, i) => (
                     <th key={i} style={{
                       padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
@@ -392,6 +392,11 @@ export function TrackerPageClient() {
                           {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
                         </td>
 
+                        {/* HACİM */}
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>
+                          {fmtVol(d?.price?.volume)}
+                        </td>
+
                         {/* Δ% 1G */}
                         <td style={{
                           padding: "7px 8px", textAlign: "right", fontWeight: 700,
@@ -454,9 +459,6 @@ export function TrackerPageClient() {
                             </span>
                           )}
                         </td>
-
-                        {/* NOT */}
-                        <TrackerNoteCell sym={sym} notes={notes} updateNote={updateNote} />
 
                         {/* REMOVE */}
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
@@ -526,40 +528,6 @@ export function TrackerPageClient() {
   );
 }
 
-// ── Note Cell ─────────────────────────────────────────────────────────────
-
-function TrackerNoteCell({ sym, notes, updateNote }: {
-  sym: string;
-  notes: Record<string, string>;
-  updateNote: (ticker: string, note: string) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const [val, setVal] = useState(notes[sym] || "");
-
-  const save = () => { updateNote(sym, val); setEditing(false); };
-
-  if (editing) return (
-    <td style={{ padding: "4px 8px" }} onClick={e => e.stopPropagation()}>
-      <div style={{ display: "flex", gap: 4 }}>
-        <input autoFocus value={val} onChange={e => setVal(e.target.value)}
-          onKeyDown={e => { if (e.key === "Enter") save(); }}
-          style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "2px 6px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 90 }} />
-        <button onClick={save}
-          style={{ background: "#1a3a1a", border: "1px solid #3fb950", color: "#3fb950", borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer" }}>✓</button>
-      </div>
-    </td>
-  );
-
-  return (
-    <td
-      style={{ padding: "7px 8px", color: notes[sym] ? "#e6edf3" : "#8b949e", fontSize: 11, cursor: "text", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
-      onClick={e => { e.stopPropagation(); setVal(notes[sym] || ""); setEditing(true); }}
-      title={notes[sym] || "not ekle..."}
-    >
-      {notes[sym] || "—"}
-    </td>
-  );
-}
 
 // ── Expanded Row ───────────────────────────────────────────────────────────
 
