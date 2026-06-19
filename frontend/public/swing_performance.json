@@ -6,7 +6,7 @@
     "win_rate": 72.1,
     "avg_return_pct": 2.86,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-06-19T13:05:00",
+    "last_updated": "2026-06-19T14:00:05",
     "above_5pct_rate": 49.4,
     "above_10pct_rate": 6.0
   },
@@ -18987,7 +18987,9 @@
       "return_pct": 0.0,
       "days": 0,
       "result": "PENDING",
-      "peak_date": "2026-06-19"
+      "peak_date": "2026-06-19",
+      "ema50_1d": 41.64,
+      "active_sl_level": 41.64
     },
     {
       "date": "2026-06-19",
