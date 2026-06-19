@@ -8,6 +8,9 @@ const ALLOWED_KEYS = [
   'smart_tracker_v1',
   'theme_overrides',
   'search_history',
+  'preorder_analyses',
+  'portfolio_swing',
+  'portfolio_longterm',
 ]
 
 function adminClient() {

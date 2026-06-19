@@ -381,6 +381,7 @@ export function TrackerPageClient() {
                     { label: "RSI",     key: "rsi"      , align: "right" },
                     { label: "PATERN",  key: null       , align: "right" },
                     { label: "SİNYAL",  key: "signal"   , align: "right" },
+                    { label: "PRE",     key: null       , align: "right" },
                     { label: "",        key: null       , align: "right" },
                   ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                     <th key={label || "del"} onClick={key ? () => toggleSort(key) : undefined} style={{
@@ -528,6 +529,19 @@ export function TrackerPageClient() {
                           )}
                         </td>
 
+                        {/* PRE-ORDER */}
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          <a
+                            href={`/preorder/${sym}`}
+                            onClick={e => e.stopPropagation()}
+                            style={{
+                              background: "transparent", border: "1px solid #3b82f666", color: "#3b82f6",
+                              borderRadius: 3, padding: "1px 7px", fontSize: 10, cursor: "pointer",
+                              fontFamily: "monospace", fontWeight: 700, textDecoration: "none", display: "inline-block"
+                            }}
+                          >📋</a>
+                        </td>
+
                         {/* REMOVE */}
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
                           <button
@@ -543,7 +557,7 @@ export function TrackerPageClient() {
                       {/* ── Genişleyen Satır ── */}
                       {isExpanded && (
                         <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                          <td colSpan={15} style={{ padding: 0 }}>
+                          <td colSpan={16} style={{ padding: 0 }}>
                             <TrackerExpandedRow sym={sym} d={d} />
                           </td>
                         </tr>
