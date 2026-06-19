@@ -1,0 +1,172 @@
+[
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "BTSG",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 66.23,
+        "entry_zone": "65.17 - 67.29",
+        "SL": 61.97,
+        "TP": 72.62
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "MCRI",
+        "sector": "Consumer Cyclical",
+        "action": "CLOSE",
+        "price": 130.52,
+        "entry_zone": "128.92 - 132.12",
+        "SL": 124.14,
+        "TP": 140.1
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "BROS",
+        "sector": "Consumer Cyclical",
+        "action": "CLOSE",
+        "price": 70.7,
+        "entry_zone": "69.12 - 72.28",
+        "SL": 64.39,
+        "TP": 80.16
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "CLOSE",
+        "price": 410.79,
+        "entry_zone": "397.82 - 423.76",
+        "SL": 358.92,
+        "TP": 488.6
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "MYE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 27.39,
+        "entry_zone": "26.92 - 27.86",
+        "SL": 25.5,
+        "TP": 30.22
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "CVLT",
+        "sector": "Technology",
+        "action": "CLOSE",
+        "price": 130.06,
+        "entry_zone": "127.25 - 132.87",
+        "SL": 118.84,
+        "TP": 146.89
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "ALLY",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 45.49,
+        "entry_zone": "44.85 - 46.13",
+        "SL": 42.95,
+        "TP": 49.3
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "AIT",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 338.14,
+        "entry_zone": "334.23 - 342.05",
+        "SL": 322.51,
+        "TP": 361.59
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "WLY",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 46.69,
+        "entry_zone": "45.79 - 47.59",
+        "SL": 43.1,
+        "TP": 52.07
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "MS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 223.2,
+        "entry_zone": "220.01 - 226.39",
+        "SL": 210.45,
+        "TP": 242.32
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "HGV",
+        "sector": "Consumer Cyclical",
+        "action": "CLOSE",
+        "price": 52.71,
+        "entry_zone": "51.82 - 53.60",
+        "SL": 49.16,
+        "TP": 58.04
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "NWG",
+        "sector": "Financial Services",
+        "action": "CLOSE",
+        "price": 16.78,
+        "entry_zone": "16.57 - 16.99",
+        "SL": 15.94,
+        "TP": 18.04
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "WTS",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 343.89,
+        "entry_zone": "339.72 - 348.06",
+        "SL": 327.22,
+        "TP": 368.89
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "ERO",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 29.71,
+        "entry_zone": "28.73 - 30.69",
+        "SL": 25.77,
+        "TP": 35.61
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "BBAR",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 21.91,
+        "entry_zone": "21.38 - 22.44",
+        "SL": 19.8,
+        "TP": 25.07
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "OSW",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 27.51,
+        "entry_zone": "27.15 - 27.87",
+        "SL": 26.07,
+        "TP": 29.67
+    },
+    {
+        "date": "2026-06-19 15:45",
+        "symbol": "IAG",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 16.89,
+        "entry_zone": "16.36 - 17.41",
+        "SL": 14.78,
+        "TP": 20.05
+    }
+]
