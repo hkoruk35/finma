@@ -109,6 +109,8 @@ export function TrackerPageClient() {
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("Swing");
+  const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
@@ -140,6 +142,34 @@ export function TrackerPageClient() {
     if (filterType && (types[sym] || "Swing") !== filterType) return false;
     return true;
   }), [tickers, data, filterSignal, filterType, types]);
+
+  const toggleSort = (key: string) => {
+    if (sortBy === key) setSortDir(d => d === "desc" ? "asc" : "desc");
+    else { setSortBy(key); setSortDir("desc"); }
+  };
+
+  const SIGNAL_RANK: Record<string, number> = { AL: 4, "İzle": 3, Bekle: 2, SAT: 1 };
+
+  const sortedFiltered = useMemo(() => {
+    if (!sortBy) return filtered;
+    return [...filtered].sort((a, b) => {
+      const da = data[a], db = data[b];
+      let va: number, vb: number;
+      switch (sortBy) {
+        case "price":   va = da?.price?.current ?? 0;              vb = db?.price?.current ?? 0; break;
+        case "volume":  va = da?.price?.volume ?? 0;               vb = db?.price?.volume ?? 0; break;
+        case "chg1d":   va = da?.tracker_1h?.change_pct_1d ?? 0;   vb = db?.tracker_1h?.change_pct_1d ?? 0; break;
+        case "goran":   va = da?.tracker_1h?.volume_ratio_1d ?? 0; vb = db?.tracker_1h?.volume_ratio_1d ?? 0; break;
+        case "ema20":   va = da?.tracker_1h?.ema_20 ?? 0;          vb = db?.tracker_1h?.ema_20 ?? 0; break;
+        case "ema50":   va = da?.tracker_1h?.ema_50 ?? 0;          vb = db?.tracker_1h?.ema_50 ?? 0; break;
+        case "ema200":  va = da?.tracker_1h?.ema_200 ?? 0;         vb = db?.tracker_1h?.ema_200 ?? 0; break;
+        case "rsi":     va = da?.tracker_1h?.rsi ?? 0;             vb = db?.tracker_1h?.rsi ?? 0; break;
+        case "signal":  va = SIGNAL_RANK[da?.tracker_1h?.signal ?? ""] ?? 0; vb = SIGNAL_RANK[db?.tracker_1h?.signal ?? ""] ?? 0; break;
+        default: return 0;
+      }
+      return sortDir === "desc" ? vb - va : va - vb;
+    });
+  }, [filtered, data, sortBy, sortDir]);
 
   const alCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "AL").length;
   const izleCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "İzle").length;
@@ -319,17 +349,38 @@ export function TrackerPageClient() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #30363d" }}>
-                  {["TICKER","TİP","SEKTÖR","FİYAT","HACİM","Δ% 1G","G.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL",""].map((h, i) => (
-                    <th key={i} style={{
-                      padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
+                  {([
+                    { label: "TICKER",  key: null       , align: "left"  },
+                    { label: "TİP",     key: null       , align: "left"  },
+                    { label: "SEKTÖR",  key: null       , align: "left"  },
+                    { label: "FİYAT",   key: "price"    , align: "right" },
+                    { label: "HACİM",   key: "volume"   , align: "right" },
+                    { label: "Δ% 1G",   key: "chg1d"   , align: "right" },
+                    { label: "G.ORAN",  key: "goran"    , align: "right" },
+                    { label: "EMA20",   key: "ema20"    , align: "right" },
+                    { label: "EMA50",   key: "ema50"    , align: "right" },
+                    { label: "EMA200",  key: "ema200"   , align: "right" },
+                    { label: "DURUM",   key: null       , align: "right" },
+                    { label: "RSI",     key: "rsi"      , align: "right" },
+                    { label: "PATERN",  key: null       , align: "right" },
+                    { label: "SİNYAL",  key: "signal"   , align: "right" },
+                    { label: "",        key: null       , align: "right" },
+                  ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
+                    <th key={label || "del"} onClick={key ? () => toggleSort(key) : undefined} style={{
+                      padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
-                      color: "#58a6ff", whiteSpace: "nowrap", background: "#0d1117"
-                    }}>{h}</th>
+                      color: sortBy === key && key ? ACCENT : "#58a6ff",
+                      whiteSpace: "nowrap", background: "#0d1117",
+                      cursor: key ? "pointer" : "default",
+                      userSelect: "none",
+                    }}>
+                      {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : (key ? " ↕" : "")}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((sym, idx) => {
+                {sortedFiltered.map((sym, idx) => {
                   const d = data[sym];
                   const signal = d?.tracker_1h?.signal || "—";
                   const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
