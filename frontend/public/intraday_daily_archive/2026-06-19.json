@@ -1,6 +1,6 @@
 {
   "date": "2026-06-19",
-  "generated_at": "2026-06-19T14:00:32.151621-04:00",
+  "generated_at": "2026-06-19T15:00:29.629807-04:00",
   "market_regime": "Bear",
   "vix_level": 16.780000686645508,
   "total": 17,
@@ -37,7 +37,8 @@
         "🔥 Institutional Absorption",
         "🚀 1H Institutional Sweep (Massive Volume)",
         "ADX + Volume Confirmation",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY"
       ]
     },
     {
@@ -73,7 +74,8 @@
         "🚀 1H Institutional Sweep (Massive Volume)",
         "ADX + Volume Confirmation",
         "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY"
       ]
     },
     {
@@ -106,7 +108,8 @@
         "Slope: Positive",
         "VWAP Extended",
         "15M Trigger: 🕯️ Bullish Engulfing",
-        "✅ MTF Aligned: 1H & 15M Bullish"
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY"
       ]
     },
     {
@@ -141,6 +144,7 @@
         "🔥 Institutional Absorption",
         "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "🏦 PRE-GAP BUY",
         "⚠️ 15m trend DOWN (-0.4%) 🔻 Falling knife - RED"
       ]
     },
@@ -248,6 +252,41 @@
       ]
     },
     {
+      "ticker": "AIT",
+      "company": "AIT",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 338.14,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($334.23–$342.05). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 33.5,
+        "volume_ratio": 1.29,
+        "change_1h": 0.52,
+        "change_24h": 4.24,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.37
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "🏦 PRE-GAP BUY",
+        "⚠️ 1h trend DOWN (-0.0%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
       "ticker": "WLY",
       "company": "WLY",
       "sector": "Communication Services",
@@ -283,40 +322,6 @@
       ]
     },
     {
-      "ticker": "AIT",
-      "company": "AIT",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 338.14,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($334.23–$342.05). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 33.5,
-        "volume_ratio": 1.29,
-        "change_1h": 0.52,
-        "change_24h": 4.24,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 2.37
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "15M Trigger: ⚡ EMA20 Reclaim",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⚠️ 1h trend DOWN (-0.0%) 🔻 Falling knife - RED"
-      ]
-    },
-    {
       "ticker": "MS",
       "company": "MS",
       "sector": "Financial Services",
@@ -348,6 +353,111 @@
         "ADX + Volume Confirmation",
         "⚠️ MTF Conflict: 1H vs 15M Mismatch",
         "⚠️ 15m trend DOWN (-0.8%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "HGV",
+      "company": "HGV",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 52.71,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($51.82–$53.60). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 42.5,
+        "volume_ratio": 1.7,
+        "change_1h": -0.37,
+        "change_24h": 2.69,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.41
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "🏦 PRE-GAP BUY",
+        "⚠️ 15m trend DOWN (-0.3%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "NWG",
+      "company": "NWG",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 16.78,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($16.57–$16.99). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 30.6,
+        "volume_ratio": 0.85,
+        "change_1h": -0.5,
+        "change_24h": 0.12,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 2.5
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "🏦 PRE-GAP BUY",
+        "⚠️ Insufficient volume (0.9x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "WTS",
+      "company": "WTS",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-19",
+      "days_since_pick": 0,
+      "current_price": 343.89,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($339.72–$348.06). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 37.1,
+        "volume_ratio": 1.28,
+        "change_1h": 0.27,
+        "change_24h": 1.44,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.48
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "🏦 PRE-GAP BUY",
+        "⚠️ 1h trend DOWN (-0.6%) 🔻 Falling knife - RED"
       ]
     },
     {
@@ -419,74 +529,6 @@
       ]
     },
     {
-      "ticker": "HGV",
-      "company": "HGV",
-      "sector": "Consumer Cyclical",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 52.71,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($51.82–$53.60). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 42.5,
-        "volume_ratio": 1.7,
-        "change_1h": -0.37,
-        "change_24h": 2.69,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 3.41
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Prime Swing",
-        "Slope: Positive",
-        "VWAP Extended",
-        "ADX + Volume Confirmation",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ 15m trend DOWN (-0.3%) 🔻 Falling knife - RED"
-      ]
-    },
-    {
-      "ticker": "NWG",
-      "company": "NWG",
-      "sector": "Financial Services",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 16.78,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($16.57–$16.99). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 30.6,
-        "volume_ratio": 0.85,
-        "change_1h": -0.5,
-        "change_24h": 0.12,
-        "trend_1h": "FLAT",
-        "setup": "SQUEEZE",
-        "rs_score": 0.0,
-        "natr": 2.5
-      },
-      "notes": [
-        "Phase: ACCUMULATION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "⚡ Bollinger Squeeze",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ Insufficient volume (0.9x < 1.2x) ❌"
-      ]
-    },
-    {
       "ticker": "OSW",
       "company": "OSW",
       "sector": "Consumer Cyclical",
@@ -520,40 +562,6 @@
       ]
     },
     {
-      "ticker": "WTS",
-      "company": "WTS",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-19",
-      "days_since_pick": 0,
-      "current_price": 343.89,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($339.72–$348.06). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 50.0,
-        "adx_1h": 37.1,
-        "volume_ratio": 1.28,
-        "change_1h": 0.27,
-        "change_24h": 1.44,
-        "trend_1h": "FLAT",
-        "setup": "NONE",
-        "rs_score": 0.0,
-        "natr": 2.48
-      },
-      "notes": [
-        "Phase: EXPANSION",
-        "Vol: Acceptable",
-        "Slope: Positive",
-        "VWAP Extended",
-        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
-        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
-        "⚠️ 1h trend DOWN (-0.6%) 🔻 Falling knife - RED"
-      ]
-    },
-    {
       "ticker": "AVGO",
       "company": "AVGO",
       "sector": "Technology",
@@ -583,13 +591,14 @@
         "ADX + Volume Confirmation",
         "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
         "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)"
+        "⛔ Extended (Don't Chase)",
+        "🏦 PRE-GAP BUY"
       ]
     }
   ],
   "summary": {
     "date": "2026-06-19",
-    "last_updated": "2026-06-19T14:00:32.151621-04:00",
+    "last_updated": "2026-06-19T15:00:29.629807-04:00",
     "tickers": {
       "ASTH": {
         "status_history": [
@@ -1030,6 +1039,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1044,6 +1061,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1060,6 +1085,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1074,6 +1107,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1090,6 +1131,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1104,6 +1153,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1120,6 +1177,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1134,6 +1199,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1150,6 +1223,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1164,6 +1245,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1180,6 +1269,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1194,6 +1291,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1210,6 +1315,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1224,6 +1337,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1240,6 +1361,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1255,6 +1384,14 @@
           {
             "hour": "14:00",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1269,6 +1406,14 @@
           },
           {
             "hour": "14:00",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "14:45",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "15:00",
             "status": "ENTRY_NOW"
           }
         ],
