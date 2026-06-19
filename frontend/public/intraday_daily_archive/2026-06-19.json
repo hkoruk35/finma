@@ -1,0 +1,466 @@
+{
+  "date": "2026-06-19",
+  "generated_at": "2026-06-19T09:00:29.252713-04:00",
+  "market_regime": "Bear",
+  "vix_level": 17.209999084472656,
+  "total": 10,
+  "signals": [
+    {
+      "ticker": "ASTH",
+      "company": "ASTH",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 39.15,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($38.39–$39.91). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 13.1,
+        "volume_ratio": 3.23,
+        "change_1h": 0.85,
+        "change_24h": 2.01,
+        "trend_1h": "FLAT",
+        "setup": "AGGRESSIVE_BUY",
+        "rs_score": 0.0,
+        "natr": 3.99
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "VSEC",
+      "company": "VSEC",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 219.3,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($213.95–$224.65). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 39.6,
+        "volume_ratio": 2.64,
+        "change_1h": 1.1,
+        "change_24h": 10.13,
+        "trend_1h": "UP",
+        "setup": "AGGRESSIVE_BUY",
+        "rs_score": 0.0,
+        "natr": 5.14
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "🚀 1H Institutional Sweep (Massive Volume)",
+        "ADX + Volume Confirmation",
+        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "company": "HON",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 229.01,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($224.95–$233.07). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 26.7,
+        "volume_ratio": 1.4,
+        "change_1h": 0.1,
+        "change_24h": -0.21,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 3.55
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP/EMA50 Acceptable Zone",
+        "⚡ Bollinger Squeeze",
+        "ADX + Volume Confirmation",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "FAF",
+      "company": "FAF",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 68.68,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($67.83–$69.52). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 29.9,
+        "volume_ratio": 2.1,
+        "change_1h": 0.6,
+        "change_24h": 1.26,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 2.5
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "SPXC",
+      "company": "SPXC",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 242.74,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($236.83–$248.65). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 12.6,
+        "volume_ratio": 2.1,
+        "change_1h": 0.28,
+        "change_24h": 3.38,
+        "trend_1h": "FLAT",
+        "setup": "ABSORPTION",
+        "rs_score": 0.0,
+        "natr": 5.02
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "🔥 Institutional Absorption",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ 1h trend DOWN (-0.1%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "GEO",
+      "company": "GEO",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 29.26,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($28.72–$29.81). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 17.6,
+        "volume_ratio": 1.04,
+        "change_1h": 0.38,
+        "change_24h": 2.22,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 3.76
+      },
+      "notes": [
+        "Phase: EXHAUSTION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "15M Trigger: 🪝 Liquidity Grab (Pinbar)",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    },
+    {
+      "ticker": "SAN",
+      "company": "SAN",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 13.52,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($13.35–$13.70). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 41.0,
+        "volume_ratio": 0.97,
+        "change_1h": -0.04,
+        "change_24h": 1.08,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 2.65
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (1.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "APH",
+      "company": "APH",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 163.93,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($160.61–$167.25). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 50.8,
+        "volume_ratio": 1.7,
+        "change_1h": 0.7,
+        "change_24h": 3.22,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "rs_score": 0.0,
+        "natr": 4.12
+      },
+      "notes": [
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ 15m trend DOWN (-0.7%) 🔻 Falling knife - RED"
+      ]
+    },
+    {
+      "ticker": "COF",
+      "company": "COF",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 201.64,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($198.50–$204.78). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 44.3,
+        "volume_ratio": 1.16,
+        "change_1h": -0.73,
+        "change_24h": 0.51,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 3.13
+      },
+      "notes": [
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (1.2x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "company": "NBIS",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-06-18",
+      "days_since_pick": 1,
+      "current_price": 287.08,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($273.10–$301.06). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 50.0,
+        "adx_1h": 42.4,
+        "volume_ratio": 1.52,
+        "change_1h": 1.13,
+        "change_24h": 8.29,
+        "trend_1h": "FLAT",
+        "setup": "SQUEEZE",
+        "rs_score": 0.0,
+        "natr": 9.95
+      },
+      "notes": [
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "ADX + Volume Confirmation",
+        "15M Trigger: ⚡ EMA20 Reclaim",
+        "✅ MTF Aligned: 1H & 15M Bullish"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-06-19",
+    "last_updated": "2026-06-19T09:00:29.252713-04:00",
+    "tickers": {
+      "ASTH": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 39.15
+      },
+      "VSEC": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 219.3
+      },
+      "HON": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 229.01
+      },
+      "FAF": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 68.68
+      },
+      "SPXC": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 242.74
+      },
+      "GEO": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 29.26
+      },
+      "SAN": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 13.52
+      },
+      "APH": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 163.93
+      },
+      "COF": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 201.64
+      },
+      "NBIS": {
+        "status_history": [
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-19T09:00:29.252713-04:00",
+        "entry_price": 287.08
+      }
+    }
+  }
+}
