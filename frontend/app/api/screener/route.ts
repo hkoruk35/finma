@@ -637,7 +637,7 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const change1w = prev1w ? +((price - prev1w) / prev1w * 100).toFixed(2) : 0;
 
     const curVol  = meta.regularMarketVolume ?? volumes.at(-1) ?? 0;
-    const avgVol  = sma(volumes, 20);
+    const avgVol  = sma(volumes, 30);
     const rvolVal = avgVol > 0 ? +(curVol / avgVol).toFixed(2) : 1;
     const mktCap  = meta.marketCap ?? (price * curVol / 10);
 
@@ -994,6 +994,7 @@ export async function GET(req: NextRequest) {
   };
 
   const filtered = allResults.filter(s => {
+    if (s.price * s.volume < 1_000_000) return false;
     if (s.price < priceMin || s.price > priceMax) return false;
     if (capFilter !== "all") {
       const [lo, hi] = capRanges[capFilter] ?? [0, Infinity];

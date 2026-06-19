@@ -197,6 +197,11 @@ function fmtVol(v: number): string {
   if (v >= 1e6) return `$${(v / 1e6).toFixed(0)}M`;
   return `$${(v / 1e3).toFixed(0)}K`;
 }
+function fmtShareVol(v: number): string {
+  if (v >= 1e6) return (v / 1e6).toFixed(2) + "M";
+  if (v >= 1e3) return (v / 1e3).toFixed(1) + "K";
+  return String(v);
+}
 function fmtCap(v: number): string {
   if (v >= 1e12) return `$${(v / 1e12).toFixed(1)}T`;
   if (v >= 1e9)  return `$${(v / 1e9).toFixed(1)}B`;
@@ -782,6 +787,7 @@ export default function ScreenerCockpit() {
                       { key: null,    label: "Ticker"       },
                       { key: null,    label: "Setup"        },
                       { key: "price", label: "Fiyat ↕"     },
+                      { key: null,    label: "Hacim"        },
                       { key: "chg",   label: "Değ% ↕"      },
                       { key: null,    label: "MACD"         },
                       { key: "rsi",   label: "RSI ↕"       },
@@ -814,6 +820,9 @@ export default function ScreenerCockpit() {
                         <td style={{ padding: "8px 11px" }}><SetupBadge setup={stock.primary_setup ?? "swing"} /></td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ fontFamily: "monospace", fontSize: 12, color: "#e2e8f0", fontWeight: 600 }}>${fmt(stock.price)}</span>
+                        </td>
+                        <td style={{ padding: "8px 11px" }}>
+                          <span style={{ fontFamily: "monospace", fontSize: 11, color: "#7c8fa6" }}>{fmtShareVol(stock.volume)}</span>
                         </td>
                         <td style={{ padding: "8px 11px" }}>
                           <span style={{ color: stock.change_1d >= 0 ? "#4ade80" : "#f87171", fontWeight: 700, fontFamily: "monospace", fontSize: 12 }}>
