@@ -132,6 +132,7 @@ export default function CSPDetailClient({ slug }: Props) {
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [filterSignal, setFilterSignal] = useState("");
   const [filterType, setFilterType] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [addInput, setAddInput] = useState("");
   const [addType, setAddType] = useState("CSP");
   const [sortBy, setSortBy] = useState<string | null>(null);
@@ -247,6 +248,10 @@ export default function CSPDetailClient({ slug }: Props) {
     const d = data[sym];
     if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
     if (filterType && (types[sym] || "CSP") !== filterType) return false;
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase();
+      if (!sym.includes(q) && !(d?.company || "").toUpperCase().includes(q) && !(d?.sector || "").toUpperCase().includes(q)) return false;
+    }
     return true;
   });
 
@@ -423,7 +428,19 @@ export default function CSPDetailClient({ slug }: Props) {
         </div>
 
         {/* Filters */}
-        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value.toUpperCase())}
+            placeholder="hisse ara..."
+            maxLength={12}
+            style={{
+              background: "#161b22", border: `1px solid ${searchQuery ? cfg.accent : "#30363d"}`,
+              color: "#e6edf3", padding: "3px 8px", borderRadius: 3,
+              fontSize: 11, fontFamily: "monospace", width: 100, outline: "none"
+            }}
+          />
+          <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
           {["", "Swing", "Long", "Option", "CSP", "CC"].map(t => (
             <button
               key={t || "all-type"}
