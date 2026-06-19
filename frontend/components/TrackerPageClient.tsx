@@ -26,6 +26,7 @@ interface TrackerData {
     ema_20: number; ema_50: number; ema_200: number;
     ema_status: string; rsi: number; candle_pattern: string;
     signal: string; volume_ratio: number; change_pct_1h: number;
+    change_pct_1d: number; volume_ratio_1d: number;
   };
   hourly?: HourlyBar[];
 }
@@ -160,8 +161,8 @@ export function TrackerPageClient() {
         "TİP": types[sym] || "Swing",
         "SEKTÖR": d?.sector && d.sector !== "Unknown" ? d.sector : (d?.company || "—"),
         "FİYAT": price != null ? price : "",
-        "Δ% 1H": d?.tracker_1h?.change_pct_1h != null ? d.tracker_1h.change_pct_1h : "",
-        "H.ORAN": d?.tracker_1h?.volume_ratio != null ? d.tracker_1h.volume_ratio : "",
+        "Δ% 1G": d?.tracker_1h?.change_pct_1d != null ? d.tracker_1h.change_pct_1d : "",
+        "G.ORAN": d?.tracker_1h?.volume_ratio_1d != null ? d.tracker_1h.volume_ratio_1d : "",
         "EMA20": d?.tracker_1h?.ema_20 != null ? d.tracker_1h.ema_20 : "",
         "EMA50": d?.tracker_1h?.ema_50 != null ? d.tracker_1h.ema_50 : "",
         "EMA200": d?.tracker_1h?.ema_200 != null ? d.tracker_1h.ema_200 : "",
@@ -318,7 +319,7 @@ export function TrackerPageClient() {
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #30363d" }}>
-                  {["TICKER","TİP","SEKTÖR","FİYAT","Δ% 1H","H.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","NOT",""].map((h, i) => (
+                  {["TICKER","TİP","SEKTÖR","FİYAT","Δ% 1G","G.ORAN","EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","NOT",""].map((h, i) => (
                     <th key={i} style={{
                       padding: "7px 8px", textAlign: i <= 2 ? "left" : i === 13 ? "left" : "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
@@ -391,20 +392,20 @@ export function TrackerPageClient() {
                           {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
                         </td>
 
-                        {/* Δ% 1H */}
+                        {/* Δ% 1G */}
                         <td style={{
                           padding: "7px 8px", textAlign: "right", fontWeight: 700,
-                          color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "#3fb950" : "#f85149"
+                          color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149"
                         }}>
-                          {d ? `${(d.tracker_1h?.change_pct_1h ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1h)}%` : "—"}
+                          {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
                         </td>
 
-                        {/* H.ORAN */}
+                        {/* G.ORAN */}
                         <td style={{
                           padding: "7px 8px", textAlign: "right",
-                          color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
+                          color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
                         }}>
-                          {d ? `${fmt2(d.tracker_1h?.volume_ratio)}x` : "—"}
+                          {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
                         </td>
 
                         {/* EMA20 */}

@@ -1059,7 +1059,9 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
         candle_pattern: candlePattern_1h,
         signal: signal,
         volume_ratio: Number(volumeRatio_1h.toFixed(2)),
-        change_pct_1h: Number(change_pct_1h.toFixed(2))
+        change_pct_1h: Number(change_pct_1h.toFixed(2)),
+        change_pct_1d: Number(changePct.toFixed(2)),
+        volume_ratio_1d: Number((last30dVol > 0 ? volumes[volumes.length - 1] / last30dVol : 1.0).toFixed(2))
       },
       fundamental: {
         pe_ratio: peRatio,
