@@ -25,6 +25,7 @@ interface TickerData {
     ema_20: number; ema_50: number; ema_200: number;
     ema_status: string; rsi: number; candle_pattern: string;
     signal: string; volume_ratio: number; change_pct_1h: number;
+    volume_ratio_1d?: number;
   };
   hourly?: HourlyBar[];
 }
@@ -63,7 +64,7 @@ const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmtVol = (v: number) => v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : v >= 1e3 ? (v / 1e3).toFixed(0) + "K" : String(v);
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
 
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
@@ -180,9 +181,9 @@ export default function CSPDetailClient({ slug }: Props) {
         "Şirket": d?.company || "",
         "Sektör": d?.sector || "",
         "Fiyat": price?.current ?? "",
-        "1G %": price?.change_pct != null ? +price.change_pct.toFixed(2) : "",
         "Hacim": price?.volume ?? "",
-        "30G Ort. Hacim": price?.avg_volume_30d ?? "",
+        "RVOL": t1h?.volume_ratio_1d != null ? +t1h.volume_ratio_1d.toFixed(2) : "",
+        "1G %": price?.change_pct != null ? +price.change_pct.toFixed(2) : "",
         "EMA20": t1h?.ema_20 != null ? +t1h.ema_20.toFixed(2) : "",
         "EMA50": t1h?.ema_50 != null ? +t1h.ema_50.toFixed(2) : "",
         "EMA200": t1h?.ema_200 != null ? +t1h.ema_200.toFixed(2) : "",
@@ -267,8 +268,9 @@ export default function CSPDetailClient({ slug }: Props) {
       case "ŞIRKET": valA = da?.company || ""; valB = db?.company || ""; break;
       case "SEKTÖR": valA = da?.sector || ""; valB = db?.sector || ""; break;
       case "FİYAT": valA = da?.price?.current ?? 0; valB = db?.price?.current ?? 0; break;
-      case "Δ%": valA = da?.tracker_1h?.change_pct_1h ?? 0; valB = db?.tracker_1h?.change_pct_1h ?? 0; break;
-      case "H.ORAN": valA = da?.tracker_1h?.volume_ratio ?? 0; valB = db?.tracker_1h?.volume_ratio ?? 0; break;
+      case "HACİM": valA = da?.price?.volume ?? 0; valB = db?.price?.volume ?? 0; break;
+      case "1G FİY%": valA = da?.price?.change_pct ?? 0; valB = db?.price?.change_pct ?? 0; break;
+      case "RVOL": valA = da?.tracker_1h?.volume_ratio_1d ?? 0; valB = db?.tracker_1h?.volume_ratio_1d ?? 0; break;
       case "EMA20": valA = da?.tracker_1h?.ema_20 ?? 0; valB = db?.tracker_1h?.ema_20 ?? 0; break;
       case "EMA50": valA = da?.tracker_1h?.ema_50 ?? 0; valB = db?.tracker_1h?.ema_50 ?? 0; break;
       case "EMA200": valA = da?.tracker_1h?.ema_200 ?? 0; valB = db?.tracker_1h?.ema_200 ?? 0; break;
@@ -478,12 +480,12 @@ export default function CSPDetailClient({ slug }: Props) {
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
                 <thead>
                   <tr style={{ borderBottom: "1px solid #30363d" }}>
-                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "TRACKER", "1G FİY%", "1G HAC%", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
+                    {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", "NOT", ""].map((h, i) => {
                       const isSortable = h && !["NOT", "PATERN", "DURUM", "TRACKER", ""].includes(h);
                       const isSorted = sortBy === h;
                       return (
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
-                          padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 13 ? "left" : "right",
+                          padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 14 ? "left" : "right",
                           fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                           color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
                           cursor: isSortable ? "pointer" : "default",
@@ -569,6 +571,11 @@ export default function CSPDetailClient({ slug }: Props) {
                             {d ? `$${fmt2(price)}` : <span style={{ color: "#8b949e" }}>—</span>}
                           </td>
 
+                          {/* HACİM */}
+                          <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>
+                            {fmtVol(d?.price?.volume)}
+                          </td>
+
                           {/* TRACKER */}
                           <td style={{ padding: "7px 8px", textAlign: "right" }}>
                             {isInTracker(sym) ? (
@@ -605,9 +612,11 @@ export default function CSPDetailClient({ slug }: Props) {
                             {d ? `${(d.price?.change_pct ?? 0) >= 0 ? "+" : ""}${fmt2(d.price?.change_pct)}%` : "—"}
                           </td>
 
-                          {/* 1G HAC% */}
-                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: "#8b949e" }}>
-                            {d && d.price?.volume && d.price?.avg_volume_30d ? `${fmt1(((d.price.volume / (d.price.avg_volume_30d / 30)) - 1) * 100)}%` : "—"}
+                          {/* RVOL */}
+                          <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                            color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
+                          }}>
+                            {d?.tracker_1h?.volume_ratio_1d != null ? `${fmt1(d.tracker_1h.volume_ratio_1d)}x` : "—"}
                           </td>
 
                           {/* EMA20 */}
@@ -704,7 +713,7 @@ export default function CSPDetailClient({ slug }: Props) {
                         {/* ── Genişleyen Satır ── */}
                         {isExpanded && (
                           <tr key={sym + "-expanded"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                            <td colSpan={17} style={{ padding: "0" }}>
+                            <td colSpan={18} style={{ padding: "0" }}>
                               <ExpandedRow sym={sym} d={d} />
                             </td>
                           </tr>
