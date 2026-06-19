@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUserRole } from "@/hooks/useUserRole";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -62,6 +63,8 @@ async function saveStore(key: string, value: unknown) {
 // ── Component ────────────────────────────────────────────────────────────────
 
 export default function PreOrderListClient({ type }: { type: "swing" | "longterm" }) {
+  const role = useUserRole();
+  const isReadonly = role === "readonly";
   const [entries, setEntries] = useState<SavedAnalysis[]>([]);
   const [prices, setPrices] = useState<Record<string, LivePrice>>({});
   const [loading, setLoading] = useState(true);
@@ -270,27 +273,31 @@ export default function PreOrderListClient({ type }: { type: "swing" | "longterm
                         >
                           Analiz
                         </Link>
-                        <Link
-                          href={`/order/${type}?add=${entry.ticker}&price=${approvedPrice}`}
-                          style={{
-                            fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 3,
-                            border: "1px solid #e3b34144", color: "#e3b341",
-                            background: "transparent", textDecoration: "none", cursor: "pointer",
-                          }}
-                        >
-                          Emir Aç
-                        </Link>
-                        <button
-                          onClick={() => handleRemove(entry.ticker)}
-                          disabled={removing === entry.ticker}
-                          style={{
-                            fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                            border: "1px solid #f8514944", color: "#f85149",
-                            background: "transparent", cursor: "pointer",
-                          }}
-                        >
-                          {removing === entry.ticker ? "…" : "✕"}
-                        </button>
+                        {!isReadonly && (
+                          <Link
+                            href={`/order/${type}?add=${entry.ticker}&price=${approvedPrice}`}
+                            style={{
+                              fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 3,
+                              border: "1px solid #e3b34144", color: "#e3b341",
+                              background: "transparent", textDecoration: "none", cursor: "pointer",
+                            }}
+                          >
+                            Emir Aç
+                          </Link>
+                        )}
+                        {!isReadonly && (
+                          <button
+                            onClick={() => handleRemove(entry.ticker)}
+                            disabled={removing === entry.ticker}
+                            style={{
+                              fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                              border: "1px solid #f8514944", color: "#f85149",
+                              background: "transparent", cursor: "pointer",
+                            }}
+                          >
+                            {removing === entry.ticker ? "…" : "✕"}
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

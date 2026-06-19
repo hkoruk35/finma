@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, type CSSProperties } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useUserRole } from "@/hooks/useUserRole";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -91,10 +92,12 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
   const typeLabel = type === "swing" ? "Swing" : "Long Term";
   const typeColor = type === "swing" ? "#3fb950" : "#3b82f6";
 
+  const role = useUserRole();
+  const isReadonly = role === "readonly";
   const [orders, setOrders] = useState<Order[]>([]);
   const [prices, setPrices] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(!!prefillTicker);
+  const [showForm, setShowForm] = useState(!!(prefillTicker && role !== "readonly"));
   const [form, setForm] = useState(emptyForm(prefillTicker, prefillPrice));
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -273,16 +276,18 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
           }}>
             ← Liste
           </Link>
-          <button
-            onClick={() => setShowForm(v => !v)}
-            style={{
-              padding: "7px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
-              background: showForm ? "#161b22" : `${typeColor}20`,
-              border: `1px solid ${typeColor}66`, color: typeColor,
-            }}
-          >
-            {showForm ? "İptal" : "+ Yeni Emir"}
-          </button>
+          {!isReadonly && (
+            <button
+              onClick={() => setShowForm(v => !v)}
+              style={{
+                padding: "7px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
+                background: showForm ? "#161b22" : `${typeColor}20`,
+                border: `1px solid ${typeColor}66`, color: typeColor,
+              }}
+            >
+              {showForm ? "İptal" : "+ Yeni Emir"}
+            </button>
+          )}
         </div>
       </div>
 
@@ -316,7 +321,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
       )}
 
       {/* Add form */}
-      {showForm && (
+      {showForm && !isReadonly && (
         <div style={{ background: "#161b22", border: `1px solid ${typeColor}44`, borderRadius: 8, padding: "16px", marginBottom: 20 }}>
           <div style={{ fontSize: 11, fontWeight: 900, color: "#8b949e", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 14 }}>
             Yeni {typeLabel} Emri
@@ -456,7 +461,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
                             <div style={{ fontSize: 9, color: pctColor(stopPct) }}>{fmt1(stopPct)}%</div>
                           </td>
                           <td style={{ padding: "9px 10px", textAlign: "right" }}>
-                            {closingId === order.id ? (
+                            {isReadonly ? null : closingId === order.id ? (
                               <div style={{ display: "flex", gap: 4, flexWrap: "nowrap", alignItems: "center" }}>
                                 <input
                                   type="number"
@@ -523,9 +528,11 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
                           <td style={{ padding: "8px 10px", textAlign: "right", fontWeight: 700, color: pctColor(pnl.total) }}>{fmtM(pnl.total)}</td>
                           <td style={{ padding: "8px 10px", textAlign: "right", fontWeight: 700, color: pctColor(pnl.totalPct) }}>{fmt1(pnl.totalPct)}%</td>
                           <td style={{ padding: "8px 10px", textAlign: "right" }}>
-                            <button onClick={() => handleRemove(order.id)} style={{ fontSize: 10, padding: "2px 6px", borderRadius: 3, background: "transparent", border: "1px solid #30363d", color: "#8b949e", cursor: "pointer" }}>
-                              Sil
-                            </button>
+                            {!isReadonly && (
+                              <button onClick={() => handleRemove(order.id)} style={{ fontSize: 10, padding: "2px 6px", borderRadius: 3, background: "transparent", border: "1px solid #30363d", color: "#8b949e", cursor: "pointer" }}>
+                                Sil
+                              </button>
+                            )}
                           </td>
                         </tr>
                       );

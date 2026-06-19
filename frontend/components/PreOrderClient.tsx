@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useUserRole } from "@/hooks/useUserRole";
 
 const TradingViewChart = dynamic(() => import("@/components/TradingViewChart"), { ssr: false });
 
@@ -150,6 +151,8 @@ export default function PreOrderClient({ ticker }: { ticker: string }) {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
   const [chartInterval, setChartInterval] = useState<"15" | "60" | "D" | "W">("D");
+  const role = useUserRole();
+  const isReadonly = role === "readonly";
   const [saving, setSaving]     = useState<string | null>(null);
   const [savedStatus, setSavedStatus] = useState<string | null>(null);
   const [toast, setToast]       = useState<string | null>(null);
@@ -288,47 +291,54 @@ export default function PreOrderClient({ ticker }: { ticker: string }) {
         </div>
 
         {/* Action buttons */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
-          <button
-            onClick={handleSave}
-            disabled={saving !== null}
-            style={{
-              padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
-              background: savedStatus ? "#1c2a1c" : "#161b22",
-              border: `1px solid ${savedStatus ? "#3fb950" : "#30363d"}`,
-              color: savedStatus ? "#3fb950" : "#8b949e",
-              opacity: saving ? 0.6 : 1,
-            }}
-          >
-            {saving === "save" ? "Kaydediliyor…" : savedStatus ? "✓ Kaydedildi" : "Kaydet"}
-          </button>
-          <button
-            onClick={() => handleApprove("swing")}
-            disabled={saving !== null}
-            style={{
-              padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
-              background: savedStatus === "approved_swing" ? "#1c2a1c" : "#0d2a0d",
-              border: `1px solid ${savedStatus === "approved_swing" ? "#3fb950" : "#3fb95066"}`,
-              color: "#3fb950",
-              opacity: saving ? 0.6 : 1,
-            }}
-          >
-            {saving === "swing" ? "…" : savedStatus === "approved_swing" ? "✓ SWING ONAYLANDI" : "Swing Onayla"}
-          </button>
-          <button
-            onClick={() => handleApprove("longterm")}
-            disabled={saving !== null}
-            style={{
-              padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
-              background: savedStatus === "approved_longterm" ? "#0d1a2e" : "#0d1a2e",
-              border: `1px solid ${savedStatus === "approved_longterm" ? "#3b82f6" : "#3b82f666"}`,
-              color: "#3b82f6",
-              opacity: saving ? 0.6 : 1,
-            }}
-          >
-            {saving === "longterm" ? "…" : savedStatus === "approved_longterm" ? "✓ LONG TERM ONAYLANDI" : "Long Term Onayla"}
-          </button>
-        </div>
+        {!isReadonly && (
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "flex-start" }}>
+            <button
+              onClick={handleSave}
+              disabled={saving !== null}
+              style={{
+                padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
+                background: savedStatus ? "#1c2a1c" : "#161b22",
+                border: `1px solid ${savedStatus ? "#3fb950" : "#30363d"}`,
+                color: savedStatus ? "#3fb950" : "#8b949e",
+                opacity: saving ? 0.6 : 1,
+              }}
+            >
+              {saving === "save" ? "Kaydediliyor…" : savedStatus ? "✓ Kaydedildi" : "Kaydet"}
+            </button>
+            <button
+              onClick={() => handleApprove("swing")}
+              disabled={saving !== null}
+              style={{
+                padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
+                background: savedStatus === "approved_swing" ? "#1c2a1c" : "#0d2a0d",
+                border: `1px solid ${savedStatus === "approved_swing" ? "#3fb950" : "#3fb95066"}`,
+                color: "#3fb950",
+                opacity: saving ? 0.6 : 1,
+              }}
+            >
+              {saving === "swing" ? "…" : savedStatus === "approved_swing" ? "✓ SWING ONAYLANDI" : "Swing Onayla"}
+            </button>
+            <button
+              onClick={() => handleApprove("longterm")}
+              disabled={saving !== null}
+              style={{
+                padding: "8px 18px", borderRadius: 6, cursor: "pointer", fontSize: 12, fontWeight: 700,
+                background: savedStatus === "approved_longterm" ? "#0d1a2e" : "#0d1a2e",
+                border: `1px solid ${savedStatus === "approved_longterm" ? "#3b82f6" : "#3b82f666"}`,
+                color: "#3b82f6",
+                opacity: saving ? 0.6 : 1,
+              }}
+            >
+              {saving === "longterm" ? "…" : savedStatus === "approved_longterm" ? "✓ LONG TERM ONAYLANDI" : "Long Term Onayla"}
+            </button>
+          </div>
+        )}
+        {isReadonly && (
+          <div style={{ fontSize: 11, color: "#8b949e", border: "1px solid #30363d", borderRadius: 6, padding: "8px 14px" }}>
+            Salt okunur erişim — analiz görüntülenebilir
+          </div>
+        )}
       </div>
 
       {/* Context row */}

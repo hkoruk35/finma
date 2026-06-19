@@ -1,25 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 
-// Kullanicilar yalnizca sunucu tarafinda, env vars'tan okunur.
-// Kaynak kodda sifre yoktur.
-function getUsers() {
-  return [
+type UserRole = 'admin' | 'readonly'
+
+function getUsers(): { email: string; hash: string; role: UserRole }[] {
+  return ([
     {
       email: process.env.AUTH_USER1_EMAIL ?? '',
-      hash: process.env.AUTH_USER1_HASH ?? '',
+      hash:  process.env.AUTH_USER1_HASH  ?? '',
+      role:  'admin' as UserRole,
     },
     {
       email: process.env.AUTH_USER2_EMAIL ?? '',
-      hash: process.env.AUTH_USER2_HASH ?? '',
+      hash:  process.env.AUTH_USER2_HASH  ?? '',
+      role:  'admin' as UserRole,
     },
-  ].filter((u) => u.email && u.hash)
+    {
+      email: process.env.AUTH_USER3_EMAIL ?? '',
+      hash:  process.env.AUTH_USER3_HASH  ?? '',
+      role:  'readonly' as UserRole,
+    },
+  ] as { email: string; hash: string; role: UserRole }[]).filter((u) => u.email && u.hash)
 }
 
-// Brute-force korumasi: basit in-memory rate limiter
+// Brute-force koruması: basit in-memory rate limiter
 const attempts = new Map<string, { count: number; resetAt: number }>()
 const MAX_ATTEMPTS = 5
-const WINDOW_MS = 15 * 60 * 1000 // 15 dakika
+const WINDOW_MS = 15 * 60 * 1000
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
@@ -42,7 +49,7 @@ export async function POST(req: NextRequest) {
 
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: 'Cok fazla yanlis giris denemesi. 15 dakika bekleyin.' },
+      { error: 'Çok fazla yanlış giriş denemesi. 15 dakika bekleyin.' },
       { status: 429 }
     )
   }
@@ -51,13 +58,13 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json()
   } catch {
-    return NextResponse.json({ error: 'Gecersiz istek.' }, { status: 400 })
+    return NextResponse.json({ error: 'Geçersiz istek.' }, { status: 400 })
   }
 
   const { email, password } = body
   if (!email || !password) {
     return NextResponse.json(
-      { error: 'E-posta ve sifre gerekli.' },
+      { error: 'E-posta / kullanıcı adı ve şifre gerekli.' },
       { status: 400 }
     )
   }
@@ -67,25 +74,24 @@ export async function POST(req: NextRequest) {
     (u) => u.email.toLowerCase() === email.toLowerCase()
   )
 
-  // Kullanici bulunamadiysa da bcrypt calistir (timing attack onleme)
+  // Kullanıcı bulunamazsa da bcrypt çalıştır (timing attack önleme)
   const hashToCheck =
     user?.hash ?? '$2b$12$invalidhashfortimingatttackprevention000000000000000'
   const valid = await bcrypt.compare(password, hashToCheck)
 
   if (!user || !valid) {
     return NextResponse.json(
-      { error: 'Gecersiz kullanici adi veya sifre.' },
+      { error: 'Geçersiz kullanıcı adı veya şifre.' },
       { status: 401 }
     )
   }
 
   clearAttempts(ip)
 
-  // Basarili giris
-  const res = NextResponse.json({ ok: true })
-  res.cookies.set('boga_auth', 'true', {
-    httpOnly: true,        // JS erisemez
-    secure: true,          // Sadece HTTPS
+  const res = NextResponse.json({ ok: true, role: user.role })
+  res.cookies.set('boga_auth', user.role, {
+    httpOnly: true,
+    secure: true,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24, // 24 saat
     path: '/',

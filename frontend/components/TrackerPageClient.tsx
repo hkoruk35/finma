@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useTracker } from "@/components/TrackerContext";
+import { useUserRole } from "@/hooks/useUserRole";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import TickerHoverChart from "@/components/TickerHoverChart";
@@ -100,6 +101,8 @@ function isMarketOpen() {
 
 export function TrackerPageClient() {
   const { tickers, types, removeFromTracker, updateType, addToTracker } = useTracker();
+  const role = useUserRole();
+  const isReadonly = role === "readonly";
   const [data, setData] = useState<Record<string, TrackerData>>({});
   const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -544,13 +547,15 @@ export function TrackerPageClient() {
 
                         {/* REMOVE */}
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
-                          <button
-                            onClick={e => { e.stopPropagation(); removeFromTracker(sym); }}
-                            style={{
-                              background: "transparent", border: "1px solid #f85149", color: "#f85149",
-                              borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer", fontFamily: "monospace"
-                            }}
-                          >✕</button>
+                          {!isReadonly && (
+                            <button
+                              onClick={e => { e.stopPropagation(); removeFromTracker(sym); }}
+                              style={{
+                                background: "transparent", border: "1px solid #f85149", color: "#f85149",
+                                borderRadius: 3, padding: "1px 6px", fontSize: 10, cursor: "pointer", fontFamily: "monospace"
+                              }}
+                            >✕</button>
+                          )}
                         </td>
                       </tr>
 
@@ -575,6 +580,9 @@ export function TrackerPageClient() {
 
           {/* ── Add Ticker Form ── */}
           <div style={{ marginTop: 16, borderTop: "1px solid #30363d", paddingTop: 12, display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+          {isReadonly ? (
+            <span style={{ color: "#8b949e", fontSize: 11 }}>{tickers.length} hisse takipte</span>
+          ) : (<>
             <input
               value={addInput}
               onChange={e => setAddInput(e.target.value.toUpperCase())}
@@ -595,6 +603,7 @@ export function TrackerPageClient() {
               + EKLE
             </button>
             <span style={{ color: "#8b949e", fontSize: 11 }}>{tickers.length} hisse takipte</span>
+          </>) }
           </div>
         </>
       )}
