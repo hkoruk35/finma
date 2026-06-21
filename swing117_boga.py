@@ -4968,9 +4968,18 @@ async def scan_top_stocks():
         custom_file_name = f"swing_{file_date_str}.json"
         full_archive_path = os.path.join(swing_year_dir, custom_file_name)
 
+        def clean_nan(obj):
+            if isinstance(obj, float) and math.isnan(obj):
+                return None
+            elif isinstance(obj, dict):
+                return {k: clean_nan(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [clean_nan(v) for v in obj]
+            return obj
+
         # 2. Prepare JSON Data (Terminal gets 20, Summary gets filtered)
-        output_terminal = build_json_output(top_20_candidates, generated_at)
-        output_top5 = build_json_output(top_candidates[:5], generated_at)
+        output_terminal = clean_nan(build_json_output(top_20_candidates, generated_at))
+        output_top5 = clean_nan(build_json_output(top_candidates[:5], generated_at))
 
         # 3. Save Special Archive for inday313 Reference
         with open(full_archive_path, "w", encoding="utf-8") as f:
@@ -5004,6 +5013,8 @@ async def scan_top_stocks():
                 "Target 1 (TP1)": z.get("sell_zone", {}).get("low", 0.0),
                 "Target 2 (TP2)": z.get("sell_zone", {}).get("high", 0.0)
             })
+        
+        table_data = clean_nan(table_data)
         
         with open(os.path.join(public_dir, "swing_table.json"), "w", encoding="utf-8") as f:
             json.dump(table_data, f, indent=2, ensure_ascii=False)

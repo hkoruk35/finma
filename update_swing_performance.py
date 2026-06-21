@@ -253,6 +253,17 @@ def update_performance():
 
     data['history'] = history
 
+    def clean_nan(obj):
+        if isinstance(obj, float) and math.isnan(obj):
+            return None
+        elif isinstance(obj, dict):
+            return {k: clean_nan(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [clean_nan(v) for v in obj]
+        return obj
+
+    data = clean_nan(data)
+
     with open(performance_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     
