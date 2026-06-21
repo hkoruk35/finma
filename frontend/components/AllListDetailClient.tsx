@@ -724,11 +724,17 @@ export default function AllListDetailClient() {
             left: Math.min(hoverPos.x, window.innerWidth - 440),
             top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
             width: 430, zIndex: 9999,
-            background: "#161b22", border: "1px solid #30363d",
-            borderRadius: 6, overflow: "hidden", pointerEvents: "none",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.7)"
+            background: "#0d1117", border: "1px solid #30363d",
+            borderRadius: 6, overflow: "hidden",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.8)"
           }}
-          onMouseEnter={() => {}} onMouseLeave={() => { setHoverTicker(null); setHoverPos(null); }}
+          onMouseEnter={() => { if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current); }}
+          onMouseLeave={() => {
+            hoverTimerRef.current = setTimeout(() => {
+              setHoverTicker(null);
+              setHoverPos(null);
+            }, 500);
+          }}
         >
           <div style={{
             padding: "7px 12px", borderBottom: "1px solid #30363d",
