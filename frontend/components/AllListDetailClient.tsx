@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
+import { useTracker } from "@/components/TrackerContext";
 
 interface HourlyBar {
   time: string;
@@ -20,16 +21,18 @@ interface TickerData {
   tracker_1h: {
     ema_20: number; ema_50: number; ema_200: number;
     ema_status: string; rsi: number; candle_pattern: string;
-    signal: string; volume_ratio: number; change_pct_1h: number;
+    signal: string; volume_ratio: number; volume_ratio_1d?: number; change_pct_1h: number;
   };
   hourly?: HourlyBar[];
 }
 
 const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
+const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
 
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
@@ -66,16 +69,19 @@ function heatBg(pct: number | null) {
 const ITEMS_PER_PAGE = 50;
 
 export default function AllListDetailClient() {
+  const { addToTracker, isInTracker } = useTracker();
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState(1);
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Extract all unique tickers from MARKET_THEMES
   const allTickers = Array.from(
@@ -86,6 +92,10 @@ export default function AllListDetailClient() {
   const filtered = allTickers.filter(sym => {
     const d = data[sym];
     if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase();
+      if (!sym.includes(q) && !(d?.company || "").toUpperCase().includes(q) && !(d?.sector || "").toUpperCase().includes(q)) return false;
+    }
     return true;
   });
 
@@ -101,8 +111,9 @@ export default function AllListDetailClient() {
       case "ŞİRKET": valA = da?.company || ""; valB = db?.company || ""; break;
       case "SEKTÖR": valA = da?.sector || ""; valB = db?.sector || ""; break;
       case "FİYAT": valA = da?.price?.current ?? 0; valB = db?.price?.current ?? 0; break;
-      case "Δ%": valA = da?.tracker_1h?.change_pct_1h ?? 0; valB = db?.tracker_1h?.change_pct_1h ?? 0; break;
-      case "H.ORAN": valA = da?.tracker_1h?.volume_ratio ?? 0; valB = db?.tracker_1h?.volume_ratio ?? 0; break;
+      case "HACİM": valA = da?.price?.volume ?? 0; valB = db?.price?.volume ?? 0; break;
+      case "1G FİY%": valA = da?.price?.change_pct ?? 0; valB = db?.price?.change_pct ?? 0; break;
+      case "RVOL": valA = da?.tracker_1h?.volume_ratio_1d ?? 0; valB = db?.tracker_1h?.volume_ratio_1d ?? 0; break;
       case "EMA20": valA = da?.tracker_1h?.ema_20 ?? 0; valB = db?.tracker_1h?.ema_20 ?? 0; break;
       case "EMA50": valA = da?.tracker_1h?.ema_50 ?? 0; valB = db?.tracker_1h?.ema_50 ?? 0; break;
       case "EMA200": valA = da?.tracker_1h?.ema_200 ?? 0; valB = db?.tracker_1h?.ema_200 ?? 0; break;
@@ -217,105 +228,108 @@ export default function AllListDetailClient() {
     <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
       {/* Top Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8, flexWrap: "wrap" }}>
-          <span style={{ fontSize: 20, fontWeight: 900, color: "#e3b341", letterSpacing: "-0.5px" }}>
-            BOGA TRACKER — ALL LIST
-          </span>
-          <span style={{ fontSize: 12, color: "#8b949e" }}>900+ hisse</span>
+        {/* Breadcrumb */}
+        <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 8 }}>
+          <Link href="/theme" style={{ color: "#58a6ff" }}>THEMES</Link>
+          <span style={{ margin: "0 6px" }}>/</span>
+          <span style={{ color: "#e3b341" }}>CSP</span>
+          <span style={{ margin: "0 6px" }}>/</span>
+          <span style={{ color: "#e6edf3" }}>ALL LIST</span>
         </div>
 
-        {/* CSP Tabs */}
-        <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
-          {[
-            { slug: "525", label: "525 CSP", color: "#10b981" },
-            { slug: "2550", label: "2550 CSP", color: "#3b82f6" },
-            { slug: "50250", label: "50250 CSP", color: "#a78bfa" },
-            { slug: "all-list", label: "ALL LIST", color: "#e3b341" },
-          ].map((csp) => (
-            <a
-              key={csp.slug}
-              href={`/csp/${csp.slug}`}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 }}>
+              <span style={{ fontSize: 20, fontWeight: 900, color: "#e3b341", letterSpacing: "-0.5px" }}>
+                BOGA TRACKER — ALL LIST
+              </span>
+              <span style={{ fontSize: 12, color: "#8b949e" }}>900+ hisse</span>
+            </div>
+
+            {/* CSP Tabs */}
+            <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
+              {[
+                { slug: "525", label: "525 CSP", color: "#10b981" },
+                { slug: "2550", label: "2550 CSP", color: "#3b82f6" },
+                { slug: "50250", label: "50250 CSP", color: "#a78bfa" },
+                { slug: "portfolio", label: "Portföy", color: "#f97316" },
+                { slug: "swing", label: "Swing Picks", color: "#6b7280" },
+                { slug: "daily", label: "Daily Intraday", color: "#f59e0b" },
+                { slug: "long_term", label: "Long-Term", color: "#14b8a6" },
+              ].map((csp) => (
+                <Link
+                  key={csp.slug}
+                  href={`/csp/${csp.slug}`}
+                  style={{
+                    padding: "5px 12px",
+                    fontSize: 11,
+                    fontWeight: 700,
+                    fontFamily: "monospace",
+                    border: `1px solid #30363d`,
+                    background: "transparent",
+                    color: "#8b949e",
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {csp.label}
+                </Link>
+              ))}
+              <Link href="/csp/all-list" style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #e3b341",
+                background: "#e3b34120",
+                color: "#e3b341",
+                borderRadius: 4, cursor: "pointer", textDecoration: "none",
+                transition: "all 0.2s"
+              }}>
+                ALL LIST
+              </Link>
+            </div>
+            <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
+              {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
+              <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
+                ● {isMarketOpen() ? "market açık" : "market kapalı"}
+              </span>
+              <span style={{ color: "#8b949e" }}>{filtered.length} ticker</span>
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} İzle</span>}
+            </div>
+          </div>
+        </div>
+
+        {/* Filters */}
+        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value.toUpperCase())}
+            placeholder="hisse ara..."
+            maxLength={12}
+            style={{
+              background: "#161b22", border: `1px solid ${searchQuery ? "#e3b341" : "#30363d"}`,
+              color: "#e6edf3", padding: "3px 8px", borderRadius: 3,
+              fontSize: 11, fontFamily: "monospace", width: 100, outline: "none"
+            }}
+          />
+          <div style={{ width: 1, background: "#30363d", margin: "0 4px", alignSelf: "stretch" }} />
+          {["", "AL", "İzle", "Bekle", "SAT"].map((sig) => (
+            <button
+              key={sig || "TÜM"}
+              onClick={() => setFilterSignal(sig)}
               style={{
-                padding: "5px 12px",
-                fontSize: 11,
-                fontWeight: 700,
-                border: `1px solid ${csp.slug === "all-list" ? csp.color : "#30363d"}`,
-                background: csp.slug === "all-list" ? csp.color + "20" : "transparent",
-                color: csp.slug === "all-list" ? csp.color : "#8b949e",
-                borderRadius: 4,
+                padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                border: `1px solid ${filterSignal === sig ? (SIGNAL_COLOR[sig] || "#e3b341") : "#30363d"}`,
+                background: filterSignal === sig ? (SIGNAL_COLOR[sig] || "#e3b341") + "20" : "transparent",
+                color: filterSignal === sig ? (SIGNAL_COLOR[sig] || "#e3b341") : "#8b949e",
+                borderRadius: 3,
                 cursor: "pointer",
-                textDecoration: "none",
-                transition: "all 0.2s",
-              }}
-              onMouseEnter={(e) => {
-                if (csp.slug !== "all-list") {
-                  e.currentTarget.style.borderColor = csp.color + "80";
-                  e.currentTarget.style.color = "#e6edf3";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (csp.slug !== "all-list") {
-                  e.currentTarget.style.borderColor = "#30363d";
-                  e.currentTarget.style.color = "#8b949e";
-                }
               }}
             >
-              {csp.label}
-            </a>
+              {sig ? `${SIGNAL_ICON[sig]} ${sig}` : "TÜM SİNYAL"}
+            </button>
           ))}
-        </div>
-        <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
-          {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
-          <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
-            ● {isMarketOpen() ? "market açık" : "market kapalı"}
-          </span>
-          <span style={{ color: "#8b949e" }}>{filtered.length} ticker</span>
-          {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
-          {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} İzle</span>}
-        </div>
-      </div>
-
-      {/* Filter Buttons */}
-      <div style={{ padding: "10px 0", display: "flex", gap: 8, flexWrap: "wrap", borderBottom: "1px solid #30363d" }}>
-        {["", "AL", "İzle", "Bekle", "SAT"].map((sig) => (
-          <button
-            key={sig || "TÜM"}
-            onClick={() => setFilterSignal(sig)}
-            style={{
-              padding: "5px 12px",
-              fontSize: 11,
-              fontWeight: 700,
-              border: `1px solid ${filterSignal === sig ? "#e3b341" : "#30363d"}`,
-              background: filterSignal === sig ? "#e3b34120" : "transparent",
-              color: filterSignal === sig ? "#e3b341" : "#8b949e",
-              borderRadius: 4,
-              cursor: "pointer",
-              fontFamily: "monospace",
-            }}
-          >
-            {sig ? `${SIGNAL_ICON[sig]} ${sig}` : "TÜM SİNYAL"}
-          </button>
-        ))}
-      </div>
-
-      {/* Table Header */}
-      <div style={{ padding: "8px 0", fontSize: 11, color: "#e6edf3", borderBottom: "1px solid #30363d" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "40px 80px 140px 150px 90px 80px 90px 90px 90px 90px 80px 80px 80px 80px 40px", gap: "1px" }}>
-          <div style={{ paddingLeft: 8 }}>TICKER</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("ŞİRKET")}>ŞİRKET {sortBy === "ŞİRKET" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("SEKTÖR")}>SEKTÖR {sortBy === "SEKTÖR" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("FİYAT")}>FİYAT {sortBy === "FİYAT" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("Δ%")}>Δ% {sortBy === "Δ%" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("H.ORAN")}>H.ORAN {sortBy === "H.ORAN" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("EMA20")}>EMA20 {sortBy === "EMA20" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("EMA50")}>EMA50 {sortBy === "EMA50" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("EMA200")}>EMA200 {sortBy === "EMA200" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("RSI")}>RSI {sortBy === "RSI" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div style={{ cursor: "pointer" }} onClick={() => toggleSort("SİNYAL")}>SİNYAL {sortBy === "SİNYAL" && (sortDir === "asc" ? "▲" : "▼")}</div>
-          <div>PATTERN</div>
-          <div>DURUM</div>
-          <div>NOT</div>
-          <div></div>
         </div>
       </div>
 
@@ -326,79 +340,206 @@ export default function AllListDetailClient() {
       </div>
 
       {/* Table Rows */}
-      <div style={{ fontSize: 11 }}>
-        {pageItems.map((ticker) => {
-          const d = data[ticker];
-          if (!d) return null;
+      <div style={{ overflowX: "auto", marginTop: 8 }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
+          <thead>
+            <tr style={{ borderBottom: "1px solid #30363d" }}>
+              {["TICKER", "ŞİRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL"].map((h, i) => {
+                const isSortable = h && !["PATERN", "DURUM", "TRACKER", ""].includes(h);
+                const isSorted = sortBy === h;
+                return (
+                  <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
+                    padding: "7px 8px", textAlign: i <= 2 ? "left" : "right",
+                    fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
+                    color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
+                    cursor: isSortable ? "pointer" : "default",
+                    userSelect: "none",
+                    opacity: isSortable ? 1 : 0.7
+                  }}>
+                    {h}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {pageItems.map((sym, idx) => {
+              const d = data[sym];
+              if (!d) return null;
 
-          const changeBg = heatBg(d.tracker_1h?.change_pct_1h);
-          const ema20Bg = heatBg(((d.price?.current ?? 0) - (d.tracker_1h?.ema_20 ?? 0)) / (d.tracker_1h?.ema_20 ?? 1) * 100);
+              const signal = d.tracker_1h?.signal || "—";
+              const rowBg = ROW_BG[signal] || "#0d1117";
+              const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
+              const bg = signal !== "—" ? rowBg : altBg;
+              const price = d.price?.current ?? 0;
 
-          return (
-            <div key={ticker} style={{ borderBottom: "1px solid #21262d" }}>
-              <Link
-                href={`/stock/${ticker}`}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "40px 80px 140px 150px 90px 80px 90px 90px 90px 90px 80px 80px 80px 80px 40px",
-                  gap: "1px",
-                  padding: "6px 0",
-                  textDecoration: "none",
-                  color: "inherit",
-                  cursor: "pointer",
-                  alignItems: "center",
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.background = "#161b22"}
-                onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-              >
-                <div
-                  style={{ paddingLeft: 8 }}
-                  onMouseEnter={(e) => {
-                    e.stopPropagation();
-                    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-                    setHoverTicker(ticker);
-                    setHoverPos({ x: r.right + 10, y: r.top });
-                  }}
-                  onMouseLeave={() => {
-                    setHoverTicker(null);
-                    setHoverPos(null);
-                  }}
-                  onClick={(e) => e.stopPropagation()}
+              return (
+                <tr
+                  key={sym}
+                  style={{ background: bg, borderBottom: "1px solid #21262d", cursor: "pointer" }}
+                  onClick={() => {}}
                 >
-                  <span style={{ color: "#58a6ff", fontWeight: 700 }}>{ticker}</span>
-                </div>
-                <div style={{ color: "#8b949e" }}>{d.company?.substring(0, 20)}</div>
-                <div style={{ color: "#8b949e" }}>{d.sector}</div>
-                <div style={{ color: "#e6edf3", fontWeight: 700 }}>${fmt2(d.price?.current)}</div>
-                <div style={{ ...changeBg, padding: "2px 4px", borderRadius: 2, textAlign: "center" }}>
-                  {fmt2(d.tracker_1h?.change_pct_1h)}%
-                </div>
-                <div style={{ ...heatBg(d.tracker_1h?.volume_ratio), padding: "2px 4px", borderRadius: 2 }}>
-                  {fmt2(d.tracker_1h?.volume_ratio)}
-                </div>
-                <div style={{ color: emaColor(d.price?.current ?? 0, d.tracker_1h?.ema_20 ?? 0) }}>
-                  {emaArrow(d.price?.current ?? 0, d.tracker_1h?.ema_20 ?? 0)} {fmt2(d.tracker_1h?.ema_20)}
-                </div>
-                <div style={{ color: emaColor(d.price?.current ?? 0, d.tracker_1h?.ema_50 ?? 0) }}>
-                  {emaArrow(d.price?.current ?? 0, d.tracker_1h?.ema_50 ?? 0)} {fmt2(d.tracker_1h?.ema_50)}
-                </div>
-                <div style={{ color: emaColor(d.price?.current ?? 0, d.tracker_1h?.ema_200 ?? 0) }}>
-                  {emaArrow(d.price?.current ?? 0, d.tracker_1h?.ema_200 ?? 0)} {fmt2(d.tracker_1h?.ema_200)}
-                </div>
-                <div style={{ color: rsiColor(d.tracker_1h?.rsi ?? 0) }}>
-                  {fmt1(d.tracker_1h?.rsi)}
-                </div>
-                <div style={{ color: SIGNAL_COLOR[d.tracker_1h?.signal] || "#8b949e", fontWeight: 700 }}>
-                  {SIGNAL_ICON[d.tracker_1h?.signal] || "○"} {d.tracker_1h?.signal || "—"}
-                </div>
-                <div style={{ color: "#8b949e", fontSize: 10 }}>{d.tracker_1h?.candle_pattern || "—"}</div>
-                <div style={{ color: "#8b949e" }}>{d.tracker_1h?.ema_status || "—"}</div>
-                <div style={{ color: "#8b949e" }}>—</div>
-                <div style={{ color: "#f85149", textAlign: "center", fontWeight: 700 }}>✕</div>
-              </Link>
-            </div>
-          );
-        })}
+                  {/* TICKER */}
+                  <td
+                    style={{ padding: "7px 8px", whiteSpace: "nowrap" }}
+                    onMouseEnter={e => {
+                      e.stopPropagation();
+                      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+                      const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                      setHoverTicker(sym);
+                      setHoverPos({ x: r.right + 10, y: r.top });
+                    }}
+                    onMouseLeave={() => {
+                      hoverTimerRef.current = setTimeout(() => {
+                        setHoverTicker(null);
+                        setHoverPos(null);
+                      }, 750);
+                    }}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <Link href={`/stock/${sym}`} style={{ textDecoration: "none" }}>
+                      <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
+                    </Link>
+                  </td>
+
+                  {/* ŞIRKET */}
+                  <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap", maxWidth: 120, overflow: "hidden", textOverflow: "ellipsis" }} title={d.company || ""}>
+                    {d.company ? d.company.slice(0, 15) : "—"}
+                  </td>
+
+                  {/* SEKTÖR */}
+                  <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap", maxWidth: 100, overflow: "hidden", textOverflow: "ellipsis" }} title={d.sector || ""}>
+                    {d.sector && d.sector !== "Unknown" ? d.sector.toUpperCase().slice(0, 10) : "—"}
+                  </td>
+
+                  {/* FİYAT */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>
+                    ${fmt2(price)}
+                  </td>
+
+                  {/* HACİM */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>
+                    {fmtVol(d.price?.volume)}
+                  </td>
+
+                  {/* TRACKER */}
+                  <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                    {isInTracker(sym) ? (
+                      <Link
+                        href="/tracker"
+                        onClick={e => e.stopPropagation()}
+                        style={{
+                          display: "inline-block", padding: "2px 8px", fontSize: 10,
+                          fontFamily: "monospace", fontWeight: 700, borderRadius: 3,
+                          border: "1px solid #3fb950", color: "#3fb950",
+                          background: "#0d2a0d", textDecoration: "none", whiteSpace: "nowrap"
+                        }}
+                      >
+                        ✓ Tracker
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={e => { e.stopPropagation(); addToTracker(sym, "CSP"); }}
+                        style={{
+                          padding: "2px 8px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                          border: "1px solid #30363d", background: "transparent",
+                          color: "#8b949e", borderRadius: 3, cursor: "pointer", whiteSpace: "nowrap"
+                        }}
+                      >
+                        + Tracker
+                      </button>
+                    )}
+                  </td>
+
+                  {/* 1G FİY% */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: (d.price?.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149"
+                  }}>
+                    {(d.price?.change_pct ?? 0) >= 0 ? "+" : ""}{fmt2(d.price?.change_pct)}%
+                  </td>
+
+                  {/* RVOL */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
+                  }}>
+                    {d.tracker_1h?.volume_ratio_1d != null ? `${fmt1(d.tracker_1h.volume_ratio_1d)}x` : "—"}
+                  </td>
+
+                  {/* EMA20 */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: emaColor(price, d.tracker_1h?.ema_20)
+                  }}>
+                    {fmt2(d.tracker_1h?.ema_20)}{emaArrow(price, d.tracker_1h?.ema_20)}
+                  </td>
+
+                  {/* EMA50 */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: emaColor(price, d.tracker_1h?.ema_50)
+                  }}>
+                    {fmt2(d.tracker_1h?.ema_50)}{emaArrow(price, d.tracker_1h?.ema_50)}
+                  </td>
+
+                  {/* EMA200 */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: emaColor(price, d.tracker_1h?.ema_200)
+                  }}>
+                    {fmt2(d.tracker_1h?.ema_200)}{emaArrow(price, d.tracker_1h?.ema_200)}
+                  </td>
+
+                  {/* DURUM */}
+                  <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                    <span style={{
+                      fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                      background:
+                        d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" :
+                        d.tracker_1h?.ema_status === "Yükseliş" ? "#1c2e1c" :
+                        d.tracker_1h?.ema_status === "Nötr" ? "#1a1a2e" :
+                        d.tracker_1h?.ema_status === "Düşüş" ? "#2e1a1a" : "#3a1a1a",
+                      color:
+                        d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" :
+                        d.tracker_1h?.ema_status === "Yükseliş" ? "#56d364" :
+                        d.tracker_1h?.ema_status === "Nötr" ? "#8b949e" :
+                        d.tracker_1h?.ema_status === "Düşüş" ? "#f85149" : "#ff7b72",
+                    }}>
+                      {d.tracker_1h?.ema_status}
+                    </span>
+                  </td>
+
+                  {/* RSI */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
+                    color: rsiColor(d.tracker_1h?.rsi ?? 50)
+                  }}>
+                    {fmt1(d.tracker_1h?.rsi)}
+                  </td>
+
+                  {/* PATERN */}
+                  <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 10, whiteSpace: "nowrap" }}>
+                    {(() => {
+                      const p = d.tracker_1h?.candle_pattern;
+                      if (!p || p === "—") return <span style={{ color: "#555" }}>—</span>;
+                      const bullishPatterns = ["Hammer","Bullish Engulfing","Inv. Hammer","Morning Star","3 Asker ↑","Dragonfly Doji","Bullish Marubozu","Outside Bar ↑","Güçlü ↑","Yeşil Mum ↑","Spinning Top ↑"];
+                      const bearishPatterns = ["Shooting Star","Bearish Engulfing","Hanging Man","Evening Star","3 Karga ↓","Gravestone Doji","Bearish Marubozu","Outside Bar ↓","Güçlü ↓","Kırmızı Mum ↓","Spinning Top ↓"];
+                      const color = bullishPatterns.some(x => p.includes(x.replace(" ↑","")) && !p.includes("↓")) ? "#3fb950"
+                        : bearishPatterns.some(x => p.includes(x.replace(" ↓","")) && !p.includes("↑")) ? "#f85149"
+                        : "#e3b341";
+                      return <span style={{ color, fontWeight: 700 }}>{p}</span>;
+                    })()}
+                  </td>
+
+                  {/* SİNYAL */}
+                  <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                    <span style={{
+                      fontWeight: 900, fontSize: 12,
+                      color: SIGNAL_COLOR[signal] || "#8b949e"
+                    }}>
+                      {SIGNAL_ICON[signal] || "○"} {signal}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
       {/* Pagination Controls */}
