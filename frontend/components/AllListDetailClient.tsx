@@ -290,7 +290,7 @@ export default function AllListDetailClient() {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const start = (page - 1) * ITEMS_PER_PAGE;
   const end = start + ITEMS_PER_PAGE;
-  const pageItems = filtered.slice(start, end);
+  const pageItems = sortedTickers.slice(start, end);
 
   return (
     <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
