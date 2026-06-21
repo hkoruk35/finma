@@ -69,9 +69,10 @@ function heatBg(pct: number | null) {
 const ITEMS_PER_PAGE = 50;
 
 export default function AllListDetailClient() {
-  const { addToTracker, isInTracker } = useTracker();
+  const { addToTracker, isInTracker, tickers: trackerTickers } = useTracker();
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
+  const [extraTickers, setExtraTickers] = useState<string[]>([]);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
@@ -83,9 +84,23 @@ export default function AllListDetailClient() {
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Extract all unique tickers from MARKET_THEMES
+  useEffect(() => {
+    const slugs = ["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"];
+    Promise.all(slugs.map(slug => fetch(`/api/csp-watchlist/${slug}`).then(r => r.json())))
+      .then(results => {
+        const newlyAdded = results.flatMap(r => r.tickers || []);
+        setExtraTickers(newlyAdded);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Extract all unique tickers from MARKET_THEMES and other watchlists
   const allTickers = Array.from(
-    new Set(MARKET_THEMES.flatMap((t) => t.tickers))
+    new Set([
+      ...MARKET_THEMES.flatMap((t) => t.tickers),
+      ...trackerTickers,
+      ...extraTickers
+    ])
   ).sort();
 
   // Filtered tickers
