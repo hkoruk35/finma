@@ -107,6 +107,11 @@ export default function AllListDetailClient() {
     ])
   ).sort();
 
+  // Also include any tickers in data that might not be in allTickers yet
+  const allTickersWithData = Array.from(
+    new Set([...allTickers, ...Object.keys(data)])
+  ).sort();
+
   // Background fetch all tickers to make filtering accurate
   useEffect(() => {
     let active = true;
@@ -138,11 +143,24 @@ export default function AllListDetailClient() {
     return () => { active = false; };
   }, [allTickers.length]);
 
+  // Reset page to 1 whenever any filter or search changes
+  useEffect(() => { setPage(1); }, [searchQuery, filterSignal, filterVolume, filterSector, filterPattern]);
+
   // Filtered tickers
-  const filtered = allTickers.filter(sym => {
+  const filtered = allTickersWithData.filter(sym => {
     const d = data[sym];
+
+    // Search query: check ticker first (exact prefix first, then partial), then company/sector
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase().trim();
+      const tickerMatch = sym.startsWith(q) || sym.includes(q);
+      const companyMatch = (d?.company || "").toUpperCase().includes(q);
+      const sectorMatch = (d?.sector || "").toUpperCase().includes(q);
+      if (!tickerMatch && !companyMatch && !sectorMatch) return false;
+    }
+
     if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
-    
+
     if (filterVolume) {
       const vol = d?.price?.volume || 0;
       if (filterVolume === "<1M" && vol >= 1e6) return false;
@@ -150,16 +168,20 @@ export default function AllListDetailClient() {
       if (filterVolume === "10M-50M" && (vol < 10e6 || vol >= 50e6)) return false;
       if (filterVolume === "50M+" && vol < 50e6) return false;
     }
-    
+
     if (filterSector && d?.sector !== filterSector) return false;
-    
     if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
 
-    if (searchQuery) {
-      const q = searchQuery.toUpperCase();
-      if (!sym.includes(q) && !(d?.company || "").toUpperCase().includes(q) && !(d?.sector || "").toUpperCase().includes(q)) return false;
-    }
     return true;
+  }).sort((a, b) => {
+    // When searching, sort: exact match first, then startsWith, then rest
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase().trim();
+      const aExact = a === q ? 0 : a.startsWith(q) ? 1 : 2;
+      const bExact = b === q ? 0 : b.startsWith(q) ? 1 : 2;
+      if (aExact !== bExact) return aExact - bExact;
+    }
+    return a.localeCompare(b);
   });
 
   // Sorting
