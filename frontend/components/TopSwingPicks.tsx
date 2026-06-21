@@ -169,7 +169,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   <div className={`flex flex-col gap-2 mb-6 transition-all duration-500 ${isLocked ? 'blur-[15px] opacity-30 select-none grayscale' : ''}`}>
                     <div className="flex items-end gap-2">
                       <div className="text-5xl md:text-4xl font-mono font-black text-white leading-none">
-                        {item.score.toFixed(1)}
+                        {item.score != null ? item.score.toFixed(1) : "—"}
                       </div>
                       <div className="text-[10px] md:text-[9px] text-[#3b82f6] font-black uppercase tracking-[0.15em] mb-1">
                         SCORE

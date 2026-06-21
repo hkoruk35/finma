@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/swing" },
 };
 
-function formatPrice(n: number) {
+function formatPrice(n: number | null | undefined) {
+  if (n == null) return "—";
   return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
@@ -188,7 +189,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         { field: "change_5y" },
                       ].map((perf) => (
                         <td key={perf.field} className="px-3 py-3 text-right">
-                          {pick[perf.field] !== undefined ? (
+                          {pick[perf.field] != null ? (
                             <span className={`font-mono text-[13px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                               {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
                             </span>
@@ -262,8 +263,8 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                       ].map(p => (
                         <div key={p.label} className="flex flex-col">
                            <span className="text-[8px] uppercase opacity-50 mb-0.5">{p.label}</span>
-                           <span className={p.val !== undefined ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
-                             {p.val !== undefined ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}
+                           <span className={p.val != null ? (p.val >= 0 ? "text-[#10b981]" : "text-[#ef4444]") : ""}>
+                             {p.val != null ? (p.val >= 0 ? "+" : "") + p.val.toFixed(1) + "%" : "—"}
                            </span>
                         </div>
                       ))}

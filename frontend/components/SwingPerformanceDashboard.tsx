@@ -730,7 +730,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       )}
                     </div>
                     <div className={`px-2 py-1 rounded-lg text-[11px] font-black ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
-                      {pick.score.toFixed(0)}
+                      {pick.score != null ? pick.score.toFixed(0) : "—"}
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-center">
@@ -762,12 +762,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="flex items-center gap-2 mt-2.5 flex-wrap">
                     {pick.rsi != null && (
                       <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                        RSI {pick.rsi.toFixed(0)}
+                        RSI {pick.rsi != null ? pick.rsi.toFixed(0) : "—"}
                       </span>
                     )}
                     {pick.adx != null && (
                       <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
-                        ADX {pick.adx.toFixed(0)}
+                        ADX {pick.adx != null ? pick.adx.toFixed(0) : "—"}
                       </span>
                     )}
                     {pick.sector && (
