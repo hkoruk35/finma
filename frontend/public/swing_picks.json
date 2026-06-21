@@ -62,7 +62,7 @@
       "change_1d": -0.79,
       "change_1w": 7.33,
       "change_1m": 11.61,
-      "change_1y": NaN,
+      "change_1y": null,
       "change_5y": 137.02,
       "boga_zones": {
         "buying_zone": {
@@ -127,7 +127,7 @@
         "1d_pct": -0.79,
         "1w_pct": 7.33,
         "1m_pct": 11.61,
-        "1y_pct": NaN,
+        "1y_pct": null,
         "5y_pct": 137.02
       },
       "factor_scores": {
@@ -197,7 +197,7 @@
       "change_1d": 1.7,
       "change_1w": 5.03,
       "change_1m": 8.08,
-      "change_1y": NaN,
+      "change_1y": null,
       "change_5y": 294.79,
       "boga_zones": {
         "buying_zone": {
@@ -262,7 +262,7 @@
         "1d_pct": 1.7,
         "1w_pct": 5.03,
         "1m_pct": 8.08,
-        "1y_pct": NaN,
+        "1y_pct": null,
         "5y_pct": 294.79
       },
       "factor_scores": {
@@ -333,7 +333,7 @@
       "change_1d": 1.51,
       "change_1w": 1.45,
       "change_1m": 19.97,
-      "change_1y": NaN,
+      "change_1y": null,
       "change_5y": 72.02,
       "boga_zones": {
         "buying_zone": {
@@ -398,7 +398,7 @@
         "1d_pct": 1.51,
         "1w_pct": 1.45,
         "1m_pct": 19.97,
-        "1y_pct": NaN,
+        "1y_pct": null,
         "5y_pct": 72.02
       },
       "factor_scores": {
@@ -470,7 +470,7 @@
       "change_1d": -0.05,
       "change_1w": 0.42,
       "change_1m": 6.25,
-      "change_1y": NaN,
+      "change_1y": null,
       "change_5y": 129.45,
       "boga_zones": {
         "buying_zone": {
@@ -535,7 +535,7 @@
         "1d_pct": -0.05,
         "1w_pct": 0.42,
         "1m_pct": 6.25,
-        "1y_pct": NaN,
+        "1y_pct": null,
         "5y_pct": 129.45
       },
       "factor_scores": {
@@ -606,7 +606,7 @@
       "change_1d": -2.82,
       "change_1w": 18.46,
       "change_1m": 3.53,
-      "change_1y": NaN,
+      "change_1y": null,
       "change_5y": 516.06,
       "boga_zones": {
         "buying_zone": {
@@ -671,7 +671,7 @@
         "1d_pct": -2.82,
         "1w_pct": 18.46,
         "1m_pct": 3.53,
-        "1y_pct": NaN,
+        "1y_pct": null,
         "5y_pct": 516.06
       },
       "factor_scores": {
