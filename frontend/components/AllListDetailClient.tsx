@@ -76,6 +76,9 @@ export default function AllListDetailClient() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
+  const [filterVolume, setFilterVolume] = useState("");
+  const [filterSector, setFilterSector] = useState("");
+  const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
@@ -83,6 +86,7 @@ export default function AllListDetailClient() {
   const [hoverTicker, setHoverTicker] = useState<string | null>(null);
   const [hoverPos, setHoverPos] = useState<{ x: number; y: number } | null>(null);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fetchedRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     const slugs = ["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"];
@@ -103,10 +107,54 @@ export default function AllListDetailClient() {
     ])
   ).sort();
 
+  // Background fetch all tickers to make filtering accurate
+  useEffect(() => {
+    let active = true;
+    const fetchMissing = async () => {
+      const BATCH_SIZE = 100;
+      for (let i = 0; i < allTickers.length; i += BATCH_SIZE) {
+        if (!active) break;
+        const chunk = allTickers.slice(i, i + BATCH_SIZE).filter(t => !fetchedRef.current.has(t));
+        if (chunk.length === 0) continue;
+        
+        try {
+          const res = await fetch(`/api/watchlist-data?tickers=${chunk.join(",")}`);
+          if (!res.ok) continue;
+          const result = await res.json();
+          setData(prev => {
+            const next = { ...prev };
+            result.forEach((item: TickerData) => {
+              if (item?.ticker) {
+                next[item.ticker] = item;
+                fetchedRef.current.add(item.ticker);
+              }
+            });
+            return next;
+          });
+        } catch (e) {}
+      }
+    };
+    if (allTickers.length > 0) fetchMissing();
+    return () => { active = false; };
+  }, [allTickers.length]);
+
   // Filtered tickers
   const filtered = allTickers.filter(sym => {
     const d = data[sym];
     if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
+    
+    if (filterVolume) {
+      const vol = d?.price?.volume || 0;
+      if (filterVolume === "<1M" && vol >= 1e6) return false;
+      if (filterVolume === "1M-10M" && (vol < 1e6 || vol >= 10e6)) return false;
+      if (filterVolume === "10M-50M" && (vol < 10e6 || vol >= 50e6)) return false;
+      if (filterVolume === "50M+" && vol < 50e6) return false;
+    }
+    
+    if (filterSector && d?.sector !== filterSector) return false;
+    
+    if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
+
     if (searchQuery) {
       const q = searchQuery.toUpperCase();
       if (!sym.includes(q) && !(d?.company || "").toUpperCase().includes(q) && !(d?.sector || "").toUpperCase().includes(q)) return false;
@@ -133,6 +181,8 @@ export default function AllListDetailClient() {
       case "EMA50": valA = da?.tracker_1h?.ema_50 ?? 0; valB = db?.tracker_1h?.ema_50 ?? 0; break;
       case "EMA200": valA = da?.tracker_1h?.ema_200 ?? 0; valB = db?.tracker_1h?.ema_200 ?? 0; break;
       case "RSI": valA = da?.tracker_1h?.rsi ?? 0; valB = db?.tracker_1h?.rsi ?? 0; break;
+      case "PATERN": valA = da?.tracker_1h?.candle_pattern || ""; valB = db?.tracker_1h?.candle_pattern || ""; break;
+      case "DURUM": valA = da?.tracker_1h?.ema_status || ""; valB = db?.tracker_1h?.ema_status || ""; break;
       case "SİNYAL": {
         const signalOrder = { "AL": 3, "İzle": 2, "Bekle": 1, "SAT": 0, "—": -1 };
         valA = signalOrder[da?.tracker_1h?.signal as keyof typeof signalOrder] ?? -1;
@@ -197,7 +247,10 @@ export default function AllListDetailClient() {
 
         const newData = { ...data };
         result.forEach((item: TickerData) => {
-          if (item?.ticker) newData[item.ticker] = item;
+          if (item?.ticker) {
+            newData[item.ticker] = item;
+            fetchedRef.current.add(item.ticker);
+          }
         });
         setData(newData);
         setLastUpdated(new Date());
@@ -328,6 +381,41 @@ export default function AllListDetailClient() {
               fontSize: 11, fontFamily: "monospace", width: 100, outline: "none"
             }}
           />
+
+          <select 
+            value={filterVolume} 
+            onChange={e => setFilterVolume(e.target.value)}
+            style={{ background: "#161b22", border: "1px solid #30363d", color: "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", outline: "none" }}
+          >
+            <option value="">Tüm Hacimler</option>
+            <option value="<1M">{"< 1M"}</option>
+            <option value="1M-10M">1M - 10M</option>
+            <option value="10M-50M">10M - 50M</option>
+            <option value="50M+">50M+</option>
+          </select>
+
+          <select 
+            value={filterSector} 
+            onChange={e => setFilterSector(e.target.value)}
+            style={{ background: "#161b22", border: "1px solid #30363d", color: "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", outline: "none", maxWidth: 120 }}
+          >
+            <option value="">Tüm Sektörler</option>
+            {Array.from(new Set(Object.values(data).map(d => d.sector))).filter(s => s && s !== "Unknown").sort().map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+
+          <select 
+            value={filterPattern} 
+            onChange={e => setFilterPattern(e.target.value)}
+            style={{ background: "#161b22", border: "1px solid #30363d", color: "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", outline: "none", maxWidth: 120 }}
+          >
+            <option value="">Tüm Paternler</option>
+            {Array.from(new Set(Object.values(data).map(d => d.tracker_1h?.candle_pattern))).filter(p => p && p !== "—").sort().map(p => (
+              <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
+
           <div style={{ width: 1, background: "#30363d", margin: "0 4px", alignSelf: "stretch" }} />
           {["", "AL", "İzle", "Bekle", "SAT"].map((sig) => (
             <button
@@ -360,7 +448,7 @@ export default function AllListDetailClient() {
           <thead>
             <tr style={{ borderBottom: "1px solid #30363d" }}>
               {["TICKER", "ŞİRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL"].map((h, i) => {
-                const isSortable = h && !["PATERN", "DURUM", "TRACKER", ""].includes(h);
+                const isSortable = h && !["TRACKER", ""].includes(h);
                 const isSorted = sortBy === h;
                 return (
                   <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
