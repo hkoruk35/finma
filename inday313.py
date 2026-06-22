@@ -392,6 +392,17 @@ MAX_PER_SECTOR_LATEST = 3
 MAX_PER_SECTOR_OTHERS = 3
 LAST_PRE_GAP_ALERT_DATE = None
 
+# ------------------------------------------------
+# 🔹 SHARED PATHS
+# ------------------------------------------------
+FINMA_DIR = r"C:\Users\afksm\finma"
+PUBLIC_DIR = os.path.join(FINMA_DIR, "frontend", "public")
+INTRADAY_HISTORY_DIR = os.path.join(PUBLIC_DIR, "intraday_history")
+INDAY_UNIVERSE_FILE = os.path.join(PUBLIC_DIR, "inday_universe_today.json")
+THEME_DATA_FILE = os.path.join(FINMA_DIR, "frontend", "lib", "themeData.ts")
+ALL_LIST_WATCHLIST_SLUGS = ["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"]
+DISCOVERY_TOP_N = 20
+
 # ============================================================
 # ============================================================
 # 📁 BOGA FINANCE AI – CANDIDATE UNIVERSE LOADER (ARCHIVE 30-DAY MODE)
@@ -446,10 +457,286 @@ def load_swing_universe() -> List[str]:
 
         logging.info(f"✅ inday313 universe: {len(all_tickers)} hisse yüklendi (swing_all_picks.json) | Tarih: {pick_date}")
         return sorted(all_tickers)
-        
+
     except Exception as e:
         logging.error(f"⚠️ swing_all_picks.json okuma hatası: {e}")
         return []
+
+# ============================================================
+# 📁 BOGA FİNANS AI – ALL-LIST TAM EVREN YÜKLEYİCİ
+#
+# Amaç:
+# - https://bogastock.com/csp/all-list sayfasının kullandığı TÜM ticker
+#   kaynaklarını (tema listeleri + Supabase watchlist'leri + swing picks)
+#   birleştirip günün ilk taramasında tarayacağımız tam evreni kurar.
+# - load_swing_universe() ÖNCE çağrılmış olmalı (BOGA_SWING_ZONES dolu olsun diye).
+# ============================================================
+
+def fetch_theme_tickers() -> List[str]:
+    """frontend/lib/themeData.ts içindeki MARKET_THEMES dizisini parse eder."""
+    try:
+        if not os.path.exists(THEME_DATA_FILE):
+            return []
+        with open(THEME_DATA_FILE, encoding="utf-8") as f:
+            content = f.read()
+        json_part = content.split("=", 1)[1].strip()
+        if json_part.endswith(";"):
+            json_part = json_part[:-1]
+        themes = json.loads(json_part)
+        tickers = sorted({t for theme in themes for t in theme.get("tickers", []) if t})
+        logging.info(f"✅ themeData.ts: {len(tickers)} ticker (MARKET_THEMES)")
+        return tickers
+    except Exception as e:
+        logging.warning(f"⚠️ themeData.ts okunamadı: {e}")
+        return []
+
+
+def fetch_supabase_watchlist_tickers() -> List[str]:
+    """Supabase csp_watchlists tablosundan all-list'in kullandığı watchlist slug'larını çeker."""
+    try:
+        from config import SUPABASE_URL, SUPABASE_SERVICE_KEY
+        if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+            logging.warning("⚠️ SUPABASE_URL/SUPABASE_SERVICE_KEY tanımsız, watchlist taraması atlanıyor.")
+            return []
+
+        slugs_filter = ",".join(ALL_LIST_WATCHLIST_SLUGS)
+        url = f"{SUPABASE_URL}/rest/v1/csp_watchlists"
+        params = {"select": "tickers", "slug": f"in.({slugs_filter})"}
+        headers = {
+            "apikey": SUPABASE_SERVICE_KEY,
+            "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}",
+        }
+        resp = requests.get(url, headers=headers, params=params, timeout=15)
+        resp.raise_for_status()
+        rows = resp.json()
+
+        tickers: set = set()
+        for row in rows:
+            for t in (row.get("tickers") or []):
+                if t:
+                    tickers.add(t)
+        logging.info(f"✅ Supabase watchlist'leri: {len(tickers)} ticker ({len(rows)} liste)")
+        return sorted(tickers)
+    except Exception as e:
+        logging.warning(f"⚠️ Supabase watchlist taraması başarısız: {e}")
+        return []
+
+
+def build_full_universe() -> List[str]:
+    """
+    ALL-LIST sayfasıyla aynı mantıkla tam evreni kurar:
+    MARKET_THEMES ∪ Supabase watchlist'leri (525/2550/50250/portfolio/swing/daily/long_term) ∪ swing picks.
+    NOT: BOGA_SWING_ZONES'un dolu olması için load_swing_universe() önce çağrılmış olmalı.
+    """
+    swing_tickers = set(BOGA_SWING_ZONES.keys())
+    theme_tickers = set(fetch_theme_tickers())
+    watchlist_tickers = set(fetch_supabase_watchlist_tickers())
+
+    full = {t.strip().upper() for t in (swing_tickers | theme_tickers | watchlist_tickers) if t and t.strip()}
+    logging.info(
+        f"🌐 ALL-LIST tam evren: {len(full)} ticker "
+        f"(swing={len(swing_tickers)}, tema={len(theme_tickers)}, watchlist={len(watchlist_tickers)})"
+    )
+    return sorted(full)
+
+
+# ------------------------------------------------------------
+# 🔎 GÜNÜN İLK TARAMASI – DISCOVERY / RANKING ENGINE
+# Tam evrendeki yüzlerce hisseyi 15M/1H/1D üzerinden hafif bir
+# momentum + hacim + patern taramasından geçirip Top-N seçer.
+# ------------------------------------------------------------
+
+DISCOVERY_CHUNK_SIZE = 150
+
+
+async def _download_chunk_multi(chunk: List[str], period: str, interval: str) -> Dict[str, pd.DataFrame]:
+    """Bir ticker chunk'ı için toplu indirme yapar, ticker -> DataFrame sözlüğü döndürür."""
+    out: Dict[str, pd.DataFrame] = {}
+    try:
+        df = await asyncio.to_thread(
+            yf.download, chunk, period=period, interval=interval,
+            group_by="ticker", threads=True, progress=False, auto_adjust=True,
+        )
+    except Exception as e:
+        logging.debug(f"yf.download chunk hatası ({period}/{interval}): {e}")
+        return out
+
+    if df is None or df.empty:
+        return out
+
+    if len(chunk) == 1:
+        d = df.dropna(how="all")
+        if not d.empty:
+            out[chunk[0]] = d
+        return out
+
+    try:
+        level0 = df.columns.get_level_values(0).unique().tolist()
+    except Exception:
+        return out
+
+    for t in chunk:
+        if t not in level0:
+            continue
+        try:
+            tdf = df[t].dropna(how="all")
+            if not tdf.empty:
+                out[t] = tdf
+        except Exception:
+            continue
+    return out
+
+
+async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> List[Dict[str, Any]]:
+    """
+    Günün ilk taraması: ALL-LIST tam evrenini 15M/1H/1D üzerinden tarar.
+    1D onayı (fiyat > SMA20 ve 5 günlük momentum pozitif) zorunlu filtre olarak uygulanır;
+    onaylananlar arasından günlük hacim + 1H momentum + 15M patern oluşumuna göre Top-N seçilir.
+    Yeterli 1D-onaylı aday yoksa liste en iyi skorlu adaylarla tamamlanır.
+    """
+    chunks = [universe[i:i + DISCOVERY_CHUNK_SIZE] for i in range(0, len(universe), DISCOVERY_CHUNK_SIZE)]
+    logging.info(f"🔎 Discovery taraması başladı: {len(universe)} ticker, {len(chunks)} chunk...")
+
+    data_1d: Dict[str, pd.DataFrame] = {}
+    data_1h: Dict[str, pd.DataFrame] = {}
+    data_15m: Dict[str, pd.DataFrame] = {}
+
+    for i, chunk in enumerate(chunks):
+        d1d, d1h, d15m = await asyncio.gather(
+            _download_chunk_multi(chunk, period="3mo", interval="1d"),
+            _download_chunk_multi(chunk, period="1mo", interval="1h"),
+            _download_chunk_multi(chunk, period="5d", interval="15m"),
+        )
+        data_1d.update(d1d)
+        data_1h.update(d1h)
+        data_15m.update(d15m)
+        logging.info(f"  Discovery chunk {i + 1}/{len(chunks)}: {len(d1d)} 1D / {len(d1h)} 1H / {len(d15m)} 15M indirildi.")
+
+    scored: List[Dict[str, Any]] = []
+    for ticker in universe:
+        df_1d = data_1d.get(ticker)
+        if df_1d is None or df_1d.empty:
+            continue
+
+        try:
+            close = df_1d["Close"].dropna()
+            vol = df_1d["Volume"].dropna()
+            if len(close) < 21 or len(vol) < 21:
+                continue
+
+            price = float(close.iloc[-1])
+            if price < PRICE_MIN or price > PRICE_MAX:
+                continue
+
+            sma20 = float(close.rolling(20).mean().iloc[-1])
+            chg_5d = ((close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]) * 100 if len(close) >= 6 and close.iloc[-6] else 0.0
+            confirmed_1d = bool(price > sma20 and chg_5d > 0)
+
+            today_vol = float(vol.iloc[-1])
+            avg20_vol = float(vol.iloc[-21:-1].mean())
+            daily_rvol = (today_vol / avg20_vol) if avg20_vol > 0 else 0.0
+            dollar_vol = today_vol * price
+            if dollar_vol < MIN_DOLLAR_VOLUME:
+                continue
+
+            score = 0.0
+            if confirmed_1d:
+                score += 3.0
+            score += min(daily_rvol, 5.0) * 1.2
+
+            chg_1h_4bar = 0.0
+            df_1h = data_1h.get(ticker)
+            if df_1h is not None and not df_1h.empty:
+                c1h = df_1h["Close"].dropna()
+                if len(c1h) >= 5 and c1h.iloc[-5] > 0:
+                    chg_1h_4bar = ((c1h.iloc[-1] - c1h.iloc[-5]) / c1h.iloc[-5]) * 100
+                    if chg_1h_4bar > 0:
+                        score += min(chg_1h_4bar, 5.0) * 0.8
+
+            pattern_name, pattern_score = "Neutral", 0.0
+            df_15m = data_15m.get(ticker)
+            if df_15m is not None and not df_15m.empty and len(df_15m) >= 21:
+                # detect_15m_timing_pattern "ATR" sütununu bekler — ham yf.download
+                # çıktısında bu yok, o yüzden hafif indikatör setini burada üretiyoruz.
+                df_15m_ind = calculate_boga_indicators(df_15m, "15m")
+                pattern_name, pattern_score = detect_15m_timing_pattern(df_15m_ind)
+                score += pattern_score
+
+            scored.append({
+                "ticker": ticker,
+                "discovery_score": round(score, 2),
+                "confirmed_1d": confirmed_1d,
+                "daily_rvol": round(daily_rvol, 2),
+                "dollar_vol": round(dollar_vol, 0),
+                "chg_5d_pct": round(chg_5d, 2),
+                "chg_1h_4bar_pct": round(chg_1h_4bar, 2),
+                "pattern_15m": pattern_name,
+            })
+        except Exception as e:
+            logging.debug(f"Discovery skorlama hatası {ticker}: {e}")
+            continue
+
+    confirmed = sorted([r for r in scored if r["confirmed_1d"]], key=lambda x: x["discovery_score"], reverse=True)
+    others = sorted([r for r in scored if not r["confirmed_1d"]], key=lambda x: x["discovery_score"], reverse=True)
+    top = (confirmed + others)[:top_n]
+
+    logging.info(
+        f"✅ Discovery tamamlandı: {len(scored)} hisse skorlandı, {len(confirmed)} 1D-onaylı. "
+        f"Top {len(top)}: " + ", ".join(r["ticker"] for r in top[:10])
+    )
+    return top
+
+
+async def get_or_build_today_universe() -> List[str]:
+    """
+    Bugünün persisted Top-20 listesini döndürür (inday_universe_today.json).
+    Dosya yok/tarih eskiyse: ALL-LIST tam evrenini tarayıp yeni Top-20 seçer ve kaydeder.
+    NOT: load_swing_universe() bu fonksiyondan ÖNCE çağrılmış olmalı.
+    """
+    today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
+
+    if os.path.exists(INDAY_UNIVERSE_FILE):
+        try:
+            with open(INDAY_UNIVERSE_FILE, encoding="utf-8") as f:
+                cached = json.load(f)
+            if cached.get("date") == today_str and cached.get("tickers"):
+                logging.info(f"📂 Bugünün takip evreni önbellekten yüklendi: {len(cached['tickers'])} ticker.")
+                return cached["tickers"]
+        except Exception as e:
+            logging.warning(f"⚠️ {INDAY_UNIVERSE_FILE} okunamadı: {e}")
+
+    logging.info("🌅 Günün ilk taraması: ALL-LIST tam evren taranıyor (15M/1H, 1D-onaylı, en hacimli/momentumlu Top 20)...")
+    full_universe = build_full_universe()
+    if not full_universe:
+        logging.warning("⚠️ Tam evren boş, swing_all_picks.json'a geri dönülüyor.")
+        return sorted(BOGA_SWING_ZONES.keys())
+
+    try:
+        ranked = await discover_top_n(full_universe, DISCOVERY_TOP_N)
+    except Exception as e:
+        logging.error(f"❌ Discovery taraması başarısız: {e}. swing_all_picks.json'a geri dönülüyor.")
+        return sorted(BOGA_SWING_ZONES.keys())
+
+    if not ranked:
+        logging.warning("⚠️ Discovery taraması 0 sonuç döndürdü, swing_all_picks.json'a geri dönülüyor.")
+        return sorted(BOGA_SWING_ZONES.keys())
+
+    tickers = [r["ticker"] for r in ranked]
+    try:
+        os.makedirs(os.path.dirname(INDAY_UNIVERSE_FILE), exist_ok=True)
+        with open(INDAY_UNIVERSE_FILE, "w", encoding="utf-8") as f:
+            json.dump({
+                "date": today_str,
+                "generated_at": datetime.now(NY_TZ).isoformat(),
+                "universe_size": len(full_universe),
+                "tickers": tickers,
+                "discovery": ranked,
+            }, f, indent=2, ensure_ascii=False)
+        logging.info(f"💾 Günün Top {len(tickers)} takip evreni kaydedildi → {INDAY_UNIVERSE_FILE}")
+    except Exception as e:
+        logging.error(f"❌ {INDAY_UNIVERSE_FILE} kaydedilemedi: {e}")
+
+    return tickers
 
 # ============================================================
 # 3) BOGA FİNANS AI – MULTI TIMEFRAME DATA FETCHER
@@ -614,6 +901,13 @@ def calculate_boga_indicators(df: pd.DataFrame, tf: str) -> pd.DataFrame:
     
     # NATR (Normalized ATR)
     df["NATR"] = (df["ATR"] / df["Close"]) * 100
+
+    # --- RSI (Wilder 14) ---
+    try:
+        df["RSI"] = RSIIndicator(close=df["Close"], window=14).rsi()
+    except Exception:
+        df["RSI"] = np.nan
+    df["RSI"] = df["RSI"].fillna(50.0)
 
     # --- Hacim ve RVOL ---
     # 15M grafiğinde veri az olabilir, pencereyi 20 bara sabitledik
@@ -1106,51 +1400,142 @@ def analyze_1h_structure(df_1h: pd.DataFrame) -> Dict[str, Any]:
             "vpa_signal": False
         }
         
-def detect_closing_absorption_setup(df_15m: pd.DataFrame, df_1h: pd.DataFrame) -> dict:
-    """
-    Boga Finans AI - Institutional PRE-GAP (15:30 - 16:00 NY)
-    Are institutions willing to take the position home (overnight)?
-    """
+def _session_minutes_elapsed(now_ny: Optional[datetime] = None) -> float:
+    """Dakika cinsinden 09:30 NY açılışından bu yana geçen süre (15-390 arası clamp edilir)."""
+    now_ny = now_ny or datetime.now(NY_TZ)
+    open_dt = now_ny.replace(hour=9, minute=30, second=0, microsecond=0)
+    elapsed = (now_ny - open_dt).total_seconds() / 60.0
+    return max(15.0, min(390.0, elapsed))
+
+
+def _today_intraday_mask(df: pd.DataFrame) -> pd.Series:
+    """Intraday df içinde bugüne (NY takvimi) ait barları işaretler."""
+    today = datetime.now(NY_TZ).date()
+    idx = df.index
     try:
-        if len(df_15m) < 8 or len(df_1h) < 2:
-            return {"pre_gap": False, "score": 0.0}
-
-        last_bars = df_15m.iloc[-2:]      # Last 30 minutes
-        curr_1h = df_1h.iloc[-1]
-        
-        score = 0.0
-
-        # 1️⃣ Closing Above VWAP (MANDATORY)
-        # Closing above VWAP at day end = Strong institutional belief
-        price = last_bars.iloc[-1]["Close"]
-        vwap_1h = curr_1h.get("VWAP_Roll", 0)
-        
-        if price < vwap_1h:
-            return {"pre_gap": False, "score": 0.0}
-            
-        score += 1.5
-
-        # 2️⃣ Proximity to Day High (High of Day)
-        day_high = df_15m["High"].iloc[-26:].max() 
-        if price >= day_high * 0.98:
-            score += 2.0
-        
-        # 3️⃣ Institutional Trace: Last Minute Volume Burst
-        avg_vol = df_15m["Volume"].rolling(10).mean().iloc[-1]
-        curr_vol = last_bars["Volume"].mean()
-        
-        if curr_vol > avg_vol * 2.0: 
-             score += 2.0
-        elif curr_vol > avg_vol * 1.5: 
-             score += 1.0
-
-        return {
-            "pre_gap": score >= 4.0,
-            "score": round(score, 2)
-        }
-
+        idx = idx.tz_convert(NY_TZ) if idx.tz is not None else idx
     except Exception:
-        return {"pre_gap": False, "score": 0.0}
+        pass
+    return pd.Series(idx.date == today, index=df.index)
+
+
+def get_today_hourly_closes(ticker: str) -> List[float]:
+    """Bugüne ait saatlik arşiv dosyalarından (intraday_history/) ticker'ın fiyat zincirini okur."""
+    closes: List[float] = []
+    try:
+        today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
+        if not os.path.isdir(INTRADAY_HISTORY_DIR):
+            return closes
+        files = sorted(
+            f for f in os.listdir(INTRADAY_HISTORY_DIR)
+            if f.startswith(today_str + "T") and f.endswith(".json")
+        )
+        for fname in files:
+            try:
+                with open(os.path.join(INTRADAY_HISTORY_DIR, fname), encoding="utf-8") as f:
+                    data = json.load(f)
+                for sig in data.get("signals", []):
+                    if sig.get("ticker") == ticker:
+                        price = sig.get("current_price")
+                        if price:
+                            closes.append(float(price))
+                        break
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return closes
+
+
+def compute_gap_up_score(
+    ticker: str,
+    current_price: float,
+    df_1d: pd.DataFrame,
+    df_15m: pd.DataFrame,
+) -> Dict[str, Any]:
+    """
+    BOGA FİNANS AI – PRE-GAP / GAP-UP SKORU (0-15)
+    Ertesi gün açılışta GAP UP olasılığını 5 bağımsız bileşenden hesaplar:
+      1) Açılış GAP%            (bugünün açılışı vs dünün kapanışı)
+      2) Saatlik momentum zinciri (gün içi saatlik kapanışların yön tutarlılığı)
+      3) Günlük RVOL             (zaman dilimine göre normalize edilmiş hacim oranı)
+      4) Kapanış / Gün İçi Zirve (kurumsal "closing near high" sinyali)
+      5) Son 30 dakika hacim patlaması
+    Her bileşen 0-3 puan, toplam 0-15. Grade: A+(12-15) A(10-12) B(7-10) C(<7)
+    """
+    result: Dict[str, Any] = {
+        "gap_pct": 0.0, "gap_score": 0,
+        "hourly_strength_pct": 0.0, "hourly_score": 0,
+        "daily_rvol": 0.0, "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0, "close_to_high_score": 0,
+        "late_volume_ratio": 0.0, "late_volume_score": 0,
+        "pre_gap_total": 0, "pre_gap_grade": "C", "pre_gap": False,
+    }
+    try:
+        today = datetime.now(NY_TZ).date()
+        today_dates = df_1d.index.date if len(df_1d) else []
+        is_today_bar = len(today_dates) > 0 and today_dates[-1] == today
+
+        mask = _today_intraday_mask(df_15m)
+        today_bars = df_15m.loc[mask]
+
+        # 1️⃣ GAP % ----------------------------------------------------------
+        if len(df_1d) >= 2 and not today_bars.empty:
+            yesterday_close = float(df_1d["Close"].iloc[-2]) if is_today_bar else float(df_1d["Close"].iloc[-1])
+            today_open = float(today_bars["Open"].iloc[0])
+            if yesterday_close > 0:
+                gap_pct = ((today_open - yesterday_close) / yesterday_close) * 100
+                result["gap_pct"] = round(gap_pct, 2)
+                result["gap_score"] = 3 if gap_pct > 5 else 2 if gap_pct >= 3 else 1 if gap_pct >= 1 else 0
+
+        # 2️⃣ Saatlik momentum zinciri ----------------------------------------
+        chain = get_today_hourly_closes(ticker) + [current_price]
+        moves = len(chain) - 1
+        if moves > 0:
+            ups = sum(1 for i in range(1, len(chain)) if chain[i] > chain[i - 1])
+            ratio = ups / moves
+            result["hourly_strength_pct"] = round(((chain[-1] - chain[0]) / chain[0]) * 100, 2) if chain[0] else 0.0
+            result["hourly_score"] = 3 if ratio >= 0.75 else 2 if ratio >= 0.5 else 1 if ratio > 0 else 0
+
+        # 3️⃣ Günlük RVOL (zaman-normalize) -----------------------------------
+        if len(df_1d) >= 21 and is_today_bar:
+            today_vol = float(df_1d["Volume"].iloc[-1])
+            avg20 = float(df_1d["Volume"].iloc[-21:-1].mean())
+            if avg20 > 0:
+                projected_vol = today_vol * (390.0 / _session_minutes_elapsed())
+                daily_rvol = projected_vol / avg20
+                result["daily_rvol"] = round(daily_rvol, 2)
+                result["daily_rvol_score"] = 3 if daily_rvol >= 4 else 2 if daily_rvol >= 2.5 else 1 if daily_rvol >= 1.5 else 0
+
+        # 4️⃣ Kapanış / Gün İçi Zirve ------------------------------------------
+        if not today_bars.empty:
+            day_high = float(today_bars["High"].max())
+            if day_high > 0:
+                cth_pct = (current_price / day_high) * 100
+                result["close_to_high_pct"] = round(cth_pct, 2)
+                result["close_to_high_score"] = 3 if cth_pct >= 98 else 2 if cth_pct >= 95 else 1 if cth_pct >= 90 else 0
+
+        # 5️⃣ Son 30 Dakika Hacim Patlaması ------------------------------------
+        if len(df_15m) >= 12:
+            avg_vol_10 = df_15m["Volume"].rolling(10).mean().iloc[-1]
+            curr_vol_2 = df_15m["Volume"].iloc[-2:].mean()
+            if avg_vol_10 and avg_vol_10 > 0:
+                lv_ratio = curr_vol_2 / avg_vol_10
+                result["late_volume_ratio"] = round(float(lv_ratio), 2)
+                result["late_volume_score"] = 3 if lv_ratio >= 2.0 else 2 if lv_ratio >= 1.5 else 1 if lv_ratio >= 1.2 else 0
+
+        total = (
+            result["gap_score"] + result["hourly_score"] + result["daily_rvol_score"]
+            + result["close_to_high_score"] + result["late_volume_score"]
+        )
+        result["pre_gap_total"] = total
+        result["pre_gap_grade"] = "A+" if total >= 12 else "A" if total >= 10 else "B" if total >= 7 else "C"
+        result["pre_gap"] = total >= 10
+
+    except Exception as e:
+        logging.debug(f"{ticker}: compute_gap_up_score warning: {e}")
+
+    return result
 
 async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     """
@@ -1226,33 +1611,8 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     st_1h = analyze_1h_structure(df_1h)
     timing_15m = assess_15m_entry_timing(df_15m, df_1h)
 
-    # Pre-Gap Setup Detection (Institutional Buying Before Close)
-    now_ny = datetime.now(NY_TZ)
-    pre_gap_setup = {"pre_gap": False, "score": 0.0}
-    
-    # Trigger closing analysis during the 15:00 session (1 hour before close, "Power Hour")
-    if now_ny.hour == 15: 
-        pre_gap_setup = detect_closing_absorption_setup(df_15m, df_1h)
-
     # ================================================
-    # 5. WEIGHTED SCORING (INSTITUTIONAL BALANCING)
-    # ================================================
-    final_score = (
-        (rs_score * 1.8) +                          # RS: Highest weight
-        (st_1h.get("1h_score", 0) * 1.1) +          # 1H Structure and Money Flow
-        (ctx_1d.get("1d_score", 0) * 1.1) +          # 1D Trend Phase
-        (timing_15m.get("timing_score", 0) * 0.5)    # 15M Fine Tuning
-    )
-
-    if pre_gap_setup.get("pre_gap", False):
-        final_score += 1.5
-
-    # Market risk modifiyeri
-    risk_modifier = MARKET_CONTEXT.get("risk_modifier", 1.0)
-    final_score *= risk_modifier
-
-    # ================================================
-    # 6. PRICE & CHANGE METRICS
+    # 5. PRICE & CHANGE METRICS
     # ================================================
     current_price = float(df_15m["Close"].iloc[-1])
     change_1h = 0.0
@@ -1270,19 +1630,42 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
             prev_1d_close = float(df_1d["Close"].iloc[-2])
             if prev_1d_close > 0:
                 change_24h = ((current_price - prev_1d_close) / prev_1d_close) * 100
-        
+
         # NaN / Inf Protection
         if math.isnan(change_1h) or math.isinf(change_1h): change_1h = 0.0
         if math.isnan(change_24h) or math.isinf(change_24h): change_24h = 0.0
     except Exception:
         change_1h = change_24h = 0.0
-    
+
     atr_val = float(df_1d["NATR"].iloc[-1])
     atr_abs = float(df_1d["ATR"].iloc[-1])
     rvol = float(df_1h["RVOL"].iloc[-1])
-    
+
     # ================================================
-    # 7. ENTRY ZONE & STOP LOSS HESAPLAMA (MASTER SYNC)
+    # 6. GAP-UP / PRE-GAP SKORU (5 bileşen, 0-15) — her taramada hesaplanır
+    # ================================================
+    pre_gap_setup = compute_gap_up_score(ticker, current_price, df_1d, df_15m)
+
+    # ================================================
+    # 7. WEIGHTED SCORING (INSTITUTIONAL BALANCING)
+    # ================================================
+    final_score = (
+        (rs_score * 1.8) +                          # RS: Highest weight
+        (st_1h.get("1h_score", 0) * 1.1) +          # 1H Structure and Money Flow
+        (ctx_1d.get("1d_score", 0) * 1.1) +          # 1D Trend Phase
+        (timing_15m.get("timing_score", 0) * 0.5)    # 15M Fine Tuning
+    )
+
+    if pre_gap_setup.get("pre_gap", False):
+        final_score += 1.5
+    final_score += pre_gap_setup.get("pre_gap_total", 0) * 0.1   # GAP-UP skorundan sürekli ince ayar (0-15 -> 0-1.5)
+
+    # Market risk modifiyeri
+    risk_modifier = MARKET_CONTEXT.get("risk_modifier", 1.0)
+    final_score *= risk_modifier
+
+    # ================================================
+    # 8. ENTRY ZONE & STOP LOSS HESAPLAMA (MASTER SYNC)
     # ================================================
     # Arşivlenmiş bölgeleri al (BOGA_SWING_ZONES)
     swing_info = BOGA_SWING_ZONES.get(ticker)
@@ -1328,7 +1711,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         }
     
     # ================================================
-    # 8. VOLUME VALIDATION
+    # 9. VOLUME VALIDATION
     # ================================================
     setup_type = st_1h.get("setup_type", "NONE")
     volume_check = validate_volume_for_setup(setup_type, rvol, df_15m, df_1h, ticker)
@@ -1336,39 +1719,41 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         final_score -= 2.0
 
     # ================================================
-    # 9. ACTION LOGIC
+    # 10. ACTION LOGIC
     # ================================================
     action = "WATCH"
     if final_score >= 7.0:
         action = "BUY"
-        if pre_gap_setup.get("pre_gap") and pre_gap_setup.get("score", 0) >= 4.0:
+        if pre_gap_setup.get("pre_gap") and pre_gap_setup.get("pre_gap_total", 0) >= 10:
             action = "CLOSE" # Closing action
 
     if action not in ["BUY", "CLOSE"]:
         action = "WATCH"
 
     # ================================================
-    # 10. MARKET CAP & SECTOR
+    # 11. MARKET CAP, SECTOR & COMPANY NAME
     # ================================================
     market_cap = 0
     sector = "Unknown"
+    company_name = ticker
     try:
         stock = yf.Ticker(ticker)
         info = stock.info
         market_cap = info.get('marketCap', 0)
         sector = info.get('sector', 'Unknown')
+        company_name = info.get('longName') or info.get('shortName') or ticker
     except Exception:
         pass
 
     # ================================================
-    # 11. NOTES AND STATUS ANALYSIS
+    # 12. NOTES AND STATUS ANALYSIS
     # ================================================
     all_notes = []
     if rs_note: all_notes.append(rs_note)
     all_notes.extend(ctx_1d.get("1d_notes", []))
     all_notes.extend(st_1h.get("1h_notes", []))
     all_notes.extend(timing_15m.get("notes", []))
-    if pre_gap_setup.get("pre_gap"): all_notes.append("🏦 PRE-GAP BUY")
+    if pre_gap_setup.get("pre_gap"): all_notes.append(f"🏦 GAP-UP {pre_gap_setup.get('pre_gap_grade','')} ({pre_gap_setup.get('pre_gap_total',0)}/15)")
     if not volume_check.get('valid', True): all_notes.append(f"⚠️ {volume_check.get('message', 'Volume weak')}")
 
     # RSI and Trend Calculation (for Hourly Status)
@@ -1392,19 +1777,20 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
     )
 
     # ================================================
-    # 12. FINAL OUTPUT
+    # 13. FINAL OUTPUT
     # ================================================
     return {
         "symbol": ticker,
+        "company": company_name,
         "score": round(final_score, 1),
         "price": round(current_price, 2),
         "action": action,
         "timing": action,
         "source_bucket": "Boga_Universe",
-        
+
         "hourly_action": hourly_status["status"],
         "hourly_msg": hourly_status["msg"],
-        
+
         "rsi_1h": round(rsi_val, 1),
         "adx_1h": round(float(df_1h["ADX"].iloc[-1]) if "ADX" in df_1h.columns else 0.0, 1),
         "trend_1h": trend_1h,
@@ -1424,8 +1810,21 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         "sector": sector,
         "market_cap": market_cap,
         "notes": all_notes,
+        # --- GAP-UP / PRE-GAP (5 bileşen, 0-15) ---
         "pre_gap": pre_gap_setup.get("pre_gap", False),
-        "pre_gap_score": pre_gap_setup.get("score", 0.0),
+        "pre_gap_total": pre_gap_setup.get("pre_gap_total", 0),
+        "pre_gap_grade": pre_gap_setup.get("pre_gap_grade", "C"),
+        "pre_gap_score": pre_gap_setup.get("pre_gap_total", 0.0),   # geriye dönük uyumluluk
+        "gap_pct": pre_gap_setup.get("gap_pct", 0.0),
+        "gap_score": pre_gap_setup.get("gap_score", 0),
+        "hourly_strength_pct": pre_gap_setup.get("hourly_strength_pct", 0.0),
+        "hourly_score": pre_gap_setup.get("hourly_score", 0),
+        "daily_rvol": pre_gap_setup.get("daily_rvol", 0.0),
+        "daily_rvol_score": pre_gap_setup.get("daily_rvol_score", 0),
+        "close_to_high_pct": pre_gap_setup.get("close_to_high_pct", 0.0),
+        "close_to_high_score": pre_gap_setup.get("close_to_high_score", 0),
+        "late_volume_ratio": pre_gap_setup.get("late_volume_ratio", 0.0),
+        "late_volume_score": pre_gap_setup.get("late_volume_score", 0),
     }
 # ============================================================
 # 5) BOGA FİNANS AI – TELEGRAM YAPILANDIRMASI
@@ -1808,9 +2207,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
     import math
     import subprocess
 
-    PUBLIC_DIR = r"C:\Users\afksm\finma\frontend\public"
-    HISTORY_DIR = os.path.join(PUBLIC_DIR, "intraday_history")
-    os.makedirs(HISTORY_DIR, exist_ok=True)
+    os.makedirs(INTRADAY_HISTORY_DIR, exist_ok=True)
 
     now_ny = datetime.now(NY_TZ)
     hour_slot = now_ny.strftime("%Y-%m-%dT%H")
@@ -1860,9 +2257,18 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
         pz = swing_info.get("profit_zone") or swing_info.get("sell_zone", {})
         sz = swing_info.get("stop_zone") or swing_info.get("stop_loss_zone", {})
 
+        # Şirket adı: process_single_stock'tan gelen gerçek longName > swing arşivi > ticker
+        resolved_company = res.get("company")
+        if not resolved_company or resolved_company == ticker:
+            archived_company = swing_info.get("company")
+            if archived_company and archived_company != ticker:
+                resolved_company = archived_company
+        if not resolved_company:
+            resolved_company = ticker
+
         signal = {
             "ticker": ticker,
-            "company": swing_info.get("company", ticker),
+            "company": resolved_company,
             "sector": swing_info.get("sector") or res.get("sector", "Unknown"),
             "swing_pick_date": pick_date,
             "days_since_pick": days_since,
@@ -1887,6 +2293,19 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
                 "setup": res.get("setup_type", "NONE"),
                 "rs_score": safe_float(res.get("rs_score")),
                 "natr": safe_float(res.get("natr")),
+                # --- GAP-UP / PRE-GAP (5 bileşen, 0-15) ---
+                "pre_gap_total": int(res.get("pre_gap_total", 0) or 0),
+                "pre_gap_grade": res.get("pre_gap_grade", "C"),
+                "gap_pct": safe_float(res.get("gap_pct")),
+                "gap_score": int(res.get("gap_score", 0) or 0),
+                "hourly_strength_pct": safe_float(res.get("hourly_strength_pct")),
+                "hourly_score": int(res.get("hourly_score", 0) or 0),
+                "daily_rvol": safe_float(res.get("daily_rvol"), 1.0),
+                "daily_rvol_score": int(res.get("daily_rvol_score", 0) or 0),
+                "close_to_high_pct": safe_float(res.get("close_to_high_pct")),
+                "close_to_high_score": int(res.get("close_to_high_score", 0) or 0),
+                "late_volume_ratio": safe_float(res.get("late_volume_ratio")),
+                "late_volume_score": int(res.get("late_volume_score", 0) or 0),
             },
             "notes": res.get("notes", []),
         }
@@ -1908,7 +2327,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
             json.dump(export, f, indent=2, ensure_ascii=False)
 
         # 2. Archive Record
-        archive_path = os.path.join(HISTORY_DIR, f"{hour_slot}.json")
+        archive_path = os.path.join(INTRADAY_HISTORY_DIR, f"{hour_slot}.json")
         with open(archive_path, "w", encoding="utf-8") as f:
             json.dump(export, f, indent=2, ensure_ascii=False)
 
@@ -2074,10 +2493,13 @@ async def main():
     # 1️⃣ Market and Sector Analysis (Determining Risk Modifier)
     await analyze_market_and_sectors()
 
-    # 2️⃣ Load Universe (Picks from the last 30 days)
-    universe = load_swing_universe()
+    # 2️⃣ Load Universe — swing arşivini yükle (BOGA_SWING_ZONES için, entry/stop/target verisi)
+    #    ardından bugünün takip evrenini al: ilk taramada ALL-LIST tam evrenini tarayıp Top 20'yi
+    #    seçer ve kaydeder; aynı gün içindeki sonraki taramalar bu kayıtlı Top 20'yi kullanır.
+    load_swing_universe()
+    universe = await get_or_build_today_universe()
     if not universe:
-        print("❌ Boga Swing Universe empty. Scan cancelled.")
+        print("❌ Boga günlük takip evreni boş. Tarama iptal edildi.")
         return
 
     # 3️⃣ Technical Scan (Async Parallel)

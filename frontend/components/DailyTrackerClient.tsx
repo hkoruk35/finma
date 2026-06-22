@@ -22,6 +22,19 @@ interface IntradayData {
   setup: string;
   rs_score: number;
   natr: number;
+  // GAP-UP / PRE-GAP skoru (5 bileşen, 0-15)
+  pre_gap_total?: number;
+  pre_gap_grade?: string;
+  gap_pct?: number;
+  gap_score?: number;
+  hourly_strength_pct?: number;
+  hourly_score?: number;
+  daily_rvol?: number;
+  daily_rvol_score?: number;
+  close_to_high_pct?: number;
+  close_to_high_score?: number;
+  late_volume_ratio?: number;
+  late_volume_score?: number;
 }
 
 interface TickerRow {
@@ -71,6 +84,13 @@ const ALERT_BADGE: Record<string, { bg: string; text: string }> = {
   HIGH:   { bg: "#0d2a0d", text: "#56d364" },
   MEDIUM: { bg: "#2a1a0d", text: "#e3b341" },
   LOW:    { bg: "#161b22", text: "#8b949e" },
+};
+
+const GAP_GRADE_BADGE: Record<string, { bg: string; text: string; border: string }> = {
+  "A+": { bg: "#0d4a0d", text: "#56d364", border: "#3fb950" },
+  "A":  { bg: "#0d2a0d", text: "#3fb950", border: "#2ea043" },
+  "B":  { bg: "#1a1a0d", text: "#e3b341", border: "#b8941f" },
+  "C":  { bg: "#161b22", text: "#555", border: "#30363d" },
 };
 
 const REGIME_COLORS: Record<string, string> = {
@@ -191,6 +211,7 @@ export default function DailyTrackerClient() {
       case "rsi":      va = a.intraday?.rsi_1h ?? 0; vb = b.intraday?.rsi_1h ?? 0; break;
       case "vol":      va = a.intraday?.volume_ratio ?? 0; vb = b.intraday?.volume_ratio ?? 0; break;
       case "first":    va = a.first_seen; vb = b.first_seen; break;
+      case "gap":      va = a.intraday?.pre_gap_total ?? 0; vb = b.intraday?.pre_gap_total ?? 0; break;
       default: return 0;
     }
     if (typeof va === "string") {
@@ -378,7 +399,7 @@ export default function DailyTrackerClient() {
                   {[
                     { label: "DURUM",   key: "status",  align: "left"  },
                     { label: "TİCKER",  key: "ticker",  align: "left"  },
-                    { label: "ŞIRKET",  key: null,      align: "left"  },
+                    { label: "ŞİRKET",  key: null,      align: "left"  },
                     { label: "SEKTÖR",  key: null,      align: "left"  },
                     { label: "İLK GÖR", key: "first",  align: "right" },
                     { label: "GİRİŞ",   key: null,      align: "right" },
@@ -389,6 +410,7 @@ export default function DailyTrackerClient() {
                     { label: "VOL×",    key: "vol",     align: "right" },
                     { label: "ADX",     key: null,      align: "right" },
                     { label: "SETUP",   key: null,      align: "right" },
+                    { label: "GAP",     key: "gap",     align: "right" },
                     { label: "ALERT",   key: "alert",   align: "right" },
                     { label: "📋",      key: null,      align: "right" },
                   ].map(({ label, key, align }, i) => (
@@ -506,6 +528,23 @@ export default function DailyTrackerClient() {
                             : <span style={{ color: "#555" }}>—</span>}
                         </td>
 
+                        {/* GAP — PRE-GAP / GAP-UP skoru (0-15, A+/A/B/C) */}
+                        <td style={{ padding: "6px 8px", textAlign: "right" }} title={`GAP-UP: ${tk.intraday?.pre_gap_total ?? 0}/15`}>
+                          {(() => {
+                            const grade = tk.intraday?.pre_gap_grade;
+                            if (!grade) return <span style={{ color: "#555", fontSize: 9 }}>—</span>;
+                            const g = GAP_GRADE_BADGE[grade] || GAP_GRADE_BADGE.C;
+                            return (
+                              <span style={{
+                                fontSize: 9, fontWeight: 700, padding: "1px 6px", borderRadius: 2,
+                                background: g.bg, border: `1px solid ${g.border}`, color: g.text,
+                              }}>
+                                {grade} {tk.intraday?.pre_gap_total ?? 0}
+                              </span>
+                            );
+                          })()}
+                        </td>
+
                         {/* ALERT */}
                         <td style={{ padding: "6px 8px", textAlign: "right" }}>
                           {(() => {
@@ -530,7 +569,7 @@ export default function DailyTrackerClient() {
                       {/* Expanded row */}
                       {isExp && (
                         <tr key={tk.ticker + "-exp"} style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                          <td colSpan={15} style={{ padding: 0 }}>
+                          <td colSpan={16} style={{ padding: 0 }}>
                             <ExpandedRow tk={tk} />
                           </td>
                         </tr>
@@ -615,6 +654,40 @@ function ExpandedRow({ tk }: { tk: TickerRow }) {
               </span>
             </div>
           )}
+        </div>
+      )}
+
+      {/* GAP-UP / PRE-GAP Skoru */}
+      {tk.intraday?.pre_gap_grade && (
+        <div style={{ minWidth: 260, padding: "12px 16px", borderRight: "1px solid #30363d" }}>
+          <div style={{ fontSize: 9, color: "#e3b341", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+            GAP-UP SKORU
+            {(() => {
+              const g = GAP_GRADE_BADGE[tk.intraday.pre_gap_grade!] || GAP_GRADE_BADGE.C;
+              return (
+                <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 2, background: g.bg, border: `1px solid ${g.border}`, color: g.text }}>
+                  {tk.intraday.pre_gap_grade} · {tk.intraday.pre_gap_total ?? 0}/15
+                </span>
+              );
+            })()}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            {[
+              { label: "Açılış GAP%", val: `${(tk.intraday.gap_pct ?? 0) >= 0 ? "+" : ""}${fmt2(tk.intraday.gap_pct)}%`, score: tk.intraday.gap_score },
+              { label: "Saatlik momentum", val: `${(tk.intraday.hourly_strength_pct ?? 0) >= 0 ? "+" : ""}${fmt2(tk.intraday.hourly_strength_pct)}%`, score: tk.intraday.hourly_score },
+              { label: "Günlük RVOL", val: `${fmt2(tk.intraday.daily_rvol)}x`, score: tk.intraday.daily_rvol_score },
+              { label: "Kapanış/Zirve", val: `${fmt2(tk.intraday.close_to_high_pct)}%`, score: tk.intraday.close_to_high_score },
+              { label: "Son 30dk Hacim", val: `${fmt2(tk.intraday.late_volume_ratio)}x`, score: tk.intraday.late_volume_score },
+            ].map((row, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 10 }}>
+                <span style={{ color: "#8b949e" }}>{row.label}</span>
+                <span>
+                  <span style={{ color: "#e6edf3", marginRight: 6 }}>{row.val}</span>
+                  <span style={{ color: "#e3b341", fontWeight: 700 }}>{row.score ?? 0}/3</span>
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

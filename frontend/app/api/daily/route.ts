@@ -189,27 +189,36 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "No data found", date: targetDate }, { status: 404 });
     }
 
-    const normalizedSignals = (latest?.signals || []).map((sig: any) => ({
-      ticker: sig.ticker,
-      company: sig.company || sig.ticker,
-      sector: sig.sector || "Unknown",
-      swing_pick_date: sig.swing_pick_date || targetDate,
-      first_seen: "",
-      first_seen_price: sig.current_price,
-      entry_price: sig.entry_price ?? null,
-      entry_triggered_at: sig.entry_triggered_at ?? null,
-      current_price: sig.current_price,
-      current_status: sig.status,
-      current_detail: sig.status_detail,
-      alert_level: sig.alert_level,
-      pnl_pct: 0,
-      buy_zone: sig.buy_zone || {},
-      stop_zone: sig.stop_zone || {},
-      profit_zone: sig.profit_zone || {},
-      status_history: [],
-      intraday: sig.intraday || {},
-      notes: sig.notes || [],
-    }));
+    // Bugüne ait summary varsa first_seen / entry_price / status_history'yi ondan zenginleştir
+    const summaryTickers: Record<string, any> = summary?.date === targetDate ? (summary.tickers || {}) : {};
+
+    const normalizedSignals = (latest?.signals || []).map((sig: any) => {
+      const s = summaryTickers[sig.ticker];
+      const entryPrice = s?.entry_price ?? sig.entry_price ?? null;
+      const pnlPct = entryPrice && sig.current_price ? ((sig.current_price - entryPrice) / entryPrice) * 100 : 0;
+
+      return {
+        ticker: sig.ticker,
+        company: sig.company || sig.ticker,
+        sector: sig.sector || "Unknown",
+        swing_pick_date: sig.swing_pick_date || targetDate,
+        first_seen: s?.status_history?.[0]?.hour || "",
+        first_seen_price: sig.current_price,
+        entry_price: entryPrice,
+        entry_triggered_at: s?.entry_triggered_at ?? sig.entry_triggered_at ?? null,
+        current_price: sig.current_price,
+        current_status: sig.status,
+        current_detail: sig.status_detail,
+        alert_level: sig.alert_level,
+        pnl_pct: pnlPct,
+        buy_zone: sig.buy_zone || {},
+        stop_zone: sig.stop_zone || {},
+        profit_zone: sig.profit_zone || {},
+        status_history: s?.status_history || [],
+        intraday: sig.intraday || {},
+        notes: sig.notes || [],
+      };
+    });
 
     return NextResponse.json({
       date: targetDate,
