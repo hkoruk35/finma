@@ -1,8 +1,8 @@
 {
   "date": "2026-06-22",
-  "generated_at": "2026-06-22T03:24:43.440265-04:00",
+  "generated_at": "2026-06-22T08:55:26.740752-04:00",
   "market_regime": "Bull",
-  "vix_level": 16.399999618530273,
+  "vix_level": 17.049999237060547,
   "total": 20,
   "signals": [
     {
@@ -33,7 +33,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -80,12 +80,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 1.0,
         "natr": 5.11,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -135,7 +135,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -182,12 +182,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 2.73,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_strength_pct": 0.01,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -236,7 +236,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -281,12 +281,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 1.0,
         "natr": 2.17,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -331,12 +331,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 5.18,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -385,7 +385,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -431,12 +431,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 2.63,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -483,7 +483,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -531,7 +531,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -576,12 +576,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 3.43,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_strength_pct": 0.04,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -627,12 +627,12 @@
         "pattern_15m": "🪝 Liquidity Grab (Pinbar)",
         "rs_score": 2.0,
         "natr": 5.66,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -680,7 +680,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -723,12 +723,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 3.55,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -771,12 +771,12 @@
         "pattern_15m": "Neutral",
         "rs_score": 0.0,
         "natr": 6.65,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -823,7 +823,7 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
@@ -837,6 +837,53 @@
         "NATR > 7.5% (Gamble)",
         "VWAP Extended",
         "🔥 Institutional Absorption",
+        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)"
+      ]
+    },
+    {
+      "ticker": "FCEL",
+      "company": "FuelCell Energy, Inc.",
+      "sector": "Industrials",
+      "swing_pick_date": "2026-06-22",
+      "days_since_pick": 0,
+      "current_price": 24.04,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($22.46–$25.62). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 73.5,
+        "adx_1h": 30.9,
+        "volume_ratio": 1.61,
+        "change_1h": 3.84,
+        "change_24h": 19.96,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
+        "rs_score": 2.0,
+        "natr": 13.12,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.0,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 3,
+        "daily_rvol": 0.0,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 0.0,
+        "close_to_high_score": 0,
+        "late_volume_ratio": 2.33,
+        "late_volume_score": 3
+      },
+      "notes": [
+        "🚀 RS: Outperformer",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "ADX + Volume Confirmation",
         "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
         "✅ MTF Aligned: 1H & 15M Bullish",
         "⛔ Extended (Don't Chase)"
@@ -870,60 +917,13 @@
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
-        "hourly_strength_pct": 0.0,
+        "hourly_strength_pct": -0.0,
         "hourly_score": 0,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
         "close_to_high_score": 0,
         "late_volume_ratio": 2.3,
-        "late_volume_score": 3
-      },
-      "notes": [
-        "🚀 RS: Outperformer",
-        "NATR > 7.5% (Gamble)",
-        "VWAP Extended",
-        "ADX + Volume Confirmation",
-        "15M Trigger: 🚀 HYPER MSB (Smart Money Sweep)",
-        "✅ MTF Aligned: 1H & 15M Bullish",
-        "⛔ Extended (Don't Chase)"
-      ]
-    },
-    {
-      "ticker": "FCEL",
-      "company": "FuelCell Energy, Inc.",
-      "sector": "Industrials",
-      "swing_pick_date": "2026-06-22",
-      "days_since_pick": 0,
-      "current_price": 24.04,
-      "buy_zone": {},
-      "stop_zone": {},
-      "profit_zone": {},
-      "status": "ENTRY_NOW",
-      "status_detail": "BUY ✅ Buy zone active ($22.46–$25.62). Entry suitable.",
-      "alert_level": "HIGH",
-      "intraday": {
-        "rsi_1h": 73.5,
-        "adx_1h": 30.9,
-        "volume_ratio": 1.61,
-        "change_1h": 3.84,
-        "change_24h": 19.96,
-        "trend_1h": "UP",
-        "setup": "NONE",
-        "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
-        "rs_score": 2.0,
-        "natr": 13.12,
-        "pre_gap_total": 3,
-        "pre_gap_grade": "C",
-        "gap_pct": 0.0,
-        "gap_score": 0,
-        "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
-        "daily_rvol": 0.0,
-        "daily_rvol_score": 0,
-        "close_to_high_pct": 0.0,
-        "close_to_high_score": 0,
-        "late_volume_ratio": 2.33,
         "late_volume_score": 3
       },
       "notes": [
@@ -960,12 +960,12 @@
         "pattern_15m": "🚀 HYPER MSB (Smart Money Sweep)",
         "rs_score": 2.0,
         "natr": 15.24,
-        "pre_gap_total": 3,
+        "pre_gap_total": 6,
         "pre_gap_grade": "C",
         "gap_pct": 0.0,
         "gap_score": 0,
         "hourly_strength_pct": 0.0,
-        "hourly_score": 0,
+        "hourly_score": 3,
         "daily_rvol": 0.0,
         "daily_rvol_score": 0,
         "close_to_high_pct": 0.0,
@@ -985,12 +985,16 @@
   ],
   "summary": {
     "date": "2026-06-22",
-    "last_updated": "2026-06-22T03:24:43.440265-04:00",
+    "last_updated": "2026-06-22T08:55:26.740752-04:00",
     "tickers": {
       "TILE": {
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1003,6 +1007,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1013,6 +1021,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1025,6 +1037,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1035,6 +1051,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1047,6 +1067,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1057,6 +1081,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1069,6 +1097,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1079,6 +1111,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1091,6 +1127,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1101,6 +1141,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1113,6 +1157,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1123,6 +1171,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1135,6 +1187,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1145,6 +1201,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1157,6 +1217,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1167,6 +1231,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],
@@ -1179,6 +1247,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1190,6 +1262,10 @@
           {
             "hour": "03:24",
             "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
+            "status": "ENTRY_NOW"
           }
         ],
         "current_status": "ENTRY_NOW",
@@ -1200,6 +1276,10 @@
         "status_history": [
           {
             "hour": "03:24",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "08:55",
             "status": "ENTRY_NOW"
           }
         ],

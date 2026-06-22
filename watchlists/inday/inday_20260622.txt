@@ -1,4 +1,4 @@
-# BOGA AI Swing Watchlist - 2026-06-22 03:24
+# BOGA AI Swing Watchlist - 2026-06-22 08:55
 TILE
 LINC
 TER
@@ -16,6 +16,6 @@ ALL
 INSW
 WRBY
 ACMR
-BE
 FCEL
+BE
 WOLF
