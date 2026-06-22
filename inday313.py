@@ -632,6 +632,11 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
             chg_5d = ((close.iloc[-1] - close.iloc[-6]) / close.iloc[-6]) * 100 if len(close) >= 6 and close.iloc[-6] else 0.0
             confirmed_1d = bool(price > sma20 and chg_5d > 0)
 
+            # Bugünün gerçek hareketi (gap + intraday) — son kapanışa göre.
+            # Bu olmadan skor sadece CUMA'nın hacim/momentumunu yansıtıyordu;
+            # bugün gerçekten oynayan hisseleri değil.
+            chg_1d_pct = ((close.iloc[-1] - close.iloc[-2]) / close.iloc[-2]) * 100 if len(close) >= 2 and close.iloc[-2] else 0.0
+
             today_vol = float(vol.iloc[-1])
             avg20_vol = float(vol.iloc[-21:-1].mean())
             daily_rvol = (today_vol / avg20_vol) if avg20_vol > 0 else 0.0
@@ -643,6 +648,8 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
             if confirmed_1d:
                 score += 3.0
             score += min(daily_rvol, 5.0) * 1.2
+            if chg_1d_pct > 0:
+                score += min(chg_1d_pct, 10.0) * 1.5
 
             chg_1h_4bar = 0.0
             df_1h = data_1h.get(ticker)
@@ -668,6 +675,7 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
                 "confirmed_1d": confirmed_1d,
                 "daily_rvol": round(daily_rvol, 2),
                 "dollar_vol": round(dollar_vol, 0),
+                "chg_1d_pct": round(chg_1d_pct, 2),
                 "chg_5d_pct": round(chg_5d, 2),
                 "chg_1h_4bar_pct": round(chg_1h_4bar, 2),
                 "pattern_15m": pattern_name,
