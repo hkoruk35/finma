@@ -2600,24 +2600,38 @@ async def main():
 # 📅 SCHEDULER
 # ============================================================
 
-def get_next_run_ny() -> datetime:
-    """Saatte bir :45'te çalışır. 08:45 → 09:45 → ... → 15:45 ET."""
-    now = datetime.now(NY_TZ).replace(second=0, microsecond=0)
-    # (hour, minute) çiftleri — her saatin 45. dakikası, 8:45-15:45 arası
-    SCHEDULE = [(8,45),(9,45),(10,45),(11,45),(12,45),(13,45),(14,45),(15,45)]
+SCHEDULE_SLOTS = [(8,45),(9,45),(10,45),(11,45),(12,45),(13,45),(14,45),(15,45)]
+SCHEDULE_GRACE = timedelta(minutes=10)
+_LAST_COMPLETED_SLOT: Optional[tuple] = None
 
-    for h, m in SCHEDULE:
-        target = now.replace(hour=h, minute=m)
-        if target > now:
+
+def get_next_run_ny() -> datetime:
+    """
+    Saatte bir :45'te çalışır. 08:45 → 09:45 → ... → 15:45 ET.
+    NOT: Eskiden `now`'u dakikaya yuvarlayıp `target > now` ile katı karşılaştırma
+    yapıyordu — Task Scheduler script'i tam :45:00-:45:10 arası başlattığında bu
+    her zaman True/False sınırında patlayıp günün İLK slotunu (08:45) tamamen
+    atlıyordu (bot doğrudan 09:45'e kayıyordu). Artık: birkaç dakikalık gecikmeyle
+    başlamışsa bile o slotu "şimdi" kabul eder (GRACE penceresi) ve aynı slotu
+    tekrar çalıştırmamak için son tamamlanan slotu hatırlar.
+    """
+    now = datetime.now(NY_TZ)
+
+    for h, m in SCHEDULE_SLOTS:
+        if _LAST_COMPLETED_SLOT is not None and (h, m) <= _LAST_COMPLETED_SLOT:
+            continue
+        target = now.replace(hour=h, minute=m, second=0, microsecond=0)
+        if now <= target + SCHEDULE_GRACE:
             return target
 
     # Bir sonraki iş günü 08:45'e geç
     next_day = now + timedelta(days=1)
     while next_day.weekday() >= 5:
         next_day += timedelta(days=1)
-    return next_day.replace(hour=8, minute=45)
+    return next_day.replace(hour=8, minute=45, second=0, microsecond=0)
 
 async def run_scheduler():
+    global _LAST_COMPLETED_SLOT
     logging.info("🐂 BOGA AI InDay Scheduler başladı. Program: 08:45-15:45 ET saatte bir.")
 
     while True:
@@ -2626,11 +2640,12 @@ async def run_scheduler():
             wait_sec = (next_run - datetime.now(NY_TZ)).total_seconds()
 
             if wait_sec < 0:
-                wait_sec = 60
+                wait_sec = 0
             logging.info(f"💤 Sonraki tarama: {next_run.strftime('%H:%M')} ET ({int(wait_sec/60)} dk sonra)")
 
             await asyncio.sleep(wait_sec)
             await main()
+            _LAST_COMPLETED_SLOT = (next_run.hour, next_run.minute)
 
             # 15:45 taraması bitti → gün kapandı, çık (Task Scheduler yarın 08:45'te yeniden başlatır)
             now_ny = datetime.now(NY_TZ)
