@@ -333,7 +333,7 @@ LOOKBACK_DAYS_1D = 365     # 1 Year (For Year-to-Date VWAP and Structural Analys
 LOOKBACK_DAYS_1H = 90      # Stabilization and Institutional Cost Zone
 LOOKBACK_DAYS_15M = 14     # Entry Timing (Short term sufficient)
 
-MIN_BARS_1D = 200          # EMA200 ve Volatilite hesaplaması için zorunlu
+MIN_BARS_1D = 150          # ~7 ay — EMA200 erken aşamada da hesaplanabilir (ewm fewer-point bootstrap)
 MIN_BARS_1H = 300
 MIN_BARS_15M = 200
 
