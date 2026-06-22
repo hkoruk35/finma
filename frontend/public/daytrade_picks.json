@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-18T10:31:00.387989-04:00",
-  "scan_mode": "intraday",
-  "scan_duration_s": 27.0,
-  "total_scanned": 4,
-  "layer1_passed": 4,
-  "final_picks": 4,
+  "generated_at": "2026-06-22T08:45:00.839931-04:00",
+  "scan_mode": "premarket",
+  "scan_duration_s": 28.5,
+  "total_scanned": 7,
+  "layer1_passed": 7,
+  "final_picks": 7,
   "picks": [
     {
-      "ticker": "AFRM",
-      "price": 74.0,
-      "change_pct": 4.62,
-      "dt_score": 58.0,
+      "ticker": "SMCI",
+      "price": 30.66,
+      "change_pct": 10.37,
+      "dt_score": 44.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $32.40 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UPGRADE",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 73.03,
+      "vwap": null,
       "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "affirm and cpp investments renew and expand capital partnership(business wire)",
-        "confidence": "high",
-        "ts": 1781793086.5453796
+        "catalyst_type": "upgrade",
+        "catalyst_score": 15,
+        "headline": "super micro computer inc. stock outperforms competitors on strong trading day(marketwatch)+10.37%",
+        "confidence": "medium",
+        "ts": 1782132327.0001652
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,153 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 73.93,
-          "high": 74.37
+          "low": 32.37,
+          "high": 32.56
         },
-        "stop": 72.89,
-        "tp1": 76.67,
-        "tp2": 78.56,
+        "stop": 30.38,
+        "tp1": 36.64,
+        "tp2": 39.76,
         "rr_ratio": 2.0,
-        "avg_entry": 74.15,
-        "risk_per_sh": 1.26,
+        "avg_entry": 32.47,
+        "risk_per_sh": 2.09,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 74.0
+        "pm_high_ref": 32.4
+      },
+      "details": [
+        "📰 Kataliz: UPGRADE",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +10.4%",
+        "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SRPT",
+      "price": 17.53,
+      "change_pct": 3.36,
+      "dt_score": 41.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $17.90 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: EARNINGS_BEAT",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "biogene therapeutics inc. appoints ty howton to board of directors(tmx newsfile)",
+        "confidence": "high",
+        "ts": 1782132328.888425
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 17.88,
+          "high": 17.99
+        },
+        "stop": 17.37,
+        "tp1": 19.06,
+        "tp2": 19.91,
+        "rr_ratio": 1.99,
+        "avg_entry": 17.93,
+        "risk_per_sh": 0.56,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 17.9
       },
       "details": [
         "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.6%",
+        "↗️ Küçük Gap: +3.4%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.33%",
-        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "AFRM",
+      "price": 73.92,
+      "change_pct": 4.51,
+      "dt_score": 38.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $75.00 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: EARNINGS_BEAT",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "affirm and cpp investments renew and expand capital partnership(business wire)",
+        "confidence": "high",
+        "ts": 1782132326.9297838
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 74.92,
+          "high": 75.37
+        },
+        "stop": 73.25,
+        "tp1": 78.94,
+        "tp2": 81.78,
+        "rr_ratio": 2.0,
+        "avg_entry": 75.15,
+        "risk_per_sh": 1.9,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 75.0
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +4.5%",
+        "Bilinmiyor",
+        "Bilinmiyor",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "HIMS",
-      "price": 34.0,
-      "change_pct": 6.62,
-      "dt_score": 50.0,
+      "price": 35.47,
+      "change_pct": 11.23,
+      "dt_score": 29.0,
       "signal": "GAP_AND_GO",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "entry_condition": "⏳ BEKLE → Açılış barı $35.26 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: PARTNERSHIP",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 33.65,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "partnership",
         "catalyst_score": 18,
-        "headline": "hims stock gained nearly 6% on wednesday  barclays sees breakout potential after novo partnership(stocktwits)",
+        "headline": "hims stock slides overnight: insider files share sale as ceo teases oura wearable integration(stocktwits)",
         "confidence": "high",
-        "ts": 1781791284.3727472
+        "ts": 1782132326.9806712
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,48 +197,47 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 33.97,
-          "high": 34.17
+          "low": 35.22,
+          "high": 35.44
         },
-        "stop": 33.49,
-        "tp1": 35.23,
-        "tp2": 36.1,
-        "rr_ratio": 2.0,
-        "avg_entry": 34.07,
-        "risk_per_sh": 0.58,
+        "stop": 35.15,
+        "tp1": 35.86,
+        "tp2": 36.26,
+        "rr_ratio": 1.99,
+        "avg_entry": 35.33,
+        "risk_per_sh": 0.27,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 34.0
+        "pm_high_ref": 35.26
       },
       "details": [
         "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +6.6%",
+        "📈 Güçlü Gap: +11.2%",
         "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%1.1 geri)",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.05%",
-        "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "SMCI",
-      "price": 29.84,
-      "change_pct": 7.42,
-      "dt_score": 38.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "ticker": "MRNA",
+      "price": 63.96,
+      "change_pct": 3.5,
+      "dt_score": 25.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "⏳ BEKLE → Açılış barı $65.00 kırınca GİR | İlk 5m hacmi günlük ortalamanın 2x+ olmalı | Kataliz: UNKNOWN",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 29.45,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1781791287.459585
+        "ts": 1782132327.0065975
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -147,48 +251,100 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 29.81,
-          "high": 29.99
+          "low": 64.94,
+          "high": 65.32
         },
-        "stop": 29.39,
-        "tp1": 30.92,
-        "tp2": 31.68,
+        "stop": 63.38,
+        "tp1": 68.63,
+        "tp2": 71.25,
         "rr_ratio": 2.0,
-        "avg_entry": 29.9,
-        "risk_per_sh": 0.51,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 29.84
+        "avg_entry": 65.13,
+        "risk_per_sh": 1.75,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 65.0
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +7.4%",
+        "↗️ Küçük Gap: +3.5%",
+        "Bilinmiyor",
+        "⚡ PM Güçlü: High yakını, yukarı trend",
+        "Bilinmiyor",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "PRTA",
+      "price": 8.93,
+      "change_pct": 5.18,
+      "dt_score": 23.0,
+      "signal": "MOMENTUM",
+      "entry_condition": "⏳ BEKLE → Açılış barı kapatmaya izle, yön netleşince karar ver",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": null,
+      "catalyst": {
+        "catalyst_type": "fda_trial",
+        "catalyst_score": 12,
+        "headline": "prothena: q1 earnings snapshot(associated press)-5.90%",
+        "confidence": "medium",
+        "ts": 1782132328.3180165
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 8.89,
+          "high": 8.94
+        },
+        "stop": 8.85,
+        "tp1": 9.05,
+        "tp2": 9.15,
+        "rr_ratio": 2.02,
+        "avg_entry": 8.91,
+        "risk_per_sh": 0.07,
+        "signal": "MOMENTUM",
+        "pm_high_ref": 9.11
+      },
+      "details": [
+        "📋 Zayıf Kataliz: FDA_TRIAL",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.2%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.34%",
-        "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "UPST",
-      "price": 31.72,
-      "change_pct": 4.14,
-      "dt_score": 28.0,
-      "signal": "CONFIRMED_OPEN",
-      "entry_condition": "📊 İntraday izleme — yeni seviyelere bakınılıyor",
+      "price": 32.43,
+      "change_pct": 6.47,
+      "dt_score": 13.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "⏳ BEKLE → Açılışta VWAP test edilince GİR | VWAP'tan sekme + hacim artışı şart | Kataliz: UNKNOWN",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 31.32,
+      "vwap": null,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1781791284.377131
+        "ts": 1782132326.9903893
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -202,26 +358,25 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 31.69,
-          "high": 31.88
+          "low": 32.07,
+          "high": 32.23
         },
-        "stop": 31.24,
-        "tp1": 32.88,
-        "tp2": 33.69,
-        "rr_ratio": 2.01,
-        "avg_entry": 31.79,
-        "risk_per_sh": 0.55,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 31.72
+        "stop": 31.8,
+        "tp1": 32.85,
+        "tp2": 33.37,
+        "rr_ratio": 2.0,
+        "avg_entry": 32.15,
+        "risk_per_sh": 0.35,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 32.45
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.1%",
+        "↗️ Orta Gap: +6.5%",
         "Bilinmiyor",
+        "📉 PM Zayıf: Aşağı trend (%0.6 geri)",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.27%",
-        "🔴 Açılış Barı: Kırmızı (1.8% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
