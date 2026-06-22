@@ -55,7 +55,7 @@ def main():
     log.info("🌅 BOGA AI Sabah Döngüsü Başlatıldı...")
 
     # 1. DayTrade Scan
-    run_bot("daytrade_atmaca_v2.py")
+    run_bot("daytrade_atmaca_v2.py", ["--oneshot"])
 
     # 2. DayTrade Performance Update
     run_bot("update_daytrade_performance.py")

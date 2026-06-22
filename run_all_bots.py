@@ -86,7 +86,7 @@ def main():
 
     # ── ADIM 1: DayTrade Master (v2.0) ──
     log.info("ADIM 1: daytrade_atmaca_v2.py çalıştırılıyor...")
-    dt_ok = run_bot_subprocess("daytrade_atmaca_v2.py")
+    dt_ok = run_bot_subprocess("daytrade_atmaca_v2.py", ["--oneshot"])
     if dt_ok:
         log.info("DayTrade sonuçları ara yükleme yapılıyor (Git Push)...")
         subprocess.run(["git", "add", "frontend/public/daytrade_picks.json", "frontend/public/daytrade_all_picks.json"], cwd=FINMA_DIR)
