@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "ALKS",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 45.79,
+        "entry_zone": "45.00 - 46.59",
+        "SL": 42.63,
+        "TP": 52.12
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "CBT",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 92.46,
+        "entry_zone": "91.18 - 93.73",
+        "SL": 87.35,
+        "TP": 102.66
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "SRRK",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 48.98,
+        "entry_zone": "47.93 - 50.03",
+        "SL": 44.78,
+        "TP": 57.38
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "UNFI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 52.33,
+        "entry_zone": "50.84 - 53.82",
+        "SL": 46.38,
+        "TP": 64.22
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "LINC",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 49.13,
+        "entry_zone": "47.96 - 50.30",
+        "SL": 44.44,
+        "TP": 58.51
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "GCMG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 12.05,
+        "entry_zone": "11.85 - 12.25",
+        "SL": 11.23,
+        "TP": 13.69
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "GWW",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 1354.4,
+        "entry_zone": "1340.15 - 1368.65",
+        "SL": 1297.4,
+        "TP": 1468.4
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "HCSG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 23.08,
+        "entry_zone": "22.81 - 23.35",
+        "SL": 21.98,
+        "TP": 25.28
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "MGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 11.34,
+        "entry_zone": "11.03 - 11.65",
+        "SL": 10.1,
+        "TP": 13.83
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "INSW",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 87.46,
+        "entry_zone": "85.95 - 88.97",
+        "SL": 81.41,
+        "TP": 99.56
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "MAMA",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 17.93,
+        "entry_zone": "17.46 - 18.40",
+        "SL": 16.03,
+        "TP": 21.73
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "TILE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 32.69,
+        "entry_zone": "32.18 - 33.19",
+        "SL": 30.65,
+        "TP": 36.76
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "TER",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 447.23,
+        "entry_zone": "431.21 - 463.26",
+        "SL": 383.14,
+        "TP": 575.42
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "ALL",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 223.73,
+        "entry_zone": "221.02 - 226.43",
+        "SL": 212.91,
+        "TP": 245.36
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "TRV",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 311.99,
+        "entry_zone": "308.57 - 315.41",
+        "SL": 298.32,
+        "TP": 339.33
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "WRBY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 26.44,
+        "entry_zone": "25.54 - 27.34",
+        "SL": 22.83,
+        "TP": 33.65
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "WOLF",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 54.3,
+        "entry_zone": "49.95 - 58.65",
+        "SL": 36.91,
+        "TP": 89.08
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "BE",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 339.7,
+        "entry_zone": "326.43 - 352.97",
+        "SL": 286.62,
+        "TP": 445.86
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 24.4,
+        "entry_zone": "22.76 - 26.03",
+        "SL": 17.85,
+        "TP": 37.49
+    },
+    {
+        "date": "2026-06-22 13:01",
+        "symbol": "ACMR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 103.87,
+        "entry_zone": "98.72 - 109.02",
+        "SL": 83.28,
+        "TP": 145.04
+    }
+]
