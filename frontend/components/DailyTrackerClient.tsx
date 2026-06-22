@@ -20,6 +20,7 @@ interface IntradayData {
   change_24h: number;
   trend_1h: string;
   setup: string;
+  pattern_15m?: string;
   rs_score: number;
   natr: number;
   // GAP-UP / PRE-GAP skoru (5 bileşen, 0-15)
@@ -397,7 +398,6 @@ export default function DailyTrackerClient() {
               <thead>
                 <tr style={{ borderBottom: "1px solid #30363d" }}>
                   {[
-                    { label: "DURUM",   key: "status",  align: "left"  },
                     { label: "TİCKER",  key: "ticker",  align: "left"  },
                     { label: "ŞİRKET",  key: null,      align: "left"  },
                     { label: "SEKTÖR",  key: null,      align: "left"  },
@@ -409,6 +409,7 @@ export default function DailyTrackerClient() {
                     { label: "RSI",     key: "rsi",     align: "right" },
                     { label: "VOL×",    key: "vol",     align: "right" },
                     { label: "ADX",     key: null,      align: "right" },
+                    { label: "15M PATERN", key: null,   align: "right" },
                     { label: "SETUP",   key: null,      align: "right" },
                     { label: "GAP",     key: "gap",     align: "right" },
                     { label: "ALERT",   key: "alert",   align: "right" },
@@ -433,7 +434,6 @@ export default function DailyTrackerClient() {
               </thead>
               <tbody>
                 {filtered.map((tk, idx) => {
-                  const sc = STATUS_COLORS[tk.current_status] || STATUS_COLORS.NEUTRAL;
                   const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
                   const isExp = expandedRow === tk.ticker;
 
@@ -444,16 +444,6 @@ export default function DailyTrackerClient() {
                         style={{ background: altBg, borderBottom: isExp ? "none" : "1px solid #21262d", cursor: "pointer" }}
                         onClick={() => setExpandedRow(isExp ? null : tk.ticker)}
                       >
-                        {/* DURUM */}
-                        <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}>
-                          <span style={{
-                            fontSize: 9, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                            background: sc.bg, border: `1px solid ${sc.border}`, color: sc.text,
-                          }}>
-                            {statusLabel(tk.current_status)}
-                          </span>
-                        </td>
-
                         {/* TICKER */}
                         <td style={{ padding: "6px 8px" }}>
                           <TickerHoverChart ticker={tk.ticker}>
@@ -519,6 +509,13 @@ export default function DailyTrackerClient() {
                         {/* ADX */}
                         <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 10 }}>
                           {fmt1(tk.intraday?.adx_1h)}
+                        </td>
+
+                        {/* 15M PATERN */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontSize: 9, maxWidth: 140, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {tk.intraday?.pattern_15m && !["NONE", "Neutral", "Insufficient Data", "Pattern Error"].includes(tk.intraday.pattern_15m)
+                            ? <span style={{ color: "#58a6ff", fontWeight: 700 }}>{tk.intraday.pattern_15m}</span>
+                            : <span style={{ color: "#555" }}>—</span>}
                         </td>
 
                         {/* SETUP */}

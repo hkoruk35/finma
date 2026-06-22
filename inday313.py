@@ -1135,6 +1135,7 @@ def assess_15m_entry_timing(
                 if timing_score >= 2.0
                 else "WAIT"
             ),
+            "pattern_name": pattern,
             "notes": timing_notes,
         }
 
@@ -1142,6 +1143,7 @@ def assess_15m_entry_timing(
         return {
             "timing_score": 0.0,
             "timing_state": "ERROR",
+            "pattern_name": "Pattern Error",
             "notes": [str(e)],
         }
         
@@ -1731,19 +1733,12 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         action = "WATCH"
 
     # ================================================
-    # 11. MARKET CAP, SECTOR & COMPANY NAME
+    # 11. MARKET CAP, SECTOR & COMPANY NAME (cache'li, asla eksik dönmez)
     # ================================================
-    market_cap = 0
-    sector = "Unknown"
-    company_name = ticker
-    try:
-        stock = yf.Ticker(ticker)
-        info = stock.info
-        market_cap = info.get('marketCap', 0)
-        sector = info.get('sector', 'Unknown')
-        company_name = info.get('longName') or info.get('shortName') or ticker
-    except Exception:
-        pass
+    stock_info = get_stock_info(ticker)
+    market_cap = stock_info["market_cap"]
+    sector = stock_info["sector"]
+    company_name = stock_info["company"]
 
     # ================================================
     # 12. NOTES AND STATUS ANALYSIS
@@ -1801,6 +1796,7 @@ async def process_single_stock(ticker: str) -> Optional[Dict[str, Any]]:
         "change_1h": round(change_1h, 2),
         "change_24h": round(change_24h, 2),
         "setup_type": setup_type,
+        "pattern_15m": timing_15m.get("pattern_name", "Neutral"),
         "trend_phase": ctx_1d.get("structure", "UNKNOWN"),
         "entry_zone": scenario["entry_zone"],
         "stop_loss": scenario["stop_loss"],
@@ -2078,7 +2074,11 @@ async def analyze_market_and_sectors() -> None:
 # ============================================================
 
 def get_stock_info(ticker: str) -> Dict[str, Any]:
-    """Fetches fundamental data from Yahoo Finance (with Boga Cache mechanism)"""
+    """
+    Fetches fundamental data (company, sector, market cap, beta, short float) from
+    Yahoo Finance, with an in-memory cache so the same ticker isn't re-fetched every
+    hour. Never returns missing/None fields — worst case falls back to ticker/Unknown/0.
+    """
     if "STOCK_INFO_CACHE" not in globals():
         global STOCK_INFO_CACHE
         STOCK_INFO_CACHE = {}
@@ -2086,18 +2086,21 @@ def get_stock_info(ticker: str) -> Dict[str, Any]:
     if ticker in STOCK_INFO_CACHE:
         return STOCK_INFO_CACHE[ticker]
 
+    data = {"company": ticker, "market_cap": 0, "sector": "Unknown", "beta": 0, "short_float": 0}
     try:
         info = yf.Ticker(ticker).info
         data = {
-            "market_cap": info.get("marketCap", 0),
-            "sector": info.get("sector", "Unknown"),
-            "beta": info.get("beta", 0),
-            "short_float": info.get("shortPercentOfFloat", 0)
+            "company": info.get("longName") or info.get("shortName") or ticker,
+            "market_cap": info.get("marketCap", 0) or 0,
+            "sector": info.get("sector") or "Unknown",
+            "beta": info.get("beta", 0) or 0,
+            "short_float": info.get("shortPercentOfFloat", 0) or 0,
         }
-        STOCK_INFO_CACHE[ticker] = data
-        return data
-    except:
-        return {"market_cap": 0, "sector": "Unknown", "beta": 0, "short_float": 0}
+    except Exception as e:
+        logging.debug(f"{ticker}: get_stock_info hatası: {e}")
+
+    STOCK_INFO_CACHE[ticker] = data
+    return data
 
 
 def select_final_candidates(
@@ -2291,6 +2294,7 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
                 "change_24h": safe_float(res.get("change_24h")),
                 "trend_1h": res.get("trend_1h", "FLAT"),
                 "setup": res.get("setup_type", "NONE"),
+                "pattern_15m": res.get("pattern_15m", "Neutral"),
                 "rs_score": safe_float(res.get("rs_score")),
                 "natr": safe_float(res.get("natr")),
                 # --- GAP-UP / PRE-GAP (5 bileşen, 0-15) ---
@@ -2514,6 +2518,7 @@ async def main():
                 raw_results.append(res)
             else:
                 # Fallback entry for stocks with no data (show the whole universe)
+                # NOT: Teknik analiz başarısız olsa da kimlik bilgisi (şirket/sektör) HER ZAMAN doldurulur.
                 fallback_price = 0.0
                 try:
                     tmp = yf.Ticker(sym).history(period="2d", interval="1d")
@@ -2521,8 +2526,12 @@ async def main():
                         fallback_price = round(float(tmp["Close"].iloc[-1]), 2)
                 except Exception:
                     pass
+                fallback_info = get_stock_info(sym)
                 raw_results.append({
                     "symbol": sym,
+                    "company": fallback_info["company"],
+                    "sector": fallback_info["sector"],
+                    "market_cap": fallback_info["market_cap"],
                     "score": 0.0,
                     "price": fallback_price,
                     "action": "WAIT",
@@ -2536,6 +2545,7 @@ async def main():
                     "change_24h": 0.0,
                     "trend_1h": "FLAT",
                     "setup_type": "NONE",
+                    "pattern_15m": "Neutral",
                     "rs_score": 0.0,
                     "natr": 0.0,
                     "notes": ["⚠️ Technical data insufficient"],
