@@ -549,12 +549,12 @@ def build_full_universe() -> List[str]:
 DISCOVERY_CHUNK_SIZE = 150
 
 
-async def _download_chunk_multi(chunk: List[str], period: str, interval: str) -> Dict[str, pd.DataFrame]:
+async def _download_chunk_multi(chunk: List[str], period: str, interval: str, prepost: bool = False) -> Dict[str, pd.DataFrame]:
     """Bir ticker chunk'ı için toplu indirme yapar, ticker -> DataFrame sözlüğü döndürür."""
     out: Dict[str, pd.DataFrame] = {}
     try:
         df = await asyncio.to_thread(
-            yf.download, chunk, period=period, interval=interval,
+            yf.download, chunk, period=period, interval=interval, prepost=prepost,
             group_by="ticker", threads=True, progress=False, auto_adjust=True,
         )
     except Exception as e:
@@ -604,8 +604,8 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
     for i, chunk in enumerate(chunks):
         d1d, d1h, d15m = await asyncio.gather(
             _download_chunk_multi(chunk, period="3mo", interval="1d"),
-            _download_chunk_multi(chunk, period="1mo", interval="1h"),
-            _download_chunk_multi(chunk, period="5d", interval="15m"),
+            _download_chunk_multi(chunk, period="1mo", interval="1h", prepost=True),
+            _download_chunk_multi(chunk, period="5d", interval="15m", prepost=True),
         )
         data_1d.update(d1d)
         data_1h.update(d1h)
@@ -793,6 +793,7 @@ async def get_boga_data(
                     period="6mo",       # 1H: 6 Months (Max) -> Value Zone detection
                     interval="1h",
                     auto_adjust=True,
+                    prepost=True,       # Premarket barları dahil et — current_price/gap 08:45'te dünün kapanışına saplanıp kalmasın
                     timeout=20,
                 ),
                 asyncio.to_thread(
@@ -800,6 +801,7 @@ async def get_boga_data(
                     period="1mo",       # 15M: 1 Month -> Micro Structure (1 month instead of 14d)
                     interval="15m",
                     auto_adjust=True,
+                    prepost=True,       # Premarket barları dahil et — gap_pct/today_open gerçek premarket açılışını görsün
                     timeout=20,
                 ),
             )
