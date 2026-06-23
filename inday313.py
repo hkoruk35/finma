@@ -589,9 +589,10 @@ async def _download_chunk_multi(chunk: List[str], period: str, interval: str, pr
 
 async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> List[Dict[str, Any]]:
     """
-    Günün ilk taraması: ALL-LIST tam evrenini 15M/1H/1D üzerinden tarar.
+    Günün ilk taraması: ALL-LIST tam evrenini 1H/1D üzerinden tarar.
     1D onayı (fiyat > SMA20 ve 5 günlük momentum pozitif) zorunlu filtre olarak uygulanır;
-    onaylananlar arasından günlük hacim + 1H momentum + 15M patern oluşumuna göre Top-N seçilir.
+    onaylananlar arasından günlük hacim + 1D/1H RSI slope + 1H yapısal skor (analyze_1h_structure)
+    + son kapanan 1H mum paternine göre Top-N seçilir.
     Yeterli 1D-onaylı aday yoksa liste en iyi skorlu adaylarla tamamlanır.
     """
     chunks = [universe[i:i + DISCOVERY_CHUNK_SIZE] for i in range(0, len(universe), DISCOVERY_CHUNK_SIZE)]
@@ -599,18 +600,15 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
 
     data_1d: Dict[str, pd.DataFrame] = {}
     data_1h: Dict[str, pd.DataFrame] = {}
-    data_15m: Dict[str, pd.DataFrame] = {}
 
     for i, chunk in enumerate(chunks):
-        d1d, d1h, d15m = await asyncio.gather(
+        d1d, d1h = await asyncio.gather(
             _download_chunk_multi(chunk, period="9mo", interval="1d"),  # EMA200 icin yeterli gecmis (MIN_BARS_1D ile ayni mantik)
             _download_chunk_multi(chunk, period="1mo", interval="1h", prepost=True),
-            _download_chunk_multi(chunk, period="5d", interval="15m", prepost=True),
         )
         data_1d.update(d1d)
         data_1h.update(d1h)
-        data_15m.update(d15m)
-        logging.info(f"  Discovery chunk {i + 1}/{len(chunks)}: {len(d1d)} 1D / {len(d1h)} 1H / {len(d15m)} 15M indirildi.")
+        logging.info(f"  Discovery chunk {i + 1}/{len(chunks)}: {len(d1d)} 1D / {len(d1h)} 1H indirildi.")
 
     scored: List[Dict[str, Any]] = []
     for ticker in universe:
@@ -686,6 +684,11 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
                 logging.debug(f"Discovery EMA/RSI hatası {ticker}: {e}")
 
             chg_1h_4bar = 0.0
+            rsi_1h = 50.0
+            rsi_slope_1h = 0.0
+            struct_1h_score = 0.0
+            setup_type_1h = "NONE"
+            pattern_1h = "Yetersiz Veri"
             df_1h = data_1h.get(ticker)
             if df_1h is not None and not df_1h.empty:
                 c1h = df_1h["Close"].dropna()
@@ -694,14 +697,28 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
                     if chg_1h_4bar > 0:
                         score += min(chg_1h_4bar, 5.0) * 0.8
 
-            pattern_name, pattern_score = "Neutral", 0.0
-            df_15m = data_15m.get(ticker)
-            if df_15m is not None and not df_15m.empty and len(df_15m) >= 21:
-                # detect_15m_timing_pattern "ATR" sütununu bekler — ham yf.download
-                # çıktısında bu yok, o yüzden hafif indikatör setini burada üretiyoruz.
-                df_15m_ind = calculate_boga_indicators(df_15m, "15m")
-                pattern_name, pattern_score = detect_15m_timing_pattern(df_15m_ind)
-                score += pattern_score
+                # 1H RSI slope + yapısal skor (VWAP/EMA50 konumu, absorpsiyon, ADX momentum)
+                # + son kapanan 1H mum paterni. Hepsi zaten indirilmiş df_1h üzerinden,
+                # ekstra API çağrısı yok.
+                try:
+                    df_1h_ind = calculate_boga_indicators(df_1h, "1h")
+                    rsi_1h = float(df_1h_ind["RSI"].iloc[-1])
+                    rsi_slope_1h = float(df_1h_ind["RSI"].diff(periods=5).iloc[-1])
+                    if rsi_slope_1h > 0 and 40 <= rsi_1h <= 75:
+                        score += 1.0
+
+                    struct_1h = analyze_1h_structure(df_1h_ind)
+                    struct_1h_score = float(struct_1h.get("1h_score", 0.0))
+                    setup_type_1h = struct_1h.get("setup_type", "NONE")
+                    score += struct_1h_score * 0.5
+
+                    pattern_1h = detect_1h_candle_pattern(df_1h)
+                    if pattern_1h in BULLISH_1H_PATTERNS:
+                        score += 2.0
+                    elif pattern_1h in BEARISH_1H_PATTERNS:
+                        score -= 1.5
+                except Exception as e:
+                    logging.debug(f"Discovery 1H skor hatası {ticker}: {e}")
 
             scored.append({
                 "ticker": ticker,
@@ -712,7 +729,10 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
                 "chg_1d_pct": round(chg_1d_pct, 2),
                 "chg_5d_pct": round(chg_5d, 2),
                 "chg_1h_4bar_pct": round(chg_1h_4bar, 2),
-                "pattern_15m": pattern_name,
+                "rsi_1h": round(rsi_1h, 1),
+                "rsi_slope_1h": round(rsi_slope_1h, 1),
+                "pattern_1h": pattern_1h,
+                "setup_type_1h": setup_type_1h,
                 "ema_stack_bullish": ema_stack_bullish,
                 "ema20_1d": round(ema20_1d, 2),
                 "ema50_1d": round(ema50_1d, 2),
@@ -1017,7 +1037,124 @@ def calculate_boga_indicators(df: pd.DataFrame, tf: str) -> pd.DataFrame:
     df.fillna(0, inplace=True) # Hala NaN varsa 0 yap
 
     return df
-    
+
+# ================================================================
+# 4.5) BOGA FİNANS AI – 1H KLASİK MUM PATERNİ DEDEKTÖRÜ
+# ================================================================
+# detectCandlePattern() (frontend/app/api/watchlist-data/route.ts:116) Python portu.
+# /tracker sayfasıyla aynı tanım/eşikler — tracker_strategy.md'deki 1H patern listesiyle uyumlu.
+
+BULLISH_1H_PATTERNS = {
+    "Hammer", "Inv. Hammer", "Bullish Engulfing", "Bullish Marubozu",
+    "Morning Star", "3 Asker ↑", "Dragonfly Doji", "Outside Bar ↑", "Güçlü ↑",
+}
+BEARISH_1H_PATTERNS = {
+    "Hanging Man", "Shooting Star", "Bearish Engulfing", "Bearish Marubozu",
+    "Evening Star", "3 Karga ↓", "Gravestone Doji", "Outside Bar ↓", "Güçlü ↓",
+}
+
+
+def detect_1h_candle_pattern(df_1h: pd.DataFrame) -> str:
+    """
+    Son TAMAMLANMIŞ 1H mumunu (index -2; -1 hâlâ oluşmakta) klasik mum
+    paternlerine göre sınıflandırır. Hacimden bağımsız, tamamen OHLC şekline
+    dayalı olduğu için premarket'te de (1H barlar prepost=True ile gerçek
+    fiyat hareketi taşır) anlamlı çalışır.
+    """
+    try:
+        closes = df_1h["Close"].values
+        opens = df_1h["Open"].values
+        highs = df_1h["High"].values
+        lows = df_1h["Low"].values
+        n = len(closes)
+        if n < 3:
+            return "Yetersiz Veri"
+
+        curr_o, curr_c, curr_h, curr_l = opens[n - 2], closes[n - 2], highs[n - 2], lows[n - 2]
+        prev_o, prev_c, prev_h, prev_l = opens[n - 3], closes[n - 3], highs[n - 3], lows[n - 3]
+        prev2_o, prev2_c = (opens[n - 4], closes[n - 4]) if n >= 4 else (None, None)
+
+        body = abs(curr_c - curr_o)
+        rng = (curr_h - curr_l) or 0.0001
+        lower_wick = min(curr_c, curr_o) - curr_l
+        upper_wick = curr_h - max(curr_c, curr_o)
+        bullish = curr_c > curr_o
+        prev_bullish = prev_c > prev_o
+        prev_body = abs(prev_c - prev_o)
+
+        start = max(0, n - 12)
+        recent_bodies = [abs(closes[i] - opens[i]) for i in range(start, n - 2)]
+        avg_body = (sum(recent_bodies) / len(recent_bodies)) if recent_bodies else body
+
+        # ── Doji (context-aware: son 10 tamamlanmış mumun ortalama gövdesine göre) ──
+        if body < avg_body * 0.15 and body < rng * 0.08:
+            if lower_wick > rng * 0.6 and upper_wick < rng * 0.1:
+                return "Dragonfly Doji"
+            if upper_wick > rng * 0.6 and lower_wick < rng * 0.1:
+                return "Gravestone Doji"
+            return "Doji"
+
+        # ── Engulfing ──
+        if bullish and not prev_bullish and curr_o <= prev_c and curr_c >= prev_o and body > prev_body * 0.9:
+            return "Bullish Engulfing"
+        if not bullish and prev_bullish and curr_o >= prev_c and curr_c <= prev_o and body > prev_body * 0.9:
+            return "Bearish Engulfing"
+
+        # ── Marubozu: neredeyse hiç fitil yok ──
+        if lower_wick < body * 0.05 and upper_wick < body * 0.05:
+            return "Bullish Marubozu" if bullish else "Bearish Marubozu"
+
+        # ── Hammer / Star: uzun fitil, kısa gövde ──
+        if body > rng * 0.15:
+            if lower_wick > body * 2.5 and upper_wick < body * 0.4:
+                return "Hammer" if bullish else "Hanging Man"
+            if upper_wick > body * 2.5 and lower_wick < body * 0.4:
+                return "Inv. Hammer" if bullish else "Shooting Star"
+
+        # ── Inside / Outside Bar ──
+        if curr_h < prev_h and curr_l > prev_l:
+            return "Inside Bar"
+        if curr_h > prev_h and curr_l < prev_l:
+            return "Outside Bar ↑" if bullish else "Outside Bar ↓"
+
+        # ── Spinning Top ──
+        if body < rng * 0.25 and lower_wick > rng * 0.2 and upper_wick > rng * 0.2:
+            return "Spinning Top ↑" if bullish else "Spinning Top ↓"
+
+        # ── 3 Mum Paternleri ──
+        if prev2_o is not None:
+            prev2_bullish = prev2_c > prev2_o
+            prev2_body = abs(prev2_c - prev2_o)
+            if (not prev2_bullish and prev_body < prev2_body * 0.4 and bullish
+                    and body > prev2_body * 0.5 and curr_c > (prev2_o + prev2_c) / 2):
+                return "Morning Star"
+            if (prev2_bullish and prev_body < prev2_body * 0.4 and not bullish
+                    and body > prev2_body * 0.5 and curr_c < (prev2_o + prev2_c) / 2):
+                return "Evening Star"
+            if (bullish and prev_bullish and prev2_bullish
+                    and curr_c > prev_c > prev2_c and curr_o > prev_o > prev2_o):
+                return "3 Asker ↑"
+            if (not bullish and not prev_bullish and not prev2_bullish
+                    and curr_c < prev_c < prev2_c and curr_o < prev_o < prev2_o):
+                return "3 Karga ↓"
+
+        # ── Fallback: gövde büyüklüğüne göre basit etiket ──
+        body_ratio = body / rng
+        if bullish:
+            if body_ratio > 0.65:
+                return "Güçlü ↑"
+            if upper_wick > lower_wick * 2:
+                return "Üst Fitil ↑"
+            return "Yeşil Mum ↑"
+        else:
+            if body_ratio > 0.65:
+                return "Güçlü ↓"
+            if lower_wick > upper_wick * 2:
+                return "Alt Fitil ↓"
+            return "Kırmızı Mum ↓"
+    except Exception:
+        return "Pattern Error"
+
 # ================================================================
 # 5) BOGA FİNANS AI – 15M TIMING & MICRO STRUCTURE ENGINE
 # ================================================================
