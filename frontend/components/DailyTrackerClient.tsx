@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import * as XLSX from "xlsx";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -87,6 +88,32 @@ const ALERT_BADGE: Record<string, { bg: string; text: string }> = {
   LOW:    { bg: "#161b22", text: "#8b949e" },
 };
 
+// Satır arkaplanı — durum bazlı tonlama (CSP'nin sinyal bazlı ROW_BG'siyle aynı yapı)
+const ROW_BG: Record<string, string> = {
+  ENTRY_NOW:   "#0d1f0d",
+  ENTRY_WATCH: "#1a1a0d",
+  HOLD:        "#0d1620",
+  TAKE_PROFIT: "#180d20",
+  STOP_HIT:    "#1f0d0d",
+};
+
+const SETUP_BADGE: Record<string, { bg: string; text: string }> = {
+  ABSORPTION:     { bg: "#1a3a1a", text: "#3fb950" },
+  SQUEEZE:        { bg: "#1a1a2e", text: "#58a6ff" },
+  AGGRESSIVE_BUY: { bg: "#2a1a0d", text: "#e3b341" },
+  DEFAULT:        { bg: "#161b22", text: "#e3b341" },
+};
+
+// 15M PATERN — güç kademesine göre renk (bu bot sadece yükseliş paternleri üretir,
+// CSP'nin bullish/bearish dizi mantığının burada güç-kademesi karşılığı)
+const STRONG_PATTERNS = ["HYPER MSB", "MSB + Vol Breakout"];
+const MEDIUM_PATTERNS = ["EMA20 Reclaim", "Consolidation Breakout"];
+function patternColor(p: string) {
+  if (STRONG_PATTERNS.some(x => p.includes(x))) return "#3fb950";
+  if (MEDIUM_PATTERNS.some(x => p.includes(x))) return "#58a6ff";
+  return "#e3b341";
+}
+
 const GAP_GRADE_BADGE: Record<string, { bg: string; text: string; border: string }> = {
   "A+": { bg: "#0d4a0d", text: "#56d364", border: "#3fb950" },
   "A":  { bg: "#0d2a0d", text: "#3fb950", border: "#2ea043" },
@@ -145,6 +172,7 @@ export default function DailyTrackerClient() {
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string | null>("alert");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  const [searchQuery, setSearchQuery] = useState("");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const isMarketOpen = () => {
@@ -223,11 +251,51 @@ export default function DailyTrackerClient() {
     return sortDir === "asc" ? diff : -diff;
   });
 
-  const filtered = sorted.filter(t => !filterStatus || t.current_status === filterStatus);
+  const filtered = sorted.filter(t => {
+    if (filterStatus && t.current_status !== filterStatus) return false;
+    if (searchQuery) {
+      const q = searchQuery.toUpperCase();
+      if (!t.ticker.includes(q) && !(t.company || "").toUpperCase().includes(q) && !(t.sector || "").toUpperCase().includes(q)) return false;
+    }
+    return true;
+  });
 
   const toggleSort = (col: string) => {
     if (sortBy === col) setSortDir(sortDir === "asc" ? "desc" : "asc");
     else { setSortBy(col); setSortDir("desc"); }
+  };
+
+  const downloadXLS = () => {
+    const rows = filtered.map(tk => ({
+      "Ticker": tk.ticker,
+      "Şirket": tk.company,
+      "Sektör": tk.sector,
+      "İlk Görüldü": tk.first_seen,
+      "Giriş Fiyatı": tk.entry_price ?? "",
+      "Güncel Fiyat": tk.current_price,
+      "Kar/Zarar %": tk.entry_price != null ? +tk.pnl_pct.toFixed(2) : "",
+      "1H Δ%": tk.intraday?.change_1h != null ? +tk.intraday.change_1h.toFixed(2) : "",
+      "RSI": tk.intraday?.rsi_1h != null ? +tk.intraday.rsi_1h.toFixed(1) : "",
+      "VOL×": tk.intraday?.volume_ratio != null ? +tk.intraday.volume_ratio.toFixed(2) : "",
+      "ADX": tk.intraday?.adx_1h != null ? +tk.intraday.adx_1h.toFixed(1) : "",
+      "15M Patern": tk.intraday?.pattern_15m || "",
+      "Setup": tk.intraday?.setup || "",
+      "GAP Grade": tk.intraday?.pre_gap_grade || "",
+      "GAP Skoru": tk.intraday?.pre_gap_total ?? "",
+      "Alert": tk.alert_level,
+      "Durum": tk.current_status,
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    ws["!cols"] = [
+      { wch: 8 }, { wch: 26 }, { wch: 16 }, { wch: 10 }, { wch: 10 }, { wch: 10 },
+      { wch: 10 }, { wch: 8 }, { wch: 6 }, { wch: 7 }, { wch: 6 }, { wch: 26 },
+      { wch: 14 }, { wch: 10 }, { wch: 9 }, { wch: 8 }, { wch: 12 },
+    ];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Daily Tracker");
+    const dateStr = (dayData?.date || "today").replace(/-/g, "");
+    XLSX.writeFile(wb, `boga_daily_${dateStr}.xlsx`);
   };
 
   const entryCount = filtered.filter(t => t.current_status === "ENTRY_NOW").length;
@@ -249,15 +317,18 @@ export default function DailyTrackerClient() {
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 6 }}>
           <Link href="/" style={{ color: "#58a6ff" }}>BOGA AI</Link>
           <span style={{ margin: "0 6px" }}>/</span>
-          <span style={{ color: "#e3b341" }}>DAILY TRACKER</span>
+          <span style={{ color: "#e3b341" }}>DAILY</span>
+          <span style={{ margin: "0 6px" }}>/</span>
+          <span style={{ color: "#e6edf3" }}>İntraday Tracker</span>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 6 }}>
-              <span style={{ fontSize: 22, fontWeight: 900, color: "#e3b341", letterSpacing: "-0.5px" }}>
-                📊 BOGA DAILY TRACKER
+              <span style={{ fontSize: 20, fontWeight: 900, color: "#e3b341", letterSpacing: "-0.5px" }}>
+                BOGA TRACKER — DAILY INTRADAY
               </span>
+              <span style={{ fontSize: 12, color: "#8b949e" }}>Bot-Seçilen Top 20 · İntraday Takip</span>
               {dayData && (
                 <span style={{
                   fontSize: 11, padding: "2px 8px", borderRadius: 3,
@@ -338,11 +409,36 @@ export default function DailyTrackerClient() {
             >
               {loading ? "..." : "🔄 YENİLE"}
             </button>
+            <button
+              onClick={downloadXLS}
+              disabled={!dayData || filtered.length === 0}
+              title="Excel olarak indir"
+              style={{
+                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d", background: "transparent",
+                color: (!dayData || filtered.length === 0) ? "#8b949e" : "#3fb950",
+                borderRadius: 4, cursor: (!dayData || filtered.length === 0) ? "default" : "pointer"
+              }}
+            >
+              XLS ↓
+            </button>
           </div>
         </div>
 
-        {/* Status Filters */}
-        <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
+        {/* Search + Status Filters */}
+        <div style={{ display: "flex", gap: 6, marginTop: 10, flexWrap: "wrap", alignItems: "center" }}>
+          <input
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value.toUpperCase())}
+            placeholder="hisse ara..."
+            maxLength={12}
+            style={{
+              background: "#161b22", border: `1px solid ${searchQuery ? "#e3b341" : "#30363d"}`,
+              color: "#e6edf3", padding: "3px 8px", borderRadius: 3,
+              fontSize: 11, fontFamily: "monospace", width: 100, outline: "none"
+            }}
+          />
+          <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
           {[
             { k: "", label: "TÜM DURUM" },
             { k: "ENTRY_NOW",   label: "🚀 GİRİŞ" },
@@ -424,6 +520,7 @@ export default function DailyTrackerClient() {
                         background: "#0d1117",
                         cursor: key ? "pointer" : "default",
                         userSelect: "none", whiteSpace: "nowrap",
+                        opacity: key ? 1 : 0.7,
                       }}
                     >
                       {label}
@@ -435,13 +532,14 @@ export default function DailyTrackerClient() {
               <tbody>
                 {filtered.map((tk, idx) => {
                   const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
+                  const bg = ROW_BG[tk.current_status] || altBg;
                   const isExp = expandedRow === tk.ticker;
 
                   return (
                     <>
                       <tr
                         key={tk.ticker}
-                        style={{ background: altBg, borderBottom: isExp ? "none" : "1px solid #21262d", cursor: "pointer" }}
+                        style={{ background: bg, borderBottom: isExp ? "none" : "1px solid #21262d", cursor: "pointer" }}
                         onClick={() => setExpandedRow(isExp ? null : tk.ticker)}
                       >
                         {/* TICKER */}
@@ -514,15 +612,23 @@ export default function DailyTrackerClient() {
                         {/* 15M PATERN */}
                         <td style={{ padding: "6px 8px", textAlign: "right", fontSize: 9, maxWidth: 140, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                           {tk.intraday?.pattern_15m && !["NONE", "Neutral", "Insufficient Data", "Pattern Error"].includes(tk.intraday.pattern_15m)
-                            ? <span style={{ color: "#58a6ff", fontWeight: 700 }}>{tk.intraday.pattern_15m}</span>
+                            ? <span style={{ color: patternColor(tk.intraday.pattern_15m), fontWeight: 700 }}>{tk.intraday.pattern_15m}</span>
                             : <span style={{ color: "#555" }}>—</span>}
                         </td>
 
                         {/* SETUP */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontSize: 9 }}>
-                          {tk.intraday?.setup && tk.intraday.setup !== "NONE"
-                            ? <span style={{ color: "#e3b341", fontWeight: 700 }}>{tk.intraday.setup}</span>
-                            : <span style={{ color: "#555" }}>—</span>}
+                        <td style={{ padding: "6px 8px", textAlign: "right" }}>
+                          {tk.intraday?.setup && tk.intraday.setup !== "NONE" ? (() => {
+                            const s = SETUP_BADGE[tk.intraday.setup] || SETUP_BADGE.DEFAULT;
+                            return (
+                              <span style={{
+                                fontSize: 9, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                                background: s.bg, color: s.text,
+                              }}>
+                                {tk.intraday.setup}
+                              </span>
+                            );
+                          })() : <span style={{ color: "#555", fontSize: 9 }}>—</span>}
                         </td>
 
                         {/* GAP — PRE-GAP / GAP-UP skoru (0-15, A+/A/B/C) */}
