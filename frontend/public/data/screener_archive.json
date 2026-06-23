@@ -35,5 +35,35 @@
     "total_results": 0,
     "top_5_tickers": [],
     "regime": "Çalkantılı Boğa"
+  },
+  {
+    "id": "scan_1782242864576",
+    "preset": "genel_swing",
+    "timestamp": "2026-06-23T19:27:44.516Z",
+    "date": "23.06.2026 15:27:44",
+    "total_results": 245,
+    "top_5_tickers": [
+      "INTC",
+      "AAL",
+      "RVMD",
+      "APGE",
+      "CWAN"
+    ],
+    "regime": "Çalkantılı Boğa"
+  },
+  {
+    "id": "scan_1782243136705",
+    "preset": "genel_swing",
+    "timestamp": "2026-06-23T19:32:16.704Z",
+    "date": "23.06.2026 15:32:16",
+    "total_results": 242,
+    "top_5_tickers": [
+      "INTC",
+      "AAL",
+      "RVMD",
+      "APGE",
+      "CWAN"
+    ],
+    "regime": "Çalkantılı Boğa"
   }
 ]
