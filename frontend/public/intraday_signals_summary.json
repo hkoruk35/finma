@@ -1,226 +1,226 @@
 {
-  "date": "2026-06-22",
-  "last_updated": "2026-06-22T19:26:21.523377-04:00",
+  "date": "2026-06-23",
+  "last_updated": "2026-06-23T08:50:02.984407-04:00",
   "tickers": {
-    "CGON": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 66.26
-    },
-    "MTZ": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 406.36
-    },
-    "RLAY": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 17.28
-    },
     "SYRE": {
       "status_history": [
         {
-          "hour": "19:26",
+          "hour": "08:50",
           "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 100.26
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 95.87
     },
-    "VICR": {
+    "EFXT": {
       "status_history": [
         {
-          "hour": "19:26",
+          "hour": "08:50",
           "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 365.78
-    },
-    "LRCX": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 409.48
-    },
-    "FLEX": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 155.83
-    },
-    "TSEM": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 316.84
-    },
-    "VRT": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 358.37
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 25.4
     },
     "GLW": {
       "status_history": [
         {
-          "hour": "19:26",
+          "hour": "08:50",
           "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 209.9
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 195.5
+    },
+    "ASX": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 40.12
+    },
+    "CGON": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 64.82
+    },
+    "MTZ": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 379.01
+    },
+    "RLAY": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 16.82
+    },
+    "TSEM": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 281.1
+    },
+    "ON": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 121.64
+    },
+    "VRT": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 335.16
+    },
+    "VICR": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 339.77
     },
     "UMC": {
       "status_history": [
         {
-          "hour": "19:26",
+          "hour": "08:50",
           "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 27.49
-    },
-    "SMTC": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 174.85
-    },
-    "STRL": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 933.76
-    },
-    "MXL": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 96.42
-    },
-    "CRDO": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 302.73
-    },
-    "MU": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 1211.2
-    },
-    "ALAB": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 439.78
-    },
-    "COHR": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 425.52
-    },
-    "TE": {
-      "status_history": [
-        {
-          "hour": "19:26",
-          "status": "ENTRY_NOW"
-        }
-      ],
-      "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 10.39
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 25.93
     },
     "HIVE": {
       "status_history": [
         {
-          "hour": "19:26",
+          "hour": "08:50",
           "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
-      "entry_triggered_at": "2026-06-22T19:26:21.523377-04:00",
-      "entry_price": 4.89
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 4.62
+    },
+    "TE": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 9.7
+    },
+    "CRDO": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 281.47
+    },
+    "STRL": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 879.1
+    },
+    "KEEL": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 6.32
+    },
+    "COHR": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 393.5
+    },
+    "SMTC": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 159.6
+    },
+    "MXL": {
+      "status_history": [
+        {
+          "hour": "08:50",
+          "status": "ENTRY_NOW"
+        }
+      ],
+      "current_status": "ENTRY_NOW",
+      "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
+      "entry_price": 86.86
     }
   }
 }
