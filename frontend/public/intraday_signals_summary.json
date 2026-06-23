@@ -1,6 +1,6 @@
 {
   "date": "2026-06-23",
-  "last_updated": "2026-06-23T12:01:34.003456-04:00",
+  "last_updated": "2026-06-23T12:45:11.938732-04:00",
   "tickers": {
     "SYRE": {
       "status_history": [
@@ -34,6 +34,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -74,6 +78,10 @@
         {
           "hour": "12:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -113,9 +121,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 195.5
     },
@@ -151,6 +163,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -191,6 +207,10 @@
         {
           "hour": "12:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -229,6 +249,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -269,9 +293,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 16.82
     },
@@ -308,9 +336,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 281.1
     },
@@ -346,6 +378,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -386,6 +422,10 @@
         {
           "hour": "12:01",
           "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
       "current_status": "ENTRY_NOW",
@@ -425,9 +465,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 339.77
     },
@@ -463,6 +507,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -503,9 +551,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 4.62
     },
@@ -542,9 +594,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 9.7
     },
@@ -580,6 +636,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -620,9 +680,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 879.1
     },
@@ -658,6 +722,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -698,9 +766,13 @@
         {
           "hour": "12:01",
           "status": "WAIT"
+        },
+        {
+          "hour": "12:45",
+          "status": "ENTRY_NOW"
         }
       ],
-      "current_status": "WAIT",
+      "current_status": "ENTRY_NOW",
       "entry_triggered_at": "2026-06-23T08:50:02.984407-04:00",
       "entry_price": 393.5
     },
@@ -736,6 +808,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
@@ -775,6 +851,10 @@
         },
         {
           "hour": "12:01",
+          "status": "ENTRY_NOW"
+        },
+        {
+          "hour": "12:45",
           "status": "ENTRY_NOW"
         }
       ],
