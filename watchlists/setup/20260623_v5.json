@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 101.22,
+        "entry_zone": "98.35 - 104.10",
+        "SL": 89.72,
+        "TP": 124.23
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "RLAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 17.56,
+        "entry_zone": "17.07 - 18.05",
+        "SL": 15.58,
+        "TP": 21.52
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 65.6,
+        "entry_zone": "64.11 - 67.09",
+        "SL": 59.63,
+        "TP": 77.54
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "MTZ",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 385.08,
+        "entry_zone": "375.74 - 394.42",
+        "SL": 347.7,
+        "TP": 459.83
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "UMC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 26.22,
+        "entry_zone": "25.35 - 27.08",
+        "SL": 22.77,
+        "TP": 33.11
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "ASX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 39.93,
+        "entry_zone": "38.56 - 41.30",
+        "SL": 34.46,
+        "TP": 50.87
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "VRT",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 321.78,
+        "entry_zone": "310.71 - 332.85",
+        "SL": 277.51,
+        "TP": 410.31
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "MXL",
+        "sector": "Technology",
+        "action": "WAIT",
+        "price": 88.71,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "EFXT",
+        "sector": "Energy",
+        "action": "WAIT",
+        "price": 25.25,
+        "entry_zone": null,
+        "SL": null,
+        "TP": null
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "VICR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 343.84,
+        "entry_zone": "329.62 - 358.06",
+        "SL": 286.94,
+        "TP": 457.63
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "KEEL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 6.69,
+        "entry_zone": "6.34 - 7.04",
+        "SL": 5.31,
+        "TP": 9.46
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "HIVE",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 4.71,
+        "entry_zone": "4.46 - 4.96",
+        "SL": 3.72,
+        "TP": 6.68
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "STRL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 877.28,
+        "entry_zone": "839.22 - 915.33",
+        "SL": 725.06,
+        "TP": 1181.7
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "TE",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 9.65,
+        "entry_zone": "9.00 - 10.29",
+        "SL": 7.07,
+        "TP": 14.79
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "CRDO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 268.24,
+        "entry_zone": "253.54 - 282.95",
+        "SL": 209.43,
+        "TP": 385.88
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "GLW",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 188.47,
+        "entry_zone": "180.87 - 196.07",
+        "SL": 158.08,
+        "TP": 249.26
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "TSEM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 281.03,
+        "entry_zone": "269.53 - 292.53",
+        "SL": 235.03,
+        "TP": 373.04
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "COHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 391.46,
+        "entry_zone": "371.38 - 411.55",
+        "SL": 311.12,
+        "TP": 552.16
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "SMTC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 162.59,
+        "entry_zone": "155.51 - 169.67",
+        "SL": 134.27,
+        "TP": 219.24
+    },
+    {
+        "date": "2026-06-23 10:45",
+        "symbol": "ON",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 118.78,
+        "entry_zone": "113.90 - 123.66",
+        "SL": 99.27,
+        "TP": 157.79
+    }
+]
