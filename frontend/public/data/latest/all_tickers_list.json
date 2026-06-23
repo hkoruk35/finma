@@ -1,192 +1,27 @@
 {
-  "date": "2026-06-19",
+  "date": "2026-06-23",
   "tickers": [
     {
-      "ticker": "WTS",
-      "company": "WTS",
-      "sector": "Industrials",
-      "master_score": 56.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 336.32000732421875,
-      "change_pct": -0.79,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "AIT",
-      "company": "AIT",
-      "sector": "Industrials",
-      "master_score": 55.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 329.8900146484375,
-      "change_pct": 1.7,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "CVLT",
-      "company": "CVLT",
-      "sector": "Technology",
-      "master_score": 55.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 127.0999984741211,
-      "change_pct": 1.51,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 55.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "MCRI",
-      "company": "MCRI",
-      "sector": "Consumer Cyclical",
+      "ticker": "AMTB",
+      "company": "AMTB",
+      "sector": "Financial Services",
       "master_score": 54.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 127.76000213623047,
-      "change_pct": -0.05,
+      "price": 23.969999313354492,
+      "change_pct": 0.67,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
     },
     {
-      "ticker": "IAG",
-      "company": "IAG",
-      "sector": "Basic Materials",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 17.579999923706055,
-      "change_pct": -2.82,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: EMA_CROSS"
-    },
-    {
-      "ticker": "BBAR",
-      "company": "BBAR",
+      "ticker": "SNEX",
+      "company": "SNEX",
       "sector": "Financial Services",
-      "master_score": 52.0,
+      "master_score": 37.8,
       "score_type": "POSITIVE_BIAS",
-      "price": 21.040000915527344,
-      "change_pct": 2.24,
+      "price": 137.66000366210938,
+      "change_pct": -0.81,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "MS",
-      "company": "MS",
-      "sector": "Financial Services",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 224.9600067138672,
-      "change_pct": 1.87,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "WLY",
-      "company": "WLY",
-      "sector": "Communication Services",
-      "master_score": 51.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 46.70000076293945,
-      "change_pct": 2.82,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "ALLY",
-      "company": "ALLY",
-      "sector": "Financial Services",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 45.5,
-      "change_pct": -0.35,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "BTSG",
-      "company": "BTSG",
-      "sector": "Healthcare",
-      "master_score": 50.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 64.43000030517578,
-      "change_pct": 0.45,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "NWG",
-      "company": "NWG",
-      "sector": "Financial Services",
-      "master_score": 50.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 16.760000228881836,
-      "change_pct": 0.0,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "OSW",
-      "company": "OSW",
-      "sector": "Consumer Cyclical",
-      "master_score": 48.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 26.760000228881836,
-      "change_pct": 1.52,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "HGV",
-      "company": "HGV",
-      "sector": "Consumer Cyclical",
-      "master_score": 46.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 52.04999923706055,
-      "change_pct": 1.4,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "BROS",
-      "company": "BROS",
-      "sector": "Consumer Cyclical",
-      "master_score": 45.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 65.72000122070312,
-      "change_pct": -0.47,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 45.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "ERO",
-      "company": "ERO",
-      "sector": "Basic Materials",
-      "master_score": 44.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 30.43000030517578,
-      "change_pct": 1.1,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "AVGO",
-      "company": "AVGO",
-      "sector": "Technology",
-      "master_score": 37.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 392.8999938964844,
-      "change_pct": 4.3,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "MYE",
-      "company": "MYE",
-      "sector": "Consumer Cyclical",
-      "master_score": 37.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 26.93000030517578,
-      "change_pct": 0.99,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 37.8 | System: TREND_CONT"
     }
   ]
 }
