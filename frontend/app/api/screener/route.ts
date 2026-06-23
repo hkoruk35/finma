@@ -877,12 +877,11 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.adx >= 20 &&
              s.boga_score >= 50;
     case "cheap_exp": {
-      // Price $0.5-$10, ATR% ≥ 3.0 (volatil/"explosive" evren), opsiyonlu
+      // ATR% ≥ 3.0 (volatil/"explosive" evren), opsiyonlu — fiyat kısıtlaması yok
       // 15m Pivot Sistemi: PP üstü RVOL-onaylı kırılım (R1/R2/R3 hedefli) VEYA S2/S3 dönüş bölgesi (mean reversion long)
       const breakoutUp   = s.price > (s.pivot_pp ?? Infinity) && s.rvol >= 1.5;
       const reversionBuy = s.price <= (s.pivot_s2 ?? -Infinity);
-      return s.price >= 0.5 && s.price < 10 &&
-             s.atr_pct >= 3.0 &&
+      return s.atr_pct >= 3.0 &&
              s.has_options &&
              (breakoutUp || reversionBuy) &&
              s.boga_score >= 38;

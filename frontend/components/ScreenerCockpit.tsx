@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import ScreenerChart from "./screener/ScreenerChart";
 import TickerHoverChart from "./TickerHoverChart";
@@ -115,7 +115,7 @@ const PRESETS = [
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
   { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
   { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
-  { id: "cheap_exp",    name: "15m Pivot",            desc: "Price<$10 · PP Kırılım veya S2/S3 Dönüş",mode: "day",      color: "#f43f5e", pills: ["Price<$10","ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],          icon: "📍" },
+  { id: "cheap_exp",    name: "15m Pivot",            desc: "ATR≥3% · PP Kırılım veya S2/S3 Dönüş",   mode: "day",      color: "#f43f5e", pills: ["ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],                      icon: "📍" },
   { id: "ema_cross",    name: "EMA Cross Setup",      desc: "EMA8>EMA20 fresh cross · RVOL>1.3",      mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                      icon: "✂️" },
   { id: "gamma_sq",     name: "Gamma Squeeze",        desc: "Haftalık · ATR>5% · RVOL>2",             mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                       icon: "🚀" },
 ];
@@ -500,7 +500,14 @@ export default function ScreenerCockpit() {
   const [sortDir,     setSortDir]     = useState<1 | -1>(-1);
   const [regime,      setRegime]      = useState<Regime>({ regime: "neutral", label: "Nötr", spy_change: 0, vix_price: 20, trend: "choppy", momentum: "moderate" });
 
+  const requestIdRef = useRef(0);
+
   const runScan = useCallback(async () => {
+    // Guard against overlapping scans (e.g. switching presets before the previous
+    // fetch resolves) — only the response from the most recently started request
+    // is allowed to update state, otherwise a slower stale request can overwrite
+    // a faster newer one and show results for the wrong preset.
+    const requestId = ++requestIdRef.current;
     setIsScanning(true);
     setExpandedRow(null);
     try {
@@ -513,6 +520,7 @@ export default function ScreenerCockpit() {
       const res  = await fetch(`/api/screener?${params}`);
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
+      if (requestIdRef.current !== requestId) return; // superseded by a newer scan
       setResults(data.results || []);
       setScanMeta({ total: data.total, scanned: data.scanned, universe: data.universe_size });
       if (data.regime) setRegime(data.regime);
@@ -535,7 +543,7 @@ export default function ScreenerCockpit() {
     } catch (e) {
       console.error("Screener error:", e);
     } finally {
-      setIsScanning(false);
+      if (requestIdRef.current === requestId) setIsScanning(false);
     }
   }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin]);
 
