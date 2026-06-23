@@ -70,6 +70,16 @@ interface DayData {
   total: number;
 }
 
+// /api/watchlist-data şekli — aynı kaynak /tracker ve /csp/* sayfalarının kullandığı
+interface WatchlistData {
+  price: { volume?: number };
+  tracker_1h: {
+    ema_20: number; ema_50: number; ema_200: number;
+    ema_status: string; candle_pattern: string;
+    change_pct_1d: number; volume_ratio_1d: number;
+  };
+}
+
 // ── Constants ──────────────────────────────────────────────────────────────
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
@@ -80,12 +90,6 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
   TAKE_PROFIT:  { bg: "#0d0d2a", text: "#d2a8ff", border: "#8b5cf6" },
   STOP_HIT:     { bg: "#2a0d0d", text: "#f85149", border: "#ef4444" },
   NEUTRAL:      { bg: "#161b22", text: "#8b949e", border: "#30363d" },
-};
-
-const ALERT_BADGE: Record<string, { bg: string; text: string }> = {
-  HIGH:   { bg: "#0d2a0d", text: "#56d364" },
-  MEDIUM: { bg: "#2a1a0d", text: "#e3b341" },
-  LOW:    { bg: "#161b22", text: "#8b949e" },
 };
 
 // Satır arkaplanı — durum bazlı tonlama (CSP'nin sinyal bazlı ROW_BG'siyle aynı yapı)
@@ -104,15 +108,14 @@ const SETUP_BADGE: Record<string, { bg: string; text: string }> = {
   DEFAULT:        { bg: "#161b22", text: "#e3b341" },
 };
 
-// 15M PATERN — güç kademesine göre renk (bu bot sadece yükseliş paternleri üretir,
-// CSP'nin bullish/bearish dizi mantığının burada güç-kademesi karşılığı)
-const STRONG_PATTERNS = ["HYPER MSB", "MSB + Vol Breakout"];
-const MEDIUM_PATTERNS = ["EMA20 Reclaim", "Consolidation Breakout"];
-function patternColor(p: string) {
-  if (STRONG_PATTERNS.some(x => p.includes(x))) return "#3fb950";
-  if (MEDIUM_PATTERNS.some(x => p.includes(x))) return "#58a6ff";
-  return "#e3b341";
-}
+// DURUM rozeti — /tracker'daki ema_status pilleriyle aynı renk şeması
+const DURUM_BADGE: Record<string, { bg: string; text: string }> = {
+  Bullish:  { bg: "#1a3a1a", text: "#3fb950" },
+  Yükseliş: { bg: "#1c2e1c", text: "#56d364" },
+  Nötr:     { bg: "#1a1a2e", text: "#8b949e" },
+  Düşüş:    { bg: "#2e1a1a", text: "#f85149" },
+  Bearish:  { bg: "#3a1a1a", text: "#ff7b72" },
+};
 
 const GAP_GRADE_BADGE: Record<string, { bg: string; text: string; border: string }> = {
   "A+": { bg: "#0d4a0d", text: "#56d364", border: "#3fb950" },
@@ -133,6 +136,21 @@ const fmt2 = (n: number | null | undefined) =>
 const fmt1 = (n: number | null | undefined) =>
   n != null && isFinite(n) ? n.toFixed(1) : "—";
 const pctColor = (v: number) => (v >= 0 ? "#3fb950" : "#f85149");
+const fmtVol = (v: number | null | undefined) =>
+  !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+
+function emaColor(price: number, ema: number | undefined) {
+  if (!ema) return "#8b949e";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "#e3b341";
+  return price > ema ? "#3fb950" : "#f85149";
+}
+function emaArrow(price: number, ema: number | undefined) {
+  if (!ema) return "";
+  const diff = Math.abs(price - ema) / ema;
+  if (diff < 0.005) return "~";
+  return price > ema ? "↑" : "↓";
+}
 
 function heatCell(status: string) {
   switch (status) {
@@ -170,9 +188,10 @@ export default function DailyTrackerClient() {
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [filterStatus, setFilterStatus] = useState("");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<string | null>("alert");
+  const [sortBy, setSortBy] = useState<string | null>("gap");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [searchQuery, setSearchQuery] = useState("");
+  const [watchlistData, setWatchlistData] = useState<Record<string, WatchlistData>>({});
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const isMarketOpen = () => {
@@ -215,6 +234,27 @@ export default function DailyTrackerClient() {
     fetchDay(selectedDate);
   }, [fetchDates, fetchDay, selectedDate]);
 
+  // EMA20/50/200, DURUM ve PATERN — /tracker ile aynı kaynak (/api/watchlist-data).
+  // inday313'ün kendi seçim/takip listesine dokunmuyor, sadece bu sütunları zenginleştiriyor.
+  const tickerKey = (dayData?.tickers || []).map(t => t.ticker).sort().join(",");
+  useEffect(() => {
+    if (!tickerKey) { setWatchlistData({}); return; }
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`/api/watchlist-data?tickers=${tickerKey}`);
+        if (!res.ok || cancelled) return;
+        const results = await res.json();
+        const map: Record<string, WatchlistData> = {};
+        results.forEach((item: any) => { if (item?.ticker) map[item.ticker] = item; });
+        if (!cancelled) setWatchlistData(map);
+      } catch (e) {
+        console.error("[DailyTracker] watchlist-data fetch error:", e);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [tickerKey]);
+
   // Auto-refresh when market open
   useEffect(() => {
     if (selectedDate !== "today") return;
@@ -227,20 +267,23 @@ export default function DailyTrackerClient() {
 
   // ── Sorting ──
   const sorted = [...(dayData?.tickers || [])].sort((a, b) => {
-    const alertOrder: Record<string, number> = { HIGH: 3, MEDIUM: 2, LOW: 1 };
     const statusOrder: Record<string, number> = { ENTRY_NOW: 5, ENTRY_WATCH: 4, HOLD: 3, TAKE_PROFIT: 2, WAIT: 1, STOP_HIT: 0 };
+    const wa = watchlistData[a.ticker]?.tracker_1h;
+    const wb = watchlistData[b.ticker]?.tracker_1h;
 
     let va: any, vb: any;
     switch (sortBy) {
-      case "alert":    va = alertOrder[a.alert_level] ?? 0; vb = alertOrder[b.alert_level] ?? 0; break;
-      case "status":   va = statusOrder[a.current_status] ?? 0; vb = statusOrder[b.current_status] ?? 0; break;
-      case "ticker":   va = a.ticker; vb = b.ticker; break;
-      case "pnl":      va = a.pnl_pct; vb = b.pnl_pct; break;
-      case "price":    va = a.current_price; vb = b.current_price; break;
-      case "rsi":      va = a.intraday?.rsi_1h ?? 0; vb = b.intraday?.rsi_1h ?? 0; break;
-      case "vol":      va = a.intraday?.volume_ratio ?? 0; vb = b.intraday?.volume_ratio ?? 0; break;
-      case "first":    va = a.first_seen; vb = b.first_seen; break;
-      case "gap":      va = a.intraday?.pre_gap_total ?? 0; vb = b.intraday?.pre_gap_total ?? 0; break;
+      case "status":  va = statusOrder[a.current_status] ?? 0; vb = statusOrder[b.current_status] ?? 0; break;
+      case "ticker":  va = a.ticker; vb = b.ticker; break;
+      case "price":   va = a.current_price; vb = b.current_price; break;
+      case "hacim":   va = watchlistData[a.ticker]?.price?.volume ?? 0; vb = watchlistData[b.ticker]?.price?.volume ?? 0; break;
+      case "1g":      va = wa?.change_pct_1d ?? 0; vb = wb?.change_pct_1d ?? 0; break;
+      case "rsi":     va = a.intraday?.rsi_1h ?? 0; vb = b.intraday?.rsi_1h ?? 0; break;
+      case "vol":     va = wa?.volume_ratio_1d ?? 0; vb = wb?.volume_ratio_1d ?? 0; break;
+      case "ema20":   va = wa?.ema_20 ?? 0; vb = wb?.ema_20 ?? 0; break;
+      case "ema50":   va = wa?.ema_50 ?? 0; vb = wb?.ema_50 ?? 0; break;
+      case "ema200":  va = wa?.ema_200 ?? 0; vb = wb?.ema_200 ?? 0; break;
+      case "gap":     va = a.intraday?.pre_gap_total ?? 0; vb = b.intraday?.pre_gap_total ?? 0; break;
       default: return 0;
     }
     if (typeof va === "string") {
@@ -266,31 +309,33 @@ export default function DailyTrackerClient() {
   };
 
   const downloadXLS = () => {
-    const rows = filtered.map(tk => ({
-      "Ticker": tk.ticker,
-      "Şirket": tk.company,
-      "Sektör": tk.sector,
-      "İlk Görüldü": tk.first_seen,
-      "Giriş Fiyatı": tk.entry_price ?? "",
-      "Güncel Fiyat": tk.current_price,
-      "Kar/Zarar %": tk.entry_price != null ? +tk.pnl_pct.toFixed(2) : "",
-      "1H Δ%": tk.intraday?.change_1h != null ? +tk.intraday.change_1h.toFixed(2) : "",
-      "RSI": tk.intraday?.rsi_1h != null ? +tk.intraday.rsi_1h.toFixed(1) : "",
-      "VOL×": tk.intraday?.volume_ratio != null ? +tk.intraday.volume_ratio.toFixed(2) : "",
-      "ADX": tk.intraday?.adx_1h != null ? +tk.intraday.adx_1h.toFixed(1) : "",
-      "15M Patern": tk.intraday?.pattern_15m || "",
-      "Setup": tk.intraday?.setup || "",
-      "GAP Grade": tk.intraday?.pre_gap_grade || "",
-      "GAP Skoru": tk.intraday?.pre_gap_total ?? "",
-      "Alert": tk.alert_level,
-      "Durum": tk.current_status,
-    }));
+    const rows = filtered.map(tk => {
+      const w = watchlistData[tk.ticker]?.tracker_1h;
+      return {
+        "Ticker": tk.ticker,
+        "Şirket": tk.company,
+        "Sektör": tk.sector,
+        "Fiyat": tk.current_price,
+        "Hacim": watchlistData[tk.ticker]?.price?.volume ?? "",
+        "1G %": w?.change_pct_1d != null ? +w.change_pct_1d.toFixed(2) : "",
+        "VOL× (1G/30G)": w?.volume_ratio_1d != null ? +w.volume_ratio_1d.toFixed(2) : "",
+        "EMA20": w?.ema_20 ?? "",
+        "EMA50": w?.ema_50 ?? "",
+        "EMA200": w?.ema_200 ?? "",
+        "Durum": w?.ema_status || "",
+        "RSI": tk.intraday?.rsi_1h != null ? +tk.intraday.rsi_1h.toFixed(1) : "",
+        "Patern": w?.candle_pattern || "",
+        "Setup": tk.intraday?.setup || "",
+        "GAP Grade": tk.intraday?.pre_gap_grade || "",
+        "GAP Skoru": tk.intraday?.pre_gap_total ?? "",
+      };
+    });
 
     const ws = XLSX.utils.json_to_sheet(rows);
     ws["!cols"] = [
-      { wch: 8 }, { wch: 26 }, { wch: 16 }, { wch: 10 }, { wch: 10 }, { wch: 10 },
-      { wch: 10 }, { wch: 8 }, { wch: 6 }, { wch: 7 }, { wch: 6 }, { wch: 26 },
-      { wch: 14 }, { wch: 10 }, { wch: 9 }, { wch: 8 }, { wch: 12 },
+      { wch: 8 }, { wch: 26 }, { wch: 16 }, { wch: 9 }, { wch: 10 }, { wch: 8 },
+      { wch: 14 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 10 }, { wch: 6 },
+      { wch: 20 }, { wch: 14 }, { wch: 10 }, { wch: 9 },
     ];
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Daily Tracker");
@@ -497,18 +542,18 @@ export default function DailyTrackerClient() {
                     { label: "TİCKER",  key: "ticker",  align: "left"  },
                     { label: "ŞİRKET",  key: null,      align: "left"  },
                     { label: "SEKTÖR",  key: null,      align: "left"  },
-                    { label: "İLK GÖR", key: "first",  align: "right" },
-                    { label: "GİRİŞ",   key: null,      align: "right" },
                     { label: "FİYAT",   key: "price",   align: "right" },
-                    { label: "KAR/Z%",  key: "pnl",     align: "right" },
-                    { label: "1H Δ%",   key: null,      align: "right" },
-                    { label: "RSI",     key: "rsi",     align: "right" },
+                    { label: "HACİM",   key: "hacim",   align: "right" },
+                    { label: "1G",      key: "1g",      align: "right" },
                     { label: "VOL×",    key: "vol",     align: "right" },
-                    { label: "ADX",     key: null,      align: "right" },
-                    { label: "15M PATERN", key: null,   align: "right" },
+                    { label: "EMA20",   key: "ema20",   align: "right" },
+                    { label: "EMA50",   key: "ema50",   align: "right" },
+                    { label: "EMA200",  key: "ema200",  align: "right" },
+                    { label: "DURUM",   key: null,      align: "right" },
+                    { label: "RSI",     key: "rsi",     align: "right" },
+                    { label: "PATERN",  key: null,      align: "right" },
                     { label: "SETUP",   key: null,      align: "right" },
                     { label: "GAP",     key: "gap",     align: "right" },
-                    { label: "ALERT",   key: "alert",   align: "right" },
                     { label: "📋",      key: null,      align: "right" },
                   ].map(({ label, key, align }, i) => (
                     <th key={i}
@@ -561,33 +606,71 @@ export default function DailyTrackerClient() {
                           {tk.sector !== "Unknown" ? tk.sector?.slice(0, 12) : "—"}
                         </td>
 
-                        {/* İLK GÖR */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 10 }}>
-                          {tk.first_seen}
-                        </td>
-
-                        {/* GİRİŞ FİYAT */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: tk.entry_price ? "#56d364" : "#8b949e", fontSize: 10 }}>
-                          {tk.entry_price ? `$${fmt2(tk.entry_price)}` : "—"}
-                        </td>
-
-                        {/* GÜNCEL FİYAT */}
+                        {/* FİYAT */}
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: "#e6edf3" }}>
                           ${fmt2(tk.current_price)}
                         </td>
 
-                        {/* KAR/ZARAR */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: pctColor(tk.pnl_pct) }}>
-                          {tk.entry_price
-                            ? `${tk.pnl_pct >= 0 ? "+" : ""}${fmt2(tk.pnl_pct)}%`
-                            : <span style={{ color: "#8b949e" }}>—</span>}
+                        {/* HACİM */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 10 }}>
+                          {fmtVol(watchlistData[tk.ticker]?.price?.volume)}
                         </td>
 
-                        {/* 1H Δ% */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: pctColor(tk.intraday?.change_1h ?? 0) }}>
-                          {tk.intraday?.change_1h != null
-                            ? `${tk.intraday.change_1h >= 0 ? "+" : ""}${fmt2(tk.intraday.change_1h)}%`
+                        {/* 1G */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
+                          color: watchlistData[tk.ticker] ? pctColor(watchlistData[tk.ticker].tracker_1h?.change_pct_1d ?? 0) : "#8b949e"
+                        }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.change_pct_1d != null
+                            ? `${watchlistData[tk.ticker].tracker_1h.change_pct_1d >= 0 ? "+" : ""}${fmt2(watchlistData[tk.ticker].tracker_1h.change_pct_1d)}%`
                             : "—"}
+                        </td>
+
+                        {/* VOL× — 1G hacim / 30 günlük ortalama */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
+                          color: (watchlistData[tk.ticker]?.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (watchlistData[tk.ticker]?.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
+                        }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.volume_ratio_1d != null ? `${fmt2(watchlistData[tk.ticker].tracker_1h.volume_ratio_1d)}x` : "—"}
+                        </td>
+
+                        {/* EMA20 */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
+                          color: watchlistData[tk.ticker] ? emaColor(tk.current_price, watchlistData[tk.ticker].tracker_1h?.ema_20) : "#8b949e"
+                        }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.ema_20 != null
+                            ? `${fmt2(watchlistData[tk.ticker].tracker_1h.ema_20)}${emaArrow(tk.current_price, watchlistData[tk.ticker].tracker_1h.ema_20)}`
+                            : "—"}
+                        </td>
+
+                        {/* EMA50 */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
+                          color: watchlistData[tk.ticker] ? emaColor(tk.current_price, watchlistData[tk.ticker].tracker_1h?.ema_50) : "#8b949e"
+                        }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.ema_50 != null
+                            ? `${fmt2(watchlistData[tk.ticker].tracker_1h.ema_50)}${emaArrow(tk.current_price, watchlistData[tk.ticker].tracker_1h.ema_50)}`
+                            : "—"}
+                        </td>
+
+                        {/* EMA200 */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
+                          color: watchlistData[tk.ticker] ? emaColor(tk.current_price, watchlistData[tk.ticker].tracker_1h?.ema_200) : "#8b949e"
+                        }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.ema_200 != null
+                            ? `${fmt2(watchlistData[tk.ticker].tracker_1h.ema_200)}${emaArrow(tk.current_price, watchlistData[tk.ticker].tracker_1h.ema_200)}`
+                            : "—"}
+                        </td>
+
+                        {/* DURUM */}
+                        <td style={{ padding: "6px 8px", textAlign: "right" }}>
+                          {(() => {
+                            const status = watchlistData[tk.ticker]?.tracker_1h?.ema_status;
+                            if (!status) return <span style={{ color: "#555", fontSize: 9 }}>—</span>;
+                            const s = DURUM_BADGE[status] || DURUM_BADGE.Nötr;
+                            return (
+                              <span style={{ fontSize: 9, fontWeight: 700, padding: "2px 6px", borderRadius: 3, background: s.bg, color: s.text }}>
+                                {status}
+                              </span>
+                            );
+                          })()}
                         </td>
 
                         {/* RSI */}
@@ -597,23 +680,9 @@ export default function DailyTrackerClient() {
                           {fmt1(tk.intraday?.rsi_1h)}
                         </td>
 
-                        {/* VOL× */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700,
-                          color: (tk.intraday?.volume_ratio ?? 0) >= 1.5 ? "#3fb950" : (tk.intraday?.volume_ratio ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e"
-                        }}>
-                          {fmt2(tk.intraday?.volume_ratio)}x
-                        </td>
-
-                        {/* ADX */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 10 }}>
-                          {fmt1(tk.intraday?.adx_1h)}
-                        </td>
-
-                        {/* 15M PATERN */}
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontSize: 9, maxWidth: 140, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {tk.intraday?.pattern_15m && !["NONE", "Neutral", "Insufficient Data", "Pattern Error"].includes(tk.intraday.pattern_15m)
-                            ? <span style={{ color: patternColor(tk.intraday.pattern_15m), fontWeight: 700 }}>{tk.intraday.pattern_15m}</span>
-                            : <span style={{ color: "#555" }}>—</span>}
+                        {/* PATERN — /tracker ile aynı içerik (candle_pattern) */}
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 10, maxWidth: 130, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                          {watchlistData[tk.ticker]?.tracker_1h?.candle_pattern || "—"}
                         </td>
 
                         {/* SETUP */}
@@ -643,21 +712,6 @@ export default function DailyTrackerClient() {
                                 background: g.bg, border: `1px solid ${g.border}`, color: g.text,
                               }}>
                                 {grade} {tk.intraday?.pre_gap_total ?? 0}
-                              </span>
-                            );
-                          })()}
-                        </td>
-
-                        {/* ALERT */}
-                        <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                          {(() => {
-                            const a = ALERT_BADGE[tk.alert_level] || ALERT_BADGE.LOW;
-                            return (
-                              <span style={{
-                                fontSize: 9, fontWeight: 700, padding: "1px 5px", borderRadius: 2,
-                                background: a.bg, color: a.text,
-                              }}>
-                                {tk.alert_level}
                               </span>
                             );
                           })()}
