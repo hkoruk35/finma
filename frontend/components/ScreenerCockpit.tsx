@@ -554,20 +554,31 @@ export default function ScreenerCockpit() {
     else { setSortBy(col); setSortDir(-1); }
   };
 
+  const sortValue = (s: ScreenerResult): number | string => {
+    switch (sortBy) {
+      case "score":  return s.boga_score;
+      case "rvol":   return s.rvol;
+      case "chg":    return s.change_1d;
+      case "rsi":    return s.rsi;
+      case "price":  return s.price;
+      case "adx":    return s.adx;
+      case "rs":     return s.rs_rating ?? 0;
+      case "volume": return s.volume;
+      case "macd":   return s.macd;
+      case "rr":     return parseFloat(s.rr_ratio) || 0;
+      case "ticker": return s.ticker;
+      case "setup":  return s.primary_setup ?? "";
+      default:       return s.boga_score;
+    }
+  };
+
   const sortedResults = [...results].sort((a, b) => {
-    const v = (s: ScreenerResult) => {
-      switch (sortBy) {
-        case "score": return s.boga_score;
-        case "rvol":  return s.rvol;
-        case "chg":   return s.change_1d;
-        case "rsi":   return s.rsi;
-        case "price": return s.price;
-        case "adx":   return s.adx;
-        case "rs":    return s.rs_rating ?? 0;
-        default:      return s.boga_score;
-      }
-    };
-    return (v(a) - v(b)) * sortDir;
+    const va = sortValue(a);
+    const vb = sortValue(b);
+    if (typeof va === "string" || typeof vb === "string") {
+      return String(va).localeCompare(String(vb)) * sortDir;
+    }
+    return (va - vb) * sortDir;
   });
 
   const selectPreset  = (p: typeof PRESETS[0]) => { setActivePreset(p.id); };
@@ -833,25 +844,28 @@ export default function ScreenerCockpit() {
                 <thead>
                   <tr style={{ background: "#0f141e", position: "sticky", top: 0, zIndex: 1 }}>
                     {[
-                      { key: null,    label: "Ticker"       },
-                      { key: null,    label: "Setup"        },
-                      { key: "price", label: "Fiyat ↕"     },
-                      { key: null,    label: "Hacim"        },
-                      { key: "chg",   label: "Değ% ↕"      },
-                      { key: null,    label: "MACD"         },
-                      { key: "rsi",   label: "RSI ↕"       },
-                      { key: null,    label: "R/R"          },
-                      { key: null,    label: "Tracker"      },
-                      { key: "score", label: "Score ↕"     },
-                      { key: "rvol",  label: "RVOL ↕"      },
-                      { key: "adx",   label: "ADX ↕"       },
-                      { key: "rs",    label: "RS ↕"        },
-                    ].map(({ key, label }) => (
-                      <th key={label} onClick={key ? () => toggleSort(key) : undefined}
-                        style={{ padding: "9px 11px", textAlign: "left", fontSize: 9, letterSpacing: 1, color: sortBy === key ? "#60a5fa" : "#7c8fa6", textTransform: "uppercase", borderBottom: "1px solid #1e2a3a", fontWeight: 700, whiteSpace: "nowrap", cursor: key ? "pointer" : "default", background: "#0f141e" }}>
-                        {label}
-                      </th>
-                    ))}
+                      { key: "ticker", label: "Ticker" },
+                      { key: "setup",  label: "Setup"  },
+                      { key: "price",  label: "Fiyat"  },
+                      { key: "volume", label: "Hacim"  },
+                      { key: "chg",    label: "Değ%"   },
+                      { key: "macd",   label: "MACD"   },
+                      { key: "rsi",    label: "RSI"    },
+                      { key: "rr",     label: "R/R"    },
+                      { key: null,     label: "Tracker" },
+                      { key: "score",  label: "Score"  },
+                      { key: "rvol",   label: "RVOL"   },
+                      { key: "adx",    label: "ADX"    },
+                      { key: "rs",     label: "RS"     },
+                    ].map(({ key, label }) => {
+                      const arrow = !key ? "" : sortBy === key ? (sortDir === -1 ? " ▼" : " ▲") : " ↕";
+                      return (
+                        <th key={label} onClick={key ? () => toggleSort(key) : undefined}
+                          style={{ padding: "9px 11px", textAlign: "left", fontSize: 9, letterSpacing: 1, color: sortBy === key ? "#60a5fa" : "#7c8fa6", textTransform: "uppercase", borderBottom: "1px solid #1e2a3a", fontWeight: 700, whiteSpace: "nowrap", cursor: key ? "pointer" : "default", background: "#0f141e", userSelect: "none" }}>
+                          {label}{arrow}
+                        </th>
+                      );
+                    })}
                   </tr>
                 </thead>
                 <tbody>
