@@ -73,6 +73,15 @@ interface ScreenerResult {
   target_fib?: number;
   triangle_stop?: number;
   triangle_rr?: number;
+  pivot_pp?: number;
+  pivot_r1?: number;
+  pivot_r2?: number;
+  pivot_r3?: number;
+  pivot_s1?: number;
+  pivot_s2?: number;
+  pivot_s3?: number;
+  pivot_bias?: "bullish" | "bearish";
+  pivot_signal?: string;
 }
 
 interface Regime {
@@ -106,7 +115,7 @@ const PRESETS = [
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
   { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
   { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
-  { id: "cheap_exp",    name: "Cheap & Explosive",    desc: "Price<$10 · RVOL>2 · Weekly Opt",        mode: "day",      color: "#f43f5e", pills: ["Price<$10","RVOL>2","ATR>4%","Haftalık OPT"],                      icon: "🔥" },
+  { id: "cheap_exp",    name: "Cheap & Explosive",    desc: "Price<$10 · 15m Pivot Kırılım/Dönüş",    mode: "day",      color: "#f43f5e", pills: ["Price<$10","ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],          icon: "🔥" },
   { id: "ema_cross",    name: "EMA Cross Setup",      desc: "EMA8>EMA20 fresh cross · RVOL>1.3",      mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                      icon: "✂️" },
   { id: "gamma_sq",     name: "Gamma Squeeze",        desc: "Haftalık · ATR>5% · RVOL>2",             mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                       icon: "🚀" },
 ];
@@ -211,7 +220,7 @@ function fmtCap(v: number): string {
 
 // ─── Detail Row ───────────────────────────────────────────────────────────────
 
-function DetailRow({ stock }: { stock: ScreenerResult }) {
+function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string }) {
   return (
     <tr style={{ background: "#0d1117" }}>
       <td colSpan={11} style={{ padding: "14px 18px" }}>
@@ -389,6 +398,38 @@ function DetailRow({ stock }: { stock: ScreenerResult }) {
                 <span style={{ fontSize: 10, color: "#94a3b8" }}>R/R (Fib 1.618)</span>
                 <span style={{ fontSize: 12, fontWeight: 700, color: "#22d3ee", fontFamily: "monospace" }}>{stock.triangle_rr}x</span>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* 15m Pivot Panel (Cheap & Explosive) */}
+        {preset === "cheap_exp" && stock.pivot_pp !== undefined && (
+          <div style={{ marginTop: 12, background: stock.pivot_bias === "bullish" ? "rgba(34,197,94,0.05)" : "rgba(239,68,68,0.05)", border: `1px solid ${stock.pivot_bias === "bullish" ? "rgba(34,197,94,0.25)" : "rgba(239,68,68,0.25)"}`, borderRadius: 6, padding: "12px 16px" }}>
+            <div style={{ fontSize: 10, color: stock.pivot_bias === "bullish" ? "#4ade80" : "#f87171", letterSpacing: "1.5px", marginBottom: 10, textTransform: "uppercase", fontWeight: 700 }}>
+              📍 15m Pivot Sistemi
+              <span style={{ marginLeft: 10, background: "rgba(255,255,255,0.06)", border: "1px solid #253347", padding: "2px 8px", borderRadius: 10, fontSize: 10, color: "#b0bec5", textTransform: "none", letterSpacing: 0 }}>
+                {stock.pivot_signal}
+              </span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 8 }}>
+              {[
+                { label: "S3", value: stock.pivot_s3, color: "#f87171" },
+                { label: "S2", value: stock.pivot_s2, color: "#fb923c" },
+                { label: "S1", value: stock.pivot_s1, color: "#fbbf24" },
+                { label: "PP", value: stock.pivot_pp, color: "#60a5fa" },
+                { label: "R1", value: stock.pivot_r1, color: "#4ade80" },
+                { label: "R2", value: stock.pivot_r2, color: "#34d399" },
+                { label: "R3", value: stock.pivot_r3, color: "#10b981" },
+              ].map(({ label, value, color }) => (
+                <div key={label} style={{ background: "#111620", border: "1px solid #253347", borderRadius: 4, padding: "8px 6px", textAlign: "center" }}>
+                  <div style={{ fontSize: 9, color, marginBottom: 4, fontWeight: 700 }}>{label}</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: "#e2e8f0", fontFamily: "monospace" }}>${value?.toFixed(2) ?? "—"}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 8, display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 10, color: "#7c8fa6" }}>
+              <span>Kırılım: PP üstü RVOL-onaylı → R1→R2→R3 hedefli</span>
+              <span>Dönüş: S2/S3 aşırı satım bölgesinden alım → PP hedefli</span>
             </div>
           </div>
         )}
@@ -884,7 +925,7 @@ export default function ScreenerCockpit() {
                           </div>
                         </td>
                       </tr>
-                      {expandedRow === stock.ticker && <DetailRow key={`${stock.ticker}-d`} stock={stock} />}
+                      {expandedRow === stock.ticker && <DetailRow key={`${stock.ticker}-d`} stock={stock} preset={activePreset} />}
                     </>
                   ))}
                 </tbody>

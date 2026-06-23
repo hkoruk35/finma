@@ -11,5 +11,29 @@
       "KEEL"
     ],
     "regime": "�alkantili Boga"
+  },
+  {
+    "id": "scan_1782219668552",
+    "preset": "genel_swing",
+    "timestamp": "2026-06-23T13:01:08.498Z",
+    "date": "23.06.2026 09:01:08",
+    "total_results": 266,
+    "top_5_tickers": [
+      "SNDK",
+      "WDC",
+      "MU",
+      "INTC",
+      "APGE"
+    ],
+    "regime": "Nötr"
+  },
+  {
+    "id": "scan_1782219678693",
+    "preset": "cheap_exp",
+    "timestamp": "2026-06-23T13:01:18.693Z",
+    "date": "23.06.2026 09:01:18",
+    "total_results": 0,
+    "top_5_tickers": [],
+    "regime": "Çalkantılı Boğa"
   }
 ]

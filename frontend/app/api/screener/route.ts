@@ -87,6 +87,16 @@ export interface ScreenerResult {
   target_fib?: number;
   triangle_stop?: number;
   triangle_rr?: number;
+  // 15m Pivot System (cheap_exp) — floor pivots from prior session H/L/C, watched intraday
+  pivot_pp?: number;
+  pivot_r1?: number;
+  pivot_r2?: number;
+  pivot_r3?: number;
+  pivot_s1?: number;
+  pivot_s2?: number;
+  pivot_s3?: number;
+  pivot_bias?: "bullish" | "bearish";
+  pivot_signal?: string;
 }
 
 interface Regime {
@@ -380,6 +390,38 @@ function adx(highs: number[], lows: number[], closes: number[], period = 14): nu
   return Math.min(100, Math.max(0, dx));
 }
 
+// ─── 15m Pivot System (Floor Pivots from prior session H/L/C, watched intraday) ─
+
+interface PivotLevels { pp: number; r1: number; r2: number; r3: number; s1: number; s2: number; s3: number; }
+
+function calcPivotPoints(prevHigh: number, prevLow: number, prevClose: number): PivotLevels {
+  const pp = (prevHigh + prevLow + prevClose) / 3;
+  const r1 = 2 * pp - prevLow;
+  const s1 = 2 * pp - prevHigh;
+  const r2 = pp + (prevHigh - prevLow);
+  const s2 = pp - (prevHigh - prevLow);
+  const r3 = prevHigh + 2 * (pp - prevLow);
+  const s3 = prevLow - 2 * (prevHigh - pp);
+  return { pp, r1, r2, r3, s1, s2, s3 };
+}
+
+// Kırılım (breakout): PP üstü RVOL-onaylı kırılımda R1→R2→R3 hedeflenir.
+// Dönüş (mean reversion): S2/S3 aşırı satım bölgesinden uzun pozisyon aranır.
+function classifyPivotSignal(price: number, levels: PivotLevels): { bias: "bullish" | "bearish"; signal: string } {
+  const { pp, r1, r2, r3, s1, s2, s3 } = levels;
+  const bias: "bullish" | "bearish" = price >= pp ? "bullish" : "bearish";
+  let signal: string;
+  if (price >= r3) signal = "R3 Üstü — Aşırı Uzamış";
+  else if (price >= r2) signal = "R2 Kırılımı — R3 Hedefli";
+  else if (price >= r1) signal = "R1 Kırılımı — R2 Hedefli";
+  else if (price >= pp) signal = "PP Üstü — Boğa Bölgesi";
+  else if (price >= s1) signal = "PP Altı — Ayı Bölgesi";
+  else if (price >= s2) signal = "S1 Destek Testi";
+  else if (price >= s3) signal = "S2 Dönüş Bölgesi (Long Setup)";
+  else signal = "S3 Altı — Aşırı Satım Dönüşü";
+  return { bias, signal };
+}
+
 function toGrade(score: number): string {
   if (score >= 85) return "A+";
   if (score >= 75) return "A";
@@ -550,9 +592,9 @@ function classifySetup(params: {
 
 function tradePlan(params: {
   price: number; ema20: number; atrVal: number; bbUpper: number; bbLower: number; preset: string;
-  triUpper?: number; triLower?: number;
+  triUpper?: number; triLower?: number; pivot?: PivotLevels;
 }): { entry: number; stop: number; target: number; rr: string; riskPct: number } {
-  const { price, ema20, atrVal, bbUpper, bbLower, preset, triUpper, triLower } = params;
+  const { price, ema20, atrVal, bbUpper, bbLower, preset, triUpper, triLower, pivot } = params;
   let entry: number, stop: number, target: number;
 
   if (preset === "early_break") {
@@ -565,6 +607,19 @@ function tradePlan(params: {
       entry  = +(bbUpper * 1.001).toFixed(2);
       stop   = +(bbLower * 0.999).toFixed(2);
       target = +(entry + (entry - stop) * 2.5).toFixed(2);
+    }
+  } else if (preset === "cheap_exp" && pivot) {
+    const { pp, r1, r2, r3, s2, s3 } = pivot;
+    if (price <= s2) {
+      // Dönüş (mean reversion): S2/S3 aşırı satım bölgesinden alım, hedef PP
+      entry  = +(price * 1.002).toFixed(2);
+      stop   = +(price <= s3 ? s3 * 0.99 : s2 * 0.99).toFixed(2);
+      target = +pp.toFixed(2);
+    } else {
+      // Kırılım (breakout): PP üstü, R1→R2→R3 hedef merdiveni
+      entry  = +(price * 1.001).toFixed(2);
+      stop   = +(pp * 0.995).toFixed(2);
+      target = +(price >= r2 ? r3 : price >= r1 ? r2 : r1).toFixed(2);
     }
   } else if (preset === "day_mom") {
     entry  = +(price * 1.001).toFixed(2);
@@ -585,11 +640,14 @@ function tradePlan(params: {
 
 // ─── Warnings ─────────────────────────────────────────────────────────────────
 
-function generateWarnings(params: { rsiVal: number; atrPct: number; ivEst: number }): string[] {
+function generateWarnings(params: { rsiVal: number; atrPct: number; ivEst: number; price?: number; pivotR3?: number }): string[] {
   const w: string[] = [];
   if (params.rsiVal > 75) w.push(`RSI aşırı alım (${params.rsiVal.toFixed(0)}) — giriş riskli`);
   if (params.atrPct > 10) w.push(`Yüksek ATR (${params.atrPct.toFixed(1)}%) — pozisyon boyutunu küçült`);
   if (params.ivEst > 120) w.push(`IV çok yüksek (~${params.ivEst}%) — opsiyon primleri pahalı`);
+  if (params.price !== undefined && params.pivotR3 !== undefined && params.price >= params.pivotR3) {
+    w.push("Fiyat R3 pivot seviyesinin üstünde — aşırı uzamış, giriş riski yüksek");
+  }
   return w;
 }
 
@@ -693,6 +751,12 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     // Triangle detection
     const tri = detectSymmetricalTriangle(highs, lows, closes, volumes);
 
+    // 15m Pivot Levels — floor pivots from previous session's H/L/C, watched intraday
+    const prevHigh = highs.length >= 2 ? highs[highs.length - 2] : highs.at(-1) ?? price;
+    const prevLow  = lows.length  >= 2 ? lows[lows.length - 2]   : lows.at(-1)  ?? price;
+    const pivotLevels = calcPivotPoints(prevHigh, prevLow, prev1d);
+    const pivotClassified = classifyPivotSignal(price, pivotLevels);
+
     // Boost BOGA score when triangle confirmed on early_break
     let finalScore = score;
     let finalGrade = grade;
@@ -703,8 +767,8 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     }
 
     const { primary, signals } = classifySetup({ price, ema20: e20, ema50: e50, sma200: s200, rsiVal, rvol: rvolVal, atrPct, change1d, hasWeekly: has_weekly, bbPct: bb.pct });
-    const plan = tradePlan({ price, ema20: e20, atrVal, bbUpper: bb.upper, bbLower: bb.lower, preset, triUpper: tri.upper_trendline, triLower: tri.lower_trendline });
-    const warnings = generateWarnings({ rsiVal, atrPct, ivEst });
+    const plan = tradePlan({ price, ema20: e20, atrVal, bbUpper: bb.upper, bbLower: bb.lower, preset, triUpper: tri.upper_trendline, triLower: tri.lower_trendline, pivot: pivotLevels });
+    const warnings = generateWarnings({ rsiVal, atrPct, ivEst, price, pivotR3: preset === "cheap_exp" ? pivotLevels.r3 : undefined });
 
     // RS Rating: hisse 12 aylık getirisi vs SPY (IBD mantığı, 1-99 skala)
     const stock12mReturn = closes.length >= 2
@@ -752,6 +816,15 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       target_fib: tri.target_fib,
       triangle_stop: tri.stop_loss,
       triangle_rr: tri.risk_reward,
+      pivot_pp: +pivotLevels.pp.toFixed(2),
+      pivot_r1: +pivotLevels.r1.toFixed(2),
+      pivot_r2: +pivotLevels.r2.toFixed(2),
+      pivot_r3: +pivotLevels.r3.toFixed(2),
+      pivot_s1: +pivotLevels.s1.toFixed(2),
+      pivot_s2: +pivotLevels.s2.toFixed(2),
+      pivot_s3: +pivotLevels.s3.toFixed(2),
+      pivot_bias: pivotClassified.bias,
+      pivot_signal: pivotClassified.signal,
     } as any;
   } catch { return null; }
 }
@@ -803,13 +876,17 @@ function passesPreset(s: ScreenerResult, preset: string): boolean {
              s.ema20 > s.ema50 &&
              s.adx >= 20 &&
              s.boga_score >= 50;
-    case "cheap_exp":
-      // Price $0.5-$10, ATR% ≥ 3.0, RVOL ≥ 1.5, opsiyonlu
+    case "cheap_exp": {
+      // Price $0.5-$10, ATR% ≥ 3.0 (volatil/"explosive" evren), opsiyonlu
+      // 15m Pivot Sistemi: PP üstü RVOL-onaylı kırılım (R1/R2/R3 hedefli) VEYA S2/S3 dönüş bölgesi (mean reversion long)
+      const breakoutUp   = s.price > (s.pivot_pp ?? Infinity) && s.rvol >= 1.5;
+      const reversionBuy = s.price <= (s.pivot_s2 ?? -Infinity);
       return s.price >= 0.5 && s.price < 10 &&
              s.atr_pct >= 3.0 &&
-             s.rvol >= 1.5 &&
              s.has_options &&
+             (breakoutUp || reversionBuy) &&
              s.boga_score >= 38;
+    }
     case "ema_cross":
       // EMA8 > EMA20, EMA20 EMA50'ye yakın (±7%), RVOL ≥ 1.3, RSI 45-72
       return s.ema8 > s.ema20 &&
