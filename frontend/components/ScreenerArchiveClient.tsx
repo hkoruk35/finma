@@ -34,7 +34,7 @@ const PRESET_NAMES: Record<string, string> = {
   day_mom:       "Day Trade Momentum",
   opt_sniper:    "Options Sniper",
   inst_trend:    "Institutional Trend",
-  cheap_exp:     "Cheap & Explosive",
+  cheap_exp:     "15m Pivot",
   ema_cross:     "EMA Cross Setup",
   gamma_sq:      "Gamma Squeeze",
 };

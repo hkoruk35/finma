@@ -115,7 +115,7 @@ const PRESETS = [
   { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
   { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
   { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
-  { id: "cheap_exp",    name: "Cheap & Explosive",    desc: "Price<$10 · 15m Pivot Kırılım/Dönüş",    mode: "day",      color: "#f43f5e", pills: ["Price<$10","ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],          icon: "🔥" },
+  { id: "cheap_exp",    name: "15m Pivot",            desc: "Price<$10 · PP Kırılım veya S2/S3 Dönüş",mode: "day",      color: "#f43f5e", pills: ["Price<$10","ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],          icon: "📍" },
   { id: "ema_cross",    name: "EMA Cross Setup",      desc: "EMA8>EMA20 fresh cross · RVOL>1.3",      mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                      icon: "✂️" },
   { id: "gamma_sq",     name: "Gamma Squeeze",        desc: "Haftalık · ATR>5% · RVOL>2",             mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                       icon: "🚀" },
 ];
@@ -402,7 +402,7 @@ function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string })
           </div>
         )}
 
-        {/* 15m Pivot Panel (Cheap & Explosive) */}
+        {/* 15m Pivot Panel */}
         {preset === "cheap_exp" && stock.pivot_pp !== undefined && (
           <div style={{ marginTop: 12, background: stock.pivot_bias === "bullish" ? "rgba(34,197,94,0.05)" : "rgba(239,68,68,0.05)", border: `1px solid ${stock.pivot_bias === "bullish" ? "rgba(34,197,94,0.25)" : "rgba(239,68,68,0.25)"}`, borderRadius: 6, padding: "12px 16px" }}>
             <div style={{ fontSize: 10, color: stock.pivot_bias === "bullish" ? "#4ade80" : "#f87171", letterSpacing: "1.5px", marginBottom: 10, textTransform: "uppercase", fontWeight: 700 }}>
