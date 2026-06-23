@@ -603,7 +603,7 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
 
     for i, chunk in enumerate(chunks):
         d1d, d1h, d15m = await asyncio.gather(
-            _download_chunk_multi(chunk, period="3mo", interval="1d"),
+            _download_chunk_multi(chunk, period="9mo", interval="1d"),  # EMA200 icin yeterli gecmis (MIN_BARS_1D ile ayni mantik)
             _download_chunk_multi(chunk, period="1mo", interval="1h", prepost=True),
             _download_chunk_multi(chunk, period="5d", interval="15m", prepost=True),
         )
@@ -621,7 +621,7 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
         try:
             close = df_1d["Close"].dropna()
             vol = df_1d["Volume"].dropna()
-            if len(close) < 21 or len(vol) < 21:
+            if len(close) < 31 or len(vol) < 31:
                 continue
 
             price = float(close.iloc[-1])
@@ -637,9 +637,10 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
             # bugün gerçekten oynayan hisseleri değil.
             chg_1d_pct = ((close.iloc[-1] - close.iloc[-2]) / close.iloc[-2]) * 100 if len(close) >= 2 and close.iloc[-2] else 0.0
 
+            # RVOL standardı: son gün hacmi / 30 günlük ortalama (frontend VOL× ile aynı pencere)
             today_vol = float(vol.iloc[-1])
-            avg20_vol = float(vol.iloc[-21:-1].mean())
-            daily_rvol = (today_vol / avg20_vol) if avg20_vol > 0 else 0.0
+            avg30_vol = float(vol.iloc[-31:-1].mean())
+            daily_rvol = (today_vol / avg30_vol) if avg30_vol > 0 else 0.0
             dollar_vol = today_vol * price
             if dollar_vol < MIN_DOLLAR_VOLUME:
                 continue
@@ -650,6 +651,39 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
             score += min(daily_rvol, 5.0) * 1.2
             if chg_1d_pct > 0:
                 score += min(chg_1d_pct, 10.0) * 1.5
+
+            # EMA20/50/200 dizilimi + RSI slope — kapanış-bazlı, "bir sonraki gün açılış
+            # listesi" için önemli görülen filtre. calculate_boga_indicators ile aynı
+            # (test edilmiş) formülü kullanıyoruz, ayrı bir hesap yazmıyoruz.
+            ema_stack_bullish = False
+            rsi_rising = False
+            ema20_1d = ema50_1d = ema200_1d = 0.0
+            rsi_1d = 50.0
+            rsi_slope_1d = 0.0
+            try:
+                df_1d_ind = calculate_boga_indicators(df_1d, "1d")
+                curr_1d = df_1d_ind.iloc[-1]
+                ema20_1d = float(curr_1d["EMA20"])
+                ema50_1d = float(curr_1d["EMA50"])
+                ema200_1d = float(curr_1d["EMA200"])
+                rsi_1d = float(curr_1d["RSI"])
+                rsi_slope_1d = float(df_1d_ind["RSI"].diff(periods=5).iloc[-1])
+
+                ema_stack_bullish = price > ema20_1d > ema50_1d
+                if len(close) >= MIN_BARS_1D:
+                    # EMA200 sadece yeterince olgunsa (MIN_BARS_1D) dizilime katılır
+                    ema_stack_bullish = ema_stack_bullish and ema20_1d > ema200_1d
+
+                if ema_stack_bullish:
+                    score += 2.5
+                elif price > ema20_1d and price > ema50_1d:
+                    score += 1.0
+
+                rsi_rising = rsi_slope_1d > 0 and 40 <= rsi_1d <= 75
+                if rsi_rising:
+                    score += 1.5
+            except Exception as e:
+                logging.debug(f"Discovery EMA/RSI hatası {ticker}: {e}")
 
             chg_1h_4bar = 0.0
             df_1h = data_1h.get(ticker)
@@ -679,6 +713,12 @@ async def discover_top_n(universe: List[str], top_n: int = DISCOVERY_TOP_N) -> L
                 "chg_5d_pct": round(chg_5d, 2),
                 "chg_1h_4bar_pct": round(chg_1h_4bar, 2),
                 "pattern_15m": pattern_name,
+                "ema_stack_bullish": ema_stack_bullish,
+                "ema20_1d": round(ema20_1d, 2),
+                "ema50_1d": round(ema50_1d, 2),
+                "ema200_1d": round(ema200_1d, 2),
+                "rsi_1d": round(rsi_1d, 1),
+                "rsi_slope_1d": round(rsi_slope_1d, 1),
             })
         except Exception as e:
             logging.debug(f"Discovery skorlama hatası {ticker}: {e}")
@@ -1510,15 +1550,16 @@ def compute_gap_up_score(
             result["hourly_score"] = 3 if ratio >= 0.75 else 2 if ratio >= 0.5 else 1 if ratio > 0 else 0
 
         # 3️⃣ Günlük RVOL (zaman-normalize VEYA premarket'te dünün kapanış-onaylı hacmi) ---
-        if len(df_1d) >= 21:
-            avg20 = float(df_1d["Volume"].iloc[-21:-1].mean())
+        # Pencere standardı: 30 gün (frontend /api/watchlist-data ve discover_top_n ile aynı)
+        if len(df_1d) >= 31:
+            avg30 = float(df_1d["Volume"].iloc[-31:-1].mean())
             daily_rvol = 0.0
             if is_today_bar:
                 # Normal seans: bugünün kısmi hacmini zamana göre tam güne projekte et
                 today_vol = float(df_1d["Volume"].iloc[-1])
-                if avg20 > 0:
+                if avg30 > 0:
                     projected_vol = today_vol * (390.0 / _session_minutes_elapsed())
-                    daily_rvol = projected_vol / avg20
+                    daily_rvol = projected_vol / avg30
             elif not today_bars.empty:
                 # Premarket: yfinance premarket barlarında Volume=0 döner, bugünün hacmi
                 # henüz yok. Onun yerine DÜNÜN TAMAMLANMIŞ (gerçek, hacim-onaylı) RVOL'unu
@@ -1526,8 +1567,8 @@ def compute_gap_up_score(
                 # kapanış hacmi birleşince "gerçek alım ilgisi premarket'te de sürüyor mu"
                 # sorusuna kapanış+premarket kombinasyonuyla yanıt verir.
                 yday_vol = float(df_1d["Volume"].iloc[-1])
-                if avg20 > 0:
-                    daily_rvol = yday_vol / avg20
+                if avg30 > 0:
+                    daily_rvol = yday_vol / avg30
             if daily_rvol > 0:
                 result["daily_rvol"] = round(daily_rvol, 2)
                 result["daily_rvol_score"] = 3 if daily_rvol >= 4 else 2 if daily_rvol >= 2.5 else 1 if daily_rvol >= 1.5 else 0
