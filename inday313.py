@@ -1509,13 +1509,26 @@ def compute_gap_up_score(
             result["hourly_strength_pct"] = round(((chain[-1] - chain[0]) / chain[0]) * 100, 2) if chain[0] else 0.0
             result["hourly_score"] = 3 if ratio >= 0.75 else 2 if ratio >= 0.5 else 1 if ratio > 0 else 0
 
-        # 3️⃣ Günlük RVOL (zaman-normalize) -----------------------------------
-        if len(df_1d) >= 21 and is_today_bar:
-            today_vol = float(df_1d["Volume"].iloc[-1])
+        # 3️⃣ Günlük RVOL (zaman-normalize VEYA premarket'te dünün kapanış-onaylı hacmi) ---
+        if len(df_1d) >= 21:
             avg20 = float(df_1d["Volume"].iloc[-21:-1].mean())
-            if avg20 > 0:
-                projected_vol = today_vol * (390.0 / _session_minutes_elapsed())
-                daily_rvol = projected_vol / avg20
+            daily_rvol = 0.0
+            if is_today_bar:
+                # Normal seans: bugünün kısmi hacmini zamana göre tam güne projekte et
+                today_vol = float(df_1d["Volume"].iloc[-1])
+                if avg20 > 0:
+                    projected_vol = today_vol * (390.0 / _session_minutes_elapsed())
+                    daily_rvol = projected_vol / avg20
+            elif not today_bars.empty:
+                # Premarket: yfinance premarket barlarında Volume=0 döner, bugünün hacmi
+                # henüz yok. Onun yerine DÜNÜN TAMAMLANMIŞ (gerçek, hacim-onaylı) RVOL'unu
+                # kullan - premarket fiyat hareketi (gap_pct, zaten gerçek) ile dünün
+                # kapanış hacmi birleşince "gerçek alım ilgisi premarket'te de sürüyor mu"
+                # sorusuna kapanış+premarket kombinasyonuyla yanıt verir.
+                yday_vol = float(df_1d["Volume"].iloc[-1])
+                if avg20 > 0:
+                    daily_rvol = yday_vol / avg20
+            if daily_rvol > 0:
                 result["daily_rvol"] = round(daily_rvol, 2)
                 result["daily_rvol_score"] = 3 if daily_rvol >= 4 else 2 if daily_rvol >= 2.5 else 1 if daily_rvol >= 1.5 else 0
 
