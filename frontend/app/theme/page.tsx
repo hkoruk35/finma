@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { MARKET_THEMES } from "@/lib/themeData";
 import ThemeCountBadge from "@/components/ThemeCountBadge";
 import CSPWatchlistSection from "@/components/CSPWatchlistSection";
+import HotThemes2026Section from "@/components/HotThemes2026Section";
 
 export const metadata: Metadata = {
   title: "Active Market Themes | BOGA AI",
@@ -71,6 +72,9 @@ export default async function ThemesIndexPage() {
             AI-powered stock selection, portfolio tracking, and strategy tools
           </p>
         </div>
+
+        {/* ── 2026 Güncel Tematik Liste — TOP ── */}
+        <HotThemes2026Section />
 
         {/* ── Market Themes by Sector — FIRST ── */}
         <div className="mb-12">
