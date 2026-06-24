@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 12.95,
+        "entry_zone": "12.60 - 13.31",
+        "SL": 11.55,
+        "TP": 15.77
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "SRRK",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 52.87,
+        "entry_zone": "51.75 - 53.98",
+        "SL": 48.42,
+        "TP": 61.76
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "GNK",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 24.39,
+        "entry_zone": "24.02 - 24.75",
+        "SL": 22.92,
+        "TP": 27.32
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "NVS",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 153.83,
+        "entry_zone": "152.28 - 155.38",
+        "SL": 147.62,
+        "TP": 166.26
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "MRX",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 65.03,
+        "entry_zone": "63.57 - 66.48",
+        "SL": 59.19,
+        "TP": 76.7
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "RBRK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 74.65,
+        "entry_zone": "72.52 - 76.78",
+        "SL": 66.14,
+        "TP": 91.66
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "MRK",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 121.12,
+        "entry_zone": "119.47 - 122.77",
+        "SL": 114.51,
+        "TP": 134.33
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "ASTH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 42.02,
+        "entry_zone": "41.23 - 42.81",
+        "SL": 38.86,
+        "TP": 48.34
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 16.86,
+        "entry_zone": "16.35 - 17.38",
+        "SL": 14.81,
+        "TP": 20.97
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "ELVN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 49.08,
+        "entry_zone": "47.26 - 50.90",
+        "SL": 41.82,
+        "TP": 63.61
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "DE",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 608.78,
+        "entry_zone": "600.36 - 617.21",
+        "SL": 575.07,
+        "TP": 676.2
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "TDAY",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 7.95,
+        "entry_zone": "7.82 - 8.08",
+        "SL": 7.42,
+        "TP": 9.01
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "KNSA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 59.32,
+        "entry_zone": "58.28 - 60.36",
+        "SL": 55.18,
+        "TP": 67.6
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "OSW",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 28.02,
+        "entry_zone": "27.54 - 28.50",
+        "SL": 26.11,
+        "TP": 31.83
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "STGW",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 7.06,
+        "entry_zone": "6.92 - 7.20",
+        "SL": 6.5,
+        "TP": 8.17
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "AFG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 139.21,
+        "entry_zone": "137.79 - 140.63",
+        "SL": 133.55,
+        "TP": 150.53
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "OSCR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 29.01,
+        "entry_zone": "28.04 - 29.98",
+        "SL": 25.11,
+        "TP": 36.8
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "OKE",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 87.01,
+        "entry_zone": "85.76 - 88.26",
+        "SL": 82.03,
+        "TP": 96.98
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "BUD",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 84.62,
+        "entry_zone": "83.83 - 85.42",
+        "SL": 81.45,
+        "TP": 90.97
+    },
+    {
+        "date": "2026-06-24 14:45",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 20.66,
+        "entry_zone": "19.00 - 22.31",
+        "SL": 14.02,
+        "TP": 33.92
+    }
+]
