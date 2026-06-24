@@ -773,7 +773,7 @@ async def get_or_build_today_universe() -> List[str]:
         except Exception as e:
             logging.warning(f"⚠️ {INDAY_UNIVERSE_FILE} okunamadı: {e}")
 
-    logging.info("🌅 Günün ilk taraması: ALL-LIST tam evren taranıyor (15M/1H, 1D-onaylı, en hacimli/momentumlu Top 20)...")
+    logging.info("🌅 Günün ilk taraması: ALL-LIST tam evren taranıyor (1H/1D-onaylı, en hacimli/momentumlu Top 20)...")
     full_universe = build_full_universe()
     if not full_universe:
         logging.warning("⚠️ Tam evren boş, swing_all_picks.json'a geri dönülüyor.")
