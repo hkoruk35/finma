@@ -1,20 +1,30 @@
 {
-  "date": "2026-06-23",
-  "generated_at": "2026-06-23T13:05:42.928672-04:00",
+  "date": "2026-06-24",
+  "generated_at": "2026-06-24T13:16:50.044904-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 2,
+  "active_scores_count": 18,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
-      "count": 2,
+      "count": 10,
       "tickers": [
-        "AMTB",
-        "SNEX"
+        "EWBC",
+        "INCY",
+        "DAL",
+        "WST",
+        "CTRE",
+        "USB",
+        "BBUC",
+        "SWBI",
+        "MRP",
+        "CBL"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "IBCP"
+      ]
     },
     "value": {
       "count": 0,
@@ -35,13 +45,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "AMTB",
-      "score": 54.0,
+      "ticker": "EWBC",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SNEX",
-      "score": 37.8,
+      "ticker": "INCY",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "DAL",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
