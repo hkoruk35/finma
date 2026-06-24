@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getHotTheme } from "@/lib/hotThemes2026";
 import ThemeDetailClient from "@/components/ThemeDetailClient";
+import HotThemeStockGrid from "@/components/HotThemeStockGrid";
 
 export const revalidate = 60;
 
@@ -62,19 +63,7 @@ export default async function HotThemeTrackerPage({ params }: { params: Promise<
           </div>
           <p className="text-[12px] text-slate-400 leading-relaxed mb-4">{theme.summary}</p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 items-start">
-            {theme.stocks.map((stock) => (
-              <div key={stock.ticker} className="rounded-lg border border-white/5 bg-black/20 px-3 py-2">
-                <div className="flex items-baseline gap-2">
-                  <Link href={`/stock/${stock.ticker}`} className="font-black text-[12px] hover:underline" style={{ color: theme.accent }}>
-                    {stock.ticker}
-                  </Link>
-                  <span className="text-[10px] text-slate-500 truncate">{stock.company}</span>
-                </div>
-                <p className="text-[10.5px] text-slate-500 leading-snug mt-1">{stock.blurb}</p>
-              </div>
-            ))}
-          </div>
+          <HotThemeStockGrid stocks={theme.stocks} accent={theme.accent} />
         </div>
 
         {/* ── Canlı Takip Tablosu ── */}
