@@ -6,6 +6,7 @@ import { MARKET_THEMES } from "@/lib/themeData";
 import ThemeCountBadge from "@/components/ThemeCountBadge";
 import CSPWatchlistSection from "@/components/CSPWatchlistSection";
 import HotThemes2026Section from "@/components/HotThemes2026Section";
+import ThemePageTabs from "@/components/ThemePageTabs";
 
 export const metadata: Metadata = {
   title: "Active Market Themes | BOGA AI",
@@ -73,68 +74,61 @@ export default async function ThemesIndexPage() {
           </p>
         </div>
 
-        {/* ── 2026 Güncel Tematik Liste — TOP ── */}
-        <HotThemes2026Section />
-
-        {/* ── Market Themes by Sector — FIRST ── */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-5 border-b border-[#22d3ee]/20 pb-3">
-            <div className="w-1 h-5 bg-[#22d3ee] rounded-full" />
-            <h2 className="text-xs font-black text-[#22d3ee] uppercase tracking-[0.25em]">
-              SEKTÖRLER
-            </h2>
-            <span className="text-[10px] text-white/30 uppercase tracking-wide">
-              {sortedSectors.length} sektör · {MARKET_THEMES.length} tema
-            </span>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {sortedSectors.map((sector) => {
-              const themes = themesBySector[sector];
-              const isSectors = sector === "Sectors";
-              return (
-                <div
-                  key={sector}
-                  className="bg-[#080c14] border rounded-lg p-4 hover:border-opacity-40 transition-all"
-                  style={{
-                    borderColor: isSectors ? "rgba(34,211,238,0.3)" : "rgba(255,255,255,0.08)",
-                    background: isSectors ? "rgba(34,211,238,0.04)" : "#080c14",
-                  }}
-                >
-                  <h3
-                    className="text-xs font-black uppercase tracking-[0.2em] mb-3 pb-2 border-b"
-                    style={{
-                      color: isSectors ? "#22d3ee" : "#38bdf8",
-                      borderColor: isSectors ? "rgba(34,211,238,0.25)" : "rgba(56,189,248,0.15)",
-                    }}
-                  >
-                    {isSectors ? "📊 " : ""}{sector}
-                  </h3>
-                  <ul className="space-y-0.5 max-h-64 overflow-y-auto">
-                    {themes.map(theme => (
-                      <li key={theme.name}>
-                        <Link
-                          href={`/theme/${slugify(theme.name)}`}
-                          className="group flex items-center justify-between py-1 px-2 rounded transition-all text-[10px] font-bold text-slate-400 hover:text-white hover:bg-sky-400/[0.07]"
-                        >
-                          <span className="truncate">{theme.name}</span>
-                          <span className="text-[9px] text-slate-500 bg-white/5 px-1 py-0.5 rounded font-black flex-shrink-0 ml-1"
-                            style={{ minWidth: 18, textAlign: "center" }}>
-                            <ThemeCountBadge themeName={theme.name} staticCount={theme.tickers.length} />
-                          </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ── CSP Watchlist Tools — SECOND ── */}
-        <div className="border-t border-white/10 pt-8">
-          <CSPWatchlistSection />
-        </div>
+        <ThemePageTabs
+          hot={<HotThemes2026Section />}
+          sectors={
+            <div>
+              <div className="flex items-center gap-3 mb-5 flex-wrap">
+                <span className="text-[10px] text-white/40 uppercase tracking-wide">
+                  {sortedSectors.length} sektör · {MARKET_THEMES.length} tema
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {sortedSectors.map((sector) => {
+                  const themes = themesBySector[sector];
+                  const isSectors = sector === "Sectors";
+                  return (
+                    <div
+                      key={sector}
+                      className="bg-[#080c14] border rounded-lg p-4 hover:border-opacity-40 transition-all"
+                      style={{
+                        borderColor: isSectors ? "rgba(34,211,238,0.3)" : "rgba(255,255,255,0.08)",
+                        background: isSectors ? "rgba(34,211,238,0.04)" : "#080c14",
+                      }}
+                    >
+                      <h3
+                        className="text-xs font-black uppercase tracking-[0.2em] mb-3 pb-2 border-b"
+                        style={{
+                          color: isSectors ? "#22d3ee" : "#38bdf8",
+                          borderColor: isSectors ? "rgba(34,211,238,0.25)" : "rgba(56,189,248,0.15)",
+                        }}
+                      >
+                        {isSectors ? "📊 " : ""}{sector}
+                      </h3>
+                      <ul className="space-y-0.5 max-h-64 overflow-y-auto">
+                        {themes.map(theme => (
+                          <li key={theme.name}>
+                            <Link
+                              href={`/theme/${slugify(theme.name)}`}
+                              className="group flex items-center justify-between py-1 px-2 rounded transition-all text-[10px] font-bold text-slate-400 hover:text-white hover:bg-sky-400/[0.07]"
+                            >
+                              <span className="truncate">{theme.name}</span>
+                              <span className="text-[9px] text-slate-500 bg-white/5 px-1 py-0.5 rounded font-black flex-shrink-0 ml-1"
+                                style={{ minWidth: 18, textAlign: "center" }}>
+                                <ThemeCountBadge themeName={theme.name} staticCount={theme.tickers.length} />
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          }
+          csp={<CSPWatchlistSection />}
+        />
 
       </main>
       <Footer />
