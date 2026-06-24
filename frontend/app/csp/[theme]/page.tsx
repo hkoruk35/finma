@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getHotTheme } from "@/lib/hotThemes2026";
 import ThemeDetailClient from "@/components/ThemeDetailClient";
-import HotThemeStockGrid from "@/components/HotThemeStockGrid";
 
 export const revalidate = 60;
 
@@ -50,20 +49,12 @@ export default async function HotThemeTrackerPage({ params }: { params: Promise<
           </Link>
         </div>
 
-        {/* ── Tema Özeti ── */}
-        <div
-          className="border rounded-xl p-5 mb-6"
-          style={{ borderColor: `${theme.accent}30`, background: `${theme.accent}08` }}
-        >
-          <div className="flex items-baseline gap-3 mb-2">
-            <span className="text-[11px] font-black tabular-nums" style={{ color: theme.accent }}>
-              {String(theme.number).padStart(2, "0")}
-            </span>
-            <h1 className="text-lg font-black uppercase tracking-wide text-white">{theme.title}</h1>
-          </div>
-          <p className="text-[12px] text-slate-400 leading-relaxed mb-4">{theme.summary}</p>
-
-          <HotThemeStockGrid stocks={theme.stocks} accent={theme.accent} />
+        {/* ── Başlık ── */}
+        <div className="flex items-baseline gap-3 mb-4">
+          <span className="text-[12px] font-black tabular-nums" style={{ color: theme.accent }}>
+            {String(theme.number).padStart(2, "0")}
+          </span>
+          <h1 className="text-lg font-black uppercase tracking-wide text-white">{theme.title}</h1>
         </div>
 
         {/* ── Canlı Takip Tablosu ── */}

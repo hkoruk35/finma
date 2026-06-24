@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 
 interface CSPList {
   key: string;
@@ -32,9 +33,12 @@ export default function CSPWatchlistSection() {
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [addMessage, setAddMessage] = useState("");
 
-  // Extract all unique tickers from MARKET_THEMES
+  // Extract all unique tickers from MARKET_THEMES + 2026 hot themes
   const allThemeTickers = Array.from(
-    new Set(MARKET_THEMES.flatMap((t) => t.tickers))
+    new Set([
+      ...MARKET_THEMES.flatMap((t) => t.tickers),
+      ...HOT_THEMES_2026.flatMap((t) => t.stocks.map((s) => s.ticker)),
+    ])
   ).sort();
 
   useEffect(() => {

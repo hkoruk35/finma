@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import { useTracker } from "@/components/TrackerContext";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -117,6 +118,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   const [sortBy, setSortBy]         = useState<string>("1G%");
   const [sortDir, setSortDir]       = useState<"asc" | "desc">("desc");
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [addInput, setAddInput] = useState("");
+  const { addToTracker, isInTracker } = useTracker();
 
   // ── Load tickers (cache-first, then API) ──────────────────────────────────
   useEffect(() => {
@@ -196,6 +199,35 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ value: overrides }),
     }).catch(() => {});
+  };
+
+  const addCustomTicker = async (input: string) => {
+    const sym = input.trim().toUpperCase();
+    if (!sym || tickers.includes(sym)) return;
+
+    let overrides: Record<string, string[]> = {};
+    try { overrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
+    const updatedCustom = [...(overrides[themeName] || []), sym];
+    overrides[themeName] = updatedCustom;
+    syncOverrides(overrides);
+
+    setCustomTickers(updatedCustom);
+    setTickers(prev => [...prev, sym]);
+    setVisibleCount(prev => prev + 1);
+    setAddInput("");
+
+    try {
+      const res = await fetch(`/api/watchlist-data?tickers=${sym}`);
+      if (!res.ok) throw new Error("API error");
+      const results: TickerData[] = await res.json();
+      setData(prev => {
+        const updated = { ...prev };
+        results.forEach(item => { if (item?.ticker) updated[item.ticker] = item; });
+        return updated;
+      });
+    } catch (e) {
+      console.error("addCustomTicker fetch error:", e);
+    }
   };
 
   const removeCustomTicker = (ticker: string) => {
@@ -437,7 +469,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {[
                   "TICKER","ŞİRKET","SEKTÖR","FİYAT","1G%","1H%","H.ORAN",
-                  "EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","MKT CAP","SKOR",""
+                  "EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","MKT CAP","SKOR","TRACKER"
                 ].map((h, i) => {
                   const sortable = SORTABLE_COLS.includes(h);
                   const isSorted = sortBy === h;
@@ -486,9 +518,16 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                           </Link>
                         </TickerHoverChart>
                         {isCustom && (
-                          <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
-                            CUSTOM
-                          </span>
+                          <>
+                            <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
+                              CUSTOM
+                            </span>
+                            <button
+                              onClick={e => { e.stopPropagation(); removeCustomTicker(sym); }}
+                              style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                              title="Listeden kaldır"
+                            >✕</button>
+                          </>
                         )}
                         <span style={{ color: "#8b949e", marginLeft: 5, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
                       </td>
@@ -595,16 +634,32 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                         )}
                       </td>
 
-                      {/* ACTION */}
-                      <td style={{ padding: "7px 8px", textAlign: "center" }}>
-                        {isCustom ? (
-                          <button
-                            onClick={e => { e.stopPropagation(); removeCustomTicker(sym); }}
-                            style={{ background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 14, lineHeight: 1 }}
-                            title="Kaldır"
-                          >✕</button>
+                      {/* TRACKER */}
+                      <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                        {isInTracker(sym) ? (
+                          <Link
+                            href="/tracker"
+                            onClick={e => e.stopPropagation()}
+                            style={{
+                              display: "inline-block", padding: "2px 8px", fontSize: 10,
+                              fontFamily: "monospace", fontWeight: 700, borderRadius: 3,
+                              border: "1px solid #3fb950", color: "#3fb950",
+                              background: "#0d2a0d", textDecoration: "none", whiteSpace: "nowrap",
+                            }}
+                          >
+                            ✓ Tracker
+                          </Link>
                         ) : (
-                          <span style={{ fontSize: 9, color: "#444", fontWeight: 700 }}>STATIC</span>
+                          <button
+                            onClick={e => { e.stopPropagation(); addToTracker(sym, "Swing"); }}
+                            style={{
+                              padding: "2px 8px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                              border: "1px solid #30363d", background: "transparent",
+                              color: "#8b949e", borderRadius: 3, cursor: "pointer", whiteSpace: "nowrap",
+                            }}
+                          >
+                            + Tracker
+                          </button>
                         )}
                       </td>
                     </tr>
@@ -724,6 +779,38 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               Tüm {tickers.length} hisse gösteriliyor
             </div>
           )}
+
+          {/* ── Hisse Ekle ── */}
+          <div style={{
+            marginTop: 16, borderTop: "1px solid #30363d", paddingTop: 12,
+            display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center",
+          }}>
+            <input
+              value={addInput}
+              onChange={e => setAddInput(e.target.value.toUpperCase())}
+              onKeyDown={e => e.key === "Enter" && addCustomTicker(addInput)}
+              placeholder="ticker ekle..."
+              maxLength={8}
+              style={{
+                background: "#161b22", border: "1px solid #30363d", color: "#e6edf3",
+                padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace", width: 120,
+                outline: "none",
+              }}
+            />
+            <button
+              onClick={() => addCustomTicker(addInput)}
+              style={{
+                background: ACCENT + "20", border: `1px solid ${ACCENT}`,
+                color: ACCENT, padding: "6px 16px", borderRadius: 4,
+                fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "monospace",
+              }}
+            >
+              + EKLE
+            </button>
+            {customTickers.length > 0 && (
+              <span style={{ color: "#8b949e", fontSize: 11 }}>{customTickers.length} özel hisse eklendi</span>
+            )}
+          </div>
         </div>
       )}
 
