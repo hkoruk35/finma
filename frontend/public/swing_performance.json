@@ -6,7 +6,7 @@
     "win_rate": 72.0,
     "avg_return_pct": 2.84,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-06-24T14:00:04",
+    "last_updated": "2026-06-24T15:00:04",
     "above_5pct_rate": 49.6,
     "above_10pct_rate": 6.0
   },
@@ -16359,7 +16359,7 @@
       "entry": 22.28,
       "max_price": 22.31,
       "sl_pct": 5.0,
-      "return_pct": -3.1,
+      "return_pct": -2.54,
       "days": 29,
       "result": "PENDING",
       "peak_date": "2026-05-26",
@@ -16454,15 +16454,15 @@
       "entry": 271.02,
       "max_price": 279.39,
       "sl_pct": 5.0,
-      "return_pct": -4.32,
+      "return_pct": -3.8,
       "days": 29,
       "result": "PENDING",
       "peak_date": "2026-05-27",
       "profit_target": 279.35,
       "max_hold_days": 5,
       "stop_loss_high": 257.47,
-      "ema50_1d": 261.7,
-      "active_sl_level": 261.7
+      "ema50_1d": 261.75,
+      "active_sl_level": 261.75
     },
     {
       "date": "2026-05-26",
@@ -16529,7 +16529,7 @@
       "entry": 37.69,
       "max_price": 37.81,
       "sl_pct": 27.83,
-      "return_pct": -0.76,
+      "return_pct": -0.65,
       "days": 28,
       "result": "PENDING",
       "peak_date": "2026-05-29",
@@ -16660,15 +16660,15 @@
       "entry": 233.47,
       "max_price": 241.99,
       "sl_pct": 5.0,
-      "return_pct": -1.92,
+      "return_pct": -2.18,
       "days": 28,
       "result": "PENDING",
       "peak_date": "2026-06-12",
       "profit_target": 242.97,
       "max_hold_days": 5,
       "stop_loss_high": 221.8,
-      "ema50_1d": 225.5,
-      "active_sl_level": 225.5
+      "ema50_1d": 225.48,
+      "active_sl_level": 225.48
     },
     {
       "date": "2026-05-27",
@@ -16714,15 +16714,15 @@
       "entry": 311.39,
       "max_price": 315.37,
       "sl_pct": 5.0,
-      "return_pct": -2.28,
+      "return_pct": -1.94,
       "days": 27,
       "result": "PENDING",
       "peak_date": "2026-06-12",
       "profit_target": 322.42,
       "max_hold_days": 5,
       "stop_loss_high": 295.82,
-      "ema50_1d": 307.25,
-      "active_sl_level": 307.25
+      "ema50_1d": 307.29,
+      "active_sl_level": 307.29
     },
     {
       "date": "2026-05-28",
@@ -16906,12 +16906,12 @@
       "stop_loss_high": 51.26,
       "profit_target": 57.7,
       "max_hold_days": 5,
-      "return_pct": 0.74,
+      "return_pct": 1.46,
       "days": 26,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 53.67,
-      "active_sl_level": 53.67
+      "ema50_1d": 53.69,
+      "active_sl_level": 53.69
     },
     {
       "date": "2026-06-01",
@@ -16925,12 +16925,12 @@
       "stop_loss_high": 25.37,
       "profit_target": 28.39,
       "max_hold_days": 5,
-      "return_pct": -2.15,
+      "return_pct": -1.65,
       "days": 23,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 26.41,
-      "active_sl_level": 26.41
+      "ema50_1d": 26.42,
+      "active_sl_level": 26.42
     },
     {
       "date": "2026-06-01",
@@ -17047,12 +17047,12 @@
       "stop_loss_high": 83.09,
       "profit_target": 93.24,
       "max_hold_days": 5,
-      "return_pct": 1.89,
+      "return_pct": 2.65,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 84.69,
-      "active_sl_level": 84.69
+      "ema50_1d": 84.72,
+      "active_sl_level": 84.72
     },
     {
       "date": "2026-06-02",
@@ -17066,7 +17066,7 @@
       "stop_loss_high": 33.43,
       "profit_target": 39.15,
       "max_hold_days": 5,
-      "return_pct": -9.92,
+      "return_pct": -10.22,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-06-04",
@@ -17085,12 +17085,12 @@
       "stop_loss_high": 83.36,
       "profit_target": 94.12,
       "max_hold_days": 4,
-      "return_pct": -0.38,
+      "return_pct": -0.28,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 83.5,
-      "active_sl_level": 83.5
+      "ema50_1d": 83.51,
+      "active_sl_level": 83.51
     },
     {
       "date": "2026-06-02",
@@ -17104,7 +17104,7 @@
       "stop_loss_high": 57.81,
       "profit_target": 78.86,
       "max_hold_days": 4,
-      "return_pct": 0.74,
+      "return_pct": 0.76,
       "days": 22,
       "result": "PENDING",
       "peak_date": "2026-06-16",
@@ -17143,12 +17143,12 @@
       "stop_loss_high": 214.24,
       "profit_target": 249.69,
       "max_hold_days": 5,
-      "return_pct": 3.13,
+      "return_pct": 3.01,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 222.02,
-      "active_sl_level": 222.02
+      "ema50_1d": 222.0,
+      "active_sl_level": 222.0
     },
     {
       "date": "2026-06-03",
@@ -17242,7 +17242,7 @@
       "stop_loss_high": 22.71,
       "profit_target": 25.75,
       "max_hold_days": 7,
-      "return_pct": -0.52,
+      "return_pct": -0.5,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-06-04",
@@ -17261,12 +17261,12 @@
       "stop_loss_high": 88.24,
       "profit_target": 98.74,
       "max_hold_days": 5,
-      "return_pct": -4.18,
+      "return_pct": -5.15,
       "days": 21,
       "result": "PENDING",
       "peak_date": "2026-06-03",
-      "ema50_1d": 83.02,
-      "active_sl_level": 83.02
+      "ema50_1d": 82.98,
+      "active_sl_level": 82.98
     },
     {
       "date": "2026-06-04",
@@ -17320,12 +17320,12 @@
       "stop_loss_high": 386.77,
       "profit_target": 448.55,
       "max_hold_days": 5,
-      "return_pct": -8.5,
+      "return_pct": -8.99,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-06-04",
-      "ema50_1d": 397.56,
-      "active_sl_level": 397.56
+      "ema50_1d": 397.48,
+      "active_sl_level": 397.48
     },
     {
       "date": "2026-06-04",
@@ -17339,12 +17339,12 @@
       "stop_loss_high": 111.72,
       "profit_target": 125.02,
       "max_hold_days": 5,
-      "return_pct": -0.44,
+      "return_pct": 0.11,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-06-16",
-      "ema50_1d": 116.68,
-      "active_sl_level": 116.68
+      "ema50_1d": 116.71,
+      "active_sl_level": 116.71
     },
     {
       "date": "2026-06-04",
@@ -17358,12 +17358,12 @@
       "stop_loss_high": 365.36,
       "profit_target": 407.87,
       "max_hold_days": 5,
-      "return_pct": -0.28,
+      "return_pct": 0.26,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 372.21,
-      "active_sl_level": 372.21
+      "ema50_1d": 372.3,
+      "active_sl_level": 372.3
     },
     {
       "date": "2026-06-04",
@@ -17437,12 +17437,12 @@
       "stop_loss_high": 104.98,
       "profit_target": 118.43,
       "max_hold_days": 5,
-      "return_pct": -5.2,
+      "return_pct": -4.56,
       "days": 20,
       "result": "PENDING",
       "peak_date": "2026-06-16",
-      "ema50_1d": 104.06,
-      "active_sl_level": 104.06
+      "ema50_1d": 104.09,
+      "active_sl_level": 104.09
     },
     {
       "date": "2026-06-05",
@@ -17476,12 +17476,12 @@
       "stop_loss_high": 44.74,
       "profit_target": 49.96,
       "max_hold_days": 5,
-      "return_pct": -2.11,
+      "return_pct": -1.77,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 45.12,
-      "active_sl_level": 45.12
+      "ema50_1d": 45.13,
+      "active_sl_level": 45.13
     },
     {
       "date": "2026-06-05",
@@ -17495,12 +17495,12 @@
       "stop_loss_high": 325.12,
       "profit_target": 366.25,
       "max_hold_days": 5,
-      "return_pct": 0.26,
+      "return_pct": 1.4,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 330.42,
-      "active_sl_level": 330.42
+      "ema50_1d": 330.57,
+      "active_sl_level": 330.57
     },
     {
       "date": "2026-06-05",
@@ -17514,12 +17514,12 @@
       "stop_loss_high": 216.46,
       "profit_target": 244.05,
       "max_hold_days": 7,
-      "return_pct": 3.92,
+      "return_pct": 4.05,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 228.69,
-      "active_sl_level": 228.69
+      "ema50_1d": 228.7,
+      "active_sl_level": 228.7
     },
     {
       "date": "2026-06-05",
@@ -17533,12 +17533,12 @@
       "stop_loss_high": 96.56,
       "profit_target": 108.44,
       "max_hold_days": 5,
-      "return_pct": 0.99,
+      "return_pct": 1.34,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 99.54,
-      "active_sl_level": 99.54
+      "ema50_1d": 99.55,
+      "active_sl_level": 99.55
     },
     {
       "date": "2026-06-05",
@@ -17552,12 +17552,12 @@
       "stop_loss_high": 130.66,
       "profit_target": 147.0,
       "max_hold_days": 7,
-      "return_pct": 2.43,
+      "return_pct": 2.76,
       "days": 19,
       "result": "PENDING",
       "peak_date": "2026-06-15",
-      "ema50_1d": 133.53,
-      "active_sl_level": 133.53
+      "ema50_1d": 133.55,
+      "active_sl_level": 133.55
     },
     {
       "date": "2026-06-08",
@@ -17571,7 +17571,7 @@
       "stop_loss_high": 25.36,
       "profit_target": 30.47,
       "max_hold_days": 4,
-      "return_pct": 5.12,
+      "return_pct": 5.29,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-06-23",
@@ -17590,7 +17590,7 @@
       "stop_loss_high": 16.49,
       "profit_target": 20.85,
       "max_hold_days": 5,
-      "return_pct": -11.57,
+      "return_pct": -11.93,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-06-15",
@@ -17609,7 +17609,7 @@
       "stop_loss_high": 155.27,
       "profit_target": 174.87,
       "max_hold_days": 5,
-      "return_pct": -2.03,
+      "return_pct": -2.15,
       "days": 16,
       "result": "PENDING",
       "peak_date": "2026-06-11",
@@ -17668,12 +17668,12 @@
       "stop_loss_high": 182.94,
       "profit_target": 204.93,
       "max_hold_days": 5,
-      "return_pct": 1.62,
+      "return_pct": 1.55,
       "days": 15,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 183.66,
-      "active_sl_level": 183.66
+      "ema50_1d": 183.65,
+      "active_sl_level": 183.65
     },
     {
       "date": "2026-06-09",
@@ -17747,12 +17747,12 @@
       "stop_loss_high": 86.19,
       "profit_target": 96.11,
       "max_hold_days": 5,
-      "return_pct": 3.78,
+      "return_pct": 4.83,
       "days": 14,
       "result": "PENDING",
       "peak_date": "2026-06-18",
-      "ema50_1d": 88.45,
-      "active_sl_level": 88.45
+      "ema50_1d": 88.49,
+      "active_sl_level": 88.49
     },
     {
       "date": "2026-06-10",
@@ -17786,12 +17786,12 @@
       "stop_loss_high": 52.45,
       "profit_target": 58.86,
       "max_hold_days": 5,
-      "return_pct": 4.29,
+      "return_pct": 4.62,
       "days": 14,
       "result": "PENDING",
       "peak_date": "2026-06-23",
-      "ema50_1d": 53.24,
-      "active_sl_level": 53.24
+      "ema50_1d": 53.25,
+      "active_sl_level": 53.25
     },
     {
       "date": "2026-06-10",
@@ -17805,12 +17805,12 @@
       "stop_loss_high": 31.07,
       "profit_target": 34.94,
       "max_hold_days": 5,
-      "return_pct": 0.15,
+      "return_pct": 0.83,
       "days": 14,
       "result": "PENDING",
       "peak_date": "2026-06-11",
-      "ema50_1d": 31.61,
-      "active_sl_level": 31.61
+      "ema50_1d": 31.62,
+      "active_sl_level": 31.62
     },
     {
       "date": "2026-06-10",
@@ -17864,12 +17864,12 @@
       "stop_loss_high": 19.43,
       "profit_target": 22.75,
       "max_hold_days": 6,
-      "return_pct": 3.87,
+      "return_pct": 2.67,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 18.71,
-      "active_sl_level": 18.71
+      "ema50_1d": 18.7,
+      "active_sl_level": 18.7
     },
     {
       "date": "2026-06-11",
@@ -17883,12 +17883,12 @@
       "stop_loss_high": 22.8,
       "profit_target": 25.78,
       "max_hold_days": 5,
-      "return_pct": -9.26,
+      "return_pct": -10.75,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 23.78,
-      "active_sl_level": 23.78
+      "ema50_1d": 23.76,
+      "active_sl_level": 23.76
     },
     {
       "date": "2026-06-11",
@@ -17962,7 +17962,7 @@
       "stop_loss_high": 13.72,
       "profit_target": 15.46,
       "max_hold_days": 5,
-      "return_pct": 3.57,
+      "return_pct": 4.22,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-06-16",
@@ -17981,12 +17981,12 @@
       "stop_loss_high": 22.74,
       "profit_target": 25.63,
       "max_hold_days": 5,
-      "return_pct": 4.51,
+      "return_pct": 4.98,
       "days": 13,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 21.54,
-      "active_sl_level": 21.54
+      "ema50_1d": 21.55,
+      "active_sl_level": 21.55
     },
     {
       "date": "2026-06-12",
@@ -18000,7 +18000,7 @@
       "stop_loss_high": 80.46,
       "profit_target": 88.88,
       "max_hold_days": 5,
-      "return_pct": 2.02,
+      "return_pct": 2.05,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -18014,17 +18014,17 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 29.11,
-      "max_price": 29.62,
+      "max_price": 29.65,
       "sl_pct": 5.0,
       "stop_loss_high": 27.66,
       "profit_target": 31.1,
       "max_hold_days": 5,
-      "return_pct": 1.56,
+      "return_pct": 1.86,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 27.95,
-      "active_sl_level": 27.95
+      "ema50_1d": 27.96,
+      "active_sl_level": 27.96
     },
     {
       "date": "2026-06-12",
@@ -18038,12 +18038,12 @@
       "stop_loss_high": 267.23,
       "profit_target": 300.79,
       "max_hold_days": 5,
-      "return_pct": 0.28,
+      "return_pct": 0.21,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 272.21,
-      "active_sl_level": 272.21
+      "ema50_1d": 272.2,
+      "active_sl_level": 272.2
     },
     {
       "date": "2026-06-12",
@@ -18057,12 +18057,12 @@
       "stop_loss_high": 229.22,
       "profit_target": 259.11,
       "max_hold_days": 7,
-      "return_pct": -5.1,
+      "return_pct": -5.34,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-06-12",
-      "ema50_1d": 225.5,
-      "active_sl_level": 225.5
+      "ema50_1d": 225.48,
+      "active_sl_level": 225.48
     },
     {
       "date": "2026-06-12",
@@ -18096,7 +18096,7 @@
       "stop_loss_high": 25.47,
       "profit_target": 28.98,
       "max_hold_days": 7,
-      "return_pct": -5.58,
+      "return_pct": -5.91,
       "days": 12,
       "result": "PENDING",
       "peak_date": "2026-06-12",
@@ -18115,12 +18115,12 @@
       "stop_loss_high": 66.83,
       "profit_target": 75.04,
       "max_hold_days": 5,
-      "return_pct": 4.96,
+      "return_pct": 4.89,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 64.8,
-      "active_sl_level": 64.8
+      "ema50_1d": 64.79,
+      "active_sl_level": 64.79
     },
     {
       "date": "2026-06-16",
@@ -18154,12 +18154,12 @@
       "stop_loss_high": 16.88,
       "profit_target": 18.93,
       "max_hold_days": 5,
-      "return_pct": -3.25,
+      "return_pct": -3.0,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 17.45,
-      "active_sl_level": 17.45
+      "ema50_1d": 17.46,
+      "active_sl_level": 17.46
     },
     {
       "date": "2026-06-16",
@@ -18173,12 +18173,12 @@
       "stop_loss_high": 378.67,
       "profit_target": 426.74,
       "max_hold_days": 5,
-      "return_pct": -3.79,
+      "return_pct": -3.27,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 372.21,
-      "active_sl_level": 372.21
+      "ema50_1d": 372.3,
+      "active_sl_level": 372.3
     },
     {
       "date": "2026-06-16",
@@ -18272,12 +18272,12 @@
       "stop_loss_high": 186.76,
       "profit_target": 207.67,
       "max_hold_days": 5,
-      "return_pct": -0.84,
+      "return_pct": -1.27,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 196.85,
-      "active_sl_level": 196.85
+      "ema50_1d": 196.81,
+      "active_sl_level": 196.81
     },
     {
       "date": "2026-06-16",
@@ -18291,12 +18291,12 @@
       "stop_loss_high": 120.22,
       "profit_target": 137.42,
       "max_hold_days": 5,
-      "return_pct": -12.39,
+      "return_pct": -12.62,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 126.98,
-      "active_sl_level": 126.98
+      "ema50_1d": 126.97,
+      "active_sl_level": 126.97
     },
     {
       "date": "2026-06-16",
@@ -18310,7 +18310,7 @@
       "stop_loss_high": 13.86,
       "profit_target": 18.64,
       "max_hold_days": 5,
-      "return_pct": -3.18,
+      "return_pct": -3.41,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-16",
@@ -18329,12 +18329,12 @@
       "stop_loss_high": 279.58,
       "profit_target": 340.01,
       "max_hold_days": 5,
-      "return_pct": 6.41,
+      "return_pct": 5.07,
       "days": 8,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 263.39,
-      "active_sl_level": 263.39
+      "ema50_1d": 263.23,
+      "active_sl_level": 263.23
     },
     {
       "date": "2026-06-17",
@@ -18348,7 +18348,7 @@
       "stop_loss_high": 9.6,
       "profit_target": 11.02,
       "max_hold_days": 5,
-      "return_pct": 5.17,
+      "return_pct": 4.2,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -18367,12 +18367,12 @@
       "stop_loss_high": 135.35,
       "profit_target": 152.18,
       "max_hold_days": 5,
-      "return_pct": -3.94,
+      "return_pct": -4.42,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 141.2,
-      "active_sl_level": 141.2
+      "ema50_1d": 141.17,
+      "active_sl_level": 141.17
     },
     {
       "date": "2026-06-17",
@@ -18386,12 +18386,12 @@
       "stop_loss_high": 215.17,
       "profit_target": 242.56,
       "max_hold_days": 5,
-      "return_pct": -0.74,
+      "return_pct": -0.9,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 217.06,
-      "active_sl_level": 217.06
+      "ema50_1d": 217.05,
+      "active_sl_level": 217.05
     },
     {
       "date": "2026-06-17",
@@ -18425,12 +18425,12 @@
       "stop_loss_high": 29.23,
       "profit_target": 32.79,
       "max_hold_days": 5,
-      "return_pct": -6.37,
+      "return_pct": -5.67,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-18",
-      "ema50_1d": 27.64,
-      "active_sl_level": 27.64
+      "ema50_1d": 27.65,
+      "active_sl_level": 27.65
     },
     {
       "date": "2026-06-17",
@@ -18444,12 +18444,12 @@
       "stop_loss_high": 40.43,
       "profit_target": 53.23,
       "max_hold_days": 5,
-      "return_pct": -12.2,
+      "return_pct": -12.78,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-18",
-      "ema50_1d": 40.62,
-      "active_sl_level": 40.62
+      "ema50_1d": 40.61,
+      "active_sl_level": 40.61
     },
     {
       "date": "2026-06-17",
@@ -18463,12 +18463,12 @@
       "stop_loss_high": 84.31,
       "profit_target": 94.65,
       "max_hold_days": 5,
-      "return_pct": 0.41,
+      "return_pct": 1.16,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 84.69,
-      "active_sl_level": 84.69
+      "ema50_1d": 84.72,
+      "active_sl_level": 84.72
     },
     {
       "date": "2026-06-17",
@@ -18482,12 +18482,12 @@
       "stop_loss_high": 23.81,
       "profit_target": 26.79,
       "max_hold_days": 5,
-      "return_pct": -4.21,
+      "return_pct": -4.03,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 22.86,
-      "active_sl_level": 22.86
+      "ema50_1d": 22.87,
+      "active_sl_level": 22.87
     },
     {
       "date": "2026-06-17",
@@ -18541,12 +18541,12 @@
       "stop_loss_high": 36.09,
       "profit_target": 40.44,
       "max_hold_days": 5,
-      "return_pct": -4.11,
+      "return_pct": -3.62,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-17",
-      "ema50_1d": 35.75,
-      "active_sl_level": 35.75
+      "ema50_1d": 35.76,
+      "active_sl_level": 35.76
     },
     {
       "date": "2026-06-17",
@@ -18580,7 +18580,7 @@
       "stop_loss_high": 37.22,
       "profit_target": 42.37,
       "max_hold_days": 5,
-      "return_pct": -24.9,
+      "return_pct": -24.7,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-17",
@@ -18594,17 +18594,17 @@
       "sector": "Consumer Cyclical",
       "subsector": "Packaging & Containers",
       "entry": 71.25,
-      "max_price": 71.85,
+      "max_price": 72.25,
       "sl_pct": 5.0,
       "stop_loss_high": 67.69,
       "profit_target": 76.1,
       "max_hold_days": 5,
-      "return_pct": 0.8,
+      "return_pct": 1.4,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 66.28,
-      "active_sl_level": 66.28
+      "ema50_1d": 66.29,
+      "active_sl_level": 66.29
     },
     {
       "date": "2026-06-17",
@@ -18638,12 +18638,12 @@
       "stop_loss_high": 145.72,
       "profit_target": 167.85,
       "max_hold_days": 5,
-      "return_pct": -9.13,
+      "return_pct": -8.14,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-18",
-      "ema50_1d": 135.23,
-      "active_sl_level": 135.23
+      "ema50_1d": 135.29,
+      "active_sl_level": 135.29
     },
     {
       "date": "2026-06-17",
@@ -18657,7 +18657,7 @@
       "stop_loss_high": 24.67,
       "profit_target": 27.75,
       "max_hold_days": 5,
-      "return_pct": -0.31,
+      "return_pct": -0.37,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -18676,12 +18676,12 @@
       "stop_loss_high": 226.38,
       "profit_target": 255.55,
       "max_hold_days": 5,
-      "return_pct": -0.8,
+      "return_pct": -0.47,
       "days": 7,
       "result": "PENDING",
       "peak_date": "2026-06-18",
-      "ema50_1d": 235.55,
-      "active_sl_level": 235.55
+      "ema50_1d": 235.58,
+      "active_sl_level": 235.58
     },
     {
       "date": "2026-06-18",
@@ -18695,12 +18695,12 @@
       "stop_loss_high": 157.04,
       "profit_target": 175.16,
       "max_hold_days": 7,
-      "return_pct": -0.71,
+      "return_pct": -1.57,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 145.36,
-      "active_sl_level": 145.36
+      "ema50_1d": 145.3,
+      "active_sl_level": 145.3
     },
     {
       "date": "2026-06-18",
@@ -18714,12 +18714,12 @@
       "stop_loss_high": 65.17,
       "profit_target": 73.27,
       "max_hold_days": 5,
-      "return_pct": -0.85,
+      "return_pct": -0.36,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 66.35,
-      "active_sl_level": 66.35
+      "ema50_1d": 66.37,
+      "active_sl_level": 66.37
     },
     {
       "date": "2026-06-18",
@@ -18733,12 +18733,12 @@
       "stop_loss_high": 217.33,
       "profit_target": 242.67,
       "max_hold_days": 5,
-      "return_pct": -0.78,
+      "return_pct": -0.66,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 222.85,
-      "active_sl_level": 222.85
+      "ema50_1d": 222.86,
+      "active_sl_level": 222.86
     },
     {
       "date": "2026-06-18",
@@ -18752,12 +18752,12 @@
       "stop_loss_high": 229.42,
       "profit_target": 259.73,
       "max_hold_days": 5,
-      "return_pct": -1.24,
+      "return_pct": -1.36,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 222.02,
-      "active_sl_level": 222.02
+      "ema50_1d": 222.0,
+      "active_sl_level": 222.0
     },
     {
       "date": "2026-06-18",
@@ -18771,12 +18771,12 @@
       "stop_loss_high": 201.29,
       "profit_target": 232.69,
       "max_hold_days": 5,
-      "return_pct": 1.66,
+      "return_pct": 0.74,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 190.94,
-      "active_sl_level": 190.94
+      "ema50_1d": 190.86,
+      "active_sl_level": 190.86
     },
     {
       "date": "2026-06-18",
@@ -18790,7 +18790,7 @@
       "stop_loss_high": 192.54,
       "profit_target": 215.9,
       "max_hold_days": 5,
-      "return_pct": -0.54,
+      "return_pct": -0.62,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-18",
@@ -18809,7 +18809,7 @@
       "stop_loss_high": 12.89,
       "profit_target": 14.5,
       "max_hold_days": 5,
-      "return_pct": -1.77,
+      "return_pct": -1.66,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-22",
@@ -18828,12 +18828,12 @@
       "stop_loss_high": 252.18,
       "profit_target": 319.98,
       "max_hold_days": 5,
-      "return_pct": -11.41,
+      "return_pct": -11.29,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-23",
-      "ema50_1d": 210.14,
-      "active_sl_level": 210.14
+      "ema50_1d": 210.15,
+      "active_sl_level": 210.15
     },
     {
       "date": "2026-06-18",
@@ -18867,7 +18867,7 @@
       "stop_loss_high": 27.67,
       "profit_target": 30.92,
       "max_hold_days": 6,
-      "return_pct": 1.3,
+      "return_pct": 0.89,
       "days": 6,
       "result": "PENDING",
       "peak_date": "2026-06-23",
@@ -18906,12 +18906,12 @@
       "stop_loss_high": 369.46,
       "profit_target": 425.74,
       "max_hold_days": 5,
-      "return_pct": -3.33,
+      "return_pct": -3.84,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-21",
-      "ema50_1d": 397.56,
-      "active_sl_level": 397.56
+      "ema50_1d": 397.48,
+      "active_sl_level": 397.48
     },
     {
       "date": "2026-06-19",
@@ -18965,12 +18965,12 @@
       "stop_loss_high": 49.45,
       "profit_target": 55.21,
       "max_hold_days": 5,
-      "return_pct": 3.81,
+      "return_pct": 4.8,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 48.85,
-      "active_sl_level": 48.85
+      "ema50_1d": 48.87,
+      "active_sl_level": 48.87
     },
     {
       "date": "2026-06-19",
@@ -19004,7 +19004,7 @@
       "stop_loss_high": 15.92,
       "profit_target": 17.86,
       "max_hold_days": 5,
-      "return_pct": 0.75,
+      "return_pct": 1.04,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-22",
@@ -19043,7 +19043,7 @@
       "stop_loss_high": 43.23,
       "profit_target": 48.05,
       "max_hold_days": 5,
-      "return_pct": 0.47,
+      "return_pct": 0.37,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-22",
@@ -19062,7 +19062,7 @@
       "stop_loss_high": 43.82,
       "profit_target": 49.48,
       "max_hold_days": 5,
-      "return_pct": -4.65,
+      "return_pct": -4.66,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-21",
@@ -19081,12 +19081,12 @@
       "stop_loss_high": 213.71,
       "profit_target": 239.78,
       "max_hold_days": 5,
-      "return_pct": -2.09,
+      "return_pct": -1.84,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 202.2,
-      "active_sl_level": 202.2
+      "ema50_1d": 202.22,
+      "active_sl_level": 202.22
     },
     {
       "date": "2026-06-19",
@@ -19100,7 +19100,7 @@
       "stop_loss_high": 19.7,
       "profit_target": 22.62,
       "max_hold_days": 5,
-      "return_pct": -9.91,
+      "return_pct": -9.98,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-19",
@@ -19119,7 +19119,7 @@
       "stop_loss_high": 16.08,
       "profit_target": 19.19,
       "max_hold_days": 5,
-      "return_pct": -14.62,
+      "return_pct": -15.19,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-19",
@@ -19138,12 +19138,12 @@
       "stop_loss_high": 121.37,
       "profit_target": 136.45,
       "max_hold_days": 5,
-      "return_pct": 2.23,
+      "return_pct": 1.64,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 118.48,
-      "active_sl_level": 118.48
+      "ema50_1d": 118.45,
+      "active_sl_level": 118.45
     },
     {
       "date": "2026-06-19",
@@ -19176,12 +19176,12 @@
       "stop_loss_high": 313.4,
       "profit_target": 352.21,
       "max_hold_days": 5,
-      "return_pct": 1.46,
+      "return_pct": 1.64,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-22",
-      "ema50_1d": 308.87,
-      "active_sl_level": 308.87
+      "ema50_1d": 308.89,
+      "active_sl_level": 308.89
     },
     {
       "date": "2026-06-19",
@@ -19195,12 +19195,12 @@
       "stop_loss_high": 319.5,
       "profit_target": 359.11,
       "max_hold_days": 5,
-      "return_pct": 4.4,
+      "return_pct": 4.72,
       "days": 5,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 314.84,
-      "active_sl_level": 314.84
+      "ema50_1d": 314.89,
+      "active_sl_level": 314.89
     },
     {
       "date": "2026-06-23",
@@ -19214,7 +19214,7 @@
       "stop_loss_high": 129.95,
       "profit_target": 146.76,
       "max_hold_days": 5,
-      "return_pct": -1.39,
+      "return_pct": -1.33,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19228,12 +19228,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 23.97,
-      "max_price": 24.61,
+      "max_price": 24.63,
       "sl_pct": 5.01,
       "stop_loss_high": 22.77,
       "profit_target": 25.59,
       "max_hold_days": 5,
-      "return_pct": 2.41,
+      "return_pct": 2.75,
       "days": 1,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19252,12 +19252,12 @@
       "stop_loss_high": 124.68,
       "profit_target": 140.29,
       "max_hold_days": 5,
-      "return_pct": -0.18,
+      "return_pct": -0.1,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 123.37,
-      "active_sl_level": 123.37
+      "ema50_1d": 123.38,
+      "active_sl_level": 123.38
     },
     {
       "date": "2026-06-24",
@@ -19266,17 +19266,17 @@
       "sector": "Healthcare",
       "subsector": "Biotechnology",
       "entry": 108.59,
-      "max_price": 108.59,
+      "max_price": 108.9,
       "sl_pct": 5.8,
       "stop_loss_high": 102.29,
       "profit_target": 114.97,
       "max_hold_days": 5,
-      "return_pct": -0.08,
+      "return_pct": 0.29,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 99.59,
-      "active_sl_level": 99.59
+      "ema50_1d": 99.61,
+      "active_sl_level": 99.61
     },
     {
       "date": "2026-06-24",
@@ -19285,17 +19285,17 @@
       "sector": "Industrials",
       "subsector": "Airlines",
       "entry": 89.93,
-      "max_price": 89.93,
+      "max_price": 90.25,
       "sl_pct": 5.93,
       "stop_loss_high": 84.6,
       "profit_target": 94.94,
       "max_hold_days": 5,
-      "return_pct": -0.32,
+      "return_pct": 0.36,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 76.8,
-      "active_sl_level": 76.8
+      "ema50_1d": 76.82,
+      "active_sl_level": 76.82
     },
     {
       "date": "2026-06-24",
@@ -19309,12 +19309,12 @@
       "stop_loss_high": 325.75,
       "profit_target": 362.02,
       "max_hold_days": 5,
-      "return_pct": -0.34,
+      "return_pct": -0.25,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 308.87,
-      "active_sl_level": 308.87
+      "ema50_1d": 308.88,
+      "active_sl_level": 308.88
     },
     {
       "date": "2026-06-24",
@@ -19323,17 +19323,17 @@
       "sector": "Real Estate",
       "subsector": "REIT - Healthcare Facilities",
       "entry": 39.02,
-      "max_price": 39.09,
+      "max_price": 39.43,
       "sl_pct": 5.51,
       "stop_loss_high": 36.87,
       "profit_target": 40.87,
       "max_hold_days": 5,
-      "return_pct": 0.18,
+      "return_pct": 1.05,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 38.79,
-      "active_sl_level": 38.79
+      "ema50_1d": 38.8,
+      "active_sl_level": 38.8
     },
     {
       "date": "2026-06-24",
@@ -19342,12 +19342,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 59.99,
-      "max_price": 60.1,
+      "max_price": 60.22,
       "sl_pct": 5.0,
       "stop_loss_high": 56.99,
       "profit_target": 63.85,
       "max_hold_days": 5,
-      "return_pct": 0.18,
+      "return_pct": 0.39,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19366,12 +19366,12 @@
       "stop_loss_high": 31.72,
       "profit_target": 35.49,
       "max_hold_days": 5,
-      "return_pct": -0.9,
+      "return_pct": -1.72,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 32.96,
-      "active_sl_level": 32.96
+      "ema50_1d": 32.95,
+      "active_sl_level": 32.95
     },
     {
       "date": "2026-06-24",
@@ -19385,12 +19385,12 @@
       "stop_loss_high": 15.68,
       "profit_target": 17.96,
       "max_hold_days": 4,
-      "return_pct": -0.66,
+      "return_pct": -1.26,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 14.87,
-      "active_sl_level": 14.87
+      "ema50_1d": 14.86,
+      "active_sl_level": 14.86
     },
     {
       "date": "2026-06-24",
@@ -19404,7 +19404,7 @@
       "stop_loss_high": 28.17,
       "profit_target": 31.76,
       "max_hold_days": 5,
-      "return_pct": -0.4,
+      "return_pct": -0.29,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19418,17 +19418,17 @@
       "sector": "Real Estate",
       "subsector": "REIT - Retail",
       "entry": 50.78,
-      "max_price": 50.85,
+      "max_price": 51.01,
       "sl_pct": 5.0,
       "stop_loss_high": 48.24,
       "profit_target": 54.53,
       "max_hold_days": 5,
-      "return_pct": 0.15,
+      "return_pct": 0.45,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 45.88,
-      "active_sl_level": 45.88
+      "ema50_1d": 45.89,
+      "active_sl_level": 45.89
     },
     {
       "date": "2026-06-24",
@@ -19442,7 +19442,7 @@
       "stop_loss_high": 30.69,
       "profit_target": 34.94,
       "max_hold_days": 5,
-      "return_pct": -0.31,
+      "return_pct": -0.46,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19456,17 +19456,17 @@
       "sector": "Industrials",
       "subsector": "Farm & Heavy Construction Machinery",
       "entry": 122.21,
-      "max_price": 122.21,
+      "max_price": 122.25,
       "sl_pct": 5.43,
       "stop_loss_high": 115.58,
       "profit_target": 128.59,
       "max_hold_days": 5,
-      "return_pct": -0.06,
+      "return_pct": 0.03,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 113.14,
-      "active_sl_level": 113.14
+      "ema50_1d": 113.15,
+      "active_sl_level": 113.15
     },
     {
       "date": "2026-06-24",
@@ -19480,12 +19480,12 @@
       "stop_loss_high": 36.96,
       "profit_target": 41.35,
       "max_hold_days": 5,
-      "return_pct": -1.34,
+      "return_pct": -1.85,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 36.08,
-      "active_sl_level": 36.08
+      "ema50_1d": 36.07,
+      "active_sl_level": 36.07
     },
     {
       "date": "2026-06-24",
@@ -19494,12 +19494,12 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 35.71,
-      "max_price": 35.72,
+      "max_price": 35.77,
       "sl_pct": 5.01,
       "stop_loss_high": 33.92,
       "profit_target": 37.66,
       "max_hold_days": 5,
-      "return_pct": 0.03,
+      "return_pct": 0.17,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
@@ -19518,12 +19518,12 @@
       "stop_loss_high": 88.64,
       "profit_target": 98.44,
       "max_hold_days": 5,
-      "return_pct": -0.36,
+      "return_pct": -0.14,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 88.75,
-      "active_sl_level": 88.75
+      "ema50_1d": 88.76,
+      "active_sl_level": 88.76
     },
     {
       "date": "2026-06-24",
@@ -19537,12 +19537,12 @@
       "stop_loss_high": 233.33,
       "profit_target": 261.56,
       "max_hold_days": 5,
-      "return_pct": -0.79,
+      "return_pct": -0.17,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 237.77,
-      "active_sl_level": 237.77
+      "ema50_1d": 237.83,
+      "active_sl_level": 237.83
     },
     {
       "date": "2026-06-24",
@@ -19551,17 +19551,17 @@
       "sector": "Consumer Cyclical",
       "subsector": "Auto Parts",
       "entry": 81.37,
-      "max_price": 81.78,
+      "max_price": 82.61,
       "sl_pct": 5.0,
       "stop_loss_high": 77.3,
       "profit_target": 86.51,
       "max_hold_days": 5,
-      "return_pct": 0.5,
+      "return_pct": 1.53,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
-      "ema50_1d": 77.08,
-      "active_sl_level": 77.08
+      "ema50_1d": 77.11,
+      "active_sl_level": 77.11
     },
     {
       "date": "2026-06-24",
@@ -19575,7 +19575,7 @@
       "stop_loss_high": 26.89,
       "profit_target": 30.87,
       "max_hold_days": 5,
-      "return_pct": 0.39,
+      "return_pct": 0.14,
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-06-24",
