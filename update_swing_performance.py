@@ -101,14 +101,17 @@ def update_performance():
                     sl_pct = float(record.get('sl_pct', 5.26))
                     sl_price = entry_price * (1 - sl_pct / 100)
                     
-                    # Update peak — ensure numeric
+                    # Update peak — use intraday High (more accurate ATH-since-signal than Close)
                     raw_peak = record.get('max_price')
                     peak_price = float(raw_peak) if raw_peak is not None and not math.isnan(float(raw_peak)) else entry_price
-                    if current_price > peak_price:
-                        peak_price = current_price
-                        record['max_price'] = round(current_price, 2)
+                    period_high = float(ticker_data['High'].iloc[-1]) if 'High' in ticker_data else current_price
+                    candidate_peak = max(current_price, period_high)
+                    if candidate_peak > peak_price:
+                        peak_price = candidate_peak
+                        record['max_price'] = round(peak_price, 2)
                         record['peak_date'] = today.strftime('%Y-%m-%d')
-                    
+                    record['peak_gain_pct'] = round(((peak_price - entry_price) / entry_price) * 100, 2)
+
                     # Calculate return
                     current_ret = ((current_price - entry_price) / entry_price) * 100
                     record['return_pct'] = round(current_ret, 2)
@@ -132,9 +135,9 @@ def update_performance():
                     # Calculate loss at EMA50 level
                     potential_loss_pct = round(((target_sl - entry_price) / entry_price) * 100, 2)
 
-                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 5%)
-                    # 1D EMA50 stop loss: need meaningful loss before marking as LOSS
-                    min_loss_threshold = -5.0
+                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 10%)
+                    # 1D EMA50 stop loss: need meaningful loss before marking as LOSS (min SL = 10%)
+                    min_loss_threshold = -10.0
                     if current_price <= target_sl and potential_loss_pct <= min_loss_threshold:
                         hdsl_status = "LOSS"
                     else:
@@ -151,8 +154,8 @@ def update_performance():
                     # 3. Time Limit — 30 Days Auto-Close at Peak (peak_price guaranteed numeric above)
                     elif days_held >= 30:
                         peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
-                        # Only LOSS if loss is significant (>= 5%), otherwise WIN (neutral/small loss = breakeven)
-                        record['result'] = 'WIN' if peak_pct > -5.0 else 'LOSS'
+                        # Only LOSS if loss is significant (>= 10%, min SL rule), otherwise WIN (neutral/small loss = breakeven)
+                        record['result'] = 'WIN' if peak_pct > -10.0 else 'LOSS'
                         record['return_pct'] = peak_pct
                         record['max_price'] = round(peak_price, 2)
                         record['exit_date'] = today.strftime('%Y-%m-%d')
@@ -234,15 +237,43 @@ def update_performance():
             if entry.get(field):
                 entry[field] = fix_encoding(entry[field])
 
-    # 4. Update Stats
-    all_completed = [r for r in history if r['result'] != 'PENDING']
+    # 3b. Ensure peak_gain_pct exists for every record (entry/max_price already known)
+    for record in history:
+        entry_price = record.get('entry')
+        peak_price = record.get('max_price')
+        if entry_price and peak_price is not None and record.get('peak_gain_pct') is None:
+            record['peak_gain_pct'] = round(((peak_price - entry_price) / entry_price) * 100, 2)
+
+    # 3c. 30-Day Duplicate Rule — within a 30-day window, only the FIRST occurrence
+    # of a ticker is counted in stats; later repeats are flagged as is_duplicate
+    # and excluded from win-rate / avg-return / etc. (but kept visible in the log).
+    by_ticker = {}
+    for r in history:
+        by_ticker.setdefault(r['ticker'], []).append(r)
+
+    for ticker, records in by_ticker.items():
+        records.sort(key=lambda r: r['date'])
+        last_counted_date = None
+        for r in records:
+            r_date = datetime.strptime(r['date'], '%Y-%m-%d')
+            if last_counted_date is not None and (r_date - last_counted_date).days < 30:
+                r['is_duplicate'] = True
+            else:
+                r['is_duplicate'] = False
+                last_counted_date = r_date
+
+    # 4. Update Stats (duplicates excluded from all calculations)
+    countable = [r for r in history if not r.get('is_duplicate')]
+    all_completed = [r for r in countable if r['result'] != 'PENDING']
     wins = [r for r in all_completed if r['result'] == 'WIN']
     above_5 = [r for r in all_completed if (r.get('return_pct') or 0) >= 5]
     above_10 = [r for r in all_completed if (r.get('return_pct') or 0) >= 10]
 
     data['stats']['total_picks'] = len(history)
+    data['stats']['counted_picks'] = len(countable)
+    data['stats']['duplicate_count'] = len(history) - len(countable)
     data['stats']['completed_count'] = len(all_completed)
-    data['stats']['pending_count'] = len(history) - len(all_completed)
+    data['stats']['pending_count'] = len(countable) - len(all_completed)
     data['stats']['win_rate'] = round((len(wins) / len(all_completed) * 100), 1) if all_completed else 0
     
     completed_rets = [r['return_pct'] for r in all_completed if r.get('return_pct') is not None and not (isinstance(r['return_pct'], float) and math.isnan(r['return_pct']))]

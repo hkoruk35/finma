@@ -37,6 +37,8 @@ interface Trade {
   peak_date: string | null;
   ema50_1d?: number;
   active_sl_level?: number;
+  peak_gain_pct?: number | null;
+  is_duplicate?: boolean;
 }
 
 interface SwingPick {
@@ -195,14 +197,16 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   const stats = useMemo(() => {
     const total    = filtered.length;
-    const pending  = filtered.filter(t => t.result === "PENDING").length;
-    
-    // We include completed trades only for calculating rates and averages
-    const activeStatsTrades = filtered.filter(t => t.result !== "PENDING" && effectiveReturn(t) != null);
+    const pending  = filtered.filter(t => t.result === "PENDING" && !t.is_duplicate).length;
+
+    // 30-day duplicate rule: repeated tickers within 30 days are excluded from stats —
+    // only the first occurrence is counted. We include completed, non-duplicate trades
+    // only for calculating rates and averages.
+    const activeStatsTrades = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && effectiveReturn(t) != null);
     
     const wins     = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
     const losses   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
-    const slHits   = filtered.filter(slTriggered).length;
+    const slHits   = filtered.filter(t => !t.is_duplicate && slTriggered(t)).length;
     const sumRet   = activeStatsTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
     const above5   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
     const above10  = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
@@ -217,7 +221,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
     if (statsCount === 0) {
       // Calculate global stats as fallback if there are absolutely no trades with returns in the filter
-      const gActiveTrades = initialHistory.filter(t => t.result !== "PENDING" && effectiveReturn(t) != null);
+      const gActiveTrades = initialHistory.filter(t => !t.is_duplicate && t.result !== "PENDING" && effectiveReturn(t) != null);
       const gWins      = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
       const gLosses    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
       const gSumRet    = gActiveTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
@@ -236,7 +240,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         completedCount: 0,
         wins: gWins,
         losses: gLosses,
-        slHits: initialHistory.filter(slTriggered).length,
+        slHits: initialHistory.filter(t => !t.is_duplicate && slTriggered(t)).length,
         winRate:     gStatsCount > 0 ? (gWins / gStatsCount * 100).toFixed(1) : "—",
         avgReturn:   gStatsCount > 0 ? (gSumRet / gStatsCount).toFixed(1)     : "—",
         above5Rate:  gStatsCount > 0 ? (gAbove5  / gStatsCount * 100).toFixed(1) : "—",
@@ -277,6 +281,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
     return buckets.map(b => {
       const trades = filtered.filter(t =>
+        !t.is_duplicate &&
         t.result !== "PENDING" &&
         t.days != null && t.days >= b.min && t.days <= b.max &&
         (effectiveReturn(t) ?? 0) > 0
@@ -289,7 +294,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   // ── Profit Target Breakdown ───────────────────────────────────────────────
   const profitTargets = useMemo(() => {
-    const completed = filtered.filter(t => t.result !== "PENDING" && t.days != null);
+    const completed = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && t.days != null);
     const targets = [3, 5, 7, 10, 15, 20];
     return targets.map(pct => {
       const reached = completed.filter(t => (effectiveReturn(t) ?? 0) >= pct);
@@ -309,6 +314,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const heatmap = useMemo(() => {
     const map: Record<string, { total: number; sumRet: number }> = {};
     filtered.forEach(t => {
+      if (t.is_duplicate) return;
       if (!t.sector || t.sector === "Unknown") return;
       if (!map[t.sector]) map[t.sector] = { total: 0, sumRet: 0 };
       map[t.sector].total++;
@@ -355,7 +361,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   // ── Export ─────────────────────────────────────────────────────────────────
   const handleExportCSV = () => {
-    const headers = ["Date","Ticker","Company","Sector","Subsector","Entry Price","Peak Price","Return % (w/ SL)","SL Hit","Days to Peak","Result"];
+    const headers = ["Date","Ticker","Company","Sector","Subsector","Entry Price","Peak Price","Peak Gain %","Return % (w/ SL)","SL Hit","Days to Peak","Result","Duplicate (30d)"];
     const csvRows = [headers.join(",")];
     filtered.forEach(t => {
       const row = [
@@ -364,10 +370,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         `"${(t.sector || "").replace(/"/g, '""')}"`,
         `"${(t.subsector || "").replace(/"/g, '""')}"`,
         t.entry, t.max_price || 0,
+        t.peak_gain_pct ?? 0,
         effectiveReturn(t) ?? 0,
         slTriggered(t) ? "YES" : "NO",
         t.days || 0,
-        effectiveResult(t)
+        effectiveResult(t),
+        t.is_duplicate ? "YES" : "NO"
       ];
       csvRows.push(row.join(","));
     });
@@ -384,15 +392,15 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const handleExportExcel = () => {
     let tableHtml = `<table border="1"><thead><tr style="background-color:#f3f4f6;font-weight:bold;">
       <th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th>Subsector</th>
-      <th>Entry Price</th><th>Peak Price</th><th>Return %</th><th>SL Hit</th><th>Days to Peak</th><th>Result</th>
+      <th>Entry Price</th><th>Peak Price</th><th>Peak Gain %</th><th>Return %</th><th>SL Hit</th><th>Days to Peak</th><th>Result</th><th>Duplicate (30d)</th>
     </tr></thead><tbody>`;
     filtered.forEach(t => {
       tableHtml += `<tr>
         <td>${t.date}</td><td>${t.ticker}</td><td>${t.company||""}</td>
         <td>${t.sector||""}</td><td>${t.subsector||""}</td>
-        <td>${t.entry}</td><td>${t.max_price||0}</td>
+        <td>${t.entry}</td><td>${t.max_price||0}</td><td>${t.peak_gain_pct??0}</td>
         <td>${effectiveReturn(t)??0}</td><td>${slTriggered(t)?"YES":"NO"}</td>
-        <td>${t.days||0}</td><td>${effectiveResult(t)}</td>
+        <td>${t.days||0}</td><td>${effectiveResult(t)}</td><td>${t.is_duplicate?"YES":"NO"}</td>
       </tr>`;
     });
     tableHtml += "</tbody></table>";
@@ -966,6 +974,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         </Link>
                       </TickerHoverChart>
                       {slHit && <span className="text-[8px] font-black text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
+                      {t.is_duplicate && <span className="text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded leading-none">DUP</span>}
                     </div>
                     <div className="flex items-center gap-1 mt-0.5 flex-wrap">
                       <span className="text-[9px] font-mono text-slate-600">{t.date.slice(5)}</span>
@@ -1023,7 +1032,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* ── Desktop Table View ───────────────────────────────────────────── */}
         <div className="hidden md:block glass-card overflow-hidden">
           <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
-            <table className="w-full min-w-[1200px] text-left text-[11px] table-fixed">
+            <table className="w-full min-w-[1280px] text-left text-[11px] table-fixed">
               <colgroup>
                 <col className="w-[90px]" />
                 <col className="w-[130px]" />
@@ -1031,6 +1040,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <col className="w-[80px]" />
                 <col className="w-[85px]" />
                 <col className="w-[95px]" />
+                <col className="w-[80px]" />
+                <col className="w-[80px]" />
                 <col className="w-[95px]" />
                 <col className="w-[60px]" />
                 <col className="w-[80px]" />
@@ -1047,6 +1058,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>Peak Gain % <SortIcon column="peak_gain_pct" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Cur. Price <SortIcon column="return_pct" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PnL/$1K <SortIcon column="return_pct" /></th>
@@ -1070,6 +1082,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         <TickerHoverChart ticker={t.ticker}>
                           <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
                         </TickerHoverChart>
+                        {t.is_duplicate && (
+                          <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
+                        )}
                         {t.company && t.company !== t.ticker && (
                           <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
                         )}
@@ -1088,6 +1103,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                             {t.peak_date && <span className="block text-[9px] text-slate-600">{t.peak_date}</span>}
                           </span>
                         ) : "—"}
+                      </td>
+                      <td className={`px-3 py-2.5 text-right font-mono font-bold whitespace-nowrap ${retColor(t.peak_gain_pct)}`}>
+                        {t.peak_gain_pct != null ? `${t.peak_gain_pct > 0 ? "+" : ""}${fmt(t.peak_gain_pct, 2)}%` : "—"}
                       </td>
                       <td className="px-3 py-2.5 text-right font-mono text-[#00d2ff] font-bold whitespace-nowrap">
                         {effRet != null ? `$${fmt(t.entry * (1 + effRet / 100))}` : "—"}
