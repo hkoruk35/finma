@@ -110,6 +110,13 @@ export interface ScreenerResult {
   cmf?: number;
   cmf_rising?: boolean;
   cmf_positive?: boolean;
+  // C. Momentum Takibi (RSI/MACD/ROC devamlılık sinyalleri)
+  rsi_rising?: boolean;
+  macd_bullish?: boolean;
+  roc_strong?: boolean;
+  // D. Kurumsal Geri Çekilmeler (EMA20/EMA50 testi + hacim/CMF onayı)
+  ema20_pullback_buy?: boolean;
+  ema50_pullback_buy?: boolean;
 }
 
 interface Regime {
@@ -813,6 +820,16 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
 
     const { has_options, has_weekly } = optionsAvail(ticker, mktCap);
 
+    // C. Momentum Takibi — trend devam ediyor mu, yoksa zayıflıyor mu?
+    const rsi_rising   = rsiSlope > 0;
+    const macd_bullish = macdR.macd > macdR.signal && macdR.hist > 0;
+    const roc_strong   = rocVal >= 5;
+
+    // D. Kurumsal Geri Çekilmeler — EMA20/EMA50'ye hacim/para akışı onaylı pullback
+    const institSupport = cmfVal > 0 || rvolVal >= 1.1;
+    const ema20_pullback_buy = price > e20 && price <= e20 * 1.015 && price > e50 && institSupport;
+    const ema50_pullback_buy = price > e50 && price <= e50 * 1.02 && price > s200 && institSupport;
+
     // Sub-scores
     const tScore = calcTrendScore({ price, ema8: e8, ema13: e13, ema20: e20, ema21: e21, ema50: e50, ema200: e200, sma200: s200, adxVal, pct52h });
     const mScore = calcMomentumScore({ rsiVal, rvol: rvolVal, macdVal: macdR.macd, macdHist: macdR.hist, rocVal, atrPct });
@@ -909,6 +926,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       cmf: +cmfVal.toFixed(3),
       cmf_rising: cmfVal > cmfPrev,
       cmf_positive: cmfVal > 0,
+      rsi_rising,
+      macd_bullish,
+      roc_strong,
+      ema20_pullback_buy,
+      ema50_pullback_buy,
     } as any;
   } catch { return null; }
 }
@@ -1104,6 +1126,10 @@ export async function GET(req: NextRequest) {
   // B. Kurumsal Likidite ve Momentum (VWAP + CMF)
   const vwapFilter    = sp.get("vwap")       || "all";   // "above" | "below" | "all"
   const cmfFilter     = sp.get("cmf")        || "all";   // "positive" | "rising" | "positive_rising" | "all"
+  // C. Momentum Takibi
+  const momentumFilter = sp.get("momentum")  || "all";   // "rsi_rising" | "macd_bullish" | "roc_strong" | "all"
+  // D. Kurumsal Geri Çekilmeler (Pullback)
+  const pullbackFilter = sp.get("pullback")  || "all";   // "ema20" | "ema50" | "all"
 
   // Fetch regime
   const regime = await detectRegime();
@@ -1188,6 +1214,13 @@ export async function GET(req: NextRequest) {
     if (cmfFilter === "positive" && !s.cmf_positive) return false;
     if (cmfFilter === "rising" && !s.cmf_rising) return false;
     if (cmfFilter === "positive_rising" && !(s.cmf_positive && s.cmf_rising)) return false;
+    // C. Momentum Takibi
+    if (momentumFilter === "rsi_rising"   && !s.rsi_rising)   return false;
+    if (momentumFilter === "macd_bullish" && !s.macd_bullish) return false;
+    if (momentumFilter === "roc_strong"   && !s.roc_strong)   return false;
+    // D. Kurumsal Geri Çekilmeler
+    if (pullbackFilter === "ema20" && !s.ema20_pullback_buy) return false;
+    if (pullbackFilter === "ema50" && !s.ema50_pullback_buy) return false;
     return passesPreset(s, preset);
   });
 

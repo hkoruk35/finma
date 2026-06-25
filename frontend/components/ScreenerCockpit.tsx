@@ -93,6 +93,11 @@ interface ScreenerResult {
   cmf?: number;
   cmf_rising?: boolean;
   cmf_positive?: boolean;
+  rsi_rising?: boolean;
+  macd_bullish?: boolean;
+  roc_strong?: boolean;
+  ema20_pullback_buy?: boolean;
+  ema50_pullback_buy?: boolean;
 }
 
 interface Regime {
@@ -174,6 +179,19 @@ const CMF_RANGES = [
   { label: "Pozitif (>0)",        id: "positive"        },
   { label: "Yükselen",            id: "rising"          },
   { label: "Pozitif + Yükselen",  id: "positive_rising" },
+];
+
+// C. Momentum Takibi — trend devam mı ediyor, yoksa zayıflıyor mu?
+const MOMENTUM_RANGES = [
+  { label: "RSI Yükselişte",     id: "rsi_rising"   },
+  { label: "MACD Bullish",       id: "macd_bullish" },
+  { label: "ROC Güçlü (≥5%)",    id: "roc_strong"   },
+];
+
+// D. Kurumsal Geri Çekilmeler — EMA20/50'ye hacim/para akışı onaylı pullback
+const PULLBACK_RANGES = [
+  { label: "EMA20 Testi", id: "ema20" },
+  { label: "EMA50 Testi", id: "ema50" },
 ];
 
 // ─── Helper Components ────────────────────────────────────────────────────────
@@ -501,6 +519,8 @@ export default function ScreenerCockpit() {
   const [squeezeOnly, setSqueezeOnly] = useState(false);
   const [vwapFilter,  setVwapFilter]  = useState("all"); // all | above | below | pullback
   const [cmfFilter,   setCmfFilter]   = useState("all"); // all | positive | rising | positive_rising
+  const [momentumFilter, setMomentumFilter] = useState("all"); // all | rsi_rising | macd_bullish | roc_strong
+  const [pullbackFilter, setPullbackFilter] = useState("all"); // all | ema20 | ema50
   const [showFilters, setShowFilters] = useState(false);
 
   const { addToTracker, isInTracker } = useTracker();
@@ -517,6 +537,8 @@ export default function ScreenerCockpit() {
     if (squeezeOnly) filters.push("Squeeze+Patlama");
     if (vwapFilter !== "all") filters.push(`VWAP: ${VWAP_RANGES.find(v => v.id === vwapFilter)?.label || vwapFilter}`);
     if (cmfFilter !== "all") filters.push(`CMF: ${CMF_RANGES.find(c => c.id === cmfFilter)?.label || cmfFilter}`);
+    if (momentumFilter !== "all") filters.push(`Momentum: ${MOMENTUM_RANGES.find(m => m.id === momentumFilter)?.label || momentumFilter}`);
+    if (pullbackFilter !== "all") filters.push(`Pullback: ${PULLBACK_RANGES.find(p => p.id === pullbackFilter)?.label || pullbackFilter}`);
     return filters;
   };
   const activeFilters = getActiveFilters();
@@ -551,6 +573,8 @@ export default function ScreenerCockpit() {
       if (squeezeOnly) params.set("squeeze", "1");
       if (vwapFilter !== "all") params.set("vwap", vwapFilter);
       if (cmfFilter  !== "all") params.set("cmf",  cmfFilter);
+      if (momentumFilter !== "all") params.set("momentum", momentumFilter);
+      if (pullbackFilter !== "all") params.set("pullback", pullbackFilter);
       const res  = await fetch(`/api/screener?${params}`);
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
@@ -579,7 +603,7 @@ export default function ScreenerCockpit() {
     } finally {
       if (requestIdRef.current === requestId) setIsScanning(false);
     }
-  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin, squeezeOnly, vwapFilter, cmfFilter]);
+  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin, squeezeOnly, vwapFilter, cmfFilter, momentumFilter, pullbackFilter]);
 
   useEffect(() => { runScan(); }, [activePreset]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -765,6 +789,18 @@ export default function ScreenerCockpit() {
         <FilterRow label="CMF (Kurumsal Para)">
           {CMF_RANGES.map(c => (
             <FilterBtn key={c.id} active={cmfFilter === c.id} acColor="#84cc16" acBorder="#84cc16" onClick={() => setCmfFilter(cmfFilter === c.id ? "all" : c.id)}>{c.label}</FilterBtn>
+          ))}
+        </FilterRow>
+        <Sep />
+        <FilterRow label="Momentum Takibi">
+          {MOMENTUM_RANGES.map(m => (
+            <FilterBtn key={m.id} active={momentumFilter === m.id} acColor="#f43f5e" acBorder="#f43f5e" onClick={() => setMomentumFilter(momentumFilter === m.id ? "all" : m.id)}>{m.label}</FilterBtn>
+          ))}
+        </FilterRow>
+        <Sep />
+        <FilterRow label="Kurumsal Geri Çekilme">
+          {PULLBACK_RANGES.map(p => (
+            <FilterBtn key={p.id} active={pullbackFilter === p.id} acColor="#8b5cf6" acBorder="#8b5cf6" onClick={() => setPullbackFilter(pullbackFilter === p.id ? "all" : p.id)}>{p.label}</FilterBtn>
           ))}
         </FilterRow>
       </div>
