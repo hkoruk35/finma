@@ -82,6 +82,17 @@ interface ScreenerResult {
   pivot_s3?: number;
   pivot_bias?: "bullish" | "bearish";
   pivot_signal?: string;
+  keltner_upper?: number;
+  keltner_lower?: number;
+  squeeze_active?: boolean;
+  squeeze_breakout?: "up" | "down" | null;
+  bbw_expanding?: boolean;
+  vwap?: number;
+  price_vs_vwap?: "above" | "below";
+  vwap_pullback_buy?: boolean;
+  cmf?: number;
+  cmf_rising?: boolean;
+  cmf_positive?: boolean;
 }
 
 interface Regime {
@@ -149,6 +160,20 @@ const OPT_RANGES = [
   { label: "Haftalık", id: "weekly"      },
   { label: "Var",      id: "has_options" },
   { label: "Yok",      id: "no_options"  },
+];
+
+// B. Kurumsal Likidite ve Momentum — VWAP üstü/altı kuralı ve hacimli VWAP testi
+const VWAP_RANGES = [
+  { label: "Üstü (Long)",        id: "above"    },
+  { label: "Altı",               id: "below"    },
+  { label: "VWAP Testi (Hacimli)", id: "pullback" },
+];
+
+// B. Chaikin Money Flow — kurumsal alıcı/satıcı yönü
+const CMF_RANGES = [
+  { label: "Pozitif (>0)",        id: "positive"        },
+  { label: "Yükselen",            id: "rising"          },
+  { label: "Pozitif + Yükselen",  id: "positive_rising" },
 ];
 
 // ─── Helper Components ────────────────────────────────────────────────────────
@@ -473,6 +498,9 @@ export default function ScreenerCockpit() {
   const [rsiMin,     setRsiMin]     = useState<number | null>(null);
   const [rsiMax,     setRsiMax]     = useState<number | null>(null);
   const [adxMin,     setAdxMin]     = useState<number | null>(null);
+  const [squeezeOnly, setSqueezeOnly] = useState(false);
+  const [vwapFilter,  setVwapFilter]  = useState("all"); // all | above | below | pullback
+  const [cmfFilter,   setCmfFilter]   = useState("all"); // all | positive | rising | positive_rising
   const [showFilters, setShowFilters] = useState(false);
 
   const { addToTracker, isInTracker } = useTracker();
@@ -486,6 +514,9 @@ export default function ScreenerCockpit() {
     if (rvolMin !== null) filters.push(`RVOL>${rvolMin.toFixed(1)}`);
     if (rsiMin !== null || rsiMax !== null) filters.push(`RSI ${rsiMin || "0"}-${rsiMax || "100"}`);
     if (adxMin !== null) filters.push(`ADX>${adxMin}`);
+    if (squeezeOnly) filters.push("Squeeze+Patlama");
+    if (vwapFilter !== "all") filters.push(`VWAP: ${VWAP_RANGES.find(v => v.id === vwapFilter)?.label || vwapFilter}`);
+    if (cmfFilter !== "all") filters.push(`CMF: ${CMF_RANGES.find(c => c.id === cmfFilter)?.label || cmfFilter}`);
     return filters;
   };
   const activeFilters = getActiveFilters();
@@ -517,6 +548,9 @@ export default function ScreenerCockpit() {
       if (rsiMin  !== null) params.set("rsiMin",  String(rsiMin));
       if (rsiMax  !== null) params.set("rsiMax",  String(rsiMax));
       if (adxMin  !== null) params.set("adxMin",  String(adxMin));
+      if (squeezeOnly) params.set("squeeze", "1");
+      if (vwapFilter !== "all") params.set("vwap", vwapFilter);
+      if (cmfFilter  !== "all") params.set("cmf",  cmfFilter);
       const res  = await fetch(`/api/screener?${params}`);
       if (!res.ok) throw new Error("API error");
       const data = await res.json();
@@ -545,7 +579,7 @@ export default function ScreenerCockpit() {
     } finally {
       if (requestIdRef.current === requestId) setIsScanning(false);
     }
-  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin]);
+  }, [activePreset, capFilter, optFilter, liqFilter, sortBy, priceRange, rvolMin, rsiMin, rsiMax, adxMin, squeezeOnly, vwapFilter, cmfFilter]);
 
   useEffect(() => { runScan(); }, [activePreset]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -714,6 +748,24 @@ export default function ScreenerCockpit() {
               />
             </div>
           </div>
+        </FilterRow>
+        <Sep />
+        <FilterRow label="Sıkışma/Patlama">
+          <FilterBtn active={squeezeOnly} acColor="#eab308" acBorder="#eab308" onClick={() => setSqueezeOnly(v => !v)}>
+            BB içinde Keltner (Squeeze) + Patlama
+          </FilterBtn>
+        </FilterRow>
+        <Sep />
+        <FilterRow label="VWAP">
+          {VWAP_RANGES.map(v => (
+            <FilterBtn key={v.id} active={vwapFilter === v.id} acColor="#22d3ee" acBorder="#22d3ee" onClick={() => setVwapFilter(vwapFilter === v.id ? "all" : v.id)}>{v.label}</FilterBtn>
+          ))}
+        </FilterRow>
+        <Sep />
+        <FilterRow label="CMF (Kurumsal Para)">
+          {CMF_RANGES.map(c => (
+            <FilterBtn key={c.id} active={cmfFilter === c.id} acColor="#84cc16" acBorder="#84cc16" onClick={() => setCmfFilter(cmfFilter === c.id ? "all" : c.id)}>{c.label}</FilterBtn>
+          ))}
         </FilterRow>
       </div>
       )}

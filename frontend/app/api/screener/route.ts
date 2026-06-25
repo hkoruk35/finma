@@ -97,6 +97,19 @@ export interface ScreenerResult {
   pivot_s3?: number;
   pivot_bias?: "bullish" | "bearish";
   pivot_signal?: string;
+  // A. Volatilite Sıkışması (Bollinger içinde Keltner squeeze + patlama)
+  keltner_upper?: number;
+  keltner_lower?: number;
+  squeeze_active?: boolean;
+  squeeze_breakout?: "up" | "down" | null;
+  bbw_expanding?: boolean;
+  // B. Kurumsal Likidite & Momentum (VWAP + CMF)
+  vwap?: number;
+  price_vs_vwap?: "above" | "below";
+  vwap_pullback_buy?: boolean;
+  cmf?: number;
+  cmf_rising?: boolean;
+  cmf_positive?: boolean;
 }
 
 interface Regime {
@@ -203,6 +216,61 @@ function bollinger(closes: number[], period = 20): { upper: number; lower: numbe
     pct: (last - lower) / (upper - lower),
     width: (upper - lower) / mid,
   };
+}
+
+// ─── Keltner Channels + Squeeze/Patlama Tespiti (A) ──────────────────────────
+
+function keltner(highs: number[], lows: number[], closes: number[], period = 20, mult = 1.5): { upper: number; lower: number; mid: number } {
+  const mid = ema(closes, period);
+  const atrVal = atr(highs, lows, closes, period);
+  return { upper: mid + mult * atrVal, lower: mid - mult * atrVal, mid };
+}
+
+interface SqueezeResult {
+  squeezeActive: boolean;
+  breakout: "up" | "down" | null;
+  bbwExpanding: boolean;
+}
+
+function detectSqueeze(highs: number[], lows: number[], closes: number[], bbNow: { upper: number; lower: number; width: number }): SqueezeResult {
+  if (closes.length < 22) return { squeezeActive: false, breakout: null, bbwExpanding: false };
+  const kc = keltner(highs, lows, closes, 20, 1.5);
+  // Bollinger Bantları Keltner Kanalı içindeyse enerji sıkışması var demektir.
+  const squeezeActive = bbNow.upper < kc.upper && bbNow.lower > kc.lower;
+  const bbPrev = bollinger(closes.slice(0, -1), 20);
+  const bbwExpanding = bbPrev.width > 0 && bbNow.width > bbPrev.width * 1.2;
+  const lastClose = closes[closes.length - 1];
+  let breakout: "up" | "down" | null = null;
+  if (bbwExpanding && lastClose > bbNow.upper) breakout = "up";
+  else if (bbwExpanding && lastClose < bbNow.lower) breakout = "down";
+  return { squeezeActive, breakout, bbwExpanding };
+}
+
+// ─── VWAP (rolling) + Chaikin Money Flow (B) ─────────────────────────────────
+
+function vwapRolling(highs: number[], lows: number[], closes: number[], volumes: number[], period = 20): number {
+  const n = closes.length;
+  const start = Math.max(0, n - period);
+  let pvSum = 0, vSum = 0;
+  for (let i = start; i < n; i++) {
+    const typical = (highs[i] + lows[i] + closes[i]) / 3;
+    pvSum += typical * volumes[i];
+    vSum += volumes[i];
+  }
+  return vSum > 0 ? pvSum / vSum : closes[n - 1];
+}
+
+function chaikinMoneyFlow(highs: number[], lows: number[], closes: number[], volumes: number[], period = 20): number {
+  const n = closes.length;
+  const start = Math.max(0, n - period);
+  let mfvSum = 0, vSum = 0;
+  for (let i = start; i < n; i++) {
+    const range = highs[i] - lows[i];
+    const mfMultiplier = range > 0 ? ((closes[i] - lows[i]) - (highs[i] - closes[i])) / range : 0;
+    mfvSum += mfMultiplier * volumes[i];
+    vSum += volumes[i];
+  }
+  return vSum > 0 ? mfvSum / vSum : 0;
 }
 
 // ─── Triangle Detection Helpers ───────────────────────────────────────────────
@@ -714,6 +782,11 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const atrVal  = atr(highs, lows, closes, 14);
     const atrPct  = price > 0 ? +(atrVal / price * 100).toFixed(2) : 0;
     const bb      = bollinger(closes);
+    const squeeze = detectSqueeze(highs, lows, closes, bb);
+    const kc      = keltner(highs, lows, closes, 20, 1.5);
+    const vwapVal = vwapRolling(highs, lows, closes, volumes, 20);
+    const cmfVal  = chaikinMoneyFlow(highs, lows, closes, volumes, 20);
+    const cmfPrev = closes.length >= 25 ? chaikinMoneyFlow(highs.slice(0, -5), lows.slice(0, -5), closes.slice(0, -5), volumes.slice(0, -5), 20) : cmfVal;
     const adxVal  = +adx(highs, lows, closes, 14).toFixed(1);
     const rocVal  = +roc(closes).toFixed(2);
     const ivEst   = Math.min(250, +(atrPct * 16).toFixed(0));
@@ -825,6 +898,17 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       pivot_s3: +pivotLevels.s3.toFixed(2),
       pivot_bias: pivotClassified.bias,
       pivot_signal: pivotClassified.signal,
+      keltner_upper: +kc.upper.toFixed(2),
+      keltner_lower: +kc.lower.toFixed(2),
+      squeeze_active: squeeze.squeezeActive,
+      squeeze_breakout: squeeze.breakout,
+      bbw_expanding: squeeze.bbwExpanding,
+      vwap: +vwapVal.toFixed(2),
+      price_vs_vwap: price >= vwapVal ? "above" : "below",
+      vwap_pullback_buy: price > vwapVal && price <= vwapVal * 1.01 && rvolVal >= 1.2,
+      cmf: +cmfVal.toFixed(3),
+      cmf_rising: cmfVal > cmfPrev,
+      cmf_positive: cmfVal > 0,
     } as any;
   } catch { return null; }
 }
@@ -1015,6 +1099,11 @@ export async function GET(req: NextRequest) {
   const rsiMin     = sp.get("rsiMin")    ? parseInt(sp.get("rsiMin")!)    : null;
   const rsiMax     = sp.get("rsiMax")    ? parseInt(sp.get("rsiMax")!)    : null;
   const adxMin     = sp.get("adxMin")    ? parseInt(sp.get("adxMin")!)    : null;
+  // A. Volatilite Sıkışması ve Patlaması (Bollinger + Keltner)
+  const squeezeOnly   = sp.get("squeeze")    === "1"; // sadece sıkışma + patlama anı
+  // B. Kurumsal Likidite ve Momentum (VWAP + CMF)
+  const vwapFilter    = sp.get("vwap")       || "all";   // "above" | "below" | "all"
+  const cmfFilter     = sp.get("cmf")        || "all";   // "positive" | "rising" | "positive_rising" | "all"
 
   // Fetch regime
   const regime = await detectRegime();
@@ -1089,6 +1178,16 @@ export async function GET(req: NextRequest) {
     if (rsiMin !== null && s.rsi < rsiMin) return false;
     if (rsiMax !== null && s.rsi > rsiMax) return false;
     if (adxMin !== null && s.adx < adxMin) return false;
+    // A. Sıkışma + patlama anı: BB Keltner içinde sıkışmış VEYA o sıkışmadan az önce çıkıp sert kapanışla patlamış olmalı
+    if (squeezeOnly && !(s.squeeze_active || s.squeeze_breakout)) return false;
+    // B. VWAP konumu
+    if (vwapFilter === "above" && s.price_vs_vwap !== "above") return false;
+    if (vwapFilter === "below" && s.price_vs_vwap !== "below") return false;
+    if (vwapFilter === "pullback" && !s.vwap_pullback_buy) return false;
+    // B. CMF (kurumsal para akışı)
+    if (cmfFilter === "positive" && !s.cmf_positive) return false;
+    if (cmfFilter === "rising" && !s.cmf_rising) return false;
+    if (cmfFilter === "positive_rising" && !(s.cmf_positive && s.cmf_rising)) return false;
     return passesPreset(s, preset);
   });
 
