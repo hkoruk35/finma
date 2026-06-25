@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-06-24T09:15:04.203380-04:00",
+  "generated_at": "2026-06-25T09:15:08.368241-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 25.2,
-  "total_scanned": 2,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "scan_duration_s": 26.1,
+  "total_scanned": 3,
+  "layer1_passed": 3,
+  "final_picks": 3,
   "picks": [
     {
       "ticker": "VKTX",
-      "price": 34.81,
-      "change_pct": 7.54,
-      "dt_score": 48.0,
+      "price": 37.87,
+      "change_pct": 8.79,
+      "dt_score": 62.0,
       "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 34.84,
+      "vwap": 37.07,
       "catalyst": {
         "catalyst_type": "acquisition",
         "catalyst_score": 22,
-        "headline": "viking therapeutics announces initiation of phase 1 study to evaluate novel amylin receptor agonist vk3019 in healthy ad",
+        "headline": "vktx stock eyes best week in 2 years: retail bulls bet q3 obesity data could put novo, big pharma in buyout play(stocktw",
         "confidence": "high",
-        "ts": 1782306928.8402815
+        "ts": 1782393333.0624158
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,48 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 34.78,
-          "high": 34.98
+          "low": 37.83,
+          "high": 38.06
         },
-        "stop": 34.29,
-        "tp1": 36.06,
-        "tp2": 36.94,
-        "rr_ratio": 2.0,
-        "avg_entry": 34.88,
-        "risk_per_sh": 0.59,
+        "stop": 37.3,
+        "tp1": 39.24,
+        "tp2": 40.2,
+        "rr_ratio": 2.01,
+        "avg_entry": 37.95,
+        "risk_per_sh": 0.65,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 34.81
+        "pm_high_ref": 37.87
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +7.5%",
+        "📈 Güçlü Gap: +8.8%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.08%",
+        "✅ VWAP Üstünde: +2.17%",
         "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "PRTA",
-      "price": 9.55,
-      "change_pct": 4.37,
-      "dt_score": 33.0,
-      "signal": "PULLBACK_VWAP",
-      "entry_condition": "📊 PULLBACK BEKLE → $9.57'a çekilme + bounce onayı",
+      "ticker": "AFRM",
+      "price": 77.66,
+      "change_pct": 8.12,
+      "dt_score": 44.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 9.57,
+      "vwap": 77.94,
       "catalyst": {
-        "catalyst_type": "fda_trial",
-        "catalyst_score": 12,
-        "headline": "prothena: q1 earnings snapshot(associated press)-5.90%",
-        "confidence": "medium",
-        "ts": 1782306928.1151242
+        "catalyst_type": "partnership",
+        "catalyst_score": 18,
+        "headline": "backcountry and affirm partner to give outdoor enthusiasts a transparent way to pay over time(business wire)",
+        "confidence": "high",
+        "ts": 1782393332.9588366
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,25 +92,80 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 9.55,
-          "high": 9.6
+          "low": 77.58,
+          "high": 78.05
         },
-        "stop": 9.47,
-        "tp1": 9.78,
-        "tp2": 9.94,
-        "rr_ratio": 1.95,
-        "avg_entry": 9.57,
-        "risk_per_sh": 0.1,
-        "signal": "PULLBACK_VWAP",
-        "pm_high_ref": 9.55
+        "stop": 76.5,
+        "tp1": 80.44,
+        "tp2": 82.42,
+        "rr_ratio": 2.0,
+        "avg_entry": 77.81,
+        "risk_per_sh": 1.31,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 77.66
       },
       "details": [
-        "📋 Zayıf Kataliz: FDA_TRIAL",
+        "📰 Kataliz: PARTNERSHIP",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.4%",
+        "📈 Güçlü Gap: +8.1%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.17%",
+        "🔄 VWAP Testi: -0.36%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "UPST",
+      "price": 32.65,
+      "change_pct": 3.78,
+      "dt_score": 25.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "📊 PULLBACK BEKLE → $32.95'a çekilme + bounce onayı",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 32.95,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1782393333.0452518
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 32.88,
+          "high": 33.05
+        },
+        "stop": 32.36,
+        "tp1": 34.18,
+        "tp2": 35.08,
+        "rr_ratio": 2.01,
+        "avg_entry": 32.97,
+        "risk_per_sh": 0.61,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 32.65
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.8%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.90%",
         "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
