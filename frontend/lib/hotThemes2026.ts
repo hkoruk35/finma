@@ -1,5 +1,5 @@
 // 2026 güncel tematik liste — CES 2026 / Pentagon bütçesi / CHIPS Act gibi
-// katalizörlerle öne çıkan 9 üst-düzey yatırım teması. Her temanın kendi
+// katalizörlerle öne çıkan 10 üst-düzey yatırım teması. Her temanın kendi
 // takip sayfası /csp/[slug] altında yaşar (bkz. app/csp/[theme]/page.tsx).
 
 export interface HotThemeStock {
@@ -19,8 +19,28 @@ export interface HotTheme {
 
 export const HOT_THEMES_2026: HotTheme[] = [
   {
-    slug: "fiziksel-ai-humanoid-robotik",
+    slug: "bellek-ureticiler-ai-depolama",
     number: 1,
+    title: "Bellek Üreticiler & AI Depolama",
+    accent: "#fde047",
+    summary:
+      "AI veri merkezi yatırımlarının patlamasıyla HBM, DRAM ve NAND talebi tarihi seviyelere çıktı; 2026'da bellek fiyatları art arda yükseliyor ve sektör arz kıtlığı yaşıyor. NVIDIA'nın yeni nesil GPU'ları HBM4'e geçişi hızlandırırken, kurumsal SSD talebi de hyperscaler kapasite genişlemesiyle birlikte fırlıyor.",
+    stocks: [
+      { ticker: "MU", company: "Micron Technology", blurb: "HBM3E/HBM4 üretiminde NVDA'nın kilit tedarikçisi; DRAM ve NAND fiyat döngüsünün en büyük kazananı." },
+      { ticker: "SNDK", company: "SanDisk", blurb: "Western Digital'den ayrılan NAND/flash depolama şirketi; kurumsal SSD talebinden doğrudan yararlanıyor." },
+      { ticker: "WDC", company: "Western Digital", blurb: "HDD ve NAND üretiminde küresel lider; veri merkezi kapasite genişlemesinin ana tedarikçisi." },
+      { ticker: "ALAB", company: "Astera Labs", blurb: "PCIe/CXL bağlantı çipleri; AI sunucularında bellek-işlemci arası veri akışını hızlandırıyor." },
+      { ticker: "SIMO", company: "Silicon Motion", blurb: "NAND flash kontrolör çipleri lideri; SSD pazarındaki büyümeden pay alıyor." },
+      { ticker: "MRVL", company: "Marvell", blurb: "Özel bellek ara bağlantı çipleri ve veri merkezi depolama silikon çözümleri." },
+      { ticker: "RMBS", company: "Rambus", blurb: "DDR5/HBM bellek arabirim IP lisanslama lideri; bellek bant genişliği teknolojisinde kilit oyuncu." },
+      { ticker: "AMAT", company: "Applied Materials", blurb: "Bellek çip üretim ekipmanları; DRAM/NAND fab kapasite yatırımlarının doğrudan yararlanıcısı." },
+      { ticker: "LRCX", company: "Lam Research", blurb: "NAND/DRAM kazıma ve biriktirme ekipmanları; bellek üreticilerinin fab genişlemesine kritik tedarikçi." },
+      { ticker: "ASML", company: "ASML Holding", blurb: "EUV litografi tekel sağlayıcısı; gelişmiş bellek ve lojik çip üretiminin vazgeçilmez ekipman ortağı." },
+    ],
+  },
+  {
+    slug: "fiziksel-ai-humanoid-robotik",
+    number: 2,
     title: "Fiziksel AI & Hümanoid Robotik",
     accent: "#22d3ee",
     summary:
@@ -35,7 +55,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-savunma-drone-otonom-sistemler",
-    number: 2,
+    number: 3,
     title: "AI Savunma, Drone & Otonom Sistemler",
     accent: "#f87171",
     summary:
@@ -50,7 +70,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "kritik-maden-nadir-toprak",
-    number: 3,
+    number: 4,
     title: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
     accent: "#fbbf24",
     summary:
@@ -65,7 +85,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "nukleer-enerji-ai-guc",
-    number: 4,
+    number: 5,
     title: "Nükleer Enerji & AI Güç Altyapısı",
     accent: "#34d399",
     summary:
@@ -80,7 +100,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "kuantum-bilisim",
-    number: 5,
+    number: 6,
     title: "Kuantum Bilişim",
     accent: "#a78bfa",
     summary:
@@ -95,7 +115,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-ajanlar-kurumsal-yazilim",
-    number: 6,
+    number: 7,
     title: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
     accent: "#60a5fa",
     summary:
@@ -109,7 +129,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-veri-merkezi-sogutma",
-    number: 7,
+    number: 8,
     title: "AI Veri Merkezi & Soğutma Altyapısı",
     accent: "#2dd4bf",
     summary:
@@ -124,7 +144,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "post-kuantum-siber-guvenlik",
-    number: 8,
+    number: 9,
     title: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
     accent: "#fb7185",
     summary:
@@ -138,7 +158,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "fiziksel-ai-yariiletken-cip-ekosistemi",
-    number: 9,
+    number: 10,
     title: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
     accent: "#38bdf8",
     summary:
