@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "AAL",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 17.89,
+        "entry_zone": "17.51 - 18.26",
+        "SL": 16.4,
+        "TP": 20.85
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "OC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 137.8,
+        "entry_zone": "134.99 - 140.61",
+        "SL": 126.55,
+        "TP": 160.3
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "WSM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 242.19,
+        "entry_zone": "237.90 - 246.48",
+        "SL": 225.04,
+        "TP": 276.5
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "DHI",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 169.66,
+        "entry_zone": "166.81 - 172.51",
+        "SL": 158.26,
+        "TP": 192.46
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 70.56,
+        "entry_zone": "68.81 - 72.31",
+        "SL": 63.56,
+        "TP": 84.56
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "DD",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 139.86,
+        "entry_zone": "135.65 - 144.07",
+        "SL": 123.01,
+        "TP": 173.57
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 95.12,
+        "entry_zone": "92.12 - 98.13",
+        "SL": 83.09,
+        "TP": 119.19
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "MAC",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 25.56,
+        "entry_zone": "25.16 - 25.96",
+        "SL": 23.98,
+        "TP": 28.73
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "EXPE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 257.18,
+        "entry_zone": "252.28 - 262.09",
+        "SL": 237.58,
+        "TP": 296.4
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "BKNG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 180.65,
+        "entry_zone": "177.26 - 184.04",
+        "SL": 167.08,
+        "TP": 207.8
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "ADPT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 20.06,
+        "entry_zone": "19.35 - 20.77",
+        "SL": 17.22,
+        "TP": 25.75
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "UAL",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 136.86,
+        "entry_zone": "133.88 - 139.84",
+        "SL": 124.94,
+        "TP": 160.69
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "SHC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 17.18,
+        "entry_zone": "16.91 - 17.46",
+        "SL": 16.09,
+        "TP": 19.37
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "RHP",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 130.47,
+        "entry_zone": "128.97 - 131.97",
+        "SL": 124.45,
+        "TP": 142.5
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "RKT",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 15.33,
+        "entry_zone": "14.82 - 15.84",
+        "SL": 13.29,
+        "TP": 19.42
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "BC",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 88.23,
+        "entry_zone": "86.64 - 89.82",
+        "SL": 81.89,
+        "TP": 100.91
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "PVLA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 139.0,
+        "entry_zone": "135.21 - 142.79",
+        "SL": 123.85,
+        "TP": 169.3
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "NX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 18.08,
+        "entry_zone": "17.56 - 18.61",
+        "SL": 16.0,
+        "TP": 22.26
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "UMC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 27.68,
+        "entry_zone": "26.79 - 28.57",
+        "SL": 24.13,
+        "TP": 34.77
+    },
+    {
+        "date": "2026-06-25 11:00",
+        "symbol": "WEN",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 7.59,
+        "entry_zone": "7.30 - 7.89",
+        "SL": 6.42,
+        "TP": 9.94
+    }
+]
