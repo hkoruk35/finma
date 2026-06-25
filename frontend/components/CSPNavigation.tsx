@@ -7,9 +7,7 @@ interface CSPNavItem {
 }
 
 const CSP_NAV_ITEMS: CSPNavItem[] = [
-  { label: "525 CSP", href: "/csp/525", color: "text-[#10b981]" },
-  { label: "2550 CSP", href: "/csp/2550", color: "text-[#3b82f6]" },
-  { label: "50250 CSP", href: "/csp/50250", color: "text-[#a78bfa]" },
+  { label: "Active Watchlist", href: "/csp/active", color: "text-[#10b981]" },
   { label: "Portföy", href: "/csp/portfolio", color: "text-[#f97316]" },
   { label: "Swing", href: "/csp/swing", color: "text-[#6b7280]" },
   { label: "Daily", href: "/csp/daily", color: "text-[#f59e0b]" },

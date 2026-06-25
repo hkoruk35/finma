@@ -31,20 +31,24 @@ interface TickerData {
 }
 
 interface Props {
-  slug: "525" | "2550" | "50250" | "portfolio" | "swing" | "daily" | "long_term";
+  slug: "active" | "portfolio" | "swing" | "daily" | "long_term";
 }
 
 // ── Config ─────────────────────────────────────────────────────────────────
 
+// "active" = 525 + 2550 + 50250 CSP tier'lerinin birleştirilmiş görünümü
+const ACTIVE_TIERS = ["525", "2550", "50250"] as const;
+type ActiveTier = typeof ACTIVE_TIERS[number];
+
 const CSP_CFG = {
-  "525":       { label: "525 CSP",      range: "$5–$25",           storageKey: "terminal_watchlist_525csp",      accent: "#3fb950" },
-  "2550":      { label: "2550 CSP",     range: "$25–$50",          storageKey: "terminal_watchlist_2550csp",     accent: "#58a6ff" },
-  "50250":     { label: "50250 CSP",    range: "$50–$250",         storageKey: "terminal_watchlist_50250csp",    accent: "#d2a8ff" },
+  "active":    { label: "Active Watchlist", range: "$5–$250",      storageKey: "terminal_watchlist_active",      accent: "#10b981" },
   "portfolio": { label: "Portföy",      range: "Tüm Fiyatlar",     storageKey: "terminal_watchlist_portfolio",   accent: "#f97316" },
   "swing":     { label: "Swing Picks",  range: "Günlük Tarama",    storageKey: "terminal_watchlist_swing",       accent: "#6b7280" },
   "daily":     { label: "Daily Intraday", range: "İntraday Takip", storageKey: "terminal_watchlist_daily",       accent: "#f59e0b" },
   "long_term": { label: "Long-Term",    range: "Makro Trendler",   storageKey: "terminal_watchlist_longterm",    accent: "#14b8a6" },
 } as const;
+
+const TIER_LABEL: Record<ActiveTier, string> = { "525": "$5–$25", "2550": "$25–$50", "50250": "$50–$250" };
 
 const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
   Swing:  { bg: "#1c2a1c", text: "#3fb950" },
@@ -120,6 +124,28 @@ export default function CSPDetailClient({ slug }: Props) {
   const tickers = cspData.tickers;
   const types   = cspData.types;
   const notes   = cspData.notes;
+
+  // ── "active" tek-seferlik göç: eski 525/2550/50250 listelerini birleştir ──
+  const migratedRef = useRef(false);
+  useEffect(() => {
+    if (slug !== "active" || !ready || migratedRef.current) return;
+    migratedRef.current = true;
+    if (typeof window !== "undefined" && localStorage.getItem("active_csp_migrated")) return;
+
+    Promise.all(
+      ACTIVE_TIERS.map((tier) =>
+        fetch(`/api/csp-watchlist/${tier}`).then((r) => r.json()).catch(() => ({ tickers: [], types: {} }))
+      )
+    ).then((results) => {
+      const mergedTickers = Array.from(new Set([...tickers, ...results.flatMap((r) => r.tickers ?? [])]));
+      const mergedTypes = { ...types };
+      results.forEach((r) => Object.assign(mergedTypes, r.types ?? {}));
+      if (mergedTickers.length > tickers.length) {
+        saveCsp({ tickers: mergedTickers, types: mergedTypes, notes });
+      }
+      try { localStorage.setItem("active_csp_migrated", "1"); } catch {}
+    });
+  }, [slug, ready]);
 
   // ── UI state ──────────────────────────────────────────────────────────────
   const [data, setData] = useState<Record<string, TickerData>>({});
@@ -347,7 +373,7 @@ export default function CSPDetailClient({ slug }: Props) {
             </div>
             {/* CSP Sekmelerine geçiş */}
             <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
-              {(["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"] as const).map(s => (
+              {(["active", "portfolio", "swing", "daily", "long_term"] as const).map(s => (
                 <Link key={s} href={`/csp/${s}`} style={{
                   padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                   border: "1px solid",

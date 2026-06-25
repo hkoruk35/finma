@@ -17,9 +17,7 @@ interface CSPList {
 }
 
 const CSP_LISTS: CSPList[] = [
-  { key: "525",   label: "525 CSP",   range: "$5 – $25",    description: "Cash Secured Put candidates. Low-priced stocks ideal for weekly/monthly CSP premium collection.", color: "bg-[#10b981]/5", borderColor: "border-[#10b981]/30", textColor: "text-[#10b981]", href: "/csp/525"   },
-  { key: "2550",  label: "2550 CSP",  range: "$25 – $50",   description: "Mid-priced CSP candidates with balanced premium and margin requirements.",                         color: "bg-[#3b82f6]/5", borderColor: "border-[#3b82f6]/30", textColor: "text-[#3b82f6]", href: "/csp/2550"  },
-  { key: "50250", label: "50250 CSP", range: "$50 – $250",  description: "Higher-priced stocks for premium CSP strategies with larger capital allocation.",                   color: "bg-[#a78bfa]/5", borderColor: "border-[#a78bfa]/30", textColor: "text-[#a78bfa]", href: "/csp/50250" },
+  { key: "active", label: "Active Watchlist", range: "$5 – $250", description: "Cash Secured Put candidates across all price tiers. Low, mid, and high-priced stocks for weekly/monthly CSP premium collection.", color: "bg-[#10b981]/5", borderColor: "border-[#10b981]/30", textColor: "text-[#10b981]", href: "/csp/active" },
   { key: "portfolio", label: "Portföy", range: "Tüm Fiyatlar", description: "Kişisel portföy izleme ve yönetimi. Sahip olduğunuz hisseleri takip edin.",                            color: "bg-[#f97316]/5", borderColor: "border-[#f97316]/30", textColor: "text-[#f97316]", href: "/csp/portfolio" },
   { key: "swing", label: "Swing", range: "Günlük Tarama", description: "Günlük swing ticaret adayları. BOGA AI tarafından tespit edilen günlük setuplar.",                   color: "bg-[#6b7280]/5", borderColor: "border-[#6b7280]/30", textColor: "text-[#6b7280]", href: "/csp/swing" },
   { key: "daily", label: "Daily", range: "İntraday Takip", description: "Günlük intraday takip hisseleri. Saatlik performans ve durum güncellemeleri.",                   color: "bg-[#f59e0b]/5", borderColor: "border-[#f59e0b]/30", textColor: "text-[#f59e0b]", href: "/csp/daily" },
@@ -29,7 +27,7 @@ const CSP_LISTS: CSPList[] = [
 export default function CSPWatchlistSection() {
   const [lists, setLists] = useState<Record<string, string[]>>({});
   const [mounted, setMounted] = useState(false);
-  const [activeTab, setActiveTab] = useState<"all" | "525" | "2550" | "50250" | "portfolio" | "swing" | "daily" | "long_term">("all");
+  const [activeTab, setActiveTab] = useState<"all" | "active" | "portfolio" | "swing" | "daily" | "long_term">("all");
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [addMessage, setAddMessage] = useState("");
 
@@ -231,7 +229,7 @@ export default function CSPWatchlistSection() {
       )}
 
       {/* Individual CSP Lists */}
-      {(activeTab === "525" || activeTab === "2550" || activeTab === "50250" || activeTab === "portfolio" || activeTab === "long_term") && (
+      {(activeTab === "active" || activeTab === "portfolio" || activeTab === "long_term") && (
         <div className="grid grid-cols-1 gap-5">
           {CSP_LISTS.filter((c) => c.key === activeTab).map((csp) => {
             const tickers = lists[csp.key] ?? [];
@@ -379,7 +377,7 @@ export default function CSPWatchlistSection() {
 
       {!hasAny && activeTab !== "all" && (
         <div className="mt-3 text-center text-[11px] text-slate-600">
-          Terminal sayfasında 525CSP, 2550CSP ve 50250CSP sekmelerinden hisse ekleyebilirsiniz.
+          Terminal sayfasında Active Watchlist sekmesinden hisse ekleyebilirsiniz.
         </div>
       )}
     </div>

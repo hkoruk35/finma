@@ -355,7 +355,7 @@ function MultiScreenOverlay({
 
 export default function TerminalClient() {
   // DEPLOYMENT MARKER - Custom watchlists v2.0 live
-  console.log("✅ TerminalClient with custom watchlists (525CSP, 2550CSP, 50250CSP) loaded!");
+  console.log("✅ TerminalClient with Active Watchlist (525CSP + 2550CSP + 50250CSP) loaded!");
   const { activeTracker } = useSmartTracker();
   const { tickers: trackerList, addToTracker: addToTrackerContext, removeFromTracker } = useTracker();
 
@@ -398,7 +398,7 @@ export default function TerminalClient() {
   };
 
   // Left panel tab (Markets/Watchlists)
-  const [leftTab, setLeftTab] = useState<"market" | "525csp" | "2550csp" | "50250csp">("market");
+  const [leftTab, setLeftTab] = useState<"market" | "active">("market");
 
   // Right panel tab
   const [rightTab, setRightTab] = useState<"swing" | "portfolio" | "long_term" | "tracker">("swing");
@@ -408,13 +408,9 @@ export default function TerminalClient() {
   const [watchlistPortfolio, setWatchlistPortfolio] = useState<string[]>([]);
   const [watchlistLongTerm, setWatchlistLongTerm] = useState<string[]>([]);
 
-  // Custom Watchlists (525CSP, 2550CSP, 50250CSP)
-  const [watchlist525CSP, setWatchlist525CSP] = useState<string[]>([]);
-  const [watchInput525CSP, setWatchInput525CSP] = useState("");
-  const [watchlist2550CSP, setWatchlist2550CSP] = useState<string[]>([]);
-  const [watchInput2550CSP, setWatchInput2550CSP] = useState("");
-  const [watchlist50250CSP, setWatchlist50250CSP] = useState<string[]>([]);
-  const [watchInput50250CSP, setWatchInput50250CSP] = useState("");
+  // Active Watchlist (525CSP + 2550CSP + 50250CSP birleşik)
+  const [watchlistActive, setWatchlistActive] = useState<string[]>([]);
+  const [watchInputActive, setWatchInputActive] = useState("");
 
   // Tracker input (UI state only)
   const [trackerInput, setTrackerInput] = useState("");
@@ -444,11 +440,30 @@ export default function TerminalClient() {
 
   // ── Mount ────────────────────────────────────────────────────────────────────
   useEffect(() => {
-    cloudLoad("/api/csp-watchlist/525",        "t_525",       setWatchlist525CSP);
-    cloudLoad("/api/csp-watchlist/2550",       "t_2550",      setWatchlist2550CSP);
-    cloudLoad("/api/csp-watchlist/50250",      "t_50250",     setWatchlist50250CSP);
+    cloudLoad("/api/csp-watchlist/active",     "t_active",    setWatchlistActive);
     cloudLoad("/api/csp-watchlist/portfolio",  "t_portfolio", setWatchlistPortfolio);
     cloudLoad("/api/csp-watchlist/long_term",  "t_long_term", setWatchlistLongTerm);
+
+    // Tek seferlik göç: eski 525/2550/50250 listelerini Active Watchlist'e birleştir
+    if (typeof window !== "undefined" && !localStorage.getItem("active_csp_migrated")) {
+      Promise.all(
+        ["525", "2550", "50250"].map((tier) =>
+          fetch(`/api/csp-watchlist/${tier}`).then((r) => r.json()).catch(() => ({ tickers: [] }))
+        )
+      ).then((results) => {
+        const legacyTickers = Array.from(new Set(results.flatMap((r) => r.tickers ?? [])));
+        if (legacyTickers.length === 0) return;
+        fetch("/api/csp-watchlist/active").then((r) => r.json()).then((d) => {
+          const current: string[] = d.tickers ?? [];
+          const merged = Array.from(new Set([...current, ...legacyTickers]));
+          if (merged.length > current.length) {
+            setWatchlistActive(merged);
+            cloudSave("/api/csp-watchlist/active", "t_active", merged, { tickers: merged });
+          }
+        });
+        try { localStorage.setItem("active_csp_migrated", "1"); } catch {}
+      });
+    }
   }, []);
 
   const addToTracker = () => {
@@ -457,34 +472,14 @@ export default function TerminalClient() {
     addToTrackerContext(t, "Swing"); setTrackerInput("");
   };
 
-  const saveWatchlist525CSP = (list: string[]) => {
-    setWatchlist525CSP(list);
-    cloudSave("/api/csp-watchlist/525", "t_525", list, { tickers: list });
+  const saveWatchlistActive = (list: string[]) => {
+    setWatchlistActive(list);
+    cloudSave("/api/csp-watchlist/active", "t_active", list, { tickers: list });
   };
-  const addToWatchlist525CSP = () => {
-    const t = watchInput525CSP.trim().toUpperCase();
-    if (!t || watchlist525CSP.includes(t) || watchlist525CSP.length >= 100) return;
-    saveWatchlist525CSP([...watchlist525CSP, t]); setWatchInput525CSP("");
-  };
-
-  const saveWatchlist2550CSP = (list: string[]) => {
-    setWatchlist2550CSP(list);
-    cloudSave("/api/csp-watchlist/2550", "t_2550", list, { tickers: list });
-  };
-  const addToWatchlist2550CSP = () => {
-    const t = watchInput2550CSP.trim().toUpperCase();
-    if (!t || watchlist2550CSP.includes(t) || watchlist2550CSP.length >= 100) return;
-    saveWatchlist2550CSP([...watchlist2550CSP, t]); setWatchInput2550CSP("");
-  };
-
-  const saveWatchlist50250CSP = (list: string[]) => {
-    setWatchlist50250CSP(list);
-    cloudSave("/api/csp-watchlist/50250", "t_50250", list, { tickers: list });
-  };
-  const addToWatchlist50250CSP = () => {
-    const t = watchInput50250CSP.trim().toUpperCase();
-    if (!t || watchlist50250CSP.includes(t) || watchlist50250CSP.length >= 100) return;
-    saveWatchlist50250CSP([...watchlist50250CSP, t]); setWatchInput50250CSP("");
+  const addToWatchlistActive = () => {
+    const t = watchInputActive.trim().toUpperCase();
+    if (!t || watchlistActive.includes(t) || watchlistActive.length >= 100) return;
+    saveWatchlistActive([...watchlistActive, t]); setWatchInputActive("");
   };
 
   // ── Fetch prices ─────────────────────────────────────────────────────────────
@@ -526,10 +521,9 @@ export default function TerminalClient() {
 
   // Fetch prices for custom watchlist items (left panel)
   useEffect(() => {
-    const customWatchlists = [...watchlist525CSP, ...watchlist2550CSP, ...watchlist50250CSP];
-    if (!customWatchlists.length) return;
-    fetchPrices(customWatchlists);
-  }, [watchlist525CSP, watchlist2550CSP, watchlist50250CSP, fetchPrices]);
+    if (!watchlistActive.length) return;
+    fetchPrices(watchlistActive);
+  }, [watchlistActive, fetchPrices]);
 
   // ── Fetch latest hourly signals ───────────────────────────────────────────────
   useEffect(() => {
@@ -613,7 +607,7 @@ export default function TerminalClient() {
       <div className={`${sidebarOpen ? "w-[220px]" : "w-0"} transition-all duration-300 shrink-0 border-r border-[#1a2234] flex flex-col bg-[#080d18] overflow-hidden relative`}>
         {/* Left Panel Tabs */}
         <div className="flex border-b border-[#1a2234] shrink-0">
-          {(["market", "525csp", "2550csp", "50250csp"] as const).map((tab) => (
+          {(["market", "active"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setLeftTab(tab)}
@@ -623,14 +617,14 @@ export default function TerminalClient() {
                   : "text-slate-500 hover:text-slate-300"
               }`}
             >
-              {tab === "market" ? "Market" : tab === "525csp" ? "525CSP" : tab === "2550csp" ? "2550CSP" : "50250CSP"}
+              {tab === "market" ? "Market" : "Active Watchlist"}
             </button>
           ))}
         </div>
 
         <div className="px-3 py-2 border-b border-[#1a2234] shrink-0 flex items-center justify-between">
           <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">
-            {leftTab === "market" ? "Markets" : leftTab === "525csp" ? "525CSP" : leftTab === "2550csp" ? "2550CSP" : "50250CSP"}
+            {leftTab === "market" ? "Markets" : "Active Watchlist"}
           </span>
           <div className="flex items-center gap-2">
             {checked.length > 0 && (
@@ -665,31 +659,31 @@ export default function TerminalClient() {
             </div>
           ))}
 
-          {/* 525CSP Watchlist Tab */}
-          {leftTab === "525csp" && (
+          {/* Active Watchlist Tab (525CSP + 2550CSP + 50250CSP birleşik) */}
+          {leftTab === "active" && (
             <div>
               <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
                 <input
-                  value={watchInput525CSP}
-                  onChange={(e) => setWatchInput525CSP(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => e.key === "Enter" && addToWatchlist525CSP()}
+                  value={watchInputActive}
+                  onChange={(e) => setWatchInputActive(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => e.key === "Enter" && addToWatchlistActive()}
                   placeholder="Add ticker…"
                   className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[10px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
                 />
                 <button
-                  onClick={addToWatchlist525CSP}
+                  onClick={addToWatchlistActive}
                   className="px-2 py-1 text-[9px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
                 >
                   +
                 </button>
               </div>
 
-              {watchlist525CSP.length === 0 ? (
+              {watchlistActive.length === 0 ? (
                 <div className="flex items-center justify-center h-32 text-[10px] text-slate-600 text-center px-2">
-                  Add tickers to 525CSP watchlist
+                  Add tickers to Active Watchlist
                 </div>
               ) : (
-                watchlist525CSP.map((ticker) => (
+                watchlistActive.map((ticker) => (
                   <WatchlistRow
                     key={ticker}
                     ticker={ticker}
@@ -698,87 +692,7 @@ export default function TerminalClient() {
                     checked={checked.includes(ticker)}
                     onSelect={() => selectWatchlistTicker(ticker)}
                     onToggleCheck={() => toggleCheck(ticker)}
-                    onRemove={() => saveWatchlist525CSP(watchlist525CSP.filter((t) => t !== ticker))}
-                  />
-                ))
-              )}
-            </div>
-          )}
-
-          {/* 2550CSP Watchlist Tab */}
-          {leftTab === "2550csp" && (
-            <div>
-              <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
-                <input
-                  value={watchInput2550CSP}
-                  onChange={(e) => setWatchInput2550CSP(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => e.key === "Enter" && addToWatchlist2550CSP()}
-                  placeholder="Add ticker…"
-                  className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[10px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
-                />
-                <button
-                  onClick={addToWatchlist2550CSP}
-                  className="px-2 py-1 text-[9px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
-                >
-                  +
-                </button>
-              </div>
-
-              {watchlist2550CSP.length === 0 ? (
-                <div className="flex items-center justify-center h-32 text-[10px] text-slate-600 text-center px-2">
-                  Add tickers to 2550CSP watchlist
-                </div>
-              ) : (
-                watchlist2550CSP.map((ticker) => (
-                  <WatchlistRow
-                    key={ticker}
-                    ticker={ticker}
-                    price={prices[ticker]}
-                    selected={watchSelected === ticker}
-                    checked={checked.includes(ticker)}
-                    onSelect={() => selectWatchlistTicker(ticker)}
-                    onToggleCheck={() => toggleCheck(ticker)}
-                    onRemove={() => saveWatchlist2550CSP(watchlist2550CSP.filter((t) => t !== ticker))}
-                  />
-                ))
-              )}
-            </div>
-          )}
-
-          {/* 50250CSP Watchlist Tab */}
-          {leftTab === "50250csp" && (
-            <div>
-              <div className="flex gap-1 px-2 py-2 border-b border-[#1a2234] shrink-0">
-                <input
-                  value={watchInput50250CSP}
-                  onChange={(e) => setWatchInput50250CSP(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => e.key === "Enter" && addToWatchlist50250CSP()}
-                  placeholder="Add ticker…"
-                  className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[10px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
-                />
-                <button
-                  onClick={addToWatchlist50250CSP}
-                  className="px-2 py-1 text-[9px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
-                >
-                  +
-                </button>
-              </div>
-
-              {watchlist50250CSP.length === 0 ? (
-                <div className="flex items-center justify-center h-32 text-[10px] text-slate-600 text-center px-2">
-                  Add tickers to 50250CSP watchlist
-                </div>
-              ) : (
-                watchlist50250CSP.map((ticker) => (
-                  <WatchlistRow
-                    key={ticker}
-                    ticker={ticker}
-                    price={prices[ticker]}
-                    selected={watchSelected === ticker}
-                    checked={checked.includes(ticker)}
-                    onSelect={() => selectWatchlistTicker(ticker)}
-                    onToggleCheck={() => toggleCheck(ticker)}
-                    onRemove={() => saveWatchlist50250CSP(watchlist50250CSP.filter((t) => t !== ticker))}
+                    onRemove={() => saveWatchlistActive(watchlistActive.filter((t) => t !== ticker))}
                   />
                 ))
               )}

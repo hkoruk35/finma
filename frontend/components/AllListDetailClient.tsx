@@ -90,7 +90,7 @@ export default function AllListDetailClient() {
   const fetchedRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    const slugs = ["525", "2550", "50250", "portfolio", "swing", "daily", "long_term"];
+    const slugs = ["active", "portfolio", "swing", "daily", "long_term"];
     Promise.all(slugs.map(slug => fetch(`/api/csp-watchlist/${slug}`).then(r => r.json())))
       .then(results => {
         const newlyAdded = results.flatMap(r => r.tickers || []);
@@ -341,9 +341,7 @@ export default function AllListDetailClient() {
             {/* CSP Tabs */}
             <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
               {[
-                { slug: "525", label: "525 CSP", color: "#10b981" },
-                { slug: "2550", label: "2550 CSP", color: "#3b82f6" },
-                { slug: "50250", label: "50250 CSP", color: "#a78bfa" },
+                { slug: "active", label: "Active Watchlist", color: "#10b981" },
                 { slug: "portfolio", label: "Portföy", color: "#f97316" },
                 { slug: "swing", label: "Swing Picks", color: "#6b7280" },
                 { slug: "daily", label: "Daily Intraday", color: "#f59e0b" },

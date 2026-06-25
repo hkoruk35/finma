@@ -21,26 +21,12 @@ interface TickerData {
 const ITEMS_PER_PAGE = 50;
 
 const CSP_CFG = {
-  "525": {
-    label: "525 CSP",
-    range: "$5–$25",
+  "active": {
+    label: "Active Watchlist",
+    range: "$5–$250",
     color: "#10b981",
     borderColor: "border-[#10b981]/30",
     textColor: "text-[#10b981]",
-  },
-  "2550": {
-    label: "2550 CSP",
-    range: "$25–$50",
-    color: "#3b82f6",
-    borderColor: "border-[#3b82f6]/30",
-    textColor: "text-[#3b82f6]",
-  },
-  "50250": {
-    label: "50250 CSP",
-    range: "$50–$250",
-    color: "#a78bfa",
-    borderColor: "border-[#a78bfa]/30",
-    textColor: "text-[#a78bfa]",
   },
 };
 
@@ -58,22 +44,10 @@ export default function AllListPaginatedClient() {
     new Set(MARKET_THEMES.flatMap((t) => t.tickers))
   ).sort();
 
-  // Cloud store for CSP lists
-  const { data: data525, save: save525 } = useCloudStore<CspData>({
-    endpoint: { type: "csp", slug: "525" },
-    cacheKey: "csp_525",
-    defaultValue: { tickers: [], types: {}, notes: {} },
-  });
-
-  const { data: data2550, save: save2550 } = useCloudStore<CspData>({
-    endpoint: { type: "csp", slug: "2550" },
-    cacheKey: "csp_2550",
-    defaultValue: { tickers: [], types: {}, notes: {} },
-  });
-
-  const { data: data50250, save: save50250 } = useCloudStore<CspData>({
-    endpoint: { type: "csp", slug: "50250" },
-    cacheKey: "csp_50250",
+  // Cloud store for the merged Active Watchlist (525+2550+50250)
+  const { data: dataActive, save: saveActive } = useCloudStore<CspData>({
+    endpoint: { type: "csp", slug: "active" },
+    cacheKey: "csp_active",
     defaultValue: { tickers: [], types: {}, notes: {} },
   });
 
@@ -162,17 +136,10 @@ export default function AllListPaginatedClient() {
   };
 
   // Handle add to list
-  const handleAddToList = (listKey: "525" | "2550" | "50250") => {
+  const handleAddToList = (listKey: "active") => {
     if (selectedStocks.length === 0) return;
 
-    const storeMap: Record<string, any> = {
-      "525": { data: data525, save: save525 },
-      "2550": { data: data2550, save: save2550 },
-      "50250": { data: data50250, save: save50250 },
-    };
-
-    const store = storeMap[listKey];
-    const current = store.data.tickers ?? [];
+    const current = dataActive.tickers ?? [];
     const newTickers = selectedStocks.filter((s) => !current.includes(s));
 
     if (newTickers.length === 0) {
@@ -182,7 +149,7 @@ export default function AllListPaginatedClient() {
     }
 
     const updated = [...current, ...newTickers];
-    store.save({ tickers: updated, types: store.data.types, notes: store.data.notes });
+    saveActive({ tickers: updated, types: dataActive.types, notes: dataActive.notes });
 
     setAddMessage(
       `${newTickers.length} hisse ${CSP_CFG[listKey].label}'ye eklendi`
@@ -271,7 +238,7 @@ export default function AllListPaginatedClient() {
             {Object.entries(CSP_CFG).map(([key, cfg]) => (
               <button
                 key={key}
-                onClick={() => handleAddToList(key as "525" | "2550" | "50250")}
+                onClick={() => handleAddToList(key as "active")}
                 className={`px-4 py-2 text-xs font-bold rounded border transition-all ${cfg.borderColor} ${cfg.textColor} hover:bg-white/10`}
               >
                 → {cfg.label}
