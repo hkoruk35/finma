@@ -1045,7 +1045,6 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <col className="w-[95px]" />
                 <col className="w-[60px]" />
                 <col className="w-[80px]" />
-                <col className="w-[36px]" />
                 <col className="w-[130px]" />
                 <col className="w-[130px]" />
                 <col className="w-[70px]" />
@@ -1062,7 +1061,6 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Cur. Price <SortIcon column="return_pct" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PnL/$1K <SortIcon column="return_pct" /></th>
-                  <th className="px-1 py-3 font-bold uppercase tracking-wider text-center text-[#f59e0b] whitespace-nowrap">SL</th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
                   <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
@@ -1117,9 +1115,6 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       </td>
                       <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(pnl)}`}>
                         {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
-                      </td>
-                      <td className="px-1 py-2.5 text-center">
-                        {slHit && <span className="font-black text-[#ef4444] text-xs">●</span>}
                       </td>
                       <td className="px-3 py-2.5 text-[10px] text-slate-300 uppercase font-medium">
                         <span className="truncate block" title={t.sector}>{t.sector || "—"}</span>

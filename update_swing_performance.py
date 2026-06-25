@@ -42,6 +42,96 @@ def log(msg):
     with open(log_file, 'a', encoding='utf-8') as f:
         f.write(f"[{timestamp}] {msg}\n")
 
+MAX_HOLD_DAYS = 90      # işlemler en geç 90 günde kapanır
+SL_WINDOW_DAYS = 60     # EMA50 / -%10 zarar ve +%5 kazanç kuralı ilk 60 gün için geçerli
+MIN_SL_PCT = -10.0      # minimum stop-loss oranı: en az %10
+WIN_PCT_60D = 5.0       # 60 gün içinde +%5 geçen işlem Kazanç sayılır
+
+def simulate_trade(record, ticker_df):
+    """Bir kaydı giriş tarihinden bugüne (veya çıkışa) kadar gün gün simüle eder.
+    Kurallar: ilk 60 günde EMA50 bazlı -%10 zarar -> LOSS, +%5 getiri -> WIN,
+    kar hedefine her zaman ulaşılırsa -> WIN, 90. günde zirveye göre kapat."""
+    entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
+    entry_price = float(record['entry'])
+    profit_target = record.get('profit_target')
+    profit_target = float(profit_target) if profit_target else None
+
+    closes = ticker_df['Close']
+    highs = ticker_df['High'] if 'High' in ticker_df else closes
+    ema_series = closes.ewm(span=50, adjust=False).mean()
+
+    trade_idx = ticker_df.index[ticker_df.index >= entry_date]
+    if len(trade_idx) == 0:
+        return None
+
+    peak_price = entry_price
+    peak_date = record.get('peak_date') or record['date']
+    result = 'PENDING'
+    return_pct = 0.0
+    exit_date = None
+    last_days_held = 0
+    last_ema50 = None
+    last_price = entry_price
+
+    for dt in trade_idx:
+        days_held = (dt.to_pydatetime() - entry_date).days
+        if days_held <= 0:
+            continue  # giriş günü — sadece zirve takibi başlasın
+
+        price = float(closes.loc[dt])
+        high = float(highs.loc[dt])
+        if math.isnan(price) or price <= 0:
+            continue
+
+        ema50 = float(ema_series.loc[dt])
+        last_ema50 = ema50
+        last_price = price
+        last_days_held = days_held
+
+        candidate_peak = max(price, high)
+        if candidate_peak > peak_price:
+            peak_price = candidate_peak
+            peak_date = dt.strftime('%Y-%m-%d')
+
+        current_ret = ((price - entry_price) / entry_price) * 100
+        loss_at_ema = ((ema50 - entry_price) / entry_price) * 100
+
+        if days_held <= SL_WINDOW_DAYS:
+            if price <= ema50 and loss_at_ema <= MIN_SL_PCT:
+                result, return_pct, exit_date = 'LOSS', round(loss_at_ema, 2), dt.strftime('%Y-%m-%d')
+                break
+            if profit_target and price >= profit_target:
+                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
+                break
+            if current_ret >= WIN_PCT_60D:
+                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
+                break
+        else:
+            if profit_target and price >= profit_target:
+                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
+                break
+
+        if days_held >= MAX_HOLD_DAYS:
+            peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
+            result = 'WIN' if peak_pct > MIN_SL_PCT else 'LOSS'
+            return_pct, exit_date = peak_pct, dt.strftime('%Y-%m-%d')
+            break
+
+    if result == 'PENDING':
+        return_pct = round(((last_price - entry_price) / entry_price) * 100, 2)
+
+    return {
+        'result': result,
+        'return_pct': return_pct,
+        'days': last_days_held,
+        'exit_date': exit_date,
+        'max_price': round(peak_price, 2),
+        'peak_date': peak_date,
+        'peak_gain_pct': round(((peak_price - entry_price) / entry_price) * 100, 2),
+        'ema50_1d': round(last_ema50, 2) if last_ema50 is not None else None,
+        'active_sl_level': round(last_ema50, 2) if last_ema50 is not None else None,
+    }
+
 def update_performance():
     if not os.path.exists(performance_file):
         log("Performance file not found.")
@@ -51,11 +141,7 @@ def update_performance():
         data = json.load(f)
 
     history = data.get('history', [])
-    
-    # 1. Identify PENDING trades or trades from last 5 days
     today = datetime.now()
-    pending_records = [r for r in history if r['result'] == 'PENDING']
-    pending_tickers = list(set([r['ticker'] for r in pending_records]))
 
     # ── Metadata Backfill: subsector/sector boş olan kayıtları doldur ──────────
     meta_missing = [r for r in history if not r.get('subsector') or not r.get('sector') or r.get('sector') == 'Unknown']
@@ -75,93 +161,53 @@ def update_performance():
             except Exception as e:
                 log(f"Metadata backfill error for {ticker}: {e}")
 
-    if not pending_tickers:
-        log("No pending trades to update.")
+    # 1. Tüm kayıtları yeni kurallarla (90g max, 60g pencere, min %10 SL, %5 kazanç)
+    #    baştan simüle et — sadece PENDING değil, tamamlanmış kayıtlar da yeniden hesaplanır.
+    all_tickers = list(set(r['ticker'] for r in history))
+    earliest_entry = min(datetime.strptime(r['date'], '%Y-%m-%d') for r in history)
+    # EMA50'nin sağlıklı hesaplanması için giriş tarihinden ~150 gün öncesine kadar veri çek
+    start_date = (earliest_entry - timedelta(days=150)).strftime('%Y-%m-%d')
+    end_date = (today + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    if not all_tickers:
+        log("No trades to simulate.")
     else:
-        log(f"Updating {len(pending_tickers)} pending tickers...")
-        # Bulk download current prices
+        log(f"Simulating {len(history)} records across {len(all_tickers)} tickers...")
         try:
-            # Get latest 150 days of data to calculate EMA50 reliably
-            prices_df = yf.download(pending_tickers, period="150d", interval="1d", group_by='ticker', threads=True, progress=False)
-            
-            for record in pending_records:
+            prices_df = yf.download(all_tickers, start=start_date, end=end_date, interval="1d", group_by='ticker', threads=True, progress=False)
+
+            for record in history:
                 ticker = record['ticker']
                 try:
-                    if len(pending_tickers) == 1:
+                    if len(all_tickers) == 1:
                         ticker_data = prices_df
                     else:
                         ticker_data = prices_df[ticker]
-                    
-                    if ticker_data.empty: continue
-                    
-                    current_price = float(ticker_data['Close'].iloc[-1])
-                    if not current_price or math.isnan(current_price) or current_price <= 0: continue
-                    
-                    entry_price = float(record['entry'])
-                    sl_pct = float(record.get('sl_pct', 5.26))
-                    sl_price = entry_price * (1 - sl_pct / 100)
-                    
-                    # Update peak — use intraday High (more accurate ATH-since-signal than Close)
-                    raw_peak = record.get('max_price')
-                    peak_price = float(raw_peak) if raw_peak is not None and not math.isnan(float(raw_peak)) else entry_price
-                    period_high = float(ticker_data['High'].iloc[-1]) if 'High' in ticker_data else current_price
-                    candidate_peak = max(current_price, period_high)
-                    if candidate_peak > peak_price:
-                        peak_price = candidate_peak
-                        record['max_price'] = round(peak_price, 2)
-                        record['peak_date'] = today.strftime('%Y-%m-%d')
-                    record['peak_gain_pct'] = round(((peak_price - entry_price) / entry_price) * 100, 2)
 
-                    # Calculate return
-                    current_ret = ((current_price - entry_price) / entry_price) * 100
-                    record['return_pct'] = round(current_ret, 2)
-                    
-                    # Check Exit Conditions using bot's own recorded targets
-                    entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-                    days_held = (today - entry_date).days
-                    record['days'] = days_held
+                    ticker_data = ticker_data.dropna(subset=['Close'])
+                    if ticker_data.empty:
+                        continue
 
-                    profit_target = record.get('profit_target')
-                    max_hold_days = record.get('max_hold_days', 5)
+                    sim = simulate_trade(record, ticker_data)
+                    if sim is None:
+                        continue
 
-                    # 1. BOGA AI - Stop Loss based strictly on 1D EMA50 (no LOSS triggered above 1D EMA50)
-                    ema_series = ticker_data['Close'].ewm(span=50, adjust=False).mean()
-                    ema50_1d = float(ema_series.iloc[-1])
-                    record['ema50_1d'] = round(ema50_1d, 2)
-
-                    target_sl = ema50_1d
-                    record['active_sl_level'] = round(target_sl, 2)
-
-                    # Calculate loss at EMA50 level
-                    potential_loss_pct = round(((target_sl - entry_price) / entry_price) * 100, 2)
-
-                    # Only trigger LOSS if price is below EMA50 AND loss is significant (>= 10%)
-                    # 1D EMA50 stop loss: need meaningful loss before marking as LOSS (min SL = 10%)
-                    min_loss_threshold = -10.0
-                    if current_price <= target_sl and potential_loss_pct <= min_loss_threshold:
-                        hdsl_status = "LOSS"
-                    else:
-                        hdsl_status = "PENDING"
-
-                    if hdsl_status == "LOSS":
-                        record['result'] = 'LOSS'
-                        record['return_pct'] = potential_loss_pct
-                        record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 2. Profit Target — bot's recorded profit_zone.low
-                    elif profit_target and current_price >= float(profit_target):
-                        record['result'] = 'WIN'
-                        record['exit_date'] = today.strftime('%Y-%m-%d')
-                    # 3. Time Limit — 30 Days Auto-Close at Peak (peak_price guaranteed numeric above)
-                    elif days_held >= 30:
-                        peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
-                        # Only LOSS if loss is significant (>= 10%, min SL rule), otherwise WIN (neutral/small loss = breakeven)
-                        record['result'] = 'WIN' if peak_pct > -10.0 else 'LOSS'
-                        record['return_pct'] = peak_pct
-                        record['max_price'] = round(peak_price, 2)
-                        record['exit_date'] = today.strftime('%Y-%m-%d')
+                    record['result'] = sim['result']
+                    record['return_pct'] = sim['return_pct']
+                    record['days'] = sim['days']
+                    record['max_price'] = sim['max_price']
+                    record['peak_date'] = sim['peak_date']
+                    record['peak_gain_pct'] = sim['peak_gain_pct']
+                    if sim['ema50_1d'] is not None:
+                        record['ema50_1d'] = sim['ema50_1d']
+                        record['active_sl_level'] = sim['active_sl_level']
+                    if sim['exit_date']:
+                        record['exit_date'] = sim['exit_date']
+                    elif 'exit_date' in record and sim['result'] == 'PENDING':
+                        record.pop('exit_date', None)
 
                 except Exception as e:
-                    log(f"Error updating {ticker}: {str(e)}")
+                    log(f"Error simulating {ticker}: {str(e)}")
         except Exception as e:
             log(f"Bulk download failed: {str(e)}")
 
@@ -237,14 +283,7 @@ def update_performance():
             if entry.get(field):
                 entry[field] = fix_encoding(entry[field])
 
-    # 3b. Ensure peak_gain_pct exists for every record (entry/max_price already known)
-    for record in history:
-        entry_price = record.get('entry')
-        peak_price = record.get('max_price')
-        if entry_price and peak_price is not None and record.get('peak_gain_pct') is None:
-            record['peak_gain_pct'] = round(((peak_price - entry_price) / entry_price) * 100, 2)
-
-    # 3c. 30-Day Duplicate Rule — within a 30-day window, only the FIRST occurrence
+    # 3b. 30-Day Duplicate Rule — within a 30-day window, only the FIRST occurrence
     # of a ticker is counted in stats; later repeats are flagged as is_duplicate
     # and excluded from win-rate / avg-return / etc. (but kept visible in the log).
     by_ticker = {}
