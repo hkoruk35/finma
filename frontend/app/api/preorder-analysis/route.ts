@@ -47,6 +47,108 @@ function calcATR(highs: number[], lows: number[], closes: number[], period = 14)
   return trs.slice(-period).reduce((s, v) => s + v, 0) / Math.min(period, trs.length);
 }
 
+function emaSeries(values: number[], period: number): number[] {
+  if (values.length === 0) return [];
+  const k = 2 / (period + 1);
+  const out: number[] = [values[0]];
+  for (let i = 1; i < values.length; i++) out.push(values[i] * k + out[i - 1] * (1 - k));
+  return out;
+}
+
+function calcMACD(closes: number[]): { macd: number; signal: number; histogram: number } {
+  if (closes.length < 26) return { macd: 0, signal: 0, histogram: 0 };
+  const ema12 = emaSeries(closes, 12);
+  const ema26 = emaSeries(closes, 26);
+  const macdLine = closes.map((_, i) => ema12[i] - ema26[i]);
+  const signalSeries = emaSeries(macdLine.slice(25), 9);
+  const macd = macdLine.at(-1) ?? 0;
+  const signal = signalSeries.at(-1) ?? 0;
+  return { macd, signal, histogram: macd - signal };
+}
+
+function calcADX(highs: number[], lows: number[], closes: number[], period = 14): number {
+  const n = highs.length;
+  if (n < period * 2) return 20;
+  const plusDM: number[] = [0], minusDM: number[] = [0], tr: number[] = [0];
+  for (let i = 1; i < n; i++) {
+    const upMove = highs[i] - highs[i - 1];
+    const downMove = lows[i - 1] - lows[i];
+    plusDM.push(upMove > downMove && upMove > 0 ? upMove : 0);
+    minusDM.push(downMove > upMove && downMove > 0 ? downMove : 0);
+    tr.push(Math.max(highs[i] - lows[i], Math.abs(highs[i] - closes[i - 1]), Math.abs(lows[i] - closes[i - 1])));
+  }
+  const smooth = (arr: number[]): number[] => {
+    const out: number[] = [];
+    let sum = arr.slice(1, period + 1).reduce((s, v) => s + v, 0);
+    out[period] = sum;
+    for (let i = period + 1; i < arr.length; i++) { sum = sum - arr[i - period] + arr[i]; out[i] = sum; }
+    return out;
+  };
+  const trS = smooth(tr), plusS = smooth(plusDM), minusS = smooth(minusDM);
+  const dx: number[] = [];
+  for (let i = period; i < n; i++) {
+    const trv = trS[i] || 1e-9;
+    const plusDI = (100 * plusS[i]) / trv;
+    const minusDI = (100 * minusS[i]) / trv;
+    const sum = plusDI + minusDI || 1e-9;
+    dx.push((100 * Math.abs(plusDI - minusDI)) / sum);
+  }
+  if (dx.length === 0) return 20;
+  const tail = dx.slice(-period);
+  return tail.reduce((s, v) => s + v, 0) / tail.length;
+}
+
+function calcROC(closes: number[], period = 10): number {
+  if (closes.length < period + 1) return 0;
+  const past = closes[closes.length - 1 - period];
+  const now = closes.at(-1)!;
+  return past > 0 ? ((now - past) / past) * 100 : 0;
+}
+
+function calcBBPercent(closes: number[], period = 20, mult = 2): number {
+  if (closes.length < period) return 0.5;
+  const slice = closes.slice(-period);
+  const mean = slice.reduce((s, v) => s + v, 0) / period;
+  const variance = slice.reduce((s, v) => s + (v - mean) ** 2, 0) / period;
+  const sd = Math.sqrt(variance);
+  const upper = mean + mult * sd;
+  const lower = mean - mult * sd;
+  const price = closes.at(-1)!;
+  return upper > lower ? (price - lower) / (upper - lower) : 0.5;
+}
+
+// ── BOGA Score bileşenleri (public — Opsiyon bileşeni yok, Karar H) ─────────
+
+function calcTrendScorePublic(params: { price: number; ema9: number; ema20: number; ema50: number; ema200: number; adx: number; pct52h: number }): number {
+  const { price, ema9, ema20, ema50, ema200, adx, pct52h } = params;
+  let score = 0;
+  if (ema9 > ema20 && ema20 > ema50 && ema50 > ema200) score += 40;
+  else if (ema20 > ema50 && ema50 > ema200) score += 30;
+  else if (ema20 > ema50) score += 20;
+  if (price > ema200) score += 20;
+  if (adx >= 35) score += 20; else if (adx >= 25) score += 15; else if (adx >= 20) score += 10;
+  if (pct52h >= -3) score += 20; else if (pct52h >= -8) score += 15; else if (pct52h >= -15) score += 10;
+  return Math.min(100, score);
+}
+
+function calcMomentumScorePublic(params: { rsi: number; rvol: number; macd: number; macdHist: number; roc: number }): number {
+  const { rsi, rvol, macd, macdHist, roc } = params;
+  let score = 0;
+  if (rvol >= 4.0) score += 30; else if (rvol >= 2.5) score += 22; else if (rvol >= 1.5) score += 15; else if (rvol >= 1.0) score += 5;
+  if (rsi >= 60 && rsi <= 72) score += 25; else if (rsi >= 55 && rsi < 60) score += 18; else if (rsi >= 50 && rsi < 55) score += 10;
+  if (macd > 0 && macdHist > 0) score += 25; else if (macd > 0) score += 15; else if (macdHist > 0) score += 10;
+  if (roc >= 8) score += 20; else if (roc >= 5) score += 15; else if (roc >= 2) score += 8;
+  return Math.min(100, score);
+}
+
+function calcLiquidityScorePublic(rvol: number, avgVol: number, price: number): number {
+  let score = 0;
+  const dolVol = avgVol * price;
+  if (dolVol >= 50e6) score += 50; else if (dolVol >= 10e6) score += 38; else if (dolVol >= 5e6) score += 25; else if (dolVol >= 1e6) score += 12;
+  if (rvol >= 3.0) score += 50; else if (rvol >= 2.0) score += 36; else if (rvol >= 1.5) score += 24; else if (rvol >= 1.0) score += 10;
+  return Math.min(100, score);
+}
+
 function calcPivots(high: number, low: number, close: number) {
   const p = (high + low + close) / 3;
   return {
@@ -241,6 +343,13 @@ interface PreorderAnalysis {
     stop: { price: number; pct: number };
     rr1: number; rr2: number;
   };
+  momentum: {
+    macd: number; macdSignal: number; macdHist: number;
+    adx: number; roc10: number; bbPercent: number;
+  };
+  bogaScore: { trend: number; momentum: number; liquidity: number };
+  activeSignals: string[];
+  warnings: string[];
 }
 
 // ── Fetch helper ─────────────────────────────────────────────────────────────

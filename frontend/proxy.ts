@@ -1,25 +1,35 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const authCookie = request.cookies.get('boga_auth')
   const { pathname } = request.nextUrl
 
-  // 1. Her zaman erişilebilecek yollar (Login, Landing Page ve Statik Dosyalar)
+  // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
+  const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
+
+  // 1. Her zaman erişilebilecek yollar (Login, Public /en+/tr, Landing Page ve Statik Dosyalar)
   const isPublicPath =
-    pathname.startsWith('/login') ||
+    isPathOrSubpath('/login') ||
+    isPathOrSubpath('/en') ||
+    isPathOrSubpath('/tr') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.includes('.') || // resimler, fontlar vb.
     pathname === '/favicon.ico'
 
-  // 2. Giriş yapmamış kullanıcı → her zaman /login'e yönlendir
+  // 2. Giriş yapmamış kullanıcı kökte (/) ise → public /en bölümüne yönlendir
+  if (!authCookie && pathname === '/') {
+    return NextResponse.redirect(new URL('/en', request.url))
+  }
+
+  // 3. Giriş yapmamış kullanıcı → her zaman /login'e yönlendir
   if (!authCookie && !isPublicPath) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  // 3. Giriş yapmış kullanıcı /login veya / 'a gelirse → /pro'ya yönlendir
-  if (authCookie && (pathname.startsWith('/login') || pathname === '/')) {
+  // 4. Giriş yapmış kullanıcı /login veya / 'a gelirse → /pro'ya yönlendir
+  if (authCookie && (isPathOrSubpath('/login') || pathname === '/')) {
     return NextResponse.redirect(new URL('/pro', request.url))
   }
 
