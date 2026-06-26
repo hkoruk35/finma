@@ -12,15 +12,12 @@ export function proxy(request: NextRequest) {
   // /global/en/[ticker], /global/tr/[ticker], /global/en/account, /global/tr/hesabim
   // Bu sayfalar halka açık değil — üye girişi zorunlu
   const isGlobalMemberPath =
-    isPathOrSubpath('/global/en/account') ||
-    isPathOrSubpath('/global/tr/hesabim') ||
-    // [ticker] sayfaları: /global/en/NVDA, /global/tr/AAPL — top100 değil
+    // /global/en altında sadece landing (/) ve login public — geri her şey üye gerektirir
     (isPathOrSubpath('/global/en') &&
-      !pathname.startsWith('/global/en/top100') &&
       !pathname.startsWith('/global/en/login') &&
       pathname !== '/global/en') ||
+    // /global/tr altında sadece landing (/) ve giris public — geri her şey üye gerektirir
     (isPathOrSubpath('/global/tr') &&
-      !pathname.startsWith('/global/tr/top100') &&
       !pathname.startsWith('/global/tr/giris') &&
       pathname !== '/global/tr')
 
