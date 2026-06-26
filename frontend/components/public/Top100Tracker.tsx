@@ -22,6 +22,22 @@ function fmtVol(n: number | null): string {
   return `${n}`;
 }
 
+function fmt2(n: number | null): string {
+  if (n == null) return "—";
+  return n.toFixed(2);
+}
+
+function heatBg(pct: number | null) {
+  if (pct === null) return { bg: "#111111", text: "#333333" };
+  if (pct >= 2.0) return { bg: "#0d4a0d", text: "#56d364" };
+  if (pct >= 1.0) return { bg: "#0d3a0d", text: "#3fb950" };
+  if (pct >= 0.3) return { bg: "#0d2a0d", text: "#3fb950" };
+  if (pct > -0.3) return { bg: "#1a1a1a", text: "#8b949e" };
+  if (pct > -1.0) return { bg: "#2a0d0d", text: "#f85149" };
+  if (pct > -2.0) return { bg: "#3a0d0d", text: "#f85149" };
+  return { bg: "#4a0d0d", text: "#ff7b72" };
+}
+
 function emaArrow(ema20: number | null, ema50: number | null, ema200: number | null): string {
   if (ema20 == null || ema50 == null || ema200 == null) return "";
   if (ema20 > ema50 && ema50 > ema200) return "↑";
@@ -125,7 +141,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 <th className="px-3 py-2.5 text-right hidden md:table-cell">{t.colVolume}</th>
                 <th className="px-3 py-2.5 text-right">{t.colChange}</th>
                 <th className="px-3 py-2.5 text-right hidden lg:table-cell">{t.colEma}</th>
-                <th className="px-3 py-2.5 text-right">{t.colRsi}</th>
+                <th className="px-3 py-2.5 text-right hidden xl:table-cell">RSI</th>
+                <th className="px-3 py-2.5 text-right hidden xl:table-cell">MACD</th>
+                <th className="px-3 py-2.5 text-right hidden xl:table-cell">ADX</th>
                 <th className="px-3 py-2.5 hidden lg:table-cell">{t.colPattern}</th>
                 <th className="px-3 py-2.5 text-center">{t.colSignal}</th>
               </tr>
@@ -159,7 +177,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       <td className="px-3 py-2.5 text-right font-mono text-white/50 hidden lg:table-cell">
                         {r.ema20 != null ? `${r.ema20.toFixed(1)}/${r.ema50?.toFixed(1)}/${r.ema200?.toFixed(1)} ${emaArrow(r.ema20, r.ema50, r.ema200)}` : "—"}
                       </td>
-                      <td className="px-3 py-2.5 text-right font-mono text-white/70">{r.rsi != null ? r.rsi.toFixed(1) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.rsi != null ? r.rsi.toFixed(1) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.macd != null ? r.macd.toFixed(3) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.adx != null ? r.adx.toFixed(1) : "—"}</td>
                       <td className="px-3 py-2.5 text-white/50 hidden lg:table-cell">{r.pattern || "—"}</td>
                       <td className="px-3 py-2.5 text-center">
                         <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${SIGNAL_STYLE[r.signal ?? ""] ?? SIGNAL_STYLE.Bekle}`}>
@@ -169,7 +189,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                     </tr>
                     {isExpanded && (
                       <tr className="bg-[#0a0e17]">
-                        <td colSpan={9} className="p-0">
+                        <td colSpan={11} className="p-0">
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
                       </tr>
