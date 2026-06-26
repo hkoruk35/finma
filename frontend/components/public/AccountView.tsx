@@ -14,7 +14,7 @@ type Member = {
   created_at: string;
 };
 
-export default function AccountView({ locale }: { locale: Locale }) {
+export default function AccountView({ locale, isGlobal = false }: { locale: Locale; isGlobal?: boolean }) {
   const t = copy[locale].account;
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
@@ -32,12 +32,16 @@ export default function AccountView({ locale }: { locale: Locale }) {
 
   const handleLogout = async () => {
     await fetch("/api/members/logout", { method: "POST" }).catch(() => {});
-    router.push(locale === "en" ? "/en" : "/tr");
+    if (isGlobal) {
+      router.push(locale === "en" ? "/global/en" : "/global/tr");
+    } else {
+      router.push(locale === "en" ? "/en" : "/tr");
+    }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#010409] text-white/50 text-sm">
+      <div className={`${isGlobal ? "h-[60vh]" : "min-h-screen"} flex items-center justify-center bg-[#010409] text-white/50 text-sm`}>
         {t.loading}
       </div>
     );
@@ -49,7 +53,7 @@ export default function AccountView({ locale }: { locale: Locale }) {
     iso ? new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "tr-TR") : "—";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#010409] font-sans px-4 py-12">
+    <div className={`${isGlobal ? "flex-1" : "min-h-screen"} flex items-center justify-center bg-[#010409] font-sans px-4 py-12`}>
       <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl">
         <h1 className="text-2xl font-black text-white tracking-tighter mb-6 text-center">{t.title}</h1>
 
