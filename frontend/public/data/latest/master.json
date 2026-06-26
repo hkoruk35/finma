@@ -1,29 +1,29 @@
 {
-  "date": "2026-06-25",
-  "generated_at": "2026-06-25T13:04:09.008616-04:00",
+  "date": "2026-06-26",
+  "generated_at": "2026-06-26T13:03:57.877896-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 17,
+  "active_scores_count": 12,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "FLG",
-        "AHR",
-        "CBU",
-        "MAC",
-        "SBCF",
-        "TFC",
-        "CTRN",
-        "SSD",
-        "IP",
-        "BATRK"
+        "RF",
+        "SNDA",
+        "GFF",
+        "PSTL",
+        "ZD",
+        "WELL",
+        "NGVT",
+        "LEG",
+        "IPAR",
+        "PTRN"
       ]
     },
     "breakout": {
       "count": 1,
       "tickers": [
-        "BELFA"
+        "IPAR"
       ]
     },
     "value": {
@@ -45,18 +45,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "FLG",
+      "ticker": "RF",
       "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AHR",
-      "score": 55.0,
+      "ticker": "SNDA",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CBU",
-      "score": 54.5,
+      "ticker": "GFF",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
