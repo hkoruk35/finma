@@ -26,6 +26,23 @@ export function proxy(request: NextRequest) {
     (c) => c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
   )
 
+  // ── /en/top100 ve /tr/top100 → /global/ altına yönlendir ───────────────────
+  // Top 100 Tracker sadece /global/ altında, Supabase login gerektirir
+  if (pathname === '/en/top100' || pathname === '/tr/top100') {
+    if (!hasSupabaseSession) {
+      // Login değil → login sayfasına yönlendir
+      const loginUrl = pathname.startsWith('/tr')
+        ? '/global/tr/giris'
+        : '/global/en/login'
+      return NextResponse.redirect(new URL(loginUrl, request.url))
+    }
+    // Login yapıldı → /global/ altına yönlendir
+    const globalPath = pathname.startsWith('/tr')
+      ? '/global/tr/top100'
+      : '/global/en/top100'
+    return NextResponse.redirect(new URL(globalPath, request.url))
+  }
+
   // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession) {
     // Hangi dil? /global/tr → tr/giris, diğerleri → en/login
