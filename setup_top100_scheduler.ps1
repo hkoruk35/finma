@@ -28,3 +28,10 @@ Register-Top100Task -Name "BOGA_AI_Top100_Fixed90" -Script "update_top100_fixed.
 $T2 = New-ScheduledTaskTrigger -Daily -At "14:00"
 Register-Top100Task -Name "BOGA_AI_Top100_Swing10" -Script "update_top100_swing.py" -Trigger $T2 `
     -Description "Top 100 Tracker - 10'luk gunluk swing dilimi (skora gore /swing'den) - gunluk 14:00 NY"
+
+# 3) Saatlik fiyat/EMA/RSI/sinyal tazeleme — haftaici, 09:00'dan baslayip 8 saat boyunca saatlik (17:00 NY'a kadar)
+$RepOnce = New-ScheduledTaskTrigger -Once -At "09:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 8)
+$T3 = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday -At "09:00"
+$T3.Repetition = $RepOnce.Repetition
+Register-Top100Task -Name "BOGA_AI_Top100_Hourly" -Script "update_top100_hourly.py" -Trigger $T3 `
+    -Description "Top 100 Tracker - saatlik fiyat/EMA/RSI/sinyal tazeleme - haftaici 09:00-17:00 NY, saatlik"

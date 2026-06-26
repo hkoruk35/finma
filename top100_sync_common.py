@@ -15,7 +15,9 @@ ENV = dotenv_values(REPO_ROOT / "frontend" / ".env.local")
 
 SUPABASE_URL = ENV.get("NEXT_PUBLIC_SUPABASE_URL")
 SUPABASE_SERVICE_KEY = ENV.get("SUPABASE_SERVICE_KEY")
-BOT_SECRET = ENV.get("BOT_INTERNAL_SECRET")
+# Mevcut bot-pipeline kimlik dogrulamasi (swing117_boga.py -> /api/revalidate-swing ile ayni) —
+# OS ortam degiskeni olarak tanimli, .env.local'de degil.
+BOT_SECRET = os.environ.get("REVALIDATE_SECRET")
 
 BASE_URL = os.environ.get("TOP100_SYNC_BASE_URL", "https://bogastock.com")
 SYNC_URL = f"{BASE_URL}/api/internal/top100-sync"
@@ -44,11 +46,11 @@ def get_shared_store(key: str):
 def sync_top100(tickers: list[str], source: str) -> dict:
     """Verilen ticker listesini ilgili source bucket'ina yazar (tam degisim) ve snapshot'lari hesaplar."""
     if not BOT_SECRET:
-        raise RuntimeError("BOT_INTERNAL_SECRET bulunamadi — frontend/.env.local kontrol et.")
+        raise RuntimeError("REVALIDATE_SECRET ortam degiskeni bulunamadi.")
     res = requests.post(
         SYNC_URL,
         json={"tickers": tickers, "source": source},
-        headers={"x-bot-secret": BOT_SECRET, "Content-Type": "application/json"},
+        headers={"x-revalidate-secret": BOT_SECRET, "Content-Type": "application/json"},
         timeout=300,
     )
     try:

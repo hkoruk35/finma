@@ -13,8 +13,9 @@ import { getAllTickers } from "@/lib/data";
  */
 
 function requireBotSecret(req: NextRequest): boolean {
-  const secret = req.headers.get("x-bot-secret");
-  return !!secret && secret === process.env.BOT_INTERNAL_SECRET;
+  // Mevcut bot-pipeline kimlik dogrulamasi (swing117_boga.py -> /api/revalidate-swing ile ayni desen)
+  const secret = req.headers.get("x-revalidate-secret");
+  return !!secret && secret === process.env.REVALIDATE_SECRET;
 }
 
 export async function POST(req: NextRequest) {

@@ -217,11 +217,6 @@ export default function Header({
             </button>
           )}
 
-          {(isHomePage || hideMenus) && !onNewQueryClick && (
-            <span className="hidden md:flex text-[10px] font-black uppercase tracking-widest text-[#64748b] border border-[#1e2a3a] px-3 py-1.5 rounded-lg bg-[#0d1117]">
-              DEVELOPMENT PHASE
-            </span>
-          )}
 
           {/* Logout butonu — her zaman görünür */}
           {!isHomePage && !hideMenus && (
