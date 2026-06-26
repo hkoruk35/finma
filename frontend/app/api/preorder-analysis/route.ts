@@ -4,6 +4,22 @@ import { NextRequest, NextResponse } from "next/server";
 const cache = new Map<string, { data: PreorderAnalysis; ts: number }>();
 const CACHE_TTL = 2 * 60 * 1000;
 
+// Public erişim — in-memory rate limiter (app/api/auth/login/route.ts deseni, okuma trafiğine göre gevşek eşik)
+const rlAttempts = new Map<string, { count: number; resetAt: number }>();
+const RL_MAX = 120;
+const RL_WINDOW_MS = 15 * 60 * 1000;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rlAttempts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rlAttempts.set(ip, { count: 1, resetAt: now + RL_WINDOW_MS });
+    return false;
+  }
+  entry.count++;
+  return entry.count > RL_MAX;
+}
+
 // ── Math helpers ────────────────────────────────────────────────────────────
 
 function calcEMA(closes: number[], period: number): number {
@@ -375,6 +391,11 @@ function safeArr(arr: any[] | null | undefined): number[] {
 // ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a few minutes." }, { status: 429 });
+  }
+
   const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase().trim();
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
 
@@ -458,6 +479,33 @@ export async function GET(req: NextRequest) {
 
   const weinstein = weinsteinStage(closes1d);
   const vcpDetected = vols1d.length >= 10 && Math.min(...vols1d.slice(-10)) < avgVol30 * 0.65;
+
+  // ── Momentum bileşenleri (MACD/ADX/ROC/BB%) ──────────────────────────────
+  const macdResult = calcMACD(closes1d);
+  const d1_adx     = calcADX(highs1d, lows1d, closes1d);
+  const roc10      = calcROC(closes1d, 10);
+  const bbPercent  = calcBBPercent(closes1d);
+
+  // ── BOGA Score bileşenleri (public — Trend/Momentum/Likidite) ───────────
+  const trendScore     = calcTrendScorePublic({ price, ema9: d1_ema9, ema20: d1_ema20, ema50: d1_ema50, ema200: d1_ema200, adx: d1_adx, pct52h });
+  const momentumScore  = calcMomentumScorePublic({ rsi: d1_rsi, rvol, macd: macdResult.macd, macdHist: macdResult.histogram, roc: roc10 });
+  const liquidityScore = calcLiquidityScorePublic(rvol, avgVol30, price);
+
+  // ── Aktif sinyaller + uyarılar ───────────────────────────────────────────
+  const activeSignals: string[] = [];
+  if (price > d1_ema200) activeSignals.push("Price>EMA200");
+  if (d1_ema20 > d1_ema50) activeSignals.push("EMA20>EMA50");
+  if (d1_rsi >= 55 && d1_rsi <= 70) activeSignals.push(`RSI ${d1_rsi.toFixed(0)} (Momentum)`);
+  if (rvol >= 1.5) activeSignals.push(`RVOL ${rvol.toFixed(1)}x`);
+  if (changePct > 2) activeSignals.push(`+${changePct.toFixed(1)}% Güçlü gün`);
+  if (atrPct > 5) activeSignals.push(`ATR ${atrPct.toFixed(1)}%`);
+  if (macdResult.histogram > 0) activeSignals.push("MACD Pozitif");
+
+  const warnings: string[] = [];
+  if (d1_rsi > 78) warnings.push("RSI aşırı alım bölgesinde — kısa vadede geri çekilme riski");
+  if (pct52h < -25) warnings.push("52 haftalık zirveden uzak — trend zayıf olabilir");
+  if (atrPct > 8) warnings.push("ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla");
+  if (rvol < 0.5) warnings.push("Hacim ortalamanın çok altında — likidite riski");
 
   // ── 1H indicators ────────────────────────────────────────────────────────
   let h1_ema9 = 0, h1_ema20 = 0, h1_ema50 = 0, h1_rsi = 50, h1_pat = "—", h1_rvol = 1;
@@ -644,6 +692,13 @@ export async function GET(req: NextRequest) {
       stop: { price: +stopPrice.toFixed(2), pct: +stopPct.toFixed(1) },
       rr1: +rr1.toFixed(1), rr2: +rr2.toFixed(1),
     },
+    momentum: {
+      macd: +macdResult.macd.toFixed(3), macdSignal: +macdResult.signal.toFixed(3), macdHist: +macdResult.histogram.toFixed(3),
+      adx: +d1_adx.toFixed(1), roc10: +roc10.toFixed(1), bbPercent: +bbPercent.toFixed(2),
+    },
+    bogaScore: { trend: trendScore, momentum: momentumScore, liquidity: liquidityScore },
+    activeSignals,
+    warnings,
   };
 
   cache.set(ticker, { data: result, ts: Date.now() });
