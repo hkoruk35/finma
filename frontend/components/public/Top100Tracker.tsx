@@ -177,9 +177,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       <td className="px-3 py-2.5 text-right font-mono text-white/50 hidden lg:table-cell">
                         {r.ema20 != null ? `${r.ema20.toFixed(1)}/${r.ema50?.toFixed(1)}/${r.ema200?.toFixed(1)} ${emaArrow(r.ema20, r.ema50, r.ema200)}` : "—"}
                       </td>
-                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.rsi != null ? r.rsi.toFixed(1) : "—"}</td>
-                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.macd != null ? r.macd.toFixed(3) : "—"}</td>
-                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden xl:table-cell">{r.adx != null ? r.adx.toFixed(1) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden md:table-cell">{r.rsi != null ? r.rsi.toFixed(1) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden md:table-cell">{r.macd != null ? r.macd.toFixed(3) : "—"}</td>
+                      <td className="px-3 py-2.5 text-right font-mono text-white/70 hidden md:table-cell">{r.adx != null ? r.adx.toFixed(1) : "—"}</td>
                       <td className="px-3 py-2.5 text-white/50 hidden lg:table-cell">{r.pattern || "—"}</td>
                       <td className="px-3 py-2.5 text-center">
                         <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${SIGNAL_STYLE[r.signal ?? ""] ?? SIGNAL_STYLE.Bekle}`}>
