@@ -5,15 +5,23 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 
-export default function LoginForm({ locale }: { locale: Locale }) {
+export default function LoginForm({
+  locale,
+  redirectTo,
+  registerHref: registerHrefProp,
+}: {
+  locale: Locale;
+  redirectTo?: string;
+  registerHref?: string;
+}) {
   const t = copy[locale].login;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const registerHref = locale === "en" ? "/en/register" : "/tr/kayit";
-  const topHref = locale === "en" ? "/en/top100" : "/tr/top100";
+  const registerHref = registerHrefProp ?? (locale === "en" ? "/en/register" : "/tr/kayit");
+  const topHref = redirectTo ?? (locale === "en" ? "/en/top100" : "/tr/top100");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

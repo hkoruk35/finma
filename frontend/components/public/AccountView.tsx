@@ -33,7 +33,7 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
   const handleLogout = async () => {
     await fetch("/api/members/logout", { method: "POST" }).catch(() => {});
     if (isGlobal) {
-      router.push(locale === "en" ? "/global/en" : "/global/tr");
+      router.push(locale === "en" ? "/global/en/login" : "/global/tr/giris");
     } else {
       router.push(locale === "en" ? "/en" : "/tr");
     }
