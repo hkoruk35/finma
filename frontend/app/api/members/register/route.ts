@@ -27,14 +27,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { email?: string; password?: string; username?: string };
+  let body: { email?: string; password?: string; username?: string; redirectTo?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { email, password, username } = body;
+  const { email, password, username, redirectTo } = body;
   if (!email || !password || !username) {
     return NextResponse.json(
       { error: "Email, password and username are required." },
@@ -58,7 +58,10 @@ export async function POST(req: NextRequest) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { username } },
+    options: {
+      data: { username },
+      emailRedirectTo: redirectTo
+    },
   });
 
   if (error) {

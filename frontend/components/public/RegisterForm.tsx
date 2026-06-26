@@ -15,7 +15,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
   const [needsConfirmation, setNeedsConfirmation] = useState(false);
   const router = useRouter();
   const loginHref = locale === "en" ? "/en/login" : "/tr/giris";
-  const topHref = locale === "en" ? "/en/top100" : "/tr/top100";
+  const topHref = locale === "en" ? "/global/en/top100" : "/global/tr/top100";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +23,11 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
     setLoading(true);
 
     try {
+      const confirmRedirectTo = window.location.origin + (locale === "en" ? "/en/top100" : "/tr/top100");
       const res = await fetch("/api/members/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password, redirectTo: confirmRedirectTo }),
       });
       const data = await res.json();
 

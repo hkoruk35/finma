@@ -13,14 +13,15 @@ export function proxy(request: NextRequest) {
     isPathOrSubpath('/login') ||
     isPathOrSubpath('/en') ||
     isPathOrSubpath('/tr') ||
+    isPathOrSubpath('/global') ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.includes('.') || // resimler, fontlar vb.
     pathname === '/favicon.ico'
 
-  // 2. Giriş yapmamış kullanıcı kökte (/) ise → public /en bölümüne yönlendir
+  // 2. Giriş yapmamış kullanıcı kökte (/) ise → public /global/en bölümüne yönlendir
   if (!authCookie && pathname === '/') {
-    return NextResponse.redirect(new URL('/en', request.url))
+    return NextResponse.redirect(new URL('/global/en', request.url))
   }
 
   // 3. Giriş yapmamış kullanıcı → her zaman /login'e yönlendir
