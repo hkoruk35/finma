@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import PreOrderClient from "@/components/PreOrderClient";
 
@@ -18,7 +18,7 @@ export default async function GlobalPreOrderTickerPage({
   const { ticker } = await params;
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} />
+      <MemberHeader locale="en" />
       <main className="flex-1 w-full">
         <PreOrderClient ticker={ticker.toUpperCase()} hideAdminActions={true} />
       </main>

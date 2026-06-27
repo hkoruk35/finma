@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getSwingPerformance, getSwingAllPicks } from "@/lib/data";
 import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
@@ -39,7 +39,7 @@ export default async function TrSwingPerformancePage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#080b12]">
-      <Header hideMenus={true} />
+      <MemberHeader locale="tr" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">

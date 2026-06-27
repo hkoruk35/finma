@@ -24,7 +24,9 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const router = useRouter();
   const feedbackHref = locale === "en" ? "/en/account/feedback" : "/tr/hesabim/geri-bildirim";
-  const loginHref = locale === "en" ? "/en/login" : "/tr/giris";
+  const loginHref = isGlobal
+    ? (locale === "en" ? "/global/en/login" : "/global/tr/giris")
+    : (locale === "en" ? "/en/login" : "/tr/giris");
 
   useEffect(() => {
     fetch("/api/members/me")

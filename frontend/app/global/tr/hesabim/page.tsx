@@ -1,5 +1,5 @@
 import AccountView from "@/components/public/AccountView";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 export default function GlobalTrHesabimPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} />
+      <MemberHeader locale="tr" />
       <main className="flex-1">
         <AccountView locale="tr" isGlobal={true} />
       </main>
