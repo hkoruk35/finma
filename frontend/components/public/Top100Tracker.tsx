@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
-import * as XLSX from "xlsx";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
@@ -210,32 +209,6 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
-  const downloadXLS = useCallback(() => {
-    const data = filtered.map((r) => {
-      const d = live[r.ticker];
-      return {
-        TICKER: r.ticker,
-        SEKTÖR: d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || "—",
-        FİYAT: d?.price?.current ?? "",
-        HACİM: d?.price?.volume ?? "",
-        "Δ% 1G": d?.tracker_1h?.change_pct_1d ?? "",
-        "HACİM ORANI": d?.tracker_1h?.volume_ratio_1d ?? "",
-        EMA20: d?.tracker_1h?.ema_20 ?? "",
-        EMA50: d?.tracker_1h?.ema_50 ?? "",
-        EMA200: d?.tracker_1h?.ema_200 ?? "",
-        DURUM: d?.tracker_1h?.ema_status || "—",
-        RSI: d?.tracker_1h?.rsi ?? "",
-        PATERN: d?.tracker_1h?.candle_pattern || "—",
-        SİNYAL: d?.tracker_1h?.signal || "—",
-      };
-    });
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "BOGA Top100");
-    const date = new Date().toISOString().slice(0, 10);
-    XLSX.writeFile(wb, `boga-top100-${date}.xlsx`);
-  }, [filtered, live]);
-
   const permalink = (ticker: string) => (locale === "en" ? `/global/en/${ticker}` : `/global/tr/${ticker}`);
 
   if (!mounted || loading) {
@@ -286,15 +259,6 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
-            </button>
-            <button onClick={downloadXLS} disabled={filtered.length === 0}
-              style={{
-                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
-                border: "1px solid #3fb950", background: "#3fb95020",
-                color: filtered.length === 0 ? "#8b949e" : "#3fb950",
-                borderRadius: 4, cursor: filtered.length === 0 ? "not-allowed" : "pointer",
-              }}>
-              XLS ↓
             </button>
           </div>
         </div>
