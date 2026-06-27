@@ -273,18 +273,6 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          {([{ v: "", l: "TÜMÜ" }, { v: "fixed", l: "YATIRIMLIK" }, { v: "swing_daily", l: "SWING" }] as const).map(({ v, l }) => (
-            <button key={v || "all-src"} onClick={() => setFilterSource(v)}
-              style={{
-                padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
-                border: "1px solid", borderColor: filterSource === v ? ACCENT : "#30363d",
-                background: filterSource === v ? ACCENT + "20" : "transparent",
-                color: filterSource === v ? ACCENT : "#8b949e", borderRadius: 3, cursor: "pointer",
-              }}>
-              {l}
-            </button>
-          ))}
-          <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
           {["", "AL", "İzle", "Bekle", "SAT"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
