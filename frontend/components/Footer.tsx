@@ -19,6 +19,22 @@ const LEGAL_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
   ],
 };
 
+const RESOURCES_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
+  en: [
+    { href: "/about", label: "About BOGA AI" },
+    { href: "/contact", label: "Contact Support" },
+  ],
+  tr: [
+    { href: "/about/tr", label: "BOGA AI Hakkında" },
+    { href: "/contact", label: "Destek İletişim" },
+  ],
+};
+
+const BRAND_TAGLINE: Record<"en" | "tr", string> = {
+  en: "AI-powered stock analysis of +8000 top US stocks.",
+  tr: "+8000 ABD hissesi için AI destekli analiz.",
+};
+
 export default function Footer({
   hidePlatform = false,
   locale,
@@ -47,7 +63,7 @@ export default function Footer({
               <span className="text-base font-black text-white tracking-tighter">BOGA AI - Blue One Global<br/>Analysis</span>
             </div>
             <p className="text-xs text-[#00d2ff]">
-              AI-powered stock analysis of +8000 top US stocks.
+              {BRAND_TAGLINE[locale === "tr" ? "tr" : "en"]}
             </p>
           </div>
 
@@ -68,10 +84,13 @@ export default function Footer({
 
           {/* Resources */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-3">Resources</h4>
+            <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Kaynaklar" : "Resources"}</h4>
             <div className="flex flex-col gap-2">
-              <Link href="/about" className="text-xs text-[#00d2ff] hover:text-white transition-colors">About BOGA AI</Link>
-              <Link href="/contact" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Contact Support</Link>
+              {RESOURCES_LINKS[locale === "tr" ? "tr" : "en"].map((item) => (
+                <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
 

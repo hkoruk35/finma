@@ -166,7 +166,7 @@ export default function AboutPageTr() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
           <h2 className="text-2xl font-bold text-white mb-4">Misyonumuz</h2>
           <p className="text-white max-w-2xl mx-auto italic leading-relaxed">
-            "Kurumsal düzeyde ABD hisse senedi piyasası analizini demokratikleştirmek — her bireysel yatırımcıya, profesyonel masaların güvendiği aynı günlük tarama derinliğini, puanlama hassasiyetini ve uygulanabilir istihbaratı sunmak."
+            "Büyük fonların ve profesyonellerin arkasındaki analitik gücü, her seviyeden yatırımcı için erişilebilir kılıyoruz. Gelişmiş piyasa tarama ve puanlama teknolojimizle, ABD borsalarında doğru yatırımı bulmayı karmaşık bir süreç olmaktan çıkarıp günlük bir rutin haline getiriyoruz."
           </p>
         </div>
 
