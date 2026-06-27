@@ -1,14 +1,18 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function DisclaimerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header />
+      <Header hideMenus={true} />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
+        <div className="flex justify-end mb-4">
+          <Link href="/disclaimer/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
+        </div>
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Legal & Compliance</h1>
-        
+
         <div className="glass-card p-8 space-y-12 text-white leading-relaxed">
           {/* Section 1 */}
           <section>
@@ -64,7 +68,7 @@ export default function DisclaimerPage() {
         </div>
       </main>
 
-      <Footer />
+      <Footer hidePlatform={true} />
     </div>
   );
 }

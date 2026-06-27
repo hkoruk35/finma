@@ -45,6 +45,11 @@ export async function GET(req: NextRequest) {
 
   const supabase = await createSupabaseServerClient();
 
+  const { data: userData, error: userError } = await supabase.auth.getUser();
+  if (userError || !userData.user) {
+    return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
+  }
+
   const { data: tickers, error: tickersError } = await supabase
     .from("top100_tickers")
     .select("ticker, company, sector, source")

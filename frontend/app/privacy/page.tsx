@@ -1,14 +1,18 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header />
+      <Header hideMenus={true} />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
+        <div className="flex justify-end mb-4">
+          <Link href="/privacy/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
+        </div>
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Privacy Policy</h1>
-        
+
         <div className="glass-card p-8 space-y-6 text-white leading-relaxed">
           <p>Last updated: April 2026</p>
 
@@ -62,7 +66,7 @@ export default function PrivacyPage() {
         </div>
       </main>
 
-      <Footer />
+      <Footer hidePlatform={true} />
     </div>
   );
 }

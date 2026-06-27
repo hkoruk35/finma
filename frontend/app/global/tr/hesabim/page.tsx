@@ -14,7 +14,7 @@ export default function GlobalTrHesabimPage() {
       <main className="flex-1">
         <AccountView locale="tr" isGlobal={true} />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }

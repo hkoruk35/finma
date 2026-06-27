@@ -104,10 +104,14 @@ export default function Header({
   hideMenus = false,
   onLogoClick,
   onNewQueryClick,
+  globalLocale,
 }: {
   hideMenus?: boolean;
   onLogoClick?: () => void;
   onNewQueryClick?: () => void;
+  /** When set, the logo becomes a smart link for the /global member area:
+   * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
+  globalLocale?: "en" | "tr";
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -122,6 +126,17 @@ export default function Header({
       localStorage.removeItem("user_email");
     } finally {
       router.push("/login");
+    }
+  };
+
+  const handleGlobalLogoClick = async () => {
+    const landingHref = globalLocale === "en" ? "/global/en" : "/global/tr";
+    const top100Href = globalLocale === "en" ? "/global/en/top100" : "/global/tr/top100";
+    try {
+      const res = await fetch("/api/members/me");
+      router.push(res.ok ? top100Href : landingHref);
+    } catch {
+      router.push(landingHref);
     }
   };
 
@@ -159,7 +174,11 @@ export default function Header({
 
         {/* Logo */}
         <div className="flex-shrink-0">
-          {onLogoClick ? (
+          {globalLocale ? (
+            <button onClick={handleGlobalLogoClick} className="flex items-center gap-2 group focus:outline-none">
+              {logoContent}
+            </button>
+          ) : onLogoClick ? (
             <button onClick={onLogoClick} className="flex items-center gap-2 group focus:outline-none">
               {logoContent}
             </button>

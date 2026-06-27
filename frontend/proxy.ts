@@ -1,12 +1,46 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
 
-export function proxy(request: NextRequest) {
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
+
+export async function proxy(request: NextRequest) {
   const authCookie = request.cookies.get('boga_auth')
   const { pathname } = request.nextUrl
 
   // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
   const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
+
+  // ── Supabase oturumunu burada yenile ────────────────────────────────────────
+  // Access token süresi dolduğunda yenileme, cookie'leri yazabilen bir yerde
+  // yapılmalı (Server Component'ler bunu yapamaz). Burada yapılmazsa, rotating
+  // refresh token ile bir sonraki istekte oturum sessizce düşer ve kullanıcı
+  // çıkış yapmadığı halde "çıkmış" gibi görünür.
+  let response = NextResponse.next({ request })
+  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll()
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        response = NextResponse.next({ request })
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options)
+        )
+      },
+    },
+  })
+  const { data: { user } } = await supabase.auth.getUser()
+
+  // Bir redirect döndürürken, yukarıda yenilenmiş olabilecek oturum
+  // cookie'lerini de redirect response'una taşı.
+  const redirectTo = (url: URL) => {
+    const res = NextResponse.redirect(url)
+    response.cookies.getAll().forEach((c) => res.cookies.set(c))
+    return res
+  }
 
   // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
   // /global/en/[ticker], /global/tr/[ticker], /global/en/account, /global/tr/hesabim
@@ -21,10 +55,7 @@ export function proxy(request: NextRequest) {
       !pathname.startsWith('/global/tr/giris') &&
       pathname !== '/global/tr')
 
-  // Supabase session cookie varlığını kontrol et (sb-* ile başlayan cookie)
-  const hasSupabaseSession = request.cookies.getAll().some(
-    (c) => c.name.startsWith('sb-') && c.name.endsWith('-auth-token')
-  )
+  const hasSupabaseSession = !!user
 
   // ── /en/top100 ve /tr/top100 → /global/ altına yönlendir ───────────────────
   // Top 100 Tracker sadece /global/ altında, Supabase login gerektirir
@@ -34,13 +65,13 @@ export function proxy(request: NextRequest) {
       const loginUrl = pathname.startsWith('/tr')
         ? '/global/tr/giris'
         : '/global/en/login'
-      return NextResponse.redirect(new URL(loginUrl, request.url))
+      return redirectTo(new URL(loginUrl, request.url))
     }
     // Login yapıldı → /global/ altına yönlendir
     const globalPath = pathname.startsWith('/tr')
       ? '/global/tr/top100'
       : '/global/en/top100'
-    return NextResponse.redirect(new URL(globalPath, request.url))
+    return redirectTo(new URL(globalPath, request.url))
   }
 
   // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
@@ -49,7 +80,7 @@ export function proxy(request: NextRequest) {
     const loginUrl = pathname.startsWith('/global/tr')
       ? '/global/tr/giris'
       : '/global/en/login'
-    return NextResponse.redirect(new URL(loginUrl, request.url))
+    return redirectTo(new URL(loginUrl, request.url))
   }
 
   // 1. Her zaman erişilebilecek yollar (Admin Login, Public /en+/tr, Landing, Statik Dosyalar)
@@ -65,20 +96,20 @@ export function proxy(request: NextRequest) {
 
   // 2. Giriş yapmamış kullanıcı kökte (/) ise → public /global/en bölümüne yönlendir
   if (!authCookie && pathname === '/') {
-    return NextResponse.redirect(new URL('/global/en', request.url))
+    return redirectTo(new URL('/global/en', request.url))
   }
 
   // 3. Admin cookie olmayan kullanıcı admin sayfasına gelirse → /login'e yönlendir
   if (!authCookie && !isPublicPath) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return redirectTo(new URL('/login', request.url))
   }
 
   // 4. Admin giriş yapmış kullanıcı /login veya / 'a gelirse → /pro'ya yönlendir
   if (authCookie && (isPathOrSubpath('/login') || pathname === '/')) {
-    return NextResponse.redirect(new URL('/pro', request.url))
+    return redirectTo(new URL('/pro', request.url))
   }
 
-  return NextResponse.next()
+  return response
 }
 
 // Tüm rotaları yakala (Middleware matcher)

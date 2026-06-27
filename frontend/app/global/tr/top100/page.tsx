@@ -16,7 +16,7 @@ export default function TrTop100Page() {
       <main className="flex-1">
         <Top100Tracker locale="tr" />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }

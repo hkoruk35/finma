@@ -1,7 +1,31 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer({ hidePlatform = false }: { hidePlatform?: boolean }) {
+const DISCLAIMER: Record<"en" | "tr", string> = {
+  en: "This page does not constitute investment advice. Content here is for informational and analytical purposes only. Data may be delayed and is not guaranteed to be accurate, complete, or current. Past performance does not indicate future results. Always do your own research before making any investment decision.",
+  tr: "Bu sayfa yatırım tavsiyesi niteliği taşımaz. Buradaki içerik yalnızca bilgilendirme ve analiz amaçlıdır. Veriler gecikmeli olarak ulaşabilir; doğruluğu, eksiksizliği veya güncelliği garanti edilmez. Geçmiş performans gelecekteki sonuçların göstergesi değildir. Herhangi bir yatırım kararı vermeden önce kendi araştırmanızı yapın.",
+};
+
+const LEGAL_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
+  en: [
+    { href: "/disclaimer", label: "Disclaimer" },
+    { href: "/terms", label: "Terms of Service" },
+    { href: "/privacy", label: "Privacy Policy" },
+  ],
+  tr: [
+    { href: "/disclaimer/tr", label: "Sorumluluk Reddi" },
+    { href: "/terms/tr", label: "Kullanım Şartları" },
+    { href: "/privacy/tr", label: "Gizlilik Politikası" },
+  ],
+};
+
+export default function Footer({
+  hidePlatform = false,
+  locale,
+}: {
+  hidePlatform?: boolean;
+  locale?: "en" | "tr";
+}) {
   return (
     <footer className="border-t border-[#1e2a3a] bg-[#0a0e17] mt-12">
 
@@ -53,16 +77,23 @@ export default function Footer({ hidePlatform = false }: { hidePlatform?: boolea
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-3">Legal</h4>
+            <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Yasal" : "Legal"}</h4>
             <div className="flex flex-col gap-1.5">
-              <Link href="/disclaimer" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Disclaimer</Link>
-              <Link href="/terms" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Terms of Service</Link>
-              <Link href="/privacy" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Privacy Policy</Link>
+              {LEGAL_LINKS[locale === "tr" ? "tr" : "en"].map((item) => (
+                <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="border-t border-[#1e2a3a] mt-8 pt-4 text-center">
+          {locale && (
+            <p className="text-[11px] text-slate-500 leading-relaxed max-w-3xl mx-auto mb-3">
+              {DISCLAIMER[locale]}
+            </p>
+          )}
           <p className="text-xs text-[#00d2ff]">
             &copy; 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.
           </p>

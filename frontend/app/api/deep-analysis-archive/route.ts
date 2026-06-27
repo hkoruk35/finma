@@ -12,6 +12,9 @@ function ensureDir(dir: string) {
 
 // POST /api/deep-analysis-archive  — save a report snapshot
 export async function POST(req: NextRequest) {
+  if (req.cookies.get("boga_auth")?.value !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
   try {
     const body = await req.json();
     const { ticker, reportData } = body;
@@ -40,6 +43,9 @@ export async function POST(req: NextRequest) {
 
 // GET /api/deep-analysis-archive?ticker=TSLA[&slug=2026-05-24_14-30]
 export async function GET(req: NextRequest) {
+  if (!req.cookies.get("boga_auth")?.value) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
   try {
     const { searchParams } = new URL(req.url);
     const ticker = searchParams.get("ticker")?.toUpperCase();

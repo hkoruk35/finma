@@ -16,7 +16,7 @@ export default function EnTop100Page() {
       <main className="flex-1">
         <Top100Tracker locale="en" />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

@@ -22,7 +22,7 @@ export default async function GlobalTrPreOrderTickerPage({
       <main className="flex-1 w-full">
         <PreOrderClient ticker={ticker.toUpperCase()} hideAdminActions={true} />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }

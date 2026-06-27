@@ -1,10 +1,15 @@
 import fs from "fs";
 import path from "path";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const MESSAGES_FILE = path.join(process.cwd(), "data", "messages.json");
 
-export async function GET() {
+function requireAdmin(req: NextRequest): boolean {
+  return req.cookies.get("boga_auth")?.value === "admin";
+}
+
+export async function GET(req: NextRequest) {
+  if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     if (!fs.existsSync(MESSAGES_FILE)) {
       return NextResponse.json([]);
@@ -16,7 +21,8 @@ export async function GET() {
   }
 }
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
+  if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   try {
     const { id } = await req.json();
     if (!fs.existsSync(MESSAGES_FILE)) return NextResponse.json({ success: true });
@@ -31,7 +37,8 @@ export async function DELETE(req: Request) {
   }
 }
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest) {
+    if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     try {
       const { id } = await req.json();
       if (!fs.existsSync(MESSAGES_FILE)) return NextResponse.json({ success: true });

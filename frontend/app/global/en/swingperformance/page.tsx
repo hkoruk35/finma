@@ -55,11 +55,12 @@ export default async function EnSwingPerformancePage() {
             todayPicks={todayPicks}
             picksGeneratedAt={picksGeneratedAt}
             hideBotLink
+            locale="en"
           />
         </div>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

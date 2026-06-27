@@ -20,10 +20,16 @@ function adminClient() {
   )
 }
 
+function requireAdmin(req: NextRequest): boolean {
+  return !!req.cookies.get('boga_auth')?.value
+}
+
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
+  if (!requireAdmin(req)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
   const { key } = await params
   if (!ALLOWED_KEYS.includes(key)) {
     return NextResponse.json({ error: 'Geçersiz key' }, { status: 400 })
@@ -47,6 +53,10 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
+  if (req.cookies.get('boga_auth')?.value !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const { key } = await params
   if (!ALLOWED_KEYS.includes(key)) {
     return NextResponse.json({ error: 'Geçersiz key' }, { status: 400 })

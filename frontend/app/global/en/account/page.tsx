@@ -14,7 +14,7 @@ export default function GlobalEnAccountPage() {
       <main className="flex-1">
         <AccountView locale="en" isGlobal={true} />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

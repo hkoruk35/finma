@@ -37,7 +37,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header />
+      <Header hideMenus={true} />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">
@@ -161,7 +161,7 @@ export default function ContactPage() {
         </div>
       </main>
 
-      <Footer />
+      <Footer hidePlatform={true} />
     </div>
   );
 }

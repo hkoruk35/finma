@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GlobalTrGirisPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} />
+      <Header hideMenus={true} globalLocale="tr" />
       <main className="flex-1 flex flex-col">
         <LoginForm
           locale="tr"
@@ -20,7 +20,7 @@ export default function GlobalTrGirisPage() {
           registerHref="/tr/kayit"
         />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }

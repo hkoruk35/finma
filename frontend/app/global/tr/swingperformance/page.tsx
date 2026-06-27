@@ -59,7 +59,7 @@ export default async function TrSwingPerformancePage() {
         </div>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }

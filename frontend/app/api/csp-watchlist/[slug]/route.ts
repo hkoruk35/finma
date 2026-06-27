@@ -11,9 +11,13 @@ function getAdminClient() {
 
 // GET — watchlist'i oku
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  if (!req.cookies.get('boga_auth')?.value) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const { slug } = await params
   if (!VALID_SLUGS.includes(slug)) {
     return NextResponse.json({ error: 'Geçersiz slug' }, { status: 400 })
@@ -42,6 +46,10 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  if (req.cookies.get('boga_auth')?.value !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const { slug } = await params
   if (!VALID_SLUGS.includes(slug)) {
     return NextResponse.json({ error: 'Geçersiz slug' }, { status: 400 })

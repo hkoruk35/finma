@@ -74,7 +74,7 @@ const SIGNAL_STYLE: Record<string, string> = {
 export default function EnHomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} />
+      <Header hideMenus={true} globalLocale="en" />
 
       <main className="flex-1">
         {/* Hero */}
@@ -215,7 +215,7 @@ export default function EnHomePage() {
         </section>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

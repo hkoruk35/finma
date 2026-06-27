@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GlobalEnLoginPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} />
+      <Header hideMenus={true} globalLocale="en" />
       <main className="flex-1 flex flex-col">
         <LoginForm
           locale="en"
@@ -20,7 +20,7 @@ export default function GlobalEnLoginPage() {
           registerHref="/en/register"
         />
       </main>
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

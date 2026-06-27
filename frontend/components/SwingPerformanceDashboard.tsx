@@ -64,7 +64,13 @@ interface Props {
   todayPicks?: SwingPick[];
   picksGeneratedAt?: string;
   hideBotLink?: boolean;
+  locale?: "en" | "tr";
 }
+
+const METHODOLOGY_NOTE: Record<"en" | "tr", string> = {
+  tr: "Metodoloji notu: Bu istatistikler 60-90 günlük bir simülasyon penceresine dayanır; sonuç dönem içindeki en yüksek fiyata (peak) göre hesaplanır ve işlem maliyeti/slipaj dahil edilmemiştir. Gerçek getiriler bu rakamlardan farklı olabilir.",
+  en: "Methodology note: These statistics are based on a 60–90 day simulation window; outcomes are calculated against the period's peak price and do not include trading costs or slippage. Actual returns may differ from these figures.",
+};
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const RESULT_COLORS: Record<string, string> = {
@@ -90,7 +96,7 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 
-export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false }: Props) {
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, locale = "tr" }: Props) {
   const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -625,6 +631,11 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <p className="text-[10px] text-[#3b82f6] mt-1.5 font-bold uppercase">{stats.pending} BEKLEYEN</p>
             )}
           </div>
+        </div>
+
+        {/* Methodology disclaimer — keeps win-rate/avg-return stats from being read as guaranteed/realized results */}
+        <div className="px-6 py-3 border-b border-white/5 bg-[#f59e0b]/[0.04]">
+          <p className="text-[10px] text-slate-500 leading-relaxed">{METHODOLOGY_NOTE[locale]}</p>
         </div>
 
         {/* Profit Target Breakdown */}

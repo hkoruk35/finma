@@ -74,7 +74,7 @@ const SIGNAL_STYLE: Record<string, string> = {
 export default function TrHomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} />
+      <Header hideMenus={true} globalLocale="tr" />
 
       <main className="flex-1">
         {/* Hero */}
@@ -215,7 +215,7 @@ export default function TrHomePage() {
         </section>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="tr" />
     </div>
   );
 }
