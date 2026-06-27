@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import * as XLSX from "xlsx";
+import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import type { Top100Row } from "@/app/api/top100/route";
@@ -12,14 +13,36 @@ const ACCENT = "#58a6ff";
 const SIGNAL_ICON: Record<string, string> = { AL: "●", İzle: "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", İzle: "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
 const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
+
+interface HourlyBar {
+  time: string;
+  price: number | null;
+  change_pct: number | null;
+  volume: number | null;
+  volume_ratio: number | null;
+}
+
+interface LiveData {
+  ticker: string;
+  company: string;
+  sector: string;
+  price: { current: number; prev_close: number; change_pct: number; volume?: number };
+  tracker_1h: {
+    ema_20: number; ema_50: number; ema_200: number;
+    ema_status: string; rsi: number; candle_pattern: string;
+    signal: string; volume_ratio: number; change_pct_1h: number;
+    change_pct_1d: number; volume_ratio_1d: number;
+  };
+  hourly?: HourlyBar[];
+}
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
-const fmt3 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(3) : "—");
 const fmtVol = (v: number | null | undefined) =>
   !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
 
-function rsiColor(rsi: number | null) {
+function rsiColor(rsi: number | undefined) {
   if (rsi == null) return "#8b949e";
   if (rsi >= 70) return "#f85149";
   if (rsi >= 50) return "#3fb950";
@@ -27,15 +50,15 @@ function rsiColor(rsi: number | null) {
   return "#f85149";
 }
 
-function emaColor(price: number | null, ema: number | null) {
-  if (price == null || !ema) return "#8b949e";
+function emaColor(price: number, ema: number | undefined) {
+  if (!ema) return "#8b949e";
   const diff = Math.abs(price - ema) / ema;
   if (diff < 0.005) return "#e3b341";
   return price > ema ? "#3fb950" : "#f85149";
 }
 
-function emaArrow(price: number | null, ema: number | null) {
-  if (price == null || !ema) return "";
+function emaArrow(price: number, ema: number | undefined) {
+  if (!ema) return "";
   const diff = Math.abs(price - ema) / ema;
   if (diff < 0.005) return "~";
   return price > ema ? "↑" : "↓";
@@ -55,9 +78,7 @@ function heatBg(pct: number | null) {
 function isMarketOpen() {
   const now = new Date();
   const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
-  const h = et.getHours(),
-    m = et.getMinutes(),
-    day = et.getDay();
+  const h = et.getHours(), m = et.getMinutes(), day = et.getDay();
   if (day === 0 || day === 6) return false;
   const mins = h * 60 + m;
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
@@ -67,12 +88,15 @@ const SIGNAL_RANK: Record<string, number> = { AL: 4, İzle: 3, Bekle: 2, SAT: 1 
 
 export default function Top100Tracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
-  const [rows, setRows] = useState<Top100Row[]>([]);
+  const [composition, setComposition] = useState<Top100Row[]>([]);
+  const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [filterSource, setFilterSource] = useState<"" | "fixed" | "swing_daily">("");
   const [filterSignal, setFilterSignal] = useState("");
+  const [filterSector, setFilterSector] = useState("");
+  const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
@@ -82,115 +106,141 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   useEffect(() => setMounted(true), []);
 
-  const load = useCallback(() => {
-    fetch("/api/top100")
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.error) {
-          setError(t.error);
-          return;
+  const fetchAll = useCallback(async () => {
+    setLoading(true);
+    try {
+      const compRes = await fetch("/api/top100");
+      const compData = await compRes.json();
+      if (compData.error) {
+        setError(t.error);
+        return;
+      }
+      const rows: Top100Row[] = compData.rows ?? [];
+      setComposition(rows);
+
+      if (rows.length > 0) {
+        const tickers = rows.map((r) => r.ticker).join(",");
+        const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers}`);
+        if (liveRes.ok) {
+          const liveRows: LiveData[] = await liveRes.json();
+          const map: Record<string, LiveData> = {};
+          liveRows.forEach((item) => { if (item?.ticker) map[item.ticker] = item; });
+          setLive(map);
         }
-        setRows(d.rows ?? []);
-        setLastUpdated(d.lastUpdated ?? null);
-        setError("");
-      })
-      .catch(() => setError(t.error))
-      .finally(() => setLoading(false));
+      }
+      setLastUpdated(new Date());
+      setError("");
+    } catch {
+      setError(t.error);
+    } finally {
+      setLoading(false);
+    }
   }, [t.error]);
 
   useEffect(() => {
-    load();
-    const id = setInterval(load, REFRESH_MS);
+    fetchAll();
+    const id = setInterval(fetchAll, REFRESH_MS);
     return () => clearInterval(id);
-  }, [load]);
+  }, [fetchAll]);
+
+  const sectorOptions = useMemo(() => {
+    const s = new Set<string>();
+    composition.forEach((r) => {
+      const sec = live[r.ticker]?.sector || r.sector;
+      if (sec && sec !== "Unknown") s.add(sec);
+    });
+    return Array.from(s).sort();
+  }, [composition, live]);
+
+  const patternOptions = useMemo(() => {
+    const s = new Set<string>();
+    composition.forEach((r) => {
+      const p = live[r.ticker]?.tracker_1h?.candle_pattern;
+      if (p) s.add(p);
+    });
+    return Array.from(s).sort();
+  }, [composition, live]);
 
   const filtered = useMemo(() => {
-    return rows.filter((r) => {
+    return composition.filter((r) => {
+      const d = live[r.ticker];
       if (filterSource && r.source !== filterSource) return false;
-      if (filterSignal && r.signal !== filterSignal) return false;
+      if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
+      if (filterSector && (d?.sector || r.sector) !== filterSector) return false;
+      if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
       if (searchQuery) {
         const q = searchQuery.toUpperCase();
-        if (!r.ticker.includes(q) && !(r.company || "").toUpperCase().includes(q) && !(r.sector || "").toUpperCase().includes(q)) return false;
+        const sector = d?.sector || r.sector || "";
+        const company = d?.company || r.company || "";
+        if (!r.ticker.includes(q) && !company.toUpperCase().includes(q) && !sector.toUpperCase().includes(q)) return false;
       }
       return true;
     });
-  }, [rows, filterSource, filterSignal, searchQuery]);
+  }, [composition, live, filterSource, filterSignal, filterSector, filterPattern, searchQuery]);
 
   const toggleSort = (key: string) => {
     if (sortBy === key) setSortDir((d) => (d === "desc" ? "asc" : "desc"));
-    else {
-      setSortBy(key);
-      setSortDir("desc");
-    }
+    else { setSortBy(key); setSortDir("desc"); }
   };
 
   const sorted = useMemo(() => {
     if (!sortBy) return filtered;
     return [...filtered].sort((a, b) => {
+      const da = live[a.ticker], db = live[b.ticker];
       let va: number, vb: number;
       switch (sortBy) {
-        case "price":
-          va = a.price ?? 0; vb = b.price ?? 0; break;
-        case "volume":
-          va = a.volume ?? 0; vb = b.volume ?? 0; break;
-        case "change":
-          va = a.change_pct ?? 0; vb = b.change_pct ?? 0; break;
-        case "ema20":
-          va = a.ema20 ?? 0; vb = b.ema20 ?? 0; break;
-        case "ema50":
-          va = a.ema50 ?? 0; vb = b.ema50 ?? 0; break;
-        case "ema200":
-          va = a.ema200 ?? 0; vb = b.ema200 ?? 0; break;
-        case "rsi":
-          va = a.rsi ?? 0; vb = b.rsi ?? 0; break;
-        case "macd":
-          va = a.macd ?? 0; vb = b.macd ?? 0; break;
-        case "adx":
-          va = a.adx ?? 0; vb = b.adx ?? 0; break;
-        case "signal":
-          va = SIGNAL_RANK[a.signal ?? ""] ?? 0; vb = SIGNAL_RANK[b.signal ?? ""] ?? 0; break;
-        default:
-          return 0;
+        case "price": va = da?.price?.current ?? 0; vb = db?.price?.current ?? 0; break;
+        case "volume": va = da?.price?.volume ?? 0; vb = db?.price?.volume ?? 0; break;
+        case "chg1d": va = da?.tracker_1h?.change_pct_1d ?? 0; vb = db?.tracker_1h?.change_pct_1d ?? 0; break;
+        case "goran": va = da?.tracker_1h?.volume_ratio_1d ?? 0; vb = db?.tracker_1h?.volume_ratio_1d ?? 0; break;
+        case "ema20": va = da?.tracker_1h?.ema_20 ?? 0; vb = db?.tracker_1h?.ema_20 ?? 0; break;
+        case "ema50": va = da?.tracker_1h?.ema_50 ?? 0; vb = db?.tracker_1h?.ema_50 ?? 0; break;
+        case "ema200": va = da?.tracker_1h?.ema_200 ?? 0; vb = db?.tracker_1h?.ema_200 ?? 0; break;
+        case "rsi": va = da?.tracker_1h?.rsi ?? 0; vb = db?.tracker_1h?.rsi ?? 0; break;
+        case "signal": va = SIGNAL_RANK[da?.tracker_1h?.signal ?? ""] ?? 0; vb = SIGNAL_RANK[db?.tracker_1h?.signal ?? ""] ?? 0; break;
+        default: return 0;
       }
       return sortDir === "desc" ? vb - va : va - vb;
     });
-  }, [filtered, sortBy, sortDir]);
+  }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((r) => r.signal === "AL").length;
-  const izleCount = filtered.filter((r) => r.signal === "İzle").length;
+  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "AL").length;
+  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "İzle").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
   const downloadXLS = useCallback(() => {
-    const data = filtered.map((r) => ({
-      TICKER: r.ticker,
-      TİP: r.source === "swing_daily" ? "Swing" : "Fixed",
-      SEKTÖR: r.sector || r.company || "—",
-      FİYAT: r.price ?? "",
-      HACİM: r.volume ?? "",
-      "Δ%": r.change_pct ?? "",
-      EMA20: r.ema20 ?? "",
-      EMA50: r.ema50 ?? "",
-      EMA200: r.ema200 ?? "",
-      RSI: r.rsi ?? "",
-      MACD: r.macd ?? "",
-      ADX: r.adx ?? "",
-      PATERN: r.pattern || "—",
-      SİNYAL: r.signal || "—",
-    }));
+    const data = filtered.map((r) => {
+      const d = live[r.ticker];
+      return {
+        TICKER: r.ticker,
+        SEKTÖR: d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || "—",
+        FİYAT: d?.price?.current ?? "",
+        HACİM: d?.price?.volume ?? "",
+        "Δ% 1G": d?.tracker_1h?.change_pct_1d ?? "",
+        "HACİM ORANI": d?.tracker_1h?.volume_ratio_1d ?? "",
+        EMA20: d?.tracker_1h?.ema_20 ?? "",
+        EMA50: d?.tracker_1h?.ema_50 ?? "",
+        EMA200: d?.tracker_1h?.ema_200 ?? "",
+        DURUM: d?.tracker_1h?.ema_status || "—",
+        RSI: d?.tracker_1h?.rsi ?? "",
+        PATERN: d?.tracker_1h?.candle_pattern || "—",
+        SİNYAL: d?.tracker_1h?.signal || "—",
+      };
+    });
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "BOGA Top100");
     const date = new Date().toISOString().slice(0, 10);
     XLSX.writeFile(wb, `boga-top100-${date}.xlsx`);
-  }, [filtered]);
+  }, [filtered, live]);
+
+  const permalink = (ticker: string) => (locale === "en" ? `/global/en/${ticker}` : `/global/tr/${ticker}`);
 
   if (!mounted || loading) {
     return (
       <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
-        <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">
-          {t.loading}
-        </span>
+        <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">{t.loading}</span>
       </div>
     );
   }
@@ -211,11 +261,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>{t.title}</div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              {lastUpdated && (
-                <span>
-                  {t.lastUpdated}: {new Date(lastUpdated).toLocaleString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}
-                </span>
-              )}
+              {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : locale === "tr" ? "market kapalı" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : "tickers"}</span>
               {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
@@ -225,36 +271,28 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
           <div style={{ display: "flex", gap: 6 }}>
             {(["table", "heatmap"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+              <button key={tab} onClick={() => setActiveTab(tab)}
                 style={{
                   padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                   border: "1px solid", borderColor: activeTab === tab ? ACCENT : "#30363d",
                   background: activeTab === tab ? ACCENT + "20" : "transparent",
                   color: activeTab === tab ? ACCENT : "#8b949e",
                   borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
-                }}
-              >
-                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : "MAIN TABLE") : locale === "tr" ? "ISI HARİTASI" : "HEATMAP"}
+                }}>
+                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
               </button>
             ))}
-            <button
-              onClick={load}
-              style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: "#e6edf3", borderRadius: 4, cursor: "pointer" }}
-            >
-              {locale === "tr" ? "YENİLE" : "REFRESH"}
+            <button onClick={fetchAll} disabled={loading}
+              style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
+              {loading ? "..." : "YENİLE"}
             </button>
-            <button
-              onClick={downloadXLS}
-              disabled={filtered.length === 0}
+            <button onClick={downloadXLS} disabled={filtered.length === 0}
               style={{
                 padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid #3fb950", background: "#3fb95020",
                 color: filtered.length === 0 ? "#8b949e" : "#3fb950",
                 borderRadius: 4, cursor: filtered.length === 0 ? "not-allowed" : "pointer",
-              }}
-            >
+              }}>
               XLS ↓
             </button>
           </div>
@@ -267,58 +305,54 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             onChange={(e) => setSearchQuery(e.target.value.toUpperCase())}
             placeholder={locale === "tr" ? "hisse ara..." : "search..."}
             maxLength={12}
-            style={{
-              background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`,
-              color: "#e6edf3", padding: "3px 8px", borderRadius: 3,
-              fontSize: 11, fontFamily: "monospace", width: 110, outline: "none",
-            }}
+            style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          {([
-            { v: "", l: locale === "tr" ? "TÜMÜ" : "ALL" },
-            { v: "fixed", l: locale === "tr" ? "YATIRIMLIK" : "FIXED" },
-            { v: "swing_daily", l: "SWING" },
-          ] as const).map(({ v, l }) => (
-            <button
-              key={v || "all-src"}
-              onClick={() => setFilterSource(v)}
+          {([{ v: "", l: "TÜMÜ" }, { v: "fixed", l: "YATIRIMLIK" }, { v: "swing_daily", l: "SWING" }] as const).map(({ v, l }) => (
+            <button key={v || "all-src"} onClick={() => setFilterSource(v)}
               style={{
                 padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid", borderColor: filterSource === v ? ACCENT : "#30363d",
                 background: filterSource === v ? ACCENT + "20" : "transparent",
-                color: filterSource === v ? ACCENT : "#8b949e",
-                borderRadius: 3, cursor: "pointer",
-              }}
-            >
+                color: filterSource === v ? ACCENT : "#8b949e", borderRadius: 3, cursor: "pointer",
+              }}>
               {l}
             </button>
           ))}
           <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
           {["", "AL", "İzle", "Bekle", "SAT"].map((s) => (
-            <button
-              key={s || "all-signal"}
-              onClick={() => setFilterSignal(s)}
+            <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
                 padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid",
-                borderColor: filterSignal === s ? SIGNAL_COLOR[s] || ACCENT : "#30363d",
+                borderColor: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#30363d",
                 background: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) + "20" : "transparent",
-                color: filterSignal === s ? SIGNAL_COLOR[s] || ACCENT : "#8b949e",
+                color: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#8b949e",
                 borderRadius: 3, cursor: "pointer",
-              }}
-            >
-              {s ? `${SIGNAL_ICON[s]} ${s}` : locale === "tr" ? "TÜM SİNYAL" : "ALL SIGNALS"}
+              }}>
+              {s ? `${SIGNAL_ICON[s]} ${s}` : "TÜM SİNYAL"}
             </button>
           ))}
+          <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
+          <select value={filterSector} onChange={(e) => setFilterSector(e.target.value)}
+            style={{ background: "#161b22", border: `1px solid ${filterSector ? ACCENT : "#30363d"}`, color: filterSector ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
+            <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : "ALL SECTORS"}</option>
+            {sectorOptions.map((s) => <option key={s} value={s}>{s}</option>)}
+          </select>
+          <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
+            style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
+            <option value="">{locale === "tr" ? "TÜM PATERNLER" : "ALL PATTERNS"}</option>
+            {patternOptions.map((p) => <option key={p} value={p}>{p}</option>)}
+          </select>
         </div>
       </div>
 
-      {!loading && !error && rows.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{t.empty}</div>}
+      {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{t.empty}</div>}
 
       {/* ANA TABLO */}
-      {activeTab === "table" && rows.length > 0 && (
+      {activeTab === "table" && composition.length > 0 && (
         <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 980 }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {([
@@ -326,47 +360,45 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   { label: "SEKTÖR", key: null, align: "left" },
                   { label: "FİYAT", key: "price", align: "right" },
                   { label: "HACİM", key: "volume", align: "right" },
-                  { label: "Δ%", key: "change", align: "right" },
+                  { label: "Δ% 1G", key: "chg1d", align: "right" },
+                  { label: "HACİM ORANI", key: "goran", align: "right" },
                   { label: "EMA20", key: "ema20", align: "right" },
                   { label: "EMA50", key: "ema50", align: "right" },
                   { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "DURUM", key: null, align: "right" },
                   { label: "RSI", key: "rsi", align: "right" },
-                  { label: "MACD", key: "macd", align: "right" },
-                  { label: "ADX", key: "adx", align: "right" },
                   { label: "PATERN", key: null, align: "right" },
                   { label: "SİNYAL", key: "signal", align: "right" },
+                  { label: "DETAY", key: null, align: "right" },
                 ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
-                  <th
-                    key={label}
-                    onClick={key ? () => toggleSort(key) : undefined}
+                  <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                     style={{
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
                       whiteSpace: "nowrap", background: "#0d1117",
                       cursor: key ? "pointer" : "default", userSelect: "none",
-                    }}
-                  >
-                    {label}
-                    {key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
+                    }}>
+                    {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {sorted.map((r, idx) => {
-                const isSwingDaily = r.source === "swing_daily";
-                const isExpanded = expandedTicker === r.ticker;
-                const signal = r.signal || "—";
+                const d = live[r.ticker];
+                const signal = d?.tracker_1h?.signal || "—";
                 const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
                 const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0d1117";
+                const isExpanded = expandedTicker === r.ticker;
+                const isSwingDaily = r.source === "swing_daily";
+                const price = d?.price?.current ?? 0;
+                const sectorLabel = d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || "—";
 
                 return (
                   <Fragment key={r.ticker}>
-                    <tr
-                      onClick={() => toggleExpand(r.ticker)}
-                      style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}
-                    >
+                    <tr onClick={() => toggleExpand(r.ticker)}
+                      style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}>
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
                         <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
                         <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
@@ -375,40 +407,55 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                             {t.swingDailyBadge}
                           </span>
                         )}
-                        <div style={{ color: "#8b949e", fontSize: 10, marginTop: 1 }}>{(r.sector || r.company || "").slice(0, 16)}</div>
                       </td>
-                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>
-                        {(r.sector || r.company || "—").toUpperCase().slice(0, 10)}
+                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>{sectorLabel.toUpperCase().slice(0, 14)}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
+                        {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>
-                        {r.price != null ? `$${fmt2(r.price)}` : "—"}
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                        {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(r.volume)}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: r.change_pct == null ? "#8b949e" : r.change_pct >= 0 ? "#3fb950" : "#f85149" }}>
-                        {r.change_pct != null ? `${r.change_pct >= 0 ? "+" : ""}${fmt2(r.change_pct)}%` : "—"}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: emaColor(r.price, r.ema20) }}>
-                        {r.ema20 != null ? `${fmt2(r.ema20)}${emaArrow(r.price, r.ema20)}` : "—"}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: emaColor(r.price, r.ema50) }}>
-                        {r.ema50 != null ? `${fmt2(r.ema50)}${emaArrow(r.price, r.ema50)}` : "—"}
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
+                        {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: emaColor(r.price, r.ema200) }}>
-                        {r.ema200 != null ? `${fmt2(r.ema200)}${emaArrow(r.price, r.ema200)}` : "—"}
-                      </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: rsiColor(r.rsi) }}>{fmt1(r.rsi)}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e" }}>{fmt3(r.macd)}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e" }}>{fmt1(r.adx)}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{r.pattern || "—"}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right" }}>
-                        <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
-                          {SIGNAL_ICON[signal] || "○"} {signal}
-                        </span>
+                        {d && (
+                          <span style={{
+                            fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                            background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "Yükseliş" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Nötr" ? "#1a1a2e" : d.tracker_1h?.ema_status === "Düşüş" ? "#2e1a1a" : "#3a1a1a",
+                            color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "Yükseliş" ? "#56d364" : d.tracker_1h?.ema_status === "Nötr" ? "#8b949e" : d.tracker_1h?.ema_status === "Düşüş" ? "#f85149" : "#ff7b72",
+                          }}>
+                            {d.tracker_1h?.ema_status}
+                          </span>
+                        )}
+                      </td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi) : "#8b949e" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern || "—"}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                        {d && (
+                          <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
+                            {SIGNAL_ICON[signal] || "○"} {signal}
+                          </span>
+                        )}
+                      </td>
+                      <td style={{ padding: "7px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
+                        <a href={permalink(r.ticker)}
+                          style={{ background: "transparent", border: "1px solid #3b82f666", color: "#3b82f6", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, textDecoration: "none", display: "inline-block" }}>
+                          {locale === "tr" ? "Analiz ↗" : "Analysis ↗"}
+                        </a>
                       </td>
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={13} style={{ padding: 0 }}>
+                        <td colSpan={14} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
                       </tr>
@@ -421,38 +468,53 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* ISI HARİTASI */}
-      {activeTab === "heatmap" && rows.length > 0 && (
+      {/* ISI HARİTASI — saatlik Δ% grid (tracker ile aynı) */}
+      {activeTab === "heatmap" && composition.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <div style={{ fontSize: 10, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
-            {locale === "tr" ? "Günlük Δ% ısı haritası — renk yoğunluğu değişim büyüklüğünü gösterir" : "Daily Δ% heatmap — color intensity shows magnitude of change"}
+            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 6, padding: "0 4px" }}>
-            {sorted.map((r) => {
-              const { bg, text } = heatBg(r.change_pct);
-              return (
-                <button
-                  key={r.ticker}
-                  onClick={() => toggleExpand(r.ticker)}
-                  style={{
-                    background: bg, color: text, border: "1px solid #21262d", borderRadius: 4,
-                    padding: "8px 6px", textAlign: "center", cursor: "pointer", fontFamily: "monospace",
-                  }}
-                >
-                  <div style={{ fontSize: 12, fontWeight: 900 }}>{r.ticker}</div>
-                  <div style={{ fontSize: 10, fontWeight: 700, marginTop: 2 }}>
-                    {r.change_pct != null ? `${r.change_pct >= 0 ? "+" : ""}${r.change_pct.toFixed(1)}%` : "—"}
-                  </div>
-                </button>
-              );
-            })}
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace", minWidth: 750 }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid #30363d" }}>
+                  <th style={{ padding: "6px 10px", textAlign: "left", color: "#58a6ff", fontSize: 10, letterSpacing: "0.1em" }}>TICKER</th>
+                  {HOUR_SLOTS.map((h) => (
+                    <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#58a6ff", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
+                  ))}
+                  <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>GÜN</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sorted.map((r, idx) => {
+                  const d = live[r.ticker];
+                  const dayPct = d?.price?.change_pct ?? null;
+                  const dayColors = heatBg(dayPct);
+                  return (
+                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                      <td style={{ padding: "6px 10px" }}>
+                        <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                      </td>
+                      {HOUR_SLOTS.map((h, i) => {
+                        const bar = d?.hourly?.[i];
+                        const pct = bar?.change_pct ?? null;
+                        const { bg, text } = heatBg(pct);
+                        return (
+                          <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
+                            {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                          </td>
+                        );
+                      })}
+                      <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
+                        {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-          {expandedTicker && (
-            <div style={{ marginTop: 12, border: "1px solid #30363d", borderRadius: 4, background: "#161b22" }}>
-              <TickerDetailPanel ticker={expandedTicker} locale={locale} />
-            </div>
-          )}
-          <div style={{ marginTop: 16, display: "flex", gap: 16, flexWrap: "wrap", padding: "0 4px" }}>
+          <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
             {[
               { label: "+2%+", bg: "#0d4a0d", text: "#56d364" },
               { label: "+1–2%", bg: "#0d3a0d", text: "#3fb950" },
