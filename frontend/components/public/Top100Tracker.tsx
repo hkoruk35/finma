@@ -5,6 +5,7 @@ import * as XLSX from "xlsx";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import TickerHoverChart from "@/components/TickerHoverChart";
 import type { Top100Row } from "@/app/api/top100/route";
 
 const REFRESH_MS = 5 * 60 * 1000;
@@ -399,9 +400,13 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr onClick={() => toggleExpand(r.ticker)}
                       style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}>
-                      <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
-                        <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
-                        <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
+                      <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
+                        <span onClick={() => toggleExpand(r.ticker)} style={{ cursor: "pointer" }}>
+                          <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                            <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
+                          </TickerHoverChart>
+                          <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
+                        </span>
                         {isSwingDaily && (
                           <span style={{ marginLeft: 6, fontSize: 8, background: "#1c243380", color: "#58a6ff", padding: "1px 5px", borderRadius: 8, fontWeight: 700 }}>
                             {t.swingDailyBadge}
@@ -493,7 +498,9 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   return (
                     <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                          <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                        </TickerHoverChart>
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];

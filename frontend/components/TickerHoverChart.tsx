@@ -7,9 +7,10 @@ interface Props {
   ticker: string;
   children: ReactNode;
   className?: string;
+  detailHref?: string;
 }
 
-export default function TickerHoverChart({ ticker, children, className }: Props) {
+export default function TickerHoverChart({ ticker, children, className, detailHref }: Props) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -69,7 +70,7 @@ export default function TickerHoverChart({ ticker, children, className }: Props)
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
               <a
-                href={`/stock/${ticker}`}
+                href={detailHref || `/stock/${ticker}`}
                 style={{ color: "#3fb950" }}
               >
                 Detay ↗
