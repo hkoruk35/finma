@@ -119,7 +119,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5">{t.technicalCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
           {[
             ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
             ["EMA200", fmt(d1.ema200, 1)],
@@ -129,8 +129,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
             ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
             ["BB%", fmt(data.momentum.bbPercent, 2)],
             ["Pattern", d1.pattern],
-          ].map(([label, value]) => (
-            <div key={label} className="flex justify-between mb-1.5 text-xs">
+          ].map(([label, value], i, arr) => (
+            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
               <span className="text-white/40">{label}</span>
               <span className="text-white/80 font-mono font-semibold">{value}</span>
             </div>
@@ -138,7 +138,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5">{t.marketCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
           {[
             ["52H High", `$${fmt(data.context.hi52)}`],
             ["52L Low", `$${fmt(data.context.lo52)}`],
@@ -147,8 +147,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
             ["RVOL", `${fmt(data.rvol)}x`],
             ["Volume", fmtVol(data.volume)],
             ["Avg Vol 30d", fmtVol(data.avgVol30)],
-          ].map(([label, value]) => (
-            <div key={label} className="flex justify-between mb-1.5 text-xs">
+          ].map(([label, value], i, arr) => (
+            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
               <span className="text-white/40">{label}</span>
               <span className="text-white/80 font-mono font-semibold">{value}</span>
             </div>
@@ -182,7 +182,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
       </div>
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-        <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5">{t.scoreCard}</div>
+        <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>
         <div className="grid grid-cols-3 gap-3">
           {scoreBars.map(({ label, score, color }) => (
             <div key={label}>
