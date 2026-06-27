@@ -54,6 +54,7 @@ export default async function EnSwingPerformancePage() {
             stats={performanceData.stats}
             todayPicks={todayPicks}
             picksGeneratedAt={picksGeneratedAt}
+            hideBotLink
           />
         </div>
       </main>

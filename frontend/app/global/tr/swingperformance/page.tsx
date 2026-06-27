@@ -54,6 +54,7 @@ export default async function TrSwingPerformancePage() {
             stats={performanceData.stats}
             todayPicks={todayPicks}
             picksGeneratedAt={picksGeneratedAt}
+            hideBotLink
           />
         </div>
       </main>
