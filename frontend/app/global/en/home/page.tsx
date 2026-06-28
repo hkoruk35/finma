@@ -29,7 +29,7 @@ export default async function EnHomePage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Sector ticker */}
-        <SectorPerformanceHeatMap history={swingPerf?.history || []} />
+        <SectorPerformanceHeatMap history={swingPerf?.history || []} linkHref={null} />
 
         {/* Three column grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
