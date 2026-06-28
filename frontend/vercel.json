@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/refresh-top100",
+      "schedule": "0 0 * * * America/New_York"
+    }
+  ]
+}
