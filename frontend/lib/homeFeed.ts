@@ -56,7 +56,8 @@ export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
 }
 
 export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
-  const tickers = HOT_THEMES_2026.flatMap((theme) => theme.stocks.map((s) => s.ticker));
+  const allTickers = HOT_THEMES_2026.flatMap((theme) => theme.stocks.map((s) => s.ticker));
+  const tickers = [...new Set(allTickers)];
   if (tickers.length === 0) return [];
 
   const live = await fetchLiveQuotes(tickers);
@@ -94,7 +95,7 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
 
   const snapByTicker = new Map((snapshots ?? []).map((s) => [s.ticker, s]));
 
-  return tickers
+  const top = tickers
     .map((t) => {
       const s = snapByTicker.get(t.ticker);
       return {
@@ -106,6 +107,15 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
       };
     })
     .sort((a, b) => b.volume - a.volume)
-    .slice(0, limit)
-    .map(({ ticker, sector, price, change_pct }) => ({ ticker, sector, price, change_pct }));
+    .slice(0, limit);
+
+  // top100_tickers.sector is often a placeholder ("Other") — overlay the real
+  // sector from live data for just this shortlist instead of the full 100.
+  const live = await fetchLiveQuotes(top.map((t) => t.ticker));
+  return top.map(({ ticker, sector, price, change_pct }) => ({
+    ticker,
+    sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
+    price,
+    change_pct,
+  }));
 }

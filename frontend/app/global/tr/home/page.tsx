@@ -23,9 +23,10 @@ export default async function TrHomePage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Üç sütun grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <HomeSimpleCard
             title="Swing Trade"
+            accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/tr/swing"
             locale="tr"
@@ -33,6 +34,7 @@ export default async function TrHomePage() {
 
           <HomeSimpleCard
             title="Trend Hisseleri"
+            accent="#a78bfa"
             stocks={trendByVolume}
             viewAllHref="/global/tr/trend"
             locale="tr"
@@ -40,6 +42,7 @@ export default async function TrHomePage() {
 
           <HomeSimpleCard
             title="Top 100"
+            accent="#f59e0b"
             stocks={top100ByVolume}
             viewAllHref="/global/tr/top100"
             locale="tr"

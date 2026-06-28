@@ -23,9 +23,10 @@ export default async function EnHomePage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Three column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <HomeSimpleCard
             title="Swing Trade"
+            accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/en/swing"
             locale="en"
@@ -33,6 +34,7 @@ export default async function EnHomePage() {
 
           <HomeSimpleCard
             title="Trend Stocks"
+            accent="#a78bfa"
             stocks={trendByVolume}
             viewAllHref="/global/en/trend"
             locale="en"
@@ -40,6 +42,7 @@ export default async function EnHomePage() {
 
           <HomeSimpleCard
             title="Top 100"
+            accent="#f59e0b"
             stocks={top100ByVolume}
             viewAllHref="/global/en/top100"
             locale="en"
