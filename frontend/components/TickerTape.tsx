@@ -10,13 +10,22 @@ const INDEX_LABELS: Record<string, string> = {
   VIX: "VIX",
 };
 
-export default function TickerTape({ data }: { data: MasterData }) {
-  const indices = data.market_indices;
-  const items = Object.entries(indices).map(([key, val]) => ({
+type Indices = Record<string, { value: number; change_pct: number }>;
+
+interface Props {
+  data?: MasterData;
+  indices?: Indices;
+}
+
+export default function TickerTape({ data, indices }: Props) {
+  const source = indices ?? data?.market_indices ?? {};
+  const items = Object.entries(source).map(([key, val]) => ({
     label: INDEX_LABELS[key] || key,
     value: val.value,
     change: val.change_pct,
   }));
+
+  if (items.length === 0) return null;
 
   // Duplicate for continuous scroll
   const doubled = [...items, ...items, ...items];

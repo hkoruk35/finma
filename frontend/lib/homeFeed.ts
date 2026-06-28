@@ -155,3 +155,33 @@ export async function getLastUpdated(): Promise<string> {
     minute: "2-digit",
   });
 }
+
+const INDEX_TICKERS: Record<string, string> = {
+  SP500: "^GSPC",
+  NASDAQ: "^IXIC",
+  DOW: "^DJI",
+  VIX: "^VIX",
+};
+
+export async function getLiveIndices(): Promise<Record<string, { value: number; change_pct: number }>> {
+  const symbols = Object.values(INDEX_TICKERS).join(",");
+  try {
+    const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(symbols)}`, {
+      next: { revalidate: HOUR },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) return {};
+    const data: Record<string, { price: number | null; change_1d: number | null }> = await res.json();
+
+    const out: Record<string, { value: number; change_pct: number }> = {};
+    for (const [label, symbol] of Object.entries(INDEX_TICKERS)) {
+      const q = data[symbol];
+      if (q?.price != null) {
+        out[label] = { value: q.price, change_pct: q.change_1d ?? 0 };
+      }
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}

@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated } from "@/lib/homeFeed";
-import { getMasterData } from "@/lib/data";
+import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
@@ -15,18 +14,18 @@ export const metadata: Metadata = {
 };
 
 export default async function EnHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, master] = await Promise.all([
+  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices] = await Promise.all([
     getTopSwingByVolume(5),
     getTopTrendByVolume(5),
     getTopTop100ByVolume(5),
     getLastUpdated(),
-    getMasterData(),
+    getLiveIndices(),
   ]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="en" />
-      {master && <TickerTape data={master} />}
+      <TickerTape indices={indices} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         {/* Three column grid */}
