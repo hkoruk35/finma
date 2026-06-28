@@ -4,11 +4,13 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { getSwingAllPicks } from "@/lib/data";
+import { createSupabaseBrowserClient } from "@/lib/supabase-client";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
+const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
 interface HourlyBar {
@@ -102,8 +104,21 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const { data } = await supabase.auth.getUser();
+        if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
+          setIsAdmin(true);
+        }
+      } catch {}
+      setMounted(true);
+    };
+    checkAdmin();
+  }, []);
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -362,6 +377,13 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
+                        {isAdmin && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); const newList = composition.filter(x => x.ticker !== r.ticker); setComposition(newList); }}
+                            style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                            title="Listeden kaldır"
+                          >✕</button>
+                        )}
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>

@@ -4,10 +4,12 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { createSupabaseBrowserClient } from "@/lib/supabase-client";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
+const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
 
 interface HourlyBar {
   time: string;
@@ -117,8 +119,21 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
   const [removedTickers, setRemovedTickers] = useState<Set<string>>(new Set());
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const { data } = await supabase.auth.getUser();
+        if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
+          setIsAdmin(true);
+        }
+      } catch {}
+      setMounted(true);
+    };
+    checkAdmin();
+  }, []);
 
   useEffect(() => {
     // Load removed tickers from localStorage
@@ -406,11 +421,13 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
-                          style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
-                          title="Listeden kaldır"
-                        >✕</button>
+                        {isAdmin && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
+                            style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                            title="Listeden kaldır"
+                          >✕</button>
+                        )}
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{r.themeTitle}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
@@ -480,11 +497,13 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
                         </TickerHoverChart>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
-                          style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
-                          title="Listeden kaldır"
-                        >✕</button>
+                        {isAdmin && (
+                          <button
+                            onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
+                            style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                            title="Listeden kaldır"
+                          >✕</button>
+                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];
