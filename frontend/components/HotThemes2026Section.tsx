@@ -20,7 +20,7 @@ export default function HotThemes2026Section() {
             className="group border rounded-xl p-4 transition-all hover:border-opacity-60 flex flex-col"
             style={{ borderColor: `${theme.accent}25`, background: `${theme.accent}06` }}
           >
-            <div className="flex items-start justify-between gap-2 mb-2">
+            <div className="flex items-start justify-between gap-2 mb-3">
               <div className="flex items-baseline gap-2">
                 <span className="text-[10px] font-black tabular-nums" style={{ color: theme.accent }}>
                   {String(theme.number).padStart(2, "0")}
@@ -36,10 +36,6 @@ export default function HotThemes2026Section() {
                 {theme.stocks.length}
               </span>
             </div>
-
-            <p className="text-[11px] text-slate-500 leading-relaxed mb-3 line-clamp-2">
-              {theme.summary}
-            </p>
 
             <div className="flex flex-wrap gap-1 mt-auto mb-3">
               {theme.stocks.map((s) => (

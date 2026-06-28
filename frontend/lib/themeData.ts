@@ -17,6 +17,24 @@ export const MARKET_THEMES: Theme[] = [
     ]
   },
   {
+    "name": "Space Theme",
+    "sector": "Technology",
+    "tickers": [
+      "SPCX",
+      "RKLB",
+      "ASTS",
+      "LUNR",
+      "ĞŞ",
+      "FJET",
+      "SATL",
+      "FLY",
+      "RDW",
+      "SIDU",
+      "UFO",
+      "YSS"
+    ]
+  },
+  {
     "name": "Semiconductors & Hardware",
     "sector": "Technology",
     "tickers": [

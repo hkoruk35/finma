@@ -13,7 +13,6 @@ export async function generateMetadata({ params }: { params: Promise<{ theme: st
   if (!theme) return { title: "Tema Bulunamadı | BOGA AI" };
   return {
     title: `${theme.title} — Tema Takip Sayfası | BOGA AI`,
-    description: theme.summary,
   };
 }
 
