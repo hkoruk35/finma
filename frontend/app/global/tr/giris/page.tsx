@@ -17,7 +17,7 @@ export default function GlobalTrGirisPage() {
         <LoginForm
           locale="tr"
           redirectTo="/global/tr/top100"
-          registerHref="/tr/kayit"
+          registerHref="/global/tr/kayit"
         />
       </main>
       <Footer hidePlatform={true} locale="tr" />

@@ -17,7 +17,7 @@ export default function GlobalEnLoginPage() {
         <LoginForm
           locale="en"
           redirectTo="/global/en/top100"
-          registerHref="/en/register"
+          registerHref="/global/en/register"
         />
       </main>
       <Footer hidePlatform={true} locale="en" />
