@@ -36,8 +36,28 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "fiziksel-ai-humanoid-robotik",
+    slug: "uzay-temasi",
     number: 2,
+    title: "Uzay Teması",
+    accent: "#06b6d4",
+    stocks: [
+      { ticker: "SPCX", company: "Axiom Space", blurb: "Ticari uzay istasyonu modülü üreticisi; ISS halefi." },
+      { ticker: "RKLB", company: "Rocket Lab", blurb: "Küçük uydu fırlatma roketleri; elektrikli Neutron roket geliştirme." },
+      { ticker: "ASTS", company: "Ast SpaceMobile", blurb: "Orbital uzay haberleşme şirketi; doğrudan cep telefonlarına uydu bağlantısı." },
+      { ticker: "LUNR", company: "Intuitive Machines", blurb: "Ay lander teknolojisi ve ay yüzeyinde ticari operasyonlar." },
+      { ticker: "ĞŞ", company: "ĞŞ", blurb: "Uzay sektörü yatırımcısı." },
+      { ticker: "FJET", company: "FJET", blurb: "Uzay teknolojisi şirketi." },
+      { ticker: "SATL", company: "Satellite Communications", blurb: "Uydu haberleşme altyapısı." },
+      { ticker: "FLY", company: "FLY", blurb: "Havacılık ve uzay operasyonları." },
+      { ticker: "RDW", company: "RDW", blurb: "Uzay araştırması ve geliştirme." },
+      { ticker: "SIDU", company: "SIDU", blurb: "Uydu göz ağır lisanslama ve kuruluş." },
+      { ticker: "UFO", company: "UFO", blurb: "Uzay yatırım portföyü." },
+      { ticker: "YSS", company: "YSS", blurb: "Uydu ve uzay sistemleri." },
+    ],
+  },
+  {
+    slug: "fiziksel-ai-humanoid-robotik",
+    number: 3,
     title: "Fiziksel AI & Hümanoid Robotik",
     accent: "#22d3ee",
     stocks: [
@@ -50,7 +70,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-savunma-drone-otonom-sistemler",
-    number: 3,
+    number: 4,
     title: "AI Savunma, Drone & Otonom Sistemler",
     accent: "#f87171",
     stocks: [
@@ -63,7 +83,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "kritik-maden-nadir-toprak",
-    number: 4,
+    number: 5,
     title: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
     accent: "#fbbf24",
     stocks: [
@@ -76,7 +96,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "nukleer-enerji-ai-guc",
-    number: 5,
+    number: 6,
     title: "Nükleer Enerji & AI Güç Altyapısı",
     accent: "#34d399",
     stocks: [
@@ -89,7 +109,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "kuantum-bilisim",
-    number: 6,
+    number: 7,
     title: "Kuantum Bilişim",
     accent: "#a78bfa",
     stocks: [
@@ -102,7 +122,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-ajanlar-kurumsal-yazilim",
-    number: 7,
+    number: 8,
     title: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
     accent: "#60a5fa",
     stocks: [
@@ -114,7 +134,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "ai-veri-merkezi-sogutma",
-    number: 8,
+    number: 9,
     title: "AI Veri Merkezi & Soğutma Altyapısı",
     accent: "#2dd4bf",
     stocks: [
@@ -127,7 +147,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "post-kuantum-siber-guvenlik",
-    number: 9,
+    number: 10,
     title: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
     accent: "#fb7185",
     stocks: [
@@ -139,7 +159,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
   },
   {
     slug: "fiziksel-ai-yariiletken-cip-ekosistemi",
-    number: 10,
+    number: 11,
     title: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
     accent: "#38bdf8",
     stocks: [
