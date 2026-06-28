@@ -109,6 +109,7 @@ const SCORE_TYPE_STYLE: Record<string, { bg: string; text: string; border: strin
 export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDetailClientProps) {
   const [tickers, setTickers]       = useState<string[]>([]);
   const [customTickers, setCustomTickers] = useState<string[]>([]);
+  const [removedTickers, setRemovedTickers] = useState<Set<string>>(new Set());
   const [data, setData]             = useState<Record<string, TickerData>>({});
   const [loading, setLoading]       = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -126,7 +127,19 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     function applyOverrides(overrides: Record<string, string[]>) {
       const customList = overrides[themeName] || [];
       setCustomTickers(customList);
-      const merged = Array.from(new Set([...initialTickers, ...customList]));
+      let merged = Array.from(new Set([...initialTickers, ...customList]));
+
+      // Filter out removed tickers
+      try {
+        const removedKey = `t_theme_removed_${themeName}`;
+        const stored = localStorage.getItem(removedKey);
+        if (stored) {
+          const removed = new Set<string>(JSON.parse(stored));
+          setRemovedTickers(removed);
+          merged = merged.filter(t => !removed.has(t));
+        }
+      } catch {}
+
       setTickers(merged);
       return merged;
     }
@@ -241,6 +254,20 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     const newList = tickers.filter(t => t !== ticker);
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
+  };
+
+  const removeTicker = (ticker: string) => {
+    const newRemoved = new Set(removedTickers);
+    newRemoved.add(ticker);
+    setRemovedTickers(newRemoved);
+    try {
+      const removedKey = `t_theme_removed_${themeName}`;
+      localStorage.setItem(removedKey, JSON.stringify(Array.from(newRemoved)));
+    } catch {}
+    const newList = tickers.filter(t => t !== ticker);
+    setTickers(newList);
+    setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
+    if (expandedRow === ticker) setExpandedRow(null);
   };
 
   // ── Sorting ────────────────────────────────────────────────────────────────
@@ -518,17 +545,15 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                           </Link>
                         </TickerHoverChart>
                         {isCustom && (
-                          <>
-                            <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
-                              CUSTOM
-                            </span>
-                            <button
-                              onClick={e => { e.stopPropagation(); removeCustomTicker(sym); }}
-                              style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
-                              title="Listeden kaldır"
-                            >✕</button>
-                          </>
+                          <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
+                            CUSTOM
+                          </span>
                         )}
+                        <button
+                          onClick={e => { e.stopPropagation(); removeTicker(sym); }}
+                          style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                          title="Listeden kaldır"
+                        >✕</button>
                         <span style={{ color: "#8b949e", marginLeft: 5, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
                       </td>
 
