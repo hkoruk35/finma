@@ -380,7 +380,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
                 return (
                   <Fragment key={`${r.ticker}-${r.themeTitle}`}>
-                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
+                    <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <span>{r.ticker}</span>
