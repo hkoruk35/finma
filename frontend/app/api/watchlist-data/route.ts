@@ -1021,6 +1021,9 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
         volume: volumes[volumes.length - 1],
         avg_volume_30d: last30dVol * 30
       },
+      // Last ~20 daily closes for lightweight inline sparklines — reuses the
+      // already-fetched 252d series, no extra Yahoo request.
+      recent_closes: closes.slice(-20),
       scores: {
         master_score: finalMaster,
         technical_score: tScore,

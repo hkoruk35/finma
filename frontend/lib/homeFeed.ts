@@ -15,6 +15,7 @@ export interface HomeStock {
   status: TrendStatus;
   price: number;
   change_pct: number;
+  sparkline: number[];
 }
 
 function normalizeStatus(emaStatus: string | undefined): TrendStatus {
@@ -75,12 +76,13 @@ export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
         status: normalizeStatus(l?.tracker_1h?.ema_status),
         price: l?.price?.current ?? p.current_price ?? 0,
         change_pct: l?.price?.change_pct ?? p.change_1d ?? 0,
+        sparkline: l?.recent_closes ?? [],
         volume: l?.price?.volume ?? 0,
       };
     })
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit)
-    .map(({ ticker, sector, status, price, change_pct }) => ({ ticker, sector, status, price, change_pct }));
+    .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
 }
 
 export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
@@ -99,13 +101,14 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
         status: normalizeStatus(l?.tracker_1h?.ema_status),
         price: l?.price?.current ?? 0,
         change_pct: l?.price?.change_pct ?? 0,
+        sparkline: l?.recent_closes ?? [],
         volume: l?.price?.volume ?? 0,
       };
     })
     .filter((s) => s.price > 0)
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit)
-    .map(({ ticker, sector, status, price, change_pct }) => ({ ticker, sector, status, price, change_pct }));
+    .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
 }
 
 export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
@@ -139,6 +142,7 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
     status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
     price,
     change_pct,
+    sparkline: live[ticker]?.recent_closes ?? [],
   }));
 }
 

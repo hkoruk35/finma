@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import type { TrendStatus } from '@/lib/homeFeed';
+import Sparkline from './Sparkline';
 
 interface Stock {
   ticker: string;
@@ -9,6 +10,7 @@ interface Stock {
   status: TrendStatus;
   price: number;
   change_pct: number;
+  sparkline: number[];
 }
 
 interface HomeSimpleCardProps {
@@ -25,7 +27,7 @@ const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string 
   NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL' },
 };
 
-const ROW_COLS = 'grid-cols-[1fr_72px_72px]';
+const ROW_COLS = 'grid-cols-[1fr_56px_64px_72px]';
 
 export default function HomeSimpleCard({
   title,
@@ -62,6 +64,7 @@ export default function HomeSimpleCard({
           {/* Column labels */}
           <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/30`}>
             <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : 'STOCK / SECTOR'}</span>
+            <span />
             <span className="text-center">{locale === 'tr' ? 'DURUM' : 'STATUS'}</span>
             <span className="text-right">{locale === 'tr' ? 'FİYAT' : 'PRICE'}</span>
           </div>
@@ -86,6 +89,10 @@ export default function HomeSimpleCard({
                       </div>
                       <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
                     </div>
+                  </div>
+
+                  <div className="justify-self-center">
+                    <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} />
                   </div>
 
                   <span
