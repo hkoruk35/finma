@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import type { TrendStatus } from '@/lib/homeFeed';
 
 interface Stock {
   ticker: string;
   sector: string;
+  status: TrendStatus;
   price: number;
   change_pct: number;
 }
@@ -16,6 +18,14 @@ interface HomeSimpleCardProps {
   viewAllHref: string;
   locale: 'tr' | 'en';
 }
+
+const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string }> = {
+  BULLISH: { color: '#22c55e', tr: 'YÜKSELİŞ', en: 'BULLISH' },
+  BEARISH: { color: '#ef4444', tr: 'DÜŞÜŞ', en: 'BEARISH' },
+  NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL' },
+};
+
+const ROW_COLS = 'grid-cols-[1fr_72px_72px]';
 
 export default function HomeSimpleCard({
   title,
@@ -47,40 +57,61 @@ export default function HomeSimpleCard({
         </Link>
       </div>
 
-      {/* Rows */}
       {stocks.length > 0 ? (
-        <div className="flex-1 divide-y divide-[#1e2a3a]/70">
-          {stocks.map((stock, idx) => (
-            <Link
-              key={stock.ticker}
-              href={locale === 'tr' ? `/global/tr/${stock.ticker}` : `/global/en/${stock.ticker}`}
-              className="flex items-center justify-between gap-3 px-5 py-3.5 hover:bg-white/[0.04] transition-colors duration-150 group"
-              style={{ '--accent': accent } as React.CSSProperties}
-            >
-              <div className="flex items-center gap-3 min-w-0">
-                <span className="text-[10px] font-mono font-bold text-white/25 w-3">{idx + 1}</span>
-                <div className="min-w-0">
-                  <div className="font-black text-white text-sm tracking-tight transition-colors group-hover:text-[var(--accent)]">
-                    {stock.ticker}
-                  </div>
-                  <div className="text-[11px] text-white/40 truncate max-w-[120px]">{stock.sector || '—'}</div>
-                </div>
-              </div>
-              <div className="text-right flex-shrink-0">
-                <div className="font-mono text-sm font-semibold text-white/90">${stock.price.toFixed(2)}</div>
-                <span
-                  className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
-                    stock.change_pct >= 0
-                      ? 'bg-[#22c55e]/15 text-[#22c55e]'
-                      : 'bg-[#ef4444]/15 text-[#ef4444]'
-                  }`}
+        <>
+          {/* Column labels */}
+          <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/30`}>
+            <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : 'STOCK / SECTOR'}</span>
+            <span className="text-center">{locale === 'tr' ? 'DURUM' : 'STATUS'}</span>
+            <span className="text-right">{locale === 'tr' ? 'FİYAT' : 'PRICE'}</span>
+          </div>
+
+          {/* Rows */}
+          <div className="flex-1 divide-y divide-[#1e2a3a]/70">
+            {stocks.map((stock, idx) => {
+              const statusStyle = STATUS_STYLE[stock.status];
+              const statusLabel = locale === 'tr' ? statusStyle.tr : statusStyle.en;
+              return (
+                <Link
+                  key={stock.ticker}
+                  href={locale === 'tr' ? `/global/tr/${stock.ticker}` : `/global/en/${stock.ticker}`}
+                  className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 hover:bg-white/[0.04] transition-colors duration-150 group`}
+                  style={{ '--accent': accent } as React.CSSProperties}
                 >
-                  {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="text-[10px] font-mono font-bold text-white/25 w-3">{idx + 1}</span>
+                    <div className="min-w-0">
+                      <div className="font-black text-white text-sm tracking-tight transition-colors group-hover:text-[var(--accent)]">
+                        {stock.ticker}
+                      </div>
+                      <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
+                    </div>
+                  </div>
+
+                  <span
+                    className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                    style={{ background: `${statusStyle.color}26`, color: statusStyle.color }}
+                  >
+                    {statusLabel}
+                  </span>
+
+                  <div className="text-right">
+                    <div className="font-mono text-sm font-semibold text-white/90">${stock.price.toFixed(2)}</div>
+                    <span
+                      className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
+                        stock.change_pct >= 0
+                          ? 'bg-[#22c55e]/15 text-[#22c55e]'
+                          : 'bg-[#ef4444]/15 text-[#ef4444]'
+                      }`}
+                    >
+                      {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </>
       ) : (
         <div className="flex-1 flex items-center justify-center py-12">
           <p className="text-xs text-white/40">{emptyMessage}</p>

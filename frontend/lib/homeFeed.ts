@@ -7,16 +7,20 @@
 import { getSwingAllPicks, getMasterData } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
 
+export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
+
 export interface HomeStock {
   ticker: string;
   sector: string;
+  status: TrendStatus;
   price: number;
   change_pct: number;
 }
 
-export interface MarketStatus {
-  regime: "BULLISH" | "BEARISH" | "NEUTRAL";
-  generatedAt: string;
+function normalizeStatus(emaStatus: string | undefined): TrendStatus {
+  if (emaStatus === "Bullish" || emaStatus === "Yükseliş") return "BULLISH";
+  if (emaStatus === "Bearish" || emaStatus === "Düşüş") return "BEARISH";
+  return "NEUTRAL";
 }
 
 const HOUR = 3600;
@@ -68,6 +72,7 @@ export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
       return {
         ticker: p.ticker,
         sector: l?.sector || p.sector || "—",
+        status: normalizeStatus(l?.tracker_1h?.ema_status),
         price: l?.price?.current ?? p.current_price ?? 0,
         change_pct: l?.price?.change_pct ?? p.change_1d ?? 0,
         volume: l?.price?.volume ?? 0,
@@ -75,7 +80,7 @@ export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
     })
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit)
-    .map(({ ticker, sector, price, change_pct }) => ({ ticker, sector, price, change_pct }));
+    .map(({ ticker, sector, status, price, change_pct }) => ({ ticker, sector, status, price, change_pct }));
 }
 
 export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
@@ -91,6 +96,7 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
       return {
         ticker,
         sector: l?.sector || "—",
+        status: normalizeStatus(l?.tracker_1h?.ema_status),
         price: l?.price?.current ?? 0,
         change_pct: l?.price?.change_pct ?? 0,
         volume: l?.price?.volume ?? 0,
@@ -99,7 +105,7 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
     .filter((s) => s.price > 0)
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit)
-    .map(({ ticker, sector, price, change_pct }) => ({ ticker, sector, price, change_pct }));
+    .map(({ ticker, sector, status, price, change_pct }) => ({ ticker, sector, status, price, change_pct }));
 }
 
 export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
@@ -124,29 +130,24 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
     .slice(0, limit);
 
   // top100_tickers.sector is often a placeholder ("Other") — overlay the real
-  // sector from live data for just this shortlist instead of the full 100.
+  // sector (and trend status, which isn't in Supabase at all) from live data
+  // for just this shortlist instead of the full 100.
   const live = await fetchLiveQuotes(top.map((t) => t.ticker));
   return top.map(({ ticker, sector, price, change_pct }) => ({
     ticker,
     sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
+    status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
     price,
     change_pct,
   }));
 }
 
-export async function getMarketStatus(): Promise<MarketStatus> {
+export async function getLastUpdated(): Promise<string> {
   const master = await getMasterData();
-  const raw = master?.market_regime || "";
-  const regime: MarketStatus["regime"] =
-    raw === "Bull" ? "BULLISH" : raw === "Bear" ? "BEARISH" : "NEUTRAL";
-
-  const generatedAt = master?.generated_at
-    ? new Date(master.generated_at).toLocaleString("en-US", {
-        timeZone: "America/New_York",
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    : "";
-
-  return { regime, generatedAt };
+  if (!master?.generated_at) return "";
+  return new Date(master.generated_at).toLocaleString("en-US", {
+    timeZone: "America/New_York",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

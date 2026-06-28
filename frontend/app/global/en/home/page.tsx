@@ -1,9 +1,8 @@
 import { Metadata } from "next";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getMarketStatus } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
-import MarketStatusCard from "@/components/global/MarketStatusCard";
 
 export const revalidate = 3600;
 
@@ -14,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 export default async function EnHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, marketStatus] = await Promise.all([
+  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated] = await Promise.all([
     getTopSwingByVolume(5),
     getTopTrendByVolume(5),
     getTopTop100ByVolume(5),
-    getMarketStatus(),
+    getLastUpdated(),
   ]);
 
   return (
@@ -26,8 +25,8 @@ export default async function EnHomePage() {
       <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Four column grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Three column grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <HomeSimpleCard
             title="Swing Trade"
             accent="#3b82f6"
@@ -35,8 +34,6 @@ export default async function EnHomePage() {
             viewAllHref="/global/en/swing"
             locale="en"
           />
-
-          <MarketStatusCard regime={marketStatus.regime} locale="en" />
 
           <HomeSimpleCard
             title="Trend Stocks"
@@ -57,9 +54,9 @@ export default async function EnHomePage() {
 
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
-          {marketStatus.generatedAt && (
+          {lastUpdated && (
             <p className="text-[11px] text-white/40">
-              Last updated: <span className="font-mono text-white/60">{marketStatus.generatedAt}</span> (ET)
+              Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (ET)
             </p>
           )}
           <p className="text-[10px] text-white/25 max-w-xl">
