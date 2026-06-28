@@ -384,7 +384,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700 }}>▶</Link>
+                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>ANALIZ</Link>
                       </td>
                     </tr>
                     {isExpanded && (

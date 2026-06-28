@@ -24,6 +24,12 @@ export default function EnSwingPage() {
           <span className="text-white italic">Daily Swing Trade Candidates</span>
         </nav>
 
+        <div className="flex gap-2 mb-4">
+          <Link href="/global/en/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">TOP 100</Link>
+          <Link href="/global/en/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">SWING</Link>
+          <Link href="/global/en/trend" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">TREND</Link>
+        </div>
+
         <div className="relative z-10">
           <SwingTracker locale="en" />
         </div>

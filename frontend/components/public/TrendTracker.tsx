@@ -380,8 +380,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
                 return (
                   <Fragment key={`${r.ticker}-${r.themeTitle}`}>
-                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }}>
-                      <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }} onClick={() => toggleExpand(r.ticker)}>
+                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
+                      <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
@@ -408,7 +408,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700 }}>▶</Link>
+                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>ANALIZ</Link>
                       </td>
                     </tr>
                     {isExpanded && (
