@@ -49,14 +49,6 @@ async function fetchLiveData(tickers: string[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    // Verify authorization (member only)
-    const supabase = await createSupabaseServerClient();
-    const { data: user, error: authError } = await supabase.auth.getUser();
-
-    if (authError || !user.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     // Get tickers to update
     const tickers = await getTopicsToUpdate();
     if (tickers.length === 0) {
