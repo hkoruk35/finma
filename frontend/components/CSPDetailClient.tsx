@@ -574,6 +574,11 @@ export default function CSPDetailClient({ slug }: Props) {
                             onClick={e => e.stopPropagation()}
                           >
                             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 13 }}>{sym}</span>
+                            <button
+                              onClick={e => { e.stopPropagation(); removeTicker(sym); }}
+                              style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
+                              title="Listeden kaldır"
+                            >✕</button>
                             {isExpanded && <span style={{ color: "#3fb950", marginLeft: 6, fontSize: 10 }}>▼</span>}
                             {!isExpanded && <span style={{ color: "#8b949e", marginLeft: 6, fontSize: 10 }}>▶</span>}
                           </td>
