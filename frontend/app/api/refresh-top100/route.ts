@@ -23,17 +23,24 @@ async function getTopicsToUpdate(): Promise<string[]> {
 
 async function fetchLiveData(tickers: string[]) {
   if (tickers.length === 0) return {};
+
+  const map: Record<string, any> = {};
+  const BATCH_SIZE = 50; // Fetch 50 at a time to avoid URL length limits
+
   try {
-    const res = await fetch(
-      `${BASE_URL}/api/watchlist-data?tickers=${tickers.join(",")}`,
-      { signal: AbortSignal.timeout(30000) }
-    );
-    if (!res.ok) return {};
-    const data: any[] = await res.json();
-    const map: Record<string, any> = {};
-    data.forEach((d) => {
-      if (d?.ticker) map[d.ticker] = d;
-    });
+    // Process in batches
+    for (let i = 0; i < tickers.length; i += BATCH_SIZE) {
+      const batch = tickers.slice(i, i + BATCH_SIZE);
+      const res = await fetch(
+        `${BASE_URL}/api/watchlist-data?tickers=${batch.join(",")}`,
+        { signal: AbortSignal.timeout(30000) }
+      );
+      if (!res.ok) continue;
+      const data: any[] = await res.json();
+      data.forEach((d) => {
+        if (d?.ticker) map[d.ticker] = d;
+      });
+    }
     return map;
   } catch {
     return {};
