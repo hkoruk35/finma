@@ -454,13 +454,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
                         </TickerHoverChart>
-                        {isAdmin && (
-                          <button
-                            onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
-                            style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
-                            title="Listeden kaldır"
-                          >✕</button>
-                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];
