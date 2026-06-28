@@ -11,6 +11,14 @@ const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
+interface HourlyBar {
+  time: string;
+  price: number | null;
+  change_pct: number | null;
+  volume: number | null;
+  volume_ratio: number | null;
+}
+
 const SIGNAL_ICON: Record<string, string> = { AL: "●", İzle: "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", İzle: "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
 const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
@@ -37,6 +45,7 @@ interface LiveData {
     signal: string; volume_ratio: number; change_pct_1h: number;
     change_pct_1d: number; volume_ratio_1d: number;
   };
+  hourly?: HourlyBar[];
 }
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");

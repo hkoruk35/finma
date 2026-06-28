@@ -9,6 +9,14 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
+interface HourlyBar {
+  time: string;
+  price: number | null;
+  change_pct: number | null;
+  volume: number | null;
+  volume_ratio: number | null;
+}
+
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
 
@@ -39,6 +47,7 @@ interface LiveData {
     signal: string; volume_ratio: number; change_pct_1h: number;
     change_pct_1d: number; volume_ratio_1d: number;
   };
+  hourly?: HourlyBar[];
 }
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
