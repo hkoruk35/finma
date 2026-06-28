@@ -1,10 +1,8 @@
 import { Metadata } from "next";
-import { getSwingAllPicks, getAllTickers } from "@/lib/data";
+import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
-
-export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "BOGA AI",
@@ -12,56 +10,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/global/en/home" },
 };
 
-interface Stock {
-  ticker: string;
-  sector: string;
-  price: number;
-  change_pct: number;
-  volume?: number;
-}
-
 export default async function EnHomePage() {
-  const [swingPicks, allTickers] = await Promise.all([
-    getSwingAllPicks(),
-    getAllTickers(),
+  const [swingByVolume, trendByVolume, top100ByVolume] = await Promise.all([
+    getTopSwingByVolume(5),
+    getTopTrendByVolume(5),
+    getTopTop100ByVolume(5),
   ]);
-
-  // Swing trade - top 5 by volume
-  const swingByVolume: Stock[] = (swingPicks?.picks ?? [])
-    .sort((a: any, b: any) => (b.volume || 0) - (a.volume || 0))
-    .slice(0, 5)
-    .map((pick: any) => ({
-      ticker: pick.ticker,
-      sector: pick.sector || "—",
-      price: pick.price || 0,
-      change_pct: pick.change_pct || 0,
-      volume: pick.volume,
-    }));
-
-  // Trend stocks - top 5 by volume
-  const trendByVolume: Stock[] = (allTickers || [])
-    .filter((t: any) => t.score_type === "TREND" || t.score_type?.includes("TREND"))
-    .sort((a: any, b: any) => (b.volume || 0) - (a.volume || 0))
-    .slice(0, 5)
-    .map((t: any) => ({
-      ticker: t.ticker,
-      sector: t.sector || "—",
-      price: t.price || 0,
-      change_pct: t.change_pct || 0,
-      volume: t.volume,
-    }));
-
-  // Top 100 - top 5 by volume
-  const top100ByVolume: Stock[] = (allTickers || [])
-    .sort((a: any, b: any) => (b.volume || 0) - (a.volume || 0))
-    .slice(0, 5)
-    .map((t: any) => ({
-      ticker: t.ticker,
-      sector: t.sector || "—",
-      price: t.price || 0,
-      change_pct: t.change_pct || 0,
-      volume: t.volume,
-    }));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
