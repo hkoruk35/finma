@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
@@ -108,9 +108,22 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      const swingRes = await fetch("/lib/swingCandidates.json");
-      if (!swingRes.ok) throw new Error("Could not load swing candidates");
-      const swingData = await swingRes.json();
+      // Try to fetch from API first (latest swing picks with generated_at)
+      let swingData: any = null;
+      try {
+        const apiRes = await fetch("/api/swing-picks");
+        if (apiRes.ok) {
+          swingData = await apiRes.json();
+        }
+      } catch {
+        // Fallback to static data
+      }
+
+      if (!swingData) {
+        const swingRes = await fetch("/lib/swingCandidates.json");
+        if (!swingRes.ok) throw new Error("Could not load swing candidates");
+        swingData = await swingRes.json();
+      }
 
       const rows: SwingRow[] = (swingData.picks || []).map((p: any) => ({
         ticker: p.ticker,
@@ -124,6 +137,13 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
       }));
 
       setComposition(rows);
+
+      // Set lastUpdated from generated_at if available
+      if (swingData.generated_at) {
+        const dateStr = swingData.generated_at;
+        const date = new Date(dateStr);
+        setLastUpdated(date);
+      }
 
       if (rows.length > 0) {
         const tickers = rows.map((r) => r.ticker).join(",");
@@ -347,36 +367,46 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                 const signal = d?.tracker_1h?.signal || "—";
                 const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
                 const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0d1117";
+                const isExpanded = expandedTicker === r.ticker;
 
                 return (
-                  <tr key={r.ticker} style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }}>
-                    <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }} onClick={() => toggleExpand(r.ticker)}>
-                      {r.ticker}
-                    </td>
-                    <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
-                      {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
-                    </td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20) }}>
-                      {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20)}
-                    </td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50) }}>
-                      {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50)}
-                    </td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
-                      {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
-                    </td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal}</td>
-                    <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                      <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700 }}>▶</Link>
-                    </td>
-                  </tr>
+                  <Fragment key={r.ticker}>
+                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }}>
+                      <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }} onClick={() => toggleExpand(r.ticker)}>
+                        {r.ticker}
+                      </td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
+                        {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20) }}>
+                        {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50) }}>
+                        {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
+                        {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right" }}>
+                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700 }}>▶</Link>
+                      </td>
+                    </tr>
+                    {isExpanded && (
+                      <tr style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
+                        <td colSpan={14} style={{ padding: 0 }}>
+                          <TickerDetailPanel ticker={r.ticker} locale={locale} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
                 );
               })}
             </tbody>
