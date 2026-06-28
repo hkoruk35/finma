@@ -100,7 +100,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
@@ -259,18 +258,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           </div>
 
           <div style={{ display: "flex", gap: 6 }}>
-            {(["table", "heatmap"] as const).map((tab) => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                style={{
-                  padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
-                  border: "1px solid", borderColor: activeTab === tab ? ACCENT : "#30363d",
-                  background: activeTab === tab ? ACCENT + "20" : "transparent",
-                  color: activeTab === tab ? ACCENT : "#8b949e",
-                  borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
-                }}>
-                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
-              </button>
-            ))}
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
@@ -322,8 +309,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
       {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{locale === "tr" ? "Trend hissesi bulunamadı" : "No trend stocks found"}</div>}
 
-      {/* ANA TABLO */}
-      {activeTab === "table" && composition.length > 0 && (
+      {/* TABLE */}
+      {composition.length > 0 && (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
             <thead>
@@ -409,29 +396,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               })}
             </tbody>
           </table>
-        </div>
-      )}
-
-      {/* HEATMAP VIEW */}
-      {activeTab === "heatmap" && composition.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 8, padding: 10 }}>
-          {sorted.slice(0, 100).map((r) => {
-            const d = live[r.ticker];
-            const chg = d?.tracker_1h?.change_pct_1h ?? r.change_pct;
-            const { bg, text } = heatBg(chg);
-            return (
-              <Link key={`${r.ticker}-${r.themeTitle}`} href={permalink(r.ticker)}
-                style={{
-                  padding: 12, background: bg, border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: 4, textAlign: "center", textDecoration: "none", cursor: "pointer",
-                  transition: "all 0.2s"
-                }}>
-                <div style={{ fontWeight: 700, color: "#58a6ff", marginBottom: 4 }}>{r.ticker}</div>
-                <div style={{ fontSize: 11, color: "#8b949e" }}>{r.themeTitle}</div>
-                <div style={{ fontSize: 14, fontWeight: 900, color: text, marginTop: 4 }}>{fmt2(chg)}%</div>
-              </Link>
-            );
-          })}
         </div>
       )}
     </div>

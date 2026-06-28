@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import { getSwingAllPicks } from "@/lib/data";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
@@ -15,13 +16,13 @@ const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle:
 
 interface SwingRow {
   ticker: string;
-  company: string;
-  price: number;
-  change_pct: number;
-  rsi: number;
-  signal: string;
-  volume: number;
-  sector: string;
+  company: string | null;
+  sector: string | null;
+  price: number | null;
+  volume: number | null;
+  change_pct: number | null;
+  rsi: number | null;
+  signal: string | null;
 }
 
 interface LiveData {
@@ -64,17 +65,6 @@ function emaArrow(price: number, ema: number | undefined) {
   return price > ema ? "↑" : "↓";
 }
 
-function heatBg(pct: number | null) {
-  if (pct === null) return { bg: "#111111", text: "#333333" };
-  if (pct >= 2.0) return { bg: "#0d4a0d", text: "#56d364" };
-  if (pct >= 1.0) return { bg: "#0d3a0d", text: "#3fb950" };
-  if (pct >= 0.3) return { bg: "#0d2a0d", text: "#3fb950" };
-  if (pct > -0.3) return { bg: "#1a1a1a", text: "#8b949e" };
-  if (pct > -1.0) return { bg: "#2a0d0d", text: "#f85149" };
-  if (pct > -2.0) return { bg: "#3a0d0d", text: "#f85149" };
-  return { bg: "#4a0d0d", text: "#ff7b72" };
-}
-
 function isMarketOpen() {
   const now = new Date();
   const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
@@ -98,7 +88,6 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
@@ -108,42 +97,24 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      // Try to fetch from API first (latest swing picks with generated_at)
-      let swingData: any = null;
-      try {
-        const apiRes = await fetch("/api/swing-picks");
-        if (apiRes.ok) {
-          swingData = await apiRes.json();
-        }
-      } catch {
-        // Fallback to static data
-      }
-
+      const swingData = await getSwingAllPicks();
       if (!swingData) {
-        const swingRes = await fetch("/lib/swingCandidates.json");
-        if (!swingRes.ok) throw new Error("Could not load swing candidates");
-        swingData = await swingRes.json();
+        setError(t.error);
+        return;
       }
 
-      const rows: SwingRow[] = (swingData.picks || []).map((p: any) => ({
+      const rows: SwingRow[] = (swingData.picks ?? []).map((p: any) => ({
         ticker: p.ticker,
         company: p.company || p.ticker,
-        price: p.price || 0,
-        change_pct: p.change_pct || 0,
-        rsi: p.rsi || 0,
-        signal: p.signal || "İzle",
-        volume: p.volume || 0,
-        sector: p.sector || "Unknown",
+        sector: p.sector || null,
+        price: p.price || null,
+        volume: p.volume || null,
+        change_pct: p.change_pct || null,
+        rsi: p.rsi || null,
+        signal: p.signal || null,
       }));
 
       setComposition(rows);
-
-      // Set lastUpdated from generated_at if available
-      if (swingData.generated_at) {
-        const dateStr = swingData.generated_at;
-        const date = new Date(dateStr);
-        setLastUpdated(date);
-      }
 
       if (rows.length > 0) {
         const tickers = rows.map((r) => r.ticker).join(",");
@@ -155,6 +126,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           setLive(map);
         }
       }
+
       setLastUpdated(new Date());
       setError("");
     } catch {
@@ -218,8 +190,11 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         case "price": va = da?.price?.current ?? 0; vb = db?.price?.current ?? 0; break;
         case "volume": va = da?.price?.volume ?? 0; vb = db?.price?.volume ?? 0; break;
         case "chg1d": va = da?.tracker_1h?.change_pct_1d ?? 0; vb = db?.tracker_1h?.change_pct_1d ?? 0; break;
-        case "rsi": va = da?.tracker_1h?.rsi ?? 0; vb = db?.tracker_1h?.rsi ?? 0; break;
+        case "goran": va = da?.tracker_1h?.volume_ratio_1d ?? 0; vb = db?.tracker_1h?.volume_ratio_1d ?? 0; break;
         case "ema20": va = da?.tracker_1h?.ema_20 ?? 0; vb = db?.tracker_1h?.ema_20 ?? 0; break;
+        case "ema50": va = da?.tracker_1h?.ema_50 ?? 0; vb = db?.tracker_1h?.ema_50 ?? 0; break;
+        case "ema200": va = da?.tracker_1h?.ema_200 ?? 0; vb = db?.tracker_1h?.ema_200 ?? 0; break;
+        case "rsi": va = da?.tracker_1h?.rsi ?? 0; vb = db?.tracker_1h?.rsi ?? 0; break;
         case "signal": va = SIGNAL_RANK[da?.tracker_1h?.signal ?? ""] ?? 0; vb = SIGNAL_RANK[db?.tracker_1h?.signal ?? ""] ?? 0; break;
         default: return 0;
       }
@@ -268,18 +243,6 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           </div>
 
           <div style={{ display: "flex", gap: 6 }}>
-            {(["table", "heatmap"] as const).map((tab) => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                style={{
-                  padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
-                  border: "1px solid", borderColor: activeTab === tab ? ACCENT : "#30363d",
-                  background: activeTab === tab ? ACCENT + "20" : "transparent",
-                  color: activeTab === tab ? ACCENT : "#8b949e",
-                  borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
-                }}>
-                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
-              </button>
-            ))}
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
@@ -324,10 +287,10 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{locale === "tr" ? "Swing adayı bulunamadı" : "No swing candidates found"}</div>}
+      {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{t.empty}</div>}
 
-      {/* ANA TABLO */}
-      {activeTab === "table" && composition.length > 0 && (
+      {/* TABLE */}
+      {composition.length > 0 && (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
             <thead>
@@ -371,25 +334,23 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
                 return (
                   <Fragment key={r.ticker}>
-                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }}>
-                      <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }} onClick={() => toggleExpand(r.ticker)}>
-                        {r.ticker}
-                      </td>
+                    <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
+                      <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>{r.ticker}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
                       </td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20) }}>
-                        {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20)}
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
+                        {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
                       </td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50) }}>
-                        {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50)}
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
+                        {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
                       </td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
-                        {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
+                        {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
                       </td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
@@ -411,28 +372,6 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
               })}
             </tbody>
           </table>
-        </div>
-      )}
-
-      {/* HEATMAP VIEW */}
-      {activeTab === "heatmap" && composition.length > 0 && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 8, padding: 10 }}>
-          {sorted.slice(0, 50).map((r) => {
-            const d = live[r.ticker];
-            const chg = d?.tracker_1h?.change_pct_1h ?? r.change_pct;
-            const { bg, text } = heatBg(chg);
-            return (
-              <Link key={r.ticker} href={permalink(r.ticker)}
-                style={{
-                  padding: 12, background: bg, border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: 4, textAlign: "center", textDecoration: "none", cursor: "pointer",
-                  transition: "all 0.2s"
-                }}>
-                <div style={{ fontWeight: 700, color: "#58a6ff", marginBottom: 4 }}>{r.ticker}</div>
-                <div style={{ fontSize: 14, fontWeight: 900, color: text }}>{fmt2(chg)}%</div>
-              </Link>
-            );
-          })}
         </div>
       )}
     </div>
