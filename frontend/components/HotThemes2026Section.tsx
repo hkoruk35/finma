@@ -1,8 +1,61 @@
+"use client";
+
 import Link from "next/link";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { useEffect, useState } from "react";
+import { createSupabaseBrowserClient } from "@/lib/supabase-client";
+
+const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
 
 export default function HotThemes2026Section() {
-  const totalStocks = new Set(HOT_THEMES_2026.flatMap((t) => t.stocks.map((s) => s.ticker))).size;
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [removedSlugs, setRemovedSlugs] = useState<Set<string>>(new Set());
+
+  const visibleThemes = HOT_THEMES_2026.filter((t) => !removedSlugs.has(t.slug));
+  const totalStocks = new Set(visibleThemes.flatMap((t) => t.stocks.map((s) => s.ticker))).size;
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const { data } = await supabase.auth.getUser();
+        if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
+          setIsAdmin(true);
+        }
+
+        // Fetch removed themes
+        const { data: removed } = await supabase.from("removed_hot_themes").select("slug");
+        if (removed) {
+          setRemovedSlugs(new Set(removed.map((r: any) => r.slug)));
+        }
+      } catch {
+        // Not authenticated or error
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAdmin();
+  }, []);
+
+  const handleRemove = async (slug: string) => {
+    if (!confirm("Bu temayı listeden kaldırmak istediğinizden emin misiniz?")) return;
+    try {
+      const res = await fetch(`/api/hot-themes/remove`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug }),
+      });
+      if (res.ok) {
+        alert("Tema başarıyla kaldırıldı.");
+        window.location.reload();
+      } else {
+        alert("Hata oluştu.");
+      }
+    } catch (err) {
+      alert("İstek başarısız: " + String(err));
+    }
+  };
 
   return (
     <div>
@@ -13,7 +66,7 @@ export default function HotThemes2026Section() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        {HOT_THEMES_2026.map((theme) => (
+        {visibleThemes.map((theme) => (
           <Link
             key={theme.slug}
             href={`/csp/${theme.slug}`}
@@ -29,12 +82,25 @@ export default function HotThemes2026Section() {
                   {theme.title}
                 </h3>
               </div>
-              <span
-                className="shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-full border"
-                style={{ borderColor: theme.accent, color: theme.accent }}
-              >
-                {theme.stocks.length}
-              </span>
+              <div className="flex items-center gap-2">
+                <span
+                  className="shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-full border"
+                  style={{ borderColor: theme.accent, color: theme.accent }}
+                >
+                  {theme.stocks.length}
+                </span>
+                {isAdmin && !loading && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleRemove(theme.slug);
+                    }}
+                    className="shrink-0 text-[8px] font-black px-1.5 py-0.5 rounded bg-red-950/30 border border-red-700/40 text-red-400 hover:bg-red-950/50 transition-colors"
+                  >
+                    KALDIR
+                  </button>
+                )}
+              </div>
             </div>
 
             <div className="flex flex-wrap gap-1 mt-auto mb-3">
