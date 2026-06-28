@@ -10,7 +10,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const top100Href = locale === "en" ? "/global/en/top100" : "/global/tr/top100";
+  const homeHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
   const accountHref = locale === "en" ? "/global/en/account" : "/global/tr/hesabim";
   const loginHref = locale === "en" ? "/global/en/login" : "/global/tr/giris";
 
@@ -26,7 +26,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   return (
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3">
-        <Link href={top100Href} className="flex items-center gap-2 group flex-shrink-0">
+        <Link href={homeHref} className="flex items-center gap-2 group flex-shrink-0">
           <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
             <Image
               src="/finmawave.png"
@@ -53,6 +53,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         <div className="flex-1" />
 
         <div className="flex items-center gap-2 flex-shrink-0">
+          <Link
+            href={homeHref}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+          >
+            <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span className="hidden sm:inline">{locale === "en" ? "Home" : "Anasayfa"}</span>
+          </Link>
           <Link
             href={accountHref}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"

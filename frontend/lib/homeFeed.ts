@@ -1,10 +1,11 @@
 /**
  * Server-only helpers for the post-login home page (/global/{locale}/home).
  * Pulls the same live data sources as /swing, /trend, /top100 and ranks by volume.
+ * Everything here goes through fetch() with an hourly revalidate so the page
+ * can be served as ISR and update on the hour during market days.
  */
-import { getSwingAllPicks } from "./data";
+import { getSwingAllPicks, getMasterData } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
-import { createSupabaseServerClient } from "./supabase-server";
 
 export interface HomeStock {
   ticker: string;
@@ -13,13 +14,21 @@ export interface HomeStock {
   change_pct: number;
 }
 
+export interface MarketStatus {
+  regime: "BULLISH" | "BEARISH" | "NEUTRAL";
+  generatedAt: string;
+}
+
+const HOUR = 3600;
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 async function fetchLiveQuotes(tickers: string[]): Promise<Record<string, any>> {
   if (tickers.length === 0) return {};
   try {
     const res = await fetch(`${BASE_URL}/api/watchlist-data?tickers=${tickers.join(",")}`, {
-      cache: "no-store",
+      next: { revalidate: HOUR },
       signal: AbortSignal.timeout(20000),
     });
     if (!res.ok) return {};
@@ -29,6 +38,20 @@ async function fetchLiveQuotes(tickers: string[]): Promise<Record<string, any>> 
     return map;
   } catch {
     return {};
+  }
+}
+
+async function supabaseSelect(table: string, query: string): Promise<any[]> {
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return [];
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
+      headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
+      next: { revalidate: HOUR },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch {
+    return [];
   }
 }
 
@@ -80,20 +103,11 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
 }
 
 export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
-  const supabase = await createSupabaseServerClient();
+  const tickers = await supabaseSelect("top100_tickers", "select=ticker,sector&active=eq.true");
+  if (tickers.length === 0) return [];
 
-  const { data: tickers } = await supabase
-    .from("top100_tickers")
-    .select("ticker, sector")
-    .eq("active", true);
-
-  if (!tickers || tickers.length === 0) return [];
-
-  const { data: snapshots } = await supabase
-    .from("top100_snapshot")
-    .select("ticker, price, volume, change_pct");
-
-  const snapByTicker = new Map((snapshots ?? []).map((s) => [s.ticker, s]));
+  const snapshots = await supabaseSelect("top100_snapshot", "select=ticker,price,volume,change_pct");
+  const snapByTicker = new Map(snapshots.map((s) => [s.ticker, s]));
 
   const top = tickers
     .map((t) => {
@@ -118,4 +132,21 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
     price,
     change_pct,
   }));
+}
+
+export async function getMarketStatus(): Promise<MarketStatus> {
+  const master = await getMasterData();
+  const raw = master?.market_regime || "";
+  const regime: MarketStatus["regime"] =
+    raw === "Bull" ? "BULLISH" : raw === "Bear" ? "BEARISH" : "NEUTRAL";
+
+  const generatedAt = master?.generated_at
+    ? new Date(master.generated_at).toLocaleString("en-US", {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "";
+
+  return { regime, generatedAt };
 }
