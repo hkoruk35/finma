@@ -5,13 +5,23 @@ import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useEffect, useState } from "react";
 
 const REMOVED_THEMES_KEY = "removed_hot_themes_2026";
+const REMOVED_STOCKS_KEY_PREFIX = "removed_stocks_";
+
+type RemovedStocksMap = Record<string, Set<string>>;
 
 export default function HotThemes2026Section() {
   const [removedSlugs, setRemovedSlugs] = useState<Set<string>>(new Set());
+  const [removedStocks, setRemovedStocks] = useState<RemovedStocksMap>({});
   const [mounted, setMounted] = useState(false);
 
   const visibleThemes = HOT_THEMES_2026.filter((t) => !removedSlugs.has(t.slug));
-  const totalStocks = new Set(visibleThemes.flatMap((t) => t.stocks.map((s) => s.ticker))).size;
+  const totalStocks = new Set(
+    visibleThemes.flatMap((t) =>
+      t.stocks
+        .filter((s) => !(removedStocks[t.slug]?.has(s.ticker)))
+        .map((s) => s.ticker)
+    )
+  ).size;
 
   useEffect(() => {
     // Load removed themes from localStorage
@@ -23,6 +33,23 @@ export default function HotThemes2026Section() {
     } catch {
       // localStorage error
     }
+
+    // Load removed stocks for each theme
+    const stocks: RemovedStocksMap = {};
+    HOT_THEMES_2026.forEach((theme) => {
+      try {
+        const key = REMOVED_STOCKS_KEY_PREFIX + theme.slug;
+        const stored = localStorage.getItem(key);
+        if (stored) {
+          stocks[theme.slug] = new Set(JSON.parse(stored));
+        } else {
+          stocks[theme.slug] = new Set();
+        }
+      } catch {
+        stocks[theme.slug] = new Set();
+      }
+    });
+    setRemovedStocks(stocks);
     setMounted(true);
   }, []);
 
@@ -33,6 +60,19 @@ export default function HotThemes2026Section() {
     setRemovedSlugs(newRemoved);
     try {
       localStorage.setItem(REMOVED_THEMES_KEY, JSON.stringify(Array.from(newRemoved)));
+    } catch {
+      // localStorage error
+    }
+  };
+
+  const removeStock = (slug: string, ticker: string) => {
+    const newRemoved = { ...removedStocks };
+    if (!newRemoved[slug]) newRemoved[slug] = new Set();
+    newRemoved[slug].add(ticker);
+    setRemovedStocks(newRemoved);
+    try {
+      const key = REMOVED_STOCKS_KEY_PREFIX + slug;
+      localStorage.setItem(key, JSON.stringify(Array.from(newRemoved[slug])));
     } catch {
       // localStorage error
     }
@@ -85,14 +125,28 @@ export default function HotThemes2026Section() {
             </div>
 
             <div className="flex flex-wrap gap-1 mt-auto mb-3">
-              {theme.stocks.map((s) => (
-                <span
-                  key={s.ticker}
-                  className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/30 text-slate-300"
-                >
-                  {s.ticker}
-                </span>
-              ))}
+              {theme.stocks
+                .filter((s) => !(removedStocks[theme.slug]?.has(s.ticker)))
+                .map((s) => (
+                  <span
+                    key={s.ticker}
+                    className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/30 text-slate-300 group relative cursor-pointer hover:bg-black/50 transition-colors"
+                  >
+                    {s.ticker}
+                    {mounted && (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeStock(theme.slug, s.ticker);
+                        }}
+                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full text-[7px] text-white font-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        title="Kaldır"
+                      >
+                        ×
+                      </button>
+                    )}
+                  </span>
+                ))}
             </div>
 
             <span
