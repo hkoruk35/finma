@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-client";
 
 const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
+const REMOVED_THEMES_KEY = "removed_hot_themes_2026";
 
 export default function HotThemes2026Section() {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [removedSlugs, setRemovedSlugs] = useState<Set<string>>(new Set());
+  const [mounted, setMounted] = useState(false);
 
   const visibleThemes = HOT_THEMES_2026.filter((t) => !removedSlugs.has(t.slug));
   const totalStocks = new Set(visibleThemes.flatMap((t) => t.stocks.map((s) => s.ticker))).size;
@@ -23,37 +24,34 @@ export default function HotThemes2026Section() {
         if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
           setIsAdmin(true);
         }
+      } catch {
+        // Not authenticated
+      }
 
-        // Fetch removed themes
-        const { data: removed } = await supabase.from("removed_hot_themes").select("slug");
-        if (removed) {
-          setRemovedSlugs(new Set(removed.map((r: any) => r.slug)));
+      // Load removed themes from localStorage
+      try {
+        const stored = localStorage.getItem(REMOVED_THEMES_KEY);
+        if (stored) {
+          setRemovedSlugs(new Set(JSON.parse(stored)));
         }
       } catch {
-        // Not authenticated or error
-      } finally {
-        setLoading(false);
+        // localStorage error
       }
+
+      setMounted(true);
     };
     checkAdmin();
   }, []);
 
-  const handleRemove = async (slug: string) => {
+  const removeTheme = (slug: string) => {
     if (!confirm("Bu temayı listeden kaldırmak istediğinizden emin misiniz?")) return;
+    const newRemoved = new Set(removedSlugs);
+    newRemoved.add(slug);
+    setRemovedSlugs(newRemoved);
     try {
-      const res = await fetch(`/api/hot-themes/remove`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      });
-      if (res.ok) {
-        alert("Tema başarıyla kaldırıldı.");
-        window.location.reload();
-      } else {
-        alert("Hata oluştu.");
-      }
-    } catch (err) {
-      alert("İstek başarısız: " + String(err));
+      localStorage.setItem(REMOVED_THEMES_KEY, JSON.stringify(Array.from(newRemoved)));
+    } catch {
+      // localStorage error
     }
   };
 
@@ -89,11 +87,11 @@ export default function HotThemes2026Section() {
                 >
                   {theme.stocks.length}
                 </span>
-                {isAdmin && !loading && (
+                {isAdmin && mounted && (
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      handleRemove(theme.slug);
+                      removeTheme(theme.slug);
                     }}
                     className="shrink-0 text-[8px] font-black px-1.5 py-0.5 rounded bg-red-950/30 border border-red-700/40 text-red-400 hover:bg-red-950/50 transition-colors"
                   >
