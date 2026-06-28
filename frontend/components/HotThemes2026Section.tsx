@@ -3,13 +3,10 @@
 import Link from "next/link";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useEffect, useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase-client";
 
-const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
 const REMOVED_THEMES_KEY = "removed_hot_themes_2026";
 
 export default function HotThemes2026Section() {
-  const [isAdmin, setIsAdmin] = useState(false);
   const [removedSlugs, setRemovedSlugs] = useState<Set<string>>(new Set());
   const [mounted, setMounted] = useState(false);
 
@@ -17,30 +14,16 @@ export default function HotThemes2026Section() {
   const totalStocks = new Set(visibleThemes.flatMap((t) => t.stocks.map((s) => s.ticker))).size;
 
   useEffect(() => {
-    const checkAdmin = async () => {
-      try {
-        const supabase = createSupabaseBrowserClient();
-        const { data } = await supabase.auth.getUser();
-        if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
-          setIsAdmin(true);
-        }
-      } catch {
-        // Not authenticated
+    // Load removed themes from localStorage
+    try {
+      const stored = localStorage.getItem(REMOVED_THEMES_KEY);
+      if (stored) {
+        setRemovedSlugs(new Set(JSON.parse(stored)));
       }
-
-      // Load removed themes from localStorage
-      try {
-        const stored = localStorage.getItem(REMOVED_THEMES_KEY);
-        if (stored) {
-          setRemovedSlugs(new Set(JSON.parse(stored)));
-        }
-      } catch {
-        // localStorage error
-      }
-
-      setMounted(true);
-    };
-    checkAdmin();
+    } catch {
+      // localStorage error
+    }
+    setMounted(true);
   }, []);
 
   const removeTheme = (slug: string) => {
@@ -87,7 +70,7 @@ export default function HotThemes2026Section() {
                 >
                   {theme.stocks.length}
                 </span>
-                {isAdmin && mounted && (
+                {mounted && (
                   <button
                     onClick={(e) => {
                       e.preventDefault();
