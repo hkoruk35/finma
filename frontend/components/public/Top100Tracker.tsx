@@ -106,6 +106,15 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   useEffect(() => setMounted(true), []);
 
+  const refreshSnapshot = useCallback(async () => {
+    // First, trigger server-side snapshot refresh
+    try {
+      await fetch("/api/refresh-top100", { method: "POST" });
+    } catch {}
+    // Then fetch fresh data
+    await fetchAll();
+  }, []);
+
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
@@ -256,7 +265,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
               </button>
             ))}
-            <button onClick={fetchAll} disabled={loading}
+            <button onClick={refreshSnapshot} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
             </button>
