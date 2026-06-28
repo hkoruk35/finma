@@ -254,6 +254,16 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           </div>
 
           <div style={{ display: "flex", gap: 6 }}>
+            <Link
+              href={locale === "en" ? "/global/en/swing/archive" : "/global/tr/swing/arsiv"}
+              style={{
+                padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #30363d", background: "transparent", color: "#8b949e",
+                borderRadius: 4, textDecoration: "none", letterSpacing: "0.05em",
+              }}
+            >
+              {locale === "tr" ? "ARŞİV" : "ARCHIVE"}
+            </Link>
             {(["table", "heatmap"] as const).map((tab) => (
               <button key={tab} onClick={() => setActiveTab(tab)}
                 style={{
