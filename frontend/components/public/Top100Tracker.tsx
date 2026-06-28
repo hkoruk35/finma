@@ -93,7 +93,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [filterSource, setFilterSource] = useState<"" | "fixed" | "swing_daily">("");
+  const [filterSource, setFilterSource] = useState<"" | "fixed" | "swing_daily">("fixed");
   const [filterSignal, setFilterSignal] = useState("");
   const [filterSector, setFilterSector] = useState("");
   const [filterPattern, setFilterPattern] = useState("");
