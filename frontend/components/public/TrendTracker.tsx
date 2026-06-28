@@ -4,12 +4,10 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
-import { createSupabaseBrowserClient } from "@/lib/supabase-client";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
-const ADMIN_EMAILS = ["hkoruk35@gmail.com", "okayhulya35@gmail.com"];
 
 interface HourlyBar {
   time: string;
@@ -118,32 +116,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
-  const [removedTickers, setRemovedTickers] = useState<Set<string>>(new Set());
-  const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const checkAdmin = async () => {
-      try {
-        const supabase = createSupabaseBrowserClient();
-        const { data } = await supabase.auth.getUser();
-        if (data.user && ADMIN_EMAILS.includes(data.user.email || "")) {
-          setIsAdmin(true);
-        }
-      } catch {}
-      setMounted(true);
-    };
-    checkAdmin();
-  }, []);
-
-  useEffect(() => {
-    // Load removed tickers from localStorage
-    try {
-      const stored = localStorage.getItem("removed_trend_tickers");
-      if (stored) {
-        setRemovedTickers(new Set(JSON.parse(stored)));
-      }
-    } catch {}
-  }, []);
+  useEffect(() => setMounted(true), []);
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -215,18 +189,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
     return Array.from(s).sort();
   }, [composition, live]);
 
-  const removeTicker = (ticker: string) => {
-    const newRemoved = new Set(removedTickers);
-    newRemoved.add(ticker);
-    setRemovedTickers(newRemoved);
-    try {
-      localStorage.setItem("removed_trend_tickers", JSON.stringify(Array.from(newRemoved)));
-    } catch {}
-  };
-
   const filtered = useMemo(() => {
     return composition.filter((r) => {
-      if (removedTickers.has(r.ticker)) return false;
       const d = live[r.ticker];
       if (filterTheme && r.themeTitle !== filterTheme) return false;
       if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
@@ -241,7 +205,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
       }
       return true;
     });
-  }, [composition, live, removedTickers, filterTheme, filterSignal, filterSector, filterPattern, searchQuery]);
+  }, [composition, live, filterTheme, filterSignal, filterSector, filterPattern, searchQuery]);
 
   const toggleSort = (key: string) => {
     if (sortBy === key) setSortDir((d) => (d === "desc" ? "asc" : "desc"));
@@ -421,13 +385,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                         <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
-                        {isAdmin && (
-                          <button
-                            onClick={(e) => { e.stopPropagation(); removeTicker(r.ticker); }}
-                            style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
-                            title="Listeden kaldır"
-                          >✕</button>
-                        )}
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{r.themeTitle}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
