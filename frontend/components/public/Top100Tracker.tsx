@@ -260,10 +260,6 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
             </button>
-            <Link href={`/global/${locale}/swingperformance`}
-              style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #3fb950", background: "#3fb95015", color: "#3fb950", borderRadius: 4, textDecoration: "none", display: "inline-flex", alignItems: "center" }}>
-              {locale === "tr" ? "SWING PERFORMANS" : "SWING PERFORMANCE"}
-            </Link>
           </div>
         </div>
 
