@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated } from "@/lib/homeFeed";
-import { getSwingPerformance } from "@/lib/data";
+import { getMasterData } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
-import SectorPerformanceHeatMap from "@/components/SectorPerformanceHeatMap";
+import TickerTape from "@/components/TickerTape";
 
 export const revalidate = 3600;
 
@@ -15,22 +15,20 @@ export const metadata: Metadata = {
 };
 
 export default async function EnHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, swingPerf] = await Promise.all([
+  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, master] = await Promise.all([
     getTopSwingByVolume(5),
     getTopTrendByVolume(5),
     getTopTop100ByVolume(5),
     getLastUpdated(),
-    getSwingPerformance(),
+    getMasterData(),
   ]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="en" />
+      {master && <TickerTape data={master} />}
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Sector ticker */}
-        <SectorPerformanceHeatMap history={swingPerf?.history || []} linkHref={null} />
-
         {/* Three column grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <HomeSimpleCard

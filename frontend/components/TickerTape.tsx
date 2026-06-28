@@ -27,6 +27,7 @@ export default function TickerTape({ data }: { data: MasterData }) {
         {doubled.map((item, i) => (
           <div key={i} className="flex items-center gap-2 text-sm shrink-0">
             <span className="text-white font-bold uppercase tracking-wider text-[12px]">{item.label}</span>
+            <span className="font-mono text-white/70 text-sm">{item.value.toFixed(2)}</span>
             <span
               className={`font-mono font-black text-lg ${
                 item.change >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"
