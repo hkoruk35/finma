@@ -5,6 +5,9 @@ import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import TickerHoverChart from "@/components/TickerHoverChart";
+
+const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -100,6 +103,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
@@ -258,6 +262,18 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           </div>
 
           <div style={{ display: "flex", gap: 6 }}>
+            {(["table", "heatmap"] as const).map((tab) => (
+              <button key={tab} onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                  border: "1px solid", borderColor: activeTab === tab ? ACCENT : "#30363d",
+                  background: activeTab === tab ? ACCENT + "20" : "transparent",
+                  color: activeTab === tab ? ACCENT : "#8b949e",
+                  borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
+                }}>
+                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
+              </button>
+            ))}
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
               {loading ? "..." : "YENİLE"}
@@ -310,7 +326,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
       {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{locale === "tr" ? "Trend hissesi bulunamadı" : "No trend stocks found"}</div>}
 
       {/* TABLE */}
-      {composition.length > 0 && (
+      {activeTab === "table" && composition.length > 0 && (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
             <thead>
@@ -357,7 +373,9 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   <Fragment key={`${r.ticker}-${r.themeTitle}`}>
                     <tr style={{ borderBottom: "1px solid #161b22", background: bg, cursor: "pointer" }}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }} onClick={() => toggleExpand(r.ticker)}>
-                        {r.ticker}
+                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                          <span>{r.ticker}</span>
+                        </TickerHoverChart>
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{r.themeTitle}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
@@ -396,6 +414,74 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               })}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* ISI HARİTASI — saatlik Δ% grid */}
+      {activeTab === "heatmap" && composition.length > 0 && (
+        <div style={{ marginTop: 12 }}>
+          <div style={{ fontSize: 10, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
+            {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
+          </div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace", minWidth: 750 }}>
+              <thead>
+                <tr style={{ borderBottom: "1px solid #30363d" }}>
+                  <th style={{ padding: "6px 10px", textAlign: "left", color: "#58a6ff", fontSize: 10, letterSpacing: "0.1em" }}>TICKER</th>
+                  {HOUR_SLOTS.map((h) => (
+                    <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#58a6ff", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
+                  ))}
+                  <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>GÜN</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sorted.map((r, idx) => {
+                  const d = live[r.ticker];
+                  const dayPct = d?.price?.change_pct ?? null;
+                  const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
+                  return (
+                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                      <td style={{ padding: "6px 10px" }}>
+                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                          <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                        </TickerHoverChart>
+                      </td>
+                      {HOUR_SLOTS.map((h, i) => {
+                        const bar = d?.hourly?.[i];
+                        const pct = bar?.change_pct ?? null;
+                        const heatBgColor = pct == null ? "#111111" : pct >= 2.0 ? "#0d4a0d" : pct >= 1.0 ? "#0d3a0d" : pct >= 0.3 ? "#0d2a0d" : pct > -0.3 ? "#1a1a1a" : pct > -1.0 ? "#2a0d0d" : pct > -2.0 ? "#3a0d0d" : "#4a0d0d";
+                        const heatTextColor = pct == null ? "#333333" : pct >= 2.0 ? "#56d364" : pct >= 1.0 ? "#3fb950" : pct >= 0.3 ? "#3fb950" : pct > -0.3 ? "#8b949e" : pct > -1.0 ? "#f85149" : pct > -2.0 ? "#f85149" : "#ff7b72";
+                        return (
+                          <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: heatBgColor, color: heatTextColor, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
+                            {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
+                          </td>
+                        );
+                      })}
+                      <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
+                        {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ marginTop: 12, display: "flex", gap: 16, flexWrap: "wrap" }}>
+            {[
+              { label: "+2%+", bg: "#0d4a0d", text: "#56d364" },
+              { label: "+1–2%", bg: "#0d3a0d", text: "#3fb950" },
+              { label: "+0.3–1%", bg: "#0d2a0d", text: "#3fb950" },
+              { label: "±0.3%", bg: "#1a1a1a", text: "#8b949e" },
+              { label: "-0.3–1%", bg: "#2a0d0d", text: "#f85149" },
+              { label: "-1–2%", bg: "#3a0d0d", text: "#f85149" },
+              { label: "-2%+", bg: "#4a0d0d", text: "#ff7b72" },
+            ].map((item) => (
+              <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                <div style={{ width: 14, height: 14, background: item.bg, borderRadius: 2 }} />
+                <span style={{ fontSize: 10, color: item.text }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
