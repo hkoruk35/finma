@@ -10,7 +10,7 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
-const ADMIN_EMAILS = ["haskor3578@gmail.com", "hulyakoksal89@gmail.com"];
+const ADMIN_EMAILS = ["hkoruk35@gmail.com", "okayhulya35@gmail.com"];
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
 interface HourlyBar {
