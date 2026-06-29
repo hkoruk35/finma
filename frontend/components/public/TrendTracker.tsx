@@ -98,6 +98,8 @@ function isMarketOpen() {
 }
 
 const SIGNAL_RANK: Record<string, number> = { AL: 4, İzle: 3, Bekle: 2, SAT: 1 };
+const SIGNAL_LABEL_EN: Record<string, string> = { AL: "BUY", İzle: "WATCH", Bekle: "HOLD", SAT: "SELL" };
+const signalLabel = (s: string, locale: string) => (locale === "tr" ? s : SIGNAL_LABEL_EN[s] ?? s);
 
 export default function TrendTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
@@ -265,8 +267,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : locale === "tr" ? "market kapalı" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : "tickers"}</span>
-              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} AL</span>}
-              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} İzle</span>}
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("AL", locale)}</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("İzle", locale)}</span>}
             </div>
           </div>
 
@@ -280,12 +282,12 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   color: activeTab === tab ? ACCENT : "#8b949e",
                   borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
                 }}>
-                {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
+                {tab === "table" ? (locale === "tr" ? "ANA TABLO" : "MAIN TABLE") : (locale === "tr" ? "ISI HARİTASI" : "HEATMAP")}
               </button>
             ))}
             <button onClick={fetchAll} disabled={loading}
               style={{ padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700, border: "1px solid #30363d", background: "transparent", color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer" }}>
-              {loading ? "..." : "YENİLE"}
+              {loading ? "..." : (locale === "tr" ? "YENİLE" : "REFRESH")}
             </button>
           </div>
         </div>
@@ -315,7 +317,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                 color: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#8b949e",
                 borderRadius: 3, cursor: "pointer",
               }}>
-              {s ? `${SIGNAL_ICON[s]} ${s}` : "TÜM SİNYAL"}
+              {s ? `${SIGNAL_ICON[s]} ${signalLabel(s, locale)}` : (locale === "tr" ? "TÜM SİNYAL" : "ALL SIGNALS")}
             </button>
           ))}
           <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
@@ -340,7 +342,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 1000 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
-                {([
+                {((locale === "tr" ? [
                   { label: "TICKER", key: null, align: "left" },
                   { label: "TEMA", key: null, align: "left" },
                   { label: "SEKTÖR", key: null, align: "left" },
@@ -356,7 +358,23 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   { label: "PATERN", key: null, align: "right" },
                   { label: "SİNYAL", key: "signal", align: "right" },
                   { label: "DETAY", key: null, align: "right" },
-                ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
+                ] : [
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "THEME", key: null, align: "left" },
+                  { label: "SECTOR", key: null, align: "left" },
+                  { label: "PRICE", key: "price", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "Δ% 1D", key: "chg1d", align: "right" },
+                  { label: "VOL RATIO", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "PATTERN", key: null, align: "right" },
+                  { label: "SIGNAL", key: "signal", align: "right" },
+                  { label: "DETAIL", key: null, align: "right" },
+                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                     style={{
                       padding: "7px 8px", textAlign: align as "left" | "right",
@@ -406,9 +424,9 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>ANALIZ</Link>
+                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>{locale === "tr" ? "ANALİZ" : "ANALYZE"}</Link>
                       </td>
                     </tr>
                     {isExpanded && (
@@ -440,7 +458,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   {HOUR_SLOTS.map((h) => (
                     <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#58a6ff", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
-                  <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>GÜN</th>
+                  <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>{locale === "tr" ? "GÜN" : "DAY"}</th>
                 </tr>
               </thead>
               <tbody>
