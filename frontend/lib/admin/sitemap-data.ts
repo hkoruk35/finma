@@ -54,8 +54,10 @@ export const SITEMAP_TR: SitemapGroup[] = [
 
 export const SITEMAP_OTHER: SitemapGroup[] = [
   { group: "Diğer Public Sayfalar", entries: [
-    { label: "Tracker (1H izleme)", path: "/tracker" },
     { label: "İletişim", path: "/contact" },
+  ]},
+  { group: "Admin-Only (boga_auth gerekli)", entries: [
+    { label: "Tracker (1H izleme)", path: "/tracker" },
     { label: "Pro Dashboard", path: "/pro" },
   ]},
 ];

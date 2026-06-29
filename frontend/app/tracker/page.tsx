@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { TrackerPageClient } from "@/components/TrackerPageClient";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,7 +11,13 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/tracker" },
 };
 
-export default function TrackerPage() {
+export default async function TrackerPage() {
+  const cookieStore = await cookies();
+  const role = cookieStore.get("boga_auth")?.value;
+  if (role !== "admin" && role !== "readonly") {
+    redirect("/login");
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />

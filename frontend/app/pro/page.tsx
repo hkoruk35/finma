@@ -11,6 +11,8 @@ import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
 import SectorPerformanceHeatMap from "@/components/SectorPerformanceHeatMap";
 import { Metadata } from "next";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { MARKET_THEMES } from "@/lib/themeData";
 
 export const revalidate = 60;
@@ -22,6 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default async function ProPage() {
+  const cookieStore = await cookies();
+  const role = cookieStore.get("boga_auth")?.value;
+  if (role !== "admin" && role !== "readonly") {
+    redirect("/login");
+  }
+
   const [master, allTickers, swingPicks, swingStats, optionsData, optionsOutcomes] = await Promise.all([
     getMasterData(),
     getAllTickers(),
