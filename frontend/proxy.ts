@@ -44,16 +44,8 @@ export async function proxy(request: NextRequest) {
 
   // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
   // /global/en/[ticker], /global/tr/[ticker], /global/en/account, /global/tr/hesabim
-  // Bu sayfalar halka açık değil — üye girişi zorunlu
-  const isGlobalMemberPath =
-    // /global/en altında sadece landing (/) ve login public — geri her şey üye gerektirir
-    (isPathOrSubpath('/global/en') &&
-      !pathname.startsWith('/global/en/login') &&
-      pathname !== '/global/en') ||
-    // /global/tr altında sadece landing (/) ve giris public — geri her şey üye gerektirir
-    (isPathOrSubpath('/global/tr') &&
-      !pathname.startsWith('/global/tr/giris') &&
-      pathname !== '/global/tr')
+  // GEÇICI: Tüm /global/* sayfaları şimdilik public (auth kontrol kaldırıldı)
+  const isGlobalMemberPath = false
 
   const hasSupabaseSession = !!user
 
