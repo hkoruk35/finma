@@ -71,6 +71,7 @@ const SIGNAL_STYLE: Record<string, string> = {
   WAIT: "bg-white/5 border-white/15 text-white/40",
 };
 
+// Completely public page — no authentication required
 export default function EnHomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
