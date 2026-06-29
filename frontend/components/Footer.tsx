@@ -8,25 +8,25 @@ const DISCLAIMER: Record<"en" | "tr", string> = {
 
 const LEGAL_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
   en: [
-    { href: "/disclaimer", label: "Disclaimer" },
-    { href: "/terms", label: "Terms of Service" },
-    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/global/en/disclaimer", label: "Disclaimer" },
+    { href: "/global/en/terms", label: "Terms of Service" },
+    { href: "/global/en/privacy", label: "Privacy Policy" },
   ],
   tr: [
-    { href: "/disclaimer/tr", label: "Sorumluluk Reddi" },
-    { href: "/terms/tr", label: "Kullanım Şartları" },
-    { href: "/privacy/tr", label: "Gizlilik Politikası" },
+    { href: "/global/en/disclaimer/tr", label: "Sorumluluk Reddi" },
+    { href: "/global/en/terms/tr", label: "Kullanım Şartları" },
+    { href: "/global/en/privacy/tr", label: "Gizlilik Politikası" },
   ],
 };
 
 const RESOURCES_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
   en: [
-    { href: "/about", label: "About BOGA AI" },
-    { href: "/contact", label: "Contact Support" },
+    { href: "/global/en/about", label: "About BOGA AI" },
+    { href: "/global/en/contact", label: "Contact Support" },
   ],
   tr: [
-    { href: "/about/tr", label: "BOGA AI Hakkında" },
-    { href: "/contact", label: "Destek İletişim" },
+    { href: "/global/en/about/tr", label: "BOGA AI Hakkında" },
+    { href: "/global/en/contact", label: "Destek İletişim" },
   ],
 };
 

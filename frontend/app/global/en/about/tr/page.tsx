@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük +8000 | AI Destekli ABD Hisse Senedi Analizi",
   description: "BOGA AI - Blue One Global Analysis, her gün 8.000+ ABD hissesini tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
   alternates: {
-    canonical: "https://bogastock.com/about/tr",
+    canonical: "https://bogastock.com/global/en/about/tr",
     languages: {
-      "en-US": "https://bogastock.com/about",
-      "tr-TR": "https://bogastock.com/about/tr",
+      "en-US": "https://bogastock.com/global/en/about",
+      "tr-TR": "https://bogastock.com/global/en/about/tr",
     },
   },
   openGraph: {
     title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük +8000 | AI Destekli ABD Hisse Senedi Analizi",
     description: "BOGA AI - Blue One Global Analysis, her gün 8.000+ ABD hissesini tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
-    url: "https://bogastock.com/about/tr",
+    url: "https://bogastock.com/global/en/about/tr",
   },
 };
 
@@ -29,7 +29,7 @@ export default function AboutPageTr() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 
         <div className="flex justify-end mb-6">
-          <Link href="/about" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
+          <Link href="/global/en/about" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
         </div>
 
         {/* Hero */}
@@ -133,17 +133,6 @@ export default function AboutPageTr() {
                 BOGA AI puanları beş profesyonel kademeye ayrılır: <strong className="text-white">Yüksek İnanç</strong>, <strong className="text-white">Pozitif Eğilim</strong>, <strong className="text-white">Nötr Bekle</strong>, <strong className="text-white">Negatif Eğilim</strong> ve <strong className="text-white">Düşük Performans</strong> — belirsizlik olmadan kurumsal düzeyde netlik sunar.
               </p>
             </div>
-          </div>
-          <div className="mt-12 text-center">
-            <Link
-              href="/about/how-it-works"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#3b82f6]/10 text-[#3b82f6] rounded-xl font-bold border border-[#3b82f6]/20 hover:bg-[#3b82f6]/20 transition-all group"
-            >
-              <span>AI Puanı nasıl hesaplanır? Detaylı Metodoloji</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
           </div>
         </div>
 

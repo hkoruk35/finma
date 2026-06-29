@@ -9,7 +9,7 @@ export default function TermsPage() {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <div className="flex justify-end mb-4">
-          <Link href="/terms/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
+          <Link href="/global/en/terms/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
         </div>
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Terms of Service</h1>
 

@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   title: "About BOGA AI - Blue One Global Analysis - Daily +8000 | AI-Powered US Stock Market Analysis",
   description: "BOGA AI - Blue One Global Analysis - Daily +8000 stocks scans 8,000+ US stocks daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
   alternates: {
-    canonical: "https://bogastock.com/about",
+    canonical: "https://bogastock.com/global/en/about",
     languages: {
-      "en-US": "https://bogastock.com/about",
-      "tr-TR": "https://bogastock.com/about/tr",
+      "en-US": "https://bogastock.com/global/en/about",
+      "tr-TR": "https://bogastock.com/global/en/about/tr",
     },
   },
   openGraph: {
     title: "About BOGA AI - Blue One Global Analysis - Daily +8000 | AI-Powered US Stock Market Analysis",
     description: "BOGA AI - Blue One Global Analysis - Daily +8000 stocks scans 8,000+ US stocks daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
-    url: "https://bogastock.com/about",
+    url: "https://bogastock.com/global/en/about",
   },
 };
 
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 
         <div className="flex justify-end mb-6">
-          <Link href="/about/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
+          <Link href="/global/en/about/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
         </div>
 
         {/* Hero */}

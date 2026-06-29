@@ -9,7 +9,7 @@ export default function PrivacyPageTr() {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <div className="flex justify-end mb-4">
-          <Link href="/privacy" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
+          <Link href="/global/en/privacy" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
         </div>
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Gizlilik Politikası</h1>
 

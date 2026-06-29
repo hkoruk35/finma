@@ -9,7 +9,7 @@ export default function DisclaimerPageTr() {
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
         <div className="flex justify-end mb-4">
-          <Link href="/disclaimer" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
+          <Link href="/global/en/disclaimer" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
         </div>
         <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Yasal Uyarılar ve Uyumluluk</h1>
 
