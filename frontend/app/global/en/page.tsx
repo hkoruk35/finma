@@ -117,7 +117,7 @@ export default function EnHomePage() {
             </Link>
           </div>
 
-          <p className="mt-4 text-xs text-white/30">No credit card required · Free forever for basic access</p>
+          <p className="mt-4 text-xs text-white/30">No credit card required ·</p>
         </section>
 
         {/* Sample table preview */}
