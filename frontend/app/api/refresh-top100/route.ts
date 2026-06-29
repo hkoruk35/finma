@@ -1,21 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 /**
  * POST /api/refresh-top100
- * Refresh top100_snapshot table with live data from /api/watchlist-data
+ * 1. Syncs the 'fixed' composition from the /tracker admin list (shared_store.tracker_v1) —
+ *    no cap, every tracker ticker is mirrored 1:1 into top100_tickers/top100_snapshot.
+ *    Same engine (computeTop100Snapshot) the nightly job (update_top100_fixed.py) uses.
+ * 2. Refreshes prices for 'swing_daily' tickers via /api/watchlist-data (cheap, no recompute).
  * Authorization: User must be authenticated (member area only)
  */
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
 
+async function syncFixedFromTracker(): Promise<void> {
+  const { data: storeRow } = await supabaseAdmin
+    .from("shared_store")
+    .select("value")
+    .eq("key", "tracker_v1")
+    .single();
+
+  const trackerTickers: string[] = Array.from(new Set(storeRow?.value?.tickers ?? []));
+  if (trackerTickers.length === 0 || !process.env.REVALIDATE_SECRET) return;
+
+  try {
+    await fetch(`${BASE_URL}/api/internal/top100-sync`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-revalidate-secret": process.env.REVALIDATE_SECRET },
+      body: JSON.stringify({ tickers: trackerTickers, source: "fixed" }),
+      signal: AbortSignal.timeout(120000),
+    });
+  } catch (err) {
+    console.error("syncFixedFromTracker error:", err);
+  }
+}
+
 async function getTopicsToUpdate(): Promise<string[]> {
-  // Get top100_tickers marked as active
+  // Get top100_tickers marked as active, excluding 'fixed' (already fully recomputed above)
   const supabase = await createSupabaseServerClient();
   const { data: tickers, error } = await supabase
     .from("top100_tickers")
     .select("ticker")
-    .eq("active", true);
+    .eq("active", true)
+    .neq("source", "fixed");
 
   if (error || !tickers) return [];
   return tickers.map((t) => t.ticker);
@@ -51,7 +78,10 @@ export async function POST(req: NextRequest) {
   try {
     const supabase = await createSupabaseServerClient();
 
-    // Get tickers to update
+    // Sync 'fixed' composition (full tracker list, no cap) — same engine as nightly job
+    await syncFixedFromTracker();
+
+    // Get remaining tickers (swing_daily) to refresh with lightweight live data
     const tickers = await getTopicsToUpdate();
     if (tickers.length === 0) {
       return NextResponse.json({ updated: 0 });

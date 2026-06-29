@@ -105,6 +105,9 @@ def main():
         log.error("Universe build başarısız oldu. Git push atlandı.")
         return
 
+    # 1b. Top100 'fixed' liste — /tracker'daki yeni hisseleri hacme göre top90'a senkronize et
+    run_script("update_top100_fixed.py", timeout=900)
+
     # 2. Git commit + push
     date_str = now_ny.strftime("%Y-%m-%d")
     git_push(f"Data: Universe Update {date_str} [bot]")
