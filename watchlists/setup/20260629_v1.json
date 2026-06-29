@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "CLDX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 35.28,
+        "entry_zone": "34.65 - 35.91",
+        "SL": 32.75,
+        "TP": 40.35
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "SNOW",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 253.77,
+        "entry_zone": "246.68 - 260.86",
+        "SL": 225.42,
+        "TP": 310.47
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 14.0,
+        "entry_zone": "13.62 - 14.38",
+        "SL": 12.48,
+        "TP": 17.03
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "RARE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 31.74,
+        "entry_zone": "31.04 - 32.44",
+        "SL": 28.95,
+        "TP": 37.31
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "ACAD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 25.75,
+        "entry_zone": "25.29 - 26.21",
+        "SL": 23.92,
+        "TP": 29.43
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "DDOG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 243.84,
+        "entry_zone": "237.94 - 249.73",
+        "SL": 220.26,
+        "TP": 290.99
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "KNSA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 60.5,
+        "entry_zone": "59.40 - 61.60",
+        "SL": 56.1,
+        "TP": 69.29
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "PVLA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 149.0,
+        "entry_zone": "145.01 - 152.99",
+        "SL": 133.02,
+        "TP": 180.95
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "MGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 12.25,
+        "entry_zone": "11.92 - 12.58",
+        "SL": 10.91,
+        "TP": 14.92
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "NGVT",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 77.69,
+        "entry_zone": "76.45 - 78.93",
+        "SL": 72.73,
+        "TP": 85.13
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "MRNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 67.97,
+        "entry_zone": "65.54 - 70.40",
+        "SL": 58.25,
+        "TP": 87.4
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "MTCH",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 37.45,
+        "entry_zone": "36.92 - 37.98",
+        "SL": 35.34,
+        "TP": 41.67
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "LLY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 1225.02,
+        "entry_zone": "1205.96 - 1244.07",
+        "SL": 1148.81,
+        "TP": 1377.42
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "INCY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 115.5,
+        "entry_zone": "113.09 - 117.91",
+        "SL": 105.86,
+        "TP": 134.78
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "DNTH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 95.7,
+        "entry_zone": "92.70 - 98.70",
+        "SL": 83.7,
+        "TP": 119.71
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "VEEV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 173.5,
+        "entry_zone": "170.04 - 176.96",
+        "SL": 159.66,
+        "TP": 201.18
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "DT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 43.95,
+        "entry_zone": "43.17 - 44.73",
+        "SL": 40.83,
+        "TP": 50.2
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "BB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 11.22,
+        "entry_zone": "10.79 - 11.64",
+        "SL": 9.52,
+        "TP": 14.62
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 5.84,
+        "entry_zone": "5.64 - 6.04",
+        "SL": 5.03,
+        "TP": 7.46
+    },
+    {
+        "date": "2026-06-29 08:48",
+        "symbol": "ATEX",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 90.6,
+        "entry_zone": "87.02 - 94.18",
+        "SL": 76.3,
+        "TP": 119.21
+    }
+]

@@ -1,0 +1,1255 @@
+{
+  "date": "2026-06-29",
+  "generated_at": "2026-06-29T09:00:37.755618-04:00",
+  "market_regime": "Bull",
+  "vix_level": 18.3799991607666,
+  "total": 20,
+  "signals": [
+    {
+      "ticker": "CLDX",
+      "company": "Celldex Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 35.35,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($34.72–$35.98). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 59.3,
+        "adx_1h": 11.7,
+        "volume_ratio": 0.0,
+        "change_1h": 2.17,
+        "change_24h": 3.7,
+        "trend_1h": "UP",
+        "setup": "SQUEEZE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.59,
+        "pre_gap_total": 9,
+        "pre_gap_grade": "B",
+        "gap_pct": -0.23,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.2,
+        "hourly_score": 3,
+        "daily_rvol": 5.35,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 98.47,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚡ Bollinger Squeeze",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.2x) ❌"
+      ]
+    },
+    {
+      "ticker": "ACAD",
+      "company": "ACADIA Pharmaceuticals Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 26.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($25.54–$26.46). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 60.8,
+        "adx_1h": 37.2,
+        "volume_ratio": 0.0,
+        "change_1h": 0.93,
+        "change_24h": 9.61,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.63,
+        "pre_gap_total": 8,
+        "pre_gap_grade": "B",
+        "gap_pct": 1.83,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.97,
+        "hourly_score": 3,
+        "daily_rvol": 5.27,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 93.86,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DDOG",
+      "company": "Datadog, Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 244.61,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($238.72–$250.50). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 79.0,
+        "adx_1h": 43.9,
+        "volume_ratio": 0.0,
+        "change_1h": -0.16,
+        "change_24h": 10.71,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 4.92,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": 0.74,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.32,
+        "hourly_score": 3,
+        "daily_rvol": 1.72,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.69,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "SNOW",
+      "company": "Snowflake Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 252.92,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($245.83–$260.01). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 76.8,
+        "adx_1h": 45.3,
+        "volume_ratio": 0.0,
+        "change_1h": -0.5,
+        "change_24h": 11.39,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 5.69,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.89,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.33,
+        "hourly_score": 0,
+        "daily_rvol": 2.65,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 98.03,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "PRCH",
+      "company": "Porch Group, Inc.",
+      "sector": "Financial Services",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 13.79,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($13.41–$14.17). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 56.8,
+        "adx_1h": 21.9,
+        "volume_ratio": 0.0,
+        "change_1h": -1.5,
+        "change_24h": 6.65,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 5.45,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -2.23,
+        "gap_score": 0,
+        "hourly_strength_pct": -1.5,
+        "hourly_score": 0,
+        "daily_rvol": 4.45,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 98.5,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "RARE",
+      "company": "Ultragenyx Pharmaceutical Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 31.74,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($31.04–$32.44). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 68.2,
+        "adx_1h": 12.4,
+        "volume_ratio": 0.0,
+        "change_1h": 1.08,
+        "change_24h": 8.51,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 4.53,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.16,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 9.72,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 99.97,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "PVLA",
+      "company": "Palvella Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 151.2,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($147.21–$155.19). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 78.2,
+        "adx_1h": 55.2,
+        "volume_ratio": 0.0,
+        "change_1h": 2.54,
+        "change_24h": 11.01,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 5.39,
+        "pre_gap_total": 9,
+        "pre_gap_grade": "B",
+        "gap_pct": 0.53,
+        "gap_score": 0,
+        "hourly_strength_pct": 1.48,
+        "hourly_score": 3,
+        "daily_rvol": 4.7,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 100.0,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "KNSA",
+      "company": "Kiniksa Pharmaceuticals International, plc",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 60.37,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($59.27–$61.47). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 62.7,
+        "adx_1h": 22.4,
+        "volume_ratio": 0.0,
+        "change_1h": 0.67,
+        "change_24h": 6.12,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.71,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": 1.35,
+        "gap_score": 1,
+        "hourly_strength_pct": -0.21,
+        "hourly_score": 0,
+        "daily_rvol": 11.98,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 99.79,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MGTX",
+      "company": "MeiraGTx Holdings plc",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 12.25,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($11.92–$12.58). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 63.9,
+        "adx_1h": 18.6,
+        "volume_ratio": 0.0,
+        "change_1h": 0.0,
+        "change_24h": 6.24,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 5.52,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.41,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 5.32,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 100.0,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "NGVT",
+      "company": "Ingevity Corporation",
+      "sector": "Basic Materials",
+      "swing_pick_date": "2026-06-26",
+      "days_since_pick": 3,
+      "current_price": 77.69,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($76.45–$78.93). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 71.7,
+        "adx_1h": 32.4,
+        "volume_ratio": 0.0,
+        "change_1h": 0.0,
+        "change_24h": 4.75,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.22,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.29,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 3.95,
+        "daily_rvol_score": 2,
+        "close_to_high_pct": 98.79,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "company": "Moderna, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 67.76,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($65.33–$70.19). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 67.6,
+        "adx_1h": 52.9,
+        "volume_ratio": 0.0,
+        "change_1h": 0.07,
+        "change_24h": 13.41,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 7.22,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.74,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.31,
+        "hourly_score": 0,
+        "daily_rvol": 2.05,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 98.37,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "MTCH",
+      "company": "Match Group, Inc.",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 37.45,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($36.92–$37.98). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 65.7,
+        "adx_1h": 28.7,
+        "volume_ratio": 0.0,
+        "change_1h": 0.29,
+        "change_24h": 7.18,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 2.84,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": -0.02,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 2.3,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.36,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "INCY",
+      "company": "Incyte Corporation",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 114.91,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($112.50–$117.32). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 68.3,
+        "adx_1h": 23.0,
+        "volume_ratio": 0.0,
+        "change_1h": 0.03,
+        "change_24h": 6.86,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 4.24,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.98,
+        "gap_score": 0,
+        "hourly_strength_pct": -0.51,
+        "hourly_score": 0,
+        "daily_rvol": 2.04,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.49,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "company": "Eli Lilly and Company",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 1225.36,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($1206.30–$1244.41). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 76.1,
+        "adx_1h": 23.3,
+        "volume_ratio": 0.0,
+        "change_1h": -0.09,
+        "change_24h": 8.66,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.15,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": 1.09,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.03,
+        "hourly_score": 3,
+        "daily_rvol": 2.46,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 96.97,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXPANSION",
+        "Vol: Prime Swing",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DNTH",
+      "company": "Dianthus Therapeutics, Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 95.7,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($92.70–$98.70). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 58.1,
+        "adx_1h": 30.4,
+        "volume_ratio": 0.0,
+        "change_1h": -2.84,
+        "change_24h": 4.51,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 6.29,
+        "pre_gap_total": 4,
+        "pre_gap_grade": "C",
+        "gap_pct": 0.63,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.0,
+        "hourly_score": 0,
+        "daily_rvol": 5.67,
+        "daily_rvol_score": 3,
+        "close_to_high_pct": 94.29,
+        "close_to_high_score": 1,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "VEEV",
+      "company": "Veeva Systems Inc.",
+      "sector": "Healthcare",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 174.0,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($170.54–$177.46). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 75.5,
+        "adx_1h": 34.2,
+        "volume_ratio": 0.0,
+        "change_1h": -0.44,
+        "change_24h": 10.07,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 4.04,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": 0.95,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.29,
+        "hourly_score": 3,
+        "daily_rvol": 2.13,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.43,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "DT",
+      "company": "Dynatrace, Inc.",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 43.88,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($43.10–$44.66). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 67.5,
+        "adx_1h": 55.6,
+        "volume_ratio": 0.0,
+        "change_1h": -1.39,
+        "change_24h": 8.94,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 3.6,
+        "pre_gap_total": 5,
+        "pre_gap_grade": "C",
+        "gap_pct": 3.76,
+        "gap_score": 2,
+        "hourly_strength_pct": -0.16,
+        "hourly_score": 0,
+        "daily_rvol": 2.27,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 97.51,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: ACCUMULATION",
+        "Vol: Prime Swing",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "BB",
+      "company": "BlackBerry Limited",
+      "sector": "Technology",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 11.3,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($10.87–$11.72). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 59.7,
+        "adx_1h": 40.9,
+        "volume_ratio": 0.0,
+        "change_1h": 0.17,
+        "change_24h": 9.28,
+        "trend_1h": "DOWN",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 7.45,
+        "pre_gap_total": 6,
+        "pre_gap_grade": "C",
+        "gap_pct": 1.93,
+        "gap_score": 1,
+        "hourly_strength_pct": 0.71,
+        "hourly_score": 3,
+        "daily_rvol": 1.43,
+        "daily_rvol_score": 0,
+        "close_to_high_pct": 95.51,
+        "close_to_high_score": 2,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Phase: EXHAUSTION",
+        "Vol: Acceptable",
+        "Slope: Positive",
+        "VWAP Extended",
+        "⚠️ MTF Conflict: 1H vs 15M Mismatch",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "LCID",
+      "company": "Lucid Group, Inc.",
+      "sector": "Consumer Cyclical",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 5.86,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($5.66–$6.06). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 71.5,
+        "adx_1h": 54.4,
+        "volume_ratio": 0.0,
+        "change_1h": 0.17,
+        "change_24h": 14.45,
+        "trend_1h": "FLAT",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 6.84,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": -0.17,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.34,
+        "hourly_score": 3,
+        "daily_rvol": 2.46,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 98.99,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "Price below EMA50 & Slope Negative",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    },
+    {
+      "ticker": "ATEX",
+      "company": "Anterix Inc.",
+      "sector": "Communication Services",
+      "swing_pick_date": "2026-06-29",
+      "days_since_pick": 0,
+      "current_price": 90.65,
+      "buy_zone": {},
+      "stop_zone": {},
+      "profit_zone": {},
+      "status": "ENTRY_NOW",
+      "status_detail": "BUY ✅ Buy zone active ($87.07–$94.23). Entry suitable.",
+      "alert_level": "HIGH",
+      "intraday": {
+        "rsi_1h": 71.1,
+        "adx_1h": 38.7,
+        "volume_ratio": 0.0,
+        "change_1h": -0.01,
+        "change_24h": 11.91,
+        "trend_1h": "UP",
+        "setup": "NONE",
+        "pattern_15m": "Neutral",
+        "rs_score": 3.0,
+        "natr": 7.98,
+        "pre_gap_total": 7,
+        "pre_gap_grade": "B",
+        "gap_pct": -0.42,
+        "gap_score": 0,
+        "hourly_strength_pct": 0.06,
+        "hourly_score": 3,
+        "daily_rvol": 2.0,
+        "daily_rvol_score": 1,
+        "close_to_high_pct": 99.99,
+        "close_to_high_score": 3,
+        "late_volume_ratio": 0.0,
+        "late_volume_score": 0
+      },
+      "notes": [
+        "🛡️ RS: Strong Decoupling",
+        "NATR > 7.5% (Gamble)",
+        "VWAP Extended",
+        "✅ MTF Aligned: 1H & 15M Bullish",
+        "⛔ Extended (Don't Chase)",
+        "⚠️ Insufficient volume (0.0x < 1.0x) ❌"
+      ]
+    }
+  ],
+  "summary": {
+    "date": "2026-06-29",
+    "last_updated": "2026-06-29T09:00:37.755618-04:00",
+    "tickers": {
+      "CLDX": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 35.28
+      },
+      "SNOW": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 253.77
+      },
+      "PRCH": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 14.0
+      },
+      "RARE": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 31.74
+      },
+      "ACAD": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 25.75
+      },
+      "DDOG": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 243.84
+      },
+      "KNSA": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 60.5
+      },
+      "PVLA": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 149.0
+      },
+      "MGTX": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 12.25
+      },
+      "NGVT": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 77.69
+      },
+      "MRNA": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 67.97
+      },
+      "MTCH": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 37.45
+      },
+      "LLY": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 1225.02
+      },
+      "INCY": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 115.5
+      },
+      "DNTH": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 95.7
+      },
+      "VEEV": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 173.5
+      },
+      "DT": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 43.95
+      },
+      "BB": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 11.22
+      },
+      "LCID": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 5.84
+      },
+      "ATEX": {
+        "status_history": [
+          {
+            "hour": "08:48",
+            "status": "ENTRY_NOW"
+          },
+          {
+            "hour": "09:00",
+            "status": "ENTRY_NOW"
+          }
+        ],
+        "current_status": "ENTRY_NOW",
+        "entry_triggered_at": "2026-06-29T08:48:37.788548-04:00",
+        "entry_price": 90.6
+      }
+    }
+  }
+}
