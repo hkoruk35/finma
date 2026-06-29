@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   },
 };
 
+// Public page — no auth required
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
