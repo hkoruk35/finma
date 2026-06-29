@@ -167,7 +167,7 @@ export default function AboutPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#8b5cf6] to-[#22c55e]"></div>
           <h2 className="text-2xl font-bold text-white mb-4">Our Mission</h2>
           <p className="text-white max-w-2xl mx-auto italic leading-relaxed">
-            "To democratize institutional-grade US stock market analysis — giving every retail trader access to the same daily screening depth, scoring precision, and actionable intelligence that professional desks rely on."
+            "We make the analytical power of institutional funds and professionals accessible to every investor. Through our advanced market screening and scoring technology, identifying the right opportunities in the US stock market is no longer a complex task—it's a daily routine."
           </p>
         </div>
 
