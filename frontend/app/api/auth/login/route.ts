@@ -1,27 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
-
-type UserRole = 'admin' | 'readonly'
-
-function getUsers(): { email: string; hash: string; role: UserRole }[] {
-  return ([
-    {
-      email: process.env.AUTH_USER1_EMAIL ?? '',
-      hash:  process.env.AUTH_USER1_HASH  ?? '',
-      role:  'admin' as UserRole,
-    },
-    {
-      email: process.env.AUTH_USER2_EMAIL ?? '',
-      hash:  process.env.AUTH_USER2_HASH  ?? '',
-      role:  'admin' as UserRole,
-    },
-    {
-      email: process.env.AUTH_USER3_EMAIL ?? '',
-      hash:  process.env.AUTH_USER3_HASH  ?? '',
-      role:  'readonly' as UserRole,
-    },
-  ] as { email: string; hash: string; role: UserRole }[]).filter((u) => u.email && u.hash)
-}
+import { supabaseAdmin } from '@/lib/supabase-admin'
 
 // Brute-force koruması: basit in-memory rate limiter
 const attempts = new Map<string, { count: number; resetAt: number }>()
@@ -69,14 +48,15 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const users = getUsers()
-  const user = users.find(
-    (u) => u.email.toLowerCase() === email.toLowerCase()
-  )
+  const { data: user } = await supabaseAdmin
+    .from('admins')
+    .select('email, password_hash, role')
+    .eq('email', email.toLowerCase())
+    .single()
 
   // Kullanıcı bulunamazsa da bcrypt çalıştır (timing attack önleme)
   const hashToCheck =
-    user?.hash ?? '$2b$12$invalidhashfortimingatttackprevention000000000000000'
+    user?.password_hash ?? '$2b$12$invalidhashfortimingatttackprevention000000000000000'
   const valid = await bcrypt.compare(password, hashToCheck)
 
   if (!user || !valid) {
