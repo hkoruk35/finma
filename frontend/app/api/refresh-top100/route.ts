@@ -49,6 +49,8 @@ async function fetchLiveData(tickers: string[]) {
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = await createSupabaseServerClient();
+
     // Get tickers to update
     const tickers = await getTopicsToUpdate();
     if (tickers.length === 0) {
