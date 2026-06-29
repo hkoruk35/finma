@@ -135,17 +135,6 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="mt-12 text-center">
-            <Link 
-              href="/about/how-it-works"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#3b82f6]/10 text-[#3b82f6] rounded-xl font-bold border border-[#3b82f6]/20 hover:bg-[#3b82f6]/20 transition-all group"
-            >
-              <span>How is the AI Score calculated? Detailed Methodology</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
         </div>
 
         {/* Focus Statement */}
