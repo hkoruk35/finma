@@ -1,6 +1,7 @@
 import CampaignBanner from "@/components/CampaignBanner";
 
-export default function GlobalTrLayout({ children }: { children: React.ReactNode }) {
+// Completely public layout — no authentication required
+export default async function GlobalTrLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CampaignBanner lang="tr" />
