@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   },
 };
 
-// GEÇİCİ: Ana sayfa direkt Top100'e yönlendiriyor, login şartı kaldırıldı
 export default function HomePage() {
-  redirect("/global/en/top100");
+  redirect("/global/en");
 }

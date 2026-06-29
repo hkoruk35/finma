@@ -105,6 +105,7 @@ export default function Header({
   onLogoClick,
   onNewQueryClick,
   globalLocale,
+  logoHref,
 }: {
   hideMenus?: boolean;
   onLogoClick?: () => void;
@@ -112,6 +113,8 @@ export default function Header({
   /** When set, the logo becomes a smart link for the /global member area:
    * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
   globalLocale?: "en" | "tr";
+  /** Plain link target for the logo when hideMenus is true (no auth check needed). */
+  logoHref?: string;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -183,7 +186,13 @@ export default function Header({
               {logoContent}
             </button>
           ) : hideMenus ? (
-            <div className="flex items-center gap-2 group cursor-default">{logoContent}</div>
+            logoHref ? (
+              <Link href={logoHref} className="flex items-center gap-2 group">
+                {logoContent}
+              </Link>
+            ) : (
+              <div className="flex items-center gap-2 group cursor-default">{logoContent}</div>
+            )
           ) : (
             <Link href="/" className="flex items-center gap-2 group">
               {logoContent}

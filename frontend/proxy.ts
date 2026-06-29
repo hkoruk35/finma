@@ -8,6 +8,9 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
+  const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
+
   // ── Supabase oturumunu burada yenile ────────────────────────────────────────
   // Access token süresi dolduğunda yenileme, cookie'leri yazabilen bir yerde
   // yapılmalı (Server Component'ler bunu yapamaz). Burada yapılmazsa, rotating
@@ -39,9 +42,15 @@ export async function proxy(request: NextRequest) {
   }
 
   // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
-  // /global/en/[ticker], /global/tr/[ticker], /global/en/account, /global/tr/hesabim
-  // GEÇICI: Tüm /global/* sayfaları şimdilik public (auth kontrol kaldırıldı)
-  const isGlobalMemberPath = false
+  // /global/en altında sadece landing (/) ve login public — geri her şey üye gerektirir
+  // /global/tr altında sadece landing (/) ve giriş public — geri her şey üye gerektirir
+  const isGlobalMemberPath =
+    (isPathOrSubpath('/global/en') &&
+      !pathname.startsWith('/global/en/login') &&
+      pathname !== '/global/en') ||
+    (isPathOrSubpath('/global/tr') &&
+      !pathname.startsWith('/global/tr/giris') &&
+      pathname !== '/global/tr')
 
   const hasSupabaseSession = !!user
 
@@ -54,7 +63,7 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  // GEÇİCİ: Global üye sayfaları login kontrolü devre dışı (isGlobalMemberPath = false)
+  // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession) {
     const loginUrl = pathname.startsWith('/global/tr')
       ? '/global/tr/giris'
