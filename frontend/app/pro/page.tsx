@@ -24,9 +24,10 @@ export const metadata: Metadata = {
 };
 
 export default async function ProPage() {
+  // GEÇİCİ: login zorunluluğu kaldırıldı
   const cookieStore = await cookies();
   const role = cookieStore.get("boga_auth")?.value;
-  if (role !== "admin" && role !== "readonly") {
+  if (false && role !== "admin" && role !== "readonly") {
     redirect("/login");
   }
 

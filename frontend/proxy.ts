@@ -6,11 +6,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supaba
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
 
 export async function proxy(request: NextRequest) {
-  const authCookie = request.cookies.get('boga_auth')
   const { pathname } = request.nextUrl
-
-  // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
-  const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
 
   // ── Supabase oturumunu burada yenile ────────────────────────────────────────
   // Access token süresi dolduğunda yenileme, cookie'leri yazabilen bir yerde
@@ -50,56 +46,25 @@ export async function proxy(request: NextRequest) {
   const hasSupabaseSession = !!user
 
   // ── /en/top100 ve /tr/top100 → /global/ altına yönlendir ───────────────────
-  // Top 100 Tracker sadece /global/ altında, Supabase login gerektirir
+  // GEÇİCİ: Supabase login zorunluluğu kaldırıldı, direkt /global/ altına yönlendir
   if (pathname === '/en/top100' || pathname === '/tr/top100') {
-    if (!hasSupabaseSession) {
-      // Login değil → login sayfasına yönlendir
-      const loginUrl = pathname.startsWith('/tr')
-        ? '/global/tr/giris'
-        : '/global/en/login'
-      return redirectTo(new URL(loginUrl, request.url))
-    }
-    // Login yapıldı → /global/ altına yönlendir
     const globalPath = pathname.startsWith('/tr')
       ? '/global/tr/top100'
       : '/global/en/top100'
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
+  // GEÇİCİ: Global üye sayfaları login kontrolü devre dışı (isGlobalMemberPath = false)
   if (isGlobalMemberPath && !hasSupabaseSession) {
-    // Hangi dil? /global/tr → tr/giris, diğerleri → en/login
     const loginUrl = pathname.startsWith('/global/tr')
       ? '/global/tr/giris'
       : '/global/en/login'
     return redirectTo(new URL(loginUrl, request.url))
   }
 
-  // 1. Her zaman erişilebilecek yollar (Admin Login, Public /en+/tr, Landing, Statik Dosyalar)
-  const isPublicPath =
-    isPathOrSubpath('/login') ||
-    isPathOrSubpath('/en') ||
-    isPathOrSubpath('/tr') ||
-    isPathOrSubpath('/global') ||
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname.includes('.') || // resimler, fontlar vb.
-    pathname === '/favicon.ico'
-
-  // 2. Giriş yapmamış kullanıcı kökte (/) ise → public /global/en bölümüne yönlendir
-  if (!authCookie && pathname === '/') {
-    return redirectTo(new URL('/global/en', request.url))
-  }
-
-  // 3. Admin cookie olmayan kullanıcı admin sayfasına gelirse → /login'e yönlendir
-  if (!authCookie && !isPublicPath) {
-    return redirectTo(new URL('/login', request.url))
-  }
-
-  // 4. Admin giriş yapmış kullanıcı /login veya / 'a gelirse → /pro'ya yönlendir
-  if (authCookie && (isPathOrSubpath('/login') || pathname === '/')) {
-    return redirectTo(new URL('/pro', request.url))
-  }
+  // GEÇİCİ: Tüm site genelinde admin login (boga_auth) zorunluluğu kaldırıldı.
+  // Önceki davranış: authCookie yoksa ve sayfa /login, /en, /tr, /global, /api,
+  // statik dosya değilse → /login'e yönlendirirdi. Şimdi tüm sayfalar açık.
 
   return response
 }

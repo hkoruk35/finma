@@ -1,6 +1,4 @@
-import AIContainer from "@/components/AIContainer";
 import { Metadata } from "next";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
@@ -12,14 +10,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function HomePage() {
-  const cookieStore = await cookies();
-  const auth = cookieStore.get("boga_auth");
-
-  if (!auth) {
-    redirect("/global/en");
-  }
-
-  // Redirect authenticated users to /pro instead of home
-  redirect("/pro");
+// GEÇİCİ: Ana sayfa direkt Top100'e yönlendiriyor, login şartı kaldırıldı
+export default function HomePage() {
+  redirect("/global/en/top100");
 }
