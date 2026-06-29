@@ -101,6 +101,35 @@ const SIGNAL_RANK: Record<string, number> = { AL: 4, İzle: 3, Bekle: 2, SAT: 1 
 const SIGNAL_LABEL_EN: Record<string, string> = { AL: "BUY", İzle: "WATCH", Bekle: "HOLD", SAT: "SELL" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? s : SIGNAL_LABEL_EN[s] ?? s);
 
+const PATTERN_LABEL_EN: Record<string, string> = {
+  "Yetersiz Veri": "Insufficient Data",
+  "3 Asker ↑": "3 Soldiers ↑",
+  "3 Karga ↓": "3 Crows ↓",
+  "Güçlü ↑": "Strong ↑",
+  "Üst Fitil ↑": "Upper Wick ↑",
+  "Yeşil Mum ↑": "Green Candle ↑",
+  "Güçlü ↓": "Strong ↓",
+  "Alt Fitil ↓": "Lower Wick ↓",
+  "Kırmızı Mum ↓": "Red Candle ↓",
+};
+const patternLabel = (p: string | null | undefined, locale: string) =>
+  !p ? p : locale === "tr" ? p : PATTERN_LABEL_EN[p] ?? p;
+
+const THEME_TITLE_LABEL_EN: Record<string, string> = {
+  "Bellek Üreticiler & AI Depolama": "Memory Makers & AI Storage",
+  "Uzay Teması": "Space Theme",
+  "Fiziksel AI & Hümanoid Robotik": "Physical AI & Humanoid Robotics",
+  "AI Savunma, Drone & Otonom Sistemler": "AI Defense, Drones & Autonomous Systems",
+  "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri": "Critical Minerals, Rare Earths & Semiconductor Materials",
+  "Nükleer Enerji & AI Güç Altyapısı": "Nuclear Energy & AI Power Infrastructure",
+  "Kuantum Bilişim": "Quantum Computing",
+  "AI Ajanlar & Kurumsal Yazılım Dönüşümü": "AI Agents & Enterprise Software Transformation",
+  "AI Veri Merkezi & Soğutma Altyapısı": "AI Data Center & Cooling Infrastructure",
+  "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği": "Post-Quantum Cybersecurity & Sovereign Security",
+  "Fiziksel AI İçin Yarı İletken Çip Ekosistemi": "Semiconductor Chip Ecosystem for Physical AI",
+};
+const themeLabel = (title: string, locale: string) => (locale === "tr" ? title : THEME_TITLE_LABEL_EN[title] ?? title);
+
 export default function TrendTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
   const [composition, setComposition] = useState<TrendRow[]>([]);
@@ -305,7 +334,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           <select value={filterTheme} onChange={(e) => setFilterTheme(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterTheme ? ACCENT : "#30363d"}`, color: filterTheme ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM TEMALAR" : "ALL THEMES"}</option>
-            {themeOptions.map((t) => <option key={t} value={t}>{t}</option>)}
+            {themeOptions.map((t) => <option key={t} value={t}>{themeLabel(t, locale)}</option>)}
           </select>
           {["", "AL", "İzle", "Bekle", "SAT"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
@@ -329,7 +358,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM PATERNLER" : "ALL PATTERNS"}</option>
-            {patternOptions.map((p) => <option key={p} value={p}>{p}</option>)}
+            {patternOptions.map((p) => <option key={p} value={p}>{patternLabel(p, locale)}</option>)}
           </select>
         </div>
       </div>
@@ -404,7 +433,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{r.themeTitle}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{themeLabel(r.themeTitle, locale)}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
@@ -423,7 +452,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       </td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{patternLabel(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
                         <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>{locale === "tr" ? "ANALİZ" : "ANALYZE"}</Link>
