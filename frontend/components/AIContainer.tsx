@@ -36,6 +36,8 @@ const TEXTS: Record<string, { tr: string; en: string }> = {
   connectionError:{ tr: "Bağlantı hatası.", en: "Connection error." },
   genericError:   { tr: "Hata oluştu.", en: "An error occurred." },
   recentTitle:    { tr: "Son Aramalar", en: "Recent Searches" },
+  analyzingTitle: { tr: "BOGA AI tarafından güncel analiz yapılıyor", en: "BOGA AI is performing the latest analysis" },
+  analyzingBody:  { tr: "Lütfen bekleyin, derin analiz raporu hazırlanıyor...", en: "Please wait, the deep analysis report is being prepared..." },
 };
 
 const POPULAR_TICKERS = [
@@ -135,6 +137,10 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  // Shown instead of the empty landing page while a ticker passed via URL
+  // (e.g. an "Analiz" button on Home/Performance) is being fetched.
+  const [autoLoading, setAutoLoading] = useState(false);
+  const [autoTicker, setAutoTicker] = useState("");
   const [searchHistory, setSearchHistory] = useState<SearchHistory[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [bogaPicks, setBogaPicks] = useState<{ breakout: string[]; momentum: string[]; value: string[]; reversal: string[]; date: string }>({ breakout: [], momentum: [], value: [], reversal: [], date: "" });
@@ -224,18 +230,24 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
       setMessages([...newMessages, { role: "assistant", text: t("connectionError") }]);
     } finally {
       setLoading(false);
+      setAutoLoading(false);
     }
   };
 
   // Trigger AI Stock Analysis automatically if ticker is passed in URL query.
-  // ?deep=1 (set by global page ticker links) opens Deep Analysis directly instead of the standard report.
+  // ?deep=1 (set by global page "Analiz" buttons) opens Deep Analysis directly instead
+  // of the standard report. Show a dedicated loading screen instead of the empty
+  // landing page while this initial fetch is in flight.
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const tickerParam = params.get("ticker");
       const deepParam = params.get("deep") === "1";
       if (tickerParam && tickerParam.trim()) {
-        send(tickerParam.trim().toUpperCase(), deepParam);
+        const upper = tickerParam.trim().toUpperCase();
+        setAutoTicker(upper);
+        setAutoLoading(true);
+        send(upper, deepParam);
         // Clean URL parameter without page reload
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -334,7 +346,21 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
           <Header hideMenus={false} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
         )}
         <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
-          {messages.length === 0 && (
+          {autoLoading && (
+            <div className="flex flex-col items-center justify-center gap-4 mt-32 animate-fade-in text-center px-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#1d4ed8] to-[#06b6d4] flex items-center justify-center animate-pulse">
+                <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+              </div>
+              <div>
+                <p className="text-white font-black text-sm md:text-base uppercase tracking-widest">
+                  {autoTicker ? `${autoTicker} — ${t("analyzingTitle")}` : t("analyzingTitle")}
+                </p>
+                <p className="text-[#06b6d4] text-xs mt-1.5 font-bold">{t("analyzingBody")}</p>
+              </div>
+              <div className="flex gap-1.5">{[0, 150, 300].map(d => <span key={d} className="w-2 h-2 rounded-full bg-[#3b82f6] animate-bounce" style={{ animationDelay: `${d}ms` }} />)}</div>
+            </div>
+          )}
+          {!autoLoading && messages.length === 0 && (
             <div className="space-y-8 mt-24 animate-fade-in max-w-2xl mx-auto w-full">
               <div className="relative group">
                 <textarea

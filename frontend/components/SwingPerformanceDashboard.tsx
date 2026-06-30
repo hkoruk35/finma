@@ -65,6 +65,9 @@ interface Props {
   picksGeneratedAt?: string;
   hideBotLink?: boolean;
   locale?: "en" | "tr";
+  /** On /global/{locale}/performance, ticker clicks must not navigate anywhere —
+   *  only the hover-preview chart is allowed. Root /performance keeps the normal link. */
+  disableTickerLink?: boolean;
 }
 
 const METHODOLOGY_NOTE: Record<"en" | "tr", string> = {
@@ -96,7 +99,7 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 
-export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, locale = "tr" }: Props) {
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, locale = "tr", disableTickerLink = false }: Props) {
   const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -741,9 +744,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               const scoreColor = pick.score >= 80 ? "text-[#f59e0b]" : pick.score >= 70 ? "text-[#3b82f6]" : "text-[#22c55e]";
               const scoreBorder = pick.score >= 80 ? "border-[#f59e0b]/30" : pick.score >= 70 ? "border-[#3b82f6]/30" : "border-[#22c55e]/30";
               const scoreBg = pick.score >= 80 ? "bg-[#f59e0b]/10" : pick.score >= 70 ? "bg-[#3b82f6]/10" : "bg-[#22c55e]/10";
-              return (
-                <Link key={i} href={`/stock/${pick.ticker}`}
-                  className="rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group">
+              const cardClassName = "rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group";
+              const cardInner = (
+                <>
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <TickerHoverChart ticker={pick.ticker}><p className="text-base font-black text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p></TickerHoverChart>
@@ -798,7 +801,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       </span>
                     )}
                   </div>
-                </Link>
+                </>
+              );
+              return disableTickerLink ? (
+                <div key={i} className={cardClassName}>{cardInner}</div>
+              ) : (
+                <Link key={i} href={`/stock/${pick.ticker}`} className={cardClassName}>{cardInner}</Link>
               );
             })}
           </div>
@@ -983,9 +991,13 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
                       <TickerHoverChart ticker={t.ticker}>
-                        <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
-                          {t.ticker}
-                        </Link>
+                        {disableTickerLink ? (
+                          <span className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
+                        ) : (
+                          <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
+                            {t.ticker}
+                          </Link>
+                        )}
                       </TickerHoverChart>
                       {slHit && <span className="text-[8px] font-black text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
                       {t.is_duplicate && <span className="text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded leading-none">DUP</span>}
@@ -1092,7 +1104,11 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         <TickerHoverChart ticker={t.ticker}>
-                          <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                          {disableTickerLink ? (
+                            <span className="font-black text-[#3b82f6] tracking-tight">{t.ticker}</span>
+                          ) : (
+                            <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                          )}
                         </TickerHoverChart>
                         {t.is_duplicate && (
                           <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>

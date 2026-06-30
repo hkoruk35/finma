@@ -47,7 +47,7 @@ export default async function TrPerformancePage() {
 
         {/* Dashboard Client Component */}
         <div className="relative z-10">
-          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="tr" />
+          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="tr" disableTickerLink />
         </div>
       </main>
 

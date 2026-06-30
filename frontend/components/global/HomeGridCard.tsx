@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import type { TrendStatus } from '@/lib/homeFeed';
 import Sparkline from './Sparkline';
+import TickerHoverChart from '../TickerHoverChart';
 
 interface Stock {
   ticker: string;
@@ -77,18 +78,19 @@ export default function HomeSimpleCard({
               const statusStyle = STATUS_STYLE[stock.status];
               const statusLabel = locale === 'tr' ? statusStyle.tr : statusStyle.en;
               return (
-                <Link
+                <div
                   key={stock.ticker}
-                  href={`/global/${locale}/ai?ticker=${stock.ticker}&deep=1`}
-                  className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 hover:bg-white/[0.04] transition-colors duration-150 group`}
+                  className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group`}
                   style={{ '--accent': accent } as React.CSSProperties}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="text-[10px] font-mono font-bold text-white/25 w-3">{idx + 1}</span>
                     <div className="min-w-0">
-                      <div className="font-black text-white text-sm tracking-tight transition-colors group-hover:text-[var(--accent)]">
-                        {stock.ticker}
-                      </div>
+                      <TickerHoverChart ticker={stock.ticker}>
+                        <div className="font-black text-white text-sm tracking-tight">
+                          {stock.ticker}
+                        </div>
+                      </TickerHoverChart>
                       <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
                     </div>
                   </div>
@@ -116,7 +118,7 @@ export default function HomeSimpleCard({
                       {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
                     </span>
                   </div>
-                </Link>
+                </div>
               );
             })}
           </div>
