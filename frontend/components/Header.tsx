@@ -235,6 +235,42 @@ export default function Header({
 
         {/* Right side extras */}
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Language Selector */}
+          {globalLocale && (
+            <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-1 border border-[#1e2a3a]/60">
+              {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
+                const isActive = globalLocale.toUpperCase() === lang;
+                const isAvailable = lang === 'EN' || lang === 'TR';
+                
+                if (!isAvailable) {
+                  return (
+                    <span
+                      key={lang}
+                      className="px-2 py-1 text-[10px] font-black uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
+                      title="Coming Soon"
+                    >
+                      {lang}
+                    </span>
+                  );
+                }
+                
+                return (
+                  <Link
+                    key={lang}
+                    href={pathname ? pathname.replace(new RegExp(`^/global/${globalLocale}`), `/global/${lang.toLowerCase()}`) : `/global/${lang.toLowerCase()}`}
+                    className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
+                      isActive
+                        ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+                        : "text-[#64748b] hover:text-white hover:bg-white/10"
+                    }`}
+                  >
+                    {lang}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
           {onNewQueryClick && (
             <button
               onClick={onNewQueryClick}
