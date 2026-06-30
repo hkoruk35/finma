@@ -16,7 +16,7 @@ export default function GlobalEnLoginPage() {
       <main className="flex-1 flex flex-col">
         <LoginForm
           locale="en"
-          redirectTo="/global/en/top100"
+          redirectTo="/global/en/home"
           registerHref="/global/en/register"
         />
       </main>

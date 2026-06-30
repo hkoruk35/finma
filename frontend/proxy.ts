@@ -68,6 +68,18 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
+  // Zaten giriş yapmış kullanıcı landing, login veya kayıt sayfasına dönerse
+  // (örn. geri tuşu, eski sekme) → doğrudan home'a at. Oturum açıkken bu
+  // sayfalar bir daha gösterilmez; çıkış yapılmadan login ekranına dönülmez.
+  const loggedInPublicPages = new Set([
+    '/global/en', '/global/en/login', '/global/en/register',
+    '/global/tr', '/global/tr/giris', '/global/tr/kayit',
+  ])
+  if (hasSupabaseSession && loggedInPublicPages.has(pathname)) {
+    const homeUrl = pathname.startsWith('/global/tr') ? '/global/tr/home' : '/global/en/home'
+    return redirectTo(new URL(homeUrl, request.url))
+  }
+
   // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession) {
     const loginUrl = pathname.startsWith('/global/tr')

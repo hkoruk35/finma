@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import StockReportView from "@/components/StockReportView";
 
 interface Message {
@@ -124,8 +125,13 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "tr" }: { lang?: string }) {
+export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" }) {
   const t = (key: keyof typeof TEXTS) => TEXTS[key][lang === "en" ? "en" : "tr"];
+  // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the
+  // /global member area (no Screener/Terminal/Option links, no root logout) and always
+  // jump straight to Deep Analysis instead of the standard report.
+  const isGlobal = !!locale;
+  const homeHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -168,6 +174,9 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
   const send = async (text?: string, autoDeep?: boolean) => {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
+    // Inside /global pages every ticker search jumps straight to Deep Analysis —
+    // the user should never see the intermediate standard report.
+    const effectiveAutoDeep = isGlobal || !!autoDeep;
 
 
 
@@ -208,7 +217,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           ticker: data.ticker,
           stockData: data.stockData,
           masterData: data.masterData,
-          autoDeep: !!autoDeep && data.type === "stock_report",
+          autoDeep: effectiveAutoDeep && data.type === "stock_report",
         },
       ]);
     } catch {
@@ -319,7 +328,11 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
 
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        <Header hideMenus={false} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
+        {isGlobal ? (
+          <MemberHeader locale={locale!} />
+        ) : (
+          <Header hideMenus={false} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
+        )}
         <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden min-h-0 space-y-4 px-4 py-4 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
           {messages.length === 0 && (
             <div className="space-y-8 mt-24 animate-fade-in max-w-2xl mx-auto w-full">
@@ -380,7 +393,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                     <BotIcon />
                     <span className="text-xs font-black uppercase text-[#3b82f6] tracking-widest">{t("analysisReport")}</span>
                   </div>
-                  <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} lang={lang === "en" ? "en" : "tr"} autoOpenDeepAnalysis={m.autoDeep} />
+                  <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} lang={lang === "en" ? "en" : "tr"} autoOpenDeepAnalysis={m.autoDeep} homeHref={isGlobal ? homeHref : undefined} />
                 </div>
               );
             }

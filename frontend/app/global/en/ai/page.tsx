@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function EnAIPage() {
-  return <AIContainer lang="en" />;
+  return <AIContainer lang="en" locale="en" />;
 }

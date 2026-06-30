@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Header from "./Header";
+import MemberHeader from "./public/MemberHeader";
 import dynamic from "next/dynamic";
 
 const DeepAnalysisReport = dynamic(() => import("./DeepAnalysisReport"), { ssr: false });
@@ -13,9 +14,12 @@ interface StockReportViewProps {
   masterData?: any;
   lang?: "tr" | "en";
   autoOpenDeepAnalysis?: boolean;
+  /** When set (from a /global/{locale}/ai page), "go home" actions navigate here
+   *  instead of just toggling local state — confines the user to the /global area. */
+  homeHref?: string;
 }
 
-export default function StockReportView({ ticker, stockData, lang = "tr", autoOpenDeepAnalysis = false }: StockReportViewProps) {
+export default function StockReportView({ ticker, stockData, lang = "tr", autoOpenDeepAnalysis = false, homeHref }: StockReportViewProps) {
   // Inline TR/EN translation helper — L("Türkçe", "English") returns the string for the active lang
   const L = (tr: string, en: string) => (lang === "en" ? en : tr);
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -1324,11 +1328,15 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
   if (isFullScreen) {
     const fullscreenContent = (
       <div id="boga-stock-fullscreen" className="fixed inset-0 z-[9999] bg-[#080c14] flex flex-col h-screen overflow-hidden">
-        <Header 
-          hideMenus={true} 
-          onLogoClick={() => window.dispatchEvent(new Event("start_new_query"))} 
-          onNewQueryClick={() => window.dispatchEvent(new Event("start_new_query"))} 
-        />
+        {homeHref ? (
+          <MemberHeader locale={lang} />
+        ) : (
+          <Header
+            hideMenus={true}
+            onLogoClick={() => window.dispatchEvent(new Event("start_new_query"))}
+            onNewQueryClick={() => window.dispatchEvent(new Event("start_new_query"))}
+          />
+        )}
         <div className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-[#1e2a3a]">
           <div className="max-w-4xl mx-auto w-full">
             {reportContent}
@@ -1337,7 +1345,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
       </div>
     );
 
-    if (mounted && typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
       return (
         <>
           {createPortal(fullscreenContent, document.body)}
@@ -1346,7 +1354,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
               ticker={ticker}
               stockData={stockData}
               lang={lang}
-              onClose={() => setShowDeepAnalysis(false)}
+              onClose={() => (homeHref ? (window.location.href = homeHref) : setShowDeepAnalysis(false))}
             />,
             document.body
           )}
@@ -1396,12 +1404,12 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
         }
       `}</style>
       {reportContent}
-      {showDeepAnalysis && mounted && typeof window !== "undefined" && createPortal(
+      {showDeepAnalysis && typeof window !== "undefined" && createPortal(
         <DeepAnalysisReport
           ticker={ticker}
           stockData={stockData}
           lang={lang}
-          onClose={() => setShowDeepAnalysis(false)}
+          onClose={() => (homeHref ? (window.location.href = homeHref) : setShowDeepAnalysis(false))}
         />,
         document.body
       )}

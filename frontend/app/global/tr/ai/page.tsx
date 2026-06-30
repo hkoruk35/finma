@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function TrAIPage() {
-  return <AIContainer lang="tr" />;
+  return <AIContainer lang="tr" locale="tr" />;
 }

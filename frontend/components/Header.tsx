@@ -134,10 +134,10 @@ export default function Header({
 
   const handleGlobalLogoClick = async () => {
     const landingHref = globalLocale === "en" ? "/global/en" : "/global/tr";
-    const top100Href = globalLocale === "en" ? "/global/en/top100" : "/global/tr/top100";
+    const homeHref = globalLocale === "en" ? "/global/en/home" : "/global/tr/home";
     try {
       const res = await fetch("/api/members/me");
-      router.push(res.ok ? top100Href : landingHref);
+      router.push(res.ok ? homeHref : landingHref);
     } catch {
       router.push(landingHref);
     }
