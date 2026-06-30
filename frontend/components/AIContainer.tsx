@@ -13,12 +13,29 @@ interface Message {
   ticker?: string;
   stockData?: any;
   masterData?: any;
+  autoDeep?: boolean;
 }
 
 interface SearchHistory {
   query: string;
   timestamp: number;
 }
+
+const TEXTS: Record<string, { tr: string; en: string }> = {
+  newSearch:      { tr: "+ Yeni Arama",   en: "+ New Search" },
+  recentSearches: { tr: "SON ARAMALAR",   en: "RECENT SEARCHES" },
+  emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet." },
+  placeholder:    { tr: "Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız...", en: "Type the US stock ticker or company name you want to search..." },
+  popularStocks:  { tr: "Popüler Hisse Senetleri", en: "Popular Stocks" },
+  archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive" },
+  legalDisclaimerLabel: { tr: "Yasal Uyarı:", en: "Disclaimer:" },
+  legalDisclaimerBody:  { tr: "BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.", en: "BOGA Finance AI is not an investment advisor. This is an informational, educational, and technical analysis system only. It does not provide investment advice or buy/sell recommendations." },
+  copyright:      { tr: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.", en: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS." },
+  analysisReport: { tr: "BOGA AI ANALİZ RAPORU", en: "BOGA AI ANALYSIS REPORT" },
+  connectionError:{ tr: "Bağlantı hatası.", en: "Connection error." },
+  genericError:   { tr: "Hata oluştu.", en: "An error occurred." },
+  recentTitle:    { tr: "Son Aramalar", en: "Recent Searches" },
+};
 
 const POPULAR_TICKERS = [
   { ticker: "AAPL", name: "Apple" },
@@ -108,6 +125,7 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
 );
 
 export default function AIContainer({ lang = "tr" }: { lang?: string }) {
+  const t = (key: keyof typeof TEXTS) => TEXTS[key][lang === "en" ? "en" : "tr"];
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -147,7 +165,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
     if (messages.length > 0 || loading) scrollToBottom();
   }, [messages, loading]);
 
-  const send = async (text?: string) => {
+  const send = async (text?: string, autoDeep?: boolean) => {
     const msg = (text ?? input).trim();
     if (!msg || loading) return;
 
@@ -183,29 +201,32 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
         ...newMessages,
         {
           role: "assistant",
-          text: data.text ?? "Hata oluştu.",
+          text: data.text ?? t("genericError"),
           source: data.source,
           followUp: data.followUp || [],
           type: data.type,
           ticker: data.ticker,
           stockData: data.stockData,
           masterData: data.masterData,
+          autoDeep: !!autoDeep && data.type === "stock_report",
         },
       ]);
     } catch {
-      setMessages([...newMessages, { role: "assistant", text: "Bağlantı hatası." }]);
+      setMessages([...newMessages, { role: "assistant", text: t("connectionError") }]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Trigger AI Stock Analysis automatically if ticker is passed in URL query
+  // Trigger AI Stock Analysis automatically if ticker is passed in URL query.
+  // ?deep=1 (set by global page ticker links) opens Deep Analysis directly instead of the standard report.
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const tickerParam = params.get("ticker");
+      const deepParam = params.get("deep") === "1";
       if (tickerParam && tickerParam.trim()) {
-        send(tickerParam.trim().toUpperCase());
+        send(tickerParam.trim().toUpperCase(), deepParam);
         // Clean URL parameter without page reload
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -257,7 +278,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       {/* SIDEBAR */}
       <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
-          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">+ Yeni Arama</button>
+          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">{t("newSearch")}</button>
           <button 
             onClick={() => setSidebarOpen(false)}
             className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
@@ -271,7 +292,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
           <div>
             <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
-              <span>🕒</span> SON ARAMALAR
+              <span>🕒</span> {t("recentSearches")}
             </div>
             
             <div className="space-y-1">
@@ -288,7 +309,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 ))
               ) : (
                 <div className="text-[10px] text-slate-500 italic px-2 py-4">
-                  Arama geçmişi boş.
+                  {t("emptyHistory")}
                 </div>
               )}
             </div>
@@ -308,7 +329,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
+                  placeholder={t("placeholder")}
                   rows={1}
                   className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
                 />
@@ -319,7 +340,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
 
               {/* Popüler Hisse Senetleri */}
               <div className="space-y-4 pt-2">
-                <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">Popüler Hisse Senetleri</div>
+                <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">{t("popularStocks")}</div>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                   {POPULAR_TICKERS.map((item) => (
                     <button
@@ -337,16 +358,16 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
               {/* Arşiv linki */}
               <div className="text-center pt-4">
                 <a href="/ai/archive" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#1e3a5f]/60 bg-[#0d1321]/60 text-[#06b6d4] hover:border-[#06b6d4]/40 hover:bg-[#06b6d4]/10 transition-all text-[11px] font-black uppercase tracking-widest">
-                  🗂️ Derin Analiz Arşivi
+                  {t("archiveLink")}
                 </a>
               </div>
 
               {/* Yasal Uyarı & Telif (Ekranın alt katmanına sabitlenmeyip içerikle kayar) */}
               <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60">
                 <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                  ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+                  ⚠️ <strong>{t("legalDisclaimerLabel")}</strong> {t("legalDisclaimerBody")}
                 </p>
-                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
+                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
               </div>
             </div>
           )}
@@ -357,9 +378,9 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                 <div key={i} className="flex flex-col gap-3 max-w-4xl mx-auto w-full animate-fade-in my-6">
                   <div className="flex gap-3 items-center">
                     <BotIcon />
-                    <span className="text-xs font-black uppercase text-[#3b82f6] tracking-widest">BOGA AI ANALİZ RAPORU</span>
+                    <span className="text-xs font-black uppercase text-[#3b82f6] tracking-widest">{t("analysisReport")}</span>
                   </div>
-                  <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} />
+                  <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} lang={lang === "en" ? "en" : "tr"} autoOpenDeepAnalysis={m.autoDeep} />
                 </div>
               );
             }
@@ -394,9 +415,9 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
           {messages.length > 0 && (
             <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60 max-w-4xl mx-auto w-full">
               <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                ⚠️ <strong>Yasal Uyarı:</strong> BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.
+                ⚠️ <strong>{t("legalDisclaimerLabel")}</strong> {t("legalDisclaimerBody")}
               </p>
-              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.</p>
+              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
             </div>
           )}
         </div>
@@ -410,7 +431,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız..."
+                  placeholder={t("placeholder")}
                   rows={1}
                   className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40"
                   disabled={loading}
@@ -427,7 +448,7 @@ export default function AIContainer({ lang = "tr" }: { lang?: string }) {
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
         className="md:hidden fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
-        title="Son Aramalar"
+        title={t("recentTitle")}
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           {sidebarOpen ? (

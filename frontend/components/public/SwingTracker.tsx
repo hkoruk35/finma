@@ -233,7 +233,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "İzle").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
-  const permalink = (ticker: string) => (locale === "en" ? `/global/en/${ticker}` : `/global/tr/${ticker}`);
+  const permalink = (ticker: string) => `/global/${locale}/ai?ticker=${ticker}&deep=1`;
 
   if (!mounted || loading) {
     return (

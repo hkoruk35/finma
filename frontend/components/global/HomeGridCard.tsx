@@ -79,7 +79,7 @@ export default function HomeSimpleCard({
               return (
                 <Link
                   key={stock.ticker}
-                  href={locale === 'tr' ? `/global/tr/${stock.ticker}` : `/global/en/${stock.ticker}`}
+                  href={`/global/${locale}/ai?ticker=${stock.ticker}&deep=1`}
                   className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 hover:bg-white/[0.04] transition-colors duration-150 group`}
                   style={{ '--accent': accent } as React.CSSProperties}
                 >

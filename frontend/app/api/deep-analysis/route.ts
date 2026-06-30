@@ -498,9 +498,30 @@ function tryParseJSON(raw: string): Record<string, any> | null {
   }
 }
 
-function buildFallback(p: any) {
+function buildFallback(p: any, lang: "tr" | "en" = "tr") {
   const aboveEma20 = p.currentPrice > p.ema20;
   const aboveEma50 = p.currentPrice > p.ema50;
+  if (lang === "en") {
+    const trendStr = aboveEma20 && aboveEma50 ? "in an uptrend" : !aboveEma20 && !aboveEma50 ? "under downward pressure" : "showing mixed signals";
+    return {
+      hisseTipi: `A technically-focused stock in the ${p.sector} sector. BOGA score ${p.masterScore}/100, ${trendStr}.`,
+      yukselisKarakteri: `Momentum gains drive strong closes above EMA levels. Positive momentum builds when volume confirms the rally.`,
+      dususKarakteri: `Consolidation can occur on support breaks. Staying below EMA 50 signals medium-term pressure.`,
+      hacimTepkisi: `Above-average volume days increase volatility and directional movement. Falling volume points to consolidation.`,
+      haberEtkisi: `Sector news and macro developments affect short-term price action. Earnings periods drive volatility higher.`,
+      trendDurumu: `Price is currently ${aboveEma20 ? "above" : "below"} EMA 20 and ${aboveEma50 ? "above" : "below"} EMA 50. Overall picture: ${trendStr}.`,
+      kritikSeviyeler: `Key support is at $${p.support1.toFixed(2)}. A break above $${p.resistance1.toFixed(2)} resistance opens new targets.`,
+      momentumYorumu: `RSI at ${p.rsi.toFixed(1)} is in ${p.rsi > 70 ? "overbought" : p.rsi < 30 ? "oversold" : "neutral"} territory. EMA alignment confirms the current direction.`,
+      volatilite: `IV at ${p.iv}% reflects a ${p.iv > 50 ? "high" : p.iv > 30 ? "moderate" : "low"} volatility environment.`,
+      bearTetikleyici: "Negative news or sector pressure breaking support",
+      baseTetikleyici: "Continuation of current momentum and technical structure",
+      bullTetikleyici: "Strong catalyst, positive earnings, or short squeeze",
+      bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
+      oneri: `Considering the technical structure, ${p.masterScore >= 60 ? "the setup favors a long bias." : "waiting for a clearer signal is advisable."}`,
+      kritikRisk: "Earnings dates and macro events like FOMC should be closely monitored, as they can drive sharp volatility.",
+      genelPuan: (p.masterScore / 10).toFixed(1),
+    };
+  }
   const trendStr = aboveEma20 && aboveEma50 ? "yükseliş trendinde" : !aboveEma20 && !aboveEma50 ? "düşüş baskısı altında" : "karışık sinyaller gösteriyor";
   return {
     hisseTipi: `${p.sector} sektöründe faaliyet gösteren teknik analiz odaklı hisse. BOGA skoru ${p.masterScore}/100 ile ${trendStr}.`,
@@ -511,36 +532,32 @@ function buildFallback(p: any) {
     trendDurumu: `Fiyat şu an EMA 20 ${aboveEma20 ? "üzerinde" : "altında"} ve EMA 50 ${aboveEma50 ? "üzerinde" : "altında"} seyrediyor. Genel görünüm ${trendStr}.`,
     kritikSeviyeler: `Kritik destek $${p.support1.toFixed(2)} seviyesinde. $${p.resistance1.toFixed(2)} direnci kırılırsa yeni hedefler devreye girer.`,
     momentumYorumu: `RSI ${p.rsi.toFixed(1)} ile ${p.rsi > 70 ? "aşırı alım" : p.rsi < 30 ? "aşırı satım" : "nötr"} bölgesinde. EMA hizalaması mevcut yönü teyit ediyor.`,
-    volatilite: `IV %${p.iv} seviyesinde ${p.iv > 50 ? "yüksek" : p.iv > 30 ? "orta" : "düşük"} volatilite ortamı mevcut. Prim stratejileri için ${p.iv > 30 ? "uygun" : "sınırlı"} zemin.`,
-    ivDurumu: `IV Rank ${p.ivRank.toFixed(0)}/100. ${p.ivRank > 50 ? "Agresif prim satışı için uygun." : p.ivRank > 25 ? "Seçici strateji önerilir." : "IV düşük, prim değerleri sınırlı."}`,
-    cspStrateji: `$${p.optimalCSPStrike.toFixed(2)} strike ile 14-21 DTE CSP açılabilir. Delta 0.20-0.30 arası hedeflenmeli.`,
-    ccStrateji: `$${p.optimalCCStrike.toFixed(2)} strike ile 14-21 DTE CC değerlendirilebilir. Atanma durumunda wheel stratejisine geçilir.`,
-    haftalikPrimTahmin: `%${(p.iv * 0.012).toFixed(1)}–${(p.iv * 0.025).toFixed(1)}`,
-    yillikGetiriTahmin: `%${(p.iv * 0.5).toFixed(0)}–${(p.iv * 0.85).toFixed(0)}`,
+    volatilite: `IV %${p.iv} seviyesinde ${p.iv > 50 ? "yüksek" : p.iv > 30 ? "orta" : "düşük"} volatilite ortamı mevcut.`,
     bearTetikleyici: "Negatif haber veya sektör baskısı ile destek kırılımı",
     baseTetikleyici: "Mevcut momentum ve teknik yapı devamı",
     bullTetikleyici: "Güçlü katalizör, olumlu bilanço veya short squeeze",
     bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
-    oneri: `Teknik yapı ve IV seviyesi dikkate alınarak ${p.masterScore >= 60 ? "CSP stratejisi uygulanabilir." : "sinyal beklenmelidir."}`,
-    kritikRisk: "Bilanço tarihi ve FOMC gibi makro gelişmeler yakından takip edilmeli. IV crush riski bilanço öncesi pozisyonları doğrudan etkiler.",
+    oneri: `Teknik yapı dikkate alınarak ${p.masterScore >= 60 ? "pozitif önyargı uygundur." : "net bir sinyal beklenmelidir."}`,
+    kritikRisk: "Bilanço tarihi ve FOMC gibi makro gelişmeler yakından takip edilmeli, ani volatiliteye neden olabilir.",
     genelPuan: (p.masterScore / 10).toFixed(1),
-    cspUygunlugu: p.masterScore >= 65 ? "GUCLU" : p.masterScore >= 50 ? "ORTA" : "ZAYIF",
-    ccUygunlugu: p.masterScore >= 60 ? "GUCLU" : p.masterScore >= 45 ? "ORTA" : "ZAYIF",
   };
 }
 
-const SYSTEM_MSG = `Sen bir finansal analiz asistanısın. YALNIZCA geçerli JSON nesnesi döndür. Hiçbir açıklama, giriş metni veya markdown ekleme. İlk karakter { ve son karakter } olmalıdır.`;
+const SYSTEM_MSG: Record<"tr" | "en", string> = {
+  tr: `Sen bir finansal analiz asistanısın. YALNIZCA geçerli JSON nesnesi döndür. Hiçbir açıklama, giriş metni veya markdown ekleme. İlk karakter { ve son karakter } olmalıdır.`,
+  en: `You are a financial analysis assistant. Return ONLY a valid JSON object. No explanation, preamble, or markdown. The first character must be { and the last character must be }.`,
+};
 
-function buildUserPrompt(p: any) {
-  const cspU = p.masterScore >= 65 ? "GUCLU" : p.masterScore >= 50 ? "ORTA" : "ZAYIF";
-  const ccU = p.masterScore >= 60 ? "GUCLU" : p.masterScore >= 45 ? "ORTA" : "ZAYIF";
-  return `Hisse: ${p.ticker} ${p.companyName} ${p.sector} Fiyat:${p.currentPrice.toFixed(2)} Skor:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Destek:${p.support1.toFixed(2)} Direnc:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} CSP:${p.optimalCSPStrike.toFixed(2)} CC:${p.optimalCCStrike.toFixed(2)} Bear15G:${p.bearTarget.toFixed(2)} Base15G:${p.baseTarget.toFixed(2)} Bull15G:${p.bullTarget.toFixed(2)}
-
-Su JSON alanlari doldur - her deger 1-2 cumle Turkce duz metin (tirnak yok, ozel karakter yok):
-{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","ivDurumu":"...","cspStrateji":"...","ccStrateji":"...","haftalikPrimTahmin":"...","yillikGetiriTahmin":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${(p.masterScore / 10).toFixed(1)},"cspUygunlugu":"${cspU}","ccUygunlugu":"${ccU}"}`;
+function buildUserPrompt(p: any, lang: "tr" | "en" = "tr") {
+  const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}`;
+  const schema = `{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${(p.masterScore / 10).toFixed(1)}}`;
+  const instruction = lang === "en"
+    ? `Fill in these JSON fields — each value 1-2 sentences of plain English text (no quotes, no special characters):`
+    : `Su JSON alanlarini doldur - her deger 1-2 cumle Turkce duz metin (tirnak yok, ozel karakter yok):`;
+  return `${header}\n\n${instruction}\n${schema}`;
 }
 
-async function callGemini(userPrompt: string): Promise<string> {
+async function callGemini(userPrompt: string, lang: "tr" | "en" = "tr"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY not set");
   const res = await fetch(
@@ -549,7 +566,7 @@ async function callGemini(userPrompt: string): Promise<string> {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYSTEM_MSG }] },
+        system_instruction: { parts: [{ text: SYSTEM_MSG[lang] }] },
         contents: [{ parts: [{ text: userPrompt }] }],
         generationConfig: { temperature: 0.2, maxOutputTokens: 2048, responseMimeType: "application/json" },
       }),
@@ -563,11 +580,12 @@ async function callGemini(userPrompt: string): Promise<string> {
 // ── Main ──────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
-    const { ticker, stockData } = await req.json();
+    const { ticker, stockData, lang: langRaw } = await req.json();
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
+    const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
 
     // ── Cache check ──────────────────────────────────────────────────────────
-    const cacheKey = `${ticker.toUpperCase()}_${stockData?.price?.current ?? "0"}`;
+    const cacheKey = `${ticker.toUpperCase()}_${stockData?.price?.current ?? "0"}_${lang}`;
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.ts < CACHE_TTL) {
       return NextResponse.json(cached.data, {
@@ -704,24 +722,47 @@ export async function POST(req: NextRequest) {
     }
 
     // — İnsider İşlemleri ————————————————
-    const insiderTransactions: any[] = (summary?.insiderTransactions?.transactions ?? [])
-      .slice(0, 6)
+    // Yahoo Finance transactionType değerleri sadece "Sale"/"Purchase" değil; Option Exercise,
+    // Gift, Award, Tax Withholding, Conversion gibi piyasa alım/satımı SAYILMAYAN türler de
+    // gelir. Önceki sürüm bunların hepsini "BUY" olarak etiketliyordu — yanlış sinyal üretiyordu.
+    const classifyInsiderType = (raw: string): "BUY" | "SELL" | "OTHER" => {
+      const s = (raw || "").toLowerCase();
+      if (s.includes("sale") || s.includes("sell") || s.includes("disposition")) return "SELL";
+      if (s.includes("purchase") || s.includes("buy")) return "BUY";
+      return "OTHER"; // option exercise, gift, award, tax withholding, conversion, vb.
+    };
+
+    const insiderTransactionsRaw: any[] = (summary?.insiderTransactions?.transactions ?? [])
+      .slice(0, 10)
       .map((tx: any) => {
         const shares = safeNum(tx.shares?.raw, 0);
         const value  = safeNum(tx.value?.raw, 0);
-        const price  = shares > 0 ? +(value / shares).toFixed(2) : currentPrice;
-        const isSell = (tx.transactionType || "").toLowerCase().includes("sale") ||
-                       (tx.transactionType || "").toLowerCase().includes("sell");
+        const price  = shares > 0 && value > 0 ? +(value / shares).toFixed(2) : null;
+        const type   = classifyInsiderType(tx.transactionType);
         return {
-          officer:     tx.filerName       || "Bilinmiyor",
-          title:       tx.filerRelation   || "Yönetici",
-          type:        isSell ? "SELL" : "BUY",
+          officer:     tx.filerName       || (lang === "en" ? "Unknown" : "Bilinmiyor"),
+          title:       tx.filerRelation   || (lang === "en" ? "Executive" : "Yönetici"),
+          type,
           date:        tx.startDate?.fmt  || "",
-          shares:      tx.shares?.longFmt || shares.toLocaleString(),
+          shares:      tx.shares?.longFmt || (shares > 0 ? shares.toLocaleString() : "—"),
+          sharesRaw:   shares,
           price,
-          transactionDesc: tx.transactionText || "",
+          value:       value > 0 ? value : null,
+          transactionDesc: tx.transactionText || tx.transactionType || "",
         };
       });
+
+    const insiderTransactions = insiderTransactionsRaw;
+    const insiderSummary = {
+      buyCount:  insiderTransactionsRaw.filter(t => t.type === "BUY").length,
+      sellCount: insiderTransactionsRaw.filter(t => t.type === "SELL").length,
+      otherCount: insiderTransactionsRaw.filter(t => t.type === "OTHER").length,
+      netValue:  insiderTransactionsRaw.reduce((sum, t) => {
+        if (t.type === "BUY") return sum + (t.value || 0);
+        if (t.type === "SELL") return sum - (t.value || 0);
+        return sum;
+      }, 0),
+    };
 
     // — Analist Konsensüsü ————————————————
     const trend     = summary?.recommendationTrend?.trend?.[0] ?? null;
@@ -741,7 +782,7 @@ export async function POST(req: NextRequest) {
         firm: u.firm || "",
         from: u.fromGrade || "",
         to:   u.toGrade   || "",
-        date: new Date((u.epochGradeDate ?? 0) * 1000).toLocaleDateString("tr-TR"),
+        date: new Date((u.epochGradeDate ?? 0) * 1000).toLocaleDateString(lang === "en" ? "en-US" : "tr-TR"),
         action: u.action || "",
       })),
     };
@@ -750,7 +791,7 @@ export async function POST(req: NextRequest) {
     const institutionalOwners: any[] = (summary?.institutionOwnership?.ownershipList ?? [])
       .slice(0, 5)
       .map((o: any) => ({
-        name:   o.organization ?? "Bilinmiyor",
+        name:   o.organization ?? (lang === "en" ? "Unknown" : "Bilinmiyor"),
         shares: safeNum(o.position?.raw, 0),
         change: +(safeNum(o.pctChange?.raw, 0) * 100).toFixed(2),
         reportDate: o.reportDate?.fmt ?? "",
@@ -785,7 +826,7 @@ export async function POST(req: NextRequest) {
       else if (/miss|drop|fall|decline|loss|cut|downgrade|layoff|risk|warn|weak|short/i.test(lower)) sentiment = "Negatif";
       return {
         title,
-        date:    n.providerPublishTime ? new Date(n.providerPublishTime * 1000).toLocaleDateString("tr-TR") : "",
+        date:    n.providerPublishTime ? new Date(n.providerPublishTime * 1000).toLocaleDateString(lang === "en" ? "en-US" : "tr-TR") : "",
         source:  n.publisher    ?? "",
         summary: "",
         sentiment,
@@ -812,7 +853,6 @@ export async function POST(req: NextRequest) {
       rsi: rsiF, iv, atr: atrF, ema20: ema20F, ema50: ema50F, ema200,
       support1: liveS1, resistance1: liveR1,
       marketCapStr, ivRank,
-      optimalCSPStrike: optimalCSPStrikeLive, optimalCCStrike: optimalCCStrikeLive,
       bearTarget, baseTarget, bullTarget,
     };
 
@@ -822,28 +862,21 @@ export async function POST(req: NextRequest) {
       try {
         const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
         const msg = await anthropic.messages.create({
-          model: "claude-sonnet-4-6", max_tokens: 2048, system: SYSTEM_MSG,
-          messages: [{ role: "user", content: buildUserPrompt(promptParams) }],
+          model: "claude-sonnet-4-6", max_tokens: 2048, system: SYSTEM_MSG[lang],
+          messages: [{ role: "user", content: buildUserPrompt(promptParams, lang) }],
         });
         rawText = (msg.content[0] as any).text || "";
       } catch (e: any) { console.error("[deep-analysis] Anthropic:", e?.message); }
     }
     if (!rawText && process.env.GEMINI_API_KEY) {
-      try { rawText = await callGemini(buildUserPrompt(promptParams)); }
+      try { rawText = await callGemini(buildUserPrompt(promptParams, lang), lang); }
       catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
     }
 
-    let ai: Record<string, any> = tryParseJSON(rawText) || buildFallback({ ...promptParams, support1, resistance1, optimalCSPStrike, optimalCCStrike, ivRank });
+    let ai: Record<string, any> = tryParseJSON(rawText) || buildFallback({ ...promptParams, support1, resistance1, ivRank }, lang);
 
     const str = (v: any, fb: string) => typeof v === "string" && v.trim() ? v.trim() : fb;
     const num = (v: any, fb: number) => typeof v === "number" ? v : parseFloat(String(v)) || fb;
-    const normalizeLevel = (v: any, fb: string) => {
-      const x = String(v || "").toUpperCase();
-      if (x.includes("G") && (x.includes("LU") || x.includes("LÜ") || x.includes("STRONG"))) return "GÜÇLÜ";
-      if (x.includes("ORTA") || x.includes("MED")) return "ORTA";
-      if (x.includes("ZAY") || x.includes("WEAK")) return "ZAYIF";
-      return fb;
-    };
 
     const ceklistSkorlar = {
       trendYapisi: masterScore >= 65 ? 1 : masterScore >= 50 ? 0 : -1,
@@ -863,42 +896,29 @@ export async function POST(req: NextRequest) {
       generatedAt: new Date().toISOString(),
       analysis: {
         dna: {
-          hisseTipi: str(ai.hisseTipi, `${promptParams.sector} sektörü teknik analiz hissesi.`),
-          yukselisKarakteri: str(ai.yukselisKarakteri, "Momentum artışı ile yükseliş ivme kazanır."),
-          dususKarakteri: str(ai.dususKarakteri, "Destek kırılımlarında konsolidasyon yaşanabilir."),
-          hacimTepkisi: str(ai.hacimTepkisi, "Yüksek hacimde volatilite ve hareket artar."),
-          haberEtkisi: str(ai.haberEtkisi, "Sektörel ve makro haberler kısa vadede etkilidir."),
+          hisseTipi: str(ai.hisseTipi, lang === "en" ? `Technical analysis stock in the ${promptParams.sector} sector.` : `${promptParams.sector} sektörü teknik analiz hissesi.`),
+          yukselisKarakteri: str(ai.yukselisKarakteri, lang === "en" ? "Momentum gains build upward thrust." : "Momentum artışı ile yükseliş ivme kazanır."),
+          dususKarakteri: str(ai.dususKarakteri, lang === "en" ? "Consolidation can occur on support breaks." : "Destek kırılımlarında konsolidasyon yaşanabilir."),
+          hacimTepkisi: str(ai.hacimTepkisi, lang === "en" ? "High volume increases volatility and movement." : "Yüksek hacimde volatilite ve hareket artar."),
+          haberEtkisi: str(ai.haberEtkisi, lang === "en" ? "Sector and macro news affect short-term price action." : "Sektörel ve makro haberler kısa vadede etkilidir."),
         },
         teknikYorum: {
-          trendDurumu: str(ai.trendDurumu, "Trend analizi verilerden değerlendiriliyor."),
-          kritikSeviyeler: str(ai.kritikSeviyeler, "Destek ve direnç seviyeleri aktif şekilde izleniyor."),
-          momentumYorumu: str(ai.momentumYorumu, "RSI ve EMA momentum nötr bölgede seyrediyor."),
-          volatilite: str(ai.volatilite, "Mevcut volatilite ortalama seviyesinde."),
+          trendDurumu: str(ai.trendDurumu, lang === "en" ? "Trend analysis is being evaluated from the data." : "Trend analizi verilerden değerlendiriliyor."),
+          kritikSeviyeler: str(ai.kritikSeviyeler, lang === "en" ? "Support and resistance levels are being actively monitored." : "Destek ve direnç seviyeleri aktif şekilde izleniyor."),
+          momentumYorumu: str(ai.momentumYorumu, lang === "en" ? "RSI and EMA momentum are in a neutral zone." : "RSI ve EMA momentum nötr bölgede seyrediyor."),
+          volatilite: str(ai.volatilite, lang === "en" ? "Current volatility is at an average level." : "Mevcut volatilite ortalama seviyesinde."),
         },
         forecast15,
-        opsiyonAnaliz: {
-          ivDurumu: str(ai.ivDurumu, "IV seviyesi değerlendiriliyor."),
-          ivRank: +ivRank.toFixed(2), iv, hv30: +hv30F.toFixed(1),
-          ivHvRatio: +(iv / Math.max(hv30F, 1)).toFixed(2),
-          cspStrateji: str(ai.cspStrateji, `$${optimalCSPStrikeLive} strike, 14-21 DTE CSP değerlendirilebilir.`),
-          ccStrateji: str(ai.ccStrateji, `$${optimalCCStrikeLive} strike, 14-21 DTE CC değerlendirilebilir.`),
-          optimalCSPStrike: optimalCSPStrikeLive, optimalCCStrike: optimalCCStrikeLive,
-          haftalikPrimTahmin: str(ai.haftalikPrimTahmin, "%0.5–1.5"),
-          yillikGetiriTahmin: str(ai.yillikGetiriTahmin, "%20–45"),
-          cspMatrix, ccMatrix,
-        },
         scenarioOzeti: {
-          bear: { hedef: bearTarget, olasilik: num(ai.bearOlasilik, 25), tetikleyici: str(ai.bearTetikleyici, "Negatif haber / sektör baskısı") },
-          base: { hedef: baseTarget, olasilik: num(ai.baseOlasilik, 55), tetikleyici: str(ai.baseTetikleyici, "Mevcut momentum devamı") },
-          bull: { hedef: bullTarget, olasilik: num(ai.bullOlasilik, 20), tetikleyici: str(ai.bullTetikleyici, "Güçlü katalizör / short squeeze") },
+          bear: { hedef: bearTarget, olasilik: num(ai.bearOlasilik, 25), tetikleyici: str(ai.bearTetikleyici, lang === "en" ? "Negative news / sector pressure" : "Negatif haber / sektör baskısı") },
+          base: { hedef: baseTarget, olasilik: num(ai.baseOlasilik, 55), tetikleyici: str(ai.baseTetikleyici, lang === "en" ? "Continuation of current momentum" : "Mevcut momentum devamı") },
+          bull: { hedef: bullTarget, olasilik: num(ai.bullOlasilik, 20), tetikleyici: str(ai.bullTetikleyici, lang === "en" ? "Strong catalyst / short squeeze" : "Güçlü katalizör / short squeeze") },
         },
         ceklistSkorlar,
         sonucKarar: {
           genelPuan: str(String(ai.genelPuan ?? (masterScore / 10).toFixed(1)), (masterScore / 10).toFixed(1)),
-          cspUygunlugu: normalizeLevel(ai.cspUygunlugu, masterScore >= 65 ? "GÜÇLÜ" : masterScore >= 50 ? "ORTA" : "ZAYIF"),
-          ccUygunlugu: normalizeLevel(ai.ccUygunlugu, masterScore >= 60 ? "GÜÇLÜ" : masterScore >= 45 ? "ORTA" : "ZAYIF"),
-          oneri: str(ai.oneri, "Teknik yapı ve IV seviyesi dikkate alınarak pozisyon değerlendirilebilir."),
-          kritikRisk: str(ai.kritikRisk, "Bilanço tarihi ve makro gelişmeler yakından takip edilmeli."),
+          oneri: str(ai.oneri, lang === "en" ? "Position can be evaluated considering the technical structure." : "Teknik yapı dikkate alınarak pozisyon değerlendirilebilir."),
+          kritikRisk: str(ai.kritikRisk, lang === "en" ? "Earnings dates and macro developments should be closely monitored." : "Bilanço tarihi ve makro gelişmeler yakından takip edilmeli."),
         },
       },
       rawData: {
@@ -911,7 +931,7 @@ export async function POST(req: NextRequest) {
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
         // Yeni bölümler için veri
-        insiderTransactions, recentNews, analystData, institutionalOwners, earningsHistory,
+        insiderTransactions, insiderSummary, recentNews, analystData, institutionalOwners, earningsHistory,
       },
     };
 

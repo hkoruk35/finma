@@ -220,7 +220,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
-  const permalink = (ticker: string) => (locale === "en" ? `/global/en/${ticker}` : `/global/tr/${ticker}`);
+  const permalink = (ticker: string) => `/global/${locale}/ai?ticker=${ticker}&deep=1`;
 
   if (!mounted || loading) {
     return (

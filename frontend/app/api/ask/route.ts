@@ -110,7 +110,7 @@ GUIDELINES:
 
 For out-of-scope questions, politely redirect in user's language.`;
 
-function getDynamicSystemPrompt(): string {
+function getDynamicSystemPrompt(lang: "tr" | "en" = "tr"): string {
   const masterPaths = [
     path.join(process.cwd(), "..", "data", "latest", "master.json"),
     path.join(process.cwd(), "data", "latest", "master.json"),
@@ -158,8 +158,12 @@ ${sectors}
 `;
   }
 
-  return `${SYSTEM_PROMPT}
+  const langDirective = lang === "en"
+    ? "\nLANGUAGE OVERRIDE: Always respond in English, regardless of how short or ambiguous the user's message is (e.g. a bare ticker symbol). Do not default to Turkish.\n"
+    : "\nDİL KURALI: Kullanıcının mesajı ne kadar kısa veya belirsiz olursa olsun (örn. sadece bir ticker sembolü) her zaman Türkçe yanıt ver.\n";
 
+  return `${SYSTEM_PROMPT}
+${langDirective}
 ${dataSummary}
 
 KRİTİK TALİMATLAR VE YÖNLENDİRME KURALLARI:
@@ -1446,7 +1450,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ text: "Geçersiz istek." });
   }
 
-  const { message, history = [], lang = "tr" } = body;
+  const { message, history = [], lang: langRaw = "tr" } = body;
+  const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
   if (!message?.trim()) {
     return NextResponse.json({ text: "Lütfen bir mesaj girin." });
   }
@@ -1818,7 +1823,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       }
     }
 
-    const aiResponse = useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+    const aiResponse = useClaude ? await handleClaude(prompt, history, lang) : await handleGemini(prompt, history, lang);
     try {
       const aiJson = await aiResponse.json();
       return NextResponse.json({
@@ -1863,11 +1868,11 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       }));
 
       const prompt = `Aşağıdaki TOP5 hisse seçimlerini analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında, her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Yanıt tamamen Türkçe olsun.`;
-      return useClaude ? await handleClaude(prompt, history) : await handleGemini(prompt, history);
+      return useClaude ? await handleClaude(prompt, history, lang) : await handleGemini(prompt, history, lang);
     }
 
     if (cleanMsg === "/swing") {
-      return useClaude ? await handleClaude(MAGNIFICENT_7_PROMPT, history) : await handleGemini(MAGNIFICENT_7_PROMPT, history);
+      return useClaude ? await handleClaude(MAGNIFICENT_7_PROMPT, history, lang) : await handleGemini(MAGNIFICENT_7_PROMPT, history, lang);
     }
 
     // /analiz TICKER — Deep analysis
@@ -1895,7 +1900,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     }
 
     if (cleanMsg === "/analiz") {
-      return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history);
+      return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history, lang) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history, lang);
     }
 
     // Default Routing with Live News & Dynamic Search
@@ -1935,10 +1940,10 @@ DETAYLI HİSSE LİSTESİ
     }
 
     if (useClaude) {
-      return await handleClaude(finalUserMessage, history);
+      return await handleClaude(finalUserMessage, history, lang);
     }
 
-    return await handleGemini(finalUserMessage, history);
+    return await handleGemini(finalUserMessage, history, lang);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({
@@ -1947,7 +1952,7 @@ DETAYLI HİSSE LİSTESİ
   }
 }
 
-async function handleClaude(message: string, history: Message[]) {
+async function handleClaude(message: string, history: Message[], lang: "tr" | "en" = "tr") {
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json({ text: "Claude servisi şu an devre dışı (API anahtarı eksik). Lütfen normal aramaya devam edin.", source: "claude" });
   }
@@ -1955,7 +1960,7 @@ async function handleClaude(message: string, history: Message[]) {
     const response = await anthropic.messages.create({
       model: "claude-3-5-sonnet-20240620",
       max_tokens: 2000,
-      system: getDynamicSystemPrompt(),
+      system: getDynamicSystemPrompt(lang),
       messages: [
         ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.text })),
         { role: "user", content: message },
@@ -1963,16 +1968,16 @@ async function handleClaude(message: string, history: Message[]) {
     });
     const text = response.content[0].type === "text" ? response.content[0].text : "";
     if (!text) throw new Error("Empty response from Claude");
-    
+
     return NextResponse.json({ text, source: "claude", followUp: [] });
   } catch (e) {
     console.error("[claude] error:", e);
     // Fallback to Gemini if Claude fails and it's not a special command (handled in POST)
-    return await handleGemini(message, history);
+    return await handleGemini(message, history, lang);
   }
 }
 
-async function handleGemini(message: string, history: Message[]) {
+async function handleGemini(message: string, history: Message[], lang: "tr" | "en" = "tr") {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({
@@ -1995,7 +2000,7 @@ async function handleGemini(message: string, history: Message[]) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: getDynamicSystemPrompt() }] },
+          systemInstruction: { parts: [{ text: getDynamicSystemPrompt(lang) }] },
           contents,
           generationConfig: { 
             temperature: 0.7, 

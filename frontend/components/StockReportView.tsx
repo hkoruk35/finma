@@ -11,21 +11,25 @@ interface StockReportViewProps {
   ticker: string;
   stockData: any;
   masterData?: any;
+  lang?: "tr" | "en";
+  autoOpenDeepAnalysis?: boolean;
 }
 
-export default function StockReportView({ ticker, stockData }: StockReportViewProps) {
+export default function StockReportView({ ticker, stockData, lang = "tr", autoOpenDeepAnalysis = false }: StockReportViewProps) {
+  // Inline TR/EN translation helper — L("Türkçe", "English") returns the string for the active lang
+  const L = (tr: string, en: string) => (lang === "en" ? en : tr);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const reportRef = useRef<HTMLDivElement>(null);
   const [showChart, setShowChart] = useState(true);
   const [inWatchlist, setInWatchlist] = useState(false);
   const [exportingPdf, setExportingPdf] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [showDeepAnalysis, setShowDeepAnalysis] = useState(false);
+  const [showDeepAnalysis, setShowDeepAnalysis] = useState(autoOpenDeepAnalysis);
 
   const handleExportPDF = () => {
     setExportingPdf(true);
     const prev = document.title;
-    document.title = `BOGA_AI_${ticker.toUpperCase()}_Raporu`;
+    document.title = `BOGA_AI_${ticker.toUpperCase()}_${L("Raporu","Report")}`;
 
     // Replace <canvas> elements with static <img> snapshots for print
     const canvases = Array.from(
@@ -268,7 +272,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             <span className="text-lg text-slate-400 font-bold">— {companyName}</span>
           </div>
           <p className="text-xs text-[#3b82f6] font-mono tracking-widest uppercase mt-1">
-            Swing Trade Analizi • 1G Grafik • {sector} — {industry} • Analiz Zamanı: {new Date(s.generated_at || Date.now()).toLocaleString("tr-TR")}
+            {L("Swing Trade Analizi","Swing Trade Analysis")} • {L("1G Grafik","1D Chart")} • {sector} — {industry} • {L("Analiz Zamanı","Analysis Time")}: {new Date(s.generated_at || Date.now()).toLocaleString(lang === "en" ? "en-US" : "tr-TR")}
           </p>
           <div className="flex flex-wrap items-center gap-3 mt-4">
             <button 
@@ -282,7 +286,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <svg className="w-4 h-4" fill={inWatchlist ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.233.582 1.83l-3.97 2.9c-.83.605-1.17 1.693-.833 2.677l1.518 4.674c.3.922-.755 1.688-1.538 1.11l-3.969-2.9a1 1 0 00-1.17 0l-3.97 2.9c-.783.57-1.838-.197-1.538-1.11l1.518-4.674a1 1 0 00-.833-2.677l-3.97-2.9c-.779-.597-.38-1.83.582-1.83h4.907a1 1 0 00.95-.69l1.519-4.674z" />
               </svg>
-              {inWatchlist ? "Takip Listesinde" : "Takip Listesine Ekle"}
+              {inWatchlist ? L("Takip Listesinde","In Watchlist") : L("Takip Listesine Ekle","Add to Watchlist")}
             </button>
 
             <button 
@@ -296,19 +300,19 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  PDF Hazırlanıyor...
+                  {L("PDF Hazırlanıyor...","Preparing PDF...")}
                 </>
               ) : (
                 <>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
-                  PDF Kaydet
+                  {L("PDF Kaydet","Save PDF")}
                 </>
               )}
             </button>
 
-            <button 
+            <button
               onClick={() => setIsFullScreen(!isFullScreen)}
               className="flex items-center gap-1.5 px-4 py-2 border rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 bg-[#141924] text-slate-300 border-[#1e2a3a] hover:bg-[#1e2a3a] hover:text-white"
             >
@@ -317,14 +321,14 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
-                  Normal Görünüm
+                  {L("Normal Görünüm","Normal View")}
                 </>
               ) : (
                 <>
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
                   </svg>
-                  Tam Ekran
+                  {L("Tam Ekran","Full Screen")}
                 </>
               )}
             </button>
@@ -336,7 +340,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
-              🔬 Derin Analiz
+              🔬 {L("Derin Analiz","Deep Analysis")}
             </button>
 
           </div>
@@ -359,7 +363,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </svg>
             <div className="absolute flex flex-col items-center">
               <span className="text-base font-black tracking-tighter text-white">{(masterScore / 10).toFixed(1)}</span>
-              <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">Skor</span>
+              <span className="text-[7px] font-black text-slate-400 uppercase tracking-widest">{L("Skor","Score")}</span>
             </div>
           </div>
 
@@ -384,18 +388,18 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           </div>
           <div>
             <div className="text-[9px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              15 Dakika (15M) Mikro Yönü 
-              {sc.micro_15m?.is_valid === false && <span className="bg-rose-500/20 text-rose-400 text-[8px] px-1 py-0.5 rounded font-black">DAĞITIM</span>}
-              {sc.micro_15m?.score_bonus > 1 && <span className="bg-emerald-500/20 text-emerald-400 text-[8px] px-1 py-0.5 rounded font-black">GÜÇLÜ ONAY</span>}
+              {L("15 Dakika (15M) Mikro Yönü","15-Minute (15M) Micro Direction")}
+              {sc.micro_15m?.is_valid === false && <span className="bg-rose-500/20 text-rose-400 text-[8px] px-1 py-0.5 rounded font-black">{L("DAĞITIM","DISTRIBUTION")}</span>}
+              {sc.micro_15m?.score_bonus > 1 && <span className="bg-emerald-500/20 text-emerald-400 text-[8px] px-1 py-0.5 rounded font-black">{L("GÜÇLÜ ONAY","STRONG CONFIRM")}</span>}
             </div>
             <div className={`text-xs font-black mt-0.5 ${
-              sc.micro_15m?.is_valid === false 
-                ? "text-rose-400" 
-                : sc.micro_15m?.score_bonus > 1 
-                  ? "text-emerald-400" 
+              sc.micro_15m?.is_valid === false
+                ? "text-rose-400"
+                : sc.micro_15m?.score_bonus > 1
+                  ? "text-emerald-400"
                   : "text-slate-300"
             }`}>
-              {sc.micro_15m?.msg || "⚖️ 15m Yatay / Sıkışma: Gürültü yok"}
+              {sc.micro_15m?.msg || L("⚖️ 15m Yatay / Sıkışma: Gürültü yok","⚖️ 15m Flat / Compression: No noise")}
             </div>
           </div>
         </div>
@@ -407,59 +411,59 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           </div>
           <div>
             <div className="text-[9px] font-black text-slate-400 uppercase tracking-wider">
-              1 Saat (1H) Giriş Timing Durumu
+              {L("1 Saat (1H) Giriş Timing Durumu","1-Hour (1H) Entry Timing Status")}
             </div>
             <div className="text-xs font-black text-blue-400 uppercase mt-0.5 flex items-center gap-2">
               <span>{sd.entry_engine?.type || "WAITING_FOR_VOLUME"}</span>
               <span className="bg-blue-500/20 text-blue-300 text-[8px] px-1.5 py-0.5 rounded font-bold">
-                %{sd.entry_engine?.confidence || 75} Güven
+                %{sd.entry_engine?.confidence || 75} {L("Güven","Confidence")}
               </span>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* CANLI PİYASA & SEKTÖR MATRİSİ */}
       <div className="space-y-3">
         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 px-1">
-          <span>📊</span> CANLI PİYASA & SEKTÖREL DURUM MATRİSİ
+          <span>📊</span> {L("CANLI PİYASA & SEKTÖREL DURUM MATRİSİ","LIVE MARKET & SECTOR STATUS MATRIX")}
         </h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {/* S&P 500 Card */}
           <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">S&P 500 Endeksi</span>
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{L("S&P 500 Endeksi","S&P 500 Index")}</span>
             <div>
               <div className="text-lg font-black text-white font-mono">
-                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "+" : "") + sp500ChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "+" : "") + sp500ChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-black uppercase tracking-wider ${sp500ChangeVal != null && sp500ChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+                {sp500ChangeVal != null ? (sp500ChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
               </span>
             </div>
           </div>
 
           {/* NASDAQ Card */}
           <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">NASDAQ Endeksi</span>
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{L("NASDAQ Endeksi","NASDAQ Index")}</span>
             <div>
               <div className="text-lg font-black text-white font-mono">
-                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "+" : "") + nasdaqChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "+" : "") + nasdaqChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-black uppercase tracking-wider ${nasdaqChangeVal != null && nasdaqChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+                {nasdaqChangeVal != null ? (nasdaqChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
               </span>
             </div>
           </div>
 
           {/* VIX Korku Endeksi */}
           <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-24 hover:border-blue-500/20 transition-all">
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">VIX Korku Endeksi</span>
+            <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{L("VIX Korku Endeksi","VIX Fear Index")}</span>
             <div>
               <div className="text-lg font-black text-white font-mono">
-                {vixPriceVal != null ? vixPriceVal.toFixed(2) : "Yükleniyor..."}
+                {vixPriceVal != null ? vixPriceVal.toFixed(2) : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-black uppercase tracking-wider ${vixPriceVal != null && vixPriceVal > 20 ? "text-rose-400" : "text-emerald-400"}`}>
-                {vixPriceVal != null ? (vixPriceVal > 20 ? "⚠️ YÜKSEK VOLATİLİTE" : "✓ DÜŞÜK RİSK") : "Canlı Veri"}
+                {vixPriceVal != null ? (vixPriceVal > 20 ? `⚠️ ${L("YÜKSEK VOLATİLİTE","HIGH VOLATILITY")}` : `✓ ${L("DÜŞÜK RİSK","LOW RISK")}`) : L("Canlı Veri","Live Data")}
               </span>
             </div>
           </div>
@@ -471,10 +475,10 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             </div>
             <div>
               <div className="text-lg font-black text-white font-mono">
-                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "+" : "") + sectorChangeVal.toFixed(2) + "%" : "Yükleniyor..."}
+                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "+" : "") + sectorChangeVal.toFixed(2) + "%" : L("Yükleniyor...","Loading...")}
               </div>
               <span className={`text-[10px] font-black uppercase tracking-wider ${sectorChangeVal != null && sectorChangeVal >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
-                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? "▲ POZİTİF" : "▼ DÜŞÜŞTE") : "Canlı Veri"}
+                {sectorChangeVal != null ? (sectorChangeVal >= 0 ? `▲ ${L("POZİTİF","POSITIVE")}` : `▼ ${L("DÜŞÜŞTE","DOWN")}`) : L("Canlı Veri","Live Data")}
               </span>
             </div>
           </div>
@@ -484,15 +488,15 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         {(() => {
           const isIndicesDown = (sp500ChangeVal != null && sp500ChangeVal < 0) || (nasdaqChangeVal != null && nasdaqChangeVal < 0);
           const isSectorDown = sectorChangeVal != null && sectorChangeVal < 0;
-          
+
           if (isIndicesDown || isSectorDown) {
             return (
               <div className="bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 flex items-start gap-3 mt-2">
                 <span className="text-xl">⚠️</span>
                 <div>
-                  <div className="text-xs font-black text-rose-400 uppercase tracking-wider">TEMKİNLİ YAKLAŞIM VE DİKKATLİ ALIM ÖNERİSİ</div>
+                  <div className="text-xs font-black text-rose-400 uppercase tracking-wider">{L("TEMKİNLİ YAKLAŞIM VE DİKKATLİ ALIM ÖNERİSİ","CAUTIOUS APPROACH & CAREFUL ENTRY ADVISED")}</div>
                   <p className="text-[11px] text-slate-300 font-medium leading-relaxed mt-0.5">
-                    Genel endeksler (S&P 500 / NASDAQ) veya sektörel trendler düşüş eğilimindedir. Piyasa risk iştahı zayıf olduğundan, alımlarda acele edilmemeli, daha dikkatli alım yapılmalı ve kademeli temkinli yaklaşım benimsenmelidir.
+                    {L("Genel endeksler (S&P 500 / NASDAQ) veya sektörel trendler düşüş eğilimindedir. Piyasa risk iştahı zayıf olduğundan, alımlarda acele edilmemeli, daha dikkatli alım yapılmalı ve kademeli temkinli yaklaşım benimsenmelidir.", "Broad indices (S&P 500 / NASDAQ) or sector trends are leaning lower. With market risk appetite weak, avoid rushing entries — use careful, scaled-in positioning instead.")}
                   </p>
                 </div>
               </div>
@@ -502,9 +506,9 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 flex items-start gap-3 mt-2">
                 <span className="text-xl">✓</span>
                 <div>
-                  <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">PİYASA VE SEKTÖR KOŞULLARI DENGELİ</div>
+                  <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">{L("PİYASA VE SEKTÖR KOŞULLARI DENGELİ","MARKET & SECTOR CONDITIONS BALANCED")}</div>
                   <p className="text-[11px] text-slate-300 font-medium leading-relaxed mt-0.5">
-                    Endeksler ve sektörel ivme stabil veya pozitif seyrediyor. Belirlenen ana swing planına ve kademe seviyelerine sadık kalınarak işleme devam edilebilir.
+                    {L("Endeksler ve sektörel ivme stabil veya pozitif seyrediyor. Belirlenen ana swing planına ve kademe seviyelerine sadık kalınarak işleme devam edilebilir.", "Indices and sector momentum are stable or positive. You can proceed per the defined swing plan and staged levels.")}
                   </p>
                 </div>
               </div>
@@ -516,23 +520,23 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       {/* BOGA AI MULTI-HORIZON SUITABILITY RADAR */}
       <div className="space-y-3">
         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5 px-1">
-          <span>🎯</span> BOGA AI ÇOKLU VADELİ ANALİZ RADARI (MULTI-HORIZON ANALYSIS RADAR)
+          <span>🎯</span> {L("BOGA AI ÇOKLU VADELİ ANALİZ RADARI (MULTI-HORIZON ANALYSIS RADAR)","BOGA AI MULTI-HORIZON ANALYSIS RADAR")}
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {/* Card 1: Swing Trade Suitability */}
           {(() => {
             const swingLevel = masterScore >= 65 ? "HIGH" : masterScore >= 50 ? "MODERATE" : "LOW";
-            const swingText = swingLevel === "HIGH" ? "GÜÇLÜ SWING FIRSATI" : swingLevel === "MODERATE" ? "İZLEME / DENGELİ" : "DÜŞÜK İVME / RİSKLİ";
+            const swingText = swingLevel === "HIGH" ? L("GÜÇLÜ SWING FIRSATI","STRONG SWING OPPORTUNITY") : swingLevel === "MODERATE" ? L("İZLEME / DENGELİ","WATCH / BALANCED") : L("DÜŞÜK İVME / RİSKLİ","LOW MOMENTUM / RISKY");
             const swingColor = swingLevel === "HIGH" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-emerald-500/5" : swingLevel === "MODERATE" ? "bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-amber-500/5" : "bg-rose-500/10 text-rose-400 border-rose-500/30 shadow-rose-500/5";
             return (
               <div className={`p-4 rounded-2xl border ${swingColor} shadow-md flex flex-col justify-between space-y-2`}>
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] font-black uppercase tracking-wider opacity-70">1. SWING TRADE PROFİLİ</span>
+                  <span className="text-[9px] font-black uppercase tracking-wider opacity-70">1. {L("SWING TRADE PROFİLİ","SWING TRADE PROFILE")}</span>
                   <span className="text-xs">⚡</span>
                 </div>
                 <div>
                   <div className="text-base font-black tracking-tight">{swingText}</div>
-                  <p className="text-[9px] font-bold mt-1 opacity-80">BOGA Skoru {masterScore}/100 • Trend Uyumlu Giriş</p>
+                  <p className="text-[9px] font-bold mt-1 opacity-80">{L("BOGA Skoru","BOGA Score")} {masterScore}/100 • {L("Trend Uyumlu Giriş","Trend-Aligned Entry")}</p>
                 </div>
               </div>
             );
@@ -545,12 +549,12 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             const isRec = netMarginVal > 0.08 && revGrowthVal > 0.05;
             const isHold = netMarginVal > 0 || revGrowthVal > 0;
             const ltLevel = isRec ? "RECOMMENDED" : isHold ? "HOLD" : "AVOID";
-            const ltText = ltLevel === "RECOMMENDED" ? "🟢 GÜÇLÜ BİRİKTİR (+1 / +5 Yıl)" : ltLevel === "HOLD" ? "🟡 TUT / DENGELİ VADE" : "🔴 YÜKSEK RİSK / KAÇIN";
-            const ltDesc = ltLevel === "RECOMMENDED" ? "+1 ve +5 yıl vade için mükemmel finansal temel." : ltLevel === "HOLD" ? "Orta/uzun vadeli stabil birikim profili." : "Finansallar zayıf, uzun vade biriktirme riskli.";
+            const ltText = ltLevel === "RECOMMENDED" ? L("🟢 GÜÇLÜ BİRİKTİR (+1 / +5 Yıl)","🟢 STRONG ACCUMULATE (+1 / +5 Yr)") : ltLevel === "HOLD" ? L("🟡 TUT / DENGELİ VADE","🟡 HOLD / BALANCED TERM") : L("🔴 YÜKSEK RİSK / KAÇIN","🔴 HIGH RISK / AVOID");
+            const ltDesc = ltLevel === "RECOMMENDED" ? L("+1 ve +5 yıl vade için mükemmel finansal temel.","Excellent financial foundation for +1 and +5 year horizons.") : ltLevel === "HOLD" ? L("Orta/uzun vadeli stabil birikim profili.","Stable mid/long-term accumulation profile.") : L("Finansallar zayıf, uzun vade biriktirme riskli.","Weak financials, long-term accumulation is risky.");
             return (
               <div className="p-4 rounded-2xl border border-[#1e2a3a]/40 bg-[#0d1321] text-slate-300 flex flex-col justify-between space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">2. UZUN VADE YATIRIM (+1 / +5 YIL)</span>
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">2. {L("UZUN VADE YATIRIM (+1 / +5 YIL)","LONG-TERM INVESTMENT (+1 / +5 YR)")}</span>
                   <span className="text-xs">💎</span>
                 </div>
                 <div>
@@ -566,12 +570,12 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             const divRate = fund.dividend_rate || 0;
             const divYield = fund.dividend_yield || 0;
             const paysDiv = divYield > 0;
-            const divText = paysDiv ? `🟢 TEMETTÜ HİSSESİ (%${(divYield * 100).toFixed(2)})` : "⚪ BÜYÜME ODAKLI (Yatırımsız)";
-            const divDesc = paysDiv ? `Yıllık Hisse Başı: $${divRate.toFixed(2)} • Dönem: Çeyreklik` : "Tüm serbest nakit akışını büyümeye harcar.";
+            const divText = paysDiv ? `🟢 ${L("TEMETTÜ HİSSESİ","DIVIDEND STOCK")} (%${(divYield * 100).toFixed(2)})` : `⚪ ${L("BÜYÜME ODAKLI (Yatırımsız)","GROWTH FOCUSED (No Dividend)")}`;
+            const divDesc = paysDiv ? `${L("Yıllık Hisse Başı","Annual Per Share")}: $${divRate.toFixed(2)} • ${L("Dönem","Period")}: ${L("Çeyreklik","Quarterly")}` : L("Tüm serbest nakit akışını büyümeye harcar.","Spends all free cash flow on growth.");
             return (
               <div className="p-4 rounded-2xl border border-[#1e2a3a]/40 bg-[#0d1321] text-slate-300 flex flex-col justify-between space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">3. PASİF GELİR / TEMETTÜ</span>
+                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">3. {L("PASİF GELİR / TEMETTÜ","PASSIVE INCOME / DIVIDEND")}</span>
                   <span className="text-xs">💰</span>
                 </div>
                 <div>
@@ -588,7 +592,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Card 1: Price */}
         <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-28">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Güncel Fiyat</span>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{L("Güncel Fiyat","Current Price")}</span>
           <div>
             <div className="text-2xl font-black text-white">${formatNum(currentPrice)}</div>
             <div className={`text-xs font-bold flex items-center gap-1.5 mt-0.5 ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
@@ -600,7 +604,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
         {/* Card 2: 52-Week Range */}
         <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-28">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">52 Hafta Aralığı</span>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{L("52 Hafta Aralığı","52-Week Range")}</span>
           <div>
             <div className="flex justify-between text-xs font-bold text-slate-300 mb-1">
               <span>${formatNum(low52w, 1)}</span>
@@ -618,21 +622,21 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               />
             </div>
             <div className="text-[9px] text-slate-400 text-center mt-1.5 font-bold">
-              Zirveye uzaklık: %{Math.max(0, 100 - range52wPercent).toFixed(0)}
+              {L("Zirveye uzaklık","Distance to high")}: %{Math.max(0, 100 - range52wPercent).toFixed(0)}
             </div>
           </div>
         </div>
 
         {/* Card 3: Analysis Context */}
         <div className="bg-[#0f1624] border border-[#1e2a3a]/40 rounded-2xl p-4 flex flex-col justify-between h-28">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">Analiz Konsensüsü</span>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{L("Analiz Konsensüsü","Analysis Consensus")}</span>
           <div>
             <div className="text-base font-black text-white uppercase tracking-tight flex items-center gap-1.5">
               <span className={`w-2.5 h-2.5 rounded-full ${isBullish ? "bg-emerald-500 animate-pulse" : isBearish ? "bg-rose-500 animate-pulse" : "bg-amber-500 animate-pulse"}`} />
-              {isBullish ? "Güçlü Boğa Sinyali" : isBearish ? "Ayı Baskısı Baskın" : "Nötr Beklemede"}
+              {isBullish ? L("Güçlü Boğa Sinyali","Strong Bullish Signal") : isBearish ? L("Ayı Baskısı Baskın","Bearish Pressure Dominant") : L("Nötr Beklemede","Neutral / Waiting")}
             </div>
             <p className="text-xs text-slate-400 mt-1 font-bold">
-              Teknik Güç: %{formatNum(sc.technical_score, 0)} • Temel Güç: %{formatNum(sc.fundamental_score, 0)}
+              {L("Teknik Güç","Technical Strength")}: %{formatNum(sc.technical_score, 0)} • {L("Temel Güç","Fundamental Strength")}: %{formatNum(sc.fundamental_score, 0)}
             </p>
           </div>
         </div>
@@ -640,21 +644,21 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
       {/* 3. CORE TECHNICALS GRID (2 Columns) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
+
         {/* Column 1: TEKNİK GÖSTERGELER */}
         <div className="bg-[#0d1321] border border-[#1e2a3a]/30 rounded-2xl p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2 mb-2">
             <div className="w-1 h-4 bg-blue-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">TEKNİK GÖSTERGELER (1G)</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("TEKNİK GÖSTERGELER (1G)","TECHNICAL INDICATORS (1D)")}</h3>
           </div>
-          
+
           <div className="space-y-3 font-mono text-xs text-slate-300">
             <div className="flex justify-between items-center py-0.5">
               <span className="font-sans font-bold text-slate-400">EMA 20</span>
               <div className="flex items-center gap-2">
                 <span className="font-bold">${formatNum(ema20)}</span>
                 <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${currentPrice >= ema20 ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                  {currentPrice >= ema20 ? "Fiyat Üstünde ✓" : "Fiyat Altında ✗"}
+                  {currentPrice >= ema20 ? `${L("Fiyat Üstünde","Price Above")} ✓` : `${L("Fiyat Altında","Price Below")} ✗`}
                 </span>
               </div>
             </div>
@@ -664,7 +668,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <div className="flex items-center gap-2">
                 <span className="font-bold">${formatNum(ema50)}</span>
                 <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${currentPrice >= ema50 ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                  {currentPrice >= ema50 ? "Fiyat Üstünde ✓" : "Fiyat Altında ✗"}
+                  {currentPrice >= ema50 ? `${L("Fiyat Üstünde","Price Above")} ✓` : `${L("Fiyat Altında","Price Below")} ✗`}
                 </span>
               </div>
             </div>
@@ -674,7 +678,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <div className="flex items-center gap-2">
                 <span className="font-bold">${formatNum(ema200)}</span>
                 <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${currentPrice >= ema200 ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                  {currentPrice >= ema200 ? "Fiyat Üstünde ✓" : "Fiyat Altında ✗"}
+                  {currentPrice >= ema200 ? `${L("Fiyat Üstünde","Price Above")} ✓` : `${L("Fiyat Altında","Price Below")} ✗`}
                 </span>
               </div>
             </div>
@@ -684,24 +688,24 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
               <div className="flex items-center gap-2">
                 <span className="font-bold">{formatNum(rsi, 1)}</span>
                 <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${rsi >= 70 ? "bg-rose-500/10 text-rose-400" : rsi <= 30 ? "bg-emerald-500/10 text-emerald-400" : "bg-slate-800 text-slate-300"}`}>
-                  {rsi >= 70 ? "Aşırı Alım (Riskli)" : rsi <= 30 ? "Aşırı Satım (Ucuz)" : "Nötr / Dengeli"}
+                  {rsi >= 70 ? L("Aşırı Alım (Riskli)","Overbought (Risky)") : rsi <= 30 ? L("Aşırı Satım (Ucuz)","Oversold (Cheap)") : L("Nötr / Dengeli","Neutral / Balanced")}
                 </span>
               </div>
             </div>
 
             <div className="flex justify-between items-center py-0.5">
-              <span className="font-sans font-bold text-slate-400">Göreceli Hacim (RVOL)</span>
+              <span className="font-sans font-bold text-slate-400">{L("Göreceli Hacim (RVOL)","Relative Volume (RVOL)")}</span>
               <div className="flex items-center gap-2">
                 <span className="font-bold">{formatNum(rvol, 2)}x</span>
                 <span className={`font-sans font-bold px-1.5 py-0.5 rounded text-[10px] ${rvol >= 1.5 ? "bg-emerald-500/10 text-emerald-400" : "bg-slate-800 text-slate-300"}`}>
-                  {rvol >= 1.5 ? "Yüksek Hacim ▲" : "Normal Hacim"}
+                  {rvol >= 1.5 ? `${L("Yüksek Hacim","High Volume")} ▲` : L("Normal Hacim","Normal Volume")}
                 </span>
               </div>
             </div>
 
             <div className="flex justify-between items-center py-0.5">
-              <span className="font-sans font-bold text-slate-400">EMA Dağılımı</span>
-              <span className="font-sans font-black text-slate-200">{tech.ema_stack_bullish ? "🟢 Boğa (Uyumlu)" : "🟡 Ayı / Karışık"}</span>
+              <span className="font-sans font-bold text-slate-400">{L("EMA Dağılımı","EMA Stack")}</span>
+              <span className="font-sans font-black text-slate-200">{tech.ema_stack_bullish ? `🟢 ${L("Boğa (Uyumlu)","Bullish (Aligned)")}` : `🟡 ${L("Ayı / Karışık","Bearish / Mixed")}`}</span>
             </div>
           </div>
         </div>
@@ -710,14 +714,14 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         <div className="bg-[#0d1321] border border-[#1e2a3a]/30 rounded-2xl p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2 mb-2">
             <div className="w-1 h-4 bg-emerald-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">SWING SİNYAL HARİTASI</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWING SİNYAL HARİTASI","SWING SIGNAL MAP")}</h3>
           </div>
 
           <div className="space-y-3.5">
             {/* Trend Bar */}
             <div className="space-y-1">
               <div className="flex justify-between text-xs font-bold text-slate-300">
-                <span>Ana Trend Gücü</span>
+                <span>{L("Ana Trend Gücü","Main Trend Strength")}</span>
                 <span>%{formatNum(sc.technical_score, 0)}</span>
               </div>
               <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -728,7 +732,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             {/* Momentum Bar */}
             <div className="space-y-1">
               <div className="flex justify-between text-xs font-bold text-slate-300">
-                <span>Hisse Momentumu</span>
+                <span>{L("Hisse Momentumu","Stock Momentum")}</span>
                 <span>%{formatNum(sc.momentum_score || sc.momentum_cat_score || 50, 0)}</span>
               </div>
               <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -739,7 +743,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             {/* Volume Bar */}
             <div className="space-y-1">
               <div className="flex justify-between text-xs font-bold text-slate-300">
-                <span>Hacim Sıkışması</span>
+                <span>{L("Hacim Sıkışması","Volume Compression")}</span>
                 <span>%{formatNum(Math.min(100, rvol * 50), 0)}</span>
               </div>
               <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -750,7 +754,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             {/* Fundamental Bar */}
             <div className="space-y-1">
               <div className="flex justify-between text-xs font-bold text-slate-300">
-                <span>Temel/Mali Güç</span>
+                <span>{L("Temel/Mali Güç","Fundamental Strength")}</span>
                 <span>%{formatNum(sc.fundamental_score, 0)}</span>
               </div>
               <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
@@ -764,37 +768,37 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
       {/* 4. DUAL COLUMN INFO GRID (Support/Resistance vs. Fundamental Specs) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
+
         {/* Support/Resistance */}
         <div className="bg-[#0d1321] border border-[#1e2a3a]/30 rounded-2xl p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2 mb-2">
             <div className="w-1 h-4 bg-rose-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">DESTEK / DİRENÇ SEVİYELERİ</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("DESTEK / DİRENÇ SEVİYELERİ","SUPPORT / RESISTANCE LEVELS")}</h3>
           </div>
 
           <div className="space-y-2.5 font-mono text-xs">
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-rose-400">Güçlü Direnç</span>
+              <span className="font-sans font-bold text-rose-400">{L("Güçlü Direnç","Strong Resistance")}</span>
               <span className="font-bold">${formatNum(resistance2)}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-orange-400">Hafif Direnç</span>
+              <span className="font-sans font-bold text-orange-400">{L("Hafif Direnç","Light Resistance")}</span>
               <span className="font-bold">${formatNum(resistance1)}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10 bg-slate-800/10 px-1 rounded">
-              <span className="font-sans font-black text-slate-200">Mevcut Bölge</span>
+              <span className="font-sans font-black text-slate-200">{L("Mevcut Bölge","Current Zone")}</span>
               <span className="font-black text-white">${formatNum(currentPrice)}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-emerald-400">İlk Destek</span>
+              <span className="font-sans font-bold text-emerald-400">{L("İlk Destek","First Support")}</span>
               <span className="font-bold">${formatNum(support1)}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-teal-400">EMA 200 Destek</span>
+              <span className="font-sans font-bold text-teal-400">{L("EMA 200 Destek","EMA 200 Support")}</span>
               <span className="font-bold">${formatNum(ema200)}</span>
             </div>
             <div className="flex justify-between py-0.5">
-              <span className="font-sans font-bold text-[#3b82f6]">Güçlü Destek</span>
+              <span className="font-sans font-bold text-[#3b82f6]">{L("Güçlü Destek","Strong Support")}</span>
               <span className="font-bold">${formatNum(support2)}</span>
             </div>
           </div>
@@ -804,28 +808,28 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         <div className="bg-[#0d1321] border border-[#1e2a3a]/30 rounded-2xl p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2 mb-2">
             <div className="w-1 h-4 bg-amber-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">TEMEL MARJLAR & DEĞERLEME</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("TEMEL MARJLAR & DEĞERLEME","FUNDAMENTAL MARGINS & VALUATION")}</h3>
           </div>
 
           <div className="space-y-2.5 font-mono text-xs">
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-slate-400">Piyasa Değeri</span>
+              <span className="font-sans font-bold text-slate-400">{L("Piyasa Değeri","Market Cap")}</span>
               <span className="font-bold text-slate-200">{fund.market_cap ? (fund.market_cap / 1e9).toFixed(1) + "B" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-slate-400">F/K Oranı (P/E)</span>
+              <span className="font-sans font-bold text-slate-400">{L("F/K Oranı (P/E)","P/E Ratio")}</span>
               <span className="font-bold text-slate-200">{(fund.pe_ratio && fund.pe_ratio > 0) ? fund.pe_ratio.toFixed(1) + "x" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-slate-400">Gelir Büyümesi</span>
+              <span className="font-sans font-bold text-slate-400">{L("Gelir Büyümesi","Revenue Growth")}</span>
               <span className="font-bold text-slate-200">{fund.revenue_growth_ttm ? (fund.revenue_growth_ttm * 100).toFixed(1) + "%" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5 border-b border-[#1e2a3a]/10">
-              <span className="font-sans font-bold text-slate-400">Brüt Kar Marjı</span>
+              <span className="font-sans font-bold text-slate-400">{L("Brüt Kar Marjı","Gross Margin")}</span>
               <span className="font-bold text-slate-200">{fund.gross_margin ? (fund.gross_margin * 100).toFixed(1) + "%" : "N/A"}</span>
             </div>
             <div className="flex justify-between py-0.5">
-              <span className="font-sans font-bold text-slate-400">Serbest Nakit Akışı Verimi</span>
+              <span className="font-sans font-bold text-slate-400">{L("Serbest Nakit Akışı Verimi","Free Cash Flow Yield")}</span>
               <span className="font-bold text-slate-200">{fund.fcf_yield ? (fund.fcf_yield * 100).toFixed(1) + "%" : "N/A"}</span>
             </div>
           </div>
@@ -839,12 +843,12 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          DİKKAT: RİSK & UYARI MATRİSİ
+          {L("DİKKAT: RİSK & UYARI MATRİSİ","CAUTION: RISK & WARNING MATRIX")}
         </div>
         <p className="text-xs text-amber-100/90 leading-relaxed font-sans font-semibold">
-          {currentPrice < ema20 
-            ? `Fiyat kısa vadeli hareketli ortalama olan EMA20 ($${formatNum(ema20)}) seviyesinin altına sarkmış durumda. RSI(14) ${formatNum(rsi, 1)} ile momentumun zayıfladığına işaret ediyor. Güvenli giriş için ilk desteğin onaylanması beklenmelidir.` 
-            : `Fiyat EMA20 ($${formatNum(ema20)}) ve EMA50 ($${formatNum(ema50)}) seviyelerinin üzerinde tutunuyor. Hacim ivmesi dengeli. Trend yapısı güçlü boğa sinyalini destekliyor. Belirlenen destek seviyeleri stop olarak takip edilebilir.`}
+          {currentPrice < ema20
+            ? L(`Fiyat kısa vadeli hareketli ortalama olan EMA20 ($${formatNum(ema20)}) seviyesinin altına sarkmış durumda. RSI(14) ${formatNum(rsi, 1)} ile momentumun zayıfladığına işaret ediyor. Güvenli giriş için ilk desteğin onaylanması beklenmelidir.`, `Price has dropped below the short-term EMA20 ($${formatNum(ema20)}) moving average. RSI(14) at ${formatNum(rsi, 1)} signals weakening momentum. Confirmation of the first support level should be awaited for a safer entry.`)
+            : L(`Fiyat EMA20 ($${formatNum(ema20)}) ve EMA50 ($${formatNum(ema50)}) seviyelerinin üzerinde tutunuyor. Hacim ivmesi dengeli. Trend yapısı güçlü boğa sinyalini destekliyor. Belirlenen destek seviyeleri stop olarak takip edilebilir.`, `Price is holding above EMA20 ($${formatNum(ema20)}) and EMA50 ($${formatNum(ema50)}). Volume momentum is balanced. The trend structure supports a strong bullish signal. Defined support levels can be tracked as stop levels.`)}
         </p>
       </div>
 
@@ -852,20 +856,20 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       <div className="space-y-4">
         <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
           <div className="w-1.5 h-4 bg-emerald-500 rounded-full" />
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">SWİNG SENARYOLARI</h3>
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWİNG SENARYOLARI","SWING SCENARIOS")}</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* BOĞA SENARYOSU */}
           <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-2xl p-4.5 space-y-2">
             <div className="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
               <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-              🟢 BOĞA SENARYOSU
+              🟢 {L("BOĞA SENARYOSU","BULL SCENARIO")}
             </div>
             <p className="text-xs text-emerald-100/80 leading-relaxed font-sans">
-              Fiyatın ${formatNum(support1)} - ${formatNum(ema200)} bölgesinde destek bulması ve onaylanması durumunda, MACD pozitif geçişi ve hacim ivmesi ile yukarı yönelim beklenir.
+              {L(`Fiyatın $${formatNum(support1)} - $${formatNum(ema200)} bölgesinde destek bulması ve onaylanması durumunda, MACD pozitif geçişi ve hacim ivmesi ile yukarı yönelim beklenir.`, `If price finds and confirms support in the $${formatNum(support1)} - $${formatNum(ema200)} zone, an upward move is expected with a positive MACD crossover and volume momentum.`)}
             </p>
             <div className="text-[11px] font-mono text-emerald-400/90 pt-1">
-              Direnç Hedefleri: <span className="font-bold">${formatNum(resistance1)}</span> → <span className="font-bold">${formatNum(resistance2)}</span>
+              {L("Direnç Hedefleri","Resistance Targets")}: <span className="font-bold">${formatNum(resistance1)}</span> → <span className="font-bold">${formatNum(resistance2)}</span>
             </div>
           </div>
 
@@ -873,13 +877,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           <div className="bg-rose-500/5 border border-rose-500/20 rounded-2xl p-4.5 space-y-2">
             <div className="flex items-center gap-2 text-rose-400 font-black text-xs uppercase tracking-wider">
               <span className="flex h-2 w-2 rounded-full bg-rose-400 animate-ping" />
-              🔴 AYI SENARYOSU
+              🔴 {L("AYI SENARYOSU","BEAR SCENARIO")}
             </div>
             <p className="text-xs text-rose-100/80 leading-relaxed font-sans">
-              Destek bölgesi olan ${formatNum(support1)} seviyesinin kırılması durumunda, satış baskısı artarak ${formatNum(ema200)} (EMA200) veya ${formatNum(support2)} seviyelerine kadar geri çekilme tetiklenebilir.
+              {L(`Destek bölgesi olan $${formatNum(support1)} seviyesinin kırılması durumunda, satış baskısı artarak $${formatNum(ema200)} (EMA200) veya $${formatNum(support2)} seviyelerine kadar geri çekilme tetiklenebilir.`, `If the $${formatNum(support1)} support level breaks, increasing selling pressure could trigger a pullback toward $${formatNum(ema200)} (EMA200) or $${formatNum(support2)}.`)}
             </p>
             <div className="text-[11px] font-mono text-rose-400/90 pt-1">
-              Geri Çekilme Hedefleri: <span className="font-bold">${formatNum(ema200)}</span> → <span className="font-bold">${formatNum(support2)}</span>
+              {L("Geri Çekilme Hedefleri","Pullback Targets")}: <span className="font-bold">${formatNum(ema200)}</span> → <span className="font-bold">${formatNum(support2)}</span>
             </div>
           </div>
         </div>
@@ -889,22 +893,22 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       <div className="space-y-3">
         <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
           <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">SWİNG TRADE PLANI</h3>
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWİNG TRADE PLANI","SWING TRADE PLAN")}</h3>
         </div>
         <div className="overflow-x-auto rounded-2xl border border-[#1e2a3a]/35 bg-[#070c14]">
           <table className="w-full text-left text-xs font-mono">
             <thead>
               <tr className="bg-[#0f1624] text-slate-400 font-sans border-b border-[#1e2a3a]/30">
-                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">STRATEJİ</th>
-                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">GİRİŞ BÖLGESİ</th>
-                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">HEDEF SEVİYE</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">{L("STRATEJİ","STRATEGY")}</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">{L("GİRİŞ BÖLGESİ","ENTRY ZONE")}</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">{L("HEDEF SEVİYE","TARGET LEVEL")}</th>
                 <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">STOP LOSS</th>
-                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">R/R ORANI</th>
+                <th className="p-3.5 font-black uppercase tracking-wider text-[10px]">{L("R/R ORANI","R/R RATIO")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e2a3a]/20">
               <tr>
-                <td className="p-3.5 font-sans font-bold text-emerald-400">Dip Alımı (Pullback)</td>
+                <td className="p-3.5 font-sans font-bold text-emerald-400">{L("Dip Alımı (Pullback)","Dip Buy (Pullback)")}</td>
                 <td className="p-3.5 font-bold">${formatNum(support1)}</td>
                 <td className="p-3.5 font-bold">${formatNum(resistance1)}</td>
                 <td className="p-3.5 font-bold text-rose-400">${formatNum(support1 * 0.95)}</td>
@@ -936,7 +940,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                 </td>
               </tr>
               <tr>
-                <td className="p-3.5 font-sans font-bold text-purple-400">Kırılım Girişi (Breakout)</td>
+                <td className="p-3.5 font-sans font-bold text-purple-400">{L("Kırılım Girişi (Breakout)","Breakout Entry")}</td>
                 <td className="p-3.5 font-bold">${formatNum(resistance1 * 1.018)}</td>
                 <td className="p-3.5 font-bold">${formatNum(resistance2)}</td>
                 <td className="p-3.5 font-bold text-rose-400">${formatNum(resistance1 * 0.96)}</td>
@@ -962,12 +966,12 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           <div className="flex items-center gap-2">
             <span className="text-xl">🔮</span>
             <div>
-              <h3 className="text-sm font-black text-white uppercase tracking-wider">🔮 BOGA AI 28 GÜNLÜK SIMÜLASYON MOTORU</h3>
-              <p className="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">Monte Carlo & Teknik Drift Projeksiyonu (1,000 Senaryo)</p>
+              <h3 className="text-sm font-black text-white uppercase tracking-wider">🔮 {L("BOGA AI 28 GÜNLÜK SIMÜLASYON MOTORU","BOGA AI 28-DAY SIMULATION ENGINE")}</h3>
+              <p className="text-[10px] text-slate-400 font-mono tracking-widest uppercase mt-0.5">{L("Monte Carlo & Teknik Drift Projeksiyonu (1,000 Senaryo)","Monte Carlo & Technical Drift Projection (1,000 Scenarios)")}</p>
             </div>
           </div>
           <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[9px] px-2 py-1 rounded font-black uppercase tracking-wider">
-            AKTİF MİKRO-TRENTS
+            {L("AKTİF MİKRO-TRENDLER","ACTIVE MICRO-TRENDS")}
           </span>
         </div>
 
@@ -976,14 +980,14 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             {/* Daily grid for the first 7 days */}
             <div>
               <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                <span>📅</span> İLK 7 GÜNLÜK DETAYLI GÜNLÜK TAHMİN AKIŞI
+                <span>📅</span> {L("İLK 7 GÜNLÜK DETAYLI GÜNLÜK TAHMİN AKIŞI","FIRST 7-DAY DETAILED DAILY FORECAST FLOW")}
               </h4>
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
                 {s.forecast.daily.map((day: any) => {
                   const isUp = day.base >= currentPrice;
                   return (
                     <div key={day.day} className="bg-[#070c14] border border-[#1e2a3a]/30 rounded-xl p-3 flex flex-col justify-between items-center text-center space-y-2 hover:border-[#3b82f6]/40 transition-all">
-                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Gün {day.day}</span>
+                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{L("Gün","Day")} {day.day}</span>
                       <div className="flex flex-col items-center">
                         <span className={`text-[10px] font-black ${isUp ? "text-emerald-400" : "text-rose-400"}`}>
                           {isUp ? "▲" : "▼"} ${day.base.toFixed(2)}
@@ -991,7 +995,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                         <span className="text-[8px] font-bold text-slate-500 mt-0.5">{day.date.split("-").slice(1).reverse().join("/")}</span>
                       </div>
                       <div className="w-full space-y-0.5">
-                        <div className="text-[8px] font-black text-slate-400">Kâr İhtimali</div>
+                        <div className="text-[8px] font-black text-slate-400">{L("Kâr İhtimali","Profit Odds")}</div>
                         <div className="text-[9px] font-black text-emerald-400">%{day.probabilityOfProfit}</div>
                       </div>
                     </div>
@@ -1005,13 +1009,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             <div className="space-y-6">
               <div>
                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                  <span>📅</span> KISA VADELİ HEDEFLER (SWING MILESTONES)
+                  <span>📅</span> {L("KISA VADELİ HEDEFLER (SWING MILESTONES)","SHORT-TERM TARGETS (SWING MILESTONES)")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
-                    { label: "14 Günlük Hedef (W2)", key: "14d" },
-                    { label: "21 Günlük Hedef (W3)", key: "21d" },
-                    { label: "28 Günlük Hedef (W4)", key: "28d" },
+                    { label: L("14 Günlük Hedef (W2)","14-Day Target (W2)"), key: "14d" },
+                    { label: L("21 Günlük Hedef (W3)","21-Day Target (W3)"), key: "21d" },
+                    { label: L("28 Günlük Hedef (W4)","28-Day Target (W4)"), key: "28d" },
                   ].map((item) => {
                     const msData = s.forecast.milestones[item.key];
                     if (!msData) return null;
@@ -1022,20 +1026,20 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                         <div className="flex justify-between items-start">
                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
                           <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                            {isUp ? "BOĞA EĞİLİMİ" : "AYI DÜZELTMESİ"}
+                            {isUp ? L("BOĞA EĞİLİMİ","BULLISH BIAS") : L("AYI DÜZELTMESİ","BEARISH CORRECTION")}
                           </span>
                         </div>
-                        
+
                         <div>
                           <div className="text-xl font-mono font-black text-white">${msData.base.toFixed(2)}</div>
                           <div className="text-[9px] text-slate-400 font-bold mt-1">
-                            Tahmin Koridoru: <span className="text-rose-400 font-black">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${msData.bullish.toFixed(2)}</span>
+                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-black">${msData.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${msData.bullish.toFixed(2)}</span>
                           </div>
                         </div>
 
                         <div className="space-y-1">
                           <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
-                            <span>Güven Skoru (Kâr Olasılığı)</span>
+                            <span>{L("Güven Skoru (Kâr Olasılığı)","Confidence Score (Profit Odds)")}</span>
                             <span className="text-emerald-400">%{msData.probabilityOfProfit}</span>
                           </div>
                           <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -1050,24 +1054,24 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
 
               <div>
                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                  <span>🚀</span> UZUN VADELİ HEDEFLER (INVESTMENT MILESTONES)
+                  <span>🚀</span> {L("UZUN VADELİ HEDEFLER (INVESTMENT MILESTONES)","LONG-TERM TARGETS (INVESTMENT MILESTONES)")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
                     (() => {
                       const growth = (fund.revenue_growth_ttm > 0 ? Math.min(0.20, fund.revenue_growth_ttm * 0.25) : 0.03) + (masterScore / 100) * 0.05;
                       const base = currentPrice * (1 + growth);
-                      return { label: "3 Aylık Hedef", base, bearish: base * 0.90, bullish: base * 1.10, prob: Math.round(60 + (masterScore / 100) * 30) };
+                      return { label: L("3 Aylık Hedef","3-Month Target"), base, bearish: base * 0.90, bullish: base * 1.10, prob: Math.round(60 + (masterScore / 100) * 30) };
                     })(),
                     (() => {
                       const growth = (fund.revenue_growth_ttm > 0 ? Math.min(0.35, fund.revenue_growth_ttm) : 0.12) + (fund.fcf_yield > 0 ? Math.min(0.12, fund.fcf_yield) : 0.04);
                       const base = currentPrice * (1 + growth);
-                      return { label: "1 Yıllık Hedef (+1 Yıl Tut)", base, bearish: base * 0.80, bullish: base * 1.20, prob: Math.round(55 + (masterScore / 100) * 35) };
+                      return { label: L("1 Yıllık Hedef (+1 Yıl Tut)","1-Year Target (+1 Yr Hold)"), base, bearish: base * 0.80, bullish: base * 1.20, prob: Math.round(55 + (masterScore / 100) * 35) };
                     })(),
                     (() => {
                       const cagr = Math.max(0.08, Math.min(0.30, (fund.revenue_growth_ttm || 0.15)));
                       const base = currentPrice * Math.pow(1 + cagr, 5);
-                      return { label: "5 Yıllık Hedef (+5 Yıl Tut)", base, bearish: base * 0.70, bullish: base * 1.40, prob: Math.round(50 + (masterScore / 100) * 40) };
+                      return { label: L("5 Yıllık Hedef (+5 Yıl Tut)","5-Year Target (+5 Yr Hold)"), base, bearish: base * 0.70, bullish: base * 1.40, prob: Math.round(50 + (masterScore / 100) * 40) };
                     })()
                   ].map((item, idx) => {
                     const isUp = item.base >= currentPrice;
@@ -1077,20 +1081,20 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                         <div className="flex justify-between items-start">
                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-wider">{item.label}</span>
                           <span className={`text-[8px] font-black px-1.5 py-0.5 rounded ${isUp ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"}`}>
-                            {isUp ? "YÜKSEK POTANSİYEL" : "DENGELİ BÜYÜME"}
+                            {isUp ? L("YÜKSEK POTANSİYEL","HIGH POTENTIAL") : L("DENGELİ BÜYÜME","BALANCED GROWTH")}
                           </span>
                         </div>
-                        
+
                         <div>
                           <div className="text-xl font-mono font-black text-white">${item.base.toFixed(2)}</div>
                           <div className="text-[9px] text-slate-400 font-bold mt-1">
-                            Tahmin Koridoru: <span className="text-rose-400 font-black">${item.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${item.bullish.toFixed(2)}</span>
+                            {L("Tahmin Koridoru","Forecast Range")}: <span className="text-rose-400 font-black">${item.bearish.toFixed(2)}</span> - <span className="text-emerald-400 font-black">${item.bullish.toFixed(2)}</span>
                           </div>
                         </div>
 
                         <div className="space-y-1">
                           <div className="flex justify-between text-[9px] font-black text-slate-400 uppercase tracking-wider">
-                            <span>Büyüme İtimadı (Güven Oranı)</span>
+                            <span>{L("Büyüme İtimadı (Güven Oranı)","Growth Confidence (Confidence Rate)")}</span>
                             <span className="text-emerald-400">%{item.prob}</span>
                           </div>
                           <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -1106,7 +1110,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           </div>
         ) : (
           <div className="text-center py-6 text-xs text-slate-400">
-            Tahmin verileri hesaplanamadı veya yükleniyor...
+            {L("Tahmin verileri hesaplanamadı veya yükleniyor...","Forecast data could not be computed or is loading...")}
           </div>
         )}
       </div>
@@ -1116,13 +1120,13 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-5 bg-gradient-to-b from-emerald-400 to-blue-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">BOGA AI Canlı İnteraktif Grafik</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("BOGA AI Canlı İnteraktif Grafik","BOGA AI Live Interactive Chart")}</h3>
           </div>
-          <button 
-            onClick={() => setShowChart(!showChart)} 
+          <button
+            onClick={() => setShowChart(!showChart)}
             className="px-3 py-1 bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 text-[10px] font-black uppercase tracking-wider border border-[#1e2a3a]/60 rounded-lg transition-colors"
           >
-            {showChart ? "Gizle" : "Göster"}
+            {showChart ? L("Gizle","Hide") : L("Göster","Show")}
           </button>
         </div>
 
@@ -1136,11 +1140,9 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
       {/* 8. SUMMARY TEXT PARAGRAPHS */}
       <div className="space-y-5 border-t border-[#1e2a3a]/40 pt-6">
         <div>
-          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">⚡ {ticker.toUpperCase()} SWING TRADE ÖZETİ</h4>
+          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">⚡ {ticker.toUpperCase()} {L("SWING TRADE ÖZETİ","SWING TRADE SUMMARY")}</h4>
           <p className="text-xs text-slate-300 leading-relaxed font-sans">
-            Teknik görünümde, kısa vadeli momentum {rsi < 50 ? "satış baskısının arttığını" : "boğaların lehine olduğunu"} gösteriyor. 
-            EMA20 ($${formatNum(ema20)}) pivot seviyesi olup, bu seviyenin {currentPrice >= ema20 ? "üzerindeki tutunma yukarı yönlü ivmeyi tetikleyebilir." : "altındaki hareketler aşağı yönlü baskıyı artırabilir."}
-            Hisse senedi hacim bazlı kırılımlar için yakın takip edilmelidir.
+            {L(`Teknik görünümde, kısa vadeli momentum ${rsi < 50 ? "satış baskısının arttığını" : "boğaların lehine olduğunu"} gösteriyor. EMA20 ($${formatNum(ema20)}) pivot seviyesi olup, bu seviyenin ${currentPrice >= ema20 ? "üzerindeki tutunma yukarı yönlü ivmeyi tetikleyebilir." : "altındaki hareketler aşağı yönlü baskıyı artırabilir."} Hisse senedi hacim bazlı kırılımlar için yakın takip edilmelidir.`, `Technically, short-term momentum shows ${rsi < 50 ? "increasing selling pressure" : "bulls in control"}. EMA20 ($${formatNum(ema20)}) is the pivot level — holding ${currentPrice >= ema20 ? "above it could trigger upward momentum." : "below it could increase downward pressure."} The stock should be closely monitored for volume-based breakouts.`)}
           </p>
         </div>
 
@@ -1150,22 +1152,20 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           const isHealthy = (fund.net_margin || 0) > 0.08;
           return (
             <div>
-              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 UZUN VADELİ YATIRIM & DİNAMİK LOT ÖNERİSİ</h4>
+              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 {L("UZUN VADELİ YATIRIM & DİNAMİK LOT ÖNERİSİ","LONG-TERM INVESTMENT & DYNAMIC LOT SUGGESTION")}</h4>
               <p className="text-xs text-slate-300 leading-relaxed font-sans">
-                Şirketin finansal yapısı ve gelir büyümesi göz önüne alındığında, uzun vadeli (+1 ile +5 Yıl) birikim için 
-                {isHealthy ? " oldukça uygun ve stabil bir profil çizmektedir." : " yüksek volatilite barındırmakta olup dikkatli biriktirilmelidir."} 
-                BOGA AI Algoritmik Modeli, bu hisse senedi için portföy yapısına göre şu dinamik lot büyüklüklerini önermektedir:
+                {L(`Şirketin finansal yapısı ve gelir büyümesi göz önüne alındığında, uzun vadeli (+1 ile +5 Yıl) birikim için ${isHealthy ? "oldukça uygun ve stabil bir profil çizmektedir." : "yüksek volatilite barındırmakta olup dikkatli biriktirilmelidir."} BOGA AI Algoritmik Modeli, bu hisse senedi için portföy yapısına göre şu dinamik lot büyüklüklerini önermektedir:`, `Given the company's financial structure and revenue growth, for long-term (+1 to +5 year) accumulation it ${isHealthy ? "presents a fairly suitable and stable profile." : "carries high volatility and should be accumulated cautiously."} The BOGA AI Algorithmic Model recommends the following dynamic lot sizes for this stock based on portfolio structure:`)}
               </p>
               <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 bg-[#0d1321] border border-[#1e2a3a]/40 rounded-xl p-3.5 text-xs">
                 <div>
-                  <span className="text-slate-400 font-bold block mb-1">🏢 BAŞLANGIÇ / ÇEKİRDEK PORTFÖY</span>
-                  <span className="text-white font-mono font-black text-sm">{initialLots} Lot</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">(Yaklaşık $2,000 hedefli çekirdek pozisyon girişi)</span>
+                  <span className="text-slate-400 font-bold block mb-1">🏢 {L("BAŞLANGIÇ / ÇEKİRDEK PORTFÖY","INITIAL / CORE PORTFOLIO")}</span>
+                  <span className="text-white font-mono font-black text-sm">{initialLots} {L("Lot","Lots")}</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">{L("(Yaklaşık $2,000 hedefli çekirdek pozisyon girişi)","(Targets ~$2,000 core position entry)")}</span>
                 </div>
                 <div className="border-t sm:border-t-0 sm:border-l border-[#1e2a3a]/40 pt-2 sm:pt-0 sm:pl-3">
-                  <span className="text-slate-400 font-bold block mb-1">📅 DÜZENLİ AYLIK BİRİKİM (DCA)</span>
-                  <span className="text-emerald-400 font-mono font-black text-sm">+{dcaLots} Lot / Ay</span>
-                  <span className="text-[10px] text-slate-400 block mt-0.5">(Dolar Maliyet Ortalaması ile her ay disiplinli ekleme)</span>
+                  <span className="text-slate-400 font-bold block mb-1">📅 {L("DÜZENLİ AYLIK BİRİKİM (DCA)","REGULAR MONTHLY ACCUMULATION (DCA)")}</span>
+                  <span className="text-emerald-400 font-mono font-black text-sm">+{dcaLots} {L("Lot","Lots")} / {L("Ay","Month")}</span>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">{L("(Dolar Maliyet Ortalaması ile her ay disiplinli ekleme)","(Disciplined monthly add via Dollar Cost Averaging)")}</span>
                 </div>
               </div>
             </div>
@@ -1173,47 +1173,47 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         })()}
 
         <div>
-          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 TEMEL HİKAYE & KATALİZÖRLER</h4>
+          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">💎 {L("TEMEL HİKAYE & KATALİZÖRLER","FUNDAMENTAL STORY & CATALYSTS")}</h4>
           <ul className="space-y-2 text-xs text-slate-300 font-sans list-disc list-inside">
             <li>
-              <strong>Piyasa Payı & Değerleme:</strong> Sektör medyan değerleriyle karşılaştırıldığında, F/K rasyosu <strong>{formatNum(fund.pe_ratio, 1)}x</strong> ile {fund.pe_ratio < 25 ? "oldukça cazip seviyelerde." : "primli ama stabil bir büyümeyi yansıtıyor."}
+              <strong>{L("Piyasa Payı & Değerleme:","Market Share & Valuation:")}</strong> {L(`Sektör medyan değerleriyle karşılaştırıldığında, F/K rasyosu`, `Compared to sector median values, the P/E ratio of`)} <strong>{formatNum(fund.pe_ratio, 1)}x</strong> {fund.pe_ratio < 25 ? L("ile oldukça cazip seviyelerde.","is quite attractive.") : L("ile primli ama stabil bir büyümeyi yansıtıyor.","reflects a premium but stable growth.")}
             </li>
             <li>
-              <strong>Nakit Akışı İvmesi:</strong> Serbest nakit akışı verimi <strong>%{(fund.fcf_yield * 100).toFixed(1)}</strong> ile şirketin operasyonel nakit üretme gücünün stabil olduğunu gösteriyor.
+              <strong>{L("Nakit Akışı İvmesi:","Cash Flow Momentum:")}</strong> {L("Serbest nakit akışı verimi","Free cash flow yield of")} <strong>%{(fund.fcf_yield * 100).toFixed(1)}</strong> {L("ile şirketin operasyonel nakit üretme gücünün stabil olduğunu gösteriyor.","shows the company's operational cash-generating power is stable.")}
             </li>
             <li>
-              <strong>Kurumsal Değerlendirme:</strong> Son dönemde artan hacim girişleri ve {fund.institutional_ownership_pct ? `%${(fund.institutional_ownership_pct * 100).toFixed(0)}` : "stabil"} kurumsal sahiplik oranı kurumsal yatırımcıların hisseye duyduğu güveni doğruluyor.
+              <strong>{L("Kurumsal Değerlendirme:","Institutional Assessment:")}</strong> {L(`Son dönemde artan hacim girişleri ve ${fund.institutional_ownership_pct ? `%${(fund.institutional_ownership_pct * 100).toFixed(0)}` : "stabil"} kurumsal sahiplik oranı kurumsal yatırımcıların hisseye duyduğu güveni doğruluyor.`, `Recently increasing volume inflows and a ${fund.institutional_ownership_pct ? `${(fund.institutional_ownership_pct * 100).toFixed(0)}%` : "stable"} institutional ownership ratio confirm institutional investors' confidence in the stock.`)}
             </li>
           </ul>
         </div>
 
         {/* Execution table strategy */}
         <div>
-          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">📋 SWING TRADE STRATEJİ MATRİSİ</h4>
+          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">📋 {L("SWING TRADE STRATEJİ MATRİSİ","SWING TRADE STRATEGY MATRIX")}</h4>
           <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14] mb-4">
             <table className="w-full text-left text-xs font-mono">
               <thead>
                 <tr className="bg-[#0f1624] text-slate-400 font-sans">
-                  <th className="p-3 font-bold uppercase">Senaryo</th>
-                  <th className="p-3 font-bold uppercase">Seviye</th>
-                  <th className="p-3 font-bold uppercase">Aksiyon Koşulu</th>
+                  <th className="p-3 font-bold uppercase">{L("Senaryo","Scenario")}</th>
+                  <th className="p-3 font-bold uppercase">{L("Seviye","Level")}</th>
+                  <th className="p-3 font-bold uppercase">{L("Aksiyon Koşulu","Action Condition")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1e2a3a]/20">
                 <tr>
-                  <td className="p-3 font-bold text-emerald-400">Giriş (Entry)</td>
+                  <td className="p-3 font-bold text-emerald-400">{L("Giriş (Entry)","Entry")}</td>
                   <td className="p-3 font-bold">${formatNum(entryLow)} - ${formatNum(entryHigh)}</td>
-                  <td className="p-3 text-slate-300 font-sans">Hacimli toparlanma teyidi ile alım.</td>
+                  <td className="p-3 text-slate-300 font-sans">{L("Hacimli toparlanma teyidi ile alım.","Buy on volume-confirmed recovery.")}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-bold text-[#3b82f6]">Hedef (Target)</td>
+                  <td className="p-3 font-bold text-[#3b82f6]">{L("Hedef (Target)","Target")}</td>
                   <td className="p-3 font-bold">${formatNum(targetLow)} - ${formatNum(targetHigh)}</td>
-                  <td className="p-3 text-slate-300 font-sans">Belirlenen dirençlerde kademeli kâr alımı.</td>
+                  <td className="p-3 text-slate-300 font-sans">{L("Belirlenen dirençlerde kademeli kâr alımı.","Scaled profit-taking at defined resistance levels.")}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 font-bold text-rose-400">Zarar Kes (Stop)</td>
+                  <td className="p-3 font-bold text-rose-400">{L("Zarar Kes (Stop)","Stop Loss")}</td>
                   <td className="p-3 font-bold">${formatNum(stopLoss)}</td>
-                  <td className="p-3 text-slate-300 font-sans">Belirtilen seviyenin altındaki günlük kapanış.</td>
+                  <td className="p-3 text-slate-300 font-sans">{L("Belirtilen seviyenin altındaki günlük kapanış.","Daily close below the specified level.")}</td>
                 </tr>
               </tbody>
             </table>
@@ -1227,33 +1227,33 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
           const paysDiv = (fund.dividend_yield || 0) > 0;
           return (
             <div>
-              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">💼 BOGA AI UZUN VADELİ YATIRIM (INVESTMENT) MATRİSİ</h4>
+              <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">💼 {L("BOGA AI UZUN VADELİ YATIRIM (INVESTMENT) MATRİSİ","BOGA AI LONG-TERM INVESTMENT MATRIX")}</h4>
               <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14]">
                 <table className="w-full text-left text-xs font-mono">
                   <thead>
                     <tr className="bg-[#0f1624] text-slate-400 font-sans">
-                      <th className="p-3 font-bold uppercase">Vade / Strateji</th>
-                      <th className="p-3 font-bold uppercase">Lot & Giriş Stratejisi</th>
-                      <th className="p-3 font-bold uppercase">Kâr Realizasyonu / Çıkış</th>
+                      <th className="p-3 font-bold uppercase">{L("Vade / Strateji","Term / Strategy")}</th>
+                      <th className="p-3 font-bold uppercase">{L("Lot & Giriş Stratejisi","Lot & Entry Strategy")}</th>
+                      <th className="p-3 font-bold uppercase">{L("Kâr Realizasyonu / Çıkış","Profit Realization / Exit")}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#1e2a3a]/20">
                     <tr>
-                      <td className="p-3 font-bold text-emerald-400">+1 Yıl Vadeli Büyüme (DCA)</td>
+                      <td className="p-3 font-bold text-emerald-400">{L("+1 Yıl Vadeli Büyüme (DCA)","+1 Yr Growth (DCA)")}</td>
                       <td className="p-3 text-slate-300 font-sans">
-                        Aylık <strong>{dcaLots} Lot</strong> disiplinli DCA alımı ve EMA200 pullback'lerinde ekleme.
+                        {L("Aylık","Monthly")} <strong>{dcaLots} {L("Lot","Lots")}</strong> {L("disiplinli DCA alımı ve EMA200 pullback'lerinde ekleme.","disciplined DCA buys, adding on EMA200 pullbacks.")}
                       </td>
                       <td className="p-3 text-slate-300 font-sans">
-                        Büyüme hikayesi veya pazar payı kaybı gözlenmedikçe tut, F/K rasyosu 45x üzerine çıkarsa kademeli azalt.
+                        {L("Büyüme hikayesi veya pazar payı kaybı gözlenmedikçe tut, F/K rasyosu 45x üzerine çıkarsa kademeli azalt.","Hold unless the growth story weakens or market share is lost; trim gradually if P/E exceeds 45x.")}
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-3 font-bold text-[#3b82f6]">+5 Yıl Vadeli Değer & Pasif Gelir</td>
+                      <td className="p-3 font-bold text-[#3b82f6]">{L("+5 Yıl Vadeli Değer & Pasif Gelir","+5 Yr Value & Passive Income")}</td>
                       <td className="p-3 text-slate-300 font-sans">
-                        Çekirdek <strong>{initialLots} Lot</strong> başlangıç + {paysDiv ? "ödenen temettüler ile otomatik hisse geri alımı (DRIP)." : "aylık birikimlerle düzenli ekleme."}
+                        {L("Çekirdek","Core")} <strong>{initialLots} {L("Lot","Lots")}</strong> {L("başlangıç","initial")} + {paysDiv ? L("ödenen temettüler ile otomatik hisse geri alımı (DRIP).","automatic share reinvestment of paid dividends (DRIP).") : L("aylık birikimlerle düzenli ekleme.","regular additions via monthly accumulation.")}
                       </td>
                       <td className="p-3 text-slate-300 font-sans">
-                        Kalıcı emeklilik ve pasif gelir hedefli süresiz birikim. Sadece majör yapısal bozulmalarda gözden geçir.
+                        {L("Kalıcı emeklilik ve pasif gelir hedefli süresiz birikim. Sadece majör yapısal bozulmalarda gözden geçir.","Indefinite accumulation aimed at retirement and passive income. Review only on major structural deterioration.")}
                       </td>
                     </tr>
                   </tbody>
@@ -1270,18 +1270,18 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             <div className="space-y-3 pt-4 border-t border-[#1e2a3a]/40">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
-                <h4 className="text-sm font-black text-white uppercase tracking-widest">📰 GÜNCEL HABERLER & SEKTÖR ANALİZLERİ</h4>
+                <h4 className="text-sm font-black text-white uppercase tracking-widest">📰 {L("GÜNCEL HABERLER & SEKTÖR ANALİZLERİ","LATEST NEWS & SECTOR ANALYSIS")}</h4>
               </div>
               {newsList && newsList.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mt-2">
                   {newsList.slice(0, 4).map((item: any, idx: number) => {
                     const pubDate = item.providerPublishTime
-                      ? new Date(item.providerPublishTime * 1000).toLocaleDateString("tr-TR", {
+                      ? new Date(item.providerPublishTime * 1000).toLocaleDateString(lang === "en" ? "en-US" : "tr-TR", {
                           day: "numeric",
                           month: "short",
                           year: "numeric"
                         })
-                      : "Son Gelişme";
+                      : L("Son Gelişme","Latest Update");
                     return (
                       <a
                         href={item.link}
@@ -1292,7 +1292,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                       >
                         <div>
                           <div className="flex items-center justify-between text-[9px] font-black text-slate-500 uppercase tracking-wider mb-2">
-                            <span>{item.publisher || "Finansal Haber"}</span>
+                            <span>{item.publisher || L("Finansal Haber","Financial News")}</span>
                             <span>{pubDate}</span>
                           </div>
                           <h5 className="text-xs font-black text-white group-hover:text-[#3b82f6] transition-colors leading-snug">
@@ -1300,7 +1300,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                           </h5>
                         </div>
                         <div className="text-[10px] font-bold text-[#3b82f6] mt-3 flex items-center gap-1">
-                          Haberi Oku
+                          {L("Haberi Oku","Read News")}
                           <svg className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                           </svg>
@@ -1311,7 +1311,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
                 </div>
               ) : (
                 <p className="text-xs text-slate-400 italic">
-                  Bu şirket veya sektöre ait son 24 saatte yayınlanmış aktif bir haber/analiz bulunmamaktadır.
+                  {L("Bu şirket veya sektöre ait son 24 saatte yayınlanmış aktif bir haber/analiz bulunmamaktadır.","No active news/analysis has been published for this company or sector in the last 24 hours.")}
                 </p>
               )}
             </div>
@@ -1345,6 +1345,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
             <DeepAnalysisReport
               ticker={ticker}
               stockData={stockData}
+              lang={lang}
               onClose={() => setShowDeepAnalysis(false)}
             />,
             document.body
@@ -1399,6 +1400,7 @@ export default function StockReportView({ ticker, stockData }: StockReportViewPr
         <DeepAnalysisReport
           ticker={ticker}
           stockData={stockData}
+          lang={lang}
           onClose={() => setShowDeepAnalysis(false)}
         />,
         document.body

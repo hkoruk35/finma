@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import IchimokuChart from "./IchimokuChart";
 
-interface Props { ticker: string; stockData: any; onClose: () => void; }
+interface Props { ticker: string; stockData: any; onClose: () => void; lang?: "tr" | "en"; }
 
 // ── Mini helpers ──────────────────────────────────────────────────────────────
 function SectionTitle({ icon, title }: { icon: string; title: string }) {
@@ -16,17 +16,11 @@ function SectionTitle({ icon, title }: { icon: string; title: string }) {
   );
 }
 
-function Badge({ score }: { score: number }) {
-  if (score >= 1) return <span className="px-2 py-0.5 rounded border bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[11px] md:text-[12px] font-black uppercase">✅ EVET</span>;
-  if (score === 0) return <span className="px-2 py-0.5 rounded border bg-amber-500/20 text-amber-300 border-amber-500/40 text-[11px] md:text-[12px] font-black uppercase">🔍 ORTA</span>;
-  return <span className="px-2 py-0.5 rounded border bg-rose-500/20 text-rose-300 border-rose-500/40 text-[11px] md:text-[12px] font-black uppercase">❌ HAYIR</span>;
-}
-
-function LevelBadge({ v, fb }: { v: string; fb: string }) {
-  const val = v || fb;
-  if (val === "GÜÇLÜ") return <span className="text-emerald-400 font-black text-sm">{val}</span>;
-  if (val === "ORTA") return <span className="text-amber-400 font-black text-sm">{val}</span>;
-  return <span className="text-rose-400 font-black text-sm">{val}</span>;
+function Badge({ score, lang = "tr" }: { score: number; lang?: "tr" | "en" }) {
+  const t = (tr: string, en: string) => (lang === "en" ? en : tr);
+  if (score >= 1) return <span className="px-2 py-0.5 rounded border bg-emerald-500/20 text-emerald-300 border-emerald-500/40 text-[11px] md:text-[12px] font-black uppercase">✅ {t("EVET", "YES")}</span>;
+  if (score === 0) return <span className="px-2 py-0.5 rounded border bg-amber-500/20 text-amber-300 border-amber-500/40 text-[11px] md:text-[12px] font-black uppercase">🔍 {t("ORTA", "MID")}</span>;
+  return <span className="px-2 py-0.5 rounded border bg-rose-500/20 text-rose-300 border-rose-500/40 text-[11px] md:text-[12px] font-black uppercase">❌ {t("HAYIR", "NO")}</span>;
 }
 
 // ── Combined Historical + Forecast Chart ───────────────────────────────────────
@@ -34,11 +28,14 @@ function ForecastChart({
   historyOHLC,
   forecast15,
   currentPrice,
+  lang = "tr",
 }: {
   historyOHLC?: any[];
   forecast15: any[];
   currentPrice: number;
+  lang?: "tr" | "en";
 }) {
+  const t = (tr: string, en: string) => (lang === "en" ? en : tr);
   if (!forecast15?.length) return null;
 
   // Get last 30 days of history (or fewer if not available)
@@ -60,7 +57,7 @@ function ForecastChart({
   return (
     <div className="bg-[#0a0e18] border border-[#1e3a5f]/50 rounded-xl p-4 overflow-x-auto">
       <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">
-        📈 Son 30 Gün + 15 Gün Forecast Grafiği
+        📈 {t("Son 30 Gün + 15 Gün Forecast Grafiği", "Last 30 Days + 15-Day Forecast Chart")}
       </div>
       <div className="relative" style={{ height: 140, minWidth: Math.max(600, totalBars * 15) }}>
         {/* Gridlines */}
@@ -90,7 +87,7 @@ function ForecastChart({
           style={{ bottom: `${pct(currentPrice)}%` }}
         >
           <span className="absolute right-0 -translate-y-3 text-[10px] md:text-[11px] text-amber-400 font-black">
-            Güncel ${currentPrice.toFixed(2)}
+            {t("Güncel", "Current")} ${currentPrice.toFixed(2)}
           </span>
         </div>
 
@@ -218,7 +215,7 @@ function ForecastChart({
                     className="text-[9px] md:text-[10px] text-slate-500 font-mono"
                     style={{ width: `${W}%`, flexShrink: 0, textAlign: "center" }}
                   >
-                    -{dayAgo}G
+                    -{dayAgo}{t("G", "D")}
                   </div>
                 );
               })
@@ -234,7 +231,7 @@ function ForecastChart({
                   className="text-[9px] md:text-[10px] text-slate-500 font-mono"
                   style={{ width: `${W * 3}%`, flexShrink: 0, textAlign: "center" }}
                 >
-                  G+{d.day}
+                  {t("G", "D")}+{d.day}
                 </div>
               );
             })
@@ -246,23 +243,23 @@ function ForecastChart({
       <div className="flex flex-wrap gap-4 mt-10 text-[10px] md:text-[11px] font-black">
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-[#06b6d4] inline-block" />
-          Geçmiş Kapanış
+          {t("Geçmiş Kapanış", "Historical Close")}
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-emerald-500 inline-block" />
-          Bull Senaryo
+          {t("Bull Senaryo", "Bull Scenario")}
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-amber-400 inline-block" />
-          Base Senaryo
+          {t("Base Senaryo", "Base Scenario")}
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 bg-rose-500 inline-block" />
-          Bear Senaryo
+          {t("Bear Senaryo", "Bear Scenario")}
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 border-t border-dashed border-amber-400 inline-block" />
-          Güncel Fiyat
+          {t("Güncel Fiyat", "Current Price")}
         </span>
       </div>
     </div>
@@ -325,7 +322,9 @@ const PRINT_STYLE = `
 `;
 
 // ── Main Component ─────────────────────────────────────────────────────────────
-export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props) {
+export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = "tr" }: Props) {
+  // Inline TR/EN translation helper — L("Türkçe", "English") returns the string for the active lang
+  const L = (tr: string, en: string) => (lang === "en" ? en : tr);
   const reportRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -344,7 +343,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
     fetch("/api/deep-analysis", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticker, stockData }),
+      body: JSON.stringify({ ticker, stockData, lang }),
     })
       .then(r => r.json())
       .then(d => {
@@ -413,15 +412,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
   };
 
   const handleShare = async () => {
-    const shareUrl = `${window.location.origin}/ai?ticker=${ticker.toUpperCase()}`;
-    const shareText = `BOGA AI — ${ticker.toUpperCase()} Derin Analiz Raporu\n${companyName} · $${currentPrice.toFixed(2)}\n\n${shareUrl}`;
+    const basePath = window.location.pathname.includes("/global/") ? window.location.pathname.split("?")[0] : "/ai";
+    const shareUrl = `${window.location.origin}${basePath}?ticker=${ticker.toUpperCase()}&deep=1`;
+    const shareTitle = L(`BOGA AI Derin Analiz — ${ticker.toUpperCase()}`, `BOGA AI Deep Analysis — ${ticker.toUpperCase()}`);
+    const shareText = `${shareTitle}\n${companyName} · $${currentPrice.toFixed(2)}\n\n${shareUrl}`;
     if (navigator.share) {
       try {
-        await navigator.share({ title: `BOGA AI Derin Analiz — ${ticker.toUpperCase()}`, text: shareText, url: shareUrl });
-      } catch (e: any) { if (e?.name !== "AbortError") { await navigator.clipboard.writeText(shareText); alert("Bağlantı kopyalandı!"); } }
+        await navigator.share({ title: shareTitle, text: shareText, url: shareUrl });
+      } catch (e: any) { if (e?.name !== "AbortError") { await navigator.clipboard.writeText(shareText); alert(L("Bağlantı kopyalandı!", "Link copied!")); } }
     } else {
-      try { await navigator.clipboard.writeText(shareText); alert("Bağlantı kopyalandı! 📋"); }
-      catch { alert(`Paylaşım bağlantısı:\n${shareUrl}`); }
+      try { await navigator.clipboard.writeText(shareText); alert(L("Bağlantı kopyalandı! 📋", "Link copied! 📋")); }
+      catch { alert(L(`Paylaşım bağlantısı:\n${shareUrl}`, `Share link:\n${shareUrl}`)); }
     }
   };
 
@@ -437,7 +438,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
           </div>
           <div>
-            <div className="text-[11px] md:text-[12px] font-black text-white uppercase tracking-widest">BOGA AI — DERİN ANALİZ RAPORU</div>
+            <div className="text-[11px] md:text-[12px] font-black text-white uppercase tracking-widest">{L("BOGA AI — DERİN ANALİZ RAPORU", "BOGA AI — DEEP ANALYSIS REPORT")}</div>
             <div className="text-[11px] md:text-[12px] text-[#06b6d4] font-bold">{ticker.toUpperCase()} • {companyName} • ${currentPrice.toFixed(2)}</div>
           </div>
         </div>
@@ -445,7 +446,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
           {!loading && data && (<>
             <button onClick={handleShare} className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#06b6d4]/40 bg-[#06b6d4]/10 text-[#06b6d4] hover:bg-[#06b6d4]/20 text-[11px] md:text-[12px] font-black uppercase tracking-wider transition-all">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
-              Paylaş
+              {L("Paylaş", "Share")}
             </button>
             <button
               onClick={handleExportPDF}
@@ -453,9 +454,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#f59e0b]/40 bg-[#f59e0b]/10 text-[#f59e0b] hover:bg-[#f59e0b]/20 text-[11px] md:text-[12px] font-black uppercase tracking-wider transition-all disabled:opacity-60"
             >
               {exportingPdf ? (
-                <><span className="w-3.5 h-3.5 border-2 border-[#f59e0b]/40 border-t-[#f59e0b] rounded-full animate-spin inline-block" />Hazırlanıyor...</>
+                <><span className="w-3.5 h-3.5 border-2 border-[#f59e0b]/40 border-t-[#f59e0b] rounded-full animate-spin inline-block" />{L("Hazırlanıyor...", "Preparing...")}</>
               ) : (
-                <><svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>PDF Kaydet</>
+                <><svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>{L("PDF Kaydet", "Save PDF")}</>
               )}
             </button>
           </>)}
@@ -473,8 +474,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
             </div>
             <div className="text-center">
-              <p className="text-white font-black text-sm uppercase tracking-widest">Derin Analiz Hazırlanıyor</p>
-              <p className="text-[#06b6d4] text-xs mt-1 font-bold">{ticker.toUpperCase()} için historical data + 15G forecast + opsiyon matrisi yükleniyor...</p>
+              <p className="text-white font-black text-sm uppercase tracking-widest">{L("Derin Analiz Hazırlanıyor", "Preparing Deep Analysis")}</p>
+              <p className="text-[#06b6d4] text-xs mt-1 font-bold">{L(`${ticker.toUpperCase()} için historical data + 15G forecast yükleniyor...`, `Loading historical data + 15-day forecast for ${ticker.toUpperCase()}...`)}</p>
             </div>
             <div className="flex gap-1.5">{[0,150,300].map(d=><span key={d} className="w-2 h-2 rounded-full bg-[#3b82f6] animate-bounce" style={{animationDelay:`${d}ms`}}/>)}</div>
           </div>
@@ -482,9 +483,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
         {error && (
           <div className="flex flex-col items-center justify-center h-64 gap-3">
             <p className="text-4xl">⚠️</p>
-            <p className="text-rose-400 font-black text-sm">Analiz yüklenemedi</p>
+            <p className="text-rose-400 font-black text-sm">{L("Analiz yüklenemedi", "Failed to load analysis")}</p>
             <p className="text-slate-400 text-xs max-w-xs text-center">{error}</p>
-            <button onClick={onClose} className="mt-2 px-4 py-2 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-black uppercase hover:bg-rose-500/20 transition-all">Kapat</button>
+            <button onClick={onClose} className="mt-2 px-4 py-2 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl text-xs font-black uppercase hover:bg-rose-500/20 transition-all">{L("Kapat", "Close")}</button>
           </div>
         )}
 
@@ -506,12 +507,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">{ticker.toUpperCase()}</h1>
                       <span className="text-slate-400 font-bold text-lg">{data.companyName}</span>
                     </div>
-                    <p className="text-[11px] md:text-[12px] font-mono text-[#06b6d4] tracking-widest uppercase mt-1">{data.sector} • {data.industry} • DERİN ANALİZ & 15G FORECAST • {new Date().toLocaleDateString("tr-TR")}</p>
-                    <p className="text-[11px] md:text-[12px] text-slate-500 mt-0.5 font-bold uppercase tracking-wider">BOGA AI — Cash-Secured PUT / Covered CALL Opsiyon Stratejisi</p>
+                    <p className="text-[11px] md:text-[12px] font-mono text-[#06b6d4] tracking-widest uppercase mt-1">{data.sector} • {data.industry} • {L("DERİN ANALİZ & 15G FORECAST", "DEEP ANALYSIS & 15-DAY FORECAST")} • {new Date().toLocaleDateString(lang === "en" ? "en-US" : "tr-TR")}</p>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="text-3xl font-black text-white font-mono">${rd.currentPrice?.toFixed(2) ?? currentPrice.toFixed(2)}</div>
-                    <div className="mt-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#1d4ed8] to-[#06b6d4] text-white text-[11px] md:text-[12px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 inline-block">BOGA SKOR: {rd.masterScore}/100</div>
+                    <div className="mt-1 px-3 py-1 rounded-xl bg-gradient-to-r from-[#1d4ed8] to-[#06b6d4] text-white text-[11px] md:text-[12px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/20 inline-block">{L("BOGA SKOR", "BOGA SCORE")}: {rd.masterScore}/100</div>
                   </div>
                 </div>
                 {/* EMA Profile Badge */}
@@ -520,7 +520,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   const colors: Record<string, string> = { A: "border-emerald-500/50 bg-emerald-500/10 text-emerald-300", B: "border-amber-500/50 bg-amber-500/10 text-amber-300", C: "border-rose-500/50 bg-rose-500/10 text-rose-300" };
                   return (
                     <div className={`mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl border text-[11px] font-black uppercase tracking-wider ${colors[p.profile]}`}>
-                      <span>🧬 Profil {p.profile} — {p.label}</span>
+                      <span>🧬 {L("Profil", "Profile")} {p.profile} — {p.label}</span>
                       <span className="opacity-70 font-medium normal-case hidden sm:inline">| {p.desc}</span>
                     </div>
                   );
@@ -530,9 +530,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5">
                   {[
                     { l: "RSI (14)", v: rd.rsi?.toFixed(1), c: rd.rsi>70?"text-rose-400":rd.rsi<30?"text-emerald-400":"text-amber-400" },
-                    { l: "ATR (Günlük)", v: "$"+rd.atr?.toFixed(2)+" (%"+rd.atrPct?.toFixed(1)+")", c: "text-[#06b6d4]" },
+                    { l: L("ATR (Günlük)", "ATR (Daily)"), v: "$"+rd.atr?.toFixed(2)+" (%"+rd.atrPct?.toFixed(1)+")", c: "text-[#06b6d4]" },
                     { l: "IV Rank", v: rd.ivRank+"/100", c: rd.ivRank>50?"text-emerald-400":rd.ivRank>25?"text-amber-400":"text-rose-400" },
-                    { l: "IV/HV Oranı", v: rd.ivHvRatio?.toFixed(2)+"×", c: rd.ivHvRatio>1.3?"text-emerald-400":"text-amber-400" },
+                    { l: L("IV/HV Oranı", "IV/HV Ratio"), v: rd.ivHvRatio?.toFixed(2)+"×", c: rd.ivHvRatio>1.3?"text-emerald-400":"text-amber-400" },
                   ].map(i=>(
                     <div key={i.l} className="bg-[#0a0e18]/70 border border-[#1e3a5f]/50 rounded-xl p-3">
                       <div className="text-[11px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
@@ -544,16 +544,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
               {/* ══ BÖLÜM 1: DNA ═════════════════════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="🧬" title="BÖLÜM 1 — HİSSE DNA & KARAKTERİSTİK ANALİZİ" />
+                <SectionTitle icon="🧬" title={L("BÖLÜM 1 — HİSSE DNA & KARAKTERİSTİK ANALİZİ", "SECTION 1 — STOCK DNA & CHARACTERISTIC ANALYSIS")} />
                 {/* Identity table */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-[11px] md:text-[12px]">
                   {[
-                    ["Ticker / Şirket", `${ticker.toUpperCase()} / ${data.companyName}`],
-                    ["Sektör", data.sector],
-                    ["Güncel Fiyat", `$${currentPrice.toFixed(2)}`],
-                    ["Piyasa Değeri", rd.marketCapStr],
-                    ["BOGA Skor", `${rd.masterScore}/100`],
-                    ["Analiz Tarihi", new Date().toLocaleDateString("tr-TR")],
+                    [L("Ticker / Şirket", "Ticker / Company"), `${ticker.toUpperCase()} / ${data.companyName}`],
+                    [L("Sektör", "Sector"), data.sector],
+                    [L("Güncel Fiyat", "Current Price"), `$${currentPrice.toFixed(2)}`],
+                    [L("Piyasa Değeri", "Market Cap"), rd.marketCapStr],
+                    [L("BOGA Skor", "BOGA Score"), `${rd.masterScore}/100`],
+                    [L("Analiz Tarihi", "Analysis Date"), new Date().toLocaleDateString(lang === "en" ? "en-US" : "tr-TR")],
                   ].map(([l,v])=>(
                     <div key={l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/30 rounded-lg p-2.5">
                       <div className="text-[11px] md:text-[12px] text-slate-500 font-black uppercase tracking-wider">{l}</div>
@@ -567,10 +567,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
-                    { l:"📈 Yükseliş Karakteri", v:a.dna.yukselisKarakteri, c:"border-emerald-500/30 bg-emerald-500/5" },
-                    { l:"📉 Düşüş Karakteri",   v:a.dna.dususKarakteri,    c:"border-rose-500/30 bg-rose-500/5" },
-                    { l:"📊 Hacim Tepkisi",     v:a.dna.hacimTepkisi,      c:"border-blue-500/30 bg-blue-500/5" },
-                    { l:"📰 Haber Etkisi",      v:a.dna.haberEtkisi,       c:"border-amber-500/30 bg-amber-500/5" },
+                    { l:`📈 ${L("Yükseliş Karakteri", "Uptrend Character")}`, v:a.dna.yukselisKarakteri, c:"border-emerald-500/30 bg-emerald-500/5" },
+                    { l:`📉 ${L("Düşüş Karakteri", "Downtrend Character")}`,   v:a.dna.dususKarakteri,    c:"border-rose-500/30 bg-rose-500/5" },
+                    { l:`📊 ${L("Hacim Tepkisi", "Volume Reaction")}`,     v:a.dna.hacimTepkisi,      c:"border-blue-500/30 bg-blue-500/5" },
+                    { l:`📰 ${L("Haber Etkisi", "News Impact")}`,      v:a.dna.haberEtkisi,       c:"border-amber-500/30 bg-amber-500/5" },
                   ].map(i=>(
                     <div key={i.l} className={`border rounded-xl p-3 ${i.c}`}>
                       <div className="text-[11px] md:text-[12px] font-black text-slate-400 uppercase tracking-wider mb-1">{i.l}</div>
@@ -581,13 +581,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* Beta / Likidite */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 Piyasa Korelasyonu</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 {L("Piyasa Korelasyonu", "Market Correlation")}</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                       <table className="w-full text-[11px] md:text-[12px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Endeks</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Değişim</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Durum</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Endeks", "Index")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Değişim", "Change")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Durum", "Status")}</th>
                         </tr></thead>
                         <tbody>
                           {[
@@ -600,7 +600,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                               <td className={`px-3 py-2 text-right font-black font-mono ${r.v != null && r.v >= 0 ? "text-emerald-400":"text-rose-400"}`}>
                                 {r.v != null ? (r.name==="VIX"?r.v.toFixed(2):(r.v>=0?"+":"")+r.v.toFixed(2)+r.suffix) : "—"}
                               </td>
-                              <td className="px-3 py-2 text-slate-500">{r.name==="VIX"?(r.v>20?"⚠️ Yüksek":"✅ Normal"):r.v!=null?(r.v>=0?"▲ Pozitif":"▼ Negatif"):"—"}</td>
+                              <td className="px-3 py-2 text-slate-500">{r.name==="VIX"?(r.v>20?`⚠️ ${L("Yüksek","High")}`:`✅ ${L("Normal","Normal")}`):r.v!=null?(r.v>=0?`▲ ${L("Pozitif","Positive")}`:`▼ ${L("Negatif","Negative")}`):"—"}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -608,19 +608,19 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     </div>
                   </div>
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💧 Likidite Endeksi</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💧 {L("Likidite Endeksi", "Liquidity Index")}</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                       <table className="w-full text-[11px] md:text-[12px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Metrik</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Değer.</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Metrik", "Metric")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Değer", "Value")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Yorum", "Note")}</th>
                         </tr></thead>
                         <tbody>
                           {[
-                            { m:"Ort. Hacim (30G)", v: rd.avgVol30d>0?(rd.avgVol30d/1e6).toFixed(1)+"M":"—", d: rd.avgVol30d>5e6?"✅ Yeterli":"⚠️ Dikkat" },
-                            { m:"Göreceli Hacim",   v: rd.rvol?.toFixed(2)+"×", d: rd.rvol>1.5?"🔥 Yüksek":rd.rvol>0.8?"✅ Normal":"⚠️ Düşük" },
-                            { m:"IV Bid/Ask (est.)",v: rd.iv>0 ? "%"+(rd.iv*0.05).toFixed(1):"—", d: rd.iv<50?"✅ Likit":"⚠️ Geniş" },
+                            { m:L("Ort. Hacim (30G)", "Avg. Volume (30D)"), v: rd.avgVol30d>0?(rd.avgVol30d/1e6).toFixed(1)+"M":"—", d: rd.avgVol30d>5e6?`✅ ${L("Yeterli","Sufficient")}`:`⚠️ ${L("Dikkat","Caution")}` },
+                            { m:L("Göreceli Hacim", "Relative Volume"),   v: rd.rvol?.toFixed(2)+"×", d: rd.rvol>1.5?`🔥 ${L("Yüksek","High")}`:rd.rvol>0.8?`✅ ${L("Normal","Normal")}`:`⚠️ ${L("Düşük","Low")}` },
+                            { m:L("IV Bid/Ask (est.)", "IV Bid/Ask (est.)"),v: rd.iv>0 ? "%"+(rd.iv*0.05).toFixed(1):"—", d: rd.iv<50?`✅ ${L("Likit","Liquid")}`:`⚠️ ${L("Geniş","Wide")}` },
                           ].map(r=>(
                             <tr key={r.m} className="border-b border-[#1e3a5f]/20">
                               <td className="px-3 py-2 text-slate-300 font-medium">{r.m}</td>
@@ -637,20 +637,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
               {/* ══ BÖLÜM 2: TEKNİK VERİ ════════════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-5">
-                <SectionTitle icon="📈" title="BÖLÜM 2 — TEKNİK VERİ SETİ & ZAMAN SERİSİ" />
+                <SectionTitle icon="📈" title={L("BÖLÜM 2 — TEKNİK VERİ SETİ & ZAMAN SERİSİ", "SECTION 2 — TECHNICAL DATA SET & TIME SERIES")} />
 
                 {/* Son 15 Gün Tablosu */}
                 <div>
-                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">⚡ Son 15 Gün Fiyat-Hacim Verisi</div>
+                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">⚡ {L("Son 15 Gün Fiyat-Hacim Verisi", "Last 15 Days Price-Volume Data")}</div>
                   {rd.history15?.length > 0 ? (
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                       <table className="w-full text-[11px] md:text-[12px] min-w-[500px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/50">
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Tarih</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Açılış</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Kapanış</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Günlük %</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Hacim (M)</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Tarih", "Date")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Açılış", "Open")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Kapanış", "Close")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Günlük %", "Daily %")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Hacim (M)", "Volume (M)")}</th>
                           <th className="px-3 py-2 text-right font-black text-slate-400">ATR %</th>
                         </tr></thead>
                         <tbody>
@@ -668,48 +668,48 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           ))}
                         </tbody>
                         <tfoot><tr className="bg-[#0d1321] border-t border-[#1e3a5f]/60">
-                          <td className="px-3 py-2 font-black text-[#06b6d4]" colSpan={3}>ÖZET</td>
+                          <td className="px-3 py-2 font-black text-[#06b6d4]" colSpan={3}>{L("ÖZET", "SUMMARY")}</td>
                           <td className={`px-3 py-2 text-right font-black font-mono ${rd.history15.reduce((s:number,r:any)=>s+r.changePct,0)>=0?"text-emerald-400":"text-rose-400"}`}>
                             {rd.history15.reduce((s:number,r:any)=>s+r.changePct,0).toFixed(2)}%
                           </td>
                           <td className="px-3 py-2 text-right font-black text-slate-300 font-mono">
-                            Ort: {(rd.history15.reduce((s:number,r:any)=>s+r.volume,0)/rd.history15.length).toFixed(1)}M
+                            {L("Ort", "Avg")}: {(rd.history15.reduce((s:number,r:any)=>s+r.volume,0)/rd.history15.length).toFixed(1)}M
                           </td>
                           <td className="px-3 py-2 text-right font-black text-slate-300 font-mono">
-                            Ort: {(rd.history15.reduce((s:number,r:any)=>s+r.atrPct,0)/rd.history15.length).toFixed(1)}%
+                            {L("Ort", "Avg")}: {(rd.history15.reduce((s:number,r:any)=>s+r.atrPct,0)/rd.history15.length).toFixed(1)}%
                           </td>
                         </tr></tfoot>
                       </table>
                     </div>
                   ) : (
-                    <div className="text-[11px] md:text-[12px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">Geçmiş veri yüklenemedi.</div>
+                    <div className="text-[11px] md:text-[12px] text-slate-500 bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-3">{L("Geçmiş veri yüklenemedi.", "Historical data could not be loaded.")}</div>
                   )}
                 </div>
 
                 {/* MA Tablosu */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📏 Hareketli Ortalama Disiplini</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📏 {L("Hareketli Ortalama Disiplini", "Moving Average Discipline")}</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                       <table className="w-full text-[11px] md:text-[12px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Periyot</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Durum</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Periyot", "Period")}</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Değer", "Value")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Durum", "Status")}</th>
                         </tr></thead>
                         <tbody>
                           {[
-                            { l:"MA 7G",   v:rd.maLevels?.ma7   },
-                            { l:"MA 21G",  v:rd.maLevels?.ma21  },
-                            { l:"EMA 50G", v:rd.maLevels?.ma50  },
-                            { l:"EMA 200G",v:rd.maLevels?.ma200 },
-                            { l:"1Y Ort.", v:rd.maLevels?.yearAvg},
+                            { l:L("MA 7G", "MA 7D"),   v:rd.maLevels?.ma7   },
+                            { l:L("MA 21G", "MA 21D"),  v:rd.maLevels?.ma21  },
+                            { l:L("EMA 50G", "EMA 50D"), v:rd.maLevels?.ma50  },
+                            { l:L("EMA 200G", "EMA 200D"),v:rd.maLevels?.ma200 },
+                            { l:L("1Y Ort.", "1Y Avg."), v:rd.maLevels?.yearAvg},
                           ].map(r=>(
                             <tr key={r.l} className="border-b border-[#1e3a5f]/20">
                               <td className="px-3 py-2 font-bold text-slate-300">{r.l}</td>
                               <td className="px-3 py-2 text-right font-black font-mono text-white">${r.v?.toFixed(2)??"-"}</td>
                               <td className={`px-3 py-2 font-black text-[11px] md:text-[12px] ${currentPrice>=(r.v||0)?"text-emerald-400":"text-rose-400"}`}>
-                                {currentPrice>=(r.v||0)?"▲ Üstünde":"▼ Altında"}
+                                {currentPrice>=(r.v||0)?`▲ ${L("Üstünde","Above")}`:`▼ ${L("Altında","Below")}`}
                               </td>
                             </tr>
                           ))}
@@ -723,16 +723,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                   {/* Destek/Direnç */}
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">🧱 Destek / Direnç Seviyeleri</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">🧱 {L("Destek / Direnç Seviyeleri", "Support / Resistance Levels")}</div>
                     <div className="rounded-xl border border-[#1e3a5f]/40 overflow-hidden">
                       {[
-                        { l:"Direnç 3 (52H Tepe)", v:rd.srLevels?.resistance3, type:"res3" },
-                        { l:"Direnç 2",             v:rd.srLevels?.resistance2, type:"res2" },
-                        { l:"Direnç 1 (Yakın)",     v:rd.srLevels?.resistance1, type:"res1" },
-                        { l:"GÜNCEL FİYAT",          v:currentPrice,             type:"cur"  },
-                        { l:"Destek 1 (Güçlü)",     v:rd.srLevels?.support1,    type:"sup1" },
-                        { l:"Destek 2",             v:rd.srLevels?.support2,    type:"sup2" },
-                        { l:"Destek 3 (52H Dip)",   v:rd.srLevels?.support3,    type:"sup3" },
+                        { l:L("Direnç 3 (52H Tepe)", "Resistance 3 (52W High)"), v:rd.srLevels?.resistance3, type:"res3" },
+                        { l:L("Direnç 2", "Resistance 2"),             v:rd.srLevels?.resistance2, type:"res2" },
+                        { l:L("Direnç 1 (Yakın)", "Resistance 1 (Near)"),     v:rd.srLevels?.resistance1, type:"res1" },
+                        { l:L("GÜNCEL FİYAT", "CURRENT PRICE"),          v:currentPrice,             type:"cur"  },
+                        { l:L("Destek 1 (Güçlü)", "Support 1 (Strong)"),     v:rd.srLevels?.support1,    type:"sup1" },
+                        { l:L("Destek 2", "Support 2"),             v:rd.srLevels?.support2,    type:"sup2" },
+                        { l:L("Destek 3 (52H Dip)", "Support 3 (52W Low)"),   v:rd.srLevels?.support3,    type:"sup3" },
                       ].map(r=>{
                         const isCur = r.type==="cur";
                         const isRes = r.type.startsWith("res");
@@ -751,15 +751,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* Fiyat/Hacim & Teknik Göstergeler */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💹 Teknik Göstergeler</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">💹 {L("Teknik Göstergeler", "Technical Indicators")}</div>
                     <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-4 space-y-2.5 font-mono text-[11px] md:text-[12px]">
                       {[
-                        { l:"RSI (14)", v: rd.rsi?.toFixed(1), c: rd.rsi>70?"text-rose-400":rd.rsi<30?"text-emerald-400":"text-amber-400", note: rd.rsi>70?"Aşırı Alım":rd.rsi<30?"Aşırı Satım":"Nötr" },
-                        { l:"EMA 20",  v:"$"+rd.ema20?.toFixed(2), c: currentPrice>rd.ema20?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema20?"Üstünde ✅":"Altında ❌" },
-                        { l:"EMA 50",  v:"$"+rd.ema50?.toFixed(2), c: currentPrice>rd.ema50?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema50?"Üstünde ✅":"Altında ❌" },
-                        { l:"EMA 200", v:"$"+rd.ema200?.toFixed(2),c: currentPrice>rd.ema200?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema200?"Uzun vade boğa":"Uzun vade ayı" },
-                        { l:"ATR",     v:"$"+rd.atr?.toFixed(2)+" (%"+rd.atrPct?.toFixed(1)+")", c:"text-[#06b6d4]", note:"Günlük beklenen hareket" },
-                        { l:"MACD",    v: rd.macd >= 0 ? "+"+rd.macd?.toFixed(2):rd.macd?.toFixed(2), c: rd.macd>=0?"text-emerald-400":"text-rose-400", note: rd.macd>=0?"Pozitif momentum":"Negatif momentum" },
+                        { l:"RSI (14)", v: rd.rsi?.toFixed(1), c: rd.rsi>70?"text-rose-400":rd.rsi<30?"text-emerald-400":"text-amber-400", note: rd.rsi>70?L("Aşırı Alım","Overbought"):rd.rsi<30?L("Aşırı Satım","Oversold"):L("Nötr","Neutral") },
+                        { l:"EMA 20",  v:"$"+rd.ema20?.toFixed(2), c: currentPrice>rd.ema20?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema20?`${L("Üstünde","Above")} ✅`:`${L("Altında","Below")} ❌` },
+                        { l:"EMA 50",  v:"$"+rd.ema50?.toFixed(2), c: currentPrice>rd.ema50?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema50?`${L("Üstünde","Above")} ✅`:`${L("Altında","Below")} ❌` },
+                        { l:"EMA 200", v:"$"+rd.ema200?.toFixed(2),c: currentPrice>rd.ema200?"text-emerald-400":"text-rose-400", note: currentPrice>rd.ema200?L("Uzun vade boğa","Long-term bullish"):L("Uzun vade ayı","Long-term bearish") },
+                        { l:"ATR",     v:"$"+rd.atr?.toFixed(2)+" (%"+rd.atrPct?.toFixed(1)+")", c:"text-[#06b6d4]", note:L("Günlük beklenen hareket","Expected daily move") },
+                        { l:"MACD",    v: rd.macd >= 0 ? "+"+rd.macd?.toFixed(2):rd.macd?.toFixed(2), c: rd.macd>=0?"text-emerald-400":"text-rose-400", note: rd.macd>=0?L("Pozitif momentum","Positive momentum"):L("Negatif momentum","Negative momentum") },
                       ].map(i=>(
                         <div key={i.l} className="flex justify-between items-center border-b border-[#1e3a5f]/20 pb-2">
                           <span className="text-slate-400 font-black text-[11px] md:text-[12px] uppercase w-16 shrink-0">{i.l}</span>
@@ -771,13 +771,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   </div>
                   <div className="space-y-3">
                     <div>
-                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📝 Teknik Yorum</div>
+                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📝 {L("Teknik Yorum", "Technical Commentary")}</div>
                       <div className="space-y-2">
                         {[
-                          { l:"Trend", v:a.teknikYorum.trendDurumu },
-                          { l:"Momentum", v:a.teknikYorum.momentumYorumu },
-                          { l:"Seviyeler", v:a.teknikYorum.kritikSeviyeler },
-                          { l:"Volatilite", v:a.teknikYorum.volatilite },
+                          { l:L("Trend", "Trend"), v:a.teknikYorum.trendDurumu },
+                          { l:L("Momentum", "Momentum"), v:a.teknikYorum.momentumYorumu },
+                          { l:L("Seviyeler", "Levels"), v:a.teknikYorum.kritikSeviyeler },
+                          { l:L("Volatilite", "Volatility"), v:a.teknikYorum.volatilite },
                         ].map(i=>(
                           <div key={i.l} className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-2.5">
                             <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-wider mb-0.5">{i.l}</div>
@@ -788,13 +788,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     </div>
                     {/* IV parametreleri */}
                     <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
-                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">IV Parametreleri (1G Statistik)</div>
+                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">{L("IV Parametreleri (1G Statistik)", "IV Parameters (1D Statistics)")}</div>
                       <div className="grid grid-cols-2 gap-2 text-[11px] md:text-[12px]">
                         {[
-                          { l:"30G 1 SD Aralık", v:`$${rd.range1sd?.low}–$${rd.range1sd?.high}` },
-                          { l:"30G 2 SD Aralık", v:`$${rd.range2sd?.low}–$${rd.range2sd?.high}` },
-                          { l:"Impl. 30G Hareket",v:`±$${rd.implied30dMove?.toFixed(2)}` },
-                          { l:"Günlük Drift",     v:`~${(rd.atr*0.04).toFixed(2)}% tahmini` },
+                          { l:L("30G 1 SD Aralık", "30D 1 SD Range"), v:`$${rd.range1sd?.low}–$${rd.range1sd?.high}` },
+                          { l:L("30G 2 SD Aralık", "30D 2 SD Range"), v:`$${rd.range2sd?.low}–$${rd.range2sd?.high}` },
+                          { l:L("Impl. 30G Hareket", "Impl. 30D Move"),v:`±$${rd.implied30dMove?.toFixed(2)}` },
+                          { l:L("Günlük Drift", "Daily Drift"),     v:`~${(rd.atr*0.04).toFixed(2)}% ${L("tahmini","est.")}` },
                         ].map(i=>(
                           <div key={i.l}>
                             <div className="text-[11px] md:text-[12px] text-slate-500 font-bold uppercase">{i.l}</div>
@@ -809,18 +809,18 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
               {/* ══ BÖLÜM 3: FORECAST & TEKNİK ANALİZ ═════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-5">
-                <SectionTitle icon="🔮" title="BÖLÜM 3 — 15 GÜNLÜK FORECAST & İCHİMOKU ANALİZİ" />
+                <SectionTitle icon="🔮" title={L("BÖLÜM 3 — 15 GÜNLÜK FORECAST & İCHİMOKU ANALİZİ", "SECTION 3 — 15-DAY FORECAST & ICHIMOKU ANALYSIS")} />
 
                 {/* İndikatör Filtreleri */}
                 <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3 flex flex-wrap gap-2">
-                  <div className="text-[10px] md:text-[11px] font-black text-slate-400 uppercase w-full mb-1">📊 Teknik İndikatörler:</div>
+                  <div className="text-[10px] md:text-[11px] font-black text-slate-400 uppercase w-full mb-1">📊 {L("Teknik İndikatörler:", "Technical Indicators:")}</div>
                   {[
                     { id:"ichimoku", label:"Ichimoku", color:"#06b6d4" },
                     { id:"rsi", label:"RSI", color:"#f0a500" },
                     { id:"macd", label:"MACD", color:"#a855f7" },
                     { id:"bollinger", label:"Bollinger", color:"#ec4899" },
-                    { id:"volume", label:"Hacim", color:"#10b981" },
-                    { id:"sr", label:"Destek/Direnç", color:"#ef4444" },
+                    { id:"volume", label:L("Hacim", "Volume"), color:"#10b981" },
+                    { id:"sr", label:L("Destek/Direnç", "Support/Resistance"), color:"#ef4444" },
                   ].map(ind => (
                     <label key={ind.id} className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#0a0e18] border border-[#1e3a5f]/40 hover:border-[#1e3a5f]/60 cursor-pointer text-[10px] md:text-[11px] font-semibold text-slate-300 transition-all">
                       <input type="checkbox" defaultChecked className="w-3.5 h-3.5 rounded" />
@@ -837,19 +837,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   historyOHLC={rd.historyOHLC}
                   forecast15={a.forecast15}
                   currentPrice={currentPrice}
+                  lang={lang}
                 />
 
                 {/* Destek/Direnç Seviyeleri */}
                 <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-lg p-3">
-                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2.5">🧱 Destek / Direnç Seviyeleri</div>
+                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2.5">🧱 {L("Destek / Direnç Seviyeleri", "Support / Resistance Levels")}</div>
                   <div className="grid grid-cols-3 gap-2 text-[10px] md:text-[11px]">
                     {[
-                      { l:"Direnç 3", v:rd.srLevels?.resistance3, c:"text-rose-400", bg:"bg-rose-500/10" },
-                      { l:"Direnç 2", v:rd.srLevels?.resistance2, c:"text-rose-400", bg:"bg-rose-500/10" },
-                      { l:"Direnç 1", v:rd.srLevels?.resistance1, c:"text-rose-300", bg:"bg-rose-500/15" },
-                      { l:"Destek 1", v:rd.srLevels?.support1, c:"text-emerald-300", bg:"bg-emerald-500/15" },
-                      { l:"Destek 2", v:rd.srLevels?.support2, c:"text-emerald-400", bg:"bg-emerald-500/10" },
-                      { l:"Destek 3", v:rd.srLevels?.support3, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                      { l:L("Direnç 3", "Resist. 3"), v:rd.srLevels?.resistance3, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:L("Direnç 2", "Resist. 2"), v:rd.srLevels?.resistance2, c:"text-rose-400", bg:"bg-rose-500/10" },
+                      { l:L("Direnç 1", "Resist. 1"), v:rd.srLevels?.resistance1, c:"text-rose-300", bg:"bg-rose-500/15" },
+                      { l:L("Destek 1", "Support 1"), v:rd.srLevels?.support1, c:"text-emerald-300", bg:"bg-emerald-500/15" },
+                      { l:L("Destek 2", "Support 2"), v:rd.srLevels?.support2, c:"text-emerald-400", bg:"bg-emerald-500/10" },
+                      { l:L("Destek 3", "Support 3"), v:rd.srLevels?.support3, c:"text-emerald-400", bg:"bg-emerald-500/10" },
                     ].map((s, i) => (
                       <div key={i} className={`${s.bg} border border-[#1e3a5f]/40 rounded px-2 py-1.5 text-center`}>
                         <div className="text-slate-500 font-semibold mb-0.5">{s.l}</div>
@@ -862,43 +863,43 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* İchimoku + Diğer İndikatörler */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ İchimoku Teknik Göstergeler</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">☁️ {L("İchimoku Teknik Göstergeler", "Ichimoku Technical Indicators")}</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
                       <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#f0a500]/20">
                         <div className="flex flex-col">
-                          <span className="text-[#f0a500] font-black">Kısa Dönem Trend</span>
-                          <span className="text-[9px] text-slate-500">Son 9 günlük fiyat ortalaması</span>
+                          <span className="text-[#f0a500] font-black">{L("Kısa Dönem Trend", "Short-Term Trend")}</span>
+                          <span className="text-[9px] text-slate-500">{L("Son 9 günlük fiyat ortalaması", "Last 9-day price average")}</span>
                         </div>
                         <span className="text-[#f0a500] font-semibold">${rd.ema20?.toFixed(2) ?? "-"}</span>
                       </div>
                       <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#e05c5c]/20">
                         <div className="flex flex-col">
-                          <span className="text-[#e05c5c] font-black">Orta Dönem Trend</span>
-                          <span className="text-[9px] text-slate-500">Son 26 günlük fiyat ortalaması</span>
+                          <span className="text-[#e05c5c] font-black">{L("Orta Dönem Trend", "Mid-Term Trend")}</span>
+                          <span className="text-[9px] text-slate-500">{L("Son 26 günlük fiyat ortalaması", "Last 26-day price average")}</span>
                         </div>
                         <span className="text-[#e05c5c] font-semibold">${rd.ema50?.toFixed(2) ?? "-"}</span>
                       </div>
                       <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#22c55e]/20">
                         <div className="flex flex-col">
-                          <span className="text-slate-300 font-black">Destek/Direnç Bulutu</span>
-                          <span className="text-[9px] text-slate-500">Fiyat bulutun üstünde → Boğa trendi</span>
+                          <span className="text-slate-300 font-black">{L("Destek/Direnç Bulutu", "Support/Resistance Cloud")}</span>
+                          <span className="text-[9px] text-slate-500">{L("Fiyat bulutun üstünde → Boğa trendi", "Price above cloud → Bullish trend")}</span>
                         </div>
                         <span className={rd.masterScore >= 60 ? "text-emerald-400 font-black" : rd.masterScore >= 45 ? "text-amber-400 font-black" : "text-rose-400 font-black"}>
-                          {rd.masterScore >= 60 ? "🟢 Boğa" : rd.masterScore >= 45 ? "🟡 Nötr" : "🔴 Ayı"}
+                          {rd.masterScore >= 60 ? `🟢 ${L("Boğa","Bull")}` : rd.masterScore >= 45 ? `🟡 ${L("Nötr","Neutral")}` : `🔴 ${L("Ayı","Bear")}`}
                         </span>
                       </div>
                       <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#a855f7]/20">
                         <div className="flex flex-col">
-                          <span className="text-[#a855f7] font-black">Momentum Çizgisi</span>
-                          <span className="text-[9px] text-slate-500">Kapanış fiyatı 26 gün geri kaydırılmış</span>
+                          <span className="text-[#a855f7] font-black">{L("Momentum Çizgisi", "Momentum Line")}</span>
+                          <span className="text-[9px] text-slate-500">{L("Kapanış fiyatı 26 gün geri kaydırılmış", "Closing price shifted back 26 days")}</span>
                         </div>
-                        <span className="text-[#a855f7] font-semibold text-[10px]">Grafikte görülebilir</span>
+                        <span className="text-[#a855f7] font-semibold text-[10px]">{L("Grafikte görülebilir", "Visible on chart")}</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 Diğer İndikatörler</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 {L("Diğer İndikatörler", "Other Indicators")}</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
                       <div className="flex justify-between items-center p-2 bg-[#0a0e18] rounded border border-[#1e3a5f]/30">
                         <span className="text-slate-400">RSI (14)</span>
@@ -924,20 +925,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                   <table className="w-full text-[11px] md:text-[12px] min-w-[520px]">
                     <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/50">
-                      <th className="px-2 py-2.5 text-left font-black text-[#06b6d4] w-10">Gün</th>
+                      <th className="px-2 py-2.5 text-left font-black text-[#06b6d4] w-10">{L("Gün", "Day")}</th>
                       <th className="px-2 py-2.5 text-right font-black text-rose-400">🐻 Bear</th>
                       <th className="px-2 py-2.5 text-right font-black text-amber-400">⚖️ Base</th>
                       <th className="px-2 py-2.5 text-right font-black text-emerald-400">🚀 Bull</th>
-                      <th className="px-2 py-2.5 text-left font-black text-slate-400 hidden sm:table-cell">İchimoku Sinyal</th>
+                      <th className="px-2 py-2.5 text-left font-black text-slate-400 hidden sm:table-cell">{L("İchimoku Sinyal", "Ichimoku Signal")}</th>
                     </tr></thead>
                     <tbody>
                       {a.forecast15.map((r:any,i:number)=>(
                         <tr key={i} className={`border-b border-[#1e3a5f]/20 ${i%2===0?"bg-[#0a0e18]":"bg-[#0d1321]/40"} hover:bg-[#1e3a5f]/15`}>
-                          <td className="px-2 py-2 font-black text-slate-300">G+{r.day}</td>
+                          <td className="px-2 py-2 font-black text-slate-300">{L("G","D")}+{r.day}</td>
                           <td className="px-2 py-2 text-right font-bold text-rose-400 font-mono">${(+r.bear).toFixed(2)}</td>
                           <td className="px-2 py-2 text-right font-black text-amber-300 font-mono">${(+r.base).toFixed(2)}</td>
                           <td className="px-2 py-2 text-right font-bold text-emerald-400 font-mono">${(+r.bull).toFixed(2)}</td>
-                          <td className="px-2 py-2 text-slate-400 hidden sm:table-cell text-[10px]">{i < 5 ? "↗ Yükseliş" : i < 10 ? "➡️ Nötr" : "↘ Düşüş"}</td>
+                          <td className="px-2 py-2 text-slate-400 hidden sm:table-cell text-[10px]">{i < 5 ? `↗ ${L("Yükseliş","Bullish")}` : i < 10 ? `➡️ ${L("Nötr","Neutral")}` : `↘ ${L("Düşüş","Bearish")}`}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -947,9 +948,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {/* Senaryo özeti */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
-                    { key:"bear", label:"🐻 Bear Senaryo", c:"border-rose-500/40 bg-rose-500/5 text-rose-400", d:a.scenarioOzeti.bear, supported: rd.masterScore < 45 },
-                    { key:"base", label:"⚖️ Base Senaryo", c:"border-amber-500/40 bg-amber-500/5 text-amber-400", d:a.scenarioOzeti.base, supported: rd.masterScore >= 45 && rd.masterScore < 65 },
-                    { key:"bull", label:"🚀 Bull Senaryo", c:"border-emerald-500/40 bg-emerald-500/5 text-emerald-400", d:a.scenarioOzeti.bull, supported: rd.masterScore >= 65 },
+                    { key:"bear", label:`🐻 ${L("Bear Senaryo","Bear Scenario")}`, c:"border-rose-500/40 bg-rose-500/5 text-rose-400", d:a.scenarioOzeti.bear, supported: rd.masterScore < 45 },
+                    { key:"base", label:`⚖️ ${L("Base Senaryo","Base Scenario")}`, c:"border-amber-500/40 bg-amber-500/5 text-amber-400", d:a.scenarioOzeti.base, supported: rd.masterScore >= 45 && rd.masterScore < 65 },
+                    { key:"bull", label:`🚀 ${L("Bull Senaryo","Bull Scenario")}`, c:"border-emerald-500/40 bg-emerald-500/5 text-emerald-400", d:a.scenarioOzeti.bull, supported: rd.masterScore >= 65 },
                   ].map(s=>(
                     <div key={s.key} className={`border rounded-xl p-3 ${s.c}`}>
                       <div className="flex items-center justify-between mb-1">
@@ -960,9 +961,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       <p className="text-[11px] md:text-[12px] text-slate-400 mt-1 font-medium">{s.d.tetikleyici}</p>
                       <div className="mt-2 pt-2 border-t border-current border-opacity-20 text-[10px]">
                         {s.supported ? (
-                          <span className="text-emerald-300 font-black">✓ Ichimoku Destekli</span>
+                          <span className="text-emerald-300 font-black">✓ {L("Ichimoku Destekli", "Ichimoku Supported")}</span>
                         ) : (
-                          <span className="text-slate-400 font-medium">◐ Kısmi Destek</span>
+                          <span className="text-slate-400 font-medium">◐ {L("Kısmi Destek", "Partial Support")}</span>
                         )}
                       </div>
                     </div>
@@ -970,197 +971,31 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
               </div>
 
-              {/* ══ BÖLÜM 4: OPSİYON MATRİSİ ═══════════════════════════════════ */}
-              <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-5">
-                <SectionTitle icon="⚙️" title="BÖLÜM 4 — OPSİYON & PRİM HASAT MATRİSİ" />
-
-                {/* IV Analizi */}
-                <div>
-                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📊 IV Analizi</div>
-                  <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
-                    <table className="w-full text-[11px] md:text-[12px] min-w-[400px]">
-                      <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
-                        <th className="px-3 py-2 text-left font-black text-slate-400">Metrik</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
-                        <th className="px-3 py-2 text-left font-black text-slate-400">Yorum</th>
-                      </tr></thead>
-                      <tbody>
-                        {[
-                          { m:"IV (Güncel Est.)",  v:`%${rd.iv}`,           note: rd.iv>50?"Yüksek IV, prim sat":rd.iv>30?"Normal, seçici ol":"Düşük IV, bekle" },
-                          { m:"IV Rank (52H)",    v:`${rd.ivRank?.toFixed(0)}/100`, note: rd.ivRank>50?"Pahalı → Prim sat":rd.ivRank>20?"Normal aralık":"Ucuz → Opsiyon al" },
-                          { m:"HV (30G Tarihsel)",v:`%${rd.hv30?.toFixed(1)}`, note: "30 günlük gerçekleşen volatilite" },
-                          { m:"IV/HV Oranı",      v:`${rd.ivHvRatio?.toFixed(2)}×`, note: rd.ivHvRatio>1.3?"IV pahalı → Sat ✅":rd.ivHvRatio<0.8?"IV ucuz → Al":"Dengeli" },
-                          { m:"VIX Durumu",       v: rd.vixPrice?.toFixed(2)??"—", note: rd.vixPrice>25?"Yüksek korku, dikkat":rd.vixPrice>15?"Normal":"Düşük volatilite" },
-                        ].map(r=>(
-                          <tr key={r.m} className="border-b border-[#1e3a5f]/20">
-                            <td className="px-3 py-2 font-bold text-slate-300">{r.m}</td>
-                            <td className="px-3 py-2 text-right font-black text-[#06b6d4] font-mono">{r.v}</td>
-                            <td className="px-3 py-2 text-slate-400">{r.note}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-2 bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-2.5">
-                    <p className="text-[11px] md:text-[12px] text-slate-300">{a.opsiyonAnaliz.ivDurumu}</p>
-                  </div>
-                </div>
-
-                {/* CSP Matrisi */}
-                <div>
-                  <div className="text-[11px] md:text-[12px] font-black text-emerald-400 uppercase tracking-widest mb-2">💰 Cash-Secured PUT (CSP) Matrisi</div>
-                  <div className="overflow-x-auto rounded-xl border border-emerald-500/20">
-                    <table className="w-full text-[11px] md:text-[12px] min-w-[600px]">
-                      <thead><tr className="bg-[#0d1321] border-b border-emerald-500/20">
-                        <th className="px-3 py-2 text-left font-black text-slate-400">Hafta</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Strike</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">DTE</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Bid (est.)</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Prim %</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Yıllık %</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">OTM</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Ef. Maliyet</th>
-                      </tr></thead>
-                      <tbody>
-                        {(rd.cspMatrix||[]).map((r:any,i:number)=>(
-                          <tr key={i} className={`border-b border-emerald-500/10 ${i===0?"bg-emerald-500/5 border-l-2 border-l-emerald-500":""}`}>
-                            <td className="px-3 py-2 font-bold text-slate-300">{r.label} {i===0&&<span className="text-emerald-400 text-[11px] md:text-[12px] font-black ml-1">OPTIMAL</span>}</td>
-                            <td className="px-3 py-2 text-right font-black text-white font-mono">${r.strike}</td>
-                            <td className="px-3 py-2 text-right font-mono text-slate-400">{r.dte}G</td>
-                            <td className="px-3 py-2 text-right font-black text-emerald-400 font-mono">${r.bid}</td>
-                            <td className="px-3 py-2 text-right font-black text-emerald-400">%{r.yieldPct}</td>
-                            <td className="px-3 py-2 text-right font-black text-[#06b6d4]">%{r.annualYield}</td>
-                            <td className="px-3 py-2 text-right text-slate-400">%{r.otmPct}</td>
-                            <td className="px-3 py-2 text-right font-black text-amber-400 font-mono">${r.efMaliyet}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px] md:text-[12px] font-black uppercase">
-                    {[
-                      {icon:"✅",label:"Aç",desc:"IV Rank>30 + Güçlü destek + Bilanço>14G uzakta",c:"border-emerald-500/30 bg-emerald-500/5 text-emerald-400"},
-                      {icon:"⚡",label:"İzle",desc:"IV Rank 20-30 arası + Fiyat MA üstünde",c:"border-amber-500/30 bg-amber-500/5 text-amber-400"},
-                      {icon:"❌",label:"Bekle",desc:"IV Rank<20 + Bilanço<14G + Sektör zayıf",c:"border-rose-500/30 bg-rose-500/5 text-rose-400"},
-                      {icon:"🛑",label:"Kapat",desc:"Prim %50 eridi VEYA 2x prim kayıplandı",c:"border-slate-500/30 bg-slate-500/5 text-slate-400"},
-                    ].map(r=>(
-                      <div key={r.label} className={`border rounded-lg p-2 ${r.c}`}>
-                        <div className="mb-0.5">{r.icon} {r.label}</div>
-                        <div className="text-[11px] md:text-[12px] opacity-70 font-medium normal-case">{r.desc}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-2 bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-3">
-                    <p className="text-[11px] md:text-[12px] text-slate-300">{a.opsiyonAnaliz.cspStrateji}</p>
-                  </div>
-                </div>
-
-                {/* CC Matrisi */}
-                <div>
-                  <div className="text-[11px] md:text-[12px] font-black text-blue-400 uppercase tracking-widest mb-2">📞 Covered CALL (CC) Matrisi</div>
-                  <div className="overflow-x-auto rounded-xl border border-blue-500/20">
-                    <table className="w-full text-[11px] md:text-[12px] min-w-[550px]">
-                      <thead><tr className="bg-[#0d1321] border-b border-blue-500/20">
-                        <th className="px-3 py-2 text-left font-black text-slate-400">Hafta</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Strike</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">DTE</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Bid (est.)</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">CC %</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Yıllık %</th>
-                        <th className="px-3 py-2 text-right font-black text-slate-400">Maks Getiri</th>
-                      </tr></thead>
-                      <tbody>
-                        {(rd.ccMatrix||[]).map((r:any,i:number)=>(
-                          <tr key={i} className={`border-b border-blue-500/10 ${i===0?"bg-blue-500/5 border-l-2 border-l-blue-500":""}`}>
-                            <td className="px-3 py-2 font-bold text-slate-300">{r.label}</td>
-                            <td className="px-3 py-2 text-right font-black text-white font-mono">${r.strike}</td>
-                            <td className="px-3 py-2 text-right font-mono text-slate-400">{r.dte}G</td>
-                            <td className="px-3 py-2 text-right font-black text-blue-400 font-mono">${r.bid}</td>
-                            <td className="px-3 py-2 text-right font-black text-blue-400">%{r.yieldPct}</td>
-                            <td className="px-3 py-2 text-right font-black text-[#06b6d4]">%{r.annualYield}</td>
-                            <td className="px-3 py-2 text-right font-black text-amber-400 font-mono">${r.maxReturn}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="mt-2 bg-blue-500/5 border border-blue-500/20 rounded-xl p-3">
-                    <p className="text-[11px] md:text-[12px] text-slate-300">{a.opsiyonAnaliz.ccStrateji}</p>
-                  </div>
-                </div>
-
-                {/* Atanma Risk + Pasif Gelir */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-[#0d1321]/50 border border-amber-500/20 rounded-xl p-4 space-y-2">
-                    <div className="text-[11px] md:text-[12px] font-black text-amber-400 uppercase tracking-widest">⚠️ Atanma Risk Analizi (CSP)</div>
-                    {[
-                      ["Strike",           `$${rd.cspMatrix?.[0]?.strike??optCsp}`],
-                      ["Alınan Prim",      `$${rd.cspMatrix?.[0]?.bid??"-"}`],
-                      ["Efektif Maliyet",  `$${rd.cspMatrix?.[0]?.efMaliyet??"-"}`],
-                      ["Güncel Fiyat",     `$${currentPrice.toFixed(2)}`],
-                      ["Kâra Geçiş",       `$${rd.cspMatrix?.[0]?.efMaliyet??"-"} üzeri`],
-                    ].map(([l,v])=>(
-                      <div key={l} className="flex justify-between border-b border-amber-500/10 pb-1.5 text-[11px] md:text-[12px]">
-                        <span className="text-slate-400 font-medium">{l}</span>
-                        <span className="text-amber-300 font-black font-mono">{v}</span>
-                      </div>
-                    ))}
-                    <p className="text-[11px] md:text-[12px] text-slate-400 mt-2">Atanma sonrası: CC stratejisine geç → Haftalık prim topla → Maliyet fiyatına geri dönüşü bekle</p>
-                  </div>
-                  <div className="bg-[#0d1321]/30 border border-[#06b6d4]/10 rounded-xl p-4 space-y-2">
-                    <div className="text-[11px] md:text-[12px] font-semibold text-[#06b6d4]/70 uppercase tracking-widest">💰 Pasif Gelir Tahmini (Yıllık)</div>
-                    {[
-                      ["Aylık CSP Getirisi",  a.opsiyonAnaliz.haftalikPrimTahmin+" / hafta"],
-                      ["Yıllık Getiri (Est.)",a.opsiyonAnaliz.yillikGetiriTahmin],
-                      ["Optimal DTE",         "14-21 Gün"],
-                      ["CSP Delta Hedef",     "Δ 0.20–0.30"],
-                      ["CC Delta Hedef",      "Δ 0.25–0.35"],
-                    ].map(([l,v])=>(
-                      <div key={l} className="flex justify-between border-b border-[#06b6d4]/10 pb-1.5 text-[10px] md:text-[11px]">
-                        <span className="text-slate-500">{l}</span>
-                        <span className="text-[#06b6d4] font-semibold">{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Wheel */}
-                <div className="bg-[#0d1321]/40 border border-[#1e3a5f]/30 rounded-xl p-4">
-                  <div className="text-[11px] md:text-[12px] font-semibold text-[#06b6d4]/80 uppercase tracking-widest mb-3">🔁 Wheel Stratejisi Döngüsü</div>
-                  <div className="flex items-center gap-1.5 flex-wrap text-[11px] md:text-[12px] font-semibold uppercase tracking-wider">
-                    {["CSP SAT","→","ATANMADI?","→","PRİM KÂR","→","TEKRAR CSP","OR","ATANDI?","→","HİSSE AL","→","CC SAT","→","TEKRAR CSP"].map((s,i)=>(
-                      <span key={i} className={s==="→"||s==="OR"?"text-slate-600":s==="ATANDI?"||s==="ATANMADI?"?"text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded":"px-2 py-1 rounded-lg bg-[#1e3a5f]/40 text-[#06b6d4] border border-[#1e3a5f]/60"}>{s}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* ══ BÖLÜM 5: ÇEK LİSTESİ ════════════════════════════════════════ */}
+              {/* ══ ÇEK LİSTESİ ════════════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="📋" title="HİSSE İNCELEME ÇEK LİSTESİ" />
+                <SectionTitle icon="📋" title={L("HİSSE İNCELEME ÇEK LİSTESİ", "STOCK REVIEW CHECKLIST")} />
                 {[
-                  { group:"🔵 TREND & YAPI", items:[
-                    { l:"1W grafikte 50G MA üzerinde mi?", s:a.ceklistSkorlar.trendYapisi },
+                  { group:`🔵 ${L("TREND & YAPI", "TREND & STRUCTURE")}`, items:[
+                    { l:L("1W grafikte 50G MA üzerinde mi?", "Above 50D MA on 1W chart?"), s:a.ceklistSkorlar.trendYapisi },
                     { l:"EMA 20 > EMA 50 (Golden Cross)?", s:rd.maLevels?.goldenCross?1:-1 },
-                    { l:"EMA 20 üzerinde mi?",             s:a.ceklistSkorlar.ema20Above },
-                    { l:"EMA 50 üzerinde mi?",             s:a.ceklistSkorlar.ema50Above },
-                    { l:"BOGA Skor ≥ 60?",                 s:a.ceklistSkorlar.bogaScore },
+                    { l:L("EMA 20 üzerinde mi?", "Above EMA 20?"),             s:a.ceklistSkorlar.ema20Above },
+                    { l:L("EMA 50 üzerinde mi?", "Above EMA 50?"),             s:a.ceklistSkorlar.ema50Above },
+                    { l:L("BOGA Skor ≥ 60?", "BOGA Score ≥ 60?"),                 s:a.ceklistSkorlar.bogaScore },
                   ]},
-                  { group:"🟡 VOLATİLİTE & PRİM", items:[
-                    { l:"IV Rank > 30? (Prim satış uygun)", s:a.ceklistSkorlar.ivUygun },
-                    { l:"IV/HV Oranı > 1.2? (IV pahalı)", s:rd.ivHvRatio>1.2?1:rd.ivHvRatio>0.9?0:-1 },
-                    { l:"ATR volatilite uygun mu?",         s:a.ceklistSkorlar.atrUygun },
+                  { group:`🟡 ${L("VOLATİLİTE", "VOLATILITY")}`, items:[
+                    { l:L("IV Rank > 30?", "IV Rank > 30?"), s:a.ceklistSkorlar.ivUygun },
+                    { l:L("IV/HV Oranı > 1.2? (IV pahalı)", "IV/HV Ratio > 1.2? (IV expensive)"), s:rd.ivHvRatio>1.2?1:rd.ivHvRatio>0.9?0:-1 },
+                    { l:L("ATR volatilite uygun mu?", "Is ATR volatility favorable?"),         s:a.ceklistSkorlar.atrUygun },
                   ]},
-                  { group:"🟢 STRATEJİK UYGUNLUK", items:[
-                    { l:"Kritik destek üzerinde mi?",       s:a.ceklistSkorlar.destekGucu },
-                    { l:"RSI 40–70 arasında mı?",           s:a.ceklistSkorlar.momentumGuclu },
-                    { l:"CSP atanma fiyatı savunulabilir?", s:rd.cspMatrix?.[0]?.efMaliyet < currentPrice*0.95?1:0 },
-                    { l:"Hisse elimde kalsa 1 ay bekler miyim?", s:rd.masterScore>=55?1:rd.masterScore>=40?0:-1 },
+                  { group:`🟢 ${L("STRATEJİK UYGUNLUK", "STRATEGIC FIT")}`, items:[
+                    { l:L("Kritik destek üzerinde mi?", "Above key support?"),       s:a.ceklistSkorlar.destekGucu },
+                    { l:L("RSI 40–70 arasında mı?", "RSI between 40–70?"),           s:a.ceklistSkorlar.momentumGuclu },
+                    { l:L("Hisse elimde kalsa 1 ay bekler miyim?", "Would I hold this stock for a month?"), s:rd.masterScore>=55?1:rd.masterScore>=40?0:-1 },
                   ]},
-                  { group:"🔴 RİSK KONTROLLERİ", items:[
-                    { l:"Pozisyon portföyün max %5'i içinde mi?", s:1 },
-                    { l:"Stop-loss seviyesi belirlendi mi?",       s:1 },
-                    { l:"Makro risk (FOMC, CPI) değerlendirildi?", s:0 },
+                  { group:`🔴 ${L("RİSK KONTROLLERİ", "RISK CHECKS")}`, items:[
+                    { l:L("Pozisyon portföyün max %5'i içinde mi?", "Is position within max 5% of portfolio?"), s:1 },
+                    { l:L("Stop-loss seviyesi belirlendi mi?", "Stop-loss level defined?"),       s:1 },
+                    { l:L("Makro risk (FOMC, CPI) değerlendirildi?", "Macro risk (FOMC, CPI) assessed?"), s:0 },
                   ]},
                 ].map(group=>(
                   <div key={group.group}>
@@ -1169,7 +1004,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       {group.items.map(item=>(
                         <div key={item.l} className="flex items-center justify-between bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg px-3 py-2">
                           <span className="text-[11px] md:text-[12px] text-slate-300 font-medium">{item.l}</span>
-                          <Badge score={item.s} />
+                          <Badge score={item.s} lang={lang} />
                         </div>
                       ))}
                     </div>
@@ -1179,47 +1014,47 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
               {/* ══ FİNANSAL ANALİZ ════════════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="💹" title="FİNANSAL ANALİZ & HİSSE BEKLENTİSİ" />
+                <SectionTitle icon="💹" title={L("FİNANSAL ANALİZ & HİSSE BEKLENTİSİ", "FINANCIAL ANALYSIS & STOCK OUTLOOK")} />
 
                 {/* Finansal Metriks */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📊 Piyasa Değeri & Likidite</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📊 {L("Piyasa Değeri & Likidite", "Market Cap & Liquidity")}</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-400">Piyasa Değeri</span>
+                        <span className="text-slate-400">{L("Piyasa Değeri", "Market Cap")}</span>
                         <span className="text-white font-semibold">{rd.marketCapStr}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-400">30G Ort. Hacim</span>
+                        <span className="text-slate-400">{L("30G Ort. Hacim", "30D Avg. Volume")}</span>
                         <span className="text-white font-semibold">{rd.avgVol30d > 1e6 ? (rd.avgVol30d / 1e6).toFixed(1) + "M" : (rd.avgVol30d / 1e3).toFixed(0) + "K"}</span>
                       </div>
                       <div className="flex justify-between items-center pt-1 border-t border-[#1e3a5f]/30">
-                        <span className="text-slate-400 font-medium">Likidite Skoru</span>
+                        <span className="text-slate-400 font-medium">{L("Likidite Skoru", "Liquidity Score")}</span>
                         <span className={`font-black ${rd.avgVol30d > 1e6 ? "text-emerald-400 bg-emerald-500/10" : rd.avgVol30d > 500e3 ? "text-amber-400 bg-amber-500/10" : "text-rose-400 bg-rose-500/10"} px-2 py-0.5 rounded text-[10px]`}>
-                          {rd.avgVol30d > 1e6 ? "YÜKSEK ✓" : rd.avgVol30d > 500e3 ? "ORTA" : "DÜŞÜK"}
+                          {rd.avgVol30d > 1e6 ? `${L("YÜKSEK","HIGH")} ✓` : rd.avgVol30d > 500e3 ? L("ORTA","MID") : L("DÜŞÜK","LOW")}
                         </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-3.5">
-                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📈 Trend & Momentum</div>
+                    <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2.5">📈 {L("Trend & Momentum", "Trend & Momentum")}</div>
                     <div className="space-y-2 text-[11px] md:text-[12px]">
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-400">52H Aralığı</span>
+                        <span className="text-slate-400">{L("52H Aralığı", "52W Range")}</span>
                         <span className="text-white font-semibold">${rd.low52w?.toFixed(2)??"-"} / ${rd.high52w?.toFixed(2)??"-"}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-400">Konumlandırma</span>
+                        <span className="text-slate-400">{L("Konumlandırma", "Positioning")}</span>
                         <span className={`font-semibold ${currentPrice >= rd.high52w * 0.9 ? "text-emerald-400" : currentPrice <= rd.low52w * 1.1 ? "text-rose-400" : "text-amber-400"}`}>
-                          {currentPrice >= rd.high52w * 0.9 ? "ZİRVEYE YAKIN ↗" : currentPrice <= rd.low52w * 1.1 ? "DİPYE YAKIN ↘" : "ORTA SEVİYE →"}
+                          {currentPrice >= rd.high52w * 0.9 ? `${L("ZİRVEYE YAKIN","NEAR HIGH")} ↗` : currentPrice <= rd.low52w * 1.1 ? `${L("DİBE YAKIN","NEAR LOW")} ↘` : `${L("ORTA SEVİYE","MID RANGE")} →`}
                         </span>
                       </div>
                       <div className="flex justify-between items-center pt-1 border-t border-[#1e3a5f]/30">
-                        <span className="text-slate-400 font-medium">Beklenti (15G)</span>
+                        <span className="text-slate-400 font-medium">{L("Beklenti (15G)", "Outlook (15D)")}</span>
                         <span className={`font-black bg-opacity-10 px-2 py-0.5 rounded text-[10px] ${rd.masterScore >= 65 ? "text-emerald-400 bg-emerald-500" : rd.masterScore >= 50 ? "text-amber-400 bg-amber-500" : "text-rose-400 bg-rose-500"}`}>
-                          {rd.masterScore >= 65 ? "🚀 YÜKSELİŞ" : rd.masterScore >= 50 ? "➡️ NÖTR" : "📉 DÜŞÜŞ"}
+                          {rd.masterScore >= 65 ? `🚀 ${L("YÜKSELİŞ","BULLISH")}` : rd.masterScore >= 50 ? `➡️ ${L("NÖTR","NEUTRAL")}` : `📉 ${L("DÜŞÜŞ","BEARISH")}`}
                         </span>
                       </div>
                     </div>
@@ -1228,32 +1063,31 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                 {/* Finansal Sağlık Özeti */}
                 <div className="bg-gradient-to-r from-[#0d1321]/80 to-[#0a0e18] border border-[#06b6d4]/20 rounded-lg p-4">
-                  <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-3">📋 FİNANSAL SAĞLIK ÖZETI</div>
+                  <div className="text-[10px] md:text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-3">📋 {L("FİNANSAL SAĞLIK ÖZETİ", "FINANCIAL HEALTH SUMMARY")}</div>
                   <div className="text-[11px] md:text-[12px] text-slate-300 leading-relaxed space-y-2">
                     <p>
                       <span className="font-semibold text-[#06b6d4]">{data.companyName}</span>
-                      {rd.marketCapStr !== "N/A" ? ` (Piyasa Değeri: ${rd.marketCapStr})` : ""}
-                      {rd.avgVol30d > 500e3 ? "yeterli işlem hacmine sahip, " : "sınırlı likiditeye sahip, "}
-                      {currentPrice >= rd.high52w * 0.85 ? "52 haftalık en yüksek seviyeye yakında " : currentPrice <= rd.low52w * 1.15 ? "52 haftalık en düşük seviyeye yakında " : "52 haftalık aralığın ortasında "}
-                      konumlanmaktadır.
+                      {rd.marketCapStr !== "N/A" ? ` (${L("Piyasa Değeri","Market Cap")}: ${rd.marketCapStr})` : ""}
+                      {" "}{rd.avgVol30d > 500e3 ? L("yeterli işlem hacmine sahip, ", "has sufficient trading volume, ") : L("sınırlı likiditeye sahip, ", "has limited liquidity, ")}
+                      {currentPrice >= rd.high52w * 0.85 ? L("52 haftalık en yüksek seviyeye yakında ", "trading near its 52-week high ") : currentPrice <= rd.low52w * 1.15 ? L("52 haftalık en düşük seviyeye yakında ", "trading near its 52-week low ") : L("52 haftalık aralığın ortasında ", "trading in the middle of its 52-week range ")}
+                      {L("konumlanmaktadır.", "")}
                     </p>
                     <p>
-                      <span className="font-semibold text-amber-400">Teknik İndikatörler:</span>
-                      {rd.masterScore >= 65 ? " Güçlü yükseliş sinyalleri (BOGA Skoru ≥65) ile desteklenmektedir. CSP/CC opsiyon stratejileri için uygun zemin mevcuttur."
-                      : rd.masterScore >= 50 ? " Nötr görünüm (BOGA Skoru 50-64). Strateji seçimi önem taşıyor, risk yönetimi gereklidir."
-                      : " Düşüş baskısı altında (BOGA Skoru <50). Prim satışı stratejileri tercih edilmeli, çağrı opsiyon satışı uygun."}
+                      <span className="font-semibold text-amber-400">{L("Teknik İndikatörler:", "Technical Indicators:")}</span>
+                      {rd.masterScore >= 65 ? L(" Güçlü yükseliş sinyalleri (BOGA Skoru ≥65) ile desteklenmektedir.", " Supported by strong bullish signals (BOGA Score ≥65).")
+                      : rd.masterScore >= 50 ? L(" Nötr görünüm (BOGA Skoru 50-64). Pozisyon seçimi önem taşıyor, risk yönetimi gereklidir.", " Neutral outlook (BOGA Score 50-64). Position selection matters, risk management required.")
+                      : L(" Düşüş baskısı altında (BOGA Skoru <50). Temkinli yaklaşım önerilir.", " Under downward pressure (BOGA Score <50). A cautious approach is recommended.")}
                     </p>
                     <p>
-                      <span className="font-semibold text-cyan-400">İndikatör Analizi:</span>
-                      RSI {rd.rsi?.toFixed(1)}% ({rd.rsi > 70 ? "aşırı alım" : rd.rsi < 30 ? "aşırı satım" : "nötr"}),
-                      IV %{rd.iv} ({rd.iv > 50 ? "yüksek volatilite" : rd.iv > 30 ? "orta volatilite" : "düşük volatilite"}),
-                      IV Rank {rd.ivRank?.toFixed(0)}/100 ({rd.ivRank > 50 ? "prim satışı uygun ✓" : "prim satışı sınırlı"}).
+                      <span className="font-semibold text-cyan-400">{L("İndikatör Analizi:", "Indicator Analysis:")}</span>
+                      {" "}RSI {rd.rsi?.toFixed(1)}% ({rd.rsi > 70 ? L("aşırı alım","overbought") : rd.rsi < 30 ? L("aşırı satım","oversold") : L("nötr","neutral")}),
+                      {" "}{L("Volatilite (IV)","Volatility (IV)")} %{rd.iv} ({rd.iv > 50 ? L("yüksek","high") : rd.iv > 30 ? L("orta","mid") : L("düşük","low")}).
                     </p>
                     <div className="pt-2 border-t border-[#1e3a5f]/30 mt-3">
-                      <span className="font-semibold text-emerald-400">✓ Beklenti:</span>
-                      {rd.masterScore >= 65 ? " Hisse yükseliş trendinde. 15 günde hedef fiyatlara ulaşma olasılığı YÜKSEK. CSP (DTE 14-21) ve CC stratejileri seçici kullanılabilir."
-                      : rd.masterScore >= 50 ? " Hisse nötr aralıkta. Ranged trading yaklaşımı uygun. DTE 21-30 prim stratejileri daha güvenli."
-                      : " Hisse düşüş trendine giriş riski VAR. Prim satışı stratejilerinde daha yüksek strike seçilmeli, risk kontrol zorunlu."}
+                      <span className="font-semibold text-emerald-400">✓ {L("Beklenti:", "Outlook:")}</span>
+                      {rd.masterScore >= 65 ? L(" Hisse yükseliş trendinde. 15 günde hedef fiyatlara ulaşma olasılığı YÜKSEK.", " Stock is in an uptrend. Probability of reaching target prices within 15 days is HIGH.")
+                      : rd.masterScore >= 50 ? L(" Hisse nötr aralıkta. Ranged trading yaklaşımı uygun.", " Stock is in a neutral range. A ranged trading approach is suitable.")
+                      : L(" Hisse düşüş trendine giriş riski VAR. Temkinli ve risk kontrollü yaklaşım gerekli.", " Stock carries risk of entering a downtrend. A cautious, risk-controlled approach is required.")}
                     </div>
                   </div>
                 </div>
@@ -1263,13 +1097,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0c1829] to-[#070b12] border border-[#1e3a5f] p-5 md:p-6 space-y-4">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_#06b6d412,_transparent_60%)]"/>
                 <div className="relative">
-                  <SectionTitle icon="🏁" title="SONUÇ & KARAR ÖZETİ" />
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                  <SectionTitle icon="🏁" title={L("SONUÇ & KARAR ÖZETİ", "CONCLUSION & DECISION SUMMARY")} />
+                  <div className="grid grid-cols-2 gap-3 mb-4">
                     {[
-                      { l:"Genel Puan",   v:a.sonucKarar.genelPuan+"/10", c:+a.sonucKarar.genelPuan>=7?"text-emerald-400":+a.sonucKarar.genelPuan>=5?"text-amber-400":"text-rose-400" },
-                      { l:"CSP Uygunluğu",v:<LevelBadge v={a.sonucKarar.cspUygunlugu} fb="ORTA"/>, c:"" },
-                      { l:"CC Uygunluğu", v:<LevelBadge v={a.sonucKarar.ccUygunlugu} fb="ORTA"/>, c:"" },
-                      { l:"15G Görünüm",  v:rd.masterScore>=60?"YÜKSELİŞ":rd.masterScore>=45?"YATAY":"DÜŞÜŞ", c:rd.masterScore>=60?"text-emerald-400":rd.masterScore>=45?"text-amber-400":"text-rose-400" },
+                      { l:L("Genel Puan","Overall Score"),   v:a.sonucKarar.genelPuan+"/10", c:+a.sonucKarar.genelPuan>=7?"text-emerald-400":+a.sonucKarar.genelPuan>=5?"text-amber-400":"text-rose-400" },
+                      { l:L("15G Görünüm","15D Outlook"),  v:rd.masterScore>=60?L("YÜKSELİŞ","BULLISH"):rd.masterScore>=45?L("YATAY","SIDEWAYS"):L("DÜŞÜŞ","BEARISH"), c:rd.masterScore>=60?"text-emerald-400":rd.masterScore>=45?"text-amber-400":"text-rose-400" },
                     ].map((item,i)=>(
                       <div key={i} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
                         <div className="text-[11px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider">{item.l}</div>
@@ -1277,47 +1109,33 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </div>
                     ))}
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CSP Setup</div>
-                      <div className="bg-[#0d1321]/60 border border-emerald-500/20 rounded-xl p-3 text-[11px] md:text-[12px]">
-                        <span className="text-emerald-400 font-black">Strike ${rd.cspMatrix?.[1]?.strike ?? a.opsiyonAnaliz.optimalCSPStrike}, DTE 14G, Prim ${rd.cspMatrix?.[1]?.bid ?? "-"}, Yıllık %{rd.cspMatrix?.[1]?.annualYield ?? "-"}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">En İyi CC Setup</div>
-                      <div className="bg-[#0d1321]/60 border border-blue-500/20 rounded-xl p-3 text-[11px] md:text-[12px]">
-                        <span className="text-blue-400 font-black">Strike ${rd.ccMatrix?.[1]?.strike ?? a.opsiyonAnaliz.optimalCCStrike}, DTE 14G, Prim ${rd.ccMatrix?.[1]?.bid ?? "-"}, Yıllık %{rd.ccMatrix?.[1]?.annualYield ?? "-"}</span>
-                      </div>
-                    </div>
-                  </div>
                   <div className="mt-3 bg-[#0d1321]/60 border border-[#06b6d4]/20 rounded-xl p-4 space-y-3">
                     <div>
-                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">ÖNERI</div>
+                      <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">{L("ÖNERİ","RECOMMENDATION")}</div>
                       <p className="text-[11px] md:text-[12px] text-white font-bold leading-relaxed">{a.sonucKarar.oneri}</p>
                     </div>
                     <div className="border-t border-[#1e3a5f]/40 pt-3">
-                      <div className="text-[11px] md:text-[12px] font-black text-rose-400 uppercase tracking-wider mb-1">⚠️ KRİTİK RİSK</div>
+                      <div className="text-[11px] md:text-[12px] font-black text-rose-400 uppercase tracking-wider mb-1">⚠️ {L("KRİTİK RİSK","CRITICAL RISK")}</div>
                       <p className="text-[11px] md:text-[12px] text-slate-300 leading-relaxed">{a.sonucKarar.kritikRisk}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* ══ BÖLÜM 5: EMA KALİTE PROFİLİ ═══════════════════════════════ */}
+              {/* ══ BÖLÜM 4: EMA KALİTE PROFİLİ ═══════════════════════════════ */}
               {rd.emaProfile && (
                 <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                  <SectionTitle icon="🧬" title="BÖLÜM 5 — EMA KALİTE PROFİLİ & KIRILIM EŞİĞİ" />
+                  <SectionTitle icon="🧬" title={L("BÖLÜM 4 — EMA KALİTE PROFİLİ & KIRILIM EŞİĞİ", "SECTION 4 — EMA QUALITY PROFILE & BREAKOUT THRESHOLD")} />
 
                   {/* Profile card */}
                   <div className={`rounded-xl border p-4 ${rd.emaProfile.profile === "A" ? "border-emerald-500/40 bg-emerald-500/5" : rd.emaProfile.profile === "B" ? "border-amber-500/40 bg-amber-500/5" : "border-rose-500/40 bg-rose-500/5"}`}>
                     <div className="flex items-center gap-3 mb-2">
                       <span className={`text-2xl font-black px-3 py-1 rounded-xl border ${rd.emaProfile.profile === "A" ? "border-emerald-500/50 text-emerald-400" : rd.emaProfile.profile === "B" ? "border-amber-500/50 text-amber-400" : "border-rose-500/50 text-rose-400"}`}>
-                        Profil {rd.emaProfile.profile}
+                        {L("Profil","Profile")} {rd.emaProfile.profile}
                       </span>
                       <div>
-                        <div className="text-white font-black text-sm">{rd.emaProfile.label} Hisse</div>
-                        <div className="text-slate-400 text-[11px]">Kritik Referans EMA: <span className="text-[#06b6d4] font-black">{rd.emaProfile.keyEMA}</span></div>
+                        <div className="text-white font-black text-sm">{rd.emaProfile.label} {L("Hisse","Stock")}</div>
+                        <div className="text-slate-400 text-[11px]">{L("Kritik Referans EMA","Key Reference EMA")}: <span className="text-[#06b6d4] font-black">{rd.emaProfile.keyEMA}</span></div>
                       </div>
                     </div>
                     <p className="text-[11px] md:text-[12px] text-slate-200 font-bold">{rd.emaProfile.desc}</p>
@@ -1325,15 +1143,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                   {/* EMA slope table */}
                   <div>
-                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 EMA Eğim Analizi</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📐 {L("EMA Eğim Analizi", "EMA Slope Analysis")}</div>
                     <div className="overflow-x-auto rounded-xl border border-[#1e3a5f]/40">
                       <table className="w-full text-[11px] md:text-[12px]">
                         <thead><tr className="bg-[#0d1321] border-b border-[#1e3a5f]/40">
                           <th className="px-3 py-2 text-left font-black text-slate-400">EMA</th>
-                          <th className="px-3 py-2 text-right font-black text-slate-400">Değer</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Eğim</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Fiyat Durumu</th>
-                          <th className="px-3 py-2 text-left font-black text-slate-400">Yorum</th>
+                          <th className="px-3 py-2 text-right font-black text-slate-400">{L("Değer", "Value")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Eğim", "Slope")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Fiyat Durumu", "Price Status")}</th>
+                          <th className="px-3 py-2 text-left font-black text-slate-400">{L("Yorum", "Note")}</th>
                         </tr></thead>
                         <tbody>
                           {[
@@ -1344,19 +1162,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                             const above = currentPrice >= r.v;
                             const slopeIcon = r.slope === "yükselen" ? "↗" : r.slope === "düşen" ? "↘" : "→";
                             const slopeColor = r.slope === "yükselen" ? "text-emerald-400" : r.slope === "düşen" ? "text-rose-400" : "text-amber-400";
+                            const slopeLabel = r.slope === "yükselen" ? L("yükselen","rising") : r.slope === "düşen" ? L("düşen","falling") : L("yatay","flat");
                             let yorum = "";
-                            if (r.slope === "yükselen" && above) yorum = "Geri çekilme alım fırsatı";
-                            else if (r.slope === "yatay") yorum = "Destek değil, dikkat";
-                            else if (r.slope === "düşen" && above) yorum = "Toparlanma tuzak olabilir";
-                            else yorum = "Baskı devam edebilir";
+                            if (r.slope === "yükselen" && above) yorum = L("Geri çekilme alım fırsatı","Pullback is a buying opportunity");
+                            else if (r.slope === "yatay") yorum = L("Destek değil, dikkat","Not support, be cautious");
+                            else if (r.slope === "düşen" && above) yorum = L("Toparlanma tuzak olabilir","Recovery may be a trap");
+                            else yorum = L("Baskı devam edebilir","Pressure may continue");
                             return (
                               <tr key={r.l} className={`border-b border-[#1e3a5f]/20 ${r.key ? "bg-[#06b6d4]/5" : ""}`}>
                                 <td className="px-3 py-2 font-bold text-slate-300">
-                                  {r.l} {r.key && <span className="text-[#06b6d4] font-black ml-1 text-[10px]">★ ANAHTAR</span>}
+                                  {r.l} {r.key && <span className="text-[#06b6d4] font-black ml-1 text-[10px]">★ {L("ANAHTAR","KEY")}</span>}
                                 </td>
                                 <td className="px-3 py-2 text-right font-black font-mono text-white">${r.v?.toFixed(2) ?? "-"}</td>
-                                <td className={`px-3 py-2 font-black ${slopeColor}`}>{slopeIcon} {r.slope}</td>
-                                <td className={`px-3 py-2 font-black text-[11px] ${above ? "text-emerald-400" : "text-rose-400"}`}>{above ? "▲ Üstünde" : "▼ Altında"}</td>
+                                <td className={`px-3 py-2 font-black ${slopeColor}`}>{slopeIcon} {slopeLabel}</td>
+                                <td className={`px-3 py-2 font-black text-[11px] ${above ? "text-emerald-400" : "text-rose-400"}`}>{above ? `▲ ${L("Üstünde","Above")}` : `▼ ${L("Altında","Below")}`}</td>
                                 <td className="px-3 py-2 text-slate-400 text-[11px]">{yorum}</td>
                               </tr>
                             );
@@ -1368,16 +1187,16 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                   {/* EMA20-EMA50 band */}
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
-                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">📏 EMA Band Genişliği (EMA20 ↔ EMA50)</div>
+                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-1">📏 {L("EMA Band Genişliği (EMA20 ↔ EMA50)", "EMA Band Width (EMA20 ↔ EMA50)")}</div>
                     {(() => {
                       const bandPct = rd.ema50 > 0 ? Math.abs(rd.ema20 - rd.ema50) / rd.ema50 * 100 : 0;
                       const converging = bandPct < 1.5;
                       return (
                         <p className="text-[11px] md:text-[12px] text-slate-300">
-                          Band genişliği: <span className="font-black text-white">%{bandPct.toFixed(2)}</span>
+                          {L("Band genişliği","Band width")}: <span className="font-black text-white">%{bandPct.toFixed(2)}</span>
                           {converging
-                            ? <span className="text-amber-400 font-black ml-2">⚡ EMA'lar birbirine yaklaşıyor — büyük hareket habercisi</span>
-                            : <span className="text-slate-400 ml-2">— Normal aralık</span>}
+                            ? <span className="text-amber-400 font-black ml-2">⚡ {L("EMA'lar birbirine yaklaşıyor — büyük hareket habercisi", "EMAs are converging — signals a major move ahead")}</span>
+                            : <span className="text-slate-400 ml-2">— {L("Normal aralık","Normal range")}</span>}
                         </p>
                       );
                     })()}
@@ -1385,17 +1204,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 </div>
               )}
 
-              {/* ══ BÖLÜM 6: KURUMSAL PARA AKIŞI ════════════════════════════════ */}
+              {/* ══ BÖLÜM 5: KURUMSAL PARA AKIŞI ════════════════════════════════ */}
               {rd.flowSummary && (
                 <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                  <SectionTitle icon="🏦" title="BÖLÜM 6 — KURUMSAL PARA AKIŞI & PİYASA YAPISI" />
+                  <SectionTitle icon="🏦" title={L("BÖLÜM 5 — KURUMSAL PARA AKIŞI & PİYASA YAPISI", "SECTION 5 — INSTITUTIONAL MONEY FLOW & MARKET STRUCTURE")} />
 
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {[
-                      { l: "OBV Trendi", v: rd.flowSummary.obvTrend, c: rd.flowSummary.obvTrend === "yükselen" ? "text-emerald-400" : rd.flowSummary.obvTrend === "düşen" ? "text-rose-400" : "text-amber-400" },
-                      { l: "A/D Trendi",  v: rd.flowSummary.adTrend,  c: rd.flowSummary.adTrend  === "yükselen" ? "text-emerald-400" : rd.flowSummary.adTrend  === "düşen" ? "text-rose-400" : "text-amber-400" },
+                      { l: L("OBV Trendi","OBV Trend"), v: rd.flowSummary.obvTrend === "yükselen" ? L("yükselen","rising") : rd.flowSummary.obvTrend === "düşen" ? L("düşen","falling") : L("yatay","flat"), c: rd.flowSummary.obvTrend === "yükselen" ? "text-emerald-400" : rd.flowSummary.obvTrend === "düşen" ? "text-rose-400" : "text-amber-400" },
+                      { l: L("A/D Trendi","A/D Trend"),  v: rd.flowSummary.adTrend === "yükselen" ? L("yükselen","rising") : rd.flowSummary.adTrend === "düşen" ? L("düşen","falling") : L("yatay","flat"),  c: rd.flowSummary.adTrend  === "yükselen" ? "text-emerald-400" : rd.flowSummary.adTrend  === "düşen" ? "text-rose-400" : "text-amber-400" },
                       { l: "MFI (14)",   v: `${rd.flowSummary.mfi} — ${rd.flowSummary.mfiLabel}`, c: rd.flowSummary.mfi > 80 ? "text-rose-400" : rd.flowSummary.mfi < 20 ? "text-emerald-400" : "text-amber-400" },
-                      { l: "Fiyat-OBV",  v: rd.flowSummary.divergence === "negatif" ? "⚠️ Negatif Uyumsuz" : rd.flowSummary.divergence === "pozitif" ? "✅ Pozitif Uyumsuz" : "✅ Uyumlu", c: rd.flowSummary.divergence !== "yok" ? "text-amber-400" : "text-emerald-400" },
+                      { l: L("Fiyat-OBV","Price-OBV"),  v: rd.flowSummary.divergence === "negatif" ? `⚠️ ${L("Negatif Uyumsuz","Negative Divergence")}` : rd.flowSummary.divergence === "pozitif" ? `✅ ${L("Pozitif Uyumsuz","Positive Divergence")}` : `✅ ${L("Uyumlu","Aligned")}`, c: rd.flowSummary.divergence !== "yok" ? "text-amber-400" : "text-emerald-400" },
                     ].map(i => (
                       <div key={i.l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
                         <div className="text-[11px] md:text-[12px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
@@ -1406,18 +1225,18 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
 
                   {/* Fiyat-Hacim Pattern */}
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-3">
-                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 Son Seans Fiyat-Hacim Kalıbı</div>
+                    <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-wider mb-2">📊 {L("Son Seans Fiyat-Hacim Kalıbı", "Last Session Price-Volume Pattern")}</div>
                     {(() => {
                       const p = rd.flowSummary.pvPattern;
-                      const m: Record<string, { icon: string; c: string; desc: string }> = {
-                        "güçlü birikim":       { icon: "🟢", c: "text-emerald-400", desc: "Yüksek hacimle yükseliş → Kurumsal birikim onayı" },
-                        "güçlü dağıtım":       { icon: "🔴", c: "text-rose-400",    desc: "Yüksek hacimle düşüş → Dağıtım sinyali, dikkat" },
-                        "zayıf yükseliş":      { icon: "🟡", c: "text-amber-400",   desc: "Düşük hacimle yükseliş → Zayıf hareket, doğrulama beklenmeli" },
-                        "normal geri çekilme": { icon: "🔵", c: "text-blue-400",    desc: "Düşük hacimle düşüş → Normal geri çekilme, panik yok" },
-                        "nötr":                { icon: "⚪", c: "text-slate-400",   desc: "Hacim-fiyat nötr" },
+                      const m: Record<string, { icon: string; c: string; label: string; desc: string }> = {
+                        "güçlü birikim":       { icon: "🟢", c: "text-emerald-400", label: L("Güçlü birikim","Strong accumulation"), desc: L("Yüksek hacimle yükseliş → Kurumsal birikim onayı","High-volume rally → Confirms institutional accumulation") },
+                        "güçlü dağıtım":       { icon: "🔴", c: "text-rose-400",    label: L("Güçlü dağıtım","Strong distribution"), desc: L("Yüksek hacimle düşüş → Dağıtım sinyali, dikkat","High-volume decline → Distribution signal, be cautious") },
+                        "zayıf yükseliş":      { icon: "🟡", c: "text-amber-400",   label: L("Zayıf yükseliş","Weak rally"), desc: L("Düşük hacimle yükseliş → Zayıf hareket, doğrulama beklenmeli","Low-volume rally → Weak move, confirmation needed") },
+                        "normal geri çekilme": { icon: "🔵", c: "text-blue-400",    label: L("Normal geri çekilme","Normal pullback"), desc: L("Düşük hacimle düşüş → Normal geri çekilme, panik yok","Low-volume decline → Normal pullback, no panic") },
+                        "nötr":                { icon: "⚪", c: "text-slate-400",   label: L("Nötr","Neutral"), desc: L("Hacim-fiyat nötr","Volume-price neutral") },
                       };
                       const info = m[p] ?? m["nötr"];
-                      return <p className={`text-[11px] md:text-[12px] font-bold ${info.c}`}>{info.icon} {p.charAt(0).toUpperCase() + p.slice(1)} — {info.desc}</p>;
+                      return <p className={`text-[11px] md:text-[12px] font-bold ${info.c}`}>{info.icon} {info.label} — {info.desc}</p>;
                     })()}
                   </div>
 
@@ -1428,7 +1247,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     return (
                       <div className="bg-emerald-500/10 border border-emerald-500/40 rounded-xl p-3">
                         <p className="text-emerald-300 font-black text-[11px] md:text-[12px]">
-                          🔔 SESSİZ BİRİKİM TESPİTİ — Fiyat yatay seyrederken OBV ve A/D kademeli artıyor. Kırılım öncesi erken kurumsal giriş sinyali olabilir.
+                          🔔 {L("SESSİZ BİRİKİM TESPİTİ — Fiyat yatay seyrederken OBV ve A/D kademeli artıyor. Kırılım öncesi erken kurumsal giriş sinyali olabilir.", "QUIET ACCUMULATION DETECTED — While price stays flat, OBV and A/D are gradually rising. May signal early institutional entry ahead of a breakout.")}
                         </p>
                       </div>
                     );
@@ -1438,7 +1257,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   {rd.flowSummary.divergence === "negatif" && (
                     <div className="bg-amber-500/10 border border-amber-500/40 rounded-xl p-3">
                       <p className="text-amber-300 font-black text-[11px] md:text-[12px]">
-                        ⚠️ NEGATİF UYUMSUZLUK — Fiyat yükselirken OBV düşüyor. Momentum arkasında kurumsal destek yok olabilir. Dikkatli ol.
+                        ⚠️ {L("NEGATİF UYUMSUZLUK — Fiyat yükselirken OBV düşüyor. Momentum arkasında kurumsal destek yok olabilir. Dikkatli ol.", "NEGATIVE DIVERGENCE — Price is rising while OBV is falling. Institutional support behind the momentum may be missing. Be cautious.")}
                       </p>
                     </div>
                   )}
@@ -1446,39 +1265,39 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   {/* MFI extreme warning */}
                   {rd.flowSummary.mfi > 80 && (
                     <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-3">
-                      <p className="text-rose-300 font-black text-[11px] md:text-[12px]">⚠️ MFI {rd.flowSummary.mfi} — Aşırı alım bölgesi. Prim satışı stratejilerinde dikkatli ol.</p>
+                      <p className="text-rose-300 font-black text-[11px] md:text-[12px]">⚠️ MFI {rd.flowSummary.mfi} — {L("Aşırı alım bölgesi. Yeni pozisyon açmadan önce dikkatli ol.", "Overbought zone. Be cautious before opening a new position.")}</p>
                     </div>
                   )}
                   {rd.flowSummary.mfi < 20 && (
                     <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3">
-                      <p className="text-emerald-300 font-black text-[11px] md:text-[12px]">✅ MFI {rd.flowSummary.mfi} — Aşırı satım bölgesi. CSP için potansiyel zemin oluşuyor.</p>
+                      <p className="text-emerald-300 font-black text-[11px] md:text-[12px]">✅ MFI {rd.flowSummary.mfi} — {L("Aşırı satım bölgesi. Potansiyel bir taban oluşuyor olabilir.", "Oversold zone. A potential base may be forming.")}</p>
                     </div>
                   )}
 
                   {/* Info note */}
                   <div className="bg-[#0d1321]/30 border border-[#1e3a5f]/20 rounded-lg p-2.5">
                     <p className="text-[10px] text-slate-500 leading-relaxed">
-                      <span className="font-black text-slate-400">OBV:</span> Hacim ağırlıklı fiyat yönü. Fiyat yükselirken OBV düşüyorsa kurumsal çıkış var.&nbsp;
-                      <span className="font-black text-slate-400">A/D:</span> Kapanışın gün içi aralıktaki konumuna göre birikim/dağıtım.&nbsp;
-                      <span className="font-black text-slate-400">MFI:</span> Hacim ağırlıklı RSI — 80+ aşırı alım, 20− aşırı satım.
+                      <span className="font-black text-slate-400">OBV:</span> {L("Hacim ağırlıklı fiyat yönü. Fiyat yükselirken OBV düşüyorsa kurumsal çıkış var.", "Volume-weighted price direction. If OBV falls while price rises, institutional exit is occurring.")}&nbsp;
+                      <span className="font-black text-slate-400">A/D:</span> {L("Kapanışın gün içi aralıktaki konumuna göre birikim/dağıtım.", "Accumulation/distribution based on the close's position within the day's range.")}&nbsp;
+                      <span className="font-black text-slate-400">MFI:</span> {L("Hacim ağırlıklı RSI — 80+ aşırı alım, 20− aşırı satım.", "Volume-weighted RSI — 80+ overbought, 20− oversold.")}
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* ══ BÖLÜM 7: RİSK FAKTÖRLERİ ═══════════════════════════════════ */}
+              {/* ══ BÖLÜM 6: RİSK FAKTÖRLERİ ═══════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="⚠️" title="BÖLÜM 7 — RİSK FAKTÖRLERİ (GENİŞLETİLMİŞ)" />
+                <SectionTitle icon="⚠️" title={L("BÖLÜM 6 — RİSK FAKTÖRLERİ (GENİŞLETİLMİŞ)", "SECTION 6 — RISK FACTORS (EXPANDED)")} />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Short Interest placeholder */}
                   <div className="bg-[#0d1321]/60 border border-rose-500/20 rounded-xl p-4 space-y-3">
-                    <div className="text-[11px] md:text-[12px] font-black text-rose-400 uppercase tracking-widest">📉 Short Interest & Kısa Faiz</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-rose-400 uppercase tracking-widest">📉 {L("Short Interest & Kısa Faiz", "Short Interest")}</div>
                     <div className="space-y-1.5 text-[11px] md:text-[12px]">
                       {[
-                        ["Short Float", "Brokerage kaynağından kontrol et"],
-                        ["Days to Cover", "Short Float / Günlük Hacim"],
-                        ["Eşik Değerleri", "<%5 Normal | %5-15 Dikkat | >%25 Squeeze Riski"],
+                        ["Short Float", L("Brokerage kaynağından kontrol et", "Check from brokerage source")],
+                        ["Days to Cover", L("Short Float / Günlük Hacim", "Short Float / Daily Volume")],
+                        [L("Eşik Değerleri", "Threshold Values"), L("<%5 Normal | %5-15 Dikkat | >%25 Squeeze Riski", "<5% Normal | 5-15% Caution | >25% Squeeze Risk")],
                       ].map(([l, v]) => (
                         <div key={l} className="flex justify-between border-b border-rose-500/10 pb-1.5">
                           <span className="text-slate-400 font-medium">{l}</span>
@@ -1486,17 +1305,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                         </div>
                       ))}
                     </div>
-                    <div className="bg-rose-500/5 rounded-lg p-2 text-[10px] text-rose-300/70">Finviz / Ortex / Broker platformundan güncel short float verisini kontrol et. Yüksek short float + yükselen OBV → squeeze potansiyeli.</div>
+                    <div className="bg-rose-500/5 rounded-lg p-2 text-[10px] text-rose-300/70">{L("Finviz / Ortex / Broker platformundan güncel short float verisini kontrol et. Yüksek short float + yükselen OBV → squeeze potansiyeli.", "Check current short float data from Finviz / Ortex / your broker platform. High short float + rising OBV → squeeze potential.")}</div>
                   </div>
 
                   {/* Dilution risk */}
                   <div className="bg-[#0d1321]/60 border border-amber-500/20 rounded-xl p-4 space-y-3">
-                    <div className="text-[11px] md:text-[12px] font-black text-amber-400 uppercase tracking-widest">💧 Dilüsyon Risk Göstergeleri</div>
+                    <div className="text-[11px] md:text-[12px] font-black text-amber-400 uppercase tracking-widest">💧 {L("Dilüsyon Risk Göstergeleri", "Dilution Risk Indicators")}</div>
                     <div className="space-y-1.5 text-[11px] md:text-[12px]">
                       {[
-                        ["Piyasa Değeri", rd.marketCapStr],
-                        ["Küçük Cap Risk", rd.marketCapStr?.includes("M") && !rd.marketCapStr?.includes("B") ? "⚠️ Shelf/Warrant riski yüksek" : "✅ Görece düşük risk"],
-                        ["SEC Kontrol", "EDGAR'da S-3, warrant, lock-up"],
+                        [L("Piyasa Değeri", "Market Cap"), rd.marketCapStr],
+                        [L("Küçük Cap Risk", "Small Cap Risk"), rd.marketCapStr?.includes("M") && !rd.marketCapStr?.includes("B") ? `⚠️ ${L("Shelf/Warrant riski yüksek","High shelf/warrant risk")}` : `✅ ${L("Görece düşük risk","Relatively low risk")}`],
+                        [L("SEC Kontrol", "SEC Check"), L("EDGAR'da S-3, warrant, lock-up", "S-3, warrant, lock-up on EDGAR")],
                       ].map(([l, v]) => (
                         <div key={l} className="flex justify-between border-b border-amber-500/10 pb-1.5">
                           <span className="text-slate-400 font-medium">{l}</span>
@@ -1504,19 +1323,19 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                         </div>
                       ))}
                     </div>
-                    <div className="bg-amber-500/5 rounded-lg p-2 text-[10px] text-amber-300/70">Spekülatif profil (C) hisselerde shelf registration ve convertible note riski her zaman değerlendirilmeli.</div>
+                    <div className="bg-amber-500/5 rounded-lg p-2 text-[10px] text-amber-300/70">{L("Spekülatif profil (C) hisselerde shelf registration ve convertible note riski her zaman değerlendirilmeli.", "For speculative profile (C) stocks, shelf registration and convertible note risk should always be assessed.")}</div>
                   </div>
                 </div>
 
                 {/* Earnings season protocol */}
                 <div className="border border-[#06b6d4]/30 bg-[#06b6d4]/5 rounded-xl p-4">
-                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📅 Kazanç Sezonu Protokolü</div>
+                  <div className="text-[11px] md:text-[12px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📅 {L("Kazanç Sezonu Protokolü", "Earnings Season Protocol")}</div>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px]">
                     {[
-                      { r: "0–14 Gün", d: "Kazanç Sonrası Dönem", c: "border-emerald-500/40 bg-emerald-500/5 text-emerald-300", note: "Tüm veriler kazanç sonrasını yansıtıyor" },
-                      { r: "15–60 Gün", d: "Normal Dönem", c: "border-slate-500/40 bg-slate-500/5 text-slate-300", note: "Kazanç verisi taze ve geçerli" },
-                      { r: "60+ Gün", d: "Bilanço Yaklaşıyor", c: "border-amber-500/40 bg-amber-500/5 text-amber-300", note: "IV crush riski — CSP/CC dikkatli" },
-                      { r: "±3 Gün", d: "Bilanço Günü", c: "border-rose-500/40 bg-rose-500/5 text-rose-300", note: "Opsiyon pozisyonu alma — yüksek risk" },
+                      { r: L("0–14 Gün","0–14 Days"), d: L("Kazanç Sonrası Dönem","Post-Earnings Period"), c: "border-emerald-500/40 bg-emerald-500/5 text-emerald-300", note: L("Tüm veriler kazanç sonrasını yansıtıyor","All data reflects post-earnings") },
+                      { r: L("15–60 Gün","15–60 Days"), d: L("Normal Dönem","Normal Period"), c: "border-slate-500/40 bg-slate-500/5 text-slate-300", note: L("Kazanç verisi taze ve geçerli","Earnings data is fresh and valid") },
+                      { r: L("60+ Gün","60+ Days"), d: L("Bilanço Yaklaşıyor","Earnings Approaching"), c: "border-amber-500/40 bg-amber-500/5 text-amber-300", note: L("Volatilite artış riski — pozisyonlara dikkat","Volatility increase risk — watch positions") },
+                      { r: L("±3 Gün","±3 Days"), d: L("Bilanço Günü","Earnings Day"), c: "border-rose-500/40 bg-rose-500/5 text-rose-300", note: L("Yeni pozisyon açmak yüksek risk taşır","Opening new positions carries high risk") },
                     ].map(i => (
                       <div key={i.r} className={`border rounded-lg p-2 ${i.c}`}>
                         <div className="font-black">{i.r}</div>
@@ -1525,13 +1344,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                       </div>
                     ))}
                   </div>
-                  <p className="text-[10px] text-slate-500 mt-2">⚡ Bir sonraki kazanç tarihini SEC EDGAR veya Earnings Whispers üzerinden doğrula. Bilanço ±3 gün içindeyse opsiyon pozisyonu açma, prim IV şişmesiyle başlar ama kazanç sonrası IV crush pozisyonu zarara sokabilir.</p>
+                  <p className="text-[10px] text-slate-500 mt-2">⚡ {L("Bir sonraki kazanç tarihini SEC EDGAR veya Earnings Whispers üzerinden doğrula. Bilanço ±3 gün içindeyse volatilite önemli ölçüde artabilir, pozisyon büyüklüğünü buna göre ayarla.", "Verify the next earnings date via SEC EDGAR or Earnings Whispers. If earnings fall within ±3 days, volatility can rise significantly — size positions accordingly.")}</p>
                 </div>
               </div>
 
-              {/* ══ BÖLÜM 8: MAKRO & SEKTÖR BAĞLAMI ════════════════════════════ */}
+              {/* ══ BÖLÜM 7: MAKRO & SEKTÖR BAĞLAMI ════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="🌍" title="BÖLÜM 8 — MAKRO & SEKTÖR BAĞLAMI" />
+                <SectionTitle icon="🌍" title={L("BÖLÜM 7 — MAKRO & SEKTÖR BAĞLAMI", "SECTION 7 — MACRO & SECTOR CONTEXT")} />
 
                 {/* Piyasa rejimi */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -1542,14 +1361,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   ].map(i => {
                     const isVix = i.l === "VIX";
                     const color = isVix ? (i.v > 25 ? "text-rose-400" : i.v > 15 ? "text-amber-400" : "text-emerald-400") : (i.v >= 0 ? "text-emerald-400" : "text-rose-400");
-                    const regime = isVix ? (i.v > 25 ? "Risk-Off ⚠️" : i.v > 15 ? "Dikkat →" : "Risk-On ✅") : (i.v >= 0 ? "Pozitif ▲" : "Negatif ▼");
+                    const regime = isVix ? (i.v > 25 ? `Risk-Off ⚠️` : i.v > 15 ? `${L("Dikkat","Caution")} →` : `Risk-On ✅`) : (i.v >= 0 ? `${L("Pozitif","Positive")} ▲` : `${L("Negatif","Negative")} ▼`);
                     return (
                       <div key={i.l} className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-xl p-3">
                         <div className="text-[11px] font-black text-slate-500 uppercase tracking-wider">{i.l}</div>
                         <div className={`text-xl font-black font-mono mt-1 ${color}`}>
                           {i.v != null ? (isVix ? i.v?.toFixed(2) : (i.v >= 0 ? "+" : "") + i.v?.toFixed(2) + i.suffix) : "—"}
                         </div>
-                        <div className={`text-[11px] font-bold mt-0.5 ${color}`}>{i.v != null ? regime : "Veri yok"}</div>
+                        <div className={`text-[11px] font-bold mt-0.5 ${color}`}>{i.v != null ? regime : L("Veri yok","No data")}</div>
                       </div>
                     );
                   })}
@@ -1559,77 +1378,106 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                 {rd.vixPrice > 25 && (
                   <div className="bg-rose-500/10 border border-rose-500/40 rounded-xl p-3">
                     <p className="text-rose-300 font-black text-[11px] md:text-[12px]">
-                      🚨 Risk-Off Ortamı — VIX {rd.vixPrice?.toFixed(1)} seviyesinde. Spekülatif küçük cap satışı hızlanır. Kurumsal profil dışı hisselerde prim satışı risklidir.
+                      🚨 {L(`Risk-Off Ortamı — VIX ${rd.vixPrice?.toFixed(1)} seviyesinde. Spekülatif küçük cap satışı hızlanır. Kurumsal profil dışı hisselerde volatilite riski yüksektir.`, `Risk-Off Environment — VIX at ${rd.vixPrice?.toFixed(1)}. Speculative small-cap selling accelerates. Volatility risk is high for non-institutional-grade stocks.`)}
                     </p>
                   </div>
                 )}
 
                 {/* Sektörel makro faktörler */}
                 <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-xl p-4">
-                  <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">🏭 Sektör: {data.sector}</div>
+                  <div className="text-[11px] font-black text-[#06b6d4] uppercase tracking-widest mb-3">🏭 {L("Sektör","Sector")}: {data.sector}</div>
                   <div className="text-[11px] md:text-[12px] text-slate-300 leading-relaxed space-y-1.5">
                     {(() => {
                       const s = (data.sector || "").toLowerCase();
                       const factors: string[] = [];
                       if (s.includes("defense") || s.includes("aerospace") || s.includes("drone")) {
-                        factors.push("🛡️ Savunma bütçesi haberleri ve jeopolitik gelişmeler doğrudan etkiler.");
-                        factors.push("📋 FAA/NDAA düzenlemeleri ve ihale sonuçları katalizör olabilir.");
+                        factors.push(L("🛡️ Savunma bütçesi haberleri ve jeopolitik gelişmeler doğrudan etkiler.", "🛡️ Defense budget news and geopolitical developments have a direct impact."));
+                        factors.push(L("📋 FAA/NDAA düzenlemeleri ve ihale sonuçları katalizör olabilir.", "📋 FAA/NDAA regulations and contract award results can be catalysts."));
                       } else if (s.includes("electric") || s.includes("ev") || s.includes("auto")) {
-                        factors.push("🔋 Fed faiz ortamı tüketici kredisini etkiler — EV satışlarına yansır.");
-                        factors.push("💰 EV teşvik politikaları ve hammadde (lityum, kobalt) fiyatları kritik.");
+                        factors.push(L("🔋 Fed faiz ortamı tüketici kredisini etkiler — EV satışlarına yansır.", "🔋 The Fed rate environment affects consumer credit — impacts EV sales."));
+                        factors.push(L("💰 EV teşvik politikaları ve hammadde (lityum, kobalt) fiyatları kritik.", "💰 EV incentive policies and raw material (lithium, cobalt) prices are critical."));
                       } else if (s.includes("tech") || s.includes("software") || s.includes("saas")) {
-                        factors.push("📈 Fed faiz kararları büyüme hissesi değerlemesini doğrudan etkiler.");
-                        factors.push("🤖 Yapay zeka rekabeti ve regülasyon gelişmeleri yakından takip edilmeli.");
+                        factors.push(L("📈 Fed faiz kararları büyüme hissesi değerlemesini doğrudan etkiler.", "📈 Fed rate decisions directly affect growth stock valuations."));
+                        factors.push(L("🤖 Yapay zeka rekabeti ve regülasyon gelişmeleri yakından takip edilmeli.", "🤖 AI competition and regulatory developments should be closely monitored."));
                       } else if (s.includes("biotech") || s.includes("pharmaceutical")) {
-                        factors.push("💊 FDA onay takvimi ve klinik sonuçlar fiyat için en kritik katalizörlerdir.");
-                        factors.push("💵 Nakit burn rate ve runway tükenme tarihi risk faktörüdür.");
+                        factors.push(L("💊 FDA onay takvimi ve klinik sonuçlar fiyat için en kritik katalizörlerdir.", "💊 FDA approval calendar and clinical trial results are the most critical price catalysts."));
+                        factors.push(L("💵 Nakit burn rate ve runway tükenme tarihi risk faktörüdür.", "💵 Cash burn rate and runway depletion date are risk factors."));
                       } else if (s.includes("bank") || s.includes("financ")) {
-                        factors.push("📊 Net Interest Margin ve Fed faiz kararları doğrudan etkiler.");
-                        factors.push("⚠️ Kredi kayıp karşılıkları ve NIM trendi bilanço kalitesini belirler.");
+                        factors.push(L("📊 Net Interest Margin ve Fed faiz kararları doğrudan etkiler.", "📊 Net Interest Margin and Fed rate decisions have a direct impact."));
+                        factors.push(L("⚠️ Kredi kayıp karşılıkları ve NIM trendi bilanço kalitesini belirler.", "⚠️ Loan loss provisions and NIM trend determine balance sheet quality."));
                       } else {
-                        factors.push("📰 Sektörel haberler ve makro gelişmeler takip edilmeli.");
-                        factors.push("📊 Fed toplantıları, CPI ve istihdam verilerinin piyasaya etkisi değerlendirilmeli.");
+                        factors.push(L("📰 Sektörel haberler ve makro gelişmeler takip edilmeli.", "📰 Sector news and macro developments should be monitored."));
+                        factors.push(L("📊 Fed toplantıları, CPI ve istihdam verilerinin piyasaya etkisi değerlendirilmeli.", "📊 The market impact of Fed meetings, CPI, and employment data should be assessed."));
                       }
-                      factors.push("📉 Mevcut piyasa rejimi: VIX " + (rd.vixPrice > 25 ? "25+ → Risk-Off. Küçük cap pozisyonlar riskli." : rd.vixPrice > 15 ? "15-25 → Dikkat gerekiyor." : "<15 → Risk-On. Uygun ortam."));
+                      factors.push(L("📉 Mevcut piyasa rejimi: VIX ", "📉 Current market regime: VIX ") + (rd.vixPrice > 25 ? L("25+ → Risk-Off. Küçük cap pozisyonlar riskli.", "25+ → Risk-Off. Small-cap positions are risky.") : rd.vixPrice > 15 ? L("15-25 → Dikkat gerekiyor.", "15-25 → Caution warranted.") : L("<15 → Risk-On. Uygun ortam.", "<15 → Risk-On. Favorable environment.")));
                       return factors.map((f, i) => <p key={i}>{f}</p>);
                     })()}
                   </div>
                 </div>
               </div>
 
-              {/* ══ BÖLÜM 9: İNSİDER İŞLEMLERİ ═══════════════════════════════════ */}
+              {/* ══ BÖLÜM 8: İNSİDER İŞLEMLERİ ═══════════════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="🔐" title="BÖLÜM 9 — İNSİDER İŞLEMLERİ TAKIBI (FORM 4/144)" />
+                <SectionTitle icon="🔐" title={L("BÖLÜM 8 — İNSİDER İŞLEMLERİ TAKIBI (FORM 4/144)", "SECTION 8 — INSIDER TRANSACTION TRACKING (FORM 4/144)")} />
                 {rd.insiderTransactions?.length > 0 ? (
-                  <div className="space-y-2">
-                    {rd.insiderTransactions.map((tx: any, i: number) => (
-                      <div key={i} className={`border rounded-lg p-3 ${tx.type === "BUY" ? "bg-emerald-500/5 border-emerald-500/20" : "bg-rose-500/5 border-rose-500/20"}`}>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div>
-                            <span className="font-black text-white text-[11px] md:text-[12px]">{tx.officer}</span>
-                            <span className="text-slate-500 text-[11px] ml-2">— {tx.title}</span>
-                          </div>
-                          <span className={`text-[11px] font-black px-2 py-0.5 rounded ${tx.type === "BUY" ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
-                            {tx.type === "BUY" ? "📈 ALIM" : "📉 SATIM"}
-                          </span>
+                  <>
+                    {/* Özet — net alım/satım akışı */}
+                    {rd.insiderSummary && (
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="bg-emerald-500/5 border border-emerald-500/20 rounded-lg p-2.5 text-center">
+                          <div className="text-[10px] text-emerald-400 font-black uppercase tracking-wider">📈 {L("Alım","Buys")}</div>
+                          <div className="text-lg font-black text-white font-mono">{rd.insiderSummary.buyCount}</div>
                         </div>
-                        <div className="text-[11px] text-slate-400 space-y-0.5">
-                          <p>📅 {tx.date} &nbsp;•&nbsp; <span className="text-white font-black">{tx.shares}</span> hisse &nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">${tx.price?.toFixed ? tx.price.toFixed(2) : tx.price}</span>/hisse</p>
-                          {tx.transactionDesc && <p className="text-slate-500 italic text-[10px]">{tx.transactionDesc}</p>}
+                        <div className="bg-rose-500/5 border border-rose-500/20 rounded-lg p-2.5 text-center">
+                          <div className="text-[10px] text-rose-400 font-black uppercase tracking-wider">📉 {L("Satım","Sells")}</div>
+                          <div className="text-lg font-black text-white font-mono">{rd.insiderSummary.sellCount}</div>
+                        </div>
+                        <div className="bg-[#0d1321]/60 border border-[#1e3a5f]/40 rounded-lg p-2.5 text-center">
+                          <div className="text-[10px] text-slate-500 font-black uppercase tracking-wider">{L("Net Akış","Net Flow")}</div>
+                          <div className={`text-sm font-black font-mono ${rd.insiderSummary.netValue >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                            {rd.insiderSummary.netValue >= 0 ? "+" : "-"}${Math.abs(rd.insiderSummary.netValue) >= 1e6 ? (Math.abs(rd.insiderSummary.netValue) / 1e6).toFixed(1) + "M" : (Math.abs(rd.insiderSummary.netValue) / 1e3).toFixed(0) + "K"}
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    )}
+                    <div className="space-y-2">
+                      {rd.insiderTransactions.map((tx: any, i: number) => {
+                        const typeStyle =
+                          tx.type === "BUY"  ? { box: "bg-emerald-500/5 border-emerald-500/20", badge: "bg-emerald-500/20 text-emerald-300", label: `📈 ${L("ALIM","BUY")}` } :
+                          tx.type === "SELL" ? { box: "bg-rose-500/5 border-rose-500/20",    badge: "bg-rose-500/20 text-rose-300",    label: `📉 ${L("SATIM","SELL")}` } :
+                                                { box: "bg-slate-500/5 border-slate-500/20",  badge: "bg-slate-500/20 text-slate-300",  label: `🔄 ${L("DİĞER","OTHER")}` };
+                        return (
+                          <div key={i} className={`border rounded-lg p-3 ${typeStyle.box}`}>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <div>
+                                <span className="font-black text-white text-[11px] md:text-[12px]">{tx.officer}</span>
+                                <span className="text-slate-500 text-[11px] ml-2">— {tx.title}</span>
+                              </div>
+                              <span className={`text-[11px] font-black px-2 py-0.5 rounded ${typeStyle.badge}`}>{typeStyle.label}</span>
+                            </div>
+                            <div className="text-[11px] text-slate-400 space-y-0.5">
+                              <p>
+                                📅 {tx.date} &nbsp;•&nbsp; <span className="text-white font-black">{tx.shares}</span> {L("hisse","shares")}
+                                {tx.price != null && <>&nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">${tx.price.toFixed(2)}</span>/{L("hisse","share")}</>}
+                                {tx.value != null && <>&nbsp;•&nbsp; <span className="text-amber-400 font-black">${tx.value >= 1e6 ? (tx.value / 1e6).toFixed(2) + "M" : (tx.value / 1e3).toFixed(0) + "K"}</span> {L("toplam","total")}</>}
+                              </p>
+                              {tx.transactionDesc && <p className="text-slate-500 italic text-[10px]">{tx.transactionDesc}</p>}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-500 text-[11px] md:text-[12px]">Son 6 ayda raporlanmış insider işlemi bulunamadı.<br/>CEO/CFO pozisyonları ve Form 144 satışları SEC Edgar üzerinden takip edilebilir.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">{L("Son 6 ayda raporlanmış insider işlemi bulunamadı.", "No reported insider transactions in the last 6 months.")}<br/>{L("CEO/CFO pozisyonları ve Form 144 satışları SEC Edgar üzerinden takip edilebilir.", "CEO/CFO positions and Form 144 sales can be tracked via SEC EDGAR.")}</p>
                   </div>
                 )}
               </div>
 
-              {/* ══ BÖLÜM 10: GÜNCEL HABER & KATALİZÖR AKIŞI ════════════════════════ */}
+              {/* ══ BÖLÜM 9: GÜNCEL HABER & KATALİZÖR AKIŞI ════════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="📰" title="BÖLÜM 10 — GÜNCEL HABER & KATALİZÖR AKIŞI" />
+                <SectionTitle icon="📰" title={L("BÖLÜM 9 — GÜNCEL HABER & KATALİZÖR AKIŞI", "SECTION 9 — LATEST NEWS & CATALYST FLOW")} />
                 {rd.recentNews?.length > 0 ? (
                   <div className="space-y-2">
                     {rd.recentNews.map((news: any, i: number) => (
@@ -1640,7 +1488,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                             : <span className="font-black text-white text-[11px] md:text-[12px] flex-1 leading-tight">{news.title}</span>
                           }
                           <span className={`text-[10px] font-black px-2 py-0.5 rounded whitespace-nowrap shrink-0 ${news.sentiment === "Pozitif" ? "bg-emerald-500/20 text-emerald-300" : news.sentiment === "Negatif" ? "bg-rose-500/20 text-rose-300" : "bg-amber-500/20 text-amber-300"}`}>
-                            {news.sentiment === "Pozitif" ? "▲ Pozitif" : news.sentiment === "Negatif" ? "▼ Negatif" : "→ Nötr"}
+                            {news.sentiment === "Pozitif" ? `▲ ${L("Pozitif","Positive")}` : news.sentiment === "Negatif" ? `▼ ${L("Negatif","Negative")}` : `→ ${L("Nötr","Neutral")}`}
                           </span>
                         </div>
                         <p className="text-[10px] text-slate-500">📅 {news.date} &nbsp;•&nbsp; {news.source}</p>
@@ -1649,20 +1497,20 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-500 text-[11px] md:text-[12px]">Güncel haber verisi alınamadı.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">{L("Güncel haber verisi alınamadı.", "Latest news data could not be retrieved.")}</p>
                   </div>
                 )}
               </div>
 
-              {/* ══ BÖLÜM 11: ANALIST KONSENSÜSÜ & FİYAT HEDEFİ ═══════════════════════ */}
+              {/* ══ BÖLÜM 10: ANALIST KONSENSÜSÜ & FİYAT HEDEFİ ═══════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="👥" title="BÖLÜM 11 — ANALIST KONSENSÜSÜ & FİYAT HEDEFİ" />
+                <SectionTitle icon="👥" title={L("BÖLÜM 10 — ANALIST KONSENSÜSÜ & FİYAT HEDEFİ", "SECTION 10 — ANALYST CONSENSUS & PRICE TARGET")} />
                 {rd.analystData?.count > 0 ? (
                   <div className="space-y-4">
                     {/* Konsensüs dağılımı */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {[
-                        { label: "Analiz Yapan", value: rd.analystData.count, cls: "text-white", border: "border-[#1e3a5f]/40" },
+                        { label: L("Analiz Yapan","Analysts"), value: rd.analystData.count, cls: "text-white", border: "border-[#1e3a5f]/40" },
                         { label: "Buy",          value: rd.analystData.buy,   cls: "text-emerald-300", border: "border-emerald-500/40 bg-emerald-500/5" },
                         { label: "Hold",         value: rd.analystData.hold,  cls: "text-amber-300",   border: "border-amber-500/40 bg-amber-500/5" },
                         { label: "Sell",         value: rd.analystData.sell,  cls: "text-rose-300",    border: "border-rose-500/40 bg-rose-500/5" },
@@ -1695,26 +1543,26 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                     {/* Fiyat hedefleri */}
                     <div className="grid grid-cols-3 gap-3">
                       <div className="bg-[#0d1321]/60 border border-rose-500/20 rounded-lg p-3">
-                        <div className="text-[10px] font-black text-slate-500 uppercase">Min Hedef</div>
+                        <div className="text-[10px] font-black text-slate-500 uppercase">{L("Min Hedef","Min Target")}</div>
                         <div className="text-base font-black text-rose-400 mt-1">${rd.analystData.minTarget?.toFixed(2)}</div>
                       </div>
                       <div className="bg-[#0d1321]/60 border border-[#06b6d4]/30 rounded-lg p-3">
-                        <div className="text-[10px] font-black text-slate-500 uppercase">Ort. Hedef</div>
+                        <div className="text-[10px] font-black text-slate-500 uppercase">{L("Ort. Hedef","Avg Target")}</div>
                         <div className="text-base font-black text-[#06b6d4] mt-1">${rd.analystData.avgTarget?.toFixed(2)}</div>
                         <div className={`text-[10px] font-black mt-0.5 ${rd.analystData.avgTarget > rd.currentPrice ? "text-emerald-400" : "text-rose-400"}`}>
                           {rd.analystData.avgTarget > rd.currentPrice ? "▲ " : "▼ "}
-                          {Math.abs(((rd.analystData.avgTarget - rd.currentPrice) / rd.currentPrice) * 100).toFixed(1)}% potansiyel
+                          {Math.abs(((rd.analystData.avgTarget - rd.currentPrice) / rd.currentPrice) * 100).toFixed(1)}% {L("potansiyel","potential")}
                         </div>
                       </div>
                       <div className="bg-[#0d1321]/60 border border-emerald-500/20 rounded-lg p-3">
-                        <div className="text-[10px] font-black text-slate-500 uppercase">Max Hedef</div>
+                        <div className="text-[10px] font-black text-slate-500 uppercase">{L("Max Hedef","Max Target")}</div>
                         <div className="text-base font-black text-emerald-400 mt-1">${rd.analystData.maxTarget?.toFixed(2)}</div>
                       </div>
                     </div>
                     {/* Son revizyonlar */}
                     {rd.analystData.recentUpgrades?.length > 0 && (
                       <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
-                        <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📋 Son 30 Günde Revizyon</div>
+                        <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-2">📋 {L("Son 30 Günde Revizyon","Revisions in Last 30 Days")}</div>
                         <div className="space-y-1.5">
                           {rd.analystData.recentUpgrades.map((u: any, i: number) => (
                             <div key={i} className="flex items-center justify-between text-[11px]">
@@ -1729,14 +1577,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için analist konsensüsü verisi mevcut değil.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">{L("Bu hisse için analist konsensüsü verisi mevcut değil.", "Analyst consensus data is not available for this stock.")}</p>
                   </div>
                 )}
               </div>
 
-              {/* ══ BÖLÜM 12: 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ ══════════════════════ */}
+              {/* ══ BÖLÜM 11: 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ ══════════════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="🏛️" title="BÖLÜM 12 — 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ (EN BÜYÜK 5)" />
+                <SectionTitle icon="🏛️" title={L("BÖLÜM 11 — 13F KURUMSAL SAHİPLİK DEĞİŞİMLERİ (EN BÜYÜK 5)", "SECTION 11 — 13F INSTITUTIONAL OWNERSHIP CHANGES (TOP 5)")} />
                 {rd.institutionalOwners?.length > 0 ? (
                   <div className="space-y-2">
                     {rd.institutionalOwners.map((owner: any, i: number) => {
@@ -1751,8 +1599,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                             </span>
                           </div>
                           <div className="text-[11px] text-slate-400">
-                            📊 {owner.shares.toLocaleString()} hisse &nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">{posStr}</span>
-                            {owner.reportDate && <span className="ml-2 text-slate-600">Rapor: {owner.reportDate}</span>}
+                            📊 {owner.shares.toLocaleString()} {L("hisse","shares")} &nbsp;•&nbsp; <span className="text-[#06b6d4] font-black">{posStr}</span>
+                            {owner.reportDate && <span className="ml-2 text-slate-600">{L("Rapor","Report")}: {owner.reportDate}</span>}
                           </div>
                         </div>
                       );
@@ -1760,14 +1608,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için kurumsal sahiplik verisi mevcut değil.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">{L("Bu hisse için kurumsal sahiplik verisi mevcut değil.", "Institutional ownership data is not available for this stock.")}</p>
                   </div>
                 )}
               </div>
 
-              {/* ══ BÖLÜM 13: KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI ═══════════════ */}
+              {/* ══ BÖLÜM 12: KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI ═══════════════ */}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/60 rounded-2xl p-4 md:p-5 space-y-4">
-                <SectionTitle icon="📊" title="BÖLÜM 13 — KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI" />
+                <SectionTitle icon="📊" title={L("BÖLÜM 12 — KAZANÇ GEÇMİŞİ & POST-EARNINGS DAVRANIŞI", "SECTION 12 — EARNINGS HISTORY & POST-EARNINGS BEHAVIOR")} />
                 {rd.earningsHistory?.length > 0 ? (
                   <div className="space-y-2">
                     {rd.earningsHistory.map((e: any, i: number) => (
@@ -1780,23 +1628,23 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                           </span>
                         </div>
                         <div className="text-[11px] text-slate-400">
-                          EPS Gerçekleşen: <span className={`font-black ${e.epsBeating ? "text-emerald-300" : "text-rose-300"}`}>${e.eps.toFixed(2)}</span>
-                          &nbsp;/&nbsp; Tahmin: <span className="text-slate-300">${e.estimate.toFixed(2)}</span>
+                          {L("EPS Gerçekleşen","Actual EPS")}: <span className={`font-black ${e.epsBeating ? "text-emerald-300" : "text-rose-300"}`}>${e.eps.toFixed(2)}</span>
+                          &nbsp;/&nbsp; {L("Tahmin","Estimate")}: <span className="text-slate-300">${e.estimate.toFixed(2)}</span>
                         </div>
                       </div>
                     ))}
                     <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-3">
-                      <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-1">📊 Bilanço Performansı Özeti</div>
+                      <div className="text-[10px] font-black text-[#06b6d4] uppercase tracking-widest mb-1">📊 {L("Bilanço Performansı Özeti","Earnings Performance Summary")}</div>
                       {(() => {
                         const beatCount = rd.earningsHistory.filter((e: any) => e.epsBeating).length;
                         const total = rd.earningsHistory.length;
                         const beatRate = Math.round((beatCount / total) * 100);
                         return (
                           <p className="text-[11px] text-slate-300">
-                            Son {total} çeyrekte <span className="font-black text-white">{beatCount}/{total}</span> Beat (%{beatRate}).
-                            {beatRate >= 75 ? " 🟢 Güçlü beat geçmişi — süpriz potansiyeli yüksek." :
-                             beatRate >= 50 ? " 🟡 Karışık bilanço performansı — dikkatli takip gerekiyor." :
-                             " 🔴 Zayıf beat geçmişi — bilanço öncesi pozisyon risklidir."}
+                            {L(`Son ${total} çeyrekte`, `In the last ${total} quarters`)} <span className="font-black text-white">{beatCount}/{total}</span> Beat (%{beatRate}).
+                            {beatRate >= 75 ? L(" 🟢 Güçlü beat geçmişi — süpriz potansiyeli yüksek.", " 🟢 Strong beat history — high surprise potential.") :
+                             beatRate >= 50 ? L(" 🟡 Karışık bilanço performansı — dikkatli takip gerekiyor.", " 🟡 Mixed earnings performance — close monitoring needed.") :
+                             L(" 🔴 Zayıf beat geçmişi — bilanço öncesi pozisyon risklidir.", " 🔴 Weak beat history — pre-earnings positioning is risky.")}
                           </p>
                         );
                       })()}
@@ -1804,15 +1652,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
                   </div>
                 ) : (
                   <div className="bg-[#0d1321]/50 border border-[#1e3a5f]/30 rounded-lg p-4 text-center">
-                    <p className="text-slate-500 text-[11px] md:text-[12px]">Bu hisse için kazanç geçmişi verisi mevcut değil.</p>
+                    <p className="text-slate-500 text-[11px] md:text-[12px]">{L("Bu hisse için kazanç geçmişi verisi mevcut değil.", "Earnings history data is not available for this stock.")}</p>
                   </div>
                 )}
               </div>
 
               {/* FOOTER */}
               <div className="text-center py-4 opacity-60 space-y-1">
-                <p className="text-[11px] md:text-[12px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>Yasal Uyarı:</strong> Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm opsiyon stratejileri risk içerir.</p>
-                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — DERİN ANALİZ v3.1 | Developed by AFK DaSYS</p>
+                <p className="text-[11px] md:text-[12px] text-slate-500 max-w-2xl mx-auto leading-relaxed">⚠️ <strong>{L("Yasal Uyarı:","Disclaimer:")}</strong> {L("Bu rapor yalnızca eğitim ve kişisel analiz amaçlıdır. Yatırım tavsiyesi değildir. Tüm yatırım kararları risk içerir.", "This report is for educational and personal analysis purposes only. It is not investment advice. All investment decisions carry risk.")}</p>
+                <p className="text-[11px] md:text-[12px] text-[#475569] font-black tracking-widest uppercase">© 2026 BOGA AI — {L("DERİN ANALİZ","DEEP ANALYSIS")} v3.1 | Developed by AFK DaSYS</p>
               </div>
             </div>
           );
@@ -1822,5 +1670,3 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose }: Props
   );
 }
 
-// Silence TS complaints about optCsp reference
-const optCsp = "-";
