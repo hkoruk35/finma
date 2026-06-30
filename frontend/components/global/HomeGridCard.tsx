@@ -15,12 +15,10 @@ interface Stock {
 
 interface HomeSimpleCardProps {
   title: string;
-  subtitle?: string;
   accent: string;
   stocks: Stock[];
   viewAllHref: string;
   locale: 'tr' | 'en';
-  sortLabel?: string;
 }
 
 const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string }> = {
@@ -33,12 +31,10 @@ const ROW_COLS = 'grid-cols-[1fr_56px_64px_72px]';
 
 export default function HomeSimpleCard({
   title,
-  subtitle,
   accent,
   stocks,
   viewAllHref,
   locale,
-  sortLabel,
 }: HomeSimpleCardProps) {
   const emptyMessage = locale === 'tr' ? 'Veri bulunmamaktadır' : 'No data available';
   const allLabel = locale === 'tr' ? 'TÜMÜ' : 'ALL';
@@ -46,24 +42,21 @@ export default function HomeSimpleCard({
   return (
     <div className="glass-card border-2 border-[#1e2a3a]/50 rounded-2xl overflow-hidden flex flex-col h-full">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-[#1e2a3a]">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-3">
-            <span className="w-1.5 h-6 rounded-full" style={{ background: accent }} />
-            <h3 className="text-sm font-black text-white uppercase tracking-tight">{title}</h3>
-          </div>
-          <Link
-            href={viewAllHref}
-            className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
-            style={{ color: accent, borderColor: `${accent}4d` }}
-          >
-            {allLabel}
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
+      <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
+        <div className="flex items-center gap-3">
+          <span className="w-1.5 h-6 rounded-full" style={{ background: accent }} />
+          <h3 className="text-sm font-black text-white uppercase tracking-tight">{title}</h3>
         </div>
-        {subtitle && <p className="text-xs text-white/50 ml-4">{subtitle}</p>}
+        <Link
+          href={viewAllHref}
+          className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
+          style={{ color: accent, borderColor: `${accent}4d` }}
+        >
+          {allLabel}
+          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </Link>
       </div>
 
       {stocks.length > 0 ? (
@@ -77,7 +70,7 @@ export default function HomeSimpleCard({
           </div>
 
           {/* Rows */}
-          <div className="flex-1 divide-y divide-[#1e2a3a]/70 bg-[#0a0e17]/30">
+          <div className="flex-1 divide-y divide-[#1e2a3a]/70">
             {stocks.map((stock, idx) => {
               const statusStyle = STATUS_STYLE[stock.status];
               const statusLabel = locale === 'tr' ? statusStyle.tr : statusStyle.en;
@@ -125,13 +118,6 @@ export default function HomeSimpleCard({
               );
             })}
           </div>
-
-          {/* Sort label footer */}
-          {sortLabel && (
-            <div className="px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/40 italic">
-              {sortLabel}
-            </div>
-          )}
         </>
       ) : (
         <div className="flex-1 flex items-center justify-center py-12">
