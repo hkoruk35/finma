@@ -78,6 +78,7 @@ export default async function EnHomePage() {
             stocks={swingByVolume}
             viewAllHref="/global/en/swing"
             locale="en"
+            sortLabel="Sorted by swing score"
           />
 
           <HomeSimpleCard
@@ -86,6 +87,7 @@ export default async function EnHomePage() {
             stocks={trendByVolume}
             viewAllHref="/global/en/trend"
             locale="en"
+            sortLabel="Sorted by volume"
           />
 
           <HomeSimpleCard
@@ -94,6 +96,7 @@ export default async function EnHomePage() {
             stocks={top100ByVolume}
             viewAllHref="/global/en/top100"
             locale="en"
+            sortLabel="Most actively traded stocks"
           />
         </div>
 

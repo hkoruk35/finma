@@ -78,6 +78,7 @@ export default async function TrHomePage() {
             stocks={swingByVolume}
             viewAllHref="/global/tr/swing"
             locale="tr"
+            sortLabel="Swing skoruna göre sıralandı"
           />
 
           <HomeSimpleCard
@@ -86,6 +87,7 @@ export default async function TrHomePage() {
             stocks={trendByVolume}
             viewAllHref="/global/tr/trend"
             locale="tr"
+            sortLabel="Hacim sırasına göre"
           />
 
           <HomeSimpleCard
@@ -94,6 +96,7 @@ export default async function TrHomePage() {
             stocks={top100ByVolume}
             viewAllHref="/global/tr/top100"
             locale="tr"
+            sortLabel="En aktif işlem gören hisseler"
           />
         </div>
 

@@ -19,6 +19,7 @@ interface HomeSimpleCardProps {
   stocks: Stock[];
   viewAllHref: string;
   locale: 'tr' | 'en';
+  sortLabel?: string;
 }
 
 const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string }> = {
@@ -35,6 +36,7 @@ export default function HomeSimpleCard({
   stocks,
   viewAllHref,
   locale,
+  sortLabel,
 }: HomeSimpleCardProps) {
   const emptyMessage = locale === 'tr' ? 'Veri bulunmamaktadır' : 'No data available';
   const allLabel = locale === 'tr' ? 'TÜMÜ' : 'ALL';
@@ -92,7 +94,7 @@ export default function HomeSimpleCard({
                   </div>
 
                   <div className="justify-self-center">
-                    <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} />
+                    <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
                   </div>
 
                   <span
@@ -118,6 +120,13 @@ export default function HomeSimpleCard({
               );
             })}
           </div>
+
+          {/* Sort label footer */}
+          {sortLabel && (
+            <div className="px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/40 italic">
+              {sortLabel}
+            </div>
+          )}
         </>
       ) : (
         <div className="flex-1 flex items-center justify-center py-12">
