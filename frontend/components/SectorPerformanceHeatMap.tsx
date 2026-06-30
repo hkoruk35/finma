@@ -34,7 +34,7 @@ function CardWrapper({
   return <div className={className}>{children}</div>;
 }
 
-export default function SectorPerformanceHeatMap({ history, linkHref = "/swing-performance" }: Props) {
+export default function SectorPerformanceHeatMap({ history, linkHref = "/performance" }: Props) {
   const SL_PCT = -3.5;
 
   const heatmap = useMemo(() => {
