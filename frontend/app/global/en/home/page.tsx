@@ -1,8 +1,10 @@
 import { Metadata } from "next";
 import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices } from "@/lib/homeFeed";
+import { getSwingPerformance } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
+import SwingPerformanceBanner from "@/components/SwingPerformanceBanner";
 import TickerTape from "@/components/TickerTape";
 
 export const revalidate = 3600;
@@ -14,12 +16,13 @@ export const metadata: Metadata = {
 };
 
 export default async function EnHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices] = await Promise.all([
+  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices, swingStats] = await Promise.all([
     getTopSwingByVolume(5),
     getTopTrendByVolume(5),
     getTopTop100ByVolume(5),
     getLastUpdated(),
     getLiveIndices(),
+    getSwingPerformance(),
   ]);
 
   return (
@@ -28,35 +31,49 @@ export default async function EnHomePage() {
       <TickerTape indices={indices} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Three column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <HomeSimpleCard
-            title="Swing Trade"
-            accent="#3b82f6"
-            stocks={swingByVolume}
-            viewAllHref="/global/en/swing"
-            locale="en"
-          />
+        {/* Performance Banner */}
+        <SwingPerformanceBanner stats={swingStats?.stats} />
 
+        {/* Swing backbone + Trend/Top100 supporters */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+          {/* Swing card - prominent (2 cols on lg) */}
+          <div className="lg:col-span-2">
+            <HomeSimpleCard
+              title="Current Opportunities"
+              subtitle="Swing Buy Signals"
+              accent="#3b82f6"
+              stocks={swingByVolume}
+              viewAllHref="/global/en/swing"
+              locale="en"
+              sortLabel="Sorted by swing score"
+            />
+          </div>
+
+          {/* Trend card */}
           <HomeSimpleCard
             title="Trend Stocks"
             accent="#a78bfa"
             stocks={trendByVolume}
             viewAllHref="/global/en/trend"
             locale="en"
+            sortLabel="Sorted by volume"
           />
+        </div>
 
+        {/* Top 100 - own row */}
+        <div className="mt-6">
           <HomeSimpleCard
-            title="Top 100"
+            title="Top 100 Tracker"
             accent="#f59e0b"
             stocks={top100ByVolume}
             viewAllHref="/global/en/top100"
             locale="en"
+            sortLabel="Most actively traded stocks"
           />
         </div>
 
         {/* Update info */}
-        <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
+        <div className="mt-10 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
             <p className="text-[11px] text-white/40">
               Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (ET)
