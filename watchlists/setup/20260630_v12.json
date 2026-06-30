@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "ALGM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 69.79,
+        "entry_zone": "67.42 - 72.16",
+        "SL": 60.32,
+        "TP": 88.74
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "ATEX",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 102.04,
+        "entry_zone": "98.31 - 105.77",
+        "SL": 87.13,
+        "TP": 131.86
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "OC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 158.28,
+        "entry_zone": "154.49 - 162.07",
+        "SL": 143.13,
+        "TP": 188.59
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "UCTT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 141.49,
+        "entry_zone": "136.26 - 146.71",
+        "SL": 120.57,
+        "TP": 183.31
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "FLEX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 161.38,
+        "entry_zone": "156.06 - 166.70",
+        "SL": 140.11,
+        "TP": 203.92
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "GLW",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 251.99,
+        "entry_zone": "242.84 - 261.15",
+        "SL": 215.38,
+        "TP": 325.22
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "LRCX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 433.15,
+        "entry_zone": "418.80 - 447.50",
+        "SL": 375.76,
+        "TP": 547.92
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "ONTO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 382.48,
+        "entry_zone": "368.76 - 396.19",
+        "SL": 327.6,
+        "TP": 492.22
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "AXON",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 554.72,
+        "entry_zone": "539.57 - 569.88",
+        "SL": 494.09,
+        "TP": 676.0
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 6.64,
+        "entry_zone": "6.43 - 6.86",
+        "SL": 5.77,
+        "TP": 8.39
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "KLAC",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 302.31,
+        "entry_zone": "292.22 - 312.40",
+        "SL": 261.94,
+        "TP": 383.05
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.02,
+        "entry_zone": "37.63 - 40.41",
+        "SL": 33.44,
+        "TP": 50.17
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 87.04,
+        "entry_zone": "83.82 - 90.26",
+        "SL": 74.16,
+        "TP": 112.8
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "RBLX",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 55.07,
+        "entry_zone": "53.31 - 56.83",
+        "SL": 48.04,
+        "TP": 69.13
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "CHTR",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 139.6,
+        "entry_zone": "135.40 - 143.81",
+        "SL": 122.78,
+        "TP": 173.26
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "MXL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 124.64,
+        "entry_zone": "119.56 - 129.73",
+        "SL": 104.31,
+        "TP": 165.31
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "ACMR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 125.82,
+        "entry_zone": "120.71 - 130.93",
+        "SL": 105.39,
+        "TP": 166.68
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "VICR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 380.04,
+        "entry_zone": "365.32 - 394.75",
+        "SL": 321.18,
+        "TP": 497.75
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "ALAB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 484.58,
+        "entry_zone": "465.01 - 504.15",
+        "SL": 406.29,
+        "TP": 641.17
+    },
+    {
+        "date": "2026-06-30 14:00",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 37.32,
+        "entry_zone": "35.24 - 39.40",
+        "SL": 28.99,
+        "TP": 53.99
+    }
+]

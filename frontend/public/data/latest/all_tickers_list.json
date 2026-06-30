@@ -1,137 +1,71 @@
 {
-  "date": "2026-06-26",
+  "date": "2026-06-30",
   "tickers": [
     {
-      "ticker": "RF",
-      "company": "RF",
+      "ticker": "FISI",
+      "company": "FISI",
       "sector": "Financial Services",
-      "master_score": 58.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 29.96500015258789,
-      "change_pct": -0.05,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "SNDA",
-      "company": "SNDA",
-      "sector": "Healthcare",
-      "master_score": 56.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 39.029998779296875,
-      "change_pct": -0.64,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "GFF",
-      "company": "GFF",
-      "sector": "Industrials",
-      "master_score": 56.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 97.33999633789062,
-      "change_pct": 1.48,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "PSTL",
-      "company": "PSTL",
-      "sector": "Real Estate",
       "master_score": 54.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 24.450000762939453,
-      "change_pct": 0.45,
+      "price": 38.86000061035156,
+      "change_pct": 0.08,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
     },
     {
-      "ticker": "ZD",
-      "company": "ZD",
-      "sector": "Communication Services",
-      "master_score": 51.0,
+      "ticker": "BKV",
+      "company": "BKV",
+      "sector": "Energy",
+      "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 50.095001220703125,
-      "change_pct": 3.18,
+      "price": 27.040000915527344,
+      "change_pct": 4.0,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 49.0 | System: TREND_CONT"
     },
     {
-      "ticker": "WELL",
-      "company": "WELL",
-      "sector": "Real Estate",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 225.97999572753906,
-      "change_pct": 1.01,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "NGVT",
-      "company": "NGVT",
-      "sector": "Basic Materials",
-      "master_score": 50.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 75.08000183105469,
-      "change_pct": 1.23,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "LEG",
-      "company": "LEG",
-      "sector": "Consumer Cyclical",
+      "ticker": "GLP",
+      "company": "GLP",
+      "sector": "Energy",
       "master_score": 46.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 11.699999809265137,
-      "change_pct": 0.86,
+      "price": 47.08000183105469,
+      "change_pct": 0.13,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
     },
     {
-      "ticker": "IPAR",
-      "company": "IPAR",
-      "sector": "Consumer Defensive",
+      "ticker": "TPL",
+      "company": "TPL",
+      "sector": "Energy",
       "master_score": 46.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 108.4124984741211,
-      "change_pct": 3.88,
+      "price": 433.239990234375,
+      "change_pct": 3.16,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 46.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
     },
     {
-      "ticker": "PTRN",
-      "company": "PTRN",
+      "ticker": "CNXN",
+      "company": "CNXN",
       "sector": "Technology",
-      "master_score": 44.0,
+      "master_score": 41.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 22.829999923706055,
-      "change_pct": 4.77,
+      "price": 73.26000213623047,
+      "change_pct": 1.36,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 41.5 | System: TREND_CONT"
     },
     {
-      "ticker": "MSBI",
-      "company": "MSBI",
-      "sector": "Financial Services",
-      "master_score": 42.0,
+      "ticker": "SWK",
+      "company": "SWK",
+      "sector": "Industrials",
+      "master_score": 37.8,
       "score_type": "POSITIVE_BIAS",
-      "price": 30.559999465942383,
-      "change_pct": 0.16,
+      "price": 94.38999938964844,
+      "change_pct": 0.79,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 42.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "VTRS",
-      "company": "VTRS",
-      "sector": "Healthcare",
-      "master_score": 41.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 16.174999237060547,
-      "change_pct": 0.65,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 41.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 37.8 | System: TREND_CONT"
     }
   ]
 }
