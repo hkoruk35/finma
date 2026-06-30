@@ -104,13 +104,13 @@ export default function TrHomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
             <Link
-              href="/tr/kayit"
+              href="/global/tr/kayit"
               className="px-8 py-3.5 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98]"
             >
               Ücretsiz Üye Ol
             </Link>
             <Link
-              href="/tr/giris"
+              href="/global/tr/giris"
               className="px-8 py-3.5 bg-white/5 border border-white/10 text-white/70 rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-white/10 hover:text-white transition-all"
             >
               Giriş Yap
@@ -165,7 +165,7 @@ export default function TrHomePage() {
               </table>
             </div>
             <div className="bg-[#0d1117] border-t border-[#1e2a3a] px-4 py-3 text-center">
-              <Link href="/tr/kayit" className="text-[#3b82f6] text-xs font-bold hover:underline">
+              <Link href="/global/tr/kayit" className="text-[#3b82f6] text-xs font-bold hover:underline">
                 100 hissenin tamamını canlı verilerle görmek için ücretsiz hesap oluştur →
               </Link>
             </div>
@@ -199,7 +199,7 @@ export default function TrHomePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href="/tr/kayit"
+                href="/global/tr/kayit"
                 className="px-8 py-3.5 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all"
               >
                 Ücretsiz Üye Ol

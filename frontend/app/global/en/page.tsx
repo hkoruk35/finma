@@ -105,13 +105,13 @@ export default function EnHomePage() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
             <Link
-              href="/en/register"
+              href="/global/en/register"
               className="px-8 py-3.5 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98]"
             >
               Create Free Account
             </Link>
             <Link
-              href="/en/login"
+              href="/global/en/login"
               className="px-8 py-3.5 bg-white/5 border border-white/10 text-white/70 rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-white/10 hover:text-white transition-all"
             >
               Log In
@@ -166,7 +166,7 @@ export default function EnHomePage() {
               </table>
             </div>
             <div className="bg-[#0d1117] border-t border-[#1e2a3a] px-4 py-3 text-center">
-              <Link href="/en/register" className="text-[#3b82f6] text-xs font-bold hover:underline">
+              <Link href="/global/en/register" className="text-[#3b82f6] text-xs font-bold hover:underline">
                 Create a free account to see all 100 stocks with live data →
               </Link>
             </div>
@@ -200,7 +200,7 @@ export default function EnHomePage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
-                href="/en/register"
+                href="/global/en/register"
                 className="px-8 py-3.5 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all"
               >
                 Create Free Account

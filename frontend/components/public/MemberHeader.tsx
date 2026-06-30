@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n/copy";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
 
   const homeHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
@@ -53,6 +54,42 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         <div className="flex-1" />
 
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Language Selector */}
+          {locale && (
+            <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
+              {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
+                const isActive = locale.toUpperCase() === lang;
+                const isAvailable = lang === 'EN' || lang === 'TR';
+                
+                if (!isAvailable) {
+                  return (
+                    <span
+                      key={lang}
+                      className="px-2 py-1 text-[10px] font-black uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
+                      title="Coming Soon"
+                    >
+                      {lang}
+                    </span>
+                  );
+                }
+                
+                return (
+                  <Link
+                    key={lang}
+                    href={pathname ? pathname.replace(new RegExp(`^/global/${locale}`), `/global/${lang.toLowerCase()}`) : `/global/${lang.toLowerCase()}/home`}
+                    className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
+                      isActive
+                        ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
+                        : "text-[#64748b] hover:text-white hover:bg-white/10"
+                    }`}
+                  >
+                    {lang}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
           <Link
             href={homeHref}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
