@@ -44,12 +44,17 @@ export async function proxy(request: NextRequest) {
   // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
   // /global/en altında sadece landing (/) ve login public — geri her şey üye gerektirir
   // /global/tr altında sadece landing (/) ve giriş public — geri her şey üye gerektirir
+  // Performance ve top100 sayfaları halka açık
   const isGlobalMemberPath =
     (isPathOrSubpath('/global/en') &&
       !pathname.startsWith('/global/en/login') &&
+      !pathname.startsWith('/global/en/performance') &&
+      !pathname.startsWith('/global/en/top100') &&
       pathname !== '/global/en') ||
     (isPathOrSubpath('/global/tr') &&
       !pathname.startsWith('/global/tr/giris') &&
+      !pathname.startsWith('/global/tr/performance') &&
+      !pathname.startsWith('/global/tr/top100') &&
       pathname !== '/global/tr')
 
   const hasSupabaseSession = !!user

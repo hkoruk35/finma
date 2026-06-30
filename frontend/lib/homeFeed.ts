@@ -146,6 +146,38 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
   }));
 }
 
+export async function getAllTop100Tickers(limit = 100): Promise<HomeStock[]> {
+  const tickers = await supabaseSelect("top100_tickers", "select=ticker,sector&active=eq.true");
+  if (tickers.length === 0) return [];
+
+  const snapshots = await supabaseSelect("top100_snapshot", "select=ticker,price,volume,change_pct");
+  const snapByTicker = new Map(snapshots.map((s) => [s.ticker, s]));
+
+  const all = tickers
+    .map((t) => {
+      const s = snapByTicker.get(t.ticker);
+      return {
+        ticker: t.ticker,
+        sector: t.sector || "—",
+        price: s?.price ?? 0,
+        change_pct: s?.change_pct ?? 0,
+        volume: s?.volume ?? 0,
+      };
+    })
+    .sort((a, b) => b.volume - a.volume)
+    .slice(0, limit);
+
+  const live = await fetchLiveQuotes(all.map((t) => t.ticker));
+  return all.map(({ ticker, sector, price, change_pct }) => ({
+    ticker,
+    sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
+    status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
+    price,
+    change_pct,
+    sparkline: live[ticker]?.recent_closes ?? [],
+  }));
+}
+
 export async function getLastUpdated(): Promise<string> {
   const master = await getMasterData();
   if (!master?.generated_at) return "";
