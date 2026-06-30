@@ -41,6 +41,7 @@ const EMPTY: TrackerState = { tickers: [], notes: {}, types: {} };
 function saveToAPI(state: TrackerState) {
   fetch(`/api/store/${STORE_KEY}`, {
     method: "POST",
+    credentials: 'include',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ value: state }),
   }).catch(() => {});
@@ -61,7 +62,7 @@ export function TrackerProvider({ children }: { children: React.ReactNode }) {
     } catch {}
 
     // 2. API'den taze veri
-    fetch(`/api/store/${STORE_KEY}`)
+    fetch(`/api/store/${STORE_KEY}`, { credentials: 'include' })
       .then((r) => r.json())
       .then(({ value }) => {
         if (userModified.current) return;
