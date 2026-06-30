@@ -6,6 +6,7 @@ import { copy, type Locale } from "@/lib/i18n/copy";
 import { getSwingAllPicks } from "@/lib/data";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -118,6 +119,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
+  const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -233,7 +235,6 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "İzle").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
-  const permalink = (ticker: string) => `/global/${locale}/ai?ticker=${ticker}&deep=1`;
 
   if (!mounted || loading) {
     return (
@@ -400,7 +401,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                        <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
@@ -425,7 +426,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{patternLabel(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                        <Link href={permalink(r.ticker)} style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}>{locale === "tr" ? "ANALİZ" : "ANALYZE"}</Link>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setAnalyzeTicker(r.ticker); }}
+                          style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
+                        >
+                          {locale === "tr" ? "ANALİZ" : "ANALYZE"}
+                        </button>
                       </td>
                     </tr>
                     {isExpanded && (
@@ -468,8 +474,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   return (
                     <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
-                          <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                        <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
+                          <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
@@ -510,6 +516,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           </div>
         </div>
       )}
+      <DeepAnalysisOverlay ticker={analyzeTicker} locale={locale} onClose={() => setAnalyzeTicker(null)} />
     </div>
   );
 }

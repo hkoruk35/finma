@@ -8,9 +8,13 @@ interface Props {
   children: ReactNode;
   className?: string;
   detailHref?: string;
+  /** When set, "Detay" becomes a button calling this instead of navigating —
+   *  used to open Deep Analysis in place without ever exposing the /ai URL. */
+  onDetailClick?: () => void;
+  detailLabel?: string;
 }
 
-export default function TickerHoverChart({ ticker, children, className, detailHref }: Props) {
+export default function TickerHoverChart({ ticker, children, className, detailHref, onDetailClick, detailLabel }: Props) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -69,12 +73,21 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
               {ticker} — 1D Chart
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <a
-                href={detailHref || `/stock/${ticker}`}
-                style={{ color: "#3fb950" }}
-              >
-                Detay ↗
-              </a>
+              {onDetailClick ? (
+                <button
+                  onClick={onDetailClick}
+                  style={{ color: "#3fb950", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
+                >
+                  {detailLabel || "Detay ↗"}
+                </button>
+              ) : (
+                <a
+                  href={detailHref || `/stock/${ticker}`}
+                  style={{ color: "#3fb950" }}
+                >
+                  Detay ↗
+                </a>
+              )}
               <a
                 href={`https://finviz.com/quote.ashx?t=${ticker}`}
                 target="_blank"

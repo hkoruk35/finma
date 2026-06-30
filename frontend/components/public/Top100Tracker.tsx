@@ -5,6 +5,7 @@ import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import type { Top100Row } from "@/app/api/top100/route";
 
 const REFRESH_MS = 5 * 60 * 1000;
@@ -105,6 +106,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [sortBy, setSortBy] = useState<string | null>(null);
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
+  const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -220,7 +222,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
-  const permalink = (ticker: string) => `/global/${locale}/ai?ticker=${ticker}&deep=1`;
+
 
   if (!mounted || loading) {
     return (
@@ -380,7 +382,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}>
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                         <span onClick={() => toggleExpand(r.ticker)} style={{ cursor: "pointer" }}>
-                          <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
+                          <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                             <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
                           </TickerHoverChart>
                           <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
@@ -430,10 +432,12 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                         )}
                       </td>
                       <td style={{ padding: "7px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
-                        <a href={permalink(r.ticker)}
-                          style={{ background: "transparent", border: "1px solid #3b82f666", color: "#3b82f6", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, textDecoration: "none", display: "inline-block" }}>
+                        <button
+                          onClick={() => setAnalyzeTicker(r.ticker)}
+                          style={{ background: "transparent", border: "1px solid #3b82f666", color: "#3b82f6", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, textDecoration: "none", display: "inline-block" }}
+                        >
                           {locale === "tr" ? "Analiz ↗" : "Analysis ↗"}
-                        </a>
+                        </button>
                       </td>
                     </tr>
                     {isExpanded && (
@@ -476,8 +480,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   return (
                     <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={r.ticker} detailHref={permalink(r.ticker)}>
-                          <Link href={permalink(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{r.ticker}</Link>
+                        <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
+                          <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
@@ -517,6 +521,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
           </div>
         </div>
       )}
+      <DeepAnalysisOverlay ticker={analyzeTicker} locale={locale} onClose={() => setAnalyzeTicker(null)} />
     </div>
   );
 }
