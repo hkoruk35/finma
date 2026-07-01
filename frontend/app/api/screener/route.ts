@@ -835,8 +835,8 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const bbwHistory: number[] = [];
     for (let i = 20; i <= closes.length; i++) {
       const sl = closes.slice(i - 20, i);
-      const m  = sl.reduce((a, b) => a + b, 0) / 20;
-      const std = Math.sqrt(sl.reduce((s, v) => s + (v - m) ** 2, 0) / 20);
+      const m  = sl.reduce((a: number, b: number) => a + b, 0) / 20;
+      const std = Math.sqrt(sl.reduce((s: number, v: number) => s + (v - m) ** 2, 0) / 20);
       bbwHistory.push(m > 0 ? (4 * std) / m : 0);
     }
     const bbwEma20 = bbwHistory.length >= 20 ? ema(bbwHistory, 20) : bb.width;
