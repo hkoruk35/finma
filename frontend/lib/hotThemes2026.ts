@@ -45,7 +45,6 @@ export const HOT_THEMES_2026: HotTheme[] = [
       { ticker: "RKLB", company: "Rocket Lab", blurb: "Küçük uydu fırlatma roketleri; elektrikli Neutron roket geliştirme." },
       { ticker: "ASTS", company: "Ast SpaceMobile", blurb: "Orbital uzay haberleşme şirketi; doğrudan cep telefonlarına uydu bağlantısı." },
       { ticker: "LUNR", company: "Intuitive Machines", blurb: "Ay lander teknolojisi ve ay yüzeyinde ticari operasyonlar." },
-      { ticker: "ĞŞ", company: "ĞŞ", blurb: "Uzay sektörü yatırımcısı." },
       { ticker: "FJET", company: "FJET", blurb: "Uzay teknolojisi şirketi." },
       { ticker: "SATL", company: "Satellite Communications", blurb: "Uydu haberleşme altyapısı." },
       { ticker: "FLY", company: "FLY", blurb: "Havacılık ve uzay operasyonları." },
