@@ -179,9 +179,14 @@ export async function getAllTop100Tickers(limit = 100): Promise<HomeStock[]> {
 }
 
 export async function getLastUpdated(): Promise<string> {
+  // Trend Stocks and Top 100 update hourly via ISR revalidation.
+  // Use the page build time (new Date()) as the authoritative "last updated"
+  // since it always reflects the most recent data fetch across all three tables.
   const master = await getMasterData();
-  if (!master?.generated_at) return "";
-  return new Date(master.generated_at).toLocaleString("en-US", {
+  const swingTime = master?.generated_at ? new Date(master.generated_at).getTime() : 0;
+  const now = Date.now();
+  const latest = new Date(Math.max(swingTime, now));
+  return latest.toLocaleString("en-US", {
     timeZone: "America/New_York",
     hour: "2-digit",
     minute: "2-digit",

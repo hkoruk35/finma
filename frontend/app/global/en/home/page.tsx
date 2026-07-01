@@ -123,7 +123,7 @@ export default async function EnHomePage() {
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
           {lastUpdated && (
             <p className="text-[11px] text-white/40">
-              Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (ET)
+              Last updated: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
             </p>
           )}
           <p className="text-[10px] text-white/25 max-w-xl">
