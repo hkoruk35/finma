@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "GRRR",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 19.85,
+        "entry_zone": "19.11 - 20.59",
+        "SL": 16.88,
+        "TP": 25.79
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "ASX",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 43.56,
+        "entry_zone": "42.23 - 44.89",
+        "SL": 38.24,
+        "TP": 54.21
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "AXON",
+        "sector": "Industrials",
+        "action": "CLOSE",
+        "price": 577.99,
+        "entry_zone": "562.76 - 593.22",
+        "SL": 517.06,
+        "TP": 699.84
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "AMD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 553.24,
+        "entry_zone": "535.26 - 571.23",
+        "SL": 481.3,
+        "TP": 697.14
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "APD",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 289.01,
+        "entry_zone": "284.84 - 293.18",
+        "SL": 272.34,
+        "TP": 322.35
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "CODI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 10.64,
+        "entry_zone": "10.38 - 10.90",
+        "SL": 9.62,
+        "TP": 12.68
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "MGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.28,
+        "entry_zone": "12.93 - 13.64",
+        "SL": 11.85,
+        "TP": 16.15
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "GEV",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 1135.05,
+        "entry_zone": "1106.75 - 1163.35",
+        "SL": 1021.85,
+        "TP": 1361.46
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "APH",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 168.02,
+        "entry_zone": "164.75 - 171.29",
+        "SL": 154.93,
+        "TP": 194.2
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "RARE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 32.79,
+        "entry_zone": "31.97 - 33.61",
+        "SL": 29.53,
+        "TP": 39.31
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "WTS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 385.28,
+        "entry_zone": "378.84 - 391.72",
+        "SL": 359.52,
+        "TP": 436.81
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "VRT",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 316.3,
+        "entry_zone": "305.09 - 327.52",
+        "SL": 271.44,
+        "TP": 406.04
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 67.32,
+        "entry_zone": "64.90 - 69.74",
+        "SL": 57.65,
+        "TP": 86.66
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "MRVL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 284.04,
+        "entry_zone": "270.57 - 297.50",
+        "SL": 230.18,
+        "TP": 391.75
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "FORM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 151.57,
+        "entry_zone": "144.88 - 158.26",
+        "SL": 124.81,
+        "TP": 205.09
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "VSAT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 89.77,
+        "entry_zone": "86.40 - 93.14",
+        "SL": 76.27,
+        "TP": 116.76
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "FCEL",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 36.5,
+        "entry_zone": "34.43 - 38.57",
+        "SL": 28.21,
+        "TP": 53.09
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "MXL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 117.84,
+        "entry_zone": "112.32 - 123.35",
+        "SL": 95.78,
+        "TP": 161.96
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "UCTT",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 131.54,
+        "entry_zone": "126.18 - 136.91",
+        "SL": 110.08,
+        "TP": 174.47
+    },
+    {
+        "date": "2026-07-01 09:45",
+        "symbol": "KLAC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 279.08,
+        "entry_zone": "268.52 - 289.64",
+        "SL": 236.86,
+        "TP": 363.52
+    }
+]
