@@ -117,6 +117,15 @@ export interface ScreenerResult {
   // D. Kurumsal Geri Çekilmeler (EMA20/EMA50 testi + hacim/CMF onayı)
   ema20_pullback_buy?: boolean;
   ema50_pullback_buy?: boolean;
+  // V2 preset computed fields
+  weekly_ema50?: number;
+  donchian20_high?: number;
+  plus_di?: number;
+  minus_di?: number;
+  bbw_ema20?: number;
+  above_sma200_10d?: boolean;
+  gap_pct?: number;
+  ema8_cross_ema20_recent?: boolean;
 }
 
 interface Regime {
@@ -132,6 +141,13 @@ interface Regime {
 // ─── BOGA Score Weights per Preset (Architecture spec §6.1) ──────────────────
 
 const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options: number; liquidity: number }> = {
+  // ── V2 Presets (aktif) ────────────────────────────────────────────────────
+  swing_momentum: { trend: 40, momentum: 35, options: 5,  liquidity: 20 },
+  breakout:       { trend: 30, momentum: 45, options: 5,  liquidity: 20 },
+  bb_squeeze:     { trend: 20, momentum: 50, options: 5,  liquidity: 25 },
+  day_trade:      { trend: 10, momentum: 55, options: 5,  liquidity: 30 },
+  long_term:      { trend: 50, momentum: 20, options: 5,  liquidity: 25 },
+  // ── Legacy presets (compat) ───────────────────────────────────────────────
   genel_swing:     { trend: 35, momentum: 40, options: 10, liquidity: 15 },
   swing_cont:      { trend: 30, momentum: 25, options: 20, liquidity: 25 },
   early_break:     { trend: 25, momentum: 35, options: 15, liquidity: 25 },
@@ -150,13 +166,13 @@ const PRESET_WEIGHTS: Record<string, { trend: number; momentum: number; options:
 
 // Regime multipliers (Architecture spec §8.1)
 const REGIME_MULTIPLIERS: Record<string, Record<string, number>> = {
-  bull_trending:  { genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25, quality_growth: 1.20, agg_growth: 1.15, breakout_growth: 1.20, hottest_momo: 1.30 },
-  bull_choppy:    { genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 1.00, hottest_momo: 0.85 },
-  neutral:        { genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 0.95, hottest_momo: 0.90 },
-  bear_choppy:    { genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50, quality_growth: 0.40, agg_growth: 0.25, breakout_growth: 0.35, hottest_momo: 0.50 },
-  bear_trending:  { genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35, quality_growth: 0.20, agg_growth: 0.15, breakout_growth: 0.20, hottest_momo: 0.30 },
-  high_volatility:{ genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35, quality_growth: 0.60, agg_growth: 0.70, breakout_growth: 0.80, hottest_momo: 1.20 },
-  low_volatility: { genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75, quality_growth: 1.00, agg_growth: 0.90, breakout_growth: 1.10, hottest_momo: 0.60 },
+  bull_trending:  { swing_momentum: 1.25, breakout: 1.35, bb_squeeze: 1.10, day_trade: 1.05, long_term: 1.20, genel_swing: 1.30, swing_cont: 1.20, early_break: 1.15, day_mom: 1.10, inst_trend: 1.20, opt_sniper: 1.00, gamma_sq: 1.00, cheap_exp: 1.05, ema_cross: 1.10, pre_catalyst: 1.25, quality_growth: 1.20, agg_growth: 1.15, breakout_growth: 1.20, hottest_momo: 1.30 },
+  bull_choppy:    { swing_momentum: 0.90, breakout: 0.85, bb_squeeze: 1.05, day_trade: 0.90, long_term: 0.90, genel_swing: 0.95, swing_cont: 0.85, early_break: 1.00, day_mom: 0.90, inst_trend: 0.90, opt_sniper: 1.10, gamma_sq: 0.80, cheap_exp: 0.90, ema_cross: 0.90, pre_catalyst: 0.95, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 1.00, hottest_momo: 0.85 },
+  neutral:        { swing_momentum: 0.95, breakout: 0.95, bb_squeeze: 1.00, day_trade: 0.90, long_term: 0.90, genel_swing: 0.95, swing_cont: 0.90, early_break: 1.00, day_mom: 0.95, inst_trend: 0.90, opt_sniper: 1.00, gamma_sq: 0.90, cheap_exp: 0.95, ema_cross: 0.95, pre_catalyst: 0.90, quality_growth: 0.90, agg_growth: 0.85, breakout_growth: 0.95, hottest_momo: 0.90 },
+  bear_choppy:    { swing_momentum: 0.30, breakout: 0.40, bb_squeeze: 0.60, day_trade: 0.75, long_term: 0.35, genel_swing: 0.30, swing_cont: 0.40, early_break: 0.50, day_mom: 0.70, inst_trend: 0.30, opt_sniper: 1.10, gamma_sq: 0.50, cheap_exp: 0.60, ema_cross: 0.50, pre_catalyst: 0.50, quality_growth: 0.40, agg_growth: 0.25, breakout_growth: 0.35, hottest_momo: 0.50 },
+  bear_trending:  { swing_momentum: 0.15, breakout: 0.20, bb_squeeze: 0.40, day_trade: 0.75, long_term: 0.20, genel_swing: 0.15, swing_cont: 0.20, early_break: 0.30, day_mom: 0.70, inst_trend: 0.20, opt_sniper: 1.20, gamma_sq: 0.40, cheap_exp: 0.50, ema_cross: 0.30, pre_catalyst: 0.35, quality_growth: 0.20, agg_growth: 0.15, breakout_growth: 0.20, hottest_momo: 0.30 },
+  high_volatility:{ swing_momentum: 0.80, breakout: 0.90, bb_squeeze: 0.85, day_trade: 1.40, long_term: 0.70, genel_swing: 1.20, swing_cont: 0.50, early_break: 0.70, day_mom: 1.40, inst_trend: 0.60, opt_sniper: 1.30, gamma_sq: 1.20, cheap_exp: 1.10, ema_cross: 0.70, pre_catalyst: 1.35, quality_growth: 0.60, agg_growth: 0.70, breakout_growth: 0.80, hottest_momo: 1.20 },
+  low_volatility: { swing_momentum: 1.15, breakout: 1.20, bb_squeeze: 1.40, day_trade: 0.50, long_term: 1.10, genel_swing: 1.10, swing_cont: 0.80, early_break: 1.40, day_mom: 0.50, inst_trend: 0.80, opt_sniper: 1.30, gamma_sq: 0.60, cheap_exp: 0.70, ema_cross: 1.20, pre_catalyst: 0.75, quality_growth: 1.00, agg_growth: 0.90, breakout_growth: 1.10, hottest_momo: 0.60 },
 };
 
 // ─── Universe (Architecture spec §3.1) ───────────────────────────────────────
@@ -447,22 +463,25 @@ function roc(closes: number[], period = 10): number {
 }
 
 function adx(highs: number[], lows: number[], closes: number[], period = 14): number {
-  // Simplified ADX approximation
-  if (highs.length < period * 2) return 20;
+  return adxFull(highs, lows, closes, period).adx;
+}
+
+function adxFull(highs: number[], lows: number[], closes: number[], period = 14): { adx: number; plusDI: number; minusDI: number } {
+  if (highs.length < period * 2) return { adx: 20, plusDI: 20, minusDI: 20 };
   const atrVal = atr(highs, lows, closes, period);
-  if (!atrVal) return 20;
-  let plusDI = 0, minusDI = 0;
+  if (!atrVal) return { adx: 20, plusDI: 20, minusDI: 20 };
+  let plusDMSum = 0, minusDMSum = 0;
   for (let i = 1; i < highs.length; i++) {
     const ph = highs[i] - highs[i - 1];
     const pl = lows[i - 1] - lows[i];
-    if (ph > pl && ph > 0) plusDI += ph;
-    if (pl > ph && pl > 0) minusDI += pl;
+    if (ph > pl && ph > 0) plusDMSum += ph;
+    if (pl > ph && pl > 0) minusDMSum += pl;
   }
   const norm = atrVal * period;
-  const p = (plusDI / period) / norm * 100;
-  const m = (minusDI / period) / norm * 100;
-  const dx = Math.abs(p - m) / (p + m + 0.001) * 100;
-  return Math.min(100, Math.max(0, dx));
+  const plusDI  = norm > 0 ? (plusDMSum / period) / norm * 100 : 0;
+  const minusDI = norm > 0 ? (minusDMSum / period) / norm * 100 : 0;
+  const dx = (plusDI + minusDI) > 0 ? Math.abs(plusDI - minusDI) / (plusDI + minusDI + 0.001) * 100 : 20;
+  return { adx: Math.min(100, Math.max(0, dx)), plusDI, minusDI };
 }
 
 // ─── 15m Pivot System (Floor Pivots from prior session H/L/C, watched intraday) ─
@@ -794,9 +813,46 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
     const vwapVal = vwapRolling(highs, lows, closes, volumes, 20);
     const cmfVal  = chaikinMoneyFlow(highs, lows, closes, volumes, 20);
     const cmfPrev = closes.length >= 25 ? chaikinMoneyFlow(highs.slice(0, -5), lows.slice(0, -5), closes.slice(0, -5), volumes.slice(0, -5), 20) : cmfVal;
-    const adxVal  = +adx(highs, lows, closes, 14).toFixed(1);
+    const adxResult = adxFull(highs, lows, closes, 14);
+    const adxVal  = +adxResult.adx.toFixed(1);
+    const plusDI  = +adxResult.plusDI.toFixed(1);
+    const minusDI = +adxResult.minusDI.toFixed(1);
     const rocVal  = +roc(closes).toFixed(2);
     const ivEst   = Math.min(250, +(atrPct * 16).toFixed(0));
+
+    // ── V2 Preset Signals ───────────────────────────────────────────────────
+    // Weekly EMA50: her 5. günü örnekle → haftalık mum proxisi
+    const weeklyCloses: number[] = [];
+    for (let i = 4; i < closes.length; i += 5) weeklyCloses.push(closes[i]);
+    const weeklyEma50 = weeklyCloses.length >= 10 ? ema(weeklyCloses, Math.min(50, weeklyCloses.length)) : e200;
+
+    // Donchian 20-günlük yüksek: son 20 kapanışın maksimumu (bugün hariç)
+    const donchian20High = closes.length >= 21
+      ? Math.max(...closes.slice(-21, -1))
+      : Math.max(...closes.slice(0, -1));
+
+    // BBW EMA(20): son 30 barda Bollinger Band Width geçmişi → EMA(20) al
+    const bbwHistory: number[] = [];
+    for (let i = 20; i <= closes.length; i++) {
+      const sl = closes.slice(i - 20, i);
+      const m  = sl.reduce((a, b) => a + b, 0) / 20;
+      const std = Math.sqrt(sl.reduce((s, v) => s + (v - m) ** 2, 0) / 20);
+      bbwHistory.push(m > 0 ? (4 * std) / m : 0);
+    }
+    const bbwEma20 = bbwHistory.length >= 20 ? ema(bbwHistory, 20) : bb.width;
+
+    // EMA8 > EMA20 cross son 3 barda mı yaşandı?
+    const e8_3bar  = closes.length >= 4 ? ema(closes.slice(0, -3), 8)  : e8;
+    const e20_3bar = closes.length >= 4 ? ema(closes.slice(0, -3), 20) : e20;
+    const ema8_cross_ema20_recent = e8 > e20 && e8_3bar <= e20_3bar;
+
+    // Fiyat son 10 günde SMA200 altına hiç inmedi mi?
+    const above_sma200_10d = closes.length >= 10 && Math.min(...closes.slice(-10)) > s200;
+
+    // Gap: önceki kapanış → bugünkü açılış
+    const opens = ((q.open || []) as any[]).filter((v): v is number => v != null && typeof v === "number");
+    const todayOpen = opens.at(-1) ?? price;
+    const gap_pct = prev1d > 0 ? +((todayOpen - prev1d) / prev1d * 100).toFixed(2) : 0;
 
     const hi52 = meta.fiftyTwoWeekHigh ?? Math.max(...closes.slice(-252));
     const lo52 = meta.fiftyTwoWeekLow  ?? Math.min(...closes.slice(-252));
@@ -931,6 +987,15 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
       roc_strong,
       ema20_pullback_buy,
       ema50_pullback_buy,
+      // V2 preset fields
+      weekly_ema50:           +weeklyEma50.toFixed(2),
+      donchian20_high:        +donchian20High.toFixed(2),
+      plus_di:                plusDI,
+      minus_di:               minusDI,
+      bbw_ema20:              +bbwEma20.toFixed(4),
+      above_sma200_10d,
+      gap_pct,
+      ema8_cross_ema20_recent,
     } as any;
   } catch { return null; }
 }
@@ -938,7 +1003,70 @@ async function analyzeTicker(ticker: string, preset: string, regime: string, spy
 // ─── Preset Filters (Architecture spec §4.3 + §4.4) ──────────────────────────
 
 function passesPreset(s: ScreenerResult, preset: string): boolean {
+  const r = s as any; // V2 fields erişimi
   switch (preset) {
+
+    // ── V2 Presets ────────────────────────────────────────────────────────────
+
+    case "swing_momentum":
+      // Haftalık Teyitli Trend Takibi
+      // 1. Haftalık Close > Haftalık EMA50 (makro trend koruması)
+      // 2. EMA20 > EMA50 > EMA200 (stack)
+      // 3. Fiyat son 3 barda EMA8 üzerine çıktı VEYA EMA8 EMA20'yi yukarı kesti
+      // 4. RSI > 53 VE RSI Slope > 0
+      // 5. RVOL > 1.3
+      return s.price > (r.weekly_ema50 ?? s.ema200) &&
+             s.ema20 > s.ema50 &&
+             s.ema50 > s.ema200 &&
+             (r.ema8_cross_ema20_recent === true || (s.ema8 > s.ema20 && s.price > s.ema8 && s.price <= s.ema8 * 1.04)) &&
+             s.rsi >= 53 &&
+             s.rsi_slope > 0 &&
+             s.rvol >= 1.3;
+
+    case "breakout":
+      // Konsolidasyon & Hacimli Direnç Kırılımı — Donchian Breakout
+      // 1. Close > 20 günün en yüksek kapanışı (Donchian üst band kırılımı)
+      // 2. RVOL > 2.2 (kurumsal blok alımı teyidi)
+      // 3. BBW > EMA(BBW, 20) — band genişliyor, oynaklık destekliyor
+      // 4. ADX > 23 VE +DI > -DI (yön teyidi)
+      return s.price > (r.donchian20_high ?? s.resistance) &&
+             s.rvol >= 2.2 &&
+             s.bb_width > (r.bbw_ema20 ?? 0) &&
+             s.adx >= 23 &&
+             (r.plus_di ?? 0) > (r.minus_di ?? 0);
+
+    case "bb_squeeze":
+      // Daralma & Patlama Öncesi Birikim — TTM Squeeze
+      // 1. BB(20,2) tamamen KC(20,1.5) içinde → enerji sıkışması
+      // 2. CMF > +0.05 → fiyat yatayken para içeri akıyor
+      // 3. Tetiklenme: Close > KC Upper band (patlama başladı)
+      return s.squeeze_active === true &&
+             (s.cmf ?? 0) > 0.05 &&
+             s.price > (s.keltner_upper ?? Infinity);
+
+    case "day_trade":
+      // Açılış İvmesi & Gün İçi Momentum
+      // 1. Gap > 1.5% VEYA günlük değişim > 3%
+      // 2. RVOL > 3.0 (gün içi likidite patlaması)
+      // 3. ATR > 2.5% (hareket alanı geniş)
+      return ((r.gap_pct ?? 0) > 1.5 || s.change_1d > 3.0) &&
+             s.rvol >= 3.0 &&
+             s.atr_pct >= 2.5;
+
+    case "long_term":
+      // Nitelikli Büyüme & Kurumsal Kale
+      // 1. MCap > $5B (kurumsal fon derinliği)
+      // 2. Close > SMA200 VE son 10 günde hiç SMA200 altına inmedi
+      // 3. ROC(10) > 3% → büyüme proxy (temel veri yok, teknik proxy)
+      // 4. RSI 45-75 → sağlıklı momentum aralığı
+      return s.market_cap >= 5e9 &&
+             s.price > s.sma200 &&
+             (r.above_sma200_10d === true) &&
+             s.roc10 >= 3 &&
+             s.rsi >= 45 && s.rsi <= 75;
+
+    // ── Legacy Presets ────────────────────────────────────────────────────────
+
     case "genel_swing":
       // Price > EMA20, EMA20 > EMA50, RSI 48+, RSI düşüş eğiliminde değil
       return s.price > s.ema20 &&
