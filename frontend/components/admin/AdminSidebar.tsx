@@ -5,13 +5,22 @@ import { usePathname } from "next/navigation";
 
 const NAV = [
   { href: "/admin", label: "Genel Bakış" },
-  { href: "/admin/members", label: "Üyeler" },
-  { href: "/admin/messages", label: "Mesajlar" },
-  { href: "/admin/plans", label: "Paketler" },
-  { href: "/admin/campaigns", label: "Kampanyalar" },
-  { href: "/admin/sitemap", label: "Site Haritası" },
-  { href: "/admin/top100", label: "Top100" },
-  { href: "/admin/admins", label: "Adminler" },
+  { href: "/admin/trading/swing", label: "📈 Trading" },
+  { href: "/admin/analytics/performance", label: "📊 Analytics" },
+  { href: "/admin/portfolio/tracker", label: "💼 Portfolio" },
+  { href: "/admin/education/academy", label: "🎓 Education" },
+  { href: "/admin/stocks/[ticker]", label: "📱 Stocks" },
+  { href: "/admin/ai", label: "🤖 AI" },
+  { href: "/admin/account/login", label: "👤 Account" },
+  { href: "/admin/archive", label: "📦 Archive" },
+  { href: "/admin/pro", label: "⭐ Pro" },
+  { href: "/admin/members", label: "👥 Üyeler" },
+  { href: "/admin/messages", label: "💬 Mesajlar" },
+  { href: "/admin/plans", label: "📋 Paketler" },
+  { href: "/admin/campaigns", label: "📣 Kampanyalar" },
+  { href: "/admin/sitemap", label: "🗺️ Site Haritası" },
+  { href: "/admin/top100", label: "🏆 Top100" },
+  { href: "/admin/admins", label: "👨‍💼 Adminler" },
 ];
 
 export default function AdminSidebar({ role }: { role?: string }) {

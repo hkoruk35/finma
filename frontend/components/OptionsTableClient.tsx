@@ -208,7 +208,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
             Institutional Terminal
           </span>
           <Link 
-            href="/options/performance" 
+            href="/admin/trading/options/performance" 
             className="ml-2 text-[10px] text-white hover:text-[#34d399] bg-[#34d399]/10 hover:bg-[#34d399]/20 px-3 py-1 rounded border border-[#34d399]/30 hover:border-[#34d399]/60 uppercase tracking-widest font-black flex items-center gap-1.5 transition-all"
           >
             <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-pulse" />

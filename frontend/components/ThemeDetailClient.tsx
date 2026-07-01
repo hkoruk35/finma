@@ -663,7 +663,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                       <td style={{ padding: "7px 8px", textAlign: "right" }}>
                         {isInTracker(sym) ? (
                           <Link
-                            href="/tracker"
+                            href="/admin/portfolio/tracker"
                             onClick={e => e.stopPropagation()}
                             style={{
                               display: "inline-block", padding: "2px 8px", fontSize: 10,

@@ -932,7 +932,7 @@ export default function TerminalClient() {
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a2234] shrink-0">
               <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">CSP Portföy</span>
-              <Link href="/csp/portfolio" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
+              <Link href="/admin/trading/csp/portfolio" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
                 Tümü ↗
               </Link>
             </div>
@@ -964,7 +964,7 @@ export default function TerminalClient() {
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a2234] shrink-0">
               <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Long-Term</span>
-              <Link href="/csp/long_term" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
+              <Link href="/admin/trading/csp/long_term" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
                 Tümü ↗
               </Link>
             </div>

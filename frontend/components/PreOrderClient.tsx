@@ -244,7 +244,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
       <div style={{ minHeight: "80vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12 }}>
         <div style={{ fontSize: 32 }}>⚠️</div>
         <div style={{ color: "#f85149", fontSize: 14 }}>{error || "Veri alınamadı"}</div>
-        <Link href="/tracker" style={{ color: "#3b82f6", fontSize: 12 }}>← Tracker'a Dön</Link>
+        <Link href="/admin/portfolio/tracker" style={{ color: "#3b82f6", fontSize: 12 }}>← Tracker'a Dön</Link>
       </div>
     );
   }
@@ -273,7 +273,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-            <Link href="/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
+            <Link href="/admin/portfolio/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
             <span style={{ color: "#30363d" }}>/</span>
             <span style={{ fontSize: 24, fontWeight: 900, fontFamily: "monospace", letterSpacing: "0.05em" }}>{a.ticker}</span>
             <span style={{ fontSize: 14, color: "#8b949e", fontWeight: 400 }}>{a.company}</span>
@@ -681,16 +681,16 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
       {/* Bottom nav links */}
       {!hideAdminActions && (
         <div style={{ marginTop: 24, display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <Link href="/preorder/swing"    style={{ fontSize: 12, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95033", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/admin/trading/preorder/swing"    style={{ fontSize: 12, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95033", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
             Swing Listesi →
           </Link>
-          <Link href="/preorder/longterm" style={{ fontSize: 12, color: "#3b82f6", background: "#0d1a2e", border: "1px solid #3b82f633", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/admin/trading/preorder/longterm" style={{ fontSize: 12, color: "#3b82f6", background: "#0d1a2e", border: "1px solid #3b82f633", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
             Long Term Listesi →
           </Link>
-          <Link href="/order/swing"       style={{ fontSize: 12, color: "#e3b341", background: "#1a1a0d", border: "1px solid #e3b34133", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/admin/portfolio/order/swing"       style={{ fontSize: 12, color: "#e3b341", background: "#1a1a0d", border: "1px solid #e3b34133", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
             Swing Portföy →
           </Link>
-          <Link href="/order/longterm"    style={{ fontSize: 12, color: "#e3b341", background: "#1a1a0d", border: "1px solid #e3b34133", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
+          <Link href="/admin/portfolio/order/longterm"    style={{ fontSize: 12, color: "#e3b341", background: "#1a1a0d", border: "1px solid #e3b34133", padding: "6px 14px", borderRadius: 6, textDecoration: "none" }}>
             LT Portföy →
           </Link>
         </div>

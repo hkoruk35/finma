@@ -258,7 +258,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <Link href="/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
+            <Link href="/admin/portfolio/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
             <span style={{ color: "#30363d" }}>/</span>
             <Link href={`/preorder/${type}`} style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>Pre-Order</Link>
             <span style={{ color: "#30363d" }}>/</span>

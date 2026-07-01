@@ -38,7 +38,7 @@ export default function DailyArchiveClient({ date }: DailyArchiveProps) {
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 8 }}>
-          <Link href="/csp/daily" style={{ color: "#f59e0b" }}>
+          <Link href="/admin/trading/csp/daily" style={{ color: "#f59e0b" }}>
             DAILY
           </Link>
           <span style={{ margin: "0 6px" }}>/</span>
@@ -129,7 +129,7 @@ export default function DailyArchiveClient({ date }: DailyArchiveProps) {
           {/* Back Link */}
           <div style={{ marginTop: 24, paddingLeft: 16 }}>
             <Link
-              href="/csp/daily"
+              href="/admin/trading/csp/daily"
               style={{
                 color: "#f59e0b",
                 textDecoration: "none",

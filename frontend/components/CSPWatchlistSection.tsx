@@ -188,7 +188,7 @@ export default function CSPWatchlistSection() {
           {/* Call to Action */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/csp/all-list"
+              href="/admin/trading/csp/all-list"
               className="flex-1 text-center py-3 bg-[#e3b341]/20 border border-[#e3b341] text-[#e3b341] font-bold rounded-lg hover:bg-[#e3b341]/30 transition-all uppercase text-sm tracking-wider"
             >
               Detaylı Listeyi Görüntüle →

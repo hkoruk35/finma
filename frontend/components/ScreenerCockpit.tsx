@@ -1020,7 +1020,7 @@ export default function ScreenerCockpit() {
                         <td style={{ padding: "8px 11px" }}>
                           {isInTracker(stock.ticker) ? (
                             <Link
-                              href="/tracker"
+                              href="/admin/portfolio/tracker"
                               onClick={e => e.stopPropagation()}
                               style={{
                                 display: "inline-block", padding: "3px 8px", fontSize: 10,

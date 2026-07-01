@@ -6,7 +6,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const cookieStore = await cookies();
   const role = cookieStore.get("boga_auth")?.value;
   if (role !== "admin" && role !== "readonly") {
-    redirect("/login");
+    redirect("/admin/account/login");
   }
 
   return (

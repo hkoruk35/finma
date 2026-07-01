@@ -38,7 +38,7 @@ export default function SwingArchiveClient({ date }: SwingArchiveProps) {
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 8 }}>
-          <Link href="/csp/swing" style={{ color: "#6b7280" }}>
+          <Link href="/admin/trading/csp/swing" style={{ color: "#6b7280" }}>
             SWING
           </Link>
           <span style={{ margin: "0 6px" }}>/</span>
@@ -129,7 +129,7 @@ export default function SwingArchiveClient({ date }: SwingArchiveProps) {
           {/* Back Link */}
           <div style={{ marginTop: 24, paddingLeft: 16 }}>
             <Link
-              href="/csp/swing"
+              href="/admin/trading/csp/swing"
               style={{
                 color: "#6b7280",
                 textDecoration: "none",

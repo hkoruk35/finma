@@ -136,7 +136,7 @@ export default function PreOrderListClient({ type }: { type: "swing" | "longterm
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <Link href="/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
+            <Link href="/admin/portfolio/tracker" style={{ color: "#8b949e", fontSize: 11, textDecoration: "none" }}>← Tracker</Link>
             <span style={{ color: "#30363d" }}>/</span>
             <span style={{ fontSize: 20, fontWeight: 900, color: typeColor }}>
               Pre-Order: {typeLabel}
@@ -182,7 +182,7 @@ export default function PreOrderListClient({ type }: { type: "swing" | "longterm
           <div style={{ fontSize: 13, color: "#8b949e", marginBottom: 20 }}>
             Tracker'dan bir hisse seçerek Pre-Order analizine git ve "{typeLabel} Onayla" butonunu kullan.
           </div>
-          <Link href="/tracker" style={{ color: "#3b82f6", fontSize: 13, textDecoration: "none" }}>
+          <Link href="/admin/portfolio/tracker" style={{ color: "#3b82f6", fontSize: 13, textDecoration: "none" }}>
             Tracker'a Git →
           </Link>
         </div>

@@ -253,7 +253,7 @@ export default function SmartTrackerDashboard() {
           <button onClick={() => refreshPrices()} disabled={loading} className="px-3 py-1.5 bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs font-bold rounded-lg hover:border-[#3b82f6]/40 disabled:opacity-50">
             {loading ? "⟳..." : "⟳ Refresh"}
           </button>
-          <Link href="/swing" className="px-3 py-1.5 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-bold rounded-lg hover:bg-[#3b82f6]/20">+ Add Picks</Link>
+          <Link href="/admin/trading/swing" className="px-3 py-1.5 bg-[#3b82f6]/10 border border-[#3b82f6]/30 text-[#3b82f6] text-xs font-bold rounded-lg hover:bg-[#3b82f6]/20">+ Add Picks</Link>
           <button onClick={() => { if (confirm("Archive this tracker?")) closeTracker(); }} className="px-3 py-1.5 text-slate-500 border border-[#1e2a3a] text-xs font-bold rounded-lg hover:text-red-400 hover:border-red-500/30">Archive</button>
         </div>
       </div>
@@ -300,7 +300,7 @@ export default function SmartTrackerDashboard() {
           {filtered.length===0 ? (
             <div className="border border-dashed border-[#1e2a3a] rounded-xl p-10 text-center">
               <div className="text-3xl mb-2">📭</div>
-              <p className="text-slate-500 text-sm">No positions. Go to <Link href="/swing" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Tracker</b>.</p>
+              <p className="text-slate-500 text-sm">No positions. Go to <Link href="/admin/trading/swing" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Tracker</b>.</p>
             </div>
           ) : view==="list" ? (
             <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden">
@@ -386,7 +386,7 @@ export default function SmartTrackerDashboard() {
             ))}
           </div>
 
-          <Link href="/swing" className="block w-full text-center py-2.5 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-black uppercase tracking-widest rounded-xl hover:bg-[#3b82f6]/20 transition-all">
+          <Link href="/admin/trading/swing" className="block w-full text-center py-2.5 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-black uppercase tracking-widest rounded-xl hover:bg-[#3b82f6]/20 transition-all">
             📋 Today's Picks →
           </Link>
         </div>

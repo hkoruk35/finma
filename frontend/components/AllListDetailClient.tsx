@@ -367,7 +367,7 @@ export default function AllListDetailClient() {
                   {csp.label}
                 </Link>
               ))}
-              <Link href="/csp/all-list" style={{
+              <Link href="/admin/trading/csp/all-list" style={{
                 padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid #e3b341",
                 background: "#e3b34120",
@@ -551,7 +551,7 @@ export default function AllListDetailClient() {
                   <td style={{ padding: "7px 8px", textAlign: "right" }}>
                     {isInTracker(sym) ? (
                       <Link
-                        href="/tracker"
+                        href="/admin/portfolio/tracker"
                         onClick={e => e.stopPropagation()}
                         style={{
                           display: "inline-block", padding: "2px 8px", fontSize: 10,
