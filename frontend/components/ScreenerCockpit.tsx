@@ -117,23 +117,42 @@ interface Regime {
 // ─── Preset Definitions ───────────────────────────────────────────────────────
 
 const PRESETS = [
-  // Investment Presets
-  { id: "quality_growth",   name: "Quality Growth",      desc: "Rev↑15% · EPS↑10% · Margin≥35% · ROE≥12%", mode: "investment", color: "#06b6d4", pills: ["RevGrowth≥15%","EPS≥10%","Price>SMA200","Margin≥35%","ROE≥12%","MCap≥1B"],                         icon: "💎" },
-  { id: "agg_growth",       name: "Aggressive Growth",   desc: "Rev↑30% · Margin≥50% · Rule40≥40",         mode: "investment", color: "#f59e0b", pills: ["RevGrowth≥30%","Acceleration","Margin≥50%","FCF Pozitif","P/S≤30"],                          icon: "🚀" },
-  { id: "breakout_growth",  name: "Breakout Growth",     desc: "BOGA≥70 · Golden Cross · RVOL≥2 · ADX≥20", mode: "investment", color: "#10b981", pills: ["BOGA≥70","SMA200↑","RVOL≥2","ADX≥20","Price>EMA20"],                                 icon: "📈" },
-  // Swing Presets
-  { id: "genel_swing",  name: "Genel Swing",          desc: "Close>EMA50>EMA200 · RSI 50-68 · RVOL>1.3 · RelStr · Breakout",  mode: "swing",    color: "#06f3aa", pills: ["Close>EMA50","EMA50>EMA200","RSI 50-68","RSI Yukarı","RVOL>1.3","Vol>Avg20×1.3","Relative Strength","Breakout Setup"],    icon: "🎯" },
-  { id: "hottest_momo", name: "Hottest Momo",         desc: "SMA200↑ · RVOL>1.2 · MCap>250M · Gün>+1%", mode: "swing",   color: "#f97316", pills: ["AvgVol>500K","RVOL>1.2","MCap>250M","RSI 45-75","SMA200↑","Gün≥+1%","YeniZirve/RVOL"], icon: "🔥" },
-  { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥2.0 · RSI 45+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$200M","RVOL≥2.0","RSI 45+","Değ>+2%"],    icon: "🚀" },
-  { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
-  { id: "early_break",  name: "Early Breakout",       desc: "Simetrik Üçgen · BBW%ile · $2-$100",    mode: "swing",    color: "#22c55e", pills: ["Simetrik Üçgen","BBW<30p","$2-$100","SMA50↑","Fib 1.618"],           icon: "📐" },
-  // Day & Options Presets
-  { id: "day_mom",      name: "Day Trade Momentum",   desc: "Değişim>4% · RVOL>3 · Güçlü hareket",   mode: "day",      color: "#f59e0b", pills: ["Değişim>4%","RVOL>3","Güçlü gün"],                                  icon: "⚡" },
-  { id: "opt_sniper",   name: "Options Sniper",       desc: "Haftalık · IV Exp · RVOL>1.3",           mode: "options",  color: "#a855f7", pills: ["Haftalık OPT","IV Expansion","RVOL>1.3","RSI>50"],                 icon: "🎯" },
-  { id: "inst_trend",   name: "Institutional Trend",  desc: "MCap>10B · ADX>20 · Price>SMA200",       mode: "position", color: "#06b6d4", pills: ["MCap>10B","Price>SMA200","ADX>20","EMA20>EMA50"],                  icon: "🏛️" },
-  { id: "cheap_exp",    name: "15m Pivot",            desc: "ATR≥3% · PP Kırılım veya S2/S3 Dönüş",   mode: "day",      color: "#f43f5e", pills: ["ATR≥3%","15m Pivot (PP/R/S)","Haftalık OPT"],                      icon: "📍" },
-  { id: "ema_cross",    name: "EMA Cross Setup",      desc: "EMA8>EMA20 fresh cross · RVOL>1.3",      mode: "swing",    color: "#10b981", pills: ["EMA8>EMA20 (Fresh)","RVOL>1.3","MACD Bölge"],                      icon: "✂️" },
-  { id: "gamma_sq",     name: "Gamma Squeeze",        desc: "Haftalık · ATR>5% · RVOL>2",             mode: "options",  color: "#f97316", pills: ["Haftalık OPT","ATR>5%","MCap<20B","RVOL>2"],                       icon: "🚀" },
+  {
+    id: "swing_momentum",
+    name: "Swing Momentum",
+    desc: "Trend & Kırılım Takibi — 7-15 günlük %8-20 hareket",
+    mode: "swing",
+    color: "#06f3aa",
+    icon: "🎯",
+    pills: ["Close>EMA50>EMA200", "RVOL>1.5", "RSI 55-68", "20D High Kırılım / EMA8>EMA20"],
+  },
+  {
+    id: "core_investment",
+    name: "Core Investment",
+    desc: "Nitelikli Büyüme & Temel Değer — Kurumsal Filtreleme",
+    mode: "investment",
+    color: "#06b6d4",
+    icon: "💸",
+    pills: ["RevGrowth(YoY)>15%", "EPS Growth(YoY)>10%", "NetMargin>15%", "ROE>15%", "Price>SMA200"],
+  },
+  {
+    id: "tactical_day",
+    name: "Tactical Day Trade",
+    desc: "Hızlı Gün İçi Aksiyon — ORB & Pivot Dönüş",
+    mode: "day",
+    color: "#f59e0b",
+    icon: "⚡",
+    pills: ["DailyChange>2%", "RVOL>2.5", "ORB Breakout / Pivot (S1-S2) Reversal"],
+  },
+  {
+    id: "derivatives_pos",
+    name: "Derivatives & Position",
+    desc: "Opsiyon & Kurumsal Trend — IV Rank & ADX Filtreleme",
+    mode: "options",
+    color: "#a855f7",
+    icon: "📈",
+    pills: ["MCap>$1B", "ADX(14)>25", "IV Rank Sapması (Haftalık)", "RVOL>1.8"],
+  },
 ];
 
 const PRICE_RANGES = [
@@ -504,7 +523,7 @@ const REGIME_MULT_HINT: Record<string, string> = {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function ScreenerCockpit() {
-  const [activePreset, setActivePreset] = useState("genel_swing");
+  const [activePreset, setActivePreset] = useState("swing_momentum");
   const currentPreset = PRESETS.find(p => p.id === activePreset);
   const presetPills   = currentPreset?.pills || [];
 
@@ -813,20 +832,20 @@ export default function ScreenerCockpit() {
         <div style={{ width: 220, background: "#0d1117", borderRight: "1px solid #1e2a3a", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: "12px 14px 6px", fontSize: 10, letterSpacing: "1.5px", color: "#7c8fa6", textTransform: "uppercase", fontWeight: 700 }}>Stratejiler</div>
           {(() => {
-            const modes = ["swing", "investment", "day", "options", "position"];
-            const modeLabels: Record<string, string> = {
-              investment: "📊 INVESTMENT",
-              swing: "📈 SWING",
-              day: "⚡ DAY",
-              options: "📋 OPTIONS",
-              position: "🏛️ POSITION"
+            const modeLabels: Record<string, { label: string; color: string }> = {
+              swing:      { label: "🎯 SWING MOMENTUM",         color: "#06f3aa" },
+              investment: { label: "💸 CORE INVESTMENT",         color: "#06b6d4" },
+              day:        { label: "⚡ TACTICAL DAY TRADE",      color: "#f59e0b" },
+              options:    { label: "📈 DERIVATIVES & POSITION", color: "#a855f7" },
             };
+            const modes = ["swing", "investment", "day", "options"];
             return modes.map((mode, modeIdx) => {
-              const modePresets = PRESETS.filter(p => p.mode === mode);
+              const modePresets = PRESETS.filter(p => p.mode === mode || (mode === "options" && p.mode === "position"));
               if (modePresets.length === 0) return null;
+              const ml = modeLabels[mode];
               return (
                 <div key={mode}>
-                  <div style={{ padding: "10px 14px 4px", fontSize: 9, letterSpacing: "1px", color: "#64748b", textTransform: "uppercase", fontWeight: 600, marginTop: modeIdx === 0 ? 0 : 6 }}>{modeLabels[mode]}</div>
+                  <div style={{ padding: "10px 14px 4px", fontSize: 9, letterSpacing: "1px", color: ml.color, textTransform: "uppercase", fontWeight: 700, marginTop: modeIdx === 0 ? 0 : 6, opacity: 0.85 }}>{ml.label}</div>
                   {modePresets.map(p => (
                     <button key={p.id} onClick={() => selectPreset(p)}
                       style={{ display: "block", width: "100%", textAlign: "left", padding: "8px 14px", cursor: "pointer", border: "none", background: activePreset === p.id ? "#111620" : "none", borderLeft: `2px solid ${activePreset === p.id ? p.color : "transparent"}`, transition: "all .15s" }}
