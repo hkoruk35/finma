@@ -571,7 +571,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {serverStats?.stop_loss_pct || "Dynamic SL"}
               </span>
               <span className="px-3 py-1 rounded-full bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e] font-bold">
-                {stats.completedCount} Completed
+                {stats.completedCount} {locale === "tr" ? "Tamamlandı" : "Completed"}
               </span>
               <button
                 onClick={() => setShowStats(v => !v)}
@@ -660,7 +660,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Days-to-Profit Distribution Bar Chart */}
         <div className="px-6 py-5 border-t border-[#1e2a3a]">
-          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-bold">Days Distribution — Winning Trades (Avg Return)</p>
+          <p className="text-sm text-[#00d2ff] uppercase tracking-wider mb-4 font-bold">{locale === "tr" ? "Gün Dağılımı — Kazandıran İşlemler (Ort. Getiri)" : "Days Distribution — Winning Trades (Avg Return)"}</p>
           <div className="flex items-end gap-3 h-28">
             {daysDistribution.map(b => {
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
@@ -677,21 +677,21 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               );
             })}
           </div>
-          <p className="text-sm text-[#00d2ff] mt-2">Each bar shows the avg return and trade count for winning trades that peaked within that holding period.</p>
+          <p className="text-sm text-[#00d2ff] mt-2">{locale === "tr" ? "Her çubuk, o elde tutma süresi içinde zirve yapan kazançlı işlemler için ortalama getiriyi ve işlem sayısını gösterir." : "Each bar shows the avg return and trade count for winning trades that peaked within that holding period."}</p>
         </div>
 
         {/* Quick Percentile Row */}
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +5%</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+5% Ulaştı" : "Reached +5%"}</p>
             <p className="text-xl md:text-2xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +10%</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+10% Ulaştı" : "Reached +10%"}</p>
             <p className="text-xl md:text-2xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
           </div>
           <div className="px-5 py-4 text-center">
-            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">Reached +15%</p>
+            <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+15% Ulaştı" : "Reached +15%"}</p>
             <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
           </div>
         </div>
@@ -829,25 +829,25 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       <div className="flex flex-wrap gap-3 mb-8 items-center">
         <select value={selectedSector} onChange={e => { setSelectedSector(e.target.value); setSelectedSubsector("All"); }}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">All Sectors</option>
+          <option value="All">{locale === "tr" ? "Tüm Sektörler" : "All Sectors"}</option>
           {sectors.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
         <select value={selectedSubsector} onChange={e => setSelectedSubsector(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">All Subsectors</option>
+          <option value="All">{locale === "tr" ? "Tüm Alt Sektörler" : "All Subsectors"}</option>
           {subsectors.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
 
         <select value={selectedYear} onChange={e => { setSelectedYear(e.target.value); setSelectedMonth("All"); }}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">All Years</option>
+          <option value="All">{locale === "tr" ? "Tüm Yıllar" : "All Years"}</option>
           {years.map(y => <option key={y} value={y}>{y}</option>)}
         </select>
 
         <select value={selectedMonth} onChange={e => setSelectedMonth(e.target.value)}
           className="bg-[#1a2030] border border-[#1e2a3a] text-white px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6]">
-          <option value="All">All Months</option>
+          <option value="All">{locale === "tr" ? "Tüm Aylar" : "All Months"}</option>
           {months.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
         </select>
 
@@ -856,7 +856,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           title="Filter by exact date" />
 
         <div className="relative">
-          <input type="text" placeholder="Search Ticker..." value={searchTicker}
+          <input type="text" placeholder={locale === "tr" ? "Hisse Ara..." : "Search Ticker..."} value={searchTicker}
             onChange={e => setSearchTicker(e.target.value)}
             className="bg-[#1a2030] border border-[#1e2a3a] text-white pl-9 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-[#3b82f6] w-full md:w-40" />
           <svg className="w-4 h-4 text-[#00d2ff] absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -867,7 +867,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {hasActiveFilter && (
           <button onClick={resetFilters}
             className="px-4 py-2.5 rounded-xl text-sm border border-[#ef4444]/40 text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors">
-            Reset
+            {locale === "tr" ? "Sıfırla" : "Reset"}
           </button>
         )}
       </div>
@@ -875,7 +875,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       {/* ── Sector Heatmap ───────────────────────────────────────────────── */}
       {heatmap.length > 0 && (
         <div className="mb-6">
-          <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-widest">Sector Profitability Heatmap</h3>
+          <h3 className="text-sm font-bold text-white mb-3 uppercase tracking-widest">{locale === "tr" ? "Sektör Karlılık Isı Haritası" : "Sector Profitability Heatmap"}</h3>
           {/* Mobile: auto-scrolling ticker */}
           <div className="md:hidden overflow-hidden relative">
             <div className="flex gap-2 animate-[ticker_30s_linear_infinite] w-max">
@@ -916,10 +916,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       <div className="w-full">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
           <div className="flex flex-col md:flex-row md:items-center gap-3">
-            <h3 className="text-xl font-bold text-white">Historical Trade Log</h3>
+            <h3 className="text-xl font-bold text-white">{locale === "tr" ? "Geçmiş İşlem Kayıtları" : "Historical Trade Log"}</h3>
             <div className="flex items-center gap-2">
-              <p className="text-xs text-white">Showing {Math.min(visibleCount, filtered.length)} of {filtered.length} trades</p>
-              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">Bot-Calc Stop-Loss Applied</span>
+              <p className="text-xs text-white">{locale === "tr" ? `Toplam ${filtered.length} işlemin ${Math.min(visibleCount, filtered.length)} tanesi gösteriliyor` : `Showing ${Math.min(visibleCount, filtered.length)} of ${filtered.length} trades`}</p>
+              <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">{locale === "tr" ? "Bot-Hesaplı Stop-Loss Uygulandı" : "Bot-Calc Stop-Loss Applied"}</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -1077,19 +1077,19 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               </colgroup>
               <thead>
                 <tr className="bg-[#0d1521] border-b-2 border-[#1e2a3a] text-[#00d2ff] text-[10px]">
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>Date <SortIcon column="date" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>Symbol <SortIcon column="ticker" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Return (SL adj.) <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>Entry <SortIcon column="entry" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>1D EMA50 <SortIcon column="ema50_1d" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>Peak Price <SortIcon column="max_price" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>Peak Gain % <SortIcon column="peak_gain_pct" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>Cur. Price <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>Days <SortIcon column="days" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>PnL/$1K <SortIcon column="return_pct" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>Sector <SortIcon column="sector" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>Subsector <SortIcon column="subsector" /></th>
-                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>Result <SortIcon column="result" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('date')}>{locale === "tr" ? "Tarih" : "Date"} <SortIcon column="date" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ticker')}>{locale === "tr" ? "Sembol" : "Symbol"} <SortIcon column="ticker" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#22c55e] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "Getiri (SL uyarla)" : "Return (SL adj.)"} <SortIcon column="return_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('entry')}>{locale === "tr" ? "Giriş" : "Entry"} <SortIcon column="entry" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#a855f7] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('ema50_1d')}>{locale === "tr" ? "1G EMA50" : "1D EMA50"} <SortIcon column="ema50_1d" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('max_price')}>{locale === "tr" ? "Tepe Fiyat" : "Peak Price"} <SortIcon column="max_price" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#f59e0b] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('peak_gain_pct')}>{locale === "tr" ? "Tepe Kazanç %" : "Peak Gain %"} <SortIcon column="peak_gain_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#00d2ff] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "Anlık Fiyat" : "Cur. Price"} <SortIcon column="return_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('days')}>{locale === "tr" ? "Gün" : "Days"} <SortIcon column="days" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-right text-[#3b82f6] cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('return_pct')}>{locale === "tr" ? "PnL/$1K" : "PnL/$1K"} <SortIcon column="return_pct" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('sector')}>{locale === "tr" ? "Sektör" : "Sector"} <SortIcon column="sector" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('subsector')}>{locale === "tr" ? "Alt Sektör" : "Subsector"} <SortIcon column="subsector" /></th>
+                  <th className="px-3 py-3 font-bold uppercase tracking-wider text-center cursor-pointer hover:bg-[#1e2a3a] whitespace-nowrap" onClick={() => handleSort('result')}>{locale === "tr" ? "Sonuç" : "Result"} <SortIcon column="result" /></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#1e2a3a]/60">
@@ -1162,7 +1162,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </table>
           </div>
           {filtered.length === 0 && (
-            <div className="p-12 text-center text-[#00d2ff]">No trades found for selected filters.</div>
+            <div className="p-12 text-center text-[#00d2ff]">{locale === "tr" ? "Seçili filtreler için işlem bulunamadı." : "No trades found for selected filters."}</div>
           )}
         </div>
 
@@ -1170,8 +1170,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           <div className="mt-6 text-center">
             <button onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
               className="px-8 py-3 rounded-xl bg-[#1e2a3a] border border-[#2d3a4b] text-sm font-bold text-white hover:border-[#3b82f6] hover:text-white transition-all">
-              Load {Math.min(PAGE_SIZE, filtered.length - visibleCount)} more
-              <span className="ml-2 text-[#00d2ff]">({filtered.length - visibleCount} remaining)</span>
+              {locale === "tr" ? `${Math.min(PAGE_SIZE, filtered.length - visibleCount)} daha yükle` : `Load ${Math.min(PAGE_SIZE, filtered.length - visibleCount)} more`}
+              <span className="ml-2 text-[#00d2ff]">({locale === "tr" ? `${filtered.length - visibleCount} kaldı` : `${filtered.length - visibleCount} remaining`})</span>
             </button>
           </div>
         )}

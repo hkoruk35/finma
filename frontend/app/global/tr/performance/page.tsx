@@ -8,8 +8,8 @@ import { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Swing Engine Performance | BOGA AI",
-  description: "Detailed performance records for the BOGA AI Swing Engine. Transparent historical trading data.",
+  title: "Swing Motoru Performansı | BOGA AI",
+  description: "BOGA AI Swing Motoru için detaylı performans kayıtları. Şeffaf geçmiş işlem verileri.",
   alternates: { canonical: "https://bogastock.com/global/tr/performance" },
 };
 
@@ -21,7 +21,7 @@ export default async function TrPerformancePage() {
   ]);
 
   if (!performanceData) {
-    return <div className="min-h-screen bg-[#080b12] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">Loading Performance Data...</div>;
+    return <div className="min-h-screen bg-[#080b12] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">Performans Verileri Yükleniyor...</div>;
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
