@@ -25,10 +25,11 @@ export default async function TrPerformancePage() {
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
-  // Sadece son 100 işlem — tarihe göre en yeniden en eskiye sıralanıp ilk 100 alınır
+  // Tam history kullan — yapay kesim yok.
+  // İstatistikler performanceData.stats'tan gelir (sunucu tarafında tam history üzerinden ön hesaplanmış),
+  // bu da home banner'daki rakamlarla birebir aynı kaynaktır.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
-    .slice(0, 100);
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;

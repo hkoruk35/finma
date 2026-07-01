@@ -25,10 +25,11 @@ export default async function EnPerformancePage() {
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
-  // Last 100 trades only — sorted newest-first, then sliced to 100
+  // Use full history — no artificial slice.
+  // Statistics are driven by performanceData.stats (pre-calculated from full history server-side),
+  // which is exactly the same source that the home banner uses.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
-    .slice(0, 100);
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
