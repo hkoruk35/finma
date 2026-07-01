@@ -115,7 +115,7 @@ export default function AcademyIndexClient() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/register"
+                href="/admin/account/register"
                 id="academy-hero-cta"
                 className="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-black text-lg shadow-xl shadow-blue-500/20 transition-all"
               >
@@ -211,7 +211,7 @@ export default function AcademyIndexClient() {
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily and find the highest-conviction opportunities before the market does.
             </p>
             <Link
-              href="/register"
+              href="/admin/account/register"
               id="academy-cta-final"
               className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-black text-lg shadow-2xl shadow-blue-500/30 transition-all"
             >

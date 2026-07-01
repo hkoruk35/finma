@@ -76,7 +76,7 @@ export default function ScreenerArchiveClient() {
               Tüm tarama sonuçlarının zaman damgalı geçmişi
             </div>
           </div>
-          <Link href="/screener"
+          <Link href="/admin/analytics/screener"
             style={{ background: "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.5)", color: "#4ade80", padding: "8px 16px", borderRadius: 4, textDecoration: "none", fontSize: 12, fontWeight: 700 }}>
             ← Screener'a Dön
           </Link>

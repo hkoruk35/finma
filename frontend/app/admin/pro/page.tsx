@@ -337,7 +337,7 @@ export default async function ProPage() {
 
         {/* Quick Links */}
         <div className="grid md:grid-cols-3 gap-6 mt-20 mb-10">
-          <Link href="/screener" className="glass-card p-6 flex items-center justify-between group hover:bg-[#22c55e]/5 transition-colors border-green-900/20">
+          <Link href="/admin/analytics/screener" className="glass-card p-6 flex items-center justify-between group hover:bg-[#22c55e]/5 transition-colors border-green-900/20">
             <div>
               <h3 className="text-white font-black text-lg uppercase">🎯 Screener</h3>
               <p className="text-slate-500 text-xs mt-1">Setup-first tarama motoru · 8000+ hisse · BOGA Score</p>

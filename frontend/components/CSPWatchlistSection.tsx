@@ -111,7 +111,7 @@ export default function CSPWatchlistSection() {
           Cash Secured Put — Price Tiers
         </span>
         <Link
-          href="/terminal"
+          href="/admin/analytics/terminal"
           className="ml-auto text-[10px] text-[#3b82f6] hover:text-white border border-[#3b82f6]/30 px-2 py-1 rounded transition-all hover:bg-[#3b82f6]/10"
         >
           Manage in Terminal →
@@ -194,7 +194,7 @@ export default function CSPWatchlistSection() {
               Detaylı Listeyi Görüntüle →
             </Link>
             <Link
-              href="/screener"
+              href="/admin/analytics/screener"
               className="flex-1 text-center py-3 bg-white/5 border border-white/10 text-slate-300 font-bold rounded-lg hover:bg-white/10 transition-all uppercase text-sm tracking-wider"
             >
               Screener ile Filtrele
@@ -290,7 +290,7 @@ export default function CSPWatchlistSection() {
                     Listeyi Gör →
                   </Link>
                   <Link
-                    href="/terminal"
+                    href="/admin/analytics/terminal"
                     className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
                   >
                     Düzenle
@@ -335,7 +335,7 @@ export default function CSPWatchlistSection() {
                   <div className="text-center py-6 border border-dashed border-white/10 rounded-lg">
                     <p className="text-slate-600 text-[11px]">Terminal'den hisse ekleyin</p>
                     <Link
-                      href="/terminal"
+                      href="/admin/analytics/terminal"
                       className={`inline-block mt-2 text-[10px] font-bold ${csp.textColor} hover:underline`}
                     >
                       Terminal'e git →
@@ -363,7 +363,7 @@ export default function CSPWatchlistSection() {
                     Listeyi Gör →
                   </Link>
                   <Link
-                    href="/terminal"
+                    href="/admin/analytics/terminal"
                     className="px-3 py-1.5 text-[10px] text-slate-500 border border-white/5 rounded-lg hover:text-white hover:bg-white/5 transition-all"
                   >
                     Düzenle

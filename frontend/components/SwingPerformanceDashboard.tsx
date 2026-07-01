@@ -585,7 +585,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             {/* BOT ANALİZ SİSTEMİ butonu — mavi kutu içinde */}
             {!hideBotLink && (
               <Link
-                href="/performance/kriter"
+                href="/admin/analytics/performance/kriter"
                 className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#3b82f6]/10 border border-[#3b82f6]/30 hover:bg-[#3b82f6]/20 hover:border-[#3b82f6]/60 transition-all duration-200"
               >
                 <span className="relative flex items-center justify-center w-4 h-4 rounded bg-[#3b82f6]/20 border border-[#3b82f6]/40">

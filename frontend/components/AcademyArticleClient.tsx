@@ -63,7 +63,7 @@ export default function AcademyArticleClient({
           <nav className="flex items-center gap-2 text-xs text-[#00d2ff]" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <Link href="/academy" className="hover:text-white transition-colors">Academy</Link>
+            <Link href="/admin/education/academy" className="hover:text-white transition-colors">Academy</Link>
             {breadcrumb && (
               <>
                 <span>/</span>
@@ -128,7 +128,7 @@ export default function AcademyArticleClient({
                       🔥 {t.cta_text}
                     </p>
                     <Link
-                      href="/register"
+                      href="/admin/account/register"
                       className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm transition-all ${CTA_GRADIENT}`}
                     >
                       {t.cta_btn}
@@ -154,7 +154,7 @@ export default function AcademyArticleClient({
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily.
             </p>
             <Link
-              href="/register"
+              href="/admin/account/register"
               className={`inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base transition-all ${CTA_GRADIENT}`}
             >
               {t.cta_btn}
@@ -201,7 +201,7 @@ export default function AcademyArticleClient({
         {/* Back to Academy */}
         <div className="mt-12 text-center">
           <Link
-            href="/academy"
+            href="/admin/education/academy"
             className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#3b82f6] transition-colors font-semibold"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

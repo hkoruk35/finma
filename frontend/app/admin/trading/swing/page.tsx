@@ -83,7 +83,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
             )}
           </div>
           <Link
-            href="/performance"
+            href="/admin/analytics/performance"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-[#3b82f6]/30 rounded text-[10px] font-black text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all uppercase tracking-widest font-mono"
           >
             ↗ PERF HISTORY
@@ -109,7 +109,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
              </Link>
            ))}
            <div className="h-3 w-px bg-white/10 mx-1" />
-           <Link href="/performance" className="text-[10px] font-black text-[#3b82f6]/60 hover:text-[#3b82f6] transition-colors whitespace-nowrap uppercase tracking-widest font-mono">
+           <Link href="/admin/analytics/performance" className="text-[10px] font-black text-[#3b82f6]/60 hover:text-[#3b82f6] transition-colors whitespace-nowrap uppercase tracking-widest font-mono">
              FULL HISTORY →
            </Link>
         </div>
