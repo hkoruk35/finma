@@ -68,15 +68,8 @@ export interface StockDetail {
   scores: {
     master_score: number;
     technical_score: number;
-    fundamental_score: number;
     momentum_score: number;
-    sentiment_score: number;
-    sector_score: number;
     breakout_score: number;
-    value_score: number;
-    reversal_score: number;
-    dividend_score: number;
-    confidence: number;
     score_type: string;
   };
   technical: Record<string, any>;
@@ -1264,8 +1257,32 @@ export async function getDayTradePerformance(): Promise<any | null> {
     return mod.readPublicJson("daytrade_performance.json");
   }
   try {
-    const res = await fetch(`/daytrade_performance.json?v=${t}`, { cache: "no-store" });
+    const res = await fetch(`/swing_performance.json?v=${t}`, { cache: "no-store" });
     if (!res.ok) return null;
     return await res.json();
   } catch { return null; }
+}
+
+export function calculateSwingStatsFromHistory(history: any[]) {
+  if (!history || history.length === 0) return null;
+
+  const total = history.length;
+  // Dashboard logic: exclude duplicates and PENDING
+  const activeStatsTrades = history.filter(t => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
+  
+  const wins = activeStatsTrades.filter(t => (t.return_pct ?? 0) > 0).length;
+  const sumRet = activeStatsTrades.reduce((s, t) => s + (t.return_pct ?? 0), 0);
+  const above10 = activeStatsTrades.filter(t => (t.return_pct ?? 0) >= 10).length;
+  const statsCount = activeStatsTrades.length;
+
+  const winRate = statsCount > 0 ? (wins / statsCount * 100).toFixed(1) : "0.0";
+  const avgReturn = statsCount > 0 ? (sumRet / statsCount).toFixed(1) : "0.0";
+  const above10Rate = statsCount > 0 ? (above10 / statsCount * 100).toFixed(1) : "0.0";
+
+  return {
+    win_rate: winRate,
+    avg_return_pct: avgReturn,
+    above_10pct_rate: above10Rate,
+    total_picks: total
+  };
 }

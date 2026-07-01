@@ -122,7 +122,7 @@ const PRESETS = [
   { id: "agg_growth",       name: "Aggressive Growth",   desc: "Rev↑30% · Margin≥50% · Rule40≥40",         mode: "investment", color: "#f59e0b", pills: ["RevGrowth≥30%","Acceleration","Margin≥50%","FCF Pozitif","P/S≤30"],                          icon: "🚀" },
   { id: "breakout_growth",  name: "Breakout Growth",     desc: "BOGA≥70 · Golden Cross · RVOL≥2 · ADX≥20", mode: "investment", color: "#10b981", pills: ["BOGA≥70","SMA200↑","RVOL≥2","ADX≥20","Price>EMA20"],                                 icon: "📈" },
   // Swing Presets
-  { id: "genel_swing",  name: "Genel Swing",          desc: "Price>EMA20>EMA50 · RSI≥48 · RSI Yukarı",  mode: "swing",    color: "#06f3aa", pills: ["Price>EMA20>EMA50","RSI≥48","RSI Trend Yukarı","BOGA≥40"],    icon: "🎯" },
+  { id: "genel_swing",  name: "Genel Swing",          desc: "Close>EMA50>EMA200 · RSI 50-68 · RVOL>1.3 · RelStr · Breakout",  mode: "swing",    color: "#06f3aa", pills: ["Close>EMA50","EMA50>EMA200","RSI 50-68","RSI Yukarı","RVOL>1.3","Vol>Avg20×1.3","Relative Strength","Breakout Setup"],    icon: "🎯" },
   { id: "hottest_momo", name: "Hottest Momo",         desc: "SMA200↑ · RVOL>1.2 · MCap>250M · Gün>+1%", mode: "swing",   color: "#f97316", pills: ["AvgVol>500K","RVOL>1.2","MCap>250M","RSI 45-75","SMA200↑","Gün≥+1%","YeniZirve/RVOL"], icon: "🔥" },
   { id: "pre_catalyst", name: "Episodemic Pivot", desc: "MCap≥$300M · RVOL≥2.0 · RSI 45+",      mode: "swing",    color: "#ec4899", pills: ["MCap≥$200M","RVOL≥2.0","RSI 45+","Değ>+2%"],    icon: "🚀" },
   { id: "swing_cont",   name: "Swing Continuation",  desc: "Price>SMA200 · EMA20>EMA50 · RSI 55-70", mode: "swing",    color: "#3b82f6", pills: ["Price>SMA200","EMA20>EMA50","RSI 55-70","RVOL>1.5","MCap>2B"],      icon: "📈" },
