@@ -58,14 +58,14 @@ export default async function TrHomePage() {
 
               <div className="flex-1 z-10 text-center md:text-left">
                  <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
-                    <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">KANITLANMIŞ PERFORMANS</h3>
+                    <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">SWİNG İŞLEMLERİ PERFORMANSLARI</h3>
                     <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">DETAYLI LOGS'U GÖR →</span>
                  </div>
                  <p className="text-white text-xl md:text-2xl font-bold">
                    BOGA AI Swing Motoru: <span className="text-[#10b981]">{bannerStats.win_rate}% Kazanç Oranı</span>{bannerStats.period_days ? ` ${bannerStats.period_days} Gün` : ""}
                  </p>
                  <p className="text-white text-sm mt-2">
-                   Yalnızca algoritmik kriterlerle oluşturulan {bannerStats.total_picks} yüksek inançlı ticareye dayanır.
+                   Algoritmik kriterlerle BOGA AI tarafından işlemler: {bannerStats.total_picks}
                  </p>
               </div>
 
