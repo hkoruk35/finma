@@ -665,15 +665,8 @@ function getMockStockDetail(ticker: string, overridePrice?: number): StockDetail
     scores: {
       master_score: masterScore,
       technical_score: masterScore + (seed % 10) - 5,
-      fundamental_score: masterScore + (seed % 8) - 4,
       momentum_score: masterScore + (seed % 12) - 6,
-      sentiment_score: 50 + (seed % 30),
-      sector_score: 55 + (seed % 25),
       breakout_score: 40 + (seed % 50),
-      value_score: 30 + (seed % 60),
-      reversal_score: 10 + (seed % 80),
-      dividend_score: seed % 5,
-      confidence: 0.6 + (seed % 40) / 100,
       score_type: masterScore >= 85 ? "HIGH_CONVICTION" : masterScore >= 70 ? "POSITIVE_BIAS" : masterScore >= 55 ? "NEUTRAL_STAY" : "NEGATIVE_BIAS"
     },
     technical: {
