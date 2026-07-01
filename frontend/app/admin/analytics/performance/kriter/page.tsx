@@ -11,7 +11,7 @@ import {
 } from "@/lib/kriter-helpers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import KriterDashboard from "./components/KriterDashboard";
+import KriterDashboard from "@/components/KriterDashboard";
 import { Metadata } from "next";
 
 export const revalidate = 14400; // 4 saatte bir ISR
