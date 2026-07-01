@@ -88,9 +88,31 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(loginUrl, request.url))
   }
 
-  // GEÇİCİ: Tüm site genelinde admin login (boga_auth) zorunluluğu kaldırıldı.
-  // Önceki davranış: authCookie yoksa ve sayfa /login, /en, /tr, /global, /api,
-  // statik dosya değilse → /login'e yönlendirirdi. Şimdi tüm sayfalar açık.
+  // ── Admin login sayfaları public ───────────────────────────────────────────
+  // /admin/account/login ve /admin/account/register herkes erişebilir
+  const isAdminAuthPath =
+    pathname === '/admin/account/login' ||
+    pathname?.startsWith('/admin/account/login/') ||
+    pathname === '/admin/account/register' ||
+    pathname?.startsWith('/admin/account/register/')
+
+  // Admin diğer sayfaları boga_auth cookie kontrolü gerektirir
+  const requiresAdminAuth =
+    pathname?.startsWith('/admin/') &&
+    !pathname.startsWith('/admin/admins') &&
+    !pathname.startsWith('/admin/members') &&
+    !pathname.startsWith('/admin/messages') &&
+    !pathname.startsWith('/admin/plans') &&
+    !pathname.startsWith('/admin/campaigns') &&
+    !pathname.startsWith('/admin/sitemap') &&
+    !pathname.startsWith('/admin/top100') &&
+    !isAdminAuthPath
+
+  const hasBogaAuth = !!request.cookies.get('boga_auth')?.value
+
+  if (requiresAdminAuth && !hasBogaAuth) {
+    return redirectTo(new URL('/admin/account/login', request.url))
+  }
 
   return response
 }

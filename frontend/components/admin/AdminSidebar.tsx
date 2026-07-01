@@ -9,7 +9,7 @@ const NAV = [
   { href: "/admin/analytics/performance", label: "📊 Analytics" },
   { href: "/admin/portfolio/tracker", label: "💼 Portfolio" },
   { href: "/admin/education/academy", label: "🎓 Education" },
-  { href: "/admin/stocks/[ticker]", label: "📱 Stocks" },
+  { href: "/admin/stocks", label: "📱 Stocks" },
   { href: "/admin/ai", label: "🤖 AI" },
   { href: "/admin/account/login", label: "👤 Account" },
   { href: "/admin/archive", label: "📦 Archive" },
