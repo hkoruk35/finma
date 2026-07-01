@@ -322,7 +322,7 @@ export default function AllListDetailClient() {
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 8 }}>
-          <Link href="/theme" style={{ color: "#58a6ff" }}>THEMES</Link>
+          <Link href="/admin/settings/theme" style={{ color: "#58a6ff" }}>THEMES</Link>
           <span style={{ margin: "0 6px" }}>/</span>
           <span style={{ color: "#e3b341" }}>CSP</span>
           <span style={{ margin: "0 6px" }}>/</span>

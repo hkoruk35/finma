@@ -60,7 +60,7 @@ export default async function ThemeDetailPage({ params }: { params: Promise<{ sl
         <Header />
         <main className="flex-1 w-full max-w-[1800px] mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-black text-white uppercase mt-20">Theme Not Found</h1>
-          <Link href="/theme" className="text-[#3b82f6] mt-4 inline-block hover:underline">← Back to Themes</Link>
+          <Link href="/admin/settings/theme" className="text-[#3b82f6] mt-4 inline-block hover:underline">← Back to Themes</Link>
         </main>
         <Footer />
       </div>
@@ -72,7 +72,7 @@ export default async function ThemeDetailPage({ params }: { params: Promise<{ sl
       <Header />
       <main className="flex-1 w-full max-w-[1800px] mx-auto px-4 py-6">
         <div className="mb-4">
-          <Link href="/theme" className="text-slate-500 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-black uppercase tracking-wider">
+          <Link href="/admin/settings/theme" className="text-slate-500 hover:text-white transition-colors flex items-center gap-1.5 text-xs font-black uppercase tracking-wider">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>

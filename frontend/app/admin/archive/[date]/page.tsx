@@ -52,7 +52,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
             We couldn't find any archived market data for this specific trading day. 
             The system may have been offline or data was not preserved.
           </p>
-          <Link href="/archive" className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg font-bold hover:bg-[#2563eb] transition-all">
+          <Link href="/admin/archive" className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg font-bold hover:bg-[#2563eb] transition-all">
             Back to Archive
           </Link>
         </main>
@@ -83,7 +83,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
                 <p className="text-xs text-[#3b82f6]">Data captured on {date}</p>
              </div>
           </div>
-          <Link href="/archive" className="text-xs font-bold text-[#3b82f6] hover:underline uppercase tracking-widest">
+          <Link href="/admin/archive" className="text-xs font-bold text-[#3b82f6] hover:underline uppercase tracking-widest">
             Back to List
           </Link>
         </div>

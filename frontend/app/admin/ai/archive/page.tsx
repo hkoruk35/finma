@@ -38,7 +38,7 @@ export default function AIArchivePage() {
     <div className="min-h-screen bg-[#070b12] text-white p-4 md:p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex items-center gap-3 mb-8">
-        <Link href="/ai" className="text-[#06b6d4] hover:underline text-sm font-black uppercase tracking-wider">← AI Analiz</Link>
+        <Link href="/admin/ai" className="text-[#06b6d4] hover:underline text-sm font-black uppercase tracking-wider">← AI Analiz</Link>
         <span className="text-slate-600">|</span>
         <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white">Derin Analiz Arşivi</h1>
       </div>

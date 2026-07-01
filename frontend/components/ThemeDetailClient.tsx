@@ -325,7 +325,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 12 }}>
         {/* Breadcrumb */}
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 10 }}>
-          <Link href="/theme" style={{ color: ACCENT, textDecoration: "none" }}>THEMES</Link>
+          <Link href="/admin/settings/theme" style={{ color: ACCENT, textDecoration: "none" }}>THEMES</Link>
           <span style={{ margin: "0 6px", color: "#444" }}>/</span>
           <span style={{ color: "#e6edf3", fontWeight: 700 }}>{themeName.toUpperCase()}</span>
         </div>

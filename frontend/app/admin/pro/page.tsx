@@ -356,7 +356,7 @@ export default async function ProPage() {
             </div>
             <span className="text-[#3b82f6] group-hover:translate-x-1 transition-transform">→</span>
           </Link>
-          <Link href="/ai" className="glass-card p-6 flex items-center justify-between group hover:bg-[#a78bfa]/5 transition-colors">
+          <Link href="/admin/ai" className="glass-card p-6 flex items-center justify-between group hover:bg-[#a78bfa]/5 transition-colors">
             <div>
               <h3 className="text-white font-black text-lg uppercase">BOGA AI Analysis</h3>
               <p className="text-slate-500 text-xs">Daily algorithmic stock scores</p>
