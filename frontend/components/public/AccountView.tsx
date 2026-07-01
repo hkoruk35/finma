@@ -14,7 +14,7 @@ type Member = {
   created_at: string;
 };
 
-type Tab = "profile" | "password" | "subscription";
+type Tab = "profile" | "password" | "subscription" | "language";
 
 export default function AccountView({ locale, isGlobal = false }: { locale: Locale; isGlobal?: boolean }) {
   const t = copy[locale].account;
@@ -78,15 +78,15 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
         )}
 
         {/* Tab Navigation */}
-        <div className="flex gap-2 mb-6 border-b border-white/10 pb-4">
-          {(["profile", "password", "subscription"] as const).map((tab) => (
+        <div className="flex gap-2 mb-6 border-b border-white/10 pb-4 overflow-x-auto scrollbar-none">
+          {(["profile", "password", "subscription", "language"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => {
                 setActiveTab(tab);
                 setMessage(null);
               }}
-              className={`px-4 py-2 font-bold text-sm rounded-lg transition-all ${
+              className={`px-4 py-2 font-bold text-sm rounded-lg transition-all whitespace-nowrap flex-shrink-0 ${
                 activeTab === tab
                   ? "bg-[#3b82f6] text-white"
                   : "bg-[#161b22] border border-white/10 text-white/60 hover:text-white/80"
@@ -96,7 +96,9 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
                 ? t.profileTab
                 : tab === "password"
                   ? t.passwordTab
-                  : t.subscriptionTab}
+                  : tab === "subscription"
+                    ? t.subscriptionTab
+                    : t.languageTab}
             </button>
           ))}
         </div>
@@ -109,6 +111,9 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
 
         {/* Subscription Tab */}
         {activeTab === "subscription" && <SubscriptionTab member={member} isTrialActive={isTrialActive} locale={locale} t={t} />}
+
+        {/* Language Tab */}
+        {activeTab === "language" && <LanguageTab locale={locale} t={t} isGlobal={isGlobal} />}
 
         <div className="mt-8 space-y-3">
           <Link
@@ -320,6 +325,55 @@ function Row({ label, value }: { label: string; value: string }) {
     <div className="flex justify-between items-center border-b border-white/5 pb-3">
       <span className="text-white/40 text-xs uppercase tracking-widest">{label}</span>
       <span className="text-white font-bold">{value}</span>
+    </div>
+  );
+}
+
+function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal: boolean }) {
+  const router = useRouter();
+
+  const handleLanguageSelect = (lang: string) => {
+    if (lang === locale.toUpperCase()) return; 
+    
+    if (lang === 'EN') {
+      router.push(isGlobal ? "/global/en/account" : "/en/account");
+    } else if (lang === 'TR') {
+      router.push(isGlobal ? "/global/tr/hesabim" : "/tr/hesabim");
+    }
+  };
+
+  return (
+    <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
+      <h2 className="text-xl font-black text-white">{t.languageTitle}</h2>
+      
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
+          const isActive = locale.toUpperCase() === lang;
+          const isAvailable = lang === 'EN' || lang === 'TR';
+
+          return (
+            <button
+              key={lang}
+              onClick={() => isAvailable && handleLanguageSelect(lang)}
+              disabled={!isAvailable}
+              className={`flex items-center justify-between p-4 rounded-2xl border transition-all ${
+                isActive 
+                  ? "bg-[#3b82f6]/10 border-[#3b82f6] text-[#3b82f6]" 
+                  : isAvailable 
+                    ? "bg-[#161b22] border-white/10 text-white hover:border-white/30" 
+                    : "bg-[#161b22]/50 border-white/5 text-white/20 cursor-not-allowed"
+              }`}
+            >
+              <span className="font-black tracking-wider">{lang}</span>
+              {isActive && (
+                <svg className="w-5 h-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
