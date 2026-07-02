@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "GH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 169.07,
+        "entry_zone": "165.17 - 172.98",
+        "SL": 153.47,
+        "TP": 200.28
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "RMAX",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 10.77,
+        "entry_zone": "10.57 - 10.97",
+        "SL": 9.97,
+        "TP": 12.38
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "ASTH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 51.1,
+        "entry_zone": "50.21 - 51.99",
+        "SL": 47.56,
+        "TP": 58.19
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "PRCH",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 16.44,
+        "entry_zone": "16.01 - 16.87",
+        "SL": 14.73,
+        "TP": 19.86
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "CODI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 10.96,
+        "entry_zone": "10.69 - 11.23",
+        "SL": 9.87,
+        "TP": 13.14
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "ELV",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 419.77,
+        "entry_zone": "414.39 - 425.15",
+        "SL": 398.26,
+        "TP": 462.8
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "SPGI",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 430.33,
+        "entry_zone": "423.24 - 437.41",
+        "SL": 401.98,
+        "TP": 487.01
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "GIS",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 37.26,
+        "entry_zone": "36.69 - 37.82",
+        "SL": 35.0,
+        "TP": 41.76
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "MDB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 354.57,
+        "entry_zone": "345.07 - 364.07",
+        "SL": 316.58,
+        "TP": 430.54
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "HOOD",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 115.45,
+        "entry_zone": "111.76 - 119.14",
+        "SL": 100.7,
+        "TP": 144.94
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "RSI",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 31.24,
+        "entry_zone": "30.52 - 31.96",
+        "SL": 28.37,
+        "TP": 36.99
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "FIVN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 23.17,
+        "entry_zone": "22.60 - 23.74",
+        "SL": 20.89,
+        "TP": 27.74
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "OSCR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 32.36,
+        "entry_zone": "31.51 - 33.21",
+        "SL": 28.96,
+        "TP": 39.15
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "UTI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 46.53,
+        "entry_zone": "45.47 - 47.59",
+        "SL": 42.28,
+        "TP": 55.03
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "WLY",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 51.26,
+        "entry_zone": "50.07 - 52.46",
+        "SL": 46.49,
+        "TP": 60.82
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "OPEN",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 4.91,
+        "entry_zone": "4.75 - 5.06",
+        "SL": 4.27,
+        "TP": 6.17
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "IBKR",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 93.61,
+        "entry_zone": "91.77 - 95.46",
+        "SL": 86.25,
+        "TP": 108.34
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "META",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 590.52,
+        "entry_zone": "579.26 - 601.78",
+        "SL": 545.46,
+        "TP": 680.63
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "COIN",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 167.69,
+        "entry_zone": "162.24 - 173.14",
+        "SL": 145.9,
+        "TP": 211.26
+    },
+    {
+        "date": "2026-07-02 11:00",
+        "symbol": "HIMS",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 36.87,
+        "entry_zone": "35.45 - 38.29",
+        "SL": 31.19,
+        "TP": 48.23
+    }
+]
