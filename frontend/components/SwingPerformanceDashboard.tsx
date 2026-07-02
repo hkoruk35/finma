@@ -64,6 +64,7 @@ interface Props {
   todayPicks?: SwingPick[];
   picksGeneratedAt?: string;
   hideBotLink?: boolean;
+  hideExportButtons?: boolean;
   locale?: "en" | "tr";
   /** On /global/{locale}/performance, ticker clicks must not navigate anywhere —
    *  only the hover-preview chart is allowed. Root /performance keeps the normal link. */
@@ -99,7 +100,7 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 
-export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, locale = "tr", disableTickerLink = false }: Props) {
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, locale = "tr", disableTickerLink = false }: Props) {
   const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -922,6 +923,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/30 text-[#f59e0b] font-bold">{locale === "tr" ? "Bot-Hesaplı Stop-Loss Uygulandı" : "Bot-Calc Stop-Loss Applied"}</span>
             </div>
           </div>
+          {!hideExportButtons && (
           <div className="flex items-center gap-2">
             <button onClick={() => {
               const text = filtered.map(t => `${t.date}\t${t.ticker}\t${fmt(t.entry)}\t${fmt(effectiveReturn(t), 1)}%\t${t.days||0}d\t${effectiveResult(t)}`).join("\n");
@@ -944,6 +946,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               {pdfExporting ? "PDF..." : "PDF"}
             </button>
           </div>
+          )}
         </div>
 
         {/* ── Mobile Terminal List ─────────────────────────────────────────── */}

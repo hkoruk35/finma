@@ -29,7 +29,8 @@ export default async function TrPerformancePage() {
   // İstatistikler performanceData.stats'tan gelir (sunucu tarafında tam history üzerinden ön hesaplanmış),
   // bu da home banner'daki rakamlarla birebir aynı kaynaktır.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+    .slice(0, 100);
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
@@ -48,7 +49,7 @@ export default async function TrPerformancePage() {
 
         {/* Dashboard Client Component */}
         <div className="relative z-10">
-          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="tr" disableTickerLink />
+          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="tr" disableTickerLink hideBotLink hideExportButtons />
         </div>
       </main>
 

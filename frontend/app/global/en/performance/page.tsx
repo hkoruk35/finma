@@ -29,7 +29,8 @@ export default async function EnPerformancePage() {
   // Statistics are driven by performanceData.stats (pre-calculated from full history server-side),
   // which is exactly the same source that the home banner uses.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
+    .slice(0, 100);
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
@@ -48,7 +49,7 @@ export default async function EnPerformancePage() {
 
         {/* Dashboard Client Component */}
         <div className="relative z-10">
-          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="en" disableTickerLink />
+          <SwingPerformanceDashboard initialHistory={history} stats={performanceData.stats} todayPicks={todayPicks} picksGeneratedAt={picksGeneratedAt} locale="en" disableTickerLink hideBotLink hideExportButtons />
         </div>
       </main>
 
