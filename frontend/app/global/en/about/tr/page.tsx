@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük +8000 | AI Destekli ABD Hisse Senedi Analizi",
-  description: "BOGA AI - Blue One Global Analysis, her gün 8.000+ ABD hissesini tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+  title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
+  description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
   alternates: {
     canonical: "https://bogastock.com/global/en/about/tr",
     languages: {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük +8000 | AI Destekli ABD Hisse Senedi Analizi",
-    description: "BOGA AI - Blue One Global Analysis, her gün 8.000+ ABD hissesini tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+    title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
+    description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
     url: "https://bogastock.com/global/en/about/tr",
   },
 };
@@ -40,7 +40,7 @@ export default function AboutPageTr() {
             <span className="text-[#3b82f6]">ABD Piyasaları İçin İnşa Edildi.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Günlük +8000 hisse, tüm ABD hisse senedi evrenini her işlem gününde yüksek olasılıklı fırsatların odaklanmış bir kısa listesine dönüştüren özel, çok aşamalı bir hisse tarama ve puanlama sistemidir.
+            BOGA AI - Blue One Global Analysis - Günlük 6.000+ hisse, tüm ABD hisse senedi evrenini her işlem gününde yüksek olasılıklı fırsatların odaklanmış bir kısa listesine dönüştüren özel, çok aşamalı bir hisse tarama ve puanlama sistemidir.
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export default function AboutPageTr() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Günlük Evren Taraması</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI algoritması her gün NYSE, NASDAQ ve AMEX dahil tüm büyük borsalardaki <strong className="text-white">8.000'den fazla ABD'de işlem gören hisseyi</strong> tarar; likidite, volatilite ve yapısal filtreler uygulayarak en işlem yapılabilir adayları belirler.
+                BOGA AI algoritması her gün NYSE, NASDAQ ve AMEX dahil tüm büyük borsalardaki <strong className="text-white">6.000'den fazla seçkin ABD hisse senedi ve ETFyi</strong> tarar; likidite, volatilite ve yapısal filtreler uygulayarak en işlem yapılabilir adayları belirler.
               </p>
             </div>
 
@@ -65,7 +65,7 @@ export default function AboutPageTr() {
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
               <h3 className="text-lg font-bold text-white mb-3">Günlük Top 8000+ İzleme Listesi</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Günlük taramadan sistem, günlük izleme için <strong className="text-white">8.000'den fazla yüksek öncelikli hisseyi</strong> seçer. Bu adaylar her sabah NY saatiyle 09:00'da güncel piyasa verileri, teknik göstergeler ve temel metriklerle yeniden değerlendirilir.
+                Günlük taramadan sistem, günlük izleme için <strong className="text-white">6.000'den fazla yüksek öncelikli seçkin hisse senedi ve ETFyi</strong> seçer. Bu adaylar her sabah NY saatiyle 09:00'da güncel piyasa verileri, teknik göstergeler ve temel metriklerle yeniden değerlendirilir.
               </p>
             </div>
 
@@ -141,7 +141,7 @@ export default function AboutPageTr() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">%100 ABD Hisse Senedi Piyasalarına Odaklı</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Günlük +8000 hisse, ABD hisse senedi piyasası için özel olarak inşa edilmiştir. Her algoritma, her ağırlık ve her puan kategorisi NYSE, NASDAQ ve ABD piyasa yapısına göre kalibre edilmiştir — ABD'ye uyarlanmış genel bir küresel model değil.
+            BOGA AI - Blue One Global Analysis - Günlük 6.000+ hisse, ABD hisse senedi piyasası için özel olarak inşa edilmiştir. Her algoritma, her ağırlık ve her puan kategorisi NYSE, NASDAQ ve ABD piyasa yapısına göre kalibre edilmiştir — ABD'ye uyarlanmış genel bir küresel model değil.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

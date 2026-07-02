@@ -17,7 +17,7 @@ export default function TermsPageTr() {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Şartların Kabulü</h2>
             <p>
-              BOGA AI Daily +8000'e erişerek, bu Kullanım Şartlarına uymayı ve bunlarla
+              BOGA AI Daily 6,000+'e erişerek, bu Kullanım Şartlarına uymayı ve bunlarla
               bağlı olmayı kabul edersiniz. Kabul etmiyorsanız, lütfen servisi kullanmayın.
             </p>
           </section>

@@ -17,7 +17,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-3">1. Acceptance of Terms</h2>
             <p>
-              By accessing BOGA AI Daily +8000, you agree to comply with and be bound by
+              By accessing BOGA AI Daily 6,000+, you agree to comply with and be bound by
               these Terms of Service. If you do not agree, please do not use the service.
             </p>
           </section>

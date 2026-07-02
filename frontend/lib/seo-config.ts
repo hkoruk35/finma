@@ -6,8 +6,8 @@
 export const SEO_CONFIG = {
   baseUrl: "https://bogastock.com",
   siteName: "BOGA AI - Blue One Global Analysis",
-  title: "BOGA AI - Blue One Global Analysis - Daily +8000 | AI-Powered US Stock Analysis & Signals",
-  description: "Daily AI analysis of +8000 top US stocks by BOGA AI. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
+  title: "BOGA AI - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Analysis & Signals",
+  description: "Daily AI analysis of 6,000+ premier US stocks and ETFs by BOGA AI. Breakout signals, momentum picks, undervalued screener. Free stock watchlist and alerts.",
   keywords: [
     "US stock AI analysis",
     "daily stock signals",

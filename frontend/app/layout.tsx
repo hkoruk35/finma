@@ -35,11 +35,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: {
-    default: "Daily AI analysis of +8000 top US stocks by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time",
+    default: "Daily AI analysis of 6,000+ premier US stocks and ETFs by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time",
     template: "%s | BOGA AI"
   },
   description:
-    "Daily AI analysis of +8000 top US stocks by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time.",
+    "Daily AI analysis of 6,000+ premier US stocks and ETFs by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time.",
   keywords: ["US stock AI analysis", "daily stock signals", "stock screener", "breakout stocks", "momentum stocks", "BOGA AI"],
   authors: [{ name: "BOGA AI Team" }],
   creator: "BOGA AI",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BOGA AI - Blue One Global Analysis | AI-Powered US Stock Analysis",
-    description: "Daily AI analysis of +8000 top US stocks with signals, scores, and smart watchlist by BOGA AI.",
+    description: "Daily AI analysis of 6,000+ premier US stocks and ETFs with signals, scores, and smart watchlist by BOGA AI.",
     url: "https://bogastock.com",
     siteName: "BOGA AI",
     images: [
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BOGA AI - AI Stock Signals & Analysis",
-    description: "Daily AI analysis of +8000 top US stocks.",
+    description: "Daily AI analysis of 6,000+ premier US stocks and ETFs.",
     images: ["/finmawave.png"],
   },
   icons: {

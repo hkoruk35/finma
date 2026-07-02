@@ -5,7 +5,7 @@ export const getWebsiteStructuredData = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "BOGA AI - Blue One Global Analysis",
-    "description": "Daily AI-powered analysis of +8000 top US stocks with trading signals and scores",
+    "description": "Daily AI-powered analysis of 6,000+ premier US stocks and ETFs with trading signals and scores",
     "url": "https://bogastock.com",
     "sameAs": [
       "https://twitter.com/bogaai",

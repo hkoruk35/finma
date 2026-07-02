@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "About BOGA AI - Blue One Global Analysis - Daily +8000 | AI-Powered US Stock Market Analysis",
-  description: "BOGA AI - Blue One Global Analysis - Daily +8000 stocks scans 8,000+ US stocks daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+  title: "About BOGA AI - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
+  description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
   alternates: {
     canonical: "https://bogastock.com/global/en/about",
     languages: {
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "About BOGA AI - Blue One Global Analysis - Daily +8000 | AI-Powered US Stock Market Analysis",
-    description: "BOGA AI - Blue One Global Analysis - Daily +8000 stocks scans 8,000+ US stocks daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+    title: "About BOGA AI - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
+    description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
     url: "https://bogastock.com/global/en/about",
   },
 };
@@ -41,7 +41,7 @@ export default function AboutPage() {
             <span className="text-[#3b82f6]">Built for US Markets.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Daily +8000 stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
+            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Daily Universe Scan</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Every day, the BOGA AI algorithm sweeps through <strong className="text-white">8,000+ US-listed equities</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
+                Every day, the BOGA AI algorithm sweeps through <strong className="text-white">6,000+ premier US stocks and ETFs</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
               </p>
             </div>
 
@@ -66,7 +66,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
               <h3 className="text-lg font-bold text-white mb-3">Top 8000+ Daily Watchlist</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                From the daily scan, the system selects <strong className="text-white">8,000+ high-priority stocks</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
+                From the daily scan, the system selects <strong className="text-white">6,000+ high-priority stocks and ETFs</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
               </p>
             </div>
 
@@ -142,7 +142,7 @@ export default function AboutPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">100% Focused on US Equity Markets</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Daily +8000 stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
+            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

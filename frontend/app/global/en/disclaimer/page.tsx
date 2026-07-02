@@ -18,7 +18,7 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
             <p>
-              BOGA AI Daily +8000 is an automated informational service. The content provided on this platform,
+              BOGA AI Daily 6,000+ is an automated informational service. The content provided on this platform,
               including but not limited to proprietary BOGA AI-generated analyses, scores, and trading ratings
               (HIGH CONVICTION, POSITIVE BIAS, etc.), is for informational purposes only. It does NOT constitute financial,
               investment, or professional advice. We are not a registered investment advisor (RIA), broker-dealer,
@@ -42,7 +42,7 @@ export default function DisclaimerPage() {
           <section>
             <h2 className="text-xl font-bold text-white mb-4">3. Data Privacy (CCPA/GDPR Compliance)</h2>
             <p>
-              We prioritize user privacy. BOGA AI Daily +8000 only collects email addresses for account
+              We prioritize user privacy. BOGA AI Daily 6,000+ only collects email addresses for account
               authentication purposes via secure third-party providers. We do NOT sell user data to 
               third parties. Members have the right to request full account and data deletion at any 
               time through our settings or contact form.
@@ -61,7 +61,7 @@ export default function DisclaimerPage() {
 
           <section className="pt-8 border-t border-[#1e2a3a]">
             <p className="text-sm italic font-medium text-[#00d2ff]">
-              Last Updated: April 2026. By using the BOGA AI Daily +8000 platform, you acknowledge
+              Last Updated: April 2026. By using the BOGA AI Daily 6,000+ platform, you acknowledge
               that you have read, understood, and voluntarily agreed to all terms outlined above.
             </p>
           </section>

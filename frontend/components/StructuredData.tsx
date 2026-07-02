@@ -7,7 +7,7 @@ export default function StructuredData() {
     "name": "BOGA AI",
     "alternateName": ["Blue One Global Analysis", "BOGA Stock"],
     "url": "https://bogastock.com",
-    "description": "AI-powered US stock analysis and trading signals for +8000 companies.",
+    "description": "AI-powered US stock analysis and trading signals for 6,000+ premier stocks and ETFs.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {

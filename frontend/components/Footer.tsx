@@ -31,8 +31,8 @@ const RESOURCES_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = 
 };
 
 const BRAND_TAGLINE: Record<"en" | "tr", string> = {
-  en: "AI-powered stock analysis of +8000 top US stocks.",
-  tr: "+8000 ABD hissesi için AI destekli analiz.",
+  en: "AI-powered analysis of 6,000+ premier US stocks and ETFs.",
+  tr: "ABD borsalarında işlem gören 6.000'den fazla seçkin hisse senedi ve ETF'in yapay zekâ destekli analizi.",
 };
 
 export default function Footer({
