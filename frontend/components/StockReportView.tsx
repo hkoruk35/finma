@@ -266,7 +266,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
       : "bg-amber-500/10 text-amber-400 border-amber-500/30";
 
   const reportContent = (
-    <div ref={reportRef} id="boga-stock-print" className={`w-full max-w-4xl mx-auto bg-[#0a0e17] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
+    <div ref={reportRef} id="boga-stock-print" className={`w-full max-w-4xl mx-auto bg-[#000036] rounded-3xl border border-[#1e2a3a]/60 shadow-2xl p-6 md:p-8 space-y-8 text-white select-none relative ${isFullScreen ? "my-4" : ""}`}>
       
       {/* 1. HEADER BLOCK */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-[#1e2a3a]/40 pb-6">
@@ -1292,7 +1292,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                         target="_blank"
                         rel="noopener noreferrer"
                         key={item.uuid || idx}
-                        className="p-3.5 rounded-xl bg-[#0a0e17] border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 hover:bg-[#0d1321] transition-all flex flex-col justify-between group"
+                        className="p-3.5 rounded-xl bg-[#000036] border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 hover:bg-[#0d1321] transition-all flex flex-col justify-between group"
                       >
                         <div>
                           <div className="flex items-center justify-between text-[9px] font-black text-slate-500 uppercase tracking-wider mb-2">
@@ -1389,7 +1389,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             padding: 16px !important;
             border-radius: 0 !important;
             box-shadow: none !important;
-            background: #0a0e17 !important;
+            background: #000036 !important;
             color: white !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;

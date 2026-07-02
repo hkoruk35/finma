@@ -38,7 +38,7 @@ export default async function EnSwingArchivePage() {
   ).filter((d): d is ArchiveDay => d !== null);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">

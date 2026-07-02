@@ -135,7 +135,7 @@ export default function SectorScreener() {
           <select
             value={selectedSector}
             onChange={(e) => setSelectedSector(e.target.value)}
-            className="w-full px-4 py-3 bg-[#0a0e17] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
+            className="w-full px-4 py-3 bg-[#000036] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
           >
             <option value="">Select a sector</option>
             {sectors.map((sector) => (
@@ -154,7 +154,7 @@ export default function SectorScreener() {
           <select
             value={selectedSubsector}
             onChange={(e) => setSelectedSubsector(e.target.value)}
-            className="w-full px-4 py-3 bg-[#0a0e17] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
+            className="w-full px-4 py-3 bg-[#000036] border border-[#1e2a3a] rounded-lg text-white focus:outline-none focus:border-[#3b82f6] focus:ring-1 focus:ring-[#3b82f6] transition-all"
             disabled={subsectors.length === 0}
           >
             <option value="all">All Subsectors</option>
@@ -169,7 +169,7 @@ export default function SectorScreener() {
 
       {/* Info Text */}
       {selectedSector && sectorData && (
-        <div className="text-xs text-[#00d2ff] bg-[#0a0e17] px-3 py-2 rounded border border-[#1e2a3a]">
+        <div className="text-xs text-[#00d2ff] bg-[#000036] px-3 py-2 rounded border border-[#1e2a3a]">
           📊{" "}
           {selectedSubsector === "all" ? (
             <>

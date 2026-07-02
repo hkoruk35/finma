@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function GlobalTrHesabimPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <MemberHeader locale="tr" />
       <main className="flex-1">
         <AccountView locale="tr" isGlobal={true} />

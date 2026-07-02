@@ -55,7 +55,7 @@ export default function AcademyArticleClient({
   const idx = academyIndex;
 
   return (
-    <div className="min-h-screen bg-[#0a0e17]">
+    <div className="min-h-screen bg-[#000036]">
       {/* Top bar */}
       <div className="border-b border-[#1e2a3a] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">

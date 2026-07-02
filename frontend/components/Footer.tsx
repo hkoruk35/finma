@@ -43,7 +43,7 @@ export default function Footer({
   locale?: "en" | "tr";
 }) {
   return (
-    <footer className="border-t border-[#1e2a3a] bg-[#0a0e17] mt-12">
+    <footer className="border-t border-[#1e2a3a] bg-[#000036] mt-12">
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

@@ -297,7 +297,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
       )}
 
       {/* SIDEBAR */}
-      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
+      <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#000036] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
           <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">{t("newSearch")}</button>
           <button 
@@ -385,7 +385,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
                     <button
                       key={item.ticker}
                       onClick={() => send(item.ticker)}
-                      className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
+                      className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#000036]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
                     >
                       <span className="text-xs font-black text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
                       <span className="text-[9px] text-[#64748b] font-bold mt-0.5 truncate max-w-full">{item.name}</span>

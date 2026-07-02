@@ -172,7 +172,7 @@ export default function Header({
   );
 
   return (
-    <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[#1e2a3a] bg-[#000036]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3">
 
         {/* Logo */}
@@ -318,7 +318,7 @@ export default function Header({
 
       {/* Mobile dropdown */}
       {showNav && mobileOpen && (
-        <div className="md:hidden border-t border-[#1e2a3a] bg-[#0a0e17] px-3 py-2">
+        <div className="md:hidden border-t border-[#1e2a3a] bg-[#000036] px-3 py-2">
           <nav className="grid grid-cols-2 gap-1">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href || pathname.startsWith(link.href + "/");

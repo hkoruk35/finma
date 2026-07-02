@@ -241,7 +241,7 @@ export default function OptionsMonitorClient() {
               cy={c.y}
               r={points[i].statusCode === 200 && points[i].contentValid && !points[i].error ? 3 : 4}
               fill={points[i].error || points[i].statusCode !== 200 ? "#ef4444" : points[i].totalTime > 1200 || !points[i].contentValid ? "#f59e0b" : "#3b82f6"}
-              stroke="#0a0e17"
+              stroke="#000036"
               strokeWidth={1.5}
               className="cursor-pointer transition-transform hover:scale-150"
             />

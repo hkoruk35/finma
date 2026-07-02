@@ -100,7 +100,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#3b82f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0e17" },
+    { media: "(prefers-color-scheme: dark)", color: "#000036" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -138,7 +138,7 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
       </head>
-      <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">
+      <body className="antialiased min-h-screen bg-[#000036] pb-20 lg:pb-0">
         <SmartTrackerProvider>
           <TrackerProvider>
             <PWAInstaller />

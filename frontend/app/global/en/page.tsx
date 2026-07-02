@@ -74,7 +74,7 @@ const SIGNAL_STYLE: Record<string, string> = {
 // Completely public page — no authentication required
 export default function EnHomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header hideMenus={true} globalLocale="en" />
 
       <main className="flex-1">
@@ -146,7 +146,7 @@ export default function EnHomePage() {
                 </thead>
                 <tbody>
                   {SAMPLE_ROWS.map((r) => (
-                    <tr key={r.ticker} className={`border-t border-[#1e2a3a] ${r.swing ? "bg-blue-500/[0.05]" : "bg-[#0a0e17]"}`}>
+                    <tr key={r.ticker} className={`border-t border-[#1e2a3a] ${r.swing ? "bg-blue-500/[0.05]" : "bg-[#000036]"}`}>
                       <td className="px-4 py-3">
                         <span className={`font-black ${r.swing ? "text-blue-400" : "text-white"}`}>{r.ticker}</span>
                         {r.swing && (
@@ -193,7 +193,7 @@ export default function EnHomePage() {
 
         {/* CTA bottom */}
         <section className="max-w-5xl mx-auto px-4 pb-20 text-center">
-          <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/20 rounded-3xl px-8 py-12">
+          <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#000036] border border-[#3b82f6]/20 rounded-3xl px-8 py-12">
             <h2 className="text-3xl font-black text-white tracking-tighter mb-3">Start tracking today</h2>
             <p className="text-white/40 text-sm mb-8 max-w-md mx-auto">
               Free account. Instant access. Same data as institutional traders.
