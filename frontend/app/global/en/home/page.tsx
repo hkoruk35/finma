@@ -25,16 +25,18 @@ export default async function EnHomePage() {
     getSwingPerformance(),
   ]);
 
-  // Calculate banner stats from history using the SAME methodology as SwingPerformanceDashboard
-  // (excludes duplicates and PENDING) so numbers always match the performance page.
+  // Same methodology as performance page: last 100 trades, -7% SL cap, excludes duplicates and PENDING.
+  const SL_CAP = -7;
   const bannerStats = (() => {
-    const history: any[] = swingStats?.history ?? [];
-    if (history.length === 0) return swingStats?.stats ?? null;
+    const fullHistory: any[] = swingStats?.history ?? [];
+    if (fullHistory.length === 0) return swingStats?.stats ?? null;
+    const history = [...fullHistory].sort((a: any, b: any) => (b.date || "").localeCompare(a.date || "")).slice(0, 100);
+    const effRet = (t: any): number => Math.max(t.return_pct ?? 0, SL_CAP);
     const active = history.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
     if (active.length === 0) return swingStats?.stats ?? null;
-    const wins = active.filter((t: any) => (t.return_pct ?? 0) > 0).length;
-    const sumRet = active.reduce((s: number, t: any) => s + (t.return_pct ?? 0), 0);
-    const above10 = active.filter((t: any) => (t.return_pct ?? 0) >= 10).length;
+    const wins = active.filter((t: any) => effRet(t) > 0).length;
+    const sumRet = active.reduce((s: number, t: any) => s + effRet(t), 0);
+    const above10 = active.filter((t: any) => effRet(t) >= 10).length;
     return {
       win_rate: (wins / active.length * 100).toFixed(1),
       avg_return_pct: (sumRet / active.length).toFixed(1),

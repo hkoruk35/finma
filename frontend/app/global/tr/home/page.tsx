@@ -25,16 +25,18 @@ export default async function TrHomePage() {
     getSwingPerformance(),
   ]);
 
-  // Performance sayfasındaki SwingPerformanceDashboard ile AYNI metodolojiyi kullan
-  // (duplicate ve PENDING hariç) — böylece rakamlar her zaman uyumlu olur.
+  // Performance sayfasıyla AYNI metodoloji: son 100 işlem, -%7 SL cap, duplicate ve PENDING hariç.
+  const SL_CAP = -7;
   const bannerStats = (() => {
-    const history: any[] = swingStats?.history ?? [];
-    if (history.length === 0) return swingStats?.stats ?? null;
+    const fullHistory: any[] = swingStats?.history ?? [];
+    if (fullHistory.length === 0) return swingStats?.stats ?? null;
+    const history = [...fullHistory].sort((a: any, b: any) => (b.date || "").localeCompare(a.date || "")).slice(0, 100);
+    const effRet = (t: any): number => Math.max(t.return_pct ?? 0, SL_CAP);
     const active = history.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
     if (active.length === 0) return swingStats?.stats ?? null;
-    const wins = active.filter((t: any) => (t.return_pct ?? 0) > 0).length;
-    const sumRet = active.reduce((s: number, t: any) => s + (t.return_pct ?? 0), 0);
-    const above10 = active.filter((t: any) => (t.return_pct ?? 0) >= 10).length;
+    const wins = active.filter((t: any) => effRet(t) > 0).length;
+    const sumRet = active.reduce((s: number, t: any) => s + effRet(t), 0);
+    const above10 = active.filter((t: any) => effRet(t) >= 10).length;
     return {
       win_rate: (wins / active.length * 100).toFixed(1),
       avg_return_pct: (sumRet / active.length).toFixed(1),
