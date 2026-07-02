@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
-import { translateEMAStatus, translatePattern } from "@/lib/translationHelpers";
+import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
@@ -438,7 +438,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                         </TickerHoverChart>
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{themeLabel(r.themeTitle, locale)}</td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{d?.sector || r.sector}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{translateSector(d?.sector || r.sector, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>

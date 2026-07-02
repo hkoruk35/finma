@@ -19,7 +19,7 @@ export function translateSignal(signal: string | null | undefined, locale: Local
   return signalMap[locale][signal] ?? signal;
 }
 
-export function translateSector(sector: string | null | undefined): string {
-  if (!sector) return "Unknown";
-  return sector;
+export function translateSector(sector: string | null | undefined, locale: Locale): string {
+  if (!sector) return "—";
+  return (copy[locale].top100.sectors as Record<string, string>)[sector] ?? sector;
 }

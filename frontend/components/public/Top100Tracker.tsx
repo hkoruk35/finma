@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
-import { translateEMAStatus, translatePattern } from "@/lib/translationHelpers";
+import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -394,7 +394,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                           </span>
                         )}
                       </td>
-                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>{sectorLabel.toUpperCase().slice(0, 14)}</td>
+                      <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>{translateSector(sectorLabel === "—" ? null : sectorLabel, locale).toUpperCase().slice(0, 14)}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
