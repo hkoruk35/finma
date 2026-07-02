@@ -107,10 +107,10 @@ function setCachedYahooData(ticker: string, data: any) {
 
 function getEMAStatus(price: number, ema20: number, ema50: number, ema200: number): string {
   if (price > ema20 && ema20 > ema50 && ema50 > ema200) return "Bullish";
-  if (price > ema20 && ema20 > ema50 && ema50 <= ema200) return "Yükseliş";
+  if (price > ema20 && ema20 > ema50 && ema50 <= ema200) return "BullishWeak";
   if (price < ema20 && ema20 < ema50 && ema50 < ema200) return "Bearish";
-  if (price < ema20 && ema20 < ema50 && ema50 >= ema200) return "Düşüş";
-  return "Nötr";
+  if (price < ema20 && ema20 < ema50 && ema50 >= ema200) return "BearishWeak";
+  return "Neutral";
 }
 
 function detectCandlePattern(
@@ -119,7 +119,7 @@ function detectCandlePattern(
   highs: number[],
   lows: number[]
 ): string {
-  if (closes.length < 3) return "Yetersiz Veri";
+  if (closes.length < 3) return "Insufficient Data";
 
   // Son bar şu an oluşmakta (eksik) — son TAMAMLANMIŞ bar = index -2
   const n = closes.length;
@@ -197,26 +197,26 @@ function detectCandlePattern(
     if (bullish && prev_bullish && prev2_bullish &&
         curr.close > prev.close && prev.close > prev2.close &&
         curr.open > prev.open && prev.open > prev2.open) {
-      return "3 Asker ↑";
+      return "3 Soldiers ↑";
     }
     // Three Black Crows: 3 ardışık alçalan kırmızı mum
     if (!bullish && !prev_bullish && !prev2_bullish &&
         curr.close < prev.close && prev.close < prev2.close &&
         curr.open < prev.open && prev.open < prev2.open) {
-      return "3 Karga ↓";
+      return "3 Crows ↓";
     }
   }
 
   // ── Fallback: Gövde büyüklüğüne göre basit etiket ────────
   const bodyRatio = body / range;
   if (bullish) {
-    if (bodyRatio > 0.65) return "Güçlü ↑";
-    if (upper_wick > lower_wick * 2) return "Üst Fitil ↑";
-    return "Yeşil Mum ↑";
+    if (bodyRatio > 0.65) return "Strong ↑";
+    if (upper_wick > lower_wick * 2) return "Upper Wick ↑";
+    return "Green Candle ↑";
   } else {
-    if (bodyRatio > 0.65) return "Güçlü ↓";
-    if (lower_wick > upper_wick * 2) return "Alt Fitil ↓";
-    return "Kırmızı Mum ↓";
+    if (bodyRatio > 0.65) return "Strong ↓";
+    if (lower_wick > upper_wick * 2) return "Lower Wick ↓";
+    return "Red Candle ↓";
   }
 }
 
@@ -229,30 +229,30 @@ function calculateSignal(
   const bullishPatterns = ["Hammer", "Bullish Engulfing", "Inv. Hammer"];
   const bearishPatterns = ["Shooting Star", "Bearish Engulfing", "Hanging Man"];
 
-  const isBullishEMA = ["Bullish", "Yükseliş"].includes(emaStatus);
-  const isBearishEMA = ["Bearish", "Düşüş"].includes(emaStatus);
+  const isBullishEMA = ["Bullish", "BullishWeak"].includes(emaStatus);
+  const isBearishEMA = ["Bearish", "BearishWeak"].includes(emaStatus);
   const hasGoodRSI = rsi >= 50 && rsi <= 70;
   const hasBadRSI = rsi < 45;
   const hasGoodVolume = volumeRatio >= 0.8;
 
-  // AL: Bullish EMA + RSI 50-70 + bullish pattern + good volume
+  // BUY: Bullish EMA + RSI 50-70 + bullish pattern + good volume
   if (isBullishEMA && hasGoodRSI && bullishPatterns.includes(pattern) && hasGoodVolume) {
-    return "AL";
+    return "BUY";
   }
 
-  // SAT: Bearish EMA + RSI < 45 + bearish pattern
+  // SELL: Bearish EMA + RSI < 45 + bearish pattern
   if (isBearishEMA && hasBadRSI && bearishPatterns.includes(pattern)) {
-    return "SAT";
+    return "SELL";
   }
 
-  // İzle: 2/3 conditions met
+  // WATCH: 2/3 conditions met
   const bullishConditions = [isBullishEMA, hasGoodRSI, bullishPatterns.includes(pattern), hasGoodVolume].filter(Boolean).length;
   if (bullishConditions >= 2 || bullishPatterns.includes(pattern)) {
-    return "İzle";
+    return "WATCH";
   }
 
-  // Bekle: everything else
-  return "Bekle";
+  // HOLD: everything else
+  return "HOLD";
 }
 
 // ── Original calculations ────────────────────────────────────────────────────
@@ -458,7 +458,7 @@ function check15mMicroTrend(
   highs15m: number[] | null
 ) {
   if (!closes15m || !opens15m || !highs15m || closes15m.length < 8) {
-    return { is_valid: true, score_bonus: 0.0, msg: "⚠️ 15m veri yetersiz (nötr)" };
+    return { is_valid: true, score_bonus: 0.0, msg: "⚠️ 15m insufficient data (neutral)" };
   }
 
   // Get last 8 candles (recent 2 hours)
@@ -476,18 +476,18 @@ function check15mMicroTrend(
   const is_bleeding = (h[7] < h[5]) && (h[5] < h[2]);
 
   if (net_change_pct < -1.0 && green_candles <= 3 && is_bleeding) {
-    return { is_valid: false, score_bonus: -10.0, msg: "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)" };
+    return { is_valid: false, score_bonus: -10.0, msg: "🚨 15m DISTRIBUTION: Heavy selling last 2h (reject)" };
   }
 
   if (net_change_pct > 0.5 && green_candles >= 5) {
-    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m ONAY: Son 2 saat net trend (+${net_change_pct.toFixed(2)}%)` };
+    return { is_valid: true, score_bonus: 4.0, msg: `🔥 15m CONFIRMED: Net uptrend last 2h (+${net_change_pct.toFixed(2)}%)` };
   }
 
   if (net_change_pct < 0 && green_candles < 4) {
-    return { is_valid: true, score_bonus: -2.0, msg: "⚠️ 15m Uyarı: Son 2 saat yön aşağı" };
+    return { is_valid: true, score_bonus: -2.0, msg: "⚠️ 15m WARNING: Downward bias last 2h" };
   }
 
-  return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m Yatay/Sıkışma: Gürültü yok" };
+  return { is_valid: true, score_bonus: 1.0, msg: "⚖️ 15m RANGE: Consolidation (no noise)" };
 }
 
 type SectorHint = { sector: string; longName: string; industry: string };
@@ -753,9 +753,9 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
     let ema200_1h = 0;
     let rsi_1h = 0;
     let candlePattern_1h = "—";
-    let emaStatus_1h = "Nötr";
+    let emaStatus_1h = "Neutral";
     let volumeRatio_1h = 1.0;
-    let signal = "Bekle";
+    let signal = "HOLD";
     let change_pct_1h = 0;
 
     if (closes1h && closes1h.length >= 20 && opens1h && highs1h && lows1h && volumes1h) {

@@ -11,9 +11,9 @@ import type { Top100Row } from "@/app/api/top100/route";
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
 
-const SIGNAL_ICON: Record<string, string> = { AL: "●", İzle: "◑", Bekle: "○", SAT: "✕" };
-const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", İzle: "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
-const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
+const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
+const ROW_BG: Record<string, string> = { BUY: "#0d1f0d", WATCH: "#1a1a0d", HOLD: "#0d1117", SELL: "#1f0d0d" };
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
 interface HourlyBar {
@@ -85,9 +85,9 @@ function isMarketOpen() {
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
 }
 
-const SIGNAL_RANK: Record<string, number> = { AL: 4, İzle: 3, Bekle: 2, SAT: 1 };
-const SIGNAL_LABEL_EN: Record<string, string> = { AL: "BUY", İzle: "WATCH", Bekle: "HOLD", SAT: "SELL" };
-const signalLabel = (s: string, locale: string) => (locale === "tr" ? s : SIGNAL_LABEL_EN[s] ?? s);
+const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1 };
+const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İzle", HOLD: "Bekle", SELL: "SAT" };
+const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
 export default function Top100Tracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
@@ -217,8 +217,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
     });
   }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "AL").length;
-  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "İzle").length;
+  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "BUY").length;
+  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
@@ -226,7 +226,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   if (!mounted || loading) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036" }}>
         <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">{t.loading}</span>
       </div>
     );
@@ -234,14 +234,14 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   if (error) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117", color: "#f85149", fontFamily: "monospace" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036", color: "#f85149", fontFamily: "monospace" }}>
         {error}
       </div>
     );
   }
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -251,8 +251,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : locale === "tr" ? "market kapalı" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : "tickers"}</span>
-              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("AL", locale)}</span>}
-              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("İzle", locale)}</span>}
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("BUY", locale)}</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("WATCH", locale)}</span>}
             </div>
           </div>
 
@@ -286,7 +286,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          {["", "AL", "İzle", "Bekle", "SAT"].map((s) => (
+          {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
                 padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
@@ -357,7 +357,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
-                      whiteSpace: "nowrap", background: "#0d1117",
+                      whiteSpace: "nowrap", background: "#000036",
                       cursor: key ? "pointer" : "default", userSelect: "none",
                     }}>
                     {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
@@ -369,8 +369,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
               {sorted.map((r, idx) => {
                 const d = live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
-                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
-                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0d1117";
+                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
+                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#000036";
                 const isExpanded = expandedTicker === r.ticker;
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
@@ -415,10 +415,10 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                         {d && (
                           <span style={{
                             fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                            background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "Yükseliş" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Nötr" ? "#1a1a2e" : d.tracker_1h?.ema_status === "Düşüş" ? "#2e1a1a" : "#3a1a1a",
-                            color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "Yükseliş" ? "#56d364" : d.tracker_1h?.ema_status === "Nötr" ? "#8b949e" : d.tracker_1h?.ema_status === "Düşüş" ? "#f85149" : "#ff7b72",
+                            background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "BullishWeak" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Neutral" ? "#1a1a2e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
+                            color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "BullishWeak" ? "#56d364" : d.tracker_1h?.ema_status === "Neutral" ? "#8b949e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#f85149" : "#ff7b72",
                           }}>
-                            {d.tracker_1h?.ema_status}
+                            {locale === "tr" ? (d.tracker_1h?.ema_status === "Bullish" ? "Yükseliş" : d.tracker_1h?.ema_status === "BullishWeak" ? "Yükseliş" : d.tracker_1h?.ema_status === "Neutral" ? "Nötr" : d.tracker_1h?.ema_status === "BearishWeak" ? "Düşüş" : "Düşüş") : d.tracker_1h?.ema_status}
                           </span>
                         )}
                       </td>
@@ -478,7 +478,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = heatBg(dayPct);
                   return (
-                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
