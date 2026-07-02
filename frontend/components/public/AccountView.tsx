@@ -189,7 +189,7 @@ function ProfileTab({
 
       <div>
         <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{t.emailLabel}</label>
-        <input type="email" value={member.email} disabled className="w-full px-4 py-3 bg-[#000036] border border-white/10 text-white/40 rounded-xl cursor-not-allowed" />
+        <input type="email" value={member.email} disabled className="w-full px-4 py-3 bg-[#0a0e17] border border-white/10 text-white/40 rounded-xl cursor-not-allowed" />
       </div>
 
       <button

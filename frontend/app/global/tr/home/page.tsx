@@ -45,7 +45,7 @@ export default async function TrHomePage() {
   })();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="tr" />
       <TickerTape indices={indices} />
 

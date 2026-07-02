@@ -264,7 +264,7 @@ function MultiScreenOverlay({
     const inst = getInstrument(fullscreenTicker);
     return (
       <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
-        <div className="flex items-center justify-between px-4 py-2 bg-[#000036] border-b border-[#1e2a3a] shrink-0">
+        <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
           <span className="text-xs font-black text-white uppercase tracking-widest">
             {fullscreenTicker} <span className="text-slate-400 font-normal">{inst?.label}</span>
           </span>
@@ -300,7 +300,7 @@ function MultiScreenOverlay({
 
   return (
     <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
-      <div className="flex items-center justify-between px-4 py-2 bg-[#000036] border-b border-[#1e2a3a] shrink-0">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
         <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">
           Multi-Screen — {count} Chart{count !== 1 ? "s" : ""}
           <span className="ml-3 text-slate-500 font-normal normal-case">Click ⛶ to expand any chart</span>
@@ -320,7 +320,7 @@ function MultiScreenOverlay({
           const inst = getInstrument(ticker);
           if (!inst) return null;
           return (
-            <div key={`${ticker}-${i}`} className="bg-[#000036] border border-[#1a2234] rounded overflow-hidden flex flex-col group">
+            <div key={`${ticker}-${i}`} className="bg-[#0a0e17] border border-[#1a2234] rounded overflow-hidden flex flex-col group">
               <div className="flex items-center justify-between px-2 py-1 border-b border-[#1a2234] shrink-0">
                 <span className="text-[10px] font-black text-white uppercase tracking-wide">
                   {ticker} <span className="text-slate-500 font-normal">{inst.label}</span>

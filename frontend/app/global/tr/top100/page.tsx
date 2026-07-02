@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function TrTop100Page() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="tr" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">

@@ -99,7 +99,7 @@ export default function AIWidget() {
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} className="h-64 overflow-y-auto p-4 space-y-3 bg-[#000036]">
+      <div ref={scrollRef} className="h-64 overflow-y-auto p-4 space-y-3 bg-[#0a0e17]">
         {messages.length === 0 && (
           <div className="text-center pt-8">
             <p className="text-[11px] text-[#64748b]">Ask a question about stocks or trading</p>
@@ -148,7 +148,7 @@ export default function AIWidget() {
       </div>
 
       {/* Input */}
-      <div className="p-3 border-t border-[#1e2a3a] bg-[#000036] flex gap-2">
+      <div className="p-3 border-t border-[#1e2a3a] bg-[#0a0e17] flex gap-2">
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}

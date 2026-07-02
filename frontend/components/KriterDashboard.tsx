@@ -44,7 +44,7 @@ export default function KriterDashboard({
         {initialStats && (
           <div className="mt-6">
             <h3 className="text-lg font-semibold text-white mb-2">Aggregate Stats</h3>
-            <pre className="bg-[#000036] p-4 rounded text-xs text-gray-400 overflow-auto max-h-64">
+            <pre className="bg-[#0a0e17] p-4 rounded text-xs text-gray-400 overflow-auto max-h-64">
               {JSON.stringify(initialStats, null, 2)}
             </pre>
           </div>

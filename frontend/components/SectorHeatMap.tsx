@@ -109,7 +109,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
               </Link>
 
               {/* Grid of Stocks */}
-              <div className="grid grid-cols-4 md:grid-cols-6 gap-[2px] p-2 bg-[#000036]">
+              <div className="grid grid-cols-4 md:grid-cols-6 gap-[2px] p-2 bg-[#0a0e17]">
                 {stocks.map(stock => {
                   const s = getPerformanceColor(stock.change_pct);
                   return (

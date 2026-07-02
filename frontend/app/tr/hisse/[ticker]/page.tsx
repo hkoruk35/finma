@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
 export default async function TrHissePage({ params }: { params: Promise<{ ticker: string }> }) {
   const { ticker } = await params;
   return (
-    <div className="min-h-screen bg-[#000036]">
+    <div className="min-h-screen bg-[#0a0e17]">
       <TickerDetailPanel ticker={ticker.toUpperCase()} locale="tr" fullPage />
     </div>
   );

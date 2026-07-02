@@ -136,7 +136,7 @@ const ProfitSimulator = () => {
            </div>
 
            {/* Visualization Card */}
-           <div className="bg-[#000036] p-6 md:p-10 rounded-2xl md:rounded-3xl border border-[#1e2a3a] flex-1 min-h-[220px] md:min-h-[250px] flex flex-col justify-between relative overflow-hidden group">
+           <div className="bg-[#0a0e17] p-6 md:p-10 rounded-2xl md:rounded-3xl border border-[#1e2a3a] flex-1 min-h-[220px] md:min-h-[250px] flex flex-col justify-between relative overflow-hidden group">
               {/* Background Glow */}
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#3b82f6]/10 blur-[80px] rounded-full group-hover:bg-[#3b82f6]/20 transition-all"></div>
 

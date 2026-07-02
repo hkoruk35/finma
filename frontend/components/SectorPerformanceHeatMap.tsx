@@ -100,7 +100,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
       </div>
 
       {/* Mobile layout: Marquee running ticker */}
-      <div className="md:hidden relative w-full overflow-hidden py-2 border-t border-b border-white/5 bg-[#000036]/40">
+      <div className="md:hidden relative w-full overflow-hidden py-2 border-t border-b border-white/5 bg-[#0a0e17]/40">
         <div className="flex gap-4 animate-marquee-left min-w-max">
           {heatmap.concat(heatmap).map((s, idx) => (
             <CardWrapper

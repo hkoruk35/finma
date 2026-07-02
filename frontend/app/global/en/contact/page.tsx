@@ -137,7 +137,7 @@ export default function ContactPage() {
                     </div>
 
                     {/* hCaptcha Placeholder */}
-                    <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl p-4 flex items-center justify-between">
+                    <div className="bg-[#0a0e17] border border-[#1e2a3a] rounded-xl p-4 flex items-center justify-between">
                        <div className="flex items-center gap-3">
                           <input type="checkbox" required className="w-4 h-4 rounded border-[#3b82f6]" />
                           <span className="text-xs font-bold text-white">I am not a robot</span>

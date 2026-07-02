@@ -65,7 +65,7 @@ export default function TVChartEmbed({
         theme: "dark",
         style: "1",
         locale: "en",
-        toolbar_bg: "#000036",
+        toolbar_bg: "#0a0e17",
         enable_publishing: false,
         hide_side_toolbar: true,
         // Always show top toolbar so users can add/remove indicators

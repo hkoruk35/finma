@@ -434,7 +434,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
             )}
 
             {/* Upgrade card */}
-            <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#000036] border border-[#3b82f6]/20 rounded-2xl p-6">
+            <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/20 rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">⚡</span>
                 <h3 className="text-sm font-black text-white tracking-tight">{t.subscription.upgradeHeading}</h3>

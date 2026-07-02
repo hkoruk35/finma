@@ -247,7 +247,7 @@ export default async function SubsectorPage({
                 <tr
                   key={stock.ticker}
                   className={`border-b border-[#1e2a3a] hover:bg-[#141924]/50 transition-colors ${
-                    idx % 2 === 0 ? "bg-[#000036]/30" : ""
+                    idx % 2 === 0 ? "bg-[#0a0e17]/30" : ""
                   }`}
                 >
                   <td className="px-4 py-3">
