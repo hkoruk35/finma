@@ -228,7 +228,6 @@ WINNING_SECTORS_BONUS = {
     "Financials": 4.0,
     "Healthcare": 4.0,
 }
-}
 # -- Yüksek riskli industry grupları — swing için hard reject -----------------
 # Bu industry'lere ait hisseler binary event (FDA kararı, faz 3 sonucu, patent
 # davası vb.) riskiyle teknik analiz sinyalini geçersiz kılabilir.
