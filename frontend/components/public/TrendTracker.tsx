@@ -468,7 +468,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       </td>
                     </tr>
                     {isExpanded && (
-                      <tr style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
+                      <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={15} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
@@ -505,7 +505,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   return (
-                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: idx % 2 === 1 ? "#161b22" : "#0f1117", borderBottom: "1px solid #21262d" }}>
+                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>

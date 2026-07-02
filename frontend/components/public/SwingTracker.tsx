@@ -239,7 +239,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
   if (!mounted || loading) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0f1117" }}>
         <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">{t.loading}</span>
       </div>
     );
@@ -247,14 +247,14 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
   if (error) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117", color: "#f85149", fontFamily: "monospace" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0f1117", color: "#f85149", fontFamily: "monospace" }}>
         {error}
       </div>
     );
   }
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+    <div style={{ background: "#0f1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -392,7 +392,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
-                      whiteSpace: "nowrap", background: "#0d1117",
+                      whiteSpace: "nowrap", background: "#0f1117",
                       cursor: key ? "pointer" : "default", userSelect: "none",
                     }}>
                     {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
@@ -446,7 +446,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       </td>
                     </tr>
                     {isExpanded && (
-                      <tr style={{ background: "#161b22", borderBottom: "1px solid #30363d" }}>
+                      <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={14} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
@@ -483,7 +483,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   return (
-                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                    <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
