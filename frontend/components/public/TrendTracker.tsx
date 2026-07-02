@@ -167,7 +167,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
             price: 0,
             change_pct: 0,
             rsi: 0,
-            signal: "İzle",
+            signal: "WATCH",
             volume: 0,
             sector: "Unknown",
             themeTitle: theme.title,
@@ -264,8 +264,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
     });
   }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "AL").length;
-  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "İzle").length;
+  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "BUY").length;
+  const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
 
@@ -300,8 +300,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : locale === "tr" ? "market kapalı" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : "tickers"}</span>
-              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("AL", locale)}</span>}
-              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("İzle", locale)}</span>}
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("BUY", locale)}</span>}
+              {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("WATCH", locale)}</span>}
             </div>
           </div>
 
@@ -340,7 +340,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
             <option value="">{locale === "tr" ? "TÜM TEMALAR" : "ALL THEMES"}</option>
             {themeOptions.map((t) => <option key={t} value={t}>{themeLabel(t, locale)}</option>)}
           </select>
-          {["", "AL", "İzle", "Bekle", "SAT"].map((s) => (
+          {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
                 padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
