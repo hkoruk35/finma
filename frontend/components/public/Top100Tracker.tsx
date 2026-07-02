@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import { translateEMAStatus, translatePattern } from "@/lib/translationHelpers";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -418,12 +419,12 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                             background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "BullishWeak" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Neutral" ? "#1a1a2e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
                             color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "BullishWeak" ? "#56d364" : d.tracker_1h?.ema_status === "Neutral" ? "#8b949e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#f85149" : "#ff7b72",
                           }}>
-                            {locale === "tr" ? (d.tracker_1h?.ema_status === "Bullish" ? "Yükseliş" : d.tracker_1h?.ema_status === "BullishWeak" ? "Yükseliş" : d.tracker_1h?.ema_status === "Neutral" ? "Nötr" : d.tracker_1h?.ema_status === "BearishWeak" ? "Düşüş" : "Düşüş") : d.tracker_1h?.ema_status}
+                            {translateEMAStatus(d.tracker_1h?.ema_status, locale)}
                           </span>
                         )}
                       </td>
                       <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi) : "#8b949e" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.candle_pattern || "—"}</td>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right" }}>
                         {d && (
                           <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>

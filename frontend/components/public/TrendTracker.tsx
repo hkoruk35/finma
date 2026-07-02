@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import { translateEMAStatus, translatePattern } from "@/lib/translationHelpers";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
@@ -453,9 +454,9 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
                         {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
                       </td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{d?.tracker_1h?.ema_status}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{patternLabel(d?.tracker_1h?.candle_pattern, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
                         <button
