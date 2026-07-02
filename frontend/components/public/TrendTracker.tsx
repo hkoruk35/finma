@@ -24,7 +24,7 @@ const ACCENT = "#58a6ff";
 
 const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
-const ROW_BG: Record<string, string> = { BUY: "#0d1f0d", WATCH: "#1a1a0d", HOLD: "#0f1117", SELL: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { BUY: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", SELL: "#0f1117" };
 
 interface TrendRow {
   ticker: string;
