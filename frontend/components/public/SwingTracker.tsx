@@ -404,8 +404,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
               {sorted.map((r, idx) => {
                 const d = live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
-                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
-                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0d1117";
+                const rowBg = ROW_BG[signal] || "#0f1117";
+                const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
 
                 return (

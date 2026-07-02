@@ -370,8 +370,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
               {sorted.map((r, idx) => {
                 const d = live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
-                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
-                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#000036";
+                const rowBg = ROW_BG[signal] || "#0f1117";
+                const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
