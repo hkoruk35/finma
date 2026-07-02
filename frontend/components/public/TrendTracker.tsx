@@ -23,7 +23,7 @@ const ACCENT = "#58a6ff";
 
 const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
-const ROW_BG: Record<string, string> = { BUY: "#0d1f0d", WATCH: "#1a1a0d", HOLD: "#000036", SELL: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { BUY: "#0d1f0d", WATCH: "#1a1a0d", HOLD: "#0f1117", SELL: "#1f0d0d" };
 
 interface TrendRow {
   ticker: string;
@@ -271,7 +271,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
   if (!mounted || loading) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0f1117" }}>
         <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">{t.loading}</span>
       </div>
     );
@@ -279,14 +279,14 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
   if (error) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036", color: "#f85149", fontFamily: "monospace" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0f1117", color: "#f85149", fontFamily: "monospace" }}>
         {error}
       </div>
     );
   }
 
   return (
-    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+    <div style={{ background: "#0f1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -412,7 +412,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
-                      whiteSpace: "nowrap", background: "#000036",
+                      whiteSpace: "nowrap", background: "#0f1117",
                       cursor: key ? "pointer" : "default", userSelect: "none",
                     }}>
                     {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
@@ -424,8 +424,8 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               {sorted.map((r, idx) => {
                 const d = live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
-                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
-                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#000036";
+                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0f1117");
+                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
 
                 return (
@@ -504,7 +504,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   return (
-                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
+                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: idx % 2 === 1 ? "#161b22" : "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
