@@ -30,7 +30,7 @@ export function WatchlistModal({ isOpen, message, isLoading, onClose }: Watchlis
     >
       <div
         style={{
-          background: "#0d1117",
+          background: "#000036",
           border: `1px solid ${isSuccess ? "#22c55e" : "#ef4444"}`,
           borderRadius: 8,
           padding: "20px 24px",

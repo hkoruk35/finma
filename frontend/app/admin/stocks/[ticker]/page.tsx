@@ -54,7 +54,7 @@ export default function StockDetailPage() {
   }, [ticker]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080b12]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header />
 
       <main className="flex-1 w-full">

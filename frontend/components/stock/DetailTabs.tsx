@@ -151,7 +151,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                     </h3>
                     <p className="text-sm text-gray-400 mt-1">Real-time direction and status for {stock.ticker}</p>
                   </div>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0d1117] border border-[#30363d]">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#000036] border border-[#30363d]">
                     <span className="text-[11px] text-gray-500 font-bold uppercase tracking-widest">Last Update:</span>
                     <span className="text-sm text-[#00d2ff] font-mono font-bold">{lastUpdated}</span>
                   </div>

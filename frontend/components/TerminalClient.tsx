@@ -668,7 +668,7 @@ export default function TerminalClient() {
                   onChange={(e) => setWatchInputActive(e.target.value.toUpperCase())}
                   onKeyDown={(e) => e.key === "Enter" && addToWatchlistActive()}
                   placeholder="Add ticker…"
-                  className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[10px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
+                  className="flex-1 bg-[#000036] border border-[#1e2a3a] rounded px-2 py-1 text-[10px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
                 />
                 <button
                   onClick={addToWatchlistActive}
@@ -777,7 +777,7 @@ export default function TerminalClient() {
           )}
 
           {/* Indicator Toggles */}
-          <div className="flex items-center gap-0.5 bg-[#0d1117] border border-[#1e2a3a] rounded px-1 py-0.5">
+          <div className="flex items-center gap-0.5 bg-[#000036] border border-[#1e2a3a] rounded px-1 py-0.5">
             {INDICATORS.map((ind) => (
               <button
                 key={ind.id}
@@ -794,7 +794,7 @@ export default function TerminalClient() {
           </div>
 
           {/* Interval selector */}
-          <div className="flex items-center gap-0.5 bg-[#0d1117] border border-[#1e2a3a] rounded px-1 py-0.5">
+          <div className="flex items-center gap-0.5 bg-[#000036] border border-[#1e2a3a] rounded px-1 py-0.5">
             {INTERVALS.map((iv) => (
               <button
                 key={iv.value}
@@ -1001,7 +1001,7 @@ export default function TerminalClient() {
                 onChange={(e) => setTrackerInput(e.target.value.toUpperCase())}
                 onKeyDown={(e) => e.key === "Enter" && addToTracker()}
                 placeholder="Track ticker…"
-                className="flex-1 bg-[#0d1117] border border-[#1e2a3a] rounded px-2 py-1 text-[11px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
+                className="flex-1 bg-[#000036] border border-[#1e2a3a] rounded px-2 py-1 text-[11px] text-white placeholder-slate-600 focus:outline-none focus:border-[#3b82f6]"
               />
               <button
                 onClick={addToTracker}

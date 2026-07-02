@@ -85,7 +85,7 @@ export default function AIWidget() {
 
   return (
     <div className="glass-card border-t-2 border-t-[#3b82f6] overflow-hidden">
-      <div className="p-4 bg-gradient-to-r from-[#0d1117] to-[#1a1f2e] border-b border-[#1e2a3a]">
+      <div className="p-4 bg-gradient-to-r from-[#000036] to-[#1a1f2e] border-b border-[#1e2a3a]">
         <div className="flex items-center gap-2 mb-1">
           <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6] flex items-center justify-center">
             <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

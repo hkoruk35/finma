@@ -29,7 +29,7 @@ interface TickerData {
 
 const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
-const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#000036", SAT: "#1f0d0d" };
 
 const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(2) : "—");
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
@@ -317,7 +317,7 @@ export default function AllListDetailClient() {
   const pageItems = sortedTickers.slice(start, end);
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
+    <div style={{ background: "#000036", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
       {/* Top Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
         {/* Breadcrumb */}
@@ -476,7 +476,7 @@ export default function AllListDetailClient() {
                   <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
                     padding: "7px 8px", textAlign: i <= 2 ? "left" : "right",
                     fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
-                    color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
+                    color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#000036",
                     cursor: isSortable ? "pointer" : "default",
                     userSelect: "none",
                     opacity: isSortable ? 1 : 0.7
@@ -493,8 +493,8 @@ export default function AllListDetailClient() {
               if (!d) return null;
 
               const signal = d.tracker_1h?.signal || "—";
-              const rowBg = ROW_BG[signal] || "#0d1117";
-              const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
+              const rowBg = ROW_BG[signal] || "#000036";
+              const altBg = idx % 2 === 1 ? "#161b22" : "#000036";
               const bg = signal !== "—" ? rowBg : altBg;
               const price = d.price?.current ?? 0;
 
@@ -746,7 +746,7 @@ export default function AllListDetailClient() {
             left: Math.min(hoverPos.x, window.innerWidth - 440),
             top: Math.max(8, Math.min(hoverPos.y, window.innerHeight - 270)),
             width: 430, zIndex: 9999,
-            background: "#0d1117", border: "1px solid #30363d",
+            background: "#000036", border: "1px solid #30363d",
             borderRadius: 6, overflow: "hidden",
             boxShadow: "0 8px 32px rgba(0,0,0,0.8)"
           }}

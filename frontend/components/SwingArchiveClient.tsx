@@ -34,7 +34,7 @@ export default function SwingArchiveClient({ date }: SwingArchiveProps) {
   }, [date]);
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "100vh", color: "#e6edf3", fontFamily: "monospace" }}>
+    <div style={{ background: "#000036", minHeight: "100vh", color: "#e6edf3", fontFamily: "monospace" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
         <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 8 }}>

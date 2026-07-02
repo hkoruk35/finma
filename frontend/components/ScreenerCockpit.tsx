@@ -111,7 +111,7 @@ interface Regime {
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
 // Text hierarchy: primary=#e2e8f0  secondary=#b0bec5  tertiary=#7c8fa6  muted=#64748b
-// Backgrounds:    base=#0a0c10  panel=#0d1117  surface=#111620  input=#0f141e
+// Backgrounds:    base=#0a0c10  panel=#000036  surface=#111620  input=#0f141e
 // Borders:        border=#1e2a3a  borderFaint=#253347
 
 // ─── Preset Definitions ───────────────────────────────────────────────────────
@@ -293,7 +293,7 @@ function fmtCap(v: number): string {
 
 function DetailRow({ stock, preset }: { stock: ScreenerResult; preset: string }) {
   return (
-    <tr style={{ background: "#0d1117" }}>
+    <tr style={{ background: "#000036" }}>
       <td colSpan={11} style={{ padding: "14px 18px" }}>
 
         {stock.warnings?.length > 0 && (
@@ -685,7 +685,7 @@ export default function ScreenerCockpit() {
     <div style={{ background: "#0a0c10", minHeight: "calc(100vh - 64px)", fontFamily: "'JetBrains Mono','IBM Plex Mono',monospace", fontSize: 13, color: "#e2e8f0" }}>
 
       {/* ── Top Bar ──────────────────────────────────────────────────────────── */}
-      <div style={{ background: "#0d1117", borderBottom: "1px solid #1e2a3a", padding: "9px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+      <div style={{ background: "#000036", borderBottom: "1px solid #1e2a3a", padding: "9px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: 2, color: "#22c55e" }}>
             BOGA <span style={{ color: "#7c8fa6", fontWeight: 400, fontSize: 12 }}>SCREENER v2</span>
@@ -838,7 +838,7 @@ export default function ScreenerCockpit() {
       <div style={{ display: "flex", height: "calc(100vh - 192px)", minHeight: 500 }}>
 
         {/* ── Left Panel ───────────────────────────────────────────────────────── */}
-        <div style={{ width: 220, background: "#0d1117", borderRight: "1px solid #1e2a3a", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
+        <div style={{ width: 220, background: "#000036", borderRight: "1px solid #1e2a3a", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
           <div style={{ padding: "12px 14px 6px", fontSize: 10, letterSpacing: "1.5px", color: "#7c8fa6", textTransform: "uppercase", fontWeight: 700 }}>Stratejiler</div>
           {(() => {
             const modeLabels: Record<string, { label: string; color: string }> = {
@@ -873,7 +873,7 @@ export default function ScreenerCockpit() {
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
           {/* Toolbar */}
-          <div style={{ background: "#0d1117", borderBottom: "1px solid #1e2a3a", padding: "8px 18px", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ background: "#000036", borderBottom: "1px solid #1e2a3a", padding: "8px 18px", display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
             <button onClick={runScan} disabled={isScanning}
               style={{ background: isScanning ? "#111620" : "rgba(34,197,94,0.12)", border: "1px solid rgba(34,197,94,0.5)", color: "#4ade80", padding: "6px 16px", borderRadius: 4, cursor: isScanning ? "not-allowed" : "pointer", fontSize: 12, fontFamily: "inherit", fontWeight: 700, letterSpacing: 1, display: "flex", alignItems: "center", gap: 6, transition: "all .15s" }}>
               {isScanning ? "⏳ Taranıyor..." : "📡 TARA"}
@@ -990,7 +990,7 @@ export default function ScreenerCockpit() {
                       <tr key={stock.ticker}
                         onClick={() => setExpandedRow(expandedRow === stock.ticker ? null : stock.ticker)}
                         style={{ cursor: "pointer", borderBottom: "1px solid #1a2234", transition: "background .1s" }}
-                        onMouseEnter={e => (e.currentTarget.style.background = "#0d1117")}
+                        onMouseEnter={e => (e.currentTarget.style.background = "#000036")}
                         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
                         <td style={{ padding: "8px 11px" }}>
                           <TickerHoverChart ticker={stock.ticker}><div style={{ fontWeight: 700, fontSize: 13, color: "#f1f5f9", display: "inline" }}>{stock.ticker}</div></TickerHoverChart>
@@ -1072,7 +1072,7 @@ export default function ScreenerCockpit() {
           </div>
 
           {/* ── Regime Bar ───────────────────────────────────────────────────────── */}
-          <div style={{ background: "#0d1117", borderTop: "1px solid #1e2a3a", padding: "6px 18px", display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
+          <div style={{ background: "#000036", borderTop: "1px solid #1e2a3a", padding: "6px 18px", display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
             <span style={{ fontSize: 10, color: "#7c8fa6", letterSpacing: 1.5, textTransform: "uppercase", fontWeight: 700 }}>Piyasa Rejimi:</span>
             <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11 }}>
               <div style={{ width: 7, height: 7, borderRadius: "50%", background: regimeColor }} />

@@ -44,7 +44,7 @@ const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
 
 const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
-const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#000036", SAT: "#1f0d0d" };
 
 const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:00","16:15"];
 
@@ -220,13 +220,13 @@ export function TrackerPageClient() {
   }, [filtered, data, types]);
 
   if (!mounted) return (
-    <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
+    <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036" }}>
       <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">loading...</span>
     </div>
   );
 
   if (tickers.length === 0) return (
-    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "40px 0" }}>
+    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "40px 0" }}>
       <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px", marginBottom: 6 }}>
         BOGA TRACKER — ACTIVE
       </div>
@@ -264,7 +264,7 @@ export function TrackerPageClient() {
   // RENDER
   // ═══════════════════════════════════════════════════════════════════════
   return (
-    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3" }}>
+    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3" }}>
 
       {/* ── Header ── */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
@@ -391,7 +391,7 @@ export function TrackerPageClient() {
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
-                      whiteSpace: "nowrap", background: "#0d1117",
+                      whiteSpace: "nowrap", background: "#000036",
                       cursor: key ? "pointer" : "default",
                       userSelect: "none",
                     }}>
@@ -404,8 +404,8 @@ export function TrackerPageClient() {
                 {sortedFiltered.map((sym, idx) => {
                   const d = data[sym];
                   const signal = d?.tracker_1h?.signal || "—";
-                  const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
-                  const bg = signal !== "—" ? rowBg : (idx % 2 === 1 ? "#161b22" : "#0d1117");
+                  const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
+                  const bg = signal !== "—" ? rowBg : (idx % 2 === 1 ? "#161b22" : "#000036");
                   const isExpanded = expandedRow === sym;
                   const tipKey = types[sym] || "Swing";
                   const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.Swing;
@@ -752,7 +752,7 @@ function TrackerHeatmapTab({ tickers, data, types }: { tickers: string[]; data: 
               const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.Swing;
 
               return (
-                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
                   <td style={{ padding: "6px 10px" }}>
                     <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900 }}>{sym}</Link>
                   </td>

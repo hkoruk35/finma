@@ -22,7 +22,7 @@ export default function GlobalBottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[100] lg:hidden bg-[#0d1117]/97 backdrop-blur-xl border-t border-[#1e2a3a] px-2 pt-2 pb-safe">
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] lg:hidden bg-[#000036]/97 backdrop-blur-xl border-t border-[#1e2a3a] px-2 pt-2 pb-safe">
       <div className="flex items-stretch justify-between max-w-lg mx-auto">
         {navItems.map((item) => {
           const isActive = pathname === item.href;

@@ -134,7 +134,7 @@ export default function TrHomePage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="bg-[#0d1117] text-white/30 uppercase text-[10px] tracking-wider">
+                  <tr className="bg-[#000036] text-white/30 uppercase text-[10px] tracking-wider">
                     <th className="px-4 py-3">Ticker</th>
                     <th className="px-4 py-3 hidden sm:table-cell">Şirket</th>
                     <th className="px-4 py-3 text-right">Fiyat</th>
@@ -164,7 +164,7 @@ export default function TrHomePage() {
                 </tbody>
               </table>
             </div>
-            <div className="bg-[#0d1117] border-t border-[#1e2a3a] px-4 py-3 text-center">
+            <div className="bg-[#000036] border-t border-[#1e2a3a] px-4 py-3 text-center">
               <Link href="/tr/kayit" className="text-[#3b82f6] text-xs font-bold hover:underline">
                 100 hissenin tamamını canlı verilerle görmek için ücretsiz hesap oluştur →
               </Link>
@@ -179,7 +179,7 @@ export default function TrHomePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map((f) => (
-              <div key={f.title} className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 hover:border-[#3b82f6]/30 transition-colors group">
+              <div key={f.title} className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6 hover:border-[#3b82f6]/30 transition-colors group">
                 <div className="w-10 h-10 rounded-xl bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center mb-4 group-hover:bg-[#3b82f6]/20 transition-colors">
                   {f.icon}
                 </div>
@@ -192,7 +192,7 @@ export default function TrHomePage() {
 
         {/* CTA bottom */}
         <section className="max-w-5xl mx-auto px-4 pb-20 text-center">
-          <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/20 rounded-3xl px-8 py-12">
+          <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#000036] to-[#0a0e17] border border-[#3b82f6]/20 rounded-3xl px-8 py-12">
             <h2 className="text-3xl font-black text-white tracking-tighter mb-3">Bugün takibe başla</h2>
             <p className="text-white/40 text-sm mb-8 max-w-md mx-auto">
               Ücretsiz hesap. Anında erişim. Kurumsal yatırımcılarla aynı veri.

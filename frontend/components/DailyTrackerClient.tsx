@@ -355,7 +355,7 @@ export default function DailyTrackerClient() {
   // ══════════════════════════════════════════════════════════════════════════
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 16px 40px" }}>
+    <div style={{ background: "#000036", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 16px 40px" }}>
 
       {/* ── Header ── */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 12, paddingTop: 10 }}>
@@ -562,7 +562,7 @@ export default function DailyTrackerClient() {
                         padding: "6px 8px", textAlign: align as any,
                         fontSize: 9, fontWeight: 700, letterSpacing: "0.08em",
                         color: sortBy === key ? "#ffd700" : "#e3b341",
-                        background: "#0d1117",
+                        background: "#000036",
                         cursor: key ? "pointer" : "default",
                         userSelect: "none", whiteSpace: "nowrap",
                         opacity: key ? 1 : 0.7,
@@ -576,7 +576,7 @@ export default function DailyTrackerClient() {
               </thead>
               <tbody>
                 {filtered.map((tk, idx) => {
-                  const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
+                  const altBg = idx % 2 === 1 ? "#161b22" : "#000036";
                   const bg = ROW_BG[tk.current_status] || altBg;
                   const isExp = expandedRow === tk.ticker;
 
@@ -915,7 +915,7 @@ function HeatmapView({ tickers, hourSlots }: { tickers: TickerRow[]; hourSlots: 
             }
 
             return (
-              <tr key={tk.ticker} style={{ borderBottom: "1px solid #1a1f27", background: idx % 2 ? "#161b22" : "#0d1117" }}>
+              <tr key={tk.ticker} style={{ borderBottom: "1px solid #1a1f27", background: idx % 2 ? "#161b22" : "#000036" }}>
                 {/* Ticker label */}
                 <td style={{ padding: "5px 10px", borderRight: "1px solid #30363d", whiteSpace: "nowrap" }}>
                   <TickerHoverChart ticker={tk.ticker}>

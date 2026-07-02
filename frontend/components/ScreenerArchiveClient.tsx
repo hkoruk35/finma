@@ -66,7 +66,7 @@ export default function ScreenerArchiveClient() {
   return (
     <div style={{ background: "#0a0c10", minHeight: "calc(100vh - 64px)", fontFamily: "'JetBrains Mono','IBM Plex Mono',monospace", color: "#e2e8f0" }}>
       {/* Header */}
-      <div style={{ background: "#0d1117", borderBottom: "1px solid #1e2a3a", padding: "16px 24px" }}>
+      <div style={{ background: "#000036", borderBottom: "1px solid #1e2a3a", padding: "16px 24px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
           <div>
             <div style={{ fontSize: 18, fontWeight: 700, color: "#22c55e", letterSpacing: 2, marginBottom: 4 }}>
@@ -140,7 +140,7 @@ export default function ScreenerArchiveClient() {
             {filteredScans.map(scan => {
               const color = PRESET_COLORS[scan.preset] || "#7c8fa6";
               return (
-                <div key={scan.id} style={{ background: "#0d1117", border: "1px solid #1e2a3a", borderRadius: 8, padding: "16px" }}>
+                <div key={scan.id} style={{ background: "#000036", border: "1px solid #1e2a3a", borderRadius: 8, padding: "16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 4 }}>

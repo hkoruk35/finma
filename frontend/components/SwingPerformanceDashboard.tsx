@@ -947,7 +947,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         </div>
 
         {/* ── Mobile Terminal List ─────────────────────────────────────────── */}
-        <div className="md:hidden rounded-xl overflow-hidden border border-[#1e2a3a] bg-[#080b12]">
+        <div className="md:hidden rounded-xl overflow-hidden border border-[#1e2a3a] bg-[#000036]">
           {/* Terminal header */}
           <div className="flex items-center gap-2 px-3 py-2 bg-[#0d1521] border-b border-[#1e2a3a]">
             <div className="flex gap-1.5">

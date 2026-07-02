@@ -42,7 +42,7 @@ export default function ScreenerChart({ ticker }: Props) {
       )}
 
       <div style={{
-        background: "#0d1117",
+        background: "#000036",
         border: "1px solid #253347",
         borderRadius: 6,
         marginTop: 12,

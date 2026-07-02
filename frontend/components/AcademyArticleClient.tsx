@@ -57,7 +57,7 @@ export default function AcademyArticleClient({
   return (
     <div className="min-h-screen bg-[#0a0e17]">
       {/* Top bar */}
-      <div className="border-b border-[#1e2a3a] bg-[#0d1117]/80 backdrop-blur sticky top-0 z-40">
+      <div className="border-b border-[#1e2a3a] bg-[#000036]/80 backdrop-blur sticky top-0 z-40">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs text-[#00d2ff]" aria-label="Breadcrumb">

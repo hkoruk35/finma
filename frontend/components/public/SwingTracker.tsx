@@ -23,7 +23,7 @@ interface HourlyBar {
 
 const SIGNAL_ICON: Record<string, string> = { AL: "●", İzle: "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", İzle: "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
-const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle: "#000036", SAT: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", İzle: "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
 
 interface SwingRow {
   ticker: string;
@@ -239,7 +239,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
   if (!mounted || loading) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117" }}>
         <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">{t.loading}</span>
       </div>
     );
@@ -247,14 +247,14 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
 
   if (error) {
     return (
-      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#000036", color: "#f85149", fontFamily: "monospace" }}>
+      <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0d1117", color: "#f85149", fontFamily: "monospace" }}>
         {error}
       </div>
     );
   }
 
   return (
-    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -343,7 +343,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM PATERNLER" : "ALL PATTERNS"}</option>
-            {patternOptions.map((p) => <option key={p} value={p}>{patternLabel(p, locale)}</option>)}
+            {patternOptions.map((p) => <option key={p} value={p}>{translatePattern(p, locale)}</option>)}
           </select>
         </div>
       </div>
@@ -392,7 +392,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
                       color: sortBy === key && key ? ACCENT : "#58a6ff",
-                      whiteSpace: "nowrap", background: "#000036",
+                      whiteSpace: "nowrap", background: "#0d1117",
                       cursor: key ? "pointer" : "default", userSelect: "none",
                     }}>
                     {label}{key && sortBy === key ? (sortDir === "desc" ? " ↓" : " ↑") : key ? " ↕" : ""}
@@ -404,8 +404,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
               {sorted.map((r, idx) => {
                 const d = live[r.ticker];
                 const signal = d?.tracker_1h?.signal || "—";
-                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
-                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#000036";
+                const rowBg = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
+                const bg = signal !== "—" ? rowBg : idx % 2 === 1 ? "#161b22" : "#0d1117";
                 const isExpanded = expandedTicker === r.ticker;
 
                 return (
@@ -483,7 +483,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   return (
-                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
+                    <tr key={r.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>

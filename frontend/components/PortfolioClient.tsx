@@ -235,7 +235,7 @@ export default function PortfolioClient({ type }: { type: "swing" | "longterm" }
   }, 1))) : 0;
 
   const inputStyle: CSSProperties = {
-    background: "#0d1117", border: "1px solid #30363d", color: "#e6edf3",
+    background: "#000036", border: "1px solid #30363d", color: "#e6edf3",
     padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace",
     width: "100%", outline: "none", boxSizing: "border-box",
   };

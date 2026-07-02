@@ -81,7 +81,7 @@ export default async function CategoryPage({ params }: Props) {
   ]);
 
   if (!master) {
-    return <div className="min-h-screen bg-[#0d1117]" />;
+    return <div className="min-h-screen bg-[#000036]" />;
   }
 
   const menu = master.menus[category.key] || { tickers: [] };
@@ -91,7 +91,7 @@ export default async function CategoryPage({ params }: Props) {
     .filter(Boolean);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <TickerTape data={master} />
       <Header />
 

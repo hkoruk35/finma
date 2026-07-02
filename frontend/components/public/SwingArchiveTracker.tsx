@@ -127,7 +127,7 @@ export default function SwingArchiveTracker({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0d1117",
+          background: "#000036",
           color: "#8b949e",
           fontFamily: "monospace",
         }}
@@ -138,7 +138,7 @@ export default function SwingArchiveTracker({
   }
 
   return (
-    <div style={{ background: "#0d1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+    <div style={{ background: "#000036", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -224,7 +224,7 @@ export default function SwingArchiveTracker({
                     style={{
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
-                      color: ACCENT, whiteSpace: "nowrap", background: "#0d1117",
+                      color: ACCENT, whiteSpace: "nowrap", background: "#000036",
                     }}
                   >
                     {label}
@@ -236,7 +236,7 @@ export default function SwingArchiveTracker({
               {selectedDay.picks.map((p, idx) => {
                 const labelColor = p.label ? LABEL_COLOR[p.label.color] || "#8b949e" : "#8b949e";
                 return (
-                  <tr key={p.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                  <tr key={p.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
                     <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
                       <TickerHoverChart ticker={p.ticker} detailHref={permalink(p.ticker)}>
                         <span>{p.ticker}</span>
@@ -289,7 +289,7 @@ export default function SwingArchiveTracker({
               </thead>
               <tbody>
                 {allTickers.map((ticker, idx) => (
-                  <tr key={ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                  <tr key={ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d" }}>
                     <td style={{ padding: "6px 10px" }}>
                       <TickerHoverChart ticker={ticker} detailHref={permalink(ticker)}>
                         <Link href={permalink(ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{ticker}</Link>

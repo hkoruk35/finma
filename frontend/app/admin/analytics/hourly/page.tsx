@@ -124,7 +124,7 @@ export default function HourlyArchivePage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header />
       <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-8 space-y-8">
 
@@ -149,17 +149,17 @@ export default function HourlyArchivePage() {
             </div>
             {latest && (
               <div className="flex items-center gap-3 flex-wrap text-xs">
-                <span className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d]">
+                <span className="px-3 py-1.5 rounded-lg bg-[#000036] border border-[#30363d]">
                   <span className="text-gray-500">Regime: </span>
                   <span className={latest.market_regime === "Bull" ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
                     {latest.market_regime}
                   </span>
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d]">
+                <span className="px-3 py-1.5 rounded-lg bg-[#000036] border border-[#30363d]">
                   <span className="text-gray-500">VIX: </span>
                   <span className="text-white font-mono">{fmt(latest.vix_level, 1)}</span>
                 </span>
-                <span className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d] font-mono text-gray-400">
+                <span className="px-3 py-1.5 rounded-lg bg-[#000036] border border-[#30363d] font-mono text-gray-400">
                   Son tarama: {latest.date} {latest.hour}
                 </span>
               </div>

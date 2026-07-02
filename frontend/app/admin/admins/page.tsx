@@ -74,7 +74,7 @@ export default function AdminsPage() {
     <div style={{ padding: 24, fontFamily: "monospace", color: "#e6edf3" }}>
       <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 16 }}>Admin Yönetimi</h1>
 
-      <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 16, marginBottom: 20, maxWidth: 520 }}>
+      <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 16, marginBottom: 20, maxWidth: 520 }}>
         <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10, color: "#8b949e" }}>YENİ ADMIN EKLE</div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           <input style={{ ...inputStyle, flex: 1, minWidth: 160 }} placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />

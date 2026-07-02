@@ -69,7 +69,7 @@ export default function AdminCampaignsPage() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 24 }}>
         {campaigns.map((c) => (
-          <div key={c.id} style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 12 }}>
+          <div key={c.id} style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 12 }}>
             <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
               <div>
                 <strong style={{ color: ACCENT }}>{c.title}</strong>
@@ -92,7 +92,7 @@ export default function AdminCampaignsPage() {
         {campaigns.length === 0 && <div style={{ color: "#8b949e", fontSize: 12 }}>Henüz kampanya yok.</div>}
       </div>
 
-      <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 16, maxWidth: 640 }}>
+      <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 16, maxWidth: 640 }}>
         <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10, color: "#8b949e" }}>YENİ KAMPANYA</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
           <input style={inputStyle} placeholder="başlık" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />

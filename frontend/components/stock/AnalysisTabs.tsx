@@ -223,13 +223,13 @@ export default function AnalysisTabs({ stock }: Props) {
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-black transition-all border shrink-0 snap-center relative ${
                   isActive
                     ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
-                    : "bg-[#0d1117] border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40 disabled:opacity-40"
+                    : "bg-[#000036] border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40 disabled:opacity-40"
                 }`}
               >
                 <span className="text-sm">{l.flag}</span>
                 <span className="uppercase tracking-widest whitespace-nowrap">{l.id}</span>
                 {isDone && !isActive && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#22c55e] border border-[#0d1117]" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#22c55e] border border-[#000036]" />
                 )}
               </button>
             );
@@ -241,7 +241,7 @@ export default function AnalysisTabs({ stock }: Props) {
       <div className="glass-card overflow-hidden border-t-4 border-t-[#3b82f6] shadow-2xl">
 
         {/* Panel Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a] bg-[#0d1117]/80 flex-wrap gap-3">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a] bg-[#000036]/80 flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-lg bg-[#3b82f6]/10 shrink-0">
               <span className="text-lg">🦅</span>
@@ -265,7 +265,7 @@ export default function AnalysisTabs({ stock }: Props) {
         </div>
 
         {/* Panel Body */}
-        <div className={`p-5 md:p-8 bg-gradient-to-b from-[#0d1117]/40 to-transparent ${isRtl ? "text-right" : ""}`} dir={isRtl ? "rtl" : "ltr"}>
+        <div className={`p-5 md:p-8 bg-gradient-to-b from-[#000036]/40 to-transparent ${isRtl ? "text-right" : ""}`} dir={isRtl ? "rtl" : "ltr"}>
           {generating ? (
             <AnalysisLoader ticker={stock.ticker} lang={activeLang} />
           ) : genError ? (
@@ -348,7 +348,7 @@ export default function AnalysisTabs({ stock }: Props) {
         </div>
 
         {/* Panel Footer */}
-        <div className="px-5 py-3 bg-[#0d1117]/80 border-t border-[#1e2a3a] flex items-center justify-between">
+        <div className="px-5 py-3 bg-[#000036]/80 border-t border-[#1e2a3a] flex items-center justify-between">
           <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
             Analysis Engine v5.5 · BOGA AI
           </span>

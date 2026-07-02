@@ -103,7 +103,7 @@ export default function AdminPlansPage() {
         </tbody>
       </table>
 
-      <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 16, maxWidth: 640 }}>
+      <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 16, maxWidth: 640 }}>
         <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 10, color: "#8b949e" }}>YENİ / GÜNCELLE</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
           <input style={inputStyle} placeholder="key (örn. pro)" value={form.key} onChange={(e) => setForm({ ...form, key: e.target.value })} />

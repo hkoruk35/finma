@@ -51,7 +51,7 @@ export default function TradingViewChart({ ticker, exchange, interval }: Props) 
           theme: "dark",
           style: "1",
           locale: "en",
-          toolbar_bg: "#0d1117",
+          toolbar_bg: "#000036",
           enable_publishing: false,
           allow_symbol_change: false,
           save_image: false,
@@ -60,7 +60,7 @@ export default function TradingViewChart({ ticker, exchange, interval }: Props) 
           withdateranges: true,
           studies: ["RSI@tv-basicstudies"],
           overrides: {
-            "paneProperties.background": "#0d1117",
+            "paneProperties.background": "#000036",
             "paneProperties.backgroundType": "solid",
             "scalesProperties.textColor": "#8b949e",
           },
@@ -100,7 +100,7 @@ export default function TradingViewChart({ ticker, exchange, interval }: Props) 
     <div
       ref={containerRef}
       id={containerId}
-      style={{ width: "100%", height: 460, background: "#0d1117", borderRadius: 6 }}
+      style={{ width: "100%", height: 460, background: "#000036", borderRadius: 6 }}
     />
   );
 }

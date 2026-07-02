@@ -362,7 +362,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
             style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM PATERNLER" : "ALL PATTERNS"}</option>
-            {patternOptions.map((p) => <option key={p} value={p}>{patternLabel(p, locale)}</option>)}
+            {patternOptions.map((p) => <option key={p} value={p}>{translatePattern(p, locale)}</option>)}
           </select>
         </div>
       </div>

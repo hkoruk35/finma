@@ -214,7 +214,7 @@ export default function PreOrderListClient({ type }: { type: "swing" | "longterm
                     key={entry.ticker}
                     style={{
                       borderBottom: "1px solid #21262d",
-                      background: isApproved ? (totalPnlPct >= 0 ? "#0d1f0d" : "#1f0d0d") : "#0d1117",
+                      background: isApproved ? (totalPnlPct >= 0 ? "#0d1f0d" : "#1f0d0d") : "#000036",
                       opacity: isApproved ? 1 : 0.6,
                     }}
                   >

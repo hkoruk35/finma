@@ -281,7 +281,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
         </div>
 
         {/* Tab bar */}
-        <div className="flex gap-1 bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-1 mb-6">
+        <div className="flex gap-1 bg-[#000036] border border-[#1e2a3a] rounded-2xl p-1 mb-6">
           {TABS.map((tb) => (
             <button
               key={tb.key}
@@ -299,7 +299,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
 
         {/* ── Profile Tab ───────────────────────────────────────────────── */}
         {tab === "profile" && (
-          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6">
+          <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6">
             <h2 className="text-sm font-black text-white uppercase tracking-widest mb-6">{t.profile.heading}</h2>
             <form onSubmit={handleProfileSave} className="space-y-5">
               <div>
@@ -341,7 +341,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
 
         {/* ── Password Tab ──────────────────────────────────────────────── */}
         {tab === "password" && (
-          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6">
+          <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6">
             <h2 className="text-sm font-black text-white uppercase tracking-widest mb-6">{t.password.heading}</h2>
             <form onSubmit={handlePasswordChange} className="space-y-5">
               <div>
@@ -396,7 +396,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
         {tab === "subscription" && (
           <div className="space-y-4">
             {/* Plan summary */}
-            <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6">
+            <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6">
               <h2 className="text-sm font-black text-white uppercase tracking-widest mb-5">{t.subscription.heading}</h2>
               <div className="grid grid-cols-2 gap-4">
                 <InfoRow label={t.subscription.plan} value={member.plan === "starter" ? t.subscription.starterPlan : t.subscription.proPlan} />
@@ -416,7 +416,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
 
             {/* Trial progress bar */}
             {member.plan === "starter" && (
-              <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6">
+              <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-xs font-black text-white/50 uppercase tracking-widest">Trial Progress</span>
                   <span className={`text-xs font-black ${trialActive ? "text-amber-400" : "text-red-400"}`}>
@@ -434,7 +434,7 @@ export default function GlobalAccountView({ locale }: { locale: Locale }) {
             )}
 
             {/* Upgrade card */}
-            <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/20 rounded-2xl p-6">
+            <div className="bg-gradient-to-br from-[#3b82f6]/10 via-[#000036] to-[#0a0e17] border border-[#3b82f6]/20 rounded-2xl p-6">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">⚡</span>
                 <h3 className="text-sm font-black text-white tracking-tight">{t.subscription.upgradeHeading}</h3>

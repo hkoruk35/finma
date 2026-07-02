@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function OrderLongTermPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header />
       <main className="flex-1 w-full">
         <Suspense fallback={<div style={{ padding: 60, color: "#8b949e", textAlign: "center" }}>Yükleniyor…</div>}>

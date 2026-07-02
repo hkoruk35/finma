@@ -39,7 +39,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#010409] font-sans">
-      <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl animate-fade-in">
+      <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#000036] rounded-3xl shadow-2xl animate-fade-in">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-black text-white tracking-tighter mb-2">
             BOGA <span className="text-[#3b82f6]">AI</span>

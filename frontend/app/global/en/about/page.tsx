@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 // Public page — no auth required
 export default function AboutPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header hideMenus={true} logoHref="/global/en" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">

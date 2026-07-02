@@ -56,7 +56,7 @@ export default async function DayTradePicksPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#000036]">
       <Header />
       {master && <TickerTape data={master} />}
 

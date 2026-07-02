@@ -28,7 +28,7 @@ export default function AdminSidebar({ role }: { role?: string }) {
 
   return (
     <aside
-      style={{ background: "#0d1117", borderRight: "1px solid #30363d", width: 200, minHeight: "100vh" }}
+      style={{ background: "#000036", borderRight: "1px solid #30363d", width: 200, minHeight: "100vh" }}
       className="hidden md:flex flex-col flex-shrink-0"
     >
       <div style={{ padding: "16px 16px 12px", borderBottom: "1px solid #30363d" }}>

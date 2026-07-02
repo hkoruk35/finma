@@ -9,7 +9,7 @@ function Section({ title, groups }: { title: string; groups: SitemapGroup[] }) {
       <h2 style={{ fontSize: 14, fontWeight: 900, color: ACCENT, marginBottom: 10 }}>{title}</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
         {groups.map((g) => (
-          <div key={g.group} style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 12 }}>
+          <div key={g.group} style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 12 }}>
             <div style={{ fontSize: 11, color: "#8b949e", fontWeight: 700, marginBottom: 8 }}>{g.group.toUpperCase()}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               {g.entries.map((e) => (

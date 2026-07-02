@@ -60,7 +60,7 @@ const TYPE_COLORS: Record<string, { bg: string; text: string }> = {
 
 const SIGNAL_ICON: Record<string, string> = { AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕" };
 const SIGNAL_COLOR: Record<string, string> = { AL: "#3fb950", "İzle": "#e3b341", Bekle: "#8b949e", SAT: "#f85149" };
-const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d" };
+const ROW_BG: Record<string, string> = { AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#000036", SAT: "#1f0d0d" };
 
 const HOUR_SLOTS = ["09:15","10:00","11:00","12:00","13:00","14:00","15:00","16:00","16:15"];
 
@@ -341,7 +341,7 @@ export default function CSPDetailClient({ slug }: Props) {
   const izleCount = filtered.filter(s => data[s]?.tracker_1h?.signal === "İzle").length;
 
   if (!mounted) return (
-    <div className="min-h-screen flex items-center justify-center" style={{ background: "#0d1117" }}>
+    <div className="min-h-screen flex items-center justify-center" style={{ background: "#000036" }}>
       <span style={{ color: "#3fb950", fontFamily: "monospace" }} className="animate-pulse">loading...</span>
     </div>
   );
@@ -350,7 +350,7 @@ export default function CSPDetailClient({ slug }: Props) {
   // RENDER
   // ═══════════════════════════════════════════════════════════════════════
   return (
-    <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
+    <div style={{ background: "#000036", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
 
       {/* ── Top Header ── */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 0 8px" }}>
@@ -525,7 +525,7 @@ export default function CSPDetailClient({ slug }: Props) {
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
                           padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 14 ? "left" : "right",
                           fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
-                          color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#0d1117",
+                          color: isSorted ? "#ffd700" : "#3fb950", whiteSpace: "nowrap", background: "#000036",
                           cursor: isSortable ? "pointer" : "default",
                           userSelect: "none",
                           opacity: isSortable ? 1 : 0.7
@@ -540,8 +540,8 @@ export default function CSPDetailClient({ slug }: Props) {
                   {sortedTickers.map((sym, idx) => {
                     const d = data[sym];
                     const signal = d?.tracker_1h?.signal || "—";
-                    const rowBg = ROW_BG[signal] || "#0d1117";
-                    const altBg = idx % 2 === 1 ? "#161b22" : "#0d1117";
+                    const rowBg = ROW_BG[signal] || "#000036";
+                    const altBg = idx % 2 === 1 ? "#161b22" : "#000036";
                     const bg = signal !== "—" ? rowBg : altBg;
                     const isExpanded = expandedRow === sym;
                     const tipKey = types[sym] || "CSP";
@@ -979,7 +979,7 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
         📊 Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir
       </div>
       <div style={{ overflowX: "auto", borderRadius: 8, border: "1px solid #30363d" }}>
-        <table style={{ borderCollapse: "collapse", fontSize: 12, fontFamily: "monospace", minWidth: 900, background: "#0d1117" }}>
+        <table style={{ borderCollapse: "collapse", fontSize: 12, fontFamily: "monospace", minWidth: 900, background: "#000036" }}>
           <thead>
             <tr style={{ borderBottom: "2px solid #3fb950", background: "#161b22" }}>
               <th style={{ padding: "10px 14px", textAlign: "left", color: "#56d364", fontSize: 11, letterSpacing: "0.15em", fontWeight: 800 }}>TICKER</th>
@@ -999,7 +999,7 @@ function HeatmapTab({ tickers, data, types }: { tickers: string[]; data: Record<
               const tipStyle = TYPE_COLORS[tipKey] || TYPE_COLORS.CSP;
 
               return (
-                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d", transition: "background 0.2s" }}>
+                <tr key={sym} style={{ background: idx % 2 === 1 ? "#161b22" : "#000036", borderBottom: "1px solid #21262d", transition: "background 0.2s" }}>
                   <td style={{ padding: "9px 14px", fontWeight: 700 }}>
                     <Link href={`/stock/${sym}`} style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{sym}</Link>
                   </td>

@@ -88,7 +88,7 @@ export default function AdminMessagesPage() {
           <div
             key={m.id}
             style={{
-              background: m.is_read ? "#0d1117" : "#161b2280",
+              background: m.is_read ? "#000036" : "#161b2280",
               border: `1px solid ${m.is_read ? "#30363d" : "#58a6ff66"}`,
               borderRadius: 6,
               padding: 12,

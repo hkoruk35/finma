@@ -266,7 +266,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                       <Link
                         key={l}
                         href={`/${l}/${cfg.slug}/${item.ticker.toLowerCase()}`}
-                        className="flex flex-col items-center justify-center py-2 rounded-lg border border-[#1e2a3a] bg-[#0d1117] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
+                        className="flex flex-col items-center justify-center py-2 rounded-lg border border-[#1e2a3a] bg-[#000036] hover:bg-[#141924] hover:border-[#3b82f6]/40 transition-all group/lang shadow-sm"
                       >
                         <span className="text-[7px] font-black text-white group-hover/lang:text-[#3b82f6] transition-colors leading-none mb-0.5 uppercase tracking-tighter">
                           {countryPart}

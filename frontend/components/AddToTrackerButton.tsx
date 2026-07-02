@@ -70,7 +70,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
           onClick={() => setShowModal(false)}
         >
           <div
-            className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl shadow-black/50"
+            className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl shadow-black/50"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
