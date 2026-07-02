@@ -31,7 +31,7 @@ const sgn = (v: number) => v > 0 ? "+" : "";
 
 function StatCard({ label, val, sub, color = "text-white" }: { label: string; val: string; sub?: string; color?: string }) {
   return (
-    <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl p-3">
+    <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3">
       <div className="text-[10px] font-bold text-[#3b82f6] uppercase tracking-widest mb-1">{label}</div>
       <div className={`text-lg font-black font-mono leading-none ${color}`}>{val}</div>
       {sub && <div className="text-[10px] text-slate-400 mt-0.5">{sub}</div>}
@@ -81,7 +81,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
   }
 
   return (
-    <div className={`bg-[#000036] border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-55" : ""}`}>
+    <div className={`bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-55" : ""}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <Link href={`/stock/${pos.ticker}`} className="text-white font-black text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
@@ -217,7 +217,7 @@ export default function SmartTrackerDashboard() {
       )}
       {showCreate && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowCreate(false)}>
-          <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
             <h3 className="text-white font-black text-lg mb-4">New Tracker</h3>
             <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Name</label>
             <input value={name} onChange={e => setName(e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white text-sm mb-3 focus:outline-none focus:border-[#3b82f6]" />
@@ -267,7 +267,7 @@ export default function SmartTrackerDashboard() {
       </div>
 
       {/* Budget bar */}
-      <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl p-3 mb-5">
+      <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3 mb-5">
         <div className="flex justify-between text-[10px] mb-1.5">
           <span className="text-[#3b82f6] font-bold uppercase tracking-wider">Budget Used</span>
           <span className="text-white font-mono">${f(budgetUsed,0)} / ${f(activeTracker.totalBudgetUsd,0)} · {budgetPct.toFixed(0)}%</span>
@@ -291,7 +291,7 @@ export default function SmartTrackerDashboard() {
                 {f2} ({f2==="all"?positions.length:positions.filter(p=>p.status===f2).length})
               </button>
             ))}
-            <div className="ml-auto flex items-center gap-1 bg-[#000036] border border-[#1e2a3a] rounded-lg p-0.5">
+            <div className="ml-auto flex items-center gap-1 bg-[#0d1117] border border-[#1e2a3a] rounded-lg p-0.5">
               <button onClick={()=>setView("card")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="card"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>Card</button>
               <button onClick={()=>setView("list")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="list"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>List</button>
             </div>
@@ -303,7 +303,7 @@ export default function SmartTrackerDashboard() {
               <p className="text-slate-500 text-sm">No positions. Go to <Link href="/admin/trading/swing" className="text-[#3b82f6] hover:underline">Swing Picks</Link> and click <b className="text-white">Add Smart Tracker</b>.</p>
             </div>
           ) : view==="list" ? (
-            <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl overflow-hidden">
+            <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden">
               <div className="flex items-center gap-3 px-4 py-2 bg-[#141924] border-b border-[#1e2a3a]">
                 <div className="w-16 text-[9px] font-black text-[#3b82f6] uppercase">Ticker</div>
                 <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[9px] font-black text-[#3b82f6] uppercase">
@@ -323,7 +323,7 @@ export default function SmartTrackerDashboard() {
 
         {/* Sidebar */}
         <div className="space-y-4">
-          <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl p-4">
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
             <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Sector Allocation</h3>
             {Object.entries(stats?.sectorDistribution??{}).length===0
               ? <p className="text-slate-600 text-xs">No open positions</p>
@@ -346,7 +346,7 @@ export default function SmartTrackerDashboard() {
           </div>
 
           {stats?.bestPosition && (
-            <div className="bg-[#000036] border border-emerald-500/20 rounded-xl p-3">
+            <div className="bg-[#0d1117] border border-emerald-500/20 rounded-xl p-3">
               <div className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-1">🏆 Best</div>
               <div className="flex justify-between items-center">
                 <span className="text-white font-black text-base">{stats.bestPosition.ticker}</span>
@@ -358,7 +358,7 @@ export default function SmartTrackerDashboard() {
           )}
 
           {stats?.worstPosition && (
-            <div className="bg-[#000036] border border-red-500/20 rounded-xl p-3">
+            <div className="bg-[#0d1117] border border-red-500/20 rounded-xl p-3">
               <div className="text-[9px] font-black text-red-400 uppercase tracking-widest mb-1">📉 Worst</div>
               <div className="flex justify-between items-center">
                 <span className="text-white font-black text-base">{stats.worstPosition.ticker}</span>
@@ -369,7 +369,7 @@ export default function SmartTrackerDashboard() {
             </div>
           )}
 
-          <div className="bg-[#000036] border border-[#1e2a3a] rounded-xl p-4">
+          <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
             <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Statistics</h3>
             {[
               ["Open", stats?.openCount??0],

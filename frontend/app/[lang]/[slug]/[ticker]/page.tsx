@@ -143,7 +143,7 @@ export default async function LangAnalysisPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

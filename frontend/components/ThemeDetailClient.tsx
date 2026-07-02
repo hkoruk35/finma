@@ -94,7 +94,7 @@ const SIGNAL_ICON: Record<string, string> = {
   AL: "●", "İzle": "◑", Bekle: "○", SAT: "✕",
 };
 const ROW_BG: Record<string, string> = {
-  AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#000036", SAT: "#1f0d0d",
+  AL: "#0d1f0d", "İzle": "#1a1a0d", Bekle: "#0d1117", SAT: "#1f0d0d",
 };
 
 const SCORE_TYPE_STYLE: Record<string, { bg: string; text: string; border: string }> = {
@@ -319,7 +319,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   // RENDER
   // ══════════════════════════════════════════════════════════════════════════
   return (
-    <div style={{ background: "#000036", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
+    <div style={{ background: "#0d1117", minHeight: "100vh", fontFamily: "monospace", color: "#e6edf3" }}>
 
       {/* ── Header ── */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 12 }}>
@@ -506,7 +506,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                       textAlign: i <= 2 ? "left" : "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.08em",
                       color: isSorted ? "#ffd700" : ACCENT,
-                      whiteSpace: "nowrap", background: "#000036",
+                      whiteSpace: "nowrap", background: "#0d1117",
                       cursor: sortable ? "pointer" : "default",
                       userSelect: "none",
                     }}>
@@ -520,7 +520,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               {visibleTickers.map((sym, idx) => {
                 const d = data[sym];
                 const signal  = d?.tracker_1h?.signal || "—";
-                const rowBg   = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#000036");
+                const rowBg   = ROW_BG[signal] || (idx % 2 === 1 ? "#161b22" : "#0d1117");
                 const price   = d?.price?.current ?? 0;
                 const isExpanded = expandedRow === sym;
                 const isCustom   = customTickers.includes(sym);
@@ -695,7 +695,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                         <td colSpan={17} style={{ padding: "12px 16px", borderBottom: "1px solid #30363d" }}>
                           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, fontSize: 11 }}>
                             {/* Fiyat Değişimleri */}
-                            <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
                               <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Fiyat Değişimleri</div>
                               {[
                                 ["1H %", d.tracker_1h?.change_pct_1h],
@@ -712,7 +712,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                               ))}
                             </div>
                             {/* EMA Göstergeleri */}
-                            <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
                               <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>EMA Göstergeleri</div>
                               {[
                                 ["EMA 20",  d.tracker_1h?.ema_20,  emaColor(price, d.tracker_1h?.ema_20)],
@@ -729,7 +729,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                               ))}
                             </div>
                             {/* Momentum */}
-                            <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
                               <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Momentum</div>
                               {[
                                 ["RSI",     d.tracker_1h?.rsi,          rsiColor(d.tracker_1h?.rsi)],
@@ -746,7 +746,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                               ))}
                             </div>
                             {/* Temel Veriler + Linkler */}
-                            <div style={{ background: "#000036", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
+                            <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 5, padding: "10px 12px" }}>
                               <div style={{ fontSize: 9, color: ACCENT, letterSpacing: 1.5, fontWeight: 700, marginBottom: 8, textTransform: "uppercase" }}>Temel & Linkler</div>
                               {[
                                 ["Piyasa Değeri", fmtLarge(d.fundamental?.market_cap), "#8b949e"],

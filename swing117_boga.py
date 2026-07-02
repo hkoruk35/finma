@@ -218,7 +218,16 @@ SLOW_PEAK_SECTORS = {
     "Real Estate": -3.0,  
     "Consumer Defensive": -3.0,
     "Utilities": -3.0,
-    # Yüksek büyüme ve yapay zeka/savunma momentumu taşıyan sektörler statik cezadan muaf tutuldu.
+}
+
+# Kazanan sektörleri bir tık öne çıkarmak için yeni bonus haritası:
+WINNING_SECTORS_BONUS = {
+    "Technology": 4.0,
+    "Energy": 4.0,
+    "Financial Services": 4.0,
+    "Financials": 4.0,
+    "Healthcare": 4.0,
+}
 }
 # -- Yüksek riskli industry grupları — swing için hard reject -----------------
 # Bu industry'lere ait hisseler binary event (FDA kararı, faz 3 sonucu, patent

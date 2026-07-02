@@ -370,7 +370,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
                   onKeyDown={handleKey}
                   placeholder={t("placeholder")}
                   rows={1}
-                  className="w-full bg-[#000036] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
+                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/5"
                 />
                 <button onClick={() => send()} disabled={loading || !input.trim()} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
@@ -385,7 +385,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
                     <button
                       key={item.ticker}
                       onClick={() => send(item.ticker)}
-                      className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#000036] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
+                      className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
                     >
                       <span className="text-xs font-black text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
                       <span className="text-[9px] text-[#64748b] font-bold mt-0.5 truncate max-w-full">{item.name}</span>
@@ -426,7 +426,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
             return (
               <div key={i} className={`flex gap-3 max-w-4xl mx-auto w-full ${m.role === "user" ? "justify-end" : "justify-start animate-fade-in"}`}>
                 {m.role === "assistant" && <BotIcon />}
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#000036] border border-[#1e2a3a]"}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-[#1d4ed8] text-white shadow-lg shadow-blue-500/10" : "bg-[#0d1117] border border-[#1e2a3a]"}`}>
                   {m.role === "assistant" ? (
                     <div className="space-y-3">
                       <MarkdownText text={m.text} />
@@ -442,7 +442,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
           {loading && (
             <div className="flex gap-3 justify-start animate-pulse max-w-4xl mx-auto w-full">
               <BotIcon />
-              <div className="bg-[#000036] border border-[#1e2a3a] rounded-2xl px-4 py-3">
+              <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl px-4 py-3">
                 <div className="flex gap-1.5 items-center h-5">
                   <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-bounce" />
                   <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
@@ -472,7 +472,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
                   onKeyDown={handleKey}
                   placeholder={t("placeholder")}
                   rows={1}
-                  className="w-full bg-[#000036] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40"
+                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40"
                   disabled={loading}
                 />
                 <button onClick={() => send()} disabled={!input.trim() || loading} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">

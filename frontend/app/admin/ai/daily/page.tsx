@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function DailyPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036] text-slate-300 font-mono">
+    <div className="min-h-screen flex flex-col bg-[#0d1117] text-slate-300 font-mono">
       <Header />
       <main className="flex-1 w-full max-w-[1600px] mx-auto px-4 py-6">
         <DailyTrackerClient />

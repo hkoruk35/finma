@@ -174,7 +174,7 @@ function ProfileTab({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#000036] rounded-3xl p-8 space-y-6">
+    <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.updateProfileTitle}</h2>
 
       <div>
@@ -248,7 +248,7 @@ function PasswordTab({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#000036] rounded-3xl p-8 space-y-6">
+    <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.changePasswordTitle}</h2>
 
       <div>
@@ -298,7 +298,7 @@ function SubscriptionTab({
   const dateFmt = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "tr-TR");
 
   return (
-    <div className="glass-card border border-white/10 bg-[#000036] rounded-3xl p-8 space-y-6">
+    <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.subscriptionTitle}</h2>
 
       {isTrialActive && <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm">{t.trialMessage}</div>}
@@ -343,7 +343,7 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
   };
 
   return (
-    <div className="glass-card border border-white/10 bg-[#000036] rounded-3xl p-8 space-y-6">
+    <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.languageTitle}</h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

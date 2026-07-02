@@ -39,7 +39,7 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
   // If no data found for this date, show 404
   if (!master || allTickers.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#000036]">
+      <div className="min-h-screen flex flex-col bg-[#0d1117]">
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center p-4">
           <div className="w-16 h-16 rounded-full bg-[#ef4444]/10 flex items-center justify-center text-[#ef4444] mb-6">

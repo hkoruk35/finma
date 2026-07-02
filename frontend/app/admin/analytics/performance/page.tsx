@@ -21,7 +21,7 @@ export default async function SwingPerformancePage() {
   ]);
 
   if (!performanceData) {
-    return <div className="min-h-screen bg-[#000036] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">Loading Performance Data...</div>;
+    return <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">Loading Performance Data...</div>;
   }
 
   const history: any[] = performanceData.history ?? [];
@@ -29,7 +29,7 @@ export default async function SwingPerformancePage() {
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">

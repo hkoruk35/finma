@@ -498,7 +498,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
                   </div>
                 </div>
                 <div style={{ fontSize: 11, color: "#8b949e", marginBottom: 4 }}>Wyckoff Skoru</div>
-                <div style={{ background: "#000036", borderRadius: 4, height: 8, overflow: "hidden" }}>
+                <div style={{ background: "#0d1117", borderRadius: 4, height: 8, overflow: "hidden" }}>
                   <div style={{
                     height: "100%", borderRadius: 4, transition: "width 0.5s",
                     width: `${wy.score}%`,
@@ -514,7 +514,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
                   { label: "No Supply", val: wy.noSupplyDays, color: "#3fb950" },
                   { label: "No Demand", val: wy.noDemandDays, color: "#e3b341" },
                 ].map(({ label, val, color }) => (
-                  <div key={label} style={{ background: "#000036", borderRadius: 6, padding: "8px 10px" }}>
+                  <div key={label} style={{ background: "#0d1117", borderRadius: 6, padding: "8px 10px" }}>
                     <div style={{ fontSize: 9, color: "#8b949e", marginBottom: 4 }}>{label}</div>
                     <div style={{ fontSize: 20, fontWeight: 700, color, fontFamily: "monospace" }}>{val}</div>
                     <div style={{ fontSize: 9, color: "#8b949e" }}>son 10 bar</div>
@@ -539,7 +539,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
               </div>
               <div style={{ fontSize: 18, color: "#8b949e", marginBottom: 4, fontFamily: "monospace" }}>/100</div>
             </div>
-            <div style={{ background: "#000036", borderRadius: 6, height: 10, overflow: "hidden", marginBottom: 8 }}>
+            <div style={{ background: "#0d1117", borderRadius: 6, height: 10, overflow: "hidden", marginBottom: 8 }}>
               <div style={{
                 height: "100%", borderRadius: 6, transition: "width 0.8s",
                 width: `${a.conviction}%`,
@@ -671,7 +671,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
               ))}
             </tbody>
           </table>
-          <div style={{ marginTop: 10, padding: "8px 10px", background: "#000036", borderRadius: 6, fontSize: 11, color: "#8b949e" }}>
+          <div style={{ marginTop: 10, padding: "8px 10px", background: "#0d1117", borderRadius: 6, fontSize: 11, color: "#8b949e" }}>
             Stop: <span style={{ color: "#f85149", fontFamily: "monospace" }}>${fmt2(tp.stop.price)}</span>
             {" "}({fmt1(tp.stop.pct)}%) &nbsp;|&nbsp; Ortalama R/R: <span style={{ color: "#e3b341", fontWeight: 700 }}>{fmt1((tp.rr1 + tp.rr2) / 2)}:1</span>
           </div>

@@ -49,7 +49,7 @@ export default function TradingViewWidget({ symbol, exchange, height, interval =
           theme: "dark",
           style: "1",
           locale: "en",
-          toolbar_bg: "#000036",
+          toolbar_bg: "#0d1117",
           enable_publishing: false,
           hide_side_toolbar: true,
           hide_top_toolbar: false, // Changed to false to allow interval change visibility if needed

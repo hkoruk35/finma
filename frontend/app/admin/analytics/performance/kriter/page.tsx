@@ -27,7 +27,7 @@ export default async function KriterPage() {
 
   if (!perfData?.history) {
     return (
-      <div className="min-h-screen bg-[#000036] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">
+      <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">
         Veri Yükleniyor...
       </div>
     );
@@ -51,7 +51,7 @@ export default async function KriterPage() {
   const daily_trend = computeDailyTrend(enrichedTrades, reportDays);
 
   return (
-    <div className="min-h-screen bg-[#000036] text-white">
+    <div className="min-h-screen bg-[#0d1117] text-white">
       <Header />
       <main className="max-w-screen-2xl mx-auto px-4 py-6">
         <KriterDashboard

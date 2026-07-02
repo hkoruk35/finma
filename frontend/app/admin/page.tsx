@@ -10,7 +10,7 @@ interface Stats {
   newToday: number | null;
 }
 
-const CARD = { background: "#000036", border: "1px solid #30363d", borderRadius: 6, padding: 16 };
+const CARD = { background: "#0d1117", border: "1px solid #30363d", borderRadius: 6, padding: 16 };
 
 async function safeCount(url: string, pick: (d: any) => number): Promise<number | null> {
   try {

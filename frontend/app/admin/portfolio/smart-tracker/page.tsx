@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function SmartTrackerPage() {
   const master = await getMasterData();
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="mb-6 flex justify-between items-center bg-[#161b22] border border-[#30363d] p-4 rounded-xl">

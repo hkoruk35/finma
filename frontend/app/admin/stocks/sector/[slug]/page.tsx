@@ -72,7 +72,7 @@ export default async function SectorPage({ params }: Props) {
   ]);
 
   if (!master) {
-    return <div className="min-h-screen bg-[#000036]" />;
+    return <div className="min-h-screen bg-[#0d1117]" />;
   }
 
   const stocks = allTickers.filter((t) => t.sector === sectorName);
@@ -80,7 +80,7 @@ export default async function SectorPage({ params }: Props) {
   const etf = SECTOR_ETF[sectorName];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#000036]">
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <TickerTape data={master} />
       <Header />
 

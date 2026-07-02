@@ -74,7 +74,7 @@ const ProfitSimulator = () => {
               <input 
                 type="range" min="500" max="100000" step="500" 
                 value={capital} onChange={(e) => setCapital(Number(e.target.value))}
-                className="w-full h-3 bg-[#000036] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
+                className="w-full h-3 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
               />
             </div>
 
@@ -89,7 +89,7 @@ const ProfitSimulator = () => {
               <input 
                 type="range" min="1" max="25" step="1" 
                 value={signalCount} onChange={(e) => setSignalCount(Number(e.target.value))}
-                className="w-full h-3 bg-[#000036] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
+                className="w-full h-3 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-[#3b82f6]"
               />
             </div>
 
@@ -103,7 +103,7 @@ const ProfitSimulator = () => {
                     className={`py-3 md:py-4 px-2 md:px-6 rounded-xl text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all border ${
                       riskProfile === profile 
                         ? "bg-[#3b82f6] text-white border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
-                        : "bg-[#000036] text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
+                        : "bg-[#0d1117] text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
                     }`}
                   >
                     {profile}
@@ -115,7 +115,7 @@ const ProfitSimulator = () => {
         </div>
 
         {/* Right column: Results */}
-        <div className="lg:w-1/2 bg-[#000036]/30 p-5 md:p-8 lg:p-12 flex flex-col gap-8 md:gap-10">
+        <div className="lg:w-1/2 bg-[#0d1117]/30 p-5 md:p-8 lg:p-12 flex flex-col gap-8 md:gap-10">
            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
               <div className="flex flex-col gap-1 md:gap-2">
                  <p className="text-[11px] md:text-[13px] text-white font-bold uppercase tracking-widest">Est. Monthly Total</p>
