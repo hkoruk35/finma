@@ -65,6 +65,8 @@ interface Props {
   picksGeneratedAt?: string;
   hideBotLink?: boolean;
   hideExportButtons?: boolean;
+  /** When set, frontend applies this SL threshold (e.g. -7) overriding JSON result/return values. */
+  applySlPct?: number;
   locale?: "en" | "tr";
   /** On /global/{locale}/performance, ticker clicks must not navigate anywhere —
    *  only the hover-preview chart is allowed. Root /performance keeps the normal link. */
@@ -100,20 +102,29 @@ function pnlFromReturn(ret: number | null): number | null {
 }
 
 
-export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, locale = "tr", disableTickerLink = false }: Props) {
-  const SL_PCT = serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
+export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, applySlPct, locale = "tr", disableTickerLink = false }: Props) {
+  const SL_PCT = applySlPct ?? serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
-  // %3.5 SL uygular — kayıpları -3.5 ile sınırlar
+  // Applies frontend SL cap if applySlPct is set; otherwise uses JSON values directly.
   const effectiveReturn = (t: Trade): number | null => {
-    return t.return_pct; // Use value from JSON directly
+    if (applySlPct != null && t.return_pct != null && t.return_pct < applySlPct) {
+      return applySlPct;
+    }
+    return t.return_pct;
   };
 
   const effectiveResult = (t: Trade): string => {
-    return t.result; // Use value from JSON directly
+    if (applySlPct != null && t.return_pct != null && t.return_pct < applySlPct) {
+      return "LOSS";
+    }
+    return t.result;
   };
 
   const slTriggered = (t: Trade): boolean => {
+    if (applySlPct != null && t.return_pct != null && t.return_pct < applySlPct) {
+      return true;
+    }
     return t.result === "LOSS";
   };
   const dashboardRef = useRef<HTMLDivElement>(null);
