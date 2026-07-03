@@ -13,10 +13,10 @@
     "cta_secondary": { "text": "Giriş Yap", "href": "/global/tr/giris" },
     "cta_note": "Üyeliğinizi istediğiniz zaman iptal edebilirsiniz",
     "screenshots": [
-      { "src": "/screenshots/ss_trend.jpg", "label": "2026 Trend Hisseleri", "desc": "Tema bazlı hisse takibi ve sinyaller" },
-      { "src": "/screenshots/ss_swing.jpg", "label": "Günlük Swing Adayları", "desc": "Günlük ısı haritası ve aday listesi" },
-      { "src": "/screenshots/ss_perf.jpg", "label": "Sistem Performansı", "desc": "Geçmiş işlem başarı istatistikleri" },
-      { "src": "/screenshots/ss_top100.jpg", "label": "Top 100 Tracker", "desc": "Saatlik güncellenen hisse takip listesi" }
+      { "src": "/screenshots/ss_swing_detail.png", "label": "Derin Hisse Analizi", "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik" },
+      { "src": "/screenshots/ss_swing_table.png", "label": "Günlük Swing Trade Adayları", "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi" },
+      { "src": "/screenshots/ss_performance.png", "label": "Sistem Performansı", "desc": "Sektör karlılık ısı haritası ve geçmiş işlem kayıtları" },
+      { "src": "/screenshots/ss_home.png", "label": "Ana Sayfa — Canlı Özet", "desc": "Swing, Trend ve Top100 saatlik özet, performans banner" }
     ],
     "features": [
       { "icon": "bolt", "title": "Swing Trade Adayları", "desc": "Her gün tüm kurulumlar ve senaryolar değerlendiriliyor, en iyi adaylar yapay zeka tarafından seçiliyor." },
@@ -58,10 +58,10 @@
     "cta_secondary": { "text": "Sign In", "href": "/global/en/login" },
     "cta_note": "Cancel anytime",
     "screenshots": [
-      { "src": "/screenshots/ss_trend.jpg", "label": "2026 Trend Stocks", "desc": "Theme-based stock tracking and signals" },
-      { "src": "/screenshots/ss_swing.jpg", "label": "Daily Swing Candidates", "desc": "Daily heat map and candidate list" },
-      { "src": "/screenshots/ss_perf.jpg", "label": "System Performance", "desc": "Historical trade success statistics" },
-      { "src": "/screenshots/ss_top100.jpg", "label": "Top 100 Tracker", "desc": "Hourly updated stock tracking list" }
+      { "src": "/screenshots/ss_swing_detail.png", "label": "Deep Stock Analysis", "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart" },
+      { "src": "/screenshots/ss_swing_table.png", "label": "Daily Swing Candidates", "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking" },
+      { "src": "/screenshots/ss_performance.png", "label": "System Performance", "desc": "Sector profitability heat map and historical trade records" },
+      { "src": "/screenshots/ss_home.png", "label": "Home — Live Summary", "desc": "Swing, Trend and Top100 hourly summary with performance banner" }
     ],
     "features": [
       { "icon": "bolt", "title": "Swing Trade Candidates", "desc": "Every setup and scenario evaluated daily — AI picks the best candidates for you." },
