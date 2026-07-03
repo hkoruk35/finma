@@ -71,5 +71,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
+  // Set 7-day free trial for new member (best-effort — may already be set by DB trigger)
+  if (data.user) {
+    const trialEndsAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+    await supabase
+      .from("members")
+      .upsert(
+        { id: data.user.id, username, email, plan: "free_trial", trial_ends_at: trialEndsAt },
+        { onConflict: "id", ignoreDuplicates: false }
+      )
+      .select();
+  }
+
   return NextResponse.json({ ok: true, needsEmailConfirmation: !data.session });
 }

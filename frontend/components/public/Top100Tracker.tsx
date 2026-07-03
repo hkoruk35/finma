@@ -7,6 +7,8 @@ import { translateEMAStatus, translatePattern, translateSector } from "@/lib/tra
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 import type { Top100Row } from "@/app/api/top100/route";
 
 const REFRESH_MS = 5 * 60 * 1000;
@@ -108,6 +110,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
   const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const { isFreeTrial } = useMemberPlan();
 
   useEffect(() => setMounted(true), []);
 
@@ -243,6 +247,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
 
   return (
     <div style={{ background: "#0f1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+      {showPremiumModal && <PremiumModal locale={locale} onClose={() => setShowPremiumModal(false)} />}
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -376,6 +381,52 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || "—";
+                // Free trial: only the first row (idx === 0) is fully unlocked
+                const rowLocked = isFreeTrial && idx > 0;
+
+                if (rowLocked) {
+                  return (
+                    <Fragment key={r.ticker}>
+                      <tr
+                        onClick={() => setShowPremiumModal(true)}
+                        style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer", opacity: 0.55 }}
+                      >
+                        {/* Ticker — hidden */}
+                        <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
+                          <span style={{ display: "inline-block", background: "#ffffff18", color: "transparent", borderRadius: 3, width: 52, height: 14, verticalAlign: "middle" }} />
+                        </td>
+                        <td style={{ padding: "7px 8px", color: "#555", fontSize: 10, whiteSpace: "nowrap" }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf380", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#555" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb95080" : "#f8514980" }}>
+                          {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555", fontSize: 11 }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          {d && (
+                            <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#555" }}>
+                              {SIGNAL_ICON[signal] || "○"} {signalLabel(signal, locale)}
+                            </span>
+                          )}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
+                          <button
+                            onClick={() => setShowPremiumModal(true)}
+                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, display: "inline-block" }}
+                          >
+                            🔒 {locale === "tr" ? "Premium" : "Premium"}
+                          </button>
+                        </td>
+                      </tr>
+                    </Fragment>
+                  );
+                }
 
                 return (
                   <Fragment key={r.ticker}>
@@ -478,12 +529,21 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = heatBg(dayPct);
+                  const hmLocked = isFreeTrial && idx > 0;
                   return (
-                    <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
+                    <tr
+                      key={r.ticker}
+                      style={{ background: "#0f1117", borderBottom: "1px solid #21262d", opacity: hmLocked ? 0.5 : 1, cursor: hmLocked ? "pointer" : undefined }}
+                      onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}
+                    >
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
-                          <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
-                        </TickerHoverChart>
+                        {hmLocked ? (
+                          <span style={{ display: "inline-block", background: "#ffffff18", color: "transparent", borderRadius: 3, width: 48, height: 13 }} />
+                        ) : (
+                          <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
+                            <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
+                          </TickerHoverChart>
+                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];

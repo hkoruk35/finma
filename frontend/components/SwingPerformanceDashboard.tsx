@@ -4,6 +4,7 @@ import { useState, useMemo, useDeferredValue, useRef } from "react";
 import Link from "next/link";
 import jsPDF from "jspdf";
 import TickerHoverChart from "./TickerHoverChart";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 const PAGE_SIZE = 50;
 
@@ -103,6 +104,7 @@ function pnlFromReturn(ret: number | null): number | null {
 
 
 export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, applySlPct, locale = "tr", disableTickerLink = false }: Props) {
+  const { isFreeTrial } = useMemberPlan();
   const SL_PCT = applySlPct ?? serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -1004,15 +1006,19 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="min-w-0 pr-2">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
-                      <TickerHoverChart ticker={t.ticker}>
-                        {disableTickerLink ? (
-                          <span className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
-                        ) : (
-                          <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
-                            {t.ticker}
-                          </Link>
-                        )}
-                      </TickerHoverChart>
+                      {isFreeTrial ? (
+                        <span className="inline-block bg-white/10 text-transparent rounded select-none text-[13px] font-black leading-none" style={{ minWidth: 48 }}>████</span>
+                      ) : (
+                        <TickerHoverChart ticker={t.ticker}>
+                          {disableTickerLink ? (
+                            <span className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
+                          ) : (
+                            <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
+                              {t.ticker}
+                            </Link>
+                          )}
+                        </TickerHoverChart>
+                      )}
                       {slHit && <span className="text-[8px] font-black text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
                       {t.is_duplicate && <span className="text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded leading-none">DUP</span>}
                     </div>
@@ -1117,18 +1123,24 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
-                        <TickerHoverChart ticker={t.ticker}>
-                          {disableTickerLink ? (
-                            <span className="font-black text-[#3b82f6] tracking-tight">{t.ticker}</span>
-                          ) : (
-                            <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
-                          )}
-                        </TickerHoverChart>
-                        {t.is_duplicate && (
-                          <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
-                        )}
-                        {t.company && t.company !== t.ticker && (
-                          <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
+                        {isFreeTrial ? (
+                          <span className="inline-block bg-white/10 text-transparent rounded select-none font-black tracking-tight" style={{ minWidth: 52 }}>████</span>
+                        ) : (
+                          <>
+                            <TickerHoverChart ticker={t.ticker}>
+                              {disableTickerLink ? (
+                                <span className="font-black text-[#3b82f6] tracking-tight">{t.ticker}</span>
+                              ) : (
+                                <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                              )}
+                            </TickerHoverChart>
+                            {t.is_duplicate && (
+                              <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
+                            )}
+                            {t.company && t.company !== t.ticker && (
+                              <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
+                            )}
+                          </>
                         )}
                       </td>
                       <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(effRet)}`}>

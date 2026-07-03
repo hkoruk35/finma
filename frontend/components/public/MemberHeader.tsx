@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n/copy";
+import TrialCountdown from "@/components/global/TrialCountdown";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
@@ -54,6 +55,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         <div className="flex-1" />
 
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Trial countdown — only visible for free-trial members */}
+          <TrialCountdown locale={locale} />
+
           {/* Language Selector */}
           {locale && (
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">

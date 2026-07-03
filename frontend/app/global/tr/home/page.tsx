@@ -100,6 +100,7 @@ export default async function TrHomePage() {
             viewAllHref="/global/tr/swing"
             locale="tr"
             sortLabel="Swing skoruna göre sıralandı"
+            requirePremium
           />
 
           <HomeSimpleCard
@@ -109,6 +110,7 @@ export default async function TrHomePage() {
             viewAllHref="/global/tr/trend"
             locale="tr"
             sortLabel="Hacim sırasına göre"
+            requirePremium
           />
 
           <HomeSimpleCard

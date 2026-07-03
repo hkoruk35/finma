@@ -100,6 +100,7 @@ export default async function EnHomePage() {
             viewAllHref="/global/en/swing"
             locale="en"
             sortLabel="Sorted by swing score"
+            requirePremium
           />
 
           <HomeSimpleCard
@@ -109,6 +110,7 @@ export default async function EnHomePage() {
             viewAllHref="/global/en/trend"
             locale="en"
             sortLabel="Sorted by volume"
+            requirePremium
           />
 
           <HomeSimpleCard
