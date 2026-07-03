@@ -28,7 +28,8 @@ export const SITEMAP_EN: SitemapGroup[] = [
     { label: "Swing Archive", path: "/global/en/swing/archive" },
     { label: "Swing Performance", path: "/global/en/swingperformance" },
     { label: "Trend", path: "/global/en/trend" },
-    { label: "Ticker Detail ([ticker])", path: "/global/en/[ticker]" },
+    { label: "Performance", path: "/global/en/performance" },
+    { label: "AI Report", path: "/global/en/ai" },
   ]},
 ];
 
@@ -48,16 +49,26 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Swing Arşiv", path: "/global/tr/swing/arsiv" },
     { label: "Swing Performance", path: "/global/tr/swingperformance" },
     { label: "Trend", path: "/global/tr/trend" },
-    { label: "Hisse Detay ([ticker])", path: "/global/tr/[ticker]" },
+    { label: "Performans", path: "/global/tr/performance" },
+    { label: "AI Rapor", path: "/global/tr/ai" },
   ]},
 ];
 
 export const SITEMAP_OTHER: SitemapGroup[] = [
   { group: "Diğer Public Sayfalar", entries: [
-    { label: "İletişim", path: "/global/en/contact" },
+    { label: "About BOGA AI", path: "/global/en/about" },
+    { label: "BOGA AI Hakkında", path: "/global/en/about/tr" },
+    { label: "Contact", path: "/global/en/contact" },
+    { label: "Terms", path: "/global/en/terms" },
+    { label: "Kullanım Şartları", path: "/global/en/terms/tr" },
+    { label: "Privacy", path: "/global/en/privacy" },
+    { label: "Gizlilik", path: "/global/en/privacy/tr" },
+    { label: "Disclaimer", path: "/global/en/disclaimer" },
+    { label: "Sorumluluk Reddi", path: "/global/en/disclaimer/tr" },
   ]},
   { group: "Admin-Only (boga_auth gerekli)", entries: [
     { label: "Tracker (1H izleme)", path: "/tracker" },
     { label: "Pro Dashboard", path: "/pro" },
+    { label: "Hisse Analiz ([ticker])", path: "/admin/[ticker]" },
   ]},
 ];
