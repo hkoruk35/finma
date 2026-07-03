@@ -31,6 +31,13 @@ export const SITEMAP_EN: SitemapGroup[] = [
     { label: "Performance", path: "/global/en/performance" },
     { label: "AI Report", path: "/global/en/ai" },
   ]},
+  { group: "Kurumsal / Yasal", entries: [
+    { label: "About", path: "/global/en/about" },
+    { label: "Contact", path: "/global/en/contact" },
+    { label: "Terms", path: "/global/en/terms" },
+    { label: "Privacy", path: "/global/en/privacy" },
+    { label: "Disclaimer", path: "/global/en/disclaimer" },
+  ]},
 ];
 
 export const SITEMAP_TR: SitemapGroup[] = [
@@ -52,21 +59,16 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Performans", path: "/global/tr/performance" },
     { label: "AI Rapor", path: "/global/tr/ai" },
   ]},
-];
-
-export const SITEMAP_OTHER: SitemapGroup[] = [
-  { group: "Diğer Public Sayfalar", entries: [
-    { label: "About BOGA AI", path: "/global/en/about" },
-    { label: "BOGA AI Hakkında", path: "/global/tr/about" },
-    { label: "Contact", path: "/global/en/contact" },
+  { group: "Kurumsal / Yasal", entries: [
+    { label: "Hakkında", path: "/global/tr/about" },
     { label: "İletişim", path: "/global/tr/contact" },
-    { label: "Terms", path: "/global/en/terms" },
     { label: "Kullanım Şartları", path: "/global/tr/terms" },
-    { label: "Privacy", path: "/global/en/privacy" },
     { label: "Gizlilik", path: "/global/tr/privacy" },
-    { label: "Disclaimer", path: "/global/en/disclaimer" },
     { label: "Sorumluluk Reddi", path: "/global/tr/disclaimer" },
   ]},
+];
+
+export const SITEMAP_ADMIN: SitemapGroup[] = [
   { group: "Admin-Only (boga_auth gerekli)", entries: [
     { label: "Tracker (1H izleme)", path: "/tracker" },
     { label: "Pro Dashboard", path: "/pro" },

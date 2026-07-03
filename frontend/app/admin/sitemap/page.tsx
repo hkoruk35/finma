@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITEMAP_EN, SITEMAP_TR, SITEMAP_OTHER, SitemapGroup } from "@/lib/admin/sitemap-data";
+import { SITEMAP_EN, SITEMAP_TR, SITEMAP_ADMIN, SitemapGroup } from "@/lib/admin/sitemap-data";
 
 const ACCENT = "#58a6ff";
 
@@ -33,7 +33,7 @@ export default function AdminSitemapPage() {
       <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 16 }}>Site Haritası</h1>
       <Section title="English" groups={SITEMAP_EN} />
       <Section title="Türkçe" groups={SITEMAP_TR} />
-      <Section title="Diğer" groups={SITEMAP_OTHER} />
+      <Section title="Admin" groups={SITEMAP_ADMIN} />
     </div>
   );
 }
