@@ -1,30 +1,28 @@
 {
-  "date": "2026-07-02",
-  "generated_at": "2026-07-02T16:11:41.266957-04:00",
+  "date": "2026-07-03",
+  "generated_at": "2026-07-03T13:02:43.894161-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 14,
+  "active_scores_count": 8,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 8,
       "tickers": [
-        "JPM",
-        "ILMN",
-        "UPS",
-        "AMZN",
-        "GPN",
-        "EBAY",
-        "TWLO",
-        "SNOW",
-        "HOOD",
-        "GOOG"
+        "COF",
+        "EW",
+        "IBM",
+        "CRWD",
+        "DHR",
+        "GOOGL",
+        "MSI",
+        "VMC"
       ]
     },
     "breakout": {
       "count": 2,
       "tickers": [
-        "ILMN",
-        "HOOD"
+        "DHR",
+        "VMC"
       ]
     },
     "value": {
@@ -46,18 +44,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "JPM",
-      "score": 60.0,
+      "ticker": "COF",
+      "score": 54.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ILMN",
-      "score": 56.0,
+      "ticker": "EW",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "UPS",
-      "score": 53.5,
+      "ticker": "IBM",
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
