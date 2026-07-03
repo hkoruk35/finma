@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n/copy";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 interface Props {
   locale: Locale;
@@ -12,22 +13,63 @@ const COPY = {
   tr: {
     title: "Premium Üyelik Gerekiyor",
     desc: "Bu içeriğe erişmek için Premium üyelik gereklidir. Tüm hisse sinyallerine, analizlere ve listelere sınırsız erişin.",
+    trialLabel: "Deneme süreniz bitiyor:",
     offer: "İLK AY SADECE $19",
     sub: "Sınırlı sayıda — normal fiyat $39/ay",
     cta: "Şimdi Başla →",
     close: "Kapat",
     upgradeHref: "/global/tr/hesabim",
+    dayUnit: "g",
+    hourUnit: "s",
+    minUnit: "d",
   },
   en: {
     title: "Premium Membership Required",
     desc: "A Premium membership is required to access this content. Get unlimited access to all stock signals, analyses, and lists.",
+    trialLabel: "Your trial expires in:",
     offer: "FIRST MONTH ONLY $19",
     sub: "Limited offer — regular price $39/mo",
     cta: "Get Started →",
     close: "Close",
     upgradeHref: "/global/en/account",
+    dayUnit: "d",
+    hourUnit: "h",
+    minUnit: "m",
   },
 };
+
+function TrialBadge({ locale }: { locale: Locale }) {
+  const { isFreeTrial, trialSecondsLeft } = useMemberPlan();
+  const [secsLeft, setSecsLeft] = useState(trialSecondsLeft);
+  const c = COPY[locale];
+
+  useEffect(() => {
+    setSecsLeft(trialSecondsLeft);
+    if (trialSecondsLeft <= 0) return;
+    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 60)), 60000);
+    return () => clearInterval(id);
+  }, [trialSecondsLeft]);
+
+  if (!isFreeTrial || secsLeft <= 0) return null;
+
+  const days = Math.floor(secsLeft / 86400);
+  const hours = Math.floor((secsLeft % 86400) / 3600);
+  const mins = Math.floor((secsLeft % 3600) / 60);
+
+  return (
+    <div className="mb-5 rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/5 px-4 py-3 flex items-center gap-3">
+      <svg className="w-4 h-4 text-[#f59e0b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div className="min-w-0">
+        <p className="text-[10px] text-[#f59e0b]/70 font-semibold uppercase tracking-wider">{c.trialLabel}</p>
+        <p className="font-mono font-black text-[#f59e0b] text-base tracking-wider mt-0.5">
+          {days}{c.dayUnit} {hours}{c.hourUnit} {mins}{c.minUnit}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function PremiumModal({ locale, onClose }: Props) {
   const c = COPY[locale];
@@ -63,7 +105,10 @@ export default function PremiumModal({ locale, onClose }: Props) {
           </div>
 
           <h2 className="text-lg font-black text-white mb-2">{c.title}</h2>
-          <p className="text-sm text-slate-400 mb-6 leading-relaxed">{c.desc}</p>
+          <p className="text-sm text-slate-400 mb-5 leading-relaxed">{c.desc}</p>
+
+          {/* Trial countdown — only visible for free trial users */}
+          <TrialBadge locale={locale} />
 
           {/* Offer block */}
           <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 rounded-xl p-4 mb-5">
