@@ -25,12 +25,10 @@ export default async function EnPerformancePage() {
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
-  // Use full history — no artificial slice.
-  // Statistics are driven by performanceData.stats (pre-calculated from full history server-side),
-  // which is exactly the same source that the home banner uses.
+  // Full history, no slice — same methodology as home banner:
+  // all trades (736 completed), -7% SL cap, excludes duplicates and PENDING.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
-    .slice(0, 100);
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;

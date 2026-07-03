@@ -25,14 +25,16 @@ export default async function TrHomePage() {
     getSwingPerformance(),
   ]);
 
-  // Performance sayfasıyla AYNI metodoloji: son 100 işlem, -%7 SL cap, duplicate ve PENDING hariç.
+  // Tüm geçmiş kullanılır — -%7 SL cap, duplicate ve PENDING hariç.
+  // "Son 100 işlem" kesimi KALDIRILDI: son 100 kayıtta 65 PENDING olduğundan
+  // yalnızca 31 tamamlanmış işlem kalmakta ve bu küçük örnekten hesaplanan
+  // oran (%93.5) yanıltıcıdır. Tam geçmiş (736 tamamlanmış) daha doğru sonuç verir.
   const SL_CAP = -7;
   const bannerStats = (() => {
     const fullHistory: any[] = swingStats?.history ?? [];
     if (fullHistory.length === 0) return swingStats?.stats ?? null;
-    const history = [...fullHistory].sort((a: any, b: any) => (b.date || "").localeCompare(a.date || "")).slice(0, 100);
     const effRet = (t: any): number => Math.max(t.return_pct ?? 0, SL_CAP);
-    const active = history.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
+    const active = fullHistory.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
     if (active.length === 0) return swingStats?.stats ?? null;
     const wins = active.filter((t: any) => effRet(t) > 0).length;
     const sumRet = active.reduce((s: number, t: any) => s + effRet(t), 0);
@@ -41,7 +43,7 @@ export default async function TrHomePage() {
       win_rate: (wins / active.length * 100).toFixed(1),
       avg_return_pct: (sumRet / active.length).toFixed(1),
       above_10pct_rate: (above10 / active.length * 100).toFixed(1),
-      total_picks: history.length,
+      total_picks: active.length,
       period_days: swingStats?.stats?.period_days,
     };
   })();

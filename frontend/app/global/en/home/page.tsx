@@ -25,14 +25,16 @@ export default async function EnHomePage() {
     getSwingPerformance(),
   ]);
 
-  // Same methodology as performance page: last 100 trades, -7% SL cap, excludes duplicates and PENDING.
+  // Full history used — -7% SL cap, excludes duplicates and PENDING.
+  // "Last 100 trades" slice REMOVED: the last 100 entries have 65 PENDING, leaving
+  // only 31 completed trades. Stats from 31 samples are unreliable and artificially high.
+  // Full history (736 completed) gives accurate, representative numbers.
   const SL_CAP = -7;
   const bannerStats = (() => {
     const fullHistory: any[] = swingStats?.history ?? [];
     if (fullHistory.length === 0) return swingStats?.stats ?? null;
-    const history = [...fullHistory].sort((a: any, b: any) => (b.date || "").localeCompare(a.date || "")).slice(0, 100);
     const effRet = (t: any): number => Math.max(t.return_pct ?? 0, SL_CAP);
-    const active = history.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
+    const active = fullHistory.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
     if (active.length === 0) return swingStats?.stats ?? null;
     const wins = active.filter((t: any) => effRet(t) > 0).length;
     const sumRet = active.reduce((s: number, t: any) => s + effRet(t), 0);
@@ -41,7 +43,7 @@ export default async function EnHomePage() {
       win_rate: (wins / active.length * 100).toFixed(1),
       avg_return_pct: (sumRet / active.length).toFixed(1),
       above_10pct_rate: (above10 / active.length * 100).toFixed(1),
-      total_picks: history.length,
+      total_picks: active.length,
       period_days: swingStats?.stats?.period_days,
     };
   })();

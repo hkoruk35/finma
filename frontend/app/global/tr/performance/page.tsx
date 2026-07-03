@@ -25,12 +25,10 @@ export default async function TrPerformancePage() {
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
-  // Tam history kullan — yapay kesim yok.
-  // İstatistikler performanceData.stats'tan gelir (sunucu tarafında tam history üzerinden ön hesaplanmış),
-  // bu da home banner'daki rakamlarla birebir aynı kaynaktır.
+  // Tüm history kullan, slice yok — home banner ile aynı metodoloji:
+  // tüm geçmiş (736 tamamlanmış işlem), -%7 SL cap, duplicate ve PENDING hariç.
   const history: any[] = [...fullHistory]
-    .sort((a, b) => (b.date || "").localeCompare(a.date || ""))
-    .slice(0, 100);
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
 
   const todayPicks = swingPicksData?.picks ?? [];
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
