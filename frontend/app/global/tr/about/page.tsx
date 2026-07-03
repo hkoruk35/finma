@@ -8,16 +8,16 @@ export const metadata: Metadata = {
   title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
   description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
   alternates: {
-    canonical: "https://bogastock.com/global/en/about/tr",
+    canonical: "https://bogastock.com/global/tr/about",
     languages: {
       "en-US": "https://bogastock.com/global/en/about",
-      "tr-TR": "https://bogastock.com/global/en/about/tr",
+      "tr-TR": "https://bogastock.com/global/tr/about",
     },
   },
   openGraph: {
     title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
     description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
-    url: "https://bogastock.com/global/en/about/tr",
+    url: "https://bogastock.com/global/tr/about",
   },
 };
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     canonical: "https://bogastock.com/global/en/about",
     languages: {
       "en-US": "https://bogastock.com/global/en/about",
-      "tr-TR": "https://bogastock.com/global/en/about/tr",
+      "tr-TR": "https://bogastock.com/global/tr/about",
     },
   },
   openGraph: {
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 
         <div className="flex justify-end mb-6">
-          <Link href="/global/en/about/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
+          <Link href="/global/tr/about" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
         </div>
 
         {/* Hero */}

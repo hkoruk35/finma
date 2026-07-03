@@ -13,9 +13,9 @@ const LEGAL_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = {
     { href: "/global/en/privacy", label: "Privacy Policy" },
   ],
   tr: [
-    { href: "/global/en/disclaimer/tr", label: "Sorumluluk Reddi" },
-    { href: "/global/en/terms/tr", label: "Kullanım Şartları" },
-    { href: "/global/en/privacy/tr", label: "Gizlilik Politikası" },
+    { href: "/global/tr/disclaimer", label: "Sorumluluk Reddi" },
+    { href: "/global/tr/terms", label: "Kullanım Şartları" },
+    { href: "/global/tr/privacy", label: "Gizlilik Politikası" },
   ],
 };
 
@@ -25,8 +25,8 @@ const RESOURCES_LINKS: Record<"en" | "tr", { href: string; label: string }[]> = 
     { href: "/global/en/contact", label: "Contact Support" },
   ],
   tr: [
-    { href: "/global/en/about/tr", label: "BOGA AI Hakkında" },
-    { href: "/global/en/contact", label: "Destek İletişim" },
+    { href: "/global/tr/about", label: "BOGA AI Hakkında" },
+    { href: "/global/tr/contact", label: "Destek İletişim" },
   ],
 };
 

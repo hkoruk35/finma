@@ -2,6 +2,20 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Gizlilik Politikası | BOGAStock",
+  alternates: {
+    canonical: "https://bogastock.com/global/tr/privacy",
+    languages: {
+      "en-US": "https://bogastock.com/global/en/privacy",
+      "tr-TR": "https://bogastock.com/global/tr/privacy",
+    },
+  },
+  openGraph: {
+    url: "https://bogastock.com/global/tr/privacy",
+  },
+};
+
 export default function PrivacyPageTr() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">

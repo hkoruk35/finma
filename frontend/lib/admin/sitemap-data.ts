@@ -57,14 +57,15 @@ export const SITEMAP_TR: SitemapGroup[] = [
 export const SITEMAP_OTHER: SitemapGroup[] = [
   { group: "Diğer Public Sayfalar", entries: [
     { label: "About BOGA AI", path: "/global/en/about" },
-    { label: "BOGA AI Hakkında", path: "/global/en/about/tr" },
+    { label: "BOGA AI Hakkında", path: "/global/tr/about" },
     { label: "Contact", path: "/global/en/contact" },
+    { label: "İletişim", path: "/global/tr/contact" },
     { label: "Terms", path: "/global/en/terms" },
-    { label: "Kullanım Şartları", path: "/global/en/terms/tr" },
+    { label: "Kullanım Şartları", path: "/global/tr/terms" },
     { label: "Privacy", path: "/global/en/privacy" },
-    { label: "Gizlilik", path: "/global/en/privacy/tr" },
+    { label: "Gizlilik", path: "/global/tr/privacy" },
     { label: "Disclaimer", path: "/global/en/disclaimer" },
-    { label: "Sorumluluk Reddi", path: "/global/en/disclaimer/tr" },
+    { label: "Sorumluluk Reddi", path: "/global/tr/disclaimer" },
   ]},
   { group: "Admin-Only (boga_auth gerekli)", entries: [
     { label: "Tracker (1H izleme)", path: "/tracker" },

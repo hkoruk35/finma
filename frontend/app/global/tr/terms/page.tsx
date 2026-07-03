@@ -2,6 +2,20 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Kullanım Şartları | BOGAStock",
+  alternates: {
+    canonical: "https://bogastock.com/global/tr/terms",
+    languages: {
+      "en-US": "https://bogastock.com/global/en/terms",
+      "tr-TR": "https://bogastock.com/global/tr/terms",
+    },
+  },
+  openGraph: {
+    url: "https://bogastock.com/global/tr/terms",
+  },
+};
+
 export default function TermsPageTr() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
