@@ -6,7 +6,7 @@
     "win_rate": 87.2,
     "avg_return_pct": 3.93,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
-    "last_updated": "2026-07-02T17:00:07",
+    "last_updated": "2026-07-03T10:00:06",
     "above_5pct_rate": 76.2,
     "above_10pct_rate": 5.4,
     "counted_picks": 893,
@@ -29,7 +29,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -47,7 +48,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -65,7 +67,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -83,7 +86,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -101,7 +105,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -119,7 +124,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": true
+      "is_duplicate": true,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -137,7 +143,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -155,7 +162,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -173,7 +181,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -191,7 +200,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -209,7 +219,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -227,7 +238,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": true
+      "is_duplicate": true,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -245,7 +257,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": false
+      "is_duplicate": false,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-07-02",
@@ -263,7 +276,8 @@
       "days": 0,
       "result": "PENDING",
       "peak_date": "2026-07-02",
-      "is_duplicate": true
+      "is_duplicate": true,
+      "peak_gain_pct": 0.0
     },
     {
       "date": "2026-01-01",
@@ -5011,7 +5025,7 @@
       "subsector": "Financial Services",
       "entry": 8.57,
       "max_price": 9.16,
-      "return_pct": 6.66,
+      "return_pct": 6.62,
       "days": 9,
       "result": "WIN",
       "peak_date": "2026-02-09",
@@ -5019,7 +5033,7 @@
       "sl_pct": 5.26,
       "profit_target": 9.0,
       "max_hold_days": 5,
-      "peak_gain_pct": 6.89,
+      "peak_gain_pct": 6.85,
       "is_duplicate": false,
       "ema50_1d": 7.62,
       "active_sl_level": 7.62
@@ -13223,15 +13237,15 @@
       "entry": 453.59,
       "max_price": 459.55,
       "return_pct": -21.84,
-      "days": 68,
+      "days": 69,
       "result": "PENDING",
       "peak_date": "2026-04-27",
       "sl_pct": 5.0,
       "profit_target": 476.21,
       "max_hold_days": 5,
       "stop_loss_high": 430.91,
-      "ema50_1d": 410.1,
-      "active_sl_level": 410.1,
+      "ema50_1d": 407.92,
+      "active_sl_level": 407.92,
       "peak_gain_pct": 1.31,
       "is_duplicate": false
     },
@@ -14255,7 +14269,7 @@
       "sector": "Real Estate",
       "subsector": "REIT - Residential",
       "entry": 16.47,
-      "max_price": 17.36,
+      "max_price": 17.37,
       "return_pct": 5.22,
       "days": 58,
       "result": "WIN",
@@ -14266,7 +14280,7 @@
       "stop_loss_high": 15.65,
       "ema50_1d": 16.28,
       "active_sl_level": 16.28,
-      "peak_gain_pct": 5.43,
+      "peak_gain_pct": 5.46,
       "is_duplicate": false,
       "exit_date": "2026-07-02"
     },
@@ -17998,7 +18012,7 @@
       "sector": "Communication Services",
       "subsector": "Electronic Gaming & Multimedia",
       "entry": 240.46,
-      "max_price": 255.24,
+      "max_price": 255.27,
       "sl_pct": 7.1,
       "return_pct": 6.04,
       "days": 49,
@@ -18009,7 +18023,7 @@
       "stop_loss_high": 223.38,
       "ema50_1d": 227.36,
       "active_sl_level": 227.36,
-      "peak_gain_pct": 6.15,
+      "peak_gain_pct": 6.16,
       "is_duplicate": false,
       "exit_date": "2026-07-02"
     },
@@ -19737,7 +19751,7 @@
       "sector": "Real Estate",
       "subsector": "REIT - Healthcare Facilities",
       "entry": 37.42,
-      "max_price": 38.54,
+      "max_price": 38.65,
       "sl_pct": 5.0,
       "return_pct": 1.47,
       "days": 38,
@@ -19748,7 +19762,7 @@
       "stop_loss_high": 35.55,
       "ema50_1d": 35.72,
       "active_sl_level": 35.72,
-      "peak_gain_pct": 2.99,
+      "peak_gain_pct": 3.29,
       "is_duplicate": false
     },
     {
@@ -21560,7 +21574,7 @@
       "sector": "Real Estate",
       "subsector": "REIT - Industrial",
       "entry": 32.71,
-      "max_price": 33.82,
+      "max_price": 33.85,
       "sl_pct": 5.01,
       "stop_loss_high": 31.07,
       "profit_target": 34.94,
@@ -21571,7 +21585,7 @@
       "peak_date": "2026-07-02",
       "ema50_1d": 31.82,
       "active_sl_level": 31.82,
-      "peak_gain_pct": 3.39,
+      "peak_gain_pct": 3.49,
       "is_duplicate": false
     },
     {
@@ -22328,7 +22342,7 @@
       "peak_date": "2026-07-02",
       "ema50_1d": 23.3,
       "active_sl_level": 23.3,
-      "peak_gain_pct": 3.14,
+      "peak_gain_pct": 3.15,
       "is_duplicate": false
     },
     {
@@ -23177,7 +23191,7 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 131.24,
-      "max_price": 131.82,
+      "max_price": 132.09,
       "sl_pct": 5.0,
       "stop_loss_high": 124.68,
       "profit_target": 140.29,
@@ -23188,7 +23202,7 @@
       "peak_date": "2026-07-02",
       "ema50_1d": 124.71,
       "active_sl_level": 124.71,
-      "peak_gain_pct": 0.45,
+      "peak_gain_pct": 0.65,
       "is_duplicate": false
     },
     {
@@ -23457,7 +23471,7 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 35.71,
-      "max_price": 36.97,
+      "max_price": 37.03,
       "sl_pct": 5.01,
       "stop_loss_high": 33.92,
       "profit_target": 37.66,
@@ -23468,7 +23482,7 @@
       "peak_date": "2026-07-02",
       "ema50_1d": 34.6,
       "active_sl_level": 34.6,
-      "peak_gain_pct": 3.53,
+      "peak_gain_pct": 3.7,
       "is_duplicate": false
     },
     {
@@ -23757,7 +23771,7 @@
       "sector": "Basic Materials",
       "subsector": "Lumber & Wood Production",
       "entry": 210.05,
-      "max_price": 211.59,
+      "max_price": 211.28,
       "sl_pct": 5.0,
       "stop_loss_high": 199.55,
       "profit_target": 222.35,
@@ -23767,9 +23781,9 @@
       "result": "PENDING",
       "peak_date": "2026-06-26",
       "is_duplicate": false,
-      "peak_gain_pct": 0.73,
-      "ema50_1d": 192.49,
-      "active_sl_level": 192.49
+      "peak_gain_pct": 0.58,
+      "ema50_1d": 192.22,
+      "active_sl_level": 192.22
     },
     {
       "date": "2026-06-25",
@@ -23821,7 +23835,7 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 32.38,
-      "max_price": 34.38,
+      "max_price": 34.39,
       "sl_pct": 5.0,
       "stop_loss_high": 30.76,
       "profit_target": 34.58,
@@ -23831,7 +23845,7 @@
       "result": "PENDING",
       "peak_date": "2026-07-02",
       "is_duplicate": false,
-      "peak_gain_pct": 6.19,
+      "peak_gain_pct": 6.21,
       "ema50_1d": 31.33,
       "active_sl_level": 31.33
     },
@@ -23863,7 +23877,7 @@
       "sector": "Financial Services",
       "subsector": "Banks - Regional",
       "entry": 67.06,
-      "max_price": 69.12,
+      "max_price": 69.23,
       "sl_pct": 6.16,
       "stop_loss_high": 62.93,
       "profit_target": 70.27,
@@ -23873,7 +23887,7 @@
       "result": "PENDING",
       "peak_date": "2026-07-02",
       "is_duplicate": false,
-      "peak_gain_pct": 3.07,
+      "peak_gain_pct": 3.24,
       "ema50_1d": 63.76,
       "active_sl_level": 63.76
     },
@@ -24203,7 +24217,7 @@
       "sector": "Energy",
       "subsector": "Oil & Gas E&P",
       "entry": 27.04,
-      "max_price": 28.04,
+      "max_price": 28.05,
       "sl_pct": 5.51,
       "stop_loss_high": 25.55,
       "profit_target": 28.68,
@@ -24213,7 +24227,7 @@
       "result": "PENDING",
       "peak_date": "2026-07-02",
       "is_duplicate": false,
-      "peak_gain_pct": 3.7,
+      "peak_gain_pct": 3.74,
       "ema50_1d": 26.94,
       "active_sl_level": 26.94
     },
