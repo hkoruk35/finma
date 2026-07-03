@@ -115,10 +115,9 @@ export default function HomeSimpleCard({
                       <div className="min-w-0">
                         {locked ? (
                           <>
-                            <div className="font-black text-sm tracking-tight select-none">
-                              <span className="inline-block bg-white/10 text-transparent rounded px-1" style={{ minWidth: 40 }}>
-                                ████
-                              </span>
+                            <div className="font-black text-sm tracking-tight select-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                              <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
                             <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
                           </>

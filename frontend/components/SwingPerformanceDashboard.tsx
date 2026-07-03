@@ -779,7 +779,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           <svg className="w-3.5 h-3.5 text-[#f59e0b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                           </svg>
-                          <span className="inline-block bg-white/10 text-transparent rounded select-none text-base font-black tracking-tight" style={{ minWidth: 52 }}>████</span>
+                          <span className="text-base font-black tracking-tight" style={{ color: "#f59e0b" }}>Premium</span>
                         </div>
                         <p className="text-[10px] text-slate-600 font-medium mt-0.5">Premium</p>
                       </div>
@@ -1082,7 +1082,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
                       {isFreeTrial ? (
-                        <span className="inline-block bg-white/10 text-transparent rounded select-none text-[13px] font-black leading-none" style={{ minWidth: 48 }}>████</span>
+                        <span className="text-[13px] font-black leading-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                          Premium
+                        </span>
                       ) : (
                         <TickerHoverChart ticker={t.ticker}>
                           {disableTickerLink ? (
@@ -1199,7 +1202,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         {isFreeTrial ? (
-                          <span className="inline-block bg-white/10 text-transparent rounded select-none font-black tracking-tight" style={{ minWidth: 52 }}>████</span>
+                          <span className="font-black tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
                         ) : (
                           <>
                             <TickerHoverChart ticker={t.ticker}>

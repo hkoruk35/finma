@@ -389,28 +389,49 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                     <Fragment key={r.ticker}>
                       <tr
                         onClick={() => setShowPremiumModal(true)}
-                        style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer", opacity: 0.55 }}
+                        style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}
                       >
-                        {/* Ticker — hidden */}
+                        {/* Ticker — lock icon + Premium */}
                         <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }}>
-                          <span style={{ display: "inline-block", background: "#ffffff18", color: "transparent", borderRadius: 3, width: 52, height: 14, verticalAlign: "middle" }} />
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
                         </td>
-                        <td style={{ padding: "7px 8px", color: "#555", fontSize: 10, whiteSpace: "nowrap" }}>{"—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf380", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#555" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb95080" : "#f8514980" }}>
+                        <td style={{ padding: "7px 8px", color: "#8b949e", fontSize: 10, whiteSpace: "nowrap" }}>{translateSector(sectorLabel === "—" ? null : sectorLabel, locale).toUpperCase().slice(0, 14)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#e6edf3", fontWeight: 700 }}>{d ? `$${fmt2(price)}` : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: !d ? "#8b949e" : (d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149" }}>
                           {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{"—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#555", fontSize: 11 }}>{"—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
+                          {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
+                        </td>
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
                           {d && (
-                            <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#555" }}>
+                            <span style={{
+                              fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+                              background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "BullishWeak" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Neutral" ? "#1a1a2e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
+                              color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "BullishWeak" ? "#56d364" : d.tracker_1h?.ema_status === "Neutral" ? "#8b949e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#f85149" : "#ff7b72",
+                            }}>
+                              {translateEMAStatus(d.tracker_1h?.ema_status, locale)}
+                            </span>
+                          )}
+                        </td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? rsiColor(d.tracker_1h?.rsi) : "#8b949e" }}>{d ? fmt1(d.tracker_1h?.rsi) : "—"}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                        <td style={{ padding: "7px 8px", textAlign: "right" }}>
+                          {d && (
+                            <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
                               {SIGNAL_ICON[signal] || "○"} {signalLabel(signal, locale)}
                             </span>
                           )}
@@ -420,7 +441,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                             onClick={() => setShowPremiumModal(true)}
                             style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700, display: "inline-block" }}
                           >
-                            🔒 {locale === "tr" ? "Premium" : "Premium"}
+                            🔒 Premium
                           </button>
                         </td>
                       </tr>
@@ -538,7 +559,10 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                     >
                       <td style={{ padding: "6px 10px" }}>
                         {hmLocked ? (
-                          <span style={{ display: "inline-block", background: "#ffffff18", color: "transparent", borderRadius: 3, width: 48, height: 13 }} />
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
                         ) : (
                           <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                             <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
