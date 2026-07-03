@@ -5,6 +5,7 @@ import Link from "next/link";
 import jsPDF from "jspdf";
 import TickerHoverChart from "./TickerHoverChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 
 const PAGE_SIZE = 50;
 
@@ -105,6 +106,7 @@ function pnlFromReturn(ret: number | null): number | null {
 
 export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, applySlPct, locale = "tr", disableTickerLink = false }: Props) {
   const { isFreeTrial } = useMemberPlan();
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const SL_PCT = applySlPct ?? serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
 
@@ -548,6 +550,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   return (
     <div ref={dashboardRef} className="space-y-4">
+      {showPremiumModal && <PremiumModal locale={locale ?? "tr"} onClose={() => setShowPremiumModal(false)} />}
       {/* ── Hero Overview ──────────────────────────────────────────────────── */}
       <div className="mb-6 rounded-2xl overflow-hidden border border-white/5 bg-[#0f172a] shadow-2xl relative">
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] via-[#22c55e] to-[#3b82f6] opacity-30" />
@@ -759,6 +762,78 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               const scoreBorder = pick.score >= 80 ? "border-[#f59e0b]/30" : pick.score >= 70 ? "border-[#3b82f6]/30" : "border-[#22c55e]/30";
               const scoreBg = pick.score >= 80 ? "bg-[#f59e0b]/10" : pick.score >= 70 ? "bg-[#3b82f6]/10" : "bg-[#22c55e]/10";
               const cardClassName = "rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group";
+
+              // Free trial: ticker + company gizli, kart tıklanınca premium modal
+              if (isFreeTrial) {
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setShowPremiumModal(true)}
+                    className={cardClassName + " w-full text-left"}
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        {/* Kilitli ticker */}
+                        <div className="flex items-center gap-1.5">
+                          <svg className="w-3.5 h-3.5 text-[#f59e0b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                          </svg>
+                          <span className="inline-block bg-white/10 text-transparent rounded select-none text-base font-black tracking-tight" style={{ minWidth: 52 }}>████</span>
+                        </div>
+                        <p className="text-[10px] text-slate-600 font-medium mt-0.5">Premium</p>
+                      </div>
+                      <div className={`px-2 py-1 rounded-lg text-[11px] font-black ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
+                        {pick.score != null ? pick.score.toFixed(0) : "—"}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1.5 text-center">
+                      {pick.buy_zone && (
+                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                          <p className="text-[8px] text-[#22c55e] font-bold uppercase mb-0.5">{locale === "tr" ? "Giriş" : "Entry"}</p>
+                          <p className="text-[10px] font-mono font-black text-white">
+                            ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
+                          </p>
+                        </div>
+                      )}
+                      {pick.profit_zone && (
+                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                          <p className="text-[8px] text-[#3b82f6] font-bold uppercase mb-0.5">{locale === "tr" ? "Hedef" : "Target"}</p>
+                          <p className="text-[10px] font-mono font-black text-white">
+                            ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
+                          </p>
+                        </div>
+                      )}
+                      {pick.stop_zone && (
+                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
+                          <p className="text-[8px] text-[#ef4444] font-bold uppercase mb-0.5">Stop</p>
+                          <p className="text-[10px] font-mono font-black text-white">
+                            ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 mt-2.5 flex-wrap">
+                      {pick.rsi != null && (
+                        <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
+                          RSI {pick.rsi.toFixed(0)}
+                        </span>
+                      )}
+                      {pick.adx != null && (
+                        <span className="text-[9px] font-bold text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
+                          ADX {pick.adx.toFixed(0)}
+                        </span>
+                      )}
+                      {pick.sector && (
+                        <span className="text-[9px] font-bold text-[#00d2ff] bg-[#00d2ff]/5 px-1.5 py-0.5 rounded truncate max-w-[80px]">
+                          {pick.sector}
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
+              }
+
               const cardInner = (
                 <>
                   <div className="flex items-start justify-between mb-3">
@@ -775,7 +850,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="grid grid-cols-3 gap-1.5 text-center">
                     {pick.buy_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                        <p className="text-[8px] text-[#22c55e] font-bold uppercase mb-0.5">Giriş</p>
+                        <p className="text-[8px] text-[#22c55e] font-bold uppercase mb-0.5">{locale === "tr" ? "Giriş" : "Entry"}</p>
                         <p className="text-[10px] font-mono font-black text-white">
                           ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
                         </p>
@@ -783,7 +858,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     )}
                     {pick.profit_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                        <p className="text-[8px] text-[#3b82f6] font-bold uppercase mb-0.5">Hedef</p>
+                        <p className="text-[8px] text-[#3b82f6] font-bold uppercase mb-0.5">{locale === "tr" ? "Hedef" : "Target"}</p>
                         <p className="text-[10px] font-mono font-black text-white">
                           ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
                         </p>
