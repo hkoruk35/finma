@@ -92,6 +92,13 @@ const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1
 const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İzle", HOLD: "Bekle", SELL: "SAT" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
+// Normalize sector names so "Financials" and "Financial Services" are treated as one
+function normalizeSector(sector: string | null | undefined): string | null {
+  if (!sector) return null;
+  if (sector === "Financials") return "Financial Services";
+  return sector;
+}
+
 export default function Top100Tracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
   const [composition, setComposition] = useState<Top100Row[]>([]);
@@ -164,7 +171,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const sectorOptions = useMemo(() => {
     const s = new Set<string>();
     composition.forEach((r) => {
-      const sec = live[r.ticker]?.sector || r.sector;
+      const raw = live[r.ticker]?.sector || r.sector;
+      const sec = normalizeSector(raw);
       if (sec && sec !== "Unknown") s.add(sec);
     });
     return Array.from(s).sort();
@@ -184,7 +192,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
       const d = live[r.ticker];
       if (filterSource && r.source !== filterSource) return false;
       if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
-      if (filterSector && (d?.sector || r.sector) !== filterSector) return false;
+      const rowSector = normalizeSector(d?.sector || r.sector);
+      if (filterSector && rowSector !== filterSector) return false;
       if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
       if (searchQuery) {
         const q = searchQuery.toUpperCase();
@@ -380,7 +389,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isExpanded = expandedTicker === r.ticker;
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
-                const sectorLabel = d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || "—";
+                const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
                 // Free trial: only the first row (idx === 0) is fully unlocked
                 const rowLocked = isFreeTrial && idx > 0;
 
