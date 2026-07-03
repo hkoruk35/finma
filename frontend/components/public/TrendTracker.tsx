@@ -8,6 +8,8 @@ import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
@@ -135,6 +137,8 @@ const themeLabel = (title: string, locale: string) => (locale === "tr" ? title :
 
 export default function TrendTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].top100;
+  const { isFreeTrial } = useMemberPlan();
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [composition, setComposition] = useState<TrendRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
@@ -288,6 +292,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
   return (
     <div style={{ background: "#0f1117", minHeight: "60vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px" }}>
+      {showPremiumModal && <PremiumModal locale={locale} onClose={() => setShowPremiumModal(false)} />}
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -428,6 +433,49 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
+                const rowLocked = isFreeTrial && idx > 0;
+
+                if (rowLocked) {
+                  return (
+                    <Fragment key={`${r.ticker}-${r.themeTitle}`}>
+                      <tr onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
+                        <td style={{ padding: "6px 8px" }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
+                        </td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{themeLabel(r.themeTitle, locale)}</td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{translateSector(d?.sector || r.sector, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
+                          {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
+                        </td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20) }}>
+                          {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20)}
+                        </td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50) }}>
+                          {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50)}
+                        </td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
+                          {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
+                        </td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
+                          <button onClick={() => setShowPremiumModal(true)}
+                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}>
+                            🔒 Premium
+                          </button>
+                        </td>
+                      </tr>
+                    </Fragment>
+                  );
+                }
 
                 return (
                   <Fragment key={`${r.ticker}-${r.themeTitle}`}>
@@ -504,12 +552,20 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
+                  const hmLocked = isFreeTrial && idx > 0;
                   return (
-                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
+                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>
+                        {hmLocked ? (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
+                        ) : (
                         <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : "Analyze ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
+                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];

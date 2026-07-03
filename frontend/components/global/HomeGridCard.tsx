@@ -63,29 +63,16 @@ export default function HomeSimpleCard({
             <span className="w-1.5 h-6 rounded-full" style={{ background: accent }} />
             <h3 className="text-sm font-black text-white uppercase tracking-tight">{title}</h3>
           </div>
-          {locked ? (
-            <button
-              onClick={() => setShowModal(true)}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
-              style={{ color: "#64748b", borderColor: "#64748b4d" }}
-            >
-              <svg className="w-3 h-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-              {allLabel}
-            </button>
-          ) : (
-            <Link
-              href={viewAllHref}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
-              style={{ color: accent, borderColor: `${accent}4d` }}
-            >
-              {allLabel}
-              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-          )}
+          <Link
+            href={viewAllHref}
+            className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
+            style={{ color: accent, borderColor: `${accent}4d` }}
+          >
+            {allLabel}
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
         </div>
 
         {stocks.length > 0 ? (
