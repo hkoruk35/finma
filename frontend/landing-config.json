@@ -11,7 +11,7 @@
       "href": "/global/tr/kayit"
     },
     "cta_secondary": { "text": "Giriş Yap", "href": "/global/tr/giris" },
-    "cta_note": "7 günlük deneme süresinde tüm özelliklere tam erişim",
+    "cta_note": "",
     "screenshots": [
       { "src": "/screenshots/ss_swing_detail.png", "label": "Derin Hisse Analizi", "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik" },
       { "src": "/screenshots/ss_swing_table.png", "label": "Günlük Swing Trade Adayları", "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi" },
@@ -54,8 +54,8 @@
     },
     "bottom_cta": {
       "title": "Bugün ücretsiz başla",
-      "description": "7 gün boyunca tüm özelliklere tam erişim. Kredi kartı gerekmez.",
-      "note": "Deneme süresi sonunda dilediğiniz zaman iptal edebilirsiniz."
+      "description": "Kredi kartı gerekmez.",
+      "note": ""
     }
   },
   "en": {
