@@ -6,12 +6,12 @@
       "description": "ABD borsaları için tamamen finans üzerine çalışan yapay zeka tarafından seçilen, analiz edilen ve gerçek verilerle saatlik günlük hisse takibi yapan akıllı tam otonom sistem."
     },
     "cta_primary": {
-      "text": "Fırsatı Kaçırma — Üye Ol",
-      "subtext": "İlk 3 ay 19 USD/ay · Sonraki aylar 39 USD/ay",
+      "text": "7 Gün Ücretsiz Dene",
+      "subtext": "Kredi kartı gerekmez · Hemen başla",
       "href": "/global/tr/kayit"
     },
     "cta_secondary": { "text": "Giriş Yap", "href": "/global/tr/giris" },
-    "cta_note": "Üyeliğinizi istediğiniz zaman iptal edebilirsiniz",
+    "cta_note": "7 günlük deneme süresinde tüm özelliklere tam erişim",
     "screenshots": [
       { "src": "/screenshots/ss_swing_detail.png", "label": "Derin Hisse Analizi", "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik" },
       { "src": "/screenshots/ss_swing_table.png", "label": "Günlük Swing Trade Adayları", "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi" },
@@ -38,10 +38,24 @@
         { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Yatırım Stratejisi" }
       ]
     },
+    "jpm": {
+      "enabled": false,
+      "badge": "Ücretsiz Rapor Örneği",
+      "title": "JPMorgan — Piyasa Analiz Raporu",
+      "description": "Platformumuzun ürettiği rapor formatının gerçek bir örneği — tamamen ücretsiz indir.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "PDF İndir",
+      "images": [
+        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Piyasa Görünümü" },
+        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sektör Analizi" },
+        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Makro Göstergeler" },
+        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Yatırım Stratejisi" }
+      ]
+    },
     "bottom_cta": {
-      "title": "Bugün takibe başla",
-      "description": "İlk 3 ay sadece 19 USD/ay · Sonraki aylar 39 USD/ay",
-      "note": "İstediğiniz zaman iptal edebilirsiniz."
+      "title": "Bugün ücretsiz başla",
+      "description": "7 gün boyunca tüm özelliklere tam erişim. Kredi kartı gerekmez.",
+      "note": "Deneme süresi sonunda dilediğiniz zaman iptal edebilirsiniz."
     }
   },
   "en": {
@@ -51,12 +65,12 @@
       "description": "AI-powered stock screening and analysis for US markets. Selected, analyzed and tracked hourly by a fully autonomous intelligent system dedicated exclusively to finance."
     },
     "cta_primary": {
-      "text": "Don't Miss Out — Join Now",
-      "subtext": "First 3 months $19/mo · Then $39/mo",
+      "text": "Try Free for 7 Days",
+      "subtext": "No credit card required · Start instantly",
       "href": "/global/en/register"
     },
     "cta_secondary": { "text": "Sign In", "href": "/global/en/login" },
-    "cta_note": "Cancel anytime",
+    "cta_note": "Full access to all features during your 7-day trial",
     "screenshots": [
       { "src": "/screenshots/ss_swing_detail.png", "label": "Deep Stock Analysis", "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart" },
       { "src": "/screenshots/ss_swing_table.png", "label": "Daily Swing Candidates", "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking" },
@@ -83,10 +97,24 @@
         { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Investment Strategy" }
       ]
     },
+    "jpm": {
+      "enabled": false,
+      "badge": "Free Sample Report",
+      "title": "JPMorgan — Market Analysis Report",
+      "description": "A real example of the report format our platform produces — completely free to download.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "Download PDF",
+      "images": [
+        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Market Outlook" },
+        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sector Analysis" },
+        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Macro Indicators" },
+        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Investment Strategy" }
+      ]
+    },
     "bottom_cta": {
-      "title": "Start tracking today",
-      "description": "First 3 months just $19/mo · Then $39/mo",
-      "note": "Cancel anytime."
+      "title": "Start free today",
+      "description": "Full access to all features for 7 days. No credit card required.",
+      "note": "Cancel anytime after your trial ends."
     }
   }
 }
