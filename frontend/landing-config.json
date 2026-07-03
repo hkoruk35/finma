@@ -1,0 +1,92 @@
+{
+  "tr": {
+    "hero": {
+      "badge": "Canlı — Saatlik Güncelleme",
+      "description_bold": "Blue One Global Analysis",
+      "description": "ABD borsaları için tamamen finans üzerine çalışan yapay zeka tarafından seçilen, analiz edilen ve gerçek verilerle saatlik günlük hisse takibi yapan akıllı tam otonom sistem."
+    },
+    "cta_primary": {
+      "text": "Fırsatı Kaçırma — Üye Ol",
+      "subtext": "İlk 3 ay 19 USD/ay · Sonraki aylar 39 USD/ay",
+      "href": "/global/tr/kayit"
+    },
+    "cta_secondary": { "text": "Giriş Yap", "href": "/global/tr/giris" },
+    "cta_note": "Üyeliğinizi istediğiniz zaman iptal edebilirsiniz",
+    "screenshots": [
+      { "src": "/screenshots/ss_trend.jpg", "label": "2026 Trend Hisseleri", "desc": "Tema bazlı hisse takibi ve sinyaller" },
+      { "src": "/screenshots/ss_swing.jpg", "label": "Günlük Swing Adayları", "desc": "Günlük ısı haritası ve aday listesi" },
+      { "src": "/screenshots/ss_perf.jpg", "label": "Sistem Performansı", "desc": "Geçmiş işlem başarı istatistikleri" },
+      { "src": "/screenshots/ss_top100.jpg", "label": "Top 100 Tracker", "desc": "Saatlik güncellenen hisse takip listesi" }
+    ],
+    "features": [
+      { "icon": "bolt", "title": "Swing Trade Adayları", "desc": "Her gün tüm kurulumlar ve senaryolar değerlendiriliyor, en iyi adaylar yapay zeka tarafından seçiliyor." },
+      { "icon": "chart-bar", "title": "Top 100 Haftalık Takip", "desc": "BOGA AI tarafından belirli kriterlerle saatlik güncellenen aktif takip listesi — 100 seçkin ABD hissesi." },
+      { "icon": "trending-up", "title": "2026 Trend Hisseleri", "desc": "Çip sektöründen Biyokimyaya kadar en önde gelen şirketlerin tema bazlı takibi ve sinyal analizi." },
+      { "icon": "shield", "title": "Kendini Geliştiren Finansal Analiz", "desc": "Hiçbir yerde bulamayacağınız günlük kendini geliştiren sistemi ile Finansal Analiz, Swing Trade ve yatırımlarınız için tam otonom destek." }
+    ],
+    "jpm": {
+      "enabled": true,
+      "badge": "Ücretsiz Rapor Örneği",
+      "title": "JPMorgan — Piyasa Analiz Raporu",
+      "description": "Platformumuzun ürettiği rapor formatının gerçek bir örneği — tamamen ücretsiz indir.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "PDF İndir",
+      "images": [
+        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Piyasa Görünümü" },
+        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sektör Analizi" },
+        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Makro Göstergeler" },
+        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Yatırım Stratejisi" }
+      ]
+    },
+    "bottom_cta": {
+      "title": "Bugün takibe başla",
+      "description": "İlk 3 ay sadece 19 USD/ay · Sonraki aylar 39 USD/ay",
+      "note": "İstediğiniz zaman iptal edebilirsiniz."
+    }
+  },
+  "en": {
+    "hero": {
+      "badge": "Live — Hourly Updates",
+      "description_bold": "Blue One Global Analysis",
+      "description": "AI-powered stock screening and analysis for US markets. Selected, analyzed and tracked hourly by a fully autonomous intelligent system dedicated exclusively to finance."
+    },
+    "cta_primary": {
+      "text": "Don't Miss Out — Join Now",
+      "subtext": "First 3 months $19/mo · Then $39/mo",
+      "href": "/global/en/register"
+    },
+    "cta_secondary": { "text": "Sign In", "href": "/global/en/login" },
+    "cta_note": "Cancel anytime",
+    "screenshots": [
+      { "src": "/screenshots/ss_trend.jpg", "label": "2026 Trend Stocks", "desc": "Theme-based stock tracking and signals" },
+      { "src": "/screenshots/ss_swing.jpg", "label": "Daily Swing Candidates", "desc": "Daily heat map and candidate list" },
+      { "src": "/screenshots/ss_perf.jpg", "label": "System Performance", "desc": "Historical trade success statistics" },
+      { "src": "/screenshots/ss_top100.jpg", "label": "Top 100 Tracker", "desc": "Hourly updated stock tracking list" }
+    ],
+    "features": [
+      { "icon": "bolt", "title": "Swing Trade Candidates", "desc": "Every setup and scenario evaluated daily — AI picks the best candidates for you." },
+      { "icon": "chart-bar", "title": "Top 100 Weekly Tracker", "desc": "Active tracking list updated hourly by BOGA AI with specific criteria — 100 elite US stocks." },
+      { "icon": "trending-up", "title": "2026 Trend Stocks", "desc": "Theme-based tracking of leading companies from chip sector to biotech with signal analysis." },
+      { "icon": "shield", "title": "Self-Improving Financial Analysis", "desc": "A daily self-improving system you won't find anywhere else — fully autonomous support for your Financial Analysis, Swing Trades and Investments." }
+    ],
+    "jpm": {
+      "enabled": true,
+      "badge": "Free Sample Report",
+      "title": "JPMorgan — Market Analysis Report",
+      "description": "A real example of the report format our platform produces — completely free to download.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "Download PDF",
+      "images": [
+        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Market Outlook" },
+        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sector Analysis" },
+        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Macro Indicators" },
+        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Investment Strategy" }
+      ]
+    },
+    "bottom_cta": {
+      "title": "Start tracking today",
+      "description": "First 3 months just $19/mo · Then $39/mo",
+      "note": "Cancel anytime."
+    }
+  }
+}
