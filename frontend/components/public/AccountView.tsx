@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 type Member = {
   username: string;
@@ -23,6 +24,12 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab === "subscription") setActiveTab("subscription");
+  }, [searchParams]);
   const feedbackHref = locale === "en" ? "/en/account/feedback" : "/tr/hesabim/geri-bildirim";
   const loginHref = isGlobal
     ? (locale === "en" ? "/global/en/login" : "/global/tr/giris")
@@ -284,6 +291,44 @@ function PasswordTab({
   );
 }
 
+function TrialCountdownBadge({ trialEndsAt, locale }: { trialEndsAt: string; locale: Locale }) {
+  const endMs = new Date(trialEndsAt).getTime();
+  const [secsLeft, setSecsLeft] = useState(() => Math.max(0, Math.floor((endMs - Date.now()) / 1000)));
+
+  useEffect(() => {
+    if (secsLeft <= 0) return;
+    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 1)), 1000);
+    return () => clearInterval(id);
+  }, [secsLeft]);
+
+  if (secsLeft <= 0) return null;
+
+  const days = Math.floor(secsLeft / 86400);
+  const hours = Math.floor((secsLeft % 86400) / 3600);
+  const mins = Math.floor((secsLeft % 3600) / 60);
+  const secs = secsLeft % 60;
+  const pad = (n: number) => String(n).padStart(2, "0");
+
+  const label = locale === "tr" ? "Deneme süreniz bitiyor:" : "Your trial expires in:";
+  const countdownStr = locale === "tr"
+    ? `${days}g ${pad(hours)}s ${pad(mins)}d ${pad(secs)}sn`
+    : `${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
+
+  return (
+    <div className="rounded-2xl border border-[#f59e0b]/30 bg-[#f59e0b]/5 p-5 flex flex-col sm:flex-row items-center gap-4">
+      <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#f59e0b]/10 border border-[#f59e0b]/20 flex-shrink-0">
+        <svg className="w-6 h-6 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div className="text-center sm:text-left">
+        <p className="text-[11px] text-[#f59e0b]/70 font-bold uppercase tracking-widest mb-1">{label}</p>
+        <p className="font-mono font-black text-[#f59e0b] text-2xl tracking-wider">{countdownStr}</p>
+      </div>
+    </div>
+  );
+}
+
 function SubscriptionTab({
   member,
   isTrialActive,
@@ -296,12 +341,16 @@ function SubscriptionTab({
   t: any;
 }) {
   const dateFmt = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "tr-TR");
+  const upgradeHref = locale === "tr" ? "mailto:support@bogastock.com" : "mailto:support@bogastock.com";
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.subscriptionTitle}</h2>
 
-      {isTrialActive && <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm">{t.trialMessage}</div>}
+      {/* Live countdown for trial users */}
+      {isTrialActive && member.trial_ends_at && (
+        <TrialCountdownBadge trialEndsAt={member.trial_ends_at} locale={locale} />
+      )}
 
       <div className="space-y-4 text-sm">
         <Row label={t.subscriptionStatus} value={isTrialActive ? (locale === "en" ? "Free Trial" : "Ücretsiz Deneme") : member.plan} />
@@ -309,7 +358,24 @@ function SubscriptionTab({
         <Row label={t.subscriptionRenewsLabel} value={dateFmt(member.trial_ends_at)} />
       </div>
 
-      <button className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all">{t.upgradeButton}</button>
+      {/* Upgrade offer block */}
+      {isTrialActive && (
+        <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
+          <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
+            {locale === "tr" ? "İLK AY SADECE $19" : "FIRST MONTH ONLY $19"}
+          </div>
+          <div className="text-xs text-slate-500">
+            {locale === "tr" ? "Sınırlı sayıda — normal fiyat $39/ay" : "Limited offer — regular price $39/mo"}
+          </div>
+        </div>
+      )}
+
+      <a
+        href={upgradeHref}
+        className="block w-full py-3 text-center bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all"
+      >
+        {t.upgradeButton}
+      </a>
       <a
         href="mailto:support@bogastock.com"
         className="block text-center text-[#3b82f6] text-sm font-bold hover:underline"

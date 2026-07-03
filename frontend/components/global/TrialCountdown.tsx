@@ -27,7 +27,7 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
     ? `${days}g ${pad(hours)}s ${pad(mins)}d ${pad(secs)}sn`
     : `${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
 
-  const upgradeHref = locale === "tr" ? "/global/tr/hesabim" : "/global/en/account";
+  const upgradeHref = locale === "tr" ? "/global/tr/hesabim?tab=subscription" : "/global/en/account?tab=subscription";
 
   return (
     <a
