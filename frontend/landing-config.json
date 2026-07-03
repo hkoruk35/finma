@@ -70,7 +70,7 @@
       "href": "/global/en/register"
     },
     "cta_secondary": { "text": "Sign In", "href": "/global/en/login" },
-    "cta_note": "Full access to all features during your 7-day trial",
+    "cta_note": "",
     "screenshots": [
       { "src": "/screenshots/ss_swing_detail.png", "label": "Deep Stock Analysis", "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart" },
       { "src": "/screenshots/ss_swing_table.png", "label": "Daily Swing Candidates", "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking" },
@@ -113,7 +113,7 @@
     },
     "bottom_cta": {
       "title": "Start free today",
-      "description": "Full access to all features for 7 days. No credit card required.",
+      "description": "No credit card required.",
       "note": "Cancel anytime after your trial ends."
     }
   }
