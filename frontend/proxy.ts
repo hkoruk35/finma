@@ -53,6 +53,7 @@ export async function proxy(request: NextRequest) {
       pathname !== '/global/en') ||
     (isPathOrSubpath('/global/tr') &&
       !pathname.startsWith('/global/tr/giris') &&
+      !pathname.startsWith('/global/tr/kayit') &&
       !pathname.startsWith('/global/tr/performance') &&
       !pathname.startsWith('/global/tr/top100') &&
       pathname !== '/global/tr')
