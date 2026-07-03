@@ -11,7 +11,7 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
   useEffect(() => {
     setSecsLeft(trialSecondsLeft);
     if (trialSecondsLeft <= 0) return;
-    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 60)), 60000);
+    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
   }, [trialSecondsLeft]);
 
@@ -20,10 +20,12 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
   const days = Math.floor(secsLeft / 86400);
   const hours = Math.floor((secsLeft % 86400) / 3600);
   const mins = Math.floor((secsLeft % 3600) / 60);
+  const secs = secsLeft % 60;
+  const pad = (n: number) => String(n).padStart(2, "0");
 
   const countdownStr = locale === "tr"
-    ? `${days}g ${hours}s ${mins}d`
-    : `${days}d ${hours}h ${mins}m`;
+    ? `${days}g ${pad(hours)}s ${pad(mins)}d ${pad(secs)}sn`
+    : `${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
 
   const upgradeHref = locale === "tr" ? "/global/tr/hesabim" : "/global/en/account";
 

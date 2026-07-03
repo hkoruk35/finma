@@ -46,7 +46,7 @@ function TrialBadge({ locale }: { locale: Locale }) {
   useEffect(() => {
     setSecsLeft(trialSecondsLeft);
     if (trialSecondsLeft <= 0) return;
-    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 60)), 60000);
+    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 1)), 1000);
     return () => clearInterval(id);
   }, [trialSecondsLeft]);
 
@@ -55,6 +55,8 @@ function TrialBadge({ locale }: { locale: Locale }) {
   const days = Math.floor(secsLeft / 86400);
   const hours = Math.floor((secsLeft % 86400) / 3600);
   const mins = Math.floor((secsLeft % 3600) / 60);
+  const secs = secsLeft % 60;
+  const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
     <div className="mb-5 rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/5 px-4 py-3 flex items-center gap-3">
@@ -64,7 +66,7 @@ function TrialBadge({ locale }: { locale: Locale }) {
       <div className="min-w-0">
         <p className="text-[10px] text-[#f59e0b]/70 font-semibold uppercase tracking-wider">{c.trialLabel}</p>
         <p className="font-mono font-black text-[#f59e0b] text-base tracking-wider mt-0.5">
-          {days}{c.dayUnit} {hours}{c.hourUnit} {mins}{c.minUnit}
+          {days}{c.dayUnit} {pad(hours)}{c.hourUnit} {pad(mins)}{c.minUnit} {pad(secs)}sn
         </p>
       </div>
     </div>
