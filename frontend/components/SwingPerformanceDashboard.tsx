@@ -901,7 +901,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           </div>
           <div className="px-6 py-3 border-t border-[#1e2a3a] flex items-center justify-between">
             <p className="text-[10px] text-slate-500 font-medium">
-              Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır.
+              Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır. 15 dakika gecikme ile saat başları güncellenir.
             </p>
             <button
               onClick={() => setShowStats(false)}

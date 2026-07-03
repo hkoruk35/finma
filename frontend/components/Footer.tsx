@@ -113,6 +113,11 @@ export default function Footer({
               {DISCLAIMER[locale]}
             </p>
           )}
+          <p className="text-[11px] text-slate-500 mb-2">
+            {locale === "tr"
+              ? "Tüm veriler 15 dakika gecikme ile saat başları güncellenir."
+              : "All data is delayed by 15 minutes and updated at the top of each hour."}
+          </p>
           <p className="text-xs text-[#00d2ff]">
             &copy; Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Tüm Hakları Saklıdır.
           </p>
