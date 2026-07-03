@@ -114,7 +114,7 @@ export default function Footer({
             </p>
           )}
           <p className="text-xs text-[#00d2ff]">
-            &copy; 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.
+            &copy; Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Tüm Hakları Saklıdır.
           </p>
         </div>
       </div>
