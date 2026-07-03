@@ -63,7 +63,7 @@ export default function AboutPageTr() {
             <div className="glass-card p-8 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
-              <h3 className="text-lg font-bold text-white mb-3">Günlük Top 8000+ İzleme Listesi</h3>
+              <h3 className="text-lg font-bold text-white mb-3">Günlük Top 6.000+ İzleme Listesi</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
                 Günlük taramadan sistem, günlük izleme için <strong className="text-white">6.000'den fazla yüksek öncelikli seçkin hisse senedi ve ETFyi</strong> seçer. Bu adaylar her sabah NY saatiyle 09:00'da güncel piyasa verileri, teknik göstergeler ve temel metriklerle yeniden değerlendirilir.
               </p>

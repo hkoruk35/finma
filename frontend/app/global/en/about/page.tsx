@@ -64,7 +64,7 @@ export default function AboutPage() {
             <div className="glass-card p-8 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4]"></div>
               <div className="w-12 h-12 rounded-xl bg-[#8b5cf6]/10 flex items-center justify-center text-[#8b5cf6] mb-6 text-2xl font-black">2</div>
-              <h3 className="text-lg font-bold text-white mb-3">Top 8000+ Daily Watchlist</h3>
+              <h3 className="text-lg font-bold text-white mb-3">Top 6,000+ Daily Watchlist</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
                 From the daily scan, the system selects <strong className="text-white">6,000+ high-priority stocks and ETFs</strong> for daily monitoring. These candidates are re-evaluated each morning at 09:00 NY time with fresh market data, technical readings, and fundamental metrics.
               </p>

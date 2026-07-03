@@ -5,7 +5,7 @@ import ScreenerCockpit from "@/components/ScreenerCockpit";
 export const metadata: Metadata = {
   title: "BOGA Screener | Trade Setup Motor — ABD Hisse Tarayıcı",
   description:
-    "Finviz'den farklı: Checkbox değil SETUP seç. Swing Continuation, Day Trade Momentum, Options Sniper ve daha fazlası. 8000+ ABD hissesinde gerçek zamanlı BOGA Score analizi.",
+    "Finviz'den farklı: Checkbox değil SETUP seç. Swing Continuation, Day Trade Momentum, Options Sniper ve daha fazlası. 6.000'den fazla ABD hissesinde gerçek zamanlı BOGA Score analizi.",
   keywords: [
     "stock screener", "hisse tarayıcı", "swing trade", "day trade", "options screener",
     "EMA crossover", "BOGA score", "ABD hisseleri", "technical analysis", "momentum stocks"
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/screener" },
   openGraph: {
     title: "BOGA Screener | Trade Setup Motor",
-    description: "8000+ ABD hissesinde BOGA Score ile anlık setup avcılığı. Swing · Day · Options · Gamma Squeeze presetleri.",
+    description: "6.000'den fazla ABD hissesinde BOGA Score ile anlık setup avcılığı. Swing · Day · Options · Gamma Squeeze presetleri.",
     url: "https://bogastock.com/screener",
     type: "website",
   },

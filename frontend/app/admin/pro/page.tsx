@@ -340,7 +340,7 @@ export default async function ProPage() {
           <Link href="/admin/analytics/screener" className="glass-card p-6 flex items-center justify-between group hover:bg-[#22c55e]/5 transition-colors border-green-900/20">
             <div>
               <h3 className="text-white font-black text-lg uppercase">🎯 Screener</h3>
-              <p className="text-slate-500 text-xs mt-1">Setup-first tarama motoru · 8000+ hisse · BOGA Score</p>
+              <p className="text-slate-500 text-xs mt-1">Setup-first tarama motoru · 6.000+ hisse · BOGA Score</p>
               <div className="flex gap-2 mt-2">
                 <span className="text-[9px] bg-green-900/30 text-green-400 border border-green-800 px-2 py-0.5 rounded">Swing</span>
                 <span className="text-[9px] bg-amber-900/30 text-amber-400 border border-amber-800 px-2 py-0.5 rounded">Day</span>
