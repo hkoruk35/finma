@@ -560,24 +560,24 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <div className="flex items-center gap-2 mb-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${stats.isFallback ? "bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]" : "bg-[#3b82f6] shadow-[0_0_8px_#3b82f6]"}`} />
               <span className={`text-[10px] font-bold uppercase tracking-[0.2em] ${stats.isFallback ? "text-[#f59e0b]" : "text-[#3b82f6]"}`}>
-                {stats.isFallback ? "Sistem Geneli (Filtrede İşlem Yok)" : "Sistem İstatistikleri"}
+                {stats.isFallback ? (locale === "tr" ? "Sistem Geneli (Filtrede İşlem Yok)" : "System-wide (No Trades in Filter)") : (locale === "tr" ? "Sistem İstatistikleri" : "System Statistics")}
               </span>
             </div>
             <h2 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">SWING ENGINE</span> PERFORMANCE</h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
-              Geçmiş Dönem Performans Özeti · <span className="text-[#f59e0b] font-bold">Dinamik Stop-Loss (AI)</span>
+              {locale === "tr" ? "Geçmiş Dönem Performans Özeti" : "Historical Performance Summary"} · <span className="text-[#f59e0b] font-bold">{locale === "tr" ? "Dinamik Stop-Loss (AI)" : "Dynamic Stop-Loss (AI)"}</span>
             </p>
             <div className="flex items-center gap-3 mt-1.5 flex-wrap">
               {lastUpdated && (
                 <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
                   <svg className="w-3 h-3 text-[#22c55e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                  Performans: {formatLastUpdated(lastUpdated)}
+                  {locale === "tr" ? "Performans:" : "Performance:"} {formatLastUpdated(lastUpdated)}
                 </span>
               )}
               {picksGeneratedAt && (
                 <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
                   <svg className="w-3 h-3 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                  Swing Adayları: {formatLastUpdated(picksGeneratedAt)}
+                  {locale === "tr" ? "Swing Adayları:" : "Swing Picks:"} {formatLastUpdated(picksGeneratedAt)}
                 </span>
               )}
             </div>
@@ -595,7 +595,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 className={`px-3 py-1 rounded-full border font-bold transition-colors flex items-center gap-1.5 ${showStats ? "bg-[#3b82f6]/25 border-[#3b82f6]/60 text-[#3b82f6]" : "bg-[#3b82f6]/10 border-[#3b82f6]/30 text-[#3b82f6] hover:bg-[#3b82f6]/20"}`}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-                Genel İstatistikler
+                {locale === "tr" ? "Genel İstatistikler" : "Global Statistics"}
                 {todayPicks.length > 0 && <span className="text-[10px] opacity-60">({todayPicks.length})</span>}
               </button>
             </div>
@@ -611,7 +611,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   </svg>
                   <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
                 </span>
-                <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">BOT ANALİZ SİSTEMİ</span>
+                <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">{locale === "tr" ? "BOT ANALİZ SİSTEMİ" : "BOT ANALYSIS SYSTEM"}</span>
                 <svg className="w-2.5 h-2.5 text-[#3b82f6]/50 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -624,31 +624,31 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">BAŞARI ORANI</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "BAŞARI ORANI" : "WIN RATE"}</p>
             <p className="text-3xl font-mono font-black text-[#22c55e] tracking-tighter">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{stats.wins} G / {stats.losses} K</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{stats.wins} {locale === "tr" ? "G" : "W"} / {stats.losses} {locale === "tr" ? "K" : "L"}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">ORTALAMA GETİRİ</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "ORTALAMA GETİRİ" : "AVG RETURN"}</p>
             <p className={`text-3xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">$1.000 / ${stats.avgPnl} KAR</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{locale === "tr" ? `$1.000 / $${stats.avgPnl} KAR` : `$1,000 / $${stats.avgPnl} PNL`}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">HEDEF GÜN</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "HEDEF GÜN" : "AVG DAYS"}</p>
             <p className="text-3xl font-mono font-black text-[#3b82f6] tracking-tighter">
-              {stats.avgDays === "—" ? "—" : `${stats.avgDays} G`}
+              {stats.avgDays === "—" ? "—" : `${stats.avgDays} ${locale === "tr" ? "G" : "D"}`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase italic">SADECE KARLI İŞLEMLER</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase italic">{locale === "tr" ? "SADECE KARLI İŞLEMLER" : "WINNING TRADES ONLY"}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">TOPLAM SİNYAL</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "TOPLAM SİNYAL" : "TOTAL SIGNALS"}</p>
             <p className="text-3xl font-mono font-black text-white tracking-tighter">{stats.totalSignals}</p>
             {stats.pending > 0 && (
-              <p className="text-[10px] text-[#3b82f6] mt-1.5 font-bold uppercase">{stats.pending} BEKLEYEN</p>
+              <p className="text-[10px] text-[#3b82f6] mt-1.5 font-bold uppercase">{stats.pending} {locale === "tr" ? "BEKLEYEN" : "PENDING"}</p>
             )}
           </div>
         </div>
@@ -660,12 +660,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
         {/* Profit Target Breakdown */}
         <div className="px-6 py-4 border-b border-white/5 bg-white/[0.01]">
-          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">HEDEF BAZLI ANALİZ — Olasılık ve Ortalama Süre</p>
+          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-3 font-bold">{locale === "tr" ? "HEDEF BAZLI ANALİZ — Olasılık ve Ortalama Süre" : "TARGET-BASED ANALYSIS — Probability and Avg Duration"}</p>
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-2xl bg-black/40 border border-white/5 p-4 text-center hover:border-[#22c55e]/20 transition-all group">
-                <p className="text-[9px] text-[#3b82f6] font-bold uppercase tracking-widest mb-2">+{pt.pct}% HEDEF</p>
-                <p className="text-2xl font-black font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "—" ? "—" : `${pt.avgDays} G`}</p>
+                <p className="text-[9px] text-[#3b82f6] font-bold uppercase tracking-widest mb-2">+{pt.pct}% {locale === "tr" ? "HEDEF" : "TARGET"}</p>
+                <p className="text-2xl font-black font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "—" ? "—" : `${pt.avgDays} ${locale === "tr" ? "G" : "D"}`}</p>
                 <div className="mt-2 flex items-center justify-center gap-1.5">
                    <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
                    <span className="text-[10px] text-white font-bold">{pt.rate}%</span>
@@ -719,7 +719,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            Gizle
+            {locale === "tr" ? "Gizle" : "Hide"}
           </button>
         </div>
         </>}
@@ -734,10 +734,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_10px_#3b82f6] animate-pulse" />
               <div>
-                <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.25em]">Güncel Veriler</p>
+                <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.25em]">{locale === "tr" ? "Güncel Veriler" : "Live Data"}</p>
                 <h3 className="text-base font-black text-white uppercase tracking-tight">
-                  Bugünkü Swing Adayları
-                  <span className="ml-2 text-[#3b82f6]">({todayPicks.length} hisse)</span>
+                  {locale === "tr" ? "Bugünkü Swing Adayları" : "Today's Swing Picks"}
+                  <span className="ml-2 text-[#3b82f6]">({todayPicks.length} {locale === "tr" ? "hisse" : "stocks"})</span>
                 </h3>
               </div>
               {picksGeneratedAt && (
@@ -901,14 +901,14 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
           </div>
           <div className="px-6 py-3 border-t border-[#1e2a3a] flex items-center justify-between">
             <p className="text-[10px] text-slate-500 font-medium">
-              Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır. 15 dakika gecikme ile saat başları güncellenir.
+              {locale === "tr" ? "Her gün piyasa kapanışından sonra otomatik güncellenir. Veriler gerçek zamanlı fiyatları yansıtır. 15 dakika gecikme ile saat başları güncellenir." : "Updated automatically after market close every day. Data reflects real-time prices. Delayed by 15 mins and updated every hour."}
             </p>
             <button
               onClick={() => setShowStats(false)}
               className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
-              Gizle
+              {locale === "tr" ? "Gizle" : "Hide"}
             </button>
           </div>
         </div>
@@ -1016,10 +1016,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             <button onClick={() => {
               const text = filtered.map(t => `${t.date}\t${t.ticker}\t${fmt(t.entry)}\t${fmt(effectiveReturn(t), 1)}%\t${t.days||0}d\t${effectiveResult(t)}`).join("\n");
               navigator.clipboard.writeText(`Date\tTicker\tEntry\tReturn%\tDays\tResult\n${text}`);
-              alert("Liste başarıyla kopyalandı!");
+              alert(locale === "tr" ? "Liste başarıyla kopyalandı!" : "List successfully copied to clipboard!");
             }}
               className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex items-center gap-2 uppercase tracking-widest">
-              LİSTEYİ KOPYALA
+              {locale === "tr" ? "LİSTEYİ KOPYALA" : "COPY LIST"}
             </button>
             <button onClick={handleExportCSV}
               className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#3b82f6] transition-all flex items-center gap-2 uppercase tracking-widest">
@@ -1046,15 +1046,15 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <div className="w-2.5 h-2.5 rounded-full bg-[#f59e0b]/60" />
               <div className="w-2.5 h-2.5 rounded-full bg-[#22c55e]/60" />
             </div>
-            <span className="text-[10px] font-mono text-slate-500 ml-1">swing_performance.log — {filtered.length} kayıt</span>
+            <span className="text-[10px] font-mono text-slate-500 ml-1">swing_performance.log — {filtered.length} {locale === "tr" ? "kayıt" : "records"}</span>
           </div>
           {/* Column labels */}
           <div className="grid grid-cols-[1fr_52px_52px_52px_48px] gap-0 px-3 py-1.5 border-b border-[#1e2a3a] bg-[#0a0f1a]">
-            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider">TİCKER / SEKTÖR</span>
-            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">GİRİŞ</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider">{locale === "tr" ? "TİCKER / SEKTÖR" : "TICKER / SECTOR"}</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "GİRİŞ" : "ENTRY"}</span>
             <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">PEAK</span>
             <span className="text-[9px] font-bold text-[#22c55e]/60 uppercase tracking-wider text-right">RET%</span>
-            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">SONUÇ</span>
+            <span className="text-[9px] font-bold text-slate-600 uppercase tracking-wider text-right">{locale === "tr" ? "SONUÇ" : "RESULT"}</span>
           </div>
           {/* Rows */}
           <div className="divide-y divide-[#1e2a3a]/60">
