@@ -4,7 +4,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ScreenshotBanner, JpmPreview } from "@/components/global/LandingBannerTr";
-import { getLandingConfig } from "@/lib/landingConfig";
+import { getLandingConfigFromDB } from "@/lib/landingConfig";
 import { ICON_MAP } from "@/components/global/LandingIcons";
 
 export const dynamic = "force-dynamic";
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/global/en" },
 };
 
-export default function EnLandingPage() {
-  const cfg = getLandingConfig("en");
+export default async function EnLandingPage() {
+  const cfg = await getLandingConfigFromDB("en");
   if (!cfg) return null;
 
   const { hero, cta_primary, cta_secondary, cta_note, features, jpm, bottom_cta } = cfg;

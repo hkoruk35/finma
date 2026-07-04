@@ -25,20 +25,6 @@
       { "icon": "shield", "title": "Kendini Geliştiren Finansal Analiz", "desc": "Hiçbir yerde bulamayacağınız günlük kendini geliştiren sistemi ile Finansal Analiz, Swing Trade ve yatırımlarınız için tam otonom destek." }
     ],
     "jpm": {
-      "enabled": true,
-      "badge": "Ücretsiz Rapor Örneği",
-      "title": "JPMorgan — Piyasa Analiz Raporu",
-      "description": "Platformumuzun ürettiği rapor formatının gerçek bir örneği — tamamen ücretsiz indir.",
-      "pdf": "/jpm/jpm02072026.pdf",
-      "pdf_label": "PDF İndir",
-      "images": [
-        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Piyasa Görünümü" },
-        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sektör Analizi" },
-        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Makro Göstergeler" },
-        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Yatırım Stratejisi" }
-      ]
-    },
-    "jpm": {
       "enabled": false,
       "badge": "Ücretsiz Rapor Örneği",
       "title": "JPMorgan — Piyasa Analiz Raporu",
@@ -83,20 +69,6 @@
       { "icon": "trending-up", "title": "2026 Trend Stocks", "desc": "Theme-based tracking of leading companies from chip sector to biotech with signal analysis." },
       { "icon": "shield", "title": "Self-Improving Financial Analysis", "desc": "A daily self-improving system you won't find anywhere else — fully autonomous support for your Financial Analysis, Swing Trades and Investments." }
     ],
-    "jpm": {
-      "enabled": true,
-      "badge": "Free Sample Report",
-      "title": "JPMorgan — Market Analysis Report",
-      "description": "A real example of the report format our platform produces — completely free to download.",
-      "pdf": "/jpm/jpm02072026.pdf",
-      "pdf_label": "Download PDF",
-      "images": [
-        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Market Outlook" },
-        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sector Analysis" },
-        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Macro Indicators" },
-        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Investment Strategy" }
-      ]
-    },
     "jpm": {
       "enabled": false,
       "badge": "Free Sample Report",

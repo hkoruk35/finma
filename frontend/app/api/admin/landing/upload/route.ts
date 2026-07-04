@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFileSync, mkdirSync } from "fs";
-import { join, extname } from "path";
+import { createClient } from "@supabase/supabase-js";
+import { extname } from "path";
 
 function requireAdmin(req: NextRequest) {
   return req.cookies.get("boga_auth")?.value === "admin";
+}
+
+function getSupabaseAdmin() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_KEY!
+  );
 }
 
 export async function POST(req: NextRequest) {
@@ -15,9 +22,13 @@ export async function POST(req: NextRequest) {
 
   if (!file) return NextResponse.json({ error: "Dosya bulunamadı" }, { status: 400 });
 
-  const allowed = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+  const allowedImages = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
+  const allowedPdf = [".pdf"];
   const ext = extname(file.name).toLowerCase();
-  if (!allowed.includes(ext)) return NextResponse.json({ error: "Sadece resim yüklenebilir" }, { status: 400 });
+
+  if (![...allowedImages, ...allowedPdf].includes(ext)) {
+    return NextResponse.json({ error: "Sadece resim veya PDF yüklenebilir" }, { status: 400 });
+  }
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
@@ -26,11 +37,21 @@ export async function POST(req: NextRequest) {
     .replace(/[^a-zA-Z0-9._-]/g, "_")
     .replace(/_+/g, "_")
     .toLowerCase();
-  const filename = `${Date.now()}_${slug}`;
-  const dir = join(process.cwd(), "public", "uploads", folder);
+  const filename = `${folder}/${Date.now()}_${slug}`;
 
-  mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, filename), buffer);
+  const sb = getSupabaseAdmin();
+  const { error } = await sb.storage
+    .from("landing")
+    .upload(filename, buffer, {
+      contentType: file.type || "application/octet-stream",
+      upsert: false,
+    });
 
-  return NextResponse.json({ url: `/uploads/${folder}/${filename}` });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 502 });
+  }
+
+  const { data: urlData } = sb.storage.from("landing").getPublicUrl(filename);
+  return NextResponse.json({ url: urlData.publicUrl });
 }
+

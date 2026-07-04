@@ -1,25 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
-
-const CONFIG_PATH = join(process.cwd(), "landing-config.json");
+import {
+  getLandingConfigsFromDB,
+  upsertLandingConfigToDB,
+  deleteLandingConfigFromDB,
+  type LandingConfig,
+} from "@/lib/landingConfig";
 
 function requireAdmin(req: NextRequest) {
   const role = req.cookies.get("boga_auth")?.value;
   return role === "admin";
 }
 
-function readConfig() {
-  try {
-    return JSON.parse(readFileSync(CONFIG_PATH, "utf-8"));
-  } catch {
-    return {};
-  }
-}
-
 export async function GET(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  return NextResponse.json(readConfig());
+  const configs = await getLandingConfigsFromDB();
+  return NextResponse.json(configs);
 }
 
 export async function POST(req: NextRequest) {
@@ -32,16 +27,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const config = readConfig();
   const { lang, section, data } = body as { lang: string; section: string; data: unknown };
-
   if (!lang || !section) return NextResponse.json({ error: "lang ve section gerekli" }, { status: 400 });
 
-  if (!config[lang]) config[lang] = {};
-  config[lang][section] = data;
+  const configs = await getLandingConfigsFromDB();
+  if (!configs[lang]) configs[lang] = {} as LandingConfig;
+  (configs[lang] as Record<string, unknown>)[section] = data;
 
-  writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2), "utf-8");
-  return NextResponse.json({ ok: true });
+  try {
+    await upsertLandingConfigToDB(lang, configs[lang]);
+    return NextResponse.json({ ok: true });
+  } catch (e: unknown) {
+    return NextResponse.json({ error: e instanceof Error ? e.message : "DB write error" }, { status: 502 });
+  }
 }
 
 export async function PUT(req: NextRequest) {
@@ -54,24 +52,27 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  const config = readConfig();
-  const { lang, data } = body as { lang: string; data: unknown };
-
+  const { lang, data } = body as { lang: string; data: LandingConfig };
   if (!lang) return NextResponse.json({ error: "lang gerekli" }, { status: 400 });
 
-  config[lang] = data;
-  writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2), "utf-8");
-  return NextResponse.json({ ok: true });
+  try {
+    await upsertLandingConfigToDB(lang, data);
+    return NextResponse.json({ ok: true });
+  } catch (e: unknown) {
+    return NextResponse.json({ error: e instanceof Error ? e.message : "DB write error" }, { status: 502 });
+  }
 }
 
 export async function DELETE(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  const url = new URL(req.url);
-  const lang = url.searchParams.get("lang");
+  const lang = req.nextUrl.searchParams.get("lang");
   if (!lang) return NextResponse.json({ error: "lang gerekli" }, { status: 400 });
 
-  const config = readConfig();
-  delete config[lang];
-  writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2), "utf-8");
-  return NextResponse.json({ ok: true });
+  try {
+    await deleteLandingConfigFromDB(lang);
+    return NextResponse.json({ ok: true });
+  } catch (e: unknown) {
+    return NextResponse.json({ error: e instanceof Error ? e.message : "DB delete error" }, { status: 502 });
+  }
 }
+
