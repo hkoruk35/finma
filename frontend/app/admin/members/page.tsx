@@ -12,16 +12,16 @@ interface Member {
   created_at: string;
 }
 
-const ACCENT = "#58a6ff";
+interface PlanOption {
+  key: string;
+  name: string;
+}
 
-const GROUPS = [
-  { key: "free_trial", name: "Free Trial" },
-  { key: "premium", name: "Premium" },
-];
+const ACCENT = "#58a6ff";
 
 export default function AdminMembersPage() {
   const [members, setMembers] = useState<Member[]>([]);
-  const [extraPlans, setExtraPlans] = useState<string[]>([]);
+  const [plans, setPlans] = useState<PlanOption[]>([]);
   const [filterPlan, setFilterPlan] = useState("");
   const [search, setSearch] = useState("");
 
@@ -36,8 +36,7 @@ export default function AdminMembersPage() {
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
         if (d?.plans?.length) {
-          const keys = d.plans.map((p: { key: string }) => p.key);
-          setExtraPlans(keys.filter((k: string) => k !== "free_trial" && k !== "premium"));
+          setPlans(d.plans.map((p: { key: string; name: string }) => ({ key: p.key, name: p.name })));
         }
       })
       .catch(() => {});
@@ -81,12 +80,9 @@ export default function AdminMembersPage() {
           onChange={(e) => setFilterPlan(e.target.value)}
           style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" }}
         >
-          <option value="">Tüm gruplar / planlar</option>
-          {GROUPS.map((g) => (
-            <option key={g.key} value={g.key}>{g.name}</option>
-          ))}
-          {extraPlans.map((p) => (
-            <option key={p} value={p}>{p}</option>
+          <option value="">Tüm planlar / gruplar</option>
+          {plans.map((p) => (
+            <option key={p.key} value={p.key}>{p.name}</option>
           ))}
         </select>
       </div>
@@ -113,10 +109,10 @@ export default function AdminMembersPage() {
                   onChange={(e) => changePlan(m.id, e.target.value)}
                   style={{ background: "#161b22", border: "1px solid #30363d", color: "#3fb950", padding: "2px 6px", borderRadius: 3, fontSize: 11, fontFamily: "monospace" }}
                 >
-                  {GROUPS.map((g) => (
-                    <option key={g.key} value={g.key}>{g.name}</option>
+                  {plans.map((p) => (
+                    <option key={p.key} value={p.key}>{p.name}</option>
                   ))}
-                  {m.plan && !GROUPS.some((g) => g.key === m.plan) && (
+                  {m.plan && !plans.some((p) => p.key === m.plan) && (
                     <option value={m.plan}>{m.plan}</option>
                   )}
                 </select>

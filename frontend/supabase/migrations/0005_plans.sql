@@ -18,4 +18,7 @@ create policy "plans_public_read_active" on public.plans
   for select using (active = true);
 
 insert into public.plans (key, name, trial_days, price_usd, intro_price_usd, intro_months, sort_order)
-values ('starter', 'Starter Paketi', 7, 20, 10, 2, 1);
+values
+  ('free_trial', 'Free Trial', 7, 0, null, null, 1),
+  ('premium', 'Premium', 0, 39, 19, 1, 2);
+
