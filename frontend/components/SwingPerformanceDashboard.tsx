@@ -1081,7 +1081,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="min-w-0 pr-2">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
-                      {isFreeTrial ? (
+                      {isFreeTrial && initialHistory.indexOf(t) < 100 ? (
                         <span className="text-[13px] font-black leading-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           Premium
@@ -1201,7 +1201,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
-                        {isFreeTrial ? (
+                        {isFreeTrial && initialHistory.indexOf(t) < 100 ? (
                           <span className="font-black tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
