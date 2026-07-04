@@ -14,9 +14,14 @@ interface Member {
 
 const ACCENT = "#58a6ff";
 
+const GROUPS = [
+  { key: "free_trial", name: "Free Trial" },
+  { key: "premium", name: "Premium" },
+];
+
 export default function AdminMembersPage() {
   const [members, setMembers] = useState<Member[]>([]);
-  const [planOptions, setPlanOptions] = useState<string[]>(["starter"]);
+  const [extraPlans, setExtraPlans] = useState<string[]>([]);
   const [filterPlan, setFilterPlan] = useState("");
   const [search, setSearch] = useState("");
 
@@ -30,7 +35,10 @@ export default function AdminMembersPage() {
     fetch("/api/admin/plans")
       .then((r) => (r.ok ? r.json() : null))
       .then((d) => {
-        if (d?.plans?.length) setPlanOptions(d.plans.map((p: { key: string }) => p.key));
+        if (d?.plans?.length) {
+          const keys = d.plans.map((p: { key: string }) => p.key);
+          setExtraPlans(keys.filter((k: string) => k !== "free_trial" && k !== "premium"));
+        }
       })
       .catch(() => {});
   }, [load]);
@@ -73,8 +81,11 @@ export default function AdminMembersPage() {
           onChange={(e) => setFilterPlan(e.target.value)}
           style={{ background: "#161b22", border: "1px solid #30363d", color: "#e6edf3", padding: "6px 10px", borderRadius: 4, fontSize: 12, fontFamily: "monospace" }}
         >
-          <option value="">Tüm planlar</option>
-          {planOptions.map((p) => (
+          <option value="">Tüm gruplar / planlar</option>
+          {GROUPS.map((g) => (
+            <option key={g.key} value={g.key}>{g.name}</option>
+          ))}
+          {extraPlans.map((p) => (
             <option key={p} value={p}>{p}</option>
           ))}
         </select>
@@ -85,7 +96,7 @@ export default function AdminMembersPage() {
           <tr style={{ borderBottom: "1px solid #30363d", textAlign: "left" }}>
             <th style={{ padding: "6px 10px", color: ACCENT }}>EMAIL</th>
             <th style={{ padding: "6px 10px", color: ACCENT }}>KULLANICI ADI</th>
-            <th style={{ padding: "6px 10px", color: ACCENT }}>PLAN</th>
+            <th style={{ padding: "6px 10px", color: ACCENT }}>GRUP / PLAN</th>
             <th style={{ padding: "6px 10px", color: ACCENT }}>TRIAL BİTİŞ</th>
             <th style={{ padding: "6px 10px", color: ACCENT }}>SON GİRİŞ</th>
             <th style={{ padding: "6px 10px", color: ACCENT }}>KAYIT</th>
@@ -102,9 +113,12 @@ export default function AdminMembersPage() {
                   onChange={(e) => changePlan(m.id, e.target.value)}
                   style={{ background: "#161b22", border: "1px solid #30363d", color: "#3fb950", padding: "2px 6px", borderRadius: 3, fontSize: 11, fontFamily: "monospace" }}
                 >
-                  {planOptions.map((p) => (
-                    <option key={p} value={p}>{p}</option>
+                  {GROUPS.map((g) => (
+                    <option key={g.key} value={g.key}>{g.name}</option>
                   ))}
+                  {m.plan && !GROUPS.some((g) => g.key === m.plan) && (
+                    <option value={m.plan}>{m.plan}</option>
+                  )}
                 </select>
               </td>
               <td style={{ padding: "6px 10px", color: "#8b949e" }}>{fmt(m.trial_ends_at)}</td>
