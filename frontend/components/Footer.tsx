@@ -119,7 +119,9 @@ export default function Footer({
               : "All data is delayed by 15 minutes and updated at the top of each hour."}
           </p>
           <p className="text-xs text-[#00d2ff]">
-            &copy; Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Tüm Hakları Saklıdır.
+            {locale === "tr"
+              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
+              : "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - All Rights Reserved."}
           </p>
         </div>
       </div>

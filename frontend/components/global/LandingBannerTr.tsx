@@ -54,7 +54,6 @@ export function ScreenshotBanner({ lang }: { lang: string }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
           <div>
-            <div className="text-[#3b82f6] text-[10px] font-black uppercase tracking-[0.2em] mb-1">Canlı Platform</div>
             <div className="text-white font-black text-lg leading-tight">{shots[active].label}</div>
             <div className="text-white/60 text-xs mt-1">{shots[active].desc}</div>
           </div>
