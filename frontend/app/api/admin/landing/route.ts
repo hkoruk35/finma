@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
 
   const configs = await getLandingConfigsFromDB();
   if (!configs[lang]) configs[lang] = {} as LandingConfig;
-  (configs[lang] as Record<string, unknown>)[section] = data;
+  ((configs[lang] as unknown) as Record<string, unknown>)[section] = data;
 
   try {
     await upsertLandingConfigToDB(lang, configs[lang]);
