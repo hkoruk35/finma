@@ -69,9 +69,43 @@ export const SITEMAP_TR: SitemapGroup[] = [
 ];
 
 export const SITEMAP_ADMIN: SitemapGroup[] = [
-  { group: "Admin-Only (boga_auth gerekli)", entries: [
-    { label: "Tracker (1H izleme)", path: "/tracker" },
-    { label: "Pro Dashboard", path: "/pro" },
-    { label: "Hisse Analiz ([ticker])", path: "/admin/[ticker]" },
+  { group: "Admin Sistem", entries: [
+    { label: "Ana Panel", path: "/admin" },
+    { label: "Yöneticiler", path: "/admin/admins" },
+    { label: "Site Haritası", path: "/admin/sitemap" },
   ]},
+  { group: "Üyeler & Paketler", entries: [
+    { label: "Üye Yönetimi", path: "/admin/members" },
+    { label: "Plan & Paket Yönetimi", path: "/admin/plans" },
+    { label: "Gelen Mesajlar", path: "/admin/messages" },
+  ]},
+  { group: "İçerik & Kampanya", entries: [
+    { label: "Kampanyalar", path: "/admin/campaigns" },
+    { label: "Açılış Sayfası Düzenle", path: "/admin/landing" },
+    { label: "Arşivlenmiş Bölümler", path: "/admin/archived-sections" },
+  ]},
+  { group: "Yapay Zeka & Raporlar", entries: [
+    { label: "AI Rapor Hazırlama", path: "/admin/ai" },
+    { label: "Günlük Yapay Zeka", path: "/admin/ai/daily" },
+    { label: "AI Briefing Arşivi", path: "/admin/ai/archive" },
+  ]},
+  { group: "Analiz & Performans", entries: [
+    { label: "Terminal Durumu (Pulse)", path: "/admin/analytics/terminal" },
+    { label: "Genel Performans", path: "/admin/analytics/performance" },
+    { label: "Kriter Performansı", path: "/admin/analytics/performance/kriter" },
+    { label: "Tarama Raporları", path: "/admin/analytics/screener" },
+    { label: "Tarama Arşivi", path: "/admin/analytics/screener/archive" },
+    { label: "Saatlik Analizler", path: "/admin/analytics/hourly" },
+  ]},
+  { group: "İşlemler & Portföy", entries: [
+    { label: "Top 100 Listesi", path: "/admin/top100" },
+    { label: "Swing İşlemler", path: "/admin/trading/swing" },
+    { label: "Opsiyon Analizi", path: "/admin/trading/options" },
+    { label: "Opsiyon İzleme", path: "/admin/trading/options/monitor" },
+    { label: "Opsiyon Performansı", path: "/admin/trading/options/performance" },
+    { label: "Daytrade Dosyaları", path: "/admin/trading/daytrade-files" },
+    { label: "Pro Dashboard", path: "/admin/pro" },
+    { label: "Hisse Detay Girişi", path: "/admin/[ticker]" },
+  ]}
 ];
+
