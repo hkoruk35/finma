@@ -135,7 +135,7 @@ async function fetchPeerData(currentTicker: string, sector: string): Promise<any
     const headers = { "User-Agent": YF_UA, "Accept": "application/json" };
     const symbols = peers.join(",");
     const res = await fetch(
-      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=symbol,shortName,regularMarketPrice,regularMarketChangePercent,marketCap`,
+      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=symbol,shortName,regularMarketPrice,regularMarketChangePercent,marketCap,fiftyDayAverage`,
       { headers, signal: AbortSignal.timeout(8000) }
     );
     if (!res.ok) return [];
@@ -146,11 +146,33 @@ async function fetchPeerData(currentTicker: string, sector: string): Promise<any
       price:      +(q.regularMarketPrice ?? 0).toFixed(2),
       changePct:  +(q.regularMarketChangePercent ?? 0).toFixed(2),
       marketCap:  q.marketCap ?? 0,
+      rs20d:      0, // filled in by fetchPeer20dChanges
     }));
   } catch (e: any) {
     console.warn("[deep-analysis] peer fetch:", e?.message);
     return [];
   }
+}
+
+// ── 20-day RS for peers ───────────────────────────────────────────────────────
+async function fetchPeer20dChanges(tickers: string[]): Promise<Record<string, number>> {
+  const results: Record<string, number> = {};
+  await Promise.all(tickers.map(async (t) => {
+    try {
+      const res = await fetch(
+        `https://query1.finance.yahoo.com/v8/finance/chart/${t}?range=1mo&interval=1d`,
+        { headers: { "User-Agent": YF_UA }, signal: AbortSignal.timeout(5000) }
+      );
+      if (!res.ok) return;
+      const data = await res.json();
+      const closes: (number | null)[] = data?.chart?.result?.[0]?.indicators?.quote?.[0]?.close ?? [];
+      const valid = closes.filter((c): c is number => c != null);
+      if (valid.length >= 2) {
+        results[t] = +((valid[valid.length - 1] - valid[0]) / valid[0] * 100).toFixed(1);
+      }
+    } catch {}
+  }));
+  return results;
 }
 
 // ── News translation (TR only) ────────────────────────────────────────────────
@@ -1057,13 +1079,48 @@ export async function POST(req: NextRequest) {
 
     let ai: Record<string, any> = tryParseJSON(rawText) || buildFallback({ ...promptParams, support1, resistance1, ivRank }, lang);
 
+    // ── VWAP20, POC, rs20d from historyRows ──────────────────────────────────
+    let vwap20: number | null = null;
+    let poc: number | null = null;
+    const rs20d = historyRows && historyRows.length >= 20
+      ? +(((currentPrice - historyRows[historyRows.length - 20].close) / historyRows[historyRows.length - 20].close) * 100).toFixed(1)
+      : null;
+
+    if (historyRows && historyRows.length >= 20) {
+      const rows20 = historyRows.slice(-20);
+      const totalVol = rows20.reduce((s: number, r: any) => s + r.volume, 0);
+      if (totalVol > 0) {
+        vwap20 = +(rows20.reduce((s: number, r: any) => s + (r.high + r.low + r.close) / 3 * r.volume, 0) / totalVol).toFixed(2);
+      }
+      const mn = Math.min(...rows20.map((r: any) => r.low));
+      const mx = Math.max(...rows20.map((r: any) => r.high));
+      const bSize = (mx - mn) / 10;
+      if (bSize > 0) {
+        const volBuckets = new Array(10).fill(0);
+        rows20.forEach((r: any) => {
+          const tp = (r.high + r.low + r.close) / 3;
+          const idx = Math.min(Math.floor((tp - mn) / bSize), 9);
+          volBuckets[idx] += r.volume;
+        });
+        const maxIdx = volBuckets.indexOf(Math.max(...volBuckets));
+        poc = +(mn + (maxIdx + 0.5) * bSize).toFixed(2);
+      }
+    }
+
     // ── Peer comparison + news translation (parallel) ────────────────────────
-    const [peerData, translatedTitles] = await Promise.all([
+    const peerTickerList = (SECTOR_PEERS[promptParams.sector] ?? SECTOR_PEERS["Technology"])
+      .filter((t: string) => t !== ticker.toUpperCase()).slice(0, 5);
+
+    const [peerData, translatedTitles, peer20dMap] = await Promise.all([
       fetchPeerData(ticker.toUpperCase(), promptParams.sector),
       lang === "tr" && recentNews.length > 0
         ? translateNewsTitles(recentNews.map((n: any) => n.title))
         : Promise.resolve([] as string[]),
+      fetchPeer20dChanges(peerTickerList),
     ]);
+
+    // Merge rs20d into peerData
+    const peerDataWithRS = peerData.map((p: any) => ({ ...p, rs20d: peer20dMap[p.ticker] ?? p.rs20d ?? 0 }));
 
     // Apply translated titles to news items
     const localizedNews = recentNews.map((item: any, i: number) => ({
@@ -1127,7 +1184,8 @@ export async function POST(req: NextRequest) {
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
         insiderTransactions, insiderSummary, recentNews: localizedNews, analystData, institutionalOwners, earningsHistory,
-        peerData, candlePattern, nextEarningsDate, nextEarningsDaysAway,
+        peerData: peerDataWithRS, candlePattern, nextEarningsDate, nextEarningsDaysAway,
+        vwap20, poc, rs20d,
         cacheVersion: getPersistentCacheKey(ticker.toUpperCase(), lang),
       },
     };
