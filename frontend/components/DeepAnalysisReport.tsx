@@ -247,7 +247,19 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   })();
 
   return (
-    <div className="flex flex-col gap-5 text-white">
+    <div className="fixed inset-0 z-[99999] bg-[#080c14]/95 backdrop-blur-sm overflow-y-auto">
+      {/* Close bar */}
+      <div className="sticky top-0 z-10 bg-[#080c14]/90 backdrop-blur-sm border-b border-[#1e3a5f]/60 px-4 py-3 flex items-center justify-between">
+        <div className="text-[12px] font-black text-white uppercase tracking-widest">
+          {ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}
+        </div>
+        <button
+          onClick={onClose}
+          className="text-slate-400 hover:text-white transition-colors text-[20px] leading-none font-light"
+          aria-label="Close"
+        >✕</button>
+      </div>
+      <div className="max-w-4xl mx-auto px-4 py-5 flex flex-col gap-5 text-white">
 
       {/* ── Section 1: Stock DNA & Summary ───────────────────────────────── */}
       <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-xl p-4 md:p-5">
@@ -499,6 +511,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
         </div>
       </div>
 
+      </div>
     </div>
   );
 }
