@@ -304,7 +304,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   useEffect(() => {
     const key = getCacheKey(ticker, lang);
     const cached = _cache.get(key);
-    if (cached) {
+    // Only serve cache if it has real company data (not a stale empty-stockData result)
+    if (cached && cached.companyName && cached.companyName !== ticker.toUpperCase()) {
       setData(cached);
       setLoading(false);
       return;

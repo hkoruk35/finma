@@ -9,6 +9,9 @@ backend/**/__pycache__/
 frontend/.next/
 frontend/out/
 
+# Analysis cache (server-side persistent cache)
+.analysis-cache/
+
 # Environment
 .env
 .env.local

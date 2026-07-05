@@ -711,18 +711,25 @@ export async function POST(req: NextRequest) {
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
     const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
 
+    // ── Validate stockData has real content before caching ───────────────────
+    const hasRealStockData = !!(stockData?.price?.current && stockData.price.current !== 100 &&
+      (stockData.company || stockData.technical?.rsi_14));
+
     // ── Cache check: persistent file first, then in-memory ───────────────────
     const persistKey = getPersistentCacheKey(ticker.toUpperCase(), lang);
-    const fileCached = await readPersistentCache(persistKey);
-    if (fileCached) {
-      cache.set(persistKey, { ts: Date.now(), data: fileCached });
-      return NextResponse.json(fileCached, {
-        headers: { "X-Cache": "FILE-HIT", "Cache-Control": "private, max-age=3600" },
-      });
+    if (hasRealStockData) {
+      const fileCached = await readPersistentCache(persistKey);
+      // Only serve file cache if it has real company data (not a stale empty-stockData write)
+      if (fileCached && fileCached.companyName && fileCached.companyName !== ticker.toUpperCase() && fileCached.rawData?.currentPrice !== 100) {
+        cache.set(persistKey, { ts: Date.now(), data: fileCached });
+        return NextResponse.json(fileCached, {
+          headers: { "X-Cache": "FILE-HIT", "Cache-Control": "private, max-age=3600" },
+        });
+      }
     }
     const cacheKey = `${ticker.toUpperCase()}_${stockData?.price?.current ?? "0"}_${lang}`;
     const cached = cache.get(cacheKey);
-    if (cached && Date.now() - cached.ts < CACHE_TTL) {
+    if (cached && Date.now() - cached.ts < CACHE_TTL && cached.data?.companyName !== ticker.toUpperCase()) {
       return NextResponse.json(cached.data, {
         headers: { "X-Cache": "HIT", "Cache-Control": "private, max-age=3600" },
       });
@@ -1085,9 +1092,11 @@ export async function POST(req: NextRequest) {
       },
     };
 
-    // ── Store in cache: in-memory + persistent file ──────────────────────────
+    // ── Store in cache: in-memory + persistent file (only when data is real) ──
     cache.set(cacheKey, { ts: Date.now(), data: responseData });
-    writePersistentCache(persistKey, responseData).catch(() => {});
+    if (hasRealStockData && responseData.companyName !== ticker.toUpperCase()) {
+      writePersistentCache(persistKey, responseData).catch(() => {});
+    }
 
     return NextResponse.json(responseData, {
       headers: { "X-Cache": "MISS", "Cache-Control": "private, max-age=3600" },
