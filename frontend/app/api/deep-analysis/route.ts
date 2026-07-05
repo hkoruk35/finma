@@ -939,6 +939,46 @@ export async function POST(req: NextRequest) {
         reportDate: o.reportDate?.fmt ?? "",
       }));
 
+    // — Sonraki Kazanç Tarihi ————————————————
+    const calDates: any[] = summary?.calendarEvents?.earnings?.earningsDate ?? [];
+    const nextEarningsDate: string | null = calDates.length > 0
+      ? (calDates[0]?.fmt ?? null)
+      : null;
+    const nextEarningsDaysAway: number | null = nextEarningsDate
+      ? Math.round((new Date(nextEarningsDate).getTime() - Date.now()) / 86400000)
+      : null;
+
+    // — Mum Paterni (historyRows'dan hesaplanır) ————————————————
+    function detectCandlePatternLocal(cls: number[], ops: number[], hgs: number[], lws: number[]): string {
+      const n = cls.length;
+      if (n < 3) return "—";
+      const o1 = ops[n - 2], c1 = cls[n - 2], h1 = hgs[n - 2], l1 = lws[n - 2];
+      const o2 = ops[n - 1], c2 = cls[n - 1], h2 = hgs[n - 1], l2 = lws[n - 1];
+      const body2 = Math.abs(c2 - o2), range2 = h2 - l2;
+      if (range2 === 0) return "—";
+      const lowerWick = Math.min(o2, c2) - l2;
+      const upperWick = h2 - Math.max(o2, c2);
+      if (body2 / range2 < 0.1) return "Doji";
+      if (lowerWick > body2 * 2 && upperWick < body2 * 0.5 && c2 > o2) return "Hammer";
+      if (upperWick > body2 * 2 && lowerWick < body2 * 0.5 && c2 < o2) return "Shooting Star";
+      if (c1 < o1 && c2 > o2 && o2 <= c1 && c2 >= o1) return "Bullish Engulfing";
+      if (c1 > o1 && c2 < o2 && o2 >= c1 && c2 <= o1) return "Bearish Engulfing";
+      if (n >= 3) {
+        const o0 = ops[n - 3], c0 = cls[n - 3], body1 = Math.abs(c1 - o1), range1 = h1 - l1;
+        if (c0 < o0 && body1 < range1 * 0.3 && c2 > o2 && c2 > (o0 + c0) / 2) return "Morning Star";
+        if (c0 > o0 && body1 < range1 * 0.3 && c2 < o2 && c2 < (o0 + c0) / 2) return "Evening Star";
+      }
+      if (c2 > o2 && body2 / range2 > 0.7) return "Strong Bullish";
+      if (c2 < o2 && body2 / range2 > 0.7) return "Strong Bearish";
+      return "—";
+    }
+    const candlePattern = historyRows && historyRows.length >= 3
+      ? detectCandlePatternLocal(
+          historyRows.map(r => r.close), historyRows.map(r => r.open),
+          historyRows.map(r => r.high), historyRows.map(r => r.low)
+        )
+      : "—";
+
     // — Kazanç Geçmişi ————————————————
     const earningsHistory: any[] = (summary?.earningsHistory?.history ?? [])
       .slice(-4).reverse()
@@ -1087,7 +1127,7 @@ export async function POST(req: NextRequest) {
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
         insiderTransactions, insiderSummary, recentNews: localizedNews, analystData, institutionalOwners, earningsHistory,
-        peerData,
+        peerData, candlePattern, nextEarningsDate, nextEarningsDaysAway,
         cacheVersion: getPersistentCacheKey(ticker.toUpperCase(), lang),
       },
     };
