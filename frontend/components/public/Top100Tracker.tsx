@@ -113,7 +113,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedTicker, setExpandedTicker] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
-  const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<string | null>("volume");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [mounted, setMounted] = useState(false);
   const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
@@ -391,7 +391,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
                 // Free trial: only the first row (idx === 0) is fully unlocked
-                const rowLocked = isFreeTrial && idx > 0;
+                const rowLocked = isFreeTrial && idx >= 20;
 
                 if (rowLocked) {
                   return (
@@ -559,7 +559,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = heatBg(dayPct);
-                  const hmLocked = isFreeTrial && idx > 0;
+                  const hmLocked = isFreeTrial && idx >= 20;
                   return (
                     <tr
                       key={r.ticker}
