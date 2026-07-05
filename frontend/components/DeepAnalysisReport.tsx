@@ -401,7 +401,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             {ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}
           </span>
           {generatedAt && (
-            <span className="text-[10px] text-slate-500 hidden md:inline">{L(lang, "Güncellendi", "Updated")}: {generatedAt}</span>
+            <span className="text-[10px] text-slate-500 hidden md:inline">
+              {L(lang, "Güncellendi", "Updated")}: {generatedAt}
+              {rd.cacheVersion && (
+                <span className="ml-2 opacity-50">· {rd.cacheVersion.split("_").slice(-2).join(" ")}</span>
+              )}
+            </span>
           )}
         </div>
         <button
@@ -582,6 +587,39 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <p className="text-[12px] text-slate-300 leading-relaxed">{marketText}</p>
           </div>
         </div>
+
+        {/* ── Peer Comparison ────────────────────────────────────────────── */}
+        {rd.peerData?.length > 0 && (() => {
+          const peers: any[] = rd.peerData;
+          const stockChangePct = rd.sp500Change ?? 0; // use as reference fallback
+          return (
+            <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-xl p-4 md:p-5">
+              <SectionTitle icon="🔍" title={L(lang, "Sektör Rakipleri Karşılaştırması", "Sector Peer Comparison")} />
+              <div className="text-[11px] text-slate-400 mb-3">
+                {L(lang,
+                  `${data.sector || "Sektör"} hisselerinin bugünkü performansına göre ${ticker} konumlanması:`,
+                  `${ticker} positioning relative to ${data.sector || "sector"} peers today:`
+                )}
+              </div>
+              <div className="space-y-2">
+                {peers.map((p: any) => {
+                  const up = p.changePct >= 0;
+                  return (
+                    <div key={p.ticker} className="flex items-center gap-3 bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-lg px-3 py-2">
+                      <span className="text-[12px] font-black text-white w-12 shrink-0">{p.ticker}</span>
+                      <span className="text-[11px] text-slate-400 flex-1 truncate">{p.name}</span>
+                      <span className="text-[12px] font-black text-white shrink-0">${p.price.toFixed(2)}</span>
+                      <span className={`text-[12px] font-black w-16 text-right shrink-0 ${up ? "text-emerald-400" : "text-rose-400"}`}>
+                        {up ? "+" : ""}{p.changePct.toFixed(2)}%
+                      </span>
+                      <div className="w-2 h-2 rounded-full shrink-0" style={{ background: up ? "#10b981" : "#f43f5e" }} />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ── Section 3: Institutional Layer ─────────────────────────────── */}
         <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-xl p-4 md:p-5">

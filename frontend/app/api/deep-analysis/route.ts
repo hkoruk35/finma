@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import path from "path";
+import fs from "fs/promises";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -7,6 +9,48 @@ export const maxDuration = 90;
 // ── 1-hour in-memory cache ─────────────────────────────────────────────────────
 const cache = new Map<string, { ts: number; data: any }>();
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour ms
+
+// ── Persistent file cache (ticker + date + version) ───────────────────────────
+// 3 versions per day: v1=00-08h, v2=08-16h, v3=16-24h (covers pre-market, session, post-close)
+const ANALYSIS_CACHE_DIR = path.join(process.cwd(), ".analysis-cache");
+
+function getPersistentCacheKey(ticker: string, lang: string): string {
+  const date = new Date().toISOString().slice(0, 10);
+  const h = new Date().getHours();
+  const version = h < 8 ? 1 : h < 16 ? 2 : 3;
+  return `${ticker.toUpperCase()}_${date}_v${version}_${lang}`;
+}
+
+async function readPersistentCache(key: string): Promise<any | null> {
+  try {
+    const raw = await fs.readFile(path.join(ANALYSIS_CACHE_DIR, `${key}.json`), "utf-8");
+    return JSON.parse(raw);
+  } catch { return null; }
+}
+
+async function writePersistentCache(key: string, data: any): Promise<void> {
+  try {
+    await fs.mkdir(ANALYSIS_CACHE_DIR, { recursive: true });
+    await fs.writeFile(path.join(ANALYSIS_CACHE_DIR, `${key}.json`), JSON.stringify(data), "utf-8");
+  } catch (e: any) {
+    console.warn("[deep-analysis] file cache write failed:", e?.message);
+  }
+}
+
+// ── Sector peer map ───────────────────────────────────────────────────────────
+const SECTOR_PEERS: Record<string, string[]> = {
+  "Technology": ["AAPL", "MSFT", "NVDA", "META", "GOOGL", "AMZN", "AMD", "ORCL"],
+  "Communication Services": ["META", "GOOGL", "NFLX", "DIS", "T", "VZ", "SNAP", "PINS"],
+  "Consumer Cyclical": ["AMZN", "TSLA", "HD", "MCD", "NKE", "SBUX", "TGT", "BKNG"],
+  "Consumer Defensive": ["WMT", "PG", "KO", "PEP", "COST", "MO", "PM", "CL"],
+  "Healthcare": ["JNJ", "UNH", "PFE", "ABBV", "MRK", "TMO", "ABT", "LLY"],
+  "Financial Services": ["JPM", "BAC", "WFC", "GS", "MS", "BRK-B", "C", "AXP"],
+  "Energy": ["XOM", "CVX", "COP", "SLB", "EOG", "PXD", "MPC", "PSX"],
+  "Industrials": ["GE", "CAT", "HON", "UPS", "BA", "RTX", "MMM", "DE"],
+  "Basic Materials": ["LIN", "FCX", "NEM", "APD", "DD", "NUE", "ALB", "CF"],
+  "Real Estate": ["AMT", "PLD", "CCI", "EQIX", "PSA", "SPG", "O", "WELL"],
+  "Utilities": ["NEE", "DUK", "SO", "D", "AEP", "EXC", "SRE", "XEL"],
+};
 
 // ── Yahoo Finance Auth (Crumb/Cookie) ─────────────────────────────────────────
 const YF_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
@@ -80,6 +124,78 @@ async function fetchYFSummary(ticker: string): Promise<any> {
     console.warn("[deep-analysis] quoteSummary error:", e?.message);
   }
   return null;
+}
+
+// ── Peer comparison fetch ─────────────────────────────────────────────────────
+async function fetchPeerData(currentTicker: string, sector: string): Promise<any[]> {
+  const allPeers = SECTOR_PEERS[sector] ?? SECTOR_PEERS["Technology"];
+  const peers = allPeers.filter(t => t !== currentTicker.toUpperCase()).slice(0, 5);
+  if (!peers.length) return [];
+  try {
+    const headers = { "User-Agent": YF_UA, "Accept": "application/json" };
+    const symbols = peers.join(",");
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}&fields=symbol,shortName,regularMarketPrice,regularMarketChangePercent,marketCap`,
+      { headers, signal: AbortSignal.timeout(8000) }
+    );
+    if (!res.ok) return [];
+    const json = await res.json();
+    return (json?.quoteResponse?.result ?? []).map((q: any) => ({
+      ticker:     q.symbol ?? "",
+      name:       q.shortName ?? q.symbol ?? "",
+      price:      +(q.regularMarketPrice ?? 0).toFixed(2),
+      changePct:  +(q.regularMarketChangePercent ?? 0).toFixed(2),
+      marketCap:  q.marketCap ?? 0,
+    }));
+  } catch (e: any) {
+    console.warn("[deep-analysis] peer fetch:", e?.message);
+    return [];
+  }
+}
+
+// ── News translation (TR only) ────────────────────────────────────────────────
+async function translateNewsTitles(titles: string[]): Promise<string[]> {
+  if (!titles.length) return titles;
+  const prompt = `Translate these English financial news headlines to Turkish. Return ONLY a JSON array of translated strings, same order, same count. No explanations.\n${JSON.stringify(titles)}`;
+  try {
+    if (process.env.ANTHROPIC_API_KEY) {
+      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+      const msg = await anthropic.messages.create({
+        model: "claude-haiku-4-5-20251001", max_tokens: 1024,
+        system: "You are a financial translator. Return ONLY a valid JSON array of strings.",
+        messages: [{ role: "user", content: prompt }],
+      });
+      const raw = (msg.content[0] as any).text || "";
+      const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
+      if (start !== -1 && end !== -1) {
+        const parsed = JSON.parse(raw.slice(start, end + 1));
+        if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
+      }
+    } else if (process.env.GEMINI_API_KEY) {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+        {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.1, maxOutputTokens: 512, responseMimeType: "application/json" },
+          }),
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+        const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
+        if (start !== -1 && end !== -1) {
+          const parsed = JSON.parse(raw.slice(start, end + 1));
+          if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
+        }
+      }
+    }
+  } catch (e: any) {
+    console.warn("[deep-analysis] translate news:", e?.message);
+  }
+  return titles; // fallback: return original English
 }
 
 // ── Math helpers ──────────────────────────────────────────────────────────────
@@ -584,7 +700,15 @@ export async function POST(req: NextRequest) {
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
     const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
 
-    // ── Cache check ──────────────────────────────────────────────────────────
+    // ── Cache check: persistent file first, then in-memory ───────────────────
+    const persistKey = getPersistentCacheKey(ticker.toUpperCase(), lang);
+    const fileCached = await readPersistentCache(persistKey);
+    if (fileCached) {
+      cache.set(persistKey, { ts: Date.now(), data: fileCached });
+      return NextResponse.json(fileCached, {
+        headers: { "X-Cache": "FILE-HIT", "Cache-Control": "private, max-age=3600" },
+      });
+    }
     const cacheKey = `${ticker.toUpperCase()}_${stockData?.price?.current ?? "0"}_${lang}`;
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.ts < CACHE_TTL) {
@@ -875,6 +999,20 @@ export async function POST(req: NextRequest) {
 
     let ai: Record<string, any> = tryParseJSON(rawText) || buildFallback({ ...promptParams, support1, resistance1, ivRank }, lang);
 
+    // ── Peer comparison + news translation (parallel) ────────────────────────
+    const [peerData, translatedTitles] = await Promise.all([
+      fetchPeerData(ticker.toUpperCase(), promptParams.sector),
+      lang === "tr" && recentNews.length > 0
+        ? translateNewsTitles(recentNews.map((n: any) => n.title))
+        : Promise.resolve([] as string[]),
+    ]);
+
+    // Apply translated titles to news items
+    const localizedNews = recentNews.map((item: any, i: number) => ({
+      ...item,
+      title: translatedTitles[i] || item.title,
+    }));
+
     const str = (v: any, fb: string) => typeof v === "string" && v.trim() ? v.trim() : fb;
     const num = (v: any, fb: number) => typeof v === "number" ? v : parseFloat(String(v)) || fb;
 
@@ -930,13 +1068,15 @@ export async function POST(req: NextRequest) {
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,
-        // Yeni bölümler için veri
-        insiderTransactions, insiderSummary, recentNews, analystData, institutionalOwners, earningsHistory,
+        insiderTransactions, insiderSummary, recentNews: localizedNews, analystData, institutionalOwners, earningsHistory,
+        peerData,
+        cacheVersion: getPersistentCacheKey(ticker.toUpperCase(), lang),
       },
     };
 
-    // ── Store in cache ───────────────────────────────────────────────────────
+    // ── Store in cache: in-memory + persistent file ──────────────────────────
     cache.set(cacheKey, { ts: Date.now(), data: responseData });
+    writePersistentCache(persistKey, responseData).catch(() => {});
 
     return NextResponse.json(responseData, {
       headers: { "X-Cache": "MISS", "Cache-Control": "private, max-age=3600" },
