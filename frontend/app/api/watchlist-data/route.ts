@@ -747,35 +747,23 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
 
     const micro15 = check15mMicroTrend(closes15m, opens15m, highs15m);
 
-    // ── 1H Technical Analysis for Tracker ────────────────────────────────────
-    let ema20_1h = 0;
-    let ema50_1h = 0;
-    let ema200_1h = 0;
-    let rsi_1h = 0;
-    let candlePattern_1h = "—";
-    let emaStatus_1h = "Neutral";
+    // ── 1D Technical Analysis for Tracker ────────────────────────────────────
+    // Candle pattern, EMA, RSI and signal all use daily (1D) timeframe for swing trading consistency
+    const candlePattern_1d = detectCandlePattern(closes, opens, highs, lows);
+    const emaStatus_1d = getEMAStatus(currentPrice, ema20, ema50, ema200);
+    const signal = calculateSignal(emaStatus_1d, rsi14, candlePattern_1d, rvol);
+
+    // 1H metrics only for volume spike and intraday change display
     let volumeRatio_1h = 1.0;
-    let signal = "HOLD";
     let change_pct_1h = 0;
 
-    if (closes1h && closes1h.length >= 20 && opens1h && highs1h && lows1h && volumes1h) {
-      ema20_1h = calcEMA(closes1h, 20);
-      ema50_1h = calcEMA(closes1h, 50);
-      ema200_1h = Math.min(120, closes1h.length) > 0 ? calcEMA(closes1h.slice(-120), 120) : ema50_1h;
-      rsi_1h = calcRSI(closes1h, 14);
-      candlePattern_1h = detectCandlePattern(closes1h, opens1h, highs1h, lows1h);
-      emaStatus_1h = getEMAStatus(closes1h[closes1h.length - 1], ema20_1h, ema50_1h, ema200_1h);
-
-      // Volume ratio: last 1H / 20-bar average
-      const vol20Avg = volumes1h.slice(-20).reduce((a, b) => a + b, 0) / 20;
+    if (closes1h && closes1h.length >= 2 && volumes1h) {
+      const vol20Avg = volumes1h.slice(-20).reduce((a, b) => a + b, 0) / Math.min(20, volumes1h.length);
       volumeRatio_1h = vol20Avg > 0 ? volumes1h[volumes1h.length - 1] / vol20Avg : 1.0;
 
-      // 1H change: last bar close vs previous bar close
       const lastClose1h = closes1h[closes1h.length - 1];
       const prevClose1h = closes1h[closes1h.length - 2];
       change_pct_1h = prevClose1h > 0 ? ((lastClose1h - prevClose1h) / prevClose1h) * 100 : 0;
-
-      signal = calculateSignal(emaStatus_1h, rsi_1h, candlePattern_1h, volumeRatio_1h);
     }
 
     const quoteSummary = await quoteRes.json().catch(() => ({}));
@@ -1054,12 +1042,12 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
         "52w_low": low52w
       },
       tracker_1h: {
-        ema_20: Number(ema20_1h.toFixed(2)),
-        ema_50: Number(ema50_1h.toFixed(2)),
-        ema_200: Number(ema200_1h.toFixed(2)),
-        ema_status: emaStatus_1h,
-        rsi: Number(rsi_1h.toFixed(1)),
-        candle_pattern: candlePattern_1h,
+        ema_20: Number(ema20.toFixed(2)),
+        ema_50: Number(ema50.toFixed(2)),
+        ema_200: Number(ema200.toFixed(2)),
+        ema_status: emaStatus_1d,
+        rsi: Number(rsi14.toFixed(1)),
+        candle_pattern: candlePattern_1d,
         signal: signal,
         volume_ratio: Number(volumeRatio_1h.toFixed(2)),
         change_pct_1h: Number(change_pct_1h.toFixed(2)),
