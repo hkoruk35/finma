@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-interface Props { ticker: string; stockData: any; onClose: () => void; lang?: "tr" | "en"; }
+interface Props { ticker: string; stockData: any; onClose?: () => void; lang?: "tr" | "en"; mode?: "overlay" | "page"; }
 
 const L = (lang: "tr" | "en", tr: string, en: string) => lang === "en" ? en : tr;
 
@@ -296,7 +296,7 @@ function buildMacroRisk(lang: "tr" | "en", sector: string): string {
 
 // ── Main Component ────────────────────────────────────────────────────────────
 
-export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = "tr" }: Props) {
+export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = "tr", mode = "overlay" }: Props) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -332,9 +332,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);  // intentionally empty deps — fetch once per mount, cache handles staleness
 
+  const wrapCls = mode === "overlay"
+    ? "fixed inset-0 z-[99999] bg-[#080c14]/97 backdrop-blur-sm overflow-y-auto"
+    : "";
+
   if (loading) {
     return (
-      <div className="fixed inset-0 z-[99999] bg-[#080c14] flex flex-col items-center justify-center gap-4">
+      <div className={mode === "overlay" ? "fixed inset-0 z-[99999] bg-[#080c14] flex flex-col items-center justify-center gap-4" : "flex flex-col items-center justify-center gap-4 py-24"}>
         <div className="w-10 h-10 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
         <p className="text-slate-400 text-sm">{L(lang, "Derin analiz yükleniyor...", "Loading deep analysis...")}</p>
       </div>
@@ -343,9 +347,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
 
   if (error || !data) {
     return (
-      <div className="fixed inset-0 z-[99999] bg-[#080c14] flex flex-col items-center justify-center gap-3">
+      <div className={mode === "overlay" ? "fixed inset-0 z-[99999] bg-[#080c14] flex flex-col items-center justify-center gap-3" : "flex flex-col items-center justify-center gap-3 py-24"}>
         <p className="text-rose-400 text-sm">{L(lang, "Analiz yüklenemedi.", "Failed to load analysis.")}</p>
-        <button onClick={onClose} className="text-cyan-400 text-sm underline">{L(lang, "Kapat", "Close")}</button>
       </div>
     );
   }
@@ -372,7 +375,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   const volume = rd.volume || 0;
   const avgVol30d = rd.avgVol30d || 0;
 
-  const insiders: any[] = rd.insiderTransactions || [];
+  const insiders: any[] = (rd.insiderTransactions || []).filter((t: any) => t.type === "BUY" || t.type === "SELL");
   const instOwners: any[] = rd.institutionalOwners || [];
   const earnings: any[] = rd.earningsHistory || [];
   const news: any[] = (rd.recentNews || []).slice(0, 5);
@@ -393,30 +396,36 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   const generatedAt = data.generatedAt ? new Date(data.generatedAt).toLocaleString(lang === "en" ? "en-US" : "tr-TR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "short" }) : "";
 
   return (
-    <div className="fixed inset-0 z-[99999] bg-[#080c14]/97 backdrop-blur-sm overflow-y-auto">
-      {/* Close bar */}
-      <div className="sticky top-0 z-10 bg-[#080c14]/95 backdrop-blur-sm border-b border-[#1e3a5f]/60 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-[12px] font-black text-white uppercase tracking-widest">
-            {ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}
-          </span>
-          {generatedAt && (
-            <span className="text-[10px] text-slate-500 hidden md:inline">
-              {L(lang, "Güncellendi", "Updated")}: {generatedAt}
-              {rd.cacheVersion && (
-                <span className="ml-2 opacity-50">· {rd.cacheVersion.split("_").slice(-2).join(" ")}</span>
-              )}
+    <div className={wrapCls}>
+      {/* Overlay-mode close bar */}
+      {mode === "overlay" && (
+        <div className="sticky top-0 z-10 bg-[#080c14]/95 backdrop-blur-sm border-b border-[#1e3a5f]/60 px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-[12px] font-black text-white uppercase tracking-widest">
+              {ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}
             </span>
-          )}
+            {generatedAt && (
+              <span className="text-[10px] text-slate-500 hidden md:inline">
+                {L(lang, "Güncellendi", "Updated")}: {generatedAt}
+                {rd.cacheVersion && (
+                  <span className="ml-2 opacity-50">· {rd.cacheVersion.split("_").slice(-2).join(" ")}</span>
+                )}
+              </span>
+            )}
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors text-[20px] leading-none" aria-label="Close">✕</button>
         </div>
-        <button
-          onClick={onClose}
-          className="text-slate-400 hover:text-white transition-colors text-[20px] leading-none"
-          aria-label="Close"
-        >✕</button>
-      </div>
+      )}
 
-      <div className="max-w-4xl mx-auto px-4 py-5 flex flex-col gap-5 text-white">
+      {/* Page-mode info bar */}
+      {mode === "page" && generatedAt && (
+        <div className="text-[10px] text-slate-500 mb-4">
+          {L(lang, "Güncellendi", "Updated")}: {generatedAt}
+          {rd.cacheVersion && <span className="ml-2 opacity-50">· {rd.cacheVersion.split("_").slice(-2).join(" ")}</span>}
+        </div>
+      )}
+
+      <div className={mode === "overlay" ? "max-w-4xl mx-auto px-4 py-5 flex flex-col gap-5 text-white" : "flex flex-col gap-5 text-white"}>
 
         {/* ── Section 1: Stock DNA & Summary ─────────────────────────────── */}
         <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-xl p-4 md:p-5">

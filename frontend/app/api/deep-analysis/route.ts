@@ -156,7 +156,18 @@ async function fetchPeerData(currentTicker: string, sector: string): Promise<any
 // ── News translation (TR only) ────────────────────────────────────────────────
 async function translateNewsTitles(titles: string[]): Promise<string[]> {
   if (!titles.length) return titles;
-  const prompt = `Translate these English financial news headlines to Turkish. Return ONLY a JSON array of translated strings, same order, same count. No explanations.\n${JSON.stringify(titles)}`;
+  const prompt = `You are a professional financial news translator (English → Turkish).
+
+Rules:
+- Use natural, fluent financial Turkish (not machine translation)
+- Keep company names, ticker symbols, and numbers unchanged
+- Use correct financial terms: "hisse senedi", "kazanç", "bilanço", "yatırımcı", "hisse başına kâr", "hedef fiyat", "yükseltme", "düşürme", "not artırımı", "not indirimi", "kâr açıklaması", "borç", "gelir", "büyüme", "faiz oranı", "merkez bankası", "enflasyon"
+- Translate idioms naturally ("beat estimates" → "tahminleri aştı", "raised guidance" → "beklentilerini yükseltti", "missed earnings" → "kazanç beklentisini karşılayamadı")
+- Headlines must read like a real Turkish financial newspaper
+
+Return ONLY a valid JSON array of strings, same count as input, no explanations.
+
+Input: ${JSON.stringify(titles)}`;
   try {
     if (process.env.ANTHROPIC_API_KEY) {
       const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
