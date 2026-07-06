@@ -75,9 +75,10 @@ interface Props {
   disableTickerLink?: boolean;
 }
 
-const METHODOLOGY_NOTE: Record<"en" | "tr", string> = {
+const METHODOLOGY_NOTE: Record<"en" | "tr" | "es", string> = {
   tr: "Metodoloji notu: Bu istatistikler 60-90 günlük bir simülasyon penceresine dayanır; sonuç dönem içindeki en yüksek fiyata (peak) göre hesaplanır ve işlem maliyeti/slipaj dahil edilmemiştir. Gerçek getiriler bu rakamlardan farklı olabilir.",
   en: "Methodology note: These statistics are based on a 60–90 day simulation window; outcomes are calculated against the period's peak price and do not include trading costs or slippage. Actual returns may differ from these figures.",
+  es: "Nota metodológica: Estas estadísticas se basan en una ventana de simulación de 60 a 90 días; los resultados se calculan contra el precio máximo del período y no incluyen costos de transacción ni deslizamiento. Los retornos reales pueden diferir de estas cifras.",
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
