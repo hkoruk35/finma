@@ -9,7 +9,7 @@ interface Campaign {
   cta_url: string | null;
 }
 
-export default function CampaignBanner({ lang }: { lang: "en" | "tr" }) {
+export default function CampaignBanner({ lang }: { lang: "en" | "tr" | "es" }) {
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   const [dismissed, setDismissed] = useState(false);
 
