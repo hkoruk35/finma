@@ -112,7 +112,7 @@ export default function Header({
   onNewQueryClick?: () => void;
   /** When set, the logo becomes a smart link for the /global member area:
    * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
-  globalLocale?: "en" | "tr" | "es";
+  globalLocale?: "en" | "tr" | "es" | "fr";
   /** Plain link target for the logo when hideMenus is true (no auth check needed). */
   logoHref?: string;
 }) {
@@ -133,8 +133,8 @@ export default function Header({
   };
 
   const handleGlobalLogoClick = async () => {
-    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : "/global/en";
-    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : "/global/en/home";
+    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : globalLocale === "fr" ? "/global/fr" : "/global/en";
+    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : globalLocale === "fr" ? "/global/fr/home" : "/global/en/home";
     try {
       const res = await fetch("/api/members/me");
       router.push(res.ok ? homeHref : landingHref);

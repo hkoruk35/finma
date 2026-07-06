@@ -13,9 +13,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : "/global/en/home";
-  const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : "/global/en/account";
-  const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : "/global/en/login";
+  const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : locale === "fr" ? "/global/fr/home" : "/global/en/home";
+  const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : "/global/en/account";
+  const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : "/global/en/login";
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -66,7 +66,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
               {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
                 const isActive = locale.toUpperCase() === lang;
-                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES';
+                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR';
                 
                 if (!isAvailable) {
                   return (

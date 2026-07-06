@@ -40,7 +40,7 @@ export default function EsAnalysisPage() {
           <span className="text-white italic">{ticker} Análisis Profundo</span>
         </nav>
         {error ? (
-          <div className="text-rose-400 text-sm text-center py-16">Error al cargar los datos. Por favor, inténtelo de nuevo.</div>
+          <div className="text-rose-400 text-sm text-center py-16">No se pudieron cargar los datos de las acciones. Por favor, inténtalo de nuevo.</div>
         ) : (
           <DeepAnalysisContent ticker={ticker} stockData={stockData} lang="es" />
         )}
