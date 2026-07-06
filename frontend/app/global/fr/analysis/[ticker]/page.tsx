@@ -49,7 +49,7 @@ export default function FrAnalysisPage() {
               Chargement de l'analyse...
             </div>
           ) : (
-            <DeepAnalysisContent data={stockData} locale="fr" />
+            <DeepAnalysisContent ticker={ticker} stockData={stockData} lang="fr" />
           )}
         </div>
       </main>
