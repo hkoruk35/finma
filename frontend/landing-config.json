@@ -10,19 +10,54 @@
       "subtext": "Kredi kartı gerekmez · Hemen başla",
       "href": "/global/tr/kayit"
     },
-    "cta_secondary": { "text": "Giriş Yap", "href": "/global/tr/giris" },
+    "cta_secondary": {
+      "text": "Giriş Yap",
+      "href": "/global/tr/giris"
+    },
     "cta_note": "",
     "screenshots": [
-      { "src": "/screenshots/ss_swing_detail.png", "label": "Derin Hisse Analizi", "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik" },
-      { "src": "/screenshots/ss_swing_table.png", "label": "Günlük Swing Trade Adayları", "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi" },
-      { "src": "/screenshots/ss_performance.png", "label": "Sistem Performansı", "desc": "Sektör karlılık ısı haritası ve geçmiş işlem kayıtları" },
-      { "src": "/screenshots/ss_home.png", "label": "Ana Sayfa — Canlı Özet", "desc": "Swing, Trend ve Top100 saatlik özet, performans banner" }
+      {
+        "src": "/screenshots/ss_swing_detail.png",
+        "label": "Derin Hisse Analizi",
+        "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik"
+      },
+      {
+        "src": "/screenshots/ss_swing_table.png",
+        "label": "Günlük Swing Trade Adayları",
+        "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi"
+      },
+      {
+        "src": "/screenshots/ss_performance.png",
+        "label": "Sistem Performansı",
+        "desc": "Sektör karlılık ısı haritası ve geçmiş işlem kayıtları"
+      },
+      {
+        "src": "/screenshots/ss_home.png",
+        "label": "Ana Sayfa — Canlı Özet",
+        "desc": "Swing, Trend ve Top100 saatlik özet, performans banner"
+      }
     ],
     "features": [
-      { "icon": "bolt", "title": "Swing Trade Adayları", "desc": "Her gün tüm kurulumlar ve senaryolar değerlendiriliyor, en iyi adaylar yapay zeka tarafından seçiliyor." },
-      { "icon": "chart-bar", "title": "Top 100 Haftalık Takip", "desc": "BOGA AI tarafından belirli kriterlerle saatlik güncellenen aktif takip listesi — 100 seçkin ABD hissesi." },
-      { "icon": "trending-up", "title": "2026 Trend Hisseleri", "desc": "Çip sektöründen Biyokimyaya kadar en önde gelen şirketlerin tema bazlı takibi ve sinyal analizi." },
-      { "icon": "shield", "title": "Kendini Geliştiren Finansal Analiz", "desc": "Hiçbir yerde bulamayacağınız günlük kendini geliştiren sistemi ile Finansal Analiz, Swing Trade ve yatırımlarınız için tam otonom destek." }
+      {
+        "icon": "bolt",
+        "title": "Swing Trade Adayları",
+        "desc": "Her gün tüm kurulumlar ve senaryolar değerlendiriliyor, en iyi adaylar yapay zeka tarafından seçiliyor."
+      },
+      {
+        "icon": "chart-bar",
+        "title": "Top 100 Haftalık Takip",
+        "desc": "BOGA AI tarafından belirli kriterlerle saatlik güncellenen aktif takip listesi — 100 seçkin ABD hissesi."
+      },
+      {
+        "icon": "trending-up",
+        "title": "2026 Trend Hisseleri",
+        "desc": "Çip sektöründen Biyokimyaya kadar en önde gelen şirketlerin tema bazlı takibi ve sinyal analizi."
+      },
+      {
+        "icon": "shield",
+        "title": "Kendini Geliştiren Finansal Analiz",
+        "desc": "Hiçbir yerde bulamayacağınız günlük kendini geliştiren sistemi ile Finansal Analiz, Swing Trade ve yatırımlarınız için tam otonom destek."
+      }
     ],
     "jpm": {
       "enabled": false,
@@ -32,10 +67,22 @@
       "pdf": "/jpm/jpm02072026.pdf",
       "pdf_label": "PDF İndir",
       "images": [
-        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Piyasa Görünümü" },
-        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sektör Analizi" },
-        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Makro Göstergeler" },
-        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Yatırım Stratejisi" }
+        {
+          "src": "/jpm/p1_Image27.jpg",
+          "label": "JPM — Piyasa Görünümü"
+        },
+        {
+          "src": "/jpm/p1_Image20.jpg",
+          "label": "JPM — Sektör Analizi"
+        },
+        {
+          "src": "/jpm/p2_Image1.jpg",
+          "label": "JPM — Makro Göstergeler"
+        },
+        {
+          "src": "/jpm/p3_Image1.jpg",
+          "label": "JPM — Yatırım Stratejisi"
+        }
       ]
     },
     "bottom_cta": {
@@ -55,19 +102,54 @@
       "subtext": "No credit card required · Start instantly",
       "href": "/global/en/register"
     },
-    "cta_secondary": { "text": "Sign In", "href": "/global/en/login" },
+    "cta_secondary": {
+      "text": "Sign In",
+      "href": "/global/en/login"
+    },
     "cta_note": "",
     "screenshots": [
-      { "src": "/screenshots/ss_swing_detail.png", "label": "Deep Stock Analysis", "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart" },
-      { "src": "/screenshots/ss_swing_table.png", "label": "Daily Swing Candidates", "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking" },
-      { "src": "/screenshots/ss_performance.png", "label": "System Performance", "desc": "Sector profitability heat map and historical trade records" },
-      { "src": "/screenshots/ss_home.png", "label": "Home — Live Summary", "desc": "Swing, Trend and Top100 hourly summary with performance banner" }
+      {
+        "src": "/screenshots/ss_swing_detail.png",
+        "label": "Deep Stock Analysis",
+        "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart"
+      },
+      {
+        "src": "/screenshots/ss_swing_table.png",
+        "label": "Daily Swing Candidates",
+        "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking"
+      },
+      {
+        "src": "/screenshots/ss_performance.png",
+        "label": "System Performance",
+        "desc": "Sector profitability heat map and historical trade records"
+      },
+      {
+        "src": "/screenshots/ss_home.png",
+        "label": "Home — Live Summary",
+        "desc": "Swing, Trend and Top100 hourly summary with performance banner"
+      }
     ],
     "features": [
-      { "icon": "bolt", "title": "Swing Trade Candidates", "desc": "Every setup and scenario evaluated daily — AI picks the best candidates for you." },
-      { "icon": "chart-bar", "title": "Top 100 Weekly Tracker", "desc": "Active tracking list updated hourly by BOGA AI with specific criteria — 100 elite US stocks." },
-      { "icon": "trending-up", "title": "2026 Trend Stocks", "desc": "Theme-based tracking of leading companies from chip sector to biotech with signal analysis." },
-      { "icon": "shield", "title": "Self-Improving Financial Analysis", "desc": "A daily self-improving system you won't find anywhere else — fully autonomous support for your Financial Analysis, Swing Trades and Investments." }
+      {
+        "icon": "bolt",
+        "title": "Swing Trade Candidates",
+        "desc": "Every setup and scenario evaluated daily — AI picks the best candidates for you."
+      },
+      {
+        "icon": "chart-bar",
+        "title": "Top 100 Weekly Tracker",
+        "desc": "Active tracking list updated hourly by BOGA AI with specific criteria — 100 elite US stocks."
+      },
+      {
+        "icon": "trending-up",
+        "title": "2026 Trend Stocks",
+        "desc": "Theme-based tracking of leading companies from chip sector to biotech with signal analysis."
+      },
+      {
+        "icon": "shield",
+        "title": "Self-Improving Financial Analysis",
+        "desc": "A daily self-improving system you won't find anywhere else — fully autonomous support for your Financial Analysis, Swing Trades and Investments."
+      }
     ],
     "jpm": {
       "enabled": false,
@@ -77,16 +159,120 @@
       "pdf": "/jpm/jpm02072026.pdf",
       "pdf_label": "Download PDF",
       "images": [
-        { "src": "/jpm/p1_Image27.jpg", "label": "JPM — Market Outlook" },
-        { "src": "/jpm/p1_Image20.jpg", "label": "JPM — Sector Analysis" },
-        { "src": "/jpm/p2_Image1.jpg", "label": "JPM — Macro Indicators" },
-        { "src": "/jpm/p3_Image1.jpg", "label": "JPM — Investment Strategy" }
+        {
+          "src": "/jpm/p1_Image27.jpg",
+          "label": "JPM — Market Outlook"
+        },
+        {
+          "src": "/jpm/p1_Image20.jpg",
+          "label": "JPM — Sector Analysis"
+        },
+        {
+          "src": "/jpm/p2_Image1.jpg",
+          "label": "JPM — Macro Indicators"
+        },
+        {
+          "src": "/jpm/p3_Image1.jpg",
+          "label": "JPM — Investment Strategy"
+        }
       ]
     },
     "bottom_cta": {
       "title": "Start free today",
       "description": "No credit card required.",
       "note": "Cancel anytime after your trial ends."
+    }
+  },
+  "es": {
+    "hero": {
+      "badge": "En Vivo — Actualizaciones por Hora",
+      "description_bold": "Blue One Global Analysis",
+      "description": "Selección y análisis de acciones impulsado por IA para mercados de EE.UU. Seleccionado, analizado y rastreado cada hora por un sistema inteligente totalmente autónomo dedicado exclusivamente a las finanzas."
+    },
+    "cta_primary": {
+      "text": "Prueba gratis por 7 días",
+      "subtext": "Sin tarjeta de crédito · Empieza al instante",
+      "href": "/global/es/register"
+    },
+    "cta_secondary": {
+      "text": "Iniciar Sesión",
+      "href": "/global/es/login"
+    },
+    "cta_note": "",
+    "screenshots": [
+      {
+        "src": "/screenshots/ss_swing_detail.png",
+        "label": "Análisis Profundo de Acciones",
+        "desc": "Indicadores técnicos, entrada/stop/objetivo, BOGA Score y gráfico en vivo"
+      },
+      {
+        "src": "/screenshots/ss_swing_table.png",
+        "label": "Candidatos Diarios de Swing",
+        "desc": "14 candidatos, señales EMA/RSI, detección de patrones y precios en tiempo real"
+      },
+      {
+        "src": "/screenshots/ss_performance.png",
+        "label": "Rendimiento del Sistema",
+        "desc": "Mapa de calor de rentabilidad por sector e historial de operaciones"
+      },
+      {
+        "src": "/screenshots/ss_home.png",
+        "label": "Inicio — Resumen en Vivo",
+        "desc": "Resumen por hora de Swing, Tendencia y Top100 con banner de rendimiento"
+      }
+    ],
+    "features": [
+      {
+        "icon": "bolt",
+        "title": "Candidatos de Swing Trade",
+        "desc": "Evaluamos diariamente cada escenario y configuración — la IA elige los mejores candidatos para ti."
+      },
+      {
+        "icon": "chart-bar",
+        "title": "Rastreador Semanal Top 100",
+        "desc": "Lista activa actualizada por horas mediante BOGA AI con criterios específicos — 100 acciones de élite de EE.UU."
+      },
+      {
+        "icon": "trending-up",
+        "title": "Acciones en Tendencia 2026",
+        "desc": "Seguimiento temático de empresas líderes, desde semiconductores hasta biotecnología, con análisis de señales."
+      },
+      {
+        "icon": "shield",
+        "title": "Análisis Financiero de Auto-mejora",
+        "desc": "Un sistema que mejora diariamente y que no encontrarás en ningún otro lugar — soporte totalmente autónomo para tu análisis."
+      }
+    ],
+    "jpm": {
+      "enabled": false,
+      "badge": "Muestra de Informe Gratuita",
+      "title": "JPMorgan — Informe de Análisis de Mercado",
+      "description": "Un ejemplo real del formato de informe que produce nuestra plataforma — totalmente gratis.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "Descargar PDF",
+      "images": [
+        {
+          "src": "/jpm/p1_Image27.jpg",
+          "label": "JPM — Perspectiva del Mercado"
+        },
+        {
+          "src": "/jpm/p1_Image20.jpg",
+          "label": "JPM — Análisis Sectorial"
+        },
+        {
+          "src": "/jpm/p2_Image1.jpg",
+          "label": "JPM — Indicadores Macroeconómicos"
+        },
+        {
+          "src": "/jpm/p3_Image1.jpg",
+          "label": "JPM — Estrategia de Inversión"
+        }
+      ]
+    },
+    "bottom_cta": {
+      "title": "Empieza gratis hoy",
+      "description": "No se requiere tarjeta de crédito.",
+      "note": "Cancela cuando quieras después de tu prueba."
     }
   }
 }

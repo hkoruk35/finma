@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function EsLandingPage() {
-  const cfg = await getLandingConfigFromDB("en");
+  const cfg = await getLandingConfigFromDB("es");
   if (!cfg) return null;
 
   const { hero, cta_primary, cta_secondary, cta_note, features, jpm, bottom_cta } = cfg;
