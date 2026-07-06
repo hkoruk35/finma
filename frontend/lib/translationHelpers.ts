@@ -15,8 +15,9 @@ export function translateSignal(signal: string | null | undefined, locale: Local
   const signalMap: Record<string, Record<string, string>> = {
     en: { BUY: "BUY", WATCH: "WATCH", HOLD: "HOLD", SELL: "SELL" },
     tr: { BUY: "AL", WATCH: "İZLE", HOLD: "BEKLE", SELL: "SAT" },
+    es: { BUY: "COMPRAR", WATCH: "VIGILAR", HOLD: "MANTENER", SELL: "VENDER" },
   };
-  return signalMap[locale][signal] ?? signal;
+  return (signalMap[locale] ?? signalMap.en)[signal] ?? signal;
 }
 
 export function translateSector(sector: string | null | undefined, locale: Locale): string {
