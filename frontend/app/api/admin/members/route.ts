@@ -25,16 +25,21 @@ export async function GET(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   if (!requireWrite(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  let body: { id?: string; plan?: string };
+  let body: { id?: string; plan?: string; trial_ends_at?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  if (!body.id || !body.plan) return NextResponse.json({ error: "id ve plan gerekli." }, { status: 400 });
+  if (!body.id) return NextResponse.json({ error: "id gerekli." }, { status: 400 });
 
-  const { error } = await supabaseAdmin.from("members").update({ plan: body.plan }).eq("id", body.id);
+  const patch: Record<string, string> = {};
+  if (body.plan) patch.plan = body.plan;
+  if (body.trial_ends_at) patch.trial_ends_at = body.trial_ends_at;
+  if (Object.keys(patch).length === 0) return NextResponse.json({ error: "Güncellenecek alan yok." }, { status: 400 });
+
+  const { error } = await supabaseAdmin.from("members").update(patch).eq("id", body.id);
   if (error) return NextResponse.json({ error: "Could not update member." }, { status: 502 });
 
   return NextResponse.json({ ok: true });

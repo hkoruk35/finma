@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n/copy";
 import TrialCountdown from "@/components/global/TrialCountdown";
+import TrialPromoPopup from "@/components/global/TrialPromoPopup";
 
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
@@ -26,6 +27,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   };
 
   return (
+    <>
+    <TrialPromoPopup locale={locale} />
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3">
         <Link href={homeHref} className="flex items-center gap-2 group flex-shrink-0">
@@ -126,5 +129,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         </div>
       </div>
     </header>
+    </>
   );
 }
