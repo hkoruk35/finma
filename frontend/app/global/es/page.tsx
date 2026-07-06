@@ -58,7 +58,7 @@ export default async function EsLandingPage() {
 
         {/* Screenshot Banner */}
         <section className="max-w-5xl mx-auto px-4 pb-16">
-          <ScreenshotBanner lang="en" />
+          <ScreenshotBanner lang="es" />
         </section>
 
         {/* Features */}
@@ -101,7 +101,7 @@ export default async function EsLandingPage() {
                   </a>
                 )}
               </div>
-              <JpmPreview lang="en" />
+              <JpmPreview lang="es" />
             </div>
           </section>
         )}
