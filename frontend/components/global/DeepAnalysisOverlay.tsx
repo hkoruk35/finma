@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 interface Props {
   ticker: string | null;
-  locale: "tr" | "en" | "es";
+  locale: "tr" | "en" | "es" | "fr";
   onClose: () => void;
 }
 

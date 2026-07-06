@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const DISCLAIMER: Record<"en" | "tr" | "es", string> = {
+const DISCLAIMER: Record<"en" | "tr" | "es" | "fr", string> = {
   en: "This page does not constitute investment advice. Content here is for informational and analytical purposes only. Data may be delayed and is not guaranteed to be accurate, complete, or current. Past performance does not indicate future results. Always do your own research before making any investment decision.",
   tr: "Bu sayfa yatırım tavsiyesi niteliği taşımaz. Buradaki içerik yalnızca bilgilendirme ve analiz amaçlıdır. Veriler gecikmeli olarak ulaşabilir; doğruluğu, eksiksizliği veya güncelliği garanti edilmez. Geçmiş performans gelecekteki sonuçların göstergesi değildir. Herhangi bir yatırım kararı vermeden önce kendi araştırmanızı yapın.",
   es: "Esta página no constituye asesoramiento de inversión. El contenido aquí es solo para fines informativos y analíticos. Los datos pueden estar retrasados y no se garantiza que sean precisos, completos o actuales. El rendimiento pasado no indica resultados futuros. Siempre realiza tu propia investigación antes de tomar cualquier decisión de inversión.",
+  fr: "Cette page ne constitue pas des conseils en investissement. Le contenu ici est destiné à des fins informationnelles et analytiques uniquement. Les données peuvent être retardées et ne sont pas garanties d'être exactes, complètes ou actuelles. Les performances passées n'indiquent pas les résultats futurs. Faites toujours vos propres recherches avant de prendre une décision d'investissement.",
 };
 
-const LEGAL_LINKS: Record<"en" | "tr" | "es", { href: string; label: string }[]> = {
+const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr", { href: string; label: string }[]> = {
   en: [
     { href: "/global/en/disclaimer", label: "Disclaimer" },
     { href: "/global/en/terms", label: "Terms of Service" },
@@ -23,9 +24,14 @@ const LEGAL_LINKS: Record<"en" | "tr" | "es", { href: string; label: string }[]>
     { href: "/global/es/terms", label: "Términos de Servicio" },
     { href: "/global/es/privacy", label: "Política de Privacidad" },
   ],
+  fr: [
+    { href: "/global/fr/disclaimer", label: "Avertissement" },
+    { href: "/global/fr/terms", label: "Conditions d'Utilisation" },
+    { href: "/global/fr/privacy", label: "Politique de Confidentialité" },
+  ],
 };
 
-const RESOURCES_LINKS: Record<"en" | "tr" | "es", { href: string; label: string }[]> = {
+const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr", { href: string; label: string }[]> = {
   en: [
     { href: "/global/en/about", label: "About BOGA AI" },
     { href: "/global/en/contact", label: "Contact Support" },
@@ -38,12 +44,17 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es", { href: string; label: string 
     { href: "/global/es/about", label: "Acerca de BOGA AI" },
     { href: "/global/es/contact", label: "Soporte y Contacto" },
   ],
+  fr: [
+    { href: "/global/fr/about", label: "À Propos de BOGA AI" },
+    { href: "/global/fr/contact", label: "Support et Contact" },
+  ],
 };
 
-const BRAND_TAGLINE: Record<"en" | "tr" | "es", string> = {
+const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr", string> = {
   en: "AI-powered analysis of 6,000+ premier US stocks and ETFs.",
   tr: "ABD borsalarında işlem gören 6.000'den fazla seçkin hisse senedi ve ETF'in yapay zekâ destekli analizi.",
   es: "Análisis con IA de más de 6.000 acciones y ETFs premier de EE.UU.",
+  fr: "Analyse alimentée par l'IA de plus de 6 000 actions et ETF américains de premier plan.",
 };
 
 export default function Footer({
@@ -51,7 +62,7 @@ export default function Footer({
   locale,
 }: {
   hidePlatform?: boolean;
-  locale?: "en" | "tr" | "es";
+  locale?: "en" | "tr" | "es" | "fr";
 }) {
   return (
     <footer className="border-t border-[#1e2a3a] bg-[#0a0e17] mt-12">

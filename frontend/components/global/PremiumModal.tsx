@@ -49,6 +49,19 @@ const COPY = {
     hourUnit: "h",
     minUnit: "m",
   },
+  fr: {
+    title: "Adhésion Premium Requise",
+    desc: "Une adhésion Premium est requise pour accéder à ce contenu. Obtenez un accès illimité à tous les signaux d'actions, analyses et listes.",
+    trialLabel: "Votre essai expire dans:",
+    offer: "PREMIER MOIS SEULEMENT 19$",
+    sub: "Offre limitée — prix normal 39$/mois",
+    cta: "Commencer Maintenant →",
+    close: "Fermer",
+    upgradeHref: "/global/fr/account?tab=subscription",
+    dayUnit: "j",
+    hourUnit: "h",
+    minUnit: "m",
+  },
 };
 
 function TrialBadge({ locale }: { locale: Locale }) {

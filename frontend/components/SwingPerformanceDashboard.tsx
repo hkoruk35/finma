@@ -3,6 +3,7 @@
 import { useState, useMemo, useDeferredValue, useRef } from "react";
 import Link from "next/link";
 import jsPDF from "jspdf";
+import type { Locale } from "@/lib/i18n/copy";
 import TickerHoverChart from "./TickerHoverChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
@@ -69,16 +70,17 @@ interface Props {
   hideExportButtons?: boolean;
   /** When set, frontend applies this SL threshold (e.g. -7) overriding JSON result/return values. */
   applySlPct?: number;
-  locale?: "en" | "tr" | "es";
+  locale?: Locale;
   /** On /global/{locale}/performance, ticker clicks must not navigate anywhere —
    *  only the hover-preview chart is allowed. Root /performance keeps the normal link. */
   disableTickerLink?: boolean;
 }
 
-const METHODOLOGY_NOTE: Record<"en" | "tr" | "es", string> = {
+const METHODOLOGY_NOTE: Record<"en" | "tr" | "es" | "fr", string> = {
   tr: "Metodoloji notu: Bu istatistikler 60-90 günlük bir simülasyon penceresine dayanır; sonuç dönem içindeki en yüksek fiyata (peak) göre hesaplanır ve işlem maliyeti/slipaj dahil edilmemiştir. Gerçek getiriler bu rakamlardan farklı olabilir.",
   en: "Methodology note: These statistics are based on a 60–90 day simulation window; outcomes are calculated against the period's peak price and do not include trading costs or slippage. Actual returns may differ from these figures.",
   es: "Nota metodológica: Estas estadísticas se basan en una ventana de simulación de 60 a 90 días; los resultados se calculan contra el precio máximo del período y no incluyen costos de transacción ni deslizamiento. Los retornos reales pueden diferir de estas cifras.",
+  fr: "Note méthodologique: Ces statistiques sont basées sur une fenêtre de simulation de 60 à 90 jours; les résultats sont calculés par rapport au prix maximal de la période et ne incluent pas les coûts de négociation ni les glissements de prix. Les rendements réels peuvent différer de ces chiffres.",
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import type { TrendStatus } from '@/lib/homeFeed';
+import type { Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
 import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
@@ -22,7 +23,7 @@ interface HomeSimpleCardProps {
   accent: string;
   stocks: Stock[];
   viewAllHref: string;
-  locale: 'tr' | 'en' | 'es';
+  locale: Locale;
   sortLabel?: string;
   /** When true, ticker names and "view all" link are locked behind premium */
   requirePremium?: boolean;
