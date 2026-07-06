@@ -540,18 +540,18 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
       {/* ISI HARİTASI — saatlik Δ% grid (tracker ile aynı) */}
       {activeTab === "heatmap" && composition.length > 0 && (
         <div style={{ marginTop: 12 }}>
-          <div style={{ fontSize: 10, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
+          <div style={{ fontSize: 12, color: "#8b949e", marginBottom: 12, padding: "0 4px" }}>
             {locale === "tr" ? "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir" : "End-of-day hourly Δ% heatmap — each cell shows that hour's change"}
           </div>
           <div style={{ overflowX: "auto" }}>
-            <table style={{ borderCollapse: "collapse", fontSize: 11, fontFamily: "monospace", minWidth: 750 }}>
+            <table style={{ borderCollapse: "collapse", fontSize: 13, fontFamily: "monospace", minWidth: 900 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #30363d" }}>
-                  <th style={{ padding: "6px 10px", textAlign: "left", color: "#58a6ff", fontSize: 10, letterSpacing: "0.1em" }}>TICKER</th>
+                  <th style={{ padding: "10px 16px", textAlign: "left", color: "#58a6ff", fontSize: 11, letterSpacing: "0.1em" }}>TICKER</th>
                   {HOUR_SLOTS.map((h) => (
-                    <th key={h} style={{ padding: "6px 10px", textAlign: "center", color: "#58a6ff", fontSize: 10, whiteSpace: "nowrap" }}>{h}</th>
+                    <th key={h} style={{ padding: "10px 14px", textAlign: "center", color: "#58a6ff", fontSize: 11, whiteSpace: "nowrap" }}>{h}</th>
                   ))}
-                  <th style={{ padding: "6px 10px", textAlign: "right", color: "#58a6ff", fontSize: 10 }}>{locale === "tr" ? "GÜN" : "DAY"}</th>
+                  <th style={{ padding: "10px 14px", textAlign: "right", color: "#58a6ff", fontSize: 11 }}>{locale === "tr" ? "GÜN" : "DAY"}</th>
                 </tr>
               </thead>
               <tbody>
@@ -583,12 +583,12 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                         const pct = bar?.change_pct ?? null;
                         const { bg, text } = heatBg(pct);
                         return (
-                          <td key={h} style={{ padding: "6px 10px", textAlign: "center", background: bg, color: text, fontSize: 10, fontWeight: 700, minWidth: 58 }}>
+                          <td key={h} style={{ padding: "10px 14px", textAlign: "center", background: bg, color: text, fontSize: 12, fontWeight: 700, minWidth: 72 }}>
                             {pct != null ? `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%` : <span style={{ color: "#333" }}>—</span>}
                           </td>
                         );
                       })}
-                      <td style={{ padding: "6px 10px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
+                      <td style={{ padding: "10px 14px", textAlign: "right", background: dayColors.bg, color: dayColors.text, fontWeight: 700 }}>
                         {dayPct != null ? `${dayPct >= 0 ? "+" : ""}${dayPct.toFixed(1)}%` : "—"}
                       </td>
                     </tr>
@@ -608,8 +608,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
               { label: "-2%+", bg: "#4a0d0d", text: "#ff7b72" },
             ].map((item) => (
               <div key={item.label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                <div style={{ width: 14, height: 14, background: item.bg, borderRadius: 2 }} />
-                <span style={{ fontSize: 10, color: item.text }}>{item.label}</span>
+                <div style={{ width: 16, height: 16, background: item.bg, borderRadius: 2 }} />
+                <span style={{ fontSize: 11, color: item.text }}>{item.label}</span>
               </div>
             ))}
           </div>
