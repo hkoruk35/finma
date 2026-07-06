@@ -1451,7 +1451,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { message, history = [], lang: langRaw = "tr" } = body;
-  const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
+  const lang: "tr" | "en" = (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
   if (!message?.trim()) {
     return NextResponse.json({ text: "Lütfen bir mesaj girin." });
   }
