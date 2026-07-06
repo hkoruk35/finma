@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
@@ -12,30 +12,21 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [show, setShow] = useState(false);
   const [secsLeft, setSecsLeft] = useState(AUTO_CLOSE_SECS);
-  const prevPathRef = useRef<string | null>(null);
-  const isFreeTrialRef = useRef(isFreeTrial);
 
-  // Keep ref in sync every render so pathname effect reads current value
-  useEffect(() => { isFreeTrialRef.current = isFreeTrial; });
-
+  // MemberHeader is mounted fresh on every page — show popup on each mount for free-trial members
   useEffect(() => {
-    // Skip initial mount
-    if (prevPathRef.current === null) {
-      prevPathRef.current = pathname;
-      return;
-    }
-    if (prevPathRef.current === pathname) return;
-    prevPathRef.current = pathname;
+    if (loading || !isFreeTrial) return;
 
-    if (!isFreeTrialRef.current) return;
-
-    // Don't show on subscription page
     const accountSeg = locale === "tr" ? "/hesabim" : "/account";
     if (pathname?.includes(accountSeg)) return;
 
-    setSecsLeft(AUTO_CLOSE_SECS);
-    setShow(true);
-  }, [pathname, locale]);
+    const t = setTimeout(() => {
+      setSecsLeft(AUTO_CLOSE_SECS);
+      setShow(true);
+    }, 600);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, isFreeTrial]);
 
   // Auto-dismiss countdown
   useEffect(() => {
