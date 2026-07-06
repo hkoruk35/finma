@@ -127,13 +127,13 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" }) {
+export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" | "es" }) {
   const t = (key: keyof typeof TEXTS) => TEXTS[key][lang === "en" ? "en" : "tr"];
   // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the
   // /global member area (no Screener/Terminal/Option links, no root logout) and always
   // jump straight to Deep Analysis instead of the standard report.
   const isGlobal = !!locale;
-  const homeHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
+  const homeHref = locale === "es" ? "/global/es/home" : locale === "en" ? "/global/en/home" : "/global/tr/home";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);

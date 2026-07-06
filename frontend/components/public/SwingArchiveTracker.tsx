@@ -85,7 +85,7 @@ export default function SwingArchiveTracker({
   const [selectedDate, setSelectedDate] = useState(archives[0]?.date ?? "");
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
 
-  const liveHref = locale === "en" ? "/global/en/swing" : "/global/tr/swing";
+  const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : "/global/tr/swing";
   const permalink = (ticker: string) => `/admin/${ticker.toLowerCase()}`;
 
   const selectedDay = useMemo(
