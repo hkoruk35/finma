@@ -69,7 +69,7 @@ interface Props {
   hideExportButtons?: boolean;
   /** When set, frontend applies this SL threshold (e.g. -7) overriding JSON result/return values. */
   applySlPct?: number;
-  locale?: "en" | "tr";
+  locale?: "en" | "tr" | "es";
   /** On /global/{locale}/performance, ticker clicks must not navigate anywhere —
    *  only the hover-preview chart is allowed. Root /performance keeps the normal link. */
   disableTickerLink?: boolean;

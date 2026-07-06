@@ -22,7 +22,7 @@ interface HomeSimpleCardProps {
   accent: string;
   stocks: Stock[];
   viewAllHref: string;
-  locale: 'tr' | 'en';
+  locale: 'tr' | 'en' | 'es';
   sortLabel?: string;
   /** When true, ticker names and "view all" link are locked behind premium */
   requirePremium?: boolean;
