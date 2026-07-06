@@ -13,9 +13,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const homeHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
-  const accountHref = locale === "en" ? "/global/en/account" : "/global/tr/hesabim";
-  const loginHref = locale === "en" ? "/global/en/login" : "/global/tr/giris";
+  const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : "/global/en/home";
+  const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : "/global/en/account";
+  const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : "/global/en/login";
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -66,7 +66,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
               {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
                 const isActive = locale.toUpperCase() === lang;
-                const isAvailable = lang === 'EN' || lang === 'TR';
+                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES';
                 
                 if (!isAvailable) {
                   return (
@@ -104,7 +104,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
-            <span className="hidden sm:inline">{locale === "en" ? "Home" : "Anasayfa"}</span>
+            <span className="hidden sm:inline">{locale === "tr" ? "Anasayfa" : locale === "es" ? "Inicio" : "Home"}</span>
           </Link>
           <Link
             href={accountHref}
@@ -113,18 +113,18 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
-            <span className="hidden sm:inline">{locale === "en" ? "Account" : "Hesabım"}</span>
+            <span className="hidden sm:inline">{locale === "tr" ? "Hesabım" : locale === "es" ? "Cuenta" : "Account"}</span>
           </Link>
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            title={locale === "en" ? "Log out" : "Çıkış Yap"}
+            title={locale === "tr" ? "Çıkış Yap" : locale === "es" ? "Cerrar sesión" : "Log out"}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
           >
             <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
             </svg>
-            <span className="hidden sm:inline">{loggingOut ? "..." : locale === "en" ? "Log out" : "Çıkış"}</span>
+            <span className="hidden sm:inline">{loggingOut ? "..." : locale === "tr" ? "Çıkış" : locale === "es" ? "Salir" : "Log out"}</span>
           </button>
         </div>
       </div>

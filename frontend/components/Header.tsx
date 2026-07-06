@@ -112,7 +112,7 @@ export default function Header({
   onNewQueryClick?: () => void;
   /** When set, the logo becomes a smart link for the /global member area:
    * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
-  globalLocale?: "en" | "tr";
+  globalLocale?: "en" | "tr" | "es";
   /** Plain link target for the logo when hideMenus is true (no auth check needed). */
   logoHref?: string;
 }) {
@@ -133,8 +133,8 @@ export default function Header({
   };
 
   const handleGlobalLogoClick = async () => {
-    const landingHref = globalLocale === "en" ? "/global/en" : "/global/tr";
-    const homeHref = globalLocale === "en" ? "/global/en/home" : "/global/tr/home";
+    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : "/global/en";
+    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : "/global/en/home";
     try {
       const res = await fetch("/api/members/me");
       router.push(res.ok ? homeHref : landingHref);
@@ -240,7 +240,7 @@ export default function Header({
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-1 border border-[#1e2a3a]/60">
               {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
                 const isActive = globalLocale.toUpperCase() === lang;
-                const isAvailable = lang === 'EN' || lang === 'TR';
+                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES';
                 
                 if (!isAvailable) {
                   return (
