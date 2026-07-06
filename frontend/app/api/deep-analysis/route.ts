@@ -867,22 +867,90 @@ export async function POST(req: NextRequest) {
     // ── Insider, Analist, 13F, Earnings — Yahoo Finance quoteSummary ──────────
     const summary = await fetchYFSummary(ticker.toUpperCase());
 
-    // — Haber çekimi ————————————————
+    // — Haber çekimi — ticker-specific, 3-layer fallback ————————————————
     let newsItems: any[] = [];
+    const tickerUp = ticker.toUpperCase();
     try {
       const newsHdr: Record<string, string> = { "User-Agent": YF_UA, "Accept": "application/json" };
       const auth = await getYFAuth();
       if (auth?.cookie) newsHdr["Cookie"] = auth.cookie;
-      const newsRes = await fetch(
-        `https://query1.finance.yahoo.com/v1/finance/search?q=${ticker.toUpperCase()}&newsCount=10&enableFuzzyQuery=false&enableCb=false`,
-        { headers: newsHdr, signal: AbortSignal.timeout(6000) }
-      );
-      if (newsRes.ok) {
-        const newsJson = await newsRes.json();
-        newsItems = newsJson?.news ?? [];
+
+      // Layer 1: symbol-specific endpoint (most targeted)
+      try {
+        const symRes = await fetch(
+          `https://query1.finance.yahoo.com/v2/finance/news?symbol=${tickerUp}&newsCount=10`,
+          { headers: newsHdr, signal: AbortSignal.timeout(6000) }
+        );
+        if (symRes.ok) {
+          const symJson = await symRes.json();
+          newsItems = symJson?.items?.result ?? symJson?.news ?? [];
+        }
+      } catch {}
+
+      // Layer 2: search API + relatedTickers filter
+      if (newsItems.length < 3) {
+        const searchRes = await fetch(
+          `https://query1.finance.yahoo.com/v1/finance/search?q=${tickerUp}&newsCount=15&quotesCount=0&enableFuzzyQuery=false&enableCb=false`,
+          { headers: newsHdr, signal: AbortSignal.timeout(6000) }
+        );
+        if (searchRes.ok) {
+          const searchJson = await searchRes.json();
+          const all: any[] = searchJson?.news ?? [];
+          const relevant = all.filter((n: any) =>
+            (n.title || "").toUpperCase().includes(tickerUp) ||
+            (n.relatedTickers || []).some((t: string) => t.toUpperCase() === tickerUp)
+          );
+          // Use relevant if ≥3, else fall back to all (unfiltered)
+          newsItems = relevant.length >= 3 ? relevant : all.slice(0, 8);
+        }
       }
     } catch (e: any) {
       console.warn("[deep-analysis] news fetch:", e?.message);
+    }
+
+    // Layer 3: Gemini Google Search fallback when YF news is off-topic
+    const isTickerRelated = (n: any) =>
+      (n.title || "").toUpperCase().includes(tickerUp) ||
+      (n.relatedTickers || []).some((t: string) => t.toUpperCase() === tickerUp);
+    const relevantCount = newsItems.filter(isTickerRelated).length;
+
+    if (relevantCount < 2 && process.env.GEMINI_API_KEY) {
+      try {
+        const companyHint = s.company || tickerUp;
+        const gemNewsRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: `Find 5 very recent news headlines specifically about ${tickerUp} (${companyHint}) stock. Output ONLY a valid JSON array, no other text: [{"title":"...","source":"...","date":"YYYY-MM-DD","sentiment":"Positive/Negative/Neutral"}]` }] }],
+              tools: [{ "google_search": {} }],
+              generationConfig: { temperature: 0.0, maxOutputTokens: 800 },
+            }),
+          }
+        );
+        if (gemNewsRes.ok) {
+          const gemData = await gemNewsRes.json();
+          const rawTxt = (gemData.candidates?.[0]?.content?.parts ?? [])
+            .map((p: any) => p.text || "").join("");
+          const jStart = rawTxt.indexOf("[");
+          const jEnd   = rawTxt.lastIndexOf("]");
+          if (jStart !== -1 && jEnd !== -1) {
+            const parsed = JSON.parse(rawTxt.slice(jStart, jEnd + 1));
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              newsItems = parsed.map((n: any) => ({
+                title: String(n.title || ""),
+                providerPublishTime: n.date ? new Date(n.date).getTime() / 1000 : Date.now() / 1000,
+                publisher: String(n.source || "Google Search"),
+                link: "",
+                relatedTickers: [tickerUp],
+              }));
+            }
+          }
+        }
+      } catch (e: any) {
+        console.warn("[deep-analysis] Gemini news fallback:", e?.message);
+      }
     }
 
     // — İnsider İşlemleri ————————————————
@@ -952,14 +1020,24 @@ export async function POST(req: NextRequest) {
     };
 
     // — 13F Kurumsal Sahiplik ————————————————
+    // pctChange.raw is a decimal ratio: 0.012 = +1.2%, -0.009 = -0.9%
+    // When raw >= 0.5 (50%+ change) it's either a new position or a data artifact —
+    // flag it so the UI can show "Yeni Pozisyon" instead of a misleading "100%"
     const institutionalOwners: any[] = (summary?.institutionOwnership?.ownershipList ?? [])
       .slice(0, 5)
-      .map((o: any) => ({
-        name:   o.organization ?? (lang === "en" ? "Unknown" : "Bilinmiyor"),
-        shares: safeNum(o.position?.raw, 0),
-        change: +(safeNum(o.pctChange?.raw, 0) * 100).toFixed(2),
-        reportDate: o.reportDate?.fmt ?? "",
-      }));
+      .map((o: any) => {
+        const rawPct = o.pctChange?.raw;
+        const pctDecimal = typeof rawPct === "number" && isFinite(rawPct) ? rawPct : null;
+        const isNewPosition = pctDecimal === null || Math.abs(pctDecimal) >= 0.5;
+        const change = pctDecimal !== null ? +(pctDecimal * 100).toFixed(2) : 0;
+        return {
+          name:          o.organization ?? (lang === "en" ? "Unknown" : "Bilinmiyor"),
+          shares:        safeNum(o.position?.raw, 0),
+          change,
+          isNewPosition,
+          reportDate:    o.reportDate?.fmt ?? "",
+        };
+      });
 
     // — Sonraki Kazanç Tarihi ————————————————
     const calDates: any[] = summary?.calendarEvents?.earnings?.earningsDate ?? [];

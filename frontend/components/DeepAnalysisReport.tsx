@@ -672,7 +672,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                       <div className="text-[11px] font-medium text-white truncate">{o.name}</div>
                       <div className="text-[10px] text-slate-500">{o.reportDate}</div>
                     </div>
-                    <span className={`text-[12px] font-semibold shrink-0 ${o.change >= 0 ? "text-emerald-400" : "text-rose-400"}`}>{o.change >= 0 ? "▲" : "▼"} {Math.abs(o.change).toFixed(1)}%</span>
+                    <span className={`text-[12px] font-semibold shrink-0 ${o.change >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                      {o.isNewPosition
+                        ? (o.change >= 0 ? `▲ ${L(lang, "Yeni Giriş", "New Entry")}` : `▼ ${L(lang, "Büyük Çıkış", "Major Exit")}`)
+                        : `${o.change >= 0 ? "▲" : "▼"} ${Math.abs(o.change).toFixed(1)}%`}
+                    </span>
                   </div>
                 )) : <p className="text-[11px] text-slate-600 text-center py-3">{L(lang, "Veri bulunamadı.", "No data available.")}</p>}
               </div>
