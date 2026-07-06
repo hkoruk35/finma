@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-07-03T09:15:04.361527-04:00",
+  "generated_at": "2026-07-06T09:15:04.593431-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 31.9,
+  "scan_duration_s": 32.5,
   "total_scanned": 10,
   "layer1_passed": 10,
   "final_picks": 10,
@@ -21,9 +21,9 @@
       "catalyst": {
         "catalyst_type": "acquisition",
         "catalyst_score": 22,
-        "headline": "comcast spinoff could rejuvenate its depressed stock(barrons.com)",
+        "headline": "netflix slides 17% as valuation worries grow(gurufocus.com)",
         "confidence": "high",
-        "ts": 1783084530.3286843
+        "ts": 1783343730.379176
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -78,7 +78,7 @@
         "catalyst_score": 15,
         "headline": "anavex life sciences receives expected nasdaq delinquency notification(globenewswire)",
         "confidence": "medium",
-        "ts": 1783084530.6240013
+        "ts": 1783343730.4201977
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -133,7 +133,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084530.9054139
+        "ts": 1783343730.2195237
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -188,7 +188,7 @@
         "catalyst_score": 15,
         "headline": "bernstein upgrades celsius as alani nu drives the bull case(gurufocus.com)",
         "confidence": "medium",
-        "ts": 1783084530.8849378
+        "ts": 1783343730.1543436
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -243,7 +243,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084530.867381
+        "ts": 1783343730.4419448
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -296,9 +296,9 @@
       "catalyst": {
         "catalyst_type": "partnership",
         "catalyst_score": 18,
-        "headline": "ionis grants recordati rights to zilganersen for alexander disease(hospital management)",
+        "headline": "ionis completes enrollment in pivotal cohort of the phase 3 reveal study evaluating obudanersen in angelman syndrome(bus",
         "confidence": "high",
-        "ts": 1783084534.5865343
+        "ts": 1783343734.923058
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -353,7 +353,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084534.9670923
+        "ts": 1783343734.9024014
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -408,7 +408,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084530.8426902
+        "ts": 1783343730.4024222
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -463,7 +463,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084534.141594
+        "ts": 1783343734.9492006
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -518,7 +518,7 @@
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783084534.4223914
+        "ts": 1783343734.8713121
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
