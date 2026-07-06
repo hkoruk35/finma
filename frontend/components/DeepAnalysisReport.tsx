@@ -6,11 +6,11 @@ interface Props {
   ticker: string;
   stockData: any;
   onClose?: () => void;
-  lang?: "tr" | "en";
+  lang?: "tr" | "en" | "es";
   mode?: "overlay" | "page";
 }
 
-const L = (lang: "tr" | "en", tr: string, en: string) => lang === "en" ? en : tr;
+const L = (lang: "tr" | "en" | "es" | string, tr: string, en: string) => lang === "tr" ? tr : en;
 
 const _cache = new Map<string, any>();
 function getCacheKey(ticker: string, lang: string) {
@@ -29,7 +29,7 @@ function fmtUsd(v: number) { return "$" + v.toFixed(2); }
 
 // ── Candle pattern detail ─────────────────────────────────────────────────────
 
-function candleDetail(pattern: string, lang: "tr" | "en"): { signal: "bull" | "bear" | "neutral"; desc: string; action: string } {
+function candleDetail(pattern: string, lang: "tr" | "en" | "es"): { signal: "bull" | "bear" | "neutral"; desc: string; action: string } {
   const map: Record<string, { signal: "bull" | "bear" | "neutral"; tr: [string, string]; en: [string, string] }> = {
     "Hammer":            { signal: "bull", tr: ["Çekiç — düşüş sonunda güçlü dönüş sinyali. Alt gölge uzun, kapanış gün ortasının üstünde.", "Önceki kapanışın üzerinde günlük kapanış onaylarsa uzun pozisyon değerlendir."], en: ["Hammer — strong reversal signal at the base of a downtrend. Long lower wick, close above midpoint.", "Consider long if next day closes above the hammer's high."] },
     "Shooting Star":     { signal: "bear", tr: ["Kayan Yıldız — yükseliş tepesinde dönüş uyarısı. Üst gölge uzun, satıcılar gün içi yükselişi geri aldı.", "Kapanış Kayan Yıldız'ın altına inerse short veya çıkış değerlendir."], en: ["Shooting Star — reversal warning at rally peak. Long upper wick shows sellers overtook buyers intraday.", "Consider exit/short if price closes below the shooting star's low."] },
@@ -47,12 +47,12 @@ function candleDetail(pattern: string, lang: "tr" | "en"): { signal: "bull" | "b
     desc: L(lang, "Belirgin bir mum formasyonu tespit edilmedi.", "No distinctive candle pattern detected."),
     action: L(lang, "Genel trend ve hacim analizine devam et.", "Continue with general trend and volume analysis."),
   };
-  return { signal: entry.signal, desc: lang === "en" ? entry.en[0] : entry.tr[0], action: lang === "en" ? entry.en[1] : entry.tr[1] };
+  return { signal: entry.signal, desc: lang === "tr" ? entry.tr[0] : entry.en[0], action: lang === "tr" ? entry.tr[1] : entry.en[1] };
 }
 
 // ── Trade plan (fixed math) ───────────────────────────────────────────────────
 
-function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment", lang: "tr" | "en") {
+function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment", lang: "tr" | "en" | "es") {
   const price = rd.currentPrice || 100;
 
   // Defensive: enforce supports below price, resistances above
@@ -80,9 +80,9 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
     const rr1   = +((t1 - entry) / risk).toFixed(1);
     const rr2   = +((t2 - entry) / risk).toFixed(1);
     const trailStop = +(entry + (t1 - entry) * 0.5).toFixed(2);
-    const trailRule = lang === "en"
-      ? `Daily close above ${fmtUsd(t1)} → trail stop to ${fmtUsd(trailStop)} (entry +50%R)`
-      : `${fmtUsd(t1)} üstünde günlük kapanış → stop ${fmtUsd(trailStop)}'a taşı (giriş +%50R)`;
+    const trailRule = lang === "tr"
+      ? `${fmtUsd(t1)} üstünde günlük kapanış → stop ${fmtUsd(trailStop)}'a taşı (giriş +%50R)`
+      : `Daily close above ${fmtUsd(t1)} → trail stop to ${fmtUsd(trailStop)} (entry +50%R)`;
     return { timeframe: L(lang, "Swing (7-15 Gün)", "Swing (7-15 Days)"), entry, stop, t1, t2, rr1, rr2, invalidation: s1, anchor: L(lang, "EMA20 baz", "EMA20 anchor"), trailRule };
   }
 
@@ -94,9 +94,9 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
     const t2    = +Math.max(r3, entry * 1.18).toFixed(2);
     const rr1   = +((t1 - entry) / risk).toFixed(1);
     const rr2   = +((t2 - entry) / risk).toFixed(1);
-    const trailRule = lang === "en"
-      ? `Weekly close above ${fmtUsd(t1)} → move stop to break-even (${fmtUsd(entry)})`
-      : `${fmtUsd(t1)} üstünde haftalık kapanış → stop'u giriş fiyatına (${fmtUsd(entry)}) taşı`;
+    const trailRule = lang === "tr"
+      ? `${fmtUsd(t1)} üstünde haftalık kapanış → stop'u giriş fiyatına (${fmtUsd(entry)}) taşı`
+      : `Weekly close above ${fmtUsd(t1)} → move stop to break-even (${fmtUsd(entry)})`;
     return { timeframe: L(lang, "Pozisyon (1-3 Ay)", "Position (1-3 Months)"), entry, stop, t1, t2, rr1, rr2, invalidation: s2, anchor: L(lang, "EMA50 baz", "EMA50 anchor"), trailRule };
   }
 
@@ -108,9 +108,9 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
   const t2    = +Math.max(r3, entry * 1.30).toFixed(2);
   const rr1   = +((t1 - entry) / risk).toFixed(1);
   const rr2   = +((t2 - entry) / risk).toFixed(1);
-  const trailRule = lang === "en"
-    ? `Monthly close above ${fmtUsd(t1)} → take 50% off, hold rest to T2`
-    : `${fmtUsd(t1)} üstünde aylık kapanış → %50 çıkış yap, kalan T2 için tut`;
+  const trailRule = lang === "tr"
+    ? `${fmtUsd(t1)} üstünde aylık kapanış → %50 çıkış yap, kalan T2 için tut`
+    : `Monthly close above ${fmtUsd(t1)} → take 50% off, hold rest to T2`;
   return { timeframe: L(lang, "Yatırım (6+ Ay)", "Investment (6M+)"), entry, stop, t1, t2, rr1, rr2, invalidation: ema200, anchor: L(lang, "EMA200 baz", "EMA200 anchor"), trailRule };
 }
 
@@ -166,7 +166,7 @@ function PlanRow({ label, value, valueColor = "white", note }: { label: string; 
   );
 }
 
-function MARowL({ label, value, current, lang }: { label: string; value: number; current: number; lang: "tr" | "en" }) {
+function MARowL({ label, value, current, lang }: { label: string; value: number; current: number; lang: "tr" | "en" | "es" }) {
   const above = current >= value;
   const dist = value > 0 ? ((current - value) / value * 100) : 0;
   return (
@@ -264,7 +264,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
   const rsiColor = rsi >= 70 ? "red" : rsi < 30 ? "purple" : rsi >= 55 ? "cyan" : "amber";
   const rsiLabel = rsi >= 70 ? L(lang, "Aşırı Alım", "Overbought") : rsi < 30 ? L(lang, "Aşırı Satım", "Oversold") : L(lang, "Nötr", "Neutral");
   const generatedAt = data.generatedAt
-    ? new Date(data.generatedAt).toLocaleString(lang === "en" ? "en-US" : "tr-TR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })
+    ? new Date(data.generatedAt).toLocaleString(lang === "tr" ? "tr-TR" : "en-US", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })
     : "";
 
   const plan      = tradePlan(rd, sr, horizon, lang);
@@ -473,10 +473,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               const r1 = sr.resistance1 || cp * 1.05;
               const slope = rd.emaSlope20 || "yatay";
               const slopeEN = (s: string) => s === "yükselen" ? "rising" : s === "düşen" ? "falling" : "flat";
-              if (lang === "en") {
-                return `EMA20 is ${slopeEN(slope)}. A daily close above ${fmtUsd(r1)} (R1) with above-average volume confirms continuation. A daily close below ${fmtUsd(s1)} (S1) weakens the structure and triggers re-evaluation.`;
+              if (lang === "tr") {
+                return `EMA20 ${slope === "yükselen" ? "yükseliyor" : slope === "düşen" ? "düşüyor" : "yatay seyrediyor"}. ${fmtUsd(r1)} (D1) üzerinde ortalamanın üzerinde hacimli günlük kapanış, yükseliş devamını teyitler. ${fmtUsd(s1)} (D1) altında günlük kapanış yapıyı zayıflatır.`;
               }
-              return `EMA20 ${slope === "yükselen" ? "yükseliyor" : slope === "düşen" ? "düşüyor" : "yatay seyrediyor"}. ${fmtUsd(r1)} (D1) üzerinde ortalamanın üzerinde hacimli günlük kapanış, yükseliş devamını teyitler. ${fmtUsd(s1)} (D1) altında günlük kapanış yapıyı zayıflatır.`;
+              return `EMA20 is ${slopeEN(slope)}. A daily close above ${fmtUsd(r1)} (R1) with above-average volume confirms continuation. A daily close below ${fmtUsd(s1)} (S1) weakens the structure and triggers re-evaluation.`;
             })()}</p>
           </div>
 
@@ -492,15 +492,15 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               </div>
             </div>
             <p className="text-[12px] text-slate-400 leading-relaxed">
-              {lang === "en"
-                ? rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — volume spike. High-probability directional move; current ${fmtVol(volume)} is well above the ${fmtVol(avgVol)} 30-day average.`
-                : rvol >= 1.3 ? `RVOL ${rvol.toFixed(2)}x — above-average participation. Today's price action carries more weight than usual.`
-                : rvol < 0.7  ? `RVOL ${rvol.toFixed(2)}x — thin participation. Moves on low volume are less reliable; wait for confirmation.`
-                :               `RVOL ${rvol.toFixed(2)}x — normal conditions, no volume anomaly.`
-                : rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — yüksek hacim patlaması. Yönlü hareket olasılığı yüksek; günlük ${fmtVol(volume)} hacim, ${fmtVol(avgVol)} olan 30 günlük ortalamanın çok üzerinde.`
+              {lang === "tr"
+                ? rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — yüksek hacim patlaması. Yönlü hareket olasılığı yüksek; günlük ${fmtVol(volume)} hacim, ${fmtVol(avgVol)} olan 30 günlük ortalamanın çok üzerinde.`
                 : rvol >= 1.3 ? `RVOL ${rvol.toFixed(2)}x — ortalamanın üzerinde katılım. Bugünkü fiyat hareketi normalden daha anlamlı.`
                 : rvol < 0.7  ? `RVOL ${rvol.toFixed(2)}x — ince katılım. Düşük hacimli hareketler güvenilmez; onay bekle.`
-                :               `RVOL ${rvol.toFixed(2)}x — normal piyasa koşulları.`}
+                :               `RVOL ${rvol.toFixed(2)}x — normal piyasa koşulları.`
+                : rvol >= 2   ? `RVOL ${rvol.toFixed(2)}x — volume spike. High-probability directional move; current ${fmtVol(volume)} is well above the ${fmtVol(avgVol)} 30-day average.`
+                : rvol >= 1.3 ? `RVOL ${rvol.toFixed(2)}x — above-average participation. Today's price action carries more weight than usual.`
+                : rvol < 0.7  ? `RVOL ${rvol.toFixed(2)}x — thin participation. Moves on low volume are less reliable; wait for confirmation.`
+                :               `RVOL ${rvol.toFixed(2)}x — normal conditions, no volume anomaly.`}
             </p>
           </div>
 
@@ -516,9 +516,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-3">
                 <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold mb-1.5">OBV / A-D / MFI</div>
                 <p className="text-[12px] text-slate-300 leading-relaxed">
-                  {lang === "en"
-                    ? `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`
-                    : `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel}) · ${fs.pvPattern}`}
+                  {lang === "tr"
+                    ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
+                    : `OBV ${fs.obvTrend === "yükselen" ? "rising" : fs.obvTrend === "düşen" ? "falling" : "flat"} · A/D ${fs.adTrend === "yükselen" ? "rising" : fs.adTrend === "düşen" ? "falling" : "flat"} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel === "Aşırı Alım" ? "Overbought" : fs.mfiLabel === "Aşırı Satım" ? "Oversold" : "Normal"}) · ${fs.pvPattern === "güçlü birikim" ? "Strong accumulation" : fs.pvPattern === "güçlü dağıtım" ? "Strong distribution" : fs.pvPattern === "zayıf yükseliş" ? "Weak rally" : "Normal pullback"}`}
                 </p>
               </div>
             </div>
@@ -549,9 +549,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="text-[10px] text-rose-400 uppercase tracking-widest font-semibold mb-1">{L(lang, "⚠ Tez İptal Seviyesi", "⚠ Thesis Invalidation")}</div>
               <div className="text-[19px] font-semibold text-rose-300 mt-1">{fmtUsd(sr.support2 || cp * 0.91)}</div>
               <p className="text-[11px] text-slate-400 mt-1.5">
-                {lang === "en"
-                  ? `Weekly close below ${fmtUsd(sr.support2 || cp * 0.91)} (S2) = setup invalid.`
-                  : `${fmtUsd(sr.support2 || cp * 0.91)} (D2) altında haftalık kapanış = tez geçersiz.`}
+                {lang === "tr"
+                  ? `${fmtUsd(sr.support2 || cp * 0.91)} (D2) altında haftalık kapanış = tez geçersiz.`
+                  : `Weekly close below ${fmtUsd(sr.support2 || cp * 0.91)} (S2) = setup invalid.`}
               </p>
             </div>
           </div>

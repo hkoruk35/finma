@@ -5,10 +5,10 @@ import DeepAnalysisReport from "./DeepAnalysisReport";
 interface Props {
   ticker: string;
   stockData: any;
-  lang: "tr" | "en";
+  lang: "tr" | "en" | "es";
 }
 
-const L = (lang: "tr" | "en", tr: string, en: string) => lang === "en" ? en : tr;
+const L = (lang: "tr" | "en" | "es" | string, tr: string, en: string) => lang === "tr" ? tr : en;
 
 /**
  * Page-mode wrapper — waits for real stockData before mounting the report.
