@@ -74,21 +74,6 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
               {ticker} — 1D Chart
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              {onDetailClick ? (
-                <button
-                  onClick={onDetailClick}
-                  style={{ color: "#3fb950", background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}
-                >
-                  {detailLabel || "Detay ↗"}
-                </button>
-              ) : (
-                <a
-                  href={detailHref || `/stock/${ticker}`}
-                  style={{ color: "#3fb950" }}
-                >
-                  Detay ↗
-                </a>
-              )}
               <a
                 href={`/global/en/graphic/${ticker}`}
                 style={{ color: "#8b949e" }}
