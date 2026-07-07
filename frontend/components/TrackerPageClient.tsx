@@ -709,8 +709,8 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
           <BogaChartEngine symbol={sym} interval="60" height={220} compact showToolbar={false} indicators={["ema20", "ema50", "ema200"]} />
         </div>
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-          <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>
+          <Link href={`/global/en/graphic/${sym}`}
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Grafik Detay ↗</Link>
           <Link href={`/stock/${sym}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
           <Link href={`/optanaliz?symbol=${sym}`}

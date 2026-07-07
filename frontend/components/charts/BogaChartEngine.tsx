@@ -7,10 +7,12 @@ import {
   CandlestickSeries,
   HistogramSeries,
   LineSeries,
+  BarSeries,
   type IChartApi,
   type ISeriesApi,
   type UTCTimestamp,
 } from "lightweight-charts";
+import { heikinAshi } from "@/lib/indicators";
 
 type Locale = "en" | "tr" | "es" | "fr";
 
@@ -19,21 +21,33 @@ const LABELS: Record<Locale, Record<string, string>> = {
     liveChart: "Live Chart", expand: "EXPAND", collapse: "COLLAPSE",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bands", vwap: "VWAP", sr: "Support/Resistance",
+    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
+    share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
+    vol: "Vol",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bantları", vwap: "VWAP", sr: "Destek/Direnç",
+    candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
+    share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
+    vol: "Hac",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Soporte/Resistencia",
+    candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
+    share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
+    vol: "Vol",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/Résistance",
+    candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
+    share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
+    vol: "Vol",
   },
 };
 
@@ -44,6 +58,16 @@ const INTERVALS: { label: string; value: string }[] = [
   { label: "1D", value: "D" },
   { label: "1W", value: "W" },
 ];
+
+const RANGE_KEYS = ["1D", "1W", "1M", "3M", "1Y", "5Y"] as const;
+type RangeKey = (typeof RANGE_KEYS)[number];
+const RANGE_WINDOW_SECONDS: Record<RangeKey, number> = {
+  "1D": 86400, "1W": 7 * 86400, "1M": 30 * 86400,
+  "3M": 90 * 86400, "1Y": 365 * 86400, "5Y": 5 * 365 * 86400,
+};
+
+const CANDLE_TYPES = ["candle", "heikin-ashi", "line", "ohlc", "hollow"] as const;
+type CandleType = (typeof CANDLE_TYPES)[number];
 
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
@@ -76,6 +100,9 @@ interface Props {
   showToolbar?: boolean; // internal interval + indicator toggle UI (default true)
   onIntervalChange?: (interval: string) => void;
   indicators?: IndicatorKey[]; // when provided, overrides internal toggle state (controlled mode)
+  detailMode?: boolean; // unlocks the full toolbar: candle type, range, OHLCV readout, share, fullscreen
+  defaultIndicators?: IndicatorKey[]; // initial active set (uncontrolled mode only)
+  defaultTimeframe?: string; // initial interval value
 }
 
 const EMA_COLORS: Record<string, string> = {
@@ -84,6 +111,40 @@ const EMA_COLORS: Record<string, string> = {
   ema50: "#a78bfa",
   ema200: "#f472b6",
 };
+
+function seriesCategory(candleType: CandleType): "line" | "bar" | "candlestick" {
+  if (candleType === "line") return "line";
+  if (candleType === "ohlc") return "bar";
+  return "candlestick";
+}
+
+function createMainSeries(chart: IChartApi, candleType: CandleType) {
+  const category = seriesCategory(candleType);
+  if (category === "line") {
+    return chart.addSeries(LineSeries, { color: "#3b82f6", lineWidth: 2, priceLineVisible: true });
+  }
+  if (category === "bar") {
+    return chart.addSeries(BarSeries, { upColor: UP_COLOR, downColor: DOWN_COLOR });
+  }
+  const hollow = candleType === "hollow";
+  return chart.addSeries(CandlestickSeries, {
+    upColor: hollow ? "rgba(0,0,0,0)" : UP_COLOR,
+    downColor: DOWN_COLOR,
+    borderVisible: hollow,
+    borderUpColor: UP_COLOR,
+    borderDownColor: DOWN_COLOR,
+    wickUpColor: UP_COLOR,
+    wickDownColor: DOWN_COLOR,
+  });
+}
+
+function toMainSeriesData(bars: Bar[], candleType: CandleType) {
+  const srcBars = candleType === "heikin-ashi" ? heikinAshi(bars) : bars;
+  if (seriesCategory(candleType) === "line") {
+    return srcBars.map((b) => ({ time: b.time as UTCTimestamp, value: b.close }));
+  }
+  return srcBars.map((b) => ({ time: b.time as UTCTimestamp, open: b.open, high: b.high, low: b.low, close: b.close }));
+}
 
 export default function BogaChartEngine({
   symbol,
@@ -94,22 +155,37 @@ export default function BogaChartEngine({
   showToolbar = true,
   onIntervalChange,
   indicators: indicatorsProp,
+  detailMode = false,
+  defaultIndicators,
+  defaultTimeframe,
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
-  const candleSeriesRef = useRef<ISeriesApi<"Candlestick"> | null>(null);
+  const mainSeriesRef = useRef<ISeriesApi<any> | null>(null);
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
   const lineSeriesRefs = useRef<Partial<Record<IndicatorKey, ISeriesApi<"Line">[]>>>({});
   const priceLinesRef = useRef<any[]>([]);
   const barsRef = useRef<Bar[]>([]);
+  const lastDataRef = useRef<ChartResponse | null>(null);
 
-  const [interval, setInterval_] = useState(intervalProp || "240");
+  const [interval, setInterval_] = useState(intervalProp || defaultTimeframe || "240");
   const [internalActive, setInternalActive] = useState<Set<IndicatorKey>>(
-    () => new Set(compact ? (["ema20", "ema50"] as IndicatorKey[]) : (["ema20", "ema50", "sr"] as IndicatorKey[]))
+    () =>
+      new Set(
+        defaultIndicators ?? (compact ? (["ema20", "ema50"] as IndicatorKey[]) : (["ema20", "ema50", "sr"] as IndicatorKey[]))
+      )
   );
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
   const setActive = setInternalActive;
+
+  const [candleType, setCandleType] = useState<CandleType>(detailMode ? "heikin-ashi" : "candle");
+  const [range, setRange] = useState<RangeKey>("3M");
+  const [hoverBar, setHoverBar] = useState<Bar | null>(null);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     if (intervalProp && intervalProp !== interval) setInterval_(intervalProp);
@@ -136,14 +212,6 @@ export default function BogaChartEngine({
       autoSize: true,
     });
 
-    const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: UP_COLOR,
-      downColor: DOWN_COLOR,
-      borderVisible: false,
-      wickUpColor: UP_COLOR,
-      wickDownColor: DOWN_COLOR,
-    });
-
     const volumeSeries = chart.addSeries(
       HistogramSeries,
       { priceFormat: { type: "volume" }, priceScaleId: "" },
@@ -152,8 +220,16 @@ export default function BogaChartEngine({
     chart.panes()[1]?.setHeight(90);
 
     chartRef.current = chart;
-    candleSeriesRef.current = candleSeries;
     volumeSeriesRef.current = volumeSeries;
+
+    chart.subscribeCrosshairMove((param) => {
+      if (!param.time) {
+        setHoverBar(barsRef.current[barsRef.current.length - 1] ?? null);
+        return;
+      }
+      const bar = barsRef.current.find((b) => b.time === param.time);
+      if (bar) setHoverBar(bar);
+    });
 
     const resizeObserver = new ResizeObserver(() => chart.applyOptions({}));
     resizeObserver.observe(el);
@@ -162,7 +238,7 @@ export default function BogaChartEngine({
       resizeObserver.disconnect();
       chart.remove();
       chartRef.current = null;
-      candleSeriesRef.current = null;
+      mainSeriesRef.current = null;
       volumeSeriesRef.current = null;
       lineSeriesRefs.current = {};
       priceLinesRef.current = [];
@@ -179,23 +255,25 @@ export default function BogaChartEngine({
     try {
       const res = await fetch(`/api/chart-data?${params.toString()}`);
       const data: ChartResponse = await res.json();
-      applyData(data);
+      lastDataRef.current = data;
+      renderAll(data);
     } catch {
       // silent — network hiccup, next poll/refetch will retry
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [symbol, interval, active]);
 
-  const applyData = (data: ChartResponse) => {
+  const renderAll = (data: ChartResponse) => {
     const bars = data.bars || [];
     barsRef.current = bars;
-    const candleSeries = candleSeriesRef.current;
-    const volumeSeries = volumeSeriesRef.current;
     const chart = chartRef.current;
-    if (!candleSeries || !volumeSeries || !chart) return;
+    const volumeSeries = volumeSeriesRef.current;
+    if (!chart || !volumeSeries || bars.length === 0) return;
 
-    candleSeries.setData(
-      bars.map((b) => ({ time: b.time as UTCTimestamp, open: b.open, high: b.high, low: b.low, close: b.close }))
-    );
+    if (!mainSeriesRef.current) mainSeriesRef.current = createMainSeries(chart, candleType);
+    const mainSeries = mainSeriesRef.current;
+
+    mainSeries.setData(toMainSeriesData(bars, candleType));
     volumeSeries.setData(
       bars.map((b) => ({
         time: b.time as UTCTimestamp,
@@ -209,7 +287,7 @@ export default function BogaChartEngine({
       for (const series of lineSeriesRefs.current[key] || []) chart.removeSeries(series);
     }
     lineSeriesRefs.current = {};
-    for (const pl of priceLinesRef.current) candleSeries.removePriceLine(pl);
+    for (const pl of priceLinesRef.current) mainSeries.removePriceLine(pl);
     priceLinesRef.current = [];
 
     const ind = data.indicators || {};
@@ -269,7 +347,7 @@ export default function BogaChartEngine({
         .sort((a, b) => Math.abs(a.price - lastClose) - Math.abs(b.price - lastClose))
         .slice(0, 6);
       for (const level of nearest) {
-        const pl = candleSeries.createPriceLine({
+        const pl = mainSeries.createPriceLine({
           price: level.price,
           color: level.type === "resistance" ? DOWN_COLOR : UP_COLOR,
           lineWidth: 1,
@@ -281,27 +359,54 @@ export default function BogaChartEngine({
       }
     }
 
-    // Default zoom window per interval (spec: 4H interval opens to a 1W view).
-    const DEFAULT_WINDOW_SECONDS: Record<string, number> = {
-      "1": 86400, "5": 86400, "15": 86400,
-      "60": 5 * 86400, "240": 7 * 86400,
-      D: 90 * 86400, W: 730 * 86400,
-    };
-    const windowSeconds = DEFAULT_WINDOW_SECONDS[interval] ?? 7 * 86400;
+    applyVisibleRange(bars);
+    setHoverBar(bars[bars.length - 1] ?? null);
+  };
+
+  const applyVisibleRange = (bars: Bar[]) => {
+    const chart = chartRef.current;
+    if (!chart) return;
     const lastBar = bars[bars.length - 1];
-    if (lastBar && bars.length > 1) {
-      chart.timeScale().setVisibleRange({
-        from: Math.max(bars[0].time, lastBar.time - windowSeconds) as UTCTimestamp,
-        to: lastBar.time as UTCTimestamp,
-      });
-    } else {
+    if (!lastBar || bars.length <= 1) {
       chart.timeScale().fitContent();
+      return;
     }
+    // Detail mode: independent "Görünüm" (range/zoom) row, user-selectable.
+    // Otherwise: auto-pick a sensible window per interval (spec: 4H opens to 1W).
+    const windowSeconds = detailMode
+      ? RANGE_WINDOW_SECONDS[range]
+      : ({ "1": 86400, "5": 86400, "15": 86400, "60": 5 * 86400, "240": 7 * 86400, D: 90 * 86400, W: 730 * 86400 }[
+          interval
+        ] ?? 7 * 86400);
+    chart.timeScale().setVisibleRange({
+      from: Math.max(bars[0].time, lastBar.time - windowSeconds) as UTCTimestamp,
+      to: lastBar.time as UTCTimestamp,
+    });
   };
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Candle type change: re-create the main series and redraw from cached
+  // data — no network refetch needed, same bars, different presentation.
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (!chart) return;
+    if (mainSeriesRef.current) {
+      chart.removeSeries(mainSeriesRef.current);
+      mainSeriesRef.current = null;
+    }
+    mainSeriesRef.current = createMainSeries(chart, candleType);
+    if (lastDataRef.current) renderAll(lastDataRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [candleType]);
+
+  // Range (view window) change: rezoom only, no refetch.
+  useEffect(() => {
+    if (barsRef.current.length) applyVisibleRange(barsRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [range]);
 
   // ── Polling for the latest bar (Yahoo data is ~15min delayed, so this
   // just keeps the last visible candle current rather than simulating ticks) ──
@@ -327,48 +432,198 @@ export default function BogaChartEngine({
     onIntervalChange?.(value);
   };
 
-  const availableIndicators: IndicatorKey[] = compact
-    ? ["ema20", "ema50"]
-    : [...INDICATOR_KEYS];
+  const availableIndicators: IndicatorKey[] = compact ? ["ema20", "ema50"] : [...INDICATOR_KEYS];
+
+  const latestValue = (key: string): number | null => {
+    const arr = lastDataRef.current?.indicators?.[key] as (number | null)[] | undefined;
+    if (!arr) return null;
+    for (let i = arr.length - 1; i >= 0; i--) if (arr[i] != null) return arr[i] as number;
+    return null;
+  };
+
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const shareText = `${symbol} chart — BOGA AI`;
+  const shareLinks = {
+    x: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`,
+    whatsapp: `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`,
+    telegram: `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`,
+  };
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard unavailable — silently ignore
+    }
+  };
+
+  const fmt = (n: number | undefined | null, d = 2) => (n == null ? "—" : n.toFixed(d));
+  const fmtVol = (n: number | undefined | null) => {
+    if (n == null) return "—";
+    if (n >= 1e9) return (n / 1e9).toFixed(2) + "B";
+    if (n >= 1e6) return (n / 1e6).toFixed(2) + "M";
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+    return String(n);
+  };
 
   return (
-    <div className="flex flex-col w-full h-full" style={{ background: `${NAVY}0d` }}>
-      {showToolbar && (
-        <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
-          <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
-            {INTERVALS.map((iv) => (
-              <button
-                key={iv.value}
-                onClick={() => changeInterval(iv.value)}
-                className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
-                  interval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
-                }`}
-              >
-                {iv.label}
-              </button>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-1.5">
-            {availableIndicators.map((key) => (
-              <button
-                key={key}
-                onClick={() => toggle(key)}
-                className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
-                  active.has(key)
-                    ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
-                    : "border-[#1e2a3a] text-[#64748b] hover:text-white"
-                }`}
-              >
-                {t[key]}
-              </button>
-            ))}
-          </div>
-        </div>
+    <div
+      ref={wrapperRef}
+      className={`flex flex-col w-full h-full ${isFullscreen ? "fixed inset-4 z-[9999] shadow-2xl" : ""}`}
+      style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
+    >
+      {isFullscreen && (
+        <div className="fixed inset-0 z-[9998] bg-black/85" onClick={() => setIsFullscreen(false)} />
       )}
-      <div
-        ref={containerRef}
-        style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300, flex: height ? undefined : 1 }}
-      />
+      <div className={isFullscreen ? "relative z-[9999] flex flex-col w-full h-full" : "contents"}>
+        {showToolbar && (
+          <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
+            <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+              {INTERVALS.map((iv) => (
+                <button
+                  key={iv.value}
+                  onClick={() => changeInterval(iv.value)}
+                  className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                    interval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
+                  }`}
+                >
+                  {iv.label}
+                </button>
+              ))}
+            </div>
+            {!detailMode && (
+              <div className="flex flex-wrap items-center gap-1.5">
+                {availableIndicators.map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => toggle(key)}
+                    className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+                      active.has(key)
+                        ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
+                        : "border-[#1e2a3a] text-[#64748b] hover:text-white"
+                    }`}
+                  >
+                    {t[key]}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {detailMode && (
+          <>
+            <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
+              <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+                {RANGE_KEYS.map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setRange(r)}
+                    className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                      range === r ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
+                    }`}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+                {CANDLE_TYPES.map((ct) => (
+                  <button
+                    key={ct}
+                    onClick={() => setCandleType(ct)}
+                    className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                      candleType === ct ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
+                    }`}
+                  >
+                    {t[ct]}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+              {availableIndicators.map((key) => {
+                const val = ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
+                return (
+                  <button
+                    key={key}
+                    onClick={() => toggle(key)}
+                    className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+                      active.has(key)
+                        ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
+                        : "border-[#1e2a3a] text-[#64748b] hover:text-white"
+                    }`}
+                  >
+                    {t[key]}
+                    {val != null ? ` ${fmt(val)}` : ""}
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
+          <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
+
+          {/* BOGA watermark — always on, every instance, small/large */}
+          <div className="absolute left-2 bottom-1 text-[11px] font-black tracking-widest text-white/25 pointer-events-none select-none z-10">
+            BOGA
+          </div>
+
+          {detailMode && (
+            <>
+              <div className="absolute top-2 left-2 z-10 flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none">
+                <span className="text-slate-400">O <span className="text-white">{fmt(hoverBar?.open)}</span></span>
+                <span className="text-slate-400">H <span className="text-white">{fmt(hoverBar?.high)}</span></span>
+                <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
+                <span className="text-slate-400">C <span className="text-white">{fmt(hoverBar?.close)}</span></span>
+                <span className="text-slate-400">{t.vol} <span className="text-white">{fmtVol(hoverBar?.volume)}</span></span>
+              </div>
+
+              <div className="absolute top-2 right-2 z-20 flex items-center gap-1.5">
+                <div className="relative">
+                  <button
+                    onClick={() => setShareOpen((v) => !v)}
+                    className="px-2.5 py-1 rounded bg-[#141924]/90 border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  >
+                    {t.share}
+                  </button>
+                  {shareOpen && (
+                    <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden">
+                      <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        X (Twitter)
+                      </a>
+                      <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        WhatsApp
+                      </a>
+                      <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        Telegram
+                      </a>
+                      <button
+                        onClick={handleCopyLink}
+                        className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+                      >
+                        {copied ? t.linkCopied : t.copyLink}
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={() => setIsFullscreen((v) => !v)}
+                  className="px-2.5 py-1 rounded bg-[#141924]/90 border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                >
+                  {isFullscreen ? "✕" : "⛶"}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

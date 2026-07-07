@@ -171,6 +171,26 @@ export function pivotSupportResistance(bars: Bar[], lookback = 5): SRLevel[] {
   return merged;
 }
 
+// Heikin Ashi candle transform — a display style, not a proprietary
+// indicator, so it's computed client-side in BogaChartEngine rather than
+// piped through the API.
+export function heikinAshi(bars: Bar[]): Bar[] {
+  const out: Bar[] = [];
+  let prevOpen = 0;
+  let prevClose = 0;
+  for (let i = 0; i < bars.length; i++) {
+    const b = bars[i];
+    const haClose = (b.open + b.high + b.low + b.close) / 4;
+    const haOpen = i === 0 ? (b.open + b.close) / 2 : (prevOpen + prevClose) / 2;
+    const haHigh = Math.max(b.high, haOpen, haClose);
+    const haLow = Math.min(b.low, haOpen, haClose);
+    out.push({ time: b.time, open: haOpen, high: haHigh, low: haLow, close: haClose, volume: b.volume });
+    prevOpen = haOpen;
+    prevClose = haClose;
+  }
+  return out;
+}
+
 // Resamples bars into fixed-size buckets (e.g. 4 x 60m bars -> one 4h bar).
 // Used because Yahoo Finance has no native 4h interval.
 export function resampleBars(bars: Bar[], bucketSeconds: number): Bar[] {

@@ -842,7 +842,7 @@ export default function CSPDetailClient({ slug }: Props) {
           }}>
             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1D Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
+              <a href={`/global/en/graphic/${hoverTicker}`} style={{ color: "#8b949e" }}>Grafik Detay ↗</a>
             </div>
           </div>
           <div style={{ width: 430, height: 220 }}>
@@ -953,8 +953,8 @@ function ExpandedRow({ sym, d }: { sym: string; d: TickerData | undefined }) {
           <BogaChartEngine symbol={sym} interval="60" height={220} compact showToolbar={false} indicators={["ema20", "ema50", "ema200"]} />
         </div>
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
-          <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>
+          <Link href={`/global/en/graphic/${sym}`}
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Grafik Detay ↗</Link>
           <Link href={`/stock/${sym}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
           <Link href={`/optanaliz?symbol=${sym}`}

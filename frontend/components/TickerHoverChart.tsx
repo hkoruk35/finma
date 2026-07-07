@@ -90,12 +90,10 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
                 </a>
               )}
               <a
-                href={`https://finviz.com/quote.ashx?t=${ticker}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/global/en/graphic/${ticker}`}
                 style={{ color: "#8b949e" }}
               >
-                Finviz ↗
+                Grafik Detay ↗
               </a>
             </div>
           </div>

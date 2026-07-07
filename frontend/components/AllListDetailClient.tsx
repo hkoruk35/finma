@@ -765,7 +765,7 @@ export default function AllListDetailClient() {
           }}>
             <span style={{ color: "#58a6ff", fontWeight: 900, fontSize: 12 }}>{hoverTicker} — 1D Chart</span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
-              <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
+              <a href={`/global/en/graphic/${hoverTicker}`} style={{ color: "#8b949e" }}>Grafik Detay ↗</a>
             </div>
           </div>
           <div style={{ width: 430, height: 220 }}>
