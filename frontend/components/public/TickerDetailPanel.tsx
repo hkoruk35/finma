@@ -39,7 +39,7 @@ function fmtVol(n: number): string {
   return `${n}`;
 }
 
-export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker: string; locale: Locale; fullPage?: boolean }) {
+export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean }) {
   const t = copy[locale].top100.detail;
   const [data, setData] = useState<PreorderAnalysis | null>(null);
   const [error, setError] = useState("");
@@ -198,7 +198,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage }: { ticker
         </div>
       </div>
 
-      <ScreenerChart ticker={data.ticker} />
+      {!hideChart && <ScreenerChart ticker={data.ticker} />}
     </div>
   );
 }

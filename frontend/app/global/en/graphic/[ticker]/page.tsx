@@ -6,6 +6,7 @@ import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 
 export default function GraphicDetailPage() {
   const params = useParams();
@@ -43,9 +44,12 @@ export default function GraphicDetailPage() {
             lang="en"
             detailMode
             height={600}
-            defaultIndicators={["ema20", "ema50", "rsi", "sr"]}
+            defaultIndicators={["ema20", "ema50", "rsi"]}
             defaultTimeframe="D"
           />
+        </div>
+        <div className="glass-card overflow-hidden">
+          <TickerDetailPanel ticker={ticker} locale="en" hideChart />
         </div>
       </main>
       <Footer hidePlatform locale="en" />

@@ -187,6 +187,25 @@ export default function BogaChartEngine({
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // Native Fullscreen API — reliably escapes any ancestor CSS (e.g.
+  // backdrop-filter/overflow-hidden on a parent .glass-card), which a
+  // plain CSS `position:fixed` trick does not: an ancestor with
+  // backdrop-filter creates a new containing block for fixed descendants,
+  // silently clipping them instead of covering the viewport.
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      wrapperRef.current?.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    const handler = () => setIsFullscreen(document.fullscreenElement === wrapperRef.current);
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, []);
+
   useEffect(() => {
     if (intervalProp && intervalProp !== interval) setInterval_(intervalProp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -470,13 +489,10 @@ export default function BogaChartEngine({
   return (
     <div
       ref={wrapperRef}
-      className={`flex flex-col w-full h-full ${isFullscreen ? "fixed inset-4 z-[9999] shadow-2xl" : ""}`}
+      className="flex flex-col w-full h-full"
       style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
     >
-      {isFullscreen && (
-        <div className="fixed inset-0 z-[9998] bg-black/85" onClick={() => setIsFullscreen(false)} />
-      )}
-      <div className={isFullscreen ? "relative z-[9999] flex flex-col w-full h-full" : "contents"}>
+      <div className="contents">
         {showToolbar && (
           <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
             <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
@@ -507,6 +523,46 @@ export default function BogaChartEngine({
                     {t[key]}
                   </button>
                 ))}
+              </div>
+            )}
+            {detailMode && (
+              <div className="flex items-center gap-1.5 ml-auto">
+                <div className="relative">
+                  <button
+                    onClick={() => setShareOpen((v) => !v)}
+                    className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  >
+                    {t.share}
+                  </button>
+                  {shareOpen && (
+                    <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
+                      <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        X (Twitter)
+                      </a>
+                      <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        WhatsApp
+                      </a>
+                      <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
+                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+                        Telegram
+                      </a>
+                      <button
+                        onClick={handleCopyLink}
+                        className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+                      >
+                        {copied ? t.linkCopied : t.copyLink}
+                      </button>
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={toggleFullscreen}
+                  className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                >
+                  {isFullscreen ? "✕" : "⛶"}
+                </button>
               </div>
             )}
           </div>
@@ -567,60 +623,25 @@ export default function BogaChartEngine({
         <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
 
-          {/* BOGA watermark — always on, every instance, small/large */}
-          <div className="absolute left-2 bottom-1 text-[11px] font-black tracking-widest text-white/25 pointer-events-none select-none z-10">
-            BOGA
+          {/* BOGA watermark — always on, every instance, small/large.
+              Centered and low-opacity so it reads as a watermark, not a
+              corner tag, without interfering with reading the candles. */}
+          <div
+            className={`absolute inset-x-0 ${compact ? "top-2" : "top-9"} flex justify-center pointer-events-none select-none z-10`}
+          >
+            <span className={`font-black tracking-[0.3em] text-white/[0.08] ${compact ? "text-xs" : "text-2xl md:text-3xl"}`}>
+              BOGA
+            </span>
           </div>
 
           {detailMode && (
-            <>
-              <div className="absolute top-2 left-2 z-10 flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none">
-                <span className="text-slate-400">O <span className="text-white">{fmt(hoverBar?.open)}</span></span>
-                <span className="text-slate-400">H <span className="text-white">{fmt(hoverBar?.high)}</span></span>
-                <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
-                <span className="text-slate-400">C <span className="text-white">{fmt(hoverBar?.close)}</span></span>
-                <span className="text-slate-400">{t.vol} <span className="text-white">{fmtVol(hoverBar?.volume)}</span></span>
-              </div>
-
-              <div className="absolute top-2 right-2 z-20 flex items-center gap-1.5">
-                <div className="relative">
-                  <button
-                    onClick={() => setShareOpen((v) => !v)}
-                    className="px-2.5 py-1 rounded bg-[#141924]/90 border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
-                  >
-                    {t.share}
-                  </button>
-                  {shareOpen && (
-                    <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden">
-                      <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        X (Twitter)
-                      </a>
-                      <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        WhatsApp
-                      </a>
-                      <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        Telegram
-                      </a>
-                      <button
-                        onClick={handleCopyLink}
-                        className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
-                      >
-                        {copied ? t.linkCopied : t.copyLink}
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <button
-                  onClick={() => setIsFullscreen((v) => !v)}
-                  className="px-2.5 py-1 rounded bg-[#141924]/90 border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
-                >
-                  {isFullscreen ? "✕" : "⛶"}
-                </button>
-              </div>
-            </>
+            <div className="absolute top-2 left-2 z-10 flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none">
+              <span className="text-slate-400">O <span className="text-white">{fmt(hoverBar?.open)}</span></span>
+              <span className="text-slate-400">H <span className="text-white">{fmt(hoverBar?.high)}</span></span>
+              <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
+              <span className="text-slate-400">C <span className="text-white">{fmt(hoverBar?.close)}</span></span>
+              <span className="text-slate-400">{t.vol} <span className="text-white">{fmtVol(hoverBar?.volume)}</span></span>
+            </div>
           )}
         </div>
       </div>
