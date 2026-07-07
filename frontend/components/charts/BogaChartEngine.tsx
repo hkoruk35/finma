@@ -74,6 +74,12 @@ const RANGE_WINDOW_SECONDS: Record<RangeKey, number> = {
 const CANDLE_TYPES = ["candle", "heikin-ashi", "line", "ohlc", "hollow"] as const;
 type CandleType = (typeof CANDLE_TYPES)[number];
 
+// Volume Profile reserves this many bar-widths of empty space on the right
+// so its histogram sits in a clear margin instead of overlapping the last
+// candles. DEFAULT_RIGHT_OFFSET matches lightweight-charts' own default.
+const VP_MARGIN_BARS = 16;
+const DEFAULT_RIGHT_OFFSET = 5;
+
 const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr", "volumeProfile"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 
@@ -233,7 +239,7 @@ export default function BogaChartEngine({
         horzLines: { color: "#1e2a3a" },
       },
       rightPriceScale: { borderColor: "#1e2a3a" },
-      timeScale: { borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false },
+      timeScale: { borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false, rightOffset: DEFAULT_RIGHT_OFFSET },
       autoSize: true,
     });
 
@@ -306,8 +312,15 @@ export default function BogaChartEngine({
       const visibleBars = bars.filter((b) => b.time >= lastBar.time - windowSeconds);
       const profileBars = visibleBars.length > 1 ? visibleBars : bars;
       const rows = computeVolumeProfile(profileBars, 24);
-      const widthBars = Math.max(6, Math.round(profileBars.length * 0.12));
-      const anchorTime = lastBar.time as UTCTimestamp; // pinned to the rightmost bar, grows leftward
+      const barInterval = bars.length > 1 ? bars[bars.length - 1].time - bars[bars.length - 2].time : 86400;
+
+      // Anchor at the far edge of the reserved right-hand margin (not at the
+      // last candle) and size the profile to fit entirely within that
+      // margin — otherwise it draws directly over the most recent candles.
+      chart.timeScale().applyOptions({ rightOffset: VP_MARGIN_BARS + 2 });
+      const anchorTime = (lastBar.time + barInterval * (VP_MARGIN_BARS + 1)) as UTCTimestamp;
+      const widthBars = VP_MARGIN_BARS;
+
       if (!vpPrimitiveRef.current) {
         vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorTime, widthBars);
         mainSeries.attachPrimitive(vpPrimitiveRef.current);
@@ -317,6 +330,7 @@ export default function BogaChartEngine({
     } else if (vpPrimitiveRef.current) {
       mainSeries.detachPrimitive(vpPrimitiveRef.current);
       vpPrimitiveRef.current = null;
+      chart.timeScale().applyOptions({ rightOffset: DEFAULT_RIGHT_OFFSET });
     }
   };
 
@@ -437,9 +451,19 @@ export default function BogaChartEngine({
       : ({ "1": 86400, "5": 86400, "15": 86400, "60": 5 * 86400, "240": 7 * 86400, D: 90 * 86400, W: 730 * 86400 }[
           interval
         ] ?? 7 * 86400);
+
+    // setVisibleRange sets an explicit from/to, which overrides rightOffset —
+    // so when the Volume Profile margin is reserved, extend `to` past the
+    // last candle to keep that margin (and the profile drawn in it) in view.
+    let rightEdge = lastBar.time;
+    if (detailMode && active.has("volumeProfile") && bars.length > 1) {
+      const barInterval = bars[bars.length - 1].time - bars[bars.length - 2].time;
+      rightEdge = lastBar.time + barInterval * (VP_MARGIN_BARS + 2);
+    }
+
     chart.timeScale().setVisibleRange({
       from: Math.max(bars[0].time, lastBar.time - windowSeconds) as UTCTimestamp,
-      to: lastBar.time as UTCTimestamp,
+      to: rightEdge as UTCTimestamp,
     });
   };
 
