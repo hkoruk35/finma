@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, ReactNode } from "react";
 import { createPortal } from "react-dom";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 interface Props {
   ticker: string;
@@ -98,13 +99,9 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
               </a>
             </div>
           </div>
-          <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_hover_${ticker}&symbol=${ticker}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
-            width="430"
-            height="220"
-            style={{ border: "none", display: "block" }}
-            title={`${ticker} 1W`}
-          />
+          <div style={{ width: 430, height: 220 }}>
+            <BogaChartEngine symbol={ticker} interval="D" height={220} compact showToolbar={false} indicators={["ema20"]} />
+          </div>
         </div>,
         document.body
       )}

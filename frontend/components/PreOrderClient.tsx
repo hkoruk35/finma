@@ -5,7 +5,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useUserRole } from "@/hooks/useUserRole";
 
-const TradingViewChart = dynamic(() => import("@/components/TradingViewChart"), { ssr: false });
+const BogaChartEngine = dynamic(() => import("@/components/charts/BogaChartEngine"), {
+  ssr: false,
+  loading: () => <div className="h-[460px] bg-[#030073]/10 animate-pulse rounded-lg" />,
+});
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -372,7 +375,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
         {/* Left column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
-          {/* TradingView Chart */}
+          {/* BOGA Chart */}
           <div style={{ background: "#161b22", border: "1px solid #30363d", borderRadius: 8, overflow: "hidden" }}>
             {/* Interval tabs */}
             <div style={{ display: "flex", gap: 0, borderBottom: "1px solid #30363d" }}>
@@ -396,11 +399,12 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
                 {a.ticker} · {a.company}
               </span>
             </div>
-            <TradingViewChart
-              key={`${a.ticker}-${chartInterval}`}
-              ticker={a.ticker}
-              exchange={a.exchange}
+            <BogaChartEngine
+              key={a.ticker}
+              symbol={a.ticker}
               interval={chartInterval}
+              height={460}
+              showToolbar={false}
             />
           </div>
 

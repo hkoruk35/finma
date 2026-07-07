@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import TVChartEmbed from "@/components/TVChartEmbed";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 interface Props {
   ticker: string;
@@ -15,19 +15,11 @@ const TF_MAP: Record<TF, string> = {
   "1W": "W",
 };
 
-const SCREENER_STUDIES = [
-  "MAExp@tv-basicstudies",   // EMA
-  "MAExp@tv-basicstudies",   // EMA second (50)
-  "RSI@tv-basicstudies",
-  "Volume@tv-basicstudies",
-];
+const SCREENER_INDICATORS = ["ema20", "ema50", "rsi"] as const;
 
 export default function ScreenerChart({ ticker }: Props) {
   const [tf, setTf]           = useState<TF>("1D");
   const [isFullscreen, setFs] = useState(false);
-
-  const clean  = ticker.replace("-", ".");
-  const tvSymbol = clean;
 
   const chartHeight = isFullscreen ? (typeof window !== "undefined" ? window.innerHeight - 80 : 600) : 440;
 
@@ -85,14 +77,13 @@ export default function ScreenerChart({ ticker }: Props) {
         </div>
 
         {/* Chart — same engine as Terminal */}
-        <TVChartEmbed
+        <BogaChartEngine
           key={`${ticker}-${tf}`}
-          tvSymbol={tvSymbol}
+          symbol={ticker}
           interval={TF_MAP[tf]}
-          containerId={`screener_chart_${ticker}`}
           height={chartHeight}
-          compact={false}
-          studies={SCREENER_STUDIES}
+          showToolbar={false}
+          indicators={[...SCREENER_INDICATORS]}
         />
       </div>
     </>

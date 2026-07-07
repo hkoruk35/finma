@@ -6,6 +6,7 @@ import { useUserRole } from "@/hooks/useUserRole";
 import Link from "next/link";
 import * as XLSX from "xlsx";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -699,17 +700,14 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
         )}
       </div>
 
-      {/* TradingView Chart */}
+      {/* BOGA Chart */}
       <div style={{ width: 420, flexShrink: 0, padding: "12px 16px" }}>
         <div style={{ fontSize: 10, color: "#58a6ff", fontWeight: 700, letterSpacing: "0.1em", marginBottom: 8 }}>
           1H GRAFİK — EMA 20/50/200
         </div>
-        <iframe
-          src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_exp_${sym}&symbol=${sym}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=0&hide_legend=0&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1&studies=EMA@tv-basicstudies,EMA@tv-basicstudies,EMA@tv-basicstudies`}
-          width="410" height="220"
-          style={{ border: "1px solid #30363d", borderRadius: 4, display: "block" }}
-          title={`${sym} 1H expanded`}
-        />
+        <div style={{ width: 410, height: 220, border: "1px solid #30363d", borderRadius: 4, overflow: "hidden" }}>
+          <BogaChartEngine symbol={sym} interval="60" height={220} compact showToolbar={false} indicators={["ema20", "ema50", "ema200"]} />
+        </div>
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
           <a href={`https://finviz.com/quote.ashx?t=${sym}`} target="_blank" rel="noopener"
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Finviz ↗</a>

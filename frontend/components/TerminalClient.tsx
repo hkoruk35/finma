@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import TVChartEmbed from "@/components/TVChartEmbed";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import { useSmartTracker } from "@/components/SmartTrackerContext";
 import { useTracker } from "@/components/TrackerContext";
 import { computePnl } from "@/lib/smartTracker";
@@ -252,7 +252,7 @@ function MultiScreenOverlay({
   tickers: string[];
   interval: string;
   studies: string[];
-  getInstrument: (t: string) => { tvSymbol: string; label: string } | null;
+  getInstrument: (t: string) => { tvSymbol: string; ySymbol: string; label: string } | null;
   onClose: () => void;
 }) {
   const [fullscreenTicker, setFullscreenTicker] = useState<string | null>(null);
@@ -285,12 +285,12 @@ function MultiScreenOverlay({
         </div>
         <div className="flex-1 overflow-hidden">
           {inst && (
-            <TVChartEmbed
-              tvSymbol={inst.tvSymbol}
+            <BogaChartEngine
+              symbol={inst.ySymbol}
               interval={interval}
-              containerId={`tv_fs_${fullscreenTicker}`}
               height={null}
-              studies={studies}
+              showToolbar={false}
+              indicators={studies as any}
             />
           )}
         </div>
@@ -334,13 +334,13 @@ function MultiScreenOverlay({
                 </button>
               </div>
               <div className="flex-1">
-                <TVChartEmbed
-                  tvSymbol={inst.tvSymbol}
+                <BogaChartEngine
+                  symbol={inst.ySymbol}
                   interval={interval}
-                  containerId={`tv_multi_${ticker}_${i}`}
                   height={null}
                   compact
-                  studies={studies}
+                  showToolbar={false}
+                  indicators={studies as any}
                 />
               </div>
             </div>
@@ -376,19 +376,14 @@ export default function TerminalClient() {
   // Chart interval
   const [chartInterval, setChartInterval] = useState("D");
 
-  // Technical Indicators
-  const [activeStudies, setActiveStudies] = useState<string[]>([
-    "MAExp@tv-basicstudies",
-    "Bollinger Bands@tv-basicstudies",
-    "RSI@tv-basicstudies",
-    "VWAP@tv-basicstudies",
-  ]);
+  // Technical Indicators (BogaChartEngine indicator keys)
+  const [activeStudies, setActiveStudies] = useState<string[]>(["ema20", "bb", "rsi", "vwap"]);
 
   const INDICATORS = [
-    { id: "MAExp@tv-basicstudies", label: "EMA" },
-    { id: "Bollinger Bands@tv-basicstudies", label: "BB" },
-    { id: "RSI@tv-basicstudies", label: "RSI" },
-    { id: "VWAP@tv-basicstudies", label: "VWAP" },
+    { id: "ema20", label: "EMA" },
+    { id: "bb", label: "BB" },
+    { id: "rsi", label: "RSI" },
+    { id: "vwap", label: "VWAP" },
   ];
 
   const toggleIndicator = (id: string) => {
@@ -580,11 +575,11 @@ export default function TerminalClient() {
   };
 
   // ── Resolve instrument (from left panel or watchlist) ─────────────────────────
-  const getInstrument = (ticker: string): { tvSymbol: string; label: string } | null => {
+  const getInstrument = (ticker: string): { tvSymbol: string; ySymbol: string; label: string } | null => {
     const inst = ALL_INSTRUMENTS.find((i) => i.ticker === ticker);
     if (inst) return inst;
-    // Watchlist stock: use NASDAQ prefix as fallback
-    return { tvSymbol: ticker, label: ticker };
+    // Watchlist stock: ticker itself is a valid Yahoo symbol
+    return { tvSymbol: ticker, ySymbol: ticker, label: ticker };
   };
 
   const selectWatchlistTicker = (ticker: string) => {
@@ -833,13 +828,13 @@ export default function TerminalClient() {
 
         {/* Chart */}
         <div className="flex-1 overflow-hidden">
-          <TVChartEmbed
-            key={`${selected.ticker}-${chartInterval}-${activeStudies.join(',')}`}
-            tvSymbol={selected.tvSymbol}
+          <BogaChartEngine
+            key={`${selected.ticker}-${chartInterval}`}
+            symbol={selected.ySymbol}
             interval={chartInterval}
-            containerId="tv_main_chart"
-            height={undefined as any}
-            studies={activeStudies}
+            height={null}
+            showToolbar={false}
+            indicators={activeStudies as any}
           />
         </div>
       </div>

@@ -272,7 +272,7 @@ export default async function LangAnalysisPage({ params }: Props) {
         </div>
 
         {/* Chart */}
-        <ChartSection ticker={pick.ticker} />
+        <ChartSection ticker={pick.ticker} lang={langCode as any} />
 
         {/* Full Analysis */}
         {detail && (

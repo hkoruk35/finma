@@ -1,24 +1,27 @@
 "use client";
 
 import { useState } from "react";
-import TradingViewWidget from "./TradingViewWidget";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
+
+type Locale = "en" | "tr" | "es" | "fr";
 
 interface Props {
   ticker: string;
   exchange?: string;
   companyMismatch?: { local: string; yfinance: string };
+  lang?: Locale;
 }
 
-export default function ChartSection({ ticker, exchange, companyMismatch }: Props) {
-  const [expanded, setExpanded] = useState(false);
-  const [interval, setInterval] = useState("W");
+const EXPAND_LABEL: Record<Locale, [string, string]> = {
+  en: ["EXPAND", "COLLAPSE"],
+  tr: ["GENİŞLET", "DARALT"],
+  es: ["EXPANDIR", "CONTRAER"],
+  fr: ["AGRANDIR", "RÉDUIRE"],
+};
 
-  const intervals = [
-    { label: "15M", value: "15" },
-    { label: "1H", value: "60" },
-    { label: "1D", value: "D" },
-    { label: "1W", value: "W" },
-  ];
+export default function ChartSection({ ticker, exchange, companyMismatch, lang = "en" }: Props) {
+  const [expanded, setExpanded] = useState(false);
+  const [expandLabel, collapseLabel] = EXPAND_LABEL[lang] || EXPAND_LABEL.en;
 
   return (
     <div className="glass-card overflow-hidden mb-4">
@@ -30,27 +33,8 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
           </span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          {/* Interval Selector */}
-          <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
-            {intervals.map((int) => (
-              <button
-                key={int.value}
-                onClick={() => setInterval(int.value)}
-                className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
-                  interval === int.value
-                    ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
-                    : "text-[#00d2ff] hover:text-white"
-                }`}
-              >
-                {int.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="h-4 w-px bg-[#1e2a3a] mx-1 hidden md:block" />
-          
           <span className="px-2 py-1 rounded bg-[#1e2a3a] text-[9px] font-black text-[#00d2ff] uppercase tracking-widest">NY TIME</span>
-          
+
           <button
             onClick={() => setExpanded((v) => !v)}
             className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 text-[10px] font-black text-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/30"
@@ -61,7 +45,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
                   <path d="M8 3v3a2 2 0 0 1-2 2H3" /><path d="M21 8h-3a2 2 0 0 1-2-2V3" />
                   <path d="M3 16h3a2 2 0 0 1 2 2v3" /><path d="M16 21v-3a2 2 0 0 1 2-2h3" />
                 </svg>
-                COLLAPSE
+                {collapseLabel}
               </>
             ) : (
               <>
@@ -69,7 +53,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
                   <path d="M3 8V5a2 2 0 0 1 2-2h3" /><path d="M16 3h3a2 2 0 0 1 2 2v3" />
                   <path d="M21 16v3a2 2 0 0 1-2 2h-3" /><path d="M8 21H5a2 2 0 0 1-2-2v-3" />
                 </svg>
-                EXPAND
+                {expandLabel}
               </>
             )}
           </button>
@@ -90,13 +74,12 @@ export default function ChartSection({ ticker, exchange, companyMismatch }: Prop
 
       <div
         className="transition-all duration-500 ease-in-out overflow-hidden"
-        style={{ height: expanded ? 520 : 260 }}
+        style={{ height: expanded ? 560 : 300 }}
       >
-        <TradingViewWidget
+        <BogaChartEngine
           symbol={ticker}
-          exchange={exchange}
-          height={expanded ? 520 : 260}
-          interval={interval}
+          height={expanded ? 560 : 300}
+          lang={lang}
         />
       </div>
     </div>

@@ -200,7 +200,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
         </div>
 
         {/* Chart (live — archive shows same ticker) */}
-        <ChartSection ticker={pick.ticker} />
+        <ChartSection ticker={pick.ticker} lang={langCode as any} />
 
         {/* Full Analysis */}
         {detail && (

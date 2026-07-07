@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Header from "./Header";
 import MemberHeader from "./public/MemberHeader";
 import dynamic from "next/dynamic";
+import BogaChartEngine from "./charts/BogaChartEngine";
 
 const DeepAnalysisReport = dynamic(() => import("./DeepAnalysisReport"), { ssr: false });
 
@@ -22,7 +23,6 @@ interface StockReportViewProps {
 export default function StockReportView({ ticker, stockData, lang = "tr", autoOpenDeepAnalysis = false, homeHref }: StockReportViewProps) {
   // Inline TR/EN translation helper — L("Türkçe", "English") returns the string for the active lang
   const L = (tr: string, en: string) => (lang === "en" ? en : tr);
-  const chartContainerRef = useRef<HTMLDivElement>(null);
   const reportRef = useRef<HTMLDivElement>(null);
   const [showChart, setShowChart] = useState(true);
   const [inWatchlist, setInWatchlist] = useState(false);
@@ -223,31 +223,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
   const formatNum = (v: any, dec = 2) => typeof v === "number" ? v.toFixed(dec) : "N/A";
   const formatPct = (v: any) => typeof v === "number" ? (v >= 0 ? "+" : "") + v.toFixed(2) + "%" : "N/A";
 
-  // TradingView Widget Loader
-  useEffect(() => {
-    if (!chartContainerRef.current) return;
-    chartContainerRef.current.innerHTML = "";
-
-    const script = document.createElement("script");
-    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.innerHTML = JSON.stringify({
-      autosize: true,
-      symbol: ticker.toUpperCase() === "BOGA" ? "SPY" : ticker.toUpperCase(),
-      interval: "W",
-      timezone: "Etc/UTC",
-      theme: "dark",
-      style: "1",
-      locale: "tr",
-      enable_publishing: false,
-      hide_side_toolbar: false,
-      allow_symbol_change: true,
-      calendar: false,
-      support_host: "https://www.tradingview.com"
-    });
-    chartContainerRef.current.appendChild(script);
-  }, [ticker, showChart, isFullScreen, mounted]);
+  const chartSymbol = ticker.toUpperCase() === "BOGA" ? "SPY" : ticker.toUpperCase();
 
   // Determine alert level & color styling based on BOGA score & technicals
   const isBullish = masterScore >= 65;
@@ -1119,7 +1095,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
         )}
       </div>
 
-      {/* 7. TRADINGVIEW INTEGRATION CONTAINER */}
+      {/* 7. BOGA CHART ENGINE */}
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
@@ -1135,8 +1111,8 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
         </div>
 
         {showChart && (
-          <div className="w-full relative shadow-2xl transition-all duration-300">
-            <div ref={chartContainerRef} className="w-full" style={{ height: "360px" }} />
+          <div className="w-full relative shadow-2xl transition-all duration-300" style={{ height: "360px" }}>
+            <BogaChartEngine symbol={chartSymbol} lang={lang} height={360} />
           </div>
         )}
       </div>

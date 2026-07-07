@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MARKET_THEMES } from "@/lib/themeData";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useTracker } from "@/components/TrackerContext";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
 interface HourlyBar {
   time: string;
@@ -767,12 +768,9 @@ export default function AllListDetailClient() {
               <a href={`https://finviz.com/quote.ashx?t=${hoverTicker}`} target="_blank" rel="noopener" style={{ color: "#8b949e" }}>Finviz ↗</a>
             </div>
           </div>
-          <iframe
-            src={`https://s.tradingview.com/widgetembed/?frameElementId=tv_csp_${hoverTicker}&symbol=${hoverTicker}&interval=D&theme=dark&style=1&locale=en&hide_top_toolbar=1&hide_legend=1&save_image=0&withdateranges=0&hideideas=1&hide_side_toolbar=1`}
-            width="430" height="220"
-            style={{ border: "none", display: "block" }}
-            title={`${hoverTicker} 1D`}
-          />
+          <div style={{ width: 430, height: 220 }}>
+            <BogaChartEngine symbol={hoverTicker} interval="D" height={220} compact showToolbar={false} indicators={["ema20"]} />
+          </div>
         </div>
       )}
     </div>
