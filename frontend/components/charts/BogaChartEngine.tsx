@@ -13,6 +13,7 @@ import {
   type UTCTimestamp,
 } from "lightweight-charts";
 import { heikinAshi } from "@/lib/indicators";
+import { BogaVolumeProfile, computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 
 type Locale = "en" | "tr" | "es" | "fr";
 
@@ -21,6 +22,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     liveChart: "Live Chart", expand: "EXPAND", collapse: "COLLAPSE",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bands", vwap: "VWAP", sr: "Support/Resistance",
+    volumeProfile: "Volume Profile",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
     vol: "Vol",
@@ -29,6 +31,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bantları", vwap: "VWAP", sr: "Destek/Direnç",
+    volumeProfile: "Hacim Profili",
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
     vol: "Hac",
@@ -37,6 +40,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Soporte/Resistencia",
+    volumeProfile: "Perfil de Volumen",
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
     vol: "Vol",
@@ -45,6 +49,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/Résistance",
+    volumeProfile: "Profil de Volume",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol",
@@ -69,7 +74,7 @@ const RANGE_WINDOW_SECONDS: Record<RangeKey, number> = {
 const CANDLE_TYPES = ["candle", "heikin-ashi", "line", "ohlc", "hollow"] as const;
 type CandleType = (typeof CANDLE_TYPES)[number];
 
-const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr"] as const;
+const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr", "volumeProfile"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 
 const UP_COLOR = "#22c55e";
@@ -167,6 +172,7 @@ export default function BogaChartEngine({
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
   const lineSeriesRefs = useRef<Partial<Record<IndicatorKey, ISeriesApi<"Line">[]>>>({});
   const priceLinesRef = useRef<any[]>([]);
+  const vpPrimitiveRef = useRef<BogaVolumeProfile | null>(null);
   const barsRef = useRef<Bar[]>([]);
   const lastDataRef = useRef<ChartResponse | null>(null);
 
@@ -261,6 +267,7 @@ export default function BogaChartEngine({
       volumeSeriesRef.current = null;
       lineSeriesRefs.current = {};
       priceLinesRef.current = [];
+      vpPrimitiveRef.current = null;
     };
   }, []);
 
@@ -378,6 +385,23 @@ export default function BogaChartEngine({
       }
     }
 
+    // Fixed Range Volume Profile — only in the full detail toolbar, never on
+    // compact/mini/hover embeds, regardless of what `active` contains.
+    if (detailMode && active.has("volumeProfile") && bars.length > 0) {
+      const rows = computeVolumeProfile(bars, 24);
+      const widthBars = Math.max(8, Math.round(bars.length * 0.15));
+      const anchorTime = bars[Math.max(0, bars.length - widthBars)].time as UTCTimestamp;
+      if (!vpPrimitiveRef.current) {
+        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorTime, widthBars);
+        mainSeries.attachPrimitive(vpPrimitiveRef.current);
+      } else {
+        vpPrimitiveRef.current.updateData(rows, anchorTime, widthBars);
+      }
+    } else if (vpPrimitiveRef.current) {
+      mainSeries.detachPrimitive(vpPrimitiveRef.current);
+      vpPrimitiveRef.current = null;
+    }
+
     applyVisibleRange(bars);
     setHoverBar(bars[bars.length - 1] ?? null);
   };
@@ -413,8 +437,9 @@ export default function BogaChartEngine({
     const chart = chartRef.current;
     if (!chart) return;
     if (mainSeriesRef.current) {
-      chart.removeSeries(mainSeriesRef.current);
+      chart.removeSeries(mainSeriesRef.current); // also disposes any attached primitives
       mainSeriesRef.current = null;
+      vpPrimitiveRef.current = null;
     }
     mainSeriesRef.current = createMainSeries(chart, candleType);
     if (lastDataRef.current) renderAll(lastDataRef.current);
@@ -451,7 +476,13 @@ export default function BogaChartEngine({
     onIntervalChange?.(value);
   };
 
-  const availableIndicators: IndicatorKey[] = compact ? ["ema20", "ema50"] : [...INDICATOR_KEYS];
+  // Volume Profile is a detail-page-only feature — never offered as a toggle
+  // on compact/mini/embedded charts, even though it's in INDICATOR_KEYS.
+  const availableIndicators: IndicatorKey[] = compact
+    ? ["ema20", "ema50"]
+    : detailMode
+    ? [...INDICATOR_KEYS]
+    : INDICATOR_KEYS.filter((k) => k !== "volumeProfile");
 
   const latestValue = (key: string): number | null => {
     const arr = lastDataRef.current?.indicators?.[key] as (number | null)[] | undefined;

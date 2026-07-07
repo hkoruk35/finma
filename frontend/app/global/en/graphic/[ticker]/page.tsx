@@ -166,7 +166,7 @@ export default function GraphicDetailPage() {
             lang="en"
             detailMode
             height={600}
-            defaultIndicators={["ema20", "ema50", "rsi"]}
+            defaultIndicators={["ema20", "ema50", "rsi", "volumeProfile"]}
             defaultTimeframe="D"
           />
         </div>
