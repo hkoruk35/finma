@@ -39,7 +39,7 @@ function fmtVol(n: number): string {
   return `${n}`;
 }
 
-export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean }) {
+export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean }) {
   const t = copy[locale].top100.detail;
   const [data, setData] = useState<PreorderAnalysis | null>(null);
   const [error, setError] = useState("");
@@ -174,7 +174,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart 
             <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
             <div className="text-base font-bold text-amber-400">{fmt(data.tradePlan.stop.pct)}%</div>
           </div>
-          {!fullPage && (
+          {!fullPage && !hidePermalink && (
             <a href={permalinkHref} className="text-center text-sm font-bold text-blue-400 border border-blue-500/40 bg-blue-500/10 rounded-md py-1.5 hover:bg-blue-500/20 transition-colors">
               {t.permalink} ↗
             </a>

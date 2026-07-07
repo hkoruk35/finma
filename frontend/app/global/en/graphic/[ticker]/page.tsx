@@ -171,7 +171,7 @@ export default function GraphicDetailPage() {
           />
         </div>
         <div className="glass-card overflow-hidden">
-          <TickerDetailPanel ticker={ticker} locale="en" hideChart />
+          <TickerDetailPanel ticker={ticker} locale="en" hideChart hidePermalink />
         </div>
       </main>
       <Footer hidePlatform locale="en" />
