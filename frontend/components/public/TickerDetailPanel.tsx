@@ -49,7 +49,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart 
     let active = true;
     setLoading(true);
     setError("");
-    fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(ticker)}`)
+    const langParam = locale === "en" ? "&lang=en" : "";
+    fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(ticker)}${langParam}`)
       .then((r) => r.json())
       .then((d) => {
         if (!active) return;
@@ -61,7 +62,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart 
     return () => {
       active = false;
     };
-  }, [ticker, t.error]);
+  }, [ticker, t.error, locale]);
 
   const permalinkHref = locale === "en" ? `/en/stock/${ticker}` : `/tr/hisse/${ticker}`;
 

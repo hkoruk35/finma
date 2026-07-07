@@ -20,6 +20,29 @@ function isRateLimited(ip: string): boolean {
   return entry.count > RL_MAX;
 }
 
+// activeSignals/warnings are generated in Turkish by default (this endpoint's
+// original consumers are all Turkish-locale pages). English-only pages
+// (e.g. /global/en/graphic) pass ?lang=en to get these translated — applied
+// post-computation (and post-cache-hit) so the shared per-ticker cache
+// itself always stays Turkish, and translation never mutates cached data.
+const WARNING_TRANSLATIONS_EN: Record<string, string> = {
+  "RSI aşırı alım bölgesinde — kısa vadede geri çekilme riski": "RSI is in overbought territory — risk of a short-term pullback",
+  "52 haftalık zirveden uzak — trend zayıf olabilir": "Far from the 52-week high — trend may be weak",
+  "ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla": "ATR% is high — size your position according to volatility",
+  "Hacim ortalamanın çok altında — likidite riski": "Volume is well below average — liquidity risk",
+};
+
+function localizeAnalysis(data: PreorderAnalysis, lang: string): PreorderAnalysis {
+  if (lang !== "en") return data;
+  return {
+    ...data,
+    activeSignals: data.activeSignals.map((s) =>
+      s === "MACD Pozitif" ? "MACD Positive" : s.replace("Güçlü gün", "Strong day")
+    ),
+    warnings: data.warnings.map((w) => WARNING_TRANSLATIONS_EN[w] || w),
+  };
+}
+
 // ── Math helpers ────────────────────────────────────────────────────────────
 
 function calcEMA(closes: number[], period: number): number {
@@ -398,10 +421,11 @@ export async function GET(req: NextRequest) {
 
   const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase().trim();
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
+  const lang = req.nextUrl.searchParams.get("lang") === "en" ? "en" : "tr";
 
   // Cache check
   const hit = cache.get(ticker);
-  if (hit && Date.now() - hit.ts < CACHE_TTL) return NextResponse.json(hit.data);
+  if (hit && Date.now() - hit.ts < CACHE_TTL) return NextResponse.json(localizeAnalysis(hit.data, lang));
 
   const BASE = "https://query1.finance.yahoo.com/v8/finance/chart";
   const [r1d, r1h, r15m] = await Promise.all([
@@ -702,5 +726,5 @@ export async function GET(req: NextRequest) {
   };
 
   cache.set(ticker, { data: result, ts: Date.now() });
-  return NextResponse.json(result);
+  return NextResponse.json(localizeAnalysis(result, lang));
 }
