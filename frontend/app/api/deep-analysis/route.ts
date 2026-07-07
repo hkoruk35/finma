@@ -731,7 +731,7 @@ export async function POST(req: NextRequest) {
   try {
     const { ticker, stockData, lang: langRaw } = await req.json();
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
-    const lang: "tr" | "en" = langRaw === "en" ? "en" : "tr";
+    const lang: "tr" | "en" = (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
 
     // ── Validate stockData has real content before caching ───────────────────
     const hasRealStockData = !!(stockData?.price?.current && stockData.price.current !== 100 &&

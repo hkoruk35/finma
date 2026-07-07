@@ -362,7 +362,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
             <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
               <PlanRow label={L(lang, "Giriş Bölgesi", "Entry Zone")} value={fmtUsd(plan.entry)} valueColor="cyan" />
-              <PlanRow label="Stop Loss" value={fmtUsd(plan.stop)} valueColor="red" note={`-${(((plan.entry - plan.stop) / plan.entry) * 100).toFixed(1)}%`} />
+              <PlanRow label={L(lang, "Zarar Kes", "Stop Loss")} value={fmtUsd(plan.stop)} valueColor="red" note={`-${(((plan.entry - plan.stop) / plan.entry) * 100).toFixed(1)}%`} />
               <PlanRow label="T1" value={fmtUsd(plan.t1)} valueColor="green" note={`+${(((plan.t1 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
               <PlanRow label="T2" value={fmtUsd(plan.t2)} valueColor="green" note={`+${(((plan.t2 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
             </div>
