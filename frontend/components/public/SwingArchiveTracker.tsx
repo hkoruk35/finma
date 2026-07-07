@@ -4,8 +4,24 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 
 const ACCENT = "#58a6ff";
+
+// Free-trial members can browse the archive, but the most recent
+// RECENT_LOCK_DAYS days' ticker identities are gated behind Premium —
+// otherwise a free trial is a free feed of today's fresh picks.
+const RECENT_LOCK_DAYS = 5;
+
+function LockBadge() {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+      <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+      Premium
+    </span>
+  );
+}
 
 export interface ArchivePick {
   ticker: string;
@@ -84,14 +100,24 @@ export default function SwingArchiveTracker({
 }) {
   const [selectedDate, setSelectedDate] = useState(archives[0]?.date ?? "");
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
+  const { isFreeTrial } = useMemberPlan();
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : "/global/tr/swing";
   const permalink = (ticker: string) => `/admin/${ticker.toLowerCase()}`;
+
+  // archives is sorted most-recent-first, so the first RECENT_LOCK_DAYS
+  // entries are exactly "the last N days."
+  const recentDates = useMemo(
+    () => new Set(archives.slice(0, RECENT_LOCK_DAYS).map((a) => a.date)),
+    [archives]
+  );
 
   const selectedDay = useMemo(
     () => archives.find((a) => a.date === selectedDate) ?? archives[0],
     [archives, selectedDate]
   );
+  const selectedDayLocked = isFreeTrial && !!selectedDay && recentDates.has(selectedDay.date);
 
   // Union of tickers across all archived days, ordered by their rank in the most recent day first.
   const allTickers = useMemo(() => {
@@ -118,6 +144,12 @@ export default function SwingArchiveTracker({
     });
     return map;
   }, [archives]);
+
+  // A ticker's identity is gated in the heatmap if it was picked on any of
+  // the recent (locked) days — its older history rows are gated along with it,
+  // consistent with never revealing which stocks were recently signaled.
+  const tickerLocked = (ticker: string) =>
+    isFreeTrial && Array.from(recentDates).some((d) => pickByTickerByDate[ticker]?.[d]);
 
   if (archives.length === 0) {
     return (
@@ -196,6 +228,7 @@ export default function SwingArchiveTracker({
                   borderRadius: 3, cursor: "pointer",
                 }}
               >
+                {isFreeTrial && recentDates.has(day.date) ? "🔒 " : ""}
                 {formatDateShort(day.date, locale)}
                 {i === 0 ? ` (${locale === "tr" ? "son" : "latest"})` : ""}
               </button>
@@ -203,6 +236,15 @@ export default function SwingArchiveTracker({
           </div>
         )}
       </div>
+
+      {activeTab === "table" && selectedDayLocked && (
+        <div style={{ margin: "10px 4px 0", padding: "8px 12px", borderRadius: 6, border: "1px solid #f59e0b44", background: "#f59e0b0d", color: "#f59e0b", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+             onClick={() => setShowPremiumModal(true)}>
+          🔒 {locale === "tr"
+            ? `Son ${RECENT_LOCK_DAYS} günün ticker isimleri sadece Premium üyelere açıktır — yükseltmek için tıklayın`
+            : `Ticker names for the last ${RECENT_LOCK_DAYS} days are Premium-only — click to upgrade`}
+        </div>
+      )}
 
       {/* TABLE — selected day's picks */}
       {activeTab === "table" && selectedDay && (
@@ -236,11 +278,19 @@ export default function SwingArchiveTracker({
               {selectedDay.picks.map((p, idx) => {
                 const labelColor = p.label ? LABEL_COLOR[p.label.color] || "#8b949e" : "#8b949e";
                 return (
-                  <tr key={p.ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                  <tr
+                    key={p.ticker}
+                    style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d", cursor: selectedDayLocked ? "pointer" : undefined }}
+                    onClick={selectedDayLocked ? () => setShowPremiumModal(true) : undefined}
+                  >
                     <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                      <TickerHoverChart ticker={p.ticker} detailHref={permalink(p.ticker)}>
-                        <span>{p.ticker}</span>
-                      </TickerHoverChart>
+                      {selectedDayLocked ? (
+                        <LockBadge />
+                      ) : (
+                        <TickerHoverChart ticker={p.ticker} detailHref={permalink(p.ticker)}>
+                          <span>{p.ticker}</span>
+                        </TickerHoverChart>
+                      )}
                     </td>
                     <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{p.sector || "—"}</td>
                     <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(p.price)}</td>
@@ -251,13 +301,22 @@ export default function SwingArchiveTracker({
                     <td style={{ padding: "6px 8px", textAlign: "right", fontSize: 11, fontWeight: 700, color: labelColor }}>
                       {p.label?.text || "—"}
                     </td>
-                    <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                      <Link
-                        href={permalink(p.ticker)}
-                        style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}
-                      >
-                        {locale === "tr" ? "ANALİZ" : "ANALYZE"}
-                      </Link>
+                    <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => selectedDayLocked && e.stopPropagation()}>
+                      {selectedDayLocked ? (
+                        <button
+                          onClick={() => setShowPremiumModal(true)}
+                          style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "3px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}
+                        >
+                          🔒 {locale === "tr" ? "PREMIUM" : "PREMIUM"}
+                        </button>
+                      ) : (
+                        <Link
+                          href={permalink(p.ticker)}
+                          style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block" }}
+                        >
+                          {locale === "tr" ? "ANALİZ" : "ANALYZE"}
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 );
@@ -288,12 +347,22 @@ export default function SwingArchiveTracker({
                 </tr>
               </thead>
               <tbody>
-                {allTickers.map((ticker, idx) => (
-                  <tr key={ticker} style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d" }}>
+                {allTickers.map((ticker, idx) => {
+                  const locked = tickerLocked(ticker);
+                  return (
+                  <tr
+                    key={ticker}
+                    style={{ background: idx % 2 === 1 ? "#161b22" : "#0d1117", borderBottom: "1px solid #21262d", cursor: locked ? "pointer" : undefined }}
+                    onClick={locked ? () => setShowPremiumModal(true) : undefined}
+                  >
                     <td style={{ padding: "6px 10px" }}>
-                      <TickerHoverChart ticker={ticker} detailHref={permalink(ticker)}>
-                        <Link href={permalink(ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{ticker}</Link>
-                      </TickerHoverChart>
+                      {locked ? (
+                        <LockBadge />
+                      ) : (
+                        <TickerHoverChart ticker={ticker} detailHref={permalink(ticker)}>
+                          <Link href={permalink(ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{ticker}</Link>
+                        </TickerHoverChart>
+                      )}
                     </td>
                     {archives.map((day) => {
                       const pick = pickByTickerByDate[ticker]?.[day.date];
@@ -306,7 +375,8 @@ export default function SwingArchiveTracker({
                       );
                     })}
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -328,6 +398,8 @@ export default function SwingArchiveTracker({
           </div>
         </div>
       )}
+
+      {showPremiumModal && <PremiumModal locale={locale} onClose={() => setShowPremiumModal(false)} />}
     </div>
   );
 }
