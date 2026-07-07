@@ -74,7 +74,26 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
   const high52 = Math.max(rd.high52w || 0, price * 1.10);
 
   if (horizon === "swing") {
-    const entry = +(price >= ema20 * 0.995 ? price : Math.min(price, ema20) * 1.002).toFixed(2);
+    // Downtrend (price below both EMAs, EMA20 sagging below EMA50): don't
+    // suggest chasing the falling price — require a confirmed EMA20
+    // breakout instead, and flag it so the user knows to wait.
+    const isDowntrend = price < ema20 && ema20 < ema50;
+    let entry: number;
+    let waitWarning: string | null = null;
+
+    if (isDowntrend) {
+      entry = +(ema20 * 1.005).toFixed(2);
+      waitWarning = L(
+        lang,
+        `Bekleme: Düşüş trendi — EMA20 (${fmtUsd(ema20)}) üstünde günlük kapanış onayı bekleniyor`,
+        `Wait: Downtrend — waiting for a daily close above EMA20 (${fmtUsd(ema20)}) to confirm reversal`,
+        `Espera: Tendencia bajista — esperando un cierre diario por encima de EMA20 (${fmtUsd(ema20)})`,
+        `Attente : Tendance baissière — en attente d'une clôture journalière au-dessus de l'EMA20 (${fmtUsd(ema20)})`
+      );
+    } else {
+      entry = +(price >= ema20 * 0.995 ? price : Math.min(price, ema20) * 1.002).toFixed(2);
+    }
+
     const stop  = +Math.min(s1, entry * 0.975).toFixed(2);
     const risk  = Math.max(entry - stop, price * 0.01);
     const t1    = +Math.max(r1, entry * 1.05).toFixed(2);
@@ -85,7 +104,7 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
     const trailRule = lang === "tr"
       ? `${fmtUsd(t1)} üstünde günlük kapanış → stop ${fmtUsd(trailStop)}'a taşı (giriş +%50R)`
       : `Daily close above ${fmtUsd(t1)} → trail stop to ${fmtUsd(trailStop)} (entry +50%R)`;
-    return { timeframe: L(lang, "Swing (7-15 Gün)", "Swing (7-15 Days)"), entry, stop, t1, t2, rr1, rr2, invalidation: s1, anchor: L(lang, "EMA20 baz", "EMA20 anchor"), trailRule };
+    return { timeframe: L(lang, "Swing (7-15 Gün)", "Swing (7-15 Days)"), entry, stop, t1, t2, rr1, rr2, invalidation: s1, anchor: L(lang, "EMA20 baz", "EMA20 anchor"), trailRule, waitWarning };
   }
 
   if (horizon === "position") {
@@ -370,6 +389,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             </div>
           </div>
           <div className="text-[10px] text-slate-500 mb-3">{plan.timeframe} · {plan.anchor}</div>
+
+          {plan.waitWarning && (
+            <div className="mb-3 px-3 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[11px] font-semibold">
+              ⏳ {plan.waitWarning}
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
             <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
