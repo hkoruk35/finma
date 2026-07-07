@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import BogaChartEngine from "./charts/BogaChartEngine";
 
 interface Props {
   ticker: string;
@@ -338,6 +339,17 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <MetricBox label="IV Rank" value={`${ivRank.toFixed(0)}%`} sub={`IV ${iv}%`} color={ivRank > 50 ? "red" : "purple"} />
             <MetricBox label={L(lang, "30G Beklenti", "30D Implied")} value={`±${fmtUsd(implied)}`} sub={`±${cp > 0 ? ((implied / cp) * 100).toFixed(1) : "—"}%`} color="cyan" />
           </div>
+        </div>
+
+        {/* ── 1.5 CHART ────────────────────────────────────────────────────── */}
+        <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-2xl overflow-hidden">
+          <BogaChartEngine
+            symbol={ticker}
+            lang={lang}
+            height={360}
+            defaultIndicators={["ema20", "ema50"]}
+            defaultTimeframe="D"
+          />
         </div>
 
         {/* ── 2. TRADE PLAN ────────────────────────────────────────────────── */}
