@@ -69,13 +69,16 @@ class VolumeProfilePaneView implements IPrimitivePaneView {
   constructor(private source: BogaVolumeProfile) {}
 
   update() {
-    const { rows, anchorTime, widthBars, series, chart } = this.source;
+    const { rows, anchorLogical, widthBars, series, chart } = this.source;
     if (rows.length === 0) {
       this._items = [];
       return;
     }
     const timeScale = chart.timeScale();
-    this._x = timeScale.timeToCoordinate(anchorTime);
+    // logicalToCoordinate (not timeToCoordinate) — the anchor sits past the
+    // last real bar, in the empty rightOffset margin, where there's no
+    // actual Time value to convert from.
+    this._x = timeScale.logicalToCoordinate(anchorLogical as Logical);
     const maxWidth = timeScale.options().barSpacing * widthBars;
 
     const step = rows.length > 1 ? Math.abs(rows[0].price - rows[1].price) : 1;
@@ -105,7 +108,7 @@ export class BogaVolumeProfile implements ISeriesPrimitive<Time> {
     public chart: IChartApi,
     public series: ISeriesApi<SeriesType>,
     public rows: VPRow[],
-    public anchorTime: Time,
+    public anchorLogical: number,
     public widthBars: number
   ) {
     this._recalcRange();
@@ -121,9 +124,9 @@ export class BogaVolumeProfile implements ISeriesPrimitive<Time> {
     }
   }
 
-  updateData(rows: VPRow[], anchorTime: Time, widthBars: number) {
+  updateData(rows: VPRow[], anchorLogical: number, widthBars: number) {
     this.rows = rows;
-    this.anchorTime = anchorTime;
+    this.anchorLogical = anchorLogical;
     this.widthBars = widthBars;
     this._recalcRange();
   }

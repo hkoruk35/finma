@@ -312,20 +312,20 @@ export default function BogaChartEngine({
       const visibleBars = bars.filter((b) => b.time >= lastBar.time - windowSeconds);
       const profileBars = visibleBars.length > 1 ? visibleBars : bars;
       const rows = computeVolumeProfile(profileBars, 24);
-      const barInterval = bars.length > 1 ? bars[bars.length - 1].time - bars[bars.length - 2].time : 86400;
 
       // Anchor at the far edge of the reserved right-hand margin (not at the
-      // last candle) and size the profile to fit entirely within that
-      // margin — otherwise it draws directly over the most recent candles.
+      // last candle) using the logical index space — timeToCoordinate can't
+      // resolve a Time value past the last real bar, but logical indices
+      // extend smoothly into the empty rightOffset margin.
       chart.timeScale().applyOptions({ rightOffset: VP_MARGIN_BARS + 2 });
-      const anchorTime = (lastBar.time + barInterval * (VP_MARGIN_BARS + 1)) as UTCTimestamp;
+      const anchorLogical = bars.length - 1 + VP_MARGIN_BARS + 1;
       const widthBars = VP_MARGIN_BARS;
 
       if (!vpPrimitiveRef.current) {
-        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorTime, widthBars);
+        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorLogical, widthBars);
         mainSeries.attachPrimitive(vpPrimitiveRef.current);
       } else {
-        vpPrimitiveRef.current.updateData(rows, anchorTime, widthBars);
+        vpPrimitiveRef.current.updateData(rows, anchorLogical, widthBars);
       }
     } else if (vpPrimitiveRef.current) {
       mainSeries.detachPrimitive(vpPrimitiveRef.current);
