@@ -125,6 +125,7 @@ export default function BogaChartEngine({
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
         textColor: "#8b949e",
+        attributionLogo: false,
       },
       grid: {
         vertLines: { color: "#1e2a3a" },
