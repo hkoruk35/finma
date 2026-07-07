@@ -32,6 +32,13 @@ const WARNING_TRANSLATIONS_EN: Record<string, string> = {
   "Hacim ortalamanın çok altında — likidite riski": "Volume is well below average — liquidity risk",
 };
 
+const PATTERN_TRANSLATIONS_EN: Record<string, string> = {
+  "Güçlü Kapanış ↑": "Strong Close ↑",
+  "Zayıf Kapanış ↓": "Weak Close ↓",
+  "Yeşil Mum ↑": "Green Candle ↑",
+  "Kırmızı Mum ↓": "Red Candle ↓",
+};
+
 function localizeAnalysis(data: PreorderAnalysis, lang: string): PreorderAnalysis {
   if (lang !== "en") return data;
   return {
@@ -40,6 +47,12 @@ function localizeAnalysis(data: PreorderAnalysis, lang: string): PreorderAnalysi
       s === "MACD Pozitif" ? "MACD Positive" : s.replace("Güçlü gün", "Strong day")
     ),
     warnings: data.warnings.map((w) => WARNING_TRANSLATIONS_EN[w] || w),
+    timeframes: {
+      ...data.timeframes,
+      d1: { ...data.timeframes.d1, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.d1.pattern] || data.timeframes.d1.pattern },
+      h1: { ...data.timeframes.h1, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.h1.pattern] || data.timeframes.h1.pattern },
+      m15: { ...data.timeframes.m15, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.m15.pattern] || data.timeframes.m15.pattern },
+    },
   };
 }
 
