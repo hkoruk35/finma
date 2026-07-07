@@ -745,16 +745,55 @@ const SYSTEM_MSG: Record<"tr" | "en" | "es" | "fr", string> = {
   fr: `Vous êtes un assistant d'analyse financière. Retournez UNIQUEMENT un objet JSON valide. Pas d'explication, de préambule ou de markdown. Le premier caractère doit être { et le dernier caractère doit être }.`,
 };
 
+// The AI's JSON schema keys are internal plumbing only (never shown to
+// users), but Turkish key names (hisseTipi, yukselisKarakteri, ...) in the
+// prompt nudge the model toward Turkish *values* even when explicitly asked
+// for English/Spanish/French — the model picks up the language cue from the
+// keys as much as the instruction sentence. For non-Turkish requests, the
+// schema sent to the model uses neutral English key names instead; the
+// response is remapped back to the internal Turkish keys after parsing
+// (see remapNeutralKeys below) so nothing else in this file has to change.
+const NEUTRAL_TO_INTERNAL_KEY: Record<string, string> = {
+  stockType: "hisseTipi",
+  bullishCharacter: "yukselisKarakteri",
+  bearishCharacter: "dususKarakteri",
+  volumeReaction: "hacimTepkisi",
+  newsImpact: "haberEtkisi",
+  trendStatus: "trendDurumu",
+  criticalLevels: "kritikSeviyeler",
+  momentumComment: "momentumYorumu",
+  volatility: "volatilite",
+  bearTrigger: "bearTetikleyici",
+  baseTrigger: "baseTetikleyici",
+  bullTrigger: "bullTetikleyici",
+  bearProbability: "bearOlasilik",
+  baseProbability: "baseOlasilik",
+  bullProbability: "bullOlasilik",
+  recommendation: "oneri",
+  criticalRisk: "kritikRisk",
+  overallScore: "genelPuan",
+};
+
+function remapNeutralKeys(obj: Record<string, any>): Record<string, any> {
+  const out: Record<string, any> = {};
+  for (const [k, v] of Object.entries(obj)) out[NEUTRAL_TO_INTERNAL_KEY[k] || k] = v;
+  return out;
+}
+
 function buildUserPrompt(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
   const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}`;
-  const schema = `{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${(p.masterScore / 10).toFixed(1)}}`;
+  const roundedScore = (p.masterScore / 10).toFixed(1);
+  const schema =
+    lang === "tr"
+      ? `{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${roundedScore}}`
+      : `{"stockType":"...","bullishCharacter":"...","bearishCharacter":"...","volumeReaction":"...","newsImpact":"...","trendStatus":"...","criticalLevels":"...","momentumComment":"...","volatility":"...","bearTrigger":"...","baseTrigger":"...","bullTrigger":"...","bearProbability":25,"baseProbability":55,"bullProbability":20,"recommendation":"...","criticalRisk":"...","overallScore":${roundedScore}}`;
   const instruction =
     lang === "en"
-      ? `Fill in these JSON fields — each value 1-2 sentences of plain English text (no quotes, no special characters):`
+      ? `Fill in these JSON fields — each value must be 1-2 sentences of plain English text (no quotes, no special characters). Every value must be written in English, with no Turkish words:`
       : lang === "es"
-      ? `Completa estos campos JSON — cada valor 1-2 oraciones de texto plano en español (sin comillas, sin caracteres especiales):`
+      ? `Completa estos campos JSON — cada valor debe ser 1-2 oraciones de texto plano en español (sin comillas, sin caracteres especiales). Los nombres de los campos están en inglés, pero cada valor debe escribirse en español, sin palabras en turco:`
       : lang === "fr"
-      ? `Remplissez ces champs JSON — chaque valeur 1-2 phrases de texte brut en français (sans guillemets, sans caractères spéciaux):`
+      ? `Remplissez ces champs JSON — chaque valeur doit être 1-2 phrases de texte brut en français (sans guillemets, sans caractères spéciaux). Les noms des champs sont en anglais, mais chaque valeur doit être rédigée en français, sans mots turcs:`
       : `Su JSON alanlarini doldur - her deger 1-2 cumle Turkce duz metin (tirnak yok, ozel karakter yok):`;
   return `${header}\n\n${instruction}\n${schema}`;
 }
@@ -1208,7 +1247,10 @@ export async function POST(req: NextRequest) {
       catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
     }
 
-    let ai: Record<string, any> = tryParseJSON(rawText) || buildFallback({ ...promptParams, support1, resistance1, ivRank }, lang);
+    const parsedAi = tryParseJSON(rawText);
+    let ai: Record<string, any> = parsedAi
+      ? (lang !== "tr" ? remapNeutralKeys(parsedAi) : parsedAi)
+      : buildFallback({ ...promptParams, support1, resistance1, ivRank }, lang);
 
     // ── VWAP20, POC, rs20d from historyRows ──────────────────────────────────
     let vwap20: number | null = null;
@@ -1401,6 +1443,8 @@ export async function GET(req: NextRequest) {
   try {
     const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase();
     if (!ticker) return NextResponse.json({ error: "Missing ticker parameter" }, { status: 400 });
+    const langParam = req.nextUrl.searchParams.get("lang");
+    const lang = langParam === "en" || langParam === "es" || langParam === "fr" ? langParam : "tr";
 
     // Fetch stock data from /api/data/stocks/{ticker}.json
     const dataRes = await fetch(`http://${req.headers.get("host")}/api/data/stocks/${ticker}.json`, { signal: AbortSignal.timeout(10000) });
@@ -1415,7 +1459,7 @@ export async function GET(req: NextRequest) {
     const postReq = new NextRequest(new URL(`${req.nextUrl.origin}/api/deep-analysis`), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ticker, stockData }),
+      body: JSON.stringify({ ticker, stockData, lang }),
     });
 
     return POST(postReq);
