@@ -647,9 +647,10 @@ function tryParseJSON(raw: string): Record<string, any> | null {
   }
 }
 
-function buildFallback(p: any, lang: "tr" | "en" = "tr") {
+function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
   const aboveEma20 = p.currentPrice > p.ema20;
   const aboveEma50 = p.currentPrice > p.ema50;
+
   if (lang === "en") {
     const trendStr = aboveEma20 && aboveEma50 ? "in an uptrend" : !aboveEma20 && !aboveEma50 ? "under downward pressure" : "showing mixed signals";
     return {
@@ -671,6 +672,51 @@ function buildFallback(p: any, lang: "tr" | "en" = "tr") {
       genelPuan: (p.masterScore / 10).toFixed(1),
     };
   }
+
+  if (lang === "es") {
+    const trendStr = aboveEma20 && aboveEma50 ? "en una tendencia alcista" : !aboveEma20 && !aboveEma50 ? "bajo presión a la baja" : "mostrando señales mixtas";
+    return {
+      hisseTipi: `Acción enfocada en análisis técnico en el sector ${p.sector}. Puntuación BOGA ${p.masterScore}/100, ${trendStr}.`,
+      yukselisKarakteri: `Las ganancias de impulso generan cierres fuertes por encima de los niveles de EMA. El impulso positivo se construye cuando el volumen confirma el rally.`,
+      dususKarakteri: `La consolidación puede ocurrir al romper soportes. Permanecer por debajo de EMA 50 indica presión a mediano plazo.`,
+      hacimTepkisi: `Los días de volumen superior al promedio aumentan la volatilidad y el movimiento direccional. El volumen decreciente apunta a consolidación.`,
+      haberEtkisi: `Las noticias del sector y los desarrollos macro afectan la acción del precio a corto plazo. Los períodos de ganancias impulsan mayor volatilidad.`,
+      trendDurumu: `El precio está actualmente ${aboveEma20 ? "por encima" : "por debajo"} de EMA 20 y ${aboveEma50 ? "por encima" : "por debajo"} de EMA 50. Panorama general: ${trendStr}.`,
+      kritikSeviyeler: `El soporte clave está en $${p.support1.toFixed(2)}. Una ruptura por encima de la resistencia $${p.resistance1.toFixed(2)} abre nuevos objetivos.`,
+      momentumYorumu: `RSI en ${p.rsi.toFixed(1)} está en territorio ${p.rsi > 70 ? "sobrecomprado" : p.rsi < 30 ? "sobrevendido" : "neutral"}. La alineación de EMA confirma la dirección actual.`,
+      volatilite: `IV al ${p.iv}% refleja un ambiente de volatilidad ${p.iv > 50 ? "alto" : p.iv > 30 ? "moderado" : "bajo"}.`,
+      bearTetikleyici: "Noticias negativas o presión del sector rompiendo soporte",
+      baseTetikleyici: "Continuación del impulso actual y estructura técnica",
+      bullTetikleyici: "Catalizador fuerte, ganancias positivas o compresión corta",
+      bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
+      oneri: `Considerando la estructura técnica, ${p.masterScore >= 60 ? "la configuración favorece un sesgo largo." : "esperar una señal más clara es aconsejable."}`,
+      kritikRisk: "Las fechas de ganancias y eventos macro como FOMC deben monitorearse de cerca, ya que pueden impulsar volatilidad aguda.",
+      genelPuan: (p.masterScore / 10).toFixed(1),
+    };
+  }
+
+  if (lang === "fr") {
+    const trendStr = aboveEma20 && aboveEma50 ? "dans une tendance haussière" : !aboveEma20 && !aboveEma50 ? "sous pression baissière" : "montrant des signaux mitigés";
+    return {
+      hisseTipi: `Action axée sur l'analyse technique dans le secteur ${p.sector}. Score BOGA ${p.masterScore}/100, ${trendStr}.`,
+      yukselisKarakteri: `Les gains de momentum génèrent des clôtures fortes au-dessus des niveaux d'EMA. L'élan positif s'accumule lorsque le volume confirme le rallye.`,
+      dususKarakteri: `La consolidation peut survenir lors de ruptures de support. Rester en dessous de l'EMA 50 signale une pression à moyen terme.`,
+      hacimTepkisi: `Les jours de volume supérieur à la moyenne augmentent la volatilité et le mouvement directionnel. La baisse du volume indique une consolidation.`,
+      haberEtkisi: `Les nouvelles sectorielles et les développements macro affectent l'action des prix à court terme. Les périodes de résultats augmentent la volatilité.`,
+      trendDurumu: `Le prix est actuellement ${aboveEma20 ? "au-dessus" : "en dessous"} de l'EMA 20 et ${aboveEma50 ? "au-dessus" : "en dessous"} de l'EMA 50. Vue d'ensemble: ${trendStr}.`,
+      kritikSeviyeler: `Le support clé est à $${p.support1.toFixed(2)}. Une rupture au-dessus de la résistance $${p.resistance1.toFixed(2)} ouvre de nouveaux objectifs.`,
+      momentumYorumu: `RSI à ${p.rsi.toFixed(1)} est en territoire ${p.rsi > 70 ? "suracheté" : p.rsi < 30 ? "survendu" : "neutre"}. L'alignement d'EMA confirme la direction actuelle.`,
+      volatilite: `IV à ${p.iv}% reflète un environnement de volatilité ${p.iv > 50 ? "élevé" : p.iv > 30 ? "modéré" : "faible"}.`,
+      bearTetikleyici: "Nouvelles négatives ou pression du secteur cassant support",
+      baseTetikleyici: "Continuation de l'élan actuel et structure technique",
+      bullTetikleyici: "Catalyseur fort, résultats positifs ou compression courte",
+      bearOlasilik: 25, baseOlasilik: 55, bullOlasilik: 20,
+      oneri: `Considérant la structure technique, ${p.masterScore >= 60 ? "la configuration favorise un biais haussier." : "attendre un signal plus clair est conseillé."}`,
+      kritikRisk: "Les dates de résultats et les événements macro comme le FOMC doivent être surveillés de près, car ils peuvent générer une volatilité importante.",
+      genelPuan: (p.masterScore / 10).toFixed(1),
+    };
+  }
+
   const trendStr = aboveEma20 && aboveEma50 ? "yükseliş trendinde" : !aboveEma20 && !aboveEma50 ? "düşüş baskısı altında" : "karışık sinyaller gösteriyor";
   return {
     hisseTipi: `${p.sector} sektöründe faaliyet gösteren teknik analiz odaklı hisse. BOGA skoru ${p.masterScore}/100 ile ${trendStr}.`,
@@ -692,21 +738,28 @@ function buildFallback(p: any, lang: "tr" | "en" = "tr") {
   };
 }
 
-const SYSTEM_MSG: Record<"tr" | "en", string> = {
+const SYSTEM_MSG: Record<"tr" | "en" | "es" | "fr", string> = {
   tr: `Sen bir finansal analiz asistanısın. YALNIZCA geçerli JSON nesnesi döndür. Hiçbir açıklama, giriş metni veya markdown ekleme. İlk karakter { ve son karakter } olmalıdır.`,
   en: `You are a financial analysis assistant. Return ONLY a valid JSON object. No explanation, preamble, or markdown. The first character must be { and the last character must be }.`,
+  es: `Eres un asistente de análisis financiero. Devuelve SOLO un objeto JSON válido. Sin explicaciones, preámbulos ni markdown. El primer carácter debe ser { y el último carácter debe ser }.`,
+  fr: `Vous êtes un assistant d'analyse financière. Retournez UNIQUEMENT un objet JSON valide. Pas d'explication, de préambule ou de markdown. Le premier caractère doit être { et le dernier caractère doit être }.`,
 };
 
-function buildUserPrompt(p: any, lang: "tr" | "en" = "tr") {
+function buildUserPrompt(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
   const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}`;
   const schema = `{"hisseTipi":"...","yukselisKarakteri":"...","dususKarakteri":"...","hacimTepkisi":"...","haberEtkisi":"...","trendDurumu":"...","kritikSeviyeler":"...","momentumYorumu":"...","volatilite":"...","bearTetikleyici":"...","baseTetikleyici":"...","bullTetikleyici":"...","bearOlasilik":25,"baseOlasilik":55,"bullOlasilik":20,"oneri":"...","kritikRisk":"...","genelPuan":${(p.masterScore / 10).toFixed(1)}}`;
-  const instruction = lang === "en"
-    ? `Fill in these JSON fields — each value 1-2 sentences of plain English text (no quotes, no special characters):`
-    : `Su JSON alanlarini doldur - her deger 1-2 cumle Turkce duz metin (tirnak yok, ozel karakter yok):`;
+  const instruction =
+    lang === "en"
+      ? `Fill in these JSON fields — each value 1-2 sentences of plain English text (no quotes, no special characters):`
+      : lang === "es"
+      ? `Completa estos campos JSON — cada valor 1-2 oraciones de texto plano en español (sin comillas, sin caracteres especiales):`
+      : lang === "fr"
+      ? `Remplissez ces champs JSON — chaque valeur 1-2 phrases de texte brut en français (sans guillemets, sans caractères spéciaux):`
+      : `Su JSON alanlarini doldur - her deger 1-2 cumle Turkce duz metin (tirnak yok, ozel karakter yok):`;
   return `${header}\n\n${instruction}\n${schema}`;
 }
 
-async function callGemini(userPrompt: string, lang: "tr" | "en" = "tr"): Promise<string> {
+async function callGemini(userPrompt: string, lang: "tr" | "en" | "es" | "fr" = "tr"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) throw new Error("GEMINI_API_KEY not set");
   const res = await fetch(
@@ -731,7 +784,7 @@ export async function POST(req: NextRequest) {
   try {
     const { ticker, stockData, lang: langRaw } = await req.json();
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
-    const lang: "tr" | "en" = (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
+    const lang: "tr" | "en" | "es" | "fr" = (langRaw === "en" || langRaw === "es" || langRaw === "fr") ? langRaw : "tr";
 
     // ── Validate stockData has real content before caching ───────────────────
     const hasRealStockData = !!(stockData?.price?.current && stockData.price.current !== 100 &&
@@ -1227,23 +1280,83 @@ export async function POST(req: NextRequest) {
       generatedAt: new Date().toISOString(),
       analysis: {
         dna: {
-          hisseTipi: str(ai.hisseTipi, lang === "en" ? `Technical analysis stock in the ${promptParams.sector} sector.` : `${promptParams.sector} sektörü teknik analiz hissesi.`),
-          yukselisKarakteri: str(ai.yukselisKarakteri, lang === "en" ? "Momentum gains build upward thrust." : "Momentum artışı ile yükseliş ivme kazanır."),
-          dususKarakteri: str(ai.dususKarakteri, lang === "en" ? "Consolidation can occur on support breaks." : "Destek kırılımlarında konsolidasyon yaşanabilir."),
-          hacimTepkisi: str(ai.hacimTepkisi, lang === "en" ? "High volume increases volatility and movement." : "Yüksek hacimde volatilite ve hareket artar."),
-          haberEtkisi: str(ai.haberEtkisi, lang === "en" ? "Sector and macro news affect short-term price action." : "Sektörel ve makro haberler kısa vadede etkilidir."),
+          hisseTipi: str(ai.hisseTipi,
+            lang === "en" ? `Technical analysis stock in the ${promptParams.sector} sector.`
+            : lang === "es" ? `Acción de análisis técnico en el sector ${promptParams.sector}.`
+            : lang === "fr" ? `Action d'analyse technique dans le secteur ${promptParams.sector}.`
+            : `${promptParams.sector} sektörü teknik analiz hissesi.`),
+          yukselisKarakteri: str(ai.yukselisKarakteri,
+            lang === "en" ? "Momentum gains build upward thrust."
+            : lang === "es" ? "Las ganancias de impulso crean impulso ascendente."
+            : lang === "fr" ? "Les gains de momentum créent une poussée ascendante."
+            : "Momentum artışı ile yükseliş ivme kazanır."),
+          dususKarakteri: str(ai.dususKarakteri,
+            lang === "en" ? "Consolidation can occur on support breaks."
+            : lang === "es" ? "La consolidación puede ocurrir al romper apoyos."
+            : lang === "fr" ? "La consolidation peut se produire lors de bris de support."
+            : "Destek kırılımlarında konsolidasyon yaşanabilir."),
+          hacimTepkisi: str(ai.hacimTepkisi,
+            lang === "en" ? "High volume increases volatility and movement."
+            : lang === "es" ? "El alto volumen aumenta la volatilidad y el movimiento."
+            : lang === "fr" ? "Le volume élevé augmente la volatilité et le mouvement."
+            : "Yüksek hacimde volatilite ve hareket artar."),
+          haberEtkisi: str(ai.haberEtkisi,
+            lang === "en" ? "Sector and macro news affect short-term price action."
+            : lang === "es" ? "Las noticias sectoriales y macro afectan la acción del precio a corto plazo."
+            : lang === "fr" ? "Les nouvelles sectorielles et macro affectent l'action des prix à court terme."
+            : "Sektörel ve makro haberler kısa vadede etkilidir."),
         },
         teknikYorum: {
-          trendDurumu: str(ai.trendDurumu, lang === "en" ? "Trend analysis is being evaluated from the data." : "Trend analizi verilerden değerlendiriliyor."),
-          kritikSeviyeler: str(ai.kritikSeviyeler, lang === "en" ? "Support and resistance levels are being actively monitored." : "Destek ve direnç seviyeleri aktif şekilde izleniyor."),
-          momentumYorumu: str(ai.momentumYorumu, lang === "en" ? "RSI and EMA momentum are in a neutral zone." : "RSI ve EMA momentum nötr bölgede seyrediyor."),
-          volatilite: str(ai.volatilite, lang === "en" ? "Current volatility is at an average level." : "Mevcut volatilite ortalama seviyesinde."),
+          trendDurumu: str(ai.trendDurumu,
+            lang === "en" ? "Trend analysis is being evaluated from the data."
+            : lang === "es" ? "El análisis de tendencias se está evaluando a partir de los datos."
+            : lang === "fr" ? "L'analyse des tendances est évaluée à partir des données."
+            : "Trend analizi verilerden değerlendiriliyor."),
+          kritikSeviyeler: str(ai.kritikSeviyeler,
+            lang === "en" ? "Support and resistance levels are being actively monitored."
+            : lang === "es" ? "Los niveles de soporte y resistencia se monitorean activamente."
+            : lang === "fr" ? "Les niveaux de support et de résistance sont activement surveillés."
+            : "Destek ve direnç seviyeleri aktif şekilde izleniyor."),
+          momentumYorumu: str(ai.momentumYorumu,
+            lang === "en" ? "RSI and EMA momentum are in a neutral zone."
+            : lang === "es" ? "El momentum RSI y EMA está en una zona neutral."
+            : lang === "fr" ? "Le momentum RSI et EMA est dans une zone neutre."
+            : "RSI ve EMA momentum nötr bölgede seyrediyor."),
+          volatilite: str(ai.volatilite,
+            lang === "en" ? "Current volatility is at an average level."
+            : lang === "es" ? "La volatilidad actual está en un nivel promedio."
+            : lang === "fr" ? "La volatilité actuelle est à un niveau moyen."
+            : "Mevcut volatilite ortalama seviyesinde."),
         },
         forecast15,
         scenarioOzeti: {
-          bear: { hedef: bearTarget, olasilik: num(ai.bearOlasilik, 25), tetikleyici: str(ai.bearTetikleyici, lang === "en" ? "Negative news / sector pressure" : "Negatif haber / sektör baskısı") },
-          base: { hedef: baseTarget, olasilik: num(ai.baseOlasilik, 55), tetikleyici: str(ai.baseTetikleyici, lang === "en" ? "Continuation of current momentum" : "Mevcut momentum devamı") },
-          bull: { hedef: bullTarget, olasilik: num(ai.bullOlasilik, 20), tetikleyici: str(ai.bullTetikleyici, lang === "en" ? "Strong catalyst / short squeeze" : "Güçlü katalizör / short squeeze") },
+          bear: {
+            hedef: bearTarget,
+            olasilik: num(ai.bearOlasilik, 25),
+            tetikleyici: str(ai.bearTetikleyici,
+              lang === "en" ? "Negative news / sector pressure"
+              : lang === "es" ? "Noticias negativas / presión del sector"
+              : lang === "fr" ? "Nouvelles négatives / pression du secteur"
+              : "Negatif haber / sektör baskısı")
+          },
+          base: {
+            hedef: baseTarget,
+            olasilik: num(ai.baseOlasilik, 55),
+            tetikleyici: str(ai.baseTetikleyici,
+              lang === "en" ? "Continuation of current momentum"
+              : lang === "es" ? "Continuación del momentum actual"
+              : lang === "fr" ? "Continuation de l'élan actuel"
+              : "Mevcut momentum devamı")
+          },
+          bull: {
+            hedef: bullTarget,
+            olasilik: num(ai.bullOlasilik, 20),
+            tetikleyici: str(ai.bullTetikleyici,
+              lang === "en" ? "Strong catalyst / short squeeze"
+              : lang === "es" ? "Catalizador fuerte / compresión corta"
+              : lang === "fr" ? "Catalyseur fort / compression courte"
+              : "Güçlü katalizör / short squeeze")
+          },
         },
         ceklistSkorlar,
         sonucKarar: {
