@@ -1,0 +1,80 @@
+{
+  "ticker": "PYPL",
+  "company": "PayPal Holdings, Inc.",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:01:00.237Z",
+  "sector": "Financial Services",
+  "industry": "Credit Services",
+  "price": {
+    "current": 45.09000015258789,
+    "open": 44.45000076293945,
+    "high": 45.1349983215332,
+    "low": 43.779998779296875,
+    "prev_close": 45.470001220703125,
+    "change_pct": -0.8357181832276147,
+    "change_pct_1w": 1.8062750519837543,
+    "change_pct_1m": 6.495040127750013,
+    "change_pct_1y": -41.128081592189666,
+    "volume": 11498900,
+    "avg_volume_30d": 497842000
+  },
+  "scores": {
+    "master_score": 76,
+    "technical_score": 70,
+    "fundamental_score": 81.35,
+    "momentum_score": 74,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 57.61422386660366,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 43.5390879665486,
+    "ema_50": 44.37635328252772,
+    "ema_200": 52.471496129356375,
+    "ema_stack_bullish": false,
+    "bb_upper": 47.34450016021729,
+    "bb_middle": 45.09000015258789,
+    "bb_lower": 42.835500144958495,
+    "bb_width": 10,
+    "atr": 1.54,
+    "atr_pct": 3.41,
+    "rvol": 0.9661836486274762,
+    "52w_high": 79.5,
+    "52w_low": 38.459999084472656
+  },
+  "fundamental": {
+    "pe_ratio": 8.459662,
+    "pb_ratio": 2.0086422,
+    "gross_margin": 0.40929002,
+    "operating_margin": 0.17969999,
+    "net_margin": 0.14997,
+    "market_cap": 39774134272,
+    "revenue_growth_ttm": 0.072,
+    "fcf_yield": 0.10266722599351917,
+    "institutional_ownership_pct": 0.79968,
+    "dividend_rate": 0.56,
+    "dividend_yield": 0.0124
+  },
+  "scores_detail": {
+    "entry_range_low": 44.38,
+    "entry_range_high": 45.24,
+    "target_range_low": 47.43,
+    "target_range_high": 47.89,
+    "stop_loss": 43.31,
+    "risk_reward_ratio": 2.04,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

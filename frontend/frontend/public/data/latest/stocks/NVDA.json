@@ -1,0 +1,80 @@
+{
+  "ticker": "NVDA",
+  "company": "NVIDIA Corporation",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:00:44.634Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 195.5500030517578,
+    "open": 194.4199981689453,
+    "high": 197.5500030517578,
+    "low": 193.99000549316406,
+    "prev_close": 194.8300018310547,
+    "change_pct": 0.36955356666652833,
+    "change_pct_1w": 1.5685889428186526,
+    "change_pct_1m": -6.278452541544642,
+    "change_pct_1y": 22.724995322004123,
+    "volume": 108655800,
+    "avg_volume_30d": 4982046300
+  },
+  "scores": {
+    "master_score": 55,
+    "technical_score": 45,
+    "fundamental_score": 79.7,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 41.95310336341718,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 202.0658402648367,
+    "ema_50": 203.85063995095157,
+    "ema_200": 191.77882818841965,
+    "ema_stack_bullish": false,
+    "bb_upper": 205.3275032043457,
+    "bb_middle": 195.5500030517578,
+    "bb_lower": 185.77250289916992,
+    "bb_width": 10,
+    "atr": 6.34,
+    "atr_pct": 3.24,
+    "rvol": 0.8577011819420466,
+    "52w_high": 236.5399932861328,
+    "52w_low": 157.33999633789062
+  },
+  "fundamental": {
+    "pe_ratio": 29.946402,
+    "pb_ratio": 24.231724,
+    "gross_margin": 0.74144995,
+    "operating_margin": 0.65596,
+    "net_margin": 0.62966,
+    "market_cap": 4736416743424,
+    "revenue_growth_ttm": 0.852,
+    "fcf_yield": 0.009782896128878931,
+    "institutional_ownership_pct": 0.70804,
+    "dividend_rate": 1,
+    "dividend_yield": 0.0050999997
+  },
+  "scores_detail": {
+    "entry_range_low": 191.75,
+    "entry_range_high": 196.18,
+    "target_range_low": 205.28,
+    "target_range_high": 207.27,
+    "stop_loss": 187.31,
+    "risk_reward_ratio": 2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

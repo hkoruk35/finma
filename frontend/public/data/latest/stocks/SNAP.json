@@ -1,0 +1,80 @@
+{
+  "ticker": "SNAP",
+  "company": "Snap Inc.",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:01:05.245Z",
+  "sector": "Communication Services",
+  "industry": "Internet Content & Information",
+  "price": {
+    "current": 4.75,
+    "open": 4.820000171661377,
+    "high": 4.875,
+    "low": 4.710000038146973,
+    "prev_close": 4.840000152587891,
+    "change_pct": -1.8595072262501604,
+    "change_pct_1w": 7.709754293697099,
+    "change_pct_1m": 2.59179012079943,
+    "change_pct_1y": -48.759441581021164,
+    "volume": 29591100,
+    "avg_volume_30d": 1352751800
+  },
+  "scores": {
+    "master_score": 47,
+    "technical_score": 30,
+    "fundamental_score": 59.9,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "SELL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 43.20481692484195,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 4.897329438986121,
+    "ema_50": 5.225247144930479,
+    "ema_200": 6.294831551156257,
+    "ema_stack_bullish": false,
+    "bb_upper": 4.9875,
+    "bb_middle": 4.75,
+    "bb_lower": 4.5125,
+    "bb_width": 10,
+    "atr": 0.29,
+    "atr_pct": 6.17,
+    "rvol": 0.9669050893149801,
+    "52w_high": 10.40999984741211,
+    "52w_low": 3.809999942779541
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 3.868078,
+    "gross_margin": 0.55794,
+    "operating_margin": -0.048699997,
+    "net_margin": -0.06722,
+    "market_cap": 7871514624,
+    "revenue_growth_ttm": 0.121,
+    "fcf_yield": 0.0855497220251369,
+    "institutional_ownership_pct": 0.4691,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 4.51,
+    "entry_range_high": 4.78,
+    "target_range_low": 5.75,
+    "target_range_high": 5.94,
+    "stop_loss": 4.3,
+    "risk_reward_ratio": 3.81,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

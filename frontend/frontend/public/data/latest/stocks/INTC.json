@@ -1,0 +1,80 @@
+{
+  "ticker": "INTC",
+  "company": "Intel Corporation",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:00:54.654Z",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "price": {
+    "current": 122.19999694824219,
+    "open": 122.56999969482422,
+    "high": 127.30000305175781,
+    "low": 121.5199966430664,
+    "prev_close": 120.3499984741211,
+    "change_pct": 1.537181967242733,
+    "change_pct_1w": -4.769334497085467,
+    "change_pct_1m": -13.29644186784724,
+    "change_pct_1y": 443.3525931163965,
+    "volume": 86396800,
+    "avg_volume_30d": 3758562400
+  },
+  "scores": {
+    "master_score": 60,
+    "technical_score": 85,
+    "fundamental_score": 35.15,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 50.34279897817276,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 124.48976927667397,
+    "ema_50": 110.9417020057087,
+    "ema_200": 70.32896910558941,
+    "ema_stack_bullish": true,
+    "bb_upper": 128.3099967956543,
+    "bb_middle": 122.19999694824219,
+    "bb_lower": 116.08999710083008,
+    "bb_width": 10,
+    "atr": 10.83,
+    "atr_pct": 8.86,
+    "rvol": 0.8746167417627548,
+    "52w_high": 142.35000610351562,
+    "52w_low": 18.969999313354492
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 5.510213,
+    "gross_margin": 0.372,
+    "operating_margin": 0.06879,
+    "net_margin": -0.05904,
+    "market_cap": 614177177600,
+    "revenue_growth_ttm": 0.072,
+    "fcf_yield": -0.013516050987824917,
+    "institutional_ownership_pct": 0.64013,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 115.7,
+    "entry_range_high": 123.28,
+    "target_range_low": 138.82,
+    "target_range_high": 142.23,
+    "stop_loss": 108.13,
+    "risk_reward_ratio": 2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

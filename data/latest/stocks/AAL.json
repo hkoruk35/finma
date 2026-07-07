@@ -1,0 +1,80 @@
+{
+  "ticker": "AAL",
+  "company": "American Airlines Group Inc.",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T12:59:56.539Z",
+  "sector": "Industrials",
+  "industry": "Airlines",
+  "price": {
+    "current": 17.75,
+    "open": 18.09000015258789,
+    "high": 18.440000534057617,
+    "low": 17.68000030517578,
+    "prev_close": 17.920000076293945,
+    "change_pct": -0.9486611359942763,
+    "change_pct_1w": -0.6715211729030133,
+    "change_pct_1m": 10.385572663044208,
+    "change_pct_1y": 51.83918423560798,
+    "volume": 142846300,
+    "avg_volume_30d": 3815317900
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 90,
+    "fundamental_score": 66.5,
+    "momentum_score": 56,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 72.27757657192183,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 16.441847080136363,
+    "ema_50": 14.826076659758922,
+    "ema_200": 13.393370658555611,
+    "ema_stack_bullish": true,
+    "bb_upper": 18.6375,
+    "bb_middle": 17.75,
+    "bb_lower": 16.8625,
+    "bb_width": 10,
+    "atr": 0.74,
+    "atr_pct": 4.16,
+    "rvol": 1.132120288063021,
+    "52w_high": 18.790000915527344,
+    "52w_low": 10.09000015258789
+  },
+  "fundamental": {
+    "pe_ratio": 57.258064,
+    "pb_ratio": 0,
+    "gross_margin": 0.22872,
+    "operating_margin": -0.00065,
+    "net_margin": 0.00361,
+    "market_cap": 11739586560,
+    "revenue_growth_ttm": 0.108,
+    "fcf_yield": 0.07335224180160566,
+    "institutional_ownership_pct": 0.71219003,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 17.31,
+    "entry_range_high": 17.82,
+    "target_range_low": 18.88,
+    "target_range_high": 19.12,
+    "stop_loss": 16.79,
+    "risk_reward_ratio": 2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

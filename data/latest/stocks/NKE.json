@@ -1,0 +1,80 @@
+{
+  "ticker": "NKE",
+  "company": "NIKE, Inc.",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:01:25.277Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Footwear & Accessories",
+  "price": {
+    "current": 43.34000015258789,
+    "open": 43.900001525878906,
+    "high": 44.11000061035156,
+    "low": 41.84000015258789,
+    "prev_close": 44.09000015258789,
+    "change_pct": -1.7010659954737564,
+    "change_pct_1w": 6.355828595307707,
+    "change_pct_1m": 0.34730616033440737,
+    "change_pct_1y": -43.26482458584642,
+    "volume": 21952500,
+    "avg_volume_30d": 816376300
+  },
+  "scores": {
+    "master_score": 63,
+    "technical_score": 60,
+    "fundamental_score": 56.6,
+    "momentum_score": 81,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.58062071221046,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 43.17101384956261,
+    "ema_50": 44.707112955435726,
+    "ema_200": 55.22020283951271,
+    "ema_stack_bullish": false,
+    "bb_upper": 45.50700016021729,
+    "bb_middle": 43.34000015258789,
+    "bb_lower": 41.17300014495849,
+    "bb_width": 10,
+    "atr": 1.53,
+    "atr_pct": 3.54,
+    "rvol": 1.7498386467123066,
+    "52w_high": 80.16999816894531,
+    "52w_low": 40
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 42.63,
+    "entry_range_high": 43.49,
+    "target_range_low": 45.67,
+    "target_range_high": 46.13,
+    "stop_loss": 41.55,
+    "risk_reward_ratio": 2.04,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}

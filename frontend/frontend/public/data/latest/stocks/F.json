@@ -1,0 +1,80 @@
+{
+  "ticker": "F",
+  "company": "Ford Motor Company",
+  "date": "2026-07-07",
+  "generated_at": "2026-07-07T13:01:10.143Z",
+  "sector": "Consumer Cyclical",
+  "industry": "Auto Manufacturers",
+  "price": {
+    "current": 13.829999923706055,
+    "open": 13.510000228881836,
+    "high": 13.899999618530273,
+    "low": 13.420000076293945,
+    "prev_close": 13.359999656677246,
+    "change_pct": 3.5179661609789434,
+    "change_pct_1w": -2.1231435831926273,
+    "change_pct_1m": -1.9844063769249471,
+    "change_pct_1y": 17.104144219453936,
+    "volume": 54271400,
+    "avg_volume_30d": 1970919400
+  },
+  "scores": {
+    "master_score": 52,
+    "technical_score": 70,
+    "fundamental_score": 28.55,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "NEUTRAL",
+    "score_type": "NEUTRAL",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 45.92493612953931,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 14.11978710856427,
+    "ema_50": 13.922042880666444,
+    "ema_200": 13.125140017109738,
+    "ema_stack_bullish": true,
+    "bb_upper": 14.521499919891358,
+    "bb_middle": 13.829999923706055,
+    "bb_lower": 13.138499927520751,
+    "bb_width": 10,
+    "atr": 0.5,
+    "atr_pct": 3.65,
+    "rvol": 0.7715450971764751,
+    "52w_high": 17.780000686645508,
+    "52w_low": 10.680000305175781
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 1.471433,
+    "gross_margin": 0.07064,
+    "operating_margin": 0.05743,
+    "net_margin": -0.03216,
+    "market_cap": 55108300800,
+    "revenue_growth_ttm": 0.064,
+    "fcf_yield": -0.040783330267370535,
+    "institutional_ownership_pct": 0.67613,
+    "dividend_rate": 0.6,
+    "dividend_yield": 0.0434
+  },
+  "scores_detail": {
+    "entry_range_low": 13.53,
+    "entry_range_high": 13.88,
+    "target_range_low": 14.6,
+    "target_range_high": 14.76,
+    "stop_loss": 13.17,
+    "risk_reward_ratio": 2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}
