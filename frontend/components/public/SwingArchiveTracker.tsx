@@ -104,7 +104,7 @@ export default function SwingArchiveTracker({
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : "/global/tr/swing";
-  const permalink = (ticker: string) => `/admin/${ticker.toLowerCase()}`;
+  const permalink = (ticker: string) => `/global/${locale}/analysis/${ticker.toUpperCase()}`;
 
   // archives is sorted most-recent-first, so the first RECENT_LOCK_DAYS
   // entries are exactly "the last N days."
