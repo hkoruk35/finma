@@ -13,7 +13,7 @@ import {
   type UTCTimestamp,
 } from "lightweight-charts";
 import { heikinAshi } from "@/lib/indicators";
-import { BogaVolumeProfile, computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
+import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 
 type Locale = "en" | "tr" | "es" | "fr";
 
@@ -178,7 +178,6 @@ export default function BogaChartEngine({
   const volumeSeriesRef = useRef<ISeriesApi<"Histogram"> | null>(null);
   const lineSeriesRefs = useRef<Partial<Record<IndicatorKey, ISeriesApi<"Line">[]>>>({});
   const priceLinesRef = useRef<any[]>([]);
-  const vpPrimitiveRef = useRef<BogaVolumeProfile | null>(null);
   const barsRef = useRef<Bar[]>([]);
   const lastDataRef = useRef<ChartResponse | null>(null);
 
@@ -198,6 +197,17 @@ export default function BogaChartEngine({
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  // Rendered as a plain DOM overlay (see JSX below) — driven by React state
+  // instead of a lightweight-charts canvas primitive, since the primitive
+  // paint lifecycle (paneViews/renderer/draw) proved unreliable to trigger
+  // consistently. Coordinates come from the same priceToCoordinate /
+  // logicalToCoordinate APIs, just consumed directly instead of via a canvas.
+  const [vpOverlay, setVpOverlay] = useState<{
+    anchorX: number;
+    rowHeight: number;
+    rows: { top: number; width: number; isPoc: boolean }[];
+  } | null>(null);
+  const recomputeVPRef = useRef<(bars: Bar[]) => void>(() => {});
 
   // Native Fullscreen API — reliably escapes any ancestor CSS (e.g.
   // backdrop-filter/overflow-hidden on a parent .glass-card), which a
@@ -262,6 +272,13 @@ export default function BogaChartEngine({
       if (bar) setHoverBar(bar);
     });
 
+    // Keep the Volume Profile overlay's pixel coordinates in sync with
+    // manual pan/zoom too, not just the controlled Range buttons.
+    // recomputeVPRef always points at the latest closure (fresh
+    // active/range/detailMode), since this subscription itself is only
+    // ever set up once, on mount.
+    chart.timeScale().subscribeVisibleTimeRangeChange(() => recomputeVPRef.current(barsRef.current));
+
     const resizeObserver = new ResizeObserver(() => chart.applyOptions({}));
     resizeObserver.observe(el);
 
@@ -273,7 +290,6 @@ export default function BogaChartEngine({
       volumeSeriesRef.current = null;
       lineSeriesRefs.current = {};
       priceLinesRef.current = [];
-      vpPrimitiveRef.current = null;
     };
   }, []);
 
@@ -300,39 +316,61 @@ export default function BogaChartEngine({
   // "Fixed range" = the currently visible window (the same range the
   // Görünüm buttons zoom to), not the whole fetched dataset — otherwise
   // the profile is computed and positioned against months of off-screen
-  // history instead of what's actually on screen.
-  const updateVolumeProfile = (bars: Bar[]) => {
+  // history instead of what's actually on screen. Must run AFTER
+  // applyVisibleRange (needs the timeScale already reflecting the current
+  // zoom/margin to compute correct pixel coordinates).
+  const recomputeVolumeProfile = (bars: Bar[]) => {
     const chart = chartRef.current;
     const mainSeries = mainSeriesRef.current;
     if (!chart || !mainSeries) return;
 
-    if (detailMode && active.has("volumeProfile") && bars.length > 0) {
-      const lastBar = bars[bars.length - 1];
-      const windowSeconds = RANGE_WINDOW_SECONDS[range];
-      const visibleBars = bars.filter((b) => b.time >= lastBar.time - windowSeconds);
-      const profileBars = visibleBars.length > 1 ? visibleBars : bars;
-      const rows = computeVolumeProfile(profileBars, 24);
-
-      // Anchor at the far edge of the reserved right-hand margin (not at the
-      // last candle) using the logical index space — timeToCoordinate can't
-      // resolve a Time value past the last real bar, but logical indices
-      // extend smoothly into the empty rightOffset margin.
-      chart.timeScale().applyOptions({ rightOffset: VP_MARGIN_BARS + 2 });
-      const anchorLogical = bars.length - 1 + VP_MARGIN_BARS + 1;
-      const widthBars = VP_MARGIN_BARS;
-
-      if (!vpPrimitiveRef.current) {
-        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorLogical, widthBars);
-        mainSeries.attachPrimitive(vpPrimitiveRef.current);
-      } else {
-        vpPrimitiveRef.current.updateData(rows, anchorLogical, widthBars);
-      }
-    } else if (vpPrimitiveRef.current) {
-      mainSeries.detachPrimitive(vpPrimitiveRef.current);
-      vpPrimitiveRef.current = null;
+    if (!(detailMode && active.has("volumeProfile") && bars.length > 0)) {
+      setVpOverlay(null);
       chart.timeScale().applyOptions({ rightOffset: DEFAULT_RIGHT_OFFSET });
+      return;
     }
+
+    const lastBar = bars[bars.length - 1];
+    const windowSeconds = RANGE_WINDOW_SECONDS[range];
+    const visibleBars = bars.filter((b) => b.time >= lastBar.time - windowSeconds);
+    const profileBars = visibleBars.length > 1 ? visibleBars : bars;
+    const rows = computeVolumeProfile(profileBars, 24);
+    if (rows.length === 0) {
+      setVpOverlay(null);
+      return;
+    }
+
+    // Anchor at the far edge of the reserved right-hand margin (not at the
+    // last candle) using the logical index space — timeToCoordinate can't
+    // resolve a Time value past the last real bar, but logical indices
+    // extend smoothly into the empty rightOffset margin.
+    chart.timeScale().applyOptions({ rightOffset: VP_MARGIN_BARS + 2 });
+    const anchorLogical = bars.length - 1 + VP_MARGIN_BARS + 1;
+    const anchorX = chart.timeScale().logicalToCoordinate(anchorLogical as any);
+    if (anchorX == null) {
+      setVpOverlay(null);
+      return;
+    }
+
+    const barSpacing = chart.timeScale().options().barSpacing;
+    const maxWidthPx = barSpacing * VP_MARGIN_BARS;
+    const maxVol = Math.max(...rows.map((r) => r.volume), 1);
+
+    const step = rows.length > 1 ? Math.abs(rows[0].price - rows[1].price) : 1;
+    const y1 = mainSeries.priceToCoordinate(rows[0].price + step / 2);
+    const y2 = mainSeries.priceToCoordinate(rows[0].price - step / 2);
+    const rowHeight = y1 != null && y2 != null ? Math.max(1, Math.abs(y2 - y1)) : 8;
+
+    const overlayRows: { top: number; width: number; isPoc: boolean }[] = [];
+    for (const r of rows) {
+      const y = mainSeries.priceToCoordinate(r.price);
+      if (y == null) continue;
+      overlayRows.push({ top: y - rowHeight / 2, width: (maxWidthPx * r.volume) / maxVol, isPoc: r.volume === maxVol });
+    }
+
+    setVpOverlay({ anchorX, rowHeight, rows: overlayRows });
   };
+  recomputeVPRef.current = recomputeVolumeProfile;
 
   const renderAll = (data: ChartResponse) => {
     const bars = data.bars || [];
@@ -430,9 +468,8 @@ export default function BogaChartEngine({
       }
     }
 
-    updateVolumeProfile(bars);
-
     applyVisibleRange(bars);
+    recomputeVolumeProfile(bars);
     setHoverBar(bars[bars.length - 1] ?? null);
   };
 
@@ -477,9 +514,8 @@ export default function BogaChartEngine({
     const chart = chartRef.current;
     if (!chart) return;
     if (mainSeriesRef.current) {
-      chart.removeSeries(mainSeriesRef.current); // also disposes any attached primitives
+      chart.removeSeries(mainSeriesRef.current);
       mainSeriesRef.current = null;
-      vpPrimitiveRef.current = null;
     }
     mainSeriesRef.current = createMainSeries(chart, candleType);
     if (lastDataRef.current) renderAll(lastDataRef.current);
@@ -491,7 +527,7 @@ export default function BogaChartEngine({
   useEffect(() => {
     if (barsRef.current.length) {
       applyVisibleRange(barsRef.current);
-      updateVolumeProfile(barsRef.current);
+      recomputeVolumeProfile(barsRef.current);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range]);
@@ -716,6 +752,27 @@ export default function BogaChartEngine({
               <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
               <span className="text-slate-400">C <span className="text-white">{fmt(hoverBar?.close)}</span></span>
               <span className="text-slate-400">{t.vol} <span className="text-white">{fmtVol(hoverBar?.volume)}</span></span>
+            </div>
+          )}
+
+          {/* Volume Profile — plain DOM overlay (not a canvas primitive),
+              positioned with the same coordinate APIs the chart itself uses.
+              pointer-events-none so it never blocks crosshair/candle hover. */}
+          {vpOverlay && (
+            <div className="absolute inset-0 z-[6] overflow-hidden pointer-events-none">
+              {vpOverlay.rows.map((r, i) => (
+                <div
+                  key={i}
+                  style={{
+                    position: "absolute",
+                    left: Math.max(0, vpOverlay.anchorX - r.width),
+                    top: r.top,
+                    width: r.width,
+                    height: Math.max(1, vpOverlay.rowHeight - 1),
+                    background: r.isPoc ? "rgba(234,179,8,0.85)" : "rgba(59,130,246,0.35)",
+                  }}
+                />
+              ))}
             </div>
           )}
         </div>
