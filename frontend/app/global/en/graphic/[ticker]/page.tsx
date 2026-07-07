@@ -14,12 +14,37 @@ const SHORTCUTS = [
   { label: "TREND", href: "/global/en/trend" },
 ];
 
+// Index tickers shown in the header strip: S&P 500, Nasdaq, Dow, Russell 2000, VIX.
+const INDICES = [
+  { symbol: "^GSPC", label: "S&P 500" },
+  { symbol: "^IXIC", label: "NASDAQ" },
+  { symbol: "^DJI", label: "DOW" },
+  { symbol: "^RUT", label: "RUSSELL" },
+  { symbol: "^VIX", label: "VIX" },
+];
+
+const SECTOR_ETF_MAP: Record<string, string> = {
+  technology: "XLK", energy: "XLE", financials: "XLF", "financial services": "XLF",
+  healthcare: "XLV", "consumer discretionary": "XLY", "consumer cyclical": "XLY",
+  "consumer staples": "XLP", "consumer defensive": "XLP", industrials: "XLI",
+  materials: "XLB", "basic materials": "XLB", "real estate": "XLRE",
+  utilities: "XLU", "communication services": "XLC",
+};
+
+type Quote = { price: number | null; change_1d: number | null };
+
+function fmtChange(v: number | null | undefined) {
+  if (v == null) return "—";
+  return `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
+}
+
 export default function GraphicDetailPage() {
   const params = useParams();
   const router = useRouter();
   const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
   const [loading, setLoading] = useState(true);
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
+  const [quotes, setQuotes] = useState<Record<string, Quote>>({});
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -42,6 +67,24 @@ export default function GraphicDetailPage() {
       .catch(() => {});
   }, [ticker]);
 
+  // Index quotes — fetched once, independent of the stock's sector.
+  useEffect(() => {
+    fetch(`/api/quote?tickers=${INDICES.map((i) => i.symbol).join(",")}`)
+      .then((r) => r.json())
+      .then((d) => setQuotes((prev) => ({ ...prev, ...d })))
+      .catch(() => {});
+  }, []);
+
+  // Sector ETF quote — fetched once the stock's sector is known.
+  const sectorEtf = stockData?.sector ? SECTOR_ETF_MAP[stockData.sector.toLowerCase()] : undefined;
+  useEffect(() => {
+    if (!sectorEtf) return;
+    fetch(`/api/quote?tickers=${sectorEtf}`)
+      .then((r) => r.json())
+      .then((d) => setQuotes((prev) => ({ ...prev, ...d })))
+      .catch(() => {});
+  }, [sectorEtf]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0e17] text-white/50 text-sm">
@@ -54,7 +97,7 @@ export default function GraphicDetailPage() {
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="en" />
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-2">
           <nav className="flex flex-wrap items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
             <Link href="/global/en/home" className="hover:text-[#3b82f6] transition-colors">Dashboard</Link>
             <span className="opacity-30">/</span>
@@ -87,6 +130,34 @@ export default function GraphicDetailPage() {
               </Link>
             ))}
           </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 mb-4">
+          {INDICES.map((idx) => {
+            const q = quotes[idx.symbol];
+            const positive = (q?.change_1d ?? 0) >= 0;
+            return (
+              <div
+                key={idx.symbol}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold"
+              >
+                <span className="text-slate-400">{idx.label}</span>
+                <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
+                <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
+              </div>
+            );
+          })}
+          {sectorEtf && (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-bold">
+              <span className="text-[#3b82f6]">{stockData?.sector} ({sectorEtf})</span>
+              <span className="text-white font-mono">
+                {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
+              </span>
+              <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}>
+                {fmtChange(quotes[sectorEtf]?.change_1d)}
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="glass-card overflow-hidden mb-4">
