@@ -289,6 +289,37 @@ export default function BogaChartEngine({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [symbol, interval, active]);
 
+  // Fixed Range Volume Profile — only in the full detail toolbar, never on
+  // compact/mini/hover embeds, regardless of what `active` contains.
+  // "Fixed range" = the currently visible window (the same range the
+  // Görünüm buttons zoom to), not the whole fetched dataset — otherwise
+  // the profile is computed and positioned against months of off-screen
+  // history instead of what's actually on screen.
+  const updateVolumeProfile = (bars: Bar[]) => {
+    const chart = chartRef.current;
+    const mainSeries = mainSeriesRef.current;
+    if (!chart || !mainSeries) return;
+
+    if (detailMode && active.has("volumeProfile") && bars.length > 0) {
+      const lastBar = bars[bars.length - 1];
+      const windowSeconds = RANGE_WINDOW_SECONDS[range];
+      const visibleBars = bars.filter((b) => b.time >= lastBar.time - windowSeconds);
+      const profileBars = visibleBars.length > 1 ? visibleBars : bars;
+      const rows = computeVolumeProfile(profileBars, 24);
+      const widthBars = Math.max(6, Math.round(profileBars.length * 0.12));
+      const anchorTime = lastBar.time as UTCTimestamp; // pinned to the rightmost bar, grows leftward
+      if (!vpPrimitiveRef.current) {
+        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorTime, widthBars);
+        mainSeries.attachPrimitive(vpPrimitiveRef.current);
+      } else {
+        vpPrimitiveRef.current.updateData(rows, anchorTime, widthBars);
+      }
+    } else if (vpPrimitiveRef.current) {
+      mainSeries.detachPrimitive(vpPrimitiveRef.current);
+      vpPrimitiveRef.current = null;
+    }
+  };
+
   const renderAll = (data: ChartResponse) => {
     const bars = data.bars || [];
     barsRef.current = bars;
@@ -385,22 +416,7 @@ export default function BogaChartEngine({
       }
     }
 
-    // Fixed Range Volume Profile — only in the full detail toolbar, never on
-    // compact/mini/hover embeds, regardless of what `active` contains.
-    if (detailMode && active.has("volumeProfile") && bars.length > 0) {
-      const rows = computeVolumeProfile(bars, 24);
-      const widthBars = Math.max(8, Math.round(bars.length * 0.15));
-      const anchorTime = bars[Math.max(0, bars.length - widthBars)].time as UTCTimestamp;
-      if (!vpPrimitiveRef.current) {
-        vpPrimitiveRef.current = new BogaVolumeProfile(chart, mainSeries, rows, anchorTime, widthBars);
-        mainSeries.attachPrimitive(vpPrimitiveRef.current);
-      } else {
-        vpPrimitiveRef.current.updateData(rows, anchorTime, widthBars);
-      }
-    } else if (vpPrimitiveRef.current) {
-      mainSeries.detachPrimitive(vpPrimitiveRef.current);
-      vpPrimitiveRef.current = null;
-    }
+    updateVolumeProfile(bars);
 
     applyVisibleRange(bars);
     setHoverBar(bars[bars.length - 1] ?? null);
@@ -446,9 +462,13 @@ export default function BogaChartEngine({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [candleType]);
 
-  // Range (view window) change: rezoom only, no refetch.
+  // Range (view window) change: rezoom + recompute the volume profile
+  // against the newly-selected window — no refetch needed.
   useEffect(() => {
-    if (barsRef.current.length) applyVisibleRange(barsRef.current);
+    if (barsRef.current.length) {
+      applyVisibleRange(barsRef.current);
+      updateVolumeProfile(barsRef.current);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range]);
 

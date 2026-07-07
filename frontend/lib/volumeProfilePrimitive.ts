@@ -50,7 +50,10 @@ class VolumeProfileRenderer implements IPrimitivePaneRenderer {
       for (const row of this.data.items) {
         if (row.y === null) return;
         const yPos = positionsBox(row.y, row.y - this.data.rowHeight, scope.verticalPixelRatio);
-        const xPos = positionsBox(this.data.x!, this.data.x! + row.width, scope.horizontalPixelRatio);
+        // Grows leftward from the anchor (pinned at the right/most-recent
+        // bar), like a sidebar hugging the price axis — not rightward
+        // across the candles.
+        const xPos = positionsBox(this.data.x!, this.data.x! - row.width, scope.horizontalPixelRatio);
         ctx.fillStyle = row.isPoc ? "rgba(234,179,8,0.85)" : "rgba(59,130,246,0.35)";
         ctx.fillRect(xPos.position, yPos.position, xPos.length, Math.max(1, yPos.length - 1));
       }
