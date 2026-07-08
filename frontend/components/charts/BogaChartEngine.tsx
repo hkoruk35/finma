@@ -205,7 +205,8 @@ export default function BogaChartEngine({
   const [vpOverlay, setVpOverlay] = useState<{
     anchorX: number;
     rowHeight: number;
-    rows: { top: number; width: number; isPoc: boolean }[];
+    pocY: number;
+    rows: { top: number; width: number; isPoc: boolean; inValueArea: boolean }[];
   } | null>(null);
   const recomputeVPRef = useRef<(bars: Bar[]) => void>(() => {});
 
@@ -355,20 +356,57 @@ export default function BogaChartEngine({
     const barSpacing = chart.timeScale().options().barSpacing;
     const maxWidthPx = barSpacing * VP_MARGIN_BARS;
     const maxVol = Math.max(...rows.map((r) => r.volume), 1);
+    const pocIndex = rows.findIndex((r) => r.volume === maxVol);
+
+    // Value Area — the contiguous price band around the POC holding ~70% of
+    // total volume. Expand outward from the POC one row at a time, always
+    // taking whichever neighbor (above/below the current band) has more
+    // volume, until the running total crosses the threshold.
+    const totalVol = rows.reduce((sum, r) => sum + r.volume, 0);
+    const inVA = new Array(rows.length).fill(false);
+    let lo = pocIndex;
+    let hi = pocIndex;
+    inVA[pocIndex] = true;
+    let vaVol = rows[pocIndex].volume;
+    const vaTarget = totalVol * 0.7;
+    while (vaVol < vaTarget && (lo > 0 || hi < rows.length - 1)) {
+      const aboveVol = hi < rows.length - 1 ? rows[hi + 1].volume : -1;
+      const belowVol = lo > 0 ? rows[lo - 1].volume : -1;
+      if (aboveVol >= belowVol) {
+        hi += 1;
+        vaVol += rows[hi].volume;
+        inVA[hi] = true;
+      } else {
+        lo -= 1;
+        vaVol += rows[lo].volume;
+        inVA[lo] = true;
+      }
+    }
 
     const step = rows.length > 1 ? Math.abs(rows[0].price - rows[1].price) : 1;
     const y1 = mainSeries.priceToCoordinate(rows[0].price + step / 2);
     const y2 = mainSeries.priceToCoordinate(rows[0].price - step / 2);
     const rowHeight = y1 != null && y2 != null ? Math.max(1, Math.abs(y2 - y1)) : 8;
 
-    const overlayRows: { top: number; width: number; isPoc: boolean }[] = [];
-    for (const r of rows) {
+    const overlayRows: { top: number; width: number; isPoc: boolean; inValueArea: boolean }[] = [];
+    let pocY: number | null = null;
+    rows.forEach((r, i) => {
       const y = mainSeries.priceToCoordinate(r.price);
-      if (y == null) continue;
-      overlayRows.push({ top: y - rowHeight / 2, width: (maxWidthPx * r.volume) / maxVol, isPoc: r.volume === maxVol });
+      if (y == null) return;
+      if (i === pocIndex) pocY = y;
+      overlayRows.push({
+        top: y - rowHeight / 2,
+        width: (maxWidthPx * r.volume) / maxVol,
+        isPoc: i === pocIndex,
+        inValueArea: inVA[i],
+      });
+    });
+    if (pocY == null) {
+      setVpOverlay(null);
+      return;
     }
 
-    setVpOverlay({ anchorX, rowHeight, rows: overlayRows });
+    setVpOverlay({ anchorX, rowHeight, pocY, rows: overlayRows });
   };
   recomputeVPRef.current = recomputeVolumeProfile;
 
@@ -760,6 +798,18 @@ export default function BogaChartEngine({
               pointer-events-none so it never blocks crosshair/candle hover. */}
           {vpOverlay && (
             <div className="absolute inset-0 z-[6] overflow-hidden pointer-events-none">
+              {/* POC reference line — dashed, spans the full chart width so the
+                  price the market spent the most volume at reads clearly behind
+                  the candles, not just within the profile bars themselves. */}
+              <div
+                style={{
+                  position: "absolute",
+                  left: 0,
+                  right: 0,
+                  top: vpOverlay.pocY,
+                  borderTop: "1px dashed rgba(250,204,21,0.6)",
+                }}
+              />
               {vpOverlay.rows.map((r, i) => (
                 <div
                   key={i}
@@ -769,7 +819,11 @@ export default function BogaChartEngine({
                     top: r.top,
                     width: r.width,
                     height: Math.max(1, vpOverlay.rowHeight - 1),
-                    background: r.isPoc ? "rgba(234,179,8,0.85)" : "rgba(59,130,246,0.35)",
+                    background: r.isPoc
+                      ? "rgba(234,179,8,0.85)"
+                      : r.inValueArea
+                      ? "rgba(96,165,250,0.55)"
+                      : "rgba(100,116,139,0.22)",
                   }}
                 />
               ))}
