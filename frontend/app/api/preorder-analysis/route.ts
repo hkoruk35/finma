@@ -73,17 +73,26 @@ function calcSMA(closes: number[], period: number): number {
   return arr.reduce((s, v) => s + v, 0) / arr.length;
 }
 
+// Wilder's smoothed RSI, recomputed over the full closes history — matches
+// lib/indicators.ts's rsi() (used by the live chart) so the chart and this
+// table never disagree on the same ticker's RSI.
 function calcRSI(closes: number[], period = 14): number {
   if (closes.length < period + 1) return 50;
-  let gains = 0, losses = 0;
-  const start = closes.length - period;
-  for (let i = start; i < closes.length; i++) {
-    const d = closes[i] - closes[i - 1];
-    if (d >= 0) gains += d; else losses -= d;
+  let gainSum = 0, lossSum = 0;
+  for (let i = 1; i <= period; i++) {
+    const diff = closes[i] - closes[i - 1];
+    if (diff >= 0) gainSum += diff; else lossSum -= diff;
   }
-  if (losses === 0) return 100;
-  const rs = gains / losses;
-  return 100 - 100 / (1 + rs);
+  let avgGain = gainSum / period;
+  let avgLoss = lossSum / period;
+  for (let i = period + 1; i < closes.length; i++) {
+    const diff = closes[i] - closes[i - 1];
+    const gain = diff > 0 ? diff : 0;
+    const loss = diff < 0 ? -diff : 0;
+    avgGain = (avgGain * (period - 1) + gain) / period;
+    avgLoss = (avgLoss * (period - 1) + loss) / period;
+  }
+  return avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss);
 }
 
 function calcATR(highs: number[], lows: number[], closes: number[], period = 14): number {
@@ -99,11 +108,26 @@ function calcATR(highs: number[], lows: number[], closes: number[], period = 14)
   return trs.slice(-period).reduce((s, v) => s + v, 0) / Math.min(period, trs.length);
 }
 
-function emaSeries(values: number[], period: number): number[] {
-  if (values.length === 0) return [];
+// SMA-seeded EMA — matches lib/indicators.ts's ema() (used by the live
+// chart) exactly, so MACD/signal computed here never drifts from the
+// chart's own MACD given the same closes array.
+function emaSeries(values: number[], period: number): (number | null)[] {
+  const out: (number | null)[] = new Array(values.length).fill(null);
+  if (values.length === 0) return out;
   const k = 2 / (period + 1);
-  const out: number[] = [values[0]];
-  for (let i = 1; i < values.length; i++) out.push(values[i] * k + out[i - 1] * (1 - k));
+  let prev: number | null = null;
+  for (let i = 0; i < values.length; i++) {
+    if (prev == null) {
+      if (i >= period - 1) {
+        const slice = values.slice(i - period + 1, i + 1);
+        prev = slice.reduce((a, b) => a + b, 0) / period;
+        out[i] = prev;
+      }
+    } else {
+      prev = values[i] * k + prev * (1 - k);
+      out[i] = prev;
+    }
+  }
   return out;
 }
 
@@ -111,10 +135,17 @@ function calcMACD(closes: number[]): { macd: number; signal: number; histogram: 
   if (closes.length < 26) return { macd: 0, signal: 0, histogram: 0 };
   const ema12 = emaSeries(closes, 12);
   const ema26 = emaSeries(closes, 26);
-  const macdLine = closes.map((_, i) => ema12[i] - ema26[i]);
-  const signalSeries = emaSeries(macdLine.slice(25), 9);
-  const macd = macdLine.at(-1) ?? 0;
-  const signal = signalSeries.at(-1) ?? 0;
+  const macdLine: (number | null)[] = closes.map((_, i) =>
+    ema12[i] != null && ema26[i] != null ? (ema12[i] as number) - (ema26[i] as number) : null
+  );
+  const firstValid = macdLine.findIndex((v) => v != null);
+  let macd = 0, signal = 0;
+  if (firstValid !== -1) {
+    const tail = macdLine.slice(firstValid) as number[];
+    const signalTail = emaSeries(tail, 9);
+    macd = tail.at(-1) ?? 0;
+    signal = (signalTail.at(-1) as number) ?? 0;
+  }
   return { macd, signal, histogram: macd - signal };
 }
 
