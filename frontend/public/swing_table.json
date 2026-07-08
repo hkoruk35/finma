@@ -1,66 +1,10 @@
 [
   {
-    "Date": "3 July",
-    "Symbol": "COF",
-    "Entry (Buy_L)": 201.74,
-    "Stop (SL)": 194.86,
-    "Target 1 (TP1)": 218.75,
-    "Target 2 (TP2)": 221.41
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "EW",
-    "Entry (Buy_L)": 92.31,
-    "Stop (SL)": 89.65,
-    "Target 1 (TP1)": 99.94,
-    "Target 2 (TP2)": 101.08
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "IBM",
-    "Entry (Buy_L)": 282.22,
-    "Stop (SL)": 273.7,
-    "Target 1 (TP1)": 308.21,
-    "Target 2 (TP2)": 312.04
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "CRWD",
-    "Entry (Buy_L)": 189.01,
-    "Stop (SL)": 183.21,
-    "Target 1 (TP1)": 206.7,
-    "Target 2 (TP2)": 209.31
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "DHR",
-    "Entry (Buy_L)": 194.76,
-    "Stop (SL)": 188.03,
-    "Target 1 (TP1)": 211.2,
-    "Target 2 (TP2)": 213.77
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "GOOGL",
-    "Entry (Buy_L)": 353.0,
-    "Stop (SL)": 341.91,
-    "Target 1 (TP1)": 382.73,
-    "Target 2 (TP2)": 387.27
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "MSI",
-    "Entry (Buy_L)": 418.26,
-    "Stop (SL)": 401.53,
-    "Target 1 (TP1)": 453.99,
-    "Target 2 (TP2)": 459.82
-  },
-  {
-    "Date": "3 July",
-    "Symbol": "VMC",
-    "Entry (Buy_L)": 293.34,
-    "Stop (SL)": 286.62,
-    "Target 1 (TP1)": 327.27,
-    "Target 2 (TP2)": 331.78
+    "Date": "8 July",
+    "Symbol": "CNQ",
+    "Entry (Buy_L)": 39.94,
+    "Stop (SL)": 39.13,
+    "Target 1 (TP1)": 44.42,
+    "Target 2 (TP2)": 45.01
   }
 ]
