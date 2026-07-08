@@ -1,93 +1,16 @@
 {
-  "date": "2026-07-03",
+  "date": "2026-07-08",
   "tickers": [
     {
-      "ticker": "COF",
-      "company": "COF",
-      "sector": "Financial Services",
-      "master_score": 54.5,
+      "ticker": "CNQ",
+      "company": "CNQ",
+      "sector": "Energy",
+      "master_score": 56.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 205.1199951171875,
-      "change_pct": 0.15,
+      "price": 42.125,
+      "change_pct": 3.53,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "EW",
-      "company": "EW",
-      "sector": "Healthcare",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 94.37000274658203,
-      "change_pct": 2.59,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "IBM",
-      "company": "IBM",
-      "sector": "Technology",
-      "master_score": 51.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 289.5199890136719,
-      "change_pct": 1.14,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "CRWD",
-      "company": "CRWD",
-      "sector": "Technology",
-      "master_score": 48.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 193.97999572753906,
-      "change_pct": 0.41,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "DHR",
-      "company": "DHR",
-      "sector": "Healthcare",
-      "master_score": 48.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 197.92999267578125,
-      "change_pct": 2.17,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "GOOGL",
-      "company": "Alphabet Inc",
-      "sector": "Communication Services",
-      "master_score": 46.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 359.9100036621094,
-      "change_pct": -0.36,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MSI",
-      "company": "MSI",
-      "sector": "Technology",
-      "master_score": 46.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 422.6600036621094,
-      "change_pct": 0.89,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "VMC",
-      "company": "VMC",
-      "sector": "Basic Materials",
-      "master_score": 42.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 303.19000244140625,
-      "change_pct": 2.77,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 42.0 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 56.0 | System: TREND_CONT"
     }
   ]
 }

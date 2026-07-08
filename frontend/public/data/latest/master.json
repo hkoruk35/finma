@@ -1,29 +1,19 @@
 {
-  "date": "2026-07-03",
-  "generated_at": "2026-07-03T13:02:43.894161-04:00",
+  "date": "2026-07-08",
+  "generated_at": "2026-07-08T13:02:43.569593-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 8,
-  "market_regime": "STRONG",
+  "active_scores_count": 1,
+  "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 8,
+      "count": 1,
       "tickers": [
-        "COF",
-        "EW",
-        "IBM",
-        "CRWD",
-        "DHR",
-        "GOOGL",
-        "MSI",
-        "VMC"
+        "CNQ"
       ]
     },
     "breakout": {
-      "count": 2,
-      "tickers": [
-        "DHR",
-        "VMC"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -44,18 +34,8 @@
   },
   "top_3_overall": [
     {
-      "ticker": "COF",
-      "score": 54.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "EW",
-      "score": 52.0,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "IBM",
-      "score": 51.0,
+      "ticker": "CNQ",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
