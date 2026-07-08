@@ -30,6 +30,8 @@ export const SITEMAP_EN: SitemapGroup[] = [
     { label: "Trend", path: "/global/en/trend" },
     { label: "Performance", path: "/global/en/performance" },
     { label: "AI Report", path: "/global/en/ai" },
+    { label: "Analysis (Ticker)", path: "/global/en/analysis/[ticker]" },
+    { label: "Graphic (Ticker)", path: "/global/en/graphic/[ticker]" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/en/about" },
@@ -58,6 +60,7 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Trend", path: "/global/tr/trend" },
     { label: "Performans", path: "/global/tr/performance" },
     { label: "AI Rapor", path: "/global/tr/ai" },
+    { label: "Analiz (Hisse)", path: "/global/tr/analysis/[ticker]" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "Hakkında", path: "/global/tr/about" },
@@ -65,6 +68,64 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Kullanım Şartları", path: "/global/tr/terms" },
     { label: "Gizlilik", path: "/global/tr/privacy" },
     { label: "Sorumluluk Reddi", path: "/global/tr/disclaimer" },
+  ]},
+];
+
+export const SITEMAP_ES: SitemapGroup[] = [
+  { group: "Genel", entries: [
+    { label: "Anasayfa", path: "/global/es" },
+    { label: "Home", path: "/global/es/home" },
+  ]},
+  { group: "Üyelik", entries: [
+    { label: "Login", path: "/global/es/login" },
+    { label: "Register", path: "/global/es/register" },
+    { label: "Account", path: "/global/es/account" },
+  ]},
+  { group: "Tracker / Analiz", entries: [
+    { label: "Top100", path: "/global/es/top100" },
+    { label: "Swing", path: "/global/es/swing" },
+    { label: "Swing Archive", path: "/global/es/swing/archive" },
+    { label: "Swing Performance", path: "/global/es/swingperformance" },
+    { label: "Trend", path: "/global/es/trend" },
+    { label: "Performance", path: "/global/es/performance" },
+    { label: "AI Report", path: "/global/es/ai" },
+    { label: "Analysis (Ticker)", path: "/global/es/analysis/[ticker]" },
+  ]},
+  { group: "Kurumsal / Yasal", entries: [
+    { label: "About", path: "/global/es/about" },
+    { label: "Contact", path: "/global/es/contact" },
+    { label: "Terms", path: "/global/es/terms" },
+    { label: "Privacy", path: "/global/es/privacy" },
+    { label: "Disclaimer", path: "/global/es/disclaimer" },
+  ]},
+];
+
+export const SITEMAP_FR: SitemapGroup[] = [
+  { group: "Genel", entries: [
+    { label: "Anasayfa", path: "/global/fr" },
+    { label: "Home", path: "/global/fr/home" },
+  ]},
+  { group: "Üyelik", entries: [
+    { label: "Login", path: "/global/fr/login" },
+    { label: "Register", path: "/global/fr/register" },
+    { label: "Account", path: "/global/fr/account" },
+  ]},
+  { group: "Tracker / Analiz", entries: [
+    { label: "Top100", path: "/global/fr/top100" },
+    { label: "Swing", path: "/global/fr/swing" },
+    { label: "Swing Archive", path: "/global/fr/swing/archive" },
+    { label: "Swing Performance", path: "/global/fr/swingperformance" },
+    { label: "Trend", path: "/global/fr/trend" },
+    { label: "Performance", path: "/global/fr/performance" },
+    { label: "AI Report", path: "/global/fr/ai" },
+    { label: "Analysis (Ticker)", path: "/global/fr/analysis/[ticker]" },
+  ]},
+  { group: "Kurumsal / Yasal", entries: [
+    { label: "About", path: "/global/fr/about" },
+    { label: "Contact", path: "/global/fr/contact" },
+    { label: "Terms", path: "/global/fr/terms" },
+    { label: "Privacy", path: "/global/fr/privacy" },
+    { label: "Disclaimer", path: "/global/fr/disclaimer" },
   ]},
 ];
 
