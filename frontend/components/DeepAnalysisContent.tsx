@@ -6,11 +6,11 @@ interface Props {
   data?: any;
   ticker?: string;
   stockData?: any;
-  lang?: "tr" | "en" | "es" | "fr";
+  lang?: "tr" | "en" | "es" | "fr" | "pt";
   locale?: "tr" | "en" | "es" | "fr";
 }
 
-const L = (lang: "tr" | "en" | "es" | "fr" | string, tr: string, en: string, es?: string, fr?: string) =>
+const L = (lang: "tr" | "en" | "es" | "fr" | "pt" | string, tr: string, en: string, es?: string, fr?: string) =>
   lang === "tr" ? tr : lang === "es" ? (es || en) : lang === "fr" ? (fr || en) : en;
 
 /**

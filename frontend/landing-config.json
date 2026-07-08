@@ -274,5 +274,97 @@
       "description": "No se requiere tarjeta de crédito.",
       "note": "Cancela cuando quieras después de tu prueba."
     }
+  },
+  "pt": {
+    "hero": {
+      "badge": "Ao Vivo — Atualizações a Cada Hora",
+      "description_bold": "Blue One Global Analysis",
+      "description": "Seleção e análise de ações com IA para os mercados dos EUA. Selecionado, analisado e acompanhado a cada hora por um sistema inteligente totalmente autônomo dedicado exclusivamente às finanças."
+    },
+    "cta_primary": {
+      "text": "Experimente Grátis por 7 Dias",
+      "subtext": "Sem cartão de crédito · Comece agora mesmo",
+      "href": "/global/pt/register"
+    },
+    "cta_secondary": {
+      "text": "Entrar",
+      "href": "/global/pt/login"
+    },
+    "cta_note": "",
+    "screenshots": [
+      {
+        "src": "/screenshots/ss_swing_detail.png",
+        "label": "Análise Profunda de Ações",
+        "desc": "Indicadores técnicos, preços de entrada/stop/alvo, BOGA Score e gráfico ao vivo"
+      },
+      {
+        "src": "/screenshots/ss_swing_table.png",
+        "label": "Candidatos Diários de Swing",
+        "desc": "14 candidatos, sinais EMA/RSI, detecção de padrões e acompanhamento de preços em tempo real"
+      },
+      {
+        "src": "/screenshots/ss_performance.png",
+        "label": "Desempenho do Sistema",
+        "desc": "Mapa de calor de rentabilidade por setor e histórico de operações"
+      },
+      {
+        "src": "/screenshots/ss_home.png",
+        "label": "Início — Resumo ao Vivo",
+        "desc": "Resumo por hora de Swing, Tendência e Top100 com banner de desempenho"
+      }
+    ],
+    "features": [
+      {
+        "icon": "bolt",
+        "title": "Candidatos de Swing Trade",
+        "desc": "Todos os dias, cada configuração e cenário é avaliado — a IA escolhe os melhores candidatos para você."
+      },
+      {
+        "icon": "chart-bar",
+        "title": "Rastreador Semanal Top 100",
+        "desc": "Lista de acompanhamento ativa, atualizada a cada hora pela BOGA AI com critérios específicos — 100 ações de elite dos EUA."
+      },
+      {
+        "icon": "trending-up",
+        "title": "Ações em Tendência 2026",
+        "desc": "Acompanhamento temático de empresas líderes, do setor de chips à biotecnologia, com análise de sinais."
+      },
+      {
+        "icon": "shield",
+        "title": "Análise Financeira Autoaperfeiçoável",
+        "desc": "Um sistema que se aperfeiçoa diariamente e que você não encontrará em nenhum outro lugar — suporte totalmente autônomo para sua Análise Financeira, Swing Trades e Investimentos."
+      }
+    ],
+    "jpm": {
+      "enabled": false,
+      "badge": "Amostra de Relatório Gratuita",
+      "title": "JPMorgan — Relatório de Análise de Mercado",
+      "description": "Um exemplo real do formato de relatório que nossa plataforma produz — totalmente gratuito para baixar.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "Baixar PDF",
+      "images": [
+        {
+          "src": "/jpm/p1_Image27.jpg",
+          "label": "JPM — Perspectiva de Mercado"
+        },
+        {
+          "src": "/jpm/p1_Image20.jpg",
+          "label": "JPM — Análise Setorial"
+        },
+        {
+          "src": "/jpm/p2_Image1.jpg",
+          "label": "JPM — Indicadores Macroeconômicos"
+        },
+        {
+          "src": "/jpm/p3_Image1.jpg",
+          "label": "JPM — Estratégia de Investimento"
+        }
+      ]
+    },
+    "bottom_cta": {
+      "title": "Comece grátis hoje",
+      "description": "Não é necessário cartão de crédito.",
+      "note": "Cancele quando quiser após o término do teste."
+    }
   }
 }

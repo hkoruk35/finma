@@ -62,8 +62,10 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
 
   if (!member) return null;
 
+  const localeTag = (l: Locale) =>
+    l === "en" ? "en-US" : l === "es" ? "es-ES" : l === "fr" ? "fr-FR" : l === "pt" ? "pt-BR" : "tr-TR";
   const dateFmt = (iso: string | null) =>
-    iso ? new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "tr-TR") : "—";
+    iso ? new Date(iso).toLocaleDateString(localeTag(locale)) : "—";
 
   const isTrialActive = new Date(member.trial_ends_at) > new Date();
 
@@ -309,7 +311,7 @@ function TrialCountdownBadge({ trialEndsAt, locale }: { trialEndsAt: string; loc
   const secs = secsLeft % 60;
   const pad = (n: number) => String(n).padStart(2, "0");
 
-  const label = locale === "tr" ? "Deneme süreniz bitiyor:" : "Your trial expires in:";
+  const label = locale === "tr" ? "Deneme süreniz bitiyor:" : locale === "es" ? "Tu prueba expira en:" : locale === "fr" ? "Votre essai expire dans :" : locale === "pt" ? "Seu teste expira em:" : "Your trial expires in:";
   const countdownStr = locale === "tr"
     ? `${days}g ${pad(hours)}s ${pad(mins)}d ${pad(secs)}sn`
     : `${days}d ${pad(hours)}h ${pad(mins)}m ${pad(secs)}s`;
@@ -340,8 +342,8 @@ function SubscriptionTab({
   locale: Locale;
   t: any;
 }) {
-  const dateFmt = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : "tr-TR");
-  const upgradeHref = locale === "tr" ? "mailto:support@bogastock.com" : "mailto:support@bogastock.com";
+  const dateFmt = (iso: string) => new Date(iso).toLocaleDateString(locale === "en" ? "en-US" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "tr-TR");
+  const upgradeHref = "mailto:support@bogastock.com";
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
@@ -353,7 +355,7 @@ function SubscriptionTab({
       )}
 
       <div className="space-y-4 text-sm">
-        <Row label={t.subscriptionStatus} value={isTrialActive ? (locale === "en" ? "Free Trial" : "Ücretsiz Deneme") : member.plan} />
+        <Row label={t.subscriptionStatus} value={isTrialActive ? (locale === "en" ? "Free Trial" : locale === "es" ? "Prueba Gratuita" : locale === "fr" ? "Essai Gratuit" : locale === "pt" ? "Teste Gratuito" : "Ücretsiz Deneme") : member.plan} />
         <Row label={t.subscriptionType} value={member.plan} />
         <Row label={t.subscriptionRenewsLabel} value={dateFmt(member.trial_ends_at)} />
       </div>
@@ -362,10 +364,10 @@ function SubscriptionTab({
       {isTrialActive && (
         <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
           <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
-            {locale === "tr" ? "İLK AY SADECE $19" : "FIRST MONTH ONLY $19"}
+            {locale === "tr" ? "İLK AY SADECE $19" : locale === "es" ? "PRIMER MES SOLO $19" : locale === "fr" ? "PREMIER MOIS À $19 SEULEMENT" : locale === "pt" ? "PRIMEIRO MÊS POR APENAS $19" : "FIRST MONTH ONLY $19"}
           </div>
           <div className="text-xs text-slate-500">
-            {locale === "tr" ? "Sınırlı sayıda — normal fiyat $39/ay" : "Limited offer — regular price $39/mo"}
+            {locale === "tr" ? "Sınırlı sayıda — normal fiyat $39/ay" : locale === "es" ? "Oferta limitada — precio regular $39/mes" : locale === "fr" ? "Offre limitée — prix normal $39/mois" : locale === "pt" ? "Oferta limitada — preço normal $39/mês" : "Limited offer — regular price $39/mo"}
           </div>
         </div>
       )}
@@ -405,17 +407,23 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
       router.push(isGlobal ? "/global/en/account" : "/en/account");
     } else if (lang === 'TR') {
       router.push(isGlobal ? "/global/tr/hesabim" : "/tr/hesabim");
+    } else if (lang === 'ES') {
+      router.push(isGlobal ? "/global/es/account" : "/es/account");
+    } else if (lang === 'FR') {
+      router.push(isGlobal ? "/global/fr/account" : "/fr/account");
+    } else if (lang === 'PT') {
+      router.push(isGlobal ? "/global/pt/account" : "/pt/account");
     }
   };
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
       <h2 className="text-xl font-black text-white">{t.languageTitle}</h2>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
+        {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
           const isActive = locale.toUpperCase() === lang;
-          const isAvailable = lang === 'EN' || lang === 'TR';
+          const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT';
 
           return (
             <button

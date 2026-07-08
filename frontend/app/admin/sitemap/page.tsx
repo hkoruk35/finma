@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SITEMAP_EN, SITEMAP_TR, SITEMAP_ES, SITEMAP_FR, SITEMAP_ADMIN, SitemapGroup } from "@/lib/admin/sitemap-data";
+import { SITEMAP_EN, SITEMAP_TR, SITEMAP_ES, SITEMAP_FR, SITEMAP_PT, SITEMAP_ADMIN, SitemapGroup } from "@/lib/admin/sitemap-data";
 
 const ACCENT = "#58a6ff";
 
@@ -35,6 +35,7 @@ export default function AdminSitemapPage() {
       <Section title="Türkçe" groups={SITEMAP_TR} />
       <Section title="Español" groups={SITEMAP_ES} />
       <Section title="Français" groups={SITEMAP_FR} />
+      <Section title="Português" groups={SITEMAP_PT} />
       <Section title="Admin" groups={SITEMAP_ADMIN} />
     </div>
   );

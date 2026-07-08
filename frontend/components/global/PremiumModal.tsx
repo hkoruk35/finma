@@ -62,6 +62,19 @@ const COPY = {
     hourUnit: "h",
     minUnit: "m",
   },
+  pt: {
+    title: "Assinatura Premium Necessária",
+    desc: "É necessária uma assinatura Premium para acessar este conteúdo. Tenha acesso ilimitado a todos os sinais de ações, análises e listas.",
+    trialLabel: "Seu teste expira em:",
+    offer: "PRIMEIRO MÊS POR APENAS $19",
+    sub: "Oferta limitada — preço normal $39/mês",
+    cta: "Começar Agora →",
+    close: "Fechar",
+    upgradeHref: "/global/pt/account?tab=subscription",
+    dayUnit: "d",
+    hourUnit: "h",
+    minUnit: "m",
+  },
 };
 
 function TrialBadge({ locale }: { locale: Locale }) {

@@ -7,11 +7,11 @@ interface Props {
   ticker: string;
   stockData: any;
   onClose?: () => void;
-  lang?: "tr" | "en" | "es" | "fr";
+  lang?: "tr" | "en" | "es" | "fr" | "pt";
   mode?: "overlay" | "page";
 }
 
-const L = (lang: "tr" | "en" | "es" | "fr" | string, tr: string, en: string, es?: string, fr?: string) =>
+const L = (lang: "tr" | "en" | "es" | "fr" | "pt" | string, tr: string, en: string, es?: string, fr?: string) =>
   lang === "tr" ? tr : lang === "es" ? (es || en) : lang === "fr" ? (fr || en) : en;
 
 const _cache = new Map<string, any>();
@@ -31,7 +31,7 @@ function fmtUsd(v: number) { return "$" + v.toFixed(2); }
 
 // ── Candle pattern detail ─────────────────────────────────────────────────────
 
-function candleDetail(pattern: string, lang: "tr" | "en" | "es" | "fr"): { signal: "bull" | "bear" | "neutral"; desc: string; action: string } {
+function candleDetail(pattern: string, lang: "tr" | "en" | "es" | "fr" | "pt"): { signal: "bull" | "bear" | "neutral"; desc: string; action: string } {
   const map: Record<string, { signal: "bull" | "bear" | "neutral"; tr: [string, string]; en: [string, string] }> = {
     "Hammer":            { signal: "bull", tr: ["Çekiç — düşüş sonunda güçlü dönüş sinyali. Alt gölge uzun, kapanış gün ortasının üstünde.", "Önceki kapanışın üzerinde günlük kapanış onaylarsa uzun pozisyon değerlendir."], en: ["Hammer — strong reversal signal at the base of a downtrend. Long lower wick, close above midpoint.", "Consider long if next day closes above the hammer's high."] },
     "Shooting Star":     { signal: "bear", tr: ["Kayan Yıldız — yükseliş tepesinde dönüş uyarısı. Üst gölge uzun, satıcılar gün içi yükselişi geri aldı.", "Kapanış Kayan Yıldız'ın altına inerse short veya çıkış değerlendir."], en: ["Shooting Star — reversal warning at rally peak. Long upper wick shows sellers overtook buyers intraday.", "Consider exit/short if price closes below the shooting star's low."] },
@@ -54,7 +54,7 @@ function candleDetail(pattern: string, lang: "tr" | "en" | "es" | "fr"): { signa
 
 // ── Trade plan (fixed math) ───────────────────────────────────────────────────
 
-function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment", lang: "tr" | "en" | "es" | "fr") {
+function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment", lang: "tr" | "en" | "es" | "fr" | "pt") {
   const price = rd.currentPrice || 100;
 
   // Defensive: enforce supports below price, resistances above
@@ -187,7 +187,7 @@ function PlanRow({ label, value, valueColor = "white", note }: { label: string; 
   );
 }
 
-function MARowL({ label, value, current, lang }: { label: string; value: number; current: number; lang: "tr" | "en" | "es" | "fr" }) {
+function MARowL({ label, value, current, lang }: { label: string; value: number; current: number; lang: "tr" | "en" | "es" | "fr" | "pt" }) {
   const above = current >= value;
   const dist = value > 0 ? ((current - value) / value * 100) : 0;
   return (

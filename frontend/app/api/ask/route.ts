@@ -110,7 +110,7 @@ GUIDELINES:
 
 For out-of-scope questions, politely redirect in user's language.`;
 
-function getDynamicSystemPrompt(lang: "tr" | "en" = "tr"): string {
+function getDynamicSystemPrompt(lang: "tr" | "en" | "pt" = "tr"): string {
   const masterPaths = [
     path.join(process.cwd(), "..", "data", "latest", "master.json"),
     path.join(process.cwd(), "data", "latest", "master.json"),
@@ -160,6 +160,8 @@ ${sectors}
 
   const langDirective = lang === "en"
     ? "\nLANGUAGE OVERRIDE: Always respond in English, regardless of how short or ambiguous the user's message is (e.g. a bare ticker symbol). Do not default to Turkish.\n"
+    : lang === "pt"
+    ? "\nLANGUAGE OVERRIDE: Always respond in Brazilian Portuguese (pt-BR), regardless of how short or ambiguous the user's message is (e.g. a bare ticker symbol). Do not default to Turkish or English.\n"
     : "\nDİL KURALI: Kullanıcının mesajı ne kadar kısa veya belirsiz olursa olsun (örn. sadece bir ticker sembolü) her zaman Türkçe yanıt ver.\n";
 
   return `${SYSTEM_PROMPT}
@@ -1451,7 +1453,7 @@ export async function POST(req: NextRequest) {
   }
 
   const { message, history = [], lang: langRaw = "tr" } = body;
-  const lang: "tr" | "en" = (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
+  const lang: "tr" | "en" | "pt" = langRaw === "pt" ? "pt" : (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
   if (!message?.trim()) {
     return NextResponse.json({ text: "Lütfen bir mesaj girin." });
   }
@@ -1952,7 +1954,7 @@ DETAYLI HİSSE LİSTESİ
   }
 }
 
-async function handleClaude(message: string, history: Message[], lang: "tr" | "en" = "tr") {
+async function handleClaude(message: string, history: Message[], lang: "tr" | "en" | "pt" = "tr") {
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json({ text: "Claude servisi şu an devre dışı (API anahtarı eksik). Lütfen normal aramaya devam edin.", source: "claude" });
   }
@@ -1977,7 +1979,7 @@ async function handleClaude(message: string, history: Message[], lang: "tr" | "e
   }
 }
 
-async function handleGemini(message: string, history: Message[], lang: "tr" | "en" = "tr") {
+async function handleGemini(message: string, history: Message[], lang: "tr" | "en" | "pt" = "tr") {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({

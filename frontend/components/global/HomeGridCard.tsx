@@ -29,10 +29,10 @@ interface HomeSimpleCardProps {
   requirePremium?: boolean;
 }
 
-const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string }> = {
-  BULLISH: { color: '#22c55e', tr: 'YÜKSELİŞ', en: 'BULLISH' },
-  BEARISH: { color: '#ef4444', tr: 'DÜŞÜŞ', en: 'BEARISH' },
-  NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL' },
+const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string; pt: string }> = {
+  BULLISH: { color: '#22c55e', tr: 'YÜKSELİŞ', en: 'BULLISH', pt: 'ALTA' },
+  BEARISH: { color: '#ef4444', tr: 'DÜŞÜŞ', en: 'BEARISH', pt: 'BAIXA' },
+  NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL', pt: 'NEUTRO' },
 };
 
 const ROW_COLS = 'grid-cols-[1fr_56px_64px_72px]';
@@ -46,8 +46,8 @@ export default function HomeSimpleCard({
   sortLabel,
   requirePremium = false,
 }: HomeSimpleCardProps) {
-  const emptyMessage = locale === 'tr' ? 'Veri bulunmamaktadır' : 'No data available';
-  const allLabel = locale === 'tr' ? 'TÜMÜ' : 'ALL';
+  const emptyMessage = locale === 'tr' ? 'Veri bulunmamaktadır' : locale === 'pt' ? 'Nenhum dado disponível' : 'No data available';
+  const allLabel = locale === 'tr' ? 'TÜMÜ' : locale === 'pt' ? 'TODOS' : 'ALL';
 
   const { isFreeTrial } = useMemberPlan();
   const locked = requirePremium && isFreeTrial;
@@ -80,17 +80,17 @@ export default function HomeSimpleCard({
           <>
             {/* Column labels */}
             <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/30`}>
-              <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : 'STOCK / SECTOR'}</span>
+              <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : locale === 'pt' ? 'AÇÃO / SETOR' : 'STOCK / SECTOR'}</span>
               <span />
-              <span className="text-center">{locale === 'tr' ? 'DURUM' : 'STATUS'}</span>
-              <span className="text-right">{locale === 'tr' ? 'FİYAT' : 'PRICE'}</span>
+              <span className="text-center">{locale === 'tr' ? 'DURUM' : locale === 'pt' ? 'STATUS' : 'STATUS'}</span>
+              <span className="text-right">{locale === 'tr' ? 'FİYAT' : locale === 'pt' ? 'PREÇO' : 'PRICE'}</span>
             </div>
 
             {/* Rows */}
             <div className="flex-1 divide-y divide-[#1e2a3a]/70">
               {stocks.map((stock, idx) => {
                 const statusStyle = STATUS_STYLE[stock.status];
-                const statusLabel = locale === 'tr' ? statusStyle.tr : statusStyle.en;
+                const statusLabel = locale === 'tr' ? statusStyle.tr : locale === 'pt' ? statusStyle.pt : statusStyle.en;
                 return (
                   <div
                     key={stock.ticker}

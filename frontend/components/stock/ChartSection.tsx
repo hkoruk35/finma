@@ -3,7 +3,7 @@
 import { useState } from "react";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
-type Locale = "en" | "tr" | "es" | "fr";
+type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
 interface Props {
   ticker: string;

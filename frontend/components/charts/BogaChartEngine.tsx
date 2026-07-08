@@ -15,7 +15,7 @@ import {
 import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 
-type Locale = "en" | "tr" | "es" | "fr";
+type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
 const LABELS: Record<Locale, Record<string, string>> = {
   en: {

@@ -129,6 +129,35 @@ export const SITEMAP_FR: SitemapGroup[] = [
   ]},
 ];
 
+export const SITEMAP_PT: SitemapGroup[] = [
+  { group: "Genel", entries: [
+    { label: "Anasayfa", path: "/global/pt" },
+    { label: "Home", path: "/global/pt/home" },
+  ]},
+  { group: "Üyelik", entries: [
+    { label: "Login", path: "/global/pt/login" },
+    { label: "Register", path: "/global/pt/register" },
+    { label: "Account", path: "/global/pt/account" },
+  ]},
+  { group: "Tracker / Analiz", entries: [
+    { label: "Top100", path: "/global/pt/top100" },
+    { label: "Swing", path: "/global/pt/swing" },
+    { label: "Swing Archive", path: "/global/pt/swing/archive" },
+    { label: "Swing Performance", path: "/global/pt/swingperformance" },
+    { label: "Trend", path: "/global/pt/trend" },
+    { label: "Performance", path: "/global/pt/performance" },
+    { label: "AI Report", path: "/global/pt/ai" },
+    { label: "Analysis (Ticker)", path: "/global/pt/analysis/[ticker]" },
+  ]},
+  { group: "Kurumsal / Yasal", entries: [
+    { label: "About", path: "/global/pt/about" },
+    { label: "Contact", path: "/global/pt/contact" },
+    { label: "Terms", path: "/global/pt/terms" },
+    { label: "Privacy", path: "/global/pt/privacy" },
+    { label: "Disclaimer", path: "/global/pt/disclaimer" },
+  ]},
+];
+
 export const SITEMAP_ADMIN: SitemapGroup[] = [
   { group: "Admin Sistem", entries: [
     { label: "Ana Panel", path: "/admin" },

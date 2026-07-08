@@ -112,7 +112,7 @@ export default function Header({
   onNewQueryClick?: () => void;
   /** When set, the logo becomes a smart link for the /global member area:
    * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
-  globalLocale?: "en" | "tr" | "es" | "fr";
+  globalLocale?: "en" | "tr" | "es" | "fr" | "pt";
   /** Plain link target for the logo when hideMenus is true (no auth check needed). */
   logoHref?: string;
 }) {
@@ -133,8 +133,8 @@ export default function Header({
   };
 
   const handleGlobalLogoClick = async () => {
-    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : globalLocale === "fr" ? "/global/fr" : "/global/en";
-    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : globalLocale === "fr" ? "/global/fr/home" : "/global/en/home";
+    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : globalLocale === "fr" ? "/global/fr" : globalLocale === "pt" ? "/global/pt" : "/global/en";
+    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : globalLocale === "fr" ? "/global/fr/home" : globalLocale === "pt" ? "/global/pt/home" : "/global/en/home";
     try {
       const res = await fetch("/api/members/me");
       router.push(res.ok ? homeHref : landingHref);
@@ -238,9 +238,9 @@ export default function Header({
           {/* Language Selector */}
           {globalLocale && (
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-1 border border-[#1e2a3a]/60">
-              {['EN', 'ES', 'FR', 'PR', 'TR'].map((lang) => {
+              {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
                 const isActive = globalLocale.toUpperCase() === lang;
-                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES';
+                const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT';
                 
                 if (!isAvailable) {
                   return (

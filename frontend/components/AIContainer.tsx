@@ -22,22 +22,22 @@ interface SearchHistory {
   timestamp: number;
 }
 
-const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string }> = {
-  newSearch:      { tr: "+ Yeni Arama",   en: "+ New Search", es: "+ Nueva Búsqueda", fr: "+ Nouvelle Recherche" },
-  recentSearches: { tr: "SON ARAMALAR",   en: "RECENT SEARCHES", es: "BÚSQUEDAS RECIENTES", fr: "RECHERCHES RÉCENTES" },
-  emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet.", es: "Aún no hay historial de búsqueda.", fr: "Aucun historique de recherche pour le moment." },
-  placeholder:    { tr: "Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız...", en: "Type the US stock ticker or company name you want to search...", es: "Escribe el ticker de bolsa estadounidense o el nombre de la empresa que deseas buscar...", fr: "Tapez le symbole boursier américain ou le nom de la société que vous souhaitez rechercher..." },
-  popularStocks:  { tr: "Popüler Hisse Senetleri", en: "Popular Stocks", es: "Acciones Populares", fr: "Actions Populaires" },
-  archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive", es: "🗂️ Archivo de Análisis Profundo", fr: "🗂️ Archive d'Analyse Approfondie" },
-  legalDisclaimerLabel: { tr: "Yasal Uyarı:", en: "Disclaimer:", es: "Aviso Legal:", fr: "Avertissement:" },
-  legalDisclaimerBody:  { tr: "BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.", en: "BOGA Finance AI is not an investment advisor. This is an informational, educational, and technical analysis system only. It does not provide investment advice or buy/sell recommendations.", es: "BOGA Finance AI no es un asesor de inversiones. Este es un sistema de información, educación y análisis técnico solamente. No proporciona asesoramiento de inversión ni recomendaciones de compra/venta.", fr: "BOGA Finance AI n'est pas un conseiller en investissement. Ceci est un système informatif, éducatif et d'analyse technique uniquement. Il ne fournit pas de conseils d'investissement ni de recommandations d'achat/vente." },
-  copyright:      { tr: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.", en: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.", es: "© 2026 BOGA AI - Blue One Global Analysis. Desarrollado por AFK DaSYS.", fr: "© 2026 BOGA AI - Blue One Global Analysis. Développé par AFK DaSYS." },
-  analysisReport: { tr: "BOGA AI ANALİZ RAPORU", en: "BOGA AI ANALYSIS REPORT", es: "INFORME DE ANÁLISIS BOGA AI", fr: "RAPPORT D'ANALYSE BOGA AI" },
-  connectionError:{ tr: "Bağlantı hatası.", en: "Connection error.", es: "Error de conexión.", fr: "Erreur de connexion." },
-  genericError:   { tr: "Hata oluştu.", en: "An error occurred.", es: "Ocurrió un error.", fr: "Une erreur s'est produite." },
-  recentTitle:    { tr: "Son Aramalar", en: "Recent Searches", es: "Búsquedas Recientes", fr: "Recherches Récentes" },
-  analyzingTitle: { tr: "BOGA AI tarafından güncel analiz yapılıyor", en: "BOGA AI is performing the latest analysis", es: "BOGA AI está realizando el análisis más reciente", fr: "BOGA AI effectue l'analyse la plus récente" },
-  analyzingBody:  { tr: "Lütfen bekleyin, derin analiz raporu hazırlanıyor...", en: "Please wait, the deep analysis report is being prepared...", es: "Por favor espere, se está preparando el informe de análisis profundo...", fr: "Veuillez patienter, le rapport d'analyse approfondie est en cours de préparation..." },
+const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string; pt: string }> = {
+  newSearch:      { tr: "+ Yeni Arama",   en: "+ New Search", es: "+ Nueva Búsqueda", fr: "+ Nouvelle Recherche", pt: "+ Nova Busca" },
+  recentSearches: { tr: "SON ARAMALAR",   en: "RECENT SEARCHES", es: "BÚSQUEDAS RECIENTES", fr: "RECHERCHES RÉCENTES", pt: "BUSCAS RECENTES" },
+  emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet.", es: "Aún no hay historial de búsqueda.", fr: "Aucun historique de recherche pour le moment.", pt: "Ainda não há histórico de busca." },
+  placeholder:    { tr: "Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız...", en: "Type the US stock ticker or company name you want to search...", es: "Escribe el ticker de bolsa estadounidense o el nombre de la empresa que deseas buscar...", fr: "Tapez le symbole boursier américain ou le nom de la société que vous souhaitez rechercher...", pt: "Digite o ticker da ação dos EUA ou o nome da empresa que deseja buscar..." },
+  popularStocks:  { tr: "Popüler Hisse Senetleri", en: "Popular Stocks", es: "Acciones Populares", fr: "Actions Populaires", pt: "Ações Populares" },
+  archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive", es: "🗂️ Archivo de Análisis Profundo", fr: "🗂️ Archive d'Analyse Approfondie", pt: "🗂️ Arquivo de Análise Profunda" },
+  legalDisclaimerLabel: { tr: "Yasal Uyarı:", en: "Disclaimer:", es: "Aviso Legal:", fr: "Avertissement:", pt: "Aviso Legal:" },
+  legalDisclaimerBody:  { tr: "BOGA Finance AI bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.", en: "BOGA Finance AI is not an investment advisor. This is an informational, educational, and technical analysis system only. It does not provide investment advice or buy/sell recommendations.", es: "BOGA Finance AI no es un asesor de inversiones. Este es un sistema de información, educación y análisis técnico solamente. No proporciona asesoramiento de inversión ni recomendaciones de compra/venta.", fr: "BOGA Finance AI n'est pas un conseiller en investissement. Ceci est un système informatif, éducatif et d'analyse technique uniquement. Il ne fournit pas de conseils d'investissement ni de recommandations d'achat/vente.", pt: "A BOGA Finance AI não é uma consultora de investimentos. Este é apenas um sistema informativo, educacional e de análise técnica. Não fornece aconselhamento de investimento nem recomendações de compra/venda." },
+  copyright:      { tr: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.", en: "© 2026 BOGA AI - Blue One Global Analysis. Developed by AFK DaSYS.", es: "© 2026 BOGA AI - Blue One Global Analysis. Desarrollado por AFK DaSYS.", fr: "© 2026 BOGA AI - Blue One Global Analysis. Développé par AFK DaSYS.", pt: "© 2026 BOGA AI - Blue One Global Analysis. Desenvolvido por AFK DaSYS." },
+  analysisReport: { tr: "BOGA AI ANALİZ RAPORU", en: "BOGA AI ANALYSIS REPORT", es: "INFORME DE ANÁLISIS BOGA AI", fr: "RAPPORT D'ANALYSE BOGA AI", pt: "RELATÓRIO DE ANÁLISE BOGA AI" },
+  connectionError:{ tr: "Bağlantı hatası.", en: "Connection error.", es: "Error de conexión.", fr: "Erreur de connexion.", pt: "Erro de conexão." },
+  genericError:   { tr: "Hata oluştu.", en: "An error occurred.", es: "Ocurrió un error.", fr: "Une erreur s'est produite.", pt: "Ocorreu um erro." },
+  recentTitle:    { tr: "Son Aramalar", en: "Recent Searches", es: "Búsquedas Recientes", fr: "Recherches Récentes", pt: "Buscas Recentes" },
+  analyzingTitle: { tr: "BOGA AI tarafından güncel analiz yapılıyor", en: "BOGA AI is performing the latest analysis", es: "BOGA AI está realizando el análisis más reciente", fr: "BOGA AI effectue l'analyse la plus récente", pt: "A BOGA AI está realizando a análise mais recente" },
+  analyzingBody:  { tr: "Lütfen bekleyin, derin analiz raporu hazırlanıyor...", en: "Please wait, the deep analysis report is being prepared...", es: "Por favor espere, se está preparando el informe de análisis profundo...", fr: "Veuillez patienter, le rapport d'analyse approfondie est en cours de préparation...", pt: "Aguarde, o relatório de análise profunda está sendo preparado..." },
 };
 
 const POPULAR_TICKERS = [
@@ -127,13 +127,13 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" }) {
-  const t = (key: keyof typeof TEXTS) => TEXTS[key][(lang === "en" ? "en" : lang === "es" ? "es" : lang === "fr" ? "fr" : "tr")];
+export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt" }) {
+  const t = (key: keyof typeof TEXTS) => TEXTS[key][(lang === "en" ? "en" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "pt" ? "pt" : "tr")];
   // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the
   // /global member area (no Screener/Terminal/Option links, no root logout) and always
   // jump straight to Deep Analysis instead of the standard report.
   const isGlobal = !!locale;
-  const homeHref = locale === "es" ? "/global/es/home" : locale === "en" ? "/global/en/home" : "/global/tr/home";
+  const homeHref = locale === "es" ? "/global/es/home" : locale === "en" ? "/global/en/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/tr/home";
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);

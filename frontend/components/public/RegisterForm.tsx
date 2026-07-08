@@ -62,6 +62,12 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
           <div className="bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-white text-sm py-4 px-4 rounded-xl text-center">
             {locale === "en"
               ? "Check your inbox to confirm your email, then log in."
+              : locale === "es"
+              ? "Revisa tu bandeja de entrada para confirmar tu correo electrónico y luego inicia sesión."
+              : locale === "fr"
+              ? "Vérifiez votre boîte de réception pour confirmer votre e-mail, puis connectez-vous."
+              : locale === "pt"
+              ? "Verifique sua caixa de entrada para confirmar seu e-mail e depois entre."
               : "E-postanı onaylamak için gelen kutunu kontrol et, ardından giriş yap."}
           </div>
         ) : (

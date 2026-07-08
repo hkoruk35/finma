@@ -41,10 +41,18 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
 
   const upgradeHref = locale === "tr"
     ? "/global/tr/hesabim?tab=subscription"
+    : locale === "es"
+    ? "/global/es/account?tab=subscription"
+    : locale === "fr"
+    ? "/global/fr/account?tab=subscription"
+    : locale === "pt"
+    ? "/global/pt/account?tab=subscription"
     : "/global/en/account?tab=subscription";
 
   const features = locale === "tr"
     ? ["AI destekli derin hisse analizi", "Swing & trend sinyalleri", "Top 100 tam erişim", "Kurumsal akım verileri"]
+    : locale === "pt"
+    ? ["Análise profunda de ações com IA", "Sinais de swing & tendência", "Acesso total ao Top 100", "Dados de fluxo institucional"]
     : ["AI-powered deep stock analysis", "Swing & trend signals", "Full Top 100 access", "Institutional flow data"];
 
   return (
@@ -60,6 +68,8 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
         <span className="hidden sm:block text-[9px] font-black uppercase tracking-wider text-[#f59e0b]/80 group-hover:text-[#f59e0b] transition-colors leading-tight">
           {locale === "tr" ? (
             <>$39 yerine <span className="text-[#22c55e]">$19</span> ilk ay →</>
+          ) : locale === "pt" ? (
+            <>$39 → <span className="text-[#22c55e]">$19</span> primeiro mês →</>
           ) : (
             <>$39 → <span className="text-[#22c55e]">$19</span> first month →</>
           )}
@@ -78,12 +88,14 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
           <div className="flex items-center gap-2 mb-1">
             <span className="text-[#f59e0b]">⚡</span>
             <span className="text-white text-[11px] font-bold uppercase tracking-wider">
-              {locale === "tr" ? "Sınırlı Süre Teklifi" : "Limited Time Offer"}
+              {locale === "tr" ? "Sınırlı Süre Teklifi" : locale === "pt" ? "Oferta por Tempo Limitado" : "Limited Time Offer"}
             </span>
           </div>
           <p className="text-white/50 text-[10px] mb-3">
             {locale === "tr"
               ? "Deneme süreniz dolmadan Premium'a geçin."
+              : locale === "pt"
+              ? "Faça upgrade antes que seu teste expire."
               : "Upgrade before your trial expires."}
           </p>
 
@@ -100,7 +112,7 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
             <span className="text-white/40 text-xs line-through">$39</span>
             <span className="text-[#22c55e] text-2xl font-black">$19</span>
             <span className="text-white/40 text-[10px]">
-              {locale === "tr" ? "/ ilk ay" : "/ first month"}
+              {locale === "tr" ? "/ ilk ay" : locale === "pt" ? "/ primeiro mês" : "/ first month"}
             </span>
           </div>
 
@@ -109,7 +121,7 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
             onClick={() => setShowPopup(false)}
             className="block w-full text-center py-2 rounded-lg bg-gradient-to-r from-[#f59e0b] to-[#f97316] text-black text-[11px] font-black uppercase tracking-wider hover:opacity-90 transition-opacity"
           >
-            {locale === "tr" ? "Hemen Yükselt →" : "Upgrade Now →"}
+            {locale === "tr" ? "Hemen Yükselt →" : locale === "pt" ? "Fazer Upgrade Agora →" : "Upgrade Now →"}
           </a>
         </div>
       )}

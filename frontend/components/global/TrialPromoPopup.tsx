@@ -42,12 +42,18 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
     ? "/global/tr/hesabim?tab=subscription"
     : locale === "es"
     ? "/global/es/account?tab=subscription"
+    : locale === "fr"
+    ? "/global/fr/account?tab=subscription"
+    : locale === "pt"
+    ? "/global/pt/account?tab=subscription"
     : "/global/en/account?tab=subscription";
 
   const features = locale === "tr"
     ? ["AI destekli derin hisse analizi", "Swing & trend sinyalleri (günlük)", "Top 100 hisse tam erişim", "Kurumsal akım & 13F verileri"]
     : locale === "es"
     ? ["Análisis profundo de acciones con IA", "Señales diarias de swing & tendencia", "Acceso completo a Top 100 acciones", "Flujo institucional & datos 13F"]
+    : locale === "pt"
+    ? ["Análise profunda de ações com IA", "Sinais diários de swing & tendência", "Acesso total às ações do Top 100", "Fluxo institucional & dados 13F"]
     : ["AI-powered deep stock analysis", "Daily swing & trend signals", "Full Top 100 stocks access", "Institutional flow & 13F data"];
 
   return (
@@ -67,7 +73,7 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-2 mb-1">
           <span className="text-[#f59e0b] text-lg">⚡</span>
           <span className="text-white text-sm font-bold uppercase tracking-wider">
-            {locale === "tr" ? "Özel Fırsat" : locale === "es" ? "Oferta Especial" : "Special Offer"}
+            {locale === "tr" ? "Özel Fırsat" : locale === "es" ? "Oferta Especial" : locale === "pt" ? "Oferta Especial" : "Special Offer"}
           </span>
         </div>
         <p className="text-white/50 text-[11px] mb-4">
@@ -75,6 +81,8 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
             ? "Deneme süreniz devam ederken en iyi fiyatı kilitleyin."
             : locale === "es"
             ? "Consigue el mejor precio mientras tu prueba está activa."
+            : locale === "pt"
+            ? "Garanta o melhor preço enquanto seu teste está ativo."
             : "Lock in the best price while your trial is active."}
         </p>
 
@@ -91,7 +99,7 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
           <span className="text-white/40 text-sm line-through">$39</span>
           <span className="text-[#22c55e] text-3xl font-black">$19</span>
           <span className="text-white/50 text-[11px]">
-            {locale === "tr" ? "/ ilk ay" : locale === "es" ? "/ primer mes" : "/ first month"}
+            {locale === "tr" ? "/ ilk ay" : locale === "es" ? "/ primer mes" : locale === "pt" ? "/ primeiro mês" : "/ first month"}
           </span>
         </div>
 
@@ -100,7 +108,7 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
           onClick={() => setShow(false)}
           className="block w-full text-center py-2.5 rounded-xl bg-gradient-to-r from-[#f59e0b] to-[#f97316] text-black text-[12px] font-black uppercase tracking-wider hover:opacity-90 transition-opacity mb-3"
         >
-          {locale === "tr" ? "Hemen Yükselt →" : locale === "es" ? "Mejorar Ahora →" : "Upgrade Now →"}
+          {locale === "tr" ? "Hemen Yükselt →" : locale === "es" ? "Mejorar Ahora →" : locale === "pt" ? "Fazer Upgrade Agora →" : "Upgrade Now →"}
         </a>
 
         {/* Auto-dismiss progress bar */}
@@ -115,7 +123,7 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
             onClick={() => setShow(false)}
             className="text-[10px] text-white/30 hover:text-white/60 flex-shrink-0"
           >
-            {locale === "tr" ? `${secsLeft}s kapat` : locale === "es" ? `cerrar en ${secsLeft}s` : `close in ${secsLeft}s`}
+            {locale === "tr" ? `${secsLeft}s kapat` : locale === "es" ? `cerrar en ${secsLeft}s` : locale === "pt" ? `fechar em ${secsLeft}s` : `close in ${secsLeft}s`}
           </button>
         </div>
       </div>
