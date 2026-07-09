@@ -4,7 +4,6 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
-import { getSwingAllPicks } from "@/lib/data";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -131,11 +130,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      const swingData = await getSwingAllPicks();
-      if (!swingData) {
+      const swingRes = await fetch("/api/swing-picks?min=10");
+      if (!swingRes.ok) {
         setError(t.error);
         return;
       }
+      const swingData = await swingRes.json();
 
       const rows: SwingRow[] = (swingData.picks ?? []).map((p: any) => ({
         ticker: p.ticker,

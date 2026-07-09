@@ -826,6 +826,39 @@ export async function getSwingAllPicks(date?: string): Promise<any | null> {
   } catch { return null; }
 }
 
+// Ensures at least `minCount` unique-ticker picks are available by backfilling
+// with the most recent archived days when today's list is thin (e.g. only 1
+// new pick came in today). Today's picks always come first, then previous
+// days in reverse-chronological order, until minCount is reached.
+export async function getSwingPicksBackfilled(minCount: number): Promise<any> {
+  const todayData = await getSwingAllPicks();
+  const seen = new Set<string>();
+  const merged: any[] = [];
+
+  const addPicks = (picks: any[] | undefined) => {
+    (picks ?? []).forEach((p) => {
+      if (p?.ticker && !seen.has(p.ticker)) {
+        seen.add(p.ticker);
+        merged.push(p);
+      }
+    });
+  };
+
+  addPicks(todayData?.picks);
+
+  if (merged.length < minCount) {
+    const dates = await getSwingArchiveDates(); // descending, most recent first
+    for (const date of dates) {
+      if (merged.length >= minCount) break;
+      if (todayData?.date && date === todayData.date) continue;
+      const archiveData = await getSwingAllPicks(date);
+      addPicks(archiveData?.picks);
+    }
+  }
+
+  return { ...(todayData ?? {}), picks: merged };
+}
+
 export async function getSwingArchiveDates(): Promise<string[]> {
   if (typeof window === "undefined") {
     try {

@@ -4,7 +4,7 @@
  * Everything here goes through fetch() with an hourly revalidate so the page
  * can be served as ISR and update on the hour during market days.
  */
-import { getSwingAllPicks, getMasterData } from "./data";
+import { getSwingPicksBackfilled, getMasterData } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
 
 export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
@@ -61,7 +61,7 @@ async function supabaseSelect(table: string, query: string): Promise<any[]> {
 }
 
 export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
-  const swingData = await getSwingAllPicks();
+  const swingData = await getSwingPicksBackfilled(limit);
   const picks: any[] = swingData?.picks ?? [];
   if (picks.length === 0) return [];
 
