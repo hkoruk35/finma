@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "SNDX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 24.62,
+        "entry_zone": "24.03 - 25.21",
+        "SL": 22.27,
+        "TP": 29.32
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "EWTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 47.24,
+        "entry_zone": "45.97 - 48.52",
+        "SL": 42.15,
+        "TP": 57.44
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "AKAM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 129.86,
+        "entry_zone": "126.78 - 132.94",
+        "SL": 117.56,
+        "TP": 154.47
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "AVGO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 405.52,
+        "entry_zone": "397.25 - 413.78",
+        "SL": 372.45,
+        "TP": 471.64
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "VLO",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 279.98,
+        "entry_zone": "275.13 - 284.82",
+        "SL": 260.6,
+        "TP": 318.73
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "NVDA",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 203.98,
+        "entry_zone": "200.67 - 207.29",
+        "SL": 190.73,
+        "TP": 230.48
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "PSX",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 190.39,
+        "entry_zone": "187.80 - 192.98",
+        "SL": 180.03,
+        "TP": 205.93
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "ANET",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 184.98,
+        "entry_zone": "179.51 - 190.45",
+        "SL": 163.09,
+        "TP": 228.75
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "PARR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 66.09,
+        "entry_zone": "64.63 - 67.54",
+        "SL": 60.27,
+        "TP": 77.73
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "XENE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 70.13,
+        "entry_zone": "68.84 - 71.42",
+        "SL": 64.96,
+        "TP": 80.46
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "TXN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 311.68,
+        "entry_zone": "303.18 - 320.19",
+        "SL": 277.66,
+        "TP": 379.74
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "SOBO",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 36.42,
+        "entry_zone": "36.00 - 36.84",
+        "SL": 34.73,
+        "TP": 39.81
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.04,
+        "entry_zone": "37.60 - 40.48",
+        "SL": 33.27,
+        "TP": 50.57
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "BHVN",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 16.67,
+        "entry_zone": "16.07 - 17.26",
+        "SL": 14.29,
+        "TP": 21.42
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "GNK",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 24.22,
+        "entry_zone": "23.80 - 24.64",
+        "SL": 22.53,
+        "TP": 27.6
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "BABA",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 111.62,
+        "entry_zone": "109.76 - 113.48",
+        "SL": 104.16,
+        "TP": 126.54
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "AGRO",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 10.12,
+        "entry_zone": "9.91 - 10.34",
+        "SL": 9.28,
+        "TP": 11.82
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "SU",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 58.47,
+        "entry_zone": "57.79 - 59.16",
+        "SL": 55.74,
+        "TP": 63.95
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "BIDU",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 118.02,
+        "entry_zone": "115.74 - 120.30",
+        "SL": 108.92,
+        "TP": 136.23
+    },
+    {
+        "date": "2026-07-09 14:45",
+        "symbol": "EGY",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 5.24,
+        "entry_zone": "5.12 - 5.35",
+        "SL": 4.79,
+        "TP": 6.13
+    }
+]
