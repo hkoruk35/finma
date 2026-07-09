@@ -42,22 +42,34 @@ export async function proxy(request: NextRequest) {
   }
 
   // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
-  // /global/en altında sadece landing (/) ve login public — geri her şey üye gerektirir
-  // /global/tr altında sadece landing (/) ve giriş public — geri her şey üye gerektirir
-  // Performance ve top100 sayfaları halka açık
-  const isGlobalMemberPath =
-    (isPathOrSubpath('/global/en') &&
-      !pathname.startsWith('/global/en/login') &&
-      !pathname.startsWith('/global/en/register') &&
-      !pathname.startsWith('/global/en/performance') &&
-      !pathname.startsWith('/global/en/top100') &&
-      pathname !== '/global/en') ||
-    (isPathOrSubpath('/global/tr') &&
-      !pathname.startsWith('/global/tr/giris') &&
-      !pathname.startsWith('/global/tr/kayit') &&
-      !pathname.startsWith('/global/tr/performance') &&
-      !pathname.startsWith('/global/tr/top100') &&
-      pathname !== '/global/tr')
+  // Her locale altında sadece landing (/), login ve register public — geri her şey üye gerektirir
+  // Performance sayfası halka açık (top100 burada de public sayılsa da,
+  // app/global/[locale]/top100/layout.tsx kendi oturum kontrolünü ayrıca yapıyor — çift katman)
+  // Not: bu tablo 5 dilin hepsini kapsar — önceden sadece en/tr burada tanımlıydı,
+  // es/fr/pt hiç gate edilmiyordu (üye olmayan herkes swing/analiz gibi sayfalara girebiliyordu).
+  const LOCALE_AUTH_ROUTES: Record<string, { login: string; register: string; home: string }> = {
+    en: { login: 'login', register: 'register', home: 'home' },
+    tr: { login: 'giris', register: 'kayit', home: 'home' },
+    es: { login: 'login', register: 'register', home: 'home' },
+    fr: { login: 'login', register: 'register', home: 'home' },
+    pt: { login: 'login', register: 'register', home: 'home' },
+  }
+
+  let isGlobalMemberPath = false
+  let currentLocale: string | null = null
+  for (const [locale, routes] of Object.entries(LOCALE_AUTH_ROUTES)) {
+    const base = `/global/${locale}`
+    if (isPathOrSubpath(base)) {
+      currentLocale = locale
+      isGlobalMemberPath =
+        !pathname.startsWith(`${base}/${routes.login}`) &&
+        !pathname.startsWith(`${base}/${routes.register}`) &&
+        !pathname.startsWith(`${base}/performance`) &&
+        !pathname.startsWith(`${base}/top100`) &&
+        pathname !== base
+      break
+    }
+  }
 
   const hasSupabaseSession = !!user
 
@@ -73,20 +85,21 @@ export async function proxy(request: NextRequest) {
   // Zaten giriş yapmış kullanıcı landing, login veya kayıt sayfasına dönerse
   // (örn. geri tuşu, eski sekme) → doğrudan home'a at. Oturum açıkken bu
   // sayfalar bir daha gösterilmez; çıkış yapılmadan login ekranına dönülmez.
-  const loggedInPublicPages = new Set([
-    '/global/en', '/global/en/login', '/global/en/register',
-    '/global/tr', '/global/tr/giris', '/global/tr/kayit',
-  ])
-  if (hasSupabaseSession && loggedInPublicPages.has(pathname)) {
-    const homeUrl = pathname.startsWith('/global/tr') ? '/global/tr/home' : '/global/en/home'
+  const loggedInPublicPages = new Set(
+    Object.entries(LOCALE_AUTH_ROUTES).flatMap(([locale, routes]) => [
+      `/global/${locale}`,
+      `/global/${locale}/${routes.login}`,
+      `/global/${locale}/${routes.register}`,
+    ])
+  )
+  if (hasSupabaseSession && currentLocale && loggedInPublicPages.has(pathname)) {
+    const homeUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].home}`
     return redirectTo(new URL(homeUrl, request.url))
   }
 
   // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
-  if (isGlobalMemberPath && !hasSupabaseSession) {
-    const loginUrl = pathname.startsWith('/global/tr')
-      ? '/global/tr/giris'
-      : '/global/en/login'
+  if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
+    const loginUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].login}`
     return redirectTo(new URL(loginUrl, request.url))
   }
 
