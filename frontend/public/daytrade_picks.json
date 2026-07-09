@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-08T09:15:03.542969-04:00",
+  "generated_at": "2026-07-09T09:15:04.660283-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 26.7,
-  "total_scanned": 3,
-  "layer1_passed": 3,
-  "final_picks": 3,
+  "scan_duration_s": 26.5,
+  "total_scanned": 2,
+  "layer1_passed": 2,
+  "final_picks": 2,
   "picks": [
     {
-      "ticker": "VKTX",
-      "price": 42.13,
-      "change_pct": 8.83,
-      "dt_score": 52.0,
+      "ticker": "SMCI",
+      "price": 28.17,
+      "change_pct": 7.31,
+      "dt_score": 55.0,
       "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 41.14,
+      "vwap": 27.18,
       "catalyst": {
-        "catalyst_type": "acquisition",
-        "catalyst_score": 22,
-        "headline": "vktx vs bcrx: which biotech takeover favorite offers more upside after vertexs $10b crnx deal?(stocktwits)",
-        "confidence": "high",
-        "ts": 1783516528.8793583
+        "catalyst_type": "upgrade",
+        "catalyst_score": 15,
+        "headline": "super micro computer inc. stock outperforms competitors on strong trading day(marketwatch)+7.31%",
+        "confidence": "medium",
+        "ts": 1783602930.0433183
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,103 +37,48 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 42.09,
-          "high": 42.34
+          "low": 28.14,
+          "high": 28.31
         },
-        "stop": 41.5,
-        "tp1": 43.65,
-        "tp2": 44.72,
+        "stop": 27.75,
+        "tp1": 29.18,
+        "tp2": 29.89,
         "rr_ratio": 2.01,
-        "avg_entry": 42.22,
-        "risk_per_sh": 0.72,
+        "avg_entry": 28.23,
+        "risk_per_sh": 0.48,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 42.13
+        "pm_high_ref": 28.17
       },
       "details": [
-        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "📰 Kataliz: UPGRADE",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "📈 Güçlü Gap: +8.8%",
+        "↗️ Orta Gap: +7.3%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +2.42%",
-        "🔴 Açılış Barı: Kırmızı (0.1% gövde)",
+        "✅ VWAP Üstünde: +3.65%",
+        "🔥 Açılış Barı: Güçlü (6.9x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "IONS",
-      "price": 86.33,
-      "change_pct": 3.79,
-      "dt_score": 37.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 85.56,
-      "catalyst": {
-        "catalyst_type": "partnership",
-        "catalyst_score": 18,
-        "headline": "ionis completes enrollment in pivotal cohort of the phase 3 reveal study evaluating obudanersen in angelman syndrome(bus",
-        "confidence": "high",
-        "ts": 1783516528.5522065
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 86.24,
-          "high": 86.76
-        },
-        "stop": 85.04,
-        "tp1": 89.42,
-        "tp2": 91.61,
-        "rr_ratio": 2.0,
-        "avg_entry": 86.5,
-        "risk_per_sh": 1.46,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 86.33
-      },
-      "details": [
-        "📰 Kataliz: PARTNERSHIP",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.8%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "✅ VWAP Üstünde: +0.90%",
-        "🔴 Açılış Barı: Kırmızı (1.1% gövde)",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "SRPT",
-      "price": 19.79,
-      "change_pct": 3.18,
-      "dt_score": 25.0,
+      "ticker": "NVDA",
+      "price": 204.12,
+      "change_pct": 3.65,
+      "dt_score": 40.0,
       "signal": "CONFIRMED_OPEN",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 19.48,
+      "vwap": 200.42,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1783516528.8987331
+        "ts": 1783602930.0608268
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -147,26 +92,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 19.77,
-          "high": 19.89
+          "low": 203.92,
+          "high": 205.14
         },
-        "stop": 19.49,
-        "tp1": 20.51,
-        "tp2": 21.02,
+        "stop": 201.06,
+        "tp1": 211.47,
+        "tp2": 216.67,
         "rr_ratio": 2.0,
-        "avg_entry": 19.83,
-        "risk_per_sh": 0.34,
+        "avg_entry": 204.53,
+        "risk_per_sh": 3.47,
         "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 19.79
+        "pm_high_ref": 204.12
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.2%",
+        "↗️ Küçük Gap: +3.6%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.57%",
-        "🔴 Açılış Barı: Kırmızı (0.6% gövde)",
+        "✅ VWAP Üstünde: +1.85%",
+        "🔥 Açılış Barı: Güçlü (4.7x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
