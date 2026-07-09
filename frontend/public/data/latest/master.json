@@ -1,19 +1,31 @@
 {
-  "date": "2026-07-08",
-  "generated_at": "2026-07-08T13:02:43.569593-04:00",
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T13:20:19.826322-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 1,
-  "market_regime": "BULLISH",
+  "active_scores_count": 12,
+  "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 1,
+      "count": 10,
       "tickers": [
-        "CNQ"
+        "ZETA",
+        "IMO",
+        "LB",
+        "DAR",
+        "AAPL",
+        "EAT",
+        "TFIN",
+        "PSX",
+        "NTES",
+        "TFII"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 2,
+      "tickers": [
+        "TFIN",
+        "PRLB"
+      ]
     },
     "value": {
       "count": 0,
@@ -34,8 +46,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "CNQ",
+      "ticker": "ZETA",
       "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "IMO",
+      "score": 55.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "LB",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
