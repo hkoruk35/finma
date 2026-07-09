@@ -17,6 +17,11 @@ export const copy = {
       loginLink: "Log in",
       genericError: "Could not connect to the server. Please try again.",
     },
+    consent: {
+      disclaimer: "I understand this platform offers information and analysis only — not investment advice.",
+      cardNotice: "Your card details are processed securely by Stripe and are never stored on our servers.",
+      required: "Please confirm the notice above to continue.",
+    },
     login: {
       title: "Log in",
       subtitle: "BOGA AI Member Access",
@@ -212,6 +217,11 @@ export const copy = {
       haveAccount: "Zaten bir hesabın var mı?",
       loginLink: "Giriş yap",
       genericError: "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.",
+    },
+    consent: {
+      disclaimer: "Bu platformun yalnızca bilgilendirme ve analiz amaçlı olduğunu, yatırım tavsiyesi niteliği taşımadığını anladım.",
+      cardNotice: "Kredi kartı bilgileriniz güvenli şekilde Stripe tarafından işlenir ve sistemlerimizde asla saklanmaz.",
+      required: "Devam etmek için yukarıdaki bildirimi onaylayın.",
     },
     login: {
       title: "Giriş yap",
@@ -409,6 +419,11 @@ export const copy = {
       loginLink: "Iniciar sesión",
       genericError: "No se pudo conectar al servidor. Por favor, inténtalo de nuevo.",
     },
+    consent: {
+      disclaimer: "Entiendo que esta plataforma ofrece solo información y análisis, no asesoramiento de inversión.",
+      cardNotice: "Los datos de tu tarjeta se procesan de forma segura a través de Stripe y nunca se almacenan en nuestros servidores.",
+      required: "Confirma el aviso anterior para continuar.",
+    },
     login: {
       title: "Iniciar sesión",
       subtitle: "Acceso de Miembro BOGA AI",
@@ -605,6 +620,11 @@ export const copy = {
       loginLink: "Se connecter",
       genericError: "Impossible de se connecter au serveur. Veuillez réessayer.",
     },
+    consent: {
+      disclaimer: "Je comprends que cette plateforme propose uniquement des informations et des analyses, et non des conseils en investissement.",
+      cardNotice: "Les informations de votre carte sont traitées en toute sécurité par Stripe et ne sont jamais stockées sur nos serveurs.",
+      required: "Veuillez confirmer l'avis ci-dessus pour continuer.",
+    },
     login: {
       title: "Se connecter",
       subtitle: "Accès Membre BOGA AI",
@@ -800,6 +820,11 @@ export const copy = {
       haveAccount: "Já tem uma conta?",
       loginLink: "Entrar",
       genericError: "Não foi possível conectar ao servidor. Tente novamente.",
+    },
+    consent: {
+      disclaimer: "Entendo que esta plataforma oferece apenas informações e análises, não consultoria de investimento.",
+      cardNotice: "Os dados do seu cartão são processados com segurança pela Stripe e nunca são armazenados em nossos servidores.",
+      required: "Confirme o aviso acima para continuar.",
     },
     login: {
       title: "Entrar",

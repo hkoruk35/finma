@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import ConsentCheckbox from "@/components/public/ConsentCheckbox";
 
 export default function RegisterForm({ locale }: { locale: Locale }) {
   const t = copy[locale].register;
@@ -13,6 +14,8 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [needsConfirmation, setNeedsConfirmation] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [consentTouched, setConsentTouched] = useState(false);
   const router = useRouter();
   const loginHref = locale === "en" ? "/en/login" : "/tr/giris";
   const topHref = locale === "en" ? "/global/en/home" : "/global/tr/home";
@@ -20,6 +23,12 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!consentChecked) {
+      setConsentTouched(true);
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -27,13 +36,22 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
       const res = await fetch("/api/members/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password, redirectTo: confirmRedirectTo }),
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          redirectTo: confirmRedirectTo,
+          locale,
+          consentAccepted: consentChecked,
+        }),
       });
       const data = await res.json();
 
       if (res.ok) {
         if (data.needsEmailConfirmation) {
           setNeedsConfirmation(true);
+        } else if (data.checkoutUrl) {
+          window.location.href = data.checkoutUrl;
         } else {
           router.push(topHref);
         }
@@ -123,6 +141,16 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
                 {error}
               </div>
             )}
+
+            <ConsentCheckbox
+              locale={locale}
+              checked={consentChecked}
+              onChange={(checked) => {
+                setConsentChecked(checked);
+                if (checked) setConsentTouched(false);
+              }}
+              showError={consentTouched}
+            />
 
             <button
               type="submit"

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
+import { stripe, createPremiumCheckoutSession } from "@/lib/stripe";
 
 // Brute-force/spam koruması: basit in-memory rate limiter (app/api/auth/login/route.ts deseni)
 const attempts = new Map<string, { count: number; resetAt: number }>();
@@ -27,14 +29,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { email?: string; password?: string; username?: string; redirectTo?: string };
+  let body: {
+    email?: string;
+    password?: string;
+    username?: string;
+    redirectTo?: string;
+    locale?: string;
+    consentAccepted?: boolean;
+  };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { email, password, username, redirectTo } = body;
+  const { email, password, username, redirectTo, consentAccepted } = body;
+  const locale = body.locale && ["en", "tr", "es", "fr", "pt"].includes(body.locale) ? body.locale : "en";
+
   if (!email || !password || !username) {
     return NextResponse.json(
       { error: "Email, password and username are required." },
@@ -50,6 +61,12 @@ export async function POST(req: NextRequest) {
   if (!/^[a-zA-Z0-9_]{3,24}$/.test(username)) {
     return NextResponse.json(
       { error: "Username must be 3-24 characters (letters, numbers, underscore)." },
+      { status: 400 }
+    );
+  }
+  if (!consentAccepted) {
+    return NextResponse.json(
+      { error: "You must confirm the disclaimer notice to create an account." },
       { status: 400 }
     );
   }
@@ -71,17 +88,48 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 400 });
   }
 
-  // Set 7-day free trial for new member (best-effort — may already be set by DB trigger)
-  if (data.user) {
-    const trialEndsAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-    await supabase
-      .from("members")
-      .upsert(
-        { id: data.user.id, username, email, plan: "free_trial", trial_ends_at: trialEndsAt },
-        { onConflict: "id", ignoreDuplicates: false }
-      )
-      .select();
+  if (!data.user) {
+    return NextResponse.json({ ok: true, needsEmailConfirmation: !data.session });
   }
 
-  return NextResponse.json({ ok: true, needsEmailConfirmation: !data.session });
+  // Kart bilgisi olmadan ücretsiz deneme başlamaz: hesap "pending" kalır,
+  // Stripe Checkout tamamlanınca webhook plan='premium' ve trial_ends_at'i set eder.
+  const stripeCustomer = await stripe.customers.create({
+    email,
+    metadata: { member_id: data.user.id },
+  });
+
+  await supabaseAdmin
+    .from("members")
+    .upsert(
+      {
+        id: data.user.id,
+        username,
+        email,
+        plan: "pending",
+        trial_ends_at: null,
+        subscription_status: "pending",
+        stripe_customer_id: stripeCustomer.id,
+        consent_accepted_at: new Date().toISOString(),
+        consent_locale: locale,
+      },
+      { onConflict: "id", ignoreDuplicates: false }
+    );
+
+  // Email doğrulaması gerekmiyorsa (aktif session var) kullanıcıyı direkt Checkout'a yönlendiriyoruz.
+  // Doğrulama gerekiyorsa checkout, girişten sonra hesap sayfasındaki "Complete Payment" akışıyla başlatılır.
+  if (!data.session) {
+    return NextResponse.json({ ok: true, needsEmailConfirmation: true });
+  }
+
+  const origin = req.nextUrl.origin;
+  const session = await createPremiumCheckoutSession({
+    customerId: stripeCustomer.id,
+    memberId: data.user.id,
+    locale,
+    origin,
+    withTrial: true,
+  });
+
+  return NextResponse.json({ ok: true, needsEmailConfirmation: false, checkoutUrl: session.url });
 }
