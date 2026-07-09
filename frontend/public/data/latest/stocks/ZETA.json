@@ -1,0 +1,80 @@
+{
+  "ticker": "ZETA",
+  "company": "Zeta Global Holdings Corp.",
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T20:12:55.393Z",
+  "sector": "Technology",
+  "industry": "Software - Infrastructure",
+  "price": {
+    "current": 21.920000076293945,
+    "open": 21.114999771118164,
+    "high": 22.459999084472656,
+    "low": 20.780000686645508,
+    "prev_close": 21.65999984741211,
+    "change_pct": 1.2003704095727417,
+    "change_pct_1w": 5.182341246633539,
+    "change_pct_1m": 22.595084480720576,
+    "change_pct_1y": 43.9264657592713,
+    "volume": 5572474,
+    "avg_volume_30d": 291192474
+  },
+  "scores": {
+    "master_score": 72,
+    "technical_score": 100,
+    "fundamental_score": 59.9,
+    "momentum_score": 38,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 60.62879887415633,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 20.469588868225216,
+    "ema_50": 19.694518391240003,
+    "ema_200": 18.495493689279648,
+    "ema_stack_bullish": true,
+    "bb_upper": 23.016000080108643,
+    "bb_middle": 21.920000076293945,
+    "bb_lower": 20.824000072479247,
+    "bb_width": 10,
+    "atr": 1.36,
+    "atr_pct": 6.22,
+    "rvol": 0.8665603218852421,
+    "52w_high": 25.950000762939453,
+    "52w_low": 13.739999771118164
+  },
+  "fundamental": {
+    "pe_ratio": 0,
+    "pb_ratio": 6.6707244,
+    "gross_margin": 0.60145,
+    "operating_margin": -0.026300002,
+    "net_margin": -0.01612,
+    "market_cap": 5463727104,
+    "revenue_growth_ttm": 0.499,
+    "fcf_yield": 0.04663373465586615,
+    "institutional_ownership_pct": 0.83816004,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 21.1,
+    "entry_range_high": 22.06,
+    "target_range_low": 24.01,
+    "target_range_high": 24.44,
+    "stop_loss": 20.15,
+    "risk_reward_ratio": 2,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    }
+  }
+}
