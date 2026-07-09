@@ -61,9 +61,10 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
           {/* Trial countdown — only visible for free-trial members */}
           <TrialCountdown locale={locale} />
 
-          {/* Language Selector */}
+          {/* Language Selector — mobilde gizli, hesap sayfasındaki Dil sekmesinden erişilebilir
+              (Account/Hesabım > Language sekmesi) — dar ekranda ACCOUNT butonuna yer açmak için */}
           {locale && (
-            <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
+            <div className="hidden sm:flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
               {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
                 const isActive = locale.toUpperCase() === lang;
                 const isAvailable = lang === 'EN' || lang === 'TR' || lang === 'ES' || lang === 'FR' || lang === 'PT';

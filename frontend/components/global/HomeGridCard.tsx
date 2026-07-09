@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from 'next/link';
 import type { TrendStatus } from '@/lib/homeFeed';
-import type { Locale } from '@/lib/i18n/copy';
+import { copy, type Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
 import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
@@ -48,6 +48,8 @@ export default function HomeSimpleCard({
 }: HomeSimpleCardProps) {
   const emptyMessage = locale === 'tr' ? 'Veri bulunmamaktadır' : locale === 'pt' ? 'Nenhum dado disponível' : 'No data available';
   const allLabel = locale === 'tr' ? 'TÜMÜ' : locale === 'pt' ? 'TODOS' : 'ALL';
+  const sectorNames = copy[locale].top100.sectors as Record<string, string>;
+  const sectorLabel = (sector: string) => (sector ? sectorNames[sector] ?? sector : '—');
 
   const { isFreeTrial } = useMemberPlan();
   const locked = requirePremium && isFreeTrial;
@@ -107,7 +109,7 @@ export default function HomeSimpleCard({
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
-                            <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
+                            <div className="text-[11px] text-white/40 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         ) : (
                           <>
@@ -116,7 +118,7 @@ export default function HomeSimpleCard({
                                 {stock.ticker}
                               </div>
                             </TickerHoverChart>
-                            <div className="text-[11px] text-white/40 truncate">{stock.sector || '—'}</div>
+                            <div className="text-[11px] text-white/40 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         )}
                       </div>
