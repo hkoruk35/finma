@@ -710,7 +710,7 @@ function TrackerExpandedRow({ sym, d }: { sym: string; d: TrackerData | undefine
         </div>
         <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
           <Link href={`/global/en/graphic/${sym}`}
-            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Grafik Detay ↗</Link>
+            style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>Chart Detail ↗</Link>
           <Link href={`/stock/${sym}`}
             style={{ color: "#58a6ff", fontSize: 10, textDecoration: "none" }}>BOGA Analiz ↗</Link>
           <Link href={`/optanaliz?symbol=${sym}`}

@@ -78,7 +78,7 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
                 href={`/global/en/graphic/${ticker}`}
                 style={{ color: "#8b949e" }}
               >
-                Grafik Detay ↗
+                Chart Detail ↗
               </a>
             </div>
           </div>
