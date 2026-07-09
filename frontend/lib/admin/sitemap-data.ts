@@ -30,8 +30,8 @@ export const SITEMAP_EN: SitemapGroup[] = [
     { label: "Trend", path: "/global/en/trend" },
     { label: "Performance", path: "/global/en/performance" },
     { label: "AI Report", path: "/global/en/ai" },
-    { label: "Analysis (Ticker)", path: "/global/en/analysis/[ticker]" },
-    { label: "Graphic (Ticker)", path: "/global/en/graphic/[ticker]" },
+    { label: "Analysis (Ticker)", path: "/global/en/analysis/aapl" },
+    { label: "Graphic (Ticker)", path: "/global/en/graphic/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/en/about" },
@@ -60,7 +60,7 @@ export const SITEMAP_TR: SitemapGroup[] = [
     { label: "Trend", path: "/global/tr/trend" },
     { label: "Performans", path: "/global/tr/performance" },
     { label: "AI Rapor", path: "/global/tr/ai" },
-    { label: "Analiz (Hisse)", path: "/global/tr/analysis/[ticker]" },
+    { label: "Analiz (Hisse)", path: "/global/tr/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "Hakkında", path: "/global/tr/about" },
@@ -89,7 +89,7 @@ export const SITEMAP_ES: SitemapGroup[] = [
     { label: "Trend", path: "/global/es/trend" },
     { label: "Performance", path: "/global/es/performance" },
     { label: "AI Report", path: "/global/es/ai" },
-    { label: "Analysis (Ticker)", path: "/global/es/analysis/[ticker]" },
+    { label: "Analysis (Ticker)", path: "/global/es/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/es/about" },
@@ -118,7 +118,7 @@ export const SITEMAP_FR: SitemapGroup[] = [
     { label: "Trend", path: "/global/fr/trend" },
     { label: "Performance", path: "/global/fr/performance" },
     { label: "AI Report", path: "/global/fr/ai" },
-    { label: "Analysis (Ticker)", path: "/global/fr/analysis/[ticker]" },
+    { label: "Analysis (Ticker)", path: "/global/fr/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/fr/about" },
@@ -147,7 +147,7 @@ export const SITEMAP_PT: SitemapGroup[] = [
     { label: "Trend", path: "/global/pt/trend" },
     { label: "Performance", path: "/global/pt/performance" },
     { label: "AI Report", path: "/global/pt/ai" },
-    { label: "Analysis (Ticker)", path: "/global/pt/analysis/[ticker]" },
+    { label: "Analysis (Ticker)", path: "/global/pt/analysis/aapl" },
   ]},
   { group: "Kurumsal / Yasal", entries: [
     { label: "About", path: "/global/pt/about" },
@@ -195,7 +195,7 @@ export const SITEMAP_ADMIN: SitemapGroup[] = [
     { label: "Opsiyon Performansı", path: "/admin/trading/options/performance" },
     { label: "Daytrade Dosyaları", path: "/admin/trading/daytrade-files" },
     { label: "Pro Dashboard", path: "/admin/pro" },
-    { label: "Hisse Detay Girişi", path: "/admin/[ticker]" },
+    { label: "Hisse Detay Girişi", path: "/admin/aapl" },
   ]}
 ];
 

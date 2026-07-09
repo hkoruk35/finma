@@ -54,6 +54,15 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol",
   },
+  pt: {
+    liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
+    ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
+    rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Suporte/Resistência",
+    volumeProfile: "Perfil de Volume",
+    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
+    share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
+    vol: "Vol",
+  },
 };
 
 const INTERVALS: { label: string; value: string }[] = [
