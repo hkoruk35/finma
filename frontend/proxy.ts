@@ -48,6 +48,7 @@ export async function proxy(request: NextRequest) {
   const isGlobalMemberPath =
     (isPathOrSubpath('/global/en') &&
       !pathname.startsWith('/global/en/login') &&
+      !pathname.startsWith('/global/en/register') &&
       !pathname.startsWith('/global/en/performance') &&
       !pathname.startsWith('/global/en/top100') &&
       pathname !== '/global/en') ||

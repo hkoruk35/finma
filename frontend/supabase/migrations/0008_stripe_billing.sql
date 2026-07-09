@@ -22,3 +22,9 @@ alter table public.plans
   add column stripe_product_id text,
   add column stripe_price_id text,
   add column stripe_coupon_id text;
+
+update public.plans
+set stripe_product_id = 'prod_Ur0e0qQPjUmaHz',
+    stripe_price_id = 'price_1TrIcj4y2WEyJnELNOC3e3Tj',
+    stripe_coupon_id = 'Ac1GsDa2'
+where key = 'premium';
