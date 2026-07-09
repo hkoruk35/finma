@@ -506,10 +506,13 @@ function SubscriptionTab({
     }
   };
 
-  const isLegacyFreeTrial = !member.subscription_status && !!member.trial_ends_at;
+  const isAdmin = member.plan === "admin";
+  const isLegacyFreeTrial = !isAdmin && !member.subscription_status && !!member.trial_ends_at;
   const status = member.subscription_status;
 
-  const statusLabel = isLegacyFreeTrial
+  const statusLabel = isAdmin
+    ? L(locale, "Admin", "Yönetici", "Administrador", "Administrateur", "Administrador")
+    : isLegacyFreeTrial
     ? L(locale, "Free Trial", "Ücretsiz Deneme", "Prueba Gratuita", "Essai Gratuit", "Teste Gratuito")
     : status === "pending"
       ? L(locale, "Payment Required", "Ödeme Gerekli", "Pago Requerido", "Paiement Requis", "Pagamento Necessário")
@@ -543,8 +546,21 @@ function SubscriptionTab({
         )}
       </div>
 
+      {isAdmin && (
+        <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5 text-sm text-white/60">
+          {L(
+            locale,
+            "Admin account — unrestricted, unlimited access to all features. No billing applies.",
+            "Yönetici hesabı — tüm özelliklere sınırsız erişim. Faturalandırma uygulanmaz.",
+            "Cuenta de administrador — acceso ilimitado a todas las funciones. No se aplica facturación.",
+            "Compte administrateur — accès illimité à toutes les fonctionnalités. Aucune facturation applicable.",
+            "Conta de administrador — acesso ilimitado a todos os recursos. Nenhuma cobrança aplicável."
+          )}
+        </div>
+      )}
+
       {/* Pending payment: registration completed but card not captured yet */}
-      {status === "pending" && (
+      {!isAdmin && status === "pending" && (
         <>
           <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
             <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
