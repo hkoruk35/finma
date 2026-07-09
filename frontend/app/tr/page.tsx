@@ -45,7 +45,7 @@ const FEATURES = [
       </svg>
     ),
     title: "Ücretsiz Üyelik",
-    desc: "Ücretsiz hesap oluştur, hemen erişim kazan. Kredi kartı gerekmez.",
+    desc: "Ücretsiz hesap oluştur, hemen erişim kazan. Deneme süresince kredi kartınızdan ücret alınmaz.",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function TrHomePage() {
             </Link>
           </div>
 
-          <p className="mt-4 text-xs text-white/30">Kredi kartı gerekmez · Temel erişim sonsuza kadar ücretsiz</p>
+          <p className="mt-4 text-xs text-white/30">Kredi kartı gerekli · 7 günlük deneme süresince ücret alınmaz</p>
         </section>
 
         {/* Sample table preview */}

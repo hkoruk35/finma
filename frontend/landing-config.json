@@ -7,7 +7,7 @@
     },
     "cta_primary": {
       "text": "7 Gün Ücretsiz Dene",
-      "subtext": "Kredi kartı gerekmez · Hemen başla",
+      "subtext": "Kredi kartı gerekli · Deneme süresince ücret alınmaz",
       "href": "/global/tr/kayit"
     },
     "cta_secondary": {
@@ -87,7 +87,7 @@
     },
     "bottom_cta": {
       "title": "Bugün ücretsiz başla",
-      "description": "Kredi kartı gerekmez.",
+      "description": "Kredi kartınızdan 7 günlük deneme süresince ücret alınmaz.",
       "note": ""
     }
   },
@@ -99,7 +99,7 @@
     },
     "cta_primary": {
       "text": "Try Free for 7 Days",
-      "subtext": "No credit card required · Start instantly",
+      "subtext": "Card required · Not charged during your trial",
       "href": "/global/en/register"
     },
     "cta_secondary": {
@@ -179,7 +179,7 @@
     },
     "bottom_cta": {
       "title": "Start free today",
-      "description": "No credit card required.",
+      "description": "Your card won't be charged during the 7-day trial.",
       "note": "Cancel anytime after your trial ends."
     }
   },
@@ -191,7 +191,7 @@
     },
     "cta_primary": {
       "text": "Prueba gratis por 7 días",
-      "subtext": "Sin tarjeta de crédito · Empieza al instante",
+      "subtext": "Tarjeta requerida · No se cobra durante tu prueba",
       "href": "/global/es/register"
     },
     "cta_secondary": {
@@ -271,7 +271,7 @@
     },
     "bottom_cta": {
       "title": "Empieza gratis hoy",
-      "description": "No se requiere tarjeta de crédito.",
+      "description": "No se te cobrará durante tu prueba de 7 días.",
       "note": "Cancela cuando quieras después de tu prueba."
     }
   },
@@ -283,7 +283,7 @@
     },
     "cta_primary": {
       "text": "Experimente Grátis por 7 Dias",
-      "subtext": "Sem cartão de crédito · Comece agora mesmo",
+      "subtext": "Cartão necessário · Sem cobrança durante o teste",
       "href": "/global/pt/register"
     },
     "cta_secondary": {
@@ -363,7 +363,7 @@
     },
     "bottom_cta": {
       "title": "Comece grátis hoje",
-      "description": "Não é necessário cartão de crédito.",
+      "description": "Você não será cobrado durante o teste de 7 dias.",
       "note": "Cancele quando quiser após o término do teste."
     }
   }

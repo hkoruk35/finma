@@ -45,7 +45,7 @@ const FEATURES = [
       </svg>
     ),
     title: "Free for Members",
-    desc: "Create a free account and get immediate access. No credit card required.",
+    desc: "Create a free account and get immediate access. Your card won't be charged during the 7-day trial.",
   },
 ];
 
@@ -117,7 +117,7 @@ export default function EnHomePage() {
             </Link>
           </div>
 
-          <p className="mt-4 text-xs text-white/30">No credit card required · Free forever for basic access</p>
+          <p className="mt-4 text-xs text-white/30">Card required · Not charged during your 7-day trial</p>
         </section>
 
         {/* Sample table preview */}
