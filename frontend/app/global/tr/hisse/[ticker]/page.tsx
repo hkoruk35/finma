@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import HisseDetailGate from "@/components/public/HisseDetailGate";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
@@ -19,7 +19,7 @@ export default async function GlobalTrHissePage({ params }: { params: Promise<{ 
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="tr" />
       <div className="flex-1">
-        <TickerDetailPanel ticker={ticker.toUpperCase()} locale="tr" fullPage />
+        <HisseDetailGate ticker={ticker.toUpperCase()} locale="tr" />
       </div>
       <Footer hidePlatform locale="tr" />
     </div>

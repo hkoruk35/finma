@@ -13,9 +13,10 @@ interface Props {
    *  used to open Deep Analysis in place without ever exposing the /ai URL. */
   onDetailClick?: () => void;
   detailLabel?: string;
+  locale?: string;
 }
 
-export default function TickerHoverChart({ ticker, children, className, detailHref, onDetailClick, detailLabel }: Props) {
+export default function TickerHoverChart({ ticker, children, className, locale }: Props) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -78,7 +79,7 @@ export default function TickerHoverChart({ ticker, children, className, detailHr
                 href={`/global/en/graphic/${ticker}`}
                 style={{ color: "#8b949e" }}
               >
-                Chart Detail ↗
+                {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
               </a>
             </div>
           </div>

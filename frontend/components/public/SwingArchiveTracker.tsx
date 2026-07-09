@@ -311,7 +311,7 @@ export default function SwingArchiveTracker({
                       {selectedDayLocked ? (
                         <LockBadge />
                       ) : (
-                        <TickerHoverChart ticker={p.ticker} detailHref={permalink(p.ticker)}>
+                        <TickerHoverChart ticker={p.ticker} locale={locale} detailHref={permalink(p.ticker)}>
                           <span>{p.ticker}</span>
                         </TickerHoverChart>
                       )}
@@ -385,7 +385,7 @@ export default function SwingArchiveTracker({
                       {locked ? (
                         <LockBadge />
                       ) : (
-                        <TickerHoverChart ticker={ticker} detailHref={permalink(ticker)}>
+                        <TickerHoverChart ticker={ticker} locale={locale} detailHref={permalink(ticker)}>
                           <Link href={permalink(ticker)} style={{ color: "#58a6ff", fontWeight: 900 }}>{ticker}</Link>
                         </TickerHoverChart>
                       )}

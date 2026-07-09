@@ -479,7 +479,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }}>
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                         <span onClick={() => toggleExpand(r.ticker)} style={{ cursor: "pointer" }}>
-                          <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
                             <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
                           </TickerHoverChart>
                           <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
@@ -588,7 +588,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         ) : (
-                          <TickerHoverChart ticker={r.ticker} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                          <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
                             <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                           </TickerHoverChart>
                         )}

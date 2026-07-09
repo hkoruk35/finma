@@ -47,9 +47,9 @@ export async function proxy(request: NextRequest) {
   // app/global/[locale]/top100/layout.tsx kendi oturum kontrolünü ayrıca yapıyor — çift katman)
   // Not: bu tablo 5 dilin hepsini kapsar — önceden sadece en/tr burada tanımlıydı,
   // es/fr/pt hiç gate edilmiyordu (üye olmayan herkes swing/analiz gibi sayfalara girebiliyordu).
-  const LOCALE_AUTH_ROUTES: Record<string, { login: string; register: string; home: string; permalink?: string }> = {
+  const LOCALE_AUTH_ROUTES: Record<string, { login: string; register: string; home: string }> = {
     en: { login: 'login', register: 'register', home: 'home' },
-    tr: { login: 'giris', register: 'kayit', home: 'home', permalink: 'hisse' },
+    tr: { login: 'giris', register: 'kayit', home: 'home' },
     es: { login: 'login', register: 'register', home: 'home' },
     fr: { login: 'login', register: 'register', home: 'home' },
     pt: { login: 'login', register: 'register', home: 'home' },
@@ -66,7 +66,6 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/${routes.register}`) &&
         !pathname.startsWith(`${base}/performance`) &&
         !pathname.startsWith(`${base}/top100`) &&
-        !(routes.permalink && pathname.startsWith(`${base}/${routes.permalink}`)) &&
         pathname !== base
       break
     }
