@@ -129,6 +129,14 @@ export default function GraphicDetailPage() {
                 {s.label}
               </Link>
             ))}
+            {ticker && (
+              <Link
+                href={`/global/en/analysis/${ticker}`}
+                className="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/40 text-[10px] font-black text-purple-400 hover:text-white hover:border-purple-400 transition-all"
+              >
+                DEEP ANALYSIS
+              </Link>
+            )}
           </div>
         </div>
 

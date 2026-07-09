@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import Footer from "@/components/Footer";
 
 export async function generateMetadata({ params }: { params: Promise<{ ticker: string }> }): Promise<Metadata> {
   const { ticker } = await params;
@@ -14,8 +15,11 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
 export default async function EnStockPage({ params }: { params: Promise<{ ticker: string }> }) {
   const { ticker } = await params;
   return (
-    <div className="min-h-screen bg-[#0a0e17]">
-      <TickerDetailPanel ticker={ticker.toUpperCase()} locale="en" fullPage />
+    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+      <div className="flex-1">
+        <TickerDetailPanel ticker={ticker.toUpperCase()} locale="en" fullPage />
+      </div>
+      <Footer hidePlatform locale="en" />
     </div>
   );
 }
