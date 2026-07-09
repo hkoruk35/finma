@@ -64,7 +64,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
     };
   }, [ticker, t.error, locale]);
 
-  const permalinkHref = locale === "en" ? `/en/stock/${ticker}` : `/tr/hisse/${ticker}`;
+  const permalinkHref = locale === "en" ? `/en/stock/${ticker}` : `/global/tr/hisse/${ticker}`;
 
   if (loading) {
     return <div className="py-10 text-center text-sm text-white/40">{t.loading}</div>;

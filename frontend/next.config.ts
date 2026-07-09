@@ -91,6 +91,9 @@ const nextConfig: NextConfig = {
       // Other
       { source: "/pro", destination: "/admin/pro", permanent: false },
       { source: "/theme/:path*", destination: "/admin/settings/theme/:path*", permanent: false },
+
+      // Moved under /global
+      { source: "/tr/hisse/:ticker", destination: "/global/tr/hisse/:ticker", permanent: true },
     ];
   },
 };
