@@ -51,16 +51,16 @@ interface OhlcBar {
   volume: number;
 }
 
-// Gercek OHLC + hacim mumlariyla profesyonel gorunumlu candlestick grafigi
-// (sitenin kendi grafik motorunun kullandigi ayni /api/chart-data verisiyle)
-// — duz cizgi sparkline degil. Ust kisim fiyat mumlari, alt kisim hacim
-// cubuklari (TrendSpider/BogaChartEngine tarzi orta/uzun vadeli sunum).
-function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
-  const bars = barsIn.slice(-14);
+// Gercek OHLC + hacim mumlariyla, profesyonel grafik platformlarinin (TrendSpider
+// vb.) tarzina yakin tam genislikte candlestick grafigi — sitenin kendi grafik
+// motorunun kullandigi ayni /api/chart-data verisiyle. Ust: fiyat mumlari,
+// alt: ince hacim seridi. Guncel fiyat sag kenarda vurgulanir.
+function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
+  const bars = barsIn.slice(-16);
   if (bars.length < 2) return null;
 
-  const priceH = Math.round(height * 0.68);
-  const volumeGap = 8;
+  const priceH = Math.round(height * 0.72);
+  const volumeGap = 10;
   const volumeH = height - priceH - volumeGap;
 
   const allValues = bars.flatMap((b) => [b.high, b.low]);
@@ -69,22 +69,13 @@ function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
   const range = max - min || 1;
   const maxVolume = Math.max(...bars.map((b) => b.volume || 0)) || 1;
 
-  const chartWidth = width - 70; // sag tarafta fiyat etiketleri icin yer
-  const sidePad = 10;
+  const sidePad = 6;
   const slot = (chartWidth - sidePad * 2) / bars.length;
-  const candleWidth = Math.min(slot * 0.6, 20);
+  const candleWidth = Math.min(slot * 0.62, 26);
   const y = (v: number) => priceH - ((v - min) / range) * priceH;
 
-  const gridLines = [0, 0.5, 1].map((t, i) => (
-    <line
-      key={`grid${i}`}
-      x1={0}
-      y1={priceH * t}
-      x2={chartWidth}
-      y2={priceH * t}
-      stroke="rgba(241,245,249,0.12)"
-      strokeWidth={1}
-    />
+  const gridLines = [0.25, 0.5, 0.75].map((t, i) => (
+    <line key={`grid${i}`} x1={0} y1={priceH * t} x2={chartWidth} y2={priceH * t} stroke="rgba(241,245,249,0.08)" strokeWidth={1} />
   ));
 
   const candles = bars.flatMap((b, i) => {
@@ -96,13 +87,12 @@ function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
     const bodyHeight = Math.max(bodyBottom - bodyTop, 3);
     return [
       <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={2.5} />,
-      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} rx={1} />,
+      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} rx={1.5} />,
     ];
   });
 
   const volumeBars = bars.map((b, i) => {
     const cx = sidePad + slot * i + slot / 2;
-    const bullish = b.close >= b.open;
     const barH = Math.max(((b.volume || 0) / maxVolume) * volumeH, 2);
     return (
       <rect
@@ -111,13 +101,22 @@ function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
         y={priceH + volumeGap + (volumeH - barH)}
         width={candleWidth}
         height={barH}
-        fill={bullish ? COLORS.gain : COLORS.loss}
-        fillOpacity={0.4}
+        fill={COLORS.cyan}
+        fillOpacity={0.55}
       />
     );
   });
 
-  return { chartWidth, height, min, max, elements: [...gridLines, ...candles, ...volumeBars] };
+  const last = bars[bars.length - 1];
+  const lastBullish = last.close >= bars[0].open;
+
+  return {
+    height,
+    elements: [...gridLines, ...candles, ...volumeBars],
+    lastPrice: last.close,
+    lastY: y(last.close),
+    lastBullish,
+  };
 }
 
 export interface StockCardParams {
@@ -149,11 +148,16 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
   const W = 1200;
   const H = 675;
+  const PAD = 32;
 
   const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
-  const chart = isStock ? candlestickElements((params as StockCardParams).bars, W - 112, 118) : null;
+
+  const chartAreaWidth = W - PAD * 2;
+  const priceBadgeGutter = 92;
+  const svgWidth = chartAreaWidth - priceBadgeGutter;
+  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 372) : null;
 
   const tree = (
     <div
@@ -162,142 +166,117 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         height: H,
         display: "flex",
         flexDirection: "column",
-        background: `linear-gradient(135deg, ${COLORS.bg} 0%, ${COLORS.bgSecondary} 100%)`,
-        padding: 56,
+        background: `linear-gradient(160deg, ${COLORS.bg} 0%, ${COLORS.bgSecondary} 100%)`,
+        padding: PAD,
         fontFamily: "Inter",
         color: COLORS.text,
         position: "relative",
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-        <img src={logo} width={48} height={48} style={{ borderRadius: 10 }} />
-        <span style={{ fontSize: 28, fontWeight: 700, letterSpacing: 1, color: COLORS.blue }}>
-          BOGASTOCK
-        </span>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <img src={logo} width={30} height={30} style={{ borderRadius: 7 }} />
+          <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+        </div>
+        {isStock && (
+          <span style={{ fontSize: 17, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
+            {params.ticker} · DAILY
+          </span>
+        )}
       </div>
 
       {isStock ? (
-        <div style={{ display: "flex", flexDirection: "column", marginTop: 22, flex: 1 }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
-            <span style={{ fontSize: 80, fontWeight: 800 }}>{params.ticker}</span>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 12 }}>
+          {chart && (
+            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height, overflow: "hidden" }}>
+              <span
+                style={{
+                  position: "absolute",
+                  top: chart.height / 2 - 90,
+                  left: 6,
+                  fontSize: 190,
+                  fontWeight: 800,
+                  color: COLORS.text,
+                  opacity: 0.05,
+                  display: "flex",
+                  letterSpacing: -4,
+                }}
+              >
+                {params.ticker}
+              </span>
+              <svg width={svgWidth} height={chart.height} viewBox={`0 0 ${svgWidth} ${chart.height}`}>
+                {chart.elements}
+              </svg>
+              <div
+                style={{
+                  position: "absolute",
+                  top: Math.min(Math.max(chart.lastY - 14, 0), chart.height - 28),
+                  left: svgWidth + 6,
+                  display: "flex",
+                  background: chart.lastBullish ? COLORS.gain : COLORS.loss,
+                  borderRadius: 4,
+                  padding: "5px 10px",
+                }}
+              >
+                <span style={{ fontSize: 15, fontWeight: 700, color: "#0d1117", display: "flex" }}>
+                  ${chart.lastPrice.toFixed(2)}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 14 }}>
+            <span style={{ fontSize: 44, fontWeight: 800 }}>{params.ticker}</span>
             {params.changePct !== undefined && (
-              <span style={{ fontSize: 36, fontWeight: 700, color: changeColor, display: "flex" }}>
+              <span style={{ fontSize: 24, fontWeight: 700, color: changeColor, display: "flex" }}>
                 {changePositive ? "+" : ""}
                 {params.changePct.toFixed(2)}%
               </span>
             )}
-          </div>
-          <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
             {params.company && (
-              <span style={{ fontSize: 26, color: COLORS.text, opacity: 0.85, display: "flex" }}>
-                {params.company}
-              </span>
+              <span style={{ fontSize: 18, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
             )}
+          </div>
+
+          <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
             {params.sector && (
-              <span
-                style={{
-                  fontSize: 20,
-                  color: COLORS.cyan,
-                  border: `1px solid ${COLORS.cyan}`,
-                  borderRadius: 999,
-                  padding: "4px 16px",
-                  display: "flex",
-                }}
-              >
+              <span style={{ fontSize: 15, color: COLORS.cyan, border: `1px solid ${COLORS.cyan}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
                 {params.sector}
               </span>
             )}
             {params.theme && (
-              <span
-                style={{
-                  fontSize: 20,
-                  color: COLORS.purple,
-                  border: `1px solid ${COLORS.purple}`,
-                  borderRadius: 999,
-                  padding: "4px 16px",
-                  display: "flex",
-                }}
-              >
+              <span style={{ fontSize: 15, color: COLORS.purple, border: `1px solid ${COLORS.purple}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
                 {params.theme}
               </span>
             )}
             {params.trendLabel && (
-              <span
-                style={{
-                  fontSize: 20,
-                  fontWeight: 700,
-                  color: changeColor,
-                  border: `1px solid ${changeColor}`,
-                  borderRadius: 999,
-                  padding: "4px 16px",
-                  display: "flex",
-                }}
-              >
+              <span style={{ fontSize: 15, fontWeight: 700, color: changeColor, border: `1px solid ${changeColor}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
                 {params.trendLabel}
               </span>
             )}
             {params.rvol != null && (
-              <span
-                style={{
-                  fontSize: 20,
-                  color: COLORS.text,
-                  opacity: 0.85,
-                  border: `1px solid rgba(241,245,249,0.3)`,
-                  borderRadius: 999,
-                  padding: "4px 16px",
-                  display: "flex",
-                }}
-              >
+              <span style={{ fontSize: 15, color: COLORS.text, opacity: 0.85, border: `1px solid rgba(241,245,249,0.3)`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
                 {params.rvol.toFixed(1)}x AVG VOL
               </span>
             )}
             {params.opportunity && (
-              <span
-                style={{
-                  fontSize: 20,
-                  fontWeight: 700,
-                  color: COLORS.gold,
-                  border: `1px solid ${COLORS.gold}`,
-                  borderRadius: 999,
-                  padding: "4px 16px",
-                  display: "flex",
-                }}
-              >
+              <span style={{ fontSize: 15, fontWeight: 700, color: COLORS.gold, border: `1px solid ${COLORS.gold}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
                 {params.opportunityLabel ?? "Swing Opportunity"}
               </span>
             )}
           </div>
 
-          {chart && (
-            <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
-              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex", letterSpacing: 1 }}>
-                {params.ticker} · 1D
-              </span>
-              <div style={{ display: "flex", alignItems: "stretch" }}>
-                <svg width={chart.chartWidth} height={chart.height} viewBox={`0 0 ${chart.chartWidth} ${chart.height}`}>
-                  {chart.elements}
-                </svg>
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", marginLeft: 10, paddingTop: 2, paddingBottom: 2 }}>
-                  <span style={{ fontSize: 13, color: COLORS.text, opacity: 0.55, display: "flex" }}>${chart.max.toFixed(2)}</span>
-                  <span style={{ fontSize: 13, color: COLORS.text, opacity: 0.55, display: "flex" }}>${chart.min.toFixed(2)}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
           <div
             style={{
               display: "flex",
               marginTop: 10,
-              fontSize: 19,
+              fontSize: 17,
               lineHeight: 1.3,
               color: COLORS.text,
-              opacity: 0.95,
-              borderTop: `1px solid rgba(241,245,249,0.15)`,
-              paddingTop: 10,
+              opacity: 0.9,
             }}
           >
-            {truncateForCard(params.headline, 140)}
+            {truncateForCard(params.headline, 130)}
           </div>
         </div>
       ) : (
@@ -326,9 +305,9 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          fontSize: 20,
-          opacity: 0.6,
-          marginTop: 24,
+          fontSize: 16,
+          opacity: 0.5,
+          marginTop: 10,
         }}
       >
         <span style={{ display: "flex" }}>bogastock.com</span>
