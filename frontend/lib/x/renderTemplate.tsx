@@ -46,11 +46,16 @@ function computePeriodChanges(bars: OhlcBar[]): { label: string; value: number |
     return idx >= 0 ? bars[idx].close : null;
   };
   const pct = (base: number | null) => (base ? ((lastClose - base) / base) * 100 : null);
+  // 1Y icin tam 252 islem gunu geriye saymak, borsa tatilleri/kismi yil
+  // yuzunden dizinin sinirina takilip cogu zaman null donuyordu. Bunun
+  // yerine: chart-data zaten range=1y cekiyor, yeterli veri varsa (>=200
+  // gun) dizinin ilk barini "1 yil once" referansi olarak kullan.
+  const oneYearAgoClose = bars.length >= 200 ? bars[0].close : null;
   return [
     { label: "1D", value: pct(closeNDaysAgo(1)) },
     { label: "1W", value: pct(closeNDaysAgo(5)) },
     { label: "1M", value: pct(closeNDaysAgo(21)) },
-    { label: "1Y", value: pct(closeNDaysAgo(252)) },
+    { label: "1Y", value: pct(oneYearAgoClose) },
   ];
 }
 
@@ -216,18 +221,18 @@ export type CardParams = StockCardParams | PromoCardParams;
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
   const W = 1200;
-  const H = 900;
-  const PAD = 32;
+  const H = 760;
+  const PAD = 36;
 
   const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
 
   const chartAreaWidth = W - PAD * 2;
-  const priceGutterRight = 190; // sag: fiyat ekseni + buyutulmus guncel fiyat rozeti
-  const axisGutterLeft = 64; // sol: kabaca fiyat seviyeleri
+  const priceGutterRight = 140; // sag: fiyat ekseni + guncel fiyat rozeti
+  const axisGutterLeft = 54; // sol: kabaca fiyat seviyeleri
   const svgWidth = chartAreaWidth - priceGutterRight - axisGutterLeft;
-  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 200) : null;
+  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 280) : null;
   const periodChanges = isStock ? computePeriodChanges((params as StockCardParams).bars) : [];
 
   const tree = (
@@ -249,7 +254,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             <img src={logo} width={50} height={50} style={{ borderRadius: 11 }} />
             <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
           </div>
-          <span style={{ fontSize: 32, fontWeight: 600, opacity: 0.5, marginLeft: 64, display: "flex" }}>
+          <span style={{ fontSize: 18, fontWeight: 600, opacity: 0.5, marginLeft: 64, display: "flex" }}>
             bogastock.com
           </span>
         </div>
@@ -276,8 +281,8 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                   style={{
                     position: "absolute",
                     left: 0,
-                    top: Math.min(Math.max(p.y - 10, 0), chart.priceH - 20),
-                    fontSize: 18,
+                    top: Math.min(Math.max(p.y - 9, 0), chart.priceH - 18),
+                    fontSize: 16,
                     fontWeight: 600,
                     opacity: 0.5,
                     display: "flex",
@@ -293,9 +298,9 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                   key={`dl${i}`}
                   style={{
                     position: "absolute",
-                    left: axisGutterLeft + d.x - 16,
+                    left: axisGutterLeft + d.x - 14,
                     top: chart.height + 4,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: 500,
                     opacity: 0.45,
                     display: "flex",
@@ -309,40 +314,40 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
               <div
                 style={{
                   position: "absolute",
-                  top: Math.min(Math.max(chart.lastY - 34, 0), chart.priceH - 68),
+                  top: Math.min(Math.max(chart.lastY - 22, 0), chart.priceH - 45),
                   left: axisGutterLeft + svgWidth + 8,
                   display: "flex",
                   background: chart.lastBullish ? COLORS.gain : COLORS.loss,
-                  borderRadius: 8,
-                  padding: "10px 20px",
+                  borderRadius: 6,
+                  padding: "8px 16px",
                 }}
               >
-                <span style={{ fontSize: 40, fontWeight: 800, color: "#0d1117", display: "flex" }}>
+                <span style={{ fontSize: 24, fontWeight: 800, color: "#0d1117", display: "flex" }}>
                   ${chart.lastPrice.toFixed(2)}
                 </span>
               </div>
             </div>
           )}
 
-          <div style={{ display: "flex", alignItems: "baseline", gap: 18, marginTop: 16 }}>
-            <span style={{ fontSize: 78, fontWeight: 800, display: "flex" }}>{params.ticker}</span>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 14 }}>
+            <span style={{ fontSize: 58, fontWeight: 800, display: "flex" }}>{params.ticker}</span>
             {params.company && (
-              <span style={{ fontSize: 48, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
+              <span style={{ fontSize: 28, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
             )}
           </div>
 
           {periodChanges.length > 0 && (
-            <div style={{ display: "flex", gap: 26, marginTop: 14 }}>
+            <div style={{ display: "flex", gap: 22, marginTop: 12 }}>
               {periodChanges.map(
                 (p) =>
                   p.value !== null && (
                     <div key={p.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                      <span style={{ fontSize: 36, fontWeight: 700, opacity: 0.55, letterSpacing: 1, display: "flex" }}>
+                      <span style={{ fontSize: 20, fontWeight: 700, opacity: 0.55, letterSpacing: 1, display: "flex" }}>
                         {p.label}
                       </span>
                       <span
                         style={{
-                          fontSize: 57,
+                          fontSize: 38,
                           fontWeight: 800,
                           color: p.value >= 0 ? COLORS.gain : COLORS.loss,
                           display: "flex",
@@ -357,29 +362,29 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             </div>
           )}
 
-          <div style={{ display: "flex", gap: 12, marginTop: 14, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
             {params.sector && (
-              <span style={{ fontSize: fitTagFontSize(params.sector, 40, 22, 22), color: COLORS.cyan, border: `3px solid ${COLORS.cyan}`, borderRadius: 999, padding: "8px 26px", display: "flex" }}>
+              <span style={{ fontSize: fitTagFontSize(params.sector, 22, 26, 15), color: COLORS.cyan, border: `2px solid ${COLORS.cyan}`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
                 {params.sector}
               </span>
             )}
             {params.theme && (
-              <span style={{ fontSize: fitTagFontSize(params.theme, 40, 22, 22), color: COLORS.purple, border: `3px solid ${COLORS.purple}`, borderRadius: 999, padding: "8px 26px", display: "flex" }}>
+              <span style={{ fontSize: fitTagFontSize(params.theme, 22, 26, 15), color: COLORS.purple, border: `2px solid ${COLORS.purple}`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
                 {params.theme}
               </span>
             )}
             {params.trendLabel && (
-              <span style={{ fontSize: 40, fontWeight: 700, color: changeColor, border: `3px solid ${changeColor}`, borderRadius: 999, padding: "8px 26px", display: "flex" }}>
+              <span style={{ fontSize: 22, fontWeight: 700, color: changeColor, border: `2px solid ${changeColor}`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
                 {params.trendLabel}
               </span>
             )}
             {params.rvol != null && (
-              <span style={{ fontSize: 40, color: COLORS.text, opacity: 0.9, border: `3px solid rgba(241,245,249,0.35)`, borderRadius: 999, padding: "8px 26px", display: "flex" }}>
+              <span style={{ fontSize: 22, color: COLORS.text, opacity: 0.9, border: `2px solid rgba(241,245,249,0.35)`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
                 {params.rvol.toFixed(1)}x AVG VOL
               </span>
             )}
             {params.opportunity && (
-              <span style={{ fontSize: 40, fontWeight: 700, color: COLORS.gold, border: `3px solid ${COLORS.gold}`, borderRadius: 999, padding: "8px 26px", display: "flex" }}>
+              <span style={{ fontSize: 22, fontWeight: 700, color: COLORS.gold, border: `2px solid ${COLORS.gold}`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
                 {params.opportunityLabel ?? "Swing Opportunity"}
               </span>
             )}
@@ -394,7 +399,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "flex-end", fontSize: 39, fontWeight: 700, opacity: 0.75, marginTop: 14 }}>
+      <div style={{ display: "flex", justifyContent: "flex-end", fontSize: 26, fontWeight: 700, opacity: 0.75, marginTop: 12 }}>
         <span style={{ display: "flex" }}>@bogastock</span>
       </div>
     </div>
