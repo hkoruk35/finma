@@ -482,8 +482,8 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
       </div>
 
       {/* Table Rows */}
-      <div style={{ overflowX: "auto", marginTop: 8 }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
+      <div style={{ overflowX: "auto", marginTop: 8, WebkitOverflowScrolling: "touch", width: "100%", maxWidth: "100vw" }}>
+        <table style={{ borderCollapse: "collapse", fontSize: 12, width: "max-content", minWidth: 900 }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #30363d" }}>
               {["TICKER", "ŞİRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL"]
