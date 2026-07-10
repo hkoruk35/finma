@@ -3,7 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
 import { postTweet } from "@/lib/x/client";
 import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
-import { fetchTickerMarketData, trendLabel } from "@/lib/x/marketData";
+import { fetchTickerMarketData, trendLabel, entryLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 
 export const runtime = "nodejs";
@@ -55,6 +55,8 @@ async function startNewCycle(): Promise<string | null> {
     theme: poolItem.theme,
     signal: market?.signal,
     trend: market?.trend,
+    entryLow: market?.entryLow,
+    entryHigh: market?.entryHigh,
   });
 
   const cycleId = crypto.randomUUID();
@@ -69,7 +71,8 @@ async function startNewCycle(): Promise<string | null> {
     status: "draft" as const,
     content_text: texts[locale],
     change_pct: market?.changePct ?? null,
-    ema50: market?.ema50 ?? null,
+    entry_low: market?.entryLow ?? null,
+    entry_high: market?.entryHigh ?? null,
     trend: market ? trendLabel(market.trend, locale) : null,
     points: market?.points ?? [],
   }));
@@ -148,7 +151,9 @@ export async function GET(req: NextRequest) {
     sector: pendingPost.sector ?? undefined,
     theme: pendingPost.theme ?? undefined,
     changePct: pendingPost.change_pct ?? undefined,
-    ema50: pendingPost.ema50 ?? null,
+    entryLow: pendingPost.entry_low ?? null,
+    entryHigh: pendingPost.entry_high ?? null,
+    entryLabel: entryLabel(pendingPost.locale),
     trendLabel: pendingPost.trend ?? undefined,
     points: Array.isArray(pendingPost.points) ? pendingPost.points : [],
     headline: pendingPost.content_text,

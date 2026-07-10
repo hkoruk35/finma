@@ -41,8 +41,10 @@ interface AutomationSettings {
 interface MarketData {
   points: number[];
   changePct: number;
-  ema50: number | null;
+  entryLow: number | null;
+  entryHigh: number | null;
   trendLabels: Record<Locale, string>;
+  entryLabels: Record<Locale, string>;
 }
 
 export default function XStudioPage() {
@@ -154,7 +156,9 @@ export default function XStudioPage() {
         sector: selected.sector ?? undefined,
         theme: selected.theme ?? undefined,
         changePct: market?.changePct,
-        ema50: market?.ema50 ?? undefined,
+        entryLow: market?.entryLow ?? undefined,
+        entryHigh: market?.entryHigh ?? undefined,
+        entryLabel: market?.entryLabels?.[locale],
         trendLabel: market?.trendLabels?.[locale],
         points: market?.points ?? [],
         headline: texts[locale],

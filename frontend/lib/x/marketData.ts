@@ -1,16 +1,36 @@
 export type TrendStatus = "Bullish" | "BullishWeak" | "Bearish" | "BearishWeak" | "Neutral";
 
 export interface TickerMarketData {
-  points: number[];
+  points: number[]; // haftalik kapanislar (1W grafik icin)
   changePct: number;
-  ema50: number | null;
+  entryLow: number;
+  entryHigh: number;
   trend: TrendStatus;
   signal: string;
 }
 
+interface WeeklyBar {
+  close: number;
+}
+
+async function fetchWeeklyCloses(base: string, ticker: string): Promise<number[]> {
+  try {
+    const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=W`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    const bars: WeeklyBar[] = Array.isArray(data.bars) ? data.bars : [];
+    return bars.slice(-16).map((b) => b.close);
+  } catch (e) {
+    console.error("[x/marketData] weekly closes fetch failed:", (e as Error).message);
+    return [];
+  }
+}
+
 // /api/watchlist-data zaten Yahoo'dan cekilen fiyat serisini, EMA'lari ve
-// trend etiketini (ema_status) hesapliyor — kart uretimi icin bunu tekrar
-// hesaplamak yerine ayni endpoint'i kullaniyoruz.
+// trend etiketini (ema_status) hesapliyor. Grafik icin ayrica haftalik
+// kapanislari /api/chart-data'dan alip 1W (uzun vadeli) trend gosteriyoruz.
 export async function fetchTickerMarketData(ticker: string): Promise<TickerMarketData | null> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
   try {
@@ -22,10 +42,20 @@ export async function fetchTickerMarketData(ticker: string): Promise<TickerMarke
     const item = Array.isArray(arr) ? arr[0] : null;
     if (!item) return null;
 
+    const price: number = item.price?.current ?? 0;
+    const ema20: number = item.tracker_1h?.ema_20 ?? item.technical?.ema_20 ?? price;
+    // Tahmini giris araligi: guncel fiyat ile 20 gunluk trend ortalamasi (EMA20)
+    // arasindaki bolge — swing girisleri icin klasik "trende geri cekilme" bandi.
+    const entryLow = Math.min(price, ema20);
+    const entryHigh = Math.max(price, ema20);
+
+    const points = await fetchWeeklyCloses(base, ticker);
+
     return {
-      points: Array.isArray(item.recent_closes) ? item.recent_closes : [],
+      points: points.length > 1 ? points : Array.isArray(item.recent_closes) ? item.recent_closes : [],
       changePct: item.price?.change_pct ?? item.tracker_1h?.change_pct_1d ?? 0,
-      ema50: item.tracker_1h?.ema_50 ?? item.technical?.ema_50 ?? null,
+      entryLow,
+      entryHigh,
       trend: (item.tracker_1h?.ema_status as TrendStatus) ?? "Neutral",
       signal: item.tracker_1h?.signal ?? "HOLD",
     };
@@ -45,4 +75,16 @@ const TREND_LABELS: Record<string, Record<TrendStatus, string>> = {
 
 export function trendLabel(trend: TrendStatus, locale: string): string {
   return (TREND_LABELS[locale] ?? TREND_LABELS.en)[trend] ?? trend;
+}
+
+const ENTRY_LABELS: Record<string, string> = {
+  en: "Entry Zone",
+  es: "Zona de Entrada",
+  fr: "Zone d'Entrée",
+  pt: "Zona de Entrada",
+  tr: "Giriş Bölgesi",
+};
+
+export function entryLabel(locale: string): string {
+  return ENTRY_LABELS[locale] ?? ENTRY_LABELS.en;
 }

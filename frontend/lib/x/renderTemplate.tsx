@@ -36,6 +36,13 @@ async function loadLogoDataUri(): Promise<string> {
   return logoCache;
 }
 
+// Kart yuksekligi sabit oldugu icin basligi 2 satirla sinirlamak amacli
+// guvenlik kesmesi — gercek tweet metni (contentText) bundan etkilenmez.
+function truncateForCard(text: string, maxLen: number): string {
+  if (text.length <= maxLen) return text;
+  return text.slice(0, maxLen - 1).trimEnd() + "…";
+}
+
 function sparklinePath(points: number[], width: number, height: number): string {
   if (points.length < 2) return "";
   const min = Math.min(...points);
@@ -58,7 +65,9 @@ export interface StockCardParams {
   sector?: string;
   theme?: string;
   changePct?: number;
-  ema50?: number | null;
+  entryLow?: number | null;
+  entryHigh?: number | null;
+  entryLabel?: string;
   trendLabel?: string;
   points: number[];
   headline: string; // AI ureilen kisa analiz cumlesi
@@ -105,17 +114,17 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
       </div>
 
       {isStock ? (
-        <div style={{ display: "flex", flexDirection: "column", marginTop: 40, flex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", marginTop: 28, flex: 1 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
-            <span style={{ fontSize: 96, fontWeight: 800 }}>{params.ticker}</span>
+            <span style={{ fontSize: 80, fontWeight: 800 }}>{params.ticker}</span>
             {params.changePct !== undefined && (
-              <span style={{ fontSize: 40, fontWeight: 700, color: changeColor, display: "flex" }}>
+              <span style={{ fontSize: 36, fontWeight: 700, color: changeColor, display: "flex" }}>
                 {changePositive ? "+" : ""}
                 {params.changePct.toFixed(2)}%
               </span>
             )}
           </div>
-          <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
             {params.company && (
               <span style={{ fontSize: 26, color: COLORS.text, opacity: 0.85, display: "flex" }}>
                 {params.company}
@@ -164,10 +173,11 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 {params.trendLabel}
               </span>
             )}
-            {params.ema50 != null && (
+            {params.entryLow != null && params.entryHigh != null && (
               <span
                 style={{
                   fontSize: 20,
+                  fontWeight: 700,
                   color: COLORS.gold,
                   border: `1px solid ${COLORS.gold}`,
                   borderRadius: 999,
@@ -175,17 +185,17 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                   display: "flex",
                 }}
               >
-                EMA50: {params.ema50.toFixed(2)}
+                {params.entryLabel ?? "Entry"}: ${params.entryLow.toFixed(2)}–${params.entryHigh.toFixed(2)}
               </span>
             )}
           </div>
 
           {params.points.length > 1 && (
-            <div style={{ display: "flex", flexDirection: "column", marginTop: 20 }}>
-              <span style={{ fontSize: 18, color: COLORS.text, opacity: 0.5, display: "flex" }}>1D CHART</span>
-              <svg width={W - 112} height={130} viewBox={`0 0 ${W - 112} 130`}>
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
+              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1W CHART</span>
+              <svg width={W - 112} height={95} viewBox={`0 0 ${W - 112} 95`}>
                 <path
-                  d={sparklinePath(params.points, W - 112, 110)}
+                  d={sparklinePath(params.points, W - 112, 78)}
                   fill="none"
                   stroke={changeColor}
                   strokeWidth={5}
@@ -197,16 +207,16 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
           <div
             style={{
               display: "flex",
-              marginTop: 20,
-              fontSize: 22,
-              lineHeight: 1.4,
+              marginTop: 14,
+              fontSize: 20,
+              lineHeight: 1.35,
               color: COLORS.text,
               opacity: 0.95,
               borderTop: `1px solid rgba(241,245,249,0.15)`,
-              paddingTop: 20,
+              paddingTop: 14,
             }}
           >
-            {params.headline}
+            {truncateForCard(params.headline, 160)}
           </div>
         </div>
       ) : (
