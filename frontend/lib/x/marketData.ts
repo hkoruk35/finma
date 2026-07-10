@@ -5,19 +5,20 @@ export interface OhlcBar {
   high: number;
   low: number;
   close: number;
+  volume: number;
 }
 
 export interface TickerMarketData {
-  bars: OhlcBar[]; // gunluk mumlar (1D grafik icin) — /api/chart-data ile ayni kaynak
+  bars: OhlcBar[]; // gunluk mumlar + hacim (1D grafik icin) — /api/chart-data ile ayni kaynak
   changePct: number;
-  entryLow: number;
-  entryHigh: number;
+  rvol: number; // ortalama hacme oranla bugunku hacim (1.0 = ortalama)
   trend: TrendStatus;
   signal: string;
+  opportunity: boolean; // trend + hacim birlikte swing/yatirim firsati isaret ediyor mu
 }
 
 // Sitenin kendi grafik motorunun (BogaChartEngine) kullandigi ayni endpoint —
-// gercek gunluk OHLC mumlari, uydurma bir cizgi degil.
+// gercek gunluk OHLC + hacim mumlari, uydurma bir cizgi degil.
 async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> {
   try {
     const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=D`, {
@@ -33,9 +34,9 @@ async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> 
   }
 }
 
-// /api/watchlist-data zaten Yahoo'dan cekilen fiyat serisini, EMA'lari ve
-// trend etiketini (ema_status) hesapliyor. Grafik icin ayrica gunluk
-// mumlari /api/chart-data'dan alip 1D grafik gosteriyoruz.
+// /api/watchlist-data zaten Yahoo'dan cekilen fiyat serisini, EMA'lari,
+// trend etiketini (ema_status) ve goreli hacmi (rvol) hesapliyor. Grafik
+// icin ayrica gunluk mumlari /api/chart-data'dan alip 1D grafik gosteriyoruz.
 export async function fetchTickerMarketData(ticker: string): Promise<TickerMarketData | null> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
   try {
@@ -47,22 +48,21 @@ export async function fetchTickerMarketData(ticker: string): Promise<TickerMarke
     const item = Array.isArray(arr) ? arr[0] : null;
     if (!item) return null;
 
-    const price: number = item.price?.current ?? 0;
-    const ema20: number = item.tracker_1h?.ema_20 ?? item.technical?.ema_20 ?? price;
-    // Tahmini giris araligi: guncel fiyat ile 20 gunluk trend ortalamasi (EMA20)
-    // arasindaki bolge — swing girisleri icin klasik "trende geri cekilme" bandi.
-    const entryLow = Math.min(price, ema20);
-    const entryHigh = Math.max(price, ema20);
-
     const bars = await fetchDailyBars(base, ticker);
+    const trend = (item.tracker_1h?.ema_status as TrendStatus) ?? "Neutral";
+    const rvol: number = item.technical?.rvol ?? item.tracker_1h?.volume_ratio_1d ?? 1;
+
+    // Orta/uzun vadeli firsat isareti: trend yukselis yonunde VE hacim
+    // ortalamanin belirgin uzerindeyse (kurumsal ilgi/momentum onayi).
+    const opportunity = (trend === "Bullish" || trend === "BullishWeak") && rvol >= 1.1;
 
     return {
       bars,
       changePct: item.price?.change_pct ?? item.tracker_1h?.change_pct_1d ?? 0,
-      entryLow,
-      entryHigh,
-      trend: (item.tracker_1h?.ema_status as TrendStatus) ?? "Neutral",
+      rvol,
+      trend,
       signal: item.tracker_1h?.signal ?? "HOLD",
+      opportunity,
     };
   } catch (e) {
     console.error("[x/marketData] fetch failed:", (e as Error).message);
@@ -82,14 +82,14 @@ export function trendLabel(trend: TrendStatus, locale: string): string {
   return (TREND_LABELS[locale] ?? TREND_LABELS.en)[trend] ?? trend;
 }
 
-const ENTRY_LABELS: Record<string, string> = {
-  en: "Entry Zone",
-  es: "Zona de Entrada",
-  fr: "Zone d'Entrée",
-  pt: "Zona de Entrada",
-  tr: "Giriş Bölgesi",
+const OPPORTUNITY_LABELS: Record<string, string> = {
+  en: "Swing Opportunity",
+  es: "Oportunidad Swing",
+  fr: "Opportunité Swing",
+  pt: "Oportunidade Swing",
+  tr: "Swing Fırsatı",
 };
 
-export function entryLabel(locale: string): string {
-  return ENTRY_LABELS[locale] ?? ENTRY_LABELS.en;
+export function opportunityLabel(locale: string): string {
+  return OPPORTUNITY_LABELS[locale] ?? OPPORTUNITY_LABELS.en;
 }

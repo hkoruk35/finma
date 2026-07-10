@@ -25,6 +25,7 @@ interface OhlcBar {
   high: number;
   low: number;
   close: number;
+  volume: number;
 }
 
 interface RowState {
@@ -34,10 +35,10 @@ interface RowState {
   market?: {
     bars: OhlcBar[];
     changePct: number;
-    entryLow: number | null;
-    entryHigh: number | null;
+    rvol: number;
+    opportunity: boolean;
     trendLabels: Record<Locale, string>;
-    entryLabels: Record<Locale, string>;
+    opportunityLabels: Record<Locale, string>;
   } | null;
   locale: Locale;
   imageUrl?: string;
@@ -98,9 +99,9 @@ export default function XStudioQueuePage() {
       sector: item.sector ?? undefined,
       theme: item.theme ?? undefined,
       changePct: row.market?.changePct,
-      entryLow: row.market?.entryLow ?? undefined,
-      entryHigh: row.market?.entryHigh ?? undefined,
-      entryLabel: row.market?.entryLabels?.[row.locale],
+      rvol: row.market?.rvol,
+      opportunity: row.market?.opportunity,
+      opportunityLabel: row.market?.opportunityLabels?.[row.locale],
       trendLabel: row.market?.trendLabels?.[row.locale],
       bars: row.market?.bars ?? [],
       headline: row.texts[row.locale],

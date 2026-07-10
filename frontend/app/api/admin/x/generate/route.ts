@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
-import { fetchTickerMarketData, trendLabel, entryLabel } from "@/lib/x/marketData";
+import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, buildPromoHashtags } from "@/lib/x/hashtags";
 
 export const runtime = "nodejs";
@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
       theme: body.theme,
       signal: market?.signal,
       trend: market?.trend,
-      entryLow: market?.entryLow,
-      entryHigh: market?.entryHigh,
+      rvol: market?.rvol,
+      opportunity: market?.opportunity,
     });
 
     return NextResponse.json({
@@ -42,10 +42,10 @@ export async function POST(req: NextRequest) {
         ? {
             bars: market.bars,
             changePct: market.changePct,
-            entryLow: market.entryLow,
-            entryHigh: market.entryHigh,
+            rvol: market.rvol,
+            opportunity: market.opportunity,
             trendLabels: Object.fromEntries(LOCALES.map((l) => [l, trendLabel(market.trend, l)])),
-            entryLabels: Object.fromEntries(LOCALES.map((l) => [l, entryLabel(l)])),
+            opportunityLabels: Object.fromEntries(LOCALES.map((l) => [l, opportunityLabel(l)])),
           }
         : null,
     });

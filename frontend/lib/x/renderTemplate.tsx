@@ -48,31 +48,40 @@ interface OhlcBar {
   high: number;
   low: number;
   close: number;
+  volume: number;
 }
 
-// Gercek OHLC mumlariyla klasik candlestick grafigi (sitenin kendi grafik
-// motorunun kullandigi ayni /api/chart-data verisiyle) — duz cizgi sparkline
-// degil. Hafif grid + fiyat etiketleriyle daha okunakli.
+// Gercek OHLC + hacim mumlariyla profesyonel gorunumlu candlestick grafigi
+// (sitenin kendi grafik motorunun kullandigi ayni /api/chart-data verisiyle)
+// — duz cizgi sparkline degil. Ust kisim fiyat mumlari, alt kisim hacim
+// cubuklari (TrendSpider/BogaChartEngine tarzi orta/uzun vadeli sunum).
 function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
   const bars = barsIn.slice(-14);
   if (bars.length < 2) return null;
+
+  const priceH = Math.round(height * 0.68);
+  const volumeGap = 8;
+  const volumeH = height - priceH - volumeGap;
+
   const allValues = bars.flatMap((b) => [b.high, b.low]);
   const min = Math.min(...allValues);
   const max = Math.max(...allValues);
   const range = max - min || 1;
+  const maxVolume = Math.max(...bars.map((b) => b.volume || 0)) || 1;
+
   const chartWidth = width - 70; // sag tarafta fiyat etiketleri icin yer
   const sidePad = 10;
   const slot = (chartWidth - sidePad * 2) / bars.length;
   const candleWidth = Math.min(slot * 0.6, 20);
-  const y = (v: number) => height - ((v - min) / range) * height;
+  const y = (v: number) => priceH - ((v - min) / range) * priceH;
 
   const gridLines = [0, 0.5, 1].map((t, i) => (
     <line
       key={`grid${i}`}
       x1={0}
-      y1={height * t}
+      y1={priceH * t}
       x2={chartWidth}
-      y2={height * t}
+      y2={priceH * t}
       stroke="rgba(241,245,249,0.12)"
       strokeWidth={1}
     />
@@ -91,7 +100,24 @@ function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
     ];
   });
 
-  return { chartWidth, min, max, elements: [...gridLines, ...candles] };
+  const volumeBars = bars.map((b, i) => {
+    const cx = sidePad + slot * i + slot / 2;
+    const bullish = b.close >= b.open;
+    const barH = Math.max(((b.volume || 0) / maxVolume) * volumeH, 2);
+    return (
+      <rect
+        key={`v${i}`}
+        x={cx - candleWidth / 2}
+        y={priceH + volumeGap + (volumeH - barH)}
+        width={candleWidth}
+        height={barH}
+        fill={bullish ? COLORS.gain : COLORS.loss}
+        fillOpacity={0.4}
+      />
+    );
+  });
+
+  return { chartWidth, height, min, max, elements: [...gridLines, ...candles, ...volumeBars] };
 }
 
 export interface StockCardParams {
@@ -101,9 +127,9 @@ export interface StockCardParams {
   sector?: string;
   theme?: string;
   changePct?: number;
-  entryLow?: number | null;
-  entryHigh?: number | null;
-  entryLabel?: string;
+  rvol?: number;
+  opportunity?: boolean;
+  opportunityLabel?: string;
   trendLabel?: string;
   bars: OhlcBar[];
   headline: string; // AI ureilen kisa analiz cumlesi
@@ -127,7 +153,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
-  const chart = isStock ? candlestickElements((params as StockCardParams).bars, W - 112, 82) : null;
+  const chart = isStock ? candlestickElements((params as StockCardParams).bars, W - 112, 118) : null;
 
   const tree = (
     <div
@@ -151,7 +177,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
       </div>
 
       {isStock ? (
-        <div style={{ display: "flex", flexDirection: "column", marginTop: 28, flex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", marginTop: 22, flex: 1 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 20 }}>
             <span style={{ fontSize: 80, fontWeight: 800 }}>{params.ticker}</span>
             {params.changePct !== undefined && (
@@ -210,7 +236,22 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 {params.trendLabel}
               </span>
             )}
-            {params.entryLow != null && params.entryHigh != null && (
+            {params.rvol != null && (
+              <span
+                style={{
+                  fontSize: 20,
+                  color: COLORS.text,
+                  opacity: 0.85,
+                  border: `1px solid rgba(241,245,249,0.3)`,
+                  borderRadius: 999,
+                  padding: "4px 16px",
+                  display: "flex",
+                }}
+              >
+                {params.rvol.toFixed(1)}x AVG VOL
+              </span>
+            )}
+            {params.opportunity && (
               <span
                 style={{
                   fontSize: 20,
@@ -222,16 +263,18 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                   display: "flex",
                 }}
               >
-                {params.entryLabel ?? "Entry"}: ${params.entryLow.toFixed(2)}–${params.entryHigh.toFixed(2)}
+                {params.opportunityLabel ?? "Swing Opportunity"}
               </span>
             )}
           </div>
 
           {chart && (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
-              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1D CHART</span>
+              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex", letterSpacing: 1 }}>
+                {params.ticker} · 1D
+              </span>
               <div style={{ display: "flex", alignItems: "stretch" }}>
-                <svg width={chart.chartWidth} height={95} viewBox={`0 0 ${chart.chartWidth} 95`}>
+                <svg width={chart.chartWidth} height={chart.height} viewBox={`0 0 ${chart.chartWidth} ${chart.height}`}>
                   {chart.elements}
                 </svg>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", marginLeft: 10, paddingTop: 2, paddingBottom: 2 }}>
@@ -245,16 +288,16 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
           <div
             style={{
               display: "flex",
-              marginTop: 14,
-              fontSize: 20,
-              lineHeight: 1.35,
+              marginTop: 10,
+              fontSize: 19,
+              lineHeight: 1.3,
               color: COLORS.text,
               opacity: 0.95,
               borderTop: `1px solid rgba(241,245,249,0.15)`,
-              paddingTop: 14,
+              paddingTop: 10,
             }}
           >
-            {truncateForCard(params.headline, 160)}
+            {truncateForCard(params.headline, 140)}
           </div>
         </div>
       ) : (

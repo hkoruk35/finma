@@ -44,15 +44,16 @@ interface OhlcBar {
   high: number;
   low: number;
   close: number;
+  volume: number;
 }
 
 interface MarketData {
   bars: OhlcBar[];
   changePct: number;
-  entryLow: number | null;
-  entryHigh: number | null;
+  rvol: number;
+  opportunity: boolean;
   trendLabels: Record<Locale, string>;
-  entryLabels: Record<Locale, string>;
+  opportunityLabels: Record<Locale, string>;
 }
 
 export default function XStudioPage() {
@@ -164,9 +165,9 @@ export default function XStudioPage() {
         sector: selected.sector ?? undefined,
         theme: selected.theme ?? undefined,
         changePct: market?.changePct,
-        entryLow: market?.entryLow ?? undefined,
-        entryHigh: market?.entryHigh ?? undefined,
-        entryLabel: market?.entryLabels?.[locale],
+        rvol: market?.rvol,
+        opportunity: market?.opportunity,
+        opportunityLabel: market?.opportunityLabels?.[locale],
         trendLabel: market?.trendLabels?.[locale],
         bars: market?.bars ?? [],
         headline: texts[locale],
