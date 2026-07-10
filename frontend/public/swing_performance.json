@@ -2,9 +2,9 @@
   "stats": {
     "total_picks": 1165,
     "completed_count": 749,
-    "pending_count": 164,
-    "win_rate": 87.2,
-    "avg_return_pct": 3.85,
+    "pending_count": 187,
+    "win_rate": 86.9,
+    "avg_return_pct": 4.64,
     "stop_loss_pct": "Dynamic (Bot-Calc)",
     "last_updated": "2026-07-09T17:00:12",
     "above_5pct_rate": 76.8,
