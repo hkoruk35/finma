@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false, // Remove X-Powered-By header for security
   reactStrictMode: true,
 
+  // Native N-API modul (resvg) turbopack ile bundle edilemiyor — external birak.
+  serverExternalPackages: ["@resvg/resvg-js"],
+
   // Security headers for crawlers
   async headers() {
     return [

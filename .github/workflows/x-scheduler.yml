@@ -1,0 +1,18 @@
+name: X Studio Scheduler
+
+on:
+  schedule:
+    # Her 5 dakikada tetiklenir; asil aralik (10-15 dk) endpoint icinde
+    # x_automation_settings.interval_minutes'e gore kontrol edilir.
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call X scheduler cron endpoint
+        run: |
+          curl -sf -X GET "https://bogastock.com/api/cron/x-scheduler" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}" \
+            || echo "Scheduler call failed (non-fatal)"
