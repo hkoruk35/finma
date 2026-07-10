@@ -60,25 +60,33 @@ export default function XStudioQueuePage() {
 
   const rowFor = (id: string): RowState => rows[id] ?? { status: "idle", locale: "en" };
 
+  // Fonksiyonel updater'in kendi `r` parametresini kullanir — dis kapsamdaki
+  // `rows`'a (bayat/stale) degil, en guncel state'e gore birlestirir.
   const setRow = (id: string, patch: Partial<RowState>) => {
-    setRows((r) => ({ ...r, [id]: { ...rowFor(id), ...patch } }));
+    setRows((r) => ({ ...r, [id]: { ...(r[id] ?? { status: "idle", locale: "en" }), ...patch } }));
   };
 
   const prepare = async (item: PoolItem) => {
     setExpanded(item.id);
     setRow(item.id, { status: "loading", error: undefined });
-    const res = await fetch("/api/admin/x/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme }),
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      setRow(item.id, { status: "error", error: data.error || "Metin üretme hatası" });
-      return;
+    try {
+      const res = await fetch("/api/admin/x/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setRow(item.id, { status: "error", error: data.error || "Metin üretme hatası" });
+        return;
+      }
+      const locale = rowFor(item.id).locale;
+      setRow(item.id, { status: "ready", texts: data.texts, hashtags: data.hashtags, market: data.market ?? null });
+      await renderImage(item, { status: "ready", locale, texts: data.texts, hashtags: data.hashtags, market: data.market ?? null });
+    } catch (e: any) {
+      console.error("[x-studio/queue] prepare failed:", e);
+      setRow(item.id, { status: "error", error: e?.message || "Beklenmeyen hata" });
     }
-    setRow(item.id, { status: "ready", texts: data.texts, hashtags: data.hashtags, market: data.market ?? null });
-    await renderImage(item, { ...rowFor(item.id), status: "ready", texts: data.texts, hashtags: data.hashtags, market: data.market ?? null });
   };
 
   const renderImage = async (item: PoolItem, row: RowState) => {
@@ -98,20 +106,23 @@ export default function XStudioQueuePage() {
       headline: row.texts[row.locale],
       locale: row.locale,
     };
-    const res = await fetch("/api/admin/x/image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cardParams),
-    });
-    if (!res.ok) return;
-    const blob = await res.blob();
-    setRow(item.id, { imageUrl: URL.createObjectURL(blob) });
+    try {
+      const res = await fetch("/api/admin/x/image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cardParams),
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      setRow(item.id, { imageUrl: URL.createObjectURL(blob) });
+    } catch (e) {
+      console.error("[x-studio/queue] image render failed:", e);
+    }
   };
 
   const changeLocale = async (item: PoolItem, locale: Locale) => {
-    const row = { ...rowFor(item.id), locale };
     setRow(item.id, { locale, imageUrl: undefined });
-    await renderImage(item, row);
+    await renderImage(item, { ...rowFor(item.id), locale });
   };
 
   const getFinalText = (item: PoolItem) => {
@@ -158,8 +169,14 @@ export default function XStudioQueuePage() {
 
               {isOpen && (
                 <div style={{ padding: 12, borderTop: "1px solid #30363d" }}>
+                  {row.status === "idle" && <div style={{ opacity: 0.6 }}>Henüz hazırlanmadı.</div>}
                   {row.status === "loading" && <div style={{ opacity: 0.7 }}>Hazırlanıyor…</div>}
-                  {row.status === "error" && <div style={{ color: "#f85149" }}>{row.error}</div>}
+                  {row.status === "error" && (
+                    <div>
+                      <div style={{ color: "#f85149", marginBottom: 8 }}>{row.error}</div>
+                      <button style={btnStyle} onClick={() => prepare(item)}>Tekrar Dene</button>
+                    </div>
+                  )}
 
                   {row.status === "ready" && row.texts && (
                     <>
