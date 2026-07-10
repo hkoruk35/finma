@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
+import { localizedThemeTitle } from "@/lib/hotThemes2026";
 
 const ACCENT = "#58a6ff";
 const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
@@ -164,7 +165,7 @@ export default function XStudioPage() {
         ticker: selected.ticker,
         company: selected.company ?? undefined,
         sector: selected.sector ?? undefined,
-        theme: selected.theme ?? undefined,
+        theme: localizedThemeTitle(selected.theme, locale),
         changePct: market?.changePct,
         rvol: market?.rvol,
         opportunity: market?.opportunity,

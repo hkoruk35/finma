@@ -238,3 +238,109 @@ export const HOT_THEMES_2026: HotTheme[] = [
 export function getHotTheme(slug: string): HotTheme | undefined {
   return HOT_THEMES_2026.find((t) => t.slug === slug);
 }
+
+// X Studio kuyruğu tema başlığını Türkçe metin olarak saklar (bkz.
+// app/api/admin/x/pool/route.ts). Kart üretiminde seçili arayüz diline göre
+// doğru başlığı göstermek için burada 5 dilde çeviri tablosu tutulur.
+const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
+  "bellek-ureticiler-ai-depolama": {
+    tr: "Bellek Üreticiler & AI Depolama",
+    en: "Memory Makers & AI Storage",
+    es: "Fabricantes de Memoria y Almacenamiento IA",
+    fr: "Fabricants de Mémoire et Stockage IA",
+    pt: "Fabricantes de Memória e Armazenamento IA",
+  },
+  "uzay-temasi": {
+    tr: "Uzay Teması",
+    en: "Space Theme",
+    es: "Tema Espacial",
+    fr: "Thème Spatial",
+    pt: "Tema Espacial",
+  },
+  "fiziksel-ai-humanoid-robotik": {
+    tr: "Fiziksel AI & Hümanoid Robotik",
+    en: "Physical AI & Humanoid Robotics",
+    es: "IA Física y Robótica Humanoide",
+    fr: "IA Physique et Robotique Humanoïde",
+    pt: "IA Física e Robótica Humanoide",
+  },
+  "ai-savunma-drone-otonom-sistemler": {
+    tr: "AI Savunma, Drone & Otonom Sistemler",
+    en: "AI Defense, Drones & Autonomous Systems",
+    es: "Defensa IA, Drones y Sistemas Autónomos",
+    fr: "Défense IA, Drones et Systèmes Autonomes",
+    pt: "Defesa IA, Drones e Sistemas Autônomos",
+  },
+  "kritik-maden-nadir-toprak": {
+    tr: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
+    en: "Critical Minerals, Rare Earths & Semiconductor Materials",
+    es: "Minerales Críticos, Tierras Raras y Materiales Semiconductores",
+    fr: "Minéraux Critiques, Terres Rares et Matériaux Semi-conducteurs",
+    pt: "Minerais Críticos, Terras Raras e Materiais Semicondutores",
+  },
+  "nukleer-enerji-ai-guc": {
+    tr: "Nükleer Enerji & AI Güç Altyapısı",
+    en: "Nuclear Energy & AI Power Infrastructure",
+    es: "Energía Nuclear e Infraestructura Energética IA",
+    fr: "Énergie Nucléaire et Infrastructure Électrique IA",
+    pt: "Energia Nuclear e Infraestrutura de Energia IA",
+  },
+  "kuantum-bilisim": {
+    tr: "Kuantum Bilişim",
+    en: "Quantum Computing",
+    es: "Computación Cuántica",
+    fr: "Informatique Quantique",
+    pt: "Computação Quântica",
+  },
+  "ai-ajanlar-kurumsal-yazilim": {
+    tr: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
+    en: "AI Agents & Enterprise Software Transformation",
+    es: "Agentes IA y Transformación de Software Empresarial",
+    fr: "Agents IA et Transformation Logicielle d'Entreprise",
+    pt: "Agentes IA e Transformação de Software Empresarial",
+  },
+  "ai-veri-merkezi-sogutma": {
+    tr: "AI Veri Merkezi & Soğutma Altyapısı",
+    en: "AI Data Center & Cooling Infrastructure",
+    es: "Centro de Datos IA e Infraestructura de Refrigeración",
+    fr: "Centre de Données IA et Infrastructure de Refroidissement",
+    pt: "Data Center IA e Infraestrutura de Refrigeração",
+  },
+  "post-kuantum-siber-guvenlik": {
+    tr: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
+    en: "Post-Quantum Cybersecurity & Sovereign Security",
+    es: "Ciberseguridad Poscuántica y Seguridad Soberana",
+    fr: "Cybersécurité Post-Quantique et Sécurité Souveraine",
+    pt: "Cibersegurança Pós-Quântica e Segurança Soberana",
+  },
+  "fiziksel-ai-yariiletken-cip-ekosistemi": {
+    tr: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
+    en: "Semiconductor Chip Ecosystem for Physical AI",
+    es: "Ecosistema de Chips Semiconductores para IA Física",
+    fr: "Écosystème de Puces Semi-conductrices pour l'IA Physique",
+    pt: "Ecossistema de Chips Semicondutores para IA Física",
+  },
+  biotech: {
+    tr: "Biotech",
+    en: "Biotech",
+    es: "Biotecnología",
+    fr: "Biotech",
+    pt: "Biotech",
+  },
+};
+
+const THEME_TITLE_TO_SLUG: Record<string, string> = Object.fromEntries(
+  HOT_THEMES_2026.map((t) => [t.title, t.slug])
+);
+
+// x_content_pool.theme kolonu Türkçe başlık metnini olduğu gibi saklar
+// (bkz. pool/route.ts). Kart/tweet üretiminde arayüzde seçili dile çevirir;
+// eşleşme bulunamazsa (eski kayıt veya sector değeri) metni değiştirmeden
+// döner.
+export function localizedThemeTitle(rawTheme: string | null | undefined, locale: string): string | undefined {
+  if (!rawTheme) return undefined;
+  const slug = THEME_TITLE_TO_SLUG[rawTheme];
+  if (!slug) return rawTheme;
+  const table = THEME_TITLE_TRANSLATIONS[slug];
+  return table?.[locale] ?? table?.en ?? rawTheme;
+}

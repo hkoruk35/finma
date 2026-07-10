@@ -5,6 +5,7 @@ import { postTweet } from "@/lib/x/client";
 import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
 import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
+import { localizedThemeTitle } from "@/lib/hotThemes2026";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -149,7 +150,7 @@ export async function GET(req: NextRequest) {
     kind: "stock",
     ticker: pendingPost.ticker,
     sector: pendingPost.sector ?? undefined,
-    theme: pendingPost.theme ?? undefined,
+    theme: localizedThemeTitle(pendingPost.theme, pendingPost.locale),
     changePct: pendingPost.change_pct ?? undefined,
     rvol: pendingPost.rvol ?? undefined,
     opportunity: pendingPost.opportunity ?? false,
