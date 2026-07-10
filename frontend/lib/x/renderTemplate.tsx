@@ -204,9 +204,14 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <img src={logo} width={50} height={50} style={{ borderRadius: 11 }} />
-          <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <img src={logo} width={50} height={50} style={{ borderRadius: 11 }} />
+            <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+          </div>
+          <span style={{ fontSize: 16, fontWeight: 600, opacity: 0.5, marginLeft: 64, display: "flex" }}>
+            bogastock.com
+          </span>
         </div>
         {isStock && (
           <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
@@ -311,8 +316,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, fontWeight: 700, opacity: 0.75, marginTop: 14 }}>
-        <span style={{ display: "flex" }}>bogastock.com</span>
+      <div style={{ display: "flex", justifyContent: "flex-end", fontSize: 26, fontWeight: 700, opacity: 0.75, marginTop: 14 }}>
         <span style={{ display: "flex" }}>@bogastock</span>
       </div>
     </div>
