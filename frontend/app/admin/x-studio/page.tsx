@@ -111,6 +111,30 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
+  const clearPool = async () => {
+    if (!confirm(`Kuyruktaki ${pool.length} bekleyen içerik silinsin mi?`)) return;
+    setBusy(true);
+    setError("");
+    const res = await fetch("/api/admin/x/pool", { method: "DELETE" });
+    if (!res.ok) setError((await res.json()).error || "Kuyruk temizleme hatası");
+    await loadPool();
+    setBusy(false);
+  };
+
+  const deletePoolItem = async (id: string) => {
+    setError("");
+    const res = await fetch(`/api/admin/x/pool?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError((await res.json()).error || "Silme hatası");
+      return;
+    }
+    if (selected?.id === id) {
+      setSelected(null);
+      setImageUrl(null);
+    }
+    await loadPool();
+  };
+
   const generateStockText = async (item: PoolItem) => {
     setBusy(true);
     setError("");
@@ -338,7 +362,16 @@ export default function XStudioPage() {
         <div style={{ flex: 1, minWidth: 320 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
             <h2 style={{ fontSize: 14, color: ACCENT }}>İçerik Kuyruğu ({pool.length})</h2>
-            <button style={btnStyle} disabled={busy} onClick={fillPool}>Kuyruğu Doldur</button>
+            <div style={{ display: "flex", gap: 6 }}>
+              <button style={btnStyle} disabled={busy} onClick={fillPool}>Kuyruğu Doldur</button>
+              <button
+                style={{ ...btnStyle, background: "#f85149" }}
+                disabled={busy || pool.length === 0}
+                onClick={clearPool}
+              >
+                Kuyruğu Temizle
+              </button>
+            </div>
           </div>
           <button style={{ ...btnStyle, background: "#f59e0b", marginBottom: 12, width: "100%" }} disabled={busy} onClick={generatePromoText}>
             Promo Gönder (Manuel)
@@ -347,17 +380,28 @@ export default function XStudioPage() {
             {pool.map((item) => (
               <div
                 key={item.id}
-                onClick={() => generateStockText(item)}
                 style={{
                   ...inputStyle,
-                  cursor: "pointer",
                   border: selected?.id === item.id ? `1px solid ${ACCENT}` : inputStyle.border,
                   display: "flex",
+                  alignItems: "center",
                   justifyContent: "space-between",
                 }}
               >
-                <span>{item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span></span>
-                <span style={{ opacity: 0.6 }}>{item.sector || item.theme || ""}</span>
+                <div
+                  onClick={() => generateStockText(item)}
+                  style={{ display: "flex", justifyContent: "space-between", flex: 1, cursor: "pointer" }}
+                >
+                  <span>{item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span></span>
+                  <span style={{ opacity: 0.6 }}>{item.sector || item.theme || ""}</span>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); deletePoolItem(item.id); }}
+                  title="Kuyruktan sil"
+                  style={{ background: "transparent", border: "none", color: "#f85149", cursor: "pointer", fontSize: 13, marginLeft: 10, padding: "0 4px" }}
+                >
+                  ✕
+                </button>
               </div>
             ))}
           </div>

@@ -25,6 +25,26 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ pool: data ?? [] });
 }
 
+// ?id=<uuid> tek bir satiri siler; parametresiz cagri kuyrukta bekleyen
+// (used_at is null) tum satirlari temizler (manuel "Kuyruğu Temizle").
+export async function DELETE(req: NextRequest) {
+  if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  const id = req.nextUrl.searchParams.get("id");
+
+  if (id) {
+    const { error } = await supabaseAdmin.from("x_content_pool").delete().eq("id", id);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ deleted: 1 });
+  }
+
+  const { error, count } = await supabaseAdmin
+    .from("x_content_pool")
+    .delete({ count: "exact" })
+    .is("used_at", null);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ deleted: count ?? 0 });
+}
+
 // Top100 + Swing + Trend kaynaklarından kuyruğu doldurur.
 // Son 48 saatte kullanılmış ticker'lar tekrar eklenmez.
 export async function POST(req: NextRequest) {

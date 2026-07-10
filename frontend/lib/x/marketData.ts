@@ -27,7 +27,10 @@ async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> 
     if (!res.ok) return [];
     const data = await res.json();
     const bars: OhlcBar[] = Array.isArray(data.bars) ? data.bars : [];
-    return bars.slice(-65); // ~60+ islem gunu
+    // timeframe=D zaten 1 yillik veri dondurur (bkz. chart-data route TIMEFRAME_MAP);
+    // 1Y getiri hesaplayabilmek icin ~1 yillik islem gunu saklanir. Grafik yine de
+    // sadece son ~60 gunu cizer (buildChart kendi ici slice(-60) yapar).
+    return bars.slice(-260);
   } catch (e) {
     console.error("[x/marketData] daily bars fetch failed:", (e as Error).message);
     return [];
