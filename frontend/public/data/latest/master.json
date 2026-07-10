@@ -1,31 +1,20 @@
 {
-  "date": "2026-07-09",
-  "generated_at": "2026-07-09T13:20:19.826322-04:00",
+  "date": "2026-07-10",
+  "generated_at": "2026-07-10T13:03:35.580711-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 12,
+  "active_scores_count": 2,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 10,
+      "count": 2,
       "tickers": [
-        "ZETA",
-        "IMO",
-        "LB",
-        "DAR",
-        "AAPL",
-        "EAT",
-        "TFIN",
-        "PSX",
-        "NTES",
-        "TFII"
+        "NVDA",
+        "DDOG"
       ]
     },
     "breakout": {
-      "count": 2,
-      "tickers": [
-        "TFIN",
-        "PRLB"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -46,18 +35,13 @@
   },
   "top_3_overall": [
     {
-      "ticker": "ZETA",
-      "score": 56.0,
+      "ticker": "NVDA",
+      "score": 51.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "IMO",
-      "score": 55.5,
-      "score_type": "POSITIVE_BIAS"
-    },
-    {
-      "ticker": "LB",
-      "score": 55.0,
+      "ticker": "DDOG",
+      "score": 44.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
