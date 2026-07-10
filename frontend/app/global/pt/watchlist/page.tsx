@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import AllListDetailClient from "@/components/AllListDetailClient";
+import GlobalWatchlistClient from "@/components/GlobalWatchlistClient";
 
 export const metadata: Metadata = {
   title: "Watchlist | BOGA AI",
@@ -15,7 +15,7 @@ export default function PtWatchlistPage() {
       <MemberHeader locale="pt" />
 
       <main className="flex-1 w-full max-w-full mx-auto px-0 py-8">
-        <AllListDetailClient />
+        <GlobalWatchlistClient />
       </main>
 
       <Footer hidePlatform={true} locale="pt" />

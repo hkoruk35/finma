@@ -70,7 +70,11 @@ function heatBg(pct: number | null) {
 
 const ITEMS_PER_PAGE = 50;
 
-export default function AllListDetailClient() {
+interface AllListDetailClientProps {
+  hideTabsAndTracker?: boolean;
+}
+
+export default function AllListDetailClient({ hideTabsAndTracker = false }: AllListDetailClientProps) {
   const { addToTracker, isInTracker, tickers: trackerTickers } = useTracker();
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
@@ -339,7 +343,8 @@ export default function AllListDetailClient() {
               <span style={{ fontSize: 12, color: "#8b949e" }}>900+ hisse</span>
             </div>
 
-            {/* CSP Tabs */}
+            {/* CSP Tabs - Hidden in global watchlist */}
+            {!hideTabsAndTracker && (
             <div style={{ display: "flex", gap: 6, marginBottom: 8, flexWrap: "wrap" }}>
               {[
                 { slug: "active", label: "Active Watchlist", color: "#10b981" },
@@ -379,6 +384,7 @@ export default function AllListDetailClient() {
                 ALL LIST
               </Link>
             </div>
+            )}
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12 }}>
               {lastUpdated && <span>son güncelleme: {lastUpdated.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })} ET</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>
@@ -470,7 +476,9 @@ export default function AllListDetailClient() {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 900 }}>
           <thead>
             <tr style={{ borderBottom: "1px solid #30363d" }}>
-              {["TICKER", "ŞİRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL"].map((h, i) => {
+              {["TICKER", "ŞİRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL"]
+                .filter(h => !hideTabsAndTracker || h !== "TRACKER")
+                .map((h, i) => {
                 const isSortable = h && !["TRACKER", ""].includes(h);
                 const isSorted = sortBy === h;
                 return (
@@ -548,7 +556,8 @@ export default function AllListDetailClient() {
                     {fmtVol(d.price?.volume)}
                   </td>
 
-                  {/* TRACKER */}
+                  {/* TRACKER - Hidden in global watchlist */}
+                  {!hideTabsAndTracker && (
                   <td style={{ padding: "7px 8px", textAlign: "right" }}>
                     {isInTracker(sym) ? (
                       <Link
@@ -576,6 +585,7 @@ export default function AllListDetailClient() {
                       </button>
                     )}
                   </td>
+                  )}
 
                   {/* 1G FİY% */}
                   <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700,
