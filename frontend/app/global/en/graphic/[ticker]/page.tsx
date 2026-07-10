@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
@@ -40,18 +40,10 @@ function fmtChange(v: number | null | undefined) {
 
 export default function GraphicDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
-
-  useEffect(() => {
-    fetch("/api/members/me")
-      .then((res) => (res.ok ? res.json() : Promise.reject()))
-      .catch(() => router.push("/global/en/login"))
-      .finally(() => setLoading(false));
-  }, [router]);
 
   useEffect(() => {
     if (!ticker) return;

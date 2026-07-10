@@ -66,6 +66,7 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/${routes.register}`) &&
         !pathname.startsWith(`${base}/performance`) &&
         !pathname.startsWith(`${base}/top100`) &&
+        !pathname.startsWith(`${base}/graphic`) &&
         pathname !== base
       break
     }
@@ -97,10 +98,10 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(homeUrl, request.url))
   }
 
-  // Global üye sayfasına giriş yapmamış kullanıcı gelirse → global login'e yönlendir
+  // Global üye sayfasına giriş yapmamış kullanıcı gelirse → register'e yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
-    const loginUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].login}`
-    return redirectTo(new URL(loginUrl, request.url))
+    const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
+    return redirectTo(new URL(registerUrl, request.url))
   }
 
   // ── Admin login sayfaları public ───────────────────────────────────────────
