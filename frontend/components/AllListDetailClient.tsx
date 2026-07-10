@@ -46,16 +46,6 @@ const normalizeGicsSector = (sec: string | undefined): string => {
   return s;
 };
 
-const normalizeGicsSector = (sec: string | undefined): string => {
-  if (!sec) return "Other";
-  const s = sec.trim();
-  if (s === "Basic Materials") return "Materials";
-  if (s === "Consumer Defensive") return "Consumer Staples";
-  if (s === "Consumer Cyclical") return "Consumer Discretionary";
-  if (s === "Financial Services") return "Financials";
-  return s;
-};
-
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
   if (rsi >= 50) return "#3fb950";
