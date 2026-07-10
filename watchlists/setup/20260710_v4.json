@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "BBIO",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 86.85,
+        "entry_zone": "85.05 - 88.65",
+        "SL": 79.64,
+        "TP": 101.28
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "GTLB",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 33.4,
+        "entry_zone": "32.51 - 34.30",
+        "SL": 29.81,
+        "TP": 40.6
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "MRX",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 68.14,
+        "entry_zone": "66.29 - 69.99",
+        "SL": 60.74,
+        "TP": 82.93
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "NTAP",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 172.6,
+        "entry_zone": "169.42 - 175.79",
+        "SL": 159.86,
+        "TP": 198.08
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 96.89,
+        "entry_zone": "93.72 - 100.06",
+        "SL": 84.2,
+        "TP": 122.27
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "PTRN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 29.1,
+        "entry_zone": "28.41 - 29.79",
+        "SL": 26.32,
+        "TP": 34.65
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "CGON",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 71.77,
+        "entry_zone": "69.69 - 73.85",
+        "SL": 63.46,
+        "TP": 88.38
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "META",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 668.22,
+        "entry_zone": "654.80 - 681.64",
+        "SL": 614.55,
+        "TP": 775.57
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "RLAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 19.68,
+        "entry_zone": "19.01 - 20.35",
+        "SL": 17.01,
+        "TP": 25.01
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "AYA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 20.05,
+        "entry_zone": "19.39 - 20.71",
+        "SL": 17.4,
+        "TP": 25.34
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "S",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 17.83,
+        "entry_zone": "17.35 - 18.30",
+        "SL": 15.91,
+        "TP": 21.65
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "RBRK",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 84.43,
+        "entry_zone": "81.91 - 86.95",
+        "SL": 74.37,
+        "TP": 104.56
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "BIO",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 297.88,
+        "entry_zone": "292.75 - 303.01",
+        "SL": 277.38,
+        "TP": 338.89
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 42.55,
+        "entry_zone": "41.18 - 43.92",
+        "SL": 37.06,
+        "TP": 53.53
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "MBX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 61.13,
+        "entry_zone": "59.14 - 63.12",
+        "SL": 53.18,
+        "TP": 77.03
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 71.14,
+        "entry_zone": "68.08 - 74.20",
+        "SL": 58.91,
+        "TP": 95.59
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "RIVN",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 18.57,
+        "entry_zone": "17.86 - 19.28",
+        "SL": 15.74,
+        "TP": 24.23
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "OPEN",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 5.01,
+        "entry_zone": "4.82 - 5.19",
+        "SL": 4.25,
+        "TP": 6.51
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "ASX",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 42.16,
+        "entry_zone": "40.55 - 43.78",
+        "SL": 35.7,
+        "TP": 55.09
+    },
+    {
+        "date": "2026-07-10 10:45",
+        "symbol": "BFLY",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 7.62,
+        "entry_zone": "7.19 - 8.06",
+        "SL": 5.87,
+        "TP": 11.13
+    }
+]

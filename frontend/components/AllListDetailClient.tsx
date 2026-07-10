@@ -36,6 +36,16 @@ const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toF
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
 const fmtVol = (v: number | null | undefined) => !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
 
+const normalizeGicsSector = (sec: string | undefined): string => {
+  if (!sec) return "Other";
+  const s = sec.trim();
+  if (s === "Basic Materials") return "Materials";
+  if (s === "Consumer Defensive") return "Consumer Staples";
+  if (s === "Consumer Cyclical") return "Consumer Discretionary";
+  if (s === "Financial Services") return "Financials";
+  return s;
+};
+
 function rsiColor(rsi: number) {
   if (rsi >= 70) return "#f85149";
   if (rsi >= 50) return "#3fb950";
@@ -176,7 +186,7 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
       if (filterVolume === "50M+" && vol < 50e6) return false;
     }
 
-    if (filterSector && d?.sector !== filterSector) return false;
+    if (filterSector && normalizeGicsSector(d?.sector) !== filterSector) return false;
     if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
 
     return true;
@@ -423,13 +433,13 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
             <option value="50M+">50M+</option>
           </select>
 
-          <select 
-            value={filterSector} 
+          <select
+            value={filterSector}
             onChange={e => setFilterSector(e.target.value)}
             style={{ background: "#161b22", border: "1px solid #30363d", color: "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", outline: "none", maxWidth: 120 }}
           >
             <option value="">Tüm Sektörler</option>
-            {Array.from(new Set(Object.values(data).map(d => d.sector))).filter(s => s && s !== "Unknown").sort().map(s => (
+            {Array.from(new Set(Object.values(data).map(d => normalizeGicsSector(d.sector)))).filter(s => s && s !== "Unknown" && s !== "Other").sort().map(s => (
               <option key={s} value={s}>{s}</option>
             ))}
           </select>
