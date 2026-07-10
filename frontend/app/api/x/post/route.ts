@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     // OAuth 1.0a parameters
     const oauthParams: Record<string, string> = {
       oauth_consumer_key: X_CONSUMER_KEY,
-      oauth token: X_ACCESS_TOKEN,
+      oauth_token: X_ACCESS_TOKEN,
       oauth_signature_method: "HMAC-SHA1",
       oauth_timestamp: Math.floor(Date.now() / 1000).toString(),
       oauth_nonce: crypto.randomBytes(16).toString("hex"),

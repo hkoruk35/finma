@@ -12,21 +12,10 @@ export async function GET(
     const tickerUpper = ticker.toUpperCase();
 
     // Simple chart bars visualization
-    const chartBars = Array.from({ length: 30 }).map((_, i) => {
-      const height = Math.floor(Math.random() * 80 + 20);
-      const isGreen = Math.random() > 0.4;
-      return (
-        <div
-          key={i}
-          style={{
-            width: "6px",
-            height: `${height}px`,
-            background: isGreen ? "#10b981" : "#ef4444",
-            marginRight: "2px",
-          }}
-        />
-      );
-    });
+    const bars = Array.from({ length: 30 }).map((_, i) => ({
+      height: Math.floor(Math.random() * 80 + 20),
+      isGreen: Math.random() > 0.4,
+    }));
 
     return new ImageResponse(
       (
@@ -70,7 +59,16 @@ export async function GET(
               border: "1px solid rgba(59, 130, 246, 0.2)",
             }}
           >
-            {chartBars}
+            {bars.map((bar, i) => (
+              <div
+                key={`bar-${i}`}
+                style={{
+                  width: "6px",
+                  height: `${bar.height}px`,
+                  background: bar.isGreen ? "#10b981" : "#ef4444",
+                }}
+              />
+            ))}
           </div>
 
           {/* Info Grid */}
