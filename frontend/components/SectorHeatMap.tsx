@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { MasterData, StockQuickView } from "@/lib/data";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
@@ -28,7 +29,7 @@ const SECTOR_ETF: Record<string, string> = {
 };
 
 const SECTOR_ORDER = [
-  "Technology", "Financials", "Healthcare", "Consumer Discretionary", 
+  "Technology", "Financials", "Healthcare", "Consumer Discretionary",
   "Communication Services", "Industrials", "Energy", "Consumer Staples",
   "Real Estate", "Materials", "Utilities"
 ];
@@ -36,9 +37,14 @@ const SECTOR_ORDER = [
 interface Props {
   data: MasterData;
   allTickers: StockQuickView[];
+  locale?: string;
 }
 
-export default function SectorHeatMap({ data, allTickers }: Props) {
+export default function SectorHeatMap({ data, allTickers, locale }: Props) {
+  const pathname = usePathname();
+  // Extract locale from pathname if not provided (e.g., /global/en/home → en)
+  const currentLocale = locale || pathname?.split('/')[2] || 'en';
+
   // Use ALL tickers, sorted by volume for display order within each sector
   const sorted = [...allTickers].sort(
     (a, b) => (b.volume ?? b.avg_volume_30d ?? b.master_score) - (a.volume ?? a.avg_volume_30d ?? a.master_score)
@@ -92,8 +98,8 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                 className="glass-card overflow-hidden flex flex-col border border-[#1e2a3a] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 md:flex-shrink md:w-auto w-[calc(100vw-40px)]"
               >
               {/* Sector Header */}
-              <Link 
-                href={`/sector/${slugify(sector)}`}
+              <Link
+                href={`/global/${currentLocale}/watchlist?sector=${slugify(sector)}`}
                 className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}
               >
                 <div className="flex flex-col">
@@ -116,7 +122,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
                   return (
                     <TickerHoverChart key={stock.ticker} ticker={stock.ticker}>
                       <Link
-                        href={`/stock/${stock.ticker}`}
+                        href={`/global/${currentLocale}/graphic/${stock.ticker}`}
                         className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
                         title={`${stock.ticker}: ${stock.change_pct}%`}
                       >
@@ -137,7 +143,7 @@ export default function SectorHeatMap({ data, allTickers }: Props) {
               
               {/* Footer / More link */}
               <Link
-                href={`/sector/${slugify(sector)}`}
+                href={`/global/${currentLocale}/watchlist?sector=${slugify(sector)}`}
                 className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]"
               >
                  <span className="text-[9px] font-black text-white uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">

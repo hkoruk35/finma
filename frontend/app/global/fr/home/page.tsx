@@ -263,7 +263,7 @@ export default async function FrHomePage() {
         {/* Sector Heat Map */}
         {master && (
           <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={comprehensiveTickersList} />
+            <SectorHeatMap data={master} allTickers={comprehensiveTickersList} locale="fr" />
           </section>
         )}
 
