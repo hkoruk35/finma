@@ -85,8 +85,8 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
         </div>
       </div>
 
-      <div className="overflow-x-auto md:overflow-x-visible">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 min-w-max md:min-w-0">
+      <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible">
+        <div className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:min-w-0">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, 12); // Show top 12 per sector for map
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
@@ -95,7 +95,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
             return (
               <div
                 key={sector}
-                className="glass-card overflow-hidden flex flex-col border border-[#1e2a3a] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 md:flex-shrink md:w-auto w-[calc(100vw-40px)]"
+                className="glass-card overflow-hidden flex flex-col border border-[#1e2a3a] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 w-[calc(100vw-40px)] snap-center md:flex-shrink md:w-auto md:snap-align-none"
               >
               {/* Sector Header */}
               <Link

@@ -232,7 +232,7 @@ export default async function EnHomePage() {
         )}
 
         {/* Three column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-2 md:pb-0">
           <HomeSimpleCard
             title="Swing Trade"
             accent="#3b82f6"
