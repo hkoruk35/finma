@@ -1,98 +1,18 @@
 [
   {
-    "Date": "9 July",
-    "Symbol": "ZETA",
-    "Entry (Buy_L)": 21.4,
-    "Stop (SL)": 20.46,
-    "Target 1 (TP1)": 24.07,
-    "Target 2 (TP2)": 24.47
+    "Date": "10 July",
+    "Symbol": "NVDA",
+    "Entry (Buy_L)": 203.35,
+    "Stop (SL)": 198.35,
+    "Target 1 (TP1)": 221.23,
+    "Target 2 (TP2)": 223.77
   },
   {
-    "Date": "9 July",
-    "Symbol": "IMO",
-    "Entry (Buy_L)": 115.83,
-    "Stop (SL)": 113.58,
-    "Target 1 (TP1)": 126.19,
-    "Target 2 (TP2)": 127.59
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "LB",
-    "Entry (Buy_L)": 77.31,
-    "Stop (SL)": 74.4,
-    "Target 1 (TP1)": 86.41,
-    "Target 2 (TP2)": 87.75
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "DAR",
-    "Entry (Buy_L)": 60.22,
-    "Stop (SL)": 58.04,
-    "Target 1 (TP1)": 65.37,
-    "Target 2 (TP2)": 66.18
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "AAPL",
-    "Entry (Buy_L)": 310.12,
-    "Stop (SL)": 299.33,
-    "Target 1 (TP1)": 336.28,
-    "Target 2 (TP2)": 340.38
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "EAT",
-    "Entry (Buy_L)": 175.82,
-    "Stop (SL)": 170.63,
-    "Target 1 (TP1)": 192.77,
-    "Target 2 (TP2)": 195.23
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "TFIN",
-    "Entry (Buy_L)": 76.46,
-    "Stop (SL)": 73.71,
-    "Target 1 (TP1)": 83.01,
-    "Target 2 (TP2)": 84.05
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "PSX",
-    "Entry (Buy_L)": 186.93,
-    "Stop (SL)": 180.06,
-    "Target 1 (TP1)": 202.87,
-    "Target 2 (TP2)": 205.41
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "NTES",
-    "Entry (Buy_L)": 131.47,
-    "Stop (SL)": 127.05,
-    "Target 1 (TP1)": 142.52,
-    "Target 2 (TP2)": 144.24
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "TFII",
-    "Entry (Buy_L)": 144.69,
-    "Stop (SL)": 141.6,
-    "Target 1 (TP1)": 157.65,
-    "Target 2 (TP2)": 159.44
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "INGM",
-    "Entry (Buy_L)": 27.33,
-    "Stop (SL)": 26.57,
-    "Target 1 (TP1)": 30.86,
-    "Target 2 (TP2)": 31.34
-  },
-  {
-    "Date": "9 July",
-    "Symbol": "PRLB",
-    "Entry (Buy_L)": 74.12,
-    "Stop (SL)": 71.5,
-    "Target 1 (TP1)": 80.5,
-    "Target 2 (TP2)": 81.51
+    "Date": "10 July",
+    "Symbol": "DDOG",
+    "Entry (Buy_L)": 251.34,
+    "Stop (SL)": 242.25,
+    "Target 1 (TP1)": 279.06,
+    "Target 2 (TP2)": 283.15
   }
 ]
