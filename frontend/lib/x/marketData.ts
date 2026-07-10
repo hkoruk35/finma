@@ -8,7 +8,7 @@ export interface OhlcBar {
 }
 
 export interface TickerMarketData {
-  bars: OhlcBar[]; // haftalik mumlar (1W grafik icin) — /api/chart-data ile ayni kaynak
+  bars: OhlcBar[]; // gunluk mumlar (1D grafik icin) — /api/chart-data ile ayni kaynak
   changePct: number;
   entryLow: number;
   entryHigh: number;
@@ -17,25 +17,25 @@ export interface TickerMarketData {
 }
 
 // Sitenin kendi grafik motorunun (BogaChartEngine) kullandigi ayni endpoint —
-// gercek haftalik OHLC mumlari, uydurma bir cizgi degil.
-async function fetchWeeklyBars(base: string, ticker: string): Promise<OhlcBar[]> {
+// gercek gunluk OHLC mumlari, uydurma bir cizgi degil.
+async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> {
   try {
-    const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=W`, {
+    const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=D`, {
       cache: "no-store",
     });
     if (!res.ok) return [];
     const data = await res.json();
     const bars: OhlcBar[] = Array.isArray(data.bars) ? data.bars : [];
-    return bars.slice(-14);
+    return bars.slice(-20);
   } catch (e) {
-    console.error("[x/marketData] weekly bars fetch failed:", (e as Error).message);
+    console.error("[x/marketData] daily bars fetch failed:", (e as Error).message);
     return [];
   }
 }
 
 // /api/watchlist-data zaten Yahoo'dan cekilen fiyat serisini, EMA'lari ve
-// trend etiketini (ema_status) hesapliyor. Grafik icin ayrica haftalik
-// kapanislari /api/chart-data'dan alip 1W (uzun vadeli) trend gosteriyoruz.
+// trend etiketini (ema_status) hesapliyor. Grafik icin ayrica gunluk
+// mumlari /api/chart-data'dan alip 1D grafik gosteriyoruz.
 export async function fetchTickerMarketData(ticker: string): Promise<TickerMarketData | null> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
   try {
@@ -54,7 +54,7 @@ export async function fetchTickerMarketData(ticker: string): Promise<TickerMarke
     const entryLow = Math.min(price, ema20);
     const entryHigh = Math.max(price, ema20);
 
-    const bars = await fetchWeeklyBars(base, ticker);
+    const bars = await fetchDailyBars(base, ticker);
 
     return {
       bars,

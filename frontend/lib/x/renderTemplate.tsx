@@ -211,7 +211,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
 
           {params.bars.length > 1 && (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
-              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1W CHART</span>
+              <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1D CHART</span>
               <svg width={W - 112} height={95} viewBox={`0 0 ${W - 112} 95`}>
                 {candlestickElements(params.bars, W - 112, 82)}
               </svg>

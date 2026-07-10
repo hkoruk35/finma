@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 
 const ACCENT = "#58a6ff";
@@ -239,7 +240,10 @@ export default function XStudioPage() {
 
   return (
     <div style={{ padding: 24, fontFamily: "monospace", color: "#e6edf3" }}>
-      <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT, marginBottom: 16 }}>X Studio — @bogastock</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h1 style={{ fontSize: 20, fontWeight: 900, color: ACCENT }}>X Studio — @bogastock</h1>
+        <Link href="/admin/x-studio/queue" style={{ color: ACCENT, fontSize: 12 }}>Kuyruk Listesi (Manuel Paylaş) →</Link>
+      </div>
 
       {error && <div style={{ color: "#f85149", marginBottom: 12, fontSize: 12 }}>{error}</div>}
 
