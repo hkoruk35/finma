@@ -1,11 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices } from "@/lib/homeFeed";
-import { getSwingPerformance } from "@/lib/data";
+import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
 import TickerTape from "@/components/TickerTape";
+import SectorHeatMap from "@/components/SectorHeatMap";
+import { MARKET_THEMES } from "@/lib/themeData";
 
 export const revalidate = 3600;
 
@@ -16,13 +18,18 @@ export const metadata: Metadata = {
 };
 
 export default async function EsHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices, swingStats] = await Promise.all([
+  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
     getTopSwingByVolume(5),
     getTopTrendByVolume(5),
     getTopTop100ByVolume(5),
     getLastUpdated(),
     getLiveIndices(),
     getSwingPerformance(),
+    getMasterData(),
+    getAllTickers(),
+    getSwingPicks(),
+    getOptionsData("latest"),
+    getOptionsOutcomes()
   ]);
 
   const SL_CAP = -7;
@@ -43,6 +50,137 @@ export default async function EsHomePage() {
       period_days: swingStats?.stats?.period_days,
     };
   })();
+
+  // Helper to map different sector naming conventions to GICS standard sector names
+  const normalizeGicsSector = (sec: string | undefined): string => {
+    if (!sec) return "Other";
+    const s = sec.trim();
+    if (s === "Basic Materials") return "Materials";
+    if (s === "Consumer Defensive") return "Consumer Staples";
+    if (s === "Consumer Cyclical") return "Consumer Discretionary";
+    if (s === "Financial Services") return "Financials";
+    return s;
+  };
+
+  // Compile comprehensive map of all tickers from 6 sources
+  const tickerMap = new Map<string, { sector: string; company: string; change_pct: number; score: number; volume: number }>();
+
+  // 1. Load from MARKET_THEMES
+  MARKET_THEMES.forEach(theme => {
+    const rawSector = theme.sector === "Sectors" ? theme.name : theme.sector;
+    const sectorName = normalizeGicsSector(rawSector);
+    theme.tickers.forEach(t => {
+      if (!t) return;
+      const key = t.toUpperCase();
+      tickerMap.set(key, {
+        sector: sectorName,
+        company: t,
+        change_pct: 0,
+        score: 50,
+        volume: 0
+      });
+    });
+  });
+
+  // 2. Load from allTickers
+  if (allTickers && Array.isArray(allTickers)) {
+    allTickers.forEach(t => {
+      if (!t.ticker) return;
+      const key = t.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(t.sector) || existing?.sector || "Other",
+        company: t.company || existing?.company || t.ticker,
+        change_pct: t.change_pct ?? existing?.change_pct ?? 0,
+        score: t.master_score ?? existing?.score ?? 50,
+        volume: t.volume ?? existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 3. Load from swingPicks
+  if (swingPicks && Array.isArray(swingPicks.picks)) {
+    swingPicks.picks.forEach((p: any) => {
+      if (!p.ticker) return;
+      const key = p.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(p.sector) || existing?.sector || "Other",
+        company: p.company || existing?.company || p.ticker,
+        change_pct: p.change_1d ?? p.change_pct ?? existing?.change_pct ?? 0,
+        score: p.score ?? existing?.score ?? 50,
+        volume: p.volume ?? existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 4. Load from swingStats history
+  if (swingStats && Array.isArray(swingStats.history)) {
+    swingStats.history.forEach((h: any) => {
+      if (!h.ticker) return;
+      const key = h.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      const changeVal = existing?.change_pct !== 0 ? existing?.change_pct : (h.return_pct ?? 0);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(h.sector) || existing?.sector || "Other",
+        company: h.company || existing?.company || h.ticker,
+        change_pct: changeVal ?? 0,
+        score: existing?.score ?? 50,
+        volume: existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 5. Load from optionsData
+  if (optionsData && Array.isArray(optionsData.picks)) {
+    optionsData.picks.forEach((p: any) => {
+      if (!p.ticker) return;
+      const key = p.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(p.sector_info?.sector || p.sector) || existing?.sector || "Other",
+        company: existing?.company || p.ticker,
+        change_pct: p.change_pct ?? existing?.change_pct ?? 0,
+        score: p.score ?? existing?.score ?? 50,
+        volume: p.volume ?? existing?.volume ?? 0
+      });
+    });
+  }
+
+  // 6. Load from optionsOutcomes
+  if (optionsOutcomes && Array.isArray(optionsOutcomes.positions)) {
+    optionsOutcomes.positions.forEach((pos: any) => {
+      if (!pos.ticker) return;
+      const key = pos.ticker.toUpperCase();
+      const existing = tickerMap.get(key);
+      tickerMap.set(key, {
+        sector: normalizeGicsSector(pos.sector) || existing?.sector || "Other",
+        company: existing?.company || pos.ticker,
+        change_pct: pos.pnl_pct ?? existing?.change_pct ?? 0,
+        score: pos.score ?? existing?.score ?? 50,
+        volume: existing?.volume ?? 0
+      });
+    });
+  }
+
+  // Create StockQuickView array from tickerMap
+  const comprehensiveTickersList: StockQuickView[] = Array.from(tickerMap.entries()).map(([ticker, val]) => {
+    const swingPick = swingPicks?.picks?.find((p: any) => p.ticker?.toUpperCase() === ticker);
+    const setupName = swingPick?.setup || "";
+    return {
+      ticker,
+      company: val.company,
+      sector: val.sector,
+      master_score: val.score,
+      score_type: "NEUTRAL_STAY",
+      price: 0,
+      change_pct: val.change_pct,
+      entry_range_low: 0,
+      entry_range_high: 0,
+      volume: val.volume,
+      ai_short_summary: ""
+    };
+  });
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -120,6 +258,13 @@ export default async function EsHomePage() {
             sortLabel="Acciones con mayor actividad"
           />
         </div>
+
+        {/* Sector Heat Map */}
+        {master && (
+          <section className="mb-16 mt-12">
+            <SectorHeatMap data={master} allTickers={comprehensiveTickersList} />
+          </section>
+        )}
 
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
