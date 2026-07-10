@@ -52,29 +52,46 @@ interface OhlcBar {
 
 // Gercek OHLC mumlariyla klasik candlestick grafigi (sitenin kendi grafik
 // motorunun kullandigi ayni /api/chart-data verisiyle) — duz cizgi sparkline
-// degil.
-function candlestickElements(bars: OhlcBar[], width: number, height: number) {
+// degil. Hafif grid + fiyat etiketleriyle daha okunakli.
+function candlestickElements(barsIn: OhlcBar[], width: number, height: number) {
+  const bars = barsIn.slice(-14);
   if (bars.length < 2) return null;
   const allValues = bars.flatMap((b) => [b.high, b.low]);
   const min = Math.min(...allValues);
   const max = Math.max(...allValues);
   const range = max - min || 1;
-  const slot = width / bars.length;
-  const candleWidth = Math.min(slot * 0.55, 22);
+  const chartWidth = width - 70; // sag tarafta fiyat etiketleri icin yer
+  const sidePad = 10;
+  const slot = (chartWidth - sidePad * 2) / bars.length;
+  const candleWidth = Math.min(slot * 0.6, 20);
   const y = (v: number) => height - ((v - min) / range) * height;
 
-  return bars.flatMap((b, i) => {
-    const cx = slot * i + slot / 2;
+  const gridLines = [0, 0.5, 1].map((t, i) => (
+    <line
+      key={`grid${i}`}
+      x1={0}
+      y1={height * t}
+      x2={chartWidth}
+      y2={height * t}
+      stroke="rgba(241,245,249,0.12)"
+      strokeWidth={1}
+    />
+  ));
+
+  const candles = bars.flatMap((b, i) => {
+    const cx = sidePad + slot * i + slot / 2;
     const bullish = b.close >= b.open;
     const color = bullish ? COLORS.gain : COLORS.loss;
     const bodyTop = y(Math.max(b.open, b.close));
     const bodyBottom = y(Math.min(b.open, b.close));
-    const bodyHeight = Math.max(bodyBottom - bodyTop, 2);
+    const bodyHeight = Math.max(bodyBottom - bodyTop, 3);
     return [
-      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={2} />,
-      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} />,
+      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={2.5} />,
+      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} rx={1} />,
     ];
   });
+
+  return { chartWidth, min, max, elements: [...gridLines, ...candles] };
 }
 
 export interface StockCardParams {
@@ -110,6 +127,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
+  const chart = isStock ? candlestickElements((params as StockCardParams).bars, W - 112, 82) : null;
 
   const tree = (
     <div
@@ -209,12 +227,18 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             )}
           </div>
 
-          {params.bars.length > 1 && (
+          {chart && (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
               <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1D CHART</span>
-              <svg width={W - 112} height={95} viewBox={`0 0 ${W - 112} 95`}>
-                {candlestickElements(params.bars, W - 112, 82)}
-              </svg>
+              <div style={{ display: "flex", alignItems: "stretch" }}>
+                <svg width={chart.chartWidth} height={95} viewBox={`0 0 ${chart.chartWidth} 95`}>
+                  {chart.elements}
+                </svg>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", marginLeft: 10, paddingTop: 2, paddingBottom: 2 }}>
+                  <span style={{ fontSize: 13, color: COLORS.text, opacity: 0.55, display: "flex" }}>${chart.max.toFixed(2)}</span>
+                  <span style={{ fontSize: 13, color: COLORS.text, opacity: 0.55, display: "flex" }}>${chart.min.toFixed(2)}</span>
+                </div>
+              </div>
             </div>
           )}
 
