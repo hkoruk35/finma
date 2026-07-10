@@ -72,12 +72,49 @@ function fmtAxisPrice(v: number): string {
   return `$${v >= 100 ? Math.round(v) : v.toFixed(1)}`;
 }
 
+// "Guzel" (yuvarlak) adim buyuklugu — 1/2/2.5/5/10 x 10^n serisinden secer,
+// boylece eksen $352/$576/$800 gibi rastgele degil $400/$500/$600/$700 gibi
+// standart araliklarla gorunur.
+function niceStep(rawStep: number): number {
+  if (!(rawStep > 0)) return 1;
+  const magnitude = Math.pow(10, Math.floor(Math.log10(rawStep)));
+  const residual = rawStep / magnitude;
+  let nice: number;
+  if (residual <= 1) nice = 1;
+  else if (residual <= 2) nice = 2;
+  else if (residual <= 2.5) nice = 2.5;
+  else if (residual <= 5) nice = 5;
+  else nice = 10;
+  return nice * magnitude;
+}
+
+function computePriceTicks(min: number, max: number, targetCount = 5): number[] {
+  const range = max - min || 1;
+  const step = niceStep(range / targetCount);
+  const start = Math.ceil(min / step) * step;
+  const ticks: number[] = [];
+  for (let v = start; v <= max + step * 1e-6; v += step) {
+    ticks.push(Math.round(v * 100) / 100);
+  }
+  return ticks;
+}
+
 // Sektor kisa ("Technology") ama bazi tema basliklari (HOT_THEMES_2026) 60+
 // karakter olabiliyor — 2x buyutulmus etiket fontunda kart genisligini asip
 // kirpilmesin diye uzun metinlerde fontu kademeli kucultur.
 function fitTagFontSize(text: string, base: number, maxChars: number, min: number): number {
   if (text.length <= maxChars) return base;
   return Math.max(min, Math.round((base * maxChars) / text.length));
+}
+
+// Grafikteki tek sabit-metin etiketler ("DAILY", "AVG VOL") daha once hep
+// Ingilizce kaliyordu; trend/tema gibi diger her sey secili dile cevrilirken
+// bu ikisinin Ingilizce kalmasi dil karisikligi gibi goruluyordu.
+const DAILY_LABEL: Record<string, string> = { en: "DAILY", es: "DIARIO", fr: "QUOTIDIEN", pt: "DIÁRIO", tr: "GÜNLÜK" };
+const AVG_VOL_LABEL: Record<string, string> = { en: "AVG VOL", es: "VOL PROM", fr: "VOL MOY", pt: "VOL MÉD", tr: "ORT HACİM" };
+
+function localizedLabel(table: Record<string, string>, locale: string): string {
+  return table[locale] ?? table.en;
 }
 
 function fmtDateLabel(unixSeconds: number): string {
@@ -109,9 +146,19 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
   const y = (v: number) => priceH - ((v - min) / range) * priceH;
   const xAt = (i: number) => slot * i + slot / 2;
 
-  const gridLines = [0.25, 0.5, 0.75].map((t, i) => (
-    <line key={`grid${i}`} x1={0} y1={priceH * t} x2={chartWidth} y2={priceH * t} stroke="rgba(241,245,249,0.08)" strokeWidth={1} />
+  // Yuvarlak ($400/$500/$600 gibi) fiyat basamaklari — hem yatay izgara hem
+  // sol eksen etiketleri ayni tick degerlerini kullanir.
+  const priceTicks = computePriceTicks(min, max, 5);
+  const gridLines = priceTicks.map((t, i) => (
+    <line key={`grid${i}`} x1={0} y1={y(t)} x2={chartWidth} y2={y(t)} stroke="rgba(241,245,249,0.09)" strokeWidth={1} />
   ));
+
+  // Eksen cercevesi: sol dikey + alt yatay cizgi sol-alt kosede birlesir
+  // (fiyat + hacim panelinin tamamini kapsar).
+  const axisFrame = [
+    <line key="axisY" x1={0} y1={0} x2={0} y2={height} stroke="rgba(241,245,249,0.28)" strokeWidth={1.5} />,
+    <line key="axisX" x1={0} y1={height} x2={chartWidth} y2={height} stroke="rgba(241,245,249,0.28)" strokeWidth={1.5} />,
+  ];
 
   const candles = bars.flatMap((b, i) => {
     const cx = xAt(i);
@@ -166,12 +213,8 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
   const last = bars[bars.length - 1];
   const lastBullish = last.close >= bars[0].open;
 
-  // Sol eksen: ust/orta/alt kabaca fiyat seviyesi.
-  const priceLabels = [
-    { y: 0, text: fmtAxisPrice(max) },
-    { y: priceH / 2, text: fmtAxisPrice((max + min) / 2) },
-    { y: priceH, text: fmtAxisPrice(min) },
-  ];
+  // Sol eksen: gridLine'larla ayni yuvarlak fiyat basamaklari.
+  const priceLabels = priceTicks.map((t) => ({ y: y(t), text: fmtAxisPrice(t) }));
 
   // Alt eksen: cok sik olmayan, bilgi verici 4 tarih etiketi.
   const dateIdxs = Array.from(new Set([0, Math.floor(bars.length / 3), Math.floor((2 * bars.length) / 3), bars.length - 1]));
@@ -184,7 +227,7 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
     priceH,
     min,
     max,
-    elements: [...gridLines, ...candles, trendline, ...volumeBars].filter(Boolean),
+    elements: [...gridLines, ...axisFrame, ...candles, trendline, ...volumeBars].filter(Boolean),
     lastPrice: last.close,
     lastY: y(last.close),
     lastBullish,
@@ -260,7 +303,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         </div>
         {isStock && (
           <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
-            {params.ticker} · DAILY
+            {params.ticker} · {localizedLabel(DAILY_LABEL, params.locale)}
           </span>
         )}
       </div>
@@ -268,7 +311,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
       {isStock ? (
         <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 12 }}>
           {chart && (
-            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height + 22 }}>
+            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height + 28 }}>
               <div style={{ display: "flex", width: axisGutterLeft, height: chart.height }} />
               <svg width={svgWidth} height={chart.height} viewBox={`0 0 ${svgWidth} ${chart.height}`}>
                 {chart.elements}
@@ -292,14 +335,14 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 </span>
               ))}
 
-              {/* Alt eksen: seyrek tarih etiketleri */}
+              {/* Alt eksen: seyrek tarih etiketleri — hacim cubuklarindan net ayri dursun diye biraz daha asagida */}
               {chart.dateLabels.map((d, i) => (
                 <span
                   key={`dl${i}`}
                   style={{
                     position: "absolute",
                     left: axisGutterLeft + d.x - 14,
-                    top: chart.height + 4,
+                    top: chart.height + 9,
                     fontSize: 13,
                     fontWeight: 500,
                     opacity: 0.45,
@@ -337,13 +380,25 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
           </div>
 
           {periodChanges.length > 0 && (
-            <div style={{ display: "flex", gap: 14, marginTop: 12 }}>
+            <div style={{ display: "flex", marginTop: 12 }}>
               {periodChanges.map(
-                (p) =>
+                (p, i) =>
                   p.value !== null && (
                     // Sabit genislikli hucre: deger uzunlugu (orn. "+780.84%" vs
                     // "+0.78%") farkli olsa da sutunlar hizali/grid gibi kalir.
-                    <div key={p.label} style={{ display: "flex", flexDirection: "column", width: 190, gap: 2 }}>
+                    // Ilk sutun haric ince bir sol cizgi bolumu bir "tablo" gibi ayirir.
+                    <div
+                      key={p.label}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: 190,
+                        gap: 2,
+                        paddingLeft: i === 0 ? 0 : 22,
+                        marginLeft: i === 0 ? 0 : 2,
+                        borderLeft: i === 0 ? "none" : "1px solid rgba(241,245,249,0.14)",
+                      }}
+                    >
                       <span style={{ fontSize: 20, fontWeight: 700, opacity: 0.55, letterSpacing: 1, display: "flex" }}>
                         {p.label}
                       </span>
@@ -382,7 +437,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             )}
             {params.rvol != null && (
               <span style={{ fontSize: 22, color: COLORS.text, opacity: 0.9, border: `2px solid rgba(241,245,249,0.35)`, borderRadius: 999, padding: "6px 18px", display: "flex" }}>
-                {params.rvol.toFixed(1)}x AVG VOL
+                {params.rvol.toFixed(1)}x {localizedLabel(AVG_VOL_LABEL, params.locale)}
               </span>
             )}
             {params.opportunity && (
