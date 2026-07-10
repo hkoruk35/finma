@@ -13,7 +13,7 @@ const btnStyle = { background: ACCENT, color: "#0d1117", border: "none", padding
 
 interface PoolItem {
   id: string;
-  source: "top100" | "swing" | "trend";
+  source: "top100" | "swing" | "trend" | "manual";
   ticker: string;
   company: string | null;
   sector: string | null;
