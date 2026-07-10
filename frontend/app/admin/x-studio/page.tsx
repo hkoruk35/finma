@@ -69,6 +69,7 @@ export default function XStudioPage() {
   const [settings, setSettings] = useState<AutomationSettings | null>(null);
   const [market, setMarket] = useState<MarketData | null>(null);
   const [hashtags, setHashtags] = useState("");
+  const [manualTicker, setManualTicker] = useState("");
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -239,11 +240,34 @@ export default function XStudioPage() {
     await Promise.all([loadPool(), loadPosts()]);
   };
 
-  const handleSelectChange = (tickerValue: string) => {
-    const item = pool.find((p) => p.ticker === tickerValue);
-    if (item) {
-      generateStockText(item);
+  const processManualTicker = async () => {
+    const tickerToProcess = manualTicker.toUpperCase().trim();
+    if (!tickerToProcess) {
+      setError("Lütfen bir ticker giriniz.");
+      return;
     }
+    setBusy(true);
+    setError("");
+    setSelected(null);
+    setMode("stock");
+    setImageUrl(null);
+    setMarket(null);
+    const res = await fetch("/api/admin/x/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ contentType: "stock", ticker: tickerToProcess, company: null, sector: null, theme: null }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "AI metin üretme hatası");
+      setBusy(false);
+      return;
+    }
+    setTexts(data.texts);
+    setMarket(data.market ?? null);
+    setHashtags(data.hashtags ?? "");
+    setSelected({ id: tickerToProcess, source: "manual" as const, ticker: tickerToProcess, company: null, sector: null, theme: null });
+    setBusy(false);
   };
 
   return (
@@ -255,27 +279,31 @@ export default function XStudioPage() {
 
       {error && <div style={{ color: "#f85149", marginBottom: 12, fontSize: 12 }}>{error}</div>}
 
-      <div style={{ marginBottom: 16 }}>
-        <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-          <span style={{ fontSize: 12 }}>Listelerden Ticker Seç:</span>
-          <select
-            value={selected?.ticker || ""}
-            onChange={(e) => handleSelectChange(e.target.value)}
+      <div style={{ marginBottom: 16, display: "flex", gap: 8, alignItems: "flex-start" }}>
+        <div style={{ flex: 1 }}>
+          <label style={{ display: "block", fontSize: 12, marginBottom: 6, opacity: 0.8 }}>
+            Manuel Hisse Seçimi (Analytics, Portfolio vb. sayfalardan inceleyip giriniz):
+          </label>
+          <input
+            type="text"
+            placeholder="Ticker giriniz (örn: AAPL, MSFT)"
+            value={manualTicker}
+            onChange={(e) => setManualTicker(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && processManualTicker()}
             style={{
               ...inputStyle,
-              cursor: "pointer",
-              flex: 1,
-              maxWidth: 300,
+              width: "100%",
+              textTransform: "uppercase",
             }}
-          >
-            <option value="">-- Seçin --</option>
-            {pool.map((item) => (
-              <option key={item.id} value={item.ticker}>
-                {item.ticker} ({item.source}) - {item.company || item.sector || item.theme || "-"}
-              </option>
-            ))}
-          </select>
-        </label>
+          />
+        </div>
+        <button
+          style={{ ...btnStyle, marginTop: 26 }}
+          disabled={busy || !manualTicker.trim()}
+          onClick={processManualTicker}
+        >
+          Analiz Et
+        </button>
       </div>
 
       {settings && (
