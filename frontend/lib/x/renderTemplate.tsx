@@ -18,9 +18,7 @@ const COLORS = {
 
 // Inter'in Google'daki tum dagitimlari (statik da, degisken de) satori'nin
 // opentype.js parser'iyla veya Turkce/aksanli glyph kapsamiyla sorun
-// cikardigi icin, repo icinde barindirilan statik, degisken-olmayan Open
-// Sans Bold kullanilir (public/fonts/OpenSans-Bold.ttf) — genis Latin
-// Extended kapsami (Turkce dahil) ve ag baglantisi gerektirmeden guvenilir.
+// cikardigi icin, repo icinde barindirilan statik Open Sans Bold kullanilir.
 let fontCache: Buffer | null = null;
 async function loadFont(): Promise<Buffer> {
   if (fontCache) return fontCache;
@@ -36,30 +34,6 @@ async function loadLogoDataUri(): Promise<string> {
   return logoCache;
 }
 
-// Gercek sirket logosu (financialmodelingprep'in ucretsiz/anahtarsiz statik
-// logo endpoint'i, ticker ile anahtarlanir). Bulunamazsa null doner — sahte
-// bir yer tutucu koymuyoruz, sadece o alani bos birakiyoruz.
-const companyLogoCache = new Map<string, string | null>();
-async function loadCompanyLogoDataUri(ticker: string): Promise<string | null> {
-  if (companyLogoCache.has(ticker)) return companyLogoCache.get(ticker)!;
-  try {
-    const res = await fetch(`https://financialmodelingprep.com/image-stock/${encodeURIComponent(ticker)}.png`);
-    if (!res.ok) {
-      companyLogoCache.set(ticker, null);
-      return null;
-    }
-    const buf = Buffer.from(await res.arrayBuffer());
-    const dataUri = `data:image/png;base64,${buf.toString("base64")}`;
-    companyLogoCache.set(ticker, dataUri);
-    return dataUri;
-  } catch {
-    companyLogoCache.set(ticker, null);
-    return null;
-  }
-}
-
-// Kart yuksekligi sabit oldugu icin basligi 2 satirla sinirlamak amacli
-// guvenlik kesmesi — gercek tweet metni (contentText) bundan etkilenmez.
 function truncateForCard(text: string, maxLen: number): string {
   if (text.length <= maxLen) return text;
   return text.slice(0, maxLen - 1).trimEnd() + "…";
@@ -73,16 +47,15 @@ interface OhlcBar {
   volume: number;
 }
 
-// Gercek OHLC + hacim mumlariyla ~60 gunluk profesyonel candlestick grafigi
-// (sitenin kendi grafik motorunun kullandigi ayni /api/chart-data verisiyle).
-// Yukselen destek trend cizgisi gercek swing low'lardan hesaplanir (uydurma
-// analist hedefi veya sahte "squeeze" gostergesi EKLENMEZ — o veri yok).
+// ~60 gunluk gercek OHLC + hacim mumlariyla temiz candlestick grafigi.
+// Ust: fiyat mumlari (net araliklarla, birbirine girmeden), alt: hacim
+// cubuklari. Yukselen destek trend cizgisi gercek swing low'lardan hesaplanir.
 function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
   const bars = barsIn.slice(-60);
   if (bars.length < 5) return null;
 
-  const priceH = Math.round(height * 0.7);
-  const volumeGap = 8;
+  const priceH = Math.round(height * 0.76);
+  const volumeGap = 10;
   const volumeH = height - priceH - volumeGap;
 
   const allValues = bars.flatMap((b) => [b.high, b.low]);
@@ -91,11 +64,10 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
   const range = max - min || 1;
   const maxVolume = Math.max(...bars.map((b) => b.volume || 0)) || 1;
 
-  const sidePad = 4;
-  const slot = (chartWidth - sidePad * 2) / bars.length;
-  const candleWidth = Math.max(Math.min(slot * 0.7, 10), 1.5);
+  const slot = chartWidth / bars.length;
+  const candleWidth = Math.max(slot * 0.6, 2); // mumlar arasi net bosluk kalir
   const y = (v: number) => priceH - ((v - min) / range) * priceH;
-  const xAt = (i: number) => sidePad + slot * i + slot / 2;
+  const xAt = (i: number) => slot * i + slot / 2;
 
   const gridLines = [0.25, 0.5, 0.75].map((t, i) => (
     <line key={`grid${i}`} x1={0} y1={priceH * t} x2={chartWidth} y2={priceH * t} stroke="rgba(241,245,249,0.08)" strokeWidth={1} />
@@ -107,16 +79,15 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
     const color = bullish ? COLORS.gain : COLORS.loss;
     const bodyTop = y(Math.max(b.open, b.close));
     const bodyBottom = y(Math.min(b.open, b.close));
-    const bodyHeight = Math.max(bodyBottom - bodyTop, 1.5);
+    const bodyHeight = Math.max(bodyBottom - bodyTop, 2);
     return [
-      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={1.2} />,
+      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={1.5} />,
       <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} />,
     ];
   });
 
-  // Yukselen destek trend cizgisi: gercek swing low'lari (5 barlik pencerede
-  // yerel minimum) birbirine baglar. Sadece gercekten yukselen bir cizgi
-  // olusuyorsa cizilir — trend yukselis degilse sahte destek uydurulmaz.
+  // Yukselen destek trend cizgisi: gercek swing low'lari birbirine baglar.
+  // Sadece gercekten yukselen bir cizgi olusuyorsa cizilir.
   let trendline: React.ReactNode = null;
   const swingLows: { i: number; low: number }[] = [];
   for (let i = 2; i < bars.length - 2; i++) {
@@ -128,48 +99,16 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
     const last = swingLows[swingLows.length - 1];
     if (last.low > first.low && last.i > first.i) {
       const x1 = xAt(first.i);
-      const x2 = xAt(last.i);
       const y1 = y(first.low);
-      const y2 = y(last.low);
-      const slope = (y2 - y1) / (x2 - x1);
-      const yEnd = y2 + slope * (chartWidth - x2);
-      trendline = (
-        <line x1={x1} y1={y1} x2={chartWidth} y2={yEnd} stroke="#ffffff" strokeWidth={1.5} strokeDasharray="5 4" strokeOpacity={0.5} />
-      );
+      const slope = (y(last.low) - y1) / (xAt(last.i) - x1);
+      const yEnd = y1 + slope * (chartWidth - x1);
+      trendline = <line x1={x1} y1={y1} x2={chartWidth} y2={yEnd} stroke="#ffffff" strokeWidth={2} strokeDasharray="6 5" strokeOpacity={0.5} />;
     }
-  }
-
-  // Hacim profili: fiyat araligini bantlara bolup her bantta islem gormus
-  // hacmi (yukselis/dususe gore renklendirilmis) grafigin sag kenarindan
-  // sola dogru yatay cubuklar olarak, mumlarin uzerine yari saydam bindirilir.
-  const bins = 16;
-  const binHeight = priceH / bins;
-  const bullVol = new Array(bins).fill(0);
-  const bearVol = new Array(bins).fill(0);
-  for (const b of bars) {
-    const mid = (b.high + b.low) / 2;
-    let idx = Math.floor(((max - mid) / range) * bins);
-    idx = Math.min(Math.max(idx, 0), bins - 1);
-    if (b.close >= b.open) bullVol[idx] += b.volume || 0;
-    else bearVol[idx] += b.volume || 0;
-  }
-  const maxBin = Math.max(...bullVol.map((v, i) => v + bearVol[i]), 1);
-  const maxProfileWidth = chartWidth * 0.2;
-  const profileBars: React.ReactNode[] = [];
-  for (let i = 0; i < bins; i++) {
-    const total = bullVol[i] + bearVol[i];
-    if (total <= 0) continue;
-    const w = (total / maxBin) * maxProfileWidth;
-    const bullW = (bullVol[i] / total) * w;
-    const bearW = w - bullW;
-    const barY = i * binHeight + 1;
-    const barH = Math.max(binHeight - 2, 1);
-    profileBars.push(<rect key={`pg${i}`} x={chartWidth - w} y={barY} width={bullW} height={barH} fill={COLORS.gain} fillOpacity={0.35} />);
-    profileBars.push(<rect key={`pr${i}`} x={chartWidth - w + bullW} y={barY} width={bearW} height={barH} fill={COLORS.loss} fillOpacity={0.35} />);
   }
 
   const volumeBars = bars.map((b, i) => {
     const cx = xAt(i);
+    const bullish = b.close >= b.open;
     const barH = Math.max(((b.volume || 0) / maxVolume) * volumeH, 1);
     return (
       <rect
@@ -178,8 +117,8 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
         y={priceH + volumeGap + (volumeH - barH)}
         width={candleWidth}
         height={barH}
-        fill={COLORS.cyan}
-        fillOpacity={0.55}
+        fill={bullish ? COLORS.gain : COLORS.loss}
+        fillOpacity={0.5}
       />
     );
   });
@@ -189,7 +128,9 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
 
   return {
     height,
-    elements: [...gridLines, ...candles, ...profileBars, trendline, ...volumeBars].filter(Boolean),
+    min,
+    max,
+    elements: [...gridLines, ...candles, trendline, ...volumeBars].filter(Boolean),
     lastPrice: last.close,
     lastY: y(last.close),
     lastBullish,
@@ -208,7 +149,7 @@ export interface StockCardParams {
   opportunityLabel?: string;
   trendLabel?: string;
   bars: OhlcBar[];
-  headline: string; // AI ureilen kisa analiz cumlesi
+  headline: string;
   locale: string;
 }
 
@@ -222,23 +163,19 @@ export interface PromoCardParams {
 export type CardParams = StockCardParams | PromoCardParams;
 
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
-  const isStock = params.kind === "stock";
-  const [font, logo, companyLogo] = await Promise.all([
-    loadFont(),
-    loadLogoDataUri(),
-    isStock ? loadCompanyLogoDataUri((params as StockCardParams).ticker) : Promise.resolve(null),
-  ]);
+  const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
   const W = 1200;
   const H = 675;
-  const PAD = 32;
+  const PAD = 40;
 
+  const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
 
   const chartAreaWidth = W - PAD * 2;
-  const priceBadgeGutter = 92;
-  const svgWidth = chartAreaWidth - priceBadgeGutter;
-  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 372) : null;
+  const priceGutter = 96; // sag tarafta fiyat ekseni + guncel fiyat rozeti
+  const svgWidth = chartAreaWidth - priceGutter;
+  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 300) : null;
 
   const tree = (
     <div
@@ -251,139 +188,101 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         padding: PAD,
         fontFamily: "Inter",
         color: COLORS.text,
-        position: "relative",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <img src={logo} width={30} height={30} style={{ borderRadius: 7 }} />
-          <span style={{ fontSize: 19, fontWeight: 700, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <img src={logo} width={34} height={34} style={{ borderRadius: 8 }} />
+          <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
         </div>
         {isStock && (
-          <span style={{ fontSize: 17, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
+          <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
             {params.ticker} · DAILY
           </span>
         )}
       </div>
 
       {isStock ? (
-        <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 12 }}>
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 14 }}>
           {chart && (
-            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height, overflow: "hidden" }}>
-              {companyLogo && (
-                <img
-                  src={companyLogo}
-                  width={56}
-                  height={56}
-                  style={{ position: "absolute", top: 8, left: 8, opacity: 0.92 }}
-                />
-              )}
+            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height }}>
               <svg width={svgWidth} height={chart.height} viewBox={`0 0 ${svgWidth} ${chart.height}`}>
                 {chart.elements}
               </svg>
+              {/* Guncel fiyat rozeti — son mumun hizasinda, sag kenarda */}
               <div
                 style={{
                   position: "absolute",
-                  top: Math.min(Math.max(chart.lastY - 14, 0), chart.height - 28),
-                  left: svgWidth + 6,
+                  top: Math.min(Math.max(chart.lastY - 17, 0), chart.height * 0.76 - 34),
+                  left: svgWidth + 8,
                   display: "flex",
                   background: chart.lastBullish ? COLORS.gain : COLORS.loss,
-                  borderRadius: 4,
-                  padding: "5px 10px",
+                  borderRadius: 5,
+                  padding: "6px 12px",
                 }}
               >
-                <span style={{ fontSize: 15, fontWeight: 700, color: "#0d1117", display: "flex" }}>
+                <span style={{ fontSize: 20, fontWeight: 700, color: "#0d1117", display: "flex" }}>
                   ${chart.lastPrice.toFixed(2)}
                 </span>
               </div>
             </div>
           )}
 
-          <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: 14 }}>
-            <span style={{ fontSize: 44, fontWeight: 800 }}>{params.ticker}</span>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 18, marginTop: 16 }}>
+            <span style={{ fontSize: 52, fontWeight: 800 }}>{params.ticker}</span>
             {params.changePct !== undefined && (
-              <span style={{ fontSize: 24, fontWeight: 700, color: changeColor, display: "flex" }}>
+              <span style={{ fontSize: 34, fontWeight: 800, color: changeColor, display: "flex" }}>
                 {changePositive ? "+" : ""}
                 {params.changePct.toFixed(2)}%
               </span>
             )}
             {params.company && (
-              <span style={{ fontSize: 18, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
+              <span style={{ fontSize: 24, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
             )}
           </div>
 
-          <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
             {params.sector && (
-              <span style={{ fontSize: 15, color: COLORS.cyan, border: `1px solid ${COLORS.cyan}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
+              <span style={{ fontSize: 20, color: COLORS.cyan, border: `2px solid ${COLORS.cyan}`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.sector}
               </span>
             )}
             {params.theme && (
-              <span style={{ fontSize: 15, color: COLORS.purple, border: `1px solid ${COLORS.purple}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
+              <span style={{ fontSize: 20, color: COLORS.purple, border: `2px solid ${COLORS.purple}`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.theme}
               </span>
             )}
             {params.trendLabel && (
-              <span style={{ fontSize: 15, fontWeight: 700, color: changeColor, border: `1px solid ${changeColor}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
+              <span style={{ fontSize: 20, fontWeight: 700, color: changeColor, border: `2px solid ${changeColor}`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.trendLabel}
               </span>
             )}
             {params.rvol != null && (
-              <span style={{ fontSize: 15, color: COLORS.text, opacity: 0.85, border: `1px solid rgba(241,245,249,0.3)`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
+              <span style={{ fontSize: 20, color: COLORS.text, opacity: 0.9, border: `2px solid rgba(241,245,249,0.35)`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.rvol.toFixed(1)}x AVG VOL
               </span>
             )}
             {params.opportunity && (
-              <span style={{ fontSize: 15, fontWeight: 700, color: COLORS.gold, border: `1px solid ${COLORS.gold}`, borderRadius: 999, padding: "3px 12px", display: "flex" }}>
+              <span style={{ fontSize: 20, fontWeight: 700, color: COLORS.gold, border: `2px solid ${COLORS.gold}`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.opportunityLabel ?? "Swing Opportunity"}
               </span>
             )}
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              marginTop: 10,
-              fontSize: 17,
-              lineHeight: 1.3,
-              color: COLORS.text,
-              opacity: 0.9,
-            }}
-          >
-            {truncateForCard(params.headline, 130)}
+          <div style={{ display: "flex", marginTop: 12, fontSize: 22, lineHeight: 1.28, color: COLORS.text }}>
+            {truncateForCard(params.headline, 135)}
           </div>
         </div>
       ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            flex: 1,
-            gap: 20,
-          }}
-        >
-          <span style={{ fontSize: 64, fontWeight: 800, color: COLORS.gold, display: "flex" }}>
-            {params.headline}
-          </span>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", flex: 1, gap: 20 }}>
+          <span style={{ fontSize: 64, fontWeight: 800, color: COLORS.gold, display: "flex" }}>{params.headline}</span>
           {params.subheadline && (
-            <span style={{ fontSize: 30, color: COLORS.text, opacity: 0.9, display: "flex" }}>
-              {params.subheadline}
-            </span>
+            <span style={{ fontSize: 30, color: COLORS.text, opacity: 0.9, display: "flex" }}>{params.subheadline}</span>
           )}
         </div>
       )}
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          fontSize: 16,
-          opacity: 0.5,
-          marginTop: 10,
-        }}
-      >
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 18, opacity: 0.5, marginTop: 10 }}>
         <span style={{ display: "flex" }}>bogastock.com</span>
         <span style={{ display: "flex" }}>@bogastock</span>
       </div>
