@@ -173,6 +173,25 @@ export default function XStudioPage() {
     };
   };
 
+  const getFinalText = () => (hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags) : texts[locale]);
+
+  const downloadImage = () => {
+    if (!imageUrl) return;
+    const a = document.createElement("a");
+    a.href = imageUrl;
+    a.download = `${mode === "stock" && selected ? selected.ticker : "promo"}-${locale}.png`;
+    a.click();
+  };
+
+  const copyText = async () => {
+    await navigator.clipboard.writeText(getFinalText());
+  };
+
+  const openXCompose = () => {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(getFinalText())}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const previewImage = async () => {
     setBusy(true);
     setError("");
@@ -198,11 +217,10 @@ export default function XStudioPage() {
     }
     setBusy(true);
     setError("");
-    const finalText = hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags) : texts[locale];
     const res = await fetch("/api/admin/x/post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ locale, contentText: finalText, cardParams: buildCardParams() }),
+      body: JSON.stringify({ locale, contentText: getFinalText(), cardParams: buildCardParams() }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -312,13 +330,29 @@ export default function XStudioPage() {
             </div>
           )}
 
-          <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+          <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
             <button style={btnStyle} disabled={busy || !texts[locale]} onClick={previewImage}>Görseli Önizle</button>
-            <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>Şimdi Paylaş</button>
+            <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>Şimdi Paylaş (API)</button>
           </div>
 
           {imageUrl && (
-            <img src={imageUrl} alt="preview" style={{ marginTop: 16, width: "100%", borderRadius: 8, border: "1px solid #30363d" }} />
+            <>
+              <img src={imageUrl} alt="preview" style={{ marginTop: 16, width: "100%", borderRadius: 8, border: "1px solid #30363d" }} />
+
+              <div style={{ marginTop: 12, padding: 12, border: `1px dashed ${ACCENT}`, borderRadius: 6 }}>
+                <div style={{ fontSize: 11, color: ACCENT, marginBottom: 8, fontWeight: 700 }}>
+                  MANUEL PAYLAŞIM (X API kredisi gerektirmez)
+                </div>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={downloadImage}>1. Görseli İndir</button>
+                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={copyText}>2. Metni Kopyala</button>
+                  <button style={{ ...btnStyle, background: "#1d9bf0" }} onClick={openXCompose}>3. X'te Aç ve Yapıştır</button>
+                </div>
+                <div style={{ fontSize: 11, opacity: 0.6, marginTop: 8 }}>
+                  Sırayla: görseli indir → X'te Aç ile açılan pencerede metin hazır gelir → görseli sürükle-bırak ile ekle → paylaş.
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>
