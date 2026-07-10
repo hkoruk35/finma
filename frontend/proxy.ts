@@ -64,8 +64,6 @@ export async function proxy(request: NextRequest) {
       isGlobalMemberPath =
         !pathname.startsWith(`${base}/${routes.login}`) &&
         !pathname.startsWith(`${base}/${routes.register}`) &&
-        !pathname.startsWith(`${base}/performance`) &&
-        !pathname.startsWith(`${base}/top100`) &&
         !pathname.startsWith(`${base}/graphic`) &&
         pathname !== base
       break
