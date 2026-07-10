@@ -34,9 +34,21 @@ async function loadLogoDataUri(): Promise<string> {
   return logoCache;
 }
 
-function truncateForCard(text: string, maxLen: number): string {
-  if (text.length <= maxLen) return text;
-  return text.slice(0, maxLen - 1).trimEnd() + "…";
+// Gunluk kapanislardan 1D/1W/1M getiri yuzdesi — ayni bars dizisi (60+ gun)
+// zaten grafik icin cekiliyor, ek bir veri kaynagina gerek yok.
+function computePeriodChanges(bars: OhlcBar[]): { label: string; value: number | null }[] {
+  if (!bars || bars.length < 2) return [];
+  const lastClose = bars[bars.length - 1].close;
+  const closeNDaysAgo = (n: number) => {
+    const idx = bars.length - 1 - n;
+    return idx >= 0 ? bars[idx].close : null;
+  };
+  const pct = (base: number | null) => (base ? ((lastClose - base) / base) * 100 : null);
+  return [
+    { label: "1D", value: pct(closeNDaysAgo(1)) },
+    { label: "1W", value: pct(closeNDaysAgo(5)) },
+    { label: "1M", value: pct(closeNDaysAgo(21)) },
+  ];
 }
 
 interface OhlcBar {
@@ -176,6 +188,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const priceGutter = 96; // sag tarafta fiyat ekseni + guncel fiyat rozeti
   const svgWidth = chartAreaWidth - priceGutter;
   const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 300) : null;
+  const periodChanges = isStock ? computePeriodChanges((params as StockCardParams).bars) : [];
 
   const tree = (
     <div
@@ -191,9 +204,9 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
       }}
     >
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <img src={logo} width={34} height={34} style={{ borderRadius: 8 }} />
-          <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <img src={logo} width={50} height={50} style={{ borderRadius: 11 }} />
+          <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: 1, color: COLORS.blue }}>BOGASTOCK</span>
         </div>
         {isStock && (
           <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
@@ -230,18 +243,38 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
 
           <div style={{ display: "flex", alignItems: "baseline", gap: 18, marginTop: 16 }}>
             <span style={{ fontSize: 52, fontWeight: 800 }}>{params.ticker}</span>
-            {params.changePct !== undefined && (
-              <span style={{ fontSize: 34, fontWeight: 800, color: changeColor, display: "flex" }}>
-                {changePositive ? "+" : ""}
-                {params.changePct.toFixed(2)}%
-              </span>
-            )}
             {params.company && (
               <span style={{ fontSize: 24, color: COLORS.text, opacity: 0.7, display: "flex" }}>{params.company}</span>
             )}
           </div>
 
-          <div style={{ display: "flex", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
+          {periodChanges.length > 0 && (
+            <div style={{ display: "flex", gap: 36, marginTop: 14 }}>
+              {periodChanges.map(
+                (p) =>
+                  p.value !== null && (
+                    <div key={p.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                      <span style={{ fontSize: 18, fontWeight: 700, opacity: 0.55, letterSpacing: 1, display: "flex" }}>
+                        {p.label}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 38,
+                          fontWeight: 800,
+                          color: p.value >= 0 ? COLORS.gain : COLORS.loss,
+                          display: "flex",
+                        }}
+                      >
+                        {p.value >= 0 ? "+" : ""}
+                        {p.value.toFixed(2)}%
+                      </span>
+                    </div>
+                  )
+              )}
+            </div>
+          )}
+
+          <div style={{ display: "flex", gap: 10, marginTop: 14, flexWrap: "wrap" }}>
             {params.sector && (
               <span style={{ fontSize: 20, color: COLORS.cyan, border: `2px solid ${COLORS.cyan}`, borderRadius: 999, padding: "5px 16px", display: "flex" }}>
                 {params.sector}
@@ -268,10 +301,6 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
               </span>
             )}
           </div>
-
-          <div style={{ display: "flex", marginTop: 12, fontSize: 22, lineHeight: 1.28, color: COLORS.text }}>
-            {truncateForCard(params.headline, 135)}
-          </div>
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", flex: 1, gap: 20 }}>
@@ -282,7 +311,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 18, opacity: 0.5, marginTop: 10 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, fontWeight: 700, opacity: 0.75, marginTop: 14 }}>
         <span style={{ display: "flex" }}>bogastock.com</span>
         <span style={{ display: "flex" }}>@bogastock</span>
       </div>
