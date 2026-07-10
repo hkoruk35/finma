@@ -1,0 +1,82 @@
+{
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T13:20:19.826322-04:00",
+  "total_tickers_scanned": 500,
+  "active_scores_count": 12,
+  "market_regime": "STRONG",
+  "menus": {
+    "top_scores": {
+      "count": 10,
+      "tickers": [
+        "ZETA",
+        "IMO",
+        "LB",
+        "DAR",
+        "AAPL",
+        "EAT",
+        "TFIN",
+        "PSX",
+        "NTES",
+        "TFII"
+      ]
+    },
+    "breakout": {
+      "count": 2,
+      "tickers": [
+        "TFIN",
+        "PRLB"
+      ]
+    },
+    "value": {
+      "count": 0,
+      "tickers": []
+    },
+    "reversal": {
+      "count": 0,
+      "tickers": []
+    },
+    "momentum": {
+      "count": 0,
+      "tickers": []
+    },
+    "dividend": {
+      "count": 0,
+      "tickers": []
+    }
+  },
+  "top_3_overall": [
+    {
+      "ticker": "ZETA",
+      "score": 56.0,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "IMO",
+      "score": 55.5,
+      "score_type": "POSITIVE_BIAS"
+    },
+    {
+      "ticker": "LB",
+      "score": 55.0,
+      "score_type": "POSITIVE_BIAS"
+    }
+  ],
+  "market_indices": {
+    "SP500": {
+      "value": 5200,
+      "change_pct": 0.5
+    },
+    "NASDAQ": {
+      "value": 16000,
+      "change_pct": 0.8
+    },
+    "DOW": {
+      "value": 39000,
+      "change_pct": 0.2
+    },
+    "VIX": {
+      "value": 15.0,
+      "change_pct": -2.0
+    }
+  }
+}
