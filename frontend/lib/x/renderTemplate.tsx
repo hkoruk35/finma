@@ -337,11 +337,13 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
           </div>
 
           {periodChanges.length > 0 && (
-            <div style={{ display: "flex", gap: 22, marginTop: 12 }}>
+            <div style={{ display: "flex", gap: 14, marginTop: 12 }}>
               {periodChanges.map(
                 (p) =>
                   p.value !== null && (
-                    <div key={p.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    // Sabit genislikli hucre: deger uzunlugu (orn. "+780.84%" vs
+                    // "+0.78%") farkli olsa da sutunlar hizali/grid gibi kalir.
+                    <div key={p.label} style={{ display: "flex", flexDirection: "column", width: 190, gap: 2 }}>
                       <span style={{ fontSize: 20, fontWeight: 700, opacity: 0.55, letterSpacing: 1, display: "flex" }}>
                         {p.label}
                       </span>
