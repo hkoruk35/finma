@@ -36,6 +36,28 @@ async function loadLogoDataUri(): Promise<string> {
   return logoCache;
 }
 
+// Gercek sirket logosu (financialmodelingprep'in ucretsiz/anahtarsiz statik
+// logo endpoint'i, ticker ile anahtarlanir). Bulunamazsa null doner — sahte
+// bir yer tutucu koymuyoruz, sadece o alani bos birakiyoruz.
+const companyLogoCache = new Map<string, string | null>();
+async function loadCompanyLogoDataUri(ticker: string): Promise<string | null> {
+  if (companyLogoCache.has(ticker)) return companyLogoCache.get(ticker)!;
+  try {
+    const res = await fetch(`https://financialmodelingprep.com/image-stock/${encodeURIComponent(ticker)}.png`);
+    if (!res.ok) {
+      companyLogoCache.set(ticker, null);
+      return null;
+    }
+    const buf = Buffer.from(await res.arrayBuffer());
+    const dataUri = `data:image/png;base64,${buf.toString("base64")}`;
+    companyLogoCache.set(ticker, dataUri);
+    return dataUri;
+  } catch {
+    companyLogoCache.set(ticker, null);
+    return null;
+  }
+}
+
 // Kart yuksekligi sabit oldugu icin basligi 2 satirla sinirlamak amacli
 // guvenlik kesmesi — gercek tweet metni (contentText) bundan etkilenmez.
 function truncateForCard(text: string, maxLen: number): string {
@@ -51,16 +73,16 @@ interface OhlcBar {
   volume: number;
 }
 
-// Gercek OHLC + hacim mumlariyla, profesyonel grafik platformlarinin (TrendSpider
-// vb.) tarzina yakin tam genislikte candlestick grafigi — sitenin kendi grafik
-// motorunun kullandigi ayni /api/chart-data verisiyle. Ust: fiyat mumlari,
-// alt: ince hacim seridi. Guncel fiyat sag kenarda vurgulanir.
+// Gercek OHLC + hacim mumlariyla ~60 gunluk profesyonel candlestick grafigi
+// (sitenin kendi grafik motorunun kullandigi ayni /api/chart-data verisiyle).
+// Yukselen destek trend cizgisi gercek swing low'lardan hesaplanir (uydurma
+// analist hedefi veya sahte "squeeze" gostergesi EKLENMEZ — o veri yok).
 function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
-  const bars = barsIn.slice(-16);
-  if (bars.length < 2) return null;
+  const bars = barsIn.slice(-60);
+  if (bars.length < 5) return null;
 
-  const priceH = Math.round(height * 0.72);
-  const volumeGap = 10;
+  const priceH = Math.round(height * 0.7);
+  const volumeGap = 8;
   const volumeH = height - priceH - volumeGap;
 
   const allValues = bars.flatMap((b) => [b.high, b.low]);
@@ -69,31 +91,86 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
   const range = max - min || 1;
   const maxVolume = Math.max(...bars.map((b) => b.volume || 0)) || 1;
 
-  const sidePad = 6;
+  const sidePad = 4;
   const slot = (chartWidth - sidePad * 2) / bars.length;
-  const candleWidth = Math.min(slot * 0.62, 26);
+  const candleWidth = Math.max(Math.min(slot * 0.7, 10), 1.5);
   const y = (v: number) => priceH - ((v - min) / range) * priceH;
+  const xAt = (i: number) => sidePad + slot * i + slot / 2;
 
   const gridLines = [0.25, 0.5, 0.75].map((t, i) => (
     <line key={`grid${i}`} x1={0} y1={priceH * t} x2={chartWidth} y2={priceH * t} stroke="rgba(241,245,249,0.08)" strokeWidth={1} />
   ));
 
   const candles = bars.flatMap((b, i) => {
-    const cx = sidePad + slot * i + slot / 2;
+    const cx = xAt(i);
     const bullish = b.close >= b.open;
     const color = bullish ? COLORS.gain : COLORS.loss;
     const bodyTop = y(Math.max(b.open, b.close));
     const bodyBottom = y(Math.min(b.open, b.close));
-    const bodyHeight = Math.max(bodyBottom - bodyTop, 3);
+    const bodyHeight = Math.max(bodyBottom - bodyTop, 1.5);
     return [
-      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={2.5} />,
-      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} rx={1.5} />,
+      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={1.2} />,
+      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} />,
     ];
   });
 
+  // Yukselen destek trend cizgisi: gercek swing low'lari (5 barlik pencerede
+  // yerel minimum) birbirine baglar. Sadece gercekten yukselen bir cizgi
+  // olusuyorsa cizilir — trend yukselis degilse sahte destek uydurulmaz.
+  let trendline: React.ReactNode = null;
+  const swingLows: { i: number; low: number }[] = [];
+  for (let i = 2; i < bars.length - 2; i++) {
+    const window = bars.slice(i - 2, i + 3).map((b) => b.low);
+    if (bars[i].low <= Math.min(...window)) swingLows.push({ i, low: bars[i].low });
+  }
+  if (swingLows.length >= 2) {
+    const first = swingLows[0];
+    const last = swingLows[swingLows.length - 1];
+    if (last.low > first.low && last.i > first.i) {
+      const x1 = xAt(first.i);
+      const x2 = xAt(last.i);
+      const y1 = y(first.low);
+      const y2 = y(last.low);
+      const slope = (y2 - y1) / (x2 - x1);
+      const yEnd = y2 + slope * (chartWidth - x2);
+      trendline = (
+        <line x1={x1} y1={y1} x2={chartWidth} y2={yEnd} stroke="#ffffff" strokeWidth={1.5} strokeDasharray="5 4" strokeOpacity={0.5} />
+      );
+    }
+  }
+
+  // Hacim profili: fiyat araligini bantlara bolup her bantta islem gormus
+  // hacmi (yukselis/dususe gore renklendirilmis) grafigin sag kenarindan
+  // sola dogru yatay cubuklar olarak, mumlarin uzerine yari saydam bindirilir.
+  const bins = 16;
+  const binHeight = priceH / bins;
+  const bullVol = new Array(bins).fill(0);
+  const bearVol = new Array(bins).fill(0);
+  for (const b of bars) {
+    const mid = (b.high + b.low) / 2;
+    let idx = Math.floor(((max - mid) / range) * bins);
+    idx = Math.min(Math.max(idx, 0), bins - 1);
+    if (b.close >= b.open) bullVol[idx] += b.volume || 0;
+    else bearVol[idx] += b.volume || 0;
+  }
+  const maxBin = Math.max(...bullVol.map((v, i) => v + bearVol[i]), 1);
+  const maxProfileWidth = chartWidth * 0.2;
+  const profileBars: React.ReactNode[] = [];
+  for (let i = 0; i < bins; i++) {
+    const total = bullVol[i] + bearVol[i];
+    if (total <= 0) continue;
+    const w = (total / maxBin) * maxProfileWidth;
+    const bullW = (bullVol[i] / total) * w;
+    const bearW = w - bullW;
+    const barY = i * binHeight + 1;
+    const barH = Math.max(binHeight - 2, 1);
+    profileBars.push(<rect key={`pg${i}`} x={chartWidth - w} y={barY} width={bullW} height={barH} fill={COLORS.gain} fillOpacity={0.35} />);
+    profileBars.push(<rect key={`pr${i}`} x={chartWidth - w + bullW} y={barY} width={bearW} height={barH} fill={COLORS.loss} fillOpacity={0.35} />);
+  }
+
   const volumeBars = bars.map((b, i) => {
-    const cx = sidePad + slot * i + slot / 2;
-    const barH = Math.max(((b.volume || 0) / maxVolume) * volumeH, 2);
+    const cx = xAt(i);
+    const barH = Math.max(((b.volume || 0) / maxVolume) * volumeH, 1);
     return (
       <rect
         key={`v${i}`}
@@ -112,7 +189,7 @@ function buildChart(barsIn: OhlcBar[], chartWidth: number, height: number) {
 
   return {
     height,
-    elements: [...gridLines, ...candles, ...volumeBars],
+    elements: [...gridLines, ...candles, ...profileBars, trendline, ...volumeBars].filter(Boolean),
     lastPrice: last.close,
     lastY: y(last.close),
     lastBullish,
@@ -145,12 +222,16 @@ export interface PromoCardParams {
 export type CardParams = StockCardParams | PromoCardParams;
 
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
-  const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
+  const isStock = params.kind === "stock";
+  const [font, logo, companyLogo] = await Promise.all([
+    loadFont(),
+    loadLogoDataUri(),
+    isStock ? loadCompanyLogoDataUri((params as StockCardParams).ticker) : Promise.resolve(null),
+  ]);
   const W = 1200;
   const H = 675;
   const PAD = 32;
 
-  const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
 
@@ -189,21 +270,14 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 12 }}>
           {chart && (
             <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height, overflow: "hidden" }}>
-              <span
-                style={{
-                  position: "absolute",
-                  top: chart.height / 2 - 90,
-                  left: 6,
-                  fontSize: 190,
-                  fontWeight: 800,
-                  color: COLORS.text,
-                  opacity: 0.05,
-                  display: "flex",
-                  letterSpacing: -4,
-                }}
-              >
-                {params.ticker}
-              </span>
+              {companyLogo && (
+                <img
+                  src={companyLogo}
+                  width={56}
+                  height={56}
+                  style={{ position: "absolute", top: 8, left: 8, opacity: 0.92 }}
+                />
+              )}
               <svg width={svgWidth} height={chart.height} viewBox={`0 0 ${svgWidth} ${chart.height}`}>
                 {chart.elements}
               </svg>

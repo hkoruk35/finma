@@ -27,7 +27,7 @@ async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> 
     if (!res.ok) return [];
     const data = await res.json();
     const bars: OhlcBar[] = Array.isArray(data.bars) ? data.bars : [];
-    return bars.slice(-20);
+    return bars.slice(-65); // ~60+ islem gunu
   } catch (e) {
     console.error("[x/marketData] daily bars fetch failed:", (e as Error).message);
     return [];
