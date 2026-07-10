@@ -59,7 +59,7 @@ export default function HomeSimpleCard({
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className="glass-card border-2 border-[#1e2a3a]/50 rounded-2xl overflow-hidden flex flex-col h-full min-w-[85vw] snap-center flex-shrink-0 md:min-w-0 md:flex-shrink-1 md:w-auto md:snap-align-none">
+      <div className="glass-card border-2 border-[#1e2a3a]/50 rounded-2xl overflow-hidden flex flex-col h-full w-[calc(100vw-40px)] snap-center flex-shrink-0 md:min-w-0 md:flex-shrink-1 md:w-auto md:snap-align-none">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
           <div className="flex items-center gap-3">
