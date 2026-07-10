@@ -239,6 +239,13 @@ export default function XStudioPage() {
     await Promise.all([loadPool(), loadPosts()]);
   };
 
+  const handleSelectChange = (tickerValue: string) => {
+    const item = pool.find((p) => p.ticker === tickerValue);
+    if (item) {
+      generateStockText(item);
+    }
+  };
+
   return (
     <div style={{ padding: 24, fontFamily: "monospace", color: "#e6edf3" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
@@ -247,6 +254,29 @@ export default function XStudioPage() {
       </div>
 
       {error && <div style={{ color: "#f85149", marginBottom: 12, fontSize: 12 }}>{error}</div>}
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+          <span style={{ fontSize: 12 }}>Listelerden Ticker Seç:</span>
+          <select
+            value={selected?.ticker || ""}
+            onChange={(e) => handleSelectChange(e.target.value)}
+            style={{
+              ...inputStyle,
+              cursor: "pointer",
+              flex: 1,
+              maxWidth: 300,
+            }}
+          >
+            <option value="">-- Seçin --</option>
+            {pool.map((item) => (
+              <option key={item.id} value={item.ticker}>
+                {item.ticker} ({item.source}) - {item.company || item.sector || item.theme || "-"}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       {settings && (
         <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 20, marginBottom: 20, padding: 12 }}>
