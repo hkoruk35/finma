@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 
 const ACCENT = "#58a6ff";
 const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
@@ -37,6 +38,13 @@ interface AutomationSettings {
   ratio_trend: number;
 }
 
+interface MarketData {
+  points: number[];
+  changePct: number;
+  ema50: number | null;
+  trendLabels: Record<Locale, string>;
+}
+
 export default function XStudioPage() {
   const [pool, setPool] = useState<PoolItem[]>([]);
   const [posts, setPosts] = useState<PostRow[]>([]);
@@ -48,6 +56,8 @@ export default function XStudioPage() {
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"stock" | "promo">("stock");
   const [settings, setSettings] = useState<AutomationSettings | null>(null);
+  const [market, setMarket] = useState<MarketData | null>(null);
+  const [hashtags, setHashtags] = useState("");
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -94,6 +104,7 @@ export default function XStudioPage() {
     setSelected(item);
     setMode("stock");
     setImageUrl(null);
+    setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -106,6 +117,8 @@ export default function XStudioPage() {
       return;
     }
     setTexts(data.texts);
+    setMarket(data.market ?? null);
+    setHashtags(data.hashtags ?? "");
     setBusy(false);
   };
 
@@ -115,6 +128,7 @@ export default function XStudioPage() {
     setSelected(null);
     setMode("promo");
     setImageUrl(null);
+    setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -127,6 +141,7 @@ export default function XStudioPage() {
       return;
     }
     setTexts(data.texts);
+    setHashtags(data.hashtags ?? "");
     setBusy(false);
   };
 
@@ -138,7 +153,10 @@ export default function XStudioPage() {
         company: selected.company ?? undefined,
         sector: selected.sector ?? undefined,
         theme: selected.theme ?? undefined,
-        points: [1, 2, 1.5, 2.4, 2.1, 2.8, 3.1],
+        changePct: market?.changePct,
+        ema50: market?.ema50 ?? undefined,
+        trendLabel: market?.trendLabels?.[locale],
+        points: market?.points ?? [],
         headline: texts[locale],
         locale,
       };
@@ -176,10 +194,11 @@ export default function XStudioPage() {
     }
     setBusy(true);
     setError("");
+    const finalText = hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags) : texts[locale];
     const res = await fetch("/api/admin/x/post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ locale, contentText: texts[locale], cardParams: buildCardParams() }),
+      body: JSON.stringify({ locale, contentText: finalText, cardParams: buildCardParams() }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -281,6 +300,13 @@ export default function XStudioPage() {
             onChange={(e) => setTexts((t) => ({ ...t, [locale]: e.target.value }))}
             placeholder="AI metni burada görünecek, düzenlenebilir..."
           />
+
+          {hashtags && (
+            <div style={{ ...inputStyle, marginTop: 6, opacity: 0.75, display: "flex", justifyContent: "space-between" }}>
+              <span>Paylaşırken otomatik eklenecek: {hashtags}</span>
+              <span>{texts[locale] ? appendHashtagsWithinLimit(texts[locale], hashtags).length : 0}/280</span>
+            </div>
+          )}
 
           <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
             <button style={btnStyle} disabled={busy || !texts[locale]} onClick={previewImage}>Görseli Önizle</button>

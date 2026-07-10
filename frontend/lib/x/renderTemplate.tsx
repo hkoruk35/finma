@@ -58,6 +58,8 @@ export interface StockCardParams {
   sector?: string;
   theme?: string;
   changePct?: number;
+  ema50?: number | null;
+  trendLabel?: string;
   points: number[];
   headline: string; // AI ureilen kisa analiz cumlesi
   locale: string;
@@ -113,16 +115,16 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
               </span>
             )}
           </div>
-          <div style={{ display: "flex", gap: 12, marginTop: 12 }}>
+          <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap" }}>
             {params.company && (
-              <span style={{ fontSize: 28, color: COLORS.text, opacity: 0.85, display: "flex" }}>
+              <span style={{ fontSize: 26, color: COLORS.text, opacity: 0.85, display: "flex" }}>
                 {params.company}
               </span>
             )}
             {params.sector && (
               <span
                 style={{
-                  fontSize: 22,
+                  fontSize: 20,
                   color: COLORS.cyan,
                   border: `1px solid ${COLORS.cyan}`,
                   borderRadius: 999,
@@ -136,7 +138,7 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             {params.theme && (
               <span
                 style={{
-                  fontSize: 22,
+                  fontSize: 20,
                   color: COLORS.purple,
                   border: `1px solid ${COLORS.purple}`,
                   borderRadius: 999,
@@ -147,22 +149,49 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                 {params.theme}
               </span>
             )}
+            {params.trendLabel && (
+              <span
+                style={{
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: changeColor,
+                  border: `1px solid ${changeColor}`,
+                  borderRadius: 999,
+                  padding: "4px 16px",
+                  display: "flex",
+                }}
+              >
+                {params.trendLabel}
+              </span>
+            )}
+            {params.ema50 != null && (
+              <span
+                style={{
+                  fontSize: 20,
+                  color: COLORS.gold,
+                  border: `1px solid ${COLORS.gold}`,
+                  borderRadius: 999,
+                  padding: "4px 16px",
+                  display: "flex",
+                }}
+              >
+                EMA50: {params.ema50.toFixed(2)}
+              </span>
+            )}
           </div>
 
           {params.points.length > 1 && (
-            <svg
-              width={W - 112}
-              height={130}
-              viewBox={`0 0 ${W - 112} 130`}
-              style={{ marginTop: 24 }}
-            >
-              <path
-                d={sparklinePath(params.points, W - 112, 110)}
-                fill="none"
-                stroke={changeColor}
-                strokeWidth={5}
-              />
-            </svg>
+            <div style={{ display: "flex", flexDirection: "column", marginTop: 20 }}>
+              <span style={{ fontSize: 18, color: COLORS.text, opacity: 0.5, display: "flex" }}>1D CHART</span>
+              <svg width={W - 112} height={130} viewBox={`0 0 ${W - 112} 130`}>
+                <path
+                  d={sparklinePath(params.points, W - 112, 110)}
+                  fill="none"
+                  stroke={changeColor}
+                  strokeWidth={5}
+                />
+              </svg>
+            </div>
           )}
 
           <div

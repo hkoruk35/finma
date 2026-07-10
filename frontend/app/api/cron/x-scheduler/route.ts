@@ -3,6 +3,8 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
 import { postTweet } from "@/lib/x/client";
 import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
+import { fetchTickerMarketData, trendLabel } from "@/lib/x/marketData";
+import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -43,12 +45,16 @@ async function startNewCycle(): Promise<string | null> {
 
   if (!poolItem) return null;
 
+  const market = await fetchTickerMarketData(poolItem.ticker);
+
   const texts = await generateLocalizedTexts({
     contentType: "stock",
     ticker: poolItem.ticker,
     company: poolItem.company,
     sector: poolItem.sector,
     theme: poolItem.theme,
+    signal: market?.signal,
+    trend: market?.trend,
   });
 
   const cycleId = crypto.randomUUID();
@@ -62,6 +68,10 @@ async function startNewCycle(): Promise<string | null> {
     locale,
     status: "draft" as const,
     content_text: texts[locale],
+    change_pct: market?.changePct ?? null,
+    ema50: market?.ema50 ?? null,
+    trend: market ? trendLabel(market.trend, locale) : null,
+    points: market?.points ?? [],
   }));
 
   await supabaseAdmin.from("x_posts").insert(rows);
@@ -137,14 +147,19 @@ export async function GET(req: NextRequest) {
     ticker: pendingPost.ticker,
     sector: pendingPost.sector ?? undefined,
     theme: pendingPost.theme ?? undefined,
-    points: [],
+    changePct: pendingPost.change_pct ?? undefined,
+    ema50: pendingPost.ema50 ?? null,
+    trendLabel: pendingPost.trend ?? undefined,
+    points: Array.isArray(pendingPost.points) ? pendingPost.points : [],
     headline: pendingPost.content_text,
     locale: pendingPost.locale,
   };
 
   try {
     const imageBuffer = await renderCardPng(cardParams);
-    const tweetId = await postTweet(pendingPost.content_text, imageBuffer);
+    const hashtags = buildStockHashtags(pendingPost.ticker, pendingPost.sector);
+    const tweetText = appendHashtagsWithinLimit(pendingPost.content_text, hashtags);
+    const tweetId = await postTweet(tweetText, imageBuffer);
 
     await supabaseAdmin
       .from("x_posts")
