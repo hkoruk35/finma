@@ -173,6 +173,7 @@ export const SITEMAP_ADMIN: SitemapGroup[] = [
     { label: "Kampanyalar", path: "/admin/campaigns" },
     { label: "Açılış Sayfası Düzenle", path: "/admin/landing" },
     { label: "Arşivlenmiş Bölümler", path: "/admin/archived-sections" },
+    { label: "X Studio (@bogastock)", path: "/admin/x-studio" },
   ]},
   { group: "Yapay Zeka & Raporlar", entries: [
     { label: "AI Rapor Hazırlama", path: "/admin/ai" },
