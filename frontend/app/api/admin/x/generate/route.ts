@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       hashtags: buildStockHashtags(body.ticker, body.sector),
       market: market
         ? {
-            points: market.points,
+            bars: market.bars,
             changePct: market.changePct,
             entryLow: market.entryLow,
             entryHigh: market.entryHigh,

@@ -74,7 +74,7 @@ async function startNewCycle(): Promise<string | null> {
     entry_low: market?.entryLow ?? null,
     entry_high: market?.entryHigh ?? null,
     trend: market ? trendLabel(market.trend, locale) : null,
-    points: market?.points ?? [],
+    bars: market?.bars ?? [],
   }));
 
   await supabaseAdmin.from("x_posts").insert(rows);
@@ -155,7 +155,7 @@ export async function GET(req: NextRequest) {
     entryHigh: pendingPost.entry_high ?? null,
     entryLabel: entryLabel(pendingPost.locale),
     trendLabel: pendingPost.trend ?? undefined,
-    points: Array.isArray(pendingPost.points) ? pendingPost.points : [],
+    bars: Array.isArray(pendingPost.bars) ? pendingPost.bars : [],
     headline: pendingPost.content_text,
     locale: pendingPost.locale,
   };

@@ -1,7 +1,14 @@
 export type TrendStatus = "Bullish" | "BullishWeak" | "Bearish" | "BearishWeak" | "Neutral";
 
+export interface OhlcBar {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
 export interface TickerMarketData {
-  points: number[]; // haftalik kapanislar (1W grafik icin)
+  bars: OhlcBar[]; // haftalik mumlar (1W grafik icin) — /api/chart-data ile ayni kaynak
   changePct: number;
   entryLow: number;
   entryHigh: number;
@@ -9,21 +16,19 @@ export interface TickerMarketData {
   signal: string;
 }
 
-interface WeeklyBar {
-  close: number;
-}
-
-async function fetchWeeklyCloses(base: string, ticker: string): Promise<number[]> {
+// Sitenin kendi grafik motorunun (BogaChartEngine) kullandigi ayni endpoint —
+// gercek haftalik OHLC mumlari, uydurma bir cizgi degil.
+async function fetchWeeklyBars(base: string, ticker: string): Promise<OhlcBar[]> {
   try {
     const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=W`, {
       cache: "no-store",
     });
     if (!res.ok) return [];
     const data = await res.json();
-    const bars: WeeklyBar[] = Array.isArray(data.bars) ? data.bars : [];
-    return bars.slice(-16).map((b) => b.close);
+    const bars: OhlcBar[] = Array.isArray(data.bars) ? data.bars : [];
+    return bars.slice(-14);
   } catch (e) {
-    console.error("[x/marketData] weekly closes fetch failed:", (e as Error).message);
+    console.error("[x/marketData] weekly bars fetch failed:", (e as Error).message);
     return [];
   }
 }
@@ -49,10 +54,10 @@ export async function fetchTickerMarketData(ticker: string): Promise<TickerMarke
     const entryLow = Math.min(price, ema20);
     const entryHigh = Math.max(price, ema20);
 
-    const points = await fetchWeeklyCloses(base, ticker);
+    const bars = await fetchWeeklyBars(base, ticker);
 
     return {
-      points: points.length > 1 ? points : Array.isArray(item.recent_closes) ? item.recent_closes : [],
+      bars,
       changePct: item.price?.change_pct ?? item.tracker_1h?.change_pct_1d ?? 0,
       entryLow,
       entryHigh,

@@ -43,19 +43,38 @@ function truncateForCard(text: string, maxLen: number): string {
   return text.slice(0, maxLen - 1).trimEnd() + "…";
 }
 
-function sparklinePath(points: number[], width: number, height: number): string {
-  if (points.length < 2) return "";
-  const min = Math.min(...points);
-  const max = Math.max(...points);
+interface OhlcBar {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
+// Gercek OHLC mumlariyla klasik candlestick grafigi (sitenin kendi grafik
+// motorunun kullandigi ayni /api/chart-data verisiyle) — duz cizgi sparkline
+// degil.
+function candlestickElements(bars: OhlcBar[], width: number, height: number) {
+  if (bars.length < 2) return null;
+  const allValues = bars.flatMap((b) => [b.high, b.low]);
+  const min = Math.min(...allValues);
+  const max = Math.max(...allValues);
   const range = max - min || 1;
-  const step = width / (points.length - 1);
-  return points
-    .map((p, i) => {
-      const x = i * step;
-      const y = height - ((p - min) / range) * height;
-      return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
+  const slot = width / bars.length;
+  const candleWidth = Math.min(slot * 0.55, 22);
+  const y = (v: number) => height - ((v - min) / range) * height;
+
+  return bars.flatMap((b, i) => {
+    const cx = slot * i + slot / 2;
+    const bullish = b.close >= b.open;
+    const color = bullish ? COLORS.gain : COLORS.loss;
+    const bodyTop = y(Math.max(b.open, b.close));
+    const bodyBottom = y(Math.min(b.open, b.close));
+    const bodyHeight = Math.max(bodyBottom - bodyTop, 2);
+    return [
+      <line key={`w${i}`} x1={cx} y1={y(b.high)} x2={cx} y2={y(b.low)} stroke={color} strokeWidth={2} />,
+      <rect key={`b${i}`} x={cx - candleWidth / 2} y={bodyTop} width={candleWidth} height={bodyHeight} fill={color} />,
+    ];
+  });
 }
 
 export interface StockCardParams {
@@ -69,7 +88,7 @@ export interface StockCardParams {
   entryHigh?: number | null;
   entryLabel?: string;
   trendLabel?: string;
-  points: number[];
+  bars: OhlcBar[];
   headline: string; // AI ureilen kisa analiz cumlesi
   locale: string;
 }
@@ -190,16 +209,11 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
             )}
           </div>
 
-          {params.points.length > 1 && (
+          {params.bars.length > 1 && (
             <div style={{ display: "flex", flexDirection: "column", marginTop: 14 }}>
               <span style={{ fontSize: 16, color: COLORS.text, opacity: 0.5, display: "flex" }}>1W CHART</span>
               <svg width={W - 112} height={95} viewBox={`0 0 ${W - 112} 95`}>
-                <path
-                  d={sparklinePath(params.points, W - 112, 78)}
-                  fill="none"
-                  stroke={changeColor}
-                  strokeWidth={5}
-                />
+                {candlestickElements(params.bars, W - 112, 82)}
               </svg>
             </div>
           )}

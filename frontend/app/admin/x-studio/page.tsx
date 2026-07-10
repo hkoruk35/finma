@@ -38,8 +38,15 @@ interface AutomationSettings {
   ratio_trend: number;
 }
 
+interface OhlcBar {
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
 interface MarketData {
-  points: number[];
+  bars: OhlcBar[];
   changePct: number;
   entryLow: number | null;
   entryHigh: number | null;
@@ -160,7 +167,7 @@ export default function XStudioPage() {
         entryHigh: market?.entryHigh ?? undefined,
         entryLabel: market?.entryLabels?.[locale],
         trendLabel: market?.trendLabels?.[locale],
-        points: market?.points ?? [],
+        bars: market?.bars ?? [],
         headline: texts[locale],
         locale,
       };
@@ -185,11 +192,6 @@ export default function XStudioPage() {
 
   const copyText = async () => {
     await navigator.clipboard.writeText(getFinalText());
-  };
-
-  const openXCompose = () => {
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(getFinalText())}`;
-    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const previewImage = async () => {
@@ -344,12 +346,11 @@ export default function XStudioPage() {
                   MANUEL PAYLAŞIM (X API kredisi gerektirmez)
                 </div>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={downloadImage}>1. Görseli İndir</button>
-                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={copyText}>2. Metni Kopyala</button>
-                  <button style={{ ...btnStyle, background: "#1d9bf0" }} onClick={openXCompose}>3. X'te Aç ve Yapıştır</button>
+                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={downloadImage}>Görseli İndir</button>
+                  <button style={{ ...btnStyle, background: "#30363d" }} onClick={copyText}>Metni Kopyala</button>
                 </div>
                 <div style={{ fontSize: 11, opacity: 0.6, marginTop: 8 }}>
-                  Sırayla: görseli indir → X'te Aç ile açılan pencerede metin hazır gelir → görseli sürükle-bırak ile ekle → paylaş.
+                  x.com'da @bogastock hesabınla yeni gönderi aç, indirdiğin görseli ve kopyaladığın metni ekleyip paylaş.
                 </div>
               </div>
             </>
