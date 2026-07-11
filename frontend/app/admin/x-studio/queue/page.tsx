@@ -126,10 +126,16 @@ export default function XStudioQueuePage() {
     await renderImage(item, { ...rowFor(item.id), locale });
   };
 
+  // Manuel gonderiler icin premium karakter siniri — otomasyon (cron/x-scheduler)
+  // hala varsayilan 280'i kullanir, buraya dokunmuyor.
+  const MANUAL_POST_LIMIT = 2500;
+
   const getFinalText = (item: PoolItem) => {
     const row = rowFor(item.id);
     if (!row.texts) return "";
-    return row.hashtags ? appendHashtagsWithinLimit(row.texts[row.locale], row.hashtags) : row.texts[row.locale];
+    return row.hashtags
+      ? appendHashtagsWithinLimit(row.texts[row.locale], row.hashtags, MANUAL_POST_LIMIT)
+      : row.texts[row.locale];
   };
 
   const downloadImage = (item: PoolItem) => {

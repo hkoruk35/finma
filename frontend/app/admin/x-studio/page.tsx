@@ -208,7 +208,10 @@ export default function XStudioPage() {
     };
   };
 
-  const getFinalText = () => (hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags) : texts[locale]);
+  // Manuel gonderiler icin premium karakter siniri (2500) — otomasyon
+  // (cron/x-scheduler) hala varsayilan 280'i kullanir, buraya dokunmuyor.
+  const MANUAL_POST_LIMIT = 2500;
+  const getFinalText = () => (hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags, MANUAL_POST_LIMIT) : texts[locale]);
 
   const downloadImage = () => {
     if (!imageUrl) return;
@@ -463,7 +466,7 @@ export default function XStudioPage() {
           <textarea
             style={{ ...inputStyle, width: "100%", height: 80, resize: "vertical" }}
             value={texts[locale]}
-            maxLength={280}
+            maxLength={MANUAL_POST_LIMIT}
             onChange={(e) => setTexts((t) => ({ ...t, [locale]: e.target.value }))}
             placeholder="AI metni burada görünecek, düzenlenebilir..."
           />
@@ -471,7 +474,7 @@ export default function XStudioPage() {
           {hashtags && (
             <div style={{ ...inputStyle, marginTop: 6, opacity: 0.75, display: "flex", justifyContent: "space-between" }}>
               <span>Paylaşırken otomatik eklenecek: {hashtags}</span>
-              <span>{texts[locale] ? appendHashtagsWithinLimit(texts[locale], hashtags).length : 0}/280</span>
+              <span>{texts[locale] ? appendHashtagsWithinLimit(texts[locale], hashtags, MANUAL_POST_LIMIT).length : 0}/{MANUAL_POST_LIMIT}</span>
             </div>
           )}
 
