@@ -8,6 +8,12 @@
 -- degeri koyup SADECE Supabase SQL Editor'de calistirin; bu dosyayi placeholder
 -- ile oldugu gibi birakin.
 
+-- Not: net.http_get'in varsayilan timeout'u 5 saniye — endpoint yeni bir
+-- cycle baslatirken (AI metni + piyasa verisi + gorsel render + X'e post)
+-- bunu asabiliyor, bu yuzden asagida 90 saniyeye (Vercel route'un maxDuration'i
+-- ile ayni) cikartildi. cron.schedule ayni job adiyla tekrar cagrilirsa yeni
+-- bir is olusturmaz, mevcut isi gunceller — bu dosyayi tekrar calistirmak guvenli.
+
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
 
@@ -17,7 +23,8 @@ select cron.schedule(
   $$
   select net.http_get(
     url := 'https://bogastock.com/api/cron/x-scheduler',
-    headers := jsonb_build_object('Authorization', 'Bearer YOUR_CRON_SECRET_HERE')
+    headers := jsonb_build_object('Authorization', 'Bearer YOUR_CRON_SECRET_HERE'),
+    timeout_milliseconds := 90000
   );
   $$
 );
