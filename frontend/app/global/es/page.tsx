@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ScreenshotBanner, JpmPreview } from "@/components/global/LandingBannerTr";
 import { getLandingConfigFromDB } from "@/lib/landingConfig";
 import { ICON_MAP } from "@/components/global/LandingIcons";
+import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,7 @@ export default async function EsLandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+      <GlobalReachBanner lang="es" />
       <Header hideMenus={true} globalLocale="es" />
 
       <main className="flex-1">
