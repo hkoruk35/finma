@@ -1,13 +1,14 @@
-function sectorToHashtag(sector: string): string {
-  return "#" + sector.replace(/[^a-zA-Z0-9]+/g, "");
+function toHashtag(text: string): string {
+  return "#" + text.replace(/[^a-zA-Z0-9]+/g, "");
 }
 
-// Hisse postlari icin hashtag seti: ticker, cashtag, sektor, ve borsa etiketi.
-// AI'nin uretmesine guvenmek yerine sabit/dogru sekilde ekleniyor.
-export function buildStockHashtags(ticker: string, sector?: string | null): string {
-  const parts = [`$${ticker}`, `#${ticker}`];
-  if (sector) parts.push(sectorToHashtag(sector));
-  parts.push("#NASDAQ", "#Stocks");
+// Hisse postlari icin hashtag seti — en fazla 3 etiket: hisse ($cashtag),
+// sektor, trend yonu. AI'nin uretmesine guvenmek yerine sabit/dogru sekilde
+// ekleniyor. Sektor veya trend eksikse o etiket sessizce atlanir.
+export function buildStockHashtags(ticker: string, sector?: string | null, trend?: string | null): string {
+  const parts = [`$${ticker}`];
+  if (sector) parts.push(toHashtag(sector));
+  if (trend) parts.push(toHashtag(trend));
   return parts.join(" ");
 }
 

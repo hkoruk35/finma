@@ -13,10 +13,10 @@ export const maxDuration = 90;
 const CRON_SECRET = process.env.CRON_SECRET;
 const DAILY_FREE_TIER_LIMIT = 480;
 
-function nextInRotation(locale: Locale): Locale {
-  const idx = LOCALES.indexOf(locale);
-  return LOCALES[(idx + 1) % LOCALES.length];
-}
+// Otomasyon sadece Ingilizce postlar; diger 4 dilin taslaklari yine de
+// startNewCycle() ile olusturulur (kullanici bunlari x-studio'dan ara sira
+// elle paylasabilsin diye), sadece otomatik gonderi dongusune girmezler.
+const AUTO_LOCALE: Locale = "en";
 
 async function withinDailyLimit(): Promise<boolean> {
   const today = new Date().toISOString().slice(0, 10);
@@ -128,7 +128,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const locale = (queue?.next_locale ?? "en") as Locale;
+  const locale = AUTO_LOCALE;
 
   // Bu dil icin bekleyen (draft) bir cycle var mi?
   let { data: pendingPost } = await supabaseAdmin
@@ -197,7 +197,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const imageBuffer = await renderCardPng(cardParams);
-    const hashtags = buildStockHashtags(pendingPost.ticker, pendingPost.sector);
+    const hashtags = buildStockHashtags(pendingPost.ticker, pendingPost.sector, market?.trend);
     const tweetText = appendHashtagsWithinLimit(pendingPost.content_text, hashtags);
     const tweetId = await postTweet(tweetText, imageBuffer);
 
@@ -208,7 +208,7 @@ export async function GET(req: NextRequest) {
 
     await supabaseAdmin
       .from("x_language_queue")
-      .update({ next_locale: nextInRotation(locale), last_posted_at: new Date().toISOString() })
+      .update({ last_posted_at: new Date().toISOString() })
       .eq("id", 1);
 
     return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale });

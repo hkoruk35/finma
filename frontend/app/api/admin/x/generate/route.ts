@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       texts,
-      hashtags: buildStockHashtags(body.ticker, body.sector),
+      hashtags: buildStockHashtags(body.ticker, body.sector, market?.trend),
       market: market
         ? {
             bars: market.bars,
