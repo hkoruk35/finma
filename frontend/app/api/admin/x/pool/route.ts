@@ -12,6 +12,19 @@ function requireAdmin(req: NextRequest): boolean {
 
 const RECENT_USE_WINDOW_HOURS = 48;
 
+async function fetchTickerMeta(ticker: string): Promise<{ company: string | null; sector: string | null }> {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
+  try {
+    const res = await fetch(`${base}/api/watchlist-data?tickers=${encodeURIComponent(ticker)}`, { cache: "no-store" });
+    if (!res.ok) return { company: null, sector: null };
+    const arr = await res.json();
+    const item = Array.isArray(arr) ? arr[0] : null;
+    return { company: item?.company ?? null, sector: item?.sector ?? null };
+  } catch {
+    return { company: null, sector: null };
+  }
+}
+
 export async function GET(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const { data, error } = await supabaseAdmin
@@ -51,6 +64,36 @@ export async function POST(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await req.json().catch(() => ({}));
+
+  // Tek ticker manuel ekleme: { "ticker": "AAPL" }. Kullanıcı sırayla ekledikçe
+  // priority=2 ile en üste (top100/trend=0, swing=1'in önüne) yerleşir, böylece
+  // otomasyon kendi eklediklerini, eklediği sırayla (added_at) önce işler.
+  if (typeof body.ticker === "string" && body.ticker.trim()) {
+    const ticker = body.ticker.trim().toUpperCase();
+
+    const { data: existing } = await supabaseAdmin
+      .from("x_content_pool")
+      .select("id")
+      .eq("ticker", ticker)
+      .is("used_at", null)
+      .maybeSingle();
+    if (existing) {
+      return NextResponse.json({ error: `${ticker} zaten kuyrukta bekliyor` }, { status: 409 });
+    }
+
+    const meta = await fetchTickerMeta(ticker);
+    const { error } = await supabaseAdmin.from("x_content_pool").insert({
+      source: "manual",
+      ticker,
+      company: meta.company,
+      sector: meta.sector,
+      theme: null,
+      priority: 2,
+    });
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ inserted: 1, ticker });
+  }
+
   const countTop100 = body.countTop100 ?? 8;
   const countSwing = body.countSwing ?? 6;
   const countTrend = body.countTrend ?? 6;

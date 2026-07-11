@@ -295,6 +295,32 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
+  // "Analiz Et"in aksine bu, gönderiyi hemen üretmez — ticker'ı kalıcı kuyruğa
+  // (x_content_pool) ekler, böylece otomasyon eklenme sırasına göre işler.
+  const addTickerToQueue = async () => {
+    const tickerToAdd = manualTicker.toUpperCase().trim();
+    if (!tickerToAdd) {
+      setError("Lütfen bir ticker giriniz.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const res = await fetch("/api/admin/x/pool", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticker: tickerToAdd }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "Kuyruğa ekleme hatası");
+      setBusy(false);
+      return;
+    }
+    setManualTicker("");
+    await loadPool();
+    setBusy(false);
+  };
+
   return (
     <div style={{ padding: 24, fontFamily: "monospace", color: "#e6edf3" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
@@ -323,9 +349,18 @@ export default function XStudioPage() {
           />
         </div>
         <button
+          style={{ ...btnStyle, marginTop: 26, background: "#22c55e" }}
+          disabled={busy || !manualTicker.trim()}
+          onClick={addTickerToQueue}
+          title="Ticker'ı kalıcı kuyruğa ekler — otomasyon eklenme sırasına göre işler"
+        >
+          Kuyruğa Ekle
+        </button>
+        <button
           style={{ ...btnStyle, marginTop: 26 }}
           disabled={busy || !manualTicker.trim()}
           onClick={processManualTicker}
+          title="Kuyruğa eklemeden hemen metin/görsel üretir (tek seferlik önizleme)"
         >
           Analiz Et
         </button>
