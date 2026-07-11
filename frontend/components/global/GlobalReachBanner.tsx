@@ -26,12 +26,12 @@ const cropY = minY + mapH * 0.204;
 const dots = allPoints.filter((p) => p !== nycPin && p.y >= cropY && p.y <= cropY + cropH);
 const VIEW_BOX = `${minX} ${cropY} ${mapW} ${cropH}`;
 
-const COPY: Record<Lang, string> = {
-  en: "Analyzing US markets in 5 languages for members across 70+ countries—capturing global opportunities.",
-  tr: "70'ten fazla ülkedeki üyelerimiz için ABD borsalarını 5 dilde analiz ediyor, küresel fırsatları yakalıyoruz.",
-  fr: "Analyse des marchés américains en 5 langues pour nos membres dans plus de 70 pays : saisir les opportunités mondiales.",
-  pt: "Analisando os mercados dos EUA em 5 idiomas para membros em mais de 70 países—capturando oportunidades globais.",
-  es: "Analizando los mercados de EE. UU. en 5 idiomas para miembros en más de 70 países, capturando oportunidades globales.",
+const COPY: Record<Lang, { line1: string; line2: string }> = {
+  tr: { line1: "70+ Ülke · 5 Dil · ABD Borsaları Analizi", line2: "Küresel fırsatları birlikte yakalıyoruz." },
+  en: { line1: "70+ Countries · 5 Languages · US Market Analysis", line2: "Capturing global opportunities together." },
+  fr: { line1: "70+ Pays · 5 Langues · Analyse des Marchés Américains", line2: "Saisissons ensemble les opportunités mondiales." },
+  pt: { line1: "70+ Países · 5 Idiomas · Análise dos Mercados dos EUA", line2: "Capturando oportunidades globais juntos." },
+  es: { line1: "70+ Países · 5 Idiomas · Análisis de Mercados de EE. UU.", line2: "Capturando oportunidades globales juntos." },
 };
 
 export default function GlobalReachBanner({ lang }: { lang: Lang }) {
@@ -57,17 +57,28 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
           <circle cx={nycPin.x} cy={nycPin.y} r={1.1} fill="#ffffff" className="animate-pulse" />
         </svg>
 
-        <div className="relative w-full h-full flex items-center justify-center px-5 text-center">
+        <div className="relative w-full h-full flex flex-col items-center justify-center gap-1 px-5 text-center">
           <p
             className="font-extrabold tracking-tight"
             style={{
-              fontSize: "clamp(14px, 2.4vw, 22px)",
+              fontSize: "clamp(13px, 2.1vw, 20px)",
               lineHeight: 1.15,
-              color: "#7dd3fc",
-              textShadow: "0 1px 3px rgba(0,0,0,0.65), 0 0 14px rgba(0,0,0,0.35)",
+              color: "#0f1f45",
+              textShadow: "0 1px 0 rgba(255,255,255,0.2)",
             }}
           >
-            {COPY[lang]}
+            {COPY[lang].line1}
+          </p>
+          <p
+            className="font-bold tracking-wide"
+            style={{
+              fontSize: "clamp(13px, 1.9vw, 17px)",
+              lineHeight: 1.15,
+              color: "#081228",
+              textShadow: "0 1px 0 rgba(255,255,255,0.2)",
+            }}
+          >
+            {COPY[lang].line2}
           </p>
         </div>
       </div>
