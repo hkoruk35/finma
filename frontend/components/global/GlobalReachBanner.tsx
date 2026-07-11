@@ -42,7 +42,7 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
         style={{
           maxWidth: BANNER_W,
           aspectRatio: `${BANNER_W} / ${BANNER_H}`,
-          minHeight: 64,
+          minHeight: 80,
           background: "linear-gradient(90deg, #2563eb 0%, #3b82f6 45%, #60a5fa 100%)",
         }}
       >
@@ -57,29 +57,32 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
           <circle cx={nycPin.x} cy={nycPin.y} r={1.1} fill="#ffffff" className="animate-pulse" />
         </svg>
 
-        <div className="relative w-full h-full flex flex-col items-center justify-center gap-1 px-5 text-center">
-          <p
-            className="font-extrabold tracking-tight"
-            style={{
-              fontSize: "clamp(13px, 2.1vw, 20px)",
-              lineHeight: 1.15,
-              color: "#0f1f45",
-              textShadow: "0 1px 0 rgba(255,255,255,0.2)",
-            }}
+        <div className="relative w-full h-full flex items-center justify-center px-5">
+          <div
+            className="flex flex-col items-center justify-center gap-0.5 sm:gap-1 rounded-xl px-3 py-1.5 sm:px-6 sm:py-2 text-center"
+            style={{ background: "rgba(255,255,255,0.4)" }}
           >
-            {COPY[lang].line1}
-          </p>
-          <p
-            className="font-bold tracking-wide"
-            style={{
-              fontSize: "clamp(13px, 1.9vw, 17px)",
-              lineHeight: 1.15,
-              color: "#081228",
-              textShadow: "0 1px 0 rgba(255,255,255,0.2)",
-            }}
-          >
-            {COPY[lang].line2}
-          </p>
+            <p
+              className="font-extrabold tracking-tight"
+              style={{
+                fontSize: "clamp(13px, 2.1vw, 20px)",
+                lineHeight: 1.15,
+                color: "#0f1f45",
+              }}
+            >
+              {COPY[lang].line1}
+            </p>
+            <p
+              className="font-bold tracking-wide"
+              style={{
+                fontSize: "clamp(13px, 1.9vw, 17px)",
+                lineHeight: 1.15,
+                color: "#081228",
+              }}
+            >
+              {COPY[lang].line2}
+            </p>
+          </div>
         </div>
       </div>
     </div>
