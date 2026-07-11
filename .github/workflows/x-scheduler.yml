@@ -2,9 +2,15 @@ name: X Studio Scheduler
 
 on:
   schedule:
-    # Her 5 dakikada tetiklenir; asil aralik (10-15 dk) endpoint icinde
-    # x_automation_settings.interval_minutes'e gore kontrol edilir.
-    - cron: '*/5 * * * *'
+    # Her 5 dakikada, ama tam/yuvarlak dakikalardan (0,5,10...) 2 dk kaydirilmis
+    # olarak tetiklenir — GitHub'in tavsiyesi: en yogun cakisma tam dakika
+    # sinirlarinda oluyor, kaydirma gecikme/atlanma ihtimalini azaltir.
+    # Gercek aralik (10-15 dk onerilir) endpoint icinde
+    # x_automation_settings.interval_minutes'e gore kontrol edilir. GitHub'in
+    # scheduled trigger'i garanti degildir (yuk altinda ertelenebilir/atlanabilir);
+    # bir bosluk fark edilirse Actions sekmesinden "Run workflow" ile manuel
+    # tetiklenebilir (asagidaki workflow_dispatch).
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
   workflow_dispatch:
 
 jobs:
