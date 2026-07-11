@@ -76,7 +76,11 @@ async function startNewCycle(): Promise<string | null> {
     return row;
   });
 
-  await supabaseAdmin.from("x_posts").insert(rows);
+  const { error: insertError } = await supabaseAdmin.from("x_posts").insert(rows);
+  if (insertError) {
+    console.error("[x-scheduler] x_posts insert failed:", insertError.message);
+    return null;
+  }
   await supabaseAdmin.from("x_content_pool").update({ used_at: new Date().toISOString() }).eq("id", poolItem.id);
 
   return cycleId;
