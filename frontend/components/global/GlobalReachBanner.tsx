@@ -27,11 +27,11 @@ const dots = allPoints.filter((p) => p !== nycPin && p.y >= cropY && p.y <= crop
 const VIEW_BOX = `${minX} ${cropY} ${mapW} ${cropH}`;
 
 const COPY: Record<Lang, string> = {
-  tr: "70'ten fazla ülke · 40.000'i aşkın üye · ABD borsalarını 5 dilde canlı takip ediyoruz",
-  en: "Over 70 countries · More than 40,000 members · Tracking US markets live in 5 languages.",
-  fr: "Plus de 70 pays · Plus de 40 000 membres · Suivi en direct des marchés américains en 5 langues.",
-  pt: "Mais de 70 países · Mais de 40.000 membros · Acompanhando os mercados dos EUA ao vivo em 5 idiomas.",
-  es: "Más de 70 países · Más de 40.000 miembros · Monitoreando los mercados de EE. UU. en vivo en 5 idiomas.",
+  en: "Analyzing US markets in 5 languages for members across 70+ countries—capturing global opportunities.",
+  tr: "70'ten fazla ülkedeki üyelerimiz için ABD borsalarını 5 dilde analiz ediyor, küresel fırsatları yakalıyoruz.",
+  fr: "Analyse des marchés américains en 5 langues pour nos membres dans plus de 70 pays : saisir les opportunités mondiales.",
+  pt: "Analisando os mercados dos EUA em 5 idiomas para membros em mais de 70 países—capturando oportunidades globais.",
+  es: "Analizando los mercados de EE. UU. en 5 idiomas para miembros en más de 70 países, capturando oportunidades globales.",
 };
 
 export default function GlobalReachBanner({ lang }: { lang: Lang }) {
@@ -59,8 +59,13 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
 
         <div className="relative w-full h-full flex items-center justify-center px-5 text-center">
           <p
-            className="font-extrabold text-white tracking-tight drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
-            style={{ fontSize: "clamp(14px, 2.4vw, 22px)", lineHeight: 1.15 }}
+            className="font-extrabold tracking-tight"
+            style={{
+              fontSize: "clamp(14px, 2.4vw, 22px)",
+              lineHeight: 1.15,
+              color: "#7dd3fc",
+              textShadow: "0 1px 3px rgba(0,0,0,0.65), 0 0 14px rgba(0,0,0,0.35)",
+            }}
           >
             {COPY[lang]}
           </p>
