@@ -24,8 +24,8 @@ export default async function PtLandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <GlobalReachBanner lang="pt" />
       <Header hideMenus={true} globalLocale="pt" />
+      <GlobalReachBanner lang="pt" />
 
       <main className="flex-1">
         {/* Hero */}

@@ -24,8 +24,8 @@ export default async function EnLandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <GlobalReachBanner lang="en" />
       <Header hideMenus={true} globalLocale="en" />
+      <GlobalReachBanner lang="en" />
 
       <main className="flex-1">
         {/* Hero */}

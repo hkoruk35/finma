@@ -24,8 +24,8 @@ export default async function TrLandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <GlobalReachBanner lang="tr" />
       <Header hideMenus={true} globalLocale="tr" />
+      <GlobalReachBanner lang="tr" />
 
       <main className="flex-1">
         {/* Hero */}
