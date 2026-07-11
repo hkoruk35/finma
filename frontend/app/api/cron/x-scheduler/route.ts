@@ -135,6 +135,10 @@ export async function GET(req: NextRequest) {
     pendingPost = freshPost;
   }
 
+  if (!pendingPost) {
+    return NextResponse.json({ error: "could not resolve pending post" }, { status: 500 });
+  }
+
   const withinLimit = await withinDailyLimit();
   if (!withinLimit) {
     return NextResponse.json({ skipped: "daily X API free-tier limit reached" });
