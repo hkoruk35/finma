@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/Header";
 import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function GlobalFrPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+      <Header hideMenus={true} globalLocale="fr" />
       <GlobalReachBanner lang="fr" />
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-16">
         <div className="max-w-2xl w-full text-center">
