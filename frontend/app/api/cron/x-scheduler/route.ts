@@ -61,22 +61,20 @@ async function startNewCycle(): Promise<string | null> {
   });
 
   const cycleId = crypto.randomUUID();
-  const rows = LOCALES.map((locale) => ({
-    cycle_id: cycleId,
-    content_type: "stock" as const,
-    ticker: poolItem.ticker,
-    sector: poolItem.sector,
-    theme: poolItem.theme,
-    source: poolItem.source,
-    locale,
-    status: "draft" as const,
-    content_text: texts[locale],
-    change_pct: market?.changePct ?? null,
-    rvol: market?.rvol ?? null,
-    opportunity: market?.opportunity ?? false,
-    trend: market ? trendLabel(market.trend, locale) : null,
-    bars: market?.bars ?? [],
-  }));
+  const rows = LOCALES.map((locale) => {
+    const row: any = {
+      cycle_id: cycleId,
+      content_type: "stock" as const,
+      ticker: poolItem.ticker,
+      sector: poolItem.sector,
+      theme: poolItem.theme,
+      source: poolItem.source,
+      locale,
+      status: "draft" as const,
+      content_text: texts[locale],
+    };
+    return row;
+  });
 
   await supabaseAdmin.from("x_posts").insert(rows);
   await supabaseAdmin.from("x_content_pool").update({ used_at: new Date().toISOString() }).eq("id", poolItem.id);
@@ -137,26 +135,24 @@ export async function GET(req: NextRequest) {
     pendingPost = freshPost;
   }
 
-  if (!pendingPost) {
-    return NextResponse.json({ error: "could not resolve pending post" }, { status: 500 });
-  }
-
   const withinLimit = await withinDailyLimit();
   if (!withinLimit) {
     return NextResponse.json({ skipped: "daily X API free-tier limit reached" });
   }
+
+  const market = await fetchTickerMarketData(pendingPost.ticker);
 
   const cardParams: CardParams = {
     kind: "stock",
     ticker: pendingPost.ticker,
     sector: pendingPost.sector ?? undefined,
     theme: localizedThemeTitle(pendingPost.theme, pendingPost.locale),
-    changePct: pendingPost.change_pct ?? undefined,
-    rvol: pendingPost.rvol ?? undefined,
-    opportunity: pendingPost.opportunity ?? false,
+    changePct: market?.changePct ?? undefined,
+    rvol: market?.rvol ?? undefined,
+    opportunity: market?.opportunity ?? false,
     opportunityLabel: opportunityLabel(pendingPost.locale),
-    trendLabel: pendingPost.trend ?? undefined,
-    bars: Array.isArray(pendingPost.bars) ? pendingPost.bars : [],
+    trendLabel: market ? trendLabel(market.trend, pendingPost.locale) : undefined,
+    bars: market?.bars ?? [],
     headline: pendingPost.content_text,
     locale: pendingPost.locale,
   };
