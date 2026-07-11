@@ -23,6 +23,19 @@ export function getXClient(): TwitterApi {
   });
 }
 
+// twitter-api-v2'nin hata mesaji sadece "Request failed with code 403" gibi
+// genel bir HTTP durumu verir — X'in asil sebebi (duplicate content, izin
+// sorunu, vb.) e.data icinde kalir, hicbir yere yazdirilmaz. Bunu cikartir.
+export function extractXErrorDetail(e: any): string {
+  const data = e?.data;
+  if (data?.detail) return data.detail;
+  if (data?.title) return data.title;
+  if (Array.isArray(data?.errors) && data.errors.length) {
+    return data.errors.map((er: any) => er.message || er.detail || JSON.stringify(er)).join("; ");
+  }
+  return e?.message || "unknown error";
+}
+
 export async function postTweet(text: string, imageBuffer?: Buffer): Promise<string> {
   const client = getXClient().readWrite;
 

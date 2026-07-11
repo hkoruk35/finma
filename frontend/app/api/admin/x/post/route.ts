@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
-import { postTweet } from "@/lib/x/client";
+import { postTweet, extractXErrorDetail } from "@/lib/x/client";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -74,12 +74,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ tweetId, postId: postRow.id });
   } catch (e: any) {
-    console.error("[x/post] failed:", e?.message);
+    const detail = extractXErrorDetail(e);
+    console.error("[x/post] failed:", detail);
     await supabaseAdmin
       .from("x_posts")
-      .update({ status: "failed", error_message: e?.message ?? "unknown error" })
+      .update({ status: "failed", error_message: detail })
       .eq("id", postRow.id);
-    return NextResponse.json({ error: e?.message || "post failed" }, { status: 500 });
+    return NextResponse.json({ error: detail }, { status: 500 });
   }
 }
 

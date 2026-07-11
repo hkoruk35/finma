@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
-import { postTweet } from "@/lib/x/client";
+import { postTweet, extractXErrorDetail } from "@/lib/x/client";
 import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
 import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
@@ -213,11 +213,12 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale });
   } catch (e: any) {
-    console.error("[cron/x-scheduler] post failed:", e?.message);
+    const detail = extractXErrorDetail(e);
+    console.error("[cron/x-scheduler] post failed:", detail);
     await supabaseAdmin
       .from("x_posts")
-      .update({ status: "failed", error_message: e?.message ?? "unknown error" })
+      .update({ status: "failed", error_message: detail })
       .eq("id", pendingPost.id);
-    return NextResponse.json({ error: e?.message || "post failed" }, { status: 500 });
+    return NextResponse.json({ error: detail }, { status: 500 });
   }
 }
