@@ -35,16 +35,30 @@ async function withinDailyLimit(): Promise<boolean> {
 
 // Kuyruktan bir icerik secip 5 dilde taslak x_posts satiri olusturur (yeni cycle).
 async function startNewCycle(): Promise<string | null> {
-  const { data: poolItem } = await supabaseAdmin
+  const { data: candidate } = await supabaseAdmin
     .from("x_content_pool")
-    .select("*")
+    .select("id")
     .is("used_at", null)
     .order("priority", { ascending: false })
     .order("added_at", { ascending: true })
     .limit(1)
     .maybeSingle();
 
-  if (!poolItem) return null;
+  if (!candidate) return null;
+
+  // Atomik claim: iki es zamanli cagri (orn. siki interval + GitHub Actions
+  // polling cakismasi) ayni satiri secerse, used_at hala null iken calisan
+  // UPDATE'i sadece biri "kazanir" — kaybeden bos donus alip cikar. Bu
+  // olmadan ayni ticker icin iki farkli AI metniyle cift cycle olusabiliyordu.
+  const { data: poolItem } = await supabaseAdmin
+    .from("x_content_pool")
+    .update({ used_at: new Date().toISOString() })
+    .eq("id", candidate.id)
+    .is("used_at", null)
+    .select()
+    .maybeSingle();
+
+  if (!poolItem) return null; // baska bir istek once claim etti
 
   const market = await fetchTickerMarketData(poolItem.ticker);
 
@@ -81,7 +95,6 @@ async function startNewCycle(): Promise<string | null> {
     console.error("[x-scheduler] x_posts insert failed:", insertError.message);
     return null;
   }
-  await supabaseAdmin.from("x_content_pool").update({ used_at: new Date().toISOString() }).eq("id", poolItem.id);
 
   return cycleId;
 }
@@ -129,7 +142,7 @@ export async function GET(req: NextRequest) {
 
   if (!pendingPost) {
     const cycleId = await startNewCycle();
-    if (!cycleId) return NextResponse.json({ skipped: "content pool empty" });
+    if (!cycleId) return NextResponse.json({ skipped: "content pool empty or already claimed by another run" });
     const { data: freshPost } = await supabaseAdmin
       .from("x_posts")
       .select("*")
@@ -147,6 +160,23 @@ export async function GET(req: NextRequest) {
   if (!withinLimit) {
     return NextResponse.json({ skipped: "daily X API free-tier limit reached" });
   }
+
+  // Atomik claim: draft -> scheduled. Iki es zamanli cagri ayni taslagi
+  // bulmus olsa bile sadece biri bu adimi gecer (status hala 'draft' iken
+  // calisan UPDATE), digeri bos donus alip cikar — ayni icerigin iki kez
+  // tweetlenmesini engeller.
+  const { data: claimedPost } = await supabaseAdmin
+    .from("x_posts")
+    .update({ status: "scheduled" })
+    .eq("id", pendingPost.id)
+    .eq("status", "draft")
+    .select()
+    .maybeSingle();
+
+  if (!claimedPost) {
+    return NextResponse.json({ skipped: "draft already claimed by another run" });
+  }
+  pendingPost = claimedPost;
 
   const market = await fetchTickerMarketData(pendingPost.ticker);
 
