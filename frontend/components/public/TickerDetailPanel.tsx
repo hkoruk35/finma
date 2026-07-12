@@ -49,7 +49,25 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const t = copy[locale].top100.detail;
   const router = useRouter();
   const { isPremium } = useMemberPlan();
-  const tradePlanLocked = !!lockTradePlan && !isPremium;
+  // Prop adi "lockTradePlan" kaldi (mevcut cagiran, /graphic sayfasi, bunu
+  // gecirir) ama artik Technical Indicators + Market Data'yi da kapsiyor —
+  // hepsi ayni premium kilit davranisini paylasiyor.
+  const premiumLocked = !!lockTradePlan && !isPremium;
+  const goToRegister = () => router.push(registerHref(locale));
+
+  const LockPrompt = ({ message }: { message: string }) => (
+    <button
+      type="button"
+      onClick={goToRegister}
+      className="w-full h-full flex flex-col items-center justify-center gap-2 border border-amber-500/40 bg-amber-500/10 rounded-md py-7 px-3 text-center hover:bg-amber-500/20 transition-colors"
+    >
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
+        <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+      </svg>
+      <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
+      <span className="text-[11px] text-white/50 max-w-[180px] leading-snug">{message}</span>
+    </button>
+  );
   const [data, setData] = useState<PreorderAnalysis | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -130,55 +148,53 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
-          {[
-            ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
-            ["EMA200", fmt(d1.ema200, 1)],
-            ["RSI (14)", fmt(d1.rsi, 1)],
-            ["MACD", fmt(data.momentum.macd, 3)],
-            ["ADX (14)", fmt(data.momentum.adx, 1)],
-            ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
-            ["BB%", fmt(data.momentum.bbPercent, 2)],
-            ["Pattern", d1.pattern],
-          ].map(([label, value], i, arr) => (
-            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
-              <span className="text-white/40">{label}</span>
-              <span className="text-white/80 font-mono font-semibold">{value}</span>
-            </div>
-          ))}
+          {premiumLocked ? (
+            <LockPrompt message={t.unlockTradePlan} />
+          ) : (
+            [
+              ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
+              ["EMA200", fmt(d1.ema200, 1)],
+              ["RSI (14)", fmt(d1.rsi, 1)],
+              ["MACD", fmt(data.momentum.macd, 3)],
+              ["ADX (14)", fmt(data.momentum.adx, 1)],
+              ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
+              ["BB%", fmt(data.momentum.bbPercent, 2)],
+              ["Pattern", d1.pattern],
+            ].map(([label, value], i, arr) => (
+              <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
+                <span className="text-white/40">{label}</span>
+                <span className="text-white/80 font-mono font-semibold">{value}</span>
+              </div>
+            ))
+          )}
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
-          {[
-            ["52H High", `$${fmt(data.context.hi52)}`],
-            ["52L Low", `$${fmt(data.context.lo52)}`],
-            ["52H Distance", `${fmt(data.context.pct52h, 1)}%`],
-            ["ATR%", `${fmt(data.context.atrPct)}%`],
-            ["RVOL", `${fmt(data.rvol)}x`],
-            ["Volume", fmtVol(data.volume)],
-            ["Avg Vol 30d", fmtVol(data.avgVol30)],
-          ].map(([label, value], i, arr) => (
-            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
-              <span className="text-white/40">{label}</span>
-              <span className="text-white/80 font-mono font-semibold">{value}</span>
-            </div>
-          ))}
+          {premiumLocked ? (
+            <LockPrompt message={t.unlockTradePlan} />
+          ) : (
+            [
+              ["52H High", `$${fmt(data.context.hi52)}`],
+              ["52L Low", `$${fmt(data.context.lo52)}`],
+              ["52H Distance", `${fmt(data.context.pct52h, 1)}%`],
+              ["ATR%", `${fmt(data.context.atrPct)}%`],
+              ["RVOL", `${fmt(data.rvol)}x`],
+              ["Volume", fmtVol(data.volume)],
+              ["Avg Vol 30d", fmtVol(data.avgVol30)],
+            ].map(([label, value], i, arr) => (
+              <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
+                <span className="text-white/40">{label}</span>
+                <span className="text-white/80 font-mono font-semibold">{value}</span>
+              </div>
+            ))
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
-          {tradePlanLocked ? (
-            <button
-              type="button"
-              onClick={() => router.push(registerHref(locale))}
-              className="flex flex-col items-center justify-center gap-2 border border-amber-500/40 bg-amber-500/10 rounded-md py-7 px-3 text-center hover:bg-amber-500/20 transition-colors"
-            >
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
-                <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
-              </svg>
-              <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
-              <span className="text-[11px] text-white/50 max-w-[180px] leading-snug">{t.unlockTradePlan}</span>
-            </button>
+          {premiumLocked ? (
+            <LockPrompt message={t.unlockTradePlan} />
           ) : (
             <>
               <div className="grid grid-cols-2 gap-2">
