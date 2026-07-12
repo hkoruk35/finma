@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     languages: {
       "en-US": "https://bogastock.com/global/en/about",
       "es-ES": "https://bogastock.com/global/es/about",
+      "fr-FR": "https://bogastock.com/global/fr/about",
+      "pt-PT": "https://bogastock.com/global/pt/about",
+      "tr-TR": "https://bogastock.com/global/tr/about",
     },
   },
   openGraph: {

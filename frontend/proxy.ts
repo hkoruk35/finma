@@ -66,6 +66,7 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/${routes.register}`) &&
         !pathname.startsWith(`${base}/graphic`) &&
         !pathname.startsWith(`${base}/news`) &&
+        !pathname.startsWith(`${base}/about`) &&
         pathname !== base
       break
     }
