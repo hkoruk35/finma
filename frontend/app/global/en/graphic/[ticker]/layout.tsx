@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
       description: `Interactive chart and technical analysis for ${tickerUpper} on Boga AI`,
       url: `https://bogastock.com/global/en/graphic/${tickerUpper}`,
       siteName: "Boga AI",
-      images: [{ url: imageUrl, width: 1200, height: 675, alt: `${tickerUpper} chart` }],
+      images: [{ url: imageUrl, width: 1200, height: 760, alt: `${tickerUpper} chart` }],
       type: "website",
     },
     twitter: {
