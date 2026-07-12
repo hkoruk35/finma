@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "About BOGA AI - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-  description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+  title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
+  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
   alternates: {
     canonical: "https://bogastock.com/global/en/about",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "About BOGA AI - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-    description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+    title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
+    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
     url: "https://bogastock.com/global/en/about",
   },
 };
@@ -44,13 +44,13 @@ export default function AboutPage() {
             <span className="text-[#3b82f6]">Built for US Markets.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks is a proprietary multi-stage stock screening and scoring system that turns the entire US equity universe into a focused shortlist of high-probability opportunities — every single trading day.
           </p>
         </div>
 
         {/* 3-Stage Process */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">How the BOGA AI System Works</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">How the BOGASTOCK System Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
             {/* Stage 1 */}
@@ -59,7 +59,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Daily Universe Scan</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Every day, the BOGA AI algorithm sweeps through <strong className="text-white">6,000+ premier US stocks and ETFs</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
+                Every day, the BOGASTOCK algorithm sweeps through <strong className="text-white">6,000+ premier US stocks and ETFs</strong> across all major exchanges — NYSE, NASDAQ, and AMEX — applying liquidity, volatility, and structural filters to isolate the most tradeable candidates.
               </p>
             </div>
 
@@ -79,7 +79,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
               <h3 className="text-lg font-bold text-white mb-3">Highest-Conviction Candidates — Individually Scored</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                The BOGA AI scoring engine ranks every daily candidate and selects the highest-conviction setups. Each receives a unique AI-generated analysis covering technicals, fundamentals, and score rationale — not a template, but a stock-specific brief.
+                The BOGASTOCK scoring engine ranks every daily candidate and selects the highest-conviction setups. Each receives a unique AI-generated analysis covering technicals, fundamentals, and score rationale — not a template, but a stock-specific brief.
               </p>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function AboutPage() {
 
         {/* Scoring System */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">The BOGA AI Scoring System</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">The BOGASTOCK Scoring System</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <div className="glass-card p-8">
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Multi-Factor Technical Engine</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                The BOGA AI Master Score is computed from a weighted blend of technical indicators — RSI, MACD, relative volume, EMA cross-multiples, ADX trend strength, and Bollinger Band squeeze intensity — engineered specifically for US equity momentum structures.
+                The BOGASTOCK Master Score is computed from a weighted blend of technical indicators — RSI, MACD, relative volume, EMA cross-multiples, ADX trend strength, and Bollinger Band squeeze intensity — engineered specifically for US equity momentum structures.
               </p>
             </div>
 
@@ -122,7 +122,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Proprietary AI Commentary</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Each shortlisted stock receives a plain-language analysis brief generated by the BOGA AI engine. The brief explains <em>why</em> a specific score was assigned — referencing the stock's own data, not generics — so you understand the rationale behind every rating.
+                Each shortlisted stock receives a plain-language analysis brief generated by the BOGASTOCK engine. The brief explains <em>why</em> a specific score was assigned — referencing the stock's own data, not generics — so you understand the rationale behind every rating.
               </p>
             </div>
 
@@ -134,7 +134,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Five-Tier Score Ratings</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI scores are classified into five professional tiers: <strong className="text-white">High Conviction</strong>, <strong className="text-white">Positive Bias</strong>, <strong className="text-white">Neutral Stay</strong>, <strong className="text-white">Negative Bias</strong>, and <strong className="text-white">Underperform</strong> — giving you institutional-grade clarity without ambiguity.
+                BOGASTOCK scores are classified into five professional tiers: <strong className="text-white">High Conviction</strong>, <strong className="text-white">Positive Bias</strong>, <strong className="text-white">Neutral Stay</strong>, <strong className="text-white">Negative Bias</strong>, and <strong className="text-white">Underperform</strong> — giving you institutional-grade clarity without ambiguity.
               </p>
             </div>
           </div>
@@ -145,7 +145,7 @@ export default function AboutPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">100% Focused on US Equity Markets</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks is purpose-built for the US stock market. Every algorithm, every weight, and every score category is calibrated against NYSE, NASDAQ, and US market structure — not a generic global model adapted for the US.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

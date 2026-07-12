@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-  description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+  title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
+  description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
   alternates: {
     canonical: "https://bogastock.com/global/tr/about",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BOGA AI Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-    description: "BOGA AI - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+    title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
+    description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
     url: "https://bogastock.com/global/tr/about",
   },
 };
@@ -43,13 +43,13 @@ export default function AboutPageTr() {
             <span className="text-[#3b82f6]">ABD Piyasaları İçin İnşa Edildi.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Günlük 6.000+ hisse, tüm ABD hisse senedi evrenini her işlem gününde yüksek olasılıklı fırsatların odaklanmış bir kısa listesine dönüştüren özel, çok aşamalı bir hisse tarama ve puanlama sistemidir.
+            BOGASTOCK - Blue One Global Analysis - Günlük 6.000+ hisse, tüm ABD hisse senedi evrenini her işlem gününde yüksek olasılıklı fırsatların odaklanmış bir kısa listesine dönüştüren özel, çok aşamalı bir hisse tarama ve puanlama sistemidir.
           </p>
         </div>
 
         {/* 3-Stage Process */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGA AI Sistemi Nasıl Çalışır</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGASTOCK Sistemi Nasıl Çalışır</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
             {/* Stage 1 */}
@@ -58,7 +58,7 @@ export default function AboutPageTr() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Günlük Evren Taraması</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI algoritması her gün NYSE, NASDAQ ve AMEX dahil tüm büyük borsalardaki <strong className="text-white">6.000'den fazla seçkin ABD hisse senedi ve ETFyi</strong> tarar; likidite, volatilite ve yapısal filtreler uygulayarak en işlem yapılabilir adayları belirler.
+                BOGASTOCK algoritması her gün NYSE, NASDAQ ve AMEX dahil tüm büyük borsalardaki <strong className="text-white">6.000'den fazla seçkin ABD hisse senedi ve ETFyi</strong> tarar; likidite, volatilite ve yapısal filtreler uygulayarak en işlem yapılabilir adayları belirler.
               </p>
             </div>
 
@@ -78,7 +78,7 @@ export default function AboutPageTr() {
               <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
               <h3 className="text-lg font-bold text-white mb-3">En Yüksek İnanç Düzeyine Sahip Adaylar — Bireysel Olarak Puanlanır</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI puanlama motoru her günlük adayı sıralar ve en yüksek inanç düzeyine sahip kurulumları seçer. Her biri teknik, temel ve puan gerekçesini kapsayan, şablon değil hisseye özel bir AI analiz raporu alır.
+                BOGASTOCK puanlama motoru her günlük adayı sıralar ve en yüksek inanç düzeyine sahip kurulumları seçer. Her biri teknik, temel ve puan gerekçesini kapsayan, şablon değil hisseye özel bir AI analiz raporu alır.
               </p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function AboutPageTr() {
 
         {/* Scoring System */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGA AI Puanlama Sistemi</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">BOGASTOCK Puanlama Sistemi</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <div className="glass-card p-8">
@@ -97,7 +97,7 @@ export default function AboutPageTr() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Çok Faktörlü Teknik Motor</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI Ana Puanı; RSI, MACD, bağıl hacim, EMA çapraz katları, ADX trend gücü ve Bollinger Band sıkışma yoğunluğu gibi teknik göstergelerin ağırlıklı bir karışımından hesaplanır — özellikle ABD hisse senedi momentum yapıları için geliştirilmiştir.
+                BOGASTOCK Ana Puanı; RSI, MACD, bağıl hacim, EMA çapraz katları, ADX trend gücü ve Bollinger Band sıkışma yoğunluğu gibi teknik göstergelerin ağırlıklı bir karışımından hesaplanır — özellikle ABD hisse senedi momentum yapıları için geliştirilmiştir.
               </p>
             </div>
 
@@ -121,7 +121,7 @@ export default function AboutPageTr() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Özel AI Yorumu</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Kısa listeye giren her hisse, BOGA AI motoru tarafından üretilen sade bir dilde analiz raporu alır. Rapor, belirli bir puanın <em>neden</em> verildiğini — genel ifadeler değil, hissenin kendi verilerine atıfla — açıklar; böylece her derecelendirmenin arkasındaki mantığı anlarsınız.
+                Kısa listeye giren her hisse, BOGASTOCK motoru tarafından üretilen sade bir dilde analiz raporu alır. Rapor, belirli bir puanın <em>neden</em> verildiğini — genel ifadeler değil, hissenin kendi verilerine atıfla — açıklar; böylece her derecelendirmenin arkasındaki mantığı anlarsınız.
               </p>
             </div>
 
@@ -133,7 +133,7 @@ export default function AboutPageTr() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Beş Kademeli Puan Derecelendirmesi</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                BOGA AI puanları beş profesyonel kademeye ayrılır: <strong className="text-white">Yüksek İnanç</strong>, <strong className="text-white">Pozitif Eğilim</strong>, <strong className="text-white">Nötr Bekle</strong>, <strong className="text-white">Negatif Eğilim</strong> ve <strong className="text-white">Düşük Performans</strong> — belirsizlik olmadan kurumsal düzeyde netlik sunar.
+                BOGASTOCK puanları beş profesyonel kademeye ayrılır: <strong className="text-white">Yüksek İnanç</strong>, <strong className="text-white">Pozitif Eğilim</strong>, <strong className="text-white">Nötr Bekle</strong>, <strong className="text-white">Negatif Eğilim</strong> ve <strong className="text-white">Düşük Performans</strong> — belirsizlik olmadan kurumsal düzeyde netlik sunar.
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function AboutPageTr() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">%100 ABD Hisse Senedi Piyasalarına Odaklı</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Günlük 6.000+ hisse, ABD hisse senedi piyasası için özel olarak inşa edilmiştir. Her algoritma, her ağırlık ve her puan kategorisi NYSE, NASDAQ ve ABD piyasa yapısına göre kalibre edilmiştir — ABD'ye uyarlanmış genel bir küresel model değil.
+            BOGASTOCK - Blue One Global Analysis - Günlük 6.000+ hisse, ABD hisse senedi piyasası için özel olarak inşa edilmiştir. Her algoritma, her ağırlık ve her puan kategorisi NYSE, NASDAQ ve ABD piyasa yapısına göre kalibre edilmiştir — ABD'ye uyarlanmış genel bir küresel model değil.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

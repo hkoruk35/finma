@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "À Propos de BOGA AI - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
-  description: "BOGA AI - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
+  title: "À Propos de BOGASTOCK - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
+  description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
   alternates: {
     canonical: "https://bogastock.com/global/fr/about",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "À Propos de BOGA AI - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
-    description: "BOGA AI - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
+    title: "À Propos de BOGASTOCK - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
+    description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
     url: "https://bogastock.com/global/fr/about",
   },
 };
@@ -43,13 +43,13 @@ export default function FrAboutPage() {
             <span className="text-[#3b82f6]">Conçue pour les Marchés Américains.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks est un système propriétaire de screening et scoring boursier multi-étapes qui transforme l'univers entier des actions américaines en une liste ciblée d'opportunités à forte probabilité - chaque jour de trading.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks est un système propriétaire de screening et scoring boursier multi-étapes qui transforme l'univers entier des actions américaines en une liste ciblée d'opportunités à forte probabilité - chaque jour de trading.
           </p>
         </div>
 
         {/* 3-Stage Process */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Comment Fonctionne le Système BOGA AI</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Comment Fonctionne le Système BOGASTOCK</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
             {/* Stage 1 */}
@@ -58,7 +58,7 @@ export default function FrAboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Scan Quotidien de l'Univers</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Chaque jour, l'algorithme BOGA AI parcourt <strong className="text-white">plus de 6 000 actions et ETF américains de premier plan</strong> dans tous les échanges principaux (NYSE, NASDAQ, AMEX) en appliquant des filtres de liquidité, volatilité et structure pour isoler les candidats les plus négociables.
+                Chaque jour, l'algorithme BOGASTOCK parcourt <strong className="text-white">plus de 6 000 actions et ETF américains de premier plan</strong> dans tous les échanges principaux (NYSE, NASDAQ, AMEX) en appliquant des filtres de liquidité, volatilité et structure pour isoler les candidats les plus négociables.
               </p>
             </div>
 
@@ -78,7 +78,7 @@ export default function FrAboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
               <h3 className="text-lg font-bold text-white mb-3">Candidats à Plus Haute Conviction — Scoring Individuel</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Le moteur de scoring BOGA AI classe chaque candidat quotidien et sélectionne les configurations à plus haute conviction. Chacune reçoit une analyse générée par l'IA, couvrant les techniques, les fondamentaux et la logique du score - pas un modèle générique, mais un résumé spécifique à chaque action.
+                Le moteur de scoring BOGASTOCK classe chaque candidat quotidien et sélectionne les configurations à plus haute conviction. Chacune reçoit une analyse générée par l'IA, couvrant les techniques, les fondamentaux et la logique du score - pas un modèle générique, mais un résumé spécifique à chaque action.
               </p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function FrAboutPage() {
 
         {/* Scoring System */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Le Système de Scoring BOGA AI</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Le Système de Scoring BOGASTOCK</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <div className="glass-card p-8">
@@ -97,7 +97,7 @@ export default function FrAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Moteur Technique Multifactoriel</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Le Score Maître BOGA AI est calculé à partir d'une combinaison pondérée d'indicateurs techniques - RSI, MACD, volume relatif, multiples de croisement EMA, force de tendance ADX et intensité de la bande de Bollinger - conçus spécifiquement pour les structures de momentum des actions américaines.
+                Le Score Maître BOGASTOCK est calculé à partir d'une combinaison pondérée d'indicateurs techniques - RSI, MACD, volume relatif, multiples de croisement EMA, force de tendance ADX et intensité de la bande de Bollinger - conçus spécifiquement pour les structures de momentum des actions américaines.
               </p>
             </div>
 
@@ -121,7 +121,7 @@ export default function FrAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Commentaires Propriétaires d'IA</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Chaque action sélectionnée reçoit un bref d'analyse en langage clair généré par le moteur BOGA AI. Le bref explique <em>pourquoi</em> un score spécifique a été attribué - en référençant les données propres de l'action, pas des généralités - afin que vous compreniez la logique derrière chaque notation.
+                Chaque action sélectionnée reçoit un bref d'analyse en langage clair généré par le moteur BOGASTOCK. Le bref explique <em>pourquoi</em> un score spécifique a été attribué - en référençant les données propres de l'action, pas des généralités - afin que vous compreniez la logique derrière chaque notation.
               </p>
             </div>
 
@@ -133,7 +133,7 @@ export default function FrAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Notations de Score à Cinq Niveaux</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Les scores BOGA AI sont classés en cinq niveaux professionnels : <strong className="text-white">Haute Conviction</strong>, <strong className="text-white">Biais Positif</strong>, <strong className="text-white">Neutralité</strong>, <strong className="text-white">Biais Négatif</strong> et <strong className="text-white">Sous-performance</strong> - ce qui vous donne une clarté de calibre institutionnel sans ambiguïté.
+                Les scores BOGASTOCK sont classés en cinq niveaux professionnels : <strong className="text-white">Haute Conviction</strong>, <strong className="text-white">Biais Positif</strong>, <strong className="text-white">Neutralité</strong>, <strong className="text-white">Biais Négatif</strong> et <strong className="text-white">Sous-performance</strong> - ce qui vous donne une clarté de calibre institutionnel sans ambiguïté.
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function FrAboutPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">100% Concentré sur les Marchés Boursiers Américains</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ stocks est conçu spécifiquement pour le marché boursier américain. Chaque algorithme, chaque pondération et chaque catégorie de score est calibré par rapport à la structure du marché NYSE, NASDAQ et américain - pas un modèle global générique adapté aux États-Unis.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks est conçu spécifiquement pour le marché boursier américain. Chaque algorithme, chaque pondération et chaque catégorie de score est calibré par rapport à la structure du marché NYSE, NASDAQ et américain - pas un modèle global générique adapté aux États-Unis.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

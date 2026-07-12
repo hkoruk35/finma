@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "Acerca de BOGA AI - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
-  description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
+  title: "Acerca de BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
+  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
   alternates: {
     canonical: "https://bogastock.com/global/es/about",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Acerca de BOGA AI - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
-    description: "BOGA AI - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
+    title: "Acerca de BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
+    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
     url: "https://bogastock.com/global/es/about",
   },
 };
@@ -43,13 +43,13 @@ export default function EsAboutPage() {
             <span className="text-[#3b82f6]">Diseñado para los Mercados de EE.UU.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ es un sistema propietario de selección y puntuación de acciones en múltiples etapas que convierte todo el universo bursátil estadounidense en una lista reducida de oportunidades de alta probabilidad — cada día de trading.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ es un sistema propietario de selección y puntuación de acciones en múltiples etapas que convierte todo el universo bursátil estadounidense en una lista reducida de oportunidades de alta probabilidad — cada día de trading.
           </p>
         </div>
 
         {/* 3-Stage Process */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Cómo Funciona el Sistema BOGA AI</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">Cómo Funciona el Sistema BOGASTOCK</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
             <div className="glass-card p-8 relative overflow-hidden">
@@ -57,7 +57,7 @@ export default function EsAboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#3b82f6]/10 flex items-center justify-center text-[#3b82f6] mb-6 text-2xl font-black">1</div>
               <h3 className="text-lg font-bold text-white mb-3">Escaneo Diario del Universo</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Cada día, el algoritmo de BOGA AI recorre <strong className="text-white">más de 6,000 acciones y ETFs premier de EE.UU.</strong> en todas las bolsas principales — NYSE, NASDAQ y AMEX — aplicando filtros de liquidez, volatilidad y estructura para aislar los candidatos más negociables.
+                Cada día, el algoritmo de BOGASTOCK recorre <strong className="text-white">más de 6,000 acciones y ETFs premier de EE.UU.</strong> en todas las bolsas principales — NYSE, NASDAQ y AMEX — aplicando filtros de liquidez, volatilidad y estructura para aislar los candidatos más negociables.
               </p>
             </div>
 
@@ -75,7 +75,7 @@ export default function EsAboutPage() {
               <div className="w-12 h-12 rounded-xl bg-[#22c55e]/10 flex items-center justify-center text-[#22c55e] mb-6 text-2xl font-black">3</div>
               <h3 className="text-lg font-bold text-white mb-3">Candidatos de Mayor Convicción — Puntuados Individualmente</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                El motor de puntuación de BOGA AI clasifica cada candidato diario y selecciona los setups de mayor convicción. Cada uno recibe un análisis único generado por IA que cubre técnicos, fundamentales y la justificación de la puntuación — no una plantilla, sino un informe específico para cada acción.
+                El motor de puntuación de BOGASTOCK clasifica cada candidato diario y selecciona los setups de mayor convicción. Cada uno recibe un análisis único generado por IA que cubre técnicos, fundamentales y la justificación de la puntuación — no una plantilla, sino un informe específico para cada acción.
               </p>
             </div>
           </div>
@@ -83,7 +83,7 @@ export default function EsAboutPage() {
 
         {/* Scoring System */}
         <div className="mb-20">
-          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">El Sistema de Puntuación BOGA AI</h2>
+          <h2 className="text-2xl font-black text-white text-center mb-12 uppercase tracking-widest">El Sistema de Puntuación BOGASTOCK</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             <div className="glass-card p-8">
@@ -94,7 +94,7 @@ export default function EsAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Motor Técnico Multi-Factor</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                La Puntuación Maestra de BOGA AI se calcula a partir de una combinación ponderada de indicadores técnicos — RSI, MACD, volumen relativo, cruces de EMA múltiples, fortaleza de tendencia ADX e intensidad de compresión de Bandas de Bollinger — diseñada específicamente para estructuras de impulso en renta variable estadounidense.
+                La Puntuación Maestra de BOGASTOCK se calcula a partir de una combinación ponderada de indicadores técnicos — RSI, MACD, volumen relativo, cruces de EMA múltiples, fortaleza de tendencia ADX e intensidad de compresión de Bandas de Bollinger — diseñada específicamente para estructuras de impulso en renta variable estadounidense.
               </p>
             </div>
 
@@ -118,7 +118,7 @@ export default function EsAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Comentario IA Propietario</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Cada acción preseleccionada recibe un informe de análisis en lenguaje sencillo generado por el motor BOGA AI. El informe explica <em>por qué</em> se asignó una puntuación específica — haciendo referencia a los propios datos de la acción, no a genéricos — para que entiendas la justificación detrás de cada valoración.
+                Cada acción preseleccionada recibe un informe de análisis en lenguaje sencillo generado por el motor BOGASTOCK. El informe explica <em>por qué</em> se asignó una puntuación específica — haciendo referencia a los propios datos de la acción, no a genéricos — para que entiendas la justificación detrás de cada valoración.
               </p>
             </div>
 
@@ -130,7 +130,7 @@ export default function EsAboutPage() {
               </div>
               <h3 className="text-xl font-bold text-white mb-4">Cinco Niveles de Puntuación</h3>
               <p className="text-[#00d2ff] text-sm leading-relaxed">
-                Las puntuaciones de BOGA AI se clasifican en cinco niveles profesionales: <strong className="text-white">Alta Convicción</strong>, <strong className="text-white">Sesgo Positivo</strong>, <strong className="text-white">Neutral</strong>, <strong className="text-white">Sesgo Negativo</strong> y <strong className="text-white">Bajo Rendimiento</strong> — proporcionando claridad de grado institucional sin ambigüedad.
+                Las puntuaciones de BOGASTOCK se clasifican en cinco niveles profesionales: <strong className="text-white">Alta Convicción</strong>, <strong className="text-white">Sesgo Positivo</strong>, <strong className="text-white">Neutral</strong>, <strong className="text-white">Sesgo Negativo</strong> y <strong className="text-white">Bajo Rendimiento</strong> — proporcionando claridad de grado institucional sin ambigüedad.
               </p>
             </div>
           </div>
@@ -141,7 +141,7 @@ export default function EsAboutPage() {
           <div className="absolute top-0 left-0 w-full h-1 bg-[#3b82f6] rounded-t-2xl"></div>
           <h2 className="text-2xl font-bold text-white mb-4">100% Enfocado en los Mercados de Renta Variable de EE.UU.</h2>
           <p className="text-white max-w-2xl mx-auto leading-relaxed mb-6">
-            BOGA AI - Blue One Global Analysis - Daily 6,000+ está diseñado específicamente para el mercado de acciones de EE.UU. Cada algoritmo, cada peso y cada categoría de puntuación está calibrada frente a NYSE, NASDAQ y la estructura del mercado estadounidense — no es un modelo global genérico adaptado para EE.UU.
+            BOGASTOCK - Blue One Global Analysis - Daily 6,000+ está diseñado específicamente para el mercado de acciones de EE.UU. Cada algoritmo, cada peso y cada categoría de puntuación está calibrada frente a NYSE, NASDAQ y la estructura del mercado estadounidense — no es un modelo global genérico adaptado para EE.UU.
           </p>
           <div className="flex flex-wrap justify-center gap-3 text-xs font-bold uppercase tracking-widest">
             {["NYSE", "NASDAQ", "AMEX", "S&P 500", "NASDAQ 100", "Russell 2000"].map(ex => (

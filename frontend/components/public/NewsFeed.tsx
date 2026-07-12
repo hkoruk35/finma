@@ -10,10 +10,12 @@ const STRINGS: Record<string, { viewOnX: string; empty: string }> = {
 
 function formatDate(iso: string, locale: string): string {
   const langMap: Record<string, string> = { en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-PT", tr: "tr-TR" };
-  return new Intl.DateTimeFormat(langMap[locale] ?? "en-US", {
+  const formatted = new Intl.DateTimeFormat(langMap[locale] ?? "en-US", {
     dateStyle: "medium",
     timeStyle: "short",
+    timeZone: "America/New_York",
   }).format(new Date(iso));
+  return `${formatted} NY`;
 }
 
 export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; locale: string }) {
@@ -46,7 +48,7 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
               src={post.image_url}
-              alt={`${post.ticker ?? "BogaStock"} chart`}
+              alt={`${post.ticker ?? "BOGASTOCK"} chart`}
               loading="lazy"
               className="w-full rounded-lg border border-white/10 mt-1"
               itemProp="image"
