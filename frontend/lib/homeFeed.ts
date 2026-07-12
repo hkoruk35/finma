@@ -134,14 +134,18 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
 
   // top100_tickers.sector is often a placeholder ("Other") — overlay the real
   // sector (and trend status, which isn't in Supabase at all) from live data
-  // for just this shortlist instead of the full 100.
+  // for just this shortlist instead of the full 100. Price/change_pct are
+  // also overlaid from the same live source Swing/Trend use below — the
+  // Supabase snapshot is written by a separately-scheduled cron pipeline and
+  // can lag live quotes by hours, which is what caused the same ticker to
+  // show a different price in the Top 100 panel than in Swing/Trend.
   const live = await fetchLiveQuotes(top.map((t) => t.ticker));
   return top.map(({ ticker, sector, price, change_pct }) => ({
     ticker,
     sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
     status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
-    price,
-    change_pct,
+    price: live[ticker]?.price?.current ?? price,
+    change_pct: live[ticker]?.price?.change_pct ?? change_pct,
     sparkline: live[ticker]?.recent_closes ?? [],
   }));
 }
@@ -172,8 +176,8 @@ export async function getAllTop100Tickers(limit = 100): Promise<HomeStock[]> {
     ticker,
     sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
     status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
-    price,
-    change_pct,
+    price: live[ticker]?.price?.current ?? price,
+    change_pct: live[ticker]?.price?.change_pct ?? change_pct,
     sparkline: live[ticker]?.recent_closes ?? [],
   }));
 }
