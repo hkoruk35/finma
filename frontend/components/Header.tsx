@@ -150,7 +150,7 @@ export default function Header({
       <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
         <Image
           src="/finmawave.png"
-          alt="BOGA AI - Blue One Global Analysis"
+          alt="BOGASTOCK - Blue One Global Analysis"
           width={32}
           height={32}
           priority
@@ -162,7 +162,7 @@ export default function Header({
           className="text-lg md:text-xl text-white tracking-tighter"
           style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
         >
-          BOGA AI
+          BOGA<span className="text-[#3b82f6]">STOCK</span>
         </span>
         <span className="hidden md:inline text-[9px] text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em]">
           Financial Analysis

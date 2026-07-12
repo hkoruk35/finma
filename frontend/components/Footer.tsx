@@ -91,14 +91,14 @@ export default function Footer({
               <div className="relative w-8 h-8">
                 <Image
                   src="/finmawave.png"
-                  alt="BOGA AI - Blue One Global Analysis"
+                  alt="BOGASTOCK - Blue One Global Analysis"
                   width={32}
                   height={32}
                   loading="lazy"
                   className="object-contain rounded-lg"
                 />
               </div>
-              <span className="text-base font-black text-white tracking-tighter">BOGA AI - Blue One Global<br/>Analysis</span>
+              <span className="text-base font-black text-white tracking-tighter">BOGA<span className="text-[#3b82f6]">STOCK</span> - Blue One Global<br/>Analysis</span>
             </div>
             <p className="text-xs text-[#00d2ff]">
               {BRAND_TAGLINE[locale ?? "en"]}
@@ -164,14 +164,14 @@ export default function Footer({
           </p>
           <p className="text-xs text-[#00d2ff]">
             {locale === "tr"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
+              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
               : locale === "es"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Todos los Derechos Reservados."
+              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Todos los Derechos Reservados."
               : locale === "fr"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Tous Droits R\u00E9serv\u00E9s."
+              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Tous Droits R\u00E9serv\u00E9s."
               : locale === "pt"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - Todos os Direitos Reservados."
-              : "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGA AI - All Rights Reserved."}
+              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Todos os Direitos Reservados."
+              : "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - All Rights Reserved."}
           </p>
         </div>
       </div>
