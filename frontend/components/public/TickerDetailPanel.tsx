@@ -29,6 +29,7 @@ interface PreorderAnalysis {
     stagedExit: { pct: number; price: number; label: string; rr: number }[];
     stop: { price: number; pct: number };
     rr1: number;
+    valid: boolean;
   };
   activeSignals: string[];
   warnings: string[];
@@ -195,6 +196,14 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
           {premiumLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
+          ) : !data.tradePlan.valid ? (
+            <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-white/30">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566ZM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5Zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
+              </svg>
+              <span className="text-[11px] font-bold tracking-wider text-white/50 uppercase">Not Suitable for a Trade</span>
+              <span className="text-[11px] text-white/40 max-w-[200px] leading-snug">Downtrend structure — no valid long entry/stop/target setup right now</span>
+            </div>
           ) : (
             <>
               <div className="grid grid-cols-2 gap-2">

@@ -425,6 +425,12 @@ interface PreorderAnalysis {
     stagedExit:  { pct: number; price: number; label: string; rr: number }[];
     stop: { price: number; pct: number };
     rr1: number; rr2: number;
+    // stopPrice bazen (belirgin dususte, EMA50 fiyatin uzerine ciktiginda)
+    // entry'nin uzerine cikabiliyor — bu durumda risk<=0 olur ve tum RR/hedef
+    // matematigi anlamsizlasir. Bu bayrak, boyle bir kurulumun uzun (long)
+    // pozisyon icin gecerli olmadigini isaretler; tuketiciler (orn.
+    // TickerDetailPanel) sayilari degil bir uyari gostermeli.
+    valid: boolean;
   };
   momentum: {
     macd: number; macdSignal: number; macdHist: number;
@@ -699,6 +705,10 @@ export async function GET(req: NextRequest) {
   const rr1 = risk > 0 ? (target1 - entry1) / risk : 0;
   const rr2 = risk > 0 ? (target2 - entry1) / risk : 0;
   const rr3 = risk > 0 ? (target3 - entry1) / risk : 0;
+  // risk<=0 sadece EMA50 tabanli stop, dususte fiyatin uzerine ciktiginda
+  // olusuyor — yani zaten bir dusus/zayiflik isareti; bu yuzden ayrica
+  // Weinstein Stage 4'u de gecersiz sayiyoruz.
+  const tradePlanValid = risk > 0 && weinstein.stage !== 4;
 
   const result: PreorderAnalysis = {
     ticker,
@@ -759,6 +769,7 @@ export async function GET(req: NextRequest) {
       ],
       stop: { price: +stopPrice.toFixed(2), pct: +stopPct.toFixed(1) },
       rr1: +rr1.toFixed(1), rr2: +rr2.toFixed(1),
+      valid: tradePlanValid,
     },
     momentum: {
       macd: +macdResult.macd.toFixed(3), macdSignal: +macdResult.signal.toFixed(3), macdHist: +macdResult.histogram.toFixed(3),
