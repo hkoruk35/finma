@@ -40,22 +40,27 @@ const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; labe
 const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; label: string }[]> = {
   en: [
     { href: "/global/en/about", label: "About BOGA AI" },
+    { href: "/global/en/news", label: "Market News" },
     { href: "/global/en/contact", label: "Contact Support" },
   ],
   tr: [
     { href: "/global/tr/about", label: "BOGA AI Hakkında" },
+    { href: "/global/tr/news", label: "Piyasa Haberleri" },
     { href: "/global/tr/contact", label: "Destek İletişim" },
   ],
   es: [
     { href: "/global/es/about", label: "Acerca de BOGA AI" },
+    { href: "/global/es/news", label: "Noticias del Mercado" },
     { href: "/global/es/contact", label: "Soporte y Contacto" },
   ],
   fr: [
     { href: "/global/fr/about", label: "À Propos de BOGA AI" },
+    { href: "/global/fr/news", label: "Actualités du Marché" },
     { href: "/global/fr/contact", label: "Support et Contact" },
   ],
   pt: [
     { href: "/global/pt/about", label: "Sobre a BOGA AI" },
+    { href: "/global/pt/news", label: "Notícias do Mercado" },
     { href: "/global/pt/contact", label: "Suporte e Contato" },
   ],
 };

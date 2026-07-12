@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function FrAboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/fr" />
+      <Header hideMenus={true} globalLocale="fr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 

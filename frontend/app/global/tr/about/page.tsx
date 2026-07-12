@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default function AboutPageTr() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/en" />
+      <Header hideMenus={true} globalLocale="tr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 
