@@ -1,4 +1,5 @@
 import { getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { fetchLiveQuotes } from "@/lib/homeFeed";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -86,9 +87,17 @@ export default async function CategoryPage({ params }: Props) {
 
   const menu = master.menus[category.key] || { tickers: [] };
   const tickerMap = new Map(allTickers.map((t) => [t.ticker, t]));
-  const stocks = menu.tickers
+  const staticStocks = menu.tickers
     .map((t) => tickerMap.get(t))
     .filter(Boolean);
+
+  // change_pct'i canli veriyle overlay et — Sector Heat Map / Swing / Trend /
+  // Top 100 panelleriyle ayni kaynaktan beslenmesi icin (bkz. lib/homeFeed.ts).
+  const liveQuotes = await fetchLiveQuotes(staticStocks.map((s) => s!.ticker));
+  const stocks = staticStocks.map((s) => {
+    const changePct = liveQuotes[s!.ticker]?.price?.change_pct;
+    return changePct != null ? { ...s!, change_pct: changePct } : s!;
+  });
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">

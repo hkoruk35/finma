@@ -1,4 +1,5 @@
 import { getMasterData, getAllTickers, getScoreBadgeClass, getChangeColor, formatPrice } from "@/lib/data";
+import { fetchLiveQuotes } from "@/lib/homeFeed";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TickerTape from "@/components/TickerTape";
@@ -75,7 +76,16 @@ export default async function SectorPage({ params }: Props) {
     return <div className="min-h-screen bg-[#0d1117]" />;
   }
 
-  const stocks = allTickers.filter((t) => t.sector === sectorName);
+  const staticStocks = allTickers.filter((t) => t.sector === sectorName);
+
+  // change_pct'i canli veriyle overlay et — Sector Heat Map / Swing / Trend /
+  // Top 100 panelleriyle ayni kaynaktan beslenmesi icin (bkz. lib/homeFeed.ts).
+  const liveQuotes = await fetchLiveQuotes(staticStocks.map((s) => s.ticker));
+  const stocks = staticStocks.map((s) => {
+    const changePct = liveQuotes[s.ticker]?.price?.change_pct;
+    return changePct != null ? { ...s, change_pct: changePct } : s;
+  });
+
   const sectorStats = master.sector_summary[sectorName] || { avg_score: 0, top_ticker: "N/A", stock_count: 0 };
   const etf = SECTOR_ETF[sectorName];
 

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -183,6 +183,8 @@ export default async function FrHomePage() {
     };
   });
 
+  const heatMapTickers = await overlayHeatMapChangePct(comprehensiveTickersList);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="fr" />
@@ -263,7 +265,7 @@ export default async function FrHomePage() {
         {/* Sector Heat Map */}
         {master && (
           <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={comprehensiveTickersList} locale="fr" />
+            <SectorHeatMap data={master} allTickers={heatMapTickers} locale="fr" />
           </section>
         )}
 

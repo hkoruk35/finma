@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { MasterData, StockQuickView } from "@/lib/data";
+import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector } from "@/lib/sectorHeatMap";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 
@@ -28,12 +29,6 @@ const SECTOR_ETF: Record<string, string> = {
   Materials: "XLB", "High-Growth": "QQQ"
 };
 
-const SECTOR_ORDER = [
-  "Technology", "Financials", "Healthcare", "Consumer Discretionary",
-  "Communication Services", "Industrials", "Energy", "Consumer Staples",
-  "Real Estate", "Materials", "Utilities"
-];
-
 interface Props {
   data: MasterData;
   allTickers: StockQuickView[];
@@ -46,18 +41,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
   const currentLocale = locale || pathname?.split('/')[2] || 'en';
 
   // Use ALL tickers, sorted by volume for display order within each sector
-  const sorted = [...allTickers].sort(
-    (a, b) => (b.volume ?? b.avg_volume_30d ?? b.master_score) - (a.volume ?? a.avg_volume_30d ?? a.master_score)
-  );
-
-  // Grouping — all sectors, all tickers
-  const sectorGroups: Record<string, StockQuickView[]> = {};
-  sorted.forEach(t => {
-    const s = t.sector || "Other";
-    if (!sectorGroups[s]) sectorGroups[s] = [];
-    sectorGroups[s].push(t);
-  });
-
+  const sectorGroups = groupBySector(allTickers);
   const activeSectors = SECTOR_ORDER.filter(s => sectorGroups[s]?.length > 0);
 
   return (
@@ -88,7 +72,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
       <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible">
         <div className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:min-w-0">
           {activeSectors.map(sector => {
-            const stocks = sectorGroups[sector].slice(0, 12); // Show top 12 per sector for map
+            const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR); // Show top N per sector for map
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
             const sectorStyles = getPerformanceColor(avgChange);
 

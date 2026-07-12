@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -186,6 +186,11 @@ export default async function EnHomePage() {
     };
   });
 
+  // Heat map'in fiilen gosterecegi ticker'lar icin canli change_pct overlay'i
+  // — statik kaynaklardan (options P&L, trade return_pct dahil) gelen bayat
+  // degerlerin Swing/Trend/Top100 panelleriyle celismesini onler.
+  const heatMapTickers = await overlayHeatMapChangePct(comprehensiveTickersList);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="en" />
@@ -266,7 +271,7 @@ export default async function EnHomePage() {
         {/* Sector Heat Map */}
         {master && (
           <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={comprehensiveTickersList} locale="en" />
+            <SectorHeatMap data={master} allTickers={heatMapTickers} locale="en" />
           </section>
         )}
 

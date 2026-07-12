@@ -4,8 +4,9 @@
  * Everything here goes through fetch() with an hourly revalidate so the page
  * can be served as ISR and update on the hour during market days.
  */
-import { getSwingPicksBackfilled, getMasterData } from "./data";
+import { getSwingPicksBackfilled, getMasterData, type StockQuickView } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
+import { selectHeatMapTickers } from "./sectorHeatMap";
 
 export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
 
@@ -29,7 +30,10 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
-async function fetchLiveQuotes(tickers: string[]): Promise<Record<string, any>> {
+// Diger canli-fiyat tuketicilerinde (admin/stocks kategori/sektor sayfalari
+// gibi) de tekrar kullanilabilsin diye export edilir — tek bir fiyat
+// kaynagi (bu fonksiyon) ile tutarlilik saglamanin anahtari budur.
+export async function fetchLiveQuotes(tickers: string[]): Promise<Record<string, any>> {
   if (tickers.length === 0) return {};
   try {
     const res = await fetch(`${BASE_URL}/api/watchlist-data?tickers=${tickers.join(",")}`, {
@@ -194,6 +198,26 @@ export async function getLastUpdated(): Promise<string> {
     timeZone: "America/New_York",
     hour: "2-digit",
     minute: "2-digit",
+  });
+}
+
+// Sector Heat Map, taze olabilecegi garanti edilmeyen statik kaynaklardan
+// (all_tickers_list.json, swing_performance.json, options JSON'lari) derlenen
+// change_pct degerleriyle geliyordu — ayni sayfadaki Swing/Trend/Top100
+// panelleri canli veri kullanirken, ayni ticker Heat Map'te farkli bir
+// degisim% gosterebiliyordu. Sadece fiilen gosterilecek ticker'lar
+// (selectHeatMapTickers ile ayni sektor-basi-N secimi) icin canli veri
+// cekip change_pct'i overlay ediyoruz — binlerce ticker'in tamamini degil.
+export async function overlayHeatMapChangePct(allTickers: StockQuickView[]): Promise<StockQuickView[]> {
+  const candidates = selectHeatMapTickers(allTickers);
+  if (candidates.length === 0) return allTickers;
+
+  const live = await fetchLiveQuotes(candidates.map((t) => t.ticker));
+  if (Object.keys(live).length === 0) return allTickers;
+
+  return allTickers.map((t) => {
+    const changePct = live[t.ticker]?.price?.change_pct;
+    return changePct != null ? { ...t, change_pct: changePct } : t;
   });
 }
 
