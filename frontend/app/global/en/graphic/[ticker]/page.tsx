@@ -189,7 +189,7 @@ export default function GraphicDetailPage() {
           <TickerDetailPanel ticker={ticker} locale="en" hideChart hidePermalink lockTradePlan />
         </div>
       </main>
-      <Footer hidePlatform locale="en" onlyContact={!isLoggedIn} />
+      <Footer hidePlatform locale="en" />
     </div>
   );
 }

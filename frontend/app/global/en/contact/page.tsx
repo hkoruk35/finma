@@ -4,8 +4,10 @@ import { useState } from "react";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 export default function ContactPage() {
+  const { isPremium, loading: planLoading } = useMemberPlan();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -55,7 +57,25 @@ export default function ContactPage() {
         </div>
 
         <div className="max-w-2xl mx-auto">
-           {status === "success" ? (
+           {planLoading ? (
+             <div className="glass-card p-12 text-center border border-[#1e2a3a] bg-[#141924] text-slate-500 text-sm">Loading...</div>
+           ) : !isPremium ? (
+             <div className="glass-card p-12 text-center border border-amber-500/30 bg-[#141924]">
+                <div className="w-16 h-16 bg-amber-500/10 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                   <svg width="28" height="28" viewBox="0 0 16 16" fill="currentColor">
+                      <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                   </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">Premium Feature</h2>
+                <p className="text-slate-400 mb-8">Direct support is available to Premium members. Upgrade your account to send us a message.</p>
+                <Link
+                  href="/global/en/register"
+                  className="inline-block px-6 py-3 bg-[#3b82f6] text-white rounded-lg font-bold hover:bg-[#2563eb] transition-colors uppercase tracking-wider text-sm"
+                >
+                  Become a Premium Member
+                </Link>
+             </div>
+           ) : status === "success" ? (
              <div className="glass-card p-12 text-center animate-fade-in border border-[#1e2a3a] bg-[#141924]">
                 <div className="w-16 h-16 bg-[#22c55e]/10 text-[#22c55e] rounded-full flex items-center justify-center mx-auto mb-6">
                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
