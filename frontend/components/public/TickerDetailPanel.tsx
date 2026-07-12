@@ -192,8 +192,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           )}
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
+        <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">
+          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
           {premiumLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : !data.tradePlan.valid ? (
