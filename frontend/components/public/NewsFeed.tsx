@@ -42,6 +42,16 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
           <p className="text-white leading-relaxed" itemProp="text">
             {post.content_text}
           </p>
+          {post.image_url && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={post.image_url}
+              alt={`${post.ticker ?? "BogaStock"} chart`}
+              loading="lazy"
+              className="w-full rounded-lg border border-white/10 mt-1"
+              itemProp="image"
+            />
+          )}
           <div className="flex items-center justify-between text-xs text-slate-500 mt-2">
             <time dateTime={post.posted_at} itemProp="datePublished">
               {formatDate(post.posted_at, locale)}

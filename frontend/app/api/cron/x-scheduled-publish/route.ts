@@ -5,6 +5,7 @@ import { postTweet, extractXErrorDetail } from "@/lib/x/client";
 import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
+import { uploadPostImage } from "@/lib/x/storage";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -112,10 +113,11 @@ export async function GET(req: NextRequest) {
         ? appendHashtagsWithinLimit(claimed.content_text, hashtagText, MANUAL_POST_LIMIT)
         : claimed.content_text;
       const tweetId = await postTweet(tweetText, imageBuffer);
+      const imageUrl = await uploadPostImage(claimed.id, imageBuffer);
 
       await supabaseAdmin
         .from("x_posts")
-        .update({ status: "posted", tweet_id: tweetId, posted_at: new Date().toISOString() })
+        .update({ status: "posted", tweet_id: tweetId, image_url: imageUrl, posted_at: new Date().toISOString() })
         .eq("id", claimed.id);
 
       results.push({ id: claimed.id, ticker: claimed.ticker, locale: claimed.locale, posted: true });

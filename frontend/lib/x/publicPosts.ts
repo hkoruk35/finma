@@ -8,6 +8,7 @@ export interface PublicPost {
   locale: string;
   content_text: string | null;
   tweet_id: string | null;
+  image_url: string | null;
   posted_at: string;
 }
 
@@ -16,7 +17,7 @@ export interface PublicPost {
 export async function getPublicPosts(limit = 60): Promise<PublicPost[]> {
   const { data, error } = await supabaseAdmin
     .from("x_posts")
-    .select("id, ticker, sector, theme, locale, content_text, tweet_id, posted_at")
+    .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
     .eq("status", "posted")
     .not("posted_at", "is", null)
     .order("posted_at", { ascending: false })

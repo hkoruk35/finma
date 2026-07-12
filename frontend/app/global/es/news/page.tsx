@@ -32,7 +32,7 @@ export default async function EsNewsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/es" />
+      <Header hideMenus={true} globalLocale="es" />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">

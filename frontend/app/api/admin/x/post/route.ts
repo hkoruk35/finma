@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
 import { postTweet, extractXErrorDetail } from "@/lib/x/client";
+import { uploadPostImage } from "@/lib/x/storage";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -66,10 +67,11 @@ export async function POST(req: NextRequest) {
   try {
     const imageBuffer = await renderCardPng(cardParams);
     const tweetId = await postTweet(contentText, imageBuffer);
+    const imageUrl = await uploadPostImage(postRow.id, imageBuffer);
 
     await supabaseAdmin
       .from("x_posts")
-      .update({ status: "posted", tweet_id: tweetId, posted_at: new Date().toISOString() })
+      .update({ status: "posted", tweet_id: tweetId, image_url: imageUrl, posted_at: new Date().toISOString() })
       .eq("id", postRow.id);
 
     return NextResponse.json({ tweetId, postId: postRow.id });

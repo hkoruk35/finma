@@ -6,6 +6,7 @@ import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateCo
 import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
+import { uploadPostImage } from "@/lib/x/storage";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -200,10 +201,11 @@ export async function GET(req: NextRequest) {
     const hashtags = buildStockHashtags(pendingPost.ticker, pendingPost.sector, market?.trend);
     const tweetText = appendHashtagsWithinLimit(pendingPost.content_text, hashtags);
     const tweetId = await postTweet(tweetText, imageBuffer);
+    const imageUrl = await uploadPostImage(pendingPost.id, imageBuffer);
 
     await supabaseAdmin
       .from("x_posts")
-      .update({ status: "posted", tweet_id: tweetId, posted_at: new Date().toISOString() })
+      .update({ status: "posted", tweet_id: tweetId, image_url: imageUrl, posted_at: new Date().toISOString() })
       .eq("id", pendingPost.id);
 
     await supabaseAdmin
