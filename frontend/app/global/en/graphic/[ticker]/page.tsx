@@ -7,12 +7,15 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import TickerSearchBox from "@/components/public/TickerSearchBox";
 
 const SHORTCUTS = [
   { label: "TOP 100", href: "/global/en/top100" },
   { label: "SWING", href: "/global/en/swing" },
   { label: "TREND", href: "/global/en/trend" },
 ];
+
+const REGISTER_HREF = "/global/en/register";
 
 // Index tickers shown in the header strip: S&P 500, Nasdaq, Dow, Russell 2000, VIX.
 const INDICES = [
@@ -44,6 +47,16 @@ export default function GraphicDetailPage() {
   const [loading, setLoading] = useState(false);
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
+  // Herkese acik onizleme: giris yapmamis ziyaretcilerin ust kisayol
+  // butonlariyla uye-kilitli sayfalara (Top100/Swing/Trend/Analiz)
+  // gecmesini engellemek icin oturum durumunu bir kez kontrol ediyoruz.
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/members/me")
+      .then((r) => setIsLoggedIn(r.ok))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
 
   useEffect(() => {
     if (!ticker) return;
@@ -115,7 +128,7 @@ export default function GraphicDetailPage() {
             {SHORTCUTS.map((s) => (
               <Link
                 key={s.href}
-                href={s.href}
+                href={isLoggedIn ? s.href : REGISTER_HREF}
                 className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all"
               >
                 {s.label}
@@ -123,7 +136,7 @@ export default function GraphicDetailPage() {
             ))}
             {ticker && (
               <Link
-                href={`/global/en/analysis/${ticker}`}
+                href={isLoggedIn ? `/global/en/analysis/${ticker}` : REGISTER_HREF}
                 className="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/40 text-[10px] font-black text-purple-400 hover:text-white hover:border-purple-400 transition-all"
               >
                 DEEP ANALYSIS
@@ -160,6 +173,8 @@ export default function GraphicDetailPage() {
           )}
         </div>
 
+        <TickerSearchBox locale="en" />
+
         <div className="glass-card overflow-hidden mb-4">
           <BogaChartEngine
             symbol={ticker}
@@ -171,10 +186,10 @@ export default function GraphicDetailPage() {
           />
         </div>
         <div className="glass-card overflow-hidden">
-          <TickerDetailPanel ticker={ticker} locale="en" hideChart hidePermalink />
+          <TickerDetailPanel ticker={ticker} locale="en" hideChart hidePermalink lockTradePlan />
         </div>
       </main>
-      <Footer hidePlatform locale="en" />
+      <Footer hidePlatform locale="en" onlyContact={!isLoggedIn} />
     </div>
   );
 }

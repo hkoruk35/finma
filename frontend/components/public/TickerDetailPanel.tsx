@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ScreenerChart from "@/components/screener/ScreenerChart";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+
+function registerHref(locale: Locale): string {
+  return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
+}
 
 interface PreorderAnalysis {
   ticker: string;
@@ -39,8 +45,11 @@ function fmtVol(n: number): string {
   return `${n}`;
 }
 
-export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean }) {
+export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlan }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlan?: boolean }) {
   const t = copy[locale].top100.detail;
+  const router = useRouter();
+  const { isPremium } = useMemberPlan();
+  const tradePlanLocked = !!lockTradePlan && !isPremium;
   const [data, setData] = useState<PreorderAnalysis | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -157,23 +166,40 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { label: t.entry, value: `$${fmt(data.tradePlan.stagedEntry[0]?.price)}`, color: "text-green-400", bg: "bg-green-500/10 border-green-500/40" },
-              { label: t.stop, value: `$${fmt(data.tradePlan.stop.price)}`, color: "text-red-400", bg: "bg-red-500/10 border-red-500/40" },
-              { label: t.target, value: `$${fmt(data.tradePlan.stagedExit[0]?.price)}`, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/40" },
-              { label: t.rr, value: `${fmt(data.tradePlan.rr1, 1)}x`, color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/40" },
-            ].map((p) => (
-              <div key={p.label} className={`border rounded-md py-2 text-center ${p.bg}`}>
-                <div className={`text-[11px] font-bold tracking-wider ${p.color}`}>{p.label}</div>
-                <div className={`text-base font-mono font-extrabold mt-0.5 ${p.color}`}>{p.value}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-bold pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
+          {tradePlanLocked ? (
+            <button
+              type="button"
+              onClick={() => router.push(registerHref(locale))}
+              className="flex flex-col items-center justify-center gap-2 border border-amber-500/40 bg-amber-500/10 rounded-md py-7 px-3 text-center hover:bg-amber-500/20 transition-colors"
+            >
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
+                <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+              </svg>
+              <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
+              <span className="text-[11px] text-white/50 max-w-[180px] leading-snug">{t.unlockTradePlan}</span>
+            </button>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: t.entry, value: `$${fmt(data.tradePlan.stagedEntry[0]?.price)}`, color: "text-green-400", bg: "bg-green-500/10 border-green-500/40" },
+                  { label: t.stop, value: `$${fmt(data.tradePlan.stop.price)}`, color: "text-red-400", bg: "bg-red-500/10 border-red-500/40" },
+                  { label: t.target, value: `$${fmt(data.tradePlan.stagedExit[0]?.price)}`, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/40" },
+                  { label: t.rr, value: `${fmt(data.tradePlan.rr1, 1)}x`, color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/40" },
+                ].map((p) => (
+                  <div key={p.label} className={`border rounded-md py-2 text-center ${p.bg}`}>
+                    <div className={`text-[11px] font-bold tracking-wider ${p.color}`}>{p.label}</div>
+                    <div className={`text-base font-mono font-extrabold mt-0.5 ${p.color}`}>{p.value}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="bg-[#111620] border border-[#253347] rounded-md py-2 text-center">
-            <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
-            <div className="text-base font-bold text-amber-400">{fmt(data.tradePlan.stop.pct)}%</div>
-          </div>
+              <div className="bg-[#111620] border border-[#253347] rounded-md py-2 text-center">
+                <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
+                <div className="text-base font-bold text-amber-400">{fmt(data.tradePlan.stop.pct)}%</div>
+              </div>
+            </>
+          )}
           {!fullPage && !hidePermalink && (
             <a href={permalinkHref} className="text-center text-sm font-bold text-blue-400 border border-blue-500/40 bg-blue-500/10 rounded-md py-1.5 hover:bg-blue-500/20 transition-colors">
               {t.permalink} ↗

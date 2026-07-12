@@ -76,10 +76,18 @@ const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
 export default function Footer({
   hidePlatform = false,
   locale,
+  onlyContact = false,
 }: {
   hidePlatform?: boolean;
   locale?: "en" | "tr" | "es" | "fr" | "pt";
+  /** Herkese acik onizleme sayfalari (orn. /graphic) icin: sadece Contact
+   * linki gosterilir, Platform/About/News/Legal linkleri gizlenir. */
+  onlyContact?: boolean;
 }) {
+  const resourceLinks = onlyContact
+    ? RESOURCES_LINKS[locale ?? "en"].filter((item) => item.href.endsWith("/contact"))
+    : RESOURCES_LINKS[locale ?? "en"];
+
   return (
     <footer className="border-t border-[#1e2a3a] bg-[#0a0e17] mt-12">
 
@@ -106,7 +114,7 @@ export default function Footer({
           </div>
 
           {/* Platform */}
-          {!hidePlatform && (
+          {!hidePlatform && !onlyContact && (
             <div>
               <h4 className="text-sm font-semibold text-white mb-3">Platform</h4>
               <div className="flex flex-col gap-2">
@@ -124,7 +132,7 @@ export default function Footer({
           <div>
             <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : "Resources"}</h4>
             <div className="flex flex-col gap-2">
-              {RESOURCES_LINKS[locale ?? "en"].map((item) => (
+              {resourceLinks.map((item) => (
                 <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
                   {item.label}
                 </Link>
@@ -133,6 +141,7 @@ export default function Footer({
           </div>
 
           {/* Legal */}
+          {!onlyContact && (
           <div>
             <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Yasal" : "Legal"}</h4>
             <div className="flex flex-col gap-1.5">
@@ -143,6 +152,7 @@ export default function Footer({
               ))}
             </div>
           </div>
+          )}
         </div>
 
         <div className="border-t border-[#1e2a3a] mt-8 pt-4 text-center">

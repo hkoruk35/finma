@@ -171,6 +171,9 @@ export const copy = {
       detail: {
         technicalCard: "Technical Indicators",
         marketCard: "Market Data",
+        tradePlanCard: "Trade Plan",
+        premiumLocked: "Premium",
+        unlockTradePlan: "Unlock entry, stop, target & risk/reward",
         scoreCard: "BOGA Score Components",
         trend: "Trend",
         momentum: "Momentum",
@@ -372,6 +375,9 @@ export const copy = {
       detail: {
         technicalCard: "Teknik Göstergeler",
         marketCard: "Piyasa Verileri",
+        tradePlanCard: "İşlem Planı",
+        premiumLocked: "Premium",
+        unlockTradePlan: "Giriş, stop, hedef ve risk/getiri oranını görmek için üye ol",
         scoreCard: "BOGA Score Bileşenleri",
         trend: "Trend",
         momentum: "Momentum",
@@ -573,6 +579,9 @@ export const copy = {
       detail: {
         technicalCard: "Indicadores Técnicos",
         marketCard: "Datos de Mercado",
+        tradePlanCard: "Plan de Operación",
+        premiumLocked: "Premium",
+        unlockTradePlan: "Desbloquea entrada, stop, objetivo y riesgo/recompensa",
         scoreCard: "Componentes del BOGA Score",
         trend: "Tendencia",
         momentum: "Momentum",
@@ -774,6 +783,9 @@ export const copy = {
       detail: {
         technicalCard: "Indicateurs Techniques",
         marketCard: "Données de Marché",
+        tradePlanCard: "Plan de Trading",
+        premiumLocked: "Premium",
+        unlockTradePlan: "Débloquez l'entrée, le stop, la cible et le ratio risque/rendement",
         scoreCard: "Composantes du Score BOGA",
         trend: "Tendance",
         momentum: "Momentum",
@@ -975,6 +987,9 @@ export const copy = {
       detail: {
         technicalCard: "Indicadores Técnicos",
         marketCard: "Dados de Mercado",
+        tradePlanCard: "Plano de Operação",
+        premiumLocked: "Premium",
+        unlockTradePlan: "Desbloqueie entrada, stop, alvo e risco/retorno",
         scoreCard: "Componentes do BOGA Score",
         trend: "Tendência",
         momentum: "Momentum",
