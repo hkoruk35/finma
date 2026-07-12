@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
       trend: market?.trend,
       rvol: market?.rvol,
       opportunity: market?.opportunity,
+      customInstruction: body.customInstruction || undefined,
     });
 
     return NextResponse.json({

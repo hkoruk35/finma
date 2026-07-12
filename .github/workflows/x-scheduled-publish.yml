@@ -1,0 +1,20 @@
+name: X Studio Scheduled Publish
+
+on:
+  schedule:
+    # Her 5 dakikada, x-scheduler.yml ile ayni dakika sinirinda cakismamak
+    # icin 4 dk kaydirilmis olarak tetiklenir. Bu is otomasyon dongusunden
+    # bagimsiz — sadece X Studio'da kullanicinin belirli bir NY saatine
+    # zamanladigi gonderileri (x_posts.scheduled_at <= now()) yayinlar.
+    - cron: '4,9,14,19,24,29,34,39,44,49,54,59 * * * *'
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call scheduled-publish cron endpoint
+        run: |
+          curl -sf -X GET "https://bogastock.com/api/cron/x-scheduled-publish" \
+            -H "Authorization: Bearer ${{ secrets.X_CRON_SECRET }}" \
+            || echo "Scheduled publish call failed (non-fatal)"

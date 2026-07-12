@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
+import { nyWallTimeToUtcIso, utcIsoToNyDisplay, nyTodayDateStr, nyMaxDateStr } from "@/lib/x/timezone";
 
 const ACCENT = "#58a6ff";
 const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
@@ -30,6 +31,15 @@ interface PostRow {
   content_text: string | null;
   tweet_id: string | null;
   created_at: string;
+}
+
+interface ScheduledRow {
+  id: string;
+  content_type: string;
+  ticker: string | null;
+  locale: string;
+  content_text: string | null;
+  scheduled_at: string;
 }
 
 interface AutomationSettings {
@@ -71,6 +81,10 @@ export default function XStudioPage() {
   const [market, setMarket] = useState<MarketData | null>(null);
   const [hashtags, setHashtags] = useState("");
   const [manualTicker, setManualTicker] = useState("");
+  const [customInstruction, setCustomInstruction] = useState("");
+  const [scheduled, setScheduled] = useState<ScheduledRow[]>([]);
+  const [scheduleDate, setScheduleDate] = useState("");
+  const [scheduleTime, setScheduleTime] = useState("09:30");
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -80,6 +94,11 @@ export default function XStudioPage() {
   const loadPosts = useCallback(async () => {
     const res = await fetch("/api/admin/x/post");
     if (res.ok) setPosts((await res.json()).posts ?? []);
+  }, []);
+
+  const loadScheduled = useCallback(async () => {
+    const res = await fetch("/api/admin/x/schedule");
+    if (res.ok) setScheduled((await res.json()).scheduled ?? []);
   }, []);
 
   const loadSettings = useCallback(async () => {
@@ -100,7 +119,10 @@ export default function XStudioPage() {
     loadPool();
     loadPosts();
     loadSettings();
-  }, [loadPool, loadPosts, loadSettings]);
+    loadScheduled();
+    if (!scheduleDate) setScheduleDate(nyTodayDateStr());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadPool, loadPosts, loadSettings, loadScheduled]);
 
   const fillPool = async () => {
     setBusy(true);
@@ -145,7 +167,7 @@ export default function XStudioPage() {
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme }),
+      body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme, customInstruction: customInstruction.trim() || undefined }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -268,6 +290,53 @@ export default function XStudioPage() {
     await Promise.all([loadPool(), loadPosts()]);
   };
 
+  const schedulePost = async () => {
+    if (!texts[locale]) {
+      setError("Önce metin üretin.");
+      return;
+    }
+    if (!scheduleDate || !scheduleTime) {
+      setError("Tarih ve saat seçin.");
+      return;
+    }
+    const scheduledAtUtc = nyWallTimeToUtcIso(scheduleDate, scheduleTime);
+    setBusy(true);
+    setError("");
+    const res = await fetch("/api/admin/x/schedule", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        locale,
+        contentText: getFinalText(),
+        contentType: mode,
+        ticker: mode === "stock" ? selected?.ticker : undefined,
+        sector: mode === "stock" ? selected?.sector : undefined,
+        theme: mode === "stock" ? selected?.theme : undefined,
+        source: mode === "stock" ? selected?.source : undefined,
+        scheduledAtUtc,
+        customPrompt: customInstruction.trim() || undefined,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "Zamanlama hatası");
+      setBusy(false);
+      return;
+    }
+    setBusy(false);
+    await loadScheduled();
+  };
+
+  const cancelSchedule = async (id: string) => {
+    setError("");
+    const res = await fetch(`/api/admin/x/schedule?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      setError((await res.json()).error || "İptal hatası");
+      return;
+    }
+    await loadScheduled();
+  };
+
   const processManualTicker = async () => {
     const tickerToProcess = manualTicker.toUpperCase().trim();
     if (!tickerToProcess) {
@@ -283,7 +352,7 @@ export default function XStudioPage() {
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contentType: "stock", ticker: tickerToProcess, company: null, sector: null, theme: null }),
+      body: JSON.stringify({ contentType: "stock", ticker: tickerToProcess, company: null, sector: null, theme: null, customInstruction: customInstruction.trim() || undefined }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -367,6 +436,18 @@ export default function XStudioPage() {
         >
           Analiz Et
         </button>
+      </div>
+
+      <div style={{ marginBottom: 16 }}>
+        <label style={{ display: "block", fontSize: 12, marginBottom: 6, opacity: 0.8 }}>
+          AI Talimatı (opsiyonel) — hedefe yönelik bir yönerge girin, AI metni buna göre üretir:
+        </label>
+        <textarea
+          value={customInstruction}
+          onChange={(e) => setCustomInstruction(e.target.value)}
+          placeholder="örn: Temettü büyümesine odaklan / Kazanç raporundaki öne çıkan noktayı vurgula"
+          style={{ ...inputStyle, width: "100%", height: 50, resize: "vertical" }}
+        />
       </div>
 
       {settings && (
@@ -483,6 +564,27 @@ export default function XStudioPage() {
             <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>Şimdi Paylaş (API)</button>
           </div>
 
+          <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center", flexWrap: "wrap", padding: 10, border: "1px dashed #30363d", borderRadius: 6 }}>
+            <span style={{ fontSize: 11, opacity: 0.7 }}>Zamanla ({locale.toUpperCase()}, NY saati):</span>
+            <input
+              type="date"
+              value={scheduleDate}
+              min={nyTodayDateStr()}
+              max={nyMaxDateStr()}
+              onChange={(e) => setScheduleDate(e.target.value)}
+              style={{ ...inputStyle }}
+            />
+            <input
+              type="time"
+              value={scheduleTime}
+              onChange={(e) => setScheduleTime(e.target.value)}
+              style={{ ...inputStyle }}
+            />
+            <button style={{ ...btnStyle, background: "#8b5cf6" }} disabled={busy || !texts[locale]} onClick={schedulePost}>
+              Zamanla
+            </button>
+          </div>
+
           {imageUrl && (
             <>
               <img src={imageUrl} alt="preview" style={{ marginTop: 16, width: "100%", borderRadius: 8, border: "1px solid #30363d" }} />
@@ -501,6 +603,28 @@ export default function XStudioPage() {
               </div>
             </>
           )}
+        </div>
+      </div>
+
+      {/* Zamanlanmış */}
+      <div style={{ marginTop: 32 }}>
+        <h2 style={{ fontSize: 14, color: ACCENT, marginBottom: 8 }}>Zamanlanmış Gönderiler ({scheduled.length})</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          {scheduled.length === 0 && <div style={{ fontSize: 12, opacity: 0.5 }}>Zamanlanmış gönderi yok.</div>}
+          {scheduled.map((s) => (
+            <div key={s.id} style={{ ...inputStyle, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>{s.content_type === "promo" ? "PROMO" : s.ticker} [{s.locale}]</span>
+              <span style={{ opacity: 0.7 }}>{s.content_text?.slice(0, 60)}</span>
+              <span style={{ color: "#f59e0b" }}>{utcIsoToNyDisplay(s.scheduled_at)}</span>
+              <button
+                onClick={() => cancelSchedule(s.id)}
+                title="İptal et"
+                style={{ background: "transparent", border: "none", color: "#f85149", cursor: "pointer", fontSize: 13, marginLeft: 10, padding: "0 4px" }}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 
