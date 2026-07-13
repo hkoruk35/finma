@@ -7,6 +7,7 @@ from datetime import datetime
 
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.path.dirname(os.path.abspath(__file__))
+PUSH_FAIL_FLAG = os.path.join(ROOT, 'logs', 'PUSH_FAILING.flag')
 
 def log(msg):
     ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -21,14 +22,40 @@ def run(cmd, cwd=None):
         log(f"  stdout: {result.stdout.strip()[:300]}")
     if result.returncode != 0 and result.stderr.strip():
         log(f"  stderr: {result.stderr.strip()[:300]}")
-    return result.returncode == 0
+    return result.returncode == 0, result.stderr.strip()[:500]
+
+def alert_push_failure(stderr_tail):
+    # Silent push failures went unnoticed for ~9 hours on 2026-07-13 (a blocked
+    # commit sat unpushed while the hourly job kept "succeeding" locally).
+    # Make failure loud: a Windows popup (best-effort, never fatal) + a flag
+    # file that stays until a push actually succeeds again.
+    try:
+        with open(PUSH_FAIL_FLAG, 'a', encoding='utf-8') as f:
+            f.write(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] push failed: {stderr_tail}\n")
+    except Exception:
+        pass
+    try:
+        subprocess.run(
+            ['msg', os.environ.get('USERNAME', '*'),
+             'BOGA AI: git push to origin/main is FAILING (see logs/performance_hourly.log). Site data is going stale.'],
+            capture_output=True, timeout=10
+        )
+    except Exception:
+        pass
+
+def clear_push_failure_flag():
+    try:
+        if os.path.exists(PUSH_FAIL_FLAG):
+            os.remove(PUSH_FAIL_FLAG)
+    except Exception:
+        pass
 
 def main():
     log("=== Performance update + push cycle start ===")
 
     # Step 1: Run the performance updater
     python = sys.executable
-    ok = run([python, os.path.join(ROOT, 'update_swing_performance.py')])
+    ok, _ = run([python, os.path.join(ROOT, 'update_swing_performance.py')])
     if not ok:
         log("ERROR: update_swing_performance.py failed")
         return
@@ -46,11 +73,13 @@ def main():
     run(['git', 'add', perf_json])
     run(['git', 'commit', '-m', f'Data: Hourly Performance Update {ts_str} [bot]'])
 
-    pushed = run(['git', 'push', 'origin', 'main'])
+    pushed, push_err = run(['git', 'push', 'origin', 'main'])
     if pushed:
         log("Pushed to git — Vercel deployment triggered")
+        clear_push_failure_flag()
     else:
         log("WARNING: git push failed")
+        alert_push_failure(push_err)
 
     log("=== Cycle complete ===")
 

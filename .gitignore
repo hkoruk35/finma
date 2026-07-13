@@ -50,4 +50,9 @@ backend/test_*.py
 # Claude local
 .claude/
 
+# One-off local scripts — never tracked (past leak: hardcoded DB
+# password + Supabase service_role key committed here on 2026-07-13,
+# purged from history)
+scratch/
+
 .vercel
