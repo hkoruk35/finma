@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 import { MARKET_THEMES } from "../../../lib/themeData";
+import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -524,178 +525,10 @@ function calcATR(highs: number[], lows: number[], closes: number[], period = 14)
   return sum / period;
 }
 
-function calculateSupportResistance1h(
-  closes1d: number[],
-  highs1d: number[],
-  lows1d: number[],
-  closes1h: number[] | null,
-  highs1h: number[] | null,
-  lows1h: number[] | null,
-  opens1h: number[] | null,
-  volumes1h: number[] | null,
-  currentPrice: number
-) {
-  // 1. Daily macro structure and ATR
-  const period = 14;
-  const trs: number[] = [];
-  for (let i = 1; i < closes1d.length; i++) {
-    const hl = highs1d[i] - lows1d[i];
-    const hc = Math.abs(highs1d[i] - closes1d[i - 1]);
-    const lc = Math.abs(lows1d[i] - closes1d[i - 1]);
-    trs.push(Math.max(hl, hc, lc));
-  }
-  let sum = 0;
-  for (let i = Math.max(0, trs.length - period); i < trs.length; i++) {
-    sum += trs[i];
-  }
-  const atr_1d = trs.length > 0 ? (sum / Math.min(period, trs.length)) : currentPrice * 0.03;
-  const atr_pct = (atr_1d / currentPrice) * 100;
-
-  const macro_support = Math.min(...lows1d.slice(-10));
-  const macro_resist = Math.max(...highs1d.slice(-15));
-
-  let support_1h = macro_support;
-  let resist_1h = macro_resist;
-
-  let entry_valid = false;
-  let entry_type = "WAITING_FOR_VOLUME_OR_SWEEP";
-  let entry_confidence = 0;
-
-  if (closes1h && closes1h.length >= 20 && highs1h && lows1h && opens1h && volumes1h) {
-    const curr_c = closes1h[closes1h.length - 1];
-    const curr_o = opens1h[opens1h.length - 1];
-    const curr_h = highs1h[highs1h.length - 1];
-    const curr_l = lows1h[lows1h.length - 1];
-    const curr_v = volumes1h[volumes1h.length - 1];
-
-    const prev_c = closes1h[closes1h.length - 2];
-    const prev_o = opens1h[opens1h.length - 2];
-
-    const pivot_lows: number[] = [];
-    const pivot_highs: number[] = [];
-    for (let i = 2; i < lows1h.length - 2; i++) {
-      if (lows1h[i] < lows1h[i-1] && lows1h[i] < lows1h[i+1]) {
-        pivot_lows.push(lows1h[i]);
-      }
-      if (highs1h[i] > highs1h[i-1] && highs1h[i] > highs1h[i+1]) {
-        pivot_highs.push(highs1h[i]);
-      }
-    }
-
-    const supports_below = pivot_lows.filter(p => p < currentPrice - (atr_1d * 0.4));
-    if (supports_below.length > 0) {
-      support_1h = Math.max(Math.max(...supports_below), macro_support);
-    }
-
-    const resists_above = pivot_highs.filter(p => p > currentPrice + (atr_1d * 0.5));
-    if (resists_above.length > 0) {
-      resist_1h = Math.min(Math.min(...resists_above), macro_resist);
-    }
-
-    const vol_slice = volumes1h.slice(-20);
-    const vol_avg_20 = vol_slice.reduce((a, b) => a + b, 0) / 20;
-    const is_green_candle = curr_c > curr_o;
-    const volume_spike_breakout = (curr_v > vol_avg_20 * 1.3) && is_green_candle;
-    const volume_spike_sweep = (curr_v > vol_avg_20 * 1.8) && is_green_candle;
-
-    const body = Math.abs(curr_c - curr_o);
-    const lower_wick = Math.min(curr_c, curr_o) - curr_l;
-    const upper_wick = curr_h - Math.max(curr_c, curr_o);
-
-    const is_pinbar = (lower_wick > body * 2.0) && (upper_wick < body * 0.5);
-    const is_bullish_engulfing = is_green_candle && (prev_c < prev_o) && (curr_c > prev_o) && (curr_o < prev_c);
-
-    const is_liquidity_sweep = (curr_l < support_1h) && (curr_c > support_1h);
-    
-    const recent_high_slice = highs1h.slice(-11, -1);
-    const recent_local_high = recent_high_slice.length > 0 ? Math.max(...recent_high_slice) : Math.max(...highs1h.slice(0, -1));
-    const is_bos = (curr_c > recent_local_high) && volume_spike_breakout;
-
-    const is_pullback = (curr_l >= support_1h && curr_l <= support_1h + (atr_1d * 0.3));
-
-    const ema20_1h = calcEMA(closes1h, 20);
-    const roc_1h = prev_c > 0 ? ((curr_c - prev_c) / prev_c) * 100 : 0.0;
-    const is_early_momentum = (curr_c > ema20_1h) && (roc_1h > 0.8) && (curr_v > vol_avg_20 * 1.15);
-
-    if (is_liquidity_sweep && (is_pinbar || volume_spike_sweep)) {
-      entry_valid = true;
-      entry_type = "REVERSAL (Liquidity Sweep)";
-      entry_confidence = 95;
-    } else if (is_bos) {
-      entry_valid = true;
-      entry_type = "BREAKOUT (BOS)";
-      entry_confidence = 85;
-    } else if (is_early_momentum) {
-      entry_valid = true;
-      entry_type = "EARLY MOMENTUM";
-      entry_confidence = 80;
-    } else if (is_pullback && (is_pinbar || is_bullish_engulfing) && volume_spike_breakout) {
-      entry_valid = true;
-      entry_type = "PULLBACK";
-      entry_confidence = 80;
-    }
-  }
-
-  if ((currentPrice - support_1h) < (atr_1d * 0.6)) {
-    support_1h = currentPrice - (atr_1d * 0.8);
-  }
-
-  const is_momentum_entry = entry_valid && ["BREAKOUT (BOS)", "REVERSAL (Liquidity Sweep)"].includes(entry_type);
-
-  let buy_zone_low = 0;
-  let buy_zone_high = 0;
-
-  if (is_momentum_entry) {
-    buy_zone_low = currentPrice - (atr_1d * 0.25);
-    buy_zone_high = currentPrice + (atr_1d * 0.15);
-  } else {
-    buy_zone_low = support_1h + (atr_1d * 0.2);
-    buy_zone_high = currentPrice + (atr_1d * 0.1);
-  }
-
-  if (buy_zone_low >= buy_zone_high) {
-    buy_zone_low = buy_zone_high - (atr_1d * 0.3);
-  }
-
-  const stop_high = support_1h - (atr_1d * 0.5);
-  const stop_low = stop_high - (atr_1d * 0.2);
-
-  const avg_entry = entry_valid ? (currentPrice * 0.995) : ((buy_zone_low + buy_zone_high) / 2);
-  const risk = Math.max(avg_entry - stop_high, atr_1d * 1.0);
-
-  const structural_reward = resist_1h - avg_entry;
-  let reward = structural_reward > 0 ? Math.max(risk * 2.0, structural_reward) : risk * 2.5;
-
-  const rr_cap = 4.0;
-  if (reward > risk * rr_cap) {
-    reward = risk * rr_cap;
-  }
-
-  const sell_zone_low = avg_entry + reward * 0.85;
-  const sell_zone_high = avg_entry + reward;
-
-  const actual_risk = avg_entry - stop_high;
-  const actual_reward = sell_zone_high - avg_entry;
-  const rr_ratio = actual_risk > 0 ? actual_reward / actual_risk : 0.0;
-
-  return {
-    entry_engine: {
-      valid: entry_valid,
-      type: entry_type,
-      confidence: entry_confidence
-    },
-    buy_zone: { low: Number(buy_zone_low.toFixed(2)), high: Number(buy_zone_high.toFixed(2)) },
-    sell_zone: { low: Number(sell_zone_low.toFixed(2)), high: Number(sell_zone_high.toFixed(2)) },
-    stop_zone: { low: Number(stop_low.toFixed(2)), high: Number(stop_high.toFixed(2)) },
-    support_1h: Number(support_1h.toFixed(2)),
-    resist_1h: Number(resist_1h.toFixed(2)),
-    atr_1d: Number(atr_1d.toFixed(2)),
-    atr_pct: Number(atr_pct.toFixed(2)),
-    rr_ratio: Number(rr_ratio.toFixed(2)),
-    risk_usd: Number(actual_risk.toFixed(2)),
-    reward_usd: Number(actual_reward.toFixed(2))
-  };
-}
+// calculateSupportResistance1h buradan lib/tradePlanEngine.ts'e tasindi
+// (calculateTradePlanZones olarak) — preorder-analysis/route.ts (grafik
+// sayfasi) ile ayni motoru paylassinlar diye. Ayrica Python uretim
+// motoruyla (swing117_boga.py) ayni %5 stop tabani da eklendi.
 
 function check15mMicroTrend(
   closes15m: number[] | null,
@@ -1002,7 +835,7 @@ async function fetchYahooLive(ticker: string) {
       }
     }
 
-    const timing = calculateSupportResistance1h(
+    const zones = calculateTradePlanZones(
       closes,
       highs,
       lows,
@@ -1013,6 +846,18 @@ async function fetchYahooLive(ticker: string) {
       volumes1h,
       currentPrice
     );
+
+    // Gun ici VWAP yaklasik degeri — 15m kapanislarinin son ~2 saatlik
+    // ortalamasi (preorder-analysis/route.ts'deki ayni yaklasim, gercek
+    // hacim-agirlikli VWAP icin 15m hacim verisi bu akiste tutulmuyor).
+    const vwapApprox = closes15m && closes15m.length > 0
+      ? closes15m.slice(-26).reduce((a, b) => a + b, 0) / Math.min(26, closes15m.length)
+      : currentPrice;
+
+    const tradeRationale = buildTradePlanRationale({
+      price: currentPrice, ema20, ema50, ema200, vwap: vwapApprox, rvol, rsi: rsi14,
+      zones, lang: "tr",
+    });
 
     const micro15 = check15mMicroTrend(closes15m, opens15m, highs15m);
 
@@ -1262,8 +1107,8 @@ async function fetchYahooLive(ticker: string) {
         bb_middle: currentPrice,
         bb_lower: currentPrice * 0.95,
         bb_width: 10,
-        atr: timing.atr_1d,
-        atr_pct: timing.atr_pct,
+        atr: zones.atr1d,
+        atr_pct: zones.atrPct,
         rvol: rvol,
         "52w_high": high52w,
         "52w_low": low52w
@@ -1282,13 +1127,19 @@ async function fetchYahooLive(ticker: string) {
         dividend_yield: dividendYield
       },
       scores_detail: {
-        entry_range_low: timing.buy_zone.low,
-        entry_range_high: timing.buy_zone.high,
-        target_range_low: timing.sell_zone.low,
-        target_range_high: timing.sell_zone.high,
-        stop_loss: timing.stop_zone.high,
-        risk_reward_ratio: timing.rr_ratio,
-        entry_engine: timing.entry_engine
+        entry_range_low: zones.buyZone.low,
+        entry_range_high: zones.buyZone.high,
+        target_range_low: zones.sellZone.low,
+        target_range_high: zones.sellZone.high,
+        stop_loss: zones.stopZone.high,
+        risk_reward_ratio: zones.riskReward,
+        entry_engine: zones.entryEngine,
+        entry_condition: tradeRationale.entryCondition,
+        stop_rationale: tradeRationale.stopRationale,
+        rationale_ema: tradeRationale.ema,
+        rationale_vwap: tradeRationale.vwap,
+        rationale_volume: tradeRationale.volume,
+        rationale_rsi: tradeRationale.rsi
       }
     };
   } catch (e) {
@@ -1697,6 +1548,16 @@ export async function POST(req: NextRequest) {
     const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
     const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
 
+    // lib/tradePlanEngine.ts'den gelen deterministik gerekce notlari — LLM'e
+    // GEREKÇE'yi bu somut EMA/VWAP/hacim/RSI notlarina dayandirmasi icin
+    // veriliyor (uydurma yorum degil, gercek hesaplanmis degerler).
+    const entryConditionNote = scoresDetail.entry_condition || "";
+    const stopRationaleNote  = scoresDetail.stop_rationale || "";
+    const emaRationaleNote   = scoresDetail.rationale_ema || "";
+    const vwapRationaleNote  = scoresDetail.rationale_vwap || "";
+    const volumeRationaleNote = scoresDetail.rationale_volume || "";
+    const rsiRationaleNote   = scoresDetail.rationale_rsi || "";
+
     const newsHeadlineList = news && news.length > 0
       ? news.slice(0, 5).map((n: any) => `- [${n.publisher || "Yahoo Finance"}] ${n.title || "Headline"}`).join("\n")
       : "Son haber bulunamadı.";
@@ -1735,8 +1596,16 @@ Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterS
 
 🎯 İşlem Planı:
 • Giriş Bölgesi: $${entryLow} - $${entryHigh}
+• Giriş Şartı: ${entryConditionNote || "N/A"}
 • Hedef Bölge: $${targetLow} - $${targetHigh}
 • Stop Loss: $${stopLoss}
+• Stop Gerekçesi: ${stopRationaleNote || "N/A"}
+
+📌 Onceden Hesaplanmis Gerekce Notlari (GEREKÇE yazarken bunlara dayan, uydurma):
+• EMA: ${emaRationaleNote || "N/A"}
+• VWAP: ${vwapRationaleNote || "N/A"}
+• Hacim: ${volumeRationaleNote || "N/A"}
+• RSI: ${rsiRationaleNote || "N/A"}
 
 📊 Teknik Metris:
 • RSI(14): ${rsi}  |  MACD: ${macd}  |  MACD Hist: ${macdHist}
@@ -1790,7 +1659,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
 
 ⚡ SON KARAR
 │ AKSİYON: [İŞLEME GİR / İZLE / ÇIKIŞ seçeneklerinden birini yaz]
-│ GEREKÇE: [2-3 cümle ile sadece verilen sayılara dayanarak kullanıcının dilediği dilde gerekçe yaz]
+│ GEREKÇE: [3-4 cümle, kullanıcının dilediği dilde. Yukarıdaki "Önceden Hesaplanmış Gerekçe Notları"ndaki EMA, VWAP, Hacim ve RSI notlarını MUTLAKA gerekçeye entegre et — kendi başına yorum uydurma, verilen bu dört nota dayan. Ayrıca Giriş Şartı ve Stop Gerekçesi notlarını da kısaca özetle.]
 └─────────────────`;
 
     if (stockJson && !stockJson.forecast) {

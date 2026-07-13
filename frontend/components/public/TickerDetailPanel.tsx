@@ -25,10 +25,14 @@ interface PreorderAnalysis {
   momentum: { macd: number; macdSignal: number; macdHist: number; adx: number; roc10: number; bbPercent: number };
   bogaScore: { trend: number; momentum: number; liquidity: number };
   tradePlan: {
-    stagedEntry: { pct: number; price: number; label: string }[];
-    stagedExit: { pct: number; price: number; label: string; rr: number }[];
+    entryZone: { low: number; high: number };
+    entryType: string;
+    entryCondition: string;
     stop: { price: number; pct: number };
-    rr1: number;
+    stopRationale: string;
+    targets: { price: number; rr: number; label: string }[];
+    riskReward: number;
+    rationale: { ema: string; vwap: string; volume: string; rsi: string };
     valid: boolean;
   };
   activeSignals: string[];
@@ -207,21 +211,29 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           ) : (
             <>
               <div className="grid grid-cols-2 gap-2">
-                {[
-                  { label: t.entry, value: `$${fmt(data.tradePlan.stagedEntry[0]?.price)}`, color: "text-green-400", bg: "bg-green-500/10 border-green-500/40" },
-                  { label: t.stop, value: `$${fmt(data.tradePlan.stop.price)}`, color: "text-red-400", bg: "bg-red-500/10 border-red-500/40" },
-                  { label: t.target, value: `$${fmt(data.tradePlan.stagedExit[0]?.price)}`, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/40" },
-                  { label: t.rr, value: `${fmt(data.tradePlan.rr1, 1)}x`, color: "text-amber-400", bg: "bg-amber-500/10 border-amber-500/40" },
-                ].map((p) => (
-                  <div key={p.label} className={`border rounded-md py-2 text-center ${p.bg}`}>
-                    <div className={`text-[11px] font-bold tracking-wider ${p.color}`}>{p.label}</div>
-                    <div className={`text-base font-mono font-extrabold mt-0.5 ${p.color}`}>{p.value}</div>
+                <div className="border rounded-md py-2 text-center bg-green-500/10 border-green-500/40">
+                  <div className="text-[11px] font-bold tracking-wider text-green-400">{t.entry}</div>
+                  <div className="text-sm font-mono font-extrabold mt-0.5 text-green-400">
+                    ${fmt(data.tradePlan.entryZone.low)}–${fmt(data.tradePlan.entryZone.high)}
+                  </div>
+                </div>
+                <div className="border rounded-md py-2 text-center bg-red-500/10 border-red-500/40">
+                  <div className="text-[11px] font-bold tracking-wider text-red-400">{t.stop}</div>
+                  <div className="text-base font-mono font-extrabold mt-0.5 text-red-400">${fmt(data.tradePlan.stop.price)}</div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                {data.tradePlan.targets.map((tg, i) => (
+                  <div key={tg.label} className="flex items-center justify-between border rounded-md py-1.5 px-2.5 bg-blue-500/10 border-blue-500/40">
+                    <span className="text-[11px] font-bold tracking-wider text-blue-400">{t.target} {i + 1}</span>
+                    <span className="text-sm font-mono font-extrabold text-blue-400">${fmt(tg.price)}</span>
+                    <span className="text-[11px] font-mono font-bold text-amber-400">{fmt(tg.rr, 1)}x</span>
                   </div>
                 ))}
               </div>
               <div className="bg-[#111620] border border-[#253347] rounded-md py-2 text-center">
                 <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
-                <div className="text-base font-bold text-amber-400">{fmt(data.tradePlan.stop.pct)}%</div>
+                <div className="text-base font-bold text-amber-400">{fmt(Math.abs(data.tradePlan.stop.pct))}%</div>
               </div>
             </>
           )}
@@ -242,6 +254,20 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           )}
         </div>
       </div>
+
+      {!premiumLocked && data.tradePlan.valid && (
+        <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
+          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-white/70 leading-relaxed">
+            <p><span className="text-[#58a6ff] font-bold">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
+            <p><span className="text-[#58a6ff] font-bold">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
+            <p><span className="text-[#58a6ff] font-bold">EMA:</span> {data.tradePlan.rationale.ema}</p>
+            <p><span className="text-[#58a6ff] font-bold">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
+            <p><span className="text-[#58a6ff] font-bold">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
+            <p><span className="text-[#58a6ff] font-bold">RSI:</span> {data.tradePlan.rationale.rsi}</p>
+          </div>
+        </div>
+      )}
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
         <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>

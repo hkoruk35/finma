@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
 
 // Simple in-memory cache (2 min TTL per ticker)
 const cache = new Map<string, { data: PreorderAnalysis; ts: number }>();
@@ -421,15 +422,21 @@ interface PreorderAnalysis {
   conviction: number;
   recommendation: { type: string; label: string; reason: string; hold: string };
   tradePlan: {
-    stagedEntry: { pct: number; price: number; label: string; trigger: string }[];
-    stagedExit:  { pct: number; price: number; label: string; rr: number }[];
+    // lib/tradePlanEngine.ts'deki paylasilan pivot/ATR motorundan gelir —
+    // /api/ask (analiz sayfasi) ile ayni mantik, boylece iki sayfa ayni
+    // ticker icin celismez.
+    entryZone: { low: number; high: number };
+    entryType: string;
+    entryCondition: string;
     stop: { price: number; pct: number };
-    rr1: number; rr2: number;
-    // stopPrice bazen (belirgin dususte, EMA50 fiyatin uzerine ciktiginda)
-    // entry'nin uzerine cikabiliyor — bu durumda risk<=0 olur ve tum RR/hedef
-    // matematigi anlamsizlasir. Bu bayrak, boyle bir kurulumun uzun (long)
-    // pozisyon icin gecerli olmadigini isaretler; tuketiciler (orn.
-    // TickerDetailPanel) sayilari degil bir uyari gostermeli.
+    stopRationale: string;
+    targets: { price: number; rr: number; label: string }[];
+    riskReward: number;
+    rationale: { ema: string; vwap: string; volume: string; rsi: string };
+    // risk<=0 (stop entry'nin uzerinde kaldi, %5 tabanina ragmen) ya da acik
+    // dusus yapisinda (Weinstein Stage 4) long pozisyon icin anlamli bir
+    // plan yoktur — tuketiciler (orn. TickerDetailPanel) sayilari degil bir
+    // uyari gostermeli.
     valid: boolean;
   };
   momentum: {
@@ -684,31 +691,36 @@ export async function GET(req: NextRequest) {
   }
 
   // ── Trade plan ───────────────────────────────────────────────────────────
-  const supports = srLevels.filter(l => l.type === "support").sort((a, b) => b.price - a.price);
+  // Paylasilan motor (lib/tradePlanEngine.ts) — /api/ask'in (analiz sayfasi)
+  // kullandigi ayni pivot/ATR tabanli zon mantigi, boylece grafik sayfasi ve
+  // analiz sayfasi ayni ticker icin celismez.
   const resistances = srLevels.filter(l => l.type === "resistance").sort((a, b) => a.price - b.price);
 
-  const stopPrice = Math.max(
-    supports[1]?.price ?? price * 0.94,
-    d1_ema50 * 0.99,
-    price * 0.93
+  const zones = calculateTradePlanZones(
+    closes1d, highs1d, lows1d,
+    closes1h.length > 0 ? closes1h : null,
+    highs1h.length > 0 ? highs1h : null,
+    lows1h.length > 0 ? lows1h : null,
+    opens1h.length > 0 ? opens1h : null,
+    vols1h.length > 0 ? vols1h : null,
+    price
   );
 
-  const entry1 = price;
-  const entry2 = Math.max(stopPrice * 1.02, Math.min(d1_ema9, d1_ema20) * 0.998);
-  const entry3 = Math.max(stopPrice * 1.01, d1_ema20 * 0.997);
-  const stopPct = ((stopPrice - entry1) / entry1) * 100;
+  const targets = resistances.slice(0, 3).map((r, i) => ({
+    price: r.price,
+    rr: zones.riskUsd > 0 ? +((r.price - zones.avgEntry) / zones.riskUsd).toFixed(1) : 0,
+    label: `Target ${i + 1}`,
+  }));
 
-  const target1 = resistances[0]?.price ?? price * 1.06;
-  const target2 = resistances[1]?.price ?? price * 1.12;
-  const target3 = resistances[2]?.price ?? price * 1.20;
-  const risk = entry1 - stopPrice;
-  const rr1 = risk > 0 ? (target1 - entry1) / risk : 0;
-  const rr2 = risk > 0 ? (target2 - entry1) / risk : 0;
-  const rr3 = risk > 0 ? (target3 - entry1) / risk : 0;
-  // risk<=0 sadece EMA50 tabanli stop, dususte fiyatin uzerine ciktiginda
-  // olusuyor — yani zaten bir dusus/zayiflik isareti; bu yuzden ayrica
-  // Weinstein Stage 4'u de gecersiz sayiyoruz.
-  const tradePlanValid = risk > 0 && weinstein.stage !== 4;
+  const rationale = buildTradePlanRationale({
+    price, ema20: d1_ema20, ema50: d1_ema50, ema200: d1_ema200,
+    vwap, rvol, rsi: d1_rsi, zones, lang,
+  });
+
+  // Gecersizlik: risk<=0 (stop entry'nin uzerinde kaldi, %5 tabanina ragmen)
+  // ya da acik dusus yapisi (Weinstein Stage 4) — boyle bir kurulumda long
+  // pozisyon icin anlamli bir plan yok.
+  const tradePlanValid = zones.riskUsd > 0 && weinstein.stage !== 4;
 
   const result: PreorderAnalysis = {
     ticker,
@@ -757,18 +769,14 @@ export async function GET(req: NextRequest) {
     conviction,
     recommendation,
     tradePlan: {
-      stagedEntry: [
-        { pct: 30, price: +entry1.toFixed(2), label: "Anlık / Kırılım", trigger: "Market order veya yakın limit" },
-        { pct: 40, price: +entry2.toFixed(2), label: "EMA9 / Destek 1",  trigger: "Geri çekilme alımı" },
-        { pct: 30, price: +entry3.toFixed(2), label: "EMA20 / Destek 2", trigger: "Derin çekilme alımı" },
-      ],
-      stagedExit: [
-        { pct: 40, price: +target1.toFixed(2), label: "Hedef 1", rr: +rr1.toFixed(1) },
-        { pct: 35, price: +target2.toFixed(2), label: "Hedef 2", rr: +rr2.toFixed(1) },
-        { pct: 25, price: +target3.toFixed(2), label: "Hedef 3", rr: +rr3.toFixed(1) },
-      ],
-      stop: { price: +stopPrice.toFixed(2), pct: +stopPct.toFixed(1) },
-      rr1: +rr1.toFixed(1), rr2: +rr2.toFixed(1),
+      entryZone: zones.buyZone,
+      entryType: zones.entryEngine.type,
+      entryCondition: rationale.entryCondition,
+      stop: { price: zones.stopPrice, pct: +(((zones.stopPrice - price) / price) * 100).toFixed(1) },
+      stopRationale: rationale.stopRationale,
+      targets,
+      riskReward: zones.riskReward,
+      rationale: { ema: rationale.ema, vwap: rationale.vwap, volume: rationale.volume, rsi: rationale.rsi },
       valid: tradePlanValid,
     },
     momentum: {
