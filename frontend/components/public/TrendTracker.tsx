@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
-import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
+import { MARKET_THEMES } from "@/lib/themeData";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -163,18 +163,18 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
     try {
       const rows: TrendRow[] = [];
 
-      for (const theme of HOT_THEMES_2026) {
-        for (const stock of theme.stocks) {
+      for (const theme of MARKET_THEMES) {
+        for (const ticker of theme.tickers) {
           rows.push({
-            ticker: stock.ticker,
-            company: stock.company,
+            ticker,
+            company: "",
             price: 0,
             change_pct: 0,
             rsi: 0,
             signal: "WATCH",
             volume: 0,
-            sector: "Unknown",
-            themeTitle: theme.title,
+            sector: theme.sector,
+            themeTitle: theme.name,
           });
         }
       }
@@ -207,7 +207,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   }, [fetchAll]);
 
   const themeOptions = useMemo(() => {
-    return HOT_THEMES_2026.map((t) => t.title);
+    return MARKET_THEMES.map((t) => t.name);
   }, []);
 
   const sectorOptions = useMemo(() => {
@@ -301,7 +301,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               {locale === "tr" ? "2026 Trend Hisseleri" : locale === "pt" ? "Ações em Tendência 2026" : "2026 Trend Stocks"}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <span>{HOT_THEMES_2026.length} {locale === "tr" ? "tema" : locale === "pt" ? "temas" : "themes"}</span>
+              <span>{MARKET_THEMES.length} {locale === "tr" ? "tema" : locale === "pt" ? "temas" : "themes"}</span>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
