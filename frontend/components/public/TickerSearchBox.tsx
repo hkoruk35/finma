@@ -80,7 +80,7 @@ export default function TickerSearchBox({ locale = "en" }: { locale?: string }) 
         onChange={(e) => setQuery(e.target.value.toUpperCase())}
         onKeyDown={handleKeyDown}
         onFocus={() => suggestions.length > 0 && setOpen(true)}
-        placeholder="Search ticker (e.g. AAPL, MSFT)..."
+        placeholder={locale === "tr" ? "Hisse ara (örn. AAPL, MSFT)..." : "Search ticker (e.g. AAPL, MSFT)..."}
         className="w-full px-4 py-2.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-white text-sm placeholder:text-slate-500 focus:outline-none focus:border-[#3b82f6]/60 transition-colors"
       />
       {open && suggestions.length > 0 && (

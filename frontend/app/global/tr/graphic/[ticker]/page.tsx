@@ -1,0 +1,195 @@
+"use client";
+
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import MemberHeader from "@/components/public/MemberHeader";
+import Footer from "@/components/Footer";
+import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import TickerSearchBox from "@/components/public/TickerSearchBox";
+
+const SHORTCUTS = [
+  { label: "TOP 100", href: "/global/tr/top100" },
+  { label: "SWING", href: "/global/tr/swing" },
+  { label: "TREND", href: "/global/tr/trend" },
+];
+
+const REGISTER_HREF = "/global/tr/kayit";
+
+// Üst şeritteki endeksler: S&P 500, Nasdaq, Dow, Russell 2000, VIX.
+const INDICES = [
+  { symbol: "^GSPC", label: "S&P 500" },
+  { symbol: "^IXIC", label: "NASDAQ" },
+  { symbol: "^DJI", label: "DOW" },
+  { symbol: "^RUT", label: "RUSSELL" },
+  { symbol: "^VIX", label: "VIX" },
+];
+
+const SECTOR_ETF_MAP: Record<string, string> = {
+  technology: "XLK", energy: "XLE", financials: "XLF", "financial services": "XLF",
+  healthcare: "XLV", "consumer discretionary": "XLY", "consumer cyclical": "XLY",
+  "consumer staples": "XLP", "consumer defensive": "XLP", industrials: "XLI",
+  materials: "XLB", "basic materials": "XLB", "real estate": "XLRE",
+  utilities: "XLU", "communication services": "XLC",
+};
+
+type Quote = { price: number | null; change_1d: number | null };
+
+function fmtChange(v: number | null | undefined) {
+  if (v == null) return "—";
+  return `${v >= 0 ? "+" : ""}${v.toFixed(2)}%`;
+}
+
+export default function TrGraphicDetailPage() {
+  const params = useParams();
+  const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
+  const [loading, setLoading] = useState(false);
+  const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
+  const [quotes, setQuotes] = useState<Record<string, Quote>>({});
+  // Herkese acik onizleme: giris yapmamis ziyaretcilerin ust kisayol
+  // butonlariyla uye-kilitli sayfalara (Top100/Swing/Trend/Analiz)
+  // gecmesini engellemek icin oturum durumunu bir kez kontrol ediyoruz.
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/members/me")
+      .then((r) => setIsLoggedIn(r.ok))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
+
+  useEffect(() => {
+    if (!ticker) return;
+    fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: ticker, history: [], lang: "tr" }),
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d?.stockData) setStockData(d.stockData);
+      })
+      .catch(() => {});
+  }, [ticker]);
+
+  // Endeks kotasyonları — bir kez çekilir, hissenin sektöründen bağımsız.
+  useEffect(() => {
+    fetch(`/api/quote?tickers=${INDICES.map((i) => i.symbol).join(",")}`)
+      .then((r) => r.json())
+      .then((d) => setQuotes((prev) => ({ ...prev, ...d })))
+      .catch(() => {});
+  }, []);
+
+  // Sektör ETF kotasyonu — hissenin sektörü öğrenilince çekilir.
+  const sectorEtf = stockData?.sector ? SECTOR_ETF_MAP[stockData.sector.toLowerCase()] : undefined;
+  useEffect(() => {
+    if (!sectorEtf) return;
+    fetch(`/api/quote?tickers=${sectorEtf}`)
+      .then((r) => r.json())
+      .then((d) => setQuotes((prev) => ({ ...prev, ...d })))
+      .catch(() => {});
+  }, [sectorEtf]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0e17] text-white/50 text-sm">
+        Yükleniyor...
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+      <MemberHeader locale="tr" />
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-2">
+          <nav className="flex flex-wrap items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+            <Link href="/global/tr/home" className="hover:text-[#3b82f6] transition-colors">Gösterge Paneli</Link>
+            <span className="opacity-30">/</span>
+            <span className="text-white italic">{ticker}</span>
+            {stockData?.company && (
+              <span className="text-slate-400 normal-case italic font-medium">{stockData.company}</span>
+            )}
+            {stockData?.sector && (
+              <>
+                <span className="opacity-30">/</span>
+                <span className="text-[#3b82f6]">{stockData.sector}</span>
+              </>
+            )}
+            {stockData?.industry && stockData.industry !== stockData.sector && (
+              <>
+                <span className="opacity-30">/</span>
+                <span className="text-slate-400">{stockData.industry}</span>
+              </>
+            )}
+          </nav>
+
+          <div className="flex items-center gap-1.5">
+            {SHORTCUTS.map((s) => (
+              <Link
+                key={s.href}
+                href={isLoggedIn ? s.href : REGISTER_HREF}
+                className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all"
+              >
+                {s.label}
+              </Link>
+            ))}
+            {ticker && (
+              <Link
+                href={isLoggedIn ? `/global/tr/analysis/${ticker}` : REGISTER_HREF}
+                className="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/40 text-[10px] font-black text-purple-400 hover:text-white hover:border-purple-400 transition-all"
+              >
+                DERİN ANALİZ
+              </Link>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-1.5 mb-4">
+          {INDICES.map((idx) => {
+            const q = quotes[idx.symbol];
+            const positive = (q?.change_1d ?? 0) >= 0;
+            return (
+              <div
+                key={idx.symbol}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold"
+              >
+                <span className="text-slate-400">{idx.label}</span>
+                <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
+                <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
+              </div>
+            );
+          })}
+          {sectorEtf && (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-bold">
+              <span className="text-[#3b82f6]">{stockData?.sector} ({sectorEtf})</span>
+              <span className="text-white font-mono">
+                {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
+              </span>
+              <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}>
+                {fmtChange(quotes[sectorEtf]?.change_1d)}
+              </span>
+            </div>
+          )}
+        </div>
+
+        <TickerSearchBox locale="tr" />
+
+        <div className="glass-card overflow-hidden mb-4">
+          <BogaChartEngine
+            symbol={ticker}
+            lang="tr"
+            detailMode
+            height={600}
+            defaultIndicators={["ema20", "ema50", "rsi", "volumeProfile"]}
+            defaultTimeframe="D"
+          />
+        </div>
+        <div className="glass-card overflow-hidden">
+          <TickerDetailPanel ticker={ticker} locale="tr" hideChart hidePermalink lockTradePlan />
+        </div>
+      </main>
+      <Footer hidePlatform locale="tr" />
+    </div>
+  );
+}
