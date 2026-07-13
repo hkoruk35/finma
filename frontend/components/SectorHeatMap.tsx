@@ -5,6 +5,7 @@ import { MasterData, StockQuickView } from "@/lib/data";
 import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector } from "@/lib/sectorHeatMap";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
+import { copy, type Locale } from "@/lib/i18n/copy";
 
 /* ── Slug helper ────────────────────────────────────────────── */
 function slugify(text: string): string {
@@ -39,6 +40,10 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
   const pathname = usePathname();
   // Extract locale from pathname if not provided (e.g., /global/en/home → en)
   const currentLocale = locale || pathname?.split('/')[2] || 'en';
+  const resolvedLocale: Locale = (currentLocale in copy ? currentLocale : 'en') as Locale;
+  const t = copy[resolvedLocale].sectorHeatMap;
+  const sectorNames = copy[resolvedLocale].top100.sectors as Record<string, string>;
+  const sectorLabel = (sector: string) => sectorNames[sector] ?? sector;
 
   // Use ALL tickers, sorted by volume for display order within each sector
   const sectorGroups = groupBySector(allTickers);
@@ -51,20 +56,20 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
           <div className="w-1.5 h-8 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
           <div>
             <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">
-              Sector Heat Map
+              {t.title}
             </h2>
             <p className="text-xs text-white font-bold tracking-widest uppercase">
-              Real-time Market Distribution &middot; {activeSectors.length} Sectors · Top 12 per Sector
+              {t.subtitle.replace('{n}', String(activeSectors.length))}
             </p>
           </div>
         </div>
-        
+
         <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#00d2ff]">
            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded bg-green-500"></div> BULLISH
+              <div className="w-2 h-2 rounded bg-green-500"></div> {t.bullish}
            </div>
            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded bg-red-500"></div> BEARISH
+              <div className="w-2 h-2 rounded bg-red-500"></div> {t.bearish}
            </div>
         </div>
       </div>
@@ -88,7 +93,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
               >
                 <div className="flex flex-col">
                    <span className="text-sm font-black text-white uppercase tracking-tighter leading-tight">
-                      {sector}
+                      {sectorLabel(sector)}
                    </span>
                    <span className="text-[10px] font-bold text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
                 </div>
@@ -131,7 +136,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                 className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]"
               >
                  <span className="text-[9px] font-black text-white uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">
-                    Explore All {sectorGroups[sector].length} Tickers →
+                    {t.exploreAll.replace('{n}', String(sectorGroups[sector].length))}
                  </span>
               </Link>
             </div>

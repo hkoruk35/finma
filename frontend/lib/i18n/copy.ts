@@ -208,6 +208,13 @@ export const copy = {
         error: "Operation failed.",
       },
     },
+    sectorHeatMap: {
+      title: "Sector Heat Map",
+      subtitle: "Real-time Market Distribution · {n} Sectors · Top 12 per Sector",
+      bullish: "BULLISH",
+      bearish: "BEARISH",
+      exploreAll: "Explore All {n} Tickers →",
+    },
   },
   tr: {
     register: {
@@ -415,6 +422,13 @@ export const copy = {
         forbidden: "Bu sayfa sadece admin rolü içindir.",
         error: "İşlem başarısız oldu.",
       },
+    },
+    sectorHeatMap: {
+      title: "Sektör Isı Haritası",
+      subtitle: "Gerçek Zamanlı Piyasa Dağılımı · {n} Sektör · Sektör Başına İlk 12",
+      bullish: "YÜKSELİŞ",
+      bearish: "DÜŞÜŞ",
+      exploreAll: "Tüm {n} Hisseyi Keşfet →",
     },
   },
   es: {
@@ -624,6 +638,13 @@ export const copy = {
         error: "La operación falló.",
       },
     },
+    sectorHeatMap: {
+      title: "Mapa de Calor Sectorial",
+      subtitle: "Distribución de Mercado en Tiempo Real · {n} Sectores · Top 12 por Sector",
+      bullish: "ALCISTA",
+      bearish: "BAJISTA",
+      exploreAll: "Explorar los {n} Valores →",
+    },
   },
   fr: {
     register: {
@@ -832,6 +853,13 @@ export const copy = {
         error: "L'opération a échoué.",
       },
     },
+    sectorHeatMap: {
+      title: "Carte Thermique des Secteurs",
+      subtitle: "Répartition du Marché en Temps Réel · {n} Secteurs · Top 12 par Secteur",
+      bullish: "HAUSSIER",
+      bearish: "BAISSIER",
+      exploreAll: "Explorer les {n} Titres →",
+    },
   },
   pt: {
     register: {
@@ -1039,6 +1067,13 @@ export const copy = {
         forbidden: "Esta página é apenas para administradores.",
         error: "Operação falhou.",
       },
+    },
+    sectorHeatMap: {
+      title: "Mapa de Calor Setorial",
+      subtitle: "Distribuição de Mercado em Tempo Real · {n} Setores · Top 12 por Setor",
+      bullish: "ALTA",
+      bearish: "BAIXA",
+      exploreAll: "Explorar Todos os {n} Ativos →",
     },
   },
 } as const;

@@ -4,7 +4,7 @@ import BottomNavWrapper from "@/components/BottomNavWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
 import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
-import { Inter, Montserrat, JetBrains_Mono } from "next/font/google";
+import { Inter, Montserrat, JetBrains_Mono, Manrope } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
 
@@ -13,6 +13,13 @@ const inter = Inter({
   weight: ["400", "600", "700"],
   display: "swap",
   variable: "--font-inter",
+  preload: true,
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-manrope",
   preload: true,
 });
 
@@ -115,7 +122,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${inter.variable} ${manrope.variable} ${montserrat.variable} ${jetbrainsMono.variable}`}>
       <head>
         <StructuredData />
         {/* Google Analytics — lazyOnload: render'ı bloke etmez */}

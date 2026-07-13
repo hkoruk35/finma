@@ -35,6 +35,19 @@ html, body {
   width: 100%;
 }
 
+/* Home pages — Manrope, applied on the page wrapper so it inherits into
+   headings/labels while explicit font-mono elements (prices, tickers) keep
+   their monospace figures. Manrope is loaded as a true variable font
+   (weight 200–800), so bold/black utilities (font-bold/black = 700/900)
+   resolve to real glyphs instead of a browser-synthesized "fake bold",
+   which is what produced the blurry/smeared look. */
+.font-manrope {
+  font-family: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-bg-secondary); }

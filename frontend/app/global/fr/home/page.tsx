@@ -186,7 +186,7 @@ export default async function FrHomePage() {
   const heatMapTickers = await overlayHeatMapChangePct(comprehensiveTickersList);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+    <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
       <MemberHeader locale="fr" />
       <TickerTape indices={indices} />
 
