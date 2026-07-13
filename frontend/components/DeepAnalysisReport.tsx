@@ -72,17 +72,15 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
   const ema200 = rd.ema200 || price * 0.93;
   const low52  = rd.low52w  || price * 0.70;
   const high52 = Math.max(rd.high52w || 0, price * 1.10);
+  const atr    = rd.atr || price * 0.02;
 
   if (horizon === "swing") {
     // Downtrend (price below both EMAs, EMA20 sagging below EMA50): don't
     // suggest chasing the falling price — require a confirmed EMA20
     // breakout instead, and flag it so the user knows to wait.
     const isDowntrend = price < ema20 && ema20 < ema50;
-    let entry: number;
     let waitWarning: string | null = null;
-
     if (isDowntrend) {
-      entry = +(ema20 * 1.005).toFixed(2);
       waitWarning = L(
         lang,
         `Bekleme: Düşüş trendi — EMA20 (${fmtUsd(ema20)}) üstünde günlük kapanış onayı bekleniyor`,
@@ -90,25 +88,41 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
         `Espera: Tendencia bajista — esperando un cierre diario por encima de EMA20 (${fmtUsd(ema20)})`,
         `Attente : Tendance baissière — en attente d'une clôture journalière au-dessus de l'EMA20 (${fmtUsd(ema20)})`
       );
-    } else {
-      entry = +(price >= ema20 * 0.995 ? price : Math.min(price, ema20) * 1.002).toFixed(2);
     }
 
-    const stop  = +Math.min(s1, entry * 0.975).toFixed(2);
+    // Paylasilan motorun (lib/tradePlanEngine.ts) plani varsa BIREBIR onu
+    // goster — /graphic ve /en/stock ile ayni giris araligi / stop / TP1-3.
+    const ep = rd.enginePlan;
+    let entryLow: number, entryHigh: number, stop: number, t1: number, t2: number, t3: number;
+    if (ep && ep.entryLow > 0 && ep.t1 > 0) {
+      entryLow = ep.entryLow; entryHigh = ep.entryHigh;
+      stop = ep.stop; t1 = ep.t1; t2 = ep.t2; t3 = ep.t3;
+    } else {
+      // Motor verisi yoksa ayni formulun lokal karsiligi: pivot direnc
+      // merdiveni (r1/r2/r3) + yuzde tabanlari, giris destek->fiyat araligi.
+      entryHigh = +(isDowntrend ? ema20 * 1.005 : (price >= ema20 * 0.995 ? price : Math.min(price, ema20) * 1.002)).toFixed(2);
+      entryLow  = +Math.min(entryHigh * 0.995, Math.max(s1 * 1.002, entryHigh - atr)).toFixed(2);
+      const mid = (entryLow + entryHigh) / 2;
+      stop = +Math.min(s1, mid * 0.975).toFixed(2);
+      t1   = +Math.max(r1, mid * 1.05).toFixed(2);
+      t2   = +Math.max(r2, mid * 1.10, t1 * 1.02).toFixed(2);
+      t3   = +Math.max(r3, mid * 1.15, t2 * 1.02).toFixed(2);
+    }
+    const entry = +((entryLow + entryHigh) / 2).toFixed(2);
     const risk  = Math.max(entry - stop, price * 0.01);
-    const t1    = +Math.max(r1, entry * 1.05).toFixed(2);
-    const t2    = +Math.max(r2, entry * 1.10).toFixed(2);
     const rr1   = +((t1 - entry) / risk).toFixed(1);
     const rr2   = +((t2 - entry) / risk).toFixed(1);
     const trailStop = +(entry + (t1 - entry) * 0.5).toFixed(2);
     const trailRule = lang === "tr"
       ? `${fmtUsd(t1)} üstünde günlük kapanış → stop ${fmtUsd(trailStop)}'a taşı (giriş +%50R)`
       : `Daily close above ${fmtUsd(t1)} → trail stop to ${fmtUsd(trailStop)} (entry +50%R)`;
-    return { timeframe: L(lang, "Swing (7-15 Gün)", "Swing (7-15 Days)"), entry, stop, t1, t2, rr1, rr2, invalidation: s1, anchor: L(lang, "EMA20 baz", "EMA20 anchor"), trailRule, waitWarning };
+    return { timeframe: L(lang, "Swing (90 Güne Kadar)", "Swing (Up to 90 Days)"), entry, entryLow, entryHigh, stop, t1, t2, t3, rr1, rr2, invalidation: +Math.min(s1, stop).toFixed(2), anchor: L(lang, "Pivot destek bazlı giriş aralığı", "Pivot-support entry zone"), trailRule, waitWarning };
   }
 
   if (horizon === "position") {
-    const entry = +(price >= ema50 * 0.995 ? price : Math.min(price, ema50) * 1.002).toFixed(2);
+    const entryHigh = +(price >= ema50 * 0.995 ? price : Math.min(price, ema50) * 1.002).toFixed(2);
+    const entryLow  = +Math.min(entryHigh * 0.995, Math.max(ema50 * 1.002, entryHigh * 0.94)).toFixed(2);
+    const entry = +((entryLow + entryHigh) / 2).toFixed(2);
     const stop  = +Math.min(s2, entry * 0.94).toFixed(2);
     const risk  = Math.max(entry - stop, price * 0.02);
     const t1    = +Math.max(r2, entry * 1.09).toFixed(2);
@@ -116,13 +130,15 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
     const rr1   = +((t1 - entry) / risk).toFixed(1);
     const rr2   = +((t2 - entry) / risk).toFixed(1);
     const trailRule = lang === "tr"
-      ? `${fmtUsd(t1)} üstünde haftalık kapanış → stop'u giriş fiyatına (${fmtUsd(entry)}) taşı`
+      ? `${fmtUsd(t1)} üstünde haftalık kapanış → stop'u giriş bölgesine (${fmtUsd(entry)}) taşı`
       : `Weekly close above ${fmtUsd(t1)} → move stop to break-even (${fmtUsd(entry)})`;
-    return { timeframe: L(lang, "Pozisyon (1-3 Ay)", "Position (1-3 Months)"), entry, stop, t1, t2, rr1, rr2, invalidation: s2, anchor: L(lang, "EMA50 baz", "EMA50 anchor"), trailRule };
+    return { timeframe: L(lang, "Pozisyon (1-3 Ay)", "Position (1-3 Months)"), entry, entryLow, entryHigh, stop, t1, t2, t3: null as number | null, rr1, rr2, invalidation: s2, anchor: L(lang, "EMA50 baz", "EMA50 anchor"), trailRule, waitWarning: null as string | null };
   }
 
   // investment
-  const entry = +(price >= ema200 * 0.995 ? price : Math.min(price, ema200) * 1.002).toFixed(2);
+  const entryHigh = +(price >= ema200 * 0.995 ? price : Math.min(price, ema200) * 1.002).toFixed(2);
+  const entryLow  = +Math.min(entryHigh * 0.995, Math.max(ema200 * 1.002, entryHigh * 0.88)).toFixed(2);
+  const entry = +((entryLow + entryHigh) / 2).toFixed(2);
   const stop  = +Math.min(low52, ema200 * 0.87, entry * 0.88).toFixed(2);
   const risk  = Math.max(entry - stop, price * 0.05);
   const t1    = +Math.max(high52, entry * 1.18).toFixed(2);
@@ -132,7 +148,7 @@ function tradePlan(rd: any, sr: any, horizon: "swing" | "position" | "investment
   const trailRule = lang === "tr"
     ? `${fmtUsd(t1)} üstünde aylık kapanış → %50 çıkış yap, kalan T2 için tut`
     : `Monthly close above ${fmtUsd(t1)} → take 50% off, hold rest to T2`;
-  return { timeframe: L(lang, "Yatırım (6+ Ay)", "Investment (6M+)"), entry, stop, t1, t2, rr1, rr2, invalidation: ema200, anchor: L(lang, "EMA200 baz", "EMA200 anchor"), trailRule };
+  return { timeframe: L(lang, "Yatırım (6+ Ay)", "Investment (6M+)"), entry, entryLow, entryHigh, stop, t1, t2, t3: null as number | null, rr1, rr2, invalidation: ema200, anchor: L(lang, "EMA200 baz", "EMA200 anchor"), trailRule, waitWarning: null as string | null };
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -398,10 +414,13 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
             <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
-              <PlanRow label={L(lang, "Giriş Bölgesi", "Entry Zone")} value={fmtUsd(plan.entry)} valueColor="cyan" />
+              <PlanRow label={L(lang, "Giriş Bölgesi", "Entry Zone")} value={`${fmtUsd(plan.entryLow)}–${fmtUsd(plan.entryHigh)}`} valueColor="cyan" />
               <PlanRow label={L(lang, "Zarar Kes", "Stop Loss")} value={fmtUsd(plan.stop)} valueColor="red" note={`-${(((plan.entry - plan.stop) / plan.entry) * 100).toFixed(1)}%`} />
               <PlanRow label="T1" value={fmtUsd(plan.t1)} valueColor="green" note={`+${(((plan.t1 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
               <PlanRow label="T2" value={fmtUsd(plan.t2)} valueColor="green" note={`+${(((plan.t2 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
+              {plan.t3 != null && (
+                <PlanRow label="T3" value={fmtUsd(plan.t3)} valueColor="green" note={`+${(((plan.t3 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
+              )}
             </div>
             <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
               <PlanRow label={L(lang, "R/R (T1'e)", "R/R (to T1)")} value={`${plan.rr1}:1`} valueColor={rrColor} />

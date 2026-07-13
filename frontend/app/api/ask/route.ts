@@ -1131,6 +1131,9 @@ async function fetchYahooLive(ticker: string) {
         entry_range_high: zones.buyZone.high,
         target_range_low: zones.sellZone.low,
         target_range_high: zones.sellZone.high,
+        target_1: zones.tp1,
+        target_2: zones.tp2,
+        target_3: zones.tp3,
         stop_loss: zones.stopZone.high,
         risk_reward_ratio: zones.riskReward,
         entry_engine: zones.entryEngine,
@@ -1547,6 +1550,9 @@ export async function POST(req: NextRequest) {
     const targetLow   = scoresDetail.target_range_low?.toFixed(2) ?? (pr.current ? (pr.current * 1.10).toFixed(2) : "N/A");
     const targetHigh  = scoresDetail.target_range_high?.toFixed(2)?? (pr.current ? (pr.current * 1.15).toFixed(2) : "N/A");
     const stopLoss    = scoresDetail.stop_loss?.toFixed(2)         ?? (pr.current ? (pr.current * 0.95).toFixed(2) : "N/A");
+    const tp1Str      = scoresDetail.target_1?.toFixed(2) ?? targetLow;
+    const tp2Str      = scoresDetail.target_2?.toFixed(2) ?? targetHigh;
+    const tp3Str      = scoresDetail.target_3?.toFixed(2) ?? targetHigh;
 
     // lib/tradePlanEngine.ts'den gelen deterministik gerekce notlari — LLM'e
     // GEREKÇE'yi bu somut EMA/VWAP/hacim/RSI notlarina dayandirmasi icin
@@ -1597,7 +1603,7 @@ Tarih: ${s.date || "N/A"}  |  Piyasa Rejimi: ${regime}  |  BOGA Skoru: ${masterS
 🎯 İşlem Planı:
 • Giriş Bölgesi: $${entryLow} - $${entryHigh}
 • Giriş Şartı: ${entryConditionNote || "N/A"}
-• Hedef Bölge: $${targetLow} - $${targetHigh}
+• Hedef Bölge: $${targetLow} - $${targetHigh} (TP1: $${tp1Str} | TP2: $${tp2Str} | TP3: $${tp3Str})
 • Stop Loss: $${stopLoss}
 • Stop Gerekçesi: ${stopRationaleNote || "N/A"}
 
@@ -1634,7 +1640,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
 
 ┌─ 🎯 İŞLEM PLANI (SWING TRADE)
 │  🟢 Giriş: $${entryLow} - $${entryHigh}
-│  🎯 Hedef: $${targetLow} - $${targetHigh}
+│  🎯 Hedef: TP1 $${tp1Str} | TP2 $${tp2Str} | TP3 $${tp3Str}
 │  🛑 Stop:  $${stopLoss}
 │  ⚖️ R/R: 1:[hesapla ve yaz]
 └─────────────────

@@ -20,8 +20,13 @@ function calcEMA(closes: number[], period: number): number {
 export interface TradePlanZones {
   entryEngine: { valid: boolean; type: string; confidence: number };
   buyZone: { low: number; high: number };
-  sellZone: { low: number; high: number };
+  sellZone: { low: number; high: number }; // = TP1..TP3 araligi
   stopZone: { low: number; high: number };
+  // Swing hedef merdiveni (7-90 gun): gunluk pivot direncleri + yuzde
+  // tabanlari. TUM sayfalar (analysis / graphic / stock) bunlari gosterir.
+  tp1: number;
+  tp2: number;
+  tp3: number;
   supportLevel: number;
   resistLevel: number;
   breakoutLevel: number; // BOS icin referans alinan yakin donemsel zirve
@@ -158,19 +163,41 @@ export function calculateTradePlanZones(
     stopLow -= shift;
   }
 
-  const avgEntry = entryValid ? currentPrice * 0.995 : (buyZoneLow + buyZoneHigh) / 2;
-  const risk = Math.max(avgEntry - stopHigh, atr1d * 1.0);
+  // Giris bir ARALIKTIR (buyZone). Turev hesaplar (risk, R/R, hedef
+  // tabanlari) araligin orta noktasina baglanir — her sayfada ayni referans.
+  const avgEntry = (buyZoneLow + buyZoneHigh) / 2;
 
-  const structuralReward = resistLevel - avgEntry;
-  let reward = structuralReward > 0 ? Math.max(risk * 2.0, structuralReward) : risk * 2.5;
-  const rrCap = 4.0;
-  if (reward > risk * rrCap) reward = risk * rrCap;
+  // ── Swing hedef merdiveni (7-90 gun operasyon) ──────────────────────────
+  // /analysis'te dogrulanan formul: gunluk pivot direncleri (7 bar pencere,
+  // %0.8 kumeleme — deep-analysis/buildSRFromPivots ile ayni) + yuzde
+  // tabanlari (TP1 >= giris+%5, TP2 >= +%10, TP3 >= +%15). Eski
+  // sellZone = 2R..4R mantigi ATR'e bagliydi ve scalp seviyesinde dar
+  // hedefler uretiyordu; swing icin yapisal seviyeler esastir.
+  const WIN = 7;
+  const pivotHighsD: number[] = [];
+  for (let i = WIN; i < highs1d.length - WIN; i++) {
+    const left = highs1d.slice(i - WIN, i);
+    const right = highs1d.slice(i + 1, i + WIN + 1);
+    if (highs1d[i] >= Math.max(...left) && highs1d[i] >= Math.max(...right)) {
+      pivotHighsD.push(highs1d[i]);
+    }
+  }
+  const ladder: number[] = [];
+  let lastLvl = -Infinity;
+  for (const v of [...pivotHighsD].sort((a, b) => a - b)) {
+    if (v - lastLvl > lastLvl * 0.008) { ladder.push(v); lastLvl = v; }
+  }
+  const hi52 = Math.max(...highs1d);
+  const resAbove = ladder.filter((r) => r > avgEntry * 1.02);
+  const tp1 = Math.max(resAbove[0] ?? 0, avgEntry * 1.05);
+  const tp2 = Math.max(resAbove[1] ?? 0, avgEntry * 1.1, tp1 * 1.02);
+  const tp3 = Math.max(resAbove[2] ?? hi52, avgEntry * 1.15, tp2 * 1.02);
 
-  const sellZoneLow = avgEntry + reward * 0.85;
-  const sellZoneHigh = avgEntry + reward;
+  const sellZoneLow = tp1;
+  const sellZoneHigh = tp3;
 
   const actualRisk = avgEntry - stopHigh;
-  const actualReward = sellZoneHigh - avgEntry;
+  const actualReward = tp2 - avgEntry; // orta hedef — temsili R/R
   const rrRatio = actualRisk > 0 ? actualReward / actualRisk : 0;
 
   return {
@@ -178,6 +205,9 @@ export function calculateTradePlanZones(
     buyZone: { low: +buyZoneLow.toFixed(2), high: +buyZoneHigh.toFixed(2) },
     sellZone: { low: +sellZoneLow.toFixed(2), high: +sellZoneHigh.toFixed(2) },
     stopZone: { low: +stopLow.toFixed(2), high: +stopHigh.toFixed(2) },
+    tp1: +tp1.toFixed(2),
+    tp2: +tp2.toFixed(2),
+    tp3: +tp3.toFixed(2),
     supportLevel: +supportLevel.toFixed(2),
     resistLevel: +resistLevel.toFixed(2),
     breakoutLevel: +breakoutLevel.toFixed(2),

@@ -694,8 +694,6 @@ export async function GET(req: NextRequest) {
   // Paylasilan motor (lib/tradePlanEngine.ts) — /api/ask'in (analiz sayfasi)
   // kullandigi ayni pivot/ATR tabanli zon mantigi, boylece grafik sayfasi ve
   // analiz sayfasi ayni ticker icin celismez.
-  const resistances = srLevels.filter(l => l.type === "resistance").sort((a, b) => a.price - b.price);
-
   const zones = calculateTradePlanZones(
     closes1d, highs1d, lows1d,
     closes1h.length > 0 ? closes1h : null,
@@ -706,9 +704,12 @@ export async function GET(req: NextRequest) {
     price
   );
 
-  const targets = resistances.slice(0, 3).map((r, i) => ({
-    price: r.price,
-    rr: zones.riskUsd > 0 ? +((r.price - zones.avgEntry) / zones.riskUsd).toFixed(1) : 0,
+  // Hedefler paylasilan motorun swing TP merdiveninden gelir (tp1..tp3) —
+  // eskiden en yakin 3 direnc alinyordu, bu da scalp seviyesinde dar
+  // hedefler gosteriyordu ve /analysis ile celisiyordu.
+  const targets = [zones.tp1, zones.tp2, zones.tp3].map((p, i) => ({
+    price: p,
+    rr: zones.riskUsd > 0 ? +((p - zones.avgEntry) / zones.riskUsd).toFixed(1) : 0,
     label: `Target ${i + 1}`,
   }));
 

@@ -781,7 +781,13 @@ function remapNeutralKeys(obj: Record<string, any>): Record<string, any> {
 }
 
 function buildUserPrompt(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
-  const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}`;
+  // Trade plani (paylasilan motor) prompt'a girer ki anlati alanlari
+  // (kritikSeviyeler/oneri/tetikleyiciler) plan kartiyla ayni seviyeleri
+  // referans alsin — plandan habersiz seviye uydurmasin.
+  const planSeg = p.enginePlan
+    ? ` TradePlan[EntryZone:${p.enginePlan.entryLow.toFixed(2)}-${p.enginePlan.entryHigh.toFixed(2)} Stop:${p.enginePlan.stop.toFixed(2)} TP1:${p.enginePlan.t1.toFixed(2)} TP2:${p.enginePlan.t2.toFixed(2)} TP3:${p.enginePlan.t3.toFixed(2)}]`
+    : "";
+  const header = `Stock: ${p.ticker} ${p.companyName} ${p.sector} Price:${p.currentPrice.toFixed(2)} Score:${p.masterScore} RSI:${p.rsi.toFixed(1)} IV:${p.iv} EMA20:${p.ema20.toFixed(2)} EMA50:${p.ema50.toFixed(2)} EMA200:${p.ema200.toFixed(2)} Support:${p.support1.toFixed(2)} Resistance:${p.resistance1.toFixed(2)} ATR:${p.atr.toFixed(2)} Bear15D:${p.bearTarget.toFixed(2)} Base15D:${p.baseTarget.toFixed(2)} Bull15D:${p.bullTarget.toFixed(2)}${planSeg}`;
   const roundedScore = (p.masterScore / 10).toFixed(1);
   const schema =
     lang === "tr"
@@ -1220,6 +1226,18 @@ export async function POST(req: NextRequest) {
     const range2sd = { low: +(currentPrice - implied30dMove * 2).toFixed(2), high: +(currentPrice + implied30dMove * 2).toFixed(2) };
 
     // promptParams uses live technical values for accurate AI analysis
+    // Paylasilan trade-plan motorunun (lib/tradePlanEngine.ts) plani —
+    // /api/ask'in scores_detail'i ile gelir. Hem LLM anlatisinin hem de
+    // rawData'nin (DeepAnalysisReport Swing sekmesi) tek kaynagi.
+    const enginePlan = (sd.entry_range_low && sd.entry_range_high && sd.stop_loss && sd.target_1) ? {
+      entryLow: safeNum(sd.entry_range_low, 0),
+      entryHigh: safeNum(sd.entry_range_high, 0),
+      stop: safeNum(sd.stop_loss, 0),
+      t1: safeNum(sd.target_1, 0),
+      t2: safeNum(sd.target_2, 0),
+      t3: safeNum(sd.target_3, 0),
+    } : null;
+
     const promptParams = {
       ticker: ticker.toUpperCase(), companyName: s.company || ticker,
       sector: s.sector || "N/A", industry: s.industry || "N/A",
@@ -1228,6 +1246,7 @@ export async function POST(req: NextRequest) {
       support1: liveS1, resistance1: liveR1,
       marketCapStr, ivRank,
       bearTarget, baseTarget, bullTarget,
+      enginePlan,
     };
 
     // AI call (BOGA AI always)
@@ -1413,6 +1432,10 @@ export async function POST(req: NextRequest) {
         avgVol30d: avgVol30dF, volume, rvol: rvolF, macd: macdF, ivRank: +ivRank.toFixed(2), ivHvRatio: +(iv / Math.max(hv30F, 1)).toFixed(2),
         marketCapStr, forecast15, history15, srLevels, maLevels, cspMatrix, ccMatrix,
         historyOHLC: historyRows || [], currentPrice,
+        // DeepAnalysisReport'un Swing sekmesi BU degerleri gosterir ki
+        // /graphic ve /en/stock ile birebir ayni giris araligi / stop /
+        // TP1-3 gorunsun.
+        enginePlan,
         implied30dMove: +implied30dMove.toFixed(2), range1sd, range2sd,
         sp500Change: mo.sp500Change ?? null, nasdaqChange: mo.nasdaqChange ?? null, vixPrice: mo.vixPrice ?? null,
         emaProfile, emaSlope20, emaSlope50, emaSlope200, flowSummary,

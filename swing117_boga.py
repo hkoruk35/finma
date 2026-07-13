@@ -1198,28 +1198,41 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
                 f"(min %5.0 mesafe zorunlu)"
             )
 
-        # 🎯 FIX 5: Entry Buffer — breakout mumunun tam tepesinden almamak (slippage protection)
-        avg_entry = (current_price * 0.995) if entry_valid else ((buy_zone_low + buy_zone_high) / 2)
-        risk      = max(avg_entry - stop_high, atr_1d * 1.0)
+        # ── SWING HEDEF MERDİVENİ (TP1/TP2/TP3 — 7-90 gün) ────────────────
+        # TS motoru (frontend/lib/tradePlanEngine.ts) ile BİREBİR aynı:
+        # günlük pivot dirençleri (7 bar pencere, %0.8 kümeleme) + yüzde
+        # tabanları (TP1 >= giriş+%5, TP2 >= +%10, TP3 >= +%15).
+        # Eski sell_zone = 2R..4R/6R mantığı ATR'e bağlıydı ve scalp
+        # seviyesinde dar hedefler üretiyordu; swing için yapısal seviyeler esas.
+        # Giriş bir ARALIKTIR (buy_zone) — türev hesaplar orta noktaya bağlanır.
+        avg_entry = (buy_zone_low + buy_zone_high) / 2.0
 
-        # 🎯 FIX 3: R/R Kaybını Engelleme (momentum hisseleri için edge)
-        structural_reward = resist_1h - avg_entry
-        reward = max(risk * 2.0, structural_reward) if structural_reward > 0 else risk * 2.5
+        PIVOT_WIN = 7
+        highs_arr = high_1d.to_numpy(dtype=float)
+        pivot_highs_d = []
+        for i in range(PIVOT_WIN, len(highs_arr) - PIVOT_WIN):
+            if (highs_arr[i] >= highs_arr[i - PIVOT_WIN:i].max()
+                    and highs_arr[i] >= highs_arr[i + 1:i + PIVOT_WIN + 1].max()):
+                pivot_highs_d.append(float(highs_arr[i]))
 
-        # 🚨 FIX 7: R/R Tavanı — exhausted/late hissede 4x, momentum liderinde 6x.
-        # "Early Awakening" veya "Squeeze" sinyali varsa asymmetry korunur.
-        is_momentum_trigger_keyword = entry_trigger_1d and any(
-            k in entry_trigger_1d for k in ["Squeeze", "Awakening", "Momentum", "Spring"]
-        )
-        rr_cap = 6.0 if is_momentum_trigger_keyword else 4.0
-        if reward > risk * rr_cap:
-            reward = risk * rr_cap
+        ladder = []
+        last_lvl = -float("inf")
+        for v in sorted(pivot_highs_d):
+            if v - last_lvl > last_lvl * 0.008:
+                ladder.append(v)
+                last_lvl = v
 
-        sell_zone_low  = round(avg_entry + reward * 0.85, 2)
-        sell_zone_high = round(avg_entry + reward, 2)
+        hi_52 = float(high_1d.max())
+        res_above = [r for r in ladder if r > avg_entry * 1.02]
+        tp1 = max(res_above[0] if len(res_above) > 0 else 0.0, avg_entry * 1.05)
+        tp2 = max(res_above[1] if len(res_above) > 1 else 0.0, avg_entry * 1.10, tp1 * 1.02)
+        tp3 = max(res_above[2] if len(res_above) > 2 else hi_52, avg_entry * 1.15, tp2 * 1.02)
+
+        sell_zone_low  = round(tp1, 2)
+        sell_zone_high = round(tp3, 2)
 
         actual_risk   = avg_entry - stop_high
-        actual_reward = sell_zone_high - avg_entry
+        actual_reward = tp2 - avg_entry   # orta hedef — temsili R/R
         rr_ratio      = round(actual_reward / actual_risk, 2) if actual_risk > 0 else 0.0
 
         return {
@@ -1231,6 +1244,9 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
             "buy_zone":    {"low": buy_zone_low,  "high": buy_zone_high},
             "sell_zone":   {"low": sell_zone_low,  "high": sell_zone_high},
             "stop_zone":   {"low": stop_low,       "high": stop_high},
+            "tp1":         round(tp1, 2),
+            "tp2":         round(tp2, 2),
+            "tp3":         round(tp3, 2),
             "support_1h":  round(support_1h, 2),
             "resist_1h":   round(resist_1h,  2),
             "atr_1d":      round(atr_1d,     2),
@@ -1245,8 +1261,11 @@ def calculate_support_resistance_1h(df_1h: pd.DataFrame, df_1d: pd.DataFrame, cu
         return {
             "entry_engine": {"valid": False, "type": "DATA_ERROR", "confidence": 0},
             "buy_zone":   {"low": current_price * 0.98,  "high": current_price * 1.01},
-            "sell_zone":  {"low": current_price * 1.05,  "high": current_price * 1.08},
+            "sell_zone":  {"low": current_price * 1.05,  "high": current_price * 1.15},
             "stop_zone":  {"low": current_price * 0.94,  "high": current_price * 0.95},
+            "tp1":         round(current_price * 1.05, 2),
+            "tp2":         round(current_price * 1.10, 2),
+            "tp3":         round(current_price * 1.15, 2),
             "support_1h":  current_price * 0.95,
             "resist_1h":   current_price * 1.08,
             "atr_1d":      current_price * 0.03,
@@ -4889,9 +4908,23 @@ async def scan_top_stocks():
         zones = calculate_support_resistance_1h(
             c.get("df_1h"), c.get("df_1d"), c.get("current_price", 0.0), trigger, c.get("df_15m")
         )
-        
+
         c["boga_zones"] = zones
         c["boga_rr"] = zones.get("rr_ratio", 0.0)
+
+        # TP merdiveni TEK KAYNAK: zone motorunun tp1-3'ü (TS motoruyla aynı
+        # formül). Phase 4'ün ATR bazlı tp/sl'i sadece erken elemede kullanılır;
+        # yayınlanan tüm değerler (Telegram, tracker_logic, master.json)
+        # buradan gelir — profit_zone ile tp1-3 artık çelişemez.
+        if zones.get("tp1"):
+            c["tp1"] = zones["tp1"]
+            c["tp2"] = zones["tp2"]
+            c["tp3"] = zones["tp3"]
+            c["stop_loss"] = zones.get("stop_zone", {}).get("high", c.get("stop_loss", 0.0))
+            c["rr_ratio"]  = zones.get("rr_ratio", c.get("rr_ratio", 0.0))
+            cp = c.get("current_price", 0.0)
+            if cp > 0:
+                c["profit_expectation_pct"] = round((zones["tp2"] / cp - 1) * 100, 2)
 
     # ── R/R HARD ELIMINATION — 🎯 BOĞA MODU: 1.5 → 1.0 ─────────────────────
     top_candidates = [c for c in top_candidates if c.get("boga_rr", 0.0) >= 1.0]
