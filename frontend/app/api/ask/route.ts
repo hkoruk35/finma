@@ -5,9 +5,17 @@ import path from "path";
 import { execSync } from "child_process";
 import { MARKET_THEMES } from "../../../lib/themeData";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
+import { hasAnyAuth } from "@/lib/apiAuth";
+import { isRateLimited, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
+
+// Herkese açık /graphic sayfaları buraya tek ticker'lık önizleme için
+// kimliksiz istek atar (bilinçli tasarım) — ama her istek gerçek Gemini/Claude
+// çağrısı tetikleyebildiği için IP başına gevşek bir üst sınır şart.
+const ASK_MAX_REQUESTS = 40;
+const ASK_WINDOW_MS = 15 * 60 * 1000;
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -1299,6 +1307,10 @@ async function fetchMarketIndicesAndSector(sectorName: string) {
 }
 
 export async function POST(req: NextRequest) {
+  if (isRateLimited(getClientIp(req), ASK_MAX_REQUESTS, ASK_WINDOW_MS)) {
+    return NextResponse.json({ text: "Çok fazla istek. Lütfen biraz sonra tekrar deneyin." }, { status: 429 });
+  }
+
   let body: { message: string; history?: Message[]; lang?: string };
   try {
     body = await req.json();
@@ -1715,6 +1727,14 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     } catch (e) {
       return aiResponse;
     }
+  }
+
+  // Ticker-önizleme dalının altındaki genel BOGA AI sohbet asistanı — bu,
+  // /global/{locale}/ai sayfasının özelliği ve o sayfa zaten middleware'de
+  // üyelik gerektiriyor. API'yi doğrudan çağırarak o kapıyı atlamayı
+  // engellemek için burada da aynı kontrolü uyguluyoruz.
+  if (!(await hasAnyAuth(req))) {
+    return NextResponse.json({ text: "Bu özellik için giriş yapmalısınız." }, { status: 401 });
   }
 
   try {

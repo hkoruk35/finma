@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import path from "path";
 import fs from "fs/promises";
+import { hasDataAccess } from "@/lib/apiAuth";
+import { isRateLimited, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -9,6 +11,11 @@ export const maxDuration = 90;
 // ── 1-hour in-memory cache ─────────────────────────────────────────────────────
 const cache = new Map<string, { ts: number; data: any }>();
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour ms
+
+// Bu uç, istek başına ücretli Gemini/Claude çağrısı yapar — üyelik + IP rate
+// limit olmadan hem faturayı hem de "premium" AI raporunu ücretsiz sızdırırdı.
+const DEEP_ANALYSIS_MAX_REQUESTS = 30;
+const DEEP_ANALYSIS_WINDOW_MS = 15 * 60 * 1000;
 
 // ── Persistent file cache (ticker + date + version) ───────────────────────────
 // 3 versions per day: v1=00-08h, v2=08-16h, v3=16-24h (covers pre-market, session, post-close)
@@ -827,6 +834,13 @@ async function callGemini(userPrompt: string, lang: "tr" | "en" | "es" | "fr" = 
 // ── Main ──────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   try {
+    if (isRateLimited(getClientIp(req), DEEP_ANALYSIS_MAX_REQUESTS, DEEP_ANALYSIS_WINDOW_MS)) {
+      return NextResponse.json({ error: "Çok fazla istek. Lütfen biraz sonra tekrar deneyin." }, { status: 429 });
+    }
+    if (!(await hasDataAccess(req))) {
+      return NextResponse.json({ error: "Bu özellik için üyelik gerekli." }, { status: 401 });
+    }
+
     const { ticker, stockData, lang: langRaw } = await req.json();
     if (!ticker || !stockData) return NextResponse.json({ error: "Missing ticker or stockData" }, { status: 400 });
     const lang: "tr" | "en" | "es" | "fr" = (langRaw === "en" || langRaw === "es" || langRaw === "fr") ? langRaw : "tr";
@@ -1470,7 +1484,12 @@ export async function GET(req: NextRequest) {
     const lang = langParam === "en" || langParam === "es" || langParam === "fr" ? langParam : "tr";
 
     // Fetch stock data from /api/data/stocks/{ticker}.json
-    const dataRes = await fetch(`http://${req.headers.get("host")}/api/data/stocks/${ticker}.json`, { signal: AbortSignal.timeout(10000) });
+    // /api/data artık üyelik kontrolü yapıyor — orijinal isteğin cookie'sini
+    // taşımazsak bu internal çağrı 403 döner. Cookie header'ı ilet.
+    const dataRes = await fetch(`http://${req.headers.get("host")}/api/data/stocks/${ticker}.json`, {
+      signal: AbortSignal.timeout(10000),
+      headers: { cookie: req.headers.get("cookie") ?? "" },
+    });
     if (!dataRes.ok) {
       console.warn(`[deep-analysis GET] Stock data not found for ${ticker}`);
       return NextResponse.json({ error: `Stock data not found for ${ticker}` }, { status: 404 });
@@ -1478,10 +1497,17 @@ export async function GET(req: NextRequest) {
 
     const stockData = await dataRes.json();
 
-    // Convert GET to POST by calling the handler directly
+    // Convert GET to POST by calling the handler directly.
+    // Auth/rate-limit kontrolü POST içinde çalışıyor — orijinal isteğin
+    // cookie ve x-forwarded-for header'larını taşımazsak bu iç çağrı
+    // yetkisiz/yanlış-IP görünür.
     const postReq = new NextRequest(new URL(`${req.nextUrl.origin}/api/deep-analysis`), {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        cookie: req.headers.get("cookie") ?? "",
+        "x-forwarded-for": req.headers.get("x-forwarded-for") ?? "",
+      },
       body: JSON.stringify({ ticker, stockData, lang }),
     });
 

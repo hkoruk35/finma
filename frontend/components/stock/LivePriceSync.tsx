@@ -21,7 +21,7 @@ export default function LivePriceSync({ ticker, initialPrice, initialChange }: P
     const fetchLatest = async () => {
       try {
         // Fetch from the latest JSON endpoint
-        const res = await fetch("/data/latest/all_tickers_list.json?v=" + Date.now());
+        const res = await fetch("/api/data/latest/all_tickers_list.json?v=" + Date.now());
         if (!res.ok) return;
         const data = await res.json();
         const tickers = data.tickers || [];

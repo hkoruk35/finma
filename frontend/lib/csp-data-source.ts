@@ -93,7 +93,7 @@ export async function getDailyArchiveDates(): Promise<string[]> {
 export async function getSwingTickersForDate(date: string): Promise<string[]> {
   try {
     const cleanDate = date.replace(/-/g, "");
-    const res = await fetch(`/data/swing2026/swing_${cleanDate}.json?v=${Date.now()}`, {
+    const res = await fetch(`/api/data/swing2026/swing_${cleanDate}.json?v=${Date.now()}`, {
       cache: "no-store",
     });
     if (!res.ok) return [];

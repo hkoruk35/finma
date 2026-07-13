@@ -34,7 +34,7 @@ export default function SectorScreener() {
   useEffect(() => {
     const loadSectorData = async () => {
       try {
-        const response = await fetch("/data/sector_analysis.json", { cache: "no-store" });
+        const response = await fetch("/api/data/sector_analysis.json", { cache: "no-store" });
         if (!response.ok) throw new Error("Failed to load sector analysis");
 
         const data = await response.json();

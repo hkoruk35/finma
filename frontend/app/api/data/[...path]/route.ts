@@ -12,6 +12,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import fs from "fs";
+import { hasDataAccess } from "@/lib/apiAuth";
 
 // Primary: bot writes to transfer/latest/ (local dev)
 // Fallback: public/data/latest/ (Vercel — committed to git)
@@ -19,7 +20,10 @@ const TRANSFER_ROOT = process.env.FINMA_DATA_PATH
   ? path.resolve(process.env.FINMA_DATA_PATH)
   : path.resolve(process.cwd(), "..", "transfer", "latest");
 
-const PUBLIC_ROOT = path.resolve(process.cwd(), "public", "data", "latest");
+const PUBLIC_LATEST_ROOT = path.resolve(process.cwd(), "public", "data", "latest");
+// Tarihli arşivler (2026-07-10/master.json) ve latest'e nest edilmemiş klasörler
+// (swing2026/...) için "latest" eklemeden doğrudan public/data kökü.
+const PUBLIC_DATA_ROOT = path.resolve(process.cwd(), "public", "data");
 
 function sanitize(content: string): string {
   return content
@@ -39,6 +43,12 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
+  // Bu uctaki veri, sistemin ana urunu (skorlar, giris/hedef/stop seviyeleri).
+  // Kimliksiz/plansiz erisim engellenir — bkz. GUVENLIK_IZLEME.md.
+  if (!(await hasDataAccess(req))) {
+    return NextResponse.json({ error: "Bu veriye erişim için üyelik gerekli." }, { status: 403 });
+  }
+
   const { path: pathSegments } = await params;
 
   // Security: no path traversal
@@ -53,10 +63,12 @@ export async function GET(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  // Try transfer root first, then public/data/latest fallback
+  // Try transfer root, then public/data/latest, then raw public/data
+  // (tarihli arşivler ve latest'e nest olmayan klasörler için).
   const candidates = [
     path.join(TRANSFER_ROOT, ...segments),
-    path.join(PUBLIC_ROOT, ...segments),
+    path.join(PUBLIC_LATEST_ROOT, ...segments),
+    path.join(PUBLIC_DATA_ROOT, ...pathSegments),
   ];
 
   let raw: string | null = null;

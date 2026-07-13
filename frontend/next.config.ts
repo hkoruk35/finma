@@ -1,5 +1,23 @@
 import type { NextConfig } from "next";
 
+// Next.js dev sunucusu (Fast Refresh/HMR) 'unsafe-eval' gerektirir; production
+// build'de bu izin kaldırılır.
+const isDev = process.env.NODE_ENV !== "production";
+
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data:",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://generativelanguage.googleapis.com",
+  "frame-src 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join("; ");
+
 const nextConfig: NextConfig = {
   // SEO Optimizations
   poweredByHeader: false, // Remove X-Powered-By header for security
@@ -22,6 +40,13 @@ const nextConfig: NextConfig = {
             key: "Vary",
             value: "Accept-Encoding",
           },
+          // Clickjacking koruması — site başka bir origin'in iframe'ine gömülemez.
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "Content-Security-Policy", value: CONTENT_SECURITY_POLICY },
+          // MIME-sniffing koruması.
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
       // Disable indexing for admin pages

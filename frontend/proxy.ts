@@ -8,6 +8,17 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // ── /data/* statik JSON'lara doğrudan HTTP erişimi kapalı ──────────────────
+  // Bu dosyalar (skorlar, giriş/hedef/stop seviyeleri) public/ altında durduğu
+  // için Next.js normalde hiçbir kontrolden geçirmeden servis eder — üyelik
+  // olmadan curl ile tüm veritabanı taranabiliyordu. Sunucu tarafı kod bu
+  // dosyaları fs.readFileSync ile doğrudan diskten okumaya devam eder (bu blok
+  // sadece tarayıcı/HTTP erişimini keser); tek meşru HTTP yolu, kendi üyelik/
+  // plan kontrolünü yapan /api/data/[...path]/route.ts'tir.
+  if (pathname === '/data' || pathname.startsWith('/data/')) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+  }
+
   // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
   const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
 
@@ -115,17 +126,14 @@ export async function proxy(request: NextRequest) {
     pathname === '/admin/account/register' ||
     pathname?.startsWith('/admin/account/register/')
 
-  // Admin diğer sayfaları boga_auth cookie kontrolü gerektirir
-  const requiresAdminAuth =
-    pathname?.startsWith('/admin/') &&
-    !pathname.startsWith('/admin/admins') &&
-    !pathname.startsWith('/admin/members') &&
-    !pathname.startsWith('/admin/messages') &&
-    !pathname.startsWith('/admin/plans') &&
-    !pathname.startsWith('/admin/campaigns') &&
-    !pathname.startsWith('/admin/sitemap') &&
-    !pathname.startsWith('/admin/top100') &&
-    !isAdminAuthPath
+  // Admin diğer sayfaları boga_auth cookie kontrolü gerektirir.
+  // Not: /admin/admins, /members, /messages, /plans, /campaigns, /sitemap,
+  // /top100 önceden burada istisnaydı — bu sayfalar oturumsuz ziyaretçiye de
+  // boş kabuk olarak render ediliyordu (arkasındaki /api/admin/* zaten kendi
+  // boga_auth kontrolünü yapıyor olsa da, sayfanın var olduğunu ve yapısını
+  // yetkisiz ziyaretçiye ifşa ediyordu). Artık diğer admin sayfalarıyla aynı
+  // kurala tabi.
+  const requiresAdminAuth = pathname?.startsWith('/admin/') && !isAdminAuthPath
 
   const hasBogaAuth = !!request.cookies.get('boga_auth')?.value
 
