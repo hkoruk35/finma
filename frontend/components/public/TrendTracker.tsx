@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
-import { MARKET_THEMES } from "@/lib/themeData";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -12,6 +12,8 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
+const REMOVED_THEMES_KEY = "removed_hot_themes_2026";
+const REMOVED_STOCKS_KEY_PREFIX = "removed_stocks_";
 
 interface HourlyBar {
   time: string;
@@ -161,20 +163,41 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
+      // localStorage'dan çıkartılan tema ve hisseleri oku
+      let removedSlugs = new Set<string>();
+      let removedStocks: Record<string, Set<string>> = {};
+
+      try {
+        const stored = localStorage.getItem(REMOVED_THEMES_KEY);
+        if (stored) removedSlugs = new Set(JSON.parse(stored));
+
+        HOT_THEMES_2026.forEach((theme) => {
+          const key = REMOVED_STOCKS_KEY_PREFIX + theme.slug;
+          const stored = localStorage.getItem(key);
+          if (stored) removedStocks[theme.slug] = new Set(JSON.parse(stored));
+        });
+      } catch {
+        // localStorage error, continue with empty sets
+      }
+
       const rows: TrendRow[] = [];
 
-      for (const theme of MARKET_THEMES) {
-        for (const ticker of theme.tickers) {
+      for (const theme of HOT_THEMES_2026) {
+        if (removedSlugs.has(theme.slug)) continue; // Bu tema çıkartılmış
+
+        for (const stock of theme.stocks) {
+          if (removedStocks[theme.slug]?.has(stock.ticker)) continue; // Bu hisse çıkartılmış
+
           rows.push({
-            ticker,
-            company: "",
+            ticker: stock.ticker,
+            company: stock.company,
             price: 0,
             change_pct: 0,
             rsi: 0,
             signal: "WATCH",
             volume: 0,
-            sector: theme.sector,
-            themeTitle: theme.name,
+            sector: "Unknown",
+            themeTitle: theme.title,
           });
         }
       }
@@ -207,7 +230,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   }, [fetchAll]);
 
   const themeOptions = useMemo(() => {
-    return MARKET_THEMES.map((t) => t.name);
+    return HOT_THEMES_2026.map((t) => t.title);
   }, []);
 
   const sectorOptions = useMemo(() => {
@@ -301,7 +324,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               {locale === "tr" ? "2026 Trend Hisseleri" : locale === "pt" ? "Ações em Tendência 2026" : "2026 Trend Stocks"}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <span>{MARKET_THEMES.length} {locale === "tr" ? "tema" : locale === "pt" ? "temas" : "themes"}</span>
+              <span>{HOT_THEMES_2026.length} {locale === "tr" ? "tema" : locale === "pt" ? "temas" : "themes"}</span>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
