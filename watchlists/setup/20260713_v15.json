@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "VOD",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 15.5,
+        "entry_zone": "15.30 - 15.70",
+        "SL": 14.72,
+        "TP": 17.07
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "PBI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 17.97,
+        "entry_zone": "17.65 - 18.29",
+        "SL": 16.69,
+        "TP": 20.54
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "GNK",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 25.46,
+        "entry_zone": "25.01 - 25.91",
+        "SL": 23.67,
+        "TP": 29.04
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "DXCM",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 75.83,
+        "entry_zone": "74.67 - 76.99",
+        "SL": 71.2,
+        "TP": 85.09
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "INSW",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 86.72,
+        "entry_zone": "84.41 - 89.03",
+        "SL": 77.48,
+        "TP": 105.19
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "OII",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 43.16,
+        "entry_zone": "42.35 - 43.97",
+        "SL": 39.9,
+        "TP": 49.67
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "CROX",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 130.67,
+        "entry_zone": "128.04 - 133.30",
+        "SL": 120.15,
+        "TP": 151.72
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "MAMA",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 19.21,
+        "entry_zone": "18.66 - 19.76",
+        "SL": 16.99,
+        "TP": 23.65
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "STNG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 77.71,
+        "entry_zone": "76.09 - 79.33",
+        "SL": 71.23,
+        "TP": 90.67
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "RSI",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 34.01,
+        "entry_zone": "33.39 - 34.62",
+        "SL": 31.53,
+        "TP": 38.96
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "LPG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 40.27,
+        "entry_zone": "39.32 - 41.22",
+        "SL": 36.45,
+        "TP": 47.91
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "MET",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 93.05,
+        "entry_zone": "92.01 - 94.09",
+        "SL": 88.9,
+        "TP": 101.36
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "MT",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 65.64,
+        "entry_zone": "64.53 - 66.75",
+        "SL": 61.22,
+        "TP": 74.49
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "XPRO",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 15.59,
+        "entry_zone": "15.28 - 15.89",
+        "SL": 14.36,
+        "TP": 18.03
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "META",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 657.93,
+        "entry_zone": "644.33 - 671.53",
+        "SL": 603.54,
+        "TP": 766.71
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "REZI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 35.64,
+        "entry_zone": "34.81 - 36.47",
+        "SL": 32.32,
+        "TP": 42.28
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "NVDA",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 204.07,
+        "entry_zone": "200.63 - 207.52",
+        "SL": 190.28,
+        "TP": 224.77
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "CAKE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 81.41,
+        "entry_zone": "80.05 - 82.77",
+        "SL": 75.98,
+        "TP": 92.26
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "NEXA",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 13.65,
+        "entry_zone": "13.16 - 14.14",
+        "SL": 11.71,
+        "TP": 17.54
+    },
+    {
+        "date": "2026-07-13 15:45",
+        "symbol": "TNK",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 71.3,
+        "entry_zone": "69.60 - 73.00",
+        "SL": 64.49,
+        "TP": 84.91
+    }
+]
