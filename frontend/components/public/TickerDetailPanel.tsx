@@ -245,7 +245,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             </a>
           )}
           {!hidePermalink && (
-            <a href={`/global/${locale === "tr" ? "tr" : "en"}/graphic/${ticker}`} className="text-center text-sm font-bold text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
+            <a href={`/global/${locale}/graphic/${ticker}`} className="text-center text-sm font-bold text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
               {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
             </a>
           )}

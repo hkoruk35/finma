@@ -106,7 +106,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                   return (
                     <TickerHoverChart key={stock.ticker} ticker={stock.ticker}>
                       <Link
-                        href={`/global/en/graphic/${stock.ticker}`}
+                        href={`/global/${currentLocale}/graphic/${stock.ticker}`}
                         className={`relative flex flex-col items-center justify-center py-3 rounded-sm transition-all duration-200 hover:brightness-110 hover:z-10 hover:shadow-xl ${s.bg} border ${s.border}`}
                         title={`${stock.ticker}: ${stock.change_pct}%`}
                       >

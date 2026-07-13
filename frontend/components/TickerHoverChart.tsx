@@ -1,8 +1,17 @@
 "use client";
 
 import { useState, useRef, useCallback, ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+
+const CHART_DETAIL_LABEL: Record<string, string> = {
+  en: "Chart Detail",
+  tr: "Grafik Detay",
+  es: "Detalle del Gráfico",
+  fr: "Détail du Graphique",
+  pt: "Detalhe do Gráfico",
+};
 
 interface Props {
   ticker: string;
@@ -19,6 +28,11 @@ interface Props {
 export default function TickerHoverChart({ ticker, children, className, locale }: Props) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Dil, prop gecilmediginde URL'den cikarilir (/global/{locale}/...) —
+  // hangi dilde gezmiyorsan popup'taki grafik linki de o dilde kalir.
+  const pathname = usePathname();
+  const pathLocale = pathname?.match(/^\/global\/(en|tr|es|fr|pt)(\/|$)/)?.[1];
+  const loc = locale || pathLocale || "en";
 
   const handleEnter = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -76,10 +90,10 @@ export default function TickerHoverChart({ ticker, children, className, locale }
             </span>
             <div style={{ display: "flex", gap: 12, fontSize: 10 }}>
               <a
-                href={`/global/en/graphic/${ticker}`}
+                href={`/global/${loc}/graphic/${ticker}`}
                 style={{ color: "#8b949e" }}
               >
-                {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
+                {CHART_DETAIL_LABEL[loc] || CHART_DETAIL_LABEL.en} ↗
               </a>
             </div>
           </div>
