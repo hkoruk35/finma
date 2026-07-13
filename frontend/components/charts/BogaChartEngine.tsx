@@ -273,7 +273,9 @@ export default function BogaChartEngine({
   useEffect(() => {
     if (!detailMode) return;
     let active = true;
-    const langParam = lang === "en" ? "&lang=en" : "";
+    // preorder-analysis sadece tr (varsayilan) ve en uretir — tr disindaki
+    // tum diller (en/es/fr/pt) Ingilizce metin almali, Turkce degil.
+    const langParam = lang === "tr" ? "" : "&lang=en";
     fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(symbol)}${langParam}`)
       .then((r) => r.json())
       .then((d) => {
@@ -916,11 +918,12 @@ export default function BogaChartEngine({
         <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
 
-          {/* BOGASTOCK filigran — sag ust kosede, Header.tsx'teki logo
-              fontuyla (Montserrat) STOCK kismi acik mavi, dusuk opaklikla
-              mum/gosterge okumayi engellemeyecek sekilde. */}
+          {/* BOGASTOCK filigran — sol ustte, detailMode'da OHLC satirinin
+              hemen altinda. Header.tsx'teki logo fontuyla (Montserrat) STOCK
+              kismi acik mavi, dusuk opaklikla mum/gosterge okumayi
+              engellemeyecek sekilde. */}
           <div
-            className={`absolute ${compact ? "top-1.5 right-2" : "top-2.5 right-3"} pointer-events-none select-none z-10`}
+            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10`}
           >
             <span
               className={`tracking-wide text-white/[0.14] ${compact ? "text-xs" : "text-lg md:text-xl"}`}

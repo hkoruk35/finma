@@ -81,7 +81,9 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
     let active = true;
     setLoading(true);
     setError("");
-    const langParam = locale === "en" ? "&lang=en" : "";
+    // preorder-analysis sadece tr (varsayilan) ve en uretir — tr disindaki
+    // tum locale'ler (en/es/fr/pt) Ingilizce metin almali, Turkce degil.
+    const langParam = locale === "tr" ? "" : "&lang=en";
     fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(ticker)}${langParam}`)
       .then((r) => r.json())
       .then((d) => {

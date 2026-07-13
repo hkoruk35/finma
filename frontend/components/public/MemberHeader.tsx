@@ -81,19 +81,13 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   );
                 }
                 
-                // Chart Detail (/graphic/[ticker]) sayfaları tek dilli — locale değiştirince
-                // aynı sayfada kal, olmayan /global/{lang}/graphic/... rotasına gidip 404 verme.
-                const isSingleLocalePage = pathname?.includes('/graphic/');
-
                 return (
                   <Link
                     key={lang}
                     href={
-                      isSingleLocalePage
-                        ? pathname!
-                        : pathname
-                          ? pathname.replace(new RegExp(`^/global/${locale}`), `/global/${lang.toLowerCase()}`)
-                          : `/global/${lang.toLowerCase()}/home`
+                      pathname
+                        ? pathname.replace(new RegExp(`^/global/${locale}`), `/global/${lang.toLowerCase()}`)
+                        : `/global/${lang.toLowerCase()}/home`
                     }
                     className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
                       isActive
