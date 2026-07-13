@@ -23,6 +23,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bands", vwap: "VWAP", sr: "Support/Resistance",
     volumeProfile: "Volume Profile",
+    entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
     vol: "Vol",
@@ -32,6 +33,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bantları", vwap: "VWAP", sr: "Destek/Direnç",
     volumeProfile: "Hacim Profili",
+    entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
     vol: "Hac",
@@ -41,6 +43,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Soporte/Resistencia",
     volumeProfile: "Perfil de Volumen",
+    entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
     vol: "Vol",
@@ -50,6 +53,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/Résistance",
     volumeProfile: "Profil de Volume",
+    entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol",
@@ -59,6 +63,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     ema9: "EMA 9", ema20: "EMA 20", ema50: "EMA 50", ema200: "EMA 200",
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Suporte/Resistência",
     volumeProfile: "Perfil de Volume",
+    entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
     vol: "Vol",
@@ -89,12 +94,43 @@ type CandleType = (typeof CANDLE_TYPES)[number];
 const VP_MARGIN_BARS = 16;
 const DEFAULT_RIGHT_OFFSET = 5;
 
-const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr", "volumeProfile"] as const;
+const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
+// Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
+// canlida /api/preorder-analysis'ten cekilen entryZone/stop/targets verisine
+// dayanir. "entry" taranmis/filigranli yesil bir aralik olarak (DOM overlay),
+// digerleri ("stop"/"tp1-3") sr ile ayni desende tek fiyat cizgisi olarak
+// cizilir.
+const TRADE_PLAN_KEYS: IndicatorKey[] = ["entry", "stop", "tp1", "tp2", "tp3"];
 
 const UP_COLOR = "#22c55e";
 const DOWN_COLOR = "#ef4444";
 const NAVY = "#030073";
+
+// Trade Plan toggle butonlarinin ve grafik uzerindeki cizgilerin/overlay'in
+// rengi — createPriceLine cagrilarindaki (STOP=DOWN_COLOR kirmizi, TP1-3
+// mavi/camgobegi/mor) ve entry-zone overlay'indeki (yesil) renklerle birebir
+// eslesir, boylece buton ile grafikteki isaret ayni renkte gorunur.
+const TRADE_PLAN_COLORS: Partial<Record<IndicatorKey, string>> = {
+  entry: UP_COLOR,
+  stop: DOWN_COLOR,
+  tp1: "#3b82f6",
+  tp2: "#06b6d4",
+  tp3: "#8b5cf6",
+};
+
+function tradePlanValueLabel(
+  key: IndicatorKey,
+  plan: { entryZone: { low: number; high: number }; stop: { price: number }; targets: { price: number }[] }
+): string | null {
+  const fmt2 = (n: number) => n.toFixed(2);
+  if (key === "entry") return `${fmt2(plan.entryZone.low)}-${fmt2(plan.entryZone.high)}`;
+  if (key === "stop") return fmt2(plan.stop.price);
+  if (key === "tp1") return plan.targets[0] ? fmt2(plan.targets[0].price) : null;
+  if (key === "tp2") return plan.targets[1] ? fmt2(plan.targets[1].price) : null;
+  if (key === "tp3") return plan.targets[2] ? fmt2(plan.targets[2].price) : null;
+  return null;
+}
 
 interface Bar {
   time: number;
@@ -219,6 +255,37 @@ export default function BogaChartEngine({
   } | null>(null);
   const recomputeVPRef = useRef<(bars: Bar[]) => void>(() => {});
 
+  // Trade Plan (Entry/Stop/TP1-3) — lib/tradePlanEngine.ts uzerinden ayni
+  // /api/preorder-analysis'i (grafik sayfasindaki Trade Plan karti ile ayni
+  // kaynak, celismesin diye) sadece detay modunda ceker. Entry bir aralik
+  // oldugu icin (VP ile ayni sekilde) DOM overlay olarak, stop/tp1-3 ise
+  // tekli fiyat seviyeleri oldugu icin "sr" ile ayni createPriceLine deseniyle
+  // cizilir.
+  const [tradePlan, setTradePlan] = useState<{
+    entryZone: { low: number; high: number };
+    stop: { price: number };
+    targets: { price: number; label: string }[];
+    valid: boolean;
+  } | null>(null);
+  const [entryZoneOverlay, setEntryZoneOverlay] = useState<{ top: number; height: number } | null>(null);
+  const recomputeEntryZoneRef = useRef<() => void>(() => {});
+
+  useEffect(() => {
+    if (!detailMode) return;
+    let active = true;
+    const langParam = lang === "en" ? "&lang=en" : "";
+    fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(symbol)}${langParam}`)
+      .then((r) => r.json())
+      .then((d) => {
+        if (!active || d.error) return;
+        setTradePlan(d.tradePlan);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, [symbol, detailMode, lang]);
+
   // Native Fullscreen API — reliably escapes any ancestor CSS (e.g.
   // backdrop-filter/overflow-hidden on a parent .glass-card), which a
   // plain CSS `position:fixed` trick does not: an ancestor with
@@ -287,7 +354,10 @@ export default function BogaChartEngine({
     // recomputeVPRef always points at the latest closure (fresh
     // active/range/detailMode), since this subscription itself is only
     // ever set up once, on mount.
-    chart.timeScale().subscribeVisibleTimeRangeChange(() => recomputeVPRef.current(barsRef.current));
+    chart.timeScale().subscribeVisibleTimeRangeChange(() => {
+      recomputeVPRef.current(barsRef.current);
+      recomputeEntryZoneRef.current();
+    });
 
     const resizeObserver = new ResizeObserver(() => chart.applyOptions({}));
     resizeObserver.observe(el);
@@ -419,6 +489,24 @@ export default function BogaChartEngine({
   };
   recomputeVPRef.current = recomputeVolumeProfile;
 
+  // Entry zone — VP ile ayni desen: canvas primitive yerine plain DOM
+  // overlay, mainSeries.priceToCoordinate() ile pixel Y'ye cevrilir.
+  const recomputeEntryZone = () => {
+    const mainSeries = mainSeriesRef.current;
+    if (!mainSeries || !active.has("entry") || !tradePlan?.valid) {
+      setEntryZoneOverlay(null);
+      return;
+    }
+    const yHigh = mainSeries.priceToCoordinate(tradePlan.entryZone.high);
+    const yLow = mainSeries.priceToCoordinate(tradePlan.entryZone.low);
+    if (yHigh == null || yLow == null) {
+      setEntryZoneOverlay(null);
+      return;
+    }
+    setEntryZoneOverlay({ top: yHigh, height: Math.max(1, yLow - yHigh) });
+  };
+  recomputeEntryZoneRef.current = recomputeEntryZone;
+
   const renderAll = (data: ChartResponse) => {
     const bars = data.bars || [];
     barsRef.current = bars;
@@ -515,8 +603,43 @@ export default function BogaChartEngine({
       }
     }
 
+    // Trade Plan tekli seviyeler (STOP/TP1-3) — "sr" ile ayni createPriceLine
+    // deseni, farkli renk/etiketle. "entry" burada degil: o bir aralik,
+    // priceLine tek deger aliyor — ayrica DOM overlay olarak cizilir (asagida
+    // recomputeEntryZone).
+    if (tradePlan?.valid) {
+      if (active.has("stop")) {
+        priceLinesRef.current.push(
+          mainSeries.createPriceLine({
+            price: tradePlan.stop.price,
+            color: DOWN_COLOR,
+            lineWidth: 2,
+            lineStyle: 0,
+            axisLabelVisible: true,
+            title: "STOP",
+          })
+        );
+      }
+      const tpColors = ["#3b82f6", "#06b6d4", "#8b5cf6"];
+      tradePlan.targets.slice(0, 3).forEach((tg, i) => {
+        const key = `tp${i + 1}` as IndicatorKey;
+        if (!active.has(key)) return;
+        priceLinesRef.current.push(
+          mainSeries.createPriceLine({
+            price: tg.price,
+            color: tpColors[i] ?? tpColors[0],
+            lineWidth: 2,
+            lineStyle: 0,
+            axisLabelVisible: true,
+            title: `TP${i + 1}`,
+          })
+        );
+      });
+    }
+
     applyVisibleRange(bars);
     recomputeVolumeProfile(bars);
+    recomputeEntryZone();
     setHoverBar(bars[bars.length - 1] ?? null);
   };
 
@@ -603,13 +726,15 @@ export default function BogaChartEngine({
     onIntervalChange?.(value);
   };
 
-  // Volume Profile is a detail-page-only feature — never offered as a toggle
-  // on compact/mini/embedded charts, even though it's in INDICATOR_KEYS.
+  // Volume Profile ve Trade Plan (Entry/Stop/TP1-3) detay-sayfasi-only —
+  // compact/mini/embedded grafiklerde hicbir zaman toggle olarak sunulmaz.
+  // Trade Plan gecerli degilse (bkz. tradePlan.valid) hic gosterilmez —
+  // TickerDetailPanel'deki "Not Suitable for a Trade" ile ayni mantik.
   const availableIndicators: IndicatorKey[] = compact
     ? ["ema20", "ema50"]
     : detailMode
-    ? [...INDICATOR_KEYS]
-    : INDICATOR_KEYS.filter((k) => k !== "volumeProfile");
+    ? INDICATOR_KEYS.filter((k) => !TRADE_PLAN_KEYS.includes(k) || tradePlan?.valid)
+    : INDICATOR_KEYS.filter((k) => k !== "volumeProfile" && !TRADE_PLAN_KEYS.includes(k));
 
   const latestValue = (key: string): number | null => {
     const arr = lastDataRef.current?.indicators?.[key] as (number | null)[] | undefined;
@@ -759,18 +884,28 @@ export default function BogaChartEngine({
             <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
               {availableIndicators.map((key) => {
                 const val = ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
+                const tpColor = TRADE_PLAN_COLORS[key];
+                const tpLabel = tradePlan ? tradePlanValueLabel(key, tradePlan) : null;
                 return (
                   <button
                     key={key}
                     onClick={() => toggle(key)}
                     className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
                       active.has(key)
-                        ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
+                        ? tpColor
+                          ? ""
+                          : "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
                         : "border-[#1e2a3a] text-[#64748b] hover:text-white"
                     }`}
+                    style={
+                      active.has(key) && tpColor
+                        ? { background: `${tpColor}33`, borderColor: `${tpColor}80`, color: tpColor }
+                        : undefined
+                    }
                   >
                     {t[key]}
                     {val != null ? ` ${fmt(val)}` : ""}
+                    {tpLabel ? ` ${tpLabel}` : ""}
                   </button>
                 );
               })}
@@ -781,14 +916,17 @@ export default function BogaChartEngine({
         <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
 
-          {/* BOGA watermark — always on, every instance, small/large.
-              Centered and low-opacity so it reads as a watermark, not a
-              corner tag, without interfering with reading the candles. */}
+          {/* BOGASTOCK filigran — sag ust kosede, Header.tsx'teki logo
+              fontuyla (Montserrat) STOCK kismi acik mavi, dusuk opaklikla
+              mum/gosterge okumayi engellemeyecek sekilde. */}
           <div
-            className={`absolute inset-x-0 ${compact ? "top-2" : "top-9"} flex justify-center pointer-events-none select-none z-10`}
+            className={`absolute ${compact ? "top-1.5 right-2" : "top-2.5 right-3"} pointer-events-none select-none z-10`}
           >
-            <span className={`font-black tracking-[0.3em] text-white/[0.08] ${compact ? "text-xs" : "text-2xl md:text-3xl"}`}>
-              BOGA
+            <span
+              className={`tracking-wide text-white/[0.14] ${compact ? "text-xs" : "text-lg md:text-xl"}`}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
+            >
+              BOGA<span className="text-[#3b82f6]/[0.35]">STOCK</span>
             </span>
           </div>
 
@@ -836,6 +974,28 @@ export default function BogaChartEngine({
                   }}
                 />
               ))}
+            </div>
+          )}
+
+          {/* Entry zone — VP ile ayni DOM overlay deseni: taranmis/filigranli
+              yesil bir bant, "Entry" toggle'i acikken tradePlan.entryZone
+              (low-high) araligini gosterir. pointer-events-none, crosshair'i
+              engellemez. */}
+          {entryZoneOverlay && tradePlan && (
+            <div
+              className="absolute left-0 right-0 z-[5] pointer-events-none"
+              style={{
+                top: entryZoneOverlay.top,
+                height: entryZoneOverlay.height,
+                background:
+                  "repeating-linear-gradient(45deg, rgba(34,197,94,0.16) 0px, rgba(34,197,94,0.16) 5px, transparent 5px, transparent 10px)",
+                borderTop: "1px dashed rgba(34,197,94,0.6)",
+                borderBottom: "1px dashed rgba(34,197,94,0.6)",
+              }}
+            >
+              <span className="absolute left-1 top-0.5 text-[9px] font-black text-[#22c55e] bg-[#0a0e17]/70 px-1 rounded">
+                ENTRY ${tradePlan.entryZone.low.toFixed(2)}–${tradePlan.entryZone.high.toFixed(2)}
+              </span>
             </div>
           )}
         </div>
