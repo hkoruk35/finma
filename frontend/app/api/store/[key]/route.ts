@@ -11,6 +11,7 @@ const ALLOWED_KEYS = [
   'preorder_analyses',
   'portfolio_swing',
   'portfolio_longterm',
+  'hot_themes_removals',
 ]
 
 function adminClient() {

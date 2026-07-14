@@ -23,34 +23,67 @@ export default function HotThemes2026Section() {
     )
   ).size;
 
+  const syncRemovalsToAPI = (slugs: Set<string>, stocks: RemovedStocksMap) => {
+    const payload = {
+      removedSlugs: Array.from(slugs),
+      removedStocks: Object.fromEntries(
+        Object.entries(stocks).map(([k, v]) => [k, Array.from(v)])
+      )
+    };
+    fetch("/api/store/hot_themes_removals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value: payload }),
+    }).catch(e => console.error("Failed to sync removals:", e));
+  };
+
   useEffect(() => {
-    // Load removed themes from localStorage
+    // 1. Load from localStorage for immediate render
+    let initialSlugs = new Set<string>();
+    let initialStocks: RemovedStocksMap = {};
+    
     try {
       const stored = localStorage.getItem(REMOVED_THEMES_KEY);
-      if (stored) {
-        setRemovedSlugs(new Set(JSON.parse(stored)));
-      }
-    } catch {
-      // localStorage error
-    }
+      if (stored) initialSlugs = new Set(JSON.parse(stored));
+    } catch {}
 
-    // Load removed stocks for each theme
-    const stocks: RemovedStocksMap = {};
     HOT_THEMES_2026.forEach((theme) => {
       try {
         const key = REMOVED_STOCKS_KEY_PREFIX + theme.slug;
         const stored = localStorage.getItem(key);
-        if (stored) {
-          stocks[theme.slug] = new Set(JSON.parse(stored));
-        } else {
-          stocks[theme.slug] = new Set();
-        }
+        if (stored) initialStocks[theme.slug] = new Set(JSON.parse(stored));
+        else initialStocks[theme.slug] = new Set();
       } catch {
-        stocks[theme.slug] = new Set();
+        initialStocks[theme.slug] = new Set();
       }
     });
-    setRemovedStocks(stocks);
+    setRemovedSlugs(initialSlugs);
+    setRemovedStocks(initialStocks);
     setMounted(true);
+
+    // 2. Fetch from API to get the true global state
+    fetch("/api/store/hot_themes_removals")
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.value) {
+          const apiSlugs = new Set<string>(data.value.removedSlugs || []);
+          const apiStocks: RemovedStocksMap = {};
+          HOT_THEMES_2026.forEach(t => {
+            apiStocks[t.slug] = new Set<string>((data.value.removedStocks || {})[t.slug] || []);
+          });
+          setRemovedSlugs(apiSlugs);
+          setRemovedStocks(apiStocks);
+          
+          // Update localStorage to match API
+          try {
+            localStorage.setItem(REMOVED_THEMES_KEY, JSON.stringify(Array.from(apiSlugs)));
+            HOT_THEMES_2026.forEach(t => {
+              localStorage.setItem(REMOVED_STOCKS_KEY_PREFIX + t.slug, JSON.stringify(Array.from(apiStocks[t.slug])));
+            });
+          } catch {}
+        }
+      })
+      .catch(err => console.error("Failed to fetch removals API", err));
   }, []);
 
   const removeTheme = (slug: string) => {
@@ -58,6 +91,7 @@ export default function HotThemes2026Section() {
     const newRemoved = new Set(removedSlugs);
     newRemoved.add(slug);
     setRemovedSlugs(newRemoved);
+    syncRemovalsToAPI(newRemoved, removedStocks);
     try {
       localStorage.setItem(REMOVED_THEMES_KEY, JSON.stringify(Array.from(newRemoved)));
     } catch {
@@ -70,6 +104,7 @@ export default function HotThemes2026Section() {
     if (!newRemoved[slug]) newRemoved[slug] = new Set();
     newRemoved[slug].add(ticker);
     setRemovedStocks(newRemoved);
+    syncRemovalsToAPI(removedSlugs, newRemoved);
     try {
       const key = REMOVED_STOCKS_KEY_PREFIX + slug;
       localStorage.setItem(key, JSON.stringify(Array.from(newRemoved[slug])));
