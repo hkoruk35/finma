@@ -133,19 +133,13 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
     }
 
     if (targetTheme) {
-      (async () => {
-        try {
-          const res = await fetch("/api/store/theme_overrides");
-          const { value } = await res.json();
-          const overrides: Record<string, string[]> = value ?? {};
-          if (!overrides[targetTheme]) overrides[targetTheme] = [];
-          if (!overrides[targetTheme].includes(t)) {
-            overrides[targetTheme].push(t);
-            try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
-            fetch("/api/store/theme_overrides", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ value: overrides }) }).catch(() => {});
-          }
-        } catch {}
-      })();
+      // Sunucuda atomik oku+degistir+yaz (optimistic-lock) — birden fazla hisse
+      // sayfasi ust uste hizli acilirsa bile eklemeler birbirini ezmez.
+      fetch("/api/store/theme_overrides", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ op: "arrayAdd", path: [targetTheme], item: t }),
+      }).catch(() => {});
     }
   }, [ticker, stockData]);
 

@@ -26,6 +26,57 @@ function requireAdmin(req: NextRequest): boolean {
   return !!req.cookies.get('boga_auth')?.value
 }
 
+// theme_overrides/hot_themes_removals gibi degerler ic ice dizi tutuyor
+// (orn. {[tema]: [ticker,...]}); istemci "mevcut degeri oku -> JS'de degistir
+// -> tam objeyi geri yaz" seklinde calisirsa, ust uste hizli tiklamalarda
+// (or. "+ EKLE"ye art arda basmak) yaris durumu olusup daha once yazilan
+// eklemeler kaybolabiliyor (tam olarak boyle bir veri kaybi yasandi). Bunun
+// yerine tek bir istekte oku+degistir+yaz yapip, arada baskasi yazmis mi diye
+// updated_at'i optimistic-lock olarak kullanip cakisirsa yeniden deniyoruz.
+async function atomicArrayOp(
+  sb: ReturnType<typeof adminClient>,
+  key: string,
+  path: string[],
+  op: 'add' | 'remove',
+  item: string,
+  maxRetries = 6
+): Promise<{ ok: true; value: any } | { ok: false; error: string }> {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const { data: row } = await sb.from('shared_store').select('value, updated_at').eq('key', key).maybeSingle()
+    const current = (row?.value as any) ?? {}
+    const next = JSON.parse(JSON.stringify(current))
+
+    let node = next
+    for (let i = 0; i < path.length - 1; i++) {
+      if (typeof node[path[i]] !== 'object' || node[path[i]] === null) node[path[i]] = {}
+      node = node[path[i]]
+    }
+    const leafKey = path[path.length - 1]
+    const arr: string[] = Array.isArray(node[leafKey]) ? node[leafKey] : []
+    node[leafKey] = op === 'add'
+      ? (arr.includes(item) ? arr : [...arr, item])
+      : arr.filter((x: string) => x !== item)
+
+    if (!row) {
+      const { error: insertError } = await sb.from('shared_store').insert({ key, value: next, updated_at: new Date().toISOString() })
+      if (!insertError) return { ok: true, value: next }
+      continue // baskasi araya girdi, tekrar dene
+    }
+
+    const { data: updated, error } = await sb
+      .from('shared_store')
+      .update({ value: next, updated_at: new Date().toISOString() })
+      .eq('key', key)
+      .eq('updated_at', row.updated_at)
+      .select('value')
+
+    if (error) return { ok: false, error: error.message }
+    if (updated && updated.length > 0) return { ok: true, value: next }
+    // 0 satir guncellendi = arada baska bir istek yazdi, taze veriyle tekrar dene
+  }
+  return { ok: false, error: 'concurrent write conflict, max retries exceeded' }
+}
+
 // tracker_v1 (/admin/portfolio/tracker) degistiginde Top100'un 'fixed'
 // kompozisyonunu (/global/{locale}/top100) gece yarisi cron'unu beklemeden
 // hemen tazeler — /api/internal/top100-sync tam liste replace semantigi
@@ -93,10 +144,27 @@ export async function PATCH(
     return NextResponse.json({ error: 'Geçersiz key' }, { status: 400 })
   }
 
-  let body: { value: unknown }
+  let body: { value?: unknown; op?: 'arrayAdd' | 'arrayRemove'; path?: string[] | string; item?: string }
   try { body = await req.json() } catch { return NextResponse.json({ error: 'Geçersiz JSON' }, { status: 400 }) }
 
   const sb = adminClient()
+
+  if (body.op === 'arrayAdd' || body.op === 'arrayRemove') {
+    const path = Array.isArray(body.path) ? body.path.map(String) : body.path ? [String(body.path)] : []
+    const item = body.item != null ? String(body.item) : ''
+    if (path.length === 0 || !item) {
+      return NextResponse.json({ error: 'path ve item gerekli' }, { status: 400 })
+    }
+    const result = await atomicArrayOp(sb, key, path, body.op === 'arrayAdd' ? 'add' : 'remove', item)
+    if (!result.ok) return NextResponse.json({ error: result.error }, { status: 500 })
+
+    if (key === 'tracker_v1' && path.length === 1 && path[0] === 'tickers') {
+      const newTickers: string[] = Array.isArray(result.value?.tickers) ? result.value.tickers : []
+      after(() => syncTrackerToTop100Fixed(Array.from(new Set(newTickers))))
+    }
+    return NextResponse.json({ ok: true, value: result.value })
+  }
+
   // Fetch existing value
   const { data: existing } = await sb.from('shared_store').select('value').eq('key', key).single()
   const current = (existing?.value as any) ?? {}

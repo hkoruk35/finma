@@ -213,44 +213,21 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
 
   const refresh = () => fetchStocks(tickers.slice(0, visibleCount));
 
-  const syncOverrides = (overrides: Record<string, string[]>) => {
-    try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
-    fetch("/api/store/theme_overrides", {
+  // Tekil ekle/cikar islemleri artik sunucuda atomik yapiliyor (oku+degistir+yaz
+  // tek istekte, optimistic-lock ile) — art arda hizli tiklamalarda (orn. "+
+  // EKLE"ye ust uste basmak) daha once yazilan eklemelerin kaybolmasini onler.
+  const arrayOp = async (key: string, path: string[], op: "arrayAdd" | "arrayRemove", item: string) => {
+    const res = await fetch(`/api/store/${key}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: overrides }),
-    }).catch(() => {});
-  };
-
-  // Nihai ticker listesini API'ye yaz — TrendTracker bu listeyi okur
-  // hot_themes_removals'a bu temanin cikarilan-hisse listesini tam olarak yaz
-  // (deger ic ice oldugu icin PATCH'in sig birlestirmesi butun temayi degil
-  // sadece bu slug'i etkilesin diye once mevcut veriyi okuyup yerinde guncelliyoruz).
-  const syncRemovalsToAPI = async (removed: Set<string>) => {
-    try {
-      const res = await fetch("/api/store/hot_themes_removals", { cache: "no-store" });
-      let removalsData: { removedSlugs: string[]; removedStocks: Record<string, string[]> } = {
-        removedSlugs: [],
-        removedStocks: {},
-      };
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.value) removalsData = json.value;
-      }
-      removalsData.removedStocks[themeSlug] = Array.from(removed);
-      await fetch("/api/store/hot_themes_removals", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ value: removalsData }),
-      });
-    } catch (e) {
-      console.error("syncRemovalsToAPI error:", e);
-    }
+      body: JSON.stringify({ op, path, item }),
+    });
+    return res.ok;
   };
 
   // Hem theme_overrides hem hot_themes_removals'i mevcut ekran durumuyla tam
-  // olarak esitler; her ekle/cikar zaten aninda senkronize olur, bu buton
-  // elle "simdi dogrula/esitle" guvencesi verir.
+  // olarak esitler (tam-degistir semantigiyle); her ekle/cikar zaten aninda
+  // atomik senkronize olur, bu buton elle "simdi dogrula/esitle" guvencesi verir.
   const syncAll = async () => {
     setIsSyncing(true);
     try {
@@ -266,7 +243,20 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
         body: JSON.stringify({ value: overrides }),
       });
 
-      await syncRemovalsToAPI(removedTickers);
+      let removalsData: { removedSlugs: string[]; removedStocks: Record<string, string[]> } = {
+        removedSlugs: [],
+        removedStocks: {},
+      };
+      try {
+        const rRes = await fetch("/api/store/hot_themes_removals", { cache: "no-store" });
+        if (rRes.ok) { const j = await rRes.json(); if (j?.value) removalsData = j.value; }
+      } catch {}
+      removalsData.removedStocks[themeSlug] = Array.from(removedTickers);
+      await fetch("/api/store/hot_themes_removals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value: removalsData }),
+      });
 
       if (oRes.ok) alert(`Senkronize edildi! ${tickers.length} hisse (${customTickers.length} ozel).`);
       else alert("Hata: " + (await oRes.text()));
@@ -281,17 +271,14 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     const sym = input.trim().toUpperCase();
     if (!sym || tickers.includes(sym)) return;
 
-    let overrides: Record<string, string[]> = {};
-    try { overrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
-    const updatedCustom = [...(overrides[themeName] || []), sym];
-    overrides[themeName] = updatedCustom;
-    syncOverrides(overrides);
-
+    const updatedCustom = [...customTickers, sym];
     const newList = [...tickers, sym];
     setCustomTickers(updatedCustom);
     setTickers(newList);
     setVisibleCount(prev => prev + 1);
     setAddInput("");
+    try { localStorage.setItem("t_theme_overrides", JSON.stringify({ ...JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"), [themeName]: updatedCustom })); } catch {}
+    arrayOp("theme_overrides", [themeName], "arrayAdd", sym).catch(e => console.error("addCustomTicker sync error:", e));
 
     try {
       const res = await fetch(`/api/watchlist-data?tickers=${sym}`);
@@ -308,16 +295,13 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   };
 
   const removeCustomTicker = (ticker: string) => {
-    let overrides: Record<string, string[]> = {};
-    try { overrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
-    if (overrides[themeName]) {
-      overrides[themeName] = overrides[themeName].filter(t => t !== ticker);
-      syncOverrides(overrides);
-    }
-    setCustomTickers(prev => prev.filter(t => t !== ticker));
+    const updatedCustom = customTickers.filter(t => t !== ticker);
+    setCustomTickers(updatedCustom);
     const newList = tickers.filter(t => t !== ticker);
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
+    try { localStorage.setItem("t_theme_overrides", JSON.stringify({ ...JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"), [themeName]: updatedCustom })); } catch {}
+    arrayOp("theme_overrides", [themeName], "arrayRemove", ticker).catch(e => console.error("removeCustomTicker sync error:", e));
   };
 
   const removeTicker = (ticker: string) => {
@@ -331,7 +315,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
     if (expandedRow === ticker) setExpandedRow(null);
-    syncRemovalsToAPI(newRemoved);
+    arrayOp("hot_themes_removals", ["removedStocks", themeSlug], "arrayAdd", ticker).catch(e => console.error("removeTicker sync error:", e));
   };
 
   // ── Sorting ────────────────────────────────────────────────────────────────
