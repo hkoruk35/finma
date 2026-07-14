@@ -8,6 +8,7 @@ import Sparkline from './Sparkline';
 import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
+import ShareButton from '../ShareButton';
 
 interface Stock {
   ticker: string;
@@ -66,16 +67,19 @@ export default function HomeSimpleCard({
             <span className="w-1.5 h-6 rounded-full" style={{ background: accent }} />
             <h3 className="text-sm font-black text-white uppercase tracking-tight">{title}</h3>
           </div>
-          <Link
-            href={viewAllHref}
-            className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
-            style={{ color: accent, borderColor: `${accent}4d` }}
-          >
-            {allLabel}
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </Link>
+          <div className="flex items-center gap-2">
+            <ShareButton locale={locale} shareText={`${title} — BOGA AI`} url={`https://bogastock.com${viewAllHref}`} accent={accent} />
+            <Link
+              href={viewAllHref}
+              className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
+              style={{ color: accent, borderColor: `${accent}4d` }}
+            >
+              {allLabel}
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
 
         {stocks.length > 0 ? (

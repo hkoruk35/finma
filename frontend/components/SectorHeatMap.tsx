@@ -6,6 +6,7 @@ import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector, slugifySector } from "@/li
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { copy, type Locale } from "@/lib/i18n/copy";
+import ShareButton from "@/components/ShareButton";
 
 /* ── Refined Performance Colors ──────────────────────────────── */
 function getPerformanceColor(pct: number) {
@@ -59,13 +60,16 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
           </div>
         </div>
 
-        <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#00d2ff]">
-           <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded bg-green-500"></div> {t.bullish}
-           </div>
-           <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded bg-red-500"></div> {t.bearish}
-           </div>
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#00d2ff]">
+             <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded bg-green-500"></div> {t.bullish}
+             </div>
+             <div className="flex items-center gap-1.5">
+                <div className="w-2 h-2 rounded bg-red-500"></div> {t.bearish}
+             </div>
+          </div>
+          <ShareButton locale={resolvedLocale} shareText={`${t.title} — BOGA AI`} url={`https://bogastock.com/global/${currentLocale}/home`} />
         </div>
       </div>
 
