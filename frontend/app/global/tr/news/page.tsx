@@ -9,7 +9,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "Piyasa Haberleri & AI Analiz Akışı — BOGA AI",
-  description: "BOGA AI'nin X'te (@bogastock) paylaştığı tüm AI destekli hisse analizleri, dile bakılmaksızın tek bir herkese açık akışta.",
+  description: "BOGA AI'nin X'te (@bogastock) paylaştığı tüm AI destekli hisse analizleri, tek bir herkese açık akışta.",
   alternates: {
     canonical: "https://bogastock.com/global/tr/news",
     languages: {
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Piyasa Haberleri & AI Analiz Akışı — BOGA AI",
-    description: "BOGA AI'nin X'te (@bogastock) paylaştığı tüm AI destekli hisse analizleri, dile bakılmaksızın tek bir herkese açık akışta.",
+    description: "BOGA AI'nin X'te (@bogastock) paylaştığı tüm AI destekli hisse analizleri, tek bir herkese açık akışta.",
     url: "https://bogastock.com/global/tr/news",
   },
 };
 
 export default async function TrNewsPage() {
-  const posts = await getPublicPosts();
+  const posts = await getPublicPosts("tr");
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
@@ -39,7 +39,7 @@ export default async function TrNewsPage() {
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">X'te @bogastock</p>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Piyasa Haberleri & AI Analiz</h1>
           <p className="text-slate-400 max-w-xl mx-auto">
-            BOGA AI'nin paylaştığı tüm AI destekli hisse analizlerinin, dil ayrımı olmaksızın yer aldığı herkese açık akış.
+            BOGA AI'nin Türkçe paylaştığı tüm AI destekli hisse analizlerinin yer aldığı herkese açık akış.
           </p>
         </div>
 

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 };
 
 export default async function PtNewsPage() {
-  const posts = await getPublicPosts();
+  const posts = await getPublicPosts("pt");
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
@@ -39,7 +39,7 @@ export default async function PtNewsPage() {
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">@bogastock no X</p>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Notícias e Análise IA</h1>
           <p className="text-slate-400 max-w-xl mx-auto">
-            Um feed público de toda análise de ações gerada por IA que a BOGA AI publicou, independentemente do idioma.
+            Um feed público de toda análise de ações gerada por IA que a BOGA AI publicou em português.
           </p>
         </div>
 

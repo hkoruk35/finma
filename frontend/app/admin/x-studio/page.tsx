@@ -5,6 +5,14 @@ import Link from "next/link";
 import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
 import { nyWallTimeToUtcIso, utcIsoToNyDisplay, nyTodayDateStr, nyMaxDateStr } from "@/lib/x/timezone";
+import type { ListType } from "@/lib/x/generateContent";
+
+const LIST_TYPES: { type: ListType; label: string }[] = [
+  { type: "swing", label: "Swing Trade" },
+  { type: "trend", label: "Trend Hisseleri" },
+  { type: "top100", label: "Top 100" },
+  { type: "sector_heatmap", label: "Sektör Isı Haritası" },
+];
 
 const ACCENT = "#58a6ff";
 const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
@@ -26,6 +34,7 @@ interface PostRow {
   id: string;
   content_type: string;
   ticker: string | null;
+  list_type: string | null;
   locale: string;
   status: string;
   content_text: string | null;
@@ -37,6 +46,7 @@ interface ScheduledRow {
   id: string;
   content_type: string;
   ticker: string | null;
+  list_type: string | null;
   locale: string;
   content_text: string | null;
   scheduled_at: string;
@@ -44,6 +54,7 @@ interface ScheduledRow {
 
 interface AutomationSettings {
   enabled: boolean;
+  x_posting_enabled: boolean;
   interval_minutes: number;
   ratio_top100: number;
   ratio_swing: number;
@@ -76,7 +87,10 @@ export default function XStudioPage() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [mode, setMode] = useState<"stock" | "promo">("stock");
+  const [mode, setMode] = useState<"stock" | "promo" | "list">("stock");
+  const [listType, setListType] = useState<ListType | null>(null);
+  const [listTitle, setListTitle] = useState("");
+  const [listItems, setListItems] = useState<{ ticker: string; changePct: number }[]>([]);
   const [settings, setSettings] = useState<AutomationSettings | null>(null);
   const [market, setMarket] = useState<MarketData | null>(null);
   const [hashtags, setHashtags] = useState("");
@@ -204,7 +218,34 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
+  const generateListText = async (type: ListType) => {
+    setBusy(true);
+    setError("");
+    setSelected(null);
+    setMode("list");
+    setImageUrl(null);
+    setMarket(null);
+    setListType(type);
+    const res = await fetch("/api/admin/x/generate-list", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ listType: type }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "Liste özeti üretme hatası");
+      setBusy(false);
+      return;
+    }
+    setTexts(data.texts);
+    setListItems(data.items ?? []);
+    setListTitle(data.listTitle ?? "");
+    setHashtags("");
+    setBusy(false);
+  };
+
   const buildCardParams = () => {
+    if (mode === "list") return null;
     if (mode === "stock" && selected) {
       return {
         kind: "stock" as const,
@@ -248,12 +289,14 @@ export default function XStudioPage() {
   };
 
   const previewImage = async () => {
+    const cardParams = buildCardParams();
+    if (!cardParams) return; // list gönderilerinde kart görseli yok
     setBusy(true);
     setError("");
     const res = await fetch("/api/admin/x/image", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(buildCardParams()),
+      body: JSON.stringify(cardParams),
     });
     if (!res.ok) {
       setError((await res.json()).error || "Görsel üretme hatası");
@@ -275,7 +318,11 @@ export default function XStudioPage() {
     const res = await fetch("/api/admin/x/post", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ locale, contentText: getFinalText(), cardParams: buildCardParams() }),
+      body: JSON.stringify(
+        mode === "list"
+          ? { locale, contentText: getFinalText(), listType }
+          : { locale, contentText: getFinalText(), cardParams: buildCardParams() }
+      ),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -286,6 +333,8 @@ export default function XStudioPage() {
     setBusy(false);
     setSelected(null);
     setImageUrl(null);
+    setListType(null);
+    setListItems([]);
     setTexts({ en: "", es: "", fr: "", pt: "", tr: "" });
     await Promise.all([loadPool(), loadPosts()]);
   };
@@ -313,6 +362,7 @@ export default function XStudioPage() {
         sector: mode === "stock" ? selected?.sector : undefined,
         theme: mode === "stock" ? selected?.theme : undefined,
         source: mode === "stock" ? selected?.source : undefined,
+        listType: mode === "list" ? listType : undefined,
         scheduledAtUtc,
         customPrompt: customInstruction.trim() || undefined,
       }),
@@ -458,6 +508,13 @@ export default function XStudioPage() {
           >
             Otomasyon: {settings.enabled ? "AÇIK" : "KAPALI"}
           </button>
+          <button
+            title="Kapalıyken hiçbir gönderi gerçekten X'e atılmaz — içerik yine üretilip /news akışına düşer."
+            style={{ ...btnStyle, background: settings.x_posting_enabled ? "#22c55e" : "#f85149", color: "#0d1117" }}
+            onClick={() => patchSettings({ x_posting_enabled: !settings.x_posting_enabled })}
+          >
+            X Bağlantısı: {settings.x_posting_enabled ? "AÇIK" : "KAPALI"}
+          </button>
           <label style={{ display: "flex", alignItems: "center", gap: 6 }}>
             Aralık (dk):
             <input
@@ -495,6 +552,25 @@ export default function XStudioPage() {
           <button style={{ ...btnStyle, background: "#f59e0b", marginBottom: 12, width: "100%" }} disabled={busy} onClick={generatePromoText}>
             Promo Gönder (Manuel)
           </button>
+
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 6 }}>
+              Site Bölümleri — ana sayfadaki paylaş butonlu bölümlerin özetini paylaş:
+            </div>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {LIST_TYPES.map(({ type, label }) => (
+                <button
+                  key={type}
+                  style={{ ...btnStyle, background: listType === type && mode === "list" ? ACCENT : "#30363d", color: listType === type && mode === "list" ? "#0d1117" : "#e6edf3" }}
+                  disabled={busy}
+                  onClick={() => generateListText(type)}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 500, overflowY: "auto" }}>
             {pool.map((item) => (
               <div
@@ -529,8 +605,18 @@ export default function XStudioPage() {
         {/* Editör / Önizleme */}
         <div style={{ flex: 1, minWidth: 360 }}>
           <h2 style={{ fontSize: 14, color: ACCENT, marginBottom: 8 }}>
-            {mode === "promo" ? "Promo Gönderisi" : selected ? `${selected.ticker} Gönderisi` : "Bir hisse seçin"}
+            {mode === "promo" ? "Promo Gönderisi" : mode === "list" ? `${listTitle} Özeti` : selected ? `${selected.ticker} Gönderisi` : "Bir hisse seçin"}
           </h2>
+
+          {mode === "list" && listItems.length > 0 && (
+            <div style={{ ...inputStyle, marginBottom: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
+              {listItems.map((it) => (
+                <span key={it.ticker} style={{ color: it.changePct >= 0 ? "#3fb950" : "#f85149" }}>
+                  {it.ticker} {it.changePct >= 0 ? "+" : ""}{it.changePct.toFixed(1)}%
+                </span>
+              ))}
+            </div>
+          )}
 
           <div style={{ display: "flex", gap: 6, marginBottom: 12 }}>
             {LOCALES.map((l) => (
@@ -560,8 +646,12 @@ export default function XStudioPage() {
           )}
 
           <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
-            <button style={btnStyle} disabled={busy || !texts[locale]} onClick={previewImage}>Görseli Önizle</button>
-            <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>Şimdi Paylaş (API)</button>
+            {mode !== "list" && (
+              <button style={btnStyle} disabled={busy || !texts[locale]} onClick={previewImage}>Görseli Önizle</button>
+            )}
+            <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>
+              {settings && !settings.x_posting_enabled ? "Yayınla (Sadece /news)" : "Şimdi Paylaş (API)"}
+            </button>
           </div>
 
           <div style={{ display: "flex", gap: 8, marginTop: 10, alignItems: "center", flexWrap: "wrap", padding: 10, border: "1px dashed #30363d", borderRadius: 6 }}>
@@ -613,7 +703,7 @@ export default function XStudioPage() {
           {scheduled.length === 0 && <div style={{ fontSize: 12, opacity: 0.5 }}>Zamanlanmış gönderi yok.</div>}
           {scheduled.map((s) => (
             <div key={s.id} style={{ ...inputStyle, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span>{s.content_type === "promo" ? "PROMO" : s.ticker} [{s.locale}]</span>
+              <span>{s.content_type === "promo" ? "PROMO" : s.content_type === "list" ? `LIST:${s.list_type}` : s.ticker} [{s.locale}]</span>
               <span style={{ opacity: 0.7 }}>{s.content_text?.slice(0, 60)}</span>
               <span style={{ color: "#f59e0b" }}>{utcIsoToNyDisplay(s.scheduled_at)}</span>
               <button
@@ -634,7 +724,7 @@ export default function XStudioPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
           {posts.map((p) => (
             <div key={p.id} style={{ ...inputStyle, display: "flex", justifyContent: "space-between" }}>
-              <span>{p.content_type === "promo" ? "PROMO" : p.ticker} [{p.locale}]</span>
+              <span>{p.content_type === "promo" ? "PROMO" : p.content_type === "list" ? `LIST:${p.list_type}` : p.ticker} [{p.locale}]</span>
               <span style={{ opacity: 0.7 }}>{p.content_text?.slice(0, 60)}</span>
               <span style={{ color: p.status === "posted" ? "#22c55e" : p.status === "failed" ? "#f85149" : "#f59e0b" }}>{p.status}</span>
             </div>

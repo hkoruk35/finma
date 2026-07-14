@@ -25,16 +25,18 @@ export async function POST(req: NextRequest) {
     sector,
     theme,
     source,
+    listType,
     scheduledAtUtc,
     customPrompt,
   } = body as {
     locale: string;
     contentText: string;
-    contentType: "stock" | "promo";
+    contentType: "stock" | "promo" | "list";
     ticker?: string | null;
     sector?: string | null;
     theme?: string | null;
     source?: string | null;
+    listType?: string | null;
     scheduledAtUtc: string;
     customPrompt?: string | null;
   };
@@ -67,6 +69,7 @@ export async function POST(req: NextRequest) {
       sector: contentType === "stock" ? sector ?? null : null,
       theme: contentType === "stock" ? theme ?? null : null,
       source: contentType === "stock" ? source ?? "manual" : null,
+      list_type: contentType === "list" ? listType ?? null : null,
       locale,
       status: "scheduled",
       content_text: contentText,

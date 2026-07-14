@@ -116,6 +116,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ skipped: "automation disabled" });
   }
 
+  // X bağlantısı kapalıyken bu döngü yine çalışır (içerik üretilip /news'e
+  // gönderi olarak düşer), sadece gerçek postTweet() çağrısı atlanır.
+  const postingEnabled = settings.x_posting_enabled !== false;
+
   const { data: queue } = await supabaseAdmin
     .from("x_language_queue")
     .select("*")
@@ -157,9 +161,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "could not resolve pending post" }, { status: 500 });
   }
 
-  const withinLimit = await withinDailyLimit();
-  if (!withinLimit) {
-    return NextResponse.json({ skipped: "daily X API free-tier limit reached" });
+  if (postingEnabled) {
+    const withinLimit = await withinDailyLimit();
+    if (!withinLimit) {
+      return NextResponse.json({ skipped: "daily X API free-tier limit reached" });
+    }
   }
 
   // Atomik claim: draft -> scheduled. Iki es zamanli cagri ayni taslagi
@@ -200,7 +206,7 @@ export async function GET(req: NextRequest) {
     const imageBuffer = await renderCardPng(cardParams);
     const hashtags = buildStockHashtags(pendingPost.ticker, pendingPost.sector, market?.trend);
     const tweetText = appendHashtagsWithinLimit(pendingPost.content_text, hashtags);
-    const tweetId = await postTweet(tweetText, imageBuffer);
+    const tweetId = postingEnabled ? await postTweet(tweetText, imageBuffer) : null;
     const imageUrl = await uploadPostImage(pendingPost.id, imageBuffer);
 
     await supabaseAdmin
@@ -213,7 +219,7 @@ export async function GET(req: NextRequest) {
       .update({ last_posted_at: new Date().toISOString() })
       .eq("id", 1);
 
-    return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale });
+    return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale, postedToX: postingEnabled });
   } catch (e: any) {
     const detail = extractXErrorDetail(e);
     console.error("[cron/x-scheduler] post failed:", detail);

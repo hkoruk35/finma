@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { renderCardPng, type CardParams } from "@/lib/x/renderTemplate";
 import { postTweet, extractXErrorDetail } from "@/lib/x/client";
 import { uploadPostImage } from "@/lib/x/storage";
+import { isXPostingEnabled } from "@/lib/x/settings";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -35,28 +36,34 @@ export async function POST(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await req.json().catch(() => ({}));
-  const { locale, contentText, cardParams } = body as {
+  const { locale, contentText, cardParams, listType } = body as {
     locale: string;
     contentText: string;
-    cardParams: CardParams;
+    cardParams?: CardParams;
+    listType?: string;
   };
 
-  if (!locale || !contentText || !cardParams) {
-    return NextResponse.json({ error: "locale, contentText, cardParams required" }, { status: 400 });
+  if (!locale || !contentText || (!cardParams && !listType)) {
+    return NextResponse.json({ error: "locale, contentText, and (cardParams or listType) required" }, { status: 400 });
   }
 
-  const withinLimit = await checkAndIncrementUsage();
-  if (!withinLimit) {
-    return NextResponse.json({ error: "Daily X API free-tier limit reached" }, { status: 429 });
+  const postingEnabled = await isXPostingEnabled();
+
+  if (postingEnabled) {
+    const withinLimit = await checkAndIncrementUsage();
+    if (!withinLimit) {
+      return NextResponse.json({ error: "Daily X API free-tier limit reached" }, { status: 429 });
+    }
   }
 
   const { data: postRow } = await supabaseAdmin
     .from("x_posts")
     .insert({
-      content_type: cardParams.kind,
-      ticker: cardParams.kind === "stock" ? cardParams.ticker : null,
-      sector: cardParams.kind === "stock" ? cardParams.sector ?? null : null,
-      theme: cardParams.kind === "stock" ? cardParams.theme ?? null : null,
+      content_type: listType ? "list" : cardParams!.kind,
+      ticker: cardParams?.kind === "stock" ? cardParams.ticker : null,
+      sector: cardParams?.kind === "stock" ? cardParams.sector ?? null : null,
+      theme: cardParams?.kind === "stock" ? cardParams.theme ?? null : null,
+      list_type: listType ?? null,
       locale,
       status: "draft",
       content_text: contentText,
@@ -65,16 +72,21 @@ export async function POST(req: NextRequest) {
     .single();
 
   try {
-    const imageBuffer = await renderCardPng(cardParams);
-    const tweetId = await postTweet(contentText, imageBuffer);
-    const imageUrl = await uploadPostImage(postRow.id, imageBuffer);
+    // Site bölümü (list) gönderileri kart görseli olmadan, metin-only paylaşılır.
+    const imageBuffer = cardParams ? await renderCardPng(cardParams) : undefined;
+    const imageUrl = imageBuffer ? await uploadPostImage(postRow.id, imageBuffer) : null;
+
+    // X bağlantısı kapalıyken: gerçek tweet atılmaz, ama karta/metne sahip
+    // gönderi yine de "posted" işaretlenip /news akışına düşer — tweet_id
+    // boş kalır, NewsFeed zaten bunu "X'te Gör" linkini gizleyerek ele alıyor.
+    const tweetId = postingEnabled ? await postTweet(contentText, imageBuffer) : null;
 
     await supabaseAdmin
       .from("x_posts")
       .update({ status: "posted", tweet_id: tweetId, image_url: imageUrl, posted_at: new Date().toISOString() })
       .eq("id", postRow.id);
 
-    return NextResponse.json({ tweetId, postId: postRow.id });
+    return NextResponse.json({ tweetId, postId: postRow.id, postedToX: postingEnabled });
   } catch (e: any) {
     const detail = extractXErrorDetail(e);
     console.error("[x/post] failed:", detail);

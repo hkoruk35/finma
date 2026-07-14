@@ -12,13 +12,16 @@ export interface PublicPost {
   posted_at: string;
 }
 
-// Herkese acik /news akisi icin, hangi dilde uretilmis olursa olsun tum
-// yayinlanmis X gonderilerini en yeniden en eskiye dogru dondurur.
-export async function getPublicPosts(limit = 60): Promise<PublicPost[]> {
+// Herkese acik /news akisi icin, SADECE istenen dildeki yayinlanmis X
+// gonderilerini en yeniden en eskiye dogru dondurur. Her locale sayfasi
+// (app/global/{locale}/news/page.tsx) kendi dilini gecirir — /global/tr/news
+// sadece locale='tr' postlari gorur, /global/en/news sadece 'en' vb.
+export async function getPublicPosts(locale: string, limit = 60): Promise<PublicPost[]> {
   const { data, error } = await supabaseAdmin
     .from("x_posts")
     .select("id, ticker, sector, theme, locale, content_text, tweet_id, image_url, posted_at")
     .eq("status", "posted")
+    .eq("locale", locale)
     .not("posted_at", "is", null)
     .order("posted_at", { ascending: false })
     .limit(limit);

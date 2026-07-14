@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   const body = await req.json().catch(() => ({}));
-  const allowed = ["enabled", "interval_minutes", "ratio_top100", "ratio_swing", "ratio_trend"];
+  const allowed = ["enabled", "x_posting_enabled", "interval_minutes", "ratio_top100", "ratio_swing", "ratio_trend"];
   const patch: Record<string, unknown> = { updated_at: new Date().toISOString() };
   for (const key of allowed) {
     if (key in body) patch[key] = body[key];

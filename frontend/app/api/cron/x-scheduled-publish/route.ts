@@ -6,6 +6,7 @@ import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/mar
 import { buildStockHashtags, appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
 import { uploadPostImage } from "@/lib/x/storage";
+import { isXPostingEnabled } from "@/lib/x/settings";
 
 export const runtime = "nodejs";
 export const maxDuration = 90;
@@ -55,6 +56,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ processed: [] });
   }
 
+  const postingEnabled = await isXPostingEnabled();
   const results: Array<{ id: string; ticker: string | null; locale: string; posted: boolean; error?: string }> = [];
 
   for (const post of duePosts) {
@@ -70,16 +72,18 @@ export async function GET(req: NextRequest) {
 
     if (!claimed) continue;
 
-    const withinLimit = await withinDailyLimit();
-    if (!withinLimit) {
-      // Limit dolu — bir sonraki calistirmada tekrar denensin diye geri al.
-      await supabaseAdmin.from("x_posts").update({ status: "scheduled" }).eq("id", claimed.id);
-      results.push({ id: claimed.id, ticker: claimed.ticker, locale: claimed.locale, posted: false, error: "daily limit reached" });
-      continue;
+    if (postingEnabled) {
+      const withinLimit = await withinDailyLimit();
+      if (!withinLimit) {
+        // Limit dolu — bir sonraki calistirmada tekrar denensin diye geri al.
+        await supabaseAdmin.from("x_posts").update({ status: "scheduled" }).eq("id", claimed.id);
+        results.push({ id: claimed.id, ticker: claimed.ticker, locale: claimed.locale, posted: false, error: "daily limit reached" });
+        continue;
+      }
     }
 
     try {
-      let cardParams: CardParams;
+      let cardParams: CardParams | null = null;
       let hashtagText = "";
 
       if (claimed.content_type === "stock") {
@@ -99,7 +103,7 @@ export async function GET(req: NextRequest) {
           locale: claimed.locale,
         };
         hashtagText = buildStockHashtags(claimed.ticker, claimed.sector, market?.trend);
-      } else {
+      } else if (claimed.content_type === "promo") {
         cardParams = {
           kind: "promo",
           headline: claimed.content_text,
@@ -107,13 +111,18 @@ export async function GET(req: NextRequest) {
           locale: claimed.locale,
         };
       }
+      // content_type === "list": kart görseli yok, metin-only tweet — Site
+      // Bölümleri özetleri (Swing/Trend/Top100/Sektör Isı Haritası) için
+      // /api/admin/x/generate-list zaten üretim aninda metni sabitliyor.
 
-      const imageBuffer = await renderCardPng(cardParams);
+      const imageBuffer = cardParams ? await renderCardPng(cardParams) : undefined;
       const tweetText = hashtagText
         ? appendHashtagsWithinLimit(claimed.content_text, hashtagText, MANUAL_POST_LIMIT)
         : claimed.content_text;
-      const tweetId = await postTweet(tweetText, imageBuffer);
-      const imageUrl = await uploadPostImage(claimed.id, imageBuffer);
+      // X bağlantısı kapalıyken tweet atılmaz — kart yine üretilip /news'e
+      // gönderi olarak düşer, sadece tweet_id boş kalır.
+      const tweetId = postingEnabled ? await postTweet(tweetText, imageBuffer) : null;
+      const imageUrl = imageBuffer ? await uploadPostImage(claimed.id, imageBuffer) : null;
 
       await supabaseAdmin
         .from("x_posts")
