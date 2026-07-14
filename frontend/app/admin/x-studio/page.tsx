@@ -244,7 +244,7 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
-  const buildCardParams = () => {
+  const buildCardParamsFor = (loc: Locale) => {
     if (mode === "list") return null;
     if (mode === "stock" && selected) {
       return {
@@ -252,29 +252,31 @@ export default function XStudioPage() {
         ticker: selected.ticker,
         company: selected.company ?? undefined,
         sector: selected.sector ?? undefined,
-        theme: localizedThemeTitle(selected.theme, locale),
+        theme: localizedThemeTitle(selected.theme, loc),
         changePct: market?.changePct,
         rvol: market?.rvol,
         opportunity: market?.opportunity,
-        opportunityLabel: market?.opportunityLabels?.[locale],
-        trendLabel: market?.trendLabels?.[locale],
+        opportunityLabel: market?.opportunityLabels?.[loc],
+        trendLabel: market?.trendLabels?.[loc],
         bars: market?.bars ?? [],
-        headline: texts[locale],
-        locale,
+        headline: texts[loc],
+        locale: loc,
       };
     }
     return {
       kind: "promo" as const,
-      headline: texts[locale],
+      headline: texts[loc],
       subheadline: "bogastock.com",
-      locale,
+      locale: loc,
     };
   };
+  const buildCardParams = () => buildCardParamsFor(locale);
 
   // Manuel gonderiler icin premium karakter siniri (2500) — otomasyon
   // (cron/x-scheduler) hala varsayilan 280'i kullanir, buraya dokunmuyor.
   const MANUAL_POST_LIMIT = 2500;
-  const getFinalText = () => (hashtags ? appendHashtagsWithinLimit(texts[locale], hashtags, MANUAL_POST_LIMIT) : texts[locale]);
+  const getFinalTextFor = (loc: Locale) => (hashtags ? appendHashtagsWithinLimit(texts[loc], hashtags, MANUAL_POST_LIMIT) : texts[loc]);
+  const getFinalText = () => getFinalTextFor(locale);
 
   const downloadImage = () => {
     if (!imageUrl) return;
@@ -331,6 +333,43 @@ export default function XStudioPage() {
       return;
     }
     setBusy(false);
+    setSelected(null);
+    setImageUrl(null);
+    setListType(null);
+    setListItems([]);
+    setTexts({ en: "", es: "", fr: "", pt: "", tr: "" });
+    await Promise.all([loadPool(), loadPosts()]);
+  };
+
+  // Uretilen 5 dilin hepsini tek tek /api/admin/x/post'a gonderir — "Şimdi
+  // Paylaş" sadece o an acik olan sekmenin (locale) dilini paylasir, bu ise
+  // hepsini paylasip her dilin kendi /news sayfasina dusmesini saglar.
+  const publishAll = async () => {
+    const targets = LOCALES.filter((loc) => texts[loc]?.trim());
+    if (targets.length === 0) {
+      setError("Önce metin üretin.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    const failed: string[] = [];
+    for (const loc of targets) {
+      const res = await fetch("/api/admin/x/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          mode === "list"
+            ? { locale: loc, contentText: getFinalTextFor(loc), listType }
+            : { locale: loc, contentText: getFinalTextFor(loc), cardParams: buildCardParamsFor(loc) }
+        ),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        failed.push(`${loc.toUpperCase()}: ${data.error || "hata"}`);
+      }
+    }
+    setBusy(false);
+    if (failed.length) setError(`Bazı diller paylaşılamadı — ${failed.join(" | ")}`);
     setSelected(null);
     setImageUrl(null);
     setListType(null);
@@ -651,6 +690,14 @@ export default function XStudioPage() {
             )}
             <button style={{ ...btnStyle, background: "#22c55e" }} disabled={busy || !texts[locale]} onClick={publish}>
               {settings && !settings.x_posting_enabled ? "Yayınla (Sadece /news)" : "Şimdi Paylaş (API)"}
+            </button>
+            <button
+              title="Üretilen tüm dillerin metnini kendi /news sayfalarına paylaşır"
+              style={{ ...btnStyle, background: "#8957e5" }}
+              disabled={busy || LOCALES.every((l) => !texts[l]?.trim())}
+              onClick={publishAll}
+            >
+              {settings && !settings.x_posting_enabled ? "Tüm Dillerde Yayınla (/news)" : "Tüm Dillerde Paylaş (API)"}
             </button>
           </div>
 
