@@ -108,12 +108,14 @@ const SCORE_TYPE_STYLE: Record<string, { bg: string; text: string; border: strin
 // ── Component ──────────────────────────────────────────────────────────────────
 
 export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDetailClientProps) {
+  const themeSlug = HOT_THEMES_2026.find(t => t.title === themeName)?.slug ?? "";
   const [tickers, setTickers]       = useState<string[]>([]);
   const [customTickers, setCustomTickers] = useState<string[]>([]);
   const [removedTickers, setRemovedTickers] = useState<Set<string>>(new Set());
   const [data, setData]             = useState<Record<string, TickerData>>({});
   const [loading, setLoading]       = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [isSyncing, setIsSyncing]   = useState(false);
   const [visibleCount, setVisibleCount] = useState(50);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [activeTab, setActiveTab]   = useState<"table" | "heatmap">("table");
@@ -124,60 +126,48 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   const { addToTracker, isInTracker } = useTracker();
 
   // ── Load tickers (cache-first, then API) ──────────────────────────────────
+  // Kaynak: initialTickers (statik taban) + theme_overrides (özel eklenenler,
+  // Supabase) − hot_themes_removals (tabandan çıkarılanlar, Supabase). Public
+  // taraf (TrendTracker) da aynı iki tabloyu okuyup aynı hesabı yapıyor —
+  // aradaki eski "theme_final_tickers" anlık görüntüsü kaldırıldığı için artık
+  // sapabilecek ayrı bir önbellek yok.
   useEffect(() => {
-    function applyOverrides(overrides: Record<string, string[]>) {
+    function computeTickers(overrides: Record<string, string[]>, removed: Set<string>) {
       const customList = overrides[themeName] || [];
       setCustomTickers(customList);
-      let merged = Array.from(new Set([...initialTickers, ...customList]));
-
-      // Filter out removed tickers
-      try {
-        const removedKey = `t_theme_removed_${themeName}`;
-        const stored = localStorage.getItem(removedKey);
-        if (stored) {
-          const removed = new Set<string>(JSON.parse(stored));
-          
-          // Hata düzeltmesi: Eğer 'custom' olarak eklenmiş bir hisse 'Kaldır' ile localStorage'a (removed) 
-          // gizlendiyse, onu gerçekten veritabanından (overrides) silelim ki Trend sayfasından da kalksın.
-          let needsSync = false;
-          customList.forEach(t => {
-            if (removed.has(t)) {
-              overrides[themeName] = overrides[themeName].filter(x => x !== t);
-              needsSync = true;
-              removed.delete(t);
-            }
-          });
-          if (needsSync) {
-            syncOverrides(overrides);
-            localStorage.setItem(removedKey, JSON.stringify(Array.from(removed)));
-            setCustomTickers(overrides[themeName] || []);
-          }
-
-          setRemovedTickers(removed);
-          merged = merged.filter(t => !removed.has(t));
-        }
-      } catch {}
-
+      setRemovedTickers(removed);
+      const merged = Array.from(new Set([...initialTickers, ...customList]))
+        .filter(t => !removed.has(t));
       setTickers(merged);
       return merged;
     }
 
-    let cached: Record<string, string[]> = {};
-    try { cached = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
-    const mergedFromCache = applyOverrides(cached);
+    let cachedOverrides: Record<string, string[]> = {};
+    try { cachedOverrides = JSON.parse(localStorage.getItem("t_theme_overrides") || "{}"); } catch {}
+    let cachedRemoved = new Set<string>();
+    try {
+      const stored = localStorage.getItem(`t_theme_removed_${themeName}`);
+      if (stored) cachedRemoved = new Set(JSON.parse(stored));
+    } catch {}
+    const mergedFromCache = computeTickers(cachedOverrides, cachedRemoved);
     setVisibleCount(50);
     fetchStocks(mergedFromCache.slice(0, 50));
 
-    fetch("/api/store/theme_overrides")
-      .then(r => r.json())
-      .then(({ value }) => {
-        const overrides: Record<string, string[]> = value ?? {};
-        try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
-        const merged = applyOverrides(overrides);
-        setVisibleCount(50);
-        fetchStocks(merged.slice(0, 50));
-      })
-      .catch(() => {});
+    Promise.all([
+      fetch("/api/store/theme_overrides").then(r => r.json()).catch(() => ({ value: null })),
+      fetch("/api/store/hot_themes_removals", { cache: "no-store" }).then(r => r.json()).catch(() => ({ value: null })),
+    ]).then(([overridesRes, removalsRes]) => {
+      const overrides: Record<string, string[]> = overridesRes?.value ?? {};
+      try { localStorage.setItem("t_theme_overrides", JSON.stringify(overrides)); } catch {}
+
+      const removalsValue = removalsRes?.value ?? { removedSlugs: [], removedStocks: {} };
+      const removed = new Set<string>((removalsValue.removedStocks || {})[themeSlug] || []);
+      try { localStorage.setItem(`t_theme_removed_${themeName}`, JSON.stringify(Array.from(removed))); } catch {}
+
+      const merged = computeTickers(overrides, removed);
+      setVisibleCount(50);
+      fetchStocks(merged.slice(0, 50));
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [themeName]);
 
@@ -233,12 +223,58 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
   };
 
   // Nihai ticker listesini API'ye yaz — TrendTracker bu listeyi okur
-  const syncFinalTickers = (finalList: string[]) => {
-    fetch("/api/store/theme_final_tickers", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: { [themeName]: finalList } }),
-    }).catch(e => console.error("syncFinalTickers error:", e));
+  // hot_themes_removals'a bu temanin cikarilan-hisse listesini tam olarak yaz
+  // (deger ic ice oldugu icin PATCH'in sig birlestirmesi butun temayi degil
+  // sadece bu slug'i etkilesin diye once mevcut veriyi okuyup yerinde guncelliyoruz).
+  const syncRemovalsToAPI = async (removed: Set<string>) => {
+    try {
+      const res = await fetch("/api/store/hot_themes_removals", { cache: "no-store" });
+      let removalsData: { removedSlugs: string[]; removedStocks: Record<string, string[]> } = {
+        removedSlugs: [],
+        removedStocks: {},
+      };
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.value) removalsData = json.value;
+      }
+      removalsData.removedStocks[themeSlug] = Array.from(removed);
+      await fetch("/api/store/hot_themes_removals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value: removalsData }),
+      });
+    } catch (e) {
+      console.error("syncRemovalsToAPI error:", e);
+    }
+  };
+
+  // Hem theme_overrides hem hot_themes_removals'i mevcut ekran durumuyla tam
+  // olarak esitler; her ekle/cikar zaten aninda senkronize olur, bu buton
+  // elle "simdi dogrula/esitle" guvencesi verir.
+  const syncAll = async () => {
+    setIsSyncing(true);
+    try {
+      let overrides: Record<string, string[]> = {};
+      try {
+        const res = await fetch("/api/store/theme_overrides");
+        if (res.ok) { const j = await res.json(); overrides = j?.value ?? {}; }
+      } catch {}
+      overrides[themeName] = customTickers;
+      const oRes = await fetch("/api/store/theme_overrides", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value: overrides }),
+      });
+
+      await syncRemovalsToAPI(removedTickers);
+
+      if (oRes.ok) alert(`Senkronize edildi! ${tickers.length} hisse (${customTickers.length} ozel).`);
+      else alert("Hata: " + (await oRes.text()));
+    } catch (e) {
+      alert("Baglanti hatasi: " + e);
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   const addCustomTicker = async (input: string) => {
@@ -256,7 +292,6 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     setTickers(newList);
     setVisibleCount(prev => prev + 1);
     setAddInput("");
-    syncFinalTickers(newList);
 
     try {
       const res = await fetch(`/api/watchlist-data?tickers=${sym}`);
@@ -283,43 +318,6 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     const newList = tickers.filter(t => t !== ticker);
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
-    syncFinalTickers(newList);
-  };
-
-  // hot_themes_removals API'ye de kaydet (TrendTracker bu API'yi okuyor)
-  const syncTickerRemovalToTrendAPI = async (ticker: string) => {
-    try {
-      // Bu temaya ait slug'ı bul
-      const hotTheme = HOT_THEMES_2026.find(t => t.title === themeName);
-      if (!hotTheme) return;
-      const slug = hotTheme.slug;
-
-      // Mevcut hot_themes_removals verisini oku
-      const res = await fetch("/api/store/hot_themes_removals", { cache: "no-store" });
-      let removalsData: { removedSlugs: string[]; removedStocks: Record<string, string[]> } = {
-        removedSlugs: [],
-        removedStocks: {},
-      };
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.value) removalsData = json.value;
-      }
-
-      // Bu temaya ait hisseleri kaldırılanlar listesine ekle
-      if (!removalsData.removedStocks[slug]) removalsData.removedStocks[slug] = [];
-      if (!removalsData.removedStocks[slug].includes(ticker)) {
-        removalsData.removedStocks[slug].push(ticker);
-      }
-
-      // API'ye geri yaz
-      await fetch("/api/store/hot_themes_removals", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ value: removalsData }),
-      });
-    } catch (e) {
-      console.error("syncTickerRemovalToTrendAPI error:", e);
-    }
   };
 
   const removeTicker = (ticker: string) => {
@@ -327,15 +325,13 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     newRemoved.add(ticker);
     setRemovedTickers(newRemoved);
     try {
-      const removedKey = `t_theme_removed_${themeName}`;
-      localStorage.setItem(removedKey, JSON.stringify(Array.from(newRemoved)));
+      localStorage.setItem(`t_theme_removed_${themeName}`, JSON.stringify(Array.from(newRemoved)));
     } catch {}
     const newList = tickers.filter(t => t !== ticker);
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
     if (expandedRow === ticker) setExpandedRow(null);
-    // Nihai listeyi API'ye kaydet (TrendTracker bunu okur)
-    syncFinalTickers(newList);
+    syncRemovalsToAPI(newRemoved);
   };
 
   // ── Sorting ────────────────────────────────────────────────────────────────
@@ -427,6 +423,19 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
 
           {/* Tabs + Actions */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+
+            <button
+              onClick={syncAll}
+              disabled={isSyncing || loading}
+              style={{
+                padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                border: "1px solid #22d3ee", background: "#22d3ee18",
+                color: isSyncing ? "#8b949e" : "#22d3ee",
+                borderRadius: 4, cursor: "pointer", letterSpacing: "0.05em",
+              }}
+            >
+              {isSyncing ? "SENKRONİZE EDİLİYOR..." : `SENKRONİZE ET (${tickers.length})`}
+            </button>
             {(["table", "heatmap"] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)} style={{
                 padding: "5px 14px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
@@ -439,17 +448,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                 {tab === "table" ? "ANA TABLO" : "ISI HARİTASI"}
               </button>
             ))}
-            <button
-              onClick={refresh}
-              disabled={loading}
-              style={{
-                padding: "5px 12px", fontSize: 11, fontFamily: "monospace", fontWeight: 700,
-                border: "1px solid #30363d", background: "transparent",
-                color: loading ? "#8b949e" : "#e6edf3", borderRadius: 4, cursor: "pointer",
-              }}
-            >
-              {loading ? "..." : "YENİLE"}
-            </button>
+
           </div>
         </div>
       </div>

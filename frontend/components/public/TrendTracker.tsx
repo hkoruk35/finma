@@ -182,13 +182,11 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
       // API'den gerçek zamanlı global durumları çek
       let themeOverrides: Record<string, string[]> = {};
-      let themeFinalTickers: Record<string, string[]> = {};
       try {
         const fetchOpts: RequestInit = { cache: 'no-store' };
-        const [removalsRes, overridesRes, finalRes] = await Promise.all([
+        const [removalsRes, overridesRes] = await Promise.all([
           fetch("/api/store/hot_themes_removals", fetchOpts).catch(() => null),
           fetch("/api/store/theme_overrides", fetchOpts).catch(() => null),
-          fetch("/api/store/theme_final_tickers", fetchOpts).catch(() => null),
         ]);
 
         if (removalsRes && removalsRes.ok) {
@@ -208,33 +206,22 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
             themeOverrides = oData.value;
           }
         }
-        if (finalRes && finalRes.ok) {
-          const fData = await finalRes.json();
-          if (fData && fData.value) {
-            themeFinalTickers = fData.value;
-          }
-        }
       } catch (err) {
         console.error("API fetch error", err);
       }
 
       const rows: TrendRow[] = [];
 
+      // Admin ve public taraf aynı iki kaynaktan (theme_overrides, hot_themes_removals)
+      // her seferinde canlı hesaplar — aradaki eski "theme_final_tickers" anlık
+      // görüntüsü kalıcı sapmaya yol açıyordu (bkz. ThemeDetailClient), artık yok.
       for (const theme of HOT_THEMES_2026) {
         if (removedSlugs.has(theme.slug)) continue;
 
-        let allTickers: string[];
-
-        if (themeFinalTickers[theme.title]) {
-          // Admin nihai listeyi kaydetmiş → direkt kullan, hiçbir hesaplama yok
-          allTickers = themeFinalTickers[theme.title];
-        } else {
-          // Nihai liste yoksa eski yöntem: varsayılan + custom - çıkarılanlar
-          const defaultTickers = theme.stocks.map(s => s.ticker);
-          const customTickers = themeOverrides[theme.title] || [];
-          allTickers = Array.from(new Set([...defaultTickers, ...customTickers]))
-            .filter(ticker => !(removedStocks[theme.slug]?.has(ticker)));
-        }
+        const defaultTickers = theme.stocks.map(s => s.ticker);
+        const customTickers = themeOverrides[theme.title] || [];
+        const allTickers = Array.from(new Set([...defaultTickers, ...customTickers]))
+          .filter(ticker => !(removedStocks[theme.slug]?.has(ticker)));
 
         for (const ticker of allTickers) {
           const staticInfo = theme.stocks.find(s => s.ticker === ticker);

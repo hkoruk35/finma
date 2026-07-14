@@ -55,7 +55,7 @@ export async function GET(
   return NextResponse.json({ value: data?.value ?? null })
 }
 
-export async function POST(
+export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
@@ -69,49 +69,24 @@ export async function POST(
   }
 
   let body: { value: unknown }
-  try { body = await req.json() }
-  catch { return NextResponse.json({ error: 'Geçersiz JSON' }, { status: 400 }) }
+  try { body = await req.json() } catch { return NextResponse.json({ error: 'Geçersiz JSON' }, { status: 400 }) }
 
   const sb = adminClient()
-  const { error } = await sb
-    .from('shared_store')
-    .upsert({ key, value: body.value, updated_at: new Date().toISOString() }, { onConflict: 'key' })
+  // Fetch existing value
+  const { data: existing } = await sb.from('shared_store').select('value').eq('key', key).single()
+  const current = (existing?.value as any) ?? {}
+  const merged = { ...(current as object), ...(body.value as object) }
 
+  const { error } = await sb.from('shared_store').upsert({ key, value: merged, updated_at: new Date().toISOString() }, { onConflict: 'key' })
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true })
 }
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Promise<{ key: string }> }
-) {
-  if (req.cookies.get('boga_auth')?.value !== 'admin') {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  }
+// Her istemci tarafi yazma cagrisi tarihsel olarak POST kullaniyor (PATCH
+// degil) — route sadece PATCH tanimliyordu, yani bu yazmalarin tamami 405 ile
+// sessizce basarisiz oluyordu (theme_overrides, hot_themes_removals,
+// tracker_v1, portfolio_swing/longterm, watchlist, vb. hicbiri kalici
+// olarak Supabase'e yazilmiyordu). PATCH ile ayni davranisi saglayarak
+// mevcut tum cagri noktalarini tek seferde duzeltiyoruz.
+export const POST = PATCH
 
-  const { key } = await params
-  if (key !== 'theme_final_tickers') {
-    return NextResponse.json({ error: 'PATCH yalnizca theme_final_tickers icin gecerli' }, { status: 400 })
-  }
-
-  let body: { value: Record<string, string[]> }
-  try { body = await req.json() }
-  catch { return NextResponse.json({ error: 'Gecersiz JSON' }, { status: 400 }) }
-
-  const sb = adminClient()
-  const { data: existing } = await sb
-    .from('shared_store')
-    .select('value')
-    .eq('key', key)
-    .single()
-
-  const current: Record<string, string[]> = (existing?.value as Record<string, string[]>) ?? {}
-  const merged = { ...current, ...body.value }
-
-  const { error } = await sb
-    .from('shared_store')
-    .upsert({ key, value: merged, updated_at: new Date().toISOString() }, { onConflict: 'key' })
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ ok: true })
-}
