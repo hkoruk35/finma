@@ -362,53 +362,52 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
-                  { label: "TICKER", key: null, align: "left", mobile: true },
-                  { label: "SEKTÖR", key: null, align: "left", mobile: false },
-                  { label: "FİYAT", key: "price", align: "right", mobile: true },
-                  { label: "Δ% 1G", key: "chg1d", align: "right", mobile: true },
-                  { label: "HACİM", key: "volume", align: "right", mobile: false },
-                  { label: "HACİM ORANI", key: "goran", align: "right", mobile: false },
-                  { label: "EMA20", key: "ema20", align: "right", mobile: false },
-                  { label: "EMA50", key: "ema50", align: "right", mobile: false },
-                  { label: "EMA200", key: "ema200", align: "right", mobile: false },
-                  { label: "DURUM", key: null, align: "right", mobile: false },
-                  { label: "RSI", key: "rsi", align: "right", mobile: false },
-                  { label: "PATERN", key: null, align: "right", mobile: false },
-                  { label: "SİNYAL", key: "signal", align: "right", mobile: false },
-                  { label: "DETAY", key: null, align: "right", mobile: false },
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "SEKTÖR", key: null, align: "left" },
+                  { label: "FİYAT", key: "price", align: "right" },
+                  { label: "Δ% 1G", key: "chg1d", align: "right" },
+                  { label: "HACİM", key: "volume", align: "right" },
+                  { label: "HACİM ORANI", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "DURUM", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "PATERN", key: null, align: "right" },
+                  { label: "SİNYAL", key: "signal", align: "right" },
+                  { label: "DETAY", key: null, align: "right" },
                 ] : locale === "pt" ? [
-                  { label: "TICKER", key: null, align: "left", mobile: true },
-                  { label: "SETOR", key: null, align: "left", mobile: false },
-                  { label: "PREÇO", key: "price", align: "right", mobile: true },
-                  { label: "Δ% 1D", key: "chg1d", align: "right", mobile: true },
-                  { label: "VOLUME", key: "volume", align: "right", mobile: false },
-                  { label: "RAZÃO VOL", key: "goran", align: "right", mobile: false },
-                  { label: "EMA20", key: "ema20", align: "right", mobile: false },
-                  { label: "EMA50", key: "ema50", align: "right", mobile: false },
-                  { label: "EMA200", key: "ema200", align: "right", mobile: false },
-                  { label: "STATUS", key: null, align: "right", mobile: false },
-                  { label: "RSI", key: "rsi", align: "right", mobile: false },
-                  { label: "PADRÃO", key: null, align: "right", mobile: false },
-                  { label: "SINAL", key: "signal", align: "right", mobile: false },
-                  { label: "DETALHE", key: null, align: "right", mobile: false },
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "SETOR", key: null, align: "left" },
+                  { label: "PREÇO", key: "price", align: "right" },
+                  { label: "Δ% 1D", key: "chg1d", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "RAZÃO VOL", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "PADRÃO", key: null, align: "right" },
+                  { label: "SINAL", key: "signal", align: "right" },
+                  { label: "DETALHE", key: null, align: "right" },
                 ] : [
-                  { label: "TICKER", key: null, align: "left", mobile: true },
-                  { label: "SECTOR", key: null, align: "left", mobile: false },
-                  { label: "PRICE", key: "price", align: "right", mobile: true },
-                  { label: "Δ% 1D", key: "chg1d", align: "right", mobile: true },
-                  { label: "VOLUME", key: "volume", align: "right", mobile: false },
-                  { label: "VOL RATIO", key: "goran", align: "right", mobile: false },
-                  { label: "EMA20", key: "ema20", align: "right", mobile: false },
-                  { label: "EMA50", key: "ema50", align: "right", mobile: false },
-                  { label: "EMA200", key: "ema200", align: "right", mobile: false },
-                  { label: "STATUS", key: null, align: "right", mobile: false },
-                  { label: "RSI", key: "rsi", align: "right", mobile: false },
-                  { label: "PATTERN", key: null, align: "right", mobile: false },
-                  { label: "SIGNAL", key: "signal", align: "right", mobile: false },
-                  { label: "DETAIL", key: null, align: "right", mobile: false },
-                ]) as { label: string; key: string | null; align: string; mobile: boolean }[]).map(({ label, key, align, mobile }) => (
+                  { label: "TICKER", key: null, align: "left" },
+                  { label: "SECTOR", key: null, align: "left" },
+                  { label: "PRICE", key: "price", align: "right" },
+                  { label: "Δ% 1D", key: "chg1d", align: "right" },
+                  { label: "VOLUME", key: "volume", align: "right" },
+                  { label: "VOL RATIO", key: "goran", align: "right" },
+                  { label: "EMA20", key: "ema20", align: "right" },
+                  { label: "EMA50", key: "ema50", align: "right" },
+                  { label: "EMA200", key: "ema200", align: "right" },
+                  { label: "STATUS", key: null, align: "right" },
+                  { label: "RSI", key: "rsi", align: "right" },
+                  { label: "PATTERN", key: null, align: "right" },
+                  { label: "SIGNAL", key: "signal", align: "right" },
+                  { label: "DETAIL", key: null, align: "right" },
+                ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
-                    className={mobile ? "" : "hidden sm:table-cell"}
                     style={{
                       padding: "7px 8px", textAlign: align as "left" | "right",
                       fontSize: 10, fontWeight: 700, letterSpacing: "0.1em",
@@ -441,27 +440,27 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         </td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{translateSector(d?.sector || r.sector, locale)}</td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                           {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
                         </td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
                           {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
                         </td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
                           {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
                         </td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
                           {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
                         </td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
-                        <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                        <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
                           <button onClick={() => setShowPremiumModal(true)}
                             style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}>
                             🔒 Premium
@@ -480,27 +479,27 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }}>{translateSector(d?.sector || r.sector, locale)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
                       </td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
                         {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
                       </td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
                         {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
                       </td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
                         {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
                       </td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
-                      <td className="hidden sm:table-cell" style={{ padding: "6px 8px", textAlign: "right" }}>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right" }}>
                         <button
                           onClick={(e) => { e.stopPropagation(); setAnalyzeTicker(r.ticker); }}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
