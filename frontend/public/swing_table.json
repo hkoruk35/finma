@@ -1,18 +1,26 @@
 [
   {
-    "Date": "10 July",
-    "Symbol": "NVDA",
-    "Entry (Buy_L)": 203.35,
-    "Stop (SL)": 198.35,
-    "Target 1 (TP1)": 221.23,
-    "Target 2 (TP2)": 223.77
+    "Date": "14 July",
+    "Symbol": "EQNR",
+    "Entry (Buy_L)": 34.4,
+    "Stop (SL)": 33.66,
+    "Target 1 (TP1)": 40.94,
+    "Target 2 (TP2)": 43.02
   },
   {
-    "Date": "10 July",
-    "Symbol": "DDOG",
-    "Entry (Buy_L)": 251.34,
-    "Stop (SL)": 242.25,
-    "Target 1 (TP1)": 279.06,
-    "Target 2 (TP2)": 283.15
+    "Date": "14 July",
+    "Symbol": "MSM",
+    "Entry (Buy_L)": 120.99,
+    "Stop (SL)": 116.95,
+    "Target 1 (TP1)": 128.34,
+    "Target 2 (TP2)": 140.56
+  },
+  {
+    "Date": "14 July",
+    "Symbol": "BMRC",
+    "Entry (Buy_L)": 27.9,
+    "Stop (SL)": 26.97,
+    "Target 1 (TP1)": 30.34,
+    "Target 2 (TP2)": 32.41
   }
 ]

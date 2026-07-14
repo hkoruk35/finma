@@ -232,6 +232,15 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     }).catch(() => {});
   };
 
+  // Nihai ticker listesini API'ye yaz — TrendTracker bu listeyi okur
+  const syncFinalTickers = (finalList: string[]) => {
+    fetch("/api/store/theme_final_tickers", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ value: { [themeName]: finalList } }),
+    }).catch(e => console.error("syncFinalTickers error:", e));
+  };
+
   const addCustomTicker = async (input: string) => {
     const sym = input.trim().toUpperCase();
     if (!sym || tickers.includes(sym)) return;
@@ -242,10 +251,12 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     overrides[themeName] = updatedCustom;
     syncOverrides(overrides);
 
+    const newList = [...tickers, sym];
     setCustomTickers(updatedCustom);
-    setTickers(prev => [...prev, sym]);
+    setTickers(newList);
     setVisibleCount(prev => prev + 1);
     setAddInput("");
+    syncFinalTickers(newList);
 
     try {
       const res = await fetch(`/api/watchlist-data?tickers=${sym}`);
@@ -272,6 +283,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     const newList = tickers.filter(t => t !== ticker);
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
+    syncFinalTickers(newList);
   };
 
   // hot_themes_removals API'ye de kaydet (TrendTracker bu API'yi okuyor)
@@ -322,8 +334,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
     if (expandedRow === ticker) setExpandedRow(null);
-    // Trend sayfasını da etkile
-    syncTickerRemovalToTrendAPI(ticker);
+    // Nihai listeyi API'ye kaydet (TrendTracker bunu okur)
+    syncFinalTickers(newList);
   };
 
   // ── Sorting ────────────────────────────────────────────────────────────────

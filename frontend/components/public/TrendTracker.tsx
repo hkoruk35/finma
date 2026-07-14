@@ -182,11 +182,13 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
       // API'den gerçek zamanlı global durumları çek
       let themeOverrides: Record<string, string[]> = {};
+      let themeFinalTickers: Record<string, string[]> = {};
       try {
         const fetchOpts: RequestInit = { cache: 'no-store' };
-        const [removalsRes, overridesRes] = await Promise.all([
+        const [removalsRes, overridesRes, finalRes] = await Promise.all([
           fetch("/api/store/hot_themes_removals", fetchOpts).catch(() => null),
-          fetch("/api/store/theme_overrides", fetchOpts).catch(() => null)
+          fetch("/api/store/theme_overrides", fetchOpts).catch(() => null),
+          fetch("/api/store/theme_final_tickers", fetchOpts).catch(() => null),
         ]);
 
         if (removalsRes && removalsRes.ok) {
@@ -206,6 +208,12 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
             themeOverrides = oData.value;
           }
         }
+        if (finalRes && finalRes.ok) {
+          const fData = await finalRes.json();
+          if (fData && fData.value) {
+            themeFinalTickers = fData.value;
+          }
+        }
       } catch (err) {
         console.error("API fetch error", err);
       }
@@ -213,24 +221,26 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
       const rows: TrendRow[] = [];
 
       for (const theme of HOT_THEMES_2026) {
-        if (removedSlugs.has(theme.slug)) continue; // Bu tema çıkartılmış
+        if (removedSlugs.has(theme.slug)) continue;
 
-        // Temanın varsayılan hisseleri
-        const defaultTickers = theme.stocks.map(s => s.ticker);
-        // API'den eklenen özel hisseler (ThemeDetailClient üzerinden)
-        const customTickers = themeOverrides[theme.title] || [];
-        
-        // Benzersiz hisse listesi (Kaldırılanları hariç tut)
-        const allTickers = Array.from(new Set([...defaultTickers, ...customTickers]))
-          .filter(ticker => !(removedStocks[theme.slug]?.has(ticker)));
+        let allTickers: string[];
+
+        if (themeFinalTickers[theme.title]) {
+          // Admin nihai listeyi kaydetmiş → direkt kullan, hiçbir hesaplama yok
+          allTickers = themeFinalTickers[theme.title];
+        } else {
+          // Nihai liste yoksa eski yöntem: varsayılan + custom - çıkarılanlar
+          const defaultTickers = theme.stocks.map(s => s.ticker);
+          const customTickers = themeOverrides[theme.title] || [];
+          allTickers = Array.from(new Set([...defaultTickers, ...customTickers]))
+            .filter(ticker => !(removedStocks[theme.slug]?.has(ticker)));
+        }
 
         for (const ticker of allTickers) {
-          // Eğer hisse statik HOT_THEMES_2026 içinde varsa bilgisini al, yoksa custom'dır
           const staticInfo = theme.stocks.find(s => s.ticker === ticker);
-          
           rows.push({
             ticker: ticker,
-            company: staticInfo ? staticInfo.company : ticker, // Custom hisse için şirket adı yoksa ticker'ı kullan
+            company: staticInfo ? staticInfo.company : ticker,
             price: 0,
             change_pct: 0,
             rsi: 0,

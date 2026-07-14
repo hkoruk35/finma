@@ -12,6 +12,7 @@ const ALLOWED_KEYS = [
   'portfolio_swing',
   'portfolio_longterm',
   'hot_themes_removals',
+  'theme_final_tickers',
 ]
 
 function adminClient() {
@@ -29,7 +30,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
-  const PUBLIC_KEYS = ['hot_themes_removals', 'theme_overrides']
+  const PUBLIC_KEYS = ['hot_themes_removals', 'theme_overrides', 'theme_final_tickers']
   const { key } = await params
 
   if (!PUBLIC_KEYS.includes(key) && !requireAdmin(req)) {
@@ -75,6 +76,41 @@ export async function POST(
   const { error } = await sb
     .from('shared_store')
     .upsert({ key, value: body.value, updated_at: new Date().toISOString() }, { onConflict: 'key' })
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ ok: true })
+}
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ key: string }> }
+) {
+  if (req.cookies.get('boga_auth')?.value !== 'admin') {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
+  const { key } = await params
+  if (key !== 'theme_final_tickers') {
+    return NextResponse.json({ error: 'PATCH yalnizca theme_final_tickers icin gecerli' }, { status: 400 })
+  }
+
+  let body: { value: Record<string, string[]> }
+  try { body = await req.json() }
+  catch { return NextResponse.json({ error: 'Gecersiz JSON' }, { status: 400 }) }
+
+  const sb = adminClient()
+  const { data: existing } = await sb
+    .from('shared_store')
+    .select('value')
+    .eq('key', key)
+    .single()
+
+  const current: Record<string, string[]> = (existing?.value as Record<string, string[]>) ?? {}
+  const merged = { ...current, ...body.value }
+
+  const { error } = await sb
+    .from('shared_store')
+    .upsert({ key, value: merged, updated_at: new Date().toISOString() }, { onConflict: 'key' })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true })
