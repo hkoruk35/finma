@@ -135,6 +135,23 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
         const stored = localStorage.getItem(removedKey);
         if (stored) {
           const removed = new Set<string>(JSON.parse(stored));
+          
+          // Hata düzeltmesi: Eğer 'custom' olarak eklenmiş bir hisse 'Kaldır' ile localStorage'a (removed) 
+          // gizlendiyse, onu gerçekten veritabanından (overrides) silelim ki Trend sayfasından da kalksın.
+          let needsSync = false;
+          customList.forEach(t => {
+            if (removed.has(t)) {
+              overrides[themeName] = overrides[themeName].filter(x => x !== t);
+              needsSync = true;
+              removed.delete(t);
+            }
+          });
+          if (needsSync) {
+            syncOverrides(overrides);
+            localStorage.setItem(removedKey, JSON.stringify(Array.from(removed)));
+            setCustomTickers(overrides[themeName] || []);
+          }
+
           setRemovedTickers(removed);
           merged = merged.filter(t => !removed.has(t));
         }
@@ -550,7 +567,11 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                           </span>
                         )}
                         <button
-                          onClick={e => { e.stopPropagation(); removeTicker(sym); }}
+                          onClick={e => { 
+                            e.stopPropagation(); 
+                            if (isCustom) removeCustomTicker(sym); 
+                            else removeTicker(sym); 
+                          }}
                           style={{ marginLeft: 4, background: "none", border: "none", cursor: "pointer", color: "#555", fontSize: 12, lineHeight: 1 }}
                           title="Listeden kaldır"
                         >✕</button>
