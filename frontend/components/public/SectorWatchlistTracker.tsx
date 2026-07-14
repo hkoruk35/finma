@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
+import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern } from "@/lib/translationHelpers";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
@@ -92,37 +93,37 @@ const PAGE_LABELS: Record<Locale, {
   titleSuffix: string; lastUpdate: string; marketOpen: string; marketClosed: string;
   tickers: string; refresh: string; mainTable: string; heatmap: string;
   search: string; allSignals: string; allPatterns: string; day: string;
-  heatmapNote: string; colCompany: string; analyze: string;
+  heatmapNote: string; colCompany: string; analyze: string; chart: string;
 }> = {
   en: {
     titleSuffix: "Sector Stocks", lastUpdate: "last update", marketOpen: "market open", marketClosed: "market closed",
     tickers: "tickers", refresh: "REFRESH", mainTable: "MAIN TABLE", heatmap: "HEATMAP",
     search: "search...", allSignals: "ALL SIGNALS", allPatterns: "ALL PATTERNS", day: "DAY",
-    heatmapNote: "End-of-day hourly Δ% heatmap — each cell shows that hour's change", colCompany: "COMPANY", analyze: "ANALYZE",
+    heatmapNote: "End-of-day hourly Δ% heatmap — each cell shows that hour's change", colCompany: "COMPANY", analyze: "ANALYZE", chart: "CHART",
   },
   tr: {
     titleSuffix: "Sektörü Hisseleri", lastUpdate: "son güncelleme", marketOpen: "market açık", marketClosed: "market kapalı",
     tickers: "ticker", refresh: "YENİLE", mainTable: "ANA TABLO", heatmap: "ISI HARİTASI",
     search: "hisse ara...", allSignals: "TÜM SİNYAL", allPatterns: "TÜM PATERNLER", day: "GÜN",
-    heatmapNote: "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir", colCompany: "ŞİRKET", analyze: "ANALİZ",
+    heatmapNote: "Gün sonu saatlik Δ% ısı haritası — her hücre o saatin değişimini gösterir", colCompany: "ŞİRKET", analyze: "ANALİZ", chart: "GRAFİK",
   },
   es: {
     titleSuffix: "Acciones del Sector", lastUpdate: "última actualización", marketOpen: "mercado abierto", marketClosed: "mercado cerrado",
     tickers: "tickers", refresh: "ACTUALIZAR", mainTable: "TABLA PRINCIPAL", heatmap: "MAPA DE CALOR",
     search: "buscar...", allSignals: "TODAS LAS SEÑALES", allPatterns: "TODOS LOS PATRONES", day: "DÍA",
-    heatmapNote: "Mapa de calor horario de fin de día Δ% — cada celda muestra el cambio de esa hora", colCompany: "EMPRESA", analyze: "ANALIZAR",
+    heatmapNote: "Mapa de calor horario de fin de día Δ% — cada celda muestra el cambio de esa hora", colCompany: "EMPRESA", analyze: "ANALIZAR", chart: "GRÁFICO",
   },
   fr: {
     titleSuffix: "Actions du Secteur", lastUpdate: "dernière mise à jour", marketOpen: "marché ouvert", marketClosed: "marché fermé",
     tickers: "titres", refresh: "ACTUALISER", mainTable: "TABLEAU PRINCIPAL", heatmap: "CARTE THERMIQUE",
     search: "rechercher...", allSignals: "TOUS LES SIGNAUX", allPatterns: "TOUS LES MOTIFS", day: "JOUR",
-    heatmapNote: "Carte thermique horaire de fin de journée Δ% — chaque cellule montre la variation de cette heure", colCompany: "ENTREPRISE", analyze: "ANALYSER",
+    heatmapNote: "Carte thermique horaire de fin de journée Δ% — chaque cellule montre la variation de cette heure", colCompany: "ENTREPRISE", analyze: "ANALYSER", chart: "GRAPHIQUE",
   },
   pt: {
     titleSuffix: "Ações do Setor", lastUpdate: "última atualização", marketOpen: "mercado aberto", marketClosed: "mercado fechado",
     tickers: "ativos", refresh: "ATUALIZAR", mainTable: "TABELA PRINCIPAL", heatmap: "MAPA DE CALOR",
     search: "buscar...", allSignals: "TODOS OS SINAIS", allPatterns: "TODOS OS PADRÕES", day: "DIA",
-    heatmapNote: "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora", colCompany: "EMPRESA", analyze: "ANALISAR",
+    heatmapNote: "Mapa de calor horário de fim de dia Δ% — cada célula mostra a variação daquela hora", colCompany: "EMPRESA", analyze: "ANALISAR", chart: "GRÁFICO",
   },
 };
 
@@ -354,6 +355,7 @@ export default function SectorWatchlistTracker({ locale, sector, sectorLabel }: 
                   { label: t.colPattern, key: null, align: "right" },
                   { label: t.colSignal, key: "signal", align: "right" },
                   { label: L.analyze, key: null, align: "right" },
+                  { label: L.chart, key: null, align: "right" },
                 ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
                     style={{
@@ -409,11 +411,24 @@ export default function SectorWatchlistTracker({ locale, sector, sectorLabel }: 
                           {L.analyze}
                         </button>
                       </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right" }}>
+                        <Link
+                          href={`/global/${locale}/graphic/${d.ticker}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ color: "#8b949e", textDecoration: "none", fontWeight: 700, fontSize: 10, background: "transparent", border: "1px solid #30363d", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
+                        >
+                          {L.chart}
+                        </Link>
+                      </td>
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={13} style={{ padding: 0 }}>
-                          <TickerDetailPanel ticker={d.ticker} locale={locale} />
+                        <td colSpan={14} style={{ padding: 0 }}>
+                          <div style={{ width: "calc(100vw - 64px)", maxWidth: 1200, overflowX: "auto" }}>
+                            <TickerDetailPanel ticker={d.ticker} locale={locale} />
+                          </div>
                         </td>
                       </tr>
                     )}
