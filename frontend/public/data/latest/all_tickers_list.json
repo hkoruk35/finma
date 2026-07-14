@@ -1,27 +1,38 @@
 {
-  "date": "2026-07-10",
+  "date": "2026-07-14",
   "tickers": [
     {
-      "ticker": "NVDA",
-      "company": "NVIDIA Corp",
-      "sector": "Technology",
-      "master_score": 51.0,
+      "ticker": "EQNR",
+      "company": "EQNR",
+      "sector": "Energy",
+      "master_score": 62.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 209.58999633789062,
-      "change_pct": 3.36,
+      "price": 35.959999084472656,
+      "change_pct": -0.28,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 51.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 62.0 | System: TREND_CONT"
     },
     {
-      "ticker": "DDOG",
-      "company": "DDOG",
-      "sector": "Technology",
-      "master_score": 44.5,
+      "ticker": "MSM",
+      "company": "MSM",
+      "sector": "Industrials",
+      "master_score": 59.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 259.1300048828125,
-      "change_pct": -3.67,
+      "price": 123.1050033569336,
+      "change_pct": -0.71,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 59.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BMRC",
+      "company": "BMRC",
+      "sector": "Financial Services",
+      "master_score": 59.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 28.391199111938477,
+      "change_pct": 0.32,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.5 | System: TREND_CONT"
     }
   ]
 }

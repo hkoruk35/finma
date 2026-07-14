@@ -1,53 +1,43 @@
 {
-  "generated_at": "2026-07-13T13:04:55.931515",
+  "generated_at": "2026-07-14T13:05:36.000614",
   "options": {
-    "NVDA": {
+    "EQNR": {
       "dte_45": {
-        "strike": 210.0,
-        "lastPrice": 11.3,
-        "bid": 11.1,
-        "ask": 11.25,
-        "volume": 488,
-        "openInterest": 1084,
-        "impliedVolatility": 0.4643608251953125,
-        "expiry": "2026-08-28",
+        "strike": 36.0,
+        "lastPrice": 2.0,
+        "bid": 1.6,
+        "ask": 1.85,
+        "volume": 14,
+        "openInterest": 931,
+        "impliedVolatility": 0.40210558837890625,
+        "expiry": "2026-08-21",
+        "type": "CALL"
+      }
+    },
+    "MSM": {
+      "dte_45": {
+        "strike": 125.0,
+        "lastPrice": 2.65,
+        "bid": 3.2,
+        "ask": 4.9,
+        "volume": 2,
+        "openInterest": 13,
+        "impliedVolatility": 0.36426416992187505,
+        "expiry": "2026-08-21",
         "type": "CALL"
       },
       "dte_60": {
-        "strike": 210.0,
-        "lastPrice": 13.5,
-        "bid": 13.4,
-        "ask": 13.6,
-        "volume": 2507,
-        "openInterest": 57265,
-        "impliedVolatility": 0.4528252960205078,
+        "strike": 125.0,
+        "lastPrice": 6.9,
+        "bid": 4.9,
+        "ask": 6.8,
+        "volume": 2,
+        "openInterest": 1,
+        "impliedVolatility": 0.36853658813476564,
         "expiry": "2026-09-18",
         "type": "CALL"
       }
     },
-    "DDOG": {
-      "dte_45": {
-        "strike": 260.0,
-        "lastPrice": 31.79,
-        "bid": 28.5,
-        "ask": 31.6,
-        "volume": 3,
-        "openInterest": 5,
-        "impliedVolatility": 0.7706321765136719,
-        "expiry": "2026-08-28",
-        "type": "CALL"
-      },
-      "dte_60": {
-        "strike": 260.0,
-        "lastPrice": 32.23,
-        "bid": 34.1,
-        "ask": 36.05,
-        "volume": 2,
-        "openInterest": 178,
-        "impliedVolatility": 0.7536950900268554,
-        "expiry": "2026-09-18",
-        "type": "CALL"
-      }
-    }
+    "BMRC": {}
   }
 }

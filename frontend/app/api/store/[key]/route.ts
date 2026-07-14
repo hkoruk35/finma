@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 // İzin verilen anahtarlar — güvenlik için whitelist
@@ -24,6 +24,31 @@ function adminClient() {
 
 function requireAdmin(req: NextRequest): boolean {
   return !!req.cookies.get('boga_auth')?.value
+}
+
+// tracker_v1 (/admin/portfolio/tracker) degistiginde Top100'un 'fixed'
+// kompozisyonunu (/global/{locale}/top100) gece yarisi cron'unu beklemeden
+// hemen tazeler — /api/internal/top100-sync tam liste replace semantigi
+// kullandigi icin her seferinde guncel tracker_v1.tickers'in tamami gonderilir.
+async function syncTrackerToTop100Fixed(tickers: string[]) {
+  try {
+    if (tickers.length === 0) {
+      // /api/internal/top100-sync bos tickers[] kabul etmiyor — tracker tamamen
+      // bosaltildiginda 'fixed' kompozisyonunu burada dogrudan temizliyoruz.
+      await adminClient().from('top100_tickers').delete().eq('source', 'fixed')
+      return
+    }
+    if (!process.env.REVALIDATE_SECRET) return
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bogastock.com'
+    await fetch(`${baseUrl}/api/internal/top100-sync`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-revalidate-secret': process.env.REVALIDATE_SECRET },
+      body: JSON.stringify({ tickers, source: 'fixed' }),
+      signal: AbortSignal.timeout(120000),
+    })
+  } catch (e) {
+    console.error('[store] tracker_v1 -> top100 fixed sync failed:', e)
+  }
 }
 
 export async function GET(
@@ -79,6 +104,16 @@ export async function PATCH(
 
   const { error } = await sb.from('shared_store').upsert({ key, value: merged, updated_at: new Date().toISOString() }, { onConflict: 'key' })
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+
+  if (key === 'tracker_v1') {
+    const oldTickers: string[] = Array.isArray((current as any)?.tickers) ? (current as any).tickers : []
+    const newTickers: string[] = Array.isArray((merged as any)?.tickers) ? (merged as any).tickers : []
+    const changed = oldTickers.length !== newTickers.length
+      || oldTickers.some(t => !newTickers.includes(t))
+      || newTickers.some(t => !oldTickers.includes(t))
+    if (changed) after(() => syncTrackerToTop100Fixed(Array.from(new Set(newTickers))))
+  }
+
   return NextResponse.json({ ok: true })
 }
 
