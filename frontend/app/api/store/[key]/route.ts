@@ -29,9 +29,13 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ key: string }> }
 ) {
-  if (!requireAdmin(req)) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-
+  const PUBLIC_KEYS = ['hot_themes_removals', 'theme_overrides']
   const { key } = await params
+
+  if (!PUBLIC_KEYS.includes(key) && !requireAdmin(req)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   if (!ALLOWED_KEYS.includes(key)) {
     return NextResponse.json({ error: 'Geçersiz key' }, { status: 400 })
   }
