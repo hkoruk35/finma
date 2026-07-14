@@ -73,7 +73,7 @@ export default function TickerSearchBox({ locale = "en" }: { locale?: string }) 
   };
 
   return (
-    <div ref={containerRef} className="relative mb-4">
+    <div ref={containerRef} className="relative mb-4 md:max-w-sm">
       <input
         type="text"
         value={query}
@@ -87,22 +87,22 @@ export default function TickerSearchBox({ locale = "en" }: { locale?: string }) 
           : locale === "pt" ? "Buscar ação (ex. AAPL, MSFT)..."
           : "Search ticker (e.g. AAPL, MSFT)..."
         }
-        className="w-full px-4 py-2.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-white text-sm placeholder:text-slate-500 focus:outline-none focus:border-[#3b82f6]/60 transition-colors"
+        className="w-full px-4 py-2.5 rounded-lg bg-[#1a2b4d] border border-[#2a3f66] text-white text-sm placeholder:text-slate-400 focus:outline-none focus:border-[#3b82f6] transition-colors"
       />
       {open && suggestions.length > 0 && (
-        <div className="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-xl">
+        <div className="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-lg bg-[#1a2b4d] border border-[#2a3f66] shadow-xl">
           {suggestions.map((s, i) => (
             <button
               key={s.ticker}
               type="button"
               onClick={() => goToTicker(s.ticker)}
               onMouseEnter={() => setActiveIndex(i)}
-              className={`w-full flex items-center justify-between px-4 py-2 text-left text-sm transition-colors ${
+              className={`w-full flex items-center gap-2 px-4 py-2 text-left text-sm transition-colors ${
                 i === activeIndex ? "bg-[#3b82f6]/15" : "hover:bg-white/5"
               }`}
             >
-              <span className="font-bold text-white">{s.ticker}</span>
-              <span className="text-slate-400 text-xs truncate ml-3">{s.company}</span>
+              <span className="font-bold text-white shrink-0">{s.ticker}</span>
+              <span className="text-slate-400 text-xs truncate min-w-0">{s.company}</span>
             </button>
           ))}
         </div>
