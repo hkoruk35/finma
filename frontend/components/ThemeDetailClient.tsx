@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { useTracker } from "@/components/TrackerContext";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -273,6 +274,42 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
   };
 
+  // hot_themes_removals API'ye de kaydet (TrendTracker bu API'yi okuyor)
+  const syncTickerRemovalToTrendAPI = async (ticker: string) => {
+    try {
+      // Bu temaya ait slug'ı bul
+      const hotTheme = HOT_THEMES_2026.find(t => t.title === themeName);
+      if (!hotTheme) return;
+      const slug = hotTheme.slug;
+
+      // Mevcut hot_themes_removals verisini oku
+      const res = await fetch("/api/store/hot_themes_removals", { cache: "no-store" });
+      let removalsData: { removedSlugs: string[]; removedStocks: Record<string, string[]> } = {
+        removedSlugs: [],
+        removedStocks: {},
+      };
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.value) removalsData = json.value;
+      }
+
+      // Bu temaya ait hisseleri kaldırılanlar listesine ekle
+      if (!removalsData.removedStocks[slug]) removalsData.removedStocks[slug] = [];
+      if (!removalsData.removedStocks[slug].includes(ticker)) {
+        removalsData.removedStocks[slug].push(ticker);
+      }
+
+      // API'ye geri yaz
+      await fetch("/api/store/hot_themes_removals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value: removalsData }),
+      });
+    } catch (e) {
+      console.error("syncTickerRemovalToTrendAPI error:", e);
+    }
+  };
+
   const removeTicker = (ticker: string) => {
     const newRemoved = new Set(removedTickers);
     newRemoved.add(ticker);
@@ -285,6 +322,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
     setTickers(newList);
     setData(prev => { const d = { ...prev }; delete d[ticker]; return d; });
     if (expandedRow === ticker) setExpandedRow(null);
+    // Trend sayfasını da etkile
+    syncTickerRemovalToTrendAPI(ticker);
   };
 
   // ── Sorting ────────────────────────────────────────────────────────────────
