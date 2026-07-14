@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-07-13T09:15:48.939709",
+  "generated_at": "2026-07-14T09:15:42.493401",
   "options": {
     "NVDA": {
       "dte_30": {
         "strike": 210.0,
-        "lastPrice": 10.9,
+        "lastPrice": 7.2,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 3399,
-        "openInterest": 3470,
-        "impliedVolatility": 1.0000000000000003e-05,
+        "volume": 1275,
+        "openInterest": 3669,
+        "impliedVolatility": 0.0312596875,
         "expiry": "2026-08-14",
         "type": "CALL"
       },
       "dte_45": {
         "strike": 210.0,
-        "lastPrice": 14.3,
+        "lastPrice": 10.45,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 0,
-        "openInterest": 1084,
-        "impliedVolatility": 1.0000000000000003e-05,
+        "volume": 854,
+        "openInterest": 1666,
+        "impliedVolatility": 0.015634843750000002,
         "expiry": "2026-08-28",
         "type": "CALL"
       },
       "dte_60": {
         "strike": 210.0,
-        "lastPrice": 16.75,
+        "lastPrice": 12.77,
         "bid": 0.0,
         "ask": 0.0,
-        "volume": 3723,
-        "openInterest": 57265,
-        "impliedVolatility": 1.0000000000000003e-05,
+        "volume": 23671,
+        "openInterest": 57738,
+        "impliedVolatility": 0.015634843750000002,
         "expiry": "2026-09-18",
         "type": "CALL"
       }

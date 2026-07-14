@@ -146,8 +146,8 @@ TOP_DEEP_ANALYSIS = 80           # 🎯 SNIPER: Daha fazla derin analiz.
 TOP_FINAL_PICKS = 20             # 🎯 SNIPER: Hedef Her gün 20 aday.
 
 # 🔧 BOGA AI FIX: Fiyat ve Likidite Filtresi (Profesyonel Swing Standartları)
-PRICE_MIN = 10.0
-PRICE_MAX = 500.0
+PRICE_MIN = 5.0
+PRICE_MAX = 5000.0
 
 # Wall Street 'İşlem Yapılabilir' (Tradable) Likidite Alt Sınırları:
 ATMACA_MIN_MARKET_CAP = 75_000_000     # 🎯 SNIPER: 300M → 75M. Small-cap dahil. Float küçük = hareket büyük.
