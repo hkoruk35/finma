@@ -219,7 +219,9 @@ export async function GET(req: NextRequest) {
       .update({ last_posted_at: new Date().toISOString() })
       .eq("id", 1);
 
-    return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale, postedToX: postingEnabled });
+    const otherLocalesPosted = await publishSiblingLocaleDrafts(pendingPost.cycle_id, pendingPost, market);
+
+    return NextResponse.json({ posted: true, tweetId, ticker: pendingPost.ticker, locale, postedToX: postingEnabled, otherLocalesPosted });
   } catch (e: any) {
     const detail = extractXErrorDetail(e);
     console.error("[cron/x-scheduler] post failed:", detail);
@@ -229,4 +231,58 @@ export async function GET(req: NextRequest) {
       .eq("id", pendingPost.id);
     return NextResponse.json({ error: detail }, { status: 500 });
   }
+}
+
+// EN disindaki 4 dilin taslaklari gercekten tweetlenmez (tek hesap, tek
+// gercek paylasim/cycle — X API kotasini 5 katina cikarmamak icin), ama
+// kendi /news sayfalarinda gorunebilsinler diye 'posted' olarak isaretlenir.
+async function publishSiblingLocaleDrafts(
+  cycleId: string,
+  enPost: { ticker: string | null; sector: string | null; theme: string | null },
+  market: Awaited<ReturnType<typeof fetchTickerMarketData>>
+): Promise<string[]> {
+  const { data: siblings } = await supabaseAdmin
+    .from("x_posts")
+    .select("*")
+    .eq("cycle_id", cycleId)
+    .eq("status", "draft")
+    .neq("locale", AUTO_LOCALE);
+
+  if (!siblings || siblings.length === 0) return [];
+
+  const posted: string[] = [];
+  for (const sibling of siblings) {
+    try {
+      const cardParams: CardParams = {
+        kind: "stock",
+        ticker: sibling.ticker,
+        sector: sibling.sector ?? undefined,
+        theme: localizedThemeTitle(sibling.theme, sibling.locale),
+        changePct: market?.changePct ?? undefined,
+        rvol: market?.rvol ?? undefined,
+        opportunity: market?.opportunity ?? false,
+        opportunityLabel: opportunityLabel(sibling.locale),
+        trendLabel: market ? trendLabel(market.trend, sibling.locale) : undefined,
+        bars: market?.bars ?? [],
+        headline: sibling.content_text,
+        locale: sibling.locale,
+      };
+      const imageBuffer = await renderCardPng(cardParams);
+      const imageUrl = await uploadPostImage(sibling.id, imageBuffer);
+
+      await supabaseAdmin
+        .from("x_posts")
+        .update({ status: "posted", tweet_id: null, image_url: imageUrl, posted_at: new Date().toISOString() })
+        .eq("id", sibling.id);
+
+      posted.push(sibling.locale);
+    } catch (e: any) {
+      console.error(`[cron/x-scheduler] sibling locale ${sibling.locale} publish failed:`, e?.message || e);
+      await supabaseAdmin
+        .from("x_posts")
+        .update({ status: "failed", error_message: extractXErrorDetail(e) })
+        .eq("id", sibling.id);
+    }
+  }
+  return posted;
 }
