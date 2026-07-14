@@ -39,6 +39,7 @@ export default function ShareButton({ locale, shareText, url, accent = "#3b82f6"
   const links = {
     x: `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
     whatsapp: `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
     telegram: `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`,
   };
 
@@ -52,11 +53,30 @@ export default function ShareButton({ locale, shareText, url, accent = "#3b82f6"
     }
   };
 
+  // Mobile browsers (iOS Safari, Android Chrome) expose navigator.share,
+  // which opens the OS-level share sheet — this is the only way to offer
+  // Instagram (Stories/DM) as a share target, since Instagram has no web
+  // share-intent URL like X/LinkedIn/WhatsApp do. Desktop browsers mostly
+  // lack navigator.share, so they fall back to the manual link menu below.
+  const handleButtonClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ title: "BOGA AI", text: shareText, url: shareUrl });
+      } catch {
+        // user cancelled the native share sheet — nothing to do
+      }
+      return;
+    }
+    setOpen((v) => !v);
+  };
+
   return (
     <div ref={ref} className="relative">
       <button
         type="button"
-        onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOpen((v) => !v); }}
+        onClick={handleButtonClick}
         title={t.share}
         className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-[#1e293b] border transition-all duration-200 hover:bg-white/5"
         style={{ borderColor: `${accent}4d`, color: accent }}
@@ -76,6 +96,10 @@ export default function ShareButton({ locale, shareText, url, accent = "#3b82f6"
           <a href={links.x} target="_blank" rel="noopener noreferrer"
              className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             X (Twitter)
+          </a>
+          <a href={links.linkedin} target="_blank" rel="noopener noreferrer"
+             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+            LinkedIn
           </a>
           <a href={links.whatsapp} target="_blank" rel="noopener noreferrer"
              className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">

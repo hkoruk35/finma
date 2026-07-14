@@ -1,4 +1,6 @@
 import type { PublicPost } from "@/lib/x/publicPosts";
+import type { Locale } from "@/lib/i18n/copy";
+import ShareButton from "@/components/ShareButton";
 
 const STRINGS: Record<string, { viewOnX: string; empty: string }> = {
   en: { viewOnX: "View on X ↗", empty: "No posts yet — check back soon." },
@@ -18,8 +20,11 @@ function formatDate(iso: string, locale: string): string {
   return `${formatted} NY`;
 }
 
+const VALID_LOCALES: Locale[] = ["en", "tr", "es", "fr", "pt"];
+
 export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; locale: string }) {
   const t = STRINGS[locale] ?? STRINGS.en;
+  const shareLocale = VALID_LOCALES.includes(locale as Locale) ? (locale as Locale) : "en";
 
   if (posts.length === 0) {
     return <p className="text-center text-slate-400 py-16">{t.empty}</p>;
@@ -58,16 +63,23 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
             <time dateTime={post.posted_at} itemProp="datePublished">
               {formatDate(post.posted_at, locale)}
             </time>
-            {post.tweet_id && (
-              <a
-                href={`https://x.com/bogastock/status/${post.tweet_id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#3b82f6] hover:text-white transition-colors font-bold"
-              >
-                {t.viewOnX}
-              </a>
-            )}
+            <div className="flex items-center gap-3">
+              {post.tweet_id && (
+                <a
+                  href={`https://x.com/bogastock/status/${post.tweet_id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#3b82f6] hover:text-white transition-colors font-bold"
+                >
+                  {t.viewOnX}
+                </a>
+              )}
+              <ShareButton
+                locale={shareLocale}
+                shareText={post.content_text ?? `${post.ticker ?? "BOGASTOCK"} — BOGA AI`}
+                url={post.tweet_id ? `https://x.com/bogastock/status/${post.tweet_id}` : `https://bogastock.com/global/${locale}/news`}
+              />
+            </div>
           </div>
         </article>
       ))}
