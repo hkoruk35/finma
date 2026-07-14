@@ -2,10 +2,12 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { MARKET_THEMES } from "@/lib/themeData";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { useTracker } from "@/components/TrackerContext";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import { sectorFromSlug } from "@/lib/sectorHeatMap";
 
 interface HourlyBar {
   time: string;
@@ -86,6 +88,7 @@ interface AllListDetailClientProps {
 
 export default function AllListDetailClient({ hideTabsAndTracker = false }: AllListDetailClientProps) {
   const { addToTracker, isInTracker, tickers: trackerTickers } = useTracker();
+  const searchParams = useSearchParams();
   const [data, setData] = useState<Record<string, TickerData>>({});
   const [loading, setLoading] = useState(false);
   const [extraTickers, setExtraTickers] = useState<string[]>([]);
@@ -93,7 +96,10 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
   const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
   const [filterVolume, setFilterVolume] = useState("");
-  const [filterSector, setFilterSector] = useState("");
+  const [filterSector, setFilterSector] = useState(() => {
+    const slug = searchParams.get("sector");
+    return slug ? sectorFromSlug(slug) ?? "" : "";
+  });
   const [filterPattern, setFilterPattern] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<string | null>(null);

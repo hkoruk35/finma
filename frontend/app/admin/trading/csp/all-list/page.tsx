@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AllListDetailClient from "@/components/AllListDetailClient";
@@ -13,7 +14,9 @@ export default function AllListPage() {
     <div className="min-h-screen flex flex-col bg-[#05080f] text-slate-300 font-mono">
       <Header />
       <main className="flex-1 w-full max-w-full mx-auto px-0 py-8">
-        <AllListDetailClient />
+        <Suspense fallback={null}>
+          <AllListDetailClient />
+        </Suspense>
       </main>
       <Footer />
     </div>

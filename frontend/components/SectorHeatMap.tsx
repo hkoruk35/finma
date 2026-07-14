@@ -2,15 +2,10 @@
 
 import { usePathname } from "next/navigation";
 import { MasterData, StockQuickView } from "@/lib/data";
-import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector } from "@/lib/sectorHeatMap";
+import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector, slugifySector } from "@/lib/sectorHeatMap";
 import Link from "next/link";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import { copy, type Locale } from "@/lib/i18n/copy";
-
-/* ── Slug helper ────────────────────────────────────────────── */
-function slugify(text: string): string {
-  return text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-}
 
 /* ── Refined Performance Colors ──────────────────────────────── */
 function getPerformanceColor(pct: number) {
@@ -88,7 +83,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
               >
               {/* Sector Header */}
               <Link
-                href={`/global/${currentLocale}/watchlist?sector=${slugify(sector)}`}
+                href={`/global/${currentLocale}/watchlist/${slugifySector(sector)}`}
                 className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}
               >
                 <div className="flex flex-col">
@@ -132,7 +127,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
               
               {/* Footer / More link */}
               <Link
-                href={`/global/${currentLocale}/watchlist?sector=${slugify(sector)}`}
+                href={`/global/${currentLocale}/watchlist/${slugifySector(sector)}`}
                 className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]"
               >
                  <span className="text-[9px] font-black text-white uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">

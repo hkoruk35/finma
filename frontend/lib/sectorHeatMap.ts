@@ -13,6 +13,16 @@ export const SECTOR_ORDER = [
 
 export const TOP_PER_SECTOR = 12;
 
+// URL slug <-> GICS sector name, shared by SectorHeatMap.tsx links and the
+// /watchlist/[sector] route so both sides always agree on the mapping.
+export function slugifySector(sector: string): string {
+  return sector.toLowerCase().replace(/\s+/g, "-").replace(/[^\w-]/g, "");
+}
+
+export function sectorFromSlug(slug: string): string | undefined {
+  return SECTOR_ORDER.find((s) => slugifySector(s) === slug);
+}
+
 export function groupBySector(allTickers: StockQuickView[]): Record<string, StockQuickView[]> {
   const sorted = [...allTickers].sort(
     (a, b) => (b.volume ?? b.avg_volume_30d ?? b.master_score) - (a.volume ?? a.avg_volume_30d ?? a.master_score)
