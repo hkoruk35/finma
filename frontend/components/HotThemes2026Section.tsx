@@ -13,6 +13,7 @@ export default function HotThemes2026Section() {
   const [removedSlugs, setRemovedSlugs] = useState<Set<string>>(new Set());
   const [removedStocks, setRemovedStocks] = useState<RemovedStocksMap>({});
   const [mounted, setMounted] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const visibleThemes = HOT_THEMES_2026.filter((t) => !removedSlugs.has(t.slug));
   const totalStocks = new Set(
@@ -23,18 +24,27 @@ export default function HotThemes2026Section() {
     )
   ).size;
 
-  const syncRemovalsToAPI = (slugs: Set<string>, stocks: RemovedStocksMap) => {
+  const syncRemovalsToAPI = async (slugs: Set<string>, stocks: RemovedStocksMap, showAlert = false) => {
+    setIsSyncing(true);
     const payload = {
       removedSlugs: Array.from(slugs),
       removedStocks: Object.fromEntries(
         Object.entries(stocks).map(([k, v]) => [k, Array.from(v)])
       )
     };
-    fetch("/api/store/hot_themes_removals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ value: payload }),
-    }).catch(e => console.error("Failed to sync removals:", e));
+    try {
+      await fetch("/api/store/hot_themes_removals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ value: payload }),
+      });
+      if (showAlert) alert("Tüm listeler (çıkarılanlar) başarıyla güncellendi ve senkronize edildi!");
+    } catch (e) {
+      console.error("Failed to sync removals:", e);
+      if (showAlert) alert("Senkronizasyon hatası: " + e);
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   useEffect(() => {
@@ -115,10 +125,17 @@ export default function HotThemes2026Section() {
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-5 flex-wrap">
+      <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
         <span className="text-[10px] text-white/40 uppercase tracking-wide">
           {HOT_THEMES_2026.length} tema · {totalStocks} hisse · CES 2026 / Pentagon bütçesi / CHIPS Act katalizörleri
         </span>
+        <button
+          onClick={() => syncRemovalsToAPI(removedSlugs, removedStocks, true)}
+          disabled={isSyncing}
+          className="text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30 hover:bg-sky-500/30 transition-all disabled:opacity-50"
+        >
+          {isSyncing ? "GÜNCELLENİYOR..." : "GÜNCELLE & SENKRONİZE ET"}
+        </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">

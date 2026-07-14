@@ -183,9 +183,10 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
       // API'den gerçek zamanlı global durumları çek
       let themeOverrides: Record<string, string[]> = {};
       try {
+        const fetchOpts: RequestInit = { cache: 'no-store' };
         const [removalsRes, overridesRes] = await Promise.all([
-          fetch("/api/store/hot_themes_removals").catch(() => null),
-          fetch("/api/store/theme_overrides").catch(() => null)
+          fetch("/api/store/hot_themes_removals", fetchOpts).catch(() => null),
+          fetch("/api/store/theme_overrides", fetchOpts).catch(() => null)
         ]);
 
         if (removalsRes && removalsRes.ok) {
