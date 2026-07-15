@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { MasterData, StockQuickView } from "@/lib/data";
 import { SECTOR_ORDER, TOP_PER_SECTOR, groupBySector, slugifySector } from "@/lib/sectorHeatMap";
-import Link from "next/link";
+// import Link from "next/link"  // Removed navigation link as per request
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ShareButton from "@/components/ShareButton";
 
@@ -77,7 +77,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
         </div>
       </div>
       <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible">
-        <div className="flex flex-row md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:min-w-0">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR);
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
@@ -85,8 +85,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
             return (
               <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 w-[calc(100vw-40px)] snap-center md:flex-shrink md:w-auto md:snap-align-none">
                 {/* Sector Header */}
-                <Link href={`/global/${currentLocale}/watchlist/${slugifySector(sector)}`} className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}
-                >
+                <div className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
                   <div className="flex flex-col">
                     <span className="text-sm font-black text-white uppercase tracking-tighter leading-tight">{sectorLabel(sector)}</span>
                     <span className="text-[10px] font-bold text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
@@ -94,14 +93,16 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                   <div className="text-right">
                     <span className="text-base font-mono font-black text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>
                   </div>
-                </Link>
-                {/* Footer / More link */}
-                <Link href={`/global/${currentLocale}/watchlist/${slugifySector(sector)}`} className="py-1.5 px-3 bg-[#141924]/50 hover:bg-[#141924] text-center transition-colors border-t border-[#1e2a3a]">
-                  <span className="text-[9px] font-black text-white uppercase tracking-[0.15em] group-hover:text-[#3b82f6] transition-colors">
-                    {t.exploreAll.replace('{n}', String(sectorGroups[sector].length))}
-                  </span>
-                </Link>
-              </div>
+                  {/* Ticker list (max 2 lines) */}
+                  <div className="mt-2 text-xs text-white/70 overflow-hidden line-clamp-2 break-words">
+                    {stocks.map(s => s.ticker).join(', ')}
+                  </div>
+                </div>
+
+
+
+
+                </div>
             );
           })}
         </div>
