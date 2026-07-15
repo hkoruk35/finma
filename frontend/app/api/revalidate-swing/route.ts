@@ -13,16 +13,30 @@ export async function POST(request: Request) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    // Revalidate both /swing and /swing/ paths
+    // v3.1: candidate_pool.json / watchlist_picks.json / swing_all_picks.json
+    // artık home, swing, watchlist ve performance sayfalarını besliyor —
+    // hepsi her bot run'ında tazelenmeli, sadece /swing değil.
     // @ts-ignore (next/cache is real at runtime)
     const { revalidatePath } = await import('next/cache');
-    revalidatePath('/swing', 'page');
-    revalidatePath('/swing/', 'page');
+    const locales = ['tr', 'en', 'es', 'fr', 'pt'];
+    const paths = ['/swing', '/swing/'];
+    for (const locale of locales) {
+      paths.push(
+        `/global/${locale}/swing`,
+        `/global/${locale}/watchlist`,
+        `/global/${locale}/home`,
+        `/global/${locale}/performance`,
+        `/global/${locale}/swingperformance`
+      );
+    }
+    for (const p of paths) {
+      revalidatePath(p, 'page');
+    }
 
     return new Response(
       JSON.stringify({
         revalidated: true,
-        paths: ['/swing', '/swing/'],
+        paths,
         timestamp: new Date().toISOString()
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }

@@ -826,35 +826,26 @@ export async function getSwingAllPicks(date?: string): Promise<any | null> {
   } catch { return null; }
 }
 
-// Ensures at least `minCount` unique-ticker picks are available by backfilling
-// with the most recent archived days when today's list is thin (e.g. only 1
-// new pick came in today). Today's picks always come first, then previous
-// days in reverse-chronological order, until minCount is reached.
-export async function getSwingPicksBackfilled(minCount: number): Promise<any> {
+// v3.1: swing117_boga.py artık candidate_pool.json ile çok-günlü bir aday
+// havuzunu kendi tarafında persiste ediyor (3 gün PENDING kuralı, setup
+// bozulunca çıkarma) — swing_all_picks.json HER ZAMAN o an takip edilen
+// TÜM swing adaylarını içeriyor. Bu yüzden frontend'in artık arşivden geriye
+// dönük ticker doldurmasına gerek yok — eskiden "min" parametresine
+// ulaşamayınca eski (artık takip edilmeyen) günlerden ticker ekliyordu,
+// bu da havuzdan çıkarılmış/güncelliğini yitirmiş hisselerin tekrar
+// görünmesine yol açıyordu. `minCount` parametresi geriye dönük uyumluluk
+// için korunuyor ama artık kullanılmıyor.
+export async function getSwingPicksBackfilled(_minCount?: number): Promise<any> {
   const todayData = await getSwingAllPicks();
   const seen = new Set<string>();
   const merged: any[] = [];
 
-  const addPicks = (picks: any[] | undefined) => {
-    (picks ?? []).forEach((p) => {
-      if (p?.ticker && !seen.has(p.ticker)) {
-        seen.add(p.ticker);
-        merged.push(p);
-      }
-    });
-  };
-
-  addPicks(todayData?.picks);
-
-  if (merged.length < minCount) {
-    const dates = await getSwingArchiveDates(); // descending, most recent first
-    for (const date of dates) {
-      if (merged.length >= minCount) break;
-      if (todayData?.date && date === todayData.date) continue;
-      const archiveData = await getSwingAllPicks(date);
-      addPicks(archiveData?.picks);
+  (todayData?.picks ?? []).forEach((p: any) => {
+    if (p?.ticker && !seen.has(p.ticker)) {
+      seen.add(p.ticker);
+      merged.push(p);
     }
-  }
+  });
 
   return { ...(todayData ?? {}), picks: merged };
 }

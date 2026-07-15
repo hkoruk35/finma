@@ -66,7 +66,7 @@ async function supabaseSelect(table: string, query: string): Promise<any[]> {
 
 export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
   // Home sayfası 1. sütun: en yüksek BOGA skoruna sahip ilk 5 swing adayı.
-  const swingData = await getSwingPicksBackfilled(20);
+  const swingData = await getSwingPicksBackfilled();
   const picks: any[] = swingData?.picks ?? [];
   if (picks.length === 0) return [];
 
