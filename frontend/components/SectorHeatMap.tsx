@@ -77,7 +77,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
         </div>
       </div>
       <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR);
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
@@ -93,16 +93,8 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                   <div className="text-right">
                     <span className="text-base font-mono font-black text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>
                   </div>
-                  {/* Ticker list (max 2 lines) */}
-                  <div className="mt-2 text-xs text-white/70 overflow-hidden line-clamp-2 break-words">
-                    {stocks.map(s => s.ticker).join(', ')}
-                  </div>
                 </div>
-
-
-
-
-                </div>
+              </div>
             );
           })}
         </div>
