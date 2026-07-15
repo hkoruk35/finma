@@ -141,17 +141,23 @@ export async function getTopWatchlistByVolume(limit = 5): Promise<HomeStock[]> {
   });
 }
 
-// Home sayfası 3. sütun (Performance): buy zone yakalayıp swing_performance.json'a
-// geçmiş (entry_status=ENTERED → yeni PENDING trade) açık pozisyonlar arasından
-// en yüksek güncel kâr yüzdesine (return_pct) sahip ilk 5. Stock.sector alanı
-// gün sayısı etiketine ("4g"/"4d"), Stock.change_pct alanı güncel toplam getiri
-// yüzdesine map edilir — HomeSimpleCard aynen yeniden kullanılır, mobil tasarım
-// hiç değişmez.
+// Home sayfası 3. sütun (Performance): son 60 gün içinde giriş yapılmış
+// (buy zone yakalayıp swing_performance.json'a geçmiş) işlemler arasından
+// en yüksek kâr oranını (return_pct) yakalayan ilk 5. Stock.sector alanı
+// gün sayısı etiketine ("4g"/"4d"), Stock.change_pct alanı toplam getiri
+// yüzdesine map edilir — HomeSimpleCard aynen yeniden kullanılır, mobil
+// tasarım hiç değişmez.
+const PERFORMANCE_WINDOW_DAYS = 60;
+
 export async function getTopPerformanceEntries(limit = 5, locale: string = "en"): Promise<HomeStock[]> {
   const perf = await getSwingPerformance();
   const history: any[] = perf?.history ?? [];
-  const open = history
-    .filter((t) => t?.ticker && t?.result === "PENDING" && !t?.is_duplicate)
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - PERFORMANCE_WINDOW_DAYS);
+  const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+  const topGainers = history
+    .filter((t) => t?.ticker && !t?.is_duplicate && t?.date && t.date >= cutoffStr)
     .sort((a, b) => (b?.return_pct ?? 0) - (a?.return_pct ?? 0))
     .slice(0, limit);
 
@@ -161,7 +167,7 @@ export async function getTopPerformanceEntries(limit = 5, locale: string = "en")
     return `${days}d`;
   };
 
-  return open.map((t) => ({
+  return topGainers.map((t) => ({
     ticker: t.ticker,
     sector: dayLabel(t.days ?? 0),
     status: (t.return_pct ?? 0) >= 0 ? "BULLISH" : "BEARISH",
