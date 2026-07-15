@@ -8,14 +8,66 @@ import {
   HistogramSeries,
   LineSeries,
   BarSeries,
+  TickMarkType,
   type IChartApi,
   type ISeriesApi,
   type UTCTimestamp,
+  type Time,
 } from "lightweight-charts";
 import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt";
+
+// Grafik barları borsa oturumuna (NY / ET) göre üretiliyor — eksen üzerindeki
+// saat/tarih etiketleri her ziyaretçinin kendi tarayıcı saat dilimine göre
+// değil, HER ZAMAN New York saatine göre gösterilmeli (aksi halde örn. TR
+// kullanıcısı için barlar +7 saat kaymış görünür).
+const NY_TIME_ZONE = "America/New_York";
+
+function toNYDate(time: Time): Date {
+  return new Date((time as number) * 1000);
+}
+
+function nyTickMarkFormatter(time: Time, tickMarkType: TickMarkType): string {
+  const date = toNYDate(time);
+  const opts: Intl.DateTimeFormatOptions = { timeZone: NY_TIME_ZONE };
+  switch (tickMarkType) {
+    case TickMarkType.Year:
+      opts.year = "numeric";
+      break;
+    case TickMarkType.Month:
+      opts.month = "short";
+      break;
+    case TickMarkType.DayOfMonth:
+      opts.day = "2-digit";
+      opts.month = "short";
+      break;
+    case TickMarkType.TimeWithSeconds:
+      opts.hour = "2-digit";
+      opts.minute = "2-digit";
+      opts.second = "2-digit";
+      opts.hour12 = false;
+      break;
+    case TickMarkType.Time:
+    default:
+      opts.hour = "2-digit";
+      opts.minute = "2-digit";
+      opts.hour12 = false;
+  }
+  return new Intl.DateTimeFormat("en-US", opts).format(date);
+}
+
+function nyTimeFormatter(time: Time): string {
+  const date = toNYDate(time);
+  const datePart = new Intl.DateTimeFormat("en-US", {
+    timeZone: NY_TIME_ZONE, year: "numeric", month: "short", day: "2-digit",
+  }).format(date);
+  const timePart = new Intl.DateTimeFormat("en-US", {
+    timeZone: NY_TIME_ZONE, hour: "2-digit", minute: "2-digit", hour12: false,
+  }).format(date);
+  return `${datePart} ${timePart} ET`;
+}
 
 const LABELS: Record<Locale, Record<string, string>> = {
   en: {
@@ -328,7 +380,11 @@ export default function BogaChartEngine({
         horzLines: { color: "#1e2a3a" },
       },
       rightPriceScale: { borderColor: "#1e2a3a" },
-      timeScale: { borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false, rightOffset: DEFAULT_RIGHT_OFFSET },
+      timeScale: {
+        borderColor: "#1e2a3a", timeVisible: true, secondsVisible: false, rightOffset: DEFAULT_RIGHT_OFFSET,
+        tickMarkFormatter: nyTickMarkFormatter,
+      },
+      localization: { timeFormatter: nyTimeFormatter },
       autoSize: true,
     });
 

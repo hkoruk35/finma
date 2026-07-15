@@ -7,7 +7,6 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
-import TickerSearchBox from "@/components/public/TickerSearchBox";
 import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard";
 import type { Locale } from "@/lib/i18n/copy";
 
@@ -177,7 +176,8 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
           )}
         </div>
 
-        <TickerSearchBox locale={locale} />
+        {/* v3.2: Hisse arama geçici olarak kaldırıldı — şimdilik sadece
+            BOGA AI Swing Trade havuzuna odaklanıyoruz. */}
 
         <div className="glass-card overflow-hidden mb-4">
           <BogaChartEngine

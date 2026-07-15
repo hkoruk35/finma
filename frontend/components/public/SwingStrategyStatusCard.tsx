@@ -32,17 +32,18 @@ interface SwingPick {
 }
 
 const T: Record<Locale, {
-  title: string; inSwing: string; inWatchlist: string; notTracked: string;
+  title: string; pendingMessage: string; enteredMessage: string; inWatchlist: string; notTracked: string;
   notTrackedNote: string; entered: string; pending: string; entryZone: string;
-  dateAdded: string; reasonLabel: string; layers: string;
+  dateAdded: string; reasonLabel: string; layers: string; tradePlanNote: string;
   layer1: string; layer2: string; layer3: string; layer4Pending: string; layer4Entered: string;
   factorTrend: string; factorMomentum: string; factorVolatility: string; factorVolume: string; factorSector: string;
   swingLink: string; watchlistLink: string;
 }> = {
   tr: {
     title: "BOGA AI Swing Strateji Durumu",
-    inSwing: "Bu hisse şu an aktif Swing (Power Pullback) havuzunda",
-    inWatchlist: "Bu hisse şu an Watchlist havuzunda izleniyor",
+    pendingMessage: "Bu hisse BOGA AI'nin aktif Swing (Power Pullback) havuzunda — teknik olarak alınabilir bölgede. Daha yüksek kârlılık için hassas giriş noktasının (15 dakikalık tetik) oluşması bekleniyor.",
+    enteredMessage: "Bu hisse BOGA AI'nin aktif Swing (Power Pullback) havuzunda ve hassas giriş noktası (15 dakikalık tetik) yakalandı.",
+    inWatchlist: "Bu hisse şu an Watchlist havuzunda izleniyor — henüz Swing adayı değil",
     notTracked: "Bu hisse şu an BOGA AI'nin aktif tarama havuzunda değil",
     notTrackedNote: "BOGA AI tüm ABD borsasını anlık taramaya devam ediyor — bu hisse Power Pullback kriterlerini (1D trend + 4H kalite + 1H momentum + 15m giriş tetiği) karşıladığında havuza otomatik girer.",
     entered: "Giriş Zone",
@@ -51,6 +52,7 @@ const T: Record<Locale, {
     dateAdded: "Havuza eklenme",
     reasonLabel: "Gerekçe",
     layers: "Katman Onayı",
+    tradePlanNote: "Aşağıdaki işlem planımızdaki Giriş, Hedef ve Stop Loss bölgelerine göre risk durumunuzu ayarlayarak pozisyon açabilirsiniz.",
     layer1: "1D Trend",
     layer2: "4H Kalite",
     layer3: "1H Momentum",
@@ -66,8 +68,9 @@ const T: Record<Locale, {
   },
   en: {
     title: "BOGA AI Swing Strategy Status",
-    inSwing: "This stock is currently in the active Swing (Power Pullback) pool",
-    inWatchlist: "This stock is currently being tracked in the Watchlist pool",
+    pendingMessage: "This stock is in BOGA AI's active Swing (Power Pullback) pool — technically in a buyable zone. A precise entry point (15-minute trigger) is awaited for higher profitability.",
+    enteredMessage: "This stock is in BOGA AI's active Swing (Power Pullback) pool and the precise entry point (15-minute trigger) has been captured.",
+    inWatchlist: "This stock is currently being tracked in the Watchlist pool — not yet a Swing candidate",
     notTracked: "This stock is not currently in BOGA AI's active scan pool",
     notTrackedNote: "BOGA AI continuously scans the entire U.S. stock market — this stock will automatically enter the pool once it meets the Power Pullback criteria (1D trend + 4H quality + 1H momentum + 15m entry trigger).",
     entered: "Entry Zone",
@@ -76,6 +79,7 @@ const T: Record<Locale, {
     dateAdded: "Added to pool",
     reasonLabel: "Rationale",
     layers: "Layer Confirmation",
+    tradePlanNote: "Based on the Entry, Target and Stop Loss zones in our trade plan below, you can open a position while adjusting your risk accordingly.",
     layer1: "1D Trend",
     layer2: "4H Quality",
     layer3: "1H Momentum",
@@ -91,8 +95,9 @@ const T: Record<Locale, {
   },
   es: {
     title: "Estado de Estrategia Swing de BOGA AI",
-    inSwing: "Esta acción está actualmente en el pool activo de Swing (Power Pullback)",
-    inWatchlist: "Esta acción está siendo seguida en el pool de Watchlist",
+    pendingMessage: "Esta acción está en el pool activo de Swing (Power Pullback) de BOGA AI — técnicamente en una zona comprable. Se espera un punto de entrada preciso (gatillo de 15 minutos) para mayor rentabilidad.",
+    enteredMessage: "Esta acción está en el pool activo de Swing (Power Pullback) de BOGA AI y se ha capturado el punto de entrada preciso (gatillo de 15 minutos).",
+    inWatchlist: "Esta acción está siendo seguida en el pool de Watchlist — aún no es candidata de Swing",
     notTracked: "Esta acción no está actualmente en el pool de escaneo activo de BOGA AI",
     notTrackedNote: "BOGA AI escanea continuamente todo el mercado de EE. UU. — esta acción entrará automáticamente al pool cuando cumpla los criterios de Power Pullback (tendencia 1D + calidad 4H + momentum 1H + gatillo de entrada 15m).",
     entered: "Zona de Entrada",
@@ -101,6 +106,7 @@ const T: Record<Locale, {
     dateAdded: "Añadido al pool",
     reasonLabel: "Justificación",
     layers: "Confirmación de Capas",
+    tradePlanNote: "Según las zonas de Entrada, Objetivo y Stop Loss de nuestro plan de operación a continuación, puede abrir una posición ajustando su riesgo en consecuencia.",
     layer1: "Tendencia 1D",
     layer2: "Calidad 4H",
     layer3: "Momentum 1H",
@@ -116,8 +122,9 @@ const T: Record<Locale, {
   },
   fr: {
     title: "Statut de la Stratégie Swing BOGA AI",
-    inSwing: "Cette action est actuellement dans le pool Swing actif (Power Pullback)",
-    inWatchlist: "Cette action est actuellement suivie dans le pool Watchlist",
+    pendingMessage: "Cette action est dans le pool Swing actif (Power Pullback) de BOGA AI — techniquement dans une zone d'achat. Un point d'entrée précis (déclencheur de 15 minutes) est attendu pour une rentabilité plus élevée.",
+    enteredMessage: "Cette action est dans le pool Swing actif (Power Pullback) de BOGA AI et le point d'entrée précis (déclencheur de 15 minutes) a été capturé.",
+    inWatchlist: "Cette action est actuellement suivie dans le pool Watchlist — pas encore candidate Swing",
     notTracked: "Cette action n'est pas actuellement dans le pool de scan actif de BOGA AI",
     notTrackedNote: "BOGA AI scanne en continu l'ensemble du marché américain — cette action entrera automatiquement dans le pool dès qu'elle remplira les critères Power Pullback (tendance 1D + qualité 4H + momentum 1H + déclencheur d'entrée 15m).",
     entered: "Zone d'Entrée",
@@ -126,6 +133,7 @@ const T: Record<Locale, {
     dateAdded: "Ajouté au pool",
     reasonLabel: "Justification",
     layers: "Confirmation des Couches",
+    tradePlanNote: "Selon les zones d'Entrée, d'Objectif et de Stop Loss de notre plan de trading ci-dessous, vous pouvez ouvrir une position en ajustant votre risque en conséquence.",
     layer1: "Tendance 1D",
     layer2: "Qualité 4H",
     layer3: "Momentum 1H",
@@ -141,8 +149,9 @@ const T: Record<Locale, {
   },
   pt: {
     title: "Status da Estratégia Swing da BOGA AI",
-    inSwing: "Esta ação está atualmente no pool ativo de Swing (Power Pullback)",
-    inWatchlist: "Esta ação está sendo monitorada no pool de Watchlist",
+    pendingMessage: "Esta ação está no pool ativo de Swing (Power Pullback) da BOGA AI — tecnicamente em uma zona de compra. Um ponto de entrada preciso (gatilho de 15 minutos) é aguardado para maior lucratividade.",
+    enteredMessage: "Esta ação está no pool ativo de Swing (Power Pullback) da BOGA AI e o ponto de entrada preciso (gatilho de 15 minutos) foi capturado.",
+    inWatchlist: "Esta ação está sendo monitorada no pool de Watchlist — ainda não é candidata a Swing",
     notTracked: "Esta ação não está atualmente no pool de varredura ativo da BOGA AI",
     notTrackedNote: "A BOGA AI varre continuamente todo o mercado dos EUA — esta ação entrará automaticamente no pool quando atender aos critérios do Power Pullback (tendência 1D + qualidade 4H + momentum 1H + gatilho de entrada 15m).",
     entered: "Zona de Entrada",
@@ -151,6 +160,7 @@ const T: Record<Locale, {
     dateAdded: "Adicionado ao pool",
     reasonLabel: "Justificativa",
     layers: "Confirmação de Camadas",
+    tradePlanNote: "Com base nas zonas de Entrada, Alvo e Stop Loss do nosso plano de operação abaixo, você pode abrir uma posição ajustando seu risco de acordo.",
     layer1: "Tendência 1D",
     layer2: "Qualidade 4H",
     layer3: "Momentum 1H",
@@ -213,7 +223,6 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
       {swingPick ? (
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs text-white/70">{t.inSwing}</span>
             <span
               className="inline-block text-[10px] font-bold px-2 py-0.5 rounded"
               style={{
@@ -228,6 +237,10 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
               <span className="text-[10px] text-white/40">{t.dateAdded}: {swingPick.date_added}</span>
             )}
           </div>
+
+          <p className="text-xs text-white/80 leading-relaxed">
+            {swingPick.entry_status === "ENTERED" ? t.enteredMessage : t.pendingMessage}
+          </p>
 
           {swingPick.entry_status === "ENTERED" && swingPick.entry_zone && (
             <div className="text-xs text-green-400">
@@ -286,6 +299,10 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
               ))}
             </div>
           )}
+
+          <p className="text-xs text-amber-300/90 leading-relaxed border-t border-[#253347] pt-2.5">
+            {t.tradePlanNote}
+          </p>
 
           <Link
             href={`/global/${locale}/swing`}
