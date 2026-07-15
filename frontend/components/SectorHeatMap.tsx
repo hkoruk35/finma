@@ -85,7 +85,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
             return (
               <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 w-[calc(100vw-40px)] snap-center md:flex-shrink md:w-auto md:snap-align-none">
                 {/* Sector Header */}
-                <div className={`flex items-center justify-between p-3 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
+                <div className={`flex items-center justify-between p-3 h-full border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
                   <div className="flex flex-col">
                     <span className="text-sm font-black text-white uppercase tracking-tighter leading-tight">{sectorLabel(sector)}</span>
                     <span className="text-[10px] font-bold text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>

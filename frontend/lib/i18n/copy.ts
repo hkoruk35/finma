@@ -210,7 +210,7 @@ export const copy = {
     },
     sectorHeatMap: {
       title: "Sector Heat Map",
-      subtitle: "Real-time Market Distribution · {n} Sectors · Top 12 per Sector",
+      subtitle: "Real-time Market Distribution · {n} Sectors · Hourly Update",
       bullish: "BULLISH",
       bearish: "BEARISH",
       exploreAll: "Explore All {n} Tickers →",
@@ -425,7 +425,7 @@ export const copy = {
     },
     sectorHeatMap: {
       title: "Sektör Isı Haritası",
-      subtitle: "Gerçek Zamanlı Piyasa Dağılımı · {n} Sektör · Sektör Başına İlk 12",
+      subtitle: "Gerçek Zamanlı Piyasa Dağılımı · {n} Sektör · Saatlik Güncelleme",
       bullish: "YÜKSELİŞ",
       bearish: "DÜŞÜŞ",
       exploreAll: "Tüm {n} Hisseyi Keşfet →",
@@ -640,7 +640,7 @@ export const copy = {
     },
     sectorHeatMap: {
       title: "Mapa de Calor Sectorial",
-      subtitle: "Distribución de Mercado en Tiempo Real · {n} Sectores · Top 12 por Sector",
+      subtitle: "Distribución de Mercado en Tiempo Real · {n} Sectores · Actualización por Hora",
       bullish: "ALCISTA",
       bearish: "BAJISTA",
       exploreAll: "Explorar los {n} Valores →",
@@ -855,7 +855,7 @@ export const copy = {
     },
     sectorHeatMap: {
       title: "Carte Thermique des Secteurs",
-      subtitle: "Répartition du Marché en Temps Réel · {n} Secteurs · Top 12 par Secteur",
+      subtitle: "Répartition du Marché en Temps Réel · {n} Secteurs · Mise à jour horaire",
       bullish: "HAUSSIER",
       bearish: "BAISSIER",
       exploreAll: "Explorer les {n} Titres →",
@@ -1070,7 +1070,7 @@ export const copy = {
     },
     sectorHeatMap: {
       title: "Mapa de Calor Setorial",
-      subtitle: "Distribuição de Mercado em Tempo Real · {n} Setores · Top 12 por Setor",
+      subtitle: "Distribuição de Mercado em Tempo Real · {n} Setores · Atualização por Hora",
       bullish: "ALTA",
       bearish: "BAIXA",
       exploreAll: "Explorar Todos os {n} Ativos →",
