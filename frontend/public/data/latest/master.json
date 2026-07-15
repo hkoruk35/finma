@@ -1,16 +1,23 @@
 {
   "date": "2026-07-14",
-  "generated_at": "2026-07-14T13:03:44.712253-04:00",
+  "generated_at": "2026-07-14T23:37:50.008576-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 3,
+  "active_scores_count": 10,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
-      "count": 3,
+      "count": 10,
       "tickers": [
-        "EQNR",
-        "MSM",
-        "BMRC"
+        "SEZL",
+        "MFG",
+        "ACHC",
+        "PACS",
+        "RGA",
+        "FWONA",
+        "LNG",
+        "CXW",
+        "HSIC",
+        "MATX"
       ]
     },
     "breakout": {
@@ -36,19 +43,19 @@
   },
   "top_3_overall": [
     {
-      "ticker": "EQNR",
-      "score": 62.0,
-      "score_type": "POSITIVE_BIAS"
+      "ticker": "SEZL",
+      "score": 79.0,
+      "score_type": "HIGH_CONVICTION"
     },
     {
-      "ticker": "MSM",
-      "score": 59.5,
-      "score_type": "POSITIVE_BIAS"
+      "ticker": "MFG",
+      "score": 77.0,
+      "score_type": "HIGH_CONVICTION"
     },
     {
-      "ticker": "BMRC",
-      "score": 59.5,
-      "score_type": "POSITIVE_BIAS"
+      "ticker": "ACHC",
+      "score": 76.0,
+      "score_type": "HIGH_CONVICTION"
     }
   ],
   "market_indices": {
