@@ -99,6 +99,7 @@ export default function XStudioPage() {
   const [scheduled, setScheduled] = useState<ScheduledRow[]>([]);
   const [scheduleDate, setScheduleDate] = useState("");
   const [scheduleTime, setScheduleTime] = useState("09:30");
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -594,20 +595,38 @@ export default function XStudioPage() {
 
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 6 }}>
-              Site Bölümleri — ana sayfadaki paylaş butonlu bölümlerin özetini paylaş:
+              Resim Yükle:
             </div>
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {LIST_TYPES.map(({ type, label }) => (
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = (ev) => {
+                    setUploadedImage(ev.target?.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              style={{
+                ...inputStyle,
+                width: "100%",
+                cursor: "pointer",
+              }}
+            />
+            {uploadedImage && (
+              <div style={{ marginTop: 12 }}>
+                <img src={uploadedImage} alt="uploaded" style={{ maxWidth: "100%", maxHeight: 200, borderRadius: 6, border: `1px solid ${ACCENT}` }} />
                 <button
-                  key={type}
-                  style={{ ...btnStyle, background: listType === type && mode === "list" ? ACCENT : "#30363d", color: listType === type && mode === "list" ? "#0d1117" : "#e6edf3" }}
-                  disabled={busy}
-                  onClick={() => generateListText(type)}
+                  style={{ ...btnStyle, background: "#f85149", marginTop: 8, width: "100%" }}
+                  onClick={() => setUploadedImage(null)}
                 >
-                  {label}
+                  Resim Sil
                 </button>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 500, overflowY: "auto" }}>
