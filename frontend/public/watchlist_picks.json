@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-14T23:37:50.012392-04:00",
+  "generated_at": "2026-07-15T09:02:13.477009-04:00",
   "picks": [
     {
       "ticker": "EIX",
@@ -60,6 +60,18 @@
       "sector": "Real Estate",
       "date_added": "2026-07-14",
       "score": 60.0
+    },
+    {
+      "ticker": "MSM",
+      "sector": "Industrials",
+      "date_added": "2026-07-15",
+      "score": 70.0
+    },
+    {
+      "ticker": "AHR",
+      "sector": "Real Estate",
+      "date_added": "2026-07-15",
+      "score": 69.0
     }
   ]
 }

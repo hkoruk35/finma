@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "SEZL",
@@ -171,7 +171,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "MFG",
@@ -261,7 +261,7 @@
           "adx": 23.1,
           "macd_hist": 0.044,
           "mfi": 74.7,
-          "cmf": -0.123,
+          "cmf": -0.125,
           "rvol_today": 0.85,
           "entry_trigger": "Watchlist (15m trigger pending)",
           "is_exhausted": false
@@ -335,7 +335,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "ACHC",
@@ -499,7 +499,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "PACS",
@@ -663,7 +663,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "RGA",
@@ -827,7 +827,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "FWONA",
@@ -844,7 +844,7 @@
         "entry_status": "PENDING",
         "entry_zone": null,
         "tracker_logic": {
-          "entry_zone_low": 91.53,
+          "entry_zone_low": 91.52,
           "entry_zone_high": 92.51,
           "profit_target_tp1": 96.62,
           "profit_target_tp2": 101.22,
@@ -858,7 +858,7 @@
           }
         },
         "buy_zone": {
-          "low": 91.53,
+          "low": 91.52,
           "high": 92.51
         },
         "profit_zone": {
@@ -892,7 +892,7 @@
         "change_5y": 110.63,
         "boga_zones": {
           "buying_zone": {
-            "low": 91.53,
+            "low": 91.52,
             "high": 92.51
           },
           "sell_zone": {
@@ -904,11 +904,11 @@
             "high": 87.53
           },
           "risk_reward": 2.05,
-          "support_1h": 90.18,
+          "support_1h": 90.17,
           "resistance_1h": 93.28,
-          "atr_1d": 2.45,
-          "atr_pct": 2.66,
-          "risk_usd": 4.49,
+          "atr_1d": 2.46,
+          "atr_pct": 2.67,
+          "risk_usd": 4.48,
           "reward_usd": 9.2
         },
         "trend_status": {
@@ -917,7 +917,7 @@
           "adx": 27.9,
           "macd_hist": 0.392,
           "mfi": 77.7,
-          "cmf": -0.043,
+          "cmf": -0.041,
           "rvol_today": 0.71,
           "entry_trigger": "Watchlist (15m trigger pending)",
           "is_exhausted": false
@@ -991,7 +991,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "LNG",
@@ -1008,8 +1008,8 @@
         "entry_status": "PENDING",
         "entry_zone": null,
         "tracker_logic": {
-          "entry_zone_low": 263.17,
-          "entry_zone_high": 266.15,
+          "entry_zone_low": 263.15,
+          "entry_zone_high": 266.16,
           "profit_target_tp1": 277.89,
           "profit_target_tp2": 300.19,
           "profit_target_tp3": 306.2,
@@ -1022,15 +1022,15 @@
           }
         },
         "buy_zone": {
-          "low": 263.17,
-          "high": 266.15
+          "low": 263.15,
+          "high": 266.16
         },
         "profit_zone": {
           "low": 277.89,
           "high": 306.2
         },
         "stop_zone": {
-          "low": 250.29,
+          "low": 250.28,
           "high": 251.78
         },
         "selected_system": "PULLBACK_WATCH",
@@ -1046,7 +1046,7 @@
         },
         "reasoning": "BOGA AI Score: 74.0 | System: PULLBACK_WATCH",
         "detail_reasoning": "Pullback 24 mum (3-8 dışı)",
-        "adx": 21.1,
+        "adx": 21.2,
         "rsi": 69.1,
         "rvol": 0.74,
         "change_1d": 0.66,
@@ -1056,32 +1056,32 @@
         "change_5y": 217.82,
         "boga_zones": {
           "buying_zone": {
-            "low": 263.17,
-            "high": 266.15
+            "low": 263.15,
+            "high": 266.16
           },
           "sell_zone": {
             "low": 277.89,
             "high": 306.2
           },
           "stop_loss_zone": {
-            "low": 250.29,
+            "low": 250.28,
             "high": 251.78
           },
           "risk_reward": 2.76,
-          "support_1h": 259.07,
-          "resistance_1h": 266.51,
-          "atr_1d": 7.45,
-          "atr_pct": 2.81,
-          "risk_usd": 12.88,
-          "reward_usd": 35.53
+          "support_1h": 259.02,
+          "resistance_1h": 267.35,
+          "atr_1d": 7.51,
+          "atr_pct": 2.83,
+          "risk_usd": 12.87,
+          "reward_usd": 35.54
         },
         "trend_status": {
           "trend": "Uptrend (EMA50>EMA200)",
           "rsi_14": 69.1,
-          "adx": 21.1,
+          "adx": 21.2,
           "macd_hist": 2.99,
           "mfi": 80.9,
-          "cmf": 0.388,
+          "cmf": 0.381,
           "rvol_today": 0.74,
           "entry_trigger": "Watchlist (15m trigger pending)",
           "is_exhausted": false
@@ -1155,7 +1155,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "CXW",
@@ -1319,7 +1319,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "HSIC",
@@ -1483,7 +1483,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-14",
+      "last_checked": "2026-07-15",
       "last_pick": {
         "rank": 1,
         "ticker": "MATX",
@@ -1647,56 +1647,56 @@
       "sector": "Utilities",
       "score": 71.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "EAT",
       "sector": "Consumer Cyclical",
       "score": 70.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "IDA",
       "sector": "Utilities",
       "score": 69.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "NET",
       "sector": "Technology",
       "score": 67.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "BNL",
       "sector": "Real Estate",
       "score": 67.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "ESS",
       "sector": "Real Estate",
       "score": 65.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "MNST",
       "sector": "Consumer Defensive",
       "score": 64.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "TRGP",
       "sector": "Energy",
       "score": 64.0,
       "first_seen_date": "2026-07-14",
-      "last_checked": "2026-07-14"
+      "last_checked": "2026-07-15"
     },
     {
       "ticker": "ARMK",
@@ -1711,7 +1711,21 @@
       "score": 60.0,
       "first_seen_date": "2026-07-14",
       "last_checked": "2026-07-14"
+    },
+    {
+      "ticker": "MSM",
+      "sector": "Industrials",
+      "score": 70.0,
+      "first_seen_date": "2026-07-15",
+      "last_checked": "2026-07-15"
+    },
+    {
+      "ticker": "AHR",
+      "sector": "Real Estate",
+      "score": 69.0,
+      "first_seen_date": "2026-07-15",
+      "last_checked": "2026-07-15"
     }
   ],
-  "updated_at": "2026-07-14T23:37:50.009172-04:00"
+  "updated_at": "2026-07-15T09:02:13.473130-04:00"
 }
