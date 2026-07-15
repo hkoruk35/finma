@@ -169,7 +169,7 @@ export async function getTopPerformanceEntries(limit = 5, locale: string = "en")
 
   return topGainers.map((t) => ({
     ticker: t.ticker,
-    sector: dayLabel(t.days ?? 0),
+    sector: `${t.sector || "—"} · ${dayLabel(t.days ?? 0)}`,
     status: (t.return_pct ?? 0) >= 0 ? "BULLISH" : "BEARISH",
     price: t.entry ?? 0,
     change_pct: t.return_pct ?? 0,
