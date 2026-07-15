@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} globalLocale="en" />
+      <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
 
