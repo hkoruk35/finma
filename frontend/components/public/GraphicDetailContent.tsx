@@ -14,12 +14,12 @@ import type { Locale } from "@/lib/i18n/copy";
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
 // grafik sistemi hicbir dilde digerlerinden farkli davranamaz.
 
-const PAGE_LABELS: Record<Locale, { dashboard: string; deepAnalysis: string; loading: string }> = {
-  en: { dashboard: "Dashboard", deepAnalysis: "DEEP ANALYSIS", loading: "Loading..." },
-  tr: { dashboard: "Gösterge Paneli", deepAnalysis: "DERİN ANALİZ", loading: "Yükleniyor..." },
-  es: { dashboard: "Panel", deepAnalysis: "ANÁLISIS PROFUNDO", loading: "Cargando..." },
-  fr: { dashboard: "Tableau de bord", deepAnalysis: "ANALYSE APPROFONDIE", loading: "Chargement..." },
-  pt: { dashboard: "Painel", deepAnalysis: "ANÁLISE PROFUNDA", loading: "Carregando..." },
+const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
+  en: { dashboard: "Dashboard", loading: "Loading..." },
+  tr: { dashboard: "Gösterge Paneli", loading: "Yükleniyor..." },
+  es: { dashboard: "Panel", loading: "Cargando..." },
+  fr: { dashboard: "Tableau de bord", loading: "Chargement..." },
+  pt: { dashboard: "Painel", loading: "Carregando..." },
 };
 
 // Index tickers shown in the header strip: S&P 500, Nasdaq, Dow, Russell 2000, VIX.
@@ -137,14 +137,6 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 {s.label}
               </Link>
             ))}
-            {ticker && (
-              <Link
-                href={isLoggedIn ? `/global/${locale}/analysis/${ticker}` : registerHref}
-                className="px-3 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/40 text-[10px] font-black text-purple-400 hover:text-white hover:border-purple-400 transition-all"
-              >
-                {labels.deepAnalysis}
-              </Link>
-            )}
           </div>
         </div>
 
