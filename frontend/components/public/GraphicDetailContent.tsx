@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerSearchBox from "@/components/public/TickerSearchBox";
+import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard";
 import type { Locale } from "@/lib/i18n/copy";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
@@ -188,6 +189,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             defaultTimeframe="D"
           />
         </div>
+        {ticker && <SwingStrategyStatusCard ticker={ticker} locale={locale} />}
         <div className="glass-card overflow-hidden">
           <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlan />
         </div>
