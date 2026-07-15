@@ -75,6 +75,7 @@ function formatDateAdded(d: string | null | undefined, locale: Locale) {
     return new Date(d + "T12:00:00Z").toLocaleDateString(localeTag(locale), {
       month: "2-digit",
       day: "2-digit",
+      year: "numeric",
     });
   } catch {
     return d;
@@ -476,7 +477,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
@@ -506,7 +507,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                           onClick={(e) => { e.stopPropagation(); setAnalyzeTicker(r.ticker); }}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
                         >
-                          {locale === "tr" ? "ANALİZ" : locale === "pt" ? "ANALISAR" : "ANALYZE"}
+                          {locale === "tr" ? "GRAFIK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : "CHART DETAIL"}
                         </button>
                       </td>
                     </tr>
@@ -557,7 +558,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         ) : (
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
                         )}

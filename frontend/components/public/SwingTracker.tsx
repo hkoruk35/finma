@@ -45,7 +45,7 @@ function formatDateAdded(dateStr: string | null, locale: Locale): string {
   try {
     const d = new Date(dateStr + "T12:00:00Z");
     const tag = locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US";
-    return d.toLocaleDateString(tag, { month: "2-digit", day: "2-digit" });
+    return d.toLocaleDateString(tag, { month: "2-digit", day: "2-digit", year: "numeric" });
   } catch {
     return dateStr;
   }
@@ -487,7 +487,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                         </td>
                         <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
                         <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                           {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
@@ -522,13 +522,13 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
                       <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
@@ -553,7 +553,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                           onClick={(e) => { e.stopPropagation(); setAnalyzeTicker(r.ticker); }}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
                         >
-                          {locale === "tr" ? "ANALİZ" : locale === "pt" ? "ANALISAR" : "ANALYZE"}
+                          {locale === "tr" ? "GRAFIK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : "CHART DETAIL"}
                         </button>
                       </td>
                     </tr>
@@ -604,7 +604,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         ) : (
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
                         )}
