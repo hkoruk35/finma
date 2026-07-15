@@ -110,6 +110,17 @@
       "change_pct": 2.83,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 72.0 | System: PULLBACK_WATCH"
+    },
+    {
+      "ticker": "COLB",
+      "company": "Columbia Banking System, Inc.",
+      "sector": "Financial Services",
+      "master_score": 63.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 32.25,
+      "change_pct": 0.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: PULLBACK_WATCH"
     }
   ]
 }

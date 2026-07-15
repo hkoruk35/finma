@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-07-15T09:02:13.448817-04:00",
+  "generated_at": "2026-07-15T14:00:49.462692-04:00",
   "date": "2026-07-15",
   "model": "BOGA AI v117.v3 (Power Pullback)",
   "market_regime": "STRONG",
   "regime_bucket": "BULL",
-  "total_picks": 10,
+  "total_picks": 11,
   "picks": [
     {
       "rank": 1,
@@ -1555,6 +1555,161 @@
         "rvol_15m": 0.0,
         "note": "Pullback 11 mum (3-8 dışı)"
       }
+    },
+    {
+      "rank": 11,
+      "ticker": "COLB",
+      "company": "Columbia Banking System, Inc.",
+      "sector": "Financial Services",
+      "score": 63.0,
+      "boga_score": 63.0,
+      "market_regime": "STRONG",
+      "current_price": 32.25,
+      "holding_period_estimate": "8 Days (max)",
+      "holding_period": "8 Days",
+      "status": "WAITING_FOR_ENTRY",
+      "date_added": "2026-07-15",
+      "entry_status": "PENDING",
+      "entry_zone": null,
+      "tracker_logic": {
+        "entry_zone_low": 32.08,
+        "entry_zone_high": 32.35,
+        "profit_target_tp1": 33.83,
+        "profit_target_tp2": 35.44,
+        "profit_target_tp3": 37.05,
+        "stop_loss_high": 30.64,
+        "max_hold_days": 8,
+        "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
+        "trailing_stop_rules": {
+          "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
+          "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
+        }
+      },
+      "buy_zone": {
+        "low": 32.08,
+        "high": 32.35
+      },
+      "profit_zone": {
+        "low": 33.83,
+        "high": 37.05
+      },
+      "stop_zone": {
+        "low": 30.51,
+        "high": 30.64
+      },
+      "selected_system": "PULLBACK_WATCH",
+      "system_category": "Pullback",
+      "selection_reasons": [
+        "1D_Trend",
+        "4H_Quality",
+        "1H_Momentum"
+      ],
+      "system_label": {
+        "text": "Watchlist — Trigger Pending",
+        "color": "yellow"
+      },
+      "reasoning": "BOGA AI Score: 63.0 | System: PULLBACK_WATCH",
+      "detail_reasoning": "Pullback 10 mum (3-8 dışı)",
+      "adx": 23.3,
+      "rsi": 60.2,
+      "rvol": 0.7,
+      "change_1d": 0.84,
+      "change_1w": 0.4,
+      "change_1m": 4.64,
+      "change_1y": 44.08,
+      "change_5y": 15.54,
+      "boga_zones": {
+        "buying_zone": {
+          "low": 32.08,
+          "high": 32.35
+        },
+        "sell_zone": {
+          "low": 33.83,
+          "high": 37.05
+        },
+        "stop_loss_zone": {
+          "low": 30.51,
+          "high": 30.64
+        },
+        "risk_reward": 2.05,
+        "support_1h": 31.71,
+        "resistance_1h": 32.77,
+        "atr_1d": 0.67,
+        "atr_pct": 2.09,
+        "risk_usd": 1.58,
+        "reward_usd": 3.22
+      },
+      "trend_status": {
+        "trend": "Uptrend (EMA50>EMA200)",
+        "rsi_14": 60.2,
+        "adx": 23.3,
+        "macd_hist": -0.055,
+        "mfi": 72.0,
+        "cmf": 0.126,
+        "rvol_today": 0.7,
+        "entry_trigger": "Watchlist (15m trigger pending)",
+        "is_exhausted": false
+      },
+      "moving_averages": {
+        "ema_20": 31.54,
+        "ema_50": 30.55,
+        "ema_200": 28.36,
+        "price_vs_ema20": 0.71,
+        "price_vs_ema50": 1.7,
+        "price_vs_ema200": 3.89,
+        "ema20_slope": "Rising"
+      },
+      "hourly_analysis": {
+        "rsi_1h": 64.7,
+        "adx_1h": 24.0,
+        "rvol_1h": "2.4x (Para Girişi)",
+        "ema_structure": "Above EMA20/50",
+        "pivot_structure": "HH/HL Uptrend"
+      },
+      "fundamentals": {
+        "gross_margin_pct": 0,
+        "operating_margin_pct": 52.9,
+        "net_margin_pct": 25.6,
+        "revenue_growth_pct": 51.2,
+        "pe_ratio": 12.7,
+        "pb_ratio": 1.1,
+        "fcf_yield_pct": 0.0,
+        "market_cap": "8.62B",
+        "market_cap_usd": 8619736064
+      },
+      "performance": {
+        "1d_pct": 0.84,
+        "1w_pct": 0.4,
+        "1m_pct": 4.64,
+        "1y_pct": 44.08,
+        "5y_pct": 15.54
+      },
+      "factor_scores": {
+        "trend_score": 17.0,
+        "momentum_score": 17.0,
+        "volatility_score": 2.0,
+        "volume_score": 17.0,
+        "financial_score": 0.0,
+        "catalyst_score": 10.0,
+        "insider_score": 0.0,
+        "composite": 63.0,
+        "raw_score": 63.0
+      },
+      "four_hour_analysis": {
+        "adx_4h": 22.4,
+        "rsi_4h": 62.5,
+        "ema20_4h": 32.04,
+        "ema50_4h": 31.48,
+        "ema_spread_pct": 1.77
+      },
+      "trigger_15m": {
+        "triggered": false,
+        "type": "",
+        "pullback_candles": 10,
+        "pullback_depth_atr": 0.0,
+        "rvol_15m": 0.0,
+        "note": "Pullback 10 mum (3-8 dışı)"
+      }
     }
   ],
   "by_system": {
@@ -1568,12 +1723,13 @@
       "LNG",
       "CXW",
       "HSIC",
-      "MATX"
+      "MATX",
+      "COLB"
     ]
   },
   "system_summary": {
     "PULLBACK_WATCH": {
-      "count": 10,
+      "count": 11,
       "tickers": [
         "SEZL",
         "MFG",
@@ -1584,7 +1740,8 @@
         "LNG",
         "CXW",
         "HSIC",
-        "MATX"
+        "MATX",
+        "COLB"
       ]
     }
   },
@@ -1598,6 +1755,7 @@
     "LNG",
     "CXW",
     "HSIC",
-    "MATX"
+    "MATX",
+    "COLB"
   ]
 }
