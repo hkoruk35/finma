@@ -7,6 +7,8 @@
 import { getSwingPicksBackfilled, getMasterData, getWatchlistPicks, getSwingPerformance, type StockQuickView } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
 import { selectHeatMapTickers } from "./sectorHeatMap";
+import { translateSector } from "./translationHelpers";
+import type { Locale } from "./i18n/copy";
 
 export type TrendStatus = "BULLISH" | "BEARISH" | "NEUTRAL";
 
@@ -169,7 +171,7 @@ export async function getTopPerformanceEntries(limit = 5, locale: string = "en")
 
   return topGainers.map((t) => ({
     ticker: t.ticker,
-    sector: `${t.sector || "—"} · ${dayLabel(t.days ?? 0)}`,
+    sector: `${translateSector(t.sector, locale as Locale) || "—"} · ${dayLabel(t.days ?? 0)}`,
     status: (t.return_pct ?? 0) >= 0 ? "BULLISH" : "BEARISH",
     price: t.entry ?? 0,
     change_pct: t.return_pct ?? 0,

@@ -549,12 +549,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }}>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setAnalyzeTicker(r.ticker); }}
+                        <Link
+                          href={`/admin/stocks/${r.ticker}`}
                           style={{ color: ACCENT, textDecoration: "none", fontWeight: 700, fontSize: 10, background: ACCENT + "15", border: "1px solid " + ACCENT + "50", borderRadius: 3, padding: "3px 8px", display: "inline-block", cursor: "pointer" }}
                         >
                           {locale === "tr" ? "GRAFIK DETAY" : locale === "pt" ? "DETALHE DE GRÁFICO" : locale === "es" ? "DETALLE DE GRÁFICO" : locale === "fr" ? "DÉTAIL GRAPHIQUE" : "CHART DETAIL"}
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                     {isExpanded && (
