@@ -60,7 +60,7 @@ export default function HomeSimpleCard({
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className="glass-card border-2 border-[#1e2a3a]/50 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none">
+      <div className="bg-gradient-to-br from-[#0a1428] to-[#050b14] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
           <div className="flex items-center gap-3">
@@ -85,7 +85,7 @@ export default function HomeSimpleCard({
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/30`}>
+            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
               <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : locale === 'pt' ? 'AÇÃO / SETOR' : 'STOCK / SECTOR'}</span>
               <span />
               <span className="text-center">{locale === 'tr' ? 'DURUM' : locale === 'pt' ? 'STATUS' : 'STATUS'}</span>
@@ -105,7 +105,7 @@ export default function HomeSimpleCard({
                     onClick={locked ? () => setShowModal(true) : undefined}
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-[10px] font-mono font-bold text-white/25 w-3">{idx + 1}</span>
+                      <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
                       <div className="min-w-0">
                         {locked ? (
                           <>
@@ -113,7 +113,7 @@ export default function HomeSimpleCard({
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
-                            <div className="text-[11px] text-white/40 truncate">{sectorLabel(stock.sector)}</div>
+                            <div className="text-[11px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         ) : (
                           <>
@@ -122,7 +122,7 @@ export default function HomeSimpleCard({
                                 {stock.ticker}
                               </div>
                             </TickerHoverChart>
-                            <div className="text-[11px] text-white/40 truncate">{sectorLabel(stock.sector)}</div>
+                            <div className="text-[11px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         )}
                       </div>
@@ -158,14 +158,14 @@ export default function HomeSimpleCard({
 
             {/* Sort label footer */}
             {sortLabel && (
-              <div className="px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/40 italic">
+              <div className="px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/60 italic">
                 {sortLabel}
               </div>
             )}
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center py-12">
-            <p className="text-xs text-white/40">{emptyMessage}</p>
+            <p className="text-xs text-white/60">{emptyMessage}</p>
           </div>
         )}
       </div>
