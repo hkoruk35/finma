@@ -261,6 +261,17 @@ export default async function PtHomePage() {
           />
         </div>
 
+        {/* Mobile Swipe Hint */}
+        <div className="flex md:hidden items-center justify-center gap-2 mt-4 mb-6 text-white/50 text-[10px] uppercase font-bold tracking-widest">
+          <svg className="w-3 h-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          <span>Deslize para explorar</span>
+          <svg className="w-3 h-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </div>
+
         {/* Sector Heat Map */}
         {master && (
           <section className="mb-16 mt-12">

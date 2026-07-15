@@ -76,14 +76,14 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
           <ShareButton locale={resolvedLocale} shareText={`${t.title} — BOGA AI`} url={`https://bogastock.com/global/${currentLocale}/home`} />
         </div>
       </div>
-      <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+      <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible pb-4">
+        <div className="grid grid-rows-2 grid-flow-col auto-cols-[85vw] sm:auto-cols-[45vw] gap-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR);
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
             const sectorStyles = getPerformanceColor(avgChange);
             return (
-              <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group flex-shrink-0 w-[calc(100vw-40px)] snap-center md:flex-shrink md:w-auto md:snap-align-none">
+              <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group snap-center w-full">
                 {/* Sector Header */}
                 <div className={`flex items-center justify-between p-3 h-full border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
                   <div className="flex flex-col">
