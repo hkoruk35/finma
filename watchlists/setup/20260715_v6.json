@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "MS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 229.98,
+        "entry_zone": "226.72 - 233.23",
+        "SL": 216.97,
+        "TP": 255.99
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "GS",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 1134.15,
+        "entry_zone": "1117.10 - 1151.19",
+        "SL": 1065.98,
+        "TP": 1270.48
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "S",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 20.26,
+        "entry_zone": "19.72 - 20.80",
+        "SL": 18.1,
+        "TP": 24.59
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "CRWD",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 205.88,
+        "entry_zone": "200.26 - 211.50",
+        "SL": 183.39,
+        "TP": 250.87
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "OKTA",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 150.49,
+        "entry_zone": "146.36 - 154.62",
+        "SL": 133.98,
+        "TP": 183.51
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "XPRO",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 15.83,
+        "entry_zone": "15.50 - 16.16",
+        "SL": 14.51,
+        "TP": 18.47
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 97.71,
+        "entry_zone": "95.06 - 100.36",
+        "SL": 87.12,
+        "TP": 118.89
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "NET",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 276.24,
+        "entry_zone": "269.33 - 283.15",
+        "SL": 248.6,
+        "TP": 331.52
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "ZS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 150.96,
+        "entry_zone": "146.95 - 154.96",
+        "SL": 134.93,
+        "TP": 183.01
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "PANW",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 353.93,
+        "entry_zone": "344.58 - 363.28",
+        "SL": 316.54,
+        "TP": 428.71
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 45.16,
+        "entry_zone": "43.83 - 46.49",
+        "SL": 39.85,
+        "TP": 55.78
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "CVNA",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 70.01,
+        "entry_zone": "68.00 - 72.02",
+        "SL": 61.97,
+        "TP": 86.08
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "NTAP",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 161.87,
+        "entry_zone": "158.14 - 165.59",
+        "SL": 146.95,
+        "TP": 191.7
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "FSLY",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 20.16,
+        "entry_zone": "19.53 - 20.78",
+        "SL": 17.65,
+        "TP": 25.17
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 17.35,
+        "entry_zone": "16.81 - 17.89",
+        "SL": 15.19,
+        "TP": 21.67
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "UBS",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 54.97,
+        "entry_zone": "54.46 - 55.47",
+        "SL": 52.93,
+        "TP": 59.04
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "TSEM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 255.94,
+        "entry_zone": "244.91 - 266.97",
+        "SL": 211.82,
+        "TP": 344.19
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "DELL",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 407.11,
+        "entry_zone": "390.48 - 423.73",
+        "SL": 340.61,
+        "TP": 540.09
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "SEDG",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 53.62,
+        "entry_zone": "51.22 - 56.02",
+        "SL": 44.03,
+        "TP": 72.79
+    },
+    {
+        "date": "2026-07-15 11:00",
+        "symbol": "KOD",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 41.39,
+        "entry_zone": "39.79 - 42.99",
+        "SL": 35.01,
+        "TP": 54.16
+    }
+]
