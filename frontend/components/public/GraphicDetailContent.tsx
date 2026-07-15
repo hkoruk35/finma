@@ -52,9 +52,8 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const labels = PAGE_LABELS[locale];
   const registerHref = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
   const shortcuts = [
-    { label: "TOP 100", href: `/global/${locale}/top100` },
     { label: "SWING", href: `/global/${locale}/swing` },
-    { label: "TREND", href: `/global/${locale}/trend` },
+    { label: "WATCHLIST", href: `/global/${locale}/watchlist` },
   ];
 
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);

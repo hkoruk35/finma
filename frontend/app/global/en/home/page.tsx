@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopWatchlistByVolume, getTopPerformanceEntries, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EnHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
+  const [swingByVolume, watchlistByVolume, performanceEntries, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
     getTopSwingByVolume(5),
-    getTopTrendByVolume(5),
-    getTopTop100ByVolume(5),
+    getTopWatchlistByVolume(5),
+    getTopPerformanceEntries(5, "en"),
     getLastUpdated(),
     getLiveIndices(),
     getSwingPerformance(),
@@ -249,22 +249,22 @@ export default async function EnHomePage() {
           />
 
           <HomeSimpleCard
-            title="Trend Stocks"
+            title="Watchlist"
             accent="#a78bfa"
-            stocks={trendByVolume}
-            viewAllHref="/global/en/trend"
+            stocks={watchlistByVolume}
+            viewAllHref="/global/en/watchlist"
             locale="en"
             sortLabel="Sorted by volume"
             requirePremium
           />
 
           <HomeSimpleCard
-            title="Top 100"
-            accent="#f59e0b"
-            stocks={top100ByVolume}
-            viewAllHref="/global/en/top100"
+            title="Performance"
+            accent="#10b981"
+            stocks={performanceEntries}
+            viewAllHref="/global/en/performance"
             locale="en"
-            sortLabel="Most actively traded stocks"
+            sortLabel="Trades with confirmed entry zone"
           />
         </div>
 

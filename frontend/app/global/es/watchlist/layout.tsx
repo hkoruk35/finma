@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
-export default async function GlobalEnTop100Layout({ children }: { children: React.ReactNode }) {
+export default async function GlobalEsWatchlistLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
 
   if (!data.user) {
-    redirect("/global/en/login");
+    redirect("/global/es/login");
   }
 
   return <>{children}</>;

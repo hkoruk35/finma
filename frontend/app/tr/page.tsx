@@ -205,10 +205,10 @@ export default function TrHomePage() {
                 Ücretsiz Üye Ol
               </Link>
               <Link
-                href="/tr/top100"
+                href="/global/tr/swing"
                 className="px-8 py-3.5 bg-white/5 border border-white/10 text-white/70 rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-white/10 hover:text-white transition-all"
               >
-                Top 100'ü Gör →
+                Swing Adaylarını Gör →
               </Link>
             </div>
           </div>

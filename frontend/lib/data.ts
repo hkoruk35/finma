@@ -859,6 +859,24 @@ export async function getSwingPicksBackfilled(minCount: number): Promise<any> {
   return { ...(todayData ?? {}), picks: merged };
 }
 
+export async function getWatchlistPicks(): Promise<any | null> {
+  const t = Date.now();
+  if (typeof window === "undefined") {
+    const mod = await import("./data-server");
+    return mod.readPublicJson("watchlist_picks.json");
+  }
+  try {
+    const res = await fetch(`/watchlist_picks.json?v=${t}`, { cache: "no-store" });
+    if (!res.ok) {
+      // Production Fallback
+      const res2 = await fetch(`https://bogastock.com/watchlist_picks.json?v=${t}`, { cache: "no-store" });
+      if (res2.ok) return await res2.json();
+      return null;
+    }
+    return await res.json();
+  } catch { return null; }
+}
+
 export async function getSwingArchiveDates(): Promise<string[]> {
   if (typeof window === "undefined") {
     try {

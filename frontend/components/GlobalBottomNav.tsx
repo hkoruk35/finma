@@ -3,22 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+type Locale = "tr" | "en" | "es" | "fr" | "pt";
+
+const HOME_LABEL: Record<Locale, string> = {
+  tr: "Anasayfa", en: "Home", es: "Inicio", fr: "Accueil", pt: "Início",
+};
+
 export default function GlobalBottomNav() {
   const pathname = usePathname();
 
-  // Detect locale from pathname
-  const locale = pathname.includes("/global/tr") ? "tr" : "en";
+  // Detect locale from pathname (/global/{locale}/...) — supports all 5 locales
+  const segment = pathname.split("/")[2];
+  const locale: Locale = (["tr", "en", "es", "fr", "pt"] as const).includes(segment as Locale)
+    ? (segment as Locale)
+    : "en";
 
-  const navItems = locale === "tr" ? [
-    { label: "Anasayfa", href: "/global/tr/home" },
-    { label: "Top 100", href: "/global/tr/top100" },
-    { label: "Swing", href: "/global/tr/swing" },
-    { label: "Trend", href: "/global/tr/trend" },
-  ] : [
-    { label: "Home", href: "/global/en/home" },
-    { label: "Top 100", href: "/global/en/top100" },
-    { label: "Swing", href: "/global/en/swing" },
-    { label: "Trend", href: "/global/en/trend" },
+  const navItems = [
+    { label: HOME_LABEL[locale], href: `/global/${locale}/home` },
+    { label: "Swing", href: `/global/${locale}/swing` },
+    { label: "Watchlist", href: `/global/${locale}/watchlist` },
   ];
 
   return (

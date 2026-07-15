@@ -9,22 +9,16 @@ export default function Top100NavBar({ locale }: { locale: Locale }) {
   return (
     <div className="flex gap-2 mb-4">
       <Link
-        href={`${base}/top100`}
-        className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
-      >
-        TOP 100
-      </Link>
-      <Link
         href={`${base}/swing`}
-        className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors"
+        className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
       >
         SWING
       </Link>
       <Link
-        href={`${base}/trend`}
+        href={`${base}/watchlist`}
         className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors"
       >
-        TREND
+        WATCHLIST
       </Link>
     </div>
   );

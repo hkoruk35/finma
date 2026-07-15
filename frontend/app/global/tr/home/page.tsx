@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopTrendByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopWatchlistByVolume, getTopPerformanceEntries, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default async function TrHomePage() {
-  const [swingByVolume, trendByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
+  const [swingByVolume, watchlistByVolume, performanceEntries, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
     getTopSwingByVolume(5),
-    getTopTrendByVolume(5),
-    getTopTop100ByVolume(5),
+    getTopWatchlistByVolume(5),
+    getTopPerformanceEntries(5, "tr"),
     getLastUpdated(),
     getLiveIndices(),
     getSwingPerformance(),
@@ -246,22 +246,22 @@ export default async function TrHomePage() {
           />
 
           <HomeSimpleCard
-            title="Trend Hisseleri"
+            title="Watchlist"
             accent="#a78bfa"
-            stocks={trendByVolume}
-            viewAllHref="/global/tr/trend"
+            stocks={watchlistByVolume}
+            viewAllHref="/global/tr/watchlist"
             locale="tr"
             sortLabel="Hacim sırasına göre"
             requirePremium
           />
 
           <HomeSimpleCard
-            title="Top 100"
-            accent="#f59e0b"
-            stocks={top100ByVolume}
-            viewAllHref="/global/tr/top100"
+            title="Performans"
+            accent="#10b981"
+            stocks={performanceEntries}
+            viewAllHref="/global/tr/performance"
             locale="tr"
-            sortLabel="En aktif işlem gören hisseler"
+            sortLabel="Giriş bölgesi yakalanan işlemler"
           />
         </div>
 

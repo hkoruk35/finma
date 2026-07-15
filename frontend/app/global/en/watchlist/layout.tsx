@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 
-export default async function GlobalEnTrendLayout({ children }: { children: React.ReactNode }) {
+export default async function GlobalEnWatchlistLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createSupabaseServerClient();
   const { data } = await supabase.auth.getUser();
 

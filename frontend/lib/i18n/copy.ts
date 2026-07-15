@@ -215,6 +215,17 @@ export const copy = {
       bearish: "BEARISH",
       exploreAll: "Explore All {n} Tickers →",
     },
+    watchlist: {
+      title: "Watchlist",
+      subtitle: "Curated stocks actively tracked by BOGA AI for up to 10 days",
+      loading: "Loading...",
+      error: "Could not load the Watchlist. Please try again.",
+      empty: "No watchlist picks found",
+      colDateAdded: "DATE ADDED",
+      pageTitle: "Watchlist — BOGA AI",
+      pageDescription: "Curated stocks actively tracked by BOGA AI for up to 10 days.",
+      breadcrumb: "Watchlist",
+    },
   },
   tr: {
     register: {
@@ -429,6 +440,17 @@ export const copy = {
       bullish: "YÜKSELİŞ",
       bearish: "DÜŞÜŞ",
       exploreAll: "Tüm {n} Hisseyi Keşfet →",
+    },
+    watchlist: {
+      title: "İzleme Listesi",
+      subtitle: "BOGA AI'nin en fazla 10 gün boyunca aktif olarak takip ettiği seçilmiş hisseler",
+      loading: "Yükleniyor...",
+      error: "İzleme Listesi yüklenemedi. Lütfen tekrar deneyin.",
+      empty: "İzleme listesi hissesi bulunamadı",
+      colDateAdded: "EKLENME TARİHİ",
+      pageTitle: "İzleme Listesi — BOGA AI",
+      pageDescription: "BOGA AI'nin en fazla 10 gün boyunca aktif olarak takip ettiği seçilmiş hisseler.",
+      breadcrumb: "İzleme Listesi",
     },
   },
   es: {
@@ -645,6 +667,17 @@ export const copy = {
       bearish: "BAJISTA",
       exploreAll: "Explorar los {n} Valores →",
     },
+    watchlist: {
+      title: "Lista de Seguimiento",
+      subtitle: "Acciones seleccionadas y seguidas activamente por BOGA AI durante hasta 10 días",
+      loading: "Cargando...",
+      error: "No se pudo cargar la Lista de Seguimiento. Inténtalo de nuevo.",
+      empty: "No se encontraron acciones en la lista de seguimiento",
+      colDateAdded: "FECHA AÑADIDA",
+      pageTitle: "Lista de Seguimiento — BOGA AI",
+      pageDescription: "Acciones seleccionadas y seguidas activamente por BOGA AI durante hasta 10 días.",
+      breadcrumb: "Lista de Seguimiento",
+    },
   },
   fr: {
     register: {
@@ -860,6 +893,17 @@ export const copy = {
       bearish: "BAISSIER",
       exploreAll: "Explorer les {n} Titres →",
     },
+    watchlist: {
+      title: "Liste de Suivi",
+      subtitle: "Actions sélectionnées et suivies activement par BOGA AI pendant jusqu'à 10 jours",
+      loading: "Chargement...",
+      error: "Impossible de charger la Liste de Suivi. Veuillez réessayer.",
+      empty: "Aucune action trouvée dans la liste de suivi",
+      colDateAdded: "DATE D'AJOUT",
+      pageTitle: "Liste de Suivi — BOGA AI",
+      pageDescription: "Actions sélectionnées et suivies activement par BOGA AI pendant jusqu'à 10 jours.",
+      breadcrumb: "Liste de Suivi",
+    },
   },
   pt: {
     register: {
@@ -1074,6 +1118,17 @@ export const copy = {
       bullish: "ALTA",
       bearish: "BAIXA",
       exploreAll: "Explorar Todos os {n} Ativos →",
+    },
+    watchlist: {
+      title: "Lista de Observação",
+      subtitle: "Ações selecionadas e acompanhadas ativamente pela BOGA AI por até 10 dias",
+      loading: "Carregando...",
+      error: "Não foi possível carregar a Lista de Observação. Tente novamente.",
+      empty: "Nenhuma ação encontrada na lista de observação",
+      colDateAdded: "DATA DE ADIÇÃO",
+      pageTitle: "Lista de Observação — BOGA AI",
+      pageDescription: "Ações selecionadas e acompanhadas ativamente pela BOGA AI por até 10 dias.",
+      breadcrumb: "Lista de Observação",
     },
   },
 } as const;

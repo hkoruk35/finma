@@ -21,7 +21,7 @@ export default function LoginForm({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const registerHref = registerHrefProp ?? (locale === "en" ? "/en/register" : "/tr/kayit");
-  const topHref = redirectTo ?? (locale === "en" ? "/en/top100" : "/tr/top100");
+  const topHref = redirectTo ?? (locale === "en" ? "/global/en/swing" : "/global/tr/swing");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

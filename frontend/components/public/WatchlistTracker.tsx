@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
-import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
-import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
@@ -12,8 +10,6 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
-const REMOVED_THEMES_KEY = "removed_hot_themes_2026";
-const REMOVED_STOCKS_KEY_PREFIX = "removed_stocks_";
 
 interface HourlyBar {
   time: string;
@@ -30,7 +26,14 @@ const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "�
 const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
 const ROW_BG: Record<string, string> = { BUY: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", SELL: "#0f1117" };
 
-interface TrendRow {
+interface WatchlistPick {
+  ticker: string;
+  sector: string;
+  date_added: string;
+  score: number;
+}
+
+interface WatchlistRow {
   ticker: string;
   company: string;
   price: number;
@@ -39,7 +42,8 @@ interface TrendRow {
   signal: string;
   volume: number;
   sector: string;
-  themeTitle: string;
+  dateAdded: string;
+  score: number;
 }
 
 interface LiveData {
@@ -60,6 +64,22 @@ const fmt2 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toF
 const fmt1 = (n: number | null | undefined) => (n != null && isFinite(n) ? n.toFixed(1) : "—");
 const fmtVol = (v: number | null | undefined) =>
   !v ? "—" : v >= 1e6 ? (v / 1e6).toFixed(2) + "M" : v >= 1e3 ? (v / 1e3).toFixed(1) + "K" : String(v);
+
+function localeTag(locale: Locale) {
+  return locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US";
+}
+
+function formatDateAdded(d: string | null | undefined, locale: Locale) {
+  if (!d) return "—";
+  try {
+    return new Date(d + "T12:00:00Z").toLocaleDateString(localeTag(locale), {
+      month: "2-digit",
+      day: "2-digit",
+    });
+  } catch {
+    return d;
+  }
+}
 
 function rsiColor(rsi: number | undefined) {
   if (rsi == null) return "#8b949e";
@@ -107,46 +127,15 @@ const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1
 const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İzle", HOLD: "Bekle", SELL: "SAT" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
-const PATTERN_LABEL_EN: Record<string, string> = {
-  "Yetersiz Veri": "Insufficient Data",
-  "3 Asker ↑": "3 Soldiers ↑",
-  "3 Karga ↓": "3 Crows ↓",
-  "Güçlü ↑": "Strong ↑",
-  "Üst Fitil ↑": "Upper Wick ↑",
-  "Yeşil Mum ↑": "Green Candle ↑",
-  "Güçlü ↓": "Strong ↓",
-  "Alt Fitil ↓": "Lower Wick ↓",
-  "Kırmızı Mum ↓": "Red Candle ↓",
-};
-const patternLabel = (p: string | null | undefined, locale: string) =>
-  !p ? p : locale === "tr" ? p : PATTERN_LABEL_EN[p] ?? p;
-
-const THEME_TITLE_LABEL_EN: Record<string, string> = {
-  "Bellek Üreticiler & AI Depolama": "Memory Makers & AI Storage",
-  "Uzay Teması": "Space Theme",
-  "Fiziksel AI & Hümanoid Robotik": "Physical AI & Humanoid Robotics",
-  "AI Savunma, Drone & Otonom Sistemler": "AI Defense, Drones & Autonomous Systems",
-  "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri": "Critical Minerals, Rare Earths & Semiconductor Materials",
-  "Nükleer Enerji & AI Güç Altyapısı": "Nuclear Energy & AI Power Infrastructure",
-  "Kuantum Bilişim": "Quantum Computing",
-  "AI Ajanlar & Kurumsal Yazılım Dönüşümü": "AI Agents & Enterprise Software Transformation",
-  "AI Veri Merkezi & Soğutma Altyapısı": "AI Data Center & Cooling Infrastructure",
-  "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği": "Post-Quantum Cybersecurity & Sovereign Security",
-  "Fiziksel AI İçin Yarı İletken Çip Ekosistemi": "Semiconductor Chip Ecosystem for Physical AI",
-  "Biotech": "Biotech",
-};
-const themeLabel = (title: string, locale: string) => (locale === "tr" ? title : THEME_TITLE_LABEL_EN[title] ?? title);
-
-export default function TrendTracker({ locale }: { locale: Locale }) {
-  const t = copy[locale].top100;
+export default function WatchlistTracker({ locale }: { locale: Locale }) {
+  const t = copy[locale].watchlist;
   const { isFreeTrial } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const [composition, setComposition] = useState<TrendRow[]>([]);
+  const [composition, setComposition] = useState<WatchlistRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [filterTheme, setFilterTheme] = useState("");
   const [filterSignal, setFilterSignal] = useState("");
   const [filterSector, setFilterSector] = useState("");
   const [filterPattern, setFilterPattern] = useState("");
@@ -163,81 +152,22 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      // localStorage'dan çıkartılan tema ve hisseleri oku (Fallback/Hızlı render için)
-      let removedSlugs = new Set<string>();
-      let removedStocks: Record<string, Set<string>> = {};
+      const picksRes = await fetch("/api/watchlist-picks", { cache: "no-store" });
+      const picksData = picksRes.ok ? await picksRes.json() : null;
+      const picks: WatchlistPick[] = picksData?.picks ?? [];
 
-      try {
-        const stored = localStorage.getItem(REMOVED_THEMES_KEY);
-        if (stored) removedSlugs = new Set(JSON.parse(stored));
-
-        HOT_THEMES_2026.forEach((theme) => {
-          const key = REMOVED_STOCKS_KEY_PREFIX + theme.slug;
-          const stored = localStorage.getItem(key);
-          if (stored) removedStocks[theme.slug] = new Set(JSON.parse(stored));
-        });
-      } catch {
-        // localStorage error, continue with empty sets
-      }
-
-      // API'den gerçek zamanlı global durumları çek
-      let themeOverrides: Record<string, string[]> = {};
-      try {
-        const fetchOpts: RequestInit = { cache: 'no-store' };
-        const [removalsRes, overridesRes] = await Promise.all([
-          fetch("/api/store/hot_themes_removals", fetchOpts).catch(() => null),
-          fetch("/api/store/theme_overrides", fetchOpts).catch(() => null),
-        ]);
-
-        if (removalsRes && removalsRes.ok) {
-          const rData = await removalsRes.json();
-          if (rData && rData.value) {
-            removedSlugs = new Set(rData.value.removedSlugs || []);
-            const rStocks = rData.value.removedStocks || {};
-            removedStocks = {};
-            HOT_THEMES_2026.forEach(t => {
-              removedStocks[t.slug] = new Set(rStocks[t.slug] || []);
-            });
-          }
-        }
-        if (overridesRes && overridesRes.ok) {
-          const oData = await overridesRes.json();
-          if (oData && oData.value) {
-            themeOverrides = oData.value;
-          }
-        }
-      } catch (err) {
-        console.error("API fetch error", err);
-      }
-
-      const rows: TrendRow[] = [];
-
-      // Admin ve public taraf aynı iki kaynaktan (theme_overrides, hot_themes_removals)
-      // her seferinde canlı hesaplar — aradaki eski "theme_final_tickers" anlık
-      // görüntüsü kalıcı sapmaya yol açıyordu (bkz. ThemeDetailClient), artık yok.
-      for (const theme of HOT_THEMES_2026) {
-        if (removedSlugs.has(theme.slug)) continue;
-
-        const defaultTickers = theme.stocks.map(s => s.ticker);
-        const customTickers = themeOverrides[theme.title] || [];
-        const allTickers = Array.from(new Set([...defaultTickers, ...customTickers]))
-          .filter(ticker => !(removedStocks[theme.slug]?.has(ticker)));
-
-        for (const ticker of allTickers) {
-          const staticInfo = theme.stocks.find(s => s.ticker === ticker);
-          rows.push({
-            ticker: ticker,
-            company: staticInfo ? staticInfo.company : ticker,
-            price: 0,
-            change_pct: 0,
-            rsi: 0,
-            signal: "WATCH",
-            volume: 0,
-            sector: "Unknown",
-            themeTitle: theme.title,
-          });
-        }
-      }
+      const rows: WatchlistRow[] = picks.map((p) => ({
+        ticker: p.ticker,
+        company: p.ticker,
+        price: 0,
+        change_pct: 0,
+        rsi: 0,
+        signal: "WATCH",
+        volume: 0,
+        sector: p.sector || "Unknown",
+        dateAdded: p.date_added,
+        score: p.score,
+      }));
 
       setComposition(rows);
 
@@ -266,10 +196,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
     return () => clearInterval(id);
   }, [fetchAll]);
 
-  const themeOptions = useMemo(() => {
-    return HOT_THEMES_2026.map((t) => t.title);
-  }, []);
-
   const sectorOptions = useMemo(() => {
     const s = new Set<string>();
     composition.forEach((r) => {
@@ -291,7 +217,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const filtered = useMemo(() => {
     return composition.filter((r) => {
       const d = live[r.ticker];
-      if (filterTheme && r.themeTitle !== filterTheme) return false;
       if (filterSignal && d?.tracker_1h?.signal !== filterSignal) return false;
       if (filterSector && (d?.sector || r.sector) !== filterSector) return false;
       if (filterPattern && d?.tracker_1h?.candle_pattern !== filterPattern) return false;
@@ -299,12 +224,11 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
         const q = searchQuery.toUpperCase();
         const sector = d?.sector || r.sector || "";
         const company = d?.company || r.company || "";
-        const theme = r.themeTitle || "";
-        if (!r.ticker.includes(q) && !company.toUpperCase().includes(q) && !sector.toUpperCase().includes(q) && !theme.toUpperCase().includes(q)) return false;
+        if (!r.ticker.includes(q) && !company.toUpperCase().includes(q) && !sector.toUpperCase().includes(q)) return false;
       }
       return true;
     });
-  }, [composition, live, filterTheme, filterSignal, filterSector, filterPattern, searchQuery]);
+  }, [composition, live, filterSignal, filterSector, filterPattern, searchQuery]);
 
   const toggleSort = (key: string) => {
     if (sortBy === key) setSortDir((d) => (d === "desc" ? "asc" : "desc"));
@@ -322,6 +246,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
         case "chg1d": va = da?.tracker_1h?.change_pct_1d ?? 0; vb = db?.tracker_1h?.change_pct_1d ?? 0; break;
         case "rsi": va = da?.tracker_1h?.rsi ?? 0; vb = db?.tracker_1h?.rsi ?? 0; break;
         case "signal": va = SIGNAL_RANK[da?.tracker_1h?.signal ?? ""] ?? 0; vb = SIGNAL_RANK[db?.tracker_1h?.signal ?? ""] ?? 0; break;
+        case "dateAdded": va = a.dateAdded ? new Date(a.dateAdded).getTime() : 0; vb = b.dateAdded ? new Date(b.dateAdded).getTime() : 0; break;
         default: return 0;
       }
       return sortDir === "desc" ? vb - va : va - vb;
@@ -332,7 +257,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
   const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
-
 
   if (!mounted || loading) {
     return (
@@ -358,10 +282,9 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
-              {locale === "tr" ? "2026 Trend Hisseleri" : locale === "pt" ? "Ações em Tendência 2026" : "2026 Trend Stocks"}
+              {t.title}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <span>{HOT_THEMES_2026.length} {locale === "tr" ? "tema" : locale === "pt" ? "temas" : "themes"}</span>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
@@ -400,11 +323,6 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
             style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          <select value={filterTheme} onChange={(e) => setFilterTheme(e.target.value)}
-            style={{ background: "#161b22", border: `1px solid ${filterTheme ? ACCENT : "#30363d"}`, color: filterTheme ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
-            <option value="">{locale === "tr" ? "TÜM TEMALAR" : locale === "pt" ? "TODOS OS TEMAS" : "ALL THEMES"}</option>
-            {themeOptions.map((t) => <option key={t} value={t}>{themeLabel(t, locale)}</option>)}
-          </select>
           {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
@@ -432,7 +350,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{locale === "tr" ? "Trend hissesi bulunamadı" : locale === "pt" ? "Nenhuma ação de tendência encontrada" : "No trend stocks found"}</div>}
+      {!loading && !error && composition.length === 0 && <div className="text-center py-16 text-white/40 text-sm">{t.empty}</div>}
 
       {/* TABLE */}
       {activeTab === "table" && composition.length > 0 && (
@@ -442,7 +360,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: "TEMA", key: null, align: "left" },
+                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SEKTÖR", key: null, align: "left" },
                   { label: "FİYAT", key: "price", align: "right" },
                   { label: "Δ% 1G", key: "chg1d", align: "right" },
@@ -458,7 +376,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   { label: "DETAY", key: null, align: "right" },
                 ] : locale === "pt" ? [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: "TEMA", key: null, align: "left" },
+                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SETOR", key: null, align: "left" },
                   { label: "PREÇO", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -474,7 +392,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   { label: "DETALHE", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: "THEME", key: null, align: "left" },
+                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
                   { label: "PRICE", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -514,7 +432,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
 
                 if (rowLocked) {
                   return (
-                    <Fragment key={`${r.ticker}-${r.themeTitle}`}>
+                    <Fragment key={r.ticker}>
                       <tr onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
                         <td style={{ padding: "6px 8px" }}>
                           <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
@@ -522,7 +440,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         </td>
-                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={themeLabel(r.themeTitle, locale)}>{themeLabel(r.themeTitle, locale).slice(0, 12)}</td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.dateAdded, locale)}</td>
                         <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
@@ -555,14 +473,14 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                 }
 
                 return (
-                  <Fragment key={`${r.ticker}-${r.themeTitle}`}>
+                  <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
                         <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Analiz ↗" : locale === "pt" ? "Analisar ↗" : "Analyze ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={themeLabel(r.themeTitle, locale)}>{themeLabel(r.themeTitle, locale).slice(0, 12)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.dateAdded, locale)}</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
@@ -631,7 +549,7 @@ export default function TrendTracker({ locale }: { locale: Locale }) {
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   const hmLocked = isFreeTrial && idx > 0;
                   return (
-                    <tr key={`${r.ticker}-${r.themeTitle}`} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
+                    <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>
                         {hmLocked ? (
                           <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>

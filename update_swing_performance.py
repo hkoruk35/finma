@@ -42,10 +42,12 @@ def log(msg):
     with open(log_file, 'a', encoding='utf-8') as f:
         f.write(f"[{timestamp}] {msg}\n")
 
-MAX_HOLD_DAYS = 90      # işlemler en geç 90 günde kapanır
-SL_WINDOW_DAYS = 60     # EMA50 / -%10 zarar ve +%5 kazanç kuralı ilk 60 gün için geçerli
+# v3.1: Bekleme süresi 60-90 günden 30 güne indirildi (oranlı küçültme,
+# eski 60/90 = 2:3 oranı korunuyor: 20/30 = 2:3).
+MAX_HOLD_DAYS = 30      # işlemler en geç 30 günde kapanır
+SL_WINDOW_DAYS = 20     # EMA50 / -%10 zarar ve +%5 kazanç kuralı ilk 20 gün için geçerli
 MIN_SL_PCT = -10.0      # minimum stop-loss oranı: en az %10
-WIN_PCT_60D = 5.0       # 60 gün içinde +%5 geçen işlem Kazanç sayılır
+WIN_PCT_60D = 5.0       # SL_WINDOW_DAYS içinde +%5 geçen işlem Kazanç sayılır (isim korunuyor, davranış SL_WINDOW_DAYS'e bağlı)
 
 def simulate_trade(record, ticker_df):
     """Bir kaydı giriş tarihinden bugüne (veya çıkışa) kadar gün gün simüle eder.
@@ -227,9 +229,21 @@ def update_performance():
                 
                 for p in new_picks:
                     ticker = p['ticker']
+                    # v3.1: swing_all_picks.json artık hem PENDING hem ENTERED swing
+                    # adaylarını içeriyor (bkz. swing117_boga.py candidate_pool.json).
+                    # Yeni bir trade SADECE 15m giriş bölgesi gerçekten yakalanmış
+                    # (entry_status == "ENTERED") pickler için açılır — "buy zone
+                    # yakalamış hisseler ertesi gün performans sayfasına geçer" kuralı.
+                    if p.get('entry_status') != 'ENTERED':
+                        continue
                     if ticker not in recent_tickers:
-                        # Add as new PENDING trade
-                        entry = p.get('current_price', 0)
+                        # Add as new PENDING trade — giriş fiyatı olarak yakalanan
+                        # entry_zone'un orta noktası kullanılır (varsa), yoksa current_price.
+                        entry_zone = p.get('entry_zone') or {}
+                        if entry_zone.get('low') and entry_zone.get('high'):
+                            entry = (float(entry_zone['low']) + float(entry_zone['high'])) / 2
+                        else:
+                            entry = p.get('current_price', 0)
                         if entry <= 0: continue
 
                         tracker = p.get('tracker_logic', {})

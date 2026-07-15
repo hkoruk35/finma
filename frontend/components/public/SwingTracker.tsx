@@ -35,6 +35,42 @@ interface SwingRow {
   change_pct: number | null;
   rsi: number | null;
   signal: string | null;
+  date_added: string | null;
+  entry_status: "PENDING" | "ENTERED" | null;
+  entry_zone: { low: number; high: number } | null;
+}
+
+function formatDateAdded(dateStr: string | null, locale: Locale): string {
+  if (!dateStr) return "—";
+  try {
+    const d = new Date(dateStr + "T12:00:00Z");
+    const tag = locale === "tr" ? "tr-TR" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : locale === "pt" ? "pt-BR" : "en-US";
+    return d.toLocaleDateString(tag, { month: "2-digit", day: "2-digit" });
+  } catch {
+    return dateStr;
+  }
+}
+
+function EntryStatusBadge({ status, zone, locale }: { status: "PENDING" | "ENTERED" | null; zone: { low: number; high: number } | null; locale: Locale }) {
+  const entered = status === "ENTERED";
+  const label = entered
+    ? (locale === "tr" ? "Giriş Zone" : locale === "es" ? "Zona Entrada" : locale === "fr" ? "Zone Entrée" : locale === "pt" ? "Zona Entrada" : "Entry Zone")
+    : (locale === "tr" ? "Bekle" : locale === "es" ? "Espera" : locale === "fr" ? "Attendre" : locale === "pt" ? "Aguarde" : "Wait");
+  const title = entered && zone ? `${zone.low.toFixed(2)} - ${zone.high.toFixed(2)}` : undefined;
+  return (
+    <span
+      title={title}
+      style={{
+        display: "inline-block", fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
+        color: entered ? "#3fb950" : "#8b949e",
+        background: entered ? "#3fb95022" : "#8b949e18",
+        border: `1px solid ${entered ? "#3fb95055" : "#8b949e33"}`,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {label}
+    </span>
+  );
 }
 
 interface LiveData {
@@ -146,6 +182,9 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         change_pct: p.change_pct || null,
         rsi: p.rsi || null,
         signal: p.signal || null,
+        date_added: p.date_added || null,
+        entry_status: p.entry_status || "PENDING",
+        entry_zone: p.entry_zone || null,
       }));
 
       setComposition(rows);
@@ -363,6 +402,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
                   { label: "TICKER", key: null, align: "left" },
+                  { label: "EKLENME", key: null, align: "left" },
+                  { label: "GİRİŞ", key: null, align: "left" },
                   { label: "SEKTÖR", key: null, align: "left" },
                   { label: "FİYAT", key: "price", align: "right" },
                   { label: "Δ% 1G", key: "chg1d", align: "right" },
@@ -378,6 +419,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "DETAY", key: null, align: "right" },
                 ] : locale === "pt" ? [
                   { label: "TICKER", key: null, align: "left" },
+                  { label: "ADICIONADO", key: null, align: "left" },
+                  { label: "ENTRADA", key: null, align: "left" },
                   { label: "SETOR", key: null, align: "left" },
                   { label: "PREÇO", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -393,6 +436,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                   { label: "DETALHE", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
+                  { label: "DATE ADDED", key: null, align: "left" },
+                  { label: "ENTRY", key: null, align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
                   { label: "PRICE", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -440,6 +485,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                             Premium
                           </span>
                         </td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
+                        <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
                         <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
@@ -479,6 +526,8 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
+                      <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 14)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
@@ -510,7 +559,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={14} style={{ padding: 0 }}>
+                        <td colSpan={16} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
                       </tr>

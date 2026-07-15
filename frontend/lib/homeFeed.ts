@@ -4,7 +4,7 @@
  * Everything here goes through fetch() with an hourly revalidate so the page
  * can be served as ISR and update on the hour during market days.
  */
-import { getSwingPicksBackfilled, getMasterData, type StockQuickView } from "./data";
+import { getSwingPicksBackfilled, getMasterData, getWatchlistPicks, getSwingPerformance, type StockQuickView } from "./data";
 import { HOT_THEMES_2026 } from "./hotThemes2026";
 import { selectHeatMapTickers } from "./sectorHeatMap";
 
@@ -65,13 +65,18 @@ async function supabaseSelect(table: string, query: string): Promise<any[]> {
 }
 
 export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
-  const swingData = await getSwingPicksBackfilled(limit);
+  // Home sayfası 1. sütun: en yüksek BOGA skoruna sahip ilk 5 swing adayı.
+  const swingData = await getSwingPicksBackfilled(20);
   const picks: any[] = swingData?.picks ?? [];
   if (picks.length === 0) return [];
 
-  const live = await fetchLiveQuotes(picks.map((p) => p.ticker));
+  const topByScore = [...picks]
+    .sort((a, b) => (b.score ?? b.boga_score ?? 0) - (a.score ?? a.boga_score ?? 0))
+    .slice(0, limit);
 
-  return picks
+  const live = await fetchLiveQuotes(topByScore.map((p) => p.ticker));
+
+  return topByScore
     .map((p) => {
       const l = live[p.ticker];
       return {
@@ -81,12 +86,8 @@ export async function getTopSwingByVolume(limit = 5): Promise<HomeStock[]> {
         price: l?.price?.current ?? p.current_price ?? 0,
         change_pct: l?.price?.change_pct ?? p.change_1d ?? 0,
         sparkline: l?.recent_closes ?? [],
-        volume: l?.price?.volume ?? 0,
       };
-    })
-    .sort((a, b) => b.volume - a.volume)
-    .slice(0, limit)
-    .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
+    });
 }
 
 export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
@@ -113,6 +114,61 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit)
     .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
+}
+
+export async function getTopWatchlistByVolume(limit = 5): Promise<HomeStock[]> {
+  // Home sayfası 2. sütun: en yüksek BOGA skoruna sahip ilk 5 watchlist adayı.
+  const watchlistData = await getWatchlistPicks();
+  const picks: any[] = watchlistData?.picks ?? [];
+  if (picks.length === 0) return [];
+
+  const topByScore = [...picks]
+    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
+    .slice(0, limit);
+
+  const live = await fetchLiveQuotes(topByScore.map((p) => p.ticker));
+
+  return topByScore.map((p) => {
+    const l = live[p.ticker];
+    return {
+      ticker: p.ticker,
+      sector: l?.sector || p.sector || "—",
+      status: normalizeStatus(l?.tracker_1h?.ema_status),
+      price: l?.price?.current ?? 0,
+      change_pct: l?.price?.change_pct ?? 0,
+      sparkline: l?.recent_closes ?? [],
+    };
+  });
+}
+
+// Home sayfası 3. sütun (Performance): buy zone yakalayıp swing_performance.json'a
+// geçmiş (entry_status=ENTERED → yeni PENDING trade) açık pozisyonlar arasından
+// en yüksek güncel kâr yüzdesine (return_pct) sahip ilk 5. Stock.sector alanı
+// gün sayısı etiketine ("4g"/"4d"), Stock.change_pct alanı güncel toplam getiri
+// yüzdesine map edilir — HomeSimpleCard aynen yeniden kullanılır, mobil tasarım
+// hiç değişmez.
+export async function getTopPerformanceEntries(limit = 5, locale: string = "en"): Promise<HomeStock[]> {
+  const perf = await getSwingPerformance();
+  const history: any[] = perf?.history ?? [];
+  const open = history
+    .filter((t) => t?.ticker && t?.result === "PENDING" && !t?.is_duplicate)
+    .sort((a, b) => (b?.return_pct ?? 0) - (a?.return_pct ?? 0))
+    .slice(0, limit);
+
+  const dayLabel = (days: number) => {
+    if (locale === "tr") return `${days}g`;
+    if (locale === "es" || locale === "fr" || locale === "pt") return `${days}j`;
+    return `${days}d`;
+  };
+
+  return open.map((t) => ({
+    ticker: t.ticker,
+    sector: dayLabel(t.days ?? 0),
+    status: (t.return_pct ?? 0) >= 0 ? "BULLISH" : "BEARISH",
+    price: t.entry ?? 0,
+    change_pct: t.return_pct ?? 0,
+    sparkline: [],
+  }));
 }
 
 export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {

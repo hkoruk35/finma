@@ -43,7 +43,7 @@ export default async function EsSwingPerformancePage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
-          <Link href="/global/es/top100" className="hover:text-[#3b82f6] transition-colors">Rastreador Top 100</Link>
+          <Link href="/global/es/watchlist" className="hover:text-[#3b82f6] transition-colors">Watchlist</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Rendimiento Swing — Últimos 10 Días</span>
         </nav>
