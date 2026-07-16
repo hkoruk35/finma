@@ -11,7 +11,7 @@ import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "BOGA AI — Blue One Global Analysis",
+  title: "BOGASTOCK — Blue One Global Analysis",
   description: "Seleção e análise de ações com IA para os mercados dos EUA. Rastreador Top 100 com sinais EMA/RSI. Candidatos de Swing Trade. Atualizações a cada hora.",
   alternates: { canonical: "https://bogastock.com/global/pt" },
 };
@@ -36,9 +36,9 @@ export default async function PtLandingPage() {
           </div>
 
           <div className="flex items-center justify-center gap-4 mb-6">
-            <Image src="/finmawave.png" alt="BOGA AI" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
+            <Image src="/finmawave.png" alt="BOGASTOCK" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              BOGA <span className="text-[#3b82f6]">AI</span>
+              BOGA<span className="text-[#3b82f6]">STOCK</span>
             </h1>
           </div>
 
