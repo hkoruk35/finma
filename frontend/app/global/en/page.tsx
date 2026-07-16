@@ -11,8 +11,8 @@ import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "BOGA AI — Blue One Global Analysis",
-  description: "AI-powered real-time stock analysis. Top 100 Tracker with EMA/RSI signals. Swing Trade Candidates. Hourly updates.",
+  title: "BOGASTOCK — Blue One Global Analysis",
+  description: "AI-powered real-time stock analysis. Swing Trade Candidates with EMA/RSI signals. Hourly updates.",
   alternates: { canonical: "https://bogastock.com/global/en" },
 };
 
@@ -36,9 +36,9 @@ export default async function EnLandingPage() {
           </div>
 
           <div className="flex items-center justify-center gap-4 mb-6">
-            <Image src="/finmawave.png" alt="BOGA AI" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
+            <Image src="/finmawave.png" alt="BOGASTOCK" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              BOGA <span className="text-[#3b82f6]">AI</span>
+              BOGA<span className="text-[#3b82f6]">STOCK</span>
             </h1>
           </div>
 
@@ -66,7 +66,7 @@ export default async function EnLandingPage() {
         {/* Features */}
         {features.length > 0 && (
           <section className="max-w-5xl mx-auto px-4 pb-20">
-            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">What you get with BOGA AI</h2>
+            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">What you get with BOGASTOCK</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {features.map((f) => {
                 const Icon = ICON_MAP[f.icon] ?? ICON_MAP["bolt"];
