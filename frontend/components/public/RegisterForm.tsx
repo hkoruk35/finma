@@ -70,10 +70,10 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
       <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-black text-white tracking-tighter mb-2">
-            BOGA <span className="text-[#3b82f6]">AI</span>
+            BOGA<span className="text-[#3b82f6]">STOCK</span>
           </h1>
-          <p className="text-white/50 text-sm font-medium">{t.title}</p>
-          <p className="text-white/30 text-xs mt-1">{t.subtitle}</p>
+          <p className="text-white/50 text-lg font-bold">{t.title}</p>
+          {t.subtitle && <p className="text-white/30 text-xs mt-1">{t.subtitle}</p>}
         </div>
 
         {needsConfirmation ? (
@@ -103,6 +103,13 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
                 required
                 disabled={loading}
               />
+              <p className="text-[10px] text-white/30 ml-1 mt-2">
+                {locale === "tr" ? "Sadece harf ve rakam. Boşluk veya @, !, ? gibi özel karakterler kullanılamaz." 
+                 : locale === "es" ? "Solo letras y números. Sin espacios ni caracteres especiales como @, !, ?."
+                 : locale === "fr" ? "Lettres et chiffres uniquement. Pas d'espaces ni de caractères spéciaux comme @, !, ?."
+                 : locale === "pt" ? "Apenas letras e números. Sem espaços ou caracteres especiais como @, !, ?."
+                 : "Only letters and numbers. No spaces or special characters like @, !, ?."}
+              </p>
             </div>
 
             <div>

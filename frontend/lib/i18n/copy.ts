@@ -4,7 +4,7 @@ export const copy = {
   en: {
     register: {
       title: "Create your account",
-      subtitle: "Free access to the BOGA AI Top 100 Tracker",
+      subtitle: "",
       usernameLabel: "USERNAME",
       usernamePlaceholder: "Your username",
       emailLabel: "EMAIL",
@@ -24,7 +24,7 @@ export const copy = {
     },
     login: {
       title: "Log in",
-      subtitle: "BOGA AI Member Access",
+      subtitle: "BOGASTOCK Member Access",
       emailLabel: "EMAIL",
       emailPlaceholder: "Your email address",
       passwordLabel: "PASSWORD",
@@ -229,8 +229,8 @@ export const copy = {
   },
   tr: {
     register: {
-      title: "Hesap oluştur",
-      subtitle: "BOGA AI Top 100 Tracker'a ücretsiz erişim",
+      title: "Hesap Oluştur",
+      subtitle: "",
       usernameLabel: "KULLANICI ADI",
       usernamePlaceholder: "Kullanıcı adınız",
       emailLabel: "E-POSTA",
@@ -456,7 +456,7 @@ export const copy = {
   es: {
     register: {
       title: "Crear tu cuenta",
-      subtitle: "Acceso gratuito al Rastreador Top 100 de BOGA AI",
+      subtitle: "",
       usernameLabel: "NOMBRE DE USUARIO",
       usernamePlaceholder: "Tu nombre de usuario",
       emailLabel: "CORREO ELECTRÓNICO",
@@ -476,7 +476,7 @@ export const copy = {
     },
     login: {
       title: "Iniciar sesión",
-      subtitle: "Acceso de Miembro BOGA AI",
+      subtitle: "Acceso de Miembro BOGASTOCK",
       emailLabel: "CORREO ELECTRÓNICO",
       emailPlaceholder: "Tu dirección de correo",
       passwordLabel: "CONTRASEÑA",
@@ -682,7 +682,7 @@ export const copy = {
   fr: {
     register: {
       title: "Créer votre compte",
-      subtitle: "Accès gratuit au Suivi Top 100 BOGA AI",
+      subtitle: "",
       usernameLabel: "NOM D'UTILISATEUR",
       usernamePlaceholder: "Votre nom d'utilisateur",
       emailLabel: "ADRESSE E-MAIL",
@@ -908,7 +908,7 @@ export const copy = {
   pt: {
     register: {
       title: "Crie sua conta",
-      subtitle: "Acesso gratuito ao Rastreador Top 100 da BOGA AI",
+      subtitle: "",
       usernameLabel: "NOME DE USUÁRIO",
       usernamePlaceholder: "Seu nome de usuário",
       emailLabel: "E-MAIL",
@@ -928,7 +928,7 @@ export const copy = {
     },
     login: {
       title: "Entrar",
-      subtitle: "Acesso de Membro BOGA AI",
+      subtitle: "Acesso de Membro BOGASTOCK",
       emailLabel: "E-MAIL",
       emailPlaceholder: "Seu endereço de e-mail",
       passwordLabel: "SENHA",
