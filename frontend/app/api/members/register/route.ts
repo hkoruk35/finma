@@ -126,7 +126,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, needsEmailConfirmation: true });
   }
 
-  const origin = req.nextUrl.origin;
   const session = await createPremiumCheckoutSession({
     customerId: stripeCustomer.id,
     memberId: data.user.id,
