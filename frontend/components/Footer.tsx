@@ -85,7 +85,7 @@ export default function Footer({
     <footer className="border-t border-[#1e2a3a] bg-[#0a0e17] mt-12">
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -106,20 +106,7 @@ export default function Footer({
             </p>
           </div>
 
-          {/* Platform */}
-          {!hidePlatform && (
-            <div>
-              <h4 className="text-sm font-semibold text-white mb-3">Platform</h4>
-              <div className="flex flex-col gap-2">
-                <Link href="/admin/trading/swing" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Top Swing Picks</Link>
-                <Link href="/admin/analytics/performance" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Performance</Link>
-                <Link href="/admin/analytics/terminal" className="text-xs text-[#3b82f6] hover:text-white transition-colors font-bold">Institutional Terminal</Link>
-                <Link href="/admin/education/academy" className="text-xs text-[#3b82f6] hover:text-white transition-colors">🎓 Academy</Link>
-                <Link href="/admin/archive" className="text-xs text-[#00d2ff] hover:text-white transition-colors">Archive</Link>
-                <Link href="/admin/portfolio/smart-tracker" className="text-xs text-[#10b981] hover:text-white transition-colors font-bold">🚀 Smart Tracker</Link>
-              </div>
-            </div>
-          )}
+
 
           {/* Resources */}
           <div>
