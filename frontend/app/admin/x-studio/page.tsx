@@ -101,6 +101,10 @@ export default function XStudioPage() {
   const [scheduleTime, setScheduleTime] = useState("09:30");
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
+  // Yeni Hızlı Çoklu Dil Paylaşımı İçin:
+  const [quickTicker, setQuickTicker] = useState("");
+  const [quickText, setQuickText] = useState("");
+
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
     if (res.ok) setPool((await res.json()).pool ?? []);
@@ -483,6 +487,93 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
+  const quickTranslateAndPublish = async () => {
+    if (!quickText.trim()) {
+      setError("Lütfen çevrilecek ana metni girin.");
+      return;
+    }
+    setBusy(true);
+    setError("Çeviri yapılıyor...");
+    
+    // 1. Çeviri İsteği
+    const res = await fetch("/api/admin/x/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        contentType: "translate", 
+        manualBaseText: quickText, 
+        ticker: quickTicker.toUpperCase().trim() || undefined 
+      }),
+    });
+    
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "Çeviri hatası");
+      setBusy(false);
+      return;
+    }
+    
+    const translatedTexts = data.texts as Record<Locale, string>;
+    const tMarket = data.market;
+    
+    setError("Çeviri başarılı, 5 dilde yayınlanıyor...");
+    
+    // 2. Paylaşım İsteği
+    const failed: string[] = [];
+    for (const loc of LOCALES) {
+      if (!translatedTexts[loc]) continue;
+      
+      const finalTxt = data.hashtags ? appendHashtagsWithinLimit(translatedTexts[loc], data.hashtags, MANUAL_POST_LIMIT) : translatedTexts[loc];
+      
+      let cardParams = undefined;
+      if (quickTicker.trim()) {
+        cardParams = {
+          kind: "stock" as const,
+          ticker: quickTicker.toUpperCase().trim(),
+          theme: localizedThemeTitle(null, loc),
+          changePct: tMarket?.changePct,
+          rvol: tMarket?.rvol,
+          opportunity: tMarket?.opportunity,
+          opportunityLabel: tMarket?.opportunityLabels?.[loc],
+          trendLabel: tMarket?.trendLabels?.[loc],
+          bars: tMarket?.bars ?? [],
+          headline: translatedTexts[loc],
+          locale: loc,
+        };
+      } else {
+        cardParams = {
+          kind: "promo" as const,
+          headline: translatedTexts[loc],
+          subheadline: "bogastock.com",
+          locale: loc,
+        };
+      }
+
+      const postRes = await fetch("/api/admin/x/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale: loc, contentText: finalTxt, cardParams }),
+      });
+
+      if (!postRes.ok) {
+        const postData = await postRes.json().catch(() => ({}));
+        failed.push(`${loc.toUpperCase()}: ${postData.error || "hata"}`);
+      }
+    }
+    
+    setBusy(false);
+    if (failed.length) {
+      setError(`Bazı diller paylaşılamadı — ${failed.join(" | ")}`);
+    } else {
+      setError(""); // clear error on full success
+      setQuickText("");
+      setQuickTicker("");
+      alert("Başarıyla 5 dilde çevrildi ve paylaşıldı!");
+    }
+    
+    await loadPosts();
+  };
+
   return (
     <div style={{ padding: 24, fontFamily: "monospace", color: "#e6edf3" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
@@ -490,7 +581,43 @@ export default function XStudioPage() {
         <Link href="/admin/x-studio/queue" style={{ color: ACCENT, fontSize: 12 }}>Kuyruk Listesi (Manuel Paylaş) →</Link>
       </div>
 
-      {error && <div style={{ color: "#f85149", marginBottom: 12, fontSize: 12 }}>{error}</div>}
+      {error && <div style={{ color: "#f85149", marginBottom: 12, fontSize: 12, fontWeight: "bold" }}>{error}</div>}
+
+      {/* YENİ: HIZLI ÇOKLU DİL PAYLAŞIMI */}
+      <div style={{ marginBottom: 24, padding: 16, border: `2px dashed ${ACCENT}`, borderRadius: 8, background: "#0d1117" }}>
+        <h2 style={{ fontSize: 16, color: ACCENT, marginBottom: 12, fontWeight: "bold" }}>⚡ Hızlı Manuel 5-Dil Paylaşımı</h2>
+        <div style={{ display: "flex", gap: 12, alignItems: "flex-start", flexWrap: "wrap" }}>
+          <div style={{ width: 120 }}>
+            <label style={{ display: "block", fontSize: 11, marginBottom: 4, opacity: 0.8 }}>Ticker (Opsiyonel):</label>
+            <input
+              type="text"
+              placeholder="Örn: AAPL"
+              value={quickTicker}
+              onChange={(e) => setQuickTicker(e.target.value)}
+              style={{ ...inputStyle, width: "100%", textTransform: "uppercase" }}
+            />
+          </div>
+          <div style={{ flex: 1, minWidth: 300 }}>
+            <label style={{ display: "block", fontSize: 11, marginBottom: 4, opacity: 0.8 }}>Ana Metin (Türkçe yazabilirsiniz, AI 5 dile çevirir):</label>
+            <textarea
+              placeholder="Örn: $AAPL bilanço sonrası harika görünüyor, hacim artışı pozitif sinyal."
+              value={quickText}
+              onChange={(e) => setQuickText(e.target.value)}
+              style={{ ...inputStyle, width: "100%", height: 60, resize: "vertical" }}
+            />
+          </div>
+          <button
+            style={{ ...btnStyle, background: "#8b5cf6", height: 60, marginTop: 20 }}
+            disabled={busy || !quickText.trim()}
+            onClick={quickTranslateAndPublish}
+          >
+            Çevir & 5 Dilde Yayınla
+          </button>
+        </div>
+        <p style={{ fontSize: 11, color: "#8b949e", marginTop: 8, marginBottom: 0 }}>
+          Not: Metindeki $AAPL gibi cashtag'ler bozulmadan çevrilir. Ticker girerseniz hisse kartı, girmezseniz promo kartı ile birlikte tüm web dillerine ve X'e yayınlanır.
+        </p>
+      </div>
 
       <div style={{ marginBottom: 16, display: "flex", gap: 8, alignItems: "flex-start" }}>
         <div style={{ flex: 1 }}>

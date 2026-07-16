@@ -21,6 +21,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ texts, hashtags: buildPromoHashtags() });
     }
 
+    if (body.contentType === "translate" && body.manualBaseText) {
+      const texts = await generateLocalizedTexts({
+        contentType: "translate",
+        manualBaseText: body.manualBaseText,
+      });
+      // If a ticker was provided, return stock hashtags, otherwise standard promo hashtags.
+      const hashtags = body.ticker ? buildStockHashtags(body.ticker, undefined, undefined) : buildPromoHashtags();
+      
+      let market = null;
+      if (body.ticker) {
+        market = await fetchTickerMarketData(body.ticker);
+      }
+
+      return NextResponse.json({
+        texts,
+        hashtags,
+        market: market
+          ? {
+              bars: market.bars,
+              changePct: market.changePct,
+              rvol: market.rvol,
+              opportunity: market.opportunity,
+              trendLabels: Object.fromEntries(LOCALES.map((l) => [l, trendLabel(market.trend, l)])),
+              opportunityLabels: Object.fromEntries(LOCALES.map((l) => [l, opportunityLabel(l)])),
+            }
+          : null,
+      });
+    }
+
     const market = await fetchTickerMarketData(body.ticker);
 
     const texts = await generateLocalizedTexts({

@@ -35,18 +35,18 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
       {posts.map((post) => (
         <article
           key={post.id}
-          className="glass-card p-6 flex flex-col gap-2"
+          className="glass-card p-6 md:p-8 flex flex-col gap-4 hover:bg-white/[0.02] transition-colors"
           itemScope
           itemType="https://schema.org/SocialMediaPosting"
         >
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest">
-            <span className="text-[#3b82f6]">
+          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-b border-white/5 pb-3">
+            <span className="text-[#3b82f6] flex items-center gap-2">
               {post.ticker ?? "BOGASTOCK"}
-              {post.sector ? <span className="text-slate-500 normal-case font-normal ml-2">{post.sector}</span> : null}
+              {post.sector ? <span className="text-slate-500 normal-case font-normal border-l border-slate-700 pl-2">{post.sector}</span> : null}
             </span>
-            <span className="text-slate-500">{post.locale.toUpperCase()}</span>
+            <span className="bg-[#3b82f6]/10 text-[#3b82f6] px-2 py-1 rounded-sm text-[10px]">{post.locale.toUpperCase()}</span>
           </div>
-          <p className="text-white leading-relaxed" itemProp="text">
+          <p className="text-white text-base md:text-lg leading-relaxed md:leading-loose font-medium" itemProp="text">
             {post.content_text}
           </p>
           {post.image_url && (
@@ -55,21 +55,21 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
               src={post.image_url}
               alt={`${post.ticker ?? "BOGASTOCK"} chart`}
               loading="lazy"
-              className="w-full rounded-lg border border-white/10 mt-1"
+              className="w-full rounded-xl border border-white/10 mt-2 hover:border-white/20 transition-colors shadow-lg"
               itemProp="image"
             />
           )}
-          <div className="flex items-center justify-between text-xs text-slate-500 mt-2">
+          <div className="flex items-center justify-between text-xs text-slate-500 mt-4 pt-3 border-t border-white/5">
             <time dateTime={post.posted_at} itemProp="datePublished">
               {formatDate(post.posted_at, locale)}
             </time>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {post.tweet_id && (
                 <a
                   href={`https://x.com/bogastock/status/${post.tweet_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#3b82f6] hover:text-white transition-colors font-bold"
+                  className="text-[#3b82f6] hover:text-[#58a6ff] transition-colors font-bold"
                 >
                   {t.viewOnX}
                 </a>

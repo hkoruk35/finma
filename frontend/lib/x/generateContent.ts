@@ -41,8 +41,13 @@ export interface GenerateListInput {
   pageUrl: string; // where the "View all" would point (locale-specific)
 }
 
+export interface GenerateTranslationInput {
+  contentType: "translate";
+  manualBaseText: string;
+}
+
 export async function generateLocalizedTexts(
-  input: GenerateStockInput | GeneratePromoInput | GenerateListInput
+  input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput
 ): Promise<Record<Locale, string>> {
   if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error("ANTHROPIC_API_KEY not configured");
@@ -55,11 +60,23 @@ export async function generateLocalizedTexts(
     return `Write a short, engaging one-sentence roundup (max 220 chars) of today's "${input.listTitle}" list on BogaStock, an AI stock analysis platform. Today's top movers: ${tickerLine}. Mention 2-3 of the standout tickers by name and tie them to the list's theme (e.g. swing-trade candidates, trending stocks, most-active names, or sector rotation, depending on what "${input.listTitle}" implies). Do not invent numbers beyond what's given. Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
   };
 
+  const translatePrompt = (input: GenerateTranslationInput) => {
+    return `Translate the following text into 5 languages naturally. 
+CRITICAL RULE: NEVER translate, alter, or remove cashtags (e.g. $AAPL, $TSLA) or any financial tickers. They MUST remain exactly as they appear in the original text.
+
+Text to translate:
+"${input.manualBaseText}"
+
+Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code to the translated text.`;
+  };
+
   const prompt =
     input.contentType === "promo"
       ? `Write a short, exciting promotional sentence (max 220 chars) inviting people to subscribe to BogaStock for AI-powered stock analysis, mini charts and trend tracking. Return a JSON object with keys: ${LOCALES.join(", ")}.`
       : input.contentType === "list"
       ? listPrompt(input)
+      : input.contentType === "translate"
+      ? translatePrompt(input)
       : `Write a short, engaging one-sentence mini analysis (max 220 chars) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${input.rvol.toFixed(1)}x average` : "N/A"}.
 
 Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. above-average volume confirming the move, or thin volume suggesting caution) rather than just repeating the trend. ${
