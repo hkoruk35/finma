@@ -17,6 +17,7 @@ type Member = {
   subscription_status: string | null;
   current_period_end: string | null;
   cancel_at_period_end: boolean;
+  region?: string | null;
 };
 
 type Tab = "profile" | "password" | "subscription" | "language";
@@ -112,7 +113,7 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
   return (
     <div className={`${isGlobal ? "flex-1" : "min-h-screen"} bg-[#010409] font-sans px-4 py-12`}>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-black text-white tracking-tighter mb-8 text-center">{t.title}</h1>
+        <h1 className="text-3xl font-bold text-white tracking-tighter mb-8 text-center">{t.title}</h1>
 
         {message && (
           <div
@@ -183,7 +184,7 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
           </Link>
           <button
             onClick={handleLogout}
-            className="w-full py-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-red-500/20 transition-all"
+            className="w-full py-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-red-500/20 transition-all"
           >
             {t.logout}
           </button>
@@ -207,6 +208,7 @@ function ProfileTab({
   onError: (msg: string) => void;
 }) {
   const [username, setUsername] = useState(member.username);
+  const [region, setRegion] = useState(member.region || "");
   const [saving, setSaving] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -220,7 +222,7 @@ function ProfileTab({
       const res = await fetch("/api/members/update-profile", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ username, region }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || t.genericError);
@@ -234,7 +236,7 @@ function ProfileTab({
 
   return (
     <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-black text-white">{t.updateProfileTitle}</h2>
+      <h2 className="text-xl font-bold text-white">{t.updateProfileTitle}</h2>
 
       <div>
         <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{t.usernameLabel}</label>
@@ -251,10 +253,32 @@ function ProfileTab({
         <input type="email" value={member.email} disabled className="w-full px-4 py-3 bg-[#0a0e17] border border-white/10 text-white/40 rounded-xl cursor-not-allowed" />
       </div>
 
+      <div>
+        <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{locale === "tr" ? "ÜLKE" : locale === "es" ? "PAÍS" : locale === "fr" ? "PAYS" : locale === "pt" ? "PAÍS" : "COUNTRY"}</label>
+        <select
+          value={region}
+          onChange={(e) => setRegion(e.target.value)}
+          className="w-full px-4 py-3 bg-[#161b22] border border-white/10 text-white rounded-xl focus:outline-none focus:border-[#3b82f6] transition-all appearance-none"
+        >
+          <option value="" disabled>{locale === "tr" ? "Seçiniz" : "Select"}</option>
+          <option value="US">United States</option>
+          <option value="TR">Türkiye</option>
+          <option value="UK">United Kingdom</option>
+          <option value="DE">Germany</option>
+          <option value="FR">France</option>
+          <option value="ES">Spain</option>
+          <option value="BR">Brazil</option>
+          <option value="PT">Portugal</option>
+          <option value="CA">Canada</option>
+          <option value="AU">Australia</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+
       <button
         type="submit"
         disabled={saving}
-        className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+        className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
       >
         {saving ? t.savingProfile : t.saveProfile}
       </button>
@@ -308,7 +332,7 @@ function PasswordTab({
 
   return (
     <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-black text-white">{t.changePasswordTitle}</h2>
+      <h2 className="text-xl font-bold text-white">{t.changePasswordTitle}</h2>
 
       <div>
         <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{t.newPasswordLabel}</label>
@@ -335,7 +359,7 @@ function PasswordTab({
       <button
         type="submit"
         disabled={saving}
-        className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+        className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
       >
         {saving ? t.updatingPassword : t.updatePassword}
       </button>
@@ -375,7 +399,7 @@ function TrialCountdownBadge({ trialEndsAt, locale }: { trialEndsAt: string; loc
       </div>
       <div className="text-center sm:text-left">
         <p className="text-[11px] text-[#f59e0b]/70 font-bold uppercase tracking-widest mb-1">{label}</p>
-        <p className="font-mono font-black text-[#f59e0b] text-2xl tracking-wider">{countdownStr}</p>
+        <p className="font-mono font-bold text-[#f59e0b] text-2xl tracking-wider">{countdownStr}</p>
       </div>
     </div>
   );
@@ -528,7 +552,7 @@ function SubscriptionTab({
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-black text-white">{t.subscriptionTitle}</h2>
+      <h2 className="text-xl font-bold text-white">{t.subscriptionTitle}</h2>
 
       {/* Live countdown for trial users (legacy or Stripe trial) */}
       {isTrialActive && member.trial_ends_at && (
@@ -563,7 +587,7 @@ function SubscriptionTab({
       {!isAdmin && status === "pending" && (
         <>
           <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
-            <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
+            <div className="text-[#3b82f6] font-bold text-xl tracking-tight mb-1">
               {L(locale, "FIRST 3 MONTHS ONLY $9", "İLK 3 AY SADECE $9", "PRIMEROS 3 MESES SOLO $9", "PREMIERS 3 MOIS À 9$ SEULEMENT", "PRIMEIROS 3 MESES POR APENAS $9")}
             </div>
             <div className="text-xs text-slate-500">
@@ -581,7 +605,7 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
           >
             {L(locale, "Complete Payment", "Ödemeyi Tamamla", "Completar Pago", "Finaliser le Paiement", "Concluir Pagamento")}
           </button>
@@ -592,7 +616,7 @@ function SubscriptionTab({
       {isLegacyFreeTrial && (
         <>
           <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
-            <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
+            <div className="text-[#3b82f6] font-bold text-xl tracking-tight mb-1">
               {L(locale, "FIRST 3 MONTHS ONLY $9", "İLK 3 AY SADECE $9", "PRIMEROS 3 MESES SOLO $9", "PREMIERS 3 MOIS À 9$ SEULEMENT", "PRIMEIROS 3 MESES POR APENAS $9")}
             </div>
             <div className="text-xs text-slate-500">
@@ -603,7 +627,7 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
           >
             {t.upgradeButton}
           </button>
@@ -630,7 +654,7 @@ function SubscriptionTab({
               <button
                 onClick={handleCancel}
                 disabled={busy}
-                className="w-full py-3 bg-red-500/10 border border-red-500/20 text-red-400 font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-red-500/20 transition-all disabled:opacity-50"
+                className="w-full py-3 bg-red-500/10 border border-red-500/20 text-red-400 font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-red-500/20 transition-all disabled:opacity-50"
               >
                 {L(locale, "Cancel Membership", "Üyeliği İptal Et", "Cancelar Membresía", "Annuler l'Abonnement", "Cancelar Assinatura")}
               </button>
@@ -650,7 +674,7 @@ function SubscriptionTab({
               <button
                 onClick={handleReactivate}
                 disabled={busy}
-                className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+                className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
               >
                 {L(locale, "Resume Membership", "Üyeliği Devam Ettir", "Reanudar Membresía", "Reprendre l'Abonnement", "Retomar Assinatura")}
               </button>
@@ -674,7 +698,7 @@ function SubscriptionTab({
           </div>
           <a
             href="mailto:support@bogastock.com"
-            className="block w-full py-3 text-center bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all"
+            className="block w-full py-3 text-center bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all"
           >
             {L(locale, "Contact Support", "Destek ile İletişime Geç", "Contactar Soporte", "Contacter le Support", "Contatar Suporte")}
           </a>
@@ -698,7 +722,7 @@ function SubscriptionTab({
           <button
             onClick={startCheckout}
             disabled={busy}
-            className="w-full py-3 bg-[#3b82f6] text-white font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+            className="w-full py-3 bg-[#3b82f6] text-white font-bold uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
           >
             {L(locale, "Resubscribe", "Yeniden Abone Ol", "Volver a Suscribirse", "Se Réabonner", "Assinar Novamente")}
           </button>
@@ -745,7 +769,7 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-black text-white">{t.languageTitle}</h2>
+      <h2 className="text-xl font-bold text-white">{t.languageTitle}</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
@@ -765,7 +789,7 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
                     : "bg-[#161b22]/50 border-white/5 text-white/20 cursor-not-allowed"
               }`}
             >
-              <span className="font-black tracking-wider">{lang}</span>
+              <span className="font-bold tracking-wider">{lang}</span>
               {isActive && (
                 <svg className="w-5 h-5 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />

@@ -14,13 +14,28 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [loggingOut, setLoggingOut] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
+  const [member, setMember] = useState<any>(null);
 
   useEffect(() => {
     fetch("/api/members/me")
-      .then(res => setIsLoggedIn(res.ok))
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then(data => {
+        setIsLoggedIn(true);
+        setMember(data.member);
+        if (data.member?.subscription_status === 'pending') {
+          const isAccountPage = pathname?.includes('/account') || pathname?.includes('/hesabim');
+          if (!isAccountPage) {
+            const accountHref = locale === 'tr' ? '/global/tr/hesabim' : locale === 'es' ? '/global/es/account' : locale === 'fr' ? '/global/fr/account' : locale === 'pt' ? '/global/pt/account' : '/global/en/account';
+            window.location.href = accountHref + '?tab=subscription';
+          }
+        }
+      })
       .catch(() => setIsLoggedIn(false))
       .finally(() => setAuthChecked(true));
-  }, []);
+  }, [pathname, locale]);
 
   const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/en/home";
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";

@@ -12,7 +12,7 @@ export async function GET() {
   const { data: member, error } = await supabase
     .from("members")
     .select(
-      "username, email, trial_ends_at, plan, last_login_at, created_at, subscription_status, current_period_end, cancel_at_period_end"
+      "username, email, trial_ends_at, plan, last_login_at, created_at, subscription_status, current_period_end, cancel_at_period_end, region"
     )
     .eq("id", userData.user.id)
     .single();

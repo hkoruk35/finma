@@ -9,14 +9,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
   }
 
-  let body: { username?: string };
+  let body: { username?: string; region?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { username } = body;
+  const { username, region } = body;
   if (!username || !/^[a-zA-Z0-9_]{3,24}$/.test(username)) {
     return NextResponse.json(
       { error: "Username must be 3-24 characters (letters, numbers, underscore)." },
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   const { error } = await supabase
     .from("members")
-    .update({ username })
+    .update({ username, region })
     .eq("id", userData.user.id);
 
   if (error) {
