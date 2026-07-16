@@ -564,16 +564,16 @@ function SubscriptionTab({
         <>
           <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
             <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
-              {L(locale, "FIRST MONTH ONLY $19", "İLK AY SADECE $19", "PRIMER MES SOLO $19", "PREMIER MOIS À $19 SEULEMENT", "PRIMEIRO MÊS POR APENAS $19")}
+              {L(locale, "FIRST 3 MONTHS ONLY $9", "İLK 3 AY SADECE $9", "PRIMEROS 3 MESES SOLO $9", "PREMIERS 3 MOIS À 9$ SEULEMENT", "PRIMEIROS 3 MESES POR APENAS $9")}
             </div>
             <div className="text-xs text-slate-500">
               {L(
                 locale,
-                "7-day free trial, card required — then $19 for the first month, $39/mo after.",
-                "7 gün ücretsiz deneme, kart gerekli — ardından ilk ay $19, sonrasında $39/ay.",
-                "7 días de prueba gratis, tarjeta requerida — luego $19 el primer mes, $39/mes después.",
-                "Essai gratuit de 7 jours, carte requise — puis $19 le premier mois, $39/mois ensuite.",
-                "7 dias de teste grátis, cartão necessário — depois $19 no primeiro mês, $39/mês em seguida."
+                "7-day free trial, card required — then $9/mo for the first 3 months, $39/mo after.",
+                "7 gün ücretsiz deneme, kart gerekli — ardından ilk 3 ay $9, sonrasında $39/ay.",
+                "7 días de prueba gratis, tarjeta requerida — luego $9/mes por los primeros 3 meses, $39/mes después.",
+                "Essai gratuit de 7 jours, carte requise — puis 9$/mois pour les 3 premiers mois, 39$/mois ensuite.",
+                "7 dias de teste grátis, cartão necessário — depois $9/mês pelos primeiros 3 meses, $39/mês em seguida."
               )}
             </div>
           </div>
@@ -593,7 +593,7 @@ function SubscriptionTab({
         <>
           <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 p-5">
             <div className="text-[#3b82f6] font-black text-xl tracking-tight mb-1">
-              {L(locale, "FIRST MONTH ONLY $19", "İLK AY SADECE $19", "PRIMER MES SOLO $19", "PREMIER MOIS À $19 SEULEMENT", "PRIMEIRO MÊS POR APENAS $19")}
+              {L(locale, "FIRST 3 MONTHS ONLY $9", "İLK 3 AY SADECE $9", "PRIMEROS 3 MESES SOLO $9", "PREMIERS 3 MOIS À 9$ SEULEMENT", "PRIMEIROS 3 MESES POR APENAS $9")}
             </div>
             <div className="text-xs text-slate-500">
               {L(locale, "Limited offer — regular price $39/mo", "Sınırlı sayıda — normal fiyat $39/ay", "Oferta limitada — precio regular $39/mes", "Offre limitée — prix normal $39/mois", "Oferta limitada — preço normal $39/mês")}
@@ -619,11 +619,11 @@ function SubscriptionTab({
                 <p className="text-xs text-slate-500">
                   {L(
                     locale,
-                    "After your trial: $19 for the first month, then $39/mo. Cancel anytime.",
-                    "Denemeniz bitince: ilk ay $19, sonrasında $39/ay. İstediğiniz an iptal edebilirsiniz.",
-                    "Al terminar tu prueba: $19 el primer mes, luego $39/mes. Cancela cuando quieras.",
-                    "À la fin de votre essai : $19 le premier mois, puis $39/mois. Annulez à tout moment.",
-                    "Ao fim do teste: $19 no primeiro mês, depois $39/mês. Cancele quando quiser."
+                    "After your trial: $9/mo for the first 3 months, then $39/mo. Cancel anytime.",
+                    "Denemeniz bitince: ilk 3 ay $9, sonrasında $39/ay. İstediğiniz an iptal edebilirsiniz.",
+                    "Al terminar tu prueba: $9/mes por los primeros 3 meses, luego $39/mes. Cancela cuando quieras.",
+                    "À la fin de votre essai : 9$/mois pour les 3 premiers mois, puis 39$/mois. Annulez à tout moment.",
+                    "Ao fim do teste: $9/mês pelos primeiros 3 meses, depois $39/mês. Cancele quando quiser."
                   )}
                 </p>
               )}
