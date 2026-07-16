@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "BLK",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 1100.0,
+        "entry_zone": "1085.74 - 1114.26",
+        "SL": 1042.95,
+        "TP": 1214.11
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "PBI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 18.35,
+        "entry_zone": "18.01 - 18.69",
+        "SL": 17.01,
+        "TP": 21.03
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "UAA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 6.83,
+        "entry_zone": "6.66 - 7.00",
+        "SL": 6.17,
+        "TP": 8.16
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "XRAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.34,
+        "entry_zone": "13.06 - 13.63",
+        "SL": 12.2,
+        "TP": 15.62
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "MTCH",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 40.31,
+        "entry_zone": "39.59 - 41.03",
+        "SL": 37.43,
+        "TP": 46.06
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "VCYT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 59.6,
+        "entry_zone": "58.14 - 61.06",
+        "SL": 53.78,
+        "TP": 71.24
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "BILL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 45.0,
+        "entry_zone": "44.01 - 45.99",
+        "SL": 41.04,
+        "TP": 52.92
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "PII",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 71.0,
+        "entry_zone": "69.56 - 72.44",
+        "SL": 65.25,
+        "TP": 82.51
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "MC",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 70.04,
+        "entry_zone": "68.47 - 71.61",
+        "SL": 63.76,
+        "TP": 82.61
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "BURL",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 346.0,
+        "entry_zone": "341.10 - 350.90",
+        "SL": 326.4,
+        "TP": 385.21
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "CDNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 35.59,
+        "entry_zone": "34.98 - 36.20",
+        "SL": 33.17,
+        "TP": 40.44
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "CTAS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 194.49,
+        "entry_zone": "192.04 - 196.94",
+        "SL": 184.69,
+        "TP": 214.09
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "PYPL",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 55.02,
+        "entry_zone": "54.02 - 56.02",
+        "SL": 51.01,
+        "TP": 63.05
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "VFC",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 17.35,
+        "entry_zone": "17.00 - 17.70",
+        "SL": 15.96,
+        "TP": 20.14
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "BKNG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 183.5,
+        "entry_zone": "180.31 - 186.69",
+        "SL": 170.74,
+        "TP": 209.02
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 96.78,
+        "entry_zone": "94.82 - 98.74",
+        "SL": 88.96,
+        "TP": 112.43
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 25.93,
+        "entry_zone": "25.47 - 26.40",
+        "SL": 24.08,
+        "TP": 29.64
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "HIMS",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 36.5,
+        "entry_zone": "35.23 - 37.77",
+        "SL": 31.43,
+        "TP": 46.64
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "GTN",
+        "sector": "Communication Services",
+        "action": "WATCH",
+        "price": 4.09,
+        "entry_zone": "3.97 - 4.21",
+        "SL": 3.61,
+        "TP": 5.04
+    },
+    {
+        "date": "2026-07-16 08:48",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 5.87,
+        "entry_zone": "5.47 - 6.27",
+        "SL": 4.26,
+        "TP": 9.08
+    }
+]
