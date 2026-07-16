@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "BOGASTOCK — Blue One Global Analysis",
-  description: "Seleção e análise de ações com IA para os mercados dos EUA. Rastreador Top 100 com sinais EMA/RSI. Candidatos de Swing Trade. Atualizações a cada hora.",
+  description: "Seleção e análise de ações com IA para os mercados dos EUA. Sinais EMA/RSI e Candidatos a Swing Trade. Atualizações a cada hora.",
   alternates: { canonical: "https://bogastock.com/global/pt" },
 };
 
@@ -66,7 +66,7 @@ export default async function PtLandingPage() {
         {/* Features */}
         {features.length > 0 && (
           <section className="max-w-5xl mx-auto px-4 pb-20">
-            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">O que você ganha com a BOGA AI</h2>
+            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">O que você ganha com a BOGASTOCK</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {features.map((f) => {
                 const Icon = ICON_MAP[f.icon] ?? ICON_MAP["bolt"];

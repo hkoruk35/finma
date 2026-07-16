@@ -279,7 +279,7 @@
     "hero": {
       "badge": "Ao Vivo — Atualizações a Cada Hora",
       "description_bold": "Blue One Global Analysis",
-      "description": "Seleção e análise de ações com IA para os mercados dos EUA. Selecionado, analisado e acompanhado a cada hora por um sistema inteligente totalmente autônomo dedicado exclusivamente às finanças."
+      "description": "Seleção e análise de ações com IA para os mercados dos EUA. Ações selecionadas, analisadas e acompanhadas a cada hora por um sistema inteligente totalmente autônomo dedicado exclusivamente às finanças."
     },
     "cta_primary": {
       "text": "Experimente Grátis por 7 Dias",
@@ -293,24 +293,24 @@
     "cta_note": "",
     "screenshots": [
       {
-        "src": "/screenshots/ss_swing_detail.png",
+        "src": "/screenshots/homept1.png",
+        "label": "Início — Resumo ao Vivo",
+        "desc": "Resumo por hora de Swing e Tendência com banner de desempenho"
+      },
+      {
+        "src": "/screenshots/swingpt1.png",
         "label": "Análise Profunda de Ações",
         "desc": "Indicadores técnicos, preços de entrada/stop/alvo, BOGA Score e gráfico ao vivo"
       },
       {
-        "src": "/screenshots/ss_swing_table.png",
+        "src": "/screenshots/watchpt1.png",
         "label": "Candidatos Diários de Swing",
         "desc": "14 candidatos, sinais EMA/RSI, detecção de padrões e acompanhamento de preços em tempo real"
       },
       {
-        "src": "/screenshots/ss_performance.png",
+        "src": "/screenshots/perpt1.png",
         "label": "Desempenho do Sistema",
         "desc": "Mapa de calor de rentabilidade por setor e histórico de operações"
-      },
-      {
-        "src": "/screenshots/ss_home.png",
-        "label": "Início — Resumo ao Vivo",
-        "desc": "Resumo por hora de Swing, Tendência e Top100 com banner de desempenho"
       }
     ],
     "features": [
@@ -321,8 +321,8 @@
       },
       {
         "icon": "chart-bar",
-        "title": "Rastreador Semanal Top 100",
-        "desc": "Lista de acompanhamento ativa, atualizada a cada hora pela BOGA AI com critérios específicos — 100 ações de elite dos EUA."
+        "title": "Foco nas Melhores Ações",
+        "desc": "Você tomará decisões mais facilmente com menos ações, focando apenas nas melhores oportunidades ativas atualizadas a cada hora pela BOGASTOCK."
       },
       {
         "icon": "trending-up",
