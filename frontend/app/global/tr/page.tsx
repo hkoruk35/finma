@@ -11,8 +11,8 @@ import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "BOGA AI — Blue One Global Analysis",
-  description: "Yapay zeka destekli gerçek zamanlı hisse analizi. EMA/RSI sinyalleriyle Top 100 Tracker. Swing Trade Adayları. Saatlik güncelleme.",
+  title: "BOGASTOCK — Blue One Global Analysis",
+  description: "Yapay zeka destekli gerçek zamanlı hisse analizi. EMA/RSI sinyalleriyle Swing Trade Adayları. Saatlik güncelleme.",
   alternates: { canonical: "https://bogastock.com/global/tr" },
 };
 
@@ -36,9 +36,9 @@ export default async function TrLandingPage() {
           </div>
 
           <div className="flex items-center justify-center gap-4 mb-6">
-            <Image src="/finmawave.png" alt="BOGA AI" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
+            <Image src="/finmawave.png" alt="BOGASTOCK" width={64} height={64} className="rounded-2xl shadow-2xl shadow-blue-500/20" />
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              BOGA <span className="text-[#3b82f6]">AI</span>
+              BOGA<span className="text-[#3b82f6]">STOCK</span>
             </h1>
           </div>
 
@@ -66,7 +66,7 @@ export default async function TrLandingPage() {
         {/* Features */}
         {features.length > 0 && (
           <section className="max-w-5xl mx-auto px-4 pb-20">
-            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">BOGA AI ile neler elde edersin</h2>
+            <h2 className="text-2xl font-black text-white tracking-tighter text-center mb-10">BOGASTOCK ile neler elde edersin</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {features.map((f) => {
                 const Icon = ICON_MAP[f.icon] ?? ICON_MAP["bolt"];

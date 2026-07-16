@@ -17,24 +17,24 @@
     "cta_note": "",
     "screenshots": [
       {
-        "src": "/screenshots/ss_swing_detail.png",
+        "src": "/screenshots/webtr1.png",
+        "label": "Ana Sayfa — Canlı Özet",
+        "desc": "Swing ve Trend saatlik özet, performans banner"
+      },
+      {
+        "src": "/screenshots/webtr2.png",
         "label": "Derin Hisse Analizi",
         "desc": "Teknik göstergeler, giriş/stop/hedef fiyatları, BOGA Skoru ve canlı grafik"
       },
       {
-        "src": "/screenshots/ss_swing_table.png",
+        "src": "/screenshots/webtr3.png",
         "label": "Günlük Swing Trade Adayları",
         "desc": "14 aday, EMA/RSI sinyalleri, patern tespiti ve anlık fiyat takibi"
       },
       {
-        "src": "/screenshots/ss_performance.png",
+        "src": "/screenshots/webtr4.png",
         "label": "Sistem Performansı",
         "desc": "Sektör karlılık ısı haritası ve geçmiş işlem kayıtları"
-      },
-      {
-        "src": "/screenshots/ss_home.png",
-        "label": "Ana Sayfa — Canlı Özet",
-        "desc": "Swing, Trend ve Top100 saatlik özet, performans banner"
       }
     ],
     "features": [
@@ -45,8 +45,8 @@
       },
       {
         "icon": "chart-bar",
-        "title": "Top 100 Haftalık Takip",
-        "desc": "BOGA AI tarafından belirli kriterlerle saatlik güncellenen aktif takip listesi — 100 seçkin ABD hissesi."
+        "title": "Daha Net Kararlar",
+        "desc": "Daha az hisse ile daha kolay karar vereceksiniz, BOGASTOCK tarafından seçilen en iyi fırsatlara odaklanarak."
       },
       {
         "icon": "trending-up",
