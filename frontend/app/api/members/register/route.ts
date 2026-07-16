@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
     redirectTo?: string;
     locale?: string;
     consentAccepted?: boolean;
+    region?: string;
+    selectedLanguage?: string;
   };
   try {
     body = await req.json();
@@ -43,7 +45,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const { email, password, username, redirectTo, consentAccepted } = body;
+  const { email, password, username, redirectTo, consentAccepted, region, selectedLanguage } = body;
   const locale = body.locale && ["en", "tr", "es", "fr", "pt"].includes(body.locale) ? body.locale : "en";
 
   if (!email || !password || !username) {
@@ -72,12 +74,13 @@ export async function POST(req: NextRequest) {
   }
 
   const supabase = await createSupabaseServerClient();
+  const origin = req.nextUrl.origin;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: { username },
-      emailRedirectTo: redirectTo
+      data: { username, region, language: selectedLanguage || locale },
+      emailRedirectTo: `${origin}/api/auth/confirm`
     },
   });
 
@@ -106,6 +109,7 @@ export async function POST(req: NextRequest) {
         id: data.user.id,
         username,
         email,
+        region,
         plan: "pending",
         trial_ends_at: null,
         subscription_status: "pending",
