@@ -204,9 +204,10 @@ MIN_RR_RATIO = 1.1               # Yayın öncesi R/R alt sınırı
 # ================================================================
 # 🔹 TELEGRAM SETTINGS  (v117.v2 ile aynı)
 # ================================================================
-TELEGRAM_API_KEY = "8182098187:AAF-jtWMJK07ZdZdyusiE1RqyQkwegb0Uhc"
-TELEGRAM_CHAT_ID = "-1003406973271"
-ENABLE_TELEGRAM_NOTIFICATIONS = False
+# 🔹 Telegram Notification Settings
+TELEGRAM_API_KEY = "8501733970:AAHM1l2wkPRKOWQdtq8jRqWZazGQhYteH5k"
+TELEGRAM_CHAT_ID = "-1003569445341"
+ENABLE_TELEGRAM_NOTIFICATIONS = True
 
 # ================================================================
 # 🔹 SEKTÖR HARİTALARI
@@ -3100,6 +3101,7 @@ async def run_scanner():
             run_ny = datetime.now(NY_TZ)
             mode = get_run_mode_for_hour(run_ny.hour)
             logging.info(f"▶ NY {run_ny.strftime('%H:%M')} scan starting... (mode={mode})")
+            await send_telegram_message(f"▶ BOGA AI: {run_ny.strftime('%H:%M')} NY scan starting... (mode={mode})")
             await scan_top_stocks(mode=mode)
 
         except Exception as e:

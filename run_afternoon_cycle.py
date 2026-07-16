@@ -32,16 +32,13 @@ log = logging.getLogger("afternoon_cycle")
 FINMA_DIR = os.path.dirname(os.path.abspath(__file__))
 VENV_PYTHON = os.path.join(FINMA_DIR, "venv313", "Scripts", "python.exe")
 
-# Swing117 için ayrı log dosyası — stdout/stderr buraya yazılır
-SWING_LOG_PATH = os.path.join(LOG_DIR, "swing117_last_run.log")
-
-# Geç başlatma eşiği: Bu saatten sonra swing117 zaten anlamsız (piyasa kapanıyor)
-SWING_CUTOFF_HOUR = 15
-SWING_CUTOFF_MINUTE = 30
-
-# Maksimum bekleme süreleri
-SWING_TIMEOUT_SEC   = 45 * 60   # 45 dakika
 DEFAULT_TIMEOUT_SEC = 10 * 60   # 10 dakika
+
+# NOT: swing117_boga.py artik burada degil — ayri, saatlik calisan
+# run_swing_hourly.py + BOGA_AI_Swing_Hourly Task Scheduler gorevi
+# tarafindan yonetiliyor (09:00-17:00 NY, her saat basi). Bu dongu
+# ayrica calistirirsa ayni candidate_pool.json'a ayni anda iki surec
+# yazardi — mukerrer tetiklemeyi onlemek icin buradan kaldirildi.
 
 
 def run_bot(script_name: str, args: list = None, timeout: int = DEFAULT_TIMEOUT_SEC) -> bool:
@@ -53,56 +50,25 @@ def run_bot(script_name: str, args: list = None, timeout: int = DEFAULT_TIMEOUT_
     cmd = [VENV_PYTHON, script_path] + (args or [])
     log.info(f"▶ Başlatılıyor: {script_name} (timeout={timeout//60}dk)")
 
-    # stdout/stderr'i ayrı log dosyasına yönlendir (swing117 için)
-    if "swing117" in script_name:
-        out_file = open(SWING_LOG_PATH, "w", encoding="utf-8")
-        try:
-            result = subprocess.run(
-                cmd, cwd=FINMA_DIR,
-                stdout=out_file, stderr=subprocess.STDOUT,
-                timeout=timeout
-            )
-            out_file.close()
-            if result.returncode == 0:
-                log.info(f"✅ {script_name} tamamlandı.")
-                return True
-            else:
-                # Eğer JSON dosyası oluşturulduysa, hataya rağmen başarılı say
-                json_exists = os.path.exists(os.path.join(FINMA_DIR, "swing_picks.json"))
-                if json_exists:
-                    log.warning(f"⚠️ {script_name} exit code {result.returncode} (JSON dosyası oluşturuldu, devam ediliyor)")
-                    return True
-                else:
-                    log.error(f"❌ {script_name} hata kodu {result.returncode}. Detay: {SWING_LOG_PATH}")
-                    return False
-        except subprocess.TimeoutExpired:
-            out_file.close()
-            log.error(f"⏱️ {script_name} {timeout//60} dakika içinde bitmedi — zorla sonlandırıldı. Detay: {SWING_LOG_PATH}")
-            return False
-        except Exception as e:
-            out_file.close()
-            log.error(f"❌ {script_name} beklenmedik hata: {e}")
-            return False
-    else:
-        try:
-            result = subprocess.run(
-                cmd, cwd=FINMA_DIR,
-                capture_output=True, text=True, check=True,
-                timeout=timeout
-            )
-            log.info(f"✅ {script_name} tamamlandı.")
-            return True
-        except subprocess.TimeoutExpired:
-            log.error(f"⏱️ {script_name} {timeout//60} dakika içinde bitmedi — zorla sonlandırıldı.")
-            return False
-        except subprocess.CalledProcessError as e:
-            log.error(f"❌ {script_name} hatası (Exit {e.returncode}):")
-            if e.stdout: log.error(f"STDOUT: {e.stdout[-2000:]}")
-            if e.stderr: log.error(f"STDERR: {e.stderr[-2000:]}")
-            return False
-        except Exception as e:
-            log.error(f"❌ {script_name} beklenmedik hata: {e}")
-            return False
+    try:
+        result = subprocess.run(
+            cmd, cwd=FINMA_DIR,
+            capture_output=True, text=True, check=True,
+            timeout=timeout
+        )
+        log.info(f"✅ {script_name} tamamlandı.")
+        return True
+    except subprocess.TimeoutExpired:
+        log.error(f"⏱️ {script_name} {timeout//60} dakika içinde bitmedi — zorla sonlandırıldı.")
+        return False
+    except subprocess.CalledProcessError as e:
+        log.error(f"❌ {script_name} hatası (Exit {e.returncode}):")
+        if e.stdout: log.error(f"STDOUT: {e.stdout[-2000:]}")
+        if e.stderr: log.error(f"STDERR: {e.stderr[-2000:]}")
+        return False
+    except Exception as e:
+        log.error(f"❌ {script_name} beklenmedik hata: {e}")
+        return False
 
 
 def main():
@@ -113,22 +79,10 @@ def main():
 
     log.info("🌇 BOGA AI Öğleden Sonra Döngüsü Başlatıldı...")
 
-    # Geç başlatma kontrolü: 15:30 NY'dan sonra swing taraması anlamsız
-    cutoff = now_ny.replace(hour=SWING_CUTOFF_HOUR, minute=SWING_CUTOFF_MINUTE, second=0, microsecond=0)
-    if now_ny >= cutoff:
-        log.warning(
-            f"⚠️ Saat {now_ny.strftime('%H:%M')} NY — piyasa kapanışına yakın. "
-            f"swing117_boga.py ATLANADI (eşik: {SWING_CUTOFF_HOUR}:{SWING_CUTOFF_MINUTE:02d})."
-        )
-    else:
-        # 1. Swing Scanner (v117) — --now: 13:00 bekleme yapmadan hemen çalış
-        run_bot("swing117_boga.py", ["--oneshot", "--now"], timeout=SWING_TIMEOUT_SEC)
-
-    # 2. Copy swing files to PUBLIC ROOT (frontend loads from here)
-    # NOTE: swing117_boga.py writes swing_picks.json, swing_all_picks.json, swing_table.json
-    # directly to frontend/public/ — do NOT copy from data/latest/ as it would overwrite
-    # today's fresh data with yesterday's stale data.
-    # Only copy swing_performance.json from data/latest/ if it doesn't exist in public/ yet.
+    # NOT: swing117_boga.py artık burada çalışmıyor — BOGA_AI_Swing_Hourly
+    # görevi (run_swing_hourly.py) 09:00-17:00 NY arası her saat başı ayrıca
+    # tetikliyor. swing_performance.json güncellemesi öncesinde dosyanın
+    # public/ altında bulunması yeterli; ilk kurulumda eksikse kopyala.
     import shutil
     public_latest = os.path.join(FINMA_DIR, "frontend", "public", "data", "latest")
     public_root = os.path.join(FINMA_DIR, "frontend", "public")
@@ -142,22 +96,22 @@ def main():
         except Exception as e:
             log.warning(f"⚠️ Could not copy swing_performance.json: {e}")
 
-    # 3. Swing Performance Update
+    # 1. Swing Performance Update
     run_bot("update_swing_performance.py")
 
-    # 4. Swing Performance Fix (Clean duplicates)
+    # 2. Swing Performance Fix (Clean duplicates)
     run_bot("fix_swing_performance.py")
 
-    # 5. Live Options Update for Swing
+    # 3. Live Options Update for Swing
     run_bot("fetch_live_options.py")
 
-    # 6. Options P&L Tracker
+    # 4. Options P&L Tracker
     run_bot("options_pnl_tracker.py")
 
-    # 7. Health Check
+    # 5. Health Check
     run_bot("site_health_checker.py")
 
-    # 8. Git Push — Swing ve Options verilerini açıkça ekle ve push et
+    # 6. Git Push — Swing ve Options verilerini açıkça ekle ve push et
     log.info("📤 Veriler GitHub'a gönderiliyor...")
     try:
         def run_git(args):
@@ -172,6 +126,8 @@ def main():
             "frontend/public/swing_all_picks.json",
             "frontend/public/swing_table.json",
             "frontend/public/swing_performance.json",
+            "frontend/public/data/candidate_pool.json",
+            "frontend/public/data/watchlist_picks.json",
             "frontend/public/data/latest/",
             "frontend/public/data/swing2026/",
             "data/",

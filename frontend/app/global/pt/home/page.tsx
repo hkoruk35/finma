@@ -232,7 +232,7 @@ export default async function PtHomePage() {
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-2 md:pb-0">
           <HomeSimpleCard
-            title="Swing Trade"
+            title="Operações Swing"
             accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/pt/swing"
@@ -242,7 +242,7 @@ export default async function PtHomePage() {
           />
 
           <HomeSimpleCard
-            title="Watchlist"
+            title="Lista de Observação"
             accent="#a78bfa"
             stocks={watchlistByVolume}
             viewAllHref="/global/pt/watchlist"
