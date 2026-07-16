@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI } from "@google/genai";
 
 export const LOCALES = ["en", "es", "fr", "pt", "tr"] as const;
 export type Locale = (typeof LOCALES)[number];
@@ -49,8 +49,8 @@ export interface GenerateTranslationInput {
 export async function generateLocalizedTexts(
   input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput
 ): Promise<Record<Locale, string>> {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    throw new Error("ANTHROPIC_API_KEY not configured");
+  if (!process.env.GEMINI_API_KEY) {
+    throw new Error("GEMINI_API_KEY not configured");
   }
 
   const listPrompt = (input: GenerateListInput) => {
@@ -87,16 +87,17 @@ Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. abov
           input.customInstruction ? ` Additional instruction from the analyst (follow this closely): ${input.customInstruction}` : ""
         } Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
 
-  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-  const msg = await anthropic.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 1024,
-    system:
-      "You are the social media voice of BogaStock, a stock analysis platform. Return ONLY a valid JSON object mapping each requested locale code to a single short, punchy sentence (max 220 characters) written in that locale's language. No explanation, no markdown, no preamble. The first character must be { and the last character must be }.",
-    messages: [{ role: "user", content: prompt }],
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  const response = await ai.models.generateContent({
+    model: process.env.GEMINI_MODEL || "gemini-2.0-flash",
+    contents: prompt,
+    config: {
+      systemInstruction: "You are the social media voice of BogaStock, a stock analysis platform. Return ONLY a valid JSON object mapping each requested locale code to a single short, punchy sentence (max 220 characters) written in that locale's language. No explanation, no markdown, no preamble. The first character must be { and the last character must be }.",
+      temperature: 0.7,
+    },
   });
 
-  const rawText = (msg.content[0] as any).text || "";
+  const rawText = response.text || "";
   const parsed = tryParseJSON(rawText);
   if (!parsed) throw new Error("AI response was not valid JSON");
   return parsed as Record<Locale, string>;
