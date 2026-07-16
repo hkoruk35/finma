@@ -201,24 +201,24 @@
     "cta_note": "",
     "screenshots": [
       {
-        "src": "/screenshots/ss_swing_detail.png",
-        "label": "Análisis Profundo de Acciones",
-        "desc": "Indicadores técnicos, entrada/stop/objetivo, BOGA Score y gráfico en vivo"
-      },
-      {
-        "src": "/screenshots/ss_swing_table.png",
-        "label": "Candidatos Diarios de Swing",
-        "desc": "14 candidatos, señales EMA/RSI, detección de patrones y precios en tiempo real"
-      },
-      {
-        "src": "/screenshots/ss_performance.png",
-        "label": "Rendimiento del Sistema",
-        "desc": "Mapa de calor de rentabilidad por sector e historial de operaciones"
-      },
-      {
-        "src": "/screenshots/ss_home.png",
+        "src": "/screenshots/wes1.png",
         "label": "Inicio — Resumen en Vivo",
-        "desc": "Resumen por hora de Swing, Tendencia y Top100 con banner de rendimiento"
+        "desc": "Resumen por hora de Swing y Tendencia con banner de rendimiento"
+      },
+      {
+        "src": "/screenshots/wes2.png",
+        "label": "Análisis Profundo de Acciones",
+        "desc": "Indicadores técnicos, precios de entrada/stop/objetivo, BOGA Score y gráfico en vivo"
+      },
+      {
+        "src": "/screenshots/wes3.png",
+        "label": "Candidatos Diarios de Swing",
+        "desc": "14 candidatos, señales EMA/RSI, detección de patrones y seguimiento de precios en tiempo real"
+      },
+      {
+        "src": "/screenshots/wes4.png",
+        "label": "Rendimiento del Sistema",
+        "desc": "Mapa de calor de rentabilidad por sector y registro histórico de operaciones"
       }
     ],
     "features": [
@@ -229,8 +229,8 @@
       },
       {
         "icon": "chart-bar",
-        "title": "Rastreador Semanal Top 100",
-        "desc": "Lista activa actualizada por horas mediante BOGA AI con criterios específicos — 100 acciones de élite de EE.UU."
+        "title": "Decisiones Más Claras",
+        "desc": "Tomarás decisiones más fácilmente con menos acciones, enfocándote solo en las mejores oportunidades elegidas por BOGASTOCK."
       },
       {
         "icon": "trending-up",
