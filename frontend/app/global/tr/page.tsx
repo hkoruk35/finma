@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import { ScreenshotBanner, JpmPreview } from "@/components/global/LandingBannerTr";
 import { getLandingConfigFromDB } from "@/lib/landingConfig";
@@ -24,7 +24,7 @@ export default async function TrLandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} globalLocale="tr" />
+      <MemberHeader locale="tr" />
       <GlobalReachBanner lang="tr" />
 
       <main className="flex-1">
