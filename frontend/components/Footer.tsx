@@ -47,6 +47,7 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
     { href: "/global/tr/about", label: "BOGASTOCK Hakkında" },
     { href: "/global/tr/news", label: "Piyasa Haberleri" },
     { href: "/global/tr/contact", label: "Destek İletişim" },
+    { href: "/global/tr/sss", label: "Sıkça Sorulan Sorular (SSS)" },
   ],
   es: [
     { href: "/global/es/about", label: "Acerca de BOGASTOCK" },
