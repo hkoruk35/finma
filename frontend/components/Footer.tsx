@@ -42,6 +42,7 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
     { href: "/global/en/about", label: "About BOGASTOCK" },
     { href: "/global/en/news", label: "Market News" },
     { href: "/global/en/contact", label: "Contact Support" },
+    { href: "/global/en/faq", label: "Frequently Asked Questions (FAQ)" },
   ],
   tr: [
     { href: "/global/tr/about", label: "BOGASTOCK Hakkında" },
@@ -53,11 +54,13 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
     { href: "/global/es/about", label: "Acerca de BOGASTOCK" },
     { href: "/global/es/news", label: "Noticias del Mercado" },
     { href: "/global/es/contact", label: "Soporte y Contacto" },
+    { href: "/global/es/faq", label: "Preguntas Frecuentes (FAQ)" },
   ],
   fr: [
     { href: "/global/fr/about", label: "À Propos de BOGASTOCK" },
     { href: "/global/fr/news", label: "Actualités du Marché" },
     { href: "/global/fr/contact", label: "Support et Contact" },
+    { href: "/global/fr/faq", label: "Foire Aux Questions (FAQ)" },
   ],
   pt: [
     { href: "/global/pt/about", label: "Sobre a BOGASTOCK" },

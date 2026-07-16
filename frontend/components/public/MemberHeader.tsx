@@ -112,7 +112,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             <span className="hidden sm:inline">{locale === "tr" ? "Anasayfa" : locale === "es" ? "Inicio" : locale === "fr" ? "Accueil" : locale === "pt" ? "Início" : "Home"}</span>
           </Link>
           <Link
-            href={locale === "pt" ? "/global/pt/Perguntas_Frequentes" : locale === "tr" ? "/global/tr/sss" : `/global/${locale}/about`}
+            href={locale === "pt" ? "/global/pt/Perguntas_Frequentes" : locale === "tr" ? "/global/tr/sss" : `/global/${locale}/faq`}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
