@@ -62,6 +62,7 @@ const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; 
     { href: "/global/pt/about", label: "Sobre a BOGASTOCK" },
     { href: "/global/pt/news", label: "Notícias do Mercado" },
     { href: "/global/pt/contact", label: "Suporte e Contato" },
+    { href: "/global/pt/Perguntas_Frequentes", label: "Perguntas Frequentes (FAQ)" },
   ],
 };
 
