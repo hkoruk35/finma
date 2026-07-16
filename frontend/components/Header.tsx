@@ -143,6 +143,19 @@ export default function Header({
     }
   };
 
+  const getLangHref = (targetLang: string) => {
+    if (!pathname) return `/global/${targetLang.toLowerCase()}`;
+    const targetLoc = targetLang.toLowerCase();
+    
+    const isFaqPage = pathname.endsWith('/Perguntas_Frequentes') || pathname.endsWith('/sss') || pathname.endsWith('/faq');
+    if (isFaqPage) {
+      const faqSuffix = targetLoc === 'pt' ? '/Perguntas_Frequentes' : targetLoc === 'tr' ? '/sss' : '/faq';
+      return `/global/${targetLoc}${faqSuffix}`;
+    }
+    
+    return pathname.replace(new RegExp(`^/global/${globalLocale}`), `/global/${targetLoc}`);
+  };
+
   const showNav = !isHomePage && !hideMenus;
 
   const logoContent = (
@@ -257,7 +270,7 @@ export default function Header({
                 return (
                   <Link
                     key={lang}
-                    href={pathname ? pathname.replace(new RegExp(`^/global/${globalLocale}`), `/global/${lang.toLowerCase()}`) : `/global/${lang.toLowerCase()}`}
+                    href={getLangHref(lang)}
                     className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
                       isActive
                         ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
