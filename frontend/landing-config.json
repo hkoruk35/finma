@@ -366,5 +366,97 @@
       "description": "Você não será cobrado durante o teste de 7 dias.",
       "note": "Cancele quando quiser após o término do teste."
     }
+  },
+  "fr": {
+    "hero": {
+      "badge": "En Direct — Mises à jour horaires",
+      "description_bold": "Blue One Global Analysis",
+      "description": "Analyse et sélection d'actions en temps réel. Sélectionnées, analysées et suivies chaque heure par un système intelligent autonome."
+    },
+    "cta_primary": {
+      "text": "Essai Gratuit de 7 Jours",
+      "subtext": "Carte requise • Non facturé pendant l'essai",
+      "href": "/global/en/register"
+    },
+    "cta_secondary": {
+      "text": "Se Connecter",
+      "href": "/global/en/login"
+    },
+    "cta_note": "",
+    "screenshots": [
+      {
+        "src": "/screenshots/fr1.png",
+        "label": "Accueil — Résumé en Direct",
+        "desc": "Résumé horaire Swing et Tendance avec bannière de performance"
+      },
+      {
+        "src": "/screenshots/fr2.png",
+        "label": "Deep Stock Analysis",
+        "desc": "Technical indicators, entry/stop/target prices, BOGA Score and live chart"
+      },
+      {
+        "src": "/screenshots/fr3.png",
+        "label": "Daily Swing Candidates",
+        "desc": "14 candidates, EMA/RSI signals, pattern detection and real-time price tracking"
+      },
+      {
+        "src": "/screenshots/fr4.png",
+        "label": "System Performance",
+        "desc": "Sector profitability heat map and historical trade records"
+      }
+    ],
+    "features": [
+      {
+        "icon": "bolt",
+        "title": "Candidats Swing Trade",
+        "desc": "Chaque configuration est évaluée quotidiennement — l'IA choisit les meilleurs candidats pour vous."
+      },
+      {
+        "icon": "chart-bar",
+        "title": "Des Décisions Plus Claires",
+        "desc": "Vous prendrez des décisions plus facilement avec moins d'actions, en vous concentrant uniquement sur les meilleures opportunités choisies par BOGASTOCK."
+      },
+      {
+        "icon": "trending-up",
+        "title": "Actions Tendances 2026",
+        "desc": "Suivi thématique des entreprises leaders, des puces à la biotechnologie, avec analyse des signaux."
+      },
+      {
+        "icon": "shield",
+        "title": "Self-Improving Financial Analysis",
+        "desc": "A daily self-improving system you won't find anywhere else — fully autonomous support for your Financial Analysis, Swing Trades and Investments."
+      }
+    ],
+    "jpm": {
+      "enabled": false,
+      "badge": "Exemple de Rapport Gratuit",
+      "title": "Format PDF de la Fiche Technique de BOGASTOCK",
+      "description": "Un exemple réel du format de rapport que notre plateforme produit — entièrement gratuit à télécharger.",
+      "pdf": "/jpm/jpm02072026.pdf",
+      "pdf_label": "Télécharger l'Exemple",
+      "images": [
+        {
+          "src": "/jpm/p1_Image27.jpg",
+          "label": "JPM — Market Outlook"
+        },
+        {
+          "src": "/jpm/p1_Image20.jpg",
+          "label": "JPM — Sector Analysis"
+        },
+        {
+          "src": "/jpm/p2_Image1.jpg",
+          "label": "JPM — Macro Indicators"
+        },
+        {
+          "src": "/jpm/p3_Image1.jpg",
+          "label": "JPM — Investment Strategy"
+        }
+      ]
+    },
+    "bottom_cta": {
+      "title": "Commencez gratuitement aujourd'hui",
+      "description": "Rejoignez le groupe de traders utilisant <strong>BOGASTOCK</strong> pour des résultats cohérents et basés sur les données.",
+      "note": "7 jours gratuits • Annulation à tout moment"
+    }
   }
 }
