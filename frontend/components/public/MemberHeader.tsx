@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +12,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
   const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/members/me")
+      .then(res => setIsLoggedIn(res.ok))
+      .catch(() => setIsLoggedIn(false))
+      .finally(() => setAuthChecked(true));
+  }, []);
 
   const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/en/home";
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
@@ -72,7 +81,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Trial countdown — only visible for free-trial members */}
-          <TrialCountdown locale={locale} />
+          {isLoggedIn && <TrialCountdown locale={locale} />}
 
           {/* Language Selector — mobilde gizli, hesap sayfasındaki Dil sekmesinden erişilebilir
               (Account/Hesabım > Language sekmesi) — dar ekranda ACCOUNT butonuna yer açmak için */}
@@ -129,26 +138,44 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </svg>
             <span className="hidden sm:inline">{locale === "tr" ? "SSS" : locale === "es" ? "FAQ" : locale === "fr" ? "FAQ" : locale === "pt" ? "FAQ" : "FAQ"}</span>
           </Link>
-          <Link
-            href={accountHref}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
-          >
-            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span className="hidden sm:inline">{locale === "tr" ? "Hesabım" : locale === "es" ? "Cuenta" : locale === "fr" ? "Compte" : locale === "pt" ? "Conta" : "Account"}</span>
-          </Link>
-          <button
-            onClick={handleLogout}
-            disabled={loggingOut}
-            title={locale === "tr" ? "Çıkış Yap" : locale === "es" ? "Cerrar sesión" : locale === "fr" ? "Se déconnecter" : locale === "pt" ? "Sair" : "Log out"}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
-          >
-            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-            </svg>
-            <span className="hidden sm:inline">{loggingOut ? "..." : locale === "tr" ? "Çıkış" : locale === "es" ? "Salir" : locale === "fr" ? "Quitter" : locale === "pt" ? "Sair" : "Log out"}</span>
-          </button>
+          {authChecked && (
+            isLoggedIn ? (
+              <>
+                <Link
+                  href={accountHref}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  <span className="hidden sm:inline">{locale === "tr" ? "Hesabım" : locale === "es" ? "Cuenta" : locale === "fr" ? "Compte" : locale === "pt" ? "Conta" : "Account"}</span>
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  disabled={loggingOut}
+                  title={locale === "tr" ? "Çıkış Yap" : locale === "es" ? "Cerrar sesión" : locale === "fr" ? "Se déconnecter" : locale === "pt" ? "Sair" : "Log out"}
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+                >
+                  <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                  </svg>
+                  <span className="hidden sm:inline">{loggingOut ? "..." : locale === "tr" ? "Çıkış" : locale === "es" ? "Salir" : locale === "fr" ? "Quitter" : locale === "pt" ? "Sair" : "Log out"}</span>
+                </button>
+              </>
+            ) : (
+              <Link
+                href={loginHref}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1"
+              >
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                </svg>
+                <span className="hidden sm:inline">
+                  {locale === "tr" ? "Giriş Yap" : locale === "es" ? "Entrar" : locale === "fr" ? "Connexion" : locale === "pt" ? "Entrar" : "Sign In"}
+                </span>
+              </Link>
+            )
+          )}
         </div>
       </div>
     </header>
