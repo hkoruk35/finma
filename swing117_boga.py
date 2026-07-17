@@ -2662,12 +2662,8 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
     logging.info(f"[L1] 1D Trend Gate: {len(tickers_to_scan)} → {len(l1_pass)} hisse")
 
     if not l1_pass:
-        await send_telegram_message(
-            f"🐂 <b>BOGA v117.v3</b> — Bugün Layer 1'i geçen hisse yok.\n"
-            f"📊 Rejim: {MARKET_STATUS['regime']} ({bucket})\n"
-            f"<i>Disiplin = pozisyon yok da bir pozisyondur.</i>"
-        )
-        return
+        logging.info("Bugün Layer 1'i geçen hisse yok, tarama atlanıyor.")
+        # return removed to ensure candidate_pool logic still runs
 
     # ── STEP 4: LAYER 1.5 (info gates — MCap/industry/quoteType) ─
     l1b_pass = []
@@ -2739,12 +2735,8 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
 
     all_qualified = signal_pool + watch_pool
     if not all_qualified:
-        await send_telegram_message(
-            f"🐂 <b>BOGA v117.v3</b> — Bugün 4 katmanı geçen hisse yok.\n"
-            f"📊 Rejim: {MARKET_STATUS['regime']} ({bucket})\n"
-            f"<i>Power Pullback tetiksiz giriş yapmaz. Yarın tekrar.</i>"
-        )
-        return
+        logging.info("Bugün 4 katmanı geçen hisse yok.")
+        # return removed to ensure candidate_pool logic still runs
 
     # ── STEP 9: SKOR + ZONE + R/R ────────────────────────────────
     for c in all_qualified:

@@ -84,3 +84,4 @@ foreach ($Task in $OldTasks) {
 }
 
 Write-Host "DONE: BOGA AI bot pipeline reconfigured successfully. Use SISTEMI_GUNCELLE.bat as Administrator to apply."
+Read-Host "Press Enter to exit..."
