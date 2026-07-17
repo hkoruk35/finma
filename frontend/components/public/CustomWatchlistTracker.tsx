@@ -373,6 +373,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   { label: "RSI", key: "rsi", align: "right" },
                   { label: "PATERN", key: null, align: "right" },
                   { label: "SİNYAL", key: "signal", align: "right" },
+                  { label: "GRAFİK", key: null, align: "center" },
                   { label: "İŞLEM", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
@@ -388,6 +389,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   { label: "RSI", key: "rsi", align: "right" },
                   { label: "PATTERN", key: null, align: "right" },
                   { label: "SIGNAL", key: "signal", align: "right" },
+                  { label: "CHART", key: null, align: "center" },
                   { label: "ACTION", key: null, align: "right" },
                 ]) as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (
                   <th key={label} onClick={key ? () => toggleSort(key) : undefined}
@@ -416,7 +418,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   <Fragment key={r.ticker}>
                     <tr style={{ background: bg, borderBottom: isExpanded ? "none" : "1px solid #21262d", cursor: "pointer" }} onClick={() => toggleExpand(r.ticker)}>
                       <td style={{ padding: "6px 8px", fontWeight: 700, color: "#58a6ff" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
@@ -440,6 +442,27 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "center" }} onClick={(e) => e.stopPropagation()}>
+                        <a
+                          href={`/global/${locale}/graphic/${r.ticker}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: "inline-flex", alignItems: "center", gap: 4,
+                            background: "#1c2333", border: "1px solid #388bfd55",
+                            color: "#58a6ff", borderRadius: 4, padding: "3px 8px",
+                            fontSize: 10, fontWeight: 700, textDecoration: "none",
+                            cursor: "pointer", fontFamily: "monospace",
+                            transition: "all 0.15s",
+                            whiteSpace: "nowrap",
+                          }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#388bfd22"; (e.currentTarget as HTMLElement).style.borderColor = "#58a6ff"; }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "#1c2333"; (e.currentTarget as HTMLElement).style.borderColor = "#388bfd55"; }}
+                          title={locale === "tr" ? "Grafik sayfasını aç" : "Open chart page"}
+                        >
+                          📊 {locale === "tr" ? "Grafik" : "Chart"} ↗
+                        </a>
+                      </td>
                       <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => removeTicker(r.ticker)}
                           style={{ background: "transparent", border: "1px solid #f8514944", color: "#f85149", borderRadius: 3, padding: "2px 6px", fontSize: 10, cursor: "pointer" }}
@@ -451,7 +474,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={14} style={{ padding: 0 }}>
+                        <td colSpan={15} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={r.ticker} locale={locale} />
                         </td>
                       </tr>
@@ -490,8 +513,8 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                   return (
                     <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
-                          <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
+                        <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => window.open(`/global/${locale}/graphic/${r.ticker}`, '_blank')} detailLabel={locale === "tr" ? "Grafik Detay ↗" : "Chart Detail ↗"}>
+                          <a href={`/global/${locale}/graphic/${r.ticker}`} target="_blank" rel="noopener noreferrer" style={{ color: "#58a6ff", fontWeight: 900, textDecoration: "none" }}>{r.ticker}</a>
                         </TickerHoverChart>
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
