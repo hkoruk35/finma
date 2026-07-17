@@ -2101,14 +2101,11 @@ def split_html_safe(text: str, max_len: int = 3900) -> list[str]:
 
 
 async def send_telegram_message(message: str) -> None:
-    return  # 🚫 TELEGRAM MESAJ GÖNDERİMİ PASİF HALE GETİRİLDİ
-    
-    # İleride açmak istersen eski kodlar referans olarak burada duruyor:
-    # if not ENABLE_TELEGRAM_NOTIFICATIONS:
-    #     return
-    # safe_text = tg(message)
-    # parts = split_html_safe(safe_text)
-    # session = await get_telegram_session()
+    if not ENABLE_TELEGRAM_NOTIFICATIONS:
+        return
+    safe_text = tg(message)
+    parts = split_html_safe(safe_text)
+    session = await get_telegram_session()
 
     url = f"https://api.telegram.org/bot{TELEGRAM_API_KEY}/sendMessage"
 
@@ -2128,7 +2125,6 @@ async def send_telegram_message(message: str) -> None:
 
 
 async def send_telegram_photo(photo_path: str, caption: str = "") -> None:
-    return  # 🚫 TELEGRAM MESAJ GÖNDERİMİ PASİF HALE GETİRİLDİ
     if not ENABLE_TELEGRAM_NOTIFICATIONS:
         return
     if not os.path.exists(photo_path):
