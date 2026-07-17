@@ -1,22 +1,20 @@
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function DisclaimerPageTr() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/en" />
+      <MemberHeader locale="tr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-        <div className="flex justify-end mb-4">
-          <Link href="/global/en/disclaimer" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
-        </div>
-        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Yasal Uyarılar ve Uyumluluk</h1>
+        
+        <h1 className="text-3xl font-semibold text-white mb-8 tracking-tight">Yasal Uyarılar ve Uyumluluk</h1>
 
         <div className="glass-card p-8 space-y-12 text-white leading-relaxed">
           {/* Section 1 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">1. Yatırım Tavsiyesi Değildir</h2>
+            <h2 className="text-lg font-medium text-white mb-4">1. Yatırım Tavsiyesi Değildir</h2>
             <p>
               BOGA AI Daily 6,000+, otomatik bir bilgilendirme servisidir. Bu platformda sunulan içerik —
               özel BOGA AI tarafından üretilen analizler, puanlar ve işlem derecelendirmeleri
@@ -29,7 +27,7 @@ export default function DisclaimerPageTr() {
 
           {/* Section 2 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">2. Yüksek Risk Bildirimi</h2>
+            <h2 className="text-lg font-medium text-white mb-4">2. Yüksek Risk Bildirimi</h2>
             <p>
               ABD hisse senetlerinde işlem yapmak yüksek derecede risk ve önemli sermaye kaybı potansiyeli
               içerir. AI puanlarımız deneyseldir ve gelecekteki sonuçları garanti etmeyen geçmiş veri
@@ -40,7 +38,7 @@ export default function DisclaimerPageTr() {
 
           {/* Section 3 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">3. Veri Gizliliği (CCPA/GDPR Uyumluluğu)</h2>
+            <h2 className="text-lg font-medium text-white mb-4">3. Veri Gizliliği (CCPA/GDPR Uyumluluğu)</h2>
             <p>
               Kullanıcı gizliliğine öncelik veriyoruz. BOGA AI Daily 6,000+, yalnızca hesap doğrulama
               amacıyla güvenli üçüncü taraf sağlayıcılar üzerinden e-posta adreslerini toplar. Kullanıcı
@@ -51,7 +49,7 @@ export default function DisclaimerPageTr() {
 
           {/* Section 4 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">4. Reklam ve Tarafsızlık Bildirimi</h2>
+            <h2 className="text-lg font-medium text-white mb-4">4. Reklam ve Tarafsızlık Bildirimi</h2>
             <p>
               Ücretsiz üyelik kademesini desteklemek için bu platformda üçüncü taraf reklamlar
               gösterilebilir. BOGA AI, reklam ve analiz arasında sıkı bir ayrım sürdürür; reklam verenler

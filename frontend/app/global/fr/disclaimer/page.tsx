@@ -1,22 +1,20 @@
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function FrDisclaimerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/fr" />
+      <MemberHeader locale="fr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-        <div className="flex justify-end mb-4">
-          <Link href="/global/en/disclaimer" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
-        </div>
-        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Mentions Légales et Conformité</h1>
+        
+        <h1 className="text-3xl font-semibold text-white mb-8 tracking-tight">Mentions Légales et Conformité</h1>
 
         <div className="glass-card p-8 space-y-12 text-white leading-relaxed">
           {/* Section 1 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">1. Pas de Conseils Financiers</h2>
+            <h2 className="text-lg font-medium text-white mb-4">1. Pas de Conseils Financiers</h2>
             <p>
               BOGA AI Daily 6,000+ est un service informatisé automatisé. Le contenu fourni sur cette plateforme,
               y compris mais non limité aux analyses générées par BOGA AI, aux scores et aux évaluations commerciales
@@ -29,7 +27,7 @@ export default function FrDisclaimerPage() {
 
           {/* Section 2 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">2. Divulgation du Risque Élevé</h2>
+            <h2 className="text-lg font-medium text-white mb-4">2. Divulgation du Risque Élevé</h2>
             <p>
               La négociation d'actions américaines implique un degré élevé de risque et la possibilité d'une perte importante du capital.
               Nos scores d'IA sont expérimentaux et basés sur les modèles de données historiques qui ne garantissent pas
@@ -40,7 +38,7 @@ export default function FrDisclaimerPage() {
 
           {/* Section 3 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">3. Confidentialité des Données (Conformité CCPA/RGPD)</h2>
+            <h2 className="text-lg font-medium text-white mb-4">3. Confidentialité des Données (Conformité CCPA/RGPD)</h2>
             <p>
               Nous accordons la priorité à la confidentialité des utilisateurs. BOGA AI Daily 6,000+ ne collecte que les adresses e-mail
               pour les besoins d'authentification des comptes via des fournisseurs tiers sécurisés. Nous ne vendons pas
@@ -51,7 +49,7 @@ export default function FrDisclaimerPage() {
 
           {/* Section 4 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">4. Divulgation Publicitaire et de Neutralité</h2>
+            <h2 className="text-lg font-medium text-white mb-4">4. Divulgation Publicitaire et de Neutralité</h2>
             <p>
               Des publicités tierces peuvent être affichées sur cette plateforme pour soutenir notre niveau d'adhésion gratuit.
               BOGA AI maintient une séparation stricte entre la publicité et l'analyse ; les annonceurs n'ont pas
@@ -68,7 +66,7 @@ export default function FrDisclaimerPage() {
         </div>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="fr" />
     </div>
   );
 }

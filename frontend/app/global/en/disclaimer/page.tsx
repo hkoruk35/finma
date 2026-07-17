@@ -1,22 +1,20 @@
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function DisclaimerPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/en" />
+      <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-        <div className="flex justify-end mb-4">
-          <Link href="/global/en/disclaimer/tr" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">Türkçe →</Link>
-        </div>
-        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Legal & Compliance</h1>
+        
+        <h1 className="text-3xl font-semibold text-white mb-8 tracking-tight">Legal & Compliance</h1>
 
         <div className="glass-card p-8 space-y-12 text-white leading-relaxed">
           {/* Section 1 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">1. Not Financial Advice</h2>
+            <h2 className="text-lg font-medium text-white mb-4">1. Not Financial Advice</h2>
             <p>
               BOGA AI Daily 6,000+ is an automated informational service. The content provided on this platform,
               including but not limited to proprietary BOGA AI-generated analyses, scores, and trading ratings
@@ -29,7 +27,7 @@ export default function DisclaimerPage() {
 
           {/* Section 2 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">2. High Risk Disclosure</h2>
+            <h2 className="text-lg font-medium text-white mb-4">2. High Risk Disclosure</h2>
             <p>
               Trading US equities involve a high degree of risk and the potential for significant loss of capital.
               Our AI scores are experimental and based on historical data patterns which do not guarantee
@@ -40,7 +38,7 @@ export default function DisclaimerPage() {
 
           {/* Section 4 (Relabeled as 3 in flow but user wants specific sections) */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">3. Data Privacy (CCPA/GDPR Compliance)</h2>
+            <h2 className="text-lg font-medium text-white mb-4">3. Data Privacy (CCPA/GDPR Compliance)</h2>
             <p>
               We prioritize user privacy. BOGA AI Daily 6,000+ only collects email addresses for account
               authentication purposes via secure third-party providers. We do NOT sell user data to 
@@ -51,7 +49,7 @@ export default function DisclaimerPage() {
 
           {/* Section 5 */}
           <section>
-            <h2 className="text-xl font-bold text-white mb-4">4. Advertising & Neutrality Disclosure</h2>
+            <h2 className="text-lg font-medium text-white mb-4">4. Advertising & Neutrality Disclosure</h2>
             <p>
               Third-party advertisements may be displayed on this platform to support our free membership tier. 
               BOGA AI maintains strict separation between advertising and analysis; advertisers do not have 
@@ -68,7 +66,7 @@ export default function DisclaimerPage() {
         </div>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="en" />
     </div>
   );
 }

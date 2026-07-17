@@ -1,23 +1,21 @@
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export default function EsPrivacyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0d1117]">
-      <Header hideMenus={true} logoHref="/global/es" />
+      <MemberHeader locale="es" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-16">
-        <div className="flex justify-end mb-4">
-          <Link href="/global/en/privacy" className="text-xs font-bold text-[#3b82f6] hover:text-white transition-colors">English →</Link>
-        </div>
-        <h1 className="text-4xl font-black text-white mb-8 tracking-tight">Política de Privacidad</h1>
+        
+        <h1 className="text-3xl font-semibold text-white mb-8 tracking-tight">Política de Privacidad</h1>
 
         <div className="glass-card p-8 space-y-6 text-white leading-relaxed">
           <p>Última actualización: Abril 2026</p>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">1. Información que Recopilamos</h2>
+            <h2 className="text-lg font-medium text-white mb-3">1. Información que Recopilamos</h2>
             <p>
               Recopilamos información personal mínima para proporcionar nuestros servicios.
               Esto incluye tu dirección de correo electrónico cuando te registras en una cuenta,
@@ -27,7 +25,7 @@ export default function EsPrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">2. Cómo Usamos los Datos</h2>
+            <h2 className="text-lg font-medium text-white mb-3">2. Cómo Usamos los Datos</h2>
             <p>
               Tus datos se utilizan para:
             </p>
@@ -40,7 +38,7 @@ export default function EsPrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">3. Compartición de Datos</h2>
+            <h2 className="text-lg font-medium text-white mb-3">3. Compartición de Datos</h2>
             <p>
               No vendemos tus datos personales a terceros.
               Los datos agregados y anonimizados pueden compartirse con nuestros socios
@@ -49,7 +47,7 @@ export default function EsPrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">4. Seguridad</h2>
+            <h2 className="text-lg font-medium text-white mb-3">4. Seguridad</h2>
             <p>
               Utilizamos cifrado estándar del sector para proteger tu cuenta.
               Sin embargo, ningún método de almacenamiento o transmisión electrónica es 100% seguro.
@@ -57,7 +55,7 @@ export default function EsPrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">5. Tus Derechos</h2>
+            <h2 className="text-lg font-medium text-white mb-3">5. Tus Derechos</h2>
             <p>
               Puedes solicitar ver, corregir o eliminar tus datos personales
               en cualquier momento contactándonos en contact@bogastock.com.
@@ -66,7 +64,7 @@ export default function EsPrivacyPage() {
         </div>
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="es" />
     </div>
   );
 }
