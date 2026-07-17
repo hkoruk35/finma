@@ -435,6 +435,10 @@ def load_swing_universe() -> List[str]:
         with open(swing_file, encoding="utf-8") as f:
             data = json.load(f)
         
+        if not data or not isinstance(data, dict):
+            logging.error(f"❌ {swing_file} içeriği boş veya geçersiz!")
+            return []
+        
         picks = data.get("picks", [])
         pick_date = data.get("date", "")
         
