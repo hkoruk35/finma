@@ -19,6 +19,14 @@ git config --global --add safe.directory $WorkingDir
 
 $CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
+$Settings = New-ScheduledTaskSettingsSet `
+    -MultipleInstances IgnoreNew `
+    -ExecutionTimeLimit (New-TimeSpan -Hours 72) `
+    -WakeToRun:$false `
+    -StartWhenAvailable
+$Settings.DisallowStartIfOnBatteries = $false
+$Settings.StopIfGoingOnBatteries = $false
+
 try { Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue } catch {}
 
 Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Description "BOGA AI Swing Performance Hourly Tracker (10:00-16:30)" -User $CurrentUser -Force

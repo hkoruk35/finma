@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "BAX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 22.74,
+        "entry_zone": "22.33 - 23.15",
+        "SL": 21.09,
+        "TP": 26.04
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "DXCM",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 76.37,
+        "entry_zone": "74.97 - 77.77",
+        "SL": 70.77,
+        "TP": 87.57
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "BIIB",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 204.5,
+        "entry_zone": "199.81 - 209.19",
+        "SL": 185.75,
+        "TP": 242.0
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "IR",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 82.14,
+        "entry_zone": "80.83 - 83.46",
+        "SL": 76.9,
+        "TP": 92.63
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "GRMN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 249.01,
+        "entry_zone": "246.11 - 251.90",
+        "SL": 237.41,
+        "TP": 272.2
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "CTAS",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 203.29,
+        "entry_zone": "200.31 - 206.28",
+        "SL": 191.35,
+        "TP": 227.18
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "CTRE",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 42.71,
+        "entry_zone": "42.17 - 43.24",
+        "SL": 40.57,
+        "TP": 46.98
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "WEN",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 7.7,
+        "entry_zone": "7.45 - 7.95",
+        "SL": 6.69,
+        "TP": 9.72
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "JBHT",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 290.3,
+        "entry_zone": "285.32 - 295.27",
+        "SL": 270.39,
+        "TP": 330.1
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "TFII",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 156.87,
+        "entry_zone": "154.68 - 159.06",
+        "SL": 148.11,
+        "TP": 174.39
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "ABT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 99.98,
+        "entry_zone": "98.33 - 101.63",
+        "SL": 93.4,
+        "TP": 113.14
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "CUBE",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 41.92,
+        "entry_zone": "41.44 - 42.40",
+        "SL": 40.01,
+        "TP": 45.74
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "BTI",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 62.34,
+        "entry_zone": "61.65 - 63.03",
+        "SL": 59.56,
+        "TP": 67.89
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "CFG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 71.98,
+        "entry_zone": "71.06 - 72.89",
+        "SL": 68.3,
+        "TP": 79.33
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "CDNA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 39.82,
+        "entry_zone": "38.84 - 40.81",
+        "SL": 35.88,
+        "TP": 47.71
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "ARCB",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 158.7,
+        "entry_zone": "155.70 - 161.70",
+        "SL": 146.69,
+        "TP": 182.72
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "RNST",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 43.37,
+        "entry_zone": "42.86 - 43.88",
+        "SL": 41.33,
+        "TP": 47.46
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "NNN",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 49.33,
+        "entry_zone": "48.89 - 49.78",
+        "SL": 47.57,
+        "TP": 52.86
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 7.14,
+        "entry_zone": "6.70 - 7.59",
+        "SL": 5.37,
+        "TP": 10.69
+    },
+    {
+        "date": "2026-07-17 14:45",
+        "symbol": "FR",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 68.85,
+        "entry_zone": "68.16 - 69.54",
+        "SL": 66.11,
+        "TP": 74.34
+    }
+]
