@@ -9,7 +9,7 @@ import TickerTape from "@/components/TickerTape";
 import SectorHeatMap from "@/components/SectorHeatMap";
 import { MARKET_THEMES } from "@/lib/themeData";
 
-export const revalidate = 3600;
+export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "BOGA AI",

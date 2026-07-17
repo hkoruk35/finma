@@ -27,7 +27,7 @@ function normalizeStatus(emaStatus: string | undefined): TrendStatus {
   return "NEUTRAL";
 }
 
-const HOUR = 3600;
+const CACHE_TIME = 120; // 2 minutes
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
@@ -39,7 +39,7 @@ export async function fetchLiveQuotes(tickers: string[]): Promise<Record<string,
   if (tickers.length === 0) return {};
   try {
     const res = await fetch(`${BASE_URL}/api/watchlist-data?tickers=${tickers.join(",")}`, {
-      next: { revalidate: HOUR },
+      next: { revalidate: CACHE_TIME },
       signal: AbortSignal.timeout(20000),
     });
     if (!res.ok) return {};
@@ -57,7 +57,7 @@ async function supabaseSelect(table: string, query: string): Promise<any[]> {
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
       headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` },
-      next: { revalidate: HOUR },
+      next: { revalidate: CACHE_TIME },
     });
     if (!res.ok) return [];
     return await res.json();
@@ -293,7 +293,7 @@ export async function getLiveIndices(): Promise<Record<string, { value: number; 
   const symbols = Object.values(INDEX_TICKERS).join(",");
   try {
     const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(symbols)}`, {
-      next: { revalidate: HOUR },
+      next: { revalidate: CACHE_TIME },
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return {};
