@@ -29,7 +29,8 @@ function Set-BogaTask {
     $Settings = New-ScheduledTaskSettingsSet `
         -MultipleInstances IgnoreNew `
         -ExecutionTimeLimit (New-TimeSpan -Hours 72) `
-        -WakeToRun:$false
+        -WakeToRun:$false `
+        -StartWhenAvailable
     # Pil kısıtlamalarını kapat (dizüstü bilgisayar desteği için kritik)
     $Settings.DisallowStartIfOnBatteries = $false
     $Settings.StopIfGoingOnBatteries = $false
@@ -39,7 +40,7 @@ function Set-BogaTask {
     try { Unregister-ScheduledTask -TaskName $Name -Confirm:$false -ErrorAction SilentlyContinue } catch {}
     Register-ScheduledTask -TaskName $Name -InputObject $Task -Force
     Enable-ScheduledTask -TaskName $Name
-    Write-Host "OK: $Name gorev olusturuldu (S4U, batarya kisitlamasi yok)"
+    Write-Host "OK: $Name gorev olusturuldu (S4U, batarya kisitlamasi yok, StartWhenAvailable aktif)"
 }
 
 # 1. BOGA AI MORNING CYCLE (run_morning_cycle.py) - 09:15 NY
@@ -57,6 +58,9 @@ Set-BogaTask -Name "BOGA_AI_Options_Scanner" -Script "run_options_scanner.py" -A
 # 5. BOGA AI HEALTH CHECK - Every 4 hours (7/24)
 Set-BogaTask -Name "BOGA_AI_Health_Check" -Script "site_health_checker.py" -Args "--daily" -StartTime "00:00:00" -RepetitionInterval (New-TimeSpan -Hours 4) -RepetitionDuration (New-TimeSpan -Days 3650)
 
+# 6. BOGA AI SWING HOURLY SCAN (run_swing_hourly.py) - 09:00 NY (Every 1 hour)
+Set-BogaTask -Name "BOGA_AI_Swing_Hourly" -Script "run_swing_hourly.py" -Args "" -StartTime "09:00:00" -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration (New-TimeSpan -Hours 8)
+
 # ESKİ GÖREVLERİ TEMİZLE (Tamamen silmek için)
 $OldTasks = @(
     "BOGA_AI_Swing_Scanner",
@@ -68,7 +72,8 @@ $OldTasks = @(
     "BOGA_AI_v8.0_SWING",
     "BOGA_AI_Daily_Master",
     "BOGA_AI_Inday_Scanner",
-    "BOGA_AI_Closing_Cycle"
+    "BOGA_AI_Closing_Cycle",
+    "BOGA_AI_Swing_Loop"
 )
 
 foreach ($Task in $OldTasks) {

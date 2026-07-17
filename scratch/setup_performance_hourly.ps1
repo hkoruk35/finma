@@ -21,7 +21,7 @@ $CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
 try { Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue } catch {}
 
-Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Description "BOGA AI Swing Performance Hourly Tracker (10:00-16:30)" -User $CurrentUser -Force
+Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Description "BOGA AI Swing Performance Hourly Tracker (10:00-16:30)" -User $CurrentUser -Force
 Enable-ScheduledTask -TaskName $TaskName
 
 Write-Host "DONE: Performance Hourly Task registered for ${CurrentUser}: 10:00 to 16:30 NY time."
