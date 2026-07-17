@@ -2543,6 +2543,8 @@ def save_json_for_dashboard(results: List[Dict[str, Any]]):
             try:
                 with open(summary_path, encoding="utf-8") as f:
                     summary = json.load(f)
+                if not summary or not isinstance(summary, dict):
+                    summary = {}
             except:
                 summary = {}
 
