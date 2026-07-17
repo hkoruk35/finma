@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export async function GET() {
   const supabase = await createSupabaseServerClient();
@@ -9,7 +10,7 @@ export async function GET() {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from("custom_watchlists")
     .select("tickers")
     .eq("user_id", userData.user.id)
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
     // Limit to 10 items, remove duplicates, convert to uppercase
     tickers = Array.from(new Set(tickers.map((t: string) => t.toUpperCase()))).slice(0, 10);
 
-    const { error: upsertError } = await supabase
+    const { error: upsertError } = await supabaseAdmin
       .from("custom_watchlists")
       .upsert({
         user_id: userData.user.id,
