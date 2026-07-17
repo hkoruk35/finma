@@ -186,35 +186,32 @@ export async function getTopTop100ByVolume(limit = 5): Promise<HomeStock[]> {
   const snapshots = await supabaseSelect("top100_snapshot", "select=ticker,price,volume,change_pct");
   const snapByTicker = new Map(snapshots.map((s) => [s.ticker, s]));
 
+  const live = await fetchLiveQuotes(tickers.map((t) => t.ticker));
+
   const top = tickers
     .map((t) => {
       const s = snapByTicker.get(t.ticker);
+      const l = live[t.ticker];
       return {
         ticker: t.ticker,
-        sector: t.sector || "—",
-        price: s?.price ?? 0,
-        change_pct: s?.change_pct ?? 0,
-        volume: s?.volume ?? 0,
+        sector: l?.sector && l.sector !== "Unknown" ? l.sector : (t.sector || "—"),
+        status: normalizeStatus(l?.tracker_1h?.ema_status),
+        price: l?.price?.current ?? s?.price ?? 0,
+        change_pct: l?.price?.change_pct ?? s?.change_pct ?? 0,
+        volume: l?.price?.volume ?? s?.volume ?? 0,
+        sparkline: l?.recent_closes ?? [],
       };
     })
     .sort((a, b) => b.volume - a.volume)
     .slice(0, limit);
 
-  // top100_tickers.sector is often a placeholder ("Other") — overlay the real
-  // sector (and trend status, which isn't in Supabase at all) from live data
-  // for just this shortlist instead of the full 100. Price/change_pct are
-  // also overlaid from the same live source Swing/Trend use below — the
-  // Supabase snapshot is written by a separately-scheduled cron pipeline and
-  // can lag live quotes by hours, which is what caused the same ticker to
-  // show a different price in the Top 100 panel than in Swing/Trend.
-  const live = await fetchLiveQuotes(top.map((t) => t.ticker));
-  return top.map(({ ticker, sector, price, change_pct }) => ({
+  return top.map(({ ticker, sector, status, price, change_pct, sparkline }) => ({
     ticker,
-    sector: live[ticker]?.sector && live[ticker].sector !== "Unknown" ? live[ticker].sector : sector,
-    status: normalizeStatus(live[ticker]?.tracker_1h?.ema_status),
-    price: live[ticker]?.price?.current ?? price,
-    change_pct: live[ticker]?.price?.change_pct ?? change_pct,
-    sparkline: live[ticker]?.recent_closes ?? [],
+    sector,
+    status,
+    price,
+    change_pct,
+    sparkline,
   }));
 }
 
