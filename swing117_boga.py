@@ -147,7 +147,7 @@ MAX_PER_SECTOR_SIGNALS = 3       # Sinyal listesinde sektör başına maks.
 # çalışmaz. Bkz. run_scanner() ve run_entry_check_pass().
 FULL_SCAN_HOURS_NY = {9, 14, 17}
 ACTIVE_SCAN_HOURS_NY = set(range(9, 18))   # 09:00–17:00 NY, haftaiçi her saat
-SWING_PENDING_MAX_DAYS = 3       # PENDING swing adayı 3 gün giriş yakalayamazsa havuzdan düşer
+SWING_PENDING_MAX_DAYS = 2       # PENDING swing adayı 2 gün giriş yakalayamazsa havuzdan düşer (3'ten 2'ye düşürüldü)
 WATCHLIST_MAX_DAYS = 10          # Watchlist adayı 10 gün sonra havuzdan düşer
 CANDIDATE_POOL_FILE = os.path.join(BASE_DATA_DIR, "candidate_pool.json")
 WATCHLIST_PICKS_FILE = "watchlist_picks.json"
@@ -169,28 +169,28 @@ REGIME_UNIVERSE_RULES = {
 UNIVERSE_BASE_MIN_DOLLAR_VOLUME = 15_000_000
 
 # ── LAYER 1 (1D) ────────────────────────────────────────────────
-RSI_1D_MIN = 55                  # Power Pullback: trend-içi güç şartı
-RSI_1D_MAX = 75                  # v117.v2 dersi: RSI>75 aşırı alım → %29 WR
+RSI_1D_MIN = 50                  # Power Pullback: trend-içi güç şartı (55'ten 50'ye esnetildi)
+RSI_1D_MAX = 78                  # Aşırı alım tavanı (75'ten 78'e esnetildi)
 RS_LOOKBACK = 30                 # SPY'a karşı göreli güç penceresi (gün)
 LOOKBACK_DAYS = 400              # 400 takvim günü (52W high + EMA200 garantisi)
 
 # ── LAYER 2 (4H — RTH resample) ────────────────────────────────
-ADX_4H_MIN = 20
-RSI_4H_MIN = 55
+ADX_4H_MIN = 15                  # 20'den 15'e esnetildi
+RSI_4H_MIN = 50                  # 55'ten 50'ye esnetildi
 
 # ── LAYER 3 (1H) ────────────────────────────────────────────────
-RSI_1H_MIN = 52                  # Kullanıcı kuralı: 1H RSI > 52
+RSI_1H_MIN = 48                  # 52'den 48'e esnetildi
 RSI_1H_MAX = 68                  # Trend-içi dinlenme üst bandı
-RVOL_1H_MIN = 1.1                # Kurumsal giriş kanıtı (hard gate)
-RVOL_1H_IDEAL = 1.5              # Skor bonusu eşiği
+RVOL_1H_MIN = 1.0                # 1.1'den 1.0'a esnetildi
+RVOL_1H_IDEAL = 1.4              # 1.5'ten 1.4'e esnetildi
 
 # ── LAYER 4 (15m — tetik) ───────────────────────────────────────
-PULLBACK_MIN_CANDLES = 3
-PULLBACK_MAX_CANDLES = 8
-RSI_15M_RESET_LOW = 45           # Pullback dibinde RSI 45-60 reset bandı
-RSI_15M_RESET_HIGH = 60
-RVOL_15M_TRIGGER = 1.5           # Resume mumunda RVOL şartı
-EMA_TOUCH_ATR_BAND = 0.30        # EMA20 teması toleransı (× ATR15m)
+PULLBACK_MIN_CANDLES = 2         # 3'ten 2'ye esnetildi
+PULLBACK_MAX_CANDLES = 12        # 8'den 12'ye esnetildi
+RSI_15M_RESET_LOW = 40           # 45'ten 40'a esnetildi
+RSI_15M_RESET_HIGH = 65          # 60'den 65'e esnetildi
+RVOL_15M_TRIGGER = 1.2           # 1.5'ten 1.2'ye esnetildi
+EMA_TOUCH_ATR_BAND = 0.50        # EMA20 teması toleransı (0.30'dan 0.50 ATR'ye esnetildi)
 
 # ── DİSİPLİN ────────────────────────────────────────────────────
 COOLDOWN_DAYS = 20               # Kullanıcı onaylı: 30 → 20 gün
@@ -1104,7 +1104,7 @@ def layer1_trend_engine(ticker: str, cooldown_map: Dict[str, str],
 
         if not (ema50 > ema200):
             return None
-        if not (current_price > ema50):
+        if not (current_price > ema50 * 0.98):  # 2% esneklik eklendi
             return None
 
         # ── 1D RSI bandı ──────────────────────────────────────────
@@ -1317,26 +1317,8 @@ def layer3_swing_engine_1h(c: dict, df_1h: pd.DataFrame) -> bool:
 def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
     """
     LAYER 4 — 15m POWER PULLBACK TETİĞİ.
-    Kullanıcının favori formasyonu birebir kodlanmıştır:
-
-      1. PULLBACK    : Son 30 barın swing high'ından bu yana 3-8 mumluk
-                       geri çekilme penceresi (resume mumu hariç)
-      2. EMA20 TEMASI: Pullback içinde en az bir mumun low'u
-                       EMA20(15m) ± 0.30×ATR(15m) bandına değmiş
-      3. RSI RESET   : Pullback dibinde 15m RSI 45-60 bandına inmiş
-                       (düşen bıçak değil, trend-içi dinlenme)
-      4. RESUME MUMU : Son kapanan mum:
-                         a) Bullish engulfing  VEYA
-                         b) Breakout candle (pullback tepesinin üstünde
-                            güçlü gövdeli yeşil kapanış)
-                       + kapanış EMA20(15m) üzerinde
-      5. RVOL SPIKE  : Resume mumunda RVOL(15m) > 1.5
-
-    Dönen dict:
-      triggered      : bool
-      trigger_type   : BULLISH_ENGULFING | BREAKOUT_CANDLE | ""
-      pullback_*     : kalite metrikleri (skor bileşeni #4)
-      state_note     : watchlist için insan-okur durum notu
+    Kullanıcının favori formasyonu esnetilerek güncellenmiştir.
+    Ayrıca hacimli kırılım (VOLUME_BREAKOUT) tetiği eklenmiştir.
     """
     out = {
         "triggered": False, "trigger_type": "", "state_note": "Setup bekleniyor",
@@ -1359,9 +1341,37 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
         if atr_15 <= 0:
             atr_15 = float(cl.iloc[-1]) * 0.004
 
+        curr_o = float(o.iloc[-1]);  curr_c = float(cl.iloc[-1])
+        curr_h = float(h.iloc[-1]);  curr_l = float(l.iloc[-1])
+        prev_c = float(cl.iloc[-2])
+
+        v20 = float(v.iloc[-21:-1].mean())
+        rvol_15m = float(v.iloc[-1]) / v20 if v20 > 0 else 0.0
+
+        # ── Hacimli Kırılım Alternatif Tetiği (VOLUME_BREAKOUT) ──
+        # Pullback beklemeden, yüksek hacimli yeşil mum ile EMA20 üstü kırılımları doğrudan alım yapar
+        recent_highs_4 = h.iloc[-5:-1].dropna()
+        is_green = curr_c > curr_o and curr_c > prev_c
+        above_ema = curr_c > float(ema20_15.iloc[-1])
+
+        is_volume_breakout = (
+            is_green and above_ema
+            and rvol_15m >= 1.8
+            and len(recent_highs_4) >= 4
+            and curr_c >= float(recent_highs_4.max())
+        )
+
+        if is_volume_breakout:
+            out["triggered"] = True
+            out["trigger_type"] = "VOLUME_BREAKOUT"
+            out["rvol_15m"] = round(rvol_15m, 2)
+            out["state_note"] = (
+                f"Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi ({rvol_15m:.1f}x) "
+                f"+ Fiyat kırılımı (${curr_c:.2f} > son 4 mum yüksekliği)"
+            )
+            return out
+
         # ── 1) Swing high & pullback penceresi ────────────────────
-        # Resume mumu = son bar. Swing high son 30 bar içinde aranır
-        # (son bar hariç). Pullback penceresi: swing_high+1 → son bar-1.
         search = h.iloc[-31:-1]
         swing_pos_in_search = int(np.argmax(search.values))
         swing_idx = len(df_15m) - 31 + swing_pos_in_search   # mutlak konum
@@ -1373,18 +1383,18 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
         out["pullback_candles"] = n_pull
 
         if not (PULLBACK_MIN_CANDLES <= n_pull <= PULLBACK_MAX_CANDLES):
-            out["state_note"] = f"Pullback {n_pull} mum (3-8 dışı)"
+            out["state_note"] = f"Pullback {n_pull} mum ({PULLBACK_MIN_CANDLES}-{PULLBACK_MAX_CANDLES} dışı)"
             return out
 
         pull_low = float(l.iloc[pull_start:pull_end].min())
         depth_atr = (swing_high_val - pull_low) / atr_15
         out["pullback_depth_atr"] = round(depth_atr, 2)
 
-        # Anlamsız sığ (gürültü) veya çöküş derinliğinde pullback'i ele
-        if depth_atr < 0.5:
+        # Anlamsız sığ (gürültü) veya çöküş derinliğinde pullback'i ele (esnetildi: 0.4 - 4.5)
+        if depth_atr < 0.4:
             out["state_note"] = "Pullback çok sığ (gürültü)"
             return out
-        if depth_atr > 4.0:
+        if depth_atr > 4.5:
             out["state_note"] = "Geri çekilme çok derin (trend kırılma riski)"
             return out
 
@@ -1402,7 +1412,7 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
             out["state_note"] = "EMA20 teması henüz yok"
             return out
 
-        # ── 3) RSI reset (45-60) ──────────────────────────────────
+        # ── 3) RSI reset (40-65) ──────────────────────────────────
         rsi_window = rsi_15.iloc[pull_start:pull_end].dropna()
         if rsi_window.empty:
             out["state_note"] = "RSI verisi eksik"
@@ -1415,17 +1425,11 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
             return out
 
         # ── 4) Resume mumu ────────────────────────────────────────
-        curr_o = float(o.iloc[-1]);  curr_c = float(cl.iloc[-1])
-        curr_h = float(h.iloc[-1]);  curr_l = float(l.iloc[-1])
-        prev_o = float(o.iloc[-2]);  prev_c = float(cl.iloc[-2])
-        prev_h = float(h.iloc[-2])
+        prev_o = float(o.iloc[-2]);  prev_h = float(h.iloc[-2])
 
-        is_green = curr_c > curr_o
         candle_range = max(curr_h - curr_l, 1e-9)
         body_ratio = abs(curr_c - curr_o) / candle_range
         out["resume_body_ratio"] = round(body_ratio, 2)
-
-        above_ema = curr_c > float(ema20_15.iloc[-1])
 
         is_engulfing = (
             is_green and (prev_c < prev_o)
@@ -1433,7 +1437,7 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
         )
         pull_recent_high = float(h.iloc[max(pull_start, pull_end - 3):pull_end].max())
         is_breakout_candle = (
-            is_green and body_ratio >= 0.55
+            is_green and body_ratio >= 0.50  # 0.55'ten 0.50'ye düşürüldü
             and (curr_c > prev_h) and (curr_c > pull_recent_high)
         )
 
@@ -1442,8 +1446,6 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
             return out
 
         # ── 5) Resume mumunda RVOL ────────────────────────────────
-        v20 = float(v.iloc[-21:-1].mean())
-        rvol_15m = float(v.iloc[-1]) / v20 if v20 > 0 else 0.0
         out["rvol_15m"] = round(rvol_15m, 2)
         if rvol_15m < RVOL_15M_TRIGGER:
             out["state_note"] = f"Resume mumu var, RVOL zayıf ({rvol_15m:.1f}x)"
@@ -1454,7 +1456,7 @@ def layer4_entry_trigger_15m(c: dict, df_15m: pd.DataFrame) -> dict:
         out["trigger_type"] = "BULLISH_ENGULFING" if is_engulfing else "BREAKOUT_CANDLE"
         out["state_note"] = (
             f"Power Pullback tetiklendi: {n_pull} mum + EMA20 teması + "
-            f"RSI reset ({rsi_min:.0f}) + {out['trigger_type']} + RVOL {rvol_15m:.1f}x"
+            f"RSI reset ({rsi_min:.0f}) + {out['trigger_type']} + Hacim {rvol_15m:.1f}x"
         )
         return out
     except Exception as e:
@@ -1529,7 +1531,10 @@ def compute_power_pullback_score(c: dict) -> float:
     else:                      d_p = 1.0
 
     if trig.get("triggered"):
-        t_p = 8.0 if trig.get("trigger_type") == "BULLISH_ENGULFING" else 7.0
+        if trig.get("trigger_type") == "VOLUME_BREAKOUT":
+            t_p = 8.0
+        else:
+            t_p = 8.0 if trig.get("trigger_type") == "BULLISH_ENGULFING" else 7.0
         if trig.get("rvol_15m", 0.0) >= 2.0:
             t_p = 8.0                          # RVOL 2x+ resume → tavan
     else:
