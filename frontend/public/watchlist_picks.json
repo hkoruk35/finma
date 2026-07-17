@@ -1,77 +1,65 @@
 {
-  "generated_at": "2026-07-15T14:00:49.506011-04:00",
+  "generated_at": "2026-07-17T16:23:17.684363-04:00",
   "picks": [
     {
-      "ticker": "EIX",
-      "sector": "Utilities",
-      "date_added": "2026-07-14",
-      "score": 71.0
-    },
-    {
-      "ticker": "EAT",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-14",
-      "score": 70.0
-    },
-    {
-      "ticker": "IDA",
-      "sector": "Utilities",
-      "date_added": "2026-07-14",
-      "score": 69.0
-    },
-    {
-      "ticker": "NET",
+      "ticker": "VRSN",
       "sector": "Technology",
-      "date_added": "2026-07-14",
-      "score": 67.0
+      "date_added": "2026-07-17",
+      "score": 46.0
     },
     {
-      "ticker": "BNL",
-      "sector": "Real Estate",
-      "date_added": "2026-07-14",
-      "score": 67.0
+      "ticker": "EXPE",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-17",
+      "score": 43.0
     },
     {
-      "ticker": "ESS",
-      "sector": "Real Estate",
-      "date_added": "2026-07-14",
-      "score": 65.0
-    },
-    {
-      "ticker": "MNST",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-07-14",
-      "score": 64.0
-    },
-    {
-      "ticker": "TRGP",
-      "sector": "Energy",
-      "date_added": "2026-07-14",
-      "score": 64.0
-    },
-    {
-      "ticker": "ARMK",
+      "ticker": "GE",
       "sector": "Industrials",
-      "date_added": "2026-07-14",
-      "score": 63.0
+      "date_added": "2026-07-17",
+      "score": 43.0
     },
     {
-      "ticker": "VTR",
-      "sector": "Real Estate",
-      "date_added": "2026-07-14",
-      "score": 60.0
+      "ticker": "GRMN",
+      "sector": "Technology",
+      "date_added": "2026-07-17",
+      "score": 42.5
     },
     {
-      "ticker": "MSM",
+      "ticker": "DE",
       "sector": "Industrials",
-      "date_added": "2026-07-15",
-      "score": 70.0
+      "date_added": "2026-07-17",
+      "score": 41.5
     },
     {
-      "ticker": "AHR",
-      "sector": "Real Estate",
-      "date_added": "2026-07-15",
-      "score": 69.0
+      "ticker": "EBAY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-17",
+      "score": 40.0
+    },
+    {
+      "ticker": "WSM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-17",
+      "score": 37.0
+    },
+    {
+      "ticker": "PANW",
+      "sector": "Technology",
+      "date_added": "2026-07-17",
+      "score": 34.0
+    },
+    {
+      "ticker": "AIG",
+      "sector": "Financial Services",
+      "date_added": "2026-07-17",
+      "score": 48.0
+    },
+    {
+      "ticker": "CNC",
+      "sector": "Healthcare",
+      "date_added": "2026-07-17",
+      "score": 42.0
     }
   ]
 }
