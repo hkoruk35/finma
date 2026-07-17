@@ -5,6 +5,7 @@ import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOp
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
+import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TickerTape from "@/components/TickerTape";
 import SectorHeatMap from "@/components/SectorHeatMap";
 import { MARKET_THEMES } from "@/lib/themeData";
@@ -245,14 +246,11 @@ export default async function TrHomePage() {
             requirePremium
           />
 
-          <HomeSimpleCard
-            title="Watchlist"
-            accent="#a78bfa"
-            stocks={watchlistByVolume}
-            viewAllHref="/global/tr/watchlist"
+          <HomeWatchlistSlot
             locale="tr"
-            sortLabel="Hacim sırasına göre"
-            requirePremium
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/tr/watchlist"
+            defaultSortLabel="Hacim sırasına göre"
           />
 
           <HomeSimpleCard

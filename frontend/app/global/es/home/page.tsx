@@ -1,10 +1,11 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import Link from "next/link";
 import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
+import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TickerTape from "@/components/TickerTape";
 import SectorHeatMap from "@/components/SectorHeatMap";
 import { MARKET_THEMES } from "@/lib/themeData";
@@ -241,14 +242,11 @@ export default async function EsHomePage() {
             requirePremium
           />
 
-          <HomeSimpleCard
-            title="Watchlist"
-            accent="#a78bfa"
-            stocks={watchlistByVolume}
-            viewAllHref="/global/es/watchlist"
+          <HomeWatchlistSlot
             locale="es"
-            sortLabel="Ordenado por volumen"
-            requirePremium
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/es/watchlist"
+            defaultSortLabel="Ordenado por volumen"
           />
 
           <HomeSimpleCard

@@ -348,10 +348,99 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
       </div>
 
       {!loading && !error && composition.length === 0 && (
-        <div className="text-center py-16 text-white/40 text-sm">
-          {locale === "tr" ? "Takip listeniz boş. Yukarıdan hisse ekleyebilirsiniz." : "Your watchlist is empty. Add a ticker above."}
+        <div style={{ padding: "40px 20px", textAlign: "center" }}>
+          {/* Animated gradient container */}
+          <div style={{
+            background: "linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%)",
+            border: "1px solid #388bfd44",
+            borderRadius: 16,
+            padding: "40px 32px",
+            maxWidth: 560,
+            margin: "0 auto",
+            position: "relative",
+            overflow: "hidden",
+          }}>
+            {/* Glow effect */}
+            <div style={{
+              position: "absolute", top: -60, left: "50%", transform: "translateX(-50%)",
+              width: 200, height: 200, borderRadius: "50%",
+              background: "radial-gradient(circle, #388bfd33 0%, transparent 70%)",
+              pointerEvents: "none",
+            }} />
+
+            {/* Icon */}
+            <div style={{ fontSize: 48, marginBottom: 16, lineHeight: 1 }}>📋</div>
+
+            {/* Title */}
+            <div style={{
+              fontSize: 20, fontWeight: 900, color: "#58a6ff",
+              letterSpacing: "-0.5px", marginBottom: 10,
+            }}>
+              {locale === "tr" ? "Kişisel Takip Listenizi Oluşturun" :
+               locale === "es" ? "Crea Tu Lista de Seguimiento Personal" :
+               locale === "fr" ? "Créez Votre Liste de Surveillance" :
+               locale === "pt" ? "Crie Sua Lista de Observação" :
+               "Create Your Personal Watchlist"}
+            </div>
+
+            {/* Description */}
+            <div style={{ fontSize: 13, color: "#8b949e", lineHeight: 1.7, marginBottom: 24, maxWidth: 420, margin: "0 auto 24px" }}>
+              {locale === "tr"
+                ? "İzlemek istediğiniz hisseleri kendi listenize ekleyin. En az 5 hisse eklediğinizde kişisel izleme listeniz ana sayfada görünür hale gelir."
+                : locale === "es"
+                ? "Agrega las acciones que deseas seguir a tu lista personal. Cuando agregues al menos 5 acciones, tu lista aparecerá en la página de inicio."
+                : locale === "fr"
+                ? "Ajoutez les actions que vous souhaitez suivre à votre liste personnelle. Lorsque vous ajoutez au moins 5 actions, votre liste apparaît sur la page d'accueil."
+                : locale === "pt"
+                ? "Adicione as ações que deseja acompanhar à sua lista pessoal. Quando adicionar pelo menos 5 ações, sua lista aparecerá na página inicial."
+                : "Add the stocks you want to track to your personal list. Once you add at least 5 stocks, your personal watchlist will appear on the home page."}
+            </div>
+
+            {/* Steps */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 24, marginBottom: 28, flexWrap: "wrap" }}>
+              {[
+                { icon: "🔍", label: locale === "tr" ? "Hisse Ara" : locale === "es" ? "Busca" : locale === "fr" ? "Cherche" : locale === "pt" ? "Busque" : "Search" },
+                { icon: "➕", label: locale === "tr" ? "Ekle" : locale === "es" ? "Agrega" : locale === "fr" ? "Ajoute" : locale === "pt" ? "Adicione" : "Add" },
+                { icon: "⭐", label: locale === "tr" ? "5+ Hisse" : locale === "es" ? "5+ Acciones" : locale === "fr" ? "5+ Actions" : locale === "pt" ? "5+ Ações" : "5+ Stocks" },
+                { icon: "🏠", label: locale === "tr" ? "Ana Sayfa" : locale === "es" ? "Inicio" : locale === "fr" ? "Accueil" : locale === "pt" ? "Início" : "Home Page" },
+              ].map((step, i) => (
+                <div key={i} style={{ textAlign: "center" }}>
+                  <div style={{ fontSize: 24, marginBottom: 6 }}>{step.icon}</div>
+                  <div style={{ fontSize: 10, color: "#58a6ff", fontWeight: 700, letterSpacing: "0.05em" }}>{step.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <a
+              href={`/global/${locale}/my-watchlist`}
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "linear-gradient(135deg, #388bfd, #1f6feb)",
+                color: "#ffffff", borderRadius: 8, padding: "12px 28px",
+                fontSize: 13, fontWeight: 800, textDecoration: "none",
+                fontFamily: "monospace", letterSpacing: "0.05em",
+                boxShadow: "0 4px 20px rgba(56,139,253,0.35)",
+                transition: "all 0.2s",
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(56,139,253,0.5)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(56,139,253,0.35)"; }}
+            >
+              ✨ {locale === "tr" ? "Listemi Oluştur" : locale === "es" ? "Crear Mi Lista" : locale === "fr" ? "Créer Ma Liste" : locale === "pt" ? "Criar Minha Lista" : "Create My Watchlist"}
+            </a>
+
+            {/* Note */}
+            <div style={{ marginTop: 16, fontSize: 11, color: "#6e7681" }}>
+              {locale === "tr" ? "Ücretsiz · Maksimum 10 hisse · Anlık güncelleme" :
+               locale === "es" ? "Gratis · Máximo 10 acciones · Actualización en tiempo real" :
+               locale === "fr" ? "Gratuit · Maximum 10 actions · Mise à jour en temps réel" :
+               locale === "pt" ? "Gratuito · Máximo 10 ações · Atualização em tempo real" :
+               "Free · Up to 10 stocks · Live updates"}
+            </div>
+          </div>
         </div>
       )}
+
 
       {/* TABLE */}
       {activeTab === "table" && composition.length > 0 && (
