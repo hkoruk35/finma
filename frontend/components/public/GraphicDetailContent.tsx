@@ -54,6 +54,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const shortcuts = [
     { label: "SWING", href: `/global/${locale}/swing` },
     { label: "WATCHLIST", href: `/global/${locale}/watchlist` },
+    { label: "TOP 100", href: `/global/${locale}/top100` },
   ];
 
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
