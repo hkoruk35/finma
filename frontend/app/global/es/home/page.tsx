@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopWatchlistByVolume, getTopPerformanceEntries, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EsHomePage() {
-  const [swingByVolume, watchlistByVolume, performanceEntries, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
+  const [swingByVolume, watchlistByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
     getTopSwingByVolume(5),
     getTopWatchlistByVolume(5),
-    getTopPerformanceEntries(5, "es"),
+    getTopTop100ByVolume(5),
     getLastUpdated(),
     getLiveIndices(),
     getSwingPerformance(),
@@ -252,12 +252,13 @@ export default async function EsHomePage() {
           />
 
           <HomeSimpleCard
-            title="Rendimiento"
+            title="Top 100"
             accent="#10b981"
-            stocks={performanceEntries}
-            viewAllHref="/global/es/performance"
+            stocks={top100ByVolume}
+            viewAllHref="/global/es/top100"
             locale="es"
-            sortLabel="Operaciones con zona de entrada capturada"
+            sortLabel="Ordenado por volumen"
+            requirePremium
           />
         </div>
 

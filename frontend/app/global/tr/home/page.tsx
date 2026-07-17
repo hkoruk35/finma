@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { getTopSwingByVolume, getTopWatchlistByVolume, getTopPerformanceEntries, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
+import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -18,10 +18,10 @@ export const metadata: Metadata = {
 };
 
 export default async function TrHomePage() {
-  const [swingByVolume, watchlistByVolume, performanceEntries, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
+  const [swingByVolume, watchlistByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
     getTopSwingByVolume(5),
     getTopWatchlistByVolume(5),
-    getTopPerformanceEntries(5, "tr"),
+    getTopTop100ByVolume(5),
     getLastUpdated(),
     getLiveIndices(),
     getSwingPerformance(),
@@ -256,12 +256,13 @@ export default async function TrHomePage() {
           />
 
           <HomeSimpleCard
-            title="Performans"
+            title="Top 100"
             accent="#10b981"
-            stocks={performanceEntries}
-            viewAllHref="/global/tr/performance"
+            stocks={top100ByVolume}
+            viewAllHref="/global/tr/top100"
             locale="tr"
-            sortLabel="Giriş bölgesi yakalanan işlemler"
+            sortLabel="Hacim sırasına göre"
+            requirePremium
           />
         </div>
 
