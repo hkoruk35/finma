@@ -1,28 +1,32 @@
 {
-  "date": "2026-07-15",
-  "generated_at": "2026-07-15T14:00:49.462692-04:00",
+  "date": "2026-07-17",
+  "generated_at": "2026-07-17T16:23:17.669665-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 11,
-  "market_regime": "STRONG",
+  "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SEZL",
-        "MFG",
-        "ACHC",
-        "PACS",
-        "RGA",
-        "FWONA",
-        "LNG",
-        "CXW",
-        "HSIC",
-        "MATX"
+        "FIVE",
+        "BAC",
+        "PCAR",
+        "ROST",
+        "INCY",
+        "TGT",
+        "HPQ",
+        "AIG",
+        "UPS",
+        "F"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "HPQ",
+        "AIG",
+        "MDGL"
+      ]
     },
     "value": {
       "count": 0,
@@ -43,19 +47,19 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SEZL",
-      "score": 79.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "FIVE",
+      "score": 63.0,
+      "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "MFG",
-      "score": 77.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "BAC",
+      "score": 57.0,
+      "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ACHC",
-      "score": 76.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "PCAR",
+      "score": 54.0,
+      "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
