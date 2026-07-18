@@ -94,13 +94,7 @@ export async function POST(req: NextRequest) {
       tools: {
         navigate_to: tool({
           description: "Kullanıcı belirli bir hissenin sayfasına veya grafiğine gitmek istediğinde kullan.",
-          parameters: z.object({ ticker: z.string() }),
-          execute: async ({ ticker }) => {
-            // Validation step: In real-world, we'd check against a valid ticker list
-            const isValid = ticker.length <= 5 && /^[A-Z]+$/.test(ticker);
-            if (!isValid) return { success: false, error: "Geçersiz hisse senedi sembolü." };
-            return { success: true, ticker: ticker.toUpperCase(), message: "Yönlendiriliyor..." };
-          },
+          parameters: z.object({ ticker: z.string() })
         }),
         show_stock_card: tool({
           description: "Bir hissenin güncel teknik detaylarını kart formatında göstermek için.",
@@ -114,10 +108,7 @@ export async function POST(req: NextRequest) {
             resistance: z.number(),
             target: z.number(),
             summary: z.string(),
-          }),
-          execute: async (args) => {
-            return { success: true, ...args };
-          }
+          })
         }),
       },
       maxSteps: 3,
