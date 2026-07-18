@@ -94,7 +94,10 @@ export async function POST(req: NextRequest) {
       tools: {
         navigate_to: tool({
           description: "Kullanıcı belirli bir hissenin sayfasına veya grafiğine gitmek istediğinde kullan.",
-          parameters: z.object({ ticker: z.string() })
+          parameters: z.object({ ticker: z.string() }),
+          execute: async (args) => {
+            return args;
+          }
         }),
         show_stock_card: tool({
           description: "Bir hissenin güncel teknik detaylarını kart formatında göstermek için.",
@@ -108,7 +111,10 @@ export async function POST(req: NextRequest) {
             resistance: z.number(),
             target: z.number(),
             summary: z.string(),
-          })
+          }),
+          execute: async (args) => {
+            return args;
+          }
         }),
       },
       maxSteps: 3,
