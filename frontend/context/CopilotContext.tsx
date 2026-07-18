@@ -89,16 +89,6 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         if (!r.ok) throw new Error();
         setIsAuthenticated(true);
         refreshUsage();
-        fetch("/api/copilot/history")
-          .then((r) => (r.ok ? r.json() : null))
-          .then((d) => {
-            // Sadece kullanıcı henüz bu sekmede mesaj göndermemişse geri yükle —
-            // aktif bir sohbetin üzerine yazma riskini önler.
-            if (d?.messages?.length > 0) {
-              setMessages((prev) => (prev.length === 0 ? d.messages : prev));
-            }
-          })
-          .catch(() => {});
         return fetch("/api/copilot/profile");
       })
       .then((r) => (r && r.ok ? r.json() : null))
@@ -120,7 +110,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     } catch {}
   }, []);
 
-  const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, append, error } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append, error } = useChat({
     api: "/api/copilot/chat",
     body: { pageContext, locale },
     onToolCall({ toolCall }) {

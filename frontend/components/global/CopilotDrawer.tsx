@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import { useCopilot } from "@/context/CopilotContext";
-import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";
 import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
@@ -220,11 +220,6 @@ export default function CopilotDrawer() {
                   })}
                   {msg.content && (
                     <ReactMarkdown
-                      // react-markdown v10 varsayılan urlTransform'u bilinmeyen protokolleri
-                      // ("copilot://") güvenlik amaçlı boş string'e çevirir — bu da $TICKER
-                      // çipine tıklayınca href="" + target="_blank" ile aynı sayfanın yeni
-                      // sekmede açılmasına yol açıyordu. copilot: şemasını olduğu gibi geçir.
-                      urlTransform={(url) => (url.startsWith("copilot://") ? url : defaultUrlTransform(url))}
                       components={{
                         a: ({ href, children }) => {
                           if (href?.startsWith("copilot://")) {
