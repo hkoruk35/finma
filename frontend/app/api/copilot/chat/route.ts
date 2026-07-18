@@ -4,87 +4,137 @@ import { z } from "zod";
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
-import { hasAnyAuth } from "@/lib/apiAuth";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { getMemberAccess } from "@/lib/apiAuth";
+import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getRealStockCardData } from "@/lib/copilot/stockData";
+import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
+import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
+import { getStockData } from "@/lib/data";
 
 export const maxDuration = 60;
 
-function getBogaContext(pageContext: any) {
-  let contextStr = "Sen BOGA AI Copilot'sun. Kullanıcılara sitemizdeki verileri kullanarak finansal asistanlık yaparsın.\n\n";
+const DEFAULT_CREDIT_LIMIT: Record<string, number> = {
+  premium: 200,
+  admin: 200,
+  free_trial: 20,
+};
+
+async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
+  const langName = LOCALE_NAMES[locale] || LOCALE_NAMES.en;
+  const profile = await getCopilotProfile(userId);
+  const name = profile.displayName || getSuggestedName(locale);
+  const personalization = await getPersonalizationContext(userId);
+
+  let contextStr = `Senin adın "${name}". Kullanıcıya kendini bu isimle tanıt, "BOGA Copilot" ekibinin bir parçası olduğunu belirtebilirsin.
+Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz olsa bile bu kuraldan asla sapma.\n\n`;
 
   if (pageContext) {
     if (pageContext.type === "ticker") {
-      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik ve analiz sayfasındadır.\n\n`;
+      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse tekrar ticker sorma, doğrudan ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
     } else if (pageContext.page) {
-      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.page} sayfasındadır.\n\n`;
+      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;
     }
   }
+
+  if (personalization.topSectors.length > 0) {
+    contextStr += `KULLANICI İLGİ ALANI: İzleme listesine göre en çok ilgilendiği sektörler: ${personalization.topSectors.join(", ")}. Uygun olduğunda önerilerini bu sektörlere göre önceliklendir (ama zorlama).\n`;
+  }
+  if (personalization.watchlistTickers.length > 0) {
+    contextStr += `KULLANICININ İZLEME LİSTESİ: ${personalization.watchlistTickers.join(", ")}\n`;
+  }
+  if (personalization.recentQueries.length > 0) {
+    contextStr += `SON ARAMALARI: ${personalization.recentQueries.slice(0, 5).join(" | ")}\n`;
+  }
+  contextStr += "\n";
 
   try {
     const dirBase = path.resolve(process.cwd(), "public", "data", "swing2026");
     if (fs.existsSync(dirBase)) {
-      const files = fs.readdirSync(dirBase).filter(f => f.startsWith("swing_") && f.endsWith(".json"));
+      const files = fs.readdirSync(dirBase).filter((f) => f.startsWith("swing_") && f.endsWith(".json"));
       if (files.length > 0) {
         files.sort((a, b) => b.localeCompare(a));
         const picksData = JSON.parse(fs.readFileSync(path.join(dirBase, files[0]), "utf-8"));
-        
-        if (picksData && picksData.picks) {
-          const topPicks = picksData.picks.slice(0, 10).map((p: any) => 
-            `- ${p.ticker} (Skor: ${p.score}/100, Sinyal: ${p.status}, Fiyat: $${p.current_price})`
-          ).join("\n");
-          contextStr += `GÜNCEL BOGA AI SWING TERCİHLERİ:\n${topPicks}\n\n`;
+        if (picksData?.picks) {
+          const topPicks = picksData.picks
+            .slice(0, 10)
+            .map((p: any) => `- ${p.ticker} (Skor: ${p.score}/100, Sinyal: ${p.status}, Fiyat: $${p.current_price})`)
+            .join("\n");
+          contextStr += `GÜNCEL BOGA AI SWING TERCİHLERİ (${picksData.date || ""}):\n${topPicks}\n\n`;
         }
       }
     }
-  } catch (e) {}
+  } catch {}
 
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
-2. Sadece finans/borsa konuş, diğer soruları reddet.
-3. Bir hissenin analizini gösterirken 'show_stock_card' aracını kullan, asla metin olarak analiz dökümü yazma.
-4. "NVIDIA grafiği" vb dendiğinde 'navigate_to' aracını çağır. Ancak GEÇERSİZ/HAYALİ tickerlara gitme, eğer borsa kodu mevcut değilse reddet.`;
+2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
+3. Bir hissenin analizini gösterirken MUTLAKA 'show_stock_card' aracını kullan, asla metin içinde skor/destek/direnç/hedef gibi sayısal bir değer YAZMA veya UYDURMA — bu sayılar sadece show_stock_card aracının döndürdüğü gerçek veriden gelir. Aracın döndürdüğü veri yoksa (success:false), o hisse için veri olmadığını söyle, sayı uydurma.
+4. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç geçersiz ticker derse kullanıcıya nazikçe bildir, ısrar etme.
+5. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.
+6. BOGA verisi olmayan konularda (genel ekonomi, tanım soruları) kendi genel bilginle yanıtla ama bunu asla "BOGA verisi" gibi sunma.`;
+
   return contextStr;
 }
 
 export async function POST(req: NextRequest) {
-  if (!(await hasAnyAuth(req))) {
+  const access = await getMemberAccess();
+  if (!access.authenticated) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!, // Use service role for credit updates
-    { cookies: { get(name) { return req.cookies.get(name)?.value; }, set() {}, remove() {} } }
-  );
-
-  const { data: { user } } = await supabase.auth.getUser();
+  // supabase-server'daki auth.getUser() zaten getMemberAccess() içinde çağrıldı;
+  // user id'yi ayrıca almak için hafif bir ek çağrı (cookie tabanlı, ucuz).
+  const { createSupabaseServerClient } = await import("@/lib/supabase-server");
+  const supabaseAuth = await createSupabaseServerClient();
+  const { data: userData } = await supabaseAuth.auth.getUser();
+  const user = userData.user;
   if (!user) return new Response("Unauthorized", { status: 401 });
 
-  // Credit check logic
-  // Assume table `user_credits` exists with (user_id, daily_limit, current_usage, last_reset_date)
-  const today = new Date().toISOString().split('T')[0];
-  let { data: creditData } = await supabase.from('user_credits').select('*').eq('user_id', user.id).single();
-  
-  if (!creditData) {
-    // Initialize if not exists (Free tier default 20)
-    await supabase.from('user_credits').insert([{ user_id: user.id, daily_limit: 20, current_usage: 0, last_reset_date: today }]);
-    creditData = { daily_limit: 20, current_usage: 0, last_reset_date: today };
-  } else if (creditData.last_reset_date !== today) {
-    // Reset on a new day
-    await supabase.from('user_credits').update({ current_usage: 0, last_reset_date: today }).eq('user_id', user.id);
-    creditData.current_usage = 0;
+  const dailyLimit = access.isPremium
+    ? DEFAULT_CREDIT_LIMIT.premium
+    : access.isFreeTrial
+    ? DEFAULT_CREDIT_LIMIT.free_trial
+    : 0;
+
+  if (dailyLimit === 0) {
+    return NextResponse.json(
+      { error: "Copilot erişimi için aktif bir üyelik gerekiyor.", code: "NO_ACCESS" },
+      { status: 403 }
+    );
   }
 
-  if (creditData.current_usage >= creditData.daily_limit) {
-    return new Response("Daily Copilot Limit Reached. Limit: " + creditData.daily_limit, { status: 429 });
+  const { data: statusRows, error: statusErr } = await supabaseAdmin.rpc("get_copilot_credit_status", {
+    p_user_id: user.id,
+    p_default_limit: dailyLimit,
+  });
+  if (statusErr) {
+    console.error("[copilot] credit status error:", statusErr.message);
+    return new Response("Service Unavailable", { status: 503 });
+  }
+  const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
+  if (!status || status.current_usage >= status.daily_limit) {
+    return NextResponse.json(
+      {
+        error: `Günlük Copilot limitine ulaştın (${status?.daily_limit ?? dailyLimit} istek). Yarın sıfırlanacak.`,
+        code: "QUOTA_EXCEEDED",
+        currentUsage: status?.current_usage ?? dailyLimit,
+        dailyLimit: status?.daily_limit ?? dailyLimit,
+      },
+      { status: 429 }
+    );
   }
 
-  // Increment Usage (Best Effort)
-  await supabase.from('user_credits').update({ current_usage: creditData.current_usage + 1 }).eq('user_id', user.id);
+  const body = await req.json();
+  const { messages, pageContext, locale: rawLocale } = body;
+  const locale = ["tr", "en", "es", "fr", "pt"].includes(rawLocale) ? rawLocale : "en";
 
-  const { messages, pageContext } = await req.json();
-  const systemPrompt = getBogaContext(pageContext);
+  const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
+  if (lastUserMessage?.content) {
+    const tickerFromContext = pageContext?.type === "ticker" ? pageContext.value : null;
+    logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
+  }
+
+  const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id);
 
   try {
     const result = await streamText({
@@ -95,38 +145,44 @@ export async function POST(req: NextRequest) {
         navigate_to: tool({
           description: "Kullanıcı belirli bir hissenin sayfasına veya grafiğine gitmek istediğinde kullan.",
           parameters: z.object({ ticker: z.string() }),
-          execute: async (args) => {
-            return args;
-          }
+          execute: async ({ ticker }) => {
+            const t = ticker.trim().toUpperCase();
+            const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
+            if (!isFormatValid) return { success: false, error: "Geçersiz hisse senedi sembolü." };
+            // Gerçekten var olan bir ticker mi diye gerçek veriden doğrula — halüsinasyon yönlendirme yok.
+            const real = await getStockData(t);
+            if (!real) return { success: false, error: "Bu sembol için sistemde veri bulunamadı." };
+            return { success: true, ticker: t };
+          },
         }),
         show_stock_card: tool({
-          description: "Bir hissenin güncel teknik detaylarını kart formatında göstermek için.",
-          parameters: z.object({
-            ticker: z.string(),
-            companyName: z.string(),
-            trend: z.enum(["Bullish", "Bearish", "Neutral"]),
-            bogaScore: z.number().min(0).max(100),
-            riskLevel: z.string(),
-            support: z.number(),
-            resistance: z.number(),
-            target: z.number(),
-            summary: z.string(),
-          }),
-          execute: async (args) => {
-            return args;
-          }
+          description: "Bir hissenin güncel BOGA skorunu, destek/direnç/hedef seviyelerini kart formatında göstermek için. SADECE ticker parametresi alır — skor/fiyat gibi değerleri sen üretmezsin, gerçek veriden gelir.",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            const card = await getRealStockCardData(ticker, locale);
+            if (!card) return { success: false, error: "Bu hisse için güncel BOGA verisi yok." };
+            return { success: true, ...card };
+          },
         }),
       },
       maxSteps: 3,
-      async onFinish({ text, toolCalls, toolResults }) {
-        // Save chat to DB best-effort
-        const allMessages = [...messages, { role: "assistant", content: text, toolCalls }];
-        await supabase.from("copilot_chats").upsert({
-          user_id: user.id,
-          chat_state: allMessages,
-          updated_at: new Date().toISOString()
-        }, { onConflict: "user_id" });
-      }
+      async onFinish({ responseMessages }) {
+        // Kredi SADECE başarılı üretimden sonra düşülür.
+        try {
+          await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
+        } catch (e) {
+          console.error("[copilot] credit increment failed:", e);
+        }
+        try {
+          const fullTranscript = [...messages, ...responseMessages];
+          await supabaseAdmin.from("copilot_chats").upsert(
+            { user_id: user.id, chat_state: fullTranscript, updated_at: new Date().toISOString() },
+            { onConflict: "user_id" }
+          );
+        } catch (e) {
+          console.error("[copilot] chat persist failed:", e);
+        }
+      },
     });
 
     return result.toDataStreamResponse();

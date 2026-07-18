@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export interface StockCardProps {
@@ -15,8 +15,27 @@ export interface StockCardProps {
   summary: string;
 }
 
-export function StockCard({ data }: { data: StockCardProps }) {
+export function StockCard({ data, locale = "en" }: { data: StockCardProps; locale?: string }) {
   const router = useRouter();
+  const [addState, setAddState] = useState<"idle" | "saving" | "added" | "error">("idle");
+
+  const handleAddToWatchlist = async () => {
+    if (addState === "saving" || addState === "added") return;
+    setAddState("saving");
+    try {
+      const res = await fetch("/api/watchlist/custom");
+      const current: string[] = res.ok ? (await res.json()).tickers || [] : [];
+      const next = Array.from(new Set([...current, data.ticker]));
+      const postRes = await fetch("/api/watchlist/custom", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tickers: next }),
+      });
+      setAddState(postRes.ok ? "added" : "error");
+    } catch {
+      setAddState("error");
+    }
+  };
 
   const isBullish = data.trend === "Bullish";
   const trendColor = isBullish ? "text-green-400" : data.trend === "Bearish" ? "text-red-400" : "text-yellow-400";
@@ -75,17 +94,19 @@ export function StockCard({ data }: { data: StockCardProps }) {
       {/* Actions */}
       <div className="p-3 bg-[#161b22] border-t border-white/5 grid grid-cols-2 gap-2">
         <button 
-          onClick={() => router.push(`/global/tr/graphic/${data.ticker}`)}
+          onClick={() => router.push(`/global/${locale}/graphic/${data.ticker}`)}
           className="py-2 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
           Grafiği Aç
         </button>
-        <button 
-          className="py-2 flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-medium rounded-lg border border-white/10 transition-colors"
+        <button
+          onClick={handleAddToWatchlist}
+          disabled={addState === "saving" || addState === "added"}
+          className="py-2 flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-medium rounded-lg border border-white/10 transition-colors disabled:opacity-60"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          Portföye Ekle
+          {addState === "added" ? "Eklendi ✓" : addState === "saving" ? "Ekleniyor..." : addState === "error" ? "Hata, tekrar dene" : "Portföye Ekle"}
         </button>
       </div>
     </div>
