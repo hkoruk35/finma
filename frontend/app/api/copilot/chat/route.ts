@@ -10,9 +10,10 @@ import { getRealStockCardData } from "@/lib/copilot/stockData";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
-import { getStockData, getMasterData } from "@/lib/data";
+import { getMasterData } from "@/lib/data";
 import { getSwingStrategySnapshot } from "@/lib/copilot/pageContext";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
+import { isRealTicker } from "@/lib/copilot/tickerValidation";
 
 export const maxDuration = 60;
 
@@ -57,7 +58,9 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse tekrar ticker sorma, doğrudan ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
       try {
         const snapshot = await getSwingStrategySnapshot(pageContext.value, locale);
-        if (snapshot) contextStr += `SAYFADA GÖSTERİLEN VERİ (kullanıcının şu an ekranında gördüğü BOGA AI Swing Strateji Durumu paneli):\n${snapshot}\n\n`;
+        if (snapshot) {
+          contextStr += `SAYFADA GÖSTERİLEN VERİ (kullanıcının şu an ekranında gördüğü BOGA AI Swing Strateji Durumu paneli):\n${snapshot}\n\nÖNEMLİ NOT: Grafik sayfasında bunun ALTINDA/YANINDA ayrıca "İşlem Kurgusu Gereçesi" gibi bağımsız, anlık hesaplanan bir teknik analiz bölümü de olabilir — bu SANA VERİLMEDİ, onun tam içeriğini bilmiyorsun. "Şu an girmeli miyim" gibi kesin zamanlama soruları gelirse SADECE yukarıdaki swing havuzu durumunu (Giriş Zone / Bekle) referans al, sayfadaki diğer panelle çelişebilecek kesin bir "gir/girme" yargısı verme — bunun yerine swing havuzu durumunu açıkla ve "sayfadaki anlık teknik göstergelere de bakman iyi olur" de.\n\n`;
+        }
       } catch {}
     } else if (pageContext.page) {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;
@@ -113,9 +116,10 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
 3. Bir hissenin hızlı skor/destek/direnç/hedef durumu istendiğinde MUTLAKA 'show_stock_card' aracını kullan, bu araç kartı ekranda zaten gösterir — kartın döndürdüğü sayıları AYRICA metin olarak tekrarlama.
-4. Bilanço, insider aktivitesi, sektör bağlamı, haberler veya geçmiş işlem performansı gibi DAHA DERİN bir soru geldiğinde 'get_deep_analysis' aracını çağır, sonra aracın döndürdüğü GERÇEK sayıları kullanarak kısa bir yorum/analiz metni yaz (örn. "PE oranı X, sektör ortalamasının üzerinde/altında..."). Bu sayıları asla tahmin etme — sadece aracın döndürdüğü değerleri kullan. Araç veri döndürmezse (success:false) veri olmadığını söyle.
-5. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç geçersiz ticker derse kullanıcıya nazikçe bildir, ısrar etme.
-6. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
+4. Bilanço, insider aktivitesi, sektör bağlamı, haberler veya geçmiş işlem performansı gibi DAHA DERİN bir soru geldiğinde 'get_deep_analysis' aracını çağır, sonra aracın döndürdüğü GERÇEK sayıları kullanarak kısa bir yorum/analiz metni yaz (örn. "PE oranı X, sektör ortalamasının üzerinde/altında..."). Bu sayıları asla tahmin etme — sadece aracın döndürdüğü değerleri kullan.
+5. show_stock_card veya get_deep_analysis "veri yok" derse (success:false) BU HİÇBİR ZAMAN "hisse hakkında sana yardımcı olamam" demek DEĞİLDİR — BOGA'nın aktif dar tarama/skorlama havuzunda olmadığı anlamına gelir, hisse yine de gerçek ve geçerli olabilir (ör. MU). Bu durumda: (a) kullanıcıya bunun BOGA'nın aktif taradığı ~50-300 hisselik havuzda olmadığını söyle, (b) MUTLAKA 'navigate_to' aracını çağırarak o hissenin grafik sayfasını aç teklif et — o sayfa kendi bağımsız canlı teknik analiz motoruyla HER hisse için çalışır. Asla sadece "veri yok" deyip konuşmayı orada bitirme.
+6. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç gerçekten geçersiz/uydurma bir sembol derse kullanıcıya nazikçe bildir, ısrar etme.
+7. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
 
   return contextStr;
 }
@@ -191,8 +195,11 @@ export async function POST(req: NextRequest) {
             const t = ticker.trim().toUpperCase();
             const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
             if (!isFormatValid) return { success: false, error: ct("invalidTicker", locale) };
-            // Gerçekten var olan bir ticker mi diye gerçek veriden doğrula — halüsinasyon yönlendirme yok.
-            const real = await getStockData(t);
+            // Gerçek borsa sembolü mü diye doğrula — halüsinasyon yönlendirme yok.
+            // BOGA'nın dar/aktif skorlama havuzuyla (getStockData) SINIRLI DEĞİL:
+            // MU gibi gerçek ama şu an taranmayan hisselere de yönlendirebilmeli,
+            // grafik sayfası kendi bağımsız canlı motoruyla zaten analiz gösterir.
+            const real = await isRealTicker(t);
             if (!real) return { success: false, error: ct("tickerNotFound", locale) };
             return { success: true, ticker: t };
           },
@@ -217,7 +224,7 @@ export async function POST(req: NextRequest) {
         }),
       },
       maxSteps: 3,
-      async onFinish({ responseMessages }) {
+      async onFinish({ text, toolCalls, toolResults }) {
         // Kredi SADECE başarılı üretimden sonra düşülür.
         try {
           await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
@@ -225,7 +232,23 @@ export async function POST(req: NextRequest) {
           console.error("[copilot] credit increment failed:", e);
         }
         try {
-          const fullTranscript = [...messages, ...responseMessages];
+          // responseMessages CoreMessage şeklinde (id/toolInvocations yok) —
+          // useChat'in beklediği UI Message şekline elle çeviriyoruz ki
+          // /api/copilot/history'den geri yüklenince setMessages ile
+          // doğrudan render edilebilsin (kart/tool sonucu dahil).
+          const assistantMessage = {
+            id: crypto.randomUUID(),
+            role: "assistant" as const,
+            content: text,
+            toolInvocations: (toolCalls || []).map((tc: any) => ({
+              toolCallId: tc.toolCallId,
+              toolName: tc.toolName,
+              args: tc.args,
+              state: "result" as const,
+              result: (toolResults || []).find((tr: any) => tr.toolCallId === tc.toolCallId)?.result,
+            })),
+          };
+          const fullTranscript = [...messages, assistantMessage];
           await supabaseAdmin.from("copilot_chats").upsert(
             { user_id: user.id, chat_state: fullTranscript, updated_at: new Date().toISOString() },
             { onConflict: "user_id" }
