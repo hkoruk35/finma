@@ -7,6 +7,7 @@
 
 import { getStockData } from "@/lib/data";
 import { ct } from "@/lib/copilot/i18n";
+import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -54,7 +55,20 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
 
   const data = await getStockData(t);
-  if (!data || data.is_mock || (data as any).is_partial_mock) return null;
+
+  // Curated havuzda yoksa (MOH gibi gerçek ama skorlanmayan hisse) canlı BOGA
+  // motoruna düş — grafik sayfasının kullandığı aynı /api/preorder-analysis.
+  if (!data || data.is_mock || (data as any).is_partial_mock) {
+    const live = await getLiveAnalysis(t, lang);
+    if (!live) return null;
+    const card = liveToCard(live);
+    if (!card) return null;
+    return {
+      ...card,
+      riskLevel: deriveRiskLevel(live.tradePlan?.riskReward, lang),
+      summary: ct("liveAnalysisSummary", lang, { ticker: t, score: card.bogaScore }),
+    };
+  }
 
   const sd = data.scores_detail;
   const price = data.price?.current;

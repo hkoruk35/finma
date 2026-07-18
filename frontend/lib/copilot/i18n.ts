@@ -56,6 +56,13 @@ const T: Record<string, Record<CopilotLocale, string>> = {
   riskHigh: { tr: "Yüksek", en: "High", es: "Alto", fr: "Élevé", pt: "Alto" },
   invalidTicker: { tr: "Geçersiz hisse senedi sembolü.", en: "Invalid stock symbol.", es: "Símbolo bursátil inválido.", fr: "Symbole boursier invalide.", pt: "Símbolo de ação inválido." },
   tickerNotFound: { tr: "Bu sembol için sistemde veri bulunamadı.", en: "No data found in the system for this symbol.", es: "No se encontraron datos en el sistema para este símbolo.", fr: "Aucune donnée trouvée dans le système pour ce symbole.", pt: "Nenhum dado encontrado no sistema para este símbolo." },
+  liveAnalysisSummary: {
+    tr: "{ticker} için canlı BOGA AI analizi (havuz dışı — grafik motoruyla anlık hesaplandı). Konviksiyon skoru: {score}/100.",
+    en: "Live BOGA AI analysis for {ticker} (outside the curated pool — computed live by the chart engine). Conviction score: {score}/100.",
+    es: "Análisis BOGA AI en vivo para {ticker} (fuera del pool curado — calculado en vivo por el motor gráfico). Puntuación de convicción: {score}/100.",
+    fr: "Analyse BOGA AI en direct pour {ticker} (hors pool sélectionné — calculée en direct par le moteur graphique). Score de conviction : {score}/100.",
+    pt: "Análise BOGA AI ao vivo para {ticker} (fora do pool selecionado — calculada ao vivo pelo motor gráfico). Pontuação de convicção: {score}/100.",
+  },
   defaultStockSummary: {
     tr: "{ticker}: BOGA Skoru {score}/100, sektör: {sector}.",
     en: "{ticker}: BOGA Score {score}/100, sector: {sector}.",

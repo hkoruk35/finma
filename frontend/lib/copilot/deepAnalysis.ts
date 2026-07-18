@@ -5,6 +5,7 @@
 
 import { getStockData, getSwingPerformance } from "@/lib/data";
 import { ct } from "@/lib/copilot/i18n";
+import { getLiveAnalysis } from "@/lib/copilot/liveAnalysis";
 
 export interface CopilotDeepAnalysis {
   ticker: string;
@@ -35,6 +36,23 @@ export interface CopilotDeepAnalysis {
     recentTrades: { date: string; result: string; returnPct: number; days: number }[];
     systemOverallWinRate: number | null;
     systemOverallAvgReturnPct: number | null;
+  } | null;
+  // Curated bilanço verisi olmayan (havuz-dışı) hisseler için canlı BOGA
+  // teknik analizi — grafik motorundan (preorder-analysis) gerçek sayılar.
+  liveTechnical: {
+    price: number;
+    changePct: number;
+    conviction: number;
+    recommendation: string;
+    bogaScore: { trend: number; momentum: number; liquidity: number };
+    momentum: { macd: number; adx: number; roc10: number };
+    rvol: number;
+    weinsteinStage: string;
+    pct52h: number;
+    return1y: number;
+    wyckoff: string;
+    activeSignals: string[];
+    warnings: string[];
   } | null;
 }
 
@@ -119,9 +137,34 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
     }
   }
 
-  if (!fundamental && !insiderActivity && !sectorContext && recentNews.length === 0 && !performanceHistory) {
+  // Curated bilanço/temel veri yoksa (havuz-dışı hisse), canlı BOGA teknik
+  // analizini ekle — böylece MOH gibi bir hisse için de gerçek, site-tutarlı
+  // teknik döner (uydurma değil, grafik sayfasıyla aynı motor).
+  let liveTechnical: CopilotDeepAnalysis["liveTechnical"] = null;
+  if (!fundamental) {
+    const live = await getLiveAnalysis(t, lang);
+    if (live) {
+      liveTechnical = {
+        price: live.price,
+        changePct: live.changePct,
+        conviction: Math.round(live.conviction),
+        recommendation: live.recommendation?.label || "",
+        bogaScore: live.bogaScore,
+        momentum: { macd: live.momentum?.macd, adx: live.momentum?.adx, roc10: live.momentum?.roc10 },
+        rvol: live.rvol,
+        weinsteinStage: live.context?.weinstein?.label || "",
+        pct52h: live.context?.pct52h,
+        return1y: live.context?.stockReturn1y,
+        wyckoff: live.wyckoff?.signal || "",
+        activeSignals: live.activeSignals || [],
+        warnings: live.warnings || [],
+      };
+    }
+  }
+
+  if (!fundamental && !insiderActivity && !sectorContext && recentNews.length === 0 && !performanceHistory && !liveTechnical) {
     return null;
   }
 
-  return { ticker: t, fundamental, insiderActivity, sectorContext, recentNews, performanceHistory };
+  return { ticker: t, fundamental, insiderActivity, sectorContext, recentNews, performanceHistory, liveTechnical };
 }
