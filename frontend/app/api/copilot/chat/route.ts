@@ -11,6 +11,7 @@ import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "
 import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
 import { getStockData, getMasterData } from "@/lib/data";
+import { getSwingStrategySnapshot } from "@/lib/copilot/pageContext";
 
 export const maxDuration = 60;
 
@@ -43,9 +44,9 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
 
 DİL KURALI (KESİN): Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz olsa bile, kullanıcı başka bir dilde yazsa bile bu kuraldan asla sapma. Tüm yanıtın (karşılama, analiz, hata mesajları) ${langName} dilinde olacak.
 
-VERİ ÖNCELİĞİ (KESİN — en kritik kural):
-1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, kullanıcı bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker.
-2. Sorunun cevabı BOGA verilerinde yoksa (örn. genel ekonomi kavramı, tanım, tarihsel bilgi) kendi genel bilgini kullan, ama bunu ASLA "BOGA verisi" veya "sistemimizin bulgusu" gibi sunma — net şekilde ayır.
+VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
+1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, sayfa/ticker bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker. Kullanıcı "grafikte/sayfada ne görüyorum, bu analiz neye dayanıyor" derse, aşağıdaki "SAYFADA GÖSTERİLEN VERİ" bölümünü DOĞRUDAN referans alarak açıkla — genel/belirsiz bir cevap verme.
+2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim" gibi cümlelerle REDDETME. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
 3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef) SÖYLEYECEKSEN mutlaka show_stock_card aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
 
 `;
@@ -53,6 +54,10 @@ VERİ ÖNCELİĞİ (KESİN — en kritik kural):
   if (pageContext) {
     if (pageContext.type === "ticker") {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse tekrar ticker sorma, doğrudan ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
+      try {
+        const snapshot = await getSwingStrategySnapshot(pageContext.value, locale);
+        if (snapshot) contextStr += `SAYFADA GÖSTERİLEN VERİ (kullanıcının şu an ekranında gördüğü BOGA AI Swing Strateji Durumu paneli):\n${snapshot}\n\n`;
+      } catch {}
     } else if (pageContext.page) {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;
     }
