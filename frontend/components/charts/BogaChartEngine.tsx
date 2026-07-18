@@ -977,15 +977,21 @@ export default function BogaChartEngine({
           {/* BOGASTOCK filigran — sol ustte, detailMode'da OHLC satirinin
               hemen altinda. Header.tsx'teki logo fontuyla (Montserrat) STOCK
               kismi acik mavi, dusuk opaklikla mum/gosterge okumayi
-              engellemeyecek sekilde. */}
+              engellemeyecek sekilde. Altinda ticker sembolü. */}
           <div
-            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10`}
+            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
           >
             <span
               className={`tracking-wide text-white/[0.14] ${compact ? "text-xs" : "text-lg md:text-xl"}`}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
             >
               BOGA<span className="text-[#3b82f6]/[0.35]">STOCK</span>
+            </span>
+            <span
+              className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
+            >
+              {symbol}
             </span>
           </div>
 
