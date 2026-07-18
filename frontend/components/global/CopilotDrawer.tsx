@@ -19,7 +19,7 @@ export default function CopilotDrawer() {
     isSettingsOpen, setIsSettingsOpen,
     messages, input, handleInputChange, handleSubmit, isLoading,
     pageContext, locale, append, usage, profile, saveProfile,
-    isAuthenticated,
+    isAuthenticated, error,
   } = useCopilot();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [draftName, setDraftName] = useState(profile.displayName);
@@ -252,6 +252,11 @@ export default function CopilotDrawer() {
           {noAccess && (
             <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
               Copilot için aktif bir üyelik gerekiyor.
+            </div>
+          )}
+          {error && (
+            <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
+              ⚠️ Bir hata oluştu, yanıt alınamadı. Lütfen tekrar dener misin?
             </div>
           )}
           <div ref={messagesEndRef} />

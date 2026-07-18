@@ -1,4 +1,4 @@
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import fs from "fs";
@@ -12,6 +12,12 @@ import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
 import { getStockData } from "@/lib/data";
 
 export const maxDuration = 60;
+
+// @ai-sdk/google'ın varsayılan `google` export'u GOOGLE_GENERATIVE_AI_API_KEY
+// arıyor — projede (Vercel dahil) sadece GEMINI_API_KEY tanımlı (diğer tüm
+// Gemini çağrıları — /api/ask, /api/ai-briefing — bunu kullanıyor). Aynı
+// değişkeni burada da açıkça bağlıyoruz.
+const google = createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const DEFAULT_CREDIT_LIMIT: Record<string, number> = {
   premium: 200,

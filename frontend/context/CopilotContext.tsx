@@ -33,6 +33,7 @@ export interface CopilotContextType {
   profile: ProfileState;
   saveProfile: (next: ProfileState) => Promise<void>;
   isAuthenticated: boolean;
+  error: Error | undefined;
 }
 
 const CopilotContext = createContext<CopilotContextType | undefined>(undefined);
@@ -109,7 +110,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     } catch {}
   }, []);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading, append } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, append, error } = useChat({
     api: "/api/copilot/chat",
     body: { pageContext, locale },
     onToolCall({ toolCall }) {
@@ -147,6 +148,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         profile,
         saveProfile,
         isAuthenticated,
+        error,
       }}
     >
       {children}
