@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "Date": "17 July",
+    "Symbol": "HUM",
+    "Entry (Buy_L)": 396.15,
+    "Stop (SL)": 379.99,
+    "Target 1 (TP1)": 419.19,
+    "Target 2 (TP2)": 459.11
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "ROKU",
+    "Entry (Buy_L)": 143.69,
+    "Stop (SL)": 137.21,
+    "Target 1 (TP1)": 151.49,
+    "Target 2 (TP2)": 165.92
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "CVS",
+    "Entry (Buy_L)": 106.82,
+    "Stop (SL)": 102.1,
+    "Target 1 (TP1)": 112.71,
+    "Target 2 (TP2)": 123.44
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "RVMD",
+    "Entry (Buy_L)": 184.43,
+    "Stop (SL)": 176.85,
+    "Target 1 (TP1)": 195.11,
+    "Target 2 (TP2)": 213.69
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "FWONK",
+    "Entry (Buy_L)": 101.48,
+    "Stop (SL)": 97.09,
+    "Target 1 (TP1)": 107.16,
+    "Target 2 (TP2)": 117.36
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "OKTA",
+    "Entry (Buy_L)": 147.28,
+    "Stop (SL)": 138.6,
+    "Target 1 (TP1)": 156.38,
+    "Target 2 (TP2)": 171.28
+  },
+  {
+    "Date": "17 July",
+    "Symbol": "ALL",
+    "Entry (Buy_L)": 248.3,
+    "Stop (SL)": 236.09,
+    "Target 1 (TP1)": 262.06,
+    "Target 2 (TP2)": 287.02
+  }
+]

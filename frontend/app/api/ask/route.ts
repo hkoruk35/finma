@@ -1311,14 +1311,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ text: "Çok fazla istek. Lütfen biraz sonra tekrar deneyin." }, { status: 429 });
   }
 
-  let body: { message: string; history?: Message[]; lang?: string };
+  let body: { message: string; history?: Message[]; lang?: string; pageContext?: any };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ text: "Geçersiz istek." });
   }
 
-  const { message, history = [], lang: langRaw = "tr" } = body;
+  const { message, history = [], lang: langRaw = "tr", pageContext = null } = body;
   const lang: "tr" | "en" | "pt" = langRaw === "pt" ? "pt" : (langRaw === "en" || langRaw === "fr" || langRaw === "es") ? "en" : "tr";
   if (!message?.trim()) {
     return NextResponse.json({ text: "Lütfen bir mesaj girin." });
@@ -1807,6 +1807,14 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       const marketNews = await fetchGlobalMarketNews(cleanMsg, matchedThemes);
       
       let contextText = "";
+      if (pageContext) {
+        if (pageContext.type === "ticker") {
+          contextText += `\n[SAYFA BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin sayfasında grafikleri ve verileri inceliyor. Eğer soru bağlamsızsa (örn: "destek direnç nedir?"), bu hisseyi kastettiğini varsay.]\n`;
+        } else if (pageContext.page) {
+          contextText += `\n[SAYFA BAĞLAMI: Kullanıcı şu anda ${pageContext.page} sayfasında geziniyor.]\n`;
+        }
+      }
+
       if (marketNews && marketNews.length > 0) {
         const newsText = marketNews.map(n => `- [${n.publisher}] ${n.title} (İlişkili Hisseler: ${n.entities?.join(", ") || "Yok"})`).join("\n");
         contextText += `\n[SİSTEM TARAFINDAN SAĞLANAN GÜNCEL CANLI WEB VE BORSA HABERLERİ - ${new Date().toLocaleDateString("tr-TR")}]:\n${newsText}\n`;

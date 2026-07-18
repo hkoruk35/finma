@@ -1,48 +1,6 @@
 {
-  "generated_at": "2026-07-17T16:23:17.684363-04:00",
+  "generated_at": "2026-07-17T17:01:51.785501-04:00",
   "picks": [
-    {
-      "ticker": "VRSN",
-      "sector": "Technology",
-      "date_added": "2026-07-17",
-      "score": 46.0
-    },
-    {
-      "ticker": "EXPE",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-17",
-      "score": 43.0
-    },
-    {
-      "ticker": "GE",
-      "sector": "Industrials",
-      "date_added": "2026-07-17",
-      "score": 43.0
-    },
-    {
-      "ticker": "GRMN",
-      "sector": "Technology",
-      "date_added": "2026-07-17",
-      "score": 42.5
-    },
-    {
-      "ticker": "DE",
-      "sector": "Industrials",
-      "date_added": "2026-07-17",
-      "score": 41.5
-    },
-    {
-      "ticker": "EBAY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-17",
-      "score": 40.0
-    },
-    {
-      "ticker": "WSM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-17",
-      "score": 37.0
-    },
     {
       "ticker": "PANW",
       "sector": "Technology",
@@ -50,16 +8,64 @@
       "score": 34.0
     },
     {
-      "ticker": "AIG",
-      "sector": "Financial Services",
+      "ticker": "SPG",
+      "sector": "Real Estate",
       "date_added": "2026-07-17",
-      "score": 48.0
+      "score": 75.0
     },
     {
-      "ticker": "CNC",
-      "sector": "Healthcare",
+      "ticker": "LNG",
+      "sector": "Energy",
       "date_added": "2026-07-17",
-      "score": 42.0
+      "score": 75.0
+    },
+    {
+      "ticker": "SN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-17",
+      "score": 73.0
+    },
+    {
+      "ticker": "BBY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-17",
+      "score": 73.0
+    },
+    {
+      "ticker": "BAC",
+      "sector": "Financial Services",
+      "date_added": "2026-07-17",
+      "score": 73.0
+    },
+    {
+      "ticker": "OKE",
+      "sector": "Energy",
+      "date_added": "2026-07-17",
+      "score": 71.0
+    },
+    {
+      "ticker": "FTI",
+      "sector": "Energy",
+      "date_added": "2026-07-17",
+      "score": 71.0
+    },
+    {
+      "ticker": "EXPD",
+      "sector": "Industrials",
+      "date_added": "2026-07-17",
+      "score": 70.0
+    },
+    {
+      "ticker": "GWW",
+      "sector": "Industrials",
+      "date_added": "2026-07-17",
+      "score": 69.0
+    },
+    {
+      "ticker": "ED",
+      "sector": "Utilities",
+      "date_added": "2026-07-17",
+      "score": 69.0
     }
   ]
 }

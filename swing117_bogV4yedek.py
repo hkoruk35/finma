@@ -2390,13 +2390,13 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
             logging.info(f"🚫 {ticker}: 1D HARD GATE — Downtrend")
             return None
             
-        # 5 günde kanama gate — v117.v2 Yapısal Koruma (Gevşetmeden Muaf Sabit Eşik)
-        # Gevşetme seviyesi ne olursa olsun son 5 günde %3.5'ten fazla kanayan momentumsuz yapılar elenir.
+        # 5 günde kanama gate — Boğa modu: -%3.0 → -%4.0 (gevşetildi)
+        # Boğa döneminde geçici geri çekilme adayları elenmemelidir.
         if len(close_1d) >= 6:
             ret_5d_pct = (current_price - float(close_1d.iloc[-6])) / float(close_1d.iloc[-6]) * 100
-            _kanama_esik = -3.5  # v2 katı koruma filtresi
+            _kanama_esik = -6.0 if trend_durumu_1d in ("Full Stack", "Macro Bullish") else -4.0
             if ret_5d_pct < _kanama_esik:
-                logging.info(f"🚫 {ticker}: v2 HARD GATE — 5G Kanama Tespiti ({ret_5d_pct:.1f}%)")
+                logging.info(f"🚫 {ticker}: 1D HARD GATE — 5G kanama ({ret_5d_pct:.1f}%)")
                 return None
                 
         # RSI 1D hard gate
@@ -3267,18 +3267,23 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
 
         if bb_squeeze and ema_stack:
             # ── V117_v2: SQUEEZE Kalite Kontrolleri (MFI + MACD hard bloker) ──
-            # Bu filtre gevşetme döngüsünden (Relaxation) bağımsız çalışır ve kurumsal dağıtımı keser.
+            # MDU vakası: MFI=26.3 + MACD=-0.09 → kurumsal dağıtım içinde sıkışma
+            # görünümlü hisse. Gerçek squeeze = hacimsizlik + sıkışma, dağıtım değil.
+            # MACD burada kontrol edilmeli — Phase3'te selection_system henüz "UNKNOWN"
+            # olduğundan MACD korelasyon cezası yanlış dala (-1p) düşüyordu.
+
             squeeze_blocked = False
 
             if mfi_val < 30:
                 # Para aktif olarak çıkıyor — BB sıkışması = dağıtım, breakout değil
                 details.append(
-                    f"⛔ SQUEEZE İPTAL: MFI={mfi_val:.1f} < 30 — Kurumsal dağıtım var, sıkışma geçersiz"
+                    f"⛔ SQUEEZE İPTAL: MFI={mfi_val:.1f} < 30 — "
+                    f"Kurumsal dağıtım sinyali, sıkışma geçersiz"
                 )
-                return None  # v2 Kesin Blok: Dağıtım aşamasındaki squeeze doğrudan elenir.
+                score -= 4.0
+                squeeze_blocked = True
 
             elif macd_hist_val < -0.1:
-                
                 # Trend momentumu yok — negatif MACD + squeeze = sahte kırılım riski
                 details.append(
                     f"⛔ SQUEEZE İPTAL: MACD_hist={macd_hist_val:.3f} < -0.1 — "
@@ -3959,15 +3964,9 @@ def compute_boga_score_100(c: dict) -> float:
     # =============================================================
     # ── PENALTIES (Multiplicative - Çarpımsal Cezalar) ───────────
     # =============================================================
-    # v2 Yapısal Mutlak Koruma Filtresi: MFI > 75 ve RSI > 65 ise Likidite Şişmesi (Tepe Noktası Dağıtımı)
-    # Gevşetme motoru bu hisseleri listeye almaya çalışırsa skoru sertçe sıfırlanarak elenir.
-    if mfi > 75 and rsi > 65:
-        score *= 0.15  # Skoru tamamen öldürerek Diversified Toplist barajından düşürür.
-        details.append("🚨 CRITICAL HARD BLOCK: MFI 75+ VE RSI 65+ Likidite Şişmesi / Tepe Dağıtımı (*0.15)")
-
     if c.get("is_exhausted"):
-        score *= 0.50  # v2 Kuralı: Aşırı yorgun hissede ceza hata riskine karşı ağırlaştırıldı.
-        details.append("🔴 MULTI-CEZA: Hisse Aşırı Yorgun (Exhausted) Modunda (*0.50)")
+        score *= 0.70  # En ağır ceza önce: aşırı yorgun hisse (-30%)
+        details.append("🔴 MULTI-CEZA: Hisse Aşırı Yorgun (Exhausted) Modunda (*0.70)")
         
     if not c.get("above_1w_ema50", True):
         score *= 0.85  # Haftalık trend karşıtı: -15%
@@ -4969,37 +4968,9 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
         kept_swing.append(entry)
         seen.add(t)
 
-    # v2 Portföy Risk Koruması: Halihazırda pozisyonda (ENTERED) olan hisseler ile yeni sinyaller
-    # arasında sektör içi yüksek korelasyon kontrolü yapılır. İkiz hisselerin sızması engellenir.
-    entered_tickers_close = {}
-    for entry in kept_swing:
-        if entry.get("entry_status") == "ENTERED" and entry["ticker"] in BULK_DATA_CACHE:
-            # Eğer eski entry içinde sector alanı yoksa last_pick veya global cached_info üzerinden yedekle
-            sec_backup = entry.get("sector") or entry.get("last_pick", {}).get("sector") or "Unknown"
-            entered_tickers_close[entry["ticker"]] = (sec_backup, BULK_DATA_CACHE[entry["ticker"]]["Close"].tail(60))
-
     for t, c in fresh_swing.items():
         if t in seen:
             continue
-        
-        # İkiz hisse kontrolü
-        is_correlated_twin = False
-        close_b = c.get('df_1d', pd.DataFrame()).get('Close')
-        if close_b is not None and not close_b.empty:
-            for ent_tkr, (ent_sec, close_a) in entered_tickers_close.items():
-                if ent_sec == c.get("sector") and not close_a.empty:
-                    df_merged = pd.concat([close_a, close_b.tail(60)], axis=1, join='inner').dropna()
-                    if len(df_merged) >= 20:
-                        from scipy.stats import pearsonr
-                        corr, _ = pearsonr(df_merged.iloc[:, 0], df_merged.iloc[:, 1])
-                        if corr > 0.75:
-                            logging.info(f"🚫 {t}: Pozisyondaki {ent_tkr} ile yüksek korelasyon ({corr:.2f}) nedeniyle havuza alınmadı.")
-                            is_correlated_twin = True
-                            break
-        
-        if is_correlated_twin:
-            continue # Havuza eklemeden pas geç
-
         trig = c.get("trigger", {})
         triggered = bool(trig.get("triggered"))
         zones = c.get("boga_zones", {})
