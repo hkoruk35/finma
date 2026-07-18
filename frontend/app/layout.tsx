@@ -7,7 +7,7 @@ import StructuredData from "@/components/StructuredData";
 import { Inter, Montserrat, JetBrains_Mono, Manrope } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
-
+import CopilotShell from "@/components/global/CopilotShell";
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -149,7 +149,9 @@ export default function RootLayout({
         <SmartTrackerProvider>
           <TrackerProvider>
             <PWAInstaller />
-            {children}
+            <CopilotShell>
+              {children}
+            </CopilotShell>
             <BottomNavWrapper />
           </TrackerProvider>
         </SmartTrackerProvider>
