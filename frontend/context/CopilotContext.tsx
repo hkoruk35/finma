@@ -47,7 +47,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     body: { pageContext },
     onToolCall({ toolCall }) {
       if (toolCall.toolName === 'navigate_to') {
-        const { ticker } = toolCall.args;
+        const { ticker } = toolCall.args as any;
         if (ticker && typeof ticker === 'string') {
           // Keep chat open and navigate
           router.push(`/global/tr/graphic/${ticker.toUpperCase()}`);
