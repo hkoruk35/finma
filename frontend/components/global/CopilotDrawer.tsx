@@ -178,38 +178,47 @@ export default function CopilotDrawer() {
                     msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#1f2937] text-gray-200 border border-white/5 rounded-tl-sm"
                   }`}
                 >
-                  {msg.toolInvocations ? (
-                    msg.toolInvocations.map((toolInv: any, idx: number) => {
-                      const result = toolInv.result;
-                      if (!result) {
+                  {/* Tool çağrıları ve metin ARTIK BİRLİKTE render edilir — model bir tool
+                      çağırıp ardından o veriyi yorumlayan metin yazabilir (örn. get_deep_analysis
+                      + PE oranı yorumu); önceden ikisi birbirini dışlıyordu, metin kayboluyordu. */}
+                  {msg.toolInvocations?.map((toolInv: any, idx: number) => {
+                    const result = toolInv.result;
+                    if (!result) {
+                      return (
+                        <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
+                          {ct("fetchingData", locale)}
+                        </div>
+                      );
+                    }
+                    if (toolInv.toolName === "navigate_to") {
+                      return (
+                        <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-blue-500/20 text-xs font-mono text-blue-400">
+                          {result?.success
+                            ? ct("navigating", locale, { ticker: result.ticker })
+                            : `⚠️ ${result?.error || ct("navigateFailed", locale)}`}
+                        </div>
+                      );
+                    }
+                    if (toolInv.toolName === "show_stock_card") {
+                      if (!result?.success) {
                         return (
-                          <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
-                            {ct("fetchingData", locale)}
+                          <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
+                            ⚠️ {result?.error || ct("noStockData", locale)}
                           </div>
                         );
                       }
-                      if (toolInv.toolName === "navigate_to") {
-                        return (
-                          <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-blue-500/20 text-xs font-mono text-blue-400">
-                            {result?.success
-                              ? ct("navigating", locale, { ticker: result.ticker })
-                              : `⚠️ ${result?.error || ct("navigateFailed", locale)}`}
-                          </div>
-                        );
-                      }
-                      if (toolInv.toolName === "show_stock_card") {
-                        if (!result?.success) {
-                          return (
-                            <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
-                              ⚠️ {result?.error || ct("noStockData", locale)}
-                            </div>
-                          );
-                        }
-                        return <StockCard key={idx} data={result as StockCardProps} locale={locale} />;
-                      }
-                      return null;
-                    })
-                  ) : (
+                      return <StockCard key={idx} data={result as StockCardProps} locale={locale} />;
+                    }
+                    if (toolInv.toolName === "get_deep_analysis" && !result?.success) {
+                      return (
+                        <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
+                          ⚠️ {result?.error || ct("noStockData", locale)}
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
+                  {msg.content && (
                     <ReactMarkdown
                       components={{
                         a: ({ href, children }) => {

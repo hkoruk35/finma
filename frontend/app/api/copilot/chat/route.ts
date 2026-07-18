@@ -12,6 +12,7 @@ import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
 import { getStockData, getMasterData } from "@/lib/data";
 import { getSwingStrategySnapshot } from "@/lib/copilot/pageContext";
+import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 
 export const maxDuration = 60;
 
@@ -45,9 +46,9 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
 DİL KURALI (KESİN): Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz olsa bile, kullanıcı başka bir dilde yazsa bile bu kuraldan asla sapma. Tüm yanıtın (karşılama, analiz, hata mesajları) ${langName} dilinde olacak.
 
 VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
-1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, sayfa/ticker bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker. Kullanıcı "grafikte/sayfada ne görüyorum, bu analiz neye dayanıyor" derse, aşağıdaki "SAYFADA GÖSTERİLEN VERİ" bölümünü DOĞRUDAN referans alarak açıkla — genel/belirsiz bir cevap verme.
+1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, sayfa/ticker bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker. Bilanço/temel veriler (PE, kâr marjı, gelir büyümesi, kurumsal ortaklık oranı), insider (içeriden öğrenenler) alım/satım aktivitesi, sektör bağlamı, haberler veya BOGA'nın bu hissede GEÇMİŞTE yaptığı gerçek işlemlerin performansı (kazanma oranı, geçmiş getiriler) soruluyorsa 'get_deep_analysis' aracını çağır — bu da gerçek veriyi çeker, asla tahmin etme. Kullanıcı "grafikte/sayfada ne görüyorum, bu analiz neye dayanıyor" derse, aşağıdaki "SAYFADA GÖSTERİLEN VERİ" bölümünü DOĞRUDAN referans alarak açıkla — genel/belirsiz bir cevap verme.
 2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim" gibi cümlelerle REDDETME. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
-3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef) SÖYLEYECEKSEN mutlaka show_stock_card aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
+3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef, PE, marj, kazanma oranı, geçmiş getiri vb.) SÖYLEYECEKSEN mutlaka show_stock_card veya get_deep_analysis aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
 
 `;
 
@@ -111,9 +112,10 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
-3. Bir hissenin analizini gösterirken MUTLAKA 'show_stock_card' aracını kullan, asla metin içinde skor/destek/direnç/hedef gibi sayısal bir değer YAZMA veya UYDURMA — bu sayılar sadece show_stock_card aracının döndürdüğü gerçek veriden gelir. Aracın döndürdüğü veri yoksa (success:false), o hisse için veri olmadığını söyle, sayı uydurma.
-4. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç geçersiz ticker derse kullanıcıya nazikçe bildir, ısrar etme.
-5. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
+3. Bir hissenin hızlı skor/destek/direnç/hedef durumu istendiğinde MUTLAKA 'show_stock_card' aracını kullan, bu araç kartı ekranda zaten gösterir — kartın döndürdüğü sayıları AYRICA metin olarak tekrarlama.
+4. Bilanço, insider aktivitesi, sektör bağlamı, haberler veya geçmiş işlem performansı gibi DAHA DERİN bir soru geldiğinde 'get_deep_analysis' aracını çağır, sonra aracın döndürdüğü GERÇEK sayıları kullanarak kısa bir yorum/analiz metni yaz (örn. "PE oranı X, sektör ortalamasının üzerinde/altında..."). Bu sayıları asla tahmin etme — sadece aracın döndürdüğü değerleri kullan. Araç veri döndürmezse (success:false) veri olmadığını söyle.
+5. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç geçersiz ticker derse kullanıcıya nazikçe bildir, ısrar etme.
+6. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
 
   return contextStr;
 }
@@ -202,6 +204,15 @@ export async function POST(req: NextRequest) {
             const card = await getRealStockCardData(ticker, locale);
             if (!card) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...card };
+          },
+        }),
+        get_deep_analysis: tool({
+          description: "Bir hissenin bilanço/temel verilerini (PE, kâr marjı, gelir büyümesi, kurumsal ortaklık), insider alım/satım aktivitesini, sektör bağlamını, son haberlerini ve BOGA'nın bu hissede geçmişte yaptığı gerçek işlemlerin performansını (kazanma oranı, geçmiş getiriler) getirir. SADECE ticker parametresi alır — tüm değerler gerçek veriden gelir, sen üretmezsin.",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            const analysis = await getDeepAnalysis(ticker, locale);
+            if (!analysis) return { success: false, error: ct("noStockData", locale) };
+            return { success: true, ...analysis };
           },
         }),
       },
