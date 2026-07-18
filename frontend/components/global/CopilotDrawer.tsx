@@ -10,7 +10,11 @@ import { ct } from "@/lib/copilot/i18n";
 // Modelin metin içinde "$TICKER" formatında yazdığı sembolleri tıklanabilir
 // markdown linkine çevirir (copilot:// pseudo-protokol) — gerçek bir URL değil,
 // ReactMarkdown'ın custom `a` renderer'ı bunu yakalayıp append() tetikler.
-function linkifyTickers(text: string): string {
+// GÜVENLİK: content her zaman string olmayabilir — DB'den geri yüklenen eski
+// sohbet kayıtlarında (ham CoreMessage formatı) content bir dizi/obje olabilir;
+// böyle bir değerde .replace() çağırmak render'ı çökertirdi (global beyaz ekran).
+function linkifyTickers(text: unknown): string {
+  if (typeof text !== "string") return "";
   return text.replace(/\$([A-Z]{1,5})\b/g, (_, ticker) => `[$${ticker}](copilot://${ticker})`);
 }
 
@@ -218,7 +222,7 @@ export default function CopilotDrawer() {
                     }
                     return null;
                   })}
-                  {msg.content && (
+                  {typeof msg.content === "string" && msg.content && (
                     <ReactMarkdown
                       // react-markdown v10 varsayılan urlTransform'u bilinmeyen protokolleri
                       // ("copilot://") güvenlik amaçlı boş string'e çevirir — bu da $TICKER

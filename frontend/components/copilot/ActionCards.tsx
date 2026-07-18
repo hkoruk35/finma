@@ -42,6 +42,10 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
   const trendColor = isBullish ? "text-green-400" : data.trend === "Bearish" ? "text-red-400" : "text-yellow-400";
   const trendBg = isBullish ? "bg-green-500/10 border-green-500/20" : data.trend === "Bearish" ? "bg-red-500/10 border-red-500/20" : "bg-yellow-500/10 border-yellow-500/20";
 
+  // GÜVENLİK: geri yüklenen/eksik bir kart verisinde sayısal alanlar undefined
+  // olabilir — .toFixed() doğrudan çağrılırsa render çöker (global beyaz ekran).
+  const fmt = (v: unknown) => (typeof v === "number" ? `$${v.toFixed(2)}` : "—");
+
   return (
     <div className="w-full bg-[#0a0e17] rounded-xl border border-[#388bfd33] overflow-hidden shadow-xl shadow-blue-500/5 my-3 relative">
       {/* Header */}
@@ -74,15 +78,15 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("support", locale)}</span>
-            <span className="text-sm font-semibold text-white">${data.support.toFixed(2)}</span>
+            <span className="text-sm font-semibold text-white">{fmt(data.support)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("resistance", locale)}</span>
-            <span className="text-sm font-semibold text-white">${data.resistance.toFixed(2)}</span>
+            <span className="text-sm font-semibold text-white">{fmt(data.resistance)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("target", locale)}</span>
-            <span className="text-sm font-semibold text-blue-400">${data.target.toFixed(2)}</span>
+            <span className="text-sm font-semibold text-blue-400">{fmt(data.target)}</span>
           </div>
         </div>
 

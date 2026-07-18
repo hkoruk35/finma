@@ -18,5 +18,19 @@ export async function GET() {
     .eq("user_id", userData.user.id)
     .single();
 
-  return NextResponse.json({ messages: data?.chat_state ?? [] });
+  // GÜVENLİK: chat_state, bu özellik eklenmeden önce ham CoreMessage formatında
+  // (content bir dizi/obje, role "tool" olabilir) yazılmış OLABİLİR. Bu eski
+  // kayıtlar useChat/Drawer'ın beklediği UI-mesaj şekline uymaz ve render'ı
+  // çökertir (global beyaz ekran — canlı olay buydu). Sadece güvenle render
+  // edilebilir mesajları döndür; tanınmayan/eski kayıtları at (bir sonraki
+  // mesajda onFinish zaten doğru formatla üzerine yazıp kendini onarır).
+  const raw = Array.isArray(data?.chat_state) ? data!.chat_state : [];
+  const messages = raw.filter(
+    (m: any) =>
+      m &&
+      (m.role === "user" || m.role === "assistant") &&
+      typeof m.content === "string"
+  );
+
+  return NextResponse.json({ messages });
 }
