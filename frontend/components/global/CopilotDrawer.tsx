@@ -5,6 +5,7 @@ import { useCopilot } from "@/context/CopilotContext";
 import ReactMarkdown from "react-markdown";
 import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";
 import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/persona";
+import { ct } from "@/lib/copilot/i18n";
 
 // Modelin metin içinde "$TICKER" formatında yazdığı sembolleri tıklanabilir
 // markdown linkine çevirir (copilot:// pseudo-protokol) — gerçek bir URL değil,
@@ -39,9 +40,9 @@ export default function CopilotDrawer() {
 
   const getWelcomeMessage = () => {
     if (pageContext?.type === "ticker") {
-      return `Şu anda ${pageContext.value} grafiğini inceliyorsun. Sana yardımcı olabilirim:\n• Teknik analiz\n• Risk değerlendirmesi\n• Benzer hisseler`;
+      return ct("welcomeTicker", locale, { ticker: pageContext.value });
     }
-    return "Bugün Ne Yapmak İstiyorsun?\n• Bir hisseyi analiz et\n• Günün en güçlü adaylarını bul\n• Portföyünü incele";
+    return ct("welcomeDefault", locale);
   };
 
   const handleQuickAction = (text: string) => {
@@ -92,7 +93,7 @@ export default function CopilotDrawer() {
           <div className="flex items-center gap-1">
             <button
               onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-              title="Kişiselleştir"
+              title={ct("personalize", locale)}
               className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -113,7 +114,7 @@ export default function CopilotDrawer() {
         {isSettingsOpen && (
           <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3">
             <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">Asistan Adı</label>
+              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", locale)}</label>
               <input
                 type="text"
                 value={draftName}
@@ -124,7 +125,7 @@ export default function CopilotDrawer() {
               />
             </div>
             <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">Avatar Seç</label>
+              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("chooseAvatar", locale)}</label>
               <div className="flex gap-2 mt-1.5">
                 {AVATAR_OPTIONS.map((a) => (
                   <button
@@ -143,7 +144,7 @@ export default function CopilotDrawer() {
               onClick={handleSaveSettings}
               className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors"
             >
-              Kaydet
+              {ct("save", locale)}
             </button>
           </div>
         )}
@@ -158,13 +159,13 @@ export default function CopilotDrawer() {
               <div className="flex flex-wrap gap-2 mt-2">
                 {pageContext?.type === "ticker" ? (
                   <>
-                    <button type="button" onClick={() => handleQuickAction("Teknik durumu analiz et")} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">Teknik Analiz</button>
-                    <button type="button" onClick={() => handleQuickAction("Destek ve direnç seviyeleri nedir?")} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">Destek / Direnç</button>
+                    <button type="button" onClick={() => handleQuickAction(ct("quickTechnicalMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickTechnical", locale)}</button>
+                    <button type="button" onClick={() => handleQuickAction(ct("quickSupportResistanceMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickSupportResistance", locale)}</button>
                   </>
                 ) : (
                   <>
-                    <button type="button" onClick={() => handleQuickAction("Günün en güçlü hisseleri hangileri?")} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">🚀 Swing Fırsatları</button>
-                    <button type="button" onClick={() => handleQuickAction("NVIDIA'nın son durumunu değerlendir")} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">⚡ NVDA Analizi</button>
+                    <button type="button" onClick={() => handleQuickAction(ct("quickSwingMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickSwing", locale)}</button>
+                    <button type="button" onClick={() => handleQuickAction(ct("quickNvdaMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickNvda", locale)}</button>
                   </>
                 )}
               </div>
@@ -183,7 +184,7 @@ export default function CopilotDrawer() {
                       if (!result) {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
-                            Veri getiriliyor...
+                            {ct("fetchingData", locale)}
                           </div>
                         );
                       }
@@ -191,8 +192,8 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-blue-500/20 text-xs font-mono text-blue-400">
                             {result?.success
-                              ? `🔄 ${result.ticker} sayfasına yönlendiriliyor...`
-                              : `⚠️ ${result?.error || "Yönlendirme yapılamadı."}`}
+                              ? ct("navigating", locale, { ticker: result.ticker })
+                              : `⚠️ ${result?.error || ct("navigateFailed", locale)}`}
                           </div>
                         );
                       }
@@ -200,7 +201,7 @@ export default function CopilotDrawer() {
                         if (!result?.success) {
                           return (
                             <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
-                              ⚠️ {result?.error || "Bu hisse için veri bulunamadı."}
+                              ⚠️ {result?.error || ct("noStockData", locale)}
                             </div>
                           );
                         }
@@ -246,17 +247,17 @@ export default function CopilotDrawer() {
           )}
           {quotaExhausted && (
             <div className="bg-[#1f2937] border border-yellow-500/20 rounded-2xl p-3 text-xs text-yellow-300">
-              Bugünkü Copilot isteklerini doldurdun ({usage?.dailyLimit}/{usage?.dailyLimit}). Yarın sıfırlanacak.
+              {ct("quotaExhausted", locale, { limit: usage?.dailyLimit ?? "" })}
             </div>
           )}
           {noAccess && (
             <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
-              Copilot için aktif bir üyelik gerekiyor.
+              {ct("noAccess", locale)}
             </div>
           )}
           {error && (
             <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
-              ⚠️ Bir hata oluştu, yanıt alınamadı. Lütfen tekrar dener misin?
+              ⚠️ {ct("genericError", locale)}
             </div>
           )}
           <div ref={messagesEndRef} />
@@ -268,7 +269,7 @@ export default function CopilotDrawer() {
               type="text"
               value={input}
               onChange={handleInputChange}
-              placeholder="BOGA AI'a sor..."
+              placeholder={ct("inputPlaceholder", locale)}
               disabled={inputDisabled}
               className="w-full bg-[#161b22] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50"
             />
@@ -284,10 +285,10 @@ export default function CopilotDrawer() {
             </button>
           </div>
           <div className="text-center mt-2 flex justify-between px-2">
-            <span className="text-[9px] text-gray-500">BOGA AI yatırım tavsiyesi vermez.</span>
+            <span className="text-[9px] text-gray-500">{ct("disclaimer", locale)}</span>
             {usage && usage.hasAccess && (
               <span className="text-[9px] text-blue-500/70 font-mono">
-                {Math.max(0, usage.dailyLimit - usage.currentUsage)} / {usage.dailyLimit} İstek Kaldı
+                {ct("requestsLeft", locale, { n: Math.max(0, usage.dailyLimit - usage.currentUsage), limit: usage.dailyLimit })}
               </span>
             )}
           </div>

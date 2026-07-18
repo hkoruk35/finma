@@ -6,6 +6,7 @@
 // hiçbir zaman uydurma/placeholder veri üretilmez.
 
 import { getStockData } from "@/lib/data";
+import { ct } from "@/lib/copilot/i18n";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -41,11 +42,11 @@ function deriveTrend(scoreType: string | undefined, changePct: number | undefine
   return "Neutral";
 }
 
-function deriveRiskLevel(riskReward: number | undefined): string {
-  if (!riskReward || riskReward <= 0) return "Bilinmiyor";
-  if (riskReward >= 2.5) return "Düşük";
-  if (riskReward >= 1.5) return "Orta";
-  return "Yüksek";
+function deriveRiskLevel(riskReward: number | undefined, lang: string): string {
+  if (!riskReward || riskReward <= 0) return ct("riskUnknown", lang);
+  if (riskReward >= 2.5) return ct("riskLow", lang);
+  if (riskReward >= 1.5) return ct("riskMedium", lang);
+  return ct("riskHigh", lang);
 }
 
 export async function getRealStockCardData(ticker: string, lang: string = "tr"): Promise<CopilotStockCard | null> {
@@ -71,14 +72,14 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
 
   const summary =
     pickSummary(data.ai_summary, lang) ||
-    `${t}: BOGA Skoru ${Math.round(data.scores.master_score)}/100, sektör: ${data.sector || "N/A"}.`;
+    ct("defaultStockSummary", lang, { ticker: t, score: Math.round(data.scores.master_score), sector: data.sector || "N/A" });
 
   return {
     ticker: t,
     companyName: data.company || t,
     trend: deriveTrend(data.scores?.score_type, data.price?.change_pct),
     bogaScore: Math.round(data.scores.master_score),
-    riskLevel: deriveRiskLevel(sd.risk_reward_ratio),
+    riskLevel: deriveRiskLevel(sd.risk_reward_ratio, lang),
     support,
     resistance,
     target,

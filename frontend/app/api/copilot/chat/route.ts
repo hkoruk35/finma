@@ -9,7 +9,8 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName, LOCALE_NAMES } from "@/lib/copilot/persona";
-import { getStockData } from "@/lib/data";
+import { ct } from "@/lib/copilot/i18n";
+import { getStockData, getMasterData } from "@/lib/data";
 
 export const maxDuration = 60;
 
@@ -25,14 +26,29 @@ const DEFAULT_CREDIT_LIMIT: Record<string, number> = {
   free_trial: 20,
 };
 
+function resolveLocale(raw: any): string {
+  return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
+}
+
 async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
   const langName = LOCALE_NAMES[locale] || LOCALE_NAMES.en;
   const profile = await getCopilotProfile(userId);
   const name = profile.displayName || getSuggestedName(locale);
   const personalization = await getPersonalizationContext(userId);
 
-  let contextStr = `Senin adın "${name}". Kullanıcıya kendini bu isimle tanıt, "BOGA Copilot" ekibinin bir parçası olduğunu belirtebilirsin.
-Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz olsa bile bu kuraldan asla sapma.\n\n`;
+  // KURAL SIRASI BİLİNÇLİ: veri önceliği ve dil kuralı en başta, en güçlü
+  // vurguyla — model her zaman önce aşağıdaki gerçek site verisine bakmalı,
+  // kendi genel bilgisine SADECE bu veriler yetersiz kaldığında düşmeli.
+  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". Kullanıcıya kendini bu isimle tanıt, "BOGA Copilot" ekibinin bir parçası olduğunu belirtebilirsin.
+
+DİL KURALI (KESİN): Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz olsa bile, kullanıcı başka bir dilde yazsa bile bu kuraldan asla sapma. Tüm yanıtın (karşılama, analiz, hata mesajları) ${langName} dilinde olacak.
+
+VERİ ÖNCELİĞİ (KESİN — en kritik kural):
+1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, kullanıcı bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker.
+2. Sorunun cevabı BOGA verilerinde yoksa (örn. genel ekonomi kavramı, tanım, tarihsel bilgi) kendi genel bilgini kullan, ama bunu ASLA "BOGA verisi" veya "sistemimizin bulgusu" gibi sunma — net şekilde ayır.
+3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef) SÖYLEYECEKSEN mutlaka show_stock_card aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
+
+`;
 
   if (pageContext) {
     if (pageContext.type === "ticker") {
@@ -52,6 +68,22 @@ Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz ols
     contextStr += `SON ARAMALARI: ${personalization.recentQueries.slice(0, 5).join(" | ")}\n`;
   }
   contextStr += "\n";
+
+  // Genel piyasa/sektör görünümü — MarketMoodBar'ın da kullandığı aynı gerçek
+  // kaynak (getMasterData). Model, "piyasa nasıl", "hangi sektör güçlü" gibi
+  // genel sorularda tool çağırmadan önce buradaki gerçek veriyi kullanabilir.
+  try {
+    const master = await getMasterData();
+    if (master && !master.is_mock) {
+      contextStr += `GÜNCEL PİYASA GÖRÜNÜMÜ (${master.date || ""}): Piyasa Rejimi: ${master.market_regime || "N/A"}\n`;
+      const sectors = Object.entries(master.sector_summary || {})
+        .sort((a, b) => (b[1]?.avg_score ?? 0) - (a[1]?.avg_score ?? 0))
+        .slice(0, 8)
+        .map(([name, s]: [string, any]) => `- ${name}: Ort. Skor ${s.avg_score}, Lider Hisse: ${s.top_ticker || "N/A"} (${s.stock_count} hisse)`)
+        .join("\n");
+      if (sectors) contextStr += `SEKTÖR ÖZETİ (skora göre sıralı):\n${sectors}\n\n`;
+    }
+  } catch {}
 
   try {
     const dirBase = path.resolve(process.cwd(), "public", "data", "swing2026");
@@ -76,13 +108,16 @@ Kullanıcıyla SADECE ${langName} dilinde konuş — mesajın kısa/belirsiz ols
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
 3. Bir hissenin analizini gösterirken MUTLAKA 'show_stock_card' aracını kullan, asla metin içinde skor/destek/direnç/hedef gibi sayısal bir değer YAZMA veya UYDURMA — bu sayılar sadece show_stock_card aracının döndürdüğü gerçek veriden gelir. Aracın döndürdüğü veri yoksa (success:false), o hisse için veri olmadığını söyle, sayı uydurma.
 4. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç geçersiz ticker derse kullanıcıya nazikçe bildir, ısrar etme.
-5. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.
-6. BOGA verisi olmayan konularda (genel ekonomi, tanım soruları) kendi genel bilginle yanıtla ama bunu asla "BOGA verisi" gibi sunma.`;
+5. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
 
   return contextStr;
 }
 
 export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const { messages, pageContext, locale: rawLocale } = body;
+  const locale = resolveLocale(rawLocale);
+
   const access = await getMemberAccess();
   if (!access.authenticated) {
     return new Response("Unauthorized", { status: 401 });
@@ -103,10 +138,7 @@ export async function POST(req: NextRequest) {
     : 0;
 
   if (dailyLimit === 0) {
-    return NextResponse.json(
-      { error: "Copilot erişimi için aktif bir üyelik gerekiyor.", code: "NO_ACCESS" },
-      { status: 403 }
-    );
+    return NextResponse.json({ error: ct("noAccess", locale), code: "NO_ACCESS" }, { status: 403 });
   }
 
   const { data: statusRows, error: statusErr } = await supabaseAdmin.rpc("get_copilot_credit_status", {
@@ -119,20 +151,17 @@ export async function POST(req: NextRequest) {
   }
   const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
   if (!status || status.current_usage >= status.daily_limit) {
+    const limit = status?.daily_limit ?? dailyLimit;
     return NextResponse.json(
       {
-        error: `Günlük Copilot limitine ulaştın (${status?.daily_limit ?? dailyLimit} istek). Yarın sıfırlanacak.`,
+        error: ct("quotaExhausted", locale, { limit }),
         code: "QUOTA_EXCEEDED",
         currentUsage: status?.current_usage ?? dailyLimit,
-        dailyLimit: status?.daily_limit ?? dailyLimit,
+        dailyLimit: limit,
       },
       { status: 429 }
     );
   }
-
-  const body = await req.json();
-  const { messages, pageContext, locale: rawLocale } = body;
-  const locale = ["tr", "en", "es", "fr", "pt"].includes(rawLocale) ? rawLocale : "en";
 
   const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
   if (lastUserMessage?.content) {
@@ -154,10 +183,10 @@ export async function POST(req: NextRequest) {
           execute: async ({ ticker }) => {
             const t = ticker.trim().toUpperCase();
             const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
-            if (!isFormatValid) return { success: false, error: "Geçersiz hisse senedi sembolü." };
+            if (!isFormatValid) return { success: false, error: ct("invalidTicker", locale) };
             // Gerçekten var olan bir ticker mi diye gerçek veriden doğrula — halüsinasyon yönlendirme yok.
             const real = await getStockData(t);
-            if (!real) return { success: false, error: "Bu sembol için sistemde veri bulunamadı." };
+            if (!real) return { success: false, error: ct("tickerNotFound", locale) };
             return { success: true, ticker: t };
           },
         }),
@@ -166,7 +195,7 @@ export async function POST(req: NextRequest) {
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             const card = await getRealStockCardData(ticker, locale);
-            if (!card) return { success: false, error: "Bu hisse için güncel BOGA verisi yok." };
+            if (!card) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...card };
           },
         }),

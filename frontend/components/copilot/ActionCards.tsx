@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ct } from "@/lib/copilot/i18n";
 
 export interface StockCardProps {
   ticker: string;
@@ -72,21 +73,21 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
 
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-[10px] text-gray-500 font-mono mb-1">DESTEK</span>
+            <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("support", locale)}</span>
             <span className="text-sm font-semibold text-white">${data.support.toFixed(2)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-[10px] text-gray-500 font-mono mb-1">DİRENÇ</span>
+            <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("resistance", locale)}</span>
             <span className="text-sm font-semibold text-white">${data.resistance.toFixed(2)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
-            <span className="text-[10px] text-gray-500 font-mono mb-1">HEDEF</span>
+            <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("target", locale)}</span>
             <span className="text-sm font-semibold text-blue-400">${data.target.toFixed(2)}</span>
           </div>
         </div>
 
         <div className="flex items-center justify-between text-xs pt-1">
-          <span className="text-gray-400">Risk Profili:</span>
+          <span className="text-gray-400">{ct("riskProfile", locale)}</span>
           <span className="text-white font-medium">{data.riskLevel}</span>
         </div>
       </div>
@@ -98,7 +99,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
           className="py-2 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
-          Grafiği Aç
+          {ct("openChart", locale)}
         </button>
         <button
           onClick={handleAddToWatchlist}
@@ -106,7 +107,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
           className="py-2 flex items-center justify-center gap-1.5 bg-white/5 hover:bg-white/10 text-gray-300 text-xs font-medium rounded-lg border border-white/10 transition-colors disabled:opacity-60"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          {addState === "added" ? "Eklendi ✓" : addState === "saving" ? "Ekleniyor..." : addState === "error" ? "Hata, tekrar dene" : "Portföye Ekle"}
+          {addState === "added" ? ct("added", locale) : addState === "saving" ? ct("adding", locale) : addState === "error" ? ct("addError", locale) : ct("addToPortfolio", locale)}
         </button>
       </div>
     </div>
