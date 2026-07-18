@@ -14,6 +14,7 @@ import { getMasterData } from "@/lib/data";
 import { getSwingStrategySnapshot } from "@/lib/copilot/pageContext";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
+import { getPerformanceSummaryForPrompt, getPerformanceInsights } from "@/lib/copilot/performanceInsights";
 
 export const maxDuration = 60;
 
@@ -48,7 +49,7 @@ DİL KURALI (KESİN): Kullanıcıyla SADECE ${langName} dilinde konuş — mesaj
 
 VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
 1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, sayfa/ticker bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker. Bilanço/temel veriler (PE, kâr marjı, gelir büyümesi, kurumsal ortaklık oranı), insider (içeriden öğrenenler) alım/satım aktivitesi, sektör bağlamı, haberler veya BOGA'nın bu hissede GEÇMİŞTE yaptığı gerçek işlemlerin performansı (kazanma oranı, geçmiş getiriler) soruluyorsa 'get_deep_analysis' aracını çağır — bu da gerçek veriyi çeker, asla tahmin etme. Kullanıcı "grafikte/sayfada ne görüyorum, bu analiz neye dayanıyor" derse, aşağıdaki "SAYFADA GÖSTERİLEN VERİ" bölümünü DOĞRUDAN referans alarak açıkla — genel/belirsiz bir cevap verme.
-2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim" gibi cümlelerle REDDETME. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
+2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim", "site'de bu veri yoksa yapamam" gibi cümlelerle REDDETME. Site içi araçlar (get_performance_insights, show_stock_card, get_deep_analysis) varsa MUTLAKA onları çağır — aracın sonucu eksikse "site içinde daha fazlası olabilir ama şu anda X var" diye kapat, kütür bir "yapamıyorum" söyleme. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
 3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef, PE, marj, kazanma oranı, geçmiş getiri vb.) SÖYLEYECEKSEN mutlaka show_stock_card veya get_deep_analysis aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
 
 `;
@@ -112,6 +113,14 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
     }
   } catch {}
 
+  // Performance insights — geçen hafta/ay en çok kar eden hisseleri ve sektör performansı
+  try {
+    const perfSummary = await getPerformanceSummaryForPrompt(locale);
+    if (perfSummary) {
+      contextStr += perfSummary + "\n\n";
+    }
+  } catch {}
+
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
@@ -119,7 +128,8 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
 4. Bilanço, insider aktivitesi, sektör bağlamı, haberler, geçmiş işlem performansı veya derinlemesine teknik gibi bir soru geldiğinde 'get_deep_analysis' aracını çağır. Havuz-dışı hisselerde bilanço/insider olmayabilir ama araç canlı teknik analiz (konviksiyon, BOGA skor bileşenleri, MACD/ADX, Wyckoff, Weinstein, aktif sinyaller) döndürür. Aracın döndürdüğü GERÇEK sayıları kullanarak kısa bir yorum yaz; ASLA sayı uydurma. Elinde yalnızca liveTechnical varsa "canlı hesaplanan teknik görünüm" olduğunu belirt.
 5. Bir araç GERÇEKTEN "veri yok" derse (success:false — sadece tamamen geçersiz/işlem görmeyen sembollerde olur) hisseyi grafik sayfasında açmayı 'navigate_to' ile teklif et; asla sadece "yardımcı olamam" deyip bitirme.
 6. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç gerçekten geçersiz/uydurma bir sembol derse kullanıcıya nazikçe bildir, ısrar etme.
-7. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.`;
+7. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.
+8. "Geçen hafta / geçen ay en çok kar eden hisseleri" veya "performans" soruları geldiğinde 'get_performance_insights' aracını çağır — filtrelenmiş analiz, sektör breakdown, win rate döndürür. Aracın verisini kullanarak spesifik, gerçek sayılar içeren bir yanıt ver.`;
 
   return contextStr;
 }
@@ -220,6 +230,17 @@ export async function POST(req: NextRequest) {
             const analysis = await getDeepAnalysis(ticker, locale);
             if (!analysis) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...analysis };
+          },
+        }),
+        get_performance_insights: tool({
+          description: "BOGA Swing Motoru'nun geçmiş işlem performansını analiz et. Kullanıcı 'geçen hafta', 'geçen ay', 'son 90 gün' vb. zaman aralıkları belirtebilir. Tool en çok kar eden hisseleri, kazanma oranını, sektör performansını döndürür — tüm veriler gerçek swing_performance.json verisinden gelir.",
+          parameters: z.object({
+            daysBack: z.number().optional().describe("Kaç gün öncesinden itibaren (7=geçen hafta, 30=geçen ay, 90=geçen 3 ay, 0=tümü)"),
+          }),
+          execute: async ({ daysBack = 0 }) => {
+            const insights = await getPerformanceInsights(daysBack, locale);
+            if (!insights) return { success: false, error: ct("noStockData", locale) };
+            return { success: true, ...insights };
           },
         }),
       },
