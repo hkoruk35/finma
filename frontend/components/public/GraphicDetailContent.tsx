@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard";
+import TickerSearchBox from "@/components/public/TickerSearchBox";
 import type { Locale } from "@/lib/i18n/copy";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
@@ -140,6 +141,8 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             ))}
           </div>
         </div>
+
+        <TickerSearchBox locale={locale} />
 
         <div className="flex flex-wrap items-center gap-1.5 mb-4">
           {INDICES.map((idx) => {

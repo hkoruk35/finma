@@ -43,9 +43,14 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
 
   const [data, perf] = await Promise.all([getStockData(t), getSwingPerformance().catch(() => null)]);
-  if (!data || data.is_mock) return null;
+  // Not: getStockData null dönebilir (BOGA'nın aktif dar tarama havuzunda değil —
+  // ör. MU gibi gerçek ama şu an skorlanmayan bir hisse). Bu durumda fundamental/
+  // insider/sector/news yok sayılır AMA geçmiş işlem performansı (swing_performance.json)
+  // BAĞIMSIZ bir kaynak olduğu için yine de kontrol edilir — bot geçmişte bu hissede
+  // işlem yapmış olabilir, o veriyi kaybetmeyelim.
+  const hasCuratedData = !!data && !data.is_mock;
 
-  const f = data.fundamental as Record<string, any> | undefined;
+  const f = hasCuratedData ? (data!.fundamental as Record<string, any> | undefined) : undefined;
   const fundamental = f
     ? {
         peRatio: f.pe_ratio ?? null,
@@ -60,7 +65,7 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
       }
     : null;
 
-  const ia = data.insider_activity;
+  const ia = hasCuratedData ? data!.insider_activity : null;
   const insiderActivity =
     ia && typeof ia === "object"
       ? {
@@ -70,17 +75,19 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
         }
       : null;
 
-  const sc = data.sector_context;
+  const sc = hasCuratedData ? data!.sector_context : null;
   const sectorContext =
     sc && typeof sc === "object" && sc.sector_etf
       ? { sectorEtf: sc.sector_etf, sectorPerformance5d: sc.sector_performance_5d ?? 0 }
       : null;
 
-  const recentNews = (data.news || []).slice(0, 5).map((n: any) => ({
-    headline: n.headline,
-    source: n.source,
-    sentiment: n.sentiment,
-  }));
+  const recentNews = hasCuratedData
+    ? (data!.news || []).slice(0, 5).map((n: any) => ({
+        headline: n.headline,
+        source: n.source,
+        sentiment: n.sentiment,
+      }))
+    : [];
 
   let performanceHistory: CopilotDeepAnalysis["performanceHistory"] = null;
   if (perf?.history) {
