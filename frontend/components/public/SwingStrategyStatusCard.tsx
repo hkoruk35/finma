@@ -13,6 +13,119 @@ import type { Locale } from "@/lib/i18n/copy";
 // botun aktif 10-swing/10-watchlist havuzundaysa, sayfadaki gerekçe metni
 // botun stratejisiyle birebir uyumlu olur.
 
+// detail_reasoning bot tarafından TEK dilde (Türkçe) üretilip JSON'a yazılır
+// (ai_summary'nin aksine çok-dilli bir obje değil) — sabit sayıda şablondan
+// biri olduğu için (bkz. swing117_boga.py'deki layer4_entry_trigger_15m_hybrid
+// + eski V3 yedeğindeki "Hacimli Kırılım" tetiği, hâlâ 2026-07-17'den önce
+// girmiş pozisyonlarda donmuş halde duruyor) regex ile tanıyıp hedef dilde
+// yeniden kuruyoruz. Bilinmeyen/eşleşmeyen bir metin gelirse olduğu gibi
+// (Türkçe) gösterilir — hiçbir zaman veri kaybı/hata olmaz, sadece çeviri
+// atlanır.
+type ReasoningLang = "tr" | "en" | "es" | "fr" | "pt";
+
+const REASONING_RULES: { re: RegExp; build: (m: RegExpMatchArray, l: ReasoningLang) => string }[] = [
+  // V4.0: "Breakout tetiği yakalandı: Hacimli kırılım (1.8x) > direnç ($123.45)"
+  {
+    re: /^Breakout tetiği yakalandı: Hacimli kırılım \(([\d.]+)x\) > direnç \(\$([\d.]+)\)$/,
+    build: ([, rvol, level], l) => ({
+      tr: `Breakout tetiği yakalandı: Hacimli kırılım (${rvol}x) > direnç ($${level})`,
+      en: `Breakout trigger captured: high-volume breakout (${rvol}x) > resistance ($${level})`,
+      es: `Disparador de ruptura capturado: ruptura con alto volumen (${rvol}x) > resistencia ($${level})`,
+      fr: `Déclencheur de cassure capturé : cassure à fort volume (${rvol}x) > résistance (${level}$)`,
+      pt: `Gatilho de rompimento capturado: rompimento com alto volume (${rvol}x) > resistência ($${level})`,
+    }[l]),
+  },
+  // V4.0: "Spring bounce tetiği yakalandı: RSI:32.1 + MACD yön yukarı"
+  {
+    re: /^Spring bounce tetiği yakalandı: RSI:([\d.]+) \+ MACD yön yukarı$/,
+    build: ([, rsi], l) => ({
+      tr: `Spring bounce tetiği yakalandı: RSI:${rsi} + MACD yön yukarı`,
+      en: `Spring bounce trigger captured: RSI:${rsi} + MACD turning up`,
+      es: `Disparador de rebote (spring) capturado: RSI:${rsi} + MACD girando al alza`,
+      fr: `Déclencheur de rebond (spring) capturé : RSI :${rsi} + MACD orienté à la hausse`,
+      pt: `Gatilho de repique (spring) capturado: RSI:${rsi} + MACD virando para cima`,
+    }[l]),
+  },
+  // V4.0: "EMA Cross tetiği yakalandı: 15m grafik üzerinde EMA9/20 Golden Cross" (statik, sayı yok)
+  {
+    re: /^EMA Cross tetiği yakalandı: 15m grafik üzerinde EMA9\/20 Golden Cross$/,
+    build: (_m, l) => ({
+      tr: `EMA Cross tetiği yakalandı: 15m grafik üzerinde EMA9/20 Golden Cross`,
+      en: `EMA Cross trigger captured: EMA9/20 Golden Cross on the 15m chart`,
+      es: `Disparador de cruce de EMA capturado: Golden Cross EMA9/20 en el gráfico de 15m`,
+      fr: `Déclencheur de croisement d'EMA capturé : Golden Cross EMA9/20 sur le graphique 15m`,
+      pt: `Gatilho de cruzamento de EMA capturado: Golden Cross EMA9/20 no gráfico de 15m`,
+    }[l]),
+  },
+  // V4.0: "Power Pullback (5 mum) tetiklendi. RSI reset (42). Hacim 1.6x"
+  {
+    re: /^Power Pullback \((\d+) mum\) tetiklendi\. RSI reset \((\d+)\)\. Hacim ([\d.]+)x$/,
+    build: ([, n, rsi, rvol], l) => ({
+      tr: `Power Pullback (${n} mum) tetiklendi. RSI reset (${rsi}). Hacim ${rvol}x`,
+      en: `Power Pullback (${n} candles) triggered. RSI reset (${rsi}). Volume ${rvol}x`,
+      es: `Power Pullback (${n} velas) activado. RSI reiniciado (${rsi}). Volumen ${rvol}x`,
+      fr: `Power Pullback (${n} bougies) déclenché. RSI réinitialisé (${rsi}). Volume ${rvol}x`,
+      pt: `Power Pullback (${n} candles) acionado. RSI resetado (${rsi}). Volume ${rvol}x`,
+    }[l]),
+  },
+  // Eski V3: "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (8.8x) + Fiyat kırılımı ($399.90 > son 4 mum yüksekliği)"
+  {
+    re: /^Hacimli Kırılım \(Volume Breakout\) yakalandı: Güçlü yükseliş hacmi \(([\d.]+)x\) \+ Fiyat kırılımı \(\$([\d.]+) > son 4 mum yüksekliği\)$/,
+    build: ([, rvol, price], l) => ({
+      tr: `Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (${rvol}x) + Fiyat kırılımı ($${price} > son 4 mum yüksekliği)`,
+      en: `Volume Breakout captured: strong bullish volume (${rvol}x) + price breakout ($${price} > last 4-candle high)`,
+      es: `Ruptura por volumen capturada: volumen alcista fuerte (${rvol}x) + ruptura de precio ($${price} > máximo de las últimas 4 velas)`,
+      fr: `Cassure sur volume capturée : fort volume haussier (${rvol}x) + cassure de prix (${price}$ > plus haut des 4 dernières bougies)`,
+      pt: `Rompimento por volume capturado: forte volume de alta (${rvol}x) + rompimento de preço ($${price} > máxima das últimas 4 velas)`,
+    }[l]),
+  },
+  // Eski V3: "Power Pullback tetiklendi: 5 mum + EMA20 teması + RSI reset (42) + BULLISH_ENGULFING + Hacim 1.6x"
+  {
+    re: /^Power Pullback tetiklendi: (\d+) mum \+ EMA20 teması \+ RSI reset \((\d+)\) \+ (\S+) \+ Hacim ([\d.]+)x$/,
+    build: ([, n, rsi, trigType, rvol], l) => ({
+      tr: `Power Pullback tetiklendi: ${n} mum + EMA20 teması + RSI reset (${rsi}) + ${trigType} + Hacim ${rvol}x`,
+      en: `Power Pullback triggered: ${n} candles + EMA20 touch + RSI reset (${rsi}) + ${trigType} + Volume ${rvol}x`,
+      es: `Power Pullback activado: ${n} velas + contacto con EMA20 + RSI reiniciado (${rsi}) + ${trigType} + Volumen ${rvol}x`,
+      fr: `Power Pullback déclenché : ${n} bougies + contact EMA20 + RSI réinitialisé (${rsi}) + ${trigType} + Volume ${rvol}x`,
+      pt: `Power Pullback acionado: ${n} candles + toque na EMA20 + RSI resetado (${rsi}) + ${trigType} + Volume ${rvol}x`,
+    }[l]),
+  },
+  // V4.0 genel yedek: "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir."
+  {
+    re: /^Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir\.$/,
+    build: (_m, l) => ({
+      tr: `Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.`,
+      en: `Selected based on algorithmic technical criteria and momentum analysis.`,
+      es: `Seleccionado según criterios técnicos algorítmicos y análisis de momentum.`,
+      fr: `Sélectionné sur la base de critères techniques algorithmiques et d'une analyse du momentum.`,
+      pt: `Selecionado com base em critérios técnicos algorítmicos e análise de momentum.`,
+    }[l]),
+  },
+  // Eski V3 genel yedek: "Power Pullback (1D+4H+1H+15m hizalaması) sonucunda seçilmiştir."
+  {
+    re: /^Power Pullback \(1D\+4H\+1H\+15m hizalaması\) sonucunda seçilmiştir\.$/,
+    build: (_m, l) => ({
+      tr: `Power Pullback (1D+4H+1H+15m hizalaması) sonucunda seçilmiştir.`,
+      en: `Selected based on Power Pullback alignment (1D+4H+1H+15m).`,
+      es: `Seleccionado según la alineación Power Pullback (1D+4H+1H+15m).`,
+      fr: `Sélectionné sur la base de l'alignement Power Pullback (1D+4H+1H+15m).`,
+      pt: `Selecionado com base no alinhamento Power Pullback (1D+4H+1H+15m).`,
+    }[l]),
+  },
+];
+
+function translateDetailReasoning(text: string, locale: Locale): string {
+  const l: ReasoningLang = (["tr", "en", "es", "fr", "pt"] as const).includes(locale as ReasoningLang)
+    ? (locale as ReasoningLang)
+    : "en";
+  if (l === "tr") return text;
+  for (const rule of REASONING_RULES) {
+    const m = text.match(rule.re);
+    if (m) return rule.build(m, l);
+  }
+  return text; // bilinmeyen kalıp — veri kaybı olmasın diye olduğu gibi göster
+}
+
 interface SwingPick {
   ticker: string;
   entry_status?: "PENDING" | "ENTERED";
@@ -250,7 +363,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
 
           {swingPick.detail_reasoning && (
             <p className="text-xs text-white/70 leading-relaxed">
-              <span className="text-[#58a6ff] font-bold">{t.reasonLabel}:</span> {swingPick.detail_reasoning}
+              <span className="text-[#58a6ff] font-bold">{t.reasonLabel}:</span> {translateDetailReasoning(swingPick.detail_reasoning, locale)}
             </p>
           )}
 
