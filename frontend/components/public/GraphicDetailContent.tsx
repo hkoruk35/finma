@@ -52,11 +52,6 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const ticker = (params?.ticker as string)?.toUpperCase() ?? "";
   const labels = PAGE_LABELS[locale];
   const registerHref = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
-  const shortcuts = [
-    { label: "SWING", href: `/global/${locale}/swing` },
-    { label: "WATCHLIST", href: `/global/${locale}/watchlist` },
-    { label: "TOP 100", href: `/global/${locale}/top100` },
-  ];
 
   const [stockData, setStockData] = useState<{ company?: string; sector?: string; industry?: string } | null>(null);
   const [quotes, setQuotes] = useState<Record<string, Quote>>({});
@@ -130,15 +125,24 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
           </nav>
 
           <div className="flex items-center gap-1.5">
-            {shortcuts.map((s) => (
-              <Link
-                key={s.href}
-                href={isLoggedIn ? s.href : registerHref}
-                className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all"
-              >
-                {s.label}
-              </Link>
-            ))}
+            {/* Shortcuts — giriş durumuna göre dinamik */}
+            {(() => {
+              const watchlistLabel = locale === "tr" ? "KİŞİSEL LİSTEM" : locale === "es" ? "MI LISTA" : locale === "fr" ? "MA LISTE" : locale === "pt" ? "MINHA LISTA" : "MY WATCHLIST";
+              const shortcutsItems = [
+                { label: locale === "tr" ? "SWING" : locale === "es" ? "SWING" : locale === "fr" ? "SWING" : locale === "pt" ? "SWING" : "SWING", href: `/global/${locale}/swing` },
+                { label: isLoggedIn ? watchlistLabel : (locale === "tr" ? "WATCHLIST" : locale === "es" ? "WATCHLIST" : locale === "fr" ? "WATCHLIST" : locale === "pt" ? "WATCHLIST" : "WATCHLIST"), href: isLoggedIn ? `/global/${locale}/my-watchlist` : `/global/${locale}/watchlist` },
+                { label: locale === "tr" ? "TOP 100" : locale === "es" ? "TOP 100" : locale === "fr" ? "TOP 100" : locale === "pt" ? "TOP 100" : "TOP 100", href: `/global/${locale}/top100` },
+              ];
+              return shortcutsItems.map((s) => (
+                <Link
+                  key={s.href}
+                  href={isLoggedIn ? s.href : registerHref}
+                  className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all"
+                >
+                  {s.label}
+                </Link>
+              ));
+            })()}
           </div>
         </div>
 
