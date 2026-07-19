@@ -5081,6 +5081,12 @@ def layer4_entry_trigger_15m_hybrid(c: dict, df_15m: pd.DataFrame, relaxation_le
         "pullback_candles": 0, "pullback_depth_atr": 0.0,
         "ema_touch": False, "rsi_reset": False, "rvol_15m": 0.0,
         "resume_body_ratio": 0.0,
+        # Yapısal tetik verisi — state_note (Türkçe cümle) yerine/yanında
+        # frontend'in HER dilde kendi cümlesini kurabilmesi için (bkz.
+        # SwingStrategyStatusCard.tsx TRIGGER_SENTENCES): metin ayrıştırma
+        # yerine doğrudan tip+sayı okuma, hiçbir zaman "tanımadım" durumu
+        # oluşmaz.
+        "level": None, "rsi": None, "price": None,
     }
     try:
         if df_15m is None or len(df_15m) < 30:
@@ -5121,6 +5127,7 @@ def layer4_entry_trigger_15m_hybrid(c: dict, df_15m: pd.DataFrame, relaxation_le
                     out["triggered"] = True
                     out["trigger_type"] = "15M_BREAKOUT"
                     out["rvol_15m"] = round(rvol_15m, 2)
+                    out["level"] = round(breakout_level, 2)
                     out["state_note"] = f"Breakout tetiği yakalandı: Hacimli kırılım ({rvol_15m:.1f}x) > direnç (${breakout_level:.2f})"
                     return out
 
@@ -5137,6 +5144,7 @@ def layer4_entry_trigger_15m_hybrid(c: dict, df_15m: pd.DataFrame, relaxation_le
                     out["triggered"] = True
                     out["trigger_type"] = "15M_SPRING_BOUNCE"
                     out["rvol_15m"] = round(rvol_15m, 2)
+                    out["rsi"] = round(rsi_15, 1)
                     out["state_note"] = f"Spring bounce tetiği yakalandı: RSI:{rsi_15:.1f} + MACD yön yukarı"
                     return out
 
@@ -5214,6 +5222,7 @@ def layer4_entry_trigger_15m_hybrid(c: dict, df_15m: pd.DataFrame, relaxation_le
                             out["triggered"] = True
                             out["trigger_type"] = "BULLISH_ENGULFING" if is_engulfing else "BREAKOUT_CANDLE"
                             out["rvol_15m"] = round(rvol_15m, 2)
+                            out["rsi"] = round(rsi_min, 1)
                             out["state_note"] = f"Power Pullback ({n_pull} mum) tetiklendi. RSI reset ({rsi_min:.0f}). Hacim {rvol_15m:.1f}x"
                             return out
 
@@ -5292,6 +5301,18 @@ async def run_entry_check_pass():
             entry["entry_zone"] = {
                 "low": zones.get("buy_zone", {}).get("low", 0.0),
                 "high": zones.get("buy_zone", {}).get("high", 0.0),
+            }
+            # Yapısal tetik verisi — frontend'in dil-nötr, garantili çeviri
+            # yapabilmesi için (bkz. layer4_entry_trigger_15m_hybrid docstring
+            # notu). state_note (Türkçe cümle) geriye dönük uyumluluk için
+            # ayrıca hâlâ yazılıyor, ama görüntüleme artık trigger_detail'e
+            # dayanmalı.
+            entry["trigger_detail"] = {
+                "type": trig.get("trigger_type", ""),
+                "rvol": trig.get("rvol_15m"),
+                "level": trig.get("level"),
+                "rsi": trig.get("rsi"),
+                "n_candles": trig.get("pullback_candles"),
             }
             entry["entered_at"] = now_ny.isoformat()
             updated_any = True
@@ -5631,6 +5652,7 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
         pick["date_added"] = e.get("first_seen_date", "")
         pick["entry_status"] = e.get("entry_status", "PENDING")
         pick["entry_zone"] = e.get("entry_zone")
+        pick["trigger_detail"] = e.get("trigger_detail")
         pick["status"] = "WAITING_FOR_ENTRY" if e.get("entry_status") == "PENDING" else pick.get("status", "WAITING_FOR_ENTRY")
         pool_signal_entries.append(pick)
 

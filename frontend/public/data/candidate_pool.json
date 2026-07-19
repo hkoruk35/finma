@@ -166,6 +166,14 @@
           "rvol_15m": 8.81,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (8.8x) + Fiyat kırılımı ($399.90 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 8.8,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 399.9
       }
     },
     {
@@ -334,6 +342,14 @@
           "rvol_15m": 4.97,
           "note": "Power Pullback tetiklendi: 10 mum + EMA20 teması + RSI reset (53) + BULLISH_ENGULFING + Hacim 5.0x"
         }
+      },
+      "trigger_detail": {
+        "type": "BULLISH_ENGULFING",
+        "rvol": 5.0,
+        "level": null,
+        "rsi": 53.0,
+        "n_candles": 10,
+        "price": null
       }
     },
     {
@@ -502,6 +518,14 @@
           "rvol_15m": 8.39,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (8.4x) + Fiyat kırılımı ($107.48 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 8.4,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 107.48
       }
     },
     {
@@ -670,6 +694,14 @@
           "rvol_15m": 7.31,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (7.3x) + Fiyat kırılımı ($186.09 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 7.3,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 186.09
       }
     },
     {
@@ -838,6 +870,14 @@
           "rvol_15m": 4.15,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (4.1x) + Fiyat kırılımı ($102.21 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 4.1,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 102.21
       }
     },
     {
@@ -1006,6 +1046,14 @@
           "rvol_15m": 8.79,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (8.8x) + Fiyat kırılımı ($149.30 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 8.8,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 149.3
       }
     },
     {
@@ -1174,6 +1222,14 @@
           "rvol_15m": 5.55,
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (5.6x) + Fiyat kırılımı ($249.93 > son 4 mum yüksekliği)"
         }
+      },
+      "trigger_detail": {
+        "type": "VOLUME_BREAKOUT",
+        "rvol": 5.6,
+        "level": null,
+        "rsi": null,
+        "n_candles": null,
+        "price": 249.93
       }
     },
     {
