@@ -78,9 +78,21 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
   // eşleniyor: stop_loss = en yakın geçersizlik/destek seviyesi, target_range_low
   // = kısa vadeli direnç, target_price = nihai hedef. Aynı analysis/graphic
   // sayfalarının kullandığı sayılar.
+  // NOT (2026-07-19 düzeltildi): curated havuzdaki TÜM dosyalarda (AAPL, NVDA,
+  // TSLA, AMD dahil 18 hisse — data/latest/stocks/*.json) "target_price" alanı
+  // hiç yok, bunun yerine "target_3/target_2/target_1" (TP merdiveni) veya
+  // "target_range_high" var. sd.target_price her zaman undefined dönüyordu,
+  // bu da bu 18 popüler hissenin TAMAMINDA show_stock_card'ın "veri yok" demesine
+  // (ve canlı motora hiç düşmemesine, çünkü is_mock/is_partial_mock işaretli
+  // değiller) yol açıyordu. target_3 zaten AYNI motorun hesapladığı en uzak
+  // gerçek hedef — uydurma değil, sadece farklı bir alan adı altında duruyordu.
+  // scores_detail'in TS tipi target_price'ı zorunlu sayıyor ama gerçek JSON'da
+  // (18 curated dosyada) hiç yok — sadece target_1/2/3 var. Tip ile gerçek veri
+  // arasındaki bu uyuşmazlık yüzünden any-cast gerekiyor (yukarıdaki not).
+  const sdAny = sd as unknown as Record<string, number | undefined>;
   const support = sd.stop_loss;
-  const resistance = sd.target_range_low ?? sd.target_price;
-  const target = sd.target_price;
+  const resistance = sd.target_range_low ?? sdAny.target_1 ?? sd.target_price;
+  const target = sd.target_price ?? sdAny.target_3 ?? sdAny.target_2 ?? sdAny.target_1 ?? sd.target_range_high;
 
   if ([support, resistance, target].some((v) => typeof v !== "number" || Number.isNaN(v))) return null;
 
