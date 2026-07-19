@@ -236,7 +236,7 @@ export default function CopilotDrawer() {
                             return (
                               <button
                                 type="button"
-                                onClick={() => append({ role: "user", content: `${ticker} hissesini analiz et` })}
+                                onClick={() => append({ role: "user", content: ct("analyzeTickerPrompt", locale, { ticker }) })}
                                 className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
                               >
                                 {children}

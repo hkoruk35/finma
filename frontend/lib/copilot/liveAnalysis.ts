@@ -30,22 +30,35 @@ export interface LiveAnalysis {
   warnings: string[];
 }
 
+async function fetchLiveAnalysisOnce(t: string, lang: string, timeoutMs: number): Promise<LiveAnalysis | null> {
+  const res = await fetch(`${BASE_URL}/api/preorder-analysis?ticker=${encodeURIComponent(t)}&lang=${lang}`, {
+    signal: AbortSignal.timeout(timeoutMs),
+    cache: "no-store",
+  });
+  if (!res.ok) return null;
+  const d = await res.json();
+  if (!d || d.error || typeof d.price !== "number") return null;
+  return d as LiveAnalysis;
+}
+
 export async function getLiveAnalysis(ticker: string, locale: string = "en"): Promise<LiveAnalysis | null> {
   const t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
   const lang = locale === "en" ? "en" : "tr"; // endpoint sadece en/tr metin ayrımı yapar; sayılar dil-nötr
-  try {
-    const res = await fetch(`${BASE_URL}/api/preorder-analysis?ticker=${encodeURIComponent(t)}&lang=${lang}`, {
-      signal: AbortSignal.timeout(15000),
-      cache: "no-store",
-    });
-    if (!res.ok) return null;
-    const d = await res.json();
-    if (!d || d.error || typeof d.price !== "number") return null;
-    return d as LiveAnalysis;
-  } catch {
-    return null;
+  // Kendi kendine (self-referential) HTTP çağrısı — geçici zaman aşımı/soğuk
+  // başlatma nedeniyle ilk deneme başarısız olursa (boş dönerse ya da hata/
+  // timeout fırlatırsa) tek seferlik yeniden dene. Hedef: "hiçbir ticker
+  // yanıtsız kalmasın" — AAPL gibi gerçek, likit bir hissede tek bir geçici
+  // hata yüzünden "veri bulunamadı" denmemeli.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const result = await fetchLiveAnalysisOnce(t, lang, 10000);
+      if (result) return result;
+    } catch {
+      // devam et, son denemeyse aşağıdaki return null'a düşer
+    }
   }
+  return null;
 }
 
 // Canlı analizi StockCard şekline eşler. Sayılar trade-plan motorundan gelir
