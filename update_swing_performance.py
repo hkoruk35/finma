@@ -229,16 +229,17 @@ def update_performance():
                 
                 for p in new_picks:
                     ticker = p['ticker']
-                    # swing_all_picks.json'daki "picks" listesi zaten SADECE sinyal
-                    # havuzudur (izleme/watch listesi ayrı watchlist_picks.json'da) —
-                    # kullanıcı kararı (2026-07-19): sinyal listesine giren bir hisse
-                    # 15m giriş teyidini beklemeden aynı gün Geçmiş İşlem Kayıtları'na
-                    # eklenir (entry_status ENTERED olsun ya da PENDING olsun).
+                    # Kullanıcı kararı (2026-07-19, netleştirildi): sadece GERÇEKTEN
+                    # "Giriş Zone" durumuna geçmiş (entry_status == "ENTERED") hisseler
+                    # Geçmiş İşlem Kayıtları'na girer. "Bekle" (PENDING) durumundaki
+                    # sinyal-listesi adayları saatlik kontrollerde (ENTRY_CHECK modu)
+                    # gerçekten Giriş Zone'a geçtiğinde otomatik eklenir — burada
+                    # atlanır, erken eklenmez.
+                    if p.get('entry_status') != 'ENTERED':
+                        continue
                     if ticker not in recent_tickers:
-                        # Giriş fiyatı: gerçekten ENTERED ise entry_zone'un orta noktası;
-                        # henüz PENDING ise pick kartında zaten "GİRİŞ" olarak gösterilen
-                        # buy_zone'un orta noktası kullanılır (aynı sayı iki yerde de görünsün);
-                        # o da yoksa current_price'a düşülür.
+                        # Giriş fiyatı: entry_zone'un orta noktası (gerçek giriş anında
+                        # yakalanan aralık); yoksa buy_zone, o da yoksa current_price.
                         zone = p.get('entry_zone') or p.get('buy_zone') or {}
                         if zone.get('low') and zone.get('high'):
                             entry = (float(zone['low']) + float(zone['high'])) / 2
