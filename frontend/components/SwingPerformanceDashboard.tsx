@@ -1148,7 +1148,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="flex items-center justify-end gap-1">
                     <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${resultDot}`} />
                     <span className={`text-[9px] font-black uppercase ${resultTxt}`}>
-                      {effRes === "PENDING" ? "ALIM" : effRes}
+                      {effRes === "PENDING" ? "PND" : effRes}
                     </span>
                   </div>
                 </div>
@@ -1264,7 +1264,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
                       </td>
                       <td className="px-3 py-2.5 text-center">
-                        <span className={`text-[10px] font-black px-2 py-0.5 rounded ${resultCls}`}>{effRes === "PENDING" ? "ALIM" : effRes}</span>
+                        <span className={`text-[10px] font-black px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
                       </td>
                     </tr>
                   );
