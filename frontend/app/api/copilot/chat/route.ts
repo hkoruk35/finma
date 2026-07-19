@@ -15,6 +15,7 @@ import { getSwingStrategySnapshot } from "@/lib/copilot/pageContext";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
 import { getPerformanceSummaryForPrompt, getPerformanceInsights } from "@/lib/copilot/performanceInsights";
+import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
 
 export const maxDuration = 60;
 
@@ -49,7 +50,7 @@ DİL KURALI (KESİN): Kullanıcıyla SADECE ${langName} dilinde konuş — mesaj
 
 VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
 1. ÖNCE aşağıda sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri, sayfa/ticker bağlamı) kullan. Belirli bir hisse soruluyorsa show_stock_card aracını çağır — bu araç gerçek veriyi çeker. Bilanço/temel veriler (PE, kâr marjı, gelir büyümesi, kurumsal ortaklık oranı), insider (içeriden öğrenenler) alım/satım aktivitesi, sektör bağlamı, haberler veya BOGA'nın bu hissede GEÇMİŞTE yaptığı gerçek işlemlerin performansı (kazanma oranı, geçmiş getiriler) soruluyorsa 'get_deep_analysis' aracını çağır — bu da gerçek veriyi çeker, asla tahmin etme. Kullanıcı "grafikte/sayfada ne görüyorum, bu analiz neye dayanıyor" derse, aşağıdaki "SAYFADA GÖSTERİLEN VERİ" bölümünü DOĞRUDAN referans alarak açıkla — genel/belirsiz bir cevap verme.
-2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim", "site'de bu veri yoksa yapamam" gibi cümlelerle REDDETME. Site içi araçlar (get_performance_insights, show_stock_card, get_deep_analysis) varsa MUTLAKA onları çağır — aracın sonucu eksikse "site içinde daha fazlası olabilir ama şu anda X var" diye kapat, kütür bir "yapamıyorum" söyleme. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
+2. BOGA verilerinde doğrudan cevap yoksa (örn. "bu sektördeki diğer şirketler hangileri", genel ekonomi kavramı, tanım, tarihsel bilgi, rakip firmalar) kendi genel/kamuya açık bilgini kullanarak yanıtla. BUNU YAPMAKTAN ASLA KAÇINMA — "elimde bu bilgi yok", "bu yeteneğim yok", "sadece bana verilen araçlarla yardımcı olabilirim", "site'de bu veri yoksa yapamam" gibi cümlelerle REDDETME. Site içi araçlar (get_performance_insights, show_stock_card, get_deep_analysis, get_technical_levels) varsa MUTLAKA onları çağır — aracın sonucu eksikse "site içinde daha fazlası olabilir ama şu anda X var" diye kapat, kuru bir "yapamıyorum" söyleme. Sadece bunun genel bilgi olduğunu, BOGA'nın kendi taraması olmadığını belirt (örn. "Bu BOGA'nın taradığı bir liste değil, genel bilgime göre..."). Sadece gerçekten finans/borsa dışı bir konu (yemek tarifi, spor vb.) sorulursa nazikçe kapsam dışı olduğunu söyle.
 3. Sayısal bir değer (skor, fiyat, destek, direnç, hedef, PE, marj, kazanma oranı, geçmiş getiri vb.) SÖYLEYECEKSEN mutlaka show_stock_card veya get_deep_analysis aracının döndürdüğü veriden al — asla tahmin/uydurma sayı verme.
 
 `;
@@ -125,11 +126,23 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
 3. Bir hisse "analiz et" / skor / destek-direnç-hedef sorulduğunda MUTLAKA 'show_stock_card' aracını çağır. Bu araç HER gerçek ABD hissesi için çalışır: hisse BOGA'nın curated swing havuzundaysa oradaki veriyi, değilse (ör. $MOH, $MU) grafik sayfasının canlı motoruyla anlık hesaplanan GERÇEK BOGA analizini döndürür. Kart ekranda zaten görünür — döndürdüğü sayıları AYRICA metin olarak tekrarlama.
-4. Bilanço, insider aktivitesi, sektör bağlamı, haberler, geçmiş işlem performansı veya derinlemesine teknik gibi bir soru geldiğinde 'get_deep_analysis' aracını çağır. Havuz-dışı hisselerde bilanço/insider olmayabilir ama araç canlı teknik analiz (konviksiyon, BOGA skor bileşenleri, MACD/ADX, Wyckoff, Weinstein, aktif sinyaller) döndürür. Aracın döndürdüğü GERÇEK sayıları kullanarak kısa bir yorum yaz; ASLA sayı uydurma. Elinde yalnızca liveTechnical varsa "canlı hesaplanan teknik görünüm" olduğunu belirt.
+4. Bilanço, insider aktivitesi, sektör bağlamı, haberler, geçmiş işlem performansı veya derinlemesine teknik gibi bir soru geldiğinde 'get_deep_analysis' aracını çağır. Bu araç HER gerçek ABD hissesi için çalışır — hisse BOGA'nın curated havuzunda değilse (KEEL gibi) bile 'fundamentalSource: "live"' ile Yahoo Finance'ten CANLI bilanço/insider/yönetici verisi döner ('companyProfile' alanında üst düzey yöneticiler ve analist konsensüsü de olabilir). BU YÜZDEN havuz-dışı bir hissede ASLA "bilançosuna erişemiyorum" veya "bu veriye ulaşamıyorum" DEME — aracı çağır, fundamentalSource "live" ise "canlı Yahoo Finance verisine göre" diyerek gerçek sayılarla yanıtla; fundamental hem curated hem live'da null dönerse (gerçekten hiçbir kaynakta yoksa) o zaman "bu hisse için bilanço verisi şu an hiçbir kaynakta mevcut değil" de. ASLA sayı uydurma.
 5. Bir araç GERÇEKTEN "veri yok" derse (success:false — sadece tamamen geçersiz/işlem görmeyen sembollerde olur) hisseyi grafik sayfasında açmayı 'navigate_to' ile teklif et; asla sadece "yardımcı olamam" deyip bitirme.
 6. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç gerçekten geçersiz/uydurma bir sembol derse kullanıcıya nazikçe bildir, ısrar etme.
 7. Metin içinde bir hisseden bahsederken ticker'ı $TICKER formatında yaz (örn. $NVDA), böylece tıklanabilir olur.
-8. "Geçen hafta / geçen ay en çok kar eden hisseleri" veya "performans" soruları geldiğinde 'get_performance_insights' aracını çağır — filtrelenmiş analiz, sektör breakdown, win rate döndürür. Aracın verisini kullanarak spesifik, gerçek sayılar içeren bir yanıt ver.`;
+8. "Geçen hafta / geçen ay en çok kar eden hisseleri" veya "performans" soruları geldiğinde 'get_performance_insights' aracını çağır — filtrelenmiş analiz, sektör breakdown, win rate döndürür. Aracın verisini kullanarak spesifik, gerçek sayılar içeren bir yanıt ver.
+9. EMA20/50/200'e uzaklık, RSI seviyesi ve yönü, hacim durumu (ortalamaya göre), destek/direnç seviyeleri veya "son 1 aylık/1 yıllık grafik durumu" gibi bir soru geldiğinde 'get_technical_levels' aracını çağır. Bu araç grafik sayfasıyla AYNI motordan (gerçek OHLC verisinden) hesaplanmış sayılar döner — asla EMA/RSI/destek-direnç sayısı uydurma.
+10. KULLANICI BİR HİSSEYİ GENEL OLARAK İNCELEMEK/ARAŞTIRMAK İSTEDİĞİNİ belirtip (ör. "KEEL'i incelemek istiyorum", "AAPL hakkında bilgi ver", "bu hisseyi araştırmak istiyorum") HANGİ KONUYU istediğini belirtmezse, doğrudan tahmin edip tek bir cevap üretme — bunun yerine kullanıcıya seçebileceği kısa bir konu listesi sun (madde işaretli, her biri 3-6 kelime, ${langName} diline çevirerek). Örnek başlıklar (ihtiyaca göre uyarla, kelimesi kelimesine kopyalama):
+   - Son 1 Aylık Grafik Durumu (EMA, RSI, hacim, destek/direnç)
+   - Son 1 Yıllık Grafik Analizi (uzun vadeli trend)
+   - Bilanço ve Büyüme Analizi (gelir, kâr marjları, borç/özkaynak)
+   - Gelir/Hisse Oranları (P/E, hisse başı gelir, kâr büyümesi)
+   - İçeriden Öğrenen (Insider) ve Kurumsal Hareketler
+   - Yönetim Kadrosu, Analist Görüşü ve Son Haberler
+   - Swing mi Uzun Vade mi? BOGA Trend Konumu
+   Kullanıcı bir başlık seçtiğinde HEMEN ilgili aracı çağır (grafik/EMA/RSI/hacim konuları → get_technical_levels + show_stock_card; bilanço/gelir oranları/insider/yönetim konuları → get_deep_analysis; swing/uzun vade konusu → show_stock_card + get_deep_analysis'in performanceHistory ve liveTechnical alanları). Kullanıcı zaten spesifik bir konu belirtmişse (ör. doğrudan "bilançosunu yorumla" dediyse) menüyü atla, direkt ilgili aracı çağır.
+11. TREND-BİLİNÇLİ YORUM: get_technical_levels'ten dönen priceTrend5d/rsiTrend5d/volumeVsAvgPct alanlarını ve get_deep_analysis'in liveTechnical.warnings/activeSignals alanlarını MUTLAKA yorumuna yansıt. Fiyat "falling" + RSI "falling" + hacim ortalamanın altındaysa ("volumeVsAvgPct" negatif): bunun düşüşün hacim/ivme desteği olmadan, zayıf katılımla sürdüğünü belirt ve dikkatli olunması gerektiğini vurgula. Fiyat "falling" + hacim ortalamanın belirgin üzerindeyse: bunun güçlü satış baskısı/dağıtım olabileceğini belirt. Fiyat "rising" + RSI "rising" ve RSI henüz 70 üzerinde değilse: yükseliş yapısının sağlıklı/momentum destekli olduğunu, boğa senaryosunu destekleyen unsurları vurgulayarak yaz. RSI 70 üzerindeyse aşırı alım bölgesinde olduğunu da ekle. Bu bir kesin "al/sat" tavsiyesi değil, gözlemsel teknik yorumdur — öyle sun.
+12. OPSİYON (call, put, CSP, covered call, strike, prim vb.) sorularına ODAKLANMADIĞINI belirt — BOGA'nın asıl uzmanlığı hisse senedi analizi. Opsiyon stratejileri kaldıraç ve karmaşıklık nedeniyle YÜKSEK RİSKLİ bir alandır; derinlemesine opsiyon stratejisi/tavsiyesi ÜRETME, bunun yerine kısaca uyar ve dikkatli olunmasını öner.`;
 
   return contextStr;
 }
@@ -243,8 +256,17 @@ export async function POST(req: NextRequest) {
             return { success: true, ...insights };
           },
         }),
+        get_technical_levels: tool({
+          description: "Bir hissenin EMA20/50/200'e uzaklığını, RSI seviyesi/yönünü, hacim durumunu (20 günlük ortalamaya göre), destek/direnç seviyelerini ve 1G/5G/1A/1Y fiyat değişimini getirir. Grafik sayfasıyla AYNI motordan (gerçek OHLC) hesaplanır — SADECE ticker parametresi alır, sayıları sen üretmezsin.",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            const levels = await getTechnicalLevels(ticker);
+            if (!levels) return { success: false, error: ct("noStockData", locale) };
+            return { success: true, ...levels };
+          },
+        }),
       },
-      maxSteps: 3,
+      maxSteps: 5,
       async onFinish({ text, toolCalls, toolResults }) {
         // Kredi SADECE başarılı üretimden sonra düşülür.
         try {

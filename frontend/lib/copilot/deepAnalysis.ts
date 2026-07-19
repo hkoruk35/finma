@@ -6,9 +6,14 @@
 import { getStockData, getSwingPerformance } from "@/lib/data";
 import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis } from "@/lib/copilot/liveAnalysis";
+import { getLiveFundamentals } from "@/lib/copilot/liveFundamentals";
 
 export interface CopilotDeepAnalysis {
   ticker: string;
+  // "curated": BOGA'nın statik taranmış havuzundan; "live": curated'da yok,
+  // Yahoo Finance'ten canlı çekildi (KEEL gibi havuz-dışı ama gerçek hisseler
+  // için) — model kaynağı kullanıcıya doğru şekilde belirtebilsin diye.
+  fundamentalSource: "curated" | "live" | null;
   fundamental: {
     peRatio: number | null;
     marketCapUsd: number | null;
@@ -19,6 +24,12 @@ export interface CopilotDeepAnalysis {
     fcfYield: number | null;
     institutionalOwnershipPct: number | null;
     dividendYield: number | null;
+    // Yalnızca canlı (havuz-dışı) kaynakta dolu olabilir:
+    returnOnEquityPct?: number | null;
+    debtToEquity?: number | null;
+    currentRatio?: number | null;
+    revenuePerShare?: number | null;
+    earningsGrowthPct?: number | null;
   } | null;
   insiderActivity: {
     last90DaysBuys: number;
@@ -36,6 +47,15 @@ export interface CopilotDeepAnalysis {
     recentTrades: { date: string; result: string; returnPct: number; days: number }[];
     systemOverallWinRate: number | null;
     systemOverallAvgReturnPct: number | null;
+  } | null;
+  // Havuz-dışı hisselerde canlı kaynaktan gelen ek bağlam — üst düzey yönetim
+  // ve analist konsensüsü (bilanço ile birlikte Yahoo'dan gelir).
+  companyProfile: {
+    companyName: string | null;
+    sector: string | null;
+    industry: string | null;
+    topExecutives: { name: string; title: string }[];
+    analystRecommendation: string | null;
   } | null;
   // Curated bilanço verisi olmayan (havuz-dışı) hisseler için canlı BOGA
   // teknik analizi — grafik motorundan (preorder-analysis) gerçek sayılar.
@@ -137,12 +157,22 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
     }
   }
 
-  // Curated bilanço/temel veri yoksa (havuz-dışı hisse), canlı BOGA teknik
-  // analizini ekle — böylece MOH gibi bir hisse için de gerçek, site-tutarlı
-  // teknik döner (uydurma değil, grafik sayfasıyla aynı motor).
+  // Curated bilanço/temel veri yoksa (havuz-dışı hisse — KEEL gibi), canlı
+  // BOGA teknik analizini VE canlı bilanço/insider/yönetici verisini ekle —
+  // böylece havuz-dışı bir hisse için de "erişemiyorum" denmez, gerçek,
+  // site-tutarlı veri döner (aynı Yahoo Finance kaynağı Derin Analiz
+  // sayfasının kullandığı, uydurma değil).
   let liveTechnical: CopilotDeepAnalysis["liveTechnical"] = null;
+  let fundamentalSource: CopilotDeepAnalysis["fundamentalSource"] = fundamental ? "curated" : null;
+  let liveFundamental: CopilotDeepAnalysis["fundamental"] = null;
+  let companyProfile: CopilotDeepAnalysis["companyProfile"] = null;
+  let liveInsiderActivity: CopilotDeepAnalysis["insiderActivity"] = null;
+
   if (!fundamental) {
-    const live = await getLiveAnalysis(t, lang);
+    const [live, liveF] = await Promise.all([
+      getLiveAnalysis(t, lang),
+      getLiveFundamentals(t).catch(() => null),
+    ]);
     if (live) {
       liveTechnical = {
         price: live.price,
@@ -160,11 +190,65 @@ export async function getDeepAnalysis(ticker: string, lang: string = "en"): Prom
         warnings: live.warnings || [],
       };
     }
+    if (liveF) {
+      fundamentalSource = "live";
+      liveFundamental = {
+        peRatio: liveF.peRatio,
+        marketCapUsd: liveF.marketCapUsd,
+        revenueGrowthTtm: liveF.revenueGrowthTtm,
+        grossMargin: liveF.grossMargin,
+        operatingMargin: liveF.operatingMargin,
+        netMargin: liveF.netMargin,
+        fcfYield: null,
+        institutionalOwnershipPct: liveF.institutionalOwnershipPct,
+        dividendYield: liveF.dividendYield,
+        returnOnEquityPct: liveF.returnOnEquityPct,
+        debtToEquity: liveF.debtToEquity,
+        currentRatio: liveF.currentRatio,
+        revenuePerShare: liveF.revenuePerShare,
+        earningsGrowthPct: liveF.earningsGrowthPct,
+      };
+      companyProfile = {
+        companyName: liveF.companyName,
+        sector: liveF.sector,
+        industry: liveF.industry,
+        topExecutives: liveF.topExecutives,
+        analystRecommendation: liveF.analystRecommendation,
+      };
+      if (liveF.insiderLast90DaysBuys > 0 || liveF.insiderLast90DaysSells > 0) {
+        liveInsiderActivity = {
+          last90DaysBuys: liveF.insiderLast90DaysBuys,
+          last90DaysSells: liveF.insiderLast90DaysSells,
+          netDirection: liveF.insiderNetDirection,
+        };
+      }
+    }
   }
 
-  if (!fundamental && !insiderActivity && !sectorContext && recentNews.length === 0 && !performanceHistory && !liveTechnical) {
+  const finalFundamental = fundamental || liveFundamental;
+  const finalInsiderActivity = insiderActivity || liveInsiderActivity;
+
+  if (
+    !finalFundamental &&
+    !finalInsiderActivity &&
+    !sectorContext &&
+    recentNews.length === 0 &&
+    !performanceHistory &&
+    !liveTechnical &&
+    !companyProfile
+  ) {
     return null;
   }
 
-  return { ticker: t, fundamental, insiderActivity, sectorContext, recentNews, performanceHistory, liveTechnical };
+  return {
+    ticker: t,
+    fundamentalSource,
+    fundamental: finalFundamental,
+    insiderActivity: finalInsiderActivity,
+    sectorContext,
+    recentNews,
+    performanceHistory,
+    companyProfile,
+    liveTechnical,
+  };
 }

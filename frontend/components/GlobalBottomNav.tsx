@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 type Locale = "tr" | "en" | "es" | "fr" | "pt";
 
@@ -9,8 +10,23 @@ const HOME_LABEL: Record<Locale, string> = {
   tr: "Anasayfa", en: "Home", es: "Inicio", fr: "Accueil", pt: "Início",
 };
 
+const WATCHLIST_LABEL: Record<Locale, string> = {
+  tr: "Watchlist", en: "Watchlist", es: "Watchlist", fr: "Watchlist", pt: "Watchlist",
+};
+
+const MY_WATCHLIST_LABEL: Record<Locale, string> = {
+  tr: "Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista",
+};
+
 export default function GlobalBottomNav() {
   const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/members/me")
+      .then((r) => setIsLoggedIn(r.ok))
+      .catch(() => setIsLoggedIn(false));
+  }, []);
 
   // Detect locale from pathname (/global/{locale}/...) — supports all 5 locales
   const segment = pathname.split("/")[2];
@@ -21,7 +37,10 @@ export default function GlobalBottomNav() {
   const navItems = [
     { label: HOME_LABEL[locale], href: `/global/${locale}/home` },
     { label: "Swing", href: `/global/${locale}/swing` },
-    { label: "Watchlist", href: `/global/${locale}/watchlist` },
+    isLoggedIn
+      ? { label: MY_WATCHLIST_LABEL[locale], href: `/global/${locale}/my-watchlist` }
+      : { label: WATCHLIST_LABEL[locale], href: `/global/${locale}/watchlist` },
+    { label: "Top 100", href: `/global/${locale}/top100` },
   ];
 
   return (
@@ -33,9 +52,9 @@ export default function GlobalBottomNav() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl flex-1 transition-all ${isActive ? 'text-[#3b82f6] bg-[#3b82f6]/5' : 'text-[#00d2ff] hover:text-white'}`}
+              className={`flex flex-col items-center gap-1 px-1 py-2 rounded-xl flex-1 transition-all ${isActive ? 'text-[#3b82f6] bg-[#3b82f6]/5' : 'text-[#00d2ff] hover:text-white'}`}
             >
-              <span className="text-[11px] font-bold uppercase tracking-tight">{item.label}</span>
+              <span className="text-[9.5px] font-bold uppercase tracking-tight text-center leading-tight whitespace-nowrap">{item.label}</span>
               {isActive && <div className="w-5 h-0.5 rounded-full bg-[#3b82f6]"></div>}
             </Link>
           );
