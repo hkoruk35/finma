@@ -40,7 +40,6 @@ export default function GlobalBottomNav() {
     isLoggedIn
       ? { label: MY_WATCHLIST_LABEL[locale], href: `/global/${locale}/my-watchlist` }
       : { label: WATCHLIST_LABEL[locale], href: `/global/${locale}/watchlist` },
-    { label: "Top 100", href: `/global/${locale}/top100` },
   ];
 
   return (
@@ -54,7 +53,7 @@ export default function GlobalBottomNav() {
               href={item.href}
               className={`flex flex-col items-center gap-1 px-1 py-2 rounded-xl flex-1 transition-all ${isActive ? 'text-[#3b82f6] bg-[#3b82f6]/5' : 'text-[#00d2ff] hover:text-white'}`}
             >
-              <span className="text-[9.5px] font-bold uppercase tracking-tight text-center leading-tight whitespace-nowrap">{item.label}</span>
+              <span className="text-sm font-bold uppercase tracking-tight text-center leading-tight whitespace-nowrap">{item.label}</span>
               {isActive && <div className="w-5 h-0.5 rounded-full bg-[#3b82f6]"></div>}
             </Link>
           );

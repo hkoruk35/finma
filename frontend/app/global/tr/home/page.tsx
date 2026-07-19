@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
+import { getMemberAccess } from "@/lib/apiAuth";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TrHomePage() {
-  const [swingByVolume, watchlistByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes] = await Promise.all([
+  const [swingByVolume, watchlistByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes, memberAccess] = await Promise.all([
     getTopSwingByVolume(5),
     getTopWatchlistByVolume(5),
     getTopTop100ByVolume(5),
@@ -30,7 +31,8 @@ export default async function TrHomePage() {
     getAllTickers(),
     getSwingPicks(),
     getOptionsData("latest"),
-    getOptionsOutcomes()
+    getOptionsOutcomes(),
+    getMemberAccess()
   ]);
 
   // Tüm geçmiş kullanılır — -%7 SL cap, duplicate ve PENDING hariç.
@@ -195,8 +197,8 @@ export default async function TrHomePage() {
       <TickerTape indices={indices} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Performance Banner Link */}
-        {bannerStats && (
+        {/* Performance Banner Link — Free Trial only, hidden from Premium members */}
+        {bannerStats && memberAccess.isFreeTrial && (
           <Link href="/global/tr/performance" className="block group w-full mb-8">
             <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 group-hover:border-[#3b82f6]/80 transition-colors rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#3b82f6] blur-[80px] opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
