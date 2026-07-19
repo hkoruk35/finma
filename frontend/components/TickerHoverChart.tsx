@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useCallback, ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useRef, useCallback, useEffect, ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 
@@ -28,21 +28,39 @@ interface Props {
 export default function TickerHoverChart({ ticker, children, className, locale }: Props) {
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const router = useRouter();
   // Dil, prop gecilmediginde URL'den cikarilir (/global/{locale}/...) —
   // hangi dilde gezmiyorsan popup'taki grafik linki de o dilde kalir.
   const pathname = usePathname();
   const pathLocale = pathname?.match(/^\/global\/(en|tr|es|fr|pt)(\/|$)/)?.[1];
   const loc = locale || pathLocale || "en";
 
+  // Hover-önizleme popup'ı gerçek fare (hover) desteği olan cihazlar içindir.
+  // Dokunmatik cihazlarda tarayıcı bir dokunuşu sentetik "mouseenter" olarak
+  // yorumluyor — bu da mobilde ekrana sığmayan, taşan bir popup açılmasına
+  // yol açıyordu (kullanıcı geri bildirimi). Dokunmatikte hover'ı tamamen
+  // devre dışı bırakıp doğrudan grafik detay sayfasına yönlendiriyoruz.
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(hover: none)").matches);
+  }, []);
+
   const handleEnter = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
+    if (isTouchDevice) return;
     if (timerRef.current) clearTimeout(timerRef.current);
     const r = e.currentTarget.getBoundingClientRect();
     setPos({ x: r.right + 10, y: r.top });
-  }, []);
+  }, [isTouchDevice]);
 
   const handleLeave = useCallback(() => {
+    if (isTouchDevice) return;
     timerRef.current = setTimeout(() => setPos(null), 750);
-  }, []);
+  }, [isTouchDevice]);
+
+  const handleClick = useCallback(() => {
+    if (!isTouchDevice) return;
+    router.push(`/global/${loc}/graphic/${ticker}`);
+  }, [isTouchDevice, loc, ticker, router]);
 
   const left = pos ? Math.min(pos.x, (typeof window !== "undefined" ? window.innerWidth : 1400) - 440) : 0;
   const top  = pos ? Math.max(8,  Math.min(pos.y, (typeof window !== "undefined" ? window.innerHeight : 900) - 270)) : 0;
@@ -53,7 +71,8 @@ export default function TickerHoverChart({ ticker, children, className, locale }
         className={className}
         onMouseEnter={handleEnter}
         onMouseLeave={handleLeave}
-        style={{ cursor: "default" }}
+        onClick={handleClick}
+        style={{ cursor: isTouchDevice ? "pointer" : "default" }}
       >
         {children}
       </span>
