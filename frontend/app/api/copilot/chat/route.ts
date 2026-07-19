@@ -125,7 +125,7 @@ VERİ ÖNCELİĞİ VE KAPSAM (KESİN — en kritik kural, 3 katman):
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Sadece finans/borsa konuş, diğer soruları nazikçe reddet.
-3. Bir hisse "analiz et" / skor / destek-direnç-hedef sorulduğunda MUTLAKA 'show_stock_card' aracını çağır. Bu araç HER gerçek ABD hissesi için çalışır: hisse BOGA'nın curated swing havuzundaysa oradaki veriyi, değilse (ör. $MOH, $MU) grafik sayfasının canlı motoruyla anlık hesaplanan GERÇEK BOGA analizini döndürür. Kart ekranda zaten görünür — döndürdüğü sayıları AYRICA metin olarak tekrarlama.
+3. Bir hisse "analiz et" / skor / destek-direnç-hedef sorulduğunda MUTLAKA 'show_stock_card' aracını çağır — KULLANICININ HANGİ DİLDE YAZDIĞI FARK ETMEZ (İngilizce "analyze AAPL", İspanyolca "analiza TSLA", Portekizce "analise a KEEL" vb. hepsi aynı şekilde bu aracı tetikler). Bu araç HER gerçek ABD hissesi için çalışır: hisse BOGA'nın curated swing havuzundaysa oradaki veriyi, değilse (ör. $MOH, $MU) grafik sayfasının canlı motoruyla anlık hesaplanan GERÇEK BOGA analizini döndürür. Kart ekranda zaten görünür — döndürdüğü sayıları AYRICA metin olarak tekrarlama.
 4. Bilanço, insider aktivitesi, sektör bağlamı, haberler, geçmiş işlem performansı veya derinlemesine teknik gibi bir soru geldiğinde 'get_deep_analysis' aracını çağır. Bu araç HER gerçek ABD hissesi için çalışır — hisse BOGA'nın curated havuzunda değilse (KEEL gibi) bile 'fundamentalSource: "live"' ile canlı site veri kaynağından bilanço/insider/yönetici verisi döner ('companyProfile' alanında üst düzey yöneticiler ve analist konsensüsü de olabilir). BU YÜZDEN havuz-dışı bir hissede ASLA "bilançosuna erişemiyorum" veya "bu veriye ulaşamıyorum" DEME — aracı çağır, fundamentalSource "live" ise gerçek sayılarla yanıtla; fundamental hem curated hem live'da null dönerse (gerçekten hiçbir kaynakta yoksa) o zaman "bu hisse için bilanço verisi şu an mevcut değil" de. ASLA sayı uydurma. VERİ SUNUMUNDA: Sayıları direkt ver ama yanlarında açıklaması olsun — teknik terim ama açıklamalı. Örn: "PE Oranı: 25 (P/E — hisse başına kazancın 25 katına işlem görmektedir, yüksek değerler pahalı değerlemeler göstergesi)" veya "Net Kâr Marjı: %18.5 (her 100 lira satıştan 18,5 lira kâr)" gibi. Haberler ve analist yorumları dışında, veri/analiz konularında BOGA AI ve site kaynakları haricinde başka kaynak belirtme.
 5. Bir araç GERÇEKTEN "veri yok" derse (success:false — sadece tamamen geçersiz/işlem görmeyen sembollerde olur) hisseyi grafik sayfasında açmayı 'navigate_to' ile teklif et; asla sadece "yardımcı olamam" deyip bitirme.
 6. "NVIDIA grafiği", "TSLA'yı aç" vb. dendiğinde 'navigate_to' aracını çağır. Araç gerçekten geçersiz/uydurma bir sembol derse kullanıcıya nazikçe bildir, ısrar etme.
@@ -212,7 +212,7 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         navigate_to: tool({
-          description: "Kullanıcı belirli bir hissenin sayfasına veya grafiğine gitmek istediğinde kullan.",
+          description: "Use when the user wants to open/navigate to a specific stock's chart or detail page.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             const t = ticker.trim().toUpperCase();
@@ -228,7 +228,7 @@ export async function POST(req: NextRequest) {
           },
         }),
         show_stock_card: tool({
-          description: "Bir hissenin güncel BOGA skorunu, destek/direnç/hedef seviyelerini kart formatında göstermek için. SADECE ticker parametresi alır — skor/fiyat gibi değerleri sen üretmezsin, gerçek veriden gelir.",
+          description: "Call this whenever the user asks about a specific stock ticker — to show its current BOGA score, support/resistance/target levels as a card. Use for ANY request to analyze, look up, research, or get info on a real US ticker (e.g. 'analyze AAPL', 'what about TSLA', '$KEEL hakkında', 'quiero saber de MSFT'), in any language. Takes ONLY a ticker parameter — you never invent the score/price values, they come from real data.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             const card = await getRealStockCardData(ticker, locale);
@@ -237,7 +237,7 @@ export async function POST(req: NextRequest) {
           },
         }),
         get_deep_analysis: tool({
-          description: "Bir hissenin bilanço/temel verilerini (PE, kâr marjı, gelir büyümesi, kurumsal ortaklık), insider alım/satım aktivitesini, sektör bağlamını, son haberlerini ve BOGA'nın bu hissede geçmişte yaptığı gerçek işlemlerin performansını (kazanma oranı, geçmiş getiriler) getirir. SADECE ticker parametresi alır — tüm değerler gerçek veriden gelir, sen üretmezsin.",
+          description: "Fetches a stock's fundamentals (PE ratio, profit margin, revenue growth, institutional ownership), insider buy/sell activity, sector context, recent news, and BOGA's own historical trade performance on this ticker (win rate, past returns). Call this for ANY request about balance sheet, fundamentals, financials, insiders, management, or 'deep/detailed analysis' of a real ticker, in any language. Takes ONLY a ticker parameter — all values come from real data, you never invent them.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             const analysis = await getDeepAnalysis(ticker, locale);
@@ -246,9 +246,9 @@ export async function POST(req: NextRequest) {
           },
         }),
         get_performance_insights: tool({
-          description: "BOGA Swing Motoru'nun geçmiş işlem performansını analiz et. Kullanıcı 'geçen hafta', 'geçen ay', 'son 90 gün' vb. zaman aralıkları belirtebilir. Tool en çok kar eden hisseleri, kazanma oranını, sektör performansını döndürür — tüm veriler gerçek swing_performance.json verisinden gelir.",
+          description: "Analyze the BOGA Swing Engine's historical trade performance. The user may specify a time range like 'last week', 'last month', 'last 90 days', in any language. Returns top-performing tickers, win rate, and sector breakdown — all values come from real swing_performance.json data.",
           parameters: z.object({
-            daysBack: z.number().optional().describe("Kaç gün öncesinden itibaren (7=geçen hafta, 30=geçen ay, 90=geçen 3 ay, 0=tümü)"),
+            daysBack: z.number().optional().describe("How many days back to look (7=last week, 30=last month, 90=last 3 months, 0=all time)"),
           }),
           execute: async ({ daysBack = 0 }) => {
             const insights = await getPerformanceInsights(daysBack, locale);
@@ -257,7 +257,7 @@ export async function POST(req: NextRequest) {
           },
         }),
         get_technical_levels: tool({
-          description: "Bir hissenin EMA20/50/200'e uzaklığını, RSI seviyesi/yönünü, hacim durumunu (20 günlük ortalamaya göre), destek/direnç seviyelerini ve 1G/5G/1A/1Y fiyat değişimini getirir. Grafik sayfasıyla AYNI motordan (gerçek OHLC) hesaplanır — SADECE ticker parametresi alır, sayıları sen üretmezsin.",
+          description: "Fetches a stock's distance from EMA20/50/200, RSI level/direction, volume vs. 20-day average, support/resistance levels, and 1D/5D/1M/1Y price change. Computed from the SAME engine as the chart page (real OHLC data). Call this for any question about a ticker's technical/chart setup, in any language. Takes ONLY a ticker parameter — you never invent these numbers.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             const levels = await getTechnicalLevels(ticker);
