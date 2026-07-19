@@ -229,19 +229,19 @@ def update_performance():
                 
                 for p in new_picks:
                     ticker = p['ticker']
-                    # v3.1: swing_all_picks.json artık hem PENDING hem ENTERED swing
-                    # adaylarını içeriyor (bkz. swing117_boga.py candidate_pool.json).
-                    # Yeni bir trade SADECE 15m giriş bölgesi gerçekten yakalanmış
-                    # (entry_status == "ENTERED") pickler için açılır — "buy zone
-                    # yakalamış hisseler ertesi gün performans sayfasına geçer" kuralı.
-                    if p.get('entry_status') != 'ENTERED':
-                        continue
+                    # swing_all_picks.json'daki "picks" listesi zaten SADECE sinyal
+                    # havuzudur (izleme/watch listesi ayrı watchlist_picks.json'da) —
+                    # kullanıcı kararı (2026-07-19): sinyal listesine giren bir hisse
+                    # 15m giriş teyidini beklemeden aynı gün Geçmiş İşlem Kayıtları'na
+                    # eklenir (entry_status ENTERED olsun ya da PENDING olsun).
                     if ticker not in recent_tickers:
-                        # Add as new PENDING trade — giriş fiyatı olarak yakalanan
-                        # entry_zone'un orta noktası kullanılır (varsa), yoksa current_price.
-                        entry_zone = p.get('entry_zone') or {}
-                        if entry_zone.get('low') and entry_zone.get('high'):
-                            entry = (float(entry_zone['low']) + float(entry_zone['high'])) / 2
+                        # Giriş fiyatı: gerçekten ENTERED ise entry_zone'un orta noktası;
+                        # henüz PENDING ise pick kartında zaten "GİRİŞ" olarak gösterilen
+                        # buy_zone'un orta noktası kullanılır (aynı sayı iki yerde de görünsün);
+                        # o da yoksa current_price'a düşülür.
+                        zone = p.get('entry_zone') or p.get('buy_zone') or {}
+                        if zone.get('low') and zone.get('high'):
+                            entry = (float(zone['low']) + float(zone['high'])) / 2
                         else:
                             entry = p.get('current_price', 0)
                         if entry <= 0: continue
