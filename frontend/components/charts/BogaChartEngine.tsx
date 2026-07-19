@@ -78,7 +78,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
-    vol: "Vol",
+    vol: "Vol", indicators: "Indicators",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -88,7 +88,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
-    vol: "Hac",
+    vol: "Hac", indicators: "Göstergeler",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -98,7 +98,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
-    vol: "Vol",
+    vol: "Vol", indicators: "Indicadores",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -108,7 +108,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
-    vol: "Vol",
+    vol: "Vol", indicators: "Indicateurs",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -118,7 +118,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
-    vol: "Vol",
+    vol: "Vol", indicators: "Indicadores",
   },
 };
 
@@ -291,6 +291,14 @@ export default function BogaChartEngine({
   const [candleType, setCandleType] = useState<CandleType>(detailMode ? "heikin-ashi" : "candle");
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
+  // Mobilde toolbar kalabalığını azaltmak için: mum tipi ve gösterge satırları
+  // masaüstünde (md:) her zaman açık kalır, mobilde ise varsayılan kapalı
+  // açılır menü/panel arkasına saklanır. crosshairActive: mobilde statik
+  // OHLCV kutusu SADECE kullanıcı grafiğe dokunup crosshair'i aktif ettiğinde
+  // görünür (masaüstünde davranış değişmedi, her zaman görünür kalır).
+  const [mobileCandleMenuOpen, setMobileCandleMenuOpen] = useState(false);
+  const [mobileIndicatorsOpen, setMobileIndicatorsOpen] = useState(false);
+  const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -402,10 +410,12 @@ export default function BogaChartEngine({
     chart.subscribeCrosshairMove((param) => {
       if (!param.time) {
         setHoverBar(barsRef.current[barsRef.current.length - 1] ?? null);
+        setCrosshairActive(false);
         return;
       }
       const bar = barsRef.current.find((b) => b.time === param.time);
       if (bar) setHoverBar(bar);
+      setCrosshairActive(true);
     });
 
     // Keep the Volume Profile overlay's pixel coordinates in sync with
@@ -828,10 +838,45 @@ export default function BogaChartEngine({
     return String(n);
   };
 
+  // Gösterge butonu — hem masaüstü satırında hem mobil açılır panelde
+  // AYNI kod kullanılsın diye tek yerden üretilir.
+  const renderIndicatorButton = (key: IndicatorKey) => {
+    const val = ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
+    const tpColor = TRADE_PLAN_COLORS[key];
+    const tpLabel = tradePlan ? tradePlanValueLabel(key, tradePlan) : null;
+    return (
+      <button
+        key={key}
+        onClick={() => toggle(key)}
+        className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+          active.has(key)
+            ? tpColor
+              ? ""
+              : "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
+            : "border-[#1e2a3a] text-[#64748b] hover:text-white"
+        }`}
+        style={
+          active.has(key) && tpColor
+            ? { background: `${tpColor}33`, borderColor: `${tpColor}80`, color: tpColor }
+            : undefined
+        }
+      >
+        {t[key]}
+        {val != null ? ` ${fmt(val)}` : ""}
+        {tpLabel ? ` ${tpLabel}` : ""}
+      </button>
+    );
+  };
+
   return (
     <div
       ref={wrapperRef}
-      className="flex flex-col w-full h-full"
+      // detailMode + mobilde: sabit (fixed) BOGA Copilot butonu ekranın
+      // aynı köşesinde kalıyor, grafiğin altındaki hacim/RSI panelleri tam
+      // kenara kadar uzanınca üzerine biniyordu. Alt boşluk ekleyip butonun
+      // boş alanda kalmasını sağlıyoruz — masaüstünde (md:) buton zaten
+      // bottom-6'da ve bu sorun yok, boşluk kaldırılıyor.
+      className={`flex flex-col w-full h-full ${detailMode ? "pb-24 md:pb-0" : ""}`}
       style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
     >
       <div className="contents">
@@ -926,7 +971,10 @@ export default function BogaChartEngine({
                   </button>
                 ))}
               </div>
-              <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+
+              {/* Mum tipi — masaüstünde tam buton satırı, mobilde kalabalığı
+                  azaltmak için tek satırlık açılır menü (bkz. mobileCandleMenuOpen). */}
+              <div className="hidden md:flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
                 {CANDLE_TYPES.map((ct) => (
                   <button
                     key={ct}
@@ -939,35 +987,52 @@ export default function BogaChartEngine({
                   </button>
                 ))}
               </div>
+              <div className="relative md:hidden">
+                <button
+                  onClick={() => setMobileCandleMenuOpen((v) => !v)}
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff]"
+                >
+                  {t[candleType]} <span className="text-[8px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
+                </button>
+                {mobileCandleMenuOpen && (
+                  <div className="absolute left-0 mt-1 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
+                    {CANDLE_TYPES.map((ct) => (
+                      <button
+                        key={ct}
+                        onClick={() => {
+                          setCandleType(ct);
+                          setMobileCandleMenuOpen(false);
+                        }}
+                        className={`block w-full text-left px-3 py-2 text-[11px] font-bold whitespace-nowrap ${
+                          candleType === ct ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+                        }`}
+                      >
+                        {t[ct]}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
-              {availableIndicators.map((key) => {
-                const val = ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
-                const tpColor = TRADE_PLAN_COLORS[key];
-                const tpLabel = tradePlan ? tradePlanValueLabel(key, tradePlan) : null;
-                return (
-                  <button
-                    key={key}
-                    onClick={() => toggle(key)}
-                    className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
-                      active.has(key)
-                        ? tpColor
-                          ? ""
-                          : "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
-                        : "border-[#1e2a3a] text-[#64748b] hover:text-white"
-                    }`}
-                    style={
-                      active.has(key) && tpColor
-                        ? { background: `${tpColor}33`, borderColor: `${tpColor}80`, color: tpColor }
-                        : undefined
-                    }
-                  >
-                    {t[key]}
-                    {val != null ? ` ${fmt(val)}` : ""}
-                    {tpLabel ? ` ${tpLabel}` : ""}
-                  </button>
-                );
-              })}
+
+            {/* Göstergeler — masaüstünde her zaman açık satır, mobilde
+                varsayılan kapalı, "⚙️ Göstergeler (N)" ile açılan panel. */}
+            <div className="hidden md:flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+              {availableIndicators.map((key) => renderIndicatorButton(key))}
+            </div>
+            <div className="md:hidden border-b border-[#1e2a3a]">
+              <button
+                onClick={() => setMobileIndicatorsOpen((v) => !v)}
+                className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-black text-[#00d2ff]"
+              >
+                <span>⚙️ {t.indicators} ({active.size})</span>
+                <span className="text-[8px]">{mobileIndicatorsOpen ? "▴" : "▾"}</span>
+              </button>
+              {mobileIndicatorsOpen && (
+                <div className="flex flex-wrap items-center gap-1.5 px-2 pb-1.5">
+                  {availableIndicators.map((key) => renderIndicatorButton(key))}
+                </div>
+              )}
             </div>
           </>
         )}
@@ -975,12 +1040,15 @@ export default function BogaChartEngine({
         <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
 
-          {/* BOGASTOCK filigran — sol ustte, detailMode'da OHLC satirinin
-              hemen altinda. Header.tsx'teki logo fontuyla (Montserrat) STOCK
-              kismi acik mavi, dusuk opaklikla mum/gosterge okumayi
-              engellemeyecek sekilde. Altinda ticker sembolü. */}
+          {/* BOGASTOCK filigran — sol ustte, detailMode'da masaustunde OHLC
+              satirinin hemen altinda (o satir orada her zaman gorunur).
+              Mobilde OHLC satiri varsayilan gizli oldugu icin (bkz.
+              crosshairActive) filigran da yukari, ust kenara yaklasir —
+              aksi halde bos bir bosluk kalirdi. Header.tsx'teki logo
+              fontuyla (Montserrat) STOCK kismi acik mavi, dusuk opaklikla
+              mum/gosterge okumayi engellemeyecek sekilde. Altinda ticker sembolü. */}
           <div
-            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
+            className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-2 md:top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
           >
             <span
               className={`tracking-wide text-white/[0.14] ${compact ? "text-xs" : "text-lg md:text-xl"}`}
@@ -997,7 +1065,12 @@ export default function BogaChartEngine({
           </div>
 
           {detailMode && (
-            <div className="absolute top-2 left-2 z-10 flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none">
+            // Masaüstünde her zaman görünür (mevcut davranış korunuyor).
+            // Mobilde ise ekranı kalabalıklaştırmasın diye SADECE kullanıcı
+            // grafiğe dokunup crosshair'i aktif ettiğinde görünür.
+            <div
+              className={`absolute top-2 left-2 z-10 ${crosshairActive ? "flex" : "hidden"} md:flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none`}
+            >
               <span className="text-slate-400">O <span className="text-white">{fmt(hoverBar?.open)}</span></span>
               <span className="text-slate-400">H <span className="text-white">{fmt(hoverBar?.high)}</span></span>
               <span className="text-slate-400">L <span className="text-white">{fmt(hoverBar?.low)}</span></span>
@@ -1033,10 +1106,10 @@ export default function BogaChartEngine({
                     width: r.width,
                     height: Math.max(1, vpOverlay.rowHeight - 1),
                     background: r.isPoc
-                      ? "rgba(234,179,8,0.85)"
+                      ? "rgba(234,179,8,0.8)"
                       : r.inValueArea
-                      ? "rgba(96,165,250,0.55)"
-                      : "rgba(100,116,139,0.22)",
+                      ? "rgba(96,165,250,0.35)"
+                      : "rgba(100,116,139,0.15)",
                   }}
                 />
               ))}
