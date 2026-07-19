@@ -325,9 +325,10 @@ export default function BogaChartEngine({
   useEffect(() => {
     if (!detailMode) return;
     let active = true;
-    // preorder-analysis sadece tr (varsayilan) ve en uretir — tr disindaki
-    // tum diller (en/es/fr/pt) Ingilizce metin almali, Turkce degil.
-    const langParam = lang === "tr" ? "" : "&lang=en";
+    // preorder-analysis artik 5 dili de uretir (tr varsayilan) — kendi
+    // dilinde metin alsin diye gercek locale gonderilir (eskiden tr disindaki
+    // tum diller Ingilizce'ye dusuyordu).
+    const langParam = lang && lang !== "tr" ? `&lang=${lang}` : "";
     fetch(`/api/preorder-analysis?ticker=${encodeURIComponent(symbol)}${langParam}`)
       .then((r) => r.json())
       .then((d) => {

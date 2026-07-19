@@ -22,37 +22,69 @@ function isRateLimited(ip: string): boolean {
 }
 
 // activeSignals/warnings are generated in Turkish by default (this endpoint's
-// original consumers are all Turkish-locale pages). English-only pages
-// (e.g. /global/en/graphic) pass ?lang=en to get these translated — applied
-// post-computation (and post-cache-hit) so the shared per-ticker cache
-// itself always stays Turkish, and translation never mutates cached data.
-const WARNING_TRANSLATIONS_EN: Record<string, string> = {
-  "RSI aşırı alım bölgesinde — kısa vadede geri çekilme riski": "RSI is in overbought territory — risk of a short-term pullback",
-  "52 haftalık zirveden uzak — trend zayıf olabilir": "Far from the 52-week high — trend may be weak",
-  "ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla": "ATR% is high — size your position according to volatility",
-  "Hacim ortalamanın çok altında — likidite riski": "Volume is well below average — liquidity risk",
+// original consumers are all Turkish-locale pages). Non-Turkish pages
+// (/global/{en,es,fr,pt}/graphic) pass ?lang={locale} to get these translated
+// — applied post-computation (and post-cache-hit) so the shared per-ticker
+// cache itself always stays Turkish, and translation never mutates cached
+// data. 5 languages supported (was en-only; es/fr/pt used to silently fall
+// back to English).
+type AnalysisLang = "en" | "es" | "fr" | "pt";
+
+const MACD_POSITIVE: Record<AnalysisLang, string> = {
+  en: "MACD Positive", es: "MACD Positivo", fr: "MACD Positif", pt: "MACD Positivo",
+};
+const STRONG_DAY: Record<AnalysisLang, string> = {
+  en: "Strong day", es: "Día fuerte", fr: "Jour fort", pt: "Dia forte",
 };
 
-const PATTERN_TRANSLATIONS_EN: Record<string, string> = {
-  "Güçlü Kapanış ↑": "Strong Close ↑",
-  "Zayıf Kapanış ↓": "Weak Close ↓",
-  "Yeşil Mum ↑": "Green Candle ↑",
-  "Kırmızı Mum ↓": "Red Candle ↓",
+const WARNING_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
+  "RSI aşırı alım bölgesinde — kısa vadede geri çekilme riski": {
+    en: "RSI is in overbought territory — risk of a short-term pullback",
+    es: "El RSI está en zona de sobrecompra — riesgo de un retroceso a corto plazo",
+    fr: "Le RSI est en zone de surachat — risque de repli à court terme",
+    pt: "O RSI está em território de sobrecompra — risco de recuo no curto prazo",
+  },
+  "52 haftalık zirveden uzak — trend zayıf olabilir": {
+    en: "Far from the 52-week high — trend may be weak",
+    es: "Lejos del máximo de 52 semanas — la tendencia podría ser débil",
+    fr: "Loin du plus haut sur 52 semaines — la tendance pourrait être faible",
+    pt: "Longe da máxima de 52 semanas — a tendência pode estar fraca",
+  },
+  "ATR% yüksek — pozisyon büyüklüğünü oynaklığa göre ayarla": {
+    en: "ATR% is high — size your position according to volatility",
+    es: "El ATR% es alto — ajusta el tamaño de tu posición según la volatilidad",
+    fr: "L'ATR% est élevé — ajuste la taille de ta position selon la volatilité",
+    pt: "O ATR% está alto — ajuste o tamanho da sua posição de acordo com a volatilidade",
+  },
+  "Hacim ortalamanın çok altında — likidite riski": {
+    en: "Volume is well below average — liquidity risk",
+    es: "El volumen está muy por debajo del promedio — riesgo de liquidez",
+    fr: "Le volume est bien en dessous de la moyenne — risque de liquidité",
+    pt: "O volume está bem abaixo da média — risco de liquidez",
+  },
+};
+
+const PATTERN_TRANSLATIONS: Record<string, Record<AnalysisLang, string>> = {
+  "Güçlü Kapanış ↑": { en: "Strong Close ↑", es: "Cierre Fuerte ↑", fr: "Clôture Forte ↑", pt: "Fechamento Forte ↑" },
+  "Zayıf Kapanış ↓": { en: "Weak Close ↓", es: "Cierre Débil ↓", fr: "Clôture Faible ↓", pt: "Fechamento Fraco ↓" },
+  "Yeşil Mum ↑": { en: "Green Candle ↑", es: "Vela Verde ↑", fr: "Bougie Verte ↑", pt: "Candle Verde ↑" },
+  "Kırmızı Mum ↓": { en: "Red Candle ↓", es: "Vela Roja ↓", fr: "Bougie Rouge ↓", pt: "Candle Vermelho ↓" },
 };
 
 function localizeAnalysis(data: PreorderAnalysis, lang: string): PreorderAnalysis {
-  if (lang !== "en") return data;
+  if (lang !== "en" && lang !== "es" && lang !== "fr" && lang !== "pt") return data;
+  const l = lang as AnalysisLang;
   return {
     ...data,
     activeSignals: data.activeSignals.map((s) =>
-      s === "MACD Pozitif" ? "MACD Positive" : s.replace("Güçlü gün", "Strong day")
+      s === "MACD Pozitif" ? MACD_POSITIVE[l] : s.replace("Güçlü gün", STRONG_DAY[l])
     ),
-    warnings: data.warnings.map((w) => WARNING_TRANSLATIONS_EN[w] || w),
+    warnings: data.warnings.map((w) => WARNING_TRANSLATIONS[w]?.[l] || w),
     timeframes: {
       ...data.timeframes,
-      d1: { ...data.timeframes.d1, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.d1.pattern] || data.timeframes.d1.pattern },
-      h1: { ...data.timeframes.h1, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.h1.pattern] || data.timeframes.h1.pattern },
-      m15: { ...data.timeframes.m15, pattern: PATTERN_TRANSLATIONS_EN[data.timeframes.m15.pattern] || data.timeframes.m15.pattern },
+      d1: { ...data.timeframes.d1, pattern: PATTERN_TRANSLATIONS[data.timeframes.d1.pattern]?.[l] || data.timeframes.d1.pattern },
+      h1: { ...data.timeframes.h1, pattern: PATTERN_TRANSLATIONS[data.timeframes.h1.pattern]?.[l] || data.timeframes.h1.pattern },
+      m15: { ...data.timeframes.m15, pattern: PATTERN_TRANSLATIONS[data.timeframes.m15.pattern]?.[l] || data.timeframes.m15.pattern },
     },
   };
 }
@@ -478,10 +510,18 @@ export async function GET(req: NextRequest) {
 
   const ticker = req.nextUrl.searchParams.get("ticker")?.toUpperCase().trim();
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
-  const lang = req.nextUrl.searchParams.get("lang") === "en" ? "en" : "tr";
+  const rawLang = req.nextUrl.searchParams.get("lang");
+  const lang = (["en", "es", "fr", "pt"].includes(rawLang || "") ? rawLang : "tr") as "en" | "tr" | "es" | "fr" | "pt";
 
-  // Cache check
-  const hit = cache.get(ticker);
+  // Cache check — keyed by ticker+lang, NOT just ticker: tradePlan.entryCondition/
+  // stopRationale/rationale are baked in the target language at computation time
+  // (buildTradePlanRationale), so a Turkish-computed cache entry can't be reused
+  // for a Portuguese request (that used to silently serve stale-language trade
+  // plan text while activeSignals/warnings/pattern got correctly relocalized —
+  // the two were out of sync since only the latter went through localizeAnalysis
+  // on every request).
+  const cacheKey = `${ticker}_${lang}`;
+  const hit = cache.get(cacheKey);
   if (hit && Date.now() - hit.ts < CACHE_TTL) return NextResponse.json(localizeAnalysis(hit.data, lang));
 
   const BASE = "https://query1.finance.yahoo.com/v8/finance/chart";
@@ -789,6 +829,6 @@ export async function GET(req: NextRequest) {
     warnings,
   };
 
-  cache.set(ticker, { data: result, ts: Date.now() });
+  cache.set(cacheKey, { data: result, ts: Date.now() });
   return NextResponse.json(localizeAnalysis(result, lang));
 }
