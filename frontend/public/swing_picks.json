@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-07-17T17:01:51.771209-04:00",
-  "date": "2026-07-17",
-  "model": "BOGA AI v117.v3 (Power Pullback)",
+  "generated_at": "2026-07-19T07:47:53.027246-04:00",
+  "date": "2026-07-19",
+  "model": "BOGA AI v117.v4.0 (Hybrid Model)",
   "market_regime": "CHOPPY",
   "regime_bucket": "CHOPPY",
   "total_picks": 7,
   "picks": [
     {
-      "rank": 4,
+      "rank": 1,
       "ticker": "HUM",
       "company": "Humana Inc.",
       "sector": "Healthcare",
@@ -166,7 +166,7 @@
       }
     },
     {
-      "rank": 5,
+      "rank": 2,
       "ticker": "ROKU",
       "company": "Roku, Inc.",
       "sector": "Communication Services",
@@ -325,7 +325,7 @@
       }
     },
     {
-      "rank": 6,
+      "rank": 3,
       "ticker": "CVS",
       "company": "CVS Health Corporation",
       "sector": "Healthcare",
@@ -484,7 +484,7 @@
       }
     },
     {
-      "rank": 7,
+      "rank": 4,
       "ticker": "RVMD",
       "company": "Revolution Medicines, Inc.",
       "sector": "Healthcare",
@@ -643,7 +643,7 @@
       }
     },
     {
-      "rank": 8,
+      "rank": 5,
       "ticker": "FWONK",
       "company": "Formula One Group",
       "sector": "Communication Services",
@@ -802,7 +802,7 @@
       }
     },
     {
-      "rank": 10,
+      "rank": 6,
       "ticker": "OKTA",
       "company": "Okta, Inc.",
       "sector": "Technology",
@@ -961,7 +961,7 @@
       }
     },
     {
-      "rank": 13,
+      "rank": 7,
       "ticker": "ALL",
       "company": "The Allstate Corporation",
       "sector": "Financial Services",

@@ -136,7 +136,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
     return t.result === "LOSS";
   };
   const dashboardRef = useRef<HTMLDivElement>(null);
-  const [showStats, setShowStats] = useState(false);
+  const [showStats, setShowStats] = useState(true);
   const [selectedSector,    setSelectedSector]    = useState("All");
   const [selectedSubsector, setSelectedSubsector] = useState("All");
   const [selectedYear,      setSelectedYear]      = useState("All");
