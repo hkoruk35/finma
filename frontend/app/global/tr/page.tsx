@@ -8,6 +8,7 @@ import { getLandingConfigFromDB } from "@/lib/landingConfig";
 import { ICON_MAP } from "@/components/global/LandingIcons";
 import GlobalReachBanner from "@/components/global/GlobalReachBanner";
 import ChartCarouselTr from "@/components/global/ChartCarouselTr";
+import PricingSection from "@/components/global/PricingSection";
 
 export const dynamic = "force-dynamic";
 
@@ -130,6 +131,9 @@ export default async function TrLandingPage() {
             </div>
           </div>
         </section>
+
+        {/* Pricing */}
+        <PricingSection locale="tr" ctaHref={cta_primary.href} />
       </main>
 
       <Footer hidePlatform={true} locale="tr" />

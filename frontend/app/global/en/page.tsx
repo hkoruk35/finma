@@ -7,6 +7,7 @@ import { ScreenshotBanner, JpmPreview } from "@/components/global/LandingBannerT
 import { getLandingConfigFromDB } from "@/lib/landingConfig";
 import { ICON_MAP } from "@/components/global/LandingIcons";
 import GlobalReachBanner from "@/components/global/GlobalReachBanner";
+import PricingSection from "@/components/global/PricingSection";
 
 export const dynamic = "force-dynamic";
 
@@ -124,6 +125,9 @@ export default async function EnLandingPage() {
             </div>
           </div>
         </section>
+
+        {/* Pricing */}
+        <PricingSection locale="en" ctaHref={cta_primary.href} />
       </main>
 
       <Footer hidePlatform={true} locale="en" />
