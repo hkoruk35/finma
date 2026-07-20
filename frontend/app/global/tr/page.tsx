@@ -7,6 +7,7 @@ import { ScreenshotBanner, JpmPreview } from "@/components/global/LandingBannerT
 import { getLandingConfigFromDB } from "@/lib/landingConfig";
 import { ICON_MAP } from "@/components/global/LandingIcons";
 import GlobalReachBanner from "@/components/global/GlobalReachBanner";
+import ChartCarouselTr from "@/components/global/ChartCarouselTr";
 
 export const dynamic = "force-dynamic";
 
@@ -61,6 +62,11 @@ export default async function TrLandingPage() {
         {/* Screenshot Banner */}
         <section className="max-w-5xl mx-auto px-4 pb-16">
           <ScreenshotBanner lang="tr" />
+        </section>
+
+        {/* Chart Carousel */}
+        <section className="max-w-5xl mx-auto px-4 pb-10">
+          <ChartCarouselTr />
         </section>
 
         {/* Features */}
