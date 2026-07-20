@@ -38,8 +38,12 @@ export function accountPathForLocale(locale: string): string {
   return ACCOUNT_PATH_MAP[locale] || ACCOUNT_PATH_MAP.en;
 }
 
-// Premium checkout session — kayıt sırasında (7 gün trial + $19 ilk ay) veya
+// Premium checkout session — kayıt sırasında (7 gün trial + $9 ilk ay) veya
 // hesap sayfasından yeniden abonelik (trial'sız, tam $39) için kullanılır.
+// Gerçek $9/$39 tutarları burada değil, Stripe Dashboard'daki
+// PREMIUM_PRICE_ID (taban $39/ay) ve PREMIUM_COUPON_ID (ilk ay indirimi)
+// nesnelerinde tanımlı — o yüzden fiyat değiştiğinde bu dosyada güncellenecek
+// bir sayı yok, Stripe tarafındaki coupon'un tutarı/duration'ı revize edilmeli.
 export async function createPremiumCheckoutSession({
   customerId,
   memberId,
