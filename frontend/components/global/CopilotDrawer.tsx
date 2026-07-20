@@ -18,6 +18,20 @@ function linkifyTickers(text: unknown): string {
   return text.replace(/\$([A-Z]{1,5})\b/g, (_, ticker) => `[$${ticker}](copilot://${ticker})`);
 }
 
+// copilot-topic:// linkinin (bkz. chat/route.ts kural 10 — konu seçim menüsü)
+// tıklanma metnini elde etmek için link çocuklarından (React node) düz metni
+// çıkarır — model başlığı kalın/italik yazmış olsa bile mesaj olarak gönderilecek
+// tam metin doğru şekilde birleştirilir.
+function extractPlainText(node: React.ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractPlainText).join("");
+  if (React.isValidElement(node)) {
+    const props = node.props as { children?: React.ReactNode };
+    return extractPlainText(props.children);
+  }
+  return "";
+}
+
 export default function CopilotDrawer() {
   const {
     isOpen, setIsOpen,
@@ -228,7 +242,9 @@ export default function CopilotDrawer() {
                       // ("copilot://") güvenlik amaçlı boş string'e çevirir — bu da $TICKER
                       // çipine tıklayınca href="" + target="_blank" ile aynı sayfanın yeni
                       // sekmede açılmasına yol açıyordu. copilot: şemasını olduğu gibi geçir.
-                      urlTransform={(url) => (url.startsWith("copilot://") ? url : defaultUrlTransform(url))}
+                      urlTransform={(url) =>
+                        url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)
+                      }
                       components={{
                         a: ({ href, children }) => {
                           if (href?.startsWith("copilot://")) {
@@ -238,6 +254,18 @@ export default function CopilotDrawer() {
                                 type="button"
                                 onClick={() => append({ role: "user", content: ct("analyzeTickerPrompt", locale, { ticker }) })}
                                 className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
+                              >
+                                {children}
+                              </button>
+                            );
+                          }
+                          if (href?.startsWith("copilot-topic://")) {
+                            const topicText = extractPlainText(children);
+                            return (
+                              <button
+                                type="button"
+                                onClick={() => topicText && append({ role: "user", content: topicText })}
+                                className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer"
                               >
                                 {children}
                               </button>
