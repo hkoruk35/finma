@@ -1,0 +1,89 @@
+{
+  "ticker": "NSRGY",
+  "company": "Nestlé S.A.",
+  "date": "2026-07-19",
+  "generated_at": "2026-07-19T02:48:27.728Z",
+  "sector": "Consumer Defensive",
+  "industry": "Packaged Foods",
+  "price": {
+    "current": 105.12999725341797,
+    "open": 105.66000366210938,
+    "high": 106.2300033569336,
+    "low": 105,
+    "prev_close": 104.77999877929688,
+    "change_pct": 0.3340317600674078,
+    "change_pct_1w": 1.9689610177893655,
+    "change_pct_1m": 0.9991362783329879,
+    "change_pct_1y": 9.911129719087533,
+    "volume": 243300,
+    "avg_volume_30d": 14917400
+  },
+  "scores": {
+    "master_score": 79,
+    "technical_score": 100,
+    "fundamental_score": 63.2,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 61.586115253522074,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 102.96284375611668,
+    "ema_50": 101.50327716943927,
+    "ema_200": 99.26233847592002,
+    "ema_stack_bullish": true,
+    "bb_upper": 110.38649711608888,
+    "bb_middle": 105.12999725341797,
+    "bb_lower": 99.87349739074706,
+    "bb_width": 10,
+    "atr": 1.69,
+    "atr_pct": 1.61,
+    "rvol": 0.5621757142665612,
+    "52w_high": 109.58999633789062,
+    "52w_low": 86.9800033569336
+  },
+  "fundamental": {
+    "pe_ratio": 24.223501,
+    "pb_ratio": 6.671948,
+    "gross_margin": 0.45826,
+    "operating_margin": 0.14885001,
+    "net_margin": 0.1005,
+    "market_cap": 270417477632,
+    "revenue_growth_ttm": -0.022,
+    "fcf_yield": 0.02306942201601905,
+    "institutional_ownership_pct": 0.00958,
+    "dividend_rate": 3.94,
+    "dividend_yield": 0.0375
+  },
+  "scores_detail": {
+    "entry_range_low": 104.12,
+    "entry_range_high": 105.3,
+    "target_range_low": 109.94,
+    "target_range_high": 120.41,
+    "target_1": 109.94,
+    "target_2": 115.18,
+    "target_3": 120.41,
+    "stop_loss": 99.87,
+    "risk_reward_ratio": 2.17,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Henüz net bir tetikleyici yok — $106.05 direncinin kırılmasını veya $103.78 desteğine çekilmeyi bekle.",
+    "stop_rationale": "Stop-loss $99.87 seviyesinde — fiyat EMA200 ($99.26) veya günlük VWAP ($105.41) altında gün kapatırsa geçersiz sayılır.",
+    "rationale_ema": "Fiyat tam yükseliş EMA dizilimi (20>50>200) üzerinde — yerleşik yükseliş trendi.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($105.41) altında — bugün satıcılar kontrolde.",
+    "rationale_volume": "Hacim ortalamanın altında (0.6x) — düşük inanç, pozisyon büyüklüğünü ona göre ayarla.",
+    "rationale_rsi": "RSI 62 sağlıklı yükseliş momentumu gösteriyor."
+  }
+}

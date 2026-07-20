@@ -1,0 +1,89 @@
+{
+  "ticker": "WDC",
+  "company": "Western Digital Corporation",
+  "date": "2026-07-19",
+  "generated_at": "2026-07-19T15:43:51.894Z",
+  "sector": "Technology",
+  "industry": "Computer Hardware",
+  "price": {
+    "current": 477.2200012207031,
+    "open": 451.1300048828125,
+    "high": 492.92999267578125,
+    "low": 430.5199890136719,
+    "prev_close": 466.80999755859375,
+    "change_pct": 2.2300301442885693,
+    "change_pct_1w": -18.086479475713073,
+    "change_pct_1m": -17.358781030334196,
+    "change_pct_1y": 612.0561401431735,
+    "volume": 11765100,
+    "avg_volume_30d": 288263400
+  },
+  "scores": {
+    "master_score": 35,
+    "technical_score": 60,
+    "fundamental_score": 79.7,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_SELL",
+    "score_type": "UNDERPERFORM",
+    "micro_15m": {
+      "is_valid": false,
+      "score_bonus": -10,
+      "msg": "🚨 15m KANAMA: Son 2 saatte yoğun dağıtım (İptal)"
+    }
+  },
+  "technical": {
+    "rsi_14": 39.76228330707817,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 558.8138502431045,
+    "ema_50": 535.5637737470483,
+    "ema_200": 355.6176424447882,
+    "ema_stack_bullish": true,
+    "bb_upper": 501.0810012817383,
+    "bb_middle": 477.2200012207031,
+    "bb_lower": 453.35900115966797,
+    "bb_width": 10,
+    "atr": 54,
+    "atr_pct": 11.31,
+    "rvol": 0.8386704659696652,
+    "52w_high": 799.8699951171875,
+    "52w_low": 66.04000091552734
+  },
+  "fundamental": {
+    "pe_ratio": 28.576046,
+    "pb_ratio": 22.817116,
+    "gross_margin": 0.45428002,
+    "operating_margin": 0.37008998,
+    "net_margin": 0.55286,
+    "market_cap": 164489216000,
+    "revenue_growth_ttm": 0.455,
+    "fcf_yield": 0.012614809131317156,
+    "institutional_ownership_pct": 1.01878,
+    "dividend_rate": 0.6,
+    "dividend_yield": 0.0013
+  },
+  "scores_detail": {
+    "entry_range_low": 444.82,
+    "entry_range_high": 482.62,
+    "target_range_low": 525.15,
+    "target_range_high": 799.87,
+    "target_1": 525.15,
+    "target_2": 602.54,
+    "target_3": 799.87,
+    "stop_loss": 407.03,
+    "risk_reward_ratio": 2.45,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Henüz net bir tetikleyici yok — $513.84 direncinin kırılmasını veya $434.02 desteğine çekilmeyi bekle.",
+    "stop_rationale": "Stop-loss $407.03 seviyesinde — fiyat EMA200 ($355.62) veya günlük VWAP ($474.30) altında gün kapatırsa geçersiz sayılır.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($535.56) altına sarktı — düşüşü işaret eder, trend zayıflıyor.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($474.30) üzerinde — bugün alıcılar kontrolde.",
+    "rationale_volume": "Hacim ortalamanın altında (0.8x) — düşük inanç, pozisyon büyüklüğünü ona göre ayarla.",
+    "rationale_rsi": "RSI 40 zayıf/düşüşü momentum gösteriyor."
+  }
+}

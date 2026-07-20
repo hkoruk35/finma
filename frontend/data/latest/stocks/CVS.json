@@ -1,0 +1,89 @@
+{
+  "ticker": "CVS",
+  "company": "CVS Health Corporation",
+  "date": "2026-07-18",
+  "generated_at": "2026-07-18T19:35:17.761Z",
+  "sector": "Healthcare",
+  "industry": "Healthcare Plans",
+  "price": {
+    "current": 107.47000122070312,
+    "open": 107.36000061035156,
+    "high": 108.97000122070312,
+    "low": 106.61000061035156,
+    "prev_close": 106.5,
+    "change_pct": 0.9107992682658451,
+    "change_pct_1w": 3.1877096938873057,
+    "change_pct_1m": 5.280171721165366,
+    "change_pct_1y": 69.7788349384089,
+    "volume": 6607100,
+    "avg_volume_30d": 252756100.00000003
+  },
+  "scores": {
+    "master_score": 80,
+    "technical_score": 90,
+    "fundamental_score": 61.55,
+    "momentum_score": 89,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 68.2255787371461,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 103.62621117350062,
+    "ema_50": 97.91925394023323,
+    "ema_200": 84.48683362862519,
+    "ema_stack_bullish": true,
+    "bb_upper": 112.84350128173828,
+    "bb_middle": 107.47000122070312,
+    "bb_lower": 102.09650115966797,
+    "bb_width": 10,
+    "atr": 2.51,
+    "atr_pct": 2.34,
+    "rvol": 1.0499948369198606,
+    "52w_high": 108.97000122070312,
+    "52w_low": 58.5
+  },
+  "fundamental": {
+    "pe_ratio": 47.135967,
+    "pb_ratio": 1.7662914,
+    "gross_margin": 0.13387999,
+    "operating_margin": 0.04124,
+    "net_margin": 0.00723,
+    "market_cap": 137123905536,
+    "revenue_growth_ttm": 0.061,
+    "fcf_yield": 0.03793375828720386,
+    "institutional_ownership_pct": 0.90203005,
+    "dividend_rate": 2.66,
+    "dividend_yield": 0.0248
+  },
+  "scores_detail": {
+    "entry_range_low": 105.96,
+    "entry_range_high": 107.72,
+    "target_range_low": 112.18,
+    "target_range_high": 122.87,
+    "target_1": 112.18,
+    "target_2": 117.53,
+    "target_3": 122.87,
+    "stop_loss": 102.1,
+    "risk_reward_ratio": 2.25,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Henüz net bir tetikleyici yok — $108.97 direncinin kırılmasını veya $105.46 desteğine çekilmeyi bekle.",
+    "stop_rationale": "Stop-loss $102.10 seviyesinde — fiyat EMA20 ($103.63) veya günlük VWAP ($107.55) altında gün kapatırsa geçersiz sayılır.",
+    "rationale_ema": "Fiyat tam yükseliş EMA dizilimi (20>50>200) üzerinde — yerleşik yükseliş trendi.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($107.55) altında — bugün satıcılar kontrolde.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın — normal katılım.",
+    "rationale_rsi": "RSI 68 sağlıklı yükseliş momentumu gösteriyor."
+  }
+}

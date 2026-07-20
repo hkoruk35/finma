@@ -1,0 +1,89 @@
+{
+  "ticker": "ROKU",
+  "company": "Roku, Inc.",
+  "date": "2026-07-19",
+  "generated_at": "2026-07-19T17:00:10.152Z",
+  "sector": "Communication Services",
+  "industry": "Entertainment",
+  "price": {
+    "current": 144.42999267578125,
+    "open": 143.07000732421875,
+    "high": 144.7100067138672,
+    "low": 143.07000732421875,
+    "prev_close": 143.82000732421875,
+    "change_pct": 0.4241310808637268,
+    "change_pct_1w": 2.658319830460312,
+    "change_pct_1m": 1.5253748437625863,
+    "change_pct_1y": 58.540060477399116,
+    "volume": 2865300,
+    "avg_volume_30d": 193213600
+  },
+  "scores": {
+    "master_score": 74,
+    "technical_score": 90,
+    "fundamental_score": 73.1,
+    "momentum_score": 71,
+    "sentiment_score": 70,
+    "signal_type": "STRONG_BUY",
+    "score_type": "HIGH_CONVICTION",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": -2,
+      "msg": "⚠️ 15m Uyarı: Son 2 saat yön aşağı"
+    }
+  },
+  "technical": {
+    "rsi_14": 65.90449480483332,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 139.38258130489658,
+    "ema_50": 131.79699962053152,
+    "ema_200": 112.91473886686593,
+    "ema_stack_bullish": true,
+    "bb_upper": 151.65149230957033,
+    "bb_middle": 144.42999267578125,
+    "bb_lower": 137.20849304199217,
+    "bb_width": 10,
+    "atr": 2.06,
+    "atr_pct": 1.43,
+    "rvol": 0.4170234393438143,
+    "52w_high": 148.8800048828125,
+    "52w_low": 78.52999877929688
+  },
+  "fundamental": {
+    "pe_ratio": 107.78358,
+    "pb_ratio": 7.979998,
+    "gross_margin": 0.44192,
+    "operating_margin": 0.04282,
+    "net_margin": 0.04058,
+    "market_cap": 21425057792,
+    "revenue_growth_ttm": 0.224,
+    "fcf_yield": 0.031737632383605566,
+    "institutional_ownership_pct": 0.8788,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 143.19,
+    "entry_range_high": 144.64,
+    "target_range_low": 151.11,
+    "target_range_high": 165.5,
+    "target_1": 151.11,
+    "target_2": 158.31,
+    "target_3": 165.5,
+    "stop_loss": 137.21,
+    "risk_reward_ratio": 2.15,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Henüz net bir tetikleyici yok — $144.71 direncinin kırılmasını veya $142.78 desteğine çekilmeyi bekle.",
+    "stop_rationale": "Stop-loss $137.21 seviyesinde — fiyat EMA20 ($139.38) veya günlük VWAP ($144.29) altında gün kapatırsa geçersiz sayılır.",
+    "rationale_ema": "Fiyat tam yükseliş EMA dizilimi (20>50>200) üzerinde — yerleşik yükseliş trendi.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($144.29) üzerinde — bugün alıcılar kontrolde.",
+    "rationale_volume": "Hacim ortalamanın altında (0.4x) — düşük inanç, pozisyon büyüklüğünü ona göre ayarla.",
+    "rationale_rsi": "RSI 66 sağlıklı yükseliş momentumu gösteriyor."
+  }
+}
