@@ -79,61 +79,6 @@
       "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
     },
     {
-      "ticker": "TGT",
-      "company": "TGT",
-      "sector": "Consumer Defensive",
-      "master_score": 54.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 139.60000610351562,
-      "change_pct": -0.44,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FITB",
-      "company": "Fifth Third Bancorp",
-      "sector": "Financial Services",
-      "master_score": 80.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 58.0099983215332,
-      "change_pct": -2.29,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 80.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "INCY",
-      "company": "Incyte Corporation",
-      "sector": "Healthcare",
-      "master_score": 79.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 117.25,
-      "change_pct": 0.51,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 79.0 | System: PULLBACK_WATCH"
-    },
-    {
-      "ticker": "AHR",
-      "company": "American Healthcare REIT, Inc.",
-      "sector": "Real Estate",
-      "master_score": 76.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 57.15999984741211,
-      "change_pct": 1.01,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 76.0 | System: PULLBACK_WATCH"
-    },
-    {
-      "ticker": "AON",
-      "company": "Aon plc",
-      "sector": "Financial Services",
-      "master_score": 76.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 367.2099914550781,
-      "change_pct": -0.39,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 76.0 | System: PULLBACK_WATCH"
-    },
-    {
       "ticker": "SPG",
       "company": "Simon Property Group, Inc.",
       "sector": "Real Estate",
@@ -143,39 +88,6 @@
       "change_pct": 0.09,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "LNG",
-      "company": "Cheniere Energy, Inc.",
-      "sector": "Energy",
-      "master_score": 75.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 262.6000061035156,
-      "change_pct": 1.39,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "RF",
-      "company": "Regions Financial Corporation",
-      "sector": "Financial Services",
-      "master_score": 74.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 31.649999618530273,
-      "change_pct": -2.31,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 74.0 | System: PULLBACK_WATCH"
-    },
-    {
-      "ticker": "SN",
-      "company": "SharkNinja, Inc.",
-      "sector": "Consumer Cyclical",
-      "master_score": 73.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 154.52999877929688,
-      "change_pct": 0.21,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 73.0 | System: PULLBACK_WATCH"
     }
   ]
 }
