@@ -283,7 +283,9 @@ export default function BogaChartEngine({
   const [internalActive, setInternalActive] = useState<Set<IndicatorKey>>(
     () =>
       new Set(
-        defaultIndicators ?? (compact ? (["ema20", "ema50"] as IndicatorKey[]) : (["ema20", "ema50", "sr"] as IndicatorKey[]))
+        defaultIndicators ?? (compact
+          ? (["ema20", "ema50"] as IndicatorKey[])
+          : (["ema20", "ema50", "sr", "volumeProfile", "rsi"] as IndicatorKey[]))
       )
   );
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
