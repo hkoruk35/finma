@@ -341,9 +341,15 @@ export default function BogaChartEngine({
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Mobil tasarımda varsayılan göstergeleri güncelle: hacim profili ve RSI'ı kaldır
+  // Mobil tasarımda varsayılan göstergeleri güncelle: hacim profili ve RSI'ı kaldır.
+  // NOT: `defaultIndicators` sadece ilk state'i tohumluyor (grafik sayfası
+  // detailMode'da rsi/volumeProfile'ı masaüstü varsayılanı olarak geçiyor,
+  // bkz. GraphicDetailContent.tsx) — kullanıcı toolbar'daki butonlarla hâlâ
+  // değiştirebiliyor, o yüzden bu durumda ATLANMAMALI. Gerçekten dışarıdan
+  // TAM kontrollü mod (compact grid tile gibi, toggle butonu bile yok) sadece
+  // `indicatorsProp` (indicators prop'u) geçildiğinde devreye girer.
   useEffect(() => {
-    if (defaultIndicators) return; // Kontrollü mod (parent tarafından belirtilen göstergeler)
+    if (indicatorsProp) return; // Tam kontrollü mod — toggle UI'ı yok, dokunma
     if (isMobile) {
       const updated = new Set(internalActive);
       updated.delete("volumeProfile");
