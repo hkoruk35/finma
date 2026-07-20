@@ -279,6 +279,7 @@ export default function BogaChartEngine({
   const lastDataRef = useRef<ChartResponse | null>(null);
 
   const [interval, setInterval_] = useState(intervalProp || defaultTimeframe || "240");
+  const [isMobile, setIsMobile] = useState(false);
   const [internalActive, setInternalActive] = useState<Set<IndicatorKey>>(
     () =>
       new Set(
@@ -329,6 +330,25 @@ export default function BogaChartEngine({
   } | null>(null);
   const [entryZoneOverlay, setEntryZoneOverlay] = useState<{ top: number; height: number } | null>(null);
   const recomputeEntryZoneRef = useRef<() => void>(() => {});
+
+  // Mobil breakpoint (md: = 768px) kontrol — varsayılan göstergeleri uyarla
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Mobil tasarımda varsayılan göstergeleri güncelle: hacim profili ve RSI'ı kaldır
+  useEffect(() => {
+    if (defaultIndicators) return; // Kontrollü mod (parent tarafından belirtilen göstergeler)
+    if (isMobile) {
+      const updated = new Set(internalActive);
+      updated.delete("volumeProfile");
+      updated.delete("rsi");
+      setInternalActive(updated);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (!detailMode) return;
