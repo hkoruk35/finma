@@ -37,7 +37,12 @@ export interface CopilotStockCard {
 
 function pickSummary(aiSummary: unknown, lang: string): string | null {
   if (!aiSummary) return null;
-  if (typeof aiSummary === "string") return aiSummary.trim() || null;
+  if (typeof aiSummary === "string") {
+    // Legacy string summaries are almost always in Turkish.
+    // If the requested language is not Turkish, don't use the legacy string.
+    if (lang !== "tr") return null;
+    return aiSummary.trim() || null;
+  }
   if (typeof aiSummary === "object") {
     const obj = aiSummary as Record<string, string>;
     const candidate = obj[lang] || obj["en"] || Object.values(obj)[0];
