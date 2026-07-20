@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 interface Slide {
   id: string;
@@ -67,12 +66,10 @@ export default function ChartCarouselTr() {
               }`}
             >
               {/* Image */}
-              <Image
+              <img
                 src={slide.image}
                 alt={slide.title}
-                fill
-                className="object-cover"
-                priority={idx === 0}
+                className="w-full h-full object-cover"
               />
 
               {/* Title Overlay at Bottom */}
