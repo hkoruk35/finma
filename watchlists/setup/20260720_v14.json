@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "ORKA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 94.79,
+        "entry_zone": "91.95 - 97.63",
+        "SL": 83.43,
+        "TP": 117.52
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "ELVN",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 52.3,
+        "entry_zone": "51.01 - 53.59",
+        "SL": 47.15,
+        "TP": 62.6
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 78.42,
+        "entry_zone": "76.10 - 80.74",
+        "SL": 69.15,
+        "TP": 96.96
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "CHRD",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 129.52,
+        "entry_zone": "127.42 - 131.63",
+        "SL": 121.1,
+        "TP": 146.38
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "MUR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 37.03,
+        "entry_zone": "36.37 - 37.69",
+        "SL": 34.39,
+        "TP": 42.3
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "SONO",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 15.06,
+        "entry_zone": "14.70 - 15.43",
+        "SL": 13.62,
+        "TP": 17.95
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "TRV",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 366.52,
+        "entry_zone": "361.62 - 371.43",
+        "SL": 346.92,
+        "TP": 405.73
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "FIVE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 203.9,
+        "entry_zone": "200.47 - 207.33",
+        "SL": 190.18,
+        "TP": 231.35
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "PEB",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 19.32,
+        "entry_zone": "19.06 - 19.58",
+        "SL": 18.28,
+        "TP": 21.41
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "WDS",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 21.77,
+        "entry_zone": "21.55 - 21.99",
+        "SL": 20.89,
+        "TP": 23.53
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "DNTH",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 103.4,
+        "entry_zone": "100.28 - 106.52",
+        "SL": 90.9,
+        "TP": 128.39
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 99.01,
+        "entry_zone": "95.99 - 102.04",
+        "SL": 86.91,
+        "TP": 123.23
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "PTGX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 137.42,
+        "entry_zone": "134.25 - 140.59",
+        "SL": 124.74,
+        "TP": 162.79
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "FWONK",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 100.47,
+        "entry_zone": "98.92 - 102.02",
+        "SL": 94.28,
+        "TP": 109.75
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "VCYT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 58.02,
+        "entry_zone": "56.60 - 59.44",
+        "SL": 52.33,
+        "TP": 69.4
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "CAKE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 86.01,
+        "entry_zone": "84.57 - 87.45",
+        "SL": 80.24,
+        "TP": 97.54
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "LCID",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 7.39,
+        "entry_zone": "6.94 - 7.84",
+        "SL": 5.58,
+        "TP": 11.0
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "MBX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 60.51,
+        "entry_zone": "58.12 - 62.90",
+        "SL": 50.93,
+        "TP": 79.67
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "TRVI",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 17.47,
+        "entry_zone": "16.78 - 18.15",
+        "SL": 14.73,
+        "TP": 22.94
+    },
+    {
+        "date": "2026-07-20 15:00",
+        "symbol": "PVLA",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 126.96,
+        "entry_zone": "121.07 - 132.84",
+        "SL": 103.43,
+        "TP": 174.01
+    }
+]
