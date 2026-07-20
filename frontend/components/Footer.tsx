@@ -39,35 +39,30 @@ const LEGAL_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; labe
 
 const RESOURCES_LINKS: Record<"en" | "tr" | "es" | "fr" | "pt", { href: string; label: string }[]> = {
   en: [
-    { href: "/global/en#pricing", label: "Pricing" },
     { href: "/global/en/about", label: "About BOGASTOCK" },
     { href: "/global/en/news", label: "Market News" },
     { href: "/global/en/contact", label: "Contact Support" },
     { href: "/global/en/faq", label: "Frequently Asked Questions (FAQ)" },
   ],
   tr: [
-    { href: "/global/tr#pricing", label: "Fiyatlandırma" },
     { href: "/global/tr/about", label: "BOGASTOCK Hakkında" },
     { href: "/global/tr/news", label: "Piyasa Haberleri" },
     { href: "/global/tr/contact", label: "Destek İletişim" },
     { href: "/global/tr/sss", label: "Sıkça Sorulan Sorular (SSS)" },
   ],
   es: [
-    { href: "/global/es#pricing", label: "Precios" },
     { href: "/global/es/about", label: "Acerca de BOGASTOCK" },
     { href: "/global/es/news", label: "Noticias del Mercado" },
     { href: "/global/es/contact", label: "Soporte y Contacto" },
     { href: "/global/es/faq", label: "Preguntas Frecuentes (FAQ)" },
   ],
   fr: [
-    { href: "/global/fr#pricing", label: "Tarifs" },
     { href: "/global/fr/about", label: "À Propos de BOGASTOCK" },
     { href: "/global/fr/news", label: "Actualités du Marché" },
     { href: "/global/fr/contact", label: "Support et Contact" },
     { href: "/global/fr/faq", label: "Foire Aux Questions (FAQ)" },
   ],
   pt: [
-    { href: "/global/pt#pricing", label: "Preços" },
     { href: "/global/pt/about", label: "Sobre a BOGASTOCK" },
     { href: "/global/pt/news", label: "Notícias do Mercado" },
     { href: "/global/pt/contact", label: "Suporte e Contato" },

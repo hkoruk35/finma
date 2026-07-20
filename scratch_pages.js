@@ -1,4 +1,8 @@
-import { Metadata } from 'next';
+const fs = require('fs');
+const path = require('path');
+const langs = ['en', 'tr', 'es', 'fr', 'pt'];
+langs.forEach(lang => {
+  const content = `import { Metadata } from 'next';
 import { getMemberAccess } from '@/lib/apiAuth';
 import GlobalLandingPage from '@/components/global/GlobalLandingPage';
 import { fetchLiveQuotes } from '@/lib/homeFeed';
@@ -9,7 +13,7 @@ export const revalidate = 120;
 export const metadata: Metadata = {
   title: 'BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.',
   description: 'BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.',
-  alternates: { canonical: `https://bogastock.com/global/pt` },
+  alternates: { canonical: \`https://bogastock.com/global/\${lang}\` },
 };
 
 export default async function LandingPage() {
@@ -31,5 +35,10 @@ export default async function LandingPage() {
     };
   });
 
-  return <GlobalLandingPage locale={'pt'} defaultWatchlist={defaultWatchlist} />;
+  return <GlobalLandingPage locale={'${lang}'} defaultWatchlist={defaultWatchlist} />;
 }
+`;
+  const file = path.join('frontend', 'app', 'global', lang, 'page.tsx');
+  fs.writeFileSync(file, content, 'utf8');
+  console.log('Updated:', file);
+});
