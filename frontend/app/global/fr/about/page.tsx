@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "À Propos de BOGASTOCK - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
-  description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
+  description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une interactive charts quotidienne alimentée par l'IA.",
   alternates: {
     canonical: "https://bogastock.com/global/fr/about",
     languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "À Propos de BOGASTOCK - Blue One Global Analysis | Analyse Boursière Alimentée par l'IA",
-    description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une analyse financière quotidienne alimentée par l'IA.",
+    description: "BOGASTOCK - Blue One Global Analysis analyse quotidiennement plus de 6 000 actions et ETF américains, identifie les meilleurs candidats et offre une interactive charts quotidienne alimentée par l'IA.",
     url: "https://bogastock.com/global/fr/about",
   },
 };
@@ -39,7 +39,7 @@ export default function FrAboutPage() {
         <div className="text-center mb-20">
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Intelligence du Marché Boursier Américain</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Analyse Financière Quotidienne.<br />
+            Interactive Charts Quotidienne.<br />
             <span className="text-[#3b82f6]">Conçue pour les Marchés Américains.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">

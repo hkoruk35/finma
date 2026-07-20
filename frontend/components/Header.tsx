@@ -178,7 +178,7 @@ export default function Header({
           BOGA<span className="text-[#3b82f6]">STOCK</span>
         </span>
         <span className="hidden md:inline text-[9px] text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em]">
-          {globalLocale === "tr" ? "FİNANSAL ANALİZ" : globalLocale === "es" ? "ANÁLISIS FINANCIERO" : globalLocale === "fr" ? "ANALYSE FINANCIÈRE" : globalLocale === "pt" ? "ANÁLISE FINANCEIRA" : "Financial Analysis"}
+          TERMINAL
         </span>
       </div>
     </>

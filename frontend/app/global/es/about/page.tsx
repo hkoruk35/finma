@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "Acerca de BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
-  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
+  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega interactive charts diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
   alternates: {
     canonical: "https://bogastock.com/global/es/about",
     languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Acerca de BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análisis del Mercado de Acciones de EE.UU. con IA",
-    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega análisis financiero diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
+    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analiza diariamente más de 6,000 acciones y ETFs premier de EE.UU., identifica los mejores candidatos y entrega interactive charts diario impulsado por IA sobre las oportunidades de mayor convicción en el mercado estadounidense.",
     url: "https://bogastock.com/global/es/about",
   },
 };
@@ -39,7 +39,7 @@ export default function EsAboutPage() {
         <div className="text-center mb-20">
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Inteligencia del Mercado de Acciones de EE.UU.</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Análisis Financiero Diario.<br />
+            Interactive Charts Diario.<br />
             <span className="text-[#3b82f6]">Diseñado para los Mercados de EE.UU.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">

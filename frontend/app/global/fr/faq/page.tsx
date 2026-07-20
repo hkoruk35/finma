@@ -52,7 +52,7 @@ export default function FrFAQPage() {
     },
     {
       question: "11. Les graphiques contiennent-ils trop de lignes et d'indicateurs confus ? Vais-je avoir du mal à comprendre ?",
-      answer: "Pas du tout ! La philosophie de BOGASTOCK est d'éliminer le bruit de fond et la confusion. Au lieu de vous submerger de jargon technique, nous vous proposons des graphiques épurés et des indicateurs clairs. Même si vous débutez en analyse financière, les rapports rédigés par l'IA dans un langage simple vous permettront de comprendre la situation en un clin d'œil."
+      answer: "Pas du tout ! La philosophie de BOGASTOCK est d'éliminer le bruit de fond et la confusion. Au lieu de vous submerger de jargon technique, nous vous proposons des graphiques épurés et des indicateurs clairs. Même si vous débutez en interactive charts, les rapports rédigés par l'IA dans un langage simple vous permettront de comprendre la situation en un clin d'œil."
     },
     {
       question: "12. Vos données sont-elles en temps réel ou différées ?",

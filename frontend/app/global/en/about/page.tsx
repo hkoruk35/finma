@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered interactive charts on the highest-conviction opportunities in the US market.",
   alternates: {
     canonical: "https://bogastock.com/global/en/about",
     languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "About BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | AI-Powered US Stock Market Analysis",
-    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered financial analysis on the highest-conviction opportunities in the US market.",
+    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ stocks scans 6,000+ premier US stocks and ETFs daily, identifies the top candidates, and delivers daily AI-powered interactive charts on the highest-conviction opportunities in the US market.",
     url: "https://bogastock.com/global/en/about",
   },
 };
@@ -40,7 +40,7 @@ export default function AboutPage() {
         <div className="text-center mb-20">
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">US Stock Market Intelligence</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Daily Financial Analysis.<br />
+            Daily Interactive Charts.<br />
             <span className="text-[#3b82f6]">Built for US Markets.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">

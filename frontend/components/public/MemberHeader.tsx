@@ -87,7 +87,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               BOGA<span className="text-[#3b82f6]">STOCK</span>
             </span>
             <span className="hidden md:inline text-[9px] text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em]">
-              {locale === "tr" ? "FİNANSAL ANALİZ" : locale === "es" ? "ANÁLISIS FINANCIERO" : locale === "fr" ? "ANALYSE FINANCIÈRE" : locale === "pt" ? "ANÁLISE FINANCEIRA" : "Financial Analysis"}
+              TERMINAL
             </span>
           </div>
         </Link>

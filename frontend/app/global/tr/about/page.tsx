@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-  description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+  description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli interactive charts sunar.",
   alternates: {
     canonical: "https://bogastock.com/global/tr/about",
     languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BOGASTOCK Hakkında - Blue One Global Analysis - Günlük 6.000+ | AI Destekli ABD Hisse Senedi Analizi",
-    description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli finansal analiz sunar.",
+    description: "BOGASTOCK - Blue One Global Analysis, her gün 6.000'den fazla seçkin ABD hisse senedi ve ETF'i tarar, en yüksek potansiyele sahip adayları belirler ve ABD piyasasındaki en yüksek inanç düzeyine sahip fırsatlar için günlük AI destekli interactive charts sunar.",
     url: "https://bogastock.com/global/tr/about",
   },
 };
@@ -39,7 +39,7 @@ export default function AboutPageTr() {
         <div className="text-center mb-20">
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">ABD Hisse Senedi Piyasası İstihbaratı</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Günlük Finansal Analiz.<br />
+            Günlük Interactive Charts.<br />
             <span className="text-[#3b82f6]">ABD Piyasaları İçin İnşa Edildi.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">

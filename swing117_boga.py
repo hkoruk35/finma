@@ -5417,6 +5417,7 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
     max_relaxation = 3
     final_top_signals = []
     final_top_watch = []
+    top_analysis_set = []
     
     pool_existing = load_candidate_pool()
     existing_tickers = set(c["ticker"] for c in pool_existing.get("swing_candidates", []) + pool_existing.get("watchlist_candidates", []))
@@ -5919,5 +5920,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n🐂 BOGA AI v117.v4.0 durduruldu.")
     except Exception as e:
-        print(f"❌ Kritik hata: {e}")
+        print(f"Kritik hata: {e}")
         logging.error(f"❌ Kritik hata: {e}")

@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: "Sobre a BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análise do Mercado de Ações dos EUA com IA",
-  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analisa diariamente mais de 6.000 ações e ETFs de destaque dos EUA, identifica os melhores candidatos e entrega análise financeira diária com IA sobre as oportunidades de maior convicção no mercado americano.",
+  description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analisa diariamente mais de 6.000 ações e ETFs de destaque dos EUA, identifica os melhores candidatos e entrega interactive charts diária com IA sobre as oportunidades de maior convicção no mercado americano.",
   alternates: {
     canonical: "https://bogastock.com/global/pt/about",
     languages: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Sobre a BOGASTOCK - Blue One Global Analysis - Daily 6,000+ | Análise do Mercado de Ações dos EUA com IA",
-    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analisa diariamente mais de 6.000 ações e ETFs de destaque dos EUA, identifica os melhores candidatos e entrega análise financeira diária com IA sobre as oportunidades de maior convicção no mercado americano.",
+    description: "BOGASTOCK - Blue One Global Analysis - Daily 6,000+ analisa diariamente mais de 6.000 ações e ETFs de destaque dos EUA, identifica os melhores candidatos e entrega interactive charts diária com IA sobre as oportunidades de maior convicção no mercado americano.",
     url: "https://bogastock.com/global/pt/about",
   },
 };
@@ -39,7 +39,7 @@ export default function PtAboutPage() {
         <div className="text-center mb-20">
           <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">Inteligência do Mercado de Ações dos EUA</p>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-tight">
-            Análise Financeira Diária.<br />
+            Interactive Charts Diária.<br />
             <span className="text-[#3b82f6]">Projetada para os Mercados dos EUA.</span>
           </h1>
           <p className="text-xl text-white max-w-2xl mx-auto leading-relaxed">

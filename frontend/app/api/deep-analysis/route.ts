@@ -746,10 +746,10 @@ function buildFallback(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
 }
 
 const SYSTEM_MSG: Record<"tr" | "en" | "es" | "fr", string> = {
-  tr: `Sen bir finansal analiz asistanısın. YALNIZCA geçerli JSON nesnesi döndür. Hiçbir açıklama, giriş metni veya markdown ekleme. İlk karakter { ve son karakter } olmalıdır.`,
-  en: `You are a financial analysis assistant. Return ONLY a valid JSON object. No explanation, preamble, or markdown. The first character must be { and the last character must be }.`,
-  es: `Eres un asistente de análisis financiero. Devuelve SOLO un objeto JSON válido. Sin explicaciones, preámbulos ni markdown. El primer carácter debe ser { y el último carácter debe ser }.`,
-  fr: `Vous êtes un assistant d'analyse financière. Retournez UNIQUEMENT un objet JSON valide. Pas d'explication, de préambule ou de markdown. Le premier caractère doit être { et le dernier caractère doit être }.`,
+  tr: `Sen bir interactive charts asistanısın. YALNIZCA geçerli JSON nesnesi döndür. Hiçbir açıklama, giriş metni veya markdown ekleme. İlk karakter { ve son karakter } olmalıdır.`,
+  en: `You are a interactive charts assistant. Return ONLY a valid JSON object. No explanation, preamble, or markdown. The first character must be { and the last character must be }.`,
+  es: `Eres un asistente de interactive charts. Devuelve SOLO un objeto JSON válido. Sin explicaciones, preámbulos ni markdown. El primer carácter debe ser { y el último carácter debe ser }.`,
+  fr: `Vous êtes un assistant d'interactive charts. Retournez UNIQUEMENT un objet JSON valide. Pas d'explication, de préambule ou de markdown. Le premier caractère doit être { et le dernier caractère doit être }.`,
 };
 
 // The AI's JSON schema keys are internal plumbing only (never shown to

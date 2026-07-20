@@ -42,15 +42,15 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: {
-    default: "Daily AI analysis of 6,000+ premier US stocks and ETFs by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time",
-    template: "%s | BOGA AI"
+    default: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    template: "%s | BOGASTOCK Terminal"
   },
   description:
-    "Daily AI analysis of 6,000+ premier US stocks and ETFs by BOGA AI - Blue One Global Analysis. Breakout signals, momentum picks, and smart stock screeners updated every time.",
-  keywords: ["US stock AI analysis", "daily stock signals", "stock screener", "breakout stocks", "momentum stocks", "BOGA AI"],
-  authors: [{ name: "BOGA AI Team" }],
-  creator: "BOGA AI",
-  publisher: "BOGA AI",
+    "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+  keywords: ["US stock analysis", "interactive charts", "stock terminal", "market insights", "BOGASTOCK Terminal"],
+  authors: [{ name: "BOGASTOCK Team" }],
+  creator: "BOGASTOCK Terminal",
+  publisher: "BOGASTOCK Terminal",
   alternates: {
     canonical: "https://bogastock.com",
     languages: {
@@ -63,16 +63,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "BOGA AI - Blue One Global Analysis | AI-Powered US Stock Analysis",
-    description: "Daily AI analysis of 6,000+ premier US stocks and ETFs with signals, scores, and smart watchlist by BOGA AI.",
+    title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     url: "https://bogastock.com",
-    siteName: "BOGA AI",
+    siteName: "BOGASTOCK Terminal",
     images: [
       {
         url: "/finmawave.png",
         width: 1200,
         height: 630,
-        alt: "BOGA AI Analysis",
+        alt: "BOGASTOCK Terminal",
       },
     ],
     locale: "en_US",
@@ -80,8 +80,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BOGA AI - AI Stock Signals & Analysis",
-    description: "Daily AI analysis of 6,000+ premier US stocks and ETFs.",
+    title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
     images: ["/finmawave.png"],
   },
   icons: {
@@ -96,7 +96,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "BOGA AI",
+    title: "BOGASTOCK Terminal",
     statusBarStyle: "black-translucent",
   },
   formatDetection: {

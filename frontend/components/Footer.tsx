@@ -108,7 +108,7 @@ export default function Footer({
                   className="object-contain rounded-lg"
                 />
               </div>
-              <span className="text-base font-black text-white tracking-tighter">BOGA<span className="text-[#3b82f6]">STOCK</span> - Blue One Global<br/>Analysis</span>
+              <span className="text-base font-black text-white tracking-tighter">BOGA<span className="text-[#3b82f6]">STOCK</span> TERMINAL</span>
             </div>
             <p className="text-xs text-[#00d2ff]">
               {BRAND_TAGLINE[locale ?? "en"]}

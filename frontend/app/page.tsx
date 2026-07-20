@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
-  title: "BOGA AI - AI-Powered US Stock Analysis & Global Trading",
-  description: "AI-powered financial market analysis for stocks, commodities, and crypto. Support for over 50 languages.",
+  title: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+  description: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
   alternates: {
     canonical: "https://bogastock.com",
   },
