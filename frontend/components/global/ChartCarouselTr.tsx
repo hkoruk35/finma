@@ -1,32 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface Slide {
   id: string;
   image: string;
   title: string;
-  description: string;
 }
 
 const SLIDES: Slide[] = [
   {
     id: "chart",
-    image: "/carousel/chart-indicators.svg",
+    image: "/carousel/chart-indicators.png",
     title: "Gelişmiş Grafik Göstergeleri",
-    description: "EMA, RSI, MACD, Bollinger Bantları ve daha fazlası. Gerçek zamanlı teknik analiz araçlarıyla trading stratejinizi geliştirin.",
   },
   {
     id: "swing",
-    image: "/carousel/swing-strategy.svg",
+    image: "/carousel/swing-strategy.png",
     title: "Swing Trade Stratejisi",
-    description: "BOGA AI'ın günlük analiz ve giriş/hedef/stop seviyeleri. Power Pullback havuzasında ve hassas risk yönetimi ile işlem yapın.",
   },
   {
     id: "mobile",
-    image: "/carousel/mobile-ready.svg",
+    image: "/carousel/mobile-ready.png",
     title: "Mobil Uyumlu Deneyim",
-    description: "İşte ara göstergeleri sadece bir dokunuşta açın. Hareketli cihazlarda minimum kümeleme, maksimum kontrol.",
   },
 ];
 
@@ -54,12 +51,12 @@ export default function ChartCarouselTr() {
 
   return (
     <div
-      className="relative w-full mb-10 bg-gradient-to-br from-[#0d1117] to-[#0a0e17] border border-[#1e2a3a] rounded-3xl overflow-hidden"
+      className="relative w-full mb-10 bg-[#0d1117] border border-[#1e2a3a] rounded-3xl overflow-hidden"
       onMouseEnter={() => setAutoPlay(false)}
       onMouseLeave={() => setAutoPlay(true)}
     >
       {/* Carousel Container */}
-      <div className="relative h-[300px] md:h-[350px] overflow-hidden">
+      <div className="relative h-[350px] md:h-[450px] overflow-hidden">
         {/* Slides */}
         <div className="relative w-full h-full">
           {SLIDES.map((slide, idx) => (
@@ -69,16 +66,20 @@ export default function ChartCarouselTr() {
                 idx === current ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0d1117] via-[#030073]/5 to-[#0a0e17]">
-                {/* Content */}
-                <div className="px-6 md:px-10 py-8 md:py-12 text-center z-10 max-w-3xl">
-                  <h3 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
-                    {slide.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-white/70 leading-relaxed">
-                    {slide.description}
-                  </p>
-                </div>
+              {/* Image */}
+              <Image
+                src={slide.image}
+                alt={slide.title}
+                fill
+                className="object-cover"
+                priority={idx === 0}
+              />
+
+              {/* Title Overlay at Bottom */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0e17] via-[#0a0e17]/50 to-transparent px-6 md:px-10 py-6 md:py-8 z-10">
+                <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                  {slide.title}
+                </h3>
               </div>
             </div>
           ))}
