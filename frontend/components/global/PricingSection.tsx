@@ -159,7 +159,7 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
           <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">
             <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mb-1">{c.firstMonthLabel}</div>
             <div className="text-xl md:text-2xl font-black text-white">
-              $19<span className="text-xs font-semibold text-white/40">{c.perMonth}</span>
+              $9<span className="text-xs font-semibold text-white/40">{c.perMonth}</span>
             </div>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">

@@ -97,7 +97,7 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
 
         <div className="flex items-baseline gap-2 mb-4 px-4 py-3 rounded-xl bg-[#f59e0b]/10 border border-[#f59e0b]/20">
           <span className="text-white/40 text-sm line-through">$39</span>
-          <span className="text-[#22c55e] text-3xl font-black">$19</span>
+          <span className="text-[#22c55e] text-3xl font-black">$9</span>
           <span className="text-white/50 text-[11px]">
             {locale === "tr" ? "/ ilk ay" : locale === "es" ? "/ primer mes" : locale === "pt" ? "/ primeiro mês" : "/ first month"}
           </span>
