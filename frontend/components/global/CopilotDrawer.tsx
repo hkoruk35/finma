@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import Draggable from "react-draggable";
 import { useCopilot } from "@/context/CopilotContext";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";

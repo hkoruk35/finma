@@ -98,15 +98,18 @@ interface Props {
   defaultStocks: Stock[];
   defaultViewAllHref: string;
   defaultSortLabel?: string;
+  compactMode?: boolean;
+  disableHoverChart?: boolean;
 }
 
-export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel }: Props) {
+export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart }: Props) {
   const [personalTickers, setPersonalTickers] = useState<string[]>([]);
   const [liveData, setLiveData] = useState<Record<string, LiveWatchData>>({});
   const [loaded, setLoaded] = useState(false);
   const { isFreeTrial } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
+  const gridCols = compactMode ? 'grid-cols-[1fr_56px_72px]' : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
 
   useEffect(() => {
@@ -198,7 +201,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
             <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
               <span>{labels.stock}</span>
               <span />
-              <span className="text-center">{labels.status}</span>
+              {!compactMode && <span className="text-center">{labels.status}</span>}
               <span className="text-right">{labels.price}</span>
             </div>
 
@@ -218,7 +221,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                       <div className="min-w-0">
                         {locked ? (
                           <>
-                            <div className="font-black text-sm tracking-tight select-none flex items-center gap-1" style={{ color: '#f59e0b' }}>
+                            <div className="font-medium text-sm tracking-tight select-none flex items-center gap-1" style={{ color: '#f59e0b' }}>
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
@@ -226,9 +229,13 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                           </>
                         ) : (
                           <>
-                            <TickerHoverChart ticker={stock.ticker}>
-                              <div className="font-black text-white text-sm tracking-tight">{stock.ticker}</div>
-                            </TickerHoverChart>
+                            {disableHoverChart ? (
+                              <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
+                            ) : (
+                              <TickerHoverChart ticker={stock.ticker}>
+                                <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
+                              </TickerHoverChart>
+                            )}
                             <div className="text-[11px] text-white/70 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         )}
@@ -239,12 +246,15 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                       <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
                     </div>
 
-                    <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                    {!compactMode && (
+                      <span
+                        className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+
                       style={{ background: `${st.color}26`, color: st.color }}
                     >
                       {slabel}
                     </span>
+                    )}
 
                     <div className="text-right">
                       <div className="font-mono text-sm font-semibold text-white/90">

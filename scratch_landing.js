@@ -1,4 +1,6 @@
-"use client";
+const fs = require('fs');
+
+const code = `"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -86,7 +88,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   useEffect(() => {
     // Fetch prices for all markets
     const allSymbols = GROUPS.flatMap(g => g.items.map(i => i.ySymbol)).join(",");
-    fetch(`/api/quote?tickers=${allSymbols}`)
+    fetch(\`/api/quote?tickers=\${allSymbols}\`)
       .then(r => r.json())
       .then(d => setPrices(d))
       .catch(() => {});
@@ -94,7 +96,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
   const aiText = locale === 'tr' ? 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.' 
                : locale === 'es' ? 'BOGA AI puede realizar comprobaciones generales instantáneas en todo el mercado estadounidense.'
-               : locale === 'fr' ? 'BOGA AI peut effectuer des contrôles généraux instantanés sur l\'ensemble du marché américain.'
+               : locale === 'fr' ? 'BOGA AI peut effectuer des contrôles généraux instantanés sur l\\'ensemble du marché américain.'
                : locale === 'pt' ? 'A BOGA AI pode realizar verificações gerais instantâneas em todo o mercado dos EUA.'
                : 'BOGA AI can perform instant general checks across the entire US market.';
 
@@ -130,12 +132,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       <main className="flex-1 flex flex-col md:flex-row max-w-[1600px] w-full mx-auto relative overflow-hidden">
         
         {/* LEFT COLUMN: MARKETS */}
-        <div className={`
-          ${showMobileSidebar ? 'block fixed inset-0 z-40 bg-[#0a0e17] overflow-y-auto pt-16 pb-20 px-4' : 'hidden'}
-          ${showLeftSidebar ? 'md:block md:w-48 lg:w-56' : 'md:hidden'}
+        <div className={\`
+          \${showMobileSidebar ? 'block fixed inset-0 z-40 bg-[#0a0e17] overflow-y-auto pt-16 pb-20 px-4' : 'hidden'}
+          \${showLeftSidebar ? 'md:block md:w-48 lg:w-56' : 'md:hidden'}
           md:static md:border-r border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
           shrink-0 bg-[#0a0e17] transition-all duration-300
-        `}>
+        \`}>
           {showMobileSidebar && (
             <button onClick={() => setShowMobileSidebar(false)} className="md:hidden absolute top-4 right-4 p-2 bg-[#1e2a3a] rounded-lg text-white">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,9 +163,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           setSelectedYSymbol(item.ySymbol);
                           setShowMobileSidebar(false);
                         }}
-                        className={`flex items-center justify-between px-3 py-2 cursor-pointer border-l-2 transition-colors ${
+                        className={\`flex items-center justify-between px-3 py-2 cursor-pointer border-l-2 transition-colors \${
                           selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
-                        }`}
+                        }\`}
                       >
                         <div className="min-w-0 pr-2">
                           <div className="text-[12px] font-medium text-white truncate">{item.ticker}</div>
@@ -174,7 +176,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                             {price?.price != null ? fmt(price.price) : "..."}
                           </div>
                           {chg != null && (
-                            <div className={`text-[10px] font-mono ${pColor(chg)}`}>
+                            <div className={\`text-[10px] font-mono \${pColor(chg)}\`}>
                               {sgn(chg)}{fmt(chg)}%
                             </div>
                           )}
@@ -189,10 +191,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         </div>
 
         {/* MIDDLE COLUMN: CHART */}
-        <div className={`
+        <div className={\`
           flex-1 min-w-0 flex flex-col md:overflow-y-auto md:h-[calc(100vh-64px)]
-          ${showMobileSidebar ? 'hidden md:flex' : 'flex'}
-        `}>
+          \${showMobileSidebar ? 'hidden md:flex' : 'flex'}
+        \`}>
           
           <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] bg-[#0a0e17] shrink-0">
             <div className="flex items-center gap-2">
@@ -263,16 +265,16 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         </div>
 
         {/* RIGHT COLUMN: WATCHLIST */}
-        <div className={`
-          ${showMobileSidebar ? 'block pb-24 px-4' : 'hidden'}
-          ${showRightSidebar ? 'md:block md:w-64 lg:w-80' : 'md:hidden'}
+        <div className={\`
+          \${showMobileSidebar ? 'block pb-24 px-4' : 'hidden'}
+          \${showRightSidebar ? 'md:block md:w-64 lg:w-80' : 'md:hidden'}
           md:border-l border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
           shrink-0 bg-[#0a0e17] p-2 md:p-4 transition-all duration-300
-        `}>
+        \`}>
           <HomeWatchlistSlot 
             locale={locale} 
             defaultStocks={defaultWatchlist} 
-            defaultViewAllHref={`/global/${locale}/watchlist`} 
+            defaultViewAllHref={\`/global/\${locale}/watchlist\`} 
             compactMode={true}
             disableHoverChart={true}
           />
@@ -284,3 +286,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
     </div>
   );
 }
+`;
+
+fs.writeFileSync('frontend/components/global/GlobalLandingPage.tsx', code, 'utf8');
+console.log('Updated GlobalLandingPage.tsx');
