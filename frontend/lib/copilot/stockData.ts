@@ -9,6 +9,20 @@ import { getStockData } from "@/lib/data";
 import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
 
+async function searchTickerByName(query: string): Promise<string | null> {
+  try {
+    const res = await fetch(`/api/tickers/search?q=${encodeURIComponent(query)}`, {
+      signal: AbortSignal.timeout(3000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const results: Array<{ ticker: string; company: string }> = data?.results ?? [];
+    return results.length > 0 ? results[0].ticker : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface CopilotStockCard {
   ticker: string;
   companyName: string;
@@ -51,10 +65,20 @@ function deriveRiskLevel(riskReward: number | undefined, lang: string): string {
 }
 
 export async function getRealStockCardData(ticker: string, lang: string = "tr"): Promise<CopilotStockCard | null> {
-  const t = ticker.trim().toUpperCase();
+  let t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
 
-  const data = await getStockData(t);
+  let data = await getStockData(t);
+
+  // Eğer ilk ticker yoksa (model yanlış tahmin ediyor olabilir, örn. "FORD" yerine "F"),
+  // şirket adı olarak düşünüp gerçek sembolü ara.
+  if (!data) {
+    const realTicker = await searchTickerByName(t);
+    if (realTicker && realTicker !== t) {
+      t = realTicker;
+      data = await getStockData(t);
+    }
+  }
 
   // Curated havuzda yoksa (MOH gibi gerçek ama skorlanmayan hisse) canlı BOGA
   // motoruna düş — grafik sayfasının kullandığı aynı /api/preorder-analysis.

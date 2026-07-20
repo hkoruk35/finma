@@ -8,6 +8,20 @@ import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis } from "@/lib/copilot/liveAnalysis";
 import { getLiveFundamentals } from "@/lib/copilot/liveFundamentals";
 
+async function searchTickerByName(query: string): Promise<string | null> {
+  try {
+    const res = await fetch(`/api/tickers/search?q=${encodeURIComponent(query)}`, {
+      signal: AbortSignal.timeout(3000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const results: Array<{ ticker: string; company: string }> = data?.results ?? [];
+    return results.length > 0 ? results[0].ticker : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface CopilotDeepAnalysis {
   ticker: string;
   // "curated": BOGA'nın statik taranmış havuzundan; "live": curated'da yok,
@@ -77,10 +91,21 @@ export interface CopilotDeepAnalysis {
 }
 
 export async function getDeepAnalysis(ticker: string, lang: string = "en"): Promise<CopilotDeepAnalysis | null> {
-  const t = ticker.trim().toUpperCase();
+  let t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
 
-  const [data, perf] = await Promise.all([getStockData(t), getSwingPerformance().catch(() => null)]);
+  let data = await getStockData(t);
+
+  // Eğer ilk ticker yoksa, şirket adı olarak düşünüp gerçek sembolü ara.
+  if (!data) {
+    const realTicker = await searchTickerByName(t);
+    if (realTicker && realTicker !== t) {
+      t = realTicker;
+      data = await getStockData(t);
+    }
+  }
+
+  const perf = await getSwingPerformance().catch(() => null);
   // Not: getStockData null dönebilir (BOGA'nın aktif dar tarama havuzunda değil —
   // ör. MU gibi gerçek ama şu an skorlanmayan bir hisse). Bu durumda fundamental/
   // insider/sector/news yok sayılır AMA geçmiş işlem performansı (swing_performance.json)

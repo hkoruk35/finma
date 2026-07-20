@@ -6,6 +6,20 @@
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
 
+async function searchTickerByName(query: string): Promise<string | null> {
+  try {
+    const res = await fetch(`/api/tickers/search?q=${encodeURIComponent(query)}`, {
+      signal: AbortSignal.timeout(3000),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const results: Array<{ ticker: string; company: string }> = data?.results ?? [];
+    return results.length > 0 ? results[0].ticker : null;
+  } catch {
+    return null;
+  }
+}
+
 export interface TechnicalLevels {
   ticker: string;
   currentPrice: number;
@@ -51,75 +65,90 @@ function trendDirection(vals: (number | null)[], lookback = 5): "rising" | "fall
 }
 
 export async function getTechnicalLevels(ticker: string): Promise<TechnicalLevels | null> {
-  const t = ticker.trim().toUpperCase();
+  let t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
 
-  try {
-    const res = await fetch(
-      `${BASE_URL}/api/chart-data?ticker=${encodeURIComponent(t)}&timeframe=D&indicators=ema20,ema50,ema200,rsi,sr`,
-      { signal: AbortSignal.timeout(10000), cache: "no-store" }
-    );
-    if (!res.ok) return null;
-    const d = await res.json();
-    const bars: Array<{ close: number; volume: number }> = d?.bars || [];
-    if (bars.length === 0) return null;
-
-    const currentPrice = bars[bars.length - 1].close;
-    const closes = bars.map((b) => b.close);
-    const volumes = bars.map((b) => b.volume);
-
-    const ema20 = lastValue(d.indicators?.ema20);
-    const ema50 = lastValue(d.indicators?.ema50);
-    const ema200 = lastValue(d.indicators?.ema200);
-    const rsiArr: (number | null)[] = d.indicators?.rsi || [];
-    const rsi14 = lastValue(rsiArr);
-
-    const pctDist = (ema: number | null) => (ema ? +(((currentPrice - ema) / ema) * 100).toFixed(2) : null);
-
-    const pctChange = (idxFromEnd: number): number | null => {
-      const i = bars.length - 1 - idxFromEnd;
-      if (i < 0 || !bars[i]) return null;
-      const base = bars[i].close;
-      return base > 0 ? +(((currentPrice - base) / base) * 100).toFixed(2) : null;
-    };
-
-    const avgVol20 =
-      volumes.length > 0
-        ? volumes.slice(-20).reduce((a, b) => a + b, 0) / Math.min(20, volumes.length)
-        : null;
-    const volumeToday = volumes[volumes.length - 1] ?? null;
-    const volumeVsAvgPct =
-      avgVol20 && volumeToday != null ? +(((volumeToday - avgVol20) / avgVol20) * 100).toFixed(1) : null;
-
-    const sr: Array<{ price: number; type: "support" | "resistance" }> = d.sr || [];
-    const supports = sr
-      .filter((s) => s.type === "support" && s.price < currentPrice)
-      .sort((a, b) => b.price - a.price);
-    const resistances = sr
-      .filter((s) => s.type === "resistance" && s.price > currentPrice)
-      .sort((a, b) => a.price - b.price);
-
-    return {
-      ticker: t,
-      currentPrice: +currentPrice.toFixed(2),
-      change1dPct: pctChange(1),
-      change5dPct: pctChange(5),
-      change1mPct: pctChange(21),
-      change1yPct: bars.length > 1 ? +(((currentPrice - bars[0].close) / bars[0].close) * 100).toFixed(2) : null,
-      ema20, ema50, ema200,
-      distFromEma20Pct: pctDist(ema20),
-      distFromEma50Pct: pctDist(ema50),
-      distFromEma200Pct: pctDist(ema200),
-      rsi14,
-      rsiTrend5d: trendDirection(rsiArr),
-      volumeToday,
-      avgVolume20d: avgVol20 != null ? Math.round(avgVol20) : null,
-      volumeVsAvgPct,
-      priceTrend5d: trendDirection(closes),
-      nearestSupport: supports[0]?.price ?? null,
-      nearestResistance: resistances[0]?.price ?? null,
-    };
-  } catch {
-    return null;
+  async function fetchChartData(ticker: string) {
+    try {
+      const res = await fetch(
+        `${BASE_URL}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=D&indicators=ema20,ema50,ema200,rsi,sr`,
+        { signal: AbortSignal.timeout(10000), cache: "no-store" }
+      );
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
   }
+
+  let d = await fetchChartData(t);
+
+  // Eğer ilk ticker yoksa, şirket adı olarak düşünüp gerçek sembolü ara.
+  if (!d?.bars || d.bars.length === 0) {
+    const realTicker = await searchTickerByName(t);
+    if (realTicker && realTicker !== t) {
+      t = realTicker;
+      d = await fetchChartData(t);
+    }
+  }
+
+  if (!d?.bars) return null;
+  const bars: Array<{ close: number; volume: number }> = d.bars || [];
+  if (bars.length === 0) return null;
+
+  const currentPrice = bars[bars.length - 1].close;
+  const closes = bars.map((b) => b.close);
+  const volumes = bars.map((b) => b.volume);
+
+  const ema20 = lastValue(d.indicators?.ema20);
+  const ema50 = lastValue(d.indicators?.ema50);
+  const ema200 = lastValue(d.indicators?.ema200);
+  const rsiArr: (number | null)[] = d.indicators?.rsi || [];
+  const rsi14 = lastValue(rsiArr);
+
+  const pctDist = (ema: number | null) => (ema ? +(((currentPrice - ema) / ema) * 100).toFixed(2) : null);
+
+  const pctChange = (idxFromEnd: number): number | null => {
+    const i = bars.length - 1 - idxFromEnd;
+    if (i < 0 || !bars[i]) return null;
+    const base = bars[i].close;
+    return base > 0 ? +(((currentPrice - base) / base) * 100).toFixed(2) : null;
+  };
+
+  const avgVol20 =
+    volumes.length > 0
+      ? volumes.slice(-20).reduce((a, b) => a + b, 0) / Math.min(20, volumes.length)
+      : null;
+  const volumeToday = volumes[volumes.length - 1] ?? null;
+  const volumeVsAvgPct =
+    avgVol20 && volumeToday != null ? +(((volumeToday - avgVol20) / avgVol20) * 100).toFixed(1) : null;
+
+  const sr: Array<{ price: number; type: "support" | "resistance" }> = d.sr || [];
+  const supports = sr
+    .filter((s) => s.type === "support" && s.price < currentPrice)
+    .sort((a, b) => b.price - a.price);
+  const resistances = sr
+    .filter((s) => s.type === "resistance" && s.price > currentPrice)
+    .sort((a, b) => a.price - b.price);
+
+  return {
+    ticker: t,
+    currentPrice: +currentPrice.toFixed(2),
+    change1dPct: pctChange(1),
+    change5dPct: pctChange(5),
+    change1mPct: pctChange(21),
+    change1yPct: bars.length > 1 ? +(((currentPrice - bars[0].close) / bars[0].close) * 100).toFixed(2) : null,
+    ema20, ema50, ema200,
+    distFromEma20Pct: pctDist(ema20),
+    distFromEma50Pct: pctDist(ema50),
+    distFromEma200Pct: pctDist(ema200),
+    rsi14,
+    rsiTrend5d: trendDirection(rsiArr),
+    volumeToday,
+    avgVolume20d: avgVol20 != null ? Math.round(avgVol20) : null,
+    volumeVsAvgPct,
+    priceTrend5d: trendDirection(closes),
+    nearestSupport: supports[0]?.price ?? null,
+    nearestResistance: resistances[0]?.price ?? null,
+  };
 }
