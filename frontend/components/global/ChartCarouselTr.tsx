@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 
 interface Slide {
   id: string;
@@ -60,7 +59,7 @@ export default function ChartCarouselTr() {
       onMouseLeave={() => setAutoPlay(true)}
     >
       {/* Carousel Container */}
-      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+      <div className="relative h-[300px] md:h-[350px] overflow-hidden">
         {/* Slides */}
         <div className="relative w-full h-full">
           {SLIDES.map((slide, idx) => (
@@ -70,31 +69,13 @@ export default function ChartCarouselTr() {
                 idx === current ? "opacity-100" : "opacity-0"
               }`}
             >
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#0d1117] via-[#030073]/5 to-[#0a0e17]">
-                {/* Image Placeholder / Actual Image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src={slide.image}
-                      alt={slide.title}
-                      fill
-                      className="object-cover opacity-90"
-                      priority={idx === 0}
-                      onError={() => {
-                        /* Fallback: render placeholder if image fails */
-                      }}
-                    />
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e17] via-transparent to-transparent" />
-                  </div>
-                </div>
-
-                {/* Content Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 px-6 md:px-10 py-8 md:py-12 z-10">
-                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight">
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0d1117] via-[#030073]/5 to-[#0a0e17]">
+                {/* Content */}
+                <div className="px-6 md:px-10 py-8 md:py-12 text-center z-10 max-w-3xl">
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
                     {slide.title}
                   </h3>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed max-w-2xl">
+                  <p className="text-base md:text-lg text-white/70 leading-relaxed">
                     {slide.description}
                   </p>
                 </div>
