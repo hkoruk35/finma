@@ -4952,7 +4952,12 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
         # PENDING
         if _days_since_ny(entry.get("first_seen_date", today_str)) >= SWING_PENDING_MAX_DAYS:
             continue  # 2 gün giriş yok → düş
-        if t not in fresh_swing and t not in l1b_pass_tickers:
+        # "setup bozuldu" eleme kuralı SADECE bu tarama gerçekten aday
+        # ürettiyse uygulanır (l1b_pass_tickers boş değilse) — aksi halde
+        # tek bir 0-sonuçlu taramanın (gevşetme 4 katına çıkıp yine de hiçbir
+        # şey bulamadığı bir çalıştırma gibi) tüm PENDING havuzunu silmesi
+        # engellenir. Yaş bazlı eleme (yukarıdaki satır) hâlâ çalışıyor.
+        if l1b_pass_tickers and t not in fresh_swing and t not in l1b_pass_tickers:
             continue  # setup bozuldu → düş
         if t in fresh_swing:
             c = fresh_swing[t]
@@ -5027,7 +5032,11 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
             continue  # swing havuzuna terfi etti
         if _days_since_ny(entry.get("first_seen_date", today_str)) >= WATCHLIST_MAX_DAYS:
             continue
-        if t not in fresh_watch and t not in l1b_pass_tickers:
+        # bkz. swing_candidates PENDING eleme bloğundaki aynı yorum — sadece
+        # bu tarama gerçekten aday bulduysa (l1b_pass_tickers dolu) "setup
+        # bozuldu" gerekçesiyle elenir, aksi halde watchlist'in tamamı
+        # tek bir 0-sonuçlu taramada silinmez.
+        if l1b_pass_tickers and t not in fresh_watch and t not in l1b_pass_tickers:
             continue  # setup bozuldu
         if t in fresh_watch:
             entry["last_checked"] = today_str
@@ -5680,9 +5689,26 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
         output_all = clean_nan(_wrap_picks(pool_signal_entries))
         output_signals = clean_nan(_wrap_picks(entered_only))
 
-        with open(full_archive_path, "w", encoding="utf-8") as f:
-            json.dump(output_terminal, f, indent=2, ensure_ascii=False, default=str)
-        logging.info(f"📁 Archived: {full_archive_path}")
+        # Günde 3 kez (09/14/17 NY) FULL_SCAN çalışıyor ve hepsi AYNI günün
+        # arşiv dosyasına yazıyor. Bu run 0 aday bulduysa (combined boş) ve
+        # bugün için zaten dolu bir arşiv varsa (erken bir çalıştırma aday
+        # bulmuştu), üzerine boş veriyle yazıp o adayı silmeyelim.
+        skip_archive_overwrite = False
+        if not combined and os.path.exists(full_archive_path):
+            try:
+                with open(full_archive_path, "r", encoding="utf-8") as f_prev:
+                    prev_archive = json.load(f_prev)
+                if prev_archive.get("total_picks", 0) > 0:
+                    skip_archive_overwrite = True
+            except Exception:
+                pass
+
+        if skip_archive_overwrite:
+            logging.info(f"📁 Archive korundu: {full_archive_path} (bu tarama 0 aday buldu, mevcut kayıtlar silinmedi)")
+        else:
+            with open(full_archive_path, "w", encoding="utf-8") as f:
+                json.dump(output_terminal, f, indent=2, ensure_ascii=False, default=str)
+            logging.info(f"📁 Archived: {full_archive_path}")
 
         os.makedirs(FRONTEND_PUBLIC_DIR, exist_ok=True)
 
