@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "MSGE",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 76.14,
+        "entry_zone": "74.99 - 77.30",
+        "SL": 71.53,
+        "TP": 85.37
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "CNK",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 31.6,
+        "entry_zone": "31.00 - 32.21",
+        "SL": 29.18,
+        "TP": 36.45
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "HOG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 28.06,
+        "entry_zone": "27.58 - 28.54",
+        "SL": 26.14,
+        "TP": 31.9
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "RSI",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 33.83,
+        "entry_zone": "33.19 - 34.46",
+        "SL": 31.3,
+        "TP": 38.87
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "FLNG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 30.93,
+        "entry_zone": "30.46 - 31.40",
+        "SL": 29.06,
+        "TP": 34.67
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "GPN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 80.65,
+        "entry_zone": "79.02 - 82.29",
+        "SL": 74.11,
+        "TP": 93.75
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "YOU",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 56.76,
+        "entry_zone": "55.43 - 58.08",
+        "SL": 51.44,
+        "TP": 67.39
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "DRH",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 12.83,
+        "entry_zone": "12.69 - 12.97",
+        "SL": 12.26,
+        "TP": 13.97
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "SGHC",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 15.62,
+        "entry_zone": "15.32 - 15.92",
+        "SL": 14.43,
+        "TP": 18.01
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "INSP",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 52.25,
+        "entry_zone": "51.01 - 53.49",
+        "SL": 47.28,
+        "TP": 62.19
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "CORT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 94.6,
+        "entry_zone": "92.59 - 96.61",
+        "SL": 86.55,
+        "TP": 110.7
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "LPG",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 44.58,
+        "entry_zone": "43.65 - 45.52",
+        "SL": 40.86,
+        "TP": 52.04
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "SYRE",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 101.29,
+        "entry_zone": "98.16 - 104.42",
+        "SL": 88.78,
+        "TP": 126.3
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "SJM",
+        "sector": "Consumer Defensive",
+        "action": "BUY",
+        "price": 114.21,
+        "entry_zone": "112.57 - 115.85",
+        "SL": 107.65,
+        "TP": 127.33
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "TNK",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 74.98,
+        "entry_zone": "73.49 - 76.47",
+        "SL": 69.01,
+        "TP": 86.92
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "BABA",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 118.1,
+        "entry_zone": "115.98 - 120.22",
+        "SL": 109.61,
+        "TP": 135.09
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "BLBD",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 81.41,
+        "entry_zone": "79.94 - 82.88",
+        "SL": 75.53,
+        "TP": 93.17
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "NTES",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 130.62,
+        "entry_zone": "128.86 - 132.37",
+        "SL": 123.58,
+        "TP": 144.69
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "EL",
+        "sector": "Consumer Defensive",
+        "action": "WATCH",
+        "price": 82.59,
+        "entry_zone": "81.21 - 83.97",
+        "SL": 77.09,
+        "TP": 93.59
+    },
+    {
+        "date": "2026-07-21 11:45",
+        "symbol": "CLSK",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 15.51,
+        "entry_zone": "14.83 - 16.18",
+        "SL": 12.81,
+        "TP": 20.9
+    }
+]
