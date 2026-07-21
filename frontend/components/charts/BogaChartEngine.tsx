@@ -84,6 +84,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
     multiChartScreen: "Multi-Chart Screen", charts: "Charts",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Market Structure", catPatterns: "Patterns", catDrawings: "Drawing Tools",
+    autoChartPatterns: "Auto Chart Patterns", basicCandlePatterns: "Basic Candlestick Patterns",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -96,6 +97,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
     multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
+    autoChartPatterns: "Otomatik Chart Patterns", basicCandlePatterns: "Temel Candlestick Patterns",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -108,6 +110,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
     multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
     catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
+    autoChartPatterns: "Patrones de Gráficos Automáticos", basicCandlePatterns: "Patrones Básicos de Velas",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -120,6 +123,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
     multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
     catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
+    autoChartPatterns: "Modèles de Graphiques Automatiques", basicCandlePatterns: "Modèles de Bougies de Base",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -132,13 +136,14 @@ const LABELS: Record<Locale, Record<string, string>> = {
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
     multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
     catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
+    autoChartPatterns: "Padrões Gráficos Automáticos", basicCandlePatterns: "Padrões Básicos de Velas",
   },
 };
 
 // Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki
 // gosterge — geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
 // tiklaninca PremiumModal acar, aktif edilemez.
-const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi"]);
+const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume"]);
 
 const INTERVALS: { label: string; value: string }[] = [
   { label: "15M", value: "15" },
@@ -164,7 +169,7 @@ type CandleType = (typeof CANDLE_TYPES)[number];
 const VP_MARGIN_BARS = 16;
 const DEFAULT_RIGHT_OFFSET = 5;
 
-const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "rsi", "macd", "bb", "vwap", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3"] as const;
+const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 // Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
 // canlida /api/preorder-analysis'ten cekilen entryZone/stop/targets verisine
@@ -709,6 +714,7 @@ export default function BogaChartEngine({
         color: b.close >= b.open ? `${UP_COLOR}cc` : `${DOWN_COLOR}cc`,
       }))
     );
+    volumeSeries.applyOptions({ visible: active.has("volume") });
 
     // Clear previous overlays
     for (const key of Object.keys(lineSeriesRefs.current) as IndicatorKey[]) {
@@ -749,22 +755,62 @@ export default function BogaChartEngine({
       lineSeriesRefs.current.vwap = [series];
     }
 
+    if (active.has("sma") && ind.sma) {
+      const series = chart.addSeries(LineSeries, { color: "#8b5cf6", lineWidth: 2, priceLineVisible: false });
+      series.setData(toPoints(ind.sma) || []);
+      lineSeriesRefs.current.sma = [series];
+    }
+    
+    if (active.has("supertrend") && ind.supertrend) {
+      const st = ind.supertrend as { supertrend: (number | null)[]; direction: (number | null)[] };
+      const series = chart.addSeries(LineSeries, { color: "#a855f7", lineWidth: 2, priceLineVisible: false });
+      series.setData(toPoints(st.supertrend) || []);
+      lineSeriesRefs.current.supertrend = [series];
+    }
+
+    let nextPaneIdx = 2;
+
     if (active.has("rsi") && ind.rsi) {
-      const series = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, 2);
+      const series = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 2 }, nextPaneIdx);
       series.setData(toPoints(ind.rsi) || []);
-      chart.panes()[2]?.setHeight(90);
+      chart.panes()[nextPaneIdx]?.setHeight(90);
       lineSeriesRefs.current.rsi = [series];
+      nextPaneIdx++;
     }
 
     if (active.has("macd") && ind.macd) {
       const m = ind.macd as { macd: (number | null)[]; signal: (number | null)[]; histogram: (number | null)[] };
-      const paneIdx = active.has("rsi") ? 3 : 2;
-      const macdLine = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 1 }, paneIdx);
+      const macdLine = chart.addSeries(LineSeries, { color: "#38bdf8", lineWidth: 1 }, nextPaneIdx);
       macdLine.setData(toPoints(m.macd) || []);
-      const signalLine = chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, paneIdx);
+      const signalLine = chart.addSeries(LineSeries, { color: "#f97316", lineWidth: 1 }, nextPaneIdx);
       signalLine.setData(toPoints(m.signal) || []);
-      chart.panes()[paneIdx]?.setHeight(90);
+      chart.panes()[nextPaneIdx]?.setHeight(90);
       lineSeriesRefs.current.macd = [macdLine, signalLine];
+      nextPaneIdx++;
+    }
+    
+    if (active.has("atr") && ind.atr) {
+      const series = chart.addSeries(LineSeries, { color: "#ec4899", lineWidth: 2 }, nextPaneIdx);
+      series.setData(toPoints(ind.atr) || []);
+      chart.panes()[nextPaneIdx]?.setHeight(90);
+      lineSeriesRefs.current.atr = [series];
+      nextPaneIdx++;
+    }
+    
+    if (active.has("obv") && ind.obv) {
+      const series = chart.addSeries(LineSeries, { color: "#14b8a6", lineWidth: 2 }, nextPaneIdx);
+      series.setData(toPoints(ind.obv) || []);
+      chart.panes()[nextPaneIdx]?.setHeight(90);
+      lineSeriesRefs.current.obv = [series];
+      nextPaneIdx++;
+    }
+    
+    if (active.has("volatilite") && ind.volatilite) {
+      const series = chart.addSeries(LineSeries, { color: "#f43f5e", lineWidth: 2 }, nextPaneIdx);
+      series.setData(toPoints(ind.volatilite) || []);
+      chart.panes()[nextPaneIdx]?.setHeight(90);
+      lineSeriesRefs.current.volatilite = [series];
+      nextPaneIdx++;
     }
 
     if (active.has("sr") && data.sr) {
@@ -1058,32 +1104,30 @@ export default function BogaChartEngine({
                   {t.indicators} <span className="text-[9px]">{indicatorsMenuOpen ? "▴" : "▾"}</span>
                 </button>
                 {indicatorsMenuOpen && (
-                  <div className="absolute left-0 mt-1 w-56 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
+                  <div className="absolute left-0 mt-1 w-72 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-1 px-2 uppercase tracking-widest">{t.catTrend || "Trend"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">EMA</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">SMA</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Supertrend</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">MACD</button>
+                    {(["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "macd"] as IndicatorKey[]).map(k => (
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "supertrend" ? "Supertrend" : k.toUpperCase())}</button>
+                    ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catMomentum || "Momentum"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">RSI</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Volatilite</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Bollinger Bands</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">ATR</button>
+                    {(["rsi", "volatilite", "bb", "atr"] as IndicatorKey[]).map(k => (
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volatilite" ? "Volatilite" : k === "bb" ? "Bollinger Bands" : k.toUpperCase())}</button>
+                    ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catVolume || "Hacim"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Volume</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">VWAP</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">OBV</button>
+                    {(["volume", "vwap", "obv", "volumeProfile"] as IndicatorKey[]).map(k => (
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volume" ? "Volume" : k === "volumeProfile" ? "Volume Profile" : k.toUpperCase())}</button>
+                    ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Support & Resistance</button>
+                    <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
                     <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Supply & Demand Zones</button>
                     <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Fair Value Gap (FVG)</button>
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catPatterns || "Formasyonlar"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Otomatik Chart Patterns</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Temel Candlestick Patterns</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">{t.autoChartPatterns || "Otomatik Chart Patterns"}</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">{t.basicCandlePatterns || "Temel Candlestick Patterns"}</button>
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
                     <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Trend Line</button>

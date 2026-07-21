@@ -8,6 +8,11 @@ import {
   vwap,
   pivotSupportResistance,
   resampleBars,
+  sma,
+  supertrend,
+  atr,
+  obv,
+  volatility,
 } from "@/lib/indicators";
 
 export const runtime = "nodejs";
@@ -96,6 +101,11 @@ export async function GET(req: NextRequest) {
     if (wanted.has("macd")) indicators.macd = macd(closesArr);
     if (wanted.has("bb")) indicators.bb = bollingerBands(closesArr);
     if (wanted.has("vwap")) indicators.vwap = vwap(bars);
+    if (wanted.has("sma")) indicators.sma = sma(closesArr, 20);
+    if (wanted.has("supertrend")) indicators.supertrend = supertrend(bars);
+    if (wanted.has("atr")) indicators.atr = atr(bars);
+    if (wanted.has("obv")) indicators.obv = obv(bars);
+    if (wanted.has("volatilite")) indicators.volatilite = volatility(closesArr);
 
     const sr = wanted.has("sr") ? pivotSupportResistance(bars) : undefined;
 

@@ -215,3 +215,112 @@ export function resampleBars(bars: Bar[], bucketSeconds: number): Bar[] {
   if (bucket) out.push(bucket);
   return out;
 }
+
+export function sma(values: number[], period: number): (number | null)[] {
+  const out: (number | null)[] = new Array(values.length).fill(null);
+  for (let i = period - 1; i < values.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < period; j++) sum += values[i - j];
+    out[i] = sum / period;
+  }
+  return out;
+}
+
+export function trueRange(bars: Bar[]): (number | null)[] {
+  const out: (number | null)[] = new Array(bars.length).fill(null);
+  if (bars.length === 0) return out;
+  out[0] = bars[0].high - bars[0].low;
+  for (let i = 1; i < bars.length; i++) {
+    const high = bars[i].high;
+    const low = bars[i].low;
+    const prevClose = bars[i - 1].close;
+    out[i] = Math.max(high - low, Math.abs(high - prevClose), Math.abs(low - prevClose));
+  }
+  return out;
+}
+
+export function atr(bars: Bar[], period = 14): (number | null)[] {
+  const tr = trueRange(bars);
+  const out: (number | null)[] = new Array(bars.length).fill(null);
+  if (bars.length < period) return out;
+  
+  let trSum = 0;
+  for (let i = 0; i < period; i++) trSum += tr[i]!;
+  out[period - 1] = trSum / period;
+  
+  for (let i = period; i < bars.length; i++) {
+    out[i] = (out[i - 1]! * (period - 1) + tr[i]!) / period;
+  }
+  return out;
+}
+
+export function supertrend(bars: Bar[], atrPeriod = 10, multiplier = 3): { supertrend: (number | null)[]; direction: (number | null)[] } {
+  const atrValues = atr(bars, atrPeriod);
+  const st: (number | null)[] = new Array(bars.length).fill(null);
+  const dir: (number | null)[] = new Array(bars.length).fill(null);
+  
+  let finalUpperBand = 0;
+  let finalLowerBand = 0;
+  let supertrend = 0;
+  let direction = 1;
+
+  for (let i = atrPeriod - 1; i < bars.length; i++) {
+    const atrVal = atrValues[i]!;
+    const basicUpperBand = (bars[i].high + bars[i].low) / 2 + multiplier * atrVal;
+    const basicLowerBand = (bars[i].high + bars[i].low) / 2 - multiplier * atrVal;
+
+    if (i === atrPeriod - 1) {
+      finalUpperBand = basicUpperBand;
+      finalLowerBand = basicLowerBand;
+      direction = 1;
+    } else {
+      finalUpperBand = basicUpperBand < finalUpperBand || bars[i - 1].close > finalUpperBand ? basicUpperBand : finalUpperBand;
+      finalLowerBand = basicLowerBand > finalLowerBand || bars[i - 1].close < finalLowerBand ? basicLowerBand : finalLowerBand;
+      
+      if (direction === -1 && bars[i].close > finalUpperBand) direction = 1;
+      else if (direction === 1 && bars[i].close < finalLowerBand) direction = -1;
+    }
+    
+    supertrend = direction === 1 ? finalLowerBand : finalUpperBand;
+    st[i] = supertrend;
+    dir[i] = direction;
+  }
+  return { supertrend: st, direction: dir };
+}
+
+export function obv(bars: Bar[]): (number | null)[] {
+  const out: (number | null)[] = new Array(bars.length).fill(null);
+  if (bars.length === 0) return out;
+  
+  let currentObv = 0;
+  out[0] = currentObv;
+  
+  for (let i = 1; i < bars.length; i++) {
+    if (bars[i].close > bars[i - 1].close) {
+      currentObv += bars[i].volume;
+    } else if (bars[i].close < bars[i - 1].close) {
+      currentObv -= bars[i].volume;
+    }
+    out[i] = currentObv;
+  }
+  return out;
+}
+
+export function volatility(closes: number[], period = 20): (number | null)[] {
+  const out: (number | null)[] = new Array(closes.length).fill(null);
+  if (closes.length < period + 1) return out;
+  
+  const returns: number[] = new Array(closes.length).fill(0);
+  for (let i = 1; i < closes.length; i++) {
+    returns[i] = Math.log(closes[i] / closes[i - 1]);
+  }
+  
+  for (let i = period; i < closes.length; i++) {
+    const slice = returns.slice(i - period + 1, i + 1);
+    const mean = slice.reduce((a, b) => a + b, 0) / period;
+    const variance = slice.reduce((a, b) => a + (b - mean) ** 2, 0) / (period - 1 || 1);
+    const stdDev = Math.sqrt(variance);
+    out[i] = stdDev * Math.sqrt(252) * 100; // Annualized percentage
+  }
+  return out;
+}
