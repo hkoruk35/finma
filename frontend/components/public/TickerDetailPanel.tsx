@@ -267,17 +267,21 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
       </div>
 
-      {!rationaleLocked && data.tradePlan.valid && (
+      {data.tradePlan.valid && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-white/70 leading-relaxed">
-            <p><span className="text-[#58a6ff] font-bold">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
-            <p><span className="text-[#58a6ff] font-bold">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
-            <p><span className="text-[#58a6ff] font-bold">EMA:</span> {data.tradePlan.rationale.ema}</p>
-            <p><span className="text-[#58a6ff] font-bold">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
-            <p><span className="text-[#58a6ff] font-bold">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
-            <p><span className="text-[#58a6ff] font-bold">RSI:</span> {data.tradePlan.rationale.rsi}</p>
-          </div>
+          {rationaleLocked ? (
+            <LockPrompt message={t.unlockTradePlan} />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-white/70 leading-relaxed">
+              <p><span className="text-[#58a6ff] font-bold">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
+              <p><span className="text-[#58a6ff] font-bold">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
+              <p><span className="text-[#58a6ff] font-bold">EMA:</span> {data.tradePlan.rationale.ema}</p>
+              <p><span className="text-[#58a6ff] font-bold">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
+              <p><span className="text-[#58a6ff] font-bold">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
+              <p><span className="text-[#58a6ff] font-bold">RSI:</span> {data.tradePlan.rationale.rsi}</p>
+            </div>
+          )}
         </div>
       )}
 

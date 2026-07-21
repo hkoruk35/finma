@@ -40,6 +40,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/en/home";
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
+  const terminalHref = `/global/${locale}`;
+  const terminalTooltip = locale === "tr" ? "TERMİNAL sayfasını aç" : locale === "es" ? "Abrir la página TERMINAL" : locale === "fr" ? "Ouvrir la page TERMINAL" : locale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -68,7 +70,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
     <TrialPromoPopup locale={locale} />
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3">
-        <Link href={isLoggedIn ? homeHref : `/global/${locale}`} className="flex items-center gap-2 group flex-shrink-0">
+        <Link href={`/global/${locale}`} className="flex items-center gap-2 group flex-shrink-0">
           <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
             <Image
               src="/finmawave.png"
@@ -132,6 +134,17 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               })}
             </div>
           )}
+
+          <Link
+            href={terminalHref}
+            title={terminalTooltip}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+            </svg>
+            <span className="hidden sm:inline">TERMINAL</span>
+          </Link>
 
           <Link
             href={homeHref}

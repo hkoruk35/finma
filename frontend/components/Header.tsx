@@ -110,8 +110,8 @@ export default function Header({
   hideMenus?: boolean;
   onLogoClick?: () => void;
   onNewQueryClick?: () => void;
-  /** When set, the logo becomes a smart link for the /global member area:
-   * logged in -> /global/{locale}/top100, logged out -> /global/{locale} landing. */
+  /** When set, the logo (and the header's TERMINAL button) link to the
+   * /global/{locale} dashboard — regardless of login state. */
   globalLocale?: "en" | "tr" | "es" | "fr" | "pt";
   /** Plain link target for the logo when hideMenus is true (no auth check needed). */
   logoHref?: string;
@@ -132,16 +132,10 @@ export default function Header({
     }
   };
 
-  const handleGlobalLogoClick = async () => {
-    const landingHref = globalLocale === "tr" ? "/global/tr" : globalLocale === "es" ? "/global/es" : globalLocale === "fr" ? "/global/fr" : globalLocale === "pt" ? "/global/pt" : "/global/en";
-    const homeHref = globalLocale === "tr" ? "/global/tr/home" : globalLocale === "es" ? "/global/es/home" : globalLocale === "fr" ? "/global/fr/home" : globalLocale === "pt" ? "/global/pt/home" : "/global/en/home";
-    try {
-      const res = await fetch("/api/members/me");
-      router.push(res.ok ? homeHref : landingHref);
-    } catch {
-      router.push(landingHref);
-    }
-  };
+  // Üye olsun olmasın logo her zaman ana açılış sayfasına (Gösterge Paneli
+  // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
+  const globalLandingHref = globalLocale ? `/global/${globalLocale}` : undefined;
+  const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
 
   const getLangHref = (targetLang: string) => {
     if (!pathname) return `/global/${targetLang.toLowerCase()}`;
@@ -191,9 +185,9 @@ export default function Header({
         {/* Logo */}
         <div className="flex-shrink-0">
           {globalLocale ? (
-            <button onClick={handleGlobalLogoClick} className="flex items-center gap-2 group focus:outline-none">
+            <Link href={globalLandingHref!} className="flex items-center gap-2 group">
               {logoContent}
-            </button>
+            </Link>
           ) : onLogoClick ? (
             <button onClick={onLogoClick} className="flex items-center gap-2 group focus:outline-none">
               {logoContent}
@@ -248,6 +242,20 @@ export default function Header({
 
         {/* Right side extras */}
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Terminal — clear, always-visible link back to the dashboard */}
+          {globalLocale && (
+            <Link
+              href={globalLandingHref!}
+              title={terminalTooltip}
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+            >
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+              </svg>
+              <span className="hidden sm:inline">TERMINAL</span>
+            </Link>
+          )}
+
           {/* Language Selector */}
           {globalLocale && (
             <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-1 border border-[#1e2a3a]/60">

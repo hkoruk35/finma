@@ -78,6 +78,22 @@ const BRAND_TAGLINE: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
   pt: "Análise com IA de mais de 6.000 ações e ETFs de primeira linha dos EUA.",
 };
 
+const TERMINAL_LABEL: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
+  en: "Open Terminal",
+  tr: "Terminali Aç",
+  es: "Abrir Terminal",
+  fr: "Ouvrir le Terminal",
+  pt: "Abrir Terminal",
+};
+
+const TERMINAL_TOOLTIP: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
+  en: "Open the TERMINAL page",
+  tr: "TERMİNAL sayfasını aç",
+  es: "Abrir la página TERMINAL",
+  fr: "Ouvrir la page TERMINAL",
+  pt: "Abrir a página TERMINAL",
+};
+
 export default function Footer({
   hidePlatform = false,
   locale,
@@ -92,8 +108,8 @@ export default function Footer({
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <div className="relative w-8 h-8">
+            <Link href={`/global/${locale ?? "en"}`} className="flex items-center gap-2 mb-3 group w-fit">
+              <div className="relative w-8 h-8 group-hover:scale-110 transition-transform">
                 <Image
                   src="/finmawave.png"
                   alt="BOGASTOCK - Blue One Global Analysis"
@@ -104,10 +120,20 @@ export default function Footer({
                 />
               </div>
               <span className="text-base font-black text-white tracking-tighter">BOGA<span className="text-[#3b82f6]">STOCK</span> TERMINAL</span>
-            </div>
-            <p className="text-xs text-[#00d2ff]">
+            </Link>
+            <p className="text-xs text-[#00d2ff] mb-3">
               {BRAND_TAGLINE[locale ?? "en"]}
             </p>
+            <Link
+              href={`/global/${locale ?? "en"}`}
+              title={TERMINAL_TOOLTIP[locale ?? "en"]}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+            >
+              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+              </svg>
+              {TERMINAL_LABEL[locale ?? "en"]}
+            </Link>
           </div>
 
 
