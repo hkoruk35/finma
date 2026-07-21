@@ -6,6 +6,7 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import BogaChartEngine from "@/components/charts/BogaChartEngine";
 import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
+import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import TickerSearchBox from "@/components/public/TickerSearchBox";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import type { Locale } from "@/lib/i18n/copy";
@@ -84,6 +85,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
   const [showRightSidebar, setShowRightSidebar] = useState(true);
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  const [rightTab, setRightTab] = useState<"watchlist" | "trend">("watchlist");
 
   useEffect(() => {
     // Fetch prices for all markets
@@ -94,7 +96,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       .catch(() => {});
   }, []);
 
-  const aiText = locale === 'tr' ? 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.' 
+  const watchlistTabLabel = locale === 'tr' ? 'İzleme Listem' : locale === 'es' ? 'Mi Lista' : locale === 'fr' ? 'Ma Liste' : locale === 'pt' ? 'Minha Lista' : 'Watchlist';
+  const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
+
+  const aiText = locale === 'tr' ? 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.'
                : locale === 'es' ? 'BOGA AI puede realizar comprobaciones generales instantáneas en todo el mercado estadounidense.'
                : locale === 'fr' ? 'BOGA AI peut effectuer des contrôles généraux instantanés sur l\'ensemble du marché américain.'
                : locale === 'pt' ? 'A BOGA AI pode realizar verificações gerais instantâneas em todo o mercado dos EUA.'
@@ -279,21 +284,51 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           </div>
         </div>
 
-        {/* RIGHT COLUMN: WATCHLIST */}
+        {/* RIGHT COLUMN: WATCHLIST / TREND HİSSELERİ */}
         <div className={`
-          ${showMobileSidebar ? 'block pb-24 px-4' : 'hidden'}
-          ${showRightSidebar ? 'md:block md:w-64 lg:w-80' : 'md:hidden'}
+          ${showMobileSidebar ? 'flex flex-col pb-24 px-4' : 'hidden'}
+          ${showRightSidebar ? 'md:flex md:flex-col md:w-64 lg:w-80' : 'md:hidden'}
           md:border-l border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
           shrink-0 bg-[#0a0e17] p-2 md:p-4 transition-all duration-300
         `}>
-          <HomeWatchlistSlot 
-            locale={locale} 
-            defaultStocks={defaultWatchlist} 
-            defaultViewAllHref={`/global/${locale}/watchlist`} 
-            compactMode={true}
-            disableHoverChart={true}
-            onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
-          />
+          <div className="flex items-center gap-1.5 mb-2 shrink-0">
+            <button
+              onClick={() => setRightTab("watchlist")}
+              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+                rightTab === "watchlist" ? "bg-[#3b82f6] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
+              }`}
+            >
+              {watchlistTabLabel}
+            </button>
+            <button
+              onClick={() => setRightTab("trend")}
+              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+                rightTab === "trend" ? "bg-[#f59e0b] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
+              }`}
+            >
+              {trendTabLabel}
+            </button>
+          </div>
+
+          <div className="flex-1 min-h-0">
+            {rightTab === "watchlist" ? (
+              <HomeWatchlistSlot
+                locale={locale}
+                defaultStocks={defaultWatchlist}
+                defaultViewAllHref={`/global/${locale}/watchlist`}
+                compactMode={true}
+                disableHoverChart={true}
+                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
+              />
+            ) : (
+              <TrendPicksSlot
+                locale={locale}
+                compactMode={true}
+                disableHoverChart={true}
+                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
+              />
+            )}
+          </div>
         </div>
 
       </main>
