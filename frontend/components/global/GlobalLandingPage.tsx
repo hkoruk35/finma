@@ -77,6 +77,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [selectedYSymbol, setSelectedYSymbol] = useState("SPY");
   
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});
+  const [currentCompany, setCurrentCompany] = useState("");
+  const [currentGroup, setCurrentGroup] = useState("");
   
   // Sidebar states
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
@@ -99,16 +101,33 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                : 'BOGA AI can perform instant general checks across the entire US market.';
 
   // Determine current company/sector name based on selection
-  let currentGroup = "";
-  let currentCompany = "";
-  for (const g of GROUPS) {
-    const item = g.items.find(i => i.ticker === selectedTicker);
-    if (item) {
-      currentGroup = g.group;
-      currentCompany = item.label;
-      break;
+  useEffect(() => {
+    let found = false;
+    for (const g of GROUPS) {
+      const item = g.items.find(i => i.ticker === selectedTicker);
+      if (item) {
+        setCurrentGroup(g.group);
+        setCurrentCompany(item.label);
+        found = true;
+        break;
+      }
     }
-  }
+    if (!found) {
+      setCurrentGroup("");
+      setCurrentCompany("");
+      fetch(`/api/tickers/search?q=${selectedTicker}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.results) {
+            const match = data.results.find((d: any) => d.ticker === selectedTicker);
+            if (match) {
+              setCurrentCompany(match.name || "");
+              setCurrentGroup(match.sector || "");
+            }
+          }
+        }).catch(() => {});
+    }
+  }, [selectedTicker]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
