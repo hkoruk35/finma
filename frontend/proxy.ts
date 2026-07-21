@@ -97,12 +97,16 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  // Zaten giriş yapmış kullanıcı landing, login veya kayıt sayfasına dönerse
-  // (örn. geri tuşu, eski sekme) → doğrudan home'a at. Oturum açıkken bu
-  // sayfalar bir daha gösterilmez; çıkış yapılmadan login ekranına dönülmez.
+  // Zaten giriş yapmış kullanıcı login veya kayıt sayfasına dönerse (örn. geri
+  // tuşu, eski sekme) → doğrudan home'a at. Oturum açıkken bu sayfalar bir
+  // daha gösterilmez; çıkış yapılmadan login ekranına dönülmez.
+  // NOT: `/global/{locale}` (kök Terminal sayfası) kasıtlı olarak bu listede
+  // DEĞİL — üye olsun olmasın herkesin ortak ana sayfası artık (bkz. logo ve
+  // Header/MemberHeader'daki TERMINAL butonu); daha önce burada olması,
+  // giriş yapmış her ziyaretçiyi tıkladığı an /home'a geri fırlatıyor, bu da
+  // "TERMINAL butonu çalışmıyor" şikayetine yol açıyordu.
   const loggedInPublicPages = new Set(
     Object.entries(LOCALE_AUTH_ROUTES).flatMap(([locale, routes]) => [
-      `/global/${locale}`,
       `/global/${locale}/${routes.login}`,
       `/global/${locale}/${routes.register}`,
     ])
