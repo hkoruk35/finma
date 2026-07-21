@@ -468,7 +468,7 @@ export default function BogaChartEngine({
       { priceFormat: { type: "volume" }, priceScaleId: "" },
       1
     );
-    chart.panes()[1]?.setHeight(90);
+    chart.panes()[1]?.setHeight(150);
 
     chartRef.current = chart;
     volumeSeriesRef.current = volumeSeries;
@@ -657,7 +657,7 @@ export default function BogaChartEngine({
       bars.map((b) => ({
         time: b.time as UTCTimestamp,
         value: b.volume,
-        color: b.close >= b.open ? `${UP_COLOR}80` : `${DOWN_COLOR}80`,
+        color: b.close >= b.open ? `${UP_COLOR}cc` : `${DOWN_COLOR}cc`,
       }))
     );
 
