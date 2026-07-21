@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -9,7 +9,13 @@ import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import TickerSearchBox from "@/components/public/TickerSearchBox";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
+import CompareCheckbox from "@/components/global/CompareCheckbox";
+import PremiumModal from "@/components/global/PremiumModal";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
+
+const FREE_COMPARE_LIMIT = 2;
+const MAX_COMPARE = 9;
 
 const GROUPS = [
   {
@@ -87,6 +93,37 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [rightTab, setRightTab] = useState<"watchlist" | "trend">("watchlist");
 
+  const { isPremium } = useMemberPlan();
+  // Sol Markets + sağ Watchlist/Trend Hisseleri satırlarındaki onay
+  // kutucuklarıyla toplanan, "Çoklu Grafik Ekranı"na gönderilecek ticker
+  // seçimi. Üye olmayanlar aynı anda en fazla FREE_COMPARE_LIMIT kadar
+  // işaretleyebilir; fazlasını denerse PremiumModal açılır.
+  const [compareSelection, setCompareSelection] = useState<string[]>([]);
+  const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
+  const [multiChartRequest, setMultiChartRequest] = useState<string[] | null>(null);
+
+  const toggleCompare = (ticker: string) => {
+    setCompareSelection((prev) => {
+      if (prev.includes(ticker)) return prev.filter((t) => t !== ticker);
+      if (!isPremium && prev.length >= FREE_COMPARE_LIMIT) {
+        setShowCompareLimitModal(true);
+        return prev;
+      }
+      if (prev.length >= MAX_COMPARE) return prev;
+      return [...prev, ticker];
+    });
+  };
+
+  // "İşlem Kurgusu Gerekçesi" kartı sadece bu sabit ticker kümesi için
+  // üye olmayanlara da açık — sol Markets listesindeki her şey + sağdaki
+  // varsayılan 7 hisselik watchlist. Aranan/başka herhangi bir ticker için
+  // kilitli kalır (bkz. TickerDetailPanel'deki unlockRationale).
+  const eligibleForRationale = useMemo(() => {
+    const set = new Set<string>(GROUPS.flatMap((g) => g.items.map((i) => i.ticker)));
+    defaultWatchlist.forEach((s) => { if (s?.ticker) set.add(s.ticker); });
+    return set;
+  }, [defaultWatchlist]);
+
   useEffect(() => {
     // Fetch prices for all markets
     const allSymbols = GROUPS.flatMap(g => g.items.map(i => i.ySymbol)).join(",");
@@ -98,6 +135,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
   const watchlistTabLabel = locale === 'tr' ? 'İzleme Listem' : locale === 'es' ? 'Mi Lista' : locale === 'fr' ? 'Ma Liste' : locale === 'pt' ? 'Minha Lista' : 'Watchlist';
   const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
+  const compareLabel = locale === 'tr' ? 'Karşılaştır' : locale === 'es' ? 'Comparar' : locale === 'fr' ? 'Comparer' : locale === 'pt' ? 'Comparar' : 'Compare';
+  const compareOpenLabel = locale === 'tr' ? 'Aç' : locale === 'es' ? 'Abrir' : locale === 'fr' ? 'Ouvrir' : locale === 'pt' ? 'Abrir' : 'Open';
+  const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : 'Select to compare';
 
   const aiText = locale === 'tr' ? 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.'
                : locale === 'es' ? 'BOGA AI puede realizar comprobaciones generales instantáneas en todo el mercado estadounidense.'
@@ -185,11 +225,16 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           setSelectedYSymbol(item.ySymbol);
                           setShowMobileSidebar(false);
                         }}
-                        className={`flex items-center justify-between px-3 py-2 cursor-pointer border-l-2 transition-colors ${
+                        className={`flex items-center gap-2 justify-between px-3 py-2 cursor-pointer border-l-2 transition-colors ${
                           selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
                         }`}
                       >
-                        <div className="min-w-0 pr-2">
+                        <CompareCheckbox
+                          checked={compareSelection.includes(item.ticker)}
+                          onToggle={() => toggleCompare(item.ticker)}
+                          title={compareCheckboxTitle}
+                        />
+                        <div className="min-w-0 pr-2 flex-1">
                           <div className="text-[12px] font-medium text-white truncate">{item.ticker}</div>
                           <div className="text-[10px] text-slate-500 truncate">{item.label}</div>
                         </div>
@@ -271,6 +316,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 defaultTimeframe="D"
                 defaultCandleType="candle"
                 premiumGate
+                externalMultiChartTickers={multiChartRequest}
+                onExternalMultiChartConsumed={() => setMultiChartRequest(null)}
               />
             </div>
 
@@ -282,6 +329,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 hideChart
                 hidePermalink
                 lockTradePlanCard
+                unlockRationale={eligibleForRationale.has(selectedTicker)}
               />
             </div>
           </div>
@@ -313,6 +361,29 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </button>
           </div>
 
+          {compareSelection.length > 0 && (
+            <div className="mb-2 shrink-0 rounded-lg border border-[#3b82f6]/40 bg-[#3b82f6]/10 px-2.5 py-2 flex items-center gap-2 flex-wrap">
+              <span className="text-[9px] font-bold text-[#3b82f6] uppercase tracking-wider shrink-0">
+                {compareLabel} ({compareSelection.length}{!isPremium ? `/${FREE_COMPARE_LIMIT}` : ""})
+              </span>
+              <div className="flex items-center gap-1 flex-wrap flex-1 min-w-0">
+                {compareSelection.map((tkr) => (
+                  <span key={tkr} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-bold text-white">
+                    {tkr}
+                    <button onClick={() => toggleCompare(tkr)} className="text-slate-500 hover:text-white leading-none">×</button>
+                  </span>
+                ))}
+              </div>
+              <button
+                disabled={compareSelection.length < 2}
+                onClick={() => setMultiChartRequest([...compareSelection])}
+                className="shrink-0 px-2 py-1 rounded bg-[#3b82f6] text-white text-[9px] font-black uppercase disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#2563eb] transition-colors"
+              >
+                {compareOpenLabel} →
+              </button>
+            </div>
+          )}
+
           <div className="flex-1 min-h-0">
             {rightTab === "watchlist" ? (
               <HomeWatchlistSlot
@@ -322,6 +393,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 compactMode={true}
                 disableHoverChart={true}
                 onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
+                selectable
+                selectedTickers={compareSelection}
+                onToggleSelect={toggleCompare}
               />
             ) : (
               <TrendPicksSlot
@@ -329,12 +403,17 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 compactMode={true}
                 disableHoverChart={true}
                 onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
+                selectable
+                selectedTickers={compareSelection}
+                onToggleSelect={toggleCompare}
               />
             )}
           </div>
         </div>
 
       </main>
+
+      {showCompareLimitModal && <PremiumModal locale={locale} onClose={() => setShowCompareLimitModal(false)} />}
 
       <Footer hidePlatform locale={locale} />
     </div>

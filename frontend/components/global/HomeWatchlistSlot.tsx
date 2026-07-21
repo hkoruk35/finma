@@ -9,6 +9,7 @@ import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
 import ShareButton from '../ShareButton';
+import CompareCheckbox from './CompareCheckbox';
 
 interface Stock {
   ticker: string;
@@ -105,16 +106,21 @@ interface Props {
   compactMode?: boolean;
   disableHoverChart?: boolean;
   onTickerSelect?: (ticker: string) => void;
+  selectable?: boolean; // renders a "select for multi-chart" checkbox per row
+  selectedTickers?: string[];
+  onToggleSelect?: (ticker: string) => void;
 }
 
-export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart, onTickerSelect }: Props) {
+export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart, onTickerSelect, selectable, selectedTickers, onToggleSelect }: Props) {
   const [personalTickers, setPersonalTickers] = useState<string[]>([]);
   const [liveData, setLiveData] = useState<Record<string, LiveWatchData>>({});
   const [loaded, setLoaded] = useState(false);
   const { isFreeTrial } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
-  const gridCols = compactMode ? 'grid-cols-[1fr_48px_64px]' : 'grid-cols-[1fr_56px_64px_72px]';
+  const gridCols = compactMode
+    ? (selectable ? 'grid-cols-[16px_1fr_48px_64px]' : 'grid-cols-[1fr_48px_64px]')
+    : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
 
   useEffect(() => {
@@ -209,6 +215,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
           <>
             {/* Column labels */}
             <div className={`grid ${gridCols} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
+              {selectable && <span />}
               <span>{labels.stock}</span>
               <span />
               {!compactMode && <span className="text-center">{labels.status}</span>}
@@ -226,6 +233,16 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
                     onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                   >
+                    {selectable && (
+                      <div>
+                        {!locked && (
+                          <CompareCheckbox
+                            checked={!!selectedTickers?.includes(stock.ticker)}
+                            onToggle={() => onToggleSelect?.(stock.ticker)}
+                          />
+                        )}
+                      </div>
+                    )}
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
                       <div className="min-w-0">

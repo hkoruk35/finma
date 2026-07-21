@@ -234,6 +234,8 @@ interface Props {
   defaultTimeframe?: string; // initial interval value
   defaultCandleType?: CandleType; // initial candle style (overrides the detailMode-based default)
   premiumGate?: boolean; // non-premium viewers may only toggle FREE_INDICATOR_KEYS; everything else (incl. Trade Plan values) prompts PremiumModal instead
+  externalMultiChartTickers?: string[] | null; // caller-driven multi-chart open request (checkbox selection), consumed once
+  onExternalMultiChartConsumed?: () => void;
 }
 
 const EMA_COLORS: Record<string, string> = {
@@ -291,6 +293,8 @@ export default function BogaChartEngine({
   defaultTimeframe,
   defaultCandleType,
   premiumGate = false,
+  externalMultiChartTickers,
+  onExternalMultiChartConsumed,
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
   const { isPremium } = useMemberPlan();
@@ -436,6 +440,20 @@ export default function BogaChartEngine({
       return copy;
     });
   };
+
+  // Sol Markets / Watchlist / Trend Hisseleri listelerindeki onay
+  // kutucuklariyla dışarıdan (GlobalLandingPage) tetiklenen çoklu grafik
+  // isteği — pool tabanlı openMultiChart'tan farklı, tam olarak seçilen
+  // ticker'ları kullanır. Tüketildikten sonra parent'a haber verilip prop
+  // sıfırlanır, aksi halde aynı seçimle tekrar tetiklenemez.
+  useEffect(() => {
+    if (externalMultiChartTickers && externalMultiChartTickers.length >= 2) {
+      setMultiChartTickers(externalMultiChartTickers);
+      setMultiChartLayout(externalMultiChartTickers.length);
+      onExternalMultiChartConsumed?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [externalMultiChartTickers]);
 
   useEffect(() => {
     const handler = () => setIsFullscreen(document.fullscreenElement === wrapperRef.current);
@@ -1059,15 +1077,24 @@ export default function BogaChartEngine({
                   </button>
                   {multiChartOpen && (
                     <div className="absolute right-0 mt-1 w-24 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-50">
-                      {[2, 3, 4, 6, 9].map(num => (
-                        <button
-                          key={num}
-                          onClick={() => { setMultiChartOpen(false); openMultiChart(num); }}
-                          className="block w-full text-center px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
-                        >
-                          {num} Grafik
-                        </button>
-                      ))}
+                      {[2, 3, 4, 6, 9].map(num => {
+                        const numLocked = gated && num > 2;
+                        return (
+                          <button
+                            key={num}
+                            onClick={() => {
+                              setMultiChartOpen(false);
+                              if (numLocked) { setShowPremiumModal(true); return; }
+                              openMultiChart(num);
+                            }}
+                            className={`block w-full text-center px-3 py-2 text-[11px] font-bold hover:bg-[#1e2a3a] ${
+                              numLocked ? "text-slate-500 hover:text-amber-400" : "text-slate-300 hover:text-white"
+                            }`}
+                          >
+                            {num} Grafik
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

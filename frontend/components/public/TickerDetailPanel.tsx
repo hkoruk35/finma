@@ -50,7 +50,7 @@ function fmtVol(n: number): string {
   return `${n}`;
 }
 
-export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlan, lockTradePlanCard }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlan?: boolean; lockTradePlanCard?: boolean }) {
+export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlan, lockTradePlanCard, unlockRationale }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlan?: boolean; lockTradePlanCard?: boolean; unlockRationale?: boolean }) {
   const t = copy[locale].top100.detail;
   const router = useRouter();
   const { isPremium } = useMemberPlan();
@@ -63,6 +63,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   // bunu kullanir, /graphic sayfasindaki ucunu-de-kilitleyen lockTradePlan'dan
   // farkli.
   const tradePlanLocked = premiumLocked || (!!lockTradePlanCard && !isPremium);
+  // "İşlem Kurgusu Gerekçesi" (Rationale) karti Trade Plan'dan bagimsiz
+  // kilitlenir: caller "unlockRationale" gecerse (Gosterge Paneli, sadece sol
+  // menu + varsayilan 7 watchlist hissesi icin true gecer) premium olmayan
+  // ziyaretci de gorur — diger her ticker icin (arama vb.) kilitli kalir.
+  const rationaleLocked = premiumLocked || (!!lockTradePlanCard && !isPremium && !unlockRationale);
   const goToRegister = () => router.push(registerHref(locale));
 
   const LockPrompt = ({ message }: { message: string }) => (
@@ -262,7 +267,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
       </div>
 
-      {!tradePlanLocked && data.tradePlan.valid && (
+      {!rationaleLocked && data.tradePlan.valid && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-white/70 leading-relaxed">
