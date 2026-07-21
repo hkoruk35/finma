@@ -6,8 +6,6 @@ interface PricingContent {
   badge: string;
   title: string;
   subtitle: string;
-  freeTrialLabel: string;
-  freeTrialDays: string;
   firstMonthLabel: string;
   thenLabel: string;
   perMonth: string;
@@ -20,9 +18,7 @@ const CONTENT: Record<Locale, PricingContent> = {
   tr: {
     badge: "LANSMAN FİYATI",
     title: "Basit, Şeffaf Fiyatlandırma",
-    subtitle: "Bugün ücretsiz başla, istediğin zaman iptal et.",
-    freeTrialLabel: "İlk 7 gün",
-    freeTrialDays: "Ücretsiz",
+    subtitle: "İlk ayın indirimli, istediğin zaman iptal et.",
     firstMonthLabel: "İlk ay",
     thenLabel: "sonraki aylar",
     perMonth: "/ay",
@@ -36,15 +32,13 @@ const CONTENT: Record<Locale, PricingContent> = {
       "6.000'den fazla hissenin anında analizi",
       "7/24 BOGA AI tarafından sürekli eğitilen kişiye özel Finansal Asistan",
     ],
-    ctaText: "Bugün Ücretsiz Başla",
-    ctaNote: "Kredi kartı gerekli · İlk 7 gün boyunca ücret alınmaz · İstediğin zaman iptal et",
+    ctaText: "Hemen Başla",
+    ctaNote: "Kredi kartı gerekli · Ödeme kayıt anında alınır · İstediğin zaman iptal et",
   },
   en: {
     badge: "LAUNCH PRICING",
     title: "Simple, Transparent Pricing",
-    subtitle: "Start free today, cancel anytime.",
-    freeTrialLabel: "First 7 days",
-    freeTrialDays: "Free",
+    subtitle: "First month discounted, cancel anytime.",
     firstMonthLabel: "First month",
     thenLabel: "following months",
     perMonth: "/mo",
@@ -58,15 +52,13 @@ const CONTENT: Record<Locale, PricingContent> = {
       "Instant analysis of 6,000+ stocks",
       "A personal Financial Assistant, continuously trained by BOGA AI, available 24/7",
     ],
-    ctaText: "Start Free Today",
-    ctaNote: "Card required · Not charged during the first 7 days · Cancel anytime",
+    ctaText: "Get Started Today",
+    ctaNote: "Card required · Billed immediately at signup · Cancel anytime",
   },
   es: {
     badge: "PRECIO DE LANZAMIENTO",
     title: "Precios Simples y Transparentes",
-    subtitle: "Empieza gratis hoy, cancela cuando quieras.",
-    freeTrialLabel: "Primeros 7 días",
-    freeTrialDays: "Gratis",
+    subtitle: "Primer mes con descuento, cancela cuando quieras.",
     firstMonthLabel: "Primer mes",
     thenLabel: "meses siguientes",
     perMonth: "/mes",
@@ -80,15 +72,13 @@ const CONTENT: Record<Locale, PricingContent> = {
       "Análisis instantáneo de más de 6.000 acciones",
       "Un Asistente Financiero personal, entrenado continuamente por BOGA AI, disponible 24/7",
     ],
-    ctaText: "Empieza Gratis Hoy",
-    ctaNote: "Tarjeta requerida · No se cobra durante los primeros 7 días · Cancela cuando quieras",
+    ctaText: "Comienza Hoy",
+    ctaNote: "Tarjeta requerida · Se cobra de inmediato al registrarte · Cancela cuando quieras",
   },
   fr: {
     badge: "PRIX DE LANCEMENT",
     title: "Tarification Simple et Transparente",
-    subtitle: "Commencez gratuitement aujourd'hui, annulez à tout moment.",
-    freeTrialLabel: "7 premiers jours",
-    freeTrialDays: "Gratuit",
+    subtitle: "Premier mois à prix réduit, annulez à tout moment.",
     firstMonthLabel: "Premier mois",
     thenLabel: "mois suivants",
     perMonth: "/mois",
@@ -102,15 +92,13 @@ const CONTENT: Record<Locale, PricingContent> = {
       "Analyse instantanée de plus de 6 000 actions",
       "Un Assistant Financier personnel, formé en continu par BOGA AI, disponible 24h/24 et 7j/7",
     ],
-    ctaText: "Commencer Gratuitement",
-    ctaNote: "Carte requise · Non facturé pendant les 7 premiers jours · Annulez à tout moment",
+    ctaText: "Commencer Maintenant",
+    ctaNote: "Carte requise · Facturé immédiatement à l'inscription · Annulez à tout moment",
   },
   pt: {
     badge: "PREÇO DE LANÇAMENTO",
     title: "Preços Simples e Transparentes",
-    subtitle: "Comece grátis hoje, cancele quando quiser.",
-    freeTrialLabel: "Primeiros 7 dias",
-    freeTrialDays: "Grátis",
+    subtitle: "Primeiro mês com desconto, cancele quando quiser.",
     firstMonthLabel: "Primeiro mês",
     thenLabel: "meses seguintes",
     perMonth: "/mês",
@@ -124,8 +112,8 @@ const CONTENT: Record<Locale, PricingContent> = {
       "Análise instantânea de mais de 6.000 ações",
       "Um Assistente Financeiro pessoal, treinado continuamente pela BOGA AI, disponível 24/7",
     ],
-    ctaText: "Comece Grátis Hoje",
-    ctaNote: "Cartão necessário · Sem cobrança nos primeiros 7 dias · Cancele quando quiser",
+    ctaText: "Comece Agora",
+    ctaNote: "Cartão necessário · Cobrança imediata no cadastro · Cancele quando quiser",
   },
 };
 
@@ -151,15 +139,11 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
 
       <div className="max-w-xl mx-auto bg-gradient-to-b from-[#0d1117] to-[#0a0e17] border border-[#3b82f6]/30 rounded-3xl p-6 md:p-10 shadow-[0_0_60px_rgba(59,130,246,0.08)]">
         {/* Price Blocks */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-2 gap-3 mb-8">
           <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.freeTrialLabel}</div>
-            <div className="text-xl md:text-2xl font-black text-[#22c55e]">{c.freeTrialDays}</div>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mb-1">{c.firstMonthLabel}</div>
-            <div className="text-xl md:text-2xl font-black text-white">
-              $9<span className="text-xs font-semibold text-white/40">{c.perMonth}</span>
+            <div className="text-[10px] font-bold uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.firstMonthLabel}</div>
+            <div className="text-xl md:text-2xl font-black text-[#22c55e]">
+              $9<span className="text-xs font-semibold text-[#22c55e]/70">{c.perMonth}</span>
             </div>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">

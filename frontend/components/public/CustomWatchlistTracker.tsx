@@ -109,7 +109,7 @@ const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LAB
 
 export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist; // Fallback or we can add custom copy
-  const { isFreeTrial, isPremium } = useMemberPlan();
+  const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [composition, setComposition] = useState<WatchlistRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});

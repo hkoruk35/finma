@@ -28,7 +28,6 @@ const google = createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY });
 const DEFAULT_CREDIT_LIMIT: Record<string, number> = {
   premium: 200,
   admin: 200,
-  free_trial: 20,
 };
 
 function resolveLocale(raw: any): string {
@@ -168,11 +167,7 @@ export async function POST(req: NextRequest) {
   const user = userData.user;
   if (!user) return new Response("Unauthorized", { status: 401 });
 
-  const dailyLimit = access.isPremium
-    ? DEFAULT_CREDIT_LIMIT.premium
-    : access.isFreeTrial
-    ? DEFAULT_CREDIT_LIMIT.free_trial
-    : 0;
+  const dailyLimit = access.isPremium ? DEFAULT_CREDIT_LIMIT.premium : 0;
 
   if (dailyLimit === 0) {
     return NextResponse.json({ error: ct("noAccess", locale), code: "NO_ACCESS" }, { status: 403 });

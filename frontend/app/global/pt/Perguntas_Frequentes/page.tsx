@@ -19,12 +19,12 @@ export default function FAQPage() {
       answer: "De jeito nenhum. Não somos uma empresa de consultoria financeira ou de análise de investimentos (CNPI). A BOGASTOCK é uma plataforma de software que gera análises baseadas 100% em algoritmos matemáticos. O nosso sistema não vai te dizer \"compre no preço X ou venda no preço Y\". Nós apenas listamos as ações com maior força técnica e fundamentalista e entregamos o relatório gerado pela nossa inteligência artificial. A decisão final de operar, o gerenciamento de risco e o tamanho da sua posição são de sua total responsabilidade."
     },
     {
-      question: "3. Sou um membro novo. Posso testar o sistema de graça antes de pagar?",
-      answer: "Com certeza! Todos os novos membros ganham 7 dias de teste gratuito (Free Trial). Durante esse período, você terá acesso total e transparente a todas as operações ativas de Ações em Tendência, às listas de monitoramento (watchlists) e às análises gráficas para avaliar o desempenho da nossa plataforma na prática."
+      question: "3. Posso testar a plataforma de graça antes de me tornar membro?",
+      answer: "Não — não oferecemos mais um teste gratuito. A BOGASTOCK funciona com um modelo de assinatura Premium direta: sua assinatura começa e é cobrada no momento em que você se cadastra, mas seu primeiro mês sai com desconto. Antes de se tornar membro, você pode navegar gratuitamente pelo Painel público para conhecer a plataforma."
     },
     {
-      question: "4. Por que vocês pedem os dados do cartão no cadastro? Serei cobrado imediatamente?",
-      answer: "Não, nenhuma cobrança será feita no seu cartão durante os 7 dias de teste. Pedimos esses dados apenas para garantir que, caso você decida continuar usando nossos serviços após o período de teste, seu acesso não seja interrompido. Você pode cancelar sua assinatura facilmente pelo painel de controle a qualquer momento, sem custo nenhum."
+      question: "4. Vocês pedem os dados do cartão no cadastro, a cobrança é feita na hora?",
+      answer: "Sim. No momento em que sua assinatura é criada, seu cartão é cobrado com a tarifa promocional do primeiro mês, passando para a tarifa padrão a partir do segundo mês. Não há período de teste, então a cobrança começa imediatamente no cadastro. Você pode cancelar sua assinatura a qualquer momento pelo painel da sua conta, sem cobranças adicionais."
     },
     {
       question: "5. Meus dados de cartão de crédito ficam salvos com vocês? É seguro?",

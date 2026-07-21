@@ -95,8 +95,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, needsEmailConfirmation: !data.session });
   }
 
-  // Kart bilgisi olmadan ücretsiz deneme başlamaz: hesap "pending" kalır,
-  // Stripe Checkout tamamlanınca webhook plan='premium' ve trial_ends_at'i set eder.
+  // Ödeme tamamlanmadan üyelik aktifleşmez: hesap "pending" kalır, Stripe
+  // Checkout tamamlanınca webhook plan='premium' yapar. Deneme süresi yok —
+  // ödeme checkout'ta anında alınır.
   const stripeCustomer = await stripe.customers.create({
     email,
     metadata: { member_id: data.user.id },
@@ -131,7 +132,7 @@ export async function POST(req: NextRequest) {
     memberId: data.user.id,
     locale,
     origin,
-    withTrial: true,
+    firstTimeDiscount: true,
   });
 
   return NextResponse.json({ ok: true, needsEmailConfirmation: false, checkoutUrl: session.url });

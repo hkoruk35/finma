@@ -19,12 +19,12 @@ export default function FrFAQPage() {
       answer: "Absolument pas. Nous ne sommes pas un cabinet de conseil en investissement ni des conseillers financiers agréés. BOGASTOCK est une plateforme logicielle dont les analyses reposent uniquement sur des algorithmes mathématiques. Notre système ne vous dira jamais \"achetez à tel prix\" ou \"vendez à tel prix\". Il se contente de lister les candidats potentiels dont la solidité technique et fondamentale est prouvée, tout en vous fournissant un rapport d'analyse par IA. La décision finale de trader, la gestion du risque et la taille de vos positions relèvent de votre entière responsabilité."
     },
     {
-      question: "3. Je suis nouveau. Puis-je tester le système gratuitement et sans engagement ?",
-      answer: "Oui, tout à fait ! Chaque nouveau membre bénéficie d'une période d'essai gratuit de 7 jours (Free Trial). Pendant cette période, vous aurez un accès total et transparent à toutes les opérations Actions Tendance actives, aux listes de surveillance (watchlists) et aux analyses graphiques, afin de tester vous-même les performances de la plateforme."
+      question: "3. Puis-je essayer la plateforme gratuitement avant de devenir membre ?",
+      answer: "Non — nous ne proposons plus d'essai gratuit. BOGASTOCK fonctionne avec un modèle d'adhésion Premium directe : votre abonnement démarre et est facturé dès votre inscription, même si votre premier mois est à prix réduit. Avant de rejoindre, vous pouvez parcourir gratuitement le Tableau de bord public pour découvrir la plateforme."
     },
     {
-      question: "4. Pourquoi demandez-vous mes coordonnées bancaires lors de l'inscription ? Serais-je prélevé immédiatement ?",
-      answer: "Non, aucun prélèvement n'est effectué sur votre carte pendant les 7 jours d'essai. Nous vous demandons ces informations simplement pour garantir la continuité du service si vous choisissez de rester membre après votre période d'essai. Vous pouvez annuler votre abonnement très facilement et sans frais à tout moment depuis votre tableau de bord."
+      question: "4. Vous demandez mes coordonnées bancaires à l'inscription, suis-je débité immédiatement ?",
+      answer: "Oui. Dès la création de votre adhésion, votre carte est débitée du tarif réduit du premier mois, puis du tarif standard à partir du deuxième mois. Il n'y a pas de période d'essai, la facturation démarre donc immédiatement à l'inscription. Vous pouvez annuler votre adhésion à tout moment depuis votre espace compte, sans frais supplémentaires."
     },
     {
       question: "5. Est-ce que vous conservez mes données de carte bancaire ? Mes informations sont-elles en sécurité ?",

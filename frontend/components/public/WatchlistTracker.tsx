@@ -131,7 +131,7 @@ const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LAB
 
 export default function WatchlistTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist;
-  const { isFreeTrial } = useMemberPlan();
+  const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [composition, setComposition] = useState<WatchlistRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});
@@ -430,7 +430,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
-                const rowLocked = isFreeTrial && idx > 0;
+                const rowLocked = !isPremium && idx > 0;
 
                 if (rowLocked) {
                   return (
@@ -549,7 +549,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
-                  const hmLocked = isFreeTrial && idx > 0;
+                  const hmLocked = !isPremium && idx > 0;
                   return (
                     <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>

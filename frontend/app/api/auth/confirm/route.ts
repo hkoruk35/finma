@@ -47,13 +47,13 @@ export async function GET(req: NextRequest) {
   const origin = req.nextUrl.origin;
   const locale = member.consent_locale || 'en';
 
-  // Create Stripe checkout session
+  // Create Stripe checkout session — no free trial, first-time discount only.
   const session = await createPremiumCheckoutSession({
     customerId: member.stripe_customer_id,
     memberId: userId,
     locale,
     origin,
-    withTrial: true,
+    firstTimeDiscount: true,
   });
 
   if (!session.url) {

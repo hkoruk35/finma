@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
       await supabaseAdmin
         .from("members")
         .update({
-          plan: "free_trial",
+          plan: "canceled",
           subscription_status: "canceled",
           cancel_at_period_end: false,
         })

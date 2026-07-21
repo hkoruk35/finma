@@ -51,18 +51,6 @@ export default function AdminMembersPage() {
     });
   };
 
-  const resetTrial = async (id: string) => {
-    const trial_ends_at = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
-    setMembers((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, plan: "free_trial", trial_ends_at } : m))
-    );
-    await fetch("/api/admin/members", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, plan: "free_trial", trial_ends_at }),
-    });
-  };
-
   const filtered = useMemo(() => {
     return members.filter((m) => {
       if (filterPlan && m.plan !== filterPlan) return false;
@@ -131,13 +119,6 @@ export default function AdminMembersPage() {
               </td>
               <td style={{ padding: "6px 10px", color: "#8b949e", whiteSpace: "nowrap" }}>
                 {fmt(m.trial_ends_at)}
-                <button
-                  onClick={() => resetTrial(m.id)}
-                  title="Trial'ı bugünden +7 güne sıfırla"
-                  style={{ marginLeft: 6, padding: "1px 5px", background: "#161b22", border: "1px solid #30363d", color: "#f59e0b", borderRadius: 3, fontSize: 10, fontFamily: "monospace", cursor: "pointer" }}
-                >
-                  ↺ 7g
-                </button>
               </td>
               <td style={{ padding: "6px 10px", color: "#8b949e" }}>{fmt(m.last_login_at)}</td>
               <td style={{ padding: "6px 10px", color: "#8b949e" }}>{fmt(m.created_at)}</td>

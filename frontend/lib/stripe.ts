@@ -38,10 +38,12 @@ export function accountPathForLocale(locale: string): string {
   return ACCOUNT_PATH_MAP[locale] || ACCOUNT_PATH_MAP.en;
 }
 
-// Premium checkout session — kayıt sırasında (7 gün trial + $9 ilk ay) veya
-// hesap sayfasından yeniden abonelik (trial'sız, tam $39) için kullanılır.
-// Gerçek $9/$39 tutarları burada değil, Stripe Dashboard'daki
-// PREMIUM_PRICE_ID (taban $39/ay) ve PREMIUM_COUPON_ID (ilk ay indirimi)
+// Premium checkout session — kayıt sırasında veya hesap sayfasından yeniden
+// abonelik için kullanılır. Ücretsiz deneme YOK — ödeme her zaman checkout
+// tamamlanır tamamlanmaz anında alınır. firstTimeDiscount=true ise (üye daha
+// önce hiç abone olmamışsa) ilk ay için PREMIUM_COUPON_ID indirimi uygulanır.
+// Gerçek indirimli/tam tutarlar burada değil, Stripe Dashboard'daki
+// PREMIUM_PRICE_ID (taban aylık ücret) ve PREMIUM_COUPON_ID (ilk ay indirimi)
 // nesnelerinde tanımlı — o yüzden fiyat değiştiğinde bu dosyada güncellenecek
 // bir sayı yok, Stripe tarafındaki coupon'un tutarı/duration'ı revize edilmeli.
 export async function createPremiumCheckoutSession({
@@ -49,13 +51,13 @@ export async function createPremiumCheckoutSession({
   memberId,
   locale,
   origin,
-  withTrial,
+  firstTimeDiscount,
 }: {
   customerId: string;
   memberId: string;
   locale: string;
   origin: string;
-  withTrial: boolean;
+  firstTimeDiscount: boolean;
 }) {
   const accountPath = accountPathForLocale(locale);
   return stripe.checkout.sessions.create({
@@ -63,10 +65,9 @@ export async function createPremiumCheckoutSession({
     customer: customerId,
     client_reference_id: memberId,
     line_items: [{ price: PREMIUM_PRICE_ID, quantity: 1 }],
-    discounts: withTrial && PREMIUM_COUPON_ID ? [{ coupon: PREMIUM_COUPON_ID }] : undefined,
+    discounts: firstTimeDiscount && PREMIUM_COUPON_ID ? [{ coupon: PREMIUM_COUPON_ID }] : undefined,
     subscription_data: {
       metadata: { member_id: memberId },
-      ...(withTrial ? { trial_period_days: 7 } : {}),
     },
     payment_method_collection: "always",
     locale: toStripeLocale(locale),

@@ -19,12 +19,12 @@ export default function EsFAQPage() {
       answer: "Rotundamente no. No somos una firma de asesoría financiera ni gestores de inversión. BOGASTOCK es una plataforma de software que genera análisis basados al 100% en algoritmos matemáticos. Nuestro sistema nunca te dirá \"compra a precio X\" o \"vende a precio Y\"; solo filtra y lista los candidatos con mayor fuerza técnica y fundamental, y te ofrece el informe de análisis de nuestra IA. La decisión final de operar, la gestión de riesgo y el tamaño de tus posiciones son de tu exclusiva responsabilidad."
     },
     {
-      question: "3. Soy un miembro nuevo. ¿Puedo probar el sistema gratis antes de pagar?",
-      answer: "¡Por supuesto! Todos los nuevos miembros reciben una prueba gratuita de 7 días (Free Trial). Durante este periodo, tendrás acceso completo y transparente a todas las operaciones de Acciones en Tendencia activas, listas de seguimiento (watchlists) y análisis gráficos para que puedas comprobar el rendimiento de la plataforma por ti mismo."
+      question: "3. ¿Puedo probar la plataforma gratis antes de hacerme miembro?",
+      answer: "No — ya no ofrecemos una prueba gratuita. BOGASTOCK funciona con un modelo de membresía Premium directa: tu suscripción comienza y se cobra en el momento en que te registras, aunque tu primer mes tiene descuento. Antes de unirte, puedes explorar gratis el Panel público para conocer la plataforma."
     },
     {
-      question: "4. Al registrarme me piden los datos de mi tarjeta, ¿se me cobrará algo inmediatamente?",
-      answer: "No, no se realizará ningún cargo en tu tarjeta durante los 7 días de prueba. Solicitamos estos datos únicamente para garantizar que, si decides continuar con nosotros una vez finalizado el periodo de prueba, tu servicio no sufra interrupciones. Puedes cancelar tu suscripción fácilmente desde tu panel de control en cualquier momento y sin coste alguno."
+      question: "4. Piden los datos de mi tarjeta al registrarme, ¿se cobra de inmediato?",
+      answer: "Sí. En el momento en que se crea tu membresía, se cobra a tu tarjeta la tarifa con descuento del primer mes, y desde el segundo mes la tarifa estándar. No hay periodo de prueba, así que el cobro comienza de inmediato al registrarte. Puedes cancelar tu membresía desde tu panel de cuenta en cualquier momento, sin cargos adicionales."
     },
     {
       question: "5. ¿Guardan los datos de mi tarjeta de crédito en su sistema? ¿Estoy seguro?",

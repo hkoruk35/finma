@@ -115,7 +115,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const [personalTickers, setPersonalTickers] = useState<string[]>([]);
   const [liveData, setLiveData] = useState<Record<string, LiveWatchData>>({});
   const [loaded, setLoaded] = useState(false);
-  const { isFreeTrial } = useMemberPlan();
+  const { isPremium } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const gridCols = compactMode
@@ -153,7 +153,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   };
 
   const usePersonal = loaded && personalTickers.length >= MIN_TICKERS_FOR_HOME;
-  const locked = isFreeTrial;
+  const locked = !isPremium;
 
   const top5Personal = personalTickers.slice(0, 5).map(ticker => {
     const d = liveData[ticker];

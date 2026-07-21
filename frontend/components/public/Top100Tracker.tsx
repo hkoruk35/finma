@@ -118,7 +118,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [mounted, setMounted] = useState(false);
   const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const { isFreeTrial } = useMemberPlan();
+  const { isPremium } = useMemberPlan();
 
   useEffect(() => setMounted(true), []);
 
@@ -406,8 +406,8 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
-                // Free trial: only the first row (idx === 0) is fully unlocked
-                const rowLocked = isFreeTrial && idx >= 20;
+                // Non-premium: only the first 20 rows are unlocked
+                const rowLocked = !isPremium && idx >= 20;
 
                 if (rowLocked) {
                   return (
@@ -575,7 +575,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = heatBg(dayPct);
-                  const hmLocked = isFreeTrial && idx >= 20;
+                  const hmLocked = !isPremium && idx >= 20;
                   return (
                     <tr
                       key={r.ticker}

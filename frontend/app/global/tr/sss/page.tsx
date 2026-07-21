@@ -19,12 +19,12 @@ export default function FAQPage() {
       answer: "Kesinlikle hayır. Biz bir yatırım danışmanlığı firması değiliz. BOGASTOCK, tamamen matematiksel algoritmalara dayalı analizler üreten bir yazılım platformudur. Sistemimiz size \"şu fiyattan alın, bu fiyattan satın\" demez; sadece teknik ve temel kriterlere göre gücü kanıtlanmış potansiyel adayları listeler ve yapay zeka analiz raporunu sunar. Ticaret yapıp yapmama kararı, risk yönetimi ve pozisyon büyüklüğü tamamen sizin sorumluluğunuzdadır."
     },
     {
-      question: "3. Yeni üyeyim, sistemi hemen ücret ödemeden deneyebilir miyim?",
-      answer: "Evet! Yeni üye olan herkes için 7 günlük ücretsiz deneme (Free Trial) süresi tanımlanır. Bu süre boyunca sistemdeki tüm aktif açık trend işlemlerini, izleme listelerini ve grafik analizlerini tamamen şeffaf bir şekilde görebilir, platformun performansını bizzat test edebilirsiniz."
+      question: "3. Üye olmadan önce sistemi ücretsiz deneyebilir miyim?",
+      answer: "Hayır, artık ücretsiz deneme süremiz yok — BOGASTOCK doğrudan Premium üyelik modeliyle çalışır. Üye olduğunuz anda abonelik başlar ve ödeme alınır; buna karşılık ilk ayınızı indirimli fiyattan başlatabilirsiniz. Üye olmadan önce herkese açık Gösterge Paneli'ni ücretsiz inceleyip platformun genel görünümünü test edebilirsiniz."
     },
     {
-      question: "4. Üye olurken kart bilgisi istiyorsunuz, hemen para çekilecek mi?",
-      answer: "Hayır, üyelik oluştururken alınan kredi kartından 7 gün boyunca hiçbir şekilde çekim yapılmaz. Bu süreç, deneme süreniz bittikten sonra hizmete kesintisiz devam etmek istemeniz durumunda kolaylık sağlamak amacıyla kurulmuştur. İstediğiniz an, hiçbir ücret ödemeden üyeliğinizi panelinizden iptal edebilirsiniz."
+      question: "4. Üye olurken kart bilgisi giriyorum, ödeme hemen mi alınıyor?",
+      answer: "Evet. Üyelik oluşturduğunuz anda kartınızdan ilk ay için indirimli tutar tahsil edilir, ikinci aydan itibaren standart aylık ücrete geçilir. Deneme süresi olmadığından ödeme kayıt anında başlar. İstediğiniz zaman, hiçbir ek ücret ödemeden üyeliğinizi hesap panelinizden iptal edebilirsiniz."
     },
     {
       question: "5. Kredi kartı bilgilerimi sisteminizde saklıyor musunuz? Güvende miyim?",

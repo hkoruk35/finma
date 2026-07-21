@@ -52,8 +52,8 @@ export default function HomeSimpleCard({
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const sectorLabel = (sector: string) => (sector ? sectorNames[sector] ?? sector : '—');
 
-  const { isFreeTrial } = useMemberPlan();
-  const locked = requirePremium && isFreeTrial;
+  const { isPremium } = useMemberPlan();
+  const locked = requirePremium && !isPremium;
   const [showModal, setShowModal] = useState(false);
 
   return (

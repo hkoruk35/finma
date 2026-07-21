@@ -19,12 +19,12 @@ export default function EnFAQPage() {
       answer: "Absolutely not. We are not a registered investment advisory firm, nor do we provide personalized financial advice. BOGASTOCK is a software platform driven entirely by mathematical algorithms. Our system will never tell you \"buy at price X\" or \"sell at price Y.\" Instead, we highlight strong potential candidates based on strict technical and fundamental criteria and provide AI-driven analysis reports. Executing trades, managing risk, and sizing positions are entirely your responsibility."
     },
     {
-      question: "3. I’m a new member. Can I try the platform for free?",
-      answer: "Yes! Every new member gets a 7-day Free Trial. During this trial period, you will have complete, transparent access to all active trend stock trades, watchlists, and chart analyses so you can experience and test the platform’s performance firsthand."
+      question: "3. Can I try the platform for free before becoming a member?",
+      answer: "No — we no longer offer a free trial. BOGASTOCK runs on a direct Premium membership model: your subscription starts and is charged the moment you sign up, though your first month is discounted. Before joining, you can freely browse the public Dashboard to get a feel for the platform."
     },
     {
-      question: "4. Why do you require card details for the free trial? Will I be charged immediately?",
-      answer: "No, you will not be charged anything during your 7-day trial. We request billing information simply to ensure an uninterrupted experience if you choose to remain a member after your trial ends. You can easily cancel your subscription directly from your dashboard at any time during the trial without paying a dime."
+      question: "4. You ask for card details when signing up — am I charged right away?",
+      answer: "Yes. The moment your membership is created, your card is charged the discounted first-month rate, then the standard monthly rate from month two onward. There's no trial period, so billing starts immediately at signup. You can cancel your membership from your account panel at any time, with no further charges."
     },
     {
       question: "5. Do you store my credit card information? Is my data secure?",

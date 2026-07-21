@@ -104,7 +104,7 @@ export default function SwingArchiveTracker({
 }) {
   const [selectedDate, setSelectedDate] = useState(archives[0]?.date ?? "");
   const [activeTab, setActiveTab] = useState<"table" | "heatmap">("table");
-  const { isFreeTrial } = useMemberPlan();
+  const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
 
   const liveHref = locale === "es" ? "/global/es/swing" : locale === "en" ? "/global/en/swing" : locale === "fr" ? "/global/fr/swing" : locale === "pt" ? "/global/pt/swing" : "/global/tr/swing";
@@ -121,7 +121,7 @@ export default function SwingArchiveTracker({
     () => archives.find((a) => a.date === selectedDate) ?? archives[0],
     [archives, selectedDate]
   );
-  const selectedDayLocked = isFreeTrial && !!selectedDay && recentDates.has(selectedDay.date);
+  const selectedDayLocked = !isPremium && !!selectedDay && recentDates.has(selectedDay.date);
 
   // Union of tickers across all archived days, ordered by their rank in the most recent day first.
   const allTickers = useMemo(() => {
@@ -153,7 +153,7 @@ export default function SwingArchiveTracker({
   // the recent (locked) days — its older history rows are gated along with it,
   // consistent with never revealing which stocks were recently signaled.
   const tickerLocked = (ticker: string) =>
-    isFreeTrial && Array.from(recentDates).some((d) => pickByTickerByDate[ticker]?.[d]);
+    !isPremium && Array.from(recentDates).some((d) => pickByTickerByDate[ticker]?.[d]);
 
   if (archives.length === 0) {
     return (
@@ -234,7 +234,7 @@ export default function SwingArchiveTracker({
                   borderRadius: 3, cursor: "pointer",
                 }}
               >
-                {isFreeTrial && recentDates.has(day.date) ? "🔒 " : ""}
+                {!isPremium && recentDates.has(day.date) ? "🔒 " : ""}
                 {formatDateShort(day.date, locale)}
                 {i === 0 ? ` (${locale === "tr" ? "son" : locale === "pt" ? "recente" : "latest"})` : ""}
               </button>

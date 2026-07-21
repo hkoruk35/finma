@@ -53,16 +53,17 @@ export async function POST(req: NextRequest) {
     await supabaseAdmin.from("members").update({ stripe_customer_id: customerId }).eq("id", userData.user.id);
   }
 
-  // Daha önce hiç aboneliği olmamış üyeler 7 gün deneme + ilk ay $19 kazanır;
-  // daha önce abone olup iptal etmiş üyeler doğrudan tam fiyattan başlar.
-  const withTrial = !member.stripe_subscription_id;
+  // Daha önce hiç aboneliği olmamış üyeler ilk ay indirimli fiyattan başlar
+  // (Stripe coupon); daha önce abone olup iptal etmiş üyeler tam fiyattan
+  // başlar. Deneme süresi yok — ödeme her durumda checkout'ta anında alınır.
+  const firstTimeDiscount = !member.stripe_subscription_id;
 
   const session = await createPremiumCheckoutSession({
     customerId,
     memberId: userData.user.id,
     locale,
     origin: req.nextUrl.origin,
-    withTrial,
+    firstTimeDiscount,
   });
 
   await supabaseAdmin

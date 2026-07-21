@@ -15,8 +15,8 @@ export interface MemberAccess {
   authenticated: boolean;
   plan: string | null;
   isPremium: boolean;
-  isFreeTrial: boolean;
-  /** Aktif ücretli plan veya süresi dolmamış deneme — ücretli içerik erişimi. */
+  /** Aktif ücretli plan — ücretli içerik erişimi. Deneme süresi yok; premium
+   *  olmayan (pending/canceled/anonim) hiçbir zaman ücretli veriye erişemez. */
   hasAccess: boolean;
 }
 
@@ -24,13 +24,12 @@ const NO_ACCESS: MemberAccess = {
   authenticated: false,
   plan: null,
   isPremium: false,
-  isFreeTrial: false,
   hasAccess: false,
 };
 
 /**
  * Supabase oturumundan üye planını okur. useMemberPlan (client hook) ile
- * aynı premium/trial mantığını sunucu tarafında uygular — bkz. hooks/useMemberPlan.ts.
+ * aynı premium mantığını sunucu tarafında uygular — bkz. hooks/useMemberPlan.ts.
  */
 export async function getMemberAccess(): Promise<MemberAccess> {
   try {
@@ -40,19 +39,16 @@ export async function getMemberAccess(): Promise<MemberAccess> {
 
     const { data: member } = await supabase
       .from("members")
-      .select("plan, trial_ends_at")
+      .select("plan")
       .eq("id", userData.user.id)
       .single();
 
     if (!member) return { ...NO_ACCESS, authenticated: true };
 
     const plan: string | null = member.plan ?? null;
-    const trialExpiry = member.trial_ends_at ? new Date(member.trial_ends_at).getTime() : 0;
-    const trialActive = trialExpiry > Date.now();
     const isPremium = plan === "premium" || plan === "admin";
-    const isFreeTrial = plan === "free_trial" || (!isPremium && trialActive);
 
-    return { authenticated: true, plan, isPremium, isFreeTrial, hasAccess: isPremium || isFreeTrial };
+    return { authenticated: true, plan, isPremium, hasAccess: isPremium };
   } catch {
     return NO_ACCESS;
   }

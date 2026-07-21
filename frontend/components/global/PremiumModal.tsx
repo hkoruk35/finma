@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import type { Locale } from "@/lib/i18n/copy";
-import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 interface Props {
   locale: Locale;
@@ -13,104 +12,49 @@ const COPY = {
   tr: {
     title: "Premium Üyelik Gerekiyor",
     desc: "Bu içeriğe erişmek için Premium üyelik gereklidir. Tüm hisse sinyallerine, analizlere ve listelere sınırsız erişin.",
-    trialLabel: "Deneme süreniz bitiyor:",
     offer: "İLK AY SADECE $9",
     sub: "Sınırlı sayıda — normal fiyat $39/ay",
     cta: "Şimdi Başla →",
     close: "Kapat",
     upgradeHref: "/global/tr/hesabim?tab=subscription",
-    dayUnit: "g",
-    hourUnit: "s",
-    minUnit: "d",
   },
   en: {
     title: "Premium Membership Required",
     desc: "A Premium membership is required to access this content. Get unlimited access to all stock signals, analyses, and lists.",
-    trialLabel: "Your trial expires in:",
     offer: "FIRST MONTH ONLY $9",
     sub: "Limited offer — regular price $39/mo",
     cta: "Get Started →",
     close: "Close",
     upgradeHref: "/global/en/account?tab=subscription",
-    dayUnit: "d",
-    hourUnit: "h",
-    minUnit: "m",
   },
   es: {
     title: "Se Requiere Membresía Premium",
     desc: "Se requiere una membresía Premium para acceder a este contenido. Obtén acceso ilimitado a todas las señales de acciones, análisis y listas.",
-    trialLabel: "Tu prueba expira en:",
     offer: "PRIMER MES SOLO $9",
     sub: "Oferta limitada — precio normal $39/mes",
     cta: "Comenzar Ahora →",
     close: "Cerrar",
     upgradeHref: "/global/es/account?tab=subscription",
-    dayUnit: "d",
-    hourUnit: "h",
-    minUnit: "m",
   },
   fr: {
     title: "Adhésion Premium Requise",
     desc: "Une adhésion Premium est requise pour accéder à ce contenu. Obtenez un accès illimité à tous les signaux d'actions, analyses et listes.",
-    trialLabel: "Votre essai expire dans:",
     offer: "PREMIER MOIS SEULEMENT 9$",
     sub: "Offre limitée — prix normal 39$/mois",
     cta: "Commencer Maintenant →",
     close: "Fermer",
     upgradeHref: "/global/fr/account?tab=subscription",
-    dayUnit: "j",
-    hourUnit: "h",
-    minUnit: "m",
   },
   pt: {
     title: "Assinatura Premium Necessária",
     desc: "É necessária uma assinatura Premium para acessar este conteúdo. Tenha acesso ilimitado a todos os sinais de ações, análises e listas.",
-    trialLabel: "Seu teste expira em:",
     offer: "PRIMEIRO MÊS POR APENAS $9",
     sub: "Oferta limitada — preço normal $39/mês",
     cta: "Começar Agora →",
     close: "Fechar",
     upgradeHref: "/global/pt/account?tab=subscription",
-    dayUnit: "d",
-    hourUnit: "h",
-    minUnit: "m",
   },
 };
-
-function TrialBadge({ locale }: { locale: Locale }) {
-  const { isFreeTrial, trialSecondsLeft } = useMemberPlan();
-  const [secsLeft, setSecsLeft] = useState(trialSecondsLeft);
-  const c = COPY[locale];
-
-  useEffect(() => {
-    setSecsLeft(trialSecondsLeft);
-    if (trialSecondsLeft <= 0) return;
-    const id = setInterval(() => setSecsLeft((s) => Math.max(0, s - 1)), 1000);
-    return () => clearInterval(id);
-  }, [trialSecondsLeft]);
-
-  if (!isFreeTrial || secsLeft <= 0) return null;
-
-  const days = Math.floor(secsLeft / 86400);
-  const hours = Math.floor((secsLeft % 86400) / 3600);
-  const mins = Math.floor((secsLeft % 3600) / 60);
-  const secs = secsLeft % 60;
-  const pad = (n: number) => String(n).padStart(2, "0");
-
-  return (
-    <div className="mb-5 rounded-xl border border-[#f59e0b]/30 bg-[#f59e0b]/5 px-4 py-3 flex items-center gap-3">
-      <svg className="w-4 h-4 text-[#f59e0b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <div className="min-w-0">
-        <p className="text-[10px] text-[#f59e0b]/70 font-semibold uppercase tracking-wider">{c.trialLabel}</p>
-        <p className="font-mono font-black text-[#f59e0b] text-base tracking-wider mt-0.5">
-          {days}{c.dayUnit} {pad(hours)}{c.hourUnit} {pad(mins)}{c.minUnit} {pad(secs)}sn
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function PremiumModal({ locale, onClose }: Props) {
   const c = COPY[locale];
@@ -147,9 +91,6 @@ export default function PremiumModal({ locale, onClose }: Props) {
 
           <h2 className="text-lg font-black text-white mb-2">{c.title}</h2>
           <p className="text-sm text-slate-400 mb-5 leading-relaxed">{c.desc}</p>
-
-          {/* Trial countdown — only visible for free trial users */}
-          <TrialBadge locale={locale} />
 
           {/* Offer block */}
           <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 rounded-xl p-4 mb-5">

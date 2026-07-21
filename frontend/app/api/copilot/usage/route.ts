@@ -3,7 +3,7 @@ import { getMemberAccess } from "@/lib/apiAuth";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
-const DEFAULT_CREDIT_LIMIT = { premium: 200, admin: 200, free_trial: 20 } as const;
+const DEFAULT_CREDIT_LIMIT = { premium: 200, admin: 200 } as const;
 
 export async function GET() {
   const access = await getMemberAccess();
@@ -16,11 +16,7 @@ export async function GET() {
   const user = userData.user;
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const dailyLimit = access.isPremium
-    ? DEFAULT_CREDIT_LIMIT.premium
-    : access.isFreeTrial
-    ? DEFAULT_CREDIT_LIMIT.free_trial
-    : 0;
+  const dailyLimit = access.isPremium ? DEFAULT_CREDIT_LIMIT.premium : 0;
 
   if (dailyLimit === 0) {
     return NextResponse.json({ currentUsage: 0, dailyLimit: 0, hasAccess: false });

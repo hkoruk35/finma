@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Criar Conta — BOGA AI",
-  description: "Cadastre-se gratuitamente e acesse o Rastreador Top 100 da BOGA AI com sinais EMA/RSI.",
+  description: "Junte-se ao BOGA AI Premium e acesse o Rastreador Top 100 com sinais EMA/RSI.",
   alternates: { canonical: "https://bogastock.com/global/pt/register" },
 };
 
