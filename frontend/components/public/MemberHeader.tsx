@@ -25,19 +25,15 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
       .then(data => {
         setIsLoggedIn(true);
         setMember(data.member);
-        if (data.member?.subscription_status === 'pending') {
-          const isAccountPage = pathname?.includes('/account') || pathname?.includes('/hesabim');
-          if (!isAccountPage) {
-            const accountHref = locale === 'tr' ? '/global/tr/hesabim' : locale === 'es' ? '/global/es/account' : locale === 'fr' ? '/global/fr/account' : locale === 'pt' ? '/global/pt/account' : '/global/en/account';
-            window.location.href = accountHref + '?tab=subscription';
-          }
-        }
       })
       .catch(() => setIsLoggedIn(false))
       .finally(() => setAuthChecked(true));
   }, [pathname, locale]);
 
-  const homeHref = locale === "tr" ? "/global/tr/home" : locale === "es" ? "/global/es/home" : locale === "fr" ? "/global/fr/home" : locale === "pt" ? "/global/pt/home" : "/global/en/home";
+  // /global/{locale} (Terminal) artık üye olsun olmasın herkesin ana
+  // sayfası — Ana Sayfa butonu da eskiden ayrı bir "/home" pazarlama
+  // sayfasına gidiyordu, artık aynı hedefe gidiyor.
+  const homeHref = `/global/${locale}`;
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
   const terminalHref = `/global/${locale}`;
