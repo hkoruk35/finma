@@ -82,6 +82,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
     vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
+    multiChartScreen: "Multi-Chart Screen", charts: "Charts",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -92,6 +93,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
     vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
+    multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -102,6 +104,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
+    multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -112,6 +115,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
+    multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -122,6 +126,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
+    multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
   },
 };
 
@@ -1077,7 +1082,7 @@ export default function BogaChartEngine({
                   <button
                     onClick={() => setMultiChartOpen(v => !v)}
                     className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all ml-1"
-                    title="Çoklu Grafik Ekranı"
+                    title={t.multiChartScreen}
                   >
                     2 / 4 / 6 / 9
                   </button>
@@ -1097,7 +1102,7 @@ export default function BogaChartEngine({
                               numLocked ? "text-slate-500 hover:text-amber-400" : "text-slate-300 hover:text-white"
                             }`}
                           >
-                            {num} Grafik
+                            {num} {t.charts}
                           </button>
                         );
                       })}
@@ -1329,11 +1334,12 @@ function MultiChartOverlay({
   onClose: () => void;
   onChangeTicker: (index: number, next: string) => void;
 }) {
+  const t = LABELS[lang] || LABELS.en;
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0e17] flex flex-col">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0">
         <span className="text-sm font-black text-white uppercase tracking-widest">
-          Çoklu Grafik Ekranı — {layout}
+          {t.multiChartScreen} — {layout}
         </span>
         <button
           onClick={onClose}
