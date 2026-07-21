@@ -4024,7 +4024,8 @@ def build_diversified_toplist(
     candidates:      list,
     max_per_sector:  int   = MAX_PER_SECTOR,
     total:           int   = 20,
-    corr_threshold:  float = 0.75
+    corr_threshold:  float = 0.75,
+    relaxation_level: int  = 0
 ) -> list:
     if not candidates:
         return []
@@ -4037,8 +4038,13 @@ def build_diversified_toplist(
     # ── Adım 2: Sistem bazlı minimum eşik filtresi — V117_v2 ─────────────────
     # Eski kod: herkese aynı 38.0 eşiği.
     # V117_v2: SQUEEZE → 44.0, AWAKENING → 42.0, diğerleri → 38.0
+    # relaxation_level burada da uygulanır — aksi halde scan_top_stocks'taki
+    # dış gevşetilmiş eşiği (yeni tırnak) geçen adaylar burada YENİDEN,
+    # gevşetilmemiş tam eşiğe takılıp diversified listeye hiç giremiyordu
+    # (2026-07-21: gevşetme 3'te 30 aday derin analize alınmış ama bu ikinci,
+    # gevşetilmemiş kontrol yüzünden final listede sadece 2 aday kalmıştı).
     sorted_cands = sorted(
-        [c for c in candidates if _passes_min_score(c)],
+        [c for c in candidates if _passes_min_score(c, relaxation_level)],
         key=lambda x: x.get("boga_score_100", 0.0),
         reverse=True
     )
@@ -5560,7 +5566,7 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
         top_analysis_set.sort(key=lambda x: x.get("score", 0.0), reverse=True)
 
         # Sektör dağılımlı en iyi 20 adayı seç
-        top_candidates = build_diversified_toplist(top_analysis_set, total=20)
+        top_candidates = build_diversified_toplist(top_analysis_set, total=20, relaxation_level=relaxation_level)
         
         # 1H Destek/Direnç + Zone Hesaplaması
         for c in top_candidates:

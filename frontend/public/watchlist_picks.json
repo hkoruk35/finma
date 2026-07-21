@@ -1,4 +1,59 @@
 {
-  "generated_at": "2026-07-21T15:53:35.769557-04:00",
-  "picks": []
+  "generated_at": "2026-07-21T16:07:44.988252-04:00",
+  "picks": [
+    {
+      "ticker": "ETSY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-21",
+      "score": 36.0
+    },
+    {
+      "ticker": "NTRA",
+      "sector": "Healthcare",
+      "date_added": "2026-07-21",
+      "score": 35.5
+    },
+    {
+      "ticker": "GPN",
+      "sector": "Industrials",
+      "date_added": "2026-07-21",
+      "score": 35.5
+    },
+    {
+      "ticker": "LYV",
+      "sector": "Communication Services",
+      "date_added": "2026-07-21",
+      "score": 35.5
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "date_added": "2026-07-21",
+      "score": 34.5
+    },
+    {
+      "ticker": "WCC",
+      "sector": "Industrials",
+      "date_added": "2026-07-21",
+      "score": 34.5
+    },
+    {
+      "ticker": "ZM",
+      "sector": "Technology",
+      "date_added": "2026-07-21",
+      "score": 33.0
+    },
+    {
+      "ticker": "BURL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-21",
+      "score": 30.5
+    },
+    {
+      "ticker": "ATI",
+      "sector": "Industrials",
+      "date_added": "2026-07-21",
+      "score": 25.5
+    }
+  ]
 }
