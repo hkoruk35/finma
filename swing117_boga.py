@@ -2062,10 +2062,20 @@ async def apply_atmaca_filters(ticker: str) -> Optional[dict]:
                         w_rsi_slope = float(w_rsi_series.iloc[-1]) - float(w_rsi_series.iloc[-4])
 
                 # ── 1W Hacim ─────────────────────────────────────────
+                # weekly_close_safe ile ayni düzeltme: son (tamamlanmamış,
+                # hafta ortasında hâlâ birikmekte olan) bar hariç tutulur.
+                # Önceden weekly_vol.iloc[-1] o an içinde bulunulan kısmi
+                # haftanın hacmiydi — Pazartesi/Salı gibi haftanın erken
+                # günlerinde bu değer tam bir haftalık ortalamaya kıyasla
+                # yapay olarak çok düşük çıkıp (örn. 0.15x-0.30x) neredeyse
+                # her hisseyi "1W Hacim Hard Gate"ten (< 0.35x) elip taramanın
+                # gevşetme seviyesinden bağımsız olarak günlerce 0 aday
+                # bulmasına yol açıyordu.
                 try:
                     weekly_vol = df_1d['Volume'].resample('W').sum().dropna()
-                    if len(weekly_vol) >= 8:
-                        w_vol_ratio = float(weekly_vol.iloc[-1]) / float(weekly_vol.tail(8).mean())
+                    weekly_vol_safe = weekly_vol.iloc[:-1] if len(weekly_vol) > 1 else weekly_vol
+                    if len(weekly_vol_safe) >= 8:
+                        w_vol_ratio = float(weekly_vol_safe.iloc[-1]) / float(weekly_vol_safe.tail(8).mean())
                 except Exception:
                     w_vol_ratio = 1.0
 
