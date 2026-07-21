@@ -16,7 +16,7 @@ export default function GlobalTrGirisPage() {
       <main className="flex-1 flex flex-col">
         <LoginForm
           locale="tr"
-          redirectTo="/global/tr/home"
+          redirectTo="/global/tr"
           registerHref="/global/tr/kayit"
         />
       </main>

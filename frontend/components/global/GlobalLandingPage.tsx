@@ -267,8 +267,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 lang={locale}
                 detailMode
                 height={600}
-                defaultIndicators={["ema20", "bb", "rsi", "volumeProfile"]}
+                defaultIndicators={["ema50", "rsi"]}
                 defaultTimeframe="D"
+                defaultCandleType="candle"
+                premiumGate
               />
             </div>
 
@@ -279,6 +281,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 locale={locale}
                 hideChart
                 hidePermalink
+                lockTradePlanCard
               />
             </div>
           </div>

@@ -53,6 +53,7 @@ function getLabels(locale: Locale) {
     price: 'FİYAT',
     sortLabel: 'Kişisel takip listeniz',
     href: '/global/tr/my-watchlist',
+    customizeTooltip: "Premium'da Özelleştir",
   };
   if (locale === 'pt') return {
     title: 'Minha Lista',
@@ -62,6 +63,7 @@ function getLabels(locale: Locale) {
     price: 'PREÇO',
     sortLabel: 'Sua lista pessoal',
     href: '/global/pt/my-watchlist',
+    customizeTooltip: 'Personalize com Premium',
   };
   if (locale === 'es') return {
     title: 'Mi Lista',
@@ -71,6 +73,7 @@ function getLabels(locale: Locale) {
     price: 'PRECIO',
     sortLabel: 'Tu lista de seguimiento personal',
     href: '/global/es/my-watchlist',
+    customizeTooltip: 'Personaliza con Premium',
   };
   if (locale === 'fr') return {
     title: 'Ma Liste',
@@ -80,6 +83,7 @@ function getLabels(locale: Locale) {
     price: 'PRIX',
     sortLabel: 'Votre liste de surveillance personnelle',
     href: '/global/fr/my-watchlist',
+    customizeTooltip: 'Personnalisez avec Premium',
   };
   return {
     title: 'My Watchlist',
@@ -89,6 +93,7 @@ function getLabels(locale: Locale) {
     price: 'PRICE',
     sortLabel: 'Your personal watchlist',
     href: '/global/en/my-watchlist',
+    customizeTooltip: 'Customize with Premium',
   };
 }
 
@@ -170,7 +175,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
       <div className="bg-gradient-to-br from-[#0a1428] to-[#050b14] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative group cursor-default">
             <span className="w-1.5 h-6 rounded-full" style={{ background: accent }} />
             <div>
               <h3 className="text-sm font-black text-white uppercase tracking-tight">{title}</h3>
@@ -180,6 +185,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 </span>
               )}
             </div>
+            {compactMode && (
+              <div className="pointer-events-none absolute left-0 top-full mt-1.5 z-20 hidden group-hover:block whitespace-nowrap rounded-md bg-[#1e293b] border border-[#a78bfa]/40 px-2 py-1 text-[10px] font-bold text-[#a78bfa] shadow-lg">
+                {labels.customizeTooltip}
+              </div>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <Link
@@ -206,7 +216,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
             </div>
 
             {/* Rows */}
-            <div className="flex-1 divide-y divide-[#1e2a3a]/70">
+            <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
               {stocks.map((stock, idx) => {
                 const st = STATUS_STYLE[stock.status];
                 const slabel = statusLabel(stock.status, locale);

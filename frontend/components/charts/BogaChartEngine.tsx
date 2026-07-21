@@ -17,6 +17,8 @@ import {
 } from "lightweight-charts";
 import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
@@ -79,7 +81,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
-    vol: "Vol", indicators: "Indicators",
+    vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -89,7 +91,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
-    vol: "Hac", indicators: "Göstergeler",
+    vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -99,7 +101,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
-    vol: "Vol", indicators: "Indicadores",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -109,7 +111,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
-    vol: "Vol", indicators: "Indicateurs",
+    vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -119,9 +121,14 @@ const LABELS: Record<Locale, Record<string, string>> = {
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
     candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
-    vol: "Vol", indicators: "Indicadores",
+    vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
   },
 };
+
+// Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki
+// gosterge — geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
+// tiklaninca PremiumModal acar, aktif edilemez.
+const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi"]);
 
 const INTERVALS: { label: string; value: string }[] = [
   { label: "15M", value: "15" },
@@ -225,6 +232,8 @@ interface Props {
   detailMode?: boolean; // unlocks the full toolbar: candle type, range, OHLCV readout, share, fullscreen
   defaultIndicators?: IndicatorKey[]; // initial active set (uncontrolled mode only)
   defaultTimeframe?: string; // initial interval value
+  defaultCandleType?: CandleType; // initial candle style (overrides the detailMode-based default)
+  premiumGate?: boolean; // non-premium viewers may only toggle FREE_INDICATOR_KEYS; everything else (incl. Trade Plan values) prompts PremiumModal instead
 }
 
 const EMA_COLORS: Record<string, string> = {
@@ -280,8 +289,13 @@ export default function BogaChartEngine({
   detailMode = false,
   defaultIndicators,
   defaultTimeframe,
+  defaultCandleType,
+  premiumGate = false,
 }: Props) {
   const t = LABELS[lang] || LABELS.en;
+  const { isPremium } = useMemberPlan();
+  const gated = premiumGate && !isPremium;
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
@@ -305,7 +319,7 @@ export default function BogaChartEngine({
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
   const setActive = setInternalActive;
 
-  const [candleType, setCandleType] = useState<CandleType>(detailMode ? "heikin-ashi" : "candle");
+  const [candleType, setCandleType] = useState<CandleType>(defaultCandleType ?? (detailMode ? "heikin-ashi" : "candle"));
   const [range, setRange] = useState<RangeKey>("3M");
   const [hoverBar, setHoverBar] = useState<Bar | null>(null);
   // Mobilde toolbar kalabalığını azaltmak için: mum tipi ve gösterge satırları
@@ -848,6 +862,10 @@ export default function BogaChartEngine({
   }, [fetchData]);
 
   const toggle = (key: IndicatorKey) => {
+    if (gated && !FREE_INDICATOR_KEYS.has(key)) {
+      setShowPremiumModal(true);
+      return;
+    }
     setActive((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
@@ -907,26 +925,40 @@ export default function BogaChartEngine({
   // Gösterge butonu — hem masaüstü satırında hem mobil açılır panelde
   // AYNI kod kullanılsın diye tek yerden üretilir.
   const renderIndicatorButton = (key: IndicatorKey) => {
-    const val = ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
+    const locked = gated && !FREE_INDICATOR_KEYS.has(key);
+    const val = !locked && ["ema9", "ema20", "ema50", "ema200", "vwap"].includes(key) ? latestValue(key) : null;
     const tpColor = TRADE_PLAN_COLORS[key];
-    const tpLabel = tradePlan ? tradePlanValueLabel(key, tradePlan) : null;
+    const isTradePlanKey = TRADE_PLAN_KEYS.includes(key);
+    const tpLabel = locked && isTradePlanKey
+      ? "(Premium)"
+      : tradePlan
+      ? tradePlanValueLabel(key, tradePlan)
+      : null;
     return (
       <button
         key={key}
         onClick={() => toggle(key)}
+        title={locked ? t.premiumRequired : undefined}
         className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
-          active.has(key)
+          locked
+            ? "border-[#1e2a3a] text-[#64748b]/60 hover:text-amber-400 hover:border-amber-500/40"
+            : active.has(key)
             ? tpColor
               ? ""
               : "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
             : "border-[#1e2a3a] text-[#64748b] hover:text-white"
         }`}
         style={
-          active.has(key) && tpColor
+          !locked && active.has(key) && tpColor
             ? { background: `${tpColor}33`, borderColor: `${tpColor}80`, color: tpColor }
             : undefined
         }
       >
+        {locked && (
+          <svg className="inline w-2 h-2 mr-0.5 -mt-0.5" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+          </svg>
+        )}
         {t[key]}
         {val != null ? ` ${fmt(val)}` : ""}
         {tpLabel ? ` ${tpLabel}` : ""}
@@ -1233,6 +1265,8 @@ export default function BogaChartEngine({
           )}
         </div>
       </div>
+
+      {showPremiumModal && <PremiumModal locale={lang} onClose={() => setShowPremiumModal(false)} />}
 
       {multiChartLayout && typeof document !== "undefined" &&
         createPortal(

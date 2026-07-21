@@ -7,6 +7,8 @@ import { copy, type Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
 import TickerHoverChart from '../TickerHoverChart';
 import { STATUS_STYLE, statusLabel } from './HomeWatchlistSlot';
+import { useMemberPlan } from '@/hooks/useMemberPlan';
+import PremiumModal from './PremiumModal';
 
 interface Stock {
   ticker: string;
@@ -42,6 +44,7 @@ function getLabels(locale: Locale) {
     empty: 'Bugün için trend hisse bulunmuyor',
     loading: 'Yükleniyor...',
     href: '/global/tr/swing',
+    premiumMember: 'Premium Üye',
   };
   if (locale === 'pt') return {
     title: 'Ações em Tendência',
@@ -52,6 +55,7 @@ function getLabels(locale: Locale) {
     empty: 'Nenhuma ação em tendência hoje',
     loading: 'Carregando...',
     href: '/global/pt/swing',
+    premiumMember: 'Membro Premium',
   };
   if (locale === 'es') return {
     title: 'Acciones en Tendencia',
@@ -62,6 +66,7 @@ function getLabels(locale: Locale) {
     empty: 'No hay acciones en tendencia hoy',
     loading: 'Cargando...',
     href: '/global/es/swing',
+    premiumMember: 'Miembro Premium',
   };
   if (locale === 'fr') return {
     title: 'Actions Tendance',
@@ -72,6 +77,7 @@ function getLabels(locale: Locale) {
     empty: "Aucune action tendance aujourd'hui",
     loading: 'Chargement...',
     href: '/global/fr/swing',
+    premiumMember: 'Membre Premium',
   };
   return {
     title: 'Trending Stocks',
@@ -82,6 +88,7 @@ function getLabels(locale: Locale) {
     empty: 'No trending stocks today',
     loading: 'Loading...',
     href: '/global/en/swing',
+    premiumMember: 'Premium Member',
   };
 }
 
@@ -98,6 +105,8 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
   const gridCols = compactMode ? 'grid-cols-[1fr_48px_64px]' : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
+  const { isPremium } = useMemberPlan();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -142,7 +151,10 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-[#0a1428] to-[#050b14] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+    <>
+      {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
+
+      <div className="bg-gradient-to-br from-[#0a1428] to-[#050b14] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
         <div className="flex items-center gap-3">
@@ -172,20 +184,26 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
           </div>
 
           {/* Rows */}
-          <div className="flex-1 divide-y divide-[#1e2a3a]/70">
+          <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
             {stocks.map((stock, idx) => {
               const st = STATUS_STYLE[stock.status];
               const slabel = statusLabel(stock.status, locale);
+              const locked = idx > 0 && !isPremium;
               return (
                 <div
                   key={stock.ticker}
-                  className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${onTickerSelect ? 'cursor-pointer' : ''}`}
-                  onClick={onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined}
+                  className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
+                  onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
                     <div className="min-w-0">
-                      {disableHoverChart ? (
+                      {locked ? (
+                        <div className="font-medium text-sm tracking-tight select-none flex items-center gap-1" style={{ color: '#f59e0b' }}>
+                          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                          <span style={{ fontSize: 11, fontWeight: 700 }}>{labels.premiumMember}</span>
+                        </div>
+                      ) : disableHoverChart ? (
                         <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
                       ) : (
                         <TickerHoverChart ticker={stock.ticker}>
@@ -231,6 +249,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
           <p className="text-xs text-white/60">{loaded ? labels.empty : labels.loading}</p>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
