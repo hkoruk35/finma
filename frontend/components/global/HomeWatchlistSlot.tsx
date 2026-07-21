@@ -32,7 +32,6 @@ const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string;
   NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL', pt: 'NEUTRO', es: 'NEUTRO', fr: 'NEUTRE' },
 };
 
-const ROW_COLS = 'grid-cols-[1fr_56px_64px_72px]';
 const ACCENT_PERSONAL = '#a78bfa';
 const MIN_TICKERS_FOR_HOME = 5;
 
@@ -199,7 +198,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
+            <div className={`grid ${gridCols} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
               <span>{labels.stock}</span>
               <span />
               {!compactMode && <span className="text-center">{labels.status}</span>}
@@ -214,7 +213,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group ${locked ? 'cursor-pointer' : ''}`}
+                    className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
                     onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                   >
                     <div className="flex items-center gap-3 min-w-0">

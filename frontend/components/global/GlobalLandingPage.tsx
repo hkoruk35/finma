@@ -241,7 +241,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             <div className="flex items-center gap-3">
               
               <div className="hidden md:block w-64 mr-2">
-                <TickerSearchBox locale={locale} onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
+                <TickerSearchBox locale={locale} compact onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
               </div>
               <button 
                 onClick={() => setShowRightSidebar(!showRightSidebar)}
@@ -255,10 +255,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
           </div>
 
-          <div className="p-4 flex-1 flex flex-col min-h-min">
-            
-
-            <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] mb-6 shrink-0">
+          <div className="p-4 flex-1 flex flex-col gap-6 min-h-min">
+            <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] shrink-0">
               <BogaChartEngine
                 symbol={selectedYSymbol}
                 lang={locale}
@@ -270,12 +268,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
 
             {/* Technical Analysis Panel */}
-            <div className="shrink-0 mb-8">
-              <TickerDetailPanel 
-                ticker={selectedTicker} 
-                locale={locale} 
-                hideChart 
-                hidePermalink 
+            <div className="shrink-0">
+              <TickerDetailPanel
+                ticker={selectedTicker}
+                locale={locale}
+                hideChart
+                hidePermalink
               />
             </div>
           </div>

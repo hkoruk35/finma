@@ -8,7 +8,7 @@ interface Suggestion {
   company: string;
 }
 
-export default function TickerSearchBox({ locale = "en", onSelect }: { locale?: string, onSelect?: (ticker: string) => void }) {
+export default function TickerSearchBox({ locale = "en", onSelect, compact }: { locale?: string, onSelect?: (ticker: string) => void, compact?: boolean }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -73,7 +73,7 @@ export default function TickerSearchBox({ locale = "en", onSelect }: { locale?: 
   };
 
   return (
-    <div ref={containerRef} className="relative mb-4 md:max-w-sm">
+    <div ref={containerRef} className={`relative ${compact ? "" : "mb-4 md:max-w-sm"}`}>
       <input
         type="text"
         value={query}
@@ -87,15 +87,17 @@ export default function TickerSearchBox({ locale = "en", onSelect }: { locale?: 
           : locale === "pt" ? "Buscar ação (ex. AAPL, MSFT)..."
           : "Search ticker (e.g. AAPL, MSFT)..."
         }
-        className="w-full px-4 py-2.5 rounded-lg bg-[#1a2b4d] border border-[#2a3f66] text-white text-sm placeholder:text-slate-400 focus:outline-none focus:border-[#3b82f6] transition-colors"
+        className={`w-full rounded-lg bg-[#1a2b4d] border border-[#2a3f66] text-white placeholder:text-slate-400 focus:outline-none focus:border-[#3b82f6] transition-colors ${compact ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm"}`}
       />
-      <p className="mt-1.5 text-[10px] text-slate-500">
-        {locale === "tr" ? "BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir."
-        : locale === "es" ? "BOGA AI puede analizar todo el mercado de EE. UU. en tiempo real."
-        : locale === "fr" ? "BOGA AI peut analyser l'ensemble du marché américain en temps réel."
-        : locale === "pt" ? "A BOGA AI pode analisar todo o mercado dos EUA em tempo real."
-        : "BOGA AI can instantly scan the entire U.S. stock market."}
-      </p>
+      {!compact && (
+        <p className="mt-1.5 text-[10px] text-slate-500">
+          {locale === "tr" ? "BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir."
+          : locale === "es" ? "BOGA AI puede analizar todo el mercado de EE. UU. en tiempo real."
+          : locale === "fr" ? "BOGA AI peut analyser l'ensemble du marché américain en temps réel."
+          : locale === "pt" ? "A BOGA AI pode analisar todo o mercado dos EUA em tempo real."
+          : "BOGA AI can instantly scan the entire U.S. stock market."}
+        </p>
+      )}
       {open && suggestions.length > 0 && (
         <div className="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-lg bg-[#1a2b4d] border border-[#2a3f66] shadow-xl">
           {suggestions.map((s, i) => (

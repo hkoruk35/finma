@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from "react";
 import Draggable from "react-draggable";
+import { useRouter } from "next/navigation";
 import { useCopilot } from "@/context/CopilotContext";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";
@@ -41,7 +42,9 @@ export default function CopilotDrawer() {
     pageContext, locale, append, usage, profile, saveProfile,
     isAuthenticated, error,
   } = useCopilot();
+  const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const [draftName, setDraftName] = useState(profile.displayName);
   const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
 
@@ -77,29 +80,45 @@ export default function CopilotDrawer() {
     setIsSettingsOpen(false);
   };
 
-  // Giriş yapmamış ziyaretçiye Copilot hiç gösterilmez — backend zaten
-  // 401 döner, buton görünüp çalışmayan bir özellik sunmaktan kaçınıyoruz.
-  if (!isAuthenticated) return null;
+  // Giriş yapmamış ziyaretçi için buton yine de görünür (teaser + drag) —
+  // tıklandığında sohbeti açmak yerine locale'e göre giriş sayfasına yönlendirir,
+  // "işlevsiz olsa bile ekranda görünmesi gerekiyordu" geri bildirimi üzerine.
+  const loginHref =
+    locale === "tr" ? "/global/tr/giris"
+    : locale === "es" ? "/global/es/login"
+    : locale === "fr" ? "/global/fr/login"
+    : locale === "pt" ? "/global/pt/login"
+    : "/global/en/login";
+
+  const handleTriggerClick = () => {
+    if (!isAuthenticated) {
+      router.push(loginHref);
+      return;
+    }
+    setIsOpen(true);
+  };
 
   return (
     <>
       {!isOpen && (
-        <Draggable bounds="body">
-          <div className="fixed bottom-24 right-6 z-50 flex flex-col items-center gap-1.5 cursor-move group lg:bottom-6">
+        <Draggable nodeRef={triggerRef} bounds="body">
+          <div ref={triggerRef} className="fixed bottom-24 right-6 z-50 flex flex-col items-center gap-1.5 cursor-move group lg:bottom-6">
             <button
-              onClick={() => setIsOpen(true)}
+              onClick={handleTriggerClick}
               className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-transform hover:scale-105 active:scale-95"
             >
               <span className="text-lg">🤖</span>
               BOGA Copilot
             </button>
             <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/80 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-sm border border-[#3b82f6]/30 shadow-lg select-none">
-              {locale === 'tr' ? 'Tüm ABD hisselerini ve Altını yapay zekaya sorun' : 'Ask AI about any stock / gold vs'}
+              {ct("copilotTagline", locale)}
             </div>
           </div>
         </Draggable>
       )}
 
+      {isAuthenticated && (
+      <>
       <div
         className={`fixed right-0 top-0 z-50 flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl transition-transform duration-300 sm:w-[420px] ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -354,6 +373,8 @@ export default function CopilotDrawer() {
           className="fixed inset-0 bg-black/50 z-40 sm:hidden"
           onClick={() => setIsOpen(false)}
         />
+      )}
+      </>
       )}
     </>
   );

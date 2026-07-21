@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import {
   createChart,
   ColorType,
@@ -159,6 +160,19 @@ const UP_COLOR = "#22c55e";
 const DOWN_COLOR = "#ef4444";
 const NAVY = "#030073";
 
+// Çoklu Grafik Ekranı — tıklanan hisse ilk karo, geri kalanı bu havuzdan
+// (tekrarsız) dolduruluyor, boylece "9 Grafik" secince 9 ayni grafik yerine
+// karsilastirmali bir izleme listesi gorunuyor.
+const MULTI_CHART_POOL = ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "SPY", "QQQ"];
+
+function multiChartGridClass(n: number): string {
+  if (n <= 2) return "grid-cols-1 md:grid-cols-2 grid-rows-2 md:grid-rows-1";
+  if (n === 3) return "grid-cols-1 md:grid-cols-3 grid-rows-3 md:grid-rows-1";
+  if (n === 4) return "grid-cols-2 grid-rows-2";
+  if (n === 6) return "grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2";
+  return "grid-cols-2 md:grid-cols-3 grid-rows-5 md:grid-rows-3"; // 9
+}
+
 // Trade Plan toggle butonlarinin ve grafik uzerindeki cizgilerin/overlay'in
 // rengi — createPriceLine cagrilarindaki (STOP=DOWN_COLOR kirmizi, TP1-3
 // mavi/camgobegi/mor) ve entry-zone overlay'indeki (yesil) renklerle birebir
@@ -304,6 +318,8 @@ export default function BogaChartEngine({
   const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [multiChartOpen, setMultiChartOpen] = useState(false);
+  const [multiChartLayout, setMultiChartLayout] = useState<number | null>(null);
+  const [multiChartTickers, setMultiChartTickers] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   // Rendered as a plain DOM overlay (see JSX below) — driven by React state
@@ -391,6 +407,22 @@ export default function BogaChartEngine({
     }
   };
 
+  // Aktif sembol ilk karo, kalanlar havuzdan (tekrarsız) tamamlanir.
+  const openMultiChart = (n: number) => {
+    const pool = MULTI_CHART_POOL.filter((s) => s !== symbol);
+    const tickers = [symbol, ...pool].slice(0, n);
+    setMultiChartTickers(tickers);
+    setMultiChartLayout(n);
+  };
+
+  const changeMultiChartTicker = (index: number, next: string) => {
+    setMultiChartTickers((prev) => {
+      const copy = [...prev];
+      copy[index] = next;
+      return copy;
+    });
+  };
+
   useEffect(() => {
     const handler = () => setIsFullscreen(document.fullscreenElement === wrapperRef.current);
     document.addEventListener("fullscreenchange", handler);
@@ -424,6 +456,11 @@ export default function BogaChartEngine({
       },
       localization: { timeFormatter: nyTimeFormatter },
       autoSize: true,
+      // Fare tekerleği varsayılan olarak kapalı — grafik üzerinden sayfayı
+      // aşağı/yukarı kaydırmaya çalışan kullanıcı yanlışlıkla zoom yapmasın diye.
+      // Tıklayınca (bkz. onClick/onMouseLeave aşağıda) geçici olarak açılıyor.
+      handleScroll: { mouseWheel: false, pressedMouseMove: true, horzTouchDrag: true, vertTouchDrag: true },
+      handleScale: { mouseWheel: false, axisPressedMouseMove: true, pinch: true },
     });
 
     const volumeSeries = chart.addSeries(
@@ -993,7 +1030,7 @@ export default function BogaChartEngine({
                       {[2, 3, 4, 6, 9].map(num => (
                         <button
                           key={num}
-                          onClick={() => { setMultiChartOpen(false); alert("Multi-chart " + num + " layout (Coming Soon)"); }}
+                          onClick={() => { setMultiChartOpen(false); openMultiChart(num); }}
                           className="block w-full text-center px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
                         >
                           {num} Grafik
@@ -1089,7 +1126,12 @@ export default function BogaChartEngine({
           </>
         )}
 
-        <div className="relative flex-1" style={{ minHeight: height ?? 300 }}>
+        <div
+          className="relative flex-1"
+          style={{ minHeight: height ?? 300 }}
+          onClick={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: true }, handleScale: { mouseWheel: true } })}
+          onMouseLeave={() => chartRef.current?.applyOptions({ handleScroll: { mouseWheel: false }, handleScale: { mouseWheel: false } })}
+        >
           <div ref={containerRef} style={{ width: "100%", height: height ?? "100%", minHeight: height ?? 300 }} />
 
           {/* BOGASTOCK filigran — sol ustte, detailMode'da masaustunde OHLC
@@ -1191,6 +1233,85 @@ export default function BogaChartEngine({
           )}
         </div>
       </div>
+
+      {multiChartLayout && typeof document !== "undefined" &&
+        createPortal(
+          <MultiChartOverlay
+            layout={multiChartLayout}
+            tickers={multiChartTickers}
+            lang={lang}
+            onClose={() => setMultiChartLayout(null)}
+            onChangeTicker={changeMultiChartTicker}
+          />,
+          document.body
+        )}
     </div>
+  );
+}
+
+function MultiChartOverlay({
+  layout,
+  tickers,
+  lang,
+  onClose,
+  onChangeTicker,
+}: {
+  layout: number;
+  tickers: string[];
+  lang: Locale;
+  onClose: () => void;
+  onChangeTicker: (index: number, next: string) => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-[200] bg-[#0a0e17] flex flex-col">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0">
+        <span className="text-sm font-black text-white uppercase tracking-widest">
+          Çoklu Grafik Ekranı — {layout}
+        </span>
+        <button
+          onClick={onClose}
+          className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-black text-[#00d2ff] hover:text-white transition-all"
+        >
+          ✕
+        </button>
+      </div>
+      <div className={`flex-1 grid ${multiChartGridClass(layout)} gap-1.5 p-1.5 overflow-auto`}>
+        {tickers.map((ticker, i) => (
+          <div key={i} className="min-h-[240px] flex flex-col rounded-lg border border-[#1e2a3a] overflow-hidden">
+            <MultiChartTickerInput value={ticker} onChange={(next) => onChangeTicker(i, next)} />
+            <div className="flex-1 min-h-0">
+              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MultiChartTickerInput({ value, onChange }: { value: string; onChange: (next: string) => void }) {
+  const [draft, setDraft] = useState(value);
+
+  useEffect(() => {
+    setDraft(value);
+  }, [value]);
+
+  const commit = () => {
+    const next = draft.trim().toUpperCase();
+    if (next && next !== value) onChange(next);
+    else setDraft(value);
+  };
+
+  return (
+    <input
+      type="text"
+      value={draft}
+      onChange={(e) => setDraft(e.target.value.toUpperCase())}
+      onBlur={commit}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+      }}
+      className="w-full px-2 py-1 text-[11px] font-bold text-center bg-[#141924] border-b border-[#1e2a3a] text-[#00d2ff] focus:outline-none focus:text-white"
+    />
   );
 }

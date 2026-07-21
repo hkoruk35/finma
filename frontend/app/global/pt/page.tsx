@@ -16,7 +16,7 @@ export default async function LandingPage() {
   const memberAccess = await getMemberAccess();
   
   // Default tickers for Watchlist
-  const defaultTickers = ['AAPL', 'GOOG', 'MSFT', 'NVDA', 'META', 'TSLA'];
+  const defaultTickers = ['AAPL', 'GOOG', 'MSFT', 'AMZN', 'NVDA', 'META', 'TSLA'];
   const live = await fetchLiveQuotes(defaultTickers);
 
   const defaultWatchlist = defaultTickers.map(ticker => {
