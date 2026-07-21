@@ -240,6 +240,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             
             <div className="flex items-center gap-3">
               
+              <div className="hidden md:block w-64 mr-2">
+                <TickerSearchBox locale={locale} onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
+              </div>
               <button 
                 onClick={() => setShowRightSidebar(!showRightSidebar)}
                 className="hidden md:flex p-1.5 text-slate-400 hover:text-white bg-[#141924] border border-[#1e2a3a] rounded transition-colors"
@@ -253,10 +256,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           </div>
 
           <div className="p-4 flex-1 flex flex-col min-h-min">
-            <div className="mb-4">
-              <TickerSearchBox locale={locale} onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
-              
-            </div>
+            
 
             <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] mb-6 shrink-0">
               <BogaChartEngine
