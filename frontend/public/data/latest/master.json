@@ -1,12 +1,12 @@
 {
   "date": "2026-07-21",
-  "generated_at": "2026-07-21T15:53:35.676621-04:00",
+  "generated_at": "2026-07-21T16:07:44.902704-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 9,
+  "active_scores_count": 15,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
-      "count": 9,
+      "count": 10,
       "tickers": [
         "HUM",
         "ROKU",
@@ -16,12 +16,15 @@
         "OKTA",
         "ALL",
         "SPG",
+        "PBR",
         "CASY"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "ODFL"
+      ]
     },
     "value": {
       "count": 0,

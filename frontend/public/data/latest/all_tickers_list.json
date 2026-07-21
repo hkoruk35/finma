@@ -90,15 +90,81 @@
       "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
     },
     {
+      "ticker": "PBR",
+      "company": "PBR",
+      "sector": "Energy",
+      "master_score": 50.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 18.530000686645508,
+      "change_pct": 1.87,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.5 | System: DEFAULT"
+    },
+    {
       "ticker": "CASY",
       "company": "CASY",
       "sector": "Consumer Cyclical",
       "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 860.7550048828125,
-      "change_pct": -0.66,
+      "price": 858.260009765625,
+      "change_pct": -0.95,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "STLD",
+      "company": "STLD",
+      "sector": "Basic Materials",
+      "master_score": 48.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 233.52000427246094,
+      "change_pct": 1.31,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "AMZN",
+      "company": "Amazon.com Inc",
+      "sector": "Consumer Cyclical",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 247.5500030517578,
+      "change_pct": -0.98,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "ODFL",
+      "company": "ODFL",
+      "sector": "Industrials",
+      "master_score": 43.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 234.7899932861328,
+      "change_pct": 1.31,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.5 | System: BREAKOUT"
+    },
+    {
+      "ticker": "DLTR",
+      "company": "DLTR",
+      "sector": "Consumer Defensive",
+      "master_score": 40.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 125.73999786376953,
+      "change_pct": -0.51,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 40.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "AME",
+      "company": "AME",
+      "sector": "Industrials",
+      "master_score": 38.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 237.77000427246094,
+      "change_pct": 1.09,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 38.5 | System: SQUEEZE"
     }
   ]
 }
