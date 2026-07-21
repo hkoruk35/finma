@@ -970,7 +970,7 @@ export default function BogaChartEngine({
             ? tpColor
               ? ""
               : "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
-            : "border-[#1e2a3a] text-[#64748b] hover:text-white"
+            : "border-[#1e2a3a] text-white hover:text-blue-200"
         }`}
         style={
           !locked && active.has(key) && tpColor
@@ -1347,7 +1347,7 @@ function MultiChartOverlay({
           <div key={i} className="min-h-[240px] flex flex-col rounded-lg border border-[#1e2a3a] overflow-hidden">
             <MultiChartTickerInput value={ticker} onChange={(next) => onChangeTicker(i, next)} />
             <div className="flex-1 min-h-0">
-              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} />
+              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} defaultTimeframe="60" />
             </div>
           </div>
         ))}
