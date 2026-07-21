@@ -500,7 +500,13 @@ export default function BogaChartEngine({
       { priceFormat: { type: "volume" }, priceScaleId: "" },
       1
     );
-    chart.panes()[1]?.setHeight(150);
+    // Sabit 150px hacim paneli, tam detay grafiğinde (height=600) makul bir
+    // oran (~%25) ama compact/hover mini grafiklerde (örn. TickerHoverChart,
+    // height=220) toplam yüksekliğin çoğunu yutup mum panelini birkaç
+    // piksele sıkıştırıyordu. Compact modda toplam yüksekliğin ~%20'si
+    // (30-70px aralığında sınırlı) kullanılır.
+    const volumePaneHeight = compact ? Math.max(30, Math.min(70, Math.round((height ?? 240) * 0.2))) : 150;
+    chart.panes()[1]?.setHeight(volumePaneHeight);
 
     chartRef.current = chart;
     volumeSeriesRef.current = volumeSeries;
