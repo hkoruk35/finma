@@ -182,14 +182,14 @@ export default function Footer({
           </p>
           <p className="text-xs text-[#00d2ff]">
             {locale === "tr"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
+              ? "\u00A9 Blue One Global Analysis. 2021- 2026 BOGASTOCK - Powered by AFK DaSYS T\u00FCm Haklar\u0131 Sakl\u0131d\u0131r."
               : locale === "es"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Todos los Derechos Reservados."
+              ? "\u00A9 Blue One Global Analysis. 2021- 2026 BOGASTOCK - Powered by AFK DaSYS Todos los Derechos Reservados."
               : locale === "fr"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Tous Droits R\u00E9serv\u00E9s."
+              ? "\u00A9 Blue One Global Analysis. 2021- 2026 BOGASTOCK - Powered by AFK DaSYS Tous Droits R\u00E9serv\u00E9s."
               : locale === "pt"
-              ? "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - Todos os Direitos Reservados."
-              : "\u00A9 Blue One Global Analysis. NEW YORK - 2026 BOGASTOCK - All Rights Reserved."}
+              ? "\u00A9 Blue One Global Analysis. 2021- 2026 BOGASTOCK - Powered by AFK DaSYS Todos os Direitos Reservados."
+              : "\u00A9 Blue One Global Analysis. 2021- 2026 BOGASTOCK - Powered by AFK DaSYS All Rights Reserved."}
           </p>
         </div>
       </div>
