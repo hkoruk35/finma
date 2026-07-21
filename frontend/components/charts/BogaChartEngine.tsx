@@ -83,6 +83,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
     vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
     multiChartScreen: "Multi-Chart Screen", charts: "Charts",
+    catTrend: "Trend", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Market Structure", catPatterns: "Patterns", catDrawings: "Drawing Tools",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -94,6 +95,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
     vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
     multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
+    catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -105,6 +107,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
     multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
+    catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -116,6 +119,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
     multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
+    catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -127,6 +131,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
     multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
+    catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
   },
 };
 
@@ -341,6 +346,7 @@ export default function BogaChartEngine({
   const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [multiChartOpen, setMultiChartOpen] = useState(false);
+  const [indicatorsMenuOpen, setIndicatorsMenuOpen] = useState(false);
   const [multiChartLayout, setMultiChartLayout] = useState<number | null>(null);
   const [multiChartTickers, setMultiChartTickers] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
@@ -1037,6 +1043,54 @@ export default function BogaChartEngine({
                     {t[key]}
                   </button>
                 ))}
+              </div>
+            )}
+            {detailMode && (
+              <div className="relative ml-2">
+                <button
+                  onClick={() => setIndicatorsMenuOpen((v) => !v)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-black text-[#00d2ff] hover:text-white transition-all"
+                >
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {t.indicators} <span className="text-[9px]">{indicatorsMenuOpen ? "▴" : "▾"}</span>
+                </button>
+                {indicatorsMenuOpen && (
+                  <div className="absolute left-0 mt-1 w-56 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-1 px-2 uppercase tracking-widest">{t.catTrend || "Trend"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">EMA</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">SMA</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Supertrend</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">MACD</button>
+                    
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catMomentum || "Momentum"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">RSI</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Volatilite</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Bollinger Bands</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">ATR</button>
+                    
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catVolume || "Hacim"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Volume</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">VWAP</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">OBV</button>
+                    
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Support & Resistance</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Supply & Demand Zones</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Fair Value Gap (FVG)</button>
+                    
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catPatterns || "Formasyonlar"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Otomatik Chart Patterns</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Temel Candlestick Patterns</button>
+                    
+                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Trend Line</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Horizontal Line</button>
+                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Fibonacci Retracement</button>
+                  </div>
+                )}
               </div>
             )}
             {detailMode && (
