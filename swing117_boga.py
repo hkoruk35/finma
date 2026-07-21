@@ -3998,17 +3998,26 @@ def compute_boga_score_100(c: dict) -> float:
 from scipy.stats import pearsonr
 import pandas as pd
 
-def _passes_min_score(c: dict) -> bool:
+def _passes_min_score(c: dict, relaxation_level: int = 0) -> bool:
     """
     BOGA MODU: Eşikler düşürüldü — daha fazla aday Layer 3'e geçsin
-    SQUEEZE: 40.0 | AWAKENING: 38.0 | Diğerleri: 32.0
+    SQUEEZE: 40.0 | AWAKENING: 38.0 | DEFAULT: 42.0 | Diğerleri: 28.0
+
+    relaxation_level: scan_top_stocks'taki dinamik gevşetme döngüsü
+    ATMACA_MIN_AVG_VOLUME/DOLLAR_VOLUME/MARKET_CAP/PRICE_MIN'i seviye
+    başına gevşetiyordu ama bu skor eşiği hiç gevşemiyordu — bu yüzden
+    2026-07-21'de olduğu gibi L1-L2'yi geçen 56 hisseden sadece 2'si bu
+    (deep-analysis ÖNCESİ, sığ skor üzerinden uygulanan) eşiği geçip
+    gevşetme seviyesi 3'e (maksimum) rağmen sinyal/watchlist sayısı
+    artmıyordu. Diğer eşiklerle aynı ~%15/seviye oranında gevşer.
     """
     score = c.get("boga_score_100", 0.0)
     sys   = c.get("selection_system", "DEFAULT")
-    if sys == "SQUEEZE":   return score >= 40.0
-    if sys == "AWAKENING": return score >= 38.0
-    if sys == "DEFAULT":   return score >= 42.0
-    return score >= 28.0
+    discount = 1.0 - (0.15 * min(relaxation_level, 3))
+    if sys == "SQUEEZE":   return score >= 40.0 * discount
+    if sys == "AWAKENING": return score >= 38.0 * discount
+    if sys == "DEFAULT":   return score >= 42.0 * discount
+    return score >= 28.0 * discount
 
 
 def build_diversified_toplist(
@@ -5481,9 +5490,9 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
             c["boga_rr"] = c.get("rr_ratio", 0.0)
             c["boga_score_100"] = compute_boga_score_100(c)
 
-        # Minimum boga_score_100 kontrolü
+        # Minimum boga_score_100 kontrolü (gevşetme seviyesine göre eşik de gevşer)
         candidates_ranked = sorted(
-            [c for c in candidates if _passes_min_score(c)],
+            [c for c in candidates if _passes_min_score(c, relaxation_level)],
             key=lambda x: x.get("boga_score_100", 0.0), reverse=True
         )
 

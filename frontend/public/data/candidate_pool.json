@@ -1399,8 +1399,154 @@
           "note": "Hacimli Kırılım (Volume Breakout) yakalandı: Güçlü yükseliş hacmi (8.4x) + Fiyat kırılımı ($228.71 > son 4 mum yüksekliği)"
         }
       }
+    },
+    {
+      "ticker": "CASY",
+      "sector": "Consumer Cyclical",
+      "first_seen_date": "2026-07-21",
+      "entry_status": "PENDING",
+      "entry_zone": null,
+      "entered_at": null,
+      "last_checked": "2026-07-21",
+      "last_pick": {
+        "rank": 1,
+        "ticker": "CASY",
+        "company": "CASY",
+        "sector": "Consumer Cyclical",
+        "score": 48.0,
+        "boga_score": 48.0,
+        "market_regime": "BULLISH",
+        "current_price": 860.7550048828125,
+        "holding_period_estimate": "7 Days (max)",
+        "holding_period": "7 Days",
+        "status": "WAITING_FOR_ENTRY",
+        "tracker_logic": {
+          "entry_zone_low": 830.56,
+          "entry_zone_high": 863.68,
+          "profit_target_tp1": 901.0,
+          "profit_target_tp2": 931.83,
+          "profit_target_tp3": 974.19,
+          "stop_loss_high": 810.08,
+          "max_hold_days": 7,
+          "exit_rule": "EXIT_ON_TARGET_OR_STOP_OR_MAX_HOLD",
+          "trailing_stop_rules": {
+            "step_1": "If profit > 5%, move Stop Loss to Entry Price (Break-even).",
+            "step_2": "If profit > 8%, move Stop Loss to Entry Price + 2%."
+          }
+        },
+        "buy_zone": {
+          "low": 830.56,
+          "high": 863.68
+        },
+        "profit_zone": {
+          "low": 901.0,
+          "high": 974.19
+        },
+        "stop_zone": {
+          "low": 804.23,
+          "high": 810.08
+        },
+        "selected_system": "TREND_CONT",
+        "system_category": "TrendContinue",
+        "selection_reasons": [
+          "Steady_Momentum",
+          "Healthy_Trend",
+          "Smart_Money_Flow"
+        ],
+        "system_label": {
+          "text": "Steady Trend",
+          "color": "green"
+        },
+        "reasoning": "BOGA AI Score: 48.0 | System: TREND_CONT",
+        "detail_reasoning": "Algoritmik teknik kriterler ve momentum analizi sonucunda seçilmiştir.",
+        "adx": 16.6,
+        "rsi": 57.3,
+        "rvol": 0.34,
+        "change_1d": -0.66,
+        "change_1w": 1.6,
+        "change_1m": 2.2,
+        "change_1y": 66.72,
+        "change_5y": 332.35,
+        "boga_zones": {
+          "buying_zone": {
+            "low": 830.56,
+            "high": 863.68
+          },
+          "sell_zone": {
+            "low": 901.0,
+            "high": 974.19
+          },
+          "stop_loss_zone": {
+            "low": 804.23,
+            "high": 810.08
+          },
+          "risk_reward": 2.29,
+          "support_1h": 824.71,
+          "resistance_1h": 874.01,
+          "atr_1d": 29.25,
+          "atr_pct": 3.4,
+          "risk_usd": 37.04,
+          "reward_usd": 84.71
+        },
+        "trend_status": {
+          "trend": "Full Stack",
+          "rsi_14": 57.3,
+          "adx": 16.6,
+          "macd_hist": 5.227,
+          "mfi": 71.2,
+          "cmf": 0.1038,
+          "rvol_today": 0.34,
+          "entry_trigger": "Steady Momentum",
+          "is_exhausted": false
+        },
+        "moving_averages": {
+          "ema_20": 831.28,
+          "ema_50": 814.87,
+          "ema_200": 709.27,
+          "price_vs_ema20": 29.48,
+          "price_vs_ema50": 45.89,
+          "price_vs_ema200": 151.49,
+          "ema20_slope": "Positive"
+        },
+        "hourly_analysis": {
+          "rsi_1h": 53.9,
+          "adx_1h": 33.5,
+          "rvol_1h": "0.7x (❄️ Volumeless)",
+          "ema_structure": "Below EMA50",
+          "pivot_structure": "Pivot HL"
+        },
+        "fundamentals": {
+          "gross_margin_pct": 24.54,
+          "operating_margin_pct": 4.98,
+          "net_margin_pct": 3.83,
+          "revenue_growth_pct": 0.3,
+          "pe_ratio": 42.3,
+          "pb_ratio": 7.08,
+          "fcf_yield_pct": 1.71,
+          "market_cap": "27.34B",
+          "market_cap_usd": 27336861696
+        },
+        "performance": {
+          "1d_pct": -0.66,
+          "1w_pct": 1.6,
+          "1m_pct": 2.2,
+          "1y_pct": 66.72,
+          "5y_pct": 332.35
+        },
+        "factor_scores": {
+          "trend_score": 9.0,
+          "momentum_score": 4.0,
+          "volatility_score": 8.0,
+          "volume_score": 0.0,
+          "financial_score": 0.0,
+          "catalyst_score": 1.2000000000000002,
+          "insider_score": 0.0,
+          "composite": 5.0,
+          "raw_score": 86.09
+        }
+      }
     }
   ],
   "watchlist_candidates": [],
-  "updated_at": "2026-07-21T14:04:42.919281-04:00"
+  "updated_at": "2026-07-21T15:53:35.677510-04:00"
 }
