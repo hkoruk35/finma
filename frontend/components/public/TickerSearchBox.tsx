@@ -8,7 +8,7 @@ interface Suggestion {
   company: string;
 }
 
-export default function TickerSearchBox({ locale = "en" }: { locale?: string }) {
+export default function TickerSearchBox({ locale = "en", onSelect }: { locale?: string, onSelect?: (ticker: string) => void }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
@@ -48,7 +48,7 @@ export default function TickerSearchBox({ locale = "en" }: { locale?: string }) 
     setQuery("");
     setSuggestions([]);
     setOpen(false);
-    router.push(`/global/${locale}/graphic/${ticker.toUpperCase()}`);
+    if (onSelect) { onSelect(ticker.toUpperCase()); } else { router.push(`/global/${locale}/graphic/${ticker.toUpperCase()}`); }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

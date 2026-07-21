@@ -220,7 +220,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
             
             <div className="flex items-center gap-3">
-              <h1 className="text-sm md:text-lg font-black text-white tracking-tight">{selectedTicker} <span className="text-slate-500 font-medium">Terminal</span></h1>
+              
               <button 
                 onClick={() => setShowRightSidebar(!showRightSidebar)}
                 className="hidden md:flex p-1.5 text-slate-400 hover:text-white bg-[#141924] border border-[#1e2a3a] rounded transition-colors"
@@ -235,8 +235,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
           <div className="p-4 flex-1 flex flex-col min-h-min">
             <div className="mb-4">
-              <TickerSearchBox locale={locale} />
-              <p className="mt-2 text-xs text-slate-500">{aiText}</p>
+              <TickerSearchBox locale={locale} onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
+              
             </div>
 
             <div className="glass-card flex-1 min-h-[400px] md:min-h-[600px] rounded-xl overflow-hidden border border-[#1e2a3a] mb-6 shrink-0">
@@ -275,6 +275,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             defaultViewAllHref={`/global/${locale}/watchlist`} 
             compactMode={true}
             disableHoverChart={true}
+            onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
           />
         </div>
 

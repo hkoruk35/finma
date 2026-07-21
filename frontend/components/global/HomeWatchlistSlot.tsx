@@ -100,16 +100,17 @@ interface Props {
   defaultSortLabel?: string;
   compactMode?: boolean;
   disableHoverChart?: boolean;
+  onTickerSelect?: (ticker: string) => void;
 }
 
-export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart }: Props) {
+export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart, onTickerSelect }: Props) {
   const [personalTickers, setPersonalTickers] = useState<string[]>([]);
   const [liveData, setLiveData] = useState<Record<string, LiveWatchData>>({});
   const [loaded, setLoaded] = useState(false);
   const { isFreeTrial } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
-  const gridCols = compactMode ? 'grid-cols-[1fr_56px_72px]' : 'grid-cols-[1fr_56px_64px_72px]';
+  const gridCols = compactMode ? 'grid-cols-[minmax(0,1fr)_48px_64px]' : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
 
   useEffect(() => {
@@ -214,7 +215,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                   <div
                     key={stock.ticker}
                     className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group ${locked ? 'cursor-pointer' : ''}`}
-                    onClick={locked ? () => setShowModal(true) : undefined}
+                    onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
