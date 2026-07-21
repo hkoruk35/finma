@@ -975,8 +975,16 @@ export default function BogaChartEngine({
                 <button
                   onClick={toggleFullscreen}
                   className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  title={t.fullscreen || "Tam Ekran"}
                 >
-                  {isFullscreen ? "✕" : "⛶"}
+                  {isFullscreen ? "⛶" : "⛶"}
+                </button>
+                <button
+                  onClick={() => {}}
+                  className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all ml-1"
+                  title="Çoklu Grafik Ekranı"
+                >
+                  2 / 4 / 6 / 9
                 </button>
               </div>
             )}

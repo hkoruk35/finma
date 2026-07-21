@@ -115,13 +115,13 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
     if (!found) {
       setCurrentGroup("");
       setCurrentCompany("");
-      fetch(`/api/tickers/search?q=${selectedTicker}`)
+      fetch(`/api/watchlist-data?tickers=${selectedTicker}`)
         .then(r => r.json())
         .then(data => {
-          if (data && data.results) {
-            const match = data.results.find((d: any) => d.ticker === selectedTicker);
+          if (data && data.length > 0) {
+            const match = data[0];
             if (match) {
-              setCurrentCompany(match.name || "");
+              setCurrentCompany(match.company || "");
               setCurrentGroup(match.sector || "");
             }
           }

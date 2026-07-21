@@ -110,7 +110,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const { isFreeTrial } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
-  const gridCols = 'grid-cols-[1fr_56px_64px_72px]';
+  const gridCols = compactMode ? 'grid-cols-[1fr_48px_64px]' : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
 
   useEffect(() => {
