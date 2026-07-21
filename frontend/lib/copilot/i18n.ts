@@ -34,7 +34,7 @@ const T: Record<string, Record<CopilotLocale, string>> = {
   quickTechnicalMsg: { tr: "Teknik durumu analiz et", en: "Analyze the technical setup", es: "Analiza la situación técnica", fr: "Analyse la situation technique", pt: "Analise o quadro técnico" },
   quickSupportResistance: { tr: "Destek / Direnç", en: "Support / Resistance", es: "Soporte / Resistencia", fr: "Support / Résistance", pt: "Suporte / Resistência" },
   quickSupportResistanceMsg: { tr: "Destek ve direnç seviyeleri nedir?", en: "What are the support and resistance levels?", es: "¿Cuáles son los niveles de soporte y resistencia?", fr: "Quels sont les niveaux de support et de résistance ?", pt: "Quais são os níveis de suporte e resistência?" },
-  quickSwing: { tr: "🚀 Swing Fırsatları", en: "🚀 Swing Opportunities", es: "🚀 Oportunidades Swing", fr: "🚀 Opportunités Swing", pt: "🚀 Oportunidades Swing" },
+  quickSwing: { tr: "🚀 Trend Fırsatları", en: "🚀 Trend Opportunities", es: "🚀 Oportunidades de Tendencia", fr: "🚀 Opportunités Tendance", pt: "🚀 Oportunidades de Tendência" },
   quickSwingMsg: { tr: "Günün en güçlü hisseleri hangileri?", en: "What are today's strongest stocks?", es: "¿Cuáles son las acciones más fuertes de hoy?", fr: "Quelles sont les actions les plus fortes aujourd'hui ?", pt: "Quais são as ações mais fortes de hoje?" },
   quickNvda: { tr: "⚡ NVDA Analizi", en: "⚡ NVDA Analysis", es: "⚡ Análisis de NVDA", fr: "⚡ Analyse NVDA", pt: "⚡ Análise NVDA" },
   quickNvdaMsg: { tr: "NVIDIA'nın son durumunu değerlendir", en: "Assess NVIDIA's current situation", es: "Evalúa la situación actual de NVIDIA", fr: "Évalue la situation actuelle de NVIDIA", pt: "Avalie a situação atual da NVIDIA" },

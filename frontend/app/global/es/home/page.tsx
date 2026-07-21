@@ -15,7 +15,7 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "BOGA AI",
-  description: "Panel con candidatos de swing trade, acciones en tendencia y rastreador Top 100.",
+  description: "Panel con candidatos de acciones en tendencia, acciones populares y rastreador Top 100.",
   alternates: { canonical: "https://bogastock.com/global/es/home" },
 };
 
@@ -205,7 +205,7 @@ export default async function EsHomePage() {
                     <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VER REGISTROS DETALLADOS →</span>
                  </div>
                  <p className="text-white text-xl md:text-2xl font-bold">
-                   Motor Swing BOGA AI: <span className="text-[#10b981]">{bannerStats.win_rate}% Tasa de Acierto</span>{bannerStats.period_days ? ` en ${bannerStats.period_days} Días` : ""}
+                   Motor Trend BOGA AI: <span className="text-[#10b981]">{bannerStats.win_rate}% Tasa de Acierto</span>{bannerStats.period_days ? ` en ${bannerStats.period_days} Días` : ""}
                  </p>
                  <p className="text-white text-sm mt-2">
                    Basado en {bannerStats.total_picks} operaciones de alta convicción generadas exclusivamente por criterios algorítmicos.
@@ -235,12 +235,12 @@ export default async function EsHomePage() {
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
           <HomeSimpleCard
-            title="Swing Trade"
+            title="Acciones en Tendencia"
             accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/es/swing"
             locale="es"
-            sortLabel="Ordenado por puntuación swing"
+            sortLabel="Ordenado por puntuación de tendencia"
             requirePremium
           />
 

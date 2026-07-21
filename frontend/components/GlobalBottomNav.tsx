@@ -36,7 +36,7 @@ export default function GlobalBottomNav() {
 
   const navItems = [
     { label: HOME_LABEL[locale], href: `/global/${locale}/home` },
-    { label: "Swing", href: `/global/${locale}/swing` },
+    { label: "Trend", href: `/global/${locale}/swing` },
     isLoggedIn
       ? { label: MY_WATCHLIST_LABEL[locale], href: `/global/${locale}/my-watchlist` }
       : { label: WATCHLIST_LABEL[locale], href: `/global/${locale}/watchlist` },

@@ -49,12 +49,12 @@ export default function TrialPromoPopup({ locale }: { locale: Locale }) {
     : "/global/en/account?tab=subscription";
 
   const features = locale === "tr"
-    ? ["AI destekli derin hisse analizi", "Swing & trend sinyalleri (günlük)", "Top 100 hisse tam erişim", "Kurumsal akım & 13F verileri"]
+    ? ["AI destekli derin hisse analizi", "Günlük trend sinyalleri", "Top 100 hisse tam erişim", "Kurumsal akım & 13F verileri"]
     : locale === "es"
-    ? ["Análisis profundo de acciones con IA", "Señales diarias de swing & tendencia", "Acceso completo a Top 100 acciones", "Flujo institucional & datos 13F"]
+    ? ["Análisis profundo de acciones con IA", "Señales diarias de tendencia", "Acceso completo a Top 100 acciones", "Flujo institucional & datos 13F"]
     : locale === "pt"
-    ? ["Análise profunda de ações com IA", "Sinais diários de swing & tendência", "Acesso total às ações do Top 100", "Fluxo institucional & dados 13F"]
-    : ["AI-powered deep stock analysis", "Daily swing & trend signals", "Full Top 100 stocks access", "Institutional flow & 13F data"];
+    ? ["Análise profunda de ações com IA", "Sinais diários de tendência", "Acesso total às ações do Top 100", "Fluxo institucional & dados 13F"]
+    : ["AI-powered deep stock analysis", "Daily trend signals", "Full Top 100 stocks access", "Institutional flow & 13F data"];
 
   return (
     <div className="fixed inset-0 z-[500] flex items-end sm:items-center justify-center p-4 pointer-events-none">

@@ -12,7 +12,7 @@ export default function Top100NavBar({ locale }: { locale: Locale }) {
         href={`${base}/swing`}
         className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
       >
-        SWING
+        TREND
       </Link>
       <Link
         href={`${base}/watchlist`}

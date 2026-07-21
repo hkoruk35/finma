@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Sıkça Sorulan Sorular (SSS) - BOGASTOCK",
-  description: "BOGASTOCK'un nasıl çalıştığı, yapay zeka analizleri ve swing trade stratejileri hakkında sıkça sorulan sorular.",
+  description: "BOGASTOCK'un nasıl çalıştığı, yapay zeka analizleri ve trend hisseleri stratejileri hakkında sıkça sorulan sorular.",
   alternates: { canonical: "https://bogastock.com/global/tr/sss" },
 };
 
@@ -12,7 +12,7 @@ export default function FAQPage() {
   const faqs = [
     {
       question: "1. BOGASTOCK tam olarak nedir ve benim için ne yapar?",
-      answer: "BOGASTOCK, yapay zeka (BOGA AI) ve gelişmiş matematiksel algoritmalar kullanarak ABD borsalarındaki (NYSE, NASDAQ, AMEX) binlerce hisse senedini tarayan bir finansal teknoloji platformudur. Amacımız, karmaşık indikatör kalabalığı içinde kaybolmanızı önleyerek, swing trade (dalga ticareti) için teknik ve temel olarak en uygun 20-30 hedef hisseyi tespit etmek, bunları puanlamak ve sizin için net bir izleme planı sunmaktır. Yatırım kararlarınızı rasyonel verilere dayandırarak almanızı sağlarız."
+      answer: "BOGASTOCK, yapay zeka (BOGA AI) ve gelişmiş matematiksel algoritmalar kullanarak ABD borsalarındaki (NYSE, NASDAQ, AMEX) binlerce hisse senedini tarayan bir finansal teknoloji platformudur. Amacımız, karmaşık indikatör kalabalığı içinde kaybolmanızı önleyerek, trend hisseleri için teknik ve temel olarak en uygun 20-30 hedef hisseyi tespit etmek, bunları puanlamak ve sizin için net bir izleme planı sunmaktır. Yatırım kararlarınızı rasyonel verilere dayandırarak almanızı sağlarız."
     },
     {
       question: "2. Bize hisse alım-satım tavsiyesi mi veriyorsunuz?",
@@ -20,7 +20,7 @@ export default function FAQPage() {
     },
     {
       question: "3. Yeni üyeyim, sistemi hemen ücret ödemeden deneyebilir miyim?",
-      answer: "Evet! Yeni üye olan herkes için 7 günlük ücretsiz deneme (Free Trial) süresi tanımlanır. Bu süre boyunca sistemdeki tüm aktif açık swing işlemlerini, izleme listelerini ve grafik analizlerini tamamen şeffaf bir şekilde görebilir, platformun performansını bizzat test edebilirsiniz."
+      answer: "Evet! Yeni üye olan herkes için 7 günlük ücretsiz deneme (Free Trial) süresi tanımlanır. Bu süre boyunca sistemdeki tüm aktif açık trend işlemlerini, izleme listelerini ve grafik analizlerini tamamen şeffaf bir şekilde görebilir, platformun performansını bizzat test edebilirsiniz."
     },
     {
       question: "4. Üye olurken kart bilgisi istiyorsunuz, hemen para çekilecek mi?",
@@ -31,16 +31,16 @@ export default function FAQPage() {
       answer: "Kredi kartı bilgileriniz kesinlikle bizim sitemizde veya sunucularımızda kayıt altına alınmaz ve saklanmaz. Ödeme altyapımız, dünyanın en güvenli ve prestijli ödeme sistemlerinden biri olan Stripe aracılığıyla, tamamen şifreli ve güvenli bir ortamda gerçekleştirilir. Güvenliğiniz bizim için en üst düzey önceliktir."
     },
     {
-      question: "6. Swing Trade (Dalga Ticareti) nedir? Ben hiç bilmiyorum.",
-      answer: "Swing trade, bir hisse senedinin birkaç gün ila birkaç hafta sürebilecek fiyat hareketlerinden (dalgalanmalardan) kar elde etmeyi amaçlayan bir ticaret yöntemidir. Günlük piyasa takibi yapacak vakti olmayan veya uzun vadeli beklemek istemeyen yatırımcılar için idealdir. BOGASTOCK, bu kısa ve orta vadeli yönlü hareketleri yakalamak üzere kalibre edilmiştir. Ancak her ticarette olduğu gibi swing trade işlemlerinde de sermaye kaybı riski her zaman mevcuttur."
+      question: "6. Trend Hisseleri nedir? Ben hiç bilmiyorum.",
+      answer: "Trend Hisseleri, bir hisse senedinin birkaç gün ila birkaç hafta sürebilecek güçlü yönlü fiyat hareketlerini (trendleri) yakalayarak kar elde etmeyi amaçlayan bir ticaret yöntemidir. Günlük piyasa takibi yapacak vakti olmayan veya uzun vadeli beklemek istemeyen yatırımcılar için idealdir. BOGASTOCK, bu kısa ve orta vadeli yönlü hareketleri yakalamak üzere kalibre edilmiştir. Ancak her ticarette olduğu gibi trend hisseleri işlemlerinde de sermaye kaybı riski her zaman mevcuttur."
     },
     {
       question: "7. Önerilen hisseler hemen işleme girmeye hazır mıdır? Nasıl giriş yapmalıyım?",
-      answer: "Sistemimizdeki \"Swing Trade\" listesinde yer alan adaylar teknik olarak işleme hazır, güçlü yapılardır. Ancak daha yüksek karlılık ve daha düşük risk için, üyelerimize 15 dakikalık (15m) grafik yapımızda uygun formasyon ve paternler ile hassas giriş yapmaları yönünde ek rehberlik sunuyoruz. Bu hassas giriş stratejileri, olası yanlış sinyallerde kaybınızı minimize etmenize yardımcı olur."
+      answer: "Sistemimizdeki \"Trend Hisseleri\" listesinde yer alan adaylar teknik olarak işleme hazır, güçlü yapılardır. Ancak daha yüksek karlılık ve daha düşük risk için, üyelerimize 15 dakikalık (15m) grafik yapımızda uygun formasyon ve paternler ile hassas giriş yapmaları yönünde ek rehberlik sunuyoruz. Bu hassas giriş stratejileri, olası yanlış sinyallerde kaybınızı minimize etmenize yardımcı olur."
     },
     {
-      question: "8. \"İzleme Listesi\" ile \"Swing Listesi\" arasındaki fark nedir?",
-      answer: "İzleme Listesi (Watchlist): Algoritmalarımızın radarına giren, potansiyeli yüksek ancak henüz tam olarak kırılım veya güvenli giriş seviyesine ulaşmamış adayları içerir.\n\nSwing Listesi: Bu adaylar izleme listesinden geçerek, gerekli tüm teknik ve hacimsel onayları alıp aktif ticaret planına dahil edilen en yüksek inançlı hisselerdir."
+      question: "8. \"İzleme Listesi\" ile \"Trend Listesi\" arasındaki fark nedir?",
+      answer: "İzleme Listesi (Watchlist): Algoritmalarımızın radarına giren, potansiyeli yüksek ancak henüz tam olarak kırılım veya güvenli giriş seviyesine ulaşmamış adayları içerir.\n\nTrend Listesi: Bu adaylar izleme listesinden geçerek, gerekli tüm teknik ve hacimsel onayları alıp aktif ticaret planına dahil edilen en yüksek inançlı hisselerdir."
     },
     {
       question: "9. İnteraktif Grafik ve BOGA AI analizi bana nasıl yardımcı olacak?",
@@ -56,7 +56,7 @@ export default function FAQPage() {
     },
     {
       question: "12. Verileriniz canlı (anlık) mı yoksa gecikmeli mi geliyor?",
-      answer: "Sistemimizdeki teknik veriler, piyasayı saat başı güncelleyen ve 15 dakika gecikmeli olan veri kaynaklarından beslenir. Swing trade (günlük ve haftalık dalga ticareti) odağında olduğumuz için saniyelik veya anlık veri akışına ihtiyacımız yoktur; saat başı güncellenen veriler sağlıklı ve sakin analizler üretmek için fazlasıyla yeterli ve güvenlidir."
+      answer: "Sistemimizdeki teknik veriler, piyasayı saat başı güncelleyen ve 15 dakika gecikmeli olan veri kaynaklarından beslenir. Trend hisseleri (günlük ve haftalık trend takibi) odağında olduğumuz için saniyelik veya anlık veri akışına ihtiyacımız yoktur; saat başı güncellenen veriler sağlıklı ve sakin analizler üretmek için fazlasıyla yeterli ve güvenlidir."
     },
     {
       question: "13. Borsada işlem gören binlerce hisse var. Hangisini seçeceğimi nasıl bileceğim?",

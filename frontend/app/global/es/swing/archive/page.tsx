@@ -8,8 +8,8 @@ import SwingArchiveTracker, { ArchiveDay, ArchivePick } from "@/components/publi
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Archivo de Swing Trade — BOGA AI",
-  description: "Archivo de los últimos 10 días de candidatos diarios de swing trade.",
+  title: "Archivo de Acciones en Tendencia — BOGA AI",
+  description: "Archivo de los últimos 10 días de candidatos diarios de acciones en tendencia.",
   alternates: { canonical: "https://bogastock.com/global/es/swing/archive" },
 };
 
@@ -45,7 +45,7 @@ export default async function EsSwingArchivePage() {
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/es/home" className="hover:text-[#3b82f6] transition-colors">Panel</Link>
           <span className="opacity-30">/</span>
-          <Link href="/global/es/swing" className="hover:text-[#3b82f6] transition-colors">Candidatos Diarios de Swing Trade</Link>
+          <Link href="/global/es/swing" className="hover:text-[#3b82f6] transition-colors">Candidatos Diarios de Acciones en Tendencia</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Archivo</span>
         </nav>

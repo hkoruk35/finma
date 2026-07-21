@@ -15,7 +15,7 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "BOGA AI",
-  description: "Tableau de bord avec candidats de swing trade, actions en tendance et suivi Top 100.",
+  description: "Tableau de bord avec candidats d'actions en tendance, actions populaires et suivi Top 100.",
   alternates: { canonical: "https://bogastock.com/global/fr/home" },
 };
 
@@ -206,7 +206,7 @@ export default async function FrHomePage() {
                     <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VOIR LES DÉTAILS →</span>
                  </div>
                  <p className="text-white text-xl md:text-2xl font-bold">
-                   Moteur Swing BOGA AI : <span className="text-[#10b981]">{bannerStats.win_rate}% Taux de Réussite</span>{bannerStats.period_days ? ` Sur ${bannerStats.period_days} Jours` : ""}
+                   Moteur Trend BOGA AI : <span className="text-[#10b981]">{bannerStats.win_rate}% Taux de Réussite</span>{bannerStats.period_days ? ` Sur ${bannerStats.period_days} Jours` : ""}
                  </p>
                  <p className="text-white text-sm mt-2">
                    Basé sur {bannerStats.total_picks} trades à haute conviction générés exclusivement par des critères algorithmiques.
@@ -236,12 +236,12 @@ export default async function FrHomePage() {
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
           <HomeSimpleCard
-            title="Swing Trade"
+            title="Actions Tendance"
             accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/fr/swing"
             locale="fr"
-            sortLabel="Trié par score swing"
+            sortLabel="Trié par score de tendance"
             requirePremium
           />
 

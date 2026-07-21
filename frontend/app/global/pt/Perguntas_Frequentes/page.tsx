@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Perguntas Frequentes (FAQ) - BOGASTOCK",
-  description: "Dúvidas comuns sobre como usar a BOGASTOCK, nosso motor de inteligência artificial e estratégias de swing trade.",
+  description: "Dúvidas comuns sobre como usar a BOGASTOCK, nosso motor de inteligência artificial e estratégias de Ações em Tendência.",
   alternates: { canonical: "https://bogastock.com/global/pt/Perguntas_Frequentes" },
 };
 
@@ -12,7 +12,7 @@ export default function FAQPage() {
   const faqs = [
     {
       question: "1. O que é exatamente a BOGASTOCK e como ela pode me ajudar?",
-      answer: "A BOGASTOCK é uma plataforma de tecnologia financeira que usa inteligência artificial (a BOGA AI) e algoritmos matemáticos avançados para escanear milhares de ações nas bolsas americanas (NYSE, NASDAQ e AMEX). Nosso objetivo é poupar você do excesso de informação e daquela poluição visual cheia de indicadores complexos. Nós identificamos e pontuamos as 20 a 30 melhores ações com base em análises técnicas e fundamentalistas, entregando uma lista de monitoramento clara e focada em swing trade. Ajudamos você a tomar decisões de investimento baseadas em dados puramente racionais."
+      answer: "A BOGASTOCK é uma plataforma de tecnologia financeira que usa inteligência artificial (a BOGA AI) e algoritmos matemáticos avançados para escanear milhares de ações nas bolsas americanas (NYSE, NASDAQ e AMEX). Nosso objetivo é poupar você do excesso de informação e daquela poluição visual cheia de indicadores complexos. Nós identificamos e pontuamos as 20 a 30 melhores ações com base em análises técnicas e fundamentalistas, entregando uma lista de monitoramento clara e focada em Ações em Tendência. Ajudamos você a tomar decisões de investimento baseadas em dados puramente racionais."
     },
     {
       question: "2. Vocês fazem recomendação direta de compra e venda de ações?",
@@ -20,7 +20,7 @@ export default function FAQPage() {
     },
     {
       question: "3. Sou um membro novo. Posso testar o sistema de graça antes de pagar?",
-      answer: "Com certeza! Todos os novos membros ganham 7 dias de teste gratuito (Free Trial). Durante esse período, você terá acesso total e transparente a todas as operações ativas de swing trade, às listas de monitoramento (watchlists) e às análises gráficas para avaliar o desempenho da nossa plataforma na prática."
+      answer: "Com certeza! Todos os novos membros ganham 7 dias de teste gratuito (Free Trial). Durante esse período, você terá acesso total e transparente a todas as operações ativas de Ações em Tendência, às listas de monitoramento (watchlists) e às análises gráficas para avaliar o desempenho da nossa plataforma na prática."
     },
     {
       question: "4. Por que vocês pedem os dados do cartão no cadastro? Serei cobrado imediatamente?",
@@ -31,16 +31,16 @@ export default function FAQPage() {
       answer: "A segurança dos seus dados é nossa prioridade máxima. Nós não salvamos e nem registramos nenhuma informação do seu cartão de crédito em nossos servidores. Todo o processamento de pagamento é feito de forma criptografada e 100% segura através do Stripe, uma das infraestruturas de pagamento mais robustas e confiáveis do mundo."
     },
     {
-      question: "6. O que é Swing Trade? Eu nunca operei antes.",
-      answer: "O swing trade é uma estratégia de operação que busca lucrar com as oscilações de preço de ações em um prazo que costuma durar de alguns dias a poucas semanas. É o modelo ideal para quem não tem tempo de acompanhar o mercado minuto a minuto ou não quer deixar o dinheiro preso no longíssimo prazo. A BOGASTOCK foi calibrada exatamente para capturar esses movimentos de curto e médio prazo. No entanto, lembre-se: como em qualquer modalidade de renda variável, sempre existem riscos de perda de capital."
+      question: "6. O que são Ações em Tendência? Eu nunca operei antes.",
+      answer: "Ações em Tendência é uma estratégia de operação que busca capturar movimentos de preço direcionais fortes em uma ação, em um prazo que costuma durar de alguns dias a poucas semanas. É o modelo ideal para quem não tem tempo de acompanhar o mercado minuto a minuto ou não quer deixar o dinheiro preso no longíssimo prazo. A BOGASTOCK foi calibrada exatamente para capturar esses movimentos de curto e médio prazo. No entanto, lembre-se: como em qualquer modalidade de renda variável, sempre existem riscos de perda de capital."
     },
     {
       question: "7. As ações sugeridas já estão prontas para operar? Como devo entrar no trade?",
-      answer: "As ações na nossa lista ativa de \"Swing Trade\" já apresentam uma estrutura técnica muito forte. Porém, para buscar maior rentabilidade com menor risco, sugerimos que nossos membros utilizem o nosso modelo gráfico de 15 minutos (15m) para identificar gatilhos e padrões de entrada mais precisos. Essas estratégias de refinamento ajudam a diminuir as chances de entrar em sinais falsos e protegem o seu bolso."
+      answer: "As ações na nossa lista ativa de \"Ações em Tendência\" já apresentam uma estrutura técnica muito forte. Porém, para buscar maior rentabilidade com menor risco, sugerimos que nossos membros utilizem o nosso modelo gráfico de 15 minutos (15m) para identificar gatilhos e padrões de entrada mais precisos. Essas estratégias de refinamento ajudam a diminuir as chances de entrar em sinais falsos e protegem o seu bolso."
     },
     {
-      question: "8. Qual é a diferença entre a \"Lista de Monitoramento\" (Watchlist) e a \"Lista de Swing\"?",
-      answer: "Lista de Monitoramento (Watchlist): São aquelas ações que entraram no radar dos nossos algoritmos por terem alto potencial, mas que ainda não atingiram o ponto ideal de rompimento ou uma zona de entrada segura.\n\nLista de Swing: São as ações que saíram da lista de monitoramento após receberem todas as confirmações de volume e sinais técnicos necessários, tornando-se as operações de maior convicção para o nosso plano ativo."
+      question: "8. Qual é a diferença entre a \"Lista de Monitoramento\" (Watchlist) e a \"Lista de Tendência\"?",
+      answer: "Lista de Monitoramento (Watchlist): São aquelas ações que entraram no radar dos nossos algoritmos por terem alto potencial, mas que ainda não atingiram o ponto ideal de rompimento ou uma zona de entrada segura.\n\nLista de Tendência: São as ações que saíram da lista de monitoramento após receberem todas as confirmações de volume e sinais técnicos necessários, tornando-se as operações de maior convicção para o nosso plano ativo."
     },
     {
       question: "9. Como o Gráfico Interativo e a análise da BOGA AI me ajudam no dia a dia?",
@@ -56,7 +56,7 @@ export default function FAQPage() {
     },
     {
       question: "12. Os dados da plataforma são em tempo real ou atrasados?",
-      answer: "Nossos dados técnicos vêm de fontes que atualizam o mercado de hora em hora, com um atraso padrão de 15 minutos. Como nosso foco total é o swing trade (operações de dias ou semanas), não há necessidade de dados em milissegundos ou tempo real instantâneo. A atualização de hora em hora é mais do que suficiente para gerar análises sólidas, seguras e sem estresse."
+      answer: "Nossos dados técnicos vêm de fontes que atualizam o mercado de hora em hora, com um atraso padrão de 15 minutos. Como nosso foco total é em Ações em Tendência (operações de dias ou semanas), não há necessidade de dados em milissegundos ou tempo real instantâneo. A atualização de hora em hora é mais do que suficiente para gerar análises sólidas, seguras e sem estresse."
     },
     {
       question: "13. Existem milhares de ações na bolsa americana. Como vou saber qual escolher?",
@@ -80,7 +80,7 @@ export default function FAQPage() {
     },
     {
       question: "18. A BOGASTOCK foca apenas no mercado americano? Por quê?",
-      answer: "Sim, nosso foco é 100% nas bolsas dos Estados Unidos (NYSE, NASDAQ e AMEX). Escolhemos o mercado americano por ser o mais líquido, profundo e maduro do mundo para operações algorítmicas. Todas as nossas métricas, pesos de pontuação e modelos de inteligência artificial foram calibrados exclusivamente para funcionar sob a dinâmica desse mercado."
+      answer: "Sim, nosso foco é 100% nas bolsas dos Estados Unidos (NYSE, NASDAQ e AMEX). Escolhemos o mercado americano por ser o mais líquido, profundo e maduro do mundo para o rastreamento de tendências de forma algorítmica. Todas as nossas métricas, pesos de pontuação e modelos de inteligência artificial foram calibrados exclusivamente para funcionar sob a dinâmica desse mercado."
     },
     {
       question: "19. Existe a chance de eu perder dinheiro operando com o sistema?",

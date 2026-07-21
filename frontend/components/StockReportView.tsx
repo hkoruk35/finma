@@ -246,7 +246,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             <span className="text-lg text-slate-400 font-bold">— {companyName}</span>
           </div>
           <p className="text-xs text-[#3b82f6] font-mono tracking-widest uppercase mt-1">
-            {L("Swing Trade Analizi","Swing Trade Analysis")} • {L("1G Grafik","1D Chart")} • {sector} — {industry} • {L("Analiz Zamanı","Analysis Time")}: {new Date(s.generated_at || Date.now()).toLocaleString(lang === "en" ? "en-US" : "tr-TR")}
+            {L("Trend Hisseleri Analizi","Trending Stocks Analysis")} • {L("1G Grafik","1D Chart")} • {sector} — {industry} • {L("Analiz Zamanı","Analysis Time")}: {new Date(s.generated_at || Date.now()).toLocaleString(lang === "en" ? "en-US" : "tr-TR")}
           </p>
           <div className="flex flex-wrap items-center gap-3 mt-4">
             <button 
@@ -482,7 +482,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
                 <div>
                   <div className="text-xs font-black text-emerald-400 uppercase tracking-wider">{L("PİYASA VE SEKTÖR KOŞULLARI DENGELİ","MARKET & SECTOR CONDITIONS BALANCED")}</div>
                   <p className="text-[11px] text-slate-300 font-medium leading-relaxed mt-0.5">
-                    {L("Endeksler ve sektörel ivme stabil veya pozitif seyrediyor. Belirlenen ana swing planına ve kademe seviyelerine sadık kalınarak işleme devam edilebilir.", "Indices and sector momentum are stable or positive. You can proceed per the defined swing plan and staged levels.")}
+                    {L("Endeksler ve sektörel ivme stabil veya pozitif seyrediyor. Belirlenen ana trend planına ve kademe seviyelerine sadık kalınarak işleme devam edilebilir.", "Indices and sector momentum are stable or positive. You can proceed per the defined trend plan and staged levels.")}
                   </p>
                 </div>
               </div>
@@ -497,15 +497,15 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
           <span>🎯</span> {L("BOGA AI ÇOKLU VADELİ ANALİZ RADARI (MULTI-HORIZON ANALYSIS RADAR)","BOGA AI MULTI-HORIZON ANALYSIS RADAR")}
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {/* Card 1: Swing Trade Suitability */}
+          {/* Card 1: Trending Stocks Suitability */}
           {(() => {
             const swingLevel = masterScore >= 65 ? "HIGH" : masterScore >= 50 ? "MODERATE" : "LOW";
-            const swingText = swingLevel === "HIGH" ? L("GÜÇLÜ SWING FIRSATI","STRONG SWING OPPORTUNITY") : swingLevel === "MODERATE" ? L("İZLEME / DENGELİ","WATCH / BALANCED") : L("DÜŞÜK İVME / RİSKLİ","LOW MOMENTUM / RISKY");
+            const swingText = swingLevel === "HIGH" ? L("GÜÇLÜ TREND FIRSATI","STRONG TREND OPPORTUNITY") : swingLevel === "MODERATE" ? L("İZLEME / DENGELİ","WATCH / BALANCED") : L("DÜŞÜK İVME / RİSKLİ","LOW MOMENTUM / RISKY");
             const swingColor = swingLevel === "HIGH" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-emerald-500/5" : swingLevel === "MODERATE" ? "bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-amber-500/5" : "bg-rose-500/10 text-rose-400 border-rose-500/30 shadow-rose-500/5";
             return (
               <div className={`p-4 rounded-2xl border ${swingColor} shadow-md flex flex-col justify-between space-y-2`}>
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] font-black uppercase tracking-wider opacity-70">1. {L("SWING TRADE PROFİLİ","SWING TRADE PROFILE")}</span>
+                  <span className="text-[9px] font-black uppercase tracking-wider opacity-70">1. {L("TREND HİSSELERİ PROFİLİ","TREND STOCKS PROFILE")}</span>
                   <span className="text-xs">⚡</span>
                 </div>
                 <div>
@@ -684,11 +684,11 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
           </div>
         </div>
 
-        {/* Column 2: SWING SİNYAL HARİTASI */}
+        {/* Column 2: TREND SİNYAL HARİTASI */}
         <div className="bg-[#0d1321] border border-[#1e2a3a]/30 rounded-2xl p-5 space-y-4">
           <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2 mb-2">
             <div className="w-1 h-4 bg-emerald-500 rounded-full" />
-            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWING SİNYAL HARİTASI","SWING SIGNAL MAP")}</h3>
+            <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("TREND SİNYAL HARİTASI","TREND SIGNAL MAP")}</h3>
           </div>
 
           <div className="space-y-3.5">
@@ -826,11 +826,11 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
         </p>
       </div>
 
-      {/* SWİNG SENARYOLARI */}
+      {/* TREND SENARYOLARI */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
           <div className="w-1.5 h-4 bg-emerald-500 rounded-full" />
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWİNG SENARYOLARI","SWING SCENARIOS")}</h3>
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("TREND SENARYOLARI","TREND SCENARIOS")}</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* BOĞA SENARYOSU */}
@@ -863,11 +863,11 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
         </div>
       </div>
 
-      {/* SWİNG TRADE PLANI */}
+      {/* TREND HİSSELERİ PLANI */}
       <div className="space-y-3">
         <div className="flex items-center gap-2 border-b border-[#1e2a3a]/30 pb-2">
           <div className="w-1.5 h-4 bg-blue-500 rounded-full" />
-          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("SWİNG TRADE PLANI","SWING TRADE PLAN")}</h3>
+          <h3 className="text-sm font-black text-white uppercase tracking-wider">{L("TREND HİSSELERİ PLANI","TREND STOCKS PLAN")}</h3>
         </div>
         <div className="overflow-x-auto rounded-2xl border border-[#1e2a3a]/35 bg-[#070c14]">
           <table className="w-full text-left text-xs font-mono">
@@ -979,11 +979,11 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
             </div>
 
             {/* Weekly milestones (14d, 21d, 28d) */}
-            {/* Weekly and Long-Term Milestones (Swing + Investment) */}
+            {/* Weekly and Long-Term Milestones (Trend + Investment) */}
             <div className="space-y-6">
               <div>
                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-                  <span>📅</span> {L("KISA VADELİ HEDEFLER (SWING MILESTONES)","SHORT-TERM TARGETS (SWING MILESTONES)")}
+                  <span>📅</span> {L("KISA VADELİ HEDEFLER (TREND MILESTONES)","SHORT-TERM TARGETS (TREND MILESTONES)")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
@@ -1114,7 +1114,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
       {/* 8. SUMMARY TEXT PARAGRAPHS */}
       <div className="space-y-5 border-t border-[#1e2a3a]/40 pt-6">
         <div>
-          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">⚡ {ticker.toUpperCase()} {L("SWING TRADE ÖZETİ","SWING TRADE SUMMARY")}</h4>
+          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-2">⚡ {ticker.toUpperCase()} {L("TREND HİSSELERİ ÖZETİ","TREND STOCKS SUMMARY")}</h4>
           <p className="text-xs text-slate-300 leading-relaxed font-sans">
             {L(`Teknik görünümde, kısa vadeli momentum ${rsi < 50 ? "satış baskısının arttığını" : "boğaların lehine olduğunu"} gösteriyor. EMA20 ($${formatNum(ema20)}) pivot seviyesi olup, bu seviyenin ${currentPrice >= ema20 ? "üzerindeki tutunma yukarı yönlü ivmeyi tetikleyebilir." : "altındaki hareketler aşağı yönlü baskıyı artırabilir."} Hisse senedi hacim bazlı kırılımlar için yakın takip edilmelidir.`, `Technically, short-term momentum shows ${rsi < 50 ? "increasing selling pressure" : "bulls in control"}. EMA20 ($${formatNum(ema20)}) is the pivot level — holding ${currentPrice >= ema20 ? "above it could trigger upward momentum." : "below it could increase downward pressure."} The stock should be closely monitored for volume-based breakouts.`)}
           </p>
@@ -1163,7 +1163,7 @@ export default function StockReportView({ ticker, stockData, lang = "tr", autoOp
 
         {/* Execution table strategy */}
         <div>
-          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">📋 {L("SWING TRADE STRATEJİ MATRİSİ","SWING TRADE STRATEGY MATRIX")}</h4>
+          <h4 className="text-sm font-black text-white uppercase tracking-widest mb-3">📋 {L("TREND HİSSELERİ STRATEJİ MATRİSİ","TREND STOCKS STRATEGY MATRIX")}</h4>
           <div className="overflow-x-auto rounded-xl border border-[#1e2a3a]/40 bg-[#070c14] mb-4">
             <table className="w-full text-left text-xs font-mono">
               <thead>

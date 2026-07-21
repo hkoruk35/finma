@@ -50,10 +50,10 @@ export default function TrialCountdown({ locale }: { locale: Locale }) {
     : "/global/en/account?tab=subscription";
 
   const features = locale === "tr"
-    ? ["AI destekli derin hisse analizi", "Swing & trend sinyalleri", "Top 100 tam erişim", "Kurumsal akım verileri"]
+    ? ["AI destekli derin hisse analizi", "Trend sinyalleri", "Top 100 tam erişim", "Kurumsal akım verileri"]
     : locale === "pt"
-    ? ["Análise profunda de ações com IA", "Sinais de swing & tendência", "Acesso total ao Top 100", "Dados de fluxo institucional"]
-    : ["AI-powered deep stock analysis", "Swing & trend signals", "Full Top 100 access", "Institutional flow data"];
+    ? ["Análise profunda de ações com IA", "Sinais de tendência", "Acesso total ao Top 100", "Dados de fluxo institucional"]
+    : ["AI-powered deep stock analysis", "Trend signals", "Full Top 100 access", "Institutional flow data"];
 
   return (
     <div className="relative" onMouseEnter={handleMouseEnter}>

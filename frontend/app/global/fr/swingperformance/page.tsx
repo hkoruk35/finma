@@ -8,8 +8,8 @@ import Link from "next/link";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Performance Swing BOGA AI — Derniers 10 Jours",
-  description: "Suivi de la performance des candidats swing quotidiens sur les 10 derniers jours de trading — BOGA AI.",
+  title: "Performance Actions Tendance BOGA AI — Derniers 10 Jours",
+  description: "Suivi de la performance des actions tendance quotidiennes sur les 10 derniers jours de trading — BOGA AI.",
   alternates: { canonical: "https://bogastock.com/global/fr/swingperformance" },
 };
 
@@ -45,7 +45,7 @@ export default async function FrSwingPerformancePage() {
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/fr/watchlist" className="hover:text-[#3b82f6] transition-colors">Watchlist</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Performance Swing — Derniers 10 Jours</span>
+          <span className="text-white italic">Performance Actions Tendance — Derniers 10 Jours</span>
         </nav>
 
         <div className="relative z-10">

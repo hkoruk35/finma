@@ -304,7 +304,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
-              {locale === "tr" ? "Günlük Swing Trade Adayları" : locale === "pt" ? "Candidatos Diários de Swing Trade" : "Daily Swing Trade Candidates"}
+              {locale === "tr" ? "Günlük Trend Hisseleri Adayları" : locale === "pt" ? "Candidatos Diários de Ações em Tendência" : "Daily Trending Stock Candidates"}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}

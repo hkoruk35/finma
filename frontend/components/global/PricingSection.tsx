@@ -27,7 +27,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "sonraki aylar",
     perMonth: "/ay",
     features: [
-      "Sürekli güncellenen Swing Trade adayları — %90 üzeri başarı oranı",
+      "Sürekli güncellenen Trend Hisseleri adayları — %90 üzeri başarı oranı",
       "Gelişmiş işlem bilgileri (giriş/hedef/stop, risk-getiri oranı)",
       "Uzun dönem yatırımlık hisse analizleri",
       "Top100'de trend olan hisselerin analizleri",
@@ -49,7 +49,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "following months",
     perMonth: "/mo",
     features: [
-      "Continuously updated Swing Trade candidates — 90%+ success rate",
+      "Continuously updated Trending Stocks candidates — 90%+ success rate",
       "Advanced trade intelligence (entry/target/stop, risk-reward ratio)",
       "Long-term investment stock analyses",
       "Trending stock analyses from the Top 100",
@@ -71,7 +71,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "meses siguientes",
     perMonth: "/mes",
     features: [
-      "Candidatos de Swing Trade actualizados constantemente — tasa de éxito superior al 90%",
+      "Candidatos de Acciones en Tendencia actualizados constantemente — tasa de éxito superior al 90%",
       "Información avanzada de operaciones (entrada/objetivo/stop, ratio riesgo-beneficio)",
       "Análisis de acciones para inversión a largo plazo",
       "Análisis de las acciones en tendencia del Top 100",
@@ -93,7 +93,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "mois suivants",
     perMonth: "/mois",
     features: [
-      "Candidats Swing Trade mis à jour en continu — taux de réussite supérieur à 90 %",
+      "Candidats Actions Tendance mis à jour en continu — taux de réussite supérieur à 90 %",
       "Informations avancées sur les transactions (entrée/objectif/stop, ratio risque-rendement)",
       "Analyses d'actions pour l'investissement à long terme",
       "Analyses des actions tendance du Top 100",
@@ -115,7 +115,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     thenLabel: "meses seguintes",
     perMonth: "/mês",
     features: [
-      "Candidatos de Swing Trade atualizados continuamente — taxa de sucesso superior a 90%",
+      "Candidatos de Ações em Tendência atualizados continuamente — taxa de sucesso superior a 90%",
       "Informações avançadas de negociação (entrada/alvo/stop, relação risco-retorno)",
       "Análises de ações para investimento de longo prazo",
       "Análises das ações em tendência do Top 100",

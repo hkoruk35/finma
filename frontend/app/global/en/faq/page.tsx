@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions (FAQ) - BOGASTOCK",
-  description: "Find answers to the most common questions about BOGASTOCK, our BOGA AI, and swing trading strategies.",
+  description: "Find answers to the most common questions about BOGASTOCK, our BOGA AI, and trend stock strategies.",
   alternates: { canonical: "https://bogastock.com/global/en/faq" },
 };
 
@@ -12,7 +12,7 @@ export default function EnFAQPage() {
   const faqs = [
     {
       question: "1. What exactly is BOGASTOCK, and what does it do for me?",
-      answer: "BOGASTOCK is a financial technology platform that uses artificial intelligence (BOGA AI) and advanced mathematical algorithms to scan thousands of stocks across major US exchanges (NYSE, NASDAQ, AMEX). Our goal is to cut through the noise of cluttered charts and indicators to identify, score, and deliver a clean watchlist of the top 20–30 stock candidates for swing trading based on technical and fundamental data. We help you make rational, data-driven trading decisions."
+      answer: "BOGASTOCK is a financial technology platform that uses artificial intelligence (BOGA AI) and advanced mathematical algorithms to scan thousands of stocks across major US exchanges (NYSE, NASDAQ, AMEX). Our goal is to cut through the noise of cluttered charts and indicators to identify, score, and deliver a clean watchlist of the top 20–30 trend stock candidates based on technical and fundamental data. We help you make rational, data-driven trading decisions."
     },
     {
       question: "2. Do you provide direct buy or sell recommendations?",
@@ -20,7 +20,7 @@ export default function EnFAQPage() {
     },
     {
       question: "3. I’m a new member. Can I try the platform for free?",
-      answer: "Yes! Every new member gets a 7-day Free Trial. During this trial period, you will have complete, transparent access to all active swing trades, watchlists, and chart analyses so you can experience and test the platform’s performance firsthand."
+      answer: "Yes! Every new member gets a 7-day Free Trial. During this trial period, you will have complete, transparent access to all active trend stock trades, watchlists, and chart analyses so you can experience and test the platform’s performance firsthand."
     },
     {
       question: "4. Why do you require card details for the free trial? Will I be charged immediately?",
@@ -31,16 +31,16 @@ export default function EnFAQPage() {
       answer: "Your security is our absolute priority. We do not store or process any credit card details on our own servers. All transactions are handled securely through Stripe—one of the world’s most trusted, encrypted, and secure payment processors."
     },
     {
-      question: "6. What is Swing Trade? I’m completely new to this.",
-      answer: "Swing trading is a strategy aimed at capturing price swings in a stock over a period of a few days to a few weeks. It is ideal for those who don’t have the time to watch the market all day long but also don't want to tie up their capital in long-term investments. BOGASTOCK is specifically calibrated to spot these short-to-medium-term moves. However, like any form of trading, it involves real market risk and the potential loss of capital."
+      question: "6. What are Trending Stocks? I’m completely new to this.",
+      answer: "Trending Stocks is a strategy aimed at capturing strong directional price moves in a stock over a period of a few days to a few weeks. It is ideal for those who don’t have the time to watch the market all day long but also don't want to tie up their capital in long-term investments. BOGASTOCK is specifically calibrated to spot these short-to-medium-term moves. However, like any form of trading, it involves real market risk and the potential loss of capital."
     },
     {
       question: "7. Are the recommended stocks ready to trade immediately? How should I enter?",
-      answer: "The candidates featured on our \"Swing Trade\" list are technically primed and structurally strong. However, to maximize profitability and lower your risk, we provide additional guidance on using our 15-minute (15m) chart structures to identify precise entry triggers and patterns. These fine-tuned entry strategies help protect you from potential false signals."
+      answer: "The candidates featured on our \"Trending Stocks\" list are technically primed and structurally strong. However, to maximize profitability and lower your risk, we provide additional guidance on using our 15-minute (15m) chart structures to identify precise entry triggers and patterns. These fine-tuned entry strategies help protect you from potential false signals."
     },
     {
-      question: "8. What is the difference between the \"Watchlist\" and the \"Swing List\"?",
-      answer: "Watchlist: Features high-potential candidates that have hit our algorithms' radar but have not yet achieved a clean breakout or reached a safe, validated entry level.\n\nSwing List: Features the highest-conviction ideas that have successfully graduated from the Watchlist by securing all necessary technical, volume, and momentum confirmations for active trading."
+      question: "8. What is the difference between the \"Watchlist\" and the \"Trend List\"?",
+      answer: "Watchlist: Features high-potential candidates that have hit our algorithms' radar but have not yet achieved a clean breakout or reached a safe, validated entry level.\n\nTrend List: Features the highest-conviction ideas that have successfully graduated from the Watchlist by securing all necessary technical, volume, and momentum confirmations for active trading."
     },
     {
       question: "9. How do the Interactive Charts and BOGA AI analysis help me?",
@@ -56,7 +56,7 @@ export default function EnFAQPage() {
     },
     {
       question: "12. Is your data real-time or delayed?",
-      answer: "Our technical data feeds update hourly with a standard 15-minute delay. Because BOGASTOCK is purely focused on swing trading (multi-day or multi-week moves), tick-by-tick real-time data is unnecessary. Hourly updates are more than sufficient to produce stable, high-quality, and stress-free analyses."
+      answer: "Our technical data feeds update hourly with a standard 15-minute delay. Because BOGASTOCK is purely focused on trend stocks (multi-day or multi-week moves), tick-by-tick real-time data is unnecessary. Hourly updates are more than sufficient to produce stable, high-quality, and stress-free analyses."
     },
     {
       question: "13. There are thousands of stocks out there. How do I know which one to choose?",
@@ -80,7 +80,7 @@ export default function EnFAQPage() {
     },
     {
       question: "18. Does BOGASTOCK only focus on US markets? Why?",
-      answer: "Yes, our platform is 100% focused on the US Stock Markets (NYSE, NASDAQ, AMEX). This is because the US market offers the deepest liquidity, the tightest spreads, and the most reliable structures for algorithmic and systematic swing trading. All our scoring criteria, weights, and AI models are custom-calibrated for this specific market dynamic."
+      answer: "Yes, our platform is 100% focused on the US Stock Markets (NYSE, NASDAQ, AMEX). This is because the US market offers the deepest liquidity, the tightest spreads, and the most reliable structures for algorithmic and systematic trend-following. All our scoring criteria, weights, and AI models are custom-calibrated for this specific market dynamic."
     },
     {
       question: "19. Is there a risk of losing money when trading with this system?",

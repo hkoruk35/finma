@@ -334,7 +334,7 @@ export default function AnalysisTabs({ stock }: Props) {
               <div>
                 <p className="text-base font-black text-white mb-1">Preparing Daily Briefing</p>
                 <p className="text-sm text-[#00d2ff]">
-                  BOGA AI is processing the latest swing data for {stock.ticker}.
+                  BOGA AI is processing the latest trend data for {stock.ticker}.
                 </p>
               </div>
               <button

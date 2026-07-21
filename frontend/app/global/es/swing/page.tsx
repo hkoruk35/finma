@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Candidatos Diarios de Swing Trade — BOGA AI",
-  description: "Todos los candidatos diarios de swing trade con análisis detallado y señales.",
+  title: "Candidatos Diarios de Acciones en Tendencia — BOGA AI",
+  description: "Todos los candidatos diarios de acciones en tendencia con análisis detallado y señales.",
   alternates: { canonical: "https://bogastock.com/global/es/swing" },
 };
 
@@ -21,11 +21,11 @@ export default function EsSwingPage() {
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/es/home" className="hover:text-[#3b82f6] transition-colors">Panel</Link>
           <span className="opacity-30">/</span>
-          <span className="text-white italic">Candidatos Diarios de Swing Trade</span>
+          <span className="text-white italic">Candidatos Diarios de Acciones en Tendencia</span>
         </nav>
 
         <div className="flex gap-2 mb-4">
-          <Link href="/global/es/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">SWING</Link>
+          <Link href="/global/es/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">TREND</Link>
           <Link href="/global/es/watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">WATCHLIST</Link>
           <Link href="/global/es/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">TOP 100</Link>
           <Link href="/global/es/my-watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">MY WATCHLIST</Link>

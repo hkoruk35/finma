@@ -15,7 +15,7 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "BOGA AI",
-  description: "Swing trade adayları, trend hisseleri ve top 100 tracker'ın hızlı özeti.",
+  description: "Trend hisse adayları, trend hisseleri ve top 100 tracker'ın hızlı özeti.",
   alternates: { canonical: "https://bogastock.com/global/tr/home" },
 };
 
@@ -205,11 +205,11 @@ export default async function TrHomePage() {
 
               <div className="flex-1 z-10 text-center md:text-left">
                  <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
-                    <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">SWİNG İŞLEMLERİ PERFORMANSLARI</h3>
+                    <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">TREND HİSSE İŞLEMLERİ PERFORMANSLARI</h3>
                     <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">DETAYLI LOGS'U GÖR →</span>
                  </div>
                  <p className="text-white text-xl md:text-2xl font-bold">
-                   BOGA AI Swing Motoru: <span className="text-[#10b981]">{bannerStats.win_rate}% Kazanç Oranı</span>{bannerStats.period_days ? ` ${bannerStats.period_days} Gün` : ""}
+                   BOGA AI Trend Motoru: <span className="text-[#10b981]">{bannerStats.win_rate}% Kazanç Oranı</span>{bannerStats.period_days ? ` ${bannerStats.period_days} Gün` : ""}
                  </p>
                  <p className="text-white text-sm mt-2">
                    Algoritmik kriterlerle BOGA AI tarafından işlemler: {bannerStats.total_picks}
@@ -239,12 +239,12 @@ export default async function TrHomePage() {
         {/* Üç sütun grid - Swing omurga (2 kolon) + Trend/Top100 destekleyici (1 kolon) */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
           <HomeSimpleCard
-            title="Swing Trade"
+            title="Trend Hisseleri"
             accent="#3b82f6"
             stocks={swingByVolume}
             viewAllHref="/global/tr/swing"
             locale="tr"
-            sortLabel="Swing skoruna göre sıralandı"
+            sortLabel="Trend skoruna göre sıralandı"
             requirePremium
           />
 

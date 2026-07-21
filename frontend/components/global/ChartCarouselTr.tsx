@@ -17,7 +17,7 @@ const SLIDES: Slide[] = [
   {
     id: "swing",
     image: "/carousel/swing-strategy.png",
-    title: "Swing Trade Stratejisi",
+    title: "Trend Hisseleri Stratejisi",
   },
   {
     id: "mobile",

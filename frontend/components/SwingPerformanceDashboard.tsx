@@ -456,7 +456,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       // Header
       pdf.setFont('helvetica', 'bold');
       pdf.setFontSize(18);
-      pdf.text('BOGA AI Swing Engine Performance Report', margin, yPos);
+      pdf.text('BOGA AI Trending Stocks Engine Performance Report', margin, yPos);
       yPos += 10;
 
       pdf.setFont('helvetica', 'normal');
@@ -567,7 +567,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {stats.isFallback ? (locale === "tr" ? "Sistem Geneli (Filtrede İşlem Yok)" : locale === "pt" ? "Todo o Sistema (Sem Operações no Filtro)" : "System-wide (No Trades in Filter)") : (locale === "tr" ? "Sistem İstatistikleri" : locale === "pt" ? "Estatísticas do Sistema" : "System Statistics")}
               </span>
             </div>
-            <h2 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">SWING ENGINE</span> PERFORMANCE</h2>
+            <h2 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">TREND STOCKS</span> PERFORMANCE</h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
               {locale === "tr" ? "Geçmiş Dönem Performans Özeti" : locale === "pt" ? "Resumo de Desempenho Histórico" : "Historical Performance Summary"} · <span className="text-[#f59e0b] font-bold">{locale === "tr" ? "Dinamik Stop-Loss (AI)" : locale === "pt" ? "Stop-Loss Dinâmico (IA)" : "Dynamic Stop-Loss (AI)"}</span>
             </p>
@@ -581,7 +581,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               {picksGeneratedAt && (
                 <span className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 bg-white/[0.03] border border-white/5 px-2.5 py-1 rounded-lg">
                   <svg className="w-3 h-3 text-[#3b82f6]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                  {locale === "tr" ? "Swing Adayları:" : locale === "pt" ? "Picks de Swing:" : "Swing Picks:"} {formatLastUpdated(picksGeneratedAt)}
+                  {locale === "tr" ? "Trend Adayları:" : locale === "pt" ? "Picks de Tendência:" : "Trend Picks:"} {formatLastUpdated(picksGeneratedAt)}
                 </span>
               )}
             </div>
@@ -740,7 +740,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <div>
                 <p className="text-[11px] font-bold text-[#3b82f6] uppercase tracking-[0.25em]">{locale === "tr" ? "Güncel Veriler" : locale === "pt" ? "Dados ao Vivo" : "Live Data"}</p>
                 <h3 className="text-base font-black text-white uppercase tracking-tight">
-                  {locale === "tr" ? "Bugünkü Swing Adayları" : locale === "pt" ? "Picks de Swing de Hoje" : "Today's Swing Picks"}
+                  {locale === "tr" ? "Bugünkü Trend Adayları" : locale === "pt" ? "Picks de Tendência de Hoje" : "Today's Trend Picks"}
                   <span className="ml-2 text-[#3b82f6]">({todayPicks.length} {locale === "tr" ? "hisse" : locale === "pt" ? "ações" : "stocks"})</span>
                 </h3>
               </div>
