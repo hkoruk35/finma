@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T09:07:14.706257-04:00",
+  "generated_at": "2026-07-22T14:04:24.041998-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -72,6 +72,12 @@
       "sector": "Industrials",
       "date_added": "2026-07-22",
       "score": 38.5
+    },
+    {
+      "ticker": "BTSG",
+      "sector": "Healthcare",
+      "date_added": "2026-07-22",
+      "score": 29.0
     }
   ]
 }
