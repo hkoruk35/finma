@@ -1,5 +1,5 @@
-// Server-side technical indicator math for the BOGA Chart Engine.
-// Pure functions only — no I/O. Computed in app/api/chart-data so the
+﻿// Server-side technical indicator math for the BOGA Chart Engine.
+// Pure functions only â no I/O. Computed in app/api/chart-data so the
 // math itself never ships to the client.
 
 export interface Bar {
@@ -114,8 +114,8 @@ export function bollingerBands(
   return { upper, middle, lower };
 }
 
-// Resets every time the calendar day (America/New_York) changes — only
-// meaningful on intraday bars, per the spec ("gün bitiminde sıfırlanır").
+// Resets every time the calendar day (America/New_York) changes â only
+// meaningful on intraday bars, per the spec ("gÃ¼n bitiminde sÄ±fÄ±rlanÄ±r").
 export function vwap(bars: Bar[]): (number | null)[] {
   const out: (number | null)[] = new Array(bars.length).fill(null);
   let cumPV = 0;
@@ -171,7 +171,7 @@ export function pivotSupportResistance(bars: Bar[], lookback = 5): SRLevel[] {
   return merged;
 }
 
-// Heikin Ashi candle transform — a display style, not a proprietary
+// Heikin Ashi candle transform â a display style, not a proprietary
 // indicator, so it's computed client-side in BogaChartEngine rather than
 // piped through the API.
 export function heikinAshi(bars: Bar[]): Bar[] {
@@ -573,6 +573,5 @@ export function trendLine(bars: Bar[]): TrendLine[] {
   }
   return lines;
 }
-e x p o r t   i n t e r f a c e   H o r i z o n t a l L i n e   {   p r i c e :   n u m b e r ;   t y p e :   ' s u p p o r t '   |   ' r e s i s t a n c e ' ;   }  
- e x p o r t   f u n c t i o n   h o r i z o n t a l L i n e ( b a r s :   B a r [ ] ) :   H o r i z o n t a l L i n e [ ]   {   i f   ( b a r s . l e n g t h   <   5 0 )   r e t u r n   [ ] ;   c o n s t   p i v o t s   =   p i v o t S u p p o r t R e s i s t a n c e ( b a r s ,   2 0 ) ;   c o n s t   h i g h s   =   p i v o t s . f i l t e r ( ( p )   = >   p . t y p e   = = =   ' r e s i s t a n c e ' ) . s o r t ( ( a ,   b )   = >   b . p r i c e   -   a . p r i c e ) ;   c o n s t   l o w s   =   p i v o t s . f i l t e r ( ( p )   = >   p . t y p e   = = =   ' s u p p o r t ' ) . s o r t ( ( a ,   b )   = >   a . p r i c e   -   b . p r i c e ) ;   c o n s t   l i n e s :   H o r i z o n t a l L i n e [ ]   =   [ ] ;   i f   ( h i g h s [ 0 ] )   l i n e s . p u s h ( {   p r i c e :   h i g h s [ 0 ] . p r i c e ,   t y p e :   ' r e s i s t a n c e '   } ) ;   i f   ( l o w s [ 0 ] )   l i n e s . p u s h ( {   p r i c e :   l o w s [ 0 ] . p r i c e ,   t y p e :   ' s u p p o r t '   } ) ;   r e t u r n   l i n e s ;   }  
- 
+export interface HorizontalLine { price: number; type: 'support' | 'resistance'; }
+export function horizontalLine(bars: Bar[]): HorizontalLine[] { if (bars.length < 50) return []; const pivots = pivotSupportResistance(bars, 20); const highs = pivots.filter((p) => p.type === 'resistance').sort((a, b) => b.price - a.price); const lows = pivots.filter((p) => p.type === 'support').sort((a, b) => a.price - b.price); const lines: HorizontalLine[] = []; if (highs[0]) lines.push({ price: highs[0].price, type: 'resistance' }); if (lows[0]) lines.push({ price: lows[0].price, type: 'support' }); return lines; }
