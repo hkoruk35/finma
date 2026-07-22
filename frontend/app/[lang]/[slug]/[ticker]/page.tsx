@@ -57,18 +57,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     "";
 
   const titles: Record<string, string> = {
-    en: `${pick.ticker} Stock Analysis — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    tr: `${pick.ticker} Hisse Analizi — BOGA AI Skor ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    es: `Análisis de Acciones ${pick.ticker} — BOGA AI Puntuación ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    pt: `Análise de Ações ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    fr: `Analyse d'Action ${pick.ticker} — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    id: `Analisis Saham ${pick.ticker} — Skor BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    de: `${pick.ticker} Aktienanalyse — BOGA AI Score ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    it: `Analisi Azionaria ${pick.ticker} — BOGA AI Punteggio ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    ru: `Анализ акций ${pick.ticker} — Оценка BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    ar: `تحليل سهم ${pick.ticker} — نقاط BOGA AI ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    ja: `${pick.ticker} 株式分析 — BOGA AIスコア ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
-    ko: `${pick.ticker} 주식 분석 — BOGA AI 점수 ${Math.round(pick.score || pick.scores?.master_score || 0)}/100`,
+    en: `${pick.ticker} Advanced Interactive Technical Chart Analysis | BOGASTOCK`,
+    tr: `${pick.ticker} Gelişmiş İnteraktif Teknik Grafik Analizi | BOGASTOCK`,
+    es: `Análisis Gráfico Interactivo Avanzado de Acciones ${pick.ticker} | BOGASTOCK`,
+    pt: `Análise Gráfica Interativa Avançada de Ações ${pick.ticker} | BOGASTOCK`,
+    fr: `Analyse Graphique Interactive Avancée d'Actions ${pick.ticker} | BOGASTOCK`,
+    id: `Analisis Grafik Interaktif Tingkat Lanjut ${pick.ticker} | BOGASTOCK`,
+    de: `${pick.ticker} Erweiterte Interaktive Chartanalyse | BOGASTOCK`,
+    it: `Analisi Grafica Interattiva Avanzata ${pick.ticker} | BOGASTOCK`,
+    ru: `Интерактивный технический анализ графиков ${pick.ticker} | BOGASTOCK`,
+    ar: `تحليل الرسم البياني التفاعلي المتقدم ${pick.ticker} | BOGASTOCK`,
+    ja: `${pick.ticker} インタラクティブチャート分析 | BOGASTOCK`,
+    ko: `${pick.ticker} 대화형 차트 분석 | BOGASTOCK`,
   };
 
   const title = titles[langCode as string] || titles.en;

@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Candidatos Diários de Ações em Tendência — BOGA AI",
-  description: "Todos os candidatos diários de ações em tendência com análise detalhada e sinais.",
+  title: "BOGASTOCK | Análise Gráfica Interativa Diária e Tendências Técnicas",
+  description: "Análise gráfica técnica interativa diária com níveis de suporte, resistência e estrutura.",
   alternates: { canonical: "https://bogastock.com/global/pt/swing" },
 };
 

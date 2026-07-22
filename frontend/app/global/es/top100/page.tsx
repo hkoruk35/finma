@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Las 100 Mejores Acciones - BOGA AI",
-  description: "Seguimiento en vivo de las 100 principales acciones.",
+  title: "BOGASTOCK | Análisis Gráfico Interactivo de las 100 Principales Acciones",
+  description: "Análisis gráfico interactivo avanzado y seguimiento técnico en vivo de las 100 principales acciones.",
   alternates: { canonical: "https://bogastock.com/global/es/top100" },
 };
 

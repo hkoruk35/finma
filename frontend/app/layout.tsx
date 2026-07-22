@@ -42,11 +42,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
   title: {
-    default: "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    default: "BOGASTOCK Terminal | Advanced Interactive Chart Analysis for Stocks, Gold, FX & Crypto",
     template: "%s | BOGASTOCK Terminal"
   },
   description:
-    "BOGASTOCK Terminal | Analyze U.S. stocks with interactive charts and market insights.",
+    "BOGASTOCK Terminal | Advanced Interactive Chart Analysis for Stocks, Gold, FX & Crypto.",
   keywords: ["US stock analysis", "interactive charts", "stock terminal", "market insights", "BOGASTOCK Terminal"],
   authors: [{ name: "BOGASTOCK Team" }],
   creator: "BOGASTOCK Terminal",

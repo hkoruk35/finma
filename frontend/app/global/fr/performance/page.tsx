@@ -8,8 +8,8 @@ import { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Performance du Moteur Actions Tendance | BOGA AI",
-  description: "Enregistrements détaillés de la performance du Moteur Actions Tendance BOGA AI. Données de trading historiques transparentes.",
+  title: "BOGASTOCK | Historique de Performance d'Analyse Graphique Interactive",
+  description: "Suivi de l'historique de performance de l'analyse graphique technique interactive.",
   alternates: { canonical: "https://bogastock.com/global/fr/performance" },
 };
 

@@ -8,8 +8,8 @@ import SwingArchiveTracker, { ArchiveDay, ArchivePick } from "@/components/publi
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Archive Actions Tendance — BOGA AI",
-  description: "Archive des 10 derniers jours de candidats actions tendance quotidiens.",
+  title: "BOGASTOCK | Historique d'Analyse Graphique Interactive",
+  description: "Historique et archive d'analyse graphique technique interactive.",
   alternates: { canonical: "https://bogastock.com/global/fr/swing/archive" },
 };
 

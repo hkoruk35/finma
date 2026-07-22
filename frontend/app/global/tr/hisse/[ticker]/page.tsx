@@ -7,8 +7,8 @@ export async function generateMetadata({ params }: { params: Promise<{ ticker: s
   const { ticker } = await params;
   const t = ticker.toUpperCase();
   return {
-    title: `${t} — BOGA AI Hisse Analizi`,
-    description: `${t} için gerçek zamanlı teknik analiz: EMA/RSI/MACD, BOGA Score, alış/stop/hedef seviyeleri.`,
+    title: `${t} - Gelişmiş İnteraktif Teknik Grafik Analizi ve Seviyeler | BOGASTOCK`,
+    description: `${t} için gerçek zamanlı interaktif teknik grafik analizi: EMA, RSI, MACD ve teknik seviyeler.`,
     alternates: { canonical: `https://bogastock.com/global/tr/hisse/${t}` },
   };
 }

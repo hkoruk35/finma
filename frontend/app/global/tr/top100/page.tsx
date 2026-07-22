@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Top 100 Hisse - BOGA AI",
-  description: "Top 100 hissenin canlı takibi.",
+  title: "BOGASTOCK | En Çok Takip Edilen 100 Hissenin İnteraktif Grafik Analizi",
+  description: "En çok takip edilen 100 hissenin gelişmiş interaktif grafik analizi ve teknik canlı takibi.",
   alternates: { canonical: "https://bogastock.com/global/tr/top100" },
 };
 

@@ -8,8 +8,8 @@ import Link from "next/link";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Rendimiento de Acciones en Tendencia BOGA AI — Últimos 10 Días",
-  description: "Seguimiento del rendimiento de candidatas diarias de acciones en tendencia en los últimos 10 días de trading — BOGA AI.",
+  title: "BOGASTOCK | Historial de Rendimiento de Análisis Gráfico Interactivo",
+  description: "Seguimiento del historial de rendimiento del análisis gráfico técnico interactivo.",
   alternates: { canonical: "https://bogastock.com/global/es/swingperformance" },
 };
 
