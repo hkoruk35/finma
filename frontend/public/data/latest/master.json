@@ -1,6 +1,6 @@
 {
   "date": "2026-07-22",
-  "generated_at": "2026-07-22T09:07:11.104297-04:00",
+  "generated_at": "2026-07-22T14:04:23.679587-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 14,
   "market_regime": "BULLISH",
@@ -16,16 +16,13 @@
         "OKTA",
         "ALL",
         "SPG",
-        "PBR",
-        "CASY"
+        "CHRW",
+        "FDX"
       ]
     },
     "breakout": {
-      "count": 2,
-      "tickers": [
-        "ODFL",
-        "IBKR"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -63,25 +60,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 748.58,
-      "change_pct": 0.04
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 707.5,
-      "change_pct": -0.21
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 522.44,
-      "change_pct": 0.18
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.81,
-      "change_pct": -1.41
-    },
-    "RUSSELL2000": {
-      "value": 294.41,
-      "change_pct": -0.72
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-22T14:01:12.006028-04:00"
+  }
 }
