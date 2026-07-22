@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
+import { resolveYahooSymbol, getAssetCategory } from "@/lib/symbols";
+import { generateAiMarketCommentary, type AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
 // Simple in-memory cache (2 min TTL per ticker)
 const cache = new Map<string, { data: PreorderAnalysis; ts: number }>();
@@ -478,6 +480,7 @@ interface PreorderAnalysis {
   bogaScore: { trend: number; momentum: number; liquidity: number };
   activeSignals: string[];
   warnings: string[];
+  aiCommentary: AiMarketCommentary;
 }
 
 // ── Fetch helper ─────────────────────────────────────────────────────────────
@@ -513,22 +516,16 @@ export async function GET(req: NextRequest) {
   const rawLang = req.nextUrl.searchParams.get("lang");
   const lang = (["en", "es", "fr", "pt"].includes(rawLang || "") ? rawLang : "tr") as "en" | "tr" | "es" | "fr" | "pt";
 
-  // Cache check — keyed by ticker+lang, NOT just ticker: tradePlan.entryCondition/
-  // stopRationale/rationale are baked in the target language at computation time
-  // (buildTradePlanRationale), so a Turkish-computed cache entry can't be reused
-  // for a Portuguese request (that used to silently serve stale-language trade
-  // plan text while activeSignals/warnings/pattern got correctly relocalized —
-  // the two were out of sync since only the latter went through localizeAnalysis
-  // on every request).
   const cacheKey = `${ticker}_${lang}`;
   const hit = cache.get(cacheKey);
   if (hit && Date.now() - hit.ts < CACHE_TTL) return NextResponse.json(localizeAnalysis(hit.data, lang));
 
+  const yahooSymbol = resolveYahooSymbol(ticker);
   const BASE = "https://query1.finance.yahoo.com/v8/finance/chart";
   const [r1d, r1h, r15m] = await Promise.all([
-    yf(`${BASE}/${ticker}?range=1y&interval=1d`),
-    yf(`${BASE}/${ticker}?range=10d&interval=1h`),
-    yf(`${BASE}/${ticker}?range=5d&interval=15m`),
+    yf(`${BASE}/${encodeURIComponent(yahooSymbol)}?range=1y&interval=1d`),
+    yf(`${BASE}/${encodeURIComponent(yahooSymbol)}?range=10d&interval=1h`),
+    yf(`${BASE}/${encodeURIComponent(yahooSymbol)}?range=5d&interval=15m`),
   ]);
 
   if (!r1d?.chart?.result?.[0]) {
@@ -827,6 +824,26 @@ export async function GET(req: NextRequest) {
     bogaScore: { trend: trendScore, momentum: momentumScore, liquidity: liquidityScore },
     activeSignals,
     warnings,
+    aiCommentary: generateAiMarketCommentary({
+      ticker,
+      category: getAssetCategory(ticker),
+      price,
+      changePct,
+      rsi: d1_rsi,
+      rvol,
+      atrPct,
+      ema20: d1_ema20,
+      ema50: d1_ema50,
+      ema200: d1_ema200,
+      vwap,
+      pivotP: pivots1d.p,
+      pivotR1: pivots1d.r1,
+      pivotS1: pivots1d.s1,
+      wyckoffScore: wyckoffResult.score,
+      weinsteinStage: weinstein.stage,
+      macdHist: macdResult.histogram,
+      lang,
+    }),
   };
 
   cache.set(cacheKey, { data: result, ts: Date.now() });

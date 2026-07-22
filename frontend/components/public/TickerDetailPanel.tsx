@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import ScreenerChart from "@/components/screener/ScreenerChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import { formatAssetPrice } from "@/lib/symbols";
+import type { AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
 function registerHref(locale: Locale): string {
   return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
@@ -37,6 +39,7 @@ interface PreorderAnalysis {
   };
   activeSignals: string[];
   warnings: string[];
+  aiCommentary?: AiMarketCommentary;
 }
 
 function fmt(n: number | undefined, dec = 2): string {
@@ -214,11 +217,15 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             <LockPrompt message={t.unlockTradePlan} />
           ) : !data.tradePlan.valid ? (
             <div className="flex-1 flex flex-col items-center justify-center gap-2 border border-[#253347] bg-[#111620] rounded-md py-7 px-3 text-center">
-              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-white/30">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400/70">
                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566ZM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5Zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
               </svg>
-              <span className="text-[11px] font-bold tracking-wider text-white/50 uppercase">Not Suitable for a Trade</span>
-              <span className="text-[11px] text-white/40 max-w-[200px] leading-snug">Downtrend structure — no valid long entry/stop/target setup right now</span>
+              <span className="text-[11px] font-bold tracking-wider text-amber-400/90 uppercase">
+                {data.aiCommentary?.noPlanMessage?.title || "AKTİF İŞLEM KURGUSU YOK"}
+              </span>
+              <span className="text-[11px] text-white/50 max-w-[210px] leading-snug">
+                {data.aiCommentary?.noPlanMessage?.description || "Mevcut piyasa koşulları altında aktif bir işlem planı bulunmamaktadır."}
+              </span>
             </div>
           ) : (
             <>
@@ -266,6 +273,53 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           )}
         </div>
       </div>
+
+      {/* 24/7 AI Market Commentary & Technical Analysis Panel */}
+      {data.aiCommentary && (
+        <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5 relative overflow-hidden">
+          <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-[#58a6ff]/30 flex-wrap gap-2">
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+              <span className="text-xs font-bold text-cyan-300 uppercase tracking-widest">
+                {locale === "tr" ? "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı" : locale === "es" ? "Comentarista IA de Mercado 24/7" : locale === "fr" ? "Commentateur IA du Marché 24/7" : locale === "pt" ? "Comentador IA do Mercado 24/7" : "24/7 AI Market & Technical Commentary"}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400">
+                {data.aiCommentary.assetClassLabel}
+              </span>
+              <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded border ${
+                data.aiCommentary.bias === "BULLISH" ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400" :
+                data.aiCommentary.bias === "BEARISH" ? "bg-red-500/10 border-red-500/40 text-red-400" :
+                data.aiCommentary.bias === "BREAKOUT_WATCH" ? "bg-amber-500/10 border-amber-500/40 text-amber-400" :
+                "bg-slate-500/10 border-slate-500/40 text-slate-300"
+              }`}>
+                {data.aiCommentary.biasLabel}
+              </span>
+            </div>
+          </div>
+
+          {rationaleLocked ? (
+            <LockPrompt message={t.unlockTradePlan} />
+          ) : (
+            <div className="space-y-2.5 text-xs text-white/80 leading-relaxed">
+              <p className="bg-[#161f2e] p-2.5 rounded border border-[#2b3c54]">
+                {data.aiCommentary.summary}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+                <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
+                  <span className="text-cyan-400 font-bold block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : "Key Levels & Pivots"}:</span>
+                  <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
+                </div>
+                <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
+                  <span className="text-amber-400 font-bold block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : "Liquidity & Volume Flow"}:</span>
+                  <span className="text-white/70">{data.aiCommentary.liquidityVolume}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {data.tradePlan.valid && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">

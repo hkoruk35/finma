@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { resolveYahooSymbol } from "@/lib/symbols";
 import {
   Bar,
   ema,
@@ -51,7 +52,8 @@ export async function GET(req: NextRequest) {
   if (!ticker) return NextResponse.json({ error: "ticker required" }, { status: 400 });
 
   try {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=${interval}&range=${range}&includePrePost=false`;
+    const ySymbol = resolveYahooSymbol(ticker);
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=${interval}&range=${range}&includePrePost=false`;
     const res = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",

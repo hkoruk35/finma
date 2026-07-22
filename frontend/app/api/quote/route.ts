@@ -8,6 +8,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { resolveYahooSymbol } from "@/lib/symbols";
 
 export const runtime = "nodejs";
 
@@ -28,7 +29,8 @@ const YF_HEADERS = {
 
 /** Fiyat için v7 batch — tek istekte tüm semboller. */
 async function batchPriceV7(symbols: string[]): Promise<Record<string, number>> {
-  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(symbols.join(","))}&fields=regularMarketPrice`;
+  const ySymbols = symbols.map(resolveYahooSymbol);
+  const url = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(ySymbols.join(","))}&fields=regularMarketPrice`;
   const res = await fetch(url, {
     headers: YF_HEADERS,
     signal: AbortSignal.timeout(8000),
@@ -37,9 +39,11 @@ async function batchPriceV7(symbols: string[]): Promise<Record<string, number>> 
   const data = await res.json();
   const quotes: any[] = data?.quoteResponse?.result ?? [];
   const out: Record<string, number> = {};
-  for (const q of quotes) {
-    if (q.symbol && q.regularMarketPrice != null) {
-      out[q.symbol] = +q.regularMarketPrice.toFixed(4);
+  for (let i = 0; i < quotes.length; i++) {
+    const q = quotes[i];
+    const origTicker = symbols[i] || q.symbol;
+    if (q && q.regularMarketPrice != null) {
+      out[origTicker] = +q.regularMarketPrice.toFixed(4);
     }
   }
   return out;
@@ -51,7 +55,8 @@ async function batchPriceV7(symbols: string[]): Promise<Record<string, number>> 
  * regularMarketChangePercent kullanılmaz: bazı hisseler için yanlış referans dönüyor.
  */
 async function change1dV8(ticker: string): Promise<{ price: number | null; change_1d: number | null }> {
-  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d&includePrePost=false`;
+  const ySymbol = resolveYahooSymbol(ticker);
+  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=1d&range=5d&includePrePost=false`;
   try {
     const res = await fetch(url, {
       headers: YF_HEADERS,
