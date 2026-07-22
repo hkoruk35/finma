@@ -153,7 +153,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   };
 
   const usePersonal = loaded && personalTickers.length >= MIN_TICKERS_FOR_HOME;
-  const locked = !isPremium;
+  // removed `const locked = !isPremium;` since the list is open to everyone on the dashboard.
 
   const top5Personal = personalTickers.slice(0, 5).map(ticker => {
     const d = liveData[ticker];
@@ -230,42 +230,28 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
-                    onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
+                    className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${onTickerSelect ? 'cursor-pointer' : ''}`}
+                    onClick={onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined}
                   >
                     {selectable && (
                       <div>
-                        {!locked && (
-                          <CompareCheckbox
-                            checked={!!selectedTickers?.includes(stock.ticker)}
-                            onToggle={() => onToggleSelect?.(stock.ticker)}
-                          />
-                        )}
+                        <CompareCheckbox
+                          checked={!!selectedTickers?.includes(stock.ticker)}
+                          onToggle={() => onToggleSelect?.(stock.ticker)}
+                        />
                       </div>
                     )}
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
                       <div className="min-w-0">
-                        {locked ? (
-                          <>
-                            <div className="font-medium text-sm tracking-tight select-none flex items-center gap-1" style={{ color: '#f59e0b' }}>
-                              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                              <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
-                            </div>
-                            <div className="text-[11px] text-white/70 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
-                          </>
+                        {disableHoverChart ? (
+                          <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
                         ) : (
-                          <>
-                            {disableHoverChart ? (
-                              <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
-                            ) : (
-                              <TickerHoverChart ticker={stock.ticker}>
-                                <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
-                              </TickerHoverChart>
-                            )}
-                            <div className="text-[11px] text-white/70 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
-                          </>
+                          <TickerHoverChart ticker={stock.ticker}>
+                            <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
+                          </TickerHoverChart>
                         )}
+                        <div className="text-[11px] text-white/70 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                       </div>
                     </div>
 

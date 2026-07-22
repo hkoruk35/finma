@@ -17,61 +17,71 @@ import type { Locale } from "@/lib/i18n/copy";
 const FREE_COMPARE_LIMIT = 2;
 const MAX_COMPARE = 9;
 
-const GROUPS = [
-  {
-    group: "US Equity Markets",
-    items: [
-      { ticker: "SPY", label: "S&P 500 ETF", ySymbol: "SPY" },
-      { ticker: "QQQ", label: "Nasdaq 100", ySymbol: "QQQ" },
-      { ticker: "DIA", label: "Dow Jones", ySymbol: "DIA" },
-      { ticker: "IWM", label: "Russell 2000", ySymbol: "IWM" },
-      { ticker: "VIX", label: "Volatility Index", ySymbol: "^VIX" },
-    ],
-  },
-  {
-    group: "US Sectors",
-    items: [
-      { ticker: "XLK", label: "Technology", ySymbol: "XLK" },
-      { ticker: "XLF", label: "Financials", ySymbol: "XLF" },
-      { ticker: "XLE", label: "Energy", ySymbol: "XLE" },
-      { ticker: "XLV", label: "Health Care", ySymbol: "XLV" },
-      { ticker: "XLY", label: "Cons. Discretionary", ySymbol: "XLY" },
-      { ticker: "XLP", label: "Cons. Staples", ySymbol: "XLP" },
-      { ticker: "XLI", label: "Industrials", ySymbol: "XLI" },
-      { ticker: "XLB", label: "Materials", ySymbol: "XLB" },
-      { ticker: "XLRE", label: "Real Estate", ySymbol: "XLRE" },
-      { ticker: "XLU", label: "Utilities", ySymbol: "XLU" },
-      { ticker: "XLC", label: "Comm. Services", ySymbol: "XLC" },
-    ],
-  },
-  {
-    group: "Currencies",
-    items: [
-      { ticker: "EURUSD", label: "EUR/USD", ySymbol: "EURUSD=X" },
-      { ticker: "GBPUSD", label: "GBP/USD", ySymbol: "GBPUSD=X" },
-      { ticker: "USDJPY", label: "USD/JPY", ySymbol: "JPY=X" },
-      { ticker: "USDCHF", label: "USD/CHF", ySymbol: "CHF=X" },
-      { ticker: "AUDUSD", label: "AUD/USD", ySymbol: "AUDUSD=X" },
-      { ticker: "USDCAD", label: "USD/CAD", ySymbol: "CAD=X" },
-    ],
-  },
-  {
-    group: "Commodities",
-    items: [
-      { ticker: "GOLD", label: "Gold", ySymbol: "GC=F" },
-      { ticker: "SILVER", label: "Silver", ySymbol: "SI=F" },
-      { ticker: "USOIL", label: "Crude Oil WTI", ySymbol: "CL=F" },
-      { ticker: "NATGAS", label: "Natural Gas", ySymbol: "NG=F" },
-    ],
-  },
-  {
-    group: "Crypto",
-    items: [
-      { ticker: "BTCUSD", label: "Bitcoin", ySymbol: "BTC-USD" },
-      { ticker: "ETHUSD", label: "Ethereum", ySymbol: "ETH-USD" },
-    ],
-  },
-];
+const getGroups = (locale: Locale) => {
+  const t = (en: string, tr: string, es: string, fr: string, pt: string) => {
+    if (locale === 'tr') return tr;
+    if (locale === 'es') return es;
+    if (locale === 'fr') return fr;
+    if (locale === 'pt') return pt;
+    return en;
+  };
+
+  return [
+    {
+      group: t("US Equity Markets", "ABD Hisse Senedi Piyasaları", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA"),
+      items: [
+        { ticker: "SPY", label: "S&P 500 ETF", ySymbol: "SPY" },
+        { ticker: "QQQ", label: "Nasdaq 100", ySymbol: "QQQ" },
+        { ticker: "DIA", label: "Dow Jones", ySymbol: "DIA" },
+        { ticker: "IWM", label: "Russell 2000", ySymbol: "IWM" },
+        { ticker: "VIX", label: t("Volatility Index", "Volatilite Endeksi", "Índice de Volatilidad", "Indice de Volatilité", "Índice de Volatilidade"), ySymbol: "^VIX" },
+      ],
+    },
+    {
+      group: t("US Sectors", "ABD Sektörleri", "Sectores de EE. UU.", "Secteurs Américains", "Setores dos EUA"),
+      items: [
+        { ticker: "XLK", label: t("Technology", "Teknoloji", "Tecnología", "Technologie", "Tecnologia"), ySymbol: "XLK" },
+        { ticker: "XLF", label: t("Financials", "Finans", "Finanzas", "Finance", "Finanças"), ySymbol: "XLF" },
+        { ticker: "XLE", label: t("Energy", "Enerji", "Energía", "Énergie", "Energia"), ySymbol: "XLE" },
+        { ticker: "XLV", label: t("Health Care", "Sağlık", "Salud", "Santé", "Saúde"), ySymbol: "XLV" },
+        { ticker: "XLY", label: t("Cons. Discretionary", "Tüketim (İsteğe Bağlı)", "Consumo Discrecional", "Consommation Discrétionnaire", "Consumo Discricionário"), ySymbol: "XLY" },
+        { ticker: "XLP", label: t("Cons. Staples", "Temel Tüketim", "Consumo Básico", "Biens de Consommation Essentiels", "Bens de Consumo Essenciais"), ySymbol: "XLP" },
+        { ticker: "XLI", label: t("Industrials", "Sanayi", "Industriales", "Industriels", "Bens Industriais"), ySymbol: "XLI" },
+        { ticker: "XLB", label: t("Materials", "Materyaller", "Materiales", "Matériaux", "Materiais"), ySymbol: "XLB" },
+        { ticker: "XLRE", label: t("Real Estate", "Gayrimenkul", "Bienes Raíces", "Immobilier", "Setor Imobiliário"), ySymbol: "XLRE" },
+        { ticker: "XLU", label: t("Utilities", "Altyapı", "Servicios Públicos", "Services Publics", "Serviços Públicos"), ySymbol: "XLU" },
+        { ticker: "XLC", label: t("Comm. Services", "İletişim Hizmetleri", "Servicios de Com.", "Services de Com.", "Serviços de Com."), ySymbol: "XLC" },
+      ],
+    },
+    {
+      group: t("Currencies", "Döviz", "Divisas", "Devises", "Moedas"),
+      items: [
+        { ticker: "EURUSD", label: "EUR/USD", ySymbol: "EURUSD=X" },
+        { ticker: "GBPUSD", label: "GBP/USD", ySymbol: "GBPUSD=X" },
+        { ticker: "USDJPY", label: "USD/JPY", ySymbol: "JPY=X" },
+        { ticker: "USDCHF", label: "USD/CHF", ySymbol: "CHF=X" },
+        { ticker: "AUDUSD", label: "AUD/USD", ySymbol: "AUDUSD=X" },
+        { ticker: "USDCAD", label: "USD/CAD", ySymbol: "CAD=X" },
+      ],
+    },
+    {
+      group: t("Commodities", "Emtia", "Materias Primas", "Matières Premières", "Commodities"),
+      items: [
+        { ticker: "GOLD", label: t("Gold", "Altın", "Oro", "Or", "Ouro"), ySymbol: "GC=F" },
+        { ticker: "SILVER", label: t("Silver", "Gümüş", "Plata", "Argent", "Prata"), ySymbol: "SI=F" },
+        { ticker: "USOIL", label: t("Crude Oil WTI", "Ham Petrol WTI", "Petróleo Crudo WTI", "Pétrole Brut WTI", "Petróleo Bruto WTI"), ySymbol: "CL=F" },
+        { ticker: "NATGAS", label: t("Natural Gas", "Doğal Gaz", "Gas Natural", "Gaz Naturel", "Gás Natural"), ySymbol: "NG=F" },
+      ],
+    },
+    {
+      group: t("Crypto", "Kripto", "Criptomonedas", "Crypto", "Criptomoedas"),
+      items: [
+        { ticker: "BTCUSD", label: "Bitcoin", ySymbol: "BTC-USD" },
+        { ticker: "ETHUSD", label: "Ethereum", ySymbol: "ETH-USD" },
+      ],
+    },
+  ];
+};
 
 type PriceInfo = { price: number | null; change_1d: number | null };
 
@@ -102,6 +112,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
   const [multiChartRequest, setMultiChartRequest] = useState<string[] | null>(null);
 
+  const groups = useMemo(() => getGroups(locale), [locale]);
+
   const toggleCompare = (ticker: string) => {
     setCompareSelection((prev) => {
       if (prev.includes(ticker)) return prev.filter((t) => t !== ticker);
@@ -118,26 +130,28 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   // üye olmayanlara da açık — sol Markets listesindeki her şey + sağdaki
   // varsayılan 7 hisselik watchlist. Aranan/başka herhangi bir ticker için
   // kilitli kalır (bkz. TickerDetailPanel'deki unlockRationale).
+  // kilitli kalır (bkz. TickerDetailPanel'deki unlockRationale).
   const eligibleForRationale = useMemo(() => {
-    const set = new Set<string>(GROUPS.flatMap((g) => g.items.map((i) => i.ticker)));
+    const set = new Set<string>(groups.flatMap((g) => g.items.map((i) => i.ticker)));
     defaultWatchlist.forEach((s) => { if (s?.ticker) set.add(s.ticker); });
     return set;
-  }, [defaultWatchlist]);
+  }, [defaultWatchlist, groups]);
 
   useEffect(() => {
     // Fetch prices for all markets
-    const allSymbols = GROUPS.flatMap(g => g.items.map(i => i.ySymbol)).join(",");
+    const allSymbols = groups.flatMap(g => g.items.map(i => i.ySymbol)).join(",");
     fetch(`/api/quote?tickers=${allSymbols}`)
       .then(r => r.json())
       .then(d => setPrices(d))
       .catch(() => {});
-  }, []);
+  }, [groups]);
 
   const watchlistTabLabel = locale === 'tr' ? 'İzleme Listem' : locale === 'es' ? 'Mi Lista' : locale === 'fr' ? 'Ma Liste' : locale === 'pt' ? 'Minha Lista' : 'Watchlist';
   const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
   const compareLabel = locale === 'tr' ? 'Karşılaştır' : locale === 'es' ? 'Comparar' : locale === 'fr' ? 'Comparer' : locale === 'pt' ? 'Comparar' : 'Compare';
   const compareOpenLabel = locale === 'tr' ? 'Aç' : locale === 'es' ? 'Abrir' : locale === 'fr' ? 'Ouvrir' : locale === 'pt' ? 'Abrir' : 'Open';
   const compareCheckboxTitle = locale === 'tr' ? 'Çoklu grafik için seç' : locale === 'es' ? 'Seleccionar para comparar' : locale === 'fr' ? 'Sélectionner pour comparer' : locale === 'pt' ? 'Selecionar para comparar' : 'Select to compare';
+  const dashboardLabel = locale === 'tr' ? 'GÖSTERGE PANELİ' : locale === 'es' ? 'PANEL DE CONTROL' : locale === 'fr' ? 'TABLEAU DE BORD' : locale === 'pt' ? 'PAINEL DE CONTROLE' : 'DASHBOARD';
 
   const aiText = locale === 'tr' ? 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.'
                : locale === 'es' ? 'BOGA AI puede realizar comprobaciones generales instantáneas en todo el mercado estadounidense.'
@@ -148,7 +162,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   // Determine current company/sector name based on selection
   useEffect(() => {
     let found = false;
-    for (const g of GROUPS) {
+    for (const g of groups) {
       const item = g.items.find(i => i.ticker === selectedTicker);
       if (item) {
         setCurrentGroup(g.group);
@@ -209,7 +223,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           )}
 
           <div className="md:py-4">
-            {GROUPS.map(group => (
+            {groups.map(group => (
               <div key={group.group} className="mb-6">
                 <h3 className="px-3 mb-2 text-xs font-bold text-slate-500 uppercase tracking-widest">{group.group}</h3>
                 <div className="flex flex-col">
@@ -275,7 +289,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 </svg>
               </button>
               <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
-                <span>GÖSTERGE PANELİ</span>
+                <span>{dashboardLabel}</span>
                 <span className="opacity-30">/</span>
                 <span className="text-white italic">{selectedTicker}</span>
                 {currentCompany && <span className="text-slate-400 normal-case italic font-medium">{currentCompany}</span>}
