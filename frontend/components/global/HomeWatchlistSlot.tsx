@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type { TrendStatus } from '@/lib/homeFeed';
 import { copy, type Locale } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
@@ -112,6 +113,7 @@ interface Props {
 }
 
 export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAllHref, defaultSortLabel, compactMode, disableHoverChart, onTickerSelect, selectable, selectedTickers, onToggleSelect }: Props) {
+  const router = useRouter();
   const [personalTickers, setPersonalTickers] = useState<string[]>([]);
   const [liveData, setLiveData] = useState<Record<string, LiveWatchData>>({});
   const [loaded, setLoaded] = useState(false);
