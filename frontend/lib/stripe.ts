@@ -27,11 +27,11 @@ export function toStripeLocale(locale: string): Stripe.Checkout.SessionCreatePar
 }
 
 const ACCOUNT_PATH_MAP: Record<string, string> = {
-  en: "/global/en/account",
-  tr: "/global/tr/hesabim",
-  es: "/global/es/account",
-  fr: "/global/fr/account",
-  pt: "/global/pt/account",
+  en: "/global/en",
+  tr: "/global/tr",
+  es: "/global/es",
+  fr: "/global/fr",
+  pt: "/global/pt",
 };
 
 export function accountPathForLocale(locale: string): string {
