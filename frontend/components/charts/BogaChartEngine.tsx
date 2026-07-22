@@ -715,6 +715,26 @@ export default function BogaChartEngine({
     const volumeSeries = volumeSeriesRef.current;
     if (!chart || !volumeSeries || bars.length === 0) return;
 
+    // Clear previous overlays
+    for (const key of Object.keys(lineSeriesRefs.current) as IndicatorKey[]) {
+      for (const series of lineSeriesRefs.current[key] || []) chart.removeSeries(series);
+    }
+    lineSeriesRefs.current = {};
+    if (mainSeriesRef.current) {
+      for (const pl of priceLinesRef.current) {
+        try { mainSeriesRef.current.removePriceLine(pl); } catch {}
+      }
+    }
+    priceLinesRef.current = [];
+
+    const currentCategory = mainSeriesRef.current ? (mainSeriesRef.current.seriesType().toLowerCase() === "line" ? "line" : mainSeriesRef.current.seriesType().toLowerCase() === "bar" ? "bar" : "candlestick") : null;
+    const nextCategory = seriesCategory(candleType);
+
+    if (mainSeriesRef.current && currentCategory !== nextCategory) {
+      chart.removeSeries(mainSeriesRef.current);
+      mainSeriesRef.current = null;
+    }
+
     if (!mainSeriesRef.current) mainSeriesRef.current = createMainSeries(chart, candleType);
     const mainSeries = mainSeriesRef.current;
 
@@ -727,14 +747,6 @@ export default function BogaChartEngine({
       }))
     );
     volumeSeries.applyOptions({ visible: active.has("volume") });
-
-    // Clear previous overlays
-    for (const key of Object.keys(lineSeriesRefs.current) as IndicatorKey[]) {
-      for (const series of lineSeriesRefs.current[key] || []) chart.removeSeries(series);
-    }
-    lineSeriesRefs.current = {};
-    for (const pl of priceLinesRef.current) mainSeries.removePriceLine(pl);
-    priceLinesRef.current = [];
 
     const ind = data.indicators || {};
     const toPoints = (arr: unknown) =>
