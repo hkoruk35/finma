@@ -5048,7 +5048,7 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
             "last_pick": c.get("_pick_json"),
         })
 
-    # ── Watchlist candidates ──
+    # ── Watchlist candidates ─────────────────────────────────────
     kept_watch = []
     seen_w = set()
     for entry in pool.get("watchlist_candidates", []):
@@ -5056,15 +5056,10 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
         if t in fresh_swing:
             continue  # swing havuzuna terfi etti
         if _days_since_ny(entry.get("first_seen_date", today_str)) >= WATCHLIST_MAX_DAYS:
-            continue
-        # bkz. swing_candidates PENDING eleme bloğundaki aynı yorum — sadece
-        # bu tarama gerçekten aday bulduysa (l1b_pass_tickers dolu) "setup
-        # bozuldu" gerekçesiyle elenir, aksi halde watchlist'in tamamı
-        # tek bir 0-sonuçlu taramada silinmez.
-        if l1b_pass_tickers and t not in fresh_watch and t not in l1b_pass_tickers:
-            continue  # setup bozuldu
+            continue  # 3 gün doldu → düş
         if t in fresh_watch:
             entry["last_checked"] = today_str
+            entry["score"] = fresh_watch[t].get("boga_score_100", entry.get("score", 0.0))
         kept_watch.append(entry)
         seen_w.add(t)
 
@@ -5656,7 +5651,7 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
     for c in combined:
         c["_pick_json"] = build_json_output([c], generated_at)["picks"][0]
 
-    l1b_pass_tickers = {c["ticker"] for c in combined}
+    l1b_pass_tickers = set(c["ticker"] for c in top_analysis_set)
     pool = merge_candidate_pool(final_top_signals, final_top_watch, l1b_pass_tickers)
     write_watchlist_picks_json(pool)
 

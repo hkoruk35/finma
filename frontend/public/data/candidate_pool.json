@@ -2418,6 +2418,70 @@
       }
     }
   ],
-  "watchlist_candidates": [],
+  "watchlist_candidates": [
+    {
+      "ticker": "ETSY",
+      "sector": "Consumer Cyclical",
+      "score": 36.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "NTRA",
+      "sector": "Healthcare",
+      "score": 36.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "GPN",
+      "sector": "Financial Services",
+      "score": 36.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "LYV",
+      "sector": "Communication Services",
+      "score": 36.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "NET",
+      "sector": "Technology",
+      "score": 34.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "WCC",
+      "sector": "Industrials",
+      "score": 34.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "ZM",
+      "sector": "Technology",
+      "score": 33.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "BURL",
+      "sector": "Consumer Cyclical",
+      "score": 30.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    },
+    {
+      "ticker": "ATI",
+      "sector": "Basic Materials",
+      "score": 26.0,
+      "first_seen_date": "2026-07-21",
+      "last_checked": "2026-07-21"
+    }
+  ],
   "updated_at": "2026-07-21T17:10:10.631664-04:00"
 }
