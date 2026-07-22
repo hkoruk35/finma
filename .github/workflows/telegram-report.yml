@@ -1,0 +1,16 @@
+name: Telegram Hourly Member Report
+
+on:
+  schedule:
+    # Runs every hour at minute 5
+    - cron: '5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Telegram Member Report
+        run: |
+          curl -sf -X GET "https://bogastock.com/api/cron/telegram-report?secret=a50dbe3b221d7db364b68e93d61c210c748d9459cd00c9d9" \
+            || echo "Telegram report trigger failed (non-fatal)"
