@@ -79,7 +79,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bands", vwap: "VWAP", sr: "Support/Resistance",
     volumeProfile: "Volume Profile",
     entry: "Entry", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC", hollow: "Hollow Candle",
+    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Line", ohlc: "OHLC",
     share: "Share", copyLink: "Copy link", linkCopied: "Link copied!",
     vol: "Vol", indicators: "Indicators", premiumRequired: "Premium membership required",
     multiChartScreen: "Multi-Chart Screen", charts: "Charts",
@@ -95,7 +95,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     rsi: "RSI (14)", macd: "MACD", bb: "Bollinger Bantları", vwap: "VWAP", sr: "Destek/Direnç",
     volumeProfile: "Hacim Profili",
     entry: "Giriş", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC", hollow: "İçi Boş Mum",
+    candle: "Mum", "heikin-ashi": "Heikin Ashi", line: "Çizgi", ohlc: "OHLC",
     share: "Paylaş", copyLink: "Linki kopyala", linkCopied: "Link kopyalandı!",
     vol: "Hac", indicators: "Göstergeler", premiumRequired: "Premium üyelik gerekir",
     multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
@@ -111,7 +111,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Soporte/Resistencia",
     volumeProfile: "Perfil de Volumen",
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC", hollow: "Vela Hueca",
+    candle: "Velas", "heikin-ashi": "Heikin Ashi", line: "Línea", ohlc: "OHLC",
     share: "Compartir", copyLink: "Copiar enlace", linkCopied: "¡Enlace copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Se requiere membresía Premium",
     multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
@@ -127,7 +127,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     rsi: "RSI (14)", macd: "MACD", bb: "Bandes de Bollinger", vwap: "VWAP", sr: "Support/Résistance",
     volumeProfile: "Profil de Volume",
     entry: "Entrée", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC", hollow: "Bougie Creuse",
+    candle: "Bougie", "heikin-ashi": "Heikin Ashi", line: "Ligne", ohlc: "OHLC",
     share: "Partager", copyLink: "Copier le lien", linkCopied: "Lien copié !",
     vol: "Vol", indicators: "Indicateurs", premiumRequired: "Adhésion Premium requise",
     multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
@@ -143,7 +143,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     rsi: "RSI (14)", macd: "MACD", bb: "Bandas de Bollinger", vwap: "VWAP", sr: "Suporte/Resistência",
     volumeProfile: "Perfil de Volume",
     entry: "Entrada", stop: "Stop", tp1: "TP1", tp2: "TP2", tp3: "TP3",
-    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC", hollow: "Candle Vazado",
+    candle: "Candle", "heikin-ashi": "Heikin Ashi", line: "Linha", ohlc: "OHLC",
     share: "Compartilhar", copyLink: "Copiar link", linkCopied: "Link copiado!",
     vol: "Vol", indicators: "Indicadores", premiumRequired: "Assinatura Premium necessária",
     multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
@@ -175,7 +175,7 @@ const RANGE_WINDOW_SECONDS: Record<RangeKey, number> = {
   "3M": 90 * 86400, "1Y": 365 * 86400, "5Y": 5 * 365 * 86400,
 };
 
-const CANDLE_TYPES = ["candle", "heikin-ashi", "line", "ohlc", "hollow"] as const;
+const CANDLE_TYPES = ["candle", "heikin-ashi", "line", "ohlc"] as const;
 type CandleType = (typeof CANDLE_TYPES)[number];
 
 // Volume Profile reserves this many bar-widths of empty space on the right
@@ -289,13 +289,10 @@ function createMainSeries(chart: IChartApi, candleType: CandleType) {
   if (category === "bar") {
     return chart.addSeries(BarSeries, { upColor: UP_COLOR, downColor: DOWN_COLOR });
   }
-  const hollow = candleType === "hollow";
   return chart.addSeries(CandlestickSeries, {
-    upColor: hollow ? "rgba(0,0,0,0)" : UP_COLOR,
+    upColor: UP_COLOR,
     downColor: DOWN_COLOR,
-    borderVisible: hollow,
-    borderUpColor: UP_COLOR,
-    borderDownColor: DOWN_COLOR,
+    borderVisible: false,
     wickUpColor: UP_COLOR,
     wickDownColor: DOWN_COLOR,
   });
@@ -889,6 +886,7 @@ export default function BogaChartEngine({
       const lines = ind.trendLine as { start_time: number; start_price: number; end_time: number; end_price: number; type: string }[];
       const ts = [];
       for (const tl of lines) {
+        if (tl.start_time >= tl.end_time) continue; // Lightweight charts requires strictly increasing time
         const series = chart.addSeries(LineSeries, { 
           color: tl.type === "support" ? "#22c55e" : "#ef4444", 
           lineWidth: 2, 
@@ -914,8 +912,23 @@ export default function BogaChartEngine({
           lineStyle: 0,
           priceLineVisible: false 
         });
-        series.setData(p.points.map(pt => ({ time: pt.time as UTCTimestamp, value: pt.price })));
-        cpSeries.push(series);
+        
+        // Ensure strictly increasing time
+        const uniquePoints = [];
+        let lastTime = -1;
+        for (const pt of p.points) {
+          if (pt.time > lastTime) {
+            uniquePoints.push({ time: pt.time as UTCTimestamp, value: pt.price });
+            lastTime = pt.time;
+          }
+        }
+        
+        if (uniquePoints.length >= 2) {
+          series.setData(uniquePoints);
+          cpSeries.push(series);
+        } else {
+          chart.removeSeries(series);
+        }
       }
       lineSeriesRefs.current.chartPat = cpSeries;
     }
@@ -929,6 +942,7 @@ export default function BogaChartEngine({
         shape: cp.type === "bearish" ? "arrowDown" : "arrowUp",
         text: cp.name
       })) as any[];
+      markers.sort((a, b) => a.time - b.time);
       (mainSeries as any).setMarkers(markers);
     } else {
       (mainSeries as any).setMarkers([]);
