@@ -23,6 +23,90 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
   pt: { dashboard: "Painel", loading: "Carregando..." },
 };
 
+const SECTOR_TRANSLATIONS: Record<Locale, Record<string, string>> = {
+  en: {},
+  tr: {
+    "us equity markets": "ABD HİSSE SENEDİ PİYASALARI",
+    "technology": "TEKNOLOJİ",
+    "energy": "ENERJİ",
+    "financials": "FİNANS",
+    "financial services": "FİNANSAL HİZMETLER",
+    "healthcare": "SAĞLIK",
+    "consumer discretionary": "TÜKETİCİ ÜRÜNLERİ",
+    "consumer cyclical": "DÖNGÜSEL TÜKETİM",
+    "consumer staples": "TEMEL TÜKETİM",
+    "consumer defensive": "DEFANSİF TÜKETİM",
+    "industrials": "ENDÜSTRİ",
+    "materials": "MATERYALLER",
+    "basic materials": "TEMEL MATERYALLER",
+    "real estate": "GAYRİMENKUL",
+    "utilities": "ALTYAPI",
+    "communication services": "İLETİŞİM HİZMETLERİ",
+    "etf": "ETF",
+    "equity": "HİSSE SENEDİ"
+  },
+  es: {
+    "us equity markets": "MERCADOS DE RENTA VARIABLE DE EE. UU.",
+    "technology": "TECNOLOGÍA",
+    "energy": "ENERGÍA",
+    "financials": "FINANZAS",
+    "financial services": "SERVICIOS FINANCIEROS",
+    "healthcare": "CUIDADO DE LA SALUD",
+    "consumer discretionary": "CONSUMO DISCRECIONAL",
+    "consumer cyclical": "CONSUMO CÍCLICO",
+    "consumer staples": "PRODUCTOS BÁSICOS",
+    "consumer defensive": "CONSUMO DEFENSIVO",
+    "industrials": "INDUSTRIALES",
+    "materials": "MATERIALES",
+    "basic materials": "MATERIALES BÁSICOS",
+    "real estate": "BIENES RAÍCES",
+    "utilities": "SERVICIOS PÚBLICOS",
+    "communication services": "SERVICIOS DE COMUNICACIÓN"
+  },
+  fr: {
+    "us equity markets": "MARCHÉS ACTIONS US",
+    "technology": "TECHNOLOGIE",
+    "energy": "ÉNERGIE",
+    "financials": "FINANCE",
+    "financial services": "SERVICES FINANCIERS",
+    "healthcare": "SANTÉ",
+    "consumer discretionary": "CONSOMMATION DISCRÉTIONNAIRE",
+    "consumer cyclical": "CONSOMMATION CYCLIQUE",
+    "consumer staples": "BIENS DE CONSOMMATION COURANTE",
+    "consumer defensive": "CONSOMMATION DÉFENSIVE",
+    "industrials": "INDUSTRIE",
+    "materials": "MATÉRIAUX",
+    "basic materials": "MATÉRIAUX DE BASE",
+    "real estate": "IMMOBILIER",
+    "utilities": "SERVICES PUBLICS",
+    "communication services": "SERVICES DE COMMUNICATION"
+  },
+  pt: {
+    "us equity markets": "MERCADOS DE AÇÕES DOS EUA",
+    "technology": "TECNOLOGIA",
+    "energy": "ENERGIA",
+    "financials": "FINANÇAS",
+    "financial services": "SERVIÇOS FINANCEIROS",
+    "healthcare": "SAÚDE",
+    "consumer discretionary": "CONSUMO DISCRICIONÁRIO",
+    "consumer cyclical": "CONSUMO CÍCLICO",
+    "consumer staples": "BENS DE CONSUMO BÁSICO",
+    "consumer defensive": "CONSUMO DEFENSIVO",
+    "industrials": "INDUSTRIAIS",
+    "materials": "MATERIAIS",
+    "basic materials": "MATERIAIS BÁSICOS",
+    "real estate": "MERCADO IMOBILIÁRIO",
+    "utilities": "SERVIÇOS PÚBLICOS",
+    "communication services": "SERVIÇOS DE COMUNICAÇÃO"
+  }
+};
+
+function translateSector(sector: string, locale: Locale): string {
+  if (!sector) return "";
+  const lower = sector.toLowerCase();
+  return SECTOR_TRANSLATIONS[locale]?.[lower] || sector;
+}
+
 // Index tickers shown in the header strip: S&P 500, Nasdaq, Dow, Russell 2000, VIX.
 const INDICES = [
   { symbol: "^GSPC", label: "S&P 500" },
@@ -113,13 +197,13 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             {stockData?.sector && (
               <>
                 <span className="opacity-30">/</span>
-                <span className="text-[#3b82f6]">{stockData.sector}</span>
+                <span className="text-[#3b82f6]">{translateSector(stockData.sector, locale)}</span>
               </>
             )}
             {stockData?.industry && stockData.industry !== stockData.sector && (
               <>
                 <span className="opacity-30">/</span>
-                <span className="text-slate-400">{stockData.industry}</span>
+                <span className="text-slate-400">{translateSector(stockData.industry, locale)}</span>
               </>
             )}
           </nav>
@@ -165,7 +249,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
           })}
           {sectorEtf && (
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-bold">
-              <span className="text-[#3b82f6]">{stockData?.sector} ({sectorEtf})</span>
+              <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
               <span className="text-white font-mono">
                 {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
               </span>

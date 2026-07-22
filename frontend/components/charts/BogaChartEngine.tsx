@@ -85,6 +85,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     multiChartScreen: "Multi-Chart Screen", charts: "Charts",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Market Structure", catPatterns: "Patterns", catDrawings: "Drawing Tools",
     autoChartPatterns: "Auto Chart Patterns", basicCandlePatterns: "Basic Candlestick Patterns",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatility", atr: "ATR", volume: "Volume", obv: "OBV",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -98,6 +99,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     multiChartScreen: "Çoklu Grafik Ekranı", charts: "Grafik",
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
     autoChartPatterns: "Otomatik Chart Patterns", basicCandlePatterns: "Temel Candlestick Patterns",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilite", atr: "ATR", volume: "Hacim", obv: "OBV",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -111,6 +113,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     multiChartScreen: "Pantalla Multigráfico", charts: "Gráficos",
     catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
     autoChartPatterns: "Patrones de Gráficos Automáticos", basicCandlePatterns: "Patrones Básicos de Velas",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidad", atr: "ATR", volume: "Volumen", obv: "OBV",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -124,6 +127,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     multiChartScreen: "Écran Multi-Graphiques", charts: "Graphiques",
     catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
     autoChartPatterns: "Modèles de Graphiques Automatiques", basicCandlePatterns: "Modèles de Bougies de Base",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilité", atr: "ATR", volume: "Volume", obv: "OBV",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -137,6 +141,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
     multiChartScreen: "Tela Multigráficos", charts: "Gráficos",
     catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
     autoChartPatterns: "Padrões Gráficos Automáticos", basicCandlePatterns: "Padrões Básicos de Velas",
+    sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidade", atr: "ATR", volume: "Volume", obv: "OBV",
   },
 };
 
