@@ -1407,7 +1407,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CHRW",
@@ -1551,7 +1551,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FDX",
@@ -1695,7 +1695,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "IR",
@@ -1839,7 +1839,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "RIO",
@@ -1983,7 +1983,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "APH",
@@ -2127,7 +2127,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "QCOM",
