@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-21T09:15:03.438164-04:00",
+  "generated_at": "2026-07-22T09:18:30.674304-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 25.3,
-  "total_scanned": 2,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "scan_duration_s": 38.1,
+  "total_scanned": 9,
+  "layer1_passed": 9,
+  "final_picks": 9,
   "picks": [
     {
-      "ticker": "MARA",
-      "price": 11.67,
-      "change_pct": 9.17,
-      "dt_score": 57.0,
+      "ticker": "VKTX",
+      "price": 37.95,
+      "change_pct": 4.32,
+      "dt_score": 58.0,
       "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 11.73,
+      "vwap": 37.57,
       "catalyst": {
         "catalyst_type": "acquisition",
         "catalyst_score": 22,
-        "headline": "applied digital sheds 44%: buy the dip or run?(trefis)+9.17%",
+        "headline": "a diabetes therapy just locked in its cell supplier, and the race to end insulin injections is heating up(pr newswire)",
         "confidence": "high",
-        "ts": 1784639727.7659254
+        "ts": 1784726347.0714934
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,213 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 11.66,
-          "high": 11.73
+          "low": 37.91,
+          "high": 38.14
         },
-        "stop": 11.49,
-        "tp1": 12.11,
-        "tp2": 12.41,
-        "rr_ratio": 2.02,
-        "avg_entry": 11.7,
-        "risk_per_sh": 0.21,
+        "stop": 37.38,
+        "tp1": 39.31,
+        "tp2": 40.28,
+        "rr_ratio": 1.99,
+        "avg_entry": 38.02,
+        "risk_per_sh": 0.64,
         "signal": "GAP_AND_GO",
-        "pm_high_ref": 11.67
+        "pm_high_ref": 37.95
       },
       "details": [
         "🎯 Güçlü Kataliz: ACQUISITION (high)",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "📈 Güçlü Gap: +9.2%",
+        "↗️ Orta Gap: +4.3%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.54%",
-        "🔥 Açılış Barı: Güçlü (3.1x hacim)",
+        "✅ VWAP Üstünde: +1.02%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SOUN",
+      "price": 6.55,
+      "change_pct": 3.88,
+      "dt_score": 55.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 6.47,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "soundhound ai to report 2026 second quarter financial results, host conference call and webcast on august 5(globenewswir",
+        "confidence": "high",
+        "ts": 1784726347.3923671
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 6.54,
+          "high": 6.58
+        },
+        "stop": 6.45,
+        "tp1": 6.78,
+        "tp2": 6.95,
+        "rr_ratio": 2.0,
+        "avg_entry": 6.56,
+        "risk_per_sh": 0.11,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 6.55
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.9%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.31%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "price": 25.5,
+      "change_pct": 7.01,
+      "dt_score": 48.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 25.05,
+      "catalyst": {
+        "catalyst_type": "earnings_beat",
+        "catalyst_score": 25,
+        "headline": "super micro shares soar 18% as ai server orders top $60b(gurufocus.com)+13.53%",
+        "confidence": "high",
+        "ts": 1784726343.091517
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 25.47,
+          "high": 25.63
+        },
+        "stop": 25.12,
+        "tp1": 26.41,
+        "tp2": 27.05,
+        "rr_ratio": 2.0,
+        "avg_entry": 25.55,
+        "risk_per_sh": 0.43,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 25.5
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +7.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.81%",
+        "🔴 Açılış Barı: Kırmızı (0.1% gövde)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "AVXL",
+      "price": 2.56,
+      "change_pct": 5.58,
+      "dt_score": 40.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 2.53,
+      "catalyst": {
+        "catalyst_type": "upgrade",
+        "catalyst_score": 15,
+        "headline": "anavex life sciences receives expected nasdaq delinquency notification(globenewswire)",
+        "confidence": "medium",
+        "ts": 1784726342.871884
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 2.56,
+          "high": 2.57
+        },
+        "stop": 2.52,
+        "tp1": 2.65,
+        "tp2": 2.72,
+        "rr_ratio": 1.89,
+        "avg_entry": 2.56,
+        "risk_per_sh": 0.04,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 2.56
+      },
+      "details": [
+        "📰 Kataliz: UPGRADE",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.6%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.13%",
+        "🔴 Açılış Barı: Kırmızı (0.2% gövde)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
       "ticker": "RIOT",
-      "price": 19.9,
-      "change_pct": 8.98,
-      "dt_score": 47.0,
-      "signal": "GAP_AND_GO",
+      "price": 21.49,
+      "change_pct": 7.99,
+      "dt_score": 38.0,
+      "signal": "CONFIRMED_OPEN",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 19.66,
+      "vwap": 21.13,
       "catalyst": {
         "catalyst_type": "unknown",
         "catalyst_score": 5,
         "headline": "",
         "confidence": "low",
-        "ts": 1784639727.7863436
+        "ts": 1784726343.1121163
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,26 +257,246 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 19.88,
-          "high": 20.0
+          "low": 21.47,
+          "high": 21.6
         },
-        "stop": 19.6,
-        "tp1": 20.62,
-        "tp2": 21.13,
-        "rr_ratio": 2.0,
-        "avg_entry": 19.94,
-        "risk_per_sh": 0.34,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 19.9
+        "stop": 21.17,
+        "tp1": 22.26,
+        "tp2": 22.81,
+        "rr_ratio": 1.99,
+        "avg_entry": 21.54,
+        "risk_per_sh": 0.36,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 21.49
       },
       "details": [
         "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "📈 Güçlü Gap: +9.0%",
+        "↗️ Orta Gap: +8.0%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.25%",
-        "🔥 Açılış Barı: Güçlü (3.1x hacim)",
+        "✅ VWAP Üstünde: +1.69%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "price": 175.85,
+      "change_pct": 9.61,
+      "dt_score": 37.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 177.04,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1784726343.1337714
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 175.67,
+          "high": 176.73
+        },
+        "stop": 173.21,
+        "tp1": 182.18,
+        "tp2": 186.66,
+        "rr_ratio": 2.0,
+        "avg_entry": 176.2,
+        "risk_per_sh": 2.99,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 175.85
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "📈 Güçlü Gap: +9.6%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.67%",
+        "🔥 Açılış Barı: Güçlü (7.6x hacim)",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "MARA",
+      "price": 12.25,
+      "change_pct": 4.97,
+      "dt_score": 35.0,
+      "signal": "GAP_AND_GO",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 12.37,
+      "catalyst": {
+        "catalyst_type": "acquisition",
+        "catalyst_score": 22,
+        "headline": "applied digital sheds 44%: buy the dip or run?(trefis)+9.17%",
+        "confidence": "high",
+        "ts": 1784726343.04995
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 12.24,
+          "high": 12.31
+        },
+        "stop": 12.07,
+        "tp1": 12.69,
+        "tp2": 12.99,
+        "rr_ratio": 2.02,
+        "avg_entry": 12.28,
+        "risk_per_sh": 0.21,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 12.25
+      },
+      "details": [
+        "🎯 Güçlü Kataliz: ACQUISITION (high)",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +5.0%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔴 VWAP Altında: -1.01%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "SOFI",
+      "price": 17.64,
+      "change_pct": 3.7,
+      "dt_score": 35.0,
+      "signal": "CONFIRMED_OPEN",
+      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 17.35,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1784726347.4118109
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 17.62,
+          "high": 17.73
+        },
+        "stop": 17.38,
+        "tp1": 18.27,
+        "tp2": 18.71,
+        "rr_ratio": 2.02,
+        "avg_entry": 17.68,
+        "risk_per_sh": 0.3,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 17.64
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Küçük Gap: +3.7%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "✅ VWAP Üstünde: +1.65%",
+        "✅ Açılış Barı: Yeşil",
+        "🟢 RSI: 50 (Momentum Bölgesi)",
+        "📏 ATR: %3.0"
+      ]
+    },
+    {
+      "ticker": "HOOD",
+      "price": 106.36,
+      "change_pct": 7.13,
+      "dt_score": 33.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "📊 PULLBACK BEKLE → $106.51'a çekilme + bounce onayı",
+      "rsi": 50.0,
+      "rvol": 1.0,
+      "pm_rvol": 1.0,
+      "atr_pct": 3.0,
+      "vwap": 106.51,
+      "catalyst": {
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1784726343.0703282
+      },
+      "gap_fill": {
+        "fill_risk": "Bilinmiyor",
+        "fill_risk_score": 0,
+        "historical_fill_rate": null
+      },
+      "float_rotation": {
+        "rotation_minutes": 999,
+        "label": "Bilinmiyor",
+        "score_bonus": 0
+      },
+      "zones": {
+        "entry_zone": {
+          "low": 106.3,
+          "high": 106.83
+        },
+        "stop": 105.39,
+        "tp1": 108.91,
+        "tp2": 110.68,
+        "rr_ratio": 2.0,
+        "avg_entry": 106.56,
+        "risk_per_sh": 1.17,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 106.36
+      },
+      "details": [
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
+        "↗️ Orta Gap: +7.1%",
+        "Bilinmiyor",
+        "Bilinmiyor",
+        "🔄 VWAP Testi: -0.14%",
+        "🔥 Açılış Barı: Güçlü (8.2x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
