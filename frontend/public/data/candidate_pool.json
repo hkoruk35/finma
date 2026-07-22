@@ -1407,7 +1407,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PBR",
@@ -1551,7 +1551,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CASY",
@@ -1697,7 +1697,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "STLD",
@@ -1841,7 +1841,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AMZN",
@@ -1985,7 +1985,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ODFL",
@@ -2130,7 +2130,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-22",
+      "last_checked": "2026-07-22 10:00",
       "last_pick": {
         "rank": 1,
         "ticker": "IBKR",
