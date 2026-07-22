@@ -20,6 +20,7 @@ export default function LoginForm({
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const registerHref = registerHrefProp ?? (locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`);
   const isMobile = typeof window !== "undefined" && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
   const topHref = redirectTo ?? (isMobile ? `/global/${locale}/home` : `/global/${locale}`);
 
