@@ -86,6 +86,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Market Structure", catPatterns: "Patterns", catDrawings: "Drawing Tools",
     autoChartPatterns: "Auto Chart Patterns", basicCandlePatterns: "Basic Candlestick Patterns",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatility", atr: "ATR", volume: "Volume", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Supply & Demand", candlePat: "Candlestick Patterns", chartPat: "Auto Chart Patterns",
+    fibonacci: "Auto Fibonacci", trendLine: "Auto Trend Line", horizontalLine: "Auto Horizontal Line",
   },
   tr: {
     liveChart: "Canlı Grafik", expand: "GENİŞLET", collapse: "DARALT",
@@ -100,6 +102,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     catTrend: "Trend", catMomentum: "Momentum", catVolume: "Hacim", catStructure: "Piyasa Yapısı", catPatterns: "Formasyonlar", catDrawings: "Çizim Araçları",
     autoChartPatterns: "Otomatik Chart Patterns", basicCandlePatterns: "Temel Candlestick Patterns",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilite", atr: "ATR", volume: "Hacim", obv: "OBV",
+    fvg: "FVG (Fair Value Gap)", sd: "Arz-Talep Bölgeleri", candlePat: "Mum Formasyonları", chartPat: "Otomatik Formasyonlar",
+    fibonacci: "Oto Fibonacci", trendLine: "Oto Trend Çizgisi", horizontalLine: "Oto Yatay Çizgi",
   },
   es: {
     liveChart: "Gráfico en Vivo", expand: "EXPANDIR", collapse: "CONTRAER",
@@ -114,6 +118,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     catTrend: "Tendencia", catMomentum: "Momento", catVolume: "Volumen", catStructure: "Estructura del Mercado", catPatterns: "Patrones", catDrawings: "Herramientas de Dibujo",
     autoChartPatterns: "Patrones de Gráficos Automáticos", basicCandlePatterns: "Patrones Básicos de Velas",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidad", atr: "ATR", volume: "Volumen", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Oferta y Demanda", candlePat: "Patrones de Velas", chartPat: "Patrones Automáticos",
+    fibonacci: "Fibonacci Automático", trendLine: "Línea de Tendencia Auto", horizontalLine: "Línea Horizontal Auto",
   },
   fr: {
     liveChart: "Graphique en Direct", expand: "AGRANDIR", collapse: "RÉDUIRE",
@@ -128,6 +134,8 @@ const LABELS: Record<Locale, Record<string, string>> = {
     catTrend: "Tendance", catMomentum: "Momentum", catVolume: "Volume", catStructure: "Structure du Marché", catPatterns: "Modèles", catDrawings: "Outils de Dessin",
     autoChartPatterns: "Modèles de Graphiques Automatiques", basicCandlePatterns: "Modèles de Bougies de Base",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilité", atr: "ATR", volume: "Volume", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Offre et Demande", candlePat: "Modèles de Bougies", chartPat: "Modèles Automatiques",
+    fibonacci: "Fibonacci Automatique", trendLine: "Ligne de Tendance Auto", horizontalLine: "Ligne Horizontale Auto",
   },
   pt: {
     liveChart: "Gráfico ao Vivo", expand: "EXPANDIR", collapse: "RECOLHER",
@@ -142,13 +150,15 @@ const LABELS: Record<Locale, Record<string, string>> = {
     catTrend: "Tendência", catMomentum: "Momento", catVolume: "Volume", catStructure: "Estrutura de Mercado", catPatterns: "Padrões", catDrawings: "Ferramentas de Desenho",
     autoChartPatterns: "Padrões Gráficos Automáticos", basicCandlePatterns: "Padrões Básicos de Velas",
     sma: "SMA", supertrend: "Supertrend", volatilite: "Volatilidade", atr: "ATR", volume: "Volume", obv: "OBV",
+    fvg: "Fair Value Gap", sd: "Oferta e Demanda", candlePat: "Padrões de Velas", chartPat: "Padrões Automáticos",
+    fibonacci: "Fibonacci Automático", trendLine: "Linha de Tendência Auto", horizontalLine: "Linha Horizontal Auto",
   },
 };
 
 // Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki
 // gosterge — geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
 // tiklaninca PremiumModal acar, aktif edilemez.
-const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume"]);
+const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume", "candlePat"]);
 
 const INTERVALS: { label: string; value: string }[] = [
   { label: "15M", value: "15" },
@@ -174,7 +184,7 @@ type CandleType = (typeof CANDLE_TYPES)[number];
 const VP_MARGIN_BARS = 16;
 const DEFAULT_RIGHT_OFFSET = 5;
 
-const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3"] as const;
+const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "candlePat", "chartPat", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 // Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
 // canlida /api/preorder-analysis'ten cekilen entryZone/stop/targets verisine
@@ -816,6 +826,112 @@ export default function BogaChartEngine({
       chart.panes()[nextPaneIdx]?.setHeight(90);
       lineSeriesRefs.current.volatilite = [series];
       nextPaneIdx++;
+    }
+
+    if (active.has("fvg") && ind.fvg) {
+      const zones = ind.fvg as { top: number; bottom: number; type: string }[];
+      for (const z of zones) {
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: z.top,
+          color: z.type === "bullish" ? "#22c55e80" : "#ef444480",
+          lineWidth: 2,
+          lineStyle: 2,
+          axisLabelVisible: false,
+          title: "FVG"
+        }));
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: z.bottom,
+          color: z.type === "bullish" ? "#22c55e80" : "#ef444480",
+          lineWidth: 2,
+          lineStyle: 2,
+          axisLabelVisible: false,
+        }));
+      }
+    }
+
+    if (active.has("sd") && ind.sd) {
+      const zones = ind.sd as { top: number; bottom: number; type: string }[];
+      for (const z of zones) {
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: z.top,
+          color: z.type === "demand" ? "#10b981" : "#f43f5e",
+          lineWidth: 2,
+          lineStyle: 1,
+          axisLabelVisible: true,
+          title: z.type === "demand" ? "Demand" : "Supply"
+        }));
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: z.bottom,
+          color: z.type === "demand" ? "#10b981" : "#f43f5e",
+          lineWidth: 2,
+          lineStyle: 1,
+          axisLabelVisible: false,
+        }));
+      }
+    }
+
+    if (active.has("fibonacci") && ind.fibonacci) {
+      const fib = ind.fibonacci as { levels: { price: number; level: number }[] };
+      const fibColors = ["#94a3b8", "#f87171", "#fbbf24", "#4ade80", "#60a5fa", "#c084fc", "#94a3b8"];
+      fib.levels.forEach((lvl, i) => {
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: lvl.price,
+          color: fibColors[i % fibColors.length],
+          lineWidth: 1,
+          lineStyle: 0,
+          axisLabelVisible: true,
+          title: `Fib ${lvl.level}`
+        }));
+      });
+    }
+
+    if (active.has("trendLine") && ind.trendLine) {
+      const lines = ind.trendLine as { start_time: number; start_price: number; end_time: number; end_price: number; type: string }[];
+      const ts = [];
+      for (const tl of lines) {
+        const series = chart.addSeries(LineSeries, { 
+          color: tl.type === "support" ? "#22c55e" : "#ef4444", 
+          lineWidth: 2, 
+          lineStyle: 0,
+          priceLineVisible: false 
+        });
+        series.setData([
+          { time: tl.start_time as UTCTimestamp, value: tl.start_price },
+          { time: tl.end_time as UTCTimestamp, value: tl.end_price }
+        ]);
+        ts.push(series);
+      }
+      lineSeriesRefs.current.trendLine = ts;
+    }
+
+    if (active.has("chartPat") && ind.chartPat) {
+      const pats = ind.chartPat as { points: { time: number; price: number }[]; type: string }[];
+      const cpSeries = [];
+      for (const p of pats) {
+        const series = chart.addSeries(LineSeries, { 
+          color: p.type === "bullish" ? "#3b82f6" : "#f97316", 
+          lineWidth: 2, 
+          lineStyle: 0,
+          priceLineVisible: false 
+        });
+        series.setData(p.points.map(pt => ({ time: pt.time as UTCTimestamp, value: pt.price })));
+        cpSeries.push(series);
+      }
+      lineSeriesRefs.current.chartPat = cpSeries;
+    }
+
+    if (active.has("candlePat") && ind.candlePat) {
+      const cPats = ind.candlePat as { time: number; type: string; name: string }[];
+      const markers = cPats.map((cp) => ({
+        time: cp.time as UTCTimestamp,
+        position: cp.type === "bearish" ? "aboveBar" : "belowBar",
+        color: cp.type === "bullish" ? "#22c55e" : (cp.type === "bearish" ? "#ef4444" : "#94a3b8"),
+        shape: cp.type === "bearish" ? "arrowDown" : "arrowUp",
+        text: cp.name
+      })) as any[];
+      mainSeries.setMarkers(markers);
+    } else {
+      mainSeries.setMarkers([]);
     }
 
     if (active.has("sr") && data.sr) {

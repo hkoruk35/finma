@@ -324,3 +324,252 @@ export function volatility(closes: number[], period = 20): (number | null)[] {
   }
   return out;
 }
+
+// --- NEW AUTOMATED INDICATORS ---
+
+export interface FVGZone {
+  start_time: number;
+  top: number;
+  bottom: number;
+  type: "bullish" | "bearish";
+}
+
+export function fvg(bars: Bar[]): FVGZone[] {
+  const zones: FVGZone[] = [];
+  for (let i = 2; i < bars.length; i++) {
+    const b1 = bars[i - 2];
+    const b2 = bars[i - 1];
+    const b3 = bars[i];
+    
+    // Bullish FVG: b1.high < b3.low
+    if (b1.high < b3.low && b2.close > b2.open) {
+      zones.push({ start_time: b2.time, top: b3.low, bottom: b1.high, type: "bullish" });
+    }
+    // Bearish FVG: b1.low > b3.high
+    else if (b1.low > b3.high && b2.close < b2.open) {
+      zones.push({ start_time: b2.time, top: b1.low, bottom: b3.high, type: "bearish" });
+    }
+  }
+  return zones.slice(-10); // Return up to 10 recent FVGs
+}
+
+export interface SDZone {
+  start_time: number;
+  top: number;
+  bottom: number;
+  type: "supply" | "demand";
+}
+
+export function supplyDemand(bars: Bar[]): SDZone[] {
+  const zones: SDZone[] = [];
+  const ATR = atr(bars, 14);
+  
+  for (let i = 4; i < bars.length; i++) {
+    const currentAtr = ATR[i - 1];
+    if (currentAtr == null) continue;
+    
+    const move = Math.abs(bars[i].close - bars[i].open);
+    if (move > currentAtr * 1.5) { // Impulse move
+      const baseCandle = bars[i - 1];
+      const baseMove = Math.abs(baseCandle.close - baseCandle.open);
+      
+      if (baseMove < currentAtr * 0.8) {
+        if (bars[i].close > bars[i].open) {
+          zones.push({
+            start_time: baseCandle.time,
+            top: Math.max(baseCandle.open, baseCandle.close),
+            bottom: baseCandle.low,
+            type: "demand"
+          });
+        } else {
+          zones.push({
+            start_time: baseCandle.time,
+            top: baseCandle.high,
+            bottom: Math.min(baseCandle.open, baseCandle.close),
+            type: "supply"
+          });
+        }
+      }
+    }
+  }
+  return zones.slice(-10);
+}
+
+export interface CandlePattern {
+  time: number;
+  name: string;
+  type: "bullish" | "bearish" | "neutral";
+}
+
+export function candlestickPatterns(bars: Bar[]): CandlePattern[] {
+  const patterns: CandlePattern[] = [];
+  for (let i = 1; i < bars.length; i++) {
+    const b = bars[i];
+    const prev = bars[i - 1];
+    
+    const body = Math.abs(b.close - b.open);
+    const range = b.high - b.low;
+    const upperWick = b.high - Math.max(b.close, b.open);
+    const lowerWick = Math.min(b.close, b.open) - b.low;
+    
+    // Doji
+    if (body <= range * 0.1 && range > 0) {
+      patterns.push({ time: b.time, name: "Doji", type: "neutral" });
+      continue;
+    }
+    
+    // Hammer
+    if (lowerWick >= body * 2 && upperWick <= range * 0.1) {
+      patterns.push({ time: b.time, name: "Hammer", type: "bullish" });
+    }
+    
+    // Engulfing
+    if (b.close > b.open && prev.close < prev.open && b.close > prev.open && b.open < prev.close) {
+      patterns.push({ time: b.time, name: "Engulfing", type: "bullish" });
+    } else if (b.close < b.open && prev.close > prev.open && b.close < prev.open && b.open > prev.close) {
+      patterns.push({ time: b.time, name: "Engulfing", type: "bearish" });
+    }
+  }
+  return patterns;
+}
+
+export interface ChartPattern {
+  name: string;
+  points: { time: number, price: number }[];
+  type: "bullish" | "bearish";
+}
+
+function findPivots(bars: Bar[], window = 5) {
+  const pivots = [];
+  for (let i = window; i < bars.length - window; i++) {
+    let isHigh = true;
+    let isLow = true;
+    for (let j = 1; j <= window; j++) {
+      if (bars[i].high <= bars[i - j].high || bars[i].high <= bars[i + j].high) isHigh = false;
+      if (bars[i].low >= bars[i - j].low || bars[i].low >= bars[i + j].low) isLow = false;
+    }
+    if (isHigh) pivots.push({ time: bars[i].time, price: bars[i].high, type: 'high' as const, index: i });
+    if (isLow) pivots.push({ time: bars[i].time, price: bars[i].low, type: 'low' as const, index: i });
+  }
+  return pivots;
+}
+
+export function chartPatterns(bars: Bar[]): ChartPattern[] {
+  const pivots = findPivots(bars, 10);
+  const patterns: ChartPattern[] = [];
+  
+  const highs = pivots.filter(p => p.type === 'high');
+  for (let i = 0; i < highs.length - 2; i++) {
+    const h1 = highs[i];
+    const h2 = highs[i + 1];
+    const h3 = highs[i + 2];
+    
+    // Head & Shoulders
+    if (h2.price > h1.price && h2.price > h3.price) {
+      const diff = Math.abs(h1.price - h3.price) / h1.price;
+      if (diff < 0.05) {
+        patterns.push({
+          name: "Head & Shoulders",
+          type: "bearish",
+          points: [h1, h2, h3].map(p => ({ time: p.time, price: p.price }))
+        });
+        i += 2;
+      }
+    }
+  }
+  
+  const lows = pivots.filter(p => p.type === 'low');
+  for (let i = 0; i < lows.length - 2; i++) {
+    const l1 = lows[i];
+    const l2 = lows[i + 1];
+    const l3 = lows[i + 2];
+    
+    // Inverse Head & Shoulders
+    if (l2.price < l1.price && l2.price < l3.price) {
+      const diff = Math.abs(l1.price - l3.price) / l1.price;
+      if (diff < 0.05) {
+        patterns.push({
+          name: "Inverse H&S",
+          type: "bullish",
+          points: [l1, l2, l3].map(p => ({ time: p.time, price: p.price }))
+        });
+        i += 2;
+      }
+    }
+  }
+  
+  return patterns.slice(-2);
+}
+
+export interface FibonacciZone {
+  start_time: number;
+  end_time: number;
+  levels: { price: number, level: number }[];
+  high: number;
+  low: number;
+}
+
+export function fibonacci(bars: Bar[]): FibonacciZone | null {
+  if (bars.length < 50) return null;
+  const window = bars.slice(-100);
+  let highest = window[0];
+  let lowest = window[0];
+  for (let b of window) {
+    if (b.high > highest.high) highest = b;
+    if (b.low < lowest.low) lowest = b;
+  }
+  
+  const diff = highest.high - lowest.low;
+  const isUp = highest.time > lowest.time;
+  
+  const levels = [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1];
+  const fibLevels = levels.map(l => ({
+    level: l,
+    price: isUp ? highest.high - diff * l : lowest.low + diff * l
+  }));
+  
+  return {
+    start_time: Math.min(highest.time, lowest.time),
+    end_time: bars[bars.length - 1].time,
+    levels: fibLevels,
+    high: highest.high,
+    low: lowest.low
+  };
+}
+
+export interface TrendLine {
+  start_time: number;
+  start_price: number;
+  end_time: number;
+  end_price: number;
+  type: "support" | "resistance";
+}
+
+export function trendLine(bars: Bar[]): TrendLine[] {
+  const pivots = findPivots(bars, 10);
+  const lines: TrendLine[] = [];
+  
+  const highs = pivots.filter(p => p.type === 'high');
+  const lows = pivots.filter(p => p.type === 'low');
+  
+  if (highs.length >= 2) {
+    const h1 = highs[highs.length - 2];
+    const h2 = highs[highs.length - 1];
+    lines.push({
+      start_time: h1.time, start_price: h1.price,
+      end_time: h2.time, end_price: h2.price,
+      type: "resistance"
+    });
+  }
+  
+  if (lows.length >= 2) {
+    const l1 = lows[lows.length - 2];
+    const l2 = lows[lows.length - 1];
+    lines.push({
+      start_time: l1.time, start_price: l1.price,
+      end_time: l2.time, end_price: l2.price,
+      type: "support"
+    });
+  }
+  return lines;
+}

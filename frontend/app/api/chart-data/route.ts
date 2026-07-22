@@ -13,6 +13,12 @@ import {
   atr,
   obv,
   volatility,
+  fvg,
+  supplyDemand,
+  candlestickPatterns,
+  chartPatterns,
+  fibonacci,
+  trendLine,
 } from "@/lib/indicators";
 
 export const runtime = "nodejs";
@@ -106,6 +112,12 @@ export async function GET(req: NextRequest) {
     if (wanted.has("atr")) indicators.atr = atr(bars);
     if (wanted.has("obv")) indicators.obv = obv(bars);
     if (wanted.has("volatilite")) indicators.volatilite = volatility(closesArr);
+    if (wanted.has("fvg")) indicators.fvg = fvg(bars);
+    if (wanted.has("sd")) indicators.sd = supplyDemand(bars);
+    if (wanted.has("candlePat")) indicators.candlePat = candlestickPatterns(bars);
+    if (wanted.has("chartPat")) indicators.chartPat = chartPatterns(bars);
+    if (wanted.has("fibonacci")) indicators.fibonacci = fibonacci(bars);
+    if (wanted.has("trendLine")) indicators.trendLine = trendLine(bars);
 
     const sr = wanted.has("sr") ? pivotSupportResistance(bars) : undefined;
 
