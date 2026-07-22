@@ -19,6 +19,7 @@ import {
   chartPatterns,
   fibonacci,
   trendLine,
+  horizontalLine,
 } from "@/lib/indicators";
 
 export const runtime = "nodejs";
@@ -118,6 +119,7 @@ export async function GET(req: NextRequest) {
     if (wanted.has("chartPat")) indicators.chartPat = chartPatterns(bars);
     if (wanted.has("fibonacci")) indicators.fibonacci = fibonacci(bars);
     if (wanted.has("trendLine")) indicators.trendLine = trendLine(bars);
+    if (wanted.has("horizontalLine")) indicators.horizontalLine = horizontalLine(bars);
 
     const sr = wanted.has("sr") ? pivotSupportResistance(bars) : undefined;
 

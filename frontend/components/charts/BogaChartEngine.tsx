@@ -914,6 +914,20 @@ export default function BogaChartEngine({
       lineSeriesRefs.current.trendLine = ts;
     }
 
+    if (active.has("horizontalLine") && ind.horizontalLine) {
+      const hLines = ind.horizontalLine as { price: number; type: string }[];
+      for (const hl of hLines) {
+        priceLinesRef.current.push(mainSeries.createPriceLine({
+          price: hl.price,
+          color: hl.type === "resistance" ? "#ef4444" : "#22c55e",
+          lineWidth: 2,
+          lineStyle: 0,
+          axisLabelVisible: true,
+          title: hl.type === "resistance" ? "Res" : "Sup"
+        }));
+      }
+    }
+
     if (active.has("chartPat") && ind.chartPat) {
       const pats = ind.chartPat as { points: { time: number; price: number }[]; type: string }[];
       const cpSeries = [];
@@ -955,7 +969,15 @@ export default function BogaChartEngine({
         text: cp.name
       })) as any[];
       markers.sort((a, b) => a.time - b.time);
-      (mainSeries as any).setMarkers(markers);
+      const uniqueMarkers = [];
+      for (let i = 0; i < markers.length; i++) {
+        if (i > 0 && markers[i].time === markers[i-1].time) {
+          uniqueMarkers[uniqueMarkers.length - 1].text += ` + ${markers[i].text}`;
+        } else {
+          uniqueMarkers.push(markers[i]);
+        }
+      }
+      (mainSeries as any).setMarkers(uniqueMarkers);
     } else {
       (mainSeries as any).setMarkers([]);
     }

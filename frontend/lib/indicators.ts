@@ -573,3 +573,6 @@ export function trendLine(bars: Bar[]): TrendLine[] {
   }
   return lines;
 }
+e x p o r t   i n t e r f a c e   H o r i z o n t a l L i n e   {   p r i c e :   n u m b e r ;   t y p e :   ' s u p p o r t '   |   ' r e s i s t a n c e ' ;   }  
+ e x p o r t   f u n c t i o n   h o r i z o n t a l L i n e ( b a r s :   B a r [ ] ) :   H o r i z o n t a l L i n e [ ]   {   i f   ( b a r s . l e n g t h   <   5 0 )   r e t u r n   [ ] ;   c o n s t   p i v o t s   =   p i v o t S u p p o r t R e s i s t a n c e ( b a r s ,   2 0 ) ;   c o n s t   h i g h s   =   p i v o t s . f i l t e r ( ( p )   = >   p . t y p e   = = =   ' r e s i s t a n c e ' ) . s o r t ( ( a ,   b )   = >   b . p r i c e   -   a . p r i c e ) ;   c o n s t   l o w s   =   p i v o t s . f i l t e r ( ( p )   = >   p . t y p e   = = =   ' s u p p o r t ' ) . s o r t ( ( a ,   b )   = >   a . p r i c e   -   b . p r i c e ) ;   c o n s t   l i n e s :   H o r i z o n t a l L i n e [ ]   =   [ ] ;   i f   ( h i g h s [ 0 ] )   l i n e s . p u s h ( {   p r i c e :   h i g h s [ 0 ] . p r i c e ,   t y p e :   ' r e s i s t a n c e '   } ) ;   i f   ( l o w s [ 0 ] )   l i n e s . p u s h ( {   p r i c e :   l o w s [ 0 ] . p r i c e ,   t y p e :   ' s u p p o r t '   } ) ;   r e t u r n   l i n e s ;   }  
+ 
