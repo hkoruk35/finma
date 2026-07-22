@@ -727,14 +727,6 @@ export default function BogaChartEngine({
     }
     priceLinesRef.current = [];
 
-    const currentCategory = mainSeriesRef.current ? (mainSeriesRef.current.seriesType().toLowerCase() === "line" ? "line" : mainSeriesRef.current.seriesType().toLowerCase() === "bar" ? "bar" : "candlestick") : null;
-    const nextCategory = seriesCategory(candleType);
-
-    if (mainSeriesRef.current && currentCategory !== nextCategory) {
-      chart.removeSeries(mainSeriesRef.current);
-      mainSeriesRef.current = null;
-    }
-
     if (!mainSeriesRef.current) mainSeriesRef.current = createMainSeries(chart, candleType);
     const mainSeries = mainSeriesRef.current;
 
@@ -928,59 +920,7 @@ export default function BogaChartEngine({
       }
     }
 
-    if (active.has("chartPat") && ind.chartPat) {
-      const pats = ind.chartPat as { points: { time: number; price: number }[]; type: string }[];
-      const cpSeries = [];
-      for (const p of pats) {
-        const series = chart.addSeries(LineSeries, { 
-          color: p.type === "bullish" ? "#3b82f6" : "#f97316", 
-          lineWidth: 2, 
-          lineStyle: 0,
-          priceLineVisible: false 
-        });
-        
-        // Ensure strictly increasing time
-        const uniquePoints = [];
-        let lastTime = -1;
-        for (const pt of p.points) {
-          if (pt.time > lastTime) {
-            uniquePoints.push({ time: pt.time as UTCTimestamp, value: pt.price });
-            lastTime = pt.time;
-          }
-        }
-        
-        if (uniquePoints.length >= 2) {
-          series.setData(uniquePoints);
-          cpSeries.push(series);
-        } else {
-          chart.removeSeries(series);
-        }
-      }
-      lineSeriesRefs.current.chartPat = cpSeries;
-    }
 
-    if (active.has("candlePat") && ind.candlePat) {
-      const cPats = ind.candlePat as { time: number; type: string; name: string }[];
-      const markers = cPats.map((cp) => ({
-        time: cp.time as UTCTimestamp,
-        position: cp.type === "bearish" ? "aboveBar" : "belowBar",
-        color: cp.type === "bullish" ? "#22c55e" : (cp.type === "bearish" ? "#ef4444" : "#94a3b8"),
-        shape: cp.type === "bearish" ? "arrowDown" : "arrowUp",
-        text: cp.name
-      })) as any[];
-      markers.sort((a, b) => a.time - b.time);
-      const uniqueMarkers = [];
-      for (let i = 0; i < markers.length; i++) {
-        if (i > 0 && markers[i].time === markers[i-1].time) {
-          uniqueMarkers[uniqueMarkers.length - 1].text += ` + ${markers[i].text}`;
-        } else {
-          uniqueMarkers.push(markers[i]);
-        }
-      }
-      (mainSeries as any).setMarkers(uniqueMarkers);
-    } else {
-      (mainSeries as any).setMarkers([]);
-    }
 
     if (active.has("sr") && data.sr) {
       // Keep only the levels nearest the last close — otherwise months of
@@ -1291,17 +1231,13 @@ export default function BogaChartEngine({
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
                     <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Supply & Demand Zones</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Fair Value Gap (FVG)</button>
-                    
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catPatterns || "Formasyonlar"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">{t.autoChartPatterns || "Otomatik Chart Patterns"}</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">{t.basicCandlePatterns || "Temel Candlestick Patterns"}</button>
+                    <button onClick={() => toggle("sd")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("sd") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sd || "Supply & Demand Zones"}</button>
+                    <button onClick={() => toggle("fvg")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("fvg") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fvg || "Fair Value Gap (FVG)"}</button>
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Trend Line</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Horizontal Line</button>
-                    <button className="block w-full text-left px-2 py-1.5 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white rounded transition-colors">Fibonacci Retracement</button>
+                    <button onClick={() => toggle("trendLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("trendLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.trendLine || "Trend Line"}</button>
+                    <button onClick={() => toggle("horizontalLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("horizontalLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.horizontalLine || "Horizontal Line"}</button>
+                    <button onClick={() => toggle("fibonacci")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("fibonacci") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fibonacci || "Fibonacci Retracement"}</button>
                   </div>
                 )}
               </div>
