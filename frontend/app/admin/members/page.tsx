@@ -340,7 +340,7 @@ export default function AdminMembersPage() {
               <th style={{ padding: "10px 12px", color: ACCENT }}>GRUP / PLAN</th>
               <th style={{ padding: "10px 12px", color: ACCENT }}>TRIAL BİTİŞ</th>
               <th style={{ padding: "10px 12px", color: ACCENT }}>SON GİRİŞ</th>
-              <th style={{ padding: "10px 12px", color ACCENT }}>KAYIT</th>
+              <th style={{ padding: "10px 12px", color: ACCENT }}>KAYIT</th>
               <th style={{ padding: "10px 12px", color: ACCENT, textAlign: "right" }}>İŞLEMLER</th>
             </tr>
           </thead>
