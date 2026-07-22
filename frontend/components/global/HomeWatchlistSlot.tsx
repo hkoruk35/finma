@@ -26,6 +26,7 @@ interface LiveWatchData {
   sector?: string;
   price?: { current: number; prev_close: number; change_pct: number; volume?: number };
   tracker_1h?: { ema_status: string; rsi: number; signal: string; change_pct_1d: number; };
+  recent_closes?: number[];
 }
 
 export const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string; pt: string; es: string; fr: string }> = {
