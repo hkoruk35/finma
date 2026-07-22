@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "MMM",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 172.4,
+        "entry_zone": "170.05 - 174.75",
+        "SL": 163.01,
+        "TP": 191.19
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "TWST",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 94.92,
+        "entry_zone": "91.44 - 98.39",
+        "SL": 81.03,
+        "TP": 122.68
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "BRKR",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 60.07,
+        "entry_zone": "58.70 - 61.44",
+        "SL": 54.6,
+        "TP": 71.01
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "CHRD",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 137.32,
+        "entry_zone": "135.18 - 139.47",
+        "SL": 128.73,
+        "TP": 154.52
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "COIN",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 169.68,
+        "entry_zone": "164.99 - 174.37",
+        "SL": 150.91,
+        "TP": 207.22
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "FCX",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 64.71,
+        "entry_zone": "63.32 - 66.09",
+        "SL": 59.18,
+        "TP": 75.75
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 17.95,
+        "entry_zone": "17.40 - 18.50",
+        "SL": 15.76,
+        "TP": 22.34
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "TXG",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 47.4,
+        "entry_zone": "45.94 - 48.86",
+        "SL": 41.58,
+        "TP": 59.04
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "MOD",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 249.22,
+        "entry_zone": "241.35 - 257.09",
+        "SL": 217.74,
+        "TP": 312.17
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "HBM",
+        "sector": "Basic Materials",
+        "action": "WATCH",
+        "price": 23.56,
+        "entry_zone": "22.89 - 24.23",
+        "SL": 20.9,
+        "TP": 28.89
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "ONDS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 8.35,
+        "entry_zone": "8.05 - 8.66",
+        "SL": 7.15,
+        "TP": 10.76
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "PLAB",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 31.47,
+        "entry_zone": "30.67 - 32.26",
+        "SL": 28.27,
+        "TP": 37.86
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "AIR",
+        "sector": "Industrials",
+        "action": "WATCH",
+        "price": 127.22,
+        "entry_zone": "123.83 - 130.61",
+        "SL": 113.66,
+        "TP": 154.34
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "DOCN",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 141.19,
+        "entry_zone": "135.34 - 147.04",
+        "SL": 117.8,
+        "TP": 187.97
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "STX",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 911.28,
+        "entry_zone": "872.46 - 950.09",
+        "SL": 756.0,
+        "TP": 1221.83
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "CIFR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 23.75,
+        "entry_zone": "22.53 - 24.97",
+        "SL": 18.86,
+        "TP": 33.53
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "LASR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 75.6,
+        "entry_zone": "72.20 - 79.00",
+        "SL": 62.0,
+        "TP": 102.8
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "LITE",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 843.33,
+        "entry_zone": "810.01 - 876.65",
+        "SL": 710.07,
+        "TP": 1109.85
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "AEHR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 98.47,
+        "entry_zone": "92.45 - 104.50",
+        "SL": 74.36,
+        "TP": 146.71
+    },
+    {
+        "date": "2026-07-22 11:45",
+        "symbol": "TRVI",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 17.49,
+        "entry_zone": "16.77 - 18.21",
+        "SL": 14.6,
+        "TP": 23.26
+    }
+]
