@@ -415,7 +415,7 @@ export default function AdminMembersPage() {
 
       {/* Modal: Yeni Üye Ekle */}
       {showAddModal && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", items: "center", justifyContent: "center", zIndex: 1000, padding: 16 }}>
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000, padding: 16 }}>
           <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 16, padding: 24, width: "100%", maxWidth: 420 }}>
             <h2 style={{ fontSize: 18, fontWeight: 900, color: "#ffffff", marginBottom: 16 }}>Yeni Üye Ekle</h2>
             <form onSubmit={handleAddMember} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -490,7 +490,7 @@ export default function AdminMembersPage() {
 
       {/* Modal: Üye Düzenle */}
       {editingMember && (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", items: "center", justifyContent: "center", zIndex: 1000, padding: 16 }}>
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000, padding: 16 }}>
           <div style={{ background: "#0d1117", border: "1px solid #30363d", borderRadius: 16, padding: 24, width: "100%", maxWidth: 420 }}>
             <h2 style={{ fontSize: 18, fontWeight: 900, color: "#ffffff", marginBottom: 16 }}>Üye Düzenle</h2>
             <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
