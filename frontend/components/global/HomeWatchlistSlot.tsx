@@ -148,25 +148,24 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   }, []);
 
   // Determine signal → status
-  const signalToStatus = (signal: string | undefined): TrendStatus => {
-    if (signal === 'BUY') return 'BULLISH';
-    if (signal === 'SELL') return 'BEARISH';
+  const signalToStatus = (signal: string | undefined, emaStatus: string | undefined): TrendStatus => {
+    if (signal === 'BUY' || signal === 'BUY_STRONG' || emaStatus === 'Bullish' || emaStatus === 'BullishWeak') return 'BULLISH';
+    if (signal === 'SELL' || signal === 'SELL_STRONG' || emaStatus === 'Bearish' || emaStatus === 'BearishWeak') return 'BEARISH';
     return 'NEUTRAL';
   };
 
   const usePersonal = loaded && personalTickers.length >= MIN_TICKERS_FOR_HOME;
-  // removed `const locked = !isPremium;` since the list is open to everyone on the dashboard.
 
   const top5Personal = personalTickers.slice(0, 5).map(ticker => {
     const d = liveData[ticker];
     const changePct = d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0;
     return {
       ticker,
-      sector: d?.sector ?? '',
-      status: signalToStatus(d?.tracker_1h?.signal),
+      sector: d?.sector && d.sector !== 'Unknown' ? d.sector : 'Technology',
+      status: signalToStatus(d?.tracker_1h?.signal, d?.tracker_1h?.ema_status),
       price: d?.price?.current ?? 0,
       change_pct: changePct,
-      sparkline: [] as number[],
+      sparkline: d?.recent_closes ?? [],
     } as Stock;
   });
 
@@ -175,6 +174,8 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const viewAllHref = usePersonal ? labels.href : defaultViewAllHref;
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
+
+  const ROW_COLS = selectable ? 'grid-cols-[16px_1fr_56px_64px_72px]' : 'grid-cols-[1fr_56px_64px_72px]';
 
   return (
     <>
@@ -216,12 +217,14 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
-              <div className="flex items-center gap-2">
-                {selectable && <span className="w-3.5" />}
-                <span>{labels.stock}</span>
+            <div className={`grid ${ROW_COLS} gap-2 items-center ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+              <div className="flex items-center gap-2 min-w-0">
+                {selectable && <span className="w-3.5 shrink-0" />}
+                <span className="truncate">{labels.stock}</span>
               </div>
-              <span>{labels.price}</span>
+              <span />
+              <span className="text-center">{labels.status}</span>
+              <span className="text-right">{labels.price}</span>
             </div>
 
             {/* Rows */}
@@ -242,10 +245,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className="flex items-center justify-between gap-2 px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer"
+                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
-                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                    {/* Col 1: Stock & Sector */}
+                    <div className="flex items-center gap-2 min-w-0">
                       {selectable && (
                         <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
                           <CompareCheckbox
@@ -280,17 +284,31 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                       </div>
                     </div>
 
+                    {/* Col 2: Sparkline (Mini Grafik) */}
+                    <div className="justify-self-center">
+                      <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
+                    </div>
+
+                    {/* Col 3: DURUM Status Badge */}
+                    <span
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                      style={{ background: `${st.color}26`, color: st.color }}
+                    >
+                      {slabel}
+                    </span>
+
+                    {/* Col 4: FİYAT & Change Pct */}
                     <div className="text-right shrink-0">
-                      <div className="text-[11px] font-mono text-white">
+                      <div className="font-mono text-xs font-semibold text-white">
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
-                      <div
-                        className={`text-[10px] font-mono ${
-                          stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
+                      <span
+                        className={`inline-block mt-0.5 px-1 py-[1px] rounded text-[10px] font-bold font-mono ${
+                          stock.change_pct >= 0 ? 'bg-[#22c55e]/15 text-[#22c55e]' : 'bg-[#ef4444]/15 text-[#ef4444]'
                         }`}
                       >
                         {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                      </div>
+                      </span>
                     </div>
                   </div>
                 );
