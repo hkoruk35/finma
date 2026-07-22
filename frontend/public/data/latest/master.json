@@ -1,6 +1,6 @@
 {
   "date": "2026-07-21",
-  "generated_at": "2026-07-21T16:07:44.902704-04:00",
+  "generated_at": "2026-07-21T17:10:10.616445-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 15,
   "market_regime": "BULLISH",
@@ -16,14 +16,15 @@
         "OKTA",
         "ALL",
         "SPG",
-        "PBR",
-        "CASY"
+        "NU",
+        "CTVA"
       ]
     },
     "breakout": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "ODFL"
+        "NU",
+        "JBHT"
       ]
     },
     "value": {
