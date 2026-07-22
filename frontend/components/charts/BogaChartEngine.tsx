@@ -158,7 +158,7 @@ const LABELS: Record<Locale, Record<string, string>> = {
 // Ucretsiz kullanicilarin premiumGate acikken hala kullanabildigi tek iki
 // gosterge — geri kalan tum gostergeler + Trade Plan (entry/stop/tp1-3)
 // tiklaninca PremiumModal acar, aktif edilemez.
-const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume", "candlePat"]);
+const FREE_INDICATOR_KEYS = new Set<string>(["ema50", "rsi", "volume"]);
 
 const INTERVALS: { label: string; value: string }[] = [
   { label: "15M", value: "15" },
@@ -184,7 +184,7 @@ type CandleType = (typeof CANDLE_TYPES)[number];
 const VP_MARGIN_BARS = 16;
 const DEFAULT_RIGHT_OFFSET = 5;
 
-const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "candlePat", "chartPat", "fibonacci", "trendLine", "horizontalLine"] as const;
+const INDICATOR_KEYS = ["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "rsi", "volatilite", "bb", "atr", "volume", "vwap", "obv", "macd", "sr", "volumeProfile", "entry", "stop", "tp1", "tp2", "tp3", "fvg", "sd", "fibonacci", "trendLine", "horizontalLine"] as const;
 type IndicatorKey = (typeof INDICATOR_KEYS)[number];
 // Trade Plan zone/level toggles — detail-page-only (bkz. availableIndicators),
 // canlida /api/preorder-analysis'ten cekilen entryZone/stop/targets verisine
