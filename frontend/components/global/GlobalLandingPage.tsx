@@ -352,9 +352,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         {/* RIGHT COLUMN: WATCHLIST / TREND HİSSELERİ */}
         <div className={`
           ${showMobileSidebar ? 'flex flex-col pb-24 px-4' : 'hidden'}
-          ${showRightSidebar ? 'md:flex md:flex-col md:w-64 lg:w-80' : 'md:hidden'}
+          ${showRightSidebar ? 'md:flex md:flex-col md:w-48 lg:w-56' : 'md:hidden'}
           md:border-l border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
-          shrink-0 bg-[#0a0e17] p-2 md:p-4 transition-all duration-300
+          shrink-0 bg-[#0a0e17] p-2 md:p-3 transition-all duration-300
         `}>
           <div className="flex items-center gap-1.5 mb-2 shrink-0">
             <button

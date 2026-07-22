@@ -160,20 +160,20 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className="bg-gradient-to-br from-[#0a1428] to-[#050b14] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+      <div className={`bg-gradient-to-br from-[#0a1428] to-[#050b14] border border-[#1e2a3a]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
-        <div className="flex items-center gap-3">
-          <span className="w-1.5 h-6 rounded-full" style={{ background: ACCENT }} />
-          <h3 className="text-sm font-black text-white uppercase tracking-tight">{labels.title}</h3>
+      <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
+          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
-          className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
+          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
           style={{ color: ACCENT, borderColor: `${ACCENT}4d` }}
         >
           {labels.all}
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+          <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
           </svg>
         </Link>
@@ -182,12 +182,12 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       {stocks.length > 0 ? (
         <>
           {/* Column labels */}
-          <div className={`grid ${gridCols} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
-            {selectable && <span />}
-            <span>{labels.stock}</span>
-            <span />
-            {!compactMode && <span className="text-center">{labels.status}</span>}
-            <span className="text-right">{labels.price}</span>
+          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+            <div className="flex items-center gap-2">
+              {selectable && <span className="w-3.5" />}
+              <span>{labels.stock}</span>
+            </div>
+            <span>{labels.price}</span>
           </div>
 
           {/* Rows */}
@@ -199,62 +199,49 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
               return (
                 <div
                   key={stock.ticker}
-                  className={`grid ${gridCols} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
+                  className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
                   onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                 >
-                  {selectable && (
-                    <div>
-                      {!locked && (
-                        <CompareCheckbox
-                          checked={!!selectedTickers?.includes(stock.ticker)}
-                          onToggle={() => onToggleSelect?.(stock.ticker)}
-                        />
-                      )}
-                    </div>
-                  )}
-                  <div className="flex items-center gap-3 min-w-0">
-                    <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
-                    <div className="min-w-0">
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    {selectable && (
+                      <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                        {!locked && (
+                          <CompareCheckbox
+                            checked={!!selectedTickers?.includes(stock.ticker)}
+                            onToggle={() => onToggleSelect?.(stock.ticker)}
+                          />
+                        )}
+                      </div>
+                    )}
+                    <span className="text-[10px] font-mono font-bold text-slate-500 w-3 shrink-0">{idx + 1}</span>
+                    <div className="min-w-0 flex-1">
                       {locked ? (
-                        <div className="font-medium text-sm tracking-tight select-none flex items-center gap-1" style={{ color: '#f59e0b' }}>
+                        <div className="text-[11px] font-bold text-[#f59e0b] truncate flex items-center gap-1">
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                          <span style={{ fontSize: 11, fontWeight: 700 }}>{labels.premiumMember}</span>
+                          <span>{labels.premiumMember}</span>
                         </div>
                       ) : disableHoverChart ? (
-                        <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
+                        <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
                       ) : (
                         <TickerHoverChart ticker={stock.ticker}>
-                          <div className="font-medium text-white text-sm tracking-tight">{stock.ticker}</div>
+                          <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
                         </TickerHoverChart>
                       )}
-                      <div className="text-[11px] text-white/70 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                      <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                     </div>
                   </div>
 
-                  <div className="justify-self-center">
-                    <Sparkline data={[]} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
-                  </div>
-
-                  {!compactMode && (
-                    <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
-                      style={{ background: `${st.color}26`, color: st.color }}
-                    >
-                      {slabel}
-                    </span>
-                  )}
-
-                  <div className="text-right">
-                    <div className="font-mono text-sm font-semibold text-white/90">
+                  <div className="text-right shrink-0">
+                    <div className="text-[11px] font-mono text-white">
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
-                    <span
-                      className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
-                        stock.change_pct >= 0 ? 'bg-[#22c55e]/15 text-[#22c55e]' : 'bg-[#ef4444]/15 text-[#ef4444]'
+                    <div
+                      className={`text-[10px] font-mono ${
+                        stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                       }`}
                     >
                       {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                    </span>
+                    </div>
                   </div>
                 </div>
               );
