@@ -929,9 +929,9 @@ export default function BogaChartEngine({
         shape: cp.type === "bearish" ? "arrowDown" : "arrowUp",
         text: cp.name
       })) as any[];
-      mainSeries.setMarkers(markers);
+      (mainSeries as any).setMarkers(markers);
     } else {
-      mainSeries.setMarkers([]);
+      (mainSeries as any).setMarkers([]);
     }
 
     if (active.has("sr") && data.sr) {
