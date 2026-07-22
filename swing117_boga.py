@@ -4927,11 +4927,30 @@ def save_candidate_pool(pool: dict):
 
 def _days_since_ny(date_str: str) -> int:
     try:
-        d0 = datetime.strptime(date_str, "%Y-%m-%d")
+        if "T" in date_str:
+            d0 = datetime.fromisoformat(date_str).replace(tzinfo=None)
+        else:
+            d0 = datetime.strptime(date_str, "%Y-%m-%d")
         today = datetime.now(NY_TZ).replace(tzinfo=None)
         return (today - d0).days
     except Exception:
         return 0
+
+
+def _hours_since_ny(date_str: str) -> float:
+    try:
+        if not date_str:
+            return 0.0
+        if "T" in date_str:
+            d0 = datetime.fromisoformat(date_str)
+            if d0.tzinfo is None:
+                d0 = d0.replace(tzinfo=NY_TZ)
+        else:
+            d0 = datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=NY_TZ)
+        now_ny = datetime.now(NY_TZ)
+        return (now_ny - d0).total_seconds() / 3600.0
+    except Exception:
+        return 0.0
 
 
 def is_trade_closed_in_performance(ticker: str, entered_at: str) -> bool:
@@ -4964,8 +4983,12 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
     for entry in pool.get("swing_candidates", []):
         t = entry["ticker"]
         if entry.get("entry_status") == "ENTERED":
-            if is_trade_closed_in_performance(t, entry.get("entered_at", "")):
-                continue  # trade kapandı → havuzdan düş
+            entered_at = entry.get("entered_at") or entry.get("first_seen_date", "")
+            # KURAL 2 & 3: Giriş zone içine girdikten sonra Trend sayfasında SADECE 1 gün (24 saat) tutulur.
+            # Performans ve Arşiv sayfasına zaten eklenmiş olup, 24 saat dolunca Trend ana sayfasından çıkarılır.
+            if _hours_since_ny(entered_at) >= 24.0 or _days_since_ny(entered_at) >= 1 or is_trade_closed_in_performance(t, entered_at):
+                logging.info(f"⏰ {t}: Giriş Zone süresi doldu (24 saati geçti) -> Trend sayfasından kaldırılıyor.")
+                continue  # 24 saati geçti -> Trend sayfasından düş
             if t in fresh_swing:
                 c = fresh_swing[t]
                 entry["last_pick"] = c.get("_pick_json", entry.get("last_pick"))
@@ -4974,9 +4997,12 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
             seen.add(t)
             continue
 
-        # PENDING
-        if _days_since_ny(entry.get("first_seen_date", today_str)) >= SWING_PENDING_MAX_DAYS:
-            continue  # 2 gün giriş yok → düş
+        # PENDING (Bekle)
+        first_seen = entry.get("first_seen_date", today_str)
+        # KURAL 1: 2 gün (48 saat) içinde Giriş Zone'a girmezse -> listeden tamamen çıkarılır.
+        if _hours_since_ny(first_seen) >= 48.0 or _days_since_ny(first_seen) >= SWING_PENDING_MAX_DAYS:
+            logging.info(f"⏰ {t}: 2 gün içinde Giriş Zone'a girmedi -> Trend sayfasından çıkarılıyor.")
+            continue  # 2 gün doldu -> düş
         # "setup bozuldu" eleme kuralı SADECE bu tarama gerçekten aday
         # ürettiyse uygulanır (l1b_pass_tickers boş değilse) — aksi halde
         # tek bir 0-sonuçlu taramanın (gevşetme 4 katına çıkıp yine de hiçbir
@@ -5759,6 +5785,13 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
 
         with open(os.path.join(FRONTEND_PUBLIC_DIR, "swing_table.json"), "w", encoding="utf-8") as f:
             json.dump(table_data, f, indent=2, ensure_ascii=False)
+
+        try:
+            from update_swing_performance import update_performance
+            update_performance()
+            logging.info("✅ Swing performance updated successfully.")
+        except Exception as perf_err:
+            logging.warning(f"⚠️ Performance update call note: {perf_err}")
 
         logging.info("[START] Dashboard and Archive successfully updated.")
 

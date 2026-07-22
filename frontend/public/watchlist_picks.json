@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T17:04:28.181289-04:00",
+  "generated_at": "2026-07-22T18:11:02.553799-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -65,7 +65,7 @@
       "ticker": "BTSG",
       "sector": "Healthcare",
       "date_added": "2026-07-22",
-      "score": 29.0
+      "score": 34.0
     },
     {
       "ticker": "AAPL",
@@ -96,6 +96,30 @@
       "sector": "Technology",
       "date_added": "2026-07-22",
       "score": 36.5
+    },
+    {
+      "ticker": "SCHW",
+      "sector": "Financial Services",
+      "date_added": "2026-07-22",
+      "score": 34.0
+    },
+    {
+      "ticker": "RIO",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-22",
+      "score": 33.5
+    },
+    {
+      "ticker": "APH",
+      "sector": "Technology",
+      "date_added": "2026-07-22",
+      "score": 32.0
+    },
+    {
+      "ticker": "SNOW",
+      "sector": "Technology",
+      "date_added": "2026-07-22",
+      "score": 30.0
     }
   ]
 }
