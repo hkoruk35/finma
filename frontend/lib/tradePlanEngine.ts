@@ -264,183 +264,150 @@ export function buildTradePlanRationale(input: RationaleInputs): TradePlanRation
   switch (zones.entryEngine.type) {
     case "REVERSAL (Liquidity Sweep)":
       entryCondition = pick(lang, {
-        en: `Buy on a reversal — if price sweeps below ${fmt$(zones.supportLevel)} support then reclaims and closes back above it on strong volume.`,
-        tr: `Ters dönüş alımı — fiyat ${fmt$(zones.supportLevel)} desteğini aşağı kırıp güçlü hacimle geri üstüne kapanırsa.`,
-        es: `Compra en reversión — si el precio rompe por debajo del soporte de ${fmt$(zones.supportLevel)} y luego recupera y cierra por encima con volumen fuerte.`,
-        fr: `Achat sur retournement — si le prix passe sous le support de ${fmt$(zones.supportLevel)} puis reprend et clôture au-dessus avec un fort volume.`,
-        pt: `Compra na reversão — se o preço romper abaixo do suporte de ${fmt$(zones.supportLevel)} e depois recuperar e fechar acima com volume forte.`,
+        en: `Calculated entry range is ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Price sweeping below ${fmt$(zones.supportLevel)} support followed by a strong volume reclaim and candle close above it can reinforce upward momentum.`,
+        tr: `Hesaplanan giriş aralığı ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)} seviyeleridir. Fiyatın ${fmt$(zones.supportLevel)} desteğinin altına sarkıp yüksek hacimle tekrar üzerine tutunarak mum kapatması yukarı yönlü olasılığı destekleyici bir unsur olabilir.`,
+        es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Si el precio rompe por debajo del soporte de ${fmt$(zones.supportLevel)} y luego recupera y cierra por encima con volumen fuerte, puede respaldar el impulso alcista.`,
+        fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Un balayage sous le support de ${fmt$(zones.supportLevel)} suivi d'une réintégration avec du volume et d'une clôture au-dessus peut soutenir la dynamique haussière.`,
+        pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. O preço varrendo abaixo do suporte de ${fmt$(zones.supportLevel)} e recuperando com fechamento acima sob alto volume pode reforçar a tendência de alta.`,
       });
       break;
     case "BREAKOUT (BOS)":
       entryCondition = pick(lang, {
-        en: `Buy if the 1h candle closes above ${fmt$(zones.breakoutLevel)}, confirming a breakout with volume.`,
-        tr: `1 saatlik mum ${fmt$(zones.breakoutLevel)} seviyesinin üzerinde, hacimle birlikte kapanırsa alım.`,
-        es: `Compra si la vela de 1h cierra por encima de ${fmt$(zones.breakoutLevel)}, confirmando una ruptura con volumen.`,
-        fr: `Achat si la bougie 1h clôture au-dessus de ${fmt$(zones.breakoutLevel)}, confirmant une cassure avec volume.`,
-        pt: `Compra se o candle de 1h fechar acima de ${fmt$(zones.breakoutLevel)}, confirmando um rompimento com volume.`,
+        en: `Calculated entry range is ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. A 1-hour candle closing above ${fmt$(zones.breakoutLevel)} resistance on expanding volume serves as key technical confirmation for continuation.`,
+        tr: `Hesaplanan giriş aralığı ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)} seviyeleridir. 1 saatlik mum kapanışının ${fmt$(zones.breakoutLevel)} direnci üzerinde hacimli gerçekleşmesi yükseliş ivmesini destekleyici teknik bir göstergedir.`,
+        es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Un cierre de vela de 1 hora por encima de la resistencia de ${fmt$(zones.breakoutLevel)} con volumen creciente sirve como confirmación técnica.`,
+        fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Une clôture de bougie 1h au-dessus de la résistance de ${fmt$(zones.breakoutLevel)} avec expansion du volume confirme techniquement la poursuite haussière.`,
+        pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Um fechamento de candle de 1h acima da resistência de ${fmt$(zones.breakoutLevel)} com volume expansivo serve como confirmação técnica.`,
       });
       break;
     case "EARLY MOMENTUM":
       entryCondition = pick(lang, {
-        en: `Buy while price holds above the 1h EMA20 (${fmt$(zones.ema20_1h)}) with rising volume — early momentum confirmation.`,
-        tr: `Fiyat 1 saatlik EMA20 (${fmt$(zones.ema20_1h)}) üzerinde tutunup hacim artarsa erken momentum alımı.`,
-        es: `Compra mientras el precio se mantenga sobre la EMA20 de 1h (${fmt$(zones.ema20_1h)}) con volumen creciente — confirmación de momentum temprano.`,
-        fr: `Achat tant que le prix se maintient au-dessus de l'EMA20 1h (${fmt$(zones.ema20_1h)}) avec un volume croissant — confirmation d'un momentum précoce.`,
-        pt: `Compra enquanto o preço se mantiver acima da EMA20 de 1h (${fmt$(zones.ema20_1h)}) com volume crescente — confirmação de momentum inicial.`,
+        en: `Calculated entry range is ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Price holding above the 1-hour EMA20 (${fmt$(zones.ema20_1h)}) with rising volume trajectory can strengthen early momentum.`,
+        tr: `Hesaplanan giriş aralığı ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)} seviyeleridir. Fiyatın 1 saatlik EMA20 (${fmt$(zones.ema20_1h)}) üzerinde kalması ve hacim yönünün yukarı seyretmesi erken momentumu destekleyici bir faktör olabilir.`,
+        es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Mantenerse por encima de la EMA20 de 1h (${fmt$(zones.ema20_1h)}) con trayectoria de volumen alcista puede fortalecer el impulso inicial.`,
+        fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Le maintien au-dessus de l'EMA20 1h (${fmt$(zones.ema20_1h)}) avec un volume en hausse renforce le momentum initial.`,
+        pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. O preço se mantendo acima da EMA20 de 1h (${fmt$(zones.ema20_1h)}) com trajetória de volume crescente pode fortalecer o impulso inicial.`,
       });
       break;
     case "PULLBACK":
       entryCondition = pick(lang, {
-        en: `Buy on a pullback that holds above ${fmt$(zones.supportLevel)} support with a bullish reversal candle.`,
-        tr: `Fiyat ${fmt$(zones.supportLevel)} desteği üstünde tutunup yükseliş mumu oluşturursa geri çekilme alımı.`,
-        es: `Compra en un retroceso que se mantenga sobre el soporte de ${fmt$(zones.supportLevel)} con una vela de reversión alcista.`,
-        fr: `Achat sur un repli qui se maintient au-dessus du support de ${fmt$(zones.supportLevel)} avec une bougie de retournement haussier.`,
-        pt: `Compra em um recuo que se mantenha acima do suporte de ${fmt$(zones.supportLevel)} com um candle de reversão de alta.`,
+        en: `Calculated entry range is ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Holding above ${fmt$(zones.supportLevel)} support and forming a bullish reversal candle provides technical confirmation for the setup.`,
+        tr: `Hesaplanan giriş aralığı ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)} seviyeleridir. Fiyatın ${fmt$(zones.supportLevel)} desteği üzerinde tutunması ve dönüş mumu oluşturması yukarı yönlü potansiyeli güçlendirebilir.`,
+        es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Mantenerse sobre el soporte de ${fmt$(zones.supportLevel)} y formar una vela alcista refuerza la validez técnica.`,
+        fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Le maintien au-dessus du support de ${fmt$(zones.supportLevel)} et la formation d'une bougie haussière renforcent la validité technique.`,
+        pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Manter-se acima do suporte de ${fmt$(zones.supportLevel)} e formar um candle de reversão alcista fortalece a validade técnica.`,
       });
       break;
     default:
       entryCondition = pick(lang, {
-        en: `No confirmed trigger yet — wait for either a break above ${fmt$(zones.resistLevel)} resistance or a pullback to ${fmt$(zones.supportLevel)} support.`,
-        tr: `Henüz net bir tetikleyici yok — ${fmt$(zones.resistLevel)} direncinin kırılmasını veya ${fmt$(zones.supportLevel)} desteğine çekilmeyi bekle.`,
-        es: `Aún no hay un disparador confirmado — espera una ruptura por encima de la resistencia de ${fmt$(zones.resistLevel)} o un retroceso al soporte de ${fmt$(zones.supportLevel)}.`,
-        fr: `Aucun déclencheur confirmé pour l'instant — attends soit une cassure au-dessus de la résistance de ${fmt$(zones.resistLevel)}, soit un repli vers le support de ${fmt$(zones.supportLevel)}.`,
-        pt: `Ainda não há um gatilho confirmado — aguarde um rompimento acima da resistência de ${fmt$(zones.resistLevel)} ou um recuo até o suporte de ${fmt$(zones.supportLevel)}.`,
+        en: `Calculated entry range is ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Evaluating volume expansion, RSI direction, and candle closes relative to ${fmt$(zones.resistLevel)} resistance or ${fmt$(zones.supportLevel)} support can assist in decision making.`,
+        tr: `Hesaplanan giriş aralığı ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)} seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının ${fmt$(zones.resistLevel)} direnci veya ${fmt$(zones.supportLevel)} desteği üzerindeki seyri takip edilebilir.`,
+        es: `El rango de entrada calculado es ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Al tomar decisiones, se sugiere evaluar la expansión del volumen, la dirección del RSI y el cierre de velas respecto a la resistencia de ${fmt$(zones.resistLevel)} o soporte de ${fmt$(zones.supportLevel)}.`,
+        fr: `La plage d'entrée calculée est de ${fmt$(zones.buyZone.low)} à ${fmt$(zones.buyZone.high)}. Lors de la prise de décision, l'expansion du volume, la direction du RSI et les clôtures de bougies par rapport à la résistance de ${fmt$(zones.resistLevel)} ou au support de ${fmt$(zones.supportLevel)} peuvent être observées.`,
+        pt: `O intervalo de entrada calculado é ${fmt$(zones.buyZone.low)} – ${fmt$(zones.buyZone.high)}. Para auxílio na tomada de decisão, recomenda-se acompanhar a expansão de volume, direção do RSI e fechamentos em relação à resistência de ${fmt$(zones.resistLevel)} ou suporte de ${fmt$(zones.supportLevel)}.`,
       });
   }
 
-  // ── Stop gerekçesi (en yakın EMA + VWAP referansı) ──────────────────────
-  const emaCandidates: { label: string; value: number }[] = [
-    { label: "EMA20", value: ema20 },
-    { label: "EMA50", value: ema50 },
-    { label: "EMA200", value: ema200 },
-  ];
-  const nearestEma = emaCandidates.reduce((a, b) =>
-    Math.abs(b.value - zones.stopPrice) < Math.abs(a.value - zones.stopPrice) ? b : a
-  );
+  // ── Stop gerekçesi ──────────────────────────────────────────────────────
+  const emaCandidates = [{ label: "EMA20", value: ema20 }, { label: "EMA50", value: ema50 }, { label: "EMA200", value: ema200 }];
+  const nearestEma = emaCandidates.reduce((a, b) => Math.abs(b.value - zones.stopPrice) < Math.abs(a.value - zones.stopPrice) ? b : a);
   const stopRationale = pick(lang, {
-    en: `Stop-loss at ${fmt$(zones.stopPrice)} — invalidated if price closes below the ${nearestEma.label} (${fmt$(nearestEma.value)}) or below the day's VWAP (${fmt$(vwap)}) on a daily close.`,
-    tr: `Stop-loss ${fmt$(zones.stopPrice)} seviyesinde — fiyat ${nearestEma.label} (${fmt$(nearestEma.value)}) veya günlük VWAP (${fmt$(vwap)}) altında gün kapatırsa geçersiz sayılır.`,
-    es: `Stop-loss en ${fmt$(zones.stopPrice)} — se invalida si el precio cierra por debajo de la ${nearestEma.label} (${fmt$(nearestEma.value)}) o por debajo del VWAP del día (${fmt$(vwap)}) en un cierre diario.`,
-    fr: `Stop-loss à ${fmt$(zones.stopPrice)} — invalidé si le prix clôture sous l'${nearestEma.label} (${fmt$(nearestEma.value)}) ou sous le VWAP du jour (${fmt$(vwap)}) en clôture journalière.`,
-    pt: `Stop-loss em ${fmt$(zones.stopPrice)} — invalidado se o preço fechar abaixo da ${nearestEma.label} (${fmt$(nearestEma.value)}) ou abaixo da VWAP do dia (${fmt$(vwap)}) no fechamento diário.`,
+    en: `Calculated stop-loss level is set at ${fmt$(zones.stopPrice)}. A daily close below ${nearestEma.label} (${fmt$(nearestEma.value)}) or daily VWAP (${fmt$(vwap)}) indicates technical invalidation of the structure.`,
+    tr: `Hesaplanan stop-loss seviyesi ${fmt$(zones.stopPrice)} olarak belirlenmiştir. Fiyatın ${nearestEma.label} (${fmt$(nearestEma.value)}) veya günlük VWAP (${fmt$(vwap)}) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.`,
+    es: `El nivel de stop-loss calculado se fija en ${fmt$(zones.stopPrice)}. Un cierre diario por debajo de la ${nearestEma.label} (${fmt$(nearestEma.value)}) o del VWAP diario (${fmt$(vwap)}) señala la invalidación técnica de la estructura.`,
+    fr: `Le niveau de stop-loss calculé est fixé à ${fmt$(zones.stopPrice)}. Une clôture journalière sous l'${nearestEma.label} (${fmt$(nearestEma.value)}) ou le VWAP journalier (${fmt$(vwap)}) indique une invalidation technique.`,
+    pt: `O nível de stop-loss calculado é fixado em ${fmt$(zones.stopPrice)}. Um fechamento diário abaixo da ${nearestEma.label} (${fmt$(nearestEma.value)}) ou VWAP diário (${fmt$(vwap)}) indica potencial invalidação técnica da estrutura.`,
   });
 
   // ── EMA yapısı ───────────────────────────────────────────────────────────
-  let ema: string;
-  if (price > ema20 && ema20 > ema50 && ema50 > ema200) {
-    ema = pick(lang, {
-      en: `Price is trading above a fully bullish EMA stack (20>50>200) — established uptrend.`,
-      tr: `Fiyat tam yükseliş EMA dizilimi (20>50>200) üzerinde — yerleşik yükseliş trendi.`,
-      es: `El precio cotiza por encima de una estructura de EMA totalmente alcista (20>50>200) — tendencia alcista establecida.`,
-      fr: `Le prix évolue au-dessus d'une structure d'EMA totalement haussière (20>50>200) — tendance haussière établie.`,
-      pt: `O preço está negociando acima de uma estrutura de EMA totalmente altista (20>50>200) — tendência de alta estabelecida.`,
-    });
-  } else if (price > ema50) {
-    ema = pick(lang, {
-      en: `Price is above its 50-day EMA (${fmt$(ema50)}), but the shorter-term structure is mixed.`,
-      tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) üzerinde, ancak kısa vadeli yapı karışık.`,
-      es: `El precio está por encima de su EMA de 50 días (${fmt$(ema50)}), pero la estructura de corto plazo es mixta.`,
-      fr: `Le prix est au-dessus de son EMA 50 jours (${fmt$(ema50)}), mais la structure court terme est mitigée.`,
-      pt: `O preço está acima da sua EMA de 50 dias (${fmt$(ema50)}), mas a estrutura de curto prazo é mista.`,
-    });
-  } else {
-    ema = pick(lang, {
-      en: `Price has broken below its 50-day EMA (${fmt$(ema50)}) — a bearish signal, trend is weakening.`,
-      tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) altına sarktı — düşüşü işaret eder, trend zayıflıyor.`,
-      es: `El precio ha roto por debajo de su EMA de 50 días (${fmt$(ema50)}) — señal bajista, la tendencia se debilita.`,
-      fr: `Le prix est passé sous son EMA 50 jours (${fmt$(ema50)}) — signal baissier, la tendance s'affaiblit.`,
-      pt: `O preço rompeu abaixo da sua EMA de 50 dias (${fmt$(ema50)}) — sinal de baixa, a tendência está enfraquecendo.`,
-    });
-  }
+  let ema = price > ema20 && ema20 > ema50 && ema50 > ema200 ? pick(lang, {
+    en: `Price is trading above a fully bullish EMA stack (20>50>200) — established uptrend structure.`,
+    tr: `Fiyat yükseliş sıralamasındaki EMA dizilimi (20>50>200) üzerinde seyrediyor — pozitif trend yapısına işaret etmektedir.`,
+    es: `El precio cotiza por encima de una estructura de EMA totalmente alcista (20>50>200) — indica una estructura de tendencia positiva.`,
+    fr: `Le prix évolue au-dessus d'une structure d'EMA totalement haussière (20>50>200) — indique une structure de tendance positive.`,
+    pt: `O preço está negociando acima de uma estrutura de EMA totalmente altista (20>50>200) — indica uma estrutura de tendência positiva.`,
+  }) : price > ema50 ? pick(lang, {
+    en: `Price is above its 50-day EMA (${fmt$(ema50)}), while shorter-term structure displays mixed conditions.`,
+    tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.`,
+    es: `El precio está por encima de su EMA de 50 días (${fmt$(ema50)}), mientras que la estructura de corto plazo muestra condiciones mixtas.`,
+    fr: `Le prix est au-dessus de son EMA 50 jours (${fmt$(ema50)}), tandis que la structure à court terme affiche une configuration mitigée.`,
+    pt: `O preço está acima da sua EMA de 50 dias (${fmt$(ema50)}), enquanto a estrutura de curto prazo exibe condições mistas.`,
+  }) : pick(lang, {
+    en: `Price is trading below its 50-day EMA (${fmt$(ema50)}) — indicating momentum slowing down.`,
+    tr: `Fiyat 50 günlük EMA'nın (${fmt$(ema50)}) altında bulunuyor — trend ivmesinde yavaşlamaya işaret edebilir.`,
+    es: `El precio cotiza por debajo de su EMA de 50 días (${fmt$(ema50)}) — puede indicar desaceleración en el impulso.`,
+    fr: `Le prix évolue sous son EMA 50 jours (${fmt$(ema50)}) — peut indiquer un ralentissement du momentum.`,
+    pt: `O preço está sendo negociado abaixo da sua EMA de 50 dias (${fmt$(ema50)}) — pode indicar desaceleração do impulso.`,
+  });
 
   // ── VWAP ────────────────────────────────────────────────────────────────
-  const vwap_ = price >= vwap
-    ? pick(lang, {
-        en: `Price is trading above the intraday VWAP (${fmt$(vwap)}), showing buyers in control today.`,
-        tr: `Fiyat gün içi VWAP'ın (${fmt$(vwap)}) üzerinde — bugün alıcılar kontrolde.`,
-        es: `El precio cotiza por encima del VWAP intradía (${fmt$(vwap)}), mostrando a los compradores en control hoy.`,
-        fr: `Le prix évolue au-dessus du VWAP intrajournalier (${fmt$(vwap)}), les acheteurs sont aux commandes aujourd'hui.`,
-        pt: `O preço está negociando acima da VWAP intradiária (${fmt$(vwap)}), mostrando os compradores no controle hoje.`,
-      })
-    : pick(lang, {
-        en: `Price is below the intraday VWAP (${fmt$(vwap)}), showing sellers in control today.`,
-        tr: `Fiyat gün içi VWAP'ın (${fmt$(vwap)}) altında — bugün satıcılar kontrolde.`,
-        es: `El precio está por debajo del VWAP intradía (${fmt$(vwap)}), mostrando a los vendedores en control hoy.`,
-        fr: `Le prix est en dessous du VWAP intrajournalier (${fmt$(vwap)}), les vendeurs sont aux commandes aujourd'hui.`,
-        pt: `O preço está abaixo da VWAP intradiária (${fmt$(vwap)}), mostrando os vendedores no controle hoje.`,
-      });
+  const vwap_ = pick(lang, price >= vwap ? {
+    en: `Price is trading above the intraday VWAP (${fmt$(vwap)}), indicating positive intraday buyer orientation.`,
+    tr: `Fiyat gün içi VWAP'ın (${fmt$(vwap)}) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.`,
+    es: `El precio cotiza por encima del VWAP intradía (${fmt$(vwap)}), lo que sugiere orientación comprador intradía.`,
+    fr: `Le prix évolue au-dessus du VWAP intrajournalier (${fmt$(vwap)}), suggérant une orientation acheteuse au cours de la journée.`,
+    pt: `O preço está negociando acima da VWAP intradiária (${fmt$(vwap)}), sugerindo orientação compradora no dia.`,
+  } : {
+    en: `Price is trading below the intraday VWAP (${fmt$(vwap)}), indicating intraday seller influence.`,
+    tr: `Fiyat gün içi VWAP'ın (${fmt$(vwap)}) altında seyrediyor — gün içi satıcı baskısının öne çıktığı bir görünüme işaret edebilir.`,
+    es: `El precio cotiza por debajo del VWAP intradía (${fmt$(vwap)}), lo que sugiere presión vendedora intradía.`,
+    fr: `Le prix évolue sous le VWAP intrajournalier (${fmt$(vwap)}), suggérant une pression vendeuse intrajournalière.`,
+    pt: `O preço está negociando abaixo da VWAP intradiária (${fmt$(vwap)}), sugerindo pressão vendedora no dia.`,
+  });
 
   // ── Hacim ───────────────────────────────────────────────────────────────
-  let volume: string;
-  if (rvol >= 1.5) {
-    volume = pick(lang, {
-      en: `Volume is running ${rvol.toFixed(1)}x above the 30-day average, confirming strong participation.`,
-      tr: `Hacim 30 günlük ortalamanın ${rvol.toFixed(1)} katı — güçlü katılımı doğruluyor.`,
-      es: `El volumen está en ${rvol.toFixed(1)}x el promedio de 30 días, confirmando una fuerte participación.`,
-      fr: `Le volume est à ${rvol.toFixed(1)}x la moyenne de 30 jours, confirmant une forte participation.`,
-      pt: `O volume está em ${rvol.toFixed(1)}x a média de 30 dias, confirmando forte participação.`,
-    });
-  } else if (rvol >= 1.0) {
-    volume = pick(lang, {
-      en: `Volume is near its 30-day average — normal participation.`,
-      tr: `Hacim 30 günlük ortalamaya yakın — normal katılım.`,
-      es: `El volumen está cerca de su promedio de 30 días — participación normal.`,
-      fr: `Le volume est proche de sa moyenne de 30 jours — participation normale.`,
-      pt: `O volume está próximo da sua média de 30 dias — participação normal.`,
-    });
-  } else {
-    volume = pick(lang, {
-      en: `Volume is below average (${rvol.toFixed(1)}x) — lower conviction, size positions accordingly.`,
-      tr: `Hacim ortalamanın altında (${rvol.toFixed(1)}x) — düşük inanç, pozisyon büyüklüğünü ona göre ayarla.`,
-      es: `El volumen está por debajo del promedio (${rvol.toFixed(1)}x) — menor convicción, ajusta el tamaño de la posición en consecuencia.`,
-      fr: `Le volume est en dessous de la moyenne (${rvol.toFixed(1)}x) — conviction plus faible, ajuste la taille de position en conséquence.`,
-      pt: `O volume está abaixo da média (${rvol.toFixed(1)}x) — menor convicção, ajuste o tamanho da posição de acordo.`,
-    });
-  }
+  const volume = rvol >= 1.5 ? pick(lang, {
+    en: `Volume is ${rvol.toFixed(1)}x above the 30-day average — indicating active market participation and a high probability of confirmation.`,
+    tr: `Hacim 30 günlük ortalamanın ${rvol.toFixed(1)} katı seviyesinde — piyasa katılımının yüksek olduğunu ve hareketin teyit edilme olasılığının kuvvetli muhtemel olduğunu gösterir.`,
+    es: `El volumen supera en ${rvol.toFixed(1)}x el promedio de 30 días — indica alta participación y una fuerte probabilidad de confirmación.`,
+    fr: `Le volume est de ${rvol.toFixed(1)}x supérieur à la moyenne de 30 jours — indique une forte participation et une haute probabilité de confirmation.`,
+    pt: `O volume está ${rvol.toFixed(1)}x acima da média de 30 dias — indica alta participação e forte probabilidade de confirmação.`,
+  }) : rvol >= 1.0 ? pick(lang, {
+    en: `Volume is near its 30-day average — standard market participation observed.`,
+    tr: `Hacim 30 günlük ortalamaya yakın seviyede — standart piyasa katılımı gözleniyor.`,
+    es: `El volumen está cerca de su promedio de 30 días — se observa una participación de mercado estándar.`,
+    fr: `Le volume est proche de sa moyenne de 30 jours — participation standard au marché observée.`,
+    pt: `O volume está próximo da sua média de 30 dias — observada participação padrão do mercado.`,
+  }) : pick(lang, {
+    en: `Volume is below average (${rvol.toFixed(1)}x) — volume confirmation is limited; position sizing can be managed according to risk preference.`,
+    tr: `Hacim ortalamanın altında (${rvol.toFixed(1)}x) — hacim teyidi sınırlı kalabilir, pozisyon büyüklüğü kişisel risk yönetiminize göre ayarlanabilir.`,
+    es: `El volumen está por debajo del promedio (${rvol.toFixed(1)}x) — la confirmación por volumen es limitada; ajuste el tamaño de posición según su gestión de riesgo.`,
+    fr: `Le volume est inférieur à la moyenne (${rvol.toFixed(1)}x) — la confirmation par le volume est limitée ; la taille de position peut être ajustée selon votre gestion du risque.`,
+    pt: `O volume está abaixo da média (${rvol.toFixed(1)}x) — a confirmação por volume é limitada; o tamanho da posição pode ser ajustado conforme sua gestão de risco.`,
+  });
 
   // ── RSI ─────────────────────────────────────────────────────────────────
-  let rsiText: string;
-  if (rsi >= 70) {
-    rsiText = pick(lang, {
-      en: `RSI at ${rsi.toFixed(0)} is in overbought territory — momentum may be due for a pause.`,
-      tr: `RSI ${rsi.toFixed(0)} aşırı alım bölgesinde — momentum bir süre duraklayabilir.`,
-      es: `El RSI en ${rsi.toFixed(0)} está en zona de sobrecompra — el momentum podría hacer una pausa.`,
-      fr: `Le RSI à ${rsi.toFixed(0)} est en zone de surachat — le momentum pourrait marquer une pause.`,
-      pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrecompra — o momentum pode fazer uma pausa.`,
-    });
-  } else if (rsi >= 55) {
-    rsiText = pick(lang, {
-      en: `RSI at ${rsi.toFixed(0)} shows healthy bullish momentum.`,
-      tr: `RSI ${rsi.toFixed(0)} sağlıklı yükseliş momentumu gösteriyor.`,
-      es: `El RSI en ${rsi.toFixed(0)} muestra un momentum alcista saludable.`,
-      fr: `Le RSI à ${rsi.toFixed(0)} montre un momentum haussier sain.`,
-      pt: `O RSI em ${rsi.toFixed(0)} mostra um momentum de alta saudável.`,
-    });
-  } else if (rsi <= 30) {
-    rsiText = pick(lang, {
-      en: `RSI at ${rsi.toFixed(0)} is in oversold territory — potential for a bounce.`,
-      tr: `RSI ${rsi.toFixed(0)} aşırı satım bölgesinde — tepki yükselişi potansiyeli var.`,
-      es: `El RSI en ${rsi.toFixed(0)} está en zona de sobreventa — hay potencial de un rebote.`,
-      fr: `Le RSI à ${rsi.toFixed(0)} est en zone de survente — un rebond est possible.`,
-      pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrevenda — há potencial para uma recuperação.`,
-    });
-  } else if (rsi <= 45) {
-    rsiText = pick(lang, {
-      en: `RSI at ${rsi.toFixed(0)} shows weak/bearish momentum.`,
-      tr: `RSI ${rsi.toFixed(0)} zayıf/düşüşü momentum gösteriyor.`,
-      es: `El RSI en ${rsi.toFixed(0)} muestra un momentum débil/bajista.`,
-      fr: `Le RSI à ${rsi.toFixed(0)} montre un momentum faible/baissier.`,
-      pt: `O RSI em ${rsi.toFixed(0)} mostra um momentum fraco/de baixa.`,
-    });
-  } else {
-    rsiText = pick(lang, {
-      en: `RSI at ${rsi.toFixed(0)} is neutral.`,
-      tr: `RSI ${rsi.toFixed(0)} nötr bölgede.`,
-      es: `El RSI en ${rsi.toFixed(0)} es neutral.`,
-      fr: `Le RSI à ${rsi.toFixed(0)} est neutre.`,
-      pt: `O RSI em ${rsi.toFixed(0)} é neutro.`,
-    });
-  }
+  const rsiText = rsi >= 70 ? pick(lang, {
+    en: `RSI at ${rsi.toFixed(0)} is in overbought territory — short-term consolidation or momentum pause may be observed.`,
+    tr: `RSI ${rsi.toFixed(0)} seviyesi ile aşırı alım bölgesinde — kısa vadede konsolidasyon veya momentum duraklaması gözlenebilir.`,
+    es: `El RSI en ${rsi.toFixed(0)} está en zona de sobrecompra — se podría observar una consolidación o pausa a corto plazo.`,
+    fr: `Le RSI à ${rsi.toFixed(0)} est en zone de surachat — une consolidation à court terme ou une pause du momentum peut être observée.`,
+    pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrecompra — consolidação de curto prazo ou pausa no impulso pode ser observada.`,
+  }) : rsi >= 55 ? pick(lang, {
+    en: `RSI at ${rsi.toFixed(0)} supports positive momentum.`,
+    tr: `RSI ${rsi.toFixed(0)} seviyesinde pozitif momentumu destekliyor.`,
+    es: `El RSI en ${rsi.toFixed(0)} respalda el impulso positivo.`,
+    fr: `Le RSI à ${rsi.toFixed(0)} soutient le momentum positif.`,
+    pt: `O RSI em ${rsi.toFixed(0)} suporta o impulso positivo.`,
+  }) : rsi <= 30 ? pick(lang, {
+    en: `RSI at ${rsi.toFixed(0)} is in oversold territory — potential for a technical bounce exists.`,
+    tr: `RSI ${rsi.toFixed(0)} ile aşırı satım bölgesinde — tepki yükselişi olasılığı barındırabilir.`,
+    es: `El RSI en ${rsi.toFixed(0)} está en zona de sobreventa — existe potencial para un rebote técnico.`,
+    fr: `Le RSI à ${rsi.toFixed(0)} est en zone de survente — un potentiel de rebond technique existe.`,
+    pt: `O RSI em ${rsi.toFixed(0)} está em território de sobrevenda — existe potencial para um repique técnico.`,
+  }) : rsi <= 45 ? pick(lang, {
+    en: `RSI at ${rsi.toFixed(0)} displays a weaker momentum structure.`,
+    tr: `RSI ${rsi.toFixed(0)} seviyesinde zayıf momentum görünümü sergiliyor.`,
+    es: `El RSI en ${rsi.toFixed(0)} muestra una estructura de impulso más débil.`,
+    fr: `Le RSI à ${rsi.toFixed(0)} affiche une structure de momentum plus faible.`,
+    pt: `O RSI em ${rsi.toFixed(0)} exibe uma estrutura de impulso mais fraca.`,
+  }) : pick(lang, {
+    en: `RSI at ${rsi.toFixed(0)} remains in a neutral range.`,
+    tr: `RSI ${rsi.toFixed(0)} ile dengeli/nötr bir görünümde.`,
+    es: `El RSI en ${rsi.toFixed(0)} se mantiene en un rango neutral.`,
+    fr: `Le RSI à ${rsi.toFixed(0)} reste dans une plage neutre.`,
+    pt: `O RSI em ${rsi.toFixed(0)} permanece em uma faixa neutra.`,
+  });
 
   return { entryCondition, stopRationale, ema, vwap: vwap_, volume, rsi: rsiText };
 }
