@@ -7,11 +7,11 @@ export type CopilotLocale = "tr" | "en" | "es" | "fr" | "pt";
 const T: Record<string, Record<CopilotLocale, string>> = {
   personalize: { tr: "Kişiselleştir", en: "Personalize", es: "Personalizar", fr: "Personnaliser", pt: "Personalizar" },
   copilotTagline: {
-    tr: "Tüm ABD hisselerini ve Altını yapay zekaya sorun",
-    en: "Ask AI about any US stock or Gold",
-    es: "Pregúntale a la IA sobre cualquier acción de EE. UU. o el Oro",
-    fr: "Posez vos questions à l'IA sur toute action américaine ou l'Or",
-    pt: "Pergunte à IA sobre qualquer ação dos EUA ou o Ouro",
+    tr: "Sabırsızlıkla seni bekliyorum... Piyasanın sırlarını keşfetmeye ne dersin? ✨",
+    en: "I've been eagerly waiting for you... Ready to unlock the market's secrets? ✨",
+    es: "¡Te estoy esperando con ansias! ¿Listo para descubrir los secretos del mercado? ✨",
+    fr: "Je vous attends avec impatience... Prêt à percer les secrets du marché ? ✨",
+    pt: "Estou te esperando ansiosamente... Pronto para desvendar os segredos do mercado? ✨",
   },
   assistantName: { tr: "Asistan Adı", en: "Assistant Name", es: "Nombre del Asistente", fr: "Nom de l'Assistant", pt: "Nome do Assistente" },
   chooseAvatar: { tr: "Avatar Seç", en: "Choose Avatar", es: "Elegir Avatar", fr: "Choisir un Avatar", pt: "Escolher Avatar" },
