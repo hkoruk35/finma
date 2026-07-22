@@ -65,10 +65,10 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
       });
     }
   }, [searchParams, locale]);
-  const feedbackHref = locale === "en" ? "/en/account/feedback" : "/tr/hesabim/geri-bildirim";
+  const feedbackHref = locale === "en" ? "/en/account/feedback" : locale === "tr" ? "/tr/hesabim/geri-bildirim" : `/global/${locale}/account`;
   const loginHref = isGlobal
-    ? (locale === "en" ? "/global/en/login" : "/global/tr/giris")
-    : (locale === "en" ? "/en/login" : "/tr/giris");
+    ? (locale === "tr" ? "/global/tr/giris" : `/global/${locale}/login`)
+    : (locale === "tr" ? "/tr/giris" : `/global/${locale}/login`);
 
   const refreshMember = () =>
     fetch("/api/members/me")
@@ -86,11 +86,7 @@ export default function AccountView({ locale, isGlobal = false }: { locale: Loca
 
   const handleLogout = async () => {
     await fetch("/api/members/logout", { method: "POST" }).catch(() => {});
-    if (isGlobal) {
-      router.push(locale === "en" ? "/global/en/login" : "/global/tr/giris");
-    } else {
-      router.push(locale === "en" ? "/en" : "/tr");
-    }
+    router.push(loginHref);
   };
 
   if (loading) {
