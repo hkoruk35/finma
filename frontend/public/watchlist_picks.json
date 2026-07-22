@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T14:04:24.041998-04:00",
+  "generated_at": "2026-07-22T17:04:28.181289-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -29,13 +29,13 @@
       "ticker": "NET",
       "sector": "Technology",
       "date_added": "2026-07-21",
-      "score": 34.5
+      "score": 30.0
     },
     {
       "ticker": "WCC",
       "sector": "Industrials",
       "date_added": "2026-07-21",
-      "score": 34.0
+      "score": 40.5
     },
     {
       "ticker": "ZM",
@@ -47,13 +47,7 @@
       "ticker": "BURL",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-21",
-      "score": 38.5
-    },
-    {
-      "ticker": "ATI",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-21",
-      "score": 25.5
+      "score": 35.5
     },
     {
       "ticker": "GM",
@@ -68,16 +62,40 @@
       "score": 40.0
     },
     {
-      "ticker": "AME",
-      "sector": "Industrials",
-      "date_added": "2026-07-22",
-      "score": 38.5
-    },
-    {
       "ticker": "BTSG",
       "sector": "Healthcare",
       "date_added": "2026-07-22",
       "score": 29.0
+    },
+    {
+      "ticker": "AAPL",
+      "sector": "Technology",
+      "date_added": "2026-07-22",
+      "score": 43.0
+    },
+    {
+      "ticker": "PLD",
+      "sector": "Real Estate",
+      "date_added": "2026-07-22",
+      "score": 42.5
+    },
+    {
+      "ticker": "ODFL",
+      "sector": "Industrials",
+      "date_added": "2026-07-22",
+      "score": 42.5
+    },
+    {
+      "ticker": "NTAP",
+      "sector": "Technology",
+      "date_added": "2026-07-22",
+      "score": 41.5
+    },
+    {
+      "ticker": "ANET",
+      "sector": "Technology",
+      "date_added": "2026-07-22",
+      "score": 36.5
     }
   ]
 }
