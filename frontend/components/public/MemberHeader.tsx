@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n/copy";
 
+import MobileTerminalLink from "@/components/global/MobileTerminalLink";
+
 export default function MemberHeader({ locale }: { locale: Locale }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -127,8 +129,9 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </div>
           )}
 
-          <Link
-            href={terminalHref}
+          <MobileTerminalLink
+            locale={locale}
+            targetHref={terminalHref}
             title={terminalTooltip}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
           >
@@ -136,7 +139,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
             </svg>
             <span className="hidden sm:inline">TERMINAL</span>
-          </Link>
+          </MobileTerminalLink>
 
           <Link
             href={screenerHref}

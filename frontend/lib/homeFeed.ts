@@ -118,23 +118,18 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
     .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
 }
 
+const MAGNIFICENT_7 = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA"];
+
 export async function getTopWatchlistByVolume(limit = 5): Promise<HomeStock[]> {
-  // Home sayfası 2. sütun: en yüksek BOGA skoruna sahip ilk 5 watchlist adayı.
-  const watchlistData = await getWatchlistPicks();
-  const picks: any[] = watchlistData?.picks ?? [];
-  if (picks.length === 0) return [];
+  // Home sayfası 2. sütun (İzleme Listesi): Terminal 7 Büyük hisselerinden 5 tanesi
+  const tickers = MAGNIFICENT_7.slice(0, limit);
+  const live = await fetchLiveQuotes(tickers);
 
-  const topByScore = [...picks]
-    .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
-    .slice(0, limit);
-
-  const live = await fetchLiveQuotes(topByScore.map((p) => p.ticker));
-
-  return topByScore.map((p) => {
-    const l = live[p.ticker];
+  return tickers.map((ticker) => {
+    const l = live[ticker];
     return {
-      ticker: p.ticker,
-      sector: l?.sector || p.sector || "—",
+      ticker,
+      sector: l?.sector && l.sector !== "Unknown" ? l.sector : "Technology",
       status: normalizeStatus(l?.tracker_1h?.ema_status),
       price: l?.price?.current ?? 0,
       change_pct: l?.price?.change_pct ?? 0,

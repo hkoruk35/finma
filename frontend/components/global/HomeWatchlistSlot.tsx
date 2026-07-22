@@ -227,12 +227,21 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
               {stocks.map((stock, idx) => {
                 const st = STATUS_STYLE[stock.status];
                 const slabel = statusLabel(stock.status, locale);
-                const isRowLocked = !isPremium && idx > 0;
+                const isRowLocked = usePersonal && !isPremium && idx > 0;
+                const handleClick = () => {
+                  if (onTickerSelect) {
+                    onTickerSelect(stock.ticker);
+                  } else if (isRowLocked) {
+                    setShowModal(true);
+                  } else {
+                    router.push(`/global/${locale}/analysis/${stock.ticker}`);
+                  }
+                };
                 return (
                   <div
                     key={stock.ticker}
-                    className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${isRowLocked ? 'cursor-pointer' : onTickerSelect ? 'cursor-pointer' : ''}`}
-                    onClick={isRowLocked ? () => setShowModal(true) : onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined}
+                    className="flex items-center justify-between gap-2 px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer"
+                    onClick={handleClick}
                   >
                     <div className="flex items-center gap-2 min-w-0 flex-1">
                       {selectable && (

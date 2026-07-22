@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import BogaChartEngine from "./charts/BogaChartEngine";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "./global/PremiumModal";
 
 interface Props {
   ticker: string;
@@ -221,6 +224,11 @@ function MARowL({ label, value, current, lang }: { label: string; value: number;
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = "tr", mode = "overlay" }: Props) {
+  const { isPremium } = useMemberPlan();
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
+  const [searchTicker, setSearchTicker] = useState("");
+  const router = useRouter();
+
   const [data, setData]       = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState<string | null>(null);
@@ -344,6 +352,33 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
       )}
 
       <div className={innerCls}>
+        {/* Sonsuz Hisse Sorgulama Barı */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (searchTicker.trim()) {
+              router.push(`/global/${lang}/analysis/${searchTicker.trim().toUpperCase()}`);
+            }
+          }}
+          className="flex items-center gap-2 bg-[#0d1424] border border-[#3b82f6]/40 p-2.5 rounded-2xl shadow-lg"
+        >
+          <svg className="w-5 h-5 text-[#3b82f6] ml-2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            value={searchTicker}
+            onChange={(e) => setSearchTicker(e.target.value.toUpperCase())}
+            placeholder={L(lang, "Sonsuz Hisse Sorgula (Örn: AAPL, TSLA, NVDA)...", "Search any stock (e.g. AAPL, TSLA, NVDA)...", "Buscar cualquier acción...", "Rechercher une action...")}
+            className="flex-1 bg-transparent text-white text-xs font-mono font-bold uppercase focus:outline-none placeholder:text-slate-500 placeholder:normal-case"
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-[#3b82f6] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all shrink-0"
+          >
+            {L(lang, "Analiz Et", "Analyze", "Analizar", "Analyser")}
+          </button>
+        </form>
 
         {/* ── 1. HERO ──────────────────────────────────────────────────────── */}
         <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-2xl p-5 md:p-6">
@@ -361,12 +396,25 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="text-[11px] text-slate-500 mt-1">{L(lang, "Güncel Fiyat", "Current Price")}</div>
             </div>
           </div>
-          <div className={`inline-flex items-center border rounded-lg px-3 py-1.5 mb-4 ${regimeCls}`}>
-            <span className="text-[11px] font-semibold tracking-wider">{regimeLbl}</span>
-            {rd.emaProfile && <span className="ml-2 text-[10px] opacity-70">· {rd.emaProfile.keyEMA} {L(lang, "Hissesi", "Stock")}</span>}
-          </div>
-          {a.dna?.hisseTipi && (
-            <p className="text-[13px] text-slate-300 leading-relaxed mb-5 border-l-2 border-cyan-500/40 pl-3">{a.dna.hisseTipi}</p>
+
+          {!isPremium ? (
+            <div className="relative overflow-hidden rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center cursor-pointer mb-5 shadow-lg" onClick={() => setShowPremiumModal(true)}>
+              <div className="flex items-center justify-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                <span>{L(lang, "BOGA AI Trend Strateji Durumu — Premium", "BOGA AI Trend Strategy Status — Premium")}</span>
+              </div>
+              <p className="text-[11px] text-white/70 mt-1">{L(lang, "BOGA AI Strateji durumunu görüntülemek için tıklayıp Premium'a geçin →", "Click to upgrade to Premium to view detailed BOGA AI Strategy →")}</p>
+            </div>
+          ) : (
+            <>
+              <div className={`inline-flex items-center border rounded-lg px-3 py-1.5 mb-4 ${regimeCls}`}>
+                <span className="text-[11px] font-semibold tracking-wider">{regimeLbl}</span>
+                {rd.emaProfile && <span className="ml-2 text-[10px] opacity-70">· {rd.emaProfile.keyEMA} {L(lang, "Hissesi", "Stock")}</span>}
+              </div>
+              {a.dna?.hisseTipi && (
+                <p className="text-[13px] text-slate-300 leading-relaxed mb-5 border-l-2 border-cyan-500/40 pl-3">{a.dna.hisseTipi}</p>
+              )}
+            </>
           )}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <MetricBox label="RSI 14" value={rsi.toFixed(1)} sub={rsiLabel} color={rsiColor} />
@@ -388,55 +436,72 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
         </div>
 
         {/* ── 2. TRADE PLAN ────────────────────────────────────────────────── */}
-        <div className="bg-gradient-to-b from-[#0d1a2e] to-[#0a0e18] border-2 border-[#1e4a7f]/80 rounded-2xl p-5 md:p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <span className="text-base">🎯</span>
-              <h3 className="text-[13px] font-bold text-white uppercase tracking-[0.12em]">{L(lang, "Trade Planı", "Trade Plan")}</h3>
+        {!isPremium ? (
+          <div className="bg-gradient-to-b from-[#0d1a2e] to-[#0a0e18] border-2 border-amber-500/40 rounded-2xl p-6 text-center cursor-pointer shadow-xl" onClick={() => setShowPremiumModal(true)}>
+            <div className="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3 border border-amber-500/40">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
             </div>
-            {/* Horizon tabs */}
-            <div className="flex gap-1 bg-[#080c14] border border-[#1e3a5f]/50 rounded-lg p-0.5">
-              {(["swing", "position", "investment"] as const).map(h => (
-                <button key={h} onClick={() => setHorizon(h)}
-                  className={`text-[10px] font-semibold uppercase px-2.5 py-1.5 rounded transition-all ${horizon === h ? "bg-[#1e4a7f] text-white" : "text-slate-500 hover:text-slate-300"}`}>
-                  {h === "swing" ? "Swing" : h === "position" ? L(lang, "Pozisyon", "Position") : L(lang, "Yatırım", "Invest")}
-                </button>
-              ))}
+            <h3 className="text-base font-bold text-white uppercase tracking-wider mb-2">
+              {L(lang, "İşlem Planı (Giriş / Stop / Hedefler) — Premium", "Trading Plan (Entry / Stop / Targets) — Premium")}
+            </h3>
+            <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed mb-4">
+              {L(lang, "Giriş Bölgesi, Stop Loss, T1-T3 Hedefleri ve Trailing Strateji kurallarını kilitleri kaldırmak için Premium üyeliğe geçin.", "Upgrade to Premium to unlock exact Entry Zones, Stop Loss, T1-T3 Targets, and Trailing rules.")}
+            </p>
+            <button className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 transition-all">
+              {L(lang, "Premium'a Yükselt →", "Upgrade to Premium →")}
+            </button>
+          </div>
+        ) : (
+          <div className="bg-gradient-to-b from-[#0d1a2e] to-[#0a0e18] border-2 border-[#1e4a7f]/80 rounded-2xl p-5 md:p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-base">🎯</span>
+                <h3 className="text-[13px] font-bold text-white uppercase tracking-[0.12em]">{L(lang, "Trade Planı", "Trade Plan")}</h3>
+              </div>
+              {/* Horizon tabs */}
+              <div className="flex gap-1 bg-[#080c14] border border-[#1e3a5f]/50 rounded-lg p-0.5">
+                {(["swing", "position", "investment"] as const).map(h => (
+                  <button key={h} onClick={() => setHorizon(h)}
+                    className={`text-[10px] font-semibold uppercase px-2.5 py-1.5 rounded transition-all ${horizon === h ? "bg-[#1e4a7f] text-white" : "text-slate-500 hover:text-slate-300"}`}>
+                    {h === "swing" ? "Swing" : h === "position" ? L(lang, "Pozisyon", "Position") : L(lang, "Yatırım", "Invest")}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="text-[10px] text-slate-500 mb-3">{plan.timeframe} · {plan.anchor}</div>
+
+            {plan.waitWarning && (
+              <div className="mb-3 px-3 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[11px] font-semibold">
+                ⏳ {plan.waitWarning}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
+                <PlanRow label={L(lang, "Giriş Bölgesi", "Entry Zone")} value={`${fmtUsd(plan.entryLow)}–${fmtUsd(plan.entryHigh)}`} valueColor="cyan" />
+                <PlanRow label={L(lang, "Zarar Kes", "Stop Loss")} value={fmtUsd(plan.stop)} valueColor="red" note={`-${(((plan.entry - plan.stop) / plan.entry) * 100).toFixed(1)}%`} />
+                <PlanRow label="T1" value={fmtUsd(plan.t1)} valueColor="green" note={`+${(((plan.t1 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
+                <PlanRow label="T2" value={fmtUsd(plan.t2)} valueColor="green" note={`+${(((plan.t2 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
+                {plan.t3 != null && (
+                  <PlanRow label="T3" value={fmtUsd(plan.t3)} valueColor="green" note={`+${(((plan.t3 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
+                )}
+              </div>
+              <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
+                <PlanRow label={L(lang, "R/R (T1'e)", "R/R (to T1)")} value={`${plan.rr1}:1`} valueColor={rrColor} />
+                <PlanRow label={L(lang, "R/R (T2'ye)", "R/R (to T2)")} value={`${plan.rr2}:1`} valueColor={rrColor} />
+                <PlanRow label={L(lang, "Tez İptal Seviyesi", "Thesis Invalidation")} value={fmtUsd(plan.invalidation)} valueColor="red" />
+              </div>
+            </div>
+
+            {/* Trailing scenario rule */}
+            <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl px-4 py-3">
+              <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold mb-1">
+                {L(lang, "Trailing Kuralı", "Trailing Rule")}
+              </div>
+              <p className="text-[12px] text-slate-300">{plan.trailRule}</p>
             </div>
           </div>
-          <div className="text-[10px] text-slate-500 mb-3">{plan.timeframe} · {plan.anchor}</div>
-
-          {plan.waitWarning && (
-            <div className="mb-3 px-3 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[11px] font-semibold">
-              ⏳ {plan.waitWarning}
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
-              <PlanRow label={L(lang, "Giriş Bölgesi", "Entry Zone")} value={`${fmtUsd(plan.entryLow)}–${fmtUsd(plan.entryHigh)}`} valueColor="cyan" />
-              <PlanRow label={L(lang, "Zarar Kes", "Stop Loss")} value={fmtUsd(plan.stop)} valueColor="red" note={`-${(((plan.entry - plan.stop) / plan.entry) * 100).toFixed(1)}%`} />
-              <PlanRow label="T1" value={fmtUsd(plan.t1)} valueColor="green" note={`+${(((plan.t1 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
-              <PlanRow label="T2" value={fmtUsd(plan.t2)} valueColor="green" note={`+${(((plan.t2 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
-              {plan.t3 != null && (
-                <PlanRow label="T3" value={fmtUsd(plan.t3)} valueColor="green" note={`+${(((plan.t3 - plan.entry) / plan.entry) * 100).toFixed(1)}%`} />
-              )}
-            </div>
-            <div className="bg-[#080c14] border border-[#1e3a5f]/50 rounded-xl p-4">
-              <PlanRow label={L(lang, "R/R (T1'e)", "R/R (to T1)")} value={`${plan.rr1}:1`} valueColor={rrColor} />
-              <PlanRow label={L(lang, "R/R (T2'ye)", "R/R (to T2)")} value={`${plan.rr2}:1`} valueColor={rrColor} />
-              <PlanRow label={L(lang, "Tez İptal Seviyesi", "Thesis Invalidation")} value={fmtUsd(plan.invalidation)} valueColor="red" />
-            </div>
-          </div>
-
-          {/* Trailing scenario rule */}
-          <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl px-4 py-3">
-            <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold mb-1">
-              {L(lang, "Trailing Kuralı", "Trailing Rule")}
-            </div>
-            <p className="text-[12px] text-slate-300">{plan.trailRule}</p>
-          </div>
-        </div>
+        )}
 
         {/* ── 3. KEY LEVELS ────────────────────────────────────────────────── */}
         <div className="bg-[#0d1424] border border-[#1e3a5f]/60 rounded-2xl p-5 md:p-6">
@@ -522,20 +587,30 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             )}
           </div>
 
-          {/* Roadmap */}
-          <div className="bg-gradient-to-r from-cyan-500/5 to-transparent border border-cyan-500/20 rounded-xl p-4 mb-4">
-            <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-semibold mb-2">{L(lang, "Yol Haritası", "Roadmap")}</div>
-            <p className="text-[13px] text-slate-200 leading-relaxed">{(() => {
-              const s1 = sr.support1 || cp * 0.95;
-              const r1 = sr.resistance1 || cp * 1.05;
-              const slope = rd.emaSlope20 || "yatay";
-              const slopeEN = (s: string) => s === "yükselen" ? "rising" : s === "düşen" ? "falling" : "flat";
-              if (lang === "tr") {
-                return `EMA20 ${slope === "yükselen" ? "yükseliyor" : slope === "düşen" ? "düşüyor" : "yatay seyrediyor"}. ${fmtUsd(r1)} (D1) üzerinde ortalamanın üzerinde hacimli günlük kapanış, yükseliş devamını teyitler. ${fmtUsd(s1)} (D1) altında günlük kapanış yapıyı zayıflatır.`;
-              }
-              return `EMA20 is ${slopeEN(slope)}. A daily close above ${fmtUsd(r1)} (R1) with above-average volume confirms continuation. A daily close below ${fmtUsd(s1)} (S1) weakens the structure and triggers re-evaluation.`;
-            })()}</p>
-          </div>
+          {/* Roadmap / 24/7 AI Interpreter */}
+          {!isPremium ? (
+            <div className="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/30 rounded-xl p-4 mb-4 text-center cursor-pointer shadow-lg" onClick={() => setShowPremiumModal(true)}>
+              <div className="flex items-center justify-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-1">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                <span>{L(lang, "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı — Premium", "24/7 AI Chart & Market Interpreter — Premium")}</span>
+              </div>
+              <p className="text-[11px] text-white/70">{L(lang, "Anlık yapay zeka grafik yol haritası ve strateji yorumunu görmek için tıklayıp Premium'a geçin →", "Click to upgrade to Premium for 24/7 AI chart roadmap & market commentary →")}</p>
+            </div>
+          ) : (
+            <div className="bg-gradient-to-r from-cyan-500/5 to-transparent border border-cyan-500/20 rounded-xl p-4 mb-4">
+              <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-semibold mb-2">{L(lang, "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı", "24/7 AI Chart & Market Interpreter")}</div>
+              <p className="text-[13px] text-slate-200 leading-relaxed">{(() => {
+                const s1 = sr.support1 || cp * 0.95;
+                const r1 = sr.resistance1 || cp * 1.05;
+                const slope = rd.emaSlope20 || "yatay";
+                const slopeEN = (s: string) => s === "yükselen" ? "rising" : s === "düşen" ? "falling" : "flat";
+                if (lang === "tr") {
+                  return `EMA20 ${slope === "yükselen" ? "yükseliyor" : slope === "düşen" ? "düşüyor" : "yatay seyrediyor"}. ${fmtUsd(r1)} (D1) üzerinde ortalamanın üzerinde hacimli günlük kapanış, yükseliş devamını teyitler. ${fmtUsd(s1)} (D1) altında günlük kapanış yapıyı zayıflatır.`;
+                }
+                return `EMA20 is ${slopeEN(slope)}. A daily close above ${fmtUsd(r1)} (R1) with above-average volume confirms continuation. A daily close below ${fmtUsd(s1)} (S1) weakens the structure and triggers re-evaluation.`;
+              })()}</p>
+            </div>
+          )}
 
           {/* Volume */}
           <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-4 mb-4">
@@ -789,6 +864,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
         </div>
 
       </div>
+      {showPremiumModal && <PremiumModal locale={lang} onClose={() => setShowPremiumModal(false)} />}
     </div>
   );
 }
