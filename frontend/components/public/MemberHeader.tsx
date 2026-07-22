@@ -36,6 +36,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
   const terminalHref = `/global/${locale}`;
   const terminalTooltip = locale === "tr" ? "TERMİNAL sayfasını aç" : locale === "es" ? "Abrir la página TERMINAL" : locale === "fr" ? "Ouvrir la page TERMINAL" : locale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
+  const screenerHref = `/global/${locale}/my-watchlist`;
+  const screenerLabel = locale === "tr" ? "LİSTELER" : locale === "es" ? "LISTAS" : locale === "fr" ? "LISTES" : locale === "pt" ? "LISTAS" : "SCREENER";
 
   const handleLogout = async () => {
     setLoggingOut(true);
@@ -134,6 +136,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
             </svg>
             <span className="hidden sm:inline">TERMINAL</span>
+          </Link>
+
+          <Link
+            href={screenerHref}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
+          >
+            <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+            <span className="hidden sm:inline">{screenerLabel}</span>
           </Link>
 
           <Link

@@ -136,6 +136,8 @@ export default function Header({
   // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
   const globalLandingHref = globalLocale ? `/global/${globalLocale}` : undefined;
   const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
+  const screenerHref = globalLocale ? `/global/${globalLocale}/my-watchlist` : "/my-watchlist";
+  const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
 
   const getLangHref = (targetLang: string) => {
     if (!pathname) return `/global/${targetLang.toLowerCase()}`;
@@ -244,16 +246,28 @@ export default function Header({
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Terminal — clear, always-visible link back to the dashboard */}
           {globalLocale && (
-            <Link
-              href={globalLandingHref!}
-              title={terminalTooltip}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
-            >
-              <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
-              </svg>
-              <span className="hidden sm:inline">TERMINAL</span>
-            </Link>
+            <>
+              <Link
+                href={globalLandingHref!}
+                title={terminalTooltip}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+              >
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
+                </svg>
+                <span className="hidden sm:inline">TERMINAL</span>
+              </Link>
+
+              <Link
+                href={screenerHref}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
+              >
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+                <span className="hidden sm:inline">{screenerLabel}</span>
+              </Link>
+            </>
           )}
 
           {/* Language Selector */}

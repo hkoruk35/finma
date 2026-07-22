@@ -227,11 +227,12 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
               {stocks.map((stock, idx) => {
                 const st = STATUS_STYLE[stock.status];
                 const slabel = statusLabel(stock.status, locale);
+                const isRowLocked = !isPremium && idx > 0;
                 return (
                   <div
                     key={stock.ticker}
-                    className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${onTickerSelect ? 'cursor-pointer' : ''}`}
-                    onClick={onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined}
+                    className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${isRowLocked ? 'cursor-pointer' : onTickerSelect ? 'cursor-pointer' : ''}`}
+                    onClick={isRowLocked ? () => setShowModal(true) : onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined}
                   >
                     <div className="flex items-center gap-2 min-w-0 flex-1">
                       {selectable && (
@@ -244,14 +245,27 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                       )}
                       <span className="text-[10px] font-mono font-bold text-slate-500 w-3 shrink-0">{idx + 1}</span>
                       <div className="min-w-0 flex-1">
-                        {disableHoverChart ? (
-                          <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                        ) : (
-                          <TickerHoverChart ticker={stock.ticker}>
+                        {isRowLocked ? (
+                          <>
+                            <div className="font-black text-sm tracking-tight select-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                              <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                              <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
+                            </div>
+                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                          </>
+                        ) : disableHoverChart ? (
+                          <>
                             <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                          </TickerHoverChart>
+                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                          </>
+                        ) : (
+                          <>
+                            <TickerHoverChart ticker={stock.ticker}>
+                              <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                            </TickerHoverChart>
+                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                          </>
                         )}
-                        <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                       </div>
                     </div>
 

@@ -97,17 +97,18 @@ export default function HomeSimpleCard({
               {stocks.map((stock, idx) => {
                 const statusStyle = STATUS_STYLE[stock.status];
                 const statusLabel = locale === 'tr' ? statusStyle.tr : locale === 'pt' ? statusStyle.pt : statusStyle.en;
+                const isRowLocked = requirePremium && !isPremium && idx > 0;
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group ${locked ? 'cursor-pointer' : ''}`}
+                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group ${isRowLocked ? 'cursor-pointer' : ''}`}
                     style={{ '--accent': accent } as React.CSSProperties}
-                    onClick={locked ? () => setShowModal(true) : undefined}
+                    onClick={isRowLocked ? () => setShowModal(true) : undefined}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
                       <div className="min-w-0">
-                        {locked ? (
+                        {isRowLocked ? (
                           <>
                             <div className="font-black text-sm tracking-tight select-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
