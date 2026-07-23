@@ -6,33 +6,15 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supaba
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
 
 export async function proxy(request: NextRequest) {
-  return middleware(request);
-}
-
-export { middleware };
-
-export async function proxyHandler(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // ── /data/* statik JSON'lara doğrudan HTTP erişimi kapalı ──────────────────
-  // Bu dosyalar (skorlar, giriş/hedef/stop seviyeleri) public/ altında durduğu
-  // için Next.js normalde hiçbir kontrolden geçirmeden servis eder — üyelik
-  // olmadan curl ile tüm veritabanı taranabiliyordu. Sunucu tarafı kod bu
-  // dosyaları fs.readFileSync ile doğrudan diskten okumaya devam eder (bu blok
-  // sadece tarayıcı/HTTP erişimini keser); tek meşru HTTP yolu, kendi üyelik/
-  // plan kontrolünü yapan /api/data/[...path]/route.ts'tir.
   if (pathname === '/data' || pathname.startsWith('/data/')) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
-  // Tam segment eşleşmesi — startsWith tek başına '/tr' için '/tracker' gibi yanlış eşleşmeler üretir
   const isPathOrSubpath = (base: string) => pathname === base || pathname.startsWith(`${base}/`)
 
-  // ── Supabase oturumunu burada yenile ────────────────────────────────────────
-  // Access token süresi dolduğunda yenileme, cookie'leri yazabilen bir yerde
-  // yapılmalı (Server Component'ler bunu yapamaz). Burada yapılmazsa, rotating
-  // refresh token ile bir sonraki istekte oturum sessizce düşer ve kullanıcı
-  // çıkış yapmadığı halde "çıkmış" gibi görünür.
   let response = NextResponse.next({ request })
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -50,20 +32,12 @@ export async function proxyHandler(request: NextRequest) {
   })
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Bir redirect döndürürken, yukarıda yenilenmiş olabilecek oturum
-  // cookie'lerini de redirect response'una taşı.
   const redirectTo = (url: URL) => {
     const res = NextResponse.redirect(url)
     response.cookies.getAll().forEach((c) => res.cookies.set(c))
     return res
   }
 
-  // ── Global üye sayfaları: Supabase oturumu gerektirir ─────────────────────
-  // Her locale altında sadece landing (/), login ve register public — geri her şey üye gerektirir
-  // Performance sayfası halka açık (top100 burada de public sayılsa da,
-  // app/global/[locale]/top100/layout.tsx kendi oturum kontrolünü ayrıca yapıyor — çift katman)
-  // Not: bu tablo 5 dilin hepsini kapsar — önceden sadece en/tr burada tanımlıydı,
-  // es/fr/pt hiç gate edilmiyordu (üye olmayan herkes swing/analiz gibi sayfalara girebiliyordu).
   const LOCALE_AUTH_ROUTES: Record<string, { login: string; register: string; home: string }> = {
     en: { login: 'login', register: 'register', home: 'home' },
     tr: { login: 'giris', register: 'kayit', home: 'home' },
@@ -82,6 +56,7 @@ export async function proxyHandler(request: NextRequest) {
         !pathname.startsWith(`${base}/${routes.login}`) &&
         !pathname.startsWith(`${base}/${routes.register}`) &&
         !pathname.startsWith(`${base}/${routes.home}`) &&
+        !pathname.startsWith(`${base}/analysis`) &&
         !pathname.startsWith(`${base}/graphic`) &&
         !pathname.startsWith(`${base}/news`) &&
         !pathname.startsWith(`${base}/about`) &&
@@ -98,8 +73,6 @@ export async function proxyHandler(request: NextRequest) {
 
   const hasSupabaseSession = !!user
 
-  // ── /en/top100 ve /tr/top100 → /global/ altına yönlendir ───────────────────
-  // GEÇİCİ: Supabase login zorunluluğu kaldırıldı, direkt /global/ altına yönlendir
   if (pathname === '/en/top100' || pathname === '/tr/top100') {
     const globalPath = pathname.startsWith('/tr')
       ? '/global/tr/top100'
@@ -107,14 +80,6 @@ export async function proxyHandler(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  // Zaten giriş yapmış kullanıcı login veya kayıt sayfasına dönerse (örn. geri
-  // tuşu, eski sekme) → doğrudan home'a at. Oturum açıkken bu sayfalar bir
-  // daha gösterilmez; çıkış yapılmadan login ekranına dönülmez.
-  // NOT: `/global/{locale}` (kök Terminal sayfası) kasıtlı olarak bu listede
-  // DEĞİL — üye olsun olmasın herkesin ortak ana sayfası artık (bkz. logo ve
-  // Header/MemberHeader'daki TERMINAL butonu); daha önce burada olması,
-  // giriş yapmış her ziyaretçiyi tıkladığı an /home'a geri fırlatıyor, bu da
-  // "TERMINAL butonu çalışmıyor" şikayetine yol açıyordu.
   const loggedInPublicPages = new Set(
     Object.entries(LOCALE_AUTH_ROUTES).flatMap(([locale, routes]) => [
       `/global/${locale}/${routes.login}`,
@@ -132,23 +97,13 @@ export async function proxyHandler(request: NextRequest) {
     return redirectTo(new URL(registerUrl, request.url))
   }
 
-  // ── Admin login sayfaları public ───────────────────────────────────────────
-  // /admin/account/login ve /admin/account/register herkes erişebilir
   const isAdminAuthPath =
     pathname === '/admin/account/login' ||
     pathname?.startsWith('/admin/account/login/') ||
     pathname === '/admin/account/register' ||
     pathname?.startsWith('/admin/account/register/')
 
-  // Admin diğer sayfaları boga_auth cookie kontrolü gerektirir.
-  // Not: /admin/admins, /members, /messages, /plans, /campaigns, /sitemap,
-  // /top100 önceden burada istisnaydı — bu sayfalar oturumsuz ziyaretçiye de
-  // boş kabuk olarak render ediliyordu (arkasındaki /api/admin/* zaten kendi
-  // boga_auth kontrolünü yapıyor olsa da, sayfanın var olduğunu ve yapısını
-  // yetkisiz ziyaretçiye ifşa ediyordu). Artık diğer admin sayfalarıyla aynı
-  // kurala tabi.
   const requiresAdminAuth = pathname?.startsWith('/admin/') && !isAdminAuthPath
-
   const hasBogaAuth = !!request.cookies.get('boga_auth')?.value
 
   if (requiresAdminAuth && !hasBogaAuth) {
@@ -158,7 +113,6 @@ export async function proxyHandler(request: NextRequest) {
   return response
 }
 
-// Tüm rotaları yakala (Middleware matcher)
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }
