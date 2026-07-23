@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://bogastock.com"),
@@ -15,7 +18,7 @@ export default async function HomePage() {
   const headerList = await headers();
   const userAgent = headerList.get("user-agent") || "";
   const acceptLang = headerList.get("accept-language") || "";
-  const isMobile = /Mobi|Android|iPhone|iPad/i.test(userAgent);
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 
   let locale = "en";
   const lowerLang = acceptLang.toLowerCase();
@@ -25,8 +28,8 @@ export default async function HomePage() {
   else if (lowerLang.includes("fr")) locale = "fr";
 
   if (isMobile) {
-    redirect(`/global/${locale}/home`);
+    redirect(`/global/${locale}/home`, RedirectType.replace);
   } else {
-    redirect(`/global/${locale}`);
+    redirect(`/global/${locale}`, RedirectType.replace);
   }
 }
