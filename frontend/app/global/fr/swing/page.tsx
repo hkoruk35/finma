@@ -25,11 +25,11 @@ export default function FrSwingPage() {
         </nav>
 
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
-          <Link href="/global/fr/swing" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'swing' === 'swing' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TREND</Link>
-          <Link href="/global/fr/watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'swing' === 'watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>WATCHLIST</Link>
-          <Link href="/global/fr/top7" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'swing' === 'top7' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 7</Link>
-          <Link href="/global/fr/top100" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'swing' === 'top100' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 100</Link>
-          <Link href="/global/fr/my-watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'swing' === 'my-watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>MY WATCHLIST</Link>
+          <Link href="/global/fr/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">TREND</Link>
+          <Link href="/global/fr/watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">WATCHLIST</Link>
+          <Link href="/global/fr/top7" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TOP 7</Link>
+          <Link href="/global/fr/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TOP 100</Link>
+          <Link href="/global/fr/my-watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">MY WATCHLIST</Link>
         </div>
 
         <div className="relative z-10">

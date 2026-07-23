@@ -25,11 +25,11 @@ export default function TrTop100Page() {
         </nav>
 
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
-          <Link href="/global/tr/swing" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top100' === 'swing' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TREND</Link>
-          <Link href="/global/tr/watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top100' === 'watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>WATCHLIST</Link>
-          <Link href="/global/tr/top7" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top100' === 'top7' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 7</Link>
-          <Link href="/global/tr/top100" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top100' === 'top100' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 100</Link>
-          <Link href="/global/tr/my-watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top100' === 'my-watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>MY WATCHLIST</Link>
+          <Link href="/global/tr/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TREND</Link>
+          <Link href="/global/tr/watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">WATCHLIST</Link>
+          <Link href="/global/tr/top7" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TOP 7</Link>
+          <Link href="/global/tr/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">TOP 100</Link>
+          <Link href="/global/tr/my-watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">MY WATCHLIST</Link>
         </div>
 
         <Top100Tracker locale="tr" />
