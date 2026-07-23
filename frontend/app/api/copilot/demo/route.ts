@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
-import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { VISITOR_TEXTS, SupportedLocale } from "@/lib/copilot/visitorDemo";
 
 export const maxDuration = 30;
@@ -18,7 +17,6 @@ export async function POST(req: NextRequest) {
     const stage = Number(body.stage || 1);
     const primaryInterest = body.primaryInterest || "trend";
     const timeHorizon = body.timeHorizon || "few_weeks";
-    const followUpTopic = body.followUpTopic || "trade_scenario";
     const userMessage = (body.userMessage || "").trim().toLowerCase();
 
     const textDef = VISITOR_TEXTS[locale] || VISITOR_TEXTS.en;
@@ -43,17 +41,16 @@ export async function POST(req: NextRequest) {
 
     // Fetch REAL live NVDA data from the platform
     const cardData = await getRealStockCardData("NVDA", locale);
-    const techData = await getTechnicalLevels("NVDA", locale);
-    const deepData = await getDeepAnalysis("NVDA", locale);
+    const techData = await getTechnicalLevels("NVDA");
 
-    const price = cardData?.price ?? 125.40;
-    const support = cardData?.support ?? techData?.supportLevel ?? 118.50;
-    const resistance = cardData?.resistance ?? techData?.resistanceLevel ?? 132.00;
-    const bogaScore = cardData?.score ?? 84;
-    const trendLabel = cardData?.trendLabel ?? "BULLISH";
-    const rsi = techData?.rsi ?? 58.2;
+    const price = techData?.currentPrice ?? 125.40;
+    const support = cardData?.support ?? techData?.nearestSupport ?? 118.50;
+    const resistance = cardData?.resistance ?? techData?.nearestResistance ?? 132.00;
+    const bogaScore = cardData?.bogaScore ?? 84;
+    const trendLabel = cardData?.trend ?? "BULLISH";
+    const rsi = techData?.rsi14 ?? 58.2;
     const momentum = techData?.rsiTrend5d === "rising" ? "Yükselen Momentum (Güçlü)" : "Dengeli Momentum";
-    const riskLevel = cardData?.riskProfile ?? "Orta";
+    const riskLevel = cardData?.riskLevel ?? "Orta";
     const invalidationLevel = (support * 0.96).toFixed(2);
 
     if (stage === 3) {
@@ -75,7 +72,7 @@ export async function POST(req: NextRequest) {
           `• **Momentum:** ${momentum}\n` +
           `• **Risk seviyesi:** ${riskLevel}\n\n` +
           `Seçtiğiniz **${horizonText}** yaklaşımınız açısından en önemli nokta, fiyatın **$${support}** üzerinde kalması ve momentumun pozitif seyrini korumasıdır.\n\n` +
-          `Fiyat **$${resistance}** üzerinde teyit oluşturursa teknik görünüm güçlenebilir. **$${invalidation_level}** altındaki hareket ise mevcut senaryonun yeniden değerlendirilmesini gerektirebilir.\n\n` +
+          `Fiyat **$${resistance}** üzerinde teyit oluşturursa teknik görünüm güçlenebilir. **$${invalidationLevel}** altındaki hareket ise mevcut senaryonun yeniden değerlendirilmesini gerektirebilir.\n\n` +
           `Son adımda hangisini detaylı inceleyelim?`;
       } else if (locale === "pt") {
         analysisContent = `Entendi. Avaliando a NVIDIA ($NVDA) do ponto de vista de **${timeHorizon}**.\n\n` +
@@ -86,7 +83,7 @@ export async function POST(req: NextRequest) {
           `• **RSI (14):** ${rsi}\n` +
           `• **Nível de risco:** ${riskLevel}\n\n` +
           `Para o horizonte escolhido, o ponto mais importante é a capacidade do preço de permanecer acima de **$${support}**.\n\n` +
-          `Um movimento confirmado acima de **$${resistance}** pode fortalecer o cenário técnico. Uma queda abaixo de **$${invalidation_level}** pode exigir uma nova avaliação.\n\n` +
+          `Um movimento confirmado acima de **$${resistance}** pode fortalecer o cenário técnico. Uma queda abaixo de **$${invalidationLevel}** pode exigir uma nova avaliação.\n\n` +
           `Qual ponto você gostaria de analisar na etapa final?`;
       } else if (locale === "es") {
         analysisContent = `Entendido. Evaluando NVIDIA ($NVDA) desde la perspectiva de **${timeHorizon}**.\n\n` +
@@ -97,7 +94,7 @@ export async function POST(req: NextRequest) {
           `• **RSI (14):** ${rsi}\n` +
           `• **Nivel de riesgo:** ${riskLevel}\n\n` +
           `Para el horizonte seleccionado, el punto más importante es que el precio se mantenga por encima de **$${support}**.\n\n` +
-          `Un movimiento confirmado por encima de **$${resistance}** podría fortalecer el escenario técnico. Una caída por debajo de **$${invalidation_level}** exigirá una nueva evaluación.\n\n` +
+          `Un movimiento confirmado por encima de **$${resistance}** podría fortalecer el escenario técnico. Una caída por debajo de **$${invalidationLevel}** exigirá una nueva evaluación.\n\n` +
           `¿Qué punto quieres que analice para terminar?`;
       } else if (locale === "fr") {
         analysisContent = `Compris. Évaluation de NVIDIA ($NVDA) dans la perspective de **${timeHorizon}**.\n\n` +
@@ -119,7 +116,7 @@ export async function POST(req: NextRequest) {
           `• **RSI (14):** ${rsi}\n` +
           `• **Risk level:** ${riskLevel}\n\n` +
           `For your selected time horizon, the most important factor is whether the price can remain above **$${support}** while momentum holds.\n\n` +
-          `A confirmed move above **$${resistance}** could strengthen the technical outlook. A move below **$${invalidation_level}** would require reassessment.\n\n` +
+          `A confirmed move above **$${resistance}** could strengthen the technical outlook. A move below **$${invalidationLevel}** would require reassessment.\n\n` +
           `Which final point should I examine for you?`;
       }
 
@@ -137,7 +134,7 @@ export async function POST(req: NextRequest) {
         scenarioReply = `**Sizin Zaman Aralığınıza Uygun Olası NVIDIA Senaryosu:**\n\n` +
           `• **Hesaplanan Giriş Aralığı:** $${support} – $${(support * 1.03).toFixed(2)}\n` +
           `• **Birincil Hedef:** $${resistance} (${(((resistance - price) / price) * 100).toFixed(1)}% potansiyel)\n` +
-          `• **Kritik Stop Seviyesi:** $${invalidation_level}\n\n` +
+          `• **Kritik Stop Seviyesi:** $${invalidationLevel}\n\n` +
           `*${textDef.disclaimer}*\n\n` +
           `---\n\n` +
           `NVIDIA ($NVDA) için hazırladığımız ücretsiz ziyaretçi analizini tamamladık.\n\n` +
@@ -153,7 +150,7 @@ export async function POST(req: NextRequest) {
         scenarioReply = `**Cenário NVIDIA personalizado:**\n\n` +
           `• **Zona de entrada calculada:** $${support} – $${(support * 1.03).toFixed(2)}\n` +
           `• **Resistência principal:** $${resistance}\n` +
-          `• **Nível de invalidação (Stop):** $${invalidation_level}\n\n` +
+          `• **Nível de invalidação (Stop):** $${invalidationLevel}\n\n` +
           `*${textDef.disclaimer}*\n\n` +
           `---\n\n` +
           `Sua análise gratuita da NVIDIA foi concluída.\n\n` +
@@ -168,7 +165,7 @@ export async function POST(req: NextRequest) {
         scenarioReply = `**Escenario personalizado de NVIDIA:**\n\n` +
           `• **Zona de entrada calculada:** $${support} – $${(support * 1.03).toFixed(2)}\n` +
           `• **Resistencia principal:** $${resistance}\n` +
-          `• **Stop de protección:** $${invalidation_level}\n\n` +
+          `• **Stop de protección:** $${invalidationLevel}\n\n` +
           `*${textDef.disclaimer}*\n\n` +
           `---\n\n` +
           `Has completado el análisis gratuito de NVIDIA para visitantes.\n\n` +
@@ -183,9 +180,8 @@ export async function POST(req: NextRequest) {
         scenarioReply = `**Scénario NVIDIA personnalisé :**\n\n` +
           `• **Zone d'entrée calculée :** $${support} – $${(support * 1.03).toFixed(2)}\n` +
           `• **Résistance principale :** $${resistance}\n` +
-          `• **Niveau d'invalidation :** $${invalidation_level}\n\n` +
+          `• **Niveau d'invalidation :** $${invalidationLevel}\n\n` +
           `*${textDef.disclaimer}*\n\n` +
-          `---\n\n` +
           `Votre analyse gratuite de NVIDIA est maintenant terminée.\n\n` +
           `${textDef.featureMatches[primaryInterest] || textDef.featureMatches.trend}\n\n` +
           `**L'abonnement BOGA Pro vous permet de :**\n` +
@@ -198,7 +194,7 @@ export async function POST(req: NextRequest) {
         scenarioReply = `**Your Personalized NVIDIA Trade Scenario:**\n\n` +
           `• **Calculated Entry Range:** $${support} – $${(support * 1.03).toFixed(2)}\n` +
           `• **Primary Resistance Target:** $${resistance}\n` +
-          `• **Invalidation Level (Stop):** $${invalidation_level}\n\n` +
+          `• **Invalidation Level (Stop):** $${invalidationLevel}\n\n` +
           `*${textDef.disclaimer}*\n\n` +
           `---\n\n` +
           `Your free NVIDIA visitor analysis is now complete.\n\n` +
