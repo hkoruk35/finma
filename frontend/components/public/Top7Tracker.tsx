@@ -282,7 +282,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
         <div>
           <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
             TOP 7
-          </h2>  </div>
+          </h2>
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
