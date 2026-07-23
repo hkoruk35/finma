@@ -50,88 +50,148 @@ MIN_SL_PCT = -10.0      # minimum stop-loss oranı: en az %10
 WIN_PCT_60D = 5.0       # SL_WINDOW_DAYS içinde +%5 geçen işlem Kazanç sayılır (isim korunuyor, davranış SL_WINDOW_DAYS'e bağlı)
 
 def simulate_trade(record, ticker_df):
-    """Bir kaydı giriş tarihinden bugüne (veya çıkışa) kadar gün gün simüle eder.
-    Kurallar: ilk 60 günde EMA50 bazlı -%10 zarar -> LOSS, +%5 getiri -> WIN,
-    kar hedefine her zaman ulaşılırsa -> WIN, 90. günde zirveye göre kapat."""
-    entry_date = datetime.strptime(record['date'], '%Y-%m-%d')
-    entry_price = float(record['entry'])
-    profit_target = record.get('profit_target')
-    profit_target = float(profit_target) if profit_target else None
-
-    closes = ticker_df['Close']
-    highs = ticker_df['High'] if 'High' in ticker_df else closes
-    ema_series = closes.ewm(span=50, adjust=False).mean()
-
-    trade_idx = ticker_df.index[ticker_df.index >= entry_date]
-    if len(trade_idx) == 0:
+    """Bir kaydı v2 ATR 20-günlük disiplinli modelle simüle eder.
+    Kurallar:
+    - Entry (T1): T0 sinyal tarihinden sonraki ilk işlem gününün Open fiyatı.
+    - Gap Filtresi: T1 Open, T0 Close'a göre +%3'ten yüksekse EXPIRED_GAP kabul edilir.
+    - Stop Loss: 1.8 x ATR(14) (min %4, maks %10).
+    - Maks Süre: 20 işlem günü.
+    - Maliyet: %0.1 tahmini işlem maliyeti düşülür.
+    """
+    try:
+        entry_date_dt = datetime.strptime(record['date'], '%Y-%m-%d')
+    except Exception:
         return None
 
-    peak_price = entry_price
-    peak_date = record.get('peak_date') or record['date']
-    result = 'PENDING'
-    return_pct = 0.0
-    exit_date = None
-    last_days_held = 0
-    last_ema50 = None
-    last_price = entry_price
+    trade_idx = ticker_df.index[ticker_df.index >= entry_date_dt]
+    if len(trade_idx) < 2:
+        return None
 
-    for dt in trade_idx:
-        days_held = (dt.to_pydatetime() - entry_date).days
-        if days_held <= 0:
-            continue  # giriş günü — sadece zirve takibi başlasın
+    t0_dt = trade_idx[0]
+    t1_dt = trade_idx[1]  # T1 Entry day
 
-        price = float(closes.loc[dt])
-        high = float(highs.loc[dt])
-        if math.isnan(price) or price <= 0:
-            continue
+    t0_close = float(ticker_df.loc[t0_dt, 'Close'])
+    t1_open = float(ticker_df.loc[t1_dt, 'Open'])
+    if math.isnan(t0_close) or math.isnan(t1_open) or t0_close <= 0 or t1_open <= 0:
+        return None
 
-        ema50 = float(ema_series.loc[dt])
-        last_ema50 = ema50
-        last_price = price
-        last_days_held = days_held
+    # Calculate ATR(14) at T0
+    t0_loc = ticker_df.index.get_loc(t0_dt)
+    if t0_loc >= 14:
+        tr_list = []
+        for i in range(t0_loc - 13, t0_loc + 1):
+            h = float(ticker_df.iloc[i]['High'])
+            l = float(ticker_df.iloc[i]['Low'])
+            pc = float(ticker_df.iloc[i - 1]['Close'])
+            tr_list.append(max(h - l, abs(h - pc), abs(l - pc)))
+        atr14 = sum(tr_list) / len(tr_list)
+    else:
+        atr14 = t0_close * 0.02
 
-        candidate_peak = max(price, high)
-        if candidate_peak > peak_price:
-            peak_price = candidate_peak
-            peak_date = dt.strftime('%Y-%m-%d')
+    atr_pct = (atr14 / t0_close) * 100
+    stop_pct = round(max(4.0, min(10.0, 1.8 * atr_pct)), 2)
 
-        current_ret = ((price - entry_price) / entry_price) * 100
-        loss_at_ema = ((ema50 - entry_price) / entry_price) * 100
+    gap_pct = ((t1_open - t0_close) / t0_close) * 100
+    if gap_pct > 3.0:
+        return {
+            'result': 'EXPIRED_GAP',
+            'return_pct': 0.0,
+            'realized_return_pct': 0.0,
+            'days': 0,
+            'holding_days': 0,
+            'exit_date': t1_dt.strftime('%Y-%m-%d'),
+            'exit_price': round(t1_open, 2),
+            'exit_reason': 'EXPIRED_GAP',
+            'entry_price': round(t1_open, 2),
+            'entry_date': t1_dt.strftime('%Y-%m-%d'),
+            'atr_14': round(atr14, 2),
+            'stop_price': round(t1_open * (1 - stop_pct / 100), 2),
+            'stop_pct': stop_pct,
+            'max_price': round(t1_open, 2),
+            'peak_date': t1_dt.strftime('%Y-%m-%d'),
+            'peak_gain_pct': 0.0,
+            'mfe_pct': 0.0,
+            'mae_pct': 0.0,
+            'hit_3': False, 'hit_5': False, 'hit_7': False, 'hit_10': False, 'hit_15': False, 'hit_20': False,
+            'days_to_3': None, 'days_to_5': None, 'days_to_7': None, 'days_to_10': None, 'days_to_15': None, 'days_to_20': None,
+            'performance_version': 'v2_atr_20d'
+        }
 
-        if days_held <= SL_WINDOW_DAYS:
-            if price <= ema50 and loss_at_ema <= MIN_SL_PCT:
-                result, return_pct, exit_date = 'LOSS', round(loss_at_ema, 2), dt.strftime('%Y-%m-%d')
-                break
-            if profit_target and price >= profit_target:
-                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
-                break
-            if current_ret >= WIN_PCT_60D:
-                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
-                break
-        else:
-            if profit_target and price >= profit_target:
-                result, return_pct, exit_date = 'WIN', round(current_ret, 2), dt.strftime('%Y-%m-%d')
-                break
+    entry_price = t1_open
+    stop_price = entry_price * (1 - stop_pct / 100)
+    targets = [3, 5, 7, 10, 15, 20]
+    hits = {t: False for t in targets}
+    days_to_hit = {t: None for t in targets}
 
-        if days_held >= MAX_HOLD_DAYS:
-            peak_pct = round(((peak_price - entry_price) / entry_price) * 100, 2)
-            result = 'WIN' if peak_pct > MIN_SL_PCT else 'LOSS'
-            return_pct, exit_date = peak_pct, dt.strftime('%Y-%m-%d')
+    holding_idx = trade_idx[1:21]  # Up to 20 trading days
+    exit_date = t1_dt.strftime('%Y-%m-%d')
+    exit_price = entry_price
+    exit_reason = 'TIMEOUT'
+    holding_days = 0
+    max_high = entry_price
+    min_low = entry_price
+    is_stopped = False
+
+    for k_idx, dt in enumerate(holding_idx, start=1):
+        holding_days = k_idx
+        c_open = float(ticker_df.loc[dt, 'Open'])
+        c_high = float(ticker_df.loc[dt, 'High'])
+        c_low = float(ticker_df.loc[dt, 'Low'])
+        c_close = float(ticker_df.loc[dt, 'Close'])
+
+        if c_high > max_high: max_high = c_high
+        if c_low < min_low: min_low = c_low
+
+        if c_low <= stop_price:
+            is_stopped = True
+            exit_date = dt.strftime('%Y-%m-%d')
+            exit_reason = 'STOP'
+            exit_price = c_open if c_open <= stop_price else stop_price
             break
 
-    if result == 'PENDING':
-        return_pct = round(((last_price - entry_price) / entry_price) * 100, 2)
+        for t_pct in targets:
+            t_price = entry_price * (1 + t_pct / 100)
+            if c_high >= t_price and not hits[t_pct]:
+                hits[t_pct] = True
+                days_to_hit[t_pct] = k_idx
+
+        exit_date = dt.strftime('%Y-%m-%d')
+        exit_price = c_close
+
+    if not is_stopped and holding_days == 20:
+        exit_reason = 'TIMEOUT'
+    elif not is_stopped and len(holding_idx) < 20:
+        exit_reason = 'ACTIVE'
+
+    raw_ret = ((exit_price - entry_price) / entry_price) * 100
+    realized_ret = round(raw_ret - 0.1, 2)  # 0.1% cost
+    result_status = 'WIN' if realized_ret > 0 else 'LOSS'
+
+    mfe_pct = round(((max_high - entry_price) / entry_price) * 100, 2)
+    mae_pct = round(((min_low - entry_price) / entry_price) * 100, 2)
 
     return {
-        'result': result,
-        'return_pct': return_pct,
-        'days': last_days_held,
+        'result': result_status,
+        'return_pct': realized_ret,
+        'realized_return_pct': realized_ret,
+        'days': holding_days,
+        'holding_days': holding_days,
         'exit_date': exit_date,
-        'max_price': round(peak_price, 2),
-        'peak_date': peak_date,
-        'peak_gain_pct': round(((peak_price - entry_price) / entry_price) * 100, 2),
-        'ema50_1d': round(last_ema50, 2) if last_ema50 is not None else None,
-        'active_sl_level': round(last_ema50, 2) if last_ema50 is not None else None,
+        'exit_price': round(exit_price, 2),
+        'exit_reason': exit_reason,
+        'entry_price': round(entry_price, 2),
+        'entry_date': t1_dt.strftime('%Y-%m-%d'),
+        'atr_14': round(atr14, 2),
+        'stop_price': round(stop_price, 2),
+        'stop_pct': stop_pct,
+        'max_price': round(max_high, 2),
+        'peak_date': exit_date,
+        'peak_gain_pct': mfe_pct,
+        'mfe_pct': mfe_pct,
+        'mae_pct': mae_pct,
+        'hit_3': hits[3], 'hit_5': hits[5], 'hit_7': hits[7], 'hit_10': hits[10], 'hit_15': hits[15], 'hit_20': hits[20],
+        'days_to_3': days_to_hit[3], 'days_to_5': days_to_hit[5], 'days_to_7': days_to_hit[7], 'days_to_10': days_to_hit[10], 'days_to_15': days_to_hit[15], 'days_to_20': days_to_hit[20],
+        'performance_version': 'v2_atr_20d'
     }
 
 def update_performance():
@@ -194,19 +254,8 @@ def update_performance():
                     if sim is None:
                         continue
 
-                    record['result'] = sim['result']
-                    record['return_pct'] = sim['return_pct']
-                    record['days'] = sim['days']
-                    record['max_price'] = sim['max_price']
-                    record['peak_date'] = sim['peak_date']
-                    record['peak_gain_pct'] = sim['peak_gain_pct']
-                    if sim['ema50_1d'] is not None:
-                        record['ema50_1d'] = sim['ema50_1d']
-                        record['active_sl_level'] = sim['active_sl_level']
-                    if sim['exit_date']:
-                        record['exit_date'] = sim['exit_date']
-                    elif 'exit_date' in record and sim['result'] == 'PENDING':
-                        record.pop('exit_date', None)
+                    for k, v in sim.items():
+                        record[k] = v
 
                 except Exception as e:
                     log(f"Error simulating {ticker}: {str(e)}")

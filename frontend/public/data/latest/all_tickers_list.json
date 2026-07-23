@@ -2,92 +2,37 @@
   "date": "2026-07-22",
   "tickers": [
     {
-      "ticker": "HUM",
-      "company": "Humana Inc.",
-      "sector": "Healthcare",
-      "master_score": 87.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 400.0,
-      "change_pct": 3.5,
+      "ticker": "IR",
+      "company": "IR",
+      "sector": "Industrials",
+      "master_score": 48.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 83.54000091552734,
+      "change_pct": 3.26,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 87.0 | System: PULLBACK"
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
     },
     {
-      "ticker": "ROKU",
-      "company": "Roku, Inc.",
-      "sector": "Communication Services",
-      "master_score": 84.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 144.42999267578125,
-      "change_pct": 0.42,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 84.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "CVS",
-      "company": "CVS Health Corporation",
-      "sector": "Healthcare",
-      "master_score": 83.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 107.47000122070312,
-      "change_pct": 0.91,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 83.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "RVMD",
-      "company": "Revolution Medicines, Inc.",
-      "sector": "Healthcare",
-      "master_score": 81.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 186.16000366210938,
-      "change_pct": 3.9,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 81.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "FWONK",
-      "company": "Formula One Group",
-      "sector": "Communication Services",
-      "master_score": 81.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 102.19999694824219,
-      "change_pct": 2.47,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 81.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "OKTA",
-      "company": "Okta, Inc.",
+      "ticker": "MCHP",
+      "company": "MCHP",
       "sector": "Technology",
-      "master_score": 76.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 149.35000610351562,
-      "change_pct": 1.09,
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 85.0199966430664,
+      "change_pct": 1.97,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 76.0 | System: PULLBACK"
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
     },
     {
-      "ticker": "ALL",
-      "company": "The Allstate Corporation",
+      "ticker": "KEY",
+      "company": "KEY",
       "sector": "Financial Services",
-      "master_score": 75.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 249.89999389648438,
-      "change_pct": 3.32,
+      "master_score": 45.4,
+      "score_type": "POSITIVE_BIAS",
+      "price": 23.110000610351562,
+      "change_pct": 0.7,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
-    },
-    {
-      "ticker": "SPG",
-      "company": "Simon Property Group, Inc.",
-      "sector": "Real Estate",
-      "master_score": 75.0,
-      "score_type": "HIGH_CONVICTION",
-      "price": 228.6999969482422,
-      "change_pct": 0.09,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 75.0 | System: PULLBACK"
+      "ai_short_summary": "BOGA AI Score: 45.4 | System: SQUEEZE"
     },
     {
       "ticker": "CHRW",
@@ -95,10 +40,43 @@
       "sector": "Industrials",
       "master_score": 44.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 207.31500244140625,
-      "change_pct": -1.01,
+      "price": 207.35000610351562,
+      "change_pct": -0.99,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "CRS",
+      "company": "CRS",
+      "sector": "Industrials",
+      "master_score": 42.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 587.6599731445312,
+      "change_pct": -0.23,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CSCO",
+      "company": "CSCO",
+      "sector": "Technology",
+      "master_score": 41.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 112.20999908447266,
+      "change_pct": 0.03,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 41.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "DAVE",
+      "company": "DAVE",
+      "sector": "Technology",
+      "master_score": 37.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 423.6600036621094,
+      "change_pct": -3.47,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 37.5 | System: DEFAULT"
     },
     {
       "ticker": "FDX",
@@ -106,54 +84,32 @@
       "sector": "Industrials",
       "master_score": 37.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 319.44000244140625,
-      "change_pct": 1.35,
+      "price": 321.0199890136719,
+      "change_pct": 1.85,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 37.0 | System: DEFAULT"
-    },
-    {
-      "ticker": "IR",
-      "company": "IR",
-      "sector": "Industrials",
-      "master_score": 33.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 83.23999786376953,
-      "change_pct": 2.89,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 33.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "RIO",
-      "company": "RIO",
-      "sector": "Basic Materials",
-      "master_score": 33.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 92.31999969482422,
-      "change_pct": 1.95,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 33.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "APH",
-      "company": "APH",
-      "sector": "Technology",
-      "master_score": 32.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 157.5749969482422,
-      "change_pct": -0.15,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 32.0 | System: DEFAULT"
     },
     {
       "ticker": "QCOM",
       "company": "QCOM",
       "sector": "Technology",
-      "master_score": 31.5,
+      "master_score": 35.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 176.31320190429688,
-      "change_pct": 1.62,
+      "price": 175.6300048828125,
+      "change_pct": 1.23,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 31.5 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 35.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MTZ",
+      "company": "MTZ",
+      "sector": "Industrials",
+      "master_score": 34.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 357.3500061035156,
+      "change_pct": 1.69,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 34.5 | System: DEFAULT"
     }
   ]
 }

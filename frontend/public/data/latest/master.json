@@ -1,28 +1,30 @@
 {
   "date": "2026-07-22",
-  "generated_at": "2026-07-22T14:04:23.679587-04:00",
+  "generated_at": "2026-07-22T18:11:02.542788-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 14,
+  "active_scores_count": 10,
   "market_regime": "BULLISH",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "HUM",
-        "ROKU",
-        "CVS",
-        "RVMD",
-        "FWONK",
-        "OKTA",
-        "ALL",
-        "SPG",
+        "IR",
+        "MCHP",
+        "KEY",
         "CHRW",
-        "FDX"
+        "CRS",
+        "CSCO",
+        "DAVE",
+        "FDX",
+        "QCOM",
+        "MTZ"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 1,
+      "tickers": [
+        "IR"
+      ]
     },
     "value": {
       "count": 0,
@@ -43,19 +45,19 @@
   },
   "top_3_overall": [
     {
-      "ticker": "HUM",
-      "score": 87.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "IR",
+      "score": 48.5,
+      "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ROKU",
-      "score": 84.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "MCHP",
+      "score": 47.0,
+      "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CVS",
-      "score": 83.0,
-      "score_type": "HIGH_CONVICTION"
+      "ticker": "KEY",
+      "score": 45.4,
+      "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
