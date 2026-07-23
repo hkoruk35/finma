@@ -176,7 +176,9 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
 
-  const ROW_COLS = selectable ? 'grid-cols-[16px_1fr_56px_64px_72px]' : 'grid-cols-[1fr_56px_64px_72px]';
+  const ROW_COLS = compactMode
+    ? (selectable ? 'grid-cols-[16px_1fr_48px_56px]' : 'grid-cols-[1fr_48px_56px]')
+    : (selectable ? 'grid-cols-[16px_1fr_56px_64px_72px]' : 'grid-cols-[1fr_56px_64px_72px]');
 
   return (
     <>
@@ -218,15 +220,26 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${ROW_COLS} gap-2 items-center ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
-              <div className="flex items-center gap-2 min-w-0">
-                {selectable && <span className="w-3.5 shrink-0" />}
-                <span className="truncate">{labels.stock}</span>
+            {compactMode ? (
+              <div className={`grid ${ROW_COLS} gap-1.5 items-center px-3 py-1.5 text-[9px] border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+                <div className="flex items-center gap-1 min-w-0">
+                  {selectable && <span className="w-3.5 shrink-0" />}
+                  <span className="truncate">{labels.stock}</span>
+                </div>
+                <span className="text-center">{labels.status}</span>
+                <span className="text-right">{labels.price}</span>
               </div>
-              <span />
-              <span className="text-center">{labels.status}</span>
-              <span className="text-right">{labels.price}</span>
-            </div>
+            ) : (
+              <div className={`grid ${ROW_COLS} gap-2 items-center px-5 py-2 text-[9px] border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+                <div className="flex items-center gap-2 min-w-0">
+                  {selectable && <span className="w-3.5 shrink-0" />}
+                  <span className="truncate">{labels.stock}</span>
+                </div>
+                <span />
+                <span className="text-center">{labels.status}</span>
+                <span className="text-right">{labels.price}</span>
+              </div>
+            )}
 
             {/* Rows */}
             <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
@@ -246,11 +259,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
+                    className={`grid ${ROW_COLS} ${compactMode ? 'gap-1.5 px-3 py-2' : 'gap-2 px-5 py-3.5'} items-center transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
                     {/* Col 1: Stock & Sector */}
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex items-center gap-1.5 min-w-0">
                       {selectable && (
                         <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
                           <CompareCheckbox
@@ -271,28 +284,30 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                           </>
                         ) : disableHoverChart ? (
                           <>
-                            <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[11px] font-medium text-white truncate">{stock.ticker}</div>
+                            <div className="text-[9px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : (
                           <>
                             <TickerHoverChart ticker={stock.ticker}>
-                              <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                              <div className="text-[11px] font-medium text-white truncate">{stock.ticker}</div>
                             </TickerHoverChart>
-                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[9px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         )}
                       </div>
                     </div>
 
-                    {/* Col 2: Sparkline (Mini Grafik) */}
-                    <div className="justify-self-center">
-                      <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
-                    </div>
+                    {/* Col 2: Sparkline (Only on full desktop/home card mode) */}
+                    {!compactMode && (
+                      <div className="justify-self-center">
+                        <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
+                      </div>
+                    )}
 
                     {/* Col 3: DURUM Status Badge */}
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                      className="justify-self-center px-1 py-0.5 rounded text-[8px] font-bold uppercase whitespace-nowrap"
                       style={{ background: `${st.color}26`, color: st.color }}
                     >
                       {slabel}
@@ -300,11 +315,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
 
                     {/* Col 4: FİYAT & Change Pct */}
                     <div className="text-right shrink-0">
-                      <div className="font-mono text-xs font-semibold text-white">
+                      <div className="font-mono text-[11px] font-semibold text-white">
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
                       <span
-                        className={`inline-block mt-0.5 px-1 py-[1px] rounded text-[10px] font-bold font-mono ${
+                        className={`inline-block px-1 py-[1px] rounded text-[9px] font-bold font-mono ${
                           stock.change_pct >= 0 ? 'bg-[#22c55e]/15 text-[#22c55e]' : 'bg-[#ef4444]/15 text-[#ef4444]'
                         }`}
                       >
