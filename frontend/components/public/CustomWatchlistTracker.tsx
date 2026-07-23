@@ -109,7 +109,8 @@ const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LAB
 
 export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist; // Fallback or we can add custom copy
-  const { isPremium } = useMemberPlan();
+  const { plan, isPremium, loading: planLoading } = useMemberPlan();
+  const isLoggedIn = plan !== null;
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [composition, setComposition] = useState<WatchlistRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});
@@ -132,9 +133,6 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
 
   useEffect(() => setMounted(true), []);
-
-  const { plan, isPremium, loading: planLoading } = useMemberPlan();
-  const isLoggedIn = plan !== null;
 
   const fetchWatchlist = useCallback(async () => {
     setLoading(true);
