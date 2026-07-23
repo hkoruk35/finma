@@ -208,20 +208,20 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             )}
           </nav>
 
-          <div className="flex items-center gap-1.5">
-            {/* Shortcuts — giriş durumuna göre dinamik */}
+          <div className="flex items-center gap-1.5 flex-wrap">
             {(() => {
-              const watchlistLabel = locale === "tr" ? "KİŞİSEL LİSTEM" : locale === "es" ? "MI LISTA" : locale === "fr" ? "MA LISTE" : locale === "pt" ? "MINHA LISTA" : "MY WATCHLIST";
               const shortcutsItems = [
                 { label: "TREND", href: `/global/${locale}/swing` },
-                { label: isLoggedIn ? watchlistLabel : (locale === "tr" ? "WATCHLIST" : locale === "es" ? "WATCHLIST" : locale === "fr" ? "WATCHLIST" : locale === "pt" ? "WATCHLIST" : "WATCHLIST"), href: isLoggedIn ? `/global/${locale}/my-watchlist` : `/global/${locale}/watchlist` },
-                { label: locale === "tr" ? "TOP 100" : locale === "es" ? "TOP 100" : locale === "fr" ? "TOP 100" : locale === "pt" ? "TOP 100" : "TOP 100", href: `/global/${locale}/top100` },
+                { label: "WATCHLIST", href: `/global/${locale}/watchlist` },
+                { label: "TOP 7", href: `/global/${locale}/top7` },
+                { label: "TOP 100", href: `/global/${locale}/top100` },
+                { label: "MY WATCHLIST", href: `/global/${locale}/my-watchlist` },
               ];
               return shortcutsItems.map((s) => (
                 <Link
                   key={s.href}
-                  href={isLoggedIn ? s.href : registerHref}
-                  className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all"
+                  href={s.href}
+                  className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all uppercase"
                 >
                   {s.label}
                 </Link>
