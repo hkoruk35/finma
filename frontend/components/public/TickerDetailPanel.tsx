@@ -256,19 +256,9 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               </div>
             </>
           )}
-          {!fullPage && !hidePermalink && (
-            <a href={permalinkHref} className="text-center text-sm font-bold text-blue-400 border border-blue-500/40 bg-blue-500/10 rounded-md py-1.5 hover:bg-blue-500/20 transition-colors">
-              {t.permalink} ↗
-            </a>
-          )}
           {!hidePermalink && (
             <a href={`/global/${locale}/graphic/${ticker}`} className="text-center text-sm font-bold text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
               {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
-            </a>
-          )}
-          {!hidePermalink && (
-            <a href={`/global/${locale}/analysis/${ticker}`} className="text-center text-sm font-bold text-purple-400 border border-purple-500/40 bg-purple-500/10 rounded-md py-1.5 hover:bg-purple-500/20 transition-colors">
-              {locale === "tr" ? "Analiz" : locale === "pt" ? "Analisar" : "Analyze"} ↗
             </a>
           )}
         </div>
