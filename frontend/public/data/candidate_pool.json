@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "BNY",
@@ -153,7 +153,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "A",
@@ -299,7 +299,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "HIMS",
@@ -444,7 +444,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ASND",
@@ -589,7 +589,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CTAS",
@@ -733,7 +733,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "XPO",
@@ -878,7 +878,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VIK",
@@ -1023,7 +1023,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CPAY",
@@ -1168,7 +1168,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-23",
+      "last_checked": "2026-07-23 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GWW",
