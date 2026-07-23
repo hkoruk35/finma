@@ -359,7 +359,6 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SEKTÖR", key: null, align: "left" },
                   { label: "FİYAT", key: "price", align: "right" },
                   { label: "Δ% 1G", key: "chg1d", align: "right" },
@@ -375,7 +374,6 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
                   { label: "DETAY", key: null, align: "right" },
                 ] : locale === "pt" ? [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SETOR", key: null, align: "left" },
                   { label: "PREÇO", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -391,7 +389,6 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
                   { label: "DETALHE", key: null, align: "right" },
                 ] : [
                   { label: "TICKER", key: null, align: "left" },
-                  { label: t.colDateAdded, key: "dateAdded", align: "left" },
                   { label: "SECTOR", key: null, align: "left" },
                   { label: "PRICE", key: "price", align: "right" },
                   { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -436,8 +433,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.dateAdded, locale)}</td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
