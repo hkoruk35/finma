@@ -5,11 +5,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { TrendStatus } from '@/lib/homeFeed';
 import { copy, type Locale } from '@/lib/i18n/copy';
-import Sparkline from './Sparkline';
 import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
-import ShareButton from '../ShareButton';
 import CompareCheckbox from './CompareCheckbox';
 
 interface Stock {
@@ -26,26 +24,10 @@ interface LiveWatchData {
   sector?: string;
   price?: { current: number; prev_close: number; change_pct: number; volume?: number };
   tracker_1h?: { ema_status: string; rsi: number; signal: string; change_pct_1d: number; };
-  recent_closes?: number[];
 }
-
-export const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string; pt: string; es: string; fr: string }> = {
-  BULLISH: { color: '#22c55e', tr: 'YÜKSELİŞ', en: 'BULLISH', pt: 'ALTA', es: 'ALCISTA', fr: 'HAUSSIER' },
-  BEARISH: { color: '#ef4444', tr: 'DÜŞÜŞ', en: 'BEARISH', pt: 'BAIXA', es: 'BAJISTA', fr: 'BAISSIER' },
-  NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL', pt: 'NEUTRO', es: 'NEUTRO', fr: 'NEUTRE' },
-};
 
 const ACCENT_PERSONAL = '#a78bfa';
 const MIN_TICKERS_FOR_HOME = 5;
-
-export function statusLabel(status: TrendStatus, locale: Locale) {
-  const s = STATUS_STYLE[status];
-  if (locale === 'tr') return s.tr;
-  if (locale === 'pt') return s.pt;
-  if (locale === 'es') return s.es;
-  if (locale === 'fr') return s.fr;
-  return s.en;
-}
 
 function getLabels(locale: Locale) {
   if (locale === 'tr') return {
@@ -55,7 +37,7 @@ function getLabels(locale: Locale) {
     status: 'DURUM',
     price: 'FİYAT',
     sortLabel: 'Kişisel takip listeniz',
-    href: '/global/tr/my-watchlist',
+    href: '/global/tr/home',
     customizeTooltip: "Premium'da Özelleştir",
   };
   if (locale === 'pt') return {
@@ -65,7 +47,7 @@ function getLabels(locale: Locale) {
     status: 'STATUS',
     price: 'PREÇO',
     sortLabel: 'Sua lista pessoal',
-    href: '/global/pt/my-watchlist',
+    href: '/global/pt/home',
     customizeTooltip: 'Personalize com Premium',
   };
   if (locale === 'es') return {
@@ -75,7 +57,7 @@ function getLabels(locale: Locale) {
     status: 'ESTADO',
     price: 'PRECIO',
     sortLabel: 'Tu lista de seguimiento personal',
-    href: '/global/es/my-watchlist',
+    href: '/global/es/home',
     customizeTooltip: 'Personaliza con Premium',
   };
   if (locale === 'fr') return {
@@ -85,7 +67,7 @@ function getLabels(locale: Locale) {
     status: 'STATUT',
     price: 'PRIX',
     sortLabel: 'Votre liste de surveillance personnelle',
-    href: '/global/fr/my-watchlist',
+    href: '/global/fr/home',
     customizeTooltip: 'Personnalisez avec Premium',
   };
   return {
@@ -95,7 +77,7 @@ function getLabels(locale: Locale) {
     status: 'STATUS',
     price: 'PRICE',
     sortLabel: 'Your personal watchlist',
-    href: '/global/en/my-watchlist',
+    href: '/global/en/home',
     customizeTooltip: 'Customize with Premium',
   };
 }
@@ -108,7 +90,7 @@ interface Props {
   compactMode?: boolean;
   disableHoverChart?: boolean;
   onTickerSelect?: (ticker: string) => void;
-  selectable?: boolean; // renders a "select for multi-chart" checkbox per row
+  selectable?: boolean;
   selectedTickers?: string[];
   onToggleSelect?: (ticker: string) => void;
 }
@@ -121,9 +103,6 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const { isPremium } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
   const sectorNames = copy[locale].top100.sectors as Record<string, string>;
-  const gridCols = compactMode
-    ? (selectable ? 'grid-cols-[16px_1fr_48px_64px]' : 'grid-cols-[1fr_48px_64px]')
-    : 'grid-cols-[1fr_56px_64px_72px]';
   const labels = getLabels(locale);
 
   useEffect(() => {
@@ -133,7 +112,6 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         const tickers: string[] = data.tickers || [];
         setPersonalTickers(tickers);
         if (tickers.length >= MIN_TICKERS_FOR_HOME) {
-          // Fetch live data for first 5
           const top5 = tickers.slice(0, 5);
           return fetch(`/api/watchlist-data?tickers=${top5.join(',')}`)
             .then(r => r.ok ? r.json() : [])
@@ -148,13 +126,6 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
       .finally(() => setLoaded(true));
   }, []);
 
-  // Determine signal → status
-  const signalToStatus = (signal: string | undefined, emaStatus: string | undefined): TrendStatus => {
-    if (signal === 'BUY' || signal === 'BUY_STRONG' || emaStatus === 'Bullish' || emaStatus === 'BullishWeak') return 'BULLISH';
-    if (signal === 'SELL' || signal === 'SELL_STRONG' || emaStatus === 'Bearish' || emaStatus === 'BearishWeak') return 'BEARISH';
-    return 'NEUTRAL';
-  };
-
   const usePersonal = loaded && personalTickers.length >= MIN_TICKERS_FOR_HOME;
 
   const top5Personal = personalTickers.slice(0, 5).map(ticker => {
@@ -163,10 +134,10 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
     return {
       ticker,
       sector: d?.sector && d.sector !== 'Unknown' ? d.sector : 'Technology',
-      status: signalToStatus(d?.tracker_1h?.signal, d?.tracker_1h?.ema_status),
+      status: 'NEUTRAL' as TrendStatus,
       price: d?.price?.current ?? 0,
       change_pct: changePct,
-      sparkline: d?.recent_closes ?? [],
+      sparkline: [],
     } as Stock;
   });
 
@@ -175,10 +146,6 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const viewAllHref = usePersonal ? labels.href : defaultViewAllHref;
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
-
-  const ROW_COLS = compactMode
-    ? (selectable ? 'grid-cols-[16px_1fr_48px_56px]' : 'grid-cols-[1fr_48px_56px]')
-    : (selectable ? 'grid-cols-[16px_1fr_56px_64px_72px]' : 'grid-cols-[1fr_56px_64px_72px]');
 
   return (
     <>
@@ -220,32 +187,17 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            {compactMode ? (
-              <div className={`grid ${ROW_COLS} gap-1.5 items-center px-3 py-1.5 text-[9px] border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
-                <div className="flex items-center gap-1 min-w-0">
-                  {selectable && <span className="w-3.5 shrink-0" />}
-                  <span className="truncate">{labels.stock}</span>
-                </div>
-                <span className="text-center">{labels.status}</span>
-                <span className="text-right">{labels.price}</span>
+            <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+              <div className="flex items-center gap-2">
+                {selectable && <span className="w-3.5 shrink-0" />}
+                <span>{labels.stock}</span>
               </div>
-            ) : (
-              <div className={`grid ${ROW_COLS} gap-2 items-center px-5 py-2 text-[9px] border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
-                <div className="flex items-center gap-2 min-w-0">
-                  {selectable && <span className="w-3.5 shrink-0" />}
-                  <span className="truncate">{labels.stock}</span>
-                </div>
-                <span />
-                <span className="text-center">{labels.status}</span>
-                <span className="text-right">{labels.price}</span>
-              </div>
-            )}
+              <span>{labels.price}</span>
+            </div>
 
             {/* Rows */}
             <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
               {stocks.map((stock, idx) => {
-                const st = STATUS_STYLE[stock.status];
-                const slabel = statusLabel(stock.status, locale);
                 const isRowLocked = usePersonal && !isPremium && idx > 0;
                 const handleClick = () => {
                   if (onTickerSelect) {
@@ -259,11 +211,10 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${ROW_COLS} ${compactMode ? 'gap-1.5 px-3 py-2' : 'gap-2 px-5 py-3.5'} items-center transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
+                    className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
-                    {/* Col 1: Stock & Sector */}
-                    <div className="flex items-center gap-1.5 min-w-0">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
                       {selectable && (
                         <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
                           <CompareCheckbox
@@ -284,47 +235,31 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                           </>
                         ) : disableHoverChart ? (
                           <>
-                            <div className="text-[11px] font-medium text-white truncate">{stock.ticker}</div>
-                            <div className="text-[9px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : (
                           <>
                             <TickerHoverChart ticker={stock.ticker}>
-                              <div className="text-[11px] font-medium text-white truncate">{stock.ticker}</div>
+                              <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
                             </TickerHoverChart>
-                            <div className="text-[9px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         )}
                       </div>
                     </div>
 
-                    {/* Col 2: Sparkline (Only on full desktop/home card mode) */}
-                    {!compactMode && (
-                      <div className="justify-self-center">
-                        <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
-                      </div>
-                    )}
-
-                    {/* Col 3: DURUM Status Badge */}
-                    <span
-                      className="justify-self-center px-1 py-0.5 rounded text-[8px] font-bold uppercase whitespace-nowrap"
-                      style={{ background: `${st.color}26`, color: st.color }}
-                    >
-                      {slabel}
-                    </span>
-
-                    {/* Col 4: FİYAT & Change Pct */}
                     <div className="text-right shrink-0">
-                      <div className="font-mono text-[11px] font-semibold text-white">
+                      <div className="text-[11px] font-mono text-white">
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
-                      <span
-                        className={`inline-block px-1 py-[1px] rounded text-[9px] font-bold font-mono ${
-                          stock.change_pct >= 0 ? 'bg-[#22c55e]/15 text-[#22c55e]' : 'bg-[#ef4444]/15 text-[#ef4444]'
+                      <div
+                        className={`text-[10px] font-mono ${
+                          stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                         }`}
                       >
                         {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                      </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -333,22 +268,14 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
 
             {/* Sort label footer */}
             {sortLabel && (
-              <div className="px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/60 italic">
-                {usePersonal ? (
-                  <Link href={labels.href} className="text-[#a78bfa] hover:underline font-bold">
-                    {locale === 'tr' ? '→ Tüm takip listemin tam görünümü' : locale === 'pt' ? '→ Ver minha lista completa' : locale === 'es' ? '→ Ver mi lista completa' : locale === 'fr' ? '→ Voir ma liste complète' : '→ View my full watchlist'}
-                  </Link>
-                ) : (
-                  sortLabel
-                )}
+              <div className={`px-5 py-2 border-t border-[#1e2a3a] text-[9px] text-white/60 italic`}>
+                {sortLabel}
               </div>
             )}
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center py-12">
-            <p className="text-xs text-white/60">
-              {locale === 'tr' ? 'Veri bulunmamaktadır' : 'No data available'}
-            </p>
+            <p className="text-xs text-white/60">{locale === 'tr' ? 'Veri bulunmamaktadır' : locale === 'pt' ? 'Nenhum dado disponível' : 'No data available'}</p>
           </div>
         )}
       </div>

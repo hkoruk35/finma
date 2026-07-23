@@ -138,7 +138,7 @@ export default function Header({
   // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
   const globalLandingHref = globalLocale ? `/global/${globalLocale}` : undefined;
   const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
-  const screenerHref = globalLocale ? `/global/${globalLocale}/my-watchlist` : "/my-watchlist";
+  const screenerHref = globalLocale ? `/global/${globalLocale}/home` : "/home";
   const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
 
   const getLangHref = (targetLang: string) => {

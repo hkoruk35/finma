@@ -38,7 +38,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
   const terminalHref = `/global/${locale}`;
   const terminalTooltip = locale === "tr" ? "TERMİNAL sayfasını aç" : locale === "es" ? "Abrir la página TERMINAL" : locale === "fr" ? "Ouvrir la page TERMINAL" : locale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
-  const screenerHref = `/global/${locale}/my-watchlist`;
+  const screenerHref = `/global/${locale}/home`;
   const screenerLabel = locale === "tr" ? "LİSTELER" : locale === "es" ? "LISTAS" : locale === "fr" ? "LISTES" : locale === "pt" ? "LISTAS" : "SCREENER";
 
   const handleLogout = async () => {
