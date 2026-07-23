@@ -509,7 +509,7 @@ export default function CopilotDrawer() {
             demoMessages.map((msg) => (
               <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
                 <div
-                  className={`p-3.5 text-sm rounded-2xl ${
+                  className={`p-3.5 text-sm rounded-2xl prose prose-invert prose-sm leading-relaxed whitespace-pre-wrap ${
                     msg.role === "user"
                       ? "bg-blue-600 text-white rounded-tr-sm"
                       : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"
