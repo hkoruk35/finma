@@ -1,115 +1,115 @@
 {
-  "date": "2026-07-22",
+  "date": "2026-07-23",
   "tickers": [
     {
-      "ticker": "IR",
-      "company": "IR",
+      "ticker": "BBIO",
+      "company": "BBIO",
+      "sector": "Healthcare",
+      "master_score": 58.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 82.66000366210938,
+      "change_pct": 0.25,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MOD",
+      "company": "MOD",
+      "sector": "Consumer Cyclical",
+      "master_score": 53.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 249.63999938964844,
+      "change_pct": 1.03,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MPWR",
+      "company": "MPWR",
+      "sector": "Technology",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 1398.449951171875,
+      "change_pct": 1.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "JPM",
+      "company": "JPMorgan Chase",
+      "sector": "Financial Services",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 348.2099914550781,
+      "change_pct": 0.86,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "STLD",
+      "company": "STLD",
+      "sector": "Basic Materials",
+      "master_score": 50.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 238.63999938964844,
+      "change_pct": 2.19,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 50.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "HWM",
+      "company": "HWM",
       "sector": "Industrials",
       "master_score": 48.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 83.54000091552734,
-      "change_pct": 3.26,
+      "price": 280.70001220703125,
+      "change_pct": 0.61,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 48.5 | System: BREAKOUT"
+      "ai_short_summary": "BOGA AI Score: 48.5 | System: TREND_CONT"
     },
     {
-      "ticker": "MCHP",
-      "company": "MCHP",
-      "sector": "Technology",
-      "master_score": 47.0,
+      "ticker": "CASY",
+      "company": "CASY",
+      "sector": "Consumer Cyclical",
+      "master_score": 48.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 85.0199966430664,
-      "change_pct": 1.97,
+      "price": 856.739990234375,
+      "change_pct": -0.18,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 48.0 | System: TREND_CONT"
     },
     {
-      "ticker": "KEY",
-      "company": "KEY",
-      "sector": "Financial Services",
-      "master_score": 45.4,
+      "ticker": "AME",
+      "company": "AME",
+      "sector": "Industrials",
+      "master_score": 46.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 23.110000610351562,
-      "change_pct": 0.7,
+      "price": 237.08999633789062,
+      "change_pct": -0.28,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 45.4 | System: SQUEEZE"
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: SQUEEZE"
     },
     {
-      "ticker": "CHRW",
-      "company": "CHRW",
+      "ticker": "ODFL",
+      "company": "ODFL",
       "sector": "Industrials",
       "master_score": 44.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 207.35000610351562,
-      "change_pct": -0.99,
+      "price": 232.8000030517578,
+      "change_pct": -0.85,
       "volume": 0,
       "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
     },
     {
-      "ticker": "CRS",
-      "company": "CRS",
+      "ticker": "ATI",
+      "company": "ATI",
       "sector": "Industrials",
-      "master_score": 42.0,
+      "master_score": 43.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 587.6599731445312,
-      "change_pct": -0.23,
+      "price": 195.58999633789062,
+      "change_pct": -0.82,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 42.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "CSCO",
-      "company": "CSCO",
-      "sector": "Technology",
-      "master_score": 41.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 112.20999908447266,
-      "change_pct": 0.03,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 41.0 | System: DEFAULT"
-    },
-    {
-      "ticker": "DAVE",
-      "company": "DAVE",
-      "sector": "Technology",
-      "master_score": 37.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 423.6600036621094,
-      "change_pct": -3.47,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "FDX",
-      "company": "FDX",
-      "sector": "Industrials",
-      "master_score": 37.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 321.0199890136719,
-      "change_pct": 1.85,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.0 | System: DEFAULT"
-    },
-    {
-      "ticker": "QCOM",
-      "company": "QCOM",
-      "sector": "Technology",
-      "master_score": 35.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 175.6300048828125,
-      "change_pct": 1.23,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 35.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MTZ",
-      "company": "MTZ",
-      "sector": "Industrials",
-      "master_score": 34.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 357.3500061035156,
-      "change_pct": 1.69,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 34.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 43.5 | System: TREND_CONT"
     }
   ]
 }
