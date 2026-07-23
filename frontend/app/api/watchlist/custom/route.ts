@@ -40,8 +40,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Tickers must be an array" }, { status: 400 });
     }
 
-    // Limit to 10 items, remove duplicates, convert to uppercase
-    tickers = Array.from(new Set(tickers.map((t: string) => t.toUpperCase()))).slice(0, 10);
+    // Limit to 50 items, remove duplicates, convert to uppercase
+    tickers = Array.from(new Set(tickers.map((t: string) => t.toUpperCase()))).slice(0, 50);
 
     const { error: upsertError } = await supabaseAdmin
       .from("custom_watchlists")

@@ -233,9 +233,9 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
 
   const addTicker = (ticker: string) => {
     if (myTickers.includes(ticker)) return;
-    if (myTickers.length >= 10 && !isPremium) {
-       // Just a soft limit, actual server enforces max 10
-       alert(locale === "tr" ? "Maksimum 10 hisse ekleyebilirsiniz." : "You can add maximum 10 tickers.");
+    if (myTickers.length >= 50 && !isPremium) {
+       // Just a soft limit, actual server enforces max 50
+       alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : "You can add maximum 50 tickers.");
        return;
     }
     setSearchInput("");
@@ -288,7 +288,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(localeTag(locale), { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : (locale === "tr" ? "market kapalı" : "market closed")}</span>
-              <span>{myTickers.length} / 10 {locale === "tr" ? "hisse" : "tickers"}</span>
+              <span>{myTickers.length} / 50 {locale === "tr" ? "hisse" : "tickers"}</span>
             </div>
           </div>
 
@@ -431,11 +431,11 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
 
             {/* Note */}
             <div style={{ marginTop: 16, fontSize: 11, color: "#6e7681" }}>
-              {locale === "tr" ? "Ücretsiz · Maksimum 10 hisse · Anlık güncelleme" :
-               locale === "es" ? "Gratis · Máximo 10 acciones · Actualización en tiempo real" :
-               locale === "fr" ? "Gratuit · Maximum 10 actions · Mise à jour en temps réel" :
-               locale === "pt" ? "Gratuito · Máximo 10 ações · Atualização em tempo real" :
-               "Free · Up to 10 stocks · Live updates"}
+              {locale === "tr" ? "Ücretsiz · Maksimum 50 hisse · Anlık güncelleme" :
+               locale === "es" ? "Gratis · Máximo 50 acciones · Actualización en tiempo real" :
+               locale === "fr" ? "Gratuit · Maximum 50 actions · Mise à jour en temps réel" :
+               locale === "pt" ? "Gratuito · Máximo 50 ações · Atualização em tempo real" :
+               "Free · Up to 50 stocks · Live updates"}
             </div>
           </div>
         </div>
