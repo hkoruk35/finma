@@ -26,6 +26,22 @@ interface LiveWatchData {
   tracker_1h?: { ema_status: string; rsi: number; signal: string; change_pct_1d: number; };
 }
 
+export const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string; pt: string; es: string; fr: string }> = {
+  BULLISH: { color: '#22c55e', tr: 'YÜKSELİŞ', en: 'BULLISH', pt: 'ALTA', es: 'ALCISTA', fr: 'HAUSSIER' },
+  BEARISH: { color: '#ef4444', tr: 'DÜŞÜŞ', en: 'BEARISH', pt: 'BAIXA', es: 'BAJISTA', fr: 'BAISSIER' },
+  NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL', pt: 'NEUTRO', es: 'NEUTRO', fr: 'NEUTRE' },
+};
+
+export function statusLabel(status: TrendStatus, locale: Locale) {
+  const s = STATUS_STYLE[status];
+  if (!s) return 'NEUTRAL';
+  if (locale === 'tr') return s.tr;
+  if (locale === 'pt') return s.pt;
+  if (locale === 'es') return s.es;
+  if (locale === 'fr') return s.fr;
+  return s.en;
+}
+
 const ACCENT_PERSONAL = '#a78bfa';
 const MIN_TICKERS_FOR_HOME = 5;
 
