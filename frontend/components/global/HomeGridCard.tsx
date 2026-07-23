@@ -69,7 +69,7 @@ export default function HomeSimpleCard({
           </div>
           <div className="flex items-center gap-2">
             <ShareButton locale={locale} shareText={`${title} — BOGA AI`} url={`https://bogastock.com${viewAllHref}`} accent={accent} />
-            <a
+            <Link
               href={viewAllHref}
               className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
               style={{ color: accent, borderColor: `${accent}4d` }}
@@ -78,7 +78,7 @@ export default function HomeSimpleCard({
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -100,7 +100,7 @@ export default function HomeSimpleCard({
                 const isRowLocked = requirePremium && !isPremium && idx > 0;
                 const handleRowClick = () => {
                   if (isRowLocked) {
-                    window.location.href = viewAllHref;
+                    setShowModal(true);
                   } else {
                     window.location.href = `/global/${locale}/graphic/${stock.ticker}`;
                   }

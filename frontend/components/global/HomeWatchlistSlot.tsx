@@ -194,7 +194,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
             )}
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <a
+            <Link
               href={viewAllHref}
               className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
               style={{ color: accent, borderColor: `${accent}4d` }}
@@ -203,7 +203,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
               <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
