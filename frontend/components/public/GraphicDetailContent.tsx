@@ -275,7 +275,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
         </div>
         {ticker && <SwingStrategyStatusCard ticker={ticker} locale={locale} />}
         <div className="glass-card overflow-hidden">
-          <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlan />
+          <TickerDetailPanel ticker={ticker} locale={locale} hideChart hidePermalink lockTradePlanCard />
         </div>
       </main>
       <Footer hidePlatform locale={locale} />

@@ -166,7 +166,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
 
   const stocks = usePersonal ? top5Personal : defaultStocks;
   const title = usePersonal ? labels.title : 'TOP7';
-  const viewAllHref = usePersonal ? labels.href : defaultViewAllHref;
+  const viewAllHref = defaultViewAllHref || `/global/${locale}/top7`;
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
 

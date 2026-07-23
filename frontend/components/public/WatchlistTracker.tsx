@@ -430,49 +430,6 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
-                const rowLocked = !isPremium && idx > 0;
-
-                if (rowLocked) {
-                  return (
-                    <Fragment key={r.ticker}>
-                      <tr onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
-                        <td style={{ padding: "6px 8px" }}>
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
-                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                            Premium
-                          </span>
-                        </td>
-                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.dateAdded, locale)}</td>
-                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
-                          {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
-                        </td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume ?? r.volume)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20) }}>
-                          {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_20)}
-                        </td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50) }}>
-                          {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_50)}
-                        </td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200) }}>
-                          {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? r.price, d?.tracker_1h?.ema_200)}
-                        </td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : signalLabel(signal, locale)}</td>
-                        <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
-                          <button onClick={() => setShowPremiumModal(true)}
-                            style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}>
-                            🔒 Premium
-                          </button>
-                        </td>
-                      </tr>
-                    </Fragment>
-                  );
-                }
 
                 return (
                   <Fragment key={r.ticker}>
@@ -515,7 +472,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={15} style={{ padding: 0 }}>
-                          <TickerDetailPanel ticker={r.ticker} locale={locale} />
+                          <TickerDetailPanel ticker={r.ticker} locale={locale} lockTradePlanCard />
                         </td>
                       </tr>
                     )}
