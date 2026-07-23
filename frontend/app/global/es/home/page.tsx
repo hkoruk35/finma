@@ -1,4 +1,4 @@
-﻿import { Metadata } from "next";
+import { Metadata } from "next";
 import Link from "next/link";
 import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
@@ -193,39 +193,43 @@ export default async function EsHomePage() {
       <TickerTape indices={indices} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
-        {/* Performance Banner Link — Free Trial only, hidden from Premium members */}
-        {bannerStats && !memberAccess.isPremium && (
+        {/* Performance Banner Link — Shown to all members, sleek and thin design */}
+        {bannerStats && (
           <Link href="/global/es/performance" className="block group w-full mb-8">
-            <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 group-hover:border-[#3b82f6]/80 transition-colors rounded-2xl p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative">
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#3b82f6] blur-[80px] opacity-20 rounded-full group-hover:opacity-40 transition-opacity"></div>
-
-              <div className="flex-1 z-10 text-center md:text-left">
-                 <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
-                    <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">RENDIMIENTO COMPROBADO</h3>
-                    <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-bold text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VER REGISTROS DETALLADOS →</span>
-                 </div>
-                 <p className="text-white text-xl md:text-2xl font-bold">
-                   Motor Trend BOGA AI: <span className="text-[#10b981]">{bannerStats.win_rate}% Tasa de Acierto</span>{bannerStats.period_days ? ` en ${bannerStats.period_days} Días` : ""}
-                 </p>
-                 <p className="text-white text-sm mt-2">
-                   Basado en {bannerStats.total_picks} operaciones de alta convicción generadas exclusivamente por criterios algorítmicos.
-                 </p>
+            <div className="bg-[#0f1117] border border-[#30363d] group-hover:border-[#58a6ff]/50 transition-colors rounded-xl py-3 px-5 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-[#3b82f6]"></div>
+              
+              <div className="flex items-center gap-3 flex-1">
+                <div className="w-8 h-8 rounded-full bg-[#3b82f6]/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-[#e6edf3] font-bold text-sm flex items-center gap-2">
+                    RESUMEN DE RENDIMIENTO BOGA AI
+                    <span className="px-2 py-0.5 rounded text-[9px] font-black bg-[#3b82f6]/20 text-[#3b82f6] border border-[#3b82f6]/30">INFORME DETALLADO →</span>
+                  </h3>
+                  <p className="text-[#8b949e] text-[11px]">
+                    {bannerStats.total_picks} Operaciones Completadas (Últimos {bannerStats.period_days || "90"} Días)
+                  </p>
+                </div>
               </div>
 
-              <div className="flex justify-center gap-6 z-10">
-                <div className="text-center">
-                   <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{bannerStats.avg_return_pct}%</div>
-                   <div className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-wider mt-1">Retorno Máx. Medio</div>
+              <div className="flex items-center gap-6 z-10 w-full md:w-auto justify-between md:justify-end">
+                <div className="text-center md:text-right">
+                   <div className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider mb-0.5">TASA DE ÉXITO</div>
+                   <div className="text-base font-black text-[#3fb950] group-hover:text-[#56d364] transition-colors">{bannerStats.win_rate}%</div>
                 </div>
-                <div className="w-px bg-white/10 hidden md:block"></div>
-                <div className="text-center">
-                   <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{bannerStats.above_10pct_rate}%</div>
-                   <div className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-wider mt-1">Ganancias +10%</div>
+                <div className="w-px h-8 bg-[#30363d] hidden md:block"></div>
+                <div className="text-center md:text-right">
+                   <div className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider mb-0.5">RETORNO MÁX PROM.</div>
+                   <div className="text-base font-black text-[#58a6ff] group-hover:text-[#79c0ff] transition-colors">+{bannerStats.avg_return_pct}%</div>
                 </div>
-                <div className="w-px bg-white/10 hidden md:block"></div>
-                <div className="text-center">
-                   <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{bannerStats.total_picks}</div>
-                   <div className="text-[10px] text-[#00d2ff] font-bold uppercase tracking-wider mt-1">Total Señales</div>
+                <div className="w-px h-8 bg-[#30363d] hidden md:block"></div>
+                <div className="text-center md:text-right">
+                   <div className="text-[10px] text-[#8b949e] font-bold uppercase tracking-wider mb-0.5">GANANCIAS +10%</div>
+                   <div className="text-base font-black text-[#a371f7] group-hover:text-[#bc8cff] transition-colors">{bannerStats.above_10pct_rate}%</div>
                 </div>
               </div>
             </div>
