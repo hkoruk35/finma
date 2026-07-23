@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-22T18:11:02.553799-04:00",
+  "generated_at": "2026-07-23T09:05:49.192032-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -17,7 +17,7 @@
       "ticker": "GPN",
       "sector": "Financial Services",
       "date_added": "2026-07-21",
-      "score": 35.5
+      "score": 38.5
     },
     {
       "ticker": "LYV",
@@ -80,12 +80,6 @@
       "score": 42.5
     },
     {
-      "ticker": "ODFL",
-      "sector": "Industrials",
-      "date_added": "2026-07-22",
-      "score": 42.5
-    },
-    {
       "ticker": "NTAP",
       "sector": "Technology",
       "date_added": "2026-07-22",
@@ -120,6 +114,18 @@
       "sector": "Technology",
       "date_added": "2026-07-22",
       "score": 30.0
+    },
+    {
+      "ticker": "WAT",
+      "sector": "Healthcare",
+      "date_added": "2026-07-23",
+      "score": 43.0
+    },
+    {
+      "ticker": "PHM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-23",
+      "score": 38.5
     }
   ]
 }
