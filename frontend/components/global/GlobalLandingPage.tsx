@@ -109,6 +109,34 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [currentCompany, setCurrentCompany] = useState("");
   const [currentGroup, setCurrentGroup] = useState("");
   
+  // Personal Watchlist
+  const [personalStocks, setPersonalStocks] = useState<any[]>([]);
+  const [usePersonal, setUsePersonal] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/watchlist/custom', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : { tickers: [] })
+      .then(data => {
+        const tickers: string[] = data.tickers || [];
+        if (tickers.length >= 5) {
+          const top = tickers.slice(0, 10);
+          return fetch(`/api/watchlist-data?tickers=${top.join(',')}`)
+            .then(r => r.ok ? r.json() : [])
+            .then((rows: any[]) => {
+              const stocks = rows.map(r => ({
+                ticker: r.ticker,
+                sector: r.sector && r.sector !== 'Unknown' ? r.sector : 'Technology',
+                price: r.price?.current ?? 0,
+                change_pct: r.tracker_1h?.change_pct_1d ?? r.price?.change_pct ?? 0,
+              }));
+              setPersonalStocks(stocks);
+              setUsePersonal(true);
+            });
+        }
+      })
+      .catch(() => {});
+  }, []);
+  
   // Sidebar states
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
   const [showRightSidebar, setShowRightSidebar] = useState(true);
@@ -413,7 +441,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           <div className="flex-1 min-h-0 overflow-y-auto">
             {rightTab === "watchlist" ? (
               <div className="flex flex-col">
-                {defaultWatchlist.map(stock => {
+                {(usePersonal ? personalStocks : defaultWatchlist).map(stock => {
                   const selected = selectedTicker === stock.ticker;
                   return (
                     <div 
@@ -427,15 +455,15 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                         selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
                       }`}
                     >
-                      <div className="min-w-0 pr-2 flex-1">
-                        <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                        <div className="text-[10px] text-slate-500 truncate">{stock.sector}</div>
-                      </div>
                       <CompareCheckbox
                         checked={compareSelection.includes(stock.ticker)}
                         onToggle={() => toggleCompare(stock.ticker)}
                         title={compareCheckboxTitle}
                       />
+                      <div className="min-w-0 pr-2 flex-1">
+                        <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                        <div className="text-[10px] text-slate-500 truncate">{stock.sector}</div>
+                      </div>
                       <div className="text-right shrink-0">
                         <div className="text-[11px] font-mono text-white">
                           {stock.price > 0 ? fmt(stock.price) : "..."}
