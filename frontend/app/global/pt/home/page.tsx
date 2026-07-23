@@ -244,14 +244,11 @@ export default async function PtHomePage() {
             requirePremium
           />
 
-          <HomeSimpleCard
-            title="Lista de Observação"
-            accent="#a78bfa"
-            stocks={watchlistByVolume}
-            viewAllHref="/global/pt/watchlist"
+          <HomeWatchlistSlot
             locale="pt"
-            sortLabel="Ordenado por volume"
-            requirePremium
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/pt/watchlist"
+            defaultSortLabel="Ordenado por volume"
           />
 
           <HomeSimpleCard
