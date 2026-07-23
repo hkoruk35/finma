@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -90,7 +91,18 @@ const pColor = (v: number | null) => v == null ? "text-slate-500" : v > 0 ? "tex
 const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
+  const router = useRouter();
   const [selectedTicker, setSelectedTicker] = useState("SPY");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isMobile = window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      const allowTerminal = sessionStorage.getItem("allow_mobile_terminal") === "true";
+      if (isMobile && !allowTerminal) {
+        router.replace(`/global/${locale}/home`);
+      }
+    }
+  }, [locale, router]);
   const [selectedYSymbol, setSelectedYSymbol] = useState("SPY");
   
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});

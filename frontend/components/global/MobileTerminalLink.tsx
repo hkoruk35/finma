@@ -25,6 +25,9 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
   };
 
   const handleConfirm = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('allow_mobile_terminal', 'true');
+    }
     setShowModal(false);
     router.push(targetHref);
   };

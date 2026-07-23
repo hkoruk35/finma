@@ -33,7 +33,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   // /global/{locale} (Terminal) artık üye olsun olmasın herkesin ana
   // sayfası — Ana Sayfa butonu da eskiden ayrı bir "/home" pazarlama
   // sayfasına gidiyordu, artık aynı hedefe gidiyor.
-  const homeHref = `/global/${locale}`;
+  const isMobile = typeof window !== "undefined" && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+  const homeHref = isMobile ? `/global/${locale}/home` : `/global/${locale}`;
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
   const terminalHref = `/global/${locale}`;

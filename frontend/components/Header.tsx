@@ -136,7 +136,8 @@ export default function Header({
 
   // Üye olsun olmasın logo her zaman ana açılış sayfasına (Gösterge Paneli
   // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
-  const globalLandingHref = globalLocale ? `/global/${globalLocale}` : undefined;
+  const isMobileHeader = typeof window !== "undefined" && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
+  const globalLandingHref = globalLocale ? (isMobileHeader ? `/global/${globalLocale}/home` : `/global/${globalLocale}`) : undefined;
   const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
   const screenerHref = globalLocale ? `/global/${globalLocale}/home` : "/home";
   const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
