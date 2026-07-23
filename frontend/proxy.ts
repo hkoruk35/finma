@@ -75,12 +75,16 @@ export async function proxy(request: NextRequest) {
       isGlobalMemberPath =
         !pathname.startsWith(`${base}/${routes.login}`) &&
         !pathname.startsWith(`${base}/${routes.register}`) &&
+        !pathname.startsWith(`${base}/${routes.home}`) &&
         !pathname.startsWith(`${base}/graphic`) &&
         !pathname.startsWith(`${base}/news`) &&
         !pathname.startsWith(`${base}/about`) &&
         !pathname.startsWith(`${base}/disclaimer`) &&
         !pathname.startsWith(`${base}/terms`) &&
         !pathname.startsWith(`${base}/privacy`) &&
+        !pathname.startsWith(`${base}/sss`) &&
+        !pathname.startsWith(`${base}/faq`) &&
+        !pathname.startsWith(`${base}/Perguntas_Frequentes`) &&
         pathname !== base
       break
     }
