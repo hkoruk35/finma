@@ -397,7 +397,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
       {/* TABLE */}
       {activeTab === "table" && composition.length > 0 && (
         <div style={{ overflowX: "auto", overflowY: "auto", maxHeight: "calc(100vh - 260px)", WebkitOverflowScrolling: "touch", width: "100%", maxWidth: "100vw" }}>
-          <table className="sm:min-w-[1000px]" style={{ borderCollapse: "collapse", fontSize: 12, width: "max-content" }}>
+          <table className="sm:min-w-[1000px]" style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
             <thead>
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {((locale === "tr" ? [
