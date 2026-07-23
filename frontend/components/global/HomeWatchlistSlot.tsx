@@ -165,7 +165,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   });
 
   const stocks = usePersonal ? top5Personal : defaultStocks;
-  const title = usePersonal ? labels.title : 'Watchlist';
+  const title = usePersonal ? labels.title : 'TOP7';
   const viewAllHref = usePersonal ? labels.href : defaultViewAllHref;
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
@@ -230,7 +230,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                   } else if (isRowLocked) {
                     setShowModal(true);
                   } else {
-                    router.push(`/global/${locale}/analysis/${stock.ticker}`);
+                    router.push(`/global/${locale}/graphic/${stock.ticker}`);
                   }
                 };
                 return (

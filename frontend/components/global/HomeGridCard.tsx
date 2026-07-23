@@ -98,12 +98,19 @@ export default function HomeSimpleCard({
                 const statusStyle = STATUS_STYLE[stock.status];
                 const statusLabel = locale === 'tr' ? statusStyle.tr : locale === 'pt' ? statusStyle.pt : statusStyle.en;
                 const isRowLocked = requirePremium && !isPremium && idx > 0;
+                const handleRowClick = () => {
+                  if (isRowLocked) {
+                    setShowModal(true);
+                  } else {
+                    window.location.href = `/global/${locale}/graphic/${stock.ticker}`;
+                  }
+                };
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${ROW_COLS} gap-2 items-center px-5 py-3.5 transition-colors duration-150 group ${isRowLocked ? 'cursor-pointer' : ''}`}
+                    className="grid grid-cols-[1fr_56px_64px_72px] gap-2 items-center px-5 py-3.5 transition-colors duration-150 group cursor-pointer hover:bg-white/[0.03]"
                     style={{ '--accent': accent } as React.CSSProperties}
-                    onClick={isRowLocked ? () => setShowModal(true) : undefined}
+                    onClick={handleRowClick}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>

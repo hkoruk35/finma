@@ -133,14 +133,30 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
 
   useEffect(() => setMounted(true), []);
 
+  const { plan, isPremium, loading: planLoading } = useMemberPlan();
+  const isLoggedIn = plan !== null;
+
   const fetchWatchlist = useCallback(async () => {
     setLoading(true);
     try {
-      // 1. Fetch custom tickers
-      const hwRes = await fetch("/api/watchlist/custom", { cache: "no-store" });
-      if (!hwRes.ok) throw new Error("Failed to load custom watchlist");
-      const hwData = await hwRes.json();
-      const tickers: string[] = hwData.tickers || [];
+      let tickers: string[] = [];
+      if (isLoggedIn) {
+        const hwRes = await fetch("/api/watchlist/custom", { cache: "no-store" });
+        if (hwRes.ok) {
+          const hwData = await hwRes.json();
+          tickers = hwData.tickers || [];
+        }
+      } else {
+        const local = localStorage.getItem("boga_guest_watchlist");
+        if (local) {
+          try { tickers = JSON.parse(local); } catch {}
+        }
+        if (!tickers || tickers.length === 0) {
+          tickers = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL"];
+          localStorage.setItem("boga_guest_watchlist", JSON.stringify(tickers));
+        }
+      }
+
       setMyTickers(tickers);
 
       if (tickers.length === 0) {
@@ -150,7 +166,6 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
         return;
       }
 
-      // 2. Build rows
       const rows: WatchlistRow[] = tickers.map(t => ({
         ticker: t,
         company: t,
@@ -163,7 +178,6 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
       }));
       setComposition(rows);
 
-      // 3. Fetch live data
       const liveRes = await fetch(`/api/watchlist-data?tickers=${tickers.join(",")}`);
       if (liveRes.ok) {
         const liveRows: LiveData[] = await liveRes.json();
@@ -179,13 +193,15 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    fetchWatchlist();
+    if (!planLoading) {
+      fetchWatchlist();
+    }
     const id = setInterval(fetchWatchlist, REFRESH_MS);
     return () => clearInterval(id);
-  }, [fetchWatchlist]);
+  }, [fetchWatchlist, planLoading]);
 
   // Handle Search Autocomplete
   useEffect(() => {
@@ -211,32 +227,41 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   }, [searchInput]);
 
   const updateWatchlist = async (newTickers: string[]) => {
-    try {
-      const res = await fetch("/api/watchlist/custom", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tickers: newTickers })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setMyTickers(data.tickers);
-        fetchWatchlist(); // Refresh data for new tickers
-      } else {
-        const err = await res.json();
-        alert(err.error || "Failed to update");
+    if (isLoggedIn) {
+      try {
+        const res = await fetch("/api/watchlist/custom", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tickers: newTickers })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setMyTickers(data.tickers);
+          fetchWatchlist();
+        } else {
+          const err = await res.json();
+          alert(err.error || "Failed to update");
+        }
+      } catch (e) {
+        console.error(e);
+        alert("Error updating watchlist");
       }
-    } catch (e) {
-      console.error(e);
-      alert("Error updating watchlist");
+    } else {
+      localStorage.setItem("boga_guest_watchlist", JSON.stringify(newTickers));
+      setMyTickers(newTickers);
+      fetchWatchlist();
     }
   };
 
   const addTicker = (ticker: string) => {
     if (myTickers.includes(ticker)) return;
-    if (myTickers.length >= 50 && !isPremium) {
-       // Just a soft limit, actual server enforces max 50
-       alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : "You can add maximum 50 tickers.");
-       return;
+    if (!isLoggedIn && myTickers.length >= 5) {
+      alert(locale === "tr" ? "Üye olmadan en fazla 5 hisse ekleyebilirsiniz. Listelerinizi kaydetmek ve 50 hisseye kadar çıkarmak için lütfen üye girişi yapın." : "Non-members can add up to 5 tickers. Please log in to save watchlists and expand up to 50 tickers.");
+      return;
+    }
+    if (isLoggedIn && myTickers.length >= 50) {
+      alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : "You can add maximum 50 tickers.");
+      return;
     }
     setSearchInput("");
     setSearchResults([]);
