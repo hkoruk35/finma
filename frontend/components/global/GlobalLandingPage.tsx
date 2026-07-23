@@ -449,17 +449,15 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                 })}
               </div>
             ) : (
-              <div className="flex-1 flex flex-col items-center justify-center py-12 text-center px-4">
-                <svg className="w-8 h-8 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-                <p className="text-[11px] text-slate-500 uppercase tracking-widest font-bold">
-                  {locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks'}
-                </p>
-                <p className="text-[10px] text-slate-600 mt-2 max-w-[160px]">
-                  {locale === 'tr' ? 'Listeye erişmek için sol menüden Trend sayfasına gidin.' : 'Navigate to Trend page from menu to view the list.'}
-                </p>
-              </div>
+              <TrendPicksSlot
+                locale={locale}
+                compactMode={true}
+                disableHoverChart={true}
+                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
+                selectable
+                selectedTickers={compareSelection}
+                onToggleSelect={toggleCompare}
+              />
             )}
           </div>
         </div>
