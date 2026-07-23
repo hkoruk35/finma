@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 89.11,
+        "entry_zone": "86.44 - 91.78",
+        "SL": 78.42,
+        "TP": 110.5
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "EQNR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 41.59,
+        "entry_zone": "40.99 - 42.19",
+        "SL": 39.21,
+        "TP": 46.35
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "VET",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 11.28,
+        "entry_zone": "11.07 - 11.49",
+        "SL": 10.44,
+        "TP": 12.95
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "CF",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 126.08,
+        "entry_zone": "123.91 - 128.26",
+        "SL": 117.4,
+        "TP": 143.46
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "DGX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 225.39,
+        "entry_zone": "221.96 - 228.82",
+        "SL": 211.67,
+        "TP": 252.82
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "LXU",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 12.07,
+        "entry_zone": "11.87 - 12.27",
+        "SL": 11.26,
+        "TP": 13.7
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "EIX",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 79.99,
+        "entry_zone": "79.07 - 80.90",
+        "SL": 76.32,
+        "TP": 87.31
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "EGY",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 5.68,
+        "entry_zone": "5.57 - 5.79",
+        "SL": 5.26,
+        "TP": 6.52
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "CEG",
+        "sector": "Utilities",
+        "action": "BUY",
+        "price": 274.3,
+        "entry_zone": "270.24 - 278.35",
+        "SL": 258.07,
+        "TP": 306.75
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "T",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 22.93,
+        "entry_zone": "22.60 - 23.27",
+        "SL": 21.58,
+        "TP": 25.64
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "WAB",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 295.75,
+        "entry_zone": "291.68 - 299.82",
+        "SL": 279.46,
+        "TP": 328.34
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "DELL",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 440.3,
+        "entry_zone": "424.25 - 456.35",
+        "SL": 376.11,
+        "TP": 568.68
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "INGM",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 29.53,
+        "entry_zone": "29.00 - 30.06",
+        "SL": 27.42,
+        "TP": 33.75
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "EQT",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 53.58,
+        "entry_zone": "52.88 - 54.27",
+        "SL": 50.78,
+        "TP": 59.16
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "AYA",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 20.03,
+        "entry_zone": "19.38 - 20.68",
+        "SL": 17.42,
+        "TP": 25.24
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "SKM",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 35.12,
+        "entry_zone": "34.34 - 35.89",
+        "SL": 32.0,
+        "TP": 41.35
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "SMCI",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 31.4,
+        "entry_zone": "30.44 - 32.35",
+        "SL": 27.57,
+        "TP": 39.05
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "IP",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 37.53,
+        "entry_zone": "36.86 - 38.20",
+        "SL": 34.86,
+        "TP": 42.88
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "WAL",
+        "sector": "Financial Services",
+        "action": "WATCH",
+        "price": 81.84,
+        "entry_zone": "80.64 - 83.04",
+        "SL": 77.06,
+        "TP": 91.4
+    },
+    {
+        "date": "2026-07-23 14:01",
+        "symbol": "CIFR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 26.05,
+        "entry_zone": "24.84 - 27.26",
+        "SL": 21.21,
+        "TP": 35.73
+    }
+]
