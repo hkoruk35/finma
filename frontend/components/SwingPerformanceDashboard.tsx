@@ -500,9 +500,9 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         `Total Signals:                   ${stats.totalSignals}`,
         `Completed Trades:                ${stats.completedCount}`,
         `Wins / Losses:                   ${stats.wins} / ${stats.losses}`,
-        `Trades Reaching +5%:             ${stats.above5Rate}%`,
-        `Trades Reaching +10%:            ${stats.above10Rate}%`,
-        `Trades Reaching +15%:            ${stats.above15Rate}%`,
+        `Trades Reaching +5%:             ${profitTargets.find(p => p.pct === 5)?.rate ?? 0}%`,
+        `Trades Reaching +10%:            ${profitTargets.find(p => p.pct === 10)?.rate ?? 0}%`,
+        `Trades Reaching +15%:            ${profitTargets.find(p => p.pct === 15)?.rate ?? 0}%`,
       ];
 
       summaryLines.forEach(line => {
@@ -724,15 +724,15 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+5% Ulaştı" : locale === "pt" ? "Atingiu +5%" : "Reached +5%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#22c55e]">{stats.above5Rate === "—" ? "—" : `${stats.above5Rate}%`}</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#22c55e]">{profitTargets.find(p => p.pct === 5)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+10% Ulaştı" : locale === "pt" ? "Atingiu +10%" : "Reached +10%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#3b82f6]">{stats.above10Rate === "—" ? "—" : `${stats.above10Rate}%`}</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#3b82f6]">{profitTargets.find(p => p.pct === 10)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-bold">{locale === "tr" ? "+15% Ulaştı" : locale === "pt" ? "Atingiu +15%" : "Reached +15%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{stats.above15Rate === "—" ? "—" : `${stats.above15Rate}%`}</p>
+            <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{profitTargets.find(p => p.pct === 15)?.rate ?? 0}%</p>
           </div>
         </div>
         {/* Gizle butonu */}
