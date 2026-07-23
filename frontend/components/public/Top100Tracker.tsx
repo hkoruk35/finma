@@ -407,7 +407,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
                 // Non-premium: only the first 20 rows are unlocked
-                const rowLocked = !isPremium && idx >= 20;
+                const rowLocked = !isPremium && idx > 0;
 
                 if (rowLocked) {
                   return (
