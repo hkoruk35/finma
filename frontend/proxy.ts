@@ -66,6 +66,15 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/sss`) &&
         !pathname.startsWith(`${base}/faq`) &&
         !pathname.startsWith(`${base}/Perguntas_Frequentes`) &&
+        !pathname.startsWith(`${base}/swing`) &&
+        !pathname.startsWith(`${base}/top7`) &&
+        !pathname.startsWith(`${base}/top100`) &&
+        !pathname.startsWith(`${base}/my-watchlist`) &&
+        !pathname.startsWith(`${base}/watchlist`) &&
+        !pathname.startsWith(`${base}/performance`) &&
+        !pathname.startsWith(`${base}/swingperformance`) &&
+        !pathname.startsWith(`${base}/hisse`) &&
+        !pathname.startsWith(`${base}/contact`) &&
         pathname !== base
       break
     }
