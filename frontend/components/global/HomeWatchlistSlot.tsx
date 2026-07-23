@@ -24,6 +24,7 @@ interface LiveWatchData {
   sector?: string;
   price?: { current: number; prev_close: number; change_pct: number; volume?: number };
   tracker_1h?: { ema_status: string; rsi: number; signal: string; change_pct_1d: number; };
+  recent_closes?: number[];
 }
 
 export const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string; pt: string; es: string; fr: string }> = {
@@ -147,13 +148,18 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const top5Personal = personalTickers.slice(0, 5).map(ticker => {
     const d = liveData[ticker];
     const changePct = d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0;
+    const signal = d?.tracker_1h?.signal;
+    const emaStatus = d?.tracker_1h?.ema_status;
+    let status: TrendStatus = 'NEUTRAL';
+    if (signal === 'BUY' || emaStatus === 'Bullish' || emaStatus === 'Yükseliş') status = 'BULLISH';
+    else if (signal === 'SELL' || emaStatus === 'Bearish' || emaStatus === 'Düşüş') status = 'BEARISH';
     return {
       ticker,
       sector: d?.sector && d.sector !== 'Unknown' ? d.sector : 'Technology',
-      status: 'NEUTRAL' as TrendStatus,
+      status,
       price: d?.price?.current ?? 0,
       change_pct: changePct,
-      sparkline: [],
+      sparkline: d?.recent_closes ?? [],
     } as Stock;
   });
 

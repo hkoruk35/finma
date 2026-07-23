@@ -410,29 +410,56 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </div>
           )}
 
-          <div className="flex-1 min-h-0">
+          <div className="flex-1 min-h-0 overflow-y-auto">
             {rightTab === "watchlist" ? (
-              <HomeWatchlistSlot
-                locale={locale}
-                defaultStocks={defaultWatchlist}
-                defaultViewAllHref={`/global/${locale}/watchlist`}
-                compactMode={true}
-                disableHoverChart={true}
-                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
-                selectable
-                selectedTickers={compareSelection}
-                onToggleSelect={toggleCompare}
-              />
+              <div className="flex flex-col">
+                {defaultWatchlist.map(stock => {
+                  const selected = selectedTicker === stock.ticker;
+                  return (
+                    <div 
+                      key={stock.ticker}
+                      onClick={() => {
+                        setSelectedTicker(stock.ticker);
+                        setSelectedYSymbol(stock.ticker);
+                        setShowMobileSidebar(false);
+                      }}
+                      className={`flex items-center gap-2 justify-between px-3 py-2 cursor-pointer border-r-2 transition-colors ${
+                        selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
+                      }`}
+                    >
+                      <div className="min-w-0 pr-2 flex-1">
+                        <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                        <div className="text-[10px] text-slate-500 truncate">{stock.sector}</div>
+                      </div>
+                      <CompareCheckbox
+                        checked={compareSelection.includes(stock.ticker)}
+                        onToggle={() => toggleCompare(stock.ticker)}
+                        title={compareCheckboxTitle}
+                      />
+                      <div className="text-right shrink-0">
+                        <div className="text-[11px] font-mono text-white">
+                          {stock.price > 0 ? fmt(stock.price) : "..."}
+                        </div>
+                        <div className={`text-[10px] font-mono ${pColor(stock.change_pct)}`}>
+                          {sgn(stock.change_pct)}{fmt(stock.change_pct)}%
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             ) : (
-              <TrendPicksSlot
-                locale={locale}
-                compactMode={true}
-                disableHoverChart={true}
-                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
-                selectable
-                selectedTickers={compareSelection}
-                onToggleSelect={toggleCompare}
-              />
+              <div className="flex-1 flex flex-col items-center justify-center py-12 text-center px-4">
+                <svg className="w-8 h-8 text-slate-600 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                <p className="text-[11px] text-slate-500 uppercase tracking-widest font-bold">
+                  {locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks'}
+                </p>
+                <p className="text-[10px] text-slate-600 mt-2 max-w-[160px]">
+                  {locale === 'tr' ? 'Listeye erişmek için sol menüden Trend sayfasına gidin.' : 'Navigate to Trend page from menu to view the list.'}
+                </p>
+              </div>
             )}
           </div>
         </div>

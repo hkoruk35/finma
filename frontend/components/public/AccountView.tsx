@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { copy, type Locale } from "@/lib/i18n/copy";
@@ -22,7 +22,7 @@ type Member = {
 
 type Tab = "profile" | "password" | "subscription" | "language";
 
-export default function AccountView({ locale, isGlobal = false }: { locale: Locale; isGlobal?: boolean }) {
+function AccountViewInner({ locale, isGlobal = false }: { locale: Locale; isGlobal?: boolean }) {
   const t = copy[locale].account;
   const [member, setMember] = useState<Member | null>(null);
   const [loading, setLoading] = useState(true);
@@ -796,5 +796,13 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
         })}
       </div>
     </div>
+  );
+}
+
+export default function AccountView(props: { locale: Locale; isGlobal?: boolean }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#010409] text-white/50 text-sm">Loading...</div>}>
+      <AccountViewInner {...props} />
+    </Suspense>
   );
 }
