@@ -234,6 +234,13 @@ export default async function PtHomePage() {
 
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
+          <HomeWatchlistSlot
+            locale="pt"
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/pt/watchlist"
+            defaultSortLabel="Ordenado por volume"
+          />
+
           <HomeSimpleCard
             title="Ações em Tendência"
             accent="#3b82f6"
@@ -242,13 +249,6 @@ export default async function PtHomePage() {
             locale="pt"
             sortLabel="Ordenado por pontuação de tendência"
             requirePremium
-          />
-
-          <HomeWatchlistSlot
-            locale="pt"
-            defaultStocks={watchlistByVolume}
-            defaultViewAllHref="/global/pt/watchlist"
-            defaultSortLabel="Ordenado por volume"
           />
 
           <HomeSimpleCard

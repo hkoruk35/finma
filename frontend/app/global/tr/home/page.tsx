@@ -238,6 +238,13 @@ export default async function TrHomePage() {
 
         {/* Üç sütun grid - Swing omurga (2 kolon) + Trend/Top100 destekleyici (1 kolon) */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
+          <HomeWatchlistSlot
+            locale="tr"
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/tr/watchlist"
+            defaultSortLabel="Hacim sırasına göre"
+          />
+
           <HomeSimpleCard
             title="Trend Hisseleri"
             accent="#3b82f6"
@@ -246,13 +253,6 @@ export default async function TrHomePage() {
             locale="tr"
             sortLabel="Trend skoruna göre sıralandı"
             requirePremium
-          />
-
-          <HomeWatchlistSlot
-            locale="tr"
-            defaultStocks={watchlistByVolume}
-            defaultViewAllHref="/global/tr/watchlist"
-            defaultSortLabel="Hacim sırasına göre"
           />
 
           <HomeSimpleCard

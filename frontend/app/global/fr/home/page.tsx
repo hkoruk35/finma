@@ -235,6 +235,13 @@ export default async function FrHomePage() {
 
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
+          <HomeWatchlistSlot
+            locale="fr"
+            defaultStocks={watchlistByVolume}
+            defaultViewAllHref="/global/fr/watchlist"
+            defaultSortLabel="Trié par volume"
+          />
+
           <HomeSimpleCard
             title="Actions Tendance"
             accent="#3b82f6"
@@ -243,13 +250,6 @@ export default async function FrHomePage() {
             locale="fr"
             sortLabel="Trié par score de tendance"
             requirePremium
-          />
-
-          <HomeWatchlistSlot
-            locale="fr"
-            defaultStocks={watchlistByVolume}
-            defaultViewAllHref="/global/fr/watchlist"
-            defaultSortLabel="Trié par volume"
           />
 
           <HomeSimpleCard

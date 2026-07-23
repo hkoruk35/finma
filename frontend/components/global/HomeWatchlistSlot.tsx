@@ -9,6 +9,7 @@ import TickerHoverChart from '../TickerHoverChart';
 import { useMemberPlan } from '@/hooks/useMemberPlan';
 import PremiumModal from './PremiumModal';
 import CompareCheckbox from './CompareCheckbox';
+import Sparkline from './Sparkline';
 
 interface Stock {
   ticker: string;
@@ -209,12 +210,14 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
               <div className="flex items-center gap-2">
                 {selectable && <span className="w-3.5 shrink-0" />}
                 <span>{labels.stock}</span>
               </div>
-              <span>{labels.price}</span>
+              <span />
+              <span className="text-center">{labels.status}</span>
+              <span className="text-right">{labels.price}</span>
             </div>
 
             {/* Rows */}
@@ -233,10 +236,10 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
+                    className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 items-center ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
-                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <div className="flex items-center gap-2 min-w-0">
                       {selectable && (
                         <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
                           <CompareCheckbox
@@ -271,17 +274,30 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                       </div>
                     </div>
 
+                    <div className="justify-self-center">
+                      <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
+                    </div>
+
+                    <span
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                      style={{ background: `${STATUS_STYLE[stock.status].color}26`, color: STATUS_STYLE[stock.status].color }}
+                    >
+                      {statusLabel(stock.status, locale)}
+                    </span>
+
                     <div className="text-right shrink-0">
-                      <div className="text-[11px] font-mono text-white">
+                      <div className="font-mono text-sm font-semibold text-white/90">
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
-                      <div
-                        className={`text-[10px] font-mono ${
-                          stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
+                      <span
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
+                          stock.change_pct >= 0
+                            ? 'bg-[#22c55e]/15 text-[#22c55e]'
+                            : 'bg-[#ef4444]/15 text-[#ef4444]'
                         }`}
                       >
                         {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%
-                      </div>
+                      </span>
                     </div>
                   </div>
                 );
