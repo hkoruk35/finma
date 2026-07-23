@@ -42,6 +42,30 @@ interface Trade {
   active_sl_level?: number;
   peak_gain_pct?: number | null;
   is_duplicate?: boolean;
+  entry_date?: string;
+  entry_price?: number;
+  atr_14?: number;
+  stop_price?: number;
+  stop_pct?: number;
+  exit_date?: string;
+  exit_price?: number;
+  exit_reason?: string;
+  realized_return_pct?: number;
+  mfe_pct?: number;
+  mae_pct?: number;
+  holding_days?: number;
+  hit_3?: boolean;
+  hit_5?: boolean;
+  hit_7?: boolean;
+  hit_10?: boolean;
+  hit_15?: boolean;
+  hit_20?: boolean;
+  days_to_3?: number | null;
+  days_to_5?: number | null;
+  days_to_7?: number | null;
+  days_to_10?: number | null;
+  days_to_15?: number | null;
+  days_to_20?: number | null;
 }
 
 interface SwingPick {
@@ -77,11 +101,11 @@ interface Props {
 }
 
 const METHODOLOGY_NOTE: Record<"en" | "tr" | "es" | "fr" | "pt", string> = {
-  tr: "Metodoloji notu: Bu istatistikler 60-90 günlük bir simülasyon penceresine dayanır; sonuç dönem içindeki en yüksek fiyata (peak) göre hesaplanır ve işlem maliyeti/slipaj dahil edilmemiştir. Gerçek getiriler bu rakamlardan farklı olabilir.",
-  en: "Methodology note: These statistics are based on a 60–90 day simulation window; outcomes are calculated against the period's peak price and do not include trading costs or slippage. Actual returns may differ from these figures.",
-  es: "Nota metodológica: Estas estadísticas se basan en una ventana de simulación de 60 a 90 días; los resultados se calculan contra el precio máximo del período y no incluyen costos de transacción ni deslizamiento. Los retornos reales pueden diferir de estas cifras.",
-  fr: "Note méthodologique: Ces statistiques sont basées sur une fenêtre de simulation de 60 à 90 jours; les résultats sont calculés par rapport au prix maximal de la période et ne incluent pas les coûts de négociation ni les glissements de prix. Les rendements réels peuvent différer de ces chiffres.",
-  pt: "Nota metodológica: Essas estatísticas são baseadas em uma janela de simulação de 60 a 90 dias; os resultados são calculados em relação ao preço máximo do período e não incluem custos de negociação ou slippage. Os retornos reais podem diferir desses números.",
+  tr: "Metodoloji notu: Bu istatistikler 1 Ocak'tan itibaren üretilen tüm sinyalleri 20 işlem günü boyunca disiplinli olarak takip eden v2 modeline dayanır. Sinyalden sonraki gün açılışında gap %3'ten fazlaysa işlem pas geçilir. Stop seviyesi 1.8x ATR (min %4, maks %10) ile belirlenir ve işlem maliyeti %0.1 düşülür.",
+  en: "Methodology note: These statistics are based on the v2 model tracking all signals generated since Jan 1 over a disciplined 20 trading-day window. Signals with a T+1 open gap > +3% are skipped. Stop loss is set at 1.8x ATR (min 4%, max 10%) and 0.1% transaction cost is deducted.",
+  es: "Nota metodológica: Estas estadísticas se basan en el modelo v2 que realiza un seguimiento disciplinado de todas las señales desde el 1 de enero durante 20 días de negociación. Se omiten las señales con gap inicial > +3%. El stop loss es 1.8x ATR (mín 4%, máx 10%) y se descuenta un 0.1% de costo.",
+  fr: "Note méthodologique: Ces statistiques reposent sur le modèle v2 suivant toutes les lignes depuis le 1er janvier sur une fenêtre disciplinée de 20 jours de bourse. Les signaux avec un gap > +3% à l'ouverture sont ignorés. Le stop-loss est de 1.8x ATR (min 4%, max 10%) et un coût de 0,1% est déduit.",
+  pt: "Nota metodológica: Essas estatísticas utilizam o modelo v2 acompanhando todas as sinalizações desde 1º de janeiro em uma janela disciplinada de 20 dias úteis. Sinais com gap de abertura > +3% são desconsiderados. O stop loss é de 1.8x ATR (mín 4%, máx 10%) e é descontado 0,1% de custo.",
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -226,79 +250,62 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
   const visibleTrades = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   const stats = useMemo(() => {
-    const total    = filtered.length;
-    const pending  = filtered.filter(t => t.result === "PENDING" && !t.is_duplicate).length;
+    const total = filtered.length;
+    const expiredGap = filtered.filter(t => t.exit_reason === "EXPIRED_GAP" || t.result === "EXPIRED_GAP").length;
+    const pending = filtered.filter(t => t.result === "PENDING" && !t.is_duplicate).length;
 
-    // 30-day duplicate rule: repeated tickers within 30 days are excluded from stats —
-    // only the first occurrence is counted. We include completed, non-duplicate trades
-    // only for calculating rates and averages.
-    const activeStatsTrades = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && effectiveReturn(t) != null);
+    // Active trades: non-duplicate, non-pending, non-expired-gap
+    const activeStatsTrades = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && t.result !== "EXPIRED_GAP" && t.exit_reason !== "EXPIRED_GAP" && effectiveReturn(t) != null);
     
-    const wins     = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
-    const losses   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
-    const slHits   = filtered.filter(t => !t.is_duplicate && slTriggered(t)).length;
-    const sumRet   = activeStatsTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
-    const above5   = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
-    const above10  = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
-    const above15  = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
+    const wins = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
+    const losses = activeStatsTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
+    const slHits = filtered.filter(t => !t.is_duplicate && (t.exit_reason === "STOP" || slTriggered(t))).length;
+    const sumRet = activeStatsTrades.reduce((s, t) => s + (t.realized_return_pct ?? effectiveReturn(t) ?? 0), 0);
+    const sumMfe = activeStatsTrades.reduce((s, t) => s + (t.mfe_pct ?? t.peak_gain_pct ?? 0), 0);
+    const sumMae = activeStatsTrades.reduce((s, t) => s + (t.mae_pct ?? 0), 0);
     const statsCount = activeStatsTrades.length;
 
-    // Tamamlanmış veya aktif karlı işlemlerin ortalama günü
-    const tradesWithDays = activeStatsTrades.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
+    const tradesWithDays = activeStatsTrades.filter(t => (t.holding_days ?? t.days) != null && (t.holding_days ?? t.days ?? 0) > 0);
     const avgDays = tradesWithDays.length > 0
-      ? tradesWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / tradesWithDays.length
+      ? tradesWithDays.reduce((s, t) => s + (t.holding_days ?? t.days ?? 0), 0) / tradesWithDays.length
       : null;
 
     if (statsCount === 0) {
-      // Calculate global stats as fallback if there are absolutely no trades with returns in the filter
-      const gActiveTrades = initialHistory.filter(t => !t.is_duplicate && t.result !== "PENDING" && effectiveReturn(t) != null);
-      const gWins      = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) > 0).length;
-      const gLosses    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) <= 0).length;
-      const gSumRet    = gActiveTrades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
-      const gAbove5    = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 5).length;
-      const gAbove10   = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 10).length;
-      const gAbove15   = gActiveTrades.filter(t => (effectiveReturn(t) ?? 0) >= 15).length;
-      const gStatsCount = gActiveTrades.length;
-      const gTradesWithDays = gActiveTrades.filter(t => t.days != null && t.days > 0 && (effectiveReturn(t) ?? 0) > 0);
-      const gAvgDays = gTradesWithDays.length > 0
-        ? gTradesWithDays.reduce((s, t) => s + (t.days ?? 0), 0) / gTradesWithDays.length
-        : null;
-
       return {
         totalSignals: total,
+        expiredGapCount: expiredGap,
         pending: pending,
         completedCount: 0,
-        wins: gWins,
-        losses: gLosses,
-        slHits: initialHistory.filter(t => !t.is_duplicate && slTriggered(t)).length,
-        winRate:     gStatsCount > 0 ? (gWins / gStatsCount * 100).toFixed(1) : "—",
-        avgReturn:   gStatsCount > 0 ? (gSumRet / gStatsCount).toFixed(1)     : "—",
-        above5Rate:  gStatsCount > 0 ? (gAbove5  / gStatsCount * 100).toFixed(1) : "—",
-        above10Rate: gStatsCount > 0 ? (gAbove10 / gStatsCount * 100).toFixed(1) : "—",
-        above15Rate: gStatsCount > 0 ? (gAbove15 / gStatsCount * 100).toFixed(1) : "—",
-        avgDays:     gAvgDays != null ? gAvgDays.toFixed(1) : "—",
-        avgPnl:      gStatsCount > 0 ? (gSumRet / gStatsCount * 10).toFixed(0) : "—",
-        isFallback:  true
+        wins: 0,
+        losses: 0,
+        slHits: 0,
+        winRate: "—",
+        avgReturn: "—",
+        avgMfe: "—",
+        avgMae: "—",
+        avgDays: "—",
+        avgPnl: "—",
+        isFallback: true
       };
     }
 
     return {
       totalSignals: total,
+      expiredGapCount: expiredGap,
       pending,
       completedCount: statsCount,
       wins,
       losses,
       slHits,
-      winRate:     statsCount > 0 ? (wins / statsCount * 100).toFixed(1) : "—",
-      avgReturn:   statsCount > 0 ? (sumRet / statsCount).toFixed(1)     : "—",
-      above5Rate:  statsCount > 0 ? (above5  / statsCount * 100).toFixed(1) : "—",
-      above10Rate: statsCount > 0 ? (above10 / statsCount * 100).toFixed(1) : "—",
-      above15Rate: statsCount > 0 ? (above15 / statsCount * 100).toFixed(1) : "—",
-      avgDays:     avgDays != null ? avgDays.toFixed(1) : "—",
-      avgPnl:      statsCount > 0 ? (sumRet / statsCount * 10).toFixed(0) : "—",
-      isFallback:  false
+      winRate: (wins / statsCount * 100).toFixed(1),
+      avgReturn: (sumRet / statsCount).toFixed(1),
+      avgMfe: (sumMfe / statsCount).toFixed(1),
+      avgMae: (sumMae / statsCount).toFixed(1),
+      avgDays: avgDays != null ? avgDays.toFixed(1) : "—",
+      avgPnl: (sumRet / statsCount * 10).toFixed(0),
+      isFallback: false
     };
-  }, [filtered, initialHistory]);
+  }, [filtered]);
 
   // ── Days-to-Profit Distribution (Updated Live) ─────────────────────────────
   const daysDistribution = useMemo(() => {
@@ -313,10 +320,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
       const trades = filtered.filter(t =>
         !t.is_duplicate &&
         t.result !== "PENDING" &&
-        t.days != null && t.days >= b.min && t.days <= b.max &&
-        (effectiveReturn(t) ?? 0) > 0
+        t.result !== "EXPIRED_GAP" &&
+        (t.holding_days ?? t.days) != null &&
+        (t.holding_days ?? t.days ?? 0) >= b.min && (t.holding_days ?? t.days ?? 0) <= b.max &&
+        (t.realized_return_pct ?? effectiveReturn(t) ?? 0) > 0
       );
-      const sumRet = trades.reduce((s, t) => s + (effectiveReturn(t) ?? 0), 0);
+      const sumRet = trades.reduce((s, t) => s + (t.realized_return_pct ?? effectiveReturn(t) ?? 0), 0);
       const avgRet = trades.length > 0 ? sumRet / trades.length : 0;
       return { ...b, count: trades.length, avgRet: parseFloat(avgRet.toFixed(1)) };
     });
@@ -324,17 +333,27 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
   // ── Profit Target Breakdown ───────────────────────────────────────────────
   const profitTargets = useMemo(() => {
-    const completed = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && t.days != null);
+    const active = filtered.filter(t => !t.is_duplicate && t.result !== "PENDING" && t.result !== "EXPIRED_GAP" && t.exit_reason !== "EXPIRED_GAP");
     const targets = [3, 5, 7, 10, 15, 20];
     return targets.map(pct => {
-      const reached = completed.filter(t => (effectiveReturn(t) ?? 0) >= pct);
-      const avgD = reached.length > 0
-        ? reached.reduce((s, t) => s + (t.days ?? 0), 0) / reached.length
-        : null;
+      const reached = active.filter(t => {
+        if (pct === 3) return t.hit_3 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 3);
+        if (pct === 5) return t.hit_5 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 5);
+        if (pct === 7) return t.hit_7 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 7);
+        if (pct === 10) return t.hit_10 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 10);
+        if (pct === 15) return t.hit_15 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 15);
+        if (pct === 20) return t.hit_20 ?? ((t.mfe_pct ?? t.return_pct ?? 0) >= 20);
+        return false;
+      });
+
+      const dayProp = pct === 3 ? "days_to_3" : pct === 5 ? "days_to_5" : pct === 7 ? "days_to_7" : pct === 10 ? "days_to_10" : pct === 15 ? "days_to_15" : "days_to_20";
+      const validDays = reached.map(t => (t as any)[dayProp] ?? t.holding_days ?? t.days).filter((d): d is number => d != null && d > 0);
+      const avgD = validDays.length > 0 ? validDays.reduce((a, b) => a + b, 0) / validDays.length : null;
+
       return {
         pct,
         count: reached.length,
-        rate: completed.length > 0 ? (reached.length / completed.length * 100).toFixed(1) : "0",
+        rate: active.length > 0 ? (reached.length / active.length * 100).toFixed(1) : "0",
         avgDays: avgD != null ? avgD.toFixed(1) : "—",
       };
     });
@@ -628,32 +647,32 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         {/* Big Numbers Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "BAŞARI ORANI" : locale === "pt" ? "TAXA DE ACERTO" : "WIN RATE"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "KÂRLI İŞLEM ORANI" : locale === "pt" ? "TAXA DE ACERTO" : "WIN RATE"}</p>
             <p className="text-3xl font-mono font-black text-[#22c55e] tracking-tighter">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{stats.wins} {locale === "tr" ? "G" : locale === "pt" ? "V" : "W"} / {stats.losses} {locale === "tr" ? "K" : locale === "pt" ? "D" : "L"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{stats.wins} {locale === "tr" ? "KÂR" : "WIN"} / {stats.losses} {locale === "tr" ? "ZARAR" : "LOSS"}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "ORTALAMA GETİRİ" : locale === "pt" ? "RETORNO MÉDIO" : "AVG RETURN"}</p>
-            <p className={`text-3xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-white" : "text-[#ef4444]"}`}>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "ORT. GERÇEKLEŞEN GETİRİ" : locale === "pt" ? "RETORNO MÉDIO REALIZADO" : "AVG REALIZED RETURN"}</p>
+            <p className={`text-3xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{locale === "tr" ? `$1.000 / $${stats.avgPnl} KAR` : `$1,000 / $${stats.avgPnl} PNL`}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{locale === "tr" ? "%0.1 İşlem Maliyeti Düşülmüş" : "Net of 0.1% Cost"}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "HEDEF GÜN" : locale === "pt" ? "MÉDIA DE DIAS" : "AVG DAYS"}</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "ORTALAMA MAKS. GETİRİ (MFE)" : locale === "pt" ? "RETORNO MÁXIMO MÉDIO (MFE)" : "AVG MAX RETURN (MFE)"}</p>
             <p className="text-3xl font-mono font-black text-[#3b82f6] tracking-tighter">
-              {stats.avgDays === "—" ? "—" : `${stats.avgDays} ${locale === "tr" ? "G" : "D"}`}
+              {stats.avgMfe === "—" ? "—" : `+${stats.avgMfe}%`}
             </p>
-            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase italic">{locale === "tr" ? "SADECE KARLI İŞLEMLER" : locale === "pt" ? "APENAS OPERAÇÕES VENCEDORAS" : "WINNING TRADES ONLY"}</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase italic">{locale === "tr" ? "Potansiyel Tepe Fiyatı" : "Peak Opportunity"}</p>
           </div>
           <div className="p-5 text-center">
-            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "TOPLAM SİNYAL" : locale === "pt" ? "TOTAL DE SINAIS" : "TOTAL SIGNALS"}</p>
-            <p className="text-3xl font-mono font-black text-white tracking-tighter">{stats.totalSignals}</p>
-            {stats.pending > 0 && (
-              <p className="text-[10px] text-[#3b82f6] mt-1.5 font-bold uppercase">{stats.pending} {locale === "tr" ? "BEKLEYEN" : locale === "pt" ? "PENDENTE" : "PENDING"}</p>
-            )}
+            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-bold">{locale === "tr" ? "ORT. RİSK & SÜRE" : locale === "pt" ? "RISCO & DURAÇÃO MÉDIA" : "AVG RISK & DURATION"}</p>
+            <p className="text-3xl font-mono font-black text-white tracking-tighter">
+              {stats.avgMae}% <span className="text-sm font-normal text-slate-400">/ {stats.avgDays}g</span>
+            </p>
+            <p className="text-[10px] text-slate-400 mt-1 font-bold uppercase">{locale === "tr" ? "Ort. Çekilme (MAE) / Ort. Takip" : "Avg MAE / Avg Holding"}</p>
           </div>
         </div>
 
