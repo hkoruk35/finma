@@ -46,9 +46,8 @@ export async function GET(req: NextRequest) {
   const supabase = await createSupabaseServerClient();
 
   const { data: userData, error: userError } = await supabase.auth.getUser();
-  if (userError || !userData.user) {
-    return NextResponse.json({ error: "Not authenticated." }, { status: 401 });
-  }
+  // We remove the hard error block here so that non-members can also load the Top 100 structure.
+  // The UI handles locking row ticker names if the user is not a premium member.
 
   const { data: tickers, error: tickersError } = await supabase
     .from("top100_tickers")

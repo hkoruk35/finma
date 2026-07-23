@@ -129,7 +129,7 @@ const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1
 const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İzle", HOLD: "Bekle", SELL: "SAT" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
-export default function WatchlistTracker({ locale }: { locale: Locale }) {
+export default function Top7Tracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist;
   const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
@@ -154,21 +154,18 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      const picksRes = await fetch("/api/watchlist-picks", { cache: "no-store" });
-      const picksData = picksRes.ok ? await picksRes.json() : null;
-      const picks: WatchlistPick[] = picksData?.picks ?? [];
-
-      const rows: WatchlistRow[] = picks.map((p) => ({
-        ticker: p.ticker,
-        company: p.ticker,
+      const TOP7_TICKERS = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
+      const rows: WatchlistRow[] = TOP7_TICKERS.map((ticker) => ({
+        ticker,
+        company: ticker,
         price: 0,
         change_pct: 0,
         rsi: 0,
         signal: "WATCH",
         volume: 0,
-        sector: p.sector || "Unknown",
-        dateAdded: p.date_added,
-        score: p.score,
+        sector: "Unknown",
+        dateAdded: new Date().toISOString(),
+        score: 0,
       }));
 
       setComposition(rows);
@@ -549,20 +546,12 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
-                  const hmLocked = !isPremium && idx > 0;
                   return (
-                    <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
+                    <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
                       <td style={{ padding: "6px 10px" }}>
-                        {hmLocked ? (
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
-                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                            Premium
-                          </span>
-                        ) : (
                         <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
                           <button onClick={() => setAnalyzeTicker(r.ticker)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{r.ticker}</button>
                         </TickerHoverChart>
-                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import WatchlistTracker from "@/components/public/WatchlistTracker";
+import Top7Tracker from "@/components/public/Top7Tracker";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
@@ -24,15 +24,16 @@ export default function EnTop7Page() {
           <span className="text-white italic">TOP 7</span>
         </nav>
 
-        <div className="flex gap-2 mb-4">
-          <Link href="/global/en/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">TREND</Link>
-          <Link href="/global/en/top7" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">TOP 7</Link>
-          <Link href="/global/en/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">TOP 100</Link>
-          <Link href="/global/en/my-watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6] transition-colors">MY WATCHLIST</Link>
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
+          <Link href="/global/en/swing" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top7' === 'swing' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TREND</Link>
+          <Link href="/global/en/watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top7' === 'watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>WATCHLIST</Link>
+          <Link href="/global/en/top7" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top7' === 'top7' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 7</Link>
+          <Link href="/global/en/top100" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top7' === 'top100' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>TOP 100</Link>
+          <Link href="/global/en/my-watchlist" className={`text-[10px] font-bold px-3 py-1.5 rounded border transition-colors ${'top7' === 'my-watchlist' ? 'border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]' : 'border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]'}`}>MY WATCHLIST</Link>
         </div>
 
         <div className="relative z-10">
-          <WatchlistTracker locale="en" />
+          <Top7Tracker locale="en" />
         </div>
       </main>
 
