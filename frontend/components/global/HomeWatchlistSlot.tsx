@@ -55,7 +55,7 @@ function getLabels(locale: Locale) {
     status: 'DURUM',
     price: 'FİYAT',
     sortLabel: 'Kişisel takip listeniz',
-    href: '/global/tr/home',
+    href: '/global/tr/my-watchlist',
     customizeTooltip: "Premium'da Özelleştir",
   };
   if (locale === 'pt') return {
@@ -65,7 +65,7 @@ function getLabels(locale: Locale) {
     status: 'STATUS',
     price: 'PREÇO',
     sortLabel: 'Sua lista pessoal',
-    href: '/global/pt/home',
+    href: '/global/pt/my-watchlist',
     customizeTooltip: 'Personalize com Premium',
   };
   if (locale === 'es') return {
@@ -75,7 +75,7 @@ function getLabels(locale: Locale) {
     status: 'ESTADO',
     price: 'PRECIO',
     sortLabel: 'Tu lista de seguimiento personal',
-    href: '/global/es/home',
+    href: '/global/es/my-watchlist',
     customizeTooltip: 'Personaliza con Premium',
   };
   if (locale === 'fr') return {
@@ -85,7 +85,7 @@ function getLabels(locale: Locale) {
     status: 'STATUT',
     price: 'PRIX',
     sortLabel: 'Votre liste de surveillance personnelle',
-    href: '/global/fr/home',
+    href: '/global/fr/my-watchlist',
     customizeTooltip: 'Personnalisez avec Premium',
   };
   return {
@@ -95,7 +95,7 @@ function getLabels(locale: Locale) {
     status: 'STATUS',
     price: 'PRICE',
     sortLabel: 'Your personal watchlist',
-    href: '/global/en/home',
+    href: '/global/en/my-watchlist',
     customizeTooltip: 'Customize with Premium',
   };
 }

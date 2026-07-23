@@ -119,7 +119,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       .then(data => {
         const tickers: string[] = data.tickers || [];
         if (tickers.length >= 5) {
-          const top = tickers.slice(0, 10);
+          const top = tickers.slice(0, 50);
           return fetch(`/api/watchlist-data?tickers=${top.join(',')}`)
             .then(r => r.ok ? r.json() : [])
             .then((rows: any[]) => {
