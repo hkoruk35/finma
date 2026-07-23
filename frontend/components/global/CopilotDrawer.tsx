@@ -309,8 +309,8 @@ export default function CopilotDrawer() {
               <p className="text-[10px] text-blue-400 font-mono flex items-center gap-1.5">
                 BOGA COPILOT
                 {!isAuthenticated && (
-                  <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] px-1.5 py-0.2 rounded font-sans font-bold">
-                    {VISITOR_TEXTS[demoLocale]?.headerBadge || "ZİYARETÇİ DEMO"}
+                  <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full font-sans font-bold shadow-sm">
+                    {VISITOR_TEXTS[demoLocale]?.headerBadge || "Hoş Geldiniz ✨"}
                   </span>
                 )}
               </p>
@@ -323,7 +323,7 @@ export default function CopilotDrawer() {
               <select
                 value={demoLocale}
                 onChange={(e) => handleVisitorLangChange(e.target.value as SupportedLocale)}
-                className="bg-[#0d1117] border border-blue-500/40 text-blue-300 text-xs font-mono font-bold rounded px-1.5 py-1 focus:outline-none"
+                className="bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-bold rounded-lg px-2 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-colors"
               >
                 <option value="tr">TR 🇹🇷</option>
                 <option value="en">EN 🇺🇸</option>

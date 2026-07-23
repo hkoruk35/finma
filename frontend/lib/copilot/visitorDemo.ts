@@ -42,15 +42,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   featureMatches: Record<string, string>;
 }> = {
   tr: {
-    headerBadge: "ZİYARETÇİ DEMO",
-    stage1Message: "Merhaba. Ben BOGA Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, seçtiğiniz zaman aralığına ve amacınıza göre hisse analizi yapabilirim.\n\nÜcretsiz ziyaretçilere NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş bir analiz sunuyorum. Üç kısa adımda ilerleyeceğiz.\n\nNVIDIA hakkında en çok neyi öğrenmek istiyorsunuz?",
+    headerBadge: "Hoş Geldiniz ✨",
+    stage1Message: "Merhaba! Ben BOGA Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, hedeflerinize ve zaman aralığınıza en uygun hisse analizlerini sunmak için buradayım.\n\nÜyeliğe geçmeden önce BOGA Copilot'ı yakından tanımanız için NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş özel bir tanıtım hazırladım. Üç tatlı adımda birlikte keşfedelim.\n\nNVIDIA hakkında ilk olarak neyi merak ediyorsunuz?",
     stage1Buttons: [
       { label: "Mevcut trend", id: "trend" },
       { label: "Olası giriş bölgesi", id: "potential_entry" },
       { label: "Temel riskler", id: "risk" },
       { label: "Kısa vadeli görünüm", id: "short_term_outlook" },
     ],
-    stage2Message: "Trend görünümünü size daha uygun yorumlayabilmem için bir şeyi daha bilmem gerekiyor.\n\nNVIDIA’yı hangi zaman aralığında değerlendiriyorsunuz?",
+    stage2Message: "Harika! Trend ve teknik görünümü size en uygun şekilde yorumlayabilmem için ufak bir soru daha sormak istiyorum.\n\nNVIDIA’yı hangi zaman aralığında değerlendirmeyi düşünüyorsunuz?",
     stage2Buttons: [
       { label: "Birkaç gün", id: "few_days" },
       { label: "Birkaç hafta", id: "few_weeks" },
@@ -68,15 +68,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     objections: {
       price9: {
         keywords: ["9", "usd", "her ay", "dolar"],
-        response: "9 USD, yaz kampanyası kapsamında ilk ay için geçerlidir. Sonraki aylarda standart ücret 39 USD/ay olur. Yenileme öncesinde veya daha sonra istediğiniz zaman iptal edebilirsiniz.",
+        response: "9 USD, özel yaz kampanyamız kapsamında ilk ayınız için geçerlidir. Sonraki aylarda standart ücret 39 USD/ay olur. Dilediğiniz an tek tıkla iptal edebilirsiniz.",
       },
       otherStocks: {
         keywords: ["başka", "hisse", "üye olmadan", "diğer"],
-        response: "Ücretsiz ziyaretçi deneyimi NVIDIA ($NVDA) ile sınırlıdır. Üyelik etkinleştirildiğinde desteklenen tüm hisselerin grafiklerini ve analizlerini inceleyebilirsiniz.",
+        response: "Ücretsiz misafir tanıtımımız NVIDIA ($NVDA) ile sınırlıdır. Üyeliğinizi başlattığınızda desteklenen tüm hisselerin detaylı grafiklerini ve analizlerini dilediğiniz gibi inceleyebilirsiniz.",
       },
       cancel: {
         keywords: ["iptal", "sonra", "edebilir miyim"],
-        response: "Evet. Üyeliğinizi istediğiniz zaman iptal edebilirsiniz. İptal sonrasında yeni dönem için ücretlendirme yapılmaz ve mevcut erişiminiz ödenmiş dönem sonuna kadar devam eder.",
+        response: "Tabii ki! Üyeliğinizi dilediğiniz an kolayca iptal edebilirsiniz. İptal sonrasında yeni bir dönem ücreti çekilmez ve mevcut erişiminiz ödenmiş süre sonuna kadar devam eder.",
       },
     },
     offerButtons: {
@@ -93,15 +93,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     },
   },
   en: {
-    headerBadge: "VISITOR DEMO",
-    stage1Message: "Hello. I’m BOGA Copilot.\n\nInstead of giving you a generic market summary, I can analyze a stock according to your objective and preferred time horizon.\n\nVisitors can try a short personalized analysis using NVIDIA ($NVDA). We will complete it in three simple steps.\n\nWhat would you most like to understand about NVIDIA?",
+    headerBadge: "Welcome ✨",
+    stage1Message: "Hello! I’m BOGA Copilot.\n\nInstead of giving you a generic market summary, I’m here to analyze stocks according to your specific goals and time horizon.\n\nTo help you explore BOGA Copilot before signing up, I’ve prepared a short, personalized preview using NVIDIA ($NVDA). Let’s discover it together in three simple steps.\n\nWhat would you most like to learn about NVIDIA first?",
     stage1Buttons: [
       { label: "Current trend", id: "trend" },
       { label: "Potential entry area", id: "potential_entry" },
       { label: "Main risks", id: "risk" },
       { label: "Short-term outlook", id: "short_term_outlook" },
     ],
-    stage2Message: "To interpret the trend in a way that is more relevant to you:\n\nWhat time horizon are you considering for NVIDIA?",
+    stage2Message: "Great! To interpret the technical outlook in the most relevant way for you:\n\nWhat time horizon are you considering for NVIDIA?",
     stage2Buttons: [
       { label: "A few days", id: "few_days" },
       { label: "A few weeks", id: "few_weeks" },
@@ -119,15 +119,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     objections: {
       price9: {
         keywords: ["9", "usd", "month", "every"],
-        response: "The USD 9 price applies to the first month under the summer campaign. The standard price of USD 39 per month applies afterward. You may cancel at any time.",
+        response: "The USD 9 price applies to your first month under our summer campaign. The standard price of USD 39 per month applies afterward. You may cancel anytime with one click.",
       },
       otherStocks: {
         keywords: ["other", "stock", "ask", "without"],
-        response: "The free visitor experience is limited to NVIDIA ($NVDA). Membership unlocks charts and analysis for all supported stocks.",
+        response: "Our free visitor preview is limited to NVIDIA ($NVDA). Membership unlocks full charts and deep analysis for all supported stocks.",
       },
       cancel: {
         keywords: ["cancel", "later", "anytime"],
-        response: "Yes. You may cancel at any time. You will not be charged for a new billing period after cancellation, and access continues until the end of the paid period.",
+        response: "Of course! You may cancel your membership at any time. You won't be charged after cancellation, and access continues until the end of the paid period.",
       },
     },
     offerButtons: {
@@ -144,15 +144,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     },
   },
   pt: {
-    headerBadge: "DEMO VISITANTE",
-    stage1Message: "Olá. Eu sou o BOGA Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, posso analisar uma ação de acordo com o seu objetivo e horizonte de tempo.\n\nVisitantes podem experimentar uma breve análise personalizada usando a NVIDIA ($NVDA). Vamos concluir em três etapas simples.\n\nO que você mais gostaria de entender sobre a NVIDIA?",
+    headerBadge: "Boas-vindas ✨",
+    stage1Message: "Olá! Eu sou o BOGA Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, estou aqui para analisar ações de acordo com o seu objetivo e horizonte de tempo.\n\nPara ajudar você a conhecer o BOGA Copilot antes de se cadastrar, preparei uma breve apresentação personalizada com a NVIDIA ($NVDA). Vamos descobrir juntos em três etapas simples.\n\nO que você gostaria de entender sobre a NVIDIA primeiro?",
     stage1Buttons: [
       { label: "Tendência atual", id: "trend" },
       { label: "Possível região de entrada", id: "potential_entry" },
       { label: "Principais riscos", id: "risk" },
       { label: "Perspectiva de curto prazo", id: "short_term_outlook" },
     ],
-    stage2Message: "Para interpretar a tendência de uma forma mais adequada ao seu objetivo:\n\nPor quanto tempo você pretende acompanhar ou manter a NVIDIA?",
+    stage2Message: "Ótimo! Para interpretar a perspectiva técnica da melhor forma para você:\n\nPor quanto tempo você pretende acompanhar a NVIDIA?",
     stage2Buttons: [
       { label: "Alguns dias", id: "few_days" },
       { label: "Algumas semanas", id: "few_weeks" },
@@ -170,15 +170,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     objections: {
       price9: {
         keywords: ["9", "us$", "mês", "todo"],
-        response: "O valor de US$ 9 é válido para o primeiro mês durante a campanha de verão. Depois, o valor passa a ser US$ 39 por mês. Você pode cancelar quando quiser.",
+        response: "O valor de US$ 9 é válido para o primeiro mês na nossa promoção de verão. Depois passa a US$ 39/mês. Você pode cancelar quando quiser.",
       },
       otherStocks: {
         keywords: ["outras", "ações", "perguntar", "sem"],
-        response: "A experiência gratuita para visitantes é limitada à NVIDIA ($NVDA). A assinatura libera gráficos e análises de todas as ações disponíveis.",
+        response: "Nossa demonstração gratuita para visitantes é limitada à NVIDIA ($NVDA). A assinatura libera análises de todas as ações.",
       },
       cancel: {
         keywords: ["cancelar", "depois", "quando"],
-        response: "Sim. Você pode cancelar quando quiser. Após o cancelamento, não haverá cobrança de um novo período, e o acesso continuará até o fim do período já pago.",
+        response: "Com certeza! Você pode cancelar sua assinatura a qualquer momento com apenas um clique.",
       },
     },
     offerButtons: {
@@ -195,15 +195,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     },
   },
   es: {
-    headerBadge: "DEMO VISITANTE",
-    stage1Message: "Hola. Soy BOGA Copilot.\n\nEn lugar de ofrecerte un resumen genérico del mercado, puedo analizar una acción según tu objetivo y horizonte de inversión.\n\nLos visitantes pueden probar un breve análisis personalizado utilizando NVIDIA ($NVDA). Lo completaremos en tres pasos sencillos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA?",
+    headerBadge: "¡Bienvenido! ✨",
+    stage1Message: "¡Hola! Soy BOGA Copilot.\n\nEn lugar de darte un resumen genérico del mercado, estoy aquí para analizar acciones según tus objetivos y horizonte de inversión.\n\nPara ayudarte a conocer BOGA Copilot antes de registrarte, he preparado una breve demostración personalizada con NVIDIA ($NVDA). Vamos a descubrirla juntos en tres sencillos pasos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA primero?",
     stage1Buttons: [
       { label: "Tendencia actual", id: "trend" },
       { label: "Posible zona de entrada", id: "potential_entry" },
       { label: "Riesgos principales", id: "risk" },
       { label: "Perspectiva a corto plazo", id: "short_term_outlook" },
     ],
-    stage2Message: "Para interpretar la tendencia de una forma más útil para ti:\n\n¿Durante cuánto tiempo estás considerando mantener o seguir NVIDIA?",
+    stage2Message: "¡Excelente! Para interpretar el panorama técnico de la forma más útil para ti:\n\n¿Durante cuánto tiempo estás considerando seguir a NVIDIA?",
     stage2Buttons: [
       { label: "Algunos días", id: "few_days" },
       { label: "Varias semanas", id: "few_weeks" },
@@ -221,15 +221,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     objections: {
       price9: {
         keywords: ["9", "usd", "mes", "cada"],
-        response: "El precio de 9 USD se aplica al primer mes durante la campaña de verano. Después, el precio será de 39 USD al mes. Puedes cancelar en cualquier momento.",
+        response: "El precio de 9 USD se aplica al primer mes en la oferta especial de verano. Después será de 39 USD al mes. Puedes cancelar cuando quieras.",
       },
       otherStocks: {
         keywords: ["otras", "acciones", "preguntar", "sin"],
-        response: "La experiencia gratuita para visitantes está limitada a NVIDIA ($NVDA). La membresía permite acceder a gráficos y análisis de todas las acciones disponibles.",
+        response: "Nuestra prueba gratuita para visitantes está limitada a NVIDIA ($NVDA). La membresía desbloquea análisis completos para todas las acciones.",
       },
       cancel: {
         keywords: ["cancelar", "después", "cualquier"],
-        response: "Sí. Puedes cancelar en cualquier momento. Después de cancelar, no se cobrará un nuevo período y el acceso continuará hasta el final del período ya pagado.",
+        response: "¡Por supuesto! Puedes cancelar tu suscripción en cualquier momento de forma sencilla.",
       },
     },
     offerButtons: {
@@ -246,15 +246,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     },
   },
   fr: {
-    headerBadge: "DÉMO VISITEUR",
-    stage1Message: "Bonjour. Je suis BOGA Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je peux analyser une action selon votre objectif et votre horizon d’investissement.\n\nLes visiteurs peuvent essayer une courte analyse personnalisée de NVIDIA ($NVDA). Nous la réaliserons en trois étapes simples.\n\nQue souhaitez-vous principalement comprendre concernant NVIDIA ?",
+    headerBadge: "Bienvenue ✨",
+    stage1Message: "Bonjour ! Je suis BOGA Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je suis là pour analyser les actions selon vos objectifs et votre horizon d’investissement.\n\nPour vous faire découvrir BOGA Copilot avant de vous inscrire, j'ai préparé un court aperçu personnalisé sur NVIDIA ($NVDA). Découvrons-le ensemble en trois étapes simples.\n\nQue souhaitez-vous comprendre en premier concernant NVIDIA ?",
     stage1Buttons: [
       { label: "Tendance actuelle", id: "trend" },
       { label: "Zone d’entrée potentielle", id: "potential_entry" },
       { label: "Principaux risques", id: "risk" },
       { label: "Perspectives à court terme", id: "short_term_outlook" },
     ],
-    stage2Message: "Pour interpréter la tendance de manière plus adaptée à votre situation :\n\nPendant combien de temps envisagez-vous de suivre ou de conserver NVIDIA ?",
+    stage2Message: "Parfait ! Pour interpréter les perspectives techniques de la manière la plus adaptée :\n\nPendant combien de temps envisagez-vous de suivre NVIDIA ?",
     stage2Buttons: [
       { label: "Quelques jours", id: "few_days" },
       { label: "Quelques semaines", id: "few_weeks" },
@@ -272,15 +272,15 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     objections: {
       price9: {
         keywords: ["9", "usd", "mois", "chaque"],
-        response: "Le tarif de 9 USD s’applique au premier mois dans le cadre de la campagne d’été. Ensuite, l’abonnement passe à 39 USD par mois. Vous pouvez annuler à tout moment.",
+        response: "Le tarif de 9 USD s’applique au premier mois avec notre offre d’été. Ensuite, il passe à 39 USD/mois. Vous pouvez annuler à tout moment.",
       },
       otherStocks: {
         keywords: ["autres", "actions", "demander", "sans"],
-        response: "L’expérience gratuite destinée aux visiteurs est limitée à NVIDIA ($NVDA). L’abonnement donne accès aux graphiques et aux analyses de toutes les actions disponibles.",
+        response: "Notre aperçu gratuit pour visiteurs est limité à NVIDIA ($NVDA). L’abonnement débloque les analyses complètes pour toutes les actions.",
       },
       cancel: {
         keywords: ["annuler", "plus tard", "moment"],
-        response: "Oui. Vous pouvez annuler à tout moment. Aucun nouveau cycle ne sera facturé après l’annulation, et l’accès restera actif jusqu’à la fin de la période déjà payée.",
+        response: "Absolument ! Vous pouvez annuler votre abonnement à tout moment en un seul clic.",
       },
     },
     offerButtons: {
