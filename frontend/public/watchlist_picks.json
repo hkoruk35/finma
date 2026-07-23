@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T14:05:35.902547-04:00",
+  "generated_at": "2026-07-23T17:04:22.509726-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -35,7 +35,7 @@
       "ticker": "WCC",
       "sector": "Industrials",
       "date_added": "2026-07-21",
-      "score": 40.5
+      "score": 42.5
     },
     {
       "ticker": "ZM",
@@ -116,16 +116,34 @@
       "score": 30.0
     },
     {
-      "ticker": "WAT",
-      "sector": "Healthcare",
-      "date_added": "2026-07-23",
-      "score": 43.0
-    },
-    {
       "ticker": "PHM",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-23",
       "score": 38.5
+    },
+    {
+      "ticker": "ODFL",
+      "sector": "Industrials",
+      "date_added": "2026-07-23",
+      "score": 44.0
+    },
+    {
+      "ticker": "JBL",
+      "sector": "Technology",
+      "date_added": "2026-07-23",
+      "score": 42.0
+    },
+    {
+      "ticker": "BBY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-23",
+      "score": 39.0
+    },
+    {
+      "ticker": "GEV",
+      "sector": "Industrials",
+      "date_added": "2026-07-23",
+      "score": 39.0
     }
   ]
 }
