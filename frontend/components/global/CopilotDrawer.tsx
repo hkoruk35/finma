@@ -225,9 +225,17 @@ export default function CopilotDrawer() {
   };
 
   const handleCancelTask = async (taskId: string) => {
+    setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));
     try {
       await fetch(`/api/copilot/tasks?id=${taskId}`, { method: "DELETE" });
-      setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));
+    } catch {}
+  };
+
+  const handleClearAllTasks = async () => {
+    const taskIds = activeTasks.map((t) => t.id);
+    setActiveTasks([]);
+    try {
+      await Promise.all(taskIds.map((id) => fetch(`/api/copilot/tasks?id=${id}`, { method: "DELETE" })));
     } catch {}
   };
 
@@ -626,7 +634,18 @@ export default function CopilotDrawer() {
             {isTasksOpen && (
               <div className="space-y-3">
                 <div className="flex justify-between items-center flex-wrap gap-2">
-                  <span className="text-[11px] text-gray-400 font-mono">Aktif Görevler ({activeTasks.length})</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-gray-400 font-mono">Aktif Görevler ({activeTasks.length})</span>
+                    {activeTasks.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={handleClearAllTasks}
+                        className="text-[9px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 px-1.5 py-0.5 rounded cursor-pointer"
+                      >
+                        🗑️ Tümünü Temizle
+                      </button>
+                    )}
+                  </div>
                   <div className="flex items-center gap-1.5">
                     <button
                       type="button"
@@ -694,9 +713,9 @@ export default function CopilotDrawer() {
                           <button
                             type="button"
                             onClick={() => handleCancelTask(t.id)}
-                            className="text-[10px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20"
+                            className="text-[10px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded border border-red-500/30"
                           >
-                            Görevi Bitir
+                            🗑️ Görevi Sil
                           </button>
                         </div>
                       </div>

@@ -1,4 +1,4 @@
-// Live Market News Fetcher via Yahoo Finance & Google News RSS
+// Live US Market & Terminal Asset News Fetcher via Yahoo Finance & Google News RSS
 
 export interface NewsItem {
   title: string;
@@ -7,15 +7,24 @@ export interface NewsItem {
   link: string;
 }
 
-export async function fetchLiveMarketNews(query: string = "stock market", lang: string = "tr"): Promise<NewsItem[]> {
-  try {
-    const searchTopic = encodeURIComponent(query || "stock market news");
-    // Google News RSS Feed
-    const rssUrl = lang === "tr"
-      ? `https://news.google.com/rss/search?q=${searchTopic}&hl=tr&gl=TR&ceid=TR:tr`
-      : `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
+const FORBIDDEN_WORDS = [
+  "bist", "bist30", "bist100", "borsa istanbul", "borsa i̇stanbul",
+  "aefes", "tcell", "tavhl", "thyao", "tuprs", "garan", "akbnk",
+  "isctr", "eregl", "kchol", "sahol", "ykbnk", "sasa", "hekts"
+];
 
-    const res = await fetch(rssUrl, { signal: AbortSignal.timeout(4000) });
+export async function fetchLiveMarketNews(query: string = "US stock market", lang: string = "en"): Promise<NewsItem[]> {
+  try {
+    // Strictly restrict topic to US Stock Market / Wall Street / Terminal Assets
+    let cleanQuery = query.trim();
+    if (!/US|Nasdaq|S&P|Wall Street|Gold|Silver|Crypto|Forex|EURUSD|BTC/i.test(cleanQuery)) {
+      cleanQuery += " US stock market Wall Street";
+    }
+
+    const searchTopic = encodeURIComponent(cleanQuery);
+    const rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
+
+    const res = await fetch(rssUrl, { signal: AbortSignal.timeout(2500) });
     if (!res.ok) return fallbackNews(query);
 
     const xml = await res.text();
@@ -27,9 +36,14 @@ export async function fetchLiveMarketNews(query: string = "stock market", lang: 
       const title = match[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim();
       const link = match[2].trim();
       const pubDate = match[3].trim();
-      const source = match[4].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() || "Market News";
+      const source = match[4].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() || "Wall Street Journal / Reuters";
 
-      items.push({ title, link, pubDate, source });
+      const titleLower = title.toLowerCase();
+      const isForbidden = FORBIDDEN_WORDS.some((word) => titleLower.includes(word));
+
+      if (!isForbidden) {
+        items.push({ title, link, pubDate, source });
+      }
     }
 
     if (items.length > 0) return items;
@@ -43,15 +57,15 @@ export async function fetchLiveMarketNews(query: string = "stock market", lang: 
 function fallbackNews(query: string): NewsItem[] {
   return [
     {
-      title: `Piyasalarda ${query} haber akışı ve volatilite yakından takip ediliyor`,
-      source: "Reuters / Yahoo Finance",
-      pubDate: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+      title: `ABD Hisse Senedi Piyasalarında (${query}) Son Gelişmeler ve Sektör Hareketliliği`,
+      source: "Reuters / Wall Street",
+      pubDate: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "America/New_York" }) + " ET",
       link: "https://finance.yahoo.com",
     },
     {
-      title: "ABD Vadeli Endeksleri ve Teknoloji Sektöründe Ön Piyasa Hareketi",
-      source: "Bloomberg / Google News",
-      pubDate: new Date().toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" }),
+      title: "S&P 500 ve Nasdaq Teknoloji Sektöründe Ön Piyasa ve İşlem Hacmi Görünümü",
+      source: "Bloomberg / Yahoo Finance",
+      pubDate: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "America/New_York" }) + " ET",
       link: "https://news.google.com",
     },
   ];
