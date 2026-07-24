@@ -186,7 +186,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       .catch(() => {});
   }, [groups]);
 
-  const watchlistTabLabel = 'TOP7';
+  const watchlistTabLabel =
+    locale === 'tr' ? 'İzleme Listem'
+    : locale === 'es' ? 'Mi Lista'
+    : locale === 'fr' ? 'Ma Liste'
+    : locale === 'pt' ? 'Minha Lista'
+    : 'Watchlist';
   const trendTabLabel = locale === 'tr' ? 'Trend Hisseleri' : locale === 'es' ? 'Acciones en Tendencia' : locale === 'fr' ? 'Actions Tendance' : locale === 'pt' ? 'Ações em Tendência' : 'Trending Stocks';
   const compareLabel = locale === 'tr' ? 'Karşılaştır' : locale === 'es' ? 'Comparar' : locale === 'fr' ? 'Comparer' : locale === 'pt' ? 'Comparar' : 'Compare';
   const compareOpenLabel = locale === 'tr' ? 'Aç' : locale === 'es' ? 'Abrir' : locale === 'fr' ? 'Ouvrir' : locale === 'pt' ? 'Abrir' : 'Open';
