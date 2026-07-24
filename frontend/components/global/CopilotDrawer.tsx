@@ -776,17 +776,36 @@ export default function CopilotDrawer() {
                       }
                       if (toolInv.toolName === "get_top_trending_stocks") {
                         const stocks: StockCardProps[] = result?.stocks || [];
-                        if (stocks.length === 0) return null;
+                        const tickers: string[] = result?.tickers || [];
                         return (
-                          <div key={idx} className="my-3 space-y-2">
-                            <span className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
+                          <div key={idx} className="my-3 space-y-3">
+                            <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
                               🔥 {result?.categoryName || "BOGASTOCK Trend Hisseleri"}
-                            </span>
-                            <div className="space-y-2">
-                              {stocks.map((sProps: any, i: number) => (
-                                <StockCard key={i} data={sProps} locale={activeLocale} />
-                              ))}
                             </div>
+
+                            {tickers.length > 0 && (
+                              <div className="grid grid-cols-2 gap-2">
+                                {tickers.map((t: string, i: number) => (
+                                  <button
+                                    key={i}
+                                    type="button"
+                                    onClick={() => append({ role: "user", content: `${t} hissesini detaylı analiz et` })}
+                                    className="p-2.5 rounded-xl bg-[#141924] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-left font-mono font-bold text-xs text-blue-400 hover:text-white flex items-center justify-between cursor-pointer transition-all active:scale-[0.98]"
+                                  >
+                                    <span>${t}</span>
+                                    <span className="text-[10px] text-blue-300 font-sans">Analiz Et →</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+
+                            {stocks.length > 0 && (
+                              <div className="space-y-2 pt-1">
+                                {stocks.map((sProps: any, i: number) => (
+                                  <StockCard key={i} data={sProps} locale={activeLocale} />
+                                ))}
+                              </div>
+                            )}
                           </div>
                         );
                       }

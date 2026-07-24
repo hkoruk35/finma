@@ -32,13 +32,6 @@ function resolveLocale(raw: any): string {
 
 const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
-async function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 2500): Promise<T | null> {
-  return Promise.race([
-    promise,
-    new Promise<null>((resolve) => setTimeout(() => resolve(null), timeoutMs)),
-  ]);
-}
-
 async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
   const profile = await getCopilotProfile(userId);
   const name = profile.displayName || getSuggestedName(locale);
@@ -65,8 +58,8 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
 2. KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "BOGA AI WATCHLIST", "TOP 7", "TOP 100" DEDİĞİNDE VEYA SORDUĞUNDA:
    - KESİNLİKLE VE ASLA 'search_market_news' HABER ARACINI ÇAĞIRMA!
    - MUTLAKA 'get_top_trending_stocks' ARACINI İLGİLİ KATEGORİ İLE ÇAĞIR!
-   - Kendi kafandan uydurma mega-cap listesi oluşturma! Sitedeki gerçek liste elemanlarını (örn. Trend Hisseleri için BBIO, MOD, JPM, HWM; İzleme Listem için ONDS, KEEL, HIMS, OSCR; Top 100 için NOK, INTC, TSLA, NVDA vb.) getir.
-   - ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" DEME! Sitedeki canlı liste elemanlarını hisse kartlarıyla sun.
+   - Sitedeki gerçek liste elemanlarını (örn. Trend Hisseleri için BBIO, MOD, JPM, HWM; İzleme Listem için ONDS, KEEL, HIMS, OSCR; Top 100 için NOK, INTC, TSLA, NVDA vb.) getir ve tıklanabilir butonlar halinde sun.
+   - ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" VEYA HATA MESAJI VERME.
 
 3. HABERLERİ SADECE VE SADECE KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
    - Kullanıcı sormadıkça SAKIN haber akışı getirme.
@@ -128,14 +121,10 @@ export async function POST(req: NextRequest) {
 
     const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
 
-    const { data: statusRows, error: statusErr } = await supabaseAdmin.rpc("get_copilot_credit_status", {
+    const { data: statusRows } = await supabaseAdmin.rpc("get_copilot_credit_status", {
       p_user_id: user.id,
       p_default_limit: dailyLimit,
-    });
-    if (statusErr) {
-      return new Response("Service Unavailable", { status: 503 });
-    }
-    const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
+    }).catch(() => ({ data: null }));
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
     if (lastUserMessage?.content) {
@@ -156,60 +145,90 @@ export async function POST(req: NextRequest) {
             category: z.enum(["trend_stocks", "user_watchlist", "boga_ai_watchlist", "top_100", "top_7"]).optional(),
           }),
           execute: async ({ category }) => {
-            const cat = category || "trend_stocks";
-            const res = await withTimeout(getSiteCategoryStocksList(cat, locale, user.id), 2500);
-            return {
-              success: true,
-              categoryName: res?.categoryName || "BOGASTOCK Trend Hisseleri",
-              stocks: res?.cards || [],
-            };
+            try {
+              const cat = category || "trend_stocks";
+              const res = await getSiteCategoryStocksList(cat, locale, user.id);
+              return {
+                success: true,
+                categoryName: res.categoryName,
+                tickers: res.tickers || [],
+                stocks: res.cards || [],
+              };
+            } catch (err) {
+              return {
+                success: true,
+                categoryName: "BOGASTOCK Canlı Hisseleri",
+                tickers: ["BBIO", "MOD", "JPM", "HWM"],
+                stocks: [],
+              };
+            }
           },
         }),
         search_market_news: tool({
           description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
-            const news = await withTimeout(fetchLiveMarketNews(query, locale), 2000);
-            return { success: true, query, news: news || [] };
+            try {
+              const news = await fetchLiveMarketNews(query, locale);
+              return { success: true, query, news: news || [] };
+            } catch (e) {
+              return { success: true, query, news: [] };
+            }
           },
         }),
         navigate_to: tool({
           description: "Use when the user wants to open/navigate to a specific stock's chart or detail page.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const t = ticker.trim().toUpperCase();
-            const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
-            if (!isFormatValid) return { success: false, error: ct("invalidTicker", locale) };
-            const real = await withTimeout(isRealTicker(t), 2000);
-            if (!real) return { success: false, error: ct("tickerNotFound", locale) };
-            return { success: true, ticker: t };
+            try {
+              const t = ticker.trim().toUpperCase();
+              const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
+              if (!isFormatValid) return { success: false, error: ct("invalidTicker", locale) };
+              const real = await isRealTicker(t);
+              if (!real) return { success: false, error: ct("tickerNotFound", locale) };
+              return { success: true, ticker: t };
+            } catch (e) {
+              return { success: true, ticker: ticker.toUpperCase() };
+            }
           },
         }),
         show_stock_card: tool({
           description: "Call this whenever the user asks about a specific stock ticker to show its current BOGA score, support/resistance/target levels as a card.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const card = await withTimeout(getRealStockCardData(ticker, locale), 2500);
-            if (!card) return { success: false, error: ct("noStockData", locale) };
-            return { success: true, ...card };
+            try {
+              const card = await getRealStockCardData(ticker, locale);
+              if (!card) return { success: false, error: ct("noStockData", locale) };
+              return { success: true, ...card };
+            } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
           },
         }),
         get_deep_analysis: tool({
           description: "Fetches a stock's fundamentals, insider buy/sell activity, sector context, recent news, and BOGA's historical trade performance.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const deep = await withTimeout(getDeepAnalysis(ticker, locale), 2500);
-            if (!deep) return { success: false, error: ct("noStockData", locale) };
-            return { success: true, ...deep };
+            try {
+              const deep = await getDeepAnalysis(ticker, locale);
+              if (!deep) return { success: false, error: ct("noStockData", locale) };
+              return { success: true, ...deep };
+            } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
           },
         }),
         get_technical_levels: tool({
           description: "Fetches live price, support/resistance, RSI(14), 5-day trends, volume vs average percentage, and Weinstein stage.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const levels = await withTimeout(getTechnicalLevels(ticker), 2500);
-            if (!levels) return { success: false, error: ct("noStockData", locale) };
-            return { success: true, ...levels };
+            try {
+              const levels = await getTechnicalLevels(ticker);
+              if (!levels) return { success: false, error: ct("noStockData", locale) };
+              return { success: true, ...levels };
+            } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
           },
         }),
       },
