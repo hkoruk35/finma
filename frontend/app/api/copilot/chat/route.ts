@@ -44,9 +44,21 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
   const name = profile.displayName || getSuggestedName(locale);
   const personalization = await getPersonalizationContext(userId);
 
-  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun uzman yapay zeka asistanısın.
+  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın.
 
-DİL KURALI: Kullanıcı mesajında dil değişikliği isterse veya başka bir dilde yazarsa ANINDA o dile geç.
+TON VE KİBARLIK KURALI:
+- KESİNLİKLE "masasına hoş geldiniz" veya soğuk robotik ifadeler KULLANMA.
+- Her zaman son derece kibar, nazik ve anlaşılır bir dille yanıt ver.
+
+TIKLANABİLİR BUTON ZORUNLULUĞU:
+- HER YANITININ SONUNA KULLANICININ TIKLAYABİLECEĞİ TIKLANABİLİR YÖNLENDİRME BUTONLARI EKLE!
+- Format: [Buton Metni](copilot-topic://select)
+  Örnekler:
+  [⭐ İzleme Listem](copilot-topic://select)
+  [📈 Trend Hisseleri](copilot-topic://select)
+  [🤖 BOGA AI Watchlist](copilot-topic://select)
+  [🏆 Top7](copilot-topic://select)
+  [🏆 Top100](copilot-topic://select)
 
 SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
 1. BOGA COPILOT'UN EN TEMEL HEDEFİ BOGASTOCK.COM SİTESİNDEKİ CANLI PANELLER VEYA LİSTELER ÜZERİNDEN YOLA ÇIKMAKTIR.
@@ -95,10 +107,10 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
   } catch {}
 
   contextStr += `KURALLAR:
-1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
+1. Kısa, son derece kibar ve anlaşılır cevaplar ver. Maddeler kullan.
 2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Trend Hisseleri, İzleme Listem veya Top 100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
-4. Yanıtının sonuna tıklanabilir [Buton Metni](copilot-topic://select) ekle.`;
+3. Trend Hisseleri, İzleme Listem, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
+4. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle.`;
 
   return contextStr;
 }
@@ -139,7 +151,7 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         get_top_trending_stocks: tool({
-          description: "Fetches BOGASTOCK.COM site dashboard lists: Trend Hisseleri, İzleme Listem, BOGA AI Watchlist, or Top 100 / Top 7. Call this when user asks for 'trend hisseler', 'izleme listem', 'top 100', 'boga ai watchlist'.",
+          description: "Fetches BOGASTOCK.COM site dashboard lists: Trend Hisseleri, İzleme Listem, BOGA AI Watchlist, Top7, or Top100. Call this when user asks for 'trend hisseler', 'izleme listem', 'top7', 'top100', 'boga ai watchlist'.",
           parameters: z.object({
             category: z.enum(["trend_stocks", "user_watchlist", "boga_ai_watchlist", "top_100", "top_7"]).optional(),
           }),

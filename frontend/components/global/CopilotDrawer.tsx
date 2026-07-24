@@ -743,6 +743,20 @@ export default function CopilotDrawer() {
                 <div className="bg-[#141924] p-4 rounded-2xl border border-[#2a384e] shadow-lg text-sm text-gray-200 whitespace-pre-wrap leading-relaxed">
                   {dailyGreeting.welcomeMessage}
                 </div>
+
+                <div className="grid grid-cols-1 gap-2 pt-1">
+                  {dailyGreeting.pills.map((pill, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => append({ role: "user", content: pill.prompt })}
+                      className="w-full text-left p-3 rounded-xl bg-[#161b22] hover:bg-blue-600/20 border border-blue-500/30 hover:border-blue-400 text-xs font-bold text-gray-200 hover:text-white transition-all shadow-md flex items-center justify-between group active:scale-[0.98] cursor-pointer"
+                    >
+                      <span>{pill.label}</span>
+                      <span className="text-blue-400 group-hover:translate-x-1 transition-transform font-mono text-sm">→</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             ) : (
               messages.map((msg) => (
