@@ -3,7 +3,7 @@
 
 export const SUGGESTED_NAMES: Record<string, string> = {
   tr: "Aylin",
-  en: "Jessica",
+  en: "Olivia",
   es: "Mary",
   fr: "Sophie",
   pt: "Lorena",
