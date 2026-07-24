@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Stage 3: Personalized NVDA Analysis
+    // Stage 3: Personalized NVDA Analysis (UNLOCKED PREMIUM FEATURES FOR NVDA SHOWCASE)
     if (stage === 3) {
       let horizonText = "birkaç haftalık";
       if (timeHorizon === "few_days") horizonText = "birkaç günlük";
@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
       let analysisContent = "";
       if (locale === "tr") {
         analysisContent = `Anladım. NVIDIA'yı ($NVDA) **${horizonText}** bir pozisyon açısından değerlendiriyorum:\n\n` +
+          `*(✨ Bu derin analizler ve teknik seviyeler normalde BOGA Pro/Premium üyelerine özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında tüm Premium özellikler kullanımınıza açılmıştır.)*\n\n` +
           `• **Mevcut Trend:** ${trendLabel}\n` +
           `• **BOGA Skoru:** ${bogaScore}/100\n` +
           `• **Destek Bölgesi:** $${support}\n` +
@@ -91,6 +92,7 @@ export async function POST(req: NextRequest) {
           `Son adımda hangisini detaylı inceleyelim?`;
       } else if (locale === "pt") {
         analysisContent = `Entendi. Avaliando a NVIDIA ($NVDA) do ponto de vista de **${timeHorizon}**:\n\n` +
+          `*(✨ Estas análises profundas e níveis técnicos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)*\n\n` +
           `• **Tendência Atual:** ${trendLabel}\n` +
           `• **Pontuação BOGA:** ${bogaScore}/100\n` +
           `• **Suporte:** $${support}\n` +
@@ -102,6 +104,7 @@ export async function POST(req: NextRequest) {
           `Qual ponto você gostaria de analisar na etapa final?`;
       } else if (locale === "es") {
         analysisContent = `Entendido. Evaluando NVIDIA ($NVDA) desde la perspectiva de **${timeHorizon}**:\n\n` +
+          `*(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)*\n\n` +
           `• **Tendencia Actual:** ${trendLabel}\n` +
           `• **Puntuación BOGA:** ${bogaScore}/100\n` +
           `• **Zona de Soporte:** $${support}\n` +
@@ -113,6 +116,7 @@ export async function POST(req: NextRequest) {
           `¿Qué punto quieres que analice para terminar?`;
       } else if (locale === "fr") {
         analysisContent = `Compris. Évaluation de NVIDIA ($NVDA) dans la perspective de **${timeHorizon}** :\n\n` +
+          `*(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)*\n\n` +
           `• **Tendance Actuelle :** ${trendLabel}\n` +
           `• **Score BOGA :** ${bogaScore}/100\n` +
           `• **Zone de Support :** $${support}\n` +
@@ -124,6 +128,7 @@ export async function POST(req: NextRequest) {
           `Quel dernier point souhaitez-vous que j’examine ?`;
       } else {
         analysisContent = `Understood. Evaluating NVIDIA ($NVDA) based on your **${timeHorizon}** position perspective:\n\n` +
+          `*(✨ These deep analytics and technical levels are normally exclusive to BOGA Pro/Premium members; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)*\n\n` +
           `• **Current Trend:** ${trendLabel}\n` +
           `• **BOGA Score:** ${bogaScore}/100\n` +
           `• **Support Area:** $${support}\n` +
@@ -151,6 +156,7 @@ export async function POST(req: NextRequest) {
 
       if (locale === "tr") {
         scenarioReply = `**Sizin Zaman Aralığınıza Uygun Olası NVIDIA Senaryosu:**\n\n` +
+          `*(✨ Bu detaylı işlem kurgusu ve seviyeler normalde Pro/Premium özelliğidir; NVIDIA ($NVDA) tanıtım sayfamız kapsamında ücretsiz erişiminize sunulmuştur.)*\n\n` +
           `• **Hesaplanan Giriş Aralığı:** $${support} – $${(rawSupport * 1.03).toFixed(2)}\n` +
           `• **Birincil Hedef:** $${resistance} (%${potentialPct} potansiyel)\n` +
           `• **Kritik Stop Seviyesi:** $${invalidationLevel}\n\n` +
@@ -167,6 +173,7 @@ export async function POST(req: NextRequest) {
           `Şimdilik sohbeti burada tamamlayıp NVIDIA grafiğine dönebilir veya yaz fırsatını kullanarak bütün hisselere erişebilirsiniz.`;
       } else if (locale === "pt") {
         scenarioReply = `**Cenário NVIDIA personalizado:**\n\n` +
+          `*(✨ Este cenário de negociação detalhado e níveis são normalmente recursos Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)*\n\n` +
           `• **Zona de entrada calculada:** $${support} – $${(rawSupport * 1.03).toFixed(2)}\n` +
           `• **Resistência principal:** $${resistance}\n` +
           `• **Nível de invalidação (Stop):** $${invalidationLevel}\n\n` +
@@ -182,6 +189,7 @@ export async function POST(req: NextRequest) {
           `O valor normal é US$ 39/mês. Na campanha de verão, o **primeiro mês custa US$ 9**, depois US$ 39/mês. Cancele quando quiser.`;
       } else if (locale === "es") {
         scenarioReply = `**Escenario personalizado de NVIDIA:**\n\n` +
+          `*(✨ Este escenario comercial detallado y niveles son normalmente funciones Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)*\n\n` +
           `• **Zona de entrada calculada:** $${support} – $${(rawSupport * 1.03).toFixed(2)}\n` +
           `• **Resistencia principal:** $${resistance}\n` +
           `• **Stop de protección:** $${invalidationLevel}\n\n` +
@@ -197,6 +205,7 @@ export async function POST(req: NextRequest) {
           `Precio habitual: 39 USD/mes. En la campaña de verano, el **primer mes cuesta 9 USD**, después 39 USD/mes. Cancela en cualquier momento.`;
       } else if (locale === "fr") {
         scenarioReply = `**Scénario NVIDIA personnalisé :**\n\n` +
+          `*(✨ Ce scénario de trading détaillé et ces niveaux sont normalement des fonctionnalités Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)*\n\n` +
           `• **Zone d'entrée calculée :** $${support} – $${(rawSupport * 1.03).toFixed(2)}\n` +
           `• **Résistance principale :** $${resistance}\n` +
           `• **Niveau d'invalidation :** $${invalidationLevel}\n\n` +
@@ -211,6 +220,7 @@ export async function POST(req: NextRequest) {
           `Tarif habituel : 39 USD/mois. Pendant la campagne d'été, **le premier mois est à 9 USD**, puis 39 USD/mois. Annulation à tout moment.`;
       } else {
         scenarioReply = `**Your Personalized NVIDIA Trade Scenario:**\n\n` +
+          `*(✨ This detailed trade scenario and key levels are normally Pro/Premium features; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)*\n\n` +
           `• **Calculated Entry Range:** $${support} – $${(rawSupport * 1.03).toFixed(2)}\n` +
           `• **Primary Resistance Target:** $${resistance}\n` +
           `• **Invalidation Level (Stop):** $${invalidationLevel}\n\n` +

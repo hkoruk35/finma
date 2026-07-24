@@ -73,6 +73,9 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
   if (pageContext) {
     if (pageContext.type === "ticker") {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
+      if (pageContext.value === "NVDA") {
+        contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "(✨ Bu detaylı BOGA AI analizleri ve teknik seviyeler normalde Pro/Premium üyelerimize özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında ücretsiz kullanımınıza açılmıştır.)"\n\n`;
+      }
     } else if (pageContext.page) {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;
     }
