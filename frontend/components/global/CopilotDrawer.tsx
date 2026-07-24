@@ -45,8 +45,6 @@ export default function CopilotDrawer() {
   const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const [draftName, setDraftName] = useState(profile.displayName);
-  const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
 
   // --- HISTORY & ARCHIVE & TASKS STATES ---
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
@@ -60,6 +58,9 @@ export default function CopilotDrawer() {
     return ["tr", "en", "es", "fr", "pt"].includes(locale) ? (locale as SupportedLocale) : "en";
   });
 
+  const [draftName, setDraftName] = useState(profile.displayName || getSuggestedName(activeLocale));
+  const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
+
   const [demoStage, setDemoStage] = useState<number>(1);
   const [demoPrimaryInterest, setDemoPrimaryInterest] = useState<string>("trend");
   const [demoTimeHorizon, setDemoTimeHorizon] = useState<string>("few_weeks");
@@ -68,6 +69,15 @@ export default function CopilotDrawer() {
   const [demoLoading, setDemoLoading] = useState<boolean>(false);
 
   const taskDef = TASK_LABELS[activeLocale] || TASK_LABELS.en;
+
+  // Automatically collapse panels when conversation has active messages so chat gets full height!
+  useEffect(() => {
+    if (messages.length > 0 || demoMessages.length > 1) {
+      setIsTasksOpen(false);
+      setIsHistoryOpen(false);
+      setIsSettingsOpen(false);
+    }
+  }, [messages.length, demoMessages.length]);
 
   // Fetch Archives & Active Tasks when drawer opens
   useEffect(() => {
@@ -104,9 +114,16 @@ export default function CopilotDrawer() {
     }
   }, [isAuthenticated, activeLocale, demoMessages.length]);
 
-  // Language switch handler
+  // Language switch handler: updates default assistant name unless custom name set by user
   const handleLangChange = (newLang: SupportedLocale) => {
     setActiveLocale(newLang);
+
+    // If user has not explicitly set a custom name, update default name to new language default
+    if (!profile.displayName) {
+      const newDefaultName = getSuggestedName(newLang);
+      setDraftName(newDefaultName);
+    }
+
     if (!isAuthenticated) {
       const vText = VISITOR_TEXTS[newLang] || VISITOR_TEXTS.en;
       setDemoStage(1);
@@ -123,15 +140,16 @@ export default function CopilotDrawer() {
   };
 
   useEffect(() => {
-    setDraftName(profile.displayName);
+    setDraftName(profile.displayName || getSuggestedName(activeLocale));
     setDraftAvatar(profile.avatarId);
-  }, [profile.displayName, profile.avatarId]);
+  }, [profile.displayName, profile.avatarId, activeLocale]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, demoMessages, isLoading, demoLoading]);
 
   const avatar = getAvatar(profile.avatarId);
+  // Custom name overrides, otherwise fallback to current language default name (TR: Aylin, EN: Olivia, ES: Mary, FR: Sophie, PT: Lorena)
   const displayName = profile.displayName || getSuggestedName(activeLocale);
 
   const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
@@ -139,11 +157,8 @@ export default function CopilotDrawer() {
     : "tr";
   const dailyGreeting = buildMemberDailyGreeting(displayName, favoriteSectors, 0, memberLang);
 
-  const handleQuickAction = (text: string) => {
-    append({ role: "user", content: text });
-  };
-
   const handleCreateSmartTask = async (choice: { label: string; action: string; type: TaskType; subject?: string }) => {
+    setIsTasksOpen(false);
     if (isAuthenticated) {
       try {
         const res = await fetch("/api/copilot/tasks", {
@@ -163,7 +178,6 @@ export default function CopilotDrawer() {
         }
       } catch {}
 
-      const confirmMsg = taskDef.taskConfirmedMsg(choice.subject || choice.label);
       append({ role: "user", content: `${choice.label} görevini başlat.` });
     } else {
       handleVisitorActionClick({ label: choice.label, id: choice.action });
@@ -178,6 +192,7 @@ export default function CopilotDrawer() {
   };
 
   const handleBreakPrompt = () => {
+    setIsTasksOpen(false);
     if (isAuthenticated) {
       append({ role: "user", content: "Biraz dinlenmek istiyorum." });
     } else {
@@ -398,7 +413,7 @@ export default function CopilotDrawer() {
         }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 bg-[#161b22] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-white/10 bg-[#161b22] px-4 py-3 relative shrink-0">
           <div className="flex items-center gap-3">
             <div className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatar.gradient} text-base shadow-lg`}>
               {avatar.emoji}
@@ -417,7 +432,7 @@ export default function CopilotDrawer() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Flexible Language Selector for both Members & Visitors */}
+            {/* Sleek Language Selector */}
             <select
               value={activeLocale}
               onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
@@ -439,7 +454,7 @@ export default function CopilotDrawer() {
                     setIsSettingsOpen(false);
                   }}
                   title="Akıllı Görevler"
-                  className={`rounded-full p-2 transition-colors ${
+                  className={`rounded-full p-2 transition-colors relative ${
                     isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"
                   }`}
                 >
@@ -447,6 +462,11 @@ export default function CopilotDrawer() {
                     <polyline points="9 11 12 14 22 4" />
                     <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                   </svg>
+                  {activeTasks.length > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-cyan-400 text-[8px] font-black text-black">
+                      {activeTasks.length}
+                    </span>
+                  )}
                 </button>
 
                 <button
@@ -494,139 +514,165 @@ export default function CopilotDrawer() {
           </div>
         </div>
 
-        {/* Active Smart Tasks Panel Header */}
-        {isAuthenticated && isTasksOpen && (
-          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-[#00d2ff] uppercase tracking-wider">⚡ {taskDef.headerTitle}</span>
-              <button
-                type="button"
-                onClick={handleBreakPrompt}
-                className="text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 rounded transition-all cursor-pointer"
-              >
-                {taskDef.breakBtn}
-              </button>
-            </div>
-
-            {activeTasks.length > 0 ? (
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {activeTasks.map((t) => (
-                  <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2.5 rounded-xl text-xs flex justify-between items-center">
-                    <div>
-                      <span className="font-bold text-white uppercase">{t.subject || t.task_type.replace(/_/g, " ")}</span>
-                      <p className="text-[10px] text-gray-400 font-mono">
-                        Sonraki Değerlendirme: {t.schedule?.midday || "12:00 ET"}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCancelTask(t.id)}
-                      className="text-[10px] text-red-400 hover:text-red-300 px-2 py-1 bg-red-500/10 rounded border border-red-500/20"
-                    >
-                      Durdur
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-xs text-gray-400 italic">Henüz aktif takibe alınmış bir görev bulunmuyor.</p>
-            )}
-
-            <div className="pt-2 border-t border-white/10 flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-                🎯 Hızlı Görev Başlat
+        {/* FLOATING OVERLAY PANEL CONTAINER (Independent, Aesthetic, Does Not Squish Chat) */}
+        {isAuthenticated && (isTasksOpen || isHistoryOpen || isSettingsOpen) && (
+          <div className="absolute top-14 left-3 right-3 z-30 bg-[#121722]/98 border border-blue-500/30 rounded-2xl shadow-2xl p-4 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
+              <span className="text-xs font-bold text-gray-200 uppercase tracking-wider">
+                {isTasksOpen && `⚡ ${taskDef.headerTitle}`}
+                {isHistoryOpen && "📜 Sohbet Arşivi & Geçmiş"}
+                {isSettingsOpen && ct("personalize", activeLocale)}
               </span>
-              <div className="grid grid-cols-1 gap-1.5">
-                {taskDef.quickChoices.slice(0, 4).map((choice, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => handleCreateSmartTask(choice)}
-                    className="w-full text-left px-3 py-2 bg-[#1e293b] hover:bg-blue-600/20 border border-blue-500/30 hover:border-blue-400 rounded-lg text-xs font-bold text-blue-300 hover:text-white transition-all flex items-center justify-between"
-                  >
-                    <span>{choice.label}</span>
-                    <span className="text-xs text-blue-400">+</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* History / Archive Panel for members */}
-        {isAuthenticated && isHistoryOpen && (
-          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-gray-300 uppercase tracking-wider">📜 Sohbet Arşivi & Geçmiş</span>
               <button
                 type="button"
-                onClick={handleClearHistory}
-                className="text-[10px] font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded transition-all cursor-pointer"
+                onClick={() => {
+                  setIsTasksOpen(false);
+                  setIsHistoryOpen(false);
+                  setIsSettingsOpen(false);
+                }}
+                className="text-gray-400 hover:text-white text-xs px-2 py-0.5 rounded bg-white/5 hover:bg-white/10"
               >
-                🗑️ Ekrandan Temizle
+                ✕
               </button>
             </div>
-            {archives.length > 0 ? (
-              <div className="space-y-2 max-h-40 overflow-y-auto">
-                {archives.map((arc, i) => (
-                  <div key={i} className="bg-[#161b22] border border-white/10 p-2.5 rounded-lg text-xs flex flex-col gap-1">
-                    <div className="flex justify-between items-center text-[10px] text-gray-400 font-mono">
-                      <span>📅 {arc.date}</span>
-                      <span className="text-blue-400 font-bold">{arc.messageCount} mesaj</span>
-                    </div>
-                    <p className="text-gray-200 text-[11px] truncate">{arc.preview}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-xs text-gray-500 italic">Henüz kaydedilmiş sohbet arşivi bulunmuyor.</p>
-            )}
-            <p className="text-[9px] text-gray-500 italic pt-1">
-              * Sohbeti ekrandan silseniz bile BOGA Copilot ilgi alanlarınızı ve sektör tercihlerinizi öğrenmeye devam eder.
-            </p>
-          </div>
-        )}
 
-        {/* Settings panel for members */}
-        {isAuthenticated && isSettingsOpen && (
-          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
-            <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", activeLocale)}</label>
-              <input
-                type="text"
-                value={draftName}
-                onChange={(e) => setDraftName(e.target.value)}
-                placeholder={getSuggestedName(activeLocale)}
-                maxLength={30}
-                className="w-full mt-1 bg-[#161b22] border border-white/10 rounded-lg py-2 px-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("chooseAvatar", activeLocale)}</label>
-              <div className="flex gap-2 mt-1.5">
-                {AVATAR_OPTIONS.map((a) => (
+            {/* Smart Tasks Modal Content */}
+            {isTasksOpen && (
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-gray-400 font-mono">Aktif Görevler ({activeTasks.length})</span>
                   <button
-                    key={a.id}
-                    onClick={() => setDraftAvatar(a.id)}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${a.gradient} text-base transition-all ${
-                      draftAvatar === a.id ? "ring-2 ring-white ring-offset-2 ring-offset-[#0f1420] scale-110" : "opacity-60 hover:opacity-100"
-                    }`}
+                    type="button"
+                    onClick={handleBreakPrompt}
+                    className="text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 rounded"
                   >
-                    {a.emoji}
+                    {taskDef.breakBtn}
                   </button>
-                ))}
+                </div>
+
+                {activeTasks.length > 0 ? (
+                  <div className="space-y-2 max-h-36 overflow-y-auto">
+                    {activeTasks.map((t) => (
+                      <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2 rounded-xl text-xs flex justify-between items-center">
+                        <div>
+                          <span className="font-bold text-white uppercase">{t.subject || t.task_type.replace(/_/g, " ")}</span>
+                          <p className="text-[10px] text-gray-400 font-mono">
+                            Sonraki Değerlendirme: {t.schedule?.midday || "12:00 ET"}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleCancelTask(t.id)}
+                          className="text-[10px] text-red-400 hover:text-red-300 px-2 py-0.5 bg-red-500/10 rounded border border-red-500/20"
+                        >
+                          Durdur
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-400 italic">Henüz aktif takibe alınmış bir görev bulunmuyor.</p>
+                )}
+
+                <div className="pt-2 border-t border-white/10 space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+                    🎯 Hızlı Görev Başlat
+                  </span>
+                  <div className="grid grid-cols-1 gap-1.5 max-h-40 overflow-y-auto">
+                    {taskDef.quickChoices.map((choice, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => handleCreateSmartTask(choice)}
+                        className="w-full text-left px-3 py-2 bg-[#1e293b] hover:bg-blue-600/20 border border-blue-500/30 hover:border-blue-400 rounded-lg text-xs font-bold text-blue-300 hover:text-white transition-all flex items-center justify-between"
+                      >
+                        <span>{choice.label}</span>
+                        <span className="text-xs text-blue-400">+</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-            <button
-              onClick={handleSaveSettings}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors"
-            >
-              {ct("save", activeLocale)}
-            </button>
+            )}
+
+            {/* History Modal Content */}
+            {isHistoryOpen && (
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] text-gray-400">Görüntülenen Oturumlar</span>
+                  <button
+                    type="button"
+                    onClick={handleClearHistory}
+                    className="text-[10px] font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded cursor-pointer"
+                  >
+                    🗑️ Ekrandan Temizle
+                  </button>
+                </div>
+                {archives.length > 0 ? (
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {archives.map((arc, i) => (
+                      <div key={i} className="bg-[#161b22] border border-white/10 p-2.5 rounded-lg text-xs flex flex-col gap-1">
+                        <div className="flex justify-between items-center text-[10px] text-gray-400 font-mono">
+                          <span>📅 {arc.date}</span>
+                          <span className="text-blue-400 font-bold">{arc.messageCount} mesaj</span>
+                        </div>
+                        <p className="text-gray-200 text-[11px] truncate">{arc.preview}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500 italic">Henüz kaydedilmiş sohbet arşivi bulunmuyor.</p>
+                )}
+                <p className="text-[9px] text-gray-500 italic pt-1">
+                  * Sohbeti silseniz dahi BOGA AI ilgi alanlarınızı ve tercihlerinizi öğrenmeye devam eder.
+                </p>
+              </div>
+            )}
+
+            {/* Settings Modal Content */}
+            {isSettingsOpen && (
+              <div className="space-y-3">
+                <div>
+                  <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", activeLocale)}</label>
+                  <input
+                    type="text"
+                    value={draftName}
+                    onChange={(e) => setDraftName(e.target.value)}
+                    placeholder={getSuggestedName(activeLocale)}
+                    maxLength={30}
+                    className="w-full mt-1 bg-[#161b22] border border-white/10 rounded-lg py-2 px-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("chooseAvatar", activeLocale)}</label>
+                  <div className="flex gap-2 mt-1.5">
+                    {AVATAR_OPTIONS.map((a) => (
+                      <button
+                        key={a.id}
+                        type="button"
+                        onClick={() => setDraftAvatar(a.id)}
+                        className={`flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br ${a.gradient} text-base transition-all ${
+                          draftAvatar === a.id ? "ring-2 ring-white ring-offset-2 ring-offset-[#0f1420] scale-110" : "opacity-60 hover:opacity-100"
+                        }`}
+                      >
+                        {a.emoji}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleSaveSettings}
+                  className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors"
+                >
+                  {ct("save", activeLocale)}
+                </button>
+              </div>
+            )}
           </div>
         )}
 
-        {/* Messages Body */}
+        {/* Messages Body (Generous Vertical Height) */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {isAuthenticated ? (
             /* AUTHENTICATED MEMBER MESSAGES */
@@ -695,6 +741,33 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
                             ⚠️ {result?.error || ct("noStockData", activeLocale)}
+                          </div>
+                        );
+                      }
+                      if (toolInv.toolName === "search_market_news") {
+                        const newsItems = result?.news || [];
+                        return (
+                          <div key={idx} className="my-2 bg-[#0a0e17] p-3 rounded-xl border border-blue-500/30 text-xs space-y-2">
+                            <span className="font-bold text-blue-400 flex items-center gap-1.5">
+                              📰 Canlı Piyasa ve Haber Akışı ({result?.query || "Piyasa"})
+                            </span>
+                            <div className="space-y-1.5">
+                              {newsItems.map((n: any, i: number) => (
+                                <a
+                                  key={i}
+                                  href={n.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block p-1.5 rounded bg-[#141924] hover:bg-blue-600/20 border border-white/5 hover:border-blue-500/40 text-gray-200 hover:text-white transition-all"
+                                >
+                                  <p className="font-semibold leading-snug">{n.title}</p>
+                                  <div className="flex justify-between items-center text-[9px] text-gray-500 mt-1 font-mono">
+                                    <span>{n.source}</span>
+                                    <span>{n.pubDate}</span>
+                                  </div>
+                                </a>
+                              ))}
+                            </div>
                           </div>
                         );
                       }
@@ -817,7 +890,7 @@ export default function CopilotDrawer() {
               type="text"
               value={isAuthenticated ? input : demoInput}
               onChange={isAuthenticated ? handleInputChange : (e) => setDemoInput(e.target.value)}
-              placeholder={ct("inputPlaceholder", isAuthenticated ? activeLocale : activeLocale)}
+              placeholder={ct("inputPlaceholder", activeLocale)}
               disabled={inputDisabled}
               className="w-full bg-[#161b22] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50"
             />
@@ -833,7 +906,7 @@ export default function CopilotDrawer() {
             </button>
           </div>
           <div className="text-center mt-2 flex justify-between px-2">
-            <span className="text-[9px] text-gray-500">{ct("disclaimer", isAuthenticated ? activeLocale : activeLocale)}</span>
+            <span className="text-[9px] text-gray-500">{ct("disclaimer", activeLocale)}</span>
             {isAuthenticated && usage && usage.hasAccess && (
               <span className="text-[9px] text-blue-500/70 font-mono">
                 {ct("requestsLeft", activeLocale, { n: Math.max(0, usage.dailyLimit - usage.currentUsage), limit: usage.dailyLimit })}
