@@ -121,10 +121,12 @@ export async function POST(req: NextRequest) {
 
     const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
 
-    const { data: statusRows } = await supabaseAdmin.rpc("get_copilot_credit_status", {
-      p_user_id: user.id,
-      p_default_limit: dailyLimit,
-    }).catch(() => ({ data: null }));
+    try {
+      await supabaseAdmin.rpc("get_copilot_credit_status", {
+        p_user_id: user.id,
+        p_default_limit: dailyLimit,
+      });
+    } catch {}
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
     if (lastUserMessage?.content) {
