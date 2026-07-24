@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "UNP",
@@ -152,7 +152,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FIX",
@@ -297,7 +297,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "A",
@@ -442,7 +442,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "WST",
@@ -586,7 +586,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AAPL",
@@ -730,7 +730,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ASND",
@@ -874,7 +874,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VIK",
@@ -1019,7 +1019,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "AHR",
@@ -1163,7 +1163,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "NTAP",
@@ -1308,7 +1308,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-24 10:00",
+      "last_checked": "2026-07-24 11:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FCX",
