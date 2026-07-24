@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-23",
-  "generated_at": "2026-07-23T17:04:22.480565-04:00",
+  "date": "2026-07-24",
+  "generated_at": "2026-07-24T09:05:50.818137-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,23 +8,23 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "BBIO",
-        "MOD",
-        "JPM",
-        "HWM",
-        "EME",
-        "ATI",
-        "MPWR",
-        "EXPD",
-        "WAT",
-        "CASY"
+        "UNP",
+        "FIX",
+        "A",
+        "WST",
+        "AAPL",
+        "ASND",
+        "VIK",
+        "AHR",
+        "NTAP",
+        "FCX"
       ]
     },
     "breakout": {
       "count": 2,
       "tickers": [
-        "ATI",
-        "WAT"
+        "UNP",
+        "A"
       ]
     },
     "value": {
@@ -46,18 +46,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "BBIO",
-      "score": 60.5,
+      "ticker": "UNP",
+      "score": 61.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "MOD",
-      "score": 53.0,
+      "ticker": "FIX",
+      "score": 55.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "JPM",
-      "score": 52.0,
+      "ticker": "A",
+      "score": 50.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],

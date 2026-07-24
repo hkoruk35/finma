@@ -449,14 +449,16 @@ def load_swing_universe() -> List[str]:
             
             all_tickers.append(ticker)
             
+            ez = p.get("buy_zone") or p.get("entry_zone") or {}
+            
             # BOGA_SWING_ZONES'a ekle (inday raporları için gerekli veriler)
             BOGA_SWING_ZONES[ticker] = {
                 "pick_date": pick_date,
                 "company": p.get("company", ticker),
                 "sector": p.get("sector", "Unknown"),
                 "score": p.get("boga_score", p.get("score", 0)),
-                "entry_low": p.get("entry_zone", {}).get("low", 0),
-                "entry_high": p.get("entry_zone", {}).get("high", 0)
+                "entry_low": ez.get("low", 0),
+                "entry_high": ez.get("high", 0)
             }
 
         logging.info(f"✅ inday313 universe: {len(all_tickers)} hisse yüklendi (swing_all_picks.json) | Tarih: {pick_date}")
