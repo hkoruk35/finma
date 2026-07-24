@@ -2,103 +2,114 @@
   "date": "2026-07-23",
   "tickers": [
     {
-      "ticker": "BNY",
-      "company": "BNY",
-      "sector": "Financial Services",
-      "master_score": 57.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 159.7050018310547,
-      "change_pct": -0.43,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 57.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "A",
-      "company": "A",
+      "ticker": "BBIO",
+      "company": "BBIO",
       "sector": "Healthcare",
-      "master_score": 54.0,
+      "master_score": 60.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 138.69500732421875,
-      "change_pct": 3.92,
+      "price": 82.93000030517578,
+      "change_pct": 0.33,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 60.5 | System: TREND_CONT"
     },
     {
-      "ticker": "HIMS",
-      "company": "HIMS",
-      "sector": "Healthcare",
-      "master_score": 44.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 33.52000045776367,
-      "change_pct": 5.81,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 44.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "ASND",
-      "company": "ASND",
-      "sector": "Healthcare",
-      "master_score": 41.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 253.8699951171875,
-      "change_pct": 0.77,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 41.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "CTAS",
-      "company": "CTAS",
-      "sector": "Industrials",
-      "master_score": 40.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 202.49000549316406,
-      "change_pct": 0.56,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 40.0 | System: DEFAULT"
-    },
-    {
-      "ticker": "XPO",
-      "company": "XPO",
-      "sector": "Industrials",
-      "master_score": 37.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 213.63999938964844,
-      "change_pct": -0.0,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "VIK",
-      "company": "VIK",
+      "ticker": "MOD",
+      "company": "MOD",
       "sector": "Consumer Cyclical",
-      "master_score": 37.0,
+      "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 99.91000366210938,
-      "change_pct": -0.44,
+      "price": 249.6199951171875,
+      "change_pct": -0.01,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 37.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
-      "ticker": "CPAY",
-      "company": "CPAY",
-      "sector": "Technology",
-      "master_score": 36.0,
+      "ticker": "JPM",
+      "company": "JPMorgan Chase",
+      "sector": "Financial Services",
+      "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 360.0899963378906,
-      "change_pct": 0.3,
+      "price": 349.8999938964844,
+      "change_pct": 0.49,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 36.0 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
     },
     {
-      "ticker": "GWW",
-      "company": "GWW",
+      "ticker": "HWM",
+      "company": "HWM",
       "sector": "Industrials",
-      "master_score": 34.5,
+      "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 1354.510009765625,
-      "change_pct": 0.04,
+      "price": 287.0899963378906,
+      "change_pct": 2.28,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 34.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "EME",
+      "company": "EME",
+      "sector": "Industrials",
+      "master_score": 51.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 769.0700073242188,
+      "change_pct": 1.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "ATI",
+      "company": "ATI",
+      "sector": "Industrials",
+      "master_score": 47.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 199.83999633789062,
+      "change_pct": 2.17,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 47.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "MPWR",
+      "company": "MPWR",
+      "sector": "Technology",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 1397.1500244140625,
+      "change_pct": -0.09,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "EXPD",
+      "company": "EXPD",
+      "sector": "Industrials",
+      "master_score": 46.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 176.17999267578125,
+      "change_pct": -0.72,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "WAT",
+      "company": "WAT",
+      "sector": "Healthcare",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 382.4100036621094,
+      "change_pct": 3.13,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: BREAKOUT"
+    },
+    {
+      "ticker": "CASY",
+      "company": "CASY",
+      "sector": "Consumer Cyclical",
+      "master_score": 46.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 875.25,
+      "change_pct": 2.16,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.0 | System: TREND_CONT"
     }
   ]
 }

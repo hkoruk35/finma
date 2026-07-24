@@ -1,28 +1,30 @@
 {
   "date": "2026-07-23",
-  "generated_at": "2026-07-23T14:05:35.831266-04:00",
+  "generated_at": "2026-07-23T17:04:22.480565-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 9,
+  "active_scores_count": 10,
   "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
-      "count": 9,
+      "count": 10,
       "tickers": [
-        "BNY",
-        "A",
-        "HIMS",
-        "ASND",
-        "CTAS",
-        "XPO",
-        "VIK",
-        "CPAY",
-        "GWW"
+        "BBIO",
+        "MOD",
+        "JPM",
+        "HWM",
+        "EME",
+        "ATI",
+        "MPWR",
+        "EXPD",
+        "WAT",
+        "CASY"
       ]
     },
     "breakout": {
-      "count": 1,
+      "count": 2,
       "tickers": [
-        "HIMS"
+        "ATI",
+        "WAT"
       ]
     },
     "value": {
@@ -44,18 +46,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "BNY",
-      "score": 57.0,
+      "ticker": "BBIO",
+      "score": 60.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "A",
-      "score": 54.0,
+      "ticker": "MOD",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HIMS",
-      "score": 44.5,
+      "ticker": "JPM",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
