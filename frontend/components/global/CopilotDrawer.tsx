@@ -840,9 +840,16 @@ export default function CopilotDrawer() {
                         components={{
                           a: ({ href, children }) => {
                             if (href?.startsWith("copilot://")) {
-                              const ticker = href.replace("copilot://", "");
+                              const ticker = href.replace("copilot://", "").trim().toUpperCase();
                               return (
-                                <button type="button" onClick={() => append({ role: "user", content: ct("analyzeTickerPrompt", activeLocale, { ticker }) })} className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    router.push(`/global/${activeLocale}/graphic/${ticker}`);
+                                    setIsOpen(false);
+                                  }}
+                                  className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
+                                >
                                   {children}
                                 </button>
                               );
@@ -874,6 +881,21 @@ export default function CopilotDrawer() {
                     urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
                     components={{
                       a: ({ href, children }) => {
+                        if (href?.startsWith("copilot://")) {
+                          const ticker = href.replace("copilot://", "").trim().toUpperCase();
+                          return (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                router.push(`/global/${activeLocale}/graphic/${ticker}`);
+                                setIsOpen(false);
+                              }}
+                              className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
+                            >
+                              {children}
+                            </button>
+                          );
+                        }
                         if (href?.startsWith("copilot-topic://")) {
                           const topicText = extractPlainText(children);
                           return (
