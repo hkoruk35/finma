@@ -760,6 +760,22 @@ export default function CopilotDrawer() {
                           </div>
                         );
                       }
+                      if (toolInv.toolName === "get_top_trending_stocks") {
+                        const stocks: StockCardProps[] = result?.stocks || [];
+                        if (stocks.length === 0) return null;
+                        return (
+                          <div key={idx} className="my-3 space-y-2">
+                            <span className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
+                              🔥 BOGASTOCK Öne Çıkan Trend Hisseler
+                            </span>
+                            <div className="space-y-2">
+                              {stocks.map((sProps: any, i: number) => (
+                                <StockCard key={i} data={sProps} locale={activeLocale} />
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      }
                       if (toolInv.toolName === "show_stock_card") {
                         if (!result?.success) return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">⚠️ {result?.error || ct("noStockData", activeLocale)}</div>;
                         return <StockCard key={idx} data={result as StockCardProps} locale={activeLocale} />;

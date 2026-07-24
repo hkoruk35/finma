@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
-import { getRealStockCardData } from "@/lib/copilot/stockData";
+import { getRealStockCardData, getTopTrendingStocksList } from "@/lib/copilot/stockData";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
@@ -44,28 +44,23 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
   const name = profile.displayName || getSuggestedName(locale);
   const personalization = await getPersonalizationContext(userId);
 
-  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". Kullanıcıya kendini bu isimle tanıt.
+  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun uzman finansal yapay zeka asistanısın.
 
-DİL KURALI: Kullanıcı mesajında dil değişikliği isterse veya başka bir dilde yazarsa ANINDA ve pürüzsüz biçimde o dile geç.
+DİL KURALI: Kullanıcı mesajında dil değişikliği isterse veya başka bir dilde yazarsa ANINDA o dile geç.
 
-HABER KISITLAMASI VE HİSSE ODAĞI (KESİN KURAL):
-1. KULLANICI "GÜNCEL HİSSELER", "TREND HİSSELER", "ÖNE ÇIKAN HİSSELER", "HİSSE ÖNERİSİ" SORDUĞUNDA:
-   - SAKIN HABER ARACINI ('search_market_news') ÇAĞIRMA! Kullanıcı haber istemedi, hisse istedi!
-   - MUTLAKA 'get_top_trending_stocks' veya 'show_stock_card' aracını çağır.
-   - BOGASTOCK.COM üzerindeki en yüksek BOGA AI skorlu güncel trend hisseleri (skorları ve destek/direnç seviyeleriyle) maddeler halinde sun.
+KULLANICI İSTEKLERİNE KESİN ODAKLANMA (NET ÇİZGİLER & SIFIR UYDURMA):
+1. KULLANICI "GÜNCEL HİSSELER", "TREND HİSSELER", "GÜNÜN ÖNE ÇIKAN HİSSELERİ", "HİSSE ÖNERİSİ" SORDUĞUNDA:
+   - KESİNLİKLE 'search_market_news' HABER ARACINI ÇAĞIRMA! Kullanıcı haber istemedi, hisse istedi!
+   - MUTLAKA 'get_top_trending_stocks' aracını çağır!
+   - ASLA VE ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" DEME! BOGASTOCK üzerinde her zaman yüksek skora veya göreceli güce sahip trend hisseler mevcuttur.
+   - 'get_top_trending_stocks' aracından dönen BOGASTOCK hisse kartlarını ve liderleri coşkulu, net bir dille sun.
 
-2. 'search_market_news' ARACINI YALNIZCA KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
-   - Kullanıcı haber istemediği sürece SAKIN kendiliğinden haber getirme!
-   - Haber istendiğinde: Haberleri İngilizce kart olarak değil, Türkçe olarak 2-3 maddelik kısa Türkçe özetler halinde anlat.
-   - SADECE BUGÜNÜN (Son 24 saat) haberlerini aktar. 2 gün veya daha eski haberleri KESİNLİKLE aktarma!
+2. HABERLERİ SADECE VE SADECE KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
+   - Kullanıcı sormadıkça SAKIN haber akışı getirme.
+   - Haber istendiğinde: Başlıkları İngilizce ham kart olarak değil, Türkçe olarak 2-3 maddelik net özetler halinde anlat.
+   - SADECE BUGÜNÜN (Son 24 saat) haberlerini aktar. Eski haberleri aktarma.
 
-3. KULLANICI NE İSTEDİYDSE SADECE ONA ODAKLAN. Sormadığı konuyu açma, gereksiz haber getirme.
-
-BÖLGE VE BORSALAR KAPSAMI:
-1. ÖNCELİK 1: BOGASTOCK.COM İÇİNDEKİ GERÇEK VERİLER (BOGA AI Skorları, Canlı Bilanço, Destek/Direnç seviyeleri, Swing Tercihleri).
-2. ÖNCELİK 2: ABD BORSA VE HİSSE SENEDİ PİYASASI (S&P 500, Nasdaq, NYSE, US Equities, Wall Street).
-3. ÖNCELİK 3: Yalnızca BOGASTOCK terminalinin sol tarafında listeli olan Değerli Madenler (Altın/Gümüş), Forex ve Kripto Varlıklar.
-4. KESİNLİKLE YASAK: Borsa İstanbul (BIST) veya yerel borsalar hakkında yorum yapmak yasaktır. Dil seçimi sadece YAZIM DİLİNİ değiştirir. Odak her zaman ABD PİYASALARI ve BOGASTOCK verileridir!
+3. SİTE ODAĞI: BOGASTOCK.COM platformunun ABD borsaları (S&P 500, Nasdaq, NYSE) ve terminal sol barındaki varlıklar (Madenler, Forex, Kripto) odaklıdır. BIST veya başka yerel borsa yorumu yapılmaz.
 
 `;
 
@@ -101,8 +96,8 @@ BÖLGE VE BORSALAR KAPSAMI:
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Güncel hisseler sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır ve BOGASTOCK hisselerini öner.
-4. Haberler ve analiz sonuçlarında tıklanabilir yönlendirme butonları sunmak için yanıtının sonuna [Buton Metni](copilot-topic://select) ekle.`;
+3. Öne çıkan / güncel hisseler sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
+4. Yanıtının sonuna tıklanabilir [Buton Metni](copilot-topic://select) ekle.`;
 
   return contextStr;
 }
@@ -143,19 +138,17 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         get_top_trending_stocks: tool({
-          description: "Fetches BOGASTOCK.COM top trending US stocks, top BOGA AI Score stocks, and top sector leaders. Call this when the user asks for 'güncel hisseler', 'trend hisseler', 'öne çıkan hisseler'. DO NOT CALL search_market_news!",
+          description: "Fetches BOGASTOCK.COM top trending US stocks and stock cards. Call this when the user asks for 'güncel hisseler', 'trend hisseler', 'günün öne çıkan hisseleri'. DO NOT CALL search_market_news!",
           parameters: z.object({ category: z.string().optional() }),
           execute: async () => {
-            const master = await getMasterData();
-            if (!master) return { success: false, stocks: [] };
-            const topSectors = Object.entries(master.sector_summary || {})
-              .sort((a, b) => (b[1]?.avg_score ?? 0) - (a[1]?.avg_score ?? 0))
-              .slice(0, 5)
-              .map(([name, data]: [string, any]) => ({ sector: name, score: data.avg_score, topTicker: data.top_ticker }));
+            const [master, cards] = await Promise.all([
+              getMasterData(),
+              withTimeout(getTopTrendingStocksList(locale), 2500),
+            ]);
             return {
               success: true,
-              regime: master.market_regime || "BULLISH_BIAS",
-              topSectors,
+              regime: master?.market_regime || "BULLISH_BIAS",
+              stocks: cards || [],
             };
           },
         }),

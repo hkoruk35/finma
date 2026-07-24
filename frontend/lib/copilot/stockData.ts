@@ -1,4 +1,4 @@
-// Copilot'un "show_stock_card" aracının TEK canlı veri kaynağı.
+// Copilot'un "show_stock_card" ve "get_top_trending_stocks" aracının TEK canlı veri kaynağı.
 // Canlı borsa verisi (getLiveAnalysis) önceliklidir — grafik ve gerçek piyasa ile 100% uyumlu.
 
 import { getStockData } from "@/lib/data";
@@ -38,10 +38,8 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
   if (live) {
     const card = liveToCard(live);
     if (card) {
-      // Dynamic Trend Determination based on real live price action
       let trend: "Bullish" | "Bearish" | "Neutral" = "Neutral";
       
-      // If stock is falling sharply, in Weinstein stage 4, or below support -> BEARISH!
       if (
         live.changePct < -1.5 ||
         live.context?.weinstein?.stage === 4 ||
@@ -54,7 +52,6 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
         trend = "Bullish";
       }
 
-      // Ensure support is always below current price, resistance above current price
       const price = live.price || 100;
       const validSupport = card.support && card.support < price ? card.support : Math.round(price * 0.95 * 100) / 100;
       const validResistance = card.resistance && card.resistance > price ? card.resistance : Math.round(price * 1.05 * 100) / 100;
@@ -93,4 +90,21 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
     target: Math.round(price * 1.10 * 100) / 100,
     summary: ct("liveAnalysisSummary", lang, { ticker: t, score: (data as any).bogaScore || (data as any).boga_score || 50 }),
   };
+}
+
+export async function getTopTrendingStocksList(lang: string = "tr"): Promise<CopilotStockCard[]> {
+  const topTickers = ["NVDA", "AAPL", "MSFT", "META", "PLTR", "AMD", "AMZN", "COST"];
+  const cards: CopilotStockCard[] = [];
+
+  const results = await Promise.allSettled(
+    topTickers.slice(0, 4).map((t) => getRealStockCardData(t, lang))
+  );
+
+  for (const res of results) {
+    if (res.status === "fulfilled" && res.value) {
+      cards.push(res.value);
+    }
+  }
+
+  return cards;
 }
