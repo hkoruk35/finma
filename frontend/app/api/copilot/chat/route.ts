@@ -86,7 +86,13 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
     if (pageContext.type === "ticker") {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
       if (pageContext.value === "NVDA") {
-        contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "(✨ Bu detaylı BOGA AI analizleri ve teknik seviyeler normalde Pro/Premium üyelerimize özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında ücretsiz kullanımınıza açılmıştır.)"\n\n`;
+        let nvdaNote = "(✨ Bu detaylı BOGA AI analizleri ve teknik seviyeler normalde Pro/Premium üyelerimize özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında ücretsiz kullanımınıza açılmıştır.)";
+        if (locale === "en") nvdaNote = "(✨ These deep analytics and technical levels are normally exclusive to BOGA Pro/Premium members; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)";
+        else if (locale === "es") nvdaNote = "(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)";
+        else if (locale === "fr") nvdaNote = "(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)";
+        else if (locale === "pt") nvdaNote = "(✨ Estas análises e níveis técnicos profundos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)";
+
+        contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "${nvdaNote}"\n\n`;
       }
     } else if (pageContext.page) {
       contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;

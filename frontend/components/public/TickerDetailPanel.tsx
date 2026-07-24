@@ -57,20 +57,24 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const t = copy[locale].top100.detail;
   const router = useRouter();
   const { isPremium } = useMemberPlan();
+
+  const isNVDA = ticker.toUpperCase() === "NVDA";
+  const effectiveIsPremium = isPremium || isNVDA;
+
   // Prop adi "lockTradePlan" kaldi (mevcut cagiran, /graphic sayfasi, bunu
   // gecirir) ama artik Technical Indicators + Market Data'yi da kapsiyor —
   // hepsi ayni premium kilit davranisini paylasiyor.
-  const premiumLocked = !!lockTradePlan && !isPremium;
+  const premiumLocked = !!lockTradePlan && !effectiveIsPremium;
   // "lockTradePlanCard" ise SADECE Trade Plan kartini kilitler (Technical
   // Indicators + Market Data acik kalir) — Gosterge Paneli (GlobalLandingPage)
   // bunu kullanir, /graphic sayfasindaki ucunu-de-kilitleyen lockTradePlan'dan
   // farkli.
-  const tradePlanLocked = premiumLocked || (!!lockTradePlanCard && !isPremium);
+  const tradePlanLocked = premiumLocked || (!!lockTradePlanCard && !effectiveIsPremium);
   // "İşlem Kurgusu Gerekçesi" (Rationale) karti Trade Plan'dan bagimsiz
   // kilitlenir: caller "unlockRationale" gecerse (Gosterge Paneli, sadece sol
   // menu + varsayilan 7 watchlist hissesi icin true gecer) premium olmayan
   // ziyaretci de gorur — diger her ticker icin (arama vb.) kilitli kalir.
-  const rationaleLocked = premiumLocked || (!!lockTradePlanCard && !isPremium && !unlockRationale);
+  const rationaleLocked = premiumLocked || (!!lockTradePlanCard && !effectiveIsPremium && !unlockRationale);
   const goToRegister = () => router.push(registerHref(locale));
 
   const LockPrompt = ({ message }: { message: string }) => (
