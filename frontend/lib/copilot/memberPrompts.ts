@@ -13,90 +13,87 @@ export function buildMemberDailyGreeting(
   watchlistCount: number,
   lang: CopilotLang = "tr"
 ): DailyGreeting {
-  const primarySector = favoriteSectors[0] || (lang === "tr" ? "Teknoloji" : "Technology");
-
   if (lang === "tr") {
     const welcomeMessage =
-      `Merhaba ${userName}! Bugün sizin için piyasayı taramaya hazırım.\n\n` +
-      `Sık ilgilendiğiniz **${primarySector}** sektörü ve izleme listenizdeki hisseler için borsalar açılmadan önce güncel bir özet hazırlayabilirim.\n\n` +
-      `Güne nasıl başlayalım?`;
+      `Merhaba ${userName}! BOGASTOCK masasına hoş geldiniz.\n\n` +
+      `Sitedeki canlı panelleriniz (İzleme Listem, Trend Hisseleri, BOGA AI Watchlist ve Top7/Top100) üzerinden analiz yapmaya hazırım.\n\n` +
+      `Bugün hangi listenizle başlayalım?`;
 
     return {
       welcomeMessage,
       pills: [
-        { label: "📊 Bugünün Piyasa Özeti", prompt: "Bugünün piyasa özetini ve genel durumunu aktar" },
-        { label: `💡 ${primarySector} Sektör Analizi`, prompt: `${primarySector} sektörü için kısa analiz ve son durumu aktar` },
-        { label: `🔥 ${primarySector} Öne Çıkan Hisseler`, prompt: `${primarySector} sektöründe en güçlü ve öne çıkan şirketleri listele` },
-        { label: "🚀 Gününün BOGA AI Trend Hisseleri", prompt: "Günün en güçlü BOGA AI Trend hisselerini göster" },
-        { label: "🌐 Farklı Bir Sektör İncele", prompt: "İnceleyebileceğimiz diğer güçlü sektörler hangileri?" },
+        { label: "⭐ İzleme Listem", prompt: "İzleme listemdeki hisseleri ve son durumlarını göster" },
+        { label: "📈 Trend Hisseleri", prompt: "BOGASTOCK Trend Hisseleri listesini ve durumlarını göster" },
+        { label: "🤖 BOGA AI Watchlist", prompt: "BOGA AI Watchlist listesindeki öne çıkan hisseleri göster" },
+        { label: "🏆 Top7 / Top100", prompt: "BOGASTOCK Top7 ve Top100 sıralamasındaki hisseleri göster" },
       ],
     };
   }
 
   if (lang === "pt") {
     const welcomeMessage =
-      `Olá ${userName}! Estou pronto para analisar o mercado para você hoje.\n\n` +
-      `Posso preparar um resumo atualizado focado no setor de **${primarySector}** e nas suas ações acompanhadas antes da abertura.\n\n` +
-      `Como gostaria de começar o dia?`;
+      `Olá ${userName}! Bem-vindo ao BOGASTOCK.\n\n` +
+      `Estou pronto para analisar seus painéis (Minha Lista, Ações em Tendência, BOGA AI Watchlist e Top7/Top100).\n\n` +
+      `Por qual lista gostaria de começar hoje?`;
 
     return {
       welcomeMessage,
       pills: [
-        { label: "📊 Resumo do Mercado de Hoje", prompt: "Apresente o resumo e panorama geral do mercado hoje" },
-        { label: `💡 Análise de ${primarySector}`, prompt: `Faça uma análise rápida do setor de ${primarySector}` },
-        { label: `🔥 Destaques de ${primarySector}`, prompt: `Liste as principais empresas em destaque no setor de ${primarySector}` },
-        { label: "🚀 Ações em Tendência BOGA AI", prompt: "Mostre as ações de tendência mais fortes da BOGA AI hoje" },
+        { label: "⭐ Minha Lista", prompt: "Mostre as ações da minha lista e seu status" },
+        { label: "📈 Ações em Tendência", prompt: "Mostre a lista de Ações em Tendência da BOGASTOCK" },
+        { label: "🤖 BOGA AI Watchlist", prompt: "Mostre as ações do BOGA AI Watchlist" },
+        { label: "🏆 Top7 / Top100", prompt: "Mostre as ações do ranking Top7 e Top100" },
       ],
     };
   }
 
   if (lang === "es") {
     const welcomeMessage =
-      `¡Hola ${userName}! Estoy listo para analizar el mercado para ti hoy.\n\n` +
-      `Puedo preparar un resumen actualizado enfocado en el sector de **${primarySector}** y tus acciones favoritas antes de la apertura.\n\n` +
-      `¿Cómo nos gustaría comenzar hoy?`;
+      `¡Hola ${userName}! Bienvenido a BOGASTOCK.\n\n` +
+      `Estoy listo para analizar tus paneles (Mi Lista, Acciones en Tendencia, BOGA AI Watchlist y Top7/Top100).\n\n` +
+      `¿Con qué lista nos gustaría comenzar hoy?`;
 
     return {
       welcomeMessage,
       pills: [
-        { label: "📊 Resumen del Mercado Hoy", prompt: "Proporciona el resumen y panorama general del mercado de hoy" },
-        { label: `💡 Análisis de ${primarySector}`, prompt: `Haz un análisis rápido del sector de ${primarySector}` },
-        { label: `🔥 Destacadas de ${primarySector}`, prompt: `Enumera las principales empresas destacadas en el sector de ${primarySector}` },
-        { label: "🚀 Acciones en Tendencia BOGA AI", prompt: "Muestra las acciones con tendencia más fuerte de BOGA AI hoy" },
+        { label: "⭐ Mi Lista", prompt: "Muestra las acciones de mi lista y su estado actual" },
+        { label: "📈 Acciones en Tendencia", prompt: "Muestra la lista de Acciones en Tendencia de BOGASTOCK" },
+        { label: "🤖 BOGA AI Watchlist", prompt: "Muestra las acciones del BOGA AI Watchlist" },
+        { label: "🏆 Top7 / Top100", prompt: "Muestra las acciones del ranking Top7 y Top100" },
       ],
     };
   }
 
   if (lang === "fr") {
     const welcomeMessage =
-      `Bonjour ${userName} ! Je suis prêt à analyser le marché pour vous aujourd'hui.\n\n` +
-      `Je peux préparer un résumé rapide axé sur le secteur **${primarySector}** et vos actions suivies avant l'ouverture.\n\n` +
-      `Par quoi souhaitez-vous commencer aujourd'hui ?`;
+      `Bonjour ${userName} ! Bienvenue sur BOGASTOCK.\n\n` +
+      `Je suis prêt à analyser vos tableaux de bord (Ma Liste, Actions Tendance, BOGA AI Watchlist et Top7/Top100).\n\n` +
+      `Par quelle liste souhaitez-vous commencer aujourd'hui ?`;
 
     return {
       welcomeMessage,
       pills: [
-        { label: "📊 Résumé du Marché d'Aujourd'hui", prompt: "Donnez le résumé et la vue d'ensemble du marché aujourd'hui" },
-        { label: `💡 Analyse de ${primarySector}`, prompt: `Faites une analyse rapide du secteur ${primarySector}` },
-        { label: `🔥 Actions Phares de ${primarySector}`, prompt: `Listez les entreprises phares du secteur ${primarySector}` },
-        { label: "🚀 Actions Tendance BOGA AI", prompt: "Montrez les actions tendance BOGA AI les plus fortes aujourd'hui" },
+        { label: "⭐ Ma Liste", prompt: "Montrez les actions de ma liste et leur état" },
+        { label: "📈 Actions Tendance", prompt: "Montrez la liste des Actions Tendance BOGASTOCK" },
+        { label: "🤖 BOGA AI Watchlist", prompt: "Montrez les actions du BOGA AI Watchlist" },
+        { label: "🏆 Top7 / Top100", prompt: "Montrez les actions du classement Top7 et Top100" },
       ],
     };
   }
 
   // Default English
   const welcomeMessage =
-    `Hello ${userName}! Ready to analyze the market for you today.\n\n` +
-    `I can prepare an updated briefing focused on the **${primarySector}** sector and your watched stocks before the market opens.\n\n` +
-    `How would you like to start today?`;
+    `Hello ${userName}! Welcome to BOGASTOCK.\n\n` +
+    `Ready to analyze your dashboard panels (My Watchlist, Trend Stocks, BOGA AI Watchlist, and Top7/Top100).\n\n` +
+    `Which list would you like to start with today?`;
 
   return {
     welcomeMessage,
     pills: [
-      { label: "📊 Today's Market Briefing", prompt: "Provide today's overall market summary and current regime" },
-      { label: `💡 ${primarySector} Sector Briefing`, prompt: `Provide a quick briefing on the ${primarySector} sector` },
-      { label: `🔥 Top Stocks in ${primarySector}`, prompt: `List the top-performing companies in the ${primarySector} sector` },
-      { label: "🚀 Today's BOGA AI Trend Picks", prompt: "Show today's top BOGA AI Trend picks" },
+      { label: "⭐ My Watchlist", prompt: "Show the stocks in my watchlist and their status" },
+      { label: "📈 Trend Stocks", prompt: "Show BOGASTOCK Trend Stocks list and status" },
+      { label: "🤖 BOGA AI Watchlist", prompt: "Show stocks in the BOGA AI Watchlist" },
+      { label: "🏆 Top7 / Top100", prompt: "Show stocks in the BOGASTOCK Top7 and Top100 rankings" },
     ],
   };
 }

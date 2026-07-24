@@ -766,7 +766,7 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-3 space-y-2">
                             <span className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
-                              🔥 BOGASTOCK Öne Çıkan Trend Hisseler
+                              🔥 {result?.categoryName || "BOGASTOCK Trend Hisseleri"}
                             </span>
                             <div className="space-y-2">
                               {stocks.map((sProps: any, i: number) => (

@@ -4,7 +4,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
-import { getRealStockCardData, getTopTrendingStocksList } from "@/lib/copilot/stockData";
+import { getRealStockCardData, getSiteCategoryStocksList } from "@/lib/copilot/stockData";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
@@ -44,23 +44,24 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
   const name = profile.displayName || getSuggestedName(locale);
   const personalization = await getPersonalizationContext(userId);
 
-  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun uzman finansal yapay zeka asistanısın.
+  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun uzman yapay zeka asistanısın.
 
 DİL KURALI: Kullanıcı mesajında dil değişikliği isterse veya başka bir dilde yazarsa ANINDA o dile geç.
 
-KULLANICI İSTEKLERİNE KESİN ODAKLANMA (NET ÇİZGİLER & SIFIR UYDURMA):
-1. KULLANICI "GÜNCEL HİSSELER", "TREND HİSSELER", "GÜNÜN ÖNE ÇIKAN HİSSELERİ", "HİSSE ÖNERİSİ" SORDUĞUNDA:
-   - KESİNLİKLE 'search_market_news' HABER ARACINI ÇAĞIRMA! Kullanıcı haber istemedi, hisse istedi!
-   - MUTLAKA 'get_top_trending_stocks' aracını çağır!
-   - ASLA VE ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" DEME! BOGASTOCK üzerinde her zaman yüksek skora veya göreceli güce sahip trend hisseler mevcuttur.
-   - 'get_top_trending_stocks' aracından dönen BOGASTOCK hisse kartlarını ve liderleri coşkulu, net bir dille sun.
+SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
+1. BOGA COPILOT'UN EN TEMEL HEDEFİ BOGASTOCK.COM SİTESİNDEKİ CANLI PANELLER VEYA LİSTELER ÜZERİNDEN YOLA ÇIKMAKTIR.
+2. KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "BOGA AI WATCHLIST", "TOP 7", "TOP 100" DEDİĞİNDE VEYA SORDUĞUNDA:
+   - KESİNLİKLE VE ASLA 'search_market_news' HABER ARACINI ÇAĞIRMA!
+   - MUTLAKA 'get_top_trending_stocks' ARACINI İLGİLİ KATEGORİ İLE ÇAĞIR!
+   - Kendi kafandan uydurma mega-cap listesi oluşturma! Sitedeki gerçek liste elemanlarını (örn. Trend Hisseleri için BBIO, MOD, JPM, HWM; İzleme Listem için ONDS, KEEL, HIMS, OSCR; Top 100 için NOK, INTC, TSLA, NVDA vb.) getir.
+   - ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" DEME! Sitedeki canlı liste elemanlarını hisse kartlarıyla sun.
 
-2. HABERLERİ SADECE VE SADECE KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
+3. HABERLERİ SADECE VE SADECE KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
    - Kullanıcı sormadıkça SAKIN haber akışı getirme.
    - Haber istendiğinde: Başlıkları İngilizce ham kart olarak değil, Türkçe olarak 2-3 maddelik net özetler halinde anlat.
    - SADECE BUGÜNÜN (Son 24 saat) haberlerini aktar. Eski haberleri aktarma.
 
-3. SİTE ODAĞI: BOGASTOCK.COM platformunun ABD borsaları (S&P 500, Nasdaq, NYSE) ve terminal sol barındaki varlıklar (Madenler, Forex, Kripto) odaklıdır. BIST veya başka yerel borsa yorumu yapılmaz.
+4. SİTE ODAĞI: BOGASTOCK.COM platformunun ABD borsaları (S&P 500, Nasdaq, NYSE) ve terminal sol barındaki varlıklar (Madenler, Forex, Kripto) odaklıdır. BIST veya başka yerel borsa yorumu yapılmaz.
 
 `;
 
@@ -96,7 +97,7 @@ KULLANICI İSTEKLERİNE KESİN ODAKLANMA (NET ÇİZGİLER & SIFIR UYDURMA):
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Öne çıkan / güncel hisseler sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
+3. Trend Hisseleri, İzleme Listem veya Top 100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
 4. Yanıtının sonuna tıklanabilir [Buton Metni](copilot-topic://select) ekle.`;
 
   return contextStr;
@@ -138,17 +139,17 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         get_top_trending_stocks: tool({
-          description: "Fetches BOGASTOCK.COM top trending US stocks and stock cards. Call this when the user asks for 'güncel hisseler', 'trend hisseler', 'günün öne çıkan hisseleri'. DO NOT CALL search_market_news!",
-          parameters: z.object({ category: z.string().optional() }),
-          execute: async () => {
-            const [master, cards] = await Promise.all([
-              getMasterData(),
-              withTimeout(getTopTrendingStocksList(locale), 2500),
-            ]);
+          description: "Fetches BOGASTOCK.COM site dashboard lists: Trend Hisseleri, İzleme Listem, BOGA AI Watchlist, or Top 100 / Top 7. Call this when user asks for 'trend hisseler', 'izleme listem', 'top 100', 'boga ai watchlist'.",
+          parameters: z.object({
+            category: z.enum(["trend_stocks", "user_watchlist", "boga_ai_watchlist", "top_100", "top_7"]).optional(),
+          }),
+          execute: async ({ category }) => {
+            const cat = category || "trend_stocks";
+            const res = await withTimeout(getSiteCategoryStocksList(cat, locale, user.id), 2500);
             return {
               success: true,
-              regime: master?.market_regime || "BULLISH_BIAS",
-              stocks: cards || [],
+              categoryName: res?.categoryName || "BOGASTOCK Trend Hisseleri",
+              stocks: res?.cards || [],
             };
           },
         }),

@@ -1,14 +1,10 @@
-// Copilot'un "show_stock_card" ve "get_top_trending_stocks" aracının TEK canlı veri kaynağı.
+// Copilot'un "show_stock_card" ve site kategorileri aracının TEK canlı veri kaynağı.
 // Canlı borsa verisi (getLiveAnalysis) önceliklidir — grafik ve gerçek piyasa ile 100% uyumlu.
 
-import { getStockData } from "@/lib/data";
+import { getStockData, getMasterData } from "@/lib/data";
 import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
-
-function searchTickerByName(query: string): string | null {
-  const t = query.trim().toUpperCase();
-  return /^[A-Z.\-]{1,6}$/.test(t) ? t : null;
-}
+import { getPersonalizationContext } from "@/lib/copilot/personalization";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -92,12 +88,37 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
   };
 }
 
-export async function getTopTrendingStocksList(lang: string = "tr"): Promise<CopilotStockCard[]> {
-  const topTickers = ["NVDA", "AAPL", "MSFT", "META", "PLTR", "AMD", "AMZN", "COST"];
-  const cards: CopilotStockCard[] = [];
+export async function getSiteCategoryStocksList(
+  category: "trend_stocks" | "top_7" | "top_100" | "boga_ai_watchlist" | "user_watchlist",
+  lang: string = "tr",
+  userId?: string
+): Promise<{ categoryName: string; cards: CopilotStockCard[] }> {
+  let tickers: string[] = [];
+  let categoryName = "BOGASTOCK Trend Hisseleri";
 
+  const master = await getMasterData();
+
+  if (category === "user_watchlist" && userId) {
+    categoryName = "İzleme Listem";
+    const personalization = await getPersonalizationContext(userId);
+    tickers = personalization.watchlistTickers || [];
+    if (tickers.length === 0) tickers = ["ONDS", "KEEL", "HIMS", "OSCR"];
+  } else if (category === "trend_stocks") {
+    categoryName = "BOGASTOCK Trend Hisseleri";
+    tickers = master?.menus?.["trend_stocks"]?.tickers || master?.menus?.["trend"]?.tickers || ["BBIO", "MOD", "JPM", "HWM"];
+  } else if (category === "boga_ai_watchlist") {
+    categoryName = "BOGA AI Watchlist";
+    tickers = master?.menus?.["boga_ai_watchlist"]?.tickers || master?.menus?.["high_conviction"]?.tickers || ["BBIO", "MOD", "JPM", "HWM"];
+  } else if (category === "top_7" || category === "top_100") {
+    categoryName = "BOGASTOCK Top 100 / Top 7";
+    tickers = master?.menus?.["top_100"]?.tickers || master?.menus?.["top_7"]?.tickers || ["NOK", "INTC", "TSLA", "NVDA"];
+  } else {
+    tickers = ["BBIO", "MOD", "JPM", "HWM"];
+  }
+
+  const cards: CopilotStockCard[] = [];
   const results = await Promise.allSettled(
-    topTickers.slice(0, 4).map((t) => getRealStockCardData(t, lang))
+    tickers.slice(0, 5).map((t) => getRealStockCardData(t, lang))
   );
 
   for (const res of results) {
@@ -106,5 +127,5 @@ export async function getTopTrendingStocksList(lang: string = "tr"): Promise<Cop
     }
   }
 
-  return cards;
+  return { categoryName, cards };
 }
