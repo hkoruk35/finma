@@ -9,6 +9,7 @@ import { StockCard, StockCardProps } from "@/components/copilot/ActionCards";
 import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/persona";
 import { ct } from "@/lib/copilot/i18n";
 import { VISITOR_TEXTS, SupportedLocale, DemoMessage } from "@/lib/copilot/visitorDemo";
+import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
 
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
@@ -25,19 +26,31 @@ function extractPlainText(node: React.ReactNode): string {
   return "";
 }
 
+export interface ChatArchiveItem {
+  id: string;
+  date: string;
+  preview: string;
+  messageCount: number;
+}
+
 export default function CopilotDrawer() {
   const {
     isOpen, setIsOpen,
     isSettingsOpen, setIsSettingsOpen,
     messages, input, handleInputChange, handleSubmit, isLoading,
     pageContext, locale, append, usage, profile, saveProfile,
-    isAuthenticated, error,
+    isAuthenticated, error, setMessages,
   } = useCopilot();
   const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [draftName, setDraftName] = useState(profile.displayName);
   const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
+
+  // --- HISTORY & ARCHIVE STATES ---
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [archives, setArchives] = useState<ChatArchiveItem[]>([]);
+  const [favoriteSectors, setFavoriteSectors] = useState<string[]>([]);
 
   // --- VISITOR DEMO MODE STATES ---
   const [demoLocale, setDemoLocale] = useState<SupportedLocale>(() => {
@@ -49,6 +62,18 @@ export default function CopilotDrawer() {
   const [demoMessages, setDemoMessages] = useState<DemoMessage[]>([]);
   const [demoInput, setDemoInput] = useState<string>("");
   const [demoLoading, setDemoLoading] = useState<boolean>(false);
+
+  // Fetch Archives & Member Personalization Sector context when drawer opens
+  useEffect(() => {
+    if (isAuthenticated && isOpen) {
+      fetch("/api/copilot/history")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d?.archives) setArchives(d.archives);
+        })
+        .catch(() => {});
+    }
+  }, [isAuthenticated, isOpen]);
 
   // Initialize Visitor Demo Stage 1 message if not initialized
   useEffect(() => {
@@ -94,12 +119,11 @@ export default function CopilotDrawer() {
   const avatar = getAvatar(profile.avatarId);
   const displayName = profile.displayName || getSuggestedName(locale);
 
-  const getWelcomeMessage = () => {
-    if (pageContext?.type === "ticker") {
-      return ct("welcomeTicker", locale, { ticker: pageContext.value });
-    }
-    return ct("welcomeDefault", locale);
-  };
+  // Generate personalized daily kickoff greeting for member
+  const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(locale as any)
+    ? (locale as CopilotLang)
+    : "tr";
+  const dailyGreeting = buildMemberDailyGreeting(displayName, favoriteSectors, 0, memberLang);
 
   const handleQuickAction = (text: string) => {
     append({ role: "user", content: text });
@@ -114,130 +138,110 @@ export default function CopilotDrawer() {
     setIsSettingsOpen(false);
   };
 
+  const handleClearHistory = async () => {
+    try {
+      await fetch("/api/copilot/history", { method: "DELETE" });
+      if (setMessages) setMessages([]);
+      setArchives([]);
+      setIsHistoryOpen(false);
+    } catch {}
+  };
+
   const handleTriggerClick = () => {
     setIsOpen(true);
   };
 
-  // Visitor Demo Action Click Handler
-  const handleVisitorActionClick = async (btn: { label: string; id?: string; action?: string; href?: string }) => {
+  // --- Visitor Option Button Click Handler ---
+  const handleVisitorActionClick = async (btn: { label: string; id: string; action?: string; href?: string }) => {
+    if (demoLoading) return;
+
     if (btn.href) {
-      if (btn.action === "return_chart") {
-        setIsOpen(false);
-      }
       router.push(btn.href);
+      if (btn.action === "return_chart") setIsOpen(false);
       return;
     }
 
-    const vText = VISITOR_TEXTS[demoLocale] || VISITOR_TEXTS.en;
-    const userMsg: DemoMessage = { id: `u-${Date.now()}`, role: "user", content: btn.label };
+    const userMsgText = btn.label;
+    const nextUserMsg: DemoMessage = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: userMsgText,
+    };
 
-    if (btn.action === "stage1_select" || demoStage === 1) {
-      const selectedInterest = btn.id || "trend";
-      setDemoPrimaryInterest(selectedInterest);
-      setDemoStage(2);
+    setDemoMessages((prev) => [...prev, nextUserMsg]);
 
-      const nextAssistantMsg: DemoMessage = {
-        id: `a-${Date.now()}`,
+    let nextStage = demoStage;
+    let nextInterest = demoPrimaryInterest;
+    let nextHorizon = demoTimeHorizon;
+
+    if (btn.action === "stage1_select") {
+      nextInterest = btn.id;
+      setDemoPrimaryInterest(btn.id);
+      nextStage = 2;
+    } else if (btn.action === "stage2_select") {
+      nextHorizon = btn.id;
+      setDemoTimeHorizon(btn.id);
+      nextStage = 3;
+    } else if (btn.action === "set_followup") {
+      nextStage = 4;
+    }
+
+    setDemoStage(nextStage);
+    setDemoLoading(true);
+
+    try {
+      const res = await fetch("/api/copilot/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          locale: demoLocale,
+          stage: nextStage,
+          primaryInterest: nextInterest,
+          timeHorizon: nextHorizon,
+          userMessage: userMsgText,
+        }),
+      });
+
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+
+      const assistantMsg: DemoMessage = {
+        id: `assistant-${Date.now()}`,
         role: "assistant",
-        content: vText.stage2Message,
-        buttons: vText.stage2Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage2_select" })),
-        stage: 2,
+        content: data.reply,
+        buttons: data.buttons,
+        stage: data.stage || nextStage,
       };
-      setDemoMessages((prev) => [...prev, userMsg, nextAssistantMsg]);
-      return;
-    }
 
-    if (btn.action === "stage2_select" || demoStage === 2) {
-      const selectedHorizon = btn.id || "few_weeks";
-      setDemoTimeHorizon(selectedHorizon);
-      setDemoStage(3);
-      setDemoLoading(true);
-
-      setDemoMessages((prev) => [...prev, userMsg]);
-
-      try {
-        const res = await fetch("/api/copilot/demo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            locale: demoLocale,
-            stage: 3,
-            primaryInterest: demoPrimaryInterest,
-            timeHorizon: selectedHorizon,
-          }),
-        });
-        const data = await res.json();
-        setDemoMessages((prev) => [
-          ...prev,
-          {
-            id: `a-${Date.now()}`,
-            role: "assistant",
-            content: data.reply,
-            buttons: data.buttons,
-            stage: 3,
-          },
-        ]);
-      } catch {
-        setDemoMessages((prev) => [
-          ...prev,
-          { id: `a-${Date.now()}`, role: "assistant", content: ct("genericError", demoLocale) },
-        ]);
-      } finally {
-        setDemoLoading(false);
-      }
-      return;
-    }
-
-    if (btn.action === "set_followup" || demoStage === 3 || demoStage === 4) {
-      const followUp = btn.id || "trade_scenario";
-      setDemoStage(4);
-      setDemoLoading(true);
-      setDemoMessages((prev) => [...prev, userMsg]);
-
-      try {
-        const res = await fetch("/api/copilot/demo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            locale: demoLocale,
-            stage: 4,
-            primaryInterest: demoPrimaryInterest,
-            timeHorizon: demoTimeHorizon,
-            followUpTopic: followUp,
-          }),
-        });
-        const data = await res.json();
-        setDemoMessages((prev) => [
-          ...prev,
-          {
-            id: `a-${Date.now()}`,
-            role: "assistant",
-            content: data.reply,
-            buttons: data.buttons,
-            stage: 5,
-          },
-        ]);
-      } catch {
-        setDemoMessages((prev) => [
-          ...prev,
-          { id: `a-${Date.now()}`, role: "assistant", content: ct("genericError", demoLocale) },
-        ]);
-      } finally {
-        setDemoLoading(false);
-      }
-      return;
+      setDemoMessages((prev) => [...prev, assistantMsg]);
+      if (data.stage) setDemoStage(data.stage);
+    } catch {
+      const fallbackMsg: DemoMessage = {
+        id: `err-${Date.now()}`,
+        role: "assistant",
+        content: "İşlem sırasında bir bağlantı hatası oluştu. Lütfen tekrar deneyin.",
+      };
+      setDemoMessages((prev) => [...prev, fallbackMsg]);
+    } finally {
+      setDemoLoading(false);
     }
   };
 
-  // Handle free-text visitor input
+  // --- Visitor Free Text Form Submit Handler ---
   const handleVisitorInputSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const text = demoInput.trim();
-    if (!text || demoLoading) return;
+    if (!demoInput.trim() || demoLoading) return;
+
+    const userText = demoInput.trim();
     setDemoInput("");
 
-    const userMsg: DemoMessage = { id: `u-${Date.now()}`, role: "user", content: text };
-    setDemoMessages((prev) => [...prev, userMsg]);
+    const nextUserMsg: DemoMessage = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: userText,
+    };
+
+    setDemoMessages((prev) => [...prev, nextUserMsg]);
     setDemoLoading(true);
 
     try {
@@ -249,24 +253,30 @@ export default function CopilotDrawer() {
           stage: demoStage,
           primaryInterest: demoPrimaryInterest,
           timeHorizon: demoTimeHorizon,
-          userMessage: text,
+          userMessage: userText,
         }),
       });
+
+      if (!res.ok) throw new Error();
       const data = await res.json();
-      setDemoMessages((prev) => [
-        ...prev,
-        {
-          id: `a-${Date.now()}`,
-          role: "assistant",
-          content: data.reply,
-          buttons: data.buttons,
-          stage: data.stage || demoStage,
-        },
-      ]);
+
+      const assistantMsg: DemoMessage = {
+        id: `assistant-${Date.now()}`,
+        role: "assistant",
+        content: data.reply,
+        buttons: data.buttons,
+        stage: data.stage || demoStage,
+      };
+
+      setDemoMessages((prev) => [...prev, assistantMsg]);
     } catch {
       setDemoMessages((prev) => [
         ...prev,
-        { id: `a-${Date.now()}`, role: "assistant", content: ct("genericError", demoLocale) },
+        {
+          id: `err-${Date.now()}`,
+          role: "assistant",
+          content: "Bağlantı hatası oluştu. Lütfen tekrar deneyin.",
+        },
       ]);
     } finally {
       setDemoLoading(false);
@@ -281,7 +291,6 @@ export default function CopilotDrawer() {
             <button
               onClick={handleTriggerClick}
               onTouchEnd={(e) => {
-                // Instantly open drawer on mobile tap
                 handleTriggerClick();
               }}
               className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-transform active:scale-95 touch-manipulation"
@@ -338,16 +347,35 @@ export default function CopilotDrawer() {
             )}
 
             {isAuthenticated && (
-              <button
-                onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-                title={ct("personalize", locale)}
-                className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-                </svg>
-              </button>
+              <>
+                <button
+                  onClick={() => {
+                    setIsHistoryOpen(!isHistoryOpen);
+                    setIsSettingsOpen(false);
+                  }}
+                  title="Sohbet Arşivi & Geçmiş"
+                  className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setIsSettingsOpen(!isSettingsOpen);
+                    setIsHistoryOpen(false);
+                  }}
+                  title={ct("personalize", locale)}
+                  className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                  </svg>
+                </button>
+              </>
             )}
 
             <button
@@ -359,9 +387,43 @@ export default function CopilotDrawer() {
           </div>
         </div>
 
+        {/* History / Archive Panel for members */}
+        {isAuthenticated && isHistoryOpen && (
+          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-gray-300 uppercase tracking-wider">📜 Sohbet Arşivi & Geçmiş</span>
+              <button
+                type="button"
+                onClick={handleClearHistory}
+                className="text-[10px] font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded transition-all cursor-pointer"
+              >
+                🗑️ Ekrandan Temizle
+              </button>
+            </div>
+            {archives.length > 0 ? (
+              <div className="space-y-2 max-h-40 overflow-y-auto">
+                {archives.map((arc, i) => (
+                  <div key={i} className="bg-[#161b22] border border-white/10 p-2.5 rounded-lg text-xs flex flex-col gap-1">
+                    <div className="flex justify-between items-center text-[10px] text-gray-400 font-mono">
+                      <span>📅 {arc.date}</span>
+                      <span className="text-blue-400 font-bold">{arc.messageCount} mesaj</span>
+                    </div>
+                    <p className="text-gray-200 text-[11px] truncate">{arc.preview}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-gray-500 italic">Henüz kaydedilmiş sohbet arşivi bulunmuyor.</p>
+            )}
+            <p className="text-[9px] text-gray-500 italic pt-1">
+              * Sohbeti ekrandan silseniz bile BOGA Copilot ilgi alanlarınızı ve sektör tercihlerinizi öğrenmeye devam eder.
+            </p>
+          </div>
+        )}
+
         {/* Settings panel for members */}
         {isAuthenticated && isSettingsOpen && (
-          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3">
+          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
             <div>
               <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", locale)}</label>
               <input
@@ -404,33 +466,39 @@ export default function CopilotDrawer() {
             /* AUTHENTICATED MEMBER MESSAGES */
             messages.length === 0 ? (
               <div className="flex flex-col gap-3">
-                <div className="bg-[#1f2937] p-4 rounded-2xl rounded-tl-sm text-sm text-gray-200 border border-white/5 whitespace-pre-wrap">
-                  {getWelcomeMessage()}
+                {/* Proactive Personalized Daily Kickoff Greeting */}
+                <div className="bg-[#141924] p-4 rounded-2xl border border-[#2a384e] shadow-lg text-sm text-gray-200 whitespace-pre-wrap leading-relaxed">
+                  {dailyGreeting.welcomeMessage}
                 </div>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {pageContext?.type === "ticker" ? (
-                    <>
-                      <button type="button" onClick={() => handleQuickAction(ct("quickTechnicalMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickTechnical", locale)}</button>
-                      <button type="button" onClick={() => handleQuickAction(ct("quickSupportResistanceMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickSupportResistance", locale)}</button>
-                    </>
-                  ) : (
-                    <>
-                      <button type="button" onClick={() => handleQuickAction(ct("quickSwingMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickSwing", locale)}</button>
-                      <button type="button" onClick={() => handleQuickAction(ct("quickNvdaMsg", locale))} className="px-3 py-1.5 text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full hover:bg-blue-500/20">{ct("quickNvda", locale)}</button>
-                    </>
-                  )}
+                <div className="flex flex-col gap-2 mt-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+                    💡 Önerilen Günlük Analiz Başlıkları
+                  </span>
+                  {dailyGreeting.pills.map((pill, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleQuickAction(pill.prompt)}
+                      className="w-full text-left px-3.5 py-2.5 rounded-xl bg-[#1e293b] border border-blue-500/30 hover:border-blue-400 hover:bg-blue-600/20 text-blue-300 hover:text-white text-xs font-bold transition-all shadow-sm flex items-center justify-between touch-manipulation active:scale-[0.98]"
+                    >
+                      <span>{pill.label}</span>
+                      <span className="text-xs opacity-60">→</span>
+                    </button>
+                  ))}
                 </div>
               </div>
             ) : (
               messages.map((msg) => (
-                <div key={msg.id} className={`flex flex-col max-w-[90%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
+                <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
                   <div
-                    className={`p-3 text-sm rounded-2xl prose prose-invert prose-sm ${
-                      msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#1f2937] text-gray-200 border border-white/5 rounded-tl-sm"
+                    className={`p-3.5 text-sm rounded-2xl prose prose-invert prose-sm leading-relaxed whitespace-pre-wrap ${
+                      msg.role === "user"
+                        ? "bg-blue-600 text-white rounded-tr-sm"
+                        : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"
                     }`}
                   >
                     {msg.toolInvocations?.map((toolInv: any, idx: number) => {
-                      const result = toolInv.result;
+                      const result = (toolInv as any).result;
                       if (!result) {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
@@ -491,13 +559,13 @@ export default function CopilotDrawer() {
                                 <button
                                   type="button"
                                   onClick={() => topicText && append({ role: "user", content: topicText })}
-                                  className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer"
+                                  className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
                                 >
-                                  {children}
+                                  <span>{children}</span>
                                 </button>
                               );
                             }
-                            return <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>;
+                            return <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">{children}</a>;
                           },
                         }}
                       >
@@ -541,10 +609,11 @@ export default function CopilotDrawer() {
                       {msg.buttons.map((btn, idx) => (
                         <button
                           key={idx}
+                          type="button"
                           onClick={() => handleVisitorActionClick(btn)}
-                          className={`w-full text-left px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-between ${
+                          className={`w-full text-left px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-between touch-manipulation active:scale-[0.98] ${
                             btn.action === "offer_signup"
-                              ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 hover:brightness-110 font-extrabold text-sm"
+                              ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 hover:brightness-110 font-extrabold text-sm py-3"
                               : btn.action === "offer_details"
                               ? "bg-blue-600/20 text-blue-300 border border-blue-500/40 hover:bg-blue-600/30"
                               : btn.action === "return_chart"
@@ -563,31 +632,12 @@ export default function CopilotDrawer() {
             ))
           )}
 
-          {(isLoading || demoLoading) && (
-            <div className="flex flex-col max-w-[85%] mr-auto">
-              <div className="p-3 text-sm rounded-2xl bg-[#1f2937] text-gray-400 border border-white/5 rounded-tl-sm flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse delay-75"></span>
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse delay-150"></span>
-              </div>
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg text-xs">
+              {error.message || ct("errorGeneric", locale)}
             </div>
           )}
 
-          {isAuthenticated && quotaExhausted && (
-            <div className="bg-[#1f2937] border border-yellow-500/20 rounded-2xl p-3 text-xs text-yellow-300">
-              {ct("quotaExhausted", locale, { limit: usage?.dailyLimit ?? "" })}
-            </div>
-          )}
-          {isAuthenticated && noAccess && (
-            <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
-              {ct("noAccess", locale)}
-            </div>
-          )}
-          {isAuthenticated && error && (
-            <div className="bg-[#1f2937] border border-red-500/20 rounded-2xl p-3 text-xs text-red-300">
-              ⚠️ {ct("genericError", locale)}
-            </div>
-          )}
           <div ref={messagesEndRef} />
         </div>
 

@@ -34,6 +34,7 @@ export interface CopilotContextType {
   saveProfile: (next: ProfileState) => Promise<void>;
   isAuthenticated: boolean;
   error: Error | undefined;
+  setMessages: (messages: any[]) => void;
 }
 
 const CopilotContext = createContext<CopilotContextType | undefined>(undefined);
@@ -159,6 +160,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         saveProfile,
         isAuthenticated,
         error,
+        setMessages,
       }}
     >
       {children}

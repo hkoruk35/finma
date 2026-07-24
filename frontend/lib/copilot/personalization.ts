@@ -1,4 +1,4 @@
-// Kullanıcıya özel bağlam: izleme listesi → sektör eğilimi + son aramalar.
+// Kullanıcıya özel bağlam: izleme listesi + arama geçmişi → sektör eğilimi + son aramalar.
 // Sadece gerçek, üyeye ait DB verisinden üretilir; hiçbir varsayım/uydurma yok.
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
@@ -28,22 +28,34 @@ export async function getPersonalizationContext(userId: string): Promise<Persona
     supabaseAdmin.from("custom_watchlists").select("tickers").eq("user_id", userId).single(),
     supabaseAdmin
       .from("copilot_search_history")
-      .select("query")
+      .select("query, ticker, sector")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
-      .limit(8),
+      .limit(15),
   ]);
 
   const watchlistTickers: string[] = watchlistRes.data?.tickers || [];
   const sectorMap = getTickerSectorMap();
   const sectorCounts = new Map<string, number>();
+
+  // Sektör ağırlıklarını hem izleme listesinden hem de geçmiş aramalardan hesapla
   for (const t of watchlistTickers) {
     const sector = sectorMap.get(t.toUpperCase());
-    if (sector) sectorCounts.set(sector, (sectorCounts.get(sector) || 0) + 1);
+    if (sector) sectorCounts.set(sector, (sectorCounts.get(sector) || 0) + 3); // izleme listesi 3x ağırlıklı
   }
+
+  for (const h of historyRes.data || []) {
+    if (h.sector) {
+      sectorCounts.set(h.sector, (sectorCounts.get(h.sector) || 0) + 1);
+    } else if (h.ticker) {
+      const s = sectorMap.get(h.ticker.toUpperCase());
+      if (s) sectorCounts.set(s, (sectorCounts.get(s) || 0) + 1);
+    }
+  }
+
   const topSectors = Array.from(sectorCounts.entries())
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 2)
+    .slice(0, 3)
     .map(([sector]) => sector);
 
   const recentQueries: string[] = (historyRes.data || []).map((r: any) => r.query).filter(Boolean);
