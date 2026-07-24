@@ -135,8 +135,8 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     onFinish() {
       refreshUsage();
     },
-    onError: (error) => {
-      console.error("Copilot AI Error:", error);
+    onError: (err) => {
+      console.error("Copilot AI Error:", err);
     },
   });
 

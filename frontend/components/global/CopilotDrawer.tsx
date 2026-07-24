@@ -330,7 +330,7 @@ export default function CopilotDrawer() {
       setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || nextStage }]);
       if (data.stage) setDemoStage(data.stage);
     } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin." }]);
+      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Bağlantıda kısa bir kesinti yaşandı. Lütfen tekrar deneyin." }]);
     } finally {
       setDemoLoading(false);
     }
@@ -363,7 +363,7 @@ export default function CopilotDrawer() {
       const data = await res.json();
       setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || demoStage }]);
     } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin." }]);
+      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Bağlantıda kısa bir kesinti yaşandı. Lütfen tekrar deneyin." }]);
     } finally {
       setDemoLoading(false);
     }
@@ -936,13 +936,22 @@ export default function CopilotDrawer() {
           )}
 
           {error && (
-            <div className="bg-[#141924] border border-blue-500/30 p-4 rounded-2xl text-xs space-y-2 shadow-lg">
-              <div className="flex items-center gap-2 text-amber-400 font-bold">
-                <span>☕ Piyasa Masasını Düzenliyorum...</span>
-              </div>
+            <div className="bg-[#141924] border border-amber-500/30 p-3 rounded-2xl text-xs space-y-2 shadow-lg">
               <p className="text-gray-300 leading-relaxed">
-                Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyu yeniden düzenliyorum. Lütfen sorunuzu bir kez daha iletin.
+                Bağlantıda kısa bir kesinti oldu. Tekrar denemek için aşağıdaki butona basın.
               </p>
+              <button
+                type="button"
+                onClick={() => {
+                  const lastUserMsg = [...messages].reverse().find((m: any) => m.role === "user");
+                  if (lastUserMsg?.content) {
+                    append({ role: "user", content: String(lastUserMsg.content) });
+                  }
+                }}
+                className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold cursor-pointer transition-all"
+              >
+                🔄 Tekrar Dene
+              </button>
             </div>
           )}
 
