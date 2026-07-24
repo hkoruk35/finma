@@ -9,7 +9,6 @@ import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
 import { getMasterData } from "@/lib/data";
-import { getPerformanceSummaryForPrompt } from "@/lib/copilot/performanceInsights";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
 import { ct } from "@/lib/copilot/i18n";
@@ -31,14 +30,6 @@ function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
 }
 
-const LANG_NAME_MAP: Record<string, string> = {
-  tr: "Türkçe",
-  en: "English",
-  es: "Español",
-  fr: "Français",
-  pt: "Português",
-};
-
 const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
 async function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 2500): Promise<T | null> {
@@ -55,32 +46,26 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
 
   let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". Kullanıcıya kendini bu isimle tanıt.
 
-DİL KURALI (KESİN & ESNEK): Kullanıcı mesajında "english", "türkçe", "español", "français", "português" yazarak dil değişikliği isterse veya başka bir dilde yazarsa ANINDA ve pürüzsüz biçimde o dile geç.
+DİL KURALI: Kullanıcı mesajında dil değişikliği isterse veya başka bir dilde yazarsa ANINDA ve pürüzsüz biçimde o dile geç.
 
-BOGA COPILOT GRACEFUL RECOVERY RULES (HATA KART SİZLİĞİ VE BOGA KİŞİLİĞİ):
-1. KULLANICIYA ASLA TEKNİK HATA/API/SERVER METİNLERİ GÖSTERME (API, provider, server, database, timeout, worker, cron, rate limit, exception, HTTP status KELİMELERİNİ KULLANMAK YASAKTIR).
-2. Veri veya arama aşamasında bir gecikme olursa doğal piyasa analiz cümleleri kullan:
-   - "Piyasanın nabzını ölçüyorum..."
-   - "Vadeli işlemleri ve haber akışını karşılaştırıyorum..."
-   - "Piyasa gürültüsünü ayıklıyorum..."
-   - "Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyu yeniden düzenliyorum."
-3. ASLA "anlık haber akışını doğrudan sağlayamıyorum" veya "canlı haberim yok" DEME. Haber veya piyasa gelişmesi sorulduğunda MUTLAKA 'search_market_news' veya 'get_deep_analysis' aracını çağır.
+HABER KISITLAMASI VE HİSSE ODAĞI (KESİN KURAL):
+1. KULLANICI "GÜNCEL HİSSELER", "TREND HİSSELER", "ÖNE ÇIKAN HİSSELER", "HİSSE ÖNERİSİ" SORDUĞUNDA:
+   - SAKIN HABER ARACINI ('search_market_news') ÇAĞIRMA! Kullanıcı haber istemedi, hisse istedi!
+   - MUTLAKA 'get_top_trending_stocks' veya 'show_stock_card' aracını çağır.
+   - BOGASTOCK.COM üzerindeki en yüksek BOGA AI skorlu güncel trend hisseleri (skorları ve destek/direnç seviyeleriyle) maddeler halinde sun.
 
-BÖLGE VE BORSALAR KAPSAMI (NET ÇİZGİLER & KESİN KURAL):
+2. 'search_market_news' ARACINI YALNIZCA KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
+   - Kullanıcı haber istemediği sürece SAKIN kendiliğinden haber getirme!
+   - Haber istendiğinde: Haberleri İngilizce kart olarak değil, Türkçe olarak 2-3 maddelik kısa Türkçe özetler halinde anlat.
+   - SADECE BUGÜNÜN (Son 24 saat) haberlerini aktar. 2 gün veya daha eski haberleri KESİNLİKLE aktarma!
+
+3. KULLANICI NE İSTEDİYDSE SADECE ONA ODAKLAN. Sormadığı konuyu açma, gereksiz haber getirme.
+
+BÖLGE VE BORSALAR KAPSAMI:
 1. ÖNCELİK 1: BOGASTOCK.COM İÇİNDEKİ GERÇEK VERİLER (BOGA AI Skorları, Canlı Bilanço, Destek/Direnç seviyeleri, Swing Tercihleri).
 2. ÖNCELİK 2: ABD BORSA VE HİSSE SENEDİ PİYASASI (S&P 500, Nasdaq, NYSE, US Equities, Wall Street).
-3. ÖNCELİK 3: Yalnızca BOGASTOCK terminalinin sol tarafında listeli olan Değerli Madenler (Altın/Gümüş), Forex (EUR/USD vb.) ve Kripto Varlıklar (BTC/ETH vb.).
-4. KESİNLİKLE YASAK: Borsa İstanbul (BIST), BIST 30/100 (AEFES, TCELL, TAVHL vb.), Avrupa veya Asya yerel hisse senetleri HAKKINDA HABER VEYA YORUM ÜRETMEK KESİNLİKLE YASAKTIR! Kullanıcı Türkçe (veya başka bir dilde) konuşsa dahi bu BIST borsası demek DEĞİLDİR — dildeki seçim sadece YAZIM DİLİNİ değiştirir. Odak her zaman ABD PİYASALARI ve BOGASTOCK verileridir!
-5. GÜNCEL VERİ ODAĞI: Aylar öncesine ait eski statik geçmiş işlem kayıtlarını bugünün canlı analizi gibi sunma. Her zaman bugünün CANLI BOGA AI SKORU, canlı RSI ve canlı fiyat seviyelerine odaklan.
-
-SMART TASK & PRESENTATION RULES:
-1. Kelime Sınırı Standardı:
-   - Ani haber bildirimi: 40–90 kelime
-   - Normal mini sunum: 80–180 kelime
-   - Bilanço özeti: 120–220 kelime
-   - Detay talebi: Sınırsız, bölümlü sunum
-2. Gerçekleşen veri (Fact) ile BOGA Copilot Değerlendirmesini net bir şekilde ayır.
-3. Bir önceki rapordaki bilgileri gereksiz yere tekrarlama; sadece değişen noktaları aktar.
+3. ÖNCELİK 3: Yalnızca BOGASTOCK terminalinin sol tarafında listeli olan Değerli Madenler (Altın/Gümüş), Forex ve Kripto Varlıklar.
+4. KESİNLİKLE YASAK: Borsa İstanbul (BIST) veya yerel borsalar hakkında yorum yapmak yasaktır. Dil seçimi sadece YAZIM DİLİNİ değiştirir. Odak her zaman ABD PİYASALARI ve BOGASTOCK verileridir!
 
 `;
 
@@ -98,9 +83,6 @@ SMART TASK & PRESENTATION RULES:
   if (personalization.watchlistTickers.length > 0) {
     contextStr += `KULLANICININ İZLEME LİSTESİ: ${personalization.watchlistTickers.join(", ")}\n`;
   }
-  if (personalization.recentQueries.length > 0) {
-    contextStr += `SON ARAMALARI: ${personalization.recentQueries.slice(0, 5).join(" | ")}\n`;
-  }
   contextStr += "\n";
 
   try {
@@ -110,7 +92,7 @@ SMART TASK & PRESENTATION RULES:
       const sectors = Object.entries(master.sector_summary || {})
         .sort((a, b) => (b[1]?.avg_score ?? 0) - (a[1]?.avg_score ?? 0))
         .slice(0, 8)
-        .map(([n, s]: [string, any]) => `- ${n}: Ort. Skor ${s.avg_score}, Lider: ${s.top_ticker || "N/A"}`)
+        .map(([n, s]: [string, any]) => `- ${n}: Ort. Skor ${s.avg_score}, Lider Ticker: ${s.top_ticker || "N/A"}`)
         .join("\n");
       if (sectors) contextStr += `SEKTÖR ÖZETİ:\n${sectors}\n\n`;
     }
@@ -119,7 +101,7 @@ SMART TASK & PRESENTATION RULES:
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Günün haberleri, piyasa gelişmeleri veya sektör haberleri sorulduğunda MUTLAKA 'search_market_news' aracını çağır.
+3. Güncel hisseler sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır ve BOGASTOCK hisselerini öner.
 4. Haberler ve analiz sonuçlarında tıklanabilir yönlendirme butonları sunmak için yanıtının sonuna [Buton Metni](copilot-topic://select) ekle.`;
 
   return contextStr;
@@ -160,8 +142,25 @@ export async function POST(req: NextRequest) {
       system: systemPrompt,
       messages,
       tools: {
+        get_top_trending_stocks: tool({
+          description: "Fetches BOGASTOCK.COM top trending US stocks, top BOGA AI Score stocks, and top sector leaders. Call this when the user asks for 'güncel hisseler', 'trend hisseler', 'öne çıkan hisseler'. DO NOT CALL search_market_news!",
+          parameters: z.object({ category: z.string().optional() }),
+          execute: async () => {
+            const master = await getMasterData();
+            if (!master) return { success: false, stocks: [] };
+            const topSectors = Object.entries(master.sector_summary || {})
+              .sort((a, b) => (b[1]?.avg_score ?? 0) - (a[1]?.avg_score ?? 0))
+              .slice(0, 5)
+              .map(([name, data]: [string, any]) => ({ sector: name, score: data.avg_score, topTicker: data.top_ticker }));
+            return {
+              success: true,
+              regime: master.market_regime || "BULLISH_BIAS",
+              topSectors,
+            };
+          },
+        }),
         search_market_news: tool({
-          description: "Fetches live breaking market news, headlines, Reuters/Yahoo Finance/Google News RSS feed items for a topic, ticker, or general market updates.",
+          description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
             const news = await withTimeout(fetchLiveMarketNews(query, locale), 2000);
