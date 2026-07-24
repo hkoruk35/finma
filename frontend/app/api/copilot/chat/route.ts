@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
@@ -9,13 +9,22 @@ import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
 import { getMasterData } from "@/lib/data";
-import { getPerformanceSummaryForPrompt, getPerformanceInsights } from "@/lib/copilot/performanceInsights";
+import { getPerformanceSummaryForPrompt } from "@/lib/copilot/performanceInsights";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
 import { ct } from "@/lib/copilot/i18n";
 import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
 
 export const maxDuration = 30;
+
+const apiKey =
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
+  process.env.GEMINI_API_KEY ||
+  process.env.GOOGLE_API_KEY ||
+  process.env.NEXT_PUBLIC_GEMINI_API_KEY ||
+  "";
+
+const googleProvider = createGoogleGenerativeAI({ apiKey });
 
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
@@ -41,15 +50,23 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
 
 DİL KURALI (KESİN & ESNEK): Kullanıcı mesajında "english", "türkçe", "español", "français", "português" yazarak dil değişikliği isterse veya başka bir dilde yazarsa ANINDA ve pürüzsüz biçimde o dile geç.
 
-VERİ ÖNCELİĞİ VE CANLI HABER AKIŞI (KESİN KURAL):
-- ASLA "anlık haber akışını doğrudan sağlayamıyorum" veya "canlı haberim yok" DEME.
-- Kullanıcı "günün önemli gelişmelerini", "piyasa haberlerini", "sektör gündemini" veya bir hissenin haberlerini sorduğunda MUTLAKA 'search_market_news' veya 'get_deep_analysis' aracını çağır.
-- Reuters, Yahoo Finance ve Google News akışlarından çekilen canlı haberleri kullanıcıya doğrudan, net ve başlıklar halinde aktar!
+BOGA COPILOT GRACEFUL RECOVERY RULES (HATA KART SİZLİĞİ VE BOGA KİŞİLİĞİ):
+1. KULLANICIYA ASLA TEKNİK HATA/API/SERVER METİNLERİ GÖSTERME (API, provider, server, database, timeout, worker, cron, rate limit, exception, HTTP status KELİMELERİNİ KULLANMAK YASAKTIR).
+2. Veri veya arama aşamasında bir gecikme olursa doğal piyasa analiz cümleleri kullan:
+   - "Piyasanın nabzını ölçüyorum..."
+   - "Vadeli işlemleri ve haber akışını karşılaştırıyorum..."
+   - "Piyasa gürültüsünü ayıklıyorum..."
+   - "Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyı yeniden düzenliyorum."
+3. ASLA "anlık haber akışını doğrudan sağlayamıyorum" veya "canlı haberim yok" DEME. Haber veya piyasa gelişmesi sorulduğunda MUTLAKA 'search_market_news' veya 'get_deep_analysis' aracını çağır.
 
-VERİ ÖNCELİĞİ VE KAPSAM (3 katman):
-1. ÖNCE sana verilen GERÇEK BOGA VERİLERİNİ (piyasa rejimi, sektör özeti, swing tercihleri) ve 'search_market_news', 'show_stock_card', 'get_deep_analysis', 'get_technical_levels' araçlarını çağırarak elde ettiğin canlı haber/piyasa verisini kullan.
-2. BOGA verilerinde doğrudan cevap yoksa genel finansal bilginle yanıtla. ASLA "elimde bilgi yok" diyerek soruyu yanıtsız bırakma.
-3. KAYNAK GİZLİLİĞİ: "BOGA AI", "BOGASTOCK" veya "Piyasa Verileri" olarak ifade et.
+SMART TASK & PRESENTATION RULES:
+1. Kelime Sınırı Standardı:
+   - Ani haber bildirimi: 40–90 kelime
+   - Normal mini sunum: 80–180 kelime
+   - Bilanço özeti: 120–220 kelime
+   - Detay talebi: Sınırsız, bölümlü sunum
+2. Gerçekleşen veri (Fact) ile BOGA Copilot Değerlendirmesini net bir şekilde ayır.
+3. Bir önceki rapordaki bilgileri gereksiz yere tekrarlama; sadece değişen noktaları aktar. Değişim yoksa: "Bir önceki güncellemeden bu yana kayda değer bir değişim yaşanmadı." de.
 
 `;
 
@@ -88,45 +105,44 @@ VERİ ÖNCELİĞİ VE KAPSAM (3 katman):
   contextStr += `KURALLAR:
 1. Kısa (concise) cevaplar ver. Uzun paragraflar yazma. Maddeler kullan.
 2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Günün haberleri, piyasa gelişmeleri veya sektör haberleri sorulduğunda MUTLAKA 'search_market_news' aracını çağır. ASLA "haber akışım yok" deme.
-4. Haberler ve analiz sonuçlarında tıklanabilir yönlendirme butonları sunmak için yanıtının sonuna [Buton Metni](copilot-topic://select) ekle.
-5. BOGA COPILOT AKILLI GÖREV MOTORU: Kullanıcı "Tesla'yı takip et", "Açılış sunumu yap" dediğinde görevi başlat ve 80–180 kelimelik kısa sunumlar hazırla.`;
+3. Günün haberleri, piyasa gelişmeleri veya sektör haberleri sorulduğunda MUTLAKA 'search_market_news' aracını çağır.
+4. Haberler ve analiz sonuçlarında tıklanabilir yönlendirme butonları sunmak için yanıtının sonuna [Buton Metni](copilot-topic://select) ekle.`;
 
   return contextStr;
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { messages, pageContext, locale: rawLocale } = body;
-  const locale = resolveLocale(rawLocale);
-
-  const supabaseAuth = await createSupabaseServerClient();
-  const { data: userData } = await supabaseAuth.auth.getUser();
-  const user = userData.user;
-  if (!user) return new Response("Unauthorized", { status: 401 });
-
-  const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
-
-  const { data: statusRows, error: statusErr } = await supabaseAdmin.rpc("get_copilot_credit_status", {
-    p_user_id: user.id,
-    p_default_limit: dailyLimit,
-  });
-  if (statusErr) {
-    return new Response("Service Unavailable", { status: 503 });
-  }
-  const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
-
-  const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
-  if (lastUserMessage?.content) {
-    const tickerFromContext = pageContext?.type === "ticker" ? pageContext.value : null;
-    logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
-  }
-
-  const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id);
-
   try {
+    const body = await req.json();
+    const { messages, pageContext, locale: rawLocale } = body;
+    const locale = resolveLocale(rawLocale);
+
+    const supabaseAuth = await createSupabaseServerClient();
+    const { data: userData } = await supabaseAuth.auth.getUser();
+    const user = userData.user;
+    if (!user) return new Response("Unauthorized", { status: 401 });
+
+    const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
+
+    const { data: statusRows, error: statusErr } = await supabaseAdmin.rpc("get_copilot_credit_status", {
+      p_user_id: user.id,
+      p_default_limit: dailyLimit,
+    });
+    if (statusErr) {
+      return new Response("Service Unavailable", { status: 503 });
+    }
+    const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
+
+    const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
+    if (lastUserMessage?.content) {
+      const tickerFromContext = pageContext?.type === "ticker" ? pageContext.value : null;
+      logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
+    }
+
+    const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id);
+
     const result = await streamText({
-      model: google("gemini-2.5-flash"),
+      model: googleProvider("gemini-2.5-flash"),
       system: systemPrompt,
       messages,
       tools: {
@@ -208,9 +224,13 @@ export async function POST(req: NextRequest) {
     return result.toDataStreamResponse();
   } catch (err: any) {
     console.error("Copilot POST Exception:", err);
-    return new Response(JSON.stringify({ error: err.message || "Internal Error" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    // BOGA Graceful Recovery Error Response — NEVER show raw JSON error to user!
+    return NextResponse.json(
+      {
+        error: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin.",
+        code: "GRACEFUL_RECOVERY",
+      },
+      { status: 500 }
+    );
   }
 }

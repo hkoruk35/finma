@@ -1,240 +1,199 @@
-// BOGA Copilot Proactive Smart Tasks Engine (5-Language Support: TR, EN, PT, ES, FR)
+// BOGA Copilot Smart Tasks Engine & Task Pipeline
 
+import { getUSMarketStatus, getCurrentPeriodKey } from "./marketSchedule";
+import { calculateMaterialityScore } from "./materialityScore";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { SupportedLocale } from "@/lib/copilot/visitorDemo";
 
 export type TaskType =
   | "premarket_briefing"
   | "company_daily_watch"
-  | "earnings_watch"
   | "material_news_watch"
-  | "sector_watch"
-  | "theme_watch"
+  | "earnings_watch"
+  | "sector_analysis"
+  | "theme_analysis"
   | "top_movers_watch"
-  | "watchlist_watch"
+  | "watchlist_monitoring"
   | "midday_update"
   | "closing_recap";
+
+export interface TaskRunLog {
+  idempotency_key: string;
+  scheduled_for: string;
+  started_at: string | null;
+  completed_at: string | null;
+  status: "pending" | "running" | "completed" | "failed" | "skipped";
+  attempt_count: number;
+  data_timestamp: string | null;
+  delivery_status: "delivered" | "muted" | "failed" | null;
+  error_code: string | null;
+}
 
 export interface CopilotTask {
   id: string;
   user_id: string;
-  language: SupportedLocale;
   task_type: TaskType;
-  subject_type?: string;
   subject?: string;
-  timezone?: string;
-  schedule?: {
+  clarification_answer?: string;
+  status: "active" | "paused" | "completed" | "muted";
+  mute_until?: string | null;
+  mute_allow_critical?: boolean;
+  language: string;
+  schedule: {
     premarket?: string;
     midday?: string;
-    postmarket?: string;
+    closing?: string;
   };
-  focus?: string[];
   alert_on_material_news?: boolean;
-  detail_level?: "short" | "medium";
-  status: "active" | "paused" | "completed";
+  last_snapshot?: any;
   created_at: string;
-  last_run_at?: string | null;
+  run_logs?: TaskRunLog[];
 }
 
-export interface TaskSnapshot {
-  id: string;
-  task_id: string;
-  title: string;
-  content: string;
-  phase: "premarket" | "midday" | "postmarket" | "material_alert";
-  created_at: string;
+export function buildIdempotencyKey(
+  userId: string,
+  taskId: string,
+  taskType: TaskType,
+  subject: string = "",
+  scheduledPeriod: string
+): string {
+  const dateStr = new Date().toISOString().split("T")[0];
+  const cleanSubject = subject.replace(/[^A-Z0-9]/gi, "_").toUpperCase();
+  return `${userId}_${taskId}_${taskType}_${cleanSubject}_${scheduledPeriod}_${dateStr}`;
 }
-
-// Memory task store fallback for in-memory or Supabase tables
-const memoryTasks = new Map<string, CopilotTask[]>();
 
 export async function getUserTasks(userId: string): Promise<CopilotTask[]> {
   try {
-    const { data, error } = await supabaseAdmin
+    const { data } = await supabaseAdmin
       .from("copilot_tasks")
       .select("*")
       .eq("user_id", userId)
       .eq("status", "active")
       .order("created_at", { ascending: false });
-
-    if (!error && data) return data as CopilotTask[];
-  } catch {}
-
-  return memoryTasks.get(userId) || [];
+    return (data as CopilotTask[]) || [];
+  } catch {
+    return [];
+  }
 }
 
 export async function createCopilotTask(
   userId: string,
   taskType: TaskType,
   subject?: string,
-  language: SupportedLocale = "tr",
-  focus: string[] = ["all"]
+  language: string = "tr"
 ): Promise<CopilotTask> {
-  const newTask: CopilotTask = {
-    id: `task_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+  const status = getUSMarketStatus();
+  const newTask: Omit<CopilotTask, "id"> = {
     user_id: userId,
-    language,
     task_type: taskType,
-    subject_type: subject ? "stock" : "general",
-    subject: subject ? subject.toUpperCase() : undefined,
-    timezone: "America/New_York",
-    schedule: {
-      premarket: "08:45",
-      midday: "12:00",
-      postmarket: "16:15",
-    },
-    focus,
-    alert_on_material_news: true,
-    detail_level: "short",
+    subject: subject || taskType,
     status: "active",
+    language,
+    schedule: {
+      premarket: status.premarketTimeET,
+      midday: status.middayTimeET,
+      closing: status.closingTimeET,
+    },
+    alert_on_material_news: true,
     created_at: new Date().toISOString(),
   };
 
   try {
-    await supabaseAdmin.from("copilot_tasks").insert({
-      id: newTask.id,
-      user_id: userId,
-      language,
-      task_type: taskType,
-      subject_type: newTask.subject_type,
-      subject: newTask.subject,
-      schedule: newTask.schedule,
-      focus,
-      status: "active",
-    });
+    const { data, error } = await supabaseAdmin
+      .from("copilot_tasks")
+      .insert([newTask])
+      .select()
+      .single();
+    if (error || !data) throw error;
+    return data as CopilotTask;
   } catch {
-    const existing = memoryTasks.get(userId) || [];
-    memoryTasks.set(userId, [newTask, ...existing]);
+    return {
+      id: `task-${Date.now()}`,
+      ...newTask,
+    };
   }
-
-  return newTask;
 }
 
-export async function cancelCopilotTask(userId: string, taskId: string): Promise<boolean> {
+export async function cancelCopilotTask(userId: string, taskId: string): Promise<void> {
   try {
     await supabaseAdmin
       .from("copilot_tasks")
       .update({ status: "completed" })
       .eq("id", taskId)
       .eq("user_id", userId);
-  } catch {
-    const existing = memoryTasks.get(userId) || [];
-    memoryTasks.set(userId, existing.filter((t) => t.id !== taskId));
-  }
-  return true;
+  } catch {}
 }
 
-// Localized Task Action Titles & Labels across 5 languages
-export const TASK_LABELS: Record<SupportedLocale, {
-  headerTitle: string;
-  createTask: string;
-  manageTasks: string;
-  adjustAlerts: string;
-  quickPrompt: string;
-  quickChoices: { label: string; action: string; type: TaskType; subject?: string }[];
-  breakPromptTitle: string;
-  breakPromptMsg: string;
-  breakBtn: string;
-  taskConfirmedMsg: (subject: string) => string;
-}> = {
+export const TASK_LABELS: Record<string, any> = {
   tr: {
-    headerTitle: "Bugünkü Görevlerim",
-    createTask: "Yeni Görev Oluştur",
-    manageTasks: "Görevleri Yönet",
-    adjustAlerts: "Bildirim Ayarları",
-    quickPrompt: "Bugün piyasada sizin için neyi takip etmemi istersiniz?\nBir şirketi, sektörü veya temayı gün boyunca izleyip kısa değerlendirmeler sunabilirim.",
-    quickChoices: [
-      { label: "⚡ Tesla'yı Takip Et", action: "track_tsla", type: "company_daily_watch", subject: "TSLA" },
-      { label: "🚀 NVIDIA'yı Takip Et", action: "track_nvda", type: "company_daily_watch", subject: "NVDA" },
-      { label: "📊 Bugünkü Bilançoları İzle", action: "track_earnings", type: "earnings_watch" },
-      { label: "🤖 Yapay Zekâ Teması", action: "track_ai_theme", type: "theme_watch", subject: "AI" },
-      { label: "💻 Teknoloji Sektörü", action: "track_tech_sector", type: "sector_watch", subject: "Technology" },
-      { label: "🌅 Açılış Öncesi Piyasa Özeti", action: "premarket_summary", type: "premarket_briefing" },
-      { label: "🔥 Günün Öne Çıkan Hisseleri", action: "top_movers", type: "top_movers_watch" },
-    ],
-    breakPromptTitle: "☕ Biraz Dinlenmek İster Misiniz?",
-    breakPromptMsg: "Gözlerinizi dinlendirebilirsiniz! Ben arka planda piyasayı, izleme listenizi ve aktif görevlerinizi takip etmeye devam ediyorum. Önemli bir gelişme olduğunda sizi bilgilendireceğim.",
+    headerTitle: "BUGÜNKÜ GÖREVLERİM",
     breakBtn: "☕ Mola Ver",
-    taskConfirmedMsg: (subject: string) => `Tamamdır! **${subject}** için gün boyu takip başlatıldı. 08:45 ET, 12:00 ET ve 16:15 ET değerlendirmeleri ve ani önemli haberler size iletilecektir.`,
+    muteBtn: "🔕 Sessize Al",
+    breakPromptMsg: "☕ Mola Modu Aktif. Görevleriniz arka planda çalışmaya devam ediyor. Gözlerinizi dinlendirebilirsiniz!",
+    taskConfirmedMsg: (subject: string) =>
+      `Anlaşıldı! **${subject}** için akıllı takip başlatıldı. 08:45 ET (Açılış öncesi), 12:00 ET (Gün ortası) ve 16:15 ET (Kapanış) raporları hazırlayacağım.`,
+    quickChoices: [
+      { label: "⚡ Tesla'yı Takip Et", action: "task_tsla", type: "company_daily_watch", subject: "TSLA" },
+      { label: "🚀 NVIDIA'yı Takip Et", action: "task_nvda", type: "company_daily_watch", subject: "NVDA" },
+      { label: "📊 Bugünkü Bilançoları İzle", action: "task_earnings", type: "earnings_watch", subject: "Günün Bilançoları" },
+      { label: "🤖 Yapay Zekâ Teması", action: "task_ai", type: "theme_analysis", subject: "Yapay Zekâ Hisseleri" },
+      { label: "💻 Teknoloji Sektörü", action: "task_tech", type: "sector_analysis", subject: "Teknoloji Sektörü" },
+      { label: "🌅 Açılış Öncesi Piyasa Özeti", action: "task_premarket", type: "premarket_briefing", subject: "Piyasa Açılışı" },
+      { label: "🔥 Günün Öne Çıkan Hisseleri", action: "task_movers", type: "top_movers_watch", subject: "Trend Hisseler" },
+    ],
   },
   en: {
-    headerTitle: "Today's Active Tasks",
-    createTask: "Create New Task",
-    manageTasks: "Manage Tasks",
-    adjustAlerts: "Notification Settings",
-    quickPrompt: "What would you like me to track for you in the market today?\nI can monitor a company, sector, theme, or market move throughout the day and deliver concise briefings.",
-    quickChoices: [
-      { label: "⚡ Track Tesla Today", action: "track_tsla", type: "company_daily_watch", subject: "TSLA" },
-      { label: "🚀 Track NVIDIA Today", action: "track_nvda", type: "company_daily_watch", subject: "NVDA" },
-      { label: "📊 Track Today's Earnings", action: "track_earnings", type: "earnings_watch" },
-      { label: "🤖 AI Theme Watch", action: "track_ai_theme", type: "theme_watch", subject: "AI" },
-      { label: "💻 Technology Sector", action: "track_tech_sector", type: "sector_watch", subject: "Technology" },
-      { label: "🌅 Premarket Briefing", action: "premarket_summary", type: "premarket_briefing" },
-      { label: "🔥 Today's Market Leaders", action: "top_movers", type: "top_movers_watch" },
-    ],
-    breakPromptTitle: "☕ Would you like to take a break?",
-    breakPromptMsg: "Feel free to rest your eyes! I will keep monitoring the market, your watchlist, and active tasks in the background. I'll notify you if a material event occurs.",
+    headerTitle: "MY ACTIVE TASKS",
     breakBtn: "☕ Take a Break",
-    taskConfirmedMsg: (subject: string) => `Got it! Full-day watch started for **${subject}**. You'll receive updates at 08:45 ET, 12:00 ET, 16:15 ET, and instant alerts for material news.`,
-  },
-  pt: {
-    headerTitle: "Minhas Tarefas Ativas",
-    createTask: "Criar Nova Tarefa",
-    manageTasks: "Gerenciar Tarefas",
-    adjustAlerts: "Configurar Notificações",
-    quickPrompt: "O que você gostaria que eu acompanhasse no mercado para você hoje?\nPosso monitorar uma empresa, setor ou tema ao longo do dia e fornecer breves relatórios.",
+    muteBtn: "🔕 Mute",
+    breakPromptMsg: "☕ Break Mode Active. Your background tasks keep running. Rest your eyes!",
+    taskConfirmedMsg: (subject: string) =>
+      `Got it! Smart tracking started for **${subject}**. Updates will be prepared at 08:45 ET, 12:00 ET, and 16:15 ET.`,
     quickChoices: [
-      { label: "⚡ Acompanhar Tesla Hoje", action: "track_tsla", type: "company_daily_watch", subject: "TSLA" },
-      { label: "🚀 Acompanhar NVIDIA Hoje", action: "track_nvda", type: "company_daily_watch", subject: "NVDA" },
-      { label: "📊 Balanços de Hoje", action: "track_earnings", type: "earnings_watch" },
-      { label: "🤖 Tema de Inteligência Artificial", action: "track_ai_theme", type: "theme_watch", subject: "AI" },
-      { label: "💻 Setor de Tecnologia", action: "track_tech_sector", type: "sector_watch", subject: "Technology" },
-      { label: "🌅 Resumo Pré-Mercado", action: "premarket_summary", type: "premarket_briefing" },
-      { label: "🔥 Destaques do Dia", action: "top_movers", type: "top_movers_watch" },
+      { label: "⚡ Track Tesla Today", action: "task_tsla", type: "company_daily_watch", subject: "TSLA" },
+      { label: "🚀 Track NVIDIA Today", action: "task_nvda", type: "company_daily_watch", subject: "NVDA" },
+      { label: "📊 Monitor Today's Earnings", action: "task_earnings", type: "earnings_watch", subject: "Today Earnings" },
+      { label: "🤖 AI Sector Theme", action: "task_ai", type: "theme_analysis", subject: "AI Stocks" },
+      { label: "💻 Tech Sector Watch", action: "task_tech", type: "sector_analysis", subject: "Tech Sector" },
+      { label: "🌅 Premarket Briefing", action: "task_premarket", type: "premarket_briefing", subject: "Market Open" },
+      { label: "🔥 Top Movers Watch", action: "task_movers", type: "top_movers_watch", subject: "Trending Stocks" },
     ],
-    breakPromptTitle: "☕ Gostaria de fazer uma pausa?",
-    breakPromptMsg: "Pode descansar os olhos! Continuo acompanhando o mercado e suas tarefas ativas em segundo plano. Notificarei você se surgir algo relevante.",
-    breakBtn: "☕ Fazer uma Pausa",
-    taskConfirmedMsg: (subject: string) => `Pronto! Acompanhamento diário iniciado para **${subject}**. Você receberá atualizações às 08:45 ET, 12:00 ET, 16:15 ET e alertas imediatos.`,
   },
   es: {
-    headerTitle: "Mis Tareas Activas",
-    createTask: "Crear Nueva Tarea",
-    manageTasks: "Gestionar Tareas",
-    adjustAlerts: "Ajustar Notificaciones",
-    quickPrompt: "¿Qué te gustaría que siga en el mercado para ti hoy?\nPuedo monitorear una empresa, sector o tema durante todo el día y brindarte breves informes.",
+    headerTitle: "MIS TAREAS ACTIVAS",
+    breakBtn: "☕ Descansar",
+    muteBtn: "🔕 Silenciar",
+    breakPromptMsg: "☕ Modo Descanso Activo. Tus tareas siguen ejecutándose en segundo plano.",
+    taskConfirmedMsg: (subject: string) =>
+      `¡Entendido! Seguimiento inteligente iniciado para **${subject}**.`,
     quickChoices: [
-      { label: "⚡ Seguir a Tesla Hoy", action: "track_tsla", type: "company_daily_watch", subject: "TSLA" },
-      { label: "🚀 Seguir a NVIDIA Hoy", action: "track_nvda", type: "company_daily_watch", subject: "NVDA" },
-      { label: "📊 Resultados Financieros Hoy", action: "track_earnings", type: "earnings_watch" },
-      { label: "🤖 Tema Inteligencia Artificial", action: "track_ai_theme", type: "theme_watch", subject: "AI" },
-      { label: "💻 Sector Tecnología", action: "track_tech_sector", type: "sector_watch", subject: "Technology" },
-      { label: "🌅 Resumen Pre-Mercado", action: "premarket_summary", type: "premarket_briefing" },
-      { label: "🔥 Destacadas del Día", action: "top_movers", type: "top_movers_watch" },
+      { label: "⚡ Seguir Tesla Hoy", action: "task_tsla", type: "company_daily_watch", subject: "TSLA" },
+      { label: "🚀 Seguir NVIDIA Hoy", action: "task_nvda", type: "company_daily_watch", subject: "NVDA" },
+      { label: "📊 Ver Resultados de Hoy", action: "task_earnings", type: "earnings_watch", subject: "Resultados Hoy" },
+      { label: "🤖 Tema Inteligencia Artificial", action: "task_ai", type: "theme_analysis", subject: "Acciones IA" },
     ],
-    breakPromptTitle: "☕ ¿Te gustaría tomar un descanso?",
-    breakPromptMsg: "¡Descansa la vista! Seguiré monitoreando el mercado y tus tareas activas en segundo plano. Te notificaré si ocurre algún evento relevante.",
-    breakBtn: "☕ Tomar un Descanso",
-    taskConfirmedMsg: (subject: string) => `¡Entendido! Seguimiento diario iniciado para **${subject}**. Recibirás informes a las 08:45 ET, 12:00 ET, 16:15 ET y alertas instantáneas.`,
   },
   fr: {
-    headerTitle: "Mes Tâches Actives",
-    createTask: "Créer une Tâche",
-    manageTasks: "Gérer les Tâches",
-    adjustAlerts: "Paramètres de Notification",
-    quickPrompt: "Que souhaitez-vous que je suive sur le marché pour vous aujourd'hui ?\nJe peux surveiller une entreprise, un secteur ou un thème toute la journée et vous transmettre de courts résumés.",
+    headerTitle: "MES TÂCHES ACTIVES",
+    breakBtn: "☕ Pause",
+    muteBtn: "🔕 Sourdine",
+    breakPromptMsg: "☕ Mode Pause Actif. Vos tâches s'exécutent en arrière-plan.",
+    taskConfirmedMsg: (subject: string) =>
+      `Reçu ! Suivi intelligent activé pour **${subject}**.`,
     quickChoices: [
-      { label: "⚡ Suivre Tesla Aujourd'hui", action: "track_tsla", type: "company_daily_watch", subject: "TSLA" },
-      { label: "🚀 Suivre NVIDIA Aujourd'hui", action: "track_nvda", type: "company_daily_watch", subject: "NVDA" },
-      { label: "📊 Résultats d'Aujourd'hui", action: "track_earnings", type: "earnings_watch" },
-      { label: "🤖 Thème Intelligence Artificielle", action: "track_ai_theme", type: "theme_watch", subject: "AI" },
-      { label: "💻 Secteur Technologie", action: "track_tech_sector", type: "sector_watch", subject: "Technology" },
-      { label: "🌅 Aperçu Pré-Marché", action: "premarket_summary", type: "premarket_briefing" },
-      { label: "🔥 Actions Phares du Jour", action: "top_movers", type: "top_movers_watch" },
+      { label: "⚡ Suivre Tesla Aujourd'hui", action: "task_tsla", type: "company_daily_watch", subject: "TSLA" },
+      { label: "🚀 Suivre NVIDIA Aujourd'hui", action: "task_nvda", type: "company_daily_watch", subject: "NVDA" },
     ],
-    breakPromptTitle: "☕ Souhaitez-vous faire une pause ?",
-    breakPromptMsg: "Reposez vos yeux ! Je continue de surveiller le marché et vos tâches actives en arrière-plan. Je vous préviendrai en cas d'événement majeur.",
-    breakBtn: "☕ Faire une Pause",
-    taskConfirmedMsg: (subject: string) => `Compris ! Suivi quotidien activé pour **${subject}**. Vous recevrez des résumés à 08h45 ET, 12h00 ET, 16h15 ET et des alertes immédiates.`,
+  },
+  pt: {
+    headerTitle: "MINHAS TAREFAS ATIVAS",
+    breakBtn: "☕ Pausa",
+    muteBtn: "🔕 Silenciar",
+    breakPromptMsg: "☕ Modo Pausa Ativo. Suas tarefas continuam rodando em segundo plano.",
+    taskConfirmedMsg: (subject: string) =>
+      `Entendido! Monitoramento inteligente iniciado para **${subject}**.`,
+    quickChoices: [
+      { label: "⚡ Acompanhar Tesla Hoje", action: "task_tsla", type: "company_daily_watch", subject: "TSLA" },
+      { label: "🚀 Acompanhar NVIDIA Hoje", action: "task_nvda", type: "company_daily_watch", subject: "NVDA" },
+    ],
   },
 };

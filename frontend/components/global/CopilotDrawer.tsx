@@ -11,6 +11,7 @@ import { ct } from "@/lib/copilot/i18n";
 import { VISITOR_TEXTS, SupportedLocale, DemoMessage } from "@/lib/copilot/visitorDemo";
 import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
 import { TASK_LABELS, CopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
+import { getUSMarketStatus } from "@/lib/copilot/marketSchedule";
 
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
@@ -52,6 +53,13 @@ export default function CopilotDrawer() {
   const [archives, setArchives] = useState<ChatArchiveItem[]>([]);
   const [activeTasks, setActiveTasks] = useState<CopilotTask[]>([]);
   const [favoriteSectors, setFavoriteSectors] = useState<string[]>([]);
+  const [muteDuration, setMuteDuration] = useState<string>("off"); // off, 30m, 1h, market_close
+  const [allowCriticalMute, setAllowCriticalMute] = useState<boolean>(true);
+
+  // --- CONTROLLED BOUNCE & DOT INDICATORS ---
+  const [shouldBounce, setShouldBounce] = useState<boolean>(false);
+  const [bounceCount, setBounceCount] = useState<number>(0);
+  const [dotColor, setDotColor] = useState<"none" | "blue" | "orange" | "red">("blue");
 
   // --- VISITOR & MEMBER LANGUAGE STATES ---
   const [activeLocale, setActiveLocale] = useState<SupportedLocale>(() => {
@@ -69,6 +77,40 @@ export default function CopilotDrawer() {
   const [demoLoading, setDemoLoading] = useState<boolean>(false);
 
   const taskDef = TASK_LABELS[activeLocale] || TASK_LABELS.en;
+  const marketStatus = getUSMarketStatus();
+
+  // CONTROLLED BOUNCE LOGIC (10s initial, then 30s interval max 2 times, stopped once opened)
+  useEffect(() => {
+    const hasOpenedBefore = sessionStorage.getItem("copilot_opened_session");
+    if (hasOpenedBefore || isOpen) return;
+
+    // 10s initial bounce
+    const timer1 = setTimeout(() => {
+      setShouldBounce(true);
+      setBounceCount(1);
+
+      const bounceOffTimer = setTimeout(() => setShouldBounce(false), 2000);
+
+      // 35s second bounce (max 2)
+      const timer2 = setTimeout(() => {
+        setShouldBounce(true);
+        setBounceCount(2);
+        setTimeout(() => setShouldBounce(false), 2000);
+      }, 35000);
+
+      return () => clearTimeout(bounceOffTimer);
+    }, 10000);
+
+    return () => clearTimeout(timer1);
+  }, [isOpen]);
+
+  // Handle Trigger Click
+  const handleTriggerClick = () => {
+    sessionStorage.setItem("copilot_opened_session", "true");
+    setShouldBounce(false);
+    setDotColor("none");
+    setIsOpen(true);
+  };
 
   // Automatically collapse panels when conversation has active messages so chat gets full height!
   useEffect(() => {
@@ -92,7 +134,10 @@ export default function CopilotDrawer() {
       fetch("/api/copilot/tasks")
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => {
-          if (d?.tasks) setActiveTasks(d.tasks);
+          if (d?.tasks) {
+            setActiveTasks(d.tasks);
+            if (d.tasks.length > 0) setDotColor("orange");
+          }
         })
         .catch(() => {});
     }
@@ -117,13 +162,9 @@ export default function CopilotDrawer() {
   // Language switch handler: updates default assistant name unless custom name set by user
   const handleLangChange = (newLang: SupportedLocale) => {
     setActiveLocale(newLang);
-
-    // If user has not explicitly set a custom name, update default name to new language default
     if (!profile.displayName) {
-      const newDefaultName = getSuggestedName(newLang);
-      setDraftName(newDefaultName);
+      setDraftName(getSuggestedName(newLang));
     }
-
     if (!isAuthenticated) {
       const vText = VISITOR_TEXTS[newLang] || VISITOR_TEXTS.en;
       setDemoStage(1);
@@ -149,7 +190,6 @@ export default function CopilotDrawer() {
   }, [messages, demoMessages, isLoading, demoLoading]);
 
   const avatar = getAvatar(profile.avatarId);
-  // Custom name overrides, otherwise fallback to current language default name (TR: Aylin, EN: Olivia, ES: Mary, FR: Sophie, PT: Lorena)
   const displayName = profile.displayName || getSuggestedName(activeLocale);
 
   const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
@@ -225,10 +265,6 @@ export default function CopilotDrawer() {
     } catch {}
   };
 
-  const handleTriggerClick = () => {
-    setIsOpen(true);
-  };
-
   // --- Visitor Option Button Click Handler ---
   const handleVisitorActionClick = async (btn: { label: string; id: string; action?: string; href?: string }) => {
     if (demoLoading) return;
@@ -294,12 +330,14 @@ export default function CopilotDrawer() {
       setDemoMessages((prev) => [...prev, assistantMsg]);
       if (data.stage) setDemoStage(data.stage);
     } catch {
-      const fallbackMsg: DemoMessage = {
-        id: `err-${Date.now()}`,
-        role: "assistant",
-        content: "İşlem sırasında bir bağlantı hatası oluştu. Lütfen tekrar deneyin.",
-      };
-      setDemoMessages((prev) => [...prev, fallbackMsg]);
+      setDemoMessages((prev) => [
+        ...prev,
+        {
+          id: `err-${Date.now()}`,
+          role: "assistant",
+          content: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin.",
+        },
+      ]);
     } finally {
       setDemoLoading(false);
     }
@@ -313,28 +351,12 @@ export default function CopilotDrawer() {
     const userText = demoInput.trim();
     setDemoInput("");
 
-    // Auto-detect direct language command switch (e.g. "english", "türkçe")
     const lower = userText.toLowerCase();
-    if (lower === "english" || lower === "en") {
-      handleLangChange("en");
-      return;
-    }
-    if (lower === "türkçe" || lower === "tr" || lower === "turkce") {
-      handleLangChange("tr");
-      return;
-    }
-    if (lower === "español" || lower === "es" || lower === "espanol") {
-      handleLangChange("es");
-      return;
-    }
-    if (lower === "français" || lower === "fr" || lower === "francais") {
-      handleLangChange("fr");
-      return;
-    }
-    if (lower === "português" || lower === "pt" || lower === "portugues") {
-      handleLangChange("pt");
-      return;
-    }
+    if (lower === "english" || lower === "en") { handleLangChange("en"); return; }
+    if (lower === "türkçe" || lower === "tr" || lower === "turkce") { handleLangChange("tr"); return; }
+    if (lower === "español" || lower === "es" || lower === "espanol") { handleLangChange("es"); return; }
+    if (lower === "français" || lower === "fr" || lower === "francais") { handleLangChange("fr"); return; }
+    if (lower === "português" || lower === "pt" || lower === "portugues") { handleLangChange("pt"); return; }
 
     const nextUserMsg: DemoMessage = {
       id: `user-${Date.now()}`,
@@ -376,7 +398,7 @@ export default function CopilotDrawer() {
         {
           id: `err-${Date.now()}`,
           role: "assistant",
-          content: "Bağlantı hatası oluştu. Lütfen tekrar deneyin.",
+          content: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin.",
         },
       ]);
     } finally {
@@ -391,13 +413,24 @@ export default function CopilotDrawer() {
           <div ref={triggerRef} className="fixed bottom-24 right-4 z-[105] flex flex-col items-end gap-1.5 cursor-move group lg:bottom-6 lg:right-6">
             <button
               onClick={handleTriggerClick}
-              onTouchEnd={(e) => {
-                handleTriggerClick();
-              }}
-              className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation animate-bounce duration-[8000ms]"
+              onTouchEnd={(e) => handleTriggerClick()}
+              className={`flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation relative motion-reduce:animate-none ${
+                shouldBounce ? "animate-bounce" : ""
+              }`}
             >
               <span className="text-base sm:text-lg animate-pulse">🤖</span>
               BOGA Copilot
+              {dotColor !== "none" && (
+                <span
+                  className={`absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#0d1117] ${
+                    dotColor === "red"
+                      ? "bg-red-500 animate-ping"
+                      : dotColor === "orange"
+                      ? "bg-amber-400"
+                      : "bg-blue-400"
+                  }`}
+                />
+              )}
             </button>
             <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/90 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-md border border-[#3b82f6]/30 shadow-lg select-none">
               {ct("copilotTagline", activeLocale)}
@@ -406,7 +439,7 @@ export default function CopilotDrawer() {
         </Draggable>
       )}
 
-      {/* Copilot Drawer Panel (both authenticated & visitor) */}
+      {/* Copilot Drawer Panel */}
       <div
         className={`fixed right-0 top-0 z-[120] flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl transition-transform duration-300 sm:w-[420px] ${
           isOpen ? "translate-x-0" : "translate-x-full"
@@ -432,7 +465,6 @@ export default function CopilotDrawer() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Sleek Language Selector */}
             <select
               value={activeLocale}
               onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
@@ -539,34 +571,80 @@ export default function CopilotDrawer() {
             {/* Smart Tasks Modal Content */}
             {isTasksOpen && (
               <div className="space-y-3">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center flex-wrap gap-2">
                   <span className="text-[11px] text-gray-400 font-mono">Aktif Görevler ({activeTasks.length})</span>
-                  <button
-                    type="button"
-                    onClick={handleBreakPrompt}
-                    className="text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 rounded"
-                  >
-                    {taskDef.breakBtn}
-                  </button>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={handleBreakPrompt}
+                      className="text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 rounded"
+                    >
+                      {taskDef.breakBtn}
+                    </button>
+                    <select
+                      value={muteDuration}
+                      onChange={(e) => setMuteDuration(e.target.value)}
+                      className="bg-[#1a2333] border border-blue-500/30 text-xs text-blue-300 rounded px-1.5 py-0.5 focus:outline-none"
+                    >
+                      <option value="off">🔕 Bildirimleri Sessize Al</option>
+                      <option value="30m">30 Dakika</option>
+                      <option value="1h">1 Saat</option>
+                      <option value="market_close">Piyasa Kapanışına Kadar</option>
+                    </select>
+                  </div>
                 </div>
 
+                {/* Mute Critical Alert Option */}
+                {muteDuration !== "off" && (
+                  <div className="bg-[#182030] p-2 rounded-lg border border-blue-500/20 text-[10px] flex items-center justify-between text-gray-300">
+                    <span>Kritik gelişmeleri (80+ puan) yine de göstereyim mi?</span>
+                    <button
+                      type="button"
+                      onClick={() => setAllowCriticalMute(!allowCriticalMute)}
+                      className={`px-2 py-0.5 rounded font-bold ${
+                        allowCriticalMute ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40" : "bg-red-500/20 text-red-400 border border-red-500/40"
+                      }`}
+                    >
+                      {allowCriticalMute ? "Evet" : "Hayır"}
+                    </button>
+                  </div>
+                )}
+
+                {/* TASK CARDS STANDARD */}
                 {activeTasks.length > 0 ? (
-                  <div className="space-y-2 max-h-36 overflow-y-auto">
+                  <div className="space-y-2 max-h-44 overflow-y-auto">
                     {activeTasks.map((t) => (
-                      <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2 rounded-xl text-xs flex justify-between items-center">
-                        <div>
-                          <span className="font-bold text-white uppercase">{t.subject || t.task_type.replace(/_/g, " ")}</span>
-                          <p className="text-[10px] text-gray-400 font-mono">
-                            Sonraki Değerlendirme: {t.schedule?.midday || "12:00 ET"}
-                          </p>
+                      <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2.5 rounded-xl text-xs space-y-1.5">
+                        <div className="flex justify-between items-center">
+                          <span className="font-extrabold text-white uppercase tracking-wide">
+                            {t.subject || t.task_type.replace(/_/g, " ")} · Günlük Takip
+                          </span>
+                          <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">
+                            Sonraki: {t.schedule?.midday || (marketStatus.isEarlyClose ? "11:15 ET" : "12:00 ET")}
+                          </span>
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handleCancelTask(t.id)}
-                          className="text-[10px] text-red-400 hover:text-red-300 px-2 py-0.5 bg-red-500/10 rounded border border-red-500/20"
-                        >
-                          Durdur
-                        </button>
+                        <p className="text-[10px] text-gray-400 font-mono">
+                          Teknik görünüm · Haberler · Fiyat hareketi (Son güncelleme: 09:02 ET)
+                        </p>
+                        <div className="flex items-center gap-2 pt-1 border-t border-white/5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsTasksOpen(false);
+                              append({ role: "user", content: `${t.subject} son durum raporunu göster.` });
+                            }}
+                            className="text-[10px] font-bold text-cyan-300 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 px-2 py-0.5 rounded"
+                          >
+                            Raporu Aç
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleCancelTask(t.id)}
+                            className="text-[10px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20"
+                          >
+                            Görevi Bitir
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -578,8 +656,8 @@ export default function CopilotDrawer() {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
                     🎯 Hızlı Görev Başlat
                   </span>
-                  <div className="grid grid-cols-1 gap-1.5 max-h-40 overflow-y-auto">
-                    {taskDef.quickChoices.map((choice, i) => (
+                  <div className="grid grid-cols-1 gap-1.5 max-h-36 overflow-y-auto">
+                    {taskDef.quickChoices.map((choice: any, i: number) => (
                       <button
                         key={i}
                         type="button"
@@ -678,7 +756,6 @@ export default function CopilotDrawer() {
             /* AUTHENTICATED MEMBER MESSAGES */
             messages.length === 0 ? (
               <div className="flex flex-col gap-3">
-                {/* Proactive Personalized Daily Kickoff Greeting */}
                 <div className="bg-[#141924] p-4 rounded-2xl border border-[#2a384e] shadow-lg text-sm text-gray-200 whitespace-pre-wrap leading-relaxed">
                   {dailyGreeting.welcomeMessage}
                 </div>
@@ -686,7 +763,7 @@ export default function CopilotDrawer() {
                   <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
                     ⚡ {taskDef.headerTitle} & Hızlı Seçimler
                   </span>
-                  {taskDef.quickChoices.map((choice, idx) => (
+                  {taskDef.quickChoices.map((choice: any, idx: number) => (
                     <button
                       key={idx}
                       type="button"
@@ -714,7 +791,7 @@ export default function CopilotDrawer() {
                       if (!result) {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
-                            {ct("fetchingData", activeLocale)}
+                            Piyasanın nabzını ölçüyorum...
                           </div>
                         );
                       }
@@ -871,9 +948,15 @@ export default function CopilotDrawer() {
             ))
           )}
 
+          {/* BOGA Graceful Recovery System Error Card (NEVER SHOW RAW JSON ERROR!) */}
           {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg text-xs">
-              {error.message || ct("errorGeneric", activeLocale)}
+            <div className="bg-[#141924] border border-blue-500/30 p-4 rounded-2xl text-xs space-y-2 shadow-lg">
+              <div className="flex items-center gap-2 text-amber-400 font-bold">
+                <span>☕ Piyasa Masasını Düzenliyorum...</span>
+              </div>
+              <p className="text-gray-300 leading-relaxed">
+                Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyu yeniden düzenliyorum. Lütfen sorunuzu bir kez daha iletin.
+              </p>
             </div>
           )}
 
