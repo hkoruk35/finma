@@ -265,6 +265,27 @@ export default function CopilotDrawer() {
     } catch {}
   };
 
+  const handleNewChat = () => {
+    if (isAuthenticated) {
+      if (setMessages) setMessages([]);
+    } else {
+      const vText = VISITOR_TEXTS[activeLocale] || VISITOR_TEXTS.en;
+      setDemoStage(1);
+      setDemoMessages([
+        {
+          id: `welcome-${Date.now()}`,
+          role: "assistant",
+          content: vText.stage1Message,
+          buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
+          stage: 1,
+        },
+      ]);
+    }
+    setIsTasksOpen(false);
+    setIsHistoryOpen(false);
+    setIsSettingsOpen(false);
+  };
+
   // --- Visitor Option Button Click Handler ---
   const handleVisitorActionClick = async (btn: { label: string; id: string; action?: string; href?: string }) => {
     if (demoLoading) return;
@@ -465,6 +486,39 @@ export default function CopilotDrawer() {
           </div>
 
           <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleNewChat}
+              title={
+                activeLocale === "tr"
+                  ? "Yeni Sohbet Başlat"
+                  : activeLocale === "es"
+                  ? "Nuevo Chat"
+                  : activeLocale === "fr"
+                  ? "Nouveau Chat"
+                  : activeLocale === "pt"
+                  ? "Novo Chat"
+                  : "New Chat"
+              }
+              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span className="hidden sm:inline">
+                {activeLocale === "tr"
+                  ? "Yeni Sohbet"
+                  : activeLocale === "es"
+                  ? "Nuevo Chat"
+                  : activeLocale === "fr"
+                  ? "Nouveau Chat"
+                  : activeLocale === "pt"
+                  ? "Novo Chat"
+                  : "New Chat"}
+              </span>
+            </button>
+
             <select
               value={activeLocale}
               onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
