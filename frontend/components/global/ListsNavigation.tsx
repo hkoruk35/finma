@@ -9,35 +9,35 @@ interface Props {
 const translations: Record<string, Record<string, string>> = {
   tr: {
     swing: "TREND",
-    watchlist: "TREND ADAYLARI (WATCHLIST)",
+    watchlist: "TREND ADAYLARI",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "İZLEME LİSTEM (MY WATCHLIST)"
+    myWatchlist: "İZLEME LİSTEM"
   },
   en: {
     swing: "TREND",
-    watchlist: "TREND CANDIDATES (WATCHLIST)",
+    watchlist: "TREND CANDIDATES",
     top7: "TOP 7",
     top100: "TOP 100",
     myWatchlist: "MY WATCHLIST"
   },
   es: {
     swing: "TENDENCIA",
-    watchlist: "CANDIDATOS (WATCHLIST)",
+    watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
     myWatchlist: "MI LISTA"
   },
   fr: {
     swing: "TENDANCE",
-    watchlist: "CANDIDATS (WATCHLIST)",
+    watchlist: "CANDIDATS",
     top7: "TOP 7",
     top100: "TOP 100",
     myWatchlist: "MA LISTE"
   },
   pt: {
     swing: "TENDÊNCIA",
-    watchlist: "CANDIDATOS (WATCHLIST)",
+    watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
     myWatchlist: "MINHA LISTA"
