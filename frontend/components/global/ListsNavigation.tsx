@@ -6,13 +6,13 @@ interface Props {
   activePath: string; // e.g. "swing", "watchlist", "top7", "top100", "my-watchlist"
 }
 
-const translations = {
+const translations: Record<string, Record<string, string>> = {
   tr: {
     swing: "TREND",
     watchlist: "TREND ADAYLARI (WATCHLIST)",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "IZLEME LISTEM (MY WATCHLIST)"
+    myWatchlist: "İZLEME LİSTEM (MY WATCHLIST)"
   },
   en: {
     swing: "TREND",
@@ -36,7 +36,7 @@ const translations = {
     myWatchlist: "MA LISTE"
   },
   pt: {
-    swing: "TEND�NCIA",
+    swing: "TENDÊNCIA",
     watchlist: "CANDIDATOS (WATCHLIST)",
     top7: "TOP 7",
     top100: "TOP 100",
@@ -76,4 +76,3 @@ export default function ListsNavigation({ locale, activePath }: Props) {
     </div>
   );
 }
-
