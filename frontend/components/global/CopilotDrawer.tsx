@@ -10,6 +10,7 @@ import { AVATAR_OPTIONS, getAvatar, getSuggestedName } from "@/lib/copilot/perso
 import { ct } from "@/lib/copilot/i18n";
 import { VISITOR_TEXTS, SupportedLocale, DemoMessage } from "@/lib/copilot/visitorDemo";
 import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
+import { TASK_LABELS, CopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
@@ -47,15 +48,18 @@ export default function CopilotDrawer() {
   const [draftName, setDraftName] = useState(profile.displayName);
   const [draftAvatar, setDraftAvatar] = useState(profile.avatarId);
 
-  // --- HISTORY & ARCHIVE STATES ---
+  // --- HISTORY & ARCHIVE & TASKS STATES ---
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isTasksOpen, setIsTasksOpen] = useState(false);
   const [archives, setArchives] = useState<ChatArchiveItem[]>([]);
+  const [activeTasks, setActiveTasks] = useState<CopilotTask[]>([]);
   const [favoriteSectors, setFavoriteSectors] = useState<string[]>([]);
 
-  // --- VISITOR DEMO MODE STATES ---
-  const [demoLocale, setDemoLocale] = useState<SupportedLocale>(() => {
+  // --- VISITOR & MEMBER LANGUAGE STATES ---
+  const [activeLocale, setActiveLocale] = useState<SupportedLocale>(() => {
     return ["tr", "en", "es", "fr", "pt"].includes(locale) ? (locale as SupportedLocale) : "en";
   });
+
   const [demoStage, setDemoStage] = useState<number>(1);
   const [demoPrimaryInterest, setDemoPrimaryInterest] = useState<string>("trend");
   const [demoTimeHorizon, setDemoTimeHorizon] = useState<string>("few_weeks");
@@ -63,7 +67,9 @@ export default function CopilotDrawer() {
   const [demoInput, setDemoInput] = useState<string>("");
   const [demoLoading, setDemoLoading] = useState<boolean>(false);
 
-  // Fetch Archives & Member Personalization Sector context when drawer opens
+  const taskDef = TASK_LABELS[activeLocale] || TASK_LABELS.en;
+
+  // Fetch Archives & Active Tasks when drawer opens
   useEffect(() => {
     if (isAuthenticated && isOpen) {
       fetch("/api/copilot/history")
@@ -72,13 +78,20 @@ export default function CopilotDrawer() {
           if (d?.archives) setArchives(d.archives);
         })
         .catch(() => {});
+
+      fetch("/api/copilot/tasks")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d?.tasks) setActiveTasks(d.tasks);
+        })
+        .catch(() => {});
     }
   }, [isAuthenticated, isOpen]);
 
   // Initialize Visitor Demo Stage 1 message if not initialized
   useEffect(() => {
     if (!isAuthenticated && demoMessages.length === 0) {
-      const vText = VISITOR_TEXTS[demoLocale] || VISITOR_TEXTS.en;
+      const vText = VISITOR_TEXTS[activeLocale] || VISITOR_TEXTS.en;
       setDemoMessages([
         {
           id: "welcome-stage1",
@@ -89,22 +102,24 @@ export default function CopilotDrawer() {
         },
       ]);
     }
-  }, [isAuthenticated, demoLocale, demoMessages.length]);
+  }, [isAuthenticated, activeLocale, demoMessages.length]);
 
-  // Handle visitor language switch
-  const handleVisitorLangChange = (newLang: SupportedLocale) => {
-    setDemoLocale(newLang);
-    const vText = VISITOR_TEXTS[newLang] || VISITOR_TEXTS.en;
-    setDemoStage(1);
-    setDemoMessages([
-      {
-        id: `welcome-${Date.now()}`,
-        role: "assistant",
-        content: vText.stage1Message,
-        buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
-        stage: 1,
-      },
-    ]);
+  // Language switch handler
+  const handleLangChange = (newLang: SupportedLocale) => {
+    setActiveLocale(newLang);
+    if (!isAuthenticated) {
+      const vText = VISITOR_TEXTS[newLang] || VISITOR_TEXTS.en;
+      setDemoStage(1);
+      setDemoMessages([
+        {
+          id: `welcome-${Date.now()}`,
+          role: "assistant",
+          content: vText.stage1Message,
+          buttons: vText.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
+          stage: 1,
+        },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -117,16 +132,64 @@ export default function CopilotDrawer() {
   }, [messages, demoMessages, isLoading, demoLoading]);
 
   const avatar = getAvatar(profile.avatarId);
-  const displayName = profile.displayName || getSuggestedName(locale);
+  const displayName = profile.displayName || getSuggestedName(activeLocale);
 
-  // Generate personalized daily kickoff greeting for member
-  const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(locale as any)
-    ? (locale as CopilotLang)
+  const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
+    ? (activeLocale as CopilotLang)
     : "tr";
   const dailyGreeting = buildMemberDailyGreeting(displayName, favoriteSectors, 0, memberLang);
 
   const handleQuickAction = (text: string) => {
     append({ role: "user", content: text });
+  };
+
+  const handleCreateSmartTask = async (choice: { label: string; action: string; type: TaskType; subject?: string }) => {
+    if (isAuthenticated) {
+      try {
+        const res = await fetch("/api/copilot/tasks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            taskType: choice.type,
+            subject: choice.subject,
+            language: activeLocale,
+          }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.task) {
+            setActiveTasks((prev) => [data.task, ...prev]);
+          }
+        }
+      } catch {}
+
+      const confirmMsg = taskDef.taskConfirmedMsg(choice.subject || choice.label);
+      append({ role: "user", content: `${choice.label} görevini başlat.` });
+    } else {
+      handleVisitorActionClick({ label: choice.label, id: choice.action });
+    }
+  };
+
+  const handleCancelTask = async (taskId: string) => {
+    try {
+      await fetch(`/api/copilot/tasks?id=${taskId}`, { method: "DELETE" });
+      setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));
+    } catch {}
+  };
+
+  const handleBreakPrompt = () => {
+    if (isAuthenticated) {
+      append({ role: "user", content: "Biraz dinlenmek istiyorum." });
+    } else {
+      setDemoMessages((prev) => [
+        ...prev,
+        {
+          id: `break-${Date.now()}`,
+          role: "assistant",
+          content: taskDef.breakPromptMsg,
+        },
+      ]);
+    }
   };
 
   const quotaExhausted = !!usage && usage.hasAccess && usage.currentUsage >= usage.dailyLimit;
@@ -194,7 +257,7 @@ export default function CopilotDrawer() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          locale: demoLocale,
+          locale: activeLocale,
           stage: nextStage,
           primaryInterest: nextInterest,
           timeHorizon: nextHorizon,
@@ -235,6 +298,29 @@ export default function CopilotDrawer() {
     const userText = demoInput.trim();
     setDemoInput("");
 
+    // Auto-detect direct language command switch (e.g. "english", "türkçe")
+    const lower = userText.toLowerCase();
+    if (lower === "english" || lower === "en") {
+      handleLangChange("en");
+      return;
+    }
+    if (lower === "türkçe" || lower === "tr" || lower === "turkce") {
+      handleLangChange("tr");
+      return;
+    }
+    if (lower === "español" || lower === "es" || lower === "espanol") {
+      handleLangChange("es");
+      return;
+    }
+    if (lower === "français" || lower === "fr" || lower === "francais") {
+      handleLangChange("fr");
+      return;
+    }
+    if (lower === "português" || lower === "pt" || lower === "portugues") {
+      handleLangChange("pt");
+      return;
+    }
+
     const nextUserMsg: DemoMessage = {
       id: `user-${Date.now()}`,
       role: "user",
@@ -249,7 +335,7 @@ export default function CopilotDrawer() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          locale: demoLocale,
+          locale: activeLocale,
           stage: demoStage,
           primaryInterest: demoPrimaryInterest,
           timeHorizon: demoTimeHorizon,
@@ -293,13 +379,13 @@ export default function CopilotDrawer() {
               onTouchEnd={(e) => {
                 handleTriggerClick();
               }}
-              className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-transform active:scale-95 touch-manipulation"
+              className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation animate-bounce duration-[8000ms]"
             >
-              <span className="text-base sm:text-lg">🤖</span>
+              <span className="text-base sm:text-lg animate-pulse">🤖</span>
               BOGA Copilot
             </button>
             <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/90 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-md border border-[#3b82f6]/30 shadow-lg select-none">
-              {ct("copilotTagline", locale)}
+              {ct("copilotTagline", activeLocale)}
             </div>
           </div>
         </Draggable>
@@ -323,7 +409,7 @@ export default function CopilotDrawer() {
                 BOGA COPILOT
                 {!isAuthenticated && (
                   <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full font-sans font-bold shadow-sm">
-                    {VISITOR_TEXTS[demoLocale]?.headerBadge || "Hoş Geldiniz ✨"}
+                    {VISITOR_TEXTS[activeLocale]?.headerBadge || "Hoş Geldiniz ✨"}
                   </span>
                 )}
               </p>
@@ -331,30 +417,48 @@ export default function CopilotDrawer() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Visitor Language Selector */}
-            {!isAuthenticated && (
-              <select
-                value={demoLocale}
-                onChange={(e) => handleVisitorLangChange(e.target.value as SupportedLocale)}
-                className="bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-bold rounded-lg px-2 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-colors"
-              >
-                <option value="tr">TR 🇹🇷</option>
-                <option value="en">EN 🇺🇸</option>
-                <option value="es">ES 🇪🇸</option>
-                <option value="fr">FR 🇫🇷</option>
-                <option value="pt">PT 🇧🇷</option>
-              </select>
-            )}
+            {/* Flexible Language Selector for both Members & Visitors */}
+            <select
+              value={activeLocale}
+              onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
+              className="bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-bold rounded-lg px-2 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-colors"
+            >
+              <option value="tr">TR 🇹🇷</option>
+              <option value="en">EN 🇺🇸</option>
+              <option value="es">ES 🇪🇸</option>
+              <option value="fr">FR 🇫🇷</option>
+              <option value="pt">PT 🇧🇷</option>
+            </select>
 
             {isAuthenticated && (
               <>
                 <button
                   onClick={() => {
+                    setIsTasksOpen(!isTasksOpen);
+                    setIsHistoryOpen(false);
+                    setIsSettingsOpen(false);
+                  }}
+                  title="Akıllı Görevler"
+                  className={`rounded-full p-2 transition-colors ${
+                    isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 11 12 14 22 4" />
+                    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                  </svg>
+                </button>
+
+                <button
+                  onClick={() => {
                     setIsHistoryOpen(!isHistoryOpen);
+                    setIsTasksOpen(false);
                     setIsSettingsOpen(false);
                   }}
                   title="Sohbet Arşivi & Geçmiş"
-                  className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+                  className={`rounded-full p-2 transition-colors ${
+                    isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"
+                  }`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -365,14 +469,17 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => {
                     setIsSettingsOpen(!isSettingsOpen);
+                    setIsTasksOpen(false);
                     setIsHistoryOpen(false);
                   }}
-                  title={ct("personalize", locale)}
-                  className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors"
+                  title={ct("personalize", activeLocale)}
+                  className={`rounded-full p-2 transition-colors ${
+                    isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"
+                  }`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 003.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
                   </svg>
                 </button>
               </>
@@ -386,6 +493,65 @@ export default function CopilotDrawer() {
             </button>
           </div>
         </div>
+
+        {/* Active Smart Tasks Panel Header */}
+        {isAuthenticated && isTasksOpen && (
+          <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#00d2ff] uppercase tracking-wider">⚡ {taskDef.headerTitle}</span>
+              <button
+                type="button"
+                onClick={handleBreakPrompt}
+                className="text-[10px] font-bold text-amber-300 hover:text-amber-200 border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 rounded transition-all cursor-pointer"
+              >
+                {taskDef.breakBtn}
+              </button>
+            </div>
+
+            {activeTasks.length > 0 ? (
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {activeTasks.map((t) => (
+                  <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2.5 rounded-xl text-xs flex justify-between items-center">
+                    <div>
+                      <span className="font-bold text-white uppercase">{t.subject || t.task_type.replace(/_/g, " ")}</span>
+                      <p className="text-[10px] text-gray-400 font-mono">
+                        Sonraki Değerlendirme: {t.schedule?.midday || "12:00 ET"}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCancelTask(t.id)}
+                      className="text-[10px] text-red-400 hover:text-red-300 px-2 py-1 bg-red-500/10 rounded border border-red-500/20"
+                    >
+                      Durdur
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-gray-400 italic">Henüz aktif takibe alınmış bir görev bulunmuyor.</p>
+            )}
+
+            <div className="pt-2 border-t border-white/10 flex flex-col gap-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+                🎯 Hızlı Görev Başlat
+              </span>
+              <div className="grid grid-cols-1 gap-1.5">
+                {taskDef.quickChoices.slice(0, 4).map((choice, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleCreateSmartTask(choice)}
+                    className="w-full text-left px-3 py-2 bg-[#1e293b] hover:bg-blue-600/20 border border-blue-500/30 hover:border-blue-400 rounded-lg text-xs font-bold text-blue-300 hover:text-white transition-all flex items-center justify-between"
+                  >
+                    <span>{choice.label}</span>
+                    <span className="text-xs text-blue-400">+</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* History / Archive Panel for members */}
         {isAuthenticated && isHistoryOpen && (
@@ -425,18 +591,18 @@ export default function CopilotDrawer() {
         {isAuthenticated && isSettingsOpen && (
           <div className="border-b border-white/10 bg-[#0f1420] p-4 space-y-3 shrink-0">
             <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", locale)}</label>
+              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("assistantName", activeLocale)}</label>
               <input
                 type="text"
                 value={draftName}
                 onChange={(e) => setDraftName(e.target.value)}
-                placeholder={getSuggestedName(locale)}
+                placeholder={getSuggestedName(activeLocale)}
                 maxLength={30}
                 className="w-full mt-1 bg-[#161b22] border border-white/10 rounded-lg py-2 px-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500"
               />
             </div>
             <div>
-              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("chooseAvatar", locale)}</label>
+              <label className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">{ct("chooseAvatar", activeLocale)}</label>
               <div className="flex gap-2 mt-1.5">
                 {AVATAR_OPTIONS.map((a) => (
                   <button
@@ -455,7 +621,7 @@ export default function CopilotDrawer() {
               onClick={handleSaveSettings}
               className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg transition-colors"
             >
-              {ct("save", locale)}
+              {ct("save", activeLocale)}
             </button>
           </div>
         )}
@@ -472,16 +638,16 @@ export default function CopilotDrawer() {
                 </div>
                 <div className="flex flex-col gap-2 mt-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-                    💡 Önerilen Günlük Analiz Başlıkları
+                    ⚡ {taskDef.headerTitle} & Hızlı Seçimler
                   </span>
-                  {dailyGreeting.pills.map((pill, idx) => (
+                  {taskDef.quickChoices.map((choice, idx) => (
                     <button
                       key={idx}
                       type="button"
-                      onClick={() => handleQuickAction(pill.prompt)}
+                      onClick={() => handleCreateSmartTask(choice)}
                       className="w-full text-left px-3.5 py-2.5 rounded-xl bg-[#1e293b] border border-blue-500/30 hover:border-blue-400 hover:bg-blue-600/20 text-blue-300 hover:text-white text-xs font-bold transition-all shadow-sm flex items-center justify-between touch-manipulation active:scale-[0.98]"
                     >
-                      <span>{pill.label}</span>
+                      <span>{choice.label}</span>
                       <span className="text-xs opacity-60">→</span>
                     </button>
                   ))}
@@ -502,7 +668,7 @@ export default function CopilotDrawer() {
                       if (!result) {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">
-                            {ct("fetchingData", locale)}
+                            {ct("fetchingData", activeLocale)}
                           </div>
                         );
                       }
@@ -510,8 +676,8 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-blue-500/20 text-xs font-mono text-blue-400">
                             {result?.success
-                              ? ct("navigating", locale, { ticker: result.ticker })
-                              : `⚠️ ${result?.error || ct("navigateFailed", locale)}`}
+                              ? ct("navigating", activeLocale, { ticker: result.ticker })
+                              : `⚠️ ${result?.error || ct("navigateFailed", activeLocale)}`}
                           </div>
                         );
                       }
@@ -519,16 +685,16 @@ export default function CopilotDrawer() {
                         if (!result?.success) {
                           return (
                             <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
-                              ⚠️ {result?.error || ct("noStockData", locale)}
+                              ⚠️ {result?.error || ct("noStockData", activeLocale)}
                             </div>
                           );
                         }
-                        return <StockCard key={idx} data={result as StockCardProps} locale={locale} />;
+                        return <StockCard key={idx} data={result as StockCardProps} locale={activeLocale} />;
                       }
                       if (toolInv.toolName === "get_deep_analysis" && !result?.success) {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">
-                            ⚠️ {result?.error || ct("noStockData", locale)}
+                            ⚠️ {result?.error || ct("noStockData", activeLocale)}
                           </div>
                         );
                       }
@@ -546,7 +712,7 @@ export default function CopilotDrawer() {
                               return (
                                 <button
                                   type="button"
-                                  onClick={() => append({ role: "user", content: ct("analyzeTickerPrompt", locale, { ticker }) })}
+                                  onClick={() => append({ role: "user", content: ct("analyzeTickerPrompt", activeLocale, { ticker }) })}
                                   className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
                                 >
                                   {children}
@@ -634,7 +800,7 @@ export default function CopilotDrawer() {
 
           {error && (
             <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg text-xs">
-              {error.message || ct("errorGeneric", locale)}
+              {error.message || ct("errorGeneric", activeLocale)}
             </div>
           )}
 
@@ -651,7 +817,7 @@ export default function CopilotDrawer() {
               type="text"
               value={isAuthenticated ? input : demoInput}
               onChange={isAuthenticated ? handleInputChange : (e) => setDemoInput(e.target.value)}
-              placeholder={ct("inputPlaceholder", isAuthenticated ? locale : demoLocale)}
+              placeholder={ct("inputPlaceholder", isAuthenticated ? activeLocale : activeLocale)}
               disabled={inputDisabled}
               className="w-full bg-[#161b22] border border-white/10 rounded-full py-3 pl-4 pr-12 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors disabled:opacity-50"
             />
@@ -667,10 +833,10 @@ export default function CopilotDrawer() {
             </button>
           </div>
           <div className="text-center mt-2 flex justify-between px-2">
-            <span className="text-[9px] text-gray-500">{ct("disclaimer", isAuthenticated ? locale : demoLocale)}</span>
+            <span className="text-[9px] text-gray-500">{ct("disclaimer", isAuthenticated ? activeLocale : activeLocale)}</span>
             {isAuthenticated && usage && usage.hasAccess && (
               <span className="text-[9px] text-blue-500/70 font-mono">
-                {ct("requestsLeft", locale, { n: Math.max(0, usage.dailyLimit - usage.currentUsage), limit: usage.dailyLimit })}
+                {ct("requestsLeft", activeLocale, { n: Math.max(0, usage.dailyLimit - usage.currentUsage), limit: usage.dailyLimit })}
               </span>
             )}
           </div>
