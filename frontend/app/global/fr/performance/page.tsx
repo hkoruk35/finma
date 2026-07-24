@@ -45,6 +45,7 @@ export default async function FrPerformancePage() {
             todayPicks={todayPicks}
             picksGeneratedAt={picksGeneratedAt}
             locale="fr"
+            applySlPct={-10}
           />
         </div>
       </main>

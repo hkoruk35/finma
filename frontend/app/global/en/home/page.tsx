@@ -40,7 +40,7 @@ export default async function EnHomePage() {
   // "Last 100 trades" slice REMOVED: the last 100 entries have 65 PENDING, leaving
   // only 31 completed trades. Stats from 31 samples are unreliable and artificially high.
   // Full history (736 completed) gives accurate, representative numbers.
-  const SL_CAP = -7;
+  const SL_CAP = -10;
   const bannerStats = (() => {
     const fullHistory: any[] = swingStats?.history ?? [];
     if (fullHistory.length === 0) return swingStats?.stats ?? null;

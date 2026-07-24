@@ -36,11 +36,11 @@ export default async function TrHomePage() {
     getMemberAccess()
   ]);
 
-  // Tüm geçmiş kullanılır — -%7 SL cap, duplicate ve PENDING hariç.
+  // Tüm geçmiş kullanılır — -%10 SL cap, duplicate ve PENDING hariç.
   // "Son 100 işlem" kesimi KALDIRILDI: son 100 kayıtta 65 PENDING olduğundan
   // yalnızca 31 tamamlanmış işlem kalmakta ve bu küçük örnekten hesaplanan
   // oran (%93.5) yanıltıcıdır. Tam geçmiş (736 tamamlanmış) daha doğru sonuç verir.
-  const SL_CAP = -7;
+  const SL_CAP = -10;
   const bannerStats = (() => {
     const fullHistory: any[] = swingStats?.history ?? [];
     if (fullHistory.length === 0) return swingStats?.stats ?? null;

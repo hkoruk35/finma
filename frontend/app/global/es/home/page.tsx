@@ -36,7 +36,7 @@ export default async function EsHomePage() {
     getMemberAccess()
   ]);
 
-  const SL_CAP = -7;
+  const SL_CAP = -10;
   const bannerStats = (() => {
     const fullHistory: any[] = swingStats?.history ?? [];
     if (fullHistory.length === 0) return swingStats?.stats ?? null;
