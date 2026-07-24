@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import ListsNavigation from "@/components/global/ListsNavigation";
 import Top7Tracker from "@/components/public/Top7Tracker";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -24,13 +25,7 @@ export default function EnTop7Page() {
           <span className="text-white italic">TOP 7</span>
         </nav>
 
-        <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
-          <Link href="/global/en/swing" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TREND</Link>
-          <Link href="/global/en/watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">WATCHLIST</Link>
-          <Link href="/global/en/top7" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]">TOP 7</Link>
-          <Link href="/global/en/top100" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">TOP 100</Link>
-          <Link href="/global/en/my-watchlist" className="text-[10px] font-bold px-3 py-1.5 rounded border transition-colors border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]">MY WATCHLIST</Link>
-        </div>
+        <ListsNavigation locale="en" activePath="top7" />
 
         <div className="relative z-10">
           <Top7Tracker locale="en" />

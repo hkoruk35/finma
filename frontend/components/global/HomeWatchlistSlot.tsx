@@ -167,11 +167,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
   const stocks = usePersonal ? top5Personal : defaultStocks;
   const title = usePersonal
     ? labels.title
-    : locale === 'tr' ? 'İzleme Listem'
-    : locale === 'es' ? 'Mi Lista'
-    : locale === 'fr' ? 'Ma Liste'
-    : locale === 'pt' ? 'Minha Lista'
-    : 'Watchlist';
+    : locale === 'tr' ? 'Top 7'
+    : locale === 'pt' ? 'Top 7'
+    : locale === 'es' ? 'Top 7'
+    : locale === 'fr' ? 'Top 7'
+    : 'Top 7';
   const viewAllHref = defaultViewAllHref || `/global/${locale}/top7`;
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
