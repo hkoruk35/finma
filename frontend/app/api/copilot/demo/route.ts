@@ -59,8 +59,17 @@ export async function POST(req: NextRequest) {
     const riskLevel = cardData?.riskLevel ?? "Orta";
     const invalidationLevel = fmtNum(rawSupport * 0.96, 2);
 
+    // Stage 2: Question about Time Horizon
+    if (stage === 2) {
+      return NextResponse.json({
+        reply: textDef.stage2Message,
+        buttons: textDef.stage2Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage2_select" })),
+        stage: 2,
+      });
+    }
+
+    // Stage 3: Personalized NVDA Analysis
     if (stage === 3) {
-      // Stage 3: Personalized NVDA Analysis
       let horizonText = "birkaç haftalık";
       if (timeHorizon === "few_days") horizonText = "birkaç günlük";
       if (timeHorizon === "few_months") horizonText = "birkaç aylık";
@@ -129,7 +138,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         reply: analysisContent,
         buttons: textDef.stage3Buttons.map((b) => ({ label: b.label, id: b.id, action: "set_followup" })),
-        stage: 4,
+        stage: 3,
       });
     }
 
@@ -229,7 +238,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ reply: textDef.stage1Message, stage: 1 });
+    return NextResponse.json({
+      reply: textDef.stage1Message,
+      buttons: textDef.stage1Buttons.map((b) => ({ label: b.label, id: b.id, action: "stage1_select" })),
+      stage: 1,
+    });
   } catch (err: any) {
     console.error("[copilot/demo] Error:", err);
     return NextResponse.json({ error: "Service error" }, { status: 500 });
