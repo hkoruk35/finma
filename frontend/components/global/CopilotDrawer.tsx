@@ -849,12 +849,44 @@ export default function CopilotDrawer() {
             )
           ) : (
             demoMessages.map((msg) => (
-              <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
+              <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"} space-y-2`}>
                 <div className={`p-3.5 text-sm rounded-2xl prose prose-invert prose-sm leading-relaxed whitespace-pre-wrap ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
-                  <ReactMarkdown urlTransform={(url) => url.startsWith("copilot://") ? url : defaultUrlTransform(url)}>
+                  <ReactMarkdown
+                    urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
+                    components={{
+                      a: ({ href, children }) => {
+                        if (href?.startsWith("copilot-topic://")) {
+                          const topicText = extractPlainText(children);
+                          return (
+                            <button type="button" onClick={() => topicText && handleVisitorActionClick({ label: topicText, id: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
+                              <span>{children}</span>
+                            </button>
+                          );
+                        }
+                        return <a href={href} target="_blank" rel="noopener noreferrer" className="text-blue-400 underline">{children}</a>;
+                      },
+                    }}
+                  >
                     {linkifyTickers(msg.content)}
                   </ReactMarkdown>
                 </div>
+
+                {msg.buttons && msg.buttons.length > 0 && msg.role === "assistant" && (
+                  <div className="grid grid-cols-1 gap-2 pt-1">
+                    {msg.buttons.map((btn) => (
+                      <button
+                        key={btn.id}
+                        type="button"
+                        onClick={() => handleVisitorActionClick(btn)}
+                        disabled={demoLoading}
+                        className="w-full text-left p-3 rounded-xl bg-[#161b22] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-xs font-bold text-gray-200 hover:text-white transition-all shadow-md flex items-center justify-between group active:scale-[0.98] cursor-pointer"
+                      >
+                        <span>{btn.label}</span>
+                        <span className="text-blue-400 group-hover:translate-x-1 transition-transform font-mono text-sm">→</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           )}
