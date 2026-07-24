@@ -16,6 +16,7 @@ import { ct } from "@/lib/copilot/i18n";
 import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
 
 export const maxDuration = 30;
+export const dynamic = "force-dynamic";
 
 const apiKey =
   process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
@@ -40,8 +41,14 @@ const LANG_NAME_MAP: Record<string, string> = {
 
 const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number = 2500): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>((resolve) => setTimeout(() => resolve(null), timeoutMs)),
+  ]);
+}
+
 async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
-  const langName = LANG_NAME_MAP[locale] || "English";
   const profile = await getCopilotProfile(userId);
   const name = profile.displayName || getSuggestedName(locale);
   const personalization = await getPersonalizationContext(userId);
@@ -56,7 +63,7 @@ BOGA COPILOT GRACEFUL RECOVERY RULES (HATA KART SİZLİĞİ VE BOGA KİŞİLİĞ
    - "Piyasanın nabzını ölçüyorum..."
    - "Vadeli işlemleri ve haber akışını karşılaştırıyorum..."
    - "Piyasa gürültüsünü ayıklıyorum..."
-   - "Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyı yeniden düzenliyorum."
+   - "Piyasa mutfağında birkaç rakam birbirine karıştı. Sana eksik bir analiz sunmak yerine tabloyu yeniden düzenliyorum."
 3. ASLA "anlık haber akışını doğrudan sağlayamıyorum" veya "canlı haberim yok" DEME. Haber veya piyasa gelişmesi sorulduğunda MUTLAKA 'search_market_news' veya 'get_deep_analysis' aracını çağır.
 
 SMART TASK & PRESENTATION RULES:
@@ -66,7 +73,7 @@ SMART TASK & PRESENTATION RULES:
    - Bilanço özeti: 120–220 kelime
    - Detay talebi: Sınırsız, bölümlü sunum
 2. Gerçekleşen veri (Fact) ile BOGA Copilot Değerlendirmesini net bir şekilde ayır.
-3. Bir önceki rapordaki bilgileri gereksiz yere tekrarlama; sadece değişen noktaları aktar. Değişim yoksa: "Bir önceki güncellemeden bu yana kayda değer bir değişim yaşanmadı." de.
+3. Bir önceki rapordaki bilgileri gereksiz yere tekrarlama; sadece değişen noktaları aktar.
 
 `;
 
@@ -147,11 +154,11 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         search_market_news: tool({
-          description: "Fetches live breaking market news, headlines, Reuters/Yahoo Finance/Google News RSS feed items for a topic, ticker, or general market updates (e.g. 'günün önemli gelişmelerini', 'latest stock market news', 'NVDA haberleri'). Call this whenever the user asks for news or market developments.",
+          description: "Fetches live breaking market news, headlines, Reuters/Yahoo Finance/Google News RSS feed items for a topic, ticker, or general market updates.",
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
-            const news = await fetchLiveMarketNews(query, locale);
-            return { success: true, query, news };
+            const news = await withTimeout(fetchLiveMarketNews(query, locale), 2000);
+            return { success: true, query, news: news || [] };
           },
         }),
         navigate_to: tool({
@@ -161,7 +168,7 @@ export async function POST(req: NextRequest) {
             const t = ticker.trim().toUpperCase();
             const isFormatValid = t.length <= 5 && /^[A-Z]+$/.test(t);
             if (!isFormatValid) return { success: false, error: ct("invalidTicker", locale) };
-            const real = await isRealTicker(t);
+            const real = await withTimeout(isRealTicker(t), 2000);
             if (!real) return { success: false, error: ct("tickerNotFound", locale) };
             return { success: true, ticker: t };
           },
@@ -170,7 +177,7 @@ export async function POST(req: NextRequest) {
           description: "Call this whenever the user asks about a specific stock ticker to show its current BOGA score, support/resistance/target levels as a card.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const card = await getRealStockCardData(ticker, locale);
+            const card = await withTimeout(getRealStockCardData(ticker, locale), 2500);
             if (!card) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...card };
           },
@@ -179,7 +186,7 @@ export async function POST(req: NextRequest) {
           description: "Fetches a stock's fundamentals, insider buy/sell activity, sector context, recent news, and BOGA's historical trade performance.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const deep = await getDeepAnalysis(ticker, locale);
+            const deep = await withTimeout(getDeepAnalysis(ticker, locale), 2500);
             if (!deep) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...deep };
           },
@@ -188,13 +195,13 @@ export async function POST(req: NextRequest) {
           description: "Fetches live price, support/resistance, RSI(14), 5-day trends, volume vs average percentage, and Weinstein stage.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
-            const levels = await getTechnicalLevels(ticker);
+            const levels = await withTimeout(getTechnicalLevels(ticker), 2500);
             if (!levels) return { success: false, error: ct("noStockData", locale) };
             return { success: true, ...levels };
           },
         }),
       },
-      maxSteps: 4,
+      maxSteps: 2,
       async onFinish({ text, toolCalls, toolResults }) {
         try {
           await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
@@ -224,7 +231,6 @@ export async function POST(req: NextRequest) {
     return result.toDataStreamResponse();
   } catch (err: any) {
     console.error("Copilot POST Exception:", err);
-    // BOGA Graceful Recovery Error Response — NEVER show raw JSON error to user!
     return NextResponse.json(
       {
         error: "Piyasa mutfağında kısa bir düzenleme yapıyorum. Lütfen sorunuzu bir kez daha iletin.",
