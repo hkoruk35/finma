@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T09:05:50.842732-04:00",
+  "generated_at": "2026-07-24T14:05:33.635575-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -42,12 +42,6 @@
       "sector": "Technology",
       "date_added": "2026-07-21",
       "score": 31.5
-    },
-    {
-      "ticker": "BURL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-21",
-      "score": 35.5
     },
     {
       "ticker": "GM",
@@ -168,6 +162,36 @@
       "sector": "Industrials",
       "date_added": "2026-07-24",
       "score": 26.5
+    },
+    {
+      "ticker": "TMO",
+      "sector": "Healthcare",
+      "date_added": "2026-07-24",
+      "score": 38.0
+    },
+    {
+      "ticker": "DELL",
+      "sector": "Technology",
+      "date_added": "2026-07-24",
+      "score": 36.0
+    },
+    {
+      "ticker": "ETN",
+      "sector": "Industrials",
+      "date_added": "2026-07-24",
+      "score": 34.5
+    },
+    {
+      "ticker": "CIFR",
+      "sector": "Technology",
+      "date_added": "2026-07-24",
+      "score": 32.0
+    },
+    {
+      "ticker": "TLN",
+      "sector": "Utilities",
+      "date_added": "2026-07-24",
+      "score": 23.0
     }
   ]
 }
