@@ -277,15 +277,19 @@ export default function CopilotDrawer() {
     <>
       {!isOpen && (
         <Draggable nodeRef={triggerRef} bounds="body">
-          <div ref={triggerRef} className="fixed bottom-24 right-6 z-50 flex flex-col items-center gap-1.5 cursor-move group lg:bottom-6">
+          <div ref={triggerRef} className="fixed bottom-24 right-4 z-[105] flex flex-col items-end gap-1.5 cursor-move group lg:bottom-6 lg:right-6">
             <button
               onClick={handleTriggerClick}
-              className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-transform hover:scale-105 active:scale-95"
+              onTouchEnd={(e) => {
+                // Instantly open drawer on mobile tap
+                handleTriggerClick();
+              }}
+              className="flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-transform active:scale-95 touch-manipulation"
             >
-              <span className="text-lg">🤖</span>
+              <span className="text-base sm:text-lg">🤖</span>
               BOGA Copilot
             </button>
-            <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/80 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-sm border border-[#3b82f6]/30 shadow-lg select-none">
+            <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/90 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-md border border-[#3b82f6]/30 shadow-lg select-none">
               {ct("copilotTagline", locale)}
             </div>
           </div>
@@ -294,7 +298,7 @@ export default function CopilotDrawer() {
 
       {/* Copilot Drawer Panel (both authenticated & visitor) */}
       <div
-        className={`fixed right-0 top-0 z-50 flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl transition-transform duration-300 sm:w-[420px] ${
+        className={`fixed right-0 top-0 z-[120] flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl transition-transform duration-300 sm:w-[420px] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -590,7 +594,7 @@ export default function CopilotDrawer() {
         {/* Input Footer */}
         <form
           onSubmit={isAuthenticated ? handleSubmit : handleVisitorInputSubmit}
-          className="border-t border-white/10 p-4 bg-[#0d1117]"
+          className="border-t border-white/10 p-4 pb-8 sm:pb-4 bg-[#0d1117] shrink-0"
         >
           <div className="relative flex items-center">
             <input
@@ -604,7 +608,7 @@ export default function CopilotDrawer() {
             <button
               type="submit"
               disabled={isAuthenticated ? (!input.trim() || inputDisabled) : (!demoInput.trim() || demoLoading)}
-              className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white disabled:opacity-50 hover:bg-blue-500 transition-colors"
+              className="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white disabled:opacity-50 hover:bg-blue-500 transition-colors touch-manipulation"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -625,7 +629,7 @@ export default function CopilotDrawer() {
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 sm:hidden"
+          className="fixed inset-0 bg-black/60 z-[115] sm:hidden backdrop-blur-sm"
           onClick={() => setIsOpen(false)}
         />
       )}
