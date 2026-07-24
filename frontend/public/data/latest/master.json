@@ -1,6 +1,6 @@
 {
   "date": "2026-07-24",
-  "generated_at": "2026-07-24T09:05:50.818137-04:00",
+  "generated_at": "2026-07-24T14:05:33.602463-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,24 +8,21 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "UNP",
-        "FIX",
-        "A",
-        "WST",
-        "AAPL",
-        "ASND",
-        "VIK",
-        "AHR",
-        "NTAP",
-        "FCX"
+        "CNQ",
+        "VRSN",
+        "PH",
+        "STLD",
+        "FITB",
+        "URI",
+        "HUT",
+        "PSX",
+        "NDAQ",
+        "BURL"
       ]
     },
     "breakout": {
-      "count": 2,
-      "tickers": [
-        "UNP",
-        "A"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -46,42 +43,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "UNP",
-      "score": 61.0,
+      "ticker": "CNQ",
+      "score": 60.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "FIX",
-      "score": 55.5,
+      "ticker": "VRSN",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "A",
-      "score": 50.0,
+      "ticker": "PH",
+      "score": 52.4,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 741.06,
-      "change_pct": 0.39
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 688.76,
-      "change_pct": -0.46
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 519.2136,
-      "change_pct": 0.57
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 18.07,
-      "change_pct": -3.37
-    },
-    "RUSSELL2000": {
-      "value": 292.725,
-      "change_pct": 0.22
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-24T14:01:37.941623-04:00"
+  }
 }
