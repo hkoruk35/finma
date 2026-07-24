@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T17:04:22.509726-04:00",
+  "generated_at": "2026-07-24T09:05:50.842732-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -68,22 +68,10 @@
       "score": 34.0
     },
     {
-      "ticker": "AAPL",
-      "sector": "Technology",
-      "date_added": "2026-07-22",
-      "score": 43.0
-    },
-    {
       "ticker": "PLD",
       "sector": "Real Estate",
       "date_added": "2026-07-22",
       "score": 42.5
-    },
-    {
-      "ticker": "NTAP",
-      "sector": "Technology",
-      "date_added": "2026-07-22",
-      "score": 41.5
     },
     {
       "ticker": "ANET",
@@ -144,6 +132,42 @@
       "sector": "Industrials",
       "date_added": "2026-07-23",
       "score": 39.0
+    },
+    {
+      "ticker": "XPO",
+      "sector": "Industrials",
+      "date_added": "2026-07-24",
+      "score": 37.5
+    },
+    {
+      "ticker": "USB",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 37.5
+    },
+    {
+      "ticker": "BX",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 37.4
+    },
+    {
+      "ticker": "ARES",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 35.7
+    },
+    {
+      "ticker": "GS",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 29.0
+    },
+    {
+      "ticker": "UAL",
+      "sector": "Industrials",
+      "date_added": "2026-07-24",
+      "score": 26.5
     }
   ]
 }
