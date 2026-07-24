@@ -75,6 +75,7 @@ export default function CopilotDrawer() {
   const [demoMessages, setDemoMessages] = useState<DemoMessage[]>([]);
   const [demoInput, setDemoInput] = useState<string>("");
   const [demoLoading, setDemoLoading] = useState<boolean>(false);
+  const [customTaskInput, setCustomTaskInput] = useState<string>("");
 
   const taskDef = TASK_LABELS[activeLocale] || TASK_LABELS.en;
   const marketStatus = getUSMarketStatus();
@@ -200,6 +201,41 @@ export default function CopilotDrawer() {
     try {
       await Promise.all(taskIds.map((id) => fetch(`/api/copilot/tasks?id=${id}`, { method: "DELETE" })));
     } catch {}
+  };
+
+  const handleAddCustomTask = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customTaskInput.trim()) return;
+    const subject = customTaskInput.trim();
+    setCustomTaskInput("");
+
+    if (isAuthenticated) {
+      try {
+        const res = await fetch("/api/copilot/tasks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ taskType: "company_daily_watch", subject, language: activeLocale }),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.task) setActiveTasks((prev) => [data.task, ...prev]);
+        }
+      } catch {}
+    } else {
+      setActiveTasks((prev) => [
+        {
+          id: `task-${Date.now()}`,
+          user_id: "demo",
+          task_type: "company_daily_watch",
+          subject,
+          status: "active",
+          language: activeLocale,
+          schedule: { premarket: "08:45", midday: "12:00", closing: "16:15" },
+          created_at: new Date().toISOString(),
+        },
+        ...prev,
+      ]);
+    }
   };
 
   const handleBreakPrompt = () => {
@@ -545,17 +581,40 @@ export default function CopilotDrawer() {
                   <p className="text-xs text-gray-400 italic">Henüz aktif takibe alınmış bir görev bulunmuyor.</p>
                 )}
 
-                {/* DIRECT TOGGLE TASK LIST (Add/Remove without running!) */}
-                <div className="pt-2 border-t border-white/10 space-y-1.5">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-                    🎯 Görev Ekle / Çıkar (Doğrudan Yönet)
+                {/* CUSTOM TASK INPUT FORM (Siz Yazın - 100% Esnek & Dayatmasız!) */}
+                <form onSubmit={handleAddCustomTask} className="pt-3 border-t border-white/10 space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">
+                    ➕ Kendi Özel Takip Görevinizi Ekleyin
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={customTaskInput}
+                      onChange={(e) => setCustomTaskInput(e.target.value)}
+                      placeholder="Hisse, sektör veya konu yazın (örn: AAPL, Biyoteknoloji, Yarı İletkenler)..."
+                      className="flex-1 bg-[#161b22] border border-blue-500/30 focus:border-blue-400 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!customTaskInput.trim()}
+                      className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-xs px-3 py-2 rounded-lg transition-colors shadow-sm cursor-pointer whitespace-nowrap"
+                    >
+                      + Ekle
+                    </button>
+                  </div>
+                </form>
+
+                {/* OPTIONAL BROAD CATEGORY SUGGESTIONS */}
+                <div className="pt-2 border-t border-white/5 space-y-1.5">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 font-mono block">
+                    💡 Genel Piyasa Kategorileri (İsteğe Bağlı Hızlı Seçim)
                   </span>
-                  <div className="grid grid-cols-1 gap-1.5 max-h-44 overflow-y-auto">
+                  <div className="grid grid-cols-1 gap-1.5 max-h-36 overflow-y-auto">
                     {taskDef.quickChoices.map((choice: any, i: number) => {
                       const isAdded = activeTasks.some((t) => t.subject === choice.subject || t.task_type === choice.type);
                       return (
-                        <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-[#1e293b] border border-blue-500/30 text-xs">
-                          <span className="font-bold text-blue-200">{choice.label}</span>
+                        <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-[#141924] border border-white/10 text-xs">
+                          <span className="font-semibold text-gray-300">{choice.label}</span>
                           {isAdded ? (
                             <button
                               type="button"
@@ -563,9 +622,9 @@ export default function CopilotDrawer() {
                                 const existing = activeTasks.find((t) => t.subject === choice.subject || t.task_type === choice.type);
                                 if (existing) handleCancelTask(existing.id);
                               }}
-                              className="px-2.5 py-1 rounded bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-300 text-[10px] font-bold transition-all"
+                              className="px-2 py-0.5 rounded bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-300 text-[10px] font-bold transition-all"
                             >
-                              ✓ Ekli (🗑️ Kaldır)
+                              ✓ Ekli (Sil)
                             </button>
                           ) : (
                             <button
@@ -599,9 +658,9 @@ export default function CopilotDrawer() {
                                   ]);
                                 }
                               }}
-                              className="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-bold transition-all shadow-sm"
+                              className="px-2 py-0.5 rounded bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 text-blue-300 text-[10px] font-bold transition-all"
                             >
-                              + Görev Ekle
+                              + Ekle
                             </button>
                           )}
                         </div>
