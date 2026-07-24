@@ -89,7 +89,8 @@ def simulate_trade(record, ticker_df):
         atr14 = t0_close * 0.02
 
     atr_pct = (atr14 / t0_close) * 100
-    stop_pct = round(max(4.0, min(10.0, 1.8 * atr_pct)), 2)
+    # Strict 10% stop loss
+    stop_pct = 10.0
 
     gap_pct = ((t1_open - t0_close) / t0_close) * 100
     if gap_pct > 3.0:
@@ -114,7 +115,7 @@ def simulate_trade(record, ticker_df):
             'mae_pct': 0.0,
             'hit_3': False, 'hit_5': False, 'hit_7': False, 'hit_10': False, 'hit_15': False, 'hit_20': False,
             'days_to_3': None, 'days_to_5': None, 'days_to_7': None, 'days_to_10': None, 'days_to_15': None, 'days_to_20': None,
-            'performance_version': 'v2_atr_20d'
+            'performance_version': 'v2_fixed10_20d'
         }
 
     entry_price = t1_open
@@ -160,6 +161,9 @@ def simulate_trade(record, ticker_df):
 
     if not is_stopped and holding_days == 20:
         exit_reason = 'TIMEOUT'
+        # Yirmi işlem günü sonunda fiyat stop loss'a değmezse,
+        # 20 işlem günü içerisindeki en yüksek fiyat üzerinden kapanış hesaplanır
+        exit_price = max_high
     elif not is_stopped and len(holding_idx) < 20:
         exit_reason = 'ACTIVE'
 
