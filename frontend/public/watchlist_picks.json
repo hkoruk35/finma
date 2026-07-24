@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T14:05:33.635575-04:00",
+  "generated_at": "2026-07-24T17:14:31.367178-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -192,6 +192,66 @@
       "sector": "Utilities",
       "date_added": "2026-07-24",
       "score": 23.0
+    },
+    {
+      "ticker": "WEX",
+      "sector": "Technology",
+      "date_added": "2026-07-24",
+      "score": 51.5
+    },
+    {
+      "ticker": "LH",
+      "sector": "Healthcare",
+      "date_added": "2026-07-24",
+      "score": 51.0
+    },
+    {
+      "ticker": "BFH",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 50.5
+    },
+    {
+      "ticker": "DE",
+      "sector": "Industrials",
+      "date_added": "2026-07-24",
+      "score": 50.5
+    },
+    {
+      "ticker": "TDY",
+      "sector": "Technology",
+      "date_added": "2026-07-24",
+      "score": 49.5
+    },
+    {
+      "ticker": "CCS",
+      "sector": "Real Estate",
+      "date_added": "2026-07-24",
+      "score": 48.5
+    },
+    {
+      "ticker": "JHX",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-24",
+      "score": 45.5
+    },
+    {
+      "ticker": "ECPG",
+      "sector": "Financial Services",
+      "date_added": "2026-07-24",
+      "score": 42.0
+    },
+    {
+      "ticker": "PFGC",
+      "sector": "Consumer Defensive",
+      "date_added": "2026-07-24",
+      "score": 42.0
+    },
+    {
+      "ticker": "VSXY",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-24",
+      "score": 37.0
     }
   ]
 }
