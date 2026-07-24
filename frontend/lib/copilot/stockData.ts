@@ -126,14 +126,14 @@ export async function getSiteCategoryStocksList(
   let categoryName = "BOGASTOCK Trend Hisseleri";
 
   try {
-    const master = await getMasterData();
+    const [master, personalization] = await Promise.all([
+      category !== "user_watchlist" ? getMasterData() : Promise.resolve(null),
+      category === "user_watchlist" && userId ? getPersonalizationContext(userId).catch(() => null) : Promise.resolve(null),
+    ]);
 
     if (category === "user_watchlist" && userId) {
       categoryName = "İzleme Listem";
-      try {
-        const personalization = await getPersonalizationContext(userId);
-        tickers = personalization?.watchlistTickers || [];
-      } catch {}
+      tickers = personalization?.watchlistTickers || [];
       if (!tickers || tickers.length === 0) tickers = ["ONDS", "KEEL", "HIMS", "OSCR"];
     } else if (category === "trend_stocks") {
       categoryName = "BOGASTOCK Trend Hisseleri";

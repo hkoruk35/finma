@@ -41,14 +41,12 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
 }
 
 async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
-  // Each of these calls gets a 2-second timeout — if any hangs, we skip it
-  const profile = await withTimeout(getCopilotProfile(userId), 2000, { displayName: "", avatarId: "aylin" } as any);
+  const [profile, personalization, master] = await Promise.all([
+    withTimeout(getCopilotProfile(userId), 1500, { displayName: "", avatarId: "aylin" } as any),
+    withTimeout(getPersonalizationContext(userId), 1500, { topSectors: [], watchlistTickers: [], recentQueries: [] }),
+    withTimeout(getMasterData(), 1500, null as any)
+  ]);
   const name = profile.displayName || getSuggestedName(locale);
-  const personalization = await withTimeout(
-    getPersonalizationContext(userId),
-    2000,
-    { topSectors: [], watchlistTickers: [], recentQueries: [] }
-  );
 
   let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın.
 
@@ -107,18 +105,15 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
   }
   contextStr += "\n";
 
-  try {
-    const master = await withTimeout(getMasterData(), 2000, null as any);
-    if (master && !master.is_mock) {
-      contextStr += `GÜNCEL PİYASA GÖRÜNÜMÜ (${master.date || ""}): Piyasa Rejimi: ${master.market_regime || "N/A"}\n`;
-      const sectors = Object.entries((master.sector_summary || {}) as Record<string, any>)
-        .sort((a: any, b: any) => ((b[1] as any)?.avg_score ?? 0) - ((a[1] as any)?.avg_score ?? 0))
-        .slice(0, 8)
-        .map(([n, s]: [string, any]) => `- ${n}: Ort. Skor ${s.avg_score}, Lider Ticker: ${s.top_ticker || "N/A"}`)
-        .join("\n");
-      if (sectors) contextStr += `SEKTÖR ÖZETİ:\n${sectors}\n\n`;
-    }
-  } catch {}
+  if (master && !master.is_mock) {
+    contextStr += `GÜNCEL PİYASA GÖRÜNÜMÜ (${master.date || ""}): Piyasa Rejimi: ${master.market_regime || "N/A"}\n`;
+    const sectors = Object.entries((master.sector_summary || {}) as Record<string, any>)
+      .sort((a: any, b: any) => ((b[1] as any)?.avg_score ?? 0) - ((a[1] as any)?.avg_score ?? 0))
+      .slice(0, 8)
+      .map(([n, s]: [string, any]) => `- ${n}: Ort. Skor ${s.avg_score}, Lider Ticker: ${s.top_ticker || "N/A"}`)
+      .join("\n");
+    if (sectors) contextStr += `SEKTÖR ÖZETİ:\n${sectors}\n\n`;
+  }
 
   contextStr += `KURALLAR:
 1. Kısa, son derece kibar ve anlaşılır cevaplar ver. Maddeler kullan.
