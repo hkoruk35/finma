@@ -234,7 +234,7 @@ export async function POST(req: NextRequest) {
           },
         }),
       },
-      maxSteps: 2,
+      maxSteps: 1,
       async onFinish({ text, toolCalls, toolResults }) {
         try {
           await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });

@@ -789,11 +789,14 @@ export default function CopilotDrawer() {
                                   <button
                                     key={i}
                                     type="button"
-                                    onClick={() => append({ role: "user", content: `${t} hissesini detaylı analiz et` })}
+                                    onClick={() => {
+                                      router.push(`/global/${activeLocale}/graphic/${t}`);
+                                      append({ role: "user", content: `${t} hissesini canlı grafiği ile analiz et` });
+                                    }}
                                     className="p-2.5 rounded-xl bg-[#141924] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-left font-mono font-bold text-xs text-blue-400 hover:text-white flex items-center justify-between cursor-pointer transition-all active:scale-[0.98]"
                                   >
                                     <span>${t}</span>
-                                    <span className="text-[10px] text-blue-300 font-sans">Analiz Et →</span>
+                                    <span className="text-[10px] text-blue-300 font-sans">Grafik & Analiz →</span>
                                   </button>
                                 ))}
                               </div>
