@@ -24,6 +24,14 @@ const PAGE_LABELS: Record<Locale, { dashboard: string; loading: string }> = {
   pt: { dashboard: "Painel", loading: "Carregando..." },
 };
 
+const SHORTCUT_LABELS: Record<Locale, { trend: string; candidates: string; top7: string; top100: string; myWatchlist: string }> = {
+  en: { trend: "TREND", candidates: "WATCHLIST", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MY WATCHLIST" },
+  tr: { trend: "TREND", candidates: "TREND ADAYLARI", top7: "TOP 7", top100: "TOP 100", myWatchlist: "İZLEME LİSTEM" },
+  es: { trend: "TENDENCIA", candidates: "CANDIDATAS", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MI LISTA" },
+  fr: { trend: "TENDANCE", candidates: "CANDIDATES", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MA LISTE" },
+  pt: { trend: "TENDÊNCIA", candidates: "CANDIDATAS", top7: "TOP 7", top100: "TOP 100", myWatchlist: "MINHA LISTA" },
+};
+
 const SECTOR_TRANSLATIONS: Record<Locale, Record<string, string>> = {
   en: {},
   tr: {
@@ -215,12 +223,13 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
 
           <div className="flex items-center gap-1.5 flex-wrap">
             {(() => {
+              const sl = SHORTCUT_LABELS[locale] || SHORTCUT_LABELS.en;
               const shortcutsItems = [
-                { label: "TREND", href: `/global/${locale}/swing` },
-                { label: "WATCHLIST", href: `/global/${locale}/watchlist` },
-                { label: "TOP 7", href: `/global/${locale}/top7` },
-                { label: "TOP 100", href: `/global/${locale}/top100` },
-                { label: "MY WATCHLIST", href: `/global/${locale}/my-watchlist` },
+                { label: sl.trend, href: `/global/${locale}/swing` },
+                { label: sl.candidates, href: `/global/${locale}/watchlist` },
+                { label: sl.top7, href: `/global/${locale}/top7` },
+                { label: sl.top100, href: `/global/${locale}/top100` },
+                { label: sl.myWatchlist, href: `/global/${locale}/my-watchlist` },
               ];
               return shortcutsItems.map((s) => (
                 <Link

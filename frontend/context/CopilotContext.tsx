@@ -4,8 +4,17 @@ import React, { createContext, useContext, useEffect, useState, useCallback, Rea
 import { usePathname, useRouter } from "next/navigation";
 import { useChat } from "ai/react";
 import { getSuggestedName } from "@/lib/copilot/persona";
-import { resolveRouteKey } from "@/lib/copilot/routes";
+import { resolveRouteKey, buildRoute, RouteKey } from "@/lib/copilot/routes";
 import { buildPageContext, CopilotPageContext } from "@/lib/copilot/pageContextSchema";
+
+const LIST_CATEGORY_TO_ROUTE_KEY: Record<string, RouteKey> = {
+  trend_stocks: "trend_list",
+  trend_candidate_watchlist: "trend_candidate_watchlist",
+  boga_ai_watchlist: "trend_candidate_watchlist",
+  top_7: "top7",
+  top_100: "top100",
+  user_watchlist: "my_watchlist",
+};
 
 export interface UsageState {
   currentUsage: number;
@@ -153,8 +162,16 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
       if (toolCall.toolName === "navigate_to") {
         const { ticker } = toolCall.args as any;
         if (ticker && typeof ticker === "string") {
-          router.push(`/global/${locale}/graphic/${ticker.toUpperCase()}`);
+          router.push(buildRoute("graphic", locale, ticker));
         }
+      }
+      // Kullanıcı bir liste sorduğunda (ör. "trend listesini göster"), sadece
+      // metin/buton beklemek yerine ilgili site sayfasını arka planda hemen
+      // açar — Copilot paneli açık kalırken sayfa "eş zamanlı" güncellenir.
+      if (toolCall.toolName === "get_top_trending_stocks") {
+        const { category } = (toolCall.args as any) || {};
+        const routeKey = LIST_CATEGORY_TO_ROUTE_KEY[category] || "trend_list";
+        router.push(buildRoute(routeKey, locale));
       }
     },
     onFinish() {
