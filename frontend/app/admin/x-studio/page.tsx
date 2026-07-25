@@ -7,6 +7,7 @@ import { localizedThemeTitle } from "@/lib/hotThemes2026";
 import { nyWallTimeToUtcIso, utcIsoToNyDisplay, nyTodayDateStr, nyMaxDateStr } from "@/lib/x/timezone";
 import type { ListType } from "@/lib/x/generateContent";
 import type { ListOptionCategory, ListOptionItem } from "@/lib/x/listOptions";
+import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 
 const LIST_PICKER_CATEGORIES: { key: ListOptionCategory; label: string }[] = [
   { key: "top100", label: "Top 100" },
@@ -398,7 +399,7 @@ export default function XStudioPage() {
       return {
         kind: "market_asset" as const,
         ticker: selected.ticker,
-        label: selected.company || selected.ticker,
+        label: getMarketAssetLabel(selected.ticker, loc),
         category: selected.source as "sector" | "index" | "commodity" | "fx" | "crypto",
         changePct: marketAsset?.changePct ?? undefined,
         price: marketAsset?.price ?? undefined,

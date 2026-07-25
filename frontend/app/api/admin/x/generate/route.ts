@@ -3,6 +3,7 @@ import { generateLocalizedTexts, LOCALES, type Locale, type MarketAssetCategory 
 import { fetchTickerMarketData, fetchMarketAssetQuote, fetchMarketAssetBars, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
 import { getSectorStandouts, getSectorRotation } from "@/lib/x/listOptions";
+import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -25,6 +26,11 @@ export async function POST(req: NextRequest) {
     if (body.contentType === "market_asset") {
       const category = body.category as MarketAssetCategory;
       const weekly = !!body.weekly;
+      // Kuyrukta saklanan "label" (item.company) sadece Türkçe — hem metin
+      // üretimi hem de kart görseli için ticker'a göre kanonik (İngilizce)
+      // ada dönülüyor; kart görseli ayrıca kendi hedef dilinde yeniden
+      // çözülüyor (bkz. page.tsx buildCardParamsFor + marketAssetLabels.ts).
+      const label = getMarketAssetLabel(body.ticker, "en");
       const quote = await fetchMarketAssetQuote(body.ticker);
 
       // Grafik sadece haftalık gönderilerde ekleniyor — günlük tek cümlelik
@@ -35,12 +41,22 @@ export async function POST(req: NextRequest) {
         weekly ? fetchMarketAssetBars(body.ticker) : Promise.resolve<any[]>([]),
       ]);
 
+      // Haftalık gönderide değişim% de HAFTALIK olmalı — /api/quote sadece
+      // günlük değişim veriyor, bu yüzden haftalıkta zaten çekilen bars'tan
+      // (~5 işlem günü önceki kapanışa göre) hesaplanıyor.
+      let changePct = quote.changePct ?? undefined;
+      if (weekly && bars.length >= 6) {
+        const latest = bars[bars.length - 1].close;
+        const weekAgo = bars[bars.length - 6].close;
+        if (weekAgo) changePct = Math.round(((latest - weekAgo) / weekAgo) * 10000) / 100;
+      }
+
       const texts = await generateLocalizedTexts({
         contentType: "market_asset",
         ticker: body.ticker,
-        label: body.label || body.ticker,
+        label,
         category,
-        changePct: quote.changePct ?? undefined,
+        changePct,
         customInstruction: body.customInstruction || undefined,
         weekly,
         sectorStandouts,
@@ -48,8 +64,8 @@ export async function POST(req: NextRequest) {
       });
       return NextResponse.json({
         texts,
-        hashtags: buildMarketAssetHashtags(body.ticker, body.label || body.ticker, category),
-        quote,
+        hashtags: buildMarketAssetHashtags(body.ticker, label, category),
+        quote: { ...quote, changePct },
         sectorStandouts,
         sectorRotation,
         bars,

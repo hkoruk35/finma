@@ -531,6 +531,23 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
                   {d.label}
                 </span>
               ))}
+
+              {/* Guncel fiyat rozeti — hisse kartiyla ayni tasarim, son mumun hizasinda sag kenarda */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: Math.min(Math.max(chart.lastY - 22, 0), chart.priceH - 45),
+                  left: axisGutterLeft + svgWidth + 8,
+                  display: "flex",
+                  background: chart.lastBullish ? COLORS.gain : COLORS.loss,
+                  borderRadius: 6,
+                  padding: "8px 16px",
+                }}
+              >
+                <span style={{ fontSize: 24, fontWeight: 800, color: "#0d1117", display: "flex" }}>
+                  ${chart.lastPrice.toFixed(2)}
+                </span>
+              </div>
             </div>
           )}
 
