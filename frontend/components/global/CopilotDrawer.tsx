@@ -804,7 +804,7 @@ export default function CopilotDrawer() {
             ) : (
               messages.map((msg) => (
                 <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
-                  <div className={`p-3.5 text-sm rounded-2xl prose prose-invert prose-sm leading-relaxed whitespace-pre-wrap prose-p:my-1.5 prose-headings:my-1.5 prose-hr:my-2.5 prose-ul:my-1.5 prose-ol:my-1.5 prose-li:my-0 ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
+                  <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-semibold ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
                     {msg.toolInvocations?.map((toolInv: any, idx: number) => {
                       const result = (toolInv as any).result;
                       if (!result) {
@@ -939,7 +939,7 @@ export default function CopilotDrawer() {
           ) : (
             demoMessages.map((msg) => (
               <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"} space-y-2`}>
-                <div className={`p-3.5 text-sm rounded-2xl prose prose-invert prose-sm leading-relaxed whitespace-pre-wrap prose-p:my-1.5 prose-headings:my-1.5 prose-hr:my-2.5 prose-ul:my-1.5 prose-ol:my-1.5 prose-li:my-0 ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
+                <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-semibold ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
                   <ReactMarkdown
                     urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
                     components={{
