@@ -96,6 +96,9 @@ def main():
         except Exception as e:
             log.warning(f"⚠️ Could not copy swing_performance.json: {e}")
 
+    # 0. Append daily trend candidates to performance history
+    run_bot("append_trend_candidates.py")
+
     # 1. Swing Performance Update
     run_bot("update_swing_performance.py")
 

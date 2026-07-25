@@ -371,8 +371,8 @@ def update_performance():
 
     # 4. Update Stats (duplicates excluded from all calculations)
     countable = [r for r in history if not r.get('is_duplicate')]
-    all_completed = [r for r in countable if r['result'] != 'PENDING']
-    wins = [r for r in all_completed if r['result'] == 'WIN']
+    all_completed = [r for r in countable if r.get('result', 'NO_DATA') != 'PENDING' and r.get('result') != 'NO_DATA']
+    wins = [r for r in all_completed if r.get('result') == 'WIN']
     above_5 = [r for r in all_completed if (r.get('return_pct') or 0) >= 5]
     above_10 = [r for r in all_completed if (r.get('return_pct') or 0) >= 10]
 
