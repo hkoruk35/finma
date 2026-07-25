@@ -28,6 +28,32 @@ function linkifyTickers(text: unknown): string {
   return text.replace(/\$([A-Z]{1,5})\b/g, (_, ticker) => `[$${ticker}](copilot://${ticker})`);
 }
 
+// Model bazen "copilot-topic://select" yerine boşluk/özel karakter içeren
+// gerçek metin koyuyor (örn. "copilot-topic://ONDS teknik seviyelerini göster").
+// Standart Markdown, parantez içindeki URL'de boşluğa izin vermez — bu yüzden
+// link hiç parse edilmeden ham [metin](url) olarak kalır. URL kısmını
+// encode ederek modelin kural ihlaline rağmen linkin her zaman render
+// olmasını garanti eder (buton metni zaten sadece [ ] içindeki kısımdan
+// okunur, URL'nin içeriği hiç kullanılmaz).
+function fixCopilotPseudoLinks(text: string): string {
+  return text.replace(
+    /\((copilot-topic:\/\/|copilot-list:\/\/|copilot:\/\/)([^)]*)\)/g,
+    (_, scheme, rest) => `(${scheme}${encodeURIComponent(rest)})`
+  );
+}
+
+// Model üst üste çok fazla boş satır bıraktığında (özellikle her "kalın
+// başlık" öncesi/sonrası) mesaj balonunda gereksiz boşluk birikiyor.
+// İkiden fazla ardışık satır sonunu tek boş satıra indirger.
+function collapseExtraBlankLines(text: string): string {
+  return text.replace(/\n{3,}/g, "\n\n");
+}
+
+function prepareMessageContent(text: unknown): string {
+  if (typeof text !== "string") return "";
+  return linkifyTickers(fixCopilotPseudoLinks(collapseExtraBlankLines(text)));
+}
+
 function extractPlainText(node: React.ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
   if (Array.isArray(node)) return node.map(extractPlainText).join("");
@@ -903,7 +929,7 @@ export default function CopilotDrawer() {
                           },
                         }}
                       >
-                        {linkifyTickers(msg.content)}
+                        {prepareMessageContent(msg.content)}
                       </ReactMarkdown>
                     )}
                   </div>
@@ -945,7 +971,7 @@ export default function CopilotDrawer() {
                       },
                     }}
                   >
-                    {linkifyTickers(msg.content)}
+                    {prepareMessageContent(msg.content)}
                   </ReactMarkdown>
                 </div>
 
