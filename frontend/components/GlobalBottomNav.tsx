@@ -10,12 +10,12 @@ const HOME_LABEL: Record<Locale, string> = {
   tr: "Anasayfa", en: "Home", es: "Inicio", fr: "Accueil", pt: "Início",
 };
 
-const WATCHLIST_LABEL: Record<Locale, string> = {
-  tr: "Watchlist", en: "Watchlist", es: "Watchlist", fr: "Watchlist", pt: "Watchlist",
+const TOP7_LABEL: Record<Locale, string> = {
+  tr: "Top 7", en: "Top 7", es: "Top 7", fr: "Top 7", pt: "Top 7",
 };
 
 const MY_WATCHLIST_LABEL: Record<Locale, string> = {
-  tr: "Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista",
+  tr: "İzleme Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista",
 };
 
 export default function GlobalBottomNav() {
@@ -36,10 +36,10 @@ export default function GlobalBottomNav() {
 
   const navItems = [
     { label: HOME_LABEL[locale], href: `/global/${locale}/home` },
-    { label: "Trend", href: `/global/${locale}/swing` },
     isLoggedIn
       ? { label: MY_WATCHLIST_LABEL[locale], href: `/global/${locale}/my-watchlist` }
-      : { label: WATCHLIST_LABEL[locale], href: `/global/${locale}/watchlist` },
+      : { label: TOP7_LABEL[locale], href: `/global/${locale}/top7` },
+    { label: "Trend", href: `/global/${locale}/swing` },
   ];
 
   return (

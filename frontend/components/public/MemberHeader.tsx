@@ -15,6 +15,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [member, setMember] = useState<any>(null);
+  const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -93,8 +94,45 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         <div className="flex-1" />
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* Language Selector — mobilde gizli, hesap sayfasındaki Dil sekmesinden erişilebilir
-              (Account/Hesabım > Language sekmesi) — dar ekranda ACCOUNT butonuna yer açmak için */}
+          {/* Mobilde kompakt dil seçici — tek bir globe/kod butonu, dokununca
+              açılır liste. Önceden mobilde dil seçimi TAMAMEN gizliydi (sadece
+              Hesabım > Dil sekmesinden erişilebiliyordu) — misafir kullanıcının
+              hesabı olmadığından dile hiç erişemiyordu. */}
+          {locale && (
+            <div className="relative sm:hidden">
+              <button
+                type="button"
+                onClick={() => setIsMobileLangOpen((v) => !v)}
+                className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
+                aria-label="Language"
+              >
+                🌐 {locale.toUpperCase()}
+              </button>
+              {isMobileLangOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsMobileLangOpen(false)} />
+                  <div className="absolute right-0 top-full mt-1 z-50 bg-[#111826] border border-[#1e2a3a] rounded-lg shadow-xl overflow-hidden min-w-[88px]">
+                    {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {
+                      const isActive = locale.toUpperCase() === lang;
+                      return (
+                        <Link
+                          key={lang}
+                          href={getLangHref(lang)}
+                          onClick={() => setIsMobileLangOpen(false)}
+                          className={`block px-3 py-2 text-xs font-bold uppercase tracking-wider ${
+                            isActive ? "bg-[#3b82f6] text-white" : "text-[#94a3b8] hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          {lang}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+          {/* Language Selector — sm+ ekranda tüm diller tek satırda görünür */}
           {locale && (
             <div className="hidden sm:flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 mr-2 border border-[#1e2a3a]/60">
               {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {

@@ -413,21 +413,24 @@ export default function CopilotDrawer() {
     <>
       {!isOpen && (
         <Draggable nodeRef={triggerRef} bounds="body">
-          <div ref={triggerRef} className="fixed bottom-24 right-4 z-[105] flex flex-col items-end gap-1.5 cursor-move group lg:bottom-6 lg:right-6">
+          {/* Mobilde alt navigasyon barının hemen üstünde, sadece ikon —
+              metinli geniş pil hem satır içeriğini kapatıyordu hem dokunma
+              hedefi tablo satırlarıyla çakışıyordu. sm+ ekranda eski pil geri döner. */}
+          <div ref={triggerRef} className="fixed bottom-20 right-3 z-[105] flex flex-col items-end gap-1.5 cursor-move group sm:bottom-24 sm:right-4 lg:bottom-6 lg:right-6">
             <button
               onClick={handleTriggerClick}
               onTouchEnd={(e) => handleTriggerClick()}
-              className={`flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation relative motion-reduce:animate-none ${
+              className={`flex items-center justify-center h-12 w-12 sm:h-auto sm:w-auto gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 p-0 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation relative motion-reduce:animate-none ${
                 shouldBounce ? "animate-bounce" : ""
               }`}
             >
-              <span className="text-base sm:text-lg animate-pulse">🤖</span>
-              BOGA Copilot
+              <span className="text-xl sm:text-lg animate-pulse">🤖</span>
+              <span className="hidden sm:inline">BOGA Copilot</span>
               {dotColor !== "none" && (
                 <span className={`absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#0d1117] ${dotColor === "red" ? "bg-red-500 animate-ping" : dotColor === "orange" ? "bg-amber-400" : "bg-blue-400"}`} />
               )}
             </button>
-            <div className="text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/90 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-md border border-[#3b82f6]/30 shadow-lg select-none">
+            <div className="hidden sm:block text-[9px] md:text-[10px] font-medium text-white/90 bg-[#1a2b4d]/90 px-2.5 py-1 rounded-full pointer-events-none whitespace-nowrap backdrop-blur-md border border-[#3b82f6]/30 shadow-lg select-none">
               {ct("copilotTagline", activeLocale)}
             </div>
           </div>
