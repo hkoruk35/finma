@@ -126,13 +126,20 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
   return null;
 }
 
-export async function getFastStockCardData(ticker: string, lang: string = "tr"): Promise<CopilotStockCard> {
+export async function getFastStockCardData(ticker: string, lang: string = "tr", categoryName?: string): Promise<CopilotStockCard> {
   const t = ticker.trim().toUpperCase();
   const data = await getStockData(t).catch(() => null);
   const price = data?.price?.current ?? 100;
   const change = data?.price?.change_pct ?? 0;
   const trend: "Bullish" | "Bearish" | "Neutral" = change < -1.5 ? "Bearish" : change > 1.5 ? "Bullish" : "Neutral";
-  
+
+  // Bu fonksiyon SADECE getSiteCategoryStocksList (liste görünümü) içinden
+  // çağrılır — yani gösterilen her ticker zaten TANIMI GEREĞİ bir listede.
+  // "havuz dışı" ifadesi burada asla doğru olmaz; categoryName varsa onu kullan.
+  const summary = categoryName
+    ? ct("inListAnalysisSummary", lang, { ticker: t, categoryName, score: 78 })
+    : ct("liveAnalysisSummary", lang, { ticker: t, score: 78 });
+
   return {
     ticker: t,
     companyName: data?.company || t,
@@ -142,7 +149,7 @@ export async function getFastStockCardData(ticker: string, lang: string = "tr"):
     support: Math.round(price * 0.95 * 100) / 100,
     resistance: Math.round(price * 1.05 * 100) / 100,
     target: Math.round(price * 1.10 * 100) / 100,
-    summary: ct("liveAnalysisSummary", lang, { ticker: t, score: 78 }),
+    summary,
   };
 }
 
@@ -239,7 +246,7 @@ export async function getSiteCategoryStocksList(
 
   const validTickers = tickers.slice(0, 10);
   const cards: CopilotStockCard[] = await Promise.all(
-    validTickers.map((t) => getFastStockCardData(t, lang))
+    validTickers.map((t) => getFastStockCardData(t, lang, categoryName))
   );
 
   return { categoryName, tickers: validTickers, cards, isFallback };
