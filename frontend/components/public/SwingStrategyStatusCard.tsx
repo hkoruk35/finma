@@ -307,8 +307,6 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
     return null; // henüz yükleniyor — bir önceki panel zaten yükleniyor göstergesi veriyor
   }
 
-  const factors = swingPick?.factor_scores;
-
   return (
     <div className="glass-card overflow-hidden mb-4 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
       <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">
@@ -359,52 +357,6 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
               </p>
             );
           })()}
-
-          <div>
-            <div className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-1.5">{t.layers}</div>
-            <div className="flex flex-wrap gap-1.5">
-              {["1D_Trend", "4H_Quality", "1H_Momentum"].map((key, i) => {
-                const label = [t.layer1, t.layer2, t.layer3][i];
-                const passed = swingPick.selection_reasons?.includes(key);
-                return (
-                  <span
-                    key={key}
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
-                      passed ? "text-green-400 border-green-700/50 bg-green-900/20" : "text-white/30 border-[#253347]"
-                    }`}
-                  >
-                    {passed ? "✓" : "○"} {label}
-                  </span>
-                );
-              })}
-              <span
-                className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
-                  swingPick.entry_status === "ENTERED"
-                    ? "text-green-400 border-green-700/50 bg-green-900/20"
-                    : "text-amber-400 border-amber-700/50 bg-amber-900/10"
-                }`}
-              >
-                {swingPick.entry_status === "ENTERED" ? `✓ ${t.layer4Entered}` : `◑ ${t.layer4Pending}`}
-              </span>
-            </div>
-          </div>
-
-          {factors && (
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mt-1">
-              {[
-                [t.factorTrend, factors.trend_score],
-                [t.factorMomentum, factors.momentum_score],
-                [t.factorVolatility, factors.volatility_score],
-                [t.factorVolume, factors.volume_score],
-                [t.factorSector, factors.catalyst_score],
-              ].map(([label, val]) => (
-                <div key={label as string} className="text-center">
-                  <div className="text-[9px] text-white/40 uppercase tracking-wide leading-tight mb-0.5">{label}</div>
-                  <div className="text-xs font-mono font-bold text-white/80">{typeof val === "number" ? val.toFixed(1) : "—"}</div>
-                </div>
-              ))}
-            </div>
-          )}
 
           <p className="text-xs text-amber-300/90 leading-relaxed border-t border-[#253347] pt-2.5">
             {t.tradePlanNote}
