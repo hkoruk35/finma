@@ -1,16 +1,16 @@
 {
   "stats": {
     "total_picks": 1239,
-    "completed_count": 983,
-    "win_rate": 63.4,
+    "completed_count": 963,
+    "win_rate": 64.7,
     "avg_return_pct": 4.61,
     "stop_loss_pct": "Min 7%",
-    "last_updated": "2026-07-24T20:50:45",
+    "last_updated": "2026-07-24T21:01:03",
     "counted_picks": 983,
     "duplicate_count": 256,
-    "pending_count": 0,
-    "above_5pct_rate": 43.4,
-    "above_10pct_rate": 27.2
+    "pending_count": 20,
+    "above_5pct_rate": 44.3,
+    "above_10pct_rate": 27.7
   },
   "history": [
     {
@@ -6501,7 +6501,7 @@
       "ema50_1d": 64.32,
       "active_sl_level": 64.32,
       "entry_date": "2026-01-22",
-      "entry_price": 67.48,
+      "entry_price": 67.49,
       "atr_14": 1.96,
       "stop_price": 60.74,
       "stop_pct": 10.0,
@@ -56141,7 +56141,13 @@
       "sector": "Communication Services",
       "subsector": "Unknown",
       "entry": 35.66999816894531,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 35.66999816894531,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56150,7 +56156,13 @@
       "sector": "Energy",
       "subsector": "Unknown",
       "entry": 5.349999904632568,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 5.349999904632568,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56159,7 +56171,13 @@
       "sector": "Financial Services",
       "subsector": "Unknown",
       "entry": 158.91000366210938,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 158.91000366210938,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56168,7 +56186,13 @@
       "sector": "Industrials",
       "subsector": "Unknown",
       "entry": 63.90999984741211,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 63.90999984741211,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56177,7 +56201,13 @@
       "sector": "Basic Materials",
       "subsector": "Unknown",
       "entry": 407.8299865722656,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 407.8299865722656,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56186,7 +56216,13 @@
       "sector": "Healthcare",
       "subsector": "Unknown",
       "entry": 138.57000732421875,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 138.57000732421875,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56195,7 +56231,13 @@
       "sector": "Technology",
       "subsector": "Unknown",
       "entry": 24.93000030517578,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 24.93000030517578,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56204,7 +56246,13 @@
       "sector": "Industrials",
       "subsector": "Unknown",
       "entry": 289.17999267578125,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 289.17999267578125,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56213,7 +56261,13 @@
       "sector": "Industrials",
       "subsector": "Unknown",
       "entry": 43.61000061035156,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 43.61000061035156,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56222,7 +56276,13 @@
       "sector": "Utilities",
       "subsector": "Unknown",
       "entry": 41.560001373291016,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 41.560001373291016,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56231,7 +56291,13 @@
       "sector": "Technology",
       "subsector": "Unknown",
       "entry": 176.14999389648438,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 176.14999389648438,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56240,7 +56306,13 @@
       "sector": "Healthcare",
       "subsector": "Unknown",
       "entry": 296.7699890136719,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 296.7699890136719,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56249,7 +56321,13 @@
       "sector": "Financial Services",
       "subsector": "Unknown",
       "entry": 104.30999755859375,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 104.30999755859375,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56258,7 +56336,13 @@
       "sector": "Industrials",
       "subsector": "Unknown",
       "entry": 628.1599731445312,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 628.1599731445312,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56267,7 +56351,13 @@
       "sector": "Technology",
       "subsector": "Unknown",
       "entry": 655.3499755859375,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 655.3499755859375,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56276,7 +56366,13 @@
       "sector": "Real Estate",
       "subsector": "Unknown",
       "entry": 69.37999725341797,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 69.37999725341797,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56285,7 +56381,13 @@
       "sector": "Basic Materials",
       "subsector": "Unknown",
       "entry": 26.540000915527344,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 26.540000915527344,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56294,7 +56396,13 @@
       "sector": "Financial Services",
       "subsector": "Unknown",
       "entry": 90.15499877929688,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 90.15499877929688,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56303,7 +56411,13 @@
       "sector": "Consumer Defensive",
       "subsector": "Unknown",
       "entry": 111.48999786376953,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 111.48999786376953,
+      "days": 0,
+      "holding_days": 0
     },
     {
       "date": "2026-07-24",
@@ -56312,7 +56426,13 @@
       "sector": "Consumer Cyclical",
       "subsector": "Unknown",
       "entry": 83.55000305175781,
-      "is_duplicate": false
+      "is_duplicate": false,
+      "result": "PENDING",
+      "return_pct": 0.0,
+      "realized_return_pct": 0.0,
+      "max_price": 83.55000305175781,
+      "days": 0,
+      "holding_days": 0
     }
   ]
 }

@@ -76,7 +76,14 @@ def main():
                 "company": pick.get('company', ticker),
                 "sector": pick.get('sector', 'Unknown'),
                 "subsector": pick.get('subsector', 'Unknown'),
-                "entry": entry
+                "entry": entry,
+                "result": "PENDING",
+                "return_pct": 0.0,
+                "realized_return_pct": 0.0,
+                "max_price": entry,
+                "days": 0,
+                "holding_days": 0,
+                "is_duplicate": False
             }
             
             history.append(new_record)
