@@ -1377,25 +1377,34 @@ export default function BogaChartEngine({
               </div>
             </div>
 
-            {/* Göstergeler — masaüstünde her zaman açık satır, mobilde
-                varsayılan kapalı, "⚙️ Göstergeler (N)" ile açılan panel. */}
+            {/* Göstergeler — masaüstünde her zaman açık satır. Mobilde
+                sadece aktif/varsayılan göstergeler tek satırda gösterilir;
+                yeni gösterge eklemek için zaten üstteki kategorili
+                "Göstergeler ▾" menüsü var, aynı listeyi burada tekrar
+                açılır panel yapmaya gerek yok. */}
             <div className="hidden md:flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
               {availableIndicators.map((key) => renderIndicatorButton(key))}
             </div>
-            <div className="md:hidden border-b border-[#1e2a3a]">
-              <button
-                onClick={() => setMobileIndicatorsOpen((v) => !v)}
-                className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-black text-[#00d2ff]"
-              >
-                <span>⚙️ {t.indicators} ({active.size})</span>
-                <span className="text-[8px]">{mobileIndicatorsOpen ? "▴" : "▾"}</span>
-              </button>
-              {mobileIndicatorsOpen && (
-                <div className="flex flex-wrap items-center gap-1.5 px-2 pb-1.5">
-                  {availableIndicators.map((key) => renderIndicatorButton(key))}
-                </div>
-              )}
-            </div>
+            {detailMode ? (
+              <div className="md:hidden flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+                {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
+              </div>
+            ) : (
+              <div className="md:hidden border-b border-[#1e2a3a]">
+                <button
+                  onClick={() => setMobileIndicatorsOpen((v) => !v)}
+                  className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-black text-[#00d2ff]"
+                >
+                  <span>⚙️ {t.indicators} ({active.size})</span>
+                  <span className="text-[8px]">{mobileIndicatorsOpen ? "▴" : "▾"}</span>
+                </button>
+                {mobileIndicatorsOpen && (
+                  <div className="flex flex-wrap items-center gap-1.5 px-2 pb-1.5">
+                    {availableIndicators.map((key) => renderIndicatorButton(key))}
+                  </div>
+                )}
+              </div>
+            )}
           </>
         )}
 

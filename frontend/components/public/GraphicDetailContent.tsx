@@ -156,11 +156,24 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   const isTop7 = TOP7_TICKERS.includes(ticker);
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  // null = henuz bilinmiyor (SSR/ilk render) — BogaChartEngine, defaultIndicators
+  // prop'unu SADECE mount aninda ilk state'i tohumlamak icin kullaniyor, bu
+  // yuzden grafik mobil/masaustu bilgisi netlesmeden onceden yanlis (masaustu)
+  // varsayilanlarla mount olursa sonradan prop degisse bile duzelmez —
+  // bu deger belli olana kadar grafigi hic render etmiyoruz.
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     fetch("/api/members/me")
       .then((r) => setIsLoggedIn(r.ok))
       .catch(() => setIsLoggedIn(false));
+  }, []);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   useEffect(() => {
@@ -246,7 +259,9 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
 
         <TickerSearchBox locale={locale} />
 
-        <div className="flex flex-wrap items-center gap-1.5 mb-4">
+        {/* Endeks şeridi — masaüstünde sabit satır, mobilde yer kaplamasın
+            diye tek satır halinde yavaşça kayan (marquee) şerit. */}
+        <div className="hidden md:flex flex-wrap items-center gap-1.5 mb-4">
           {INDICES.map((idx) => {
             const q = quotes[idx.symbol];
             const positive = (q?.change_1d ?? 0) >= 0;
@@ -274,23 +289,58 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
           )}
         </div>
 
+        <div className="md:hidden w-full overflow-hidden mb-4 rounded-lg border border-[#1e2a3a] bg-[#141924]">
+          <div className="ticker-tape flex items-center gap-4 py-1.5 px-3 whitespace-nowrap w-max">
+            {[...Array(2)].flatMap((_, dup) => [
+              ...INDICES.map((idx) => {
+                const q = quotes[idx.symbol];
+                const positive = (q?.change_1d ?? 0) >= 0;
+                return (
+                  <div key={`${idx.symbol}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-bold shrink-0">
+                    <span className="text-slate-400">{idx.label}</span>
+                    <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
+                    <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
+                  </div>
+                );
+              }),
+              ...(sectorEtf
+                ? [
+                    <div key={`${sectorEtf}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-bold shrink-0">
+                      <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
+                      <span className="text-white font-mono">
+                        {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
+                      </span>
+                      <span className={(quotes[sectorEtf]?.change_1d ?? 0) >= 0 ? "text-emerald-400" : "text-red-400"}>
+                        {fmtChange(quotes[sectorEtf]?.change_1d)}
+                      </span>
+                    </div>,
+                  ]
+                : []),
+            ])}
+          </div>
+        </div>
+
         {/* v3.2: Hisse arama geçici olarak kaldırıldı — şimdilik sadece
             BOGA AI Swing Trade havuzuna odaklanıyoruz. */}
 
-        <div className="glass-card overflow-hidden mb-4">
-          <BogaChartEngine
-            symbol={ticker}
-            lang={locale}
-            detailMode
-            height={600}
-            defaultIndicators={
-              isPremium 
-                ? ["ema20", "ema50", "rsi", "volumeProfile"]
-                : ["ema50", "rsi", "volume"]
-            }
-            defaultTimeframe="D"
-            premiumGate={!isTop7 && !isPremium && !loading}
-          />
+        <div className="glass-card overflow-hidden mb-4" style={{ minHeight: isMobile === null ? 420 : undefined }}>
+          {isMobile !== null && (
+            <BogaChartEngine
+              symbol={ticker}
+              lang={locale}
+              detailMode
+              height={isMobile ? 420 : 600}
+              defaultIndicators={
+                isMobile
+                  ? ["ema50", "volume"]
+                  : isPremium
+                  ? ["ema20", "ema50", "rsi", "volumeProfile"]
+                  : ["ema50", "rsi", "volume"]
+              }
+              defaultTimeframe="D"
+              premiumGate={!isTop7 && !isPremium && !loading}
+            />
+          )}
         </div>
         {ticker && <SwingStrategyStatusCard ticker={ticker} locale={locale} />}
         <div className="glass-card overflow-hidden">
