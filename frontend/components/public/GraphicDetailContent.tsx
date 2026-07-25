@@ -10,6 +10,7 @@ import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard";
 import TickerSearchBox from "@/components/public/TickerSearchBox";
 import type { Locale } from "@/lib/i18n/copy";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -142,6 +143,10 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   // Herkese acik onizleme: giris yapmamis ziyaretcilerin ust kisayol
   // butonlariyla uye-kilitli sayfalara (Top100/Swing/Trend/Analiz)
   // gecmesini engellemek icin oturum durumunu bir kez kontrol ediyoruz.
+  const { isPremium, loading } = useMemberPlan();
+  const TOP7_TICKERS = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
+  const isTop7 = TOP7_TICKERS.includes(ticker);
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -269,8 +274,13 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             lang={locale}
             detailMode
             height={600}
-            defaultIndicators={["ema20", "ema50", "rsi", "volumeProfile"]}
+            defaultIndicators={
+              isPremium 
+                ? ["ema20", "ema50", "rsi", "volumeProfile"]
+                : ["ema50", "rsi", "volume"]
+            }
             defaultTimeframe="D"
+            premiumGate={!isTop7 && !isPremium && !loading}
           />
         </div>
         {ticker && <SwingStrategyStatusCard ticker={ticker} locale={locale} />}
