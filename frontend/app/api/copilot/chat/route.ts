@@ -236,11 +236,7 @@ export async function POST(req: NextRequest) {
 
     const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
 
-    const result = streamText({
-      model: googleProvider("gemini-1.5-flash"),
-      system: systemPrompt,
-      messages,
-      tools: {
+    const tools = {
         get_top_trending_stocks: tool({
           description: "Fetches BOGASTOCK.COM's 5 distinct site lists: Trend Listesi (trend_stocks), Trend Adayı İzleme Listesi (trend_candidate_watchlist), Kişisel İzleme Listesi (user_watchlist), Top 7 (top_7), or Top 100 (top_100). These are five SEPARATE lists — call with the category that matches exactly what the user asked for.",
           parameters: z.object({
@@ -365,35 +361,60 @@ export async function POST(req: NextRequest) {
             }
           },
         }),
-      },
-      maxSteps: 3,
-      async onFinish({ text, toolCalls, toolResults }) {
-        try {
-          await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
-        } catch {}
-        try {
-          const assistantMessage = {
-            id: crypto.randomUUID(),
-            role: "assistant" as const,
-            content: text || "",
-            toolInvocations: (toolCalls || []).map((tc: any) => ({
-              toolCallId: tc.toolCallId,
-              toolName: tc.toolName,
-              args: tc.args,
-              state: "result" as const,
-              result: (toolResults || []).find((tr: any) => tr.toolCallId === tc.toolCallId)?.result,
-            })),
-          };
-          const fullTranscript = [...messages, assistantMessage];
-          await supabaseAdmin.from("copilot_chats").upsert(
-            { user_id: user.id, chat_state: fullTranscript, updated_at: new Date().toISOString() },
-            { onConflict: "user_id" }
-          );
-        } catch {}
-      },
-    });
+    };
 
-    return (await result).toDataStreamResponse();
+    async function onFinish({ text, toolCalls, toolResults }: any) {
+      try {
+        await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
+      } catch {}
+      try {
+        const assistantMessage = {
+          id: crypto.randomUUID(),
+          role: "assistant" as const,
+          content: text || "",
+          toolInvocations: (toolCalls || []).map((tc: any) => ({
+            toolCallId: tc.toolCallId,
+            toolName: tc.toolName,
+            args: tc.args,
+            state: "result" as const,
+            result: (toolResults || []).find((tr: any) => tr.toolCallId === tc.toolCallId)?.result,
+          })),
+        };
+        const fullTranscript = [...messages, assistantMessage];
+        await supabaseAdmin.from("copilot_chats").upsert(
+          { user_id: user.id, chat_state: fullTranscript, updated_at: new Date().toISOString() },
+          { onConflict: "user_id" }
+        );
+      } catch {}
+    }
+
+    // Google, model adlarını zaman zaman deprecate ediyor (bugün ikinci kez:
+    // sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not found" hatası verdi —
+    // bkz. Vercel production logları). Tek bir isme güvenmek yerine, ilk
+    // çalışan modeli bulana kadar sırayla dener; bu sınıf hata bir daha
+    // tüm Copilot'u kesintiye uğratmasın diye.
+    const GEMINI_MODEL_CANDIDATES = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash-001"];
+    let streamResult: any = null;
+    let lastModelError: unknown = null;
+    for (const modelName of GEMINI_MODEL_CANDIDATES) {
+      try {
+        streamResult = await streamText({
+          model: googleProvider(modelName),
+          system: systemPrompt,
+          messages,
+          tools,
+          maxSteps: 3,
+          onFinish,
+        });
+        break;
+      } catch (err) {
+        lastModelError = err;
+        console.error(`[copilot chat] model "${modelName}" failed:`, err instanceof Error ? err.message : err);
+      }
+    }
+    if (!streamResult) throw lastModelError || new Error("All Gemini model candidates failed");
+
+    return streamResult.toDataStreamResponse();
   } catch (err: any) {
     console.error("Copilot POST Exception:", err);
     return NextResponse.json(

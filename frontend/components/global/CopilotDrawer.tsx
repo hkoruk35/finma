@@ -972,7 +972,13 @@ export default function CopilotDrawer() {
           {error && (
             <div className="bg-[#141924] border border-amber-500/30 p-3 rounded-2xl text-xs space-y-2 shadow-lg">
               <p className="text-gray-300 leading-relaxed">
-                Bağlantıda kısa bir kesinti oldu. Tekrar denemek için aşağıdaki butona basın.
+                {(() => {
+                  try {
+                    const parsed = JSON.parse(error.message);
+                    if (parsed?.error) return parsed.error;
+                  } catch {}
+                  return "Bağlantıda kısa bir kesinti oldu. Tekrar denemek için aşağıdaki butona basın.";
+                })()}
               </p>
               <button
                 type="button"
