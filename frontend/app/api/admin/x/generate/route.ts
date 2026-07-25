@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateLocalizedTexts, LOCALES, type Locale } from "@/lib/x/generateContent";
-import { fetchTickerMarketData, trendLabel, opportunityLabel } from "@/lib/x/marketData";
-import { buildStockHashtags, buildPromoHashtags } from "@/lib/x/hashtags";
+import { generateLocalizedTexts, LOCALES, type Locale, type MarketAssetCategory } from "@/lib/x/generateContent";
+import { fetchTickerMarketData, fetchMarketAssetQuote, trendLabel, opportunityLabel } from "@/lib/x/marketData";
+import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -19,6 +19,24 @@ export async function POST(req: NextRequest) {
     if (body.contentType === "promo") {
       const texts = await generateLocalizedTexts({ contentType: "promo" });
       return NextResponse.json({ texts, hashtags: buildPromoHashtags() });
+    }
+
+    if (body.contentType === "market_asset") {
+      const category = body.category as MarketAssetCategory;
+      const quote = await fetchMarketAssetQuote(body.ticker);
+      const texts = await generateLocalizedTexts({
+        contentType: "market_asset",
+        ticker: body.ticker,
+        label: body.label || body.ticker,
+        category,
+        changePct: quote.changePct ?? undefined,
+        customInstruction: body.customInstruction || undefined,
+      });
+      return NextResponse.json({
+        texts,
+        hashtags: buildMarketAssetHashtags(body.ticker, body.label || body.ticker, category),
+        quote,
+      });
     }
 
     if (body.contentType === "translate" && body.manualBaseText) {

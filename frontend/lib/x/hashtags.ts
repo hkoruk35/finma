@@ -16,6 +16,27 @@ export function buildPromoHashtags(): string {
   return "#Stocks #NASDAQ #Investing";
 }
 
+const MARKET_ASSET_CATEGORY_TAGS: Record<string, string> = {
+  sector: "#Sectors",
+  index: "#Markets",
+  commodity: "#Commodities",
+  fx: "#Forex",
+  crypto: "#Crypto",
+};
+
+// Sektör/endeks/emtia/döviz/kripto gönderileri için — "^" veya "=" içeren
+// ticker'lar (^GSPC, EURUSD gibi görünse de Yahoo sembolü değil bizim
+// kısa kodumuz) geçerli bir cashtag olmadığından sadece etiket adına göre
+// hashtag üretilir; temiz alfanumerik ticker'lar (XLK, BTCUSD gibi) için
+// ayrıca $cashtag eklenir.
+export function buildMarketAssetHashtags(ticker: string, label: string, category?: string | null): string {
+  const parts: string[] = [];
+  if (/^[A-Z0-9]+$/.test(ticker)) parts.push(`$${ticker}`);
+  parts.push(toHashtag(label));
+  if (category && MARKET_ASSET_CATEGORY_TAGS[category]) parts.push(MARKET_ASSET_CATEGORY_TAGS[category]);
+  return parts.join(" ");
+}
+
 // Metni hashtag'lerle birlikte X'in 280 karakter siniri icine sigdirir;
 // gerekirse ana metni kisaltir, hashtag'leri her zaman korur.
 export function appendHashtagsWithinLimit(text: string, hashtags: string, limit = 280): string {

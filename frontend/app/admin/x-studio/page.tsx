@@ -6,6 +6,20 @@ import { appendHashtagsWithinLimit } from "@/lib/x/hashtags";
 import { localizedThemeTitle } from "@/lib/hotThemes2026";
 import { nyWallTimeToUtcIso, utcIsoToNyDisplay, nyTodayDateStr, nyMaxDateStr } from "@/lib/x/timezone";
 import type { ListType } from "@/lib/x/generateContent";
+import type { ListOptionCategory, ListOptionItem } from "@/lib/x/listOptions";
+
+const LIST_PICKER_CATEGORIES: { key: ListOptionCategory; label: string }[] = [
+  { key: "top100", label: "Top 100" },
+  { key: "swing", label: "Trend Hisseleri" },
+  { key: "watchlist", label: "Trend Adayları" },
+  { key: "sector", label: "Sektörler" },
+  { key: "index", label: "Endeksler" },
+  { key: "commodity", label: "Değerli Madenler" },
+  { key: "fx", label: "Döviz" },
+  { key: "crypto", label: "Kripto" },
+];
+
+const MARKET_ASSET_CATEGORIES = new Set(["sector", "index", "commodity", "fx", "crypto"]);
 
 const LIST_TYPES: { type: ListType; label: string }[] = [
   { type: "swing", label: "Swing Trade" },
@@ -23,7 +37,7 @@ const btnStyle = { background: ACCENT, color: "#0d1117", border: "none", padding
 
 interface PoolItem {
   id: string;
-  source: "top100" | "swing" | "trend" | "manual";
+  source: "top100" | "swing" | "trend" | "manual" | "watchlist" | "sector" | "index" | "commodity" | "fx" | "crypto";
   ticker: string;
   company: string | null;
   sector: string | null;
@@ -87,7 +101,7 @@ export default function XStudioPage() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [mode, setMode] = useState<"stock" | "promo" | "list">("stock");
+  const [mode, setMode] = useState<"stock" | "promo" | "list" | "market_asset">("stock");
   const [listType, setListType] = useState<ListType | null>(null);
   const [listTitle, setListTitle] = useState("");
   const [listItems, setListItems] = useState<{ ticker: string; changePct: number }[]>([]);
@@ -104,6 +118,13 @@ export default function XStudioPage() {
   // Yeni Hızlı Çoklu Dil Paylaşımı İçin:
   const [quickTicker, setQuickTicker] = useState("");
   const [quickText, setQuickText] = useState("");
+
+  // Listeden Seç — Top100/Trend/Trend Adayları + Terminal ana sayfasındaki
+  // sektör/endeks/emtia/döviz/kripto listelerinden manuel çoklu seçim.
+  const [pickerCategory, setPickerCategory] = useState<ListOptionCategory | null>(null);
+  const [pickerItems, setPickerItems] = useState<ListOptionItem[]>([]);
+  const [pickerLoading, setPickerLoading] = useState(false);
+  const [pickerSelected, setPickerSelected] = useState<Set<string>>(new Set());
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -176,6 +197,53 @@ export default function XStudioPage() {
     await loadPool();
   };
 
+  const loadPickerCategory = async (cat: ListOptionCategory) => {
+    setPickerCategory(cat);
+    setPickerItems([]);
+    setPickerSelected(new Set());
+    setPickerLoading(true);
+    setError("");
+    const res = await fetch(`/api/admin/x/list-options?category=${cat}`);
+    if (res.ok) {
+      setPickerItems((await res.json()).items ?? []);
+    } else {
+      setError((await res.json().catch(() => ({}))).error || "Liste yüklenemedi");
+    }
+    setPickerLoading(false);
+  };
+
+  const togglePickerItem = (ticker: string) => {
+    setPickerSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(ticker)) next.delete(ticker);
+      else next.add(ticker);
+      return next;
+    });
+  };
+
+  const addSelectedToPool = async () => {
+    if (!pickerCategory || pickerSelected.size === 0) return;
+    setBusy(true);
+    setError("");
+    const items = pickerItems
+      .filter((it) => pickerSelected.has(it.ticker))
+      .map((it) => ({ ticker: it.ticker, source: pickerCategory, company: it.label, sector: it.sector }));
+    const res = await fetch("/api/admin/x/pool", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "Kuyruğa ekleme hatası");
+    } else if (data.skipped?.length) {
+      setError(`Zaten kuyrukta bekliyordu, atlandı: ${data.skipped.join(", ")}`);
+    }
+    setPickerSelected(new Set());
+    await loadPool();
+    setBusy(false);
+  };
+
   const generateStockText = async (item: PoolItem) => {
     setBusy(true);
     setError("");
@@ -196,6 +264,37 @@ export default function XStudioPage() {
     }
     setTexts(data.texts);
     setMarket(data.market ?? null);
+    setHashtags(data.hashtags ?? "");
+    setBusy(false);
+  };
+
+  // Sektör/endeks/emtia/döviz/kripto kuyruk öğeleri için — hisse kartı
+  // (OHLC grafik) yerine promo tipi (metin) kart üretilir, bkz. buildCardParamsFor.
+  const generateMarketAssetText = async (item: PoolItem) => {
+    setBusy(true);
+    setError("");
+    setSelected(item);
+    setMode("market_asset");
+    setImageUrl(null);
+    setMarket(null);
+    const res = await fetch("/api/admin/x/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contentType: "market_asset",
+        ticker: item.ticker,
+        label: item.company || item.ticker,
+        category: item.source,
+        customInstruction: customInstruction.trim() || undefined,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || "AI metin üretme hatası");
+      setBusy(false);
+      return;
+    }
+    setTexts(data.texts);
     setHashtags(data.hashtags ?? "");
     setBusy(false);
   };
@@ -655,6 +754,80 @@ export default function XStudioPage() {
         </button>
       </div>
 
+      {/* Listeden Seç — sitenin gerçek listelerinden (Top100/Trend/Trend
+          Adayları) ve Terminal ana sayfasındaki sektör/endeks/emtia/döviz/
+          kripto varlıklarından manuel çoklu seçimle kuyruğa ekleme. */}
+      <div style={{ marginBottom: 24, padding: 16, border: `1px solid #30363d`, borderRadius: 8, background: "#0d1117" }}>
+        <h2 style={{ fontSize: 16, color: ACCENT, marginBottom: 12, fontWeight: "bold" }}>📋 Listeden Seç</h2>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+          {LIST_PICKER_CATEGORIES.map((c) => (
+            <button
+              key={c.key}
+              onClick={() => loadPickerCategory(c.key)}
+              style={{
+                ...btnStyle,
+                background: pickerCategory === c.key ? ACCENT : "#30363d",
+                color: pickerCategory === c.key ? "#0d1117" : "#e6edf3",
+              }}
+              disabled={pickerLoading}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+
+        {pickerLoading && <div style={{ fontSize: 12, opacity: 0.6 }}>Yükleniyor…</div>}
+
+        {!pickerLoading && pickerCategory && pickerItems.length === 0 && (
+          <div style={{ fontSize: 12, opacity: 0.6 }}>Bu liste için şu an canlı veri yok.</div>
+        )}
+
+        {!pickerLoading && pickerItems.length > 0 && (
+          <>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4, maxHeight: 280, overflowY: "auto", marginBottom: 10 }}>
+              {pickerItems.map((it) => (
+                <label
+                  key={it.ticker}
+                  style={{
+                    ...inputStyle,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                    border: pickerSelected.has(it.ticker) ? `1px solid ${ACCENT}` : inputStyle.border,
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <input
+                      type="checkbox"
+                      checked={pickerSelected.has(it.ticker)}
+                      onChange={() => togglePickerItem(it.ticker)}
+                    />
+                    <span>{it.ticker}</span>
+                    <span style={{ opacity: 0.6 }}>{it.label !== it.ticker ? it.label : ""}</span>
+                  </span>
+                  <span>
+                    {it.price != null && <span style={{ opacity: 0.7, marginRight: 10 }}>{it.price.toFixed(2)}</span>}
+                    {it.changePct != null && (
+                      <span style={{ color: it.changePct >= 0 ? "#3fb950" : "#f85149" }}>
+                        {it.changePct >= 0 ? "+" : ""}{it.changePct.toFixed(2)}%
+                      </span>
+                    )}
+                  </span>
+                </label>
+              ))}
+            </div>
+            <button
+              style={{ ...btnStyle, background: "#22c55e" }}
+              disabled={busy || pickerSelected.size === 0}
+              onClick={addSelectedToPool}
+            >
+              Seçilenleri Kuyruğa Ekle ({pickerSelected.size})
+            </button>
+          </>
+        )}
+      </div>
+
       <div style={{ marginBottom: 16 }}>
         <label style={{ display: "block", fontSize: 12, marginBottom: 6, opacity: 0.8 }}>
           AI Talimatı (opsiyonel) — hedefe yönelik bir yönerge girin, AI metni buna göre üretir:
@@ -769,7 +942,7 @@ export default function XStudioPage() {
                 }}
               >
                 <div
-                  onClick={() => generateStockText(item)}
+                  onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item) : generateStockText(item))}
                   style={{ display: "flex", justifyContent: "space-between", flex: 1, cursor: "pointer" }}
                 >
                   <span>{item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span></span>
@@ -790,7 +963,15 @@ export default function XStudioPage() {
         {/* Editör / Önizleme */}
         <div style={{ flex: 1, minWidth: 360 }}>
           <h2 style={{ fontSize: 14, color: ACCENT, marginBottom: 8 }}>
-            {mode === "promo" ? "Promo Gönderisi" : mode === "list" ? `${listTitle} Özeti` : selected ? `${selected.ticker} Gönderisi` : "Bir hisse seçin"}
+            {mode === "promo"
+              ? "Promo Gönderisi"
+              : mode === "list"
+              ? `${listTitle} Özeti`
+              : mode === "market_asset" && selected
+              ? `${selected.company || selected.ticker} Gönderisi`
+              : selected
+              ? `${selected.ticker} Gönderisi`
+              : "Bir hisse veya varlık seçin"}
           </h2>
 
           {mode === "list" && listItems.length > 0 && (

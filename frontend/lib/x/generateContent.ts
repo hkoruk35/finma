@@ -46,8 +46,19 @@ export interface GenerateTranslationInput {
   manualBaseText: string;
 }
 
+export type MarketAssetCategory = "sector" | "index" | "commodity" | "fx" | "crypto";
+
+export interface GenerateMarketAssetInput {
+  contentType: "market_asset";
+  ticker: string;
+  label: string; // "Altın", "S&P 500", "Bitcoin", "EUR/USD", "Teknoloji" gibi kullanıcıya gösterilecek ad
+  category: MarketAssetCategory;
+  changePct?: number;
+  customInstruction?: string;
+}
+
 export async function generateLocalizedTexts(
-  input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput
+  input: GenerateStockInput | GeneratePromoInput | GenerateListInput | GenerateTranslationInput | GenerateMarketAssetInput
 ): Promise<Record<Locale, string>> {
   if (!process.env.GEMINI_API_KEY) {
     throw new Error("GEMINI_API_KEY not configured");
@@ -61,13 +72,29 @@ export async function generateLocalizedTexts(
   };
 
   const translatePrompt = (input: GenerateTranslationInput) => {
-    return `Translate the following text into 5 languages naturally. 
+    return `Translate the following text into 5 languages naturally.
 CRITICAL RULE: NEVER translate, alter, or remove cashtags (e.g. $AAPL, $TSLA) or any financial tickers. They MUST remain exactly as they appear in the original text.
 
 Text to translate:
 "${input.manualBaseText}"
 
 Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code to the translated text.`;
+  };
+
+  const MARKET_ASSET_CATEGORY_NOUN: Record<MarketAssetCategory, string> = {
+    sector: "sector ETF",
+    index: "market index",
+    commodity: "commodity",
+    fx: "currency pair",
+    crypto: "cryptocurrency",
+  };
+
+  const marketAssetPrompt = (input: GenerateMarketAssetInput) => {
+    const noun = MARKET_ASSET_CATEGORY_NOUN[input.category] ?? "asset";
+    const changeLine = input.changePct != null ? `Today's move: ${input.changePct >= 0 ? "+" : ""}${input.changePct.toFixed(2)}%.` : "";
+    return `Write a short, engaging one-sentence market update (max 220 chars) about ${input.label} (a ${noun}) on BogaStock, an AI stock analysis platform. ${changeLine} Give brief context on what's driving or notable about today's move — stay factual and qualitative, do not invent specific price levels, catalysts, or news beyond what's given.${
+      input.customInstruction ? ` Additional instruction from the analyst (follow this closely): ${input.customInstruction}` : ""
+    } Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
   };
 
   const prompt =
@@ -77,6 +104,8 @@ Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code 
       ? listPrompt(input)
       : input.contentType === "translate"
       ? translatePrompt(input)
+      : input.contentType === "market_asset"
+      ? marketAssetPrompt(input)
       : `Write a short, engaging one-sentence mini analysis (max 220 chars) for stock ${input.ticker} (${input.company ?? ""}, sector: ${input.sector ?? "N/A"}${input.theme ? `, theme: ${input.theme}` : ""}). Context: trend=${input.trend ?? "N/A"}, signal=${input.signal ?? "N/A"}, relative volume=${input.rvol != null ? `${input.rvol.toFixed(1)}x average` : "N/A"}.
 
 Take a strategic, medium-to-long-term view. Weave in the volume story (e.g. above-average volume confirming the move, or thin volume suggesting caution) rather than just repeating the trend. ${

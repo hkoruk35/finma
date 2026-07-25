@@ -96,3 +96,20 @@ const OPPORTUNITY_LABELS: Record<string, string> = {
 export function opportunityLabel(locale: string): string {
   return OPPORTUNITY_LABELS[locale] ?? OPPORTUNITY_LABELS.en;
 }
+
+// Sektör/endeks/emtia/döviz/kripto gönderileri için — hisseye özgü
+// EMA/sektör verisine ihtiyaç duymaz, sadece /api/quote'tan anlık fiyat +
+// günlük değişim% çeker (bkz. lib/x/listOptions.ts, aynı uç nokta).
+export async function fetchMarketAssetQuote(ticker: string): Promise<{ price: number | null; changePct: number | null }> {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
+  try {
+    const res = await fetch(`${base}/api/quote?tickers=${encodeURIComponent(ticker)}`, { cache: "no-store" });
+    if (!res.ok) return { price: null, changePct: null };
+    const data = await res.json();
+    const q = data[ticker.trim().toUpperCase()];
+    return { price: q?.price ?? null, changePct: q?.change_1d ?? null };
+  } catch (e) {
+    console.error("[x/marketData] market asset quote fetch failed:", (e as Error).message);
+    return { price: null, changePct: null };
+  }
+}

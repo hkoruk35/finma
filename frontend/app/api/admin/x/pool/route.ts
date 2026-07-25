@@ -12,6 +12,11 @@ function requireAdmin(req: NextRequest): boolean {
 
 const RECENT_USE_WINDOW_HOURS = 48;
 
+const VALID_SOURCES = new Set([
+  "top100", "swing", "trend", "manual",
+  "watchlist", "sector", "index", "commodity", "fx", "crypto",
+]);
+
 async function fetchTickerMeta(ticker: string): Promise<{ company: string | null; sector: string | null }> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
   try {
@@ -64,6 +69,42 @@ export async function POST(req: NextRequest) {
   if (!requireAdmin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
   const body = await req.json().catch(() => ({}));
+
+  // "Listeden Seç" toplu ekleme: { "items": [{ ticker, source, company?, sector? }, ...] }.
+  // Kullanıcının Top100/Trend/Trend Adayları veya Terminal ana sayfasındaki
+  // sektör/endeks/emtia/döviz/kripto listelerinden işaretleyip gönderdiği
+  // seçim — tek ticker eklemeyle aynı öncelikte (priority=2) kuyruğun
+  // başına girer, zaten bekleyen ticker'lar sessizce atlanır.
+  if (Array.isArray(body.items) && body.items.length > 0) {
+    const incoming = body.items as { ticker: string; source?: string; company?: string | null; sector?: string | null }[];
+    const rows: { source: string; ticker: string; company: string | null; sector: string | null; theme: string | null; priority: number }[] = [];
+    const skipped: string[] = [];
+
+    for (const it of incoming) {
+      const ticker = String(it.ticker || "").trim().toUpperCase();
+      if (!ticker) continue;
+      const source = it.source && VALID_SOURCES.has(it.source) ? it.source : "manual";
+
+      const { data: existing } = await supabaseAdmin
+        .from("x_content_pool")
+        .select("id")
+        .eq("ticker", ticker)
+        .is("used_at", null)
+        .maybeSingle();
+      if (existing) {
+        skipped.push(ticker);
+        continue;
+      }
+      rows.push({ source, ticker, company: it.company ?? null, sector: it.sector ?? null, theme: null, priority: 2 });
+    }
+
+    if (rows.length === 0) {
+      return NextResponse.json({ inserted: 0, skipped });
+    }
+    const { error } = await supabaseAdmin.from("x_content_pool").insert(rows);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ inserted: rows.length, skipped });
+  }
 
   // Tek ticker manuel ekleme: { "ticker": "AAPL" }. Kullanıcı sırayla ekledikçe
   // priority=2 ile en üste (top100/trend=0, swing=1'in önüne) yerleşir, böylece
