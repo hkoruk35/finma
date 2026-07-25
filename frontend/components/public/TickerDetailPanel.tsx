@@ -175,21 +175,33 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           {premiumLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
-            [
-              ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
-              ["EMA200", fmt(d1.ema200, 1)],
-              ["RSI (14)", fmt(d1.rsi, 1)],
-              ["MACD", fmt(data.momentum.macd, 3)],
-              ["ADX (14)", fmt(data.momentum.adx, 1)],
-              ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
-              ["BB%", fmt(data.momentum.bbPercent, 2)],
-              ["Pattern", d1.pattern],
-            ].map(([label, value], i, arr) => (
-              <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
-                <span className="text-white/40">{label}</span>
-                <span className="text-white/80 font-mono font-semibold">{value}</span>
-              </div>
-            ))
+            // Mobilde tek sütunlu "flex justify-between" satırları uzun
+            // değerleri (ör. "245.3/198.4/187.2") sağa itip konteynerin
+            // kenarından taşırıyordu. 2 sütunlu grid + Key üstte/Value altta
+            // düzeni her hücreyi daraltıp taşmayı önler; sm+ ekranda eski
+            // tek-sütun/satır görünümüne döner.
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 sm:gap-y-0">
+              {([
+                ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
+                ["EMA200", fmt(d1.ema200, 1)],
+                ["RSI (14)", fmt(d1.rsi, 1)],
+                ["MACD", fmt(data.momentum.macd, 3)],
+                ["ADX (14)", fmt(data.momentum.adx, 1)],
+                ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
+                ["BB%", fmt(data.momentum.bbPercent, 2)],
+                ["Pattern", d1.pattern],
+              ] as [string, string][]).map(([label, value], i, arr) => (
+                <div
+                  key={label}
+                  className={`flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:py-1.5 sm:gap-0 ${
+                    label === "EMA9/20/50" ? "col-span-2 sm:col-span-1" : ""
+                  } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
+                >
+                  <span className="text-[13px] text-white/40">{label}</span>
+                  <span className="text-sm font-bold text-white/80 font-mono sm:text-xs sm:font-semibold">{value}</span>
+                </div>
+              ))}
+            </div>
           )}
         </div>
 
@@ -296,11 +308,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           {rationaleLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
-            <div className="space-y-2.5 text-xs text-white/80 leading-relaxed">
+            <div className="space-y-2.5 text-sm text-white/80 leading-relaxed">
               <p className="bg-[#161f2e] p-2.5 rounded border border-[#2b3c54]">
                 {data.aiCommentary.summary}
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
                   <span className="text-cyan-400 font-bold block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : "Key Levels & Pivots"}:</span>
                   <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
@@ -321,7 +333,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           {rationaleLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-white/70 leading-relaxed">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/70 leading-relaxed">
               <p><span className="text-[#58a6ff] font-bold">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
               <p><span className="text-[#58a6ff] font-bold">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
               <p><span className="text-[#58a6ff] font-bold">EMA:</span> {data.tradePlan.rationale.ema}</p>
