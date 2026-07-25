@@ -363,9 +363,10 @@ export async function POST(req: NextRequest) {
         }),
     };
 
-    async function onFinish({ text, toolCalls, toolResults }: any) {
+    const userId = user.id;
+    const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
-        await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: user.id });
+        await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
       } catch {}
       try {
         const assistantMessage = {
@@ -382,11 +383,11 @@ export async function POST(req: NextRequest) {
         };
         const fullTranscript = [...messages, assistantMessage];
         await supabaseAdmin.from("copilot_chats").upsert(
-          { user_id: user.id, chat_state: fullTranscript, updated_at: new Date().toISOString() },
+          { user_id: userId, chat_state: fullTranscript, updated_at: new Date().toISOString() },
           { onConflict: "user_id" }
         );
       } catch {}
-    }
+    };
 
     // Google, model adlarını zaman zaman deprecate ediyor (bugün ikinci kez:
     // sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not found" hatası verdi —
