@@ -182,7 +182,7 @@ export default function SwingArchiveTracker({
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
               {locale === "tr" ? "Trend Hisseleri Arşivi" : locale === "pt" ? "Arquivo de Ações em Tendência" : "Trending Stocks Archive"}
             </div>
-            <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               <span>{archives.length} {locale === "tr" ? "gün" : locale === "pt" ? "dias" : "days"}</span>
               <span>{selectedDay ? formatDateLong(selectedDay.date, locale) : ""}</span>
             </div>

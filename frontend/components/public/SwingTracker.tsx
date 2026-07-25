@@ -306,7 +306,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
               {locale === "tr" ? "Günlük Trend Hisseleri Adayları" : locale === "pt" ? "Candidatos Diários de Ações em Tendência" : "Daily Trending Stock Candidates"}
             </div>
-            <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
@@ -362,13 +362,13 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
             onChange={(e) => setSearchQuery(e.target.value.toUpperCase())}
             placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : "search..."}
             maxLength={12}
-            style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "3px 8px", borderRadius: 3, fontSize: 11, fontFamily: "monospace", width: 110, outline: "none" }}
+            style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
           {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
-                padding: "3px 10px", fontSize: 10, fontFamily: "monospace", fontWeight: 700,
+                padding: "5px 12px", fontSize: 13, fontFamily: "monospace", fontWeight: 700,
                 border: "1px solid",
                 borderColor: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) : "#30363d",
                 background: filterSignal === s ? (SIGNAL_COLOR[s] || ACCENT) + "20" : "transparent",
@@ -380,12 +380,12 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
           ))}
           <div style={{ width: 1, background: "#30363d", margin: "0 4px" }} />
           <select value={filterSector} onChange={(e) => setFilterSector(e.target.value)}
-            style={{ background: "#161b22", border: `1px solid ${filterSector ? ACCENT : "#30363d"}`, color: filterSector ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
+            style={{ background: "#161b22", border: `1px solid ${filterSector ? ACCENT : "#30363d"}`, color: filterSector ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM SEKTÖRLER" : locale === "pt" ? "TODOS OS SETORES" : "ALL SECTORS"}</option>
             {sectorOptions.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
           <select value={filterPattern} onChange={(e) => setFilterPattern(e.target.value)}
-            style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "3px 8px", borderRadius: 3, fontSize: 10, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
+            style={{ background: "#161b22", border: `1px solid ${filterPattern ? ACCENT : "#30363d"}`, color: filterPattern ? ACCENT : "#8b949e", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", fontWeight: 700, cursor: "pointer" }}>
             <option value="">{locale === "tr" ? "TÜM PATERNLER" : locale === "pt" ? "TODOS OS PADRÕES" : "ALL PATTERNS"}</option>
             {patternOptions.map((p) => <option key={p} value={p}>{translatePattern(p, locale)}</option>)}
           </select>
@@ -487,7 +487,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                         </td>
                         <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
                         <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
+                        <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 12 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                         <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? r.change_pct ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                           {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
@@ -528,7 +528,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
                       </td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>{formatDateAdded(r.date_added, locale)}</td>
                       <td style={{ padding: "6px 8px", whiteSpace: "nowrap" }}><EntryStatusBadge status={r.entry_status} zone={r.entry_zone} locale={locale} /></td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 12 }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: d?.tracker_1h?.change_pct_1d && d.tracker_1h.change_pct_1d >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%

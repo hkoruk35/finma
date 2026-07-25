@@ -308,7 +308,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 20, fontWeight: 900, color: ACCENT, letterSpacing: "-0.5px" }}>
               {locale === "tr" ? "KİŞİSEL TAKİP LİSTESİ" : locale === "pt" ? "MINHA LISTA DE OBSERVAÇÃO" : locale === "es" ? "MI LISTA DE SEGUIMIENTO" : locale === "fr" ? "MA LISTE DE SURVEILLANCE" : "MY WATCHLIST"}
             </div>
-            <div style={{ fontSize: 11, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(localeTag(locale), { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : (locale === "tr" ? "market kapalı" : "market closed")}</span>
               <span>{myTickers.length} / 50 {locale === "tr" ? "hisse" : "tickers"}</span>
@@ -534,7 +534,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                           <span>{r.ticker}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 12, whiteSpace: "nowrap" }} title={translateSector(d?.sector || r.sector, locale)}>{translateSector(d?.sector || r.sector, locale).slice(0, 12)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current ?? r.price)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: heatBg(d?.tracker_1h?.change_pct_1d ?? r.change_pct).text, fontWeight: 700 }}>
                         {fmt2(d?.tracker_1h?.change_pct_1d ?? r.change_pct)}%
