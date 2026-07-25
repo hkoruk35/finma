@@ -1156,6 +1156,49 @@ export default function BogaChartEngine({
     );
   };
 
+  // Paylaş butonu + açılır menüsü — masaüstünde ilk satırda (metinli),
+  // mobilde ikinci satırda mum tipi seçicisinin yanındaki boş alanda
+  // (ikon-only) render edilir; aynı shareOpen state'i paylaşırlar.
+  const shareControl = (
+    <div className="relative">
+      <button
+        onClick={() => setShareOpen((v) => !v)}
+        className="flex items-center gap-1 p-1 md:px-2.5 md:py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+        title={t.share}
+      >
+        <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <path strokeLinecap="round" d="M8.6 10.5l6.8-3.9M8.6 13.5l6.8 3.9" />
+        </svg>
+        <span className="hidden md:inline">{t.share}</span>
+      </button>
+      {shareOpen && (
+        <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
+          <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
+             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+            X (Twitter)
+          </a>
+          <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
+             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+            WhatsApp
+          </a>
+          <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
+             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+            Telegram
+          </a>
+          <button
+            onClick={handleCopyLink}
+            className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+          >
+            {copied ? t.linkCopied : t.copyLink}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div
       ref={wrapperRef}
@@ -1239,47 +1282,11 @@ export default function BogaChartEngine({
             )}
             {detailMode && (
               <div className="flex items-center gap-1.5 ml-auto">
-                <div className="relative">
-                  {/* Mobilde: metinsiz, sadece ikon — Tam Ekran ve Çoklu
-                      Grafik butonları mobilde tamamen kaldırıldı (bkz.
-                      altta hidden md:flex), bu yüzden Paylaş artık ilk
-                      satıra sığıyor ve ayrı bir satır kaplamıyor. */}
-                  <button
-                    onClick={() => setShareOpen((v) => !v)}
-                    className="flex items-center gap-1 px-2 py-1 md:px-2.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
-                    title={t.share}
-                  >
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="18" cy="5" r="3" />
-                      <circle cx="6" cy="12" r="3" />
-                      <circle cx="18" cy="19" r="3" />
-                      <path strokeLinecap="round" d="M8.6 10.5l6.8-3.9M8.6 13.5l6.8 3.9" />
-                    </svg>
-                    <span className="hidden md:inline">{t.share}</span>
-                  </button>
-                  {shareOpen && (
-                    <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
-                      <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        X (Twitter)
-                      </a>
-                      <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        WhatsApp
-                      </a>
-                      <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
-                         className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
-                        Telegram
-                      </a>
-                      <button
-                        onClick={handleCopyLink}
-                        className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
-                      >
-                        {copied ? t.linkCopied : t.copyLink}
-                      </button>
-                    </div>
-                  )}
-                </div>
+                {/* Mobilde Paylaş burada değil, ikinci satırda mum tipi
+                    seçicisinin yanındaki boş alanda (bkz. shareControl
+                    kullanımı aşağıda) — Tam Ekran ve Çoklu Grafik
+                    butonları da mobilde tamamen kaldırıldı. */}
+                <div className="hidden md:block">{shareControl}</div>
                 <button
                   onClick={toggleFullscreen}
                   className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
@@ -1325,7 +1332,7 @@ export default function BogaChartEngine({
 
         {detailMode && (
           <>
-            <div className="flex flex-wrap items-center gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
+            <div className="flex flex-wrap items-center gap-1.5 md:gap-2 px-2 py-1.5 border-b border-[#1e2a3a]">
               <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
                 {RANGE_KEYS.map((r) => (
                   <button
@@ -1381,6 +1388,12 @@ export default function BogaChartEngine({
                   </div>
                 )}
               </div>
+
+              {/* Paylaş — mobilde burada, mum tipi seçicisinin yanındaki
+                  boş alanda (bkz. shareControl tanımı yukarıda). Negatif
+                  margin, satırın gap boşluğunu kısarak dar mobil genişlikte
+                  sığmasını sağlıyor. */}
+              <div className="md:hidden -ml-1">{shareControl}</div>
             </div>
 
             {/* Göstergeler — masaüstünde her zaman açık satır. Mobilde
