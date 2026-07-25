@@ -200,13 +200,15 @@ export async function getSiteCategoryStocksList(
         tickers = (personalization?.watchlistTickers || []).slice(0, 10);
       }
     } else if (category === "trend_stocks") {
-      // Trend Listesi: sadece hassas giriş teyidi tamamlanmış (entry_status === "ENTERED") picks.
-      // "Bekle" durumundakiler Trend Adayı'dır, burada gösterilmez.
+      // Trend Listesi: sitenin /swing sayfası ve ana sayfa "Trend Hisseleri"
+      // widget'ıyla (TrendPicksSlot/getTopSwingByVolume) AYNI havuz — swing
+      // tarama sonucundaki TÜM adaylar, entry_status'a (ENTERED/Bekle) göre
+      // filtrelenmez. Önceden sadece ENTERED'a kısıtlıyordu; piyasa kapalıyken
+      // hiçbir pick ENTERED olmadığından bu, kategoriyi sürekli boş
+      // döndürüyor ve Copilot'u tıkanmış gibi gösteriyordu.
       const swing = await getSwingPicksBackfilled().catch(() => null);
-      const entered = ((swing?.picks || []) as any[])
-        .filter((p) => p.entry_status === "ENTERED")
-        .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-      tickers = entered.slice(0, 8).map((p) => p.ticker);
+      const ranked = ((swing?.picks || []) as any[]).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+      tickers = ranked.slice(0, 8).map((p) => p.ticker);
     } else if (category === "trend_candidate_watchlist" || category === "boga_ai_watchlist") {
       // Trend Adayı İzleme Listesi: watchlist_picks.json — henüz aktif Swing/Trend
       // teyidini tamamlamamış ama sistem radarına girmiş havuz.
