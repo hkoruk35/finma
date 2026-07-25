@@ -71,6 +71,20 @@ const T: Record<string, Record<CopilotLocale, string>> = {
     fr: "Analyse BOGA AI en direct pour {ticker} (hors pool sélectionné — calculée en direct par le moteur graphique). Score de conviction : {score}/100.",
     pt: "Análise BOGA AI ao vivo para {ticker} (fora do pool selecionado — calculada ao vivo pelo motor gráfico). Pontuação de convicção: {score}/100.",
   },
+  trendListAnalysisSummary: {
+    tr: "{ticker} için BOGA AI analizi — Trend Listesi'nde aktif olarak takip ediliyor. Konviksiyon skoru: {score}/100.",
+    en: "BOGA AI analysis for {ticker} — actively tracked in the Trend List. Conviction score: {score}/100.",
+    es: "Análisis BOGA AI para {ticker} — seguido activamente en la Lista de Tendencia. Puntuación de convicción: {score}/100.",
+    fr: "Analyse BOGA AI pour {ticker} — suivi activement dans la Liste Tendance. Score de conviction : {score}/100.",
+    pt: "Análise BOGA AI para {ticker} — acompanhado ativamente na Lista de Tendência. Pontuação de convicção: {score}/100.",
+  },
+  trendCandidateAnalysisSummary: {
+    tr: "{ticker} için BOGA AI analizi — Trend Adayı İzleme Listesi'nde, henüz aktif trend teyidi tamamlanmadı. Konviksiyon skoru: {score}/100.",
+    en: "BOGA AI analysis for {ticker} — on the Trend Candidate Watchlist, active trend confirmation not yet complete. Conviction score: {score}/100.",
+    es: "Análisis BOGA AI para {ticker} — en la Lista de Candidatas a Tendencia, confirmación de tendencia activa aún no completada. Puntuación de convicción: {score}/100.",
+    fr: "Analyse BOGA AI pour {ticker} — dans la Liste des Candidates Tendance, confirmation de tendance active pas encore terminée. Score de conviction : {score}/100.",
+    pt: "Análise BOGA AI para {ticker} — na Lista de Candidatas a Tendência, confirmação de tendência ativa ainda não concluída. Pontuação de convicção: {score}/100.",
+  },
   defaultStockSummary: {
     tr: "{ticker}: BOGA Skoru {score}/100, sektör: {sector}.",
     en: "{ticker}: BOGA Score {score}/100, sector: {sector}.",

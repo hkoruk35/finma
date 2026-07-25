@@ -27,9 +27,36 @@ function deriveRiskLevel(riskReward: number | undefined, lang: string): string {
   return ct("riskHigh", lang);
 }
 
+/** Bir ticker'ın Trend Listesi (ENTERED), Trend Adayı (Bekle/watchlist_picks)
+ *  veya hiçbirinde olmadığını belirler — "havuz dışı" etiketinin sadece
+ *  gerçekten havuzda olmayan hisseler için gösterilmesi içindir. */
+async function getPoolMembership(ticker: string): Promise<"trend_list" | "trend_candidate" | "none"> {
+  try {
+    const [swing, watch] = await Promise.all([
+      getSwingPicksBackfilled().catch(() => null),
+      getWatchlistPicks().catch(() => null),
+    ]);
+    const swingPick = (swing?.picks || []).find((p: any) => p.ticker === ticker);
+    if (swingPick) return swingPick.entry_status === "ENTERED" ? "trend_list" : "trend_candidate";
+    const watchPick = (watch?.picks || []).find((p: any) => p.ticker === ticker);
+    if (watchPick) return "trend_candidate";
+    return "none";
+  } catch {
+    return "none";
+  }
+}
+
+function summaryForMembership(membership: "trend_list" | "trend_candidate" | "none", ticker: string, score: number, lang: string): string {
+  if (membership === "trend_list") return ct("trendListAnalysisSummary", lang, { ticker, score });
+  if (membership === "trend_candidate") return ct("trendCandidateAnalysisSummary", lang, { ticker, score });
+  return ct("liveAnalysisSummary", lang, { ticker, score });
+}
+
 export async function getRealStockCardData(ticker: string, lang: string = "tr"): Promise<CopilotStockCard | null> {
   let t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
+
+  const membership = await getPoolMembership(t);
 
   try {
     const live = await getLiveAnalysis(t, lang);
@@ -64,7 +91,7 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
           support: validSupport,
           resistance: validResistance,
           target: validTarget,
-          summary: ct("liveAnalysisSummary", lang, { ticker: t, score: Math.round(live.conviction) }),
+          summary: summaryForMembership(membership, t, Math.round(live.conviction), lang),
         };
       }
     }
@@ -89,7 +116,7 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
         support: Math.round(price * 0.95 * 100) / 100,
         resistance: Math.round(price * 1.05 * 100) / 100,
         target: Math.round(price * 1.10 * 100) / 100,
-        summary: ct("liveAnalysisSummary", lang, { ticker: t, score: (data as any).bogaScore || (data as any).boga_score || 50 }),
+        summary: summaryForMembership(membership, t, (data as any).bogaScore || (data as any).boga_score || 50, lang),
       };
     }
   } catch (err) {
