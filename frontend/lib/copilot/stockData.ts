@@ -1,10 +1,12 @@
 // Copilot'un "show_stock_card" ve site kategorileri aracının TEK canlı veri kaynağı.
 // Canlı borsa verisi (getLiveAnalysis) önceliklidir — grafik ve gerçek piyasa ile 100% uyumlu.
 
-import { getStockData, getMasterData } from "@/lib/data";
+import { getStockData, getSwingPicksBackfilled, getWatchlistPicks, getAllTickers } from "@/lib/data";
+import { MAGNIFICENT_7 } from "@/lib/homeFeed";
 import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
 import { getPersonalizationContext } from "@/lib/copilot/personalization";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -117,46 +119,99 @@ export async function getFastStockCardData(ticker: string, lang: string = "tr"):
   };
 }
 
+export type SiteListCategory =
+  | "trend_stocks" // Trend Listesi — teyitli, aktif trend
+  | "trend_candidate_watchlist" // Trend Adayı İzleme Listesi — henüz teyit bekleyen
+  | "boga_ai_watchlist" // eski isim — trend_candidate_watchlist ile aynı gerçek veriye eşlenir
+  | "top_7" // Sitenin standart, sabit Top 7 bileşimi (homeFeed.ts ile aynı kaynak)
+  | "top_100" // BOGA'nın kürasyonlu 100 hisselik havuzu
+  | "user_watchlist"; // Kişisel İzleme Listesi (üyeye özel, en fazla 50)
+
+const CATEGORY_NAMES: Record<SiteListCategory, string> = {
+  trend_stocks: "Trend Hisseleri",
+  trend_candidate_watchlist: "Trend Adayı İzleme Listesi",
+  boga_ai_watchlist: "Trend Adayı İzleme Listesi",
+  top_7: "Top 7",
+  top_100: "Top 100",
+  user_watchlist: "İzleme Listem",
+};
+
+/**
+ * Top100 havuzunu (top100_tickers, aktif kayıtlar) gerçek BOGA skoruna göre
+ * (getAllTickers().master_score — siteni geri kalanının da kullandığı aynı
+ * skor) sıralar. top100_snapshot'ta ayrı bir "score" kolonu YOK; bu yüzden
+ * skor kaynağı olarak platformun tek gerçek skorlama motoru kullanılır —
+ * uydurma bir sıralama değildir.
+ */
+async function getRankedTop100(): Promise<{ ticker: string; score: number }[]> {
+  const [{ data: top100Rows }, allTickers] = await Promise.all([
+    supabaseAdmin.from("top100_tickers").select("ticker").eq("active", true),
+    getAllTickers().catch(() => [] as any[]),
+  ]);
+  const scoreMap = new Map<string, number>(allTickers.map((t: any) => [t.ticker?.toUpperCase(), t.master_score ?? 0]));
+  const rows = (top100Rows || []).map((r: any) => ({
+    ticker: String(r.ticker).toUpperCase(),
+    score: scoreMap.get(String(r.ticker).toUpperCase()) ?? 0,
+  }));
+  return rows.sort((a, b) => b.score - a.score);
+}
+
 export async function getSiteCategoryStocksList(
-  category: "trend_stocks" | "top_7" | "top_100" | "boga_ai_watchlist" | "user_watchlist",
+  category: SiteListCategory,
   lang: string = "tr",
   userId?: string
-): Promise<{ categoryName: string; tickers: string[]; cards: CopilotStockCard[] }> {
+): Promise<{ categoryName: string; tickers: string[]; cards: CopilotStockCard[]; isFallback: boolean }> {
   let tickers: string[] = [];
-  let categoryName = "BOGASTOCK Trend Hisseleri";
+  let isFallback = false;
+  const categoryName = CATEGORY_NAMES[category] || CATEGORY_NAMES.trend_stocks;
 
   try {
-    const [master, personalization] = await Promise.all([
-      category !== "user_watchlist" ? getMasterData() : Promise.resolve(null),
-      category === "user_watchlist" && userId ? getPersonalizationContext(userId).catch(() => null) : Promise.resolve(null),
-    ]);
-
-    if (category === "user_watchlist" && userId) {
-      categoryName = "İzleme Listem";
-      tickers = personalization?.watchlistTickers || [];
-      if (!tickers || tickers.length === 0) tickers = ["ONDS", "KEEL", "HIMS", "OSCR"];
+    if (category === "user_watchlist") {
+      if (!userId) { tickers = []; }
+      else {
+        const personalization = await getPersonalizationContext(userId).catch(() => null);
+        tickers = (personalization?.watchlistTickers || []).slice(0, 10);
+      }
     } else if (category === "trend_stocks") {
-      categoryName = "BOGASTOCK Trend Hisseleri";
-      tickers = master?.menus?.["trend_stocks"]?.tickers || master?.menus?.["trend"]?.tickers || ["BBIO", "MOD", "JPM", "HWM"];
-    } else if (category === "boga_ai_watchlist") {
-      categoryName = "BOGA AI Watchlist";
-      tickers = master?.menus?.["boga_ai_watchlist"]?.tickers || master?.menus?.["high_conviction"]?.tickers || ["BBIO", "MOD", "JPM", "HWM"];
-    } else if (category === "top_7" || category === "top_100") {
-      categoryName = "BOGASTOCK Top 100 / Top 7";
-      tickers = master?.menus?.["top_100"]?.tickers || master?.menus?.["top_7"]?.tickers || ["NOK", "INTC", "TSLA", "NVDA"];
-    } else {
-      tickers = ["BBIO", "MOD", "JPM", "HWM"];
+      // Trend Listesi: sadece hassas giriş teyidi tamamlanmış (entry_status === "ENTERED") picks.
+      // "Bekle" durumundakiler Trend Adayı'dır, burada gösterilmez.
+      const swing = await getSwingPicksBackfilled().catch(() => null);
+      const entered = ((swing?.picks || []) as any[])
+        .filter((p) => p.entry_status === "ENTERED")
+        .sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+      tickers = entered.slice(0, 8).map((p) => p.ticker);
+    } else if (category === "trend_candidate_watchlist" || category === "boga_ai_watchlist") {
+      // Trend Adayı İzleme Listesi: watchlist_picks.json — henüz aktif Swing/Trend
+      // teyidini tamamlamamış ama sistem radarına girmiş havuz.
+      const watch = await getWatchlistPicks().catch(() => null);
+      const picks = ((watch?.picks || []) as any[]).sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
+      tickers = picks.slice(0, 8).map((p) => p.ticker);
+    } else if (category === "top_7") {
+      // Top 7 = sitenin standart, sabit bileşimi (homeFeed.ts, ana sayfa/​
+      // /top7 ile AYNI kaynak). Veriler (fiyat/skor) her zaman canlı/güncel
+      // çekilir — sadece bileşim sabit, sıralama değil.
+      tickers = [...MAGNIFICENT_7];
+    } else if (category === "top_100") {
+      const ranked = await getRankedTop100();
+      tickers = ranked.slice(0, 10).map((r) => r.ticker);
     }
   } catch (err) {
-    console.error("[getSiteCategoryStocksList] Master data fetch error:", err);
-    tickers = category === "user_watchlist" ? ["ONDS", "KEEL", "HIMS", "OSCR"] : ["BBIO", "MOD", "JPM", "HWM"];
+    console.error(`[getSiteCategoryStocksList] ${category} fetch error:`, err);
+    tickers = [];
   }
 
-  // Fast, instant card generation (< 5ms) to guarantee zero Vercel timeouts!
-  const validTickers = (tickers || []).slice(0, 4);
+  if (tickers.length === 0 && category !== "user_watchlist") {
+    // Gerçek kaynak boş/erişilemezse: son çare olarak son bilinen geçerli
+    // anlık görüntüyü değil, sabit bir dizi göstermek yanıltıcı olur — bu
+    // yüzden boş döneriz ve arayan taraf (chat/route.ts) bunu kullanıcıya
+    // "şu an veri getirilemiyor" olarak, UYDURULMUŞ ticker göstermeden anlatır.
+    isFallback = true;
+  }
+
+  const validTickers = tickers.slice(0, 10);
   const cards: CopilotStockCard[] = await Promise.all(
     validTickers.map((t) => getFastStockCardData(t, lang))
   );
 
-  return { categoryName, tickers: validTickers, cards };
+  return { categoryName, tickers: validTickers, cards, isFallback };
 }

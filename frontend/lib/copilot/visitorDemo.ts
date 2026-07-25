@@ -33,6 +33,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     price9: { keywords: string[]; response: string };
     otherStocks: { keywords: string[]; response: string };
     cancel: { keywords: string[]; response: string };
+    freeTrial: { keywords: string[]; response: string };
   };
   offerButtons: {
     summerOffer: string;
@@ -77,6 +78,10 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       cancel: {
         keywords: ["iptal", "sonra", "edebilir miyim"],
         response: "Tabii ki! Üyeliğinizi dilediğiniz an kolayca iptal edebilirsiniz. İptal sonrasında yeni bir dönem ücreti çekilmez ve mevcut erişiminiz ödenmiş süre sonuna kadar devam eder.",
+      },
+      freeTrial: {
+        keywords: ["ücretsiz deneme", "deneme süresi", "trial", "bedava dene"],
+        response: "BOGASTOCK'ta ücretsiz üyelik denemesi bulunmuyor. Ancak herkese açık Gösterge Paneli'ni ve NVIDIA ($NVDA) üzerinde hazırladığımız sınırlı Copilot tanıtımını üyelik öncesinde dilediğiniz kadar inceleyebilirsiniz.",
       },
     },
     offerButtons: {
@@ -129,6 +134,10 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
         keywords: ["cancel", "later", "anytime"],
         response: "Of course! You may cancel your membership at any time. You won't be charged after cancellation, and access continues until the end of the paid period.",
       },
+      freeTrial: {
+        keywords: ["free trial", "trial period", "try free", "trial"],
+        response: "BOGASTOCK does not offer a free membership trial. However, you can explore the public Dashboard and this limited NVIDIA ($NVDA) Copilot preview for as long as you like before joining.",
+      },
     },
     offerButtons: {
       summerOffer: "Get the USD 9 summer offer",
@@ -179,6 +188,10 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       cancel: {
         keywords: ["cancelar", "depois", "quando"],
         response: "Com certeza! Você pode cancelar sua assinatura a qualquer momento com apenas um clique.",
+      },
+      freeTrial: {
+        keywords: ["teste grátis", "período de teste", "trial", "gratuito"],
+        response: "A BOGASTOCK não oferece um período de teste gratuito de assinatura. No entanto, você pode explorar o Painel público e esta demonstração limitada do Copilot com a NVIDIA ($NVDA) por quanto tempo quiser antes de assinar.",
       },
     },
     offerButtons: {
@@ -231,6 +244,10 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
         keywords: ["cancelar", "después", "cualquier"],
         response: "¡Por supuesto! Puedes cancelar tu suscripción en cualquier momento de forma sencilla.",
       },
+      freeTrial: {
+        keywords: ["prueba gratis", "periodo de prueba", "trial", "gratuita"],
+        response: "BOGASTOCK no ofrece una prueba gratuita de membresía. Sin embargo, puedes explorar el Panel público y esta demostración limitada de Copilot con NVIDIA ($NVDA) todo el tiempo que quieras antes de suscribirte.",
+      },
     },
     offerButtons: {
       summerOffer: "Aprovechar la oferta de 9 USD",
@@ -281,6 +298,10 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       cancel: {
         keywords: ["annuler", "plus tard", "moment"],
         response: "Absolument ! Vous pouvez annuler votre abonnement à tout moment en un seul clic.",
+      },
+      freeTrial: {
+        keywords: ["essai gratuit", "période d'essai", "trial", "gratuitement"],
+        response: "BOGASTOCK ne propose pas d'essai gratuit d'abonnement. Vous pouvez toutefois explorer le Tableau de bord public et cet aperçu Copilot limité sur NVIDIA ($NVDA) aussi longtemps que vous le souhaitez avant de vous abonner.",
       },
     },
     offerButtons: {

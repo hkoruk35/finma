@@ -4,6 +4,8 @@ import React, { createContext, useContext, useEffect, useState, useCallback, Rea
 import { usePathname, useRouter } from "next/navigation";
 import { useChat } from "ai/react";
 import { getSuggestedName } from "@/lib/copilot/persona";
+import { resolveRouteKey } from "@/lib/copilot/routes";
+import { buildPageContext, CopilotPageContext } from "@/lib/copilot/pageContextSchema";
 
 export interface UsageState {
   currentUsage: number;
@@ -14,6 +16,14 @@ export interface UsageState {
 export interface ProfileState {
   displayName: string;
   avatarId: string;
+}
+
+export interface MemberState {
+  username: string | null;
+  email: string | null;
+  subscriptionStatus: string | null;
+  currentPeriodEnd: string | null;
+  cancelAtPeriodEnd: boolean | null;
 }
 
 export interface CopilotContextType {
@@ -33,6 +43,8 @@ export interface CopilotContextType {
   profile: ProfileState;
   saveProfile: (next: ProfileState) => Promise<void>;
   isAuthenticated: boolean;
+  member: MemberState | null;
+  accessMode: "visitor" | "member" | "expired_member";
   error: Error | undefined;
   setMessages: (messages: any[]) => void;
 }
@@ -52,30 +64,23 @@ function localeFromPathname(pathname: string | null): string {
 export function CopilotProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [pageContext, setPageContext] = useState<any>(null);
+  const [pageContext, setPageContext] = useState<CopilotPageContext | null>(null);
   const [usage, setUsage] = useState<UsageState | null>(null);
   const [profile, setProfile] = useState<ProfileState>({ displayName: "", avatarId: "aylin" });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [member, setMember] = useState<MemberState | null>(null);
   const pathname = usePathname();
   const router = useRouter();
   const locale = localeFromPathname(pathname);
 
-  // Auto-update context based on route
+  // Auto-update context based on route — Page Context Service (spec böl. 6).
+  // Route registry sayesinde locale'e özel slug'lar (tr: "sss", en: "faq" vb.)
+  // ve varlık sınıfı çıkarımı doğru şekilde çözülür.
   useEffect(() => {
     if (!pathname) return;
-
-    if (pathname.includes("/graphic/")) {
-      const parts = pathname.split("/");
-      const ticker = parts[parts.length - 1].toUpperCase();
-      setPageContext({ type: "ticker", value: ticker, page: "graphic" });
-    } else if (pathname.includes("/swing")) {
-      setPageContext({ type: "page", value: "swing_picks", page: "swing" });
-    } else if (pathname.includes("/watchlist")) {
-      setPageContext({ type: "page", value: "watchlist", page: "watchlist" });
-    } else {
-      setPageContext({ type: "page", value: "home", page: "home" });
-    }
-  }, [pathname]);
+    const { key, ticker } = resolveRouteKey(pathname);
+    setPageContext(buildPageContext(key, ticker, locale));
+  }, [pathname, locale]);
 
   const refreshUsage = useCallback(() => {
     fetch("/api/copilot/usage")
@@ -86,8 +91,19 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetch("/api/members/me")
-      .then((r) => {
+      .then(async (r) => {
         if (!r.ok) throw new Error();
+        const d = await r.json().catch(() => null);
+        const m = d?.member;
+        if (m) {
+          setMember({
+            username: m.username || null,
+            email: m.email || null,
+            subscriptionStatus: m.subscription_status || null,
+            currentPeriodEnd: m.current_period_end || null,
+            cancelAtPeriodEnd: m.cancel_at_period_end ?? null,
+          });
+        }
         setIsAuthenticated(true);
         refreshUsage();
         fetch("/api/copilot/history")
@@ -109,6 +125,15 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
       .catch(() => setIsAuthenticated(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Aktif ücretli plan mı, süresi dolmuş (daha önce ücretliydi) mi, yoksa hiç
+  // üye değil mi — spec böl. 1.1-1.3'teki üç erişim modu. Nihai yetki kontrolü
+  // her zaman sunucuda (getMemberAccess/plan) yapılır; bu sadece UI/prompt tonu içindir.
+  const accessMode: "visitor" | "member" | "expired_member" = !isAuthenticated
+    ? "visitor"
+    : member?.subscriptionStatus && !["active", "trialing"].includes(member.subscriptionStatus)
+      ? "expired_member"
+      : "member";
 
   const saveProfile = useCallback(async (next: ProfileState) => {
     setProfile(next);
@@ -159,6 +184,8 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         profile,
         saveProfile,
         isAuthenticated,
+        member,
+        accessMode,
         error,
         setMessages,
       }}

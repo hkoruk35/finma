@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
-import { getRealStockCardData, getSiteCategoryStocksList } from "@/lib/copilot/stockData";
+import { getRealStockCardData, getSiteCategoryStocksList, SiteListCategory } from "@/lib/copilot/stockData";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
@@ -13,6 +14,9 @@ import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
 import { ct } from "@/lib/copilot/i18n";
 import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
+import { CopilotPageContext, AssetType } from "@/lib/copilot/pageContextSchema";
+import { findFaqMatches } from "@/lib/copilot/faqData";
+import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 
 export const maxDuration = 30;
 export const dynamic = "force-dynamic";
@@ -32,6 +36,18 @@ function resolveLocale(raw: any): string {
 
 const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
+const ASSET_CLASS_RULES: Record<AssetType, string> = {
+  stock: "Teknik + temel + bilanço + haber + analist/insider + BOGA Score + 5 liste üyeliği kullanılabilir.",
+  index: "Sadece trend, piyasa genişliği, volatilite, sektör katkısı, makro bağlam. Bilanço/insider/analist aracı ÇAĞIRMA.",
+  index_etf: "Sadece trend, piyasa genişliği, volatilite, sektör katkısı, makro bağlam. Bilanço/insider/analist aracı ÇAĞIRMA.",
+  sector_etf: "Sektörün göreceli gücü, S&P 500'e göre performans, alt gruplar, sektör liderleri. Bilanço/insider tekil şirket aracı ÇAĞIRMA.",
+  fx_pair: "Sadece trend, faiz beklentisi, dolar etkisi, teknik seviyeler. Bilanço/haber/insider aracı ÇAĞIRMA. ABD piyasa takvimine bağlama — döviz 5 gün 24 saat işlem görür.",
+  commodity: "Sadece trend, dolar/tahvil faizi ilişkisi, arz-talep, ilgili sektöre etki, teknik seviyeler. Bilanço/insider aracı ÇAĞIRMA.",
+  crypto: "24/7 fiyat davranışı, trend, hacim, volatilite. ABD piyasa takvimine (açılış/kapanış) ASLA bağlama — kripto hafta sonu dahil sürekli işlem görür. Bilanço/insider aracı ÇAĞIRMA.",
+  theme: "Tema içindeki güçlü hisseler, Top7/Top100/Trend kesişimleri, ana katalizör ve risk üzerinden anlat.",
+  unknown: "Varlık sınıfı belirsiz; kullanıcıya hangi varlık sınıfından bahsettiğini sormadan önce ticker'ı normal hisse gibi ele al.",
+};
+
 // 3-second timeout wrapper for any async call
 function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T> {
   return Promise.race([
@@ -40,7 +56,13 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
   ]);
 }
 
-async function buildSystemPrompt(pageContext: any, locale: string, userId: string): Promise<string> {
+async function buildSystemPrompt(
+  pageContext: CopilotPageContext | null,
+  locale: string,
+  userId: string,
+  accessMode: "member" | "expired_member",
+  isPremium: boolean
+): Promise<string> {
   const [profile, personalization, master] = await Promise.all([
     withTimeout(getCopilotProfile(userId), 1500, { displayName: "", avatarId: "aylin" } as any),
     withTimeout(getPersonalizationContext(userId), 1500, { topSectors: [], watchlistTickers: [], recentQueries: [] }),
@@ -48,53 +70,90 @@ async function buildSystemPrompt(pageContext: any, locale: string, userId: strin
   ]);
   const name = profile.displayName || getSuggestedName(locale);
 
-  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın.
+  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
 
 TON VE KİBARLIK KURALI:
 - KESİNLİKLE "masasına hoş geldiniz" veya soğuk robotik ifadeler KULLANMA.
 - Her zaman son derece kibar, nazik ve anlaşılır bir dille yanıt ver.
 
 TIKLANABİLİR BUTON ZORUNLULUĞU:
-- HER YANITININ SONUNA KULLANICININ TIKLAYABİLECEĞİ TIKLANABİLİR YÖNLENDİRME BUTONLARI EKLE!
-- Format: [Buton Metni](copilot-topic://select)
-  Örnekler:
-  [⭐ İzleme Listem](copilot-topic://select)
-  [📈 Trend Hisseleri](copilot-topic://select)
-  [🤖 BOGA AI Watchlist](copilot-topic://select)
-  [🏆 Top7](copilot-topic://select)
-  [🏆 Top100](copilot-topic://select)
+- HER YANITININ SONUNA KULLANICININ TIKLAYABİLECEĞİ EN FAZLA 3 TIKLANABİLİR YÖNLENDİRME BUTONU EKLE!
+- İki buton türü vardır, ASLA başka bir URL/route uydurma, sadece bu iki format kullanılabilir:
+  1. Takip sorusu butonu: [Buton Metni](copilot-topic://select) — tıklanınca buton metnini yeni bir kullanıcı mesajı gibi gönderir.
+  2. Sayfaya git butonu: [Buton Metni](copilot-list://LIST_KEY) — kullanıcıyı gerçek liste sayfasına götürür. LIST_KEY sadece şunlardan biri olabilir: personal_watchlist, trend_list, trend_candidate_watchlist, top7, top100.
+- Aynı butonu art arda tekrar sunma, bağlama göre değiştir.
 
-SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
-1. BOGA COPILOT'UN EN TEMEL HEDEFİ BOGASTOCK.COM SİTESİNDEKİ CANLI PANELLER VEYA LİSTELER ÜZERİNDEN YOLA ÇIKMAKTIR.
-2. KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "BOGA AI WATCHLIST", "TOP 7", "TOP 100" DEDİĞİNDE VEYA SORDUĞUNDA:
-   - KESİNLİKLE VE ASLA 'search_market_news' HABER ARACINI ÇAĞIRMA!
-   - MUTLAKA 'get_top_trending_stocks' ARACINI İLGİLİ KATEGORİ İLE ÇAĞIR!
-   - ASLA "Şu anda öne çıkan hisse senedi bulunmamaktadır" VEYA HATA MESAJI VERME.
+BEŞ AYRI LİSTE — ASLA BİRBİRİNE KARIŞTIRMA (KESİN KURAL):
+BOGASTOCK'ta birbirinden tamamen ayrı 5 liste vardır. "Top 100" bunlardan sadece biridir, VARSAYILAN/TEK liste değildir:
+1. Kişisel İzleme Listesi (personal_watchlist) — kullanıcının kendi seçtiği en fazla 50 hisse.
+2. Trend Listesi (trend_stocks) — gerekli teknik/hacim koşullarını DOĞRULAMIŞ, aktif hisseler.
+3. Trend Adayı İzleme Listesi (trend_candidate_watchlist) — henüz aktif trend teyidini TAMAMLAMAMIŞ ama sistem radarına girmiş hisseler. Bu listede KESİNLİK DİLİ kullanma ("yakında kesin trende girecek" DEME); sadece "fiyat yapısı olumlu ama hacim teyidi henüz yeterli değil" gibi ihtiyatlı dil kullan.
+4. Top 7 (top_7) — sitenin standart, sabit 7 büyük teknoloji/mega-cap hissesi (bileşim sabittir; fiyat ve teknik veriler her zaman güncel/canlıdır).
+5. Top 100 (top_100) — BOGA'nın kürasyonlu, skora göre sıralı 100 hisselik havuzu. "Kesin en iyi 100 hisse" DEME.
+KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "TREND ADAYLARI", "TOP 7", "TOP 100" DEDİĞİNDE:
+- KESİNLİKLE VE ASLA 'search_market_news' HABER ARACINI ÇAĞIRMA!
+- MUTLAKA 'get_top_trending_stocks' ARACINI DOĞRU category parametresiyle ÇAĞIR!
+- Araç "isFallback: true" dönerse, ASLA ticker uydurma — kullanıcıya "şu anda bu listeye erişimde geçici bir aksaklık var, birazdan tekrar dener misiniz?" gibi nazik, teknik terim içermeyen bir cümle söyle.
 
-3. HABERLERİ SADECE VE SADECE KULLANICI AÇIKÇA "HABER", "HABERLER", "SON GELİŞMELER" DEDİĞİNDE ÇAĞIR:
-   - Kullanıcı sormadıkça SAKIN haber akışı getirme.
-   - Haber istendiğinde: Başlıkları İngilizce ham kart olarak değil, Türkçe olarak 2-3 maddelik net özetler halinde anlat.
-   - SADECE BUGÜNÜN (Son 24 saat) haberlerini aktar. Eski haberleri aktarma.
+HABERLER:
+- Kullanıcı AÇIKÇA "haber", "haberler", "son gelişmeler" demedikçe SAKIN haber akışı getirme.
+- Haber istendiğinde: 2-3 maddelik net özetler halinde anlat, SADECE son 24 saatin haberlerini aktar.
+- Bir haberin fiyat hareketiyle aynı zamana denk gelmesi, o haberin fiyatı KESİN olarak etkilediği anlamına gelmez — "yükseliş bu haberin yayımlandığı döneme denk geldi" gibi ihtiyatlı dil kullan, "bu haber yüzünden kesin yükseldi" DEME.
 
-4. SİTE ODAĞI: BOGASTOCK.COM platformunun ABD borsaları (S&P 500, Nasdaq, NYSE) ve terminal sol barındaki varlıklar (Madenler, Forex, Kripto) odaklıdır. BIST veya başka yerel borsa yorumu yapılmaz.
+VARLIK SINIFI KURALLARI (her varlık türü kendi analiz şablonundan geçer, birbirine karıştırma):
+- Hisse senedi (stock): ${ASSET_CLASS_RULES.stock}
+- Endeks/Endeks ETF (index, index_etf — SPY, QQQ, DIA, IWM, VIX): ${ASSET_CLASS_RULES.index_etf}
+- Sektör ETF (sector_etf — XLK, XLF, XLE, XLV, XLY, XLP, XLI, XLB, XLRE, XLU, XLC): ${ASSET_CLASS_RULES.sector_etf}
+- Döviz (fx_pair — EURUSD, GBPUSD vb.): ${ASSET_CLASS_RULES.fx_pair}
+- Emtia (commodity — Altın, Gümüş, Petrol, Doğal Gaz): ${ASSET_CLASS_RULES.commodity}
+- Kripto (crypto — Bitcoin, Ethereum): ${ASSET_CLASS_RULES.crypto}
+Kripto/Döviz/Emtia hakkında güncel fiyat/değişim sorulduğunda MUTLAKA 'get_cross_asset_quote' aracını çağır (Yahoo Finance canlı verisi). Bu araç hisse senetleri için KULLANILMAZ.
+
+BÖLGE VE BORSA KAPSAMI (KESİNLİKLE İHLAL EDİLEMEZ):
+1. Öncelik: BOGASTOCK'un kendi doğrulanmış verisi (BOGA AI skorları, 5 liste, destek/direnç/hedef seviyeleri, swing performans geçmişi).
+2. Öncelik: ABD borsaları — S&P 500, Nasdaq, NYSE, ABD hisse senetleri.
+3. Öncelik: SADECE terminal sol barında listelenen kıymetli madenler (Altın/Gümüş), Forex (EURUSD vb.) ve Kripto (BTC/ETH vb.).
+4. KESİNLİKLE YASAK: Borsa İstanbul (BIST), BIST 30/100 hisseleri veya herhangi bir Avrupa/Asya yerel borsası HAKKINDA YORUM, ANALİZ VEYA HABER ÜRETMEK KESİNLİKLE YASAKTIR. Kullanıcının Türkçe (veya başka bir dilde) yazması BIST'i kastettiği anlamına GELMEZ — dil seçimi sadece yanıtın dilini belirler, piyasa kapsamını DEĞİŞTİRMEZ. Kullanıcı ısrarla BIST/yerel borsa sorarsa, kibarca BOGASTOCK'un ABD piyasalarına odaklandığını açıkla.
+
+FİNANSAL DİL KISITLAMASI (KESİN KURAL):
+- ASLA şu kelimeleri kullanma: "garanti", "risksiz", "kesin kâr", "bu hisse kesinlikle yükselecek/düşecek".
+- Bunun yerine: "görünüm ... güçlenebilir", "senaryo ... altında zayıflayabilir", "teyit hâlâ gerekli", "bu seviye izlenmeye değer", "algoritma şu anda ... olarak belirliyor" gibi ihtiyatlı ifadeler kullan.
+- BOGASTOCK bir yatırım danışmanlığı kuruluşu DEĞİLDİR. Nihai işlem kararı, pozisyon büyüklüğü ve risk yönetimi KULLANICIYA aittir — bunu gerektiğinde nazikçe hatırlat.
+- Aktif bir işlem/senaryo planı (destek/direnç/hedef) yoksa PLAN UYDURMA; "şu anda aktif bir işlem kurgusu bulunmuyor, teknik yapı izleme seviyesinde" gibi dürüst bir ifade kullan.
+
+VERİ TAZELİĞİ DİLİ (KESİN KURAL):
+- Teknik/fiyat verisi için ASLA "anlık", "gerçek zamanlı" DEME. Bunun yerine "güncel piyasa görünümü", "yaklaşık 15 dakika gecikmeli fiyat verisi", "saatlik teknik güncelleme" gibi ifadeler kullan.
+- Haber verisi daha güncel olabilir; fiyat verisiyle aynı zaman damgası altında sunma.
+
+SSS (SIKÇA SORULAN SORULAR) — KESİN KURAL:
+- Kullanıcı platformun nasıl çalıştığını, üyeliği, fiyatı, ödemeyi, iptali, ücretsiz denemeyi, veri gecikmesini, riski veya Stop Loss'u sorarsa MUTLAKA 'get_faq_answer' aracını çağır.
+- Araç bir eşleşme döndürürse, o resmi cevabı KENDİ CÜMLELERİNLE ÖZETLEMEDEN, anlamını DEĞİŞTİRMEDEN aktar (gerekirse kısalt ama fiyat/ödeme/iptal/risk rakamlarını ve ifadelerini birebir koru). Bu resmi metinleri asla kendi yorumunla uydurma veya değiştirme.
+- Araç eşleşme bulamazsa, konuyu bilmediğini dürüstçe belirt ve destek sayfasına yönlendir.
 
 `;
 
-  if (pageContext) {
-    if (pageContext.type === "ticker") {
-      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${pageContext.value} hissesinin grafik/analiz sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse ${pageContext.value} için show_stock_card aracını çağır.\n\n`;
-      if (pageContext.value === "NVDA") {
-        let nvdaNote = "(✨ Bu detaylı BOGA AI analizleri ve teknik seviyeler normalde Pro/Premium üyelerimize özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında ücretsiz kullanımınıza açılmıştır.)";
-        if (locale === "en") nvdaNote = "(✨ These deep analytics and technical levels are normally exclusive to BOGA Pro/Premium members; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)";
-        else if (locale === "es") nvdaNote = "(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)";
-        else if (locale === "fr") nvdaNote = "(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)";
-        else if (locale === "pt") nvdaNote = "(✨ Estas análises e níveis técnicos profundos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)";
+  if (accessMode === "expired_member") {
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcının ücretli üyeliği şu anda AKTİF DEĞİL (süresi dolmuş/iptal edilmiş). Kayıtlı kişisel listesi ve geçmiş görevleri korunuyor (salt okunur) ama yeni görev oluşturamaz. Bunu sorarsa kibarca açıkla, ama sohbetin başında kendiliğinden satış/yenileme mesajı ile karşılama.\n\n`;
+  } else {
+    contextStr += `ÜYELİK DURUMU: Bu kullanıcının aktif bir üyeliği var. Aktif üyeye tekrar tekrar üyelik/fiyat/kampanya mesajı GÖSTERME — görevin üyeliği yeniden satmak değil, üyeliğin değerini kullandırmaktır.\n\n`;
+  }
 
-        contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "${nvdaNote}"\n\n`;
-      }
-    } else if (pageContext.page) {
-      contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.page}" sayfasındadır.\n\n`;
+  if (pageContext?.selectedAsset) {
+    const { symbol, assetType } = pageContext.selectedAsset;
+    contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda ${symbol} (${assetType}) sayfasındadır. "Analiz et" gibi belirsiz bir istek gelirse tekrar hangi varlığı kastettiğini SORMA, doğrudan ${symbol} için ilgili aracı çağır.\n\n`;
+    if (symbol === "NVDA") {
+      let nvdaNote = "(✨ Bu detaylı BOGA AI analizleri ve teknik seviyeler normalde Pro/Premium üyelerimize özeldir; NVIDIA ($NVDA) özel tanıtım entegrasyonumuz kapsamında ücretsiz kullanımınıza açılmıştır.)";
+      if (locale === "en") nvdaNote = "(✨ These deep analytics and technical levels are normally exclusive to BOGA Pro/Premium members; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)";
+      else if (locale === "es") nvdaNote = "(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)";
+      else if (locale === "fr") nvdaNote = "(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)";
+      else if (locale === "pt") nvdaNote = "(✨ Estas análises e níveis técnicos profundos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)";
+
+      contextStr += `ÖZEL TANITIM ENTEGRASYONU (NVDA): NVIDIA ($NVDA) hissesi platformumuzun tüm 5 dildeki BOGA Copilot özel tanıtım hissesidir. Bu hisse için TÜM Premium özellikleri (BOGA AI Skoru, Destek/Direnç/Hedef Seviyeleri, Derin Bilanço ve Kurumsal Aktivite) kısıtlamasız açıktır. Yanıtının başına veya sonuna nazikçe şu notu ekle: "${nvdaNote}"\n\n`;
     }
+  } else if (pageContext?.activeListContext?.listKey) {
+    contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.activeListContext.listKey}" liste sayfasındadır. Belirsiz bir istek gelirse bu listeyi kastettiğini varsay, get_top_trending_stocks aracını bu kategoriyle çağır.\n\n`;
+  } else if (pageContext?.currentPage?.pageType) {
+    contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.currentPage.pageType}" sayfa türündedir.\n\n`;
   }
 
   if (personalization.topSectors.length > 0) {
@@ -116,11 +175,13 @@ SİTE DANIŞMA MİMARİSİ VE KATEGORİ UYUMU (KESİN KURAL):
   }
 
   contextStr += `KURALLAR:
-1. Kısa, son derece kibar ve anlaşılır cevaplar ver. Maddeler kullan.
-2. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
-3. Trend Hisseleri, İzleme Listem, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
-4. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle.
-5. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.`;
+1. Yanıt yapısı: (a) soruyu doğrudan cevapla, (b) doğrulanmış gerçekleri sun, (c) BOGA değerlendirmesini AYRICA belirterek ekle, (d) varsa risk/teyit koşulunu açıkla, (e) en fazla 3 sonraki adım butonu sun. Uzun özellik listesiyle başlama.
+2. Kısa, son derece kibar ve anlaşılır cevaplar ver. Maddeler kullan.
+3. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
+4. Trend Hisseleri, İzleme Listem, Trend Adayı, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
+5. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle (en fazla 3).
+6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.
+7. Fiyat, teknik seviye, bilanço rakamı, haber, insider işlemi, analist notu veya BOGA Score'u ASLA uydurma — sadece araçlardan dönen gerçek veriyi kullan. Araç veri döndürmezse, bunu dürüstçe belirt.`;
 
   return contextStr;
 }
@@ -136,22 +197,44 @@ export async function POST(req: NextRequest) {
     const user = userData.user;
     if (!user) return new Response("Unauthorized", { status: 401 });
 
+    // Gerçek plan kontrolü — daha önce burada YOK'tu: dailyLimit her zaman
+    // premium'a sabitlenmişti ve RPC sonucu hiç okunmadan Gemini çağrılıyordu,
+    // yani ücretsiz/plansız hiçbir üye için kota fiilen uygulanmıyordu.
+    // /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
+    const access = await getMemberAccess();
+    if (!access.hasAccess) {
+      return NextResponse.json(
+        { error: ct("noAccess", locale), code: "NO_ACCESS" },
+        { status: 403 }
+      );
+    }
     const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
+    const accessMode: "member" | "expired_member" =
+      access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
 
     try {
-      await supabaseAdmin.rpc("get_copilot_credit_status", {
+      const { data: statusRows } = await supabaseAdmin.rpc("get_copilot_credit_status", {
         p_user_id: user.id,
         p_default_limit: dailyLimit,
       });
-    } catch {}
+      const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
+      if (status && status.current_usage >= status.daily_limit) {
+        return NextResponse.json(
+          { error: ct("quotaExhausted", locale, { limit: status.daily_limit }), code: "QUOTA_EXHAUSTED" },
+          { status: 429 }
+        );
+      }
+    } catch {
+      // Kredi servisi geçici erişilemezse sohbeti engelleme — best effort.
+    }
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
     if (lastUserMessage?.content) {
-      const tickerFromContext = pageContext?.type === "ticker" ? pageContext.value : null;
+      const tickerFromContext: string | null = pageContext?.selectedAsset?.symbol || null;
       logSearchHistory(user.id, String(lastUserMessage.content), tickerFromContext).catch(() => {});
     }
 
-    const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id);
+    const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
 
     const result = streamText({
       model: googleProvider("gemini-1.5-flash"),
@@ -159,20 +242,21 @@ export async function POST(req: NextRequest) {
       messages,
       tools: {
         get_top_trending_stocks: tool({
-          description: "Fetches BOGASTOCK.COM site dashboard lists: Trend Hisseleri, İzleme Listem, BOGA AI Watchlist, Top7, or Top100. Call this when user asks for 'trend hisseler', 'izleme listem', 'top7', 'top100', 'boga ai watchlist'.",
+          description: "Fetches BOGASTOCK.COM's 5 distinct site lists: Trend Listesi (trend_stocks), Trend Adayı İzleme Listesi (trend_candidate_watchlist), Kişisel İzleme Listesi (user_watchlist), Top 7 (top_7), or Top 100 (top_100). These are five SEPARATE lists — call with the category that matches exactly what the user asked for.",
           parameters: z.object({
-            category: z.enum(["trend_stocks", "user_watchlist", "boga_ai_watchlist", "top_100", "top_7"]).optional(),
+            category: z.enum(["trend_stocks", "trend_candidate_watchlist", "user_watchlist", "top_100", "top_7"]).optional(),
           }),
           execute: async ({ category }) => {
             try {
-              const cat = category || "trend_stocks";
+              const cat = (category || "trend_stocks") as SiteListCategory;
               const res = await withTimeout(
                 getSiteCategoryStocksList(cat, locale, user.id),
                 5000,
-                { categoryName: "BOGASTOCK Hisseleri", tickers: ["BBIO", "MOD", "JPM", "HWM"], cards: [] }
+                { categoryName: "", tickers: [], cards: [], isFallback: true }
               );
               return {
-                success: true,
+                success: !res.isFallback,
+                isFallback: res.isFallback,
                 categoryName: res.categoryName,
                 tickers: res.tickers || [],
                 stocks: res.cards || [],
@@ -180,11 +264,37 @@ export async function POST(req: NextRequest) {
             } catch (err) {
               console.error("[get_top_trending_stocks] Error:", err);
               return {
-                success: true,
-                categoryName: "BOGASTOCK Canlı Hisseleri",
-                tickers: ["BBIO", "MOD", "JPM", "HWM"],
+                success: false,
+                isFallback: true,
+                categoryName: "",
+                tickers: [],
                 stocks: [],
               };
+            }
+          },
+        }),
+        get_cross_asset_quote: tool({
+          description: "Fetches live Yahoo Finance price data for a terminal sidebar cross-asset: crypto (Bitcoin/BTC, Ethereum/ETH), FX pairs (EURUSD, GBPUSD, USDJPY, USDCHF, AUDUSD, USDCAD), or commodities (Gold, Silver, Oil/WTI, Natural Gas). Do NOT use this for stocks.",
+          parameters: z.object({ asset: z.string().describe("Asset name or symbol, e.g. 'bitcoin', 'EURUSD', 'gold'") }),
+          execute: async ({ asset }) => {
+            try {
+              const quote = await withTimeout(getCrossAssetQuote(asset), 6000, null);
+              if (!quote) return { success: false, error: ct("noStockData", locale) };
+              return { success: true, ...quote };
+            } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
+          },
+        }),
+        get_faq_answer: tool({
+          description: "Looks up the official BOGASTOCK FAQ knowledge base. Call this when the user asks how the platform works, about membership/pricing/payment/cancellation, free trial, data delay, risk, Stop Loss, or the scoring/scanning system — anything that is a general platform question rather than a specific stock analysis.",
+          parameters: z.object({ query: z.string().describe("The user's question, in their own words") }),
+          execute: async ({ query }) => {
+            try {
+              const matches = findFaqMatches(query, locale, 3);
+              return { success: matches.length > 0, matches };
+            } catch (e) {
+              return { success: false, matches: [] };
             }
           },
         }),

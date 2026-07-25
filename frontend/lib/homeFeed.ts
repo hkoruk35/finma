@@ -118,7 +118,9 @@ export async function getTopTrendByVolume(limit = 5): Promise<HomeStock[]> {
     .map(({ ticker, sector, status, price, change_pct, sparkline }) => ({ ticker, sector, status, price, change_pct, sparkline }));
 }
 
-const MAGNIFICENT_7 = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA"];
+// Top 7'nin standart, sabit bileşimi — "sadece zamanlama ile veriler
+// güncellensin" kararı: BOGA Copilot da (stockData.ts) AYNI listeyi kullanır.
+export const MAGNIFICENT_7 = ["NVDA", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA"];
 
 export async function getTopWatchlistByVolume(limit = 5): Promise<HomeStock[]> {
   // Home sayfası 2. sütun (İzleme Listesi): Terminal 7 Büyük hisselerinden 5 tanesi

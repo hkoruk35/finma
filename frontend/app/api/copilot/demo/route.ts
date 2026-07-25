@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     // Check for standard objection responses if user typed free text
     if (userMessage) {
-      for (const key of ["price9", "otherStocks", "cancel"] as const) {
+      for (const key of ["price9", "otherStocks", "cancel", "freeTrial"] as const) {
         const obj = textDef.objections[key];
         if (obj.keywords.some((k) => userMessage.includes(k))) {
           return NextResponse.json({

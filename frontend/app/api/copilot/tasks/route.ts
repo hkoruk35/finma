@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { getMemberAccess } from "@/lib/apiAuth";
 import { getUserTasks, createCopilotTask, cancelCopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { SupportedLocale } from "@/lib/copilot/visitorDemo";
 
@@ -24,6 +25,14 @@ export async function POST(req: NextRequest) {
     const { data: userData } = await supabase.auth.getUser();
     if (!userData?.user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Üyeliği sona ermiş kullanıcı (spec böl. 1.3): kayıtlı görevleri korunur
+    // ama yeni görev oluşturamaz — mevcut görevleri de zaten pasif kalır çünkü
+    // credit gating chat/route.ts'de zaten Gemini çağrısını engelliyor.
+    const access = await getMemberAccess();
+    if (!access.hasAccess) {
+      return NextResponse.json({ error: "Membership required to create new tasks", code: "MEMBERSHIP_REQUIRED" }, { status: 403 });
     }
 
     const body = await req.json();

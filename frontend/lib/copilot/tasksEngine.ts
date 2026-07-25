@@ -13,7 +13,48 @@ export type TaskType =
   | "top_movers_watch"
   | "watchlist_monitoring"
   | "midday_update"
-  | "closing_recap";
+  | "closing_recap"
+  // spec böl. 19.1 — eksik görev türleri
+  | "insider_watch"
+  | "analyst_activity_watch"
+  | "commodity_watch"
+  | "fx_watch"
+  | "crypto_watch"
+  | "personal_watchlist_daily_watch"
+  | "trend_list_change_watch"
+  | "trend_candidate_promotion_watch"
+  | "top7_change_watch"
+  | "top100_change_watch"
+  | "list_intersection_watch";
+
+/** Görev tipinin hangi 5-liste kategorisini izlediği — snapshot/karşılaştırma
+ *  motoru bu eşlemeyi kullanarak getSiteCategoryStocksList'i doğru kategoriyle çağırır. */
+export const LIST_WATCH_TASK_CATEGORY: Partial<Record<TaskType, "trend_stocks" | "trend_candidate_watchlist" | "top_7" | "top_100" | "user_watchlist">> = {
+  personal_watchlist_daily_watch: "user_watchlist",
+  watchlist_monitoring: "user_watchlist",
+  trend_list_change_watch: "trend_stocks",
+  trend_candidate_promotion_watch: "trend_candidate_watchlist",
+  top7_change_watch: "top_7",
+  top100_change_watch: "top_100",
+};
+
+/** Kripto/döviz/emtia artık crossAssetData.ts (Yahoo Finance) ile gerçek veriye
+ *  bağlı — bkz. taskRunner.ts:runCrossAssetWatchTask. Insider/analist filing
+ *  feed'i ve çoklu-liste kesişim izleme için hâlâ gerçek bir kaynak yok; cron
+ *  bunları UYDURMA VERİYLE çalıştırmak yerine dürüstçe "skipped" yazar. */
+export const UNSUPPORTED_TASK_TYPES: ReadonlySet<TaskType> = new Set([
+  "insider_watch",
+  "analyst_activity_watch",
+  "list_intersection_watch",
+]);
+
+/** Bu görev türleri crossAssetData.ts (Yahoo Finance) ile izlenir — subject
+ *  alanı bir varlık adı/sembolü olmalı (örn. "bitcoin", "EURUSD", "gold"). */
+export const CROSS_ASSET_TASK_TYPES: ReadonlySet<TaskType> = new Set([
+  "crypto_watch",
+  "fx_watch",
+  "commodity_watch",
+]);
 
 export interface TaskRunLog {
   idempotency_key: string;

@@ -12,6 +12,16 @@ import { VISITOR_TEXTS, SupportedLocale, DemoMessage } from "@/lib/copilot/visit
 import { buildMemberDailyGreeting, CopilotLang } from "@/lib/copilot/memberPrompts";
 import { TASK_LABELS, CopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { getUSMarketStatus } from "@/lib/copilot/marketSchedule";
+import { buildRoute, RouteKey } from "@/lib/copilot/routes";
+
+const LIST_KEY_TO_ROUTE_KEY: Record<string, RouteKey> = {
+  personal_watchlist: "my_watchlist",
+  trend_list: "trend_list",
+  trend_stocks: "trend_list",
+  trend_candidate_watchlist: "trend_candidate_watchlist",
+  top7: "top7",
+  top100: "top100",
+};
 
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
@@ -41,7 +51,7 @@ export default function CopilotDrawer() {
     isSettingsOpen, setIsSettingsOpen,
     messages, input, handleInputChange, handleSubmit, isLoading,
     pageContext, locale, append, usage, profile, saveProfile,
-    isAuthenticated, error, setMessages,
+    isAuthenticated, member, accessMode, error, setMessages,
   } = useCopilot();
   const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -181,12 +191,16 @@ export default function CopilotDrawer() {
   }, [messages, demoMessages, isLoading, demoLoading]);
 
   const avatar = getAvatar(profile.avatarId);
+  // displayName = asistanın kendi adı/persona'sı (başlıkta ve mesaj balonlarında gösterilir).
+  // Kullanıcının GERÇEK adı DEĞİLDİR — karşılama metninde asla bu kullanılmamalı,
+  // aksi halde bot kendi adıyla kendini karşılıyormuş gibi görünür ("Merhaba Lora!" hatası).
   const displayName = profile.displayName || getSuggestedName(activeLocale);
+  const realUserName = member?.username?.trim() || member?.email?.split("@")[0]?.trim() || null;
 
   const memberLang: CopilotLang = (["tr", "en", "es", "fr", "pt"] as const).includes(activeLocale)
     ? (activeLocale as CopilotLang)
     : "tr";
-  const dailyGreeting = buildMemberDailyGreeting(displayName, favoriteSectors, 0, memberLang);
+  const dailyGreeting = buildMemberDailyGreeting(realUserName, favoriteSectors, 0, memberLang);
 
   const handleCancelTask = async (taskId: string) => {
     setActiveTasks((prev) => prev.filter((t) => t.id !== taskId));
@@ -395,7 +409,10 @@ export default function CopilotDrawer() {
       )}
 
       {/* Copilot Drawer Panel */}
-      <div className={`fixed right-0 top-0 z-[120] flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl transition-transform duration-300 sm:w-[420px] ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+      <div
+        className="fixed top-0 z-[120] flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl sm:w-[420px]"
+        style={{ right: isOpen ? 0 : "-100vw" }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 bg-[#161b22] px-4 py-3 relative shrink-0">
           <div className="flex items-center gap-3">
@@ -839,7 +856,7 @@ export default function CopilotDrawer() {
                     })}
                     {typeof msg.content === "string" && msg.content && (
                       <ReactMarkdown
-                        urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
+                        urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-list://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
                         components={{
                           a: ({ href, children }) => {
                             if (href?.startsWith("copilot://")) {
@@ -848,10 +865,27 @@ export default function CopilotDrawer() {
                                 <button
                                   type="button"
                                   onClick={() => {
-                                    router.push(`/global/${activeLocale}/graphic/${ticker}`);
+                                    router.push(buildRoute("graphic", activeLocale, ticker));
                                     setIsOpen(false);
                                   }}
                                   className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
+                                >
+                                  {children}
+                                </button>
+                              );
+                            }
+                            if (href?.startsWith("copilot-list://")) {
+                              const listKey = href.replace("copilot-list://", "").trim();
+                              const routeKey = LIST_KEY_TO_ROUTE_KEY[listKey];
+                              if (!routeKey) return <span>{children}</span>;
+                              return (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    router.push(buildRoute(routeKey, activeLocale));
+                                    setIsOpen(false);
+                                  }}
+                                  className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
                                 >
                                   {children}
                                 </button>
@@ -890,7 +924,7 @@ export default function CopilotDrawer() {
                             <button
                               type="button"
                               onClick={() => {
-                                router.push(`/global/${activeLocale}/graphic/${ticker}`);
+                                router.push(buildRoute("graphic", activeLocale, ticker));
                                 setIsOpen(false);
                               }}
                               className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-bold uppercase transition-all cursor-pointer"
