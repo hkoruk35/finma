@@ -263,9 +263,9 @@ export type CardParams = StockCardParams | PromoCardParams;
 
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
-  const W = 1200;
-  const H = 760;
-  const PAD = 36;
+  const W = 1400;
+  const H = 880;
+  const PAD = 42;
 
   const isStock = params.kind === "stock";
   const changePositive = isStock && (params.changePct ?? 0) >= 0;

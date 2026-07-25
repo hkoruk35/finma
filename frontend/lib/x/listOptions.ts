@@ -4,7 +4,8 @@
 // ile birlikte tarayıp seçime sunar.
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getSwingPicksBackfilled, getWatchlistPicks } from "@/lib/data";
+import { getSwingPicksBackfilled, getWatchlistPicks, getAllTickers } from "@/lib/data";
+import { groupBySector } from "@/lib/sectorHeatMap";
 
 export type ListOptionCategory = "top100" | "swing" | "watchlist" | "sector" | "index" | "commodity" | "fx" | "crypto";
 
@@ -62,6 +63,23 @@ const CRYPTO: { ticker: string; label: string }[] = [
   { ticker: "SOLUSD", label: "Solana" },
   { ticker: "XRPUSD", label: "XRP" },
 ];
+
+// Sektör ETF ticker'ı -> GICS sektör adı (lib/sectorHeatMap.ts'in SECTOR_ORDER
+// ile eşleşir) — haftalık sektör/endeks analizinde gerçek hisse verisine
+// (getAllTickers/groupBySector) bağlanmak için gerekli.
+const SECTOR_TICKER_TO_GICS: Record<string, string> = {
+  XLK: "Technology",
+  XLF: "Financials",
+  XLV: "Healthcare",
+  XLY: "Consumer Discretionary",
+  XLP: "Consumer Staples",
+  XLE: "Energy",
+  XLI: "Industrials",
+  XLB: "Materials",
+  XLRE: "Real Estate",
+  XLU: "Utilities",
+  XLC: "Communication Services",
+};
 
 const MARKET_ASSET_DEFS: Record<"index" | "sector" | "commodity" | "fx" | "crypto", { ticker: string; label: string }[]> = {
   index: INDICES,
@@ -154,4 +172,67 @@ export async function getListOptions(category: ListOptionCategory): Promise<List
     price: quotes[d.ticker]?.price ?? null,
     changePct: quotes[d.ticker]?.change_1d ?? null,
   }));
+}
+
+// Haftalık sektör analizi için — gerçek hisse verisinden (aynı GICS
+// sektöründeki, siteye kayıtlı tüm ticker'lar) haftanın en iyi performans
+// gösteren 5 hissesini döner (change_pct_1w — sitenin zaten hesaplayıp
+// sakladığı 1 haftalık değişim, bkz. lib/data.ts StockQuickView). AI bu
+// listeden 2-3 tanesini seçip yorumlar — uydurma ticker riski olmadan.
+export async function getSectorStandouts(sectorEtfTicker: string): Promise<{ ticker: string; changePct: number }[]> {
+  const gicsName = SECTOR_TICKER_TO_GICS[sectorEtfTicker.toUpperCase()];
+  if (!gicsName) return [];
+  try {
+    const allTickers = await getAllTickers();
+    const groups = groupBySector(allTickers);
+    const sectorStocks = groups[gicsName] ?? [];
+    return [...sectorStocks]
+      .map((t) => ({ ticker: t.ticker, changePct: t.change_pct_1w ?? t.change_pct }))
+      .filter((t): t is { ticker: string; changePct: number } => typeof t.changePct === "number")
+      .sort((a, b) => b.changePct - a.changePct)
+      .slice(0, 5);
+  } catch (e) {
+    console.error("[x/listOptions] getSectorStandouts failed:", (e as Error).message);
+    return [];
+  }
+}
+
+const YF_HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+  Accept: "application/json",
+};
+
+// /api/quote sadece 1 günlük değişim hesaplıyor (bkz. app/api/quote/route.ts);
+// haftalık sektör rotasyonu için ~5 işlem günü öncesine göre gerçek değişim
+// gerekiyor, bu yüzden burada ayrı bir Yahoo chart isteği ile hesaplanıyor.
+async function fetchWeeklyChangePct(yahooSymbol: string): Promise<number | null> {
+  try {
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?range=1mo&interval=1d`,
+      { headers: YF_HEADERS, signal: AbortSignal.timeout(6000) }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const result = data?.chart?.result?.[0];
+    const closes: number[] = (result?.indicators?.quote?.[0]?.close ?? []).filter((v: any) => typeof v === "number");
+    if (closes.length < 6) return null;
+    const latest = closes[closes.length - 1];
+    const weekAgo = closes[closes.length - 6]; // ~5 işlem günü önce
+    if (!weekAgo) return null;
+    return Math.round(((latest - weekAgo) / weekAgo) * 10000) / 100;
+  } catch {
+    return null;
+  }
+}
+
+// Haftalık endeks analizi için — 11 sektör ETF'inin gerçek ~1 haftalık
+// (5 işlem günü) değişimi, en iyiden en kötüye sıralı. "Para nereye akıyor"
+// yorumunu gerçek sektör rotasyon verisine dayandırmak için kullanılır.
+export async function getSectorRotation(): Promise<{ label: string; changePct: number }[]> {
+  const results = await Promise.all(
+    SECTORS.map(async (s) => ({ label: s.label, changePct: await fetchWeeklyChangePct(s.ticker) }))
+  );
+  return results
+    .filter((s): s is { label: string; changePct: number } => s.changePct != null)
+    .sort((a, b) => b.changePct - a.changePct);
 }

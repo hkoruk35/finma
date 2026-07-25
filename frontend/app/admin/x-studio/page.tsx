@@ -102,6 +102,7 @@ export default function XStudioPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [mode, setMode] = useState<"stock" | "promo" | "list" | "market_asset">("stock");
+  const [weeklyMode, setWeeklyMode] = useState(false);
   const [listType, setListType] = useState<ListType | null>(null);
   const [listTitle, setListTitle] = useState("");
   const [listItems, setListItems] = useState<{ ticker: string; changePct: number }[]>([]);
@@ -244,17 +245,18 @@ export default function XStudioPage() {
     setBusy(false);
   };
 
-  const generateStockText = async (item: PoolItem) => {
+  const generateStockText = async (item: PoolItem, weekly = false) => {
     setBusy(true);
     setError("");
     setSelected(item);
     setMode("stock");
+    setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme, customInstruction: customInstruction.trim() || undefined }),
+      body: JSON.stringify({ contentType: "stock", ticker: item.ticker, company: item.company, sector: item.sector, theme: item.theme, customInstruction: customInstruction.trim() || undefined, weekly }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -270,11 +272,12 @@ export default function XStudioPage() {
 
   // Sektör/endeks/emtia/döviz/kripto kuyruk öğeleri için — hisse kartı
   // (OHLC grafik) yerine promo tipi (metin) kart üretilir, bkz. buildCardParamsFor.
-  const generateMarketAssetText = async (item: PoolItem) => {
+  const generateMarketAssetText = async (item: PoolItem, weekly = false) => {
     setBusy(true);
     setError("");
     setSelected(item);
     setMode("market_asset");
+    setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
@@ -286,6 +289,7 @@ export default function XStudioPage() {
         label: item.company || item.ticker,
         category: item.source,
         customInstruction: customInstruction.trim() || undefined,
+        weekly,
       }),
     });
     const data = await res.json();
@@ -304,6 +308,7 @@ export default function XStudioPage() {
     setError("");
     setSelected(null);
     setMode("promo");
+    setWeeklyMode(false);
     setImageUrl(null);
     setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
@@ -327,6 +332,7 @@ export default function XStudioPage() {
     setError("");
     setSelected(null);
     setMode("list");
+    setWeeklyMode(false);
     setImageUrl(null);
     setMarket(null);
     setListType(type);
@@ -530,7 +536,7 @@ export default function XStudioPage() {
     await loadScheduled();
   };
 
-  const processManualTicker = async () => {
+  const processManualTicker = async (weekly = false) => {
     const tickerToProcess = manualTicker.toUpperCase().trim();
     if (!tickerToProcess) {
       setError("Lütfen bir ticker giriniz.");
@@ -540,12 +546,13 @@ export default function XStudioPage() {
     setError("");
     setSelected(null);
     setMode("stock");
+    setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contentType: "stock", ticker: tickerToProcess, company: null, sector: null, theme: null, customInstruction: customInstruction.trim() || undefined }),
+      body: JSON.stringify({ contentType: "stock", ticker: tickerToProcess, company: null, sector: null, theme: null, customInstruction: customInstruction.trim() || undefined, weekly }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -747,10 +754,18 @@ export default function XStudioPage() {
         <button
           style={{ ...btnStyle, marginTop: 26 }}
           disabled={busy || !manualTicker.trim()}
-          onClick={processManualTicker}
-          title="Kuyruğa eklemeden hemen metin/görsel üretir (tek seferlik önizleme)"
+          onClick={() => processManualTicker(false)}
+          title="Kuyruğa eklemeden hemen kısa günlük metin/görsel üretir (tek seferlik önizleme)"
         >
           Analiz Et
+        </button>
+        <button
+          style={{ ...btnStyle, marginTop: 26, background: "#8b5cf6" }}
+          disabled={busy || !manualTicker.trim()}
+          onClick={() => processManualTicker(true)}
+          title="Sektör/rakip/tema analizi yapan, uzun formatlı haftalık gönderi üretir"
+        >
+          Haftalık Analiz Et
         </button>
       </div>
 
@@ -941,12 +956,25 @@ export default function XStudioPage() {
                   justifyContent: "space-between",
                 }}
               >
-                <div
-                  onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item) : generateStockText(item))}
-                  style={{ display: "flex", justifyContent: "space-between", flex: 1, cursor: "pointer" }}
-                >
+                <div style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0, marginRight: 8 }}>
                   <span>{item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span></span>
-                  <span style={{ opacity: 0.6 }}>{item.sector || item.theme || ""}</span>
+                  <span style={{ opacity: 0.6, fontSize: 11 }}>{item.sector || item.theme || ""}</span>
+                </div>
+                <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
+                  <button
+                    onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item, false) : generateStockText(item, false))}
+                    title="Kısa günlük gönderi üret"
+                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10 }}
+                  >
+                    Günlük
+                  </button>
+                  <button
+                    onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item, true) : generateStockText(item, true))}
+                    title="Sektör/rakip/tema analizi yapan, uzun formatlı haftalık gönderi üret"
+                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10, background: "#8b5cf6" }}
+                  >
+                    Haftalık
+                  </button>
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); deletePoolItem(item.id); }}
@@ -972,6 +1000,9 @@ export default function XStudioPage() {
               : selected
               ? `${selected.ticker} Gönderisi`
               : "Bir hisse veya varlık seçin"}
+            {(mode === "stock" || mode === "market_asset") && weeklyMode && (
+              <span style={{ color: "#8b5cf6", fontSize: 12, marginLeft: 8 }}>(Haftalık Analiz)</span>
+            )}
           </h2>
 
           {mode === "list" && listItems.length > 0 && (

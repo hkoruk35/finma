@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateLocalizedTexts, LOCALES, type Locale, type MarketAssetCategory } from "@/lib/x/generateContent";
 import { fetchTickerMarketData, fetchMarketAssetQuote, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
+import { getSectorStandouts, getSectorRotation } from "@/lib/x/listOptions";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -23,7 +24,14 @@ export async function POST(req: NextRequest) {
 
     if (body.contentType === "market_asset") {
       const category = body.category as MarketAssetCategory;
+      const weekly = !!body.weekly;
       const quote = await fetchMarketAssetQuote(body.ticker);
+
+      const [sectorStandouts, sectorRotation] = await Promise.all([
+        weekly && category === "sector" ? getSectorStandouts(body.ticker) : Promise.resolve(undefined),
+        weekly && category === "index" ? getSectorRotation() : Promise.resolve(undefined),
+      ]);
+
       const texts = await generateLocalizedTexts({
         contentType: "market_asset",
         ticker: body.ticker,
@@ -31,11 +39,16 @@ export async function POST(req: NextRequest) {
         category,
         changePct: quote.changePct ?? undefined,
         customInstruction: body.customInstruction || undefined,
+        weekly,
+        sectorStandouts,
+        sectorRotation,
       });
       return NextResponse.json({
         texts,
         hashtags: buildMarketAssetHashtags(body.ticker, body.label || body.ticker, category),
         quote,
+        sectorStandouts,
+        sectorRotation,
       });
     }
 
@@ -81,6 +94,8 @@ export async function POST(req: NextRequest) {
       rvol: market?.rvol,
       opportunity: market?.opportunity,
       customInstruction: body.customInstruction || undefined,
+      weekly: !!body.weekly,
+      changePct: market?.changePct,
     });
 
     return NextResponse.json({
