@@ -216,7 +216,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[9px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-wider text-slate-500`}>
+            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-[0.5px] text-slate-500`}>
               <div className="flex items-center gap-2">
                 {selectable && <span className="w-3.5 shrink-0" />}
                 <span>{labels.stock}</span>
@@ -262,19 +262,19 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
-                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : disableHoverChart ? (
                           <>
-                            <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : (
                           <>
                             <TickerHoverChart ticker={stock.ticker}>
-                              <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
+                              <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
                             </TickerHoverChart>
-                            <div className="text-[10px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         )}
                       </div>
@@ -296,7 +296,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[13px] font-semibold font-mono ${
                           stock.change_pct >= 0
                             ? 'bg-[#22c55e]/15 text-[#22c55e]'
                             : 'bg-[#ef4444]/15 text-[#ef4444]'

@@ -298,7 +298,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
             onChange={(e) => setSearchQuery(e.target.value.toUpperCase())}
             placeholder={locale === "tr" ? "hisse ara..." : locale === "pt" ? "buscar..." : "search..."}
             maxLength={12}
-            style={{ background: "#161b22", border: `1px solid ${searchQuery ? ACCENT : "#30363d"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
+            style={{ background: searchQuery ? ACCENT + "33" : ACCENT + "1a", border: `1px solid ${searchQuery ? ACCENT : ACCENT + "66"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
           {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (

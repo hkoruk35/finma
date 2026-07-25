@@ -85,7 +85,7 @@ export default function HomeSimpleCard({
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[9px] font-bold uppercase tracking-wider text-white/60`}>
+            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[11px] font-bold uppercase tracking-[0.5px] text-white/60`}>
               <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : locale === 'pt' ? 'AÇÃO / SETOR' : 'STOCK / SECTOR'}</span>
               <span />
               <span className="text-center">{locale === 'tr' ? 'DURUM' : locale === 'pt' ? 'STATUS' : 'STATUS'}</span>
@@ -121,16 +121,16 @@ export default function HomeSimpleCard({
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
-                            <div className="text-[11px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
+                            <div className="text-[12px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         ) : (
                           <>
                             <TickerHoverChart ticker={stock.ticker}>
-                              <div className="font-black text-white text-sm tracking-tight">
+                              <div className="font-black text-white text-[15px] tracking-tight">
                                 {stock.ticker}
                               </div>
                             </TickerHoverChart>
-                            <div className="text-[11px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
+                            <div className="text-[12px] text-white/70 truncate">{sectorLabel(stock.sector)}</div>
                           </>
                         )}
                       </div>
@@ -148,9 +148,9 @@ export default function HomeSimpleCard({
                     </span>
 
                     <div className="text-right">
-                      <div className="font-mono text-sm font-semibold text-white/90">${stock.price.toFixed(2)}</div>
+                      <div className="font-mono text-[14px] font-semibold text-white/90">${stock.price.toFixed(2)}</div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[10px] font-bold font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[13px] font-semibold font-mono ${
                           stock.change_pct >= 0
                             ? 'bg-[#22c55e]/15 text-[#22c55e]'
                             : 'bg-[#ef4444]/15 text-[#ef4444]'

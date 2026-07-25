@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/i18n/copy';
 
@@ -15,6 +16,11 @@ interface Props {
 export default function MobileTerminalLink({ locale, targetHref, children, className, title }: Props) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleClick = (e: React.MouseEvent) => {
     const isMobile = typeof window !== 'undefined' && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
@@ -76,7 +82,7 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
         {children}
       </a>
 
-      {showModal && (
+      {mounted && showModal && createPortal(
         <div className="fixed inset-0 z-[99999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-[#0d1424] border-2 border-amber-500/50 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl shadow-amber-500/10 animate-in fade-in zoom-in-95 duration-200">
             <div className="w-14 h-14 rounded-full bg-amber-500/15 text-amber-400 flex items-center justify-center mx-auto mb-4 border-2 border-amber-500/40">
@@ -105,7 +111,8 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
