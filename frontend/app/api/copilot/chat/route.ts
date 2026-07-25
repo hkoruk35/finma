@@ -56,6 +56,29 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
   ]);
 }
 
+// Geçmiş bir stream kesintisinde (örn. bugünkü model-adı çökmeleri sırasında)
+// istemci tarafında "state: call" olarak asılı kalmış, hiç sonuç almamış araç
+// çağrıları olabilir. Google'ın SDK'sı böyle bir mesajı prompt'a çevirirken
+// AI_MessageConversionError fırlatıp TÜM sohbeti (her model denemesinde aynı
+// şekilde) kilitliyor. Bu asılı kalmış çağrıları/mesajları temizleyerek geçmiş
+// bir kesintinin sohbeti kalıcı olarak bozmasını önler.
+function sanitizeMessages(messages: any[]): any[] {
+  if (!Array.isArray(messages)) return [];
+  return messages
+    .map((m: any) => {
+      if (m?.role === "assistant" && Array.isArray(m.toolInvocations)) {
+        return { ...m, toolInvocations: m.toolInvocations.filter((ti: any) => ti?.state === "result") };
+      }
+      return m;
+    })
+    .filter((m: any) => {
+      const hasContent = typeof m?.content === "string" && m.content.trim().length > 0;
+      const hasResolvedTools = Array.isArray(m?.toolInvocations) && m.toolInvocations.length > 0;
+      if (m?.role === "assistant" && !hasContent && !hasResolvedTools) return false; // yarım kalmış, atılabilir
+      return true;
+    });
+}
+
 async function buildSystemPrompt(
   pageContext: CopilotPageContext | null,
   locale: string,
@@ -189,8 +212,9 @@ SSS (SIKÇA SORULAN SORULAR) — KESİN KURAL:
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { messages, pageContext, locale: rawLocale } = body;
+    const { messages: rawMessages, pageContext, locale: rawLocale } = body;
     const locale = resolveLocale(rawLocale);
+    const messages = sanitizeMessages(rawMessages);
 
     const supabaseAuth = await createSupabaseServerClient();
     const { data: userData } = await supabaseAuth.auth.getUser();
