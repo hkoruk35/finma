@@ -42,6 +42,8 @@ interface PoolItem {
   company: string | null;
   sector: string | null;
   theme: string | null;
+  weekly: boolean;
+  locale: Locale | null;
 }
 
 interface PostRow {
@@ -92,6 +94,12 @@ interface MarketData {
   opportunityLabels: Record<Locale, string>;
 }
 
+interface MarketAssetData {
+  price: number | null;
+  changePct: number | null;
+  bars: OhlcBar[]; // sadece haftalık modda dolu — bkz. buildCardParamsFor
+}
+
 export default function XStudioPage() {
   const [pool, setPool] = useState<PoolItem[]>([]);
   const [posts, setPosts] = useState<PostRow[]>([]);
@@ -108,6 +116,7 @@ export default function XStudioPage() {
   const [listItems, setListItems] = useState<{ ticker: string; changePct: number }[]>([]);
   const [settings, setSettings] = useState<AutomationSettings | null>(null);
   const [market, setMarket] = useState<MarketData | null>(null);
+  const [marketAsset, setMarketAsset] = useState<MarketAssetData | null>(null);
   const [hashtags, setHashtags] = useState("");
   const [manualTicker, setManualTicker] = useState("");
   const [customInstruction, setCustomInstruction] = useState("");
@@ -126,6 +135,10 @@ export default function XStudioPage() {
   const [pickerItems, setPickerItems] = useState<ListOptionItem[]>([]);
   const [pickerLoading, setPickerLoading] = useState(false);
   const [pickerSelected, setPickerSelected] = useState<Set<string>>(new Set());
+  // Kuyruğa eklerken seçilen mod/dil — seçilen tüm öğelere uygulanır,
+  // her öğeyi kuyruğa ekledikten sonra ayrı ayrı ayarlamaya gerek kalmaz.
+  const [pickerWeekly, setPickerWeekly] = useState(false);
+  const [pickerLocale, setPickerLocale] = useState<Locale | "">("");
 
   const loadPool = useCallback(async () => {
     const res = await fetch("/api/admin/x/pool");
@@ -232,7 +245,7 @@ export default function XStudioPage() {
     const res = await fetch("/api/admin/x/pool", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items }),
+      body: JSON.stringify({ items, weekly: pickerWeekly, locale: pickerLocale || undefined }),
     });
     const data = await res.json();
     if (!res.ok) {
@@ -253,6 +266,7 @@ export default function XStudioPage() {
     setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
+    setMarketAsset(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -267,11 +281,13 @@ export default function XStudioPage() {
     setTexts(data.texts);
     setMarket(data.market ?? null);
     setHashtags(data.hashtags ?? "");
+    if (item.locale) setLocale(item.locale);
     setBusy(false);
   };
 
-  // Sektör/endeks/emtia/döviz/kripto kuyruk öğeleri için — hisse kartı
-  // (OHLC grafik) yerine promo tipi (metin) kart üretilir, bkz. buildCardParamsFor.
+  // Sektör/endeks/emtia/döviz/kripto kuyruk öğeleri için — kendi kart
+  // şablonu var (kind: "market_asset", bkz. buildCardParamsFor): haftalık
+  // modda gerçek fiyat grafiği eklenir, günlükte sade fiyat/değişim kartı.
   const generateMarketAssetText = async (item: PoolItem, weekly = false) => {
     setBusy(true);
     setError("");
@@ -280,6 +296,7 @@ export default function XStudioPage() {
     setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
+    setMarketAsset(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -300,6 +317,8 @@ export default function XStudioPage() {
     }
     setTexts(data.texts);
     setHashtags(data.hashtags ?? "");
+    setMarketAsset({ price: data.quote?.price ?? null, changePct: data.quote?.changePct ?? null, bars: data.bars ?? [] });
+    if (item.locale) setLocale(item.locale);
     setBusy(false);
   };
 
@@ -311,6 +330,7 @@ export default function XStudioPage() {
     setWeeklyMode(false);
     setImageUrl(null);
     setMarket(null);
+    setMarketAsset(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -335,6 +355,7 @@ export default function XStudioPage() {
     setWeeklyMode(false);
     setImageUrl(null);
     setMarket(null);
+    setMarketAsset(null);
     setListType(type);
     const res = await fetch("/api/admin/x/generate-list", {
       method: "POST",
@@ -369,6 +390,20 @@ export default function XStudioPage() {
         opportunityLabel: market?.opportunityLabels?.[loc],
         trendLabel: market?.trendLabels?.[loc],
         bars: market?.bars ?? [],
+        headline: texts[loc],
+        locale: loc,
+      };
+    }
+    if (mode === "market_asset" && selected) {
+      return {
+        kind: "market_asset" as const,
+        ticker: selected.ticker,
+        label: selected.company || selected.ticker,
+        category: selected.source as "sector" | "index" | "commodity" | "fx" | "crypto",
+        changePct: marketAsset?.changePct ?? undefined,
+        price: marketAsset?.price ?? undefined,
+        weekly: weeklyMode,
+        bars: marketAsset?.bars ?? [],
         headline: texts[loc],
         locale: loc,
       };
@@ -549,6 +584,7 @@ export default function XStudioPage() {
     setWeeklyMode(weekly);
     setImageUrl(null);
     setMarket(null);
+    setMarketAsset(null);
     const res = await fetch("/api/admin/x/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -563,7 +599,7 @@ export default function XStudioPage() {
     setTexts(data.texts);
     setMarket(data.market ?? null);
     setHashtags(data.hashtags ?? "");
-    setSelected({ id: tickerToProcess, source: "manual" as const, ticker: tickerToProcess, company: null, sector: null, theme: null });
+    setSelected({ id: tickerToProcess, source: "manual" as const, ticker: tickerToProcess, company: null, sector: null, theme: null, weekly, locale: null });
     setBusy(false);
   };
 
@@ -832,6 +868,32 @@ export default function XStudioPage() {
                 </label>
               ))}
             </div>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 10, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 11, opacity: 0.7 }}>Mod:</span>
+              <button
+                onClick={() => setPickerWeekly(false)}
+                style={{ ...btnStyle, background: !pickerWeekly ? ACCENT : "#30363d", color: !pickerWeekly ? "#0d1117" : "#e6edf3" }}
+              >
+                Günlük
+              </button>
+              <button
+                onClick={() => setPickerWeekly(true)}
+                style={{ ...btnStyle, background: pickerWeekly ? "#8b5cf6" : "#30363d", color: "#fff" }}
+              >
+                Haftalık
+              </button>
+              <span style={{ fontSize: 11, opacity: 0.7, marginLeft: 10 }}>Dil:</span>
+              <select
+                value={pickerLocale}
+                onChange={(e) => setPickerLocale(e.target.value as Locale | "")}
+                style={{ ...inputStyle }}
+              >
+                <option value="">Tümü (5 dil üretilir, hepsi arasından seçersin)</option>
+                {LOCALES.map((l) => (
+                  <option key={l} value={l}>{l.toUpperCase()}</option>
+                ))}
+              </select>
+            </div>
             <button
               style={{ ...btnStyle, background: "#22c55e" }}
               disabled={busy || pickerSelected.size === 0}
@@ -957,21 +1019,28 @@ export default function XStudioPage() {
                 }}
               >
                 <div style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0, marginRight: 8 }}>
-                  <span>{item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span></span>
+                  <span>
+                    {item.ticker} <span style={{ opacity: 0.6 }}>({item.source})</span>
+                    {(item.weekly || item.locale) && (
+                      <span style={{ opacity: 0.7, fontSize: 10, marginLeft: 6 }}>
+                        {item.weekly ? "★ Haftalık" : ""}{item.weekly && item.locale ? " · " : ""}{item.locale ? item.locale.toUpperCase() : ""}
+                      </span>
+                    )}
+                  </span>
                   <span style={{ opacity: 0.6, fontSize: 11 }}>{item.sector || item.theme || ""}</span>
                 </div>
                 <div style={{ display: "flex", gap: 4, flexShrink: 0 }}>
                   <button
                     onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item, false) : generateStockText(item, false))}
                     title="Kısa günlük gönderi üret"
-                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10 }}
+                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10, border: !item.weekly ? `1px solid ${ACCENT}` : "none" }}
                   >
                     Günlük
                   </button>
                   <button
                     onClick={() => (MARKET_ASSET_CATEGORIES.has(item.source) ? generateMarketAssetText(item, true) : generateStockText(item, true))}
                     title="Sektör/rakip/tema analizi yapan, uzun formatlı haftalık gönderi üret"
-                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10, background: "#8b5cf6" }}
+                    style={{ ...btnStyle, padding: "4px 8px", fontSize: 10, background: "#8b5cf6", border: item.weekly ? "1px solid #fff" : "none" }}
                   >
                     Haftalık
                   </button>

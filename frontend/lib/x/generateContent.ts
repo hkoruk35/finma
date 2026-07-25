@@ -116,9 +116,11 @@ Return a JSON object with keys: ${LOCALES.join(", ")}, mapping each locale code 
 
     if (input.category === "sector" && input.sectorStandouts?.length) {
       const standoutsLine = input.sectorStandouts.map((s) => `${s.ticker} ${s.changePct >= 0 ? "+" : ""}${s.changePct.toFixed(1)}%`).join(", ");
-      return `Write an in-depth WEEKLY analysis (roughly 600-1100 characters — there's no strict length limit, so use the space to say something genuinely useful, don't pad it) of the ${input.label} sector on BogaStock. This week's ${changeLine} Real standout names from this sector, sorted by performance: ${standoutsLine}.
+      return `Write an in-depth WEEKLY analysis (roughly 600-1100 characters — there's no strict length limit, so use the space to say something genuinely useful, don't pad it) of the ${input.label} SECTOR as a whole on BogaStock. This week's ${changeLine} Real standout names from this sector, sorted by performance: ${standoutsLine}.
 
-Write it as natural flowing prose (not a bullet list), covering: the sector's overall tone/momentum this week; naming and briefly discussing 2-3 of the standout tickers above and what's likely driving them; any broader theme or narrative behind the sector's move (only if genuinely relevant, don't force one); and a clear directional read for the sector heading into next week.
+IMPORTANT — this is a sector-level report, NOT a single-company deep-dive. The bulk of the analysis must stay about the sector as a whole (group tone, breadth, rotation, what's driving the group). The standout tickers are supporting evidence, not the subject: name 2-3 of them in a single clause each (e.g. "led by X and Y") — do not analyze any one company's earnings, guidance, product news, or fundamentals in detail, and do not switch into a stock-picking tone for a single name.
+
+Write it as natural flowing prose (not a bullet list), covering: the sector's overall tone/momentum this week; a brief mention of 2-3 standout tickers above as evidence of that tone; any broader theme or narrative behind the sector's move (only if genuinely relevant, don't force one); and a clear directional read for the sector heading into next week.
 
 Use ONLY the tickers and numbers given above — do not invent additional tickers, numbers, or news.${customLine} Return a JSON object with keys: ${LOCALES.join(", ")}, each value translated/localized naturally (not literal translation) into that language.`;
     }

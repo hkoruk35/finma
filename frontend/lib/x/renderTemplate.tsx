@@ -259,23 +259,59 @@ export interface PromoCardParams {
   locale: string;
 }
 
-export type CardParams = StockCardParams | PromoCardParams;
+// Sektör/endeks/emtia/döviz/kripto gönderileri için — hisse kartından
+// (ticker/company/sector rozetleri) kasıtlı olarak farklı: burada "ticker"
+// ve "company" yerine tek bir varlık adı (label) + sembol var, tek bir
+// kategori rozeti (SEKTÖR/ENDEKS/...) gösterilir. bars sadece haftalık
+// gönderilerde dolu gelir — doluysa mini fiyat grafiği çizilir, günlükte
+// (bars yok) sade fiyat/değişim kartı olarak kalır.
+export interface MarketAssetCardParams {
+  kind: "market_asset";
+  ticker: string; // "XLK", "GOLD", "BTC", "^GSPC" gibi sembol
+  label: string; // "Teknoloji", "Altın", "Bitcoin", "S&P 500" — kullanıcıya gösterilen ad
+  category: "sector" | "index" | "commodity" | "fx" | "crypto";
+  changePct?: number;
+  price?: number;
+  weekly?: boolean;
+  bars?: OhlcBar[];
+  headline: string;
+  locale: string;
+}
+
+export type CardParams = StockCardParams | PromoCardParams | MarketAssetCardParams;
+
+const MARKET_ASSET_CATEGORY_LABEL: Record<MarketAssetCardParams["category"], Record<string, string>> = {
+  sector: { en: "SECTOR", es: "SECTOR", fr: "SECTEUR", pt: "SETOR", tr: "SEKTÖR" },
+  index: { en: "INDEX", es: "ÍNDICE", fr: "INDICE", pt: "ÍNDICE", tr: "ENDEKS" },
+  commodity: { en: "COMMODITY", es: "MATERIA PRIMA", fr: "MATIÈRE PREMIÈRE", pt: "COMMODITY", tr: "EMTİA" },
+  fx: { en: "FOREX", es: "DIVISA", fr: "DEVISE", pt: "CÂMBIO", tr: "DÖVİZ" },
+  crypto: { en: "CRYPTO", es: "CRIPTO", fr: "CRYPTO", pt: "CRIPTO", tr: "KRİPTO" },
+};
+
+const WEEKLY_LABEL: Record<string, string> = { en: "WEEKLY", es: "SEMANAL", fr: "HEBDO", pt: "SEMANAL", tr: "HAFTALIK" };
 
 export async function renderCardPng(params: CardParams): Promise<Buffer> {
   const [font, logo] = await Promise.all([loadFont(), loadLogoDataUri()]);
-  const W = 1400;
-  const H = 880;
-  const PAD = 42;
+  const W = 1200;
+  const H = 760;
+  const PAD = 36;
 
   const isStock = params.kind === "stock";
-  const changePositive = isStock && (params.changePct ?? 0) >= 0;
+  const isMarketAsset = params.kind === "market_asset";
+  const changePositive = (isStock || isMarketAsset) && (params.changePct ?? 0) >= 0;
   const changeColor = changePositive ? COLORS.gain : COLORS.loss;
 
   const chartAreaWidth = W - PAD * 2;
   const priceGutterRight = 140; // sag: fiyat ekseni + guncel fiyat rozeti
   const axisGutterLeft = 54; // sol: kabaca fiyat seviyeleri
   const svgWidth = chartAreaWidth - priceGutterRight - axisGutterLeft;
-  const chart = isStock ? buildChart((params as StockCardParams).bars, svgWidth, 280) : null;
+  const maBars = isMarketAsset ? (params as MarketAssetCardParams).bars : undefined;
+  const hasMaChart = !!(isMarketAsset && maBars && maBars.length > 1);
+  const chart = isStock
+    ? buildChart((params as StockCardParams).bars, svgWidth, 280)
+    : hasMaChart
+    ? buildChart(maBars!, svgWidth, 280)
+    : null;
   const periodChanges = isStock ? computePeriodChanges((params as StockCardParams).bars) : [];
 
   const tree = (
@@ -304,6 +340,12 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
         {isStock && (
           <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
             {params.ticker} · {localizedLabel(DAILY_LABEL, params.locale)}
+          </span>
+        )}
+        {isMarketAsset && (
+          <span style={{ fontSize: 22, fontWeight: 700, opacity: 0.55, letterSpacing: 2, display: "flex" }}>
+            {localizedLabel(MARKET_ASSET_CATEGORY_LABEL[(params as MarketAssetCardParams).category], params.locale)} ·{" "}
+            {(params as MarketAssetCardParams).weekly ? localizedLabel(WEEKLY_LABEL, params.locale) : localizedLabel(DAILY_LABEL, params.locale)}
           </span>
         )}
       </div>
@@ -446,6 +488,78 @@ export async function renderCardPng(params: CardParams): Promise<Buffer> {
               </span>
             )}
           </div>
+        </div>
+      ) : isMarketAsset ? (
+        <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: 12 }}>
+          {chart && (
+            <div style={{ display: "flex", position: "relative", width: chartAreaWidth, height: chart.height + 28 }}>
+              <div style={{ display: "flex", width: axisGutterLeft, height: chart.height }} />
+              <svg width={svgWidth} height={chart.height} viewBox={`0 0 ${svgWidth} ${chart.height}`}>
+                {chart.elements}
+              </svg>
+
+              {chart.priceLabels.map((p, i) => (
+                <span
+                  key={`mapl${i}`}
+                  style={{
+                    position: "absolute",
+                    left: 0,
+                    top: Math.min(Math.max(p.y - 9, 0), chart.priceH - 18),
+                    fontSize: 16,
+                    fontWeight: 600,
+                    opacity: 0.5,
+                    display: "flex",
+                  }}
+                >
+                  {p.text}
+                </span>
+              ))}
+
+              {chart.dateLabels.map((d, i) => (
+                <span
+                  key={`madl${i}`}
+                  style={{
+                    position: "absolute",
+                    left: axisGutterLeft + d.x - 14,
+                    top: chart.height + 9,
+                    fontSize: 13,
+                    fontWeight: 500,
+                    opacity: 0.45,
+                    display: "flex",
+                  }}
+                >
+                  {d.label}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginTop: hasMaChart ? 20 : 0 }}>
+            <span style={{ fontSize: 58, fontWeight: 800, display: "flex" }}>{(params as MarketAssetCardParams).label}</span>
+            <span style={{ fontSize: 28, color: COLORS.text, opacity: 0.6, display: "flex" }}>{params.ticker}</span>
+          </div>
+
+          {(params as MarketAssetCardParams).price != null && (
+            <div style={{ display: "flex", alignItems: "baseline", gap: 16, marginTop: 10 }}>
+              <span style={{ fontSize: 44, fontWeight: 800, display: "flex" }}>
+                {(params as MarketAssetCardParams).category === "fx"
+                  ? (params as MarketAssetCardParams).price!.toFixed(4)
+                  : `$${(params as MarketAssetCardParams).price!.toFixed(2)}`}
+              </span>
+              {params.changePct != null && (
+                <span style={{ fontSize: 34, fontWeight: 800, color: changeColor, display: "flex" }}>
+                  {changePositive ? "+" : ""}
+                  {params.changePct.toFixed(2)}%
+                </span>
+              )}
+            </div>
+          )}
+
+          {!hasMaChart && (
+            <span style={{ fontSize: 32, fontWeight: 700, color: COLORS.text, opacity: 0.9, display: "flex", marginTop: 20, lineHeight: 1.35 }}>
+              {params.headline}
+            </span>
+          )}
         </div>
       ) : (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start", flex: 1, gap: 20 }}>

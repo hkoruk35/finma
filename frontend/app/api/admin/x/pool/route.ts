@@ -17,6 +17,8 @@ const VALID_SOURCES = new Set([
   "watchlist", "sector", "index", "commodity", "fx", "crypto",
 ]);
 
+const VALID_LOCALES = new Set(["en", "es", "fr", "pt", "tr"]);
+
 async function fetchTickerMeta(ticker: string): Promise<{ company: string | null; sector: string | null }> {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com";
   try {
@@ -70,14 +72,18 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}));
 
-  // "Listeden Seç" toplu ekleme: { "items": [{ ticker, source, company?, sector? }, ...] }.
+  // "Listeden Seç" toplu ekleme: { "items": [...], "weekly"?: boolean, "locale"?: "en"|"es"|"fr"|"pt"|"tr" }.
   // Kullanıcının Top100/Trend/Trend Adayları veya Terminal ana sayfasındaki
   // sektör/endeks/emtia/döviz/kripto listelerinden işaretleyip gönderdiği
   // seçim — tek ticker eklemeyle aynı öncelikte (priority=2) kuyruğun
-  // başına girer, zaten bekleyen ticker'lar sessizce atlanır.
+  // başına girer, zaten bekleyen ticker'lar sessizce atlanır. weekly/locale
+  // tüm seçilen öğelere aynı şekilde uygulanır — admin bunu ekleme anında
+  // seçer, her öğeyi ayrı ayrı tekrar ayarlamasına gerek kalmaz.
   if (Array.isArray(body.items) && body.items.length > 0) {
     const incoming = body.items as { ticker: string; source?: string; company?: string | null; sector?: string | null }[];
-    const rows: { source: string; ticker: string; company: string | null; sector: string | null; theme: string | null; priority: number }[] = [];
+    const weekly = !!body.weekly;
+    const locale = VALID_LOCALES.has(body.locale) ? body.locale : null;
+    const rows: { source: string; ticker: string; company: string | null; sector: string | null; theme: string | null; priority: number; weekly: boolean; locale: string | null }[] = [];
     const skipped: string[] = [];
 
     for (const it of incoming) {
@@ -95,7 +101,7 @@ export async function POST(req: NextRequest) {
         skipped.push(ticker);
         continue;
       }
-      rows.push({ source, ticker, company: it.company ?? null, sector: it.sector ?? null, theme: null, priority: 2 });
+      rows.push({ source, ticker, company: it.company ?? null, sector: it.sector ?? null, theme: null, priority: 2, weekly, locale });
     }
 
     if (rows.length === 0) {

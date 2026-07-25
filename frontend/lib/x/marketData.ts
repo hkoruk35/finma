@@ -97,6 +97,48 @@ export function opportunityLabel(locale: string): string {
   return OPPORTUNITY_LABELS[locale] ?? OPPORTUNITY_LABELS.en;
 }
 
+// Sektör/endeks/emtia/döviz/kripto haftalık gönderilerine grafik eklemek
+// için — bunlar sitenin kendi hisse veritabanında olmadığından
+// /api/chart-data kullanılamıyor, doğrudan Yahoo'dan çekilir (bkz.
+// lib/x/listOptions.ts'teki aynı teknik). Sadece haftalık modda çağrılır.
+export async function fetchMarketAssetBars(ticker: string): Promise<OhlcBar[]> {
+  try {
+    const { resolveYahooSymbol } = await import("@/lib/symbols");
+    const yahooSymbol = resolveYahooSymbol(ticker);
+    const res = await fetch(
+      `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(yahooSymbol)}?range=3mo&interval=1d`,
+      {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+          Accept: "application/json",
+        },
+        signal: AbortSignal.timeout(8000),
+      }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    const result = data?.chart?.result?.[0];
+    const quote = result?.indicators?.quote?.[0];
+    const timestamps: number[] = result?.timestamp ?? [];
+    if (!quote || timestamps.length === 0) return [];
+
+    const bars: OhlcBar[] = [];
+    for (let i = 0; i < timestamps.length; i++) {
+      const open = quote.open?.[i];
+      const high = quote.high?.[i];
+      const low = quote.low?.[i];
+      const close = quote.close?.[i];
+      const volume = quote.volume?.[i];
+      if ([open, high, low, close].some((v) => typeof v !== "number")) continue;
+      bars.push({ open, high, low, close, volume: typeof volume === "number" ? volume : 0 });
+    }
+    return bars;
+  } catch (e) {
+    console.error("[x/marketData] market asset bars fetch failed:", (e as Error).message);
+    return [];
+  }
+}
+
 // Sektör/endeks/emtia/döviz/kripto gönderileri için — hisseye özgü
 // EMA/sektör verisine ihtiyaç duymaz, sadece /api/quote'tan anlık fiyat +
 // günlük değişim% çeker (bkz. lib/x/listOptions.ts, aynı uç nokta).

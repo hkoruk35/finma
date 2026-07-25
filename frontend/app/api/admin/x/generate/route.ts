@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateLocalizedTexts, LOCALES, type Locale, type MarketAssetCategory } from "@/lib/x/generateContent";
-import { fetchTickerMarketData, fetchMarketAssetQuote, trendLabel, opportunityLabel } from "@/lib/x/marketData";
+import { fetchTickerMarketData, fetchMarketAssetQuote, fetchMarketAssetBars, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
 import { getSectorStandouts, getSectorRotation } from "@/lib/x/listOptions";
 
@@ -27,9 +27,12 @@ export async function POST(req: NextRequest) {
       const weekly = !!body.weekly;
       const quote = await fetchMarketAssetQuote(body.ticker);
 
-      const [sectorStandouts, sectorRotation] = await Promise.all([
+      // Grafik sadece haftalık gönderilerde ekleniyor — günlük tek cümlelik
+      // gönderiler eskisi gibi metin ağırlıklı kalıyor.
+      const [sectorStandouts, sectorRotation, bars] = await Promise.all([
         weekly && category === "sector" ? getSectorStandouts(body.ticker) : Promise.resolve(undefined),
         weekly && category === "index" ? getSectorRotation() : Promise.resolve(undefined),
+        weekly ? fetchMarketAssetBars(body.ticker) : Promise.resolve<any[]>([]),
       ]);
 
       const texts = await generateLocalizedTexts({
@@ -49,6 +52,7 @@ export async function POST(req: NextRequest) {
         quote,
         sectorStandouts,
         sectorRotation,
+        bars,
       });
     }
 
