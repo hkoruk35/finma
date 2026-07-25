@@ -1159,12 +1159,7 @@ export default function BogaChartEngine({
   return (
     <div
       ref={wrapperRef}
-      // detailMode + mobilde: sabit (fixed) BOGA Copilot butonu ekranın
-      // aynı köşesinde kalıyor, grafiğin altındaki hacim/RSI panelleri tam
-      // kenara kadar uzanınca üzerine biniyordu. Alt boşluk ekleyip butonun
-      // boş alanda kalmasını sağlıyoruz — masaüstünde (md:) buton zaten
-      // bottom-6'da ve bu sorun yok, boşluk kaldırılıyor.
-      className={`flex flex-col w-full h-full ${detailMode ? "pb-24 md:pb-0" : ""}`}
+      className="flex flex-col w-full h-full"
       style={{ background: isFullscreen ? "#0a0e17" : `${NAVY}0d` }}
     >
       <div className="contents">
@@ -1245,11 +1240,22 @@ export default function BogaChartEngine({
             {detailMode && (
               <div className="flex items-center gap-1.5 ml-auto">
                 <div className="relative">
+                  {/* Mobilde: metinsiz, sadece ikon — Tam Ekran ve Çoklu
+                      Grafik butonları mobilde tamamen kaldırıldı (bkz.
+                      altta hidden md:flex), bu yüzden Paylaş artık ilk
+                      satıra sığıyor ve ayrı bir satır kaplamıyor. */}
                   <button
                     onClick={() => setShareOpen((v) => !v)}
-                    className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                    className="flex items-center gap-1 px-2 py-1 md:px-2.5 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                    title={t.share}
                   >
-                    {t.share}
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="18" cy="5" r="3" />
+                      <circle cx="6" cy="12" r="3" />
+                      <circle cx="18" cy="19" r="3" />
+                      <path strokeLinecap="round" d="M8.6 10.5l6.8-3.9M8.6 13.5l6.8 3.9" />
+                    </svg>
+                    <span className="hidden md:inline">{t.share}</span>
                   </button>
                   {shareOpen && (
                     <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
@@ -1276,12 +1282,12 @@ export default function BogaChartEngine({
                 </div>
                 <button
                   onClick={toggleFullscreen}
-                  className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
                   title={t.fullscreen || "Tam Ekran"}
                 >
                   {isFullscreen ? "⛶" : "⛶"}
                 </button>
-                <div className="relative">
+                <div className="relative hidden md:block">
                   <button
                     onClick={() => setMultiChartOpen(v => !v)}
                     className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all ml-1"

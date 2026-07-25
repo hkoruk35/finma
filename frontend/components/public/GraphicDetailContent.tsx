@@ -234,7 +234,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             )}
           </nav>
 
-          <div className="flex items-center gap-1.5 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-nowrap overflow-x-auto scrollbar-hide md:flex-wrap md:overflow-visible">
             {(() => {
               const sl = SHORTCUT_LABELS[locale] || SHORTCUT_LABELS.en;
               const shortcutsItems = [
@@ -248,7 +248,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all uppercase"
+                  className="shrink-0 px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all uppercase"
                 >
                   {s.label}
                 </Link>
