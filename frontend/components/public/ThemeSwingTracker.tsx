@@ -137,8 +137,6 @@ const DAY_LABEL: Record<Locale, string> = { tr: "GÜN", en: "DAY", es: "DÍA", f
 const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align: "left" | "right" }[]> = {
   tr: [
     { label: "TICKER", key: null, align: "left" },
-    { label: "EKLENME", key: null, align: "left" },
-    { label: "GİRİŞ", key: null, align: "left" },
     { label: "SEKTÖR", key: null, align: "left" },
     { label: "FİYAT", key: "price", align: "right" },
     { label: "Δ% 1G", key: "chg1d", align: "right" },
@@ -155,8 +153,6 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
   ],
   en: [
     { label: "TICKER", key: null, align: "left" },
-    { label: "DATE ADDED", key: null, align: "left" },
-    { label: "ENTRY", key: null, align: "left" },
     { label: "SECTOR", key: null, align: "left" },
     { label: "PRICE", key: "price", align: "right" },
     { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -173,8 +169,6 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
   ],
   es: [
     { label: "TICKER", key: null, align: "left" },
-    { label: "AÑADIDO", key: null, align: "left" },
-    { label: "ENTRADA", key: null, align: "left" },
     { label: "SECTOR", key: null, align: "left" },
     { label: "PRECIO", key: "price", align: "right" },
     { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -191,8 +185,6 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
   ],
   fr: [
     { label: "TICKER", key: null, align: "left" },
-    { label: "AJOUTÉ", key: null, align: "left" },
-    { label: "ENTRÉE", key: null, align: "left" },
     { label: "SECTEUR", key: null, align: "left" },
     { label: "PRIX", key: "price", align: "right" },
     { label: "Δ% 1J", key: "chg1d", align: "right" },
@@ -209,8 +201,6 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
   ],
   pt: [
     { label: "TICKER", key: null, align: "left" },
-    { label: "ADICIONADO", key: null, align: "left" },
-    { label: "ENTRADA", key: null, align: "left" },
     { label: "SETOR", key: null, align: "left" },
     { label: "PREÇO", key: "price", align: "right" },
     { label: "Δ% 1D", key: "chg1d", align: "right" },
@@ -471,8 +461,6 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
                           <span>{tk}</span>
                         </TickerHoverChart>
                       </td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>—</td>
-                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 11, whiteSpace: "nowrap" }}>—</td>
                       <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 12 }} title={translateSector(d?.sector, locale)}>{translateSector(d?.sector, locale)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current)}</td>
                       <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
@@ -505,7 +493,7 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
                     </tr>
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
-                        <td colSpan={16} style={{ padding: 0 }}>
+                        <td colSpan={14} style={{ padding: 0 }}>
                           <TickerDetailPanel ticker={tk} locale={locale} />
                         </td>
                       </tr>

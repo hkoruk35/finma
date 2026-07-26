@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 
 interface Props {
   locale: Locale;
@@ -12,47 +13,53 @@ const translations: Record<string, Record<string, string>> = {
     watchlist: "TREND ADAYLARI",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "İZLEME LİSTEM"
+    myWatchlist: "İZLEME LİSTEM",
+    themes: "TEMA"
   },
   en: {
     swing: "TREND",
     watchlist: "TREND CANDIDATES",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MY WATCHLIST"
+    myWatchlist: "MY WATCHLIST",
+    themes: "THEMES"
   },
   es: {
     swing: "TENDENCIA",
     watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MI LISTA"
+    myWatchlist: "MI LISTA",
+    themes: "TEMAS"
   },
   fr: {
     swing: "TENDANCE",
     watchlist: "CANDIDATS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MA LISTE"
+    myWatchlist: "MA LISTE",
+    themes: "THÈMES"
   },
   pt: {
     swing: "TENDÊNCIA",
     watchlist: "CANDIDATOS",
     top7: "TOP 7",
     top100: "TOP 100",
-    myWatchlist: "MINHA LISTA"
+    myWatchlist: "MINHA LISTA",
+    themes: "TEMAS"
   }
 };
 
 export default function ListsNavigation({ locale, activePath }: Props) {
   const t = translations[locale] || translations.en;
-  
+
   const links = [
     { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
     { id: "watchlist", label: t.watchlist, href: `/global/${locale}/watchlist` },
     { id: "top7", label: t.top7, href: `/global/${locale}/top7` },
     { id: "top100", label: t.top100, href: `/global/${locale}/top100` },
-    { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }
+    { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` },
+    { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` }
   ];
 
   return (
