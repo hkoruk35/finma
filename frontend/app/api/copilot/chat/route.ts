@@ -423,7 +423,10 @@ export async function POST(req: NextRequest) {
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
             try {
-              const news = await withTimeout(fetchLiveMarketNews(query, locale), 5000, []);
+              // 5000ms yetersizdi: RSS çekme (2500ms) + başlık çevirisi (4000ms) art
+              // arda çalışabiliyor, dış timeout erken keserse haberler tamamen
+              // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
+              const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
               return { success: true, query, news: news || [] };
             } catch (e) {
               return { success: true, query, news: [] };

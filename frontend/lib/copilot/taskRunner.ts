@@ -12,6 +12,7 @@ import { getSiteCategoryStocksList, getThemeStocksList, getFastStockCardData } f
 import { getHotTheme } from "@/lib/hotThemes2026";
 import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { calculateMaterialityScore } from "@/lib/copilot/materialityScore";
+import { ct } from "@/lib/copilot/i18n";
 
 interface RunResult {
   taskId: string;
@@ -80,10 +81,10 @@ async function recordListSnapshotAndMaybeAlert(
       user_id: task.user_id,
       task_id: task.id,
       severity,
-      title: `${res.categoryName}: liste değişikliği`,
+      title: `${res.categoryName}: ${ct("alertListChanged", task.language)}`,
       body: [
-        entered.length > 0 ? `Girenler: ${entered.join(", ")}` : null,
-        left.length > 0 ? `Çıkanlar: ${left.join(", ")}` : null,
+        entered.length > 0 ? `${ct("alertEntered", task.language)}: ${entered.join(", ")}` : null,
+        left.length > 0 ? `${ct("alertLeft", task.language)}: ${left.join(", ")}` : null,
       ].filter(Boolean).join(" · "),
     });
     return { taskId: task.id, status: "completed", alertCreated: true };
@@ -153,16 +154,19 @@ async function runTickerWatchTask(task: CopilotTask): Promise<RunResult> {
     return { taskId: task.id, status: "completed", alertCreated: false };
   }
 
+  const translatedTrend = (t: string | undefined) =>
+    t === "Bullish" ? ct("trendBullish", task.language) : t === "Bearish" ? ct("trendBearish", task.language) : ct("trendNeutral", task.language);
+
   await supabaseAdmin.from("copilot_alerts").insert({
     user_id: task.user_id,
     task_id: task.id,
     ticker,
     severity: materiality.tier === "critical_alert" ? "critical" : materiality.tier === "instant_alert" ? "high" : "medium",
     materiality_score: materiality.score,
-    title: `${ticker}: ${trendChanged ? "trend değişti" : "BOGA Score değişti"}`,
+    title: `${ticker}: ${trendChanged ? ct("alertTrendChanged", task.language) : ct("alertScoreChanged", task.language)}`,
     body: trendChanged
-      ? `Trend ${prev.trend} -> ${card.trend} olarak güncellendi.`
-      : `BOGA Score ${prev.bogaScore} -> ${card.bogaScore} olarak güncellendi.`,
+      ? ct("alertTrendUpdated", task.language, { prev: translatedTrend(prev.trend), next: translatedTrend(card.trend) })
+      : ct("alertScoreUpdated", task.language, { prev: prev.bogaScore, next: card.bogaScore }),
   });
 
   return { taskId: task.id, status: "completed", alertCreated: true };
@@ -195,8 +199,12 @@ async function runCrossAssetWatchTask(task: CopilotTask): Promise<RunResult> {
     task_id: task.id,
     ticker: quote.yahooSymbol,
     severity: moveSincePrev >= 5 ? "high" : "medium",
-    title: `${quote.label}: %${moveSincePrev.toFixed(1)} hareket`,
-    body: `Fiyat $${prev.price} -> $${quote.price} (${quote.changePct >= 0 ? "+" : ""}${quote.changePct}% günlük).`,
+    title: `${quote.label}: ${ct("alertMove", task.language, { pct: moveSincePrev.toFixed(1) })}`,
+    body: ct("alertPriceUpdated", task.language, {
+      prev: prev.price,
+      next: quote.price,
+      pct: `${quote.changePct >= 0 ? "+" : ""}${quote.changePct}`,
+    }),
   });
   return { taskId: task.id, status: "completed", alertCreated: true };
 }

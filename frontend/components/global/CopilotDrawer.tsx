@@ -1051,7 +1051,7 @@ export default function CopilotDrawer() {
                         const newsItems = result?.news || [];
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-3 rounded-xl border border-blue-500/30 text-xs space-y-2">
-                            <span className="font-bold text-blue-400 flex items-center gap-1.5">📰 Canlı ABD Piyasası ve Haber Akışı ({result?.query || "Wall Street"})</span>
+                            <span className="font-bold text-blue-400 flex items-center gap-1.5">{ct("newsHeader", activeLocale)} ({result?.query || "Wall Street"})</span>
                             <div className="space-y-1.5">
                               {newsItems.map((n: any, i: number) => (
                                 <a key={i} href={n.link} target="_blank" rel="noopener noreferrer" className="block p-1.5 rounded bg-[#141924] hover:bg-blue-600/20 border border-white/5 hover:border-blue-500/40 text-gray-200 hover:text-white transition-all">

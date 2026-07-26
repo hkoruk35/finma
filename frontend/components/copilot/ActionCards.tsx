@@ -41,6 +41,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
   const isBullish = data.trend === "Bullish";
   const trendColor = isBullish ? "text-green-400" : data.trend === "Bearish" ? "text-red-400" : "text-yellow-400";
   const trendBg = isBullish ? "bg-green-500/10 border-green-500/20" : data.trend === "Bearish" ? "bg-red-500/10 border-red-500/20" : "bg-yellow-500/10 border-yellow-500/20";
+  const trendLabel = ct(data.trend === "Bullish" ? "trendBullish" : data.trend === "Bearish" ? "trendBearish" : "trendNeutral", locale);
 
   // GÜVENLİK: geri yüklenen/eksik bir kart verisinde sayısal alanlar undefined
   // olabilir — .toFixed() doğrudan çağrılırsa render çöker (global beyaz ekran).
@@ -55,7 +56,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
           <div className="flex items-center gap-2">
             <h4 className="text-lg font-bold text-white">{data.ticker}</h4>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${trendBg} ${trendColor}`}>
-              {data.trend}
+              {trendLabel}
             </span>
           </div>
           <p className="text-xs text-gray-400 mt-0.5">{data.companyName}</p>

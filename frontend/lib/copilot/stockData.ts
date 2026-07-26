@@ -162,14 +162,22 @@ export type SiteListCategory =
   | "top_100" // BOGA'nın kürasyonlu 100 hisselik havuzu
   | "user_watchlist"; // Kişisel İzleme Listesi (üyeye özel, en fazla 50)
 
-const CATEGORY_NAMES: Record<SiteListCategory, string> = {
-  trend_stocks: "Trend Hisseleri",
-  trend_candidate_watchlist: "Trend Adayı İzleme Listesi",
-  boga_ai_watchlist: "Trend Adayı İzleme Listesi",
-  top_7: "Top 7",
-  top_100: "Top 100",
-  user_watchlist: "İzleme Listem",
-};
+// Kategori adı, sohbetin diline göre değişir — eskiden burada sabit Türkçe
+// bir metin vardı ve İngilizce/İspanyolca/Fransızca/Portekizce sohbetlerde
+// bile hep Türkçe gösteriliyordu (lang parametresi bu isim için hiç
+// kullanılmıyordu).
+function categoryNameFor(category: SiteListCategory, lang: string): string {
+  switch (category) {
+    case "trend_stocks": return ct("categoryTrendStocks", lang);
+    case "trend_candidate_watchlist":
+    case "boga_ai_watchlist":
+      return ct("categoryTrendCandidateWatchlist", lang);
+    case "top_7": return ct("categoryTop7", lang);
+    case "top_100": return ct("categoryTop100", lang);
+    case "user_watchlist": return ct("categoryUserWatchlist", lang);
+    default: return ct("categoryTrendStocks", lang);
+  }
+}
 
 /**
  * Top100 havuzunu (top100_tickers, aktif kayıtlar) gerçek BOGA skoruna göre
@@ -198,7 +206,7 @@ export async function getSiteCategoryStocksList(
 ): Promise<{ categoryName: string; tickers: string[]; cards: CopilotStockCard[]; isFallback: boolean }> {
   let tickers: string[] = [];
   let isFallback = false;
-  const categoryName = CATEGORY_NAMES[category] || CATEGORY_NAMES.trend_stocks;
+  const categoryName = categoryNameFor(category, lang);
 
   try {
     if (category === "user_watchlist") {
