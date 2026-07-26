@@ -18,7 +18,7 @@ export interface HotTheme {
 
 export const HOT_THEMES_2026: HotTheme[] = [
   {
-    slug: "bellek-ureticiler-ai-depolama",
+    slug: "memory-producers-ai-storage",
     number: 1,
     title: "Bellek Üreticiler & AI Depolama",
     accent: "#fde047",
@@ -36,7 +36,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "uzay-temasi",
+    slug: "space",
     number: 2,
     title: "Uzay Teması",
     accent: "#06b6d4",
@@ -55,7 +55,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "fiziksel-ai-humanoid-robotik",
+    slug: "physical-ai-humanoid-robots",
     number: 3,
     title: "Fiziksel AI & Hümanoid Robotik",
     accent: "#22d3ee",
@@ -68,7 +68,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "ai-savunma-drone-otonom-sistemler",
+    slug: "ai-defense-drones-autonomous",
     number: 4,
     title: "AI Savunma, Drone & Otonom Sistemler",
     accent: "#f87171",
@@ -81,7 +81,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "kritik-maden-nadir-toprak",
+    slug: "critical-minerals-rare-earth",
     number: 5,
     title: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
     accent: "#fbbf24",
@@ -94,7 +94,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "nukleer-enerji-ai-guc",
+    slug: "nuclear-energy-ai-power",
     number: 6,
     title: "Nükleer Enerji & AI Güç Altyapısı",
     accent: "#34d399",
@@ -107,7 +107,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "kuantum-bilisim",
+    slug: "quantum-computing",
     number: 7,
     title: "Kuantum Bilişim",
     accent: "#a78bfa",
@@ -120,7 +120,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "ai-ajanlar-kurumsal-yazilim",
+    slug: "ai-agents-enterprise-software",
     number: 8,
     title: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
     accent: "#60a5fa",
@@ -132,7 +132,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "ai-veri-merkezi-sogutma",
+    slug: "ai-datacenter-cooling",
     number: 9,
     title: "AI Veri Merkezi & Soğutma Altyapısı",
     accent: "#2dd4bf",
@@ -145,7 +145,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "post-kuantum-siber-guvenlik",
+    slug: "post-quantum-cybersecurity",
     number: 10,
     title: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
     accent: "#fb7185",
@@ -157,7 +157,7 @@ export const HOT_THEMES_2026: HotTheme[] = [
     ],
   },
   {
-    slug: "fiziksel-ai-yariiletken-cip-ekosistemi",
+    slug: "physical-ai-semiconductor-ecosystem",
     number: 11,
     title: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
     accent: "#38bdf8",
@@ -243,77 +243,77 @@ export function getHotTheme(slug: string): HotTheme | undefined {
 // app/api/admin/x/pool/route.ts). Kart üretiminde seçili arayüz diline göre
 // doğru başlığı göstermek için burada 5 dilde çeviri tablosu tutulur.
 const THEME_TITLE_TRANSLATIONS: Record<string, Record<string, string>> = {
-  "bellek-ureticiler-ai-depolama": {
+  "memory-producers-ai-storage": {
     tr: "Bellek Üreticiler & AI Depolama",
     en: "Memory Makers & AI Storage",
     es: "Fabricantes de Memoria y Almacenamiento IA",
     fr: "Fabricants de Mémoire et Stockage IA",
     pt: "Fabricantes de Memória e Armazenamento IA",
   },
-  "uzay-temasi": {
+  "space": {
     tr: "Uzay Teması",
     en: "Space Theme",
     es: "Tema Espacial",
     fr: "Thème Spatial",
     pt: "Tema Espacial",
   },
-  "fiziksel-ai-humanoid-robotik": {
+  "physical-ai-humanoid-robots": {
     tr: "Fiziksel AI & Hümanoid Robotik",
     en: "Physical AI & Humanoid Robotics",
     es: "IA Física y Robótica Humanoide",
     fr: "IA Physique et Robotique Humanoïde",
     pt: "IA Física e Robótica Humanoide",
   },
-  "ai-savunma-drone-otonom-sistemler": {
+  "ai-defense-drones-autonomous": {
     tr: "AI Savunma, Drone & Otonom Sistemler",
     en: "AI Defense, Drones & Autonomous Systems",
     es: "Defensa IA, Drones y Sistemas Autónomos",
     fr: "Défense IA, Drones et Systèmes Autonomes",
     pt: "Defesa IA, Drones e Sistemas Autônomos",
   },
-  "kritik-maden-nadir-toprak": {
+  "critical-minerals-rare-earth": {
     tr: "Kritik Maden, Nadir Toprak Elementleri & Yarıiletken Malzemeleri",
     en: "Critical Minerals, Rare Earths & Semiconductor Materials",
     es: "Minerales Críticos, Tierras Raras y Materiales Semiconductores",
     fr: "Minéraux Critiques, Terres Rares et Matériaux Semi-conducteurs",
     pt: "Minerais Críticos, Terras Raras e Materiais Semicondutores",
   },
-  "nukleer-enerji-ai-guc": {
+  "nuclear-energy-ai-power": {
     tr: "Nükleer Enerji & AI Güç Altyapısı",
     en: "Nuclear Energy & AI Power Infrastructure",
     es: "Energía Nuclear e Infraestructura Energética IA",
     fr: "Énergie Nucléaire et Infrastructure Électrique IA",
     pt: "Energia Nuclear e Infraestrutura de Energia IA",
   },
-  "kuantum-bilisim": {
+  "quantum-computing": {
     tr: "Kuantum Bilişim",
     en: "Quantum Computing",
     es: "Computación Cuántica",
     fr: "Informatique Quantique",
     pt: "Computação Quântica",
   },
-  "ai-ajanlar-kurumsal-yazilim": {
+  "ai-agents-enterprise-software": {
     tr: "AI Ajanlar & Kurumsal Yazılım Dönüşümü",
     en: "AI Agents & Enterprise Software Transformation",
     es: "Agentes IA y Transformación de Software Empresarial",
     fr: "Agents IA et Transformation Logicielle d'Entreprise",
     pt: "Agentes IA e Transformação de Software Empresarial",
   },
-  "ai-veri-merkezi-sogutma": {
+  "ai-datacenter-cooling": {
     tr: "AI Veri Merkezi & Soğutma Altyapısı",
     en: "AI Data Center & Cooling Infrastructure",
     es: "Centro de Datos IA e Infraestructura de Refrigeración",
     fr: "Centre de Données IA et Infrastructure de Refroidissement",
     pt: "Data Center IA e Infraestrutura de Refrigeração",
   },
-  "post-kuantum-siber-guvenlik": {
+  "post-quantum-cybersecurity": {
     tr: "Post-Kuantum Siber Güvenlik & Egemenlik Güvenliği",
     en: "Post-Quantum Cybersecurity & Sovereign Security",
     es: "Ciberseguridad Poscuántica y Seguridad Soberana",
     fr: "Cybersécurité Post-Quantique et Sécurité Souveraine",
     pt: "Cibersegurança Pós-Quântica e Segurança Soberana",
   },
-  "fiziksel-ai-yariiletken-cip-ekosistemi": {
+  "physical-ai-semiconductor-ecosystem": {
     tr: "Fiziksel AI İçin Yarı İletken Çip Ekosistemi",
     en: "Semiconductor Chip Ecosystem for Physical AI",
     es: "Ecosistema de Chips Semiconductores para IA Física",
