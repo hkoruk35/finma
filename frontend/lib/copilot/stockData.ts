@@ -70,8 +70,12 @@ export async function getRealStockCardData(ticker: string, lang: string = "tr"):
           live.changePct < -1.5 ||
           live.context?.weinstein?.stage === 4 ||
           (card.support && live.price < card.support) ||
-          live.wyckoff?.signal?.toLowerCase().includes("markdown") ||
-          live.wyckoff?.signal?.toLowerCase().includes("düşüş")
+          // "markdown" sadece wyckoff.phase içinde geçer ("Dağılım / Markdown") —
+          // wyckoff.signal'de asla geçmez (GÜÇLÜ BİRİKİM/BİRİKİM/NÖTR/DAĞILIM).
+          // Eskiden .signal kontrol ediliyordu, bu yüzden bu dal hiçbir zaman
+          // tetiklenmiyordu (ölü kod). "düşüş" ayrıca weinstein.label'e ait,
+          // o zaten yukarıdaki stage===4 koşuluyla kapsanıyor.
+          live.wyckoff?.phase?.toLowerCase().includes("markdown")
         ) {
           trend = "Bearish";
         } else if (live.changePct > 1.0 && live.conviction > 65) {

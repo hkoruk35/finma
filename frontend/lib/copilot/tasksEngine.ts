@@ -200,31 +200,42 @@ export const TASK_LABELS: Record<string, any> = {
     headerTitle: "MIS TAREAS ACTIVAS",
     breakBtn: "☕ Descansar",
     muteBtn: "🔕 Silenciar",
-    breakPromptMsg: "☕ Modo Descanso Activo.",
-    taskConfirmedMsg: (subject: string) => `¡Entendido! Seguimiento iniciado para **${subject}**.`,
+    breakPromptMsg: "☕ Modo Descanso Activo. Tus tareas siguen ejecutándose en segundo plano. ¡Puedes descansar la vista!",
+    taskConfirmedMsg: (subject: string) =>
+      `¡Entendido! Seguimiento iniciado para **${subject}**. Se prepararán informes a las 08:45 ET (antes de la apertura), 12:00 ET (mediodía) y 16:15 ET (cierre).`,
     quickChoices: [
       { label: "📊 Ver Resultados de Hoy", action: "task_earnings", type: "earnings_watch", subject: "Resultados Hoy" },
       { label: "🤖 Sector Tecnología e IA", action: "task_tech", type: "sector_analysis", subject: "Tecnología e IA" },
+      { label: "🌅 Resumen Previo a la Apertura", action: "task_premarket", type: "premarket_briefing", subject: "Apertura del Mercado" },
+      { label: "🔥 Acciones Destacadas de Hoy", action: "task_movers", type: "top_movers_watch", subject: "Acciones en Tendencia" },
     ],
   },
   fr: {
     headerTitle: "MES TÂCHES ACTIVES",
     breakBtn: "☕ Pause",
     muteBtn: "🔕 Sourdine",
-    breakPromptMsg: "☕ Mode Pause Actif.",
-    taskConfirmedMsg: (subject: string) => `Reçu ! Suivi activé pour **${subject}**.`,
+    breakPromptMsg: "☕ Mode Pause Actif. Vos tâches continuent de fonctionner en arrière-plan. Reposez vos yeux !",
+    taskConfirmedMsg: (subject: string) =>
+      `Reçu ! Suivi activé pour **${subject}**. Des rapports seront préparés à 08h45 ET (avant ouverture), 12h00 ET (milieu de journée) et 16h15 ET (clôture).`,
     quickChoices: [
       { label: "📊 Suivre les Résultats du Jour", action: "task_earnings", type: "earnings_watch", subject: "Résultats du Jour" },
+      { label: "🤖 Secteur Tech & IA", action: "task_tech", type: "sector_analysis", subject: "Technologie & IA" },
+      { label: "🌅 Résumé Avant Ouverture", action: "task_premarket", type: "premarket_briefing", subject: "Ouverture du Marché" },
+      { label: "🔥 Actions Phares du Jour", action: "task_movers", type: "top_movers_watch", subject: "Actions Tendance" },
     ],
   },
   pt: {
     headerTitle: "MINHAS TAREFAS ATIVAS",
     breakBtn: "☕ Pausa",
     muteBtn: "🔕 Silenciar",
-    breakPromptMsg: "☕ Modo Pausa Ativo.",
-    taskConfirmedMsg: (subject: string) => `Entendido! Acompanhamento iniciado para **${subject}**.`,
+    breakPromptMsg: "☕ Modo Pausa Ativo. Suas tarefas continuam rodando em segundo plano. Você pode descansar os olhos!",
+    taskConfirmedMsg: (subject: string) =>
+      `Entendido! Acompanhamento iniciado para **${subject}**. Relatórios serão preparados às 08:45 ET (pré-abertura), 12:00 ET (meio-dia) e 16:15 ET (fechamento).`,
     quickChoices: [
       { label: "📊 Acompanhar Balanços de Hoje", action: "task_earnings", type: "earnings_watch", subject: "Balanços de Hoje" },
+      { label: "🤖 Setor de Tecnologia & IA", action: "task_tech", type: "sector_analysis", subject: "Tecnologia & IA" },
+      { label: "🌅 Resumo Pré-Mercado", action: "task_premarket", type: "premarket_briefing", subject: "Abertura do Mercado" },
+      { label: "🔥 Ações em Destaque Hoje", action: "task_movers", type: "top_movers_watch", subject: "Ações em Tendência" },
     ],
   },
 };

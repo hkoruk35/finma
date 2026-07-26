@@ -29,6 +29,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   stage3Title: string;
   stage3Buttons: { label: string; id: string }[];
   disclaimer: string;
+  connectionError: string;
   objections: {
     price9: { keywords: string[]; response: string };
     otherStocks: { keywords: string[]; response: string };
@@ -66,6 +67,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "NVIDIA grafiğini yorumla", id: "chart_analysis" },
     ],
     disclaimer: "Bu bir alım veya satım talimatı değildir. Seviyeler, olası senaryoları ve risk koşullarını değerlendirmek amacıyla gösterilmektedir.",
+    connectionError: "Bağlantıda kısa bir kesinti yaşandı. Lütfen tekrar deneyin.",
     objections: {
       price9: {
         keywords: ["9", "usd", "her ay", "dolar"],
@@ -121,6 +123,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Interpret the NVIDIA chart", id: "chart_analysis" },
     ],
     disclaimer: "BOGA AI does not provide investment advice. Levels are shown to evaluate technical scenarios and risk conditions.",
+    connectionError: "There was a brief connection interruption. Please try again.",
     objections: {
       price9: {
         keywords: ["9", "usd", "month", "every"],
@@ -176,6 +179,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Interpretar o gráfico da NVIDIA", id: "chart_analysis" },
     ],
     disclaimer: "A BOGA AI não oferece aconselhamento de investimento. Os níveis são exibidos para avaliar cenários técnicos.",
+    connectionError: "Houve uma breve interrupção na conexão. Por favor, tente novamente.",
     objections: {
       price9: {
         keywords: ["9", "us$", "mês", "todo"],
@@ -231,6 +235,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Interpretar el gráfico de NVIDIA", id: "chart_analysis" },
     ],
     disclaimer: "BOGA AI no ofrece asesoramiento de inversión. Los niveles se muestran para evaluar escenarios técnicos.",
+    connectionError: "Hubo una breve interrupción en la conexión. Por favor, inténtalo de nuevo.",
     objections: {
       price9: {
         keywords: ["9", "usd", "mes", "cada"],
@@ -286,6 +291,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Interpréter le graphique NVIDIA", id: "chart_analysis" },
     ],
     disclaimer: "BOGA AI ne fournit pas de conseils en investissement. Les niveaux sont présentés pour évaluer les scénarios techniques.",
+    connectionError: "Une brève interruption de connexion s'est produite. Veuillez réessayer.",
     objections: {
       price9: {
         keywords: ["9", "usd", "mois", "chaque"],

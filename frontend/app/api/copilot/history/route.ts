@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { ct } from "@/lib/copilot/i18n";
+
+const INTL_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
 
 export async function GET(req: NextRequest) {
+  const rawLocale = req.nextUrl.searchParams.get("locale") || "en";
+  const locale = ["tr", "en", "es", "fr", "pt"].includes(rawLocale) ? rawLocale : "en";
+
   const supabase = await createSupabaseServerClient();
   const { data: userData, error } = await supabase.auth.getUser();
   if (error || !userData?.user) {
@@ -25,7 +31,7 @@ export async function GET(req: NextRequest) {
 
   // Format dated archive entry
   const updatedAt = data?.updated_at ? new Date(data.updated_at) : new Date();
-  const formattedDate = updatedAt.toLocaleDateString("tr-TR", {
+  const formattedDate = updatedAt.toLocaleDateString(INTL_TAG[locale] || INTL_TAG.en, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -34,7 +40,7 @@ export async function GET(req: NextRequest) {
   });
 
   const lastUserMsg = [...messages].reverse().find((m) => m.role === "user");
-  const preview = lastUserMsg?.content ? String(lastUserMsg.content).slice(0, 45) + "..." : "Sohbet Geçmişi";
+  const preview = lastUserMsg?.content ? String(lastUserMsg.content).slice(0, 45) + "..." : ct("chatHistoryFallback", locale);
 
   const archives = messages.length > 0
     ? [

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
 import { VISITOR_TEXTS, SupportedLocale } from "@/lib/copilot/visitorDemo";
+import { ct } from "@/lib/copilot/i18n";
 
 export const maxDuration = 30;
 
@@ -14,11 +15,32 @@ function fmtNum(val: any, decimals = 2): string {
   return isNaN(n) ? "—" : n.toFixed(decimals);
 }
 
+// timeHorizon dahili bir id'dir (few_days/few_weeks/...) — daha önce sadece
+// tr dalında doğal dile çevriliyordu, diğer 4 dilde ham id kullanıcıya
+// gösteriliyordu (örn. "**few_weeks**"). Artık her locale için gerçek metin.
+const HORIZON_TEXT: Record<SupportedLocale, Record<string, string>> = {
+  tr: { few_days: "birkaç günlük", few_weeks: "birkaç haftalık", few_months: "birkaç aylık", long_term: "uzun vadeli", exploring: "genel inceleme" },
+  en: { few_days: "a few days", few_weeks: "a few weeks", few_months: "a few months", long_term: "long-term", exploring: "a general review" },
+  es: { few_days: "unos días", few_weeks: "unas semanas", few_months: "unos meses", long_term: "largo plazo", exploring: "una revisión general" },
+  fr: { few_days: "quelques jours", few_weeks: "quelques semaines", few_months: "quelques mois", long_term: "long terme", exploring: "un examen général" },
+  pt: { few_days: "alguns dias", few_weeks: "algumas semanas", few_months: "alguns meses", long_term: "longo prazo", exploring: "uma análise geral" },
+};
+
+const MOMENTUM_TEXT: Record<SupportedLocale, { rising: string; neutral: string }> = {
+  tr: { rising: "Yükselen Momentum (Güçlü)", neutral: "Dengeli Momentum" },
+  en: { rising: "Rising Momentum (Strong)", neutral: "Balanced Momentum" },
+  es: { rising: "Impulso en Aumento (Fuerte)", neutral: "Impulso Equilibrado" },
+  fr: { rising: "Momentum en Hausse (Fort)", neutral: "Momentum Équilibré" },
+  pt: { rising: "Momento em Alta (Forte)", neutral: "Momento Equilibrado" },
+};
+
 export async function POST(req: NextRequest) {
+  // catch bloğu da doğru dilde hata dönebilsin diye try dışında tanımlanır.
+  let locale: SupportedLocale = "en";
   try {
     const body = await req.json();
     const rawLocale = body.locale;
-    const locale = resolveLocale(rawLocale);
+    locale = resolveLocale(rawLocale);
     const stage = Number(body.stage || 1);
     const primaryInterest = body.primaryInterest || "trend";
     const timeHorizon = body.timeHorizon || "few_weeks";
@@ -53,10 +75,10 @@ export async function POST(req: NextRequest) {
     const support = fmtNum(rawSupport, 2);
     const resistance = fmtNum(cardData?.resistance ?? techData?.nearestResistance ?? 132.00, 2);
     const bogaScore = Math.round(Number(cardData?.bogaScore ?? 84));
-    const trendLabel = cardData?.trend ?? "BULLISH";
+    const trendLabel = ct(cardData?.trend === "Bearish" ? "trendBearish" : cardData?.trend === "Neutral" ? "trendNeutral" : "trendBullish", locale);
     const rsi = fmtNum(techData?.rsi14 ?? 58.2, 1);
-    const momentum = techData?.rsiTrend5d === "rising" ? "Yükselen Momentum (Güçlü)" : "Dengeli Momentum";
-    const riskLevel = cardData?.riskLevel ?? "Orta";
+    const momentum = techData?.rsiTrend5d === "rising" ? MOMENTUM_TEXT[locale].rising : MOMENTUM_TEXT[locale].neutral;
+    const riskLevel = cardData?.riskLevel ?? ct("riskMedium", locale);
     const invalidationLevel = fmtNum(rawSupport * 0.96, 2);
 
     // Stage 2: Question about Time Horizon
@@ -70,11 +92,7 @@ export async function POST(req: NextRequest) {
 
     // Stage 3: Personalized NVDA Analysis (UNLOCKED PREMIUM FEATURES FOR NVDA SHOWCASE)
     if (stage === 3) {
-      let horizonText = "birkaç haftalık";
-      if (timeHorizon === "few_days") horizonText = "birkaç günlük";
-      if (timeHorizon === "few_months") horizonText = "birkaç aylık";
-      if (timeHorizon === "long_term") horizonText = "uzun vadeli";
-      if (timeHorizon === "exploring") horizonText = "genel inceleme";
+      const horizonText = HORIZON_TEXT[locale][timeHorizon] || HORIZON_TEXT[locale].few_weeks;
 
       let analysisContent = "";
       if (locale === "tr") {
@@ -91,43 +109,46 @@ export async function POST(req: NextRequest) {
           `Fiyat **$${resistance}** üzerinde teyit oluşturursa teknik görünüm güçlenebilir. **$${invalidationLevel}** altındaki hareket ise mevcut senaryonun yeniden değerlendirilmesini gerektirebilir.\n\n` +
           `Son adımda hangisini detaylı inceleyelim?`;
       } else if (locale === "pt") {
-        analysisContent = `Entendi. Avaliando a NVIDIA ($NVDA) do ponto de vista de **${timeHorizon}**:\n\n` +
+        analysisContent = `Entendi. Avaliando a NVIDIA ($NVDA) do ponto de vista de **${horizonText}**:\n\n` +
           `*(✨ Estas análises profundas e níveis técnicos são normalmente exclusivos do BOGA Pro/Premium; desbloqueados gratuitamente para a demonstração da NVIDIA ($NVDA).)*\n\n` +
           `• **Tendência Atual:** ${trendLabel}\n` +
           `• **Pontuação BOGA:** ${bogaScore}/100\n` +
           `• **Suporte:** $${support}\n` +
           `• **Resistência:** $${resistance}\n` +
           `• **RSI (14):** ${rsi}\n` +
+          `• **Momentum:** ${momentum}\n` +
           `• **Nível de Risco:** ${riskLevel}\n\n` +
           `Para o horizonte escolhido, o ponto mais importante é a capacidade do preço de permanecer acima de **$${support}**.\n\n` +
           `Um movimento confirmado acima de **$${resistance}** pode fortalecer o cenário técnico. Uma queda abaixo de **$${invalidationLevel}** pode exigir uma nova avaliação.\n\n` +
           `Qual ponto você gostaria de analisar na etapa final?`;
       } else if (locale === "es") {
-        analysisContent = `Entendido. Evaluando NVIDIA ($NVDA) desde la perspectiva de **${timeHorizon}**:\n\n` +
+        analysisContent = `Entendido. Evaluando NVIDIA ($NVDA) desde la perspectiva de **${horizonText}**:\n\n` +
           `*(✨ Estos análisis y niveles técnicos profundos son normalmente exclusivos de BOGA Pro/Premium; desbloqueados gratis para la demostración de NVIDIA ($NVDA).)*\n\n` +
           `• **Tendencia Actual:** ${trendLabel}\n` +
           `• **Puntuación BOGA:** ${bogaScore}/100\n` +
           `• **Zona de Soporte:** $${support}\n` +
           `• **Zona de Resistencia:** $${resistance}\n` +
           `• **RSI (14):** ${rsi}\n` +
+          `• **Momentum:** ${momentum}\n` +
           `• **Nivel de Riesgo:** ${riskLevel}\n\n` +
           `Para el horizonte seleccionado, el punto más importante es que el precio se mantenga por encima de **$${support}**.\n\n` +
           `Un movimiento confirmado por encima de **$${resistance}** podría fortalecer el escenario técnico. Una caída por debajo de **$${invalidationLevel}** exigirá una nueva evaluación.\n\n` +
           `¿Qué punto quieres que analice para terminar?`;
       } else if (locale === "fr") {
-        analysisContent = `Compris. Évaluation de NVIDIA ($NVDA) dans la perspective de **${timeHorizon}** :\n\n` +
+        analysisContent = `Compris. Évaluation de NVIDIA ($NVDA) dans la perspective de **${horizonText}** :\n\n` +
           `*(✨ Ces analyses et niveaux techniques approfondis sont normalement réservés aux membres BOGA Pro/Premium ; débloqués gratuitement pour la présentation NVIDIA ($NVDA).)*\n\n` +
           `• **Tendance Actuelle :** ${trendLabel}\n` +
           `• **Score BOGA :** ${bogaScore}/100\n` +
           `• **Zone de Support :** $${support}\n` +
           `• **Zone de Résistance :** $${resistance}\n` +
           `• **RSI (14) :** ${rsi}\n` +
+          `• **Momentum :** ${momentum}\n` +
           `• **Niveau de Risque :** ${riskLevel}\n\n` +
           `Pour l’horizon choisi, le point le plus important est la capacité du cours à rester au-dessus de **$${support}**.\n\n` +
           `Un mouvement confirmé au-dessus de **$${resistance}** pourrait renforcer le scénario technique.\n\n` +
           `Quel dernier point souhaitez-vous que j’examine ?`;
       } else {
-        analysisContent = `Understood. Evaluating NVIDIA ($NVDA) based on your **${timeHorizon}** position perspective:\n\n` +
+        analysisContent = `Understood. Evaluating NVIDIA ($NVDA) based on your **${horizonText}** position perspective:\n\n` +
           `*(✨ These deep analytics and technical levels are normally exclusive to BOGA Pro/Premium members; unlocked for free as part of our NVIDIA ($NVDA) showcase integration.)*\n\n` +
           `• **Current Trend:** ${trendLabel}\n` +
           `• **BOGA Score:** ${bogaScore}/100\n` +
@@ -255,6 +276,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: any) {
     console.error("[copilot/demo] Error:", err);
-    return NextResponse.json({ error: "Service error" }, { status: 500 });
+    const textDef = VISITOR_TEXTS[locale] || VISITOR_TEXTS.en;
+    return NextResponse.json({ error: textDef.connectionError }, { status: 500 });
   }
 }

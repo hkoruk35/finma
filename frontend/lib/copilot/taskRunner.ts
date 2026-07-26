@@ -176,7 +176,7 @@ async function runCrossAssetWatchTask(task: CopilotTask): Promise<RunResult> {
   const asset = (task.subject || "").trim();
   if (!asset) return { taskId: task.id, status: "skipped", reason: "no_asset_subject", alertCreated: false };
 
-  const quote = await getCrossAssetQuote(asset);
+  const quote = await getCrossAssetQuote(asset, task.language);
   if (!quote) return { taskId: task.id, status: "failed", reason: "cross_asset_source_unavailable", alertCreated: false };
 
   const prev = task.last_snapshot;

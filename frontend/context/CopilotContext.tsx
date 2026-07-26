@@ -115,7 +115,7 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         }
         setIsAuthenticated(true);
         refreshUsage();
-        fetch("/api/copilot/history")
+        fetch(`/api/copilot/history?locale=${locale}`)
           .then((r) => (r.ok ? r.json() : null))
           .then((d) => {
             // Sadece kullanıcı henüz bu sekmede mesaj göndermemişse geri yükle —

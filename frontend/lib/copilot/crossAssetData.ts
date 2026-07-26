@@ -6,6 +6,8 @@
 // GC=F vb.). Google Finance'in genel kullanıma açık bir API'si yok; bu yüzden
 // tek gerçek kaynak olarak Yahoo Finance kullanılıyor.
 
+import { ct } from "@/lib/copilot/i18n";
+
 export type CrossAssetClass = "crypto" | "fx_pair" | "commodity";
 
 export interface CrossAssetQuote {
@@ -22,7 +24,11 @@ export interface CrossAssetQuote {
 }
 
 // Terminal sol barındaki varlıklarla birebir — spec böl. 2.1.
-const KNOWN_ASSETS: Record<string, { label: string; yahooSymbol: string; assetClass: CrossAssetClass }> = {
+// Kripto/döviz etiketleri ("Bitcoin", "EUR/USD") dil-nötr özel isimlerdir,
+// çevrilmez. Emtialar ("Altın", "Gümüş"...) gerçek kelimeler olduğu için
+// labelKey ile i18n.ts'teki ct() sözlüğünden locale'e göre çözülür.
+type CommodityLabelKey = "assetGold" | "assetSilver" | "assetOilWti" | "assetNaturalGas";
+const KNOWN_ASSETS: Record<string, { label: string; labelKey?: CommodityLabelKey; yahooSymbol: string; assetClass: CrossAssetClass }> = {
   BTC: { label: "Bitcoin", yahooSymbol: "BTC-USD", assetClass: "crypto" },
   BITCOIN: { label: "Bitcoin", yahooSymbol: "BTC-USD", assetClass: "crypto" },
   "BTC-USD": { label: "Bitcoin", yahooSymbol: "BTC-USD", assetClass: "crypto" },
@@ -37,18 +43,24 @@ const KNOWN_ASSETS: Record<string, { label: string; yahooSymbol: string; assetCl
   AUDUSD: { label: "AUD/USD", yahooSymbol: "AUDUSD=X", assetClass: "fx_pair" },
   USDCAD: { label: "USD/CAD", yahooSymbol: "USDCAD=X", assetClass: "fx_pair" },
 
-  GOLD: { label: "Altın", yahooSymbol: "GC=F", assetClass: "commodity" },
-  XAU: { label: "Altın", yahooSymbol: "GC=F", assetClass: "commodity" },
-  SILVER: { label: "Gümüş", yahooSymbol: "SI=F", assetClass: "commodity" },
-  XAG: { label: "Gümüş", yahooSymbol: "SI=F", assetClass: "commodity" },
-  OIL: { label: "Petrol (WTI)", yahooSymbol: "CL=F", assetClass: "commodity" },
-  WTI: { label: "Petrol (WTI)", yahooSymbol: "CL=F", assetClass: "commodity" },
-  NATGAS: { label: "Doğal Gaz", yahooSymbol: "NG=F", assetClass: "commodity" },
+  GOLD: { label: "Gold", labelKey: "assetGold", yahooSymbol: "GC=F", assetClass: "commodity" },
+  XAU: { label: "Gold", labelKey: "assetGold", yahooSymbol: "GC=F", assetClass: "commodity" },
+  SILVER: { label: "Silver", labelKey: "assetSilver", yahooSymbol: "SI=F", assetClass: "commodity" },
+  XAG: { label: "Silver", labelKey: "assetSilver", yahooSymbol: "SI=F", assetClass: "commodity" },
+  OIL: { label: "Oil (WTI)", labelKey: "assetOilWti", yahooSymbol: "CL=F", assetClass: "commodity" },
+  WTI: { label: "Oil (WTI)", labelKey: "assetOilWti", yahooSymbol: "CL=F", assetClass: "commodity" },
+  NATGAS: { label: "Natural Gas", labelKey: "assetNaturalGas", yahooSymbol: "NG=F", assetClass: "commodity" },
 };
 
-export function resolveCrossAssetSymbol(input: string): { label: string; yahooSymbol: string; assetClass: CrossAssetClass } | null {
+export function resolveCrossAssetSymbol(input: string, locale: string = "en"): { label: string; yahooSymbol: string; assetClass: CrossAssetClass } | null {
   const key = input.trim().toUpperCase().replace(/[\s/]/g, "");
-  return KNOWN_ASSETS[key] || null;
+  const asset = KNOWN_ASSETS[key];
+  if (!asset) return null;
+  return {
+    label: asset.labelKey ? ct(asset.labelKey, locale) : asset.label,
+    yahooSymbol: asset.yahooSymbol,
+    assetClass: asset.assetClass,
+  };
 }
 
 async function fetchYahooChart(yahooSymbol: string): Promise<any> {
@@ -66,8 +78,8 @@ async function fetchYahooChart(yahooSymbol: string): Promise<any> {
 
 /** BTC/ETH/EURUSD/Gold vb. için gerçek, canlı Yahoo Finance verisi. Uydurma yok —
  *  kaynak erişilemezse null döner, çağıran taraf bunu dürüstçe iletir. */
-export async function getCrossAssetQuote(input: string): Promise<CrossAssetQuote | null> {
-  const resolved = resolveCrossAssetSymbol(input);
+export async function getCrossAssetQuote(input: string, locale: string = "en"): Promise<CrossAssetQuote | null> {
+  const resolved = resolveCrossAssetSymbol(input, locale);
   if (!resolved) return null;
 
   try {

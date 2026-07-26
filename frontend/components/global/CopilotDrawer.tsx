@@ -23,6 +23,8 @@ const LIST_KEY_TO_ROUTE_KEY: Record<string, RouteKey> = {
   top100: "top100",
 };
 
+const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
+
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
   return text.replace(/\$([A-Z]{1,5})\b/g, (_, ticker) => `[$${ticker}](copilot://${ticker})`);
@@ -181,7 +183,7 @@ export default function CopilotDrawer() {
 
   useEffect(() => {
     if (isAuthenticated && isOpen) {
-      fetch("/api/copilot/history")
+      fetch(`/api/copilot/history?locale=${activeLocale}`)
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => {
           if (d?.archives) setArchives(d.archives);
@@ -352,7 +354,7 @@ export default function CopilotDrawer() {
   const handleBreakPrompt = () => {
     setIsTasksOpen(false);
     if (isAuthenticated) {
-      append({ role: "user", content: "Biraz dinlenmek istiyorum." });
+      append({ role: "user", content: ct("msgBreakPrompt", activeLocale) });
     } else {
       setDemoMessages((prev) => [
         ...prev,
@@ -441,7 +443,7 @@ export default function CopilotDrawer() {
       setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || nextStage }]);
       if (data.stage) setDemoStage(data.stage);
     } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Bağlantıda kısa bir kesinti yaşandı. Lütfen tekrar deneyin." }]);
+      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: VISITOR_TEXTS[activeLocale]?.connectionError || VISITOR_TEXTS.en.connectionError }]);
     } finally {
       setDemoLoading(false);
     }
@@ -474,7 +476,7 @@ export default function CopilotDrawer() {
       const data = await res.json();
       setDemoMessages((prev) => [...prev, { id: `assistant-${Date.now()}`, role: "assistant", content: data.reply, buttons: data.buttons, stage: data.stage || demoStage }]);
     } catch {
-      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: "Bağlantıda kısa bir kesinti yaşandı. Lütfen tekrar deneyin." }]);
+      setDemoMessages((prev) => [...prev, { id: `err-${Date.now()}`, role: "assistant", content: VISITOR_TEXTS[activeLocale]?.connectionError || VISITOR_TEXTS.en.connectionError }]);
     } finally {
       setDemoLoading(false);
     }
@@ -536,7 +538,7 @@ export default function CopilotDrawer() {
             <button
               type="button"
               onClick={handleNewChat}
-              title={activeLocale === "tr" ? "Yeni Sohbet Başlat" : "New Chat"}
+              title={ct("tooltipNewChat", activeLocale)}
               className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -564,7 +566,7 @@ export default function CopilotDrawer() {
               <>
                 <button
                   onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
-                  title="Bildirimler"
+                  title={ct("tooltipAlerts", activeLocale)}
                   className={`rounded-full p-2 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -580,7 +582,7 @@ export default function CopilotDrawer() {
 
                 <button
                   onClick={() => { setIsTasksOpen(!isTasksOpen); setIsHistoryOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
-                  title="Akıllı Görevler"
+                  title={ct("tooltipTasks", activeLocale)}
                   className={`rounded-full p-2 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -596,7 +598,7 @@ export default function CopilotDrawer() {
 
                 <button
                   onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsTasksOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
-                  title="Sohbet Arşivi & Geçmiş"
+                  title={ct("tooltipHistory", activeLocale)}
                   className={`rounded-full p-2 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -629,9 +631,9 @@ export default function CopilotDrawer() {
           <div className="absolute top-14 left-3 right-3 z-30 bg-[#121722]/98 border border-blue-500/30 rounded-2xl shadow-2xl p-4 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
               <span className="text-xs font-bold text-gray-200 uppercase tracking-wider">
-                {isAlertsOpen && "🔔 Bildirimler"}
+                {isAlertsOpen && ct("alertsTitle", activeLocale)}
                 {isTasksOpen && `⚡ ${taskDef.headerTitle}`}
-                {isHistoryOpen && "📜 Sohbet Arşivi & Geçmiş"}
+                {isHistoryOpen && ct("historyTitle", activeLocale)}
                 {isSettingsOpen && ct("personalize", activeLocale)}
               </span>
               <button
@@ -653,7 +655,7 @@ export default function CopilotDrawer() {
                       onClick={handleMarkAllAlertsRead}
                       className="text-[9px] font-bold text-blue-300 hover:text-blue-200 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 px-1.5 py-0.5 rounded"
                     >
-                      Tümünü okundu işaretle
+                      {ct("alertsMarkAllRead", activeLocale)}
                     </button>
                   </div>
                 )}
@@ -675,7 +677,7 @@ export default function CopilotDrawer() {
                             {a.title}
                           </span>
                           <span className="text-[9px] text-gray-500 font-mono whitespace-nowrap">
-                            {new Date(a.created_at).toLocaleDateString(activeLocale === "tr" ? "tr-TR" : "en-US", { month: "2-digit", day: "2-digit" })}
+                            {new Date(a.created_at).toLocaleDateString(INTL_DATE_TAG[activeLocale] || INTL_DATE_TAG.en, { month: "2-digit", day: "2-digit" })}
                           </span>
                         </div>
                         {a.body && <p className="text-gray-400 leading-snug">{a.body}</p>}
@@ -683,7 +685,7 @@ export default function CopilotDrawer() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-400 italic">Henüz bir bildirim yok.</p>
+                  <p className="text-xs text-gray-400 italic">{ct("alertsEmpty", activeLocale)}</p>
                 )}
               </div>
             )}
@@ -693,14 +695,14 @@ export default function CopilotDrawer() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center flex-wrap gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-gray-400 font-mono">Aktif Görevler ({activeTasks.length})</span>
+                    <span className="text-[11px] text-gray-400 font-mono">{ct("tasksActiveLabel", activeLocale)} ({activeTasks.length})</span>
                     {activeTasks.length > 0 && (
                       <button
                         type="button"
                         onClick={handleClearAllTasks}
                         className="text-[9px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 px-1.5 py-0.5 rounded cursor-pointer"
                       >
-                        🗑️ Tümünü Temizle
+                        {ct("tasksClearAll", activeLocale)}
                       </button>
                     )}
                   </div>
@@ -713,10 +715,10 @@ export default function CopilotDrawer() {
                       onChange={(e) => setMuteDuration(e.target.value)}
                       className="bg-[#1a2333] border border-blue-500/30 text-xs text-blue-300 rounded px-1.5 py-0.5 focus:outline-none"
                     >
-                      <option value="off">🔕 Bildirimleri Sessize Al</option>
-                      <option value="30m">30 Dakika</option>
-                      <option value="1h">1 Saat</option>
-                      <option value="market_close">Piyasa Kapanışına Kadar</option>
+                      <option value="off">{ct("muteAllNotifications", activeLocale)}</option>
+                      <option value="30m">{ct("mute30Min", activeLocale)}</option>
+                      <option value="1h">{ct("mute1Hour", activeLocale)}</option>
+                      <option value="market_close">{ct("muteUntilClose", activeLocale)}</option>
                     </select>
                   </div>
                 </div>
@@ -728,10 +730,10 @@ export default function CopilotDrawer() {
                       <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2.5 rounded-xl text-xs space-y-1.5">
                         <div className="flex justify-between items-center">
                           <span className="font-extrabold text-white uppercase tracking-wide">
-                            {t.subject || t.task_type.replace(/_/g, " ")} · Günlük Takip
+                            {t.subject || t.task_type.replace(/_/g, " ")} · {ct("taskDailyWatchSuffix", activeLocale)}
                           </span>
                           <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">
-                            Sonraki: {t.schedule?.midday || (marketStatus.isEarlyClose ? "11:15 ET" : "12:00 ET")}
+                            {ct("taskNextLabel", activeLocale)}: {t.schedule?.midday || (marketStatus.isEarlyClose ? "11:15 ET" : "12:00 ET")}
                           </span>
                         </div>
                         <div className="flex items-center gap-2 pt-1 border-t border-white/5">
@@ -739,38 +741,38 @@ export default function CopilotDrawer() {
                             type="button"
                             onClick={() => {
                               setIsTasksOpen(false);
-                              append({ role: "user", content: `${t.subject} son durum raporunu göster.` });
+                              append({ role: "user", content: ct("msgShowTaskReport", activeLocale, { subject: t.subject || "" }) });
                             }}
                             className="text-[10px] font-bold text-cyan-300 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 px-2 py-0.5 rounded"
                           >
-                            ▶️ Raporu Çalıştır / Aç
+                            {ct("taskRunReport", activeLocale)}
                           </button>
                           <button
                             type="button"
                             onClick={() => handleCancelTask(t.id)}
                             className="text-[10px] font-bold text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded border border-red-500/30"
                           >
-                            🗑️ Görevi Sil
+                            {ct("taskDeleteTask", activeLocale)}
                           </button>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-400 italic">Henüz aktif takibe alınmış bir görev bulunmuyor.</p>
+                  <p className="text-xs text-gray-400 italic">{ct("tasksEmpty", activeLocale)}</p>
                 )}
 
                 {/* CUSTOM TASK INPUT FORM (Siz Yazın - 100% Esnek & Dayatmasız!) */}
                 <form onSubmit={handleAddCustomTask} className="pt-3 border-t border-white/10 space-y-2">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">
-                    ➕ Kendi Özel Takip Görevinizi Ekleyin
+                    {ct("customTaskLabel", activeLocale)}
                   </label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={customTaskInput}
                       onChange={(e) => setCustomTaskInput(e.target.value)}
-                      placeholder="Hisse, sektör veya konu yazın (örn: AAPL, Biyoteknoloji, Yarı İletkenler)..."
+                      placeholder={ct("customTaskPlaceholder", activeLocale)}
                       className="flex-1 bg-[#161b22] border border-blue-500/30 focus:border-blue-400 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors"
                     />
                     <button
@@ -778,7 +780,7 @@ export default function CopilotDrawer() {
                       disabled={!customTaskInput.trim()}
                       className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-xs px-3 py-2 rounded-lg transition-colors shadow-sm cursor-pointer whitespace-nowrap"
                     >
-                      + Ekle
+                      {ct("addBtn", activeLocale)}
                     </button>
                   </div>
                 </form>
@@ -786,7 +788,7 @@ export default function CopilotDrawer() {
                 {/* OPTIONAL BROAD CATEGORY SUGGESTIONS */}
                 <div className="pt-2 border-t border-white/5 space-y-1.5">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 font-mono block">
-                    💡 Genel Piyasa Kategorileri (İsteğe Bağlı Hızlı Seçim)
+                    {ct("quickChoicesHeader", activeLocale)}
                   </span>
                   <div className="grid grid-cols-1 gap-1.5 max-h-36 overflow-y-auto">
                     {taskDef.quickChoices.map((choice: any, i: number) => {
@@ -803,7 +805,7 @@ export default function CopilotDrawer() {
                               }}
                               className="px-2 py-0.5 rounded bg-red-500/20 hover:bg-red-500/30 border border-red-500/30 text-red-300 text-[10px] font-bold transition-all"
                             >
-                              ✓ Ekli (Sil)
+                              {ct("quickChoiceRemove", activeLocale)}
                             </button>
                           ) : (
                             <button
@@ -839,7 +841,7 @@ export default function CopilotDrawer() {
                               }}
                               className="px-2 py-0.5 rounded bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 text-blue-300 text-[10px] font-bold transition-all"
                             >
-                              + Ekle
+                              {ct("addBtn", activeLocale)}
                             </button>
                           )}
                         </div>
@@ -854,9 +856,9 @@ export default function CopilotDrawer() {
             {isHistoryOpen && (
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-[11px] text-gray-400">Görüntülenen Oturumlar</span>
+                  <span className="text-[11px] text-gray-400">{ct("historySessionsLabel", activeLocale)}</span>
                   <button type="button" onClick={handleClearHistory} className="text-[10px] font-bold text-red-400 hover:text-red-300 border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 px-2 py-0.5 rounded cursor-pointer">
-                    🗑️ Ekrandan Temizle
+                    {ct("historyClearScreen", activeLocale)}
                   </button>
                 </div>
                 {archives.length > 0 ? (
@@ -865,14 +867,14 @@ export default function CopilotDrawer() {
                       <div key={i} className="bg-[#161b22] border border-white/10 p-2.5 rounded-lg text-xs flex flex-col gap-1">
                         <div className="flex justify-between items-center text-[10px] text-gray-400 font-mono">
                           <span>📅 {arc.date}</span>
-                          <span className="text-blue-400 font-bold">{arc.messageCount} mesaj</span>
+                          <span className="text-blue-400 font-bold">{arc.messageCount} {ct("historyMessageUnit", activeLocale)}</span>
                         </div>
                         <p className="text-gray-200 text-[11px] truncate">{arc.preview}</p>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-500 italic">Henüz kaydedilmiş sohbet arşivi bulunmuyor.</p>
+                  <p className="text-xs text-gray-500 italic">{ct("historyEmpty", activeLocale)}</p>
                 )}
               </div>
             )}
@@ -944,7 +946,7 @@ export default function CopilotDrawer() {
                     {msg.toolInvocations?.map((toolInv: any, idx: number) => {
                       const result = (toolInv as any).result;
                       if (!result) {
-                        return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">Piyasanın nabzını ölçüyorum...</div>;
+                        return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-white/10 text-xs text-gray-500 animate-pulse">{ct("toolLoadingPlaceholder", activeLocale)}</div>;
                       }
                       if (toolInv.toolName === "navigate_to") {
                         return (
@@ -959,7 +961,7 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-3 space-y-3">
                             <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
-                              🔥 {result?.categoryName || "BOGASTOCK Trend Hisseleri"}
+                              🔥 {result?.categoryName || ct("trendingStocksFallback", activeLocale)}
                             </div>
 
                             {tickers.length > 0 && (
@@ -970,12 +972,12 @@ export default function CopilotDrawer() {
                                     type="button"
                                     onClick={() => {
                                       router.push(`/global/${activeLocale}/graphic/${t}`);
-                                      append({ role: "user", content: `${t} hissesini canlı grafiği ile analiz et` });
+                                      append({ role: "user", content: ct("msgAnalyzeTicker", activeLocale, { ticker: t }) });
                                     }}
                                     className="p-2.5 rounded-xl bg-[#141924] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-left font-mono font-bold text-xs text-blue-400 hover:text-white flex items-center justify-between cursor-pointer transition-all active:scale-[0.98]"
                                   >
                                     <span>${t}</span>
-                                    <span className="text-[10px] text-blue-300 font-sans">Grafik & Analiz →</span>
+                                    <span className="text-[10px] text-blue-300 font-sans">{ct("tickerChipSubtitle", activeLocale)}</span>
                                   </button>
                                 ))}
                               </div>
@@ -998,9 +1000,9 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-3 space-y-3">
                             <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
-                              🧩 {result?.themeName || "Tema"}
+                              🧩 {result?.themeName || ct("themeFallback", activeLocale)}
                               {totalCount > tickers.length && (
-                                <span className="text-[10px] font-normal text-gray-500">(ilk {tickers.length} / toplam {totalCount})</span>
+                                <span className="text-[10px] font-normal text-gray-500">{ct("themeTruncationNote", activeLocale, { shown: tickers.length, total: totalCount })}</span>
                               )}
                             </div>
 
@@ -1012,12 +1014,12 @@ export default function CopilotDrawer() {
                                     type="button"
                                     onClick={() => {
                                       router.push(`/global/${activeLocale}/graphic/${t}`);
-                                      append({ role: "user", content: `${t} hissesini canlı grafiği ile analiz et` });
+                                      append({ role: "user", content: ct("msgAnalyzeTicker", activeLocale, { ticker: t }) });
                                     }}
                                     className="p-2.5 rounded-xl bg-[#141924] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-left font-mono font-bold text-xs text-blue-400 hover:text-white flex items-center justify-between cursor-pointer transition-all active:scale-[0.98]"
                                   >
                                     <span>${t}</span>
-                                    <span className="text-[10px] text-blue-300 font-sans">Grafik & Analiz →</span>
+                                    <span className="text-[10px] text-blue-300 font-sans">{ct("tickerChipSubtitle", activeLocale)}</span>
                                   </button>
                                 ))}
                               </div>
@@ -1035,11 +1037,11 @@ export default function CopilotDrawer() {
                       }
                       if (toolInv.toolName === "create_watch_task") {
                         if (!result?.success) {
-                          return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">⚠️ {result?.error || "Görev oluşturulamadı."}</div>;
+                          return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">⚠️ {result?.error || ct("watchTaskCreateFailed", activeLocale)}</div>;
                         }
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-emerald-500/20 text-xs font-mono text-emerald-400">
-                            {result?.alreadyExists ? "✓ Bu görev zaten aktif." : "✓ İzleme görevi oluşturuldu — değişiklik olunca haber verilecek."}
+                            {result?.alreadyExists ? ct("watchTaskAlreadyActive", activeLocale) : ct("watchTaskCreated", activeLocale)}
                           </div>
                         );
                       }
@@ -1211,7 +1213,7 @@ export default function CopilotDrawer() {
                     const parsed = JSON.parse(error.message);
                     if (parsed?.error) return parsed.error;
                   } catch {}
-                  return "Bağlantıda kısa bir kesinti oldu. Tekrar denemek için aşağıdaki butona basın.";
+                  return ct("chatErrorFallback", activeLocale);
                 })()}
               </p>
               <button
@@ -1224,7 +1226,7 @@ export default function CopilotDrawer() {
                 }}
                 className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold cursor-pointer transition-all"
               >
-                🔄 Tekrar Dene
+                {ct("retryBtn", activeLocale)}
               </button>
             </div>
           )}

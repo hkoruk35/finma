@@ -535,7 +535,7 @@ export default function PreOrderClient({ ticker, hideAdminActions = false }: { t
           {/* Conviction Score */}
           <div style={{ background: "#161b22", border: `2px solid ${convictionColor(a.conviction)}33`, borderRadius: 10, padding: "16px" }}>
             <div style={{ fontSize: 10, fontWeight: 900, color: "#8b949e", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 10 }}>
-              Konviksiyon Skoru
+              BOGA Güven Skoru
             </div>
             <div style={{ display: "flex", alignItems: "flex-end", gap: 8, marginBottom: 10 }}>
               <div style={{ fontSize: 52, fontWeight: 900, color: convictionColor(a.conviction), fontFamily: "monospace", lineHeight: 1 }}>

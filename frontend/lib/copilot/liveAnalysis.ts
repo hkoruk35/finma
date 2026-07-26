@@ -44,7 +44,9 @@ async function fetchLiveAnalysisOnce(t: string, lang: string, timeoutMs: number)
 export async function getLiveAnalysis(ticker: string, locale: string = "en"): Promise<LiveAnalysis | null> {
   const t = ticker.trim().toUpperCase();
   if (!t || !/^[A-Z.\-]{1,6}$/.test(t)) return null;
-  const lang = locale === "en" ? "en" : "tr"; // endpoint sadece en/tr metin ayrımı yapar; sayılar dil-nötr
+  // /api/preorder-analysis 5 dili destekler (en/es/fr/pt/tr) — bilinmeyen bir
+  // locale gelirse tr'ye düşer, ama es/fr/pt'yi artık tr'ye ZORLAMAZ.
+  const lang = (["en", "es", "fr", "pt"].includes(locale) ? locale : "tr") as "en" | "es" | "fr" | "pt" | "tr";
   // Kendi kendine (self-referential) HTTP çağrısı — geçici zaman aşımı/soğuk
   // başlatma nedeniyle ilk deneme başarısız olursa (boş dönerse ya da hata/
   // timeout fırlatırsa) tek seferlik yeniden dene. Hedef: "hiçbir ticker

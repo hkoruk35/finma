@@ -103,7 +103,22 @@ async function buildSystemPrompt(
     .map((t) => `- /global/${locale}/themes/${t.slug} (${localizedThemeTitle(t.title, locale) || t.title})`)
     .join("\n");
 
-  let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
+  // Araçlardan dönen veri (kategori adları, haberler, hata mesajları) zaten
+  // locale'e göre çevrilmiş geliyor — ama modelin KENDİ üreteceği serbest
+  // metin için ayrı, açık bir dil talimatı yoksa (özellikle kısa/belirsiz
+  // girişlerde, örn. tek başına bir ticker sembolü) model Türkçeye kayabilir.
+  // Bu talimat her zaman en başta, en güçlü vurguyla verilir.
+  const LANG_DIRECTIVE: Record<string, string> = {
+    tr: "DİL KURALI (EN YÜKSEK ÖNCELİK): Kullanıcının mesajı ne kadar kısa veya belirsiz olursa olsun (örn. sadece bir ticker sembolü veya tek kelime) HER ZAMAN Türkçe yanıt ver.",
+    en: "LANGUAGE RULE (HIGHEST PRIORITY): No matter how short or ambiguous the user's message is (e.g. a bare ticker symbol or a single word), ALWAYS respond in English. Never default to Turkish.",
+    es: "REGLA DE IDIOMA (MÁXIMA PRIORIDAD): Sin importar cuán corto o ambiguo sea el mensaje del usuario (p. ej. solo un símbolo bursátil o una palabra), responde SIEMPRE en español. Nunca uses turco ni inglés por defecto.",
+    fr: "RÈGLE DE LANGUE (PRIORITÉ MAXIMALE) : Quelle que soit la brièveté ou l'ambiguïté du message de l'utilisateur (par ex. un simple symbole boursier ou un seul mot), répondez TOUJOURS en français. Ne basculez jamais vers le turc ou l'anglais par défaut.",
+    pt: "REGRA DE IDIOMA (MÁXIMA PRIORIDADE): Não importa quão curta ou ambígua seja a mensagem do usuário (ex.: apenas um símbolo de ação ou uma única palavra), responda SEMPRE em português. Nunca use turco ou inglês por padrão.",
+  };
+
+  let contextStr = `${LANG_DIRECTIVE[locale] || LANG_DIRECTIVE.en}
+
+SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
 
 TON VE KİBARLIK KURALI:
 - KESİNLİKLE "masasına hoş geldiniz" veya soğuk robotik ifadeler KULLANMA.
@@ -154,9 +169,9 @@ BÖLGE VE BORSA KAPSAMI (KESİNLİKLE İHLAL EDİLEMEZ):
 3. Öncelik: SADECE terminal sol barında listelenen kıymetli madenler (Altın/Gümüş), Forex (EURUSD vb.) ve Kripto (BTC/ETH vb.).
 4. KESİNLİKLE YASAK: Borsa İstanbul (BIST), BIST 30/100 hisseleri veya herhangi bir Avrupa/Asya yerel borsası HAKKINDA YORUM, ANALİZ VEYA HABER ÜRETMEK KESİNLİKLE YASAKTIR. Kullanıcının Türkçe (veya başka bir dilde) yazması BIST'i kastettiği anlamına GELMEZ — dil seçimi sadece yanıtın dilini belirler, piyasa kapsamını DEĞİŞTİRMEZ. Kullanıcı ısrarla BIST/yerel borsa sorarsa, kibarca BOGASTOCK'un ABD piyasalarına odaklandığını açıkla.
 
-FİNANSAL DİL KISITLAMASI (KESİN KURAL):
-- ASLA şu kelimeleri kullanma: "garanti", "risksiz", "kesin kâr", "bu hisse kesinlikle yükselecek/düşecek".
-- Bunun yerine: "görünüm ... güçlenebilir", "senaryo ... altında zayıflayabilir", "teyit hâlâ gerekli", "bu seviye izlenmeye değer", "algoritma şu anda ... olarak belirliyor" gibi ihtiyatlı ifadeler kullan.
+FİNANSAL DİL KISITLAMASI (KESİN KURAL, YANITIN HANGİ DİLDE OLURSA OLSUN GEÇERLİDİR):
+- ASLA şu anlama gelen kelimeleri kullanma (yanıtın dilinde karşılığı ne olursa olsun): "garanti/guarantee/garantía/garantie/garantia", "risksiz/risk-free/sin riesgo/sans risque/sem risco", "kesin kâr/guaranteed profit/ganancia segura/profit garanti/lucro garantido", "bu hisse kesinlikle yükselecek/düşecek (this stock will definitely rise/fall, esta acción subirá/bajará con toda seguridad, cette action va certainement monter/baisser, esta ação vai subir/cair com certeza)".
+- Bunun yerine: "görünüm ... güçlenebilir", "senaryo ... altında zayıflayabilir", "teyit hâlâ gerekli", "bu seviye izlenmeye değer", "algoritma şu anda ... olarak belirliyor" gibi ihtiyatlı ifadelerin yanıtın dilindeki karşılığını kullan.
 - BOGASTOCK bir yatırım danışmanlığı kuruluşu DEĞİLDİR. Nihai işlem kararı, pozisyon büyüklüğü ve risk yönetimi KULLANICIYA aittir — bunu gerektiğinde nazikçe hatırlat.
 - Aktif bir işlem/senaryo planı (destek/direnç/hedef) yoksa PLAN UYDURMA; "şu anda aktif bir işlem kurgusu bulunmuyor, teknik yapı izleme seviyesinde" gibi dürüst bir ifade kullan.
 
@@ -275,10 +290,13 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 }
 
 export async function POST(req: NextRequest) {
+  // catch bloğunun da doğru dilde hata dönebilmesi için try dışında,
+  // gövdeyi henüz okuyamadan patlarsa bile güvenli bir varsayılanla tutulur.
+  let locale = "en";
   try {
     const body = await req.json();
     const { messages: rawMessages, pageContext, locale: rawLocale } = body;
-    const locale = resolveLocale(rawLocale);
+    locale = resolveLocale(rawLocale);
     const messages = sanitizeMessages(rawMessages);
 
     const supabaseAuth = await createSupabaseServerClient();
@@ -398,7 +416,7 @@ export async function POST(req: NextRequest) {
           parameters: z.object({ asset: z.string().describe("Asset name or symbol, e.g. 'bitcoin', 'EURUSD', 'gold'") }),
           execute: async ({ asset }) => {
             try {
-              const quote = await withTimeout(getCrossAssetQuote(asset), 6000, null);
+              const quote = await withTimeout(getCrossAssetQuote(asset, locale), 6000, null);
               if (!quote) return { success: false, error: ct("noStockData", locale) };
               return { success: true, ...quote };
             } catch (e) {
@@ -518,7 +536,14 @@ export async function POST(req: NextRequest) {
 
               if (taskType === "theme_list_change_watch") {
                 if (!subject || !getHotTheme(subject)) {
-                  return { success: false, error: "Unknown theme slug — call get_theme_stocks first to confirm the correct slug." };
+                  const unknownThemeMsg: Record<string, string> = {
+                    tr: "Bilinmeyen tema slug'ı — önce doğru slug'ı teyit etmek için get_theme_stocks aracını çağır.",
+                    en: "Unknown theme slug — call get_theme_stocks first to confirm the correct slug.",
+                    es: "Slug de tema desconocido — llama primero a get_theme_stocks para confirmar el slug correcto.",
+                    fr: "Slug de thème inconnu — appelez d'abord get_theme_stocks pour confirmer le bon slug.",
+                    pt: "Slug de tema desconhecido — chame get_theme_stocks primeiro para confirmar o slug correto.",
+                  };
+                  return { success: false, error: unknownThemeMsg[locale] || unknownThemeMsg.en };
                 }
               }
 
@@ -595,7 +620,7 @@ export async function POST(req: NextRequest) {
     console.error("Copilot POST Exception:", err);
     return NextResponse.json(
       {
-        error: "Bir an bekleyin, hemen tekrar deneyebilirsiniz.",
+        error: ct("genericError", locale),
         code: "GRACEFUL_RECOVERY",
       },
       { status: 500 }
