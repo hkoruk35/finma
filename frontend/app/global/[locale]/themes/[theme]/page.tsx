@@ -4,6 +4,7 @@ import { getHotTheme, HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThem
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
+import { getMasterData } from "@/lib/data";
 
 export const revalidate = 300;
 
@@ -159,6 +160,15 @@ export default async function ThemePage({ params }: Props) {
     })
   );
 
+  // Overlay live prices for theme stocks (if available from master data)
+  let allTickers: any = null;
+  try {
+    const master = await getMasterData();
+    allTickers = master?.allTickers || [];
+  } catch {
+    allTickers = [];
+  }
+
   // Labels for different locales
   const labels: Record<Locale, { title: string; description: string; stocks: string; price: string; change: string; action: string; selectTheme: string }> = {
     tr: {
@@ -269,7 +279,9 @@ export default async function ThemePage({ params }: Props) {
               <tbody>
                 {stockCards.map((stock, idx) => {
                   const card = stock.card;
-                  const changePct = card?.changePct ?? 0;
+                  const tickerData = allTickers?.find((t: any) => t.ticker === stock.ticker);
+                  const changePct = tickerData?.change_pct ?? 0;
+                  const price = tickerData?.price ?? 0;
                   const isPositive = changePct >= 0;
 
                   return (
@@ -283,7 +295,7 @@ export default async function ThemePage({ params }: Props) {
                         </Link>
                       </td>
                       <td className="px-6 py-3 text-white font-semibold">
-                        ${card?.price?.toFixed(2) ?? "N/A"}
+                        ${price > 0 ? price.toFixed(2) : "N/A"}
                       </td>
                       <td className={`px-6 py-3 font-semibold ${isPositive ? "text-[#3fb950]" : "text-[#f85149]"}`}>
                         {isPositive ? "+" : ""}{changePct.toFixed(2)}%
