@@ -3,8 +3,7 @@ import Link from "next/link";
 import { getHotTheme, HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThemes2026";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import { getRealStockCardData } from "@/lib/copilot/stockData";
-import { getAllTickers } from "@/lib/data";
+import ThemeSwingTracker from "@/components/public/ThemeSwingTracker";
 
 export const revalidate = 300;
 
@@ -147,77 +146,7 @@ export default async function ThemePage({ params }: Props) {
 
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const themeDescription = THEME_DESCRIPTIONS[theme]?.[locale as Locale] || "";
-
-  // Fetch card data for all stocks in the theme
-  const stockCards = await Promise.all(
-    hotTheme.stocks.map(async (stock) => {
-      try {
-        const card = await getRealStockCardData(stock.ticker, locale as Locale);
-        return { ...stock, card };
-      } catch {
-        return { ...stock, card: null };
-      }
-    })
-  );
-
-  // Fetch ticker data for live prices
-  let allTickers: any = [];
-  try {
-    allTickers = await getAllTickers();
-  } catch {
-    allTickers = [];
-  }
-
-  // Labels for different locales
-  const labels: Record<Locale, { title: string; description: string; stocks: string; price: string; change: string; action: string; selectTheme: string }> = {
-    tr: {
-      title: "Temalar",
-      description: "Tematik Analiz",
-      stocks: "Hisseler",
-      price: "Fiyat",
-      change: "Değişim",
-      action: "Analiz Et",
-      selectTheme: "Tema Seç",
-    },
-    en: {
-      title: "Themes",
-      description: "Thematic Analysis",
-      stocks: "Stocks",
-      price: "Price",
-      change: "Change",
-      action: "Analyze",
-      selectTheme: "Select Theme",
-    },
-    es: {
-      title: "Temas",
-      description: "Análisis Temático",
-      stocks: "Acciones",
-      price: "Precio",
-      change: "Cambio",
-      action: "Analizar",
-      selectTheme: "Seleccionar Tema",
-    },
-    fr: {
-      title: "Thèmes",
-      description: "Analyse Thématique",
-      stocks: "Actions",
-      price: "Prix",
-      change: "Changement",
-      action: "Analyser",
-      selectTheme: "Sélectionner le Thème",
-    },
-    pt: {
-      title: "Temas",
-      description: "Análise Temática",
-      stocks: "Ações",
-      price: "Preço",
-      change: "Mudança",
-      action: "Analisar",
-      selectTheme: "Selecionar Tema",
-    },
-  };
-
-  const l = labels[locale as Locale];
+  const themeTickers = hotTheme.stocks.map((stock) => stock.ticker);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -257,61 +186,8 @@ export default async function ThemePage({ params }: Props) {
           </div>
         </div>
 
-        {/* Stocks Grid/Table */}
-        <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[#30363d] bg-[#161b22]">
-                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">Ticker</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.price}</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.change}</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">Description</th>
-                  <th className="px-6 py-3 text-center text-xs font-bold text-slate-400 uppercase">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stockCards.map((stock, idx) => {
-                  const card = stock.card;
-                  const tickerData = allTickers?.find((t: any) => t.ticker === stock.ticker);
-                  const changePct = tickerData?.change_pct ?? 0;
-                  const price = tickerData?.price ?? 0;
-                  const isPositive = changePct >= 0;
-
-                  return (
-                    <tr key={stock.ticker} className={idx % 2 === 0 ? "bg-[#0d1117]" : "bg-[#161b22]"}>
-                      <td className="px-6 py-3">
-                        <Link
-                          href={`/global/${locale}/graphic/${stock.ticker}`}
-                          className="font-bold text-[#58a6ff] hover:underline"
-                        >
-                          {stock.ticker}
-                        </Link>
-                      </td>
-                      <td className="px-6 py-3 text-white font-semibold">
-                        ${price > 0 ? price.toFixed(2) : "N/A"}
-                      </td>
-                      <td className={`px-6 py-3 font-semibold ${isPositive ? "text-[#3fb950]" : "text-[#f85149]"}`}>
-                        {isPositive ? "+" : ""}{changePct.toFixed(2)}%
-                      </td>
-                      <td className="px-6 py-3 text-slate-400 text-xs">
-                        {stock.blurb}
-                      </td>
-                      <td className="px-6 py-3 text-center">
-                        <Link
-                          href={`/global/${locale}/graphic/${stock.ticker}`}
-                          className="inline-block px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-bold text-xs rounded hover:bg-[#79c0ff] transition-colors"
-                        >
-                          {l.action}
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        {/* Stocks Table — same layout/columns as the Daily Trend Tracker (/swing) */}
+        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} />
       </main>
 
       <Footer hidePlatform={true} locale={locale as Locale} />
