@@ -139,7 +139,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
         const mapped: Stock[] = picks.map(p => {
           const d = liveMap[p.ticker];
           const signal = d?.tracker_1h?.signal;
-          const status: TrendStatus = signal === 'BUY' ? 'BULLISH' : signal === 'SELL' ? 'BEARISH' : 'NEUTRAL';
+          const status: TrendStatus = signal === 'STRONG' ? 'BULLISH' : signal === 'WEAK' ? 'BEARISH' : 'NEUTRAL';
           return {
             ticker: p.ticker,
             sector: d?.sector ?? p.sector ?? '',

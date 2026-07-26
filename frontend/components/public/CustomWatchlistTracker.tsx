@@ -23,9 +23,9 @@ interface HourlyBar {
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
 
-const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
-const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
-const ROW_BG: Record<string, string> = { BUY: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", SELL: "#0f1117" };
+const SIGNAL_ICON: Record<string, string> = { STRONG: "●", WATCH: "◑", HOLD: "○", WEAK: "✕" };
+const SIGNAL_COLOR: Record<string, string> = { STRONG: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", WEAK: "#f85149" };
+const ROW_BG: Record<string, string> = { STRONG: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", WEAK: "#0f1117" };
 
 interface WatchlistRow {
   ticker: string;
@@ -103,8 +103,8 @@ function isMarketOpen() {
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
 }
 
-const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1 };
-const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İzle", HOLD: "Bekle", SELL: "SAT" };
+const SIGNAL_RANK: Record<string, number> = { STRONG: 4, WATCH: 3, HOLD: 2, WEAK: 1 };
+const SIGNAL_LABEL_TR: Record<string, string> = { STRONG: "Güçlü", WATCH: "İzle", HOLD: "Bekle", WEAK: "Zayıf" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
 export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {

@@ -10,14 +10,16 @@ export function translatePattern(pattern: string | null | undefined, locale: Loc
   return (copy[locale].top100.patterns as Record<string, string>)[pattern] ?? pattern;
 }
 
+// Not: BUY/SELL (AL/SAT vb.) hiçbir listede kullanılmaz — bir yatırım
+// tavsiyesi gibi okunur. Motor artık bunun yerine STRONG/WEAK döner.
 export function translateSignal(signal: string | null | undefined, locale: Locale): string {
   if (!signal) return "—";
   const signalMap: Record<string, Record<string, string>> = {
-    en: { BUY: "BUY", WATCH: "WATCH", HOLD: "HOLD", SELL: "SELL" },
-    tr: { BUY: "AL", WATCH: "İZLE", HOLD: "BEKLE", SELL: "SAT" },
-    es: { BUY: "COMPRAR", WATCH: "VIGILAR", HOLD: "MANTENER", SELL: "VENDER" },
-    fr: { BUY: "ACHETER", WATCH: "SURVEILLER", HOLD: "CONSERVER", SELL: "VENDRE" },
-    pt: { BUY: "COMPRAR", WATCH: "OBSERVAR", HOLD: "MANTER", SELL: "VENDER" },
+    en: { STRONG: "STRONG", WATCH: "WATCH", HOLD: "HOLD", WEAK: "WEAK" },
+    tr: { STRONG: "GÜÇLÜ", WATCH: "İZLE", HOLD: "BEKLE", WEAK: "ZAYIF" },
+    es: { STRONG: "FUERTE", WATCH: "VIGILAR", HOLD: "MANTENER", WEAK: "DÉBIL" },
+    fr: { STRONG: "FORT", WATCH: "SURVEILLER", HOLD: "CONSERVER", WEAK: "FAIBLE" },
+    pt: { STRONG: "FORTE", WATCH: "OBSERVAR", HOLD: "MANTER", WEAK: "FRACO" },
   };
   return (signalMap[locale] ?? signalMap.en)[signal] ?? signal;
 }

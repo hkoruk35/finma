@@ -27,7 +27,7 @@ const FEATURES = [
       </svg>
     ),
     title: "Hourly Bot Updates",
-    desc: "Our automated pipeline refreshes EMA, RSI and BUY/SELL signals every hour during market hours.",
+    desc: "Our automated pipeline refreshes EMA, RSI and trend signals every hour during market hours.",
   },
   {
     icon: (
@@ -50,23 +50,23 @@ const FEATURES = [
 ];
 
 const SIGNAL_BADGES = [
-  { label: "BUY", cls: "bg-green-500/15 border-green-500/50 text-green-400" },
-  { label: "SELL", cls: "bg-red-500/15 border-red-500/50 text-red-400" },
+  { label: "STRONG", cls: "bg-green-500/15 border-green-500/50 text-green-400" },
+  { label: "WEAK", cls: "bg-red-500/15 border-red-500/50 text-red-400" },
   { label: "WATCH", cls: "bg-amber-500/15 border-amber-500/50 text-amber-400" },
   { label: "WAIT", cls: "bg-white/5 border-white/15 text-white/40" },
 ];
 
 const SAMPLE_ROWS = [
-  { ticker: "NVDA", company: "NVIDIA Corp", price: "1,086.42", chg: "+2.34%", rsi: "62.1", signal: "BUY", swing: true },
+  { ticker: "NVDA", company: "NVIDIA Corp", price: "1,086.42", chg: "+2.34%", rsi: "62.1", signal: "STRONG", swing: true },
   { ticker: "AAPL", company: "Apple Inc.", price: "189.30", chg: "+0.87%", rsi: "54.7", signal: "WATCH", swing: false },
   { ticker: "MSFT", company: "Microsoft Corp", price: "412.50", chg: "-0.31%", rsi: "48.2", signal: "WAIT", swing: false },
-  { ticker: "META", company: "Meta Platforms", price: "481.73", chg: "+1.52%", rsi: "67.4", signal: "BUY", swing: true },
-  { ticker: "TSLA", company: "Tesla Inc.", price: "248.50", chg: "-1.23%", rsi: "38.9", signal: "SELL", swing: false },
+  { ticker: "META", company: "Meta Platforms", price: "481.73", chg: "+1.52%", rsi: "67.4", signal: "STRONG", swing: true },
+  { ticker: "TSLA", company: "Tesla Inc.", price: "248.50", chg: "-1.23%", rsi: "38.9", signal: "WEAK", swing: false },
 ];
 
 const SIGNAL_STYLE: Record<string, string> = {
-  BUY: "bg-green-500/15 border-green-500/50 text-green-400",
-  SELL: "bg-red-500/15 border-red-500/50 text-red-400",
+  STRONG: "bg-green-500/15 border-green-500/50 text-green-400",
+  WEAK: "bg-red-500/15 border-red-500/50 text-red-400",
   WATCH: "bg-amber-500/15 border-amber-500/50 text-amber-400",
   WAIT: "bg-white/5 border-white/15 text-white/40",
 };

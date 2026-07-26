@@ -11,6 +11,7 @@ import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "
 import { getSuggestedName } from "@/lib/copilot/persona";
 import { getMasterData } from "@/lib/data";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
+import { getTradePlanSummary } from "@/lib/copilot/liveAnalysis";
 import { isRealTicker } from "@/lib/copilot/tickerValidation";
 import { ct } from "@/lib/copilot/i18n";
 import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
@@ -173,7 +174,12 @@ FİNANSAL DİL KISITLAMASI (KESİN KURAL, YANITIN HANGİ DİLDE OLURSA OLSUN GE�
 - ASLA şu anlama gelen kelimeleri kullanma (yanıtın dilinde karşılığı ne olursa olsun): "garanti/guarantee/garantía/garantie/garantia", "risksiz/risk-free/sin riesgo/sans risque/sem risco", "kesin kâr/guaranteed profit/ganancia segura/profit garanti/lucro garantido", "bu hisse kesinlikle yükselecek/düşecek (this stock will definitely rise/fall, esta acción subirá/bajará con toda seguridad, cette action va certainement monter/baisser, esta ação vai subir/cair com certeza)".
 - Bunun yerine: "görünüm ... güçlenebilir", "senaryo ... altında zayıflayabilir", "teyit hâlâ gerekli", "bu seviye izlenmeye değer", "algoritma şu anda ... olarak belirliyor" gibi ihtiyatlı ifadelerin yanıtın dilindeki karşılığını kullan.
 - BOGASTOCK bir yatırım danışmanlığı kuruluşu DEĞİLDİR. Nihai işlem kararı, pozisyon büyüklüğü ve risk yönetimi KULLANICIYA aittir — bunu gerektiğinde nazikçe hatırlat.
-- Aktif bir işlem/senaryo planı (destek/direnç/hedef) yoksa PLAN UYDURMA; "şu anda aktif bir işlem kurgusu bulunmuyor, teknik yapı izleme seviyesinde" gibi dürüst bir ifade kullan.
+
+İŞLEM KURGUSU / TRADE PLAN KURALI (KESİN, TEK KAYNAK — SİTE İLE BİREBİR TUTARLILIK):
+- Kullanıcı bir hissenin işlem kurgusunu, giriş/giriş aralığını, giriş tetiğini (trigger), stop-loss'unu, hedef (TP1/TP2/TP3) seviyelerini veya risk/ödül oranını sorduğunda MUTLAKA 'get_trade_plan' aracını çağır. Bu araç, o hissenin kendi Grafik/Detay sayfasındaki "İŞLEM KURGUSU GEREKÇESİ" bloğuyla BİREBİR AYNI motordan (tek kaynak) gelir.
+- BU ARAÇ DIŞINDA ASLA giriş/stop/hedef sayısı üretme veya "X direncinin üzerinde kalıcılık" gibi kendi kurguladığın bir tetik seviyesi uydurma — 'get_technical_levels'ın nearestSupport/nearestResistance alanları GENEL pivot seviyeleridir, işlem kurgusu için KULLANILMAZ ve gerçek giriş/stop/hedef ile ÇELİŞEBİLİR.
+- Aracın döndürdüğü entryLow–entryHigh HER ZAMAN bir ARALIK olarak sunulur (tek nokta değil); avgEntry sadece aralığın orta noktasıdır, tek başına "giriş fiyatı" gibi sunma. stopPrice/stopRationale ve targets[] (TP1-3) ile birlikte, varsa entryCondition ve rationale (EMA/VWAP/hacim/RSI) metinlerini KENDİ CÜMLENLE ÖZETLEYEBİLİRSİN ama rakamları asla değiştirme.
+- Araç "valid:false" dönerse (net bir uzun pozisyon kurgusu yok), rakam uydurmadan "şu anda aktif/net bir işlem kurgusu bulunmuyor, teknik yapı izleme seviyesinde" gibi dürüst bir ifade kullan.
 
 VERİ TAZELİĞİ DİLİ (KESİN KURAL):
 - Teknik/fiyat verisi için ASLA "anlık", "gerçek zamanlı" DEME. Bunun yerine "güncel piyasa görünümü", "yaklaşık 15 dakika gecikmeli fiyat verisi", "saatlik teknik güncelleme" gibi ifadeler kullan.
@@ -191,9 +197,9 @@ A. AÇ BELIRLEME (Stratejileri bilmem için gerekli):
    Seçilirse, zaman dilimindeki TÜM parametreleri (support/resistance/target, OHLC, volume) anımsa.
 
 B. ZAMAN DİLİMİ SEÇME (Grafik Analizi):
-   - Günlük (1D) zaman dilimi → Uzun vadeli/orta vadeli giriş noktaları ve trend
-   - 4 Saatlik (4H) zaman dilimi → Kısa vadeli pozisyon ve scalping
-   Kullanıcı seçince, MUTLAKA 'get_technical_levels' aracını ilgili ticker ve timeframe ile çağır.
+   - Günlük (1D) zaman dilimi → Uzun vadeli/orta vadeli trend ve genel teknik yapı
+   - 4 Saatlik (4H) zaman dilimi → Kısa vadeli pozisyon ve scalping bağlamı
+   Kullanıcı seçince, MUTLAKA 'get_technical_levels' aracını ilgili ticker ve timeframe ile çağır. Ama somut bir GİRİŞ NOKTASI/ARALIĞI, stop veya hedef sorulursa (veya bu akış "işlem kurgusu" sorusuna bağlıysa), bunun için AYRICA 'get_trade_plan' aracını çağır — get_technical_levels'ın seviyeleri bunun yerine geçmez.
 
 C. MUM PADERNİ VE HACİM ANALİZİ:
    - Son 5-20 mumun paternini, hacim profilini, breakout/breakdown sinyallerini analiz et.
@@ -284,7 +290,8 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 4. Trend Hisseleri, İzleme Listem, Trend Adayı, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
 5. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle (en fazla 3).
 6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.
-7. Fiyat, teknik seviye, bilanço rakamı, haber, insider işlemi, analist notu veya BOGA Score'u ASLA uydurma — sadece araçlardan dönen gerçek veriyi kullan. Araç veri döndürmezse, bunu dürüstçe belirt.`;
+7. Fiyat, teknik seviye, bilanço rakamı, haber, insider işlemi, analist notu veya BOGA Score'u ASLA uydurma — sadece araçlardan dönen gerçek veriyi kullan. Araç veri döndürmezse, bunu dürüstçe belirt.
+8. İşlem kurgusu/giriş/stop/hedef sorulduğunda MUTLAKA 'get_trade_plan' aracını çağır — bkz. yukarıdaki İŞLEM KURGUSU / TRADE PLAN KURALI. Bu araç dışında başka bir araçtan (ör. get_technical_levels) türetilmiş sayılarla işlem kurgusu ANLATMA.`;
 
   return contextStr;
 }
@@ -494,13 +501,26 @@ export async function POST(req: NextRequest) {
           },
         }),
         get_technical_levels: tool({
-          description: "Fetches live price, support/resistance, RSI(14), 5-day trends, volume vs average percentage, and Weinstein stage.",
+          description: "Fetches live price, support/resistance, RSI(14), 5-day trends, volume vs average percentage, and Weinstein stage. Do NOT use this tool's support/resistance numbers to describe a trade setup/entry/stop/target — call 'get_trade_plan' for that instead.",
           parameters: z.object({ ticker: z.string() }),
           execute: async ({ ticker }) => {
             try {
               const levels = await withTimeout(getTechnicalLevels(ticker), 5000, null);
               if (!levels) return { success: false, error: ct("noStockData", locale) };
               return { success: true, ...levels };
+            } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
+          },
+        }),
+        get_trade_plan: tool({
+          description: "Fetches BOGASTOCK's single-source trade plan for a stock — the EXACT same entry zone, stop-loss, TP1-3 targets, and EMA/VWAP/volume/RSI rationale text shown in the 'İŞLEM KURGUSU GEREKÇESİ' section of the stock's own chart/detail page. This is the ONLY allowed source for describing a trade setup, entry trigger, stop-loss, or profit target for a stock — never derive these from get_technical_levels or your own reasoning.",
+          parameters: z.object({ ticker: z.string() }),
+          execute: async ({ ticker }) => {
+            try {
+              const plan = await withTimeout(getTradePlanSummary(ticker, locale), 6000, null);
+              if (!plan) return { success: false, error: ct("noStockData", locale) };
+              return { success: true, ...plan };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
             }

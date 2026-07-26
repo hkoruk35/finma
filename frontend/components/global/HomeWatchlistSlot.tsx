@@ -152,8 +152,8 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
     const signal = d?.tracker_1h?.signal;
     const emaStatus = d?.tracker_1h?.ema_status;
     let status: TrendStatus = 'NEUTRAL';
-    if (signal === 'BUY' || emaStatus === 'Bullish' || emaStatus === 'Yükseliş') status = 'BULLISH';
-    else if (signal === 'SELL' || emaStatus === 'Bearish' || emaStatus === 'Düşüş') status = 'BEARISH';
+    if (signal === 'STRONG' || emaStatus === 'Bullish' || emaStatus === 'Yükseliş') status = 'BULLISH';
+    else if (signal === 'WEAK' || emaStatus === 'Bearish' || emaStatus === 'Düşüş') status = 'BEARISH';
     return {
       ticker,
       sector: d?.sector && d.sector !== 'Unknown' ? d.sector : 'Technology',

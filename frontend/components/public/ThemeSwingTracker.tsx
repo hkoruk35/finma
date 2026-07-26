@@ -7,6 +7,7 @@ import { translateEMAStatus, translatePattern, translateSector, translateSignal 
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -20,9 +21,9 @@ interface HourlyBar {
   volume_ratio: number | null;
 }
 
-const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
-const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
-const ROW_BG: Record<string, string> = { BUY: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", SELL: "#0f1117" };
+const SIGNAL_ICON: Record<string, string> = { STRONG: "●", WATCH: "◑", HOLD: "○", WEAK: "✕" };
+const SIGNAL_COLOR: Record<string, string> = { STRONG: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", WEAK: "#f85149" };
+const ROW_BG: Record<string, string> = { STRONG: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", WEAK: "#0f1117" };
 
 interface LiveData {
   ticker: string;
@@ -74,7 +75,7 @@ function isMarketOpen() {
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
 }
 
-const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1 };
+const SIGNAL_RANK: Record<string, number> = { STRONG: 4, WATCH: 3, HOLD: 2, WEAK: 1 };
 
 const CHART_DETAIL_LABEL: Record<Locale, string> = {
   tr: "Grafik Detay ↗", en: "Chart Detail ↗", es: "Detalle de Gráfico ↗", fr: "Détail Graphique ↗", pt: "Detalhe de Gráfico ↗",
@@ -217,13 +218,39 @@ const COLUMN_HEADERS: Record<Locale, { label: string; key: string | null; align:
   ],
 };
 
+const PREMIUM_LABEL: Record<Locale, string> = {
+  tr: "Premium", en: "Premium", es: "Premium", fr: "Premium", pt: "Premium",
+};
+
+const PREMIUM_LOCK_MESSAGE: Record<Locale, string> = {
+  tr: "Bu temanın canlı hisse tablosu Premium üyelere özeldir. Ücretsiz olarak açık olan tema için üstteki listeden ilk temaya göz atabilirsiniz.",
+  en: "This theme's live stock table is exclusive to Premium members. The first theme in the list above is free to browse.",
+  es: "La tabla de acciones en vivo de este tema es exclusiva para miembros Premium. El primer tema de la lista superior es de acceso gratuito.",
+  fr: "Le tableau boursier en direct de ce thème est réservé aux membres Premium. Le premier thème de la liste ci-dessus est en accès libre.",
+  pt: "A tabela de ações ao vivo deste tema é exclusiva para membros Premium. O primeiro tema da lista acima é de acesso gratuito.",
+};
+
+const PREMIUM_CTA_LABEL: Record<Locale, string> = {
+  tr: "Üye Ol", en: "Sign Up", es: "Regístrate", fr: "S'inscrire", pt: "Cadastre-se",
+};
+
+function registerHrefFor(locale: Locale): string {
+  return locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
+}
+
 interface ThemeSwingTrackerProps {
   locale: Locale;
   tickers: string[];
+  isFirstTheme?: boolean;
 }
 
-export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTrackerProps) {
+export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = false }: ThemeSwingTrackerProps) {
   const t = copy[locale].top100;
+  const { isPremium, loading: memberLoading } = useMemberPlan();
+  // Sadece ilk tema (havuzun public "vitrini") uye olmayanlara acik — digerleri
+  // Premium kilitli. loading bitene kadar kilitlemiyoruz (BogaChartEngine'in
+  // premiumGate deseniyle ayni, ani "kilitli->acik" titremesini onlemek icin).
+  const locked = !isFirstTheme && !isPremium && !memberLoading;
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -264,10 +291,17 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
   }, [tickers, t.error]);
 
   useEffect(() => {
+    // Uye olmayan ziyaretci icin kilitli (ilk tema disi) bir sayfada canlı
+    // veriyi hic cekmeyelim — hem gereksiz istek hem de kilitli ekranda
+    // gosterilmeyecek veriyi bosuna indirmis oluruz. Uyelik durumu (memberLoading)
+    // netlesene kadar da bekleriz, aksi halde "locked" gecici olarak yanlis
+    // (false) hesaplanip fetch tetiklenebilir.
+    if (!isFirstTheme && memberLoading) return;
+    if (locked) { setLoading(false); return; }
     fetchAll();
     const id = setInterval(fetchAll, REFRESH_MS);
     return () => clearInterval(id);
-  }, [fetchAll]);
+  }, [fetchAll, isFirstTheme, memberLoading, locked]);
 
   const sectorOptions = useMemo(() => {
     const s = new Set<string>();
@@ -329,7 +363,7 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
     });
   }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((tk) => live[tk]?.tracker_1h?.signal === "BUY").length;
+  const alCount = filtered.filter((tk) => live[tk]?.tracker_1h?.signal === "STRONG").length;
   const izleCount = filtered.filter((tk) => live[tk]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
@@ -350,6 +384,28 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
     );
   }
 
+  if (locked) {
+    return (
+      <div style={{ background: "#0f1117", minHeight: "40vh", fontFamily: "monospace", color: "#e6edf3", borderRadius: 8, border: "1px solid #30363d", display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, textAlign: "center", maxWidth: 420 }}>
+          <svg width="28" height="28" viewBox="0 0 16 16" fill="currentColor" style={{ color: "#e3b341" }}>
+            <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" />
+          </svg>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#e3b341" }}>
+            {PREMIUM_LABEL[locale]}
+          </span>
+          <span style={{ fontSize: 13, color: "#8b949e", lineHeight: 1.6 }}>{PREMIUM_LOCK_MESSAGE[locale]}</span>
+          <Link
+            href={registerHrefFor(locale)}
+            style={{ marginTop: 6, padding: "8px 20px", borderRadius: 6, background: "#e3b341", color: "#0d1117", fontWeight: 700, fontSize: 12, textDecoration: "none" }}
+          >
+            {PREMIUM_CTA_LABEL[locale]}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   const columns = COLUMN_HEADERS[locale];
 
   return (
@@ -361,7 +417,7 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
             {lastUpdated && <span>{LAST_UPDATE_LABEL[locale]}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
             <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? MARKET_STATUS[locale].open : MARKET_STATUS[locale].closed}</span>
             <span>{filtered.length} {TICKER_WORD[locale]}</span>
-            {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {translateSignal("BUY", locale)}</span>}
+            {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {translateSignal("STRONG", locale)}</span>}
             {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {translateSignal("WATCH", locale)}</span>}
           </div>
 
@@ -395,7 +451,7 @@ export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTracker
             style={{ background: searchQuery ? ACCENT + "33" : ACCENT + "1a", border: `1px solid ${searchQuery ? ACCENT : ACCENT + "66"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
+          {["", "STRONG", "WATCH", "HOLD", "WEAK"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
                 padding: "5px 12px", fontSize: 13, fontFamily: "monospace", fontWeight: 700,

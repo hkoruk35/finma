@@ -17,9 +17,13 @@ export interface LiveAnalysis {
   recommendation: { type: string; label: string; reason: string; hold: string };
   tradePlan: {
     entryZone: { low: number; high: number };
+    entryType: string;
+    entryCondition: string;
     stop: { price: number; pct: number };
+    stopRationale: string;
     targets: { price: number; rr: number; label: string }[];
     riskReward: number;
+    rationale: { ema: string; vwap: string; volume: string; rsi: string };
     valid: boolean;
   };
   bogaScore: { trend: number; momentum: number; liquidity: number };
@@ -92,5 +96,48 @@ export function liveToCard(d: LiveAnalysis): {
     support: stop,
     resistance: resistance as number,
     target: target as number,
+  };
+}
+
+// Copilot'un "get_trade_plan" aracının veri kaynağı — grafik/analiz sayfasının
+// gösterdiği İŞLEM KURGUSU GEREKÇESİ bloğuyla (giriş aralığı, stop, TP1-3,
+// EMA/VWAP/hacim/RSI gerekçe metinleri) BİREBİR aynı sayıları döner. Model
+// bunun DIŞINDA (örn. get_technical_levels'ın genel destek/direnç'inden) kendi
+// giriş tetiği/hedef seviyesi kurgulamamalı — tek kaynak burasıdır.
+export interface TradePlanSummary {
+  ticker: string;
+  currentPrice: number;
+  valid: boolean;
+  entryLow: number;
+  entryHigh: number;
+  avgEntry: number;
+  entryCondition: string;
+  stopPrice: number;
+  stopPct: number;
+  stopRationale: string;
+  targets: { price: number; rr: number; label: string }[];
+  riskReward: number;
+  rationale: { ema: string; vwap: string; volume: string; rsi: string };
+}
+
+export async function getTradePlanSummary(ticker: string, locale: string = "en"): Promise<TradePlanSummary | null> {
+  const d = await getLiveAnalysis(ticker, locale);
+  const tp = d?.tradePlan;
+  if (!d || !tp || typeof tp.entryZone?.low !== "number" || typeof tp.entryZone?.high !== "number") return null;
+
+  return {
+    ticker: d.ticker,
+    currentPrice: d.price,
+    valid: !!tp.valid,
+    entryLow: tp.entryZone.low,
+    entryHigh: tp.entryZone.high,
+    avgEntry: +((tp.entryZone.low + tp.entryZone.high) / 2).toFixed(2),
+    entryCondition: tp.entryCondition || "",
+    stopPrice: tp.stop?.price,
+    stopPct: tp.stop?.pct,
+    stopRationale: tp.stopRationale || "",
+    targets: tp.targets || [],
+    riskReward: tp.riskReward,
+    rationale: tp.rationale || { ema: "", vwap: "", volume: "", rsi: "" },
   };
 }

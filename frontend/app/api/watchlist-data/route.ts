@@ -235,14 +235,15 @@ function calculateSignal(
   const hasBadRSI = rsi < 45;
   const hasGoodVolume = volumeRatio >= 0.8;
 
-  // BUY: Bullish EMA + RSI 50-70 + bullish pattern + good volume
+  // STRONG: Bullish EMA + RSI 50-70 + bullish pattern + good volume (was "BUY" —
+  // renamed site-wide, no list may show a literal buy/sell recommendation).
   if (isBullishEMA && hasGoodRSI && bullishPatterns.includes(pattern) && hasGoodVolume) {
-    return "BUY";
+    return "STRONG";
   }
 
-  // SELL: Bearish EMA + RSI < 45 + bearish pattern
+  // WEAK: Bearish EMA + RSI < 45 + bearish pattern (was "SELL").
   if (isBearishEMA && hasBadRSI && bearishPatterns.includes(pattern)) {
-    return "SELL";
+    return "WEAK";
   }
 
   // WATCH: 2/3 conditions met

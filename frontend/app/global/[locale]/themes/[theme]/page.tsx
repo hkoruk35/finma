@@ -147,6 +147,9 @@ export default async function ThemePage({ params }: Props) {
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const themeDescription = THEME_DESCRIPTIONS[theme]?.[locale as Locale] || "";
   const themeTickers = hotTheme.stocks.map((stock) => stock.ticker);
+  // Sadece ilk tema (HOT_THEMES_2026[0]) uye olmayan ziyaretcilere acik —
+  // digerleri Premium kilitli gorunur (bkz. ThemeSwingTracker.tsx).
+  const isFirstTheme = hotTheme.slug === HOT_THEMES_2026[0].slug;
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -187,7 +190,7 @@ export default async function ThemePage({ params }: Props) {
         </div>
 
         {/* Stocks Table — same layout/columns as the Daily Trend Tracker (/swing) */}
-        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} />
+        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} isFirstTheme={isFirstTheme} />
       </main>
 
       <Footer hidePlatform={true} locale={locale as Locale} />

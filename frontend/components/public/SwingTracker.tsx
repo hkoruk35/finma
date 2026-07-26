@@ -22,9 +22,9 @@ interface HourlyBar {
   volume_ratio: number | null;
 }
 
-const SIGNAL_ICON: Record<string, string> = { BUY: "●", WATCH: "◑", HOLD: "○", SELL: "✕" };
-const SIGNAL_COLOR: Record<string, string> = { BUY: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", SELL: "#f85149" };
-const ROW_BG: Record<string, string> = { BUY: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", SELL: "#0f1117" };
+const SIGNAL_ICON: Record<string, string> = { STRONG: "●", WATCH: "◑", HOLD: "○", WEAK: "✕" };
+const SIGNAL_COLOR: Record<string, string> = { STRONG: "#3fb950", WATCH: "#e3b341", HOLD: "#8b949e", WEAK: "#f85149" };
+const ROW_BG: Record<string, string> = { STRONG: "#0f1117", WATCH: "#0f1117", HOLD: "#0f1117", WEAK: "#0f1117" };
 
 interface SwingRow {
   ticker: string;
@@ -123,8 +123,8 @@ function isMarketOpen() {
   return mins >= 9 * 60 + 30 && mins < 16 * 60;
 }
 
-const SIGNAL_RANK: Record<string, number> = { BUY: 4, WATCH: 3, HOLD: 2, SELL: 1 };
-const SIGNAL_LABEL_TR: Record<string, string> = { BUY: "AL", WATCH: "İZLE", HOLD: "BEKLE", SELL: "SAT" };
+const SIGNAL_RANK: Record<string, number> = { STRONG: 4, WATCH: 3, HOLD: 2, WEAK: 1 };
+const SIGNAL_LABEL_TR: Record<string, string> = { STRONG: "GÜÇLÜ", WATCH: "İZLE", HOLD: "BEKLE", WEAK: "ZAYIF" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
 const PATTERN_LABEL_EN: Record<string, string> = {
@@ -275,7 +275,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
     });
   }, [filtered, live, sortBy, sortDir]);
 
-  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "BUY").length;
+  const alCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "STRONG").length;
   const izleCount = filtered.filter((r) => live[r.ticker]?.tracker_1h?.signal === "WATCH").length;
 
   const toggleExpand = (ticker: string) => setExpandedTicker((cur) => (cur === ticker ? null : ticker));
@@ -310,7 +310,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : locale === "pt" ? "mercado aberto" : "market open") : locale === "tr" ? "market kapalı" : locale === "pt" ? "mercado fechado" : "market closed"}</span>
               <span>{filtered.length} {locale === "tr" ? "ticker" : locale === "pt" ? "ativos" : "tickers"}</span>
-              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("BUY", locale)}</span>}
+              {alCount > 0 && <span style={{ color: "#3fb950" }}>{alCount} {signalLabel("STRONG", locale)}</span>}
               {izleCount > 0 && <span style={{ color: "#e3b341" }}>{izleCount} {signalLabel("WATCH", locale)}</span>}
             </div>
           </div>
@@ -365,7 +365,7 @@ export default function SwingTracker({ locale }: { locale: Locale }) {
             style={{ background: searchQuery ? ACCENT + "33" : ACCENT + "1a", border: `1px solid ${searchQuery ? ACCENT : ACCENT + "66"}`, color: "#e6edf3", padding: "5px 8px", borderRadius: 3, fontSize: 13, fontFamily: "monospace", width: 110, outline: "none" }}
           />
           <div style={{ width: 1, background: "#30363d", margin: "0 2px", alignSelf: "stretch" }} />
-          {["", "BUY", "WATCH", "HOLD", "SELL"].map((s) => (
+          {["", "STRONG", "WATCH", "HOLD", "WEAK"].map((s) => (
             <button key={s || "all-signal"} onClick={() => setFilterSignal(s)}
               style={{
                 padding: "5px 12px", fontSize: 13, fontFamily: "monospace", fontWeight: 700,

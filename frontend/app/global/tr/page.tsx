@@ -24,7 +24,7 @@ export default async function LandingPage() {
     return {
       ticker,
       sector: l?.sector ?? 'Technology',
-      status: (l?.tracker_1h?.signal === 'BUY' ? 'BULLISH' : l?.tracker_1h?.signal === 'SELL' ? 'BEARISH' : 'NEUTRAL') as TrendStatus,
+      status: (l?.tracker_1h?.signal === 'STRONG' ? 'BULLISH' : l?.tracker_1h?.signal === 'WEAK' ? 'BEARISH' : 'NEUTRAL') as TrendStatus,
       price: l?.price?.current ?? 0,
       change_pct: l?.tracker_1h?.change_pct_1d ?? l?.price?.change_pct ?? 0,
       sparkline: l?.sparkline ?? [],
