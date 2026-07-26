@@ -4,7 +4,7 @@ import { getHotTheme, HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThem
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import { getRealStockCardData } from "@/lib/copilot/stockData";
-import { getMasterData } from "@/lib/data";
+import { getAllTickers } from "@/lib/data";
 
 export const revalidate = 300;
 
@@ -160,11 +160,10 @@ export default async function ThemePage({ params }: Props) {
     })
   );
 
-  // Overlay live prices for theme stocks (if available from master data)
-  let allTickers: any = null;
+  // Fetch ticker data for live prices
+  let allTickers: any = [];
   try {
-    const master = await getMasterData();
-    allTickers = master?.allTickers || [];
+    allTickers = await getAllTickers();
   } catch {
     allTickers = [];
   }
