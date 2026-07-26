@@ -113,10 +113,17 @@ def simulate_trade(record, ticker_df):
             'peak_gain_pct': 0.0,
             'mfe_pct': 0.0,
             'mae_pct': 0.0,
+            'ema50_1d': None,
+            'active_sl_level': None,
             'hit_3': False, 'hit_5': False, 'hit_7': False, 'hit_10': False, 'hit_15': False, 'hit_20': False,
             'days_to_3': None, 'days_to_5': None, 'days_to_7': None, 'days_to_10': None, 'days_to_15': None, 'days_to_20': None,
             'performance_version': 'v2_fixed10_20d'
         }
+
+    # Calculate EMA50
+    ema50_series = ticker_df['Close'].ewm(span=50, adjust=False).mean()
+    ema50_val = ema50_series.loc[t1_dt] if t1_dt in ema50_series.index else None
+
 
     entry_price = t1_open
     stop_price = entry_price * (1 - stop_pct / 100)
@@ -178,7 +185,11 @@ def simulate_trade(record, ticker_df):
 
     raw_ret = ((exit_price - entry_price) / entry_price) * 100
     realized_ret = round(raw_ret - 0.1, 2)  # 0.1% cost
-    result_status = 'WIN' if realized_ret > 0 else 'LOSS'
+    
+    if exit_reason == 'ACTIVE':
+        result_status = 'PENDING'
+    else:
+        result_status = 'WIN' if realized_ret > 0 else 'LOSS'
 
     mfe_pct = round(((max_high - entry_price) / entry_price) * 100, 2)
     mae_pct = round(((min_low - entry_price) / entry_price) * 100, 2)
@@ -202,6 +213,8 @@ def simulate_trade(record, ticker_df):
         'peak_gain_pct': mfe_pct,
         'mfe_pct': mfe_pct,
         'mae_pct': mae_pct,
+        'ema50_1d': round(float(ema50_val), 2) if ema50_val is not None else None,
+        'active_sl_level': round(float(ema50_val), 2) if ema50_val is not None else None,
         'hit_3': hits[3], 'hit_5': hits[5], 'hit_7': hits[7], 'hit_10': hits[10], 'hit_15': hits[15], 'hit_20': hits[20],
         'days_to_3': days_to_hit[3], 'days_to_5': days_to_hit[5], 'days_to_7': days_to_hit[7], 'days_to_10': days_to_hit[10], 'days_to_15': days_to_hit[15], 'days_to_20': days_to_hit[20],
         'performance_version': 'v2_atr_20d'
