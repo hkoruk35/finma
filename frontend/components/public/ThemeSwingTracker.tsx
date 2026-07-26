@@ -490,7 +490,27 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
                           Premium
                         </span>
                       </td>
-                      <td colSpan={13} style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: "#f59e0b" }} onClick={(e) => e.stopPropagation()}>
+                      <td style={{ padding: "6px 8px", color: "#8b949e", fontSize: 12 }} title={translateSector(d?.sector, locale)}>{translateSector(d?.sector, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700 }}>${fmt2(d?.price?.current)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: (d?.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "#3fb950" : "#f85149", fontWeight: 700 }}>
+                        {fmt2(d?.tracker_1h?.change_pct_1d)}%
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmt1(d?.tracker_1h?.volume_ratio_1d)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_20) }}>
+                        {fmt2(d?.tracker_1h?.ema_20)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_20)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_50) }}>
+                        {fmt2(d?.tracker_1h?.ema_50)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_50)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: emaColor(d?.price?.current ?? 0, d?.tracker_1h?.ema_200) }}>
+                        {fmt2(d?.tracker_1h?.ema_200)} {emaArrow(d?.price?.current ?? 0, d?.tracker_1h?.ema_200)}
+                      </td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translateEMAStatus(d?.tracker_1h?.ema_status, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: rsiColor(d?.tracker_1h?.rsi), fontWeight: 700 }}>{fmt1(d?.tracker_1h?.rsi)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: SIGNAL_COLOR[signal] || "#8b949e" }}>{signal === "—" ? signal : translateSignal(signal, locale)}</td>
+                      <td style={{ padding: "6px 8px", textAlign: "right" }} onClick={(e) => e.stopPropagation()}>
                         <button onClick={() => setShowPremiumModal(true)}
                           style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}>
                           🔒 Premium
