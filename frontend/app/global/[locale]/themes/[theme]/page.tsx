@@ -235,30 +235,25 @@ export default async function ThemePage({ params }: Props) {
 
         {/* Theme Header */}
         <div className="mb-8">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{themeTitle}</h1>
-              <p className="text-slate-400 text-sm md:text-base">{themeDescription}</p>
-            </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{themeTitle}</h1>
+          <p className="text-slate-400 text-sm md:text-base mb-6">{themeDescription}</p>
 
-            {/* Theme Selector Dropdown */}
-            <div className="flex items-center gap-2">
-              <label htmlFor="theme-select" className="text-slate-400 text-sm">{l.selectTheme}</label>
-              <select
-                id="theme-select"
-                onChange={(e) => {
-                  window.location.href = `/global/${locale}/themes/${e.target.value}`;
-                }}
-                value={theme}
-                className="bg-[#161b22] border border-[#30363d] text-white text-sm rounded px-3 py-2 cursor-pointer hover:border-[#58a6ff] transition-colors"
+          {/* Theme Navigation Pills */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {HOT_THEMES_2026.map((t) => (
+              <Link
+                key={t.slug}
+                href={`/global/${locale}/themes/${t.slug}`}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  t.slug === theme
+                    ? "bg-[#58a6ff] text-[#0d1117]"
+                    : "bg-[#30363d] text-slate-400 hover:bg-[#58a6ff] hover:text-[#0d1117]"
+                }`}
+                style={t.slug === theme ? { borderLeft: `3px solid ${t.accent}` } : undefined}
               >
-                {HOT_THEMES_2026.map((t) => (
-                  <option key={t.slug} value={t.slug}>
-                    {localizedThemeTitle(t.title, locale)}
-                  </option>
-                ))}
-              </select>
-            </div>
+                {localizedThemeTitle(t.title, locale)}
+              </Link>
+            ))}
           </div>
         </div>
 
