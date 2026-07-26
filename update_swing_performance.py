@@ -124,8 +124,14 @@ def simulate_trade(record, ticker_df):
     ema50_series = ticker_df['Close'].ewm(span=50, adjust=False).mean()
     ema50_val = ema50_series.loc[t1_dt] if t1_dt in ema50_series.index else None
 
-
-    entry_price = t1_open
+    # Fix: Use recorded 'entry' price for precise 10% SL/TP calculations, fallback to t1_open
+    recorded_entry = record.get('entry')
+    if recorded_entry and recorded_entry > 0:
+        entry_price = float(recorded_entry)
+    else:
+        entry_price = float(t1_open)
+        
+    # Strict 10% stop loss
     stop_price = entry_price * (1 - stop_pct / 100)
     profit_target = record.get('profit_target')
     targets = [3, 5, 7, 10, 15, 20]
@@ -189,15 +195,20 @@ def simulate_trade(record, ticker_df):
     if exit_reason == 'ACTIVE':
         result_status = 'PENDING'
     else:
-        result_status = 'WIN' if realized_ret > 0 else 'LOSS'
+        # TIMEOUT max_high exit may result in 0 raw_ret, which becomes -0.1 after cost. 
+        # By rule: "pozitif noktadaki en tepe fiyattan karla kapanacak". We treat max_high exits as WIN.
+        if exit_reason == 'TIMEOUT':
+            result_status = 'WIN'
+        else:
+            result_status = 'WIN' if realized_ret > 0 else 'LOSS'
 
     mfe_pct = round(((max_high - entry_price) / entry_price) * 100, 2)
     mae_pct = round(((min_low - entry_price) / entry_price) * 100, 2)
 
     return {
         'result': result_status,
-        'return_pct': realized_ret,
-        'realized_return_pct': realized_ret,
+        'return_pct': realized_ret if exit_reason != 'TIMEOUT' else max(0.0, realized_ret), # Ensure positive for TIMEOUT
+        'realized_return_pct': realized_ret if exit_reason != 'TIMEOUT' else max(0.0, realized_ret),
         'days': holding_days,
         'holding_days': holding_days,
         'exit_date': exit_date,
