@@ -117,7 +117,7 @@ def simulate_trade(record, ticker_df):
             'active_sl_level': None,
             'hit_3': False, 'hit_5': False, 'hit_7': False, 'hit_10': False, 'hit_15': False, 'hit_20': False,
             'days_to_3': None, 'days_to_5': None, 'days_to_7': None, 'days_to_10': None, 'days_to_15': None, 'days_to_20': None,
-            'performance_version': 'v2_fixed10_20d'
+            'performance_version': 'v3_15d_no_sl_60d_timeout'
         }
 
     # Calculate EMA50
@@ -131,14 +131,15 @@ def simulate_trade(record, ticker_df):
     else:
         entry_price = float(t1_open)
         
-    # Strict 10% stop loss
+    # 8% stop loss after 15 days
+    stop_pct = 8.0
     stop_price = entry_price * (1 - stop_pct / 100)
     profit_target = record.get('profit_target')
     targets = [3, 5, 7, 10, 15, 20]
     hits = {t: False for t in targets}
     days_to_hit = {t: None for t in targets}
 
-    holding_idx = trade_idx[1:21]  # Up to 20 trading days
+    holding_idx = trade_idx[1:61]  # Up to 60 trading days
     exit_date = t1_dt.strftime('%Y-%m-%d')
     exit_price = entry_price
     exit_reason = 'TIMEOUT'
@@ -158,7 +159,7 @@ def simulate_trade(record, ticker_df):
         if c_high > max_high: max_high = c_high
         if c_low < min_low: min_low = c_low
 
-        if c_low <= stop_price:
+        if c_low <= stop_price and k_idx > 15:
             is_stopped = True
             exit_date = dt.strftime('%Y-%m-%d')
             exit_reason = 'STOP'
@@ -181,12 +182,12 @@ def simulate_trade(record, ticker_df):
         exit_date = dt.strftime('%Y-%m-%d')
         exit_price = c_close
 
-    if not is_stopped and not is_tp and holding_days == 20:
+    if not is_stopped and not is_tp and holding_days == 60:
         exit_reason = 'TIMEOUT'
-        # Yirmi işlem günü sonunda fiyat stop loss'a değmezse,
-        # 20 işlem günü içerisindeki en yüksek fiyat üzerinden kapanış hesaplanır
+        # 60 gün sonunda SL'ye değmezse,
+        # 60 işlem günü içerisindeki en yüksek fiyat üzerinden kapanış hesaplanır
         exit_price = max_high
-    elif not is_stopped and not is_tp and len(holding_idx) < 20:
+    elif not is_stopped and not is_tp and len(holding_idx) < 60:
         exit_reason = 'ACTIVE'
 
     raw_ret = ((exit_price - entry_price) / entry_price) * 100
@@ -228,7 +229,7 @@ def simulate_trade(record, ticker_df):
         'active_sl_level': round(float(ema50_val), 2) if ema50_val is not None else None,
         'hit_3': hits[3], 'hit_5': hits[5], 'hit_7': hits[7], 'hit_10': hits[10], 'hit_15': hits[15], 'hit_20': hits[20],
         'days_to_3': days_to_hit[3], 'days_to_5': days_to_hit[5], 'days_to_7': days_to_hit[7], 'days_to_10': days_to_hit[10], 'days_to_15': days_to_hit[15], 'days_to_20': days_to_hit[20],
-        'performance_version': 'v2_atr_20d'
+        'performance_version': 'v3_15d_no_sl_60d_timeout'
     }
 
 def update_performance():
