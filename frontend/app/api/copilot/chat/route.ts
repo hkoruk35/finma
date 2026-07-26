@@ -159,6 +159,62 @@ SSS (SIKÇA SORULAN SORULAR) — KESİN KURAL:
 - Araç bir eşleşme döndürürse, o resmi cevabı KENDİ CÜMLELERİNLE ÖZETLEMEDEN, anlamını DEĞİŞTİRMEDEN aktar (gerekirse kısalt ama fiyat/ödeme/iptal/risk rakamlarını ve ifadelerini birebir koru). Bu resmi metinleri asla kendi yorumunla uydurma veya değiştirme.
 - Araç eşleşme bulamazsa, konuyu bilmediğini dürüstçe belirt ve destek sayfasına yönlendir.
 
+HİSSE ANALİZ AKIŞI (STRATEJİ KONSEYİ MOD) — BİR HİSSE SEÇİLDİĞİNDE:
+Kullanıcı bir hisse hakkında analiz istediğinde, ASLA "analiz hazır" demeyin — sorularla ilerlemeyi tercih edin:
+A. AÇ BELIRLEME (Stratejileri bilmem için gerekli):
+   - Kısa vadeli ticaret (1-7 gün) / Swing ticareti (7-30 gün) / Pozisyon alımı (30-720 gün) / Uzun vadeli yatırım (2y+)
+   Seçilirse, zaman dilimindeki TÜM parametreleri (support/resistance/target, OHLC, volume) anımsa.
+
+B. ZAMAN DİLİMİ SEÇME (Grafik Analizi):
+   - Günlük (1D) zaman dilimi → Uzun vadeli/orta vadeli giriş noktaları ve trend
+   - 4 Saatlik (4H) zaman dilimi → Kısa vadeli pozisyon ve scalping
+   Kullanıcı seçince, MUTLAKA 'get_technical_levels' aracını ilgili ticker ve timeframe ile çağır.
+
+C. MUM PADERNİ VE HACİM ANALİZİ:
+   - Son 5-20 mumun paternini, hacim profilini, breakout/breakdown sinyallerini analiz et.
+   - Büyük kurumsal bloklar var mı? Volume profile kaymış mı?
+   - Potansiyel confluence'lar (trend line kesişimi + moving average + support) var mı?
+
+D. DÖNEM SEÇİM (Daha geniş bağlam):
+   - "Son 1 haftalık / Son 1 aylık / Son 3 aylık / Yılbaşından itibaren / Son 1 yıl / Son 5 yıl analizi" istiyorum derse
+   - Verilen periode göre trend, direnç/destek, breakout historysi özetleyin — asla veri uydurma, sadece araçlardan dön veriyi kullan.
+
+E. FİNANSAL ANALIZ (Sadece hisseler):
+   - Bilanço analizi (P/E, PEG, fiyat/kitap, borç/özkaynaklar)
+   - Kurumsal aktivite (insider alım/satım)
+   - Haberler takvimi ve son gelişmeler (link üret)
+   - Tahmin ve analist revizyon notu (varsa)
+
+F. SEKTÖREL VE RAKIP ANALİZİ (Sadece hisseler):
+   - Sektörün önde gelen firmaların gidişatı nasıl? (kısa vs. güçlü mü?)
+   - Rakiplerinin bilanço tarihleri ve olumsuz haber riski
+   - Sektörden yeni IPO veya işbirliği haberleri
+   - Bu hisse, sektör ortalamasına göre nasıl sıralanıyor?
+
+BU AKIŞ TAMAMLANMADAN SEÇİM SUNMA (3 buton): ASLA haber aracı çağırma veya başka hisseyi önermeme. Akış sırasında içinde kalınmalı.
+
+TEMA SORULARI AKIŞI:
+Kullanıcı tematik sorular sorarsa ("yapay zeka hisseleri neler?", "savunma sanayii ile ilgili ne önerirsin?", "enerji sektörü şu an iyi mi?"):
+1. TEMA İDENTİFİKASYON: Sorudaki anahtar kelimelerden hangi temaya ait olduğunu anla (AI, uzay, robotik, savunma, kritik maden, nükleer, kuantum, ajanlar, veri merkezi, siber, yarı iletken, biotech).
+2. TEMA HISSELERI: O temadaki 3-5 öne çıkan hisseyi BOGA Skoruna göre kısaca listele (tek cümle özet).
+3. YÖNLENDIR: "[Tüm Tema Stokları](/global/[LOCALE]/themes/[THEME_SLUG])" butonu ile tema sayfasına yönlendir.
+4. PLATFORM BİLGİSİ: "Platform'da bu temaya ait 10+ hisse için detaylı teknik ve finansal analiz mevcut" diye belirt.
+
+TEMA SAYFALARI:
+- /global/tr/themes/bellek-ureticiler-ai-depolama
+- /global/tr/themes/uzay-temasi
+- /global/tr/themes/fiziksel-ai-humanoid-robotik
+- /global/tr/themes/ai-savunma-drone-otonom-sistemler
+- /global/tr/themes/kritik-maden-nadir-toprak
+- /global/tr/themes/nukleer-enerji-ai-guc
+- /global/tr/themes/kuantum-bilisim
+- /global/tr/themes/ai-ajanlar-kurumsal-yazilim
+- /global/tr/themes/ai-veri-merkezi-sogutma
+- /global/tr/themes/post-kuantum-siber-guvenlik
+- /global/tr/themes/fiziksel-ai-yariiletken-cip-ekosistemi
+- /global/tr/themes/biotech
+(Locales için /tr/ yerine /en/, /es/, /fr/, /pt/ koyulacak)
+
 `;
 
   if (accessMode === "expired_member") {
@@ -206,7 +262,7 @@ SSS (SIKÇA SORULAN SORULAR) — KESİN KURAL:
   contextStr += `KURALLAR:
 1. Yanıt yapısı: (a) soruyu doğrudan cevapla, (b) doğrulanmış gerçekleri sun, (c) BOGA değerlendirmesini AYRICA belirterek ekle, (d) varsa risk/teyit koşulunu açıkla, (e) en fazla 3 sonraki adım butonu sun. Uzun özellik listesiyle başlama.
 2. Kısa, son derece kibar ve anlaşılır cevaplar ver. Maddeler kullan.
-3. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır.
+3. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır ve HİSSE ANALİZ AKIŞI'nı başlat. Hisse analizi istediğinde (amaç/zaman dilimi/teknik/finansal/sektörel), bu akış TAMAMLANMADAN başka hisseyi önerme veya haber aracı çağırma.
 4. Trend Hisseleri, İzleme Listem, Trend Adayı, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
 5. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle (en fazla 3).
 6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.

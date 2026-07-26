@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import ThemesBanner from "@/components/global/ThemesBanner";
 import ListsNavigation from "@/components/global/ListsNavigation";
 import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
@@ -197,6 +198,8 @@ export default async function FrHomePage() {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="-mb-2">
           <ListsNavigation locale="fr" activePath="home" />
+        {/* Themes Banner */}
+        <ThemesBanner locale="fr" />
         </div>
 
         {/* Three column grid */}

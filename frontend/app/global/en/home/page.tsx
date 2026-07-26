@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ListsNavigation from "@/components/global/ListsNavigation";
+import ThemesBanner from "@/components/global/ThemesBanner";
 import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
 import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
 import { getMemberAccess } from "@/lib/apiAuth";
@@ -204,6 +205,8 @@ export default async function EnHomePage() {
         <div className="-mb-2">
           <ListsNavigation locale="en" activePath="home" />
         </div>
+        {/* Themes Banner */}
+        <ThemesBanner locale="en" />
         {/* Three column grid */}
         <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
           <HomeWatchlistSlot

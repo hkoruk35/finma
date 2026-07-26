@@ -35,11 +35,13 @@ async function withinDailyLimit(): Promise<boolean> {
 }
 
 // Kuyruktan bir icerik secip 5 dilde taslak x_posts satiri olusturur (yeni cycle).
+// Haftalık itemler (weekly=true) otomatik otomasyon tarafından atlanır — manuel gönderim için ayrılmıştır.
 async function startNewCycle(): Promise<string | null> {
   const { data: candidate } = await supabaseAdmin
     .from("x_content_pool")
     .select("id")
     .is("used_at", null)
+    .eq("weekly", false)
     .order("priority", { ascending: false })
     .order("added_at", { ascending: true })
     .limit(1)
