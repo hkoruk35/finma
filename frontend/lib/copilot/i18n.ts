@@ -209,6 +209,13 @@ const T: Record<string, Record<CopilotLocale, string>> = {
   watchTaskCreateFailed: { tr: "Görev oluşturulamadı.", en: "The task could not be created.", es: "No se pudo crear la tarea.", fr: "La tâche n'a pas pu être créée.", pt: "Não foi possível criar a tarefa." },
   chatErrorFallback: { tr: "Bağlantıda kısa bir kesinti oldu. Tekrar denemek için aşağıdaki butona basın.", en: "There was a brief connection interruption. Press the button below to try again.", es: "Hubo una breve interrupción en la conexión. Pulsa el botón de abajo para volver a intentarlo.", fr: "Une brève interruption de connexion s'est produite. Appuyez sur le bouton ci-dessous pour réessayer.", pt: "Houve uma breve interrupção na conexão. Toque no botão abaixo para tentar novamente." },
   retryBtn: { tr: "🔄 Tekrar Dene", en: "🔄 Try Again", es: "🔄 Reintentar", fr: "🔄 Réessayer", pt: "🔄 Tentar Novamente" },
+  emptyResponseFallback: {
+    tr: "Bu soruya bir yanıt oluşturamadım. Tekrar dener misin?",
+    en: "I couldn't put together a reply to that. Could you try again?",
+    es: "No pude generar una respuesta a eso. ¿Podrías intentarlo de nuevo?",
+    fr: "Je n'ai pas pu générer de réponse à cela. Peux-tu réessayer ?",
+    pt: "Não consegui gerar uma resposta para isso. Você pode tentar novamente?",
+  },
   trendingStocksFallback: { tr: "BOGASTOCK Trend Hisseleri", en: "BOGASTOCK Trending Stocks", es: "Acciones en Tendencia de BOGASTOCK", fr: "Actions Tendance de BOGASTOCK", pt: "Ações em Tendência da BOGASTOCK" },
   themeFallback: { tr: "Tema", en: "Theme", es: "Tema", fr: "Thème", pt: "Tema" },
 };

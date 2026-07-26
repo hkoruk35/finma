@@ -604,7 +604,13 @@ export async function POST(req: NextRequest) {
           system: systemPrompt,
           messages,
           tools,
-          maxSteps: 3,
+          // HİSSE ANALİZ AKIŞI gibi durumlarda model art arda 2 araç çağırıp
+          // (örn. get_deep_analysis + get_technical_levels) 3. adımda bütçe
+          // dolduğunda hiç metin üretemeden duruyordu — kullanıcıya toolInvocation
+          // kartı olmayan araçlar için tamamen BOŞ bir balon olarak görünüyordu
+          // ("basit sorularda takılıyor" hatası). 6 adım, 2-3 araç çağrısı +
+          // son metin/butonlar için yeterli pay bırakır.
+          maxSteps: 6,
           onFinish,
         });
         break;

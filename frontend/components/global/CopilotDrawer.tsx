@@ -25,6 +25,22 @@ const LIST_KEY_TO_ROUTE_KEY: Record<string, RouteKey> = {
 
 const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "es-ES", fr: "fr-FR", pt: "pt-BR" };
 
+// Bu araçların kendi kartı var (aşağıdaki map'te ayrı render edilir). Model
+// SADECE kart'ı olmayan bir araç çağırıp (örn. get_deep_analysis,
+// get_technical_levels — bunlar metne dökülüp modelin kendi cevabıyla
+// anlatılması gereken ham veri döner) sonra maxSteps bütçesi dolduğunda metin
+// üretemeden dururken, balon hem içerik hem görünür kart olmadan TAMAMEN BOŞ
+// kalıyordu ("basit sorularda takılıyor" hatası). Aşağıdaki boş-yanıt
+// güvenlik ağı bunu tespit eder.
+const RENDERABLE_TOOLS = new Set([
+  "navigate_to",
+  "get_top_trending_stocks",
+  "get_theme_stocks",
+  "create_watch_task",
+  "show_stock_card",
+  "search_market_news",
+]);
+
 function linkifyTickers(text: unknown): string {
   if (typeof text !== "string") return "";
   return text.replace(/\$([A-Z]{1,5})\b/g, (_, ticker) => `[$${ticker}](copilot://${ticker})`);
@@ -534,12 +550,12 @@ export default function CopilotDrawer() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 min-w-0">
             <button
               type="button"
               onClick={handleNewChat}
               title={ct("tooltipNewChat", activeLocale)}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+              className="shrink-0 flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19" />
@@ -553,7 +569,7 @@ export default function CopilotDrawer() {
             <select
               value={activeLocale}
               onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
-              className="bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-bold rounded-lg px-2 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-all shadow-sm"
+              className="shrink-0 bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-bold rounded-lg px-1.5 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-all shadow-sm"
             >
               <option value="tr">🇹🇷 TR</option>
               <option value="en">🇺🇸 EN</option>
@@ -562,12 +578,16 @@ export default function CopilotDrawer() {
               <option value="pt">🇧🇷 PT</option>
             </select>
 
+            {/* Bildirim/Görev/Geçmiş/Ayarlar ikonları — sabit genişlikli kapatma
+                butonunu asla itip ekran dışına çıkarmasın diye kendi taşan
+                (overflow-x-auto) alt grubunda; dar ekranda gerekirse bu grup
+                yatay kayar, ✕ butonu her zaman görünür kalır. */}
             {isAuthenticated && (
-              <>
+              <div className="flex items-center gap-0.5 overflow-x-auto shrink min-w-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 <button
                   onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
                   title={ct("tooltipAlerts", activeLocale)}
-                  className={`rounded-full p-2 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`shrink-0 rounded-full p-1.5 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
@@ -583,7 +603,7 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => { setIsTasksOpen(!isTasksOpen); setIsHistoryOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title={ct("tooltipTasks", activeLocale)}
-                  className={`rounded-full p-2 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`shrink-0 rounded-full p-1.5 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 11 12 14 22 4" />
@@ -599,7 +619,7 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsTasksOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title={ct("tooltipHistory", activeLocale)}
-                  className={`rounded-full p-2 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`shrink-0 rounded-full p-1.5 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
@@ -610,17 +630,17 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsAlertsOpen(false); }}
                   title={ct("personalize", activeLocale)}
-                  className={`rounded-full p-2 transition-colors ${isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`shrink-0 rounded-full p-1.5 transition-colors ${isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 003.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
                   </svg>
                 </button>
-              </>
+              </div>
             )}
 
-            <button onClick={() => setIsOpen(false)} className="rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors">
+            <button onClick={() => setIsOpen(false)} className="shrink-0 rounded-full p-1.5 text-white/50 hover:bg-white/10 hover:text-white transition-colors">
               ✕
             </button>
           </div>
@@ -940,7 +960,20 @@ export default function CopilotDrawer() {
                 </div>
               </div>
             ) : (
-              messages.map((msg) => (
+              messages.map((msg, msgIdx) => {
+                const isLastMessage = msgIdx === messages.length - 1;
+                const hasRenderableTool = (msg.toolInvocations || []).some(
+                  (ti: any) => ti?.result && RENDERABLE_TOOLS.has(ti.toolName)
+                );
+                const hasPendingTool = (msg.toolInvocations || []).some((ti: any) => !ti?.result);
+                const isEmptyResponse =
+                  msg.role === "assistant" &&
+                  !isLoading &&
+                  isLastMessage &&
+                  !hasPendingTool &&
+                  !hasRenderableTool &&
+                  (typeof msg.content !== "string" || msg.content.trim() === "");
+                return (
                 <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
                   <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-semibold ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
                     {msg.toolInvocations?.map((toolInv: any, idx: number) => {
@@ -1142,9 +1175,27 @@ export default function CopilotDrawer() {
                         {prepareMessageContent(msg.content)}
                       </ReactMarkdown>
                     )}
+                    {isEmptyResponse && (
+                      <div className="space-y-2">
+                        <p className="text-gray-300">{ct("emptyResponseFallback", activeLocale)}</p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const lastUserMsg = [...messages].reverse().find((m: any) => m.role === "user");
+                            if (lastUserMsg?.content) {
+                              append({ role: "user", content: String(lastUserMsg.content) });
+                            }
+                          }}
+                          className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold cursor-pointer transition-all"
+                        >
+                          {ct("retryBtn", activeLocale)}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-              ))
+                );
+              })
             )
           ) : (
             demoMessages.map((msg) => (
