@@ -344,3 +344,25 @@ export function localizedThemeTitle(rawTheme: string | null | undefined, locale:
   const table = THEME_TITLE_TRANSLATIONS[slug];
   return table?.[locale] ?? table?.en ?? rawTheme;
 }
+
+// Kısa/tek satır bağlamlar için (ör. ana sayfa Tematik Analiz bandı) — tam
+// başlıklar (THEME_TITLE_TRANSLATIONS) tek satıra sığmayacak kadar uzun.
+const THEME_SHORT_NAMES: Record<string, Record<string, string>> = {
+  "bellek-ureticiler-ai-depolama": { tr: "Bellek", en: "Memory", es: "Memoria", fr: "Mémoire", pt: "Memória" },
+  "uzay-temasi": { tr: "Uzay", en: "Space", es: "Espacio", fr: "Espace", pt: "Espaço" },
+  "fiziksel-ai-humanoid-robotik": { tr: "Fiziksel AI", en: "Physical AI", es: "IA Física", fr: "IA Physique", pt: "IA Física" },
+  "ai-savunma-drone-otonom-sistemler": { tr: "Savunma", en: "Defense", es: "Defensa", fr: "Défense", pt: "Defesa" },
+  "kritik-maden-nadir-toprak": { tr: "Madenler", en: "Minerals", es: "Minerales", fr: "Minéraux", pt: "Minerais" },
+  "nukleer-enerji-ai-guc": { tr: "Nükleer Enerji", en: "Nuclear Energy", es: "Energía Nuclear", fr: "Énergie Nucléaire", pt: "Energia Nuclear" },
+  "kuantum-bilisim": { tr: "Kuantum", en: "Quantum", es: "Cuántica", fr: "Quantique", pt: "Quântica" },
+  "ai-ajanlar-kurumsal-yazilim": { tr: "AI Ajanlar", en: "AI Agents", es: "Agentes IA", fr: "Agents IA", pt: "Agentes IA" },
+  "ai-veri-merkezi-sogutma": { tr: "Veri Merkezi", en: "Data Center", es: "Centro de Datos", fr: "Centre de Données", pt: "Data Center" },
+  "post-kuantum-siber-guvenlik": { tr: "Siber Güvenlik", en: "Cybersecurity", es: "Ciberseguridad", fr: "Cybersécurité", pt: "Cibersegurança" },
+  "fiziksel-ai-yariiletken-cip-ekosistemi": { tr: "Yarı İletken", en: "Semiconductor", es: "Semiconductores", fr: "Semi-conducteurs", pt: "Semicondutores" },
+  biotech: { tr: "Biotech", en: "Biotech", es: "Biotecnología", fr: "Biotech", pt: "Biotech" },
+};
+
+export function themeShortName(slug: string, locale: string): string {
+  const table = THEME_SHORT_NAMES[slug];
+  return table?.[locale] ?? table?.en ?? slug;
+}

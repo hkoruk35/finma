@@ -1,68 +1,68 @@
 "use client";
 
 import Link from "next/link";
-import { HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThemes2026";
+import { HOT_THEMES_2026, themeShortName } from "@/lib/hotThemes2026";
 
 type Locale = "tr" | "en" | "es" | "fr" | "pt";
 
-const LABELS: Record<Locale, { title: string; browseAll: string }> = {
-  tr: { title: "Tematik Analiz", browseAll: "Tüm Temaları Gözat" },
-  en: { title: "Thematic Analysis", browseAll: "Browse All Themes" },
-  es: { title: "Análisis Temático", browseAll: "Explorar Todos los Temas" },
-  fr: { title: "Analyse Thématique", browseAll: "Explorer Tous les Thèmes" },
-  pt: { title: "Análise Temática", browseAll: "Explorar Todos os Temas" },
+const LABELS: Record<Locale, { title: string; browseAll: string; more: string }> = {
+  tr: { title: "Tematik Analiz", browseAll: "Tüm Temaları Gözat", more: "daha" },
+  en: { title: "Thematic Analysis", browseAll: "Browse All Themes", more: "more" },
+  es: { title: "Análisis Temático", browseAll: "Explorar Todos los Temas", more: "más" },
+  fr: { title: "Analyse Thématique", browseAll: "Explorer Tous les Thèmes", more: "de plus" },
+  pt: { title: "Análise Temática", browseAll: "Explorar Todos os Temas", more: "mais" },
 };
+
+// PC'de daha fazla, mobilde daha az tema adı sığdırılıp geri kalanı
+// "+N daha" ile özetlenir — tek satırda kalması için.
+const DESKTOP_VISIBLE_COUNT = 6;
+const MOBILE_VISIBLE_COUNT = 2;
 
 export default function ThemesBanner({ locale }: { locale: Locale }) {
   const label = LABELS[locale];
-  const displayThemes = HOT_THEMES_2026.slice(0, 6); // Show first 6 themes
+  const firstThemeHref = `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}`;
+
+  const renderThemeList = (visibleCount: number, extraClassName: string) => {
+    const visible = HOT_THEMES_2026.slice(0, visibleCount);
+    const remaining = HOT_THEMES_2026.length - visibleCount;
+    return (
+      <div className={`items-center gap-1.5 text-xs shrink-0 ${extraClassName}`}>
+        {visible.map((theme, i) => (
+          <span key={theme.slug} className="whitespace-nowrap">
+            <Link href={`/global/${locale}/themes/${theme.slug}`} className="text-slate-300 hover:text-[#58a6ff] transition-colors">
+              {themeShortName(theme.slug, locale)}
+            </Link>
+            {i < visible.length - 1 && <span className="text-slate-600">,</span>}
+          </span>
+        ))}
+        {remaining > 0 && (
+          <Link href={firstThemeHref} className="whitespace-nowrap text-slate-500 hover:text-[#58a6ff] transition-colors">
+            +{remaining} {label.more}
+          </Link>
+        )}
+      </div>
+    );
+  };
 
   return (
-    <div className="mb-4 mt-4 rounded-lg border border-[#30363d] bg-gradient-to-r from-[#161b22] to-[#0d1117] p-3 md:p-4 overflow-hidden relative">
+    <div className="mb-4 mt-4 rounded-lg border border-[#30363d] bg-gradient-to-r from-[#161b22] to-[#0d1117] py-2.5 px-3 md:px-4 overflow-hidden relative">
       {/* Animated background accent */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10">
-        {/* Header */}
-        <h2 className="text-lg md:text-xl font-bold text-white mb-2">{label.title}</h2>
+      <div className="relative z-10 flex items-center gap-2.5 md:gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <h2 className="shrink-0 text-sm md:text-base font-bold text-white whitespace-nowrap">{label.title}</h2>
 
-        {/* Theme Pills */}
-        <div className="flex flex-wrap gap-2 md:gap-3 mb-3">
-          {displayThemes.map((theme) => {
-            const themeTitle = localizedThemeTitle(theme.title, locale);
-            return (
-              <Link
-                key={theme.slug}
-                href={`/global/${locale}/themes/${theme.slug}`}
-                className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#30363d] text-white hover:bg-[#58a6ff] hover:text-[#0d1117] transition-all duration-200 whitespace-nowrap"
-                style={{
-                  borderLeft: `3px solid ${theme.accent}`,
-                }}
-              >
-                {themeTitle}
-              </Link>
-            );
-          })}
+        {renderThemeList(MOBILE_VISIBLE_COUNT, "flex sm:hidden")}
+        {renderThemeList(DESKTOP_VISIBLE_COUNT, "hidden sm:flex")}
 
-          {HOT_THEMES_2026.length > 6 && (
-            <Link
-              href={`/global/${locale}/themes/${HOT_THEMES_2026[0].slug}`}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#30363d] text-slate-400 hover:bg-[#58a6ff] hover:text-[#0d1117] transition-all duration-200 whitespace-nowrap"
-            >
-              +{HOT_THEMES_2026.length - 6} {locale === "tr" ? "daha" : "more"}
-            </Link>
-          )}
-        </div>
-
-        {/* Browse all button */}
         <Link
-          href={`/global/${locale}/themes/${HOT_THEMES_2026[0].slug}`}
-          className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#58a6ff] text-[#0d1117] font-bold text-xs rounded hover:bg-[#79c0ff] transition-colors"
+          href={firstThemeHref}
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-bold text-xs rounded hover:bg-[#79c0ff] transition-colors whitespace-nowrap"
         >
           {label.browseAll}
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </Link>
