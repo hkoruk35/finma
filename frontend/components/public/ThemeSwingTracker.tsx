@@ -8,6 +8,7 @@ import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import PremiumModal from "@/components/global/PremiumModal";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -246,14 +247,11 @@ interface ThemeSwingTrackerProps {
 
 export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = false }: ThemeSwingTrackerProps) {
   const t = copy[locale].top100;
-  const { isPremium, loading: memberLoading } = useMemberPlan();
-  // Sadece ilk tema (havuzun public "vitrini") uye olmayanlara acik — digerleri
-  // Premium kilitli. loading bitene kadar kilitlemiyoruz (BogaChartEngine'in
-  // premiumGate deseniyle ayni, ani "kilitli->acik" titremesini onlemek icin).
-  const locked = !isFirstTheme && !isPremium && !memberLoading;
+  const { isPremium } = useMemberPlan();
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [filterSignal, setFilterSignal] = useState("");
   const [filterSector, setFilterSector] = useState("");
@@ -291,17 +289,10 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
   }, [tickers, t.error]);
 
   useEffect(() => {
-    // Uye olmayan ziyaretci icin kilitli (ilk tema disi) bir sayfada canlı
-    // veriyi hic cekmeyelim — hem gereksiz istek hem de kilitli ekranda
-    // gosterilmeyecek veriyi bosuna indirmis oluruz. Uyelik durumu (memberLoading)
-    // netlesene kadar da bekleriz, aksi halde "locked" gecici olarak yanlis
-    // (false) hesaplanip fetch tetiklenebilir.
-    if (!isFirstTheme && memberLoading) return;
-    if (locked) { setLoading(false); return; }
     fetchAll();
     const id = setInterval(fetchAll, REFRESH_MS);
     return () => clearInterval(id);
-  }, [fetchAll, isFirstTheme, memberLoading, locked]);
+  }, [fetchAll]);
 
   const sectorOptions = useMemo(() => {
     const s = new Set<string>();
@@ -384,32 +375,12 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
     );
   }
 
-  if (locked) {
-    return (
-      <div style={{ background: "#0f1117", minHeight: "40vh", fontFamily: "monospace", color: "#e6edf3", borderRadius: 8, border: "1px solid #30363d", display: "flex", alignItems: "center", justifyContent: "center", padding: "48px 24px" }}>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, textAlign: "center", maxWidth: 420 }}>
-          <svg width="28" height="28" viewBox="0 0 16 16" fill="currentColor" style={{ color: "#e3b341" }}>
-            <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z" />
-          </svg>
-          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#e3b341" }}>
-            {PREMIUM_LABEL[locale]}
-          </span>
-          <span style={{ fontSize: 13, color: "#8b949e", lineHeight: 1.6 }}>{PREMIUM_LOCK_MESSAGE[locale]}</span>
-          <Link
-            href={registerHrefFor(locale)}
-            style={{ marginTop: 6, padding: "8px 20px", borderRadius: 6, background: "#e3b341", color: "#0d1117", fontWeight: 700, fontSize: 12, textDecoration: "none" }}
-          >
-            {PREMIUM_CTA_LABEL[locale]}
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
   const columns = COLUMN_HEADERS[locale];
 
   return (
-    <div style={{ background: "#0f1117", minHeight: "40vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px", borderRadius: 8, border: "1px solid #30363d", overflow: "hidden" }}>
+    <>
+      {showPremiumModal && <PremiumModal locale={locale} onClose={() => setShowPremiumModal(false)} />}
+      <div style={{ background: "#0f1117", minHeight: "40vh", fontFamily: "monospace", color: "#e6edf3", padding: "0 0 40px", borderRadius: 8, border: "1px solid #30363d", overflow: "hidden" }}>
       {/* Header */}
       <div style={{ borderBottom: "1px solid #30363d", padding: "10px 12px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
@@ -502,12 +473,32 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
               </tr>
             </thead>
             <tbody>
-              {sorted.map((tk) => {
+              {sorted.map((tk, idx) => {
                 const d = live[tk];
                 const signal = d?.tracker_1h?.signal || "—";
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === tk;
+                const rowLocked = !isPremium && idx > 0;
+
+                if (rowLocked) {
+                  return (
+                    <tr key={tk} onClick={() => setShowPremiumModal(true)} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: "pointer" }}>
+                      <td style={{ padding: "6px 8px" }}>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                          Premium
+                        </span>
+                      </td>
+                      <td colSpan={13} style={{ padding: "6px 8px", textAlign: "right", fontWeight: 700, color: "#f59e0b" }} onClick={(e) => e.stopPropagation()}>
+                        <button onClick={() => setShowPremiumModal(true)}
+                          style={{ background: "transparent", border: "1px solid #f59e0b44", color: "#f59e0b", borderRadius: 3, padding: "1px 8px", fontSize: 10, cursor: "pointer", fontFamily: "monospace", fontWeight: 700 }}>
+                          🔒 Premium
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                }
 
                 return (
                   <Fragment key={tk}>
@@ -630,6 +621,7 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
         </div>
       )}
       <DeepAnalysisOverlay ticker={analyzeTicker} locale={locale} onClose={() => setAnalyzeTicker(null)} />
-    </div>
+      </div>
+    </>
   );
 }
