@@ -4,7 +4,8 @@ import { getHotTheme, HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThem
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import ThemeTracker from "@/components/public/ThemeTracker";
+import { getRealStockCardData } from "@/lib/copilot/stockData";
+import { getAllTickers } from "@/lib/data";
 
 export const revalidate = 300;
 
@@ -147,7 +148,67 @@ export default async function ThemePage({ params }: Props) {
 
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const themeDescription = THEME_DESCRIPTIONS[theme]?.[locale as Locale] || "";
-  const breadcrumbHome = locale === "tr" ? "Gösterge Paneli" : locale === "en" ? "Dashboard" : locale === "es" ? "Panel" : locale === "fr" ? "Tableau de Bord" : "Painel";
+
+  // Fetch card data for all stocks in the theme
+  const stockCards = await Promise.all(
+    hotTheme.stocks.map(async (stock) => {
+      try {
+        const card = await getRealStockCardData(stock.ticker, locale as Locale);
+        return { ...stock, card };
+      } catch {
+        return { ...stock, card: null };
+      }
+    })
+  );
+
+  // Fetch ticker data for live prices
+  let allTickers: any = [];
+  try {
+    allTickers = await getAllTickers();
+  } catch {
+    allTickers = [];
+  }
+
+  // Labels for different locales
+  const labels: Record<Locale, { stocks: string; price: string; change: string; description: string; action: string }> = {
+    tr: {
+      stocks: "HİSSE",
+      price: "FİYAT",
+      change: "DEĞİŞİM",
+      description: "AÇIKLAMA",
+      action: "GRAFİK DETAY",
+    },
+    en: {
+      stocks: "TICKER",
+      price: "PRICE",
+      change: "CHANGE",
+      description: "DESCRIPTION",
+      action: "CHART DETAIL",
+    },
+    es: {
+      stocks: "TICKER",
+      price: "PRECIO",
+      change: "CAMBIO",
+      description: "DESCRIPCIÓN",
+      action: "DETALLE DEL GRÁFICO",
+    },
+    fr: {
+      stocks: "TICKER",
+      price: "PRIX",
+      change: "CHANGEMENT",
+      description: "DESCRIPTION",
+      action: "DÉTAILS DU GRAPHIQUE",
+    },
+    pt: {
+      stocks: "TICKER",
+      price: "PREÇO",
+      change: "MUDANÇA",
+      description: "DESCRIÇÃO",
+      action: "DETALHE DO GRÁFICO",
+    },
+  };
+
+  const l = labels[locale as Locale];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -157,7 +218,7 @@ export default async function ThemePage({ params }: Props) {
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
           <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">
-            {breadcrumbHome}
+            {locale === "tr" ? "Gösterge Paneli" : locale === "en" ? "Dashboard" : locale === "es" ? "Panel" : locale === "fr" ? "Tableau de Bord" : "Painel"}
           </Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">{themeTitle}</span>
@@ -172,8 +233,61 @@ export default async function ThemePage({ params }: Props) {
           <p className="text-slate-400 text-xs md:text-sm">{themeDescription}</p>
         </div>
 
-        {/* Theme Tracker */}
-        <ThemeTracker locale={locale as Locale} themeSlug={theme} />
+        {/* Stocks Grid/Table */}
+        <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-[#30363d] bg-[#161b22]">
+                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.stocks}</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.price}</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.change}</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-slate-400 uppercase">{l.description}</th>
+                  <th className="px-6 py-3 text-center text-xs font-bold text-slate-400 uppercase">{l.action}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stockCards.map((stock, idx) => {
+                  const card = stock.card;
+                  const tickerData = allTickers?.find((t: any) => t.ticker === stock.ticker);
+                  const changePct = tickerData?.change_pct ?? 0;
+                  const price = tickerData?.price ?? 0;
+                  const isPositive = changePct >= 0;
+
+                  return (
+                    <tr key={stock.ticker} className={idx % 2 === 0 ? "bg-[#0d1117]" : "bg-[#161b22]"}>
+                      <td className="px-6 py-3">
+                        <Link
+                          href={`/global/${locale}/graphic/${stock.ticker}`}
+                          className="font-bold text-[#58a6ff] hover:underline"
+                        >
+                          {stock.ticker}
+                        </Link>
+                      </td>
+                      <td className="px-6 py-3 text-white font-semibold">
+                        ${price > 0 ? price.toFixed(2) : "N/A"}
+                      </td>
+                      <td className={`px-6 py-3 font-semibold ${isPositive ? "text-[#3fb950]" : "text-[#f85149]"}`}>
+                        {isPositive ? "+" : ""}{changePct.toFixed(2)}%
+                      </td>
+                      <td className="px-6 py-3 text-slate-400 text-xs">
+                        {stock.blurb}
+                      </td>
+                      <td className="px-6 py-3 text-center">
+                        <Link
+                          href={`/global/${locale}/graphic/${stock.ticker}`}
+                          className="inline-block px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-bold text-xs rounded hover:bg-[#79c0ff] transition-colors"
+                        >
+                          {l.action}
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </main>
 
       <Footer hidePlatform={true} locale={locale as Locale} />
