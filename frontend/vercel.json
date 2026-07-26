@@ -5,6 +5,10 @@
     {
       "path": "/api/cron/telegram-report",
       "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/copilot-tasks",
+      "schedule": "0 * * * *"
     }
   ]
 }

@@ -7,6 +7,7 @@ import { ct } from "@/lib/copilot/i18n";
 import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
 import { getPersonalizationContext } from "@/lib/copilot/personalization";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -250,4 +251,30 @@ export async function getSiteCategoryStocksList(
   );
 
   return { categoryName, tickers: validTickers, cards, isFallback };
+}
+
+/**
+ * HOT_THEMES_2026'daki bir temanın gerçek ticker listesini döner (Copilot'un
+ * "tema hisseleri" sorularında UYDURMADAN, sitenin kendi kürasyonlu verisini
+ * kullanması için). Temalar 4-54 hisse arasında değişir (örn. Biotech 54);
+ * diğer kategorilerle tutarlı olacak şekilde ilk 10'a kesilir ama gerçek
+ * toplam sayı (totalCount) ayrıca döndürülür — sessizce eksik göstermemek için.
+ */
+export async function getThemeStocksList(
+  themeSlug: string,
+  lang: string = "tr"
+): Promise<{ themeName: string; tickers: string[]; totalCount: number; cards: CopilotStockCard[]; isFallback: boolean }> {
+  const theme = getHotTheme(themeSlug);
+  if (!theme) {
+    return { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true };
+  }
+
+  const themeName = localizedThemeTitle(theme.title, lang) || theme.title;
+  const allTickers = theme.stocks.map((s) => s.ticker);
+  const tickers = allTickers.slice(0, 10);
+  const cards: CopilotStockCard[] = await Promise.all(
+    tickers.map((t) => getFastStockCardData(t, lang, themeName))
+  );
+
+  return { themeName, tickers, totalCount: allTickers.length, cards, isFallback: false };
 }

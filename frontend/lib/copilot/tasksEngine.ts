@@ -25,7 +25,8 @@ export type TaskType =
   | "trend_candidate_promotion_watch"
   | "top7_change_watch"
   | "top100_change_watch"
-  | "list_intersection_watch";
+  | "list_intersection_watch"
+  | "theme_list_change_watch"; // parametrized by `subject` = hotThemes2026 slug
 
 /** Görev tipinin hangi 5-liste kategorisini izlediği — snapshot/karşılaştırma
  *  motoru bu eşlemeyi kullanarak getSiteCategoryStocksList'i doğru kategoriyle çağırır. */
@@ -54,6 +55,14 @@ export const CROSS_ASSET_TASK_TYPES: ReadonlySet<TaskType> = new Set([
   "crypto_watch",
   "fx_watch",
   "commodity_watch",
+]);
+
+/** Bu görev türü bir hotThemes2026 temasını izler — `subject` alanı tema
+ *  slug'ıdır. LIST_WATCH_TASK_CATEGORY'ye SIĞMAZ çünkü o eşleme sabit (her
+ *  TaskType tek bir SiteListCategory'ye bağlı), oysa 12 farklı tema `subject`
+ *  ile parametrize edilir — bkz. taskRunner.ts:runThemeWatchTask. */
+export const THEME_WATCH_TASK_TYPES: ReadonlySet<TaskType> = new Set([
+  "theme_list_change_watch",
 ]);
 
 export interface TaskRunLog {

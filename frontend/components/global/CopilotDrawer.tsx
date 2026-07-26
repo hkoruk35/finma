@@ -71,6 +71,17 @@ export interface ChatArchiveItem {
   messageCount: number;
 }
 
+export interface CopilotAlert {
+  id: string;
+  task_id: string | null;
+  ticker: string | null;
+  severity: "low" | "medium" | "high" | "critical";
+  title: string;
+  body: string | null;
+  is_read: boolean;
+  created_at: string;
+}
+
 export default function CopilotDrawer() {
   const {
     isOpen, setIsOpen,
@@ -86,8 +97,11 @@ export default function CopilotDrawer() {
   // --- HISTORY & ARCHIVE & TASKS STATES ---
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isTasksOpen, setIsTasksOpen] = useState(false);
+  const [isAlertsOpen, setIsAlertsOpen] = useState(false);
   const [archives, setArchives] = useState<ChatArchiveItem[]>([]);
   const [activeTasks, setActiveTasks] = useState<CopilotTask[]>([]);
+  const [alerts, setAlerts] = useState<CopilotAlert[]>([]);
+  const [unreadAlertsCount, setUnreadAlertsCount] = useState(0);
   const [favoriteSectors, setFavoriteSectors] = useState<string[]>([]);
   const [muteDuration, setMuteDuration] = useState<string>("off");
   const [allowCriticalMute, setAllowCriticalMute] = useState<boolean>(true);
@@ -148,8 +162,22 @@ export default function CopilotDrawer() {
       setIsTasksOpen(false);
       setIsHistoryOpen(false);
       setIsSettingsOpen(false);
+      setIsAlertsOpen(false);
     }
   }, [messages.length, demoMessages.length]);
+
+  const refetchAlerts = () => {
+    fetch("/api/copilot/alerts")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.alerts) {
+          setAlerts(d.alerts);
+          setUnreadAlertsCount(d.unreadCount || 0);
+          if ((d.unreadCount || 0) > 0) setDotColor("red");
+        }
+      })
+      .catch(() => {});
+  };
 
   useEffect(() => {
     if (isAuthenticated && isOpen) {
@@ -169,8 +197,27 @@ export default function CopilotDrawer() {
           }
         })
         .catch(() => {});
+
+      refetchAlerts();
     }
   }, [isAuthenticated, isOpen]);
+
+  // Sohbet içinde 'create_watch_task' aracı çalıştıysa (kullanıcı bir öneriyi
+  // onaylayıp yeni bir görev oluşturttuysa) Görevler panelini tazele — aksi
+  // halde kullanıcı paneli manuel kapatıp açana kadar yeni görevi göremez.
+  useEffect(() => {
+    const last = messages[messages.length - 1] as any;
+    const created = last?.toolInvocations?.some(
+      (ti: any) => ti.toolName === "create_watch_task" && ti.state === "result" && ti.result?.success
+    );
+    if (created) {
+      fetch("/api/copilot/tasks")
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => { if (d?.tasks) setActiveTasks(d.tasks); })
+        .catch(() => {});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages.length]);
 
   useEffect(() => {
     if (!isAuthenticated && demoMessages.length === 0) {
@@ -240,6 +287,30 @@ export default function CopilotDrawer() {
     setActiveTasks([]);
     try {
       await Promise.all(taskIds.map((id) => fetch(`/api/copilot/tasks?id=${id}`, { method: "DELETE" })));
+    } catch {}
+  };
+
+  const handleMarkAlertRead = async (alertId: string) => {
+    setAlerts((prev) => prev.map((a) => (a.id === alertId ? { ...a, is_read: true } : a)));
+    setUnreadAlertsCount((prev) => Math.max(0, prev - 1));
+    try {
+      await fetch("/api/copilot/alerts", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ alertId }),
+      });
+    } catch {}
+  };
+
+  const handleMarkAllAlertsRead = async () => {
+    setAlerts((prev) => prev.map((a) => ({ ...a, is_read: true })));
+    setUnreadAlertsCount(0);
+    try {
+      await fetch("/api/copilot/alerts", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markAll: true }),
+      });
     } catch {}
   };
 
@@ -492,7 +563,23 @@ export default function CopilotDrawer() {
             {isAuthenticated && (
               <>
                 <button
-                  onClick={() => { setIsTasksOpen(!isTasksOpen); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
+                  onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
+                  title="Bildirimler"
+                  className={`rounded-full p-2 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+                    <path d="M13.73 21a2 2 0 01-3.46 0" />
+                  </svg>
+                  {unreadAlertsCount > 0 && (
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 text-[8px] font-black text-white">
+                      {unreadAlertsCount}
+                    </span>
+                  )}
+                </button>
+
+                <button
+                  onClick={() => { setIsTasksOpen(!isTasksOpen); setIsHistoryOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title="Akıllı Görevler"
                   className={`rounded-full p-2 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
@@ -508,7 +595,7 @@ export default function CopilotDrawer() {
                 </button>
 
                 <button
-                  onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsTasksOpen(false); setIsSettingsOpen(false); }}
+                  onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsTasksOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title="Sohbet Arşivi & Geçmiş"
                   className={`rounded-full p-2 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
@@ -519,7 +606,7 @@ export default function CopilotDrawer() {
                 </button>
 
                 <button
-                  onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); }}
+                  onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsAlertsOpen(false); }}
                   title={ct("personalize", activeLocale)}
                   className={`rounded-full p-2 transition-colors ${isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
@@ -538,22 +625,68 @@ export default function CopilotDrawer() {
         </div>
 
         {/* FLOATING OVERLAY PANEL CONTAINER */}
-        {isAuthenticated && (isTasksOpen || isHistoryOpen || isSettingsOpen) && (
+        {isAuthenticated && (isTasksOpen || isHistoryOpen || isSettingsOpen || isAlertsOpen) && (
           <div className="absolute top-14 left-3 right-3 z-30 bg-[#121722]/98 border border-blue-500/30 rounded-2xl shadow-2xl p-4 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center mb-3 pb-2 border-b border-white/10">
               <span className="text-xs font-bold text-gray-200 uppercase tracking-wider">
+                {isAlertsOpen && "🔔 Bildirimler"}
                 {isTasksOpen && `⚡ ${taskDef.headerTitle}`}
                 {isHistoryOpen && "📜 Sohbet Arşivi & Geçmiş"}
                 {isSettingsOpen && ct("personalize", activeLocale)}
               </span>
               <button
                 type="button"
-                onClick={() => { setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
+                onClick={() => { setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                 className="text-gray-400 hover:text-white text-xs px-2 py-0.5 rounded bg-white/5 hover:bg-white/10"
               >
                 ✕
               </button>
             </div>
+
+            {/* Bildirimler (copilot_alerts) — liste/tema değişikliklerinden gelen uyarılar */}
+            {isAlertsOpen && (
+              <div className="space-y-2">
+                {alerts.length > 0 && (
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={handleMarkAllAlertsRead}
+                      className="text-[9px] font-bold text-blue-300 hover:text-blue-200 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 px-1.5 py-0.5 rounded"
+                    >
+                      Tümünü okundu işaretle
+                    </button>
+                  </div>
+                )}
+                {alerts.length > 0 ? (
+                  <div className="space-y-2 max-h-64 overflow-y-auto">
+                    {alerts.map((a) => (
+                      <button
+                        key={a.id}
+                        type="button"
+                        onClick={() => !a.is_read && handleMarkAlertRead(a.id)}
+                        className={`w-full text-left p-2.5 rounded-xl text-xs space-y-1 border transition-colors ${
+                          a.is_read
+                            ? "bg-[#161b22] border-white/5 opacity-60"
+                            : "bg-[#161b22] border-blue-500/30 hover:border-blue-400"
+                        }`}
+                      >
+                        <div className="flex justify-between items-center gap-2">
+                          <span className={`font-bold ${a.severity === "high" || a.severity === "critical" ? "text-amber-300" : "text-gray-200"}`}>
+                            {a.title}
+                          </span>
+                          <span className="text-[9px] text-gray-500 font-mono whitespace-nowrap">
+                            {new Date(a.created_at).toLocaleDateString(activeLocale === "tr" ? "tr-TR" : "en-US", { month: "2-digit", day: "2-digit" })}
+                          </span>
+                        </div>
+                        {a.body && <p className="text-gray-400 leading-snug">{a.body}</p>}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-400 italic">Henüz bir bildirim yok.</p>
+                )}
+              </div>
+            )}
 
             {/* Smart Tasks Modal Content with DIRECT TOGGLE (+) and (-) */}
             {isTasksOpen && (
@@ -858,6 +991,58 @@ export default function CopilotDrawer() {
                           </div>
                         );
                       }
+                      if (toolInv.toolName === "get_theme_stocks") {
+                        const stocks: StockCardProps[] = result?.stocks || [];
+                        const tickers: string[] = result?.tickers || [];
+                        const totalCount: number = result?.totalCount || tickers.length;
+                        return (
+                          <div key={idx} className="my-3 space-y-3">
+                            <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
+                              🧩 {result?.themeName || "Tema"}
+                              {totalCount > tickers.length && (
+                                <span className="text-[10px] font-normal text-gray-500">(ilk {tickers.length} / toplam {totalCount})</span>
+                              )}
+                            </div>
+
+                            {tickers.length > 0 && (
+                              <div className="grid grid-cols-2 gap-2">
+                                {tickers.map((t: string, i: number) => (
+                                  <button
+                                    key={i}
+                                    type="button"
+                                    onClick={() => {
+                                      router.push(`/global/${activeLocale}/graphic/${t}`);
+                                      append({ role: "user", content: `${t} hissesini canlı grafiği ile analiz et` });
+                                    }}
+                                    className="p-2.5 rounded-xl bg-[#141924] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-left font-mono font-bold text-xs text-blue-400 hover:text-white flex items-center justify-between cursor-pointer transition-all active:scale-[0.98]"
+                                  >
+                                    <span>${t}</span>
+                                    <span className="text-[10px] text-blue-300 font-sans">Grafik & Analiz →</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+
+                            {stocks.length > 0 && (
+                              <div className="space-y-2 pt-1">
+                                {stocks.map((sProps: any, i: number) => (
+                                  <StockCard key={i} data={sProps} locale={activeLocale} />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                      if (toolInv.toolName === "create_watch_task") {
+                        if (!result?.success) {
+                          return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">⚠️ {result?.error || "Görev oluşturulamadı."}</div>;
+                        }
+                        return (
+                          <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-emerald-500/20 text-xs font-mono text-emerald-400">
+                            {result?.alreadyExists ? "✓ Bu görev zaten aktif." : "✓ İzleme görevi oluşturuldu — değişiklik olunca haber verilecek."}
+                          </div>
+                        );
+                      }
                       if (toolInv.toolName === "show_stock_card") {
                         if (!result?.success) return <div key={idx} className="my-2 bg-[#0a0e17] p-2 rounded-lg border border-yellow-500/20 text-xs text-yellow-400">⚠️ {result?.error || ct("noStockData", activeLocale)}</div>;
                         return <StockCard key={idx} data={result as StockCardProps} locale={activeLocale} />;
@@ -904,8 +1089,28 @@ export default function CopilotDrawer() {
                               );
                             }
                             if (href?.startsWith("copilot-list://")) {
-                              const listKey = href.replace("copilot-list://", "").trim();
-                              const routeKey = LIST_KEY_TO_ROUTE_KEY[listKey];
+                              const rawKey = href.replace("copilot-list://", "").trim();
+                              // Tema sayfaları LIST_KEY_TO_ROUTE_KEY'e sığmaz (12 farklı slug) —
+                              // "theme_SLUG" bileşik formu ayrıca ele alınır ("theme:" değil,
+                              // ":" fixCopilotPseudoLinks() tarafından encodeURIComponent ile
+                              // %3A'ya kaçırılır ve split kırılırdı).
+                              if (rawKey.startsWith("theme_")) {
+                                const themeSlug = rawKey.slice("theme_".length);
+                                if (!themeSlug) return <span>{children}</span>;
+                                return (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      router.push(buildRoute("themes", activeLocale, themeSlug));
+                                      setIsOpen(false);
+                                    }}
+                                    className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
+                                  >
+                                    {children}
+                                  </button>
+                                );
+                              }
+                              const routeKey = LIST_KEY_TO_ROUTE_KEY[rawKey];
                               if (!routeKey) return <span>{children}</span>;
                               return (
                                 <button

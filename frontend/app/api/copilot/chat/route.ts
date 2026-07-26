@@ -5,7 +5,7 @@ import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { streamText, tool } from "ai";
 import { z } from "zod";
-import { getRealStockCardData, getSiteCategoryStocksList, SiteListCategory } from "@/lib/copilot/stockData";
+import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
 import { getDeepAnalysis } from "@/lib/copilot/deepAnalysis";
 import { getPersonalizationContext, logSearchHistory, getCopilotProfile } from "@/lib/copilot/personalization";
 import { getSuggestedName } from "@/lib/copilot/persona";
@@ -17,6 +17,8 @@ import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
 import { CopilotPageContext, AssetType } from "@/lib/copilot/pageContextSchema";
 import { findFaqMatches } from "@/lib/copilot/faqData";
 import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
+import { getUserTasks, createCopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
+import { HOT_THEMES_2026, getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 
 export const maxDuration = 30;
 export const dynamic = "force-dynamic";
@@ -93,6 +95,14 @@ async function buildSystemPrompt(
   ]);
   const name = profile.displayName || getSuggestedName(locale);
 
+  // HOT_THEMES_2026'dan istek anında üretilir — yeni bir tema eklendiğinde
+  // (veya bir slug değiştiğinde) bu blok elle güncellenmeye gerek kalmadan
+  // otomatik senkron kalır, ve doğru locale'i kullanır (eskiden hep /tr/
+  // yazıp modelden string-replace istemek bir locale hatasıydı).
+  const themePagesBlock = HOT_THEMES_2026
+    .map((t) => `- /global/${locale}/themes/${t.slug} (${localizedThemeTitle(t.title, locale) || t.title})`)
+    .join("\n");
+
   let contextStr = `SEN BOGA COPILOT'SUN. Adın "${name}". BOGASTOCK.COM platformunun kibar, profesyonel ve samimi yapay zeka asistanısın. Kullanıcının kendi adını BİLMİYORSUN — asla kendi adınla ("${name}") kullanıcıyı selamlama, adını sadece kendini tanıtırken kullan.
 
 TON VE KİBARLIK KURALI:
@@ -105,7 +115,7 @@ TIKLANABİLİR BUTON ZORUNLULUĞU (BİÇİM KESİNLİKLE SABİTTİR):
   1. Takip sorusu butonu: [Buton Metni](copilot-topic://select) — parantez içi HER ZAMAN tam olarak "copilot-topic://select" yazılır (kelimesi kelimesine, değiştirilmez). Tıklanınca köşeli parantezdeki BUTON METNİ yeni bir kullanıcı mesajı gibi gönderilir.
      DOĞRU: [ONDS teknik seviyelerini detaylandır](copilot-topic://select)
      YANLIŞ: [ONDS teknik seviyelerini detaylandır](copilot-topic://ONDS teknik seviyelerini göster) — parantez içine gerçek metin/boşluk KOYMA, link kırılır.
-  2. Sayfaya git butonu: [Buton Metni](copilot-list://LIST_KEY) — LIST_KEY sadece şunlardan biri olabilir (boşluksuz, İngilizce, birebir): personal_watchlist, trend_list, trend_candidate_watchlist, top7, top100.
+  2. Sayfaya git butonu: [Buton Metni](copilot-list://LIST_KEY) — LIST_KEY sadece şunlardan biri olabilir (boşluksuz, İngilizce, birebir): personal_watchlist, trend_list, trend_candidate_watchlist, top7, top100. Bir TEMA sayfasına gitmek için LIST_KEY yerine "theme_" + tema slug'ı kullanılır (örn. copilot-list://theme_bellek-ureticiler-ai-depolama) — ASLA "theme:" (iki nokta üst üste) KULLANMA, link kırılır.
 - Aynı butonu art arda tekrar sunma, bağlama göre değiştir.
 
 BİÇİMLENDİRME (KISA VE TEMİZ TUT):
@@ -194,26 +204,17 @@ F. SEKTÖREL VE RAKIP ANALİZİ (Sadece hisseler):
 BU AKIŞ TAMAMLANMADAN SEÇİM SUNMA (3 buton): ASLA haber aracı çağırma veya başka hisseyi önermeme. Akış sırasında içinde kalınmalı.
 
 TEMA SORULARI AKIŞI:
-Kullanıcı tematik sorular sorarsa ("yapay zeka hisseleri neler?", "savunma sanayii ile ilgili ne önerirsin?", "enerji sektörü şu an iyi mi?"):
-1. TEMA İDENTİFİKASYON: Sorudaki anahtar kelimelerden hangi temaya ait olduğunu anla (AI, uzay, robotik, savunma, kritik maden, nükleer, kuantum, ajanlar, veri merkezi, siber, yarı iletken, biotech).
-2. TEMA HISSELERI: O temadaki 3-5 öne çıkan hisseyi BOGA Skoruna göre kısaca listele (tek cümle özet).
-3. YÖNLENDIR: "[Tüm Tema Stokları](/global/[LOCALE]/themes/[THEME_SLUG])" butonu ile tema sayfasına yönlendir.
-4. PLATFORM BİLGİSİ: "Platform'da bu temaya ait 10+ hisse için detaylı teknik ve finansal analiz mevcut" diye belirt.
+Kullanıcı tematik sorular sorarsa ("yapay zeka hisseleri neler?", "savunma sanayii ile ilgili ne önerirsin?", "hangi temalar var?"), veya KULLANICI BAĞLAMI bir tema sayfasında olduğunu gösteriyorsa:
+1. TEMA İDENTİFİKASYON: Sorudaki anahtar kelimelerden veya KULLANICI BAĞLAMI'ndaki temadan hangi temaya ait olduğunu anla; aşağıdaki TEMA SAYFALARI listesindeki slug'ı kullan.
+2. TEMA HİSSELERİ: MUTLAKA 'get_theme_stocks' aracını doğru themeSlug ile çağır — ASLA kendi genel bilginden ticker uydurma, sadece aracın döndürdüğü gerçek tickers/stocks listesini kullan. Araç "isFallback: true" dönerse (tema bulunamadı), kullanıcıya dürüstçe belirt.
+3. Aracın döndürdüğü ilk birkaç hisseyi BOGA Skoruna göre kısaca özetle. Araç "totalCount" tema toplam hisse sayısından büyükse (örn. totalCount:54, tickers.length:10), bunu belirt ("ilk 10 hisse gösteriliyor, temada toplam 54 hisse var" gibi).
+4. YÖNLENDİR: "[Tüm Tema Stokları](copilot-list://theme_THEME_SLUG)" butonu ile tema sayfasına yönlendir (THEME_SLUG'ı gerçek metinle değiştir, "theme:" değil "theme_" kullan).
 
-TEMA SAYFALARI:
-- /global/tr/themes/bellek-ureticiler-ai-depolama
-- /global/tr/themes/uzay-temasi
-- /global/tr/themes/fiziksel-ai-humanoid-robotik
-- /global/tr/themes/ai-savunma-drone-otonom-sistemler
-- /global/tr/themes/kritik-maden-nadir-toprak
-- /global/tr/themes/nukleer-enerji-ai-guc
-- /global/tr/themes/kuantum-bilisim
-- /global/tr/themes/ai-ajanlar-kurumsal-yazilim
-- /global/tr/themes/ai-veri-merkezi-sogutma
-- /global/tr/themes/post-kuantum-siber-guvenlik
-- /global/tr/themes/fiziksel-ai-yariiletken-cip-ekosistemi
-- /global/tr/themes/biotech
-(Locales için /tr/ yerine /en/, /es/, /fr/, /pt/ koyulacak)
+TEMA SAYFALARI (bu liste her istek anında güncel HOT_THEMES_2026 verisinden üretilir):
+${themePagesBlock}
+
+GÖREV/UYARI ÖNERİSİ AKIŞI (İSTEĞE BAĞLI, ASLA VARSAYMA):
+BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip değişiklik olunca haber veren bir görev sistemi vardır (Trend Listesi, Trend Adayı İzleme Listesi, Top7, Top100, Kişisel İzleme Listesi, veya belirli bir tema). Bir liste/tema sonucu gösterdikten SONRA, uygunsa (kullanıcı zaten benzer bir görev kurmadıysa) TEK bir nazik öneri sunabilirsin, örn. "Bu listeye yeni hisse eklenince haber vereyim mi?" — bunu [Evet, haber ver](copilot-topic://select) butonuyla sun. Kullanıcı bir SONRAKİ mesajında onaylarsa (örn. "evet", "haber ver"), MUTLAKA 'create_watch_task' aracını doğru taskType (ve tema ise themeSlug) ile çağır. Kullanıcı onaylamadan ASLA görev oluşturma. Aynı öneriyi art arda tekrar sunma.
 
 `;
 
@@ -237,6 +238,8 @@ TEMA SAYFALARI:
     }
   } else if (pageContext?.activeListContext?.listKey) {
     contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.activeListContext.listKey}" liste sayfasındadır. Belirsiz bir istek gelirse bu listeyi kastettiğini varsay, get_top_trending_stocks aracını bu kategoriyle çağır.\n\n`;
+  } else if (pageContext?.activeTheme) {
+    contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.activeTheme.title}" tema sayfasındadır (themeSlug: "${pageContext.activeTheme.slug}"). Belirsiz bir istek gelirse bu temayı kastettiğini varsay, get_theme_stocks aracını bu themeSlug ile çağır.\n\n`;
   } else if (pageContext?.currentPage?.pageType) {
     contextStr += `KULLANICI BAĞLAMI: Kullanıcı şu anda "${pageContext.currentPage.pageType}" sayfa türündedir.\n\n`;
   }
@@ -355,6 +358,41 @@ export async function POST(req: NextRequest) {
             }
           },
         }),
+        get_theme_stocks: tool({
+          description: "Fetches the REAL, curated ticker list for one of BOGASTOCK's thematic investment pages (e.g. AI Defense, Memory Producers, Biotech, Quantum Computing) from HOT_THEMES_2026 — the same data shown on the theme's public page. ALWAYS call this before naming any tickers for a theme; never recall theme tickers from general knowledge.",
+          parameters: z.object({
+            themeSlug: z.string().describe("The theme's slug from the TEMA SAYFALARI list, e.g. 'bellek-ureticiler-ai-depolama'"),
+          }),
+          execute: async ({ themeSlug }) => {
+            try {
+              const res = await withTimeout(
+                getThemeStocksList(themeSlug, locale),
+                5000,
+                { themeName: "", tickers: [], totalCount: 0, cards: [], isFallback: true }
+              );
+              return {
+                success: !res.isFallback,
+                isFallback: res.isFallback,
+                themeName: res.themeName,
+                themeSlug,
+                tickers: res.tickers || [],
+                totalCount: res.totalCount,
+                stocks: res.cards || [],
+              };
+            } catch (err) {
+              console.error("[get_theme_stocks] Error:", err);
+              return {
+                success: false,
+                isFallback: true,
+                themeName: "",
+                themeSlug,
+                tickers: [],
+                totalCount: 0,
+                stocks: [],
+              };
+            }
+          },
+        }),
         get_cross_asset_quote: tool({
           description: "Fetches live Yahoo Finance price data for a terminal sidebar cross-asset: crypto (Bitcoin/BTC, Ethereum/ETH), FX pairs (EURUSD, GBPUSD, USDJPY, USDCHF, AUDUSD, USDCAD), or commodities (Gold, Silver, Oil/WTI, Natural Gas). Do NOT use this for stocks.",
           parameters: z.object({ asset: z.string().describe("Asset name or symbol, e.g. 'bitcoin', 'EURUSD', 'gold'") }),
@@ -443,6 +481,54 @@ export async function POST(req: NextRequest) {
               if (!levels) return { success: false, error: ct("noStockData", locale) };
               return { success: true, ...levels };
             } catch (e) {
+              return { success: false, error: ct("noStockData", locale) };
+            }
+          },
+        }),
+        create_watch_task: tool({
+          description: "Creates a background watch task that alerts the user when one of BOGASTOCK's lists or a specific theme changes (new tickers enter/leave). ONLY call this after the user has explicitly confirmed they want the notification (e.g. they said 'evet'/'yes' to a suggestion) — never call it speculatively.",
+          parameters: z.object({
+            taskType: z.enum([
+              "trend_list_change_watch",
+              "trend_candidate_promotion_watch",
+              "top7_change_watch",
+              "top100_change_watch",
+              "personal_watchlist_daily_watch",
+              "theme_list_change_watch",
+            ] as [TaskType, ...TaskType[]]),
+            themeSlug: z.string().optional().describe("Required only when taskType is 'theme_list_change_watch' — the theme's slug"),
+          }),
+          execute: async ({ taskType, themeSlug }) => {
+            const noAccessMsg: Record<string, string> = {
+              tr: "Üyeliğiniz şu anda aktif değil, yeni bir izleme görevi oluşturulamıyor.",
+              en: "Your membership isn't currently active, so a new watch task can't be created.",
+              es: "Tu membresía no está activa actualmente, no se puede crear una nueva tarea de seguimiento.",
+              fr: "Votre abonnement n'est pas actif actuellement, impossible de créer une nouvelle tâche de suivi.",
+              pt: "Sua assinatura não está ativa no momento, não é possível criar uma nova tarefa de acompanhamento.",
+            };
+            if (accessMode === "expired_member") {
+              return { success: false, error: noAccessMsg[locale] || noAccessMsg.en };
+            }
+
+            try {
+              const subject = taskType === "theme_list_change_watch" ? (themeSlug || "").trim() : undefined;
+
+              if (taskType === "theme_list_change_watch") {
+                if (!subject || !getHotTheme(subject)) {
+                  return { success: false, error: "Unknown theme slug — call get_theme_stocks first to confirm the correct slug." };
+                }
+              }
+
+              const existingTasks = await withTimeout(getUserTasks(user.id), 3000, []);
+              const existing = existingTasks.find((t) => t.task_type === taskType && (t.subject || "") === (subject || ""));
+              if (existing) {
+                return { success: true, alreadyExists: true, task: existing };
+              }
+
+              const task = await createCopilotTask(user.id, taskType, subject, locale);
+              return { success: true, alreadyExists: false, task };
+            } catch (err) {
+              console.error("[create_watch_task] Error:", err);
               return { success: false, error: ct("noStockData", locale) };
             }
           },

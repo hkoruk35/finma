@@ -87,8 +87,8 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
   // ve varlık sınıfı çıkarımı doğru şekilde çözülür.
   useEffect(() => {
     if (!pathname) return;
-    const { key, ticker } = resolveRouteKey(pathname);
-    setPageContext(buildPageContext(key, ticker, locale));
+    const { key, ticker, themeSlug } = resolveRouteKey(pathname);
+    setPageContext(buildPageContext(key, ticker, locale, themeSlug));
   }, [pathname, locale]);
 
   const refreshUsage = useCallback(() => {
@@ -172,6 +172,12 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         const { category } = (toolCall.args as any) || {};
         const routeKey = LIST_CATEGORY_TO_ROUTE_KEY[category] || "trend_list";
         router.push(buildRoute(routeKey, locale));
+      }
+      if (toolCall.toolName === "get_theme_stocks") {
+        const { themeSlug } = (toolCall.args as any) || {};
+        if (themeSlug && typeof themeSlug === "string") {
+          router.push(buildRoute("themes", locale, themeSlug));
+        }
       }
     },
     onFinish() {

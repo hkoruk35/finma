@@ -7,8 +7,9 @@
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getCurrentPeriodKey, getUSMarketStatus } from "@/lib/copilot/marketSchedule";
-import { CopilotTask, TaskType, LIST_WATCH_TASK_CATEGORY, UNSUPPORTED_TASK_TYPES, CROSS_ASSET_TASK_TYPES, buildIdempotencyKey } from "@/lib/copilot/tasksEngine";
-import { getSiteCategoryStocksList, getFastStockCardData } from "@/lib/copilot/stockData";
+import { CopilotTask, TaskType, LIST_WATCH_TASK_CATEGORY, UNSUPPORTED_TASK_TYPES, CROSS_ASSET_TASK_TYPES, THEME_WATCH_TASK_TYPES, buildIdempotencyKey } from "@/lib/copilot/tasksEngine";
+import { getSiteCategoryStocksList, getThemeStocksList, getFastStockCardData } from "@/lib/copilot/stockData";
+import { getHotTheme } from "@/lib/hotThemes2026";
 import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { calculateMaterialityScore } from "@/lib/copilot/materialityScore";
 
@@ -49,8 +50,12 @@ async function recordRun(
   }).select().single();
 }
 
-async function runListWatchTask(task: CopilotTask, category: NonNullable<(typeof LIST_WATCH_TASK_CATEGORY)[TaskType]>): Promise<RunResult> {
-  const res = await getSiteCategoryStocksList(category, task.language, task.user_id);
+/** trend/top7/top100/watchlist ve tema izleme görevlerinin ortak diff+snapshot+alert
+ *  gövdesi — bkz. runListWatchTask ve runThemeWatchTask. */
+async function recordListSnapshotAndMaybeAlert(
+  task: CopilotTask,
+  res: { categoryName: string; tickers: string[]; isFallback: boolean }
+): Promise<RunResult> {
   if (res.isFallback) {
     return { taskId: task.id, status: "failed", reason: "list_source_unavailable", alertCreated: false };
   }
@@ -84,6 +89,25 @@ async function runListWatchTask(task: CopilotTask, category: NonNullable<(typeof
     return { taskId: task.id, status: "completed", alertCreated: true };
   }
   return { taskId: task.id, status: "completed", alertCreated: false };
+}
+
+async function runListWatchTask(task: CopilotTask, category: NonNullable<(typeof LIST_WATCH_TASK_CATEGORY)[TaskType]>): Promise<RunResult> {
+  const res = await getSiteCategoryStocksList(category, task.language, task.user_id);
+  return recordListSnapshotAndMaybeAlert(task, res);
+}
+
+async function runThemeWatchTask(task: CopilotTask): Promise<RunResult> {
+  const themeSlug = (task.subject || "").trim();
+  if (!themeSlug || !getHotTheme(themeSlug)) {
+    return { taskId: task.id, status: "skipped", reason: "no_valid_theme_subject", alertCreated: false };
+  }
+
+  const res = await getThemeStocksList(themeSlug, task.language);
+  return recordListSnapshotAndMaybeAlert(task, {
+    categoryName: res.themeName || themeSlug,
+    tickers: res.tickers,
+    isFallback: res.isFallback,
+  });
 }
 
 async function runTickerWatchTask(task: CopilotTask): Promise<RunResult> {
@@ -219,11 +243,14 @@ export async function runDueTasks(): Promise<{ ran: number; skipped: number; fai
       }
 
       const listCategory = LIST_WATCH_TASK_CATEGORY[taskType];
+      const isThemeWatch = THEME_WATCH_TASK_TYPES.has(taskType);
       const result = isCrossAsset
         ? await runCrossAssetWatchTask(task)
-        : listCategory
-          ? await runListWatchTask(task, listCategory)
-          : await runTickerWatchTask(task);
+        : isThemeWatch
+          ? await runThemeWatchTask(task)
+          : listCategory
+            ? await runListWatchTask(task, listCategory)
+            : await runTickerWatchTask(task);
 
       await recordRun(task.id, idempotencyKey, new Date(), result.status, {
         deliveryStatus: result.alertCreated ? "delivered" : "muted",

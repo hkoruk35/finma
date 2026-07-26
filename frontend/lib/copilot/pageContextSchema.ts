@@ -8,6 +8,7 @@
 // O alanlar bilinmediğinde undefined bırakılır — UYDURULMAZ.
 
 import type { RouteKey } from "@/lib/copilot/routes";
+import { getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 
 export type AssetType =
   | "stock"
@@ -24,6 +25,7 @@ export type PageType =
   | "dashboard"
   | "asset_analysis"
   | "list_view"
+  | "theme_view"
   | "faq"
   | "news"
   | "account"
@@ -38,6 +40,11 @@ export interface ActiveListContext {
   listKey: "personal_watchlist" | "trend_list" | "trend_candidate_watchlist" | "top7" | "top100" | null;
 }
 
+export interface ActiveTheme {
+  slug: string;
+  title: string;
+}
+
 export interface CopilotPageContext {
   currentPage: {
     routeKey: RouteKey | "unknown";
@@ -45,6 +52,7 @@ export interface CopilotPageContext {
   };
   selectedAsset: SelectedAsset | null;
   activeListContext: ActiveListContext;
+  activeTheme: ActiveTheme | null;
   session: {
     locale: string;
     timezone: string; // her zaman "America/New_York" — Copilot ABD piyasa saatine göre konuşur
@@ -79,6 +87,7 @@ function pageTypeForRoute(routeKey: RouteKey | "unknown"): PageType {
     case "top100":
     case "my_watchlist":
       return "list_view";
+    case "themes": return "theme_view";
     case "faq": return "faq";
     case "news": return "news";
     case "account": return "account";
@@ -97,12 +106,22 @@ const ROUTE_TO_LIST_KEY: Partial<Record<RouteKey, ActiveListContext["listKey"]>>
 export function buildPageContext(
   routeKey: RouteKey | "unknown",
   ticker: string | null,
-  locale: string
+  locale: string,
+  themeSlug?: string | null
 ): CopilotPageContext {
+  let activeTheme: ActiveTheme | null = null;
+  if (routeKey === "themes" && themeSlug) {
+    const theme = getHotTheme(themeSlug);
+    if (theme) {
+      activeTheme = { slug: themeSlug, title: localizedThemeTitle(theme.title, locale) || theme.title };
+    }
+  }
+
   return {
     currentPage: { routeKey, pageType: pageTypeForRoute(routeKey) },
     selectedAsset: ticker ? { symbol: ticker, assetType: inferAssetType(ticker) } : null,
     activeListContext: { listKey: ROUTE_TO_LIST_KEY[routeKey as RouteKey] ?? null },
+    activeTheme,
     session: { locale, timezone: "America/New_York" },
   };
 }

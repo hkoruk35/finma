@@ -8,10 +8,11 @@ import { runDueTasks } from "@/lib/copilot/taskRunner";
  * aynı zamanlayıcı) — premarket/midday/closing periyotlarını kendi içinde
  * idempotency_key ile ayırt eder, aynı periyot için iki kez çalışmaz.
  *
- * NOT: vercel.json'a bilinçli olarak eklenmedi — bu proje diğer saatlik
- * job'ları (swing scan, fiyat güncelleme) Vercel Cron değil, harici bir
- * zamanlayıcı (Windows Task Scheduler) ile tetikliyor. Aynı mekanizmaya bu
- * endpoint'i de eklemek devreye alma kararı gerektirir.
+ * NOT: vercel.json'daki cron girişi bu endpoint'i saatlik tetikler (Vercel,
+ * CRON_SECRET ortam değişkeni tanımlıysa isteğe otomatik olarak Authorization:
+ * Bearer header'ı ekler). Bu proje diğer saatlik job'ları (swing scan, fiyat
+ * güncelleme) harici bir zamanlayıcıyla (Windows Task Scheduler) tetikliyor —
+ * bu endpoint artık ayrıca Vercel Cron ile de güvence altında.
  */
 
 const CRON_SECRET = process.env.CRON_SECRET;

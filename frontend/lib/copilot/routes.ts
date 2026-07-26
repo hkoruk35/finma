@@ -13,6 +13,7 @@ export type RouteKey =
   | "top100"
   | "my_watchlist" // Kişisel İzleme Listesi
   | "graphic" // {ticker} parametresi gerekir
+  | "themes" // {themeSlug} parametresi gerekir — HOT_THEMES_2026 tema sayfaları
   | "faq"
   | "news"
   | "account";
@@ -25,22 +26,25 @@ const SLUGS: Record<RouteKey, Record<CopilotLocale, string>> = {
   top100: { tr: "top100", en: "top100", es: "top100", fr: "top100", pt: "top100" },
   my_watchlist: { tr: "my-watchlist", en: "my-watchlist", es: "my-watchlist", fr: "my-watchlist", pt: "my-watchlist" },
   graphic: { tr: "graphic", en: "graphic", es: "graphic", fr: "graphic", pt: "graphic" },
+  themes: { tr: "themes", en: "themes", es: "themes", fr: "themes", pt: "themes" },
   faq: { tr: "sss", en: "faq", es: "faq", fr: "faq", pt: "Perguntas_Frequentes" },
   news: { tr: "news", en: "news", es: "news", fr: "news", pt: "news" },
   account: { tr: "hesabim", en: "account", es: "account", fr: "account", pt: "account" },
 };
 
-/** route_key (+opsiyonel ticker) -> gerçek, locale'e göre doğru site içi yol. */
+/** route_key (+opsiyonel ticker/themeSlug) -> gerçek, locale'e göre doğru site içi yol. */
 export function buildRoute(key: RouteKey, locale: string, ticker?: string): string {
   const loc = (["tr", "en", "es", "fr", "pt"].includes(locale) ? locale : "en") as CopilotLocale;
   const slug = SLUGS[key]?.[loc] ?? SLUGS[key]?.en ?? key;
   const base = `/global/${loc}/${slug}`;
   if (key === "graphic" && ticker) return `${base}/${ticker.trim().toUpperCase()}`;
+  // Tema slug'ları (hotThemes2026.ts) küçük harf/tireli — ticker'ın aksine BÜYÜTÜLMEZ.
+  if (key === "themes" && ticker) return `${base}/${ticker.trim()}`;
   return base;
 }
 
 /** Bir pathname'i (örn. "/global/tr/top7") route_key'e çözer — Page Context Service için. */
-export function resolveRouteKey(pathname: string): { key: RouteKey | "unknown"; ticker: string | null } {
+export function resolveRouteKey(pathname: string): { key: RouteKey | "unknown"; ticker: string | null; themeSlug?: string | null } {
   const parts = pathname.split("/").filter(Boolean); // ["global","tr","top7", ...]
   if (parts[0] !== "global" || !parts[1]) return { key: "unknown", ticker: null };
   const locale = parts[1];
@@ -52,6 +56,8 @@ export function resolveRouteKey(pathname: string): { key: RouteKey | "unknown"; 
     const localeSlug = SLUGS[key][(["tr", "en", "es", "fr", "pt"].includes(locale) ? locale : "en") as CopilotLocale];
     if (seg === localeSlug || seg.toLowerCase() === localeSlug.toLowerCase()) {
       if (key === "graphic") return { key, ticker: rest[1] ? rest[1].toUpperCase() : null };
+      // Tema slug'ı küçük harf/tireli (getHotTheme tam eşleşme arar) — BÜYÜTÜLMEZ.
+      if (key === "themes") return { key, ticker: null, themeSlug: rest[1] ? rest[1].trim() : null };
       return { key, ticker: null };
     }
   }
