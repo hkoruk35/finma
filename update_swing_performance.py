@@ -120,6 +120,7 @@ def simulate_trade(record, ticker_df):
 
     entry_price = t1_open
     stop_price = entry_price * (1 - stop_pct / 100)
+    profit_target = record.get('profit_target')
     targets = [3, 5, 7, 10, 15, 20]
     hits = {t: False for t in targets}
     days_to_hit = {t: None for t in targets}
@@ -132,6 +133,7 @@ def simulate_trade(record, ticker_df):
     max_high = entry_price
     min_low = entry_price
     is_stopped = False
+    is_tp = False
 
     for k_idx, dt in enumerate(holding_idx, start=1):
         holding_days = k_idx
@@ -150,6 +152,13 @@ def simulate_trade(record, ticker_df):
             exit_price = c_open if c_open <= stop_price else stop_price
             break
 
+        if profit_target and c_high >= profit_target:
+            is_tp = True
+            exit_date = dt.strftime('%Y-%m-%d')
+            exit_reason = 'TP'
+            exit_price = c_open if c_open >= profit_target else profit_target
+            break
+
         for t_pct in targets:
             t_price = entry_price * (1 + t_pct / 100)
             if c_high >= t_price and not hits[t_pct]:
@@ -159,12 +168,12 @@ def simulate_trade(record, ticker_df):
         exit_date = dt.strftime('%Y-%m-%d')
         exit_price = c_close
 
-    if not is_stopped and holding_days == 20:
+    if not is_stopped and not is_tp and holding_days == 20:
         exit_reason = 'TIMEOUT'
         # Yirmi işlem günü sonunda fiyat stop loss'a değmezse,
         # 20 işlem günü içerisindeki en yüksek fiyat üzerinden kapanış hesaplanır
         exit_price = max_high
-    elif not is_stopped and len(holding_idx) < 20:
+    elif not is_stopped and not is_tp and len(holding_idx) < 20:
         exit_reason = 'ACTIVE'
 
     raw_ret = ((exit_price - entry_price) / entry_price) * 100
