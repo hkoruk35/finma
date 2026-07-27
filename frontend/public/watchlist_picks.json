@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T09:03:35.354701-04:00",
+  "generated_at": "2026-07-27T14:09:15.149189-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -276,6 +276,42 @@
       "sector": "Healthcare",
       "date_added": "2026-07-27",
       "score": 35.5
+    },
+    {
+      "ticker": "ATKR",
+      "sector": "Industrials",
+      "date_added": "2026-07-27",
+      "score": 38.0
+    },
+    {
+      "ticker": "BURL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-27",
+      "score": 37.0
+    },
+    {
+      "ticker": "PLUS",
+      "sector": "Technology",
+      "date_added": "2026-07-27",
+      "score": 37.0
+    },
+    {
+      "ticker": "BLFS",
+      "sector": "Healthcare",
+      "date_added": "2026-07-27",
+      "score": 33.0
+    },
+    {
+      "ticker": "URI",
+      "sector": "Industrials",
+      "date_added": "2026-07-27",
+      "score": 33.0
+    },
+    {
+      "ticker": "CLF",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-27",
+      "score": 28.0
     }
   ]
 }
