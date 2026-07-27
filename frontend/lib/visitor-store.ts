@@ -29,8 +29,16 @@ const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes
 let visitorsArray: VisitorSession[] = [];
 
 export async function addVisitor(data: Omit<VisitorSession, 'id' | 'sessionStart' | 'timestamp'>): Promise<VisitorSession> {
-  const id = `${data.ip}-${Date.now()}`;
   const now = Date.now();
+  const sessionTimeoutMs = SESSION_TIMEOUT_MS;
+
+  // Check if same IP visited within timeout window → continue session
+  const existingSession = visitorsArray.find(
+    (v) => v.ip === data.ip && (now - v.sessionStart) < sessionTimeoutMs
+  );
+
+  const sessionStart = existingSession ? existingSession.sessionStart : now;
+  const id = `${data.ip}-${sessionStart}`;  // Use sessionStart for stable IDs
 
   const session: VisitorSession = {
     id,
@@ -40,21 +48,30 @@ export async function addVisitor(data: Omit<VisitorSession, 'id' | 'sessionStart
     page: data.page,
     timestamp: now,
     userAgent: data.userAgent,
-    sessionStart: now,
+    sessionStart,  // Preserve session start for continuing sessions
   };
 
   // Save to Supabase
   try {
-    await supabaseAdmin.from('site_visitors').insert({
-      id,
-      ip: data.ip,
-      country: data.country,
-      city: data.city,
-      page: data.page,
-      timestamp: now,
-      user_agent: data.userAgent,
-      session_start: now,
-    });
+    if (existingSession) {
+      // Update existing session record (same IP within timeout)
+      await supabaseAdmin.from('site_visitors').update({
+        page: data.page,
+        timestamp: now,
+      }).eq('id', id);
+    } else {
+      // New session
+      await supabaseAdmin.from('site_visitors').insert({
+        id,
+        ip: data.ip,
+        country: data.country,
+        city: data.city,
+        page: data.page,
+        timestamp: now,
+        user_agent: data.userAgent,
+        session_start: sessionStart,
+      });
+    }
   } catch (err) {
     console.error('Failed to save visitor to Supabase:', err);
   }
