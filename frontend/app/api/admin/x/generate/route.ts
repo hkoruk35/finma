@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateLocalizedTexts, LOCALES, type Locale, type MarketAssetCategory } from "@/lib/x/generateContent";
-import { fetchTickerMarketData, fetchMarketAssetQuote, fetchMarketAssetBars, trendLabel, opportunityLabel } from "@/lib/x/marketData";
+import { fetchTickerMarketData, fetchMarketAssetQuote, fetchMarketAssetBars, fetchWeeklyBars, trendLabel, opportunityLabel } from "@/lib/x/marketData";
 import { buildStockHashtags, buildPromoHashtags, buildMarketAssetHashtags } from "@/lib/x/hashtags";
 import { getSectorStandouts, getSectorRotation } from "@/lib/x/listOptions";
 import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
@@ -103,6 +103,11 @@ export async function POST(req: NextRequest) {
 
     const market = await fetchTickerMarketData(body.ticker);
 
+    // Haftalık modda haftalık bars kullan, günlük modda günlük bars kullan
+    const bars = body.weekly && market
+      ? await fetchWeeklyBars(process.env.NEXT_PUBLIC_SITE_URL || "https://bogastock.com", body.ticker)
+      : market?.bars ?? [];
+
     const texts = await generateLocalizedTexts({
       contentType: "stock",
       ticker: body.ticker,
@@ -123,7 +128,7 @@ export async function POST(req: NextRequest) {
       hashtags: buildStockHashtags(body.ticker, body.sector, market?.trend),
       market: market
         ? {
-            bars: market.bars,
+            bars,
             changePct: market.changePct,
             rvol: market.rvol,
             opportunity: market.opportunity,

@@ -37,6 +37,21 @@ async function fetchDailyBars(base: string, ticker: string): Promise<OhlcBar[]> 
   }
 }
 
+export async function fetchWeeklyBars(base: string, ticker: string): Promise<OhlcBar[]> {
+  try {
+    const res = await fetch(`${base}/api/chart-data?ticker=${encodeURIComponent(ticker)}&timeframe=W`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    const bars: OhlcBar[] = Array.isArray(data.bars) ? data.bars : [];
+    return bars.slice(-104); // ~2 yil haftalik veri
+  } catch (e) {
+    console.error("[x/marketData] weekly bars fetch failed:", (e as Error).message);
+    return [];
+  }
+}
+
 // /api/watchlist-data zaten Yahoo'dan cekilen fiyat serisini, EMA'lari,
 // trend etiketini (ema_status) ve goreli hacmi (rvol) hesapliyor. Grafik
 // icin ayrica gunluk mumlari /api/chart-data'dan alip 1D grafik gosteriyoruz.
