@@ -14,7 +14,7 @@ interface VisitorSession {
 
 const MAX_VISITORS_MEMORY = 200;
 const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes
-const STORAGE_PATH = process.cwd();
+const STORAGE_PATH = process.env.NODE_ENV === 'production' ? '/tmp' : process.cwd();
 const VISITORS_FILE = join(STORAGE_PATH, '.visitors-data.json');
 
 let visitors = new Map<string, VisitorSession>();
