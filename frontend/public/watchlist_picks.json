@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-24T17:14:31.367178-04:00",
+  "generated_at": "2026-07-27T09:03:35.354701-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -252,6 +252,30 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-24",
       "score": 37.0
+    },
+    {
+      "ticker": "ARMK",
+      "sector": "Industrials",
+      "date_added": "2026-07-27",
+      "score": 43.0
+    },
+    {
+      "ticker": "BIO",
+      "sector": "Healthcare",
+      "date_added": "2026-07-27",
+      "score": 42.0
+    },
+    {
+      "ticker": "SXT",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-27",
+      "score": 41.5
+    },
+    {
+      "ticker": "CRL",
+      "sector": "Healthcare",
+      "date_added": "2026-07-27",
+      "score": 35.5
     }
   ]
 }
