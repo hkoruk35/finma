@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "LMT",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 582.24,
+        "entry_zone": "573.88 - 590.60",
+        "SL": 548.82,
+        "TP": 649.09
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "CSX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 51.61,
+        "entry_zone": "51.03 - 52.19",
+        "SL": 49.3,
+        "TP": 56.23
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "RTX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 218.28,
+        "entry_zone": "215.40 - 221.16",
+        "SL": 206.78,
+        "TP": 241.28
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "DGX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 230.56,
+        "entry_zone": "227.05 - 234.07",
+        "SL": 216.54,
+        "TP": 258.6
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "TMO",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 560.05,
+        "entry_zone": "551.61 - 568.50",
+        "SL": 526.28,
+        "TP": 627.6
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "TGTX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 55.84,
+        "entry_zone": "54.59 - 57.09",
+        "SL": 50.86,
+        "TP": 65.8
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "HON",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 242.81,
+        "entry_zone": "239.24 - 246.38",
+        "SL": 228.55,
+        "TP": 271.33
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "VVX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 83.98,
+        "entry_zone": "82.55 - 85.41",
+        "SL": 78.27,
+        "TP": 95.4
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "OII",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 52.08,
+        "entry_zone": "50.99 - 53.18",
+        "SL": 47.7,
+        "TP": 60.84
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "URI",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 1121.39,
+        "entry_zone": "1100.41 - 1142.37",
+        "SL": 1037.47,
+        "TP": 1289.23
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "CORT",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 90.83,
+        "entry_zone": "88.58 - 93.08",
+        "SL": 81.84,
+        "TP": 108.81
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "SKM",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 35.35,
+        "entry_zone": "34.57 - 36.13",
+        "SL": 32.23,
+        "TP": 41.6
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "NSC",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 344.9,
+        "entry_zone": "341.22 - 348.59",
+        "SL": 330.18,
+        "TP": 374.36
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "LQDA",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 86.71,
+        "entry_zone": "83.96 - 89.46",
+        "SL": 75.72,
+        "TP": 108.68
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "WAB",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 294.75,
+        "entry_zone": "290.50 - 299.00",
+        "SL": 277.76,
+        "TP": 328.73
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "NVCR",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 17.41,
+        "entry_zone": "16.79 - 18.03",
+        "SL": 14.93,
+        "TP": 22.38
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "KN",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 36.24,
+        "entry_zone": "35.36 - 37.12",
+        "SL": 32.71,
+        "TP": 43.29
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "UMAC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 19.45,
+        "entry_zone": "18.48 - 20.42",
+        "SL": 15.56,
+        "TP": 27.22
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "CIFR",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 21.3,
+        "entry_zone": "20.01 - 22.59",
+        "SL": 16.15,
+        "TP": 31.6
+    },
+    {
+        "date": "2026-07-27 12:00",
+        "symbol": "MBX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 61.81,
+        "entry_zone": "59.33 - 64.29",
+        "SL": 51.88,
+        "TP": 81.66
+    }
+]
