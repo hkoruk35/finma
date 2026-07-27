@@ -3,9 +3,15 @@ import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePla
 import { resolveYahooSymbol, getAssetCategory } from "@/lib/symbols";
 import { generateAiMarketCommentary, type AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
-// Simple in-memory cache (2 min TTL per ticker)
+// In-memory cache — TTL 30 seconds for technical data freshness.
+// Note: 2 min (120s) was causing stale price/EMA tuple mismatches when:
+//   1. API cached $204.78 from bar N
+//   2. 60 sec later, bar N+1 closes at $196.90
+//   3. Copilot/TickerDetailPanel requests same ticker within 2 min window
+//   4. Gets cached data with $204.78 (old bar) instead of $196.90 (new bar)
+// Result: price/EMA/signals misaligned. 30s TTL balances freshness vs rate limiting.
 const cache = new Map<string, { data: PreorderAnalysis; ts: number }>();
-const CACHE_TTL = 2 * 60 * 1000;
+const CACHE_TTL = 30 * 1000;  // 30 seconds — daily bars shift once/day, intraday monitoring needs fresher data
 
 // Public erişim — in-memory rate limiter (app/api/auth/login/route.ts deseni, okuma trafiğine göre gevşek eşik)
 const rlAttempts = new Map<string, { count: number; resetAt: number }>();
