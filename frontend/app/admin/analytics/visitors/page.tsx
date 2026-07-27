@@ -23,11 +23,13 @@ export default function VisitorsPage() {
   const [visitors, setVisitors] = useState<Visitor[]>([]);
   const [filterCountry, setFilterCountry] = useState('');
   const [filterPage, setFilterPage] = useState('');
+  const [timeframe, setTimeframe] = useState<'24h' | '7d' | '30d' | 'all'>('24h');
   const [lastUpdate, setLastUpdate] = useState<number>(Date.now());
 
   const load = useCallback(async () => {
     try {
-      const res = await fetch('/api/admin/visitors');
+      const params = new URLSearchParams({ timeframe });
+      const res = await fetch(`/api/admin/visitors?${params}`);
       if (res.ok) {
         const data = await res.json();
         setVisitors(data.visitors ?? []);
@@ -36,7 +38,7 @@ export default function VisitorsPage() {
     } catch (err) {
       console.error('Failed to load visitors:', err);
     }
-  }, []);
+  }, [timeframe]);
 
   useEffect(() => {
     load();
@@ -105,6 +107,34 @@ export default function VisitorsPage() {
           <div style={{ fontSize: 12, fontWeight: 700, color: TEXT_MAIN, marginTop: 6 }}>
             {formatTime(lastUpdate)}
           </div>
+        </div>
+      </div>
+
+      {/* Timeframe */}
+      <div style={{ marginBottom: 24 }}>
+        <label style={{ fontSize: 11, color: TEXT_SECONDARY, display: 'block', marginBottom: 8 }}>
+          ZAMAN ARALIGI
+        </label>
+        <div style={{ display: 'flex', gap: 8 }}>
+          {(['24h', '7d', '30d', 'all'] as const).map((tf) => (
+            <button
+              key={tf}
+              onClick={() => setTimeframe(tf)}
+              style={{
+                padding: '8px 12px',
+                background: timeframe === tf ? ACCENT : CARD_BG,
+                border: `1px solid ${timeframe === tf ? ACCENT : BORDER_COLOR}`,
+                borderRadius: 4,
+                color: timeframe === tf ? '#0d1117' : TEXT_MAIN,
+                fontFamily: 'monospace',
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              {tf === '24h' ? 'Son 24 Saat' : tf === '7d' ? 'Son 7 Gün' : tf === '30d' ? 'Son 30 Gün' : 'Tümü'}
+            </button>
+          ))}
         </div>
       </div>
 

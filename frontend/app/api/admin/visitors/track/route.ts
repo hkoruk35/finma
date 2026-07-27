@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { addVisitor } from '@/lib/visitor-store';
 
+// Track visitor pageviews
+
 export async function GET(req: NextRequest) {
   const page = req.nextUrl.searchParams.get('page') || '/';
 

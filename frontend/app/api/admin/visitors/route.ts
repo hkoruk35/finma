@@ -11,7 +11,14 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
 
-  const visitors = getVisitors();
+  const timeframe = req.nextUrl.searchParams.get('timeframe') || 'all';
+
+  let hoursAgo: number | undefined;
+  if (timeframe === '24h') hoursAgo = 24;
+  else if (timeframe === '7d') hoursAgo = 7 * 24;
+  else if (timeframe === '30d') hoursAgo = 30 * 24;
+
+  const visitors = getVisitors(hoursAgo);
 
   const formatted = visitors.map((v) => ({
     id: v.id,
@@ -24,5 +31,5 @@ export async function GET(req: NextRequest) {
     duration: Math.round((Date.now() - v.sessionStart) / 1000), // seconds
   }));
 
-  return NextResponse.json({ visitors: formatted });
+  return NextResponse.json({ visitors: formatted, timeframe });
 }
