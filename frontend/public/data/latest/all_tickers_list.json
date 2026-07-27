@@ -18,9 +18,9 @@
       "sector": "Industrials",
       "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 13.23,
-      "change_pct": 0.0,
-      "volume": 3996,
+      "price": 13.380000114440918,
+      "change_pct": 0.22,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
     },
     {
@@ -29,9 +29,9 @@
       "sector": "Industrials",
       "master_score": 52.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 1738.91,
-      "change_pct": 0.0,
-      "volume": 83635,
+      "price": 1831.1500244140625,
+      "change_pct": 2.24,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
     },
     {
@@ -40,9 +40,9 @@
       "sector": "Basic Materials",
       "master_score": 52.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 21.135,
-      "change_pct": 0.0,
-      "volume": 10269,
+      "price": 20.639999389648438,
+      "change_pct": 3.25,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
     },
     {
@@ -51,9 +51,9 @@
       "sector": "Consumer Cyclical",
       "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 59.575,
-      "change_pct": 0.0,
-      "volume": 160501,
+      "price": 58.38999938964844,
+      "change_pct": 1.64,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
     },
     {
@@ -62,9 +62,9 @@
       "sector": "Basic Materials",
       "master_score": 49.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 248.56,
-      "change_pct": 0.0,
-      "volume": 70899,
+      "price": 240.57000732421875,
+      "change_pct": 0.81,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 49.0 | System: BREAKOUT"
     },
     {
@@ -73,9 +73,9 @@
       "sector": "Financial Services",
       "master_score": 47.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 50.04,
-      "change_pct": 0.0,
-      "volume": 14051,
+      "price": 48.65999984741211,
+      "change_pct": 3.62,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 47.5 | System: BREAKOUT"
     },
     {
@@ -84,9 +84,9 @@
       "sector": "Industrials",
       "master_score": 45.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 133.92,
-      "change_pct": 0.0,
-      "volume": 45476,
+      "price": 129.47000122070312,
+      "change_pct": 1.47,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
     },
     {
@@ -95,9 +95,9 @@
       "sector": "Financial Services",
       "master_score": 45.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 103.07,
-      "change_pct": 0.0,
-      "volume": 111613,
+      "price": 99.80999755859375,
+      "change_pct": 2.52,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
     },
     {
@@ -106,11 +106,10 @@
       "sector": "Energy",
       "master_score": 45.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 91.42,
-      "change_pct": 0.0,
-      "volume": 47273,
+      "price": 91.3499984741211,
+      "change_pct": 2.74,
+      "volume": 0,
       "ai_short_summary": "BOGA AI Score: 45.0 | System: BREAKOUT"
     }
-  ],
-  "price_updated_at": "2026-07-27T10:02:42.085953-04:00"
+  ]
 }
