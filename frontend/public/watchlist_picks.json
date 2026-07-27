@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T14:09:15.149189-04:00",
+  "generated_at": "2026-07-27T17:05:01.943360-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -260,12 +260,6 @@
       "score": 43.0
     },
     {
-      "ticker": "BIO",
-      "sector": "Healthcare",
-      "date_added": "2026-07-27",
-      "score": 42.0
-    },
-    {
       "ticker": "SXT",
       "sector": "Basic Materials",
       "date_added": "2026-07-27",
@@ -312,6 +306,24 @@
       "sector": "Basic Materials",
       "date_added": "2026-07-27",
       "score": 28.0
+    },
+    {
+      "ticker": "BCO",
+      "sector": "Industrials",
+      "date_added": "2026-07-27",
+      "score": 34.5
+    },
+    {
+      "ticker": "MEDP",
+      "sector": "Healthcare",
+      "date_added": "2026-07-27",
+      "score": 31.0
+    },
+    {
+      "ticker": "U",
+      "sector": "Technology",
+      "date_added": "2026-07-27",
+      "score": 30.5
     }
   ]
 }
