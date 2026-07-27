@@ -81,8 +81,9 @@
       "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 18.31,
+      "change_pct": 0.0
     }
-  }
+  },
+  "price_updated_at": "2026-07-27T10:02:42.121609-04:00"
 }
