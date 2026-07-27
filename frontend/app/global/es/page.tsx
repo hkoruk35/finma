@@ -7,7 +7,7 @@ import { TrendStatus } from '@/lib/homeFeed';
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: 'BOGASTOCK | Análisis Gráfico Interactivo Avanzado de Acciones, Oro, Divisas y Cripto',
+  title: 'BOGASTOCK Terminal — Plataforma de Análisis e Decisiones de Inversión Impulsada por IA',
   description: 'Análisis gráfico técnico interactivo avanzado para acciones de EE. UU., oro, divisas y criptoactivos.',
   alternates: { canonical: `https://bogastock.com/global/es` },
 };

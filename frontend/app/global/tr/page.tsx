@@ -7,7 +7,7 @@ import { TrendStatus } from '@/lib/homeFeed';
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: 'BOGASTOCK | ABD Hisseleri, Altın, Döviz ve Kripto Gelişmiş İnteraktif Grafik Analizi',
+  title: 'BogaStock Terminal Yapay Zekâ Destekli Yatırım Analiz ve Karar Platformu',
   description: 'ABD hisseleri, altın, döviz ve kripto varlıkların gelişmiş interaktif teknik grafik analizi.',
   alternates: { canonical: `https://bogastock.com/global/tr` },
 };
