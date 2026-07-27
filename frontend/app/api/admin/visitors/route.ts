@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
   else if (timeframe === '7d') hoursAgo = 7 * 24;
   else if (timeframe === '30d') hoursAgo = 30 * 24;
 
-  const visitors = getVisitors(hoursAgo);
+  const visitors = await getVisitors(hoursAgo);
 
   const formatted = visitors.map((v) => ({
     id: v.id,

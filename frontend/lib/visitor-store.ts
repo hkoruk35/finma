@@ -1,5 +1,4 @@
-import { writeFileSync, readFileSync, existsSync } from 'fs';
-import { join } from 'path';
+import { supabaseAdmin } from './supabase-admin';
 
 interface VisitorSession {
   id: string;
@@ -12,42 +11,24 @@ interface VisitorSession {
   sessionStart: number;
 }
 
+interface VisitorRecord {
+  id: string;
+  ip: string;
+  country: string;
+  city: string;
+  page: string;
+  timestamp: number;
+  user_agent: string;
+  session_start: number;
+  created_at: string;
+}
+
 const MAX_VISITORS_MEMORY = 200;
 const SESSION_TIMEOUT_MS = 60 * 60 * 1000; // 60 minutes
-const STORAGE_PATH = process.env.NODE_ENV === 'production' ? '/tmp' : process.cwd();
-const VISITORS_FILE = join(STORAGE_PATH, '.visitors-data.json');
 
-let visitors = new Map<string, VisitorSession>();
 let visitorsArray: VisitorSession[] = [];
 
-function loadFromDisk(): void {
-  try {
-    if (existsSync(VISITORS_FILE)) {
-      const data = readFileSync(VISITORS_FILE, 'utf-8');
-      const loaded = JSON.parse(data) as VisitorSession[];
-      visitorsArray = loaded;
-      loaded.forEach((v) => visitors.set(v.id, v));
-    }
-  } catch {
-    // Silently fail - start fresh
-  }
-}
-
-function saveToDisk(): void {
-  try {
-    writeFileSync(VISITORS_FILE, JSON.stringify(visitorsArray), 'utf-8');
-  } catch {
-    // Silently fail
-  }
-}
-
-// Load on module init
-if (typeof global !== 'undefined' && !(globalThis as any).visitorsLoaded) {
-  loadFromDisk();
-  (globalThis as any).visitorsLoaded = true;
-}
-
-export function addVisitor(data: Omit<VisitorSession, 'id' | 'sessionStart' | 'timestamp'>): VisitorSession {
+export async function addVisitor(data: Omit<VisitorSession, 'id' | 'sessionStart' | 'timestamp'>): Promise<VisitorSession> {
   const id = `${data.ip}-${Date.now()}`;
   const now = Date.now();
 
@@ -62,67 +43,75 @@ export function addVisitor(data: Omit<VisitorSession, 'id' | 'sessionStart' | 't
     sessionStart: now,
   };
 
-  visitors.set(id, session);
-  visitorsArray.unshift(session);
-
-  // Keep only last MAX_VISITORS_MEMORY in memory
-  if (visitorsArray.length > MAX_VISITORS_MEMORY) {
-    const removed = visitorsArray.pop();
-    if (removed) {
-      visitors.delete(removed.id);
-    }
+  // Save to Supabase
+  try {
+    await supabaseAdmin.from('site_visitors').insert({
+      id,
+      ip: data.ip,
+      country: data.country,
+      city: data.city,
+      page: data.page,
+      timestamp: now,
+      user_agent: data.userAgent,
+      session_start: now,
+    });
+  } catch (err) {
+    console.error('Failed to save visitor to Supabase:', err);
   }
 
-  cleanup();
-  saveToDisk();
+  // Keep in-memory cache
+  visitorsArray.unshift(session);
+  if (visitorsArray.length > MAX_VISITORS_MEMORY) {
+    visitorsArray.pop();
+  }
+
   return session;
 }
 
-export function getVisitors(hoursAgo?: number): VisitorSession[] {
-  cleanup();
-  let result = visitorsArray;
+export async function getVisitors(hoursAgo?: number): Promise<VisitorSession[]> {
+  try {
+    let query = supabaseAdmin.from('site_visitors').select('*').order('timestamp', { ascending: false }).limit(200);
 
-  if (hoursAgo) {
-    const cutoff = Date.now() - hoursAgo * 60 * 60 * 1000;
-    result = visitorsArray.filter((v) => v.timestamp >= cutoff);
-  }
-
-  return result.map((v) => ({
-    ...v,
-    timestamp: v.timestamp,
-  }));
-}
-
-export function updateDuration(visitorId: string): void {
-  const visitor = visitors.get(visitorId);
-  if (visitor) {
-    visitor.timestamp = Date.now();
-  }
-}
-
-function cleanup(): void {
-  const now = Date.now();
-  const expired: string[] = [];
-
-  visitors.forEach((visitor, id) => {
-    if (now - visitor.timestamp > SESSION_TIMEOUT_MS) {
-      expired.push(id);
-      visitors.delete(id);
+    if (hoursAgo) {
+      const cutoff = Date.now() - hoursAgo * 60 * 60 * 1000;
+      query = query.gte('timestamp', cutoff);
     }
-  });
 
-  if (expired.length > 0) {
-    visitorsArray = visitorsArray.filter((v) => !expired.includes(v.id));
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Failed to fetch visitors from Supabase:', error);
+      return visitorsArray;
+    }
+
+    const sessions = (data as VisitorRecord[]).map((v) => ({
+      id: v.id,
+      ip: v.ip,
+      country: v.country,
+      city: v.city,
+      page: v.page,
+      timestamp: v.timestamp,
+      userAgent: v.user_agent,
+      sessionStart: v.session_start,
+    }));
+
+    visitorsArray = sessions;
+    return sessions;
+  } catch (err) {
+    console.error('Error in getVisitors:', err);
+    return visitorsArray;
   }
 }
 
 export function getVisitorCount(): number {
-  cleanup();
   return visitorsArray.length;
 }
 
-export function clearAll(): void {
-  visitors.clear();
+export async function clearAll(): Promise<void> {
+  try {
+    await supabaseAdmin.from('site_visitors').delete().gt('timestamp', 0);
+  } catch (err) {
+    console.error('Failed to clear visitors:', err);
+  }
   visitorsArray = [];
-  saveToDisk();
 }
