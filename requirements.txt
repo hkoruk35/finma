@@ -9,3 +9,5 @@ python-dotenv>=1.0.0
 requests>=2.31.0
 beautifulsoup4>=4.12.0
 supabase>=2.3.0
+edgartools>=0.13.0
+lxml>=4.9.0

@@ -271,6 +271,16 @@ export default function Header({
                 </svg>
                 <span className="hidden sm:inline">{screenerLabel}</span>
               </Link>
+
+              <Link
+                href={`/global/${globalLocale}/insider`}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981] hover:text-white border border-[#10b981]/30 transition-all"
+              >
+                <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6M5 20h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z" />
+                </svg>
+                <span className="hidden sm:inline">Insider</span>
+              </Link>
             </>
           )}
 
