@@ -31,6 +31,10 @@ export async function getInsiderTransactions(
   limit: number = 100
 ): Promise<InsiderTransaction[]> {
   try {
+    if (!process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY === "none") {
+      return [];
+    }
+
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - days);
     const cutoffDateStr = cutoffDate.toISOString().split("T")[0];
@@ -74,6 +78,12 @@ export async function getTopInsiderBuyers(
   limit: number = 50
 ): Promise<(InsiderTransaction & { score: number })[]> {
   try {
+    // Check if Supabase credentials are available
+    if (!process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY === "none") {
+      console.warn("Supabase service-role key not configured. Insider data unavailable.");
+      return [];
+    }
+
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - days);
     const cutoffDateStr = cutoffDate.toISOString().split("T")[0];
@@ -125,6 +135,10 @@ export async function getTopInsiderBuyers(
  */
 export async function getInsiderSummary(ticker: string, days: number = 90): Promise<InsiderSummary | null> {
   try {
+    if (!process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY === "none") {
+      return null;
+    }
+
     const transactions = await getInsiderTransactions(ticker, days, 1000);
 
     if (transactions.length === 0) {
@@ -161,6 +175,10 @@ export async function getInsiderSummary(ticker: string, days: number = 90): Prom
  */
 export async function getRecentInsiderActivity(days: number = 7, limit: number = 10): Promise<InsiderTransaction[]> {
   try {
+    if (!process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_SERVICE_KEY === "none") {
+      return [];
+    }
+
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - days);
     const cutoffDateStr = cutoffDate.toISOString().split("T")[0];
