@@ -20,23 +20,16 @@ export async function GET(req: NextRequest) {
 
   const visitors = await getVisitors(hoursAgo);
 
-  const formatted = visitors.map((v) => {
-    // Duration: from tracking time (sessionStart) to now
-    // Both timestamp and sessionStart should be in milliseconds
-    const durationMs = Math.max(0, Date.now() - v.sessionStart);
-    const durationSeconds = Math.round(durationMs / 1000);
-
-    return {
-      id: v.id,
-      ip: v.ip,
-      country: v.country,
-      city: v.city,
-      page: v.page,
-      timestamp: v.timestamp,
-      userAgent: v.userAgent,
-      duration: durationSeconds,
-    };
-  });
+  const formatted = visitors.map((v) => ({
+    id: v.id,
+    ip: v.ip,
+    country: v.country,
+    city: v.city,
+    page: v.page,
+    timestamp: v.timestamp,
+    userAgent: v.userAgent,
+    sessionStart: v.sessionStart, // Send raw timestamp for frontend calculation
+  }));
 
   return NextResponse.json({ visitors: formatted, timeframe });
 }

@@ -10,7 +10,7 @@ interface Visitor {
   page: string;
   timestamp: number;
   userAgent: string;
-  duration: number;
+  sessionStart: number;
 }
 
 const ACCENT = '#58a6ff';
@@ -227,26 +227,30 @@ export default function VisitorsPage() {
                 </td>
               </tr>
             ) : (
-              filtered.map((v) => (
-                <tr key={v.id} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
-                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                    {formatTime(v.timestamp)}
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_MAIN }}>
-                    <div>{v.country}</div>
-                    <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>{v.city}</div>
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_MAIN, maxWidth: 200 }}>
-                    <div style={{ wordBreak: 'break-word' }}>{v.page}</div>
-                  </td>
-                  <td style={{ padding: '10px', color: getDurationColor(v.duration), fontWeight: 700 }}>
-                    {formatDuration(v.duration)}
-                  </td>
-                  <td style={{ padding: '10px', color: TEXT_SECONDARY, fontSize: 11 }}>
-                    {v.ip}
-                  </td>
-                </tr>
-              ))
+              filtered.map((v) => {
+                // Calculate duration in real-time (frontend)
+                const durationSeconds = Math.round((Date.now() - v.sessionStart) / 1000);
+                return (
+                  <tr key={v.id} style={{ borderBottom: `1px solid ${BORDER_COLOR}` }}>
+                    <td style={{ padding: '10px', color: TEXT_MAIN }}>
+                      {formatTime(v.timestamp)}
+                    </td>
+                    <td style={{ padding: '10px', color: TEXT_MAIN }}>
+                      <div>{v.country}</div>
+                      <div style={{ fontSize: 11, color: TEXT_SECONDARY }}>{v.city}</div>
+                    </td>
+                    <td style={{ padding: '10px', color: TEXT_MAIN, maxWidth: 200 }}>
+                      <div style={{ wordBreak: 'break-word' }}>{v.page}</div>
+                    </td>
+                    <td style={{ padding: '10px', color: getDurationColor(durationSeconds), fontWeight: 700 }}>
+                      {formatDuration(durationSeconds)}
+                    </td>
+                    <td style={{ padding: '10px', color: TEXT_SECONDARY, fontSize: 11 }}>
+                      {v.ip}
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
