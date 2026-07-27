@@ -161,7 +161,7 @@ export default function PtAboutPage() {
 
       </main>
 
-      <Footer hidePlatform={true} />
+      <Footer hidePlatform={true} locale="pt" />
     </div>
   );
 }
