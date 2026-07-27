@@ -2,115 +2,114 @@
   "date": "2026-07-27",
   "tickers": [
     {
-      "ticker": "UNP",
-      "company": "UNP",
+      "ticker": "VAL",
+      "company": "VAL",
+      "sector": "Energy",
+      "master_score": 63.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 78.8499984741211,
+      "change_pct": -0.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "PH",
+      "company": "PH",
       "sector": "Industrials",
-      "master_score": 58.0,
+      "master_score": 52.6,
       "score_type": "POSITIVE_BIAS",
-      "price": 298.62,
-      "change_pct": 0.0,
-      "volume": 1347425,
-      "ai_short_summary": "BOGA AI Score: 58.0 | System: BREAKOUT"
+      "price": 984.0875244140625,
+      "change_pct": -0.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 52.6 | System: SQUEEZE"
     },
     {
-      "ticker": "AEBI",
-      "company": "AEBI",
-      "sector": "Industrials",
-      "master_score": 53.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 13.07,
-      "change_pct": 0.0,
-      "volume": 64817,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FIX",
-      "company": "FIX",
-      "sector": "Industrials",
-      "master_score": 52.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 1699.87,
-      "change_pct": 0.0,
-      "volume": 414156,
-      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "MTUS",
-      "company": "MTUS",
-      "sector": "Basic Materials",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 20.71,
-      "change_pct": 0.0,
-      "volume": 125537,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "KMX",
-      "company": "KMX",
-      "sector": "Consumer Cyclical",
+      "ticker": "HBNC",
+      "company": "HBNC",
+      "sector": "Financial Services",
       "master_score": 51.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 58.95,
-      "change_pct": 0.0,
-      "volume": 934094,
-      "ai_short_summary": "BOGA AI Score: 51.5 | System: BREAKOUT"
+      "price": 20.270000457763672,
+      "change_pct": 1.1,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 51.5 | System: TREND_CONT"
     },
     {
-      "ticker": "STLD",
-      "company": "STLD",
-      "sector": "Basic Materials",
-      "master_score": 49.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 247.15,
-      "change_pct": 0.0,
-      "volume": 718944,
-      "ai_short_summary": "BOGA AI Score: 49.0 | System: BREAKOUT"
-    },
-    {
-      "ticker": "AMAL",
-      "company": "AMAL",
-      "sector": "Financial Services",
-      "master_score": 47.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 49.16,
-      "change_pct": 0.0,
-      "volume": 73337,
-      "ai_short_summary": "BOGA AI Score: 47.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "AIR",
-      "company": "AIR",
-      "sector": "Industrials",
-      "master_score": 45.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 134.125,
-      "change_pct": 0.0,
-      "volume": 257589,
-      "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "PNFP",
-      "company": "PNFP",
-      "sector": "Financial Services",
-      "master_score": 45.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 103.0,
-      "change_pct": 0.0,
-      "volume": 806488,
-      "ai_short_summary": "BOGA AI Score: 45.5 | System: BREAKOUT"
-    },
-    {
-      "ticker": "INSW",
-      "company": "INSW",
+      "ticker": "PSX",
+      "company": "PSX",
       "sector": "Energy",
-      "master_score": 45.0,
+      "master_score": 46.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 89.63,
-      "change_pct": 0.0,
-      "volume": 250233,
-      "ai_short_summary": "BOGA AI Score: 45.0 | System: BREAKOUT"
+      "price": 207.27999877929688,
+      "change_pct": 0.14,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 46.5 | System: DEFAULT"
+    },
+    {
+      "ticker": "KMI",
+      "company": "KMI",
+      "sector": "Energy",
+      "master_score": 45.1,
+      "score_type": "POSITIVE_BIAS",
+      "price": 31.954999923706055,
+      "change_pct": -2.49,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 45.1 | System: SQUEEZE"
+    },
+    {
+      "ticker": "FIVE",
+      "company": "FIVE",
+      "sector": "Consumer Cyclical",
+      "master_score": 44.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 206.65499877929688,
+      "change_pct": 2.66,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 44.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "CSX",
+      "company": "CSX",
+      "sector": "Industrials",
+      "master_score": 43.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 51.3849983215332,
+      "change_pct": -2.7,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 43.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "KN",
+      "company": "KN",
+      "sector": "Technology",
+      "master_score": 42.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 36.57500076293945,
+      "change_pct": -5.76,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 42.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "USPH",
+      "company": "USPH",
+      "sector": "Healthcare",
+      "master_score": 40.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 75.73500061035156,
+      "change_pct": 3.79,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 40.0 | System: DEFAULT"
+    },
+    {
+      "ticker": "EQNR",
+      "company": "EQNR",
+      "sector": "Energy",
+      "master_score": 39.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 38.92499923706055,
+      "change_pct": -5.04,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 39.5 | System: DEFAULT"
     }
-  ],
-  "price_updated_at": "2026-07-27T14:02:09.124929-04:00"
+  ]
 }

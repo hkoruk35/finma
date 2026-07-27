@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "VAL",
@@ -153,7 +153,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PH",
@@ -299,7 +299,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "HBNC",
@@ -445,7 +445,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "PSX",
@@ -589,7 +589,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "KMI",
@@ -735,7 +735,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "FIVE",
@@ -879,7 +879,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CSX",
@@ -1023,7 +1023,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "KN",
@@ -1167,7 +1167,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "USPH",
@@ -1312,7 +1312,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-27",
+      "last_checked": "2026-07-27 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EQNR",

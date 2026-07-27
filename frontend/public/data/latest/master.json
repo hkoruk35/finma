@@ -1,37 +1,28 @@
 {
   "date": "2026-07-27",
-  "generated_at": "2026-07-27T09:03:35.320373-04:00",
+  "generated_at": "2026-07-27T14:09:15.116004-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
-  "market_regime": "BULLISH",
+  "market_regime": "CHOPPY",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "UNP",
-        "AEBI",
-        "FIX",
-        "MTUS",
-        "KMX",
-        "STLD",
-        "AMAL",
-        "AIR",
-        "PNFP",
-        "INSW"
+        "VAL",
+        "PH",
+        "HBNC",
+        "PSX",
+        "KMI",
+        "FIVE",
+        "CSX",
+        "KN",
+        "USPH",
+        "EQNR"
       ]
     },
     "breakout": {
-      "count": 8,
-      "tickers": [
-        "UNP",
-        "MTUS",
-        "KMX",
-        "STLD",
-        "AMAL",
-        "AIR",
-        "PNFP",
-        "INSW"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -52,42 +43,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "UNP",
-      "score": 58.0,
+      "ticker": "VAL",
+      "score": 63.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "AEBI",
-      "score": 53.0,
+      "ticker": "PH",
+      "score": 52.6,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "FIX",
-      "score": 52.5,
+      "ticker": "HBNC",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 737.655,
-      "change_pct": 0.0
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
       "value": 16000,
       "change_pct": 0.8
     },
     "DOW": {
-      "value": 520.26,
-      "change_pct": 0.0
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 19.42,
-      "change_pct": 0.0
-    },
-    "RUSSELL2000": {
-      "value": 292.345,
-      "change_pct": 0.0
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-27T14:02:09.134240-04:00"
+  }
 }
