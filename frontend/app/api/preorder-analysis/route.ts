@@ -559,10 +559,15 @@ export async function GET(req: NextRequest) {
   const opens15m  = safeArr(q15m.open);
 
   // ── Price / Volume ────────────────────────────────────────────────────────
-  const price     = meta.regularMarketPrice ?? closes1d.at(-1)!;
-  const prevClose = meta.previousClose ?? closes1d.at(-2) ?? closes1d.at(-1)!;
+  // FIX 2026-07-27: Data consistency — EMA'lar closes1d (historical) üzerinden
+  // hesaplandığı için, tüm teknik karşılaştırmalar closes1d'nin son değeriyle
+  // yapılmalı. meta.regularMarketPrice (real-time) ile closes1d karışması
+  // tutarsızlıklara neden oluyor (fiyat EMA'nın altında görünüyorken trend
+  // sinyal "EMA20>EMA50" yüksek oluyor gibi).
+  const price     = closes1d.at(-1)!;  // Tutarlılık için closes1d'nin son close'unu kullan
+  const prevClose = closes1d.at(-2) ?? closes1d.at(-1)!;
   const changePct = prevClose > 0 ? ((price - prevClose) / prevClose) * 100 : 0;
-  const curVol    = meta.regularMarketVolume ?? vols1d.at(-1) ?? 0;
+  const curVol    = vols1d.at(-1) ?? 0;
   const avgVol30  = vols1d.length >= 5 ? vols1d.slice(-30).reduce((s, v) => s + v, 0) / Math.min(30, vols1d.length) : curVol;
   const rvol      = avgVol30 > 0 ? curVol / avgVol30 : 1;
 
