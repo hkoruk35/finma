@@ -9,13 +9,11 @@ export default function VisitorTracker() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const trackVisitor = async () => {
+    const trackVisitor = () => {
       try {
-        await fetch('/api/admin/visitors/track', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ page: pathname }),
-        });
+        // Use GET with query param - more reliable in serverless
+        const img = new Image();
+        img.src = `/api/admin/visitors/track?page=${encodeURIComponent(pathname)}`;
       } catch (err) {
         // Silently fail - tracking errors shouldn't break the app
       }
