@@ -1,21 +1,12 @@
 import { Metadata } from "next";
-import { getTopInsiderBuyers } from "@/lib/insider-data";
-import { copy, Locale } from "@/lib/i18n/copy";
-import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
 
 export const metadata: Metadata = {
   title: "İçeriden Kişi İşlemleri | BOGASTOCK",
   description: "SEC Form 4 dosyaları - İçeriden kişi işlemleri izleme.",
 };
 
-export const revalidate = 3600;
-
-export default async function InsiderPage() {
-  const locale: Locale = "tr";
-  const t = copy[locale];
-  const insiderT = t.insider || {};
-
-  const topBuyers = await getTopInsiderBuyers(30, 50);
+export default function InsiderPage() {
+  const topBuyers = [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">

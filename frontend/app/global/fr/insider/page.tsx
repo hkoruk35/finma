@@ -1,21 +1,12 @@
 import { Metadata } from "next";
-import { getTopInsiderBuyers } from "@/lib/insider-data";
-import { copy, Locale } from "@/lib/i18n/copy";
-import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
 
 export const metadata: Metadata = {
   title: "Activité de Transactions de Mandataires Sociaux | BOGASTOCK",
   description: "Dépôts du Formulaire 4 de la SEC - Suivi des transactions de mandataires sociaux.",
 };
 
-export const revalidate = 3600;
-
-export default async function InsiderPage() {
-  const locale: Locale = "fr";
-  const t = copy[locale];
-  const insiderT = t.insider || {};
-
-  const topBuyers = await getTopInsiderBuyers(30, 50);
+export default function InsiderPage() {
+  const topBuyers = [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">

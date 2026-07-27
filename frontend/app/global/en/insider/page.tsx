@@ -1,22 +1,12 @@
 import { Metadata } from "next";
-import { getTopInsiderBuyers } from "@/lib/insider-data";
-import { copy, Locale } from "@/lib/i18n/copy";
-import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
 
 export const metadata: Metadata = {
   title: "Insider Trading Activity | BOGASTOCK",
   description: "SEC Form 4 insider transactions - Real-time insider trading activity tracking.",
 };
 
-export const revalidate = 3600; // ISR: revalidate every 1 hour
-
-export default async function InsiderPage() {
-  const locale: Locale = "en";
-  const t = copy[locale];
-  const insiderT = t.insider || {};
-
-  // Fetch recent insider buys (last 30 days, top 50)
-  const topBuyers = await getTopInsiderBuyers(30, 50);
+export default function InsiderPage() {
+  const topBuyers = [];
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
