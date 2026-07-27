@@ -1,6 +1,6 @@
 {
   "date": "2026-07-24",
-  "generated_at": "2026-07-24T17:14:31.328725-04:00",
+  "generated_at": "2026-07-24T14:05:33.602463-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,23 +8,21 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "SKM",
-        "RIG",
-        "BNY",
-        "MLI",
-        "RS",
-        "A",
-        "NTGR",
-        "CSW",
-        "GSL",
-        "BIPC"
+        "CNQ",
+        "VRSN",
+        "PH",
+        "STLD",
+        "FITB",
+        "URI",
+        "HUT",
+        "PSX",
+        "NDAQ",
+        "BURL"
       ]
     },
     "breakout": {
-      "count": 1,
-      "tickers": [
-        "GSL"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -45,18 +43,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "SKM",
-      "score": 63.0,
+      "ticker": "CNQ",
+      "score": 60.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "RIG",
-      "score": 63.0,
+      "ticker": "VRSN",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "BNY",
-      "score": 61.0,
+      "ticker": "PH",
+      "score": 52.4,
       "score_type": "POSITIVE_BIAS"
     }
   ],

@@ -4,6 +4,7 @@ import BottomNavWrapper from "@/components/BottomNavWrapper";
 import PWAInstaller from "@/components/PWAInstaller";
 import Script from "next/script";
 import StructuredData from "@/components/StructuredData";
+import VisitorTracker from "@/components/VisitorTracker";
 import { Inter, Montserrat, JetBrains_Mono, Manrope } from "next/font/google";
 import { SmartTrackerProvider } from "@/components/SmartTrackerContext";
 import { TrackerProvider } from "@/components/TrackerContext";
@@ -148,6 +149,7 @@ export default function RootLayout({
       <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">
         <SmartTrackerProvider>
           <TrackerProvider>
+            <VisitorTracker />
             <PWAInstaller />
             <CopilotShell>
               {children}

@@ -2,114 +2,114 @@
   "date": "2026-07-24",
   "tickers": [
     {
-      "ticker": "CNQ",
-      "company": "CNQ",
-      "sector": "Energy",
-      "master_score": 60.0,
+      "ticker": "SKM",
+      "company": "SKM",
+      "sector": "Communication Services",
+      "master_score": 63.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 46.67499923706055,
-      "change_pct": -0.71,
+      "price": 35.66999816894531,
+      "change_pct": 1.34,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 60.0 | System: TREND_CONT"
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: EMA_CROSS"
     },
     {
-      "ticker": "VRSN",
-      "company": "VRSN",
+      "ticker": "RIG",
+      "company": "RIG",
+      "sector": "Energy",
+      "master_score": 63.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 5.349999904632568,
+      "change_pct": 0.56,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 63.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "BNY",
+      "company": "BNY",
+      "sector": "Financial Services",
+      "master_score": 61.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 158.91000366210938,
+      "change_pct": -0.75,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 61.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "MLI",
+      "company": "MLI",
+      "sector": "Industrials",
+      "master_score": 59.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 63.90999984741211,
+      "change_pct": 1.24,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "RS",
+      "company": "RS",
+      "sector": "Basic Materials",
+      "master_score": 59.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 407.8299865722656,
+      "change_pct": 3.15,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 59.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "A",
+      "company": "A",
+      "sector": "Healthcare",
+      "master_score": 58.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 138.57000732421875,
+      "change_pct": -0.84,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 58.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "NTGR",
+      "company": "NTGR",
       "sector": "Technology",
+      "master_score": 55.5,
+      "score_type": "POSITIVE_BIAS",
+      "price": 24.93000030517578,
+      "change_pct": -0.48,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 55.5 | System: TREND_CONT"
+    },
+    {
+      "ticker": "CSW",
+      "company": "CSW",
+      "sector": "Industrials",
+      "master_score": 54.0,
+      "score_type": "POSITIVE_BIAS",
+      "price": 289.17999267578125,
+      "change_pct": -0.38,
+      "volume": 0,
+      "ai_short_summary": "BOGA AI Score: 54.0 | System: TREND_CONT"
+    },
+    {
+      "ticker": "GSL",
+      "company": "GSL",
+      "sector": "Industrials",
       "master_score": 53.0,
       "score_type": "POSITIVE_BIAS",
-      "price": 274.3450012207031,
-      "change_pct": 4.88,
+      "price": 43.61000061035156,
+      "change_pct": 1.37,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 53.0 | System: EMA_CROSS"
+      "ai_short_summary": "BOGA AI Score: 53.0 | System: BREAKOUT"
     },
     {
-      "ticker": "PH",
-      "company": "PH",
-      "sector": "Industrials",
-      "master_score": 52.4,
+      "ticker": "BIPC",
+      "company": "BIPC",
+      "sector": "Utilities",
+      "master_score": 52.5,
       "score_type": "POSITIVE_BIAS",
-      "price": 988.719970703125,
-      "change_pct": 0.33,
+      "price": 41.560001373291016,
+      "change_pct": -0.12,
       "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.4 | System: SQUEEZE"
-    },
-    {
-      "ticker": "STLD",
-      "company": "STLD",
-      "sector": "Basic Materials",
-      "master_score": 52.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 246.24000549316406,
-      "change_pct": 2.36,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 52.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "FITB",
-      "company": "FITB",
-      "sector": "Financial Services",
-      "master_score": 50.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 57.540000915527344,
-      "change_pct": 0.68,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 50.5 | System: TREND_CONT"
-    },
-    {
-      "ticker": "URI",
-      "company": "URI",
-      "sector": "Industrials",
-      "master_score": 47.0,
-      "score_type": "POSITIVE_BIAS",
-      "price": 1133.0400390625,
-      "change_pct": -0.59,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 47.0 | System: TREND_CONT"
-    },
-    {
-      "ticker": "HUT",
-      "company": "HUT",
-      "sector": "Financial Services",
-      "master_score": 43.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 113.29000091552734,
-      "change_pct": -3.72,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 43.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "PSX",
-      "company": "PSX",
-      "sector": "Energy",
-      "master_score": 42.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 206.8699951171875,
-      "change_pct": -0.05,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 42.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "NDAQ",
-      "company": "NDAQ",
-      "sector": "Financial Services",
-      "master_score": 40.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 92.69999694824219,
-      "change_pct": 2.52,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 40.5 | System: DEFAULT"
-    },
-    {
-      "ticker": "BURL",
-      "company": "BURL",
-      "sector": "Consumer Cyclical",
-      "master_score": 38.5,
-      "score_type": "POSITIVE_BIAS",
-      "price": 349.6700134277344,
-      "change_pct": 3.0,
-      "volume": 0,
-      "ai_short_summary": "BOGA AI Score: 38.5 | System: DEFAULT"
+      "ai_short_summary": "BOGA AI Score: 52.5 | System: TREND_CONT"
     }
   ]
 }

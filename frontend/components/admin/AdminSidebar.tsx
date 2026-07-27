@@ -7,6 +7,7 @@ const NAV = [
   { href: "/admin", label: "Genel Bakış" },
   { href: "/admin/trading/swing", label: "📈 Trading" },
   { href: "/admin/analytics/performance", label: "📊 Analytics" },
+  { href: "/admin/analytics/visitors", label: "👥 Ziyaretçiler" },
   { href: "/admin/portfolio/tracker", label: "💼 Portfolio" },
   { href: "/admin/education/academy", label: "🎓 Education" },
   { href: "/admin/ai", label: "🤖 AI" },
