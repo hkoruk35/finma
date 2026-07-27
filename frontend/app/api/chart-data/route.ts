@@ -94,7 +94,7 @@ export async function GET(req: NextRequest) {
 
     if (!indicatorParam) {
       return NextResponse.json({ bars }, {
-        headers: { "Cache-Control": "public, max-age=60, stale-while-revalidate=30" },
+        headers: { "Cache-Control": "public, max-age=30, stale-while-revalidate=15" },
       });
     }
 
