@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import type { Locale } from "@/lib/i18n/copy";
 import MobileTerminalLink from "@/components/global/MobileTerminalLink";
 
@@ -54,16 +53,11 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   return (
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-4 h-16 flex items-center gap-6">
-        <button onClick={onLogoClick} className="flex items-center gap-2 group flex-shrink-0 focus:outline-none">
-          <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
-            <Image src="/finmawave.png" alt="BOGASTOCK" width={32} height={32} priority className="object-contain rounded-lg shadow-lg shadow-blue-500/10" />
-          </div>
-          <div className="hidden sm:flex items-baseline gap-2">
-            <span className="text-lg text-white tracking-tighter" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}>
-              BOGA<span className="text-[#3b82f6]">STOCK</span>
-            </span>
-            <span className="text-[10px] text-[#3b82f6] font-black uppercase tracking-[0.2em]">TERMINAL</span>
-          </div>
+        <button onClick={onLogoClick} className="flex flex-col items-start flex-shrink-0 focus:outline-none">
+          <span className="text-lg text-white tracking-tight font-medium">
+            Boga<span className="text-[#3b82f6] font-semibold">Smart</span>
+          </span>
+          <span className="hidden sm:inline text-[11px] text-[#64748b]">{SLOGAN[locale]}</span>
         </button>
 
         <nav className="flex items-center gap-6">
