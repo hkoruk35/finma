@@ -199,13 +199,13 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     setLoading(true);
 
     try {
-      const res = await fetch("/api/ask", {
+      const res = await fetch("/api/ask-copilot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: msg,
-          history: messages.map((m) => ({ role: m.role, text: m.text })),
-          lang: lang
+          history: messages.map((m) => ({ role: m.role, content: m.text })),
+          locale: lang
         }),
       });
 
