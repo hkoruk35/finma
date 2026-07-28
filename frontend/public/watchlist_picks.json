@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T09:05:13.831369-04:00",
+  "generated_at": "2026-07-28T14:06:39.013341-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -260,12 +260,6 @@
       "score": 43.0
     },
     {
-      "ticker": "SXT",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-27",
-      "score": 41.5
-    },
-    {
       "ticker": "CRL",
       "sector": "Healthcare",
       "date_added": "2026-07-27",
@@ -281,7 +275,7 @@
       "ticker": "PLUS",
       "sector": "Technology",
       "date_added": "2026-07-27",
-      "score": 37.0
+      "score": 38.0
     },
     {
       "ticker": "BLFS",
@@ -299,7 +293,7 @@
       "ticker": "CLF",
       "sector": "Basic Materials",
       "date_added": "2026-07-27",
-      "score": 28.0
+      "score": 36.5
     },
     {
       "ticker": "BCO",
@@ -354,6 +348,48 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-28",
       "score": 33.0
+    },
+    {
+      "ticker": "EQNR",
+      "sector": "Energy",
+      "date_added": "2026-07-28",
+      "score": 42.5
+    },
+    {
+      "ticker": "INSW",
+      "sector": "Energy",
+      "date_added": "2026-07-28",
+      "score": 40.0
+    },
+    {
+      "ticker": "USPH",
+      "sector": "Healthcare",
+      "date_added": "2026-07-28",
+      "score": 38.0
+    },
+    {
+      "ticker": "RELL",
+      "sector": "Technology",
+      "date_added": "2026-07-28",
+      "score": 37.0
+    },
+    {
+      "ticker": "SLB",
+      "sector": "Energy",
+      "date_added": "2026-07-28",
+      "score": 36.5
+    },
+    {
+      "ticker": "OII",
+      "sector": "Energy",
+      "date_added": "2026-07-28",
+      "score": 35.0
+    },
+    {
+      "ticker": "BRKR",
+      "sector": "Healthcare",
+      "date_added": "2026-07-28",
+      "score": 34.5
     }
   ]
 }
