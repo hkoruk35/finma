@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-24T09:15:02.512518-04:00",
+  "generated_at": "2026-07-28T09:15:21.159898-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 25.9,
+  "scan_duration_s": 952.1,
   "total_scanned": 2,
   "layer1_passed": 2,
   "final_picks": 2,
   "picks": [
     {
-      "ticker": "IONS",
-      "price": 55.87,
-      "change_pct": 3.44,
-      "dt_score": 37.0,
-      "signal": "GAP_AND_GO",
+      "ticker": "CELH",
+      "price": 28.79,
+      "change_pct": 6.16,
+      "dt_score": 38.0,
+      "signal": "CONFIRMED_OPEN",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 56.26,
+      "vwap": 28.4,
       "catalyst": {
-        "catalyst_type": "upgrade",
-        "catalyst_score": 15,
-        "headline": "ionis pharmaceuticals, inc. (ions) faces investor scrutiny after surprise trial failure drives stock down 23% - hbss(pr ",
-        "confidence": "medium",
-        "ts": 1784898927.3542402
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1785245326.3648088
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,48 +37,48 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 55.81,
-          "high": 56.15
+          "low": 28.76,
+          "high": 28.93
         },
-        "stop": 55.03,
-        "tp1": 57.88,
-        "tp2": 59.31,
-        "rr_ratio": 2.0,
-        "avg_entry": 55.98,
-        "risk_per_sh": 0.95,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 55.87
+        "stop": 28.36,
+        "tp1": 29.81,
+        "tp2": 30.54,
+        "rr_ratio": 1.99,
+        "avg_entry": 28.84,
+        "risk_per_sh": 0.48,
+        "signal": "CONFIRMED_OPEN",
+        "pm_high_ref": 28.79
       },
       "details": [
-        "📰 Kataliz: UPGRADE",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.4%",
+        "↗️ Orta Gap: +6.2%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔄 VWAP Testi: -0.70%",
+        "✅ VWAP Üstünde: +1.38%",
         "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
     },
     {
-      "ticker": "HIMS",
-      "price": 32.74,
-      "change_pct": 3.35,
-      "dt_score": 32.0,
-      "signal": "GAP_AND_GO",
-      "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
+      "ticker": "GRND",
+      "price": 15.48,
+      "change_pct": 4.24,
+      "dt_score": 28.0,
+      "signal": "PULLBACK_VWAP",
+      "entry_condition": "📊 PULLBACK BEKLE → $15.53'a çekilme + bounce onayı",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 33.62,
+      "vwap": 15.53,
       "catalyst": {
-        "catalyst_type": "earnings_beat",
-        "catalyst_score": 25,
-        "headline": "hims stock climbs overnight as fda advisory panel backs 4 peptides  pharma bro martin shkreli goes short(stocktwits)",
-        "confidence": "high",
-        "ts": 1784898927.3993979
+        "catalyst_type": "unknown",
+        "catalyst_score": 5,
+        "headline": "",
+        "confidence": "low",
+        "ts": 1785245327.2115045
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -92,25 +92,25 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 32.71,
-          "high": 32.9
+          "low": 15.5,
+          "high": 15.58
         },
-        "stop": 32.25,
-        "tp1": 33.91,
-        "tp2": 34.75,
-        "rr_ratio": 1.99,
-        "avg_entry": 32.8,
-        "risk_per_sh": 0.55,
-        "signal": "GAP_AND_GO",
-        "pm_high_ref": 32.74
+        "stop": 15.37,
+        "tp1": 15.88,
+        "tp2": 16.13,
+        "rr_ratio": 2.0,
+        "avg_entry": 15.54,
+        "risk_per_sh": 0.17,
+        "signal": "PULLBACK_VWAP",
+        "pm_high_ref": 15.48
       },
       "details": [
-        "🎯 Güçlü Kataliz: EARNINGS_BEAT (high)",
+        "❓ Kataliz Bilinmiyor — Düşük Güven",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Küçük Gap: +3.4%",
+        "↗️ Orta Gap: +4.2%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "🔴 VWAP Altında: -2.61%",
+        "🔄 VWAP Testi: -0.34%",
         "✅ Açılış Barı: Yeşil",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"

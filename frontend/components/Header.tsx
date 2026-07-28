@@ -138,6 +138,10 @@ export default function Header({
   // /global/{locale}) götürür — eskiden giriş yapmış üyeler /home'a gidiyordu.
   const isMobileHeader = typeof window !== "undefined" && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
   const globalLandingHref = globalLocale ? (isMobileHeader ? `/global/${globalLocale}/home` : `/global/${globalLocale}`) : undefined;
+  // Logo artık /search'e (yeni "ana sayfa") gider — globalLandingHref TERMINAL
+  // nav pili ile paylaşılıyor (bkz. "Terminal" butonu asagida), o yuzden onu
+  // degistirmek yerine sadece logo icin ayri bir degisken kullaniyoruz.
+  const logoLandingHref = globalLocale ? `/global/${globalLocale}/search` : undefined;
   const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
   const screenerHref = globalLocale ? `/global/${globalLocale}/home` : "/home";
   const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
@@ -190,7 +194,7 @@ export default function Header({
         {/* Logo */}
         <div className="flex-shrink-0">
           {globalLocale ? (
-            <Link href={globalLandingHref!} className="flex items-center gap-2 group">
+            <Link href={logoLandingHref!} className="flex items-center gap-2 group">
               {logoContent}
             </Link>
           ) : onLogoClick ? (

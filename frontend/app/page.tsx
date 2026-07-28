@@ -28,8 +28,8 @@ export default async function HomePage() {
   else if (lowerLang.includes("fr")) locale = "fr";
 
   if (isMobile) {
-    redirect(`/global/${locale}/home`, RedirectType.replace);
+    redirect(`/global/${locale}/search`, RedirectType.replace);
   } else {
-    redirect(`/global/${locale}`, RedirectType.replace);
+    redirect(`/global/${locale}/search`, RedirectType.replace);
   }
 }

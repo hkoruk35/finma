@@ -69,7 +69,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
     <>
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3">
-        <Link href={`/global/${locale}/home`} className="flex items-center gap-2 group flex-shrink-0">
+        <Link href={`/global/${locale}/search`} className="flex items-center gap-2 group flex-shrink-0">
           <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
             <Image
               src="/finmawave.png"

@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import Header from "@/components/Header";
 import MemberHeader from "@/components/public/MemberHeader";
+import SearchLandingHeader from "@/components/public/SearchLandingHeader";
+import SearchLandingEmptyState from "@/components/public/SearchLandingEmptyState";
 import StockReportView from "@/components/StockReportView";
 
 interface Message {
@@ -40,7 +42,7 @@ const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string; pt
   analyzingBody:  { tr: "Lütfen bekleyin, derin analiz raporu hazırlanıyor...", en: "Please wait, the deep analysis report is being prepared...", es: "Por favor espere, se está preparando el informe de análisis profundo...", fr: "Veuillez patienter, le rapport d'analyse approfondie est en cours de préparation...", pt: "Aguarde, o relatório de análise profunda está sendo preparado..." },
 };
 
-const POPULAR_TICKERS = [
+export const POPULAR_TICKERS = [
   { ticker: "AAPL", name: "Apple" },
   { ticker: "NVDA", name: "Nvidia" },
   { ticker: "GOOGL", name: "Google" },
@@ -127,7 +129,7 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
   </div>
 );
 
-export default function AIContainer({ lang = "tr", locale }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt" }) {
+export default function AIContainer({ lang = "tr", locale, variant = "classic" }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt"; variant?: "classic" | "landing" }) {
   const t = (key: keyof typeof TEXTS) => TEXTS[key][(lang === "en" ? "en" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "pt" ? "pt" : "tr")];
   // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the
   // /global member area (no Screener/Terminal/Option links, no root logout) and always
@@ -340,7 +342,9 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
 
       {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        {isGlobal ? (
+        {variant === "landing" ? (
+          <SearchLandingHeader locale={locale!} onLogoClick={newSession} />
+        ) : isGlobal ? (
           <MemberHeader locale={locale!} />
         ) : (
           <Header hideMenus={false} onLogoClick={newSession} onNewQueryClick={messages.length > 0 ? newSession : undefined} />
@@ -361,6 +365,17 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
             </div>
           )}
           {!autoLoading && messages.length === 0 && (
+            variant === "landing" ? (
+              <SearchLandingEmptyState
+                locale={locale!}
+                lang={lang}
+                input={input}
+                setInput={setInput}
+                inputRef={inputRef}
+                loading={loading}
+                onSend={send}
+              />
+            ) : (
             <div className="space-y-8 mt-24 animate-fade-in max-w-2xl mx-auto w-full">
               <div className="relative group">
                 <textarea
@@ -409,6 +424,7 @@ export default function AIContainer({ lang = "tr", locale }: { lang?: string; lo
                 <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
               </div>
             </div>
+            )
           )}
 
           {messages.map((m, i) => {

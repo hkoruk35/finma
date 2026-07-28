@@ -15,6 +15,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // ── Static routes ─────────────────────────────────────────────
   const staticRoutes = [
     { route: '',                             priority: 1.0, cf: 'hourly'  },
+    // /search is the new site home (logo + root-domain redirect target)
+    { route: '/global/en/search',            priority: 0.95, cf: 'daily'  },
+    { route: '/global/tr/search',            priority: 0.95, cf: 'daily'  },
+    { route: '/global/es/search',            priority: 0.95, cf: 'daily'  },
+    { route: '/global/fr/search',            priority: 0.95, cf: 'daily'  },
+    { route: '/global/pt/search',            priority: 0.95, cf: 'daily'  },
     { route: '/swing',                 priority: 0.9, cf: 'daily'   },
     { route: '/screener',              priority: 0.9, cf: 'hourly'  },
     { route: '/pro',                   priority: 0.85, cf: 'daily'  },
