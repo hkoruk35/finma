@@ -15,6 +15,9 @@ const SCREENER_LABEL: Record<Locale, string> = { tr: "LİSTELER", en: "SCREENER"
 const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
 const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
 const WATCHLIST_LABEL: Record<Locale, string> = { tr: "İzleme Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista" };
+// Marka sloganı — kullanıcı bunu birebir "Ask · Discover · Markets" olarak
+// istedi, diğer UI metinleri gibi dile göre çevrilmiyor.
+const SLOGAN = "Ask · Discover · Markets";
 const TERMINAL_TOOLTIP: Record<Locale, string> = {
   tr: "TERMİNAL sayfasını aç", en: "Open the TERMINAL page", es: "Abrir la página TERMINAL",
   fr: "Ouvrir la page TERMINAL", pt: "Abrir a página TERMINAL",
@@ -57,7 +60,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
           <span className="text-lg text-white tracking-tight font-medium">
             Boga<span className="text-[#3b82f6] font-semibold">Smart</span>
           </span>
-          <span className="hidden sm:inline text-[11px] text-[#64748b]">{SLOGAN[locale]}</span>
+          <span className="hidden sm:inline text-[11px] text-[#64748b]">{SLOGAN}</span>
         </button>
 
         <nav className="flex items-center gap-6">
