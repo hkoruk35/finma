@@ -268,15 +268,9 @@ async function storeTransactions(transactions: any[]): Promise<number> {
   if (transactions.length === 0) return 0;
 
   try {
-    const { error } = await supabaseAdmin
+    await supabaseAdmin
       .from("insider_transactions")
-      .upsert(transactions)
-      .execute();
-
-    if (error) {
-      console.warn(`[INSIDER CRON] Store error:`, error);
-      return 0;
-    }
+      .upsert(transactions);
 
     return transactions.length;
   } catch (err) {
