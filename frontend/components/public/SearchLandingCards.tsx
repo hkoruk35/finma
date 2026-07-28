@@ -7,25 +7,25 @@ type L = Record<Locale, string>;
 
 const QUESTION_TITLES: L[] = [
   {
-    tr: "Bugün anlaması gereken en önemli gelişme ne?",
-    en: "What is the most important development I should understand today?",
-    es: "¿Cuál es el desarrollo más importante que debo entender hoy?",
-    fr: "Quel est le développement le plus important que je dois comprendre aujourd'hui ?",
-    pt: "Qual é o desenvolvimento mais importante que devo entender hoje?",
+    tr: "Bugün dünyada anlaması gereken en önemli haber ne?",
+    en: "What is the most important news happening in the world today?",
+    es: "¿Cuál es la noticia más importante que sucede en el mundo hoy?",
+    fr: "Quelle est la nouvelle la plus importante qui se passe dans le monde aujourd'hui ?",
+    pt: "Qual é a notícia mais importante acontecendo no mundo hoje?",
   },
   {
-    tr: "Bugün ilgi alanlarıma uygun hangi haberler ve trendler ortaya çıkıyor?",
-    en: "What important news and emerging trends match my interests today?",
-    es: "¿Qué noticias importantes y tendencias emergentes coinciden con mis intereses hoy?",
-    fr: "Quelles nouvelles importantes et tendances émergentes correspondent à mes intérêts aujourd'hui ?",
-    pt: "Quais notícias importantes e tendências emergentes correspondem aos meus interesses hoje?",
+    tr: "Bugün teknoloji, bilim ve ekonomide öne çıkan gelişmeler neler?",
+    en: "What developments are trending today in technology, science, and economics?",
+    es: "¿Qué desarrollos son tendencia hoy en tecnología, ciencia y economía?",
+    fr: "Quels sont les développements à la mode aujourd'hui en technologie, science et économie ?",
+    pt: "Quais desenvolvimentos estão em tendência hoje em tecnologia, ciência e economia?",
   },
   {
-    tr: "Bugün en yüksek sıralamadaki hisseler hangileri ve neyi yönlendiriyor?",
-    en: "Which stocks rank highest on BogaSmart today—and what is driving them?",
-    es: "¿Qué acciones se clasifican más alto en BogaSmart hoy y qué las impulsa?",
-    fr: "Quelles actions se classent les plus hautes sur BogaSmart aujourd'hui et qu'est-ce qui les anime ?",
-    pt: "Quais ações são classificadas mais altas em BogaSmart hoje e o que as impulsiona?",
+    tr: "Bugün en yüksek sıralamadaki hisseler hangileri ve piyasa neler söylüyor?",
+    en: "Which stocks rank highest on BogaSmart today and what is the market saying?",
+    es: "¿Qué acciones se clasifican más alto en BogaSmart hoy y qué dice el mercado?",
+    fr: "Quelles actions se classent les plus hautes sur BogaSmart aujourd'hui et que dit le marché ?",
+    pt: "Quais ações são classificadas mais altas em BogaSmart hoje e o que o mercado está dizendo?",
   },
 ];
 
@@ -55,25 +55,25 @@ const CARD_LABELS: L[] = [
 
 const CARD_DESCRIPTIONS: L[] = [
   {
-    tr: "Kaynaklı AI araştırması",
-    en: "Sourced AI research",
-    es: "Investigación de IA con fuentes",
-    fr: "Recherche IA sourçée",
-    pt: "Pesquisa de IA com fontes",
+    tr: "Küresel gündem araştırması",
+    en: "Global news research",
+    es: "Investigación de noticias globales",
+    fr: "Recherche d'actualités mondiales",
+    pt: "Pesquisa de notícias globais",
   },
   {
-    tr: "Haber ve kişisel akış",
-    en: "News and personal feed",
-    es: "Noticias y feed personal",
-    fr: "Actualités et flux personnel",
-    pt: "Notícias e feed pessoal",
+    tr: "Bilim, teknoloji ve ekonomi",
+    en: "Science, tech & economics",
+    es: "Ciencia, tecnología y economía",
+    fr: "Science, technologie et économie",
+    pt: "Ciência, tecnologia e economia",
   },
   {
-    tr: "BogaSmart'ın güçlü altyapısı",
-    en: "BogaSmart's powerful infrastructure",
-    es: "Infraestructura poderosa de BogaSmart",
-    fr: "Infrastructure puissante de BogaSmart",
-    pt: "Infraestrutura poderosa do BogaSmart",
+    tr: "Site verisi + pazar zekası",
+    en: "Site data + market intelligence",
+    es: "Datos del sitio + inteligencia de mercado",
+    fr: "Données du site + intelligence de marché",
+    pt: "Dados do site + inteligência de mercado",
   },
 ];
 
@@ -111,23 +111,25 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
         <button
           onClick={() => setSelectedMode("fast")}
           disabled={loading}
-          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full font-semibold uppercase tracking-wider transition-all ${
             selectedMode === "fast"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "bg-[#1e2a3a]/40 text-[#94a3b8] hover:text-white border border-[#1e2a3a]"
           }`}
+          style={{ fontSize: '12px', fontFamily: 'Inter' }}
         >
           ⚡ {RESEARCH_MODES.fast[locale]} Research
         </button>
-        <span className="text-[#475569] text-xs">/</span>
+        <span className="text-[#475569]" style={{ fontSize: '12px', fontFamily: 'Inter' }}>/</span>
         <button
           onClick={() => setSelectedMode("deep")}
           disabled={loading}
-          className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full font-semibold uppercase tracking-wider transition-all ${
             selectedMode === "deep"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "bg-[#1e2a3a]/40 text-[#94a3b8] hover:text-white border border-[#1e2a3a]"
           }`}
+          style={{ fontSize: '12px', fontFamily: 'Inter' }}
         >
           🔍 {RESEARCH_MODES.deep[locale]} Research
         </button>
@@ -170,17 +172,17 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
 
             <div className="relative z-10 space-y-3">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="text-sm font-black uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
                   {CARD_LABELS[idx][locale]}
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#64748b] group-hover:text-[#94a3b8] transition-colors">
+                <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
                   {CARD_DESCRIPTIONS[idx][locale]}
                 </span>
               </div>
 
-              <p className={`text-sm font-bold leading-snug transition-colors ${
+              <p className={`font-semibold leading-snug transition-colors ${
                 activeCard === idx ? "text-white" : "text-[#cbd5e1]"
-              }`}>
+              }`} style={{ fontSize: '14px', fontFamily: 'Inter' }}>
                 {QUESTION_TITLES[idx][locale]}
               </p>
 
@@ -196,7 +198,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
       </div>
 
       {/* Info text */}
-      <div className="text-center text-xs text-[#64748b] space-y-1">
+      <div className="text-center text-[#64748b] space-y-1" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
         <p>
           {selectedMode === "fast"
             ? locale === "tr"

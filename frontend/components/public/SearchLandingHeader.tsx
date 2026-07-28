@@ -59,7 +59,6 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
         </button>
 
         <nav className="flex items-center gap-6">
-          <span className={tabClass(true)}>Ask BogaSmart</span>
         </nav>
 
         <div className="flex-1" />
