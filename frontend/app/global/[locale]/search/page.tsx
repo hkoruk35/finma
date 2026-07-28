@@ -9,19 +9,19 @@ type Props = {
 };
 
 const TITLES: Record<Locale, string> = {
-  tr: "BOGA AI — Akıllı Arama",
-  en: "BOGA AI — Smart Search",
-  es: "BOGA AI — Búsqueda Inteligente",
-  fr: "BOGA AI — Recherche Intelligente",
-  pt: "BOGA AI — Busca Inteligente",
+  tr: "BogaSmart — Akıllı Arama",
+  en: "BogaSmart — Smart Search",
+  es: "BogaSmart — Búsqueda Inteligente",
+  fr: "BogaSmart — Recherche Intelligente",
+  pt: "BogaSmart — Busca Inteligente",
 };
 
 const DESCRIPTIONS: Record<Locale, string> = {
-  tr: "BOGA AI'ya piyasalar, şirketler veya hisseler hakkında soru sorun; gerçek zamanlı verilerle desteklenen anında derin analiz alın.",
-  en: "Ask BOGA AI about markets, companies, or stocks and get instant deep analysis backed by real-time data.",
-  es: "Pregunta a BOGA AI sobre mercados, empresas o acciones y obtén un análisis profundo instantáneo respaldado por datos en tiempo real.",
-  fr: "Posez vos questions à BOGA AI sur les marchés, les entreprises ou les actions et obtenez une analyse approfondie instantanée basée sur des données en temps réel.",
-  pt: "Pergunte à BOGA AI sobre mercados, empresas ou ações e obtenha uma análise profunda instantânea com dados em tempo real.",
+  tr: "BogaSmart'a piyasalar, şirketler veya hisseler hakkında soru sorun; gerçek zamanlı verilerle desteklenen anında derin analiz alın.",
+  en: "Ask BogaSmart about markets, companies, or stocks and get instant deep analysis backed by real-time data.",
+  es: "Pregunta a BogaSmart sobre mercados, empresas o acciones y obtén un análisis profundo instantáneo respaldado por datos en tiempo real.",
+  fr: "Posez vos questions à BogaSmart sur les marchés, les entreprises ou les actions et obtenez une analyse approfondie instantanée basée sur des données en temps réel.",
+  pt: "Pergunte a BogaSmart sobre mercados, empresas ou ações e obtenha uma análise profunda instantânea com dados em tempo real.",
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
