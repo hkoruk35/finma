@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-28T13:01:56.502285-04:00",
+  "updated_at": "2026-07-28T14:01:45.827862-04:00",
   "tracker_version": "2.0-v242",
   "summary": {
     "total": 372,
@@ -15,7 +15,7 @@
     "avg_loser_pct": -43.6,
     "best_trade_pct": 435.5,
     "worst_trade_pct": -100.0,
-    "avg_unrealized_pnl": -64.0,
+    "avg_unrealized_pnl": -63.9,
     "by_setup": {
       "NR7_SIKIŞ": {
         "total": 2,
@@ -12907,11 +12907,11 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.345,
-      "unrealized_pnl_pct": -96.8,
+      "current_premium": 0.28,
+      "unrealized_pnl_pct": -97.4,
       "days_held": 98,
       "peak_premium": 14.0,
-      "trough_premium": 0.295,
+      "trough_premium": 0.28,
       "underlying_current": null
     },
     {
@@ -13067,8 +13067,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.1425,
-      "unrealized_pnl_pct": -96.0,
+      "current_premium": 0.095,
+      "unrealized_pnl_pct": -97.3,
       "days_held": 98,
       "peak_premium": 7.175,
       "trough_premium": 0.075,
@@ -13099,8 +13099,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 0.125,
-      "unrealized_pnl_pct": -88.8,
+      "current_premium": 0.15,
+      "unrealized_pnl_pct": -86.6,
       "days_held": 98,
       "peak_premium": 2.55,
       "trough_premium": 0.125,
@@ -13163,8 +13163,8 @@
       "exit_date": null,
       "exit_reason": null,
       "pnl_pct": null,
-      "current_premium": 9.5,
-      "unrealized_pnl_pct": 46.2,
+      "current_premium": 9.55,
+      "unrealized_pnl_pct": 46.9,
       "days_held": 98,
       "peak_premium": 16.05,
       "trough_premium": 4.95,
