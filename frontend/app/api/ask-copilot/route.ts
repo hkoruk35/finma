@@ -8,6 +8,8 @@ import { getTradePlanSummary } from "@/lib/copilot/liveAnalysis";
 import { fetchLiveMarketNews } from "@/lib/copilot/newsSearch";
 import { ct } from "@/lib/copilot/i18n";
 
+const requestCounts = new Map<string, { count: number; resetTime: number }>();
+
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
@@ -213,12 +215,9 @@ export async function POST(req: NextRequest) {
 }
 
 function isRateLimited(ip: string, maxRequests: number, windowMs: number): boolean {
-  if (!global.requestCounts) {
-    global.requestCounts = {};
-  }
   const now = Date.now();
   const key = `${ip}:ask`;
-  const record = global.requestCounts[key] || { count: 0, resetTime: now + windowMs };
+  const record = requestCounts.get(key) || { count: 0, resetTime: now + windowMs };
 
   if (now > record.resetTime) {
     record.count = 0;
@@ -226,7 +225,7 @@ function isRateLimited(ip: string, maxRequests: number, windowMs: number): boole
   }
 
   record.count++;
-  global.requestCounts[key] = record;
+  requestCounts.set(key, record);
 
   return record.count > maxRequests;
 }
