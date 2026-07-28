@@ -30,7 +30,7 @@ const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string; pt
   searchChats:    { tr: "Sohbetlerde Ara", en: "Search Chats", es: "Buscar Chats", fr: "Rechercher les Chats", pt: "Pesquisar Chats" },
   recentSearches: { tr: "SON ARAMALAR",   en: "RECENT SEARCHES", es: "BÚSQUEDAS RECIENTES", fr: "RECHERCHES RÉCENTES", pt: "BUSCAS RECENTES" },
   emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet.", es: "Aún no hay historial de búsqueda.", fr: "Aucun historique de recherche pour le momento.", pt: "Ainda não há histórico de busca." },
-  placeholder:    { tr: "Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız...", en: "Type the US stock ticker or company name you want to search...", es: "Escribe el ticker de bolsa estadounidense o el nombre de la empresa que deseas buscar...", fr: "Tapez le symbole boursier américain ou le nom de la société que vous souhaitez rechercher...", pt: "Digite o ticker da ação dos EUA ou o nome da empresa que deseja buscar..." },
+  placeholder:    { tr: "Sorunuzu yazın veya araştırma yapın...", en: "Ask a question or search...", es: "Haz una pregunta o busca...", fr: "Posez une question ou recherchez...", pt: "Faça uma pergunta ou pesquise..." },
   popularStocks:  { tr: "Popüler Hisse Senetleri", en: "Popular Stocks", es: "Acciones Populares", fr: "Actions Populaires", pt: "Ações Populares" },
   archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive", es: "🗂️ Archivo de Análisis Profundo", fr: "🗂️ Archive d'Analyse Approfondie", pt: "🗂️ Arquivo de Análise Profunda" },
   legalDisclaimerLabel: { tr: "Yasal Uyarı:", en: "Disclaimer:", es: "Aviso Legal:", fr: "Avertissement:", pt: "Aviso Legal:" },
