@@ -152,7 +152,7 @@ async function lookupCIK(ticker: string): Promise<string | undefined> {
 
     if (!response.ok) {
       console.warn(`[INSIDER CRON] SEC lookup failed for ${ticker}: ${response.status}`);
-      return null;
+      return undefined;
     }
 
     const json: any = await response.json();
@@ -162,10 +162,10 @@ async function lookupCIK(ticker: string): Promise<string | undefined> {
       return cik;
     }
 
-    return null;
+    return undefined;
   } catch (err) {
     console.warn(`[INSIDER CRON] CIK lookup error for ${ticker}:`, err);
-    return null;
+    return undefined;
   }
 }
 
