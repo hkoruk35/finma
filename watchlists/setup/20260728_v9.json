@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "STGW",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 7.99,
+        "entry_zone": "7.82 - 8.16",
+        "SL": 7.32,
+        "TP": 9.32
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "RNG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 56.41,
+        "entry_zone": "54.80 - 58.02",
+        "SL": 49.98,
+        "TP": 69.28
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 11.85,
+        "entry_zone": "11.49 - 12.20",
+        "SL": 10.42,
+        "TP": 14.7
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "SIG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 97.76,
+        "entry_zone": "96.13 - 99.39",
+        "SL": 91.25,
+        "TP": 110.77
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "GPN",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 86.17,
+        "entry_zone": "84.46 - 87.87",
+        "SL": 79.35,
+        "TP": 99.8
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 92.98,
+        "entry_zone": "90.38 - 95.58",
+        "SL": 82.57,
+        "TP": 113.81
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "BAX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 24.27,
+        "entry_zone": "23.82 - 24.73",
+        "SL": 22.47,
+        "TP": 27.88
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "WSM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 238.43,
+        "entry_zone": "234.76 - 242.11",
+        "SL": 223.73,
+        "TP": 267.85
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "ECPG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 95.28,
+        "entry_zone": "93.50 - 97.06",
+        "SL": 88.16,
+        "TP": 109.51
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "NOW",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 111.35,
+        "entry_zone": "108.10 - 114.60",
+        "SL": 98.35,
+        "TP": 137.35
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "THC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 255.83,
+        "entry_zone": "250.09 - 261.57",
+        "SL": 232.88,
+        "TP": 301.72
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "PKG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 254.49,
+        "entry_zone": "250.33 - 258.66",
+        "SL": 237.83,
+        "TP": 287.83
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 102.59,
+        "entry_zone": "100.32 - 104.86",
+        "SL": 93.5,
+        "TP": 120.77
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "TPR",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 150.2,
+        "entry_zone": "147.69 - 152.71",
+        "SL": 140.15,
+        "TP": 170.29
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "PPG",
+        "sector": "Basic Materials",
+        "action": "BUY",
+        "price": 121.76,
+        "entry_zone": "119.82 - 123.70",
+        "SL": 113.99,
+        "TP": 137.3
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "GM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 90.63,
+        "entry_zone": "89.25 - 92.01",
+        "SL": 85.1,
+        "TP": 101.69
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "WDAY",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 158.59,
+        "entry_zone": "153.97 - 163.21",
+        "SL": 140.12,
+        "TP": 195.53
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "BKNG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 196.91,
+        "entry_zone": "193.50 - 200.32",
+        "SL": 183.29,
+        "TP": 224.16
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "FIS",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 44.97,
+        "entry_zone": "44.16 - 45.77",
+        "SL": 41.73,
+        "TP": 51.44
+    },
+    {
+        "date": "2026-07-28 12:45",
+        "symbol": "ZM",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 91.22,
+        "entry_zone": "89.53 - 92.91",
+        "SL": 84.44,
+        "TP": 104.78
+    }
+]
