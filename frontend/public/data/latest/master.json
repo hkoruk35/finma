@@ -1,6 +1,6 @@
 {
   "date": "2026-07-28",
-  "generated_at": "2026-07-28T09:05:13.796502-04:00",
+  "generated_at": "2026-07-28T14:06:38.972255-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,25 +8,21 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "VAL",
-        "PH",
-        "SM",
-        "ATKR",
-        "CSX",
-        "IBCP",
-        "KN",
-        "FFIV",
-        "CCK",
-        "KMI"
+        "EMR",
+        "GGG",
+        "CFG",
+        "SXT",
+        "ENR",
+        "CHH",
+        "SN",
+        "ADM",
+        "SMA",
+        "UNP"
       ]
     },
     "breakout": {
-      "count": 3,
-      "tickers": [
-        "IBCP",
-        "FFIV",
-        "CCK"
-      ]
+      "count": 0,
+      "tickers": []
     },
     "value": {
       "count": 0,
@@ -47,42 +43,37 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VAL",
-      "score": 63.0,
+      "ticker": "EMR",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PH",
+      "ticker": "GGG",
       "score": 52.5,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "SM",
-      "score": 52.0,
+      "ticker": "CFG",
+      "score": 51.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],
   "market_indices": {
     "SP500": {
-      "value": 741.29,
-      "change_pct": 0.3
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 676.915,
-      "change_pct": -0.76
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 527.525,
-      "change_pct": 1.2
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 18.35,
-      "change_pct": -1.71
-    },
-    "RUSSELL2000": {
-      "value": 293.18,
-      "change_pct": 0.09
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-28T14:01:37.152230-04:00"
+  }
 }
