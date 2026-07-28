@@ -141,7 +141,7 @@ async function loadCIKCache(): Promise<CIKCache> {
   }
 }
 
-async function lookupCIK(ticker: string): Promise<string | null> {
+async function lookupCIK(ticker: string): Promise<string | undefined> {
   try {
     // Search SEC EDGAR for ticker (using company search via JSON API)
     // This is a simple approach: fetch EDGAR company facts to derive CIK
