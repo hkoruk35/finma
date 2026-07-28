@@ -6,7 +6,13 @@ export const metadata: Metadata = {
 };
 
 export default function InsiderPage() {
-  const topBuyers = [];
+  const topBuyers: any[] = [];
+  const insiderT = {
+    title: "Atividade de Transações de Insiders",
+    subtitle: "Arquivos do Formulário 4 da SEC - Últimos 90 dias",
+    noData: "Nenhuma transação de insider encontrada",
+    dataSource: "Arquivos do Formulário 4 da SEC",
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
