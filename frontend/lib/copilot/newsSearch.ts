@@ -25,7 +25,7 @@ const geminiApiKey =
 const googleProvider = createGoogleGenerativeAI({ apiKey: geminiApiKey });
 
 const LOCALE_NAMES: Record<string, string> = {
-  tr: "Turkish", es: "Spanish", fr: "French", pt: "Portuguese",
+  en: "English", tr: "Turkish", es: "Spanish", fr: "French", pt: "Portuguese",
 };
 
 /**
@@ -39,25 +39,44 @@ const LOCALE_NAMES: Record<string, string> = {
  */
 async function translateNewsTitles(items: NewsItem[], lang: string): Promise<NewsItem[]> {
   const targetLang = LOCALE_NAMES[lang];
-  if (!targetLang || items.length === 0 || !geminiApiKey) return items;
+  if (!targetLang || items.length === 0 || !geminiApiKey) {
+    console.warn(`[newsSearch] Skipping translation: targetLang=${targetLang}, items=${items.length}, hasKey=${!!geminiApiKey}, lang=${lang}`);
+    return items;
+  }
 
   try {
+    console.log(`[newsSearch] Starting translation: ${items.length} titles to ${targetLang} (lang=${lang}, model=gemini-flash-latest)`);
     const { text } = await generateText({
       model: googleProvider("gemini-flash-latest"),
-      prompt: `Translate each of the following ${items.length} financial news headlines into ${targetLang}. Keep ticker symbols, company names, and numbers unchanged. Respond with ONLY a JSON array of ${items.length} translated strings, in the exact same order, no other text:\n\n${JSON.stringify(items.map((i) => i.title))}`,
-      abortSignal: AbortSignal.timeout(4000),
+      prompt: `You are a financial news translator. Translate each of the following ${items.length} financial news headlines into ${targetLang}. IMPORTANT: Keep ticker symbols, company names, numbers, and abbreviations UNCHANGED. Return ONLY a valid JSON array of exactly ${items.length} translated strings in the same order as input. No markdown, no code blocks, no extra text. Just the JSON array.:\n\n${JSON.stringify(items.map((i) => i.title))}`,
+      abortSignal: AbortSignal.timeout(6000),
     });
 
-    const cleaned = text.trim().replace(/^```json\s*|```\s*$/g, "");
+    console.log(`[newsSearch] Gemini response received (${text.length} chars), parsing...`);
+    const cleaned = text.trim().replace(/^```json\s*|```\s*$/g, "").replace(/^```\s*|```\s*$/g, "");
     const translated = JSON.parse(cleaned);
-    if (!Array.isArray(translated) || translated.length !== items.length) return items;
 
-    return items.map((item, i) => ({
+    if (!Array.isArray(translated)) {
+      console.error(`[newsSearch] Response is not array: ${typeof translated}`);
+      return items;
+    }
+    if (translated.length !== items.length) {
+      console.error(`[newsSearch] Array length mismatch: got ${translated.length}, expected ${items.length}`);
+      return items;
+    }
+
+    const result = items.map((item, i) => ({
       ...item,
       title: typeof translated[i] === "string" && translated[i].trim() ? translated[i] : item.title,
     }));
+
+    console.log(`[newsSearch] ✓ Translation successful: ${items.length} titles → ${targetLang}`);
+    return result;
   } catch (err) {
-    console.error("[newsSearch] Title translation error:", err);
+    console.error(`[newsSearch] ✗ Translation failed for lang=${lang}:`, {
+      error: err instanceof Error ? err.message : String(err),
+      stack: err instanceof Error ? err.stack : undefined,
+    });
     return items;
   }
 }
@@ -103,7 +122,7 @@ export async function fetchLiveMarketNews(query: string = "US stock market", lan
       }
     }
 
-    if (items.length > 0) return translateNewsTitles(items, lang);
+    if (items.length > 0) return await translateNewsTitles(items, lang);
   } catch (err) {
     console.error("[newsSearch] Live fetch error:", err);
   }

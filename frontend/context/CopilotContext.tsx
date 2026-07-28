@@ -91,6 +91,10 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     setPageContext(buildPageContext(key, ticker, locale, themeSlug));
   }, [pathname, locale]);
 
+  useEffect(() => {
+    console.log("[Copilot] Locale from pathname:", locale, "pathname:", pathname);
+  }, [locale, pathname]);
+
   const refreshUsage = useCallback(() => {
     fetch("/api/copilot/usage")
       .then((r) => (r.ok ? r.json() : null))
@@ -158,6 +162,12 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
   const { messages, setMessages, input, handleInputChange, handleSubmit, isLoading, append, error } = useChat({
     api: "/api/copilot/chat",
     body: { pageContext, locale },
+    onResponse: (response) => {
+      console.log("[CopilotContext] Chat response received", { locale, status: response.status });
+    },
+    onError: (err) => {
+      console.error("[CopilotContext] Chat error", { locale, error: err });
+    },
     onToolCall({ toolCall }) {
       if (toolCall.toolName === "navigate_to") {
         const { ticker } = toolCall.args as any;
