@@ -193,9 +193,6 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
     onFinish() {
       refreshUsage();
     },
-    onError: (err) => {
-      console.error("Copilot AI Error:", err);
-    },
   });
 
   return (

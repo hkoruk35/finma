@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import InsiderTransactionGrid from "@/components/public/InsiderTransactionGrid";
 
 export const metadata: Metadata = {
   title: "Atividade de Transações de Insiders | BOGASTOCK",
@@ -6,6 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default function InsiderPage() {
+  const locale = "pt";
   const topBuyers: any[] = [];
   const insiderT = {
     title: "Atividade de Transações de Insiders",

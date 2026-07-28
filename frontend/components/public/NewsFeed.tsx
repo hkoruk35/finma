@@ -2,6 +2,89 @@ import type { PublicPost } from "@/lib/x/publicPosts";
 import type { Locale } from "@/lib/i18n/copy";
 import ShareButton from "@/components/ShareButton";
 
+const SECTORS: Record<string, Record<string, string>> = {
+  en: {
+    "Consumer Discretionary": "Consumer Discretionary",
+    "Consumer Cyclical": "Consumer Cyclical",
+    "Consumer Defensive": "Consumer Defensive",
+    "Financials": "Financials",
+    "Financial Services": "Financial Services",
+    "Industrials": "Industrials",
+    "Technology": "Technology",
+    "Real Estate": "Real Estate",
+    "Energy": "Energy",
+    "Communication Services": "Communication Services",
+    "Utilities": "Utilities",
+    "Basic Materials": "Basic Materials",
+    "Healthcare": "Healthcare",
+    "Other": "Other",
+  },
+  tr: {
+    "Consumer Discretionary": "Tüketici İsteğine Bağlı",
+    "Consumer Cyclical": "Tüketici Döngüseli",
+    "Consumer Defensive": "Tüketici Savunma",
+    "Financials": "Finansal",
+    "Financial Services": "Finans Hizmetleri",
+    "Industrials": "Sanayi",
+    "Technology": "Teknoloji",
+    "Real Estate": "Gayrimenkul",
+    "Energy": "Enerji",
+    "Communication Services": "İletişim Hizmetleri",
+    "Utilities": "Kamu Hizmetleri",
+    "Basic Materials": "Temel Malzemeler",
+    "Healthcare": "Sağlık",
+    "Other": "Diğer",
+  },
+  es: {
+    "Consumer Discretionary": "Consumo Discrecional",
+    "Consumer Cyclical": "Consumo Cíclico",
+    "Consumer Defensive": "Consumo Defensivo",
+    "Financials": "Financiero",
+    "Financial Services": "Servicios Financieros",
+    "Industrials": "Industrial",
+    "Technology": "Tecnología",
+    "Real Estate": "Bienes Raíces",
+    "Energy": "Energía",
+    "Communication Services": "Servicios de Comunicación",
+    "Utilities": "Servicios Públicos",
+    "Basic Materials": "Materiales Básicos",
+    "Healthcare": "Sanitario",
+    "Other": "Otro",
+  },
+  pt: {
+    "Consumer Discretionary": "Consumo Discricionário",
+    "Consumer Cyclical": "Consumo Cíclico",
+    "Consumer Defensive": "Consumo Defensivo",
+    "Financials": "Financeiro",
+    "Financial Services": "Serviços Financeiros",
+    "Industrials": "Industrial",
+    "Technology": "Tecnologia",
+    "Real Estate": "Imóvel",
+    "Energy": "Energia",
+    "Communication Services": "Serviços de Comunicação",
+    "Utilities": "Serviços Públicos",
+    "Basic Materials": "Materiais Básicos",
+    "Healthcare": "Saúde",
+    "Other": "Outro",
+  },
+  fr: {
+    "Consumer Discretionary": "Consommation Discrétionnaire",
+    "Consumer Cyclical": "Consommation Cyclique",
+    "Consumer Defensive": "Consommation Défensive",
+    "Financials": "Finance",
+    "Financial Services": "Services Financiers",
+    "Industrials": "Industrie",
+    "Technology": "Technologie",
+    "Real Estate": "Immobilier",
+    "Energy": "Énergie",
+    "Communication Services": "Services de Communication",
+    "Utilities": "Services Publics",
+    "Basic Materials": "Matériaux de Base",
+    "Healthcare": "Santé",
+    "Other": "Autre",
+  },
+};
+
 const STRINGS: Record<string, { viewOnX: string; empty: string }> = {
   en: { viewOnX: "View on X ↗", empty: "No posts yet — check back soon." },
   es: { viewOnX: "Ver en X ↗", empty: "Aún no hay publicaciones — vuelve pronto." },
@@ -24,6 +107,7 @@ const VALID_LOCALES: Locale[] = ["en", "tr", "es", "fr", "pt"];
 
 export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; locale: string }) {
   const t = STRINGS[locale] ?? STRINGS.en;
+  const sectors = SECTORS[locale] ?? SECTORS.en;
   const shareLocale = VALID_LOCALES.includes(locale as Locale) ? (locale as Locale) : "en";
 
   if (posts.length === 0) {
@@ -42,7 +126,7 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
           <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-b border-white/5 pb-3">
             <span className="text-[#3b82f6] flex items-center gap-2">
               {post.ticker ?? "BOGASTOCK"}
-              {post.sector ? <span className="text-slate-500 normal-case font-normal border-l border-slate-700 pl-2">{post.sector}</span> : null}
+              {post.sector ? <span className="text-slate-500 normal-case font-normal border-l border-slate-700 pl-2">{sectors[post.sector] ?? post.sector}</span> : null}
             </span>
             <span className="bg-[#3b82f6]/10 text-[#3b82f6] px-2 py-1 rounded-sm text-[10px]">{post.locale.toUpperCase()}</span>
           </div>
