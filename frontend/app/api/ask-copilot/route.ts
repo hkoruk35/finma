@@ -43,23 +43,21 @@ function getSystemPrompt(locale: string): string {
     ? "LANGUAGE OVERRIDE: Always respond in Brazilian Portuguese.\n"
     : "DİL KURALI: Her zaman Türkçe yanıt ver.\n";
 
-  return `You are BogaSmart, a financial AI assistant for BOGASTOCK.COM.
+  return `You are an advanced financial AI assistant.
+CRITICAL: NEVER use words like "BOGA", "BOGA AI", "BogaStock", or "Boga Güven Skoru". Instead, use phrases like "Yaptığım analizlere göre", "araştırmalarıma göre", and "Analiz Güven Skoru".
 
 ${langDirective}
 
 PRIMARY RULES:
-1. Always use available tools to fetch real stock data, technical levels, trade plans, and trending stocks.
-2. Never make up ticker symbols or stock data — only use tool results.
-3. For stock analysis, call show_stock_card or get_technical_levels first.
-4. For trade setup/entry/stop/target questions, call get_trade_plan.
-5. For trending stocks or list questions, call get_top_trending_stocks.
-6. Respond professionally and concisely in user's language.
-7. Provide actionable insights based on real site data.
-8. ALWAYS provide a text response in your answer. Use tools as needed, but always include explanatory text.
-
-CRITICAL:
-- You have access to BOGASTOCK's real data via tools. Use them extensively.
-- Every response must include text content - do not respond with only tool results.`;
+1. Always use available tools to fetch real stock data, technical levels, trade plans, and trending stocks. Never make up data.
+2. If the user asks for lists (e.g., trend stocks, top 100), ONLY provide details for the first 3 stocks. For the rest, provide a site link for them to explore more.
+3. When listing those first 3 stocks, always remind the user that they can click on the ticker symbols to view their interactive charts.
+4. EXCEPTION: There are no restrictions on "Top 7" stocks. Provide full details for Top 7 stocks. For Top 7, suggest that the user investigate recent data like corporate ownership or insider sales.
+5. Provide internal site links so the user can easily navigate the platform to see the sections you mention.
+6. Frequently remind the user that the site offers interactive charts for over 6000 stocks, available to everyone instantly.
+7. At the end of EVERY response, always generate at least 3 follow-up questions to guide the user deeper into the stock universe and keep them engaged.
+8. ALWAYS provide a text response. Never respond with only tool results.
+9. For stock analysis, use show_stock_card or get_technical_levels. For trade setups, use get_trade_plan.`;
 }
 
 export async function POST(req: NextRequest) {
@@ -81,7 +79,7 @@ export async function POST(req: NextRequest) {
 
     const tools = {
       show_stock_card: tool({
-        description: "Fetch current BOGA score, support/resistance/target levels for a stock",
+        description: "Fetch current Analysis Confidence score, support/resistance/target levels for a stock",
         parameters: z.object({ ticker: z.string().describe("Stock ticker symbol (e.g., 'AAPL')") }),
         execute: async ({ ticker }) => {
           try {
@@ -107,7 +105,7 @@ export async function POST(req: NextRequest) {
         },
       }),
       get_trade_plan: tool({
-        description: "Fetch BOGASTOCK's trade plan: entry zone, stop-loss, TP1-3 targets",
+        description: "Fetch trade plan: entry zone, stop-loss, TP1-3 targets",
         parameters: z.object({ ticker: z.string().describe("Stock ticker symbol") }),
         execute: async ({ ticker }) => {
           try {
@@ -120,7 +118,7 @@ export async function POST(req: NextRequest) {
         },
       }),
       get_top_trending_stocks: tool({
-        description: "Fetch BOGASTOCK's lists: trend_stocks, top_100, top_7, etc.",
+        description: "Fetch lists: trend_stocks, top_100, top_7, etc.",
         parameters: z.object({
           category: z
             .enum(["trend_stocks", "top_100", "top_7", "trend_candidate_watchlist", "user_watchlist"])
@@ -148,7 +146,7 @@ export async function POST(req: NextRequest) {
         },
       }),
       get_theme_stocks: tool({
-        description: "Fetch stocks for a specific BOGASTOCK theme (e.g., 'ai-ve-yapay-zeka')",
+        description: "Fetch stocks for a specific theme (e.g., 'ai-ve-yapay-zeka')",
         parameters: z.object({
           themeSlug: z.string().describe("Theme slug from BOGASTOCK theme pages"),
         }),
