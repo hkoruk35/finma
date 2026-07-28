@@ -55,8 +55,11 @@ PRIMARY RULES:
 5. For trending stocks or list questions, call get_top_trending_stocks.
 6. Respond professionally and concisely in user's language.
 7. Provide actionable insights based on real site data.
+8. ALWAYS provide a text response in your answer. Use tools as needed, but always include explanatory text.
 
-CRITICAL: You have access to BOGASTOCK's real data via tools. Use them extensively.`;
+CRITICAL:
+- You have access to BOGASTOCK's real data via tools. Use them extensively.
+- Every response must include text content - do not respond with only tool results.`;
 }
 
 export async function POST(req: NextRequest) {
