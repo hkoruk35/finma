@@ -5,7 +5,6 @@ import path from "path";
 import { execSync } from "child_process";
 import { MARKET_THEMES } from "../../../lib/themeData";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
-import { hasAnyAuth } from "@/lib/apiAuth";
 import { isRateLimited, getClientIp } from "@/lib/rateLimit";
 
 export const runtime = "nodejs";
@@ -1727,14 +1726,6 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     } catch (e) {
       return aiResponse;
     }
-  }
-
-  // Ticker-önizleme dalının altındaki genel BOGA AI sohbet asistanı — bu,
-  // /global/{locale}/ai sayfasının özelliği ve o sayfa zaten middleware'de
-  // üyelik gerektiriyor. API'yi doğrudan çağırarak o kapıyı atlamayı
-  // engellemek için burada da aynı kontrolü uyguluyoruz.
-  if (!(await hasAnyAuth(req))) {
-    return NextResponse.json({ text: "Bu özellik için giriş yapmalısınız." }, { status: 401 });
   }
 
   try {
