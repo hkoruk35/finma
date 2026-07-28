@@ -278,8 +278,8 @@ export async function POST(req: NextRequest) {
       },
     ];
 
-    const apiMessages = messages.map((m) => ({
-      role: m.role as "user" | "assistant",
+    const apiMessages: Anthropic.MessageParam[] = messages.map((m) => ({
+      role: m.role,
       content: m.content,
     }));
 
@@ -288,10 +288,10 @@ export async function POST(req: NextRequest) {
       max_tokens: 2000,
       system: systemPrompt,
       tools,
-      messages: apiMessages as any,
+      messages: apiMessages,
     });
 
-    let currentMessages = [...apiMessages];
+    let currentMessages: Anthropic.MessageParam[] = [...apiMessages];
     let finalText = "";
 
     while (response.stop_reason === "tool_use") {
@@ -326,7 +326,7 @@ export async function POST(req: NextRequest) {
         max_tokens: 2000,
         system: systemPrompt,
         tools,
-        messages: currentMessages as any,
+        messages: currentMessages,
       });
     }
 
