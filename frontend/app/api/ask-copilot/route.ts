@@ -284,7 +284,7 @@ export async function POST(req: NextRequest) {
     }));
 
     let response = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
+      model: "claude-3-5-sonnet-20240620",
       max_tokens: 2000,
       system: systemPrompt,
       tools,
@@ -341,10 +341,11 @@ export async function POST(req: NextRequest) {
       source: "ask-copilot",
     });
   } catch (error) {
-    console.error("[ask-copilot] error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error("[ask-copilot] error:", errorMsg);
+    return NextResponse.json({
+      text: `Unable to process request: ${errorMsg}`,
+      source: "ask-copilot",
+    });
   }
 }
