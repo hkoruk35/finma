@@ -8,6 +8,7 @@ import { getLiveAnalysis, liveToCard } from "@/lib/copilot/liveAnalysis";
 import { getPersonalizationContext } from "@/lib/copilot/personalization";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
+import { getEffectiveThemeTickers } from "@/lib/themeOverrides";
 
 export interface CopilotStockCard {
   ticker: string;
@@ -282,7 +283,7 @@ export async function getThemeStocksList(
   }
 
   const themeName = localizedThemeTitle(theme.title, lang) || theme.title;
-  const allTickers = theme.stocks.map((s) => s.ticker);
+  const allTickers = await getEffectiveThemeTickers(theme);
   const tickers = allTickers.slice(0, 10);
   const cards: CopilotStockCard[] = await Promise.all(
     tickers.map((t) => getFastStockCardData(t, lang, themeName))

@@ -258,7 +258,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
         body: JSON.stringify({ value: removalsData }),
       });
 
-      if (oRes.ok) alert(`Senkronize edildi! ${tickers.length} hisse (${customTickers.length} ozel).`);
+      if (oRes.ok) alert(`Senkronize edildi! ${tickers.length} hisse.`);
       else alert("Hata: " + (await oRes.text()));
     } catch (e) {
       alert("Baglanti hatasi: " + e);
@@ -387,11 +387,6 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               <span style={{ fontSize: 11, color: "#8b949e" }}>
               {visibleCount < tickers.length ? `${visibleCount}/${tickers.length}` : tickers.length} ticker
             </span>
-              {customTickers.length > 0 && (
-                <span style={{ fontSize: 10, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95040", padding: "2px 8px", borderRadius: 3 }}>
-                  +{customTickers.length} custom
-                </span>
-              )}
             </div>
             <div style={{ fontSize: 11, color: "#8b949e", display: "flex", gap: 14, flexWrap: "wrap" }}>
               {lastUpdated && (
@@ -595,11 +590,6 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                             {sym}
                           </Link>
                         </TickerHoverChart>
-                        {isCustom && (
-                          <span style={{ marginLeft: 5, fontSize: 8, color: "#3fb950", background: "#0d2a0d", border: "1px solid #3fb95030", padding: "1px 5px", borderRadius: 2 }}>
-                            CUSTOM
-                          </span>
-                        )}
                         <button
                           onClick={e => { 
                             e.stopPropagation(); 
@@ -887,9 +877,6 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
             >
               + EKLE
             </button>
-            {customTickers.length > 0 && (
-              <span style={{ color: "#8b949e", fontSize: 11 }}>{customTickers.length} özel hisse eklendi</span>
-            )}
           </div>
         </div>
       )}

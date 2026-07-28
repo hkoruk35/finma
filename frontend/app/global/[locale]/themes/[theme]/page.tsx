@@ -1,6 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
 import { getHotTheme, HOT_THEMES_2026, localizedThemeTitle } from "@/lib/hotThemes2026";
+import { getEffectiveThemeTickers } from "@/lib/themeOverrides";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import ThemeSwingTracker from "@/components/public/ThemeSwingTracker";
@@ -146,7 +147,7 @@ export default async function ThemePage({ params }: Props) {
 
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
   const themeDescription = THEME_DESCRIPTIONS[theme]?.[locale as Locale] || "";
-  const themeTickers = hotTheme.stocks.map((stock) => stock.ticker);
+  const themeTickers = await getEffectiveThemeTickers(hotTheme);
   // Sadece ilk tema (HOT_THEMES_2026[0]) uye olmayan ziyaretcilere acik —
   // digerleri Premium kilitli gorunur (bkz. ThemeSwingTracker.tsx).
   const isFirstTheme = hotTheme.slug === HOT_THEMES_2026[0].slug;
