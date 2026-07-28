@@ -14,7 +14,7 @@ interface EdgarFiling {
 }
 
 interface CIKCache {
-  [ticker: string]: string;
+  [ticker: string]: string | undefined;
 }
 
 /**
