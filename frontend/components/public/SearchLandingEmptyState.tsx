@@ -6,9 +6,9 @@ import SearchLandingCards from "@/components/public/SearchLandingCards";
 
 type L = Record<Locale, string>;
 
-const HEADLINE: L = { tr: "Ne öğrenmek istersiniz?", en: "What do you want to know?", es: "¿Qué quieres saber?", fr: "Que voulez-vous savoir ?", pt: "O que você quer saber?" };
+const HEADLINE: L = { tr: "Merhaba! Size nasıl yardımcı olabilirim?", en: "Hello! How can I help you?", es: "¡Hola! ¿Cómo puedo ayudarte?", fr: "Bonjour! Comment puis-je vous aider ?", pt: "Olá! Como posso ajudá-lo?" };
 const PLACEHOLDER: L = {
-  tr: "Sorularınızı yazın...", en: "Ask your questions...", es: "Escribe tus preguntas...", fr: "Posez vos questions...", pt: "Faça suas perguntas...",
+  tr: "Sorularınızı sorun... Nasıl daha iyi yardımcı olabilirim?", en: "Ask anything... How can I help you better?", es: "Haz cualquier pregunta... ¿Cómo puedo ayudarte mejor?", fr: "Posez une question... Comment puis-je mieux vous aider ?", pt: "Faça qualquer pergunta... Como posso ajudá-lo melhor?",
 };
 
 interface Props {

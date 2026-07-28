@@ -28,6 +28,10 @@ export default function GlobalBottomNav() {
       .catch(() => setIsLoggedIn(false));
   }, []);
 
+  // Hide on search/landing page
+  const isSearchPage = pathname.includes("/search");
+  if (isSearchPage) return null;
+
   // Detect locale from pathname (/global/{locale}/...) — supports all 5 locales
   const segment = pathname.split("/")[2];
   const locale: Locale = (["tr", "en", "es", "fr", "pt"] as const).includes(segment as Locale)
