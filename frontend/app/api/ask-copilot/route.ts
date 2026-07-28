@@ -201,6 +201,7 @@ export async function POST(req: NextRequest) {
       tools,
       messages,
       maxTokens: 2000,
+      maxSteps: 5,
     });
 
     return NextResponse.json({
