@@ -30,6 +30,7 @@
     "react-draggable": "^4.7.0",
     "react-markdown": "^10.1.0",
     "satori": "^0.26.0",
+    "server-only": "^0.0.1",
     "stripe": "^22.3.0",
     "twitter-api-v2": "^1.29.0",
     "xlsx": "^0.18.5",
