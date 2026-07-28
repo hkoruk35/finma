@@ -121,7 +121,7 @@ async function executeTool(toolName: string, toolInput: ToolInput, locale: strin
       case "get_top_trending_stocks": {
         const category = (toolInput.category || "trend_stocks") as SiteListCategory;
         const res = await withTimeout(
-          getSiteCategoryStocksList(category, locale, null),
+          getSiteCategoryStocksList(category, locale, undefined),
           5000,
           { categoryName: "", tickers: [], cards: [], isFallback: true }
         );
