@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
-import MobileTerminalLink from "@/components/global/MobileTerminalLink";
 
 // /global/{locale}/search'in kendi başlığı — bu bileşen SADECE bu tek URL
 // şeklinde render olur, bu yüzden MemberHeader.tsx'in genel getLangHref'i
@@ -11,16 +10,14 @@ import MobileTerminalLink from "@/components/global/MobileTerminalLink";
 const getLangHref = (targetLocale: string) => `/global/${targetLocale.toLowerCase()}/search`;
 
 const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
-const SCREENER_LABEL: Record<Locale, string> = { tr: "LİSTELER", en: "SCREENER", es: "LISTAS", fr: "LISTES", pt: "LISTAS" };
 const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
 const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
-const WATCHLIST_LABEL: Record<Locale, string> = { tr: "İzleme Listem", en: "My Watchlist", es: "Mi Lista", fr: "Ma Liste", pt: "Minha Lista" };
-// Marka sloganı — kullanıcı bunu birebir "Ask · Discover · Markets" olarak
-// istedi, diğer UI metinleri gibi dile göre çevrilmiyor.
 const SLOGAN = "Ask · Discover · Markets";
-const TERMINAL_TOOLTIP: Record<Locale, string> = {
-  tr: "TERMİNAL sayfasını aç", en: "Open the TERMINAL page", es: "Abrir la página TERMINAL",
-  fr: "Ouvrir la page TERMINAL", pt: "Abrir a página TERMINAL",
+const COMPUTER_LABEL: Record<Locale, string> = {
+  tr: "Bilgisayar", en: "Computer", es: "Computadora", fr: "Ordinateur", pt: "Computador",
+};
+const SEARCH_CHATS_LABEL: Record<Locale, string> = {
+  tr: "Sohbetlerde Ara", en: "Search Chats", es: "Buscar Chats", fr: "Rechercher les Chats", pt: "Pesquisar Chats",
 };
 
 export default function SearchLandingHeader({ locale, onLogoClick }: { locale: Locale; onLogoClick: () => void }) {
@@ -38,9 +35,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
       .finally(() => setAuthChecked(true));
   }, []);
 
-  const terminalHref = `/global/${locale}`;
-  const listelerHref = `/global/${locale}/home`;
-  const watchlistHref = `/global/${locale}/my-watchlist`;
+  const computerHref = `/global/${locale}`;
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
 
@@ -64,13 +59,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
         </button>
 
         <nav className="flex items-center gap-6">
-          <span className={tabClass(true)}>{ASK_LABEL[locale]}</span>
-          <MobileTerminalLink locale={locale} targetHref={terminalHref} title={TERMINAL_TOOLTIP[locale]} className={tabClass(false)}>
-            TERMINAL
-          </MobileTerminalLink>
-          <Link href={listelerHref} className={tabClass(false)}>
-            {SCREENER_LABEL[locale]}
-          </Link>
+          <span className={tabClass(true)}>Ask BogaSmart</span>
         </nav>
 
         <div className="flex-1" />
@@ -99,14 +88,6 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
         >
           <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
         </button>
-
-        <Link
-          href={watchlistHref}
-          title={WATCHLIST_LABEL[locale]}
-          className="w-9 h-9 flex items-center justify-center rounded-full text-[#94a3b8] hover:text-white hover:bg-white/5 transition-all flex-shrink-0"
-        >
-          <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z" /></svg>
-        </Link>
 
         {authChecked && (
           <Link

@@ -26,8 +26,10 @@ interface SearchHistory {
 
 const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string; pt: string }> = {
   newSearch:      { tr: "+ Yeni Arama",   en: "+ New Search", es: "+ Nueva Búsqueda", fr: "+ Nouvelle Recherche", pt: "+ Nova Busca" },
+  computer:       { tr: "Bilgisayar",     en: "Computer", es: "Computadora", fr: "Ordinateur", pt: "Computador" },
+  searchChats:    { tr: "Sohbetlerde Ara", en: "Search Chats", es: "Buscar Chats", fr: "Rechercher les Chats", pt: "Pesquisar Chats" },
   recentSearches: { tr: "SON ARAMALAR",   en: "RECENT SEARCHES", es: "BÚSQUEDAS RECIENTES", fr: "RECHERCHES RÉCENTES", pt: "BUSCAS RECENTES" },
-  emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet.", es: "Aún no hay historial de búsqueda.", fr: "Aucun historique de recherche pour le moment.", pt: "Ainda não há histórico de busca." },
+  emptyHistory:   { tr: "Arama geçmişi boş.", en: "No search history yet.", es: "Aún no hay historial de búsqueda.", fr: "Aucun historique de recherche pour le momento.", pt: "Ainda não há histórico de busca." },
   placeholder:    { tr: "Aramak istediğiniz ABD Borsası Hisse Senedi kodunu veya Şirket adını yazınız...", en: "Type the US stock ticker or company name you want to search...", es: "Escribe el ticker de bolsa estadounidense o el nombre de la empresa que deseas buscar...", fr: "Tapez le symbole boursier américain ou le nom de la société que vous souhaitez rechercher...", pt: "Digite o ticker da ação dos EUA ou o nome da empresa que deseja buscar..." },
   popularStocks:  { tr: "Popüler Hisse Senetleri", en: "Popular Stocks", es: "Acciones Populares", fr: "Actions Populaires", pt: "Ações Populares" },
   archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive", es: "🗂️ Archivo de Análisis Profundo", fr: "🗂️ Archive d'Analyse Approfondie", pt: "🗂️ Arquivo de Análise Profunda" },
@@ -302,7 +304,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
       <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[calc(100dvh-5rem)] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
           <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">{t("newSearch")}</button>
-          <button 
+          <button
             onClick={() => setSidebarOpen(false)}
             className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
           >
@@ -311,13 +313,33 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
             </svg>
           </button>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
+          {variant === "landing" && (
+            <div>
+              <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
+                <span>✨</span> New
+              </div>
+              <div className="space-y-1">
+                <button
+                  onClick={() => {
+                    setSidebarOpen(false);
+                    window.location.href = locale === "es" ? "/global/es" : locale === "en" ? "/global/en" : locale === "fr" ? "/global/fr" : locale === "pt" ? "/global/pt" : "/global/tr";
+                  }}
+                  className="w-full text-left text-xs px-3 py-2 rounded-lg hover:bg-[#1e2a3a] hover:text-[#3b82f6] transition-all text-slate-400 hover:text-white truncate font-medium flex items-center gap-2 border border-transparent hover:border-[#1e2a3a]/40"
+                >
+                  <span className="text-[10px] text-slate-600">💻</span>
+                  <span className="truncate">{t("computer")}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           <div>
             <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
               <span>🕒</span> {t("recentSearches")}
             </div>
-            
+
             <div className="space-y-1">
               {searchHistory.length > 0 ? (
                 searchHistory.slice(0, 15).map((item, i) => (
