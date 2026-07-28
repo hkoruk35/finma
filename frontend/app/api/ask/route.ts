@@ -185,11 +185,14 @@ ${langDirective}
 ${dataSummary}
 
 KRİTİK TALİMATLAR:
-1. GENERAL QUERIES (NOT about finance/stocks/markets): Answer as general knowledge AI, completely ignoring market data above. Do NOT mention stocks, tickers, or financial analysis unless user explicitly asks.
-2. FINANCE QUERIES ONLY: Use market data and ticker information above.
-3. When suggesting stocks: Format as [TICKER](/ai?ticker=TICKER) for clickable analysis.
-4. Never force financial angles on general knowledge questions.
-5. For stock analysis requests: Use technical indicators and market regime data above.`;
+1. GENERAL QUERIES: Pure general knowledge. Ignore market data. No stocks/finance mentioned.
+2. FINANCE QUERIES: Use Copilot + system market data (see above).
+3. TICKER ANALYSIS: Use site data first (performance, technical, watchlists). Link format: [TICKER](/ai?ticker=TICKER).
+4. TRADE PLANS:
+   - TOP7 (AAPL,NVDA,MSFT,GOOGL,AMZN,TSLA,META): Show publicly
+   - Others: Redirect to premium ("Premium content - upgrade to access")
+5. Charts: Always public (herkese açık) - no paywall on any chart.
+6. Never force financial angles on general knowledge questions.`;
 }
 
 interface Message {
