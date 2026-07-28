@@ -171,12 +171,12 @@ async function lookupCIK(ticker: string): Promise<string | undefined> {
 
 async function cacheCIK(ticker: string, cik: string): Promise<void> {
   try {
-    await supabaseAdmin.table("cik_ticker_map").upsert({
+    await supabaseAdmin.from("cik_ticker_map").upsert({
       ticker,
       cik,
       company_name: null,
       last_edgar_check: new Date().toISOString(),
-    }).execute();
+    });
   } catch (err) {
     console.warn(`[INSIDER CRON] CIK cache update failed for ${ticker}:`, err);
   }
