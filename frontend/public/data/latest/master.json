@@ -1,6 +1,6 @@
 {
   "date": "2026-07-27",
-  "generated_at": "2026-07-27T14:09:15.116004-04:00",
+  "generated_at": "2026-07-27T17:05:01.914810-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,21 +8,25 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "VAL",
-        "PH",
-        "HBNC",
-        "PSX",
-        "KMI",
-        "FIVE",
-        "CSX",
-        "KN",
-        "USPH",
-        "EQNR"
+        "STLD",
+        "BIO",
+        "MTUS",
+        "KMX",
+        "FMBH",
+        "MPTI",
+        "KARO",
+        "VTRS",
+        "AEBI",
+        "GE"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "FMBH",
+        "KARO",
+        "VTRS"
+      ]
     },
     "value": {
       "count": 0,
@@ -43,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VAL",
-      "score": 63.0,
+      "ticker": "STLD",
+      "score": 54.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "PH",
-      "score": 52.6,
+      "ticker": "BIO",
+      "score": 53.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "HBNC",
-      "score": 51.5,
+      "ticker": "MTUS",
+      "score": 52.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
