@@ -7,7 +7,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "EMR",
@@ -153,7 +153,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "GGG",
@@ -298,7 +298,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CFG",
@@ -443,7 +443,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SXT",
@@ -588,7 +588,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ENR",
@@ -734,7 +734,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "CHH",
@@ -880,7 +880,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SN",
@@ -1026,7 +1026,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "ADM",
@@ -1170,7 +1170,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "SMA",
@@ -1314,7 +1314,7 @@
       "entry_status": "PENDING",
       "entry_zone": null,
       "entered_at": null,
-      "last_checked": "2026-07-28",
+      "last_checked": "2026-07-28 15:00",
       "last_pick": {
         "rank": 1,
         "ticker": "UNP",
