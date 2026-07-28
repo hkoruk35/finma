@@ -148,7 +148,7 @@ export default function SearchLandingEmptyState({ locale, input, setInput, input
   const cardClass = "flex-1 rounded-2xl border border-[#1e2a3a] bg-[#0d1117]/60 p-6 flex flex-col hover:border-[#3b82f6]/40 transition-all";
 
   return (
-    <div className="space-y-12 mt-14 md:mt-20 animate-fade-in max-w-4xl mx-auto w-full px-4">
+    <div className="space-y-10 mt-10 md:mt-14 animate-fade-in max-w-6xl mx-auto w-full px-4 md:px-8">
       <div className="text-center space-y-5">
         <span className="inline-block px-3 py-1 rounded-full border border-[#3b82f6]/30 bg-[#3b82f6]/10 text-[#3b82f6] text-[10px] font-black uppercase tracking-widest">
           {BADGE[locale]}
@@ -157,7 +157,17 @@ export default function SearchLandingEmptyState({ locale, input, setInput, input
         <p className="text-base md:text-lg text-[#94a3b8] max-w-2xl mx-auto">{SUBHEADLINE[locale]}</p>
       </div>
 
-      <div className="relative group">
+      {/* Flex satırı — önceki sürümde ikon/etiket absolute + textarea'da sabit
+          pl-* ile hizalanıyordu; "Derin Analiz Modu" etiketinin genişliği
+          placeholder metniyle çakışıyordu. Flexbox'ta her öğe kendi alanını
+          doğal olarak paylaştığı için bu çakışma yapısal olarak imkansız. */}
+      <div className="max-w-4xl mx-auto w-full flex items-center gap-2 md:gap-3 bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-4 md:pl-5 pr-2 py-2 md:py-3 shadow-2xl shadow-blue-500/10 focus-within:border-[#3b82f6] transition-all">
+        <span className="shrink-0 w-5 h-5 flex items-center justify-center text-[#475569]">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+        </span>
+        <span className="hidden md:inline-flex shrink-0 items-center gap-1 px-2.5 py-1 rounded-full border border-[#1e2a3a] text-[#64748b] text-[10px] font-black uppercase tracking-wider whitespace-nowrap">
+          {MODE_LABEL[locale]}
+        </span>
         <textarea
           id="search-landing-input"
           ref={inputRef}
@@ -166,18 +176,12 @@ export default function SearchLandingEmptyState({ locale, input, setInput, input
           onKeyDown={handleKey}
           placeholder={PLACEHOLDER[locale]}
           rows={1}
-          className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-14 pr-32 py-6 text-base focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40 shadow-2xl shadow-blue-500/10"
+          className="flex-1 min-w-0 bg-transparent border-0 outline-none resize-none text-base py-2"
         />
-        <span className="absolute left-5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-[#475569] pointer-events-none">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
-        </span>
-        <span className="hidden md:inline-flex absolute left-14 top-1/2 -translate-y-1/2 items-center gap-1 px-2.5 py-1 rounded-full border border-[#1e2a3a] text-[#64748b] text-[10px] font-black uppercase tracking-wider">
-          {MODE_LABEL[locale]}
-        </span>
-        <span className="absolute right-16 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-[#475569] pointer-events-none">
+        <span className="shrink-0 w-5 h-5 flex items-center justify-center text-[#475569]">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
         </span>
-        <button onClick={() => onSend()} disabled={loading || !input.trim()} className="absolute right-3 top-1/2 -translate-y-1/2 p-3 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
+        <button onClick={() => onSend()} disabled={loading || !input.trim()} className="shrink-0 p-3 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
         </button>
       </div>
