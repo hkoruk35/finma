@@ -7,6 +7,12 @@ export const metadata: Metadata = {
 
 export default function InsiderPage() {
   const topBuyers: any[] = [];
+  const insiderT = {
+    title: "Insider Trading Activity",
+    subtitle: "SEC Form 4 Filings - Last 90 Days",
+    noData: "No insider transactions found",
+    dataSource: "SEC EDGAR Form 4 Filings",
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100">
@@ -27,9 +33,7 @@ export default function InsiderPage() {
           <div className="bg-slate-900/50 rounded-lg border border-slate-800 p-8 text-center">
             <p className="text-slate-400">{insiderT.noData || "No insider transactions found"}</p>
           </div>
-        ) : (
-          <InsiderTransactionGrid data={topBuyers} locale={locale} />
-        )}
+        ) : null}
       </div>
 
       {/* Footer Info */}
