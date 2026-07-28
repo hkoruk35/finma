@@ -3,15 +3,34 @@ import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePla
 import { resolveYahooSymbol, getAssetCategory } from "@/lib/symbols";
 import { generateAiMarketCommentary, type AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
-// In-memory cache — TTL 30 seconds for technical data freshness.
+// In-memory cache — TTL 30 seconds while the market is open, for technical
+// data freshness.
 // Note: 2 min (120s) was causing stale price/EMA tuple mismatches when:
 //   1. API cached $204.78 from bar N
 //   2. 60 sec later, bar N+1 closes at $196.90
 //   3. Copilot/TickerDetailPanel requests same ticker within 2 min window
 //   4. Gets cached data with $204.78 (old bar) instead of $196.90 (new bar)
 // Result: price/EMA/signals misaligned. 30s TTL balances freshness vs rate limiting.
+//
+// While the market is CLOSED, TTL is extended to 30 minutes. Yahoo's daily
+// bar for the just-closed session keeps getting small settlement revisions
+// for a while after the 4pm close (late prints/volume finalization), so a
+// 30s TTL was refetching a slightly different "final" bar every couple of
+// minutes — and threshold-based signals (Weinstein stage, Wyckoff phase)
+// could flip on that noise, making Copilot show contradictory verdicts
+// (e.g. YÜKSELİŞ→DÜŞÜŞ) for a ticker whose chart hadn't visibly moved.
 const cache = new Map<string, { data: PreorderAnalysis; ts: number }>();
-const CACHE_TTL = 30 * 1000;  // 30 seconds — daily bars shift once/day, intraday monitoring needs fresher data
+const CACHE_TTL_OPEN = 30 * 1000;
+const CACHE_TTL_CLOSED = 30 * 60 * 1000;
+
+function isMarketOpenET(): boolean {
+  const now = new Date();
+  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const h = et.getHours(), m = et.getMinutes(), day = et.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = h * 60 + m;
+  return mins >= 9 * 60 + 30 && mins < 16 * 60;
+}
 
 // Public erişim — in-memory rate limiter (app/api/auth/login/route.ts deseni, okuma trafiğine göre gevşek eşik)
 const rlAttempts = new Map<string, { count: number; resetAt: number }>();
@@ -327,7 +346,19 @@ function detectCandle(closes: number[], opens: number[], highs: number[], lows: 
   return isUp ? "Yeşil Mum ↑" : "Kırmızı Mum ↓";
 }
 
-function wyckoff(closes: number[], opens: number[], highs: number[], lows: number[], volumes: number[], avgVol: number) {
+// Ticker basina son bilinen Wyckoff "phase" ve Weinstein "stage" — score/slope
+// karar sinirina (65/45 puani, sifir slope) kurus mertebesinde yakinsandiginda
+// onceki degeri koruyup histerezis uygulamak icin. Sebep: bugunun henuz
+// "settle" olmamis gunluk mumundaki tek birimlik degisiklik (orn. acc/dist
+// +-1, ya da kapanisin sma30'un uzerinde/altinda kalmasi) bu score/slope'u
+// sinirin hemen ote yanina itip phase/stage'i ani ve gecici sekilde zit uca
+// (Markup<->Markdown, Stage 2<->4) sicratabiliyordu — bu da Copilot'un ayni
+// hisse icin birkac dakika arayla celisen YÜKSELİŞ/DÜŞÜŞ sonucu uretmesine yol
+// aciyordu, oysa gercekte kararsizlik bolgesindeki gurultuden ibaretti.
+const lastWyckoffPhaseByTicker = new Map<string, string>();
+const lastWeinsteinStageByTicker = new Map<string, number>();
+
+function wyckoff(closes: number[], opens: number[], highs: number[], lows: number[], volumes: number[], avgVol: number, ticker: string) {
   const n = Math.min(10, closes.length);
   let acc = 0, dist = 0, noSup = 0, noDem = 0;
   for (let i = closes.length - n; i < closes.length; i++) {
@@ -341,25 +372,45 @@ function wyckoff(closes: number[], opens: number[], highs: number[], lows: numbe
     if (isUp  && cp < 0.5 && vol < avgVol * 0.7) noDem++;
   }
   let score = Math.max(0, Math.min(100, 50 + (acc - dist) * 7 + (noSup - noDem) * 5));
+
+  const rawPhase = score > 65 ? "Markup / Birikim" : score > 45 ? "Nötr" : "Dağılım / Markdown";
+  const prevPhase = lastWyckoffPhaseByTicker.get(ticker);
+  const nearPhaseBoundary = Math.abs(score - 65) <= 4 || Math.abs(score - 45) <= 4;
+  const phase = nearPhaseBoundary && prevPhase ? prevPhase : rawPhase;
+  lastWyckoffPhaseByTicker.set(ticker, phase);
+
   return {
     score,
     accumDays: acc, distribDays: dist, noSupplyDays: noSup, noDemandDays: noDem,
-    phase:  score > 65 ? "Markup / Birikim" : score > 45 ? "Nötr" : "Dağılım / Markdown",
+    phase,
     signal: score > 70 ? "GÜÇLÜ BİRİKİM" : score > 55 ? "BİRİKİM" : score > 40 ? "NÖTR" : "DAĞILIM",
     effortVsResult: score > 60 ? "Pozitif" : score > 45 ? "Nötr" : "Negatif",
   };
 }
 
-function weinsteinStage(closes: number[]) {
+function weinsteinStage(closes: number[], ticker: string) {
   if (closes.length < 40) return { stage: 1, label: "Stage 1 (Baz)" };
   const sma30      = calcSMA(closes, 30);
   const sma30_prev = calcSMA(closes.slice(0, -10), 30);
   const slope = sma30 - sma30_prev;
   const price = closes.at(-1)!;
-  if (price > sma30 && slope > sma30 * 0.001) return { stage: 2, label: "Stage 2 ↑ (Yükseliş)" };
-  if (price > sma30 && slope <= sma30 * 0.001) return { stage: 3, label: "Stage 3 (Tepe)" };
-  if (price < sma30 && slope < 0)              return { stage: 4, label: "Stage 4 ↓ (Düşüş)" };
-  return { stage: 1, label: "Stage 1 (Baz)" };
+
+  let rawStage: number;
+  if (price > sma30 && slope > sma30 * 0.001) rawStage = 2;
+  else if (price > sma30) rawStage = 3;
+  else if (price < sma30 && slope < 0) rawStage = 4;
+  else rawStage = 1;
+
+  const band = Math.abs(sma30) * 0.0008;
+  const isBorderline = Math.abs(price - sma30) < band || Math.abs(slope) < band;
+  const prevStage = lastWeinsteinStageByTicker.get(ticker);
+  const stage = isBorderline && prevStage != null ? prevStage : rawStage;
+  lastWeinsteinStageByTicker.set(ticker, stage);
+
+  const labels: Record<number, string> = {
+    1: "Stage 1 (Baz)", 2: "Stage 2 ↑ (Yükseliş)", 3: "Stage 3 (Tepe)", 4: "Stage 4 ↓ (Düşüş)",
+  };
+  return { stage, label: labels[stage] };
 }
 
 interface SRLevel {
@@ -524,7 +575,8 @@ export async function GET(req: NextRequest) {
 
   const cacheKey = `${ticker}_${lang}`;
   const hit = cache.get(cacheKey);
-  if (hit && Date.now() - hit.ts < CACHE_TTL) return NextResponse.json(localizeAnalysis(hit.data, lang));
+  const ttl = isMarketOpenET() ? CACHE_TTL_OPEN : CACHE_TTL_CLOSED;
+  if (hit && Date.now() - hit.ts < ttl) return NextResponse.json(localizeAnalysis(hit.data, lang));
 
   const yahooSymbol = resolveYahooSymbol(ticker);
   const BASE = "https://query1.finance.yahoo.com/v8/finance/chart";
@@ -606,7 +658,7 @@ export async function GET(req: NextRequest) {
     closes1d.at(-1)!
   );
 
-  const weinstein = weinsteinStage(closes1d);
+  const weinstein = weinsteinStage(closes1d, ticker);
   const vcpDetected = vols1d.length >= 10 && Math.min(...vols1d.slice(-10)) < avgVol30 * 0.65;
 
   // ── Momentum bileşenleri (MACD/ADX/ROC/BB%) ──────────────────────────────
@@ -679,7 +731,7 @@ export async function GET(req: NextRequest) {
   }
 
   // ── Wyckoff ──────────────────────────────────────────────────────────────
-  const wyckoffResult = wyckoff(closes1d, opens1d, highs1d, lows1d, vols1d, avgVol30);
+  const wyckoffResult = wyckoff(closes1d, opens1d, highs1d, lows1d, vols1d, avgVol30, ticker);
 
   // ── S/R table ────────────────────────────────────────────────────────────
   const srLevels = buildSRTable(
