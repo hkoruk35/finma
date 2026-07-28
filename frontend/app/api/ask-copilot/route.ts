@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
-import { streamText, tool } from "ai";
+import { generateText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
 import { getTechnicalLevels } from "@/lib/copilot/technicalLevels";
@@ -190,7 +190,7 @@ export async function POST(req: NextRequest) {
       { role: "user" as const, content: message },
     ];
 
-    const { textStream } = await streamText({
+    const { text } = await generateText({
       model: googleProvider.languageModel("gemini-2.5-flash"),
       system: systemPrompt,
       tools,
@@ -198,20 +198,9 @@ export async function POST(req: NextRequest) {
       maxTokens: 2000,
     });
 
-    const stream = new ReadableStream({
-      async start(controller) {
-        for await (const chunk of textStream) {
-          controller.enqueue(new TextEncoder().encode(chunk));
-        }
-        controller.close();
-      },
-    });
-
-    return new NextResponse(stream, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-      },
+    return NextResponse.json({
+      text: text || "Unable to generate response",
+      source: "ask-copilot",
     });
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
