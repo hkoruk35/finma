@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-27T17:05:01.943360-04:00",
+  "generated_at": "2026-07-28T09:05:13.831369-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -272,12 +272,6 @@
       "score": 35.5
     },
     {
-      "ticker": "ATKR",
-      "sector": "Industrials",
-      "date_added": "2026-07-27",
-      "score": 38.0
-    },
-    {
       "ticker": "BURL",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-27",
@@ -324,6 +318,42 @@
       "sector": "Technology",
       "date_added": "2026-07-27",
       "score": 30.5
+    },
+    {
+      "ticker": "SYF",
+      "sector": "Financial Services",
+      "date_added": "2026-07-28",
+      "score": 46.5
+    },
+    {
+      "ticker": "C",
+      "sector": "Financial Services",
+      "date_added": "2026-07-28",
+      "score": 43.0
+    },
+    {
+      "ticker": "VNO",
+      "sector": "Real Estate",
+      "date_added": "2026-07-28",
+      "score": 42.5
+    },
+    {
+      "ticker": "FAST",
+      "sector": "Industrials",
+      "date_added": "2026-07-28",
+      "score": 40.5
+    },
+    {
+      "ticker": "BOX",
+      "sector": "Technology",
+      "date_added": "2026-07-28",
+      "score": 38.5
+    },
+    {
+      "ticker": "TNL",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-28",
+      "score": 33.0
     }
   ]
 }
