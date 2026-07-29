@@ -73,6 +73,22 @@ function formatInline(text: string): React.ReactNode {
           if (match) {
             const label = match[1];
             const url = match[2];
+
+            if (url === "?q=followup") {
+              return (
+                <button
+                  key={i}
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("trigger_text_query", { detail: label }));
+                  }}
+                  className="inline-flex items-center px-3 py-1.5 mt-2 mr-2 bg-[#1e2a3a]/60 hover:bg-[#3b82f6]/20 border border-[#1e2a3a] hover:border-[#3b82f6]/50 rounded-lg text-[#cbd5e1] hover:text-white text-sm font-medium transition-all shadow-sm group"
+                >
+                  <span className="text-[#3b82f6] mr-2 opacity-70 group-hover:opacity-100">💡</span>
+                  {label}
+                </button>
+              );
+            }
+
             if (url.toLowerCase().startsWith("/ai?ticker=")) {
               const ticker = url.split("=")[1];
               return (
@@ -287,6 +303,18 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     };
     window.addEventListener("trigger_ticker_query", handleTickerClick);
     return () => window.removeEventListener("trigger_ticker_query", handleTickerClick);
+  }, []);
+
+  // Listen for text query from follow-up links
+  useEffect(() => {
+    const handleTextQuery = (e: Event) => {
+      const query = (e as CustomEvent).detail;
+      if (query) {
+        send(query);
+      }
+    };
+    window.addEventListener("trigger_text_query", handleTextQuery);
+    return () => window.removeEventListener("trigger_text_query", handleTextQuery);
   }, []);
 
   const handleKey = (e: KeyboardEvent<HTMLTextAreaElement>) => {
