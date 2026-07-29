@@ -1,6 +1,6 @@
 {
   "date": "2026-07-29",
-  "generated_at": "2026-07-29T09:06:29.620908-04:00",
+  "generated_at": "2026-07-29T14:05:58.266533-04:00",
   "total_tickers_scanned": 500,
   "active_scores_count": 10,
   "market_regime": "CHOPPY",
@@ -8,27 +8,22 @@
     "top_scores": {
       "count": 10,
       "tickers": [
-        "VAL",
-        "F",
-        "ITW",
-        "ABG",
-        "IBCP",
-        "OSK",
-        "KN",
-        "NSC",
-        "SM",
-        "FFIV"
+        "SCHW",
+        "HBNC",
+        "EMR",
+        "RIO",
+        "USPH",
+        "SXT",
+        "CHH",
+        "ENR",
+        "GGG",
+        "SN"
       ]
     },
     "breakout": {
-      "count": 6,
+      "count": 1,
       "tickers": [
-        "F",
-        "ITW",
-        "ABG",
-        "IBCP",
-        "OSK",
-        "FFIV"
+        "USPH"
       ]
     },
     "value": {
@@ -50,18 +45,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "VAL",
+      "ticker": "SCHW",
       "score": 58.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "F",
-      "score": 54.0,
+      "ticker": "HBNC",
+      "score": 57.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "ITW",
-      "score": 51.0,
+      "ticker": "EMR",
+      "score": 55.0,
       "score_type": "POSITIVE_BIAS"
     }
   ],
@@ -79,9 +74,8 @@
       "change_pct": 0.2
     },
     "VIX": {
-      "value": 19.6,
-      "change_pct": 0.0
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-29T14:01:15.977404-04:00"
+  }
 }
