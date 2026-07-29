@@ -1,4 +1,4 @@
-// BOGA Copilot Visitor Demo Content & Helper for 5 Languages (TR, EN, PT, ES, FR)
+// BogaSmart Copilot Visitor Demo Content & Helper for 5 Languages (TR, EN, PT, ES, FR)
 
 export type SupportedLocale = "tr" | "en" | "pt" | "es" | "fr";
 
@@ -45,7 +45,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
 }> = {
   tr: {
     headerBadge: "Hoş Geldiniz ✨",
-    stage1Message: "Merhaba! Ben BOGA Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, hedeflerinize ve zaman aralığınıza en uygun hisse analizlerini sunmak için buradayım.\n\nÜyeliğe geçmeden önce BOGA Copilot'ı yakından tanımanız için NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş özel bir tanıtım hazırladım. Üç tatlı adımda birlikte keşfedelim.\n\nNVIDIA hakkında ilk olarak neyi merak ediyorsunuz?",
+    stage1Message: "Merhaba! Ben BogaSmart Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, hedeflerinize ve zaman aralığınıza en uygun hisse analizlerini sunmak için buradayım.\n\nÜyeliğe geçmeden önce BogaSmart Copilot'ı yakından tanımanız için NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş özel bir tanıtım hazırladım. Üç tatlı adımda birlikte keşfedelim.\n\nNVIDIA hakkında ilk olarak neyi merak ediyorsunuz?",
     stage1Buttons: [
       { label: "Mevcut trend", id: "trend" },
       { label: "Olası giriş bölgesi", id: "potential_entry" },
@@ -92,16 +92,16 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       returnChart: "NVIDIA grafiğine dön",
     },
     featureMatches: {
-      trend: "Siz özellikle **trend devamlılığı ve en güçlü hisselerle** ilgilendiğiniz için BOGA Pro içinde en çok işinize yarayabilecek bölüm, akıllı hesaplamalarla güç kazanan **BOGA AI Trend Sistemleri ve Top 100 Listesi** olacaktır.",
+      trend: "Siz özellikle **trend devamlılığı ve en güçlü hisselerle** ilgilendiğiniz için BogaSmart Pro içinde en çok işinize yarayabilecek bölüm, akıllı hesaplamalarla güç kazanan **BogaSmart Trend Sistemleri ve Top 100 Listesi** olacaktır.",
       portfolio: "Takip etmek istediğiniz hisseler olduğu için sizin açınızdan en kullanışlı özellik, **50 hisseye kadar oluşturabileceğiniz kişisel takip listesi** olacaktır.",
-      beginner: "Hangi hisseden başlayacağınızdan henüz emin olmadığınız için **BOGA AI Top 100 listesi** sizin için en pratik başlangıç noktası olacaktır.",
+      beginner: "Hangi hisseden başlayacağınızdan henüz emin olmadığınız için **BogaSmart Top 100 listesi** sizin için en pratik başlangıç noktası olacaktır.",
       chart: "NVIDIA’da deneyimlediğiniz **interaktif grafik, dinamik destek-direnç ve işlem kurgusu gerekçesi** yaklaşımını tüm hisselerde uygulayabilirsiniz.",
       cautious: "İlk ay **9 USD yaz fırsatıyla** tüm özellikleri risk üstlenmeden deneyebilir, istediğiniz zaman tek tıkla iptal edebilirsiniz.",
     },
   },
   en: {
     headerBadge: "Welcome ✨",
-    stage1Message: "Hello! I’m BOGA Copilot.\n\nInstead of giving you a generic market summary, I’m here to analyze stocks according to your specific goals and time horizon.\n\nTo help you explore BOGA Copilot before signing up, I’ve prepared a short, personalized preview using NVIDIA ($NVDA). Let’s discover it together in three simple steps.\n\nWhat would you most like to learn about NVIDIA first?",
+    stage1Message: "Hello! I’m BogaSmart Copilot.\n\nInstead of giving you a generic market summary, I’m here to analyze stocks according to your specific goals and time horizon.\n\nTo help you explore BogaSmart Copilot before signing up, I’ve prepared a short, personalized preview using NVIDIA ($NVDA). Let’s discover it together in three simple steps.\n\nWhat would you most like to learn about NVIDIA first?",
     stage1Buttons: [
       { label: "Current trend", id: "trend" },
       { label: "Potential entry area", id: "potential_entry" },
@@ -122,7 +122,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Risk that could weaken the outlook", id: "risk_breakdown" },
       { label: "Interpret the NVIDIA chart", id: "chart_analysis" },
     ],
-    disclaimer: "BOGA AI does not provide investment advice. Levels are shown to evaluate technical scenarios and risk conditions.",
+    disclaimer: "BogaSmart does not provide investment advice. Levels are shown to evaluate technical scenarios and risk conditions.",
     connectionError: "There was a brief connection interruption. Please try again.",
     objections: {
       price9: {
@@ -148,16 +148,16 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       returnChart: "Return to NVIDIA chart",
     },
     featureMatches: {
-      trend: "Because you are especially interested in **trend continuation**, one of the most useful BOGA Pro features for you would be the **smart trend-stock discovery system & Top 100 list**.",
+      trend: "Because you are especially interested in **trend continuation**, one of the most useful BogaSmart Pro features for you would be the **smart trend-stock discovery system & Top 100 list**.",
       portfolio: "Because you have specific stocks you want to monitor, the most useful feature for you is the **personal watchlist of up to 50 stocks**.",
-      beginner: "If you are unsure where to start, the **BOGA AI Top 100 list** gives you a ready-made starting point instead of searching randomly.",
+      beginner: "If you are unsure where to start, the **BogaSmart Top 100 list** gives you a ready-made starting point instead of searching randomly.",
       chart: "You can apply the exact same **interactive chart engine, support-resistance levels, and trade plan reasoning** to all supported stocks.",
       cautious: "You can test all features with the **USD 9 first month summer offer** with complete flexibility to cancel anytime.",
     },
   },
   pt: {
     headerBadge: "Boas-vindas ✨",
-    stage1Message: "Olá! Eu sou o BOGA Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, estou aqui para analisar ações de acordo com o seu objetivo e horizonte de tempo.\n\nPara ajudar você a conhecer o BOGA Copilot antes de se cadastrar, preparei uma breve apresentação personalizada com a NVIDIA ($NVDA). Vamos descobrir juntos em três etapas simples.\n\nO que você gostaria de entender sobre a NVIDIA primeiro?",
+    stage1Message: "Olá! Eu sou o BogaSmart Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, estou aqui para analisar ações de acordo com o seu objetivo e horizonte de tempo.\n\nPara ajudar você a conhecer o BogaSmart Copilot antes de se cadastrar, preparei uma breve apresentação personalizada com a NVIDIA ($NVDA). Vamos descobrir juntos em três etapas simples.\n\nO que você gostaria de entender sobre a NVIDIA primeiro?",
     stage1Buttons: [
       { label: "Tendência atual", id: "trend" },
       { label: "Possível região de entrada", id: "potential_entry" },
@@ -178,7 +178,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Risco que pode enfraquecer o cenário", id: "risk_breakdown" },
       { label: "Interpretar o gráfico da NVIDIA", id: "chart_analysis" },
     ],
-    disclaimer: "A BOGA AI não oferece aconselhamento de investimento. Os níveis são exibidos para avaliar cenários técnicos.",
+    disclaimer: "A BogaSmart não oferece aconselhamento de investimento. Os níveis são exibidos para avaliar cenários técnicos.",
     connectionError: "Houve uma breve interrupção na conexão. Por favor, tente novamente.",
     objections: {
       price9: {
@@ -204,16 +204,16 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       returnChart: "Voltar ao gráfico da NVIDIA",
     },
     featureMatches: {
-      trend: "Como o seu principal interesse é identificar ações em tendência, um dos recursos mais úteis do BOGA Pro para você será o **sistema de descoberta de tendências e Top 100**.",
+      trend: "Como o seu principal interesse é identificar ações em tendência, um dos recursos mais úteis do BogaSmart Pro para você será o **sistema de descoberta de tendências e Top 100**.",
       portfolio: "Como você já acompanha ações específicas, o recurso mais conveniente será a **lista pessoal com até 50 ações**.",
-      beginner: "Se você ainda não sabe por onde começar, a **lista Top 100 da BOGA AI** servirá como excelente ponto de partida.",
+      beginner: "Se você ainda não sabe por onde começar, a **lista Top 100 da BogaSmart** servirá como excelente ponto de partida.",
       chart: "Você poderá aplicar o mesmo **motor de gráfico interativo e estudo de níveis** a todas as ações.",
       cautious: "Aproveite o **primeiro mês por US$ 9 na campanha de verão** com total liberdade para cancelar quando quiser.",
     },
   },
   es: {
     headerBadge: "¡Bienvenido! ✨",
-    stage1Message: "¡Hola! Soy BOGA Copilot.\n\nEn lugar de darte un resumen genérico del mercado, estoy aquí para analizar acciones según tus objetivos y horizonte de inversión.\n\nPara ayudarte a conocer BOGA Copilot antes de registrarte, he preparado una breve demostración personalizada con NVIDIA ($NVDA). Vamos a descubrirla juntos en tres sencillos pasos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA primero?",
+    stage1Message: "¡Hola! Soy BogaSmart Copilot.\n\nEn lugar de darte un resumen genérico del mercado, estoy aquí para analizar acciones según tus objetivos y horizonte de inversión.\n\nPara ayudarte a conocer BogaSmart Copilot antes de registrarte, he preparado una breve demostración personalizada con NVIDIA ($NVDA). Vamos a descubrirla juntos en tres sencillos pasos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA primero?",
     stage1Buttons: [
       { label: "Tendencia actual", id: "trend" },
       { label: "Posible zona de entrada", id: "potential_entry" },
@@ -234,7 +234,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Riesgo que podría debilitar el escenario", id: "risk_breakdown" },
       { label: "Interpretar el gráfico de NVIDIA", id: "chart_analysis" },
     ],
-    disclaimer: "BOGA AI no ofrece asesoramiento de inversión. Los niveles se muestran para evaluar escenarios técnicos.",
+    disclaimer: "BogaSmart no ofrece asesoramiento de inversión. Los niveles se muestran para evaluar escenarios técnicos.",
     connectionError: "Hubo una breve interrupción en la conexión. Por favor, inténtalo de nuevo.",
     objections: {
       price9: {
@@ -260,16 +260,16 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       returnChart: "Volver al gráfico de NVIDIA",
     },
     featureMatches: {
-      trend: "Como tu principal interés es encontrar acciones con tendencia, una de las funciones más útiles de BOGA Pro será el **sistema de detección de tendencias y la lista Top 100**.",
+      trend: "Como tu principal interés es encontrar acciones con tendencia, una de las funciones más útiles de BogaSmart Pro será el **sistema de detección de tendencias y la lista Top 100**.",
       portfolio: "Como tienes acciones específicas para seguir, la función más útil será la **lista personal de hasta 50 acciones**.",
-      beginner: "Si no estás seguro de por dónde empezar, la **lista Top 100 de BOGA AI** te dará un punto de partida listo.",
+      beginner: "Si no estás seguro de por dónde empezar, la **lista Top 100 de BogaSmart** te dará un punto de partida listo.",
       chart: "Podrás aplicar el mismo **gráfico interactivo y estudio de soporte/resistencia** a todas las acciones.",
       cautious: "Prueba todas las funciones con la **oferta de verano de 9 USD el primer mes** cancelando cuando quieras.",
     },
   },
   fr: {
     headerBadge: "Bienvenue ✨",
-    stage1Message: "Bonjour ! Je suis BOGA Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je suis là pour analyser les actions selon vos objectifs et votre horizon d’investissement.\n\nPour vous faire découvrir BOGA Copilot avant de vous inscrire, j'ai préparé un court aperçu personnalisé sur NVIDIA ($NVDA). Découvrons-le ensemble en trois étapes simples.\n\nQue souhaitez-vous comprendre en premier concernant NVIDIA ?",
+    stage1Message: "Bonjour ! Je suis BogaSmart Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je suis là pour analyser les actions selon vos objectifs et votre horizon d’investissement.\n\nPour vous faire découvrir BogaSmart Copilot avant de vous inscrire, j'ai préparé un court aperçu personnalisé sur NVIDIA ($NVDA). Découvrons-le ensemble en trois étapes simples.\n\nQue souhaitez-vous comprendre en premier concernant NVIDIA ?",
     stage1Buttons: [
       { label: "Tendance actuelle", id: "trend" },
       { label: "Zone d’entrée potentielle", id: "potential_entry" },
@@ -290,7 +290,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
       { label: "Risque susceptible d’affaiblir le scénario", id: "risk_breakdown" },
       { label: "Interpréter le graphique NVIDIA", id: "chart_analysis" },
     ],
-    disclaimer: "BOGA AI ne fournit pas de conseils en investissement. Les niveaux sont présentés pour évaluer les scénarios techniques.",
+    disclaimer: "BogaSmart ne fournit pas de conseils en investissement. Les niveaux sont présentés pour évaluer les scénarios techniques.",
     connectionError: "Une brève interruption de connexion s'est produite. Veuillez réessayer.",
     objections: {
       price9: {
@@ -318,7 +318,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
     featureMatches: {
       trend: "Comme votre priorité est d’identifier des actions en tendance, l’une des fonctionnalités les plus utiles sera le **système de détection des tendances et la liste Top 100**.",
       portfolio: "Pour suivre vos actions clés, la fonctionnalité la plus adaptée sera votre **liste personnelle jusqu’à 50 actions**.",
-      beginner: "Si vous hésitez par où commencer, la **liste Top 100 de BOGA AI** vous offre un point de départ idéal.",
+      beginner: "Si vous hésitez par où commencer, la **liste Top 100 de BogaSmart** vous offre un point de départ idéal.",
       chart: "Vous pourrez utiliser le même **moteur graphique interactif et étude de niveaux** sur l'ensemble des actions.",
       cautious: "Profitez du **premier mois à 9 USD avec l'offre d'été** sans aucun engagement de durée.",
     },

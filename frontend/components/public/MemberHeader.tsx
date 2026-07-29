@@ -69,17 +69,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
     <>
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3 relative">
-        {locale && (
-          <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 items-center">
-            <Link
-              href={`/global/${locale}/today`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
-            >
-              <span>📅</span>
-              <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
-            </Link>
-          </div>
-        )}
         <Link href={`/global/${locale}/search`} className="flex items-center gap-2 group flex-shrink-0">
           <div className="flex flex-col items-start">
             <span className="text-lg tracking-tight font-medium">
@@ -166,6 +155,16 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                 );
               })}
             </div>
+          )}
+
+          {locale && (
+            <Link
+              href={`/global/${locale}/today`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
+            >
+              <span>📅</span>
+              <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
+            </Link>
           )}
 
           <MobileTerminalLink

@@ -514,7 +514,7 @@ export default function CopilotDrawer() {
               }`}
             >
               <span className="text-xl sm:text-lg animate-pulse">🤖</span>
-              <span className="hidden sm:inline">BOGA Copilot</span>
+              <span className="hidden sm:inline">BogaSmart Copilot</span>
               {dotColor !== "none" && (
                 <span className={`absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#0d1117] ${dotColor === "red" ? "bg-red-500 animate-ping" : dotColor === "orange" ? "bg-amber-400" : "bg-blue-400"}`} />
               )}
@@ -540,7 +540,7 @@ export default function CopilotDrawer() {
             <div>
               <h3 className="text-sm font-bold text-white leading-tight">{displayName}</h3>
               <p className="text-[10px] text-blue-400 font-mono flex items-center gap-1.5">
-                BOGA COPILOT
+                BOGASMART COPILOT
                 {!isAuthenticated && (
                   <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full font-sans font-bold shadow-sm">
                     {VISITOR_TEXTS[activeLocale]?.headerBadge || "Hoş Geldiniz ✨"}

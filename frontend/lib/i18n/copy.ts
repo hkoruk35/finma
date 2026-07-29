@@ -89,7 +89,7 @@ export const copy = {
       genericError: "Could not connect to the server. Please try again.",
     },
     top100: {
-      title: "BOGA AI Top 100 Tracker",
+      title: "BogaSmart Top 100 Tracker",
       subtitle: "Real-time, hourly-refreshed tracking of 100 stocks — same data for everyone.",
       lastUpdated: "Last updated",
       loading: "Loading...",
@@ -215,7 +215,7 @@ export const copy = {
     },
     watchlist: {
       title: "Watchlist",
-      subtitle: "Curated stocks actively tracked by BOGA AI for up to 10 days",
+      subtitle: "Curated stocks actively tracked by BogaSmart for up to 10 days",
       loading: "Loading...",
       error: "Could not load the Watchlist. Please try again.",
       empty: "No watchlist picks found",
@@ -282,7 +282,7 @@ export const copy = {
     },
     login: {
       title: "Giriş yap",
-      subtitle: "BOGA AI Üye Girişi",
+      subtitle: "BogaSmart Üye Girişi",
       emailLabel: "E-POSTA",
       emailPlaceholder: "E-posta adresiniz",
       passwordLabel: "ŞİFRE",
@@ -347,7 +347,7 @@ export const copy = {
       genericError: "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.",
     },
     top100: {
-      title: "BOGA AI Top 100 Tracker",
+      title: "BogaSmart Top 100 Tracker",
       subtitle: "Gerçek zamanlı, saatlik güncellenen 100 hisselik takip tablosu — herkes aynı veriyi görür.",
       lastUpdated: "Son güncelleme",
       loading: "Yükleniyor...",
@@ -473,7 +473,7 @@ export const copy = {
     },
     watchlist: {
       title: "İzleme Listesi",
-      subtitle: "BOGA AI'nin en fazla 10 gün boyunca aktif olarak takip ettiği seçilmiş hisseler",
+      subtitle: "BogaSmart'ın en fazla 10 gün boyunca aktif olarak takip ettiği seçilmiş hisseler",
       loading: "Yükleniyor...",
       error: "İzleme Listesi yüklenemedi. Lütfen tekrar deneyin.",
       empty: "İzleme listesi hissesi bulunamadı",
@@ -605,7 +605,7 @@ export const copy = {
       genericError: "No se pudo conectar al servidor. Por favor, inténtalo de nuevo.",
     },
     top100: {
-      title: "BOGA AI Rastreador Top 100",
+      title: "BogaSmart Rastreador Top 100",
       subtitle: "Seguimiento en tiempo real, actualizado cada hora, de 100 acciones — los mismos datos para todos.",
       lastUpdated: "Última actualización",
       loading: "Cargando...",
@@ -731,7 +731,7 @@ export const copy = {
     },
     watchlist: {
       title: "Lista de Seguimiento",
-      subtitle: "Acciones seleccionadas y seguidas activamente por BOGA AI durante hasta 10 días",
+      subtitle: "Acciones seleccionadas y seguidas activamente por BogaSmart durante hasta 10 días",
       loading: "Cargando...",
       error: "No se pudo cargar la Lista de Seguimiento. Inténtalo de nuevo.",
       empty: "No se encontraron acciones en la lista de seguimiento",
@@ -798,7 +798,7 @@ export const copy = {
     },
     login: {
       title: "Se connecter",
-      subtitle: "Accès Membre BOGA AI",
+      subtitle: "Accès Membre BogaSmart",
       emailLabel: "ADRESSE E-MAIL",
       emailPlaceholder: "Votre adresse e-mail",
       passwordLabel: "MOT DE PASSE",
@@ -863,7 +863,7 @@ export const copy = {
       genericError: "Impossible de se connecter au serveur. Veuillez réessayer.",
     },
     top100: {
-      title: "Suivi Top 100 BOGA AI",
+      title: "Suivi Top 100 BogaSmart",
       subtitle: "Suivi en temps réel, actualisé toutes les heures, de 100 actions — les mêmes données pour tous.",
       lastUpdated: "Dernière mise à jour",
       loading: "Chargement...",
@@ -989,7 +989,7 @@ export const copy = {
     },
     watchlist: {
       title: "Liste de Suivi",
-      subtitle: "Actions sélectionnées et suivies activement par BOGA AI pendant jusqu'à 10 jours",
+      subtitle: "Actions sélectionnées et suivies activement par BogaSmart pendant jusqu'à 10 jours",
       loading: "Chargement...",
       error: "Impossible de charger la Liste de Suivi. Veuillez réessayer.",
       empty: "Aucune action trouvée dans la liste de suivi",
@@ -1121,7 +1121,7 @@ export const copy = {
       genericError: "Não foi possível conectar ao servidor. Tente novamente.",
     },
     top100: {
-      title: "BOGA AI Rastreador Top 100",
+      title: "BogaSmart Rastreador Top 100",
       subtitle: "Acompanhamento em tempo real, atualizado a cada hora, de 100 ações — os mesmos dados para todos.",
       lastUpdated: "Última atualização",
       loading: "Carregando...",
@@ -1247,7 +1247,7 @@ export const copy = {
     },
     watchlist: {
       title: "Lista de Observação",
-      subtitle: "Ações selecionadas e acompanhadas ativamente pela BOGA AI por até 10 dias",
+      subtitle: "Ações selecionadas e acompanhadas ativamente pela BogaSmart por até 10 dias",
       loading: "Carregando...",
       error: "Não foi possível carregar a Lista de Observação. Tente novamente.",
       empty: "Nenhuma ação encontrada na lista de observação",
