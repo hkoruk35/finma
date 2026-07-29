@@ -71,21 +71,16 @@
       "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 668.35,
-      "change_pct": 0.0
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 518.9101,
-      "change_pct": 0.0
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 20.08,
-      "change_pct": 0.0
-    },
-    "RUSSELL2000": {
-      "value": 289.485,
-      "change_pct": 0.0
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-29T13:01:33.358435-04:00"
+  }
 }
