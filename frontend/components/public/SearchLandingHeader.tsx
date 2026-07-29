@@ -59,6 +59,13 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
         </button>
 
         <nav className="flex items-center gap-6">
+          <Link
+            href={`/global/${locale}/today`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+          >
+            <span>📅</span>
+            <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
+          </Link>
         </nav>
 
         <div className="flex-1" />
