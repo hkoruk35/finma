@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T14:05:58.295779-04:00",
+  "generated_at": "2026-07-29T17:03:15.952271-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -38,22 +38,10 @@
       "score": 42.5
     },
     {
-      "ticker": "ZM",
-      "sector": "Technology",
-      "date_added": "2026-07-21",
-      "score": 31.5
-    },
-    {
       "ticker": "GM",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-22",
-      "score": 40.5
-    },
-    {
-      "ticker": "DLTR",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-07-22",
-      "score": 40.0
+      "score": 48.0
     },
     {
       "ticker": "BTSG",
@@ -254,12 +242,6 @@
       "score": 43.0
     },
     {
-      "ticker": "PLUS",
-      "sector": "Technology",
-      "date_added": "2026-07-27",
-      "score": 45.0
-    },
-    {
       "ticker": "BLFS",
       "sector": "Healthcare",
       "date_added": "2026-07-27",
@@ -317,13 +299,7 @@
       "ticker": "BOX",
       "sector": "Technology",
       "date_added": "2026-07-28",
-      "score": 38.5
-    },
-    {
-      "ticker": "TNL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-28",
-      "score": 33.0
+      "score": 46.0
     },
     {
       "ticker": "EQNR",
@@ -419,7 +395,7 @@
       "ticker": "URBN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-29",
-      "score": 35.5
+      "score": 47.5
     },
     {
       "ticker": "SMA",
@@ -444,6 +420,48 @@
       "sector": "Healthcare",
       "date_added": "2026-07-29",
       "score": 37.0
+    },
+    {
+      "ticker": "FIVE",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-29",
+      "score": 50.0
+    },
+    {
+      "ticker": "TDAY",
+      "sector": "Communication Services",
+      "date_added": "2026-07-29",
+      "score": 48.5
+    },
+    {
+      "ticker": "CDW",
+      "sector": "Technology",
+      "date_added": "2026-07-29",
+      "score": 48.0
+    },
+    {
+      "ticker": "SPOT",
+      "sector": "Communication Services",
+      "date_added": "2026-07-29",
+      "score": 47.5
+    },
+    {
+      "ticker": "RVTY",
+      "sector": "Healthcare",
+      "date_added": "2026-07-29",
+      "score": 47.0
+    },
+    {
+      "ticker": "SGHC",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-29",
+      "score": 44.5
+    },
+    {
+      "ticker": "VC",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-29",
+      "score": 43.5
     }
   ]
 }
