@@ -382,11 +382,12 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
       <main className="max-w-[1600px] mx-auto px-3 md:px-6 mt-3">
         
         {/* Top Control Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-2 mb-3">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5 mb-3">
           <div>
-            <p className="text-[#3b82f6] text-[13px] font-medium uppercase tracking-widest">{dateStr}</p>
-            <h1 className="text-xl md:text-2xl font-semibold text-white mt-0.5">
-              {greeting}
+            <h1 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
+              <span className="text-slate-300">{dateStr}</span>
+              <span className="text-[#1e2a3a]/60">|</span>
+              <span className="text-[#3b82f6]">{greeting}</span>
             </h1>
           </div>
 
@@ -584,45 +585,10 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               )}
             </div>
 
-            {/* 4. GENERAL NEWS WIDGET (Moved from right column) */}
-            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
-              <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
-                  <span>📰</span> {locale === "tr" ? "Gündem Haberleri" : "General News"}
-                </span>
-              </div>
-
-              {loadingNews ? (
-                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
-              ) : news.length <= 1 ? (
-                <div className="py-6 text-center text-xs text-slate-500">{t.noNews}</div>
-              ) : (
-                <div className="space-y-2.5">
-                  {news.slice(1).map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block bg-[#141b2b]/40 rounded-lg p-2.5 border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 transition-all group"
-                    >
-                      <div className="flex justify-between items-center text-[13px] text-[#64748b] font-medium mb-1">
-                        <span className="text-[#3b82f6] uppercase tracking-wider">{item.source}</span>
-                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
-                      </div>
-                      <h4 className="text-[13px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-2">
-                        {item.title}
-                      </h4>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-
           </div>
 
-          {/* RIGHT MAIN AREA: Top Stories / News Feed (8 cols) */}
-          <div className="lg:col-span-8 space-y-4">
+          {/* COLUMN 2: General News (4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
             
             {/* News Section Header */}
             <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
@@ -635,16 +601,16 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             ) : news.length === 0 ? (
               <div className="py-24 text-center text-slate-500 text-sm">{t.noNews}</div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-4">
                 
-                {/* Hero News Card (Span 2 on MD/LG if it's the first news) */}
+                {/* Hero News Card */}
                 {news.slice(0, 1).map((item, idx) => (
                   <a
                     key={idx}
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="md:col-span-2 group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
+                    className="block group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div className="p-4">
                       <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
@@ -663,43 +629,74 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                   </a>
                 ))}
 
-                {/* Economy News Cards */}
-                {loadingEconomyNews ? (
-                  <div className="md:col-span-2 py-12 text-center text-slate-500 text-sm font-medium">{t.loading}</div>
-                ) : economyNews.length === 0 ? (
-                  <div className="md:col-span-2 py-12 text-center text-slate-500 text-sm">{t.noNews}</div>
-                ) : (
-                  <>
-                    <div className="md:col-span-2 flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5 mt-2">
-                      <span className="text-base font-semibold text-white tracking-tight">{t.economy || "Ekonomi Haberleri"}</span>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {/* Sub News Cards */}
+                {news.slice(1).map((item, idx) => (
+                  <a
+                    key={idx}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
+                        <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
+                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
+                      </div>
+                      <h3 className="text-[14px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
+                        {item.title}
+                      </h3>
                     </div>
-                    {economyNews.map((item, idx) => (
-                      <a
-                        key={idx}
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
-                            <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
-                            <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
-                          </div>
-                          <h3 className="text-[14px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
-                            {item.title}
-                          </h3>
-                        </div>
 
-                        <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors">
-                          <span>{t.seeMore} →</span>
-                        </div>
-                      </a>
-                    ))}
-                  </>
-                )}
+                    <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors">
+                      <span>{t.seeMore} →</span>
+                    </div>
+                  </a>
+                ))}
 
+              </div>
+            )}
+
+          </div>
+
+          {/* COLUMN 3: Economy News (4 cols) */}
+          <div className="lg:col-span-4 space-y-4">
+            
+            {/* Economy Section Header */}
+            <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
+              <span className="text-base font-semibold text-white tracking-tight">{t.economy || "Ekonomi Haberleri"}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+
+            {loadingEconomyNews ? (
+              <div className="py-24 text-center text-slate-500 text-sm font-medium">{t.loading}</div>
+            ) : economyNews.length === 0 ? (
+              <div className="py-24 text-center text-slate-500 text-sm">{t.noNews}</div>
+            ) : (
+              <div className="space-y-4">
+                {economyNews.map((item, idx) => (
+                  <a
+                    key={idx}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
+                        <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
+                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
+                      </div>
+                      <h3 className="text-[14px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors">
+                      <span>{t.seeMore} →</span>
+                    </div>
+                  </a>
+                ))}
               </div>
             )}
 
