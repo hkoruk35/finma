@@ -37,6 +37,13 @@ if (!(global as any)._newsCache) {
   };
 }
 
+if (!(global as any)._economyCache) {
+  (global as any)._economyCache = {
+    lastUpdated: 0,
+    translations: {},
+  };
+}
+
 if (!(global as any)._sportsCache) {
   (global as any)._sportsCache = {
     cache: {},
@@ -109,6 +116,8 @@ async function fetchRawEnglishNews(query: string, maxItems: number, maxAgeMs: nu
   let rssUrl = "";
   if (cleanQuery === "world news today") {
     rssUrl = "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en";
+  } else if (cleanQuery === "economy") {
+    rssUrl = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en";
   } else {
     const searchTopic = encodeURIComponent(cleanQuery);
     rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
@@ -207,6 +216,48 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
     }
 
     return fallbackNews("world news today", lang);
+  } else if (cleanQuery === "economy") {
+    // Check economy news cache
+    const cacheAge = now - ((global as any)._economyCache?.lastUpdated || 0);
+    if ((global as any)._economyCache?.translations[lang] && cacheAge < CACHE_TTL_MS) {
+      console.log(`[newsSearch] Serving cached economy news for lang=${lang} (cache age: ${Math.round(cacheAge / 1000)}s)`);
+      return (global as any)._economyCache.translations[lang];
+    }
+
+    try {
+      console.log(`[newsSearch] Economy cache expired or missing. Fetching fresh economy news and translating to 5 languages...`);
+      const englishItems = await fetchRawEnglishNews("economy", 12, 36 * 60 * 60 * 1000);
+      
+      if (englishItems.length > 0) {
+        const newTranslations: Record<string, NewsItem[]> = { en: englishItems };
+
+        await Promise.all(
+          ["tr", "es", "fr", "pt"].map(async (targetLocale) => {
+            try {
+              newTranslations[targetLocale] = await translateNewsTitles(englishItems, targetLocale);
+            } catch (err) {
+              console.error(`[newsSearch] Failed to translate economy news to ${targetLocale}:`, err);
+              newTranslations[targetLocale] = (global as any)._economyCache?.translations[targetLocale] || englishItems;
+            }
+          })
+        );
+
+        (global as any)._economyCache = {
+          lastUpdated: now,
+          translations: newTranslations,
+        };
+
+        return newTranslations[lang] || englishItems;
+      }
+    } catch (err) {
+      console.error("[newsSearch] Failed to update economy news cache:", err);
+      if ((global as any)._economyCache?.translations[lang]) {
+        console.log(`[newsSearch] Serving stale cached economy news for lang=${lang}`);
+        return (global as any)._economyCache.translations[lang];
+      }
+    }
+
+    return fallbackNews("economy", lang);
   } else {
     // Specific search (Sports or City News) -> Cache per query + lang pair
     const cacheKey = `${cleanQuery}:${lang}`;
