@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T17:06:11.904250-04:00",
+  "generated_at": "2026-07-29T09:06:29.646366-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -269,7 +269,7 @@
       "ticker": "PLUS",
       "sector": "Technology",
       "date_added": "2026-07-27",
-      "score": 38.0
+      "score": 45.0
     },
     {
       "ticker": "BLFS",
@@ -359,7 +359,7 @@
       "ticker": "RELL",
       "sector": "Technology",
       "date_added": "2026-07-28",
-      "score": 37.0
+      "score": 33.0
     },
     {
       "ticker": "SLB",
@@ -396,6 +396,48 @@
       "sector": "Healthcare",
       "date_added": "2026-07-28",
       "score": 33.5
+    },
+    {
+      "ticker": "HRI",
+      "sector": "Industrials",
+      "date_added": "2026-07-29",
+      "score": 46.0
+    },
+    {
+      "ticker": "BXP",
+      "sector": "Real Estate",
+      "date_added": "2026-07-29",
+      "score": 44.5
+    },
+    {
+      "ticker": "ATKR",
+      "sector": "Industrials",
+      "date_added": "2026-07-29",
+      "score": 44.0
+    },
+    {
+      "ticker": "KMI",
+      "sector": "Energy",
+      "date_added": "2026-07-29",
+      "score": 41.9
+    },
+    {
+      "ticker": "ITRI",
+      "sector": "Technology",
+      "date_added": "2026-07-29",
+      "score": 40.4
+    },
+    {
+      "ticker": "FCX",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-29",
+      "score": 37.5
+    },
+    {
+      "ticker": "URBN",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-29",
+      "score": 35.5
     }
   ]
 }
