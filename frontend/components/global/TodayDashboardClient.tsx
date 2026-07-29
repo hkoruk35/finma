@@ -200,7 +200,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
   // States
   const [markets, setMarkets] = useState<MarketIndex[]>([]);
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [sports, setSports] = useState<SportsEvent[]>([]);
+  const [sports, setSports] = useState<NewsItem[]>([]);
   const [news, setNews] = useState<NewsItem[]>([]);
 
   // Search & Loading
@@ -221,7 +221,18 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         },
         (error) => {
           console.error("Geolocation error:", error);
+          alert(
+            locale === "tr"
+              ? "Konum bilgisi alınamadı. Lütfen tarayıcınızın konum iznini kontrol edin veya HTTPS bağlantısı kullandığınızdan emin olun."
+              : "Could not retrieve location. Please check browser permissions or ensure you are using a secure (HTTPS) connection."
+          );
         }
+      );
+    } else {
+      alert(
+        locale === "tr"
+          ? "Tarayıcınız konum servislerini desteklemiyor."
+          : "Your browser does not support geolocation services."
       );
     }
   };
@@ -230,12 +241,9 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      
-      // Formatting Date localized
       const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric" };
       setDateStr(now.toLocaleDateString(locale === "tr" ? "tr-TR" : locale === "en" ? "en-US" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : "pt-PT", options));
 
-      // Greeting
       const hrs = now.getHours();
       if (hrs < 12) setGreeting(t.goodMorning);
       else if (hrs < 17) setGreeting(t.goodAfternoon);
@@ -247,8 +255,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
     return () => clearInterval(interval);
   }, [locale, t]);
 
-  const loadData = () => {
-    // 1. Markets
+  // Load static or general news/markets on mount/locale change
+  useEffect(() => {
     setLoadingMarkets(true);
     fetch("/api/copilot/markets")
       .then((r) => r.json())
@@ -258,29 +266,6 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
       .catch((err) => console.error("Markets error:", err))
       .finally(() => setLoadingMarkets(false));
 
-    // 2. Weather
-    setLoadingWeather(true);
-    fetch(`/api/copilot/weather?q=${encodeURIComponent(weatherCity)}&lang=${locale}`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data && data.status === "success") setWeather(data);
-      })
-      .catch((err) => console.error("Weather error:", err))
-      .finally(() => setLoadingWeather(false));
-
-    // 3. Sports
-    setLoadingSports(true);
-    fetch(`/api/copilot/sports`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data && data.status === "success" && Array.isArray(data.events)) {
-          setSports(data.events);
-        }
-      })
-      .catch((err) => console.error("Sports error:", err))
-      .finally(() => setLoadingSports(false));
-
-    // 4. News
     setLoadingNews(true);
     fetch(`/api/copilot/news?lang=${locale}`)
       .then((r) => r.json())
@@ -289,11 +274,37 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
       })
       .catch((err) => console.error("News error:", err))
       .finally(() => setLoadingNews(false));
-  };
+  }, [locale]);
 
+  // Load weather when weatherCity or locale changes
   useEffect(() => {
-    loadData();
+    setLoadingWeather(true);
+    fetch(`/api/copilot/weather?q=${encodeURIComponent(weatherCity)}&lang=${locale}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.status === "success") setWeather(data);
+      })
+      .catch((err) => console.error("Weather error:", err))
+      .finally(() => setLoadingWeather(false));
   }, [weatherCity, locale]);
+
+  // Load sports news when weather resolves a location, or falls back to weatherCity
+  useEffect(() => {
+    const resolvedCity = weather ? weather.location.split(",")[0].trim() : weatherCity;
+    const isCoords = /^-?\d+(\.\d+)?[,\s]+-?\d+(\.\d+)?$/.test(resolvedCity);
+    const searchQuery = isCoords ? "New York" : resolvedCity;
+
+    setLoadingSports(true);
+    fetch(`/api/copilot/sports?q=${encodeURIComponent(searchQuery)}&lang=${locale}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.status === "success" && Array.isArray(data.events)) {
+          setSports(data.events);
+        }
+      })
+      .catch((err) => console.error("Sports error:", err))
+      .finally(() => setLoadingSports(false));
+  }, [weather, weatherCity, locale]);
 
   const handleCitySearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -304,7 +315,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
   };
 
   const handleRefresh = () => {
-    loadData();
+    // Force reload weatherCity, locale triggers
+    setWeatherCity((prev) => prev);
   };
 
   const isImperial = locale === "en" || 
@@ -507,40 +519,23 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                 <div className="py-6 text-center text-xs text-slate-500">{t.noEvents}</div>
               ) : (
                 <div className="space-y-2.5">
-                  {sports.map((event) => {
-                    const isHomeWinner = event.home_score !== null && event.away_score !== null && event.home_score > event.away_score;
-                    const isAwayWinner = event.home_score !== null && event.away_score !== null && event.away_score > event.home_score;
-                    return (
-                      <div key={event.id} className="bg-[#141b2b]/40 rounded-lg p-2.5 border border-[#1e2a3a]/40">
-                        <div className="flex justify-between items-center text-[9px] text-[#64748b] font-bold mb-1">
-                          <span className="uppercase tracking-wider">{event.sport} - {event.league}</span>
-                          <span className={`px-1.5 py-0.5 rounded bg-[#1e2a3a] text-slate-300`}>{event.status}</span>
-                        </div>
-
-                        <div className="space-y-1">
-                          {/* Home Team */}
-                          <div className="flex justify-between items-center">
-                            <span className={`text-xs font-bold ${isHomeWinner ? "text-white" : "text-slate-400"}`}>
-                              {event.home_team}
-                            </span>
-                            <span className={`text-xs font-black ${isHomeWinner ? "text-[#3b82f6]" : "text-slate-400"}`}>
-                              {event.home_score !== null ? event.home_score : "-"}
-                            </span>
-                          </div>
-
-                          {/* Away Team */}
-                          <div className="flex justify-between items-center">
-                            <span className={`text-xs font-bold ${isAwayWinner ? "text-white" : "text-slate-400"}`}>
-                              {event.away_team}
-                            </span>
-                            <span className={`text-xs font-black ${isAwayWinner ? "text-[#3b82f6]" : "text-slate-400"}`}>
-                              {event.away_score !== null ? event.away_score : "-"}
-                            </span>
-                          </div>
-                        </div>
+                  {sports.map((item, idx) => (
+                    <a
+                      key={idx}
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-[#141b2b]/40 rounded-lg p-2.5 border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 transition-all group"
+                    >
+                      <div className="flex justify-between items-center text-[13px] text-[#64748b] font-bold mb-1">
+                        <span className="text-[#3b82f6] uppercase tracking-wider">{item.source}</span>
+                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
-                    );
-                  })}
+                      <h4 className="text-[13px] font-bold text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-2">
+                        {item.title}
+                      </h4>
+                    </a>
+                  ))}
                 </div>
               )}
             </div>
@@ -573,18 +568,18 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     className="md:col-span-2 group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div className="p-4">
-                      <div className="flex items-center justify-between text-[10px] text-[#64748b] font-bold mb-2">
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-bold mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
-                        <span>{item.pubDate}</span>
+                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
                       <h2 className="text-lg md:text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors leading-tight">
                         {item.title}
                       </h2>
                     </div>
 
-                    <div className="bg-[#141b2b]/30 p-3 border-t border-[#1e2a3a]/40 flex justify-between items-center text-xs text-slate-400 group-hover:text-white transition-colors">
+                    <div className="bg-[#141b2b]/30 p-3 border-t border-[#1e2a3a]/40 flex justify-between items-center text-[13px] text-slate-400 group-hover:text-white transition-colors">
                       <span>{t.seeMore} →</span>
-                      <span className="text-[10px] text-slate-500">Reuters / Wall Street / Bloomberg</span>
+                      <span className="text-[13px] text-slate-500">Reuters / Wall Street / Bloomberg</span>
                     </div>
                   </a>
                 ))}
@@ -599,16 +594,16 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     className="group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[9px] text-[#64748b] font-bold mb-2">
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-bold mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
-                        <span>{item.pubDate}</span>
+                        <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
-                      <h3 className="text-xs font-bold text-slate-100 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
+                      <h3 className="text-[14px] font-bold text-slate-100 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
                         {item.title}
                       </h3>
                     </div>
 
-                    <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors">
+                    <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[13px] text-slate-500 group-hover:text-slate-300 transition-colors">
                       <span>{t.seeMore} →</span>
                     </div>
                   </a>

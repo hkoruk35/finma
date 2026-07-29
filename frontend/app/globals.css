@@ -18,6 +18,7 @@
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
   --color-gold: #f59e0b;
+  --font-sans: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
   --font-mono: var(--font-mono, 'JetBrains Mono', 'Fira Code', ui-monospace, monospace);
   --animate-ticker: ticker 30s linear infinite;
   @keyframes ticker {

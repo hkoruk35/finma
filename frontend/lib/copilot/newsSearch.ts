@@ -16,14 +16,6 @@ const FORBIDDEN_WORDS = [
   "isctr", "eregl", "kchol", "sahol", "ykbnk", "sasa", "hekts"
 ];
 
-const geminiApiKey =
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
-  process.env.GEMINI_API_KEY ||
-  process.env.GOOGLE_API_KEY ||
-  process.env.NEXT_PUBLIC_GEMINI_API_KEY ||
-  "";
-const googleProvider = createGoogleGenerativeAI({ apiKey: geminiApiKey });
-
 const LOCALE_NAMES: Record<string, string> = {
   en: "English", tr: "Turkish", es: "Spanish", fr: "French", pt: "Portuguese",
 };
@@ -38,18 +30,28 @@ const LOCALE_NAMES: Record<string, string> = {
  * doğru haberi İngilizce görür).
  */
 async function translateNewsTitles(items: NewsItem[], lang: string): Promise<NewsItem[]> {
+  const currentKey =
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
+    process.env.GEMINI_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.NEXT_PUBLIC_GEMINI_API_KEY ||
+    "";
+
   const targetLang = LOCALE_NAMES[lang];
-  if (!targetLang || items.length === 0 || !geminiApiKey) {
-    console.warn(`[newsSearch] Skipping translation: targetLang=${targetLang}, items=${items.length}, hasKey=${!!geminiApiKey}, lang=${lang}`);
+  if (!targetLang || items.length === 0 || !currentKey) {
+    console.warn(`[newsSearch] Skipping translation: targetLang=${targetLang}, items=${items.length}, hasKey=${!!currentKey}, lang=${lang}`);
     return items;
   }
 
   try {
-    console.log(`[newsSearch] Starting translation: ${items.length} titles to ${targetLang} (lang=${lang}, model=gemini-flash-latest)`);
+    const dynamicProvider = createGoogleGenerativeAI({ apiKey: currentKey });
+    const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+
+    console.log(`[newsSearch] Starting translation: ${items.length} titles to ${targetLang} (lang=${lang}, model=${modelName})`);
     const { text } = await generateText({
-      model: googleProvider("gemini-flash-latest"),
-      prompt: `You are a financial news translator. Translate each of the following ${items.length} financial news headlines into ${targetLang}. IMPORTANT: Keep ticker symbols, company names, numbers, and abbreviations UNCHANGED. Return ONLY a valid JSON array of exactly ${items.length} translated strings in the same order as input. No markdown, no code blocks, no extra text. Just the JSON array.:\n\n${JSON.stringify(items.map((i) => i.title))}`,
-      abortSignal: AbortSignal.timeout(6000),
+      model: dynamicProvider(modelName),
+      prompt: `You are a financial and sports news translator. Translate each of the following ${items.length} news headlines into ${targetLang}. IMPORTANT: Keep ticker symbols, team names, company names, numbers, and abbreviations UNCHANGED. Return ONLY a valid JSON array of exactly ${items.length} translated strings in the same order as input. No markdown, no code blocks, no extra text. Just the JSON array.:\n\n${JSON.stringify(items.map((i) => i.title))}`,
+      abortSignal: AbortSignal.timeout(8000),
     });
 
     console.log(`[newsSearch] Gemini response received (${text.length} chars), parsing...`);
@@ -84,7 +86,9 @@ async function translateNewsTitles(items: NewsItem[], lang: string): Promise<New
 export async function fetchLiveMarketNews(query: string = "world news today", lang: string = "en"): Promise<NewsItem[]> {
   try {
     let cleanQuery = query.trim();
-    if (!cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery)) {
+    const isGlobalWorldNews = !cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery);
+    
+    if (isGlobalWorldNews) {
       cleanQuery = "world news today";
     }
 
@@ -92,7 +96,8 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
     if (cleanQuery === "world news today") {
       rssUrl = "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en";
     } else {
-      const searchTopic = encodeURIComponent(`${cleanQuery} when:1d`);
+      // For general location or sports queries, do not append when:1d to prevent empty results
+      const searchTopic = encodeURIComponent(cleanQuery);
       rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
     }
 
@@ -102,11 +107,13 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
     const xml = await res.text();
     const items: NewsItem[] = [];
     const now = Date.now();
-    const MAX_AGE_MS = 36 * 60 * 60 * 1000; // 36 hours max to ensure strictly recent today news!
+    
+    // For global news, limit to 36 hours. For custom queries, allow up to 7 days
+    const MAX_AGE_MS = isGlobalWorldNews ? 36 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000;
 
     const itemBlockRegex = /<item>([\s\S]*?)<\/item>/g;
     let match;
-    while ((match = itemBlockRegex.exec(xml)) !== null && items.length < 5) {
+    while ((match = itemBlockRegex.exec(xml)) !== null && items.length < 12) {
       const itemContent = match[1];
       const titleMatch = itemContent.match(/<title>(.*?)<\/title>/);
       const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
@@ -120,7 +127,7 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
       const pubDateStr = pubDateMatch ? pubDateMatch[1].trim() : new Date().toISOString();
       const source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "Reuters / WSJ";
 
-      // Date check: skip old news (> 36 hours old)
+      // Date check
       const parsedDate = new Date(pubDateStr).getTime();
       if (!isNaN(parsedDate) && now - parsedDate > MAX_AGE_MS) {
         continue;
