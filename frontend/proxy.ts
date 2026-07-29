@@ -69,6 +69,7 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/swing`) &&
         !pathname.startsWith(`${base}/themes`) &&
         !pathname.startsWith(`${base}/search`) &&
+        !pathname.startsWith(`${base}/today`) &&
         // /ai artık kaldırıldı, sadece /search'e permanentRedirect eden bir
         // shim — bu yüzden üyelik duvarının arkasında kalmamalı, aksi halde
         // giriş yapmamış ziyaretçiler eski /ai linklerinde register'a
