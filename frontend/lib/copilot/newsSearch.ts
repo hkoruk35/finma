@@ -29,6 +29,20 @@ const LOCALE_NAMES: Record<string, string> = {
  * başlıklar sessizce korunur (uydurma çeviri yapılmaz, kullanıcı en azından
  * doğru haberi İngilizce görür).
  */
+// Memory Cache declarations to persist across hot reloads in development
+if (!(global as any)._newsCache) {
+  (global as any)._newsCache = {
+    lastUpdated: 0,
+    translations: {},
+  };
+}
+
+if (!(global as any)._sportsCache) {
+  (global as any)._sportsCache = {
+    cache: {},
+  };
+}
+
 async function translateNewsTitles(items: NewsItem[], lang: string): Promise<NewsItem[]> {
   const currentKey =
     process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
@@ -51,7 +65,7 @@ async function translateNewsTitles(items: NewsItem[], lang: string): Promise<New
     const { text } = await generateText({
       model: dynamicProvider(modelName),
       prompt: `You are a financial and sports news translator. Translate each of the following ${items.length} news headlines into ${targetLang}. IMPORTANT: Keep ticker symbols, team names, company names, numbers, and abbreviations UNCHANGED. Return ONLY a valid JSON array of exactly ${items.length} translated strings in the same order as input. No markdown, no code blocks, no extra text. Just the JSON array.:\n\n${JSON.stringify(items.map((i) => i.title))}`,
-      abortSignal: AbortSignal.timeout(8000),
+      abortSignal: AbortSignal.timeout(10000),
     });
 
     console.log(`[newsSearch] Gemini response received (${text.length} chars), parsing...`);
@@ -83,70 +97,154 @@ async function translateNewsTitles(items: NewsItem[], lang: string): Promise<New
   }
 }
 
-export async function fetchLiveMarketNews(query: string = "world news today", lang: string = "en"): Promise<NewsItem[]> {
-  try {
-    let cleanQuery = query.trim();
-    const isGlobalWorldNews = !cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery);
-    
-    if (isGlobalWorldNews) {
-      cleanQuery = "world news today";
-    }
-
-    let rssUrl = "";
-    if (cleanQuery === "world news today") {
-      rssUrl = "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en";
-    } else {
-      // For general location or sports queries, do not append when:1d to prevent empty results
-      const searchTopic = encodeURIComponent(cleanQuery);
-      rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
-    }
-
-    const res = await fetch(rssUrl, { signal: AbortSignal.timeout(5000) });
-    if (!res.ok) return fallbackNews(query, lang);
-
-    const xml = await res.text();
-    const items: NewsItem[] = [];
-    const now = Date.now();
-    
-    // For global news, limit to 36 hours. For custom queries, allow up to 7 days
-    const MAX_AGE_MS = isGlobalWorldNews ? 36 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000;
-
-    const itemBlockRegex = /<item>([\s\S]*?)<\/item>/g;
-    let match;
-    while ((match = itemBlockRegex.exec(xml)) !== null && items.length < 12) {
-      const itemContent = match[1];
-      const titleMatch = itemContent.match(/<title>(.*?)<\/title>/);
-      const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
-      const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
-      const sourceMatch = itemContent.match(/<source[^>]*>(.*?)<\/source>/);
-
-      if (!titleMatch || !linkMatch) continue;
-
-      const title = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim();
-      const link = linkMatch[1].trim();
-      const pubDateStr = pubDateMatch ? pubDateMatch[1].trim() : new Date().toISOString();
-      const source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "Reuters / WSJ";
-
-      // Date check
-      const parsedDate = new Date(pubDateStr).getTime();
-      if (!isNaN(parsedDate) && now - parsedDate > MAX_AGE_MS) {
-        continue;
-      }
-
-      const titleLower = title.toLowerCase();
-      const isForbidden = FORBIDDEN_WORDS.some((word) => titleLower.includes(word));
-
-      if (!isForbidden) {
-        items.push({ title, link, pubDate: pubDateStr, source });
-      }
-    }
-
-    if (items.length > 0) return await translateNewsTitles(items, lang);
-  } catch (err) {
-    console.error("[newsSearch] Live fetch error:", err);
+// Fetch raw English articles from RSS without translating
+async function fetchRawEnglishNews(query: string, maxItems: number, maxAgeMs: number): Promise<NewsItem[]> {
+  let cleanQuery = query.trim();
+  const isGlobalWorldNews = !cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery);
+  
+  if (isGlobalWorldNews) {
+    cleanQuery = "world news today";
   }
 
-  return fallbackNews(query, lang);
+  let rssUrl = "";
+  if (cleanQuery === "world news today") {
+    rssUrl = "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en";
+  } else {
+    const searchTopic = encodeURIComponent(cleanQuery);
+    rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
+  }
+
+  const res = await fetch(rssUrl, { signal: AbortSignal.timeout(5000) });
+  if (!res.ok) throw new Error(`Google News RSS returned status ${res.status}`);
+
+  const xml = await res.text();
+  const items: NewsItem[] = [];
+  const now = Date.now();
+
+  const itemBlockRegex = /<item>([\s\S]*?)<\/item>/g;
+  let match;
+  while ((match = itemBlockRegex.exec(xml)) !== null && items.length < maxItems) {
+    const itemContent = match[1];
+    const titleMatch = itemContent.match(/<title>(.*?)<\/title>/);
+    const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
+    const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
+    const sourceMatch = itemContent.match(/<source[^>]*>(.*?)<\/source>/);
+
+    if (!titleMatch || !linkMatch) continue;
+
+    const title = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim();
+    const link = linkMatch[1].trim();
+    const pubDateStr = pubDateMatch ? pubDateMatch[1].trim() : new Date().toISOString();
+    const source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "Reuters / WSJ";
+
+    // Date check
+    const parsedDate = new Date(pubDateStr).getTime();
+    if (!isNaN(parsedDate) && now - parsedDate > maxAgeMs) {
+      continue;
+    }
+
+    const titleLower = title.toLowerCase();
+    const isForbidden = FORBIDDEN_WORDS.some((word) => titleLower.includes(word));
+
+    if (!isForbidden) {
+      items.push({ title, link, pubDate: pubDateStr, source });
+    }
+  }
+
+  return items;
+}
+
+export async function fetchLiveMarketNews(query: string = "world news today", lang: string = "en"): Promise<NewsItem[]> {
+  const cleanQuery = query.trim();
+  const isGlobalWorldNews = !cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery);
+  const now = Date.now();
+  const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes cache lifetime!
+
+  if (isGlobalWorldNews) {
+    // Check global news cache
+    const cacheAge = now - ((global as any)._newsCache?.lastUpdated || 0);
+    if ((global as any)._newsCache?.translations[lang] && cacheAge < CACHE_TTL_MS) {
+      console.log(`[newsSearch] Serving cached global news for lang=${lang} (cache age: ${Math.round(cacheAge / 1000)}s)`);
+      return (global as any)._newsCache.translations[lang];
+    }
+
+    try {
+      console.log(`[newsSearch] Cache expired or missing. Fetching fresh global news and translating to 5 languages...`);
+      // Fetch English articles first to ensure exactly same articles in all languages
+      const englishItems = await fetchRawEnglishNews("world news today", 12, 36 * 60 * 60 * 1000);
+      
+      if (englishItems.length > 0) {
+        // Initialize cache object
+        const newTranslations: Record<string, NewsItem[]> = { en: englishItems };
+
+        // Translate to all other languages in parallel
+        await Promise.all(
+          ["tr", "es", "fr", "pt"].map(async (targetLocale) => {
+            try {
+              newTranslations[targetLocale] = await translateNewsTitles(englishItems, targetLocale);
+            } catch (err) {
+              console.error(`[newsSearch] Failed to translate global news to ${targetLocale}:`, err);
+              newTranslations[targetLocale] = (global as any)._newsCache?.translations[targetLocale] || englishItems;
+            }
+          })
+        );
+
+        // Update global cache
+        (global as any)._newsCache = {
+          lastUpdated: now,
+          translations: newTranslations,
+        };
+
+        return newTranslations[lang] || englishItems;
+      }
+    } catch (err) {
+      console.error("[newsSearch] Failed to update global news cache:", err);
+      // Serve stale cache if available, otherwise fallback
+      if ((global as any)._newsCache?.translations[lang]) {
+        console.log(`[newsSearch] Serving stale cached news for lang=${lang}`);
+        return (global as any)._newsCache.translations[lang];
+      }
+    }
+
+    return fallbackNews("world news today", lang);
+  } else {
+    // Specific search (Sports or City News) -> Cache per query + lang pair
+    const cacheKey = `${cleanQuery}:${lang}`;
+    const cached = (global as any)._sportsCache?.cache[cacheKey];
+    const cacheAge = now - (cached?.lastUpdated || 0);
+
+    if (cached && cacheAge < CACHE_TTL_MS) {
+      console.log(`[newsSearch] Serving cached query news for key=${cacheKey} (cache age: ${Math.round(cacheAge / 1000)}s)`);
+      return cached.items;
+    }
+
+    try {
+      console.log(`[newsSearch] Query news cache expired or missing for key=${cacheKey}. Fetching...`);
+      const englishItems = await fetchRawEnglishNews(cleanQuery, 12, 7 * 24 * 60 * 60 * 1000);
+
+      let result = englishItems;
+      if (lang !== "en" && englishItems.length > 0) {
+        result = await translateNewsTitles(englishItems, lang);
+      }
+
+      // Update sports cache
+      if (!(global as any)._sportsCache) (global as any)._sportsCache = { cache: {} };
+      (global as any)._sportsCache.cache[cacheKey] = {
+        lastUpdated: now,
+        items: result,
+      };
+
+      return result;
+    } catch (err) {
+      console.error(`[newsSearch] Failed to fetch or translate custom news for key=${cacheKey}:`, err);
+      if (cached) {
+        console.log(`[newsSearch] Serving stale cached query news for key=${cacheKey}`);
+        return cached.items;
+      }
+    }
+
+    return [];
+  }
 }
 
 const FALLBACK_TITLES: Record<string, [string, string]> = {

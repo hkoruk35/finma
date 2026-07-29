@@ -68,7 +68,7 @@ const I18N = {
     widgets: "Araçlar",
     seeMarket: "Piyasaları Gör",
     seeFullForecast: "Hava Durumu Detayı",
-    sports: "Spor Skorları",
+    sports: "Spor Haberleri",
     seeMore: "Daha Fazla Göster",
     topStories: "Öne Çıkan Gelişmeler",
     newLook: "Yeni Görünüm",
@@ -77,7 +77,7 @@ const I18N = {
     humidity: "Nem",
     wind: "Rüzgar",
     loading: "Yükleniyor...",
-    noEvents: "Bugün için spor müsabakası bulunamadı.",
+    noEvents: "Bugün için spor haberi bulunamadı.",
     noNews: "Güncel haber bulunamadı.",
     today: "Bugün Neler Oluyor",
   },
@@ -89,7 +89,7 @@ const I18N = {
     widgets: "Widgets",
     seeMarket: "See market",
     seeFullForecast: "Weather Details",
-    sports: "Sports Scores",
+    sports: "Sports News",
     seeMore: "See more",
     topStories: "Top Stories",
     newLook: "New Look",
@@ -98,7 +98,7 @@ const I18N = {
     humidity: "Humidity",
     wind: "Wind",
     loading: "Loading...",
-    noEvents: "No sports events found for today.",
+    noEvents: "No sports news found for today.",
     noNews: "No news found.",
     today: "What's Happening Today",
   },
@@ -110,7 +110,7 @@ const I18N = {
     widgets: "Widgets",
     seeMarket: "Ver mercados",
     seeFullForecast: "Pronóstico completo",
-    sports: "Marcadores",
+    sports: "Noticias Deportivas",
     seeMore: "Ver más",
     topStories: "Noticias principales",
     newLook: "Nuevo diseño",
@@ -119,7 +119,7 @@ const I18N = {
     humidity: "Humedad",
     wind: "Viento",
     loading: "Cargando...",
-    noEvents: "No se encontraron eventos deportivos hoy.",
+    noEvents: "No se encontraron noticias deportivas hoy.",
     noNews: "No se encontraron noticias.",
     today: "¿Qué pasa hoy?",
   },
@@ -131,7 +131,7 @@ const I18N = {
     widgets: "Widgets",
     seeMarket: "Voir les marchés",
     seeFullForecast: "Prévisions complètes",
-    sports: "Scores Sportifs",
+    sports: "Actualités Sportives",
     seeMore: "Voir plus",
     topStories: "À la une",
     newLook: "Nouveau look",
@@ -140,7 +140,7 @@ const I18N = {
     humidity: "Humidité",
     wind: "Vent",
     loading: "Chargement...",
-    noEvents: "Aucun événement sportif aujourd'hui.",
+    noEvents: "Aucune actualité sportive aujourd'hui.",
     noNews: "Aucune actualité trouvée.",
     today: "Aujourd'hui",
   },
@@ -152,7 +152,7 @@ const I18N = {
     widgets: "Widgets",
     seeMarket: "Ver mercados",
     seeFullForecast: "Previsão completa",
-    sports: "Placares Esportivos",
+    sports: "Notícias Esportivas",
     seeMore: "Ver mais",
     topStories: "Principais notícias",
     newLook: "Novo visual",
@@ -161,7 +161,7 @@ const I18N = {
     humidity: "Umidade",
     wind: "Vento",
     loading: "Carregando...",
-    noEvents: "Nenhum evento esportivo hoje.",
+    noEvents: "Nenhuma notícia esportiva encontrada hoje.",
     noNews: "Nenhuma notícia encontrada.",
     today: "O que está acontecendo hoje",
   }
@@ -340,7 +340,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-2 mb-3">
           <div>
-            <p className="text-[#3b82f6] text-[10px] font-black uppercase tracking-widest">{dateStr}</p>
+            <p className="text-[#3b82f6] text-[13px] font-black uppercase tracking-widest">{dateStr}</p>
             <h1 className="text-xl md:text-2xl font-extrabold text-white mt-0.5">
               {greeting}
             </h1>
@@ -350,9 +350,9 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* Refresh Button */}
             <button
               onClick={handleRefresh}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-xs font-bold text-slate-200 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-[13px] font-bold text-slate-200 transition-all"
             >
-              <svg className={`w-3 h-3 ${loadingMarkets || loadingWeather || loadingSports || loadingNews ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className={`w-3.5 h-3.5 ${loadingMarkets || loadingWeather || loadingSports || loadingNews ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
               </svg>
               {t.refresh}
@@ -371,7 +371,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🌤️</span> WEATHER
                 </span>
 
@@ -382,7 +382,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     title={locale === "tr" ? "Konumumu Kullan" : "Use My Location"}
                     className="p-1 rounded-md bg-[#141b2b] border border-[#1e2a3a]/80 hover:border-[#3b82f6]/60 text-slate-400 hover:text-white transition-all flex items-center justify-center"
                   >
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                     </svg>
@@ -394,17 +394,17 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                       value={cityQuery}
                       onChange={(e) => setCityQuery(e.target.value)}
                       placeholder={t.searchCity}
-                      className="w-24 sm:w-28 bg-[#141b2b] text-[10px] px-2 py-1 rounded-md border border-[#1e2a3a]/80 focus:border-[#3b82f6]/60 focus:outline-none text-slate-100 placeholder-slate-500 transition-all"
+                      className="w-24 sm:w-28 bg-[#141b2b] text-[13px] px-2 py-1 rounded-md border border-[#1e2a3a]/80 focus:border-[#3b82f6]/60 focus:outline-none text-slate-100 placeholder-slate-500 transition-all"
                     />
                     <button type="submit" className="absolute right-2 text-slate-500 hover:text-white">
-                      <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
                     </button>
                   </form>
                 </div>
               </div>
 
               {loadingWeather ? (
-                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
+                <div className="py-6 text-center text-[13px] text-slate-500">{t.loading}</div>
               ) : weather ? (
                 <div>
                   <div className="flex items-center justify-between">
@@ -412,7 +412,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                       <h3 className="text-base font-bold text-white leading-tight truncate max-w-[150px]">
                         {weather.location.split(",")[0]}
                       </h3>
-                      <p className="text-[11px] text-slate-400 mt-0.5">{weather.current.condition}</p>
+                      <p className="text-[13px] text-slate-400 mt-0.5">{weather.current.condition}</p>
                     </div>
 
                     <div className="flex items-center gap-1.5">
@@ -426,7 +426,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                   </div>
 
                   {/* Weather Info Row */}
-                  <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#1e2a3a]/40 text-[10px] text-slate-400">
+                  <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#1e2a3a]/40 text-[13px] text-slate-400">
                     <div>{t.humidity}: <span className="text-white font-bold">{weather.current.humidity}%</span></div>
                     <div>{t.wind}: <span className="text-white font-bold">{isImperial ? `${weather.current.wind_mph} mph` : `${weather.current.wind_kph} km/h`}</span></div>
                   </div>
@@ -437,14 +437,14 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                       {weather.forecast.map((f, i) => {
                         const dayName = new Date(f.date).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { weekday: "short" });
                         return (
-                          <div key={i} className="flex justify-between items-center text-xs">
-                            <span className="w-10 text-slate-400 font-bold capitalize">{dayName}</span>
+                          <div key={i} className="flex justify-between items-center text-[13px]">
+                            <span className="w-12 text-slate-400 font-bold capitalize">{dayName}</span>
                             <div className="flex items-center gap-1.5 flex-1 px-3">
                               {f.icon && <img src={f.icon} alt="" className="w-4 h-4 object-contain" />}
-                              <span className="text-[10px] text-slate-400 truncate max-w-[90px]">{f.condition}</span>
+                              <span className="text-[13px] text-slate-400 truncate max-w-[120px]">{f.condition}</span>
                             </div>
-                            <span className="text-white font-bold text-[11px]">
-                              {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[9px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
+                            <span className="text-white font-bold text-[13px]">
+                              {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[13px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
                             </span>
                           </div>
                         );
@@ -458,19 +458,19 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 2. MARKETS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>📈</span> MARKETS
                 </span>
                 <Link
                   href={`/global/${locale}/home`}
-                  className="text-[#3b82f6] text-[10px] font-bold hover:underline"
+                  className="text-[#3b82f6] text-[13px] font-bold hover:underline"
                 >
                   {t.seeMarket} →
                 </Link>
               </div>
 
               {loadingMarkets ? (
-                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
+                <div className="py-6 text-center text-[13px] text-slate-500">{t.loading}</div>
               ) : (
                 <div className="space-y-2">
                   {markets.map((index) => {
@@ -478,8 +478,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     return (
                       <div key={index.ticker} className="flex items-center justify-between gap-2 border-b border-[#1e2a3a]/20 pb-1.5 last:border-0 last:pb-0">
                         <div>
-                          <p className="text-xs font-black text-white">{index.name}</p>
-                          <p className="text-[9px] text-[#64748b] font-bold">{index.ticker}</p>
+                          <p className="text-[13px] font-black text-white">{index.name}</p>
+                          <p className="text-[13px] text-[#64748b] font-bold">{index.ticker}</p>
                         </div>
 
                         {/* Sparkline Graph */}
@@ -488,9 +488,9 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-xs font-black text-white">${index.price.toLocaleString()}</p>
+                          <p className="text-[13px] font-black text-white">${index.price.toLocaleString()}</p>
                           <span
-                            className={`inline-block px-1.5 py-0.5 rounded text-[9px] font-black mt-0.5 ${
+                            className={`inline-block px-1.5 py-0.5 rounded text-[13px] font-black mt-0.5 ${
                               isPositive ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"
                             }`}
                           >
@@ -508,7 +508,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 3. SPORTS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🏀</span> {t.sports}
                 </span>
               </div>
