@@ -81,12 +81,10 @@ async function translateNewsTitles(items: NewsItem[], lang: string): Promise<New
   }
 }
 
-export async function fetchLiveMarketNews(query: string = "US stock market", lang: string = "en"): Promise<NewsItem[]> {
+export async function fetchLiveMarketNews(query: string = "world news today", lang: string = "en"): Promise<NewsItem[]> {
   try {
     let cleanQuery = query.trim();
-    if (!/US|Nasdaq|S&P|Wall Street|Gold|Silver|Crypto|Forex|EURUSD|BTC/i.test(cleanQuery)) {
-      cleanQuery += " US stock market Wall Street";
-    }
+    if (!cleanQuery) cleanQuery = "world news today";
 
     // Append when:1d so Google RSS ONLY returns news from the last 24 hours!
     const searchTopic = encodeURIComponent(`${cleanQuery} when:1d`);
@@ -132,24 +130,24 @@ export async function fetchLiveMarketNews(query: string = "US stock market", lan
 
 const FALLBACK_TITLES: Record<string, [string, string]> = {
   tr: [
-    "ABD Hisse Senedi Piyasalarında Bugüne Dair Son Gelişmeler ve Sektör Hareketliliği",
-    "S&P 500 ve Nasdaq Teknoloji Sektöründe Bugünkü Ön Piyasa ve İşlem Hacmi Görünümü",
+    "Küresel Piyasalarda ve Dünya Genelinde Bugüne Dair Öne Çıkan Gelişmeler",
+    "Son 24 Saat İçerisinde Dünyada Yaşanan Önemli Haber Başlıkları",
   ],
   en: [
-    "Today's Latest Developments and Sector Activity in US Stock Markets",
-    "S&P 500 and Nasdaq Tech Sector: Today's Premarket and Trading Volume Outlook",
+    "Today's Latest Global Developments and Breaking News",
+    "Important Headline News from Around the World in the Last 24 Hours",
   ],
   es: [
-    "Últimos Desarrollos de Hoy y Actividad Sectorial en los Mercados Bursátiles de EE. UU.",
-    "S&P 500 y el Sector Tecnológico del Nasdaq: Panorama de Premercado y Volumen de Hoy",
+    "Últimos Desarrollos Globales de Hoy y Noticias de Última Hora",
+    "Titulares Importantes de Todo el Mundo en las Últimas 24 Horas",
   ],
   fr: [
-    "Derniers Développements du Jour et Activité Sectorielle sur les Marchés Boursiers Américains",
-    "S&P 500 et Secteur Technologique du Nasdaq : Aperçu du Pré-marché et du Volume du Jour",
+    "Derniers Développements Mondiaux du Jour et Dernières Nouvelles",
+    "Principaux Titres de l'Actualité Mondiale au Cours des Dernières 24 Heures",
   ],
   pt: [
-    "Últimos Desenvolvimentos de Hoje e Atividade Setorial nos Mercados de Ações dos EUA",
-    "S&P 500 e Setor de Tecnologia da Nasdaq: Panorama do Pré-mercado e Volume de Hoje",
+    "Últimos Desenvolvimentos Globais de Hoje e Notícias de Última Hora",
+    "Principais Manchetes de Todo o Mundo nas Últimas 24 Horas",
   ],
 };
 
