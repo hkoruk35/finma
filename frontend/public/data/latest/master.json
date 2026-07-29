@@ -67,20 +67,21 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 5200,
-      "change_pct": 0.5
+      "value": 735.35,
+      "change_pct": 0.0
     },
     "NASDAQ": {
       "value": 16000,
       "change_pct": 0.8
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 518.79,
+      "change_pct": 0.0
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 19.77,
+      "change_pct": 0.0
     }
-  }
+  },
+  "price_updated_at": "2026-07-29T11:02:42.715657-04:00"
 }
