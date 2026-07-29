@@ -96,7 +96,7 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
       rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
     }
 
-    const res = await fetch(rssUrl, { signal: AbortSignal.timeout(2500) });
+    const res = await fetch(rssUrl, { signal: AbortSignal.timeout(5000) });
     if (!res.ok) return fallbackNews(query, lang);
 
     const xml = await res.text();
@@ -104,13 +104,21 @@ export async function fetchLiveMarketNews(query: string = "world news today", la
     const now = Date.now();
     const MAX_AGE_MS = 36 * 60 * 60 * 1000; // 36 hours max to ensure strictly recent today news!
 
-    const itemRegex = /<item>[\s\S]*?<title>(.*?)<\/title>[\s\S]*?<link>(.*?)<\/link>[\s\S]*?<pubDate>(.*?)<\/pubDate>[\s\S]*?<source[^>]*>(.*?)<\/source>[\s\S]*?<\/item>/g;
+    const itemBlockRegex = /<item>([\s\S]*?)<\/item>/g;
     let match;
-    while ((match = itemRegex.exec(xml)) !== null && items.length < 5) {
-      const title = match[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim();
-      const link = match[2].trim();
-      const pubDateStr = match[3].trim();
-      const source = match[4].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() || "Wall Street Journal / Reuters";
+    while ((match = itemBlockRegex.exec(xml)) !== null && items.length < 5) {
+      const itemContent = match[1];
+      const titleMatch = itemContent.match(/<title>(.*?)<\/title>/);
+      const linkMatch = itemContent.match(/<link>(.*?)<\/link>/);
+      const pubDateMatch = itemContent.match(/<pubDate>(.*?)<\/pubDate>/);
+      const sourceMatch = itemContent.match(/<source[^>]*>(.*?)<\/source>/);
+
+      if (!titleMatch || !linkMatch) continue;
+
+      const title = titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim();
+      const link = linkMatch[1].trim();
+      const pubDateStr = pubDateMatch ? pubDateMatch[1].trim() : new Date().toISOString();
+      const source = sourceMatch ? sourceMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, "$1").trim() : "Reuters / WSJ";
 
       // Date check: skip old news (> 36 hours old)
       const parsedDate = new Date(pubDateStr).getTime();
@@ -158,6 +166,12 @@ const FALLBACK_TITLES: Record<string, [string, string]> = {
 };
 
 function fallbackNews(query: string, lang: string = "en"): NewsItem[] {
+  // If the query is specific (like "Raleigh Durham"), don't return global news as a fallback.
+  // Returning an empty array lets the AI know it couldn't find anything, so it can give a proper response.
+  if (query && !/world news|dünya|küresel|global|gündem/i.test(query)) {
+    return [];
+  }
+
   const [title1, title2] = FALLBACK_TITLES[lang] || FALLBACK_TITLES.en;
   return [
     {
