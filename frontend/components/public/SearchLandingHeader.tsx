@@ -7,22 +7,17 @@ import type { Locale } from "@/lib/i18n/copy";
 // /global/{locale}/search'in kendi başlığı — bu bileşen SADECE bu tek URL
 // şeklinde render olur, bu yüzden MemberHeader.tsx'in genel getLangHref'i
 // (path regex + FAQ özel durumu) gerekmiyor, tek satırlık sabit hedef yeterli.
-const getLangHref = (targetLocale: string) => `/global/${targetLocale.toLowerCase()}/search`;
-
-const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
-const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
-const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
-const SLOGAN = "Ask · Discover · Markets";
-const COMPUTER_LABEL: Record<Locale, string> = {
-  tr: "Bilgisayar", en: "Computer", es: "Computadora", fr: "Ordinateur", pt: "Computador",
-};
-const SEARCH_CHATS_LABEL: Record<Locale, string> = {
-  tr: "Sohbetlerde Ara", en: "Search Chats", es: "Buscar Chats", fr: "Rechercher les Chats", pt: "Pesquisar Chats",
-};
+import { usePathname } from "next/navigation";
 
 export default function SearchLandingHeader({ locale, onLogoClick }: { locale: Locale; onLogoClick: () => void }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
+  const pathname = usePathname();
+
+  const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
+  const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
+  const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
+  const SLOGAN = "Ask · Discover · Markets";
 
   useEffect(() => {
     fetch("/api/members/me")
@@ -34,6 +29,15 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
       .catch(() => setIsLoggedIn(false))
       .finally(() => setAuthChecked(true));
   }, []);
+
+  const getLangHref = (targetLocale: string) => {
+    if (!pathname) return `/global/${targetLocale.toLowerCase()}/search`;
+    const parts = pathname.split("/");
+    if (parts.length >= 4 && parts[3] === "today") {
+      return `/global/${targetLocale.toLowerCase()}/today`;
+    }
+    return `/global/${targetLocale.toLowerCase()}/search`;
+  };
 
   const computerHref = `/global/${locale}`;
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
@@ -50,7 +54,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
 
   return (
     <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50">
-      <div className="w-full max-w-[1800px] mx-auto px-4 h-16 flex items-center gap-6">
+      <div className="w-full max-w-[1800px] mx-auto px-4 h-16 flex items-center gap-3 sm:gap-6">
         <button onClick={onLogoClick} className="flex flex-col items-start flex-shrink-0 focus:outline-none">
           <span className="text-lg tracking-tight font-medium">
             <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Smart</span>
@@ -58,26 +62,27 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
           <span className="hidden sm:inline text-[11px] text-[#64748b]">{SLOGAN}</span>
         </button>
 
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-2 sm:gap-6">
           <Link
             href={`/global/${locale}/today`}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] sm:text-xs font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
           >
             <span>📅</span>
-            <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
+            <span className="hidden xs:inline">{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
+            <span className="inline xs:hidden">{locale === "tr" ? "Bugün" : locale === "es" ? "Hoy" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
           </Link>
         </nav>
 
         <div className="flex-1" />
 
-        <div className="hidden sm:flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 border border-[#1e2a3a]/60">
+        <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 border border-[#1e2a3a]/60 scale-90 sm:scale-100 origin-right">
           {(["EN", "ES", "FR", "PT", "TR"] as const).map((lg) => {
             const isActive = locale.toUpperCase() === lg;
             return (
               <Link
                 key={lg}
                 href={getLangHref(lg)}
-                className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
+                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all ${
                   isActive ? "bg-[#3b82f6] text-white" : "text-[#64748b] hover:text-white hover:bg-white/10"
                 }`}
               >

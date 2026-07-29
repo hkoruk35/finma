@@ -21,15 +21,19 @@ interface WeatherData {
   location: string;
   current: {
     temperature_c: number;
+    temperature_f: number;
     condition: string;
     humidity: number;
     wind_kph: number;
+    wind_mph: number;
     icon?: string;
   };
   forecast: Array<{
     date: string;
     max_temp_c: number;
     min_temp_c: number;
+    max_temp_f: number;
+    min_temp_f: number;
     condition: string;
     icon?: string;
   }>;
@@ -192,7 +196,6 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
 
   const [dateStr, setDateStr] = useState("");
   const [greeting, setGreeting] = useState("");
-  const [isNewLook, setIsNewLook] = useState(true);
 
   // States
   const [markets, setMarkets] = useState<MarketIndex[]>([]);
@@ -202,11 +205,26 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
 
   // Search & Loading
   const [cityQuery, setCityQuery] = useState("");
-  const [weatherCity, setWeatherCity] = useState("auto:ip");
+  const [weatherCity, setWeatherCity] = useState("New York");
   const [loadingMarkets, setLoadingMarkets] = useState(true);
   const [loadingWeather, setLoadingWeather] = useState(true);
   const [loadingSports, setLoadingSports] = useState(true);
   const [loadingNews, setLoadingNews] = useState(true);
+
+  const handleUseLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          setWeatherCity(`${lat.toFixed(4)},${lon.toFixed(4)}`);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+        }
+      );
+    }
+  };
 
   // Time & Greeting logic
   useEffect(() => {
@@ -289,125 +307,132 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
     loadData();
   };
 
+  const isImperial = locale === "en" || 
+    (weather?.location && 
+      (weather.location.toLowerCase().includes("usa") || 
+       weather.location.toLowerCase().includes("united states") || 
+       weather.location.toLowerCase().includes("united kingdom") || 
+       weather.location.toLowerCase().includes("uk") || 
+       weather.location.toLowerCase().includes("new york") || 
+       weather.location.toLowerCase().includes("london") ||
+       weather.location.toLowerCase().includes("gb")));
+
   return (
-    <div className="min-h-screen bg-[#070b12] text-slate-100 font-sans pb-16">
+    <div className="min-h-screen bg-[#070b12] text-slate-100 font-sans pb-8">
       {/* Header */}
       <SearchLandingHeader locale={locale} onLogoClick={() => window.location.href = `/global/${locale}/search`} />
 
       {/* Main Container */}
-      <main className="max-w-[1600px] mx-auto px-4 md:px-8 mt-6">
+      <main className="max-w-[1600px] mx-auto px-3 md:px-6 mt-3">
         
         {/* Top Control Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#1e2a3a]/40 pb-6 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-2 mb-3">
           <div>
-            <p className="text-[#3b82f6] text-xs font-black uppercase tracking-widest">{dateStr}</p>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white mt-1">
+            <p className="text-[#3b82f6] text-[10px] font-black uppercase tracking-widest">{dateStr}</p>
+            <h1 className="text-xl md:text-2xl font-extrabold text-white mt-0.5">
               {greeting}
             </h1>
           </div>
 
-          <div className="flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap">
             {/* Refresh Button */}
             <button
               onClick={handleRefresh}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-xs font-bold text-slate-200 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-xs font-bold text-slate-200 transition-all"
             >
-              <svg className={`w-3.5 h-3.5 ${loadingMarkets || loadingWeather || loadingSports || loadingNews ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className={`w-3 h-3 ${loadingMarkets || loadingWeather || loadingSports || loadingNews ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
               </svg>
               {t.refresh}
             </button>
-
-            {/* Look Toggle */}
-            <div className="flex items-center gap-2 bg-[#1e2a3a]/25 px-3 py-1.5 rounded-xl border border-[#1e2a3a]/40">
-              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{t.newLook}</span>
-              <button
-                onClick={() => setIsNewLook(!isNewLook)}
-                className={`w-8 h-4.5 rounded-full p-0.5 transition-colors duration-200 focus:outline-none ${
-                  isNewLook ? "bg-[#3b82f6]" : "bg-[#1e2a3a]"
-                }`}
-              >
-                <div
-                  className={`w-3.5 h-3.5 rounded-full bg-white transition-transform duration-200 ${
-                    isNewLook ? "translate-x-3.5" : "translate-x-0"
-                  }`}
-                />
-              </button>
-            </div>
           </div>
         </div>
 
         {/* Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
           
           {/* LEFT SIDEBAR: Markets, Weather, Sports (5 cols) */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-4">
             
             {/* 1. WEATHER WIDGET */}
-            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl p-5 backdrop-blur-md relative overflow-hidden shadow-xl">
+            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
               
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-center mb-3">
                 <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🌤️</span> WEATHER
                 </span>
 
-                <form onSubmit={handleCitySearch} className="relative flex items-center">
-                  <input
-                    type="text"
-                    value={cityQuery}
-                    onChange={(e) => setCityQuery(e.target.value)}
-                    placeholder={t.searchCity}
-                    className="w-32 bg-[#141b2b] text-[10px] px-2.5 py-1.5 rounded-lg border border-[#1e2a3a]/80 focus:border-[#3b82f6]/60 focus:outline-none text-slate-100 placeholder-slate-500 transition-all"
-                  />
-                  <button type="submit" className="absolute right-2 text-slate-500 hover:text-white">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    onClick={handleUseLocation}
+                    type="button"
+                    title={locale === "tr" ? "Konumumu Kullan" : "Use My Location"}
+                    className="p-1 rounded-md bg-[#141b2b] border border-[#1e2a3a]/80 hover:border-[#3b82f6]/60 text-slate-400 hover:text-white transition-all flex items-center justify-center"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                    </svg>
                   </button>
-                </form>
+
+                  <form onSubmit={handleCitySearch} className="relative flex items-center">
+                    <input
+                      type="text"
+                      value={cityQuery}
+                      onChange={(e) => setCityQuery(e.target.value)}
+                      placeholder={t.searchCity}
+                      className="w-24 sm:w-28 bg-[#141b2b] text-[10px] px-2 py-1 rounded-md border border-[#1e2a3a]/80 focus:border-[#3b82f6]/60 focus:outline-none text-slate-100 placeholder-slate-500 transition-all"
+                    />
+                    <button type="submit" className="absolute right-2 text-slate-500 hover:text-white">
+                      <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" /></svg>
+                    </button>
+                  </form>
+                </div>
               </div>
 
               {loadingWeather ? (
-                <div className="py-8 text-center text-xs text-slate-500">{t.loading}</div>
+                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
               ) : weather ? (
                 <div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-white leading-tight truncate max-w-[180px]">
+                      <h3 className="text-base font-bold text-white leading-tight truncate max-w-[150px]">
                         {weather.location.split(",")[0]}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-0.5">{weather.current.condition}</p>
+                      <p className="text-[11px] text-slate-400 mt-0.5">{weather.current.condition}</p>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       {weather.current.icon && (
-                        <img src={weather.current.icon} alt="Weather" className="w-10 h-10 object-contain" />
+                        <img src={weather.current.icon} alt="Weather" className="w-8 h-8 object-contain" />
                       )}
-                      <span className="text-3xl md:text-4xl font-extrabold text-white tracking-tighter">
-                        {weather.current.temperature_c}°
+                      <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tighter">
+                        {isImperial ? weather.current.temperature_f : weather.current.temperature_c}°
                       </span>
                     </div>
                   </div>
 
                   {/* Weather Info Row */}
-                  <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-[#1e2a3a]/40 text-[10px] text-slate-400">
+                  <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#1e2a3a]/40 text-[10px] text-slate-400">
                     <div>{t.humidity}: <span className="text-white font-bold">{weather.current.humidity}%</span></div>
-                    <div>{t.wind}: <span className="text-white font-bold">{weather.current.wind_kph} km/h</span></div>
+                    <div>{t.wind}: <span className="text-white font-bold">{isImperial ? `${weather.current.wind_mph} mph` : `${weather.current.wind_kph} km/h`}</span></div>
                   </div>
 
                   {/* 3 Day Forecast */}
                   {weather.forecast && weather.forecast.length > 0 && (
-                    <div className="mt-4 pt-4 border-t border-[#1e2a3a]/40 space-y-2">
+                    <div className="mt-3 pt-3 border-t border-[#1e2a3a]/40 space-y-1.5">
                       {weather.forecast.map((f, i) => {
                         const dayName = new Date(f.date).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { weekday: "short" });
                         return (
                           <div key={i} className="flex justify-between items-center text-xs">
-                            <span className="w-12 text-slate-400 font-bold capitalize">{dayName}</span>
-                            <div className="flex items-center gap-2 flex-1 px-4">
-                              {f.icon && <img src={f.icon} alt="" className="w-5 h-5 object-contain" />}
-                              <span className="text-[10px] text-slate-400 truncate max-w-[100px]">{f.condition}</span>
+                            <span className="w-10 text-slate-400 font-bold capitalize">{dayName}</span>
+                            <div className="flex items-center gap-1.5 flex-1 px-3">
+                              {f.icon && <img src={f.icon} alt="" className="w-4 h-4 object-contain" />}
+                              <span className="text-[10px] text-slate-400 truncate max-w-[90px]">{f.condition}</span>
                             </div>
-                            <span className="text-white font-bold">
-                              {f.max_temp_c}° <span className="text-slate-500 font-normal text-[10px]">/ {f.min_temp_c}°</span>
+                            <span className="text-white font-bold text-[11px]">
+                              {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[9px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
                             </span>
                           </div>
                         );
@@ -419,8 +444,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             </div>
 
             {/* 2. MARKETS WIDGET */}
-            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl p-5 backdrop-blur-md relative overflow-hidden shadow-xl">
-              <div className="flex justify-between items-center mb-4">
+            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
+              <div className="flex justify-between items-center mb-3">
                 <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>📈</span> MARKETS
                 </span>
@@ -433,13 +458,13 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               </div>
 
               {loadingMarkets ? (
-                <div className="py-8 text-center text-xs text-slate-500">{t.loading}</div>
+                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
               ) : (
-                <div className="space-y-3.5">
+                <div className="space-y-2">
                   {markets.map((index) => {
                     const isPositive = index.changePct >= 0;
                     return (
-                      <div key={index.ticker} className="flex items-center justify-between gap-2 border-b border-[#1e2a3a]/20 pb-3 last:border-0 last:pb-0">
+                      <div key={index.ticker} className="flex items-center justify-between gap-2 border-b border-[#1e2a3a]/20 pb-1.5 last:border-0 last:pb-0">
                         <div>
                           <p className="text-xs font-black text-white">{index.name}</p>
                           <p className="text-[9px] text-[#64748b] font-bold">{index.ticker}</p>
@@ -469,30 +494,30 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             </div>
 
             {/* 3. SPORTS WIDGET */}
-            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl p-5 backdrop-blur-md relative overflow-hidden shadow-xl">
-              <div className="flex justify-between items-center mb-4">
+            <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
+              <div className="flex justify-between items-center mb-3">
                 <span className="text-[10px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🏀</span> {t.sports}
                 </span>
               </div>
 
               {loadingSports ? (
-                <div className="py-8 text-center text-xs text-slate-500">{t.loading}</div>
+                <div className="py-6 text-center text-xs text-slate-500">{t.loading}</div>
               ) : sports.length === 0 ? (
-                <div className="py-8 text-center text-xs text-slate-500">{t.noEvents}</div>
+                <div className="py-6 text-center text-xs text-slate-500">{t.noEvents}</div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-2.5">
                   {sports.map((event) => {
                     const isHomeWinner = event.home_score !== null && event.away_score !== null && event.home_score > event.away_score;
                     const isAwayWinner = event.home_score !== null && event.away_score !== null && event.away_score > event.home_score;
                     return (
-                      <div key={event.id} className="bg-[#141b2b]/40 rounded-xl p-3 border border-[#1e2a3a]/40">
-                        <div className="flex justify-between items-center text-[9px] text-[#64748b] font-bold mb-2">
+                      <div key={event.id} className="bg-[#141b2b]/40 rounded-lg p-2.5 border border-[#1e2a3a]/40">
+                        <div className="flex justify-between items-center text-[9px] text-[#64748b] font-bold mb-1">
                           <span className="uppercase tracking-wider">{event.sport} - {event.league}</span>
                           <span className={`px-1.5 py-0.5 rounded bg-[#1e2a3a] text-slate-300`}>{event.status}</span>
                         </div>
 
-                        <div className="space-y-2">
+                        <div className="space-y-1">
                           {/* Home Team */}
                           <div className="flex justify-between items-center">
                             <span className={`text-xs font-bold ${isHomeWinner ? "text-white" : "text-slate-400"}`}>
@@ -523,20 +548,20 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
           </div>
 
           {/* RIGHT MAIN AREA: Top Stories / News Feed (8 cols) */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-8 space-y-4">
             
             {/* News Section Header */}
-            <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-3">
-              <span className="text-lg font-extrabold text-white tracking-tight">{t.topStories}</span>
+            <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
+              <span className="text-base font-extrabold text-white tracking-tight">{t.topStories}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
             </div>
 
             {loadingNews ? (
-              <div className="py-32 text-center text-slate-500 text-sm font-medium">{t.loading}</div>
+              <div className="py-24 text-center text-slate-500 text-sm font-medium">{t.loading}</div>
             ) : news.length === 0 ? (
-              <div className="py-32 text-center text-slate-500 text-sm">{t.noNews}</div>
+              <div className="py-24 text-center text-slate-500 text-sm">{t.noNews}</div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 {/* Hero News Card (Span 2 on MD/LG if it's the first news) */}
                 {news.slice(0, 1).map((item, idx) => (
@@ -545,19 +570,19 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="md:col-span-2 group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
+                    className="md:col-span-2 group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
-                    <div className="p-6">
-                      <div className="flex items-center justify-between text-[10px] text-[#64748b] font-bold mb-3">
+                    <div className="p-4">
+                      <div className="flex items-center justify-between text-[10px] text-[#64748b] font-bold mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
                         <span>{item.pubDate}</span>
                       </div>
-                      <h2 className="text-xl md:text-2xl font-black text-white group-hover:text-[#3b82f6] transition-colors leading-tight">
+                      <h2 className="text-lg md:text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors leading-tight">
                         {item.title}
                       </h2>
                     </div>
 
-                    <div className="bg-[#141b2b]/30 p-4 border-t border-[#1e2a3a]/40 flex justify-between items-center text-xs text-slate-400 group-hover:text-white transition-colors">
+                    <div className="bg-[#141b2b]/30 p-3 border-t border-[#1e2a3a]/40 flex justify-between items-center text-xs text-slate-400 group-hover:text-white transition-colors">
                       <span>{t.seeMore} →</span>
                       <span className="text-[10px] text-slate-500">Reuters / Wall Street / Bloomberg</span>
                     </div>
@@ -571,19 +596,19 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl p-5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
+                    className="group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[9px] text-[#64748b] font-bold mb-3">
+                      <div className="flex items-center justify-between text-[9px] text-[#64748b] font-bold mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
                         <span>{item.pubDate}</span>
                       </div>
-                      <h3 className="text-sm font-bold text-slate-100 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
+                      <h3 className="text-xs font-bold text-slate-100 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
                         {item.title}
                       </h3>
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-[#1e2a3a]/20 flex items-center text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors">
+                    <div className="mt-2.5 pt-1.5 border-t border-[#1e2a3a]/20 flex items-center text-[10px] text-slate-500 group-hover:text-slate-300 transition-colors">
                       <span>{t.seeMore} →</span>
                     </div>
                   </a>
