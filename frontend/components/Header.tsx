@@ -162,29 +162,14 @@ export default function Header({
   const showNav = !isHomePage && !hideMenus;
 
   const logoContent = (
-    <>
-      <div className="relative w-8 h-8 group-hover:scale-110 transition-transform flex-shrink-0">
-        <Image
-          src="/finmawave.png"
-          alt="BOGASTOCK - Blue One Global Analysis"
-          width={32}
-          height={32}
-          priority
-          className="object-contain rounded-lg shadow-lg shadow-blue-500/10"
-        />
-      </div>
-      <div className="flex flex-col md:flex-row md:items-baseline">
-        <span
-          className="text-lg md:text-xl text-white tracking-tighter"
-          style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
-        >
-          BOGA<span className="text-[#3b82f6]">STOCK</span>
-        </span>
-        <span className="hidden md:inline text-[9px] text-[#3b82f6] md:ml-2 font-black uppercase tracking-[0.2em]">
-          TERMINAL
-        </span>
-      </div>
-    </>
+    <div className="flex flex-col items-start flex-shrink-0">
+      <span className="text-lg tracking-tight font-medium">
+        <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Stock</span>
+      </span>
+      <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
+        TERMINAL
+      </span>
+    </div>
   );
 
   return (

@@ -85,15 +85,8 @@ export default function EnHomePage() {
           </div>
 
           <div className="flex items-center justify-center gap-4 mb-6">
-            <Image
-              src="/finmawave.png"
-              alt="BOGA AI"
-              width={64}
-              height={64}
-              className="rounded-2xl shadow-2xl shadow-blue-500/20"
-            />
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              BOGA <span className="text-[#3b82f6]">AI</span>
+            <h1 className="text-5xl md:text-7xl tracking-tight font-medium leading-none">
+              <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Stock</span>
             </h1>
           </div>
 
