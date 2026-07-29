@@ -75,12 +75,13 @@
       "change_pct": 0.8
     },
     "DOW": {
-      "value": 39000,
-      "change_pct": 0.2
+      "value": 520.54,
+      "change_pct": 0.0
     },
     "VIX": {
-      "value": 15.0,
-      "change_pct": -2.0
+      "value": 18.68,
+      "change_pct": 0.0
     }
-  }
+  },
+  "price_updated_at": "2026-07-29T10:01:17.177450-04:00"
 }
