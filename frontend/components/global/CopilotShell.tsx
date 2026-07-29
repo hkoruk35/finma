@@ -5,17 +5,18 @@ import { CopilotProvider } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
 
 export default function CopilotShell({ children }: { children: ReactNode }) {
-  const [isSearchLanding, setIsSearchLanding] = useState(false);
+  const [isMoneySection, setIsMoneySection] = useState(false);
 
   useEffect(() => {
-    const isSearchPath = typeof window !== "undefined" && /\/global\/[a-z]+\/search$/.test(window.location.pathname);
-    setIsSearchLanding(isSearchPath);
+    const path = typeof window !== "undefined" ? window.location.pathname : "";
+    const isMoney = /\/(home|performance|swing|swingperformance|top100|top7|watchlist|insider|my-watchlist|stock)\b/i.test(path);
+    setIsMoneySection(isMoney);
   }, []);
 
   return (
     <CopilotProvider>
       {children}
-      {!isSearchLanding && <CopilotDrawer />}
+      {isMoneySection && <CopilotDrawer />}
     </CopilotProvider>
   );
 }

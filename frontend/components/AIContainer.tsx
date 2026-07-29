@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
+import { usePathname } from "next/navigation";
 import Header from "@/components/Header";
 import MemberHeader from "@/components/public/MemberHeader";
 import SearchLandingHeader from "@/components/public/SearchLandingHeader";
@@ -160,6 +161,7 @@ const BotIcon = ({ size = "w-7 h-7" }: { size?: string }) => (
 );
 
 export default function AIContainer({ lang = "tr", locale, variant = "classic" }: { lang?: string; locale?: "tr" | "en" | "es" | "fr" | "pt"; variant?: "classic" | "landing" }) {
+  const pathname = usePathname();
   const t = (key: keyof typeof TEXTS) => TEXTS[key][(lang === "en" ? "en" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "pt" ? "pt" : "tr")];
   // When `locale` is set, this is a /global/{locale}/ai page: confine the user to the
   // /global member area (no Screener/Terminal/Option links, no root logout) and always
@@ -291,6 +293,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const tickerParam = params.get("ticker");
+      const qParam = params.get("q");
       const deepParam = params.get("deep") === "1";
       if (tickerParam && tickerParam.trim()) {
         const upper = tickerParam.trim().toUpperCase();
@@ -298,6 +301,9 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
         setAutoLoading(true);
         send(upper, deepParam);
         // Clean URL parameter without page reload
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } else if (qParam && qParam.trim()) {
+        send(qParam.trim());
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
@@ -378,25 +384,81 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
         </div>
 
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
-          {variant === "landing" && (
-            <div>
-              <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
-                <span>✨</span> New
-              </div>
-              <div className="space-y-1">
-                <button
-                  onClick={() => {
-                    setSidebarOpen(false);
-                    window.location.href = locale === "es" ? "/global/es" : locale === "en" ? "/global/en" : locale === "fr" ? "/global/fr" : locale === "pt" ? "/global/pt" : "/global/tr";
-                  }}
-                  className="w-full text-left text-xs px-3 py-2 rounded-lg hover:bg-[#1e2a3a] hover:text-[#3b82f6] transition-all text-slate-400 hover:text-white truncate font-medium flex items-center gap-2 border border-transparent hover:border-[#1e2a3a]/40"
-                >
-                  <span className="text-[10px] text-slate-600">💻</span>
-                  <span className="truncate">{t("computer")}</span>
-                </button>
-              </div>
+          <div>
+            <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
+              <span>📺</span> {locale === "tr" ? "KANALLAR" : "CHANNELS"}
             </div>
-          )}
+            <div className="space-y-1">
+              {/* Ask */}
+              <button
+                onClick={() => {
+                  setSidebarOpen(false);
+                  newSession();
+                  window.location.href = `/global/${locale}/search`;
+                }}
+                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/search") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                }`}
+              >
+                <span className="text-[10px]">💬</span>
+                <span>Ask</span>
+              </button>
+
+              {/* Discover */}
+              <button
+                onClick={() => {
+                  setSidebarOpen(false);
+                  window.location.href = `/global/${locale}/discover`;
+                }}
+                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/discover") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                }`}
+              >
+                <span className="text-[10px]">🧭</span>
+                <span>Discover</span>
+              </button>
+
+              {/* Money */}
+              <button
+                onClick={() => {
+                  setSidebarOpen(false);
+                  window.location.href = `https://bogastock.com/global/en/home`;
+                }}
+                className="w-full text-left text-xs px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40 transition-all truncate font-medium flex items-center gap-2 border border-transparent"
+              >
+                <span className="text-[10px]">📈</span>
+                <span>Money</span>
+              </button>
+
+              {/* Sports */}
+              <button
+                onClick={() => {
+                  setSidebarOpen(false);
+                  window.location.href = `/global/${locale}/sports`;
+                }}
+                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/sports") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                }`}
+              >
+                <span className="text-[10px]">🏀</span>
+                <span>Sports</span>
+              </button>
+
+              {/* Weather */}
+              <button
+                onClick={() => {
+                  setSidebarOpen(false);
+                  window.location.href = `/global/${locale}/weather`;
+                }}
+                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/weather") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                }`}
+              >
+                <span className="text-[10px]">🌤️</span>
+                <span>Weather</span>
+              </button>
+            </div>
+          </div>
 
           <div>
             <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
