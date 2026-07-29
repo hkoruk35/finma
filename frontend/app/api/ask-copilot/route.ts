@@ -117,8 +117,8 @@ B) PERSONAL DISCOVERY ("Kişisel keşif ve ilgi alanları" / "Bulunduğum ülked
 - Spark curiosity continuously and generate 3 short follow-up questions to keep the chat going.
 
 C) WEATHER ("Hava durumu"):
-- Use the get_weather tool to fetch live weather data for the requested city.
-- Provide a short, friendly response with the temperature and condition.
+- Use the get_weather tool to fetch live weather data and forecasts for the requested city.
+- Provide a short, friendly response with the temperature and condition. If asked, provide the future forecast using the tool's forecast data.
 - Do NOT talk about finance or stocks.
 
 FINANCIAL MARKETS & DATA PRIORITY
@@ -268,7 +268,7 @@ export async function POST(req: NextRequest) {
         },
       }),
       get_weather: tool({
-        description: "Fetch current weather for a specific city",
+        description: "Fetch current weather and 3-day forecast for a specific city",
         parameters: z.object({ city: z.string().describe("City name (e.g., Istanbul, London, New York)") }),
         execute: async ({ city }) => {
           try {
@@ -276,7 +276,17 @@ export async function POST(req: NextRequest) {
             if (res && res.ok) {
               const data = await res.json();
               const current = data.current_condition[0];
-              return { success: true, city, temp: current.temp_C, desc: current.weatherDesc[0].value };
+              const forecast = data.weather.map((w: any) => ({
+                 date: w.date,
+                 max: w.maxtempC,
+                 min: w.mintempC
+              }));
+              return { 
+                success: true, 
+                city, 
+                current: { temp: current.temp_C, desc: current.weatherDesc[0].value },
+                forecast
+              };
             }
             return { success: false, error: "Failed to fetch weather" };
           } catch (e) {
