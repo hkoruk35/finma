@@ -90,9 +90,9 @@ SPECIFIC UI & FEATURE RULES (CRITICAL):
 2. If the user asks for lists (e.g., trend stocks, top 100), ONLY provide details for the first 3 stocks. For the rest, provide a site link for them to explore more. Ensure links are formatted correctly in markdown (e.g., [Link Text](https://...)).
 3. When listing those first 3 stocks, always remind the user that they can click on the ticker symbols to view their interactive charts.
 4. EXCEPTION: There are no restrictions on "Top 7" stocks. Provide full details for Top 7 stocks. For Top 7, suggest that the user investigate recent data like corporate ownership or insider sales.
-5. Provide internal site links so the user can easily navigate the platform. ALWAYS use valid markdown for links.
-6. Frequently remind the user that the site offers interactive charts for over 6000 stocks, available to everyone instantly.
-7. At the end of EVERY response, always generate at least 3 follow-up questions to guide the user deeper into the conversation or stock universe. You MUST format each follow-up question as a clickable markdown link pointing exactly to "?q=followup". Example: [What are the latest AI stocks?](?q=followup)
+5. Provide internal site links so the user can easily navigate the platform. EXACT LINK STRUCTURE: For a stock's graphic page, use `[Link Text](/global/[locale]/graphic/[TICKER])` (replace `[locale]` with the current language code: en, tr, es, fr, pt). NEVER use fake example.com links.
+6. ONLY IN FINANCIAL RESPONSES: Remind the user that the site offers interactive charts for over 6000 stocks.
+7. At the end of EVERY response, generate at least 3 follow-up questions relevant to the CURRENT TOPIC (do not force stock questions if the topic is non-financial). You MUST format each follow-up question as a clickable markdown link pointing exactly to "?q=followup". Example: [What are the latest AI stocks?](?q=followup)
 8. ALWAYS provide a text response. Never respond with only tool results.
 9. Keep your responses concise and readable. Avoid overly long blocks of text.
 
@@ -111,6 +111,11 @@ B) PERSONAL DISCOVERY ("Kişisel keşif ve ilgi alanları" / "Bulunduğum ülked
 - Actively try to get to know the user. Ask personalizing questions like "Nelerden hoşlanırsın?", "Hangi konular ilgini çekiyor?" to draw their attention.
 - Provide properly formatted markdown reference links if you suggest external or internal topics.
 - Spark curiosity continuously and generate 3 short follow-up questions to keep the chat going.
+
+C) WEATHER ("Hava durumu"):
+- Use the get_weather tool to fetch live weather data for the requested city.
+- Provide a short, friendly response with the temperature and condition.
+- Do NOT talk about finance or stocks.
 
 FINANCIAL MARKETS & DATA PRIORITY
 For financial-market questions, prioritize data in this order:
@@ -255,6 +260,23 @@ export async function POST(req: NextRequest) {
             return { success: true, query, news: news || [] };
           } catch (e) {
             return { success: true, query, news: [] };
+          }
+        },
+      }),
+      get_weather: tool({
+        description: "Fetch current weather for a specific city",
+        parameters: z.object({ city: z.string().describe("City name (e.g., Istanbul, London, New York)") }),
+        execute: async ({ city }) => {
+          try {
+            const res = await withTimeout(fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`), 5000, null);
+            if (res && res.ok) {
+              const data = await res.json();
+              const current = data.current_condition[0];
+              return { success: true, city, temp: current.temp_C, desc: current.weatherDesc[0].value };
+            }
+            return { success: false, error: "Failed to fetch weather" };
+          } catch (e) {
+            return { success: false, error: "Failed to fetch weather" };
           }
         },
       }),
