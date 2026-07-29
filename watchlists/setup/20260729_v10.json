@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "AMLX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 19.49,
+        "entry_zone": "18.92 - 20.05",
+        "SL": 17.23,
+        "TP": 23.99
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "RNG",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 57.96,
+        "entry_zone": "56.31 - 59.61",
+        "SL": 51.35,
+        "TP": 71.17
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "THC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 259.0,
+        "entry_zone": "253.09 - 264.91",
+        "SL": 235.36,
+        "TP": 306.27
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "ANF",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 101.72,
+        "entry_zone": "99.47 - 103.97",
+        "SL": 92.71,
+        "TP": 119.75
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "BKR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 59.81,
+        "entry_zone": "58.91 - 60.71",
+        "SL": 56.2,
+        "TP": 67.04
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "BAX",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 24.51,
+        "entry_zone": "24.05 - 24.97",
+        "SL": 22.68,
+        "TP": 28.16
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "ECPG",
+        "sector": "Financial Services",
+        "action": "BUY",
+        "price": 95.89,
+        "entry_zone": "94.12 - 97.66",
+        "SL": 88.81,
+        "TP": 110.06
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "WSM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 233.62,
+        "entry_zone": "230.09 - 237.15",
+        "SL": 219.5,
+        "TP": 261.86
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "STGW",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 8.14,
+        "entry_zone": "7.97 - 8.31",
+        "SL": 7.47,
+        "TP": 9.49
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "PINS",
+        "sector": "Communication Services",
+        "action": "BUY",
+        "price": 24.37,
+        "entry_zone": "23.92 - 24.82",
+        "SL": 22.58,
+        "TP": 27.95
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "EXPE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 306.02,
+        "entry_zone": "300.05 - 311.99",
+        "SL": 282.14,
+        "TP": 353.77
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "GM",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 89.87,
+        "entry_zone": "88.46 - 91.28",
+        "SL": 84.21,
+        "TP": 101.19
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "BKNG",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 202.04,
+        "entry_zone": "198.47 - 205.61",
+        "SL": 187.77,
+        "TP": 230.59
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "W",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 89.68,
+        "entry_zone": "87.02 - 92.34",
+        "SL": 79.04,
+        "TP": 110.95
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "WDAY",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 169.25,
+        "entry_zone": "164.29 - 174.21",
+        "SL": 149.4,
+        "TP": 208.95
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "ORIC",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 11.3,
+        "entry_zone": "10.93 - 11.67",
+        "SL": 9.81,
+        "TP": 14.29
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "EWTX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 39.6,
+        "entry_zone": "38.20 - 41.00",
+        "SL": 33.99,
+        "TP": 50.83
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "MAR",
+        "sector": "Consumer Cyclical",
+        "action": "WATCH",
+        "price": 378.36,
+        "entry_zone": "373.84 - 382.89",
+        "SL": 360.26,
+        "TP": 414.58
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "SWKS",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 62.24,
+        "entry_zone": "60.81 - 63.67",
+        "SL": 56.5,
+        "TP": 73.72
+    },
+    {
+        "date": "2026-07-29 13:00",
+        "symbol": "UMAC",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 18.1,
+        "entry_zone": "17.08 - 19.12",
+        "SL": 14.03,
+        "TP": 26.24
+    }
+]
