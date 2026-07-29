@@ -186,9 +186,26 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
   }, []);
 
   useEffect(() => {
-    const stored = localStorage.getItem("boga-search-history");
-    if (stored) setSearchHistory(JSON.parse(stored));
+    const storedHistory = localStorage.getItem("boga-search-history");
+    if (storedHistory) setSearchHistory(JSON.parse(storedHistory));
+
+    const storedChat = localStorage.getItem("boga-chat-messages");
+    if (storedChat) {
+      try {
+        setMessages(JSON.parse(storedChat));
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem("boga-chat-messages", JSON.stringify(messages));
+    } else {
+      localStorage.removeItem("boga-chat-messages");
+    }
+  }, [messages]);
 
   const saveToHistory = (query: string) => {
     if (!query.trim()) return;
@@ -326,8 +343,8 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
 
   const newSession = () => {
     setMessages([]);
-    setInput("");
-    setSidebarOpen(false);
+    localStorage.removeItem("boga-chat-messages");
+    if (window.innerWidth < 768) setSidebarOpen(false);
   };
 
   return (
