@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T09:06:29.646366-04:00",
+  "generated_at": "2026-07-29T14:05:58.295779-04:00",
   "picks": [
     {
       "ticker": "ETSY",
@@ -72,18 +72,6 @@
       "sector": "Technology",
       "date_added": "2026-07-22",
       "score": 36.5
-    },
-    {
-      "ticker": "SCHW",
-      "sector": "Financial Services",
-      "date_added": "2026-07-22",
-      "score": 34.0
-    },
-    {
-      "ticker": "RIO",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-22",
-      "score": 33.5
     },
     {
       "ticker": "APH",
@@ -287,7 +275,7 @@
       "ticker": "CLF",
       "sector": "Basic Materials",
       "date_added": "2026-07-27",
-      "score": 36.5
+      "score": 44.0
     },
     {
       "ticker": "BCO",
@@ -350,12 +338,6 @@
       "score": 40.0
     },
     {
-      "ticker": "USPH",
-      "sector": "Healthcare",
-      "date_added": "2026-07-28",
-      "score": 38.0
-    },
-    {
       "ticker": "RELL",
       "sector": "Technology",
       "date_added": "2026-07-28",
@@ -365,13 +347,13 @@
       "ticker": "SLB",
       "sector": "Energy",
       "date_added": "2026-07-28",
-      "score": 36.5
+      "score": 39.5
     },
     {
       "ticker": "OII",
       "sector": "Energy",
       "date_added": "2026-07-28",
-      "score": 35.0
+      "score": 32.0
     },
     {
       "ticker": "BRKR",
@@ -438,6 +420,30 @@
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-29",
       "score": 35.5
+    },
+    {
+      "ticker": "SMA",
+      "sector": "Real Estate",
+      "date_added": "2026-07-29",
+      "score": 44.0
+    },
+    {
+      "ticker": "LOGI",
+      "sector": "Technology",
+      "date_added": "2026-07-29",
+      "score": 42.0
+    },
+    {
+      "ticker": "UNP",
+      "sector": "Industrials",
+      "date_added": "2026-07-29",
+      "score": 40.5
+    },
+    {
+      "ticker": "EW",
+      "sector": "Healthcare",
+      "date_added": "2026-07-29",
+      "score": 37.0
     }
   ]
 }
