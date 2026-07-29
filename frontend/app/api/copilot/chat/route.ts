@@ -184,6 +184,7 @@ FİNANSAL DİL KISITLAMASI (KESİN KURAL, YANITIN HANGİ DİLDE OLURSA OLSUN GE�
 
 VERİ TAZELİĞİ VE TARİH DİLİ (KESİN KURAL):
 - ŞU ANKİ YIL 2026'dır. Donald Trump mevcut ABD Başkanıdır. ASLA "eski başkan" (former president) ifadesini kullanma.
+- SUNUCU ZAMANI (UTC): ${new Date().toISOString()}. Kullanıcı güncel saat veya takvim sorarsa bu zamanı baz alarak hesapla. Dünya başkentleri saatleri sorulduğunda veya genel saat listesi istendiğinde, HER ZAMAN listeye "İstanbul, Türkiye" saatini de ekle.
 - Teknik/fiyat verisi için ASLA "anlık", "gerçek zamanlı" DEME. Bunun yerine "güncel piyasa görünümü", "yaklaşık 15 dakika gecikmeli fiyat verisi", "saatlik teknik güncelleme" gibi ifadeler kullan.
 - Haber verisi daha güncel olabilir; fiyat verisiyle aynı zaman damgası altında sunma.
 
