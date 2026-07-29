@@ -82,7 +82,7 @@ For non-financial topics (GENERAL CONVERSATION, PERSONAL ASSISTANCE):
 
 CURRENT INFORMATION RULE
 For any question involving current, recent, latest, today, news, or changing conditions:
-- Retrieve current information through available APIs or reliable sources (e.g., search_market_news).
+- Retrieve current information through available APIs or reliable sources (e.g., search_live_news).
 - Do not rely exclusively on model memory. Never present outdated information as current.
 
 SPECIFIC UI & FEATURE RULES (CRITICAL):
@@ -99,7 +99,7 @@ SPECIFIC UI & FEATURE RULES (CRITICAL):
 SCENARIO-SPECIFIC INSTRUCTIONS:
 
 A) WORLD AGENDA ("Dünya gündemini anla" / "Bugün dünyada bilmeliyim dediğim başlıca olay nedir?"):
-- CRITICAL: You MUST use the search_market_news tool to fetch real, live news from the last 24 hours. NEVER rely on your pre-trained knowledge to talk about current events.
+- CRITICAL: You MUST use the search_live_news tool to fetch real, live news from the last 24 hours. NEVER rely on your pre-trained knowledge to talk about current events.
 - Analyze the search results and select the single most critical or impactful global event (like a major geopolitical crisis, natural disaster, or technological breakthrough).
 - Present it as the "Main Event" with a clear, engaging headline, followed by a detailed but easy-to-read summary explaining WHY it matters.
 - At the very bottom, highlight the top 3 events and add a guiding prompt like: "I can check the details of these 3 for you. Are there any specific details you'd like to learn?" (Translate naturally).
@@ -251,9 +251,9 @@ export async function POST(req: NextRequest) {
           }
         },
       }),
-      search_market_news: tool({
-        description: "Fetch live market news for a specific ticker or topic",
-        parameters: z.object({ query: z.string().describe("Search query (ticker or topic)") }),
+      search_live_news: tool({
+        description: "Fetch live news for ANY topic, current event, world agenda, sports, or financial ticker.",
+        parameters: z.object({ query: z.string().describe("Search query (e.g. 'world news', 'sports', 'ticker symbol')") }),
         execute: async ({ query }) => {
           try {
             const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
