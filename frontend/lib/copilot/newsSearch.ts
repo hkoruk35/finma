@@ -84,11 +84,17 @@ async function translateNewsTitles(items: NewsItem[], lang: string): Promise<New
 export async function fetchLiveMarketNews(query: string = "world news today", lang: string = "en"): Promise<NewsItem[]> {
   try {
     let cleanQuery = query.trim();
-    if (!cleanQuery) cleanQuery = "world news today";
+    if (!cleanQuery || /world news|dünya|küresel|global|gündem/i.test(cleanQuery)) {
+      cleanQuery = "world news today";
+    }
 
-    // Append when:1d so Google RSS ONLY returns news from the last 24 hours!
-    const searchTopic = encodeURIComponent(`${cleanQuery} when:1d`);
-    const rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
+    let rssUrl = "";
+    if (cleanQuery === "world news today") {
+      rssUrl = "https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en";
+    } else {
+      const searchTopic = encodeURIComponent(`${cleanQuery} when:1d`);
+      rssUrl = `https://news.google.com/rss/search?q=${searchTopic}&hl=en-US&gl=US&ceid=US:en`;
+    }
 
     const res = await fetch(rssUrl, { signal: AbortSignal.timeout(2500) });
     if (!res.ok) return fallbackNews(query, lang);
