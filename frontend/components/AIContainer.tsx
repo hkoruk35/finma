@@ -60,7 +60,7 @@ export const POPULAR_TICKERS = [
 ];
 
 function formatInline(text: string): React.ReactNode {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[a-zA-Z0-9.-]+\]\(\/ai\?[tT]icker=[a-zA-Z0-9.-]+\))/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
   return (
     <>
       {parts.map((part, i) => {
@@ -68,19 +68,31 @@ function formatInline(text: string): React.ReactNode {
           return <strong key={i} className="text-white font-bold">{formatInline(part.slice(2, -2))}</strong>;
         if (part.startsWith("`") && part.endsWith("`"))
           return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
-        if (part.startsWith("[") && part.toLowerCase().includes("](/ai?ticker=")) {
-          const ticker = part.substring(1, part.indexOf("]"));
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
-              }}
-              className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
-            >
-              {ticker}
-            </button>
-          );
+        if (part.startsWith("[") && part.endsWith(")")) {
+          const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+          if (match) {
+            const label = match[1];
+            const url = match[2];
+            if (url.toLowerCase().startsWith("/ai?ticker=")) {
+              const ticker = url.split("=")[1];
+              return (
+                <button
+                  key={i}
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
+                  }}
+                  className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
+                >
+                  {label}
+                </button>
+              );
+            }
+            return (
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline font-semibold">
+                {label}
+              </a>
+            );
+          }
         }
         return part;
       })}
@@ -438,13 +450,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </a>
               </div>
 
-              {/* Yasal Uyarı & Telif (Ekranın alt katmanına sabitlenmeyip içerikle kayar) */}
-              <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60">
-                <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                  ⚠️ <strong>{t("legalDisclaimerLabel")}</strong> {t("legalDisclaimerBody")}
-                </p>
-                <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
-              </div>
+              {/* Yasal Uyari & Telif kaldirildi */}
             </div>
             )
           )}
@@ -489,14 +495,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
               </div>
             </div>
           )}
-          {messages.length > 0 && (
-            <div className="text-center pt-8 pb-4 space-y-1.5 opacity-60 max-w-4xl mx-auto w-full">
-              <p className="text-[10px] text-slate-500 font-medium leading-relaxed max-w-2xl mx-auto">
-                ⚠️ <strong>{t("legalDisclaimerLabel")}</strong> {t("legalDisclaimerBody")}
-              </p>
-              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
-            </div>
-          )}
+          {/* Yasal Uyari & Telif kaldirildi */}
         </div>
 
         <div className="px-4 py-3 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
@@ -518,6 +517,9 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </button>
               </div>
             )}
+            <div className="text-center mt-3 mb-1 opacity-60">
+              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
+            </div>
           </div>
         </div>
       </div>
