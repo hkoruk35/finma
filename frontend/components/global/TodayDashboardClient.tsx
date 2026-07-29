@@ -340,8 +340,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-2 mb-3">
           <div>
-            <p className="text-[#3b82f6] text-[13px] font-black uppercase tracking-widest">{dateStr}</p>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white mt-0.5">
+            <p className="text-[#3b82f6] text-[13px] font-medium uppercase tracking-widest">{dateStr}</p>
+            <h1 className="text-xl md:text-2xl font-semibold text-white mt-0.5">
               {greeting}
             </h1>
           </div>
@@ -350,7 +350,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* Refresh Button */}
             <button
               onClick={handleRefresh}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-[13px] font-bold text-slate-200 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1e2a3a]/40 hover:bg-[#1e2a3a]/80 border border-[#1e2a3a]/60 text-[13px] font-medium text-slate-200 transition-all"
             >
               <svg className={`w-3.5 h-3.5 ${loadingMarkets || loadingWeather || loadingSports || loadingNews ? "animate-spin" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18.2" />
@@ -371,7 +371,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🌤️</span> WEATHER
                 </span>
 
@@ -409,7 +409,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                 <div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-base font-bold text-white leading-tight truncate max-w-[150px]">
+                      <h3 className="text-base font-semibold text-white leading-tight truncate max-w-[150px]">
                         {weather.location.split(",")[0]}
                       </h3>
                       <p className="text-[13px] text-slate-400 mt-0.5">{weather.current.condition}</p>
@@ -427,8 +427,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
 
                   {/* Weather Info Row */}
                   <div className="grid grid-cols-2 gap-2 mt-3 pt-2.5 border-t border-[#1e2a3a]/40 text-[13px] text-slate-400">
-                    <div>{t.humidity}: <span className="text-white font-bold">{weather.current.humidity}%</span></div>
-                    <div>{t.wind}: <span className="text-white font-bold">{isImperial ? `${weather.current.wind_mph} mph` : `${weather.current.wind_kph} km/h`}</span></div>
+                    <div>{t.humidity}: <span className="text-white font-medium">{weather.current.humidity}%</span></div>
+                    <div>{t.wind}: <span className="text-white font-medium">{isImperial ? `${weather.current.wind_mph} mph` : `${weather.current.wind_kph} km/h`}</span></div>
                   </div>
 
                   {/* 3 Day Forecast */}
@@ -438,12 +438,12 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         const dayName = new Date(f.date).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { weekday: "short" });
                         return (
                           <div key={i} className="flex justify-between items-center text-[13px]">
-                            <span className="w-12 text-slate-400 font-bold capitalize">{dayName}</span>
+                            <span className="w-12 text-slate-400 font-medium capitalize">{dayName}</span>
                             <div className="flex items-center gap-1.5 flex-1 px-3">
                               {f.icon && <img src={f.icon} alt="" className="w-4 h-4 object-contain" />}
                               <span className="text-[13px] text-slate-400 truncate max-w-[120px]">{f.condition}</span>
                             </div>
-                            <span className="text-white font-bold text-[13px]">
+                            <span className="text-white font-medium text-[13px]">
                               {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[13px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
                             </span>
                           </div>
@@ -458,12 +458,12 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 2. MARKETS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>📈</span> MARKETS
                 </span>
                 <Link
                   href={`/global/${locale}/home`}
-                  className="text-[#3b82f6] text-[13px] font-bold hover:underline"
+                  className="text-[#3b82f6] text-[13px] font-medium hover:underline"
                 >
                   {t.seeMarket} →
                 </Link>
@@ -478,8 +478,8 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     return (
                       <div key={index.ticker} className="flex items-center justify-between gap-2 border-b border-[#1e2a3a]/20 pb-1.5 last:border-0 last:pb-0">
                         <div>
-                          <p className="text-[13px] font-black text-white">{index.name}</p>
-                          <p className="text-[13px] text-[#64748b] font-bold">{index.ticker}</p>
+                          <p className="text-[13px] font-medium text-white">{index.name}</p>
+                          <p className="text-[13px] text-[#64748b] font-normal">{index.ticker}</p>
                         </div>
 
                         {/* Sparkline Graph */}
@@ -488,9 +488,9 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-[13px] font-black text-white">${index.price.toLocaleString()}</p>
+                          <p className="text-[13px] font-medium text-white">${index.price.toLocaleString()}</p>
                           <span
-                            className={`inline-block px-1.5 py-0.5 rounded text-[13px] font-black mt-0.5 ${
+                            className={`inline-block px-1.5 py-0.5 rounded text-[13px] font-medium mt-0.5 ${
                               isPositive ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"
                             }`}
                           >
@@ -508,7 +508,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 3. SPORTS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-black text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🏀</span> {t.sports}
                 </span>
               </div>
@@ -527,11 +527,11 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                       rel="noopener noreferrer"
                       className="block bg-[#141b2b]/40 rounded-lg p-2.5 border border-[#1e2a3a]/40 hover:border-[#3b82f6]/40 transition-all group"
                     >
-                      <div className="flex justify-between items-center text-[13px] text-[#64748b] font-bold mb-1">
+                      <div className="flex justify-between items-center text-[13px] text-[#64748b] font-medium mb-1">
                         <span className="text-[#3b82f6] uppercase tracking-wider">{item.source}</span>
                         <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
-                      <h4 className="text-[13px] font-bold text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-2">
+                      <h4 className="text-[13px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-2">
                         {item.title}
                       </h4>
                     </a>
@@ -547,7 +547,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             
             {/* News Section Header */}
             <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
-              <span className="text-base font-extrabold text-white tracking-tight">{t.topStories}</span>
+              <span className="text-base font-semibold text-white tracking-tight">{t.topStories}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
             </div>
 
@@ -568,11 +568,11 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     className="md:col-span-2 group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl overflow-hidden backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div className="p-4">
-                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-bold mb-2">
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
                         <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
-                      <h2 className="text-lg md:text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors leading-tight">
+                      <h2 className="text-lg md:text-xl font-medium text-white group-hover:text-[#3b82f6] transition-colors leading-tight">
                         {item.title}
                       </h2>
                     </div>
@@ -594,11 +594,11 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     className="group bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md shadow-xl flex flex-col justify-between hover:border-[#3b82f6]/40 transition-all duration-300"
                   >
                     <div>
-                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-bold mb-2">
+                      <div className="flex items-center justify-between text-[13px] text-[#64748b] font-medium mb-2">
                         <span className="text-[#3b82f6] uppercase tracking-widest">{item.source}</span>
                         <span>{new Date(item.pubDate).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { month: "short", day: "numeric" })}</span>
                       </div>
-                      <h3 className="text-[14px] font-bold text-slate-100 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
+                      <h3 className="text-[14px] font-normal text-slate-200 group-hover:text-[#3b82f6] transition-colors leading-snug line-clamp-3">
                         {item.title}
                       </h3>
                     </div>

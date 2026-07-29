@@ -65,7 +65,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
         <nav className="flex items-center gap-2 sm:gap-6">
           <Link
             href={`/global/${locale}/today`}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
           >
             <span>📅</span>
             <span>Bugün Neler Oluyor</span>
@@ -81,7 +81,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
               <Link
                 key={lg}
                 href={getLangHref(lg)}
-                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all ${
+                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider transition-all ${
                   isActive ? "bg-[#3b82f6] text-white" : "text-[#64748b] hover:text-white hover:bg-white/10"
                 }`}
               >
