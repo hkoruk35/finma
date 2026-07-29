@@ -310,12 +310,18 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     return () => window.removeEventListener("start_new_query", handleReset);
   }, []);
 
+  // Keep a ref to the latest send function to avoid stale closures in event listeners
+  const sendRef = useRef(send);
+  useEffect(() => {
+    sendRef.current = send;
+  }, [send]);
+
   // Listen for custom inline ticker click event
   useEffect(() => {
     const handleTickerClick = (e: Event) => {
       const ticker = (e as CustomEvent).detail;
       if (ticker) {
-        send(ticker.toUpperCase());
+        sendRef.current(ticker.toUpperCase());
       }
     };
     window.addEventListener("trigger_ticker_query", handleTickerClick);
@@ -327,7 +333,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     const handleTextQuery = (e: Event) => {
       const query = (e as CustomEvent).detail;
       if (query) {
-        send(query);
+        sendRef.current(query);
       }
     };
     window.addEventListener("trigger_text_query", handleTextQuery);
