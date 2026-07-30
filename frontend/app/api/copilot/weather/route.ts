@@ -91,7 +91,7 @@ export async function GET(req: NextRequest) {
         current: {
           temperature_c: parseInt(current.temp_C),
           temperature_f: parseInt(current.temp_F || Math.round(parseInt(current.temp_C) * 1.8 + 32).toString()),
-          condition: current[`"lang_${lang}`"]?.[0]?.value || current.weatherDesc[0].value,
+          condition: current[`lang_${lang}`]?.[0]?.value || current.weatherDesc[0].value,
           humidity: parseInt(current.humidity),
           wind_kph: parseInt(current.windspeedKmph),
           wind_mph: parseInt(current.windspeedMiles || Math.round(parseInt(current.windspeedKmph) * 0.621371).toString()),
@@ -102,7 +102,7 @@ export async function GET(req: NextRequest) {
           min_temp_c: parseInt(w.mintempC),
           max_temp_f: parseInt(w.maxtempF || Math.round(parseInt(w.maxtempC) * 1.8 + 32).toString()),
           min_temp_f: parseInt(w.mintempF || Math.round(parseInt(w.mintempC) * 1.8 + 32).toString()),
-          condition: w.hourly?.[4]?.[`"lang_${lang}`"]?.[0]?.value || w.hourly?.[4]?.weatherDesc?.[0]?.value || "Güneşli",
+          condition: w.hourly?.[4]?.[`lang_${lang}`]?.[0]?.value || w.hourly?.[4]?.weatherDesc?.[0]?.value || "Güneşli",
         })),
         fetched_at: new Date().toISOString(),
       };
@@ -117,5 +117,3 @@ export async function GET(req: NextRequest) {
     { status: 502 }
   );
 }
-
-

@@ -64,6 +64,8 @@ const I18N = {
     goodMorning: "Günaydın",
     goodAfternoon: "Tünaydın",
     goodEvening: "İyi Akşamlar",
+    weather: "HAVA DURUMU",
+    markets: "PİYASALAR",
     refresh: "Yenile",
     widgets: "Araçlar",
     seeMarket: "Piyasaları Gör",
@@ -83,9 +85,11 @@ const I18N = {
     economy: "Ekonomi Haberleri",
   },
   en: {
-    weather: "WEATHER", markets: "MARKETS", goodMorning: "Good morning",
+    goodMorning: "Good morning",
     goodAfternoon: "Good afternoon",
     goodEvening: "Good evening",
+    weather: "WEATHER",
+    markets: "MARKETS",
     refresh: "Refresh",
     widgets: "Widgets",
     seeMarket: "See market",
@@ -108,6 +112,8 @@ const I18N = {
     goodMorning: "Buenos días",
     goodAfternoon: "Buenas tardes",
     goodEvening: "Buenas noches",
+    weather: "EL TIEMPO",
+    markets: "MERCADOS",
     refresh: "Actualizar",
     widgets: "Widgets",
     seeMarket: "Ver mercados",
@@ -127,9 +133,11 @@ const I18N = {
     economy: "Noticias Económicas",
   },
   fr: {
-    weather: "M�T�O", markets: "MARCH�S", goodMorning: "Bon matin",
+    goodMorning: "Bon matin",
     goodAfternoon: "Bon après-midi",
     goodEvening: "Bonsoir",
+    weather: "MÉTÉO",
+    markets: "MARCHÉS",
     refresh: "Actualiser",
     widgets: "Widgets",
     seeMarket: "Voir les marchés",
@@ -149,9 +157,11 @@ const I18N = {
     economy: "Actualités Économiques",
   },
   pt: {
-    weather: "CLIMA", markets: "MERCADOS", goodMorning: "Bom dia",
+    goodMorning: "Bom dia",
     goodAfternoon: "Boa tarde",
     goodEvening: "Boa noite",
+    weather: "CLIMA",
+    markets: "MERCADOS",
     refresh: "Atualizar",
     widgets: "Widgets",
     seeMarket: "Ver mercados",
@@ -363,15 +373,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
       .finally(() => setLoadingEconomyNews(false));
   };
 
-  const isImperial = locale === "en" || 
-    (weather?.location && 
-      (weather.location.toLowerCase().includes("usa") || 
-       weather.location.toLowerCase().includes("united states") || 
-       weather.location.toLowerCase().includes("united kingdom") || 
-       weather.location.toLowerCase().includes("uk") || 
-       weather.location.toLowerCase().includes("new york") || 
-       weather.location.toLowerCase().includes("london") ||
-       weather.location.toLowerCase().includes("gb")));
+  const isImperial = locale === "en";
 
   return (
     <div className="min-h-screen bg-[#070b12] text-slate-100 font-sans pb-8">
@@ -417,7 +419,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               
               <div className="flex justify-between items-center mb-3">
                 <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
-                  <span>🌤️</span> WEATHER
+                  <span>🌤️</span> {t.weather}
                 </span>
 
                 <div className="flex items-center gap-1.5">
@@ -504,7 +506,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
                 <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
-                  <span>📈</span> MARKETS
+                  <span>📈</span> {t.markets}
                 </span>
                 <Link
                   href={`/global/${locale}/home`}
@@ -718,5 +720,4 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
     </div>
   );
 }
-
 
