@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T14:06:55.870449-04:00",
+  "generated_at": "2026-07-30T17:05:44.856562-04:00",
   "picks": [
     {
       "ticker": "SBLK",
@@ -14,16 +14,34 @@
       "score": 33.0
     },
     {
-      "ticker": "ICLR",
-      "sector": "Healthcare",
-      "date_added": "2026-07-30",
-      "score": 33.0
-    },
-    {
       "ticker": "WAB",
       "sector": "Industrials",
       "date_added": "2026-07-30",
       "score": 29.0
+    },
+    {
+      "ticker": "CR",
+      "sector": "Industrials",
+      "date_added": "2026-07-30",
+      "score": 39.5
+    },
+    {
+      "ticker": "PAYS",
+      "sector": "Technology",
+      "date_added": "2026-07-30",
+      "score": 39.0
+    },
+    {
+      "ticker": "FAF",
+      "sector": "Financial Services",
+      "date_added": "2026-07-30",
+      "score": 37.0
+    },
+    {
+      "ticker": "FLS",
+      "sector": "Industrials",
+      "date_added": "2026-07-30",
+      "score": 29.5
     }
   ]
 }
