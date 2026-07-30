@@ -404,7 +404,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           <div className="flex items-center gap-1.5 mb-2 shrink-0">
             <button
               onClick={() => setRightTab("watchlist")}
-              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider transition-all ${
                 rightTab === "watchlist" ? "bg-[#3b82f6] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
               }`}
             >
@@ -412,7 +412,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </button>
             <button
               onClick={() => setRightTab("trend")}
-              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all ${
+              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider transition-all ${
                 rightTab === "trend" ? "bg-[#f59e0b] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
               }`}
             >
@@ -436,7 +436,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
               <button
                 disabled={compareSelection.length < 2}
                 onClick={() => setMultiChartRequest([...compareSelection])}
-                className="shrink-0 px-2 py-1 rounded bg-[#3b82f6] text-white text-[9px] font-black uppercase disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#2563eb] transition-colors"
+                className="shrink-0 px-2 py-1 rounded bg-[#3b82f6] text-white text-[9px] font-medium uppercase disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#2563eb] transition-colors"
               >
                 {compareOpenLabel} →
               </button>

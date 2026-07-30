@@ -34,11 +34,11 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
           </span>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="px-2 py-1 rounded bg-[#1e2a3a] text-[9px] font-black text-[#00d2ff] uppercase tracking-widest">NY TIME</span>
+          <span className="px-2 py-1 rounded bg-[#1e2a3a] text-[9px] font-medium text-[#00d2ff] uppercase tracking-widest">NY TIME</span>
 
           <button
             onClick={() => setExpanded((v) => !v)}
-            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 text-[10px] font-black text-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/30"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 text-[10px] font-medium text-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/30"
           >
             {expanded ? (
               <>

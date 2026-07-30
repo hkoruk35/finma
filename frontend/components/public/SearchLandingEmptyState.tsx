@@ -31,7 +31,7 @@ export default function SearchLandingEmptyState({ locale, input, setInput, input
 
   return (
     <div className="mt-6 md:mt-8 animate-fade-in max-w-6xl mx-auto w-full px-4 space-y-6 md:space-y-8">
-      <h1 className="text-white text-center font-semibold" style={{ fontSize: '32px', fontFamily: 'Inter' }}>{HEADLINE[locale]}</h1>
+      <h1 className="text-white text-center font-medium" style={{ fontSize: '32px', fontFamily: 'Inter' }}>{HEADLINE[locale]}</h1>
  
       {/* Search Input */}
       <div className="flex items-center gap-2 bg-[#111826] border border-[#1e2a3a] rounded-full pl-5 pr-1.5 py-1.5 focus-within:border-[#3b82f6]/50 transition-all max-w-2xl mx-auto w-full">

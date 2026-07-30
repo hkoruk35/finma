@@ -20,7 +20,7 @@ function dollar(n: number | null | undefined, d = 2) {
 }
 function pnlCls(n: number | null | undefined) {
   if (n == null) return "text-slate-500";
-  return n > 0 ? "text-emerald-400 font-black" : n < 0 ? "text-red-400 font-black" : "text-slate-300";
+  return n > 0 ? "text-emerald-400 font-medium" : n < 0 ? "text-red-400 font-medium" : "text-slate-300";
 }
 
 const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
@@ -33,7 +33,7 @@ const STATUS_LABEL: Record<string, { label: string; cls: string }> = {
 };
 
 const TH = ({ children, right, center }: { children: React.ReactNode; right?: boolean; center?: boolean }) => (
-  <th className={`px-2 py-2 text-[10px] font-black text-slate-500 uppercase tracking-tight whitespace-nowrap border-b border-white/10 ${right ? "text-right" : center ? "text-center" : "text-left"}`}>
+  <th className={`px-2 py-2 text-[10px] font-medium text-slate-500 uppercase tracking-tight whitespace-nowrap border-b border-white/10 ${right ? "text-right" : center ? "text-center" : "text-left"}`}>
     {children}
   </th>
 );
@@ -187,13 +187,13 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       {/* ── Header Bar (matches options table style) ──────────────────── */}
       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2 flex-wrap gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-black text-white tracking-tighter uppercase italic">
+          <span className="text-lg font-medium text-white tracking-tighter uppercase italic">
             BOGA <span className="text-[#3b82f6]">OPTIONS</span> P&amp;L
           </span>
           <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-medium">
             Performance Terminal
           </span>
-          <span className="flex items-center gap-1 text-[9px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20 font-black uppercase tracking-widest">
+          <span className="flex items-center gap-1 text-[9px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20 font-medium uppercase tracking-widest">
             <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
             LIVE
           </span>
@@ -263,8 +263,8 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
           { label: "UNRLZD", val: fmtPct(avgUnrealized), cls: pnlCls(avgUnrealized) },
         ].map(({ label, val, cls }) => (
           <div key={label} className="bg-[#0d1420] border border-white/10 p-2 text-center rounded">
-            <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">{label}</div>
-            <div className={`font-black text-sm ${cls}`}>{String(val)}</div>
+            <div className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mb-1">{label}</div>
+            <div className={`font-medium text-sm ${cls}`}>{String(val)}</div>
           </div>
         ))}
       </div>
@@ -294,7 +294,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={14} className="px-6 py-20 text-center text-slate-500 uppercase tracking-widest font-black">
+                  <td colSpan={14} className="px-6 py-20 text-center text-slate-500 uppercase tracking-widest font-medium">
                     [ NO POSITIONS FOUND ]
                   </td>
                 </tr>
@@ -307,7 +307,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                   return (
                     <tr key={p.id} className={`hover:bg-white/[0.04] transition-colors ${isOpen ? "" : "opacity-80"}`}>
                       <TD cls="text-slate-500">{p.scan_date}</TD>
-                      <TD cls="text-white font-black">
+                      <TD cls="text-white font-medium">
                         <TickerHoverChart ticker={p.ticker}>
                           <Link href={`/stock/${p.ticker}`} className="hover:text-[#3b82f6] transition-colors">
                             {p.ticker}
@@ -341,11 +341,11 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                         {p.days_held != null ? `${p.days_held}d` : "—"}
                       </TD>
                       <TD center>
-                        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded ${sm.cls}`}>
+                        <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded ${sm.cls}`}>
                           {sm.label}
                         </span>
                       </TD>
-                      <TD right cls={`font-mono font-black ${pnlCls(isOpen ? p.unrealized_pnl_pct : p.pnl_pct)}`}>
+                      <TD right cls={`font-mono font-medium ${pnlCls(isOpen ? p.unrealized_pnl_pct : p.pnl_pct)}`}>
                         {isOpen ? "—" : fmtPct(p.pnl_pct)}
                       </TD>
                       <TD cls="text-slate-500 text-[10px] font-mono max-w-[180px] truncate" title={p.exit_reason || ""}>
@@ -364,31 +364,31 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
       {summary && (
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
-            <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Overall Win Rate</div>
-            <div className={`text-xl font-black ${(summary.win_rate ?? 0) >= 50 ? "text-emerald-400" : "text-red-400"}`}>
+            <div className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mb-2">Overall Win Rate</div>
+            <div className={`text-xl font-medium ${(summary.win_rate ?? 0) >= 50 ? "text-emerald-400" : "text-red-400"}`}>
               {summary.win_rate != null ? summary.win_rate + "%" : "—"}
             </div>
             <div className="text-[10px] text-slate-500 mt-1">{summary.tp_hit} TP / {summary.closed} closed</div>
           </div>
           <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
-            <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Best / Worst Trade</div>
+            <div className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mb-2">Best / Worst Trade</div>
             <div className="flex items-center gap-2">
-              <span className="text-emerald-400 font-black">{fmtPct(summary.best_trade_pct)}</span>
+              <span className="text-emerald-400 font-medium">{fmtPct(summary.best_trade_pct)}</span>
               <span className="text-slate-600">/</span>
-              <span className="text-red-400 font-black">{fmtPct(summary.worst_trade_pct)}</span>
+              <span className="text-red-400 font-medium">{fmtPct(summary.worst_trade_pct)}</span>
             </div>
           </div>
           <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
-            <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Avg Winner / Loser</div>
+            <div className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mb-2">Avg Winner / Loser</div>
             <div className="flex items-center gap-2">
-              <span className="text-emerald-400 font-black">{fmtPct(summary.avg_winner_pct)}</span>
+              <span className="text-emerald-400 font-medium">{fmtPct(summary.avg_winner_pct)}</span>
               <span className="text-slate-600">/</span>
-              <span className="text-red-400 font-black">{fmtPct(summary.avg_loser_pct)}</span>
+              <span className="text-red-400 font-medium">{fmtPct(summary.avg_loser_pct)}</span>
             </div>
           </div>
           <div className="bg-[#0d1420] border border-white/10 p-3 rounded">
-            <div className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-2">Expectancy</div>
-            <div className={`text-xl font-black ${pnlCls(summary.expectancy)}`}>
+            <div className="text-[9px] font-medium text-slate-500 uppercase tracking-widest mb-2">Expectancy</div>
+            <div className={`text-xl font-medium ${pnlCls(summary.expectancy)}`}>
               {fmtPct(summary.expectancy)}
             </div>
             <div className="text-[10px] text-slate-500 mt-1">per trade avg</div>

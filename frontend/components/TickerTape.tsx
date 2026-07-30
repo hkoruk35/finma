@@ -38,7 +38,7 @@ export default function TickerTape({ data, indices }: Props) {
             <span className="text-white font-medium uppercase tracking-wider text-[12px]">{item.label}</span>
             <span className="font-mono text-white/70 text-sm">{item.value.toFixed(2)}</span>
             <span
-              className={`font-mono font-black text-lg ${
+              className={`font-mono font-medium text-lg ${
                 item.change >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"
               }`}
             >

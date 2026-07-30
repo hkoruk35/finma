@@ -29,7 +29,7 @@ export default function ThemePageTabs({ hot, sectors, csp }: Props) {
             <button
               key={tab.id}
               onClick={() => setActive(tab.id)}
-              className="px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg border transition-all"
+              className="px-4 py-2 text-[11px] font-medium uppercase whitespace-nowrap rounded-lg border transition-all"
               style={
                 isActive
                   ? { borderColor: tab.accent, color: tab.accent, background: `${tab.accent}1a` }

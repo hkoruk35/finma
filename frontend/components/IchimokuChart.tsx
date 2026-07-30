@@ -485,7 +485,7 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
             { state: showChikou, setState: setShowChikou, label: "Momentum", sublabel:"26G geri", color: "#a855f7" },
             { state: showKumo, setState: setShowKumo, label: "Destek/Direnç Bulutu", sublabel:"", color: "#22c55e" },
           ].map(({ state, setState, label, sublabel, color }) => (
-            <label key={label} className="flex items-center gap-1.5 text-[10px] md:text-[11px] font-semibold text-slate-300 cursor-pointer hover:text-white transition-colors">
+            <label key={label} className="flex items-center gap-1.5 text-[10px] md:text-[11px] font-medium text-slate-300 cursor-pointer hover:text-white transition-colors">
               <input
                 type="checkbox"
                 checked={state}
@@ -525,27 +525,27 @@ export default function IchimokuChart({ historyOHLC, currentPrice, forecast15 }:
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-[10px] md:text-[11px]">
         <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
           <div className="text-slate-500 mb-0.5 text-[9px] uppercase tracking-wide">Son Kapanış</div>
-          <div className="text-white font-black text-sm">${metrics.close}</div>
+          <div className="text-white font-medium text-sm">${metrics.close}</div>
         </div>
         <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#f0a500]/20">
           <div className="text-[9px] uppercase tracking-wide mb-0.5" style={{color:"#f0a500"}}>Kısa Trend</div>
           <div className="text-[9px] text-slate-500 mb-0.5">(9 günlük)</div>
-          <div style={{ color: "#f0a500" }} className="font-black">${metrics.tenkan}</div>
+          <div style={{ color: "#f0a500" }} className="font-medium">${metrics.tenkan}</div>
         </div>
         <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#e05c5c]/20">
           <div className="text-[9px] uppercase tracking-wide mb-0.5" style={{color:"#e05c5c"}}>Orta Trend</div>
           <div className="text-[9px] text-slate-500 mb-0.5">(26 günlük)</div>
-          <div style={{ color: "#e05c5c" }} className="font-black">${metrics.kijun}</div>
+          <div style={{ color: "#e05c5c" }} className="font-medium">${metrics.kijun}</div>
         </div>
         <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#22c55e]/20">
           <div className="text-[9px] text-slate-500 uppercase tracking-wide mb-0.5">D/D Bulutu</div>
-          <div className="font-black text-[10px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : metrics.kumo.includes("Kırmızı") ? "#e05c5c" : "#94a3b8" }}>
+          <div className="font-medium text-[10px]" style={{ color: metrics.kumo.includes("Yeşil") ? "#22c55e" : metrics.kumo.includes("Kırmızı") ? "#e05c5c" : "#94a3b8" }}>
             {metrics.kumo.includes("Yeşil") ? "🟢 Boğa" : metrics.kumo.includes("Kırmızı") ? "🔴 Ayı" : "⚪ —"}
           </div>
         </div>
         <div className="bg-[#0d1321]/50 rounded-lg p-2 border border-[#1e3a5f]/30">
           <div className="text-[9px] text-slate-500 uppercase tracking-wide mb-0.5">Genel Sinyal</div>
-          <div className="font-black text-[11px]" style={{ color: metrics.signalColor }}>
+          <div className="font-medium text-[11px]" style={{ color: metrics.signalColor }}>
             {metrics.signal === "BOĞA" ? "↗ BOĞA" : metrics.signal === "AYI" ? "↘ AYI" : "→ NÖTR"}
           </div>
         </div>

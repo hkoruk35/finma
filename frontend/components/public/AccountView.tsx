@@ -109,7 +109,7 @@ function AccountViewInner({ locale, isGlobal = false }: { locale: Locale; isGlob
   return (
     <div className={`${isGlobal ? "flex-1" : "min-h-screen"} bg-[#010409] font-sans px-4 py-12`}>
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-semibold text-white tracking-tighter mb-8 text-center">{t.title}</h1>
+        <h1 className="text-3xl font-medium text-white tracking-tighter mb-8 text-center">{t.title}</h1>
 
         {message && (
           <div
@@ -232,7 +232,7 @@ function ProfileTab({
 
   return (
     <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-semibold text-white">{t.updateProfileTitle}</h2>
+      <h2 className="text-xl font-medium text-white">{t.updateProfileTitle}</h2>
 
       <div>
         <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{t.usernameLabel}</label>
@@ -328,7 +328,7 @@ function PasswordTab({
 
   return (
     <form onSubmit={handleSubmit} className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-semibold text-white">{t.changePasswordTitle}</h2>
+      <h2 className="text-xl font-medium text-white">{t.changePasswordTitle}</h2>
 
       <div>
         <label className="block text-xs uppercase tracking-widest text-white/40 mb-2">{t.newPasswordLabel}</label>
@@ -548,7 +548,7 @@ function SubscriptionTab({
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-semibold text-white">{t.subscriptionTitle}</h2>
+      <h2 className="text-xl font-medium text-white">{t.subscriptionTitle}</h2>
 
       {/* Live countdown for trial users (legacy or Stripe trial) */}
       {isTrialActive && member.trial_ends_at && (
@@ -657,7 +657,7 @@ function SubscriptionTab({
             </>
           ) : (
             <>
-              <div className="rounded-2xl bg-amber-500/10 border border-amber-500/20 p-4 text-amber-400 text-xs font-semibold">
+              <div className="rounded-2xl bg-amber-500/10 border border-amber-500/20 p-4 text-amber-400 text-xs font-medium">
                 {L(
                   locale,
                   `Your membership ends on ${member.current_period_end ? dateFmt(member.current_period_end) : ""}. You won't be charged again.`,
@@ -682,7 +682,7 @@ function SubscriptionTab({
       {/* Payment failed */}
       {status === "past_due" && (
         <>
-          <div className="rounded-2xl bg-red-500/10 border border-red-500/20 p-4 text-red-400 text-xs font-semibold">
+          <div className="rounded-2xl bg-red-500/10 border border-red-500/20 p-4 text-red-400 text-xs font-medium">
             {L(
               locale,
               "Your last payment failed. Please update your payment method to keep your access.",
@@ -765,7 +765,7 @@ function LanguageTab({ locale, t, isGlobal }: { locale: Locale; t: any; isGlobal
 
   return (
     <div className="glass-card border border-white/10 bg-[#0d1117] rounded-3xl p-8 space-y-6">
-      <h2 className="text-xl font-semibold text-white">{t.languageTitle}</h2>
+      <h2 className="text-xl font-medium text-white">{t.languageTitle}</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {['EN', 'ES', 'FR', 'PT', 'TR'].map((lang) => {

@@ -72,7 +72,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
         <Link href={`/global/${locale}/search`} className="flex items-center gap-2 group flex-shrink-0">
           <div className="flex flex-col items-start">
             <span className="text-lg tracking-tight font-medium">
-              <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Stock</span>
+              <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
             </span>
             <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
               TERMINAL
@@ -92,7 +92,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               <button
                 type="button"
                 onClick={() => setIsMobileLangOpen((v) => !v)}
-                className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
+                className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/10 border border-[#1e2a3a]/60"
                 aria-label="Language"
               >
                 🌐 {locale.toUpperCase()}
@@ -132,7 +132,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   return (
                     <span
                       key={lang}
-                      className="px-2 py-1 text-[10px] font-black uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
+                      className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
                       title="Coming Soon"
                     >
                       {lang}
@@ -144,7 +144,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   <Link
                     key={lang}
                     href={getLangHref(lang)}
-                    className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
+                    className={`px-2 py-1 rounded-md text-[10px] font-medium uppercase tracking-wider transition-all ${
                       isActive
                         ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                         : "text-[#64748b] hover:text-white hover:bg-white/10"
@@ -160,7 +160,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
           {locale && (
             <Link
               href={`/global/${locale}/today`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
             >
               <span>📅</span>
               <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
@@ -171,7 +171,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             locale={locale}
             targetHref={terminalHref}
             title={terminalTooltip}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
@@ -181,7 +181,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
           <Link
             href={screenerHref}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -191,7 +191,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
 
           <Link
             href={homeHref}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -200,7 +200,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
           </Link>
           <Link
             href={locale === "pt" ? "/global/pt/Perguntas_Frequentes" : locale === "tr" ? "/global/tr/sss" : `/global/${locale}/faq`}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
           >
             <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -212,7 +212,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
               <>
                 <Link
                   href={accountHref}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all"
                 >
                   <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -223,7 +223,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                   onClick={handleLogout}
                   disabled={loggingOut}
                   title={locale === "tr" ? "Çıkış Yap" : locale === "es" ? "Cerrar sesión" : locale === "fr" ? "Se déconnecter" : locale === "pt" ? "Sair" : "Log out"}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
                 >
                   <svg className="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
@@ -234,7 +234,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             ) : (
               <Link
                 href={loginHref}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white transition-all border border-[#3b82f6]/20 ml-1"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />

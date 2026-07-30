@@ -92,7 +92,7 @@ export default function AcademyIndexClient() {
           <nav className="flex items-center gap-2 text-xs text-[#00d2ff]">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-white font-semibold">Academy</span>
+            <span className="text-white font-medium">Academy</span>
           </nav>
           <LanguageSwitcher currentLocale={locale} onChange={handleLocale} />
         </div>
@@ -103,11 +103,11 @@ export default function AcademyIndexClient() {
         <div className="absolute inset-0 bg-gradient-to-br from-[#3b82f6]/10 via-transparent to-[#8b5cf6]/10 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 py-20 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[11px] font-black text-[#3b82f6] uppercase tracking-[0.25em] mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[11px] font-medium text-[#3b82f6] uppercase tracking-[0.25em] mb-8">
               <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
               BOGA AI Academy
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-tight tracking-tight mb-6">
               {hero.h1}
             </h1>
             <p className="text-xl text-white leading-relaxed mb-10 max-w-2xl mx-auto">
@@ -117,7 +117,7 @@ export default function AcademyIndexClient() {
               <Link
                 href="/admin/account/register"
                 id="academy-hero-cta"
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-black text-lg shadow-xl shadow-blue-500/20 transition-all"
+                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-medium text-lg shadow-xl shadow-blue-500/20 transition-all"
               >
                 {hero.cta}
               </Link>
@@ -147,7 +147,7 @@ export default function AcademyIndexClient() {
                 </div>
                 <div>
                   <div
-                    className="text-[10px] font-black uppercase tracking-[0.25em] mb-1"
+                    className="text-[10px] font-medium uppercase tracking-[0.25em] mb-1"
                     style={{ color: level.color }}
                   >
                     {level.labelMap[locale]}
@@ -175,12 +175,12 @@ export default function AcademyIndexClient() {
                         </div>
                         <div className="min-w-0">
                           <div
-                            className="text-[9px] font-black uppercase tracking-[0.2em] mb-2"
+                            className="text-[9px] font-medium uppercase tracking-[0.2em] mb-2"
                             style={{ color: article.color }}
                           >
                             {article.level}
                           </div>
-                          <h3 className="text-lg font-black text-white leading-snug group-hover:text-[#3b82f6] transition-colors">
+                          <h3 className="text-lg font-medium text-white leading-snug group-hover:text-[#3b82f6] transition-colors">
                             {t.title}
                           </h3>
                         </div>
@@ -206,14 +206,14 @@ export default function AcademyIndexClient() {
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]" />
           <div className="relative z-10">
             <div className="text-5xl mb-6">🚀</div>
-            <h2 className="text-3xl font-black text-white mb-4">{hero.cta}</h2>
+            <h2 className="text-3xl font-medium text-white mb-4">{hero.cta}</h2>
             <p className="text-white mb-10 max-w-xl mx-auto leading-relaxed">
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily and find the highest-conviction opportunities before the market does.
             </p>
             <Link
               href="/admin/account/register"
               id="academy-cta-final"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-black text-lg shadow-2xl shadow-blue-500/30 transition-all"
+              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-medium text-lg shadow-2xl shadow-blue-500/30 transition-all"
             >
               {hero.cta}
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

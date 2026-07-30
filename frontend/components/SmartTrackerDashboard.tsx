@@ -33,7 +33,7 @@ function StatCard({ label, val, sub, color = "text-white" }: { label: string; va
   return (
     <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-3">
       <div className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest mb-1">{label}</div>
-      <div className={`text-lg font-black font-mono leading-none ${color}`}>{val}</div>
+      <div className={`text-lg font-medium font-mono leading-none ${color}`}>{val}</div>
       {sub && <div className="text-[10px] text-slate-400 mt-0.5">{sub}</div>}
     </div>
   );
@@ -56,7 +56,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
     return (
       <div className={`flex items-center gap-3 px-4 py-2.5 border-b border-[#1e2a3a] hover:bg-white/[0.02] transition-colors ${isClosed ? "opacity-50" : ""}`}>
         <div className="w-16 shrink-0">
-          <div className="text-white font-black text-sm">{pos.ticker}</div>
+          <div className="text-white font-medium text-sm">{pos.ticker}</div>
           <span className={`text-[9px] font-medium px-1.5 py-0.5 rounded border ${badge}`}>{pos.status}</span>
           {simpleCfg && !isClosed && (
             <div className={`text-[8px] font-medium mt-0.5 ${simpleCfg.color}`}>{simpleCfg.label}</div>
@@ -68,12 +68,12 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
           <div><div className="text-red-500 text-[9px] uppercase">Stop</div><div className="text-red-400 font-mono font-medium">${f(pos.stopZoneLow)}</div></div>
         </div>
         <div className="text-right shrink-0 w-24">
-          <div className={`text-sm font-black font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
+          <div className={`text-sm font-medium font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
           <div className={`text-[10px] font-mono ${pColor(pnlPct)}`}>{sgn(pnlPct)}{f(Math.abs(pnlPct))}%</div>
         </div>
         <div className="flex gap-1 shrink-0">
-          {pos.status === "pending" && <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)} className="px-2 py-1 text-[9px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">Open</button>}
-          {isOpen && <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))} className="px-2 py-1 text-[9px] font-black uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">Close</button>}
+          {pos.status === "pending" && <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)} className="px-2 py-1 text-[9px] font-medium uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">Open</button>}
+          {isOpen && <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))} className="px-2 py-1 text-[9px] font-medium uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">Close</button>}
           {!isClosed && <button onClick={() => removeFromTracker(pos.id)} className="px-2 py-1 text-[9px] text-slate-500 border border-[#1e2a3a] rounded hover:text-red-400">✕</button>}
         </div>
       </div>
@@ -84,11 +84,11 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
     <div className={`bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4 ${isClosed ? "opacity-55" : ""}`}>
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Link href={`/stock/${pos.ticker}`} className="text-white font-black text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
+          <Link href={`/stock/${pos.ticker}`} className="text-white font-medium text-base hover:text-[#3b82f6] transition-colors tracking-tight">{pos.ticker}</Link>
           <span className={`text-[9px] font-medium px-2 py-0.5 rounded-full border ${badge}`}>{pos.status}</span>
         </div>
         <div className="text-right">
-          <div className={`text-base font-black font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
+          <div className={`text-base font-medium font-mono ${pColor(pnlUsd)}`}>{sgn(pnlUsd)}${f(Math.abs(pnlUsd))}</div>
           <div className={`text-[11px] font-mono font-medium ${pColor(pnlPct)}`}>{sgn(pnlPct)}{f(Math.abs(pnlPct))}%</div>
         </div>
       </div>
@@ -101,8 +101,8 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
           { label: "STOP", val: `$${f(pos.stopZoneLow)}`, color: "text-red-400", bg: "bg-red-500/5 border border-red-500/10" },
         ].map(({ label, val, color, bg }) => (
           <div key={label} className={`${bg} rounded-lg p-2 text-center`}>
-            <div className="text-[9px] font-black text-slate-500 uppercase mb-0.5">{label}</div>
-            <div className={`text-[12px] font-mono font-black ${color}`}>{val}</div>
+            <div className="text-[9px] font-medium text-slate-500 uppercase mb-0.5">{label}</div>
+            <div className={`text-[12px] font-mono font-medium ${color}`}>{val}</div>
           </div>
         ))}
       </div>
@@ -114,7 +114,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
         return (
           <div className={`rounded-lg px-3 py-2 mb-3 border ${isAlert ? "bg-red-500/5 border-red-500/30" : isProfit ? "bg-amber-500/5 border-amber-500/20" : "bg-[#141924] border-[#1e2a3a]"}`}>
             <div className="flex items-center justify-between mb-0.5">
-              <span className={`text-[10px] font-black uppercase tracking-wider ${cfg.color}`}>{cfg.label}</span>
+              <span className={`text-[10px] font-medium uppercase tracking-wider ${cfg.color}`}>{cfg.label}</span>
               <span className="text-[9px] text-slate-500 font-mono">RSI {signal.intraday.rsi_1h.toFixed(0)} · {signal.intraday.trend_1h} · Vol {signal.intraday.volume_ratio.toFixed(1)}x</span>
             </div>
             {signal.status_detail && (
@@ -134,7 +134,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
               <input type="number" placeholder={`$${f(pos.buyZoneLow)}`} value={entryInput} onChange={e => setEntryInput(e.target.value)}
                 className="w-20 bg-[#141924] border border-[#1e2a3a] rounded px-2 py-1 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]" />
               <button onClick={() => openTrade(pos.id, parseFloat(entryInput) || pos.buyZoneLow)}
-                className="px-2.5 py-1 text-[10px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">▶ Open</button>
+                className="px-2.5 py-1 text-[10px] font-medium uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20">▶ Open</button>
             </>
           )}
           {isOpen && (
@@ -142,7 +142,7 @@ function PositionCard({ pos, simple, signal }: { pos: TrackerPosition; simple: b
               <input type="number" placeholder="Close $" value={closeInput} onChange={e => setCloseInput(e.target.value)}
                 className="w-20 bg-[#141924] border border-[#1e2a3a] rounded px-2 py-1 text-white text-[10px] font-mono focus:outline-none focus:border-[#3b82f6]" />
               <button onClick={() => closeTrade(pos.id, parseFloat(closeInput) || (pos.currentPrice ?? pos.signalPrice))}
-                className="px-2.5 py-1 text-[10px] font-black uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">■ Close</button>
+                className="px-2.5 py-1 text-[10px] font-medium uppercase bg-red-500/10 text-red-400 border border-red-500/30 rounded hover:bg-red-500/20">■ Close</button>
             </>
           )}
           {!isClosed && (
@@ -199,9 +199,9 @@ export default function SmartTrackerDashboard() {
         <Link href="/" className="hover:text-white">Home</Link><span className="text-slate-600">/</span><span className="text-white">Smart Tracker</span>
       </nav>
       <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#3b82f6]/20 to-[#6366f1]/20 border border-[#3b82f6]/20 flex items-center justify-center text-4xl">🚀</div>
-      <h1 className="text-3xl font-black text-white">Smart Tracker</h1>
+      <h1 className="text-3xl font-medium text-white">Smart Tracker</h1>
       <p className="text-slate-400 text-center max-w-sm text-sm">Paper-trade your swing picks. Track PnL, sector allocation and stats — no real money.</p>
-      <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20">
+      <button onClick={() => setShowCreate(true)} className="px-8 py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-medium text-sm rounded-xl uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20">
         🚀 Create Tracker
       </button>
       {store.archivedTrackers.length > 0 && (
@@ -210,7 +210,7 @@ export default function SmartTrackerDashboard() {
           {store.archivedTrackers.map(c => (
             <div key={c.id} className="border border-[#1e2a3a] rounded-xl p-3 mb-2 flex justify-between items-center">
               <div><div className="text-white font-medium text-sm">{c.name}</div><div className="text-slate-500 text-[10px]">{c.positions.length} positions</div></div>
-              <span className="text-slate-600 text-[9px] font-black uppercase border border-[#1e2a3a] px-2 py-1 rounded">Archived</span>
+              <span className="text-slate-600 text-[9px] font-medium uppercase border border-[#1e2a3a] px-2 py-1 rounded">Archived</span>
             </div>
           ))}
         </div>
@@ -218,12 +218,12 @@ export default function SmartTrackerDashboard() {
       {showCreate && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm" onClick={() => setShowCreate(false)}>
           <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl" onClick={e => e.stopPropagation()}>
-            <h3 className="text-white font-black text-lg mb-4">New Tracker</h3>
-            <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Name</label>
+            <h3 className="text-white font-medium text-lg mb-4">New Tracker</h3>
+            <label className="text-[10px] text-[#3b82f6] font-medium uppercase tracking-wider block mb-1">Name</label>
             <input value={name} onChange={e => setName(e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white text-sm mb-3 focus:outline-none focus:border-[#3b82f6]" />
-            <label className="text-[10px] text-[#3b82f6] font-black uppercase tracking-wider block mb-1">Budget (USD)</label>
+            <label className="text-[10px] text-[#3b82f6] font-medium uppercase tracking-wider block mb-1">Budget (USD)</label>
             <input type="number" value={budget} onChange={e => setBudget(+e.target.value)} className="w-full bg-[#141924] border border-[#1e2a3a] rounded-xl px-4 py-2.5 text-white font-mono text-sm mb-4 focus:outline-none focus:border-[#3b82f6]" />
-            <button onClick={() => { openTracker(name, budget); setShowCreate(false); }} className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:opacity-90">Create</button>
+            <button onClick={() => { openTracker(name, budget); setShowCreate(false); }} className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-medium text-sm rounded-xl uppercase tracking-widest hover:opacity-90">Create</button>
           </div>
         </div>
       )}
@@ -246,7 +246,7 @@ export default function SmartTrackerDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
-          <h1 className="text-2xl font-black text-white flex items-center gap-2">🚀 {activeTracker.name}</h1>
+          <h1 className="text-2xl font-medium text-white flex items-center gap-2">🚀 {activeTracker.name}</h1>
           <p className="text-slate-500 text-xs mt-0.5">Paper Trade · Budget: <span className="text-white font-mono">${f(activeTracker.totalBudgetUsd, 0)}</span> · {activeTracker.updatedAt.split("T")[0]}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
@@ -287,13 +287,13 @@ export default function SmartTrackerDashboard() {
         <div className="md:col-span-2">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             {(["all","open","pending","closed"] as const).map(f2=>(
-              <button key={f2} onClick={()=>setFilter(f2)} className={`px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded-lg border transition-all ${filter===f2?"bg-[#3b82f6] text-white border-[#3b82f6]":"text-slate-400 border-[#1e2a3a] hover:border-[#3b82f6]/40"}`}>
+              <button key={f2} onClick={()=>setFilter(f2)} className={`px-3 py-1 text-[10px] font-medium uppercase tracking-wider rounded-lg border transition-all ${filter===f2?"bg-[#3b82f6] text-white border-[#3b82f6]":"text-slate-400 border-[#1e2a3a] hover:border-[#3b82f6]/40"}`}>
                 {f2} ({f2==="all"?positions.length:positions.filter(p=>p.status===f2).length})
               </button>
             ))}
             <div className="ml-auto flex items-center gap-1 bg-[#0d1117] border border-[#1e2a3a] rounded-lg p-0.5">
-              <button onClick={()=>setView("card")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="card"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>Card</button>
-              <button onClick={()=>setView("list")} className={`px-3 py-1 text-[10px] font-black rounded-md transition-all ${view==="list"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>List</button>
+              <button onClick={()=>setView("card")} className={`px-3 py-1 text-[10px] font-medium rounded-md transition-all ${view==="card"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>Card</button>
+              <button onClick={()=>setView("list")} className={`px-3 py-1 text-[10px] font-medium rounded-md transition-all ${view==="list"?"bg-[#3b82f6] text-white":"text-slate-500 hover:text-white"}`}>List</button>
             </div>
           </div>
 
@@ -305,12 +305,12 @@ export default function SmartTrackerDashboard() {
           ) : view==="list" ? (
             <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl overflow-hidden">
               <div className="flex items-center gap-3 px-4 py-2 bg-[#141924] border-b border-[#1e2a3a]">
-                <div className="w-16 text-[9px] font-black text-[#3b82f6] uppercase">Ticker</div>
-                <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[9px] font-black text-[#3b82f6] uppercase">
+                <div className="w-16 text-[9px] font-medium text-[#3b82f6] uppercase">Ticker</div>
+                <div className="flex-1 grid grid-cols-3 gap-2 text-center text-[9px] font-medium text-[#3b82f6] uppercase">
                   <span>Entry</span><span>Target</span><span>Stop</span>
                 </div>
-                <div className="w-24 text-right text-[9px] font-black text-[#3b82f6] uppercase">PnL</div>
-                <div className="w-24 text-[9px] font-black text-[#3b82f6] uppercase">Action</div>
+                <div className="w-24 text-right text-[9px] font-medium text-[#3b82f6] uppercase">PnL</div>
+                <div className="w-24 text-[9px] font-medium text-[#3b82f6] uppercase">Action</div>
               </div>
               {filtered.map(pos=><PositionCard key={pos.id} pos={pos} simple={true} signal={signalMap[pos.ticker]}/>)}
             </div>
@@ -324,7 +324,7 @@ export default function SmartTrackerDashboard() {
         {/* Sidebar */}
         <div className="space-y-4">
           <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
-            <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Sector Allocation</h3>
+            <h3 className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest mb-3">Sector Allocation</h3>
             {Object.entries(stats?.sectorDistribution??{}).length===0
               ? <p className="text-slate-600 text-xs">No open positions</p>
               : Object.entries(stats?.sectorDistribution??{}).sort(([,a],[,b])=>b-a).map(([s,amt],i)=>{
@@ -333,7 +333,7 @@ export default function SmartTrackerDashboard() {
                   return (
                     <div key={s} className="mb-2">
                       <div className="flex justify-between text-[10px] mb-0.5">
-                        <span className="text-white font-semibold truncate">{s}</span>
+                        <span className="text-white font-medium truncate">{s}</span>
                         <span className="text-slate-400 font-mono shrink-0 ml-2">${f(amt,0)} · {pct.toFixed(0)}%</span>
                       </div>
                       <div className="h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden">
@@ -347,10 +347,10 @@ export default function SmartTrackerDashboard() {
 
           {stats?.bestPosition && (
             <div className="bg-[#0d1117] border border-emerald-500/20 rounded-xl p-3">
-              <div className="text-[9px] font-black text-emerald-400 uppercase tracking-widest mb-1">🏆 Best</div>
+              <div className="text-[9px] font-medium text-emerald-400 uppercase tracking-widest mb-1">🏆 Best</div>
               <div className="flex justify-between items-center">
-                <span className="text-white font-black text-base">{stats.bestPosition.ticker}</span>
-                <span className={`text-sm font-mono font-black ${pColor(computePnl(stats.bestPosition).pnlUsd)}`}>
+                <span className="text-white font-medium text-base">{stats.bestPosition.ticker}</span>
+                <span className={`text-sm font-mono font-medium ${pColor(computePnl(stats.bestPosition).pnlUsd)}`}>
                   {sgn(computePnl(stats.bestPosition).pnlUsd)}${f(Math.abs(computePnl(stats.bestPosition).pnlUsd))}
                 </span>
               </div>
@@ -359,10 +359,10 @@ export default function SmartTrackerDashboard() {
 
           {stats?.worstPosition && (
             <div className="bg-[#0d1117] border border-red-500/20 rounded-xl p-3">
-              <div className="text-[9px] font-black text-red-400 uppercase tracking-widest mb-1">📉 Worst</div>
+              <div className="text-[9px] font-medium text-red-400 uppercase tracking-widest mb-1">📉 Worst</div>
               <div className="flex justify-between items-center">
-                <span className="text-white font-black text-base">{stats.worstPosition.ticker}</span>
-                <span className={`text-sm font-mono font-black ${pColor(computePnl(stats.worstPosition).pnlUsd)}`}>
+                <span className="text-white font-medium text-base">{stats.worstPosition.ticker}</span>
+                <span className={`text-sm font-mono font-medium ${pColor(computePnl(stats.worstPosition).pnlUsd)}`}>
                   {sgn(computePnl(stats.worstPosition).pnlUsd)}${f(Math.abs(computePnl(stats.worstPosition).pnlUsd))}
                 </span>
               </div>
@@ -370,7 +370,7 @@ export default function SmartTrackerDashboard() {
           )}
 
           <div className="bg-[#0d1117] border border-[#1e2a3a] rounded-xl p-4">
-            <h3 className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest mb-3">Statistics</h3>
+            <h3 className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest mb-3">Statistics</h3>
             {[
               ["Open", stats?.openCount??0],
               ["Pending", stats?.pendingCount??0],
@@ -386,7 +386,7 @@ export default function SmartTrackerDashboard() {
             ))}
           </div>
 
-          <Link href="/admin/trading/swing" className="block w-full text-center py-2.5 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-black uppercase tracking-widest rounded-xl hover:bg-[#3b82f6]/20 transition-all">
+          <Link href="/admin/trading/swing" className="block w-full text-center py-2.5 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#3b82f6] text-xs font-medium uppercase tracking-widest rounded-xl hover:bg-[#3b82f6]/20 transition-all">
             📋 Today's Picks →
           </Link>
         </div>

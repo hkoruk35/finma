@@ -384,7 +384,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5 mb-3">
           <div>
-            <h1 className="text-lg md:text-xl font-semibold text-white flex items-center gap-2">
+            <h1 className="text-lg md:text-xl font-medium text-white flex items-center gap-2">
               <span className="text-slate-300">{dateStr}</span>
               <span className="text-[#1e2a3a]/60">|</span>
               <span className="text-[#3b82f6]">{greeting}</span>
@@ -416,7 +416,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🌤️</span> WEATHER
                 </span>
 
@@ -454,7 +454,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                 <div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-base font-semibold text-white leading-tight truncate max-w-[150px]">
+                      <h3 className="text-base font-medium text-white leading-tight truncate max-w-[150px]">
                         {weather.location.split(",")[0]}
                       </h3>
                       <p className="text-[13px] text-slate-400 mt-0.5">{weather.current.condition}</p>
@@ -464,7 +464,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                       {weather.current.icon && (
                         <img src={weather.current.icon} alt="Weather" className="w-8 h-8 object-contain" />
                       )}
-                      <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tighter">
+                      <span className="text-2xl md:text-3xl font-medium text-white tracking-tighter">
                         {isImperial ? weather.current.temperature_f : weather.current.temperature_c}°
                       </span>
                     </div>
@@ -503,7 +503,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 2. MARKETS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>📈</span> MARKETS
                 </span>
                 <Link
@@ -553,7 +553,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             {/* 3. SPORTS WIDGET */}
             <div className="bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-3.5 backdrop-blur-md relative overflow-hidden shadow-xl">
               <div className="flex justify-between items-center mb-3">
-                <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+                <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                   <span>🏀</span> {t.sports}
                 </span>
               </div>
@@ -592,7 +592,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             
             {/* News Section Header */}
             <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
-              <span className="text-base font-semibold text-white tracking-tight">{t.topStories}</span>
+              <span className="text-base font-medium text-white tracking-tight">{t.topStories}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
             </div>
 
@@ -664,7 +664,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
             
             {/* Economy Section Header */}
             <div className="flex items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5">
-              <span className="text-base font-semibold text-white tracking-tight">{t.economy || "Ekonomi Haberleri"}</span>
+              <span className="text-base font-medium text-white tracking-tight">{t.economy || "Ekonomi Haberleri"}</span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             </div>
 
@@ -706,7 +706,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
 
         {/* Standard Footer Copyright */}
         <div className="text-center mt-12 pt-4 border-t border-[#1e2a3a]/40 opacity-60">
-          <p className="text-[9px] font-sans font-normal text-slate-500/60">
+          <p className="text-slate-500/60" style={{ fontSize: "9px", fontFamily: "Inter", fontWeight: 400 }}>
             {locale === "tr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır." :
              locale === "en" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved." :
              locale === "es" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados." :
@@ -718,3 +718,4 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
     </div>
   );
 }
+

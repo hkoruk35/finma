@@ -79,15 +79,15 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("support", locale)}</span>
-            <span className="text-sm font-semibold text-white">{fmt(data.support)}</span>
+            <span className="text-sm font-medium text-white">{fmt(data.support)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("resistance", locale)}</span>
-            <span className="text-sm font-semibold text-white">{fmt(data.resistance)}</span>
+            <span className="text-sm font-medium text-white">{fmt(data.resistance)}</span>
           </div>
           <div className="bg-[#161b22] p-2.5 rounded-lg border border-white/5 flex flex-col items-center justify-center">
             <span className="text-[10px] text-gray-500 font-mono mb-1">{ct("target", locale)}</span>
-            <span className="text-sm font-semibold text-blue-400">{fmt(data.target)}</span>
+            <span className="text-sm font-medium text-blue-400">{fmt(data.target)}</span>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
       <div className="p-3 bg-[#161b22] border-t border-white/5 grid grid-cols-2 gap-2">
         <button 
           onClick={() => router.push(`/global/${locale}/graphic/${data.ticker}`)}
-          className="py-2 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-lg transition-colors"
+          className="py-2 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium rounded-lg transition-colors"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg>
           {ct("openChart", locale)}

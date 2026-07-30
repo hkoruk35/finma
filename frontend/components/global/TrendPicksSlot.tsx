@@ -165,7 +165,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
+          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
@@ -221,10 +221,10 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                           <span>{labels.premiumMember}</span>
                         </div>
                       ) : disableHoverChart ? (
-                        <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                        <div className="text-[15px] font-medium text-white truncate">{stock.ticker}</div>
                       ) : (
                         <TickerHoverChart ticker={stock.ticker}>
-                          <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                          <div className="text-[15px] font-medium text-white truncate">{stock.ticker}</div>
                         </TickerHoverChart>
                       )}
                       <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
@@ -232,11 +232,11 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                   </div>
 
                   <div className="text-right shrink-0">
-                    <div className="text-[14px] font-mono font-semibold text-white">
+                    <div className="text-[14px] font-mono font-medium text-white">
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
                     <div
-                      className={`text-[13px] font-mono font-semibold ${
+                      className={`text-[13px] font-mono font-medium ${
                         stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                       }`}
                     >

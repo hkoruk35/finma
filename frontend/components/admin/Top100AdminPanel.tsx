@@ -83,7 +83,7 @@ export default function Top100AdminPanel() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 text-white">
-      <h1 className="text-2xl font-black tracking-tighter mb-5">Top 100 Composition Management</h1>
+      <h1 className="text-2xl font-medium tracking-tighter mb-5">Top 100 Composition Management</h1>
 
       <form onSubmit={handleAdd} className="flex gap-2 mb-6">
         <input

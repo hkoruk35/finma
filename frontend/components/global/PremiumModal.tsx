@@ -89,25 +89,25 @@ export default function PremiumModal({ locale, onClose }: Props) {
             </svg>
           </div>
 
-          <h2 className="text-lg font-black text-white mb-2">{c.title}</h2>
+          <h2 className="text-lg font-medium text-white mb-2">{c.title}</h2>
           <p className="text-sm text-slate-400 mb-5 leading-relaxed">{c.desc}</p>
 
           {/* Offer block */}
           <div className="bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-[#3b82f6]/30 rounded-xl p-4 mb-5">
-            <div className="text-[#3b82f6] font-black text-xl tracking-tight">{c.offer}</div>
+            <div className="text-[#3b82f6] font-medium text-xl tracking-tight">{c.offer}</div>
             <div className="text-xs text-slate-500 mt-0.5">{c.sub}</div>
           </div>
 
           <div className="flex gap-3">
             <a
               href={c.upgradeHref}
-              className="flex-1 text-center py-3 rounded-xl font-black text-sm bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-colors"
+              className="flex-1 text-center py-3 rounded-xl font-medium text-sm bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-colors"
             >
               {c.cta}
             </a>
             <button
               onClick={onClose}
-              className="px-5 py-3 rounded-xl font-black text-sm bg-[#1e2a3a] text-slate-400 hover:text-white border border-[#1e2a3a] hover:border-[#30363d] transition-colors"
+              className="px-5 py-3 rounded-xl font-medium text-sm bg-[#1e2a3a] text-slate-400 hover:text-white border border-[#1e2a3a] hover:border-[#30363d] transition-colors"
             >
               {c.close}
             </button>

@@ -31,7 +31,7 @@ export default function ThemeCountBadge({ themeName, staticCount }: ThemeCountBa
   }, [themeName, staticCount]);
 
   return (
-    <span className="text-[9px] text-slate-500 bg-white/5 px-1.5 py-0.5 rounded font-black group-hover:bg-[#3b82f6]/20 group-hover:text-[#3b82f6] transition-colors">
+    <span className="text-[9px] text-slate-500 bg-white/5 px-1.5 py-0.5 rounded font-medium group-hover:bg-[#3b82f6]/20 group-hover:text-[#3b82f6] transition-colors">
       {count}
     </span>
   );

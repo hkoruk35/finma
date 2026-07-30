@@ -13,10 +13,10 @@ export default function PageHeader({ badge, title, accent, subtitle, right }: Pa
         {badge && (
           <div className="flex items-center gap-2 mb-2">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#00d2ff] animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#00d2ff] font-mono">{badge}</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#00d2ff] font-mono">{badge}</span>
           </div>
         )}
-        <h1 className="text-lg md:text-xl font-black uppercase italic tracking-tighter text-white leading-none">
+        <h1 className="text-lg md:text-xl font-medium uppercase italic tracking-tighter text-white leading-none">
           {title}
           {accent && <span className="text-[#3b82f6] ml-2 not-italic">{accent}</span>}
         </h1>

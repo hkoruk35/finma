@@ -159,7 +159,7 @@ function InstrumentRow({
       />
       <div className="flex-1 min-w-0" onClick={onSelect}>
         <div className="flex items-center justify-between gap-1">
-          <span className="text-[11px] font-black text-white truncate">{inst.ticker}</span>
+          <span className="text-[11px] font-medium text-white truncate">{inst.ticker}</span>
           {price?.price != null && (
             <span className="text-[11px] font-mono text-white">{fmt(price.price)}</span>
           )}
@@ -212,7 +212,7 @@ function WatchlistRow({
       />
       <div className="flex-1 min-w-0 cursor-pointer" onClick={onSelect}>
         <div className="flex items-center justify-between">
-          <span className="text-[12px] font-black text-white">{ticker}</span>
+          <span className="text-[12px] font-medium text-white">{ticker}</span>
           {price?.price != null && (
             <span className="text-[11px] font-mono text-white">{fmt(price.price)}</span>
           )}
@@ -265,7 +265,7 @@ function MultiScreenOverlay({
     return (
       <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
         <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
-          <span className="text-xs font-black text-white uppercase tracking-widest">
+          <span className="text-xs font-medium text-white uppercase tracking-widest">
             {fullscreenTicker} <span className="text-slate-400 font-normal">{inst?.label}</span>
           </span>
           <div className="flex items-center gap-2">
@@ -301,7 +301,7 @@ function MultiScreenOverlay({
   return (
     <div className="fixed inset-0 z-50 bg-[#060a12] flex flex-col">
       <div className="flex items-center justify-between px-4 py-2 bg-[#0a0e17] border-b border-[#1e2a3a] shrink-0">
-        <span className="text-xs font-black text-[#3b82f6] uppercase tracking-widest">
+        <span className="text-xs font-medium text-[#3b82f6] uppercase tracking-widest">
           Multi-Screen — {count} Chart{count !== 1 ? "s" : ""}
           <span className="ml-3 text-slate-500 font-normal normal-case">Click ⛶ to expand any chart</span>
         </span>
@@ -322,7 +322,7 @@ function MultiScreenOverlay({
           return (
             <div key={`${ticker}-${i}`} className="bg-[#0a0e17] border border-[#1a2234] rounded overflow-hidden flex flex-col group">
               <div className="flex items-center justify-between px-2 py-1 border-b border-[#1a2234] shrink-0">
-                <span className="text-[10px] font-black text-white uppercase tracking-wide">
+                <span className="text-[10px] font-medium text-white uppercase tracking-wide">
                   {ticker} <span className="text-slate-500 font-normal">{inst.label}</span>
                 </span>
                 <button
@@ -606,7 +606,7 @@ export default function TerminalClient() {
             <button
               key={tab}
               onClick={() => setLeftTab(tab)}
-              className={`flex-1 py-2 text-[7px] font-black uppercase tracking-widest transition-colors ${
+              className={`flex-1 py-2 text-[7px] font-medium uppercase tracking-widest transition-colors ${
                 leftTab === tab
                   ? "text-[#3b82f6] border-b-2 border-[#3b82f6] bg-[#3b82f6]/5"
                   : "text-slate-500 hover:text-slate-300"
@@ -618,7 +618,7 @@ export default function TerminalClient() {
         </div>
 
         <div className="px-3 py-2 border-b border-[#1a2234] shrink-0 flex items-center justify-between">
-          <span className="text-[9px] font-black text-[#3b82f6] uppercase tracking-widest">
+          <span className="text-[9px] font-medium text-[#3b82f6] uppercase tracking-widest">
             {leftTab === "market" ? "Markets" : "Active Watchlist"}
           </span>
           <div className="flex items-center gap-2">
@@ -637,7 +637,7 @@ export default function TerminalClient() {
         <div className="flex-1 overflow-y-auto scrollbar-thin">
           {leftTab === "market" && GROUPS.map((group) => (
             <div key={group.group}>
-              <div className="px-2 py-1 text-[8px] font-black uppercase tracking-widest text-slate-500 bg-[#060a12] sticky top-0 z-10">
+              <div className="px-2 py-1 text-[8px] font-medium uppercase tracking-widest text-slate-500 bg-[#060a12] sticky top-0 z-10">
                 {group.group}
               </div>
               {group.items.map((inst) => (
@@ -667,7 +667,7 @@ export default function TerminalClient() {
                 />
                 <button
                   onClick={addToWatchlistActive}
-                  className="px-2 py-1 text-[9px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
+                  className="px-2 py-1 text-[9px] font-medium bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20"
                 >
                   +
                 </button>
@@ -716,7 +716,7 @@ export default function TerminalClient() {
           {/* Quick Nav removed as requested */}
           {/* Symbol info */}
           <div className="flex items-center gap-2 mr-2">
-            <span className="text-sm font-black text-white">{selected.ticker}</span>
+            <span className="text-sm font-medium text-white">{selected.ticker}</span>
             <span className="text-[10px] text-slate-400">{selected.label}</span>
             {prices[selected.ticker]?.price != null && (
               <span className="text-sm font-mono text-white">
@@ -734,7 +734,7 @@ export default function TerminalClient() {
           {sigCfg && selectedSignal && (
             <div className={`flex items-center gap-3 px-3 py-1.5 rounded-lg border-2 shadow-lg shadow-black/40 animate-pulse-slow ${sigCfg.bg}`}>
               <div className="flex flex-col">
-                <span className={`text-[11px] font-black tracking-tighter ${sigCfg.color}`}>
+                <span className={`text-[11px] font-medium tracking-tighter ${sigCfg.color}`}>
                   ⚡ HOURLY SIGNAL: {sigCfg.label}
                 </span>
                 <span className="text-[9px] text-slate-300 font-medium">
@@ -745,17 +745,17 @@ export default function TerminalClient() {
                 <div className="flex items-center gap-2 border-l border-white/10 pl-3">
                   <div className="flex flex-col">
                     <span className="text-[8px] text-slate-500 uppercase">RSI (1H)</span>
-                    <span className={`text-[10px] font-black ${selectedSignal.intraday.rsi_1h > 70 ? "text-red-400" : selectedSignal.intraday.rsi_1h < 30 ? "text-emerald-400" : "text-white"}`}>
+                    <span className={`text-[10px] font-medium ${selectedSignal.intraday.rsi_1h > 70 ? "text-red-400" : selectedSignal.intraday.rsi_1h < 30 ? "text-emerald-400" : "text-white"}`}>
                       {selectedSignal.intraday.rsi_1h.toFixed(1)}
                     </span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[8px] text-slate-500 uppercase">Trend</span>
-                    <span className="text-[10px] font-black text-white">{selectedSignal.intraday.trend_1h}</span>
+                    <span className="text-[10px] font-medium text-white">{selectedSignal.intraday.trend_1h}</span>
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[8px] text-slate-500 uppercase">Vol Ratio</span>
-                    <span className="text-[10px] font-black text-[#00d2ff]">{selectedSignal.intraday.volume_ratio.toFixed(2)}x</span>
+                    <span className="text-[10px] font-medium text-[#00d2ff]">{selectedSignal.intraday.volume_ratio.toFixed(2)}x</span>
                   </div>
                 </div>
               )}
@@ -809,7 +809,7 @@ export default function TerminalClient() {
           {checked.length > 0 && (
             <button
               onClick={() => setMultiScreen(true)}
-              className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20 transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 text-[10px] font-medium uppercase bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/20 transition-colors"
             >
               <span>⊞</span> Multi-Screen ({checked.length})
             </button>
@@ -846,7 +846,7 @@ export default function TerminalClient() {
             <button
               key={tab}
               onClick={() => setRightTab(tab)}
-              className={`flex-1 py-2 text-[8px] font-black uppercase tracking-widest transition-colors ${
+              className={`flex-1 py-2 text-[8px] font-medium uppercase tracking-widest transition-colors ${
                 rightTab === tab
                   ? "text-[#3b82f6] border-b-2 border-[#3b82f6] bg-[#3b82f6]/5"
                   : "text-slate-500 hover:text-slate-300"
@@ -899,7 +899,7 @@ export default function TerminalClient() {
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-[12px] font-black text-white">{ticker}</span>
+                          <span className="text-[12px] font-medium text-white">{ticker}</span>
                           <span className="text-[10px] font-medium text-[#3b82f6] bg-[#3b82f6]/10 px-1 rounded">
                             {score.toFixed(0)}
                           </span>
@@ -1000,7 +1000,7 @@ export default function TerminalClient() {
               />
               <button
                 onClick={addToTracker}
-                className="px-2 py-1 text-[10px] font-black bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30 rounded hover:bg-[#10b981]/20"
+                className="px-2 py-1 text-[10px] font-medium bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30 rounded hover:bg-[#10b981]/20"
               >
                 +
               </button>

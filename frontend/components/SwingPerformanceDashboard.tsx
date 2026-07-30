@@ -586,7 +586,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 {stats.isFallback ? (locale === "tr" ? "Sistem Geneli (Filtrede İşlem Yok)" : locale === "pt" ? "Todo o Sistema (Sem Operações no Filtro)" : "System-wide (No Trades in Filter)") : (locale === "tr" ? "Sistem İstatistikleri" : locale === "pt" ? "Estatísticas do Sistema" : "System Statistics")}
               </span>
             </div>
-            <h2 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">TREND STOCKS</span> PERFORMANCE</h2>
+            <h2 className="text-lg md:text-xl font-medium text-white italic uppercase tracking-tighter leading-none">BOGA AI <span className="text-[#3b82f6] not-italic">TREND STOCKS</span> PERFORMANCE</h2>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
               {locale === "tr" ? "Geçmiş Dönem Performans Özeti" : locale === "pt" ? "Resumo de Desempenho Histórico" : "Historical Performance Summary"} · <span className="text-[#f59e0b] font-medium">{locale === "tr" ? "Dinamik Stop-Loss (AI)" : locale === "pt" ? "Stop-Loss Dinâmico (IA)" : "Dynamic Stop-Loss (AI)"}</span>
             </p>
@@ -634,7 +634,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   </svg>
                   <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
                 </span>
-                <span className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest">{locale === "tr" ? "BOT ANALİZ SİSTEMİ" : locale === "pt" ? "SISTEMA DE ANÁLISE DO BOT" : "BOT ANALYSIS SYSTEM"}</span>
+                <span className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest">{locale === "tr" ? "BOT ANALİZ SİSTEMİ" : locale === "pt" ? "SISTEMA DE ANÁLISE DO BOT" : "BOT ANALYSIS SYSTEM"}</span>
                 <svg className="w-2.5 h-2.5 text-[#3b82f6]/50 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -648,28 +648,28 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-y md:divide-y-0 divide-white/5 border-b border-white/5 bg-white/[0.01]">
           <div className="p-5 text-center">
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-medium">{locale === "tr" ? "KÂRLI İŞLEM ORANI" : locale === "pt" ? "TAXA DE ACERTO" : "WIN RATE"}</p>
-            <p className="text-3xl font-mono font-black text-[#22c55e] tracking-tighter">
+            <p className="text-3xl font-mono font-medium text-[#22c55e] tracking-tighter">
               {stats.winRate === "—" ? "—" : `${stats.winRate}%`}
             </p>
             <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{stats.wins} {locale === "tr" ? "KÂR" : "WIN"} / {stats.losses} {locale === "tr" ? "ZARAR" : "LOSS"}</p>
           </div>
           <div className="p-5 text-center">
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-medium">{locale === "tr" ? "ORT. GERÇEKLEŞEN GETİRİ" : locale === "pt" ? "RETORNO MÉDIO REALIZADO" : "AVG REALIZED RETURN"}</p>
-            <p className={`text-3xl font-mono font-black tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+            <p className={`text-3xl font-mono font-medium tracking-tighter ${stats.avgReturn === "—" ? "text-white" : parseFloat(stats.avgReturn) >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
               {stats.avgReturn === "—" ? "—" : `${parseFloat(stats.avgReturn) >= 0 ? "+" : ""}${stats.avgReturn}%`}
             </p>
             <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "%0.1 İşlem Maliyeti Düşülmüş" : "Net of 0.1% Cost"}</p>
           </div>
           <div className="p-5 text-center">
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-medium">{locale === "tr" ? "ORTALAMA MAKS. GETİRİ (MFE)" : locale === "pt" ? "RETORNO MÁXIMO MÉDIO (MFE)" : "AVG MAX RETURN (MFE)"}</p>
-            <p className="text-3xl font-mono font-black text-[#3b82f6] tracking-tighter">
+            <p className="text-3xl font-mono font-medium text-[#3b82f6] tracking-tighter">
               {stats.avgMfe === "—" ? "—" : `+${stats.avgMfe}%`}
             </p>
             <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase italic">{locale === "tr" ? "Potansiyel Tepe Fiyatı" : "Peak Opportunity"}</p>
           </div>
           <div className="p-5 text-center">
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-2 font-medium">{locale === "tr" ? "ORT. RİSK & SÜRE" : locale === "pt" ? "RISCO & DURAÇÃO MÉDIA" : "AVG RISK & DURATION"}</p>
-            <p className="text-3xl font-mono font-black text-white tracking-tighter">
+            <p className="text-3xl font-mono font-medium text-white tracking-tighter">
               {stats.avgMae}% <span className="text-sm font-normal text-slate-400">/ {stats.avgDays}g</span>
             </p>
             <p className="text-[10px] text-slate-400 mt-1 font-medium uppercase">{locale === "tr" ? "Ort. Çekilme (MAE) / Ort. Takip" : "Avg MAE / Avg Holding"}</p>
@@ -688,7 +688,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             {profitTargets.map(pt => (
               <div key={pt.pct} className="rounded-2xl bg-black/40 border border-white/5 p-4 text-center hover:border-[#22c55e]/20 transition-all group">
                 <p className="text-[9px] text-[#3b82f6] font-medium uppercase tracking-widest mb-2">+{pt.pct}% {locale === "tr" ? "HEDEF" : locale === "pt" ? "ALVO" : "TARGET"}</p>
-                <p className="text-2xl font-black font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "—" ? "—" : `${pt.avgDays} ${locale === "tr" ? "G" : "D"}`}</p>
+                <p className="text-2xl font-medium font-mono text-white tracking-tighter group-hover:text-[#22c55e] transition-colors">{pt.avgDays === "—" ? "—" : `${pt.avgDays} ${locale === "tr" ? "G" : "D"}`}</p>
                 <div className="mt-2 flex items-center justify-center gap-1.5">
                    <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
                    <span className="text-[10px] text-white font-medium">{pt.rate}%</span>
@@ -706,7 +706,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               const barHeight = maxDaysBucket > 0 ? Math.max(4, (b.avgRet / maxDaysBucket) * 96) : 4;
               return (
                 <div key={b.label} className="flex-1 flex flex-col items-center justify-end gap-1.5">
-                  <p className="text-sm md:text-base font-mono text-[#22c55e] font-black">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
+                  <p className="text-sm md:text-base font-mono text-[#22c55e] font-medium">{b.avgRet > 0 ? `+${b.avgRet}%` : "—"}</p>
                   <div
                     className="w-full rounded-t-md bg-gradient-to-t from-[#22c55e]/60 to-[#22c55e]/20 border border-[#22c55e]/30 transition-all"
                     style={{ height: `${barHeight}%` }}
@@ -724,22 +724,22 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
         <div className="grid grid-cols-3 gap-0 divide-x divide-[#1e2a3a] border-t border-[#1e2a3a]">
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+5% Ulaştı" : locale === "pt" ? "Atingiu +5%" : "Reached +5%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#22c55e]">{profitTargets.find(p => p.pct === 5)?.rate ?? 0}%</p>
+            <p className="text-xl md:text-2xl font-medium font-mono text-[#22c55e]">{profitTargets.find(p => p.pct === 5)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+10% Ulaştı" : locale === "pt" ? "Atingiu +10%" : "Reached +10%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#3b82f6]">{profitTargets.find(p => p.pct === 10)?.rate ?? 0}%</p>
+            <p className="text-xl md:text-2xl font-medium font-mono text-[#3b82f6]">{profitTargets.find(p => p.pct === 10)?.rate ?? 0}%</p>
           </div>
           <div className="px-5 py-4 text-center">
             <p className="text-[10px] md:text-sm text-[#00d2ff] uppercase tracking-wider mb-1 font-medium">{locale === "tr" ? "+15% Ulaştı" : locale === "pt" ? "Atingiu +15%" : "Reached +15%"}</p>
-            <p className="text-xl md:text-2xl font-black font-mono text-[#a78bfa]">{profitTargets.find(p => p.pct === 15)?.rate ?? 0}%</p>
+            <p className="text-xl md:text-2xl font-medium font-mono text-[#a78bfa]">{profitTargets.find(p => p.pct === 15)?.rate ?? 0}%</p>
           </div>
         </div>
         {/* Gizle butonu */}
         <div className="flex justify-end px-6 py-3 border-t border-white/5">
           <button
             onClick={() => setShowStats(false)}
-            className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+            className="px-4 py-1.5 rounded-xl text-[11px] font-medium bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
             {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : "Hide"}
@@ -758,7 +758,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <div className="w-2 h-2 rounded-full bg-[#3b82f6] shadow-[0_0_10px_#3b82f6] animate-pulse" />
               <div>
                 <p className="text-[11px] font-medium text-[#3b82f6] uppercase tracking-[0.25em]">{locale === "tr" ? "Güncel Veriler" : locale === "pt" ? "Dados ao Vivo" : "Live Data"}</p>
-                <h3 className="text-base font-black text-white uppercase tracking-tight">
+                <h3 className="text-base font-medium text-white uppercase tracking-tight">
                   {locale === "tr" ? "Bugünkü Trend Adayları" : locale === "pt" ? "Picks de Tendência de Hoje" : "Today's Trend Picks"}
                   <span className="ml-2 text-[#3b82f6]">({todayPicks.length} {locale === "tr" ? "hisse" : locale === "pt" ? "ações" : "stocks"})</span>
                 </h3>
@@ -772,7 +772,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </div>
             <button
               onClick={() => setShowStats(false)}
-              className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-xl text-[11px] font-medium bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
               Gizle
@@ -802,11 +802,11 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           <svg className="w-3.5 h-3.5 text-[#f59e0b] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                           </svg>
-                          <span className="text-base font-black tracking-tight" style={{ color: "#f59e0b" }}>Premium</span>
+                          <span className="text-base font-medium tracking-tight" style={{ color: "#f59e0b" }}>Premium</span>
                         </div>
                         <p className="text-[10px] text-slate-600 font-medium mt-0.5">Premium</p>
                       </div>
-                      <div className={`px-2 py-1 rounded-lg text-[11px] font-black ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
+                      <div className={`px-2 py-1 rounded-lg text-[11px] font-medium ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
                         {pick.score != null ? pick.score.toFixed(0) : "—"}
                       </div>
                     </div>
@@ -814,7 +814,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       {pick.buy_zone && (
                         <div className="bg-black/30 rounded-lg py-1.5 px-1">
                           <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "Giriş" : locale === "pt" ? "Entrada" : "Entry"}</p>
-                          <p className="text-[10px] font-mono font-black text-white">
+                          <p className="text-[10px] font-mono font-medium text-white">
                             ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
                           </p>
                         </div>
@@ -822,7 +822,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       {pick.profit_zone && (
                         <div className="bg-black/30 rounded-lg py-1.5 px-1">
                           <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : "Target"}</p>
-                          <p className="text-[10px] font-mono font-black text-white">
+                          <p className="text-[10px] font-mono font-medium text-white">
                             ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
                           </p>
                         </div>
@@ -830,7 +830,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       {pick.stop_zone && (
                         <div className="bg-black/30 rounded-lg py-1.5 px-1">
                           <p className="text-[8px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</p>
-                          <p className="text-[10px] font-mono font-black text-white">
+                          <p className="text-[10px] font-mono font-medium text-white">
                             ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
                           </p>
                         </div>
@@ -861,12 +861,12 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <>
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <TickerHoverChart ticker={pick.ticker}><p className="text-base font-black text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p></TickerHoverChart>
+                      <TickerHoverChart ticker={pick.ticker}><p className="text-base font-medium text-[#3b82f6] group-hover:text-white transition-colors tracking-tight">{pick.ticker}</p></TickerHoverChart>
                       {pick.company && (
                         <p className="text-[10px] text-slate-500 font-medium truncate max-w-[130px]">{pick.company}</p>
                       )}
                     </div>
-                    <div className={`px-2 py-1 rounded-lg text-[11px] font-black ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
+                    <div className={`px-2 py-1 rounded-lg text-[11px] font-medium ${scoreBg} border ${scoreBorder} ${scoreColor}`}>
                       {pick.score != null ? pick.score.toFixed(0) : "—"}
                     </div>
                   </div>
@@ -874,7 +874,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     {pick.buy_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "Giriş" : locale === "pt" ? "Entrada" : "Entry"}</p>
-                        <p className="text-[10px] font-mono font-black text-white">
+                        <p className="text-[10px] font-mono font-medium text-white">
                           ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
                         </p>
                       </div>
@@ -882,7 +882,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     {pick.profit_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : "Target"}</p>
-                        <p className="text-[10px] font-mono font-black text-white">
+                        <p className="text-[10px] font-mono font-medium text-white">
                           ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
                         </p>
                       </div>
@@ -890,7 +890,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     {pick.stop_zone && (
                       <div className="bg-black/30 rounded-lg py-1.5 px-1">
                         <p className="text-[8px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</p>
-                        <p className="text-[10px] font-mono font-black text-white">
+                        <p className="text-[10px] font-mono font-medium text-white">
                           ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
                         </p>
                       </div>
@@ -928,7 +928,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
             </p>
             <button
               onClick={() => setShowStats(false)}
-              className="px-4 py-1.5 rounded-xl text-[11px] font-black bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-xl text-[11px] font-medium bg-[#1e2a3a] text-slate-400 border border-white/5 hover:border-[#ef4444]/40 hover:text-[#ef4444] transition-all uppercase tracking-widest flex items-center gap-1.5"
             >
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
               {locale === "tr" ? "Gizle" : locale === "pt" ? "Ocultar" : "Hide"}
@@ -995,8 +995,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                 <button key={i}
                   onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
                   className={`rounded-lg border px-3 py-2 ${heatColor(s.avgReturn)} flex items-center gap-2 transition-colors shrink-0 ${s.name === selectedSector ? "ring-1 ring-white" : ""}`}>
-                  <span className="text-[9px] font-black text-white uppercase tracking-wider whitespace-nowrap">{s.name}</span>
-                  <span className={`text-sm font-black font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                  <span className="text-[9px] font-medium text-white uppercase tracking-wider whitespace-nowrap">{s.name}</span>
+                  <span className={`text-sm font-medium font-mono ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                     {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
                   </span>
                   <span className="text-[9px] text-[#00d2ff] font-medium">{s.total}p</span>
@@ -1010,8 +1010,8 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               <button key={s.name}
                 onClick={() => setSelectedSector(s.name === selectedSector ? "All" : s.name)}
                 className={`rounded-lg border px-2.5 py-2 ${heatColor(s.avgReturn)} flex flex-col gap-1 transition-colors duration-200 shrink-0 text-left min-w-[90px] ${s.name === selectedSector ? "ring-2 ring-white" : "hover:bg-[#1a2030]"}`}>
-                <p className="text-[9px] font-black text-white uppercase tracking-wider truncate w-full" title={s.name}>{s.name}</p>
-                <p className={`text-sm font-black font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                <p className="text-[9px] font-medium text-white uppercase tracking-wider truncate w-full" title={s.name}>{s.name}</p>
+                <p className={`text-sm font-medium font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                   {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
                 </p>
                 <div className="flex items-center gap-1">
@@ -1041,19 +1041,19 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               navigator.clipboard.writeText(`Date\tTicker\tEntry\tReturn%\tDays\tResult\n${text}`);
               alert(locale === "tr" ? "Liste başarıyla kopyalandı!" : locale === "pt" ? "Lista copiada com sucesso para a área de transferência!" : "List successfully copied to clipboard!");
             }}
-              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex items-center gap-2 uppercase tracking-widest">
+              className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all flex items-center gap-2 uppercase tracking-widest">
               {locale === "tr" ? "LİSTEYİ KOPYALA" : locale === "pt" ? "COPIAR LISTA" : "COPY LIST"}
             </button>
             <button onClick={handleExportCSV}
-              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#3b82f6] transition-all flex items-center gap-2 uppercase tracking-widest">
+              className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#1e293b] text-white border border-white/5 hover:border-[#3b82f6] transition-all flex items-center gap-2 uppercase tracking-widest">
               CSV
             </button>
             <button onClick={handleExportExcel}
-              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#22c55e] transition-all flex items-center gap-2 uppercase tracking-widest">
+              className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#1e293b] text-white border border-white/5 hover:border-[#22c55e] transition-all flex items-center gap-2 uppercase tracking-widest">
               EXCEL
             </button>
             <button onClick={handleExportPDF} disabled={pdfExporting}
-              className="px-4 py-2 rounded-xl text-[10px] font-black bg-[#1e293b] text-white border border-white/5 hover:border-[#ef4444] transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest">
+              className="px-4 py-2 rounded-xl text-[10px] font-medium bg-[#1e293b] text-white border border-white/5 hover:border-[#ef4444] transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest">
               {pdfExporting ? "PDF..." : "PDF"}
             </button>
           </div>
@@ -1105,23 +1105,23 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
                       {!isPremium && initialHistory.indexOf(t) < 100 ? (
-                        <span className="text-[13px] font-black leading-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                        <span className="text-[13px] font-medium leading-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           Premium
                         </span>
                       ) : (
                         <TickerHoverChart ticker={t.ticker}>
                           {disableTickerLink ? (
-                            <span className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
+                            <span className="text-[13px] font-medium text-[#3b82f6] tracking-tight leading-none">{t.ticker}</span>
                           ) : (
-                            <Link href={`/stock/${t.ticker}`} className="text-[13px] font-black text-[#3b82f6] tracking-tight leading-none hover:underline">
+                            <Link href={`/stock/${t.ticker}`} className="text-[13px] font-medium text-[#3b82f6] tracking-tight leading-none hover:underline">
                               {t.ticker}
                             </Link>
                           )}
                         </TickerHoverChart>
                       )}
-                      {slHit && <span className="text-[8px] font-black text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
-                      {t.is_duplicate && <span className="text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded leading-none">DUP</span>}
+                      {slHit && <span className="text-[8px] font-medium text-[#ef4444] bg-[#ef4444]/10 px-1 py-0.5 rounded leading-none">SL</span>}
+                      {t.is_duplicate && <span className="text-[8px] font-medium text-slate-500 bg-white/5 px-1 py-0.5 rounded leading-none">DUP</span>}
                     </div>
                     <div className="flex items-center gap-1 mt-0.5 flex-wrap">
                       <span className="text-[9px] font-mono text-slate-600">{t.date.slice(5)}</span>
@@ -1151,7 +1151,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
 
                   {/* Col 4: Return % + PnL */}
                   <div className="text-right">
-                    <span className={`text-[12px] font-black font-mono leading-none ${retColor(effRet)}`}>
+                    <span className={`text-[12px] font-medium font-mono leading-none ${retColor(effRet)}`}>
                       {effRet != null
                         ? (effRet > 0 ? `+${fmt(effRet, 1)}` : fmt(effRet, 1))
                         : "—"}
@@ -1166,7 +1166,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   {/* Col 5: Result */}
                   <div className="flex items-center justify-end gap-1">
                     <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${resultDot}`} />
-                    <span className={`text-[9px] font-black uppercase ${resultTxt}`}>
+                    <span className={`text-[9px] font-medium uppercase ${resultTxt}`}>
                       {effRes === "PENDING" ? "PND" : effRes}
                     </span>
                   </div>
@@ -1225,7 +1225,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
                         {!isPremium && initialHistory.indexOf(t) < 100 ? (
-                          <span className="font-black tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
+                          <span className="font-medium tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium
                           </span>
@@ -1233,13 +1233,13 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           <>
                             <TickerHoverChart ticker={t.ticker}>
                               {disableTickerLink ? (
-                                <span className="font-black text-[#3b82f6] tracking-tight">{t.ticker}</span>
+                                <span className="font-medium text-[#3b82f6] tracking-tight">{t.ticker}</span>
                               ) : (
-                                <Link href={`/stock/${t.ticker}`} className="font-black text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
+                                <Link href={`/stock/${t.ticker}`} className="font-medium text-[#3b82f6] hover:text-white hover:underline tracking-tight">{t.ticker}</Link>
                               )}
                             </TickerHoverChart>
                             {t.is_duplicate && (
-                              <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-black text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
+                              <span title="30 gün içinde tekrar — istatistiklere dahil değil" className="ml-1.5 text-[8px] font-medium text-slate-500 bg-white/5 px-1 py-0.5 rounded">DUP</span>
                             )}
                             {t.company && t.company !== t.ticker && (
                               <p className="text-[9px] text-slate-500 mt-0.5 truncate" title={t.company}>{t.company}</p>
@@ -1247,7 +1247,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           </>
                         )}
                       </td>
-                      <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(effRet)}`}>
+                      <td className={`px-3 py-2.5 text-right font-medium whitespace-nowrap ${retColor(effRet)}`}>
                         {effRet != null ? (effRet > 0 ? `+${fmt(effRet, 2)}%` : effRet < 0 ? `${fmt(effRet, 2)}%` : "0.00%") : "—"}
                       </td>
                       <td className="px-3 py-2.5 text-right font-mono text-slate-300 whitespace-nowrap">${fmt(t.entry)}</td>
@@ -1273,7 +1273,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                           ? <span className="text-[#3b82f6] font-medium text-[9px] px-1.5 py-0.5 bg-[#3b82f6]/10 rounded">PND</span>
                           : t.days != null ? <span className="font-mono">{t.days}d</span> : "—"}
                       </td>
-                      <td className={`px-3 py-2.5 text-right font-black whitespace-nowrap ${retColor(pnl)}`}>
+                      <td className={`px-3 py-2.5 text-right font-medium whitespace-nowrap ${retColor(pnl)}`}>
                         {pnl != null ? (pnl > 0 ? `+$${Math.abs(pnl).toFixed(0)}` : pnl < 0 ? `-$${Math.abs(pnl).toFixed(0)}` : "$0") : "—"}
                       </td>
                       <td className="px-3 py-2.5 text-[10px] text-slate-300 uppercase font-medium">
@@ -1283,7 +1283,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         <span className="truncate block" title={t.subsector}>{t.subsector || "—"}</span>
                       </td>
                       <td className="px-3 py-2.5 text-center">
-                        <span className={`text-[10px] font-black px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
+                        <span className={`text-[10px] font-medium px-2 py-0.5 rounded ${resultCls}`}>{effRes}</span>
                       </td>
                     </tr>
                   );

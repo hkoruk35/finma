@@ -73,7 +73,7 @@ function formatInline(text: string): React.ReactNode {
         if (part.startsWith("**") && part.endsWith("**"))
           return <strong key={i} className="text-white font-medium">{formatInline(part.slice(2, -2))}</strong>;
         if (part.startsWith("`") && part.endsWith("`"))
-          return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
+          return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-[14px] font-mono">{part.slice(1, -1)}</code>;
         if (part.startsWith("[") && part.endsWith(")")) {
           const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
           if (match) {
@@ -103,14 +103,14 @@ function formatInline(text: string): React.ReactNode {
                   onClick={() => {
                     window.dispatchEvent(new CustomEvent("trigger_ticker_query", { detail: ticker }));
                   }}
-                  className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-black uppercase tracking-wider transition-all cursor-pointer align-baseline"
+                  className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 border border-[#3b82f6]/40 hover:border-[#3b82f6] text-[#3b82f6] hover:text-white rounded text-[11px] font-medium uppercase tracking-wider transition-all cursor-pointer align-baseline"
                 >
                   {label}
                 </button>
               );
             }
             return (
-              <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline font-semibold">
+              <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline font-medium">
                 {label}
               </a>
             );
@@ -127,11 +127,11 @@ function MarkdownText({ text }: { text: string }) {
     <div className="space-y-1.5 leading-relaxed text-sm">
       {text.split("\n").map((line, i) => {
         if (line.startsWith("# "))
-          return <h1 key={i} className="text-base font-black text-white uppercase tracking-wider mt-4 mb-2">{line.slice(2)}</h1>;
+          return <h1 key={i} className="text-base font-medium text-white uppercase tracking-wider mt-4 mb-2">{line.slice(2)}</h1>;
         if (line.startsWith("### "))
-          return <h3 key={i} className="text-xs font-black text-white uppercase tracking-widest mt-3 mb-1">{line.slice(4)}</h3>;
+          return <h3 key={i} className="text-[14px] font-medium text-white uppercase tracking-widest mt-3 mb-1">{line.slice(4)}</h3>;
         if (line.startsWith("## "))
-          return <h2 key={i} className="text-sm font-black text-[#3b82f6] mt-3 mb-1">{line.slice(3)}</h2>;
+          return <h2 key={i} className="text-sm font-medium text-[#3b82f6] mt-3 mb-1">{line.slice(3)}</h2>;
         if (line.startsWith("**") && line.endsWith("**"))
           return <p key={i} className="font-medium text-white">{line.slice(2, -2)}</p>;
         if (line.startsWith("- ") || line.startsWith("• ") || line.startsWith("* "))
@@ -377,10 +377,10 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
       {/* SIDEBAR */}
       <div className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 absolute md:relative w-56 h-[100dvh] md:h-screen bg-[#0a0e17] border-r border-[#1e2a3a] flex flex-col transition-transform duration-300 z-40`}>
         <div className="flex items-center justify-between p-3 border-b border-[#1e2a3a]/40 md:border-b-0">
-          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-xs font-black uppercase tracking-widest transition-colors">{t("newSearch")}</button>
+          <button onClick={newSession} className="flex-1 px-3 py-2 bg-[#3b82f6] hover:bg-[#2563eb] rounded-lg text-[14px] font-medium uppercase tracking-widest transition-colors">{t("newSearch")}</button>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-slate-400 hover:text-white transition-all"
+            className="md:hidden ml-2 p-2 rounded-lg border border-[#1e2a3a] hover:bg-[#1e2a3a] text-[#E8E8E8] hover:text-white transition-all"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
@@ -390,7 +390,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
 
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
           <div>
-            <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
+            <div className="text-[14px] font-medium text-[#E8E8E8] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
               <span>📺</span> {
                 locale === "tr" ? "KANALLAR" :
                 locale === "es" ? "CANALES" :
@@ -407,11 +407,11 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   newSession();
                   window.location.href = `/global/${locale}/search`;
                 }}
-                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
-                  pathname?.endsWith("/search") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                className={`w-full text-left text-[14px] px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/search") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-[#E8E8E8] hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
                 }`}
               >
-                <span className="text-[10px]">💬</span>
+                <span className="text-[14px]">💬</span>
                 <span>{t("navAsk")}</span>
               </button>
 
@@ -421,11 +421,11 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   setSidebarOpen(false);
                   window.location.href = `/global/${locale}/discover`;
                 }}
-                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
-                  pathname?.endsWith("/discover") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                className={`w-full text-left text-[14px] px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/discover") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-[#E8E8E8] hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
                 }`}
               >
-                <span className="text-[10px]">🧭</span>
+                <span className="text-[14px]">🧭</span>
                 <span>{t("navDiscover")}</span>
               </button>
 
@@ -435,9 +435,9 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   setSidebarOpen(false);
                   window.location.href = `https://bogastock.com/global/en/home`;
                 }}
-                className="w-full text-left text-xs px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40 transition-all truncate font-medium flex items-center gap-2 border border-transparent"
+                className="w-full text-left text-[14px] px-3 py-2 rounded-lg text-[#E8E8E8] hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40 transition-all truncate font-medium flex items-center gap-2 border border-transparent"
               >
-                <span className="text-[10px]">📈</span>
+                <span className="text-[14px]">📈</span>
                 <span>{t("navMoney")}</span>
               </button>
 
@@ -447,11 +447,11 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   setSidebarOpen(false);
                   window.location.href = `/global/${locale}/sports`;
                 }}
-                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
-                  pathname?.endsWith("/sports") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                className={`w-full text-left text-[14px] px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/sports") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-[#E8E8E8] hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
                 }`}
               >
-                <span className="text-[10px]">🏀</span>
+                <span className="text-[14px]">🏀</span>
                 <span>{t("navSports")}</span>
               </button>
 
@@ -461,18 +461,18 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   setSidebarOpen(false);
                   window.location.href = `/global/${locale}/weather`;
                 }}
-                className={`w-full text-left text-xs px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
-                  pathname?.endsWith("/weather") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-slate-400 hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
+                className={`w-full text-left text-[14px] px-3 py-2 rounded-lg transition-all truncate font-medium flex items-center gap-2 border border-transparent ${
+                  pathname?.endsWith("/weather") ? "bg-[#3b82f6]/10 text-[#3b82f6] border-[#3b82f6]/20" : "text-[#E8E8E8] hover:text-white hover:bg-[#1e2a3a] hover:border-[#1e2a3a]/40"
                 }`}
               >
-                <span className="text-[10px]">🌤️</span>
+                <span className="text-[14px]">🌤️</span>
                 <span>{t("navWeather")}</span>
               </button>
             </div>
           </div>
 
           <div>
-            <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
+            <div className="text-[14px] font-medium text-[#E8E8E8] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
               <span>🕒</span> {t("recentSearches")}
             </div>
 
@@ -482,14 +482,14 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   <button
                     key={i}
                     onClick={() => send(item.query)}
-                    className="w-full text-left text-xs px-3 py-2 rounded-lg hover:bg-[#1e2a3a] hover:text-[#3b82f6] transition-all text-slate-400 hover:text-white truncate font-medium flex items-center gap-2 border border-transparent hover:border-[#1e2a3a]/40"
+                    className="w-full text-left text-[14px] px-3 py-2 rounded-lg hover:bg-[#1e2a3a] hover:text-[#3b82f6] transition-all text-[#E8E8E8] hover:text-white truncate font-medium flex items-center gap-2 border border-transparent hover:border-[#1e2a3a]/40"
                   >
-                    <span className="text-[10px] text-slate-600">▪</span>
+                    <span className="text-[14px] text-slate-600">▪</span>
                     <span className="truncate">{item.query}</span>
                   </button>
                 ))
               ) : (
-                <div className="text-[10px] text-slate-500 italic px-2 py-4">
+                <div className="text-[14px] text-slate-500 italic px-2 py-4">
                   {t("emptyHistory")}
                 </div>
               )}
@@ -514,10 +514,10 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
               </div>
               <div>
-                <p className="text-white font-black text-sm md:text-base uppercase tracking-widest">
+                <p className="text-white font-medium text-sm md:text-base uppercase tracking-widest">
                   {autoTicker ? `${autoTicker} — ${t("analyzingTitle")}` : t("analyzingTitle")}
                 </p>
-                <p className="text-[#06b6d4] text-xs mt-1.5 font-medium">{t("analyzingBody")}</p>
+                <p className="text-[#06b6d4] text-[14px] mt-1.5 font-medium">{t("analyzingBody")}</p>
               </div>
               <div className="flex gap-1.5">{[0, 150, 300].map(d => <span key={d} className="w-2 h-2 rounded-full bg-[#3b82f6] animate-bounce" style={{ animationDelay: `${d}ms` }} />)}</div>
             </div>
@@ -552,7 +552,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
 
               {/* Popüler Hisse Senetleri */}
               <div className="space-y-4 pt-2">
-                <div className="text-[10px] font-black text-[#475569] uppercase tracking-widest text-center">{t("popularStocks")}</div>
+                <div className="text-[14px] font-medium text-[#475569] uppercase tracking-widest text-center">{t("popularStocks")}</div>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2">
                   {POPULAR_TICKERS.map((item) => (
                     <button
@@ -560,8 +560,8 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                       onClick={() => send(item.ticker)}
                       className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
                     >
-                      <span className="text-xs font-black text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
-                      <span className="text-[9px] text-[#64748b] font-medium mt-0.5 truncate max-w-full">{item.name}</span>
+                      <span className="text-[14px] font-medium text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
+                      <span className="text-[9px] text-[#E8E8E8] font-medium mt-0.5 truncate max-w-full">{item.name}</span>
                     </button>
                   ))}
                 </div>
@@ -569,7 +569,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
 
               {/* Arşiv linki */}
               <div className="text-center pt-4">
-                <a href="/admin/ai/archive" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#1e3a5f]/60 bg-[#0d1321]/60 text-[#06b6d4] hover:border-[#06b6d4]/40 hover:bg-[#06b6d4]/10 transition-all text-[11px] font-black uppercase tracking-widest">
+                <a href="/admin/ai/archive" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-[#1e3a5f]/60 bg-[#0d1321]/60 text-[#06b6d4] hover:border-[#06b6d4]/40 hover:bg-[#06b6d4]/10 transition-all text-[11px] font-medium uppercase tracking-widest">
                   {t("archiveLink")}
                 </a>
               </div>
@@ -585,7 +585,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 <div key={i} className="flex flex-col gap-3 max-w-4xl mx-auto w-full animate-fade-in my-6">
                   <div className="flex gap-3 items-center">
                     <BotIcon />
-                    <span className="text-xs font-black uppercase text-[#3b82f6] tracking-widest">{t("analysisReport")}</span>
+                    <span className="text-[14px] font-medium uppercase text-[#3b82f6] tracking-widest">{t("analysisReport")}</span>
                   </div>
                   <StockReportView ticker={m.ticker!} stockData={m.stockData} masterData={m.masterData} lang={lang === "en" ? "en" : "tr"} autoOpenDeepAnalysis={m.autoDeep} homeHref={isGlobal ? homeHref : undefined} />
                 </div>
@@ -642,7 +642,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
               </div>
             )}
             <div className="text-center mt-1 mb-0.5 opacity-60">
-              <p className="text-[9px] font-sans font-normal tracking-widest text-[#475569]">{t("copyright")}</p>
+              <p className="text-[#475569]" style={{ fontSize: "9px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
             </div>
           </div>
         </div>
@@ -664,3 +664,5 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     </div>
   );
 }
+
+

@@ -48,7 +48,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
       <button
         id={`add-tracker-${pick.ticker}`}
         onClick={handleClick}
-        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-black uppercase tracking-wider transition-all duration-150 whitespace-nowrap ${
+        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-medium uppercase tracking-wider transition-all duration-150 whitespace-nowrap ${
           tracked
             ? "bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30 cursor-default"
             : "bg-transparent text-[#6366f1] border border-[#6366f1]/40 hover:bg-[#6366f1]/15 hover:border-[#6366f1]/70 active:scale-95"
@@ -76,7 +76,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             {/* Header */}
             <div className="flex items-center justify-between mb-5">
               <div>
-                <div className="text-white font-black text-xl tracking-tighter">{pick.ticker}</div>
+                <div className="text-white font-medium text-xl tracking-tighter">{pick.ticker}</div>
                 <div className="text-[#00d2ff] text-xs font-medium">{pick.company}</div>
               </div>
               <button
@@ -92,22 +92,22 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             {/* Price levels (info) */}
             <div className="grid grid-cols-3 gap-2 mb-5 bg-[#141924] rounded-xl p-3">
               <div className="text-center">
-                <div className="text-[9px] text-[#3b82f6] font-black uppercase mb-0.5">Buy Zone</div>
+                <div className="text-[9px] text-[#3b82f6] font-medium uppercase mb-0.5">Buy Zone</div>
                 <div className="text-white text-[11px] font-mono font-medium">${pick.buy_zone.low.toFixed(2)}</div>
               </div>
               <div className="text-center">
-                <div className="text-[9px] text-[#10b981] font-black uppercase mb-0.5">Target</div>
+                <div className="text-[9px] text-[#10b981] font-medium uppercase mb-0.5">Target</div>
                 <div className="text-[#10b981] text-[11px] font-mono font-medium">${pick.profit_zone.high.toFixed(2)}</div>
               </div>
               <div className="text-center">
-                <div className="text-[9px] text-[#ef4444] font-black uppercase mb-0.5">Stop</div>
+                <div className="text-[9px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</div>
                 <div className="text-[#ef4444] text-[11px] font-mono font-medium">${pick.stop_zone.low.toFixed(2)}</div>
               </div>
             </div>
 
             {/* Size unit toggle */}
             <div className="mb-3">
-              <label className="text-[10px] text-[#00d2ff] font-black uppercase tracking-wider mb-2 block">
+              <label className="text-[10px] text-[#00d2ff] font-medium uppercase tracking-wider mb-2 block">
                 Position Size Type
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -115,7 +115,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
                   <button
                     key={u}
                     onClick={() => setSizeUnit(u)}
-                    className={`py-2 rounded-lg text-[11px] font-black uppercase tracking-wider border transition-all ${
+                    className={`py-2 rounded-lg text-[11px] font-medium uppercase tracking-wider border transition-all ${
                       sizeUnit === u
                         ? "bg-[#3b82f6] text-white border-[#3b82f6]"
                         : "bg-transparent text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
@@ -129,7 +129,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
 
             {/* Size value */}
             <div className="mb-5">
-              <label className="text-[10px] text-[#00d2ff] font-black uppercase tracking-wider mb-2 block">
+              <label className="text-[10px] text-[#00d2ff] font-medium uppercase tracking-wider mb-2 block">
                 {sizeUnit === "usd" ? "Amount (USD)" : "Number of Shares"}
               </label>
               <input
@@ -150,7 +150,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             {/* Confirm */}
             <button
               onClick={handleConfirm}
-              className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-black text-sm rounded-xl uppercase tracking-widest hover:from-[#2563eb] hover:to-[#5b21b6] transition-all active:scale-[0.98] shadow-lg shadow-blue-500/20"
+              className="w-full py-3 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white font-medium text-sm rounded-xl uppercase tracking-widest hover:from-[#2563eb] hover:to-[#5b21b6] transition-all active:scale-[0.98] shadow-lg shadow-blue-500/20"
             >
               🚀 Add to Smart Tracker
             </button>

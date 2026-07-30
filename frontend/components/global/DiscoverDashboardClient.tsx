@@ -255,14 +255,14 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
         {/* Banner */}
         <div className="bg-gradient-to-r from-blue-900/25 to-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-2xl p-6 mb-6 shadow-xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-          <h1 className="text-xl md:text-2xl font-semibold text-white tracking-tight">{t.title}</h1>
+          <h1 className="text-xl md:text-2xl font-medium text-white tracking-tight">{t.title}</h1>
           <p className="text-[14px] text-slate-400 mt-1 max-w-2xl">{t.subtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left panel: Interest selection */}
           <div className="lg:col-span-4 bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-4 shadow-xl">
-            <h2 className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 border-b border-[#1e2a3a]/30 pb-2">
+            <h2 className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 border-b border-[#1e2a3a]/30 pb-2">
               <span>💖</span> {t.myInterests}
             </h2>
             <div className="space-y-2">
@@ -289,7 +289,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
           {/* Right panel: Suggested queries */}
           <div className="lg:col-span-8 space-y-4">
             <div className="flex items-center justify-between border-b border-[#1e2a3a]/40 pb-2">
-              <span className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
+              <span className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5">
                 <span>✨</span> {t.suggestedQueries}
               </span>
               <span className="text-[11px] text-slate-500">{t.clickPrompt}</span>
@@ -303,7 +303,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
               <div className="space-y-6">
                 {ALL_TOPICS.filter((topic) => selectedTopics.includes(topic)).map((topic) => (
                   <div key={topic} className="space-y-3">
-                    <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
+                    <h3 className="text-sm font-medium text-slate-300 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                       {TOPIC_LABELS[topic][locale]}
                     </h3>
@@ -332,7 +332,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
 
         {/* Standard Footer Copyright */}
         <div className="text-center mt-12 pt-4 border-t border-[#1e2a3a]/40 opacity-60">
-          <p className="text-[9px] font-sans font-normal text-slate-500/60">
+          <p className="text-slate-500/60" style={{ fontSize: "9px", fontFamily: "Inter", fontWeight: 400 }}>
             {locale === "tr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır." :
              locale === "en" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved." :
              locale === "es" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados." :
@@ -344,3 +344,4 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
     </div>
   );
 }
+

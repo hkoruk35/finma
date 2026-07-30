@@ -1163,7 +1163,7 @@ export default function BogaChartEngine({
     <div className="relative">
       <button
         onClick={() => setShareOpen((v) => !v)}
-        className="flex items-center gap-1 p-1 md:px-2.5 md:py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+        className="flex items-center gap-1 p-1 md:px-2.5 md:py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all"
         title={t.share}
       >
         <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1213,7 +1213,7 @@ export default function BogaChartEngine({
                 <button
                   key={iv.value}
                   onClick={() => changeInterval(iv.value)}
-                  className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                  className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
                     interval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
                   }`}
                 >
@@ -1242,7 +1242,7 @@ export default function BogaChartEngine({
               <div className="relative ml-2">
                 <button
                   onClick={() => setIndicatorsMenuOpen((v) => !v)}
-                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[11px] font-medium text-[#00d2ff] hover:text-white transition-all"
                 >
                   <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M3 3v18h18" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1252,27 +1252,27 @@ export default function BogaChartEngine({
                 </button>
                 {indicatorsMenuOpen && (
                   <div className="absolute left-0 mt-1 w-72 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-1 px-2 uppercase tracking-widest">{t.catTrend || "Trend"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-1 px-2 uppercase tracking-widest">{t.catTrend || "Trend"}</div>
                     {(["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "macd"] as IndicatorKey[]).map(k => (
                       <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "supertrend" ? "Supertrend" : k.toUpperCase())}</button>
                     ))}
                     
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catMomentum || "Momentum"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catMomentum || "Momentum"}</div>
                     {(["rsi", "volatilite", "bb", "atr"] as IndicatorKey[]).map(k => (
                       <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volatilite" ? "Volatilite" : k === "bb" ? "Bollinger Bands" : k.toUpperCase())}</button>
                     ))}
                     
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catVolume || "Hacim"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catVolume || "Hacim"}</div>
                     {(["volume", "vwap", "obv", "volumeProfile"] as IndicatorKey[]).map(k => (
                       <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volume" ? "Volume" : k === "volumeProfile" ? "Volume Profile" : k.toUpperCase())}</button>
                     ))}
                     
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
                     <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
                     <button onClick={() => toggle("sd")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sd") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sd || "Supply & Demand Zones"}</button>
                     <button onClick={() => toggle("fvg")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fvg") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fvg || "Fair Value Gap (FVG)"}</button>
                     
-                    <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
+                    <div className="text-[9px] font-medium text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
                     <button onClick={() => toggle("trendLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("trendLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.trendLine || "Trend Line"}</button>
                     <button onClick={() => toggle("horizontalLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("horizontalLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.horizontalLine || "Horizontal Line"}</button>
                     <button onClick={() => toggle("fibonacci")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fibonacci") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fibonacci || "Fibonacci Retracement"}</button>
@@ -1289,7 +1289,7 @@ export default function BogaChartEngine({
                 <div className="hidden md:block">{shareControl}</div>
                 <button
                   onClick={toggleFullscreen}
-                  className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all"
+                  className="hidden md:inline-flex px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all"
                   title={t.fullscreen || "Tam Ekran"}
                 >
                   {isFullscreen ? "⛶" : "⛶"}
@@ -1297,7 +1297,7 @@ export default function BogaChartEngine({
                 <div className="relative hidden md:block">
                   <button
                     onClick={() => setMultiChartOpen(v => !v)}
-                    className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white transition-all ml-1"
+                    className="px-2.5 py-1 rounded bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white transition-all ml-1"
                     title={t.multiChartScreen}
                   >
                     2 / 4 / 6 / 9
@@ -1338,7 +1338,7 @@ export default function BogaChartEngine({
                   <button
                     key={r}
                     onClick={() => setRange(r)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                    className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
                       range === r ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
                     }`}
                   >
@@ -1354,7 +1354,7 @@ export default function BogaChartEngine({
                   <button
                     key={ct}
                     onClick={() => setCandleType(ct)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-black transition-all ${
+                    className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
                       candleType === ct ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
                     }`}
                   >
@@ -1365,7 +1365,7 @@ export default function BogaChartEngine({
               <div className="relative md:hidden">
                 <button
                   onClick={() => setMobileCandleMenuOpen((v) => !v)}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff]"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff]"
                 >
                   {t[candleType]} <span className="text-[8px]">{mobileCandleMenuOpen ? "▴" : "▾"}</span>
                 </button>
@@ -1412,7 +1412,7 @@ export default function BogaChartEngine({
               <div className="md:hidden border-b border-[#1e2a3a]">
                 <button
                   onClick={() => setMobileIndicatorsOpen((v) => !v)}
-                  className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-black text-[#00d2ff]"
+                  className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-medium text-[#00d2ff]"
                 >
                   <span>⚙️ {t.indicators} ({active.size})</span>
                   <span className="text-[8px]">{mobileIndicatorsOpen ? "▴" : "▾"}</span>
@@ -1527,7 +1527,7 @@ export default function BogaChartEngine({
                 borderBottom: "1px dashed rgba(34,197,94,0.6)",
               }}
             >
-              <span className="absolute left-1 top-0.5 text-[9px] font-black text-[#22c55e] bg-[#0a0e17]/70 px-1 rounded">
+              <span className="absolute left-1 top-0.5 text-[9px] font-medium text-[#22c55e] bg-[#0a0e17]/70 px-1 rounded">
                 ENTRY ${tradePlan.entryZone.low.toFixed(2)}–${tradePlan.entryZone.high.toFixed(2)}
               </span>
             </div>
@@ -1569,12 +1569,12 @@ function MultiChartOverlay({
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0e17] flex flex-col">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0">
-        <span className="text-sm font-black text-white uppercase tracking-widest">
+        <span className="text-sm font-medium text-white uppercase tracking-widest">
           {t.multiChartScreen} — {layout}
         </span>
         <button
           onClick={onClose}
-          className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-black text-[#00d2ff] hover:text-white transition-all"
+          className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-medium text-[#00d2ff] hover:text-white transition-all"
         >
           ✕
         </button>

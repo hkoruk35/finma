@@ -72,7 +72,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
 
   return (
     <div className="mt-6 mb-10">
-      <h3 className="text-sm font-black text-white/60 mb-3 flex items-center gap-2 uppercase tracking-widest">
+      <h3 className="text-sm font-medium text-white/60 mb-3 flex items-center gap-2 uppercase tracking-widest">
         Sector Profitability Heatmap
       </h3>
 
@@ -84,14 +84,14 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
             href={linkHref}
             className={`flex-1 glass-card p-2 border rounded-lg flex flex-col gap-1 transition-all ${linkHref ? "hover:border-[#3b82f6]/50 hover:bg-[#1a2030] group" : ""} min-w-0 ${heatColor(s.avgReturn)}`}
           >
-            <p className="text-[9px] font-black text-white/90 uppercase tracking-tight truncate" title={s.name}>
+            <p className="text-[9px] font-medium text-white/90 uppercase tracking-tight truncate" title={s.name}>
               {s.name}
             </p>
             <div className="flex items-center justify-between gap-1 mt-0.5">
-              <span className={`text-xs font-black font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+              <span className={`text-xs font-medium font-mono leading-none ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                 {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
               </span>
-              <span className="text-[9px] font-black text-white/60 bg-white/5 px-1 rounded">
+              <span className="text-[9px] font-medium text-white/60 bg-white/5 px-1 rounded">
                 {s.total}
               </span>
             </div>
@@ -109,7 +109,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
               className={`inline-flex items-center gap-2 px-3 py-1 border rounded-full text-[10px] font-medium text-slate-300 ${linkHref ? "hover:text-white" : ""} ${heatColor(s.avgReturn)}`}
             >
               <span className="uppercase tracking-tight whitespace-nowrap">{s.name}</span>
-              <span className={`font-mono font-black ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+              <span className={`font-mono font-medium ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                 {s.avgReturn >= 0 ? "+" : ""}{s.avgReturn.toFixed(1)}%
               </span>
               <span className="bg-white/10 px-1.5 py-0.2 rounded-full text-[8px]">{s.total}</span>

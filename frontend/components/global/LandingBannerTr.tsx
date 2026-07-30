@@ -54,7 +54,7 @@ export function ScreenshotBanner({ lang }: { lang: string }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between">
           <div>
-            <div className="text-white font-black text-lg leading-tight">{shots[active].label}</div>
+            <div className="text-white font-medium text-lg leading-tight">{shots[active].label}</div>
             <div className="text-white/60 text-xs mt-1">{shots[active].desc}</div>
           </div>
           <div className="flex items-center gap-1.5 bg-black/50 border border-white/10 rounded-full px-3 py-1.5 text-white/50 text-[10px] font-medium">
@@ -66,7 +66,7 @@ export function ScreenshotBanner({ lang }: { lang: string }) {
         </div>
 
         {/* Badge — sağ üst */}
-        <div className="absolute top-3 right-3 bg-[#3b82f6]/90 text-white text-[9px] font-black uppercase tracking-widest rounded-full px-2.5 py-1">
+        <div className="absolute top-3 right-3 bg-[#3b82f6]/90 text-white text-[9px] font-medium uppercase tracking-widest rounded-full px-2.5 py-1">
           {active + 1} / {shots.length}
         </div>
       </div>
@@ -86,7 +86,7 @@ export function ScreenshotBanner({ lang }: { lang: string }) {
             <img src={s.src} alt={s.label} className="w-full h-20 object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
             <div className="absolute bottom-1 left-2 right-2">
-              <div className="text-white text-[9px] font-black leading-tight truncate">{s.label}</div>
+              <div className="text-white text-[9px] font-medium leading-tight truncate">{s.label}</div>
             </div>
             {i === active && (
               <div className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#3b82f6]" />

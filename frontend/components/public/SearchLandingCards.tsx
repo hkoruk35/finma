@@ -111,25 +111,25 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
         <button
           onClick={() => setSelectedMode("fast")}
           disabled={loading}
-          className={`px-5 py-2 rounded-full font-semibold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full font-medium uppercase tracking-wider transition-all ${
             selectedMode === "fast"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "bg-[#1e2a3a]/40 text-[#94a3b8] hover:text-white border border-[#1e2a3a]"
           }`}
-          style={{ fontSize: '12px', fontFamily: 'Inter' }}
+          style={{ fontSize: '14px', fontFamily: 'Inter' }}
         >
           ⚡ {RESEARCH_MODES.fast[locale]}
         </button>
-        <span className="text-[#475569]" style={{ fontSize: '12px', fontFamily: 'Inter' }}>/</span>
+        <span className="text-[#475569]" style={{ fontSize: '14px', fontFamily: 'Inter' }}>/</span>
         <button
           onClick={() => setSelectedMode("deep")}
           disabled={loading}
-          className={`px-5 py-2 rounded-full font-semibold uppercase tracking-wider transition-all ${
+          className={`px-5 py-2 rounded-full font-medium uppercase tracking-wider transition-all ${
             selectedMode === "deep"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "bg-[#1e2a3a]/40 text-[#94a3b8] hover:text-white border border-[#1e2a3a]"
           }`}
-          style={{ fontSize: '12px', fontFamily: 'Inter' }}
+          style={{ fontSize: '14px', fontFamily: 'Inter' }}
         >
           🔍 {RESEARCH_MODES.deep[locale]}
         </button>
@@ -172,15 +172,15 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
 
             <div className="relative z-10 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2">
-                <span className="text-xs font-medium uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
+                <span className="text-xs font-medium uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '14px', fontFamily: 'Inter' }}>
                   {CARD_LABELS[idx][locale]}
                 </span>
-                <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '11px', fontFamily: 'Inter' }}>
+                <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '14px', fontFamily: 'Inter' }}>
                   {CARD_DESCRIPTIONS[idx][locale]}
                 </span>
               </div>
 
-              <p className={`font-semibold leading-snug transition-colors ${
+              <p className={`font-medium leading-snug transition-colors ${
                 activeCard === idx ? "text-white" : "text-[#cbd5e1]"
               }`} style={{ fontSize: '14px', fontFamily: 'Inter' }}>
                 {QUESTION_TITLES[idx][locale]}
@@ -198,7 +198,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
       </div>
 
       {/* Info text */}
-      <div className="text-center text-[#64748b] space-y-1" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
+      <div className="text-[#E8E8E8]enter text-[#64748b] space-y-1" style={{ fontSize: '14px', fontFamily: 'Inter' }}>
         <p>
           {selectedMode === "fast"
             ? locale === "tr"
@@ -224,3 +224,4 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
     </div>
   );
 }
+

@@ -42,7 +42,7 @@ export default function OptionsManager() {
       <button
         onClick={runScanner}
         disabled={isRunning}
-        className={`px-6 py-2.5 rounded-xl font-black text-sm uppercase tracking-widest transition-all shadow-lg ${
+        className={`px-6 py-2.5 rounded-xl font-medium text-sm uppercase tracking-widest transition-all shadow-lg ${
           isRunning 
             ? "bg-slate-700 text-slate-400 cursor-not-allowed" 
             : "bg-[#3b82f6] text-white hover:bg-blue-600 hover:shadow-blue-500/20 active:scale-95"

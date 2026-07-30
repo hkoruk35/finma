@@ -42,7 +42,7 @@ export default function FeedbackForm({ locale }: { locale: Locale }) {
     <div className="min-h-screen flex items-center justify-center bg-[#010409] font-sans px-4">
       <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-black text-white tracking-tighter mb-2">{t.title}</h1>
+          <h1 className="text-2xl font-medium text-white tracking-tighter mb-2">{t.title}</h1>
           <p className="text-white/40 text-xs">{t.subtitle}</p>
         </div>
 
@@ -53,7 +53,7 @@ export default function FeedbackForm({ locale }: { locale: Locale }) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-xs font-black uppercase tracking-widest text-white/40 mb-2 ml-1">
+              <label className="block text-xs font-medium uppercase tracking-widest text-white/40 mb-2 ml-1">
                 {t.subjectLabel}
               </label>
               <input
@@ -68,7 +68,7 @@ export default function FeedbackForm({ locale }: { locale: Locale }) {
             </div>
 
             <div>
-              <label className="block text-xs font-black uppercase tracking-widest text-white/40 mb-2 ml-1">
+              <label className="block text-xs font-medium uppercase tracking-widest text-white/40 mb-2 ml-1">
                 {t.bodyLabel}
               </label>
               <textarea
@@ -91,7 +91,7 @@ export default function FeedbackForm({ locale }: { locale: Locale }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-medium uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? t.submitting : t.submit}
             </button>

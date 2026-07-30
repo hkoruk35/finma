@@ -73,7 +73,7 @@ export default function SocialShare({ ticker, score, scoreType, url, hideHeader 
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-3">
             <div className="w-1 h-7 bg-[#3b82f6] rounded-full" />
-            <h3 className="text-xl font-black text-white tracking-tight">Share This Insight</h3>
+            <h3 className="text-xl font-medium text-white tracking-tight">Share This Insight</h3>
           </div>
           <p className="text-sm text-white leading-relaxed">
             Help others discover this score. Professional analysts share high-conviction data.
@@ -102,7 +102,7 @@ export default function SocialShare({ ticker, score, scoreType, url, hideHeader 
         ))}
         <button
           onClick={handleCopy}
-          className="h-14 px-4 rounded-lg bg-gradient-to-br from-[#1a2f4a] to-[#0f1820] border border-[#3b82f6]/30 flex items-center justify-center text-xs font-black text-white hover:text-white hover:from-[#1f3a52] hover:to-[#1a2636] hover:border-[#3b82f6]/60 transition-all gap-2 shadow-lg hover:shadow-[0_0_16px_rgba(59,130,246,0.15)]"
+          className="h-14 px-4 rounded-lg bg-gradient-to-br from-[#1a2f4a] to-[#0f1820] border border-[#3b82f6]/30 flex items-center justify-center text-xs font-medium text-white hover:text-white hover:from-[#1f3a52] hover:to-[#1a2636] hover:border-[#3b82f6]/60 transition-all gap-2 shadow-lg hover:shadow-[0_0_16px_rgba(59,130,246,0.15)]"
           title="Copy page link"
         >
           {copied ? (

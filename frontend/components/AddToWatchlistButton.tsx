@@ -12,7 +12,7 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
   const { isInTracker, addToTracker, removeFromTracker } = useTracker();
   const inTracker = isInTracker(ticker);
 
-  const baseClass = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-black uppercase tracking-wider transition-all duration-150 whitespace-nowrap";
+  const baseClass = "inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-medium uppercase tracking-wider transition-all duration-150 whitespace-nowrap";
 
   if (inTracker) {
     return (
@@ -25,7 +25,7 @@ export function AddToWatchlistButton({ ticker, compact = false, mobileFull = fal
         </span>
         <button
           onClick={() => removeFromTracker(ticker)}
-          className="px-1.5 py-1 text-[#ef4444] border border-[#ef4444]/30 rounded text-[10px] font-black hover:bg-[#ef4444]/15 transition-all"
+          className="px-1.5 py-1 text-[#ef4444] border border-[#ef4444]/30 rounded text-[10px] font-medium hover:bg-[#ef4444]/15 transition-all"
           title="Kaldır"
         >
           ✕

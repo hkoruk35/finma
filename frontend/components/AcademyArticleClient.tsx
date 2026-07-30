@@ -31,7 +31,7 @@ interface Props {
 }
 
 const CTA_GRADIENT =
-  "bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-black tracking-wide shadow-xl shadow-blue-500/20";
+  "bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6] hover:from-[#2563eb] hover:to-[#7c3aed] text-white font-medium tracking-wide shadow-xl shadow-blue-500/20";
 
 export default function AcademyArticleClient({
   articleKey,
@@ -79,14 +79,14 @@ export default function AcademyArticleClient({
         {/* Article Header */}
         <header className="mb-12">
           <div className="flex items-center gap-2 mb-6">
-            <div className="px-3 py-1 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[10px] font-black text-[#3b82f6] uppercase tracking-[0.2em]">
+            <div className="px-3 py-1 rounded-full bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[10px] font-medium text-[#3b82f6] uppercase tracking-[0.2em]">
               BOGA AI Academy
             </div>
-            <div className="px-3 py-1 rounded-full bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[10px] font-black text-[#8b5cf6] uppercase tracking-[0.2em]">
+            <div className="px-3 py-1 rounded-full bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[10px] font-medium text-[#8b5cf6] uppercase tracking-[0.2em]">
               Free Guide
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight mb-6">
             {t.h1}
           </h1>
           <p className="text-lg text-white leading-relaxed border-l-4 border-[#3b82f6] pl-5 mt-4">
@@ -98,8 +98,8 @@ export default function AcademyArticleClient({
         <article className="space-y-12" itemScope itemType="https://schema.org/Article">
           {t.sections.map((section, i) => (
             <section key={i} className="scroll-mt-20">
-              <h2 className="text-xl md:text-2xl font-black text-white mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center text-[#3b82f6] text-sm font-mono font-black shrink-0">
+              <h2 className="text-xl md:text-2xl font-medium text-white mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-xl bg-[#3b82f6]/10 border border-[#3b82f6]/20 flex items-center justify-center text-[#3b82f6] text-sm font-mono font-medium shrink-0">
                   {i + 1}
                 </span>
                 {section.h2}
@@ -113,7 +113,7 @@ export default function AcademyArticleClient({
                 {section.link && (
                   <Link
                     href={section.link.href}
-                    className="inline-flex items-center gap-2 mt-4 text-[#3b82f6] text-sm font-semibold hover:underline"
+                    className="inline-flex items-center gap-2 mt-4 text-[#3b82f6] text-sm font-medium hover:underline"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -149,7 +149,7 @@ export default function AcademyArticleClient({
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]" />
           <div className="relative z-10">
             <div className="text-4xl mb-4">🚀</div>
-            <h3 className="text-2xl font-black text-white mb-3">{t.cta_text}</h3>
+            <h3 className="text-2xl font-medium text-white mb-3">{t.cta_text}</h3>
             <p className="text-white mb-8 max-w-md mx-auto text-sm leading-relaxed">
               Join thousands of investors already using BOGA AI to analyze 560 US stocks daily.
             </p>
@@ -168,7 +168,7 @@ export default function AcademyArticleClient({
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
           <div className="mt-16">
-            <h3 className="text-xl font-black text-white mb-6 uppercase tracking-wider">
+            <h3 className="text-xl font-medium text-white mb-6 uppercase tracking-wider">
               Continue Learning
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -182,7 +182,7 @@ export default function AcademyArticleClient({
                     📖
                   </div>
                   <div>
-                    <div className="text-[10px] text-[#3b82f6] font-black uppercase tracking-widest mb-1">
+                    <div className="text-[10px] text-[#3b82f6] font-medium uppercase tracking-widest mb-1">
                       {article.tag}
                     </div>
                     <div className="text-sm font-medium text-white group-hover:text-[#3b82f6] transition-colors">
@@ -202,7 +202,7 @@ export default function AcademyArticleClient({
         <div className="mt-12 text-center">
           <Link
             href="/admin/education/academy"
-            className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#3b82f6] transition-colors font-semibold"
+            className="inline-flex items-center gap-2 text-sm text-[#00d2ff] hover:text-[#3b82f6] transition-colors font-medium"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

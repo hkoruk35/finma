@@ -17,7 +17,7 @@ export default function AIReportFormatter({ content }: { content: string }) {
         // Headers ###
         if (line.startsWith('### ')) {
           return (
-            <h3 key={i} className="text-lg md:text-xl font-black text-white uppercase tracking-widest pt-4 border-b border-white/5 pb-2">
+            <h3 key={i} className="text-lg md:text-xl font-medium text-white uppercase tracking-widest pt-4 border-b border-white/5 pb-2">
               {line.replace('### ', '')}
             </h3>
           );
@@ -25,7 +25,7 @@ export default function AIReportFormatter({ content }: { content: string }) {
         // Headers ##
         if (line.startsWith('## ')) {
           return (
-            <h2 key={i} className="text-xl md:text-2xl font-black text-[#3b82f6] uppercase tracking-tighter pt-2">
+            <h2 key={i} className="text-xl md:text-2xl font-medium text-[#3b82f6] uppercase tracking-tighter pt-2">
               {line.replace('## ', '')}
             </h2>
           );
@@ -59,7 +59,7 @@ function renderBold(text: string) {
   return parts.map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={index} className="text-white font-black px-1 rounded bg-white/5">
+        <strong key={index} className="text-white font-medium px-1 rounded bg-white/5">
           {part.slice(2, -2)}
         </strong>
       );

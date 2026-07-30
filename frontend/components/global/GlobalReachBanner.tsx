@@ -63,7 +63,7 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
             style={{ background: "rgba(255,255,255,0.4)" }}
           >
             <p
-              className="font-extrabold tracking-tight"
+              className="font-medium tracking-tight"
               style={{
                 fontSize: "clamp(13px, 2.1vw, 20px)",
                 lineHeight: 1.15,

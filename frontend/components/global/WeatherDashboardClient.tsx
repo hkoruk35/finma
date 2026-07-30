@@ -236,7 +236,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
           
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-xl md:text-2xl font-semibold text-white tracking-tight">{t.title}</h1>
+              <h1 className="text-xl md:text-2xl font-medium text-white tracking-tight">{t.title}</h1>
               <p className="text-[14px] text-slate-400 mt-1 max-w-2xl">{t.subtitle}</p>
             </div>
 
@@ -283,14 +283,14 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
                   {/* Current Temp */}
                   <div className="flex justify-between items-start">
                     <div>
-                      <h2 className="text-lg font-semibold text-white truncate max-w-[200px]">{weather.location}</h2>
+                      <h2 className="text-lg font-medium text-white truncate max-w-[200px]">{weather.location}</h2>
                       <p className="text-[13px] text-slate-400 capitalize mt-0.5">{weather.current.condition}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       {weather.current.icon && (
                         <img src={weather.current.icon} alt="" className="w-12 h-12 object-contain" />
                       )}
-                      <span className="text-3xl md:text-4xl font-extrabold text-white tracking-tighter">
+                      <span className="text-3xl md:text-4xl font-medium text-white tracking-tighter">
                         {isImperial ? weather.current.temperature_f : weather.current.temperature_c}°
                       </span>
                     </div>
@@ -298,7 +298,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
 
                   {/* Weather details list */}
                   <div className="border-t border-[#1e2a3a]/40 pt-4 space-y-2 text-[13px] text-slate-400">
-                    <div className="text-xs font-semibold text-[#64748b] uppercase tracking-widest">{t.details}</div>
+                    <div className="text-xs font-medium text-[#64748b] uppercase tracking-widest">{t.details}</div>
                     <div className="grid grid-cols-2 gap-3 pt-1">
                       <div>{t.feelsLike}: <span className="text-white font-medium">{isImperial ? weather.current.feelslike_f : weather.current.feelslike_c}°</span></div>
                       <div>{t.humidity}: <span className="text-white font-medium">{weather.current.humidity}%</span></div>
@@ -310,7 +310,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
                   {/* Forecast list */}
                   {weather.forecast && weather.forecast.length > 0 && (
                     <div className="border-t border-[#1e2a3a]/40 pt-4 space-y-2.5">
-                      <div className="text-xs font-semibold text-[#64748b] uppercase tracking-widest">{t.forecast}</div>
+                      <div className="text-xs font-medium text-[#64748b] uppercase tracking-widest">{t.forecast}</div>
                       {weather.forecast.map((f, i) => {
                         const dayName = new Date(f.date).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US", { weekday: "long" });
                         return (
@@ -335,7 +335,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
 
           {/* Right panel: Climate Queries */}
           <div className="lg:col-span-7 space-y-4">
-            <h2 className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest flex items-center gap-1.5 border-b border-[#1e2a3a]/40 pb-2">
+            <h2 className="text-[13px] font-medium text-[#64748b] uppercase tracking-widest flex items-center gap-1.5 border-b border-[#1e2a3a]/40 pb-2">
               <span>💡</span> {t.suggestedQueries}
             </h2>
             <p className="text-[11px] text-slate-500">{t.clickPrompt}</p>
@@ -361,7 +361,7 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
 
         {/* Standard Footer Copyright */}
         <div className="text-center mt-12 pt-4 border-t border-[#1e2a3a]/40 opacity-60">
-          <p className="text-[9px] font-sans font-normal text-slate-500/60">
+          <p className="text-slate-500/60" style={{ fontSize: "9px", fontFamily: "Inter", fontWeight: 400 }}>
             {locale === "tr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır." :
              locale === "en" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved." :
              locale === "es" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados." :
@@ -373,3 +373,4 @@ export default function WeatherDashboardClient({ locale }: { locale: Locale }) {
     </div>
   );
 }
+

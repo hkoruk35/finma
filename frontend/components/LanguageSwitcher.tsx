@@ -28,7 +28,7 @@ export default function LanguageSwitcher({ currentLocale, onChange }: Props) {
         id="language-switcher-btn"
         aria-label="Select language"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141924] border border-[#1e2a3a] hover:border-[#3b82f6]/40 transition-all text-sm font-semibold text-white"
+        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#141924] border border-[#1e2a3a] hover:border-[#3b82f6]/40 transition-all text-sm font-medium text-white"
       >
         <span className="text-base">{current.flag}</span>
         <span>{current.label}</span>

@@ -59,7 +59,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             <button
               key={tab.key}
               onClick={() => setActive(tab.key)}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-all duration-200 ${
+              className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 active === tab.key
                   ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
                   : "bg-[#141924] text-white hover:bg-[#1a2030] hover:text-white border border-[#1e2a3a]"
@@ -76,10 +76,10 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
         {isThemeFilter && (
            <div className="flex items-center gap-3 bg-[#3b82f6]/10 border border-[#3b82f6]/30 px-3 py-1.5 rounded-lg">
               <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-pulse"></span>
-              <p className="text-[10px] font-black text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">Theme Focus: {active.replace('_', ' ')} Applied</p>
+              <p className="text-[10px] font-medium text-[#3b82f6] uppercase tracking-widest whitespace-nowrap">Theme Focus: {active.replace('_', ' ')} Applied</p>
               <button 
                 onClick={() => onClear?.()}
-                className="text-[10px] bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 text-white px-2 py-0.5 rounded transition-colors uppercase font-black"
+                className="text-[10px] bg-[#3b82f6]/20 hover:bg-[#3b82f6]/40 text-white px-2 py-0.5 rounded transition-colors uppercase font-medium"
               >
                 Reset
               </button>
@@ -99,7 +99,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             {/* Top row: ticker + score */}
             <div className="flex items-center justify-between mb-2">
               <div>
-                <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
+                <span className="text-xl font-medium text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
                 <p className="text-[11px] text-[#00d2ff] font-medium uppercase tracking-wider truncate max-w-[120px]">
@@ -115,7 +115,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
 
             {/* Status badge — prominent, primary */}
             <div className="mb-3">
-              <span className={`inline-block px-3 py-1 rounded-md text-sm font-black uppercase tracking-wide ${getScoreBadgeClass(stock.score_type)}`}>
+              <span className={`inline-block px-3 py-1 rounded-md text-sm font-medium uppercase tracking-wide ${getScoreBadgeClass(stock.score_type)}`}>
                 {stock.score_type.replace(/_/g, " ")}
               </span>
             </div>
@@ -129,8 +129,8 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
             </div>
 
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[9px] text-[#00d2ff] font-black uppercase tracking-widest">BOGA SCORE</span>
-              <span className="text-[11px] font-mono font-black text-[#3b82f6]">{stock.master_score.toFixed(0)} / 100</span>
+              <span className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest">BOGA SCORE</span>
+              <span className="text-[11px] font-mono font-medium text-[#3b82f6]">{stock.master_score.toFixed(0)} / 100</span>
             </div>
             <div className="relative w-full h-1.5 bg-[#1e2a3a] rounded-full overflow-hidden mb-1">
               <div
@@ -146,7 +146,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
       <div className="text-center mt-6">
         <Link
           href={`/category/${active === "value" ? "undervalued" : active === "dividend" ? "passive-income" : active.replace("_", "-")}`}
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#141924] border border-[#1e2a3a] rounded-lg text-sm font-semibold text-[#3b82f6] hover:bg-[#1a2030] hover:border-[#3b82f6]/30 transition-all"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#141924] border border-[#1e2a3a] rounded-lg text-sm font-medium text-[#3b82f6] hover:bg-[#1a2030] hover:border-[#3b82f6]/30 transition-all"
         >
           View All {TABS.find((t) => t.key === active)?.label}
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

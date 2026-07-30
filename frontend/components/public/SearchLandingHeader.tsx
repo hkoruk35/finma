@@ -57,7 +57,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
       <div className="w-full max-w-[1800px] mx-auto px-4 h-16 flex items-center gap-3 sm:gap-6">
         <button onClick={onLogoClick} className="flex flex-col items-start flex-shrink-0 focus:outline-none">
           <span className="text-lg tracking-tight font-medium">
-            <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Smart</span>
+            <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Smart</span>
           </span>
           <span className="hidden sm:inline text-[11px] text-[#64748b]">{SLOGAN}</span>
         </button>
@@ -81,7 +81,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
               <Link
                 key={lg}
                 href={getLangHref(lg)}
-                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider transition-all ${
+                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-medium uppercase tracking-wider transition-all ${
                   isActive ? "bg-[#3b82f6] text-white" : "text-[#64748b] hover:text-white hover:bg-white/10"
                 }`}
               >

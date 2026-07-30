@@ -47,7 +47,7 @@ const MarketStatus = () => {
         return (
             <div className="flex items-center gap-2 mt-1">
                 <div className="w-2 h-2 rounded-full bg-[#64748b]"></div>
-                <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em]">CHECKING MARKET...</span>
+                <span className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-[0.2em]">CHECKING MARKET...</span>
             </div>
         );
     }
@@ -55,7 +55,7 @@ const MarketStatus = () => {
     return (
         <div className="flex items-center gap-2 mt-1">
             <div className={`w-2 h-2 rounded-full ${isOpen ? "bg-[#22c55e] live-dot" : "bg-[#64748b]"}`}></div>
-            <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em]">
+            <span className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-[0.2em]">
                 MARKET IS {isOpen ? "OPEN" : "CLOSED"} {!isOpen && "· DATA: LAST CLOSE"}
             </span>
         </div>

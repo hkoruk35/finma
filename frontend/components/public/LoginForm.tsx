@@ -53,7 +53,7 @@ export default function LoginForm({
     <div className="flex-1 flex items-center justify-center bg-[#010409] font-sans px-4 py-12">
       <div className="w-full max-w-md p-8 glass-card border border-white/10 bg-[#0d1117] rounded-3xl shadow-2xl">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-white tracking-tighter mb-2">
+          <h1 className="text-4xl font-medium text-white tracking-tighter mb-2">
             BOGA<span className="text-[#3b82f6]">STOCK</span>
           </h1>
           <p className="text-white/50 text-sm font-medium">{t.subtitle}</p>
@@ -61,7 +61,7 @@ export default function LoginForm({
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xs font-black uppercase tracking-widest text-white/40 mb-2 ml-1">
+            <label className="block text-xs font-medium uppercase tracking-widest text-white/40 mb-2 ml-1">
               {t.emailLabel}
             </label>
             <input
@@ -76,7 +76,7 @@ export default function LoginForm({
           </div>
 
           <div>
-            <label className="block text-xs font-black uppercase tracking-widest text-white/40 mb-2 ml-1">
+            <label className="block text-xs font-medium uppercase tracking-widest text-white/40 mb-2 ml-1">
               {t.passwordLabel}
             </label>
             <input
@@ -99,7 +99,7 @@ export default function LoginForm({
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-[#3b82f6] text-white rounded-2xl font-medium uppercase tracking-[0.2em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? t.submitting : t.submit}
           </button>

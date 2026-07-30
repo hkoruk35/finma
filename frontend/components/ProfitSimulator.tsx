@@ -54,9 +54,9 @@ const ProfitSimulator = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
-              <p className="text-[11px] md:text-[13px] font-black text-[#3b82f6] uppercase tracking-[0.3em]">PROFIT SIMULATOR</p>
+              <p className="text-[11px] md:text-[13px] font-medium text-[#3b82f6] uppercase tracking-[0.3em]">PROFIT SIMULATOR</p>
             </div>
-            <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">BOGA AI PROFIT POTENTIAL</h2>
+            <h2 className="text-2xl md:text-4xl font-medium text-white mb-4 tracking-tighter">BOGA AI PROFIT POTENTIAL</h2>
             <p className="text-base md:text-lg text-white leading-relaxed">
               Visualize your growth potential based on BOGA AI's historical <span className="text-white font-medium">93.7%</span> win rate and <span className="text-white font-medium">7.4%</span> average monthly returns per pick.
             </p>
@@ -67,7 +67,7 @@ const ProfitSimulator = () => {
               <div className="flex justify-between items-end">
                 <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Initial Capital</label>
                 <div className="flex items-baseline gap-1">
-                   <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">${capital.toLocaleString()}</span>
+                   <span className="text-2xl md:text-3xl font-mono font-medium text-[#3b82f6]">${capital.toLocaleString()}</span>
                    <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-medium">USD</span>
                 </div>
               </div>
@@ -82,7 +82,7 @@ const ProfitSimulator = () => {
               <div className="flex justify-between items-end">
                 <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Signals Per Month</label>
                 <div className="flex items-baseline gap-1">
-                   <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">{signalCount}</span>
+                   <span className="text-2xl md:text-3xl font-mono font-medium text-[#3b82f6]">{signalCount}</span>
                    <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-medium">PICKS</span>
                 </div>
               </div>
@@ -100,7 +100,7 @@ const ProfitSimulator = () => {
                   <button
                     key={profile}
                     onClick={() => setRiskProfile(profile)}
-                    className={`py-3 md:py-4 px-2 md:px-6 rounded-xl text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all border ${
+                    className={`py-3 md:py-4 px-2 md:px-6 rounded-xl text-[10px] md:text-[12px] font-medium uppercase tracking-widest transition-all border ${
                       riskProfile === profile 
                         ? "bg-[#3b82f6] text-white border-[#3b82f6] shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
                         : "bg-[#0d1117] text-[#00d2ff] border-[#1e2a3a] hover:border-[#3b82f6]/40"
@@ -120,7 +120,7 @@ const ProfitSimulator = () => {
               <div className="flex flex-col gap-1 md:gap-2">
                  <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest">Est. Monthly Total</p>
                  <div className="flex items-baseline gap-2">
-                    <p className="text-3xl md:text-4xl font-mono font-black text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
+                    <p className="text-3xl md:text-4xl font-mono font-medium text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
                     <span className={`text-sm md:text-base font-medium ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                        +{((estimatedMonthly/capital - 1)*100).toFixed(1)}%
                     </span>
@@ -129,7 +129,7 @@ const ProfitSimulator = () => {
               <div className="flex flex-col gap-1 md:gap-2">
                  <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest">Boga Performance</p>
                  <div className="flex items-baseline gap-2">
-                    <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">+{alphaEdge}%</p>
+                    <p className="text-3xl md:text-4xl font-mono font-medium text-[#3b82f6]">+{alphaEdge}%</p>
                     <span className="text-[11px] md:text-[12px] text-[#00d2ff] font-medium uppercase">vs S&P 500</span>
                  </div>
               </div>
@@ -141,8 +141,8 @@ const ProfitSimulator = () => {
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#3b82f6]/10 blur-[80px] rounded-full group-hover:bg-[#3b82f6]/20 transition-all"></div>
 
               <div>
-                <p className="text-[11px] md:text-[13px] text-white font-black uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
-                <p className="text-3xl md:text-5xl font-mono font-black text-white leading-none tracking-tighter">
+                <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest mb-2">12-Month Compounding Pathway</p>
+                <p className="text-3xl md:text-5xl font-mono font-medium text-white leading-none tracking-tighter">
                    ${Math.floor(finalValue).toLocaleString()}
                 </p>
               </div>
@@ -183,7 +183,7 @@ const ProfitSimulator = () => {
            </div>
 
            <div className="space-y-6">
-              <button className="w-full py-6 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.2em] shadow-[0_15px_35px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-sm">
+              <button className="w-full py-6 bg-[#3b82f6] text-white rounded-2xl font-medium uppercase tracking-[0.2em] shadow-[0_15px_35px_rgba(59,130,246,0.3)] hover:bg-[#2563eb] transition-all hover:-translate-y-1 active:scale-95 text-sm">
                 Unlock BOGA AI PRO Signals
               </button>
               <p className="text-[10px] text-[#00d2ff] leading-relaxed text-center italic">

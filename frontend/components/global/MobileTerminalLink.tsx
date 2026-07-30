@@ -90,7 +90,7 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-black text-amber-400 uppercase tracking-tight mb-2">
+            <h3 className="text-lg font-medium text-amber-400 uppercase tracking-tight mb-2">
               {labels.title}
             </h3>
             <p className="text-sm text-white/80 leading-relaxed mb-6">

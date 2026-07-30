@@ -135,7 +135,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
     <div className={fullPage ? "max-w-5xl mx-auto px-4 py-8" : "p-4"}>
       {fullPage && (
         <div className="mb-6">
-          <h1 className="text-3xl font-black text-white tracking-tighter">
+          <h1 className="text-3xl font-medium text-white tracking-tighter">
             {data.ticker} <span className="text-white/40 text-lg font-medium">{data.company}</span>
           </h1>
           <p className="text-2xl font-mono font-medium text-white mt-1">
@@ -198,7 +198,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
                   } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
                 >
                   <span className="text-[13px] text-white/40">{label}</span>
-                  <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-semibold">{value}</span>
+                  <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-medium">{value}</span>
                 </div>
               ))}
             </div>
@@ -221,7 +221,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             ].map(([label, value], i, arr) => (
               <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
                 <span className="text-white/40">{label}</span>
-                <span className="text-white/80 font-mono font-semibold">{value}</span>
+                <span className="text-white/80 font-mono font-medium">{value}</span>
               </div>
             ))
           )}
@@ -248,26 +248,26 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               <div className="grid grid-cols-2 gap-2">
                 <div className="border rounded-md py-2 text-center bg-green-500/10 border-green-500/40">
                   <div className="text-[11px] font-medium tracking-wider text-green-400">{t.entry}</div>
-                  <div className="text-sm font-mono font-extrabold mt-0.5 text-green-400">
+                  <div className="text-sm font-mono font-medium mt-0.5 text-green-400">
                     ${fmt(data.tradePlan.entryZone.low)}–${fmt(data.tradePlan.entryZone.high)}
                   </div>
                 </div>
                 <div className="border rounded-md py-2 text-center bg-red-500/10 border-red-500/40">
                   <div className="text-[11px] font-medium tracking-wider text-red-400">{t.stop}</div>
-                  <div className="text-base font-mono font-extrabold mt-0.5 text-red-400">${fmt(data.tradePlan.stop.price)}</div>
+                  <div className="text-base font-mono font-medium mt-0.5 text-red-400">${fmt(data.tradePlan.stop.price)}</div>
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 {data.tradePlan.targets.map((tg, i) => (
                   <div key={tg.label} className="flex items-center justify-between border rounded-md py-1.5 px-2.5 bg-blue-500/10 border-blue-500/40">
                     <span className="text-[11px] font-medium tracking-wider text-blue-400">{t.target} {i + 1}</span>
-                    <span className="text-sm font-mono font-extrabold text-blue-400">${fmt(tg.price)}</span>
+                    <span className="text-sm font-mono font-medium text-blue-400">${fmt(tg.price)}</span>
                     <span className="text-[11px] font-mono font-medium text-amber-400">{fmt(tg.rr, 1)}x</span>
                   </div>
                 ))}
               </div>
               <div className="bg-[#111620] border border-[#253347] rounded-md py-2 text-center">
-                <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
+                <div className="text-xs text-white/40 font-medium">{t.riskPct}</div>
                 <div className="text-base font-medium text-amber-400">{fmt(Math.abs(data.tradePlan.stop.pct))}%</div>
               </div>
             </>
@@ -351,8 +351,8 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           {scoreBars.map(({ label, score, color }) => (
             <div key={label}>
               <div className="flex justify-between mb-1 items-center">
-                <span className="text-xs text-white/50 font-semibold">{label}</span>
-                <span className="text-sm font-mono font-extrabold" style={{ color }}>{score}</span>
+                <span className="text-xs text-white/50 font-medium">{label}</span>
+                <span className="text-sm font-mono font-medium" style={{ color }}>{score}</span>
               </div>
               <div className="h-1 bg-[#253347] rounded overflow-hidden">
                 <div className="h-full rounded transition-all" style={{ width: `${score}%`, background: color }} />

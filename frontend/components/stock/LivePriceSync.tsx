@@ -49,7 +49,7 @@ export default function LivePriceSync({ ticker, initialPrice, initialChange }: P
           if (returns1dEl) {
              const pct = live.change_pct || 0;
              returns1dEl.innerText = `${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%`;
-             returns1dEl.className = `text-base md:text-lg font-mono font-black ${pct > 0 ? "text-[#22c55e]" : pct < 0 ? "text-[#ef4444]" : "text-[#94a3b8]"}`;
+             returns1dEl.className = `text-base md:text-lg font-mono font-medium ${pct > 0 ? "text-[#22c55e]" : pct < 0 ? "text-[#ef4444]" : "text-[#94a3b8]"}`;
           }
         }
       } catch (e) {

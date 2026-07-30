@@ -132,7 +132,7 @@ export default function HotThemes2026Section() {
         <button
           onClick={() => syncRemovalsToAPI(removedSlugs, removedStocks, true)}
           disabled={isSyncing}
-          className="text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30 hover:bg-sky-500/30 transition-all disabled:opacity-50"
+          className="text-[10px] font-medium uppercase tracking-wider px-3 py-1.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30 hover:bg-sky-500/30 transition-all disabled:opacity-50"
         >
           {isSyncing ? "GÜNCELLENİYOR..." : "GÜNCELLE & SENKRONİZE ET"}
         </button>
@@ -148,16 +148,16 @@ export default function HotThemes2026Section() {
           >
             <div className="flex items-start justify-between gap-2 mb-3">
               <div className="flex items-baseline gap-2">
-                <span className="text-[10px] font-black tabular-nums" style={{ color: theme.accent }}>
+                <span className="text-[10px] font-medium tabular-nums" style={{ color: theme.accent }}>
                   {String(theme.number).padStart(2, "0")}
                 </span>
-                <h3 className="text-[12px] font-black uppercase tracking-wide text-white leading-snug">
+                <h3 className="text-[12px] font-medium uppercase tracking-wide text-white leading-snug">
                   {theme.title}
                 </h3>
               </div>
               <div className="flex items-center gap-2">
                 <span
-                  className="shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-full border"
+                  className="shrink-0 text-[9px] font-medium px-1.5 py-0.5 rounded-full border"
                   style={{ borderColor: theme.accent, color: theme.accent }}
                 >
                   {theme.stocks.length}
@@ -168,7 +168,7 @@ export default function HotThemes2026Section() {
                       e.preventDefault();
                       removeTheme(theme.slug);
                     }}
-                    className="shrink-0 text-[8px] font-black px-1.5 py-0.5 rounded bg-red-950/30 border border-red-700/40 text-red-400 hover:bg-red-950/50 transition-colors"
+                    className="shrink-0 text-[8px] font-medium px-1.5 py-0.5 rounded bg-red-950/30 border border-red-700/40 text-red-400 hover:bg-red-950/50 transition-colors"
                   >
                     KALDIR
                   </button>
@@ -191,7 +191,7 @@ export default function HotThemes2026Section() {
                           e.preventDefault();
                           removeStock(theme.slug, s.ticker);
                         }}
-                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full text-[7px] text-white font-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full text-[7px] text-white font-medium flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Kaldır"
                       >
                         ×
@@ -202,7 +202,7 @@ export default function HotThemes2026Section() {
             </div>
 
             <span
-              className="text-[10px] font-black uppercase tracking-wider group-hover:underline"
+              className="text-[10px] font-medium uppercase tracking-wider group-hover:underline"
               style={{ color: theme.accent }}
             >
               Takip Sayfasını Aç →

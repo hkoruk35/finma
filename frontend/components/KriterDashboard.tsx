@@ -23,7 +23,7 @@ export default function KriterDashboard({
 
         {reportDays && reportDays.length > 0 && (
           <div className="mt-6">
-            <h3 className="text-lg font-semibold text-white mb-2">Report Days ({reportDays.length})</h3>
+            <h3 className="text-lg font-medium text-white mb-2">Report Days ({reportDays.length})</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {reportDays.map((day: string, idx: number) => (
                 <div key={idx} className="bg-[#1a1a2e] p-4 rounded">
@@ -36,14 +36,14 @@ export default function KriterDashboard({
 
         {initialTrades && initialTrades.length > 0 && (
           <div className="mt-6">
-            <h3 className="text-lg font-semibold text-white mb-2">Trades ({initialTrades.length})</h3>
+            <h3 className="text-lg font-medium text-white mb-2">Trades ({initialTrades.length})</h3>
             <p className="text-gray-400 text-sm">Total trades analyzed in period</p>
           </div>
         )}
 
         {initialStats && (
           <div className="mt-6">
-            <h3 className="text-lg font-semibold text-white mb-2">Aggregate Stats</h3>
+            <h3 className="text-lg font-medium text-white mb-2">Aggregate Stats</h3>
             <pre className="bg-[#0a0e17] p-4 rounded text-xs text-gray-400 overflow-auto max-h-64">
               {JSON.stringify(initialStats, null, 2)}
             </pre>

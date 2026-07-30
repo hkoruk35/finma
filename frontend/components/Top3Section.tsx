@@ -15,7 +15,7 @@ export default function Top3Section({ master, allTickers }: Props) {
     <div className="py-10">
       <div className="flex items-center gap-4 mb-8">
         <div className="w-2 h-10 bg-[#f59e0b] rounded-full shadow-[0_0_15px_rgba(245,158,11,0.5)]"></div>
-        <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic">
+        <h2 className="text-3xl font-medium text-white tracking-tighter uppercase italic">
           Top 3 of the Day
         </h2>
       </div>
@@ -33,13 +33,13 @@ export default function Top3Section({ master, allTickers }: Props) {
               className="glass-card p-6 hover:bg-[#1a2030] transition-all duration-300 group relative overflow-hidden border-2 border-transparent hover:border-[#3b82f6]/20"
             >
               {/* Rank badge */}
-              <div className={`absolute top-0 right-0 w-14 h-14 rounded-bl-3xl flex items-center justify-center text-lg font-black text-white shadow-2xl ${medals[idx]}`}>
+              <div className={`absolute top-0 right-0 w-14 h-14 rounded-bl-3xl flex items-center justify-center text-lg font-medium text-white shadow-2xl ${medals[idx]}`}>
                 #{idx + 1}
               </div>
 
               {/* Ticker & Company */}
               <div className="mb-4">
-                <div className="text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
+                <div className="text-4xl font-medium text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
                   {item.ticker}
                 </div>
                 <div className="text-sm font-medium text-[#00d2ff] tracking-wider mt-1">
@@ -50,13 +50,13 @@ export default function Top3Section({ master, allTickers }: Props) {
               {/* Score + Rating */}
               <div className="flex flex-col gap-3 mb-6">
                 <div className="flex items-end gap-2">
-                   <div className="text-6xl font-mono font-black text-[#3b82f6] leading-none">
+                   <div className="text-6xl font-mono font-medium text-[#3b82f6] leading-none">
                      {item.score.toFixed(1)}
                    </div>
-                   <div className="text-[9px] text-[#00d2ff] font-black uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
+                   <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-[0.2em] mb-2">BOGA AI SCORE</div>
                 </div>
                 <div className="flex">
-                  <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-black uppercase tracking-[0.2em] shadow-xl ${getScoreBadgeClass(item.score_type)}`}>
+                  <span className={`px-5 py-1.5 rounded-2xl text-[9px] font-medium uppercase tracking-[0.2em] shadow-xl ${getScoreBadgeClass(item.score_type)}`}>
                     {item.score_type.replace("_", " ")}
                   </span>
                 </div>
@@ -64,7 +64,7 @@ export default function Top3Section({ master, allTickers }: Props) {
 
               {/* Time-Period Returns */}
               <div className="mb-6">
-                 <span className="text-[14px] font-black text-[#00d2ff] uppercase tracking-widest mb-3 block">PERIOD RETURNS</span>
+                 <span className="text-[14px] font-medium text-[#00d2ff] uppercase tracking-widest mb-3 block">PERIOD RETURNS</span>
                  <div className="grid grid-cols-4 gap-2">
                    {[
                      { label: "24H", value: stock?.change_pct },
@@ -73,7 +73,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                      { label: "1Y", value: stock?.change_pct_1y },
                    ].map((period) => (
                      <div key={period.label} className="text-center">
-                       <div className={`text-base font-mono font-black ${
+                       <div className={`text-base font-mono font-medium ${
                          period.value !== undefined && period.value !== null
                            ? getChangeColor(period.value)
                            : 'text-[#00d2ff]'

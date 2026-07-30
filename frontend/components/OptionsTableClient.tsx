@@ -24,7 +24,7 @@ function num(v: any, d = 0): string {
 }
 
 const TH = ({ children, right, center }: { children: React.ReactNode; right?: boolean; center?: boolean }) => (
-  <th className={`px-2 py-2 text-[10px] font-black text-slate-500 uppercase tracking-tight whitespace-nowrap border-b border-white/10 ${right ? "text-right" : center ? "text-center" : "text-left"}`}>
+  <th className={`px-2 py-2 text-[10px] font-medium text-slate-500 uppercase tracking-tight whitespace-nowrap border-b border-white/10 ${right ? "text-right" : center ? "text-center" : "text-left"}`}>
     {children}
   </th>
 );
@@ -201,7 +201,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
     <>
       <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-black text-white tracking-tighter uppercase italic">
+          <span className="text-lg font-medium text-white tracking-tighter uppercase italic">
             BOGA <span className="text-[#3b82f6]">OPTIONS</span> v242
           </span>
           <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-medium">
@@ -209,7 +209,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
           </span>
           <Link 
             href="/admin/trading/options/performance" 
-            className="ml-2 text-[10px] text-white hover:text-[#34d399] bg-[#34d399]/10 hover:bg-[#34d399]/20 px-3 py-1 rounded border border-[#34d399]/30 hover:border-[#34d399]/60 uppercase tracking-widest font-black flex items-center gap-1.5 transition-all"
+            className="ml-2 text-[10px] text-white hover:text-[#34d399] bg-[#34d399]/10 hover:bg-[#34d399]/20 px-3 py-1 rounded border border-[#34d399]/30 hover:border-[#34d399]/60 uppercase tracking-widest font-medium flex items-center gap-1.5 transition-all"
           >
             <span className="w-1.5 h-1.5 bg-[#34d399] rounded-full animate-pulse" />
             View P&amp;L Dashboard ↗
@@ -278,7 +278,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
             <tbody>
               {filteredPicks.length === 0 ? (
                 <tr>
-                  <td colSpan={30} className="px-6 py-20 text-center text-slate-500 uppercase tracking-widest font-black">
+                  <td colSpan={30} className="px-6 py-20 text-center text-slate-500 uppercase tracking-widest font-medium">
                     [ NO ACTIVE SIGNALS FOUND IN DATABASE ]
                   </td>
                 </tr>
@@ -298,12 +298,12 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                   return contracts.map((c, cIdx) => (
                     <tr key={`${raw.date}-${raw.ticker}-${cIdx}`} className="hover:bg-white/[0.04] transition-colors">
                       <TD cls={cIdx === 0 ? "text-slate-500" : "text-transparent"}>{cIdx === 0 ? raw.date : raw.date}</TD>
-                      <TD cls={cIdx === 0 ? "text-white font-black" : "text-slate-700"}>
+                      <TD cls={cIdx === 0 ? "text-white font-medium" : "text-slate-700"}>
                         {cIdx === 0 ? (
                           <TickerHoverChart ticker={raw.ticker}><Link href={`/stock/${raw.ticker}`} className="hover:text-[#3b82f6]">{raw.ticker}</Link></TickerHoverChart>
                         ) : raw.ticker}
                       </TD>
-                      <TD center cls={cIdx === 0 ? `font-black ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? raw.score.toFixed(0) : ""}</TD>
+                      <TD center cls={cIdx === 0 ? `font-medium ${scoreCls}` : "text-slate-700"}>{cIdx === 0 ? raw.score.toFixed(0) : ""}</TD>
                       <TD cls={cIdx === 0 ? "text-slate-400" : "text-transparent"}>
                         {cIdx === 0 ? (raw.sector_info?.etf || raw.sector || "—") : ""}
                       </TD>

@@ -117,7 +117,7 @@ function AnalysisLoader({ ticker, lang }: { ticker: string; lang: string }) {
         </div>
       </div>
       <div>
-        <p className="text-base font-black text-white mb-1">
+        <p className="text-base font-medium text-white mb-1">
           Generating {langFlag} {langName} Analysis…
         </p>
         <p className="text-sm text-[#00d2ff]">
@@ -204,7 +204,7 @@ export default function AnalysisTabs({ stock }: Props) {
       {/* ── Language Bar ── */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between flex-wrap gap-2">
-          <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em]">
+          <span className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-[0.2em]">
             Analysis Language
           </span>
           <span className="text-[9px] text-white/40 font-medium uppercase tracking-widest">
@@ -220,7 +220,7 @@ export default function AnalysisTabs({ stock }: Props) {
                 key={l.id}
                 onClick={() => handleLangClick(l.id)}
                 disabled={generating && !isActive}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-black transition-all border shrink-0 snap-center relative ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all border shrink-0 snap-center relative ${
                   isActive
                     ? "bg-[#3b82f6] border-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
                     : "bg-[#0d1117] border-[#1e2a3a] text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/40 disabled:opacity-40"
@@ -247,7 +247,7 @@ export default function AnalysisTabs({ stock }: Props) {
               <span className="text-lg">🦅</span>
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+              <span className="text-sm font-medium text-white uppercase tracking-widest flex items-center gap-2">
                 BOGA AI Analysis Briefing
                 <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 lowercase font-medium">
                   v5.5.2
@@ -280,7 +280,7 @@ export default function AnalysisTabs({ stock }: Props) {
                   generatedSet.current.delete(activeLang);
                   generateForLang(activeLang, true);
                 }}
-                className="px-5 py-2.5 bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-[#3b82f6]/20 transition-all"
+                className="px-5 py-2.5 bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 rounded-xl text-xs font-medium uppercase tracking-widest hover:bg-[#3b82f6]/20 transition-all"
               >
                 ↺ Retry Analysis
               </button>
@@ -302,7 +302,7 @@ export default function AnalysisTabs({ stock }: Props) {
 
               {/* Other languages grid */}
               <div className="pt-6 border-t border-white/5">
-                <p className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em] mb-3">
+                <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-[0.2em] mb-3">
                   Read {stock.ticker} Analysis in Other Languages
                 </p>
                 <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-1.5">
@@ -317,7 +317,7 @@ export default function AnalysisTabs({ stock }: Props) {
                       }`}
                     >
                       <div className="text-base leading-none">{l.flag}</div>
-                      <p className="text-[8px] text-[#00d2ff] font-black uppercase tracking-wider mt-0.5">
+                      <p className="text-[8px] text-[#00d2ff] font-medium uppercase tracking-wider mt-0.5">
                         {l.id}
                       </p>
                     </button>
@@ -332,14 +332,14 @@ export default function AnalysisTabs({ stock }: Props) {
                 <span className="text-2xl">🦅</span>
               </div>
               <div>
-                <p className="text-base font-black text-white mb-1">Preparing Daily Briefing</p>
+                <p className="text-base font-medium text-white mb-1">Preparing Daily Briefing</p>
                 <p className="text-sm text-[#00d2ff]">
                   BOGA AI is processing the latest trend data for {stock.ticker}.
                 </p>
               </div>
               <button
                 onClick={() => generateForLang(activeLang, true)}
-                className="px-5 py-2.5 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white rounded-xl text-xs font-black uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20"
+                className="px-5 py-2.5 bg-gradient-to-r from-[#3b82f6] to-[#6366f1] text-white rounded-xl text-xs font-medium uppercase tracking-widest hover:opacity-90 transition-all shadow-lg shadow-blue-500/20"
               >
                 Generate Analysis Now
               </button>
@@ -349,12 +349,12 @@ export default function AnalysisTabs({ stock }: Props) {
 
         {/* Panel Footer */}
         <div className="px-5 py-3 bg-[#0d1117]/80 border-t border-[#1e2a3a] flex items-center justify-between">
-          <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
+          <span className="text-[9px] font-medium text-white/40 uppercase tracking-widest">
             Analysis Engine v5.5 · BOGA AI
           </span>
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-            <span className="text-[9px] font-black text-[#22c55e] uppercase tracking-widest">
+            <span className="text-[9px] font-medium text-[#22c55e] uppercase tracking-widest">
               {generatedSet.current.size}/12 Languages Ready
             </span>
           </div>

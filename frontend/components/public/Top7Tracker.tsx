@@ -280,7 +280,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
       <div style={{ borderBottom: "1px solid #30363d", paddingBottom: 10, marginBottom: 0 }}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-white flex items-center gap-2">
             TOP 7
           </h2>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>

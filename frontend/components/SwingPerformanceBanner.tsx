@@ -19,7 +19,7 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
         
         <div className="flex-1 z-10 text-center md:text-left">
            <div className="flex items-center gap-3 mb-3 justify-center md:justify-start">
-              <h3 className="text-[#3b82f6] font-black uppercase tracking-[0.2em] text-sm md:text-base">PROVEN PERFORMANCE</h3>
+              <h3 className="text-[#3b82f6] font-medium uppercase tracking-[0.2em] text-sm md:text-base">PROVEN PERFORMANCE</h3>
               <span className="px-3 py-1 rounded-full bg-[#3b82f6]/10 text-[10px] md:text-xs font-medium text-[#3b82f6] border border-[#3b82f6]/20 group-hover:bg-[#3b82f6] group-hover:text-white transition-colors">VIEW DETAILED LOGS &rarr;</span>
            </div>
            <p className="text-white text-xl md:text-2xl font-medium">
@@ -32,17 +32,17 @@ export default function SwingPerformanceBanner({ stats }: { stats?: Stats }) {
 
         <div className="flex justify-center gap-6 z-10">
           <div className="text-center">
-             <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{stats.avg_return_pct}%</div>
+             <div className="text-3xl font-medium text-white group-hover:text-[#3b82f6] transition-colors">{stats.avg_return_pct}%</div>
              <div className="text-[10px] text-[#00d2ff] font-medium uppercase tracking-wider mt-1">Avg Max Return</div>
           </div>
           <div className="w-px bg-white/10 hidden md:block"></div>
           <div className="text-center">
-             <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{stats.above_10pct_rate}%</div>
+             <div className="text-3xl font-medium text-white group-hover:text-[#3b82f6] transition-colors">{stats.above_10pct_rate}%</div>
              <div className="text-[10px] text-[#00d2ff] font-medium uppercase tracking-wider mt-1">+10% Gains</div>
           </div>
           <div className="w-px bg-white/10 hidden md:block"></div>
           <div className="text-center">
-             <div className="text-3xl font-black text-white group-hover:text-[#3b82f6] transition-colors">{stats.total_picks}</div>
+             <div className="text-3xl font-medium text-white group-hover:text-[#3b82f6] transition-colors">{stats.total_picks}</div>
              <div className="text-[10px] text-[#00d2ff] font-medium uppercase tracking-wider mt-1">Total Signals</div>
           </div>
         </div>

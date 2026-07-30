@@ -248,7 +248,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 <Link
                   key={s.href}
                   href={s.href}
-                  className="shrink-0 px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-black text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all uppercase"
+                  className="shrink-0 px-3 py-1.5 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium text-[#00d2ff] hover:text-white hover:border-[#3b82f6]/50 transition-all uppercase"
                 >
                   {s.label}
                 </Link>

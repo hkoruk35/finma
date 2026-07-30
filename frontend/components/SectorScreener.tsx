@@ -94,7 +94,7 @@ export default function SectorScreener() {
         <div className="flex items-center gap-3 mb-4">
           <div className="w-1.5 h-8 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
           <div>
-            <h3 className="text-xl font-black text-white tracking-tighter uppercase">
+            <h3 className="text-xl font-medium text-white tracking-tighter uppercase">
               Smart Sector Screener
             </h3>
             <p className="text-xs text-white font-medium tracking-widest uppercase mt-0.5">
@@ -116,7 +116,7 @@ export default function SectorScreener() {
       <div className="flex items-center gap-3 mb-4">
         <div className="w-1.5 h-8 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
         <div>
-          <h3 className="text-xl font-black text-white tracking-tighter uppercase">
+          <h3 className="text-xl font-medium text-white tracking-tighter uppercase">
             Smart Sector Screener
           </h3>
           <p className="text-xs text-white font-medium tracking-widest uppercase mt-0.5">
@@ -177,12 +177,12 @@ export default function SectorScreener() {
                 (total, arr) => total + arr.length,
                 0
               )}{" "}
-              stocks in <span className="text-white font-semibold">All {selectedSector}</span>
+              stocks in <span className="text-white font-medium">All {selectedSector}</span>
             </>
           ) : (
             <>
               {sectorData[selectedSector]?.subsectors[selectedSubsector]?.length || 0} stocks in{" "}
-              <span className="text-white font-semibold">{selectedSubsector}</span>
+              <span className="text-white font-medium">{selectedSubsector}</span>
             </>
           )}
         </div>
@@ -192,7 +192,7 @@ export default function SectorScreener() {
       <button
         onClick={handleViewStocks}
         disabled={!selectedSector || !selectedSubsector}
-        className="w-full px-6 py-3 bg-[#3b82f6] hover:bg-[#2563eb] disabled:bg-[#1e3a8a] disabled:opacity-50 text-white font-black uppercase tracking-widest rounded-lg transition-all shadow-lg hover:shadow-[0_0_20px_#3b82f6]/50 disabled:shadow-none"
+        className="w-full px-6 py-3 bg-[#3b82f6] hover:bg-[#2563eb] disabled:bg-[#1e3a8a] disabled:opacity-50 text-white font-medium uppercase tracking-widest rounded-lg transition-all shadow-lg hover:shadow-[0_0_20px_#3b82f6]/50 disabled:shadow-none"
       >
         View Stocks →
       </button>

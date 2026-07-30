@@ -594,7 +594,7 @@ export default function CopilotDrawer() {
                     <path d="M13.73 21a2 2 0 01-3.46 0" />
                   </svg>
                   {unreadAlertsCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 text-[8px] font-black text-white">
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-red-500 text-[8px] font-medium text-white">
                       {unreadAlertsCount}
                     </span>
                   )}
@@ -610,7 +610,7 @@ export default function CopilotDrawer() {
                     <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                   </svg>
                   {activeTasks.length > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-cyan-400 text-[8px] font-black text-black">
+                    <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-cyan-400 text-[8px] font-medium text-black">
                       {activeTasks.length}
                     </span>
                   )}
@@ -749,7 +749,7 @@ export default function CopilotDrawer() {
                     {activeTasks.map((t) => (
                       <div key={t.id} className="bg-[#161b22] border border-blue-500/30 p-2.5 rounded-xl text-xs space-y-1.5">
                         <div className="flex justify-between items-center">
-                          <span className="font-extrabold text-white uppercase tracking-wide">
+                          <span className="font-medium text-white uppercase tracking-wide">
                             {t.subject || t.task_type.replace(/_/g, " ")} · {ct("taskDailyWatchSuffix", activeLocale)}
                           </span>
                           <span className="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">
@@ -815,7 +815,7 @@ export default function CopilotDrawer() {
                       const isAdded = activeTasks.some((t) => t.subject === choice.subject || t.task_type === choice.type);
                       return (
                         <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-[#141924] border border-white/10 text-xs">
-                          <span className="font-semibold text-gray-300">{choice.label}</span>
+                          <span className="font-medium text-gray-300">{choice.label}</span>
                           {isAdded ? (
                             <button
                               type="button"
@@ -975,7 +975,7 @@ export default function CopilotDrawer() {
                   (typeof msg.content !== "string" || msg.content.trim() === "");
                 return (
                 <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"}`}>
-                  <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-semibold ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
+                  <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-medium ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
                     {msg.toolInvocations?.map((toolInv: any, idx: number) => {
                       const result = (toolInv as any).result;
                       if (!result) {
@@ -993,7 +993,7 @@ export default function CopilotDrawer() {
                         const tickers: string[] = result?.tickers || [];
                         return (
                           <div key={idx} className="my-3 space-y-3">
-                            <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
+                            <div className="text-xs font-medium text-cyan-400 font-mono flex items-center gap-1.5">
                               🔥 {result?.categoryName || ct("trendingStocksFallback", activeLocale)}
                             </div>
 
@@ -1032,7 +1032,7 @@ export default function CopilotDrawer() {
                         const totalCount: number = result?.totalCount || tickers.length;
                         return (
                           <div key={idx} className="my-3 space-y-3">
-                            <div className="text-xs font-extrabold text-cyan-400 font-mono flex items-center gap-1.5">
+                            <div className="text-xs font-medium text-cyan-400 font-mono flex items-center gap-1.5">
                               🧩 {result?.themeName || ct("themeFallback", activeLocale)}
                               {totalCount > tickers.length && (
                                 <span className="text-[10px] font-normal text-gray-500">{ct("themeTruncationNote", activeLocale, { shown: tickers.length, total: totalCount })}</span>
@@ -1090,7 +1090,7 @@ export default function CopilotDrawer() {
                             <div className="space-y-1.5">
                               {newsItems.map((n: any, i: number) => (
                                 <a key={i} href={n.link} target="_blank" rel="noopener noreferrer" className="block p-1.5 rounded bg-[#141924] hover:bg-blue-600/20 border border-white/5 hover:border-blue-500/40 text-gray-200 hover:text-white transition-all">
-                                  <p className="font-semibold leading-snug">{n.title}</p>
+                                  <p className="font-medium leading-snug">{n.title}</p>
                                   <div className="flex justify-between items-center text-[9px] text-gray-500 mt-1 font-mono">
                                     <span>{n.source}</span>
                                     <span>{n.pubDate}</span>
@@ -1139,7 +1139,7 @@ export default function CopilotDrawer() {
                                       router.push(buildRoute("themes", activeLocale, themeSlug));
                                       setIsOpen(false);
                                     }}
-                                    className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
+                                    className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-medium transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
                                   >
                                     {children}
                                   </button>
@@ -1154,7 +1154,7 @@ export default function CopilotDrawer() {
                                     router.push(buildRoute(routeKey, activeLocale));
                                     setIsOpen(false);
                                   }}
-                                  className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
+                                  className="block w-full text-left my-1 px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 hover:border-emerald-500/60 text-emerald-300 hover:text-white rounded-lg text-xs font-medium transition-all cursor-pointer touch-manipulation active:scale-[0.98]"
                                 >
                                   {children}
                                 </button>
@@ -1163,7 +1163,7 @@ export default function CopilotDrawer() {
                             if (href?.startsWith("copilot-topic://")) {
                               const topicText = extractPlainText(children);
                               return (
-                                <button type="button" onClick={() => topicText && append({ role: "user", content: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
+                                <button type="button" onClick={() => topicText && append({ role: "user", content: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-medium transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
                                   <span>{children}</span>
                                 </button>
                               );
@@ -1186,7 +1186,7 @@ export default function CopilotDrawer() {
                               append({ role: "user", content: String(lastUserMsg.content) });
                             }
                           }}
-                          className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold cursor-pointer transition-all"
+                          className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-medium cursor-pointer transition-all"
                         >
                           {ct("retryBtn", activeLocale)}
                         </button>
@@ -1200,7 +1200,7 @@ export default function CopilotDrawer() {
           ) : (
             demoMessages.map((msg) => (
               <div key={msg.id} className={`flex flex-col max-w-[92%] ${msg.role === "user" ? "ml-auto" : "mr-auto"} space-y-2`}>
-                <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-semibold ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
+                <div className={`p-3.5 text-sm rounded-2xl leading-relaxed [&_p]:m-0 [&_p+p]:mt-2 [&_hr]:my-2 [&_hr]:border-white/10 [&_ul]:my-1 [&_ol]:my-1 [&_li]:my-0 [&_h1]:my-1 [&_h2]:my-1 [&_h3]:my-1 [&_strong]:font-medium ${msg.role === "user" ? "bg-blue-600 text-white rounded-tr-sm" : "bg-[#161b22] text-gray-200 border border-[#30363d] rounded-tl-sm shadow-md"}`}>
                   <ReactMarkdown
                     urlTransform={(url) => url.startsWith("copilot://") || url.startsWith("copilot-topic://") ? url : defaultUrlTransform(url)}
                     components={{
@@ -1223,7 +1223,7 @@ export default function CopilotDrawer() {
                         if (href?.startsWith("copilot-topic://")) {
                           const topicText = extractPlainText(children);
                           return (
-                            <button type="button" onClick={() => topicText && handleVisitorActionClick({ label: topicText, id: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-semibold transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
+                            <button type="button" onClick={() => topicText && handleVisitorActionClick({ label: topicText, id: topicText })} className="block w-full text-left my-1 px-3 py-2 bg-blue-500/10 hover:bg-blue-500/25 border border-blue-500/30 hover:border-blue-500/60 text-blue-300 hover:text-white rounded-lg text-xs font-medium transition-all cursor-pointer touch-manipulation active:scale-[0.98]">
                               <span>{children}</span>
                             </button>
                           );
@@ -1275,7 +1275,7 @@ export default function CopilotDrawer() {
                     append({ role: "user", content: String(lastUserMsg.content) });
                   }
                 }}
-                className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold cursor-pointer transition-all"
+                className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-medium cursor-pointer transition-all"
               >
                 {ct("retryBtn", activeLocale)}
               </button>

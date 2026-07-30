@@ -57,14 +57,14 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
               if (changeEl && found.intraday.change_24h !== undefined) {
                 const sign = found.intraday.change_24h >= 0 ? "+" : "";
                 changeEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
-                changeEl.className = `text-xl font-mono font-black leading-none ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+                changeEl.className = `text-xl font-mono font-medium leading-none ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
 
               const returns1dEl = document.getElementById("stock-returns-1d");
               if (returns1dEl && found.intraday.change_24h !== undefined) {
                 const sign = found.intraday.change_24h >= 0 ? "+" : "";
                 returns1dEl.innerText = sign + found.intraday.change_24h.toFixed(2) + "%";
-                returns1dEl.className = `text-base md:text-lg font-mono font-black ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
+                returns1dEl.className = `text-base md:text-lg font-mono font-medium ${found.intraday.change_24h >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`;
               }
             }, 50);
 
@@ -142,7 +142,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
               <div className="space-y-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#1e2a3a] pb-6">
                   <div>
-                    <h3 className="text-2xl font-black text-white flex items-center gap-3">
+                    <h3 className="text-2xl font-medium text-white flex items-center gap-3">
                       <span className="relative flex h-3 w-3">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
@@ -160,7 +160,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Status Panel */}
                   <div className={`p-6 rounded-2xl border ${getStatusColor(hourlyData.hourly_action)} flex flex-col justify-center items-center text-center h-full`}>
-                    <div className="text-2xl md:text-3xl font-black uppercase tracking-tight mb-4">
+                    <div className="text-2xl md:text-3xl font-medium uppercase tracking-tight mb-4">
                       {hourlyData.hourly_action}
                     </div>
                     <p className="text-sm md:text-base font-medium opacity-90">
@@ -172,11 +172,11 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                   <div className="bg-[#141924] border border-[#1e2a3a] rounded-2xl p-6 grid grid-cols-2 gap-y-6 gap-x-4">
                     <div>
                       <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">Current Price</p>
-                      <p className="text-2xl font-mono font-black text-white">${hourlyData.price}</p>
+                      <p className="text-2xl font-mono font-medium text-white">${hourlyData.price}</p>
                     </div>
                     <div>
                       <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">24H Change</p>
-                      <p className={`text-2xl font-mono font-black ${hourlyData.change_24h >= 0 ? "text-green-400" : "text-red-400"}`}>
+                      <p className={`text-2xl font-mono font-medium ${hourlyData.change_24h >= 0 ? "text-green-400" : "text-red-400"}`}>
                         {hourlyData.change_24h >= 0 ? "+" : ""}{hourlyData.change_24h?.toFixed(2)}%
                       </p>
                     </div>

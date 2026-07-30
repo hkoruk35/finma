@@ -110,7 +110,7 @@ export default function Footer({
           <div>
             <Link href={`/global/${locale ?? "en"}`} className="flex flex-col items-start mb-3 group w-fit">
               <span className="text-base tracking-tight font-medium">
-                <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Stock</span>
+                <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
               </span>
               <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
                 TERMINAL
@@ -122,7 +122,7 @@ export default function Footer({
             <Link
               href={`/global/${locale ?? "en"}`}
               title={TERMINAL_TOOLTIP[locale ?? "en"]}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
             >
               <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
@@ -135,7 +135,7 @@ export default function Footer({
 
           {/* Resources */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : "Resources"}</h4>
+            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Kaynaklar" : locale === "es" ? "Recursos" : locale === "fr" ? "Ressources" : locale === "pt" ? "Recursos" : "Resources"}</h4>
             <div className="flex flex-col gap-2">
               {RESOURCES_LINKS[locale ?? "en"].map((item) => (
                 <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">
@@ -147,7 +147,7 @@ export default function Footer({
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-3">{locale === "tr" ? "Yasal" : "Legal"}</h4>
+            <h4 className="text-sm font-medium text-white mb-3">{locale === "tr" ? "Yasal" : "Legal"}</h4>
             <div className="flex flex-col gap-1.5">
               {LEGAL_LINKS[locale ?? "en"].map((item) => (
                 <Link key={item.href} href={item.href} className="text-xs text-[#00d2ff] hover:text-white transition-colors">

@@ -74,7 +74,7 @@ export default function ChartCarouselTr() {
 
               {/* Title Overlay at Bottom */}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0e17] via-[#0a0e17]/50 to-transparent px-6 md:px-10 py-6 md:py-8 z-10">
-                <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                <h3 className="text-2xl md:text-3xl font-medium text-white tracking-tight">
                   {slide.title}
                 </h3>
               </div>
@@ -124,7 +124,7 @@ export default function ChartCarouselTr() {
       </div>
 
       {/* Slide Counter */}
-      <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur rounded-full text-white/70 text-xs font-semibold">
+      <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur rounded-full text-white/70 text-xs font-medium">
         {current + 1} / {SLIDES.length}
       </div>
     </div>

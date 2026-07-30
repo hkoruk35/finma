@@ -146,19 +146,19 @@ export default function InsiderTransactionGrid({
         <table className="w-full border-collapse text-sm">
           <thead>
             <tr className="bg-slate-900/50 border-b border-slate-800">
-              <th className="px-4 py-3 text-left font-semibold text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("name")}>
+              <th className="px-4 py-3 text-left font-medium text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("name")}>
                 {columnT.executive || "Executive"} {sortKey === "name" && (sortOrder === "asc" ? "↑" : "↓")}
               </th>
-              <th className="px-4 py-3 text-left font-semibold text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("type")}>
+              <th className="px-4 py-3 text-left font-medium text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("type")}>
                 {columnT.type || "Type"} {sortKey === "type" && (sortOrder === "asc" ? "↑" : "↓")}
               </th>
-              <th className="px-4 py-3 text-right font-semibold text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("shares")}>
+              <th className="px-4 py-3 text-right font-medium text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("shares")}>
                 {columnT.shares || "Shares"} {sortKey === "shares" && (sortOrder === "asc" ? "↑" : "↓")}
               </th>
-              <th className="px-4 py-3 text-right font-semibold text-slate-200 hidden md:table-cell">
+              <th className="px-4 py-3 text-right font-medium text-slate-200 hidden md:table-cell">
                 {columnT.price || "Price"}
               </th>
-              <th className="px-4 py-3 text-left font-semibold text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("date")}>
+              <th className="px-4 py-3 text-left font-medium text-slate-200 cursor-pointer hover:bg-slate-800/50" onClick={() => handleSort("date")}>
                 {columnT.transactionDate || "Date"} {sortKey === "date" && (sortOrder === "asc" ? "↑" : "↓")}
               </th>
             </tr>

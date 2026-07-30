@@ -23,7 +23,7 @@ export default function CSPNavigation({ active }: { active?: string }) {
           <Link
             key={item.href}
             href={item.href}
-            className={`px-4 py-2 text-sm font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+            className={`px-4 py-2 text-sm font-medium uppercase whitespace-nowrap rounded-lg transition-all border ${
               isActive
                 ? `${item.color} bg-white/5 border-current`
                 : "text-white/40 border-white/10 hover:text-white/70"

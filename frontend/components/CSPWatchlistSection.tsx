@@ -104,7 +104,7 @@ export default function CSPWatchlistSection() {
   return (
     <div className="mb-12">
       <div className="flex items-center gap-3 mb-4 border-b border-white/10 pb-3">
-        <h2 className="text-xs font-black text-[#10b981] uppercase tracking-[0.2em]">
+        <h2 className="text-xs font-medium text-[#10b981] uppercase tracking-[0.2em]">
           CSP STRATEGY WATCHLISTS
         </h2>
         <span className="text-[10px] text-slate-500 uppercase tracking-wider">
@@ -122,7 +122,7 @@ export default function CSPWatchlistSection() {
       <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
         <button
           onClick={() => setActiveTab("all")}
-          className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+          className={`px-4 py-2 text-[11px] font-medium uppercase whitespace-nowrap rounded-lg transition-all border ${
             activeTab === "all"
               ? "bg-[#e3b341]/20 border-[#e3b341] text-[#e3b341]"
               : "bg-transparent border-white/10 text-slate-400 hover:text-white"
@@ -141,7 +141,7 @@ export default function CSPWatchlistSection() {
                 borderColor: colorHex,
                 color: colorHex,
               } : {}}
-              className={`px-4 py-2 text-[11px] font-black uppercase whitespace-nowrap rounded-lg transition-all border ${
+              className={`px-4 py-2 text-[11px] font-medium uppercase whitespace-nowrap rounded-lg transition-all border ${
                 activeTab === csp.key
                   ? ""
                   : "bg-transparent border-white/10 text-slate-400 hover:text-white"
@@ -157,7 +157,7 @@ export default function CSPWatchlistSection() {
       {activeTab === "all" && (
         <div className="mb-12 bg-[#e3b341]/5 border border-[#e3b341]/30 rounded-xl p-6">
           <div className="mb-6">
-            <h3 className="text-lg font-black text-[#e3b341] uppercase tracking-wider mb-4">
+            <h3 className="text-lg font-medium text-[#e3b341] uppercase tracking-wider mb-4">
               ALL LIST — Tüm Market Themes Özeti
             </h3>
             <p className="text-sm text-slate-400 mb-6">
@@ -169,19 +169,19 @@ export default function CSPWatchlistSection() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
               <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Toplam Hisse</div>
-              <div className="text-2xl font-black text-[#e3b341]">{allThemeTickers.length}+</div>
+              <div className="text-2xl font-medium text-[#e3b341]">{allThemeTickers.length}+</div>
             </div>
             <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
               <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Aktif Tema</div>
-              <div className="text-2xl font-black text-[#e3b341]">122</div>
+              <div className="text-2xl font-medium text-[#e3b341]">122</div>
             </div>
             <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
               <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Sektör</div>
-              <div className="text-2xl font-black text-[#e3b341]">11+</div>
+              <div className="text-2xl font-medium text-[#e3b341]">11+</div>
             </div>
             <div className="bg-white/5 border border-[#e3b341]/30 rounded-lg p-4">
               <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-2">Güncelleme</div>
-              <div className="text-2xl font-black text-[#e3b341]">24/7</div>
+              <div className="text-2xl font-medium text-[#e3b341]">24/7</div>
             </div>
           </div>
 
@@ -203,7 +203,7 @@ export default function CSPWatchlistSection() {
 
           {/* Features List */}
           <div className="mt-8 pt-6 border-t border-white/10">
-            <div className="text-xs font-black text-slate-400 uppercase tracking-wider mb-4">Özellikler</div>
+            <div className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-4">Özellikler</div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div className="flex items-center gap-2 text-sm text-slate-400">
                 <span className="text-[#e3b341]">✓</span> Detaylı BOGA Tracker analiz
@@ -242,14 +242,14 @@ export default function CSPWatchlistSection() {
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
+                    <h3 className={`text-sm font-medium ${csp.textColor} uppercase tracking-wider`}>
                       {csp.label}
                     </h3>
                     <div className="text-[11px] text-slate-400 font-mono mt-0.5">
                       {csp.range}
                     </div>
                   </div>
-                  <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
+                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
                     {tickers.length} hisse
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export default function CSPWatchlistSection() {
                 <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
                   <Link
                     href={csp.href}
-                    className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
+                    className={`flex-1 text-center py-1.5 text-[10px] font-medium uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
                   >
                     Listeyi Gör →
                   </Link>
@@ -315,14 +315,14 @@ export default function CSPWatchlistSection() {
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h3 className={`text-sm font-black ${csp.textColor} uppercase tracking-wider`}>
+                    <h3 className={`text-sm font-medium ${csp.textColor} uppercase tracking-wider`}>
                       {csp.label}
                     </h3>
                     <div className="text-[11px] text-slate-400 font-mono mt-0.5">
                       {csp.range}
                     </div>
                   </div>
-                  <span className={`text-[10px] font-black px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
+                  <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${csp.borderColor} ${csp.textColor}`}>
                     {tickers.length} hisse
                   </span>
                 </div>
@@ -358,7 +358,7 @@ export default function CSPWatchlistSection() {
                 <div className="mt-4 pt-3 border-t border-white/5 flex gap-2">
                   <Link
                     href={csp.href}
-                    className={`flex-1 text-center py-1.5 text-[10px] font-black uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
+                    className={`flex-1 text-center py-1.5 text-[10px] font-medium uppercase tracking-wider border ${csp.borderColor} ${csp.textColor} rounded-lg hover:bg-white/5 transition-all`}
                   >
                     Listeyi Gör →
                   </Link>

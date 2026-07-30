@@ -173,7 +173,7 @@ function Chip({ label, color = "slate" }: { label: string; color?: string }) {
     : color === "cyan"   ? "bg-cyan-500/15 text-cyan-300 border-cyan-500/30"
     : color === "purple" ? "bg-purple-500/15 text-purple-300 border-purple-500/30"
     : "bg-slate-700/40 text-slate-400 border-slate-600/30";
-  return <span className={`inline-flex items-center border rounded px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${cls}`}>{label}</span>;
+  return <span className={`inline-flex items-center border rounded px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${cls}`}>{label}</span>;
 }
 
 function MetricBox({ label, value, sub, color = "slate" }: { label: string; value: string; sub?: string; color?: string }) {
@@ -187,7 +187,7 @@ function MetricBox({ label, value, sub, color = "slate" }: { label: string; valu
   return (
     <div className={`border rounded-xl p-3 text-center ${border}`}>
       <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{label}</div>
-      <div className={`text-[15px] md:text-[17px] font-semibold ${valCl}`}>{value}</div>
+      <div className={`text-[15px] md:text-[17px] font-medium ${valCl}`}>{value}</div>
       {sub && <div className="text-[10px] text-slate-500 mt-1">{sub}</div>}
     </div>
   );
@@ -200,7 +200,7 @@ function PlanRow({ label, value, valueColor = "white", note }: { label: string; 
       <span className="text-[12px] text-slate-400">{label}</span>
       <div className="flex items-center gap-2">
         {note && <span className="text-[10px] text-slate-600">{note}</span>}
-        <span className={`text-[14px] font-semibold ${cl}`}>{value}</span>
+        <span className={`text-[14px] font-medium ${cl}`}>{value}</span>
       </div>
     </div>
   );
@@ -213,7 +213,7 @@ function MARowL({ label, value, current, lang }: { label: string; value: number;
     <div className="flex items-center justify-between py-2 border-b border-[#1e3a5f]/25 last:border-0">
       <span className="text-[11px] text-slate-400 w-16">{label}</span>
       <span className="text-[11px] text-slate-500 flex-1 text-center">{dist >= 0 ? "+" : ""}{dist.toFixed(1)}%</span>
-      <span className="text-[12px] font-semibold text-white w-20 text-right">{fmtUsd(value)}</span>
+      <span className="text-[12px] font-medium text-white w-20 text-right">{fmtUsd(value)}</span>
       <span className={`ml-2 text-[10px] font-medium px-1.5 py-0.5 rounded w-16 text-center ${above ? "bg-emerald-500/20 text-emerald-300" : "bg-rose-500/20 text-rose-300"}`}>
         {above ? L(lang, "Üstünde", "Above") : L(lang, "Altında", "Below")}
       </span>
@@ -386,7 +386,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div>
               <div className="flex items-center gap-3 mb-1">
                 <span className="text-[26px] md:text-[30px] font-medium text-white tracking-tight">{ticker}</span>
-                <span className={`border rounded-full px-3 py-1 text-[13px] font-semibold ${ms >= 70 ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400" : ms >= 50 ? "border-amber-500/40 bg-amber-500/10 text-amber-400" : "border-rose-500/40 bg-rose-500/10 text-rose-400"}`}>{ms}/100</span>
+                <span className={`border rounded-full px-3 py-1 text-[13px] font-medium ${ms >= 70 ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400" : ms >= 50 ? "border-amber-500/40 bg-amber-500/10 text-amber-400" : "border-rose-500/40 bg-rose-500/10 text-rose-400"}`}>{ms}/100</span>
               </div>
               <div className="text-[14px] text-slate-200 font-medium mb-1">{companyName}</div>
               <div className="text-[12px] text-slate-500">{sector}{rd.marketCapStr ? ` · ${rd.marketCapStr}` : ""}</div>
@@ -408,7 +408,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           ) : (
             <>
               <div className={`inline-flex items-center border rounded-lg px-3 py-1.5 mb-4 ${regimeCls}`}>
-                <span className="text-[11px] font-semibold tracking-wider">{regimeLbl}</span>
+                <span className="text-[11px] font-medium tracking-wider">{regimeLbl}</span>
                 {rd.emaProfile && <span className="ml-2 text-[10px] opacity-70">· {rd.emaProfile.keyEMA} {L(lang, "Hissesi", "Stock")}</span>}
               </div>
               {a.dna?.hisseTipi && (
@@ -447,7 +447,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed mb-4">
               {L(lang, "Giriş Bölgesi, Stop Loss, T1-T3 Hedefleri ve Trailing Strateji kurallarını kilitleri kaldırmak için Premium üyeliğe geçin.", "Upgrade to Premium to unlock exact Entry Zones, Stop Loss, T1-T3 Targets, and Trailing rules.")}
             </p>
-            <button className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 transition-all">
+            <button className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-medium text-xs uppercase tracking-wider rounded-xl shadow-lg hover:brightness-110 transition-all">
               {L(lang, "Premium'a Yükselt →", "Upgrade to Premium →")}
             </button>
           </div>
@@ -462,7 +462,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="flex gap-1 bg-[#080c14] border border-[#1e3a5f]/50 rounded-lg p-0.5">
                 {(["swing", "position", "investment"] as const).map(h => (
                   <button key={h} onClick={() => setHorizon(h)}
-                    className={`text-[10px] font-semibold uppercase px-2.5 py-1.5 rounded transition-all ${horizon === h ? "bg-[#1e4a7f] text-white" : "text-slate-500 hover:text-slate-300"}`}>
+                    className={`text-[10px] font-medium uppercase px-2.5 py-1.5 rounded transition-all ${horizon === h ? "bg-[#1e4a7f] text-white" : "text-slate-500 hover:text-slate-300"}`}>
                     {h === "swing" ? "Swing" : h === "position" ? L(lang, "Pozisyon", "Position") : L(lang, "Yatırım", "Invest")}
                   </button>
                 ))}
@@ -471,7 +471,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="text-[10px] text-slate-500 mb-3">{plan.timeframe} · {plan.anchor}</div>
 
             {plan.waitWarning && (
-              <div className="mb-3 px-3 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[11px] font-semibold">
+              <div className="mb-3 px-3 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-400 text-[11px] font-medium">
                 ⏳ {plan.waitWarning}
               </div>
             )}
@@ -495,7 +495,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
 
             {/* Trailing scenario rule */}
             <div className="bg-amber-500/5 border border-amber-500/20 rounded-xl px-4 py-3">
-              <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold mb-1">
+              <div className="text-[10px] text-amber-400 uppercase tracking-widest font-medium mb-1">
                 {L(lang, "Trailing Kuralı", "Trailing Rule")}
               </div>
               <p className="text-[12px] text-slate-300">{plan.trailRule}</p>
@@ -520,10 +520,10 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               return (
                 <div key={l.key} className={`border rounded-xl px-3 py-2.5 ${l.bordCl}`}>
                   <div className="flex items-center justify-between mb-0.5">
-                    <span className="text-[10px] text-slate-500 font-semibold">{l.code}</span>
+                    <span className="text-[10px] text-slate-500 font-medium">{l.code}</span>
                     <span className={`text-[9px] font-medium ${dist >= 0 ? "text-rose-400" : "text-emerald-400"}`}>{dist >= 0 ? "+" : ""}{dist.toFixed(1)}%</span>
                   </div>
-                  <div className={`text-[14px] md:text-[15px] font-semibold ${l.textCl}`}>{fmtUsd(val)}</div>
+                  <div className={`text-[14px] md:text-[15px] font-medium ${l.textCl}`}>{fmtUsd(val)}</div>
                   <div className="text-[9px] text-slate-600 mt-0.5">{l.label}</div>
                 </div>
               );
@@ -536,14 +536,14 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               {vwap20 && (
                 <div className={`flex-1 border rounded-xl px-3 py-2 ${cp > vwap20 ? "border-cyan-500/25 bg-cyan-500/5" : "border-rose-500/20 bg-rose-500/5"}`}>
                   <div className="text-[10px] text-cyan-400 uppercase tracking-wider font-medium">VWAP 20D</div>
-                  <div className="text-[15px] font-semibold text-white mt-0.5">{fmtUsd(vwap20)}</div>
+                  <div className="text-[15px] font-medium text-white mt-0.5">{fmtUsd(vwap20)}</div>
                   <div className={`text-[10px] mt-0.5 ${cp > vwap20 ? "text-emerald-400" : "text-rose-400"}`}>{cp > vwap20 ? L(lang, "Fiyat Üstünde", "Price Above") : L(lang, "Fiyat Altında", "Price Below")}</div>
                 </div>
               )}
               {poc && (
                 <div className="flex-1 border border-purple-500/20 bg-purple-500/5 rounded-xl px-3 py-2">
                   <div className="text-[10px] text-purple-400 uppercase tracking-wider font-medium">POC 20D</div>
-                  <div className="text-[15px] font-semibold text-white mt-0.5">{fmtUsd(poc)}</div>
+                  <div className="text-[15px] font-medium text-white mt-0.5">{fmtUsd(poc)}</div>
                   <div className="text-[10px] text-slate-500 mt-0.5">{L(lang, "En Yüksek Hacim Bölgesi", "Highest Volume Node")}</div>
                 </div>
               )}
@@ -560,7 +560,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             {ma.ma21 > 0 && <MARowL label="MA 21" value={ma.ma21} current={cp} lang={lang} />}
             <div className="flex items-center justify-between pt-2 mt-1">
               <span className="text-[11px] text-slate-500">{L(lang, "EMA Kesişimi", "EMA Cross")}</span>
-              <span className={`text-[11px] font-semibold ${ma.goldenCross ? "text-amber-400" : "text-slate-500"}`}>
+              <span className={`text-[11px] font-medium ${ma.goldenCross ? "text-amber-400" : "text-slate-500"}`}>
                 {ma.goldenCross ? L(lang, "🟡 Altın Kesişim", "🟡 Golden Cross") : L(lang, "⚫ Ölüm Kesişimi", "⚫ Death Cross")}
               </span>
             </div>
@@ -598,7 +598,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             </div>
           ) : (
             <div className="bg-gradient-to-r from-cyan-500/5 to-transparent border border-cyan-500/20 rounded-xl p-4 mb-4">
-              <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-semibold mb-2">{L(lang, "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı", "24/7 AI Chart & Market Interpreter")}</div>
+              <div className="text-[10px] text-cyan-400 uppercase tracking-widest font-medium mb-2">{L(lang, "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı", "24/7 AI Chart & Market Interpreter")}</div>
               <p className="text-[13px] text-slate-200 leading-relaxed">{(() => {
                 const s1 = sr.support1 || cp * 0.95;
                 const r1 = sr.resistance1 || cp * 1.05;
@@ -616,11 +616,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-4 mb-4">
             <div className="text-[10px] text-slate-500 uppercase tracking-widest mb-3">{L(lang, "Hacim", "Volume")}</div>
             <div className="grid grid-cols-3 gap-3 mb-3">
-              <div className="text-center"><div className="text-[10px] text-slate-500 mb-1">{L(lang, "Günlük", "Daily")}</div><div className="text-[15px] font-semibold text-white">{fmtVol(volume)}</div></div>
-              <div className="text-center"><div className="text-[10px] text-slate-500 mb-1">{L(lang, "30G Ort.", "30D Avg")}</div><div className="text-[15px] font-semibold text-white">{fmtVol(avgVol)}</div></div>
+              <div className="text-center"><div className="text-[10px] text-slate-500 mb-1">{L(lang, "Günlük", "Daily")}</div><div className="text-[15px] font-medium text-white">{fmtVol(volume)}</div></div>
+              <div className="text-center"><div className="text-[10px] text-slate-500 mb-1">{L(lang, "30G Ort.", "30D Avg")}</div><div className="text-[15px] font-medium text-white">{fmtVol(avgVol)}</div></div>
               <div className={`text-center rounded-lg p-1 ${rvol >= 2 ? "bg-rose-500/10" : rvol >= 1.3 ? "bg-amber-500/10" : ""}`}>
                 <div className="text-[10px] text-slate-500 mb-1">RVOL</div>
-                <div className={`text-[15px] font-semibold ${rvol >= 2 ? "text-rose-400" : rvol >= 1.3 ? "text-amber-400" : rvol < 0.7 ? "text-slate-500" : "text-white"}`}>{rvol.toFixed(2)}x</div>
+                <div className={`text-[15px] font-medium ${rvol >= 2 ? "text-rose-400" : rvol >= 1.3 ? "text-amber-400" : rvol < 0.7 ? "text-slate-500" : "text-white"}`}>{rvol.toFixed(2)}x</div>
               </div>
             </div>
             <p className="text-[12px] text-slate-400 leading-relaxed">
@@ -641,12 +641,12 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {a.teknikYorum?.trendDurumu && (
                 <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-3">
-                  <div className="text-[10px] text-amber-400 uppercase tracking-widest font-semibold mb-1.5">{L(lang, "Trend", "Trend")}</div>
+                  <div className="text-[10px] text-amber-400 uppercase tracking-widest font-medium mb-1.5">{L(lang, "Trend", "Trend")}</div>
                   <p className="text-[12px] text-slate-300 leading-relaxed">{a.teknikYorum.trendDurumu}</p>
                 </div>
               )}
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-3">
-                <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-semibold mb-1.5">OBV / A-D / MFI</div>
+                <div className="text-[10px] text-emerald-400 uppercase tracking-widest font-medium mb-1.5">OBV / A-D / MFI</div>
                 <p className="text-[12px] text-slate-300 leading-relaxed">
                   {lang === "tr"
                     ? `OBV ${fs.obvTrend} · A/D ${fs.adTrend} · MFI ${fs.mfi?.toFixed(0)} (${fs.mfiLabel}) · ${fs.pvPattern}`
@@ -666,7 +666,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               {nextEarnings ? (
                 <>
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-[17px] font-semibold text-white">{nextEarnings}</span>
+                    <span className="text-[17px] font-medium text-white">{nextEarnings}</span>
                     {earningsDays !== null && <Chip label={`${earningsDays}d`} color={earningsDays <= 7 ? "red" : earningsDays <= 14 ? "amber" : "slate"} />}
                   </div>
                   {earningsDays !== null && earningsDays <= 14 && (
@@ -678,8 +678,8 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               )}
             </div>
             <div className="border border-rose-500/30 bg-rose-500/5 rounded-xl p-4">
-              <div className="text-[10px] text-rose-400 uppercase tracking-widest font-semibold mb-1">{L(lang, "⚠ Tez İptal Seviyesi", "⚠ Thesis Invalidation")}</div>
-              <div className="text-[19px] font-semibold text-rose-300 mt-1">{fmtUsd(sr.support2 || cp * 0.91)}</div>
+              <div className="text-[10px] text-rose-400 uppercase tracking-widest font-medium mb-1">{L(lang, "⚠ Tez İptal Seviyesi", "⚠ Thesis Invalidation")}</div>
+              <div className="text-[19px] font-medium text-rose-300 mt-1">{fmtUsd(sr.support2 || cp * 0.91)}</div>
               <p className="text-[11px] text-slate-400 mt-1.5">
                 {lang === "tr"
                   ? `${fmtUsd(sr.support2 || cp * 0.91)} (D2) altında haftalık kapanış = tez geçersiz.`
@@ -691,7 +691,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="bg-[#0a0e18] border border-[#1e3a5f]/40 rounded-xl p-3">
               <div className="flex items-center justify-between mb-2">
                 <div className="text-[10px] text-slate-500 uppercase tracking-widest">{L(lang, "Kazanç Geçmişi", "Earnings History")}</div>
-                <span className="text-[10px] font-semibold text-amber-400">{beatCount}/{earnings.length} {L(lang, "Beat", "Beat")}</span>
+                <span className="text-[10px] font-medium text-amber-400">{beatCount}/{earnings.length} {L(lang, "Beat", "Beat")}</span>
               </div>
               {earnings.map((e: any, i: number) => {
                 const beat = e.epsBeating;
@@ -703,7 +703,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-[11px] text-slate-400">{L(lang, "Ger", "Act")}: <span className="text-white font-medium">${e.eps?.toFixed(2)}</span> · Est: ${e.estimate?.toFixed(2)}</span>
-                      <span className={`text-[11px] font-semibold ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{e.epsSurprise?.toFixed(1)}%</span>
+                      <span className={`text-[11px] font-medium ${beat ? "text-emerald-400" : "text-rose-400"}`}>{e.epsSurprise > 0 ? "+" : ""}{e.epsSurprise?.toFixed(1)}%</span>
                       <Chip label={beat ? L(lang, "GEÇTİ", "BEAT") : L(lang, "KAÇIRDI", "MISS")} color={beat ? "green" : "red"} />
                     </div>
                   </div>
@@ -732,11 +732,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                   const w  = Math.min(100, Math.abs(p.changePct) * 20);
                   return (
                     <div key={p.ticker} className="flex items-center gap-3 bg-[#0a0e18] border border-[#1e3a5f]/30 rounded-lg px-3 py-2">
-                      <span className="text-[12px] font-semibold text-white w-14 shrink-0">{p.ticker}</span>
+                      <span className="text-[12px] font-medium text-white w-14 shrink-0">{p.ticker}</span>
                       <span className="text-[11px] text-slate-500 flex-1 truncate">{p.name}</span>
                       <div className="w-16 hidden md:block"><div className={`h-1 rounded-full ${up ? "bg-emerald-500/40" : "bg-rose-500/40"}`} style={{ width: `${w}%` }} /></div>
                       <span className="text-[12px] font-medium text-white shrink-0">{fmtUsd(p.price)}</span>
-                      <span className={`text-[12px] font-semibold w-14 text-right shrink-0 ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "+" : ""}{p.changePct.toFixed(2)}%</span>
+                      <span className={`text-[12px] font-medium w-14 text-right shrink-0 ${up ? "text-emerald-400" : "text-rose-400"}`}>{up ? "+" : ""}{p.changePct.toFixed(2)}%</span>
                     </div>
                   );
                 })}
@@ -751,7 +751,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               <div className="space-y-2">
                 {rsEntries.map(r => (
                   <div key={r.t} className="flex items-center gap-2">
-                    <span className={`text-[11px] font-semibold w-14 shrink-0 ${r.isSelf ? "text-cyan-400" : "text-slate-300"}`}>{r.t}</span>
+                    <span className={`text-[11px] font-medium w-14 shrink-0 ${r.isSelf ? "text-cyan-400" : "text-slate-300"}`}>{r.t}</span>
                     <div className="flex-1 h-2.5 bg-[#080c14] rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all ${r.isSelf ? "bg-cyan-500" : r.v >= 0 ? "bg-emerald-500/60" : "bg-rose-500/60"}`}
@@ -772,7 +772,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <div className="flex items-center justify-between mb-2">
-                <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide">{L(lang, "Form 4 — İçeriden", "Form 4 — Insiders")}</div>
+                <div className="text-[11px] text-slate-500 font-medium uppercase tracking-wide">{L(lang, "Form 4 — İçeriden", "Form 4 — Insiders")}</div>
                 {(insiderSummary.buyCount > 0 || insiderSummary.sellCount > 0) && (
                   <div className="flex gap-1.5">
                     {insiderSummary.buyCount  > 0 && <Chip label={`${insiderSummary.buyCount} ${L(lang, "ALIŞ", "BUY")}`}   color="green" />}
@@ -796,7 +796,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               </div>
             </div>
             <div>
-              <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wide mb-2">{L(lang, "13F — Kurumsal", "13F — Institutional")}</div>
+              <div className="text-[11px] text-slate-500 font-medium uppercase tracking-wide mb-2">{L(lang, "13F — Kurumsal", "13F — Institutional")}</div>
               <div className="bg-[#0a0e18] border border-[#1e3a5f]/30 rounded-xl p-3">
                 {instOwners.length > 0 ? instOwners.map((o: any, i: number) => (
                   <div key={i} className="flex items-center justify-between py-2 border-b border-[#1e3a5f]/25 last:border-0 gap-2">
@@ -804,7 +804,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
                       <div className="text-[11px] font-medium text-white truncate">{o.name}</div>
                       <div className="text-[10px] text-slate-500">{o.reportDate}</div>
                     </div>
-                    <span className={`text-[12px] font-semibold shrink-0 ${o.change >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                    <span className={`text-[12px] font-medium shrink-0 ${o.change >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                       {o.isNewPosition
                         ? (o.change >= 0 ? `▲ ${L(lang, "Yeni Giriş", "New Entry")}` : `▼ ${L(lang, "Büyük Çıkış", "Major Exit")}`)
                         : `${o.change >= 0 ? "▲" : "▼"} ${Math.abs(o.change).toFixed(1)}%`}
@@ -825,9 +825,9 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
               {analyst.count > 0 ? (
                 <div className="bg-[#0a0e18] border border-[#1e3a5f]/30 rounded-xl p-3">
                   <div className="flex gap-4 mb-3">
-                    <div className="flex-1 text-center"><div className="text-[18px] font-semibold text-emerald-400">{analyst.buy}</div><div className="text-[10px] text-slate-500">{L(lang, "Al", "Buy")}</div></div>
-                    <div className="flex-1 text-center"><div className="text-[18px] font-semibold text-amber-400">{analyst.hold}</div><div className="text-[10px] text-slate-500">{L(lang, "Tut", "Hold")}</div></div>
-                    <div className="flex-1 text-center"><div className="text-[18px] font-semibold text-rose-400">{analyst.sell}</div><div className="text-[10px] text-slate-500">{L(lang, "Sat", "Sell")}</div></div>
+                    <div className="flex-1 text-center"><div className="text-[18px] font-medium text-emerald-400">{analyst.buy}</div><div className="text-[10px] text-slate-500">{L(lang, "Al", "Buy")}</div></div>
+                    <div className="flex-1 text-center"><div className="text-[18px] font-medium text-amber-400">{analyst.hold}</div><div className="text-[10px] text-slate-500">{L(lang, "Tut", "Hold")}</div></div>
+                    <div className="flex-1 text-center"><div className="text-[18px] font-medium text-rose-400">{analyst.sell}</div><div className="text-[10px] text-slate-500">{L(lang, "Sat", "Sell")}</div></div>
                   </div>
                   <div className="flex h-1.5 rounded-full overflow-hidden mb-3">
                     {analyst.buy  > 0 && <div className="bg-emerald-500" style={{ width: `${(analyst.buy  / analyst.count) * 100}%` }} />}

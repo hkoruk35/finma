@@ -64,7 +64,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
       <Link
         key={theme.name}
         href={`/theme/${slugify(theme.name)}`}
-        className={`px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border font-black transition-all flex items-center gap-2 group whitespace-nowrap shadow-xl ${getFontSize()} ${getOpacity()} ${
+        className={`px-3 py-1.5 md:px-5 md:py-2.5 rounded-full border font-medium transition-all flex items-center gap-2 group whitespace-nowrap shadow-xl ${getFontSize()} ${getOpacity()} ${
           isSelected 
             ? "bg-[#3366ff] border-[#3366ff] text-white ring-2 ring-blue-500/50 scale-105" 
             : "bg-[#141924]/40 backdrop-blur-md border-[#ffffff]/10 text-white hover:border-[#3b82f6]/50 hover:text-white hover:scale-105 hover:bg-[#1a2030]"
@@ -78,7 +78,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
           "bg-[#cbd5e1]"
         }`} />
         <span className="tracking-tight">{theme.name}</span>
-        <span className="text-[10px] font-black opacity-40 px-1.5 py-0.5 rounded-md bg-white/5 group-hover:opacity-100 transition-opacity">
+        <span className="text-[10px] font-medium opacity-40 px-1.5 py-0.5 rounded-md bg-white/5 group-hover:opacity-100 transition-opacity">
           {theme.activeCount}
         </span>
       </Link>
@@ -98,7 +98,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
   return (
     <div className="space-y-6 overflow-hidden">
       <div className="flex items-center justify-between px-2">
-        <h3 className="text-sm font-black text-white uppercase tracking-[0.2em] flex items-center gap-2">
+        <h3 className="text-sm font-medium text-white uppercase tracking-[0.2em] flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
           Active Market Themes
         </h3>

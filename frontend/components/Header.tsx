@@ -164,7 +164,7 @@ export default function Header({
   const logoContent = (
     <div className="flex flex-col items-start flex-shrink-0">
       <span className="text-lg tracking-tight font-medium">
-        <span className="text-[#3b82f6]">Boga</span><span className="text-white font-semibold">Stock</span>
+        <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
       </span>
       <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
         TERMINAL
@@ -215,7 +215,7 @@ export default function Header({
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-black uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[11px] font-medium uppercase tracking-wider transition-all whitespace-nowrap flex-shrink-0 ${
                     active
                       ? "bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30"
                       : "text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent"
@@ -243,7 +243,7 @@ export default function Header({
                 locale={globalLocale ?? "tr"}
                 targetHref={globalLandingHref!}
                 title={terminalTooltip}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] hover:bg-[#3b82f6] hover:text-white border border-[#3b82f6]/30 transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M4 6h16a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1z" />
@@ -253,7 +253,7 @@ export default function Header({
 
               <Link
                 href={screenerHref}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#a78bfa]/10 text-[#a78bfa] hover:bg-[#a78bfa] hover:text-white border border-[#a78bfa]/30 transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -263,7 +263,7 @@ export default function Header({
 
               <Link
                 href={`/global/${globalLocale}/insider`}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981] hover:text-white border border-[#10b981]/30 transition-all"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider bg-[#10b981]/10 text-[#10b981] hover:bg-[#10b981] hover:text-white border border-[#10b981]/30 transition-all"
               >
                 <svg className="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6M5 20h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v11a2 2 0 002 2z" />
@@ -284,7 +284,7 @@ export default function Header({
                   return (
                     <span
                       key={lang}
-                      className="px-2 py-1 text-[10px] font-black uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
+                      className="px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-[#64748b]/40 cursor-not-allowed select-none"
                       title="Coming Soon"
                     >
                       {lang}
@@ -296,7 +296,7 @@ export default function Header({
                   <Link
                     key={lang}
                     href={getLangHref(lang)}
-                    className={`px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider transition-all ${
+                    className={`px-2 py-1 rounded-md text-[10px] font-medium uppercase tracking-wider transition-all ${
                       isActive
                         ? "bg-[#3b82f6] text-white shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                         : "text-[#64748b] hover:text-white hover:bg-white/10"
@@ -312,7 +312,7 @@ export default function Header({
           {globalLocale && (
             <Link
               href={`/global/${globalLocale}/today`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
             >
               <span>📅</span>
               <span>{globalLocale === "tr" ? "Bugün Neler Oluyor" : globalLocale === "es" ? "¿Qué pasa hoy?" : globalLocale === "fr" ? "Aujourd'hui" : globalLocale === "pt" ? "Hoje" : "Today"}</span>
@@ -322,7 +322,7 @@ export default function Header({
           {onNewQueryClick && (
             <button
               onClick={onNewQueryClick}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-black uppercase tracking-widest transition-all animate-pulse"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3b82f6]/10 hover:bg-[#3b82f6]/20 border border-[#3b82f6]/30 text-[#3b82f6] hover:text-white rounded-lg text-xs font-medium uppercase tracking-widest transition-all animate-pulse"
             >
               <span>+</span>
               <span>YENİ ARAMA</span>
@@ -336,7 +336,7 @@ export default function Header({
               onClick={handleLogout}
               disabled={loggingOut}
               title="Çıkış Yap"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-black uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium uppercase tracking-wider text-[#64748b] hover:text-red-400 hover:bg-red-500/10 border border-transparent hover:border-red-500/20 transition-all disabled:opacity-40"
             >
               <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
@@ -375,7 +375,7 @@ export default function Header({
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-black uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium uppercase tracking-wider transition-all ${
                     active
                       ? "bg-[#3b82f6]/15 text-[#3b82f6] border border-[#3b82f6]/30"
                       : "text-[#64748b] hover:text-white hover:bg-white/5 border border-transparent"

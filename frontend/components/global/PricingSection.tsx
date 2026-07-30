@@ -131,9 +131,9 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-full px-4 py-1.5 mb-5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-          <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#22c55e]">{c.badge}</span>
+          <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#22c55e]">{c.badge}</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-black text-white tracking-tighter mb-2">{c.title}</h2>
+        <h2 className="text-2xl md:text-3xl font-medium text-white tracking-tighter mb-2">{c.title}</h2>
         <p className="text-sm text-white/40">{c.subtitle}</p>
       </div>
 
@@ -142,14 +142,14 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
         <div className="grid grid-cols-2 gap-3 mb-8">
           <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-2xl px-3 py-4 text-center">
             <div className="text-[10px] font-medium uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.firstMonthLabel}</div>
-            <div className="text-xl md:text-2xl font-black text-[#22c55e]">
-              $9<span className="text-xs font-semibold text-[#22c55e]/70">{c.perMonth}</span>
+            <div className="text-xl md:text-2xl font-medium text-[#22c55e]">
+              $9<span className="text-xs font-medium text-[#22c55e]/70">{c.perMonth}</span>
             </div>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">
             <div className="text-[10px] font-medium uppercase tracking-wider text-white/40 mb-1 capitalize">{c.thenLabel}</div>
-            <div className="text-xl md:text-2xl font-black text-white">
-              $39<span className="text-xs font-semibold text-white/40">{c.perMonth}</span>
+            <div className="text-xl md:text-2xl font-medium text-white">
+              $39<span className="text-xs font-medium text-white/40">{c.perMonth}</span>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
         {/* CTA */}
         <Link
           href={ctaHref}
-          className="block w-full text-center px-8 py-4 bg-[#3b82f6] text-white rounded-2xl font-black uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98]"
+          className="block w-full text-center px-8 py-4 bg-[#3b82f6] text-white rounded-2xl font-medium uppercase tracking-[0.15em] text-sm hover:bg-[#2563eb] hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all active:scale-[0.98]"
         >
           {c.ctaText}
         </Link>
