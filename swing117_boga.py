@@ -5108,16 +5108,12 @@ async def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tick
         # PENDING (Bekle)
         first_seen = entry.get("first_seen_date", today_str)
         # KURAL 1: 2 gün (48 saat) içinde Giriş Zone'a girmezse -> listeden tamamen çıkarılır.
+        # Bu, PENDING adaylar için TEK çıkarma kuralıdır: 48 saat dolmadan,
+        # setup o taramada L1-L2 filtresini geçemese bile aday Trend listesinden
+        # düşürülmez (aday limiti yok, sadece 48 saatlik garanti pencere kuralı var).
         if _hours_since_ny(first_seen) >= 48.0 or _days_since_ny(first_seen) >= SWING_PENDING_MAX_DAYS:
             logging.info(f"⏰ {t}: 2 gün içinde Giriş Zone'a girmedi -> Trend sayfasından çıkarılıyor.")
             continue  # 2 gün doldu -> düş
-        # "setup bozuldu" eleme kuralı SADECE bu tarama gerçekten aday
-        # ürettiyse uygulanır (l1b_pass_tickers boş değilse) — aksi halde
-        # tek bir 0-sonuçlu taramanın (gevşetme 4 katına çıkıp yine de hiçbir
-        # şey bulamadığı bir çalıştırma gibi) tüm PENDING havuzunu silmesi
-        # engellenir. Yaş bazlı eleme (yukarıdaki satır) hâlâ çalışıyor.
-        if l1b_pass_tickers and t not in fresh_swing and t not in l1b_pass_tickers:
-            continue  # setup bozuldu → düş
         if t in fresh_swing:
             c = fresh_swing[t]
             trig = c.get("trigger", {})
