@@ -112,9 +112,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const groups = useMemo(() => getGroups(locale), [locale]);
   
   const [extendedGroups, setExtendedGroups] = useState<any[]>([]);
+  const [selectedList, setSelectedList] = useState<string>("Tüm Liste");
 
   useEffect(() => {
-    const baseGroups = groups.slice(0, 2);
+    const baseGroups = groups;
     setExtendedGroups(baseGroups);
 
     const fetchAllData = async () => {
@@ -346,10 +347,25 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
             </button>
           )}
 
-          <div className="md:py-4">
-            {extendedGroups.map(group => (
+          <div className="md:py-4 px-3 flex flex-col gap-4">
+            <select
+              value={selectedList}
+              onChange={(e) => setSelectedList(e.target.value)}
+              className="w-full bg-[#141924] border border-[#1e2a3a] text-slate-300 text-xs rounded-lg px-3 py-2 outline-none focus:border-[#3b82f6] transition-colors"
+            >
+              <option value="Tüm Liste">{locale === 'tr' ? 'Tüm Liste' : 'All List'}</option>
+              {extendedGroups.map(g => (
+                <option key={g.group} value={g.group}>{g.group}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="md:pb-4">
+            {(selectedList === "Tüm Liste" ? extendedGroups : extendedGroups.filter(g => g.group === selectedList)).map(group => (
               <div key={group.group} className="mb-6">
-                <h3 className="px-3 mb-2 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
+                {selectedList === "Tüm Liste" && (
+                  <h3 className="px-3 mb-2 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
+                )}
                 <div className="flex flex-col">
                   {group.items.map((item: any) => {
                     const price = item.price !== undefined ? { price: item.price, change_1d: item.change_1d } : prices[item.ySymbol];
