@@ -330,13 +330,6 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               lang={locale}
               detailMode
               height={isMobile ? 420 : 600}
-              defaultIndicators={
-                isMobile
-                  ? ["ema50", "volume"]
-                  : isPremium
-                  ? ["ema20", "ema50", "rsi", "volumeProfile"]
-                  : ["ema50", "rsi", "volume"]
-              }
               defaultTimeframe="D"
               premiumGate={!isTop7 && !isPremium && !loading}
             />
