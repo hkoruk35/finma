@@ -9,7 +9,7 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const path = typeof window !== "undefined" ? window.location.pathname : "";
-    const isMoney = /\/(performance|swing|swingperformance|top100|watchlist|insider|my-watchlist|stock)\b/i.test(path);
+    const isMoney = /\/(home|performance|swing|swingperformance|top100|watchlist|insider|my-watchlist|stock)\b/i.test(path);
     setIsMoneySection(isMoney);
   }, []);
 
