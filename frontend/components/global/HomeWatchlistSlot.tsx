@@ -180,7 +180,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className={`bg-[#000000] border border-[#1e2a3a]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
+      <div className={`bg-[#0a0e17] border border-[#1e2a3a]/60 ${compactMode ? 'rounded-xl' : 'rounded-2xl'} overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]`}>
         {/* Header */}
         <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
           <div className="flex items-center gap-2 relative group cursor-default min-w-0">
@@ -285,7 +285,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     </div>
 
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[7px] font-medium uppercase whitespace-nowrap"
                       style={{ background: `${STATUS_STYLE[stock.status].color}26`, color: STATUS_STYLE[stock.status].color }}
                     >
                       {statusLabel(stock.status, locale)}
@@ -296,7 +296,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[11px] font-medium font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[9px] font-medium font-mono ${
                           stock.change_pct >= 0
                             ? 'bg-[#22c55e] text-white'
                             : 'bg-[#ef4444] text-white'

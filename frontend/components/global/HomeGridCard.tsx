@@ -60,7 +60,7 @@ export default function HomeSimpleCard({
     <>
       {showModal && <PremiumModal locale={locale} onClose={() => setShowModal(false)} />}
 
-      <div className="bg-[#000000] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+      <div className="bg-[#0a0e17] border-2 border-[#1e2a3a]/60 rounded-2xl overflow-hidden flex flex-col h-full w-full snap-center flex-shrink-0 md:min-w-0 md:flex-shrink md:w-auto md:snap-align-none shadow-[0_0_20px_rgba(0,0,0,0.3)]">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#1e2a3a]">
           <div className="flex items-center gap-3">
@@ -141,7 +141,7 @@ export default function HomeSimpleCard({
                     </div>
 
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[7px] font-medium uppercase whitespace-nowrap"
                       style={{ background: `${statusStyle.color}26`, color: statusStyle.color }}
                     >
                       {statusLabel}
@@ -150,7 +150,7 @@ export default function HomeSimpleCard({
                     <div className="text-right">
                       <div className="font-mono text-[14px] font-medium text-white/90">${stock.price.toFixed(2)}</div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[11px] font-medium font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[9px] font-medium font-mono ${
                           stock.change_pct >= 0
                             ? 'bg-[#22c55e] text-white'
                             : 'bg-[#ef4444] text-white'

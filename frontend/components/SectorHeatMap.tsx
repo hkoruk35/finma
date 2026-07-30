@@ -76,22 +76,21 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
           <ShareButton locale={resolvedLocale} shareText={`${t.title} — BOGA AI`} url={`https://bogastock.com/global/${currentLocale}/home`} />
         </div>
       </div>
-      <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible pb-4">
-        <div className="grid grid-rows-2 grid-flow-col auto-cols-[90vw] sm:auto-cols-[50vw] gap-2 md:gap-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-9">
+      <div className="overflow-x-auto scrollbar-hide md:overflow-x-visible pb-4">
+        <div className="grid auto-cols-max grid-flow-col gap-2 md:gap-3 md:grid-flow-row md:grid-cols-auto md:justify-start">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR);
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;
             const sectorStyles = getPerformanceColor(avgChange);
             return (
-              <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group snap-center w-full">
-                {/* Sector Header */}
-                <div className={`flex items-center justify-between p-2 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium text-white uppercase tracking-tighter leading-tight">{sectorLabel(sector)}</span>
-                    <span className="text-[10px] font-medium text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
+              <div key={sector} className="glass-card overflow-hidden flex flex-col border border-[#1e2a3b] hover:border-[#3b82f6]/30 transition-all duration-300 group w-max">
+                <div className={`flex items-center justify-between p-2.5 border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125 whitespace-nowrap`}>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-xs font-medium text-white uppercase tracking-tighter leading-none">{sectorLabel(sector)}</span>
+                    <span className="text-[8px] font-medium text-white/70 tracking-wider">{SECTOR_ETF[sector] || "SEC"}</span>
                   </div>
-                  <div className="text-right">
-                    <span className="text-base font-mono font-medium text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>
+                  <div className="text-right ml-2">
+                    <span className="text-sm font-mono font-medium text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>
                   </div>
                 </div>
               </div>
