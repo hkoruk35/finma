@@ -18,6 +18,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
   const ACCOUNT_LABEL: Record<Locale, string> = { tr: "Hesabım", en: "Account", es: "Cuenta", fr: "Compte", pt: "Conta" };
   const SIGNIN_LABEL: Record<Locale, string> = { tr: "Giriş Yap", en: "Sign In", es: "Entrar", fr: "Connexion", pt: "Entrar" };
+  const TODAY_LABEL: Record<Locale, string> = { tr: "Bugün Neler Oluyor", en: "What's Happening Today", es: "¿Qué pasa hoy?", fr: "Aujourd'hui", pt: "O que está acontecendo hoje" };
   const SLOGAN = "Ask · Discover · Markets";
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[13px] font-medium uppercase tracking-wider bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/30 hover:bg-[#3b82f6] hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.1)]"
           >
             <span>📅</span>
-            <span>Bugün Neler Oluyor</span>
+            <span>{TODAY_LABEL[locale]}</span>
           </Link>
         </nav>
 
