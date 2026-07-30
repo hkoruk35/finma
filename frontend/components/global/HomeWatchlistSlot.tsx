@@ -216,13 +216,12 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
+            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_60px]' : 'grid-cols-[1fr_56px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
               <div className="flex items-center gap-2">
                 {selectable && <span className="w-3.5 shrink-0" />}
                 <span>{labels.stock}</span>
               </div>
               <span />
-              <span className="text-center">{labels.status}</span>
               <span className="text-right">{labels.price}</span>
             </div>
 
@@ -242,7 +241,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 items-center ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
+                    className={`grid ${compactMode ? 'grid-cols-[1fr_40px_60px]' : 'grid-cols-[1fr_56px_72px]'} gap-2 items-center ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
                     <div className="flex items-center gap-2 min-w-0">
@@ -283,13 +282,6 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     <div className="justify-self-center">
                       <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
                     </div>
-
-                    <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
-                      style={{ background: `${STATUS_STYLE[stock.status].color}26`, color: STATUS_STYLE[stock.status].color }}
-                    >
-                      {statusLabel(stock.status, locale)}
-                    </span>
 
                     <div className="text-right shrink-0">
                       <div className="font-mono text-sm font-medium text-white/90">

@@ -36,7 +36,7 @@ const STATUS_STYLE: Record<TrendStatus, { color: string; tr: string; en: string;
   NEUTRAL: { color: '#f59e0b', tr: 'NÖTR', en: 'NEUTRAL', pt: 'NEUTRO' },
 };
 
-const ROW_COLS = 'grid-cols-[1fr_56px_64px_72px]';
+const ROW_COLS = 'grid-cols-[1fr_56px_72px]';
 
 export default function HomeSimpleCard({
   title,
@@ -88,7 +88,6 @@ export default function HomeSimpleCard({
             <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[11px] font-medium uppercase tracking-[0.5px] text-white/60`}>
               <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : locale === 'pt' ? 'AÇÃO / SETOR' : 'STOCK / SECTOR'}</span>
               <span />
-              <span className="text-center">{locale === 'tr' ? 'DURUM' : locale === 'pt' ? 'STATUS' : 'STATUS'}</span>
               <span className="text-right">{locale === 'tr' ? 'FİYAT' : locale === 'pt' ? 'PREÇO' : 'PRICE'}</span>
             </div>
 
@@ -108,7 +107,7 @@ export default function HomeSimpleCard({
                 return (
                   <div
                     key={stock.ticker}
-                    className="grid grid-cols-[1fr_56px_64px_72px] gap-2 items-center px-5 py-3.5 transition-colors duration-150 group cursor-pointer hover:bg-white/[0.03]"
+                    className="grid grid-cols-[1fr_56px_72px] gap-2 items-center px-5 py-3.5 transition-colors duration-150 group cursor-pointer hover:bg-white/[0.03]"
                     style={{ '--accent': accent } as React.CSSProperties}
                     onClick={handleRowClick}
                   >
@@ -139,13 +138,6 @@ export default function HomeSimpleCard({
                     <div className="justify-self-center">
                       <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
                     </div>
-
-                    <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
-                      style={{ background: `${statusStyle.color}26`, color: statusStyle.color }}
-                    >
-                      {statusLabel}
-                    </span>
 
                     <div className="text-right">
                       <div className="font-mono text-[14px] font-medium text-white/90">${stock.price.toFixed(2)}</div>
