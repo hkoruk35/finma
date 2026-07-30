@@ -633,7 +633,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                   onKeyDown={handleKey}
                   placeholder={t("placeholder")}
                   rows={1}
-                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40"
+                  className="w-full bg-[#0d1117] border border-[#1e2a3a] rounded-2xl pl-5 pr-16 py-4 text-[13px] md:text-sm focus:outline-none focus:border-[#3b82f6] transition-all resize-none group-hover:border-[#3b82f6]/40" style={{ textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}
                   disabled={loading}
                 />
                 <button onClick={() => send()} disabled={!input.trim() || loading} className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-[#1d4ed8] text-white hover:bg-[#2563eb] disabled:opacity-50 disabled:bg-[#1e2a3a] transition-all">
@@ -641,7 +641,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </button>
               </div>
             )}
-            <div className="text-center mt-1 mb-0.5 opacity-60">
+            <div className="text-center mt-1 mb-0.5 opacity-60 pb-24 md:pb-2">
               <p className="text-[#475569]" style={{ fontSize: "11px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
             </div>
           </div>
@@ -664,5 +664,6 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     </div>
   );
 }
+
 
 

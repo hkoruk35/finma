@@ -146,7 +146,7 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
       </head>
-      <body className="antialiased min-h-screen bg-[#0a0e17] pb-20 lg:pb-0">
+      <body className="antialiased min-h-[100dvh] bg-[#0a0e17] pb-20 lg:pb-0">
         <SmartTrackerProvider>
           <TrackerProvider>
             <VisitorTracker />
@@ -161,4 +161,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

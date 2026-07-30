@@ -147,7 +147,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
             disabled={loading}
             onMouseEnter={() => !loading && setActiveCard(idx)}
             onMouseLeave={() => setActiveCard(null)}
-            className={`group relative p-6 rounded-2xl transition-all duration-300 text-left ${
+            className={`group relative p-6 rounded-2xl transition-all duration-300 text-left h-full flex flex-col justify-start ${
               loading
                 ? "opacity-50 cursor-not-allowed"
                 : "hover:shadow-xl hover:shadow-blue-500/10 cursor-pointer"
@@ -170,7 +170,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
               </svg>
             </div>
 
-            <div className="relative z-10 space-y-3">
+            <div className="relative z-10 space-y-3 h-full flex flex-col justify-between">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2">
                 <span className="text-xs font-medium uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '14px', fontFamily: 'Inter' }}>
                   {CARD_LABELS[idx][locale]}
@@ -224,4 +224,5 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
     </div>
   );
 }
+
 
