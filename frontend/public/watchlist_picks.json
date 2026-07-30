@@ -1,264 +1,6 @@
 {
-  "generated_at": "2026-07-29T17:03:15.952271-04:00",
+  "generated_at": "2026-07-29T20:42:04.745526-04:00",
   "picks": [
-    {
-      "ticker": "ETSY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-21",
-      "score": 38.0
-    },
-    {
-      "ticker": "NTRA",
-      "sector": "Healthcare",
-      "date_added": "2026-07-21",
-      "score": 35.5
-    },
-    {
-      "ticker": "GPN",
-      "sector": "Financial Services",
-      "date_added": "2026-07-21",
-      "score": 38.5
-    },
-    {
-      "ticker": "LYV",
-      "sector": "Communication Services",
-      "date_added": "2026-07-21",
-      "score": 36.0
-    },
-    {
-      "ticker": "NET",
-      "sector": "Technology",
-      "date_added": "2026-07-21",
-      "score": 30.0
-    },
-    {
-      "ticker": "WCC",
-      "sector": "Industrials",
-      "date_added": "2026-07-21",
-      "score": 42.5
-    },
-    {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-22",
-      "score": 48.0
-    },
-    {
-      "ticker": "BTSG",
-      "sector": "Healthcare",
-      "date_added": "2026-07-22",
-      "score": 34.0
-    },
-    {
-      "ticker": "PLD",
-      "sector": "Real Estate",
-      "date_added": "2026-07-22",
-      "score": 42.5
-    },
-    {
-      "ticker": "ANET",
-      "sector": "Technology",
-      "date_added": "2026-07-22",
-      "score": 36.5
-    },
-    {
-      "ticker": "APH",
-      "sector": "Technology",
-      "date_added": "2026-07-22",
-      "score": 32.0
-    },
-    {
-      "ticker": "SNOW",
-      "sector": "Technology",
-      "date_added": "2026-07-22",
-      "score": 30.0
-    },
-    {
-      "ticker": "PHM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-23",
-      "score": 38.5
-    },
-    {
-      "ticker": "ODFL",
-      "sector": "Industrials",
-      "date_added": "2026-07-23",
-      "score": 44.0
-    },
-    {
-      "ticker": "JBL",
-      "sector": "Technology",
-      "date_added": "2026-07-23",
-      "score": 42.0
-    },
-    {
-      "ticker": "BBY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-23",
-      "score": 39.0
-    },
-    {
-      "ticker": "GEV",
-      "sector": "Industrials",
-      "date_added": "2026-07-23",
-      "score": 39.0
-    },
-    {
-      "ticker": "XPO",
-      "sector": "Industrials",
-      "date_added": "2026-07-24",
-      "score": 37.5
-    },
-    {
-      "ticker": "USB",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 37.5
-    },
-    {
-      "ticker": "BX",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 37.4
-    },
-    {
-      "ticker": "ARES",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 35.7
-    },
-    {
-      "ticker": "GS",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 29.0
-    },
-    {
-      "ticker": "UAL",
-      "sector": "Industrials",
-      "date_added": "2026-07-24",
-      "score": 26.5
-    },
-    {
-      "ticker": "DELL",
-      "sector": "Technology",
-      "date_added": "2026-07-24",
-      "score": 36.0
-    },
-    {
-      "ticker": "ETN",
-      "sector": "Industrials",
-      "date_added": "2026-07-24",
-      "score": 34.5
-    },
-    {
-      "ticker": "CIFR",
-      "sector": "Technology",
-      "date_added": "2026-07-24",
-      "score": 32.0
-    },
-    {
-      "ticker": "TLN",
-      "sector": "Utilities",
-      "date_added": "2026-07-24",
-      "score": 23.0
-    },
-    {
-      "ticker": "WEX",
-      "sector": "Technology",
-      "date_added": "2026-07-24",
-      "score": 51.5
-    },
-    {
-      "ticker": "LH",
-      "sector": "Healthcare",
-      "date_added": "2026-07-24",
-      "score": 51.0
-    },
-    {
-      "ticker": "BFH",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 50.5
-    },
-    {
-      "ticker": "DE",
-      "sector": "Industrials",
-      "date_added": "2026-07-24",
-      "score": 50.5
-    },
-    {
-      "ticker": "TDY",
-      "sector": "Technology",
-      "date_added": "2026-07-24",
-      "score": 49.5
-    },
-    {
-      "ticker": "CCS",
-      "sector": "Real Estate",
-      "date_added": "2026-07-24",
-      "score": 48.5
-    },
-    {
-      "ticker": "JHX",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-24",
-      "score": 45.5
-    },
-    {
-      "ticker": "ECPG",
-      "sector": "Financial Services",
-      "date_added": "2026-07-24",
-      "score": 42.0
-    },
-    {
-      "ticker": "PFGC",
-      "sector": "Consumer Defensive",
-      "date_added": "2026-07-24",
-      "score": 42.0
-    },
-    {
-      "ticker": "VSXY",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-24",
-      "score": 37.0
-    },
-    {
-      "ticker": "ARMK",
-      "sector": "Industrials",
-      "date_added": "2026-07-27",
-      "score": 43.0
-    },
-    {
-      "ticker": "CRL",
-      "sector": "Healthcare",
-      "date_added": "2026-07-27",
-      "score": 35.5
-    },
-    {
-      "ticker": "BURL",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-27",
-      "score": 43.0
-    },
-    {
-      "ticker": "BLFS",
-      "sector": "Healthcare",
-      "date_added": "2026-07-27",
-      "score": 33.0
-    },
-    {
-      "ticker": "URI",
-      "sector": "Industrials",
-      "date_added": "2026-07-27",
-      "score": 33.0
-    },
-    {
-      "ticker": "CLF",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-27",
-      "score": 44.0
-    },
     {
       "ticker": "BCO",
       "sector": "Industrials",
@@ -272,28 +14,10 @@
       "score": 31.0
     },
     {
-      "ticker": "U",
-      "sector": "Technology",
-      "date_added": "2026-07-27",
-      "score": 30.5
-    },
-    {
-      "ticker": "C",
-      "sector": "Financial Services",
-      "date_added": "2026-07-28",
-      "score": 43.0
-    },
-    {
       "ticker": "VNO",
       "sector": "Real Estate",
       "date_added": "2026-07-28",
       "score": 42.5
-    },
-    {
-      "ticker": "FAST",
-      "sector": "Industrials",
-      "date_added": "2026-07-28",
-      "score": 40.5
     },
     {
       "ticker": "BOX",
@@ -308,58 +32,10 @@
       "score": 42.5
     },
     {
-      "ticker": "INSW",
-      "sector": "Energy",
-      "date_added": "2026-07-28",
-      "score": 40.0
-    },
-    {
-      "ticker": "RELL",
-      "sector": "Technology",
-      "date_added": "2026-07-28",
-      "score": 33.0
-    },
-    {
-      "ticker": "SLB",
-      "sector": "Energy",
-      "date_added": "2026-07-28",
-      "score": 39.5
-    },
-    {
       "ticker": "OII",
       "sector": "Energy",
       "date_added": "2026-07-28",
-      "score": 32.0
-    },
-    {
-      "ticker": "BRKR",
-      "sector": "Healthcare",
-      "date_added": "2026-07-28",
-      "score": 34.5
-    },
-    {
-      "ticker": "NU",
-      "sector": "Financial Services",
-      "date_added": "2026-07-28",
-      "score": 41.0
-    },
-    {
-      "ticker": "TPC",
-      "sector": "Industrials",
-      "date_added": "2026-07-28",
-      "score": 35.0
-    },
-    {
-      "ticker": "ARWR",
-      "sector": "Healthcare",
-      "date_added": "2026-07-28",
-      "score": 33.5
-    },
-    {
-      "ticker": "HRI",
-      "sector": "Industrials",
-      "date_added": "2026-07-29",
-      "score": 46.0
+      "score": 42.0
     },
     {
       "ticker": "BXP",
@@ -368,70 +44,10 @@
       "score": 44.5
     },
     {
-      "ticker": "ATKR",
-      "sector": "Industrials",
-      "date_added": "2026-07-29",
-      "score": 44.0
-    },
-    {
-      "ticker": "KMI",
-      "sector": "Energy",
-      "date_added": "2026-07-29",
-      "score": 41.9
-    },
-    {
-      "ticker": "ITRI",
-      "sector": "Technology",
-      "date_added": "2026-07-29",
-      "score": 40.4
-    },
-    {
-      "ticker": "FCX",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-29",
-      "score": 37.5
-    },
-    {
       "ticker": "URBN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-29",
       "score": 47.5
-    },
-    {
-      "ticker": "SMA",
-      "sector": "Real Estate",
-      "date_added": "2026-07-29",
-      "score": 44.0
-    },
-    {
-      "ticker": "LOGI",
-      "sector": "Technology",
-      "date_added": "2026-07-29",
-      "score": 42.0
-    },
-    {
-      "ticker": "UNP",
-      "sector": "Industrials",
-      "date_added": "2026-07-29",
-      "score": 40.5
-    },
-    {
-      "ticker": "EW",
-      "sector": "Healthcare",
-      "date_added": "2026-07-29",
-      "score": 37.0
-    },
-    {
-      "ticker": "FIVE",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-29",
-      "score": 50.0
-    },
-    {
-      "ticker": "TDAY",
-      "sector": "Communication Services",
-      "date_added": "2026-07-29",
-      "score": 48.5
     },
     {
       "ticker": "CDW",
@@ -452,10 +68,28 @@
       "score": 47.0
     },
     {
-      "ticker": "SGHC",
+      "ticker": "SN",
       "sector": "Consumer Cyclical",
       "date_added": "2026-07-29",
-      "score": 44.5
+      "score": 43.0
+    },
+    {
+      "ticker": "PAYS",
+      "sector": "Technology",
+      "date_added": "2026-07-29",
+      "score": 39.0
+    },
+    {
+      "ticker": "GM",
+      "sector": "Consumer Cyclical",
+      "date_added": "2026-07-29",
+      "score": 48.0
+    },
+    {
+      "ticker": "PSX",
+      "sector": "Energy",
+      "date_added": "2026-07-29",
+      "score": 44.0
     },
     {
       "ticker": "VC",

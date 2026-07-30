@@ -4802,7 +4802,7 @@ TOP_SIGNAL_PICKS = 10
 TOP_WATCHLIST_PICKS = 10
 MAX_PER_SECTOR_SIGNALS = 3
 SWING_PENDING_MAX_DAYS = 2
-WATCHLIST_MAX_DAYS = 10
+WATCHLIST_MAX_DAYS = 3
 ACTIVE_SCAN_HOURS_NY = set(range(9, 18))
 FULL_SCAN_HOURS_NY = {9, 14, 17}
 COOLDOWN_DAYS = 20
@@ -4969,7 +4969,115 @@ def is_trade_closed_in_performance(ticker: str, entered_at: str) -> bool:
         return False
 
 
-def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: set) -> dict:
+async def should_remove_watchlist_candidate(ticker: str) -> bool:
+    try:
+        t = ticker.strip().upper()
+        stock = yf.Ticker(t)
+        # 1. Download 1D data for the last 15 days
+        df_1d = await asyncio.to_thread(
+            stock.history, period="15d", interval="1d",
+            auto_adjust=True, timeout=15
+        )
+        if df_1d is None or df_1d.empty or len(df_1d) < 5:
+            logging.info(f"🔍 {t} (Watchlist): 1D verisi yetersiz veya alınamadı. Kaldırılıyor.")
+            return True
+        df_1d.columns = [col.capitalize() for col in df_1d.columns]
+        
+        # 2. Download 4H data for the last 10 days
+        df_4h = await asyncio.to_thread(
+            stock.history, period="10d", interval="4h",
+            auto_adjust=True, timeout=15
+        )
+        if df_4h is None or df_4h.empty or len(df_4h) < 5:
+            # Fallback to 1H if 4H is not available
+            df_4h = await asyncio.to_thread(
+                stock.history, period="10d", interval="1h",
+                auto_adjust=True, timeout=15
+            )
+            if df_4h is None or df_4h.empty or len(df_4h) < 10:
+                logging.info(f"🔍 {t} (Watchlist): 4H/1H verisi yetersiz veya alınamadı. Kaldırılıyor.")
+                return True
+        df_4h.columns = [col.capitalize() for col in df_4h.columns]
+
+        close_1d = df_1d["Close"]
+        open_1d = df_1d["Open"]
+        high_1d = df_1d["High"]
+        low_1d = df_1d["Low"]
+        volume_1d = df_1d["Volume"]
+
+        close_4h = df_4h["Close"]
+        open_4h = df_4h["Open"]
+        high_4h = df_4h["High"]
+        low_4h = df_4h["Low"]
+        volume_4h = df_4h["Volume"]
+
+        # Calculate RSI (14)
+        rsi_1d_series = RSIIndicator(close_1d, 14).rsi()
+        rsi_4h_series = RSIIndicator(close_4h, 14).rsi()
+
+        current_rsi_1d = float(rsi_1d_series.iloc[-1]) if not rsi_1d_series.empty else 50.0
+        current_rsi_4h = float(rsi_4h_series.iloc[-1]) if not rsi_4h_series.empty else 50.0
+
+        # --- A. RSI DÜŞÜŞÜ (RSI Decline) ---
+        rsi_slope_1d = float(rsi_1d_series.iloc[-1] - rsi_1d_series.iloc[-3]) if len(rsi_1d_series) >= 3 else 0.0
+        rsi_slope_4h = float(rsi_4h_series.iloc[-1] - rsi_4h_series.iloc[-3]) if len(rsi_4h_series) >= 3 else 0.0
+
+        if current_rsi_1d < 45 or current_rsi_4h < 45:
+            logging.info(f"🔍 {t} (Watchlist): RSI Zayıf (1D RSI: {current_rsi_1d:.1f}, 4H RSI: {current_rsi_4h:.1f}) -> Kaldırılıyor.")
+            return True
+
+        if rsi_slope_1d < -6 or rsi_slope_4h < -8:
+            logging.info(f"🔍 {t} (Watchlist): RSI Sert Düşüşte (1D slope: {rsi_slope_1d:.1f}, 4H slope: {rsi_slope_4h:.1f}) -> Kaldırılıyor.")
+            return True
+
+        # --- B. HACİM KAYBI (Volume Loss) ---
+        avg_vol_1d = float(volume_1d.tail(10).mean())
+        avg_vol_4h = float(volume_4h.tail(15).mean())
+        last_vol_1d = float(volume_1d.iloc[-1])
+        last_vol_4h = float(volume_4h.iloc[-1])
+
+        if last_vol_1d < avg_vol_1d * 0.55:
+            logging.info(f"🔍 {t} (Watchlist): 1D Hacim Kaybı (Son: {last_vol_1d:.0f} vs Ort: {avg_vol_1d:.0f}) -> Kaldırılıyor.")
+            return True
+
+        # --- C. BOZUK MUM PATERNLERİ VE SERT DÜŞÜŞLER (Bad Candle Patterns & Sharp Drops) ---
+        pct_change_1d = float((close_1d.iloc[-1] - close_1d.iloc[-2]) / close_1d.iloc[-2] * 100)
+        pct_change_4h = float((close_4h.iloc[-1] - close_4h.iloc[-2]) / close_4h.iloc[-2] * 100)
+        if pct_change_1d < -4.5 or pct_change_4h < -4.0:
+            logging.info(f"🔍 {t} (Watchlist): Sert Düşüş (1D: {pct_change_1d:.1f}%, 4H: {pct_change_4h:.1f}%) -> Kaldırılıyor.")
+            return True
+
+        if len(close_1d) >= 2:
+            prev_o, prev_c = float(open_1d.iloc[-2]), float(close_1d.iloc[-2])
+            curr_o, curr_c = float(open_1d.iloc[-1]), float(close_1d.iloc[-1])
+            if prev_c > prev_o and curr_c < curr_o:
+                if curr_c <= prev_o and curr_o >= prev_c:
+                    logging.info(f"🔍 {t} (Watchlist): Bearish Engulfing (Yutucu Ayı) -> Kaldırılıyor.")
+                    return True
+
+        body_1d = abs(close_1d.iloc[-1] - open_1d.iloc[-1])
+        upper_shadow_1d = high_1d.iloc[-1] - max(open_1d.iloc[-1], close_1d.iloc[-1])
+        if body_1d > 0 and upper_shadow_1d / body_1d > 2.5 and pct_change_1d < 1.0:
+            logging.info(f"🔍 {t} (Watchlist): 1D Shooting Star / Bozuk İğneli Mum -> Kaldırılıyor.")
+            return True
+
+        # --- D. NÖTR / YATAY DURUM (Neutral/Horizontal Consolidation) ---
+        last_3d_closes = close_1d.tail(3)
+        if len(last_3d_closes) == 3:
+            max_p = float(last_3d_closes.max())
+            min_p = float(last_3d_closes.min())
+            pct_range = (max_p - min_p) / min_p * 100
+            if pct_range < 1.5:
+                logging.info(f"🔍 {t} (Watchlist): 3 Gün Yatay/Nötr Seyir (Range: {pct_range:.2f}%) -> Kaldırılıyor.")
+                return True
+
+        return False
+    except Exception as e:
+        logging.warning(f"⚠️ {ticker} Watchlist kontrol hatası: {e}")
+        return False
+
+
+async def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: set) -> dict:
     pool = load_candidate_pool()
     today_str = datetime.now(NY_TZ).strftime("%Y-%m-%d")
     now_iso = datetime.now(NY_TZ).isoformat()
@@ -5077,17 +5185,44 @@ def merge_candidate_pool(top_signals: list, top_watch: list, l1b_pass_tickers: s
     # ── Watchlist candidates ─────────────────────────────────────
     kept_watch = []
     seen_w = set()
-    for entry in pool.get("watchlist_candidates", []):
-        t = entry["ticker"]
-        if t in fresh_swing:
-            continue  # swing havuzuna terfi etti
-        if _days_since_ny(entry.get("first_seen_date", today_str)) >= WATCHLIST_MAX_DAYS:
-            continue  # 3 gün doldu → düş
-        if t in fresh_watch:
-            entry["last_checked"] = today_str
-            entry["score"] = fresh_watch[t].get("boga_score_100", entry.get("score", 0.0))
-        kept_watch.append(entry)
-        seen_w.add(t)
+
+    watchlist_entries = pool.get("watchlist_candidates", [])
+    if watchlist_entries:
+        logging.info(f"🔍 Aktif Watchlist Adayları ({len(watchlist_entries)}) teknik durum ve yaş kontrolünden geçiriliyor...")
+        
+        # Paralel kontrol fonksiyonu
+        async def check_entry(entry):
+            t = entry["ticker"]
+            if t in fresh_swing:
+                return entry, True  # Promoted to swing -> remove from watchlist
+            
+            # Yaş kontrolü (en fazla 3 gün)
+            age_days = _days_since_ny(entry.get("first_seen_date", today_str))
+            if age_days >= WATCHLIST_MAX_DAYS:
+                logging.info(f"⏰ {t}: 3 gün doldu -> Watchlist adaylarından çıkarılıyor.")
+                return entry, True
+            
+            # Teknik kontrol (hacim kaybı, RSI düşüşü, bozuk mum vb.)
+            should_remove = await should_remove_watchlist_candidate(t)
+            if should_remove:
+                return entry, True
+            
+            return entry, False
+
+        tasks = [check_entry(e) for e in watchlist_entries]
+        results = await asyncio.gather(*tasks)
+
+        for entry, should_remove in results:
+            t = entry["ticker"]
+            if should_remove:
+                continue
+
+            if t in fresh_watch:
+                entry["last_checked"] = today_str
+                entry["score"] = fresh_watch[t].get("boga_score_100", entry.get("score", 0.0))
+            
+            kept_watch.append(entry)
+            seen_w.add(t)
 
     for t, c in fresh_watch.items():
         if t in seen_w or t in fresh_swing:
@@ -5678,7 +5813,7 @@ async def scan_top_stocks(mode: str = "FULL_SCAN"):
         c["_pick_json"] = build_json_output([c], generated_at)["picks"][0]
 
     l1b_pass_tickers = set(c["ticker"] for c in top_analysis_set)
-    pool = merge_candidate_pool(final_top_signals, final_top_watch, l1b_pass_tickers)
+    pool = await merge_candidate_pool(final_top_signals, final_top_watch, l1b_pass_tickers)
     write_watchlist_picks_json(pool)
 
     def _wrap_picks(picks_list: list) -> dict:
