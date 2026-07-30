@@ -280,7 +280,14 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     </div>
 
                     <div className="justify-self-center">
-                      <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} />
+                      {/* Mobile */}
+                      <div className="md:hidden">
+                        <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} width={32} height={16} />
+                      </div>
+                      {/* Desktop */}
+                      <div className="hidden md:block">
+                        <Sparkline data={stock.sparkline} color={stock.change_pct >= 0 ? '#22c55e' : '#ef4444'} changePct={stock.change_pct} width={56} height={22} />
+                      </div>
                     </div>
 
                     <div className="text-right shrink-0">
