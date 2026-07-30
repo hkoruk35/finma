@@ -83,7 +83,7 @@ const I18N = {
     economy: "Ekonomi Haberleri",
   },
   en: {
-    goodMorning: "Good morning",
+    weather: "WEATHER", markets: "MARKETS", goodMorning: "Good morning",
     goodAfternoon: "Good afternoon",
     goodEvening: "Good evening",
     refresh: "Refresh",
@@ -127,7 +127,7 @@ const I18N = {
     economy: "Noticias Económicas",
   },
   fr: {
-    goodMorning: "Bon matin",
+    weather: "M�T�O", markets: "MARCH�S", goodMorning: "Bon matin",
     goodAfternoon: "Bon après-midi",
     goodEvening: "Bonsoir",
     refresh: "Actualiser",
@@ -149,7 +149,7 @@ const I18N = {
     economy: "Actualités Économiques",
   },
   pt: {
-    goodMorning: "Bom dia",
+    weather: "CLIMA", markets: "MERCADOS", goodMorning: "Bom dia",
     goodAfternoon: "Boa tarde",
     goodEvening: "Boa noite",
     refresh: "Atualizar",
@@ -486,7 +486,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                             <span className="w-12 text-slate-400 font-medium capitalize">{dayName}</span>
                             <div className="flex items-center gap-1.5 flex-1 px-3">
                               {f.icon && <img src={f.icon} alt="" className="w-4 h-4 object-contain" />}
-                              <span className="text-[13px] text-slate-400 truncate max-w-[120px]">{f.condition}</span>
+                              <span className="text-[12px] leading-tight text-slate-400 line-clamp-2 max-w-[100px] sm:max-w-[120px]">{f.condition}</span>
                             </div>
                             <span className="text-white font-medium text-[13px]">
                               {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[13px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
@@ -533,7 +533,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         </div>
 
                         <div className="text-right">
-                          <p className="text-[13px] font-medium text-white">${index.price.toLocaleString()}</p>
+                          <p className="text-[13px] font-medium text-white">{index.price.toLocaleString()}</p>
                           <span
                             className={`inline-block px-1.5 py-0.5 rounded text-[13px] font-medium mt-0.5 ${
                               isPositive ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"
@@ -718,4 +718,5 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
     </div>
   );
 }
+
 

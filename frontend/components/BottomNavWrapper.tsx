@@ -13,7 +13,8 @@ export default function BottomNavWrapper() {
 
   if (isHomePage || isPublicSection) return null;
 
-  if (isGlobalSection) return <GlobalBottomNav />;
+  if (isGlobalSection) return null;
 
   return <BottomNav />;
 }
+
