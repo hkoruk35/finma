@@ -117,7 +117,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
     const fetchAllData = async () => {
       try {
-        let personalItems = [];
+        let personalItems: any[] = [];
         try {
           const r1 = await fetch('/api/watchlist/custom', { cache: 'no-store' });
           if (r1.ok) {
@@ -133,7 +133,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
-        let trendItems = [];
+        let trendItems: any[] = [];
         try {
           const r2 = await fetch('/api/swing-picks?min=10', { cache: 'no-store' });
           if (r2.ok) {
@@ -155,7 +155,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
-        let candidateItems = [];
+        let candidateItems: any[] = [];
         try {
           const r3 = await fetch('/api/watchlist-picks', { cache: 'no-store' });
           if (r3.ok) {
@@ -177,7 +177,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
-        let top7Items = [];
+        let top7Items: any[] = [];
         try {
           const tks = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
           const r4 = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
@@ -192,7 +192,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           }
         } catch {}
 
-        let top100Items = [];
+        let top100Items: any[] = [];
         try {
           const r5 = await fetch('/api/top100');
           if (r5.ok) {
