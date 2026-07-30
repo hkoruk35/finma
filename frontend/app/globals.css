@@ -147,3 +147,49 @@ html, body {
     font-size: 16px !important;
   }
 }
+
+/* ================================================================
+   BogaSmart Tipografi, Font ve Metin Renk Kuralları (Header/Footer Hariç)
+   ================================================================ */
+
+/* 1. Yazı Tipi Standardı (Inter): Header, Footer ve Kod Blokları hariç her yerde */
+:not(header):not(footer):not(header *):not(footer *):not(code):not(pre):not(code *):not(pre *) {
+  font-family: var(--font-inter, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif) !important;
+}
+
+/* 2. En Düşük 14px Punto Sınırı: Header ve Footer hariç, soldaki menüler dahil */
+:not(header):not(footer):not(header *):not(footer *) .text-xs,
+:not(header):not(footer):not(header *):not(footer *) .text-\[9px\],
+:not(header):not(footer):not(header *):not(footer *) .text-\[10px\],
+:not(header):not(footer):not(header *):not(footer *) .text-\[11px\],
+:not(header):not(footer):not(header *):not(footer *) .text-\[12px\],
+:not(header):not(footer):not(header *):not(footer *) .text-\[13px\] {
+  font-size: 14px !important;
+}
+
+/* 3. Metin Renk Standardı (Kırık Beyaz): Göz yorgunluğunu önleme */
+:not(header):not(footer):not(header *):not(footer *) {
+  color: #e8e8e8;
+}
+
+:not(header):not(footer):not(header *):not(footer *) .text-white {
+  color: #e8e8e8 !important;
+}
+:not(header):not(footer):not(header *):not(footer *) .text-slate-100,
+:not(header):not(footer):not(header *):not(footer *) .text-slate-200,
+:not(header):not(footer):not(header *):not(footer *) .text-slate-300,
+:not(header):not(footer):not(header *):not(footer *) .text-gray-100,
+:not(header):not(footer):not(header *):not(footer *) .text-gray-200 {
+  color: #f0f0f0 !important;
+}
+:not(header):not(footer):not(header *):not(footer *) .text-slate-400,
+:not(header):not(footer):not(header *):not(footer *) .text-gray-400,
+:not(header):not(footer):not(header *):not(footer *) .text-neutral {
+  color: #d1d5db !important;
+}
+:not(header):not(footer):not(header *):not(footer *) .text-muted,
+:not(header):not(footer):not(header *):not(footer *) .text-slate-500,
+:not(header):not(footer):not(header *):not(footer *) .text-gray-500 {
+  color: #a3a3a3 !important;
+}
+

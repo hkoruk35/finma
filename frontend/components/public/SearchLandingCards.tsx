@@ -7,90 +7,90 @@ type L = Record<Locale, string>;
 
 const QUESTION_TITLES: L[] = [
   {
-    tr: "Bugün dünyada bilmeliyim dediğim başlıca olay nedir?",
-    en: "What is the most important thing happening in the world right now?",
-    es: "¿Cuál es lo más importante que está sucediendo en el mundo ahora?",
-    fr: "Quel est l'événement le plus important qui se produit dans le monde en ce moment ?",
-    pt: "Qual é o evento mais importante acontecendo no mundo agora?",
+    tr: "Bugün bilmem gereken en önemli gelişme nedir?",
+    en: "What is the most important development I should know today?",
+    es: "¿Cuál es el acontecimiento más importante que debo saber hoy?",
+    fr: "Quel est le développement le plus important que je devrais connaître aujourd'hui ?",
+    pt: "Qual é o acontecimento mais importante que devo saber hoje?",
   },
   {
-    tr: "Bulunduğum ülkede ve ilgi alanlarımda neler oluyor?",
-    en: "What's happening in my interests and around me today?",
-    es: "¿Qué está pasando en mis intereses y alrededor hoy?",
-    fr: "Que se passe-t-il dans mes centres d'intérêt et autour de moi aujourd'hui ?",
-    pt: "O que está acontecendo nos meus interesses e ao meu redor hoje?",
+    tr: "Bulunduğum yerde ve ilgi alanlarımda bugün neler oluyor?",
+    en: "What is happening in my location and interests today?",
+    es: "¿Qué está pasando hoy en mi ubicación e intereses?",
+    fr: "Que se passe-t-il dans ma région et mes intérêts aujourd'hui ?",
+    pt: "O que está acontecendo na minha localização e interesses hoje?",
   },
   {
-    tr: "Piyasada hangi şirketler/hisseler öne çıkıyor ve neden?",
-    en: "Which companies and stocks are leading the market today and why?",
-    es: "¿Qué empresas y acciones están liderando el mercado hoy y por qué?",
-    fr: "Quelles entreprises et actions mènent le marché aujourd'hui et pourquoi ?",
-    pt: "Quais empresas e ações estão liderando o mercado hoje e por quê?",
+    tr: "Bugün piyasalarda neler öne çıkıyor ve neden?",
+    en: "What stands out in the markets today and why?",
+    es: "¿Qué destaca hoy en los mercados y por qué?",
+    fr: "Qu'est-ce qui se démarque sur les marchés aujourd'hui et pourquoi ?",
+    pt: "O que se destaca nos mercados hoje e por quê?",
   },
 ];
 
 const CARD_LABELS: L[] = [
   {
-    tr: "SORGU",
-    en: "QUERY",
-    es: "CONSULTA",
-    fr: "REQUÊTE",
-    pt: "CONSULTA",
+    tr: "GÜNDEM",
+    en: "AGENDA",
+    es: "AGENDA",
+    fr: "AGENDA",
+    pt: "AGENDA",
   },
   {
-    tr: "KİŞİSEL",
-    en: "PERSONAL",
-    es: "PERSONAL",
-    fr: "PERSONNEL",
-    pt: "PESSOAL",
+    tr: "BANA ÖZEL",
+    en: "PERSONALIZED",
+    es: "PERSONALIZADO",
+    fr: "PERSONNALISÉ",
+    pt: "PERSONALIZADO",
   },
   {
-    tr: "FİNANS",
-    en: "FINANCE",
-    es: "FINANZAS",
-    fr: "FINANCE",
-    pt: "FINANÇAS",
+    tr: "PİYASALAR",
+    en: "MARKETS",
+    es: "MERCADOS",
+    fr: "MARCHÉS",
+    pt: "MERCADOS",
   },
 ];
 
 const CARD_DESCRIPTIONS: L[] = [
   {
-    tr: "Dünya gündemini anla",
-    en: "Understand global events",
-    es: "Comprende los eventos globales",
-    fr: "Comprendre les événements mondiaux",
-    pt: "Entenda os eventos globais",
+    tr: "Dünyada öne çıkan gelişmeler",
+    en: "Key global developments",
+    es: "Acontecimientos mundiales clave",
+    fr: "Développements mondiaux clés",
+    pt: "Acontecimentos mundiais importantes",
   },
   {
-    tr: "Kişisel keşif ve ilgi alanları",
-    en: "Personal discovery & interests",
-    es: "Descubrimiento personal e intereses",
-    fr: "Découverte personnelle et intérêts",
-    pt: "Descoberta pessoal e interesses",
+    tr: "Konumuma ve ilgi alanlarıma göre",
+    en: "Based on my location & interests",
+    es: "Basado en mi ubicación e intereses",
+    fr: "Selon ma position et mes intérêts",
+    pt: "Com base na minha localização e interesses",
   },
   {
-    tr: "Finans & piyasa haberler",
-    en: "Finance & market news",
-    es: "Finanzas y noticias de mercado",
-    fr: "Finance et actualités du marché",
-    pt: "Finanças e notícias de mercado",
+    tr: "Şirketler, sektörler ve piyasa hareketleri",
+    en: "Companies, sectors & market moves",
+    es: "Empresas, sectores y movimientos de mercado",
+    fr: "Entreprises, secteurs et mouvements du marché",
+    pt: "Empresas, setores e movimentos do mercado",
   },
 ];
 
 const RESEARCH_MODES: Record<"fast" | "deep", L> = {
   fast: {
-    tr: "Hızlı",
-    en: "Fast",
-    es: "Rápido",
-    fr: "Rapide",
-    pt: "Rápido",
+    tr: "Hızlı Yanıt",
+    en: "Fast Answer",
+    es: "Respuesta Rápida",
+    fr: "Réponse Rapide",
+    pt: "Resposta Rápida",
   },
   deep: {
-    tr: "Derin",
-    en: "Deep",
-    es: "Profundo",
-    fr: "Profond",
-    pt: "Profundo",
+    tr: "Derin Araştırma",
+    en: "Deep Research",
+    es: "Investigación Profunda",
+    fr: "Recherche Approfondie",
+    pt: "Pesquisa Profunda",
   },
 };
 
@@ -118,7 +118,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
           }`}
           style={{ fontSize: '12px', fontFamily: 'Inter' }}
         >
-          ⚡ {RESEARCH_MODES.fast[locale]} Research
+          ⚡ {RESEARCH_MODES.fast[locale]}
         </button>
         <span className="text-[#475569]" style={{ fontSize: '12px', fontFamily: 'Inter' }}>/</span>
         <button
@@ -131,7 +131,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
           }`}
           style={{ fontSize: '12px', fontFamily: 'Inter' }}
         >
-          🔍 {RESEARCH_MODES.deep[locale]} Research
+          🔍 {RESEARCH_MODES.deep[locale]}
         </button>
       </div>
 
