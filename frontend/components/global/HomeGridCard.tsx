@@ -141,7 +141,7 @@ export default function HomeSimpleCard({
                     </div>
 
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[7px] font-medium uppercase whitespace-nowrap"
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
                       style={{ background: `${statusStyle.color}26`, color: statusStyle.color }}
                     >
                       {statusLabel}
