@@ -294,8 +294,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           title={compareCheckboxTitle}
                         />
                         <div className="min-w-0 pr-2 flex-1">
-                          <div className="text-[12px] font-medium text-white truncate">{item.ticker}</div>
-                          <div className="text-[10px] text-slate-500 truncate">{item.label}</div>
+                          <div className="text-[12px] font-medium text-white truncate">{item.label}</div>
                         </div>
                         <div className="text-right shrink-0">
                           <div className="text-[11px] font-mono text-white">
