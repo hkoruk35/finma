@@ -53,7 +53,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
     }`;
 
   return (
-    <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50" style={{ paddingTop: "env(safe-area-inset-top, 16px)" }}>
+    <header className="border-b border-[#1e2a3a] bg-[#0a0e17]/90 backdrop-blur-md sticky top-0 z-50" style={{ paddingTop: "env(safe-area-inset-top, 1rem)" }}>
       <div className="w-full max-w-[1800px] mx-auto px-4 h-16 flex items-center gap-3 sm:gap-6">
         <button onClick={onLogoClick} className="flex flex-col items-start flex-shrink-0 focus:outline-none">
           <span className="text-lg tracking-tight font-medium">
@@ -114,4 +114,6 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
     </header>
   );
 }
+
+
 

@@ -365,7 +365,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
   };
 
   return (
-    <div className="h-[100dvh] md:h-screen w-full max-w-full bg-[#080c14] text-white flex overflow-hidden relative">
+    <div className="min-h-[100dvh] md:h-screen w-full max-w-full bg-[#080c14] text-white flex overflow-hidden relative">
       {/* SIDEBAR BACKDROP ON MOBILE */}
       {sidebarOpen && (
         <div 
@@ -641,7 +641,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </button>
               </div>
             )}
-            <div className="text-center mt-1 mb-0.5 opacity-60 pb-24 md:pb-2">
+            <div className="text-center mt-1 opacity-60 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] md:pb-2">
               <p className="text-[#475569]" style={{ fontSize: "11px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
             </div>
           </div>
@@ -650,7 +650,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
       {/* FLOATING ACTION BUTTON FOR MOBILE SIDEBAR */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="md:hidden fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
+        className="md:hidden fixed right-5 bottom-[calc(5rem+env(safe-area-inset-bottom,16px))] z-50 p-3.5 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
         title={t("recentTitle")}
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -664,6 +664,8 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     </div>
   );
 }
+
+
 
 
 
