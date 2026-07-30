@@ -335,7 +335,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         {/* LEFT COLUMN: MARKETS */}
         <div className={`
           ${showMobileSidebar ? 'block fixed inset-0 z-40 bg-[#0a0e17] overflow-y-auto pt-16 pb-20 px-4' : 'hidden'}
-          ${showLeftSidebar ? 'md:block md:w-48 lg:w-56' : 'md:hidden'}
+          ${showLeftSidebar ? 'md:block md:w-60 lg:w-72' : 'md:hidden'}
           md:static md:border-r border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
           shrink-0 bg-[#0a0e17] transition-all duration-300
         `}>
@@ -379,7 +379,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           setSelectedYSymbol(item.ySymbol);
                           setShowMobileSidebar(false);
                         }}
-                        className={`flex items-center gap-1 px-2 py-1 cursor-pointer border-l-2 transition-colors ${
+                        title={item.label}
+                        className={`flex items-center gap-1.5 px-2.5 py-1.5 cursor-pointer border-l-2 transition-colors ${
                           selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
                         }`}
                       >
@@ -388,15 +389,13 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           onToggle={() => toggleCompare(item.ticker)}
                           title={compareCheckboxTitle}
                         />
-                        <div className="text-[13px] font-medium text-white w-24 truncate">
+                        <div className="text-[13px] font-medium text-white flex-1 min-w-0 truncate">
                           {item.label}
                         </div>
-                        {chg != null && (
-                          <div className={`text-[13px] font-mono font-semibold w-16 text-right ${pColor(chg)}`}>
-                            {sgn(chg)}{fmt(chg)}%
-                          </div>
-                        )}
-                        <div className="text-[13px] font-mono text-white w-20 text-right">
+                        <div className={`text-[13px] font-mono font-semibold w-14 text-right shrink-0 ${chg != null ? pColor(chg) : "text-slate-600"}`}>
+                          {chg != null ? `${sgn(chg)}${fmt(chg)}%` : "—"}
+                        </div>
+                        <div className="text-[13px] font-mono text-white w-20 text-right shrink-0">
                           {price?.price != null ? fmt(price.price) : "..."}
                         </div>
                       </div>

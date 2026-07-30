@@ -359,7 +359,6 @@ export default function BogaChartEngine({
   // OHLCV kutusu SADECE kullanıcı grafiğe dokunup crosshair'i aktif ettiğinde
   // görünür (masaüstünde davranış değişmedi, her zaman görünür kalır).
   const [mobileCandleMenuOpen, setMobileCandleMenuOpen] = useState(false);
-  const [mobileIndicatorsOpen, setMobileIndicatorsOpen] = useState(false);
   const [crosshairActive, setCrosshairActive] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
   const [multiChartOpen, setMultiChartOpen] = useState(false);
@@ -1396,34 +1395,15 @@ export default function BogaChartEngine({
               <div className="md:hidden -ml-1">{shareControl}</div>
             </div>
 
-            {/* Göstergeler — masaüstünde her zaman açık satır. Mobilde
-                sadece aktif/varsayılan göstergeler tek satırda gösterilir;
-                yeni gösterge eklemek için zaten üstteki kategorili
-                "Göstergeler ▾" menüsü var, aynı listeyi burada tekrar
-                açılır panel yapmaya gerek yok. */}
-            <div className="hidden md:flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
-              {availableIndicators.map((key) => renderIndicatorButton(key))}
+            {/* Göstergeler — SADECE aktif/varsayılan göstergeler (EMA50,
+                RSI, Hacim) tek satırda gösterilir, hem masaüstü hem mobilde.
+                Diğer tüm göstergeler gizli kalır; yeni gösterge eklemek için
+                üstteki kategorili "Göstergeler ▾" menüsü kullanılır — aktif
+                edilen gösterge o menüden işaretlenince otomatik olarak bu
+                satırda da belirir (active state ortak). */}
+            <div className="flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
+              {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
             </div>
-            {detailMode ? (
-              <div className="md:hidden flex flex-wrap items-center gap-1.5 px-2 py-1.5 border-b border-[#1e2a3a]">
-                {availableIndicators.filter((key) => active.has(key)).map((key) => renderIndicatorButton(key))}
-              </div>
-            ) : (
-              <div className="md:hidden border-b border-[#1e2a3a]">
-                <button
-                  onClick={() => setMobileIndicatorsOpen((v) => !v)}
-                  className="flex items-center gap-1.5 px-2 py-1.5 text-[10px] font-medium text-[#00d2ff]"
-                >
-                  <span>⚙️ {t.indicators} ({active.size})</span>
-                  <span className="text-[8px]">{mobileIndicatorsOpen ? "▴" : "▾"}</span>
-                </button>
-                {mobileIndicatorsOpen && (
-                  <div className="flex flex-wrap items-center gap-1.5 px-2 pb-1.5">
-                    {availableIndicators.map((key) => renderIndicatorButton(key))}
-                  </div>
-                )}
-              </div>
-            )}
           </>
         )}
 
