@@ -36,7 +36,7 @@ const TEXTS: Record<string, { tr: string; en: string; es: string; fr: string; pt
   archiveLink:    { tr: "🗂️ Derin Analiz Arşivi", en: "🗂️ Deep Analysis Archive", es: "🗂️ Archivo de Análisis Profundo", fr: "🗂️ Archive d'Analyse Approfondie", pt: "🗂️ Arquivo de Análise Profunda" },
   legalDisclaimerLabel: { tr: "Yasal Uyarı:", en: "Disclaimer:", es: "Aviso Legal:", fr: "Avertissement:", pt: "Aviso Legal:" },
   legalDisclaimerBody:  { tr: "BogaSmart bir yatırım danışmanı değildir. Burası sadece bilgilendirme, eğitim ve teknik analiz sistemidir. Kesinlikle yatırım tavsiyesi vermez ve alım/satım yönlendirmesi yapmaz.", en: "BogaSmart is not an investment advisor. This is an informational, educational, and technical analysis system only. It does not provide investment advice or buy/sell recommendations.", es: "BogaSmart no es un asesor de inversiones. Este es un sistema de información, educación y análisis técnico solamente. No proporciona asesoramiento de inversión ni recomendaciones de compra/venta.", fr: "BogaSmart n'est pas un conseiller en investissement. Ceci est un système informatif, éducatif et d'analyse technique uniquement. Il ne fournit pas de conseils d'investissement ni de recommandations d'achat/vente.", pt: "BogaSmart não é uma consultora de investimentos. Este é apenas um sistema informativo, educacional e de análise técnica. Não fornece aconselhamento de investimento nem recomendações de compra/venda." },
-  copyright:      { tr: "© 2026 BogaSmart - Blue One Global Analysis. Developed by AFK DaSYS.", en: "© 2026 BogaSmart - Blue One Global Analysis. Developed by AFK DaSYS.", es: "© 2026 BogaSmart - Blue One Global Analysis. Desarrollado por AFK DaSYS.", fr: "© 2026 BogaSmart - Blue One Global Analysis. Développé par AFK DaSYS.", pt: "© 2026 BogaSmart - Blue One Global Analysis. Desenvolvido por AFK DaSYS." },
+  copyright:      { tr: "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır.", en: "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved.", es: "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados.", fr: "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tous Droits Réservés.", pt: "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos os Direitos Reservados." },
   analysisReport: { tr: "BogaSmart ANALİZ RAPORU", en: "BogaSmart ANALYSIS REPORT", es: "INFORME DE ANÁLISIS BogaSmart", fr: "RAPPORT D'ANALYSE BogaSmart", pt: "RELATÓRIO DE ANÁLISE BogaSmart" },
   connectionError:{ tr: "Bağlantı hatası.", en: "Connection error.", es: "Error de conexión.", fr: "Erreur de connexion.", pt: "Erro de conexão." },
   genericError:   { tr: "Hata oluştu.", en: "An error occurred.", es: "Ocurrió un error.", fr: "Une erreur s'est produite.", pt: "Ocorreu um erro." },
@@ -386,7 +386,13 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
         <div className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
           <div>
             <div className="text-[10px] font-black text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 px-2">
-              <span>📺</span> {locale === "tr" ? "KANALLAR" : "CHANNELS"}
+              <span>📺</span> {
+                locale === "tr" ? "KANALLAR" :
+                locale === "es" ? "CANALES" :
+                locale === "fr" ? "CHAÎNES" :
+                locale === "pt" ? "CANAIS" :
+                "CHANNELS"
+              }
             </div>
             <div className="space-y-1">
               {/* Ask */}
@@ -631,7 +637,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
               </div>
             )}
             <div className="text-center mt-1 mb-0.5 opacity-60">
-              <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
+              <p className="text-[11px] text-[#475569] font-normal tracking-widest uppercase">{t("copyright")}</p>
             </div>
           </div>
         </div>

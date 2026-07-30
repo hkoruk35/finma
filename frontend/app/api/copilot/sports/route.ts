@@ -21,11 +21,26 @@ export async function GET(req: NextRequest) {
   }
 
   // Construct query based on language to yield best local results
-  let sportsQuery = `${cleanLocation} sports`;
-  if (lang === "tr") sportsQuery = `${cleanLocation} spor`;
-  else if (lang === "es") sportsQuery = `${cleanLocation} deportes`;
-  else if (lang === "fr") sportsQuery = `${cleanLocation} sport`;
-  else if (lang === "pt") sportsQuery = `${cleanLocation} esportes`;
+  let sportsQuery = "";
+  if (cleanLocation.toLowerCase() === "sports") {
+    if (lang === "tr") {
+      sportsQuery = '("Şampiyonlar Ligi" OR "Premier Lig" OR "NBA" OR "Formula 1" OR "Euroleague" OR "transfer haberleri")';
+    } else if (lang === "es") {
+      sportsQuery = '("Champions League" OR "La Liga" OR "NBA" OR "Fórmula 1" OR "fichajes" OR "Euroleague")';
+    } else if (lang === "fr") {
+      sportsQuery = '("Ligue des Champions" OR "Ligue 1" OR "NBA" OR "Formule 1" OR "mercato" OR "Euroleague")';
+    } else if (lang === "pt") {
+      sportsQuery = '("Champions League" OR "Brasileirão" OR "NBA" OR "Fórmula 1" OR "transferências" OR "Euroleague")';
+    } else {
+      sportsQuery = '("Champions League" OR "Premier League" OR "NBA" OR "Formula 1" OR "transfer news" OR "Euroleague")';
+    }
+  } else {
+    sportsQuery = `${cleanLocation} sports`;
+    if (lang === "tr") sportsQuery = `${cleanLocation} spor`;
+    else if (lang === "es") sportsQuery = `${cleanLocation} deportes`;
+    else if (lang === "fr") sportsQuery = `${cleanLocation} sport`;
+    else if (lang === "pt") sportsQuery = `${cleanLocation} esportes`;
+  }
 
   try {
     const articles = await fetchLiveMarketNews(sportsQuery, lang);

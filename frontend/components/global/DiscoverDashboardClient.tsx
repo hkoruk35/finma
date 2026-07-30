@@ -5,8 +5,39 @@ import SearchLandingHeader from "@/components/public/SearchLandingHeader";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n/copy";
 
-const ALL_TOPICS = ["AI", "US Markets", "Technology", "Crypto", "Global Politics", "Biotech"] as const;
+const ALL_TOPICS = ["Soccer", "Science", "Art", "Cinema"] as const;
 type Topic = (typeof ALL_TOPICS)[number];
+
+const TOPIC_LABELS: Record<Topic, Record<Locale, string>> = {
+  Soccer: {
+    tr: "Futbol",
+    en: "Soccer",
+    es: "Fútbol",
+    fr: "Football",
+    pt: "Futebol",
+  },
+  Science: {
+    tr: "Bilim",
+    en: "Science",
+    es: "Ciencia",
+    fr: "Science",
+    pt: "Ciência",
+  },
+  Art: {
+    tr: "Sanat",
+    en: "Art",
+    es: "Arte",
+    fr: "Art",
+    pt: "Arte",
+  },
+  Cinema: {
+    tr: "Sinema",
+    en: "Cinema",
+    es: "Cine",
+    fr: "Cinéma",
+    pt: "Cinema",
+  },
+};
 
 const I18N = {
   tr: {
@@ -57,196 +88,132 @@ const I18N = {
 };
 
 const SUGGESTIONS: Record<Topic, Record<Locale, string[]>> = {
-  AI: {
+  Soccer: {
     tr: [
-      "Nvidia Blackwell çiplerindeki son durum ve tedarik zinciri analizi",
-      "Google Gemini 1.5 Pro multimodal arama özellikleri",
-      "Yapay zeka ajanlarının (AI Agents) iş dünyasındaki verimlilik analizi",
-      "Üretken yapay zeka telif hakkı davalarında son gelişmeler"
+      "Real Madrid ve Barcelona'nın yeni sezon transfer stratejileri ve finansal analizleri",
+      "Şampiyonlar Ligi format değişikliğinin kulüp gelirlerine ve rekabete etkisi",
+      "Premier Lig şampiyonluk yarışında öne çıkan takımlar ve taktiksel analiz",
+      "Dünya Kupası hazırlıkları kapsamında ülke milli takımlarının güncel durumları"
     ],
     en: [
-      "Latest status of Nvidia Blackwell chips and supply chain analysis",
-      "Google Gemini 1.5 Pro multimodal search capabilities",
-      "Impact of AI Agents on business process automation",
-      "Recent developments in generative AI copyright lawsuits"
+      "New season transfer strategies and financial analysis of Real Madrid and Barcelona",
+      "Impact of the Champions League format change on club revenues and competition",
+      "Key contenders and tactical analysis in the Premier League title race",
+      "Current status of national football teams ahead of the World Cup preparations"
     ],
     es: [
-      "Estado de los chips Nvidia Blackwell y análisis de la cadena de suministro",
-      "Capacidades de búsqueda multimodal de Google Gemini 1.5 Pro",
-      "Impacto de los agentes de IA en la automatización empresarial",
-      "Demandas recientes por derechos de autor de IA generativa"
+      "Estrategias de transferencia y análisis financiero del Real Madrid y Barcelona",
+      "Impacto del cambio de formato de la Champions League en los ingresos y la competencia",
+      "Equipos destacados y análisis táctico en la lucha por el título de la Premier League",
+      "Estado actual de las selecciones nacionales en su preparación para la Copa del Mundo"
     ],
     fr: [
-      "Statut des puces Nvidia Blackwell et analyse de la chaîne d'approvisionnement",
-      "Capacités de recherche multimodale de Google Gemini 1.5 Pro",
-      "Impact des agents d'IA sur l'automatisation des entreprises",
-      "Procès récents liés aux droits d'auteur dans l'IA générative"
+      "Stratégies de transfert et analyse financière du Real Madrid et du FC Barcelone",
+      "Impact du changement de format de la Ligue des Champions sur les revenus",
+      "Principaux prétendants et analyse tactique dans la course au titre en Premier League",
+      "État actuel des équipes nationales de football en vue de la Coupe du Monde"
     ],
     pt: [
-      "Status dos chips Nvidia Blackwell e análise da cadeia de suprimentos",
-      "Capacidades de busca multimodal do Google Gemini 1.5 Pro",
-      "Impacto de agentes de IA na automação de processos de negócios",
-      "Processos recentes de direitos autorais de IA generativa"
+      "Estratégias de transferência e análise financeira do Real Madrid e Barcelona",
+      "Impacto da mudança de formato da Champions League nas receitas dos clubes",
+      "Principais candidatos e análise tática na corrida pelo título da Premier League",
+      "Status atual das seleções nacionais de futebol na preparação para a Copa do Mundo"
     ],
   },
-  "US Markets": {
+  Science: {
     tr: [
-      "S&P 500 endeksindeki düzeltme beklentileri ve teknik seviyeler",
-      "Fed faiz indirimi takvimi ve enflasyon hedefleri",
-      "Hisse senedi geri alımlarının (stock buyback) piyasalara etkisi",
-      "Büyük teknoloji hisselerinin bilanço beklentileri"
+      "James Webb Uzay Teleskobu'nun son keşifleri ve evrenin kökeni teorileri",
+      "Kanser tedavisinde kullanılan yeni nesil immünoterapi yöntemleri ve başarı oranları",
+      "Nükleer füzyon enerjisi araştırmalarındaki son gelişmeler ve ticari kullanım hedefleri",
+      "Yapay zeka modellerinin bilimsel araştırmaları ve veri analizini hızlandırmadaki rolü"
     ],
     en: [
-      "S&P 500 index correction expectations and technical support levels",
-      "Fed interest rate cut schedule and inflation targets",
-      "Impact of stock buybacks on market momentum",
-      "Earnings season expectations for big tech stocks"
+      "James Webb Space Telescope's latest discoveries and theories on the origin of the universe",
+      "Next-generation immunotherapy methods in cancer treatment and success rates",
+      "Recent milestones in nuclear fusion energy research and commercialization goals",
+      "The role of artificial intelligence models in accelerating scientific research and analysis"
     ],
     es: [
-      "Expectativas de corrección del índice S&P 500 y niveles técnicos de soporte",
-      "Calendario de reducción de tasas de la Fed y objetivos de inflación",
-      "Impacto de la recompra de acciones en el impulso del mercado",
-      "Expectativas de ganancias corporativas de las grandes tecnológicas"
+      "Últimos descubrimientos del Telescopio Espacial James Webb y origen del universo",
+      "Métodos de inmunoterapia de próxima generación en el tratamiento del cáncer",
+      "Hitos recientes en la investigación de la energía de fusión nuclear y metas comerciales",
+      "El papel de los modelos de inteligencia artificial en la aceleración de la investigación científica"
     ],
     fr: [
-      "Attentes de correction de l'indice S&P 500 et niveaux de support technique",
-      "Calendrier de baisse des taux de la Fed et objectifs d'inflation",
-      "Impact des rachats d'actions sur la dynamique du marché",
-      "Attentes de résultats pour les grandes valeurs technologiques"
+      "Dernières découvertes du télescope spatial James Webb et origine de l'univers",
+      "Méthodes d'immunothérapie de nouvelle génération pour le traitement du cancer",
+      "Progrès récents dans la recherche sur la fusion nucléaire et objectifs commerciaux",
+      "Le rôle de l'intelligence artificielle pour accélérer la recherche scientifique"
     ],
     pt: [
-      "Expectativas de correção do índice S&P 500 e níveis de suporte técnico",
-      "Cronograma de corte de juros do Fed e metas de inflação",
-      "Impacto das recompras de ações no momento do mercado",
-      "Expectativas de resultados trimestrais para as grandes empresas de tecnologia"
+      "Últimas descobertas do Telescópio Espacial James Webb e origem do universo",
+      "Métodos de imunoterapia de próxima geração no tratamento do câncer",
+      "Marcos recentes na pesquisa de fusão nuclear e metas comerciais",
+      "O papel dos modelos de imagem artificial na aceleração da pesquisa científica"
     ],
   },
-  Technology: {
+  Art: {
     tr: [
-      "Apple Vision Pro yeni nesil modeller ve pazar payı beklentileri",
-      "Kuantum bilgisayarların ticari kullanımı ve lider şirketler",
-      "Yarı iletken çip arz-talep dengesi ve TSMC yatırımları",
-      "Avrupa Birliği yapay zeka yasasının (AI Act) teknoloji şirketlerine etkisi"
+      "Modern dijital sanatın ve üretken yapay zekanın geleneksel sanat piyasasına etkisi",
+      "Rönesans döneminin ünlü başyapıtlarının restorasyon süreçleri ve kullanılan teknolojiler",
+      "Küresel sanat bienalleri ve çağdaş sanat akımlarında öne çıkan temalar",
+      "Sokak sanatının toplumsal hareketlerdeki rolü ve kentsel dönüşüme etkisi"
     ],
     en: [
-      "Apple Vision Pro next-generation models and market share expectations",
-      "Commercial use of quantum computing and leading companies",
-      "Semiconductor supply-demand balance and TSMC investments",
-      "Impact of the EU AI Act on multinational tech companies"
+      "Impact of modern digital art and generative AI on the traditional art market",
+      "Restoration processes and technologies used for famous Renaissance masterpieces",
+      "Key themes in global art biennials and contemporary art movements",
+      "The role of street art in social movements and its impact on urban transformation"
     ],
     es: [
-      "Modelos de próxima generación de Apple Vision Pro y expectativas de cuota de mercado",
-      "Uso comercial de la computación cuántica y empresas líderes",
-      "Equilibrio entre oferta y demanda de semiconductores e inversiones de TSMC",
-      "Impacto de la Ley de IA de la UE en las empresas tecnológicas multinacionales"
+      "Impacto del arte digital moderno y la IA generativa en el mercado del arte tradicional",
+      "Procesos y tecnologías de restauración en obras maestras del Renacimiento",
+      "Temas clave en bienales de arte globales y movimientos de arte contemporáneo",
+      "El papel del arte callejero en los movimientos sociales y la transformación urbana"
     ],
     fr: [
-      "Modèles de nouvelle génération Apple Vision Pro et parts de marché",
-      "Utilisation commerciale de l'informatique quantique et entreprises leaders",
-      "Équilibre offre-demande de semi-conducteurs et investissements de TSMC",
-      "Impact de la loi européenne sur l'IA (AI Act) sur les entreprises technologiques"
+      "Impact de l'art numérique moderne et de l'IA générative sur le marché de l'art",
+      "Processus et technologies de restauration des chefs-d'œuvre de la Renaissance",
+      "Thèmes clés des biennales d'art mondiales et des mouvements d'art contemporain",
+      "Le rôle du street art dans les mouvements sociaux et son impact sur la ville"
     ],
     pt: [
-      "Modelos de próxima geração do Apple Vision Pro e expectativas de participação",
-      "Uso comercial de computação quântica e empresas líderes no setor",
-      "Equilíbrio de oferta e demanda de semicondutores e investimentos da TSMC",
-      "Impacto da Lei de IA da UE sobre as multinacionais de tecnologia"
+      "Impacto da arte digital moderna e da IA generativa no mercado de arte tradicional",
+      "Processos de restauração e tecnologias usadas em obras-primas do Renascimento",
+      "Temas centrais nas bienais globais de arte e movimentos de arte contemporânea",
+      "O papel da arte de rua nos movimentos sociais e seu impacto na transformação urbana"
     ],
   },
-  Crypto: {
+  Cinema: {
     tr: [
-      "Bitcoin halving sonrası madencilik maliyetleri ve fiyat grafiği",
-      "Ethereum layer 2 ölçekleme çözümleri ve gaz ücretleri",
-      "DeFi protokollerindeki güncel güvenlik açıkları ve çözümleri",
-      "Kripto para düzenlemelerinde SEC'in yeni duruşu"
+      "Uluslararası film festivallerinde (Cannes, Venedik) öne çıkan yapımlar ve yönetmenler",
+      "Dijital yayın platformlarının bağımsız sinema üretimi ve dağıtımı üzerindeki etkisi",
+      "Hollywood sinemasında görsel efekt (VFX) teknolojilerinin gelişimi ve geleceği",
+      "Sinema tarihinde çığır açan kült filmlerin yapım süreçleri ve analizleri"
     ],
     en: [
-      "Bitcoin mining costs and price chart trends after halving",
-      "Ethereum layer 2 scaling solutions and gas fees",
-      "Current security vulnerabilities in DeFi protocols and solutions",
-      "The SEC's latest stance on cryptocurrency regulations"
+      "Award-winning films and directors at international film festivals (Cannes, Venice)",
+      "Impact of streaming platforms on independent cinema production and distribution",
+      "Evolution and future of visual effects (VFX) technologies in Hollywood cinema",
+      "Behind-the-scenes production stories and analysis of cult films in cinema history"
     ],
     es: [
-      "Costos de minería de Bitcoin y tendencias del gráfico después del halving",
-      "Soluciones de escala de capa 2 de Ethereum y tarifas de gas",
-      "Vulnerabilidades actuales de seguridad en protocolos DeFi y soluciones",
-      "Última postura de la SEC sobre las regulaciones de criptomonedas"
+      "Películas y directores destacados en festivales internacionales (Cannes, Venecia)",
+      "Impacto de las plataformas de streaming en el cine independiente",
+      "Evolución y futuro de los efectos visuales (VFX) en el cine de Hollywood",
+      "Procesos de producción e historias detrás de las películas de culto de la historia"
     ],
     fr: [
-      "Coûts de minage du Bitcoin et tendances des prix après le halving",
-      "Solutions de mise à l'échelle de couche 2 d'Ethereum et frais de gaz",
-      "Vulnérabilités de sécurité actuelles dans les protocoles DeFi",
-      "Dernière position de la SEC sur la réglementation des crypto-monnaies"
+      "Films et réalisateurs primés dans les festivals internationaux (Cannes, Venise)",
+      "Impact des plateformes de streaming sur la production cinématographique indépendante",
+      "Évolution et avenir des effets visuels (VFX) dans le cinéma hollywoodien",
+      "Analyse et coulisses de la production des films cultes de l'histoire du cinéma"
     ],
     pt: [
-      "Custos de mineração de Bitcoin e tendências de preço pós-halving",
-      "Soluções de escalabilidade de camada 2 do Ethereum e taxas de gás",
-      "Vulnerabilidades atuais de segurança em protocolos DeFi",
-      "A posição mais recente da SEC sobre as regulamentações de criptoativos"
-    ],
-  },
-  "Global Politics": {
-    tr: [
-      "ABD başkanlık kararlarının küresel serbest ticarete etkisi",
-      "Asya çip üretim merkezlerindeki jeopolitik riskler",
-      "Yeşil enerji geçişi politikaları ve madencilik sektörü",
-      "Teknoloji şirketlerinin lobicilik faaliyetleri ve yasal davalar"
-    ],
-    en: [
-      "Impact of US presidential executive orders on global free trade",
-      "Geopolitical risks in Asian semiconductor manufacturing hubs",
-      "Green energy transition policies and the mining sector",
-      "Lobbying activities of tech giants and regulatory lawsuits"
-    ],
-    es: [
-      "Impacto de las órdenes ejecutivas presidenciales de EE. UU. en el libre comercio global",
-      "Riesgos geopolíticos en los centros de fabricación de semiconductores en Asia",
-      "Políticas de transición hacia energías limpias y el sector minero",
-      "Actividades de cabildeo de los gigantes tecnológicos y demandas regulatorias"
-    ],
-    fr: [
-      "Impact des décrets présidentiels américains sur le libre-échange mondial",
-      "Risques géopolitiques dans les hubs asiatiques de fabrication de semi-conducteurs",
-      "Politiques de transition énergétique et secteur minier",
-      "Activités de lobbying des géants de la tech et procès réglementaires"
-    ],
-    pt: [
-      "Impacto de decretos presidenciais dos EUA sobre o livre comércio global",
-      "Riscos geopolíticos nos centros de fabricação de semicondutores na Ásia",
-      "Políticas de transição para energia limpa e o setor de mineração",
-      "Atividades de lobby de gigantes da tecnologia e processos regulatórios"
-    ],
-  },
-  Biotech: {
-    tr: [
-      "CRISPR gen düzenleme tedavisinde son FDA onayları",
-      "Yapay zeka ile ilaç keşfi yapan öncü biyoteknoloji şirketleri",
-      "mRNA tabanlı kanser aşılarında klinik deney sonuçları",
-      "Biyoteknoloji sektöründeki satın alma ve birleşme dalgaları"
-    ],
-    en: [
-      "Recent FDA approvals in CRISPR gene-editing therapies",
-      "Leading biotech companies using AI for drug discovery",
-      "Clinical trial results for mRNA-based cancer vaccines",
-      "Acquisitions and merger waves in the biotechnology sector"
-    ],
-    es: [
-      "Aprobaciones recientes de la FDA en terapias de edición genética CRISPR",
-      "Empresas líderes en biotecnología que utilizan IA para el descubrimiento de fármacos",
-      "Resultados de ensayos clínicos para vacunas contra el cáncer basadas en ARNm",
-      "Olas de adquisiciones y fusiones en el sector de la biotecnología"
-    ],
-    fr: [
-      "Autorisations récentes de la FDA pour les thérapies d'édition génique CRISPR",
-      "Principales entreprises de biotechnologie utilisant l'IA pour la découverte de médicaments",
-      "Résultats d'essais cliniques pour les vaccins contre le cancer basés sur l'ARNm",
-      "Vagues d'acquisitions et de fusions dans le secteur de la biotechnologie"
-    ],
-    pt: [
-      "Aprovações recentes do FDA em terapias de edição genética CRISPR",
-      "Empresas líderes em biotecnologia usando IA para descoberta de medicamentos",
-      "Resultados de ensaios clínicos para vacinas contra o câncer baseadas em mRNA",
-      "Ondas de fusões e aquisições no setor de biotecnologia"
+      "Filmes e diretores premiados em festivais internacionais (Cannes, Veneza)",
+      "Impacto das plataformas de streaming na produção e distribuição de cinema independente",
+      "Evolução e futuro dos efeitos visuais (VFX) no cinema hollywoodiano",
+      "Histórias de bastidores e análises de filmes cult na história do cinema"
     ],
   },
 };
@@ -296,7 +263,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
           {/* Left panel: Interest selection */}
           <div className="lg:col-span-4 bg-[#0b101b]/70 border border-[#1e2a3a]/60 rounded-xl p-4 shadow-xl">
             <h2 className="text-[13px] font-semibold text-[#64748b] uppercase tracking-widest mb-3 flex items-center gap-1.5 border-b border-[#1e2a3a]/30 pb-2">
-              <span>🎯</span> {t.myInterests}
+              <span>💖</span> {t.myInterests}
             </h2>
             <div className="space-y-2">
               {ALL_TOPICS.map((topic) => {
@@ -311,7 +278,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
                         : "bg-[#141b2b]/30 border-[#1e2a3a]/60 text-slate-400 hover:text-white hover:bg-[#1e2a3a]/40"
                     }`}
                   >
-                    <span>{topic}</span>
+                    <span>{TOPIC_LABELS[topic][locale]}</span>
                     <span>{isActive ? "✓" : "+"}</span>
                   </button>
                 );
@@ -338,7 +305,7 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
                   <div key={topic} className="space-y-3">
                     <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      {topic}
+                      {TOPIC_LABELS[topic][locale]}
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {SUGGESTIONS[topic][locale].map((prompt, idx) => (
@@ -361,6 +328,17 @@ export default function DiscoverDashboardClient({ locale }: { locale: Locale }) 
               </div>
             )}
           </div>
+        </div>
+
+        {/* Standard Footer Copyright */}
+        <div className="text-center mt-12 pt-4 border-t border-[#1e2a3a]/40 opacity-60">
+          <p className="text-[11px] text-[#475569] font-normal tracking-widest uppercase">
+            {locale === "tr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır." :
+             locale === "en" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved." :
+             locale === "es" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados." :
+             locale === "fr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tous Droits Réservés." :
+             "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos os Direitos Reservados."}
+          </p>
         </div>
       </main>
     </div>

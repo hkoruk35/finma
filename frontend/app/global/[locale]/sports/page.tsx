@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: TITLES[loc],
     description: DESCRIPTIONS[loc],
-    alternates: { canonical: `https://bogastock.com/global/${loc}/sports` },
+    alternates: { canonical: `https://bogasmart.com/global/${loc}/sports` },
   };
 }
 
