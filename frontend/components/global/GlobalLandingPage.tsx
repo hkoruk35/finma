@@ -109,33 +109,112 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [currentCompany, setCurrentCompany] = useState("");
   const [currentGroup, setCurrentGroup] = useState("");
   
-  // Personal Watchlist
-  const [personalStocks, setPersonalStocks] = useState<any[]>([]);
-  const [usePersonal, setUsePersonal] = useState(false);
+  const [extendedGroups, setExtendedGroups] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('/api/watchlist/custom', { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : { tickers: [] })
-      .then(data => {
-        const tickers: string[] = data.tickers || [];
-        if (tickers.length >= 5) {
-          const top = tickers.slice(0, 50);
-          return fetch(`/api/watchlist-data?tickers=${top.join(',')}`)
-            .then(r => r.ok ? r.json() : [])
-            .then((rows: any[]) => {
-              const stocks = rows.map(r => ({
-                ticker: r.ticker,
-                sector: r.sector && r.sector !== 'Unknown' ? r.sector : 'Technology',
-                price: r.price?.current ?? 0,
-                change_pct: r.tracker_1h?.change_pct_1d ?? r.price?.change_pct ?? 0,
-              }));
-              setPersonalStocks(stocks);
-              setUsePersonal(true);
-            });
-        }
-      })
-      .catch(() => {});
-  }, []);
+    const baseGroups = groups.slice(0, 2);
+    setExtendedGroups(baseGroups);
+
+    const fetchAllData = async () => {
+      try {
+        let personalItems = [];
+        try {
+          const r1 = await fetch('/api/watchlist/custom', { cache: 'no-store' });
+          if (r1.ok) {
+             const d1 = await r1.json();
+             const tks = (d1.tickers || []).slice(0, 10);
+             if (tks.length > 0) {
+                const r1b = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
+                if (r1b.ok) {
+                   const rows = await r1b.json();
+                   personalItems = rows.map((r: any) => ({ ticker: r.ticker, label: r.ticker, ySymbol: r.ticker, price: r.price?.current ?? 0, change_1d: r.tracker_1h?.change_pct_1d ?? r.price?.change_pct ?? 0 }));
+                }
+             }
+          }
+        } catch {}
+
+        let trendItems = [];
+        try {
+          const r2 = await fetch('/api/swing-picks?min=10', { cache: 'no-store' });
+          if (r2.ok) {
+            const d2 = await r2.json();
+            const picks = (d2.picks || []).slice(0, 10);
+            const tks = picks.map((p: any) => p.ticker);
+            if (tks.length > 0) {
+              const r2b = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
+              if (r2b.ok) {
+                 const rows = await r2b.json();
+                 const liveMap: Record<string, any> = {};
+                 rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
+                 trendItems = picks.map((p: any) => {
+                    const d = liveMap[p.ticker];
+                    return { ticker: p.ticker, label: p.ticker, ySymbol: p.ticker, price: d?.price?.current ?? p.current_price ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
+                 });
+              }
+            }
+          }
+        } catch {}
+
+        let candidateItems = [];
+        try {
+          const r3 = await fetch('/api/watchlist-picks', { cache: 'no-store' });
+          if (r3.ok) {
+             const d3 = await r3.json();
+             const picks = (d3.picks || []).slice(0, 10);
+             const tks = picks.map((p: any) => p.ticker);
+             if (tks.length > 0) {
+               const r3b = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
+               if (r3b.ok) {
+                  const rows = await r3b.json();
+                  const liveMap: Record<string, any> = {};
+                  rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
+                  candidateItems = picks.map((p: any) => {
+                     const d = liveMap[p.ticker];
+                     return { ticker: p.ticker, label: p.ticker, ySymbol: p.ticker, price: d?.price?.current ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
+                  });
+               }
+             }
+          }
+        } catch {}
+
+        let top7Items = [];
+        try {
+          const tks = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
+          const r4 = await fetch(`/api/watchlist-data?tickers=${tks.join(',')}`);
+          if (r4.ok) {
+             const rows = await r4.json();
+             const liveMap: Record<string, any> = {};
+             rows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
+             top7Items = tks.map((t: string) => {
+                const d = liveMap[t];
+                return { ticker: t, label: t, ySymbol: t, price: d?.price?.current ?? 0, change_1d: d?.tracker_1h?.change_pct_1d ?? d?.price?.change_pct ?? 0 };
+             });
+          }
+        } catch {}
+
+        let top100Items = [];
+        try {
+          const r5 = await fetch('/api/top100');
+          if (r5.ok) {
+             const d5 = await r5.json();
+             top100Items = (d5.rows || []).slice(0, 10).map((r: any) => ({
+                ticker: r.ticker, label: r.ticker, ySymbol: r.ticker, price: r.price ?? 0, change_1d: r.change_pct ?? 0
+             }));
+          }
+        } catch {}
+
+        setExtendedGroups([
+          ...baseGroups,
+          ...(personalItems.length ? [{ group: "İzleme Listem ★ Kişisel (ilk 10)", items: personalItems }] : []),
+          ...(trendItems.length ? [{ group: "Trend Hisseleri (ilk 10)", items: trendItems }] : []),
+          ...(candidateItems.length ? [{ group: "Trend Adayları (ilk 10)", items: candidateItems }] : []),
+          ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
+          ...(top100Items.length ? [{ group: "Top 100 (ilk 10)", items: top100Items }] : [])
+        ]);
+      } catch (err) {}
+    };
+    fetchAllData();
+  }, [groups]);
   
   // Sidebar states
   const [showLeftSidebar, setShowLeftSidebar] = useState(true);
@@ -268,12 +347,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           )}
 
           <div className="md:py-4">
-            {groups.map(group => (
+            {extendedGroups.map(group => (
               <div key={group.group} className="mb-6">
                 <h3 className="px-3 mb-2 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
                 <div className="flex flex-col">
-                  {group.items.map(item => {
-                    const price = prices[item.ySymbol];
+                  {group.items.map((item: any) => {
+                    const price = item.price !== undefined ? { price: item.price, change_1d: item.change_1d } : prices[item.ySymbol];
                     const selected = selectedTicker === item.ticker;
                     const chg = price?.change_1d ?? null;
                     return (
@@ -351,15 +430,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
               <div className="hidden md:block w-64 mr-2">
                 <TickerSearchBox locale={locale} compact onSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }} />
               </div>
-              <button 
-                onClick={() => setShowRightSidebar(!showRightSidebar)}
-                className="hidden md:flex p-1.5 text-slate-400 hover:text-white bg-[#141924] border border-[#1e2a3a] rounded transition-colors"
-                title="Toggle Watchlist"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {showRightSidebar ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />}
-                </svg>
-              </button>
             </div>
           </div>
 
@@ -393,106 +463,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           </div>
         </div>
 
-        {/* RIGHT COLUMN: WATCHLIST / TREND HİSSELERİ */}
-        <div className={`
-          ${showMobileSidebar ? 'flex flex-col pb-24 px-4' : 'hidden'}
-          ${showRightSidebar ? 'md:flex md:flex-col md:w-48 lg:w-56' : 'md:hidden'}
-          md:border-l border-[#1e2a3a] md:overflow-y-auto md:h-[calc(100vh-64px)]
-          shrink-0 bg-[#0a0e17] p-2 md:p-3 transition-all duration-300
-        `}>
-          <div className="flex items-center gap-1.5 mb-2 shrink-0">
-            <button
-              onClick={() => setRightTab("watchlist")}
-              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider transition-all ${
-                rightTab === "watchlist" ? "bg-[#3b82f6] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
-              }`}
-            >
-              {watchlistTabLabel}
-            </button>
-            <button
-              onClick={() => setRightTab("trend")}
-              className={`flex-1 px-3 py-1.5 rounded-lg text-[10px] font-medium uppercase tracking-wider transition-all ${
-                rightTab === "trend" ? "bg-[#f59e0b] text-white" : "bg-[#141924] border border-[#1e2a3a] text-slate-400 hover:text-white"
-              }`}
-            >
-              {trendTabLabel}
-            </button>
-          </div>
 
-          {compareSelection.length > 0 && (
-            <div className="mb-2 shrink-0 rounded-lg border border-[#3b82f6]/40 bg-[#3b82f6]/10 px-2.5 py-2 flex items-center gap-2 flex-wrap">
-              <span className="text-[9px] font-medium text-[#3b82f6] uppercase tracking-wider shrink-0">
-                {compareLabel} ({compareSelection.length}{!isPremium ? `/${FREE_COMPARE_LIMIT}` : ""})
-              </span>
-              <div className="flex items-center gap-1 flex-wrap flex-1 min-w-0">
-                {compareSelection.map((tkr) => (
-                  <span key={tkr} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-medium text-white">
-                    {tkr}
-                    <button onClick={() => toggleCompare(tkr)} className="text-slate-500 hover:text-white leading-none">×</button>
-                  </span>
-                ))}
-              </div>
-              <button
-                disabled={compareSelection.length < 2}
-                onClick={() => setMultiChartRequest([...compareSelection])}
-                className="shrink-0 px-2 py-1 rounded bg-[#3b82f6] text-white text-[9px] font-medium uppercase disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#2563eb] transition-colors"
-              >
-                {compareOpenLabel} →
-              </button>
-            </div>
-          )}
-
-          <div className="flex-1 min-h-0 overflow-y-auto">
-            {rightTab === "watchlist" ? (
-              <div className="flex flex-col">
-                {(usePersonal ? personalStocks : defaultWatchlist).map(stock => {
-                  const selected = selectedTicker === stock.ticker;
-                  return (
-                    <div 
-                      key={stock.ticker}
-                      onClick={() => {
-                        setSelectedTicker(stock.ticker);
-                        setSelectedYSymbol(stock.ticker);
-                        setShowMobileSidebar(false);
-                      }}
-                      className={`flex items-center gap-2 justify-between px-3 py-2 cursor-pointer border-r-2 transition-colors ${
-                        selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
-                      }`}
-                    >
-                      <CompareCheckbox
-                        checked={compareSelection.includes(stock.ticker)}
-                        onToggle={() => toggleCompare(stock.ticker)}
-                        title={compareCheckboxTitle}
-                      />
-                      <div className="min-w-0 pr-2 flex-1">
-                        <div className="text-[12px] font-medium text-white truncate">{stock.ticker}</div>
-                        <div className="text-[10px] text-slate-500 truncate">{stock.sector}</div>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <div className="text-[11px] font-mono text-white">
-                          {stock.price > 0 ? fmt(stock.price) : "..."}
-                        </div>
-                        <div className={`text-[10px] font-mono ${pColor(stock.change_pct)}`}>
-                          {sgn(stock.change_pct)}{fmt(stock.change_pct)}%
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <TrendPicksSlot
-                locale={locale}
-                compactMode={true}
-                disableHoverChart={true}
-                onTickerSelect={(t) => { setSelectedTicker(t); setSelectedYSymbol(t); }}
-                selectable
-                selectedTickers={compareSelection}
-                onToggleSelect={toggleCompare}
-              />
-            )}
-          </div>
-        </div>
 
       </main>
 
