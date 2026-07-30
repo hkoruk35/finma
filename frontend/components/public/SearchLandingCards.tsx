@@ -7,25 +7,25 @@ type L = Record<Locale, string>;
 
 const QUESTION_TITLES: L[] = [
   {
-    tr: "Bugün bilmem gereken en önemli gelişme nedir?",
-    en: "What is the most important development I should know today?",
-    es: "¿Cuál es el acontecimiento más importante que debo saber hoy?",
-    fr: "Quel est le développement le plus important que je devrais connaître aujourd'hui ?",
-    pt: "Qual é o acontecimento mais importante que devo saber hoje?",
+    tr: "Dünyada öne çıkan gelişmeler neler ?",
+    en: "What are the key developments in the world?",
+    es: "¿Cuáles son los acontecimientos clave en el mundo?",
+    fr: "Quels sont les développements clés dans le monde ?",
+    pt: "Quais são os principais acontecimentos no mundo?",
   },
   {
-    tr: "Bulunduğum yerde ve ilgi alanlarımda bugün neler oluyor?",
-    en: "What is happening in my location and interests today?",
-    es: "¿Qué está pasando hoy en mi ubicación e intereses?",
-    fr: "Que se passe-t-il dans ma région et mes intérêts aujourd'hui ?",
-    pt: "O que está acontecendo na minha localização e interesses hoje?",
+    tr: "İlgi alanlarımda bugün neler oluyor?",
+    en: "What is happening in my interests today?",
+    es: "¿Qué está pasando hoy en mis intereses?",
+    fr: "Que se passe-t-il dans mes centres d'intérêt aujourd'hui ?",
+    pt: "O que está acontecendo nos meus interesses hoje?",
   },
   {
-    tr: "Bugün piyasalarda neler öne çıkıyor ve neden?",
-    en: "What stands out in the markets today and why?",
-    es: "¿Qué destaca hoy en los mercados y por qué?",
-    fr: "Qu'est-ce qui se démarque sur les marchés aujourd'hui et pourquoi ?",
-    pt: "O que se destaca nos mercados hoje e por quê?",
+    tr: "Bugün piyasalarda durum nasıl?",
+    en: "How is the situation in the markets today?",
+    es: "¿Cómo está la situación en los mercados hoy?",
+    fr: "Comment est la situation sur les marchés aujourd'hui ?",
+    pt: "Como está a situação nos mercados hoje?",
   },
 ];
 
@@ -105,7 +105,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   return (
-    <div className="mt-16 max-w-5xl mx-auto w-full px-4 space-y-8">
+    <div className="mt-6 md:mt-8 max-w-5xl mx-auto w-full px-4 space-y-6 md:space-y-8">
       {/* Research Mode Toggle */}
       <div className="flex items-center justify-center gap-3">
         <button
@@ -171,11 +171,11 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
             </div>
 
             <div className="relative z-10 space-y-3">
-              <div className="flex items-baseline justify-between gap-2">
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
                   {CARD_LABELS[idx][locale]}
                 </span>
-                <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
+                <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '11px', fontFamily: 'Inter' }}>
                   {CARD_DESCRIPTIONS[idx][locale]}
                 </span>
               </div>

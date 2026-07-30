@@ -611,7 +611,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
           {/* Yasal Uyari & Telif kaldirildi */}
         </div>
 
-        <div className="px-4 py-3 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
+        <div className="px-4 py-1.5 md:py-2 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
           <div className="max-w-4xl mx-auto w-full">
             {messages.length > 0 && (
               <div className="relative group">
@@ -630,7 +630,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </button>
               </div>
             )}
-            <div className="text-center mt-3 mb-1 opacity-60">
+            <div className="text-center mt-1 mb-0.5 opacity-60">
               <p className="text-[9px] text-[#475569] font-bold tracking-widest uppercase">{t("copyright")}</p>
             </div>
           </div>
