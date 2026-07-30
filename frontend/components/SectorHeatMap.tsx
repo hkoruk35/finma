@@ -77,7 +77,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
         </div>
       </div>
       <div className="overflow-x-auto snap-x snap-mandatory scrollbar-hide md:overflow-x-visible pb-4">
-        <div className="grid grid-rows-2 grid-flow-col auto-cols-[90vw] sm:auto-cols-[50vw] gap-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+        <div className="grid grid-rows-2 grid-flow-col auto-cols-[90vw] sm:auto-cols-[50vw] gap-2 md:gap-3 md:grid-rows-none md:grid-flow-row md:auto-cols-auto md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-9">
           {activeSectors.map(sector => {
             const stocks = sectorGroups[sector].slice(0, TOP_PER_SECTOR);
             const avgChange = stocks.reduce((acc, s) => acc + s.change_pct, 0) / stocks.length;

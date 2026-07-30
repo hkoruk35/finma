@@ -109,11 +109,8 @@ export default function Footer({
           {/* Brand */}
           <div>
             <Link href={`/global/${locale ?? "en"}`} className="flex flex-col items-start mb-3 group w-fit">
-              <span className="text-base tracking-tight font-medium">
+              <span className="text-lg tracking-tight font-medium">
                 <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
-              </span>
-              <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
-                TERMINAL
               </span>
             </Link>
             <p className="text-xs text-[#00d2ff] mb-3">

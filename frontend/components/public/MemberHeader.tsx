@@ -71,11 +71,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
       <div className="w-full max-w-[1800px] mx-auto px-3 h-12 flex items-center gap-3 relative">
         <Link href={`/global/${locale}/search`} className="flex items-center gap-2 group flex-shrink-0">
           <div className="flex flex-col items-start">
-            <span className="text-lg tracking-tight font-medium">
+            <span className="text-xl tracking-tight font-medium">
               <span className="text-[#3b82f6]">Boga</span><span className="text-white font-medium">Stock</span>
-            </span>
-            <span className="hidden sm:inline text-[9px] text-[#64748b] font-medium tracking-wider mt-0.5">
-              TERMINAL
             </span>
           </div>
         </Link>
