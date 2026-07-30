@@ -59,7 +59,7 @@ export default function ThemesBanner({ locale }: { locale: Locale }) {
 
         <Link
           href={firstThemeHref}
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-medium text-xs rounded hover:bg-[#79c0ff] transition-colors whitespace-nowrap"
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-xs rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
         >
           {label.browseAll}
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

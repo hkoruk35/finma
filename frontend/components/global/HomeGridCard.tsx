@@ -150,10 +150,10 @@ export default function HomeSimpleCard({
                     <div className="text-right">
                       <div className="font-mono text-[14px] font-medium text-white/90">${stock.price.toFixed(2)}</div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[13px] font-medium font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[11px] font-medium font-mono ${
                           stock.change_pct >= 0
-                            ? 'bg-[#22c55e]/15 text-[#22c55e]'
-                            : 'bg-[#ef4444]/15 text-[#ef4444]'
+                            ? 'bg-[#22c55e] text-white'
+                            : 'bg-[#ef4444] text-white'
                         }`}
                       >
                         {stock.change_pct >= 0 ? '+' : ''}{stock.change_pct.toFixed(2)}%

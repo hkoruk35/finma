@@ -73,7 +73,7 @@ export default function ListsNavigation({ locale, activePath }: Props) {
             className={`text-[10px] font-medium px-3 py-1.5 rounded border transition-colors whitespace-nowrap ${
               isActive
                 ? "border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
-                : "border-[#30363d] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]"
+                : "border-[#0f1117] bg-[#0f1117] text-[#8b949e] hover:border-[#3b82f6] hover:text-[#3b82f6]"
             }`}
           >
             {link.label}

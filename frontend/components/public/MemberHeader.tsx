@@ -157,16 +157,6 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
             </div>
           )}
 
-          {locale && (
-            <Link
-              href={`/global/${locale}/today`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium uppercase tracking-wider bg-[#3b82f6] text-white hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)] flex-shrink-0"
-            >
-              <span>📅</span>
-              <span>{locale === "tr" ? "Bugün Neler Oluyor" : locale === "es" ? "¿Qué pasa hoy?" : locale === "fr" ? "Aujourd'hui" : locale === "pt" ? "Hoje" : "Today"}</span>
-            </Link>
-          )}
-
           <MobileTerminalLink
             locale={locale}
             targetHref={terminalHref}
