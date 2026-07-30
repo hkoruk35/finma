@@ -147,3 +147,95 @@ html, body {
     font-size: 16px !important;
   }
 }
+
+/* ================================================================
+   BogaSmart Tipografi ve Metin Renk Standartları (TYPOGRAPHY_RULES.md)
+   ================================================================ */
+
+/* 1. Global Metin ve Satır Yükseklikleri */
+body, p, span, li, a, input, textarea, select {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #e8e8e8; /* Kırık beyaz metin */
+  font-weight: 400;
+}
+
+@media screen and (min-width: 1024px) {
+  body, p, span, li, a {
+    font-size: 15px; /* PC için 15px */
+  }
+}
+
+/* 2. Başlıklar */
+h1, h2, h3, h4, h5, h6 {
+  color: #f0f0f0 !important;
+  font-weight: 600 !important; /* 500-600 yeterli, 700+ nadiren */
+  font-size: 17px !important;
+  line-height: 1.4 !important;
+}
+
+@media screen and (min-width: 1024px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 19px !important;
+  }
+}
+
+/* 3. Kod Blokları */
+code, pre {
+  font-family: var(--font-mono), monospace !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #e0e0e0 !important;
+}
+
+/* 4. Tailwind Class Overrides (Tüm Sistemde Standartlaştırmak İçin) */
+.text-xs {
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+.text-sm {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+.text-base {
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+}
+@media screen and (min-width: 1024px) {
+  .text-base {
+    font-size: 15px !important;
+  }
+}
+.text-lg {
+  font-size: 17px !important;
+  line-height: 1.4 !important;
+}
+@media screen and (min-width: 1024px) {
+  .text-lg {
+    font-size: 18px !important;
+  }
+}
+.text-xl {
+  font-size: 19px !important;
+  line-height: 1.4 !important;
+}
+@media screen and (min-width: 1024px) {
+  .text-xl {
+    font-size: 20px !important;
+  }
+}
+
+/* 5. Göz Yorgunluğunu Önleyen Metin Renk Filtresi */
+.text-white {
+  color: #e8e8e8 !important;
+}
+.text-slate-100, .text-slate-200, .text-slate-300, .text-gray-100, .text-gray-200 {
+  color: #f0f0f0 !important;
+}
+.text-slate-400, .text-gray-400, .text-neutral {
+  color: #d1d5db !important; /* Slightly darker shade of off-white */
+}
+.text-muted, .text-slate-500, .text-gray-500 {
+  color: #a3a3a3 !important; /* Meta info off-white */
+}
+
