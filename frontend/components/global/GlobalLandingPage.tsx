@@ -109,6 +109,8 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [currentCompany, setCurrentCompany] = useState("");
   const [currentGroup, setCurrentGroup] = useState("");
   
+  const groups = useMemo(() => getGroups(locale), [locale]);
+  
   const [extendedGroups, setExtendedGroups] = useState<any[]>([]);
 
   useEffect(() => {
@@ -230,8 +232,6 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
   const [compareSelection, setCompareSelection] = useState<string[]>([]);
   const [showCompareLimitModal, setShowCompareLimitModal] = useState(false);
   const [multiChartRequest, setMultiChartRequest] = useState<string[] | null>(null);
-
-  const groups = useMemo(() => getGroups(locale), [locale]);
 
   const toggleCompare = (ticker: string) => {
     setCompareSelection((prev) => {
