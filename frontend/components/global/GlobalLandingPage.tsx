@@ -31,11 +31,11 @@ const getGroups = (locale: Locale) => {
     {
       group: t("US Equity Markets", "ABD Hisse Senedi Piyasaları", "Mercados de Valores de EE. UU.", "Marchés Boursiers Américains", "Mercados de Ações dos EUA"),
       items: [
-        { ticker: "SPY", label: "S&P 500 ETF", ySymbol: "SPY" },
-        { ticker: "QQQ", label: "Nasdaq 100", ySymbol: "QQQ" },
-        { ticker: "DIA", label: "Dow Jones", ySymbol: "DIA" },
-        { ticker: "IWM", label: "Russell 2000", ySymbol: "IWM" },
-        { ticker: "VIX", label: t("Volatility Index", "Volatilite Endeksi", "Índice de Volatilidad", "Indice de Volatilité", "Índice de Volatilidade"), ySymbol: "^VIX" },
+        { ticker: "^GSPC", label: "S&P 500", ySymbol: "^GSPC" },
+        { ticker: "^IXIC", label: "NASDAQ", ySymbol: "^IXIC" },
+        { ticker: "^DJI", label: "Dow Jones", ySymbol: "^DJI" },
+        { ticker: "^RUT", label: "Russell 2000", ySymbol: "^RUT" },
+        { ticker: "^VIX", label: t("Volatility Index", "Volatilite Endeksi", "Índice de Volatilidad", "Indice de Volatilité", "Índice de Volatilidade"), ySymbol: "^VIX" },
       ],
     },
     {
