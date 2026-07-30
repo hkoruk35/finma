@@ -186,7 +186,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
           <div className="flex items-center gap-2 relative group cursor-default min-w-0">
             <span className="w-1 h-4 rounded-full shrink-0" style={{ background: accent }} />
             <div className="min-w-0">
-              <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{title}</h3>
+              <h3 className={`${compactMode ? 'text-[11px]' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{title}</h3>
               {usePersonal && (
                 <span className="text-[9px] font-bold text-[#a78bfa] uppercase tracking-wider opacity-70 block truncate">
                   {locale === 'tr' ? '★ Kişisel' : locale === 'pt' ? '★ Pessoal' : locale === 'es' ? '★ Personal' : locale === 'fr' ? '★ Personnelle' : '★ Personal'}
@@ -242,7 +242,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                 return (
                   <div
                     key={stock.ticker}
-                    className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 items-center ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
+                    className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 items-center ${compactMode ? 'px-3 py-1.5' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] cursor-pointer`}
                     onClick={handleClick}
                   >
                     <div className="flex items-center gap-2 min-w-0">
@@ -262,19 +262,19 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                               <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                               <span style={{ fontSize: 11, fontWeight: 700 }}>Premium</span>
                             </div>
-                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className={`${compactMode ? 'text-[9.5px]' : 'text-[12px]'} text-slate-500 truncate`}>{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : disableHoverChart ? (
                           <>
-                            <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
-                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className={`${compactMode ? 'text-[12px]' : 'text-[15px]'} font-black text-white truncate`}>{stock.ticker}</div>
+                            <div className={`${compactMode ? 'text-[9.5px]' : 'text-[12px]'} text-slate-500 truncate`}>{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         ) : (
                           <>
                             <TickerHoverChart ticker={stock.ticker}>
-                              <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                              <div className={`${compactMode ? 'text-[12px]' : 'text-[15px]'} font-black text-white truncate`}>{stock.ticker}</div>
                             </TickerHoverChart>
-                            <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                            <div className={`${compactMode ? 'text-[9.5px]' : 'text-[12px]'} text-slate-500 truncate`}>{sectorNames[stock.sector] ?? stock.sector}</div>
                           </>
                         )}
                       </div>
@@ -292,11 +292,11 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     </span>
 
                     <div className="text-right shrink-0">
-                      <div className="font-mono text-sm font-semibold text-white/90">
+                      <div className={`font-mono ${compactMode ? 'text-[11.5px]' : 'text-sm'} font-semibold text-white/90`}>
                         {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                       </div>
                       <span
-                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded text-[13px] font-semibold font-mono ${
+                        className={`inline-block mt-0.5 px-1.5 py-[1px] rounded ${compactMode ? 'text-[10.5px]' : 'text-[13px]'} font-semibold font-mono ${
                           stock.change_pct >= 0
                             ? 'bg-[#22c55e]/15 text-[#22c55e]'
                             : 'bg-[#ef4444]/15 text-[#ef4444]'

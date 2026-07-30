@@ -165,7 +165,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-2.5' : 'px-5 py-4'} border-b border-[#1e2a3a]`}>
         <div className="flex items-center gap-2 min-w-0">
           <span className="w-1 h-4 rounded-full shrink-0" style={{ background: ACCENT }} />
-          <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
+          <h3 className={`${compactMode ? 'text-[11px]' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{labels.title}</h3>
         </div>
         <Link
           href={labels.href}
@@ -199,7 +199,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
               return (
                 <div
                   key={stock.ticker}
-                  className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-2' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
+                  className={`flex items-center justify-between gap-2 ${compactMode ? 'px-3 py-1.5' : 'px-5 py-3.5'} transition-colors duration-150 group hover:bg-white/[0.03] ${(locked || onTickerSelect) ? 'cursor-pointer' : ''}`}
                   onClick={locked ? () => setShowModal(true) : (onTickerSelect ? () => onTickerSelect(stock.ticker) : undefined)}
                 >
                   <div className="flex items-center gap-2 min-w-0 flex-1">
@@ -221,22 +221,22 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                           <span>{labels.premiumMember}</span>
                         </div>
                       ) : disableHoverChart ? (
-                        <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                        <div className={`${compactMode ? 'text-[12px]' : 'text-[15px]'} font-black text-white truncate`}>{stock.ticker}</div>
                       ) : (
                         <TickerHoverChart ticker={stock.ticker}>
-                          <div className="text-[15px] font-black text-white truncate">{stock.ticker}</div>
+                          <div className={`${compactMode ? 'text-[12px]' : 'text-[15px]'} font-black text-white truncate`}>{stock.ticker}</div>
                         </TickerHoverChart>
                       )}
-                      <div className="text-[12px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
+                      <div className={`${compactMode ? 'text-[9.5px]' : 'text-[12px]'} text-slate-500 truncate`}>{sectorNames[stock.sector] ?? stock.sector}</div>
                     </div>
                   </div>
 
                   <div className="text-right shrink-0">
-                    <div className="text-[14px] font-mono font-semibold text-white">
+                    <div className={`${compactMode ? 'text-[11.5px]' : 'text-[14px]'} font-mono font-semibold text-white`}>
                       {stock.price > 0 ? `$${stock.price.toFixed(2)}` : '—'}
                     </div>
                     <div
-                      className={`text-[13px] font-mono font-semibold ${
+                      className={`${compactMode ? 'text-[10.5px]' : 'text-[13px]'} font-mono font-semibold ${
                         stock.change_pct >= 0 ? 'text-[#22c55e]' : 'text-[#ef4444]'
                       }`}
                     >
