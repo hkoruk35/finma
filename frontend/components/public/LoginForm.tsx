@@ -91,7 +91,7 @@ export default function LoginForm({
           </div>
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-bold">
+            <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-medium">
               {error}
             </div>
           )}
@@ -108,7 +108,7 @@ export default function LoginForm({
         <div className="mt-8 text-center">
           <p className="text-xs text-white/40">
             {t.noAccount}{" "}
-            <Link href={registerHref} className="text-[#3b82f6] font-bold hover:underline">
+            <Link href={registerHref} className="text-[#3b82f6] font-medium hover:underline">
               {t.registerLink}
             </Link>
           </p>

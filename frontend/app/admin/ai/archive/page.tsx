@@ -50,7 +50,7 @@ export default function AIArchivePage() {
           onChange={e => setInput(e.target.value.toUpperCase())}
           onKeyDown={e => e.key === "Enter" && search(input)}
           placeholder="Hisse kodu gir (örn. TSLA)"
-          className="flex-1 bg-[#0d1321] border border-[#1e3a5f] rounded-xl px-4 py-3 text-white font-bold text-sm placeholder-slate-600 focus:outline-none focus:border-[#06b6d4]"
+          className="flex-1 bg-[#0d1321] border border-[#1e3a5f] rounded-xl px-4 py-3 text-white font-medium text-sm placeholder-slate-600 focus:outline-none focus:border-[#06b6d4]"
         />
         <button
           onClick={() => search(input)}

@@ -169,7 +169,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
         </div>
         <Link
           href={labels.href}
-          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
+          className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
           style={{ color: ACCENT, borderColor: `${ACCENT}4d` }}
         >
           {labels.all}
@@ -182,7 +182,7 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
       {stocks.length > 0 ? (
         <>
           {/* Column labels */}
-          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-[0.5px] text-slate-500`}>
+          <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
             <div className="flex items-center gap-2">
               {selectable && <span className="w-3.5" />}
               <span>{labels.stock}</span>
@@ -213,10 +213,10 @@ export default function TrendPicksSlot({ locale, compactMode, disableHoverChart,
                         )}
                       </div>
                     )}
-                    <span className="text-[10px] font-mono font-bold text-slate-500 w-3 shrink-0">{idx + 1}</span>
+                    <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                     <div className="min-w-0 flex-1">
                       {locked ? (
-                        <div className="text-[11px] font-bold text-[#f59e0b] truncate flex items-center gap-1">
+                        <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           <span>{labels.premiumMember}</span>
                         </div>

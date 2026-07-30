@@ -16,7 +16,7 @@ export default async function AdminTickerPage({
   const { ticker } = await params;
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold text-white mb-4">{ticker.toUpperCase()} Analysis</h1>
+      <h1 className="text-2xl font-medium text-white mb-4">{ticker.toUpperCase()} Analysis</h1>
       <PreOrderClient ticker={ticker.toUpperCase()} />
     </div>
   );

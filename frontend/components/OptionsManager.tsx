@@ -61,7 +61,7 @@ export default function OptionsManager() {
         )}
       </button>
       {status && (
-        <div className={`text-[10px] font-bold uppercase tracking-wider ${status.startsWith("Error") ? "text-red-400" : "text-[#3b82f6]"}`}>
+        <div className={`text-[10px] font-medium uppercase tracking-wider ${status.startsWith("Error") ? "text-red-400" : "text-[#3b82f6]"}`}>
           {status}
         </div>
       )}

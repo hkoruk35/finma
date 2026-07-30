@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState, useRef } from "react";
 import Header from "@/components/Header";
@@ -38,7 +38,7 @@ export default function OptionsMonitorClient() {
       const res = await fetch("/api/options/performance");
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || "Sunucu hatasÄ± oluÅŸtu");
+        throw new Error(data.error || "Sunucu hatası oluştu");
       }
       const data = await res.json();
       if (data.success) {
@@ -70,7 +70,7 @@ export default function OptionsMonitorClient() {
         
         setError(null);
       } else {
-        throw new Error(data.error || "Ã–lÃ§Ã¼m yapÄ±lamadÄ±");
+        throw new Error(data.error || "Ölçüm yapılamadı");
       }
     } catch (e: any) {
       setError(e.message);
@@ -81,7 +81,7 @@ export default function OptionsMonitorClient() {
   };
 
   const clearLogs = async () => {
-    if (!confirm("TÃ¼m tarama geÃ§miÅŸini silmek istediÄŸinize emin misiniz?")) return;
+    if (!confirm("Tüm tarama geçmişini silmek istediğinize emin misiniz?")) return;
     try {
       setHistory([]);
       try {
@@ -173,7 +173,7 @@ export default function OptionsMonitorClient() {
     if (history.length < 2) {
       return (
         <div className="h-full flex items-center justify-center text-text-secondary text-sm">
-          Grafik Ã§izmek iÃ§in yeterli veri yok (en az 2 tarama noktasÄ± gerekir)
+          Grafik çizmek için yeterli veri yok (en az 2 tarama noktası gerekir)
         </div>
       );
     }
@@ -265,7 +265,7 @@ export default function OptionsMonitorClient() {
           <span className="text-white">Web Monitor</span>
         </nav>
 
-        {/* â”€â”€ Performance Dashboard Banner (top, blinking) â”€â”€ */}
+        {/* ── Performance Dashboard Banner (top, blinking) ── */}
         <Link
           href="/admin/trading/options/performance"
           className="flex items-center justify-between gap-4 glass-card p-4 mb-6 border border-[#3b82f6]/30 hover:border-[#3b82f6]/70 hover:bg-[#3b82f6]/5 transition-all group"
@@ -275,7 +275,7 @@ export default function OptionsMonitorClient() {
               className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#3b82f6]/20"
               style={{ boxShadow: blink ? '0 0 12px 4px #3b82f6aa' : 'none', transition: 'box-shadow 0.5s' }}
             >
-              ðŸ“Š
+              📊
             </span>
             <div>
               <div className="text-white font-black text-sm flex items-center gap-2">
@@ -287,18 +287,18 @@ export default function OptionsMonitorClient() {
                 <span className="text-[#34d399] text-[10px] font-black uppercase tracking-widest">LIVE</span>
               </div>
               <div className="text-[11px] text-[#00d2ff] mt-0.5">
-                TÃ¼m Ã¶neri opsiyonlarÄ±n anlÄ±k P&amp;L, kontrat bitiÅŸ ve kÃ¢r/zarar durumu
+                Tüm öneri opsiyonların anlık P&amp;L, kontrat bitiş ve kâr/zarar durumu
               </div>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {current && (
               <div className="text-[10px] text-[#00d2ff] font-mono text-right">
-                <div className="text-white font-bold">Son gÃ¼ncelleme</div>
+                <div className="text-white font-medium">Son güncelleme</div>
                 <div>{new Date(current.timestamp).toLocaleString("tr-TR", { hour: "2-digit", minute: "2-digit", day: "2-digit", month: "2-digit" })}</div>
               </div>
             )}
-            <span className="text-[#3b82f6] text-xl group-hover:translate-x-1 transition-transform">â†’</span>
+            <span className="text-[#3b82f6] text-xl group-hover:translate-x-1 transition-transform">→</span>
           </div>
         </Link>
 
@@ -324,7 +324,7 @@ export default function OptionsMonitorClient() {
               <select
                 value={autoRefresh}
                 onChange={(e) => setAutoRefresh(Number(e.target.value))}
-                className="bg-transparent text-xs text-white font-bold outline-none cursor-pointer"
+                className="bg-transparent text-xs text-white font-medium outline-none cursor-pointer"
               >
                 <option value={0} className="bg-bg-card">Manual Only</option>
                 <option value={5} className="bg-bg-card">Every 5s</option>
@@ -340,16 +340,16 @@ export default function OptionsMonitorClient() {
               disabled={scanning}
               className="flex items-center gap-1.5 px-4 py-2 bg-accent-blue border border-accent-blue/30 text-white rounded-lg text-xs font-black uppercase tracking-widest hover:bg-accent-blue/80 transition-all disabled:opacity-50"
             >
-              <span>{scanning ? "âŒ› SCANNING..." : "âš¡ SCAN NOW"}</span>
+              <span>{scanning ? "⌛ SCANNING..." : "⚡ SCAN NOW"}</span>
             </button>
           </div>
         </div>
 
         {error && (
           <div className="glass-card p-4 border border-red-500/20 bg-red-500/5 text-red-400 text-sm mb-6 flex items-center gap-3">
-            <span className="text-lg">âš ï¸</span>
+            <span className="text-lg">⚠️</span>
             <div>
-              <span className="font-bold">BaÄŸlantÄ± HatasÄ±:</span> {error}
+              <span className="font-medium">Bağlantı Hatası:</span> {error}
             </div>
           </div>
         )}
@@ -368,10 +368,10 @@ export default function OptionsMonitorClient() {
               <div className="glass-card p-4 text-center">
                 <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-2">PAGE SPEED</div>
                 <div className={`font-mono font-black text-2xl ${current && current.totalTime > 1200 ? 'text-amber-500' : 'text-gain'}`}>
-                  {current ? `${current.totalTime} ms` : "â€”"}
+                  {current ? `${current.totalTime} ms` : "—"}
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 font-mono">
-                  ttfb: {current ? `${current.ttfbTime}ms` : "â€”"}
+                  ttfb: {current ? `${current.ttfbTime}ms` : "—"}
                 </div>
               </div>
 
@@ -391,14 +391,14 @@ export default function OptionsMonitorClient() {
                   {avgLatency} ms
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 font-mono">
-                  size: {current ? `${(current.pageSize / 1024).toFixed(1)} KB` : "â€”"}
+                  size: {current ? `${(current.pageSize / 1024).toFixed(1)} KB` : "—"}
                 </div>
               </div>
 
               <div className="glass-card p-4 text-center">
                 <div className="text-[10px] text-text-secondary uppercase tracking-wider mb-2">SSL CERTIFICATE</div>
                 <div className={`font-black text-2xl ${current && current.sslDaysLeft && current.sslDaysLeft < 30 ? 'text-amber-500' : 'text-gain'}`}>
-                  {current && current.sslDaysLeft ? `${current.sslDaysLeft} Days` : "â€”"}
+                  {current && current.sslDaysLeft ? `${current.sslDaysLeft} Days` : "—"}
                 </div>
                 <div className="text-[10px] text-text-muted mt-1 truncate">
                   {current?.sslIssuer || "Unknown Issuer"}
@@ -410,7 +410,7 @@ export default function OptionsMonitorClient() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               <div className="glass-card p-6 lg:col-span-2 flex flex-col justify-between">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">LATENCY TIMELINE (ms)</h3>
+                  <h3 className="text-sm font-medium text-white uppercase tracking-wider">LATENCY TIMELINE (ms)</h3>
                   <div className="flex gap-4 text-[10px] text-text-secondary font-mono">
                     <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#3b82f6]" /> OK</span>
                     <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#f59e0b]" /> SLOW/CONTENT WARNING</span>
@@ -425,13 +425,13 @@ export default function OptionsMonitorClient() {
 
               {/* Current Breakdown details */}
               <div className="glass-card p-6">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">LATENCY BREAKDOWN</h3>
+                <h3 className="text-sm font-medium text-white uppercase tracking-wider mb-5">LATENCY BREAKDOWN</h3>
                 {current ? (
                   <div className="space-y-4">
                     <div>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-text-secondary font-semibold">1. DNS Lookup</span>
-                        <span className="font-mono text-white font-bold">{current.dnsTime} ms</span>
+                        <span className="font-mono text-white font-medium">{current.dnsTime} ms</span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div className="h-full bg-cyan-500 rounded-full" style={{ width: `${Math.min(100, (current.dnsTime / current.totalTime) * 100)}%` }} />
@@ -441,7 +441,7 @@ export default function OptionsMonitorClient() {
                     <div>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-text-secondary font-semibold">2. TCP Connect</span>
-                        <span className="font-mono text-white font-bold">{current.connectTime} ms</span>
+                        <span className="font-mono text-white font-medium">{current.connectTime} ms</span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div className="h-full bg-blue-500 rounded-full" style={{ width: `${Math.min(100, (current.connectTime / current.totalTime) * 100)}%` }} />
@@ -451,7 +451,7 @@ export default function OptionsMonitorClient() {
                     <div>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-text-secondary font-semibold">3. SSL Handshake</span>
-                        <span className="font-mono text-white font-bold">{current.sslTime} ms</span>
+                        <span className="font-mono text-white font-medium">{current.sslTime} ms</span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div className="h-full bg-purple-500 rounded-full" style={{ width: `${Math.min(100, (current.sslTime / current.totalTime) * 100)}%` }} />
@@ -461,7 +461,7 @@ export default function OptionsMonitorClient() {
                     <div>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-text-secondary font-semibold">4. Server Response (TTFB)</span>
-                        <span className="font-mono text-white font-bold">{current.ttfbTime} ms</span>
+                        <span className="font-mono text-white font-medium">{current.ttfbTime} ms</span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div className="h-full bg-amber-500 rounded-full" style={{ width: `${Math.min(100, (current.ttfbTime / current.totalTime) * 100)}%` }} />
@@ -471,7 +471,7 @@ export default function OptionsMonitorClient() {
                     <div>
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className="text-text-secondary font-semibold">5. Page Download</span>
-                        <span className="font-mono text-white font-bold">{current.downloadTime} ms</span>
+                        <span className="font-mono text-white font-medium">{current.downloadTime} ms</span>
                       </div>
                       <div className="h-1.5 bg-border rounded-full overflow-hidden">
                         <div className="h-full bg-gain rounded-full" style={{ width: `${Math.min(100, (current.downloadTime / current.totalTime) * 100)}%` }} />
@@ -480,8 +480,8 @@ export default function OptionsMonitorClient() {
 
                     <div className="pt-2 border-t border-border flex items-center justify-between text-xs">
                       <span className="text-text-secondary">HTML Content Check</span>
-                      <span className={`font-bold ${current.contentValid ? 'text-gain' : 'text-amber-500'}`}>
-                        {current.contentValid ? "âœ… VALID CONTENT" : "âš ï¸ UNEXPECTED CONTENT"}
+                      <span className={`font-medium ${current.contentValid ? 'text-gain' : 'text-amber-500'}`}>
+                        {current.contentValid ? "✅ VALID CONTENT" : "⚠️ UNEXPECTED CONTENT"}
                       </span>
                     </div>
                   </div>
@@ -498,12 +498,12 @@ export default function OptionsMonitorClient() {
               {/* SSL details card */}
               <div className="glass-card p-6 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-5">SSL CERTIFICATE DETAIL</h3>
+                  <h3 className="text-sm font-medium text-white uppercase tracking-wider mb-5">SSL CERTIFICATE DETAIL</h3>
                   {current && current.sslExpiryDate ? (
                     <div className="space-y-3 text-xs">
                       <div className="flex justify-between py-1 border-b border-border/40">
                         <span className="text-text-secondary">Certificate Issuer</span>
-                        <span className="text-white font-bold">{current.sslIssuer || "Unknown"}</span>
+                        <span className="text-white font-medium">{current.sslIssuer || "Unknown"}</span>
                       </div>
                       <div className="flex justify-between py-1 border-b border-border/40">
                         <span className="text-text-secondary">Expiry Date</span>
@@ -511,8 +511,8 @@ export default function OptionsMonitorClient() {
                       </div>
                       <div className="flex justify-between py-1 border-b border-border/40">
                         <span className="text-text-secondary">Status</span>
-                        <span className={`font-bold ${current.sslDaysLeft && current.sslDaysLeft < 30 ? 'text-amber-500' : 'text-gain'}`}>
-                          {current.sslDaysLeft && current.sslDaysLeft < 30 ? "âš ï¸ RENEW SOON" : "ðŸŸ¢ SECURE & ACTIVE"}
+                        <span className={`font-medium ${current.sslDaysLeft && current.sslDaysLeft < 30 ? 'text-amber-500' : 'text-gain'}`}>
+                          {current.sslDaysLeft && current.sslDaysLeft < 30 ? "⚠️ RENEW SOON" : "🟢 SECURE & ACTIVE"}
                         </span>
                       </div>
                       <div className="flex justify-between py-1">
@@ -522,7 +522,7 @@ export default function OptionsMonitorClient() {
                     </div>
                   ) : (
                     <div className="text-text-secondary text-xs">
-                      SSL bilgisi yÃ¼kleniyor...
+                      SSL bilgisi yükleniyor...
                     </div>
                   )}
                 </div>
@@ -534,11 +534,11 @@ export default function OptionsMonitorClient() {
               {/* Log table */}
               <div className="glass-card p-6 lg:col-span-2">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-sm font-bold text-white uppercase tracking-wider">RECENT SCANS LOGS</h3>
+                  <h3 className="text-sm font-medium text-white uppercase tracking-wider">RECENT SCANS LOGS</h3>
                   {history.length > 0 && (
                     <button
                       onClick={clearLogs}
-                      className="text-[10px] text-text-muted hover:text-red-400 font-bold uppercase tracking-wider transition-colors"
+                      className="text-[10px] text-text-muted hover:text-red-400 font-medium uppercase tracking-wider transition-colors"
                     >
                       Clear Logs
                     </button>
@@ -548,7 +548,7 @@ export default function OptionsMonitorClient() {
                 <div className="overflow-x-auto max-h-[220px] overflow-y-auto pr-1">
                   <table className="w-full text-xs text-left">
                     <thead>
-                      <tr className="border-b border-border text-text-secondary text-[10px] uppercase font-bold tracking-wider">
+                      <tr className="border-b border-border text-text-secondary text-[10px] uppercase font-medium tracking-wider">
                         <th className="py-2">Time</th>
                         <th className="py-2 text-center">Status</th>
                         <th className="py-2 text-right">Latency</th>
@@ -566,18 +566,18 @@ export default function OptionsMonitorClient() {
                             <td className="py-2 text-text-secondary font-mono">
                               {new Date(logItem.timestamp).toLocaleTimeString()}
                             </td>
-                            <td className="py-2 text-center font-bold">
+                            <td className="py-2 text-center font-medium">
                               <span className={`px-1.5 py-0.5 rounded text-[10px] ${isErr ? 'bg-red-500/10 text-red-400' : isWarn ? 'bg-amber-500/10 text-amber-400' : 'bg-gain/10 text-gain'}`}>
                                 {logItem.statusCode === 0 ? "ERR" : logItem.statusCode}
                               </span>
                             </td>
-                            <td className="py-2 text-right font-mono font-bold text-white">
+                            <td className="py-2 text-right font-mono font-medium text-white">
                               {logItem.totalTime} ms
                             </td>
                             <td className="py-2 text-right text-text-secondary font-mono">
                               {(logItem.pageSize / 1024).toFixed(1)} KB
                             </td>
-                            <td className={`py-2 text-right font-bold ${logItem.contentValid ? 'text-gain' : 'text-amber-500'}`}>
+                            <td className={`py-2 text-right font-medium ${logItem.contentValid ? 'text-gain' : 'text-amber-500'}`}>
                               {logItem.contentValid ? "VALID" : "UNEXPECTED"}
                             </td>
                             <td className="py-2 pl-3 truncate max-w-[150px] text-text-secondary font-mono text-[10px]" title={logItem.error || (logItem.totalTime > 1200 ? "Slow response" : "Normal scan")}>
@@ -589,7 +589,7 @@ export default function OptionsMonitorClient() {
                       {history.length === 0 && (
                         <tr>
                           <td colSpan={6} className="py-4 text-center text-text-secondary text-xs">
-                            KayÄ±t bulunamadÄ±.
+                            Kayıt bulunamadı.
                           </td>
                         </tr>
                       )}

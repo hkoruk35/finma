@@ -47,12 +47,12 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">No Data for {date}</h1>
+          <h1 className="text-2xl font-medium text-white mb-2">No Data for {date}</h1>
           <p className="text-white mb-8 text-center max-w-sm">
             We couldn't find any archived market data for this specific trading day. 
             The system may have been offline or data was not preserved.
           </p>
-          <Link href="/admin/archive" className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg font-bold hover:bg-[#2563eb] transition-all">
+          <Link href="/admin/archive" className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg font-medium hover:bg-[#2563eb] transition-all">
             Back to Archive
           </Link>
         </main>
@@ -79,11 +79,11 @@ export default async function ArchiveDatePage({ params }: ArchiveDatePageProps) 
                 </svg>
              </div>
              <div>
-                <p className="text-sm font-bold text-white">Viewing Historical Archive</p>
+                <p className="text-sm font-medium text-white">Viewing Historical Archive</p>
                 <p className="text-xs text-[#3b82f6]">Data captured on {date}</p>
              </div>
           </div>
-          <Link href="/admin/archive" className="text-xs font-bold text-[#3b82f6] hover:underline uppercase tracking-widest">
+          <Link href="/admin/archive" className="text-xs font-medium text-[#3b82f6] hover:underline uppercase tracking-widest">
             Back to List
           </Link>
         </div>

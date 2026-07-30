@@ -204,7 +204,7 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
           <span className="text-lg font-black text-white tracking-tighter uppercase italic">
             BOGA <span className="text-[#3b82f6]">OPTIONS</span> v242
           </span>
-          <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-bold">
+          <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-medium">
             Institutional Terminal
           </span>
           <Link 
@@ -220,23 +220,23 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
               <select 
                 value={selectedDate} 
                 onChange={e => setSelectedDate(e.target.value)}
-                className="bg-[#0c121d] border border-white/10 text-[10px] font-bold text-white px-2 py-1 outline-none uppercase tracking-wider"
+                className="bg-[#0c121d] border border-white/10 text-[10px] font-medium text-white px-2 py-1 outline-none uppercase tracking-wider"
               >
                 <option value="ALL">All Dates</option>
                 {uniqueDates.map(d => <option key={String(d)} value={String(d)}>{String(d)}</option>)}
               </select>
-              <button onClick={handleCopy} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+              <button onClick={handleCopy} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
                 Copy
               </button>
-              <button onClick={handleDownloadCSV} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+              <button onClick={handleDownloadCSV} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
                 CSV
               </button>
-              <button onClick={handleDownloadXLS} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+              <button onClick={handleDownloadXLS} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
                 XLS
               </button>
             </div>
             {latestData && (
-              <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider text-slate-400 ml-4">
+              <div className="flex items-center gap-4 text-[10px] font-medium uppercase tracking-wider text-slate-400 ml-4">
                 <span>VIX: <span className={latestData.vix < 20 ? "text-emerald-400" : "text-red-400"}>{latestData.vix.toFixed(1)}</span></span>
                 <span className="hidden md:inline">|</span>
                 <span>UNIVERSE: <span className="text-white">{latestData.universe_size}</span></span>
@@ -321,18 +321,18 @@ export default function OptionsTableClient({ allPicks, latestData }: { allPicks:
                         {cIdx === 0 ? pct(raw.l4?.rs_60 || raw.rs_vs_spy_60d) : ""}
                       </TD>
 
-                      <TD center cls={c.label === "GAMMA" ? "text-emerald-400 font-bold" : c.label === "INST." ? "text-purple-400 font-bold" : "text-slate-600"}>
+                      <TD center cls={c.label === "GAMMA" ? "text-emerald-400 font-medium" : c.label === "INST." ? "text-purple-400 font-medium" : "text-slate-600"}>
                         {c.label}
                       </TD>
-                      <TD cls="text-white font-bold">{c.strike ? `$${c.strike} C` : "—"}</TD>
+                      <TD cls="text-white font-medium">{c.strike ? `$${c.strike} C` : "—"}</TD>
                       <TD cls="text-slate-400">{c.expiration || c.expiry || "—"}</TD>
-                      <TD right cls="text-white font-bold">{dollar(c.cost_per_contract || c.contract_cost || (c.premium ? c.premium * 100 : null), 0)}</TD>
+                      <TD right cls="text-white font-medium">{dollar(c.cost_per_contract || c.contract_cost || (c.premium ? c.premium * 100 : null), 0)}</TD>
                       <TD right cls="text-[#3b82f6]">{n(c.delta, 2)}</TD>
                       <TD right cls="text-purple-400">{n(c.gamma, 4)}</TD>
                       <TD right cls="text-red-400">{n(c.theta, 3)}</TD>
                       <TD right cls={Number(c.gt_ratio) >= 0.5 ? "text-emerald-400" : "text-slate-500"}>{n(c.gt_ratio, 2)}</TD>
                       
-                      <TD right cls={Number(c.sim?.pnl_pct || c.sim_gain_pct) >= 0 ? "text-emerald-400 font-bold" : "text-red-400"}>
+                      <TD right cls={Number(c.sim?.pnl_pct || c.sim_gain_pct) >= 0 ? "text-emerald-400 font-medium" : "text-red-400"}>
                         {pct(c.sim?.pnl_pct || c.sim_gain_pct, 0)}
                       </TD>
                       <TD right cls="text-emerald-500">{dollar(c.tp_price)}</TD>

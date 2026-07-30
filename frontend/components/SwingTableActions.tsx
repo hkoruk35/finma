@@ -76,19 +76,19 @@ export default function SwingTableActions({ picks, dateStr }: SwingTableActionsP
     <div className="flex items-center gap-3 mb-6">
       <button
         onClick={exportToCSV}
-        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#00d2ff]/30 rounded-lg text-xs font-bold text-[#00d2ff] hover:bg-[#00d2ff]/10 transition-all"
+        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#00d2ff]/30 rounded-lg text-xs font-medium text-[#00d2ff] hover:bg-[#00d2ff]/10 transition-all"
       >
         📥 CSV Export
       </button>
       <button
         onClick={exportToXLS}
-        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#3b82f6]/30 rounded-lg text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
+        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-[#3b82f6]/30 rounded-lg text-xs font-medium text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
       >
         📥 XLS Export
       </button>
       <button
         onClick={copyToClipboard}
-        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-xs font-bold text-white hover:bg-white/5 transition-all"
+        className="flex items-center gap-2 px-4 py-2 bg-[#1e293b] border border-white/10 rounded-lg text-xs font-medium text-white hover:bg-white/5 transition-all"
       >
         📋 Copy List
       </button>

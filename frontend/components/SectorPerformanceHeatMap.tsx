@@ -106,7 +106,7 @@ export default function SectorPerformanceHeatMap({ history, linkHref = "/perform
             <CardWrapper
               key={`${s.name}-${idx}`}
               href={linkHref}
-              className={`inline-flex items-center gap-2 px-3 py-1 border rounded-full text-[10px] font-bold text-slate-300 ${linkHref ? "hover:text-white" : ""} ${heatColor(s.avgReturn)}`}
+              className={`inline-flex items-center gap-2 px-3 py-1 border rounded-full text-[10px] font-medium text-slate-300 ${linkHref ? "hover:text-white" : ""} ${heatColor(s.avgReturn)}`}
             >
               <span className="uppercase tracking-tight whitespace-nowrap">{s.name}</span>
               <span className={`font-mono font-black ${s.avgReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>

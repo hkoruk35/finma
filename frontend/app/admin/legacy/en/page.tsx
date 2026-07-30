@@ -120,7 +120,7 @@ export default function EnHomePage() {
               <span className="text-xs font-black text-white/70 uppercase tracking-wider">Top 100 Tracker — Preview</span>
               <div className="flex gap-2">
                 {SIGNAL_BADGES.map((b) => (
-                  <span key={b.label} className={`text-[9px] font-bold px-2 py-0.5 rounded border ${b.cls}`}>{b.label}</span>
+                  <span key={b.label} className={`text-[9px] font-medium px-2 py-0.5 rounded border ${b.cls}`}>{b.label}</span>
                 ))}
               </div>
             </div>
@@ -142,7 +142,7 @@ export default function EnHomePage() {
                       <td className="px-4 py-3">
                         <span className={`font-black ${r.swing ? "text-blue-400" : "text-white"}`}>{r.ticker}</span>
                         {r.swing && (
-                          <span className="ml-2 text-[8px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded-full font-bold align-middle">Daily Swing</span>
+                          <span className="ml-2 text-[8px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded-full font-medium align-middle">Daily Swing</span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-white/50 hidden sm:table-cell">{r.company}</td>
@@ -150,7 +150,7 @@ export default function EnHomePage() {
                       <td className={`px-4 py-3 text-right font-mono font-semibold ${r.chg.startsWith("+") ? "text-green-400" : "text-red-400"}`}>{r.chg}</td>
                       <td className="px-4 py-3 text-right font-mono text-white/70">{r.rsi}</td>
                       <td className="px-4 py-3 text-center">
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${SIGNAL_STYLE[r.signal]}`}>{r.signal}</span>
+                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium border ${SIGNAL_STYLE[r.signal]}`}>{r.signal}</span>
                       </td>
                     </tr>
                   ))}
@@ -158,7 +158,7 @@ export default function EnHomePage() {
               </table>
             </div>
             <div className="bg-[#0d1117] border-t border-[#1e2a3a] px-4 py-3 text-center">
-              <Link href="/en/register" className="text-[#3b82f6] text-xs font-bold hover:underline">
+              <Link href="/en/register" className="text-[#3b82f6] text-xs font-medium hover:underline">
                 Create a free account to see all 100 stocks with live data →
               </Link>
             </div>

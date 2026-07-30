@@ -90,7 +90,7 @@ export default async function DayTradePicksPage() {
         {picks.length === 0 ? (
           <div className="glass-card p-12 text-center border-dashed border-white/10">
             <div className="text-5xl mb-4 animate-pulse">⚡</div>
-            <h2 className="text-xl font-bold text-white mb-2">Premarket Scanning...</h2>
+            <h2 className="text-xl font-medium text-white mb-2">Premarket Scanning...</h2>
             <p className="text-white text-sm opacity-60">The DayTrade bot starts at 09:15 NY time. Check back during market open.</p>
           </div>
         ) : (
@@ -137,13 +137,13 @@ export default async function DayTradePicksPage() {
                           </Link>
                         </td>
                         <td className="px-3 py-4">
-                          <span className="text-white text-[11px] font-bold bg-white/10 px-2 py-0.5 rounded uppercase">{pick.primary_signal || pick.signal || "MOMENTUM"}</span>
+                          <span className="text-white text-[11px] font-medium bg-white/10 px-2 py-0.5 rounded uppercase">{pick.primary_signal || pick.signal || "MOMENTUM"}</span>
                         </td>
                         <td className="px-3 py-4 text-right">
                           <ScoreBadge score={pick.dt_score} />
                         </td>
                         <td className="px-3 py-4 text-right">
-                          <span className="text-white font-mono font-bold text-[14px]">${formatPrice(price)}</span>
+                          <span className="text-white font-mono font-medium text-[14px]">${formatPrice(price)}</span>
                         </td>
                         <td className="px-3 py-4 text-right">
                            <span className={`font-mono text-[12px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
@@ -192,10 +192,10 @@ export default async function DayTradePicksPage() {
                     <div className="flex items-center justify-between mb-4">
                       <div>
                         <div className="text-white font-black text-2xl tracking-tighter uppercase">{pick.ticker}</div>
-                        <div className="text-[#00d2ff] text-[10px] font-bold uppercase tracking-widest opacity-60">{pick.primary_signal || pick.signal}</div>
+                        <div className="text-[#00d2ff] text-[10px] font-medium uppercase tracking-widest opacity-60">{pick.primary_signal || pick.signal}</div>
                       </div>
                       <div className="text-right">
-                         <div className="text-white font-mono font-bold text-lg">${formatPrice(price)}</div>
+                         <div className="text-white font-mono font-medium text-lg">${formatPrice(price)}</div>
                          <div className={`text-[11px] font-black ${(pick.change_pct || 0) >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                            {(pick.change_pct || 0) >= 0 ? "+" : ""}{(pick.change_pct || 0).toFixed(1)}% GAP
                          </div>
@@ -205,7 +205,7 @@ export default async function DayTradePicksPage() {
                     <div className="grid grid-cols-3 gap-2 mb-4">
                        <div className="bg-black/20 p-2 rounded text-center border border-white/5">
                           <div className="text-[8px] text-[#00d2ff] uppercase font-black mb-1 opacity-50">ENTRY</div>
-                          <div className="text-white font-mono text-xs font-bold">${formatPrice(zones.entry_zone?.low)}</div>
+                          <div className="text-white font-mono text-xs font-medium">${formatPrice(zones.entry_zone?.low)}</div>
                        </div>
                        <div className="bg-[#10b981]/10 p-2 rounded text-center border border-[#10b981]/20">
                           <div className="text-[8px] text-[#10b981] uppercase font-black mb-1 opacity-60">TARGET</div>
@@ -213,11 +213,11 @@ export default async function DayTradePicksPage() {
                        </div>
                        <div className="bg-[#ef4444]/10 p-2 rounded text-center border border-[#ef4444]/20">
                           <div className="text-[8px] text-[#ef4444] uppercase font-black mb-1 opacity-60">STOP</div>
-                          <div className="text-[#ef4444] font-mono text-xs font-bold">${formatPrice(zones.stop)}</div>
+                          <div className="text-[#ef4444] font-mono text-xs font-medium">${formatPrice(zones.stop)}</div>
                        </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-[10px] font-bold">
+                    <div className="flex items-center justify-between text-[10px] font-medium">
                        <div className="flex gap-3">
                           <span className="text-[#00d2ff] uppercase">SCORE: <b className="text-white">{pick.dt_score}</b></span>
                           <span className="text-[#00d2ff] uppercase">R/R: <b className="text-white">{zones.rr_ratio || pick.rr_ratio || "2.0"}:1</b></span>
@@ -234,19 +234,19 @@ export default async function DayTradePicksPage() {
             {/* Legend & Notes */}
             <div className="glass-card p-5 grid grid-cols-1 md:grid-cols-3 gap-6 text-[11px] text-[#00d2ff] border border-white/5">
               <div className="flex flex-col gap-1">
-                <span className="text-white font-bold uppercase tracking-wider mb-1">⚡ DAYTRADE STRATEGY</span>
+                <span className="text-white font-medium uppercase tracking-wider mb-1">⚡ DAYTRADE STRATEGY</span>
                 <span><b>GAP & GO:</b> Strong premarket gap with momentum continuation.</span>
                 <span><b>VWAP PULLBACK:</b> Entry on pullbacks to the Volume Weighted Average Price.</span>
               </div>
               <div className="flex flex-col gap-1">
-                <span className="text-white font-bold uppercase tracking-wider mb-1">🛡️ RISK MANAGEMENT</span>
+                <span className="text-white font-medium uppercase tracking-wider mb-1">🛡️ RISK MANAGEMENT</span>
                 <span><b>STOP LOSS:</b> Hard stop level (0.5x ATR). Exit immediately if hit.</span>
                 <span><b>PDT RULE:</b> Ensure 25k+ balance if taking 4+ daytrades in 5 days.</span>
               </div>
               <div className="flex flex-col gap-1 md:text-right">
-                <span className="text-white font-bold uppercase tracking-wider mb-1">📈 ARCHIVE</span>
+                <span className="text-white font-medium uppercase tracking-wider mb-1">📈 ARCHIVE</span>
                 <Link href="/admin/trading/daytrade-performance" className="text-[#10b981] hover:underline font-black">VIEW DAYTRADE PERFORMANCE HISTORY →</Link>
-                <Link href="/admin/trading/swing" className="text-[#3b82f6] hover:underline mt-1 font-bold">Switch to Swing Terminal</Link>
+                <Link href="/admin/trading/swing" className="text-[#3b82f6] hover:underline mt-1 font-medium">Switch to Swing Terminal</Link>
               </div>
             </div>
           </>

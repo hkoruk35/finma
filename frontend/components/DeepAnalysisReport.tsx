@@ -160,7 +160,7 @@ function SectionTitle({ icon, title }: { icon: string; title: string }) {
   return (
     <div className="flex items-center gap-2 mb-4">
       <span className="text-base">{icon}</span>
-      <h3 className="text-[12px] font-bold text-white uppercase tracking-[0.12em]">{title}</h3>
+      <h3 className="text-[12px] font-medium text-white uppercase tracking-[0.12em]">{title}</h3>
       <div className="flex-1 h-px bg-gradient-to-r from-[#1e3a5f] to-transparent" />
     </div>
   );
@@ -342,7 +342,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
     <div className={wrapCls}>
       {mode === "overlay" && (
         <div className="sticky top-0 z-10 bg-[#080c14]/95 backdrop-blur-sm border-b border-[#1e3a5f]/60 px-4 py-3 flex items-center justify-between">
-          <span className="text-[12px] font-bold text-white uppercase tracking-widest">{ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}</span>
+          <span className="text-[12px] font-medium text-white uppercase tracking-widest">{ticker} — {L(lang, "Derin Analiz", "Deep Analysis")}</span>
           {generatedAt && <span className="text-[10px] text-slate-500 hidden md:inline">{L(lang, "Güncellendi", "Updated")}: {generatedAt}</span>}
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors text-[20px] leading-none ml-4" aria-label="Close">✕</button>
         </div>
@@ -370,11 +370,11 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             value={searchTicker}
             onChange={(e) => setSearchTicker(e.target.value.toUpperCase())}
             placeholder={L(lang, "Sonsuz Hisse Sorgula (Örn: AAPL, TSLA, NVDA)...", "Search any stock (e.g. AAPL, TSLA, NVDA)...", "Buscar cualquier acción...", "Rechercher une action...")}
-            className="flex-1 bg-transparent text-white text-xs font-mono font-bold uppercase focus:outline-none placeholder:text-slate-500 placeholder:normal-case"
+            className="flex-1 bg-transparent text-white text-xs font-mono font-medium uppercase focus:outline-none placeholder:text-slate-500 placeholder:normal-case"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-[#3b82f6] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md transition-all shrink-0"
+            className="px-4 py-2 bg-[#3b82f6] hover:bg-blue-600 text-white font-medium text-xs uppercase tracking-wider rounded-xl shadow-md transition-all shrink-0"
           >
             {L(lang, "Analiz Et", "Analyze", "Analizar", "Analyser")}
           </button>
@@ -385,21 +385,21 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
             <div>
               <div className="flex items-center gap-3 mb-1">
-                <span className="text-[26px] md:text-[30px] font-bold text-white tracking-tight">{ticker}</span>
+                <span className="text-[26px] md:text-[30px] font-medium text-white tracking-tight">{ticker}</span>
                 <span className={`border rounded-full px-3 py-1 text-[13px] font-semibold ${ms >= 70 ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400" : ms >= 50 ? "border-amber-500/40 bg-amber-500/10 text-amber-400" : "border-rose-500/40 bg-rose-500/10 text-rose-400"}`}>{ms}/100</span>
               </div>
               <div className="text-[14px] text-slate-200 font-medium mb-1">{companyName}</div>
               <div className="text-[12px] text-slate-500">{sector}{rd.marketCapStr ? ` · ${rd.marketCapStr}` : ""}</div>
             </div>
             <div className="text-right">
-              <div className="text-[30px] md:text-[36px] font-bold text-white leading-none">{fmtUsd(cp)}</div>
+              <div className="text-[30px] md:text-[36px] font-medium text-white leading-none">{fmtUsd(cp)}</div>
               <div className="text-[11px] text-slate-500 mt-1">{L(lang, "Güncel Fiyat", "Current Price")}</div>
             </div>
           </div>
 
           {!isPremium ? (
             <div className="relative overflow-hidden rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-center cursor-pointer mb-5 shadow-lg" onClick={() => setShowPremiumModal(true)}>
-              <div className="flex items-center justify-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider">
+              <div className="flex items-center justify-center gap-2 text-amber-400 font-medium text-xs uppercase tracking-wider">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                 <span>{L(lang, "BOGA AI Trend Strateji Durumu — Premium", "BOGA AI Trend Strategy Status — Premium")}</span>
               </div>
@@ -441,7 +441,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-3 border border-amber-500/40">
               <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
             </div>
-            <h3 className="text-base font-bold text-white uppercase tracking-wider mb-2">
+            <h3 className="text-base font-medium text-white uppercase tracking-wider mb-2">
               {L(lang, "İşlem Planı (Giriş / Stop / Hedefler) — Premium", "Trading Plan (Entry / Stop / Targets) — Premium")}
             </h3>
             <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed mb-4">
@@ -456,7 +456,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <span className="text-base">🎯</span>
-                <h3 className="text-[13px] font-bold text-white uppercase tracking-[0.12em]">{L(lang, "Trade Planı", "Trade Plan")}</h3>
+                <h3 className="text-[13px] font-medium text-white uppercase tracking-[0.12em]">{L(lang, "Trade Planı", "Trade Plan")}</h3>
               </div>
               {/* Horizon tabs */}
               <div className="flex gap-1 bg-[#080c14] border border-[#1e3a5f]/50 rounded-lg p-0.5">
@@ -590,7 +590,7 @@ export default function DeepAnalysisReport({ ticker, stockData, onClose, lang = 
           {/* Roadmap / 24/7 AI Interpreter */}
           {!isPremium ? (
             <div className="bg-gradient-to-r from-amber-500/10 to-transparent border border-amber-500/30 rounded-xl p-4 mb-4 text-center cursor-pointer shadow-lg" onClick={() => setShowPremiumModal(true)}>
-              <div className="flex items-center justify-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-1">
+              <div className="flex items-center justify-center gap-2 text-amber-400 font-medium text-xs uppercase tracking-wider mb-1">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                 <span>{L(lang, "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı — Premium", "24/7 AI Chart & Market Interpreter — Premium")}</span>
               </div>

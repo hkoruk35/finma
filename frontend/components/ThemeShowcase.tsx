@@ -102,7 +102,7 @@ export default function ThemeShowcase({ activeTickers, onThemeSelect, selectedTi
           <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse"></span>
           Active Market Themes
         </h3>
-        <p className="text-[10px] text-[#00d2ff] font-bold uppercase">Based on today's analysis</p>
+        <p className="text-[10px] text-[#00d2ff] font-medium uppercase">Based on today's analysis</p>
       </div>
 
       <div className="flex flex-col gap-2 pause-on-hover">

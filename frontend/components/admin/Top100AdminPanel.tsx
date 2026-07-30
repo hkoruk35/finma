@@ -105,7 +105,7 @@ export default function Top100AdminPanel() {
         <button
           type="submit"
           disabled={adding}
-          className="bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-2 rounded-lg text-sm font-bold disabled:opacity-60"
+          className="bg-blue-600 hover:bg-blue-500 transition-colors px-4 py-2 rounded-lg text-sm font-medium disabled:opacity-60"
         >
           {adding ? "Adding..." : "Add"}
         </button>
@@ -130,7 +130,7 @@ export default function Top100AdminPanel() {
             <tbody>
               {tickers.map((t) => (
                 <tr key={t.id} className="border-t border-[#1e2a3a]">
-                  <td className="px-3 py-2 font-bold">{t.ticker}</td>
+                  <td className="px-3 py-2 font-medium">{t.ticker}</td>
                   <td className="px-3 py-2 text-white/50">{t.company || "—"}</td>
                   <td className="px-3 py-2 text-white/50">{t.source === "swing_daily" ? "Daily swing" : "Fixed"}</td>
                   <td className="px-3 py-2">

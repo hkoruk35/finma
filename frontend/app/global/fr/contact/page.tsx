@@ -41,7 +41,7 @@ export default function FrContactPage() {
       <MemberHeader locale="fr" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-12 md:py-16">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-6">
           <Link href="/global/fr/home" className="hover:text-[#3b82f6] transition-colors">Tableau de Bord</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Support et Contact</span>
@@ -62,11 +62,11 @@ export default function FrContactPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                    </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Message Envoyé !</h2>
+                <h2 className="text-2xl font-medium text-white mb-2">Message Envoyé !</h2>
                 <p className="text-slate-400 mb-8">Nous avons reçu votre demande et vous répondrons dans les 24 heures.</p>
                 <button
                   onClick={() => setStatus("idle")}
-                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-bold hover:bg-[#252f40] transition-colors border border-[#30363d]"
+                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-medium hover:bg-[#252f40] transition-colors border border-[#30363d]"
                 >
                   Envoyer un Autre
                 </button>
@@ -75,7 +75,7 @@ export default function FrContactPage() {
              <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6 border border-[#1e2a3a] bg-[#141924]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Votre Nom</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Votre Nom</label>
                       <input
                         type="text"
                         required
@@ -86,7 +86,7 @@ export default function FrContactPage() {
                       />
                    </div>
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Adresse E-mail</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Adresse E-mail</label>
                       <input
                         type="email"
                         required
@@ -98,7 +98,7 @@ export default function FrContactPage() {
                    </div>
                 </div>
                 <div>
-                   <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Sujet</label>
+                   <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Sujet</label>
                    <select
                      value={formState.subject}
                      onChange={(e) => setFormState({...formState, subject: e.target.value})}
@@ -113,7 +113,7 @@ export default function FrContactPage() {
                 </div>
                 <div>
                    <div className="flex justify-between items-center mb-2">
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">Message</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest">Message</label>
                       <span className={`text-[10px] font-mono ${formState.message.length > 900 ? 'text-[#ef4444]' : 'text-[#58a6ff]'}`}>
                          {formState.message.length}/1000
                       </span>
@@ -132,11 +132,11 @@ export default function FrContactPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-bold text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-medium text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
                 >
                    {status === "loading" ? "Envoi en cours..." : "Envoyer le Message"}
                 </button>
-                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-bold">Impossible d'envoyer. Veuillez réessayer.</p>}
+                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-medium">Impossible d'envoyer. Veuillez réessayer.</p>}
              </form>
            )}
         </div>

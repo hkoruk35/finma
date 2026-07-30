@@ -61,7 +61,7 @@ export default function BottomNav() {
               <div className={`transition-transform duration-200 ${isActive ? 'scale-110' : 'scale-100'}`}>
                 {item.icon}
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-tight">{item.label}</span>
+              <span className="text-[11px] font-medium uppercase tracking-tight">{item.label}</span>
               {isActive && <div className="w-5 h-0.5 rounded-full bg-[#3b82f6]"></div>}
             </Link>
           );

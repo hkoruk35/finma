@@ -41,7 +41,7 @@ export default function PtContactPage() {
       <MemberHeader locale="pt" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-12 md:py-16">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-6">
           <Link href="/global/pt/home" className="hover:text-[#3b82f6] transition-colors">Painel</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Suporte e Contato</span>
@@ -62,11 +62,11 @@ export default function PtContactPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                    </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Mensagem Enviada!</h2>
+                <h2 className="text-2xl font-medium text-white mb-2">Mensagem Enviada!</h2>
                 <p className="text-slate-400 mb-8">Recebemos sua consulta e responderemos em até 24 horas.</p>
                 <button
                   onClick={() => setStatus("idle")}
-                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-bold hover:bg-[#252f40] transition-colors border border-[#30363d]"
+                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-medium hover:bg-[#252f40] transition-colors border border-[#30363d]"
                 >
                   Enviar Outra
                 </button>
@@ -75,7 +75,7 @@ export default function PtContactPage() {
              <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6 border border-[#1e2a3a] bg-[#141924]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Seu Nome</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Seu Nome</label>
                       <input
                         type="text"
                         required
@@ -86,7 +86,7 @@ export default function PtContactPage() {
                       />
                    </div>
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">E-mail</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">E-mail</label>
                       <input
                         type="email"
                         required
@@ -98,7 +98,7 @@ export default function PtContactPage() {
                    </div>
                 </div>
                 <div>
-                   <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Assunto</label>
+                   <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Assunto</label>
                    <select
                      value={formState.subject}
                      onChange={(e) => setFormState({...formState, subject: e.target.value})}
@@ -113,7 +113,7 @@ export default function PtContactPage() {
                 </div>
                 <div>
                    <div className="flex justify-between items-center mb-2">
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">Mensagem</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest">Mensagem</label>
                       <span className={`text-[10px] font-mono ${formState.message.length > 900 ? 'text-[#ef4444]' : 'text-[#58a6ff]'}`}>
                          {formState.message.length}/1000
                       </span>
@@ -132,11 +132,11 @@ export default function PtContactPage() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-bold text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-medium text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
                 >
                    {status === "loading" ? "Enviando..." : "Enviar Mensagem"}
                 </button>
-                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-bold">Erro ao enviar. Tente novamente.</p>}
+                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-medium">Erro ao enviar. Tente novamente.</p>}
              </form>
            )}
         </div>

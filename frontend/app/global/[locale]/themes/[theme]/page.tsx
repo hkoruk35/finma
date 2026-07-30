@@ -158,7 +158,7 @@ export default async function ThemePage({ params }: Props) {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
           <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">
             {locale === "tr" ? "Gösterge Paneli" : locale === "en" ? "Dashboard" : locale === "es" ? "Panel" : locale === "fr" ? "Tableau de Bord" : "Painel"}
           </Link>
@@ -168,7 +168,7 @@ export default async function ThemePage({ params }: Props) {
 
         {/* Theme Header */}
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{themeTitle}</h1>
+          <h1 className="text-3xl md:text-4xl font-medium text-white mb-2">{themeTitle}</h1>
           <p className="text-slate-400 text-sm md:text-base mb-6">{themeDescription}</p>
 
           {/* Theme Navigation Pills */}

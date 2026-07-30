@@ -86,7 +86,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
       <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
         <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
       </svg>
-      <span className="text-[11px] font-bold tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
+      <span className="text-[11px] font-medium tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
       <span className="text-[11px] text-white/50 max-w-[180px] leading-snug">{message}</span>
     </button>
   );
@@ -138,7 +138,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           <h1 className="text-3xl font-black text-white tracking-tighter">
             {data.ticker} <span className="text-white/40 text-lg font-medium">{data.company}</span>
           </h1>
-          <p className="text-2xl font-mono font-bold text-white mt-1">
+          <p className="text-2xl font-mono font-medium text-white mt-1">
             ${fmt(data.price)}{" "}
             <span className={data.changePct >= 0 ? "text-green-400" : "text-red-400"}>
               {data.changePct >= 0 ? "+" : ""}
@@ -160,7 +160,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
 
       {data.activeSignals?.length > 0 && (
         <div className="flex gap-1.5 mb-3 flex-wrap items-center">
-          <span className="text-xs text-white/40 font-bold tracking-wider mr-1">{t.activeSignals}:</span>
+          <span className="text-xs text-white/40 font-medium tracking-wider mr-1">{t.activeSignals}:</span>
           {data.activeSignals.map((s) => (
             <span key={s} className="bg-green-900/30 border border-green-700/50 text-green-400 text-xs px-2 py-0.5 rounded-full">
               ✓ {s}
@@ -171,7 +171,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
           {premiumLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
@@ -198,7 +198,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
                   } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
                 >
                   <span className="text-[13px] text-white/40">{label}</span>
-                  <span className="text-sm font-bold text-white/80 font-mono sm:text-xs sm:font-semibold">{value}</span>
+                  <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-semibold">{value}</span>
                 </div>
               ))}
             </div>
@@ -206,7 +206,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
           {premiumLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
@@ -228,7 +228,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.tradePlanCard}</div>
           {tradePlanLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : !data.tradePlan.valid ? (
@@ -236,7 +236,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400/70">
                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566ZM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5Zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/>
               </svg>
-              <span className="text-[11px] font-bold tracking-wider text-amber-400/90 uppercase">
+              <span className="text-[11px] font-medium tracking-wider text-amber-400/90 uppercase">
                 {data.aiCommentary?.noPlanMessage?.title || "AKTİF İŞLEM KURGUSU YOK"}
               </span>
               <span className="text-[11px] text-white/50 max-w-[210px] leading-snug">
@@ -247,33 +247,33 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
             <>
               <div className="grid grid-cols-2 gap-2">
                 <div className="border rounded-md py-2 text-center bg-green-500/10 border-green-500/40">
-                  <div className="text-[11px] font-bold tracking-wider text-green-400">{t.entry}</div>
+                  <div className="text-[11px] font-medium tracking-wider text-green-400">{t.entry}</div>
                   <div className="text-sm font-mono font-extrabold mt-0.5 text-green-400">
                     ${fmt(data.tradePlan.entryZone.low)}–${fmt(data.tradePlan.entryZone.high)}
                   </div>
                 </div>
                 <div className="border rounded-md py-2 text-center bg-red-500/10 border-red-500/40">
-                  <div className="text-[11px] font-bold tracking-wider text-red-400">{t.stop}</div>
+                  <div className="text-[11px] font-medium tracking-wider text-red-400">{t.stop}</div>
                   <div className="text-base font-mono font-extrabold mt-0.5 text-red-400">${fmt(data.tradePlan.stop.price)}</div>
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 {data.tradePlan.targets.map((tg, i) => (
                   <div key={tg.label} className="flex items-center justify-between border rounded-md py-1.5 px-2.5 bg-blue-500/10 border-blue-500/40">
-                    <span className="text-[11px] font-bold tracking-wider text-blue-400">{t.target} {i + 1}</span>
+                    <span className="text-[11px] font-medium tracking-wider text-blue-400">{t.target} {i + 1}</span>
                     <span className="text-sm font-mono font-extrabold text-blue-400">${fmt(tg.price)}</span>
-                    <span className="text-[11px] font-mono font-bold text-amber-400">{fmt(tg.rr, 1)}x</span>
+                    <span className="text-[11px] font-mono font-medium text-amber-400">{fmt(tg.rr, 1)}x</span>
                   </div>
                 ))}
               </div>
               <div className="bg-[#111620] border border-[#253347] rounded-md py-2 text-center">
                 <div className="text-xs text-white/40 font-semibold">{t.riskPct}</div>
-                <div className="text-base font-bold text-amber-400">{fmt(Math.abs(data.tradePlan.stop.pct))}%</div>
+                <div className="text-base font-medium text-amber-400">{fmt(Math.abs(data.tradePlan.stop.pct))}%</div>
               </div>
             </>
           )}
           {!hidePermalink && (
-            <a href={`/global/${locale}/graphic/${ticker}`} className="text-center text-sm font-bold text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
+            <a href={`/global/${locale}/graphic/${ticker}`} className="text-center text-sm font-medium text-[#00d2ff] border border-[#00d2ff]/40 bg-[#00d2ff]/10 rounded-md py-1.5 hover:bg-[#00d2ff]/20 transition-colors">
               {locale === "tr" ? "Grafik Detay" : "Chart Detail"} ↗
             </a>
           )}
@@ -286,15 +286,15 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
           <div className="flex items-center justify-between mb-2.5 pb-2 border-b border-[#58a6ff]/30 flex-wrap gap-2">
             <div className="flex items-center gap-2">
               <span className="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
-              <span className="text-xs font-bold text-cyan-300 uppercase tracking-widest">
+              <span className="text-xs font-medium text-cyan-300 uppercase tracking-widest">
                 {locale === "tr" ? "24/7 Yapay Zeka Grafik & Piyasa Yorumlayıcısı" : locale === "es" ? "Comentarista IA de Mercado 24/7" : locale === "fr" ? "Commentateur IA du Marché 24/7" : locale === "pt" ? "Comentador IA do Mercado 24/7" : "24/7 AI Market & Technical Commentary"}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400">
+              <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400">
                 {data.aiCommentary.assetClassLabel}
               </span>
-              <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded border ${
+              <span className={`text-[10px] font-medium uppercase tracking-wider px-2.5 py-0.5 rounded border ${
                 data.aiCommentary.bias === "BULLISH" ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400" :
                 data.aiCommentary.bias === "BEARISH" ? "bg-red-500/10 border-red-500/40 text-red-400" :
                 data.aiCommentary.bias === "BREAKOUT_WATCH" ? "bg-amber-500/10 border-amber-500/40 text-amber-400" :
@@ -314,11 +314,11 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-cyan-400 font-bold block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : "Key Levels & Pivots"}:</span>
+                  <span className="text-cyan-400 font-medium block mb-1">🎯 {locale === "tr" ? "Kritik Seviyeler & Pivotlar" : "Key Levels & Pivots"}:</span>
                   <span className="text-white/70">{data.aiCommentary.keyLevels}</span>
                 </div>
                 <div className="bg-[#161f2e]/60 p-2 rounded border border-[#253347]">
-                  <span className="text-amber-400 font-bold block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : "Liquidity & Volume Flow"}:</span>
+                  <span className="text-amber-400 font-medium block mb-1">💧 {locale === "tr" ? "Likidite & Hacim Akışı" : "Liquidity & Volume Flow"}:</span>
                   <span className="text-white/70">{data.aiCommentary.liquidityVolume}</span>
                 </div>
               </div>
@@ -329,24 +329,24 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
 
       {data.tradePlan.valid && (
         <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-          <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
+          <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.rationaleCard}</div>
           {rationaleLocked ? (
             <LockPrompt message={t.unlockTradePlan} />
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/70 leading-relaxed">
-              <p><span className="text-[#58a6ff] font-bold">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
-              <p><span className="text-[#58a6ff] font-bold">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
-              <p><span className="text-[#58a6ff] font-bold">EMA:</span> {data.tradePlan.rationale.ema}</p>
-              <p><span className="text-[#58a6ff] font-bold">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
-              <p><span className="text-[#58a6ff] font-bold">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
-              <p><span className="text-[#58a6ff] font-bold">RSI:</span> {data.tradePlan.rationale.rsi}</p>
+              <p><span className="text-[#58a6ff] font-medium">{t.entryConditionLabel}:</span> {data.tradePlan.entryCondition}</p>
+              <p><span className="text-[#58a6ff] font-medium">{t.stopRationaleLabel}:</span> {data.tradePlan.stopRationale}</p>
+              <p><span className="text-[#58a6ff] font-medium">EMA:</span> {data.tradePlan.rationale.ema}</p>
+              <p><span className="text-[#58a6ff] font-medium">VWAP:</span> {data.tradePlan.rationale.vwap}</p>
+              <p><span className="text-[#58a6ff] font-medium">{t.volumeLabel}:</span> {data.tradePlan.rationale.volume}</p>
+              <p><span className="text-[#58a6ff] font-medium">RSI:</span> {data.tradePlan.rationale.rsi}</p>
             </div>
           )}
         </div>
       )}
 
       <div className="mt-3 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-        <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>
+        <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.scoreCard}</div>
         <div className="grid grid-cols-3 gap-3">
           {scoreBars.map(({ label, score, color }) => (
             <div key={label}>

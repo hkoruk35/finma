@@ -124,7 +124,7 @@ export default function AcademyArticleClient({
 
                 {section.cta && (
                   <div className="mt-6 p-5 rounded-xl bg-gradient-to-br from-[#3b82f6]/10 to-[#8b5cf6]/10 border border-[#3b82f6]/20">
-                    <p className="text-white font-bold mb-3 text-sm">
+                    <p className="text-white font-medium mb-3 text-sm">
                       🔥 {t.cta_text}
                     </p>
                     <Link
@@ -185,7 +185,7 @@ export default function AcademyArticleClient({
                     <div className="text-[10px] text-[#3b82f6] font-black uppercase tracking-widest mb-1">
                       {article.tag}
                     </div>
-                    <div className="text-sm font-bold text-white group-hover:text-[#3b82f6] transition-colors">
+                    <div className="text-sm font-medium text-white group-hover:text-[#3b82f6] transition-colors">
                       {article.title}
                     </div>
                   </div>

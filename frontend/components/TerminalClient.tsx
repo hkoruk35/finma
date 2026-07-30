@@ -167,7 +167,7 @@ function InstrumentRow({
         <div className="flex items-center justify-between gap-1">
           <span className="text-[9px] text-slate-500 truncate">{inst.label}</span>
           {chg != null && (
-            <span className={`text-[10px] font-mono font-bold ${pColor(chg)}`}>
+            <span className={`text-[10px] font-mono font-medium ${pColor(chg)}`}>
               {sgn(chg)}{fmt(chg)}%
             </span>
           )}
@@ -271,13 +271,13 @@ function MultiScreenOverlay({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setFullscreenTicker(null)}
-              className="px-3 py-1.5 text-xs font-bold bg-[#141924] border border-[#1e2a3a] rounded text-[#3b82f6] hover:bg-[#1e2a3a] transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-[#141924] border border-[#1e2a3a] rounded text-[#3b82f6] hover:bg-[#1e2a3a] transition-colors"
             >
               ⊞ Grid View
             </button>
             <button
               onClick={onClose}
-              className="px-3 py-1.5 text-xs font-bold bg-[#141924] border border-[#1e2a3a] rounded text-white hover:bg-[#1e2a3a] transition-colors"
+              className="px-3 py-1.5 text-xs font-medium bg-[#141924] border border-[#1e2a3a] rounded text-white hover:bg-[#1e2a3a] transition-colors"
             >
               ← Back to Normal View
             </button>
@@ -307,7 +307,7 @@ function MultiScreenOverlay({
         </span>
         <button
           onClick={onClose}
-          className="px-3 py-1.5 text-xs font-bold bg-[#141924] border border-[#1e2a3a] rounded text-white hover:bg-[#1e2a3a] transition-colors"
+          className="px-3 py-1.5 text-xs font-medium bg-[#141924] border border-[#1e2a3a] rounded text-white hover:bg-[#1e2a3a] transition-colors"
         >
           ← Back to Normal View
         </button>
@@ -737,7 +737,7 @@ export default function TerminalClient() {
                 <span className={`text-[11px] font-black tracking-tighter ${sigCfg.color}`}>
                   ⚡ HOURLY SIGNAL: {sigCfg.label}
                 </span>
-                <span className="text-[9px] text-slate-300 font-bold">
+                <span className="text-[9px] text-slate-300 font-medium">
                   {selectedSignal.status_detail}
                 </span>
               </div>
@@ -777,7 +777,7 @@ export default function TerminalClient() {
               <button
                 key={ind.id}
                 onClick={() => toggleIndicator(ind.id)}
-                className={`px-2 py-0.5 text-[9px] font-bold rounded transition-colors ${
+                className={`px-2 py-0.5 text-[9px] font-medium rounded transition-colors ${
                   activeStudies.includes(ind.id)
                     ? "bg-emerald-600 text-white"
                     : "text-slate-400 hover:text-white"
@@ -794,7 +794,7 @@ export default function TerminalClient() {
               <button
                 key={iv.value}
                 onClick={() => setChartInterval(iv.value)}
-                className={`px-2 py-0.5 text-[9px] font-bold rounded transition-colors ${
+                className={`px-2 py-0.5 text-[9px] font-medium rounded transition-colors ${
                   chartInterval === iv.value
                     ? "bg-[#3b82f6] text-white"
                     : "text-slate-400 hover:text-white"
@@ -819,7 +819,7 @@ export default function TerminalClient() {
           {selected.isStock && (
             <Link
               href={`/stock/${selected.ticker}`}
-              className="px-2 py-1 text-[9px] font-bold text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/10"
+              className="px-2 py-1 text-[9px] font-medium text-[#3b82f6] border border-[#3b82f6]/30 rounded hover:bg-[#3b82f6]/10"
             >
               Detail ↗
             </Link>
@@ -900,7 +900,7 @@ export default function TerminalClient() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
                           <span className="text-[12px] font-black text-white">{ticker}</span>
-                          <span className="text-[10px] font-bold text-[#3b82f6] bg-[#3b82f6]/10 px-1 rounded">
+                          <span className="text-[10px] font-medium text-[#3b82f6] bg-[#3b82f6]/10 px-1 rounded">
                             {score.toFixed(0)}
                           </span>
                         </div>
@@ -926,8 +926,8 @@ export default function TerminalClient() {
         {rightTab === "portfolio" && (
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a2234] shrink-0">
-              <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">CSP Portföy</span>
-              <Link href="/admin/trading/csp/portfolio" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
+              <span className="text-[9px] text-slate-500 uppercase tracking-widest font-medium">CSP Portföy</span>
+              <Link href="/admin/trading/csp/portfolio" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-medium">
                 Tümü ↗
               </Link>
             </div>
@@ -958,8 +958,8 @@ export default function TerminalClient() {
         {rightTab === "long_term" && (
           <div className="flex-1 flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1a2234] shrink-0">
-              <span className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Long-Term</span>
-              <Link href="/admin/trading/csp/long_term" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-bold">
+              <span className="text-[9px] text-slate-500 uppercase tracking-widest font-medium">Long-Term</span>
+              <Link href="/admin/trading/csp/long_term" className="text-[9px] text-[#3b82f6] hover:text-blue-300 font-medium">
                 Tümü ↗
               </Link>
             </div>

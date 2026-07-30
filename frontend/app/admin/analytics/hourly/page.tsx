@@ -151,7 +151,7 @@ export default function HourlyArchivePage() {
               <div className="flex items-center gap-3 flex-wrap text-xs">
                 <span className="px-3 py-1.5 rounded-lg bg-[#0d1117] border border-[#30363d]">
                   <span className="text-gray-500">Regime: </span>
-                  <span className={latest.market_regime === "Bull" ? "text-emerald-400 font-bold" : "text-amber-400 font-bold"}>
+                  <span className={latest.market_regime === "Bull" ? "text-emerald-400 font-medium" : "text-amber-400 font-medium"}>
                     {latest.market_regime}
                   </span>
                 </span>
@@ -170,7 +170,7 @@ export default function HourlyArchivePage() {
         {/* En son tarama - büyük görünüm */}
         {latest && (
           <section>
-            <h2 className="text-lg font-bold text-white mb-3">
+            <h2 className="text-lg font-medium text-white mb-3">
               Son Tarama —{" "}
               <span className="text-blue-400">{latest.date} {latest.hour}</span>
               <span className="text-gray-500 text-sm font-normal ml-2">({latest.total_scanned} hisse)</span>
@@ -183,10 +183,10 @@ export default function HourlyArchivePage() {
                 return (
                   <div key={sig.ticker} className="bg-[#161b22] border border-[#30363d] rounded-xl p-4 flex flex-wrap items-center gap-4">
                     <div className="min-w-[80px]">
-                      <div className="text-white font-bold text-base">{sig.ticker}</div>
+                      <div className="text-white font-medium text-base">{sig.ticker}</div>
                       <div className="text-gray-500 text-xs">{sig.sector ?? "—"}</div>
                     </div>
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-bold uppercase tracking-wider ${colorClass}`}>
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border text-[11px] font-medium uppercase tracking-wider ${colorClass}`}>
                       {label}
                     </span>
                     <div className="text-white font-mono text-sm">${fmt(sig.current_price)}</div>
@@ -206,7 +206,7 @@ export default function HourlyArchivePage() {
 
         {/* Arşiv - tarih bazlı */}
         <section>
-          <h2 className="text-lg font-bold text-white mb-4">Arşiv</h2>
+          <h2 className="text-lg font-medium text-white mb-4">Arşiv</h2>
           <div className="space-y-6">
             {Object.entries(byDate).map(([date, dayScans]) => (
               <div key={date}>
@@ -217,16 +217,16 @@ export default function HourlyArchivePage() {
                     const stopAlert = scan.signals.filter(s => s.status === "STOP_ALERT").length;
                     return (
                       <div key={scan.slot} className="bg-[#161b22] border border-[#30363d] rounded-lg p-3 space-y-1.5">
-                        <div className="text-white font-bold text-sm">{scan.hour}</div>
+                        <div className="text-white font-medium text-sm">{scan.hour}</div>
                         <div className="text-gray-400 text-xs">{scan.total_scanned} hisse</div>
                         <div className="flex gap-1 flex-wrap">
                           {entryNow > 0 && (
-                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-400/15 text-emerald-400 font-bold">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-400/15 text-emerald-400 font-medium">
                               {entryNow} Entry
                             </span>
                           )}
                           {stopAlert > 0 && (
-                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-400/15 text-red-400 font-bold">
+                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-red-400/15 text-red-400 font-medium">
                               {stopAlert} Stop
                             </span>
                           )}

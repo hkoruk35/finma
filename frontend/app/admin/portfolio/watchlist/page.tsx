@@ -98,7 +98,7 @@ export default function WatchlistPage() {
           </div>
           <button 
             onClick={() => setShowAddDialog(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#0c121d] border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/15 rounded-lg text-xs font-bold text-white transition-all uppercase tracking-wider"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#0c121d] border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/15 rounded-lg text-xs font-medium text-white transition-all uppercase tracking-wider"
           >
             <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
@@ -126,7 +126,7 @@ export default function WatchlistPage() {
                   value={newTicker}
                   onChange={(e) => setNewTicker(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && addTicker()}
-                  className="w-full bg-[#05080f] border border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-white uppercase outline-none focus:border-emerald-500/50 transition-colors"
+                  className="w-full bg-[#05080f] border border-white/10 rounded-xl px-4 py-3 text-sm font-medium text-white uppercase outline-none focus:border-emerald-500/50 transition-colors"
                   autoFocus
                 />
               </div>
@@ -143,7 +143,7 @@ export default function WatchlistPage() {
         {loading ? (
           <div className="flex flex-col items-center justify-center min-h-[300px] space-y-4">
             <div className="w-8 h-8 border-2 border-[#3b82f6] border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-xs uppercase tracking-widest text-slate-500 font-bold">Synchronizing real-time analytics...</p>
+            <p className="text-xs uppercase tracking-widest text-slate-500 font-medium">Synchronizing real-time analytics...</p>
           </div>
         ) : stocks.length === 0 ? (
           <div className="border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center p-12 min-h-[300px] text-center space-y-4 bg-[#080c14]">
@@ -158,7 +158,7 @@ export default function WatchlistPage() {
             </div>
             <button 
               onClick={() => setShowAddDialog(true)}
-              className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 rounded-lg text-xs font-bold text-emerald-400 transition-colors uppercase tracking-wider"
+              className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 hover:bg-emerald-500/20 rounded-lg text-xs font-medium text-emerald-400 transition-colors uppercase tracking-wider"
             >
               Add Your First Ticker
             </button>
@@ -193,17 +193,17 @@ export default function WatchlistPage() {
                       </div>
                       <div>
                         <h3 className="font-black text-white text-base group-hover:text-emerald-400 transition-colors tracking-tight">{stock.ticker}</h3>
-                        <p className="text-[9px] text-[#00d2ff] uppercase tracking-wider font-bold">{stock.sector}</p>
+                        <p className="text-[9px] text-[#00d2ff] uppercase tracking-wider font-medium">{stock.sector}</p>
                       </div>
                     </div>
 
                     <div className="flex justify-between items-end mb-5">
                       <div>
-                        <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-1">Current Price</p>
-                        <p className="text-xl font-bold text-white">${pr.current?.toFixed(2) || "N/A"}</p>
+                        <p className="text-[9px] text-slate-500 uppercase tracking-widest font-medium mb-1">Current Price</p>
+                        <p className="text-xl font-medium text-white">${pr.current?.toFixed(2) || "N/A"}</p>
                       </div>
                       <div className="text-right">
-                        <p className={`text-sm font-bold ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
+                        <p className={`text-sm font-medium ${changePct >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                           {changePct >= 0 ? "+" : ""}{changePct.toFixed(2)}%
                         </p>
                       </div>
@@ -211,26 +211,26 @@ export default function WatchlistPage() {
 
                     <div className="space-y-3.5 mb-6 pt-5 border-t border-white/5 text-[11px]">
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-bold">Signal Sentiment</span>
+                        <span className="text-slate-500 font-medium">Signal Sentiment</span>
                         <span className={`font-black px-2 py-0.5 rounded-md text-[9px] uppercase tracking-wider ${getScoreBadgeClass(sc.master_score)}`}>
                           {sc.signal_type?.replace("_", " ") || "NEUTRAL"}
                         </span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-bold">BOGA AI Score</span>
-                        <span className="font-bold text-white text-xs">{sc.master_score?.toFixed(0) || "50"}/100</span>
+                        <span className="text-slate-500 font-medium">BOGA AI Score</span>
+                        <span className="font-medium text-white text-xs">{sc.master_score?.toFixed(0) || "50"}/100</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-bold">Buy Target Zone</span>
-                        <span className="font-bold text-slate-300 font-mono">${sd.entry_range_low?.toFixed(2)} - ${sd.entry_range_high?.toFixed(2)}</span>
+                        <span className="text-slate-500 font-medium">Buy Target Zone</span>
+                        <span className="font-medium text-slate-300 font-mono">${sd.entry_range_low?.toFixed(2)} - ${sd.entry_range_high?.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-bold">Take Profit Target</span>
-                        <span className="font-bold text-emerald-400 font-mono">${sd.target_range_low?.toFixed(2)}</span>
+                        <span className="text-slate-500 font-medium">Take Profit Target</span>
+                        <span className="font-medium text-emerald-400 font-mono">${sd.target_range_low?.toFixed(2)}</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="text-slate-500 font-bold">Stop Loss</span>
-                        <span className="font-bold text-rose-400 font-mono">${sd.stop_loss?.toFixed(2)}</span>
+                        <span className="text-slate-500 font-medium">Stop Loss</span>
+                        <span className="font-medium text-rose-400 font-mono">${sd.stop_loss?.toFixed(2)}</span>
                       </div>
                     </div>
                   </div>

@@ -207,7 +207,7 @@ export default function AnalysisTabs({ stock }: Props) {
           <span className="text-[10px] font-black text-[#00d2ff] uppercase tracking-[0.2em]">
             Analysis Language
           </span>
-          <span className="text-[9px] text-white/40 font-bold uppercase tracking-widest">
+          <span className="text-[9px] text-white/40 font-medium uppercase tracking-widest">
             BOGA AI · Daily Briefing
           </span>
         </div>
@@ -249,11 +249,11 @@ export default function AnalysisTabs({ stock }: Props) {
             <div className="flex flex-col">
               <span className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
                 BOGA AI Analysis Briefing
-                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 lowercase font-bold">
+                <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20 lowercase font-medium">
                   v5.5.2
                 </span>
               </span>
-              <span className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest">
+              <span className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest">
                 {ALL_LANGS.find(l => l.id === activeLang)?.flag}{" "}
                 {ALL_LANGS.find(l => l.id === activeLang)?.name} · AI-Powered · Daily
               </span>
@@ -272,7 +272,7 @@ export default function AnalysisTabs({ stock }: Props) {
             <div className="flex flex-col items-center justify-center py-12 gap-4 text-center">
               <span className="text-4xl">⚠️</span>
               <div>
-                <p className="text-sm text-[#ef4444] font-bold mb-1">{genError}</p>
+                <p className="text-sm text-[#ef4444] font-medium mb-1">{genError}</p>
                 <p className="text-xs text-white/40">The Gemini AI service may be temporarily unavailable.</p>
               </div>
               <button
@@ -291,7 +291,7 @@ export default function AnalysisTabs({ stock }: Props) {
               {storedSummary && (
                 <div className="relative overflow-hidden bg-white/[0.03] border border-white/10 rounded-2xl p-5">
                   <div className={`absolute ${isRtl ? "right-0" : "left-0"} top-0 bottom-0 w-1 bg-[#3b82f6]`} />
-                  <p className="text-base font-bold text-white leading-relaxed italic px-2">
+                  <p className="text-base font-medium text-white leading-relaxed italic px-2">
                     "{storedSummary}"
                   </p>
                 </div>

@@ -309,7 +309,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
 
   return (
     <div className="glass-card overflow-hidden mb-4 bg-[#111620] border border-[#253347] rounded-lg p-3.5">
-      <div className="text-xs text-white/40 uppercase tracking-widest font-bold mb-2.5 pb-2 border-b border-[#58a6ff]/30">
+      <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">
         {t.title}
       </div>
 
@@ -317,7 +317,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span
-              className="inline-block text-[10px] font-bold px-2 py-0.5 rounded"
+              className="inline-block text-[10px] font-medium px-2 py-0.5 rounded"
               style={{
                 color: swingPick.entry_status === "ENTERED" ? "#3fb950" : "#8b949e",
                 background: swingPick.entry_status === "ENTERED" ? "#3fb95022" : "#8b949e18",
@@ -353,7 +353,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
             if (!reasoningText) return null;
             return (
               <p className="text-xs text-white/70 leading-relaxed">
-                <span className="text-[#58a6ff] font-bold">{t.reasonLabel}:</span> {reasoningText}
+                <span className="text-[#58a6ff] font-medium">{t.reasonLabel}:</span> {reasoningText}
               </p>
             );
           })()}
@@ -364,7 +364,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
 
           <Link
             href={`/global/${locale}/swing`}
-            className="self-start text-[10px] font-bold text-[#58a6ff] border border-[#58a6ff]/40 bg-[#58a6ff]/10 rounded px-2.5 py-1 hover:bg-[#58a6ff]/20 transition-colors"
+            className="self-start text-[10px] font-medium text-[#58a6ff] border border-[#58a6ff]/40 bg-[#58a6ff]/10 rounded px-2.5 py-1 hover:bg-[#58a6ff]/20 transition-colors"
           >
             {t.swingLink} ↗
           </Link>
@@ -379,7 +379,7 @@ export default function SwingStrategyStatusCard({ ticker, locale }: { ticker: st
           </div>
           <Link
             href={`/global/${locale}/watchlist`}
-            className="self-start text-[10px] font-bold text-[#a78bfa] border border-[#a78bfa]/40 bg-[#a78bfa]/10 rounded px-2.5 py-1 hover:bg-[#a78bfa]/20 transition-colors"
+            className="self-start text-[10px] font-medium text-[#a78bfa] border border-[#a78bfa]/40 bg-[#a78bfa]/10 rounded px-2.5 py-1 hover:bg-[#a78bfa]/20 transition-colors"
           >
             {t.watchlistLink} ↗
           </Link>

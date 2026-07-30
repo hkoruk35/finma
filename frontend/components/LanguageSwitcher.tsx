@@ -49,7 +49,7 @@ export default function LanguageSwitcher({ currentLocale, onChange }: Props) {
               onClick={() => { onChange(locale.code); setOpen(false); }}
               className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors
                 ${locale.code === currentLocale
-                  ? "bg-[#3b82f6]/10 text-[#3b82f6] font-bold"
+                  ? "bg-[#3b82f6]/10 text-[#3b82f6] font-medium"
                   : "text-white hover:bg-[#141924] hover:text-white"
                 }`}
             >

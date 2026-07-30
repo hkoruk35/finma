@@ -45,18 +45,18 @@ function formatPrice(price: number): string {
 
 function getChangeColor(change: number | null | undefined) {
   if (!change && change !== 0) return "text-white";
-  if (change >= 2) return "text-green-400 font-bold";
+  if (change >= 2) return "text-green-400 font-medium";
   if (change >= 0) return "text-green-300";
   if (change >= -2) return "text-red-300";
-  return "text-red-400 font-bold";
+  return "text-red-400 font-medium";
 }
 
 function getTrendBadge(trend?: string) {
   const colors: Record<string, string> = {
     bullish: "bg-green-900/40 text-green-200 border-green-700/50",
     bearish: "bg-red-900/40 text-red-200 border-red-700/50",
-    overbought: "bg-red-900/60 text-red-100 border-red-700/70 font-bold",
-    oversold: "bg-green-900/60 text-green-100 border-green-700/70 font-bold",
+    overbought: "bg-red-900/60 text-red-100 border-red-700/70 font-medium",
+    oversold: "bg-green-900/60 text-green-100 border-green-700/70 font-medium",
     neutral: "bg-slate-900/40 text-slate-200 border-slate-700/50",
   };
 
@@ -116,7 +116,7 @@ export default async function SubsectorPage({
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white mb-4">Sector Not Found</h1>
+            <h1 className="text-3xl font-medium text-white mb-4">Sector Not Found</h1>
             <p className="text-white mb-8">The sector "{decodedSector}" could not be found.</p>
             <Link href="/" className="text-[#3b82f6] hover:underline font-semibold">
               ← Back to Home
@@ -171,7 +171,7 @@ export default async function SubsectorPage({
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-white mb-4">Subsector Not Found</h1>
+            <h1 className="text-3xl font-medium text-white mb-4">Subsector Not Found</h1>
             <p className="text-white mb-8">
               No stocks found for "{matchingSubsector || decodedSubsector}" in {decodedSector}.
             </p>
@@ -210,7 +210,7 @@ export default async function SubsectorPage({
               <h1 className="text-4xl font-black text-white tracking-tighter uppercase">
                 {displaySubsectorName}
               </h1>
-              <p className="text-xs text-white font-bold tracking-widest uppercase mt-1">
+              <p className="text-xs text-white font-medium tracking-widest uppercase mt-1">
                 {decodedSector} · {subsectorData.length} Stocks
               </p>
             </div>
@@ -253,7 +253,7 @@ export default async function SubsectorPage({
                   <td className="px-4 py-3">
                     <Link
                       href={`/stock/${stock.ticker}`}
-                      className="text-[#3b82f6] hover:text-white font-bold uppercase tracking-wide transition-colors"
+                      className="text-[#3b82f6] hover:text-white font-medium uppercase tracking-wide transition-colors"
                     >
                       {stock.ticker}
                     </Link>
@@ -261,7 +261,7 @@ export default async function SubsectorPage({
                   <td className="px-4 py-3 text-white font-semibold">
                     ${stock.price?.toFixed(2) || "N/A"}
                   </td>
-                  <td className={`px-4 py-3 text-right font-bold ${getChangeColor(stock.change_1d)}`}>
+                  <td className={`px-4 py-3 text-right font-medium ${getChangeColor(stock.change_1d)}`}>
                     {stock.change_1d !== undefined && stock.change_1d !== null
                       ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
                       : "N/A"}
@@ -273,7 +273,7 @@ export default async function SubsectorPage({
                     {stock.technical?.momentum ? (
                       <span
                         className={
-                          stock.technical.momentum > 0 ? "text-green-400 font-bold" : "text-red-400 font-bold"
+                          stock.technical.momentum > 0 ? "text-green-400 font-medium" : "text-red-400 font-medium"
                         }
                       >
                         {stock.technical.momentum > 0 ? "+" : ""}
@@ -299,11 +299,11 @@ export default async function SubsectorPage({
               <div className="flex justify-between items-start mb-2">
                 <Link
                   href={`/stock/${stock.ticker}`}
-                  className="text-[#3b82f6] hover:text-white font-bold text-lg uppercase transition-colors"
+                  className="text-[#3b82f6] hover:text-white font-medium text-lg uppercase transition-colors"
                 >
                   {stock.ticker}
                 </Link>
-                <span className={`font-bold ${getChangeColor(stock.change_1d)}`}>
+                <span className={`font-medium ${getChangeColor(stock.change_1d)}`}>
                   {stock.change_1d !== undefined && stock.change_1d !== null
                     ? `${stock.change_1d > 0 ? "+" : ""}${stock.change_1d.toFixed(2)}%`
                     : "N/A"}
@@ -314,19 +314,19 @@ export default async function SubsectorPage({
               </p>
               <div className="grid grid-cols-3 gap-2 text-[10px] text-white">
                 <div>
-                  <p className="uppercase font-bold">RSI</p>
+                  <p className="uppercase font-medium">RSI</p>
                   <p className="text-white">{stock.technical?.rsi?.toFixed(1) || "N/A"}</p>
                 </div>
                 <div>
-                  <p className="uppercase font-bold">Momentum</p>
-                  <p className={stock.technical?.momentum && stock.technical.momentum > 0 ? "text-green-400 font-bold" : "text-red-400 font-bold"}>
+                  <p className="uppercase font-medium">Momentum</p>
+                  <p className={stock.technical?.momentum && stock.technical.momentum > 0 ? "text-green-400 font-medium" : "text-red-400 font-medium"}>
                     {stock.technical?.momentum
                       ? `${stock.technical.momentum > 0 ? "+" : ""}${stock.technical.momentum.toFixed(1)}%`
                       : "N/A"}
                   </p>
                 </div>
                 <div>
-                  <p className="uppercase font-bold">Trend</p>
+                  <p className="uppercase font-medium">Trend</p>
                   <p className="text-white">{stock.technical?.trend?.toUpperCase() || "N/A"}</p>
                 </div>
               </div>

@@ -106,7 +106,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
             {pick.ticker}
           </Link>
           <span>/</span>
-          <span className="text-[#f59e0b] font-bold">{date}</span>
+          <span className="text-[#f59e0b] font-medium">{date}</span>
         </nav>
 
         {/* Archive badge */}
@@ -150,7 +150,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
         {/* Quick Summary */}
         {summary && (
           <div className="glass-card p-5 mb-5 border-l-4 border-l-[#f59e0b]">
-            <p className="text-sm md:text-base text-[#fcd34d] font-bold leading-relaxed">
+            <p className="text-sm md:text-base text-[#fcd34d] font-medium leading-relaxed">
               {summary}
             </p>
           </div>
@@ -174,7 +174,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
                 {pick.boga_zones?.risk_reward && (
                   <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.rr}:{" "}
-                    <span className="text-white font-bold">{pick.boga_zones.risk_reward}:1</span>
+                    <span className="text-white font-medium">{pick.boga_zones.risk_reward}:1</span>
                   </p>
                 )}
               </div>
@@ -223,7 +223,7 @@ export default async function ArchiveAnalysisPage({ params }: Props) {
           <div className="flex flex-wrap gap-2">
             <Link
               href={`/${lang}/${slug}/${ticker}`}
-              className="px-3 py-1.5 rounded-lg border border-[#3b82f6]/40 text-xs font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
+              className="px-3 py-1.5 rounded-lg border border-[#3b82f6]/40 text-xs font-medium text-[#3b82f6] hover:bg-[#3b82f6]/10 transition-all"
             >
               ← {labels.currentAnalysis}
             </Link>

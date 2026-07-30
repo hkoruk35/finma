@@ -42,7 +42,7 @@ export default async function PtSwingArchivePage() {
       <MemberHeader locale="pt" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/pt/home" className="hover:text-[#3b82f6] transition-colors">Painel</Link>
           <span className="opacity-30">/</span>
           <Link href="/global/pt/swing" className="hover:text-[#3b82f6] transition-colors">Candidatos Diários de Ações em Tendência</Link>

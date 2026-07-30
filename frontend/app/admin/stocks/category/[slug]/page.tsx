@@ -126,17 +126,17 @@ export default async function CategoryPage({ params }: Props) {
         <div className="flex gap-6 mb-8 pb-8 border-b border-[#1e2a3a]">
           <div>
              <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Total Found</p>
-             <p className="text-2xl font-mono font-bold text-white">{stocks.length}</p>
+             <p className="text-2xl font-mono font-medium text-white">{stocks.length}</p>
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
              <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Average Score</p>
-             <p className="text-2xl font-mono font-bold text-[#3b82f6]">
+             <p className="text-2xl font-mono font-medium text-[#3b82f6]">
                 {(stocks.reduce((acc, s) => acc + s!.master_score, 0) / (stocks.length || 1)).toFixed(1)}
              </p>
           </div>
           <div className="border-l border-[#1e2a3a] pl-6">
              <p className="text-[10px] text-[#00d2ff] uppercase tracking-wider mb-1">Last Updated</p>
-             <p className="text-2xl font-mono font-bold text-white">
+             <p className="text-2xl font-mono font-medium text-white">
                {new Date(master.generated_at).toLocaleString("en-US", {
                  timeZone: "America/New_York",
                  hour: "2-digit",
@@ -157,7 +157,7 @@ export default async function CategoryPage({ params }: Props) {
                 <Link
                   key={c.key}
                   href={`/category/${Object.keys(CATEGORY_MAP).find(k => CATEGORY_MAP[k]?.key === c.key)}`}
-                  className={`px-4 py-3 rounded-lg text-sm font-bold transition-all uppercase tracking-widest ${
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-all uppercase tracking-widest ${
                     c.key === category.key 
                       ? "bg-[#3b82f6]/20 text-[#3b82f6] border border-[#3b82f6]/30" 
                       : "text-white hover:bg-[#1e2a3a] hover:text-white"
@@ -196,12 +196,12 @@ export default async function CategoryPage({ params }: Props) {
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-xl font-bold text-white group-hover:text-[#3b82f6] transition-colors">
+                  <h3 className="text-xl font-medium text-white group-hover:text-[#3b82f6] transition-colors">
                     {stock!.ticker}
                   </h3>
                   <p className="text-xs text-[#00d2ff] truncate max-w-[150px]">{stock!.company}</p>
                 </div>
-                <span className={`px-2 py-1 rounded text-[10px] font-bold ${getScoreBadgeClass(stock!.score_type)}`}>
+                <span className={`px-2 py-1 rounded text-[10px] font-medium ${getScoreBadgeClass(stock!.score_type)}`}>
                   {stock!.score_type.replace("_", " ")}
                 </span>
               </div>
@@ -212,13 +212,13 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="text-3xl font-mono font-black text-[#3b82f6]">
                     {stock!.master_score.toFixed(1)}
                   </div>
-                  <div className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest leading-none">BOGA AI Score</div>
+                  <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest leading-none">BOGA AI Score</div>
                 </div>
                 <div className="text-right">
                   <div className={`text-2xl font-mono font-black ${getChangeColor(stock!.change_pct)}`}>
                     {stock!.change_pct >= 0 ? "+" : ""}{stock!.change_pct.toFixed(2)}%
                   </div>
-                  <div className="text-[9px] text-[#00d2ff] font-bold uppercase tracking-widest leading-none">Change</div>
+                  <div className="text-[9px] text-[#00d2ff] font-medium uppercase tracking-widest leading-none">Change</div>
                 </div>
               </div>
 

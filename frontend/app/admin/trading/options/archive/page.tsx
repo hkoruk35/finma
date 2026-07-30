@@ -55,7 +55,7 @@ export default async function OptionsArchivePage() {
         {dates.length === 0 ? (
           <div className="glass-card p-12 text-center">
             <div className="text-4xl mb-4">📅</div>
-            <h2 className="text-lg font-bold text-white mb-2">No Archive Yet</h2>
+            <h2 className="text-lg font-medium text-white mb-2">No Archive Yet</h2>
             <p className="text-[#00d2ff] text-sm">Historical data will appear here after the first scan.</p>
           </div>
         ) : (
@@ -67,12 +67,12 @@ export default async function OptionsArchivePage() {
                 className="glass-card p-5 flex items-center justify-between hover:border-[#3b82f6]/40 border-2 border-transparent transition-all"
               >
                 <div>
-                  <div className="text-white font-bold">{formatDate(d)}</div>
+                  <div className="text-white font-medium">{formatDate(d)}</div>
                   <div className="text-[#00d2ff] text-xs font-mono mt-0.5">{d}</div>
                 </div>
                 <div className="flex items-center gap-2">
                   {i === 0 && (
-                    <span className="text-[10px] font-bold px-2 py-1 rounded bg-[#3b82f6]/20 text-[#3b82f6]">
+                    <span className="text-[10px] font-medium px-2 py-1 rounded bg-[#3b82f6]/20 text-[#3b82f6]">
                       LATEST
                     </span>
                   )}

@@ -109,7 +109,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
               </h2>
               <Link
                 href="/admin/trading/swing"
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-full text-[12px] font-bold text-[#3b82f6] hover:bg-[#3b82f6]/10 hover:border-[#3b82f6]/60 transition-all duration-200 uppercase tracking-wider"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#1e293b] border border-[#3b82f6]/30 rounded-full text-[12px] font-medium text-[#3b82f6] hover:bg-[#3b82f6]/10 hover:border-[#3b82f6]/60 transition-all duration-200 uppercase tracking-wider"
               >
                 <span>ALL LIST</span>
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -150,7 +150,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                   <div className={`${minimal ? 'text-3xl md:text-xl' : 'text-4xl md:text-2xl'} font-black text-white transition-colors tracking-tighter uppercase ${isLocked ? 'blur-[12px] opacity-40 select-none' : 'group-hover:text-[#3b82f6]'}`}>
                     {isLocked ? 'XXXX' : <TickerHoverChart ticker={item.ticker}>{item.ticker}</TickerHoverChart>}
                   </div>
-                  <div className={`text-xs md:text-[10px] font-bold text-[#00d2ff] tracking-wider mt-1 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
+                  <div className={`text-xs md:text-[10px] font-medium text-[#00d2ff] tracking-wider mt-1 line-clamp-1 ${isLocked ? 'blur-[6px] opacity-30 select-none' : ''}`}>
                     {isLocked 
                       ? (isProPick ? 'PRO ONLY' : 'LOGIN')
                       : item.company}
@@ -204,7 +204,7 @@ export default function TopSwingPicks({ picks, allTickers = [], minimal = false 
                           <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${row.dot}`} />
                           <span className="text-[9px] text-white font-black uppercase tracking-wider">{row.label}</span>
                         </div>
-                        <span className={`text-[12px] font-mono font-bold ${row.color}`}>
+                        <span className={`text-[12px] font-mono font-medium ${row.color}`}>
                           {row.val}
                         </span>
                       </div>

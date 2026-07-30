@@ -42,7 +42,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                 <div className="text-4xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter uppercase">
                   {item.ticker}
                 </div>
-                <div className="text-sm font-bold text-[#00d2ff] tracking-wider mt-1">
+                <div className="text-sm font-medium text-[#00d2ff] tracking-wider mt-1">
                    {stock?.company || item.ticker}
                 </div>
               </div>
@@ -82,7 +82,7 @@ export default function Top3Section({ master, allTickers }: Props) {
                            ? `${period.value >= 0 ? '+' : ''}${period.value.toFixed(1)}%`
                            : '—'}
                        </div>
-                       <div className="text-[12px] text-[#00d2ff] font-bold mt-2">{period.label}</div>
+                       <div className="text-[12px] text-[#00d2ff] font-medium mt-2">{period.label}</div>
                      </div>
                    ))}
                  </div>

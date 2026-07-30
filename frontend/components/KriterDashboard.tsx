@@ -18,7 +18,7 @@ export default function KriterDashboard({
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
       <div className="glass-card p-8 rounded-lg">
-        <h2 className="text-2xl font-bold text-white mb-4">Kriter Analiz Dashboard</h2>
+        <h2 className="text-2xl font-medium text-white mb-4">Kriter Analiz Dashboard</h2>
         <p className="text-gray-400">Son {reportDays?.length || 0} rapor gününde açılan trade'lerin teknik analizi</p>
 
         {reportDays && reportDays.length > 0 && (

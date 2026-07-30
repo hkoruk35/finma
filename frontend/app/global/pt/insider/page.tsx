@@ -20,7 +20,7 @@ export default function InsiderPage() {
     <main className="min-h-screen bg-slate-950 text-slate-100">
       <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-b border-slate-800 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight mb-2">{insiderT.title || "Atividade de Transações de Insiders"}</h1>
+          <h1 className="text-4xl font-medium tracking-tight mb-2">{insiderT.title || "Atividade de Transações de Insiders"}</h1>
           <p className="text-slate-400 text-lg">{insiderT.subtitle || "Apresentações do Formulário 4 da SEC - Últimos 90 Dias"}</p>
           <p className="text-slate-500 text-sm mt-4">
             Acompanhe as transações de executivos e insiders. Os dados são atualizados diariamente a partir da SEC EDGAR.

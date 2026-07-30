@@ -65,11 +65,11 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
           <div className="w-1.5 h-8 bg-[#3b82f6] rounded-full shadow-[0_0_12px_#3b82f6]"></div>
           <div>
             <h2 className="text-2xl font-black text-white tracking-tighter uppercase italic">{t.title}</h2>
-            <p className="text-xs text-white font-bold tracking-widest uppercase">{t.subtitle.replace('{n}', String(activeSectors.length))}</p>
+            <p className="text-xs text-white font-medium tracking-widest uppercase">{t.subtitle.replace('{n}', String(activeSectors.length))}</p>
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex gap-4 text-[10px] font-bold text-[#00d2ff]">
+          <div className="hidden sm:flex gap-4 text-[10px] font-medium text-[#00d2ff]">
             <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded bg-green-500"></div> {t.bullish}</div>
             <div className="flex items-center gap-1.5"><div className="w-2 h-2 rounded bg-red-500"></div> {t.bearish}</div>
           </div>
@@ -88,7 +88,7 @@ export default function SectorHeatMap({ data, allTickers, locale }: Props) {
                 <div className={`flex items-center justify-between p-3 h-full border-b border-[#1e2a3a] ${sectorStyles.bg} transition-all group-hover:brightness-125`}>
                   <div className="flex flex-col">
                     <span className="text-sm font-black text-white uppercase tracking-tighter leading-tight">{sectorLabel(sector)}</span>
-                    <span className="text-[10px] font-bold text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
+                    <span className="text-[10px] font-medium text-white/70 tracking-widest">{SECTOR_ETF[sector] || "SEC"}</span>
                   </div>
                   <div className="text-right">
                     <span className="text-base font-mono font-black text-white">{avgChange >= 0 ? "+" : ""}{avgChange.toFixed(2)}%</span>

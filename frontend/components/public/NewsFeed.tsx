@@ -123,7 +123,7 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
           itemScope
           itemType="https://schema.org/SocialMediaPosting"
         >
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-b border-white/5 pb-3">
+          <div className="flex items-center justify-between text-xs font-medium uppercase tracking-widest border-b border-white/5 pb-3">
             <span className="text-[#3b82f6] flex items-center gap-2">
               {post.ticker ?? "BOGASTOCK"}
               {post.sector ? <span className="text-slate-500 normal-case font-normal border-l border-slate-700 pl-2">{sectors[post.sector] ?? post.sector}</span> : null}
@@ -153,7 +153,7 @@ export default function NewsFeed({ posts, locale }: { posts: PublicPost[]; local
                   href={`https://x.com/bogastock/status/${post.tweet_id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#3b82f6] hover:text-[#58a6ff] transition-colors font-bold"
+                  className="text-[#3b82f6] hover:text-[#58a6ff] transition-colors font-medium"
                 >
                   {t.viewOnX}
                 </a>

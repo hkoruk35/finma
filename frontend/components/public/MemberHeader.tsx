@@ -108,7 +108,7 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
                           key={lang}
                           href={getLangHref(lang)}
                           onClick={() => setIsMobileLangOpen(false)}
-                          className={`block px-3 py-2 text-xs font-bold uppercase tracking-wider ${
+                          className={`block px-3 py-2 text-xs font-medium uppercase tracking-wider ${
                             isActive ? "bg-[#3b82f6] text-white" : "text-[#94a3b8] hover:bg-white/10 hover:text-white"
                           }`}
                         >

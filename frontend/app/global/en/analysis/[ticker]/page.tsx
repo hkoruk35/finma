@@ -32,7 +32,7 @@ export default function EnAnalysisPage() {
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
       <MemberHeader locale="en" />
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-4">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-4">
           <Link href="/global/en/home" className="hover:text-[#3b82f6] transition-colors">Dashboard</Link>
           <span className="opacity-30">/</span>
           <Link href="/global/en/swing" className="hover:text-[#3b82f6] transition-colors">Tracker</Link>

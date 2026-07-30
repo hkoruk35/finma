@@ -76,7 +76,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
           <h1 className="text-4xl font-black text-white tracking-tighter mb-2">
             BOGA<span className="text-[#3b82f6]">STOCK</span>
           </h1>
-          <p className="text-white/50 text-lg font-bold">{t.title}</p>
+          <p className="text-white/50 text-lg font-medium">{t.title}</p>
           {t.subtitle && <p className="text-white/30 text-xs mt-1">{t.subtitle}</p>}
         </div>
 
@@ -196,7 +196,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
             </div>
 
             {error && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-bold">
+              <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-medium">
                 {error}
               </div>
             )}
@@ -224,7 +224,7 @@ export default function RegisterForm({ locale }: { locale: Locale }) {
         <div className="mt-8 text-center">
           <p className="text-xs text-white/40">
             {t.haveAccount}{" "}
-            <Link href={loginHref} className="text-[#3b82f6] font-bold hover:underline">
+            <Link href={loginHref} className="text-[#3b82f6] font-medium hover:underline">
               {t.loginLink}
             </Link>
           </p>

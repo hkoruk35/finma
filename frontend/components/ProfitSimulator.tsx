@@ -58,17 +58,17 @@ const ProfitSimulator = () => {
             </div>
             <h2 className="text-2xl md:text-4xl font-black text-white mb-4 tracking-tighter">BOGA AI PROFIT POTENTIAL</h2>
             <p className="text-base md:text-lg text-white leading-relaxed">
-              Visualize your growth potential based on BOGA AI's historical <span className="text-white font-bold">93.7%</span> win rate and <span className="text-white font-bold">7.4%</span> average monthly returns per pick.
+              Visualize your growth potential based on BOGA AI's historical <span className="text-white font-medium">93.7%</span> win rate and <span className="text-white font-medium">7.4%</span> average monthly returns per pick.
             </p>
           </div>
 
           <div className="space-y-8 md:space-y-10">
             <div className="space-y-4 md:space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Initial Capital</label>
+                <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Initial Capital</label>
                 <div className="flex items-baseline gap-1">
                    <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">${capital.toLocaleString()}</span>
-                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-bold">USD</span>
+                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-medium">USD</span>
                 </div>
               </div>
               <input 
@@ -80,10 +80,10 @@ const ProfitSimulator = () => {
 
             <div className="space-y-4 md:space-y-5">
               <div className="flex justify-between items-end">
-                <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Signals Per Month</label>
+                <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Signals Per Month</label>
                 <div className="flex items-baseline gap-1">
                    <span className="text-2xl md:text-3xl font-mono font-black text-[#3b82f6]">{signalCount}</span>
-                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-bold">PICKS</span>
+                   <span className="text-[10px] md:text-[12px] text-[#00d2ff] uppercase font-medium">PICKS</span>
                 </div>
               </div>
               <input 
@@ -94,7 +94,7 @@ const ProfitSimulator = () => {
             </div>
 
             <div className="space-y-4 md:space-y-5">
-              <label className="text-[11px] md:text-[13px] font-bold text-white uppercase tracking-[0.2em]">Trading Aggression</label>
+              <label className="text-[11px] md:text-[13px] font-medium text-white uppercase tracking-[0.2em]">Trading Aggression</label>
               <div className="grid grid-cols-3 gap-3 md:gap-4">
                 {(['Low', 'Medium', 'Aggressive'] as const).map(profile => (
                   <button
@@ -118,19 +118,19 @@ const ProfitSimulator = () => {
         <div className="lg:w-1/2 bg-[#0d1117]/30 p-5 md:p-8 lg:p-12 flex flex-col gap-8 md:gap-10">
            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
               <div className="flex flex-col gap-1 md:gap-2">
-                 <p className="text-[11px] md:text-[13px] text-white font-bold uppercase tracking-widest">Est. Monthly Total</p>
+                 <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest">Est. Monthly Total</p>
                  <div className="flex items-baseline gap-2">
                     <p className="text-3xl md:text-4xl font-mono font-black text-white">${Math.floor(estimatedMonthly).toLocaleString()}</p>
-                    <span className={`text-sm md:text-base font-bold ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
+                    <span className={`text-sm md:text-base font-medium ${monthlyReturn >= 0 ? "text-[#22c55e]" : "text-[#ef4444]"}`}>
                        +{((estimatedMonthly/capital - 1)*100).toFixed(1)}%
                     </span>
                  </div>
               </div>
               <div className="flex flex-col gap-1 md:gap-2">
-                 <p className="text-[11px] md:text-[13px] text-white font-bold uppercase tracking-widest">Boga Performance</p>
+                 <p className="text-[11px] md:text-[13px] text-white font-medium uppercase tracking-widest">Boga Performance</p>
                  <div className="flex items-baseline gap-2">
                     <p className="text-3xl md:text-4xl font-mono font-black text-[#3b82f6]">+{alphaEdge}%</p>
-                    <span className="text-[11px] md:text-[12px] text-[#00d2ff] font-bold uppercase">vs S&P 500</span>
+                    <span className="text-[11px] md:text-[12px] text-[#00d2ff] font-medium uppercase">vs S&P 500</span>
                  </div>
               </div>
            </div>
@@ -175,10 +175,10 @@ const ProfitSimulator = () => {
               </div>
 
               <div className="flex justify-between items-center mt-6">
-                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase">Start</span>
-                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase hidden sm:inline">Quarter 1</span>
-                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase hidden sm:inline">Quarter 2</span>
-                 <span className="text-[10px] font-bold text-[#00d2ff] uppercase">Target</span>
+                 <span className="text-[10px] font-medium text-[#00d2ff] uppercase">Start</span>
+                 <span className="text-[10px] font-medium text-[#00d2ff] uppercase hidden sm:inline">Quarter 1</span>
+                 <span className="text-[10px] font-medium text-[#00d2ff] uppercase hidden sm:inline">Quarter 2</span>
+                 <span className="text-[10px] font-medium text-[#00d2ff] uppercase">Target</span>
               </div>
            </div>
 

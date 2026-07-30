@@ -62,13 +62,13 @@ export default function StockDetailPage() {
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3b82f6] mx-auto mb-4" />
-              <p className="text-[#00d2ff] font-bold">Yükleniyor...</p>
+              <p className="text-[#00d2ff] font-medium">Yükleniyor...</p>
             </div>
           </div>
         ) : error ? (
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="text-center">
-              <p className="text-[#ef4444] font-bold">{error}</p>
+              <p className="text-[#ef4444] font-medium">{error}</p>
             </div>
           </div>
         ) : (

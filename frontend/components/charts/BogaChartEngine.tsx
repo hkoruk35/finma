@@ -1129,7 +1129,7 @@ export default function BogaChartEngine({
         key={key}
         onClick={() => toggle(key)}
         title={locked ? t.premiumRequired : undefined}
-        className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+        className={`px-2 py-0.5 rounded text-[9px] font-medium border transition-all ${
           locked
             ? "border-[#1e2a3a] text-[#64748b]/60 hover:text-amber-400 hover:border-amber-500/40"
             : active.has(key)
@@ -1177,20 +1177,20 @@ export default function BogaChartEngine({
       {shareOpen && (
         <div className="absolute right-0 mt-1 w-40 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-30">
           <a href={shareLinks.x} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             X (Twitter)
           </a>
           <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             WhatsApp
           </a>
           <a href={shareLinks.telegram} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             Telegram
           </a>
           <button
             onClick={handleCopyLink}
-            className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
+            className="block w-full text-left px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
           >
             {copied ? t.linkCopied : t.copyLink}
           </button>
@@ -1227,7 +1227,7 @@ export default function BogaChartEngine({
                   <button
                     key={key}
                     onClick={() => toggle(key)}
-                    className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+                    className={`px-2 py-0.5 rounded text-[9px] font-medium border transition-all ${
                       active.has(key)
                         ? "bg-[#3b82f6]/20 border-[#3b82f6]/50 text-[#3b82f6]"
                         : "border-[#1e2a3a] text-[#64748b] hover:text-white"
@@ -1254,28 +1254,28 @@ export default function BogaChartEngine({
                   <div className="absolute left-0 mt-1 w-72 max-h-[60vh] overflow-y-auto rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl z-50 p-2 scrollbar-thin scrollbar-thumb-[#1e2a3a] scrollbar-track-transparent">
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-1 px-2 uppercase tracking-widest">{t.catTrend || "Trend"}</div>
                     {(["ema9", "ema20", "ema50", "ema200", "sma", "supertrend", "macd"] as IndicatorKey[]).map(k => (
-                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "supertrend" ? "Supertrend" : k.toUpperCase())}</button>
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "supertrend" ? "Supertrend" : k.toUpperCase())}</button>
                     ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catMomentum || "Momentum"}</div>
                     {(["rsi", "volatilite", "bb", "atr"] as IndicatorKey[]).map(k => (
-                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volatilite" ? "Volatilite" : k === "bb" ? "Bollinger Bands" : k.toUpperCase())}</button>
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volatilite" ? "Volatilite" : k === "bb" ? "Bollinger Bands" : k.toUpperCase())}</button>
                     ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catVolume || "Hacim"}</div>
                     {(["volume", "vwap", "obv", "volumeProfile"] as IndicatorKey[]).map(k => (
-                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volume" ? "Volume" : k === "volumeProfile" ? "Volume Profile" : k.toUpperCase())}</button>
+                      <button key={k} onClick={() => toggle(k)} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has(k) ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t[k] || (k === "volume" ? "Volume" : k === "volumeProfile" ? "Volume Profile" : k.toUpperCase())}</button>
                     ))}
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catStructure || "Piyasa Yapısı"}</div>
-                    <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
-                    <button onClick={() => toggle("sd")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("sd") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sd || "Supply & Demand Zones"}</button>
-                    <button onClick={() => toggle("fvg")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("fvg") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fvg || "Fair Value Gap (FVG)"}</button>
+                    <button onClick={() => toggle("sr")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sr") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sr || "Support & Resistance"}</button>
+                    <button onClick={() => toggle("sd")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("sd") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.sd || "Supply & Demand Zones"}</button>
+                    <button onClick={() => toggle("fvg")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fvg") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fvg || "Fair Value Gap (FVG)"}</button>
                     
                     <div className="text-[9px] font-black text-slate-500 mb-1 mt-3 px-2 uppercase tracking-widest">{t.catDrawings || "Çizim Araçları"}</div>
-                    <button onClick={() => toggle("trendLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("trendLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.trendLine || "Trend Line"}</button>
-                    <button onClick={() => toggle("horizontalLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("horizontalLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.horizontalLine || "Horizontal Line"}</button>
-                    <button onClick={() => toggle("fibonacci")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-bold rounded transition-colors ${active.has("fibonacci") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fibonacci || "Fibonacci Retracement"}</button>
+                    <button onClick={() => toggle("trendLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("trendLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.trendLine || "Trend Line"}</button>
+                    <button onClick={() => toggle("horizontalLine")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("horizontalLine") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.horizontalLine || "Horizontal Line"}</button>
+                    <button onClick={() => toggle("fibonacci")} className={`block w-full text-left px-2 py-1.5 text-[11px] font-medium rounded transition-colors ${active.has("fibonacci") ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"}`}>{t.fibonacci || "Fibonacci Retracement"}</button>
                   </div>
                 )}
               </div>
@@ -1314,7 +1314,7 @@ export default function BogaChartEngine({
                               if (numLocked) { setShowPremiumModal(true); return; }
                               openMultiChart(num);
                             }}
-                            className={`block w-full text-center px-3 py-2 text-[11px] font-bold hover:bg-[#1e2a3a] ${
+                            className={`block w-full text-center px-3 py-2 text-[11px] font-medium hover:bg-[#1e2a3a] ${
                               numLocked ? "text-slate-500 hover:text-amber-400" : "text-slate-300 hover:text-white"
                             }`}
                           >
@@ -1378,7 +1378,7 @@ export default function BogaChartEngine({
                           setCandleType(ct);
                           setMobileCandleMenuOpen(false);
                         }}
-                        className={`block w-full text-left px-3 py-2 text-[11px] font-bold whitespace-nowrap ${
+                        className={`block w-full text-left px-3 py-2 text-[11px] font-medium whitespace-nowrap ${
                           candleType === ct ? "bg-[#3b82f6]/20 text-[#3b82f6]" : "text-slate-300 hover:bg-[#1e2a3a] hover:text-white"
                         }`}
                       >
@@ -1464,7 +1464,7 @@ export default function BogaChartEngine({
             // Mobilde ise ekranı kalabalıklaştırmasın diye SADECE kullanıcı
             // grafiğe dokunup crosshair'i aktif ettiğinde görünür.
             <div
-              className={`absolute top-2 left-2 z-10 ${crosshairActive ? "flex" : "hidden"} md:flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-bold pointer-events-none`}
+              className={`absolute top-2 left-2 z-10 ${crosshairActive ? "flex" : "hidden"} md:flex flex-wrap items-center gap-x-2 gap-y-0.5 px-2 py-1 rounded bg-[#0a0e17]/70 text-[10px] font-medium pointer-events-none`}
             >
               <span className="text-slate-400">O <span className="text-white">{fmt(hoverBar?.open)}</span></span>
               <span className="text-slate-400">H <span className="text-white">{fmt(hoverBar?.high)}</span></span>
@@ -1615,7 +1615,7 @@ function MultiChartTickerInput({ value, onChange }: { value: string; onChange: (
       onKeyDown={(e) => {
         if (e.key === "Enter") (e.target as HTMLInputElement).blur();
       }}
-      className="w-full px-2 py-1 text-[11px] font-bold text-center bg-[#141924] border-b border-[#1e2a3a] text-[#00d2ff] focus:outline-none focus:text-white"
+      className="w-full px-2 py-1 text-[11px] font-medium text-center bg-[#141924] border-b border-[#1e2a3a] text-[#00d2ff] focus:outline-none focus:text-white"
     />
   );
 }

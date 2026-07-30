@@ -48,7 +48,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
   };
 
   const tabClass = (active: boolean) =>
-    `pb-1 text-sm font-bold transition-colors border-b-2 ${
+    `pb-1 text-sm font-medium transition-colors border-b-2 ${
       active ? "text-[#3b82f6] border-[#3b82f6]" : "text-[#64748b] border-transparent hover:text-white"
     }`;
 

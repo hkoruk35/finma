@@ -57,7 +57,7 @@ export function ScreenshotBanner({ lang }: { lang: string }) {
             <div className="text-white font-black text-lg leading-tight">{shots[active].label}</div>
             <div className="text-white/60 text-xs mt-1">{shots[active].desc}</div>
           </div>
-          <div className="flex items-center gap-1.5 bg-black/50 border border-white/10 rounded-full px-3 py-1.5 text-white/50 text-[10px] font-bold">
+          <div className="flex items-center gap-1.5 bg-black/50 border border-white/10 rounded-full px-3 py-1.5 text-white/50 text-[10px] font-medium">
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
             </svg>
@@ -125,7 +125,7 @@ export function JpmPreview({ lang }: { lang: string }) {
             <img src={img.src} alt={img.label} className="w-full h-28 object-cover object-top group-hover:scale-105 transition-transform duration-500" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
             <div className="absolute bottom-1 left-2 right-2">
-              <div className="text-white/80 text-[9px] font-bold leading-tight">{img.label}</div>
+              <div className="text-white/80 text-[9px] font-medium leading-tight">{img.label}</div>
             </div>
           </div>
         ))}

@@ -119,7 +119,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
         {picks.length === 0 ? (
           <div className="glass-card p-12 text-center">
             <div className="text-5xl mb-4">🦅</div>
-            <h2 className="text-xl font-bold text-white mb-2">No Data Yet</h2>
+            <h2 className="text-xl font-medium text-white mb-2">No Data Yet</h2>
             <p className="text-white text-sm">The Atmaca bot runs at 13:00 NY time on weekdays. Check back after the scan.</p>
           </div>
         ) : (
@@ -170,12 +170,12 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                         <span className="text-white/50 text-[11px] font-mono">{pick.sector || "—"}</span>
                       </td>
                       <td className="px-3 py-3 text-right">
-                        <span className="text-white font-mono font-bold text-[15px]">${formatPrice(pick.current_price)}</span>
+                        <span className="text-white font-mono font-medium text-[15px]">${formatPrice(pick.current_price)}</span>
                       </td>
                       <td className="px-3 py-3 text-right text-white/70 font-mono text-[13px]">
                         ${formatPrice(pick.buy_zone.low)}–${formatPrice(pick.buy_zone.high)}
                       </td>
-                      <td className="px-3 py-3 text-right text-[#10b981] font-mono font-bold text-[13px]">
+                      <td className="px-3 py-3 text-right text-[#10b981] font-mono font-medium text-[13px]">
                         ${formatPrice(pick.profit_zone.low)}–${formatPrice(pick.profit_zone.high)}
                       </td>
                       <td className="px-3 py-3 text-right text-[#ef4444] font-mono text-[13px]">
@@ -190,7 +190,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                       ].map((perf) => (
                         <td key={perf.field} className="px-3 py-3 text-right">
                           {pick[perf.field] != null ? (
-                            <span className={`font-mono text-[13px] font-bold ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
+                            <span className={`font-mono text-[13px] font-medium ${pick[perf.field] >= 0 ? "text-[#10b981]" : "text-[#ef4444]"}`}>
                               {pick[perf.field] >= 0 ? "+" : ""}{pick[perf.field].toFixed(1)}%
                             </span>
                           ) : <span className="text-white/20 text-[13px] font-mono">—</span>}
@@ -231,7 +231,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                   <div className="flex items-start justify-between mb-5">
                     <Link href={`/stock/${pick.ticker}`} className="group flex-1">
                       <TickerHoverChart ticker={pick.ticker}><div className="text-white font-black text-3xl tracking-tighter uppercase mb-0.5 group-hover:text-[#3b82f6] transition-colors">{pick.ticker}</div></TickerHoverChart>
-                      <div className="text-[#00d2ff] text-xs font-bold uppercase tracking-wider opacity-80">{pick.company}</div>
+                      <div className="text-[#00d2ff] text-xs font-medium uppercase tracking-wider opacity-80">{pick.company}</div>
                     </Link>
                     <div className="scale-125 origin-right">
                        <ScoreBadge score={pick.score} />
@@ -242,7 +242,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                   <div className="grid grid-cols-3 divide-x divide-white/10 border border-white/10 rounded-xl bg-black/20 overflow-hidden mb-5">
                     <div className="py-3 px-2 text-center">
                       <div className="text-[9px] text-[#00d2ff] font-black uppercase tracking-widest mb-1.5 opacity-60">BUY ZONE</div>
-                      <div className="text-white font-mono text-[13px] font-bold">${formatPrice(pick.buy_zone.low)}</div>
+                      <div className="text-white font-mono text-[13px] font-medium">${formatPrice(pick.buy_zone.low)}</div>
                     </div>
                     <div className="py-3 px-2 text-center bg-white/5">
                       <div className="text-[9px] text-[#10b981] font-black uppercase tracking-widest mb-1.5 opacity-60">TARGET</div>
@@ -250,12 +250,12 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                     </div>
                     <div className="py-3 px-2 text-center">
                       <div className="text-[9px] text-[#ef4444] font-black uppercase tracking-widest mb-1.5 opacity-60">STOP LOSS</div>
-                      <div className="text-[#ef4444] font-mono text-[13px] font-bold">${formatPrice(pick.stop_zone.low)}</div>
+                      <div className="text-[#ef4444] font-mono text-[13px] font-medium">${formatPrice(pick.stop_zone.low)}</div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-3 text-[12px] font-bold text-[#00d2ff] overflow-hidden">
+                    <div className="flex items-center gap-3 text-[12px] font-medium text-[#00d2ff] overflow-hidden">
                       {[
                         { label: "1D", val: pick.change_1d },
                         { label: "1W", val: pick.change_1w },
@@ -351,13 +351,13 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                               <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
                             </td>
                             <td className="px-3 py-2.5 text-right">
-                              <span className="text-[#a78bfa] font-bold text-xs">{op.grade ?? "—"}</span>
+                              <span className="text-[#a78bfa] font-medium text-xs">{op.grade ?? "—"}</span>
                             </td>
                             <td className="px-3 py-2.5 text-right text-white font-mono text-[13px] font-semibold">${formatPrice(op.current_price)}</td>
                             <td className="px-3 py-2.5 text-right text-white font-mono text-[11px]">{best.strike ? `$${best.strike}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#a78bfa] font-mono text-[11px]">{best.expiration ?? "—"}</td>
                             <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.dte ?? "—"}d</td>
-                            <td className="px-3 py-2.5 text-right text-[#f59e0b] font-mono text-[11px] font-bold">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</td>
+                            <td className="px-3 py-2.5 text-right text-[#f59e0b] font-mono text-[11px] font-medium">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#10b981] font-mono text-[11px] font-semibold">{best.tp_price ? `$${formatPrice(best.tp_price)}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-[#ef4444] font-mono text-[11px]">{best.sl_price ? `$${formatPrice(best.sl_price)}` : "—"}</td>
                             <td className="px-3 py-2.5 text-right text-white text-[11px]">{best.delta != null ? best.delta.toFixed(2) : "—"}</td>
@@ -382,7 +382,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                             <div className="text-white font-black text-2xl tracking-tighter">{op.ticker}</div>
                           </Link>
                           <div className="flex items-center gap-2">
-                            <span className="text-[#a78bfa] font-bold text-sm">{op.grade ?? ""}</span>
+                            <span className="text-[#a78bfa] font-medium text-sm">{op.grade ?? ""}</span>
                             <span className="bg-gradient-to-r from-[#8b5cf6] to-[#6366f1] text-white text-xs font-black px-3 py-1 rounded-full">{op.score?.toFixed(1)}</span>
                           </div>
                         </div>
@@ -394,7 +394,7 @@ export default async function SwingPicksPage({ searchParams }: { searchParams: P
                           </div>
                           <div className="bg-white/5 rounded-lg p-3">
                             <div className="text-[#f59e0b] font-black uppercase tracking-widest text-[9px] mb-1">Premium</div>
-                            <div className="text-[#f59e0b] font-mono font-bold">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</div>
+                            <div className="text-[#f59e0b] font-mono font-medium">{best.mid != null ? `$${best.mid.toFixed(2)}` : "—"}</div>
                             <div className="text-white/60">{best.cost_per_contract != null ? `$${best.cost_per_contract.toFixed(0)}/contract` : ""}</div>
                           </div>
                           <div className="bg-white/5 rounded-lg p-3">

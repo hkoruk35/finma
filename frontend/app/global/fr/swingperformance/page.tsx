@@ -23,7 +23,7 @@ export default async function FrSwingPerformancePage() {
 
   if (!performanceData) {
     return (
-      <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">
+      <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-medium text-xl uppercase animate-pulse">
         Chargement des données de performance...
       </div>
     );
@@ -42,7 +42,7 @@ export default async function FrSwingPerformancePage() {
       <MemberHeader locale="fr" />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
           <Link href="/global/fr/watchlist" className="hover:text-[#3b82f6] transition-colors">Watchlist</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Performance Actions Tendance — Derniers 10 Jours</span>

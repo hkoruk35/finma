@@ -110,7 +110,7 @@ export default function TickerSearchBox({ locale = "en", onSelect, compact }: { 
                 i === activeIndex ? "bg-[#3b82f6]/15" : "hover:bg-white/5"
               }`}
             >
-              <span className="font-bold text-white shrink-0">{s.ticker}</span>
+              <span className="font-medium text-white shrink-0">{s.ticker}</span>
               <span className="text-slate-400 text-xs truncate min-w-0">{s.company}</span>
             </button>
           ))}

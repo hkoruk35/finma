@@ -36,7 +36,7 @@ export default async function FrNewsPage() {
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-16">
         <div className="text-center mb-12">
-          <p className="text-xs font-bold text-[#3b82f6] uppercase tracking-[0.3em] mb-4">@bogastock sur X</p>
+          <p className="text-xs font-medium text-[#3b82f6] uppercase tracking-[0.3em] mb-4">@bogastock sur X</p>
           <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight">Actualités & Analyse IA</h1>
           <p className="text-slate-400 max-w-xl mx-auto">
             Un flux public de chaque analyse boursière générée par IA que BOGA AI a publiée en français.

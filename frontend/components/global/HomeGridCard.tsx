@@ -71,7 +71,7 @@ export default function HomeSimpleCard({
             <ShareButton locale={locale} shareText={`${title} — BOGA AI`} url={`https://bogastock.com${viewAllHref}`} accent={accent} />
             <Link
               href={viewAllHref}
-              className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
+              className="inline-flex items-center gap-1 px-3 py-1 bg-[#1e293b] border rounded-full text-[10px] font-medium uppercase tracking-wider transition-all duration-200 hover:bg-white/5"
               style={{ color: accent, borderColor: `${accent}4d` }}
             >
               {allLabel}
@@ -85,7 +85,7 @@ export default function HomeSimpleCard({
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[11px] font-bold uppercase tracking-[0.5px] text-white/60`}>
+            <div className={`grid ${ROW_COLS} gap-2 px-5 py-2 border-b border-[#1e2a3a] text-[11px] font-medium uppercase tracking-[0.5px] text-white/60`}>
               <span>{locale === 'tr' ? 'HİSSE / SEKTÖR' : locale === 'pt' ? 'AÇÃO / SETOR' : 'STOCK / SECTOR'}</span>
               <span />
               <span className="text-center">{locale === 'tr' ? 'DURUM' : locale === 'pt' ? 'STATUS' : 'STATUS'}</span>
@@ -113,7 +113,7 @@ export default function HomeSimpleCard({
                     onClick={handleRowClick}
                   >
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-[10px] font-mono font-bold text-white/50 w-3">{idx + 1}</span>
+                      <span className="text-[10px] font-mono font-medium text-white/50 w-3">{idx + 1}</span>
                       <div className="min-w-0">
                         {isRowLocked ? (
                           <>
@@ -141,7 +141,7 @@ export default function HomeSimpleCard({
                     </div>
 
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
                       style={{ background: `${statusStyle.color}26`, color: statusStyle.color }}
                     >
                       {statusLabel}

@@ -58,7 +58,7 @@ export default function IndexCards({ data }: { data: MasterData }) {
                     </svg>
                   )}
                </div>
-               <span className="text-[6px] sm:text-[7px] lg:text-[10px] font-bold text-[#00d2ff] uppercase tracking-[0.05em] lg:tracking-widest bg-[#141924] px-1 sm:px-1.5 lg:px-2 py-0.25 sm:py-0.5 lg:py-1 rounded-md border border-[#1e2a3a] whitespace-nowrap">
+               <span className="text-[6px] sm:text-[7px] lg:text-[10px] font-medium text-[#00d2ff] uppercase tracking-[0.05em] lg:tracking-widest bg-[#141924] px-1 sm:px-1.5 lg:px-2 py-0.25 sm:py-0.5 lg:py-1 rounded-md border border-[#1e2a3a] whitespace-nowrap">
                  {idx.change_pct >= 0 ? 'UP' : 'DN'}
                </span>
             </div>

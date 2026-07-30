@@ -77,7 +77,7 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             <div className="flex items-center justify-between mb-5">
               <div>
                 <div className="text-white font-black text-xl tracking-tighter">{pick.ticker}</div>
-                <div className="text-[#00d2ff] text-xs font-bold">{pick.company}</div>
+                <div className="text-[#00d2ff] text-xs font-medium">{pick.company}</div>
               </div>
               <button
                 onClick={() => setShowModal(false)}
@@ -93,15 +93,15 @@ export default function AddToTrackerButton({ pick, compact = false, mobileFull =
             <div className="grid grid-cols-3 gap-2 mb-5 bg-[#141924] rounded-xl p-3">
               <div className="text-center">
                 <div className="text-[9px] text-[#3b82f6] font-black uppercase mb-0.5">Buy Zone</div>
-                <div className="text-white text-[11px] font-mono font-bold">${pick.buy_zone.low.toFixed(2)}</div>
+                <div className="text-white text-[11px] font-mono font-medium">${pick.buy_zone.low.toFixed(2)}</div>
               </div>
               <div className="text-center">
                 <div className="text-[9px] text-[#10b981] font-black uppercase mb-0.5">Target</div>
-                <div className="text-[#10b981] text-[11px] font-mono font-bold">${pick.profit_zone.high.toFixed(2)}</div>
+                <div className="text-[#10b981] text-[11px] font-mono font-medium">${pick.profit_zone.high.toFixed(2)}</div>
               </div>
               <div className="text-center">
                 <div className="text-[9px] text-[#ef4444] font-black uppercase mb-0.5">Stop</div>
-                <div className="text-[#ef4444] text-[11px] font-mono font-bold">${pick.stop_zone.low.toFixed(2)}</div>
+                <div className="text-[#ef4444] text-[11px] font-mono font-medium">${pick.stop_zone.low.toFixed(2)}</div>
               </div>
             </div>
 

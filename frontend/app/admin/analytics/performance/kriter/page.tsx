@@ -27,7 +27,7 @@ export default async function KriterPage() {
 
   if (!perfData?.history) {
     return (
-      <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-bold text-xl uppercase animate-pulse">
+      <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-medium text-xl uppercase animate-pulse">
         Veri Yükleniyor...
       </div>
     );

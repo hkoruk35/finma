@@ -148,7 +148,7 @@ export default async function OptionsArchiveDatePage({
           ].map((m) => (
             <div key={m.label} className="glass-card p-3 text-center">
               <div className="text-[10px] text-[#00d2ff] uppercase mb-1">{m.label}</div>
-              <div className={`font-mono font-bold text-lg ${m.cls}`}>{m.val}</div>
+              <div className={`font-mono font-medium text-lg ${m.cls}`}>{m.val}</div>
             </div>
           ))}
         </div>

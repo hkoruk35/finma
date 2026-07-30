@@ -182,7 +182,7 @@ export default function HotThemes2026Section() {
                 .map((s) => (
                   <span
                     key={s.ticker}
-                    className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-black/30 text-slate-300 group relative cursor-pointer hover:bg-black/50 transition-colors"
+                    className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-black/30 text-slate-300 group relative cursor-pointer hover:bg-black/50 transition-colors"
                   >
                     {s.ticker}
                     {mounted && (

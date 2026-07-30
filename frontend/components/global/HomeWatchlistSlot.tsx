@@ -188,13 +188,13 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
             <div className="min-w-0">
               <h3 className={`${compactMode ? 'text-xs' : 'text-sm'} font-black text-white uppercase tracking-tight truncate`}>{title}</h3>
               {usePersonal && (
-                <span className="text-[9px] font-bold text-[#a78bfa] uppercase tracking-wider opacity-70 block truncate">
+                <span className="text-[9px] font-medium text-[#a78bfa] uppercase tracking-wider opacity-70 block truncate">
                   {locale === 'tr' ? '★ Kişisel' : locale === 'pt' ? '★ Pessoal' : locale === 'es' ? '★ Personal' : locale === 'fr' ? '★ Personnelle' : '★ Personal'}
                 </span>
               )}
             </div>
             {compactMode && (
-              <div className="pointer-events-none absolute left-0 top-full mt-1.5 z-20 hidden group-hover:block whitespace-nowrap rounded-md bg-[#1e293b] border border-[#a78bfa]/40 px-2 py-1 text-[10px] font-bold text-[#a78bfa] shadow-lg">
+              <div className="pointer-events-none absolute left-0 top-full mt-1.5 z-20 hidden group-hover:block whitespace-nowrap rounded-md bg-[#1e293b] border border-[#a78bfa]/40 px-2 py-1 text-[10px] font-medium text-[#a78bfa] shadow-lg">
                 {labels.customizeTooltip}
               </div>
             )}
@@ -202,7 +202,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
           <div className="flex items-center gap-2 shrink-0">
             <Link
               href={viewAllHref}
-              className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-bold uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
+              className={`inline-flex items-center gap-1 ${compactMode ? 'px-2 py-0.5 text-[9px]' : 'px-3 py-1 text-[10px]'} bg-[#1e293b] border rounded-full font-medium uppercase tracking-wider transition-all duration-200 hover:bg-white/5`}
               style={{ color: accent, borderColor: `${accent}4d` }}
             >
               {locale === 'tr' ? 'TÜMÜ' : locale === 'pt' ? 'TODOS' : locale === 'es' ? 'TODO' : locale === 'fr' ? 'TOUT' : 'ALL'}
@@ -216,7 +216,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
         {stocks.length > 0 ? (
           <>
             {/* Column labels */}
-            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-bold uppercase tracking-[0.5px] text-slate-500`}>
+            <div className={`grid ${compactMode ? 'grid-cols-[1fr_40px_48px_60px]' : 'grid-cols-[1fr_56px_64px_72px]'} gap-2 ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
               <div className="flex items-center gap-2">
                 {selectable && <span className="w-3.5 shrink-0" />}
                 <span>{labels.stock}</span>
@@ -254,7 +254,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                           />
                         </div>
                       )}
-                      <span className="text-[10px] font-mono font-bold text-slate-500 w-3 shrink-0">{idx + 1}</span>
+                      <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                       <div className="min-w-0 flex-1">
                         {isRowLocked ? (
                           <>
@@ -285,7 +285,7 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
                     </div>
 
                     <span
-                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap"
+                      className="justify-self-center px-1.5 py-0.5 rounded text-[9px] font-medium uppercase whitespace-nowrap"
                       style={{ background: `${STATUS_STYLE[stock.status].color}26`, color: STATUS_STYLE[stock.status].color }}
                     >
                       {statusLabel(stock.status, locale)}

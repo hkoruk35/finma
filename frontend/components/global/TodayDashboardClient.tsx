@@ -706,7 +706,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
 
         {/* Standard Footer Copyright */}
         <div className="text-center mt-12 pt-4 border-t border-[#1e2a3a]/40 opacity-60">
-          <p className="text-[9px] font-sans font-normal text-[#475569] tracking-widest uppercase">
+          <p className="text-[9px] font-sans font-normal text-slate-500/60">
             {locale === "tr" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Tüm Hakları Saklıdır." :
              locale === "en" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS All Rights Reserved." :
              locale === "es" ? "© Blue One Global Analysis. 2021- 2026 BogaSmart - Powered by AFK DaSYS Todos los Derechos Reservados." :

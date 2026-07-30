@@ -239,7 +239,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       
       {/* Mobile Hamburger Header */}
       <div className="md:hidden flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] bg-[#0a0e17]">
-        <span className="text-white font-bold">{selectedTicker} Chart</span>
+        <span className="text-white font-medium">{selectedTicker} Chart</span>
         <button 
           onClick={() => setShowMobileSidebar(!showMobileSidebar)}
           className="p-2 bg-[#141924] border border-[#1e2a3a] rounded-lg text-white"
@@ -270,7 +270,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           <div className="md:py-4">
             {groups.map(group => (
               <div key={group.group} className="mb-6">
-                <h3 className="px-3 mb-2 text-xs font-bold text-slate-500 uppercase tracking-widest">{group.group}</h3>
+                <h3 className="px-3 mb-2 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
                 <div className="flex flex-col">
                   {group.items.map(item => {
                     const price = prices[item.ySymbol];
@@ -333,7 +333,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                   {showLeftSidebar ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /> : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />}
                 </svg>
               </button>
-              <div className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
+              <div className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
                 <span>{dashboardLabel}</span>
                 <span className="opacity-30">/</span>
                 <span className="text-white italic">{selectedTicker}</span>
@@ -422,12 +422,12 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
           {compareSelection.length > 0 && (
             <div className="mb-2 shrink-0 rounded-lg border border-[#3b82f6]/40 bg-[#3b82f6]/10 px-2.5 py-2 flex items-center gap-2 flex-wrap">
-              <span className="text-[9px] font-bold text-[#3b82f6] uppercase tracking-wider shrink-0">
+              <span className="text-[9px] font-medium text-[#3b82f6] uppercase tracking-wider shrink-0">
                 {compareLabel} ({compareSelection.length}{!isPremium ? `/${FREE_COMPARE_LIMIT}` : ""})
               </span>
               <div className="flex items-center gap-1 flex-wrap flex-1 min-w-0">
                 {compareSelection.map((tkr) => (
-                  <span key={tkr} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-bold text-white">
+                  <span key={tkr} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#141924] border border-[#1e2a3a] text-[9px] font-medium text-white">
                     {tkr}
                     <button onClick={() => toggleCompare(tkr)} className="text-slate-500 hover:text-white leading-none">×</button>
                   </span>

@@ -43,7 +43,7 @@ export default function ContactPage() {
       <MemberHeader locale="en" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-6 py-12 md:py-16">
-        <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-6">
+        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-6">
           <Link href="/global/en/home" className="hover:text-[#3b82f6] transition-colors">Dashboard</Link>
           <span className="opacity-30">/</span>
           <span className="text-white italic">Contact Support</span>
@@ -66,11 +66,11 @@ export default function ContactPage() {
                       <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
                    </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Premium Feature</h2>
+                <h2 className="text-2xl font-medium text-white mb-2">Premium Feature</h2>
                 <p className="text-slate-400 mb-8">Direct support is available to Premium members. Upgrade your account to send us a message.</p>
                 <Link
                   href="/global/en/register"
-                  className="inline-block px-6 py-3 bg-[#3b82f6] text-white rounded-lg font-bold hover:bg-[#2563eb] transition-colors uppercase tracking-wider text-sm"
+                  className="inline-block px-6 py-3 bg-[#3b82f6] text-white rounded-lg font-medium hover:bg-[#2563eb] transition-colors uppercase tracking-wider text-sm"
                 >
                   Become a Premium Member
                 </Link>
@@ -82,11 +82,11 @@ export default function ContactPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                    </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-2">Message Sent!</h2>
+                <h2 className="text-2xl font-medium text-white mb-2">Message Sent!</h2>
                 <p className="text-slate-400 mb-8">We've received your inquiry and will get back to you within 24 hours.</p>
                 <button 
                   onClick={() => setStatus("idle")}
-                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-bold hover:bg-[#252f40] transition-colors border border-[#30363d]"
+                  className="px-6 py-2 bg-[#1e2a3a] text-white rounded-lg font-medium hover:bg-[#252f40] transition-colors border border-[#30363d]"
                 >
                   Send Another
                 </button>
@@ -95,7 +95,7 @@ export default function ContactPage() {
              <form onSubmit={handleSubmit} className="glass-card p-8 space-y-6 border border-[#1e2a3a] bg-[#141924]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Your Name</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Your Name</label>
                       <input 
                         type="text" 
                         required 
@@ -106,7 +106,7 @@ export default function ContactPage() {
                       />
                    </div>
                    <div>
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Email Address</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Email Address</label>
                       <input 
                         type="email" 
                         required 
@@ -118,7 +118,7 @@ export default function ContactPage() {
                    </div>
                 </div>
                 <div>
-                   <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest mb-2">Subject</label>
+                   <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest mb-2">Subject</label>
                    <select 
                      value={formState.subject}
                      onChange={(e) => setFormState({...formState, subject: e.target.value})}
@@ -133,7 +133,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                    <div className="flex justify-between items-center mb-2">
-                      <label className="block text-[10px] font-bold text-[#8b949e] uppercase tracking-widest">Message</label>
+                      <label className="block text-[10px] font-medium text-[#8b949e] uppercase tracking-widest">Message</label>
                       <span className={`text-[10px] font-mono ${formState.message.length > 900 ? 'text-[#ef4444]' : 'text-[#58a6ff]'}`}>
                          {formState.message.length}/1000
                       </span>
@@ -152,11 +152,11 @@ export default function ContactPage() {
                 <button 
                   type="submit" 
                   disabled={status === "loading"}
-                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-bold text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
+                  className="w-full py-4 bg-[#3b82f6] text-white rounded-lg font-medium text-sm hover:bg-[#2563eb] transition-all shadow-[0_0_15px_rgba(59,130,246,0.3)] disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider"
                 >
                    {status === "loading" ? "Sending..." : "Send Message"}
                 </button>
-                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-bold">Failed to send. Please try again.</p>}
+                {status === "error" && <p className="text-xs text-[#ef4444] text-center font-medium">Failed to send. Please try again.</p>}
              </form>
            )}
         </div>

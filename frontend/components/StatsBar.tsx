@@ -15,7 +15,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
       {/* Stocks Analyzed */}
       <div className="glass-card p-4 text-center">
-        <div className="text-3xl font-bold font-mono text-[#3b82f6]">
+        <div className="text-3xl font-medium font-mono text-[#3b82f6]">
           {data.total_tickers_scanned >= 500
             ? `+${Math.floor(data.total_tickers_scanned / 100) * 100}`
             : data.total_tickers_scanned}
@@ -27,7 +27,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
 
       {/* Top Picks */}
       <div className="glass-card p-4 text-center">
-        <div className="text-3xl font-bold font-mono text-[#f1f5f9]">
+        <div className="text-3xl font-medium font-mono text-[#f1f5f9]">
           {data.menus?.top_scores?.count ?? data.total_tickers_scanned}
         </div>
         <div className="text-xs text-white uppercase tracking-wider mt-1">
@@ -37,7 +37,7 @@ export default function StatsBar({ data }: { data: MasterData }) {
 
       {/* Market Regime */}
       <div className="glass-card p-4 text-center">
-        <div className={`text-3xl font-bold ${
+        <div className={`text-3xl font-medium ${
           data.market_regime === "Bull" ? "text-[#22c55e]" :
           data.market_regime === "Bear" ? "text-[#ef4444]" : "text-[#f59e0b]"
         }`}>

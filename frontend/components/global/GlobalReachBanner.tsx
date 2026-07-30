@@ -73,7 +73,7 @@ export default function GlobalReachBanner({ lang }: { lang: Lang }) {
               {COPY[lang].line1}
             </p>
             <p
-              className="font-bold tracking-wide"
+              className="font-medium tracking-wide"
               style={{
                 fontSize: "clamp(13px, 1.9vw, 17px)",
                 lineHeight: 1.15,

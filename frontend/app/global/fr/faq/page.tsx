@@ -109,7 +109,7 @@ export default function FrFAQPage() {
         <div className="space-y-6">
           {faqs.map((faq, idx) => (
             <div key={idx} className="bg-[#1e2a3a]/40 border border-[#1e2a3a] rounded-xl p-6 hover:border-[#3b82f6]/50 transition-colors">
-              <h3 className="text-lg font-bold text-white mb-3 leading-snug">
+              <h3 className="text-lg font-medium text-white mb-3 leading-snug">
                 {faq.question}
               </h3>
               <div className="text-[#94a3b8] text-sm md:text-base leading-relaxed space-y-4">

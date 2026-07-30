@@ -157,7 +157,7 @@ export default async function LangAnalysisPage({ params }: Props) {
           <span>/</span>
           <span className="text-white">{LANG_CONFIG[langCode].name}</span>
           <span>/</span>
-          <span className="text-white font-bold">{pick.ticker}</span>
+          <span className="text-white font-medium">{pick.ticker}</span>
         </nav>
 
         {/* Language switcher */}
@@ -195,7 +195,7 @@ export default async function LangAnalysisPage({ params }: Props) {
         {/* Quick Summary */}
         {summary && (
           <div className="glass-card p-5 mb-5 border-l-4 border-l-[#3b82f6]">
-            <p className="text-sm md:text-base text-[#93c5fd] font-bold leading-relaxed">
+            <p className="text-sm md:text-base text-[#93c5fd] font-medium leading-relaxed">
               {summary}
             </p>
           </div>
@@ -220,13 +220,13 @@ export default async function LangAnalysisPage({ params }: Props) {
                 {pick.holding_period && (
                   <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.holdingPeriod}:{" "}
-                    <span className="text-white font-bold">{pick.holding_period}</span>
+                    <span className="text-white font-medium">{pick.holding_period}</span>
                   </p>
                 )}
                 {pick.boga_zones?.risk_reward && (
                   <p className="text-xs text-[#00d2ff] mt-0.5">
                     {labels.rr}:{" "}
-                    <span className="text-white font-bold">{pick.boga_zones.risk_reward}:1</span>
+                    <span className="text-white font-medium">{pick.boga_zones.risk_reward}:1</span>
                   </p>
                 )}
               </div>

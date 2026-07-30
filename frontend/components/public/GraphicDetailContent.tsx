@@ -213,7 +213,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
       <MemberHeader locale={locale} />
       <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-2">
-          <nav className="flex flex-wrap items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          <nav className="flex flex-wrap items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest">
             <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">{labels.dashboard}</Link>
             <span className="opacity-30">/</span>
             <span className="text-white italic">{ticker}</span>
@@ -268,7 +268,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             return (
               <div
                 key={idx.symbol}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-bold"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#1e2a3a] text-[10px] font-medium"
               >
                 <span className="text-slate-400">{idx.label}</span>
                 <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
@@ -277,7 +277,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
             );
           })}
           {sectorEtf && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-bold">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#141924] border border-[#3b82f6]/30 text-[10px] font-medium">
               <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
               <span className="text-white font-mono">
                 {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}
@@ -296,7 +296,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
                 const q = quotes[idx.symbol];
                 const positive = (q?.change_1d ?? 0) >= 0;
                 return (
-                  <div key={`${idx.symbol}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-bold shrink-0">
+                  <div key={`${idx.symbol}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-medium shrink-0">
                     <span className="text-slate-400">{idx.label}</span>
                     <span className="text-white font-mono">{q?.price != null ? q.price.toFixed(2) : "—"}</span>
                     <span className={positive ? "text-emerald-400" : "text-red-400"}>{fmtChange(q?.change_1d)}</span>
@@ -305,7 +305,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               }),
               ...(sectorEtf
                 ? [
-                    <div key={`${sectorEtf}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-bold shrink-0">
+                    <div key={`${sectorEtf}-${dup}`} className="flex items-center gap-1.5 text-[10px] font-medium shrink-0">
                       <span className="text-[#3b82f6]">{translateSector(stockData?.sector || "", locale)} ({sectorEtf})</span>
                       <span className="text-white font-mono">
                         {quotes[sectorEtf]?.price != null ? quotes[sectorEtf].price!.toFixed(2) : "—"}

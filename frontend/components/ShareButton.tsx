@@ -94,25 +94,25 @@ export default function ShareButton({ locale, shareText, url, accent = "#3b82f6"
           onClick={(e) => e.stopPropagation()}
         >
           <a href={links.x} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             X (Twitter)
           </a>
           <a href={links.linkedin} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             LinkedIn
           </a>
           <a href={links.whatsapp} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             WhatsApp
           </a>
           <a href={links.telegram} target="_blank" rel="noopener noreferrer"
-             className="block px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
+             className="block px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white">
             Telegram
           </a>
           <button
             type="button"
             onClick={handleCopy}
-            className="block w-full text-left px-3 py-2 text-[11px] font-bold text-slate-300 hover:bg-[#1e2a3a] hover:text-white border-t border-[#1e2a3a]"
+            className="block w-full text-left px-3 py-2 text-[11px] font-medium text-slate-300 hover:bg-[#1e2a3a] hover:text-white border-t border-[#1e2a3a]"
           >
             {copied ? t.linkCopied : t.copyLink}
           </button>

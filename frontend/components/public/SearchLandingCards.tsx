@@ -172,7 +172,7 @@ export default function SearchLandingCards({ locale, onAsk, loading = false }: P
 
             <div className="relative z-10 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2">
-                <span className="text-xs font-bold uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
+                <span className="text-xs font-medium uppercase tracking-widest text-[#3b82f6] group-hover:text-white transition-colors" style={{ fontSize: '12px', fontFamily: 'Inter' }}>
                   {CARD_LABELS[idx][locale]}
                 </span>
                 <span className="text-xs font-medium uppercase tracking-wide text-[#64748b] group-hover:text-[#94a3b8] transition-colors" style={{ fontSize: '11px', fontFamily: 'Inter' }}>

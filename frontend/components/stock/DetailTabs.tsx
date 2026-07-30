@@ -100,7 +100,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
       <div className="flex items-center gap-2 mb-4 bg-[#141924] p-1.5 rounded-xl border border-[#1e2a3a] w-fit">
         <button
           onClick={() => setActiveTab("tracker")}
-          className={`px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-widest transition-all ${
+          className={`px-6 py-2.5 rounded-lg text-sm font-medium uppercase tracking-widest transition-all ${
             activeTab === "tracker"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "text-gray-400 hover:text-white hover:bg-white/5"
@@ -110,7 +110,7 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
         </button>
         <button
           onClick={() => setActiveTab("analysis")}
-          className={`px-6 py-2.5 rounded-lg text-sm font-bold uppercase tracking-widest transition-all ${
+          className={`px-6 py-2.5 rounded-lg text-sm font-medium uppercase tracking-widest transition-all ${
             activeTab === "analysis"
               ? "bg-[#3b82f6] text-white shadow-lg shadow-blue-500/20"
               : "text-gray-400 hover:text-white hover:bg-white/5"
@@ -152,8 +152,8 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                     <p className="text-sm text-gray-400 mt-1">Real-time direction and status for {stock.ticker}</p>
                   </div>
                   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0d1117] border border-[#30363d]">
-                    <span className="text-[11px] text-gray-500 font-bold uppercase tracking-widest">Last Update:</span>
-                    <span className="text-sm text-[#00d2ff] font-mono font-bold">{lastUpdated}</span>
+                    <span className="text-[11px] text-gray-500 font-medium uppercase tracking-widest">Last Update:</span>
+                    <span className="text-sm text-[#00d2ff] font-mono font-medium">{lastUpdated}</span>
                   </div>
                 </div>
 
@@ -171,22 +171,22 @@ export default function DetailTabs({ stock }: DetailTabsProps) {
                   {/* Metrics Panel */}
                   <div className="bg-[#141924] border border-[#1e2a3a] rounded-2xl p-6 grid grid-cols-2 gap-y-6 gap-x-4">
                     <div>
-                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Current Price</p>
+                      <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">Current Price</p>
                       <p className="text-2xl font-mono font-black text-white">${hourlyData.price}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">24H Change</p>
+                      <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">24H Change</p>
                       <p className={`text-2xl font-mono font-black ${hourlyData.change_24h >= 0 ? "text-green-400" : "text-red-400"}`}>
                         {hourlyData.change_24h >= 0 ? "+" : ""}{hourlyData.change_24h?.toFixed(2)}%
                       </p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Entry Zone</p>
-                      <p className="text-lg font-mono font-bold text-white">{hourlyData.entry_zone || 'N/A'}</p>
+                      <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">Entry Zone</p>
+                      <p className="text-lg font-mono font-medium text-white">{hourlyData.entry_zone || 'N/A'}</p>
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold text-[#00d2ff] uppercase tracking-widest mb-1">Target</p>
-                      <p className="text-lg font-mono font-bold text-[#22c55e]">${hourlyData.take_profit || 'N/A'}</p>
+                      <p className="text-[10px] font-medium text-[#00d2ff] uppercase tracking-widest mb-1">Target</p>
+                      <p className="text-lg font-mono font-medium text-[#22c55e]">${hourlyData.take_profit || 'N/A'}</p>
                     </div>
                   </div>
                 </div>

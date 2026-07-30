@@ -110,7 +110,7 @@ export default async function ThemesIndexPage() {
                           <li key={theme.name}>
                             <Link
                               href={`/theme/${slugify(theme.name)}`}
-                              className="group flex items-center justify-between py-1 px-2 rounded transition-all text-[10px] font-bold text-slate-400 hover:text-white hover:bg-sky-400/[0.07]"
+                              className="group flex items-center justify-between py-1 px-2 rounded transition-all text-[10px] font-medium text-slate-400 hover:text-white hover:bg-sky-400/[0.07]"
                             >
                               <span className="truncate">{theme.name}</span>
                               <span className="text-[9px] text-slate-500 bg-white/5 px-1 py-0.5 rounded font-black flex-shrink-0 ml-1"

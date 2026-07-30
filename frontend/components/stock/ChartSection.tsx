@@ -29,7 +29,7 @@ export default function ChartSection({ ticker, exchange, companyMismatch, lang =
       <div className="flex flex-col md:flex-row md:items-center justify-between px-4 py-2.5 border-b border-[#1e2a3a] bg-[#0d1117]/60 gap-3">
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-          <span className="text-xs font-bold text-white uppercase tracking-widest">
+          <span className="text-xs font-medium text-white uppercase tracking-widest">
             Live Chart · {ticker}
           </span>
         </div>

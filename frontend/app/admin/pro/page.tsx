@@ -292,7 +292,7 @@ export default async function ProPage() {
             <Link href="/admin/trading/csp/active" className="group border border-green-900/40 rounded-lg p-6 hover:border-green-500/60 hover:bg-green-950/10 transition-all duration-200">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-black text-green-400">Active Watchlist</h3>
-                <span className="text-xs px-2.5 py-1 bg-green-900/40 text-green-400 border border-green-700/60 rounded font-bold">$5–$250</span>
+                <span className="text-xs px-2.5 py-1 bg-green-900/40 text-green-400 border border-green-700/60 rounded font-medium">$5–$250</span>
               </div>
               <p className="text-xs text-slate-400 mb-4">Cash Secured Put candidates across all price tiers — low, mid, and high-priced stocks for weekly/monthly CSP premium collection.</p>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -302,7 +302,7 @@ export default async function ProPage() {
                   </span>
                 ))}
               </div>
-              <div className="inline-block text-xs font-bold text-green-400 group-hover:translate-x-1 transition-transform">
+              <div className="inline-block text-xs font-medium text-green-400 group-hover:translate-x-1 transition-transform">
                 Listeyi Gör →
               </div>
             </Link>

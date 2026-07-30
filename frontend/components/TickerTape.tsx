@@ -35,7 +35,7 @@ export default function TickerTape({ data, indices }: Props) {
       <div className="ticker-tape flex items-center gap-8 py-2 px-4 whitespace-nowrap min-w-max">
         {doubled.map((item, i) => (
           <div key={i} className="flex items-center gap-2 text-sm shrink-0">
-            <span className="text-white font-bold uppercase tracking-wider text-[12px]">{item.label}</span>
+            <span className="text-white font-medium uppercase tracking-wider text-[12px]">{item.label}</span>
             <span className="font-mono text-white/70 text-sm">{item.value.toFixed(2)}</span>
             <span
               className={`font-mono font-black text-lg ${

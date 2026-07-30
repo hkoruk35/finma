@@ -99,13 +99,13 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowModal(false)}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-white/10 text-white/60 font-bold text-xs uppercase tracking-wider hover:bg-white/5 transition-colors"
+                className="flex-1 py-2.5 px-4 rounded-xl border border-white/10 text-white/60 font-medium text-xs uppercase tracking-wider hover:bg-white/5 transition-colors"
               >
                 {labels.cancel}
               </button>
               <button
                 onClick={handleConfirm}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#3b82f6] hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-500/20 transition-all"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#3b82f6] hover:bg-blue-600 text-white font-medium text-xs uppercase tracking-wider shadow-lg shadow-blue-500/20 transition-all"
               >
                 {labels.confirm}
               </button>

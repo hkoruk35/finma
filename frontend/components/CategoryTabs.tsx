@@ -102,7 +102,7 @@ export default function CategoryTabs({ master, allTickers, customFilter, onClear
                 <span className="text-xl font-black text-white group-hover:text-[#3b82f6] transition-colors tracking-tighter">
                   {stock.ticker}
                 </span>
-                <p className="text-[11px] text-[#00d2ff] font-bold uppercase tracking-wider truncate max-w-[120px]">
+                <p className="text-[11px] text-[#00d2ff] font-medium uppercase tracking-wider truncate max-w-[120px]">
                   {stock.company}
                 </p>
               </div>

@@ -106,7 +106,7 @@ export default function SocialShare({ ticker, score, scoreType, url, hideHeader 
           title="Copy page link"
         >
           {copied ? (
-            <span className="text-[#22c55e] font-bold">✓</span>
+            <span className="text-[#22c55e] font-medium">✓</span>
           ) : (
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />

@@ -97,7 +97,7 @@ export default function SectorScreener() {
             <h3 className="text-xl font-black text-white tracking-tighter uppercase">
               Smart Sector Screener
             </h3>
-            <p className="text-xs text-white font-bold tracking-widest uppercase mt-0.5">
+            <p className="text-xs text-white font-medium tracking-widest uppercase mt-0.5">
               Filter by Sector & Subsector
             </p>
           </div>
@@ -119,7 +119,7 @@ export default function SectorScreener() {
           <h3 className="text-xl font-black text-white tracking-tighter uppercase">
             Smart Sector Screener
           </h3>
-          <p className="text-xs text-white font-bold tracking-widest uppercase mt-0.5">
+          <p className="text-xs text-white font-medium tracking-widest uppercase mt-0.5">
             Filter by Sector & Subsector
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function SectorScreener() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Sector Selector */}
         <div className="space-y-2">
-          <label className="text-xs font-bold text-white uppercase tracking-widest">
+          <label className="text-xs font-medium text-white uppercase tracking-widest">
             Sector ({sectors.length})
           </label>
           <select
@@ -148,7 +148,7 @@ export default function SectorScreener() {
 
         {/* Subsector Selector */}
         <div className="space-y-2">
-          <label className="text-xs font-bold text-white uppercase tracking-widest">
+          <label className="text-xs font-medium text-white uppercase tracking-widest">
             Subsector / Category
           </label>
           <select

@@ -189,13 +189,13 @@ export default function CSPWatchlistSection() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/admin/trading/csp/all-list"
-              className="flex-1 text-center py-3 bg-[#e3b341]/20 border border-[#e3b341] text-[#e3b341] font-bold rounded-lg hover:bg-[#e3b341]/30 transition-all uppercase text-sm tracking-wider"
+              className="flex-1 text-center py-3 bg-[#e3b341]/20 border border-[#e3b341] text-[#e3b341] font-medium rounded-lg hover:bg-[#e3b341]/30 transition-all uppercase text-sm tracking-wider"
             >
               Detaylı Listeyi Görüntüle →
             </Link>
             <Link
               href="/admin/analytics/screener"
-              className="flex-1 text-center py-3 bg-white/5 border border-white/10 text-slate-300 font-bold rounded-lg hover:bg-white/10 transition-all uppercase text-sm tracking-wider"
+              className="flex-1 text-center py-3 bg-white/5 border border-white/10 text-slate-300 font-medium rounded-lg hover:bg-white/10 transition-all uppercase text-sm tracking-wider"
             >
               Screener ile Filtrele
             </Link>
@@ -274,7 +274,7 @@ export default function CSPWatchlistSection() {
                       <Link
                         key={ticker}
                         href={`/stock/${ticker}`}
-                        className={`px-2 py-0.5 text-[11px] font-bold rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
+                        className={`px-2 py-0.5 text-[11px] font-medium rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
                       >
                         {ticker}
                       </Link>
@@ -336,7 +336,7 @@ export default function CSPWatchlistSection() {
                     <p className="text-slate-600 text-[11px]">Terminal'den hisse ekleyin</p>
                     <Link
                       href="/admin/analytics/terminal"
-                      className={`inline-block mt-2 text-[10px] font-bold ${csp.textColor} hover:underline`}
+                      className={`inline-block mt-2 text-[10px] font-medium ${csp.textColor} hover:underline`}
                     >
                       Terminal'e git →
                     </Link>
@@ -347,7 +347,7 @@ export default function CSPWatchlistSection() {
                       <Link
                         key={ticker}
                         href={`/stock/${ticker}`}
-                        className={`px-2 py-0.5 text-[11px] font-bold rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
+                        className={`px-2 py-0.5 text-[11px] font-medium rounded border ${csp.borderColor} ${csp.textColor} hover:bg-white/10 transition-all font-mono`}
                       >
                         {ticker}
                       </Link>

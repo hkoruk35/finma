@@ -123,7 +123,7 @@ export default function AcademyIndexClient() {
               </Link>
               <Link
                 href="/"
-                className="px-8 py-4 rounded-2xl bg-[#141924] border border-[#1e2a3a] text-white font-bold hover:bg-[#1a2030] hover:border-[#3b82f6]/30 transition-all"
+                className="px-8 py-4 rounded-2xl bg-[#141924] border border-[#1e2a3a] text-white font-medium hover:bg-[#1a2030] hover:border-[#3b82f6]/30 transition-all"
               >
                 {UI_STRINGS.view_live[locale]}
               </Link>
@@ -186,7 +186,7 @@ export default function AcademyIndexClient() {
                         </div>
                       </div>
                       <p className="text-sm text-white leading-relaxed mb-5">{t.desc}</p>
-                      <div className="flex items-center gap-2 text-[#3b82f6] text-sm font-bold">
+                      <div className="flex items-center gap-2 text-[#3b82f6] text-sm font-medium">
                         <span>{UI_STRINGS.read_guide[locale]}</span>
                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

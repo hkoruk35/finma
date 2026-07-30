@@ -54,8 +54,8 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-transparent pointer-events-none"></div>
         <div className="relative z-10">
           <div className="flex items-center gap-2">
-            <h4 className="text-lg font-bold text-white">{data.ticker}</h4>
-            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${trendBg} ${trendColor}`}>
+            <h4 className="text-lg font-medium text-white">{data.ticker}</h4>
+            <span className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase border ${trendBg} ${trendColor}`}>
               {trendLabel}
             </span>
           </div>
@@ -63,7 +63,7 @@ export function StockCard({ data, locale = "en" }: { data: StockCardProps; local
         </div>
         <div className="relative z-10 flex flex-col items-end">
           <span className="text-[10px] text-gray-500 font-mono">BOGA SCORE</span>
-          <div className="text-lg font-bold text-white flex items-center gap-1">
+          <div className="text-lg font-medium text-white flex items-center gap-1">
             {data.bogaScore}
             <span className="text-xs text-gray-500">/100</span>
           </div>

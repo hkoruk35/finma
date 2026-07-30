@@ -141,13 +141,13 @@ export default function PricingSection({ locale, ctaHref }: { locale: Locale; ct
         {/* Price Blocks */}
         <div className="grid grid-cols-2 gap-3 mb-8">
           <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.firstMonthLabel}</div>
+            <div className="text-[10px] font-medium uppercase tracking-wider text-[#22c55e]/70 mb-1">{c.firstMonthLabel}</div>
             <div className="text-xl md:text-2xl font-black text-[#22c55e]">
               $9<span className="text-xs font-semibold text-[#22c55e]/70">{c.perMonth}</span>
             </div>
           </div>
           <div className="bg-white/5 border border-white/10 rounded-2xl px-3 py-4 text-center">
-            <div className="text-[10px] font-bold uppercase tracking-wider text-white/40 mb-1 capitalize">{c.thenLabel}</div>
+            <div className="text-[10px] font-medium uppercase tracking-wider text-white/40 mb-1 capitalize">{c.thenLabel}</div>
             <div className="text-xl md:text-2xl font-black text-white">
               $39<span className="text-xs font-semibold text-white/40">{c.perMonth}</span>
             </div>

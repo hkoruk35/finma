@@ -29,7 +29,7 @@ export default async function ArchivedSectionsPage() {
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
         <section className="mb-8 p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-xl text-yellow-500 text-center">
-          <p className="font-bold">ARCHIVED SECTIONS</p>
+          <p className="font-medium">ARCHIVED SECTIONS</p>
           <p className="text-xs">These sections are currently hidden from the homepage.</p>
         </section>
 

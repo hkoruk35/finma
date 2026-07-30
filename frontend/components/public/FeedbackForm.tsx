@@ -83,7 +83,7 @@ export default function FeedbackForm({ locale }: { locale: Locale }) {
             </div>
 
             {error && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-bold">
+              <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs py-3 px-4 rounded-xl font-medium">
                 {error}
               </div>
             )}

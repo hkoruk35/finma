@@ -71,7 +71,7 @@ function formatInline(text: string): React.ReactNode {
     <>
       {parts.map((part, i) => {
         if (part.startsWith("**") && part.endsWith("**"))
-          return <strong key={i} className="text-white font-bold">{formatInline(part.slice(2, -2))}</strong>;
+          return <strong key={i} className="text-white font-medium">{formatInline(part.slice(2, -2))}</strong>;
         if (part.startsWith("`") && part.endsWith("`"))
           return <code key={i} className="text-[#f59e0b] bg-[#f59e0b]/10 px-1.5 py-0.5 rounded text-xs font-mono">{part.slice(1, -1)}</code>;
         if (part.startsWith("[") && part.endsWith(")")) {
@@ -133,7 +133,7 @@ function MarkdownText({ text }: { text: string }) {
         if (line.startsWith("## "))
           return <h2 key={i} className="text-sm font-black text-[#3b82f6] mt-3 mb-1">{line.slice(3)}</h2>;
         if (line.startsWith("**") && line.endsWith("**"))
-          return <p key={i} className="font-bold text-white">{line.slice(2, -2)}</p>;
+          return <p key={i} className="font-medium text-white">{line.slice(2, -2)}</p>;
         if (line.startsWith("- ") || line.startsWith("• ") || line.startsWith("* "))
           return (
             <div key={i} className="flex gap-2">
@@ -145,7 +145,7 @@ function MarkdownText({ text }: { text: string }) {
           const num = line.match(/^(\d+)\./)?.[1];
           return (
             <div key={i} className="flex gap-2">
-              <span className="text-[#3b82f6] shrink-0 font-bold">{num}.</span>
+              <span className="text-[#3b82f6] shrink-0 font-medium">{num}.</span>
               <span className="text-[#cbd5e1]">{formatInline(line.replace(/^\d+\.\s/, ""))}</span>
             </div>
           );
@@ -517,7 +517,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 <p className="text-white font-black text-sm md:text-base uppercase tracking-widest">
                   {autoTicker ? `${autoTicker} — ${t("analyzingTitle")}` : t("analyzingTitle")}
                 </p>
-                <p className="text-[#06b6d4] text-xs mt-1.5 font-bold">{t("analyzingBody")}</p>
+                <p className="text-[#06b6d4] text-xs mt-1.5 font-medium">{t("analyzingBody")}</p>
               </div>
               <div className="flex gap-1.5">{[0, 150, 300].map(d => <span key={d} className="w-2 h-2 rounded-full bg-[#3b82f6] animate-bounce" style={{ animationDelay: `${d}ms` }} />)}</div>
             </div>
@@ -561,7 +561,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                       className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#1e2a3a] bg-[#0a0e17]/60 hover:bg-[#0d1117] hover:border-[#3b82f6]/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all text-center group"
                     >
                       <span className="text-xs font-black text-white tracking-wider group-hover:text-[#3b82f6] transition-colors">{item.ticker}</span>
-                      <span className="text-[9px] text-[#64748b] font-bold mt-0.5 truncate max-w-full">{item.name}</span>
+                      <span className="text-[9px] text-[#64748b] font-medium mt-0.5 truncate max-w-full">{item.name}</span>
                     </button>
                   ))}
                 </div>

@@ -190,7 +190,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
           <span className="text-lg font-black text-white tracking-tighter uppercase italic">
             BOGA <span className="text-[#3b82f6]">OPTIONS</span> P&amp;L
           </span>
-          <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-bold">
+          <span className="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded border border-white/10 uppercase tracking-widest font-medium">
             Performance Terminal
           </span>
           <span className="flex items-center gap-1 text-[9px] text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20 font-black uppercase tracking-widest">
@@ -203,7 +203,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
           <select
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
-            className="bg-[#0c121d] border border-white/10 text-[10px] font-bold text-white px-2 py-1 outline-none uppercase tracking-wider"
+            className="bg-[#0c121d] border border-white/10 text-[10px] font-medium text-white px-2 py-1 outline-none uppercase tracking-wider"
           >
             <option value="ALL">All Dates</option>
             {uniqueDates.map((d) => <option key={d} value={d}>{d}</option>)}
@@ -212,7 +212,7 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#0c121d] border border-white/10 text-[10px] font-bold text-white px-2 py-1 outline-none uppercase tracking-wider"
+            className="bg-[#0c121d] border border-white/10 text-[10px] font-medium text-white px-2 py-1 outline-none uppercase tracking-wider"
           >
             <option value="ALL">All Status</option>
             <option value="open">Open</option>
@@ -225,19 +225,19 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
           <select
             value={stratFilter}
             onChange={(e) => setStratFilter(e.target.value)}
-            className="bg-[#0c121d] border border-white/10 text-[10px] font-bold text-white px-2 py-1 outline-none uppercase tracking-wider"
+            className="bg-[#0c121d] border border-white/10 text-[10px] font-medium text-white px-2 py-1 outline-none uppercase tracking-wider"
           >
             <option value="ALL">All Strategies</option>
             <option value="institutional">Institutional</option>
             <option value="asymmetric">Asymmetric</option>
           </select>
-          <button onClick={handleCopyList} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+          <button onClick={handleCopyList} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
             Copy
           </button>
-          <button onClick={handleDownloadCSV} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+          <button onClick={handleDownloadCSV} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
             CSV
           </button>
-          <button onClick={handleDownloadXLS} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-bold text-white px-2 py-1 uppercase tracking-wider transition-colors">
+          <button onClick={handleDownloadXLS} className="bg-white/5 hover:bg-white/10 border border-white/10 text-[10px] font-medium text-white px-2 py-1 uppercase tracking-wider transition-colors">
             XLS
           </button>
           {updatedAt && (
@@ -314,10 +314,10 @@ export default function OptionsPerformanceClient({ outcomes }: { outcomes: Optio
                           </Link>
                         </TickerHoverChart>
                       </TD>
-                      <TD center cls={p.strategy === "institutional" ? "text-purple-400 font-bold text-[10px]" : "text-amber-400 font-bold text-[10px]"}>
+                      <TD center cls={p.strategy === "institutional" ? "text-purple-400 font-medium text-[10px]" : "text-amber-400 font-medium text-[10px]"}>
                         {p.strategy === "institutional" ? "INST." : "ASYM."}
                       </TD>
-                      <TD cls="text-white font-bold">
+                      <TD cls="text-white font-medium">
                         {p.strike ? `$${p.strike} C` : "—"}
                       </TD>
                       <TD cls={`font-mono text-[10px] ${daysLeft != null && daysLeft <= 3 ? "text-amber-400" : "text-slate-400"}`}>

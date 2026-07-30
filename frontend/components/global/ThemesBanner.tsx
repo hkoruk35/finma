@@ -52,14 +52,14 @@ export default function ThemesBanner({ locale }: { locale: Locale }) {
       </div>
 
       <div className="relative z-10 flex items-center gap-2.5 md:gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <h2 className="shrink-0 text-sm md:text-base font-bold text-white whitespace-nowrap">{label.title}</h2>
+        <h2 className="shrink-0 text-sm md:text-base font-medium text-white whitespace-nowrap">{label.title}</h2>
 
         {renderThemeList(MOBILE_VISIBLE_COUNT, "flex sm:hidden")}
         {renderThemeList(DESKTOP_VISIBLE_COUNT, "hidden sm:flex")}
 
         <Link
           href={firstThemeHref}
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-bold text-xs rounded hover:bg-[#79c0ff] transition-colors whitespace-nowrap"
+          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#58a6ff] text-[#0d1117] font-medium text-xs rounded hover:bg-[#79c0ff] transition-colors whitespace-nowrap"
         >
           {label.browseAll}
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

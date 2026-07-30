@@ -34,7 +34,7 @@ export default function FrAnalysisPage() {
 
       <main className="flex-1 w-full">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <nav className="flex items-center gap-2 text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
+          <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-4">
             <Link href="/global/fr/ai" className="hover:text-[#3b82f6] transition-colors">Analyse IA</Link>
             <span className="opacity-30">/</span>
             <span className="text-white italic">{ticker}</span>
@@ -42,10 +42,10 @@ export default function FrAnalysisPage() {
 
           {error ? (
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-6 text-center">
-              <p className="text-red-300 font-bold">Impossible de charger l'analyse pour {ticker}.</p>
+              <p className="text-red-300 font-medium">Impossible de charger l'analyse pour {ticker}.</p>
             </div>
           ) : !stockData ? (
-            <div className="text-center py-20 text-slate-400 font-bold uppercase animate-pulse">
+            <div className="text-center py-20 text-slate-400 font-medium uppercase animate-pulse">
               Chargement de l'analyse...
             </div>
           ) : (
