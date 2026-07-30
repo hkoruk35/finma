@@ -10,7 +10,6 @@ import Footer from "@/components/Footer";
 import HomeSimpleCard from "@/components/global/HomeGridCard";
 import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TickerTape from "@/components/TickerTape";
-import SectorHeatMap from "@/components/SectorHeatMap";
 import { MARKET_THEMES } from "@/lib/themeData";
 
 export const revalidate = 120;
@@ -248,12 +247,6 @@ export default async function EnHomePage() {
           </svg>
         </div>
 
-        {/* Sector Heat Map */}
-        {master && (
-          <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={heatMapTickers} locale="en" />
-          </section>
-        )}
 
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
