@@ -32,18 +32,8 @@ export default function Sparkline({ data, color, width = 56, height = 22, change
     .map((v, i) => `${(i * step).toFixed(1)},${(height - ((v - min) / range) * height).toFixed(1)}`)
     .join(" ");
 
-  const gradientId = `sparkline-${Math.random().toString(36).substr(2, 9)}`;
-  const pathD = `M${coords}L${width},${height}L0,${height}Z`;
-
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} className="overflow-visible">
-      <defs>
-        <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={color} stopOpacity="0.5" />
-          <stop offset="100%" stopColor={color} stopOpacity="0.05" />
-        </linearGradient>
-      </defs>
-      <path d={pathD} fill={`url(#${gradientId})`} />
       <polyline points={coords} fill="none" stroke={color} strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
