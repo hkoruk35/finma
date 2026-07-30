@@ -283,6 +283,7 @@ const INDEX_TICKERS: Record<string, string> = {
   SP500: "^GSPC",
   NASDAQ: "^IXIC",
   DOW: "^DJI",
+  RUSSELL: "^RUT",
   VIX: "^VIX",
 };
 

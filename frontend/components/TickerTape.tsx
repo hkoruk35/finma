@@ -6,7 +6,7 @@ const INDEX_LABELS: Record<string, string> = {
   SP500: "SP500",
   NASDAQ: "NASDAQ",
   DOW: "DOW",
-  RUSSELL: "RUSSEL",
+  RUSSELL: "RUSSELL",
   VIX: "VIX",
 };
 

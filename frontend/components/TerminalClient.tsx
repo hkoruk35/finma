@@ -35,11 +35,11 @@ const GROUPS: { group: string; items: Instrument[] }[] = [
   {
     group: "US Equity Markets",
     items: [
-      { ticker: "SPY",  label: "S&P 500 ETF",    tvSymbol: "AMEX:SPY",   ySymbol: "SPY" },
-      { ticker: "QQQ",  label: "Nasdaq 100",      tvSymbol: "NASDAQ:QQQ", ySymbol: "QQQ" },
-      { ticker: "DIA",  label: "Dow Jones",        tvSymbol: "AMEX:DIA",   ySymbol: "DIA" },
-      { ticker: "IWM",  label: "Russell 2000",     tvSymbol: "AMEX:IWM",   ySymbol: "IWM" },
-      { ticker: "VIX",  label: "Volatility Index",   tvSymbol: "CBOE:VIX",   ySymbol: "^VIX" },
+      { ticker: "^GSPC", label: "S&P 500",        tvSymbol: "FOREXPROS:SPX500", ySymbol: "^GSPC" },
+      { ticker: "^IXIC", label: "NASDAQ",         tvSymbol: "FOREXPROS:CCMP",   ySymbol: "^IXIC" },
+      { ticker: "^DJI",  label: "Dow Jones",      tvSymbol: "FOREXPROS:DJI30",  ySymbol: "^DJI" },
+      { ticker: "^RUT",  label: "Russell 2000",   tvSymbol: "FOREXPROS:RUI2K",  ySymbol: "^RUT" },
+      { ticker: "^VIX",  label: "Volatility Index", tvSymbol: "CBOE:VIX",       ySymbol: "^VIX" },
     ],
   },
   {
