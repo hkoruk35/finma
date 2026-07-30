@@ -642,7 +642,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
               </div>
             )}
             <div className="text-center mt-1 mb-0.5 opacity-60">
-              <p className="text-[#475569]" style={{ fontSize: "9px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
+              <p className="text-[#475569]" style={{ fontSize: "11px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
             </div>
           </div>
         </div>
