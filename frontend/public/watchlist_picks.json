@@ -1,95 +1,29 @@
 {
-  "generated_at": "2026-07-30T09:05:11.591871-04:00",
+  "generated_at": "2026-07-30T14:06:55.870449-04:00",
   "picks": [
     {
-      "ticker": "VNO",
-      "sector": "Real Estate",
-      "date_added": "2026-07-28",
-      "score": 42.5
+      "ticker": "SBLK",
+      "sector": "Industrials",
+      "date_added": "2026-07-30",
+      "score": 35.5
     },
     {
-      "ticker": "BOX",
-      "sector": "Technology",
-      "date_added": "2026-07-28",
-      "score": 46.0
-    },
-    {
-      "ticker": "EQNR",
-      "sector": "Energy",
-      "date_added": "2026-07-28",
-      "score": 42.5
-    },
-    {
-      "ticker": "OII",
-      "sector": "Energy",
-      "date_added": "2026-07-28",
-      "score": 42.0
-    },
-    {
-      "ticker": "BXP",
-      "sector": "Real Estate",
-      "date_added": "2026-07-29",
-      "score": 44.5
-    },
-    {
-      "ticker": "URBN",
+      "ticker": "SW",
       "sector": "Consumer Cyclical",
-      "date_added": "2026-07-29",
-      "score": 47.5
+      "date_added": "2026-07-30",
+      "score": 33.0
     },
     {
-      "ticker": "CDW",
-      "sector": "Technology",
-      "date_added": "2026-07-29",
-      "score": 48.0
-    },
-    {
-      "ticker": "SPOT",
-      "sector": "Communication Services",
-      "date_added": "2026-07-29",
-      "score": 47.5
-    },
-    {
-      "ticker": "RVTY",
+      "ticker": "ICLR",
       "sector": "Healthcare",
-      "date_added": "2026-07-29",
-      "score": 47.0
-    },
-    {
-      "ticker": "SN",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-29",
-      "score": 43.0
-    },
-    {
-      "ticker": "PAYS",
-      "sector": "Technology",
-      "date_added": "2026-07-29",
-      "score": 39.0
-    },
-    {
-      "ticker": "GM",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-29",
-      "score": 48.0
-    },
-    {
-      "ticker": "CLF",
-      "sector": "Basic Materials",
       "date_added": "2026-07-30",
-      "score": 44.0
+      "score": 33.0
     },
     {
-      "ticker": "SHW",
-      "sector": "Basic Materials",
+      "ticker": "WAB",
+      "sector": "Industrials",
       "date_added": "2026-07-30",
-      "score": 42.5
-    },
-    {
-      "ticker": "GENI",
-      "sector": "Communication Services",
-      "date_added": "2026-07-30",
-      "score": 34.0
+      "score": 29.0
     }
   ]
 }
