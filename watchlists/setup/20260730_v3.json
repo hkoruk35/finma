@@ -1,0 +1,202 @@
+[
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "BAX",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 28.74,
+        "entry_zone": "28.15 - 29.33",
+        "SL": 26.38,
+        "TP": 33.47
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "E",
+        "sector": "Energy",
+        "action": "CLOSE",
+        "price": 54.68,
+        "entry_zone": "54.01 - 55.35",
+        "SL": 52.01,
+        "TP": 60.03
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "TEVA",
+        "sector": "Healthcare",
+        "action": "CLOSE",
+        "price": 34.79,
+        "entry_zone": "34.19 - 35.39",
+        "SL": 32.41,
+        "TP": 39.56
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "EQNR",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 40.43,
+        "entry_zone": "39.71 - 41.15",
+        "SL": 37.56,
+        "TP": 46.18
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "DDOG",
+        "sector": "Technology",
+        "action": "CLOSE",
+        "price": 267.55,
+        "entry_zone": "260.99 - 274.12",
+        "SL": 241.28,
+        "TP": 320.1
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "CHEF",
+        "sector": "Consumer Defensive",
+        "action": "CLOSE",
+        "price": 107.49,
+        "entry_zone": "105.25 - 109.73",
+        "SL": 98.52,
+        "TP": 125.42
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "NEO",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 15.05,
+        "entry_zone": "14.65 - 15.45",
+        "SL": 13.45,
+        "TP": 18.25
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "XRAY",
+        "sector": "Healthcare",
+        "action": "BUY",
+        "price": 13.87,
+        "entry_zone": "13.55 - 14.19",
+        "SL": 12.59,
+        "TP": 16.42
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "BXP",
+        "sector": "Real Estate",
+        "action": "BUY",
+        "price": 71.95,
+        "entry_zone": "70.95 - 72.95",
+        "SL": 67.94,
+        "TP": 79.96
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "CVE",
+        "sector": "Energy",
+        "action": "BUY",
+        "price": 29.17,
+        "entry_zone": "28.70 - 29.64",
+        "SL": 27.29,
+        "TP": 32.93
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "CAKE",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 102.4,
+        "entry_zone": "100.66 - 104.14",
+        "SL": 95.44,
+        "TP": 116.33
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "CLH",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 322.42,
+        "entry_zone": "318.32 - 326.52",
+        "SL": 306.04,
+        "TP": 355.18
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "IEX",
+        "sector": "Industrials",
+        "action": "BUY",
+        "price": 234.4,
+        "entry_zone": "231.57 - 237.22",
+        "SL": 223.1,
+        "TP": 251.34
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "GRMN",
+        "sector": "Technology",
+        "action": "BUY",
+        "price": 291.78,
+        "entry_zone": "286.74 - 296.82",
+        "SL": 271.62,
+        "TP": 332.11
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "F",
+        "sector": "Consumer Cyclical",
+        "action": "BUY",
+        "price": 14.88,
+        "entry_zone": "14.63 - 15.12",
+        "SL": 13.9,
+        "TP": 16.82
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "YOU",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 57.59,
+        "entry_zone": "56.29 - 58.89",
+        "SL": 52.38,
+        "TP": 68.01
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "CNQ",
+        "sector": "Energy",
+        "action": "WATCH",
+        "price": 46.23,
+        "entry_zone": "45.64 - 46.82",
+        "SL": 43.87,
+        "TP": 50.95
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "SBAC",
+        "sector": "Real Estate",
+        "action": "WATCH",
+        "price": 183.21,
+        "entry_zone": "180.20 - 186.22",
+        "SL": 171.18,
+        "TP": 207.26
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "SONO",
+        "sector": "Technology",
+        "action": "WATCH",
+        "price": 14.39,
+        "entry_zone": "13.87 - 14.91",
+        "SL": 12.3,
+        "TP": 18.57
+    },
+    {
+        "date": "2026-07-30 09:45",
+        "symbol": "MBX",
+        "sector": "Healthcare",
+        "action": "WATCH",
+        "price": 64.3,
+        "entry_zone": "61.89 - 66.71",
+        "SL": 54.65,
+        "TP": 83.61
+    }
+]
