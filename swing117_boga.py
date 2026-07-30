@@ -4953,6 +4953,14 @@ def _hours_since_ny(date_str: str) -> float:
         return 0.0
 
 
+def _is_ny_market_open() -> bool:
+    now_ny = datetime.now(NY_TZ)
+    if now_ny.weekday() >= 5:
+        return False
+    minutes = now_ny.hour * 60 + now_ny.minute
+    return (9 * 60 + 30) <= minutes < (16 * 60)
+
+
 def is_trade_closed_in_performance(ticker: str, entered_at: str) -> bool:
     try:
         perf_file = os.path.join(FRONTEND_PUBLIC_DIR, "swing_performance.json")
@@ -4982,7 +4990,21 @@ async def should_remove_watchlist_candidate(ticker: str) -> bool:
             logging.info(f"🔍 {t} (Watchlist): 1D verisi yetersiz veya alınamadı. Kaldırılıyor.")
             return True
         df_1d.columns = [col.capitalize() for col in df_1d.columns]
-        
+
+        # 🔧 FIX (2026-07-30): Piyasa açıkken son günlük bar henüz KAPANMAMIŞ
+        # (canlı/kısmi) hacim ve fiyat içerir. Bu bar'ı 10 günlük TAM GÜN hacim
+        # ortalamasıyla karşılaştırmak sistematik "hacim kaybı" yanlış-pozitifi
+        # üretiyordu — 09:00→14:00 taramasında watchlist'teki 15 adaydan 14'ü
+        # aynı anda silinmişti, oysa hepsi birbirinden bağımsız farklı sektör
+        # hisseleriydi (bkz. FULL_SCAN saatleri 9/14/17: şiddet sırası piyasanın
+        # o anki açıklık oranıyla birebir örtüşüyordu). Piyasa açıksa son
+        # (kapanmamış) bar'ı çıkar, sadece tamamlanmış günleri kullan.
+        if _is_ny_market_open() and len(df_1d) > 0 and df_1d.index[-1].date() == datetime.now(NY_TZ).date():
+            df_1d = df_1d.iloc[:-1]
+        if len(df_1d) < 5:
+            logging.info(f"🔍 {t} (Watchlist): 1D verisi yetersiz (açık piyasa, kapanmamış bar çıkarıldı). Kaldırılıyor.")
+            return True
+
         # 2. Download 4H data for the last 10 days
         df_4h = await asyncio.to_thread(
             stock.history, period="10d", interval="4h",
