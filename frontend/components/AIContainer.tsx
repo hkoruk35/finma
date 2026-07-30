@@ -365,7 +365,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
   };
 
   return (
-    <div className="min-h-[100dvh] md:h-screen w-full max-w-full bg-[#080c14] text-white flex overflow-hidden relative">
+    <div className="h-[100dvh] md:h-screen w-full max-w-full bg-[#080c14] text-white flex overflow-hidden relative">
       {/* SIDEBAR BACKDROP ON MOBILE */}
       {sidebarOpen && (
         <div 
@@ -622,7 +622,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
           {/* Yasal Uyari & Telif kaldirildi */}
         </div>
 
-        <div className="px-4 py-1.5 md:py-2 shrink-0 border-t border-[#1e2a3a]/40 bg-[#080c14]/90">
+        <div className="w-full bg-[#080c14]/90 border-t border-[#1e2a3a]/40 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shrink-0">
           <div className="max-w-4xl mx-auto w-full">
             {messages.length > 0 && (
               <div className="relative group">
@@ -641,7 +641,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
                 </button>
               </div>
             )}
-            <div className="text-center mt-1 opacity-60 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] md:pb-2">
+            <div className="text-center mt-1 opacity-60 md:pb-2">
               <p className="text-[#475569]" style={{ fontSize: "11px", fontFamily: "Inter", fontWeight: 400 }}>{t("copyright")}</p>
             </div>
           </div>
@@ -650,7 +650,7 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
       {/* FLOATING ACTION BUTTON FOR MOBILE SIDEBAR */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="md:hidden fixed right-5 bottom-[calc(5rem+env(safe-area-inset-bottom,16px))] z-50 p-3.5 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-2xl shadow-blue-500/35 hover:scale-105 active:scale-95 transition-all flex items-center justify-center border border-white/10"
+        className="md:hidden fixed right-4 bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] z-50 p-3 rounded-full bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] text-white shadow-lg shadow-blue-500/40 border border-[#3b82f6]/40 flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
         title={t("recentTitle")}
       >
         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -664,6 +664,9 @@ export default function AIContainer({ lang = "tr", locale, variant = "classic" }
     </div>
   );
 }
+
+
+
 
 
 

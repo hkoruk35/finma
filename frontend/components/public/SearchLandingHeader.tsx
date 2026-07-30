@@ -12,6 +12,7 @@ import { usePathname } from "next/navigation";
 export default function SearchLandingHeader({ locale, onLogoClick }: { locale: Locale; onLogoClick: () => void }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const pathname = usePathname();
 
   const ASK_LABEL: Record<Locale, string> = { tr: "Sor", en: "Ask", es: "Preguntar", fr: "Demander", pt: "Perguntar" };
@@ -74,22 +75,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
 
         <div className="flex-1" />
 
-        <div className="flex items-center gap-0.5 bg-[#1e2a3a]/40 rounded-lg p-0.5 border border-[#1e2a3a]/60 scale-90 sm:scale-100 origin-right">
-          {(["EN", "ES", "FR", "PT", "TR"] as const).map((lg) => {
-            const isActive = locale.toUpperCase() === lg;
-            return (
-              <Link
-                key={lg}
-                href={getLangHref(lg)}
-                className={`px-1.5 sm:px-2 py-1 rounded-md text-[9px] sm:text-[10px] font-medium uppercase tracking-wider transition-all ${
-                  isActive ? "bg-[#3b82f6] text-white" : "text-[#64748b] hover:text-white hover:bg-white/10"
-                }`}
-              >
-                {lg}
-              </Link>
-            );
-          })}
-        </div>
+        <div className="relative z-50"> <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 bg-[#1e2a3a]/40 border border-[#1e2a3a]/60 px-2 py-1 rounded-md text-[10px] font-medium text-white hover:bg-white/5 transition-all"> {locale.toUpperCase()} <svg className={`w-3 h-3 transition-transform ${langOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg> </button> {langOpen && ( <div className="absolute top-full right-0 mt-1 flex flex-col bg-[#0a0e17] border border-[#1e2a3a] rounded-lg shadow-xl p-1 min-w-[60px]"> {(["EN", "ES", "FR", "PT", "TR"] as const).map((lg) => { const isActive = locale.toUpperCase() === lg; return ( <Link key={lg} href={getLangHref(lg)} onClick={() => setLangOpen(false)} className={`px-2 py-1.5 rounded-md text-[10px] font-medium transition-all ${isActive ? "bg-[#3b82f6] text-white" : "text-[#64748b] hover:text-white hover:bg-white/10"}`} > {lg} </Link> ); })} </div> )} </div>
 
         <button
           onClick={focusSearchInput}
@@ -114,6 +100,7 @@ export default function SearchLandingHeader({ locale, onLogoClick }: { locale: L
     </header>
   );
 }
+
 
 
 

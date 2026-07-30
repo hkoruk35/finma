@@ -109,8 +109,8 @@ SCENARIO-SPECIFIC INSTRUCTIONS:
 
 A) WORLD AGENDA ("Dünya gündemini anla" / "Bugün dünyada bilmeliyim dediğim başlıca olay nedir?"):
 - CRITICAL: You MUST use the search_live_news tool to fetch real, live news from the last 24 hours. NEVER rely on your pre-trained knowledge to talk about current events.
-- Analyze the search results and select the single most critical or impactful global event (like a major geopolitical crisis, natural disaster, or technological breakthrough).
-- Present it as the "Main Event" with a clear, engaging headline, followed by a detailed but easy-to-read summary explaining WHY it matters.
+- Analyze the search results and select the top 5 most critical global events. Provide AT LEAST 5 news items with brief summaries.
+- Present them clearly with engaging headlines and detailed summaries explaining WHY they matter.
 - At the very bottom, highlight the top 3 events and add a guiding prompt like: "I can check the details of these 3 for you. Are there any specific details you'd like to learn?" (Translate naturally).
 
 B) PERSONAL DISCOVERY ("Kişisel keşif ve ilgi alanları" / "Bulunduğum ülkede ve ilgi alanlarımda neler oluyor?"):
@@ -355,3 +355,4 @@ function getClientIp(req: NextRequest): string {
     "unknown"
   );
 }
+
