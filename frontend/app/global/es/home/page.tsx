@@ -241,27 +241,3 @@ export default async function EsHomePage() {
           </svg>
         </div>
 
-        {/* Sector Heat Map */}
-        {master && (
-          <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={heatMapTickers} locale="es" />
-          </section>
-        )}
-
-        {/* Update info */}
-        <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
-          {lastUpdated && (
-            <p className="text-[11px] text-white/40">
-              Última actualización: <span className="font-mono text-white/60">{lastUpdated}</span> (NY / ET)
-            </p>
-          )}
-          <p className="text-[10px] text-white/25 max-w-xl">
-            Los datos se analizan desde fuentes con un retraso de 15 minutos. Esta página se actualiza cada hora los días que el mercado está abierto.
-          </p>
-        </div>
-      </main>
-
-      <Footer hidePlatform={true} locale="es" />
-    </div>
-  );
-}

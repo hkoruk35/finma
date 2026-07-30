@@ -245,12 +245,6 @@ export default async function TrHomePage() {
           </svg>
         </div>
 
-        {/* Sector Heat Map */}
-        {master && (
-          <section className="mb-16 mt-12">
-            <SectorHeatMap data={master} allTickers={heatMapTickers} locale="tr" />
-          </section>
-        )}
 
         {/* Güncelleme bilgisi */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
