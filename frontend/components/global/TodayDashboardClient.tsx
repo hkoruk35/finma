@@ -258,8 +258,15 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric" };
-      setDateStr(now.toLocaleDateString(locale === "tr" ? "tr-TR" : locale === "en" ? "en-US" : locale === "es" ? "es-ES" : locale === "fr" ? "fr-FR" : "pt-PT", options));
+      const localeMap: Record<Locale, string> = {
+        tr: "tr-TR",
+        en: "en-US",
+        es: "es-ES",
+        fr: "fr-FR",
+        pt: "pt-PT",
+      };
+      const options: Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
+      setDateStr(now.toLocaleDateString(localeMap[locale], options));
 
       const hrs = now.getHours();
       if (hrs < 12) setGreeting(t.goodMorning);
@@ -386,11 +393,12 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-[#1e2a3a]/40 pb-1.5 mb-3">
           <div>
-            <h1 className="text-lg md:text-xl font-medium text-white flex items-center gap-2">
+            <h1 className="text-lg md:text-xl font-medium text-white flex flex-col sm:flex-row items-start sm:items-center gap-2">
               <span className="text-slate-300">{dateStr}</span>
-              <span className="text-[#1e2a3a]/60">|</span>
+              <span className="text-[#1e2a3a]/60 hidden sm:inline">|</span>
               <span className="text-[#3b82f6]">{greeting}</span>
             </h1>
+            <p className="text-sm md:text-base text-slate-400 mt-1 sm:hidden">{t.today}</p>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
@@ -458,6 +466,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                     <div>
                       <h3 className="text-base font-medium text-white leading-tight truncate max-w-[150px]">
                         {weather.location.split(",")[0]}
+                        {weatherCity === "New York" && <span className="text-[13px] text-slate-400 ml-1">(EST)</span>}
                       </h3>
                       <p className="text-[13px] text-slate-400 mt-0.5">{weather.current.condition}</p>
                     </div>
@@ -467,7 +476,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                         <img src={weather.current.icon} alt="Weather" className="w-8 h-8 object-contain" />
                       )}
                       <span className="text-2xl md:text-3xl font-medium text-white tracking-tighter">
-                        {isImperial ? weather.current.temperature_f : weather.current.temperature_c}°
+                        {isImperial ? weather.current.temperature_f : weather.current.temperature_c}°<span className="text-lg">{isImperial ? "F" : "C"}</span>
                       </span>
                     </div>
                   </div>
@@ -491,7 +500,7 @@ export default function TodayDashboardClient({ locale }: { locale: Locale }) {
                               <span className="text-[12px] leading-tight text-slate-400 line-clamp-2 max-w-[100px] sm:max-w-[120px]">{f.condition}</span>
                             </div>
                             <span className="text-white font-medium text-[13px]">
-                              {isImperial ? f.max_temp_f : f.max_temp_c}° <span className="text-slate-500 font-normal text-[13px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°</span>
+                              {isImperial ? f.max_temp_f : f.max_temp_c}°{isImperial ? "F" : "C"} <span className="text-slate-500 font-normal text-[13px]">/ {isImperial ? f.min_temp_f : f.min_temp_c}°{isImperial ? "F" : "C"}</span>
                             </span>
                           </div>
                         );
