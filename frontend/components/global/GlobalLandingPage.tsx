@@ -87,7 +87,7 @@ const getGroups = (locale: Locale) => {
 type PriceInfo = { price: number | null; change_1d: number | null };
 
 const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
-const pColor = (v: number | null) => v == null ? "text-slate-500" : v > 0 ? "text-[#00ff00]" : v < 0 ? "text-[#ff0000]" : "text-slate-400";
+const pColor = (v: number | null) => v == null ? "text-slate-500" : v > 0 ? "text-green-400 bg-green-400/10 px-1 rounded-sm" : v < 0 ? "text-red-400 bg-red-400/10 px-1 rounded-sm" : "text-slate-400";
 const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
@@ -389,14 +389,14 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           title={compareCheckboxTitle}
                         />
                         <div className="min-w-0 pr-2 flex-1">
-                          <div className="text-[10px] font-medium text-white truncate">{item.label}</div>
+                          <div className="text-[12px] font-medium text-white truncate">{item.label}</div>
                         </div>
                         <div className="text-right shrink-0 flex flex-col items-end gap-0.5">
-                          <div className="text-[8px] font-mono text-white">
+                          <div className="text-[10px] font-mono text-white">
                             {price?.price != null ? fmt(price.price) : "..."}
                           </div>
                           {chg != null && (
-                            <div className={`text-[7px] font-mono ${pColor(chg)}`}>
+                            <div className={`text-[9px] font-mono inline-block ${pColor(chg)}`}>
                               {sgn(chg)}{fmt(chg)}%
                             </div>
                           )}
