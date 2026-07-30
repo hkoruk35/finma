@@ -1129,7 +1129,7 @@ export default function BogaChartEngine({
         key={key}
         onClick={() => toggle(key)}
         title={locked ? t.premiumRequired : undefined}
-        className={`px-2 py-0.5 rounded text-[9px] font-medium border transition-all ${
+        className={`px-2 py-0.5 rounded text-[8px] font-medium border transition-all ${
           locked
             ? "border-[#1e2a3a] text-[#64748b]/60 hover:text-amber-400 hover:border-amber-500/40"
             : active.has(key)
@@ -1449,7 +1449,7 @@ export default function BogaChartEngine({
               className={`tracking-wide ${compact ? "text-xs" : "text-lg md:text-xl"}`}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
             >
-              <span className="text-[#3b82f6]/[0.5]">Boga</span><span className="text-white/[0.25]">Stock</span>
+              <span className="text-[#3b82f6]/[0.65]">Boga</span><span className="text-white/[0.35]">Stock</span>
             </span>
             <span
               className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}

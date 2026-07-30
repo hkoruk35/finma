@@ -362,9 +362,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
 
           <div className="md:pb-4">
             {(selectedList === "Tüm Liste" ? extendedGroups : extendedGroups.filter(g => g.group === selectedList)).map(group => (
-              <div key={group.group} className="mb-6">
+              <div key={group.group} className="mb-2">
                 {selectedList === "Tüm Liste" && (
-                  <h3 className="px-3 mb-2 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
+                  <h3 className="px-3 mb-1 text-xs font-medium text-slate-500 uppercase tracking-widest">{group.group}</h3>
                 )}
                 <div className="flex flex-col">
                   {group.items.map((item: any) => {
@@ -372,14 +372,14 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                     const selected = selectedTicker === item.ticker;
                     const chg = price?.change_1d ?? null;
                     return (
-                      <div 
+                      <div
                         key={item.ticker}
                         onClick={() => {
                           setSelectedTicker(item.ticker);
                           setSelectedYSymbol(item.ySymbol);
                           setShowMobileSidebar(false);
                         }}
-                        className={`flex items-center gap-2 justify-between px-3 py-2 cursor-pointer border-l-2 transition-colors ${
+                        className={`flex items-center gap-1 px-2 py-1 cursor-pointer border-l-2 transition-colors ${
                           selected ? "border-[#3b82f6] bg-[#3b82f6]/10" : "border-transparent hover:bg-white/[0.03]"
                         }`}
                       >
@@ -388,18 +388,16 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           onToggle={() => toggleCompare(item.ticker)}
                           title={compareCheckboxTitle}
                         />
-                        <div className="min-w-0 pr-2 flex-1">
-                          <div className="text-[11px] font-medium text-white truncate">{item.label}</div>
+                        <div className="text-[13px] font-medium text-white w-24 truncate">
+                          {item.label}
                         </div>
-                        <div className="text-right shrink-0 flex flex-col items-end gap-0.5">
-                          <div className="text-[9px] font-mono text-white">
-                            {price?.price != null ? fmt(price.price) : "..."}
+                        {chg != null && (
+                          <div className={`text-[13px] font-mono font-semibold w-16 text-right ${pColor(chg)}`}>
+                            {sgn(chg)}{fmt(chg)}%
                           </div>
-                          {chg != null && (
-                            <div className={`text-[8px] font-mono font-semibold inline-block ${pColor(chg)}`}>
-                              {sgn(chg)}{fmt(chg)}%
-                            </div>
-                          )}
+                        )}
+                        <div className="text-[13px] font-mono text-white w-20 text-right">
+                          {price?.price != null ? fmt(price.price) : "..."}
                         </div>
                       </div>
                     );
