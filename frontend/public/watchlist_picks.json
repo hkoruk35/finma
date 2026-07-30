@@ -1,18 +1,6 @@
 {
-  "generated_at": "2026-07-29T20:42:04.745526-04:00",
+  "generated_at": "2026-07-30T09:05:11.591871-04:00",
   "picks": [
-    {
-      "ticker": "BCO",
-      "sector": "Industrials",
-      "date_added": "2026-07-27",
-      "score": 34.5
-    },
-    {
-      "ticker": "MEDP",
-      "sector": "Healthcare",
-      "date_added": "2026-07-27",
-      "score": 31.0
-    },
     {
       "ticker": "VNO",
       "sector": "Real Estate",
@@ -86,16 +74,22 @@
       "score": 48.0
     },
     {
-      "ticker": "PSX",
-      "sector": "Energy",
-      "date_added": "2026-07-29",
+      "ticker": "CLF",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-30",
       "score": 44.0
     },
     {
-      "ticker": "VC",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-29",
-      "score": 43.5
+      "ticker": "SHW",
+      "sector": "Basic Materials",
+      "date_added": "2026-07-30",
+      "score": 42.5
+    },
+    {
+      "ticker": "GENI",
+      "sector": "Communication Services",
+      "date_added": "2026-07-30",
+      "score": 34.0
     }
   ]
 }
