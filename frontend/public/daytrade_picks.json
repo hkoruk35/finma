@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-07-28T09:15:21.159898-04:00",
+  "generated_at": "2026-07-30T09:15:02.450884-04:00",
   "scan_mode": "open_confirm",
-  "scan_duration_s": 952.1,
-  "total_scanned": 2,
-  "layer1_passed": 2,
-  "final_picks": 2,
+  "scan_duration_s": 26.4,
+  "total_scanned": 1,
+  "layer1_passed": 1,
+  "final_picks": 1,
   "picks": [
     {
-      "ticker": "CELH",
-      "price": 28.79,
-      "change_pct": 6.16,
-      "dt_score": 38.0,
-      "signal": "CONFIRMED_OPEN",
+      "ticker": "GRND",
+      "price": 17.21,
+      "change_pct": 3.67,
+      "dt_score": 52.0,
+      "signal": "GAP_AND_GO",
       "entry_condition": "✅ AÇILIŞ ONAYLANDI — Şimdi giriş düşünülebilir | Stop: VWAP altı | TP: ATR bazlı zonlara bak",
       "rsi": 50.0,
       "rvol": 1.0,
       "pm_rvol": 1.0,
       "atr_pct": 3.0,
-      "vwap": 28.4,
+      "vwap": 17.01,
       "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1785245326.3648088
+        "catalyst_type": "upgrade",
+        "catalyst_score": 15,
+        "headline": "grindr for equality commits to connecting 10m to hiv prevention by 2028(business wire)",
+        "confidence": "medium",
+        "ts": 1785417328.1937647
       },
       "gap_fill": {
         "fill_risk": "Bilinmiyor",
@@ -37,81 +37,26 @@
       },
       "zones": {
         "entry_zone": {
-          "low": 28.76,
-          "high": 28.93
+          "low": 17.19,
+          "high": 17.3
         },
-        "stop": 28.36,
-        "tp1": 29.81,
-        "tp2": 30.54,
-        "rr_ratio": 1.99,
-        "avg_entry": 28.84,
-        "risk_per_sh": 0.48,
-        "signal": "CONFIRMED_OPEN",
-        "pm_high_ref": 28.79
+        "stop": 16.95,
+        "tp1": 17.84,
+        "tp2": 18.28,
+        "rr_ratio": 2.02,
+        "avg_entry": 17.25,
+        "risk_per_sh": 0.3,
+        "signal": "GAP_AND_GO",
+        "pm_high_ref": 17.21
       },
       "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
+        "📰 Kataliz: UPGRADE",
         "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +6.2%",
+        "↗️ Küçük Gap: +3.7%",
         "Bilinmiyor",
         "Bilinmiyor",
-        "✅ VWAP Üstünde: +1.38%",
-        "✅ Açılış Barı: Yeşil",
-        "🟢 RSI: 50 (Momentum Bölgesi)",
-        "📏 ATR: %3.0"
-      ]
-    },
-    {
-      "ticker": "GRND",
-      "price": 15.48,
-      "change_pct": 4.24,
-      "dt_score": 28.0,
-      "signal": "PULLBACK_VWAP",
-      "entry_condition": "📊 PULLBACK BEKLE → $15.53'a çekilme + bounce onayı",
-      "rsi": 50.0,
-      "rvol": 1.0,
-      "pm_rvol": 1.0,
-      "atr_pct": 3.0,
-      "vwap": 15.53,
-      "catalyst": {
-        "catalyst_type": "unknown",
-        "catalyst_score": 5,
-        "headline": "",
-        "confidence": "low",
-        "ts": 1785245327.2115045
-      },
-      "gap_fill": {
-        "fill_risk": "Bilinmiyor",
-        "fill_risk_score": 0,
-        "historical_fill_rate": null
-      },
-      "float_rotation": {
-        "rotation_minutes": 999,
-        "label": "Bilinmiyor",
-        "score_bonus": 0
-      },
-      "zones": {
-        "entry_zone": {
-          "low": 15.5,
-          "high": 15.58
-        },
-        "stop": 15.37,
-        "tp1": 15.88,
-        "tp2": 16.13,
-        "rr_ratio": 2.0,
-        "avg_entry": 15.54,
-        "risk_per_sh": 0.17,
-        "signal": "PULLBACK_VWAP",
-        "pm_high_ref": 15.48
-      },
-      "details": [
-        "❓ Kataliz Bilinmiyor — Düşük Güven",
-        "❌ PM RVOL: 1.0x (Hacimsiz Premarket!)",
-        "↗️ Orta Gap: +4.2%",
-        "Bilinmiyor",
-        "Bilinmiyor",
-        "🔄 VWAP Testi: -0.34%",
-        "✅ Açılış Barı: Yeşil",
+        "✅ VWAP Üstünde: +1.15%",
+        "🔥 Açılış Barı: Güçlü (3.3x hacim)",
         "🟢 RSI: 50 (Momentum Bölgesi)",
         "📏 ATR: %3.0"
       ]
