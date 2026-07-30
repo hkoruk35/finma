@@ -87,7 +87,6 @@ const getGroups = (locale: Locale) => {
 type PriceInfo = { price: number | null; change_1d: number | null };
 
 const fmt = (n: number, d = 2) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
-const pColor = (v: number | null) => v == null ? "text-slate-500" : v > 0 ? "text-emerald-400" : v < 0 ? "text-red-500" : "text-slate-400";
 const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
@@ -389,13 +388,16 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                           onToggle={() => toggleCompare(item.ticker)}
                           title={compareCheckboxTitle}
                         />
-                        <div className="text-[13px] font-medium text-white flex-1 min-w-0 truncate">
+                        <div className="font-medium flex-1 min-w-0 truncate" style={{ fontSize: 12, color: "#e8e8e8" }}>
                           {item.label}
                         </div>
-                        <div className={`text-[13px] font-mono font-semibold w-14 text-right shrink-0 ${chg != null ? pColor(chg) : "text-slate-600"}`}>
+                        <div
+                          className="font-mono font-semibold w-14 text-right shrink-0"
+                          style={{ fontSize: 12, color: chg == null ? "#94a3b8" : chg > 0 ? "#22c55e" : chg < 0 ? "#ef4444" : "#94a3b8" }}
+                        >
                           {chg != null ? `${sgn(chg)}${fmt(chg)}%` : "—"}
                         </div>
-                        <div className="text-[13px] font-mono text-white w-20 text-right shrink-0">
+                        <div className="font-mono w-20 text-right shrink-0" style={{ fontSize: 12, color: "#e8e8e8" }}>
                           {price?.price != null ? fmt(price.price) : "..."}
                         </div>
                       </div>

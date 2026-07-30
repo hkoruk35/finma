@@ -1212,7 +1212,8 @@ export default function BogaChartEngine({
                 <button
                   key={iv.value}
                   onClick={() => changeInterval(iv.value)}
-                  className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
+                  style={{ fontSize: 9 }}
+                  className={`px-2.5 py-1 rounded font-medium transition-all ${
                     interval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
                   }`}
                 >
@@ -1337,7 +1338,8 @@ export default function BogaChartEngine({
                   <button
                     key={r}
                     onClick={() => setRange(r)}
-                    className={`px-2.5 py-1 rounded text-[10px] font-medium transition-all ${
+                    style={{ fontSize: 9 }}
+                    className={`px-2.5 py-1 rounded font-medium transition-all ${
                       range === r ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
                     }`}
                   >
@@ -1427,9 +1429,9 @@ export default function BogaChartEngine({
           >
             <span
               className={`tracking-wide ${compact ? "text-xs" : "text-lg md:text-xl"}`}
-              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
+              style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 500 }}
             >
-              <span className="text-[#3b82f6]/[0.65]">Boga</span><span className="text-white/[0.35]">Stock</span>
+              <span style={{ color: "#3b82f6", opacity: 0.5 }}>Boga</span><span style={{ color: "#ffffff", opacity: 0.5 }}>Stock</span>
             </span>
             <span
               className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}
