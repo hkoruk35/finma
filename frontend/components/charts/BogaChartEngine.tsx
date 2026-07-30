@@ -343,8 +343,8 @@ export default function BogaChartEngine({
     () =>
       new Set(
         defaultIndicators ?? (compact
-          ? (["ema20", "ema50"] as IndicatorKey[])
-          : (["ema20", "ema50", "sr", "volumeProfile", "rsi"] as IndicatorKey[]))
+          ? (["ema50", "volume"] as IndicatorKey[])
+          : (["ema50", "rsi", "volume"] as IndicatorKey[]))
       )
   );
   const active = indicatorsProp ? new Set(indicatorsProp) : internalActive;
@@ -1439,17 +1439,17 @@ export default function BogaChartEngine({
               satirinin hemen altinda (o satir orada her zaman gorunur).
               Mobilde OHLC satiri varsayilan gizli oldugu icin (bkz.
               crosshairActive) filigran da yukari, ust kenara yaklasir —
-              aksi halde bos bir bosluk kalirdi. Header.tsx'teki logo
-              fontuyla (Montserrat) STOCK kismi acik mavi, dusuk opaklikla
-              mum/gosterge okumayi engellemeyecek sekilde. Altinda ticker sembolü. */}
+              aksi halde bos bir bosluk kalirdi. Header.tsx'teki logoyla ayni
+              format (Boga mavi, Stock beyaz/gri), dusuk opaklikla mum/gosterge
+              okumayi engellemeyecek sekilde. Altinda ticker sembolü. */}
           <div
             className={`absolute ${compact ? "top-1.5 left-2" : detailMode ? "top-2 md:top-9 left-2" : "top-2.5 left-3"} pointer-events-none select-none z-10 flex flex-col items-start`}
           >
             <span
-              className={`tracking-wide text-white/[0.14] ${compact ? "text-xs" : "text-lg md:text-xl"}`}
+              className={`tracking-wide ${compact ? "text-xs" : "text-lg md:text-xl"}`}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
             >
-              BOGA<span className="text-[#3b82f6]/[0.35]">STOCK</span>
+              <span className="text-[#3b82f6]/[0.5]">Boga</span><span className="text-white/[0.25]">Stock</span>
             </span>
             <span
               className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}
