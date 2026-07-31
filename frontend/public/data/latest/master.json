@@ -1,8 +1,8 @@
 {
   "date": "2026-07-31",
-  "generated_at": "2026-07-31T09:08:31.918416-04:00",
+  "generated_at": "2026-07-31T14:06:23.171610-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 20,
+  "active_scores_count": 30,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -64,25 +64,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 745.97,
-      "change_pct": 0.58
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 689.14,
-      "change_pct": 0.82
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 524.405,
-      "change_pct": 0.56
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 16.56,
-      "change_pct": -3.1
-    },
-    "RUSSELL2000": {
-      "value": 291.77,
-      "change_pct": -0.28
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-07-31T14:01:24.173548-04:00"
+  }
 }
