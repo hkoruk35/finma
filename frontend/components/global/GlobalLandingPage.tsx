@@ -477,6 +477,28 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           </div>
         </div>
 
+        {compareSelection.length >= 2 && (
+          <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 px-4 py-2.5 rounded-full bg-[#141924] border border-[#3b82f6]/50 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+            <span className="text-[13px] font-medium text-white">
+              {compareLabel} ({compareSelection.length})
+            </span>
+            <button
+              onClick={() => setCompareSelection([])}
+              className="text-[13px] font-medium text-slate-400 hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+            <button
+              onClick={() => {
+                setMultiChartRequest(compareSelection);
+                setCompareSelection([]);
+              }}
+              className="px-3 py-1 rounded-full bg-[#3b82f6] text-[13px] font-medium text-white hover:bg-[#2563eb] transition-colors"
+            >
+              {compareOpenLabel}
+            </button>
+          </div>
+        )}
 
 
       </main>

@@ -1548,12 +1548,27 @@ function MultiChartOverlay({
   onChangeTicker: (index: number, next: string) => void;
 }) {
   const t = LABELS[lang] || LABELS.en;
+  const [sharedInterval, setSharedInterval] = useState("60");
   return (
     <div className="fixed inset-0 z-[200] bg-[#0a0e17] flex flex-col">
       <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e2a3a] shrink-0">
         <span className="text-sm font-medium text-white uppercase tracking-widest">
           {t.multiChartScreen} — {layout}
         </span>
+        <div className="flex items-center bg-[#141924] rounded-lg p-0.5 border border-[#1e2a3a]">
+          {INTERVALS.map((iv) => (
+            <button
+              key={iv.value}
+              onClick={() => setSharedInterval(iv.value)}
+              style={{ fontSize: 9 }}
+              className={`px-2.5 py-1 rounded font-medium transition-all ${
+                sharedInterval === iv.value ? "bg-[#3b82f6] text-white" : "text-[#00d2ff] hover:text-white"
+              }`}
+            >
+              {iv.label}
+            </button>
+          ))}
+        </div>
         <button
           onClick={onClose}
           className="px-3 py-1.5 rounded bg-[#141924] border border-[#1e2a3a] text-xs font-medium text-[#00d2ff] hover:text-white transition-all"
@@ -1566,7 +1581,7 @@ function MultiChartOverlay({
           <div key={i} className="min-h-[240px] flex flex-col rounded-lg border border-[#1e2a3a] overflow-hidden">
             <MultiChartTickerInput value={ticker} onChange={(next) => onChangeTicker(i, next)} />
             <div className="flex-1 min-h-0">
-              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} defaultTimeframe="60" />
+              <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} interval={sharedInterval} />
             </div>
           </div>
         ))}
