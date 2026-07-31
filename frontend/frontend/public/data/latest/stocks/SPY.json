@@ -1,0 +1,89 @@
+{
+  "ticker": "SPY",
+  "company": "State Street SPDR S&P 500 ETF Trust",
+  "date": "2026-07-30",
+  "generated_at": "2026-07-30T23:51:58.811Z",
+  "sector": "Unknown",
+  "industry": "Unknown",
+  "price": {
+    "current": 741.6900024414062,
+    "open": 736.0499877929688,
+    "high": 742.4500122070312,
+    "low": 734.5900268554688,
+    "prev_close": 729.4600219726562,
+    "change_pct": 1.6765799496011913,
+    "change_pct_1w": 0.47549510965500313,
+    "change_pct_1m": -0.21525590728180663,
+    "change_pct_1y": 16.900983002104955,
+    "volume": 65907594,
+    "avg_volume_30d": 1577961394
+  },
+  "scores": {
+    "master_score": 67,
+    "technical_score": 85,
+    "fundamental_score": 56.6,
+    "momentum_score": 50,
+    "sentiment_score": 70,
+    "signal_type": "BUY",
+    "score_type": "POSITIVE_BIAS",
+    "micro_15m": {
+      "is_valid": true,
+      "score_bonus": 1,
+      "msg": "⚖️ 15m Yatay/Sıkışma: Gürültü yok"
+    }
+  },
+  "technical": {
+    "rsi_14": 49.190973900212924,
+    "macd": 0.1,
+    "macd_signal": 0.1,
+    "macd_histogram": 0,
+    "ema_20": 742.7094656089866,
+    "ema_50": 738.7415621260773,
+    "ema_200": 704.7447199556104,
+    "ema_stack_bullish": true,
+    "bb_upper": 778.7745025634766,
+    "bb_middle": 741.6900024414062,
+    "bb_lower": 704.6055023193359,
+    "bb_width": 10,
+    "atr": 8.1,
+    "atr_pct": 1.09,
+    "rvol": 1.0272882278132591,
+    "52w_high": 760.4000244140625,
+    "52w_low": 619.2899780273438
+  },
+  "fundamental": {
+    "pe_ratio": 26.678713,
+    "pb_ratio": 0,
+    "gross_margin": 0,
+    "operating_margin": 0,
+    "net_margin": 0,
+    "market_cap": 0,
+    "revenue_growth_ttm": 0,
+    "fcf_yield": 0.04,
+    "institutional_ownership_pct": 0.7,
+    "dividend_rate": 0,
+    "dividend_yield": 0
+  },
+  "scores_detail": {
+    "entry_range_low": 736.83,
+    "entry_range_high": 742.5,
+    "target_range_low": 776.65,
+    "target_range_high": 850.62,
+    "target_1": 776.65,
+    "target_2": 813.63,
+    "target_3": 850.62,
+    "stop_loss": 704.61,
+    "risk_reward_ratio": 2.11,
+    "entry_engine": {
+      "valid": false,
+      "type": "WAITING_FOR_VOLUME_OR_SWEEP",
+      "confidence": 0
+    },
+    "entry_condition": "Hesaplanan giriş aralığı $736.83 – $742.50 seviyeleridir. Karar verilirken hacim artışı, RSI yönü ve bir önceki mum kapanışının $747.01 direnci veya $735.21 desteği üzerindeki seyri takip edilebilir.",
+    "stop_rationale": "Hesaplanan stop-loss seviyesi $704.61 olarak belirlenmiştir. Fiyatın EMA200 ($704.74) veya günlük VWAP ($739.12) altında gün kapatması durumunda teknik yapı geçersizlik kazanabilir.",
+    "rationale_ema": "Fiyat 50 günlük EMA'nın ($738.74) üzerinde seyrediyor, kısa vadeli yapı ise nötr/karışık bir görünümde.",
+    "rationale_vwap": "Fiyat gün içi VWAP'ın ($739.12) üzerinde seyrediyor — gün içi alıcı ağırlıklı bir yapıya işaret edebilir.",
+    "rationale_volume": "Hacim 30 günlük ortalamaya yakın seviyede — standart piyasa katılımı gözleniyor.",
+    "rationale_rsi": "RSI 49 ile dengeli/nötr bir görünümde."
+  }
+}
