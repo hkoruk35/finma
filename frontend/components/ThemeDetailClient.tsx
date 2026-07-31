@@ -652,8 +652,8 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
                         {d?.tracker_1h?.ema_status && (
                           <span style={{
                             fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                            background: d.tracker_1h.ema_status.includes("Bull") || d.tracker_1h.ema_status === "Yükseliş" ? "#1a3a1a" : d.tracker_1h.ema_status === "Nötr" ? "#1a1a2e" : "#2e1a1a",
-                            color: d.tracker_1h.ema_status.includes("Bull") || d.tracker_1h.ema_status === "Yükseliş" ? "#3fb950" : d.tracker_1h.ema_status === "Nötr" ? "#8b949e" : "#f85149",
+                            background: d.tracker_1h.ema_status.includes("Bull") ? "#1a3a1a" : d.tracker_1h.ema_status === "Neutral" ? "#1a1a2e" : "#2e1a1a",
+                            color: d.tracker_1h.ema_status.includes("Bull") ? "#3fb950" : d.tracker_1h.ema_status === "Neutral" ? "#8b949e" : "#f85149",
                           }}>
                             {d.tracker_1h.ema_status}
                           </span>
