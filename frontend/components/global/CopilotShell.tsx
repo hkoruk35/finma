@@ -8,10 +8,13 @@ import CopilotDrawer from "./CopilotDrawer";
 export default function CopilotShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
-  // Exclude non-finance pages like /weather, /sports, or /admin routes
+  // Exclude non-money pages: /search (ask), /discover, /sports, /weather, /today, /admin
   const isExcluded = !!pathname && (
-    pathname.includes("/weather") ||
+    pathname.includes("/search") ||
+    pathname.includes("/discover") ||
     pathname.includes("/sports") ||
+    pathname.includes("/weather") ||
+    pathname.includes("/today") ||
     pathname.startsWith("/admin")
   );
 
@@ -24,5 +27,6 @@ export default function CopilotShell({ children }: { children: ReactNode }) {
     </CopilotProvider>
   );
 }
+
 
 
