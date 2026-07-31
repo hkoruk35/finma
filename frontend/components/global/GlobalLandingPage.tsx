@@ -199,7 +199,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           const r5 = await fetch('/api/top100');
           if (r5.ok) {
              const d5 = await r5.json();
-             top100Items = (d5.rows || []).slice(0, 10).map((r: any) => ({
+             const sortedByGain = (d5.rows || [])
+                .filter((r: any) => r.change_pct != null)
+                .sort((a: any, b: any) => b.change_pct - a.change_pct);
+             top100Items = sortedByGain.slice(0, 10).map((r: any) => ({
                 ticker: r.ticker, label: r.ticker, ySymbol: r.ticker, price: r.price ?? 0, change_1d: r.change_pct ?? 0
              }));
           }
