@@ -1,23 +1,28 @@
 "use client";
 
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { CopilotProvider } from "@/context/CopilotContext";
 import CopilotDrawer from "./CopilotDrawer";
 
 export default function CopilotShell({ children }: { children: ReactNode }) {
-  const [isMoneySection, setIsMoneySection] = useState(false);
+  const pathname = usePathname();
 
-  useEffect(() => {
-    const path = typeof window !== "undefined" ? window.location.pathname : "";
-    const isMoney = /\/(home|performance|swing|swingperformance|top100|watchlist|insider|my-watchlist|stock)\b/i.test(path);
-    setIsMoneySection(isMoney);
-  }, []);
+  // Exclude non-finance pages like /weather, /sports, or /admin routes
+  const isExcluded = !!pathname && (
+    pathname.includes("/weather") ||
+    pathname.includes("/sports") ||
+    pathname.startsWith("/admin")
+  );
+
+  const isFinancePage = !isExcluded;
 
   return (
     <CopilotProvider>
       {children}
-      {isMoneySection && <CopilotDrawer />}
+      {isFinancePage && <CopilotDrawer />}
     </CopilotProvider>
   );
 }
+
 
