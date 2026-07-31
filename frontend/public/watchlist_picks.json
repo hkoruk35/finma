@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T14:06:24.150725-04:00",
+  "generated_at": "2026-07-31T17:07:02.499734-04:00",
   "picks": [
     {
       "ticker": "SBLK",
@@ -8,28 +8,10 @@
       "score": 35.5
     },
     {
-      "ticker": "SW",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-30",
-      "score": 33.0
-    },
-    {
-      "ticker": "WAB",
-      "sector": "Industrials",
-      "date_added": "2026-07-30",
-      "score": 37.0
-    },
-    {
       "ticker": "FLS",
       "sector": "Industrials",
       "date_added": "2026-07-30",
       "score": 29.5
-    },
-    {
-      "ticker": "PCAR",
-      "sector": "Industrials",
-      "date_added": "2026-07-31",
-      "score": 42.0
     },
     {
       "ticker": "GTLB",
@@ -38,58 +20,22 @@
       "score": 36.0
     },
     {
-      "ticker": "BIPC",
-      "sector": "Utilities",
-      "date_added": "2026-07-31",
-      "score": 39.0
-    },
-    {
-      "ticker": "VLO",
-      "sector": "Energy",
-      "date_added": "2026-07-31",
-      "score": 38.5
-    },
-    {
-      "ticker": "TDY",
-      "sector": "Technology",
-      "date_added": "2026-07-31",
-      "score": 38.5
-    },
-    {
-      "ticker": "IEX",
-      "sector": "Industrials",
-      "date_added": "2026-07-31",
-      "score": 38.0
-    },
-    {
       "ticker": "CTAS",
       "sector": "Industrials",
       "date_added": "2026-07-31",
       "score": 37.0
     },
     {
-      "ticker": "FCX",
-      "sector": "Basic Materials",
-      "date_added": "2026-07-31",
-      "score": 36.0
-    },
-    {
-      "ticker": "JLL",
-      "sector": "Real Estate",
-      "date_added": "2026-07-31",
-      "score": 36.0
-    },
-    {
-      "ticker": "GPC",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-31",
-      "score": 32.5
-    },
-    {
       "ticker": "CSW",
       "sector": "Industrials",
       "date_added": "2026-07-31",
       "score": 28.0
+    },
+    {
+      "ticker": "ITRI",
+      "sector": "Technology",
+      "date_added": "2026-07-31",
+      "score": 36.5
     }
   ]
 }
