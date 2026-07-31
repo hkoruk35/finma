@@ -429,16 +429,16 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                           {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
                         </td>
                         <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                        <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 11, color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
                           {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
                           {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
                           {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
                         </td>
-                        <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
+                        <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
                           {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
                         </td>
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
@@ -456,7 +456,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                         <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                         <td style={{ padding: "7px 8px", textAlign: "right" }}>
                           {d && (
-                            <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
+                            <span style={{ fontWeight: 700, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
                               {SIGNAL_ICON[signal] || "○"} {signalLabel(signal, locale)}
                             </span>
                           )}
@@ -481,7 +481,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "7px 8px", whiteSpace: "nowrap" }} onClick={(e) => e.stopPropagation()}>
                         <span onClick={() => toggleExpand(r.ticker)} style={{ cursor: "pointer" }}>
                           <TickerHoverChart ticker={r.ticker} locale={locale} onDetailClick={() => setAnalyzeTicker(r.ticker)} detailLabel={locale === "tr" ? "Grafik Detay ↗" : locale === "pt" ? "Detalhe de Gráfico ↗" : locale === "es" ? "Detalle de Gráfico ↗" : locale === "fr" ? "Détail Graphique ↗" : "Chart Detail ↗"}>
-                            <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 900, fontSize: 13 }}>{r.ticker}</span>
+                            <span style={{ color: isSwingDaily ? "#58a6ff" : "#e6edf3", fontWeight: 700 }}>{r.ticker}</span>
                           </TickerHoverChart>
                           <span style={{ color: isExpanded ? "#3fb950" : "#8b949e", marginLeft: 6, fontSize: 10 }}>{isExpanded ? "▼" : "▶"}</span>
                         </span>
@@ -497,16 +497,16 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                         {d ? `${(d.tracker_1h?.change_pct_1d ?? 0) >= 0 ? "+" : ""}${fmt2(d.tracker_1h?.change_pct_1d)}%` : "—"}
                       </td>
                       <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{fmtVol(d?.price?.volume)}</td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
+                      <td style={{ padding: "7px 8px", textAlign: "right", fontSize: 11, color: !d ? "#8b949e" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 1.5 ? "#3fb950" : (d.tracker_1h?.volume_ratio_1d ?? 0) >= 0.8 ? "#e6edf3" : "#8b949e" }}>
                         {d ? `${fmt2(d.tracker_1h?.volume_ratio_1d)}x` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_20) : "#8b949e" }}>
                         {d ? `${fmt2(d.tracker_1h?.ema_20)}${emaArrow(price, d.tracker_1h?.ema_20)}` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_50) : "#8b949e" }}>
                         {d ? `${fmt2(d.tracker_1h?.ema_50)}${emaArrow(price, d.tracker_1h?.ema_50)}` : "—"}
                       </td>
-                      <td style={{ padding: "7px 8px", textAlign: "right", fontWeight: 700, color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
+                      <td style={{ padding: "7px 8px", textAlign: "right", color: d ? emaColor(price, d.tracker_1h?.ema_200) : "#8b949e" }}>
                         {d ? `${fmt2(d.tracker_1h?.ema_200)}${emaArrow(price, d.tracker_1h?.ema_200)}` : "—"}
                       </td>
                       <td style={{ padding: "7px 8px", textAlign: "right" }}>
@@ -524,7 +524,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                       <td style={{ padding: "7px 8px", textAlign: "right", color: "#8b949e", fontSize: 11 }}>{translatePattern(d?.tracker_1h?.candle_pattern, locale)}</td>
                       <td style={{ padding: "7px 8px", textAlign: "right" }}>
                         {d && (
-                          <span style={{ fontWeight: 900, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
+                          <span style={{ fontWeight: 700, fontSize: 12, color: SIGNAL_COLOR[signal] || "#8b949e" }}>
                             {SIGNAL_ICON[signal] || "○"} {signalLabel(signal, locale)}
                           </span>
                         )}
