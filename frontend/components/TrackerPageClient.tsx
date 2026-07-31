@@ -506,8 +506,8 @@ export function TrackerPageClient() {
                           {d && (
                             <span style={{
                               fontSize: 10, fontWeight: 700, padding: "2px 6px", borderRadius: 3,
-                              background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "Yükseliş" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Nötr" ? "#1a1a2e" : d.tracker_1h?.ema_status === "Düşüş" ? "#2e1a1a" : "#3a1a1a",
-                              color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "Yükseliş" ? "#56d364" : d.tracker_1h?.ema_status === "Nötr" ? "#8b949e" : d.tracker_1h?.ema_status === "Düşüş" ? "#f85149" : "#ff7b72",
+                              background: d.tracker_1h?.ema_status === "Bullish" ? "#1a3a1a" : d.tracker_1h?.ema_status === "BullishWeak" ? "#1c2e1c" : d.tracker_1h?.ema_status === "Neutral" ? "#1a1a2e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#2e1a1a" : "#3a1a1a",
+                              color: d.tracker_1h?.ema_status === "Bullish" ? "#3fb950" : d.tracker_1h?.ema_status === "BullishWeak" ? "#56d364" : d.tracker_1h?.ema_status === "Neutral" ? "#8b949e" : d.tracker_1h?.ema_status === "BearishWeak" ? "#f85149" : "#ff7b72",
                             }}>
                               {d.tracker_1h?.ema_status}
                             </span>
