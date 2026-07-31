@@ -15,8 +15,17 @@ import { MARKET_THEMES } from "@/lib/themeData";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGA AI",
-  description: "Tableau de bord avec candidats d'actions en tendance, actions populaires et suivi Top 100.",
+  title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
+  description: "Découvrez l'analyse technique interactive alimentée par l'IA pour les actions américaines, la sélection d'actions tendance, les indicateurs Top 100, l'or, les devises et les cryptomonnaies sur BOGASTOCK AI.",
+  keywords: ["analyse des actions US", "BOGASTOCK AI", "analyse technique boursière", "actions tendance", "Top 100 actions", "IA bourse", "analyse graphique boursière"],
+  openGraph: {
+    title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
+    description: "Découvrez l'analyse technique interactive alimentée par l'IA pour les actions américaines, la sélection d'actions tendance, les indicateurs Top 100, l'or, les devises et les cryptomonnaies sur BOGASTOCK AI.",
+    url: "https://bogastock.com/global/fr/home",
+    siteName: "BOGASTOCK Terminal",
+    locale: "fr_FR",
+    type: "website",
+  },
   alternates: { canonical: "https://bogastock.com/global/fr/home" },
 };
 

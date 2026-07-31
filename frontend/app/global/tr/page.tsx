@@ -8,7 +8,16 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: 'BogaStock Terminal Yapay Zekâ Destekli Yatırım Analiz ve Karar Platformu',
-  description: 'ABD hisseleri, altın, döviz ve kripto varlıkların gelişmiş interaktif teknik grafik analizi.',
+  description: 'ABD hisseleri, altın, döviz ve kripto varlıkların gelişmiş interaktif teknik grafik analizi ve yapay zekâ destekli borsa tahminleri.',
+  keywords: ["BogaStock Terminal", "yapay zeka hisse analizi", "ABD borsa grafikleri", "teknik analiz platformu", "canlı hisse verileri"],
+  openGraph: {
+    title: 'BogaStock Terminal Yapay Zekâ Destekli Yatırım Analiz ve Karar Platformu',
+    description: 'ABD hisseleri, altın, döviz ve kripto varlıkların gelişmiş interaktif teknik grafik analizi ve yapay zekâ destekli borsa tahminleri.',
+    url: 'https://bogastock.com/global/tr',
+    siteName: 'BogaStock Terminal',
+    locale: 'tr_TR',
+    type: 'website',
+  },
   alternates: { canonical: `https://bogastock.com/global/tr` },
 };
 

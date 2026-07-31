@@ -15,8 +15,17 @@ import { MARKET_THEMES } from "@/lib/themeData";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGA AI",
-  description: "Dashboard with trend stock candidates, trending stocks, and top 100 tracker.",
+  title: "BOGASTOCK AI — AI-Powered Stock Market Analysis & Investment Decision Platform",
+  description: "Discover AI-powered technical chart analysis for U.S. stocks, trending stock picks, Top 100 market trackers, gold, forex currencies, and crypto assets on BOGASTOCK AI.",
+  keywords: ["US stock analysis", "BOGASTOCK AI", "stock technical analysis", "trending stocks", "Top 100 stocks", "AI stock market", "stock chart analysis"],
+  openGraph: {
+    title: "BOGASTOCK AI — AI-Powered Stock Market Analysis & Investment Decision Platform",
+    description: "Discover AI-powered technical chart analysis for U.S. stocks, trending stock picks, Top 100 market trackers, gold, forex currencies, and crypto assets on BOGASTOCK AI.",
+    url: "https://bogastock.com/global/en/home",
+    siteName: "BOGASTOCK Terminal",
+    locale: "en_US",
+    type: "website",
+  },
   alternates: { canonical: "https://bogastock.com/global/en/home" },
 };
 

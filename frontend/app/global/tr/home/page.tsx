@@ -15,8 +15,17 @@ import { MARKET_THEMES } from "@/lib/themeData";
 export const revalidate = 120;
 
 export const metadata: Metadata = {
-  title: "BOGA AI",
-  description: "Trend hisse adayları, trend hisseleri ve top 100 tracker'ın hızlı özeti.",
+  title: "BogaStock AI — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
+  description: "BogaStock AI ile ABD hisseleri, trend hisse adayları, Top 100 göstergeleri, altın, döviz ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
+  keywords: ["ABD hisse analizi", "BogaStock AI", "hisse senedi teknik analiz", "trend hisseler", "Top 100 hisse", "yapay zeka borsa", "borsa grafik analiz"],
+  openGraph: {
+    title: "BogaStock AI — Yapay Zekâ Destekli Borsa, Hisse Analiz ve Yatırım Karar Platformu",
+    description: "BogaStock AI ile ABD hisseleri, trend hisse adayları, Top 100 göstergeleri, altın, döviz ve kripto varlıkların canlı grafik ve yapay zekâ destekli gelişmiş teknik analizlerini keşfedin.",
+    url: "https://bogastock.com/global/tr/home",
+    siteName: "BogaStock Terminal",
+    locale: "tr_TR",
+    type: "website",
+  },
   alternates: { canonical: "https://bogastock.com/global/tr/home" },
 };
 
