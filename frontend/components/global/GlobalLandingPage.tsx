@@ -199,12 +199,29 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           const r5 = await fetch('/api/top100');
           if (r5.ok) {
              const d5 = await r5.json();
-             const sortedByGain = (d5.rows || [])
-                .filter((r: any) => r.change_pct != null)
-                .sort((a: any, b: any) => b.change_pct - a.change_pct);
-             top100Items = sortedByGain.slice(0, 10).map((r: any) => ({
-                ticker: r.ticker, label: r.ticker, ySymbol: r.ticker, price: r.price ?? 0, change_1d: r.change_pct ?? 0
-             }));
+             const compRows: any[] = d5.rows || [];
+             if (compRows.length > 0) {
+               const tks = compRows.map((r: any) => r.ticker).join(',');
+               const r5b = await fetch(`/api/watchlist-data?tickers=${tks}`);
+               if (r5b.ok) {
+                  const liveRows = await r5b.json();
+                  const liveMap: Record<string, any> = {};
+                  liveRows.forEach((r: any) => { if (r.ticker) liveMap[r.ticker] = r; });
+                  // Top100Tracker.tsx (the real /top100 page) sorts and displays
+                  // Δ% 1G from live tracker_1h.change_pct_1d, NOT from /api/top100's
+                  // own change_pct (top100_snapshot table, a different/stale value) —
+                  // match that exact field so "ilk 10" here is really the same top 10.
+                  const sortedByGain = compRows
+                    .map((r: any) => ({ ticker: r.ticker, live: liveMap[r.ticker] }))
+                    .filter((x) => x.live?.tracker_1h?.change_pct_1d != null)
+                    .sort((a, b) => (b.live.tracker_1h.change_pct_1d ?? 0) - (a.live.tracker_1h.change_pct_1d ?? 0));
+                  top100Items = sortedByGain.slice(0, 10).map((x) => ({
+                     ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
+                     price: x.live?.price?.current ?? 0,
+                     change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
+                  }));
+               }
+             }
           }
         } catch {}
 
