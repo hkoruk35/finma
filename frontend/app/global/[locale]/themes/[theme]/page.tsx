@@ -5,6 +5,7 @@ import { getEffectiveThemeTickers } from "@/lib/themeOverrides";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import ThemeSwingTracker from "@/components/public/ThemeSwingTracker";
+import ListsNavigation from "@/components/global/ListsNavigation";
 
 export const revalidate = 300;
 
@@ -146,7 +147,6 @@ export default async function ThemePage({ params }: Props) {
   }
 
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
-  const themeDescription = THEME_DESCRIPTIONS[theme]?.[locale as Locale] || "";
   const themeTickers = await getEffectiveThemeTickers(hotTheme);
   // Sadece ilk tema (HOT_THEMES_2026[0]) uye olmayan ziyaretcilere acik —
   // digerleri Premium kilitli gorunur (bkz. ThemeSwingTracker.tsx).
@@ -157,27 +157,29 @@ export default async function ThemePage({ params }: Props) {
       <MemberHeader locale={locale as Locale} />
 
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-4 md:py-6">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest mb-3">
-          <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">
-            {locale === "tr" ? "Gösterge Paneli" : locale === "en" ? "Dashboard" : locale === "es" ? "Panel" : locale === "fr" ? "Tableau de Bord" : "Painel"}
-          </Link>
-          <span className="opacity-30">/</span>
-          <span className="text-white italic">{themeTitle}</span>
-        </nav>
+        {/* Breadcrumb + Lists Navigation (top-right) */}
+        <div className="flex items-center justify-between gap-4 flex-wrap mb-3">
+          <nav className="flex items-center gap-2 text-[10px] font-medium text-slate-500 uppercase tracking-widest">
+            <Link href={`/global/${locale}/home`} className="hover:text-[#3b82f6] transition-colors">
+              {locale === "tr" ? "Gösterge Paneli" : locale === "en" ? "Dashboard" : locale === "es" ? "Panel" : locale === "fr" ? "Tableau de Bord" : "Painel"}
+            </Link>
+            <span className="opacity-30">/</span>
+            <span className="text-white italic">{themeTitle}</span>
+          </nav>
+          <ListsNavigation locale={locale as Locale} activePath="themes" />
+        </div>
 
         {/* Theme Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-medium text-white mb-2">{themeTitle}</h1>
-          <p className="text-slate-400 text-sm md:text-base mb-6">{themeDescription}</p>
+        <div className="mb-4">
+          <h1 className="text-3xl md:text-4xl font-normal text-white mb-3">{themeTitle}</h1>
 
           {/* Theme Navigation Pills */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-1.5">
             {HOT_THEMES_2026.map((t) => (
               <Link
                 key={t.slug}
                 href={`/global/${locale}/themes/${t.slug}`}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                   t.slug === theme
                     ? "bg-[#58a6ff] text-[#0d1117]"
                     : "bg-[#30363d] text-slate-400 hover:bg-[#58a6ff] hover:text-[#0d1117]"
