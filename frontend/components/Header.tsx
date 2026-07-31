@@ -141,7 +141,7 @@ export default function Header({
   // Logo artık /search'e (yeni "ana sayfa") gider — globalLandingHref TERMINAL
   // nav pili ile paylaşılıyor (bkz. "Terminal" butonu asagida), o yuzden onu
   // degistirmek yerine sadece logo icin ayri bir degisken kullaniyoruz.
-  const logoLandingHref = globalLocale ? `/global/${globalLocale}/search` : undefined;
+  const logoLandingHref = globalLocale ? `/global/${globalLocale}/home` : undefined;
   const terminalTooltip = globalLocale === "tr" ? "TERMİNAL sayfasını aç" : globalLocale === "es" ? "Abrir la página TERMINAL" : globalLocale === "fr" ? "Ouvrir la page TERMINAL" : globalLocale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
   const screenerHref = globalLocale ? `/global/${globalLocale}/home` : "/home";
   const screenerLabel = globalLocale === "tr" ? "LİSTELER" : globalLocale === "es" ? "LISTAS" : globalLocale === "fr" ? "LISTES" : globalLocale === "pt" ? "LISTAS" : "SCREENER";
