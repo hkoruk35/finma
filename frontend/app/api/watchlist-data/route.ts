@@ -105,6 +105,15 @@ function setCachedYahooData(ticker: string, data: any) {
 
 // ── Tracker-specific calculations ────────────────────────────────────────────
 
+function isMarketOpenET(): boolean {
+  const now = new Date();
+  const et = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const h = et.getHours(), m = et.getMinutes(), day = et.getDay();
+  if (day === 0 || day === 6) return false;
+  const mins = h * 60 + m;
+  return mins >= 9 * 60 + 30 && mins < 16 * 60;
+}
+
 function getEMAStatus(price: number, ema20: number, ema50: number, ema200: number): string {
   if (price > ema20 && ema20 > ema50 && ema50 > ema200) return "Bullish";
   if (price > ema20 && ema20 > ema50 && ema50 <= ema200) return "BullishWeak";
@@ -117,15 +126,22 @@ function detectCandlePattern(
   closes: number[],
   opens: number[],
   highs: number[],
-  lows: number[]
+  lows: number[],
+  lastBarComplete: boolean
 ): string {
   if (closes.length < 3) return "Insufficient Data";
 
-  // Son bar şu an oluşmakta (eksik) — son TAMAMLANMIŞ bar = index -2
+  // Piyasa açıkken son bar henüz oluşmakta (eksik) — o yüzden son TAMAMLANMIŞ
+  // bar index -2 kullanılır. Ama piyasa KAPALIYKA son bar (bugünün günü) artık
+  // tamamlanmış demektir; -2'de ısrar etmek paterni her zaman bir gün geriden
+  // (dünün mumundan) hesaplar — kullanıcı "bugün +30% ama patern 3 Karga ↓
+  // diyor" diye şikayet etti, kaynağı buydu. lastBarComplete=true iken -1
+  // kullanılır, aksi halde eski (piyasa açık) davranış korunur.
   const n = closes.length;
-  const curr = { open: opens[n - 2], close: closes[n - 2], high: highs[n - 2], low: lows[n - 2] };
-  const prev = { open: opens[n - 3], close: closes[n - 3], high: highs[n - 3], low: lows[n - 3] };
-  const prev2 = n >= 4 ? { open: opens[n - 4], close: closes[n - 4] } : null;
+  const lastIdx = lastBarComplete ? n - 1 : n - 2;
+  const curr = { open: opens[lastIdx], close: closes[lastIdx], high: highs[lastIdx], low: lows[lastIdx] };
+  const prev = { open: opens[lastIdx - 1], close: closes[lastIdx - 1], high: highs[lastIdx - 1], low: lows[lastIdx - 1] };
+  const prev2 = lastIdx >= 2 ? { open: opens[lastIdx - 2], close: closes[lastIdx - 2] } : null;
 
   const body = Math.abs(curr.close - curr.open);
   const range = curr.high - curr.low || 0.0001;
@@ -224,7 +240,8 @@ function calculateSignal(
   emaStatus: string,
   rsi: number,
   pattern: string,
-  volumeRatio: number
+  volumeRatio: number,
+  changePct: number
 ): string {
   const bullishPatterns = ["Hammer", "Bullish Engulfing", "Inv. Hammer"];
   const bearishPatterns = ["Shooting Star", "Bearish Engulfing", "Hanging Man"];
@@ -234,6 +251,16 @@ function calculateSignal(
   const hasGoodRSI = rsi >= 50 && rsi <= 70;
   const hasBadRSI = rsi < 45;
   const hasGoodVolume = volumeRatio >= 0.8;
+
+  // Büyük hacimli günlük hareket her şeyin önüne geçer. EMA20/50/200 haftalar
+  // suren bir trendi yansıtır (bkz. DURUM) — o trend hâlâ zayıf/düşüş olsa
+  // bile hacimle onaylanmış +5% ve üzeri bir gün listede "Bekle"/"Zayıf"
+  // görünürse kullanıcı bunu tutarsız/bozuk olarak okur. Listelerdeki SİNYAL
+  // artık bugünün hareketini görmezden gelmiyor; detay sayfasının Weinstein/
+  // Wyckoff yorumu (bkz. /api/preorder-analysis) bu fonksiyonu hiç kullanmıyor,
+  // o yüzden bu değişiklik detay analizine dokunmaz.
+  if (changePct >= 5 && hasGoodVolume) return "STRONG";
+  if (changePct <= -5 && hasGoodVolume) return "WEAK";
 
   // STRONG: Bullish EMA + RSI 50-70 + bullish pattern + good volume (was "BUY" —
   // renamed site-wide, no list may show a literal buy/sell recommendation).
@@ -246,9 +273,10 @@ function calculateSignal(
     return "WEAK";
   }
 
-  // WATCH: 2/3 conditions met
+  // WATCH: 2/3 conditions met, or a smaller-but-still-meaningful daily move
+  // that shouldn't sit unacknowledged at HOLD.
   const bullishConditions = [isBullishEMA, hasGoodRSI, bullishPatterns.includes(pattern), hasGoodVolume].filter(Boolean).length;
-  if (bullishConditions >= 2 || bullishPatterns.includes(pattern)) {
+  if (bullishConditions >= 2 || bullishPatterns.includes(pattern) || Math.abs(changePct) >= 3) {
     return "WATCH";
   }
 
@@ -750,9 +778,9 @@ async function fetchYahooLive(ticker: string, sectorHint?: SectorHint) {
 
     // ── 1D Technical Analysis for Tracker ────────────────────────────────────
     // Candle pattern, EMA, RSI and signal all use daily (1D) timeframe for swing trading consistency
-    const candlePattern_1d = detectCandlePattern(closes, opens, highs, lows);
+    const candlePattern_1d = detectCandlePattern(closes, opens, highs, lows, !isMarketOpenET());
     const emaStatus_1d = getEMAStatus(currentPrice, ema20, ema50, ema200);
-    const signal = calculateSignal(emaStatus_1d, rsi14, candlePattern_1d, rvol);
+    const signal = calculateSignal(emaStatus_1d, rsi14, candlePattern_1d, rvol, changePct);
 
     // 1H metrics only for volume spike and intraday change display
     let volumeRatio_1h = 1.0;

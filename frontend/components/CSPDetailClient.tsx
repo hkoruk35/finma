@@ -522,6 +522,9 @@ export default function CSPDetailClient({ slug }: Props) {
                     {["TICKER", "TİP", "ŞIRKET", "SEKTÖR", "FİYAT", "HACİM", "TRACKER", "1G FİY%", "RVOL", "EMA20", "EMA50", "EMA200", "DURUM", "RSI", "PATERN", "SİNYAL", ""].map((h, i) => {
                       const isSortable = h && !["PATERN", "DURUM", "TRACKER", ""].includes(h);
                       const isSorted = sortBy === h;
+                      // h aynı zamanda sort anahtarı (toggleSort/case eşleşmesi) — o yüzden
+                      // zaman dilimi ipucu buraya, sadece görünen metne, ekleniyor.
+                      const timeframeHint = h === "DURUM" ? " (Trend)" : h === "PATERN" || h === "SİNYAL" ? " (Günlük)" : "";
                       return (
                         <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
                           padding: "7px 8px", textAlign: i <= 3 ? "left" : i === 14 ? "left" : "right",
@@ -531,7 +534,7 @@ export default function CSPDetailClient({ slug }: Props) {
                           userSelect: "none",
                           opacity: isSortable ? 1 : 0.7
                         }}>
-                          {h}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
+                          {h}{timeframeHint}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
                         </th>
                       );
                     })}

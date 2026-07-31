@@ -542,7 +542,7 @@ export default function ThemeDetailClient({ themeName, initialTickers }: ThemeDe
               <tr style={{ borderBottom: "1px solid #30363d" }}>
                 {[
                   "TICKER","ŞİRKET","SEKTÖR","FİYAT","1G%","1H%","H.ORAN",
-                  "EMA20","EMA50","EMA200","DURUM","RSI","PATERN","SİNYAL","MKT CAP","SKOR","TRACKER"
+                  "EMA20","EMA50","EMA200","DURUM (Trend)","RSI","PATERN (Günlük)","SİNYAL (Günlük)","MKT CAP","SKOR","TRACKER"
                 ].map((h, i) => {
                   const sortable = SORTABLE_COLS.includes(h);
                   const isSorted = sortBy === h;

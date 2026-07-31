@@ -381,10 +381,10 @@ export function TrackerPageClient() {
                     { label: "EMA20",   key: "ema20"    , align: "right" },
                     { label: "EMA50",   key: "ema50"    , align: "right" },
                     { label: "EMA200",  key: "ema200"   , align: "right" },
-                    { label: "DURUM",   key: null       , align: "right" },
+                    { label: "DURUM (Trend)",   key: null       , align: "right" },
                     { label: "RSI",     key: "rsi"      , align: "right" },
-                    { label: "PATERN",  key: null       , align: "right" },
-                    { label: "SİNYAL",  key: "signal"   , align: "right" },
+                    { label: "PATERN (Günlük)",  key: null       , align: "right" },
+                    { label: "SİNYAL (Günlük)",  key: "signal"   , align: "right" },
                     { label: "PRE",     key: null       , align: "right" },
                     { label: "",        key: null       , align: "right" },
                   ] as { label: string; key: string | null; align: string }[]).map(({ label, key, align }) => (

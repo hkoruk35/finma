@@ -497,6 +497,9 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
                 .map((h, i) => {
                 const isSortable = h && !["TRACKER", ""].includes(h);
                 const isSorted = sortBy === h;
+                // h aynı zamanda sort anahtarı (toggleSort/case eşleşmesi) — o yüzden
+                // zaman dilimi ipucu buraya, sadece görünen metne, ekleniyor.
+                const timeframeHint = h === "DURUM" ? " (Trend)" : h === "PATERN" || h === "SİNYAL" ? " (Günlük)" : "";
                 return (
                   <th key={i} onClick={() => isSortable && toggleSort(h)} style={{
                     padding: "7px 8px", textAlign: i <= 2 ? "left" : "right",
@@ -506,7 +509,7 @@ export default function AllListDetailClient({ hideTabsAndTracker = false }: AllL
                     userSelect: "none",
                     opacity: isSortable ? 1 : 0.7
                   }}>
-                    {h}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
+                    {h}{timeframeHint}{isSorted && <span style={{ fontSize: 9, marginLeft: 2 }}>{sortDir === "asc" ? "▲" : "▼"}</span>}
                   </th>
                 );
               })}
