@@ -179,12 +179,12 @@ export default async function ThemePage({ params }: Props) {
               <Link
                 key={t.slug}
                 href={`/global/${locale}/themes/${t.slug}`}
-                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-full font-medium transition-all ${
                   t.slug === theme
                     ? "bg-[#58a6ff] text-[#0d1117]"
-                    : "bg-[#30363d] text-slate-400 hover:bg-[#58a6ff] hover:text-[#0d1117]"
+                    : "bg-[#30363d] text-slate-400 hover:bg-[#0a0e17] hover:text-white"
                 }`}
-                style={t.slug === theme ? { borderLeft: `3px solid ${t.accent}` } : undefined}
+                style={{ fontSize: 13, ...(t.slug === theme ? { borderLeft: `3px solid ${t.accent}` } : {}) }}
               >
                 {localizedThemeTitle(t.title, locale)}
               </Link>
