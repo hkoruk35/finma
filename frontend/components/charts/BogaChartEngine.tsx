@@ -19,6 +19,7 @@ import { heikinAshi } from "@/lib/indicators";
 import { computeVolumeProfile } from "@/lib/volumeProfilePrimitive";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
+import { getMarketAssetLabel } from "@/lib/x/marketAssetLabels";
 
 type Locale = "en" | "tr" | "es" | "fr" | "pt";
 
@@ -1579,7 +1580,7 @@ function MultiChartOverlay({
       <div className={`flex-1 grid ${multiChartGridClass(layout)} gap-1.5 p-1.5 overflow-auto`}>
         {tickers.map((ticker, i) => (
           <div key={i} className="min-h-[240px] flex flex-col rounded-lg border border-[#1e2a3a] overflow-hidden">
-            <MultiChartTickerInput value={ticker} onChange={(next) => onChangeTicker(i, next)} />
+            <MultiChartTickerInput value={ticker} label={getMarketAssetLabel(ticker, lang)} onChange={(next) => onChangeTicker(i, next)} />
             <div className="flex-1 min-h-0">
               <BogaChartEngine symbol={ticker} lang={lang} compact showToolbar={false} height={null} interval={sharedInterval} />
             </div>
@@ -1590,14 +1591,16 @@ function MultiChartOverlay({
   );
 }
 
-function MultiChartTickerInput({ value, onChange }: { value: string; onChange: (next: string) => void }) {
+function MultiChartTickerInput({ value, label, onChange }: { value: string; label: string; onChange: (next: string) => void }) {
   const [draft, setDraft] = useState(value);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     setDraft(value);
   }, [value]);
 
   const commit = () => {
+    setFocused(false);
     const next = draft.trim().toUpperCase();
     if (next && next !== value) onChange(next);
     else setDraft(value);
@@ -1606,13 +1609,20 @@ function MultiChartTickerInput({ value, onChange }: { value: string; onChange: (
   return (
     <input
       type="text"
-      value={draft}
+      title={value}
+      value={focused ? draft : label}
+      onFocus={(e) => {
+        setFocused(true);
+        setDraft(value);
+        e.target.select();
+      }}
       onChange={(e) => setDraft(e.target.value.toUpperCase())}
       onBlur={commit}
       onKeyDown={(e) => {
         if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+        if (e.key === "Escape") { setDraft(value); (e.target as HTMLInputElement).blur(); }
       }}
-      className="w-full px-2 py-1 text-[11px] font-medium text-center bg-[#141924] border-b border-[#1e2a3a] text-[#00d2ff] focus:outline-none focus:text-white"
+      className="w-full px-2 py-1 text-[11px] font-medium text-center bg-[#141924] border-b border-[#1e2a3a] text-[#00d2ff] focus:outline-none focus:text-white truncate"
     />
   );
 }
