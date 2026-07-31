@@ -1,8 +1,8 @@
 {
-  "date": "2026-07-30",
-  "generated_at": "2026-07-30T17:05:44.092626-04:00",
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31T09:08:31.918416-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,8 +21,12 @@
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "IP",
+        "SF",
+        "CLMT"
+      ]
     },
     "value": {
       "count": 0,
