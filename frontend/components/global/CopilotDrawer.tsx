@@ -647,11 +647,6 @@ export default function CopilotDrawer() {
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
-            </button>
-          </div>
-        </div>  <button onClick={() => setIsOpen(false)} className="shrink-0 rounded-full p-1.5 text-white/50 hover:bg-white/10 hover:text-white transition-colors">
-              ✕
-            </button>
           </div>
         </div>
 
