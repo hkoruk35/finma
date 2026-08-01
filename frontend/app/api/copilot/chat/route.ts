@@ -152,7 +152,8 @@ KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "TREND ADAYLARI", "TOP 7", "TO
 - BİR LİSTE SONUCU GÖSTERDİĞİNDE (isFallback:false), sonuç butonlarından EN AZ BİRİ MUTLAKA o listenin gerçek sayfasını açan [Liste Sayfasını Aç](copilot-list://LIST_KEY) butonu OLMALI — kullanıcıya sadece tek tek hisse linkleri sunup asıl liste sayfasını açma seçeneğini atlama. Kullanıcı zaten bir liste sayfasındaysa (KULLANICI BAĞLAMI'na bak) bunu tekrar önerme.
 
 HABERLER:
-- Kullanıcı AÇIKÇA "haber", "haberler", "son gelişmeler" demedikçe SAKIN haber akışı getirme.
+- Kullanıcı AÇIKÇA "haber", "haberler", "son gelişmeler" demedikçe SAKIN haber akışı getirme — İSTİSNA: kullanıcı bir hissenin fiyat hareketinin NEDENİNİ soruyorsa ("neden düştü/yükseldi", "ne oldu", "why did X drop/rise/plunge" gibi), bu kısıtlama geçerli değildir — açıklama için haber gereklidir.
+- FİYAT HAREKETİ NEDENİ SORULDUĞUNDA SIRA KESİNDİR: ÖNCE 'get_technical_levels' ve/veya 'get_deep_analysis' ile BOGA'nın kendi teknik/temel okumasını al (BİRİNCİ ÖNCELİK: site verisi) — SONRA 'search_market_news' ile son 24 saatin olası katalizörünü ara (İKİNCİ ÖNCELİK: güncel veri). İkisini de topladıktan sonra MUTLAKA tek, birleşik bir metin yanıtı üret: önce BOGA'nın teknik/temel okumasını, ardından (varsa) haberdeki olası katalizörü ihtiyatlı dille birleştir. Sadece haber kartını gösterip yorumlayan bir metin üretmeden bırakma KESİNLİKLE YASAK.
 - Haber istendiğinde: 2-3 maddelik net özetler halinde anlat, SADECE son 24 saatin haberlerini aktar.
 - Bir haberin fiyat hareketiyle aynı zamana denk gelmesi, o haberin fiyatı KESİN olarak etkilediği anlamına gelmez — "yükseliş bu haberin yayımlandığı döneme denk geldi" gibi ihtiyatlı dil kullan, "bu haber yüzünden kesin yükseldi" DEME.
 
@@ -292,7 +293,7 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 3. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır ve HİSSE ANALİZ AKIŞI'nı başlat. Hisse analizi istediğinde (amaç/zaman dilimi/teknik/finansal/sektörel), bu akış TAMAMLANMADAN başka hisseyi önerme veya haber aracı çağırma.
 4. Trend Hisseleri, İzleme Listem, Trend Adayı, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
 5. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle (en fazla 3).
-6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.
+6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret — özellikle 'search_market_news' sonrası salt haber kartını göstermek YETERSİZDİR, mutlaka yorumlayan bir metin ekle.
 7. Fiyat, teknik seviye, bilanço rakamı, haber, insider işlemi, analist notu veya BOGA Score'u ASLA uydurma — sadece araçlardan dönen gerçek veriyi kullan. Araç veri döndürmezse, bunu dürüstçe belirt.
 8. İşlem kurgusu/giriş/stop/hedef sorulduğunda MUTLAKA 'get_trade_plan' aracını çağır — bkz. yukarıdaki İŞLEM KURGUSU / TRADE PLAN KURALI. Bu araç dışında başka bir araçtan (ör. get_technical_levels) türetilmiş sayılarla işlem kurgusu ANLATMA.`;
 
@@ -438,7 +439,7 @@ export async function POST(req: NextRequest) {
           },
         }),
         search_market_news: tool({
-          description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
+          description: "Fetches live breaking market news — call when the user explicitly asks for news, OR when explaining WHY a stock's price moved (a causal 'why did X drop/rise' question needs this for catalyst context, checked AFTER get_technical_levels/get_deep_analysis). NEVER call this when the user asks for stock tickers or trending stocks lists.",
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
             try {

@@ -32,13 +32,18 @@ const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "e
 // üretemeden dururken, balon hem içerik hem görünür kart olmadan TAMAMEN BOŞ
 // kalıyordu ("basit sorularda takılıyor" hatası). Aşağıdaki boş-yanıt
 // güvenlik ağı bunu tespit eder.
+// NOT: search_market_news BİLEREK bu listede DEĞİL — system prompt'un HABERLER
+// kuralı, bu araç sonrası MUTLAKA yorumlayan bir metin üretilmesini şart koşuyor
+// (salt haber kartı "neden düştü" gibi nedensellik sorularına yeterli cevap
+// değil). Bu araç listede olsaydı, model metinsiz kalsa bile kart yüzünden
+// "tamamlanmış" sayılır ve kullanıcı yanlış-pozitif bir şekilde hiç retry
+// göremezdi — gerçekte yaşanan hata buydu (bkz. 2026-08 canlı rapor).
 const RENDERABLE_TOOLS = new Set([
   "navigate_to",
   "get_top_trending_stocks",
   "get_theme_stocks",
   "create_watch_task",
   "show_stock_card",
-  "search_market_news",
 ]);
 
 function linkifyTickers(text: unknown): string {
