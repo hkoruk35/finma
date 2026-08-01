@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -32,12 +33,11 @@ const apiKey =
   "";
 
 const googleProvider = createGoogleGenerativeAI({ apiKey });
+const anthropicProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
 
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
 }
-
-const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
 const ASSET_CLASS_RULES: Record<AssetType, string> = {
   stock: "Teknik + temel + bilanço + haber + analist/insider + BOGA Score + 5 liste üyeliği kullanılabilir.",
@@ -314,10 +314,7 @@ export async function POST(req: NextRequest) {
     const user = userData.user;
     if (!user) return new Response("Unauthorized", { status: 401 });
 
-    // Gerçek plan kontrolü — daha önce burada YOK'tu: dailyLimit her zaman
-    // premium'a sabitlenmişti ve RPC sonucu hiç okunmadan Gemini çağrılıyordu,
-    // yani ücretsiz/plansız hiçbir üye için kota fiilen uygulanmıyordu.
-    // /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
+    // Gerçek plan kontrolü — /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
     const access = await getMemberAccess();
     if (!access.hasAccess) {
       return NextResponse.json(
@@ -325,24 +322,18 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
-    const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
     const accessMode: "member" | "expired_member" =
       access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
 
-    try {
-      const { data: statusRows } = await supabaseAdmin.rpc("get_copilot_credit_status", {
-        p_user_id: user.id,
-        p_default_limit: dailyLimit,
-      });
-      const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
-      if (status && status.current_usage >= status.daily_limit) {
-        return NextResponse.json(
-          { error: ct("quotaExhausted", locale, { limit: status.daily_limit }), code: "QUOTA_EXHAUSTED" },
-          { status: 429 }
-        );
-      }
-    } catch {
-      // Kredi servisi geçici erişilemezse sohbeti engelleme — best effort.
+    // Kredi kontrolü — admin (staff comp) haric, en ucuz sorgu tipinin (Fast
+    // Answer = 1 kredi) maliyetini bile karsilayamayan uye sohbete baslayamaz.
+    // Asil dusum (1 veya 5 kredi, sorgu tipine gore) onFinish'te, gercek yanit
+    // uretildikten sonra consume_credits() ile yapilir — bkz. 0020_usage_credits.sql.
+    if (access.plan !== "admin" && access.monthlyCredits + access.topupCredits < 1) {
+      return NextResponse.json(
+        { error: ct("quotaExhausted", locale, { limit: 0 }), code: "INSUFFICIENT_CREDITS", topup_url: "/api/members/credits/topup-checkout" },
+        { status: 402 }
+      );
     }
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
@@ -589,7 +580,14 @@ export async function POST(req: NextRequest) {
     const userId = user.id;
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
-        await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
+        if (access.plan !== "admin") {
+          const isDeepResearch = Array.isArray(toolCalls) && toolCalls.some((tc: any) => tc.toolName === "get_deep_analysis");
+          await supabaseAdmin.rpc("consume_credits", {
+            p_user_id: userId,
+            p_amount: isDeepResearch ? 5 : 1,
+            p_query_type: isDeepResearch ? "DEEP_RESEARCH" : "FAST_ANSWER",
+          });
+        }
       } catch {}
       try {
         const assistantMessage = {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import { generateText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -24,6 +25,7 @@ const apiKey =
   "";
 
 const googleProvider = createGoogleGenerativeAI({ apiKey });
+const anthropicProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
 
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
@@ -309,14 +311,29 @@ export async function POST(req: NextRequest) {
       { role: "user" as const, content: message },
     ];
 
-    const { text } = await generateText({
-      model: googleProvider.languageModel("gemini-2.5-flash"),
-      system: systemPrompt,
-      tools,
-      messages,
-      maxTokens: 2000,
-      maxSteps: 5,
-    });
+    // Gemini flash birincil, Claude Haiku yedek (farklı sağlayıcı, Google
+    // model deprecation/outage riskine karşı son çare)
+    let text: string;
+    try {
+      ({ text } = await generateText({
+        model: googleProvider.languageModel("gemini-2.5-flash"),
+        system: systemPrompt,
+        tools,
+        messages,
+        maxTokens: 2000,
+        maxSteps: 5,
+      }));
+    } catch (err) {
+      console.error("[ask-copilot] Gemini failed, falling back to Claude Haiku:", err instanceof Error ? err.message : err);
+      ({ text } = await generateText({
+        model: anthropicProvider("claude-haiku-4-5-20251001"),
+        system: systemPrompt,
+        tools,
+        messages,
+        maxTokens: 2000,
+        maxSteps: 5,
+      }));
+    }
 
     return NextResponse.json({
       text: text || "Unable to generate response",

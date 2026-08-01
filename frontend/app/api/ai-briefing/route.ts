@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -161,6 +162,25 @@ async function generateWithGemini(prompt: string): Promise<string | null> {
   }
 }
 
+async function generateWithClaude(prompt: string): Promise<string | null> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return null;
+
+  try {
+    const anthropic = new Anthropic({ apiKey });
+    const msg = await anthropic.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 2048,
+      messages: [{ role: "user", content: prompt }],
+    });
+    const block = msg.content[0];
+    return block.type === "text" ? block.text.trim() : null;
+  } catch (e: any) {
+    console.error("[claude fallback] error:", e?.message);
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -174,7 +194,13 @@ export async function POST(req: NextRequest) {
     const safeLang = validLangs.includes(lang) ? lang : "en";
 
     const prompt = buildPrompt(pick, safeLang);
-    const analysis = await generateWithGemini(prompt);
+    // Gemini flash birincil, Claude Haiku yedek
+    let analysis = await generateWithGemini(prompt);
+    let modelUsed = "gemini-2.5-flash";
+    if (!analysis) {
+      analysis = await generateWithClaude(prompt);
+      modelUsed = "claude-haiku-4-5-20251001";
+    }
 
     if (!analysis) {
       return NextResponse.json({ error: "Failed to generate analysis" }, { status: 503 });
@@ -185,7 +211,7 @@ export async function POST(req: NextRequest) {
       lang: safeLang,
       analysis,
       generated_at: new Date().toISOString(),
-      model: "gemini-2.5-flash",
+      model: modelUsed,
     });
   } catch (e: any) {
     console.error("[ai-briefing] error:", e?.message);

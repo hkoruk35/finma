@@ -35,7 +35,26 @@ export async function POST(req: NextRequest) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       const memberId = session.client_reference_id;
-      if (!memberId || !session.customer || !session.subscription) break;
+      if (!memberId || !session.customer) break;
+
+      // Tek seferlik kredi paketi satın alımı (top-up) — abonelik değil,
+      // mode:"payment", session.subscription yok. metadata.credit_pack_amount
+      // ile taşınan miktar topup_credit_balance'a eklenir (devreder, expire olmaz).
+      if (session.mode === "payment") {
+        const creditsPurchased = parseInt(session.metadata?.credit_pack_amount || "0", 10);
+        if (creditsPurchased > 0) {
+          await supabaseAdmin.rpc("add_topup_credits", { p_user_id: memberId, p_credits: creditsPurchased });
+          await supabaseAdmin.from("credit_topups").insert({
+            user_id: memberId,
+            credits_purchased: creditsPurchased,
+            amount_paid: (session.amount_total ?? 0) / 100,
+            stripe_payment_id: (session.payment_intent as string) || null,
+          });
+        }
+        break;
+      }
+
+      if (!session.subscription) break;
 
       const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
       const item = subscription.items.data[0];
@@ -56,6 +75,16 @@ export async function POST(req: NextRequest) {
           cancel_at_period_end: subscription.cancel_at_period_end,
         })
         .eq("id", memberId);
+
+      // İlk abonelik başlangıcında aylık Copilot AI kredisi de tanımlanır.
+      if (item?.current_period_end) {
+        await supabaseAdmin.rpc("reset_monthly_credits", {
+          p_user_id: memberId,
+          p_amount: 500,
+          p_cycle_start: new Date((item.current_period_start ?? Math.floor(Date.now() / 1000)) * 1000).toISOString(),
+          p_cycle_end: new Date(item.current_period_end * 1000).toISOString(),
+        });
+      }
       break;
     }
 
@@ -105,6 +134,29 @@ export async function POST(req: NextRequest) {
         .from("members")
         .update({ subscription_status: "active" })
         .eq("id", memberId);
+
+      // Her yenileme faturası başarıyla ödendiğinde aylık Copilot AI kredisi
+      // 500'e sıfırlanır — topup_credit_balance'a DOKUNULMAZ (devreder).
+      // Bu Stripe SDK sürümünde invoice.subscription yok, referans
+      // invoice.parent.subscription_details.subscription altında.
+      const subscriptionRef = invoice.parent?.subscription_details?.subscription;
+      if (subscriptionRef) {
+        try {
+          const subscriptionId = typeof subscriptionRef === "string" ? subscriptionRef : subscriptionRef.id;
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const item = subscription.items.data[0];
+          if (item?.current_period_end) {
+            await supabaseAdmin.rpc("reset_monthly_credits", {
+              p_user_id: memberId,
+              p_amount: 500,
+              p_cycle_start: new Date(item.current_period_start * 1000).toISOString(),
+              p_cycle_end: new Date(item.current_period_end * 1000).toISOString(),
+            });
+          }
+        } catch (e) {
+          console.error("[stripe webhook] reset_monthly_credits:", e);
+        }
+      }
       break;
     }
 

@@ -46,6 +46,36 @@ export function accountPathForLocale(locale: string): string {
 // PREMIUM_PRICE_ID (taban aylık ücret) ve PREMIUM_COUPON_ID (ilk ay indirimi)
 // nesnelerinde tanımlı — o yüzden fiyat değiştiğinde bu dosyada güncellenecek
 // bir sayı yok, Stripe tarafındaki coupon'un tutarı/duration'ı revize edilmeli.
+export const TOPUP_100_PRICE_ID = process.env.STRIPE_TOPUP_100_PRICE_ID || "";
+
+// 100 Ekstra Copilot AI Kredisi — tek seferlik $9 satın alma (top-up).
+// Abonelik değil (mode: payment); süresi dolmaz, sonraki fatura döneminde
+// de devreder. checkout.session.completed webhook'u metadata.credit_pack_amount
+// alanına bakarak topup_credit_balance'ı artırır — bkz. webhooks/stripe/route.ts.
+export async function createTopupCheckoutSession({
+  customerId,
+  memberId,
+  locale,
+  origin,
+}: {
+  customerId: string;
+  memberId: string;
+  locale: string;
+  origin: string;
+}) {
+  const accountPath = accountPathForLocale(locale);
+  return stripe.checkout.sessions.create({
+    mode: "payment",
+    customer: customerId,
+    client_reference_id: memberId,
+    line_items: [{ price: TOPUP_100_PRICE_ID, quantity: 1 }],
+    metadata: { member_id: memberId, credit_pack_amount: "100" },
+    locale: toStripeLocale(locale),
+    success_url: `${origin}${accountPath}?tab=subscription&topup=success`,
+    cancel_url: `${origin}${accountPath}?tab=subscription&topup=cancelled`,
+  });
+}
+
 export async function createPremiumCheckoutSession({
   customerId,
   memberId,

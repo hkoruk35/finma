@@ -109,7 +109,7 @@ async function callClaude(prompt: string): Promise<string> {
 
   const anthropic = new Anthropic({ apiKey });
   const msg = await anthropic.messages.create({
-    model: "claude-sonnet-4-6",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 4096,
     system: KRITER_SYSTEM,
     messages: [{ role: "user", content: prompt }],
@@ -183,13 +183,13 @@ export async function POST(req: NextRequest) {
     let ai_report = "";
 
     try {
-      ai_report = await callClaude(prompt);
+      ai_report = await callGemini(prompt);
     } catch (e: any) {
-      console.warn("[kriter-analysis] Claude failed:", e?.message);
+      console.warn("[kriter-analysis] Gemini failed:", e?.message);
       try {
-        ai_report = await callGemini(prompt);
+        ai_report = await callClaude(prompt);
       } catch (e2: any) {
-        console.error("[kriter-analysis] Gemini also failed:", e2?.message);
+        console.error("[kriter-analysis] Claude fallback also failed:", e2?.message);
         ai_report = "[AI ANALİZİ] API bağlantısı kurulamadı. Lütfen tekrar deneyin.";
       }
     }
