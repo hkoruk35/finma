@@ -345,6 +345,13 @@ export async function POST(req: NextRequest) {
 
     const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
 
+    // search_market_news'in kendi araç sonucuna gömülü talimat üretebilmesi için
+    // bu turda site-verisi aracı (deep-analysis/technical-levels) çağrıldı mı takip
+    // eder. Sistem promptundaki kural (HABERLER bölümü) tek başına Gemini Flash'ta
+    // güvenilir takip edilmiyordu — talimatı modelin O AN gördüğü araç sonucunun
+    // içine gömmek, uzak bir system-prompt kuralından çok daha güvenilir çalışıyor.
+    let siteDataToolCalled = false;
+
     const tools = {
         get_top_trending_stocks: tool({
           description: "Fetches BOGASTOCK.COM's 5 distinct site lists: Trend Listesi (trend_stocks), Trend Adayı İzleme Listesi (trend_candidate_watchlist), Kişisel İzleme Listesi (user_watchlist), Top 7 (top_7), or Top 100 (top_100). These are five SEPARATE lists — call with the category that matches exactly what the user asked for.",
@@ -442,14 +449,33 @@ export async function POST(req: NextRequest) {
           description: "Fetches live breaking market news — call when the user explicitly asks for news, OR when explaining WHY a stock's price moved (a causal 'why did X drop/rise' question needs this for catalyst context, checked AFTER get_technical_levels/get_deep_analysis). NEVER call this when the user asks for stock tickers or trending stocks lists.",
           parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
           execute: async ({ query }) => {
+            // Bu talimat modele system prompt'tan çok daha yakın (bu aracın
+            // sonucunun İÇİNDE) geldiği için çok daha güvenilir takip ediliyor —
+            // uzak bir kural yerine, tam o anki karar noktasında verilen bir uyarı.
+            const siteDataNote = siteDataToolCalled
+              ? ""
+              : " ÖNEMLİ: Bu turda henüz 'get_technical_levels' veya 'get_deep_analysis' çağırmadın — eğer kullanıcı bir hissenin fiyat hareketinin nedenini soruyorsa, yanıt vermeden ÖNCE o aracı da çağır, BOGA'nın kendi teknik okumasını haberle birleştir.";
             try {
               // 5000ms yetersizdi: RSS çekme (2500ms) + başlık çevirisi (4000ms) art
               // arda çalışabiliyor, dış timeout erken keserse haberler tamamen
               // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
               const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
-              return { success: true, query, news: news || [] };
+              const items = news || [];
+              return {
+                success: true,
+                query,
+                news: items,
+                _instruction: items.length > 0
+                  ? `Bu haberleri kullanarak ŞİMDİ 2-3 cümlelik/maddelik, kullanıcının sorusunu doğrudan yanıtlayan bir metin üret — sadece kartı gösterip metinsiz durma, bu YASAK.${siteDataNote}`
+                  : `Bu konuda son 24 saatte haber bulunamadı — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret (mümkünse zaten elindeki teknik/temel veriyle).${siteDataNote}`,
+              };
             } catch (e) {
-              return { success: true, query, news: [] };
+              return {
+                success: true,
+                query,
+                news: [],
+                _instruction: `Haber getirilemedi — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret, metinsiz durma.${siteDataNote}`,
+              };
             }
           },
         }),
@@ -489,6 +515,7 @@ export async function POST(req: NextRequest) {
             try {
               const deep = await withTimeout(getDeepAnalysis(ticker, locale), 5000, null);
               if (!deep) return { success: false, error: ct("noStockData", locale) };
+              siteDataToolCalled = true;
               return { success: true, ...deep };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
@@ -502,6 +529,7 @@ export async function POST(req: NextRequest) {
             try {
               const levels = await withTimeout(getTechnicalLevels(ticker), 5000, null);
               if (!levels) return { success: false, error: ct("noStockData", locale) };
+              siteDataToolCalled = true;
               return { success: true, ...levels };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
