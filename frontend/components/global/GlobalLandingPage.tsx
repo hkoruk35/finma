@@ -91,7 +91,7 @@ const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
   const router = useRouter();
-  const [selectedTicker, setSelectedTicker] = useState("SPY");
+  const [selectedTicker, setSelectedTicker] = useState("^GSPC");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -102,7 +102,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       }
     }
   }, [locale, router]);
-  const [selectedYSymbol, setSelectedYSymbol] = useState("SPY");
+  const [selectedYSymbol, setSelectedYSymbol] = useState("^GSPC");
   
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});
   const [currentCompany, setCurrentCompany] = useState("");
