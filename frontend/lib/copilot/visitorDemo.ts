@@ -1,4 +1,4 @@
-// BogaSmart Copilot Visitor Demo Content & Helper for 5 Languages (TR, EN, PT, ES, FR)
+// Boga Copilot Visitor Demo Content & Helper for 5 Languages (TR, EN, PT, ES, FR)
 
 export type SupportedLocale = "tr" | "en" | "pt" | "es" | "fr";
 
@@ -45,7 +45,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
 }> = {
   tr: {
     headerBadge: "Hoş Geldiniz ✨",
-    stage1Message: "Merhaba! Ben BogaSmart Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, hedeflerinize ve zaman aralığınıza en uygun hisse analizlerini sunmak için buradayım.\n\nÜyeliğe geçmeden önce BogaSmart Copilot'ı yakından tanımanız için NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş özel bir tanıtım hazırladım. Üç tatlı adımda birlikte keşfedelim.\n\nNVIDIA hakkında ilk olarak neyi merak ediyorsunuz?",
+    stage1Message: "Merhaba! Ben Boga Copilot.\n\nSize yalnızca genel bir piyasa özeti vermek yerine, hedeflerinize ve zaman aralığınıza en uygun hisse analizlerini sunmak için buradayım.\n\nÜyeliğe geçmeden önce Boga Copilot'ı yakından tanımanız için NVIDIA ($NVDA) üzerinde kısa ve kişiselleştirilmiş özel bir tanıtım hazırladım. Üç tatlı adımda birlikte keşfedelim.\n\nNVIDIA hakkında ilk olarak neyi merak ediyorsunuz?",
     stage1Buttons: [
       { label: "Mevcut trend", id: "trend" },
       { label: "Olası giriş bölgesi", id: "potential_entry" },
@@ -101,7 +101,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   },
   en: {
     headerBadge: "Welcome ✨",
-    stage1Message: "Hello! I’m BogaSmart Copilot.\n\nInstead of giving you a generic market summary, I’m here to analyze stocks according to your specific goals and time horizon.\n\nTo help you explore BogaSmart Copilot before signing up, I’ve prepared a short, personalized preview using NVIDIA ($NVDA). Let’s discover it together in three simple steps.\n\nWhat would you most like to learn about NVIDIA first?",
+    stage1Message: "Hello! I’m Boga Copilot.\n\nInstead of giving you a generic market summary, I’m here to analyze stocks according to your specific goals and time horizon.\n\nTo help you explore Boga Copilot before signing up, I’ve prepared a short, personalized preview using NVIDIA ($NVDA). Let’s discover it together in three simple steps.\n\nWhat would you most like to learn about NVIDIA first?",
     stage1Buttons: [
       { label: "Current trend", id: "trend" },
       { label: "Potential entry area", id: "potential_entry" },
@@ -157,7 +157,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   },
   pt: {
     headerBadge: "Boas-vindas ✨",
-    stage1Message: "Olá! Eu sou o BogaSmart Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, estou aqui para analisar ações de acordo com o seu objetivo e horizonte de tempo.\n\nPara ajudar você a conhecer o BogaSmart Copilot antes de se cadastrar, preparei uma breve apresentação personalizada com a NVIDIA ($NVDA). Vamos descobrir juntos em três etapas simples.\n\nO que você gostaria de entender sobre a NVIDIA primeiro?",
+    stage1Message: "Olá! Eu sou o Boga Copilot.\n\nEm vez de apresentar apenas um resumo genérico do mercado, estou aqui para analisar ações de acordo com o seu objetivo e horizonte de tempo.\n\nPara ajudar você a conhecer o Boga Copilot antes de se cadastrar, preparei uma breve apresentação personalizada com a NVIDIA ($NVDA). Vamos descobrir juntos em três etapas simples.\n\nO que você gostaria de entender sobre a NVIDIA primeiro?",
     stage1Buttons: [
       { label: "Tendência atual", id: "trend" },
       { label: "Possível região de entrada", id: "potential_entry" },
@@ -213,7 +213,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   },
   es: {
     headerBadge: "¡Bienvenido! ✨",
-    stage1Message: "¡Hola! Soy BogaSmart Copilot.\n\nEn lugar de darte un resumen genérico del mercado, estoy aquí para analizar acciones según tus objetivos y horizonte de inversión.\n\nPara ayudarte a conocer BogaSmart Copilot antes de registrarte, he preparado una breve demostración personalizada con NVIDIA ($NVDA). Vamos a descubrirla juntos en tres sencillos pasos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA primero?",
+    stage1Message: "¡Hola! Soy Boga Copilot.\n\nEn lugar de darte un resumen genérico del mercado, estoy aquí para analizar acciones según tus objetivos y horizonte de inversión.\n\nPara ayudarte a conocer Boga Copilot antes de registrarte, he preparado una breve demostración personalizada con NVIDIA ($NVDA). Vamos a descubrirla juntos en tres sencillos pasos.\n\n¿Qué te gustaría entender mejor sobre NVIDIA primero?",
     stage1Buttons: [
       { label: "Tendencia actual", id: "trend" },
       { label: "Posible zona de entrada", id: "potential_entry" },
@@ -269,7 +269,7 @@ export const VISITOR_TEXTS: Record<SupportedLocale, {
   },
   fr: {
     headerBadge: "Bienvenue ✨",
-    stage1Message: "Bonjour ! Je suis BogaSmart Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je suis là pour analyser les actions selon vos objectifs et votre horizon d’investissement.\n\nPour vous faire découvrir BogaSmart Copilot avant de vous inscrire, j'ai préparé un court aperçu personnalisé sur NVIDIA ($NVDA). Découvrons-le ensemble en trois étapes simples.\n\nQue souhaitez-vous comprendre en premier concernant NVIDIA ?",
+    stage1Message: "Bonjour ! Je suis Boga Copilot.\n\nAu lieu de vous fournir un simple résumé général du marché, je suis là pour analyser les actions selon vos objectifs et votre horizon d’investissement.\n\nPour vous faire découvrir Boga Copilot avant de vous inscrire, j'ai préparé un court aperçu personnalisé sur NVIDIA ($NVDA). Découvrons-le ensemble en trois étapes simples.\n\nQue souhaitez-vous comprendre en premier concernant NVIDIA ?",
     stage1Buttons: [
       { label: "Tendance actuelle", id: "trend" },
       { label: "Zone d’entrée potentielle", id: "potential_entry" },
