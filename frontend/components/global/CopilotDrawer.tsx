@@ -532,12 +532,12 @@ export default function CopilotDrawer() {
             <button
               onClick={handleTriggerClick}
               onTouchEnd={(e) => handleTriggerClick()}
-              className={`flex items-center justify-center h-12 w-12 sm:h-auto sm:w-auto gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 p-0 sm:px-5 sm:py-3 text-xs sm:text-sm font-medium text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation relative motion-reduce:animate-none ${
+              className={`flex items-center justify-center h-12 w-12 sm:h-auto sm:w-auto gap-2 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 p-0 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-medium text-white shadow-xl shadow-blue-500/40 transition-all hover:scale-105 active:scale-95 touch-manipulation relative motion-reduce:animate-none ${
                 shouldBounce ? "animate-bounce" : ""
               }`}
             >
               <span className="text-xl sm:text-lg animate-pulse">🤖</span>
-              <span className="hidden sm:inline">BogaSmart Copilot</span>
+              <span className="hidden sm:inline">Boga Copilot</span>
               {dotColor !== "none" && (
                 <span className={`absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#0d1117] ${dotColor === "red" ? "bg-red-500 animate-ping" : dotColor === "orange" ? "bg-amber-400" : "bg-blue-400"}`} />
               )}
@@ -551,68 +551,64 @@ export default function CopilotDrawer() {
 
       {/* Copilot Drawer Panel */}
       <div
-        className="fixed top-0 z-[120] flex h-full w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl sm:w-[420px]"
+        className="fixed top-0 z-[120] flex h-[100dvh] max-h-[100dvh] w-full flex-col bg-[#0d1117] border-l border-[#388bfd44] shadow-2xl sm:w-[420px] overflow-hidden select-none"
         style={{ right: isOpen ? 0 : "-100vw" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 bg-[#161b22] px-4 py-3 relative shrink-0">
-          <div className="flex items-center gap-3">
-            <div className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatar.gradient} text-base shadow-lg`}>
+        <div className="flex items-center justify-between border-b border-white/10 bg-[#161b22] px-3 py-2.5 relative shrink-0 gap-2 min-w-0">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${avatar.gradient} text-sm shadow-md`}>
               {avatar.emoji}
             </div>
-            <div>
-              <h3 className="text-sm font-medium text-white leading-tight">{displayName}</h3>
-              <p className="text-[10px] text-blue-400 font-mono flex items-center gap-1.5">
-                BOGASMART COPILOT
+            <div className="min-w-0 flex-1">
+              <h3 className="text-xs font-semibold text-white leading-tight truncate">{displayName}</h3>
+              <p className="text-[10px] text-blue-400 font-mono flex items-center gap-1 leading-none mt-0.5">
+                <span className="font-bold tracking-tight whitespace-nowrap">BOGA COPILOT</span>
                 {!isAuthenticated && (
-                  <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] px-2 py-0.5 rounded-full font-sans font-medium shadow-sm">
-                    {VISITOR_TEXTS[activeLocale]?.headerBadge || "Hoş Geldiniz ✨"}
+                  <span className="hidden xs:inline-block bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] px-1.5 py-0.2 rounded-full font-sans font-medium">
+                    {VISITOR_TEXTS[activeLocale]?.headerBadge || "✨"}
                   </span>
                 )}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 min-w-0">
+          <div className="flex items-center gap-1 shrink-0">
             <button
               type="button"
               onClick={handleNewChat}
               title={ct("tooltipNewChat", activeLocale)}
-              className="shrink-0 flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-xs font-medium transition-all cursor-pointer shadow-sm active:scale-95"
+              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-blue-300 hover:text-white text-[11px] font-medium transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
               <span className="hidden sm:inline">
-                {activeLocale === "tr" ? "Yeni Sohbet" : activeLocale === "es" ? "Nuevo Chat" : activeLocale === "fr" ? "Nouveau Chat" : activeLocale === "pt" ? "Novo Chat" : "New Chat"}
+                {activeLocale === "tr" ? "Yeni" : activeLocale === "es" ? "Nuevo" : activeLocale === "fr" ? "Nouveau" : activeLocale === "pt" ? "Novo" : "New"}
               </span>
             </button>
 
             <select
               value={activeLocale}
               onChange={(e) => handleLangChange(e.target.value as SupportedLocale)}
-              className="shrink-0 bg-[#141924] border border-[#2a384e] text-blue-300 text-xs font-mono font-medium rounded-lg px-1.5 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-all shadow-sm"
+              className="bg-[#141924] border border-[#2a384e] text-blue-300 text-[11px] font-mono font-medium rounded-lg px-1 py-1 focus:outline-none hover:border-blue-500/50 cursor-pointer transition-all shrink-0"
             >
-              <option value="tr">🇹🇷 TR</option>
-              <option value="en">🇺🇸 EN</option>
-              <option value="es">🇪🇸 ES</option>
-              <option value="fr">🇫🇷 FR</option>
-              <option value="pt">🇧🇷 PT</option>
+              <option value="tr">TR</option>
+              <option value="en">EN</option>
+              <option value="es">ES</option>
+              <option value="fr">FR</option>
+              <option value="pt">PT</option>
             </select>
 
-            {/* Bildirim/Görev/Geçmiş/Ayarlar ikonları — sabit genişlikli kapatma
-                butonunu asla itip ekran dışına çıkarmasın diye kendi taşan
-                (overflow-x-auto) alt grubunda; dar ekranda gerekirse bu grup
-                yatay kayar, ✕ butonu her zaman görünür kalır. */}
             {isAuthenticated && (
-              <div className="flex items-center gap-0.5 overflow-x-auto shrink min-w-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex items-center gap-0.5 shrink-0">
                 <button
                   onClick={() => { setIsAlertsOpen(!isAlertsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
                   title={ct("tooltipAlerts", activeLocale)}
-                  className={`shrink-0 rounded-full p-1.5 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`rounded-full p-1 transition-colors relative ${isAlertsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
                     <path d="M13.73 21a2 2 0 01-3.46 0" />
                   </svg>
@@ -626,9 +622,9 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => { setIsTasksOpen(!isTasksOpen); setIsHistoryOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title={ct("tooltipTasks", activeLocale)}
-                  className={`shrink-0 rounded-full p-1.5 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`rounded-full p-1 transition-colors relative ${isTasksOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 11 12 14 22 4" />
                     <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
                   </svg>
@@ -642,20 +638,20 @@ export default function CopilotDrawer() {
                 <button
                   onClick={() => { setIsHistoryOpen(!isHistoryOpen); setIsTasksOpen(false); setIsSettingsOpen(false); setIsAlertsOpen(false); }}
                   title={ct("tooltipHistory", activeLocale)}
-                  className={`shrink-0 rounded-full p-1.5 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`rounded-full p-1 transition-colors ${isHistoryOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                   </svg>
                 </button>
 
                 <button
-                  onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsAlertsOpen(false); }}
+                  onClick={() => { setIsSettingsOpen(!isSettingsOpen); setIsTasksOpen(false); setIsHistoryOpen(false); setIsSettingsOpen(false); }}
                   title={ct("personalize", activeLocale)}
-                  className={`shrink-0 rounded-full p-1.5 transition-colors ${isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
+                  className={`rounded-full p-1 transition-colors ${isSettingsOpen ? "bg-blue-600 text-white" : "text-white/50 hover:bg-white/10 hover:text-white"}`}
                 >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 003.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
                   </svg>
@@ -663,8 +659,16 @@ export default function CopilotDrawer() {
               </div>
             )}
 
-            <button onClick={() => setIsOpen(false)} className="shrink-0 rounded-full p-1.5 text-white/50 hover:bg-white/10 hover:text-white transition-colors">
-              ✕
+            {/* ALWAYS-VISIBLE Close Button */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              title="Close Copilot"
+              className="shrink-0 rounded-full p-1.5 text-white/70 hover:bg-white/10 hover:text-white transition-colors bg-white/5 ml-1 border border-white/10 cursor-pointer"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+              </svg>
             </button>
           </div>
         </div>
@@ -1140,7 +1144,7 @@ export default function CopilotDrawer() {
                                     router.push(buildRoute("graphic", activeLocale, ticker));
                                     setIsOpen(false);
                                   }}
-                                  className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-medium uppercase transition-all cursor-pointer"
+                                  className="inline-flex items-center align-baseline px-1.5 py-0.5 my-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-mono font-semibold uppercase transition-all cursor-pointer leading-none shrink-0"
                                 >
                                   {children}
                                 </button>
@@ -1237,7 +1241,7 @@ export default function CopilotDrawer() {
                                 router.push(buildRoute("graphic", activeLocale, ticker));
                                 setIsOpen(false);
                               }}
-                              className="inline-flex items-center px-1.5 py-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-medium uppercase transition-all cursor-pointer"
+                              className="inline-flex items-center align-baseline px-1.5 py-0.5 my-0.5 mx-0.5 bg-blue-500/20 hover:bg-blue-500/40 border border-blue-500/40 hover:border-blue-500 text-blue-400 hover:text-white rounded text-[11px] font-mono font-semibold uppercase transition-all cursor-pointer leading-none shrink-0"
                             >
                               {children}
                             </button>
@@ -1267,7 +1271,7 @@ export default function CopilotDrawer() {
                         type="button"
                         onClick={() => handleVisitorActionClick(btn)}
                         disabled={demoLoading}
-                        className="w-full text-left p-3 rounded-xl bg-[#161b22] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-xs font-medium text-gray-200 hover:text-white transition-all shadow-md flex items-center justify-between group active:scale-[0.98] cursor-pointer"
+                        className="w-full text-left px-3 py-2 rounded-xl bg-[#161b22] hover:bg-blue-600/25 border border-blue-500/30 hover:border-blue-400 text-xs font-medium text-gray-200 hover:text-white transition-all shadow-md flex items-center justify-between group active:scale-[0.98] cursor-pointer"
                       >
                         <span>{btn.label}</span>
                         <span className="text-blue-400 group-hover:translate-x-1 transition-transform font-mono text-sm">→</span>

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T17:05:44.856562-04:00",
+  "generated_at": "2026-07-31T17:07:02.499734-04:00",
   "picks": [
     {
       "ticker": "SBLK",
@@ -8,40 +8,34 @@
       "score": 35.5
     },
     {
-      "ticker": "SW",
-      "sector": "Consumer Cyclical",
-      "date_added": "2026-07-30",
-      "score": 33.0
-    },
-    {
-      "ticker": "WAB",
-      "sector": "Industrials",
-      "date_added": "2026-07-30",
-      "score": 29.0
-    },
-    {
-      "ticker": "CR",
-      "sector": "Industrials",
-      "date_added": "2026-07-30",
-      "score": 39.5
-    },
-    {
-      "ticker": "PAYS",
-      "sector": "Technology",
-      "date_added": "2026-07-30",
-      "score": 39.0
-    },
-    {
-      "ticker": "FAF",
-      "sector": "Financial Services",
-      "date_added": "2026-07-30",
-      "score": 37.0
-    },
-    {
       "ticker": "FLS",
       "sector": "Industrials",
       "date_added": "2026-07-30",
       "score": 29.5
+    },
+    {
+      "ticker": "GTLB",
+      "sector": "Technology",
+      "date_added": "2026-07-31",
+      "score": 36.0
+    },
+    {
+      "ticker": "CTAS",
+      "sector": "Industrials",
+      "date_added": "2026-07-31",
+      "score": 37.0
+    },
+    {
+      "ticker": "CSW",
+      "sector": "Industrials",
+      "date_added": "2026-07-31",
+      "score": 28.0
+    },
+    {
+      "ticker": "ITRI",
+      "sector": "Technology",
+      "date_added": "2026-07-31",
+      "score": 36.5
     }
   ]
 }

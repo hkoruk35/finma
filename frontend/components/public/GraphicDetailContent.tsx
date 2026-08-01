@@ -120,8 +120,8 @@ function translateSector(sector: string, locale: Locale): string {
 const INDICES = [
   { symbol: "^GSPC", label: "S&P 500" },
   { symbol: "^IXIC", label: "NASDAQ" },
-  { symbol: "^DJI", label: "DOW" },
-  { symbol: "^RUT", label: "RUSSELL" },
+  { symbol: "^DJI", label: "Dow Jones" },
+  { symbol: "^RUT", label: "Russell 2000" },
   { symbol: "^VIX", label: "VIX" },
 ];
 

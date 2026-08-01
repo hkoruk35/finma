@@ -269,6 +269,25 @@ interface Props {
   onExternalMultiChartConsumed?: () => void;
 }
 
+export const INDEX_DISPLAY_NAMES: Record<string, string> = {
+  "^GSPC": "S&P 500",
+  "GSPC": "S&P 500",
+  "^IXIC": "NASDAQ",
+  "IXIC": "NASDAQ",
+  "^DJI": "Dow Jones",
+  "DJI": "Dow Jones",
+  "^RUT": "Russell 2000",
+  "RUT": "Russell 2000",
+  "^VIX": "VIX",
+  "VIX": "VIX",
+};
+
+export function getSymbolDisplayName(symbol: string): string {
+  if (!symbol) return "";
+  const upper = symbol.toUpperCase();
+  return INDEX_DISPLAY_NAMES[upper] || INDEX_DISPLAY_NAMES[symbol] || symbol;
+}
+
 const EMA_COLORS: Record<string, string> = {
   ema9: "#facc15",
   ema20: "#38bdf8",
@@ -1438,7 +1457,7 @@ export default function BogaChartEngine({
               className={`tracking-wide text-white ${compact ? "text-xs" : "text-lg md:text-xl"} leading-tight`}
               style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 700 }}
             >
-              {symbol}
+              {getSymbolDisplayName(symbol)}
             </span>
           </div>
 

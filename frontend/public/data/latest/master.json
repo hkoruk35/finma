@@ -1,28 +1,32 @@
 {
-  "date": "2026-07-30",
-  "generated_at": "2026-07-30T14:06:53.795895-04:00",
+  "date": "2026-07-31",
+  "generated_at": "2026-07-31T14:06:23.171610-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 30,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
       "count": 10,
       "tickers": [
-        "IBCP",
-        "F",
-        "CLMT",
-        "PAYX",
-        "EQNR",
-        "PCAR",
-        "SSNC",
-        "FCX",
-        "GPN",
-        "PRDO"
+        "USPH",
+        "SFBS",
+        "RIO",
+        "QTWO",
+        "SN",
+        "SXT",
+        "REXR",
+        "OII",
+        "DLR",
+        "INSW"
       ]
     },
     "breakout": {
-      "count": 0,
-      "tickers": []
+      "count": 3,
+      "tickers": [
+        "IP",
+        "SF",
+        "CLMT"
+      ]
     },
     "value": {
       "count": 0,
@@ -43,18 +47,18 @@
   },
   "top_3_overall": [
     {
-      "ticker": "IBCP",
-      "score": 57.0,
+      "ticker": "USPH",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "F",
-      "score": 49.0,
+      "ticker": "SFBS",
+      "score": 56.0,
       "score_type": "POSITIVE_BIAS"
     },
     {
-      "ticker": "CLMT",
-      "score": 48.5,
+      "ticker": "RIO",
+      "score": 53.5,
       "score_type": "POSITIVE_BIAS"
     }
   ],

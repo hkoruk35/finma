@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import BogaChartEngine from "@/components/charts/BogaChartEngine";
+import BogaChartEngine, { getSymbolDisplayName, INDEX_DISPLAY_NAMES } from "@/components/charts/BogaChartEngine";
 import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TrendPicksSlot from "@/components/global/TrendPicksSlot";
 import TickerSearchBox from "@/components/public/TickerSearchBox";
@@ -16,7 +16,7 @@ import { useMemberPlan } from "@/hooks/useMemberPlan";
 import type { Locale } from "@/lib/i18n/copy";
 
 const FREE_COMPARE_LIMIT = 2;
-const MAX_COMPARE = 9;
+const MAX_COMPARE = 4;
 
 const getGroups = (locale: Locale) => {
   const t = (en: string, tr: string, es: string, fr: string, pt: string) => {
@@ -35,7 +35,7 @@ const getGroups = (locale: Locale) => {
         { ticker: "^IXIC", label: "NASDAQ", ySymbol: "^IXIC" },
         { ticker: "^DJI", label: "Dow Jones", ySymbol: "^DJI" },
         { ticker: "^RUT", label: "Russell 2000", ySymbol: "^RUT" },
-        { ticker: "^VIX", label: t("Volatility Index", "Volatilite Endeksi", "Índice de Volatilidad", "Indice de Volatilité", "Índice de Volatilidade"), ySymbol: "^VIX" },
+        { ticker: "^VIX", label: "VIX", ySymbol: "^VIX" },
       ],
     },
     {
@@ -91,7 +91,7 @@ const sgn = (v: number) => (v > 0 ? "+" : "");
 
 export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale: Locale, defaultWatchlist: any[] }) {
   const router = useRouter();
-  const [selectedTicker, setSelectedTicker] = useState("SPY");
+  const [selectedTicker, setSelectedTicker] = useState("^GSPC");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -102,7 +102,7 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
       }
     }
   }, [locale, router]);
-  const [selectedYSymbol, setSelectedYSymbol] = useState("SPY");
+  const [selectedYSymbol, setSelectedYSymbol] = useState("^GSPC");
   
   const [prices, setPrices] = useState<Record<string, PriceInfo>>({});
   const [currentCompany, setCurrentCompany] = useState("");
@@ -449,8 +449,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
               <div className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest flex flex-wrap items-center gap-1.5">
                 <span>{dashboardLabel}</span>
                 <span className="opacity-30">/</span>
-                <span className="text-white italic">{selectedTicker}</span>
-                {currentCompany && <span className="text-slate-400 normal-case italic font-medium">{currentCompany}</span>}
+                <span className="text-white italic">{getSymbolDisplayName(selectedTicker)}</span>
+                {currentCompany && !INDEX_DISPLAY_NAMES[selectedTicker?.toUpperCase()] && (
+                  <span className="text-slate-400 normal-case italic font-medium">{currentCompany}</span>
+                )}
                 {currentGroup && (
                   <>
                     <span className="opacity-30">/</span>
