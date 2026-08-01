@@ -4,7 +4,6 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createAnthropic } from "@ai-sdk/anthropic";
-import Anthropic from "@anthropic-ai/sdk";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -58,69 +57,6 @@ function withTimeout<T>(promise: Promise<T>, ms: number, fallback: T): Promise<T
     promise,
     new Promise<T>((resolve) => setTimeout(() => resolve(fallback), ms)),
   ]);
-}
-
-// search_market_news'in ham haber başlıklarını KENDİ İÇİNDE, odaklı ve ayrı
-// bir çağrıyla 2-3 cümlelik bir açıklamaya çevirir. Dış (asıl) sohbet modelinin
-// bir araç sonucundan sonra metin üretmeyi güvenilir şekilde sürdürmesini
-// BEKLEMEK yerine (canlıda tekrar tekrar başarısız olduğu görüldü — bkz. commit
-// geçmişi), üretimi burada, küçük ve odaklı bir görevle garanti altına alır.
-// Üç kademeli düşüş — Gemini flash -> Claude Haiku -> sabit şablon — hiçbiri
-// bir LLM çağrısı gerektirmeyen son çareye kadar kullanıcı asla boş kalmaz.
-async function summarizeNewsForCatalyst(
-  query: string,
-  news: Array<{ title: string; publisher?: string; pubDate?: string }>,
-  locale: string
-): Promise<string> {
-  const headlineList = news.slice(0, 5).map((n) => `- ${n.title} (${n.publisher || "?"})`).join("\n");
-  const langNote: Record<string, string> = {
-    tr: "Türkçe yaz.", en: "Write in English.", es: "Escribe en español.",
-    fr: "Écrivez en français.", pt: "Escreva em português.",
-  };
-  const prompt = `Kullanıcı "${query}" hakkında soruyor. Aşağıdaki son 24 saatin haber başlıklarına dayanarak 2-3 cümlelik, doğal, ihtiyatlı dilli bir açıklama yaz (kesinlik iddia etme, "muhtemel"/"olabilir" gibi ifadeler kullan, sadece haber başlıklarından çıkarım yap, uydurma). ${langNote[locale] || langNote.en}\n\nHaberler:\n${headlineList}`;
-
-  try {
-    if (apiKey) {
-      const res = await withTimeout(
-        fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.3, maxOutputTokens: 300 } }),
-        }),
-        3500,
-        null as any
-      );
-      if (res && res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-        if (text) return text;
-      }
-    }
-  } catch {}
-
-  try {
-    if (process.env.ANTHROPIC_API_KEY) {
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      const msg = await withTimeout(
-        anthropic.messages.create({
-          model: "claude-haiku-4-5-20251001", max_tokens: 300,
-          messages: [{ role: "user", content: prompt }],
-        }),
-        3500,
-        null as any
-      );
-      if (msg) {
-        const block = msg.content[0] as any;
-        if (block?.type === "text" && block.text?.trim()) return block.text.trim();
-      }
-    }
-  } catch {}
-
-  // Son çare: sabit şablon — hiçbir LLM çağrısı gerektirmez, her zaman çalışır,
-  // kullanıcının hiçbir zaman tamamen boş bir yanıt görmemesini garanti eder.
-  const top = news.slice(0, 3).map((n) => n.title).join("; ");
-  return locale === "tr"
-    ? `Son 24 saatte bu konuyla ilgili öne çıkan başlıklar: ${top}. Fiyat hareketiyle doğrudan bağlantısı teyit edilmedi, sadece zaman olarak yakın gelişmeler.`
-    : `Notable headlines on this topic in the last 24 hours: ${top}. Direct causation with the price move isn't confirmed — these are just time-proximate developments.`;
 }
 
 // Geçmiş bir stream kesintisinde (örn. bugünkü model-adı çökmeleri sırasında)
@@ -525,19 +461,12 @@ export async function POST(req: NextRequest) {
               // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
               const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
               const items = news || [];
-              // Özet burada, ayrı ve odaklı bir çağrıyla ÜRETİLİR — dış modelin
-              // bunu güvenilir şekilde üretmesine bel bağlanmaz (bkz. yukarıdaki
-              // fonksiyon yorumu). preparedSummary her zaman dolu döner.
-              const preparedSummary = items.length > 0
-                ? await summarizeNewsForCatalyst(query, items, locale)
-                : "";
               return {
                 success: true,
                 query,
                 news: items,
-                preparedSummary,
                 _instruction: items.length > 0
-                  ? `preparedSummary alanında hazır bir açıklama var — yanıtının ana gövdesi olarak BUNU kullan (aynen aktarabilir veya BOGA'nın teknik okumasıyla birleştirebilirsin), yeniden özetlemeye çalışma, sadece kartı gösterip metinsiz durma bu KESİNLİKLE YASAK.${siteDataNote}`
+                  ? `Bu haberleri kullanarak ŞİMDİ 2-3 cümlelik/maddelik, kullanıcının sorusunu doğrudan yanıtlayan bir metin üret — sadece kartı gösterip metinsiz durma, bu YASAK.${siteDataNote}`
                   : `Bu konuda son 24 saatte haber bulunamadı — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret (mümkünse zaten elindeki teknik/temel veriyle).${siteDataNote}`,
               };
             } catch (e) {
@@ -545,7 +474,6 @@ export async function POST(req: NextRequest) {
                 success: true,
                 query,
                 news: [],
-                preparedSummary: "",
                 _instruction: `Haber getirilemedi — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret, metinsiz durma.${siteDataNote}`,
               };
             }

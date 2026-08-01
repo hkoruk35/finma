@@ -991,16 +991,6 @@ export default function CopilotDrawer() {
                 const isLastMessage = msgIdx === messages.length - 1;
                 const hasRenderableTool = (msg.toolInvocations || []).some(
                   (ti: any) => ti?.result && RENDERABLE_TOOLS.has(ti.toolName)
-                ) || (msg.toolInvocations || []).some(
-                  // search_market_news artık kendi özetini (preparedSummary)
-                  // ÜRETİYOR — o zaman kart zaten tamamlanmış bir cevap içerir,
-                  // dış modelin ayrıca metin üretmesi beklenmez. Haber hiç
-                  // yoksa da (news.length===0) bu dürüst/tamamlanmış bir
-                  // sonuçtur. Sadece preparedSummary boş VE haber de varsa
-                  // (üretim gerçekten başarısız olduysa) empty-response
-                  // fallback'i tetiklenmeye devam eder.
-                  (ti: any) => ti?.toolName === "search_market_news" && ti?.result &&
-                    (!!ti.result.preparedSummary || (ti.result.news || []).length === 0)
                 );
                 const hasPendingTool = (msg.toolInvocations || []).some((ti: any) => !ti?.result);
                 const isEmptyResponse =
@@ -1124,9 +1114,6 @@ export default function CopilotDrawer() {
                         return (
                           <div key={idx} className="my-2 bg-[#0a0e17] p-3 rounded-xl border border-blue-500/30 text-xs space-y-2">
                             <span className="font-medium text-blue-400 flex items-center gap-1.5">{ct("newsHeader", activeLocale)} ({result?.query || "Wall Street"})</span>
-                            {result?.preparedSummary && (
-                              <p className="text-gray-200 leading-relaxed">{result.preparedSummary}</p>
-                            )}
                             <div className="space-y-1.5">
                               {newsItems.map((n: any, i: number) => (
                                 <a key={i} href={n.link} target="_blank" rel="noopener noreferrer" className="block p-1.5 rounded bg-[#141924] hover:bg-blue-600/20 border border-white/5 hover:border-blue-500/40 text-gray-200 hover:text-white transition-all">
