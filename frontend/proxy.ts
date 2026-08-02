@@ -81,6 +81,9 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/ai`) &&
         !pathname.startsWith(`${base}/top7`) &&
         !pathname.startsWith(`${base}/top100`) &&
+        !pathname.startsWith(`${base}/gainers`) &&
+        !pathname.startsWith(`${base}/losers`) &&
+        !pathname.startsWith(`${base}/mostactive`) &&
         !pathname.startsWith(`${base}/my-watchlist`) &&
         !pathname.startsWith(`${base}/watchlist`) &&
         !pathname.startsWith(`${base}/performance`) &&
@@ -128,7 +131,7 @@ export async function proxy(request: NextRequest) {
   // içerik görürler, bu SEO/AI-atıf için gerekli ve cloaking değil (User-
   // Agent'a göre farklı İÇERİK değil, farklı bir insan-dönüşüm kuralı
   // gösteriyoruz — crawler'a da, ilk kez gelen insana da AYNI HTML gider).
-  const METERED_SEGMENTS = ['graphic', 'top100', 'swing', 'watchlist', 'themes', 'hisse', 'performance', 'swingperformance']
+  const METERED_SEGMENTS = ['graphic', 'top100', 'swing', 'watchlist', 'themes', 'hisse', 'performance', 'swingperformance', 'gainers', 'losers', 'mostactive']
   if (!hasSupabaseSession && currentLocale && !isKnownCrawlerUserAgent(request.headers.get('user-agent'))) {
     const base = `/global/${currentLocale}`
     const isMeteredPath = METERED_SEGMENTS.some((seg) => pathname.startsWith(`${base}/${seg}`))
