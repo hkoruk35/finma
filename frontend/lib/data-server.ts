@@ -121,9 +121,13 @@ export function listSwingArchiveDates(): string[] {
 export function readPublicJson(filename: string): any | null {
   const candidates = [
     path.join(process.cwd(), "public", filename),
+    path.join(process.cwd(), "public", "data", filename),
     path.join(process.cwd(), "frontend", "public", filename),
+    path.join(process.cwd(), "frontend", "public", "data", filename),
     path.resolve(__dirname, "..", "..", "..", "..", "public", filename),
+    path.resolve(__dirname, "..", "..", "..", "..", "public", "data", filename),
     path.resolve(__dirname, "..", "..", "..", "public", filename),
+    path.resolve(__dirname, "..", "..", "..", "public", "data", filename),
   ];
 
   for (const fullPath of candidates) {
