@@ -195,6 +195,9 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
         } catch {}
 
         let top100Items: any[] = [];
+        let gainersItems: any[] = [];
+        let losersItems: any[] = [];
+        let mostActiveItems: any[] = [];
         try {
           const r5 = await fetch('/api/top100');
           if (r5.ok) {
@@ -220,6 +223,31 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
                      price: x.live?.price?.current ?? 0,
                      change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
                   }));
+
+                  // Free-tier "en çok yükselen/düşen/işlem gören ilk 5"
+                  // (bkz. Faz 3 plan "Kararım" #2) — Top100'ün zaten çekilmiş
+                  // aynı veri setinden türetilir, yeni bir istek gerekmez.
+                  const withVolume = compRows
+                    .map((r: any) => ({ ticker: r.ticker, live: liveMap[r.ticker] }))
+                    .filter((x) => x.live?.price != null);
+                  const byGainDesc = [...withVolume]
+                    .filter((x) => x.live?.tracker_1h?.change_pct_1d != null)
+                    .sort((a, b) => (b.live.tracker_1h.change_pct_1d ?? 0) - (a.live.tracker_1h.change_pct_1d ?? 0));
+                  gainersItems = byGainDesc.slice(0, 5).map((x) => ({
+                    ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
+                    price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
+                  }));
+                  losersItems = byGainDesc.slice(-5).reverse().map((x) => ({
+                    ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
+                    price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
+                  }));
+                  mostActiveItems = [...withVolume]
+                    .sort((a, b) => (b.live?.price?.volume ?? 0) - (a.live?.price?.volume ?? 0))
+                    .slice(0, 5)
+                    .map((x) => ({
+                      ticker: x.ticker, label: x.ticker, ySymbol: x.ticker,
+                      price: x.live?.price?.current ?? 0, change_1d: x.live?.tracker_1h?.change_pct_1d ?? 0,
+                    }));
                }
              }
           }
@@ -231,7 +259,10 @@ export default function GlobalLandingPage({ locale, defaultWatchlist }: { locale
           ...(trendItems.length ? [{ group: "Trend Hisseleri (ilk 10)", items: trendItems }] : []),
           ...(candidateItems.length ? [{ group: "Trend Adayları (ilk 10)", items: candidateItems }] : []),
           ...(top7Items.length ? [{ group: "Top 7", items: top7Items }] : []),
-          ...(top100Items.length ? [{ group: "Top 100 (ilk 10)", items: top100Items }] : [])
+          ...(top100Items.length ? [{ group: "Top 100 (ilk 10)", items: top100Items }] : []),
+          ...(gainersItems.length ? [{ group: "En Çok Yükselenler (ilk 5)", items: gainersItems }] : []),
+          ...(losersItems.length ? [{ group: "En Çok Düşenler (ilk 5)", items: losersItems }] : []),
+          ...(mostActiveItems.length ? [{ group: "En Çok İşlem Görenler (ilk 5)", items: mostActiveItems }] : []),
         ]);
       } catch (err) {}
     };

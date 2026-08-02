@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 
 export async function GET() {
   const supabase = await createSupabaseServerClient();
@@ -40,8 +41,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Tickers must be an array" }, { status: 400 });
     }
 
-    // Limit to 50 items, remove duplicates, convert to uppercase
-    tickers = Array.from(new Set(tickers.map((t: string) => t.toUpperCase()))).slice(0, 50);
+    // Free: 10 ticker, Premium/admin: 50 ticker (bkz. Faz 3 plan matrisi).
+    const tier = resolveMemberTierFromAccess(await getMemberAccess());
+    const maxTickers = tier === "premium" || tier === "admin" ? 50 : 10;
+    tickers = Array.from(new Set(tickers.map((t: string) => t.toUpperCase()))).slice(0, maxTickers);
 
     const { error: upsertError } = await supabaseAdmin
       .from("custom_watchlists")

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
-import { getMemberAccess } from "@/lib/apiAuth";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { createAnthropic } from "@ai-sdk/anthropic";
@@ -324,25 +324,62 @@ export async function POST(req: NextRequest) {
     if (!user) return new Response("Unauthorized", { status: 401 });
 
     // Gerçek plan kontrolü — /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
+    // access.hasAccess (site geneli premium veri erişimi) burada KASITLI
+    // olarak kapı olarak kullanılmıyor artık — Copilot artık free tier'a da
+    // (kısıtlı günlük kota ile) açık, bkz. Faz 3 plan matrisi. Anonim zaten
+    // yukarıdaki `!user` kontrolünde 401 alıyor.
     const access = await getMemberAccess();
-    if (!access.hasAccess) {
-      return NextResponse.json(
-        { error: ct("noAccess", locale), code: "NO_ACCESS" },
-        { status: 403 }
-      );
-    }
+    const tier = resolveMemberTierFromAccess(access);
+    const isPremiumTier = tier === "premium" || tier === "admin";
     const accessMode: "member" | "expired_member" =
       access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
 
-    // Kredi kontrolü — admin (staff comp) haric, en ucuz sorgu tipinin (Fast
-    // Answer = 1 kredi) maliyetini bile karsilayamayan uye sohbete baslayamaz.
-    // Asil dusum (1 veya 5 kredi, sorgu tipine gore) onFinish'te, gercek yanit
-    // uretildikten sonra consume_credits() ile yapilir — bkz. 0020_usage_credits.sql.
-    if (access.plan !== "admin" && access.monthlyCredits + access.topupCredits < 1) {
-      return NextResponse.json(
-        { error: ct("quotaExhausted", locale, { limit: 0 }), code: "INSUFFICIENT_CREDITS", topup_url: "/api/members/credits/topup-checkout" },
-        { status: 402 }
-      );
+    // Kredi kontrolü — iki ayrı sistem: free tier günlük sabit kota
+    // (user_credits/get_copilot_credit_status, 0015_copilot.sql — bugüne
+    // kadar main'de hiç çağrılmayan, canlandırılan tablo), premium/admin ise
+    // mevcut aylık kredi havuzu (0020_usage_credits.sql). Asil dusum (free:
+    // increment_copilot_credit, premium: consume_credits) onFinish'te, gercek
+    // yanit uretildikten sonra yapilir.
+    if (tier === "free") {
+      const { data: creditStatus } = await supabaseAdmin
+        .rpc("get_copilot_credit_status", { p_user_id: user.id, p_default_limit: 5 })
+        .single<{ current_usage: number; daily_limit: number }>();
+      if (creditStatus && creditStatus.current_usage >= creditStatus.daily_limit) {
+        return NextResponse.json(
+          { error: ct("quotaExhausted", locale, { limit: creditStatus.daily_limit }), code: "INSUFFICIENT_CREDITS" },
+          { status: 402 }
+        );
+      }
+    } else if (access.plan !== "admin") {
+      // En ucuz sorgu tipinin (Fast Answer = 1 kredi) maliyetini bile
+      // karsilayamayan uye sohbete baslayamaz — ESKİDEN eşik "< 1" idi, ama
+      // maliyet ancak model akışta get_deep_analysis'i çağırmaya karar
+      // verince (5 kredi) belli oluyor, bu yüzden en kötü senaryoya göre pay
+      // bırakılıyor (bkz. Faz 5 plan notu, bu düzeltme burada erken yapıldı
+      // çünkü aynı bloğu ikinci kez değiştirmemek için).
+      if (access.monthlyCredits + access.topupCredits < 5) {
+        return NextResponse.json(
+          { error: ct("quotaExhausted", locale, { limit: 0 }), code: "INSUFFICIENT_CREDITS", topup_url: "/api/members/credits/topup-checkout" },
+          { status: 402 }
+        );
+      }
+      // Günlük 60 kredi tavanı — otomasyon/kötüye kullanım bariyeri, gerçek
+      // kullanıcı davranışının çok üzerinde, credit_logs zaten zaman
+      // damgalı olduğu için yeni bir tablo gerekmiyor (bkz. Faz 5).
+      const todayStart = new Date();
+      todayStart.setUTCHours(0, 0, 0, 0);
+      const { data: todayLogs } = await supabaseAdmin
+        .from("credit_logs")
+        .select("credits_deducted")
+        .eq("user_id", user.id)
+        .gte("created_at", todayStart.toISOString());
+      const usedToday = (todayLogs ?? []).reduce((s: number, r: any) => s + (r.credits_deducted ?? 0), 0);
+      if (usedToday >= 60) {
+        return NextResponse.json(
+          { error: ct("quotaExhausted", locale, { limit: 60 }), code: "DAILY_CEILING_REACHED" },
+          { status: 402 }
+        );
+      }
     }
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
@@ -629,7 +666,16 @@ export async function POST(req: NextRequest) {
     // görevler Gemini'ye gider. search_market_news bu yüzden sadece "google"
     // provider'ına eklenir — DeepSeek ve Claude asla canlı haber aracı görmez.
     function toolsForProvider(providerKey: "deepseek" | "google" | "anthropic") {
-      return providerKey === "google" ? { ...baseTools, ...searchMarketNewsTool } : baseTools;
+      const tools = providerKey === "google" ? { ...baseTools, ...searchMarketNewsTool } : baseTools;
+      // Free tier: get_deep_analysis (5 kredi/DEEP_RESEARCH) hiç görünmez —
+      // free/premium farkını miktardan çok yeteneğe dayandırır (bkz. Faz 3
+      // plan notu). Free zaten günlük 5 kredilik havuzuyla bu aracı
+      // karşılayamazdı; yapısal olarak da hiç sunulmuyor.
+      if (!isPremiumTier) {
+        const { get_deep_analysis, ...restTools } = tools as typeof baseTools;
+        return restTools;
+      }
+      return tools;
     }
 
     // "HABERLER" kuralındaki istisnayla senkron (fiyat hareketi NEDEN soruları
@@ -662,7 +708,9 @@ export async function POST(req: NextRequest) {
     const userId = user.id;
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
-        if (access.plan !== "admin") {
+        if (tier === "free") {
+          await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
+        } else if (access.plan !== "admin") {
           const isDeepResearch = Array.isArray(toolCalls) && toolCalls.some((tc: any) => tc.toolName === "get_deep_analysis");
           await supabaseAdmin.rpc("consume_credits", {
             p_user_id: userId,

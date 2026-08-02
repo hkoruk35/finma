@@ -20,7 +20,8 @@ interface HourlyBar {
   volume_ratio: number | null;
 }
 
-const REFRESH_MS = 5 * 60 * 1000;
+const REFRESH_MS_PREMIUM = 5 * 60 * 1000; // ~5dk — "saatlik" gereksiniminden daha sık, dokunulmadı
+const REFRESH_MS_FREE = 24 * 60 * 60 * 1000; // günlük (bkz. Faz 3 plan matrisi)
 const ACCENT = "#58a6ff";
 
 const SIGNAL_ICON: Record<string, string> = { STRONG: "●", WATCH: "◑", HOLD: "○", WEAK: "✕" };
@@ -111,6 +112,10 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist; // Fallback or we can add custom copy
   const { plan, isPremium, loading: planLoading } = useMemberPlan();
   const isLoggedIn = plan !== null;
+  // Anonim: 5 (localStorage) — free (giriş yapmış, premium değil): 10 —
+  // premium/admin: 50. Sunucu tarafı sınır (/api/watchlist/custom) aynı
+  // kuralı ayrıca uyguluyor (bkz. Faz 3 plan matrisi).
+  const maxTickers = !isLoggedIn ? 5 : isPremium ? 50 : 10;
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [composition, setComposition] = useState<WatchlistRow[]>([]);
   const [live, setLive] = useState<Record<string, LiveData>>({});
@@ -197,9 +202,9 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
     if (!planLoading) {
       fetchWatchlist();
     }
-    const id = setInterval(fetchWatchlist, REFRESH_MS);
+    const id = setInterval(fetchWatchlist, isPremium ? REFRESH_MS_PREMIUM : REFRESH_MS_FREE);
     return () => clearInterval(id);
-  }, [fetchWatchlist, planLoading]);
+  }, [fetchWatchlist, planLoading, isPremium]);
 
   // Handle Search Autocomplete
   useEffect(() => {
@@ -254,10 +259,14 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const addTicker = (ticker: string) => {
     if (myTickers.includes(ticker)) return;
     if (!isLoggedIn && myTickers.length >= 5) {
-      alert(locale === "tr" ? "Üye olmadan en fazla 5 hisse ekleyebilirsiniz. Listelerinizi kaydetmek ve 50 hisseye kadar çıkarmak için lütfen üye girişi yapın." : "Non-members can add up to 5 tickers. Please log in to save watchlists and expand up to 50 tickers.");
+      alert(locale === "tr" ? "Üye olmadan en fazla 5 hisse ekleyebilirsiniz. Listelerinizi kaydetmek ve 10 hisseye kadar çıkarmak için lütfen üye girişi yapın." : "Non-members can add up to 5 tickers. Please log in to save watchlists and expand up to 10 tickers.");
       return;
     }
-    if (isLoggedIn && myTickers.length >= 50) {
+    if (isLoggedIn && !isPremium && myTickers.length >= 10) {
+      alert(locale === "tr" ? "Ücretsiz planda maksimum 10 hisse ekleyebilirsiniz. Daha fazlası için Premium'a geçin." : "You can add up to 10 tickers on the Free plan. Upgrade to Premium for more.");
+      return;
+    }
+    if (isLoggedIn && isPremium && myTickers.length >= 50) {
       alert(locale === "tr" ? "Maksimum 50 hisse ekleyebilirsiniz." : "You can add maximum 50 tickers.");
       return;
     }
@@ -311,7 +320,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : "last update"}: {lastUpdated.toLocaleTimeString(localeTag(locale), { hour: "2-digit", minute: "2-digit" })}</span>}
               <span style={{ color: isMarketOpen() ? "#3fb950" : "#f85149" }}>● {isMarketOpen() ? (locale === "tr" ? "market açık" : "market open") : (locale === "tr" ? "market kapalı" : "market closed")}</span>
-              <span>{myTickers.length} / 50 {locale === "tr" ? "hisse" : "tickers"}</span>
+              <span>{myTickers.length} / {maxTickers} {locale === "tr" ? "hisse" : "tickers"}</span>
             </div>
           </div>
 
@@ -454,11 +463,11 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
 
             {/* Note */}
             <div style={{ marginTop: 16, fontSize: 11, color: "#6e7681" }}>
-              {locale === "tr" ? "Ücretsiz · Maksimum 50 hisse · Anlık güncelleme" :
-               locale === "es" ? "Gratis · Máximo 50 acciones · Actualización en tiempo real" :
-               locale === "fr" ? "Gratuit · Maximum 50 actions · Mise à jour en temps réel" :
-               locale === "pt" ? "Gratuito · Máximo 50 ações · Atualização em tempo real" :
-               "Free · Up to 50 stocks · Live updates"}
+              {locale === "tr" ? "Ücretsiz · 10 hisseye kadar · Günlük güncelleme — Premium: 50 hisse, saatlik" :
+               locale === "es" ? "Gratis · Hasta 10 acciones · Actualización diaria — Premium: 50 acciones, cada hora" :
+               locale === "fr" ? "Gratuit · Jusqu'à 10 actions · Mise à jour quotidienne — Premium : 50 actions, toutes les heures" :
+               locale === "pt" ? "Gratuito · Até 10 ações · Atualização diária — Premium: 50 ações, a cada hora" :
+               "Free · Up to 10 stocks · Daily updates — Premium: 50 stocks, hourly"}
             </div>
           </div>
         </div>
