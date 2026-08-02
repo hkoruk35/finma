@@ -528,12 +528,15 @@ function SubscriptionTab({
 
   const isAdmin = member.plan === "admin";
   const isLegacyFreeTrial = !isAdmin && !member.subscription_status && !!member.trial_ends_at;
+  const isFreeTier = !isAdmin && member.plan === "free";
   const status = member.subscription_status;
 
   const statusLabel = isAdmin
     ? L(locale, "Admin", "Yönetici", "Administrador", "Administrateur", "Administrador")
     : isLegacyFreeTrial
     ? L(locale, "Free Trial", "Ücretsiz Deneme", "Prueba Gratuita", "Essai Gratuit", "Teste Gratuito")
+    : isFreeTier
+    ? L(locale, "Free", "Ücretsiz", "Gratis", "Gratuit", "Grátis")
     : status === "pending"
       ? L(locale, "Payment Required", "Ödeme Gerekli", "Pago Requerido", "Paiement Requis", "Pagamento Necessário")
       : status === "trialing"
@@ -577,6 +580,30 @@ function SubscriptionTab({
             "Conta de administrador — acesso ilimitado a todos os recursos. Nenhuma cobrança aplicável."
           )}
         </div>
+      )}
+
+      {/* Free tier: Google sign-in, no card on file — offer upgrade */}
+      {isFreeTier && (
+        <>
+          <div className="rounded-2xl bg-gradient-to-r from-[#1a2030] to-[#1e293b] border border-white/10 p-5 text-sm text-white/60">
+            {L(
+              locale,
+              "You're on the Free plan — no card required, no trial timer. Upgrade to Premium for full access.",
+              "Ücretsiz plandasınız — kart gerekmez, deneme süresi yok. Tam erişim için Premium'a geçin.",
+              "Estás en el plan Gratis — sin tarjeta, sin límite de tiempo. Actualiza a Premium para acceso completo.",
+              "Vous êtes sur le plan Gratuit — sans carte, sans délai d'essai. Passez à Premium pour un accès complet.",
+              "Você está no plano Gratuito — sem cartão, sem prazo de teste. Faça upgrade para Premium para acesso completo."
+            )}
+          </div>
+          <ConsentCheckbox locale={locale} checked={consentChecked} onChange={(c) => { setConsentChecked(c); if (c) setConsentTouched(false); }} showError={consentTouched} />
+          <button
+            onClick={startCheckout}
+            disabled={busy}
+            className="w-full py-3 bg-[#3b82f6] text-white font-medium uppercase tracking-widest text-xs rounded-2xl hover:bg-[#2563eb] transition-all disabled:opacity-50"
+          >
+            {t.upgradeButton}
+          </button>
+        </>
       )}
 
       {/* Pending payment: registration completed but card not captured yet */}

@@ -31,6 +31,7 @@ export const TICKER_TO_YAHOO_MAP: Record<string, string> = {
   SPX: "^GSPC",
   NDX: "^NDX",
   DJI: "^DJI",
+  RUT: "^RUT",
 };
 
 export function resolveYahooSymbol(ticker: string): string {

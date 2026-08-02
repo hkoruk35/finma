@@ -1339,7 +1339,7 @@ export async function POST(req: NextRequest) {
 
   // ── TICKER / COMPANY NAME RESOLUTION ─────────────────────────────────────
   let resolvedTicker: string | null = null;
-  const isDirectTicker = /^[A-Z]{1,4}$/.test(cleanMsg); // Only exact 1-4 letter UPPERCASE queries
+  const isDirectTicker = /^[A-Z]{1,6}$/.test(cleanMsg); // 1-6 letter UPPERCASE queries — covers equities (<=4) and lib/symbols.ts's FX/commodity/crypto friendly keys (EURUSD, SILVER, NATGAS, BTCUSD... all <=6)
   
   if (isDirectTicker && !cleanMsg.startsWith("/")) {
     resolvedTicker = cleanMsg.toUpperCase();

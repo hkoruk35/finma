@@ -309,3 +309,34 @@ export async function getLiveIndices(): Promise<Record<string, { value: number; 
     return {};
   }
 }
+
+/**
+ * Herhangi bir ticker listesi için tek seferde fiyat + günlük değişim.
+ * getLiveIndices()'in genelleştirilmiş hali — anonim ana sayfadaki 5 yeni
+ * varlık sınıfı bölümü (endeks/sektör/FX/emtia/kripto) burayı kullanır.
+ * Anahtarlar `lib/symbols.ts`'teki dostane isimler olabilir (GOLD, EURUSD,
+ * VIX...) ya da doğrudan gerçek ticker (XLK, SPY...) — /api/quote zaten
+ * resolveYahooSymbol() ile ikisini de çözer.
+ */
+export async function getMultiQuote(tickers: string[]): Promise<Record<string, { value: number; change_pct: number }>> {
+  if (tickers.length === 0) return {};
+  try {
+    const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(tickers.join(","))}`, {
+      next: { revalidate: CACHE_TIME },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) return {};
+    const data: Record<string, { price: number | null; change_1d: number | null }> = await res.json();
+
+    const out: Record<string, { value: number; change_pct: number }> = {};
+    for (const ticker of tickers) {
+      const q = data[ticker.toUpperCase()];
+      if (q?.price != null) {
+        out[ticker] = { value: q.price, change_pct: q.change_1d ?? 0 };
+      }
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}

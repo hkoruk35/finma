@@ -16,6 +16,8 @@ export const copy = {
       haveAccount: "Already have an account?",
       loginLink: "Log in",
       genericError: "Could not connect to the server. Please try again.",
+      orDivider: "OR",
+      googleButton: "Continue with Google",
     },
     consent: {
       disclaimer: "I understand this platform offers information and analysis only — not investment advice.",
@@ -34,6 +36,8 @@ export const copy = {
       noAccount: "Don't have an account?",
       registerLink: "Create one for free",
       genericError: "Could not connect to the server. Please try again.",
+      orDivider: "OR",
+      googleButton: "Continue with Google",
     },
     account: {
       title: "My Account",
@@ -274,6 +278,8 @@ export const copy = {
       haveAccount: "Zaten bir hesabın var mı?",
       loginLink: "Giriş yap",
       genericError: "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.",
+      orDivider: "VEYA",
+      googleButton: "Google ile devam et",
     },
     consent: {
       disclaimer: "Bu platformun yalnızca bilgilendirme ve analiz amaçlı olduğunu, yatırım tavsiyesi niteliği taşımadığını anladım.",
@@ -292,6 +298,8 @@ export const copy = {
       noAccount: "Hesabın yok mu?",
       registerLink: "Ücretsiz oluştur",
       genericError: "Sunucuya bağlanılamadı. Lütfen tekrar deneyin.",
+      orDivider: "VEYA",
+      googleButton: "Google ile devam et",
     },
     account: {
       title: "Hesabım",
@@ -532,6 +540,8 @@ export const copy = {
       haveAccount: "¿Ya tienes una cuenta?",
       loginLink: "Iniciar sesión",
       genericError: "No se pudo conectar al servidor. Por favor, inténtalo de nuevo.",
+      orDivider: "O",
+      googleButton: "Continuar con Google",
     },
     consent: {
       disclaimer: "Entiendo que esta plataforma ofrece solo información y análisis, no asesoramiento de inversión.",
@@ -550,6 +560,8 @@ export const copy = {
       noAccount: "¿No tienes una cuenta?",
       registerLink: "Crear una gratis",
       genericError: "No se pudo conectar al servidor. Por favor, inténtalo de nuevo.",
+      orDivider: "O",
+      googleButton: "Continuar con Google",
     },
     account: {
       title: "Mi Cuenta",
@@ -790,6 +802,8 @@ export const copy = {
       haveAccount: "Vous avez déjà un compte ?",
       loginLink: "Se connecter",
       genericError: "Impossible de se connecter au serveur. Veuillez réessayer.",
+      orDivider: "OU",
+      googleButton: "Continuer avec Google",
     },
     consent: {
       disclaimer: "Je comprends que cette plateforme propose uniquement des informations et des analyses, et non des conseils en investissement.",
@@ -808,6 +822,8 @@ export const copy = {
       noAccount: "Vous n'avez pas de compte ?",
       registerLink: "En créer un gratuitement",
       genericError: "Impossible de se connecter au serveur. Veuillez réessayer.",
+      orDivider: "OU",
+      googleButton: "Continuer avec Google",
     },
     account: {
       title: "Mon Compte",
@@ -1048,6 +1064,8 @@ export const copy = {
       haveAccount: "Já tem uma conta?",
       loginLink: "Entrar",
       genericError: "Não foi possível conectar ao servidor. Tente novamente.",
+      orDivider: "OU",
+      googleButton: "Continuar com Google",
     },
     consent: {
       disclaimer: "Entendo que esta plataforma oferece apenas informações e análises, não consultoria de investimento.",
@@ -1066,6 +1084,8 @@ export const copy = {
       noAccount: "Não tem uma conta?",
       registerLink: "Crie uma grátis",
       genericError: "Não foi possível conectar ao servidor. Tente novamente.",
+      orDivider: "OU",
+      googleButton: "Continuar com Google",
     },
     account: {
       title: "Minha Conta",

@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const headerList = await headers();
-  const userAgent = headerList.get("user-agent") || "";
   const acceptLang = headerList.get("accept-language") || "";
-  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
 
   let locale = "en";
   const lowerLang = acceptLang.toLowerCase();
@@ -27,9 +25,5 @@ export default async function HomePage() {
   else if (lowerLang.includes("es")) locale = "es";
   else if (lowerLang.includes("fr")) locale = "fr";
 
-  if (isMobile) {
-    redirect(`/global/${locale}/search`, RedirectType.replace);
-  } else {
-    redirect(`/global/${locale}/search`, RedirectType.replace);
-  }
+  redirect(`/global/${locale}/home`, RedirectType.replace);
 }

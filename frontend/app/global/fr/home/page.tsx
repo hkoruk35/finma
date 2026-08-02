@@ -1,26 +1,21 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import ThemesBanner from "@/components/global/ThemesBanner";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import { getTopSwingByVolume, getTopWatchlistByVolume, getTopTop100ByVolume, getLastUpdated, getLiveIndices, overlayHeatMapChangePct } from "@/lib/homeFeed";
-import { getSwingPerformance, getMasterData, getAllTickers, getSwingPicks, getOptionsData, getOptionsOutcomes, StockQuickView } from "@/lib/data";
-import { getMemberAccess } from "@/lib/apiAuth";
+import ThemesBanner from "@/components/global/ThemesBanner";
+import HomeAssetClassSection, { type AssetClassItem } from "@/components/global/HomeAssetClassSection";
+import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-import HomeSimpleCard from "@/components/global/HomeGridCard";
-import HomeWatchlistSlot from "@/components/global/HomeWatchlistSlot";
 import TickerTape from "@/components/TickerTape";
-import { MARKET_THEMES } from "@/lib/themeData";
 
 export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
-  description: "Découvrez l'analyse technique interactive alimentée par l'IA pour les actions américaines, la sélection d'actions tendance, les indicateurs Top 100, l'or, les devises et les cryptomonnaies sur BOGASTOCK AI.",
-  keywords: ["analyse des actions US", "BOGASTOCK AI", "analyse technique boursière", "actions tendance", "Top 100 actions", "IA bourse", "analyse graphique boursière"],
+  description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BOGASTOCK AI.",
+  keywords: ["analyse des actions US", "BOGASTOCK AI", "analyse technique boursière", "analyse des indices", "analyse des devises", "analyse des matières premières", "IA bourse"],
   openGraph: {
     title: "BOGASTOCK AI — Plateforme d'Analyse Boursière et de Décisions d'Investissement alimentée par l'IA",
-    description: "Découvrez l'analyse technique interactive alimentée par l'IA pour les actions américaines, la sélection d'actions tendance, les indicateurs Top 100, l'or, les devises et les cryptomonnaies sur BOGASTOCK AI.",
+    description: "Découvrez l'analyse technique alimentée par l'IA pour les actions américaines, les indices, les secteurs, les devises, les matières premières et les cryptomonnaies sur BOGASTOCK AI.",
     url: "https://bogastock.com/global/fr/home",
     siteName: "BOGASTOCK Terminal",
     locale: "fr_FR",
@@ -29,174 +24,67 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://bogastock.com/global/fr/home" },
 };
 
+const INDEX_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "SPX", label: "S&P 500" },
+  { ticker: "NDX", label: "Nasdaq 100" },
+  { ticker: "DJI", label: "Dow Jones" },
+  { ticker: "RUT", label: "Russell 2000" },
+  { ticker: "VIX", label: "VIX" },
+];
+
+const SECTOR_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "XLK", label: "Technologie" },
+  { ticker: "XLF", label: "Finance" },
+  { ticker: "XLE", label: "Énergie" },
+  { ticker: "XLV", label: "Santé" },
+  { ticker: "XLY", label: "Consommation Discrétionnaire" },
+  { ticker: "XLP", label: "Consommation de Base" },
+  { ticker: "XLI", label: "Industrie" },
+  { ticker: "XLB", label: "Matériaux" },
+  { ticker: "XLRE", label: "Immobilier" },
+  { ticker: "XLU", label: "Services Publics" },
+  { ticker: "XLC", label: "Communication" },
+];
+
+const FX_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "EURUSD", label: "EUR/USD" },
+  { ticker: "GBPUSD", label: "GBP/USD" },
+  { ticker: "USDJPY", label: "USD/JPY" },
+  { ticker: "USDCHF", label: "USD/CHF" },
+  { ticker: "AUDUSD", label: "AUD/USD" },
+  { ticker: "USDCAD", label: "USD/CAD" },
+  { ticker: "NZDUSD", label: "NZD/USD" },
+];
+
+const COMMODITY_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "GOLD", label: "Or" },
+  { ticker: "SILVER", label: "Argent" },
+  { ticker: "USOIL", label: "Pétrole Brut" },
+  { ticker: "NATGAS", label: "Gaz Naturel" },
+];
+
+const CRYPTO_ITEMS: { ticker: string; label: string }[] = [
+  { ticker: "BTCUSD", label: "Bitcoin" },
+  { ticker: "ETHUSD", label: "Ethereum" },
+  { ticker: "SOLUSD", label: "Solana" },
+  { ticker: "XRPUSD", label: "XRP" },
+];
+
+function withQuotes(
+  items: { ticker: string; label: string }[],
+  quotes: Record<string, { value: number; change_pct: number }>
+): AssetClassItem[] {
+  return items.map((it) => ({ ...it, quote: quotes[it.ticker] }));
+}
+
 export default async function FrHomePage() {
-  const [swingByVolume, watchlistByVolume, top100ByVolume, lastUpdated, indices, swingStats, master, allTickers, swingPicks, optionsData, optionsOutcomes, memberAccess] = await Promise.all([
-    getTopSwingByVolume(5),
-    getTopWatchlistByVolume(5),
-    getTopTop100ByVolume(5),
+  const allTickers = [...INDEX_ITEMS, ...SECTOR_ITEMS, ...FX_ITEMS, ...COMMODITY_ITEMS, ...CRYPTO_ITEMS].map((i) => i.ticker);
+
+  const [lastUpdated, indices, quotes] = await Promise.all([
     getLastUpdated(),
     getLiveIndices(),
-    getSwingPerformance(),
-    getMasterData(),
-    getAllTickers(),
-    getSwingPicks(),
-    getOptionsData("latest"),
-    getOptionsOutcomes(),
-    getMemberAccess()
+    getMultiQuote(allTickers),
   ]);
-
-  // Full history used — -7% SL cap, excludes duplicates and PENDING.
-  const SL_CAP = -10;
-  const bannerStats = (() => {
-    const fullHistory: any[] = swingStats?.history ?? [];
-    if (fullHistory.length === 0) return swingStats?.stats ?? null;
-    const effRet = (t: any): number => Math.max(t.return_pct ?? 0, SL_CAP);
-    const active = fullHistory.filter((t: any) => !t.is_duplicate && t.result !== "PENDING" && t.return_pct != null);
-    if (active.length === 0) return swingStats?.stats ?? null;
-    const wins = active.filter((t: any) => effRet(t) > 0).length;
-    const sumRet = active.reduce((s: number, t: any) => s + effRet(t), 0);
-    const above10 = active.filter((t: any) => effRet(t) >= 10).length;
-    return {
-      win_rate: (wins / active.length * 100).toFixed(1),
-      avg_return_pct: (sumRet / active.length).toFixed(1),
-      above_10pct_rate: (above10 / active.length * 100).toFixed(1),
-      total_picks: active.length,
-      period_days: swingStats?.stats?.period_days,
-    };
-  })();
-
-  // Helper to map different sector naming conventions to GICS standard sector names
-  const normalizeGicsSector = (sec: string | undefined): string => {
-    if (!sec) return "Other";
-    const s = sec.trim();
-    if (s === "Basic Materials") return "Materials";
-    if (s === "Consumer Defensive") return "Consumer Staples";
-    if (s === "Consumer Cyclical") return "Consumer Discretionary";
-    if (s === "Financial Services") return "Financials";
-    return s;
-  };
-
-  // Compile comprehensive map of all tickers from 6 sources
-  const tickerMap = new Map<string, { sector: string; company: string; change_pct: number; score: number; volume: number }>();
-
-  // 1. Load from MARKET_THEMES
-  MARKET_THEMES.forEach(theme => {
-    const rawSector = theme.sector === "Sectors" ? theme.name : theme.sector;
-    const sectorName = normalizeGicsSector(rawSector);
-    theme.tickers.forEach(t => {
-      if (!t) return;
-      const key = t.toUpperCase();
-      tickerMap.set(key, {
-        sector: sectorName,
-        company: t,
-        change_pct: 0,
-        score: 50,
-        volume: 0
-      });
-    });
-  });
-
-  // 2. Load from allTickers
-  if (allTickers && Array.isArray(allTickers)) {
-    allTickers.forEach(t => {
-      if (!t.ticker) return;
-      const key = t.ticker.toUpperCase();
-      const existing = tickerMap.get(key);
-      tickerMap.set(key, {
-        sector: normalizeGicsSector(t.sector) || existing?.sector || "Other",
-        company: t.company || existing?.company || t.ticker,
-        change_pct: t.change_pct ?? existing?.change_pct ?? 0,
-        score: t.master_score ?? existing?.score ?? 50,
-        volume: t.volume ?? existing?.volume ?? 0
-      });
-    });
-  }
-
-  // 3. Load from swingPicks
-  if (swingPicks && Array.isArray(swingPicks.picks)) {
-    swingPicks.picks.forEach((p: any) => {
-      if (!p.ticker) return;
-      const key = p.ticker.toUpperCase();
-      const existing = tickerMap.get(key);
-      tickerMap.set(key, {
-        sector: normalizeGicsSector(p.sector) || existing?.sector || "Other",
-        company: p.company || existing?.company || p.ticker,
-        change_pct: p.change_1d ?? p.change_pct ?? existing?.change_pct ?? 0,
-        score: p.score ?? existing?.score ?? 50,
-        volume: p.volume ?? existing?.volume ?? 0
-      });
-    });
-  }
-
-  // 4. Load from swingStats history
-  if (swingStats && Array.isArray(swingStats.history)) {
-    swingStats.history.forEach((h: any) => {
-      if (!h.ticker) return;
-      const key = h.ticker.toUpperCase();
-      const existing = tickerMap.get(key);
-      const changeVal = existing?.change_pct !== 0 ? existing?.change_pct : (h.return_pct ?? 0);
-      tickerMap.set(key, {
-        sector: normalizeGicsSector(h.sector) || existing?.sector || "Other",
-        company: h.company || existing?.company || h.ticker,
-        change_pct: changeVal ?? 0,
-        score: existing?.score ?? 50,
-        volume: existing?.volume ?? 0
-      });
-    });
-  }
-
-  // 5. Load from optionsData
-  if (optionsData && Array.isArray(optionsData.picks)) {
-    optionsData.picks.forEach((p: any) => {
-      if (!p.ticker) return;
-      const key = p.ticker.toUpperCase();
-      const existing = tickerMap.get(key);
-      tickerMap.set(key, {
-        sector: normalizeGicsSector(p.sector_info?.sector || p.sector) || existing?.sector || "Other",
-        company: existing?.company || p.ticker,
-        change_pct: p.change_pct ?? existing?.change_pct ?? 0,
-        score: p.score ?? existing?.score ?? 50,
-        volume: p.volume ?? existing?.volume ?? 0
-      });
-    });
-  }
-
-  // 6. Load from optionsOutcomes
-  if (optionsOutcomes && Array.isArray(optionsOutcomes.positions)) {
-    optionsOutcomes.positions.forEach((pos: any) => {
-      if (!pos.ticker) return;
-      const key = pos.ticker.toUpperCase();
-      const existing = tickerMap.get(key);
-      tickerMap.set(key, {
-        sector: normalizeGicsSector(pos.sector) || existing?.sector || "Other",
-        company: existing?.company || pos.ticker,
-        change_pct: pos.pnl_pct ?? existing?.change_pct ?? 0,
-        score: pos.score ?? existing?.score ?? 50,
-        volume: existing?.volume ?? 0
-      });
-    });
-  }
-
-  // Create StockQuickView array from tickerMap
-  const comprehensiveTickersList: StockQuickView[] = Array.from(tickerMap.entries()).map(([ticker, val]) => {
-    const swingPick = swingPicks?.picks?.find((p: any) => p.ticker?.toUpperCase() === ticker);
-    const setupName = swingPick?.setup || "";
-    return {
-      ticker,
-      company: val.company,
-      sector: val.sector,
-      master_score: val.score,
-      score_type: "NEUTRAL_STAY",
-      price: 0,
-      change_pct: val.change_pct,
-      entry_range_low: 0,
-      entry_range_high: 0,
-      volume: val.volume,
-      ai_short_summary: ""
-    };
-  });
-
-  const heatMapTickers = await overlayHeatMapChangePct(comprehensiveTickersList);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
@@ -206,51 +94,15 @@ export default async function FrHomePage() {
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
         <div className="-mb-2">
           <ListsNavigation locale="fr" activePath="home" />
+        </div>
         {/* Themes Banner */}
         <ThemesBanner locale="fr" />
-        </div>
 
-        {/* Three column grid */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-3 gap-4 md:gap-6 pb-6 md:pb-0">
-          <HomeWatchlistSlot
-            locale="fr"
-            defaultStocks={watchlistByVolume}
-            defaultViewAllHref="/global/fr/top7"
-            defaultSortLabel="Trié par volume"
-          />
-
-          <HomeSimpleCard
-            title="Actions Tendance"
-            accent="#3b82f6"
-            stocks={swingByVolume}
-            viewAllHref="/global/fr/swing"
-            locale="fr"
-            sortLabel="Trié par score de tendance"
-            requirePremium
-          />
-
-          <HomeSimpleCard
-            title="Top 100"
-            accent="#10b981"
-            stocks={top100ByVolume}
-            viewAllHref="/global/fr/top100"
-            locale="fr"
-            sortLabel="Trié par volume"
-            requirePremium
-          />
-        </div>
-
-        {/* Mobile Swipe Hint */}
-        <div className="flex md:hidden items-center justify-center gap-2 mt-4 mb-6 text-white/50 text-[10px] uppercase font-medium tracking-widest">
-          <svg className="w-3 h-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          <span>Glissez pour explorer</span>
-          <svg className="w-3 h-3 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </div>
-
+        <HomeAssetClassSection title="Indices Américains" items={withQuotes(INDEX_ITEMS, quotes)} locale="fr" />
+        <HomeAssetClassSection title="Secteurs Américains" items={withQuotes(SECTOR_ITEMS, quotes)} locale="fr" />
+        <HomeAssetClassSection title="Devises" items={withQuotes(FX_ITEMS, quotes)} locale="fr" />
+        <HomeAssetClassSection title="Matières Premières" items={withQuotes(COMMODITY_ITEMS, quotes)} locale="fr" />
+        <HomeAssetClassSection title="Crypto" items={withQuotes(CRYPTO_ITEMS, quotes)} locale="fr" />
 
         {/* Update info */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">
@@ -260,7 +112,7 @@ export default async function FrHomePage() {
             </p>
           )}
           <p className="text-[10px] text-white/25 max-w-xl">
-            Les données sont analysées à partir de sources retardées de 15 minutes. Cette page se met à jour toutes les heures les jours où le marché est ouvert.
+            Les données sont analysées à partir de sources avec un délai de 15 minutes. Cette page est mise à jour toutes les heures les jours d'ouverture du marché.
           </p>
         </div>
       </main>
