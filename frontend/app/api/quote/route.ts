@@ -18,6 +18,8 @@ type QuoteResult = {
   change_1w: number | null;
   change_1m: number | null;
   change_1y: number | null;
+  /** Last ~20 daily closes for lightweight inline sparklines (mirrors /api/watchlist-data's recent_closes). */
+  recent_closes: number[];
 };
 
 const YF_HEADERS = {
@@ -54,18 +56,20 @@ async function batchPriceV7(symbols: string[]): Promise<Record<string, number>> 
  * Bu yöntem TradingView'ın 1D change hesabıyla birebir uyumludur.
  * regularMarketChangePercent kullanılmaz: bazı hisseler için yanlış referans dönüyor.
  */
-async function change1dV8(ticker: string): Promise<{ price: number | null; change_1d: number | null }> {
+async function change1dV8(ticker: string): Promise<{ price: number | null; change_1d: number | null; recent_closes: number[] }> {
   const ySymbol = resolveYahooSymbol(ticker);
-  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=1d&range=5d&includePrePost=false`;
+  // range=1mo (5d'den genişletildi): 1D değişim hesabı son iki kapanışı kullanmaya
+  // devam ediyor, ama artık mini-sparkline'lar için ~20 günlük seri de aynı istekten çıkıyor.
+  const url = `https://query2.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ySymbol)}?interval=1d&range=1mo&includePrePost=false`;
   try {
     const res = await fetch(url, {
       headers: YF_HEADERS,
       signal: AbortSignal.timeout(6000),
     });
-    if (!res.ok) return { price: null, change_1d: null };
+    if (!res.ok) return { price: null, change_1d: null, recent_closes: [] };
     const data = await res.json();
     const result = data?.chart?.result?.[0];
-    if (!result) return { price: null, change_1d: null };
+    if (!result) return { price: null, change_1d: null, recent_closes: [] };
 
     const meta = result.meta;
     const price: number | null = meta?.regularMarketPrice ?? null;
@@ -92,9 +96,9 @@ async function change1dV8(ticker: string): Promise<{ price: number | null; chang
       }
     }
 
-    return { price, change_1d };
+    return { price, change_1d, recent_closes: closes.slice(-20) };
   } catch {
-    return { price: null, change_1d: null };
+    return { price: null, change_1d: null, recent_closes: [] };
   }
 }
 
@@ -123,10 +127,10 @@ export async function GET(req: NextRequest) {
   for (let i = 0; i < tickers.length; i += BATCH) {
     await Promise.all(
       tickers.slice(i, i + BATCH).map(async (ticker) => {
-        const { price: v8Price, change_1d } = await change1dV8(ticker);
+        const { price: v8Price, change_1d, recent_closes } = await change1dV8(ticker);
         const price = prices[ticker] ?? v8Price;
         if (price != null) {
-          results[ticker] = { price, change_1d, change_1w: null, change_1m: null, change_1y: null };
+          results[ticker] = { price, change_1d, change_1w: null, change_1m: null, change_1y: null, recent_closes };
         }
       })
     );

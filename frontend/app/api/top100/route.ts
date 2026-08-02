@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
-import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
+import { maskTop100Ticker } from "@/lib/publicTeaserTickers";
 
 // Public erişim — in-memory rate limiter (app/api/auth/login/route.ts deseni)
 const rlAttempts = new Map<string, { count: number; resetAt: number }>();
@@ -57,7 +57,6 @@ export async function GET(req: NextRequest) {
   // döndürüyordu — doğrudan curl ile bypass edilebiliyordu.
   const access = await getMemberAccess();
   const tier = resolveMemberTierFromAccess(access);
-  const unlockAll = tier === "free" || tier === "premium" || tier === "admin";
 
   const { data: tickers, error: tickersError } = await supabase
     .from("top100_tickers")
@@ -80,10 +79,10 @@ export async function GET(req: NextRequest) {
 
   const rows: Top100Row[] = (tickers ?? []).map((t, idx) => {
     const s = snapshotByTicker.get(t.ticker);
-    const locked = !unlockAll && !isPublicTeaserTicker(t.ticker);
+    const masked = maskTop100Ticker({ ticker: t.ticker, company: t.company }, idx, tier);
     return {
-      ticker: locked ? `LOCKED-${idx}` : t.ticker,
-      company: locked ? null : t.company,
+      ticker: masked.ticker,
+      company: masked.company,
       sector: t.sector,
       source: t.source as "fixed" | "swing_daily",
       price: s?.price ?? null,

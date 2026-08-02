@@ -1,7 +1,11 @@
 import { Metadata } from "next";
 import ListsNavigation from "@/components/global/ListsNavigation";
 import ThemesBanner from "@/components/global/ThemesBanner";
-import HomeAssetClassSection, { type AssetClassItem } from "@/components/global/HomeAssetClassSection";
+import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
+import HomeMoversGrid from "@/components/global/HomeMoversGrid";
+import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
+import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCard";
+import HomeSearchBar from "@/components/public/HomeSearchBar";
 import { getLastUpdated, getLiveIndices, getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
@@ -70,11 +74,23 @@ const CRYPTO_ITEMS: { ticker: string; label: string }[] = [
   { ticker: "XRPUSD", label: "XRP" },
 ];
 
-function withQuotes(
-  items: { ticker: string; label: string }[],
-  quotes: Record<string, { value: number; change_pct: number }>
-): AssetClassItem[] {
-  return items.map((it) => ({ ...it, quote: quotes[it.ticker] }));
+type QuoteMap = Record<string, { value: number; change_pct: number; recent_closes: number[] }>;
+
+function toMarketItems(items: { ticker: string; label: string }[], quotes: QuoteMap): MarketQuoteItem[] {
+  return items.map((it) => ({ ticker: it.ticker, label: it.label, quote: quotes[it.ticker] }));
+}
+
+function toSectorStocks(items: { ticker: string; label: string }[], quotes: QuoteMap): HomeListStock[] {
+  return items.map((it) => {
+    const q = quotes[it.ticker];
+    return {
+      ticker: it.ticker,
+      sector: it.label,
+      price: q?.value ?? 0,
+      change_pct: q?.change_pct ?? 0,
+      sparkline: q?.recent_closes ?? [],
+    };
+  });
 }
 
 export default async function TrHomePage() {
@@ -86,23 +102,39 @@ export default async function TrHomePage() {
     getMultiQuote(allTickers),
   ]);
 
+  const marketGroups: MarketGroup[] = [
+    { key: "indices", label: "US Endeksleri", items: toMarketItems(INDEX_ITEMS, quotes) },
+    { key: "fx", label: "Döviz", items: toMarketItems(FX_ITEMS, quotes) },
+    { key: "commodities", label: "Emtia", items: toMarketItems(COMMODITY_ITEMS, quotes) },
+    { key: "crypto", label: "Kripto", items: toMarketItems(CRYPTO_ITEMS, quotes) },
+  ];
+
+  const sectorStocks = toSectorStocks(SECTOR_ITEMS, quotes);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17] font-manrope">
       <MemberHeader locale="tr" />
       <TickerTape indices={indices} />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-8">
+      <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
+        <HomeSearchBar locale="tr" />
+
         <div className="-mb-2">
           <ListsNavigation locale="tr" activePath="home" />
         </div>
-        {/* Themes Banner */}
         <ThemesBanner locale="tr" />
 
-        <HomeAssetClassSection title="US Endeksleri" items={withQuotes(INDEX_ITEMS, quotes)} locale="tr" />
-        <HomeAssetClassSection title="US Sektörleri" items={withQuotes(SECTOR_ITEMS, quotes)} locale="tr" />
-        <HomeAssetClassSection title="Döviz" items={withQuotes(FX_ITEMS, quotes)} locale="tr" />
-        <HomeAssetClassSection title="Emtia" items={withQuotes(COMMODITY_ITEMS, quotes)} locale="tr" />
-        <HomeAssetClassSection title="Kripto" items={withQuotes(CRYPTO_ITEMS, quotes)} locale="tr" />
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 mt-2 items-start">
+          <div className="min-w-0">
+            <MarketOverviewTabs groups={marketGroups} locale="tr" />
+            <HomeMoversGrid locale="tr" />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <HomePersonalWatchlistCard locale="tr" />
+            <HomeListCard title="Sektörler" accent="#38bdf8" stocks={sectorStocks} locale="tr" />
+          </div>
+        </div>
 
         {/* Güncelleme bilgisi */}
         <div className="mt-8 flex flex-col items-center gap-1.5 text-center">

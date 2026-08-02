@@ -13,3 +13,23 @@ export function isPublicTeaserTicker(ticker: string | null | undefined): boolean
   if (!ticker) return false;
   return PUBLIC_TEASER_TICKERS.includes(ticker.toUpperCase());
 }
+
+/**
+ * Top100 ticker-kimliği maskeleme kuralının tek kaynağı (bkz.
+ * docs/AI_BEHAVIOR.md Rule 3 — bir liste yüzeyinin tam olarak bir ticker
+ * kaynağı olmalı). Anonim ziyaretçi sadece PUBLIC_TEASER_TICKERS'ı gerçek
+ * görür, free/premium/admin (herhangi bir giriş yapmış üye) tam listeyi
+ * görür — bu Trend Hisseleri'nin premium-only kuralından (pickMasking.ts)
+ * FARKLI: burada "free" zaten unlockAll sayılır. Ticker kimliğine göre
+ * kilitlenir (idx'e göre değil), çünkü client tabloyu serbestçe yeniden
+ * sıralayabiliyor.
+ */
+export function maskTop100Ticker<T extends { ticker: string; company?: string | null }>(
+  row: T,
+  idx: number,
+  tier: "anonymous" | "free" | "premium" | "admin"
+): T {
+  const unlockAll = tier === "free" || tier === "premium" || tier === "admin";
+  if (unlockAll || isPublicTeaserTicker(row.ticker)) return row;
+  return { ...row, ticker: `LOCKED-${idx}`, company: null };
+}

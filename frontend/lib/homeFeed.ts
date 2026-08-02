@@ -318,7 +318,7 @@ export async function getLiveIndices(): Promise<Record<string, { value: number; 
  * VIX...) ya da doğrudan gerçek ticker (XLK, SPY...) — /api/quote zaten
  * resolveYahooSymbol() ile ikisini de çözer.
  */
-export async function getMultiQuote(tickers: string[]): Promise<Record<string, { value: number; change_pct: number }>> {
+export async function getMultiQuote(tickers: string[]): Promise<Record<string, { value: number; change_pct: number; recent_closes: number[] }>> {
   if (tickers.length === 0) return {};
   try {
     const res = await fetch(`${BASE_URL}/api/quote?tickers=${encodeURIComponent(tickers.join(","))}`, {
@@ -326,13 +326,13 @@ export async function getMultiQuote(tickers: string[]): Promise<Record<string, {
       signal: AbortSignal.timeout(15000),
     });
     if (!res.ok) return {};
-    const data: Record<string, { price: number | null; change_1d: number | null }> = await res.json();
+    const data: Record<string, { price: number | null; change_1d: number | null; recent_closes?: number[] }> = await res.json();
 
-    const out: Record<string, { value: number; change_pct: number }> = {};
+    const out: Record<string, { value: number; change_pct: number; recent_closes: number[] }> = {};
     for (const ticker of tickers) {
       const q = data[ticker.toUpperCase()];
       if (q?.price != null) {
-        out[ticker] = { value: q.price, change_pct: q.change_1d ?? 0 };
+        out[ticker] = { value: q.price, change_pct: q.change_1d ?? 0, recent_closes: q.recent_closes ?? [] };
       }
     }
     return out;
@@ -340,3 +340,13 @@ export async function getMultiQuote(tickers: string[]): Promise<Record<string, {
     return {};
   }
 }
+
+// Not: Top100/gainers/losers/most-active türetmeleri BURADA yok — top100
+// ticker kimliği anonim ziyaretçiden maskelenmesi gereken veri (bkz.
+// app/api/top100/route.ts, docs/AI_BEHAVIOR.md Rule 3). Bu dosyadaki
+// fonksiyonlar ISR'lı (revalidate=120, tüm ziyaretçiler için ortak cache)
+// home sayfasından çağrılıyor — cookie/tier-farkındalı maskeleme burada
+// YAPILAMAZ (yapılırsa sayfa per-request dynamic'e döner). Bu yüzden
+// Top100/Gainers/Losers/MostActive kartları /api/home-movers'ı (tier'ı
+// per-request çözen, maskTop100Ticker kullanan) client-side çağırır —
+// bkz. HomeMoversGrid.tsx.
