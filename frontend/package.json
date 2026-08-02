@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^0.0.52",
+    "@ai-sdk/openai": "^0.0.72",
     "@ai-sdk/react": "^1.0.4",
     "@anthropic-ai/sdk": "^0.90.0",
     "@google/genai": "^2.12.0",

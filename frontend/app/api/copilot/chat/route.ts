@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI } from "@ai-sdk/openai";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -21,7 +22,11 @@ import { getCrossAssetQuote } from "@/lib/copilot/crossAssetData";
 import { getUserTasks, createCopilotTask, TaskType } from "@/lib/copilot/tasksEngine";
 import { HOT_THEMES_2026, getHotTheme, localizedThemeTitle } from "@/lib/hotThemes2026";
 
-export const maxDuration = 30;
+// DeepSeek-v4-flash varsayılan olarak "thinking mode" ile çalışır (bkz.
+// DeepSeek fiyatlandırma tablosu) — Gemini flash'a göre adım başına daha
+// yavaş olabilir. maxSteps:6 ile çok adımlı bir araç zinciri eski 30s'yi
+// zorlayabileceğinden pay büyütüldü.
+export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
 const apiKey =
@@ -32,6 +37,9 @@ const apiKey =
   "";
 
 const googleProvider = createGoogleGenerativeAI({ apiKey });
+
+const deepseekApiKey = process.env.DEEPSEEK_API_KEY || "";
+const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https://api.deepseek.com" });
 
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
@@ -353,7 +361,7 @@ export async function POST(req: NextRequest) {
 
     const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
 
-    const tools = {
+    const baseTools = {
         get_top_trending_stocks: tool({
           description: "Fetches BOGASTOCK.COM's 5 distinct site lists: Trend Listesi (trend_stocks), Trend Adayı İzleme Listesi (trend_candidate_watchlist), Kişisel İzleme Listesi (user_watchlist), Top 7 (top_7), or Top 100 (top_100). These are five SEPARATE lists — call with the category that matches exactly what the user asked for.",
           parameters: z.object({
@@ -443,21 +451,6 @@ export async function POST(req: NextRequest) {
               return { success: matches.length > 0, matches };
             } catch (e) {
               return { success: false, matches: [] };
-            }
-          },
-        }),
-        search_market_news: tool({
-          description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
-          parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
-          execute: async ({ query }) => {
-            try {
-              // 5000ms yetersizdi: RSS çekme (2500ms) + başlık çevirisi (4000ms) art
-              // arda çalışabiliyor, dış timeout erken keserse haberler tamamen
-              // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
-              const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
-              return { success: true, query, news: news || [] };
-            } catch (e) {
-              return { success: true, query, news: [] };
             }
           },
         }),
@@ -586,6 +579,64 @@ export async function POST(req: NextRequest) {
         }),
     };
 
+    // Canlı haber araması, kendi içinde HER ZAMAN Gemini kullanır (bkz.
+    // lib/copilot/newsSearch.ts — RSS'ten çekilen başlıkları Gemini çevirir/
+    // ayrıştırır), orkestratör modelden bağımsız. Bu aracı sadece Gemini
+    // konuşmayı yönettiğinde tool listesine ekliyoruz (bkz. toolsForProvider) —
+    // "web araması Gemini'nin işi" kuralını tek bir yerde (soft prompt talimatı
+    // değil) yapısal olarak zorunlu kılar: DeepSeek orkestre ederken bu araç
+    // hiç görünmez, yanlışlıkla eski/uydurma haber özetlemez.
+    const searchMarketNewsTool = {
+      search_market_news: tool({
+        description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
+        parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
+        execute: async ({ query }: { query: string }) => {
+          try {
+            // 5000ms yetersizdi: RSS çekme (2500ms) + başlık çevirisi (4000ms) art
+            // arda çalışabiliyor, dış timeout erken keserse haberler tamamen
+            // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
+            const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
+            return { success: true, query, news: news || [] };
+          } catch (e) {
+            return { success: true, query, news: [] };
+          }
+        },
+      }),
+    };
+
+    // BOGA ekonomik mimarisi: rutin sohbet/uzun analiz DeepSeek'te (ucuz,
+    // 1M context) kalır; web araması ve gelecekteki Google-özel/multimodal
+    // görevler Gemini'ye gider. search_market_news bu yüzden sadece "google"
+    // provider'ına eklenir — DeepSeek asla canlı haber aracı görmez.
+    function toolsForProvider(providerKey: "deepseek" | "google") {
+      return providerKey === "google" ? { ...baseTools, ...searchMarketNewsTool } : baseTools;
+    }
+
+    const NEWS_INTENT_TRIGGERS = [
+      "haber", "haberler", "son gelişme", "son dakika", // tr
+      "news", "breaking", "latest update",              // en
+      "noticia", "última hora",                          // es (noticia(s), últimas noticias)
+      "actualité", "dernière nouvelle",                  // fr
+      "notícia", "última hora",                          // pt
+    ];
+
+    // Hangi provider'ın bu turu YÖNETECEĞİNİ (orkestratör model) belirler.
+    // Tetik kelimeleri sistem promptundaki search_market_news çağrı kuralıyla
+    // BİREBİR aynı niyeti yakalar (bkz. buildSystemPrompt "HABERLER" bölümü) —
+    // ikisi ayrı ayrı güncellenirse (örn. yeni bir dil eklenirse) burası da
+    // güncellenmeli, aksi halde yönlendirme modelin asıl kararından sapar.
+    // Multimodal ek (resim vb.) şu an istemcide yok ama ileride eklenirse
+    // DeepSeek'in görsel desteği garanti değil — burada şimdiden Gemini'ye
+    // yönlendirilir.
+    function pickPrimaryProvider(msgs: any[]): { primary: "deepseek" | "google"; reason: string } {
+      const last = [...msgs].reverse().find((m: any) => m.role === "user");
+      const hasAttachment = Array.isArray(last?.experimental_attachments) && last.experimental_attachments.length > 0;
+      if (hasAttachment) return { primary: "google", reason: "multimodal_attachment" };
+      const content = typeof last?.content === "string" ? last.content.toLowerCase() : "";
+      if (NEWS_INTENT_TRIGGERS.some((t) => content.includes(t))) return { primary: "google", reason: "web_search_intent" };
+      return { primary: "deepseek", reason: "routine_chat_or_analysis" };
+    }
+
     const userId = user.id;
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
@@ -612,21 +663,37 @@ export async function POST(req: NextRequest) {
       } catch {}
     };
 
-    // Google, model adlarını zaman zaman deprecate ediyor (bugün ikinci kez:
-    // sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not found" hatası verdi —
-    // bkz. Vercel production logları). Tek bir isme güvenmek yerine, ilk
-    // çalışan modeli bulana kadar sırayla dener; bu sınıf hata bir daha
-    // tüm Copilot'u kesintiye uğratmasın diye.
-    const GEMINI_MODEL_CANDIDATES = ["gemini-flash-latest", "gemini-2.0-flash", "gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash-001"];
+    // Ekonomik yönlendirme: rutin sohbet/uzun analiz → DeepSeek (deepseek-v4-flash,
+    // en ucuz sürüm, 1M context — uzun analiz akışları için bol pay). Web araması
+    // veya (ileride) multimodal görevler → Gemini. Hangi provider birincil
+    // olursa olsun, DİĞER provider'ın TÜM model adları ikincil yedek olarak
+    // sırayla denenir — Google zaman zaman model adlarını deprecate ediyor
+    // (bugün ikinci kez: sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not
+    // found" hatası verdi — bkz. Vercel production logları), bu yüzden tek
+    // bir sağlayıcıya/isme güvenmek yerine tükenene kadar dener; bu sınıf
+    // hata bir daha tüm Copilot'u kesintiye uğratmasın diye.
+    const DEEPSEEK_CANDIDATE = { providerKey: "deepseek" as const, provider: deepseekProvider, modelName: "deepseek-v4-flash" };
+    const GEMINI_CANDIDATES = [
+      { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-flash-latest" },
+      { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-2.0-flash" },
+      { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-2.5-flash" },
+      { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-1.5-flash" },
+      { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-2.0-flash-001" },
+    ];
+    const { primary, reason } = pickPrimaryProvider(messages);
+    const MODEL_CANDIDATES =
+      primary === "google" ? [...GEMINI_CANDIDATES, DEEPSEEK_CANDIDATE] : [DEEPSEEK_CANDIDATE, ...GEMINI_CANDIDATES];
+    console.log(`[copilot chat] primary=${primary} (reason=${reason})`);
+
     let streamResult: any = null;
     let lastModelError: unknown = null;
-    for (const modelName of GEMINI_MODEL_CANDIDATES) {
+    for (const { providerKey, provider, modelName } of MODEL_CANDIDATES) {
       try {
         streamResult = await streamText({
-          model: googleProvider(modelName),
+          model: provider(modelName),
           system: systemPrompt,
           messages,
-          tools,
+          tools: toolsForProvider(providerKey),
           // HİSSE ANALİZ AKIŞI gibi durumlarda model art arda 2 araç çağırıp
           // (örn. get_deep_analysis + get_technical_levels) 3. adımda bütçe
           // dolduğunda hiç metin üretemeden duruyordu — kullanıcıya toolInvocation
@@ -636,13 +703,14 @@ export async function POST(req: NextRequest) {
           maxSteps: 6,
           onFinish,
         });
+        console.log(`[copilot chat] served by ${providerKey}:${modelName}`);
         break;
       } catch (err) {
         lastModelError = err;
-        console.error(`[copilot chat] model "${modelName}" failed:`, err instanceof Error ? err.message : err);
+        console.error(`[copilot chat] model "${providerKey}:${modelName}" failed:`, err instanceof Error ? err.message : err);
       }
     }
-    if (!streamResult) throw lastModelError || new Error("All Gemini model candidates failed");
+    if (!streamResult) throw lastModelError || new Error("All model candidates failed");
 
     return streamResult.toDataStreamResponse();
   } catch (err: any) {
