@@ -10,13 +10,13 @@ export default function Top100NavBar({ locale }: { locale: Locale }) {
     <div className="flex gap-2 mb-4">
       <Link
         href={`${base}/swing`}
-        className="text-[10px] font-medium px-3 py-1.5 rounded border border-[#3b82f6] bg-[#3b82f6]/10 text-[#3b82f6]"
+        className="text-[10px] font-semibold px-3 py-1.5 rounded border border-[#38bdf8] bg-[#38bdf8]/15 !text-[#38bdf8]"
       >
         TREND
       </Link>
       <Link
         href={`${base}/watchlist`}
-        className="text-[10px] font-medium px-3 py-1.5 rounded border border-[#30363d] text-[#3b82f6] hover:border-[#3b82f6] transition-colors"
+        className="text-[10px] font-semibold px-3 py-1.5 rounded border border-[#1e2a3a] !text-[#38bdf8] hover:border-[#38bdf8] transition-colors"
       >
         WATCHLIST
       </Link>

@@ -70,10 +70,10 @@ export default function ListsNavigation({ locale, activePath }: Props) {
           <Link
             key={link.id}
             href={link.href}
-            className={`text-[10px] font-medium px-3 py-1.5 rounded border transition-colors whitespace-nowrap text-[#3b82f6] ${
+            className={`text-[10px] font-semibold px-3 py-1.5 rounded border transition-colors whitespace-nowrap !text-[#38bdf8] ${
               isActive
-                ? "border-[#3b82f6] bg-[#3b82f6]/10 font-semibold"
-                : "border-[#0f1117] bg-[#0f1117] hover:border-[#3b82f6]"
+                ? "border-[#38bdf8] bg-[#38bdf8]/15 shadow-sm shadow-[#38bdf8]/20"
+                : "border-[#1e2a3a] bg-[#0f1117] hover:border-[#38bdf8]/50 hover:bg-[#38bdf8]/5"
             }`}
           >
             {link.label}
