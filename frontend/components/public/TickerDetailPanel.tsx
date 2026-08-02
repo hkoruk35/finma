@@ -6,6 +6,7 @@ import { copy, type Locale } from "@/lib/i18n/copy";
 import ScreenerChart from "@/components/screener/ScreenerChart";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import { formatAssetPrice } from "@/lib/symbols";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 import type { AiMarketCommentary } from "@/lib/marketCommentaryEngine";
 
 function registerHref(locale: Locale): string {
@@ -58,8 +59,7 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
   const router = useRouter();
   const { isPremium } = useMemberPlan();
 
-  const isNVDA = ticker.toUpperCase() === "NVDA";
-  const effectiveIsPremium = isPremium || isNVDA;
+  const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
 
   // Prop adi "lockTradePlan" kaldi (mevcut cagiran, /graphic sayfasi, bunu
   // gecirir) ama artik Technical Indicators + Market Data'yi da kapsiyor —

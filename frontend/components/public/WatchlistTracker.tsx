@@ -9,6 +9,7 @@ import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 const HOUR_SLOTS = ["09:15", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "16:15"];
 
@@ -430,7 +431,9 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === r.ticker;
-                const rowLocked = !isPremium && idx > 0;
+                // Trend Adayı — sabit vitrin ticker'ları dışında sadece
+                // premium açar (bkz. lib/publicTeaserTickers.ts, Faz 0B).
+                const rowLocked = !isPremium && !isPublicTeaserTicker(r.ticker);
 
                 if (rowLocked) {
                   return (
@@ -549,7 +552,7 @@ export default function WatchlistTracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
-                  const hmLocked = !isPremium && idx > 0;
+                  const hmLocked = !isPremium && !isPublicTeaserTicker(r.ticker);
                   return (
                     <tr key={r.ticker} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>

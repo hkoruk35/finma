@@ -5,7 +5,6 @@ import Link from "next/link";
 import jsPDF from "jspdf";
 import type { Locale } from "@/lib/i18n/copy";
 import TickerHoverChart from "./TickerHoverChart";
-import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 
 const PAGE_SIZE = 50;
@@ -133,7 +132,6 @@ function pnlFromReturn(ret: number | null): number | null {
 
 
 export default function SwingPerformanceDashboard({ initialHistory, stats: serverStats, todayPicks = [], picksGeneratedAt, hideBotLink = false, hideExportButtons = false, applySlPct, locale = "tr", disableTickerLink = false }: Props) {
-  const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const SL_PCT = applySlPct ?? serverStats?.stop_loss_pct ?? -3.5; // Dynamic stop-loss from server or fallback
   const lastUpdated = serverStats?.last_updated;
@@ -786,8 +784,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
               const scoreBg = pick.score >= 80 ? "bg-[#f59e0b]/10" : pick.score >= 70 ? "bg-[#3b82f6]/10" : "bg-[#22c55e]/10";
               const cardClassName = "rounded-xl bg-[#0d1521] border border-white/5 p-4 hover:border-[#3b82f6]/30 hover:bg-[#0f1e30] transition-all group";
 
-              // Non-premium: ticker + company gizli, kart tıklanınca premium modal
-              if (!isPremium) {
+              // Non-premium: sunucu (page.tsx) buy_zone/profit_zone/stop_zone'u
+              // zaten null göndermiştir (bkz. lib/pickMasking.ts, Faz 0B) —
+              // burada isPremium'a değil, o sinyale bakılır.
+              if (!pick.buy_zone) {
                 return (
                   <button
                     key={i}
@@ -810,32 +810,10 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                         {pick.score != null ? pick.score.toFixed(0) : "—"}
                       </div>
                     </div>
-                    <div className="grid grid-cols-3 gap-1.5 text-center">
-                      {pick.buy_zone && (
-                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                          <p className="text-[8px] text-[#22c55e] font-medium uppercase mb-0.5">{locale === "tr" ? "Giriş" : locale === "pt" ? "Entrada" : "Entry"}</p>
-                          <p className="text-[10px] font-mono font-medium text-white">
-                            ${pick.buy_zone.low.toFixed(0)}–{pick.buy_zone.high.toFixed(0)}
-                          </p>
-                        </div>
-                      )}
-                      {pick.profit_zone && (
-                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                          <p className="text-[8px] text-[#3b82f6] font-medium uppercase mb-0.5">{locale === "tr" ? "Hedef" : locale === "pt" ? "Alvo" : "Target"}</p>
-                          <p className="text-[10px] font-mono font-medium text-white">
-                            ${pick.profit_zone.low.toFixed(0)}–{pick.profit_zone.high.toFixed(0)}
-                          </p>
-                        </div>
-                      )}
-                      {pick.stop_zone && (
-                        <div className="bg-black/30 rounded-lg py-1.5 px-1">
-                          <p className="text-[8px] text-[#ef4444] font-medium uppercase mb-0.5">Stop</p>
-                          <p className="text-[10px] font-mono font-medium text-white">
-                            ${pick.stop_zone.low.toFixed(0)}–{pick.stop_zone.high.toFixed(0)}
-                          </p>
-                        </div>
-                      )}
-                    </div>
+                    {/* Giriş/Hedef/Stop artık burada gösterilmiyor — sunucu
+                        (Faz 0B, lib/pickMasking.ts) bu alanları non-premium
+                        için zaten null gönderiyor; RSI/ADX/sektör gibi
+                        işlem-planı-olmayan teknik veriler açık kalıyor. */}
                     <div className="flex items-center gap-2 mt-2.5 flex-wrap">
                       {pick.rsi != null && (
                         <span className="text-[9px] font-medium text-slate-500 bg-white/5 px-1.5 py-0.5 rounded">
@@ -1104,7 +1082,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                   <div className="min-w-0 pr-2">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[10px] font-mono text-slate-500">{String(i + 1).padStart(3, "0")}</span>
-                      {!isPremium && initialHistory.indexOf(t) < 100 ? (
+                      {!t.ticker ? (
                         <span className="text-[13px] font-medium leading-none flex items-center gap-1" style={{ color: "#f59e0b" }}>
                           <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                           Premium
@@ -1224,7 +1202,7 @@ export default function SwingPerformanceDashboard({ initialHistory, stats: serve
                     <tr key={i} className={`hover:bg-[#1a2030]/60 transition-colors ${slHit ? "bg-[#ef4444]/5" : i % 2 !== 0 ? "bg-white/[0.018]" : ""}`}>
                       <td className="px-3 py-2.5 text-slate-400 font-mono whitespace-nowrap">{t.date}</td>
                       <td className="px-3 py-2.5 whitespace-nowrap">
-                        {!isPremium && initialHistory.indexOf(t) < 100 ? (
+                        {!t.ticker ? (
                           <span className="font-medium tracking-tight flex items-center gap-1" style={{ color: "#f59e0b" }}>
                             <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
                             Premium

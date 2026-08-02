@@ -10,6 +10,7 @@ import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 import type { Top100Row } from "@/app/api/top100/route";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 const REFRESH_MS = 5 * 60 * 1000;
 const ACCENT = "#58a6ff";
@@ -118,7 +119,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
   const [mounted, setMounted] = useState(false);
   const [analyzeTicker, setAnalyzeTicker] = useState<string | null>(null);
   const [showPremiumModal, setShowPremiumModal] = useState(false);
-  const { isPremium } = useMemberPlan();
+  const { isPremium, tier } = useMemberPlan();
 
   useEffect(() => setMounted(true), []);
 
@@ -406,8 +407,10 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                 const isSwingDaily = r.source === "swing_daily";
                 const price = d?.price?.current ?? 0;
                 const sectorLabel = normalizeSector(d?.sector && d.sector !== "Unknown" ? d.sector : r.sector || r.company || null) ?? "—";
-                // Non-premium: only the first 20 rows are unlocked
-                const rowLocked = !isPremium && idx > 0;
+                // Free-tier üye (Google girişli) Top100'ü tam görür — sadece
+                // anonim ziyaretçi, sabit "vitrin" ticker'lar dışında kilitli
+                // görür (bkz. lib/apiAuth.ts:resolveMemberTier, Faz 0B).
+                const rowLocked = tier === "anonymous" && !isPublicTeaserTicker(r.ticker);
 
                 if (rowLocked) {
                   return (
@@ -541,7 +544,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={14} style={{ padding: 0 }}>
-                          <TickerDetailPanel ticker={r.ticker} locale={locale} />
+                          <TickerDetailPanel ticker={r.ticker} locale={locale} lockTradePlanCard />
                         </td>
                       </tr>
                     )}
@@ -575,7 +578,7 @@ export default function Top100Tracker({ locale }: { locale: Locale }) {
                   const d = live[r.ticker];
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = heatBg(dayPct);
-                  const hmLocked = !isPremium && idx >= 20;
+                  const hmLocked = tier === "anonymous" && !isPublicTeaserTicker(r.ticker);
                   return (
                     <tr
                       key={r.ticker}

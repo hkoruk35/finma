@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
 import { resolveYahooSymbol, getAssetCategory } from "@/lib/symbols";
 import { generateAiMarketCommentary, type AiMarketCommentary } from "@/lib/marketCommentaryEngine";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 // In-memory cache — TTL 30 seconds while the market is open, for technical
 // data freshness.
@@ -560,6 +562,33 @@ function safeArr(arr: any[] | null | undefined): number[] {
   return (arr ?? []).filter((v: any) => v != null && isFinite(v)) as number[];
 }
 
+// ── Erişim katmanı: işlem planı maskeleme ────────────────────────────────────
+// Bu endpoint önceden hiçbir auth kontrolü yapmıyordu — entry/stop/target
+// (tradePlan) herhangi bir ticker için parolasız curl ile çekilebiliyordu
+// (bkz. Faz 0B). Cache tier-bağımsız/tekil kalır (tüm katmanlar aynı Yahoo
+// Finance hesaplamasını paylaşır) — maskeleme her istekte, cache'ten SONRA,
+// yanıt gönderilmeden hemen önce uygulanır.
+function maskTradePlanForTier(data: PreorderAnalysis, isPremiumTier: boolean, ticker: string): PreorderAnalysis {
+  // Sabit vitrin ticker'ları (bkz. lib/publicTeaserTickers.ts) — daha önce
+  // TickerDetailPanel.tsx'te sadece client'ta uygulanan "NVDA hep açık"
+  // istisnası artık burada da geçerli, tek kaynaktan.
+  if (isPremiumTier || isPublicTeaserTicker(ticker)) return data;
+  return {
+    ...data,
+    tradePlan: {
+      entryZone: { low: 0, high: 0 },
+      entryType: "",
+      entryCondition: "",
+      stop: { price: 0, pct: 0 },
+      stopRationale: "",
+      targets: [],
+      riskReward: 0,
+      rationale: { ema: "", vwap: "", volume: "", rsi: "" },
+      valid: false,
+    },
+  };
+}
+
 // ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
@@ -573,10 +602,14 @@ export async function GET(req: NextRequest) {
   const rawLang = req.nextUrl.searchParams.get("lang");
   const lang = (["en", "es", "fr", "pt"].includes(rawLang || "") ? rawLang : "tr") as "en" | "tr" | "es" | "fr" | "pt";
 
+  const access = await getMemberAccess();
+  const tier = resolveMemberTierFromAccess(access);
+  const isPremiumTier = tier === "premium" || tier === "admin";
+
   const cacheKey = `${ticker}_${lang}`;
   const hit = cache.get(cacheKey);
   const ttl = isMarketOpenET() ? CACHE_TTL_OPEN : CACHE_TTL_CLOSED;
-  if (hit && Date.now() - hit.ts < ttl) return NextResponse.json(localizeAnalysis(hit.data, lang));
+  if (hit && Date.now() - hit.ts < ttl) return NextResponse.json(maskTradePlanForTier(localizeAnalysis(hit.data, lang), isPremiumTier, ticker));
 
   const yahooSymbol = resolveYahooSymbol(ticker);
   const BASE = "https://query1.finance.yahoo.com/v8/finance/chart";
@@ -910,5 +943,5 @@ export async function GET(req: NextRequest) {
   };
 
   cache.set(cacheKey, { data: result, ts: Date.now() });
-  return NextResponse.json(localizeAnalysis(result, lang));
+  return NextResponse.json(maskTradePlanForTier(localizeAnalysis(result, lang), isPremiumTier, ticker));
 }

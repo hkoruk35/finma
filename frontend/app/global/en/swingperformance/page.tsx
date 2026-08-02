@@ -4,6 +4,8 @@ import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { maskPerformanceHistory, maskTrendPicks } from "@/lib/pickMasking";
 
 export const revalidate = 60;
 
@@ -16,10 +18,12 @@ export const metadata: Metadata = {
 const LAST_N_DAYS = 10;
 
 export default async function EnSwingPerformancePage() {
-  const [performanceData, swingPicksData] = await Promise.all([
+  const [performanceData, swingPicksData, access] = await Promise.all([
     getSwingPerformance(),
     getSwingAllPicks(),
+    getMemberAccess(),
   ]);
+  const tier = resolveMemberTierFromAccess(access);
 
   if (!performanceData) {
     return (
@@ -32,9 +36,10 @@ export default async function EnSwingPerformancePage() {
   const fullHistory: any[] = performanceData.history ?? [];
   const uniqueDates = Array.from(new Set(fullHistory.map((t) => t.date))).sort((a, b) => b.localeCompare(a));
   const recentDates = new Set(uniqueDates.slice(0, LAST_N_DAYS));
-  const history = fullHistory.filter((t) => recentDates.has(t.date));
+  const recentHistory = fullHistory.filter((t) => recentDates.has(t.date));
+  const history = maskPerformanceHistory(recentHistory, tier, { anonymousMaskCount: 100, freeMaskCount: 20 });
 
-  const todayPicks = swingPicksData?.picks ?? [];
+  const todayPicks = maskTrendPicks(swingPicksData?.picks ?? [], tier, { stripTradePlan: true });
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
 
   return (

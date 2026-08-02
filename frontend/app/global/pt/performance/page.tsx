@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
 import Link from "next/link";
 import { Metadata } from "next";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { maskPerformanceHistory, maskTrendPicks } from "@/lib/pickMasking";
 
 export const revalidate = 60;
 
@@ -14,21 +16,24 @@ export const metadata: Metadata = {
 };
 
 export default async function PtPerformancePage() {
-  const [master, performanceData, swingPicksData] = await Promise.all([
+  const [master, performanceData, swingPicksData, access] = await Promise.all([
     getMasterData(),
     getSwingPerformance(),
     getSwingAllPicks(),
+    getMemberAccess(),
   ]);
+  const tier = resolveMemberTierFromAccess(access);
 
   if (!performanceData) {
     return <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-medium text-xl uppercase animate-pulse">Carregando dados de desempenho...</div>;
   }
 
   const fullHistory: any[] = performanceData.history ?? [];
-  const history: any[] = [...fullHistory]
+  const sortedHistory: any[] = [...fullHistory]
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  const history = maskPerformanceHistory(sortedHistory, tier, { anonymousMaskCount: 100, freeMaskCount: 20 });
 
-  const todayPicks = swingPicksData?.picks ?? [];
+  const todayPicks = maskTrendPicks(swingPicksData?.picks ?? [], tier, { stripTradePlan: true });
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
 
   return (

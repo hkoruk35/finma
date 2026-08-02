@@ -83,3 +83,24 @@ export async function hasAnyAuth(req: NextRequest): Promise<boolean> {
   const access = await getMemberAccess();
   return access.authenticated;
 }
+
+export type MemberTier = "anonymous" | "free" | "premium" | "admin";
+
+/**
+ * 3 katmanlı erişim modeli (anonymous/free/premium/admin) için tekil kaynak.
+ * isPremium/hasAccess'in "aktif ücretli plan" anlamını DEĞİŞTİRMEZ — bunların
+ * yanına eklenen, içerik maskeleme/miktar sınırı gibi free-tier-farkındalıklı
+ * kararlar için kullanılacak ayrı bir eksen. plan==="pending"/"canceled"/null
+ * (giriş yapmış ama ücretli değil) hepsi "free" sayılır.
+ */
+export function resolveMemberTierFromAccess(access: MemberAccess): MemberTier {
+  if (!access.authenticated) return "anonymous";
+  if (access.plan === "admin") return "admin";
+  if (access.plan === "premium") return "premium";
+  return "free";
+}
+
+/** getMemberAccess()'i sarmalayan uygun kısayol — access nesnesi zaten elinizdeyse resolveMemberTierFromAccess kullanın (ekstra sorgu yapmaz). */
+export async function resolveMemberTier(): Promise<MemberTier> {
+  return resolveMemberTierFromAccess(await getMemberAccess());
+}

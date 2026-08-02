@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import SwingPerformanceDashboard from "@/components/SwingPerformanceDashboard";
 import Link from "next/link";
 import { Metadata } from "next";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { maskPerformanceHistory, maskTrendPicks } from "@/lib/pickMasking";
 
 export const revalidate = 60;
 
@@ -14,11 +16,13 @@ export const metadata: Metadata = {
 };
 
 export default async function TrPerformancePage() {
-  const [master, performanceData, swingPicksData] = await Promise.all([
+  const [master, performanceData, swingPicksData, access] = await Promise.all([
     getMasterData(),
     getSwingPerformance(),
     getSwingAllPicks(),
+    getMemberAccess(),
   ]);
+  const tier = resolveMemberTierFromAccess(access);
 
   if (!performanceData) {
     return <div className="min-h-screen bg-[#0d1117] text-white p-8 flex items-center justify-center font-medium text-xl uppercase animate-pulse">Performans Verileri Yükleniyor...</div>;
@@ -27,10 +31,15 @@ export default async function TrPerformancePage() {
   const fullHistory: any[] = performanceData.history ?? [];
   // Tüm history kullan, slice yok — home banner ile aynı metodoloji:
   // tüm geçmiş (736 tamamlanmış işlem), -%7 SL cap, duplicate ve PENDING hariç.
-  const history: any[] = [...fullHistory]
+  const sortedHistory: any[] = [...fullHistory]
     .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  // Ticker kimliği burada, server component'te maskelenir — initialHistory
+  // client'a prop olarak geçiyor ve Next.js bunu RSC payload'ına/HTML'e
+  // gömüyor, client-only maskeleme view-source ile bypass edilebiliyordu
+  // (bkz. Faz 0B).
+  const history = maskPerformanceHistory(sortedHistory, tier, { anonymousMaskCount: 100, freeMaskCount: 20 });
 
-  const todayPicks = swingPicksData?.picks ?? [];
+  const todayPicks = maskTrendPicks(swingPicksData?.picks ?? [], tier, { stripTradePlan: true });
   const picksGeneratedAt: string | undefined = swingPicksData?.generated_at ?? swingPicksData?.date;
 
   return (

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 // Public erişim — in-memory rate limiter (app/api/auth/login/route.ts deseni)
 const rlAttempts = new Map<string, { count: number; resetAt: number }>();
@@ -45,9 +47,17 @@ export async function GET(req: NextRequest) {
 
   const supabase = await createSupabaseServerClient();
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-  // We remove the hard error block here so that non-members can also load the Top 100 structure.
-  // The UI handles locking row ticker names if the user is not a premium member.
+  // Herkes Top 100'ün yapısını görebilir (aktif üye olmayanlar da) — ama
+  // ticker kimliği artık burada, sunucu tarafında maskeleniyor (bkz. Faz 0B):
+  // anonim sadece sabit "vitrin" ticker'ları (PUBLIC_TEASER_TICKERS) gerçek
+  // görür, free/premium/admin tam listeyi. Pozisyona (idx>0) göre değil
+  // ticker kimliğine göre kilitleniyor, çünkü client tabloyu serbestçe
+  // yeniden sıralayabiliyor — pozisyonel kilit sıralamayla senkron kalamazdı.
+  // Eskiden bu maskeleme sadece client'taydı ve /api/top100 tam veriyi
+  // döndürüyordu — doğrudan curl ile bypass edilebiliyordu.
+  const access = await getMemberAccess();
+  const tier = resolveMemberTierFromAccess(access);
+  const unlockAll = tier === "free" || tier === "premium" || tier === "admin";
 
   const { data: tickers, error: tickersError } = await supabase
     .from("top100_tickers")
@@ -68,11 +78,12 @@ export async function GET(req: NextRequest) {
 
   const snapshotByTicker = new Map((snapshots ?? []).map((s) => [s.ticker, s]));
 
-  const rows: Top100Row[] = (tickers ?? []).map((t) => {
+  const rows: Top100Row[] = (tickers ?? []).map((t, idx) => {
     const s = snapshotByTicker.get(t.ticker);
+    const locked = !unlockAll && !isPublicTeaserTicker(t.ticker);
     return {
-      ticker: t.ticker,
-      company: t.company,
+      ticker: locked ? `LOCKED-${idx}` : t.ticker,
+      company: locked ? null : t.company,
       sector: t.sector,
       source: t.source as "fixed" | "swing_daily",
       price: s?.price ?? null,

@@ -587,7 +587,7 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={15} style={{ padding: 0 }}>
-                          <TickerDetailPanel ticker={r.ticker} locale={locale} />
+                          <TickerDetailPanel ticker={r.ticker} locale={locale} lockTradePlanCard />
                         </td>
                       </tr>
                     )}
