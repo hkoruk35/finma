@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { generateWithFallback } from "@/lib/copilot/aiFallback";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -127,90 +127,6 @@ Instructions:
 - ${langConfig.instruction}`;
 }
 
-async function generateWithDeepSeek(prompt: string): Promise<string | null> {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  if (!apiKey) return null;
-
-  try {
-    const res = await fetch("https://api.deepseek.com/chat/completions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({
-        model: "deepseek-v4-flash",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.6,
-        max_tokens: 2048,
-      }),
-      signal: AbortSignal.timeout(55000),
-    });
-
-    if (!res.ok) {
-      console.error(`[deepseek] HTTP ${res.status}`);
-      return null;
-    }
-
-    const data = await res.json();
-    return data?.choices?.[0]?.message?.content?.trim() ?? null;
-  } catch (e: any) {
-    console.error("[deepseek] error:", e?.message);
-    return null;
-  }
-}
-
-async function generateWithGemini(prompt: string): Promise<string | null> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) return null;
-
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.6,
-            maxOutputTokens: 2048,
-            topP: 0.9,
-          },
-        }),
-        signal: AbortSignal.timeout(55000),
-      }
-    );
-
-    if (!res.ok) {
-      console.error(`[gemini] HTTP ${res.status}`);
-      return null;
-    }
-
-    const data = await res.json();
-    return data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? null;
-  } catch (e: any) {
-    console.error("[gemini] error:", e?.message);
-    return null;
-  }
-}
-
-async function generateWithClaude(prompt: string): Promise<string | null> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return null;
-
-  try {
-    const anthropic = new Anthropic({ apiKey });
-    const msg = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 2048,
-      messages: [{ role: "user", content: prompt }],
-    });
-    const block = msg.content[0];
-    return block.type === "text" ? block.text.trim() : null;
-  } catch (e: any) {
-    console.error("[claude fallback] error:", e?.message);
-    return null;
-  }
-}
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -225,28 +141,19 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(pick, safeLang);
     // Ekonomik mimari: DeepSeek birincil (ucuz), Gemini ikincil, Claude Haiku
-    // üçüncü/son çare — bkz. copilot/chat/route.ts aynı desen.
-    let analysis = await generateWithDeepSeek(prompt);
-    let modelUsed = "deepseek-v4-flash";
-    if (!analysis) {
-      analysis = await generateWithGemini(prompt);
-      modelUsed = "gemini-2.5-flash";
-    }
-    if (!analysis) {
-      analysis = await generateWithClaude(prompt);
-      modelUsed = "claude-haiku-4-5-20251001";
-    }
+    // üçüncü/son çare — bkz. lib/copilot/aiFallback.ts.
+    const result = await generateWithFallback({ userPrompt: prompt, temperature: 0.6, maxTokens: 2048, timeoutMs: 55000 });
 
-    if (!analysis) {
+    if (!result) {
       return NextResponse.json({ error: "Failed to generate analysis" }, { status: 503 });
     }
 
     return NextResponse.json({
       ticker: pick.ticker,
       lang: safeLang,
-      analysis,
+      analysis: result.text.trim(),
       generated_at: new Date().toISOString(),
-      model: modelUsed,
+      model: result.source,
     });
   } catch (e: any) {
     console.error("[ai-briefing] error:", e?.message);

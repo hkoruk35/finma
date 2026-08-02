@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { generateWithFallback } from "@/lib/copilot/aiFallback";
 import { readPublicJson } from "@/lib/data-server";
 import {
   getLastNReportDays,
@@ -103,64 +103,6 @@ function parseBotInsights(aiReport: string): BotInsight[] {
   return insights;
 }
 
-async function callClaude(prompt: string): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set");
-
-  const anthropic = new Anthropic({ apiKey });
-  const msg = await anthropic.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 4096,
-    system: KRITER_SYSTEM,
-    messages: [{ role: "user", content: prompt }],
-  });
-
-  return (msg.content[0] as { text: string }).text ?? "";
-}
-
-async function callDeepSeek(prompt: string): Promise<string> {
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  if (!apiKey) throw new Error("DEEPSEEK_API_KEY not set");
-
-  const res = await fetch("https://api.deepseek.com/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      model: "deepseek-v4-flash",
-      messages: [
-        { role: "system", content: KRITER_SYSTEM },
-        { role: "user", content: prompt },
-      ],
-      temperature: 0.3,
-      max_tokens: 4096,
-    }),
-  });
-  if (!res.ok) throw new Error(`DeepSeek HTTP ${res.status}`);
-  const data = await res.json();
-  return data?.choices?.[0]?.message?.content ?? "";
-}
-
-async function callGemini(prompt: string): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
-
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: KRITER_SYSTEM }] },
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.3, maxOutputTokens: 4096 },
-      }),
-    }
-  );
-  if (!res.ok) throw new Error(`Gemini HTTP ${res.status}`);
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-}
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -200,28 +142,11 @@ export async function POST(req: NextRequest) {
     const signal_matrix = computeSignalMatrix(enrichedTrades);
     const daily_trend = computeDailyTrend(enrichedTrades, reportDays);
 
-    // AI analizi
+    // AI analizi — DeepSeek birincil (ucuz), Gemini ikincil, Claude Haiku
+    // üçüncü/son çare — bkz. lib/copilot/aiFallback.ts.
     const prompt = buildKriterPrompt(enrichedTrades);
-    let ai_report = "";
-
-    // Ekonomik mimari: DeepSeek birincil (ucuz), Gemini ikincil, Claude Haiku
-    // üçüncü/son çare — bkz. copilot/chat/route.ts aynı desen.
-    try {
-      ai_report = await callDeepSeek(prompt);
-    } catch (e0: any) {
-      console.warn("[kriter-analysis] DeepSeek failed:", e0?.message);
-      try {
-        ai_report = await callGemini(prompt);
-      } catch (e: any) {
-        console.warn("[kriter-analysis] Gemini failed:", e?.message);
-        try {
-          ai_report = await callClaude(prompt);
-        } catch (e2: any) {
-          console.error("[kriter-analysis] Claude fallback also failed:", e2?.message);
-          ai_report = "[AI ANALİZİ] API bağlantısı kurulamadı. Lütfen tekrar deneyin.";
-        }
-      }
-    }
+    const aiResult = await generateWithFallback({ systemPrompt: KRITER_SYSTEM, userPrompt: prompt, temperature: 0.3, maxTokens: 4096 });
+    const ai_report = aiResult?.text ?? "[AI ANALİZİ] API bağlantısı kurulamadı. Lütfen tekrar deneyin.";
 
     const bot_insights = parseBotInsights(ai_report);
 

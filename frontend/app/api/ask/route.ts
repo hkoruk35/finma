@@ -1,22 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
 import { MARKET_THEMES } from "../../../lib/themeData";
 import { calculateTradePlanZones, buildTradePlanRationale } from "@/lib/tradePlanEngine";
 import { isRateLimited, getClientIp } from "@/lib/rateLimit";
+import { generateWithFallback, FallbackProvider } from "@/lib/copilot/aiFallback";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
 // Herkese açık /graphic sayfaları buraya tek ticker'lık önizleme için
-// kimliksiz istek atar (bilinçli tasarım) — ama her istek gerçek Gemini/Claude
+// kimliksiz istek atar (bilinçli tasarım) — ama her istek gerçek AI
 // çağrısı tetikleyebildiği için IP başına gevşek bir üst sınır şart.
 const ASK_MAX_REQUESTS = 40;
 const ASK_WINDOW_MS = 15 * 60 * 1000;
-
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const FINANCIAL_KEYWORDS = [
   "stock", "price", "market", "nasdaq", "nyse", "dow", "s&p", "vix", "spy", "ema",
@@ -1723,7 +1721,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       }
     }
 
-    const aiResponse = useClaude ? await handleClaude(prompt, history, lang) : await handleGemini(prompt, history, lang);
+    const aiResponse = await respondWithAI(prompt, history, lang, useClaude);
     try {
       const aiJson = await aiResponse.json();
       return NextResponse.json({
@@ -1768,11 +1766,11 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
       }));
 
       const prompt = `Aşağıdaki TOP5 hisse seçimlerini analiz et ve raporla:\n\n${JSON.stringify(top5)}\n\nFormat: BOGA AI Market Analysis tarzında, her hisse için Score, Status, Technical Analysis, Strategy (Entry/Target/Stop) kısımlarını içersin. Yanıt tamamen Türkçe olsun.`;
-      return useClaude ? await handleClaude(prompt, history, lang) : await handleGemini(prompt, history, lang);
+      return await respondWithAI(prompt, history, lang, useClaude);
     }
 
     if (cleanMsg === "/swing") {
-      return useClaude ? await handleClaude(MAGNIFICENT_7_PROMPT, history, lang) : await handleGemini(MAGNIFICENT_7_PROMPT, history, lang);
+      return await respondWithAI(MAGNIFICENT_7_PROMPT, history, lang, useClaude);
     }
 
     // /analiz TICKER — Deep analysis
@@ -1800,7 +1798,7 @@ ${ticker} | ${s.sector || ""} | Multi-Horizon Strateji
     }
 
     if (cleanMsg === "/analiz") {
-      return useClaude ? await handleClaude(SECTOR_ANALYSIS_PROMPT, history, lang) : await handleGemini(SECTOR_ANALYSIS_PROMPT, history, lang);
+      return await respondWithAI(SECTOR_ANALYSIS_PROMPT, history, lang, useClaude);
     }
 
     // Default Routing with Live News & Dynamic Search
@@ -1847,11 +1845,7 @@ DETAYLI HİSSE LİSTESİ
       console.error("Failed to append global news:", e);
     }
 
-    if (useClaude) {
-      return await handleClaude(finalUserMessage, history, lang);
-    }
-
-    return await handleGemini(finalUserMessage, history, lang);
+    return await respondWithAI(finalUserMessage, history, lang, useClaude);
   } catch (e: any) {
     console.error("[ask] error:", e?.message);
     return NextResponse.json({
@@ -1860,101 +1854,27 @@ DETAYLI HİSSE LİSTESİ
   }
 }
 
-async function handleClaude(message: string, history: Message[], lang: "tr" | "en" | "pt" = "tr") {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ text: "Claude servisi şu an devre dışı (API anahtarı eksik). Lütfen normal aramaya devam edin.", source: "claude" });
+// DeepSeek → Gemini → Claude Haiku (ekonomik mimari, bkz. lib/copilot/aiFallback.ts).
+// "useClaude" kullanıcı mesajında kelimenin tam olarak "claude" geçmesiyle
+// tetiklenen eski bir easter egg — bu durumda Claude'u sıranın başına alır,
+// yine de o başarısız olursa DeepSeek/Gemini'ye düşer (önceki davranışta
+// Claude başarısız olunca sadece Gemini denenirdi, artık tam zincir denenir).
+async function respondWithAI(message: string, history: Message[], lang: "tr" | "en" | "pt" = "tr", useClaude = false) {
+  const order: FallbackProvider[] = useClaude ? ["claude", "deepseek", "gemini"] : ["deepseek", "gemini", "claude"];
+  const result = await generateWithFallback({
+    systemPrompt: getDynamicSystemPrompt(lang),
+    history: history.map((m) => ({ role: m.role, content: m.text })),
+    userPrompt: message,
+    temperature: 0.7,
+    maxTokens: 4096,
+    order,
+    timeoutMs: 30000,
+  });
+
+  if (!result) {
+    return NextResponse.json({ text: "Service temporarily unavailable." });
   }
-  try {
-    const response = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 2000,
-      system: getDynamicSystemPrompt(lang),
-      messages: [
-        ...history.map((m) => ({ role: m.role as "user" | "assistant", content: m.text })),
-        { role: "user", content: message },
-      ],
-    });
-    const text = response.content[0].type === "text" ? response.content[0].text : "";
-    if (!text) throw new Error("Empty response from Claude");
-
-    return NextResponse.json({ text, source: "claude", followUp: [] });
-  } catch (e) {
-    console.error("[claude] error:", e);
-    // Fallback to Gemini if Claude fails and it's not a special command (handled in POST)
-    return await handleGemini(message, history, lang);
-  }
-}
-
-async function handleGemini(message: string, history: Message[], lang: "tr" | "en" | "pt" = "tr") {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return NextResponse.json({
-      text: "Service temporarily unavailable.",
-    });
-  }
-
-  const contents = [
-    ...history.map((m) => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: m.text }],
-    })),
-    { role: "user" as const, parts: [{ text: message }] },
-  ];
-
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: getDynamicSystemPrompt(lang) }] },
-          contents,
-          generationConfig: { 
-            temperature: 0.7, 
-            maxOutputTokens: 4096,
-            topP: 0.95,
-            topK: 40
-          },
-          safetySettings: [
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
-          ],
-        }),
-        signal: AbortSignal.timeout(30000),
-      }
-    );
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error(`[gemini] HTTP ${res.status}`, errData);
-      return NextResponse.json({
-        text: `Analiz üretilemedi. (Hata: ${res.status}) ${errData.error?.message || ""}`,
-      });
-    }
-
-    const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-
-    if (!text) {
-      return NextResponse.json({
-        text: "Unable to generate response.",
-      });
-    }
-
-    return NextResponse.json({
-      text,
-      source: "gemini",
-      followUp: [],
-    });
-  } catch (e: any) {
-    console.error("[gemini] error:", e?.message);
-    return NextResponse.json({
-      text: "Service temporarily unavailable.",
-    });
-  }
+  return NextResponse.json({ text: result.text, source: result.source, followUp: [] });
 }
 
 function handleOutOfScope(message: string): NextResponse {

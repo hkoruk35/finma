@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import { generateWithFallback } from "@/lib/copilot/aiFallback";
 import path from "path";
 import fs from "fs/promises";
 import { hasDataAccess } from "@/lib/apiAuth";
@@ -198,47 +198,16 @@ Return ONLY a valid JSON array of strings, same count as input, no explanations.
 
 Input: ${JSON.stringify(titles)}`;
   try {
-    if (process.env.GEMINI_API_KEY) {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
-        {
-          method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.1, maxOutputTokens: 512, responseMimeType: "application/json" },
-          }),
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-        const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
-        if (start !== -1 && end !== -1) {
-          const parsed = JSON.parse(raw.slice(start, end + 1));
-          if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
-        }
-      }
+    // DeepSeek -> Gemini -> Claude Haiku (ekonomik mimari, bkz. lib/copilot/aiFallback.ts).
+    const result = await generateWithFallback({ userPrompt: prompt, temperature: 0.1, maxTokens: 512, jsonMode: true });
+    const raw = result?.text ?? "";
+    const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
+    if (start !== -1 && end !== -1) {
+      const parsed = JSON.parse(raw.slice(start, end + 1));
+      if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
     }
   } catch (e: any) {
-    console.warn("[deep-analysis] translate news (gemini):", e?.message);
-  }
-  try {
-    if (process.env.ANTHROPIC_API_KEY) {
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      const msg = await anthropic.messages.create({
-        model: "claude-haiku-4-5-20251001", max_tokens: 1024,
-        system: "You are a financial translator. Return ONLY a valid JSON array of strings.",
-        messages: [{ role: "user", content: prompt }],
-      });
-      const raw = (msg.content[0] as any).text || "";
-      const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
-      if (start !== -1 && end !== -1) {
-        const parsed = JSON.parse(raw.slice(start, end + 1));
-        if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
-      }
-    }
-  } catch (e: any) {
-    console.warn("[deep-analysis] translate news (claude fallback):", e?.message);
+    console.warn("[deep-analysis] translate news:", e?.message);
   }
   return titles; // fallback: return original English
 }
@@ -816,25 +785,6 @@ function buildUserPrompt(p: any, lang: "tr" | "en" | "es" | "fr" = "tr") {
   return `${header}\n\n${instruction}\n${schema}`;
 }
 
-async function callGemini(userPrompt: string, lang: "tr" | "en" | "es" | "fr" = "tr"): Promise<string> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        system_instruction: { parts: [{ text: SYSTEM_MSG[lang] }] },
-        contents: [{ parts: [{ text: userPrompt }] }],
-        generationConfig: { temperature: 0.2, maxOutputTokens: 2048, responseMimeType: "application/json" },
-      }),
-    }
-  );
-  if (!res.ok) throw new Error(`Gemini HTTP ${res.status}`);
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-}
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
@@ -1268,22 +1218,17 @@ export async function POST(req: NextRequest) {
       enginePlan,
     };
 
-    // AI call (BOGA AI always) — Gemini flash birincil, Claude Haiku yedek
-    let rawText = "";
-    if (process.env.GEMINI_API_KEY) {
-      try { rawText = await callGemini(buildUserPrompt(promptParams, lang), lang); }
-      catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
-    }
-    if (!rawText && process.env.ANTHROPIC_API_KEY) {
-      try {
-        const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-        const msg = await anthropic.messages.create({
-          model: "claude-haiku-4-5-20251001", max_tokens: 2048, system: SYSTEM_MSG[lang],
-          messages: [{ role: "user", content: buildUserPrompt(promptParams, lang) }],
-        });
-        rawText = (msg.content[0] as any).text || "";
-      } catch (e: any) { console.error("[deep-analysis] Anthropic:", e?.message); }
-    }
+    // AI call (BOGA AI always) — DeepSeek birincil, Gemini ikincil, Claude
+    // Haiku üçüncü/son çare (bkz. lib/copilot/aiFallback.ts).
+    const aiResult = await generateWithFallback({
+      systemPrompt: SYSTEM_MSG[lang],
+      userPrompt: buildUserPrompt(promptParams, lang),
+      temperature: 0.2,
+      maxTokens: 2048,
+      jsonMode: true,
+    });
+    const rawText = aiResult?.text ?? "";
+    if (!aiResult) console.error("[deep-analysis] all AI providers failed");
 
     const parsedAi = tryParseJSON(rawText);
     let ai: Record<string, any> = parsedAi
