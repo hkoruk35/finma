@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { isKnownCrawlerUserAgent } from './lib/botUserAgents'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://none.supabase.co'
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'none'
@@ -115,6 +116,37 @@ export async function proxy(request: NextRequest) {
   if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
     const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
     return redirectTo(new URL(registerUrl, request.url))
+  }
+
+  // ── Faz 4: organik/AI trafiği için "ilk sayfa ücretsiz" ölçümlü kapı ──────
+  // Google aramasından/AI asistan linkinden gelen anonim ziyaretçi ilk derin
+  // içerik sayfasını (grafik/liste) tam görür; ikinci FARKLI sayfaya
+  // geçtiğinde Google girişi istenir. Yukarıdaki isGlobalMemberPath kontrolü
+  // bu yolların hiçbirinde tetiklenmez (hepsi izin listesinde) — bu yüzden
+  // bağımsız, ek bir kural. Bot/crawler'lar (lib/botUserAgents.ts — hem
+  // robots.ts hem burası aynı listeyi okur) HİÇ ölçülmez: her zaman tam
+  // içerik görürler, bu SEO/AI-atıf için gerekli ve cloaking değil (User-
+  // Agent'a göre farklı İÇERİK değil, farklı bir insan-dönüşüm kuralı
+  // gösteriyoruz — crawler'a da, ilk kez gelen insana da AYNI HTML gider).
+  const METERED_SEGMENTS = ['graphic', 'top100', 'swing', 'watchlist', 'themes', 'hisse', 'performance', 'swingperformance']
+  if (!hasSupabaseSession && currentLocale && !isKnownCrawlerUserAgent(request.headers.get('user-agent'))) {
+    const base = `/global/${currentLocale}`
+    const isMeteredPath = METERED_SEGMENTS.some((seg) => pathname.startsWith(`${base}/${seg}`))
+    if (isMeteredPath) {
+      const seenPath = request.cookies.get('boga_first_view')?.value
+      if (seenPath && seenPath !== pathname) {
+        const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
+        return redirectTo(new URL(registerUrl, request.url))
+      }
+      if (!seenPath) {
+        response.cookies.set('boga_first_view', pathname, {
+          httpOnly: true,
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 30,
+          path: '/',
+        })
+      }
+    }
   }
 
   const isAdminAuthPath =

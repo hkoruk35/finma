@@ -113,7 +113,15 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
     };
   }, [ticker, t.error, locale]);
 
-  const permalinkHref = locale === "en" ? `/en/stock/${ticker}` : `/global/tr/hisse/${ticker}`;
+  // "tr" için kendi SEO canonical'ı olan /global/tr/hisse/[ticker]'a
+  // (dokunulmadı — tasks/active/002 uyarınca trafik analizi olmadan
+  // canonical'ı olan bir rotadan uzaklaştırmak riskli) yönlendirmeye devam
+  // eder. Diğer 4 lokal ESKİDEN ya kapsam dışı legacy /en/stock/[ticker]'a
+  // ya da (es/fr/pt için, hatalı şekilde) Türkçe /hisse sayfasına
+  // gidiyordu — ikisi de /global/ ağacı dışında/yanlış lokalde kaldığı
+  // için Faz 4'ün ölçümlü kapısının hiç görmeyeceği bir tur atlama
+  // yoluydu; artık kendi lokalindeki /graphic sayfasına gidiyor.
+  const permalinkHref = locale === "tr" ? `/global/tr/hisse/${ticker}` : `/global/${locale}/graphic/${ticker}`;
 
   if (loading) {
     return <div className="py-10 text-center text-sm text-white/40">{t.loading}</div>;
