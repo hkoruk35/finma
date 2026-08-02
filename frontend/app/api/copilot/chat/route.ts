@@ -4,6 +4,7 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { getMemberAccess } from "@/lib/apiAuth";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
+import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -37,6 +38,7 @@ const apiKey =
   "";
 
 const googleProvider = createGoogleGenerativeAI({ apiKey });
+const anthropicProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
 
 const deepseekApiKey = process.env.DEEPSEEK_API_KEY || "";
 const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https://api.deepseek.com" });
@@ -44,8 +46,6 @@ const deepseekProvider = createOpenAI({ apiKey: deepseekApiKey, baseURL: "https:
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
 }
-
-const DEFAULT_CREDIT_LIMIT = { free: 0, premium: 200 };
 
 const ASSET_CLASS_RULES: Record<AssetType, string> = {
   stock: "Teknik + temel + bilanço + haber + analist/insider + BOGA Score + 5 liste üyeliği kullanılabilir.",
@@ -160,7 +160,8 @@ KULLANICI "TREND HİSSELERİ", "İZLEME LİSTEM", "TREND ADAYLARI", "TOP 7", "TO
 - BİR LİSTE SONUCU GÖSTERDİĞİNDE (isFallback:false), sonuç butonlarından EN AZ BİRİ MUTLAKA o listenin gerçek sayfasını açan [Liste Sayfasını Aç](copilot-list://LIST_KEY) butonu OLMALI — kullanıcıya sadece tek tek hisse linkleri sunup asıl liste sayfasını açma seçeneğini atlama. Kullanıcı zaten bir liste sayfasındaysa (KULLANICI BAĞLAMI'na bak) bunu tekrar önerme.
 
 HABERLER:
-- Kullanıcı AÇIKÇA "haber", "haberler", "son gelişmeler" demedikçe SAKIN haber akışı getirme.
+- Kullanıcı AÇIKÇA "haber", "haberler", "son gelişmeler" demedikçe SAKIN haber akışı getirme — İSTİSNA: kullanıcı bir hissenin fiyat hareketinin NEDENİNİ soruyorsa ("neden düştü/yükseldi", "ne oldu", "why did X drop/rise/plunge" gibi), bu kısıtlama geçerli değildir — açıklama için haber gereklidir.
+- FİYAT HAREKETİ NEDENİ SORULDUĞUNDA SIRA KESİNDİR: ÖNCE 'get_technical_levels' ve/veya 'get_deep_analysis' ile BOGA'nın kendi teknik/temel okumasını al (BİRİNCİ ÖNCELİK: site verisi) — SONRA 'search_market_news' ile son 24 saatin olası katalizörünü ara (İKİNCİ ÖNCELİK: güncel veri). İkisini de topladıktan sonra MUTLAKA tek, birleşik bir metin yanıtı üret: önce BOGA'nın teknik/temel okumasını, ardından (varsa) haberdeki olası katalizörü ihtiyatlı dille birleştir. Sadece haber kartını gösterip yorumlayan bir metin üretmeden bırakma KESİNLİKLE YASAK.
 - Haber istendiğinde: 2-3 maddelik net özetler halinde anlat, SADECE son 24 saatin haberlerini aktar.
 - Bir haberin fiyat hareketiyle aynı zamana denk gelmesi, o haberin fiyatı KESİN olarak etkilediği anlamına gelmez — "yükseliş bu haberin yayımlandığı döneme denk geldi" gibi ihtiyatlı dil kullan, "bu haber yüzünden kesin yükseldi" DEME.
 
@@ -300,7 +301,7 @@ BOGASTOCK'ta kullanıcının bir listeyi veya temayı arka planda izleyip deği�
 3. Bir hisse sorulduğunda MUTLAKA 'show_stock_card' veya 'get_deep_analysis' aracını çağır ve HİSSE ANALİZ AKIŞI'nı başlat. Hisse analizi istediğinde (amaç/zaman dilimi/teknik/finansal/sektörel), bu akış TAMAMLANMADAN başka hisseyi önerme veya haber aracı çağırma.
 4. Trend Hisseleri, İzleme Listem, Trend Adayı, Top7 veya Top100 sorulduğunda MUTLAKA 'get_top_trending_stocks' aracını çağır.
 5. Yanıtının sonuna MUTLAKA tıklanabilir buton formatında [Buton Metni](copilot-topic://select) ekle (en fazla 3).
-6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret.
+6. ARAÇ SONUCU ALDIĞINDA, sonucu kullanıcıya kısa ve net şekilde özetle. Araç çağırdıktan sonra MUTLAKA bir metin yanıtı da üret — özellikle 'search_market_news' sonrası salt haber kartını göstermek YETERSİZDİR, mutlaka yorumlayan bir metin ekle.
 7. Fiyat, teknik seviye, bilanço rakamı, haber, insider işlemi, analist notu veya BOGA Score'u ASLA uydurma — sadece araçlardan dönen gerçek veriyi kullan. Araç veri döndürmezse, bunu dürüstçe belirt.
 8. İşlem kurgusu/giriş/stop/hedef sorulduğunda MUTLAKA 'get_trade_plan' aracını çağır — bkz. yukarıdaki İŞLEM KURGUSU / TRADE PLAN KURALI. Bu araç dışında başka bir araçtan (ör. get_technical_levels) türetilmiş sayılarla işlem kurgusu ANLATMA.`;
 
@@ -322,10 +323,7 @@ export async function POST(req: NextRequest) {
     const user = userData.user;
     if (!user) return new Response("Unauthorized", { status: 401 });
 
-    // Gerçek plan kontrolü — daha önce burada YOK'tu: dailyLimit her zaman
-    // premium'a sabitlenmişti ve RPC sonucu hiç okunmadan Gemini çağrılıyordu,
-    // yani ücretsiz/plansız hiçbir üye için kota fiilen uygulanmıyordu.
-    // /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
+    // Gerçek plan kontrolü — /api/copilot/usage ile aynı, tek gerçek kaynak: getMemberAccess().
     const access = await getMemberAccess();
     if (!access.hasAccess) {
       return NextResponse.json(
@@ -333,24 +331,18 @@ export async function POST(req: NextRequest) {
         { status: 403 }
       );
     }
-    const dailyLimit = DEFAULT_CREDIT_LIMIT.premium;
     const accessMode: "member" | "expired_member" =
       access.plan && access.plan !== "premium" && access.plan !== "admin" ? "expired_member" : "member";
 
-    try {
-      const { data: statusRows } = await supabaseAdmin.rpc("get_copilot_credit_status", {
-        p_user_id: user.id,
-        p_default_limit: dailyLimit,
-      });
-      const status = Array.isArray(statusRows) ? statusRows[0] : statusRows;
-      if (status && status.current_usage >= status.daily_limit) {
-        return NextResponse.json(
-          { error: ct("quotaExhausted", locale, { limit: status.daily_limit }), code: "QUOTA_EXHAUSTED" },
-          { status: 429 }
-        );
-      }
-    } catch {
-      // Kredi servisi geçici erişilemezse sohbeti engelleme — best effort.
+    // Kredi kontrolü — admin (staff comp) haric, en ucuz sorgu tipinin (Fast
+    // Answer = 1 kredi) maliyetini bile karsilayamayan uye sohbete baslayamaz.
+    // Asil dusum (1 veya 5 kredi, sorgu tipine gore) onFinish'te, gercek yanit
+    // uretildikten sonra consume_credits() ile yapilir — bkz. 0020_usage_credits.sql.
+    if (access.plan !== "admin" && access.monthlyCredits + access.topupCredits < 1) {
+      return NextResponse.json(
+        { error: ct("quotaExhausted", locale, { limit: 0 }), code: "INSUFFICIENT_CREDITS", topup_url: "/api/members/credits/topup-checkout" },
+        { status: 402 }
+      );
     }
 
     const lastUserMessage = [...messages].reverse().find((m: any) => m.role === "user");
@@ -360,6 +352,13 @@ export async function POST(req: NextRequest) {
     }
 
     const systemPrompt = await buildSystemPrompt(pageContext, locale, user.id, accessMode, access.isPremium);
+
+    // search_market_news'in kendi araç sonucuna gömülü talimat üretebilmesi için
+    // bu turda site-verisi aracı (deep-analysis/technical-levels) çağrıldı mı takip
+    // eder. Sistem promptundaki kural (HABERLER bölümü) tek başına Gemini Flash'ta
+    // güvenilir takip edilmiyordu — talimatı modelin O AN gördüğü araç sonucunun
+    // içine gömmek, uzak bir system-prompt kuralından çok daha güvenilir çalışıyor.
+    let siteDataToolCalled = false;
 
     const baseTools = {
         get_top_trending_stocks: tool({
@@ -490,6 +489,7 @@ export async function POST(req: NextRequest) {
             try {
               const deep = await withTimeout(getDeepAnalysis(ticker, locale), 5000, null);
               if (!deep) return { success: false, error: ct("noStockData", locale) };
+              siteDataToolCalled = true;
               return { success: true, ...deep };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
@@ -503,6 +503,7 @@ export async function POST(req: NextRequest) {
             try {
               const levels = await withTimeout(getTechnicalLevels(ticker), 5000, null);
               if (!levels) return { success: false, error: ct("noStockData", locale) };
+              siteDataToolCalled = true;
               return { success: true, ...levels };
             } catch (e) {
               return { success: false, error: ct("noStockData", locale) };
@@ -584,21 +585,40 @@ export async function POST(req: NextRequest) {
     // ayrıştırır), orkestratör modelden bağımsız. Bu aracı sadece Gemini
     // konuşmayı yönettiğinde tool listesine ekliyoruz (bkz. toolsForProvider) —
     // "web araması Gemini'nin işi" kuralını tek bir yerde (soft prompt talimatı
-    // değil) yapısal olarak zorunlu kılar: DeepSeek orkestre ederken bu araç
-    // hiç görünmez, yanlışlıkla eski/uydurma haber özetlemez.
+    // değil) yapısal olarak zorunlu kılar: DeepSeek/Claude orkestre ederken bu
+    // araç hiç görünmez, yanlışlıkla eski/uydurma haber özetlemez.
     const searchMarketNewsTool = {
       search_market_news: tool({
-        description: "Fetches live breaking market news ONLY when the user explicitly requests news. NEVER call this when the user asks for stock tickers or trending stocks.",
+        description: "Fetches live breaking market news — call when the user explicitly asks for news, OR when explaining WHY a stock's price moved (a causal 'why did X drop/rise' question needs this for catalyst context, checked AFTER get_technical_levels/get_deep_analysis). NEVER call this when the user asks for stock tickers or trending stocks lists.",
         parameters: z.object({ query: z.string().describe("Topic or ticker to search market news for") }),
         execute: async ({ query }: { query: string }) => {
+          // Bu talimat modele system prompt'tan çok daha yakın (bu aracın
+          // sonucunun İÇİNDE) geldiği için çok daha güvenilir takip ediliyor —
+          // uzak bir kural yerine, tam o anki karar noktasında verilen bir uyarı.
+          const siteDataNote = siteDataToolCalled
+            ? ""
+            : " ÖNEMLİ: Bu turda henüz 'get_technical_levels' veya 'get_deep_analysis' çağırmadın — eğer kullanıcı bir hissenin fiyat hareketinin nedenini soruyorsa, yanıt vermeden ÖNCE o aracı da çağır, BOGA'nın kendi teknik okumasını haberle birleştir.";
           try {
             // 5000ms yetersizdi: RSS çekme (2500ms) + başlık çevirisi (4000ms) art
             // arda çalışabiliyor, dış timeout erken keserse haberler tamamen
             // kaybolurdu (boş [] dönerdi) — 8000ms ikisine de yetecek pay bırakır.
             const news = await withTimeout(fetchLiveMarketNews(query, locale), 8000, []);
-            return { success: true, query, news: news || [] };
+            const items = news || [];
+            return {
+              success: true,
+              query,
+              news: items,
+              _instruction: items.length > 0
+                ? `Bu haberleri kullanarak ŞİMDİ 2-3 cümlelik/maddelik, kullanıcının sorusunu doğrudan yanıtlayan bir metin üret — sadece kartı gösterip metinsiz durma, bu YASAK.${siteDataNote}`
+                : `Bu konuda son 24 saatte haber bulunamadı — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret (mümkünse zaten elindeki teknik/temel veriyle).${siteDataNote}`,
+            };
           } catch (e) {
-            return { success: true, query, news: [] };
+            return {
+              success: true,
+              query,
+              news: [],
+              _instruction: `Haber getirilemedi — bunu kullanıcıya dürüstçe belirt, ama yine de ŞİMDİ bir metin yanıtı üret, metinsiz durma.${siteDataNote}`,
+            };
           }
         },
       }),
@@ -607,17 +627,19 @@ export async function POST(req: NextRequest) {
     // BOGA ekonomik mimarisi: rutin sohbet/uzun analiz DeepSeek'te (ucuz,
     // 1M context) kalır; web araması ve gelecekteki Google-özel/multimodal
     // görevler Gemini'ye gider. search_market_news bu yüzden sadece "google"
-    // provider'ına eklenir — DeepSeek asla canlı haber aracı görmez.
-    function toolsForProvider(providerKey: "deepseek" | "google") {
+    // provider'ına eklenir — DeepSeek ve Claude asla canlı haber aracı görmez.
+    function toolsForProvider(providerKey: "deepseek" | "google" | "anthropic") {
       return providerKey === "google" ? { ...baseTools, ...searchMarketNewsTool } : baseTools;
     }
 
+    // "HABERLER" kuralındaki istisnayla senkron (fiyat hareketi NEDEN soruları
+    // da search_market_news'i tetikler) — bkz. buildSystemPrompt.
     const NEWS_INTENT_TRIGGERS = [
-      "haber", "haberler", "son gelişme", "son dakika", // tr
-      "news", "breaking", "latest update",              // en
-      "noticia", "última hora",                          // es (noticia(s), últimas noticias)
-      "actualité", "dernière nouvelle",                  // fr
-      "notícia", "última hora",                          // pt
+      "haber", "haberler", "son gelişme", "son dakika", "neden düştü", "neden yükseldi", "ne oldu", // tr
+      "news", "breaking", "latest update", "why did", "what happened",                              // en
+      "noticia", "última hora", "por qué cayó", "por qué subió", "qué pasó",                          // es
+      "actualité", "dernière nouvelle", "pourquoi a chuté", "pourquoi a monté", "que s'est-il passé", // fr
+      "notícia", "última hora", "por que caiu", "por que subiu", "o que aconteceu",                   // pt
     ];
 
     // Hangi provider'ın bu turu YÖNETECEĞİNİ (orkestratör model) belirler.
@@ -640,7 +662,14 @@ export async function POST(req: NextRequest) {
     const userId = user.id;
     const onFinish = async ({ text, toolCalls, toolResults }: any) => {
       try {
-        await supabaseAdmin.rpc("increment_copilot_credit", { p_user_id: userId });
+        if (access.plan !== "admin") {
+          const isDeepResearch = Array.isArray(toolCalls) && toolCalls.some((tc: any) => tc.toolName === "get_deep_analysis");
+          await supabaseAdmin.rpc("consume_credits", {
+            p_user_id: userId,
+            p_amount: isDeepResearch ? 5 : 1,
+            p_query_type: isDeepResearch ? "DEEP_RESEARCH" : "FAST_ANSWER",
+          });
+        }
       } catch {}
       try {
         const assistantMessage = {
@@ -665,13 +694,13 @@ export async function POST(req: NextRequest) {
 
     // Ekonomik yönlendirme: rutin sohbet/uzun analiz → DeepSeek (deepseek-v4-flash,
     // en ucuz sürüm, 1M context — uzun analiz akışları için bol pay). Web araması
-    // veya (ileride) multimodal görevler → Gemini. Hangi provider birincil
-    // olursa olsun, DİĞER provider'ın TÜM model adları ikincil yedek olarak
-    // sırayla denenir — Google zaman zaman model adlarını deprecate ediyor
-    // (bugün ikinci kez: sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not
-    // found" hatası verdi — bkz. Vercel production logları), bu yüzden tek
-    // bir sağlayıcıya/isme güvenmek yerine tükenene kadar dener; bu sınıf
-    // hata bir daha tüm Copilot'u kesintiye uğratmasın diye.
+    // veya (ileride) multimodal görevler → Gemini. Üçüncü katman her zaman
+    // Claude Haiku'dur (son çare) — hangi provider birincil olursa olsun.
+    // Google zaman zaman model adlarını deprecate ediyor (bugün ikinci kez:
+    // sabah gemini-2.5-flash, şimdi gemini-1.5-flash "not found" hatası verdi
+    // — bkz. Vercel production logları), bu yüzden tek bir sağlayıcıya/isme
+    // güvenmek yerine tükenene kadar dener; bu sınıf hata bir daha tüm
+    // Copilot'u kesintiye uğratmasın diye.
     const DEEPSEEK_CANDIDATE = { providerKey: "deepseek" as const, provider: deepseekProvider, modelName: "deepseek-v4-flash" };
     const GEMINI_CANDIDATES = [
       { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-flash-latest" },
@@ -680,9 +709,12 @@ export async function POST(req: NextRequest) {
       { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-1.5-flash" },
       { providerKey: "google" as const, provider: googleProvider, modelName: "gemini-2.0-flash-001" },
     ];
+    const ANTHROPIC_CANDIDATE = { providerKey: "anthropic" as const, provider: anthropicProvider, modelName: "claude-haiku-4-5-20251001" };
     const { primary, reason } = pickPrimaryProvider(messages);
     const MODEL_CANDIDATES =
-      primary === "google" ? [...GEMINI_CANDIDATES, DEEPSEEK_CANDIDATE] : [DEEPSEEK_CANDIDATE, ...GEMINI_CANDIDATES];
+      primary === "google"
+        ? [...GEMINI_CANDIDATES, DEEPSEEK_CANDIDATE, ANTHROPIC_CANDIDATE]
+        : [DEEPSEEK_CANDIDATE, ...GEMINI_CANDIDATES, ANTHROPIC_CANDIDATE];
     console.log(`[copilot chat] primary=${primary} (reason=${reason})`);
 
     let streamResult: any = null;

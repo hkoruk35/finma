@@ -32,13 +32,18 @@ const INTL_DATE_TAG: Record<string, string> = { tr: "tr-TR", en: "en-US", es: "e
 // üretemeden dururken, balon hem içerik hem görünür kart olmadan TAMAMEN BOŞ
 // kalıyordu ("basit sorularda takılıyor" hatası). Aşağıdaki boş-yanıt
 // güvenlik ağı bunu tespit eder.
+// NOT: search_market_news BİLEREK bu listede DEĞİL — system prompt'un HABERLER
+// kuralı, bu araç sonrası MUTLAKA yorumlayan bir metin üretilmesini şart koşuyor
+// (salt haber kartı "neden düştü" gibi nedensellik sorularına yeterli cevap
+// değil). Bu araç listede olsaydı, model metinsiz kalsa bile kart yüzünden
+// "tamamlanmış" sayılır ve kullanıcı yanlış-pozitif bir şekilde hiç retry
+// göremezdi — gerçekte yaşanan hata buydu (bkz. 2026-08 canlı rapor).
 const RENDERABLE_TOOLS = new Set([
   "navigate_to",
   "get_top_trending_stocks",
   "get_theme_stocks",
   "create_watch_task",
   "show_stock_card",
-  "search_market_news",
 ]);
 
 function linkifyTickers(text: unknown): string {
@@ -383,9 +388,27 @@ export default function CopilotDrawer() {
     }
   };
 
-  const quotaExhausted = !!usage && usage.hasAccess && usage.currentUsage >= usage.dailyLimit;
+  const quotaExhausted = !!usage && usage.hasAccess && !usage.unlimited && (usage.monthlyCredits + usage.topupCredits) < 1;
   const noAccess = !!usage && !usage.hasAccess;
   const inputDisabled = isAuthenticated ? (isLoading || quotaExhausted || noAccess) : demoLoading;
+
+  const [buyingCredits, setBuyingCredits] = useState(false);
+  const handleBuyCredits = async () => {
+    setBuyingCredits(true);
+    try {
+      const res = await fetch("/api/members/credits/topup-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale: activeLocale }),
+      });
+      const data = await res.json();
+      if (res.ok && data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+        return;
+      }
+    } catch {}
+    setBuyingCredits(false);
+  };
 
   const handleSaveSettings = async () => {
     await saveProfile({ displayName: draftName.trim(), avatarId: draftAvatar });
@@ -1291,6 +1314,23 @@ export default function CopilotDrawer() {
 
         {/* Input Footer */}
         <form onSubmit={isAuthenticated ? handleSubmit : handleVisitorInputSubmit} className="border-t border-white/10 p-4 pb-8 sm:pb-4 bg-[#0d1117] shrink-0">
+          {isAuthenticated && usage && usage.hasAccess && !usage.unlimited && (
+            <div className="flex items-center justify-between mb-2 px-1">
+              <span className="text-[10px] text-gray-500 font-mono">
+                {ct("creditsRemaining", activeLocale, { n: usage.monthlyCredits + usage.topupCredits })}
+              </span>
+              {quotaExhausted && (
+                <button
+                  type="button"
+                  onClick={handleBuyCredits}
+                  disabled={buyingCredits}
+                  className="text-[10px] font-bold text-amber-400 hover:text-amber-300 border border-amber-400/40 rounded-full px-3 py-1 transition-colors disabled:opacity-50"
+                >
+                  {buyingCredits ? ct("buyingCredits", activeLocale) : ct("buyCreditsButton", activeLocale)}
+                </button>
+              )}
+            </div>
+          )}
           <div className="relative flex items-center">
             <input
               type="text"

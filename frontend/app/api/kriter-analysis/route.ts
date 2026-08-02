@@ -109,13 +109,35 @@ async function callClaude(prompt: string): Promise<string> {
 
   const anthropic = new Anthropic({ apiKey });
   const msg = await anthropic.messages.create({
-    model: "claude-sonnet-4-6",
+    model: "claude-haiku-4-5-20251001",
     max_tokens: 4096,
     system: KRITER_SYSTEM,
     messages: [{ role: "user", content: prompt }],
   });
 
   return (msg.content[0] as { text: string }).text ?? "";
+}
+
+async function callDeepSeek(prompt: string): Promise<string> {
+  const apiKey = process.env.DEEPSEEK_API_KEY;
+  if (!apiKey) throw new Error("DEEPSEEK_API_KEY not set");
+
+  const res = await fetch("https://api.deepseek.com/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: "deepseek-v4-flash",
+      messages: [
+        { role: "system", content: KRITER_SYSTEM },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.3,
+      max_tokens: 4096,
+    }),
+  });
+  if (!res.ok) throw new Error(`DeepSeek HTTP ${res.status}`);
+  const data = await res.json();
+  return data?.choices?.[0]?.message?.content ?? "";
 }
 
 async function callGemini(prompt: string): Promise<string> {
@@ -182,15 +204,22 @@ export async function POST(req: NextRequest) {
     const prompt = buildKriterPrompt(enrichedTrades);
     let ai_report = "";
 
+    // Ekonomik mimari: DeepSeek birincil (ucuz), Gemini ikincil, Claude Haiku
+    // üçüncü/son çare — bkz. copilot/chat/route.ts aynı desen.
     try {
-      ai_report = await callClaude(prompt);
-    } catch (e: any) {
-      console.warn("[kriter-analysis] Claude failed:", e?.message);
+      ai_report = await callDeepSeek(prompt);
+    } catch (e0: any) {
+      console.warn("[kriter-analysis] DeepSeek failed:", e0?.message);
       try {
         ai_report = await callGemini(prompt);
-      } catch (e2: any) {
-        console.error("[kriter-analysis] Gemini also failed:", e2?.message);
-        ai_report = "[AI ANALİZİ] API bağlantısı kurulamadı. Lütfen tekrar deneyin.";
+      } catch (e: any) {
+        console.warn("[kriter-analysis] Gemini failed:", e?.message);
+        try {
+          ai_report = await callClaude(prompt);
+        } catch (e2: any) {
+          console.error("[kriter-analysis] Claude fallback also failed:", e2?.message);
+          ai_report = "[AI ANALİZİ] API bağlantısı kurulamadı. Lütfen tekrar deneyin.";
+        }
       }
     }
 

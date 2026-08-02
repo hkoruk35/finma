@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createAnthropic } from "@ai-sdk/anthropic";
+import { createOpenAI } from "@ai-sdk/openai";
 import { generateText, tool } from "ai";
 import { z } from "zod";
 import { getRealStockCardData, getSiteCategoryStocksList, getThemeStocksList, SiteListCategory } from "@/lib/copilot/stockData";
@@ -24,6 +26,8 @@ const apiKey =
   "";
 
 const googleProvider = createGoogleGenerativeAI({ apiKey });
+const anthropicProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY || "" });
+const deepseekProvider = createOpenAI({ apiKey: process.env.DEEPSEEK_API_KEY || "", baseURL: "https://api.deepseek.com" });
 
 function resolveLocale(raw: any): string {
   return ["tr", "en", "es", "fr", "pt"].includes(raw) ? raw : "en";
@@ -309,14 +313,33 @@ export async function POST(req: NextRequest) {
       { role: "user" as const, content: message },
     ];
 
-    const { text } = await generateText({
-      model: googleProvider.languageModel("gemini-2.5-flash"),
-      system: systemPrompt,
-      tools,
-      messages,
-      maxTokens: 2000,
-      maxSteps: 5,
-    });
+    // Ekonomik mimari: DeepSeek birincil (ucuz), Gemini ikincil, Claude Haiku
+    // üçüncü/son çare (farklı sağlayıcı, Google model deprecation/outage
+    // riskine karşı) — bkz. copilot/chat/route.ts aynı desen.
+    const MODEL_CANDIDATES = [
+      { name: "deepseek-v4-flash", model: deepseekProvider("deepseek-v4-flash") },
+      { name: "gemini-2.5-flash", model: googleProvider.languageModel("gemini-2.5-flash") },
+      { name: "claude-haiku-4-5-20251001", model: anthropicProvider("claude-haiku-4-5-20251001") },
+    ];
+    let text: string | undefined;
+    let lastErr: unknown = null;
+    for (const { name, model } of MODEL_CANDIDATES) {
+      try {
+        ({ text } = await generateText({
+          model,
+          system: systemPrompt,
+          tools,
+          messages,
+          maxTokens: 2000,
+          maxSteps: 5,
+        }));
+        break;
+      } catch (err) {
+        lastErr = err;
+        console.error(`[ask-copilot] ${name} failed:`, err instanceof Error ? err.message : err);
+      }
+    }
+    if (text === undefined) throw lastErr || new Error("All model candidates failed");
 
     return NextResponse.json({
       text: text || "Unable to generate response",

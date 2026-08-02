@@ -17,8 +17,9 @@ const LIST_CATEGORY_TO_ROUTE_KEY: Record<string, RouteKey> = {
 };
 
 export interface UsageState {
-  currentUsage: number;
-  dailyLimit: number;
+  monthlyCredits: number;
+  topupCredits: number;
+  unlimited: boolean;
   hasAccess: boolean;
 }
 

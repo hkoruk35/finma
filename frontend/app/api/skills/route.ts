@@ -136,7 +136,7 @@ Alım/satım tavsiyesi verme; bunun yerine "değer açısından..." veya "sektö
     // Manual agentic loop — max 6 turns
     for (let turn = 0; turn < 6; turn++) {
       const response = await client.messages.create({
-        model:      "claude-sonnet-4-6",
+        model:      "claude-haiku-4-5-20251001",
         max_tokens: 4096,
         system:     SYSTEM,
         tools:      FINANCIAL_TOOLS,

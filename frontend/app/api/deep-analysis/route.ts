@@ -198,20 +198,7 @@ Return ONLY a valid JSON array of strings, same count as input, no explanations.
 
 Input: ${JSON.stringify(titles)}`;
   try {
-    if (process.env.ANTHROPIC_API_KEY) {
-      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-      const msg = await anthropic.messages.create({
-        model: "claude-haiku-4-5-20251001", max_tokens: 1024,
-        system: "You are a financial translator. Return ONLY a valid JSON array of strings.",
-        messages: [{ role: "user", content: prompt }],
-      });
-      const raw = (msg.content[0] as any).text || "";
-      const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
-      if (start !== -1 && end !== -1) {
-        const parsed = JSON.parse(raw.slice(start, end + 1));
-        if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
-      }
-    } else if (process.env.GEMINI_API_KEY) {
+    if (process.env.GEMINI_API_KEY) {
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
         {
@@ -233,7 +220,25 @@ Input: ${JSON.stringify(titles)}`;
       }
     }
   } catch (e: any) {
-    console.warn("[deep-analysis] translate news:", e?.message);
+    console.warn("[deep-analysis] translate news (gemini):", e?.message);
+  }
+  try {
+    if (process.env.ANTHROPIC_API_KEY) {
+      const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+      const msg = await anthropic.messages.create({
+        model: "claude-haiku-4-5-20251001", max_tokens: 1024,
+        system: "You are a financial translator. Return ONLY a valid JSON array of strings.",
+        messages: [{ role: "user", content: prompt }],
+      });
+      const raw = (msg.content[0] as any).text || "";
+      const start = raw.indexOf("["); const end = raw.lastIndexOf("]");
+      if (start !== -1 && end !== -1) {
+        const parsed = JSON.parse(raw.slice(start, end + 1));
+        if (Array.isArray(parsed) && parsed.length === titles.length) return parsed;
+      }
+    }
+  } catch (e: any) {
+    console.warn("[deep-analysis] translate news (claude fallback):", e?.message);
   }
   return titles; // fallback: return original English
 }
@@ -1263,21 +1268,21 @@ export async function POST(req: NextRequest) {
       enginePlan,
     };
 
-    // AI call (BOGA AI always)
+    // AI call (BOGA AI always) — Gemini flash birincil, Claude Haiku yedek
     let rawText = "";
-    if (process.env.ANTHROPIC_API_KEY) {
+    if (process.env.GEMINI_API_KEY) {
+      try { rawText = await callGemini(buildUserPrompt(promptParams, lang), lang); }
+      catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
+    }
+    if (!rawText && process.env.ANTHROPIC_API_KEY) {
       try {
         const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
         const msg = await anthropic.messages.create({
-          model: "claude-sonnet-4-6", max_tokens: 2048, system: SYSTEM_MSG[lang],
+          model: "claude-haiku-4-5-20251001", max_tokens: 2048, system: SYSTEM_MSG[lang],
           messages: [{ role: "user", content: buildUserPrompt(promptParams, lang) }],
         });
         rawText = (msg.content[0] as any).text || "";
       } catch (e: any) { console.error("[deep-analysis] Anthropic:", e?.message); }
-    }
-    if (!rawText && process.env.GEMINI_API_KEY) {
-      try { rawText = await callGemini(buildUserPrompt(promptParams, lang), lang); }
-      catch (e: any) { console.error("[deep-analysis] Gemini:", e?.message); }
     }
 
     const parsedAi = tryParseJSON(rawText);
