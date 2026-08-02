@@ -11,6 +11,7 @@ import SwingStrategyStatusCard from "@/components/public/SwingStrategyStatusCard
 import TickerSearchBox from "@/components/public/TickerSearchBox";
 import type { Locale } from "@/lib/i18n/copy";
 import { useMemberPlan } from "@/hooks/useMemberPlan";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 // Tum /global/{locale}/graphic/[ticker] sayfalarinin ORTAK govdesi —
 // dil sayfalari sadece locale prop'u gecen ince sarmalayicilardir, boylece
@@ -151,23 +152,24 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
   // Herkese acik onizleme: giris yapmamis ziyaretcilerin ust kisayol
   // butonlariyla uye-kilitli sayfalara (Top100/Swing/Trend/Analiz)
   // gecmesini engellemek icin oturum durumunu bir kez kontrol ediyoruz.
-  const { isPremium, loading } = useMemberPlan();
+  const { isPremium, plan, loading } = useMemberPlan();
+  const isLoggedIn = plan !== null;
   const TOP7_TICKERS = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
   const isTop7 = TOP7_TICKERS.includes(ticker);
+  // Grafik+analiz: anonim sadece Top7 + sabit vitrin ticker'ları (bkz.
+  // lib/publicTeaserTickers.ts) görür; herhangi bir giriş (free dahil) tüm
+  // 6000+ evrene açar — asıl paylı ürün (işlem planı) zaten Faz 0B'de
+  // sunucu tarafında ayrıca korunuyor, bu kapı sadece grafiğin kendisi
+  // için (bkz. Faz 5 plan notu, "Kararım": server-side evren zorlaması
+  // gerekmiyor çünkü chart-data'da paylı içerik yok).
+  const chartUnlocked = isTop7 || isPublicTeaserTicker(ticker) || isLoggedIn;
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   // null = henuz bilinmiyor (SSR/ilk render) — BogaChartEngine, defaultIndicators
   // prop'unu SADECE mount aninda ilk state'i tohumlamak icin kullaniyor, bu
   // yuzden grafik mobil/masaustu bilgisi netlesmeden onceden yanlis (masaustu)
   // varsayilanlarla mount olursa sonradan prop degisse bile duzelmez —
   // bu deger belli olana kadar grafigi hic render etmiyoruz.
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    fetch("/api/members/me")
-      .then((r) => setIsLoggedIn(r.ok))
-      .catch(() => setIsLoggedIn(false));
-  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -331,7 +333,7 @@ export default function GraphicDetailContent({ locale }: { locale: Locale }) {
               detailMode
               height={isMobile ? 420 : 600}
               defaultTimeframe="D"
-              premiumGate={!isTop7 && !isPremium && !loading}
+              premiumGate={!chartUnlocked && !loading}
             />
           )}
         </div>

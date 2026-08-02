@@ -54,27 +54,25 @@ function fmtVol(n: number): string {
   return `${n}`;
 }
 
-export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlan, lockTradePlanCard, unlockRationale }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlan?: boolean; lockTradePlanCard?: boolean; unlockRationale?: boolean }) {
+export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlanCard, unlockRationale }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlanCard?: boolean; unlockRationale?: boolean }) {
   const t = copy[locale].top100.detail;
   const router = useRouter();
   const { isPremium } = useMemberPlan();
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
 
-  // Prop adi "lockTradePlan" kaldi (mevcut cagiran, /graphic sayfasi, bunu
-  // gecirir) ama artik Technical Indicators + Market Data'yi da kapsiyor —
-  // hepsi ayni premium kilit davranisini paylasiyor.
-  const premiumLocked = !!lockTradePlan && !effectiveIsPremium;
-  // "lockTradePlanCard" ise SADECE Trade Plan kartini kilitler (Technical
-  // Indicators + Market Data acik kalir) — Gosterge Paneli (GlobalLandingPage)
-  // bunu kullanir, /graphic sayfasindaki ucunu-de-kilitleyen lockTradePlan'dan
-  // farkli.
-  const tradePlanLocked = premiumLocked || (!!lockTradePlanCard && !effectiveIsPremium);
+  // "lockTradePlanCard" SADECE Trade Plan kartını kilitler — Technical
+  // Indicators + Market Data her zaman açık (bkz. Faz 0B: gerçek paylı
+  // veri zaten sunucu tarafında /api/preorder-analysis'te maskeleniyor,
+  // burası sadece görüntü tarafı). Daha önce burada "lockTradePlan" adında,
+  // hiçbir çağıranın geçmediği (grep ile doğrulandı) ölü bir prop/dal vardı
+  // — Faz 5'te temizlendi.
+  const tradePlanLocked = !!lockTradePlanCard && !effectiveIsPremium;
   // "İşlem Kurgusu Gerekçesi" (Rationale) karti Trade Plan'dan bagimsiz
   // kilitlenir: caller "unlockRationale" gecerse (Gosterge Paneli, sadece sol
   // menu + varsayilan 7 watchlist hissesi icin true gecer) premium olmayan
   // ziyaretci de gorur — diger her ticker icin (arama vb.) kilitli kalir.
-  const rationaleLocked = premiumLocked || (!!lockTradePlanCard && !effectiveIsPremium && !unlockRationale);
+  const rationaleLocked = !!lockTradePlanCard && !effectiveIsPremium && !unlockRationale;
   const goToRegister = () => router.push(registerHref(locale));
 
   const LockPrompt = ({ message }: { message: string }) => (
@@ -172,59 +170,51 @@ export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart,
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.technicalCard}</div>
-          {premiumLocked ? (
-            <LockPrompt message={t.unlockTradePlan} />
-          ) : (
-            // Mobilde tek sütunlu "flex justify-between" satırları uzun
-            // değerleri (ör. "245.3/198.4/187.2") sağa itip konteynerin
-            // kenarından taşırıyordu. 2 sütunlu grid + Key üstte/Value altta
-            // düzeni her hücreyi daraltıp taşmayı önler; sm+ ekranda eski
-            // tek-sütun/satır görünümüne döner.
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 sm:gap-y-0">
-              {([
-                ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
-                ["EMA200", fmt(d1.ema200, 1)],
-                ["RSI (14)", fmt(d1.rsi, 1)],
-                ["MACD", fmt(data.momentum.macd, 3)],
-                ["ADX (14)", fmt(data.momentum.adx, 1)],
-                ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
-                ["BB%", fmt(data.momentum.bbPercent, 2)],
-                ["Pattern", d1.pattern],
-              ] as [string, string][]).map(([label, value], i, arr) => (
-                <div
-                  key={label}
-                  className={`flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:py-1.5 sm:gap-0 ${
-                    label === "EMA9/20/50" ? "col-span-2 sm:col-span-1" : ""
-                  } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
-                >
-                  <span className="text-[13px] text-white/40">{label}</span>
-                  <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-medium">{value}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          {/* Mobilde tek sütunlu "flex justify-between" satırları uzun
+              değerleri (ör. "245.3/198.4/187.2") sağa itip konteynerin
+              kenarından taşırıyordu. 2 sütunlu grid + Key üstte/Value altta
+              düzeni her hücreyi daraltıp taşmayı önler; sm+ ekranda eski
+              tek-sütun/satır görünümüne döner. */}
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 sm:grid-cols-1 sm:gap-y-0">
+            {([
+              ["EMA9/20/50", `${fmt(d1.ema9, 1)}/${fmt(d1.ema20, 1)}/${fmt(d1.ema50, 1)}`],
+              ["EMA200", fmt(d1.ema200, 1)],
+              ["RSI (14)", fmt(d1.rsi, 1)],
+              ["MACD", fmt(data.momentum.macd, 3)],
+              ["ADX (14)", fmt(data.momentum.adx, 1)],
+              ["ROC (10)", `${fmt(data.momentum.roc10, 1)}%`],
+              ["BB%", fmt(data.momentum.bbPercent, 2)],
+              ["Pattern", d1.pattern],
+            ] as [string, string][]).map(([label, value], i, arr) => (
+              <div
+                key={label}
+                className={`flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:py-1.5 sm:gap-0 ${
+                  label === "EMA9/20/50" ? "col-span-2 sm:col-span-1" : ""
+                } ${i < arr.length - 1 ? "sm:border-b sm:border-[#58a6ff]/15" : ""}`}
+              >
+                <span className="text-[13px] text-white/40">{label}</span>
+                <span className="text-sm font-medium text-white/80 font-mono sm:text-xs sm:font-medium">{value}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5">
           <div className="text-xs text-white/40 uppercase tracking-widest font-medium mb-2.5 pb-2 border-b border-[#58a6ff]/30">{t.marketCard}</div>
-          {premiumLocked ? (
-            <LockPrompt message={t.unlockTradePlan} />
-          ) : (
-            [
-              ["52H High", `$${fmt(data.context.hi52)}`],
-              ["52L Low", `$${fmt(data.context.lo52)}`],
-              ["52H Distance", `${fmt(data.context.pct52h, 1)}%`],
-              ["ATR%", `${fmt(data.context.atrPct)}%`],
-              ["RVOL", `${fmt(data.rvol)}x`],
-              ["Volume", fmtVol(data.volume)],
-              ["Avg Vol 30d", fmtVol(data.avgVol30)],
-            ].map(([label, value], i, arr) => (
-              <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
-                <span className="text-white/40">{label}</span>
-                <span className="text-white/80 font-mono font-medium">{value}</span>
-              </div>
-            ))
-          )}
+          {[
+            ["52H High", `$${fmt(data.context.hi52)}`],
+            ["52L Low", `$${fmt(data.context.lo52)}`],
+            ["52H Distance", `${fmt(data.context.pct52h, 1)}%`],
+            ["ATR%", `${fmt(data.context.atrPct)}%`],
+            ["RVOL", `${fmt(data.rvol)}x`],
+            ["Volume", fmtVol(data.volume)],
+            ["Avg Vol 30d", fmtVol(data.avgVol30)],
+          ].map(([label, value], i, arr) => (
+            <div key={label} className={`flex justify-between py-1.5 text-xs ${i < arr.length - 1 ? "border-b border-[#58a6ff]/15" : ""}`}>
+              <span className="text-white/40">{label}</span>
+              <span className="text-white/80 font-mono font-medium">{value}</span>
+            </div>
+          ))}
         </div>
 
         <div className="bg-[#111620] border border-[#253347] rounded-lg p-3.5 flex flex-col gap-2">

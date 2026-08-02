@@ -7,7 +7,6 @@ import { translateEMAStatus, translatePattern, translateSector, translateSignal 
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
 import TickerHoverChart from "@/components/TickerHoverChart";
 import DeepAnalysisOverlay from "@/components/global/DeepAnalysisOverlay";
-import { useMemberPlan } from "@/hooks/useMemberPlan";
 import PremiumModal from "@/components/global/PremiumModal";
 
 const REFRESH_MS = 5 * 60 * 1000;
@@ -242,12 +241,15 @@ function registerHrefFor(locale: Locale): string {
 interface ThemeSwingTrackerProps {
   locale: Locale;
   tickers: string[];
-  isFirstTheme?: boolean;
 }
 
-export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = false }: ThemeSwingTrackerProps) {
+// Sunucu (bkz. themes/[theme]/page.tsx) kilitli satırların ticker'ını bu
+// önekle maskeler — client burada pozisyona (idx>0) değil, doğrudan bu
+// sinyale bakar: tablo yeniden sıralandığında maskeleme senkron kalır.
+const LOCKED_PREFIX = "LOCKED-";
+
+export default function ThemeSwingTracker({ locale, tickers }: ThemeSwingTrackerProps) {
   const t = copy[locale].top100;
-  const { isPremium } = useMemberPlan();
   const [live, setLive] = useState<Record<string, LiveData>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -479,7 +481,7 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
                 const rowBg = ROW_BG[signal] || "#0f1117";
                 const bg = signal !== "—" ? rowBg : "#0f1117";
                 const isExpanded = expandedTicker === tk;
-                const rowLocked = !isPremium && idx > 0;
+                const rowLocked = tk.startsWith(LOCKED_PREFIX);
 
                 if (rowLocked) {
                   return (
@@ -561,7 +563,7 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
                     {isExpanded && (
                       <tr style={{ background: "#0f1117", borderBottom: "1px solid #30363d" }}>
                         <td colSpan={14} style={{ padding: 0 }}>
-                          <TickerDetailPanel ticker={tk} locale={locale} />
+                          <TickerDetailPanel ticker={tk} locale={locale} lockTradePlanCard />
                         </td>
                       </tr>
                     )}
@@ -593,14 +595,22 @@ export default function ThemeSwingTracker({ locale, tickers, isFirstTheme = fals
               <tbody>
                 {sorted.map((tk) => {
                   const d = live[tk];
+                  const hmLocked = tk.startsWith(LOCKED_PREFIX);
                   const dayPct = d?.price?.change_pct ?? null;
                   const dayColors = { bg: dayPct && dayPct >= 0 ? "#0d2a0d" : "#2a0d0d", text: dayPct && dayPct >= 0 ? "#3fb950" : "#f85149" };
                   return (
-                    <tr key={tk} style={{ background: "#0f1117", borderBottom: "1px solid #21262d" }}>
+                    <tr key={tk} style={{ background: "#0f1117", borderBottom: "1px solid #21262d", cursor: hmLocked ? "pointer" : undefined }} onClick={hmLocked ? () => setShowPremiumModal(true) : undefined}>
                       <td style={{ padding: "6px 10px" }}>
-                        <TickerHoverChart ticker={tk} locale={locale} onDetailClick={() => setAnalyzeTicker(tk)} detailLabel={CHART_DETAIL_LABEL[locale]}>
-                          <button onClick={() => setAnalyzeTicker(tk)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{tk}</button>
-                        </TickerHoverChart>
+                        {hmLocked ? (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, color: "#f59e0b", fontWeight: 700, fontSize: 11 }}>
+                            <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
+                            Premium
+                          </span>
+                        ) : (
+                          <TickerHoverChart ticker={tk} locale={locale} onDetailClick={() => setAnalyzeTicker(tk)} detailLabel={CHART_DETAIL_LABEL[locale]}>
+                            <button onClick={() => setAnalyzeTicker(tk)} style={{ color: "#58a6ff", fontWeight: 900, background: "none", border: "none", padding: 0, cursor: "pointer", font: "inherit" }}>{tk}</button>
+                          </TickerHoverChart>
+                        )}
                       </td>
                       {HOUR_SLOTS.map((h, i) => {
                         const bar = d?.hourly?.[i];

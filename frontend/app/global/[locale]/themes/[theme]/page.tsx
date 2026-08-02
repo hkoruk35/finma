@@ -6,6 +6,8 @@ import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 import ThemeSwingTracker from "@/components/public/ThemeSwingTracker";
 import ListsNavigation from "@/components/global/ListsNavigation";
+import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
+import { isPublicTeaserTicker } from "@/lib/publicTeaserTickers";
 
 export const revalidate = 300;
 
@@ -147,10 +149,21 @@ export default async function ThemePage({ params }: Props) {
   }
 
   const themeTitle = localizedThemeTitle(hotTheme.title, locale) || hotTheme.title;
-  const themeTickers = await getEffectiveThemeTickers(hotTheme);
-  // Sadece ilk tema (HOT_THEMES_2026[0]) uye olmayan ziyaretcilere acik —
-  // digerleri Premium kilitli gorunur (bkz. ThemeSwingTracker.tsx).
-  const isFirstTheme = hotTheme.slug === HOT_THEMES_2026[0].slug;
+  const realThemeTickers = await getEffectiveThemeTickers(hotTheme);
+
+  // Tüm 12 tema gezilebilir; ticker kimliği anonim+free'de maskeli, sadece
+  // premium/admin gerçek listeyi görür (Trend Hisseleri ile aynı kural, bkz.
+  // Faz 5 plan notu). Önceki "sadece ilk tema açık" tasarımı (isFirstTheme)
+  // ThemeSwingTracker.tsx'te artık okunmuyordu — component çoktan satır
+  // bazlı maskelemeye geçmiş, ama BU sayfa gerçek ticker dizisini hâlâ
+  // client component'e prop olarak (dolayısıyla RSC payload'ına çıplak)
+  // geçiyordu: view-source ile tüm 12 temanın tam ticker listesi okunabiliyordu
+  // (canlıda "uzay-temasi" için doğrulandı — 18 ticker'ın 18'i de payload'da).
+  const tier = resolveMemberTierFromAccess(await getMemberAccess());
+  const unlockAll = tier === "premium" || tier === "admin";
+  const themeTickers = unlockAll
+    ? realThemeTickers
+    : realThemeTickers.map((tk, idx) => (isPublicTeaserTicker(tk) ? tk : `LOCKED-${idx}`));
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
@@ -193,7 +206,7 @@ export default async function ThemePage({ params }: Props) {
         </div>
 
         {/* Stocks Table — same layout/columns as the Daily Trend Tracker (/swing) */}
-        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} isFirstTheme={isFirstTheme} />
+        <ThemeSwingTracker locale={locale as Locale} tickers={themeTickers} />
       </main>
 
       <Footer hidePlatform={true} locale={locale as Locale} />
