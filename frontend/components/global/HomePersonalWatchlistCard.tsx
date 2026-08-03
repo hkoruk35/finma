@@ -36,6 +36,7 @@ export default function HomePersonalWatchlistCard({ locale, initialVisible }: { 
   const { plan, loading: planLoading } = useMemberPlan();
   const isLoggedIn = plan !== null;
   const [stocks, setStocks] = useState<HomeListStock[] | null>(null);
+  const labels = getLabels(locale);
   const registerUrl = locale === 'tr' ? '/global/tr/kayit' : `/global/${locale}/register`;
   const viewAllHref = isLoggedIn ? `/global/${locale}/my-watchlist` : registerUrl;
 
