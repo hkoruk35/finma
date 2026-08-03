@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n/copy";
