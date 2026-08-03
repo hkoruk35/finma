@@ -21,23 +21,18 @@ const REGISTER_PATH: Record<Locale, string> = {
 function getCopy(locale: Locale) {
   if (locale === 'tr') return {
     placeholder: 'Hisse, endeks, döviz veya kripto ara (örn. AAPL, MSFT, BTCUSD)...',
-    hint: 'BOGA AI, tüm ABD borsasında anlık genel kontrol yapabilir.',
   };
   if (locale === 'es') return {
     placeholder: 'Buscar acción, índice, divisa o cripto (ej. AAPL, MSFT, BTCUSD)...',
-    hint: 'BOGA AI puede analizar todo el mercado de EE. UU. en tiempo real.',
   };
   if (locale === 'fr') return {
     placeholder: 'Rechercher une action, un indice, une devise ou une crypto (ex. AAPL, MSFT, BTCUSD)...',
-    hint: "BOGA AI peut analyser l'ensemble du marché américain en temps réel.",
   };
   if (locale === 'pt') return {
     placeholder: 'Buscar ação, índice, moeda ou cripto (ex. AAPL, MSFT, BTCUSD)...',
-    hint: 'A BOGA AI pode analisar todo o mercado dos EUA em tempo real.',
   };
   return {
     placeholder: 'Search stock, index, currency, or crypto (e.g. AAPL, MSFT, BTCUSD)...',
-    hint: 'BOGA AI can instantly scan the entire U.S. stock market.',
   };
 }
 
@@ -138,7 +133,6 @@ export default function HomeSearchBar({ locale }: { locale: Locale }) {
           className="w-full rounded-2xl bg-[#141924] border border-[#1e2a3a] text-white placeholder:text-slate-500 focus:outline-none focus:border-[#3b82f6] transition-colors pl-12 pr-4 py-4 text-base shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
         />
       </div>
-      <p className="mt-2 text-[11px] text-slate-500 text-center">{copy.hint}</p>
 
       {open && suggestions.length > 0 && (
         <div className="absolute z-30 mt-1 w-full max-h-80 overflow-y-auto rounded-xl bg-[#141924] border border-[#1e2a3a] shadow-xl">

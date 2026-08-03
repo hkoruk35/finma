@@ -5,6 +5,8 @@ import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 interface Props {
   locale: Locale;
   activePath: string; // e.g. "swing", "watchlist", "top7", "top100", "my-watchlist"
+  /** Optional extra control appended to the same scrollable pill row (e.g. home page's "Browse All Themes"). */
+  trailingAction?: React.ReactNode;
 }
 
 const translations: Record<string, Record<string, string>> = {
@@ -50,7 +52,7 @@ const translations: Record<string, Record<string, string>> = {
   }
 };
 
-export default function ListsNavigation({ locale, activePath }: Props) {
+export default function ListsNavigation({ locale, activePath, trailingAction }: Props) {
   const t = translations[locale] || translations.en;
 
   const links = [
@@ -80,6 +82,7 @@ export default function ListsNavigation({ locale, activePath }: Props) {
           </Link>
         );
       })}
+      {trailingAction}
     </div>
   );
 }

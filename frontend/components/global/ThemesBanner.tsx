@@ -5,7 +5,7 @@ import { HOT_THEMES_2026, themeShortName } from "@/lib/hotThemes2026";
 
 type Locale = "tr" | "en" | "es" | "fr" | "pt";
 
-const LABELS: Record<Locale, { title: string; browseAll: string; more: string }> = {
+export const THEMES_BANNER_LABELS: Record<Locale, { title: string; browseAll: string; more: string }> = {
   tr: { title: "Tematik Analiz", browseAll: "Tüm Temaları Gözat", more: "daha" },
   en: { title: "Thematic Analysis", browseAll: "Browse All Themes", more: "more" },
   es: { title: "Análisis Temático", browseAll: "Explorar Todos los Temas", more: "más" },
@@ -18,8 +18,8 @@ const LABELS: Record<Locale, { title: string; browseAll: string; more: string }>
 const DESKTOP_VISIBLE_COUNT = 6;
 const MOBILE_VISIBLE_COUNT = 2;
 
-export default function ThemesBanner({ locale }: { locale: Locale }) {
-  const label = LABELS[locale];
+export default function ThemesBanner({ locale, showBrowseAll = true }: { locale: Locale; showBrowseAll?: boolean }) {
+  const label = THEMES_BANNER_LABELS[locale];
   const firstThemeHref = `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}`;
 
   const renderThemeList = (visibleCount: number, extraClassName: string) => {
@@ -57,15 +57,17 @@ export default function ThemesBanner({ locale }: { locale: Locale }) {
         {renderThemeList(MOBILE_VISIBLE_COUNT, "flex sm:hidden")}
         {renderThemeList(DESKTOP_VISIBLE_COUNT, "hidden sm:flex")}
 
-        <Link
-          href={firstThemeHref}
-          className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-xs rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
-        >
-          {label.browseAll}
-          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
+        {showBrowseAll && (
+          <Link
+            href={firstThemeHref}
+            className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-xs rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
+          >
+            {label.browseAll}
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        )}
       </div>
     </div>
   );

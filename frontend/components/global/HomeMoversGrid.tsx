@@ -45,13 +45,21 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const loading = data === null;
   const d = data ?? EMPTY;
 
+  const cards = [
+    { key: 'top7', title: titles.top7, accent: '#a78bfa', href: `/global/${locale}/top7`, stocks: d.top7 },
+    { key: 'gainers', title: titles.gainers, accent: '#22c55e', href: `/global/${locale}/gainers`, stocks: d.gainers },
+    { key: 'losers', title: titles.losers, accent: '#ef4444', href: `/global/${locale}/losers`, stocks: d.losers },
+    { key: 'mostActive', title: titles.mostActive, accent: '#3b82f6', href: `/global/${locale}/mostactive`, stocks: d.mostActive },
+    { key: 'top100', title: titles.top100, accent: '#f59e0b', href: `/global/${locale}/top100`, stocks: d.top100 },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <HomeListCard title={titles.top7} accent="#a78bfa" viewAllHref={`/global/${locale}/top7`} stocks={d.top7} locale={locale} loading={loading} />
-      <HomeListCard title={titles.gainers} accent="#22c55e" viewAllHref={`/global/${locale}/gainers`} stocks={d.gainers} locale={locale} loading={loading} />
-      <HomeListCard title={titles.losers} accent="#ef4444" viewAllHref={`/global/${locale}/losers`} stocks={d.losers} locale={locale} loading={loading} />
-      <HomeListCard title={titles.mostActive} accent="#3b82f6" viewAllHref={`/global/${locale}/mostactive`} stocks={d.mostActive} locale={locale} loading={loading} />
-      <HomeListCard title={titles.top100} accent="#f59e0b" viewAllHref={`/global/${locale}/top100`} stocks={d.top100} locale={locale} loading={loading} />
+    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2">
+      {cards.map((c) => (
+        <div key={c.key} className="shrink-0 snap-start w-[85%] sm:w-[55%] md:w-[calc(33.333%-11px)]">
+          <HomeListCard title={c.title} accent={c.accent} viewAllHref={c.href} stocks={c.stocks} locale={locale} loading={loading} />
+        </div>
+      ))}
     </div>
   );
 }

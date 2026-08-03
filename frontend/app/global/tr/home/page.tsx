@@ -1,6 +1,8 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import ThemesBanner from "@/components/global/ThemesBanner";
+import ThemesBanner, { THEMES_BANNER_LABELS } from "@/components/global/ThemesBanner";
+import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
 import HomeMoversGrid from "@/components/global/HomeMoversGrid";
 import HomePersonalWatchlistCard from "@/components/global/HomePersonalWatchlistCard";
@@ -120,9 +122,23 @@ export default async function TrHomePage() {
         <HomeSearchBar locale="tr" />
 
         <div className="-mb-2">
-          <ListsNavigation locale="tr" activePath="home" />
+          <ListsNavigation
+            locale="tr"
+            activePath="home"
+            trailingAction={
+              <Link
+                href={`/global/tr/themes/${HOT_THEMES_2026[0].slug}`}
+                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-[10px] rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
+              >
+                {THEMES_BANNER_LABELS.tr.browseAll}
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            }
+          />
         </div>
-        <ThemesBanner locale="tr" />
+        <ThemesBanner locale="tr" showBrowseAll={false} />
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 mt-2 items-start">
           <div className="min-w-0">
