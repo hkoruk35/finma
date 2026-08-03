@@ -1,8 +1,8 @@
 {
   "date": "2026-08-03",
-  "generated_at": "2026-08-03T09:15:35.963374-04:00",
+  "generated_at": "2026-08-03T14:06:26.046857-04:00",
   "total_tickers_scanned": 500,
-  "active_scores_count": 10,
+  "active_scores_count": 20,
   "market_regime": "STRONG",
   "menus": {
     "top_scores": {
@@ -21,13 +21,15 @@
       ]
     },
     "breakout": {
-      "count": 5,
+      "count": 7,
       "tickers": [
         "SCI",
         "HPQ",
         "CSCO",
         "IMMR",
-        "OOMA"
+        "OOMA",
+        "NWG",
+        "RACE"
       ]
     },
     "value": {
@@ -66,25 +68,20 @@
   ],
   "market_indices": {
     "SP500": {
-      "value": 757.71,
-      "change_pct": 1.43
+      "value": 5200,
+      "change_pct": 0.5
     },
     "NASDAQ": {
-      "value": 700.695,
-      "change_pct": 1.85
+      "value": 16000,
+      "change_pct": 0.8
     },
     "DOW": {
-      "value": 530.2,
-      "change_pct": 1.12
+      "value": 39000,
+      "change_pct": 0.2
     },
     "VIX": {
-      "value": 15.81,
-      "change_pct": -1.13
-    },
-    "RUSSELL2000": {
-      "value": 295.89,
-      "change_pct": 1.61
+      "value": 15.0,
+      "change_pct": -2.0
     }
-  },
-  "price_updated_at": "2026-08-03T14:02:04.851379-04:00"
+  }
 }
