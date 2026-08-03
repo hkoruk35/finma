@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Call movers snapshot endpoint
         run: |
-          curl -sf -X POST "https://bogastock.com/api/internal/movers-snapshot" \
-            -H "x-revalidate-secret: ${{ secrets.REVALIDATE_SECRET }}" \
-            || echo "Movers snapshot call failed (non-fatal)"
+          response=$(curl -s -w "\nHTTP_STATUS=%{http_code}" -X POST "https://bogastock.com/api/internal/movers-snapshot" \
+            -H "x-revalidate-secret: ${{ secrets.REVALIDATE_SECRET }}")
+          echo "$response"
+          status=$(echo "$response" | tail -n1 | sed 's/HTTP_STATUS=//')
+          if [ "$status" != "200" ]; then
+            echo "::error::Movers snapshot call returned HTTP $status"
+            exit 1
+          fi
