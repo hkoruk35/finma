@@ -172,7 +172,13 @@ export default function HomeWatchlistSlot({ locale, defaultStocks, defaultViewAl
     : locale === 'es' ? 'Top 7'
     : locale === 'fr' ? 'Top 7'
     : 'Top 7';
-  const viewAllHref = defaultViewAllHref || `/global/${locale}/top7`;
+  const { plan } = useMemberPlan();
+  const isLoggedIn = plan !== null;
+  const registerUrl = locale === 'tr' ? '/global/tr/kayit' : `/global/${locale}/register`;
+  let viewAllHref = defaultViewAllHref || `/global/${locale}/top7`;
+  if (usePersonal) {
+    viewAllHref = isLoggedIn ? labels.href : registerUrl;
+  }
   const sortLabel = usePersonal ? labels.sortLabel : defaultSortLabel;
   const accent = ACCENT_PERSONAL;
 

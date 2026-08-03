@@ -8,6 +8,8 @@ import { getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
+import SectorsGuard from "@/components/global/SectorsGuard";
+
 export const revalidate = 120;
 
 export const metadata: Metadata = {
@@ -43,6 +45,7 @@ export default async function PtSectorsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
+      <SectorsGuard locale="pt" />
       <MemberHeader locale="pt" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">

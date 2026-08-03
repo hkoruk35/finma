@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { useMemberPlan } from "@/hooks/useMemberPlan";
 
 const TABS = [
   { id: "hot", label: "🔥 2026 Trendleri", accent: "#e3b341" },
@@ -14,11 +16,23 @@ interface Props {
   hot: ReactNode;
   sectors: ReactNode;
   csp: ReactNode;
+  locale?: string;
 }
 
-export default function ThemePageTabs({ hot, sectors, csp }: Props) {
+export default function ThemePageTabs({ hot, sectors, csp, locale = "tr" }: Props) {
   const [active, setActive] = useState<TabId>("hot");
   const sections: Record<TabId, ReactNode> = { hot, sectors, csp };
+  const { tier } = useMemberPlan();
+  const router = useRouter();
+  const registerUrl = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
+
+  const handleTabClick = (tabId: TabId) => {
+    if (tabId === "sectors" && tier === "anonymous") {
+      router.push(registerUrl);
+      return;
+    }
+    setActive(tabId);
+  };
 
   return (
     <div>
@@ -28,7 +42,7 @@ export default function ThemePageTabs({ hot, sectors, csp }: Props) {
           return (
             <button
               key={tab.id}
-              onClick={() => setActive(tab.id)}
+              onClick={() => handleTabClick(tab.id)}
               className="px-4 py-2 text-[11px] font-medium uppercase whitespace-nowrap rounded-lg border transition-all"
               style={
                 isActive

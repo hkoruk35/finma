@@ -38,7 +38,8 @@ export default function MemberHeader({ locale }: { locale: Locale }) {
   const homeHref = `/global/${locale}/home`;
   const accountHref = locale === "tr" ? "/global/tr/hesabim" : locale === "es" ? "/global/es/account" : locale === "fr" ? "/global/fr/account" : locale === "pt" ? "/global/pt/account" : "/global/en/account";
   const loginHref = locale === "tr" ? "/global/tr/giris" : locale === "es" ? "/global/es/login" : locale === "fr" ? "/global/fr/login" : locale === "pt" ? "/global/pt/login" : "/global/en/login";
-  const terminalHref = `/global/${locale}`;
+  const registerHref = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
+  const terminalHref = (authChecked && !isLoggedIn) ? registerHref : `/global/${locale}`;
   const terminalTooltip = locale === "tr" ? "TERMİNAL sayfasını aç" : locale === "es" ? "Abrir la página TERMINAL" : locale === "fr" ? "Ouvrir la page TERMINAL" : locale === "pt" ? "Abrir a página TERMINAL" : "Open the TERMINAL page";
 
   const handleLogout = async () => {

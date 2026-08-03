@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useCallback, Fragment } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { copy, type Locale } from "@/lib/i18n/copy";
 import { translateEMAStatus, translatePattern, translateSector } from "@/lib/translationHelpers";
 import TickerDetailPanel from "@/components/public/TickerDetailPanel";
@@ -112,6 +113,15 @@ export default function CustomWatchlistTracker({ locale }: { locale: Locale }) {
   const t = copy[locale].watchlist; // Fallback or we can add custom copy
   const { plan, isPremium, loading: planLoading } = useMemberPlan();
   const isLoggedIn = plan !== null;
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!planLoading && !isLoggedIn) {
+      const regUrl = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
+      router.push(regUrl);
+    }
+  }, [planLoading, isLoggedIn, locale, router]);
+
   // Anonim: 5 (localStorage) — free (giriş yapmış, premium değil): 10 —
   // premium/admin: 50. Sunucu tarafı sınır (/api/watchlist/custom) aynı
   // kuralı ayrıca uyguluyor (bkz. Faz 3 plan matrisi).

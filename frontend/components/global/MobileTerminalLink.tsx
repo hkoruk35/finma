@@ -23,6 +23,9 @@ export default function MobileTerminalLink({ locale, targetHref, children, class
   }, []);
 
   const handleClick = (e: React.MouseEvent) => {
+    if (targetHref.includes('/kayit') || targetHref.includes('/register')) {
+      return;
+    }
     const isMobile = typeof window !== 'undefined' && (window.innerWidth <= 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent));
     if (isMobile) {
       e.preventDefault();
