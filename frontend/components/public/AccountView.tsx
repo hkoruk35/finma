@@ -76,13 +76,24 @@ function AccountViewInner({ locale, isGlobal = false }: { locale: Locale; isGlob
       .then((data) => setMember(data.member))
       .catch(() => {});
 
+  const registerHref = isGlobal
+    ? (locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`)
+    : (locale === "tr" ? "/tr/kayit" : `/global/${locale}/register`);
+
   useEffect(() => {
     fetch("/api/members/me")
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => setMember(data.member))
-      .catch(() => router.push(loginHref))
+      .catch(() => {
+        const tab = searchParams.get("tab");
+        if (tab === "subscription") {
+          router.push(registerHref);
+        } else {
+          router.push(loginHref);
+        }
+      })
       .finally(() => setLoading(false));
-  }, [router, loginHref]);
+  }, [router, loginHref, registerHref, searchParams]);
 
   const handleLogout = async () => {
     await fetch("/api/members/logout", { method: "POST" }).catch(() => {});
