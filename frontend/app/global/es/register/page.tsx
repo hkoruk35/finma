@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import RegisterForm from "@/components/public/RegisterForm";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GlobalEsRegisterPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#010409]">
-      <Header hideMenus={true} globalLocale="es" />
+      <MemberHeader locale="es" />
       <main className="flex-1">
         <RegisterForm locale="es" />
       </main>

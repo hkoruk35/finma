@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import LoginForm from "@/components/public/LoginForm";
-import Header from "@/components/Header";
+import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function GlobalEnLoginPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <Header hideMenus={true} globalLocale="en" />
+      <MemberHeader locale="en" />
       <main className="flex-1 flex flex-col">
         <LoginForm
           locale="en"

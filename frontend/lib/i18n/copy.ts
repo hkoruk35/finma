@@ -26,7 +26,7 @@ export const copy = {
     },
     login: {
       title: "Log in",
-      subtitle: "BOGASTOCK Member Access",
+      subtitle: "Free Member Access",
       emailLabel: "EMAIL",
       emailPlaceholder: "Your email address",
       passwordLabel: "PASSWORD",
@@ -288,7 +288,7 @@ export const copy = {
     },
     login: {
       title: "Giriş yap",
-      subtitle: "BogaSmart Üye Girişi",
+      subtitle: "Ücretsiz Üye Girişi",
       emailLabel: "E-POSTA",
       emailPlaceholder: "E-posta adresiniz",
       passwordLabel: "ŞİFRE",
@@ -550,7 +550,7 @@ export const copy = {
     },
     login: {
       title: "Iniciar sesión",
-      subtitle: "Acceso de Miembro BOGASTOCK",
+      subtitle: "Acceso de Miembro Gratuito",
       emailLabel: "CORREO ELECTRÓNICO",
       emailPlaceholder: "Tu dirección de correo",
       passwordLabel: "CONTRASEÑA",
@@ -812,7 +812,7 @@ export const copy = {
     },
     login: {
       title: "Se connecter",
-      subtitle: "Accès Membre BogaSmart",
+      subtitle: "Accès Membre Gratuit",
       emailLabel: "ADRESSE E-MAIL",
       emailPlaceholder: "Votre adresse e-mail",
       passwordLabel: "MOT DE PASSE",
@@ -1074,7 +1074,7 @@ export const copy = {
     },
     login: {
       title: "Entrar",
-      subtitle: "Acesso de Membro BOGASTOCK",
+      subtitle: "Acesso de Membro Gratuito",
       emailLabel: "E-MAIL",
       emailPlaceholder: "Seu endereço de e-mail",
       passwordLabel: "SENHA",
