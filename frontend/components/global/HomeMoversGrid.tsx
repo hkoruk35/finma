@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import type { Locale } from '@/lib/i18n/copy';
+import { useMemberPlan } from '@/hooks/useMemberPlan';
 import HomeListCard, { type HomeListStock } from './HomeListCard';
+import TrendPicksSlot from './TrendPicksSlot';
+import TrendCandidatesSlot from './TrendCandidatesSlot';
 
 interface MoversResponse {
   top7: HomeListStock[];
@@ -22,15 +25,25 @@ function getTitles(locale: Locale) {
   return { top7: 'Top 7', gainers: 'Top Gainers', losers: 'Top Losers', mostActive: 'Most Active', top100: 'Top 100' };
 }
 
+const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[55%] md:w-[calc(33.333%-11px)]';
+
 /**
  * Top7/Top100/Gainers/Losers/MostActive kartlarının tek veri kaynağı
- * /api/home-movers'tır (tier-farkındalı maskeleme orada, per-request
- * yapılır — bkz. o route'un yorumu). Bu yüzden bu bileşen client-side
- * kendi fetch'ini yapar; home/page.tsx'in ISR'lı sunucu bileşeninden
- * veri almaz.
+ * /api/home-movers'tır. Ticker kimliği artık maskelenmiyor (herkes gerçek
+ * ticker görür) — kısıtlama sadece satıra TIKLAYIP /graphic'e geçişte:
+ * anonim ziyaretçi (useMemberPlan().tier === "anonymous") için tıklama
+ * kayıt sayfasına yönlendirilir (requireAuthToOpen, bkz. HomeListCard.tsx).
+ * Top7 bu kısıtlamadan muaf — sabit/herkese açık (Magnificent 7).
+ *
+ * Trend Hisseleri (TrendPicksSlot) ve Trend Adayları (TrendCandidatesSlot)
+ * kendi premium-kilit kurallarını (isTrendPickTierUnlocked ile aynı ilke)
+ * koruyor — bu İKİ liste hâlâ ilk satır hariç PREMIUM gerektiriyor, farklı
+ * ve daha sıkı bir kural, Top100 ailesininkiyle karıştırılmadı.
  */
 export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const [data, setData] = useState<MoversResponse | null>(null);
+  const { tier } = useMemberPlan();
+  const requireAuthToOpen = tier === 'anonymous';
   const titles = getTitles(locale);
 
   useEffect(() => {
@@ -46,18 +59,32 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const d = data ?? EMPTY;
 
   const cards = [
-    { key: 'top7', title: titles.top7, accent: '#a78bfa', href: `/global/${locale}/top7`, stocks: d.top7 },
-    { key: 'gainers', title: titles.gainers, accent: '#22c55e', href: `/global/${locale}/gainers`, stocks: d.gainers },
-    { key: 'losers', title: titles.losers, accent: '#ef4444', href: `/global/${locale}/losers`, stocks: d.losers },
-    { key: 'mostActive', title: titles.mostActive, accent: '#3b82f6', href: `/global/${locale}/mostactive`, stocks: d.mostActive },
-    { key: 'top100', title: titles.top100, accent: '#f59e0b', href: `/global/${locale}/top100`, stocks: d.top100 },
+    { key: 'top7', title: titles.top7, accent: '#a78bfa', href: `/global/${locale}/top7`, stocks: d.top7, gated: false },
+    { key: 'gainers', title: titles.gainers, accent: '#22c55e', href: `/global/${locale}/gainers`, stocks: d.gainers, gated: requireAuthToOpen },
+    { key: 'losers', title: titles.losers, accent: '#ef4444', href: `/global/${locale}/losers`, stocks: d.losers, gated: requireAuthToOpen },
+    { key: 'mostActive', title: titles.mostActive, accent: '#3b82f6', href: `/global/${locale}/mostactive`, stocks: d.mostActive, gated: requireAuthToOpen },
+    { key: 'top100', title: titles.top100, accent: '#f59e0b', href: `/global/${locale}/top100`, stocks: d.top100, gated: requireAuthToOpen },
   ];
 
   return (
     <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2">
+      <div className={CARD_WIDTH}>
+        <TrendPicksSlot locale={locale} compactMode />
+      </div>
+      <div className={CARD_WIDTH}>
+        <TrendCandidatesSlot locale={locale} compactMode />
+      </div>
       {cards.map((c) => (
-        <div key={c.key} className="shrink-0 snap-start w-[85%] sm:w-[55%] md:w-[calc(33.333%-11px)]">
-          <HomeListCard title={c.title} accent={c.accent} viewAllHref={c.href} stocks={c.stocks} locale={locale} loading={loading} />
+        <div key={c.key} className={CARD_WIDTH}>
+          <HomeListCard
+            title={c.title}
+            accent={c.accent}
+            viewAllHref={c.href}
+            stocks={c.stocks}
+            locale={locale}
+            loading={loading}
+            requireAuthToOpen={c.gated}
+          />
         </div>
       ))}
     </div>

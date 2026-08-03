@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import ListsNavigation from "@/components/global/ListsNavigation";
-import ThemesBanner from "@/components/global/ThemesBanner";
 import { HOT_THEMES_2026 } from "@/lib/hotThemes2026";
 import { THEMES_BANNER_LABELS } from "@/lib/themesBannerLabels";
 import MarketOverviewTabs, { type MarketGroup, type MarketQuoteItem } from "@/components/global/MarketOverviewTabs";
@@ -139,7 +138,6 @@ export default async function EnHomePage() {
             }
           />
         </div>
-        <ThemesBanner locale="en" showBrowseAll={false} />
 
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 mt-2 items-start">
           <div className="min-w-0">

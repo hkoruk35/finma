@@ -23,11 +23,11 @@ const REGISTER_PATH: Record<Locale, string> = {
 };
 
 function getLabels(locale: Locale) {
-  if (locale === 'tr') return { all: 'TÜMÜ', stock: 'HİSSE / SEKTÖR', price: 'FİYAT', empty: 'Veri bulunmamaktadır', signIn: 'Görmek için giriş yapın' };
-  if (locale === 'pt') return { all: 'TODOS', stock: 'AÇÃO / SETOR', price: 'PREÇO', empty: 'Nenhum dado disponível', signIn: 'Entre para ver' };
-  if (locale === 'es') return { all: 'TODO', stock: 'ACCIÓN / SECTOR', price: 'PRECIO', empty: 'No hay datos disponibles', signIn: 'Inicia sesión para ver' };
-  if (locale === 'fr') return { all: 'TOUT', stock: 'ACTION / SECTEUR', price: 'PRIX', empty: 'Aucune donnée disponible', signIn: 'Connectez-vous pour voir' };
-  return { all: 'ALL', stock: 'STOCK / SECTOR', price: 'PRICE', empty: 'No data available', signIn: 'Sign in to reveal' };
+  if (locale === 'tr') return { all: 'TÜMÜ', stock: 'HİSSE / SEKTÖR', price: 'FİYAT', empty: 'Veri bulunmamaktadır' };
+  if (locale === 'pt') return { all: 'TODOS', stock: 'AÇÃO / SETOR', price: 'PREÇO', empty: 'Nenhum dado disponível' };
+  if (locale === 'es') return { all: 'TODO', stock: 'ACCIÓN / SECTOR', price: 'PRECIO', empty: 'No hay datos disponibles' };
+  if (locale === 'fr') return { all: 'TOUT', stock: 'ACTION / SECTEUR', price: 'PRIX', empty: 'Aucune donnée disponible' };
+  return { all: 'ALL', stock: 'STOCK / SECTOR', price: 'PRICE', empty: 'No data available' };
 }
 
 interface Props {
@@ -37,9 +37,11 @@ interface Props {
   stocks: HomeListStock[];
   locale: Locale;
   loading?: boolean;
+  /** Ticker kimliği her zaman görünür — true iken satıra tıklamak /graphic yerine kayıt sayfasına yönlendirir (anonim ziyaretçi için). */
+  requireAuthToOpen?: boolean;
 }
 
-export default function HomeListCard({ title, accent, viewAllHref, stocks, locale, loading }: Props) {
+export default function HomeListCard({ title, accent, viewAllHref, stocks, locale, loading, requireAuthToOpen }: Props) {
   const router = useRouter();
   const labels = getLabels(locale);
   const sectorNames = (copy[locale]?.top100?.sectors ?? {}) as Record<string, string>;
@@ -74,13 +76,12 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
           </div>
           <div className="flex-1 min-h-0 divide-y divide-[#1e2a3a]/70">
             {stocks.map((stock, idx) => {
-              const locked = stock.ticker.startsWith('LOCKED-');
               return (
                 <div
                   key={stock.ticker + idx}
                   className="grid grid-cols-[1fr_40px_60px] gap-2 items-center px-3 py-2 transition-colors duration-150 hover:bg-white/[0.03] cursor-pointer"
                   onClick={() =>
-                    locked
+                    requireAuthToOpen
                       ? router.push(`/global/${locale}/${REGISTER_PATH[locale]}`)
                       : router.push(`/global/${locale}/graphic/${stock.ticker}`)
                   }
@@ -88,17 +89,8 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                     <div className="min-w-0 flex-1">
-                      {locked ? (
-                        <div className="text-[11px] font-medium text-[#f59e0b] truncate flex items-center gap-1">
-                          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/></svg>
-                          <span className="truncate">{labels.signIn}</span>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="text-[13px] font-medium text-white truncate">{stock.ticker}</div>
-                          <div className="text-[11px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
-                        </>
-                      )}
+                      <div className="text-[13px] font-medium text-white truncate">{stock.ticker}</div>
+                      <div className="text-[11px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                     </div>
                   </div>
 
