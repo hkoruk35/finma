@@ -57,35 +57,52 @@ function fmtVol(n: number): string {
 export default function TickerDetailPanel({ ticker, locale, fullPage, hideChart, hidePermalink, lockTradePlanCard, unlockRationale }: { ticker: string; locale: Locale; fullPage?: boolean; hideChart?: boolean; hidePermalink?: boolean; lockTradePlanCard?: boolean; unlockRationale?: boolean }) {
   const t = copy[locale].top100.detail;
   const router = useRouter();
-  const { isPremium } = useMemberPlan();
+  const { isPremium, plan } = useMemberPlan();
+  const isLoggedIn = plan !== null;
 
   const effectiveIsPremium = isPremium || isPublicTeaserTicker(ticker);
+
+  const accountHref =
+    locale === "tr"
+      ? "/global/tr/hesabim?tab=subscription"
+      : locale === "es"
+        ? "/global/es/account?tab=subscription"
+        : locale === "fr"
+          ? "/global/fr/account?tab=subscription"
+          : locale === "pt"
+            ? "/global/pt/account?tab=subscription"
+            : "/global/en/account?tab=subscription";
+
+  const targetUpgradeHref = isLoggedIn ? accountHref : registerHref(locale);
 
   // "lockTradePlanCard" SADECE Trade Plan kartını kilitler — Technical
   // Indicators + Market Data her zaman açık (bkz. Faz 0B: gerçek paylı
   // veri zaten sunucu tarafında /api/preorder-analysis'te maskeleniyor,
-  // burası sadece görüntü tarafı). Daha önce burada "lockTradePlan" adında,
-  // hiçbir çağıranın geçmediği (grep ile doğrulandı) ölü bir prop/dal vardı
-  // — Faz 5'te temizlendi.
+  // burası sadece görüntü tarafı).
   const tradePlanLocked = !!lockTradePlanCard && !effectiveIsPremium;
   // "İşlem Kurgusu Gerekçesi" (Rationale) karti Trade Plan'dan bagimsiz
-  // kilitlenir: caller "unlockRationale" gecerse (Gosterge Paneli, sadece sol
-  // menu + varsayilan 7 watchlist hissesi icin true gecer) premium olmayan
+  // kilitlenir: caller "unlockRationale" gecerse premium olmayan
   // ziyaretci de gorur — diger her ticker icin (arama vb.) kilitli kalir.
   const rationaleLocked = !!lockTradePlanCard && !effectiveIsPremium && !unlockRationale;
-  const goToRegister = () => router.push(registerHref(locale));
+  const goToUpgrade = () => router.push(targetUpgradeHref);
 
   const LockPrompt = ({ message }: { message: string }) => (
     <button
       type="button"
-      onClick={goToRegister}
-      className="w-full flex flex-col items-center justify-center gap-2 border border-amber-500/40 bg-amber-500/10 rounded-md py-7 px-3 text-center hover:bg-amber-500/20 transition-colors"
+      onClick={goToUpgrade}
+      className="w-full flex flex-col items-center justify-center gap-2 border border-amber-500/40 bg-amber-500/10 rounded-xl py-6 px-4 text-center hover:bg-amber-500/20 transition-all cursor-pointer shadow-md"
     >
-      <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="currentColor" className="text-amber-400">
         <path d="M11.5 1A3.5 3.5 0 0 0 8 4.5V6H3a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H9.5V4.5A2 2 0 0 1 11.5 2.5h.5v-1h-.5zM8 9a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
       </svg>
-      <span className="text-[11px] font-medium tracking-wider text-amber-400 uppercase">{t.premiumLocked}</span>
-      <span className="text-[11px] text-white/50 max-w-[180px] leading-snug">{message}</span>
+      <span className="text-xs font-bold tracking-wider text-amber-400 uppercase">
+        {isLoggedIn ? (locale === "tr" ? "PREMİUM PLANA YÜKSELTİN" : "UPGRADE TO PREMIUM") : t.premiumLocked}
+      </span>
+      <span className="text-[11px] font-medium text-slate-300 max-w-[220px] leading-snug">
+        {isLoggedIn
+          ? (locale === "tr" ? "Giriş, stop, hedef ve risk/getiri oranını görmek için Premium Plana Yükseltin" : "Upgrade to Premium to unlock entry, stop & targets")
+          : message}
+      </span>
     </button>
   );
   const [data, setData] = useState<PreorderAnalysis | null>(null);
