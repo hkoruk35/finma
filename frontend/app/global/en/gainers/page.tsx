@@ -27,7 +27,7 @@ export default function EnGainersPage() {
 
         <ListsNavigation locale="en" activePath="gainers" />
 
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10">
           <MoverPageTracker mode="gainers" locale="en" />
         </div>
       </main>

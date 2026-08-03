@@ -25,7 +25,7 @@ function getTitles(locale: Locale) {
   return { top7: 'Top 7', gainers: 'Top Gainers', losers: 'Top Losers', mostActive: 'Most Active', top100: 'Top 100' };
 }
 
-const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[55%] md:w-[calc(33.333%-11px)]';
+const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[320px]';
 
 /**
  * Top7/Top100/Gainers/Losers/MostActive kartlarının tek veri kaynağı
@@ -35,10 +35,13 @@ const CARD_WIDTH = 'shrink-0 snap-start w-[85%] sm:w-[55%] md:w-[calc(33.333%-11
  * kayıt sayfasına yönlendirilir (requireAuthToOpen, bkz. HomeListCard.tsx).
  * Top7 bu kısıtlamadan muaf — sabit/herkese açık (Magnificent 7).
  *
- * Trend Hisseleri (TrendPicksSlot) ve Trend Adayları (TrendCandidatesSlot)
- * kendi premium-kilit kurallarını (isTrendPickTierUnlocked ile aynı ilke)
- * koruyor — bu İKİ liste hâlâ ilk satır hariç PREMIUM gerektiriyor, farklı
- * ve daha sıkı bir kural, Top100 ailesininkiyle karıştırılmadı.
+ * Sıra (2026-08-03 kullanıcı talebiyle sabitlendi): Top7 → Gainers → Losers
+ * → MostActive → Top100 → Trend Hisseleri (TrendPicksSlot, "Trending
+ * Stocks") → Trend Adayları (TrendCandidatesSlot). Trend Hisseleri kasıtlı
+ * olarak PREMIUM kalan tek liste; Trend Adayları kendi mevcut
+ * premium-kilit kuralını (isTrendPickTierUnlocked ile aynı ilke) koruyor —
+ * kullanıcının talebi bu ikisini adlandırmadığı için davranışları
+ * değiştirilmedi, sadece sona eklendi.
  */
 export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   const [data, setData] = useState<MoversResponse | null>(null);
@@ -67,13 +70,10 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
   ];
 
   return (
-    <div className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2">
-      <div className={CARD_WIDTH}>
-        <TrendPicksSlot locale={locale} compactMode />
-      </div>
-      <div className={CARD_WIDTH}>
-        <TrendCandidatesSlot locale={locale} compactMode />
-      </div>
+    <div
+      className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2"
+      onWheel={(e) => { if (e.deltaY !== 0) e.currentTarget.scrollLeft += e.deltaY; }}
+    >
       {cards.map((c) => (
         <div key={c.key} className={CARD_WIDTH}>
           <HomeListCard
@@ -87,6 +87,12 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
           />
         </div>
       ))}
+      <div className={CARD_WIDTH}>
+        <TrendPicksSlot locale={locale} compactMode />
+      </div>
+      <div className={CARD_WIDTH}>
+        <TrendCandidatesSlot locale={locale} compactMode />
+      </div>
     </div>
   );
 }

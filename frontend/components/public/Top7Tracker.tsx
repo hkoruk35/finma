@@ -129,7 +129,25 @@ const SIGNAL_RANK: Record<string, number> = { STRONG: 4, WATCH: 3, HOLD: 2, WEAK
 const SIGNAL_LABEL_TR: Record<string, string> = { STRONG: "Güçlü", WATCH: "İzle", HOLD: "Bekle", WEAK: "Zayıf" };
 const signalLabel = (s: string, locale: string) => (locale === "tr" ? SIGNAL_LABEL_TR[s] ?? s : s);
 
-export default function Top7Tracker({ locale }: { locale: Locale }) {
+export type TrackerMode = "top7" | "gainers" | "losers" | "mostActive";
+
+const MODE_TITLES: Record<Exclude<TrackerMode, "top7">, Record<Locale, string>> = {
+  gainers: { tr: "EN ÇOK ARTANLAR", en: "TOP GAINERS", es: "MAYORES ALZAS", fr: "PLUS FORTES HAUSSES", pt: "MAIORES ALTAS" },
+  losers: { tr: "EN ÇOK DÜŞENLER", en: "TOP LOSERS", es: "MAYORES BAJAS", fr: "PLUS FORTES BAISSES", pt: "MAIORES BAIXAS" },
+  mostActive: { tr: "EN ÇOK İŞLEM GÖRENLER", en: "MOST ACTIVE", es: "MÁS NEGOCIADAS", fr: "PLUS ÉCHANGÉES", pt: "MAIS NEGOCIADAS" },
+};
+
+const trackerTitle = (mode: TrackerMode, locale: Locale) => (mode === "top7" ? "TOP 7" : MODE_TITLES[mode][locale]);
+
+/**
+ * mode="top7" (varsayılan) sabit Magnificent-7 listesini kullanır — davranış
+ * değişmedi. mode="gainers"|"losers"|"mostActive" için ticker kimliği
+ * /api/home-movers'tan (home sayfasıyla paylaşılan aynı tier-farkındalı
+ * sıralama) gelir; tablo/sıralama/hover-chart/heatmap mantığının tamamı
+ * ortak. /global/{locale}/gainers|losers|mostactive sayfaları bu bileşeni
+ * MoverPageTracker.tsx üzerinden kullanır.
+ */
+export default function Top7Tracker({ locale, mode = "top7" }: { locale: Locale; mode?: TrackerMode }) {
   const t = copy[locale].watchlist;
   const { isPremium } = useMemberPlan();
   const [showPremiumModal, setShowPremiumModal] = useState(false);
@@ -154,8 +172,19 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
-      const TOP7_TICKERS = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
-      const rows: WatchlistRow[] = TOP7_TICKERS.map((ticker) => ({
+      let tickerList: string[];
+      const sectorByTicker: Record<string, string> = {};
+      if (mode === "top7") {
+        tickerList = ["AAPL", "GOOG", "MSFT", "AMZN", "NVDA", "META", "TSLA"];
+      } else {
+        const moversRes = await fetch(`/api/home-movers?limit=10`, { cache: "no-store" });
+        const moversData = moversRes.ok ? await moversRes.json() : null;
+        const list: { ticker: string; sector: string }[] = moversData?.[mode] ?? [];
+        tickerList = list.map((x) => x.ticker);
+        list.forEach((x) => { sectorByTicker[x.ticker] = x.sector; });
+      }
+
+      const rows: WatchlistRow[] = tickerList.map((ticker) => ({
         ticker,
         company: ticker,
         price: 0,
@@ -163,7 +192,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
         rsi: 0,
         signal: "WATCH",
         volume: 0,
-        sector: "Unknown",
+        sector: sectorByTicker[ticker] ?? "Unknown",
         dateAdded: new Date().toISOString(),
         score: 0,
       }));
@@ -187,7 +216,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
     } finally {
       setLoading(false);
     }
-  }, [t.error]);
+  }, [t.error, mode]);
 
   useEffect(() => {
     fetchAll();
@@ -281,7 +310,7 @@ export default function Top7Tracker({ locale }: { locale: Locale }) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
         <div>
           <h2 className="text-xl sm:text-2xl font-medium tracking-tight text-white flex items-center gap-2">
-            TOP 7
+            {trackerTitle(mode, locale)}
           </h2>
             <div style={{ fontSize: 12, color: "#8b949e", marginTop: 3, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {lastUpdated && <span>{locale === "tr" ? "son güncelleme" : locale === "pt" ? "última atualização" : "last update"}: {lastUpdated.toLocaleTimeString(locale === "tr" ? "tr-TR" : "en-US", { hour: "2-digit", minute: "2-digit" })}</span>}

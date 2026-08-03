@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import type { Locale } from '@/lib/i18n/copy';
 import { copy } from '@/lib/i18n/copy';
 import Sparkline from './Sparkline';
+import TickerHoverChart from '../TickerHoverChart';
 
 export interface HomeListStock {
   ticker: string;
@@ -89,7 +90,9 @@ export default function HomeListCard({ title, accent, viewAllHref, stocks, local
                   <div className="flex items-center gap-2 min-w-0">
                     <span className="text-[10px] font-mono font-medium text-slate-500 w-3 shrink-0">{idx + 1}</span>
                     <div className="min-w-0 flex-1">
-                      <div className="text-[13px] font-medium text-white truncate">{stock.ticker}</div>
+                      <TickerHoverChart ticker={stock.ticker} locale={locale}>
+                        <div className="text-[13px] font-medium text-white truncate">{stock.ticker}</div>
+                      </TickerHoverChart>
                       <div className="text-[11px] text-slate-500 truncate">{sectorNames[stock.sector] ?? stock.sector}</div>
                     </div>
                   </div>

@@ -27,7 +27,7 @@ export default function PtGainersPage() {
 
         <ListsNavigation locale="pt" activePath="gainers" />
 
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10">
           <MoverPageTracker mode="gainers" locale="pt" />
         </div>
       </main>

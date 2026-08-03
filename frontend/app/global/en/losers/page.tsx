@@ -27,7 +27,7 @@ export default function EnLosersPage() {
 
         <ListsNavigation locale="en" activePath="losers" />
 
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10">
           <MoverPageTracker mode="losers" locale="en" />
         </div>
       </main>

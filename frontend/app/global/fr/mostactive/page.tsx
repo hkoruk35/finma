@@ -27,7 +27,7 @@ export default function FrMostActivePage() {
 
         <ListsNavigation locale="fr" activePath="mostactive" />
 
-        <div className="relative z-10 max-w-2xl">
+        <div className="relative z-10">
           <MoverPageTracker mode="mostActive" locale="fr" />
         </div>
       </main>
