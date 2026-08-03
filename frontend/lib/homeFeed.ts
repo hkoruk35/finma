@@ -341,12 +341,76 @@ export async function getMultiQuote(tickers: string[]): Promise<Record<string, {
   }
 }
 
-// Not: Top100/gainers/losers/most-active türetmeleri BURADA yok — top100
-// ticker kimliği anonim ziyaretçiden maskelenmesi gereken veri (bkz.
-// app/api/top100/route.ts, docs/AI_BEHAVIOR.md Rule 3). Bu dosyadaki
+// Top100 ticker kimliği anonim ziyaretçiden maskelenmesi gereken veri (bkz.
+// app/api/top100/route.ts, docs/AI_BEHAVIOR.md Rule 3). Bu dosyadaki diğer
 // fonksiyonlar ISR'lı (revalidate=120, tüm ziyaretçiler için ortak cache)
 // home sayfasından çağrılıyor — cookie/tier-farkındalı maskeleme burada
-// YAPILAMAZ (yapılırsa sayfa per-request dynamic'e döner). Bu yüzden
-// Top100/Gainers/Losers/MostActive kartları /api/home-movers'ı (tier'ı
-// per-request çözen, maskTop100Ticker kullanan) client-side çağırır —
-// bkz. HomeMoversGrid.tsx.
+// YAPILAMAZ (yapılırsa sayfa istemeden per-request dynamic'e döner ya da
+// bir ziyaretçinin tier'ıyla render edilmiş HTML başkasına servis edilir).
+//
+// Bu yüzden aşağıdaki iki fonksiyon SADECE saf sıralama/türetmedir — Supabase/
+// cookie okuma YAPMAZ, zaten çekilmiş veriyi alıp sıralar. Maskeleme onları
+// ÇAĞIRAN taraf (bir API route, her zaman per-request) sorumluluğunda:
+//   - /api/home-movers (public, tier'a göre maskTop100Ticker uygular)
+//   - /api/internal/movers-snapshot (bot-only, maskesiz arşive yazar)
+// İki ayrı sıralama kopyası yerine tek kaynak — bkz. docs/AI_BEHAVIOR.md
+// Rule 3 cross-cutting principle.
+export interface RawMoverRow {
+  ticker: string;
+  company: string | null;
+  sector: string;
+  price: number;
+  change_pct: number;
+  /** Sadece tracker_1h.change_pct_1d mevcutsa dolu — gainers/losers sıralaması bunu kullanır. */
+  preciseChange?: number;
+  volume: number;
+  sparkline: number[];
+}
+
+export function buildTop100MoverRows(
+  tickers: { ticker: string; company?: string | null; sector?: string | null }[],
+  snapshots: { ticker: string; price?: number | null; change_pct?: number | null; volume?: number | null }[],
+  live: Record<string, any>
+): RawMoverRow[] {
+  const snapshotByTicker = new Map(snapshots.map((s) => [s.ticker, s]));
+  return tickers
+    .map((t) => {
+      const l = live[t.ticker];
+      const s = snapshotByTicker.get(t.ticker);
+      const preciseChange: number | undefined = l?.tracker_1h?.change_pct_1d;
+      return {
+        ticker: t.ticker,
+        company: t.company ?? null,
+        sector: (l?.sector && l.sector !== "Unknown" ? l.sector : t.sector) || "—",
+        price: l?.price?.current ?? s?.price ?? 0,
+        change_pct: preciseChange ?? s?.change_pct ?? 0,
+        preciseChange,
+        volume: l?.price?.volume ?? s?.volume ?? 0,
+        sparkline: l?.recent_closes ?? [],
+      } as RawMoverRow;
+    })
+    .filter((r) => r.price > 0);
+}
+
+export interface Top100MoverSlices {
+  top100: RawMoverRow[];
+  gainers: RawMoverRow[];
+  losers: RawMoverRow[];
+  mostActive: RawMoverRow[];
+}
+
+export function rankTop100Movers(rows: RawMoverRow[], limit: number): Top100MoverSlices {
+  const top100 = [...rows].sort((a, b) => b.volume - a.volume).slice(0, limit);
+
+  // Gainers/losers sadece gerçek tracker_1h verisi olan satırlardan türetilir
+  // (GlobalLandingPage.tsx'in client-side eşdeğeriyle aynı filtre) — aksi
+  // halde canlı veri eksik satırlar 0% olarak sıralamaya sızar.
+  const byGainDesc = rows
+    .filter((r) => r.preciseChange != null)
+    .sort((a, b) => (b.preciseChange as number) - (a.preciseChange as number));
+  const gainers = byGainDesc.slice(0, limit);
+  const losers = byGainDesc.slice(-limit).reverse();
+  const mostActive = [...rows].sort((a, b) => b.volume - a.volume).slice(0, limit);
+
+  return { top100, gainers, losers, mostActive };
+}

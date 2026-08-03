@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import { getMemberAccess, resolveMemberTierFromAccess } from "@/lib/apiAuth";
 import { maskTop100Ticker } from "@/lib/publicTeaserTickers";
-import { fetchLiveQuotes, MAGNIFICENT_7 } from "@/lib/homeFeed";
+import { fetchLiveQuotes, MAGNIFICENT_7, buildTop100MoverRows, rankTop100Movers, type RawMoverRow } from "@/lib/homeFeed";
 
 export const runtime = "nodejs";
 
@@ -24,6 +24,10 @@ interface MoverRow {
  * doğrudan yapamaz, aksi halde sayfa istemeden dynamic'e döner ya da daha
  * kötüsü bir ziyaretçinin tier'ıyla render edilmiş HTML başka bir
  * ziyaretçiye servis edilir.
+ *
+ * Sıralama mantığı lib/homeFeed.ts'teki buildTop100MoverRows/rankTop100Movers'ta
+ * yaşıyor — /api/internal/movers-snapshot (günlük arşiv yazıcı) da AYNI
+ * fonksiyonları çağırır, ikinci bir kopya yok.
  */
 export async function GET(req: NextRequest) {
   const limit = Math.min(Math.max(Number(req.nextUrl.searchParams.get("limit")) || 7, 1), 20);
@@ -58,49 +62,23 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const snapshotByTicker = new Map((snapshotRows ?? []).map((s) => [s.ticker, s]));
   const live = await fetchLiveQuotes(tickers.map((t) => t.ticker));
+  const rows = buildTop100MoverRows(tickers, snapshotRows ?? [], live);
+  const { top100, gainers, losers, mostActive } = rankTop100Movers(rows, limit);
 
-  const rows = tickers
-    .map((t, idx) => {
-      const l = live[t.ticker];
-      const s = snapshotByTicker.get(t.ticker);
-      const masked = maskTop100Ticker({ ticker: t.ticker, company: t.company }, idx, tier);
-      const preciseChange: number | undefined = l?.tracker_1h?.change_pct_1d;
-      return {
-        ticker: masked.ticker,
-        sector: (l?.sector && l.sector !== "Unknown" ? l.sector : t.sector) || "—",
-        price: l?.price?.current ?? s?.price ?? 0,
-        change_pct: preciseChange ?? s?.change_pct ?? 0,
-        preciseChange,
-        volume: l?.price?.volume ?? s?.volume ?? 0,
-        sparkline: l?.recent_closes ?? [],
-      };
-    })
-    .filter((r) => r.price > 0);
-
-  const top100 = [...rows].sort((a, b) => b.volume - a.volume).slice(0, limit);
-
-  // Gainers/losers sadece gerçek tracker_1h verisi olan satırlardan türetilir
-  // (GlobalLandingPage.tsx'in client-side eşdeğeriyle aynı filtre) — aksi
-  // halde canlı veri eksik satırlar 0% olarak sıralamaya sızar.
-  const byGainDesc = rows
-    .filter((r) => r.preciseChange != null)
-    .sort((a, b) => (b.preciseChange as number) - (a.preciseChange as number));
-  const gainers = byGainDesc.slice(0, limit);
-  const losers = byGainDesc.slice(-limit).reverse();
-  const mostActive = [...rows].sort((a, b) => b.volume - a.volume).slice(0, limit);
-
-  const strip = (arr: typeof rows): MoverRow[] =>
-    arr.map(({ ticker, sector, price, change_pct, sparkline }) => ({ ticker, sector, price, change_pct, sparkline }));
+  const maskAndStrip = (arr: RawMoverRow[]): MoverRow[] =>
+    arr.map((r, idx) => {
+      const masked = maskTop100Ticker({ ticker: r.ticker, company: r.company }, idx, tier);
+      return { ticker: masked.ticker, sector: r.sector, price: r.price, change_pct: r.change_pct, sparkline: r.sparkline };
+    });
 
   return NextResponse.json(
     {
       top7,
-      top100: strip(top100),
-      gainers: strip(gainers),
-      losers: strip(losers),
-      mostActive: strip(mostActive),
+      top100: maskAndStrip(top100),
+      gainers: maskAndStrip(gainers),
+      losers: maskAndStrip(losers),
+      mostActive: maskAndStrip(mostActive),
     },
     { headers: { "Cache-Control": "no-store" } }
   );

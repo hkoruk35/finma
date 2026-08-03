@@ -1,0 +1,18 @@
+name: Movers Daily Snapshot
+
+on:
+  schedule:
+    # Once daily after US market close (~16:15 ET). GitHub Actions cron is fixed
+    # UTC, same simplification as daily-price-update.yml — not DST-aware.
+    - cron: '15 21 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call movers snapshot endpoint
+        run: |
+          curl -sf -X POST "https://bogastock.com/api/internal/movers-snapshot" \
+            -H "x-revalidate-secret: ${{ secrets.REVALIDATE_SECRET }}" \
+            || echo "Movers snapshot call failed (non-fatal)"
