@@ -68,9 +68,6 @@ const translations: Record<string, Record<string, string>> = {
 
 export default function ListsNavigation({ locale, activePath, trailingAction }: Props) {
   const t = translations[locale] || translations.en;
-  const { tier } = useMemberPlan();
-  const router = useRouter();
-  const registerUrl = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
 
   const links = [
     { id: "top7", label: t.top7, href: `/global/${locale}/top7` },
@@ -80,15 +77,8 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
     { id: "mostactive", label: t.mostActive, href: `/global/${locale}/mostactive` },
     { id: "swing", label: t.swing, href: `/global/${locale}/swing` },
     { id: "themes", label: t.themes, href: `/global/${locale}/themes/${HOT_THEMES_2026[0].slug}` },
-    { id: "my-watchlist", label: t.myWatchlist, href: tier === "anonymous" ? registerUrl : `/global/${locale}/my-watchlist` }
+    { id: "my-watchlist", label: t.myWatchlist, href: `/global/${locale}/my-watchlist` }
   ];
-
-  const handleClick = (e: React.MouseEvent, linkId: string) => {
-    if (linkId === "my-watchlist" && tier === "anonymous") {
-      e.preventDefault();
-      router.push(registerUrl);
-    }
-  };
 
   return (
     <div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
@@ -98,7 +88,6 @@ export default function ListsNavigation({ locale, activePath, trailingAction }: 
           <Link
             key={link.id}
             href={link.href}
-            onClick={(e) => handleClick(e, link.id)}
             className={`text-[10px] font-semibold px-3 py-1.5 rounded border transition-colors whitespace-nowrap !text-[#38bdf8] ${
               isActive
                 ? "border-[#38bdf8] bg-[#38bdf8]/15 shadow-sm shadow-[#38bdf8]/20"

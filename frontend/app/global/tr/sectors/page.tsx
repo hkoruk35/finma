@@ -8,44 +8,12 @@ import { getMultiQuote } from "@/lib/homeFeed";
 import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
 
-import SectorsGuard from "@/components/global/SectorsGuard";
-
-export const revalidate = 120;
-
-export const metadata: Metadata = {
-  title: "BOGASTOCK | Sektör Isı Haritası ve Analizi",
-  description: "Saatlik ve günlük sektör performans ısı haritaları ve yapay zeka destekli sektör analizi.",
-  alternates: { canonical: "https://bogastock.com/global/tr/sectors" },
-};
-
-const SECTOR_ITEMS: { ticker: string; label: string }[] = [
-  { ticker: "XLK", label: "Teknoloji" },
-  { ticker: "XLF", label: "Finans" },
-  { ticker: "XLE", label: "Enerji" },
-  { ticker: "XLV", label: "Sağlık" },
-  { ticker: "XLY", label: "Tüketici (İsteğe Bağlı)" },
-  { ticker: "XLP", label: "Tüketici (Temel)" },
-  { ticker: "XLI", label: "Sanayi" },
-  { ticker: "XLB", label: "Malzeme" },
-  { ticker: "XLRE", label: "Gayrimenkul" },
-  { ticker: "XLU", label: "Kamu Hizmetleri" },
-  { ticker: "XLC", label: "İletişim" },
-];
-
-function toSectorStocks(quotes: Record<string, { value: number; change_pct: number; recent_closes: number[] }>): HomeListStock[] {
-  return SECTOR_ITEMS.map((it) => {
-    const q = quotes[it.ticker];
-    return { ticker: it.ticker, sector: it.label, price: q?.value ?? 0, change_pct: q?.change_pct ?? 0, sparkline: q?.recent_closes ?? [] };
-  });
-}
-
 export default async function TrSectorsPage() {
   const quotes = await getMultiQuote(SECTOR_ITEMS.map((i) => i.ticker));
   const sectorStocks = toSectorStocks(quotes);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <SectorsGuard locale="tr" />
       <MemberHeader locale="tr" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">

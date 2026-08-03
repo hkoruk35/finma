@@ -19,20 +19,9 @@ interface Props {
   locale?: string;
 }
 
-export default function ThemePageTabs({ hot, sectors, csp, locale = "tr" }: Props) {
+export default function ThemePageTabs({ hot, sectors, csp }: Props) {
   const [active, setActive] = useState<TabId>("hot");
   const sections: Record<TabId, ReactNode> = { hot, sectors, csp };
-  const { tier } = useMemberPlan();
-  const router = useRouter();
-  const registerUrl = locale === "tr" ? "/global/tr/kayit" : `/global/${locale}/register`;
-
-  const handleTabClick = (tabId: TabId) => {
-    if (tabId === "sectors" && tier === "anonymous") {
-      router.push(registerUrl);
-      return;
-    }
-    setActive(tabId);
-  };
 
   return (
     <div>
@@ -42,7 +31,7 @@ export default function ThemePageTabs({ hot, sectors, csp, locale = "tr" }: Prop
           return (
             <button
               key={tab.id}
-              onClick={() => handleTabClick(tab.id)}
+              onClick={() => setActive(tab.id)}
               className="px-4 py-2 text-[11px] font-medium uppercase whitespace-nowrap rounded-lg border transition-all"
               style={
                 isActive

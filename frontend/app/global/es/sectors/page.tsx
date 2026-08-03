@@ -5,10 +5,7 @@ import HomeListCard, { type HomeListStock } from "@/components/global/HomeListCa
 import SectorHeatmaps from "@/components/global/SectorHeatmaps";
 import SectorAnalysisSummary from "@/components/global/SectorAnalysisSummary";
 import { getMultiQuote } from "@/lib/homeFeed";
-import MemberHeader from "@/components/public/MemberHeader";
 import Footer from "@/components/Footer";
-
-import SectorsGuard from "@/components/global/SectorsGuard";
 
 export const revalidate = 120;
 
@@ -45,7 +42,6 @@ export default async function EsSectorsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0a0e17]">
-      <SectorsGuard locale="es" />
       <MemberHeader locale="es" />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">

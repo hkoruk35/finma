@@ -105,16 +105,8 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  const loggedInPublicPages = new Set(
-    Object.entries(LOCALE_AUTH_ROUTES).flatMap(([locale, routes]) => [
-      `/global/${locale}/${routes.login}`,
-      `/global/${locale}/${routes.register}`,
-    ])
-  )
-  if (hasSupabaseSession && currentLocale && loggedInPublicPages.has(pathname)) {
-    const homeUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].home}`
-    return redirectTo(new URL(homeUrl, request.url))
-  }
+  // Login ve register sayfalarına her durumda doğrudan erişilebilir
+  // (eski Supabase çerezleri nedeniyle ziyaretçilerin ana sayfaya fırlatılmasını önler)
 
   // Global üye sayfasına giriş yapmamış kullanıcı gelirse → register'e yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
