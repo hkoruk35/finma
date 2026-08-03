@@ -84,6 +84,7 @@ export async function proxy(request: NextRequest) {
         !pathname.startsWith(`${base}/gainers`) &&
         !pathname.startsWith(`${base}/losers`) &&
         !pathname.startsWith(`${base}/mostactive`) &&
+        !pathname.startsWith(`${base}/sectors`) &&
         !pathname.startsWith(`${base}/my-watchlist`) &&
         !pathname.startsWith(`${base}/watchlist`) &&
         !pathname.startsWith(`${base}/performance`) &&

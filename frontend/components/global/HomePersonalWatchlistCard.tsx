@@ -32,7 +32,7 @@ function getLabels(locale: Locale) {
  * TEKRARLAMAZ — burada gerçekten boşsa boş durumu ("+" ile ekle) gösterilir,
  * yoksa bu kart ortadaki Top7 kartıyla aynı içeriği tekrarlamış olurdu.
  */
-export default function HomePersonalWatchlistCard({ locale }: { locale: Locale }) {
+export default function HomePersonalWatchlistCard({ locale, initialVisible }: { locale: Locale; initialVisible?: number }) {
   const { plan, loading: planLoading } = useMemberPlan();
   const isLoggedIn = plan !== null;
   const [stocks, setStocks] = useState<HomeListStock[] | null>(null);
@@ -121,5 +121,5 @@ export default function HomePersonalWatchlistCard({ locale }: { locale: Locale }
     );
   }
 
-  return <HomeListCard title={labels.title} accent={ACCENT} viewAllHref={viewAllHref} stocks={stocks} locale={locale} />;
+  return <HomeListCard title={labels.title} accent={ACCENT} viewAllHref={viewAllHref} stocks={stocks} locale={locale} initialVisible={initialVisible} />;
 }

@@ -119,35 +119,37 @@ export default async function EnHomePage() {
       <TickerTape indices={indices} />
 
       <main className="flex-1 max-w-[1600px] mx-auto w-full px-4 py-6">
-        <HomeSearchBar locale="en" />
-
-        <div className="-mb-2">
-          <ListsNavigation
-            locale="en"
-            activePath="home"
-            trailingAction={
-              <Link
-                href={`/global/en/themes/${HOT_THEMES_2026[0].slug}`}
-                className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-[10px] rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
-              >
-                {THEMES_BANNER_LABELS.en.browseAll}
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            }
-          />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 mt-2 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_300px] gap-5 items-start">
           <div className="min-w-0">
-            <MarketOverviewTabs groups={marketGroups} locale="en" />
-            <HomeMoversGrid locale="en" />
+            <HomeSearchBar locale="en" />
+
+            <div className="-mb-2">
+              <ListsNavigation
+                locale="en"
+                activePath="home"
+                trailingAction={
+                  <Link
+                    href={`/global/en/themes/${HOT_THEMES_2026[0].slug}`}
+                    className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0f1117] border border-[#58a6ff] text-[#58a6ff] font-medium text-[10px] rounded hover:bg-[#58a6ff]/10 transition-colors whitespace-nowrap"
+                  >
+                    {THEMES_BANNER_LABELS.en.browseAll}
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                }
+              />
+            </div>
+
+            <div className="mt-2">
+              <MarketOverviewTabs groups={marketGroups} locale="en" />
+              <HomeMoversGrid locale="en" />
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            <HomePersonalWatchlistCard locale="en" />
-            <HomeListCard title="Sectors" accent="#38bdf8" stocks={sectorStocks} locale="en" />
+            <HomePersonalWatchlistCard locale="en" initialVisible={5} />
+            <HomeListCard title="Sectors" accent="#38bdf8" stocks={sectorStocks} locale="en" initialVisible={5} viewAllHref="/global/en/sectors" />
           </div>
         </div>
 

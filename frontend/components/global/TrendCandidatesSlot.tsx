@@ -69,6 +69,7 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
   const labels = getLabels(locale);
   const { isPremium } = useMemberPlan();
   const [showModal, setShowModal] = useState(false);
+  const displayStocks = compactMode ? stocks.slice(0, 7) : stocks;
 
   useEffect(() => {
     let active = true;
@@ -134,7 +135,7 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
         </Link>
       </div>
 
-      {stocks.length > 0 ? (
+      {displayStocks.length > 0 ? (
         <>
           <div className={`flex items-center justify-between ${compactMode ? 'px-3 py-1.5 text-[9px]' : 'px-5 py-2 text-[11px]'} border-b border-[#1e2a3a] font-medium uppercase tracking-[0.5px] text-slate-500`}>
             <span>{labels.stock}</span>
@@ -142,7 +143,7 @@ export default function TrendCandidatesSlot({ locale, compactMode }: { locale: L
           </div>
 
           <div className="flex-1 min-h-0 overflow-y-auto divide-y divide-[#1e2a3a]/70">
-            {stocks.map((stock, idx) => {
+            {displayStocks.map((stock, idx) => {
               const locked = idx > 0 && !isPremium;
               return (
                 <div

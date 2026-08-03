@@ -71,7 +71,7 @@ export default function HomeMoversGrid({ locale }: { locale: Locale }) {
 
   return (
     <div
-      className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2"
+      className="flex items-start overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-2"
       onWheel={(e) => { if (e.deltaY !== 0) e.currentTarget.scrollLeft += e.deltaY; }}
     >
       {cards.map((c) => (
