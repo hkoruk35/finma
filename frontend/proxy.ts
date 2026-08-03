@@ -47,56 +47,38 @@ export async function proxy(request: NextRequest) {
     pt: { login: 'login', register: 'register', home: 'home' },
   }
 
+  const PUBLIC_SUBPATHS = [
+    'login', 'giris',
+    'register', 'kayit',
+    'home',
+    'news',
+    'about',
+    'disclaimer',
+    'terms',
+    'privacy',
+    'sss', 'faq', 'Perguntas_Frequentes',
+    'today',
+    'search',
+    'discover',
+    'sports',
+    'weather',
+    'contact',
+    'ai',
+  ]
+
   let isGlobalMemberPath = false
   let currentLocale: string | null = null
-  for (const [locale, routes] of Object.entries(LOCALE_AUTH_ROUTES)) {
+  for (const [locale] of Object.entries(LOCALE_AUTH_ROUTES)) {
     const base = `/global/${locale}`
     if (isPathOrSubpath(base)) {
       currentLocale = locale
-      isGlobalMemberPath =
-        !pathname.startsWith(`${base}/${routes.login}`) &&
-        !pathname.startsWith(`${base}/${routes.register}`) &&
-        !pathname.startsWith(`${base}/${routes.home}`) &&
-        !pathname.startsWith(`${base}/analysis`) &&
-        !pathname.startsWith(`${base}/graphic`) &&
-        !pathname.startsWith(`${base}/news`) &&
-        !pathname.startsWith(`${base}/about`) &&
-        !pathname.startsWith(`${base}/disclaimer`) &&
-        !pathname.startsWith(`${base}/terms`) &&
-        !pathname.startsWith(`${base}/privacy`) &&
-        !pathname.startsWith(`${base}/sss`) &&
-        !pathname.startsWith(`${base}/faq`) &&
-        !pathname.startsWith(`${base}/Perguntas_Frequentes`) &&
-        !pathname.startsWith(`${base}/swing`) &&
-        !pathname.startsWith(`${base}/themes`) &&
-        !pathname.startsWith(`${base}/search`) &&
-        !pathname.startsWith(`${base}/today`) &&
-        !pathname.startsWith(`${base}/discover`) &&
-        !pathname.startsWith(`${base}/sports`) &&
-        !pathname.startsWith(`${base}/weather`) &&
-        // /ai artık kaldırıldı, sadece /search'e permanentRedirect eden bir
-        // shim — bu yüzden üyelik duvarının arkasında kalmamalı, aksi halde
-        // giriş yapmamış ziyaretçiler eski /ai linklerinde register'a
-        // düşmeye devam eder.
-        !pathname.startsWith(`${base}/ai`) &&
-        !pathname.startsWith(`${base}/top7`) &&
-        !pathname.startsWith(`${base}/top100`) &&
-        !pathname.startsWith(`${base}/gainers`) &&
-        !pathname.startsWith(`${base}/losers`) &&
-        !pathname.startsWith(`${base}/mostactive`) &&
-        !pathname.startsWith(`${base}/sectors`) &&
-        !pathname.startsWith(`${base}/my-watchlist`) &&
-        !pathname.startsWith(`${base}/watchlist`) &&
-        !pathname.startsWith(`${base}/performance`) &&
-        !pathname.startsWith(`${base}/swingperformance`) &&
-        !pathname.startsWith(`${base}/hisse`) &&
-        !pathname.startsWith(`${base}/contact`) &&
-        pathname !== base
+      const isPublic = PUBLIC_SUBPATHS.some((sub) => pathname.startsWith(`${base}/${sub}`))
+      isGlobalMemberPath = !isPublic
       break
     }
   }
 
-  const hasSupabaseSession = !!user
+  const hasSupabaseSession = !!user || !!request.cookies.get('boga_member_session')?.value
 
   if (pathname === '/en/top100' || pathname === '/tr/top100') {
     const globalPath = pathname.startsWith('/tr')
@@ -105,10 +87,7 @@ export async function proxy(request: NextRequest) {
     return redirectTo(new URL(globalPath, request.url))
   }
 
-  // Login ve register sayfalarına her durumda doğrudan erişilebilir
-  // (eski Supabase çerezleri nedeniyle ziyaretçilerin ana sayfaya fırlatılmasını önler)
-
-  // Global üye sayfasına giriş yapmamış kullanıcı gelirse → register'e yönlendir
+  // Global üye sayfasına (Terminal, Top7, Top100, Swing, Sektörler, Hisse Detay vb.) giriş yapmamış kullanıcı gelirse → register'a yönlendir
   if (isGlobalMemberPath && !hasSupabaseSession && currentLocale) {
     const registerUrl = `/global/${currentLocale}/${LOCALE_AUTH_ROUTES[currentLocale].register}`
     return redirectTo(new URL(registerUrl, request.url))
