@@ -90,12 +90,24 @@ export async function createPremiumCheckoutSession({
   firstTimeDiscount: boolean;
 }) {
   const accountPath = accountPathForLocale(locale);
+
+  let discounts: { coupon: string }[] | undefined = undefined;
+  if (firstTimeDiscount && PREMIUM_COUPON_ID) {
+    try {
+      await stripe.coupons.retrieve(PREMIUM_COUPON_ID);
+      discounts = [{ coupon: PREMIUM_COUPON_ID }];
+    } catch {
+      // Kupon Stripe Dashboard'dan silindiyse veya geçersizse hata vermeden düz fiyat ile devam et
+      discounts = undefined;
+    }
+  }
+
   return stripe.checkout.sessions.create({
     mode: "subscription",
     customer: customerId,
     client_reference_id: memberId,
     line_items: [{ price: PREMIUM_PRICE_ID, quantity: 1 }],
-    discounts: firstTimeDiscount && PREMIUM_COUPON_ID ? [{ coupon: PREMIUM_COUPON_ID }] : undefined,
+    discounts,
     subscription_data: {
       metadata: { member_id: memberId },
     },
