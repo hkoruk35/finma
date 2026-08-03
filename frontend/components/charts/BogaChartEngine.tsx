@@ -346,11 +346,9 @@ export default function BogaChartEngine({
   const t = LABELS[lang] || LABELS.en;
   const { isPremium, tier } = useMemberPlan();
   const gated = premiumGate && !isPremium;
-  // Çoklu ekran (2/3/4/6/9): 2026-08-03 kullanıcı talebiyle Google ile üye
-  // olan HERKESE (free dahil) açık — sadece anonim ziyaretçi 2 ekranla
-  // sınırlı kalır. Göstergelerin kendi premium kilidi (yukarıdaki `gated`,
-  // isPremium'a bağlı) buna dahil değil, ayrı kaldı.
-  const multiChartGated = premiumGate && tier === "anonymous";
+  // Çoklu ekran (2/3/4/6/9): 2026-08-03 kullanıcı talebiyle üye olan
+  // HERKESE (free dahil) 9 grafiğe kadar kısıtlamasız ve tamamen ücretsiz.
+  const multiChartGated = false;
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -1329,24 +1327,18 @@ export default function BogaChartEngine({
                   </button>
                   {multiChartOpen && (
                     <div className="absolute right-0 mt-1 w-24 rounded-lg bg-[#141924] border border-[#1e2a3a] shadow-2xl overflow-hidden z-50">
-                      {[2, 3, 4, 6, 9].map(num => {
-                        const numLocked = multiChartGated && num > 2;
-                        return (
-                          <button
-                            key={num}
-                            onClick={() => {
-                              setMultiChartOpen(false);
-                              if (numLocked) { setShowPremiumModal(true); return; }
-                              openMultiChart(num);
-                            }}
-                            className={`block w-full text-center px-3 py-2 text-[11px] font-medium hover:bg-[#1e2a3a] ${
-                              numLocked ? "text-slate-500 hover:text-amber-400" : "text-slate-300 hover:text-white"
-                            }`}
-                          >
-                            {num} {t.charts}
-                          </button>
-                        );
-                      })}
+                      {[2, 3, 4, 6, 9].map((num) => (
+                        <button
+                          key={num}
+                          onClick={() => {
+                            setMultiChartOpen(false);
+                            openMultiChart(num);
+                          }}
+                          className="block w-full text-center px-3 py-2 text-[11px] font-medium text-slate-300 hover:text-white hover:bg-[#1e2a3a] transition-all"
+                        >
+                          {num} {t.charts}
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
